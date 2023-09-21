@@ -1,6 +1,7 @@
 print("airpower")
 
-import airpower.azimuth as apazimuth
+import airpower.altitude as apaltitude
+import airpower.azimuth  as apazimuth
 
 from airpower.draw import *
 from airpower.azimuth import setnorth
@@ -11,22 +12,6 @@ import matplotlib
 import matplotlib.pyplot as plt
 matplotlib.rcParams['figure.figsize'] = [7.5, 10]
 plt.rcParams.update({'font.size': 10})
-
-def altitudeband(altitude):
-  if altitude <= 7:
-    return "LO"
-  elif altitude <= 16:
-    return "ML"
-  elif altitude <= 25:
-    return "MH"
-  elif altitude <= 35:
-    return "HI"
-  elif altitude <= 45:
-    return "VH"
-  elif altitude <= 60:
-    return "EH"
-  else:
-    return "UH"
 
 class Aircraft:
 
@@ -179,7 +164,7 @@ class Aircraft:
     self._report("--- start of turn ---")
     self._report("%d FPs available." % self.nfp)
     self._report("initial azimuth  = %s." % apazimuth.toazimuth(self.facing))
-    self._report("initial altitude = %5.2f (%s)" % (self.altitude, altitudeband(self.altitude)))
+    self._report("initial altitude = %5.2f (%s)" % (self.altitude, apaltitude.altitudeband(self.altitude)))
 
     if s != "":
       self.next(s)
@@ -242,9 +227,9 @@ class Aircraft:
       self._report("all %d FPs used." % (self.nfp))
 
       self._report("final azimuth    = %s." % apazimuth.toazimuth(self.facing))
-      self._report("final altitude   = %5.2f (%s)" % (self.altitude, altitudeband(self.altitude)))
-      if altitudeband(self.initialaltitude) != altitudeband(self.altitude):
-        self._report("altitude band changed from %s to %s." % (altitudeband(self.initialaltitude), altitudeband(self.altitude)))
+      self._report("final altitude   = %5.2f (%s)" % (self.altitude, apaltitude.altitudeband(self.altitude)))
+      if apaltitude.altitudeband(self.initialaltitude) != apaltitude.altitudeband(self.altitude):
+        self._report("altitude band changed from %s to %s." % (apaltitude.altitudeband(self.initialaltitude), apaltitude.altitudeband(self.altitude)))
       self._report("--- end of turn ---")
 
       self._save(self.turn)
