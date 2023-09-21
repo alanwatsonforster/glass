@@ -28,11 +28,7 @@ def tofacing(azimuth):
   return (northfacing - azimuth) % 360
 
 def toazimuth(facing):
-  print(facing)
-  print(northfacing)
   azimuth = (northfacing - facing) % 360
-  print(azimuth)
-  print(azimuth // 30)
   if azimuth % 30 == 0:
     named = ["N", "NNE", "ENE", "E", "ESE", "SSE", "S", "SSW", "WSW", "W", "WNW", "NNW"]
     return named[azimuth // 30]
