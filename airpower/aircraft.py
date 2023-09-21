@@ -35,14 +35,14 @@ class Aircraft:
     apdraw.drawlineinhex(lastx, lasty, self.x, self.y, color="lightgrey", linestyle="dashed", zorder=0.5)
 
   def drawbeforeend(self):
-    apdraw.drawdartinhex(self.x, self.y, self.facing, dy=-0.02, size=0.5, color="grey")
-    apdraw.drawtextinhex(self.x, self.y, self.facing, self.name, dx=-0.3, dy=0.0, size=7, color="grey")
-    apdraw.drawtextinhex(self.x, self.y, self.facing, "%2d" % self.altitude, dx=+0.3, dy=0.0, size=7, color="grey")
+    apdraw.drawdart(self.x, self.y, self.facing, dy=-0.02, size=0.5, color="grey")
+    apdraw.drawtext(self.x, self.y, self.facing, self.name, dx=-0.3, dy=0.0, size=7, color="grey")
+    apdraw.drawtext(self.x, self.y, self.facing, "%2d" % self.altitude, dx=+0.3, dy=0.0, size=7, color="grey")
 
   def drawatend(self):
-    apdraw.drawdartinhex(self.x, self.y, self.facing, dy=-0.02, size=0.5)
-    apdraw.drawtextinhex(self.x, self.y, self.facing, self.name, dx=-0.3, dy=0.0, size=7)
-    apdraw.drawtextinhex(self.x, self.y, self.facing, "%2d" % self.altitude, dx=+0.3, dy=0.0, size=7)
+    apdraw.drawdart(self.x, self.y, self.facing, dy=-0.02, size=0.5)
+    apdraw.drawtext(self.x, self.y, self.facing, self.name, dx=-0.3, dy=0.0, size=7)
+    apdraw.drawtext(self.x, self.y, self.facing, "%2d" % self.altitude, dx=+0.3, dy=0.0, size=7)
 
   def _H(self):
     dx = {
