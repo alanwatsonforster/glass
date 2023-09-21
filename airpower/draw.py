@@ -83,23 +83,23 @@ def drawhexinhex(x, y, **kwargs):
 def drawdotinhex(x, y, **kwargs):
   drawdot(*hextophysical(x, y), **kwargs)
 
-def drawsquareinhex(x, y, pointing, **kwargs):
-  drawsquare(*hextophysical(x, y), pointing, **kwargs)
+def drawsquareinhex(x, y, facing, **kwargs):
+  drawsquare(*hextophysical(x, y), facing, **kwargs)
 
 def drawlineinhex(x0, y0, x1, y1, **kwargs):
   drawline(*hextophysical(x0, y0), *hextophysical(x1, y1), **kwargs)
 
-def drawarrowinhex(x, y, pointing, **kwargs):
-  drawarrow(*hextophysical(x, y), pointing, **kwargs)
+def drawarrowinhex(x, y, facing, **kwargs):
+  drawarrow(*hextophysical(x, y), facing, **kwargs)
 
-def drawdartinhex(x, y, pointing, **kwargs):
-  drawdart(*hextophysical(x, y), pointing, **kwargs)
+def drawdartinhex(x, y, facing, **kwargs):
+  drawdart(*hextophysical(x, y), facing, **kwargs)
 
-def drawtextinhex(x, y, pointing, s, **kwargs):
-  drawtext(*hextophysical(x, y), pointing, s, **kwargs)
+def drawtextinhex(x, y, facing, s, **kwargs):
+  drawtext(*hextophysical(x, y), facing, s, **kwargs)
 
-def drawcompassinhex(x, y, pointing,**kwargs):
-  drawcompass(*hextophysical(x, y), pointing, **kwargs)
+def drawcompassinhex(x, y, facing,**kwargs):
+  drawcompass(*hextophysical(x, y), facing, **kwargs)
 
 def drawhexgrid(sx, sy, nx, ny):
   matplotlib.rcParams['figure.figsize'] = [nx, ny * np.sqrt(3/4)]
