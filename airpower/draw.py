@@ -51,7 +51,7 @@ def drawarrow(x, y, facing, size=1.0, dx=0, dy=0, color="black"):
   y0 = y - 0.5 * size * sind(facing)
   x1 = x0 + 1.0 * size * cosd(facing)
   y1 = y0 + 1.0 * size * sind(facing)
-  plt.arrow(x0, y0, x1 - x0, y1 - y0, width=0.02*size, head_width=0.1*size, color=color, length_includes_head=True, zorder=1)
+  plt.arrow(x0, y0, x1 - x0, y1 - y0, width=0.01, head_width=0.1, color=color, length_includes_head=True, zorder=1)
 
 def drawdart(x, y, facing, size=1.0, dx=0, dy=0, color="black"):
   # size is length
@@ -71,6 +71,11 @@ def drawtext(x, y, facing, s, size=10, dx=0, dy=0, color="black"):
            horizontalalignment='center',
            verticalalignment='center_baseline',
            rotation_mode="anchor")
+
+def drawcompass(x, y, facing):
+  drawdot(x, y, size=0.3)
+  drawarrow(x, y, facing, 0.8, dy=+0.4)
+  drawtext(x, y, facing, "N", dy=0.95)
 
 def drawhexinhex(x, y, **kwargs):
   drawhex(*hextophysical(x, y), **kwargs)
@@ -92,6 +97,9 @@ def drawdartinhex(x, y, pointing, **kwargs):
 
 def drawtextinhex(x, y, pointing, s, **kwargs):
   drawtext(*hextophysical(x, y), pointing, s, **kwargs)
+
+def drawcompassinhex(x, y, pointing,**kwargs):
+  drawcompass(*hextophysical(x, y), pointing, **kwargs)
 
 def drawhexgrid(sx, sy, nx, ny):
   matplotlib.rcParams['figure.figsize'] = [nx, ny * np.sqrt(3/4)]
