@@ -23,7 +23,7 @@ class Aircraft:
     self._saved = []
     self._save(0)
   
-    self._drawatend()
+    self._drawaircraft("end")
 
   def __str__(self):
     return "%s: (%.2f,%.2f) %s %02d (%+.02f)" % (self._name, self._x, self._y, apazimuth.toazimuth(self._facing), self._altitude, self._altitudecarry)
@@ -42,11 +42,46 @@ class Aircraft:
   def _drawflightpath(self, lastx, lasty):
     apdraw.drawflightpath(lastx, lasty, self._x, self._y)
 
-  def _drawbeforeend(self):
-    apdraw.drawaircraftbeforeend(self._x, self._y, self._facing, self._name, self._altitude)
+  def _drawaircraft(self, when):
+    apdraw.drawaircraft(self._x, self._y, self._facing, self._name, self._altitude, when)
+        
+  def _position(self):
+    return "(%.2f,%.2f) %d %s" % (
+        self._x, self._y, 
+        self._altitude,
+        apazimuth.toazimuth(self._facing)
+      )
 
-  def _drawatend(self):
-    apdraw.drawaircraftatend(self._x, self._y, self._facing, self._name, self._altitude)
+  def _report(self, s):
+    print("%s: turn %d: %s" % (self._name, self._turn, s))
+
+  def _reportfp(self, s):
+    print("%s: turn %d: FP %d of %d: %s" % (self._name, self._turn, self._ifp, self._nfp, s))
+
+  def _reportposition(self, s):
+      self._reportfp("%-16s : %s" % (s, self._position()))
+
+  def _reportcodeandposition(self):
+    self._reportposition(self._currentcode)
+
+  def _reportstatus(self, when):
+
+    if when != "start":
+       self._report("%d HFPs and %d VFPs used." % (self._ihfp, self._ivfp))
+
+    altitudeband = apaltitude._altitudeband(self._altitude)
+
+    if when == "start":
+      self._reportposition("")
+
+    if when != "start":
+      self._report("altitude carry is %s." % apaltitude._formataltitudecarry(self._altitudecarry))
+
+    if when == "start":
+      self._initialaltitudeband = altitudeband
+    elif when == "end":
+      if altitudeband!= self._initialaltitudeband:
+        self._report("altitude band changed from %s to %s." % (self._initialaltitudeband, altitudeband))
 
   def _H(self):
     dx = {
@@ -132,8 +167,11 @@ class Aircraft:
 
   def _D(self, altitudechange):
     self._altitude, self._altitudecarry = apaltitude._adjustaltitude(self._altitude, self._altitudecarry, -altitudechange)
-    if self._altitude <= apaltitude._altitudeofterrain():
-      self._report("aircraft has collided with terrain at altitude %d." % apaltitude._altitudeofterrain())
+    altitudeofterrain = apaltitude._altitudeofterrain()
+    if self._altitude <= altitudeofterrain:
+      self._altitude = altitudeofterrain
+      self._altitudecarry = 0
+      self._report("aircraft has collided with terrain at altitude %d." % altitudeofterrain)
       self._destroyed = True
 
   def _C(self, altitudechange):
@@ -145,27 +183,6 @@ class Aircraft:
 
   def _A(self, what):
     self._report("aircraft attacks with %s." % what)
-
-  def _report(self, s):
-    print("%s: turn %d: %s" % (self._name, self._turn, s))
-
-  def _reportfp(self, s):
-    print("%s: turn %d: FP %d of %d: %s" % (self._name, self._turn, self._ifp, self._nfp, s))
-
-  def _reportstatus(self, when):
-
-    if when != "initial":
-       self._report("%d HFPs and %d VFPs used." % (self._ihfp, self._ivfp))
-
-    altitudeband = apaltitude._altitudeband(self._altitude)
-
-    self._report("%s azimuth  = %s"       % (when, apazimuth.toazimuth(self._facing)))
-    self._report("%s altitude = %.0f %s (%s)" % (when, self._altitude, altitudeband, apaltitude._formataltitudecarry(self._altitudecarry)))
-
-    if when == "initial":
-      self._initialaltitudeband = altitudeband
-    elif altitudeband!= self._initialaltitudeband:
-      self._report("altitude band changed from %s to %s." % (self._initialaltitudeband, altitudeband))
 
   def start(self, turn, nfp, s):
 
@@ -187,7 +204,7 @@ class Aircraft:
         self._save(self._turn)
         return
  
-    self._reportstatus("initial")
+    self._reportstatus("start")
 
     if s != "":
       self.next(s)
@@ -269,53 +286,55 @@ class Aircraft:
     if self._destroyed:
       return
 
-    for t in s.split(","):
+    for code in s.split(","):
 
       lastx = self._x
       lasty = self._y
 
       self._ifp = self._ifp + 1
 
-      self._reportfp("%s" % t)
-
       if self._ifp > self._nfp:
         raise ValueError("only %d FPs are available." % self._nfp)
 
-      if t[0] == 'H':
+      self._currentcode = code
+
+      if code[0] == 'H':
         self._ihfp = self._ihfp + 1
-      elif t[0] == 'D' or t[0] == 'C':
+      elif code[0] == 'D' or code[0] == 'C':
         self._ivfp = self._ivfp + 1
       else:
         raise ValueError("movement code must begin with H, D, or C.")
 
-      while t != "":
+      while code != "":
         for action in actions:
-          if action[0] == t[:len(action[0])]:
+          if action[0] == code[:len(action[0])]:
             action[1]()
-            t = t[len(action[0]):]
+            code = code[len(action[0]):]
             if self._destroyed:
               self._report("aircraft has been destroyed.")
+              self._reportcodeandposition()
+              self._drawaircraft("end")
               self._report("--- end of turn ---")
-              self._drawatend()
               self._save(self._turn)
               return
             break
         else:
-          raise ValueError("unknown movement code %s" % t)
+          raise ValueError("unknown element %s in %s." % (code, self._currentcode))
 
+      self._reportcodeandposition()
       self._drawflightpath(lastx, lasty)
 
     assert self._ifp <= self._nfp
 
     if self._ifp < self._nfp:
 
-      self._reportstatus("intermediate")
-      self._drawbeforeend()
+      self._reportstatus("next")
+      self._drawaircraft("next")
 
     else:
 
-      self._reportstatus("final")
-      self._report("--- end of turn ---")
-      self._drawatend()
+      self._reportstatus("end")
+      self._drawaircraft("end")
       self._save(self._turn)
+      self._report("--- end of turn ---")
 

@@ -105,15 +105,14 @@ def drawcompass(x, y, **kwargs):
 def drawflightpath(lastx, lasty, x, y):
   drawline(lastx, lasty, x, y, color="lightgrey", linestyle="dashed", zorder=0.5)
 
-def drawaircraftbeforeend(x, y, facing, name, altitude):
-  drawdart(x, y, facing, dy=-0.02, size=0.5, color="grey")
-  drawtext(x, y, facing, name, dx=-0.3, dy=0.0, size=7, color="grey")
-  drawtext(x, y, facing, "%2d" % altitude, dx=+0.3, dy=0.0, size=7, color="grey")
-
-def drawaircraftatend(x, y, facing, name, altitude):
-  drawdart(x, y, facing, dy=-0.02, size=0.5)
-  drawtext(x, y, facing, name, dx=-0.3, dy=0.0, size=7)
-  drawtext(x, y, facing, "%2d" % altitude, dx=+0.3, dy=0.0, size=7)
+def drawaircraft(x, y, facing, name, altitude, when):
+  if when == "end":
+    color = "black"
+  else:
+    color = "grey"
+  drawdart(x, y, facing, dy=-0.02, size=0.5, color=color)
+  drawtext(x, y, facing, name, dx=-0.3, dy=0.0, size=7, color=color)
+  drawtext(x, y, facing, "%2d" % altitude, dx=+0.3, dy=0.0, size=7, color=color)
 
 def drawhexgrid(sx, sy, nx, ny):
   matplotlib.rcParams['figure.figsize'] = [nx, ny * np.sqrt(3/4)]
