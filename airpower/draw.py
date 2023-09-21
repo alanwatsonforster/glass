@@ -1,5 +1,6 @@
 print("airpower.draw")
 
+import airpower as ap
 import numpy as np
 
 import matplotlib
@@ -72,10 +73,10 @@ def drawtext(x, y, facing, s, size=10, dx=0, dy=0, color="black"):
            verticalalignment='center_baseline',
            rotation_mode="anchor")
 
-def drawcompass(x, y, facing):
+def drawcompass(x, y):
   drawdot(x, y, size=0.3)
-  drawarrow(x, y, facing, 0.8, dy=+0.4)
-  drawtext(x, y, facing, "N", dy=0.95)
+  drawarrow(x, y, ap.northfacing, 0.8, dy=+0.4)
+  drawtext(x, y, ap.northfacing, "N", dy=0.95)
 
 def drawhexinhex(x, y, **kwargs):
   drawhex(*hextophysical(x, y), **kwargs)
@@ -98,8 +99,8 @@ def drawdartinhex(x, y, facing, **kwargs):
 def drawtextinhex(x, y, facing, s, **kwargs):
   drawtext(*hextophysical(x, y), facing, s, **kwargs)
 
-def drawcompassinhex(x, y, facing,**kwargs):
-  drawcompass(*hextophysical(x, y), facing, **kwargs)
+def drawcompassinhex(x, y,**kwargs):
+  drawcompass(*hextophysical(x, y), **kwargs)
 
 def drawhexgrid(sx, sy, nx, ny):
   matplotlib.rcParams['figure.figsize'] = [nx, ny * np.sqrt(3/4)]
