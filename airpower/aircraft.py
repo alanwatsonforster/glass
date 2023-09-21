@@ -164,8 +164,41 @@ class Aircraft:
 
     lastx = self.x
     lasty = self.y
-    altitudechange = 1
 
+    actions = [
+
+      ["H"   , lambda : self._H()],
+
+      ["C¼"  , lambda : self._C(1/4)],
+      ["C1/4", lambda : self._C(1/4)],
+      ["C½"  , lambda : self._C(1/2)],
+      ["C1/2", lambda : self._C(1/2)],
+      ["C¾"  , lambda : self._C(3/4)],
+      ["C3/4", lambda : self._C(3/4)],
+      ["C2"  , lambda : self._C(2)],
+      ["C"   , lambda : self._C(1)],
+
+      ["D¼"  , lambda : self._D(1/4)],
+      ["D1/4", lambda : self._D(1/4)],
+      ["D½"  , lambda : self._D(1/2)],
+      ["D1/2", lambda : self._D(1/2)],
+      ["D¾"  , lambda : self._D(3/4)],
+      ["D3/4", lambda : self._D(3/4)],
+      ["D2"  , lambda : self._D(2)],
+      ["D"   , lambda : self._D(1)],
+
+      ["L60" , lambda : self._L(60)],
+      ["L90" , lambda : self._L(90)],
+      ["L"   , lambda : self._L(30)],
+
+      ["R60" , lambda : self._R(60)],
+      ["R90" , lambda : self._R(90)],
+      ["R"   , lambda : self._R(30)],
+
+  ]
+
+
+      
     for t in s.split(","):
 
       self.ifp = self.ifp + 1
@@ -179,37 +212,24 @@ class Aircraft:
       else:
         raise ValueError("movement code must begin with H, D, or C.")
 
-      for c in t:
-        if c == 'H':
-          self._H()
-        elif c == 'C':
-          self._C(altitudechange)
-          altitudechange = 1
-        elif c == 'D':
-          self._D(altitudechange)
-          altitudechange = 1
-        elif c == '¼':
-          altitudechange = 1/4
-        elif c == '½':
-          altitudechange = 1/2
-        elif c == '¾':
-          altitudechange = 3/4
-        elif c == 'L':
-          self._L(30)
-        elif c == 'R':
-          self._R(30)
+      while t != "":
+        for action in actions:
+          if action[0] == t[:len(action[0])]:
+            action[1]()
+            t = t[len(action[0]):]
+            break
         else:
-          raise ValueError("unknown movement code %s" % c)
+          raise ValueError("unknown movement code %s" % t)
 
       self.drawflightpath(lastx, lasty)
       lastx = self.x
       lasty = self.y
 
-    self._reportfp("%d HFPs and %d VFPs used." % (self.ihfp, self.ivfp))
+    self._report("%d HFPs and %d VFPs used." % (self.ihfp, self.ivfp))
       
     if self.ifp < self.nfp:
 
-      self._reportfp("%d FPs remaining." % (self.nfp - self.ifp))
+      self._report("%d FPs remaining." % (self.nfp - self.ifp))
 
       self.drawbeforeend()
 
