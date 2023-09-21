@@ -12,11 +12,11 @@ def _checkaltitude(altitude):
 def _adjustaltitude(altitude, altitudecarry, altitudechange):
 
     # Here we do altitude arithmetic, ensuring that _altitude stays as an
-    # integer and keeping track of fractions in _altitudecarry. We require 
-    # altitude changes to be multiples of _altitudequantum.
+    # non-negative integer and keeping track of fractions in _altitudecarry. 
+    # We require altitude changes to be multiples of _altitudequantum.
 
-    assert altitude % 1 == 0 and altitude > 0
-    assert altitudecarry % _altitudequantum == 0
+    assert altitude % 1 == 0 and altitude >= 0
+    assert abs(altitudecarry) < 1 and altitudecarry % _altitudequantum == 0
     assert altitudechange % _altitudequantum == 0
 
     altitude = altitude + altitudecarry + altitudechange
@@ -26,14 +26,18 @@ def _adjustaltitude(altitude, altitudecarry, altitudechange):
       altitudecarry = altitude - math.ceil(altitude)
     altitude = altitude - altitudecarry
 
-    assert altitude % 1 == 0
-    assert altitudecarry % _altitudequantum == 0
+    if altitude < 0:
+      altitude = 0
+      altitudecarry = 0
+
+    assert altitude % 1 == 0 and altitude >= 0
+    assert abs(altitudecarry) < 1 and altitudecarry % _altitudequantum == 0
 
     return altitude, altitudecarry
 
 def _formataltitudecarry(altitudecarry):
 
-  assert altitudecarry % _altitudequantum == 0
+  assert abs(altitudecarry) < 1 and altitudecarry % _altitudequantum == 0
 
   n = altitudecarry / _altitudequantum
   m = 1 / _altitudequantum
@@ -48,7 +52,7 @@ def _formataltitudecarry(altitudecarry):
   
 def _altitudeband(altitude):
 
-  assert altitude % 1 == 0 and altitude > 0
+  assert altitude % 1 == 0 and altitude >= 0
 
   if altitude <= 7:
     return "LO"
@@ -64,3 +68,7 @@ def _altitudeband(altitude):
     return "EH"
   else:
     return "UH"
+
+def _altitudeofterrain():
+  return 0
+

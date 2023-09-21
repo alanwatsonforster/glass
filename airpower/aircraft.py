@@ -14,11 +14,13 @@ class Aircraft:
 
     self._turn          = 0
     self._name          = name
+
     self._x             = x
     self._y             = y
     self._facing        = apazimuth.tofacing(azimuth)
     self._altitude      = altitude
     self._altitudecarry = 0
+    self._destroyed     = False
 
     self._saved = []
     self._save(0)
@@ -29,12 +31,12 @@ class Aircraft:
     return "%s: (%.2f,%.2f) %s %02d (%+.02f)" % (self._name, self._x, self._y, apazimuth.toazimuth(self._facing), self._altitude, self._altitudecarry)
 
   def _restore(self, i):
-    self._x, self._y, self._facing, self._altitude, self._altitudecarry = self._saved[i]
+    self._x, self._y, self._facing, self._altitude, self._altitudecarry, self._destroyed = self._saved[i]
 
   def _save(self, i):
     if len(self._saved) == i:
       self._saved.append(None)
-    self._saved[i] = (self._x, self._y, self._facing, self._altitude, self._altitudecarry)
+    self._saved[i] = (self._x, self._y, self._facing, self._altitude, self._altitudecarry, self._destroyed)
 
   def _maxprevturn(self):
     return len(self._saved) - 1
@@ -132,6 +134,9 @@ class Aircraft:
 
   def _D(self, altitudechange):
     self._altitude, self._altitudecarry = apaltitude._adjustaltitude(self._altitude, self._altitudecarry, -altitudechange)
+    if self._altitude <= apaltitude._altitudeofterrain():
+      self._report("aircraft has collided with terrain at altitude %d." % apaltitude._altitudeofterrain())
+      self._destroyed = True
 
   def _C(self, altitudechange):
     self._altitude, self._altitudecarry = apaltitude._adjustaltitude(self._altitude, self._altitudecarry, +altitudechange)
@@ -140,7 +145,22 @@ class Aircraft:
     print("%s: turn %d: %s" % (self._name, self._turn, s))
 
   def _reportfp(self, s):
-    print("%s: turn %d: FP %d: %s" % (self._name, self._turn, self._ifp, s))
+    print("%s: turn %d: FP %d of %d: %s" % (self._name, self._turn, self._ifp, self._nfp, s))
+
+  def _reportstatus(self, when):
+
+    if when != "initial":
+       self._report("%d HFPs and %d VFPs used." % (self._ihfp, self._ivfp))
+
+    altitudeband = apaltitude._altitudeband(self._altitude)
+
+    self._report("%s azimuth  = %s"       % (when, apazimuth.toazimuth(self._facing)))
+    self._report("%s altitude = %.0f %s (%s)" % (when, self._altitude, altitudeband, apaltitude._formataltitudecarry(self._altitudecarry)))
+
+    if when == "initial":
+      self._initialaltitudeband = altitudeband
+    elif altitudeband!= self._initialaltitudeband:
+      self._report("altitude band changed from %s to %s." % (self._initialaltitudeband, altitudeband))
 
   def start(self, turn, nfp, s):
 
@@ -154,21 +174,20 @@ class Aircraft:
     self._ivfp = 0
     self._restore(turn - 1)
 
-    self._initialaltitude = self._altitude
-
     self._report("--- start of turn ---")
-    self._report("%d FPs available." % self._nfp)
-    self._report("initial azimuth        = %s" % apazimuth.toazimuth(self._facing))
-    self._report("initial altitude       = %d %s" % (self._altitude, apaltitude._altitudeband(self._altitude)))
-    self._report("initial altitude carry = %s" % apaltitude._formataltitudecarry(self._altitudecarry))
+
+    if self._destroyed:
+        self._report("aircraft has been destroyed.")
+        self._report("--- end of turn ---")
+        self._save(self._turn)
+        return
+ 
+    self._reportstatus("initial")
 
     if s != "":
       self.next(s)
 
   def next(self, s):
-
-    lastx = self._x
-    lasty = self._y
 
     actions = [
 
@@ -221,12 +240,21 @@ class Aircraft:
       ["R"   , lambda : self._R(30)],
 
     ]
-      
+
+    if self._destroyed:
+      return
+
     for t in s.split(","):
+
+      lastx = self._x
+      lasty = self._y
 
       self._ifp = self._ifp + 1
 
-      self._reportfp("movement code is %s." % t)
+      self._reportfp("%s" % t)
+
+      if self._ifp > self._nfp:
+        raise ValueError("only %d FPs are available." % self._nfp)
 
       if t[0] == 'H':
         self._ihfp = self._ihfp + 1
@@ -240,39 +268,29 @@ class Aircraft:
           if action[0] == t[:len(action[0])]:
             action[1]()
             t = t[len(action[0]):]
+            if self._destroyed:
+              self._report("aircraft has been destroyed.")
+              self._report("--- end of turn ---")
+              self._drawatend()
+              self._save(self._turn)
+              return
             break
         else:
           raise ValueError("unknown movement code %s" % t)
 
       self._drawflightpath(lastx, lasty)
-      lastx = self._x
-      lasty = self._y
 
-    self._report("%d FPs used (%d HFPs and %d VFPs)." % (self._ifp, self._ihfp, self._ivfp))
-      
+    assert self._ifp <= self._nfp
+
     if self._ifp < self._nfp:
 
-      self._report("%d FPs remaining." % (self._nfp - self._ifp))
-
+      self._reportstatus("intermediate")
       self._drawbeforeend()
-
-    elif self._ifp == self._nfp:
-
-      self._report("all FPs used.")
-
-      self._report("final azimuth        = %s" % apazimuth.toazimuth(self._facing))
-      self._report("final altitude       = %2.0f %s" % (self._altitude, apaltitude._altitudeband(self._altitude)))
-      self._report("final altitude carry = %s" % apaltitude._formataltitudecarry(self._altitudecarry))
-
-      if apaltitude._altitudeband(self._initialaltitude) != apaltitude._altitudeband(self._altitude):
-        self._report("altitude band changed from %s to %s." % (apaltitude._altitudeband(self._initialaltitude), apaltitude._altitudeband(self._altitude)))
-
-      self._report("--- end of turn ---")
-
-      self._save(self._turn)
-
-      self._drawatend()
 
     else:
 
-      raise ValueError("only %d FPs are available." % self._nfp)
+      self._reportstatus("final")
+      self._report("--- end of turn ---")
+      self._drawatend()
+      self._save(self._turn)
+
