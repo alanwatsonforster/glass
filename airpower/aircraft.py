@@ -32,17 +32,13 @@ class Aircraft:
     return len(self.saved) - 1
 
   def drawflightpath(self, lastx, lasty):
-    apdraw.drawlineinhex(lastx, lasty, self.x, self.y, color="lightgrey", linestyle="dashed", zorder=0.5)
+    apdraw.drawflightpath(lastx, lasty, self.x, self.y)
 
   def drawbeforeend(self):
-    apdraw.drawdart(self.x, self.y, self.facing, dy=-0.02, size=0.5, color="grey")
-    apdraw.drawtext(self.x, self.y, self.facing, self.name, dx=-0.3, dy=0.0, size=7, color="grey")
-    apdraw.drawtext(self.x, self.y, self.facing, "%2d" % self.altitude, dx=+0.3, dy=0.0, size=7, color="grey")
+    apdraw.drawaircraftbeforeend(self.x, self.y, self.facing, self.name, self.altitude)
 
   def drawatend(self):
-    apdraw.drawdart(self.x, self.y, self.facing, dy=-0.02, size=0.5)
-    apdraw.drawtext(self.x, self.y, self.facing, self.name, dx=-0.3, dy=0.0, size=7)
-    apdraw.drawtext(self.x, self.y, self.facing, "%2d" % self.altitude, dx=+0.3, dy=0.0, size=7)
+    apdraw.drawaircraftatend(self.x, self.y, self.facing, self.name, self.altitude)
 
   def _H(self):
     dx = {
@@ -195,9 +191,7 @@ class Aircraft:
       ["R90" , lambda : self._R(90)],
       ["R"   , lambda : self._R(30)],
 
-  ]
-
-
+    ]
       
     for t in s.split(","):
 

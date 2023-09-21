@@ -79,7 +79,7 @@ def _drawcompassinphysical(x, y):
   _drawdotinphysical(x, y, size=0.3)
   _drawarrowinphysical(x, y, facing, size=0.8, dy=+0.4)
   _drawtextinphysical(x, y, facing, "N", dy=0.95)
-
+    
 def drawhex(x, y, **kwargs):
   _drawhexinphysical(*hextophysical(x, y), **kwargs)
 
@@ -89,7 +89,7 @@ def drawdot(x, y, **kwargs):
 def drawsquare(x, y, facing, **kwargs):
   _drawsquareinphysical(*hextophysical(x, y), facing, **kwargs)
 
-def drawlineinhex(x0, y0, x1, y1, **kwargs):
+def drawline(x0, y0, x1, y1, **kwargs):
   _drawlineinphysical(*hextophysical(x0, y0), *hextophysical(x1, y1), **kwargs)
 
 def drawarrow(x, y, facing, **kwargs):
@@ -103,6 +103,19 @@ def drawtext(x, y, facing, s, **kwargs):
 
 def drawcompass(x, y, **kwargs):
   _drawcompassinphysical(*hextophysical(x, y), **kwargs)
+
+def drawflightpath(lastx, lasty, x, y):
+  drawline(lastx, lasty, x, y, color="lightgrey", linestyle="dashed", zorder=0.5)
+
+def drawaircraftbeforeend(x, y, facing, name, altitude):
+    drawdart(x, y, facing, dy=-0.02, size=0.5, color="grey")
+    drawtext(x, y, facing, name, dx=-0.3, dy=0.0, size=7, color="grey")
+    drawtext(x, y, facing, "%2d" % altitude, dx=+0.3, dy=0.0, size=7, color="grey")
+
+def drawaircraftatend(x, y, facing, name, altitude):
+    drawdart(x, y, facing, dy=-0.02, size=0.5)
+    drawtext(x, y, facing, name, dx=-0.3, dy=0.0, size=7)
+    drawtext(x, y, facing, "%2d" % altitude, dx=+0.3, dy=0.0, size=7)
 
 def drawhexgrid(sx, sy, nx, ny):
   matplotlib.rcParams['figure.figsize'] = [nx, ny * np.sqrt(3/4)]
