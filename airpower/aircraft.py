@@ -7,38 +7,40 @@ import airpower.azimuth  as apazimuth
 class Aircraft:
 
   def __init__(self, name, x, y, azimuth, altitude):
-    self.turn     = 0
-    self.name     = name
-    self.x        = x
-    self.y        = y
-    self.facing   = apazimuth.tofacing(azimuth)
-    self.altitude = altitude
-    self.saved = []
+
+    self._turn     = 0
+    self._name     = name
+    self._x        = x
+    self._y        = y
+    self._facing   = apazimuth.tofacing(azimuth)
+    self._altitude = altitude
+    self._saved = []
+
     self._save(0)
-    self.drawatend()
+    self._drawatend()
 
   def __str__(self):
-    return "%s: (%.2f,%.2f) %03d %s %02d" % (self.name, self.x, self.y, self.facing, fromfacing(self.facing), self.altitude)
+    return "%s: (%.2f,%.2f) %s %02d" % (self._name, self._x, self._y, apazimuth.toazimuth(self._facing), self._altitude)
 
   def _restore(self, i):
-    self.x, self.y, self.facing, self.altitude = self.saved[i]
+    self._x, self._y, self._facing, self._altitude = self._saved[i]
 
   def _save(self, i):
-    if len(self.saved) == i:
-      self.saved.append(None)
-    self.saved[i] = (self.x, self.y, self.facing, self.altitude)
+    if len(self._saved) == i:
+      self._saved.append(None)
+    self._saved[i] = (self._x, self._y, self._facing, self._altitude)
 
   def _maxprevturn(self):
-    return len(self.saved) - 1
+    return len(self._saved) - 1
 
-  def drawflightpath(self, lastx, lasty):
-    apdraw.drawflightpath(lastx, lasty, self.x, self.y)
+  def _drawflightpath(self, lastx, lasty):
+    apdraw.drawflightpath(lastx, lasty, self._x, self._y)
 
-  def drawbeforeend(self):
-    apdraw.drawaircraftbeforeend(self.x, self.y, self.facing, self.name, self.altitude)
+  def _drawbeforeend(self):
+    apdraw.drawaircraftbeforeend(self._x, self._y, self._facing, self._name, self._altitude)
 
-  def drawatend(self):
-    apdraw.drawaircraftatend(self.x, self.y, self.facing, self.name, self.altitude)
+  def _drawatend(self):
+    apdraw.drawaircraftatend(self._x, self._y, self._facing, self._name, self._altitude)
 
   def _H(self):
     dx = {
@@ -69,97 +71,97 @@ class Aircraft:
         300: -0.75,
         330: -0.50
     }
-    self.x += dx[self.facing]
-    self.y += dy[self.facing]
+    self._x += dx[self._facing]
+    self._y += dy[self._facing]
 
-  def onedge(self):
-    if self.x % 1 != 0:
+  def _onedge(self):
+    if self._x % 1 != 0:
       return True
-    elif self.x % 2 == 0 and self.y % 1 == 0.5:
+    elif self._x % 2 == 0 and self._y % 1 == 0.5:
       return True
-    elif self.x % 2 == 1 and self.y % 1 == 0.0:
+    elif self._x % 2 == 1 and self._y % 1 == 0.0:
       return True
     else:
       return False
 
-  def _R(self, pointingchange):
-    if self.onedge():
-      if self.facing == 0:
-        self.y -= 0.5
-      elif self.facing == 60:
-        self.x += 0.50
-        self.y -= 0.25
-      elif self.facing == 120:
-        self.x += 0.50
-        self.y += 0.25
-      elif self.facing == 180:
-        self.y += 0.5
-      elif self.facing == 240:
-        self.x -= 0.50
-        self.y += 0.25
-      elif self.facing == 300:
-        self.x -= 0.50
-        self.y -= 0.25
-    self.facing = (self.facing + 360 - pointingchange) % 360
+  def _R(self, facingchange):
+    if self._onedge():
+      if self._facing == 0:
+        self._y -= 0.5
+      elif self._facing == 60:
+        self._x += 0.50
+        self._y -= 0.25
+      elif self._facing == 120:
+        self._x += 0.50
+        self._y += 0.25
+      elif self._facing == 180:
+        self._y += 0.5
+      elif self._facing == 240:
+        self._x -= 0.50
+        self._y += 0.25
+      elif self._facing == 300:
+        self._x -= 0.50
+        self._y -= 0.25
+    self._facing = (self._facing - facingchange) % 360
 
-  def _L(self, pointingchange):
-    if self.onedge():
-      if self.facing == 0:
-        self.y += 0.5
-      elif self.facing == 60:
-        self.x -= 0.50
-        self.y += 0.25
-      elif self.facing == 120:
-        self.x -= 0.50
-        self.y -= 0.25
-      elif self.facing == 180:
-        self.y -= 0.5
-      elif self.facing == 240:
-        self.x += 0.50
-        self.y -= 0.25
-      elif self.facing == 300:
-        self.x += 0.50
-        self.y += 0.25
-    self.facing = (self.facing + pointingchange) % 360
+  def _L(self, facingchange):
+    if self._onedge():
+      if self._facing == 0:
+        self._y += 0.5
+      elif self._facing == 60:
+        self._x -= 0.50
+        self._y += 0.25
+      elif self._facing == 120:
+        self._x -= 0.50
+        self._y -= 0.25
+      elif self._facing == 180:
+        self._y -= 0.5
+      elif self._facing == 240:
+        self._x += 0.50
+        self._y -= 0.25
+      elif self._facing == 300:
+        self._x += 0.50
+        self._y += 0.25
+    self._facing = (self._facing + facingchange) % 360
 
   def _D(self, altitudechange):
-    self.altitude -= altitudechange
+    self._altitude -= altitudechange
 
   def _C(self, altitudechange):
-    self.altitude += altitudechange
+    self._altitude += altitudechange
 
   def _report(self, s):
-    print("%s: turn %d: %s" % (self.name, self.turn, s))
+    print("%s: turn %d: %s" % (self._name, self._turn, s))
 
   def _reportfp(self, s):
-    print("%s: turn %d: FP %d: %s" % (self.name, self.turn, self.ifp, s))
+    print("%s: turn %d: FP %d: %s" % (self._name, self._turn, self._ifp, s))
 
   def start(self, turn, nfp, s):
 
     if turn > self._maxprevturn() + 1:
       raise ValueError("turn %d is out of sequence." % turn)
 
-    self.turn = turn
-    self.nfp = nfp
-    self.ifp = 0
-    self.ihfp = 0
-    self.ivfp = 0
+    self._turn = turn
+    self._nfp = nfp
+    self._ifp = 0
+    self._ihfp = 0
+    self._ivfp = 0
     self._restore(turn - 1)
 
-    self.initialaltitude = self.altitude
+    self._initialaltitude = self._altitude
 
     self._report("--- start of turn ---")
-    self._report("%d FPs available." % self.nfp)
-    self._report("initial azimuth  = %s." % apazimuth.toazimuth(self.facing))
-    self._report("initial altitude = %5.2f (%s)" % (self.altitude, apaltitude.altitudeband(self.altitude)))
+    self._report("%d FPs available." % self._nfp)
+    self._report("initial azimuth  = %s." % apazimuth.toazimuth(self._facing))
+    self._report("initial altitude = %5.2f (%s)" % (self._altitude, apaltitude.altitudeband(self._altitude)))
 
     if s != "":
       self.next(s)
 
   def next(self, s):
 
-    lastx = self.x
-    lasty = self.y
+    lastx = self._x
+    lasty = self._y
 
     actions = [
 
@@ -195,14 +197,14 @@ class Aircraft:
       
     for t in s.split(","):
 
-      self.ifp = self.ifp + 1
+      self._ifp = self._ifp + 1
 
       self._reportfp("movement code is %s." % t)
 
       if t[0] == 'H':
-        self.ihfp = self.ihfp + 1
+        self._ihfp = self._ihfp + 1
       elif t[0] == 'D' or t[0] == 'C':
-        self.ivfp = self.ivfp + 1
+        self._ivfp = self._ivfp + 1
       else:
         raise ValueError("movement code must begin with H, D, or C.")
 
@@ -215,32 +217,32 @@ class Aircraft:
         else:
           raise ValueError("unknown movement code %s" % t)
 
-      self.drawflightpath(lastx, lasty)
-      lastx = self.x
-      lasty = self.y
+      self._drawflightpath(lastx, lasty)
+      lastx = self._x
+      lasty = self._y
 
-    self._report("%d HFPs and %d VFPs used." % (self.ihfp, self.ivfp))
+    self._report("%d HFPs and %d VFPs used." % (self._ihfp, self._ivfp))
       
-    if self.ifp < self.nfp:
+    if self._ifp < self._nfp:
 
-      self._report("%d FPs remaining." % (self.nfp - self.ifp))
+      self._report("%d FPs remaining." % (self._nfp - self._ifp))
 
-      self.drawbeforeend()
+      self._drawbeforeend()
 
-    elif self.ifp == self.nfp:
+    elif self._ifp == self._nfp:
 
-      self._report("all %d FPs used." % (self.nfp))
+      self._report("all %d FPs used." % (self._nfp))
 
-      self._report("final azimuth    = %s." % apazimuth.toazimuth(self.facing))
-      self._report("final altitude   = %5.2f (%s)" % (self.altitude, apaltitude.altitudeband(self.altitude)))
-      if apaltitude.altitudeband(self.initialaltitude) != apaltitude.altitudeband(self.altitude):
-        self._report("altitude band changed from %s to %s." % (apaltitude.altitudeband(self.initialaltitude), apaltitude.altitudeband(self.altitude)))
+      self._report("final azimuth    = %s." % apazimuth.toazimuth(self._facing))
+      self._report("final altitude   = %5.2f (%s)" % (self._altitude, apaltitude.altitudeband(self._altitude)))
+      if apaltitude.altitudeband(self._initialaltitude) != apaltitude.altitudeband(self._altitude):
+        self._report("altitude band changed from %s to %s." % (apaltitude.altitudeband(self._initialaltitude), apaltitude.altitudeband(self._altitude)))
       self._report("--- end of turn ---")
 
-      self._save(self.turn)
+      self._save(self._turn)
 
-      self.drawatend()
+      self._drawatend()
 
     else:
 
-      raise ValueError("only %d FPs are available." % self.nfp)
+      raise ValueError("only %d FPs are available." % self._nfp)
