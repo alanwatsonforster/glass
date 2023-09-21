@@ -11,6 +11,19 @@ plt.rcParams.update({'font.size': 10})
 
 northfacing = 90
 
+def setnorth(s):
+  global northfacing
+  if s == "right":
+    northfacing = 0
+  elif s == "up":
+    northfacing = 90
+  elif s == "left":
+    northfacing = 180
+  elif s == "down":
+    northfacing = 270
+  else:
+    raise ValueError("\"%s\" is not a valid orientation.")
+
 def tofacing(azimuth):
   named = {
     "N":   0, "NNE":  30, "ENE":  60,
