@@ -10,6 +10,8 @@ class Aircraft:
 
   def __init__(self, name, x, y, azimuth, altitude):
 
+    apaltitude._checkaltitude(altitude)
+
     self._turn          = 0
     self._name          = name
     self._x             = x
@@ -128,22 +130,11 @@ class Aircraft:
         self._y += 0.25
     self._facing = (self._facing + facingchange) % 360
 
-
-  def _adjustaltitude(self, altitudechange):
-    # Here we do altitude arithmetic, ensuring that _altitude stays as an
-    # integer and keeping track of fractions in _altitudecarry.
-    self._altitude = self._altitude + self._altitudecarry + altitudechange
-    if altitudechange >= 0:
-      self._altitudecarry = self._altitude - math.floor(self._altitude)
-    else:
-      self._altitudecarry = self._altitude - math.ceil(self._altitude)
-    self._altitude = self._altitude - self._altitudecarry
-
   def _D(self, altitudechange):
-    self._adjustaltitude(-altitudechange)
+    self._altitude, self._altitudecarry = apaltitude._adjustaltitude(self._altitude, self._altitudecarry, -altitudechange)
 
   def _C(self, altitudechange):
-    self._adjustaltitude(+altitudechange)
+    self._altitude, self._altitudecarry = apaltitude._adjustaltitude(self._altitude, self._altitudecarry, +altitudechange)
 
   def _report(self, s):
     print("%s: turn %d: %s" % (self._name, self._turn, s))
@@ -168,8 +159,8 @@ class Aircraft:
     self._report("--- start of turn ---")
     self._report("%d FPs available." % self._nfp)
     self._report("initial azimuth        = %s" % apazimuth.toazimuth(self._facing))
-    self._report("initial altitude       = %2.0f %s" % (self._altitude, apaltitude.altitudeband(self._altitude)))
-    self._report("initial altitude carry = %+.02f" % (self._altitudecarry))
+    self._report("initial altitude       = %d %s" % (self._altitude, apaltitude._altitudeband(self._altitude)))
+    self._report("initial altitude carry = %s" % apaltitude._formataltitudecarry(self._altitudecarry))
 
     if s != "":
       self.next(s)
@@ -270,10 +261,12 @@ class Aircraft:
       self._report("all FPs used.")
 
       self._report("final azimuth        = %s" % apazimuth.toazimuth(self._facing))
-      self._report("final altitude       = %2.0f %s" % (self._altitude, apaltitude.altitudeband(self._altitude)))
-      self._report("final altitude carry = %+.02f" % (self._altitudecarry))
-      if apaltitude.altitudeband(self._initialaltitude) != apaltitude.altitudeband(self._altitude):
-        self._report("altitude band changed from %s to %s." % (apaltitude.altitudeband(self._initialaltitude), apaltitude.altitudeband(self._altitude)))
+      self._report("final altitude       = %2.0f %s" % (self._altitude, apaltitude._altitudeband(self._altitude)))
+      self._report("final altitude carry = %s" % apaltitude._formataltitudecarry(self._altitudecarry))
+
+      if apaltitude._altitudeband(self._initialaltitude) != apaltitude._altitudeband(self._altitude):
+        self._report("altitude band changed from %s to %s." % (apaltitude._altitudeband(self._initialaltitude), apaltitude._altitudeband(self._altitude)))
+
       self._report("--- end of turn ---")
 
       self._save(self._turn)
