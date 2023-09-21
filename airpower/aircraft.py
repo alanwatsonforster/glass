@@ -141,6 +141,13 @@ class Aircraft:
   def _C(self, altitudechange):
     self._altitude, self._altitudecarry = apaltitude._adjustaltitude(self._altitude, self._altitudecarry, +altitudechange)
 
+  def _K(self):
+    self._report("aircraft has been killed.")
+    self._destroyed = True
+
+  def _A(self, what):
+    self._report("aircraft attacks with %s." % what)
+
   def _report(self, s):
     print("%s: turn %d: %s" % (self._name, self._turn, s))
 
@@ -249,6 +256,15 @@ class Aircraft:
       ["R60" , lambda : self._R(60)],
       ["R"   , lambda : self._R(30)],
       ["R30" , lambda : self._R(30)],
+
+      ["K"   , lambda : self._K()],
+
+      ["AGN" , lambda : self._A("guns")],
+      ["AGP" , lambda : self._A("gun pod")],
+      ["ARK" , lambda : self._A("rockets")],
+      ["ARP" , lambda : self._A("rocket pods")],
+
+      ["/"   , lambda : None]
 
     ]
 
