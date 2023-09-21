@@ -4,31 +4,35 @@ import airpower.draw     as apdraw
 import airpower.altitude as apaltitude
 import airpower.azimuth  as apazimuth
 
+import math
+
 class Aircraft:
 
   def __init__(self, name, x, y, azimuth, altitude):
 
-    self._turn     = 0
-    self._name     = name
-    self._x        = x
-    self._y        = y
-    self._facing   = apazimuth.tofacing(azimuth)
-    self._altitude = altitude
-    self._saved = []
+    self._turn          = 0
+    self._name          = name
+    self._x             = x
+    self._y             = y
+    self._facing        = apazimuth.tofacing(azimuth)
+    self._altitude      = altitude
+    self._altitudecarry = 0
 
+    self._saved = []
     self._save(0)
+  
     self._drawatend()
 
   def __str__(self):
-    return "%s: (%.2f,%.2f) %s %02d" % (self._name, self._x, self._y, apazimuth.toazimuth(self._facing), self._altitude)
+    return "%s: (%.2f,%.2f) %s %02d (%+.02f)" % (self._name, self._x, self._y, apazimuth.toazimuth(self._facing), self._altitude, self._altitudecarry)
 
   def _restore(self, i):
-    self._x, self._y, self._facing, self._altitude = self._saved[i]
+    self._x, self._y, self._facing, self._altitude, self._altitudecarry = self._saved[i]
 
   def _save(self, i):
     if len(self._saved) == i:
       self._saved.append(None)
-    self._saved[i] = (self._x, self._y, self._facing, self._altitude)
+    self._saved[i] = (self._x, self._y, self._facing, self._altitude, self._altitudecarry)
 
   def _maxprevturn(self):
     return len(self._saved) - 1
@@ -124,11 +128,20 @@ class Aircraft:
         self._y += 0.25
     self._facing = (self._facing + facingchange) % 360
 
+
+  def _adjustaltitude(self, altitudechange):
+    self._altitude = self._altitude + self._altitudecarry + altitudechange
+    if altitudechange >= 0:
+      self._altitudecarry = self._altitude - math.floor(self._altitude)
+    else:
+      self._altitudecarry = self._altitude - math.ceil(self._altitude)
+    self._altitude = self._altitude - self._altitudecarry
+
   def _D(self, altitudechange):
-    self._altitude -= altitudechange
+    self._adjustaltitude(-altitudechange)
 
   def _C(self, altitudechange):
-    self._altitude += altitudechange
+    self._adjustaltitude(+altitudechange)
 
   def _report(self, s):
     print("%s: turn %d: %s" % (self._name, self._turn, s))
@@ -153,7 +166,7 @@ class Aircraft:
     self._report("--- start of turn ---")
     self._report("%d FPs available." % self._nfp)
     self._report("initial azimuth  = %s." % apazimuth.toazimuth(self._facing))
-    self._report("initial altitude = %5.2f (%s)" % (self._altitude, apaltitude.altitudeband(self._altitude)))
+    self._report("initial altitude = %5.2f (%+.02f) %s" % (self._altitude, self._altitudecarry, apaltitude.altitudeband(self._altitude)))
 
     if s != "":
       self.next(s)
@@ -234,7 +247,7 @@ class Aircraft:
       self._report("all %d FPs used." % (self._nfp))
 
       self._report("final azimuth    = %s." % apazimuth.toazimuth(self._facing))
-      self._report("final altitude   = %5.2f (%s)" % (self._altitude, apaltitude.altitudeband(self._altitude)))
+      self._report("final altitude   = %5.2f (%+.02f) %s" % (self._altitude, self._altitudecarry, apaltitude.altitudeband(self._altitude)))
       if apaltitude.altitudeband(self._initialaltitude) != apaltitude.altitudeband(self._altitude):
         self._report("altitude band changed from %s to %s." % (apaltitude.altitudeband(self._initialaltitude), apaltitude.altitudeband(self._altitude)))
       self._report("--- end of turn ---")
