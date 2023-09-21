@@ -1,6 +1,9 @@
 print("airpower")
 
+import airpower.azimuth as apazimuth
+
 from airpower.draw import *
+from airpower.azimuth import setnorth
 
 import numpy as np
 
@@ -8,45 +11,6 @@ import matplotlib
 import matplotlib.pyplot as plt
 matplotlib.rcParams['figure.figsize'] = [7.5, 10]
 plt.rcParams.update({'font.size': 10})
-
-northfacing = 90
-
-def setnorth(s):
-  global northfacing
-  if s == "right":
-    northfacing = 0
-  elif s == "up":
-    northfacing = 90
-  elif s == "left":
-    northfacing = 180
-  elif s == "down":
-    northfacing = 270
-  else:
-    raise ValueError("\"%s\" is not a valid orientation.")
-
-def tofacing(azimuth):
-  named = {
-    "N":   0, "NNE":  30, "ENE":  60,
-    "E":  90, "ESE": 120, "SSE": 150, 
-    "S": 180, "SSW": 210, "WSW": 240, 
-    "W": 270, "WNW": 300, "NNW": 330, 
-  }
-  superseded = {
-    "NE": "ENE", "SE": "ESE", "SW": "WSW", "NW": "WNW"
-  }
-  if azimuth in named:
-    azimuth = named[azimuth]
-  elif azimuth in superseded:
-    raise ValueError("use azimuth \"%s\" instead of \"%s\"" % (superseded[azimuth], azimuth))
-  return (northfacing - azimuth) % 360
-
-def toazimuth(facing):
-  azimuth = (northfacing - facing) % 360
-  if azimuth % 30 == 0:
-    named = ["N", "NNE", "ENE", "E", "ESE", "SSE", "S", "SSW", "WSW", "W", "WNW", "NNW"]
-    return named[azimuth // 30]
-  else:
-    return azimuth
 
 def altitudeband(altitude):
   if altitude <= 7:
@@ -71,7 +35,7 @@ class Aircraft:
     self.name     = name
     self.x        = x
     self.y        = y
-    self.facing   = tofacing(azimuth)
+    self.facing   = apazimuth.tofacing(azimuth)
     self.altitude = altitude
     self.saved = []
     self._save(0)
@@ -214,7 +178,7 @@ class Aircraft:
 
     self._report("--- start of turn ---")
     self._report("%d FPs available." % self.nfp)
-    self._report("initial azimuth  = %s." % toazimuth(self.facing))
+    self._report("initial azimuth  = %s." % apazimuth.toazimuth(self.facing))
     self._report("initial altitude = %5.2f (%s)" % (self.altitude, altitudeband(self.altitude)))
 
     if s != "":
@@ -277,7 +241,7 @@ class Aircraft:
 
       self._report("all %d FPs used." % (self.nfp))
 
-      self._report("final azimuth    = %s." % toazimuth(self.facing))
+      self._report("final azimuth    = %s." % apazimuth.toazimuth(self.facing))
       self._report("final altitude   = %5.2f (%s)" % (self.altitude, altitudeband(self.altitude)))
       if altitudeband(self.initialaltitude) != altitudeband(self.altitude):
         self._report("altitude band changed from %s to %s." % (altitudeband(self.initialaltitude), altitudeband(self.altitude)))
