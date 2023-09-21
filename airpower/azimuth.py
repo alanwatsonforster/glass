@@ -1,5 +1,3 @@
-print("airpower.azimuth")
-
 _northfacing = 90
 
 def setnorth(s):

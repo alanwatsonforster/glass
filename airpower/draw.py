@@ -1,5 +1,3 @@
-print("airpower.draw")
-
 import numpy as np
 
 import matplotlib

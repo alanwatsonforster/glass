@@ -1,7 +1,5 @@
 import math
 
-print("airpower.altitude")
-
 # _altitudequantum must be 1 over an integral power of 2.
 _altitudequantum = 1/8
 

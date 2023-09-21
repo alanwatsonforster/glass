@@ -1,5 +1,3 @@
-print("airpower.aircraft")
-
 import airpower.draw     as apdraw
 import airpower.altitude as apaltitude
 import airpower.azimuth  as apazimuth
