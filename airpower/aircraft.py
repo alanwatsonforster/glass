@@ -210,8 +210,10 @@ class Aircraft:
       ["C3/4", lambda : self._C(3/4)],
       ["C⅞"  , lambda : self._C(7/8)],
       ["C7/8", lambda : self._C(7/8)],
+      ["CC"  , lambda : self._C(2)],
       ["C2"  , lambda : self._C(2)],
       ["C"   , lambda : self._C(1)],
+      ["C1"  , lambda : self._C(1)],
 
       ["D⅛"  , lambda : self._D(1/8)],
       ["D1/8", lambda : self._D(1/8)],
@@ -227,17 +229,26 @@ class Aircraft:
       ["D3/4", lambda : self._D(3/4)],
       ["D⅞"  , lambda : self._D(7/8)],
       ["D7/8", lambda : self._D(7/8)],
+      ["DDD" , lambda : self._D(3)],
       ["D3"  , lambda : self._D(3)],
+      ["DD"  , lambda : self._D(2)],
       ["D2"  , lambda : self._D(2)],
       ["D"   , lambda : self._D(1)],
+      ["D1"  , lambda : self._D(1)],
 
+      ["LLL" , lambda : self._L(90)],
       ["L90" , lambda : self._L(90)],
+      ["LL"  , lambda : self._L(60)],
       ["L60" , lambda : self._L(60)],
       ["L"   , lambda : self._L(30)],
+      ["L30" , lambda : self._L(30)],
 
+      ["RRR" , lambda : self._R(90)],
       ["R90" , lambda : self._R(90)],
+      ["RR"  , lambda : self._R(60)],
       ["R60" , lambda : self._R(60)],
       ["R"   , lambda : self._R(30)],
+      ["R30" , lambda : self._R(30)],
 
     ]
 
