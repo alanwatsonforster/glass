@@ -313,6 +313,7 @@ class Aircraft:
             if self._destroyed:
               self._report("aircraft has been destroyed.")
               self._reportcodeandposition()
+              self._drawflightpath(lastx, lasty)
               self._drawaircraft("end")
               self._report("--- end of turn ---")
               self._save(self._turn)
