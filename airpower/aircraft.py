@@ -7,14 +7,14 @@ import math
 
 class Aircraft:
 
-  def __init__(self, name, hex, azimuth, altitude):
+  def __init__(self, name, hexcode, azimuth, altitude):
 
     apaltitude._checkaltitude(altitude)
 
     self._turn          = 0
     self._name          = name
 
-    self._x, self._y    = apmaps.numbertohex(hex)
+    self._x, self._y    = apmaps.fromhexcode(hexcode)
     self._facing        = apazimuth.tofacing(azimuth)
     self._altitude      = altitude
     self._altitudecarry = 0
@@ -28,7 +28,7 @@ class Aircraft:
   def __str__(self):
     return "%s: %s %02d %s (%+.03f)" % (
       self._name, 
-      apmaps.hextonumber(self._x, self._y), 
+      apmaps.tohexcode(self._x, self._y), 
       self._altitude, 
       apazimuth.toazimuth(self._facing), 
       self._altitudecarry
@@ -53,7 +53,7 @@ class Aircraft:
         
   def _position(self):
     return "%s %d %s" % (
-        apmaps.hextonumber(self._x, self._y),
+        apmaps.tohexcode(self._x, self._y),
         self._altitude,
         apazimuth.toazimuth(self._facing)
       )
@@ -177,18 +177,18 @@ class Aircraft:
     if self._altitude <= altitudeofterrain:
       self._altitude = altitudeofterrain
       self._altitudecarry = 0
-      self._report("aircraft has collided with terrain at altitude %d." % altitudeofterrain)
+      self._reportfp("collided with terrain at altitude %d." % altitudeofterrain)
       self._destroyed = True
 
   def _C(self, altitudechange):
     self._altitude, self._altitudecarry = apaltitude._adjustaltitude(self._altitude, self._altitudecarry, +altitudechange)
 
   def _K(self):
-    self._report("aircraft has been killed.")
+    self._reportfp("killed.")
     self._destroyed = True
 
   def _A(self, what):
-    self._report("aircraft attacks with %s." % what)
+    self._reportfp("attack with %s." % what)
 
   def start(self, turn, nfp, s):
 
@@ -317,10 +317,10 @@ class Aircraft:
             action[1]()
             code = code[len(action[0]):]
             if self._destroyed:
-              self._report("aircraft has been destroyed.")
               self._reportcodeandposition()
               self._drawflightpath(lastx, lasty)
               self._drawaircraft("end")
+              self._report("aircraft has been destroyed.")
               self._report("--- end of turn ---")
               self._save(self._turn)
               return

@@ -78,7 +78,11 @@ def _mapyy0(map):
   else:
     raise "invalid map %s." % map
 
-def numbertomap(n):
+def _mapfromhexcode(n):
+
+  # This works only for centers and not for edges.
+
+  n = int(n)
 
   xx = n // 100
   yy = n % 100
@@ -90,7 +94,7 @@ def numbertomap(n):
   elif 51 <= xx and xx <= 70:
     mapletter = "C"
   else:
-    raise ValueError("invalid map number %d." % n)
+    raise ValueError("invalid hex code %d." % n)
 
   if xx % 2 == 1 and 1 <= yy and yy <= 15:
     mapnumber = "1"
@@ -101,11 +105,11 @@ def numbertomap(n):
   elif xx % 2 == 0 and 17 <= yy and yy <= 31:
     mapnumber = "2"
   else:
-    raise ValueError("invalid map number %d." % n)
+    raise ValueError("invalid hex code %d." % n)
 
   return mapletter + mapnumber
 
-def checknumber(n):
+def checkhexcode(n):
 
   if isinstance(n, int):
     return
@@ -132,15 +136,15 @@ def checknumber(n):
   else:
       raise ValueError("invalid hex number %s." % n)    
 
-def numbertohex(n):
+def fromhexcode(n):
 
-  checknumber(n)
+  checkhexcode(n)
 
   try:
 
     n = int(n)
 
-    map = numbertomap(n)
+    map = _mapfromhexcode(n)
 
     xx = n // 100
     yy = n % 100
@@ -158,12 +162,12 @@ def numbertohex(n):
   except:
 
     m = n.split("/")
-    x0, y0 = numbertohex(m[0])
-    x1, y1 = numbertohex(m[1])
+    x0, y0 = fromhexcode(m[0])
+    x1, y1 = fromhexcode(m[1])
 
     return 0.5 * (x0 + x1), 0.5 * (y0 + y1)
 
-def hexiscentered(x, y):
+def _iscentered(x, y):
   if x % 2 == 0.0 and y % 1.0 == 0.00:
     return True
   elif x % 2 == 1.0 and y % 1.0 == 0.50:
@@ -171,7 +175,7 @@ def hexiscentered(x, y):
   else:
     return False
 
-def hexisonedge(x, y):
+def _isonedge(x, y):
   if x % 2 == 0.0 and y % 1.0 == 0.50:
     return True
   elif x % 2 == 0.5 and y % 0.5 == 0.25:
@@ -183,12 +187,12 @@ def hexisonedge(x, y):
   else:
     return False
 
-def checkhex(x, y):
-  if not hexiscentered(x, y) and not hexisonedge(x, y):
+def _checkxy(x, y):
+  if not _iscentered(x, y) and not _isonedge(x, y):
     raise ValueError("invalid hex coordinates (%s,%s)." % (x,y))
 
-def hextomap(x, y):
-  checkhex(x, y)
+def _mapfromxy(x, y):
+  _checkxy(x, y)
   for map in _mapslist:
     x0 = _mapx0(map)
     y0 = _mapy0(map)    
@@ -196,13 +200,13 @@ def hextomap(x, y):
       return map
   return None
 
-def hextonumber(x, y):
+def tohexcode(x, y):
 
-  checkhex(x, y)
+  _checkxy(x, y)
 
-  if hexiscentered(x, y):
+  if _iscentered(x, y):
 
-    map = hextomap(x, y)
+    map = _mapfromxy(x, y)
     x0 = _mapx0(map)
     y0 = _mapy0(map)
     xx0 = _mapxx0(map)
@@ -217,42 +221,42 @@ def hextonumber(x, y):
   else:
 
     if x % 1 == 0:
-      n0 = hextonumber(x, y + 0.5)
-      n1 = hextonumber(x, y - 0.5)
+      n0 = tohexcode(x, y + 0.5)
+      n1 = tohexcode(x, y - 0.5)
     elif x % 2 == 0.5 and y % 1 == 0.25:
-      n0 = hextonumber(x - 0.5, y - 0.25)
-      n1 = hextonumber(x + 0.5, y + 0.25)
+      n0 = tohexcode(x - 0.5, y - 0.25)
+      n1 = tohexcode(x + 0.5, y + 0.25)
     elif x % 2 == 0.5 and y % 1 == 0.75:
-      n0 = hextonumber(x - 0.5, y + 0.25)
-      n1 = hextonumber(x + 0.5, y - 0.25)      
+      n0 = tohexcode(x - 0.5, y + 0.25)
+      n1 = tohexcode(x + 0.5, y - 0.25)      
     elif x % 2 == 1.5 and y % 1 == 0.25:
-      n0 = hextonumber(x - 0.5, y + 0.25)
-      n1 = hextonumber(x + 0.5, y - 0.25)   
+      n0 = tohexcode(x - 0.5, y + 0.25)
+      n1 = tohexcode(x + 0.5, y - 0.25)   
     elif x % 2 == 1.5 and y % 1 == 0.75:
-      n0 = hextonumber(x - 0.5, y - 0.25)
-      n1 = hextonumber(x + 0.5, y + 0.25)
+      n0 = tohexcode(x - 0.5, y - 0.25)
+      n1 = tohexcode(x + 0.5, y + 0.25)
 
     return "%s/%s" % (n0, n1)
 
 def _drawmap(map):
+
   xx0 = _mapxx0(map)
   yy0 = _mapyy0(map)
   for ix in range(xx0, xx0 + 20):
     if ix % 2 == 1:
       for iy in range(yy0 - 14, yy0 + 1):
         n = ix * 100 + iy
-        x, y = numbertohex(n)
+        x, y = fromhexcode(n)
         apdraw.drawhex(x, y)
         apdraw.drawtext(x, y, 90, "%04d" % n, dy=0.3, size=7, color="grey")
     else:
       for iy in range(yy0 - 13, yy0 + 2):
         n = ix * 100 + iy
-        x, y = numbertohex(n)
+        x, y = fromhexcode(n)
         apdraw.drawhex(x, y)
         apdraw.drawtext(x, y, 90, "%04d" % n, dy=0.3, size=7, color="grey")
 
-  x0, y0 = numbertohex(100 * xx0 + yy0)
-
+  x0, y0 = fromhexcode(100 * xx0 + yy0)
   apdraw.drawtext(x0, y0, 90, map, dy=-0.05, size=12, color="grey")
 
   apdraw.drawline(x0 -  0.5, y0 -  0.5, x0 + 19.5, y0 -  0.5, color="grey")
@@ -270,5 +274,5 @@ def drawmaps():
         _drawmap(_mapsgrid[iy][ix])
 
   if _compassrose != None:
-    apdraw.drawcompass(*numbertohex(_compassrose), apazimuth.tofacing("N"))
+    apdraw.drawcompass(*fromhexcode(_compassrose), apazimuth.tofacing("N"))
 
