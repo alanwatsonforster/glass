@@ -67,8 +67,8 @@ class Aircraft:
   def _reportposition(self, s):
       self._reportfp("%-16s : %s" % (s, self._position()))
 
-  def _reportcodeandposition(self):
-    self._reportposition(self._currentcode)
+  def _reportactionandposition(self, action):
+    self._reportposition(action)
 
   def _reportstatus(self, when):
 
@@ -173,12 +173,6 @@ class Aircraft:
 
   def _D(self, altitudechange):
     self._altitude, self._altitudecarry = apaltitude._adjustaltitude(self._altitude, self._altitudecarry, -altitudechange)
-    altitudeofterrain = apaltitude._altitudeofterrain()
-    if self._altitude <= altitudeofterrain:
-      self._altitude = altitudeofterrain
-      self._altitudecarry = 0
-      self._reportfp("collided with terrain at altitude %d." % altitudeofterrain)
-      self._destroyed = True
 
   def _C(self, altitudechange):
     self._altitude, self._altitudecarry = apaltitude._adjustaltitude(self._altitude, self._altitudecarry, +altitudechange)
@@ -190,7 +184,15 @@ class Aircraft:
   def _A(self, what):
     self._reportfp("attack with %s." % what)
 
-  def start(self, turn, nfp, s):
+  def checkforterraincollision(self):
+    altitudeofterrain = apaltitude._altitudeofterrain()
+    if self._altitude <= altitudeofterrain:
+      self._altitude = altitudeofterrain
+      self._altitudecarry = 0
+      self._reportfp("collided with terrain at altitude %d." % altitudeofterrain)
+      self._destroyed = True
+  
+  def start(self, turn, nfp, actions):
 
     if turn > self._maxprevturn() + 1:
       raise ValueError("turn %d is out of sequence." % turn)
@@ -212,136 +214,151 @@ class Aircraft:
  
     self._reportstatus("start")
 
-    if s != "":
-      self.next(s)
+    if actions != "":
+      self.next(actions)
 
-  def next(self, s):
+  def next(self, actions):
 
-    actions = [
+    elements = [
 
-      # This table is searched in order, so put longer codes before shorter 
+      # This table is searched in order, so put longer elements before shorter 
       # ones that are prefixes (e.g., put C2 before C and D3/4 before D3).
 
-      ["H"   , lambda : self._H()],
+      # [0] is the element code.
+      # [1] is the procedure for movement elements.
+      # [2] is the procedure for other (non-movement) elements.
 
-      ["C⅛"  , lambda : self._C(1/8)],
-      ["C1/8", lambda : self._C(1/8)],
-      ["C¼"  , lambda : self._C(1/4)],
-      ["C1/4", lambda : self._C(1/4)],
-      ["C⅜"  , lambda : self._C(3/8)],
-      ["C3/8", lambda : self._C(3/8)],
-      ["C½"  , lambda : self._C(1/2)],
-      ["C1/2", lambda : self._C(1/2)],
-      ["C⅝"  , lambda : self._C(5/8)],
-      ["C5/8", lambda : self._C(5/8)],
-      ["C¾"  , lambda : self._C(3/4)],
-      ["C3/4", lambda : self._C(3/4)],
-      ["C⅞"  , lambda : self._C(7/8)],
-      ["C7/8", lambda : self._C(7/8)],
-      ["CC"  , lambda : self._C(2)],
-      ["C2"  , lambda : self._C(2)],
-      ["C"   , lambda : self._C(1)],
-      ["C1"  , lambda : self._C(1)],
+      ["H"   , lambda : self._H()   , lambda : None],
 
-      ["D⅛"  , lambda : self._D(1/8)],
-      ["D1/8", lambda : self._D(1/8)],
-      ["D¼"  , lambda : self._D(1/4)],
-      ["D1/4", lambda : self._D(1/4)],
-      ["D⅜"  , lambda : self._D(3/8)],
-      ["D3/8", lambda : self._D(3/8)],
-      ["D½"  , lambda : self._D(1/2)],
-      ["D1/2", lambda : self._D(1/2)],
-      ["D⅝"  , lambda : self._D(5/8)],
-      ["D5/8", lambda : self._D(5/8)],
-      ["D¾"  , lambda : self._D(3/4)],
-      ["D3/4", lambda : self._D(3/4)],
-      ["D⅞"  , lambda : self._D(7/8)],
-      ["D7/8", lambda : self._D(7/8)],
-      ["DDD" , lambda : self._D(3)],
-      ["D3"  , lambda : self._D(3)],
-      ["DD"  , lambda : self._D(2)],
-      ["D2"  , lambda : self._D(2)],
-      ["D"   , lambda : self._D(1)],
-      ["D1"  , lambda : self._D(1)],
+      ["C⅛"  , lambda : self._C(1/8), lambda : None],
+      ["C1/8", lambda : self._C(1/8), lambda : None],
+      ["C¼"  , lambda : self._C(1/4), lambda : None],
+      ["C1/4", lambda : self._C(1/4), lambda : None],
+      ["C⅜"  , lambda : self._C(3/8), lambda : None],
+      ["C3/8", lambda : self._C(3/8), lambda : None],
+      ["C½"  , lambda : self._C(1/2), lambda : None],
+      ["C1/2", lambda : self._C(1/2), lambda : None],
+      ["C⅝"  , lambda : self._C(5/8), lambda : None],
+      ["C5/8", lambda : self._C(5/8), lambda : None],
+      ["C¾"  , lambda : self._C(3/4), lambda : None],
+      ["C3/4", lambda : self._C(3/4), lambda : None],
+      ["C⅞"  , lambda : self._C(7/8), lambda : None],
+      ["C7/8", lambda : self._C(7/8), lambda : None],
+      ["CC"  , lambda : self._C(2)  , lambda : None],
+      ["C2"  , lambda : self._C(2)  , lambda : None],
+      ["C"   , lambda : self._C(1)  , lambda : None],
+      ["C1"  , lambda : self._C(1)  , lambda : None],
 
-      ["LLL" , lambda : self._L(90)],
-      ["L90" , lambda : self._L(90)],
-      ["LL"  , lambda : self._L(60)],
-      ["L60" , lambda : self._L(60)],
-      ["L"   , lambda : self._L(30)],
-      ["L30" , lambda : self._L(30)],
+      ["D⅛"  , lambda : self._D(1/8), lambda : None],
+      ["D1/8", lambda : self._D(1/8), lambda : None],
+      ["D¼"  , lambda : self._D(1/4), lambda : None],
+      ["D1/4", lambda : self._D(1/4), lambda : None],
+      ["D⅜"  , lambda : self._D(3/8), lambda : None],
+      ["D3/8", lambda : self._D(3/8), lambda : None],
+      ["D½"  , lambda : self._D(1/2), lambda : None],
+      ["D1/2", lambda : self._D(1/2), lambda : None],
+      ["D⅝"  , lambda : self._D(5/8), lambda : None],
+      ["D5/8", lambda : self._D(5/8), lambda : None],
+      ["D¾"  , lambda : self._D(3/4), lambda : None],
+      ["D3/4", lambda : self._D(3/4), lambda : None],
+      ["D⅞"  , lambda : self._D(7/8), lambda : None],
+      ["D7/8", lambda : self._D(7/8), lambda : None],
+      ["DDD" , lambda : self._D(3)  , lambda : None],
+      ["D3"  , lambda : self._D(3)  , lambda : None],
+      ["DD"  , lambda : self._D(2)  , lambda : None],
+      ["D2"  , lambda : self._D(2)  , lambda : None],
+      ["D"   , lambda : self._D(1)  , lambda : None],
+      ["D1"  , lambda : self._D(1)  , lambda : None],
 
-      ["RRR" , lambda : self._R(90)],
-      ["R90" , lambda : self._R(90)],
-      ["RR"  , lambda : self._R(60)],
-      ["R60" , lambda : self._R(60)],
-      ["R"   , lambda : self._R(30)],
-      ["R30" , lambda : self._R(30)],
+      ["LLL" , lambda : self._L(90) , lambda : None],
+      ["L90" , lambda : self._L(90) , lambda : None],
+      ["LL"  , lambda : self._L(60) , lambda : None],
+      ["L60" , lambda : self._L(60) , lambda : None],
+      ["L"   , lambda : self._L(30) , lambda : None],
+      ["L30" , lambda : self._L(30) , lambda : None],
 
-      ["K"   , lambda : self._K()],
+      ["RRR" , lambda : self._R(90) , lambda : None],
+      ["R90" , lambda : self._R(90) , lambda : None],
+      ["RR"  , lambda : self._R(60) , lambda : None],
+      ["R60" , lambda : self._R(60) , lambda : None],
+      ["R"   , lambda : self._R(30) , lambda : None],
+      ["R30" , lambda : self._R(30) , lambda : None],
 
-      ["AGN" , lambda : self._A("guns")],
-      ["AGP" , lambda : self._A("gun pod")],
-      ["ARK" , lambda : self._A("rockets")],
-      ["ARP" , lambda : self._A("rocket pods")],
+      ["K"   , lambda : None        , lambda : self._K()],
 
-      ["/"   , lambda : None]
+      ["AGN" , lambda : None        , lambda : self._A("guns")],
+      ["AGP" , lambda : None        , lambda : self._A("gun pod")],
+      ["ARK" , lambda : None        , lambda : self._A("rockets")],
+      ["ARP" , lambda : None        , lambda : self._A("rocket pods")],
+
+      ["/"   , lambda : None        , lambda : None]
 
     ]
 
     if self._destroyed:
       return
 
-    for code in s.split(","):
-
-      lastx = self._x
-      lasty = self._y
+    for action in actions.split(","):
 
       self._ifp = self._ifp + 1
 
       if self._ifp > self._nfp:
         raise ValueError("only %d FPs are available." % self._nfp)
 
-      self._currentcode = code
-
-      if code[0] == 'H':
+      if action[0] == 'H':
         self._ihfp = self._ihfp + 1
-      elif code[0] == 'D' or code[0] == 'C':
+      elif action[0] == 'D' or action[0] == 'C':
         self._ivfp = self._ivfp + 1
       else:
-        raise ValueError("movement code must begin with H, D, or C.")
+        raise ValueError("action %s does not begin with H, D, or C." % action)
 
-      while code != "":
-        for action in actions:
-          if action[0] == code[:len(action[0])]:
-            action[1]()
-            code = code[len(action[0]):]
-            if self._destroyed:
-              self._reportcodeandposition()
-              self._drawflightpath(lastx, lasty)
-              self._drawaircraft("end")
-              self._report("aircraft has been destroyed.")
-              self._report("--- end of turn ---")
-              self._save(self._turn)
-              return
+      lastx = self._x
+      lasty = self._y
+
+      # Execute movement elements.
+      a = action
+      while a != "":
+        for element in elements:
+          if element[0] == a[:len(element[0])]:
+            element[1]()
+            a = a[len(element[0]):]
             break
         else:
-          raise ValueError("unknown element %s in %s." % (code, self._currentcode))
+          raise ValueError("unknown element %s in action %s." % (a, action))
 
-      self._reportcodeandposition()
+      self._reportactionandposition(action)
       self._drawflightpath(lastx, lasty)
+
+      self.checkforterraincollision()
+      if self._destroyed:
+        self._report("aircraft has been destroyed.")
+        break
+
+      # Execute other elements.
+      a = action
+      while a != "":
+        for element in elements:
+          if element[0] == a[:len(element[0])]:
+            element[2]()
+            a = a[len(element[0]):]
+            break
+        else:
+          raise ValueError("unknown element %s in action %s." % (a, action))
+
+      if self._destroyed:
+        self._report("aircraft has been destroyed.")
+        break
 
     assert self._ifp <= self._nfp
 
-    if self._ifp < self._nfp:
-
-      self._reportstatus("next")
-      self._drawaircraft("next")
-
-    else:
+    if self._ifp == self._nfp:
 
       self._reportstatus("end")
       self._drawaircraft("end")
       self._save(self._turn)
       self._report("--- end of turn ---")
-
+      
+    else:
+      
+      self._reportstatus("next")
+      self._drawaircraft("next")
