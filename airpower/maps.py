@@ -8,27 +8,35 @@ import matplotlib.pyplot as plt
 matplotlib.rcParams['figure.figsize'] = [7.5, 10]
 plt.rcParams.update({'font.size': 10})
 
-_maps = []
+_mapsgrid = []
+_mapslist = []
 _nxmaps = 0
 _nymaps = 0
 _compassrose = None
 
-def setmaps(maps, compassrose, verbose=True):
+def setmaps(mapsgrid, compassrose, verbose=True):
 
-  global _maps
+  global _mapsgrid
+  global _mapslist
   global _nymaps
   global _nxmaps
   global _compass
 
   # The maps argument follows visual layout, so we need to flip it vertically 
   # so that the lower-left map has indices (0,0).
-  _maps = list(reversed(maps))
-  _nymaps = len(maps)
-  _nxmaps = len(maps[0])
+  _mapsgrid = list(reversed(mapsgrid))
+  _nymaps = len(_mapsgrid)
+  _nxmaps = len(_mapsgrid[0])
 
   if verbose:
     for iy in range (0, _nymaps):
-      print("%s" % " ".join(maps[iy]))
+      print("%s" % " ".join(mapsgrid[iy]))
+
+  _mapslist = []
+  for iy in range (0, _nymaps):
+    for ix in range (0, _nxmaps):
+      if _mapsgrid[iy][ix] != "--":
+        _mapslist.append(_mapsgrid[iy][ix])
 
   _compassrose = compassrose
 
@@ -37,14 +45,14 @@ def setmaps(maps, compassrose, verbose=True):
 def _mapx0(map):
   for iy in range (0, _nymaps):
     for ix in range (0, _nxmaps):
-      if map == _maps[iy][ix]:
+      if map == _mapsgrid[iy][ix]:
         return ix * 20
   raise ValueError("map %s is not in use." % map)
 
 def _mapy0(map):
   for iy in range (0, _nymaps):
     for ix in range (0, _nxmaps):
-      if map == _maps[iy][ix]:
+      if map == _mapsgrid[iy][ix]:
         return iy * 15
   raise ValueError("map %s is not in use." % map)
 
@@ -97,22 +105,134 @@ def numbertomap(n):
 
   return mapletter + mapnumber
 
+def checknumber(n):
+
+  if isinstance(n, int):
+    return
+
+  if isinstance(n, float) and n % 1.0 == 0.0:
+    return
+
+  if not isinstance(n, str):
+    raise ValueError("invalid hex number %s." % n)
+
+  m = n.split("/")
+  if len(m) == 1:
+    try:
+      n = int(n)
+      return
+    except:
+      raise ValueError("invalid hex number %s." % n)
+  elif len(m) == 2:
+    try:
+      int(m[0])
+      int(m[1])
+    except:
+      raise ValueError("invalid hex number %s." % n)
+  else:
+      raise ValueError("invalid hex number %s." % n)    
+
 def numbertohex(n):
 
-  map = numbertomap(n)
+  checknumber(n)
 
-  xx = n // 100
-  yy = n % 100
+  try:
 
-  dx = xx - _mapxx0(map)
-  dy = _mapyy0(map) - yy
-  if xx % 2 == 0:
-    dy += 0.5
+    n = int(n)
 
-  x0 = _mapx0(map)
-  y0 = _mapy0(map)
+    map = numbertomap(n)
 
-  return x0 + dx, y0 + dy
+    xx = n // 100
+    yy = n % 100
+
+    dx = xx - _mapxx0(map)
+    dy = _mapyy0(map) - yy
+    if xx % 2 == 0:
+      dy += 0.5
+
+    x0 = _mapx0(map)
+    y0 = _mapy0(map)
+
+    return x0 + dx, y0 + dy
+
+  except:
+
+    m = n.split("/")
+    x0, y0 = numbertohex(m[0])
+    x1, y1 = numbertohex(m[1])
+
+    return 0.5 * (x0 + x1), 0.5 * (y0 + y1)
+
+def hexiscentered(x, y):
+  if x % 2 == 0.0 and y % 1.0 == 0.00:
+    return True
+  elif x % 2 == 1.0 and y % 1.0 == 0.50:
+    return True
+  else:
+    return False
+
+def hexisonedge(x, y):
+  if x % 2 == 0.0 and y % 1.0 == 0.50:
+    return True
+  elif x % 2 == 0.5 and y % 0.5 == 0.25:
+    return True
+  elif x % 2 == 1.0 and y % 1.0 == 0.00:
+    return True
+  elif x % 2 == 1.5 and y % 0.5 == 0.25:
+    return True
+  else:
+    return False
+
+def checkhex(x, y):
+  if not hexiscentered(x, y) and not hexisonedge(x, y):
+    raise ValueError("invalid hex coordinates (%s,%s)." % (x,y))
+
+def hextomap(x, y):
+  checkhex(x, y)
+  for map in _mapslist:
+    x0 = _mapx0(map)
+    y0 = _mapy0(map)    
+    if x0 - 0.5 <= x and x < x0 + 19.5 and y0 - 0.5 <= y and y < y0 + 14.5:
+      return map
+  return None
+
+def hextonumber(x, y):
+
+  checkhex(x, y)
+
+  if hexiscentered(x, y):
+
+    map = hextomap(x, y)
+    x0 = _mapx0(map)
+    y0 = _mapy0(map)
+    xx0 = _mapxx0(map)
+    yy0 = _mapyy0(map)
+    xx = xx0 + (x - x0)
+    yy = yy0 - (y - y0)
+    if xx % 2 == 0:
+      yy += 0.5
+
+    return "%04d" % int(xx * 100 + yy)
+
+  else:
+
+    if x % 1 == 0:
+      n0 = hextonumber(x, y + 0.5)
+      n1 = hextonumber(x, y - 0.5)
+    elif x % 2 == 0.5 and y % 1 == 0.25:
+      n0 = hextonumber(x - 0.5, y - 0.25)
+      n1 = hextonumber(x + 0.5, y + 0.25)
+    elif x % 2 == 0.5 and y % 1 == 0.75:
+      n0 = hextonumber(x - 0.5, y + 0.25)
+      n1 = hextonumber(x + 0.5, y - 0.25)      
+    elif x % 2 == 1.5 and y % 1 == 0.25:
+      n0 = hextonumber(x - 0.5, y + 0.25)
+      n1 = hextonumber(x + 0.5, y - 0.25)   
+    elif x % 2 == 1.5 and y % 1 == 0.75:
+      n0 = hextonumber(x - 0.5, y - 0.25)
+      n1 = hextonumber(x + 0.5, y + 0.25)
+
+    return "%s/%s" % (n0, n1)
 
 def _drawmap(map):
   xx0 = _mapxx0(map)
@@ -146,8 +266,8 @@ def drawmaps():
 
   for iy in range (0, _nymaps):
     for ix in range (0, _nxmaps):
-      if _maps[iy][ix] != "--":
-        _drawmap(_maps[iy][ix])
+      if _mapsgrid[iy][ix] != "--":
+        _drawmap(_mapsgrid[iy][ix])
 
   if _compassrose != None:
     apdraw.drawcompass(*numbertohex(_compassrose), apazimuth.tofacing("N"))

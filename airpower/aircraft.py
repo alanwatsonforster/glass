@@ -1,20 +1,20 @@
 import airpower.draw     as apdraw
 import airpower.altitude as apaltitude
 import airpower.azimuth  as apazimuth
+import airpower.maps     as apmaps
 
 import math
 
 class Aircraft:
 
-  def __init__(self, name, x, y, azimuth, altitude):
+  def __init__(self, name, hex, azimuth, altitude):
 
     apaltitude._checkaltitude(altitude)
 
     self._turn          = 0
     self._name          = name
 
-    self._x             = x
-    self._y             = y
+    self._x, self._y    = apmaps.numbertohex(hex)
     self._facing        = apazimuth.tofacing(azimuth)
     self._altitude      = altitude
     self._altitudecarry = 0
@@ -26,7 +26,13 @@ class Aircraft:
     self._drawaircraft("end")
 
   def __str__(self):
-    return "%s: (%.2f,%.2f) %s %02d (%+.02f)" % (self._name, self._x, self._y, apazimuth.toazimuth(self._facing), self._altitude, self._altitudecarry)
+    return "%s: %s %02d %s (%+.03f)" % (
+      self._name, 
+      apmaps.hextonumber(self._x, self._y), 
+      self._altitude, 
+      apazimuth.toazimuth(self._facing), 
+      self._altitudecarry
+    )
 
   def _restore(self, i):
     self._x, self._y, self._facing, self._altitude, self._altitudecarry, self._destroyed = self._saved[i]
@@ -46,8 +52,8 @@ class Aircraft:
     apdraw.drawaircraft(self._x, self._y, self._facing, self._name, self._altitude, when)
         
   def _position(self):
-    return "(%.2f,%.2f) %d %s" % (
-        self._x, self._y, 
+    return "%s %d %s" % (
+        apmaps.hextonumber(self._x, self._y),
         self._altitude,
         apazimuth.toazimuth(self._facing)
       )
