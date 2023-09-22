@@ -1,4 +1,4 @@
-def iscentered(x, y):
+def isoncenter(x, y):
   if x % 2 == 0.0 and y % 1.0 == 0.00:
     return True
   elif x % 2 == 1.0 and y % 1.0 == 0.50:
@@ -19,5 +19,5 @@ def isonedge(x, y):
     return False
 
 def check(x, y):
-  if not iscentered(x, y) and not isonedge(x, y):
-    raise ValueError("invalid hex coordinates (%s,%s)." % (x,y))
+  if not isoncenter(x, y) and not isonedge(x, y):
+    raise ValueError("(%s,%s) are not valid hex coordinates ." % (x,y))

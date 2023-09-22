@@ -41,7 +41,7 @@ def setmaps(mapsgrid, compassrose, verbose=True):
 
   _compassrose = compassrose
 
-# x0 and y0 are the hex coordinates of the lower left hex.
+# x0 and y0 are the hex coordinates of the center of the lower left hex.
 
 def _mapx0(map):
   for iy in range (0, _nymaps):
@@ -57,7 +57,7 @@ def _mapy0(map):
         return iy * 15
   raise ValueError("map %s is not in use." % map)
 
-# xx0 and yy0 are the components of the hex number of the lower left hex.
+# xx0 and yy0 are the components of the hex code of the lower left hex.
   
 def _mapxx0(map):
   mapletter = map[0]
@@ -79,9 +79,42 @@ def _mapyy0(map):
   else:
     raise "invalid map %s." % map
 
+def isoncenter(n):
+
+  if isinstance(n, int):
+    return True
+
+  if isinstance(n, float) and n % 1.0 == 0.0:
+    return True
+
+  if isinstance(n, str) and n.isdecimal():
+    return True
+
+  return False
+
+def isonedge(n):
+
+  if not isinstance(n, str):
+    return False
+
+  m = n.split("/")
+  if len(m) != 2:
+    return False
+
+  if not m[0].isdecimal() and not m[1].isdecimal():
+    return False
+
+  # We should really check that they are adjacent.
+  return True
+
+def check(n):
+  if not isoncenter(n) and not isonedge(n):
+    raise ValueError("%s is not a valid hex code." % n)
+
 def _mapfromhexcode(n):
 
   # This works only for centers and not for edges.
+  assert isoncenter(n)
 
   n = int(n)
 
@@ -110,36 +143,10 @@ def _mapfromhexcode(n):
 
   return mapletter + mapnumber
 
-def checkhexcode(n):
-
-  if isinstance(n, int):
-    return
-
-  if isinstance(n, float) and n % 1.0 == 0.0:
-    return
-
-  if not isinstance(n, str):
-    raise ValueError("invalid hex number %s." % n)
-
-  m = n.split("/")
-  if len(m) == 1:
-    try:
-      n = int(n)
-      return
-    except:
-      raise ValueError("invalid hex number %s." % n)
-  elif len(m) == 2:
-    try:
-      int(m[0])
-      int(m[1])
-    except:
-      raise ValueError("invalid hex number %s." % n)
-  else:
-      raise ValueError("invalid hex number %s." % n)    
 
 def fromhexcode(n):
 
-  checkhexcode(n)
+  check(n)
 
   try:
 
@@ -181,7 +188,7 @@ def tohexcode(x, y):
 
   aphex.check(x, y)
 
-  if aphex.iscentered(x, y):
+  if aphex.isoncenter(x, y):
 
     map = _mapfromxy(x, y)
     x0 = _mapx0(map)
