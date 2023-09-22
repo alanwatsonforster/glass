@@ -7,6 +7,12 @@ plt.rcParams.update({'font.size': 10})
 
 import airpower.azimuth as apazimuth
 
+def setcanvas(x, y):
+  matplotlib.rcParams['figure.figsize'] = [x, y]
+  plt.figure()
+  plt.axis('equal')
+  plt.axis('off')
+
 def cosd(x):
   return np.cos(np.radians(x))
 def sind(x):
@@ -113,44 +119,3 @@ def drawaircraft(x, y, facing, name, altitude, when):
   drawdart(x, y, facing, dy=-0.02, size=0.5, color=color)
   drawtext(x, y, facing, name, dx=-0.3, dy=0.0, size=7, color=color)
   drawtext(x, y, facing, "%2d" % altitude, dx=+0.3, dy=0.0, size=7, color=color)
-
-def drawhexgrid(sx, sy, nx, ny):
-  matplotlib.rcParams['figure.figsize'] = [nx, ny * np.sqrt(3/4)]
-  plt.figure()
-  plt.axis('equal')
-  plt.axis('off')
-  for ix in range(sx, sx + nx):
-    for iy in range(sy, sy + ny):
-      drawhex(ix, iy + 0.5 * (ix % 2))
-
-def numbertohex(n):
-
-  # The hexes in the TSOH maps are numbered as XXYY, where XX is the column number and YY is the row number, in this sense:
-  #
-  #     0201
-  # 0101    0301
-  #     0202
-  # 0102    0302
-  #     0203
-  # 0103    0303
-
-  x = n // 100
-  y = - (n % 100)
-  if x % 2 == 1:
-    y -= 0.5
-  return x, y
-
-def drawhexnumber(n):
-  drawtext(*numbertohex(n), 90, "%04d" % n, dy=0.3, size=7, color="grey")
-
-def drawmapA1():
-  drawhexgrid(11,-16,19,15)
-  for x in range(11,30):
-    for y in range(1,16):
-      drawhexnumber(x * 100 + y)
-
-def drawmapC1():
-  drawhexgrid(51,-16,19,15)
-  for x in range(51,70):
-    for y in range(1,16):
-      drawhexnumber(x * 100 + y)
