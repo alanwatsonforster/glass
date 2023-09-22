@@ -59,8 +59,43 @@ def checkiscenteroredge(x, y):
 
   """
   Raise a ValueError exception if the point (x,y) in hex coordinates does not 
-  correspond to the center of a hex or to (the center of) the edge of a hex
+  correspond to the center of a hex or to (the center of) the edge of a hex.
   """
 
   if not iscenteroredge(x, y):
+    raise ValueError("(%s,%s) is not the center or edge of a hex." % (x,y))
+
+def isvalidfacing(x, y, facing):
+
+  """
+  Return True if facing is a valid facing at the point (x, y) in hex 
+  coordinates, which must correspond to to the center of a hex or to (the 
+  center of) the edge of a hex.
+  """
+
+  checkiscenteroredge(x, y)
+
+  if iscenter(x, y):
+    return facing % 30 == 0
+
+  if x % 2 == 0.5 and y % 1.0 == 0.25:
+    return facing % 180 == 120
+  elif x % 2 == 0.5 and y % 1.0 == 0.75:
+    return facing % 180 == 60
+  elif x % 2 == 1.0 and y % 1 == 0.25:
+    return facing % 180 == 60
+  elif x % 2 == 1.0 and y % 1.0 == 0.75:
+    return facing % 180 == 120
+  else:
+    return facing % 180 == 0
+
+def checkisvalidfacing(x, y, facing):
+
+  """
+  Raise a ValueError exception if facing is not a valid facing at the point 
+  (x, y) in hex coordinates, which must correspond to to the center of a hex or 
+  to (the center of) the edge of a hex.
+  """
+
+  if not isvalidfacing(x, y, facing):
     raise ValueError("(%s,%s) is not the center or edge of a hex." % (x,y))

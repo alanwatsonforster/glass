@@ -1,6 +1,7 @@
-import airpower.draw     as apdraw
 import airpower.altitude as apaltitude
 import airpower.azimuth  as apazimuth
+import airpower.draw     as apdraw
+import airpower.hex      as aphex
 import airpower.hexcode  as aphexcode
 
 import math
@@ -9,13 +10,17 @@ class Aircraft:
 
   def __init__(self, name, hexcode, azimuth, altitude):
 
+    x, y = aphexcode.toxy(hexcode)
+    facing = apazimuth.tofacing(azimuth)
+
     apaltitude._checkaltitude(altitude)
+    aphex.checkisvalidfacing(x, y, facing)
 
     self._turn          = 0
     self._name          = name
-
-    self._x, self._y    = aphexcode.toxy(hexcode)
-    self._facing        = apazimuth.tofacing(azimuth)
+    self._x             = x
+    self._y             = y
+    self._facing        = facing
     self._altitude      = altitude
     self._altitudecarry = 0
     self._destroyed     = False
@@ -350,6 +355,9 @@ class Aircraft:
         break
 
     assert self._ifp <= self._nfp
+    aphex.checkiscenteroredge(self._x, self._y)
+    aphex.checkisvalidfacing(self._x, self._y, self._facing)
+    apaltitude._checkaltitude(self._altitude)
 
     if self._ifp == self._nfp:
 
