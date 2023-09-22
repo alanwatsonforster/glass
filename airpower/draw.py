@@ -5,8 +5,6 @@ import matplotlib.pyplot as plt
 matplotlib.rcParams['figure.figsize'] = [7.5, 10]
 plt.rcParams.update({'font.size': 10})
 
-import airpower.azimuth as apazimuth
-
 def setcanvas(x, y):
   matplotlib.rcParams['figure.figsize'] = [x, y]
   plt.figure()
@@ -78,8 +76,7 @@ def _drawtextinphysical(x, y, facing, s, size=10, dx=0, dy=0, color="black"):
            verticalalignment='center_baseline',
            rotation_mode="anchor")
 
-def _drawcompassinphysical(x, y):
-  facing = apazimuth.tofacing("N")
+def _drawcompassinphysical(x, y, facing):
   _drawdotinphysical(x, y, size=0.3)
   _drawarrowinphysical(x, y, facing, size=0.8, dy=+0.4)
   _drawtextinphysical(x, y, facing, "N", dy=0.95)
@@ -105,8 +102,8 @@ def drawdart(x, y, facing, **kwargs):
 def drawtext(x, y, facing, s, **kwargs):
   _drawtextinphysical(*hextophysical(x, y), facing, s, **kwargs)
 
-def drawcompass(x, y, **kwargs):
-  _drawcompassinphysical(*hextophysical(x, y), **kwargs)
+def drawcompass(x, y, facing, **kwargs):
+  _drawcompassinphysical(*hextophysical(x, y), facing, **kwargs)
 
 def drawflightpath(lastx, lasty, x, y):
   drawline(lastx, lasty, x, y, color="lightgrey", linestyle="dashed", zorder=0.5)

@@ -1,4 +1,5 @@
 import airpower.draw as apdraw
+import airpower.azimuth as apazimuth
 
 import math
 
@@ -10,12 +11,14 @@ plt.rcParams.update({'font.size': 10})
 _maps = []
 _nxmaps = 0
 _nymaps = 0
+_compassrose = None
 
-def setmaps(maps, verbose=True):
+def setmaps(maps, compassrose, verbose=True):
 
   global _maps
   global _nymaps
   global _nxmaps
+  global _compass
 
   # The maps argument follows visual layout, so we need to flip it vertically 
   # so that the lower-left map has indices (0,0).
@@ -26,6 +29,8 @@ def setmaps(maps, verbose=True):
   if verbose:
     for iy in range (0, _nymaps):
       print("%s" % " ".join(maps[iy]))
+
+  _compassrose = compassrose
 
 # x0 and y0 are the hex coordinates of the lower left hex.
 
@@ -143,3 +148,7 @@ def drawmaps():
     for ix in range (0, _nxmaps):
       if _maps[iy][ix] != "--":
         _drawmap(_maps[iy][ix])
+
+  if _compassrose != None:
+    apdraw.drawcompass(*numbertohex(_compassrose), apazimuth.tofacing("N"))
+
