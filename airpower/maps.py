@@ -58,6 +58,28 @@ def _mapy0(map):
   raise ValueError("map %s is not in use." % map)
 
 # xx0 and yy0 are the components of the hex code of the lower left hex.
+
+def maporiginhexcode(map):
+
+  mapletter = map[0]
+  if mapletter == "A":
+    xx = 11
+  elif mapletter == "B":
+    xx = 31
+  elif mapletter == "C":
+    xx = 51
+  else:
+    raise "invalid map %s." % map
+
+  mapnumber = map[1]
+  if mapnumber == "1":
+    yy = 15
+  elif mapnumber == "2":
+    yy = 30
+  else:
+    raise "invalid map %s." % map
+
+  return xx * 100 + yy
   
 def _mapxx0(map):
   mapletter = map[0]
@@ -78,6 +100,9 @@ def _mapyy0(map):
     return 30
   else:
     raise "invalid map %s." % map
+
+def isinuse(map):
+  return map in _mapslist
 
 def isoncenter(n):
 
@@ -105,6 +130,29 @@ def isonedge(n):
     return False
 
   # We should really check that they are adjacent.
+  return True
+
+def split(n):
+  assert isoncenter(n)
+  n = int(n)
+  xx = n // 100
+  yy = n % 100
+  return xx, yy
+
+def isonmap(n, map):
+
+  assert isoncenter(n)
+
+  xx, yy = split(n)
+  xx0, yy0 = split(maporigin(map))
+
+  if xx < xx0 or xx >= xx + 20:
+    return False
+  elif xx % 2 == 1 and yy > yy0 or yy < yy0 - 14:
+    return False
+  elif yy > yy0 + 1 or yy < yy0 - 13:
+    return False
+
   return True
 
 def check(n):
@@ -176,7 +224,7 @@ def fromhexcode(n):
     return 0.5 * (x0 + x1), 0.5 * (y0 + y1)
 
 def _mapfromxy(x, y):
-  aphex.check(x, y)
+  aphex.checkiscenteroredge(x, y)
   for map in _mapslist:
     x0 = _mapx0(map)
     y0 = _mapy0(map)    
@@ -186,9 +234,9 @@ def _mapfromxy(x, y):
 
 def tohexcode(x, y):
 
-  aphex.check(x, y)
+  aphex.checkiscenteroredge(x, y)
 
-  if aphex.isoncenter(x, y):
+  if aphex.iscenter(x, y):
 
     map = _mapfromxy(x, y)
     x0 = _mapx0(map)
