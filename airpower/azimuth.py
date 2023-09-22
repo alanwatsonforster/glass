@@ -1,14 +1,14 @@
 _northfacing = 90
 
-def setnorth(s):
+def setnorth(sense):
   global _northfacing
-  if s == "right":
+  if sense == "right":
     _northfacing = 0
-  elif s == "up":
+  elif sense == "up":
     _northfacing = 90
-  elif s == "left":
+  elif sense == "left":
     _northfacing = 180
-  elif s == "down":
+  elif sense == "down":
     _northfacing = 270
   else:
     raise ValueError("\"%s\" is not a valid orientation.")

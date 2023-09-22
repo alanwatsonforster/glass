@@ -1,7 +1,7 @@
 import airpower.draw     as apdraw
 import airpower.altitude as apaltitude
 import airpower.azimuth  as apazimuth
-import airpower.maps     as apmaps
+import airpower.hexcode  as aphexcode
 
 import math
 
@@ -14,7 +14,7 @@ class Aircraft:
     self._turn          = 0
     self._name          = name
 
-    self._x, self._y    = apmaps.fromhexcode(hexcode)
+    self._x, self._y    = aphexcode.toxy(hexcode)
     self._facing        = apazimuth.tofacing(azimuth)
     self._altitude      = altitude
     self._altitudecarry = 0
@@ -28,7 +28,7 @@ class Aircraft:
   def __str__(self):
     return "%s: %s %02d %s (%+.03f)" % (
       self._name, 
-      apmaps.tohexcode(self._x, self._y), 
+      aphexcode.fromxy(self._x, self._y), 
       self._altitude, 
       apazimuth.toazimuth(self._facing), 
       self._altitudecarry
@@ -53,7 +53,7 @@ class Aircraft:
         
   def _position(self):
     return "%s %d %s" % (
-        apmaps.tohexcode(self._x, self._y),
+        aphexcode.fromxy(self._x, self._y),
         self._altitude,
         apazimuth.toazimuth(self._facing)
       )
