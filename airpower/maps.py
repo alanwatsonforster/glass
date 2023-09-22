@@ -1,5 +1,6 @@
-import airpower.draw as apdraw
 import airpower.azimuth as apazimuth
+import airpower.draw    as apdraw
+import airpower.hex     as aphex
 
 import math
 
@@ -167,32 +168,8 @@ def fromhexcode(n):
 
     return 0.5 * (x0 + x1), 0.5 * (y0 + y1)
 
-def _iscentered(x, y):
-  if x % 2 == 0.0 and y % 1.0 == 0.00:
-    return True
-  elif x % 2 == 1.0 and y % 1.0 == 0.50:
-    return True
-  else:
-    return False
-
-def _isonedge(x, y):
-  if x % 2 == 0.0 and y % 1.0 == 0.50:
-    return True
-  elif x % 2 == 0.5 and y % 0.5 == 0.25:
-    return True
-  elif x % 2 == 1.0 and y % 1.0 == 0.00:
-    return True
-  elif x % 2 == 1.5 and y % 0.5 == 0.25:
-    return True
-  else:
-    return False
-
-def _checkxy(x, y):
-  if not _iscentered(x, y) and not _isonedge(x, y):
-    raise ValueError("invalid hex coordinates (%s,%s)." % (x,y))
-
 def _mapfromxy(x, y):
-  _checkxy(x, y)
+  aphex.check(x, y)
   for map in _mapslist:
     x0 = _mapx0(map)
     y0 = _mapy0(map)    
@@ -202,9 +179,9 @@ def _mapfromxy(x, y):
 
 def tohexcode(x, y):
 
-  _checkxy(x, y)
+  aphex.check(x, y)
 
-  if _iscentered(x, y):
+  if aphex.iscentered(x, y):
 
     map = _mapfromxy(x, y)
     x0 = _mapx0(map)
