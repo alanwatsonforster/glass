@@ -25,6 +25,7 @@ class Aircraft:
     self._facing        = facing
     self._altitude      = altitude
     self._altitudecarry = 0
+    self._speed         = 0
     self._fpcarry       = 0
 
     self._destroyed     = False
@@ -36,7 +37,6 @@ class Aircraft:
     self._drawaircraft("end")
 
     self._reportstartofturn()
-    self._reportposition()
     self._reportendofturn()
 
   def __str__(self):
@@ -71,7 +71,7 @@ class Aircraft:
     if self._turn == 0:
       return ""
     else:
-      return "FP %d of %.1f" % (self._ifp, self._nfp)
+      return "FP %d" % (self._hvfp)
 
   def _report(self, s):
     print("%s: turn %-2d : %s" % (self._name, self._turn, s))
@@ -80,48 +80,54 @@ class Aircraft:
     print()
 
   def _reportposition(self):
-    self._report("%-13s : %-16s : %s" % ("", "", self._formatposition()))
+    self._report("%-5s : %-16s : %s" % ("", "", self._formatposition()))
 
   def _reportactionsandposition(self, action):
-    self._report("%-13s : %-16s : %s" % (self._formatifp(), action, self._formatposition()))
+    self._report("%-5s : %-16s : %s" % (self._formatifp(), action, self._formatposition()))
   
   def _reportevent(self, s):
-    self._report("%-13s : %s" % (self._formatifp(), s))
+    self._report("%-5s : %s" % (self._formatifp(), s))
 
   def _reportstartofturn(self):
-    self._report("--- start of turn %s -- " % self._turn)
+
+    self._report("--- start of turn -- ")
+
+    if self._destroyed:
+      self._report("aircraft has been destroyed.")
+      return
+
+    if self._leftmap:
+      self._report("aircraft has left the map.")
+      return
+
+    if self._turn > 0:
+
+      self._report("speed is %.1f and %.1f FPs available." % (self._speed, self._nfp))
+      self._report("--- ")
+
+    self._reportactionsandposition("")
+
+  def _reportstatus(self):
+
+    if self._destroyed or self._leftmap:
+      return
+
+    self._report("--- ")
+    self._report("%d HFPs, %d VFPs, and %.1f SFPs used." % (self._hfp, self._vfp, self._sfp))
+    self._report("FP carry is %.1f and altitude carry is %s." % (
+      self._fpcarry, apaltitude.formataltitudecarry(self._altitudecarry)
+    ))
 
   def _reportendofturn(self):
-    self._report("--- end of turn %s -- " % self._turn)
+
+    if self._turn > 0:
+
+      altitudeband = apaltitude.altitudeband(self._altitude)
+      if altitudeband!= self._altitudeband:
+        self._report("altitude band changed from %s to %s." % (self._altitudeband, altitudeband))
+
+    self._report("--- end of turn -- ")
     self._reportbreak()
-    
-  def _reportstatus(self, when):
-
-    if when == "start":
-
-      if self._destroyed:
-        self._report("aircraft has been destroyed.")
-        return
-
-      if self._leftmap:
-        self._report("aircraft has left the map.")
-        return
-
-      self._reportactionsandposition("")
-
-    if when != "start":
-       self._reportevent("%d HFPs, %d VFPs, and %.1f SFPs used." % (self._ihfp, self._ivfp, self._sfp))
-
-    if when != "start":
-      self._reportevent("FP carry is %.1f." % (self._nfp - self._ifp))
-      self._reportevent("altitude carry is %s." % apaltitude.formataltitudecarry(self._altitudecarry))
-
-    altitudeband = apaltitude.altitudeband(self._altitude)
-    if when == "start":
-      self._initialaltitudeband = altitudeband
-    elif when == "end":
-      if altitudeband!= self._initialaltitudeband:
-        self._report("altitude band changed from %s to %s." % (self._initialaltitudeband, altitudeband))
 
   #############################################################################
 
@@ -156,11 +162,10 @@ class Aircraft:
   def _S(self, sfp):
     if self._sfp != 0:
       raise ValueError("speedbrakes can only be used once per turn.")
-    fpremaining = self._nfp - self._ifp
-    if sfp > fpremaining:
-      raise ValueError("attempt to use speedbrakes to eliminate %s FPs but only %s are remaining." % (sfp, fpremaining))
+    fp = self._nfp - self._hvfp
+    if sfp > fp:
+      raise ValueError("attempt to use speedbrakes to eliminate %s FPs but only %s are remaining." % (sfp, fp))
     self._sfp = sfp
-    self._nfp -= sfp
 
   def _getelementdispatchlist(self):
   
@@ -276,6 +281,7 @@ class Aircraft:
     self._facing, \
     self._altitude, \
     self._altitudecarry, \
+    self._speed, \
     self._fpcarry, \
     self._destroyed, \
     self._leftmap \
@@ -290,6 +296,7 @@ class Aircraft:
       self._facing, \
       self._altitude, \
       self._altitudecarry, \
+      self._speed, \
       self._fpcarry, \
       self._destroyed, \
       self._leftmap, \
@@ -305,15 +312,16 @@ class Aircraft:
 
     self._restore(turn - 1)
 
-    self._turn = turn
-    self._ifp  = 0
-    self._ihfp = 0
-    self._ivfp = 0
-    self._sfp  = 0
-    self._nfp  = speed + self._fpcarry
+    self._turn  = turn
+    self._hvfp  = 0
+    self._hfp   = 0
+    self._vfp   = 0
+    self._sfp   = 0
+    self._speed = speed
+    self._nfp   = speed + self._fpcarry
+    self._altitudeband = apaltitude.altitudeband(self._altitude)
 
     self._reportstartofturn()
-    self._reportstatus("start")
 
     if self._destroyed or self._leftmap:
         self._reportendofturn()
@@ -330,15 +338,15 @@ class Aircraft:
 
     for action in actions.split(","):
 
-      self._ifp = self._ifp + 1
-
-      if self._ifp > self._nfp:
+      if self._hvfp + self._sfp + 1 > self._nfp:
         raise ValueError("only %d FPs are available." % self._nfp)
+    
+      self._hvfp += 1
 
       if action[0] == 'H':
-        self._ihfp = self._ihfp + 1
+        self._hfp += 1
       elif action[0] == 'D' or action[0] == 'C':
-        self._ivfp = self._ivfp + 1
+        self._vfp += 1
       else:
         raise ValueError("action %s does not begin with H, D, or C." % action)
 
@@ -380,7 +388,7 @@ class Aircraft:
       if self._destroyed:
         break
 
-    assert self._ifp <= self._nfp
+    assert self._hvfp + self._sfp <= self._nfp
     assert aphex.isvalidposition(self._x, self._y)
     assert aphex.isvalidfacing(self._x, self._y, self._facing)
     assert apaltitude.isvalidaltitude(self._altitude)
@@ -388,16 +396,16 @@ class Aircraft:
     if self._destroyed or self._leftmap:
       self._fpcarry = 0
     else:
-      self._fpcarry = self._nfp - self._ifp
+      self._fpcarry = self._nfp - self._hvfp - self._sfp
 
-    if self._ifp + 1 > self._nfp or self._destroyed or self._leftmap:
+    if self._hvfp + self._sfp + 1 > self._nfp or self._destroyed or self._leftmap:
 
-      self._reportstatus("end")
+      self._reportstatus()
+      self._reportendofturn()
       self._drawaircraft("end")
       self._save(self._turn)
-      self._reportendofturn()
       
     else:
       
-      self._reportstatus("next")
+      self._reportstatus()
       self._drawaircraft("next")
