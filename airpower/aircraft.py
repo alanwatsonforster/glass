@@ -25,6 +25,7 @@ class Aircraft:
     self._facing        = facing
     self._altitude      = altitude
     self._altitudecarry = 0
+    self._fpcarry       = 0
 
     self._destroyed     = False
     self._leftmap       = False
@@ -96,11 +97,20 @@ class Aircraft:
     
   def _reportstatus(self, when):
 
+    if when == "start":
+
+      if self._destroyed:
+        self._report("aircraft has been destroyed.")
+        return
+
+      if self._leftmap:
+        self._report("aircraft has left the map.")
+        return
+
+      self._reportactionsandposition("")
+
     if when != "start":
        self._reportevent("%d HFPs, %d VFPs, and %.1f SFPs used." % (self._ihfp, self._ivfp, self._sfp))
-
-    if when == "start":
-      self._reportactionsandposition("")
 
     if when != "start":
       self._reportevent("FP carry is %.1f." % (self._nfp - self._ifp))
@@ -261,44 +271,55 @@ class Aircraft:
   # Turn management
   
   def _restore(self, i):
-    self._x, self._y, self._facing, self._altitude, self._altitudecarry, self._destroyed, self._leftmap = self._saved[i]
+    self._x, \
+    self._y, \
+    self._facing, \
+    self._altitude, \
+    self._altitudecarry, \
+    self._fpcarry, \
+    self._destroyed, \
+    self._leftmap \
+    = self._saved[i]
 
   def _save(self, i):
     if len(self._saved) == i:
       self._saved.append(None)
-    self._saved[i] = (self._x, self._y, self._facing, self._altitude, self._altitudecarry, self._destroyed, self._leftmap)
+    self._saved[i] = ( \
+      self._x, \
+      self._y, \
+      self._facing, \
+      self._altitude, \
+      self._altitudecarry, \
+      self._fpcarry, \
+      self._destroyed, \
+      self._leftmap, \
+    )
 
   def _maxprevturn(self):
     return len(self._saved) - 1
 
-  def start(self, turn, nfp, actions):
+  def start(self, turn, speed, actions):
 
     if turn > self._maxprevturn() + 1:
       raise ValueError("turn %d is out of sequence." % turn)
 
-    self._turn = turn
-    self._nfp = nfp
-    self._ifp = 0
-    self._ihfp = 0
-    self._ivfp = 0
-    self._sfp = 0
     self._restore(turn - 1)
 
+    self._turn = turn
+    self._ifp  = 0
+    self._ihfp = 0
+    self._ivfp = 0
+    self._sfp  = 0
+    self._nfp  = speed + self._fpcarry
+
     self._reportstartofturn()
-    if self._destroyed:
-        self._report("aircraft has been destroyed.")
+    self._reportstatus("start")
+
+    if self._destroyed or self._leftmap:
         self._reportendofturn()
         self._save(self._turn)
         return
  
-    if self._leftmap:
-        self._report("aircraft has left the map.")
-        self._reportendofturn()
-        self._save(self._turn)
-        return
-  
-    self._reportstatus("start")
-
     if actions != "":
       self.next(actions)
 
@@ -363,6 +384,11 @@ class Aircraft:
     assert aphex.isvalidposition(self._x, self._y)
     assert aphex.isvalidfacing(self._x, self._y, self._facing)
     assert apaltitude.isvalidaltitude(self._altitude)
+
+    if self._destroyed or self._leftmap:
+      self._fpcarry = 0
+    else:
+      self._fpcarry = self._nfp - self._ifp
 
     if self._ifp + 1 > self._nfp or self._destroyed or self._leftmap:
 
