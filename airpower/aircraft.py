@@ -117,24 +117,31 @@ class Aircraft:
 
   # Elements
 
+  def _A(self, what):
+    self._reportevent("attack with %s." % what)
+
+  def _C(self, altitudechange):
+    self._altitude, self._altitudecarry = apaltitude.adjustaltitude(self._altitude, self._altitudecarry, +altitudechange)
+
+  def _D(self, altitudechange):
+    self._altitude, self._altitudecarry = apaltitude.adjustaltitude(self._altitude, self._altitudecarry, -altitudechange)
+
   def _H(self):
     self._x, self._y = aphex.nextposition(self._x, self._y, self._facing)
 
-  def _R(self, facingchange):
-    if aphex.isedgeposition(self._x, self._y):
-      self._x, self._y = aphex.centertoright(self._x, self._y, self._facing)
-    self._facing = (self._facing - facingchange) % 360
+  def _K(self):
+    self._reportevent("aircraft has been killed.")
+    self._destroyed = True
 
   def _L(self, facingchange):
     if aphex.isedgeposition(self._x, self._y):
       self._x, self._y = aphex.centertoleft(self._x, self._y, self._facing)
     self._facing = (self._facing + facingchange) % 360
 
-  def _D(self, altitudechange):
-    self._altitude, self._altitudecarry = apaltitude.adjustaltitude(self._altitude, self._altitudecarry, -altitudechange)
-
-  def _C(self, altitudechange):
-    self._altitude, self._altitudecarry = apaltitude.adjustaltitude(self._altitude, self._altitudecarry, +altitudechange)
+  def _R(self, facingchange):
+    if aphex.isedgeposition(self._x, self._y):
+      self._x, self._y = aphex.centertoright(self._x, self._y, self._facing)
+    self._facing = (self._facing - facingchange) % 360
 
   def _S(self, sfp):
     if self._sfp != 0:
@@ -144,13 +151,6 @@ class Aircraft:
       raise ValueError("attempt to use speedbrakes to eliminate %s FPs but only %s are remaining." % (sfp, fpremaining))
     self._sfp = sfp
     self._nfp -= sfp
-
-  def _K(self):
-    self._reportevent("aircraft has been killed.")
-    self._destroyed = True
-
-  def _A(self, what):
-    self._reportevent("attack with %s." % what)
 
   def _getelementdispatchlist(self):
   
@@ -230,14 +230,14 @@ class Aircraft:
       ["SS"  , lambda: self._S(1)   , lambda: None],
       ["S"   , lambda: self._S(1/2) , lambda: None],
 
-      ["K"   , lambda : None        , lambda: self._K()],
+      ["/"   , lambda : None        , lambda: None],
 
       ["AGN" , lambda : None        , lambda: self._A("guns")],
       ["AGP" , lambda : None        , lambda: self._A("gun pod")],
       ["ARK" , lambda : None        , lambda: self._A("rockets")],
       ["ARP" , lambda : None        , lambda: self._A("rocket pods")],
 
-      ["/"   , lambda : None        , lambda: None]
+      ["K"   , lambda : None        , lambda: self._K()],
 
     ]
 
