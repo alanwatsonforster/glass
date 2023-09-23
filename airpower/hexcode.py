@@ -1,5 +1,5 @@
-import airpower.hex  as aphex
-import airpower.map  as apmap
+import airpower.hex as aphex
+import airpower.map as apmap
 
 def _split(h):
 
@@ -123,9 +123,9 @@ def fromxy(x, y):
 
   if aphex.iscenter(x, y):
 
-    map = apmap.fromxy(x, y)
-    x0, y0 = apmap.maporigin(map)
-    XX0, YY0 = _split(maporigin(map))
+    sheet = apmap.tosheet(x, y)
+    x0, y0 = apmap.sheetorigin(sheet)
+    XX0, YY0 = _split(sheetorigin(sheet))
     XX = XX0 + (x - x0)
     YY = YY0 - (y - y0)
     if XX % 2 == 0:
@@ -168,9 +168,9 @@ def toxy(h):
 
     XX, YY = _split(h)
 
-    map = tomap(h)
-    XX0, YY0 = _split(maporigin(map))
-    x0, y0 = apmap.maporigin(map)
+    sheet = tosheet(h)
+    XX0, YY0 = _split(sheetorigin(sheet))
+    x0, y0 = apmap.sheetorigin(sheet)
 
     dx = XX - XX0
     dy = YY0 - YY
@@ -187,43 +187,43 @@ def toxy(h):
 
     return 0.5 * (x0 + x1), 0.5 * (y0 + y1)
 
-def maporigin(map):
+def sheetorigin(sheet):
 
   """
-  Return the hex code of the center of the lower left hex in the specified map.
+  Return the hex code of the center of the lower left hex in the specified sheet.
   """
 
-  mapletter = map[0]
-  if mapletter == "A":
+  sheetletter = sheet[0]
+  if sheetletter == "A":
     XX = 11
-  elif mapletter == "B":
+  elif sheetletter == "B":
     XX = 31
-  elif mapletter == "C":
+  elif sheetletter == "C":
     XX = 51
   else:
-    raise "invalid map %s." % map
+    raise "invalid sheet %s." % sheet
 
-  mapnumber = map[1]
-  if mapnumber == "1":
+  sheetnumber = sheet[1]
+  if sheetnumber == "1":
     YY = 15
-  elif mapnumber == "2":
+  elif sheetnumber == "2":
     YY = 30
   else:
-    raise "invalid map %s." % map
+    raise "invalid sheet %s." % sheet
 
   return _join(XX, YY)
 
-def isonmap(h, map):
+def isonsheet(h, sheet):
 
   """
-  Return True if the hex code h is on the specified map. The hex code must
+  Return True if the hex code h is on the specified sheet. The hex code must
   correspond to the center of a hex, not an edge.
   """
 
   checkisvalidhexcodeforcenter(h)
 
   XX, YY = _split(h)
-  XX0, YY0 = _split(maporigin(map))
+  XX0, YY0 = _split(sheetorigin(sheet))
 
   if XX < XX0 or XX >= XX + 20:
     return False
@@ -235,10 +235,10 @@ def isonmap(h, map):
   return True
 
 
-def tomap(h):
+def tosheet(h):
 
   """
-  Returns the map containing the hex code h, which must refer to a hex center.
+  Returns the sheet containing the hex code h, which must refer to a hex center.
   """
 
   checkisvalidhexcodeforcenter(h)
@@ -246,35 +246,35 @@ def tomap(h):
   XX, YY = _split(h)
 
   if 11 <= XX and XX <= 30:
-    mapletter = "A"
+    sheetletter = "A"
   elif 31 <= XX and XX <= 50:
-    mapletter = "B"
+    sheetletter = "B"
   elif 51 <= XX and XX <= 70:
-    mapletter = "C"
+    sheetletter = "C"
   else:
     raise ValueError("invalid hex code %d." % h)
 
   if XX % 2 == 1 and 1 <= YY and YY <= 15:
-    mapnumber = "1"
+    sheetnumber = "1"
   elif XX % 2 == 0 and 2 <= YY and YY <= 16:
-    mapnumber = "1"
+    sheetnumber = "1"
   elif XX % 2 == 1 and 16 <= YY and YY <= 30:
-    mapnumber = "2"
+    sheetnumber = "2"
   elif XX % 2 == 0 and 17 <= YY and YY <= 31:
-    mapnumber = "2"
+    sheetnumber = "2"
   else:
     raise ValueError("invalid hex code %d." % h)
 
-  return mapletter + mapnumber
+  return sheetletter + sheetnumber
 
-def hexcodes(map):
+def hexcodes(sheet):
 
   """
   Return a list of the hex codes of the centers of the hexes on the specified
-  map.
+  sheet.
   """
 
-  XX0, YY0 = _split(maporigin(map))
+  XX0, YY0 = _split(sheetorigin(sheet))
 
   hexcodes = []
   for XX in range(XX0, XX0 + 20):

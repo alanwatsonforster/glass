@@ -34,7 +34,7 @@ class Aircraft:
   def __str__(self):
     return "%s: %s %02d %s (%+.03f)" % (
       self._name, 
-      aphexcode.fromxy(self._x, self._y), 
+      apmap.tosheet(self._x, self._y), 
       self._altitude, 
       apazimuth.fromfacing(self._facing), 
       self._altitudecarry
@@ -59,7 +59,7 @@ class Aircraft:
         
   def _position(self):
     return "%2s %-9s  %-3s  %2d" % (
-        apmap.fromxy(self._x, self._y),
+        apmap.tosheet(self._x, self._y),
         aphexcode.fromxy(self._x, self._y),
         apazimuth.fromfacing(self._facing),
         self._altitude
