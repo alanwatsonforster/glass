@@ -355,9 +355,9 @@ class Aircraft:
         break
 
     assert self._ifp <= self._nfp
-    aphex.checkisvalidposition(self._x, self._y)
-    aphex.checkisvalidfacing(self._x, self._y, self._facing)
-    apaltitude.checkisvalidaltitude(self._altitude)
+    assert aphex.isvalidposition(self._x, self._y)
+    assert aphex.isvalidfacing(self._x, self._y, self._facing)
+    assert apaltitude.isvalidaltitude(self._altitude)
 
     if self._ifp == self._nfp:
 
