@@ -36,7 +36,7 @@ class Aircraft:
       self._name, 
       aphexcode.fromxy(self._x, self._y), 
       self._altitude, 
-      apazimuth.toazimuth(self._facing), 
+      apazimuth.fromfacing(self._facing), 
       self._altitudecarry
     )
 
@@ -61,7 +61,7 @@ class Aircraft:
     return "%2s %-9s  %-3s  %2d" % (
         apmaps.fromxy(self._x, self._y),
         aphexcode.fromxy(self._x, self._y),
-        apazimuth.toazimuth(self._facing),
+        apazimuth.fromfacing(self._facing),
         self._altitude
       )
 

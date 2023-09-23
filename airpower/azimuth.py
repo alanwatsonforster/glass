@@ -29,7 +29,7 @@ def tofacing(azimuth):
     raise ValueError("use azimuth \"%s\" instead of \"%s\"" % (superseded[azimuth], azimuth))
   return (_northfacing - azimuth) % 360
 
-def toazimuth(facing):
+def fromfacing(facing):
   azimuth = (_northfacing - facing) % 360
   if azimuth % 30 == 0:
     named = ["N", "NNE", "ENE", "E", "ESE", "SSE", "S", "SSW", "WSW", "W", "WNW", "NNW"]
