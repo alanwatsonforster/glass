@@ -3,6 +3,7 @@ import airpower.azimuth  as apazimuth
 import airpower.draw     as apdraw
 import airpower.hex      as aphex
 import airpower.hexcode  as aphexcode
+import airpower.maps     as apmaps
 
 import math
 
@@ -57,7 +58,8 @@ class Aircraft:
     apdraw.drawaircraft(self._x, self._y, self._facing, self._name, self._altitude, when)
         
   def _position(self):
-    return "%-9s  %-3s  %2d" % (
+    return "%2s %-9s  %-3s  %2d" % (
+        apmaps.fromxy(self._x, self._y),
         aphexcode.fromxy(self._x, self._y),
         apazimuth.toazimuth(self._facing),
         self._altitude
