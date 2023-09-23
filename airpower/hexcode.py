@@ -7,7 +7,7 @@ def _split(h):
   Split the hex code h of the form XXYY and return XX and YY as integers.
   """
 
-  assert isoncenter(h)
+  assert isvalidhexcodeforcenter(h)
 
   h = int(h)
   XX = h // 100
@@ -20,7 +20,10 @@ def _join(XX, YY):
   Return the hex code XXYY corresponding to the integers XX and YY.
   """
 
-  return 100 * XX + YY
+  assert 10 <= XX and XX <= 99 and XX % 1 == 0
+  assert  1 <= YY and YY <= 99 and YY % 1 == 0
+
+  return int(100 * XX + YY)
 
 def _inrange(h):
 
@@ -29,9 +32,11 @@ def _inrange(h):
   Otherwise return False.
   """
 
+  # Hex codes must have four figures and must not have leading zeros.
+
   return 1000 <= h and h <= 9999
 
-def isoncenter(h):
+def isvalidhexcodeforcenter(h):
 
   """
   Return True if h is grammatically a hex code that corresponds to a hex 
@@ -49,7 +54,17 @@ def isoncenter(h):
 
   return False
 
-def isonedge(h):
+def checkisvalidhexcodeforcenter(h):
+
+  """
+  Raise a ValueError exception if h is not a gramatically valid hex code that
+  corresponds to a hex center.
+  """
+
+  if not isvalidhexcodeforcenter(h):
+    raise ValueError("%s is not a valid hex code for a hex center." % h)
+
+def isvalidhexcodeforedge(h):
 
   """
   Return True if h is grammatically a hex code that corresponds to (the center 
@@ -71,13 +86,31 @@ def isonedge(h):
 
   return True
 
-def check(h):
+def checkvalidhexcodeforedge(h):
+
+  """
+  Raise a ValueError exception if h is not a gramatically valid hex code that
+  corresponds to (the center of) the edge of a hex.
+  """
+
+  if not isvalidhexcodeforedge(h):
+    raise ValueError("%s is not a valid hex code for a hex edge." % h)
+
+def isvalidhexcode(h):
+
+  """
+  Return True if h is a grammatically valid hex code. Otherwise return False.
+  """
+
+  return isvalidhexcodeforcenter(h) or isvalidhexcodeforedge(h)
+
+def checkisvalidhexcode(h):
 
   """
   Raise a ValueError exception if h is not a gramatically valid hex code.
   """
 
-  if not isoncenter(h) and not isonedge(h):
+  if not isvalidhexcode(h):
     raise ValueError("%s is not a valid hex code." % h)
 
 def fromxy(x, y):
@@ -129,9 +162,9 @@ def toxy(h):
   Return the hex coordinate (x, y) corresponding to the hex code h.
   """
 
-  check(h)
+  checkisvalidhexcode(h)
 
-  if isoncenter(h):
+  if isvalidhexcodeforcenter(h):
 
     XX, YY = _split(h)
 
@@ -187,7 +220,7 @@ def isonmap(h, map):
   correspond to the center of a hex, not an edge.
   """
 
-  assert isoncenter(h)
+  checkisvalidhexcodeforcenter(h)
 
   XX, YY = _split(h)
   XX0, YY0 = _split(maporigin(map))
@@ -208,7 +241,7 @@ def tomap(h):
   Returns the map containing the hex code h, which must refer to a hex center.
   """
 
-  assert isoncenter(h)
+  checkisvalidhexcodeforcenter(h)
 
   XX, YY = _split(h)
 
