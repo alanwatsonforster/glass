@@ -24,22 +24,21 @@ class Aircraft:
     self._facing        = facing
     self._altitude      = altitude
     self._altitudecarry = 0
+    self._ifp           = None
     self._destroyed     = False
     self._leftmap       = False
 
     self._saved = []
     self._save(0)
-  
+
     self._drawaircraft("end")
 
+    self._reportstartofturn()
+    self._reportposition()
+    self._reportendofturn()
+
   def __str__(self):
-    return "%s: %s %02d %s (%+.03f)" % (
-      self._name, 
-      apmap.tosheet(self._x, self._y), 
-      self._altitude, 
-      apazimuth.fromfacing(self._facing), 
-      self._altitudecarry
-    )
+    return "[name: %s]" % self._name
 
   def _restore(self, i):
     self._x, self._y, self._facing, self._altitude, self._altitudecarry, self._destroyed, self._leftmap = self._saved[i]
@@ -58,7 +57,7 @@ class Aircraft:
   def _drawaircraft(self, when):
     apdraw.drawaircraft(self._x, self._y, self._facing, self._name, self._altitude, when)
         
-  def _position(self):
+  def _formatposition(self):
     if apmap.isonmap(self._x, self._y):
       sheet = apmap.tosheet(self._x, self._y)
       hexcode = aphexcode.fromxy(self._x, self._y)
@@ -69,31 +68,46 @@ class Aircraft:
     altitude = self._altitude
     return "%2s %-9s  %-3s  %2d" % (sheet, hexcode, azimuth, altitude)
 
+  def _formatifp(self):
+    if self._turn == 0:
+      return ""
+    else:
+      return "FP %d of %d" % (self._ifp, self._nfp)
+
   def _report(self, s):
-    print("%s: turn %d: %s" % (self._name, self._turn, s))
+    print("%s: turn %-2d : %s" % (self._name, self._turn, s))
 
-  def _reportfp(self, s):
-    print("%s: turn %d: FP %d of %d: %s" % (self._name, self._turn, self._ifp, self._nfp, s))
+  def _reportbreak(self):
+    print()
 
-  def _reportposition(self, s):
-      self._reportfp("%-16s : %s" % (s, self._position()))
+  def _reportposition(self):
+    self._report("%-11s : %-16s : %s" % ("", "", self._formatposition()))
 
-  def _reportactionandposition(self, action):
-    self._reportposition(action)
+  def _reportactionsandposition(self, action):
+    self._report("%-11s : %-16s : %s" % (self._formatifp(), action, self._formatposition()))
+  
+  def _reportevent(self, s):
+    self._report("%-11s : %s" % (self._formatifp(), s))
 
+  def _reportstartofturn(self):
+    self._report("--- start of turn %s -- " % self._turn)
+
+  def _reportendofturn(self):
+    self._report("--- end of turn %s -- " % self._turn)
+    self._reportbreak()
+    
   def _reportstatus(self, when):
 
     if when != "start":
-       self._report("%d HFPs and %d VFPs used." % (self._ihfp, self._ivfp))
-
-    altitudeband = apaltitude.altitudeband(self._altitude)
+       self._reportevent("%d HFPs and %d VFPs used." % (self._ihfp, self._ivfp))
 
     if when == "start":
-      self._reportposition("")
+      self._reportactionsandposition("")
 
     if when != "start":
-      self._report("altitude carry is %s." % apaltitude.formataltitudecarry(self._altitudecarry))
+      self._reportevent("altitude carry is %s." % apaltitude.formataltitudecarry(self._altitudecarry))
 
+    altitudeband = apaltitude.altitudeband(self._altitude)
     if when == "start":
       self._initialaltitudeband = altitudeband
     elif when == "end":
@@ -189,23 +203,23 @@ class Aircraft:
     self._altitude, self._altitudecarry = apaltitude.adjustaltitude(self._altitude, self._altitudecarry, +altitudechange)
 
   def _K(self):
-    self._reportfp("aircraft has been killed.")
+    self._reportevent("aircraft has been killed.")
     self._destroyed = True
 
   def _A(self, what):
-    self._reportfp("attack with %s." % what)
+    self._reportevent("attack with %s." % what)
 
   def checkforterraincollision(self):
     altitudeofterrain = apaltitude.terrainaltitude()
     if self._altitude <= altitudeofterrain:
       self._altitude = altitudeofterrain
       self._altitudecarry = 0
-      self._reportfp("aircraft has collided with terrain at altitude %d." % altitudeofterrain)
+      self._reportevent("aircraft has collided with terrain at altitude %d." % altitudeofterrain)
       self._destroyed = True
 
   def checkforleavingmap(self):
     if not apmap.iswithinmap(self._x, self._y):
-      self._report("aircraft has left the map.")
+      self._reportevent("aircraft has left the map.")
       self._leftmap = True
   
   def start(self, turn, nfp, actions):
@@ -220,20 +234,19 @@ class Aircraft:
     self._ivfp = 0
     self._restore(turn - 1)
 
-    self._report("--- start of turn ---")
-
+    self._reportstartofturn()
     if self._destroyed:
         self._report("aircraft has been destroyed.")
-        self._report("--- end of turn ---")
+        self._reportendofturn()
         self._save(self._turn)
         return
  
     if self._leftmap:
         self._report("aircraft has left the map.")
-        self._report("--- end of turn ---")
+        self._reportendofturn()
         self._save(self._turn)
         return
- 
+  
     self._reportstatus("start")
 
     if actions != "":
@@ -320,7 +333,6 @@ class Aircraft:
     if self._destroyed or self._leftmap:
       return
 
-
     for action in actions.split(","):
 
       self._ifp = self._ifp + 1
@@ -349,7 +361,7 @@ class Aircraft:
         else:
           raise ValueError("unknown element %s in action %s." % (a, action))
 
-      self._reportactionandposition(action)
+      self._reportactionsandposition(action)
       self._drawflightpath(lastx, lasty)
 
       self.checkforterraincollision()
@@ -369,7 +381,6 @@ class Aircraft:
           raise ValueError("unknown element %s in action %s." % (a, action))
 
       if self._destroyed:
-        self._report("aircraft has been destroyed.")
         break
 
     assert self._ifp <= self._nfp
@@ -382,7 +393,7 @@ class Aircraft:
       self._reportstatus("end")
       self._drawaircraft("end")
       self._save(self._turn)
-      self._report("--- end of turn ---")
+      self._reportendofturn()
       
     else:
       
