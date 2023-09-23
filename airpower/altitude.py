@@ -1,13 +1,28 @@
-import math
-
 # _altitudequantum must be 1 over an integral power of 2.
 _altitudequantum = 1/8
 
-def _checkaltitude(altitude):
-  if not isinstance(altitude, (int, float)) or altitude % 1 != 0 or altitude < 1:
-    raise ValueError("invalid altitude %s." % altitude)
+def isvalidaltitude(altitude):
 
-def _adjustaltitude(altitude, altitudecarry, altitudechange):
+  """
+  Return True if altitude is a valid altitude.
+  """
+  return isinstance(altitude, (int, float)) and altitude % 1 == 0 and altitude >= 0
+
+def checkisvalidaltitude(altitude):
+
+  """
+  Raise a ValueError exception if z is not a valid altitude.
+  """
+
+  if not isvalidaltitude(altitude):
+    raise ValueError("%s is not a valid altitude." % altitude)
+
+def adjustaltitude(altitude, altitudecarry, altitudechange):
+
+    """
+    Adjust altitude by altitudechange, taking into account altitudecarry. 
+    Return the new altitude and altitudecarry. 
+    """
 
     # Here we do altitude arithmetic, ensuring that _altitude stays as an
     # non-negative integer and keeping track of fractions in _altitudecarry. 
@@ -19,9 +34,9 @@ def _adjustaltitude(altitude, altitudecarry, altitudechange):
 
     altitude = altitude + altitudecarry + altitudechange
     if altitudechange >= 0:
-      altitudecarry = altitude - math.floor(altitude)
+      altitudecarry = altitude % +1
     else:
-      altitudecarry = altitude - math.ceil(altitude)
+      altitudecarry = altitude % -1
     altitude = altitude - altitudecarry
 
     if altitude < 0:
@@ -33,7 +48,11 @@ def _adjustaltitude(altitude, altitudecarry, altitudechange):
 
     return altitude, altitudecarry
 
-def _formataltitudecarry(altitudecarry):
+def formataltitudecarry(altitudecarry):
+
+  """
+  Return altitudecarry formatted as a signed fraction.
+  """
 
   assert abs(altitudecarry) < 1 and altitudecarry % _altitudequantum == 0
 
@@ -48,7 +67,11 @@ def _formataltitudecarry(altitudecarry):
     m = m / 2
   return "%+d/%d" % (n, m)
   
-def _altitudeband(altitude):
+def altitudeband(altitude):
+
+  """
+  Return the altitude band corresponding to altitude.
+  """
 
   assert altitude % 1 == 0 and altitude >= 0
 
@@ -67,6 +90,10 @@ def _altitudeband(altitude):
   else:
     return "UH"
 
-def _altitudeofterrain():
-  return 0
+def terrainaltitude():
 
+  """
+  Return the altitude of the terrain.
+  """
+
+  return 0

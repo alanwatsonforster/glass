@@ -13,7 +13,7 @@ class Aircraft:
     x, y = aphexcode.toxy(hexcode)
     facing = apazimuth.tofacing(azimuth)
 
-    apaltitude._checkaltitude(altitude)
+    apaltitude.checkisvalidaltitude(altitude)
     aphex.checkisvalidfacing(x, y, facing)
 
     self._turn          = 0
@@ -80,13 +80,13 @@ class Aircraft:
     if when != "start":
        self._report("%d HFPs and %d VFPs used." % (self._ihfp, self._ivfp))
 
-    altitudeband = apaltitude._altitudeband(self._altitude)
+    altitudeband = apaltitude.altitudeband(self._altitude)
 
     if when == "start":
       self._reportposition("")
 
     if when != "start":
-      self._report("altitude carry is %s." % apaltitude._formataltitudecarry(self._altitudecarry))
+      self._report("altitude carry is %s." % apaltitude.formataltitudecarry(self._altitudecarry))
 
     if when == "start":
       self._initialaltitudeband = altitudeband
@@ -177,10 +177,10 @@ class Aircraft:
     self._facing = (self._facing + facingchange) % 360
 
   def _D(self, altitudechange):
-    self._altitude, self._altitudecarry = apaltitude._adjustaltitude(self._altitude, self._altitudecarry, -altitudechange)
+    self._altitude, self._altitudecarry = apaltitude.adjustaltitude(self._altitude, self._altitudecarry, -altitudechange)
 
   def _C(self, altitudechange):
-    self._altitude, self._altitudecarry = apaltitude._adjustaltitude(self._altitude, self._altitudecarry, +altitudechange)
+    self._altitude, self._altitudecarry = apaltitude.adjustaltitude(self._altitude, self._altitudecarry, +altitudechange)
 
   def _K(self):
     self._reportfp("killed.")
@@ -190,7 +190,7 @@ class Aircraft:
     self._reportfp("attack with %s." % what)
 
   def checkforterraincollision(self):
-    altitudeofterrain = apaltitude._altitudeofterrain()
+    altitudeofterrain = apaltitude.terrainaltitude()
     if self._altitude <= altitudeofterrain:
       self._altitude = altitudeofterrain
       self._altitudecarry = 0
@@ -357,7 +357,7 @@ class Aircraft:
     assert self._ifp <= self._nfp
     aphex.checkiscenteroredge(self._x, self._y)
     aphex.checkisvalidfacing(self._x, self._y, self._facing)
-    apaltitude._checkaltitude(self._altitude)
+    apaltitude.checkisvalidaltitude(self._altitude)
 
     if self._ifp == self._nfp:
 
