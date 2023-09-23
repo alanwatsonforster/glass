@@ -1,5 +1,5 @@
 import airpower.hex  as aphex
-import airpower.maps as apmaps
+import airpower.map  as apmap
 
 def _split(h):
 
@@ -123,8 +123,8 @@ def fromxy(x, y):
 
   if aphex.iscenter(x, y):
 
-    map = apmaps.fromxy(x, y)
-    x0, y0 = apmaps.maporigin(map)
+    map = apmap.fromxy(x, y)
+    x0, y0 = apmap.maporigin(map)
     XX0, YY0 = _split(maporigin(map))
     XX = XX0 + (x - x0)
     YY = YY0 - (y - y0)
@@ -170,7 +170,7 @@ def toxy(h):
 
     map = tomap(h)
     XX0, YY0 = _split(maporigin(map))
-    x0, y0 = apmaps.maporigin(map)
+    x0, y0 = apmap.maporigin(map)
 
     dx = XX - XX0
     dy = YY0 - YY

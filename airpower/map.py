@@ -14,10 +14,10 @@ _compassrose = None
 _dxmap = 20
 _dymap = 15
 
-def setmaps(mapsgrid, compassrose, verbose=True):
+def setmap(mapsgrid, compassrose, verbose=True):
 
   """
-  Set the arrangement of the maps and the position of the compass rose.
+  Set the arrangement of the map sheets and the position of the compass rose.
   """
 
   global _mapsgrid
@@ -44,10 +44,10 @@ def setmaps(mapsgrid, compassrose, verbose=True):
 
   _compassrose = compassrose
 
-def drawmaps():
+def drawmap():
 
   """
-  Draw the maps.
+  Draw the map.
   """
 
   apdraw.setcanvas(_nxmaps * _dxmap, _nymaps * math.sqrt(3/4) * _dymap)
