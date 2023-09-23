@@ -57,10 +57,10 @@ class Aircraft:
     apdraw.drawaircraft(self._x, self._y, self._facing, self._name, self._altitude, when)
         
   def _position(self):
-    return "%s %d %s" % (
+    return "%-9s  %-3s  %2d" % (
         aphexcode.fromxy(self._x, self._y),
-        self._altitude,
-        apazimuth.toazimuth(self._facing)
+        apazimuth.toazimuth(self._facing),
+        self._altitude
       )
 
   def _report(self, s):
