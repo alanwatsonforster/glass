@@ -60,7 +60,7 @@ def drawmaps():
       x, y = aphexcode.toxy(hexcode)
       apdraw.drawhex(x, y)
       apdraw.drawtext(x, y, 90, "%d" % hexcode, dy=0.3, size=7, color="grey")
-
+        
     xmin, ymin, xmax, ymax = maplimits(map)
     apdraw.drawline(xmin, ymin, xmin, ymax, color="grey")
     apdraw.drawline(xmax, ymin, xmax, ymax, color="grey")
@@ -73,6 +73,24 @@ def drawmaps():
   if _compassrose != None:
     apdraw.drawcompass(*aphexcode.toxy(_compassrose), apazimuth.tofacing("N"))
 
+def _dotmap(map):
+
+  """
+  Draw dots on all of the hex positions in the specified map that are not on
+  the edge.
+  """
+
+  x0, y0 = maporigin(map)
+  for ix in range(-2,40):
+    x = x0 + ix / 2
+    if x % 1 == 0:
+      dy = 0
+    else:
+      dy = 0.25
+    for iy in range(-2, 60):
+      y = y0 + iy / 2 + dy
+      if isinmap(map, x, y) and not isonmapedge(x, y):
+        apdraw.drawdot(x, y)
 
 def maporigin(map):
 
@@ -144,6 +162,29 @@ def isinmap(map, x, y):
 
   return xmin <= x and x < xmax and ymin <= y and y < ymax
 
+
+def isonmapedge(x, y):
+
+  """
+  Returns True if the hex coordinate (x, y) is on the edge of the map. Otherwise returns 
+  false.
+  """
+
+  if fromxy(x, y) == None:
+    return False
+
+  d = 0.1
+  if fromxy(x + d, y) == None:
+    return True 
+  if fromxy(x - d, y) == None:
+    return True
+  if fromxy(x, y + d) == None:
+    return True
+  if fromxy(x, y - d) == None:
+    return True
+  return False
+
+
 def fromxy(x, y):
 
   """
@@ -155,4 +196,3 @@ def fromxy(x, y):
     if isinmap(map, x, y):
       return map
   return None
-
