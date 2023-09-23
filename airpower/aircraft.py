@@ -9,7 +9,7 @@ import math
 
 class Aircraft:
 
-  def __init__(self, name, hexcode, azimuth, altitude):
+  def __init__(self, name, hexcode, azimuth, altitude, speed):
 
     x, y = aphexcode.toxy(hexcode)
     facing = apazimuth.tofacing(azimuth)
@@ -25,8 +25,9 @@ class Aircraft:
     self._facing        = facing
     self._altitude      = altitude
     self._altitudecarry = 0
-    self._speed         = 0
+    self._speed         = speed
     self._fpcarry       = 0
+    self._apcarry       = 0
 
     self._destroyed     = False
     self._leftmap       = False
@@ -100,31 +101,47 @@ class Aircraft:
       self._report("aircraft has left the map.")
       return
 
-    if self._turn > 0:
+    if self._turn == 0:
+
+      self._report("speed is %.1f." % (self._speed))
+
+    else:
 
       self._report("speed is %.1f and %.1f FPs available." % (self._speed, self._nfp))
       self._report("--- ")
 
     self._reportactionsandposition("")
 
-  def _reportstatus(self):
-
-    if self._destroyed or self._leftmap:
-      return
-
-    self._report("--- ")
-    self._report("%d HFPs, %d VFPs, and %.1f SFPs used." % (self._hfp, self._vfp, self._sfp))
-    self._report("FP carry is %.1f and altitude carry is %s." % (
-      self._fpcarry, apaltitude.formataltitudecarry(self._altitudecarry)
-    ))
-
   def _reportendofturn(self):
 
-    if self._turn > 0:
+    if self._turn > 0 and not self._destroyed and not self._leftmap:
 
-      altitudeband = apaltitude.altitudeband(self._altitude)
-      if altitudeband!= self._altitudeband:
-        self._report("altitude band changed from %s to %s." % (self._altitudeband, altitudeband))
+      self._report("--- ")
+
+      self._report("%d HFPs, %d VFPs, %.1f SFPs, and %+.1f APs." % (self._hfp, self._vfp, self._sfp, self._ap))
+
+      initialspeed = self._speed
+      if self._ap <= 0:
+        aprate = 2.0
+      else:
+        aprate = 2.0
+      self._speed += self._ap // aprate
+      self._apcarry = self._ap % aprate
+      if self._speed != initialspeed:
+        self._report("speed changed from %.1f to %.1f." % (initialspeed, self._speed))
+      else:
+        self._report("speed is unchanged at %.1f." % self._speed)
+
+      initialaltitudeband = self._altitudeband
+      self._altitudeband = apaltitude.altitudeband(self._altitude)
+      if self._altitudeband != initialaltitudeband:
+        self._report("altitude band changed from %s to %s." % (initialaltitudeband, self._altitudeband))
+      else:
+        self._report("altitude band is unchanged at %s." % self._altitudeband)
+
+      self._report("carrying %.1f FPs, %+.1f APs, and %s altitude levels." % (
+        self._fpcarry, self._apcarry, apaltitude.formataltitudecarry(self._altitudecarry)
+      ))
 
     self._report("--- end of turn -- ")
     self._reportbreak()
@@ -283,6 +300,7 @@ class Aircraft:
     self._altitudecarry, \
     self._speed, \
     self._fpcarry, \
+    self._apcarry, \
     self._destroyed, \
     self._leftmap \
     = self._saved[i]
@@ -298,6 +316,7 @@ class Aircraft:
       self._altitudecarry, \
       self._speed, \
       self._fpcarry, \
+      self._apcarry, \
       self._destroyed, \
       self._leftmap, \
     )
@@ -305,7 +324,7 @@ class Aircraft:
   def _maxprevturn(self):
     return len(self._saved) - 1
 
-  def start(self, turn, speed, actions):
+  def start(self, turn, ap, actions):
 
     if turn > self._maxprevturn() + 1:
       raise ValueError("turn %d is out of sequence." % turn)
@@ -316,9 +335,9 @@ class Aircraft:
     self._hfp   = 0
     self._vfp   = 0
     self._sfp   = 0
-    self._speed = speed
-    self._nfp   = speed + self._fpcarry
+    self._nfp   = self._speed + self._fpcarry
     self._altitudeband = apaltitude.altitudeband(self._altitude)
+    self._ap    = ap + self._apcarry
 
     self._reportstartofturn()
 
@@ -394,12 +413,10 @@ class Aircraft:
 
       self._fpcarry = self._nfp - self._hfp - self._vfp - self._sfp
 
-      self._reportstatus()
       self._reportendofturn()
       self._drawaircraft("end")
       self._save(self._turn)
       
     else:
       
-      self._reportstatus()
       self._drawaircraft("next")
