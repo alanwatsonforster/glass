@@ -71,7 +71,7 @@ class Aircraft:
     if self._turn == 0:
       return ""
     else:
-      return "FP %d" % (self._hvfp)
+      return "FP %d" % (self._hfp + self._vfp)
 
   def _report(self, s):
     print("%s: turn %-2d : %s" % (self._name, self._turn, s))
@@ -162,9 +162,9 @@ class Aircraft:
   def _S(self, sfp):
     if self._sfp != 0:
       raise ValueError("speedbrakes can only be used once per turn.")
-    fp = self._nfp - self._hvfp
-    if sfp > fp:
-      raise ValueError("attempt to use speedbrakes to eliminate %s FPs but only %s are remaining." % (sfp, fp))
+    maxsfp = self._nfp - self._hfp - self._vfp
+    if sfp > maxsfp:
+      raise ValueError("attempt to use speedbrakes to eliminate %s FPs but only %s are remaining." % (sfp, maxsfp))
     self._sfp = sfp
 
   def _getelementdispatchlist(self):
@@ -313,7 +313,6 @@ class Aircraft:
     self._restore(turn - 1)
 
     self._turn  = turn
-    self._hvfp  = 0
     self._hfp   = 0
     self._vfp   = 0
     self._sfp   = 0
@@ -338,11 +337,9 @@ class Aircraft:
 
     for action in actions.split(","):
 
-      if self._hvfp + self._sfp + 1 > self._nfp:
+      if self._hfp + self._vfp + self._sfp + 1 > self._nfp:
         raise ValueError("only %d FPs are available." % self._nfp)
     
-      self._hvfp += 1
-
       if action[0] == 'H':
         self._hfp += 1
       elif action[0] == 'D' or action[0] == 'C':
@@ -388,17 +385,14 @@ class Aircraft:
       if self._destroyed:
         break
 
-    assert self._hvfp + self._sfp <= self._nfp
+    assert self._hfp + self._vfp + self._sfp <= self._nfp
     assert aphex.isvalidposition(self._x, self._y)
     assert aphex.isvalidfacing(self._x, self._y, self._facing)
     assert apaltitude.isvalidaltitude(self._altitude)
 
-    if self._destroyed or self._leftmap:
-      self._fpcarry = 0
-    else:
-      self._fpcarry = self._nfp - self._hvfp - self._sfp
+    if self._hfp + self._vfp + self._sfp + 1 > self._nfp or self._destroyed or self._leftmap:
 
-    if self._hvfp + self._sfp + 1 > self._nfp or self._destroyed or self._leftmap:
+      self._fpcarry = self._nfp - self._hfp - self._vfp - self._sfp
 
       self._reportstatus()
       self._reportendofturn()
