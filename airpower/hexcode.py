@@ -121,7 +121,7 @@ def fromxy(x, y):
 
   aphex.checkisvalidposition(x, y)
 
-  if aphex.iscenter(x, y):
+  if aphex.iscenterposition(x, y):
 
     sheet = apmap.tosheet(x, y)
     x0, y0 = apmap.sheetorigin(sheet)

@@ -118,85 +118,16 @@ class Aircraft:
   # Elements
 
   def _H(self):
-    dx = {
-          0: +1.00,
-         30: +1.00,
-         60: +0.50,
-         90: +0.00,
-        120: -0.50,
-        150: -1.00,
-        180: -1.00,
-        210: -1.00,
-        240: -0.50,
-        270: -0.00,
-        300: +0.50,
-        330: +1.00
-    }
-    dy = {
-          0: +0.00,
-         30: +0.50,
-         60: +0.75,
-         90: +1.00,
-        120: +0.75,
-        150: +0.50,
-        180: +0.00,
-        210: -0.50,
-        240: -0.75,
-        270: -1.00,
-        300: -0.75,
-        330: -0.50
-    }
-    self._x += dx[self._facing]
-    self._y += dy[self._facing]
-
-  def _onedge(self):
-    if self._x % 1 != 0:
-      return True
-    elif self._x % 2 == 0 and self._y % 1 == 0.5:
-      return True
-    elif self._x % 2 == 1 and self._y % 1 == 0.0:
-      return True
-    else:
-      return False
+    self._x, self._y = aphex.nextposition(self._x, self._y, self._facing)
 
   def _R(self, facingchange):
-    if self._onedge():
-      if self._facing == 0:
-        self._y -= 0.5
-      elif self._facing == 60:
-        self._x += 0.50
-        self._y -= 0.25
-      elif self._facing == 120:
-        self._x += 0.50
-        self._y += 0.25
-      elif self._facing == 180:
-        self._y += 0.5
-      elif self._facing == 240:
-        self._x -= 0.50
-        self._y += 0.25
-      elif self._facing == 300:
-        self._x -= 0.50
-        self._y -= 0.25
+    if aphex.isedgeposition(self._x, self._y):
+      self._x, self._y = aphex.centertoright(self._x, self._y, self._facing)
     self._facing = (self._facing - facingchange) % 360
 
   def _L(self, facingchange):
-    if self._onedge():
-      if self._facing == 0:
-        self._y += 0.5
-      elif self._facing == 60:
-        self._x -= 0.50
-        self._y += 0.25
-      elif self._facing == 120:
-        self._x -= 0.50
-        self._y -= 0.25
-      elif self._facing == 180:
-        self._y -= 0.5
-      elif self._facing == 240:
-        self._x += 0.50
-        self._y -= 0.25
-      elif self._facing == 300:
-        self._x += 0.50
-        self._y += 0.25
+    if aphex.isedgeposition(self._x, self._y):
+      self._x, self._y = aphex.centertoleft(self._x, self._y, self._facing)
     self._facing = (self._facing + facingchange) % 360
 
   def _D(self, altitudechange):
@@ -221,70 +152,9 @@ class Aircraft:
   def _A(self, what):
     self._reportevent("attack with %s." % what)
 
-  ##############################################################################
-
-  def checkforterraincollision(self):
-    altitudeofterrain = apaltitude.terrainaltitude()
-    if self._altitude <= altitudeofterrain:
-      self._altitude = altitudeofterrain
-      self._altitudecarry = 0
-      self._reportevent("aircraft has collided with terrain at altitude %d." % altitudeofterrain)
-      self._destroyed = True
-
-  def checkforleavingmap(self):
-    if not apmap.iswithinmap(self._x, self._y):
-      self._reportevent("aircraft has left the map.")
-      self._leftmap = True
+  def _getelementdispatchlist(self):
   
- ##############################################################################
-
-  # Turn management
-  
-  def _restore(self, i):
-    self._x, self._y, self._facing, self._altitude, self._altitudecarry, self._destroyed, self._leftmap = self._saved[i]
-
-  def _save(self, i):
-    if len(self._saved) == i:
-      self._saved.append(None)
-    self._saved[i] = (self._x, self._y, self._facing, self._altitude, self._altitudecarry, self._destroyed, self._leftmap)
-
-  def _maxprevturn(self):
-    return len(self._saved) - 1
-
-  def start(self, turn, nfp, actions):
-
-    if turn > self._maxprevturn() + 1:
-      raise ValueError("turn %d is out of sequence." % turn)
-
-    self._turn = turn
-    self._nfp = nfp
-    self._ifp = 0
-    self._ihfp = 0
-    self._ivfp = 0
-    self._sfp = 0
-    self._restore(turn - 1)
-
-    self._reportstartofturn()
-    if self._destroyed:
-        self._report("aircraft has been destroyed.")
-        self._reportendofturn()
-        self._save(self._turn)
-        return
- 
-    if self._leftmap:
-        self._report("aircraft has left the map.")
-        self._reportendofturn()
-        self._save(self._turn)
-        return
-  
-    self._reportstatus("start")
-
-    if actions != "":
-      self.next(actions)
-
-  def next(self, actions):
-
-    elements = [
+    return [
 
       # This table is searched in order, so put longer elements before shorter 
       # ones that are prefixes (e.g., put C2 before C and D3/4 before D3).
@@ -350,8 +220,13 @@ class Aircraft:
       ["R"   , lambda : self._R(30) , lambda: None],
 
       ["S1/2", lambda: self._S(1/2) , lambda: None],
+      ["S3/2", lambda: self._S(3/2) , lambda: None],
       ["S½"  , lambda: self._S(1/2) , lambda: None],
+      ["S1½" , lambda: self._S(3/2) , lambda: None],
       ["S1"  , lambda: self._S(1)   , lambda: None],
+      ["S2"  , lambda: self._S(2)   , lambda: None],
+      ["SSSS", lambda: self._S(2)   , lambda: None],
+      ["SSS" , lambda: self._S(3/2) , lambda: None],
       ["SS"  , lambda: self._S(1)   , lambda: None],
       ["S"   , lambda: self._S(1/2) , lambda: None],
 
@@ -365,6 +240,69 @@ class Aircraft:
       ["/"   , lambda : None        , lambda: None]
 
     ]
+
+  ##############################################################################
+
+  def checkforterraincollision(self):
+    altitudeofterrain = apaltitude.terrainaltitude()
+    if self._altitude <= altitudeofterrain:
+      self._altitude = altitudeofterrain
+      self._altitudecarry = 0
+      self._reportevent("aircraft has collided with terrain at altitude %d." % altitudeofterrain)
+      self._destroyed = True
+
+  def checkforleavingmap(self):
+    if not apmap.iswithinmap(self._x, self._y):
+      self._reportevent("aircraft has left the map.")
+      self._leftmap = True
+  
+  ##############################################################################
+
+  # Turn management
+  
+  def _restore(self, i):
+    self._x, self._y, self._facing, self._altitude, self._altitudecarry, self._destroyed, self._leftmap = self._saved[i]
+
+  def _save(self, i):
+    if len(self._saved) == i:
+      self._saved.append(None)
+    self._saved[i] = (self._x, self._y, self._facing, self._altitude, self._altitudecarry, self._destroyed, self._leftmap)
+
+  def _maxprevturn(self):
+    return len(self._saved) - 1
+
+  def start(self, turn, nfp, actions):
+
+    if turn > self._maxprevturn() + 1:
+      raise ValueError("turn %d is out of sequence." % turn)
+
+    self._turn = turn
+    self._nfp = nfp
+    self._ifp = 0
+    self._ihfp = 0
+    self._ivfp = 0
+    self._sfp = 0
+    self._restore(turn - 1)
+
+    self._reportstartofturn()
+    if self._destroyed:
+        self._report("aircraft has been destroyed.")
+        self._reportendofturn()
+        self._save(self._turn)
+        return
+ 
+    if self._leftmap:
+        self._report("aircraft has left the map.")
+        self._reportendofturn()
+        self._save(self._turn)
+        return
+  
+    self._reportstatus("start")
+
+    if actions != "":
+      self.next(actions)
+
+  def next(self, actions):
 
     if self._destroyed or self._leftmap:
       return
@@ -386,10 +324,12 @@ class Aircraft:
       lastx = self._x
       lasty = self._y
 
+      elementdispatchlist = self._getelementdispatchlist()
+
       # Execute movement elements.
       a = action
       while a != "":
-        for element in elements:
+        for element in elementdispatchlist:
           if element[0] == a[:len(element[0])]:
             element[1]()
             a = a[len(element[0]):]
@@ -408,7 +348,7 @@ class Aircraft:
       # Execute other elements.
       a = action
       while a != "":
-        for element in elements:
+        for element in elementdispatchlist:
           if element[0] == a[:len(element[0])]:
             element[2]()
             a = a[len(element[0]):]

@@ -1,4 +1,7 @@
-def iscenter(x, y):
+from os import X_OK
+
+
+def iscenterposition(x, y):
 
   """
   Return True if the point (x,y) in hex coordinates corresponds to the center 
@@ -12,7 +15,7 @@ def iscenter(x, y):
   else:
     return False
 
-def isedge(x, y):
+def isedgeposition(x, y):
 
   """
   Return True if the point (x,y) in hex coordinates corresponds to (the center 
@@ -37,16 +40,19 @@ def isvalidposition(x, y):
   of a hex or to (the center of) the edge of a hex. Otherwise, return False.
   """
 
-  return iscenter(x, y) or isedge(x, y)
+  return iscenterposition(x, y) or isedgeposition(x, y)
 
 def areadjacent(x0, y0, x1, y1):
 
   """
-  Return True if the points (x0,y0) and (x1,y1) correspond the the centers of 
-  adjacent hexes. Otherwise, return False.
+  Return True if the positions (x0,y0) and (x1,y1) correspond the the centers 
+  of adjacent hexes. Otherwise, return False.
   """
 
-  if not iscenter(x0, y0) or not isoncenter(x1, y1):
+  assert isvalidposition(x0, y0)
+  assert isvalidposition(x1, y1)
+
+  if not iscenterposition(x0, y0) or not isoncenter(x1, y1):
     return False
   if abs(x1 - x0) == 1.0 and abs(y1 - y0) == 0.5:
     return True
@@ -68,23 +74,23 @@ def checkisvalidposition(x, y):
 def isvalidfacing(x, y, facing):
 
   """
-  Return True if facing is a valid facing at the point (x, y) in hex 
+  Return True if facing is a valid facing at the position (x, y) in hex 
   coordinates, which must correspond to to the center of a hex or to (the 
   center of) the edge of a hex.
   """
 
-  checkisvalidposition(x, y)
+  assert isvalidposition(x, y)
 
-  if iscenter(x, y):
+  if iscenterposition(x, y):
     return facing % 30 == 0
 
   if x % 2 == 0.5 and y % 1.0 == 0.25:
     return facing % 180 == 120
   elif x % 2 == 0.5 and y % 1.0 == 0.75:
     return facing % 180 == 60
-  elif x % 2 == 1.0 and y % 1 == 0.25:
+  elif x % 2 == 1.5 and y % 1 == 0.25:
     return facing % 180 == 60
-  elif x % 2 == 1.0 and y % 1.0 == 0.75:
+  elif x % 2 == 1.5 and y % 1.0 == 0.75:
     return facing % 180 == 120
   else:
     return facing % 180 == 0
@@ -92,10 +98,119 @@ def isvalidfacing(x, y, facing):
 def checkisvalidfacing(x, y, facing):
 
   """
-  Raise a ValueError exception if facing is not a valid facing at the point 
+  Raise a ValueError exception if facing is not a valid facing at the position 
   (x, y) in hex coordinates, which must correspond to to the center of a hex or 
   to (the center of) the edge of a hex.
   """
 
+  assert isvalidposition(x, y)
+
   if not isvalidfacing(x, y, facing):
     raise ValueError("(%s,%s) is not the center or edge of a hex." % (x,y))
+
+def nextposition(x, y, facing):
+
+  """
+  Return the coordinates of the next valid position after the point (x, y) with 
+  respect to the facing.
+  """
+
+  assert isvalidposition(x, y)
+  assert isvalidfacing(x, y, facing)
+
+  if facing == 0:
+    x += +1.00
+    y += +0.00
+  elif facing == 30:
+    x += +1.00
+    y += +0.50
+  elif facing == 60:
+    x += +0.50
+    y += +0.75
+  elif facing == 90:
+    x += +0.00
+    y += +1.00
+  elif facing == 120:
+    x += -0.50
+    y += +0.75
+  elif facing == 150:
+    x += -1.00
+    y += +0.50
+  elif facing == 180:
+    x += -1.00
+    y += +0.00
+  elif facing == 210:
+    x += -1.00
+    y += -0.50
+  elif facing == 240:
+    x += -0.50
+    y += -0.75
+  elif facing == 270:
+    x += -0.00
+    y += -1.00
+  elif facing == 300:
+    x += +0.50
+    y += -0.75
+  elif facing == 330:
+    x += +1.00
+    y += -0.50
+  
+  return x, y
+
+def centertoleft(x, y, facing):
+
+  """
+  Return the coordinates of the hex center to the left of the edge
+  position (x, y) and where left is defined with respect to the facing.
+  """
+
+  assert isedgeposition(x, y)
+  assert isvalidfacing(x, y, facing)
+
+  if facing == 0:
+    y += 0.5
+  elif facing == 60:
+    x -= 0.50
+    y += 0.25
+  elif facing == 120:
+    x -= 0.50
+    y -= 0.25
+  elif facing == 180:
+    y -= 0.5
+  elif facing == 240:
+    x += 0.50
+    y -= 0.25
+  elif facing == 300:
+    x += 0.50
+    y += 0.25
+
+  return x, y
+ 
+def centertoright(x, y, facing):
+
+  """
+  Return the coordinates of the hex center to the left of the edge
+  position (x, y) and where right is defined with respect to the facing.
+  """
+  assert isedgeposition(x, y)
+  assert isvalidfacing(x, y, facing)
+
+  if facing == 0:
+    y -= 0.5
+  elif facing == 60:
+    x += 0.50
+    y -= 0.25
+  elif facing == 120:
+    x += 0.50
+    y += 0.25
+  elif facing == 180:
+    y += 0.5
+  elif facing == 240:
+    x -= 0.50
+    y += 0.25
+  elif facing == 300:
+    x -= 0.50
+    y -= 0.25
+
+  return x, y
+
