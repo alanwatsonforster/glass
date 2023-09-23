@@ -7,8 +7,8 @@ import math
 
 _sheetgrid = []
 _sheetlist = []
-_nx = 0
-_ny = 0
+_nxsheetgrid = 0
+_nysheetgrid = 0
 _compassrose = None
 
 _dxsheet = 20
@@ -23,24 +23,24 @@ def setmap(sheetgrid, compassrose, verbose=True):
 
   global _sheetgrid
   global _sheetlist
-  global _ny
-  global _nx
+  global _nysheetgrid
+  global _nxsheetgrid
   global _compassrose
 
   # The sheet grid argument follows visual layout, so we need to flip it 
   # vertically so that the lower-left sheet has indices (0,0).
 
   _sheetgrid = list(reversed(sheetgrid))
-  _ny = len(_sheetgrid)
-  _nx = len(_sheetgrid[0])
+  _nysheetgrid = len(_sheetgrid)
+  _nxsheetgrid = len(_sheetgrid[0])
 
   if verbose:
-    for iy in range (0, _ny):
+    for iy in range (0, _nysheetgrid):
       print("%s" % " ".join(sheetgrid[iy]))
 
   _sheetlist = []
-  for iy in range (0, _ny):
-    for ix in range (0, _nx):
+  for iy in range (0, _nysheetgrid):
+    for ix in range (0, _nxsheetgrid):
       if _sheetgrid[iy][ix] != "--":
         _sheetlist.append(_sheetgrid[iy][ix])
 
@@ -52,9 +52,9 @@ def drawmap():
   Draw the map.
   """
 
-  apdraw.setcanvas(_nx * _dxsheet, _ny * math.sqrt(3/4) * _dysheet)
+  apdraw.setcanvas(_nxsheetgrid * _dxsheet, _nysheetgrid * math.sqrt(3/4) * _dysheet)
 
-  for sheet in inusesheets():
+  for sheet in sheets():
 
     hexcodes = aphexcode.hexcodes(sheet)
 
@@ -100,13 +100,13 @@ def sheetorigin(sheet):
   Returns the hex coordinates (x0, y0) of the center of the lower left hex in
   the specified sheet.
     
-  The specified sheet must be in use.
+  The specified sheet must be in the map.
   """
 
-  assert isinuse(sheet)
+  assert sheet in sheets()
 
-  for iy in range (0, _ny):
-    for ix in range (0, _nx):
+  for iy in range (0, _nysheetgrid):
+    for ix in range (0, _nxsheetgrid):
       if sheet == _sheetgrid[iy][ix]:
         x0 = ix * _dxsheet
         y0 = iy * _dysheet
@@ -121,13 +121,13 @@ def sheetlimits(sheet):
 
     xmin <= x < xmax and ymin <= x < ymax. 
     
-  The specified sheet must be in use.
+  The specified sheet must be in the map.
   """
 
-  assert isinuse(sheet)
+  assert sheet in sheets()
 
-  for iy in range (0, _ny):
-    for ix in range (0, _nx):
+  for iy in range (0, _nysheetgrid):
+    for ix in range (0, _nxsheetgrid):
       if sheet == _sheetgrid[iy][ix]:
         xmin = ix * _dxsheet - 0.5
         ymin = iy * _dysheet - 0.5
@@ -135,18 +135,10 @@ def sheetlimits(sheet):
         ymax = ymin + _dysheet
         return xmin, ymin, xmax, ymax
 
-def isinuse(sheet):
+def sheets():
 
   """
-  Returns True if the sheet is in use. Otherwise returns False.
-  """
-
-  return sheet in _sheetlist
-
-def inusesheets():
-
-  """
-  Returns a list of the in-use sheets.
+  Returns a list of the sheets in the map.
   """
 
   return _sheetlist
@@ -155,10 +147,10 @@ def isinsheet(sheet, x, y):
 
   """
   Returns True if the sheet contains the hex coordinate (x, y). Otherwise returns 
-  false. The sheet must be in use.
+  false. The sheet must be in the map.
   """
 
-  assert isinuse(sheet)
+  assert sheet in sheets()
 
   xmin, ymin, xmax, ymax = sheetlimits(sheet)
 
@@ -193,7 +185,7 @@ def tosheet(x, y):
   the coordinates, returns None.
   """
 
-  for sheet in inusesheets():
+  for sheet in sheets():
     if isinsheet(sheet, x, y):
       return sheet
   return None
