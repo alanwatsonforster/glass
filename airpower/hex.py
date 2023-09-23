@@ -30,7 +30,7 @@ def isedge(x, y):
   else:
     return False
 
-def iscenteroredge(x, y):
+def isvalidposition(x, y):
 
   """
   Return True if the point (x,y) in hex coordinates corresponds to the center 
@@ -55,14 +55,14 @@ def areadjacent(x0, y0, x1, y1):
   else:
     return False
 
-def checkiscenteroredge(x, y):
+def checkisvalidposition(x, y):
 
   """
   Raise a ValueError exception if the point (x,y) in hex coordinates does not 
   correspond to the center of a hex or to (the center of) the edge of a hex.
   """
 
-  if not iscenteroredge(x, y):
+  if not isvalidposition(x, y):
     raise ValueError("(%s,%s) is not the center or edge of a hex." % (x,y))
 
 def isvalidfacing(x, y, facing):
@@ -73,7 +73,7 @@ def isvalidfacing(x, y, facing):
   center of) the edge of a hex.
   """
 
-  checkiscenteroredge(x, y)
+  checkisvalidposition(x, y)
 
   if iscenter(x, y):
     return facing % 30 == 0

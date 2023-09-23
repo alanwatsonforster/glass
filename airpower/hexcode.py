@@ -86,7 +86,7 @@ def fromxy(x, y):
   Return the hex code corresponding to the hex coordinate (x, y).
   """
 
-  aphex.checkiscenteroredge(x, y)
+  aphex.checkisvalidposition(x, y)
 
   if aphex.iscenter(x, y):
 
