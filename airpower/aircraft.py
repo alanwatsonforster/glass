@@ -25,6 +25,7 @@ class Aircraft:
     self._altitude      = altitude
     self._altitudecarry = 0
     self._destroyed     = False
+    self._leftmap       = False
 
     self._saved = []
     self._save(0)
@@ -41,12 +42,12 @@ class Aircraft:
     )
 
   def _restore(self, i):
-    self._x, self._y, self._facing, self._altitude, self._altitudecarry, self._destroyed = self._saved[i]
+    self._x, self._y, self._facing, self._altitude, self._altitudecarry, self._destroyed, self._leftmap = self._saved[i]
 
   def _save(self, i):
     if len(self._saved) == i:
       self._saved.append(None)
-    self._saved[i] = (self._x, self._y, self._facing, self._altitude, self._altitudecarry, self._destroyed)
+    self._saved[i] = (self._x, self._y, self._facing, self._altitude, self._altitudecarry, self._destroyed, self._leftmap)
 
   def _maxprevturn(self):
     return len(self._saved) - 1
@@ -58,12 +59,15 @@ class Aircraft:
     apdraw.drawaircraft(self._x, self._y, self._facing, self._name, self._altitude, when)
         
   def _position(self):
-    return "%2s %-9s  %-3s  %2d" % (
-        apmap.tosheet(self._x, self._y),
-        aphexcode.fromxy(self._x, self._y),
-        apazimuth.fromfacing(self._facing),
-        self._altitude
-      )
+    if apmap.isonmap(self._x, self._y):
+      sheet = apmap.tosheet(self._x, self._y)
+      hexcode = aphexcode.fromxy(self._x, self._y)
+    else:
+      sheet = "--"
+      hexcode = "----"
+    azimuth = apazimuth.fromfacing(self._facing)
+    altitude = self._altitude
+    return "%2s %-9s  %-3s  %2d" % (sheet, hexcode, azimuth, altitude)
 
   def _report(self, s):
     print("%s: turn %d: %s" % (self._name, self._turn, s))
@@ -185,7 +189,7 @@ class Aircraft:
     self._altitude, self._altitudecarry = apaltitude.adjustaltitude(self._altitude, self._altitudecarry, +altitudechange)
 
   def _K(self):
-    self._reportfp("killed.")
+    self._reportfp("aircraft has been killed.")
     self._destroyed = True
 
   def _A(self, what):
@@ -196,8 +200,13 @@ class Aircraft:
     if self._altitude <= altitudeofterrain:
       self._altitude = altitudeofterrain
       self._altitudecarry = 0
-      self._reportfp("collided with terrain at altitude %d." % altitudeofterrain)
+      self._reportfp("aircraft has collided with terrain at altitude %d." % altitudeofterrain)
       self._destroyed = True
+
+  def checkforleavingmap(self):
+    if not apmap.iswithinmap(self._x, self._y):
+      self._report("aircraft has left the map.")
+      self._leftmap = True
   
   def start(self, turn, nfp, actions):
 
@@ -215,6 +224,12 @@ class Aircraft:
 
     if self._destroyed:
         self._report("aircraft has been destroyed.")
+        self._report("--- end of turn ---")
+        self._save(self._turn)
+        return
+ 
+    if self._leftmap:
+        self._report("aircraft has left the map.")
         self._report("--- end of turn ---")
         self._save(self._turn)
         return
@@ -302,8 +317,9 @@ class Aircraft:
 
     ]
 
-    if self._destroyed:
+    if self._destroyed or self._leftmap:
       return
+
 
     for action in actions.split(","):
 
@@ -337,8 +353,8 @@ class Aircraft:
       self._drawflightpath(lastx, lasty)
 
       self.checkforterraincollision()
-      if self._destroyed:
-        self._report("aircraft has been destroyed.")
+      self.checkforleavingmap()
+      if self._destroyed or self._leftmap:
         break
 
       # Execute other elements.
@@ -361,7 +377,7 @@ class Aircraft:
     assert aphex.isvalidfacing(self._x, self._y, self._facing)
     assert apaltitude.isvalidaltitude(self._altitude)
 
-    if self._ifp == self._nfp:
+    if self._ifp == self._nfp or self._destroyed or self._leftmap:
 
       self._reportstatus("end")
       self._drawaircraft("end")

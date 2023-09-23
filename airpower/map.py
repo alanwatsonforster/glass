@@ -78,8 +78,8 @@ def drawmap():
 def _dotsheet(sheet):
 
   """
-  Draw dots on all of the hex positions in the specified sheet that are not on
-  the edge of the map.
+  Draw dots on all of the hex positions in the specified sheet that are within
+  the map.
   """
 
   x0, y0 = sheetorigin(sheet)
@@ -91,7 +91,7 @@ def _dotsheet(sheet):
       dy = 0.25
     for iy in range(-2, 60):
       y = y0 + iy / 2 + dy
-      if isinsheet(sheet, x, y) and not isonmapedge(x, y):
+      if iswithinmap(x, y):
         apdraw.drawdot(x, y)
 
 def sheetorigin(sheet):
@@ -143,11 +143,11 @@ def sheets():
 
   return _sheetlist
 
-def isinsheet(sheet, x, y):
+def isonsheet(sheet, x, y):
 
   """
-  Returns True if the sheet contains the hex coordinate (x, y). Otherwise returns 
-  false. The sheet must be in the map.
+  Returns True if the hex coordinate (x, y) is on the specified sheet. 
+  Otherwise returns false. The sheet must be in the map.
   """
 
   assert sheet in sheets()
@@ -156,11 +156,19 @@ def isinsheet(sheet, x, y):
 
   return xmin <= x and x < xmax and ymin <= y and y < ymax
 
-
-def isonmapedge(x, y):
+def isonmap(x, y):
 
   """
-  Returns True if the hex coordinate (x, y) is on the edge of the map. 
+  Returns True if the hex coordinate (x, y) is on the map, including its edges. 
+  Otherwise returns false.
+  """
+
+  return tosheet(x, y) != None
+
+def iswithinmap(x, y):
+
+  """
+  Returns True if the hex coordinate (x, y) is on the map, excluding its edges. 
   Otherwise returns false.
   """
 
@@ -169,14 +177,15 @@ def isonmapedge(x, y):
 
   d = 0.1
   if tosheet(x + d, y) == None:
-    return True 
+    return False 
   if tosheet(x - d, y) == None:
-    return True
+    return False
   if tosheet(x, y + d) == None:
-    return True
+    return False
   if tosheet(x, y - d) == None:
-    return True
-  return False
+    return False
+
+  return True
 
 def tosheet(x, y):
 
@@ -186,6 +195,6 @@ def tosheet(x, y):
   """
 
   for sheet in sheets():
-    if isinsheet(sheet, x, y):
+    if isonsheet(sheet, x, y):
       return sheet
   return None
