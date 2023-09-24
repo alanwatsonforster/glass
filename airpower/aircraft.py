@@ -378,21 +378,22 @@ class Aircraft:
       speed = "%.1f" % self._speed
     self._report("speed is %s and %.1f FPs are available." % (speed, self._nfp))
 
-    if actions != "":
-      self.continueturn(actions)
+    self.continueturn(actions)
 
   def continueturn(self, actions):
 
     if self._destroyed or self._leftmap:
       return
   
-    if self._hfp + self._vfp + self._sfp == 0:
-      self._report("---")
-      self._reportactionsandposition("")
+    if actions != "":
 
-    for action in actions.split(","):
-      if not self._destroyed and not self._leftmap:
-        self._doaction(action)
+      if self._hfp + self._vfp + self._sfp == 0:
+        self._report("---")
+        self._reportactionsandposition("")
+
+      for action in actions.split(","):
+        if not self._destroyed and not self._leftmap:
+          self._doaction(action)
     
     assert self._hfp + self._vfp + self._sfp <= self._nfp
 
