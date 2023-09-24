@@ -133,16 +133,6 @@ class Aircraft:
     self._reportevent("aircraft has been killed.")
     self._destroyed = True
 
-  def _L(self, facingchange):
-    if aphex.isedgeposition(self._x, self._y):
-      self._x, self._y = aphex.centertoleft(self._x, self._y, self._facing)
-    self._facing = (self._facing + facingchange) % 360
-
-  def _R(self, facingchange):
-    if aphex.isedgeposition(self._x, self._y):
-      self._x, self._y = aphex.centertoright(self._x, self._y, self._facing)
-    self._facing = (self._facing - facingchange) % 360
-
   def _S(self, sfp):
     if self._sfp != 0:
       raise ValueError("speedbrakes can only be used once per turn.")
@@ -151,6 +141,39 @@ class Aircraft:
       raise ValueError("attempt to use speedbrakes to eliminate %s FPs but only %s are remaining." % (sfp, maxsfp))
     self._sfp = sfp
 
+  def _TD(self, turndirection, turnrate):
+    """
+    Declare a turn in the specified direction and rate.
+    """
+    turnrates = ["EZ", "TT", "HT", "BT", "ET"]
+    assert turnrate in turnrates
+    self._turndirection = turndirection
+    self._turnrate = turnrate
+    if self._maxturnrate == None:
+      self._maxturnrate = turnrate
+    else:
+      self._maxturnrate = turnrates[max(turnrates.index(turnrate), turnrates.index(self._maxturnrate))]
+
+  def _TL(self, facingchange):
+    """
+    Turn left.
+    """
+    if self._turnrate == None:
+      self._TD("L", "EZ")
+    if aphex.isedgeposition(self._x, self._y):
+      self._x, self._y = aphex.centertoleft(self._x, self._y, self._facing)
+    self._facing = (self._facing + facingchange) % 360
+
+  def _TR(self, facingchange):
+    """
+    Turn right.
+    """
+    if self._turnrate == None:
+      self._TD("R", "EZ")
+    if aphex.isedgeposition(self._x, self._y):
+      self._x, self._y = aphex.centertoright(self._x, self._y, self._facing)
+    self._facing = (self._facing - facingchange) % 360
+    
   def _getelementdispatchlist(self):
   
     return [
@@ -162,81 +185,93 @@ class Aircraft:
       # [1] is the procedure for movement elements.
       # [2] is the procedure for other (non-movement) elements.
 
-      ["H"   , lambda : self._H()   , lambda : None],
+      ["H"   , lambda : self._H()          , lambda: None],
 
-      ["C1/8", lambda : self._C(1/8), lambda: None],
-      ["C1/4", lambda : self._C(1/4), lambda: None],
-      ["C3/8", lambda : self._C(3/8), lambda: None],
-      ["C1/2", lambda : self._C(1/2), lambda: None],
-      ["C5/8", lambda : self._C(5/8), lambda: None],
-      ["C3/4", lambda : self._C(3/4), lambda: None],
-      ["C7/8", lambda : self._C(7/8), lambda: None],
-      ["C⅛"  , lambda : self._C(1/8), lambda: None],
-      ["C¼"  , lambda : self._C(1/4), lambda: None],
-      ["C⅜"  , lambda : self._C(3/8), lambda: None],
-      ["C½"  , lambda : self._C(1/2), lambda: None],
-      ["C⅝"  , lambda : self._C(5/8), lambda: None],
-      ["C¾"  , lambda : self._C(3/4), lambda: None],
-      ["C⅞"  , lambda : self._C(7/8), lambda: None],
-      ["C1"  , lambda : self._C(1)  , lambda: None],
-      ["C2"  , lambda : self._C(2)  , lambda: None],
-      ["CC"  , lambda : self._C(2)  , lambda: None],
-      ["C"   , lambda : self._C(1)  , lambda: None],
+      ["C1/8", lambda : self._C(1/8)       , lambda: None],
+      ["C1/4", lambda : self._C(1/4)       , lambda: None],
+      ["C3/8", lambda : self._C(3/8)       , lambda: None],
+      ["C1/2", lambda : self._C(1/2)       , lambda: None],
+      ["C5/8", lambda : self._C(5/8)       , lambda: None],
+      ["C3/4", lambda : self._C(3/4)       , lambda: None],
+      ["C7/8", lambda : self._C(7/8)       , lambda: None],
+      ["C⅛"  , lambda : self._C(1/8)       , lambda: None],
+      ["C¼"  , lambda : self._C(1/4)       , lambda: None],
+      ["C⅜"  , lambda : self._C(3/8)       , lambda: None],
+      ["C½"  , lambda : self._C(1/2)       , lambda: None],
+      ["C⅝"  , lambda : self._C(5/8)       , lambda: None],
+      ["C¾"  , lambda : self._C(3/4)       , lambda: None],
+      ["C⅞"  , lambda : self._C(7/8)       , lambda: None],
+      ["C1"  , lambda : self._C(1)         , lambda: None],
+      ["C2"  , lambda : self._C(2)         , lambda: None],
+      ["CC"  , lambda : self._C(2)         , lambda: None],
+      ["C"   , lambda : self._C(1)         , lambda: None],
 
-      ["D1/8", lambda : self._D(1/8), lambda: None],
-      ["D1/4", lambda : self._D(1/4), lambda: None],
-      ["D3/8", lambda : self._D(3/8), lambda: None],
-      ["D1/2", lambda : self._D(1/2), lambda: None],
-      ["D5/8", lambda : self._D(5/8), lambda: None],
-      ["D3/4", lambda : self._D(3/4), lambda: None],
-      ["D7/8", lambda : self._D(7/8), lambda: None],
-      ["D⅛"  , lambda : self._D(1/8), lambda: None],
-      ["D¼"  , lambda : self._D(1/4), lambda: None],
-      ["D⅜"  , lambda : self._D(3/8), lambda: None],
-      ["D½"  , lambda : self._D(1/2), lambda: None],
-      ["D⅝"  , lambda : self._D(5/8), lambda: None],
-      ["D¾"  , lambda : self._D(3/4), lambda: None],
-      ["D⅞"  , lambda : self._D(7/8), lambda: None],
-      ["D1"  , lambda : self._D(1)  , lambda: None],
-      ["D2"  , lambda : self._D(2)  , lambda: None],
-      ["D3"  , lambda : self._D(3)  , lambda: None],
-      ["DDD" , lambda : self._D(3)  , lambda: None],
-      ["DD"  , lambda : self._D(2)  , lambda: None],
-      ["D"   , lambda : self._D(1)  , lambda: None],
+      ["D1/8", lambda : self._D(1/8)       , lambda: None],
+      ["D1/4", lambda : self._D(1/4)       , lambda: None],
+      ["D3/8", lambda : self._D(3/8)       , lambda: None],
+      ["D1/2", lambda : self._D(1/2)       , lambda: None],
+      ["D5/8", lambda : self._D(5/8)       , lambda: None],
+      ["D3/4", lambda : self._D(3/4)       , lambda: None],
+      ["D7/8", lambda : self._D(7/8)       , lambda: None],
+      ["D⅛"  , lambda : self._D(1/8)       , lambda: None],
+      ["D¼"  , lambda : self._D(1/4)       , lambda: None],
+      ["D⅜"  , lambda : self._D(3/8)       , lambda: None],
+      ["D½"  , lambda : self._D(1/2)       , lambda: None],
+      ["D⅝"  , lambda : self._D(5/8)       , lambda: None],
+      ["D¾"  , lambda : self._D(3/4)       , lambda: None],
+      ["D⅞"  , lambda : self._D(7/8)       , lambda: None],
+      ["D1"  , lambda : self._D(1)         , lambda: None],
+      ["D2"  , lambda : self._D(2)         , lambda: None],
+      ["D3"  , lambda : self._D(3)         , lambda: None],
+      ["DDD" , lambda : self._D(3)         , lambda: None],
+      ["DD"  , lambda : self._D(2)         , lambda: None],
+      ["D"   , lambda : self._D(1)         , lambda: None],
 
-      ["L90" , lambda : self._L(90) , lambda: None],
-      ["L60" , lambda : self._L(60) , lambda: None],
-      ["L30" , lambda : self._L(30) , lambda: None],
-      ["LLL" , lambda : self._L(90) , lambda: None],
-      ["LL"  , lambda : self._L(60) , lambda: None],
-      ["L"   , lambda : self._L(30) , lambda: None],
+      ["LEZ" , lambda : self._TD("L", "EZ"), lambda: None],
+      ["LTT" , lambda : self._TD("L", "TT"), lambda: None],
+      ["LHT" , lambda : self._TD("L", "HT"), lambda: None],
+      ["LBT" , lambda : self._TD("L", "BT"), lambda: None],
+      ["LET" , lambda : self._TD("L", "ET"), lambda: None],
+      
+      ["REZ" , lambda : self._TD("R", "EZ"), lambda: None],
+      ["RTT" , lambda : self._TD("R", "TT"), lambda: None],
+      ["RHT" , lambda : self._TD("R", "HT"), lambda: None],
+      ["RBT" , lambda : self._TD("R", "BT"), lambda: None],
+      ["RET" , lambda : self._TD("R", "ET"), lambda: None],
 
-      ["R90" , lambda : self._R(90) , lambda: None],
-      ["R60" , lambda : self._R(60) , lambda: None],
-      ["R30" , lambda : self._R(30) , lambda: None],
-      ["RRR" , lambda : self._R(90) , lambda: None],
-      ["RR"  , lambda : self._R(60) , lambda: None],
-      ["R"   , lambda : self._R(30) , lambda: None],
+      ["L90" , lambda : self._TL(90)       , lambda: None],
+      ["L60" , lambda : self._TL(60)       , lambda: None],
+      ["L30" , lambda : self._TL(30)       , lambda: None],
+      ["LLL" , lambda : self._TL(90)       , lambda: None],
+      ["LL"  , lambda : self._TL(60)       , lambda: None],
+      ["L"   , lambda : self._TL(30)       , lambda: None],
 
-      ["S1/2", lambda: self._S(1/2) , lambda: None],
-      ["S3/2", lambda: self._S(3/2) , lambda: None],
-      ["S½"  , lambda: self._S(1/2) , lambda: None],
-      ["S1½" , lambda: self._S(3/2) , lambda: None],
-      ["S1"  , lambda: self._S(1)   , lambda: None],
-      ["S2"  , lambda: self._S(2)   , lambda: None],
-      ["SSSS", lambda: self._S(2)   , lambda: None],
-      ["SSS" , lambda: self._S(3/2) , lambda: None],
-      ["SS"  , lambda: self._S(1)   , lambda: None],
-      ["S"   , lambda: self._S(1/2) , lambda: None],
+      ["R90" , lambda : self._TR(90)       , lambda: None],
+      ["R60" , lambda : self._TR(60)       , lambda: None],
+      ["R30" , lambda : self._TR(30)       , lambda: None],
+      ["RRR" , lambda : self._TR(90)       , lambda: None],
+      ["RR"  , lambda : self._TR(60)       , lambda: None],
+      ["R"   , lambda : self._TR(30)       , lambda: None],
 
-      ["/"   , lambda : None        , lambda: None],
+      ["S1/2", lambda: self._S(1/2)        , lambda: None],
+      ["S3/2", lambda: self._S(3/2)        , lambda: None],
+      ["S½"  , lambda: self._S(1/2)        , lambda: None],
+      ["S1½" , lambda: self._S(3/2)        , lambda: None],
+      ["S1"  , lambda: self._S(1)          , lambda: None],
+      ["S2"  , lambda: self._S(2)          , lambda: None],
+      ["SSSS", lambda: self._S(2)          , lambda: None],
+      ["SSS" , lambda: self._S(3/2)        , lambda: None],
+      ["SS"  , lambda: self._S(1)          , lambda: None],
+      ["S"   , lambda: self._S(1/2)        , lambda: None],
 
-      ["AGN" , lambda : None        , lambda: self._A("guns")],
-      ["AGP" , lambda : None        , lambda: self._A("gun pod")],
-      ["ARK" , lambda : None        , lambda: self._A("rockets")],
-      ["ARP" , lambda : None        , lambda: self._A("rocket pods")],
+      ["/"   , lambda : None               , lambda: None],
 
-      ["K"   , lambda : None        , lambda: self._K()],
+      ["AGN" , lambda : None               , lambda: self._A("guns")],
+      ["AGP" , lambda : None               , lambda: self._A("gun pod")],
+      ["ARK" , lambda : None               , lambda: self._A("rockets")],
+      ["ARP" , lambda : None               , lambda: self._A("rocket pods")],
+
+      ["K"   , lambda : None               , lambda: self._K()],
 
     ]
 
@@ -357,6 +392,8 @@ class Aircraft:
     self._fpcarry      = 0
     self._altitudeband = apaltitude.altitudeband(self._altitude)
     self._ap           = ap
+    self._turnrate     = None
+    self._maxturnrate  = None
 
     self._report("--- start of turn --")
 
@@ -424,6 +461,11 @@ class Aircraft:
 
       self._report("used %d HFPs, %d VFPs, and %.1f SFPs, and generated %.1f APs." % (self._hfp, self._vfp, self._sfp, self._ap))
 
+      if self._maxturnrate == None:
+        self._report("no turns.")
+      else:
+        self._report("maximum turn rate is %s." % self._maxturnrate)
+
       initialspeed = self._speed
       ap = self._ap + self._apcarry
       if ap < 0:
@@ -460,4 +502,3 @@ class Aircraft:
 
     self._report("--- end of turn -- ")
     self._reportbreak()
-
