@@ -158,22 +158,42 @@ class Aircraft:
     """
     Turn left.
     """
+
     if self._turnrate == None:
+      # Implicitly declare a turn rate of EZ.
       self._TD("L", "EZ")
+
+    # Change facing.
     if aphex.isedgeposition(self._x, self._y):
       self._x, self._y = aphex.centertoleft(self._x, self._y, self._facing)
     self._facing = (self._facing + facingchange) % 360
 
+    self._turns += 1
+    if self._turns > 1:
+      # Apply the sustained turn drag penalty.
+      # TODO: drag for HBR and LBR aircraft.
+      self._sustainedturnap -= facingchange // 30
+      
   def _TR(self, facingchange):
     """
     Turn right.
     """
+
     if self._turnrate == None:
+      # Implicitly declare a turn rate of EZ.
       self._TD("R", "EZ")
+
+    # Change facing.
     if aphex.isedgeposition(self._x, self._y):
       self._x, self._y = aphex.centertoright(self._x, self._y, self._facing)
     self._facing = (self._facing - facingchange) % 360
     
+    self._turns += 1
+    if self._turns > 1:
+      # Apply the sustained turn drag penalty.
+      # TODO: drag for HBR and LBR aircraft.
+      self._sustainedturnap -= facingchange // 30
+      
   def _getelementdispatchlist(self):
   
     return [
@@ -377,23 +397,25 @@ class Aircraft:
   def _maxprevturn(self):
     return len(self._saved) - 1
 
-  def startturn(self, turn, ap, actions):
+  def startturn(self, turn, powerap, actions):
 
     if turn > self._maxprevturn() + 1:
       raise ValueError("turn %d is out of sequence." % turn)
 
     self._restore(turn - 1)
 
-    self._turn         = turn
-    self._hfp          = 0
-    self._vfp          = 0
-    self._sfp          = 0
-    self._nfp          = self._speed + self._fpcarry
-    self._fpcarry      = 0
-    self._altitudeband = apaltitude.altitudeband(self._altitude)
-    self._ap           = ap
-    self._turnrate     = None
-    self._maxturnrate  = None
+    self._turn            = turn
+    self._hfp             = 0
+    self._vfp             = 0
+    self._sfp             = 0
+    self._nfp             = self._speed + self._fpcarry
+    self._fpcarry         = 0
+    self._altitudeband    = apaltitude.altitudeband(self._altitude)
+    self._turns           = 0
+    self._powerap         = powerap
+    self._sustainedturnap = 0
+    self._turnrate        = None
+    self._maxturnrate     = None
 
     self._report("--- start of turn --")
 
@@ -459,15 +481,25 @@ class Aircraft:
 
     else:
 
-      self._report("used %d HFPs, %d VFPs, and %.1f SFPs, and generated %.1f APs." % (self._hfp, self._vfp, self._sfp, self._ap))
+      self._report("used %d HFPs, %d VFPs, and %.1f SFPs." % (self._hfp, self._vfp, self._sfp))
 
       if self._maxturnrate == None:
         self._report("no turns.")
+        turnap = 0
       else:
         self._report("maximum turn rate is %s." % self._maxturnrate)
+        # TODO: These hard-wired values are just for testing.
+        turndrag = { "EZ": 0.0, "TT": 0.0, "HT": 1.0, "BT": 2.0, }
+        turnap = -turndrag[self._maxturnrate]
+
+      self._report("power APs = %+.1f." % self._powerap)
+      self._report("turn  APs = %+.1f and %+.1f." % (turnap, self._sustainedturnap))
+      ap = self._powerap + self._sustainedturnap + turnap
+      self._report("total APs = %+.1f with %+.1f carry = %+.1f." % (ap, self._apcarry, ap + self._apcarry))
+      ap += self._apcarry
 
       initialspeed = self._speed
-      ap = self._ap + self._apcarry
+      # TODO: rates for RA aircraft.
       if ap < 0:
         aprate = -2.0
       elif initialspeed >= self._m1():
@@ -476,10 +508,9 @@ class Aircraft:
         aprate = +2.0
       if ap >= 0:
         self._speed += 0.5 * (ap // aprate)
-        self._apcarry = ap % aprate
       else:
         self._speed -= 0.5 * (ap // aprate)
-        self._apcarry = ap % aprate
+      self._apcarry = ap % aprate
       if self._speed != initialspeed:
         self._report("speed changed from %.1f to %.1f." % (initialspeed, self._speed))
       else:
