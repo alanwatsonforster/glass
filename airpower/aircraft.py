@@ -50,7 +50,18 @@ class Aircraft:
   def _drawaircraft(self, when):
     apdraw.drawaircraft(self._x, self._y, self._facing, self._name, self._altitude, when)
         
-   ##############################################################################
+  ##############################################################################
+
+  def _m1(self):
+    altitudeband = self._altitudeband
+    if altitudeband == "LO" or altitudeband == "ML":
+      return 7.5
+    elif altitudeband == "MH" or altitudeband == "HI":
+      return 7.0
+    else:
+      return 6.5
+
+  ##############################################################################
 
   # Reporting
 
@@ -98,7 +109,16 @@ class Aircraft:
       self._report("aircraft has left the map.")
       return
 
-    self._report("speed is %.1f." % (self._speed, self._m1()))
+    m1 = self._m1()
+    if self._speed >= m1:
+      self._report("speed is %.1f (SSS)." % self._speed)
+    elif self._speed == m1 - 0.5:
+      self._report("speed is %.1f (HTS)." % self._speed)
+    elif self._speed == m1 - 1.0:
+      self._report("speed is %.1f (LTS)." % self._speed)
+    else:
+      self._report("speed is %.1f." % self._speed)
+
     self._report("%.1f FPs available." % self._nfp)
     self._report("--- ")
 
