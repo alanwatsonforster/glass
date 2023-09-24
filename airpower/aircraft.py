@@ -133,13 +133,15 @@ class Aircraft:
     self._reportevent("aircraft has been killed.")
     self._destroyed = True
 
-  def _S(self, sfp):
-    if self._sfp != 0:
+  def _S(self, spbrfp):
+    # TODO: check against aircraft SPBR capability.
+    if self._spbrfp != 0:
       raise ValueError("speedbrakes can only be used once per turn.")
-    maxsfp = self._nfp - self._hfp - self._vfp
-    if sfp > maxsfp:
-      raise ValueError("attempt to use speedbrakes to eliminate %s FPs but only %s are remaining." % (sfp, maxsfp))
-    self._sfp = sfp
+    maxspbrfp = self._fp - self._hfp - self._vfp
+    if spbrfp > maxspbrfp:
+      raise ValueError("attempt to use speedbrakes to eliminate %s FPs but only %s are remaining." % (spbrfp, maxspbrfp))
+    self._spbrfp = spbrfp
+    self._spbrap = -spbrfp / 0.5
 
   def _TD(self, turndirection, turnrate):
     """
@@ -297,8 +299,8 @@ class Aircraft:
 
   def _doaction(self, action):
 
-      if self._hfp + self._vfp + self._sfp + 1 > self._nfp:
-        raise ValueError("only %d FPs are available." % self._nfp)
+      if self._hfp + self._vfp + self._spbrfp + 1 > self._fp:
+        raise ValueError("only %d FPs are available." % self._fp)
         
       if action[0] == 'H':
         self._hfp += 1
@@ -407,12 +409,13 @@ class Aircraft:
     self._turn            = turn
     self._hfp             = 0
     self._vfp             = 0
-    self._sfp             = 0
-    self._nfp             = self._speed + self._fpcarry
+    self._spbrfp          = 0
+    self._fp              = self._speed + self._fpcarry
     self._fpcarry         = 0
     self._altitudeband    = apaltitude.altitudeband(self._altitude)
     self._turns           = 0
     self._powerap         = powerap
+    self._spbrap          = 0
     self._sustainedturnap = 0
     self._turnrate        = None
     self._maxturnrate     = None
@@ -440,7 +443,7 @@ class Aircraft:
       speed = "%.1f (LTS)" % self._speed
     else:
       speed = "%.1f" % self._speed
-    self._report("speed is %s and %.1f FPs are available." % (speed, self._nfp))
+    self._report("speed is %s and %.1f FPs are available." % (speed, self._fp))
 
     self._report("---")
     self._reportactionsandposition("")
@@ -457,9 +460,10 @@ class Aircraft:
         if not self._destroyed and not self._leftmap:
           self._doaction(action)
     
-    assert self._hfp + self._vfp + self._sfp <= self._nfp
+    fp = self._hfp + self._vfp + self._spbrfp
+    assert fp <= self._fp
 
-    if self._hfp + self._vfp + self._sfp + 1 > self._nfp or self._destroyed or self._leftmap:
+    if fp + 1 > self._fp or self._destroyed or self._leftmap:
 
       self._drawaircraft("end")
       self._report("---")
@@ -481,7 +485,7 @@ class Aircraft:
 
     else:
 
-      self._report("used %d HFPs, %d VFPs, and %.1f SFPs." % (self._hfp, self._vfp, self._sfp))
+      self._report("used %d HFPs, %d VFPs, and %.1f SPBRFPs." % (self._hfp, self._vfp, self._spbrfp))
 
       if self._maxturnrate == None:
         self._report("no turns.")
@@ -494,7 +498,8 @@ class Aircraft:
 
       self._report("power APs = %+.1f." % self._powerap)
       self._report("turn  APs = %+.1f and %+.1f." % (turnap, self._sustainedturnap))
-      ap = self._powerap + self._sustainedturnap + turnap
+      self._report("SPBR  APs = %+.1f." % (self._spbrap))
+      ap = self._powerap + self._sustainedturnap + turnap + self._spbrap
       self._report("total APs = %+.1f with %+.1f carry = %+.1f." % (ap, self._apcarry, ap + self._apcarry))
       ap += self._apcarry
 
@@ -523,7 +528,8 @@ class Aircraft:
       else:
         self._report("altitude band is unchanged at %s." % self._altitudeband)
 
-      self._fpcarry = self._nfp - self._hfp - self._vfp - self._sfp
+      fp = self._hfp + self._vfp + self._spbrfp
+      self._fpcarry = self._fp - fp
 
       self._report("carrying %.1f FPs, %.1f APs, and %s altitude levels." % (
         self._fpcarry, self._apcarry, apaltitude.formataltitudecarry(self._altitudecarry)
