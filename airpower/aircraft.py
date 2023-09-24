@@ -113,74 +113,6 @@ class Aircraft:
   def _reportevent(self, s):
     self._report("%-5s : %s" % (self._formatifp(), s))
 
-  def _reportstartofturn(self):
-
-    self._report("--- start of turn -- ")
-
-    if self._destroyed:
-      self._report("aircraft has been destroyed.")
-      return
-
-    if self._leftmap:
-      self._report("aircraft has left the map.")
-      return
-
-    m1 = self._m1()
-    if self._speed >= m1:
-      self._report("speed is %.1f (SSS)." % self._speed)
-    elif self._speed == m1 - 0.5:
-      self._report("speed is %.1f (HTS)." % self._speed)
-    elif self._speed == m1 - 1.0:
-      self._report("speed is %.1f (LTS)." % self._speed)
-    else:
-      self._report("speed is %.1f." % self._speed)
-
-    self._report("%.1f FPs available." % self._nfp)
-    self._report("--- ")
-
-    self._reportactionsandposition("")
-
-  def _reportendofturn(self):
-
-    if not self._destroyed and not self._leftmap:
-
-      self._report("--- ")
-
-      self._report("%d HFPs, %d VFPs, %.1f SFPs, and %+.1f APs." % (self._hfp, self._vfp, self._sfp, self._ap))
-
-      initialspeed = self._speed
-      if self._ap <= 0:
-        aprate = -2.0
-      elif initialspeed >= self._m1():
-        aprate = +3.0
-      else:
-        aprate = +2.0
-      if self._ap >= 0:
-        self._speed += 0.5 * (self._ap // aprate)
-        self._apcarry = self._ap % aprate
-      else:
-        self._speed -= 0.5 * (self._ap // aprate)
-        self._apcarry = self._ap % aprate
-
-      if self._speed != initialspeed:
-        self._report("speed changed from %.1f to %.1f." % (initialspeed, self._speed))
-      else:
-        self._report("speed is unchanged at %.1f." % self._speed)
-
-      initialaltitudeband = self._altitudeband
-      self._altitudeband = apaltitude.altitudeband(self._altitude)
-      if self._altitudeband != initialaltitudeband:
-        self._report("altitude band changed from %s to %s." % (initialaltitudeband, self._altitudeband))
-      else:
-        self._report("altitude band is unchanged at %s." % self._altitudeband)
-
-      self._report("carrying %.1f FPs, %+.1f APs, and %s altitude levels." % (
-        self._fpcarry, self._apcarry, apaltitude.formataltitudecarry(self._altitudecarry)
-      ))
-
-    self._report("--- end of turn -- ")
-    self._reportbreak()
-
   #############################################################################
 
   # Elements
@@ -308,6 +240,57 @@ class Aircraft:
 
     ]
 
+  def _doaction(self, action):
+
+      if self._hfp + self._vfp + self._sfp + 1 > self._nfp:
+        raise ValueError("only %d FPs are available." % self._nfp)
+        
+      if action[0] == 'H':
+        self._hfp += 1
+      elif action[0] == 'D' or action[0] == 'C':
+        self._vfp += 1
+      else:
+        raise ValueError("action %s does not begin with H, D, or C." % action)
+
+      lastx = self._x
+      lasty = self._y
+
+      elementdispatchlist = self._getelementdispatchlist()
+
+      # Movement elements.
+      a = action
+      while a != "":
+        for element in elementdispatchlist:
+          if element[0] == a[:len(element[0])]:
+            element[1]()
+            a = a[len(element[0]):]
+            break
+        else:
+          raise ValueError("unknown element %s in action %s." % (a, action))
+
+      assert aphex.isvalidposition(self._x, self._y)
+      assert aphex.isvalidfacing(self._x, self._y, self._facing)
+      assert apaltitude.isvalidaltitude(self._altitude)
+    
+      self._reportactionsandposition(action)
+      self._drawflightpath(lastx, lasty)
+
+      self.checkforterraincollision()
+      self.checkforleavingmap()
+      if self._destroyed or self._leftmap:
+        return
+
+      # Other elements.
+      a = action
+      while a != "":
+        for element in elementdispatchlist:
+          if element[0] == a[:len(element[0])]:
+            element[2]()
+            a = a[len(element[0]):]
+            break
+        else:
+          raise ValueError("unknown element %s in action %s." % (a, action))
+
   ##############################################################################
 
   def checkforterraincollision(self):
@@ -359,7 +342,7 @@ class Aircraft:
   def _maxprevturn(self):
     return len(self._saved) - 1
 
-  def start(self, turn, ap, actions):
+  def startturn(self, turn, ap, actions):
 
     if turn > self._maxprevturn() + 1:
       raise ValueError("turn %d is out of sequence." % turn)
@@ -374,84 +357,103 @@ class Aircraft:
     self._altitudeband = apaltitude.altitudeband(self._altitude)
     self._ap           = ap + self._apcarry
 
-    self._reportstartofturn()
+    self._report("--- start of turn --")
 
-    if self._destroyed or self._leftmap:
-        self._reportendofturn()
-        self._save(self._turn)
-        return
- 
+    if self._destroyed:
+      self._endturn()
+      return
+
+    if self._leftmap:
+      self._endturn()
+      return
+
+    m1 = self._m1()
+    if self._speed >= m1:
+      speed = "%.1f (SSS)" % self._speed
+    elif self._speed == m1 - 0.5:
+      speed = "%.1f (HTS)" % self._speed
+    elif self._speed == m1 - 1.0:
+      speed = "%.1f (LTS)" % self._speed
+    else:
+      speed = "%.1f" % self._speed
+    self._report("speed is %s and %.1f FPs are available." % (speed, self._nfp))
+
     if actions != "":
-      self.next(actions)
+      self.continueturn(actions)
 
-  def next(self, actions):
+  def continueturn(self, actions):
 
     if self._destroyed or self._leftmap:
       return
+  
+    if self._hfp + self._vfp + self._sfp == 0:
+      self._report("---")
+      self._reportactionsandposition("")
 
     for action in actions.split(","):
-
-      if self._hfp + self._vfp + self._sfp + 1 > self._nfp:
-        raise ValueError("only %d FPs are available." % self._nfp)
+      if not self._destroyed and not self._leftmap:
+        self._doaction(action)
     
-      if action[0] == 'H':
-        self._hfp += 1
-      elif action[0] == 'D' or action[0] == 'C':
-        self._vfp += 1
-      else:
-        raise ValueError("action %s does not begin with H, D, or C." % action)
-
-      lastx = self._x
-      lasty = self._y
-
-      elementdispatchlist = self._getelementdispatchlist()
-
-      # Execute movement elements.
-      a = action
-      while a != "":
-        for element in elementdispatchlist:
-          if element[0] == a[:len(element[0])]:
-            element[1]()
-            a = a[len(element[0]):]
-            break
-        else:
-          raise ValueError("unknown element %s in action %s." % (a, action))
-
-      self._reportactionsandposition(action)
-      self._drawflightpath(lastx, lasty)
-
-      self.checkforterraincollision()
-      self.checkforleavingmap()
-      if self._destroyed or self._leftmap:
-        break
-
-      # Execute other elements.
-      a = action
-      while a != "":
-        for element in elementdispatchlist:
-          if element[0] == a[:len(element[0])]:
-            element[2]()
-            a = a[len(element[0]):]
-            break
-        else:
-          raise ValueError("unknown element %s in action %s." % (a, action))
-
-      if self._destroyed:
-        break
-
     assert self._hfp + self._vfp + self._sfp <= self._nfp
-    assert aphex.isvalidposition(self._x, self._y)
-    assert aphex.isvalidfacing(self._x, self._y, self._facing)
-    assert apaltitude.isvalidaltitude(self._altitude)
 
     if self._hfp + self._vfp + self._sfp + 1 > self._nfp or self._destroyed or self._leftmap:
 
-      self._fpcarry = self._nfp - self._hfp - self._vfp - self._sfp
-
-      self._reportendofturn()
       self._drawaircraft("end")
-      self._save(self._turn)
+      self._report("---")
+      self._endturn()
       
     else:
       
       self._drawaircraft("next")
+
+  def _endturn(self):
+
+    if self._destroyed:
+    
+      self._report("aircraft has been destroyed.")
+
+    elif self._leftmap:
+
+      self._report("aircraft has left the map.")
+
+    else:
+
+      self._report("%d HFPs, %d VFPs, %.1f SFPs, and %+.1f APs generated." % (self._hfp, self._vfp, self._sfp, self._ap))
+
+      initialspeed = self._speed
+      if self._ap <= 0:
+        aprate = -2.0
+      elif initialspeed >= self._m1():
+        aprate = +3.0
+      else:
+        aprate = +2.0
+      if self._ap >= 0:
+        self._speed += 0.5 * (self._ap // aprate)
+        self._apcarry = self._ap % aprate
+      else:
+        self._speed -= 0.5 * (self._ap // aprate)
+        self._apcarry = self._ap % aprate
+
+      if self._speed != initialspeed:
+        self._report("speed changed from %.1f to %.1f." % (initialspeed, self._speed))
+      else:
+        self._report("speed is unchanged at %.1f." % self._speed)
+
+      initialaltitudeband = self._altitudeband
+      self._altitudeband = apaltitude.altitudeband(self._altitude)
+      if self._altitudeband != initialaltitudeband:
+        self._report("altitude band changed from %s to %s." % (initialaltitudeband, self._altitudeband))
+      else:
+        self._report("altitude band is unchanged at %s." % self._altitudeband)
+
+      self._fpcarry = self._nfp - self._hfp - self._vfp - self._sfp
+
+      self._report("carrying %.1f FPs, %+.1f APs, and %s altitude levels." % (
+        self._fpcarry, self._apcarry, apaltitude.formataltitudecarry(self._altitudecarry)
+      ))
+
+    self._save(self._turn)
+
+    self._report("--- end of turn -- ")
+    self._reportbreak()
+
