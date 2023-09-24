@@ -38,9 +38,25 @@ class Aircraft:
     self._drawaircraft("end")
 
   def __str__(self):
-    return "[name: %s]" % self._name
+    s = ""
+    for x in [
+      ["name"         , self._name],
+      ["turn"         , self._turn],
+      ["sheet"        , apmap.tosheet(self._x, self._y) if not self._leftmap else "-- "],
+      ["hexcode"      , aphexcode.fromxy(self._x, self._y) if not self._leftmap else "----"],
+      ["facing"       , apazimuth.fromfacing(self._facing)],
+      ["speed"        , self._speed],
+      ["fpcarry"      , self._fpcarry],
+      ["apcarry"      , self._apcarry],
+      ["altitude"     , self._altitude],
+      ["altitudecarry", self._altitudecarry],
+      ["destroyed"    , self._destroyed],
+      ["leftmap"      , self._leftmap],
+    ]:
+      s += "%-16s: %s\n" % (x[0], x[1])
+    return s
 
-   ##############################################################################
+  ##############################################################################
 
   # Drawing
 
