@@ -354,8 +354,10 @@ class Aircraft:
     self._vfp          = 0
     self._sfp          = 0
     self._nfp          = self._speed + self._fpcarry
+    self._fpcarry      = 0
     self._altitudeband = apaltitude.altitudeband(self._altitude)
     self._ap           = ap + self._apcarry
+    self._apcarry      = 0
 
     self._report("--- start of turn --")
 
@@ -419,7 +421,7 @@ class Aircraft:
 
     else:
 
-      self._report("%d HFPs, %d VFPs, %.1f SFPs, and %+.1f APs generated." % (self._hfp, self._vfp, self._sfp, self._ap))
+      self._report("%d HFPs, %d VFPs, %.1f SFPs, and %.1f APs generated." % (self._hfp, self._vfp, self._sfp, self._ap))
 
       initialspeed = self._speed
       if self._ap <= 0:
@@ -428,13 +430,12 @@ class Aircraft:
         aprate = +3.0
       else:
         aprate = +2.0
-      if self._ap >= 0:
+      if self._ap > 0:
         self._speed += 0.5 * (self._ap // aprate)
         self._apcarry = self._ap % aprate
-      else:
+      elif self._ap < 0:
         self._speed -= 0.5 * (self._ap // aprate)
         self._apcarry = self._ap % aprate
-
       if self._speed != initialspeed:
         self._report("speed changed from %.1f to %.1f." % (initialspeed, self._speed))
       else:
@@ -449,7 +450,7 @@ class Aircraft:
 
       self._fpcarry = self._nfp - self._hfp - self._vfp - self._sfp
 
-      self._report("carrying %.1f FPs, %+.1f APs, and %s altitude levels." % (
+      self._report("carrying %.1f FPs, %.1f APs, and %s altitude levels." % (
         self._fpcarry, self._apcarry, apaltitude.formataltitudecarry(self._altitudecarry)
       ))
 
