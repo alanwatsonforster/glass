@@ -37,9 +37,6 @@ class Aircraft:
 
     self._drawaircraft("end")
 
-    self._reportstartofturn()
-    self._reportendofturn()
-
   def __str__(self):
     return "[name: %s]" % self._name
 
@@ -53,7 +50,7 @@ class Aircraft:
   def _drawaircraft(self, when):
     apdraw.drawaircraft(self._x, self._y, self._facing, self._name, self._altitude, when)
         
-  ##############################################################################
+   ##############################################################################
 
   # Reporting
 
@@ -101,20 +98,15 @@ class Aircraft:
       self._report("aircraft has left the map.")
       return
 
-    if self._turn == 0:
-
-      self._report("speed is %.1f." % (self._speed))
-
-    else:
-
-      self._report("speed is %.1f and %.1f FPs available." % (self._speed, self._nfp))
-      self._report("--- ")
+    self._report("speed is %.1f." % (self._speed, self._m1()))
+    self._report("%.1f FPs available." % self._nfp)
+    self._report("--- ")
 
     self._reportactionsandposition("")
 
   def _reportendofturn(self):
 
-    if self._turn > 0 and not self._destroyed and not self._leftmap:
+    if not self._destroyed and not self._leftmap:
 
       self._report("--- ")
 
@@ -122,11 +114,18 @@ class Aircraft:
 
       initialspeed = self._speed
       if self._ap <= 0:
-        aprate = 2.0
+        aprate = -2.0
+      elif initialspeed >= self._m1():
+        aprate = +3.0
       else:
-        aprate = 2.0
-      self._speed += self._ap // aprate
-      self._apcarry = self._ap % aprate
+        aprate = +2.0
+      if self._ap >= 0:
+        self._speed += 0.5 * (self._ap // aprate)
+        self._apcarry = self._ap % aprate
+      else:
+        self._speed -= 0.5 * (self._ap // aprate)
+        self._apcarry = self._ap % aprate
+
       if self._speed != initialspeed:
         self._report("speed changed from %.1f to %.1f." % (initialspeed, self._speed))
       else:
@@ -331,13 +330,13 @@ class Aircraft:
 
     self._restore(turn - 1)
 
-    self._turn  = turn
-    self._hfp   = 0
-    self._vfp   = 0
-    self._sfp   = 0
-    self._nfp   = self._speed + self._fpcarry
+    self._turn         = turn
+    self._hfp          = 0
+    self._vfp          = 0
+    self._sfp          = 0
+    self._nfp          = self._speed + self._fpcarry
     self._altitudeband = apaltitude.altitudeband(self._altitude)
-    self._ap    = ap + self._apcarry
+    self._ap           = ap + self._apcarry
 
     self._reportstartofturn()
 
