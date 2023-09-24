@@ -135,10 +135,7 @@ def fromxy(x, y):
 
   else:
 
-    if x % 1 == 0:
-      n0 = fromxy(x, y + 0.5)
-      n1 = fromxy(x, y - 0.5)
-    elif x % 2 == 0.5 and y % 1 == 0.25:
+    if x % 2 == 0.5 and y % 1 == 0.25:
       n0 = fromxy(x - 0.5, y - 0.25)
       n1 = fromxy(x + 0.5, y + 0.25)
     elif x % 2 == 0.5 and y % 1 == 0.75:
@@ -150,6 +147,15 @@ def fromxy(x, y):
     elif x % 2 == 1.5 and y % 1 == 0.75:
       n0 = fromxy(x - 0.5, y - 0.25)
       n1 = fromxy(x + 0.5, y + 0.25)
+    elif apmap.tosheet(x, y + 0.5) == None:
+      n0 = fromxy(x, y - 0.5)
+      n1 = n0 - 1
+    elif apmap.tosheet(x, y - 0.5) == None:
+      n0 = fromxy(x, y + 0.5)
+      n1 = n0 + 1
+    else:
+      n0 = fromxy(x, y - 0.5)
+      n1 = fromxy(x, y + 0.5)
 
     if n0 < n1:
       return "%s/%s" % (n0, n1)
