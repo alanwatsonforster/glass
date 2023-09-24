@@ -356,8 +356,7 @@ class Aircraft:
     self._nfp          = self._speed + self._fpcarry
     self._fpcarry      = 0
     self._altitudeband = apaltitude.altitudeband(self._altitude)
-    self._ap           = ap + self._apcarry
-    self._apcarry      = 0
+    self._ap           = ap
 
     self._report("--- start of turn --")
 
@@ -368,6 +367,10 @@ class Aircraft:
     if self._leftmap:
       self._endturn()
       return
+
+    self._report("carrying %.1f FPs, %.1f APs, and %s altitude levels." % (
+      self._fpcarry, self._apcarry, apaltitude.formataltitudecarry(self._altitudecarry)
+    ))
 
     m1 = self._m1()
     if self._speed >= m1:
@@ -380,6 +383,9 @@ class Aircraft:
       speed = "%.1f" % self._speed
     self._report("speed is %s and %.1f FPs are available." % (speed, self._nfp))
 
+    self._report("---")
+    self._reportactionsandposition("")
+        
     self.continueturn(actions)
 
   def continueturn(self, actions):
@@ -388,11 +394,6 @@ class Aircraft:
       return
   
     if actions != "":
-
-      if self._hfp + self._vfp + self._sfp == 0:
-        self._report("---")
-        self._reportactionsandposition("")
-
       for action in actions.split(","):
         if not self._destroyed and not self._leftmap:
           self._doaction(action)
@@ -421,21 +422,22 @@ class Aircraft:
 
     else:
 
-      self._report("%d HFPs, %d VFPs, %.1f SFPs, and %.1f APs generated." % (self._hfp, self._vfp, self._sfp, self._ap))
+      self._report("used %d HFPs, %d VFPs, and %.1f SFPs, and generated %.1f APs." % (self._hfp, self._vfp, self._sfp, self._ap))
 
       initialspeed = self._speed
-      if self._ap <= 0:
+      ap = self._ap + self._apcarry
+      if ap < 0:
         aprate = -2.0
       elif initialspeed >= self._m1():
         aprate = +3.0
       else:
         aprate = +2.0
-      if self._ap > 0:
-        self._speed += 0.5 * (self._ap // aprate)
-        self._apcarry = self._ap % aprate
-      elif self._ap < 0:
-        self._speed -= 0.5 * (self._ap // aprate)
-        self._apcarry = self._ap % aprate
+      if ap >= 0:
+        self._speed += 0.5 * (ap // aprate)
+        self._apcarry = ap % aprate
+      else:
+        self._speed -= 0.5 * (ap // aprate)
+        self._apcarry = ap % aprate
       if self._speed != initialspeed:
         self._report("speed changed from %.1f to %.1f." % (initialspeed, self._speed))
       else:
