@@ -475,15 +475,21 @@ class aircraft:
 
     self._flighttype       = flighttype
     self._powersetting     = powersetting
+
+    # See rule 5.4.
     self._fp               = self._speed + self._fpcarry
+    self._fpcarry          = 0
+
     self._hfp              = 0
     self._vfp              = 0
     self._spbrfp           = 0
-    self._fpcarry          = 0
+
     self._altitudeband     = apaltitude.altitudeband(self._altitude)
+
     self._turns            = 0
     self._turnrate         = None
     self._maxturnrate      = None
+
     self._powerap          = powerap
     self._spbrap           = 0
     self._sustainedturnap  = 0
@@ -500,10 +506,6 @@ class aircraft:
       return
 
     self._log("flight type is %s and power setting is %s (%+.1f APs)." % (self._flighttype, powersetting, powerap))
-
-    self._log("carrying %.1f FPs, %+.1f APs, and %s altitude levels." % (
-      self._fpcarry, self._apcarry, apaltitude.formataltitudecarry(self._altitudecarry)
-    ))
 
     self._log("min speed is %.1f, cruise speed is %.1f, and max speed is %.1f." % ( 
       self._aircrafttype.minspeed("CL", self._altitudeband),
@@ -544,6 +546,24 @@ class aircraft:
     else:
       speed = "%.1f" % self._speed
     self._log("speed is %s and %.1f FPs are available." % (speed, self._fp))
+
+    # See rule 5.5.
+    lastflighttype = self._lastflighttype
+    if lastflighttype == "LV" and (lastflighttype[1] == "C" or flighttype[1] == "D"):
+      requiredhfp = 1
+    elif (lastflighttype[1] == "C" and flighttype[1] == "D") or (lastflighttype[1] == "D" and flighttype[1] == "C"):
+      if self._aircrafttype.hasproperty("HPR"):
+        requiredhfp = self._speed // 3
+      else:
+        requiredhfp = self._speed // 2
+    else:
+      requiredhfp = 0
+    if requiredhfp != 0:
+      self._log("when changing from %s to %s flight the first %d FPs must be HFPs." % (lastflighttype, flighttype, requiredhfp))
+
+    self._log("carrying %.1f FPs, %+.1f APs, and %s altitude levels." % (
+      self._fpcarry, self._apcarry, apaltitude.formataltitudecarry(self._altitudecarry)
+    ))
 
     self._log("---")
     self._logactionsandposition("")
@@ -640,6 +660,7 @@ class aircraft:
       else:
         self._log("altitude band is unchanged at %s." % self._altitudeband)
 
+      # See rule 5.4.
       fp = self._hfp + self._vfp + self._spbrfp
       self._fpcarry = self._fp - fp
 
