@@ -90,3 +90,9 @@ class aircrafttype:
       return { "CL": 45, "1/2": 40, "DT": 35, }[configuration]
     elif self._name == "F-84E":
       return { "CL": 41, "1/2": 36, "DT": 30, }[configuration]
+
+  def hasproperty(self, p):
+    if self._name == "F-80C":
+      return p in ["HTD"]
+    elif self._name == "F-84E":
+      return p in ["HTD"]

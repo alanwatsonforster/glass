@@ -28,6 +28,7 @@ class aircraft:
     self._altitudecarry = 0
     self._speed         = speed
     self._flighttype    = "LV"
+    self._powersetting  = "NOR"
     self._fpcarry       = 0
     self._apcarry       = 0
     self._aircrafttype  = apaircrafttype.aircrafttype(aircrafttype)
@@ -410,6 +411,7 @@ class aircraft:
     self._altitude, \
     self._altitudecarry, \
     self._speed, \
+    self._powersetting, \
     self._flighttype, \
     self._fpcarry, \
     self._apcarry, \
@@ -427,6 +429,7 @@ class aircraft:
       self._altitude, \
       self._altitudecarry, \
       self._speed, \
+      self._powersetting, \
       self._flighttype, \
       self._fpcarry, \
       self._apcarry, \
@@ -461,21 +464,24 @@ class aircraft:
 
     self._restore(apturn.turn() - 1)
 
-    self._lastflighttype  = self._flighttype
-    self._flighttype      = flighttype
-    self._fp              = self._speed + self._fpcarry
-    self._hfp             = 0
-    self._vfp             = 0
-    self._spbrfp          = 0
-    self._fpcarry         = 0
-    self._altitudeband    = apaltitude.altitudeband(self._altitude)
-    self._turns           = 0
-    self._turnrate        = None
-    self._maxturnrate     = None
-    self._powerap         = powerap
-    self._spbrap          = 0
-    self._sustainedturnap = 0
-    self._altitudeap      = 0
+    self._lastflighttype   = self._flighttype
+    self._lastpowersetting = self._powersetting
+
+    self._flighttype       = flighttype
+    self._powersetting     = powersetting
+    self._fp               = self._speed + self._fpcarry
+    self._hfp              = 0
+    self._vfp              = 0
+    self._spbrfp           = 0
+    self._fpcarry          = 0
+    self._altitudeband     = apaltitude.altitudeband(self._altitude)
+    self._turns            = 0
+    self._turnrate         = None
+    self._maxturnrate      = None
+    self._powerap          = powerap
+    self._spbrap           = 0
+    self._sustainedturnap  = 0
+    self._altitudeap       = 0
 
     self._log("--- start of move --")
 
@@ -505,12 +511,22 @@ class aircraft:
     ))
 
     # See rule 6.1.
+    if powersetting == "IDLE":
+      self._log("reducing speed by 0.5 as the power setting is IDLE.")
+      self._speed -= 0.5
+
+    # See rule 6.2.
+    if self._speed <= 0:
+      self._speed = 0
+
+    # See rule 6.1.
+    if self._lastpowersetting == "IDLE" and self._powersetting == "AB" and not self._aircrafttype.hasproperty("RPR"):
+      self._log("risk of flame-out as power setting has increased from IDLE to AB.")
+
+    # See rule 6.1.
     if (powersetting == "IDLE" or powersetting == "NOR") and self._speed > self._aircrafttype.cruisespeed():
       self._log("insufficient power above cruise speed.")
       self._powerap -= 1.0
-    if powersetting == "IDLE" and self._speed > 0.5:
-      self._log("reducing speed by 0.5 as the power setting is idle.")
-      self._speed -= 0.5
 
     m1 = self._m1()
     if self._speed >= m1:
