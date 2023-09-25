@@ -9,7 +9,7 @@ import airpower.turn     as apturn
 
 import math
 
-class Aircraft:
+class aircraft:
 
   def __init__(self, name, hexcode, azimuth, altitude, speed):
 
