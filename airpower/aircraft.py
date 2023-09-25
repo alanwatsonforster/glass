@@ -442,15 +442,15 @@ class aircraft:
     if not isinstance(powerap, (int, float)) or powerap < 0 or powerap % 0.5 != 0:
       raise ValueError("invalid power AP %s" % powerap)
     # TODO: Don't assume CL.
-    powertable = self._aircrafttype.powertable("CL")
+    powerchart = self._aircrafttype.powerchart("CL")
     if powerap == 0:
       powersetting = "NOR"
-    elif powerap <= powertable["MIL"]:
+    elif powerap <= powerchart["MIL"]:
       powersetting = "MIL"
-    elif "AB" in powertable and powerap <= powertable["AB"]:
+    elif "AB" in powerchart and powerap <= powerchart["AB"]:
       powersetting = "AB"
     else:
-      raise ValueError("requested power %s exceeds aircraft capability.")
+      raise ValueError("requested power %s APs exceeds aircraft capability.")
 
     self._restore(apturn.turn() - 1)
 
@@ -548,7 +548,8 @@ class aircraft:
           turnap = 0.0
         else:
           # TODO: Don't assume CL.
-          turnap = -self._aircrafttype.turndragtable("CL")[self._maxturnrate]
+          # TODO: Calculate this at the moment of the maximum turn, since it depends on the configuration.
+          turnap = -self._aircrafttype.turndragchart("CL")[self._maxturnrate]
 
       self._report("power    APs = %+.1f." % self._powerap)
       self._report("turn     APs = %+.1f and %+.1f." % (turnap, self._sustainedturnap))

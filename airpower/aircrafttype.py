@@ -3,7 +3,7 @@ class aircrafttype:
   def __init__(self, name):
     self._name = name
 
-  def powertable(self, configuration):
+  def powerchart(self, configuration):
     if self._name == "F-80C":
       return {
         "CL" : { "MIL": 1.0, },
@@ -17,7 +17,7 @@ class aircrafttype:
         "DT" : { "MIL": 0.5, },
       }[configuration]    
 
-  def turndragtable(self, configuration):
+  def turndragchart(self, configuration):
     if self._name == "F-80C":
       return {
         "CL" : { "TT": 0.0, "HT": 1.0, "BT": 1.0, },
