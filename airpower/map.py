@@ -39,7 +39,6 @@ def setmap(sheetgrid, compassrose, verbose=True):
   aplog.logbreak()
   for iy in range (0, _nysheetgrid):
      aplog.log("  %s" % " ".join(sheetgrid[iy]))
-  aplog.logbreak()
 
   _sheetlist = []
   for iy in range (0, _nysheetgrid):
