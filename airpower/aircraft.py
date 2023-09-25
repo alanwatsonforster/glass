@@ -1,3 +1,4 @@
+from typing import ParamSpecArgs
 import airpower.altitude as apaltitude
 import airpower.azimuth  as apazimuth
 import airpower.draw     as apdraw
@@ -117,10 +118,48 @@ class Aircraft:
     self._reportevent("attack with %s." % what)
 
   def _C(self, altitudechange):
+
+    if not self._flighttype in ["ZC", "SC", "VC"]:
+      raise ValueError("attempt to climb while flight type is %s." % self._flighttype)
+
+    initialaltitude = self._altitude    
     self._altitude, self._altitudecarry = apaltitude.adjustaltitude(self._altitude, self._altitudecarry, +altitudechange)
+    altitudechange = self._altitude - initialaltitude
+
+    if self._flighttype == "ZC":
+      if self._lastflighttype == "ZC":
+        self._altitudeap -= 1.5 * altitudechange
+      else:
+        self._altitudeap -= 1.0 * altitudechange
+    elif self._flighttype == "SC":
+      # TODO: deceleration for climb in excess of CC
+      self._altitudeap -= 0.5 * altitudechange
+    elif self._flighttype == "VC":
+      self._altitudeap -= 2.0 * altitudechange
 
   def _D(self, altitudechange):
+
+    if not self._flighttype in ["LV", "SD", "UD", "VD"]:
+      raise ValueError("attempt to dive while flight type is %s." % self._flighttype)
+
+    initialaltitude = self._altitude    
     self._altitude, self._altitudecarry = apaltitude.adjustaltitude(self._altitude, self._altitudecarry, -altitudechange)
+    altitudechange = initialaltitude - self._altitude
+
+    if self._flighttype == "LV":
+      pass
+    elif self._flighttype == "SD":
+      if self._lastflighttype == "SD":
+        self._altitudeap += 1.0 * altitudechange
+      else:
+        self._altitudeap += 0.5 * altitudechange
+    elif self._flighttype == "UD":
+      if self._lastflighttype == "UD":
+        self._altitudeap += 1.0 * altitudechange
+      else:
+        self._altitudeap += 0.5 * altitudechange
+    elif self._flighttype == "VD":
+      self._altitudeap += 1.0 * altitudechange
 
   def _H(self):
     self._x, self._y = aphex.nextposition(self._x, self._y, self._facing)
@@ -415,6 +454,7 @@ class Aircraft:
     self._powerap         = powerap
     self._spbrap          = 0
     self._sustainedturnap = 0
+    self._altitudeap      = 0
 
     self._report("--- start of move --")
 
@@ -428,7 +468,7 @@ class Aircraft:
 
     self._report("flight type is %s." % self._flighttype)
 
-    self._report("carrying %.1f FPs, %.1f APs, and %s altitude levels." % (
+    self._report("carrying %.1f FPs, %+.1f APs, and %s altitude levels." % (
       self._fpcarry, self._apcarry, apaltitude.formataltitudecarry(self._altitudecarry)
     ))
 
@@ -494,11 +534,12 @@ class Aircraft:
         turndrag = { "EZ": 0.0, "TT": 0.0, "HT": 1.0, "BT": 2.0, }
         turnap = -turndrag[self._maxturnrate]
 
-      self._report("power APs = %+.1f." % self._powerap)
-      self._report("turn  APs = %+.1f and %+.1f." % (turnap, self._sustainedturnap))
-      self._report("SPBR  APs = %+.1f." % (self._spbrap))
-      ap = self._powerap + self._sustainedturnap + turnap + self._spbrap
-      self._report("total APs = %+.1f with %+.1f carry = %+.1f." % (ap, self._apcarry, ap + self._apcarry))
+      self._report("power    APs = %+.1f." % self._powerap)
+      self._report("turn     APs = %+.1f and %+.1f." % (turnap, self._sustainedturnap))
+      self._report("altitude APs = %+.1f" % self._altitudeap)
+      self._report("SPBR     APs = %+.1f." % (self._spbrap))
+      ap = self._powerap + self._sustainedturnap + turnap + self._altitudeap + self._spbrap
+      self._report("total    APs = %+.1f with %+.1f carry = %+.1f." % (ap, self._apcarry, ap + self._apcarry))
       ap += self._apcarry
 
       initialspeed = self._speed
@@ -529,7 +570,7 @@ class Aircraft:
       fp = self._hfp + self._vfp + self._spbrfp
       self._fpcarry = self._fp - fp
 
-      self._report("carrying %.1f FPs, %.1f APs, and %s altitude levels." % (
+      self._report("carrying %.1f FPs, %+.1f APs, and %s altitude levels." % (
         self._fpcarry, self._apcarry, apaltitude.formataltitudecarry(self._altitudecarry)
       ))
 
