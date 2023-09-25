@@ -443,24 +443,30 @@ class aircraft:
       raise ValueError("invalid flight type %s." % flighttype)
 
     # TODO: Don't assume CL.
-    powerchart = self._aircrafttype.powerchart("CL")
+    powerapMIL = self._aircrafttype.power("CL", "MIL")
+    powerapAB  = self._aircrafttype.power("CL", "AB")
     if powerap == "IDLE":
       powersetting = "IDLE"
       powerap = 0
     elif powerap == "NOR" or powerap == 0:
       powersetting = "NOR"
-      powerap = 0
-    elif powerap == "MIL" or (powerap == "AB" and "AB" in powerchart):
-      powersetting = powerap
-      powerap = powerchart[powersetting]
-    elif not isinstance(powerap, (int, float)) or powerap < 0 or powerap % 0.5 != 0:
-      raise ValueError("invalid power AP %s" % powerap)
-    elif powerap <= powerchart["MIL"]:
+      powerap      = 0
+    elif powerap == "MIL":
       powersetting = "MIL"
-    elif "AB" in powerchart and powerap <= powerchart["AB"]:
+      powerap      = powerapMIL
+    elif powerap == "AB" and powerapAB == None:
+      raise ValueError("aircraft does not have AB.")
+    elif powerap == "AB":
+      powersetting = "AB"
+      powerap      = powerapAB
+    elif not isinstance(powerap, (int, float)) or powerap < 0 or powerap % 0.5 != 0:
+      raise ValueError("invalid power %s" % powerap)
+    elif powerap <= powerapMIL:
+      powersetting = "MIL"
+    elif powerapAB != None and powerap <= powerapAB:
       powersetting = "AB"
     else:
-      raise ValueError("requested power %s APs exceeds aircraft capability.")
+      raise ValueError("requested power of %s APs exceeds aircraft capability.")
 
     self._restore(apturn.turn() - 1)
 
@@ -512,12 +518,11 @@ class aircraft:
 
     # See rule 6.1.
     if powersetting == "IDLE":
-      self._log("reducing speed by 0.5 as the power setting is IDLE.")
-      self._speed -= 0.5
-
-    # See rule 6.2.
-    if self._speed <= 0:
-      self._speed = 0
+      idlefp = self._aircrafttype.power("CL", "IDLE")
+      # This keeps the speed non-negative. See rule 6.2.
+      idlefp = min(idlefp, self._speed)
+      self._log("reducing speed by %.1f as the power setting is IDLE." % idlefp)
+      self._speed -= idlefp
 
     # See rule 6.1.
     if self._lastpowersetting == "IDLE" and self._powersetting == "AB" and not self._aircrafttype.hasproperty("RPR"):
@@ -528,13 +533,14 @@ class aircraft:
       self._log("insufficient power above cruise speed.")
       self._powerap -= 1.0
 
+    # See rule 6.6.
     m1 = self._m1()
     if self._speed >= m1:
-      speed = "%.1f (SSS)" % self._speed
+      speed = "%.1f (SS)" % self._speed
     elif self._speed == m1 - 0.5:
-      speed = "%.1f (HTS)" % self._speed
+      speed = "%.1f (HT)" % self._speed
     elif self._speed == m1 - 1.0:
-      speed = "%.1f (LTS)" % self._speed
+      speed = "%.1f (LT)" % self._speed
     else:
       speed = "%.1f" % self._speed
     self._log("speed is %s and %.1f FPs are available." % (speed, self._fp))
@@ -591,7 +597,7 @@ class aircraft:
         else:
           # TODO: Don't assume CL.
           # TODO: Calculate this at the moment of the maximum turn, since it depends on the configuration.
-          turnap = -self._aircrafttype.turndragchart("CL")[self._maxturnrate]
+          turnap = -self._aircrafttype.turndrag("CL", self._maxturnrate)
 
       self._log("power    APs = %+.1f." % self._powerap)
       self._log("turn     APs = %+.1f and %+.1f." % (turnap, self._sustainedturnap))

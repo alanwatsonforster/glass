@@ -1,0 +1,34 @@
+{
+  "name": "F-84E",
+  "origin": "TSOH",
+  "powertable": {
+    "CL"  : { "IDLE": 0.5, "NOR": 0.0, "MIL": 1.0, "SPBR": 0.5 },
+    "1/2" : { "IDLE": 0.5, "NOR": 0.0, "MIL": 0.5, "SPBR": 0.5 },
+    "DT"  : { "IDLE": 0.5, "NOR": 0.0, "MIL": 0.5, "SPBR": 1.0 },
+    "FUEL": { "IDLE": 0.0, "NOR": 0.5, "MIL": 1.0 }
+  },
+  "maneuvertable": {
+    "LR/DR": { "HFP": 1.0, "DP": 1.5 },
+    "VR": { "DP": 0.5 }
+  },
+  "turndragtable": {
+    "CL" : { "TT": 0.0, "HT": 1.0, "BT": 2.0 },
+    "1/2": { "TT": 1.0, "HT": 2.0, "BT": 2.0 },
+    "DT" : { "TT": 1.0, "HT": 2.0, "BT": 2.0 }
+  },
+  "minspeedtable": {
+    "CL" : { "LO": 1.5, "ML": 1.5, "MH": 2.0, "HI": 2.5, "VH": 2.5, "EH": 0.0 },
+    "1/2": { "LO": 1.5, "ML": 2.0, "MH": 2.0, "HI": 2.5, "VH": 2.5, "EH": 0.0 },
+    "DT" : { "LO": 2.0, "ML": 2.0, "MH": 2.5, "HI": 0.0, "VH": 0.0, "EH": 0.0 }
+  },
+  "maxspeedtable": {
+    "CL" : { "LO": 6.0, "ML": 6.0, "MH": 5.5, "HI": 5.5, "VH": 5.5, "EH": 0.0 },
+    "1/2": { "LO": 5.5, "ML": 5.5, "MH": 5.5, "HI": 5.0, "VH": 5.0, "EH": 0.0 },
+    "DT" : { "LO": 5.5, "ML": 5.0, "MH": 5.5, "HI": 0.0, "VH": 0.0, "EH": 0.0 }
+  },
+  "cruisespeed": 4.5,
+  "climbspeed": 3.5,
+  "divespeedtable": { "LO": 7.0, "ML": 7.0, "MH": 6.5, "HI": 6.5, "VH": 6.0, "EH": 0.0 },
+  "ceilingtable": { "CL": 41, "1/2": 36, "DT": 30 },
+  "properties": [ "HTD" ]
+}
