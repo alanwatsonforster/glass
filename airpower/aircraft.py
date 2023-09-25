@@ -632,15 +632,20 @@ class aircraft:
       self._log("total    APs = %+.1f with %+.1f carry = %+.1f." % (ap, self._apcarry, ap + self._apcarry))
       ap += self._apcarry
 
-      # See rule 6.2.
-      # TODO: rates for RA aircraft.
+      # See rules 6.2 and 6.6.
       initialspeed = self._speed
       if ap < 0:
         aprate = -2.0
-      elif initialspeed >= self._m1():
-        aprate = +3.0
+      elif self._aircrafttype.hasproperty("RA"):
+        if initialspeed >= self._m1():
+          aprate = +2.0
+        else:
+          aprate = +1.5
       else:
-        aprate = +2.0
+        if initialspeed >= self._m1():
+          aprate = +3.0
+        else:
+          aprate = +2.0
 
       # See rule 6.2 and 6.3
       if ap < 0:
