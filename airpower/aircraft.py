@@ -4,6 +4,7 @@ import airpower.draw     as apdraw
 import airpower.hex      as aphex
 import airpower.hexcode  as aphexcode
 import airpower.map      as apmap
+import airpower.turn     as apturn
 
 import math
 
@@ -17,15 +18,14 @@ class Aircraft:
     apaltitude.checkisvalidaltitude(altitude)
     aphex.checkisvalidfacing(x, y, facing)
 
-    self._turn          = 0
     self._name          = name
-
     self._x             = x
     self._y             = y
     self._facing        = facing
     self._altitude      = altitude
     self._altitudecarry = 0
     self._speed         = speed
+    self._flighttype    = "LV"
     self._fpcarry       = 0
     self._apcarry       = 0
 
@@ -41,7 +41,6 @@ class Aircraft:
     s = ""
     for x in [
       ["name"         , self._name],
-      ["turn"         , self._turn],
       ["sheet"        , apmap.tosheet(self._x, self._y) if not self._leftmap else "-- "],
       ["hexcode"      , aphexcode.fromxy(self._x, self._y) if not self._leftmap else "----"],
       ["facing"       , apazimuth.fromfacing(self._facing)],
@@ -93,13 +92,10 @@ class Aircraft:
     return "%2s %-9s  %-3s  %2d" % (sheet, hexcode, azimuth, altitude)
 
   def _formatifp(self):
-    if self._turn == 0:
-      return ""
-    else:
-      return "FP %d" % (self._hfp + self._vfp)
+    return "FP %d" % (self._hfp + self._vfp)
 
   def _report(self, s):
-    print("%s: turn %-2d : %s" % (self._name, self._turn, s))
+    print("%s: turn %-2d : %s" % (self._name, apturn.turn(), s))
 
   def _reportbreak(self):
     print()
@@ -374,6 +370,7 @@ class Aircraft:
     self._altitude, \
     self._altitudecarry, \
     self._speed, \
+    self._flighttype, \
     self._fpcarry, \
     self._apcarry, \
     self._destroyed, \
@@ -390,45 +387,46 @@ class Aircraft:
       self._altitude, \
       self._altitudecarry, \
       self._speed, \
+      self._flighttype, \
       self._fpcarry, \
       self._apcarry, \
       self._destroyed, \
       self._leftmap, \
     )
 
-  def _maxprevturn(self):
-    return len(self._saved) - 1
+  def startmove(self, flighttype, powerap, actions):
 
-  def startturn(self, turn, powerap, actions):
+    if flighttype not in ["LV", "SC", "ZC", "VC", "SD", "UD", "VD"]:
+      raise ValueError("invalid flight type %s." % flighttype)
 
-    if turn > self._maxprevturn() + 1:
-      raise ValueError("turn %d is out of sequence." % turn)
+    self._restore(apturn.turn() - 1)
 
-    self._restore(turn - 1)
-
-    self._turn            = turn
+    self._lastflighttype  = self._flighttype
+    self._flighttype      = flighttype
+    self._fp              = self._speed + self._fpcarry
     self._hfp             = 0
     self._vfp             = 0
     self._spbrfp          = 0
-    self._fp              = self._speed + self._fpcarry
     self._fpcarry         = 0
     self._altitudeband    = apaltitude.altitudeband(self._altitude)
     self._turns           = 0
+    self._turnrate        = None
+    self._maxturnrate     = None
     self._powerap         = powerap
     self._spbrap          = 0
     self._sustainedturnap = 0
-    self._turnrate        = None
-    self._maxturnrate     = None
 
-    self._report("--- start of turn --")
+    self._report("--- start of move --")
 
     if self._destroyed:
-      self._endturn()
+      self._endmove()
       return
 
     if self._leftmap:
-      self._endturn()
+      self._endmove()
       return
+
+    self._report("flight type is %s." % self._flighttype)
 
     self._report("carrying %.1f FPs, %.1f APs, and %s altitude levels." % (
       self._fpcarry, self._apcarry, apaltitude.formataltitudecarry(self._altitudecarry)
@@ -448,9 +446,9 @@ class Aircraft:
     self._report("---")
     self._reportactionsandposition("")
         
-    self.continueturn(actions)
+    self.continuemove(actions)
 
-  def continueturn(self, actions):
+  def continuemove(self, actions):
 
     if self._destroyed or self._leftmap:
       return
@@ -467,13 +465,13 @@ class Aircraft:
 
       self._drawaircraft("end")
       self._report("---")
-      self._endturn()
+      self._endmove()
       
     else:
       
       self._drawaircraft("next")
 
-  def _endturn(self):
+  def _endmove(self):
 
     if self._destroyed:
     
@@ -535,7 +533,7 @@ class Aircraft:
         self._fpcarry, self._apcarry, apaltitude.formataltitudecarry(self._altitudecarry)
       ))
 
-    self._save(self._turn)
+    self._save(apturn.turn())
 
-    self._report("--- end of turn -- ")
+    self._report("--- end of move -- ")
     self._reportbreak()
