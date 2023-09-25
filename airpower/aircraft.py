@@ -438,6 +438,20 @@ class aircraft:
     if flighttype not in ["LV", "SC", "ZC", "VC", "SD", "UD", "VD"]:
       raise ValueError("invalid flight type %s." % flighttype)
 
+    # TODO: IDLE power.
+    if not isinstance(powerap, (int, float)) or powerap < 0 or powerap % 0.5 != 0:
+      raise ValueError("invalid power AP %s" % powerap)
+    # TODO: Don't assume CL.
+    powertable = self._aircrafttype.powertable("CL")
+    if powerap == 0:
+      powersetting = "NOR"
+    elif powerap <= powertable["MIL"]:
+      powersetting = "MIL"
+    elif "AB" in powertable and powerap <= powertable["AB"]:
+      powersetting = "AB"
+    else:
+      raise ValueError("requested power %s exceeds aircraft capability.")
+
     self._restore(apturn.turn() - 1)
 
     self._lastflighttype  = self._flighttype
@@ -466,7 +480,7 @@ class aircraft:
       self._endmove()
       return
 
-    self._report("flight type is %s." % self._flighttype)
+    self._report("flight type is %s and power setting is %s (%+.1f APs)." % (self._flighttype, powersetting, powerap))
 
     self._report("carrying %.1f FPs, %+.1f APs, and %s altitude levels." % (
       self._fpcarry, self._apcarry, apaltitude.formataltitudecarry(self._altitudecarry)
@@ -534,7 +548,7 @@ class aircraft:
           turnap = 0.0
         else:
           # TODO: Don't assume CL.
-          turnap = -self._aircrafttype.turndrag("CL")[self._maxturnrate]
+          turnap = -self._aircrafttype.turndragtable("CL")[self._maxturnrate]
 
       self._report("power    APs = %+.1f." % self._powerap)
       self._report("turn     APs = %+.1f and %+.1f." % (turnap, self._sustainedturnap))

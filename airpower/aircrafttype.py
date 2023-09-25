@@ -3,7 +3,21 @@ class aircrafttype:
   def __init__(self, name):
     self._name = name
 
-  def turndrag(self, configuration):
+  def powertable(self, configuration):
+    if self._name == "F-80C":
+      return {
+        "CL" : { "MIL": 1.0, },
+        "1/2": { "MIL": 1.0, },
+        "DT" : { "MIL": 1.0, },
+      }[configuration]
+    elif self._name == "F-84E":
+      return {
+        "CL" : { "MIL": 1.0, },
+        "1/2": { "MIL": 0.5, },
+        "DT" : { "MIL": 0.5, },
+      }[configuration]    
+
+  def turndragtable(self, configuration):
     if self._name == "F-80C":
       return {
         "CL" : { "TT": 0.0, "HT": 1.0, "BT": 1.0, },
