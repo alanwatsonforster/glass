@@ -1,17 +1,17 @@
-from typing import ParamSpecArgs
-import airpower.altitude as apaltitude
-import airpower.azimuth  as apazimuth
-import airpower.draw     as apdraw
-import airpower.hex      as aphex
-import airpower.hexcode  as aphexcode
-import airpower.map      as apmap
-import airpower.turn     as apturn
+import airpower.aircrafttype as apaircrafttype
+import airpower.altitude     as apaltitude
+import airpower.azimuth      as apazimuth
+import airpower.draw         as apdraw
+import airpower.hex          as aphex
+import airpower.hexcode      as aphexcode
+import airpower.map          as apmap
+import airpower.turn         as apturn
 
 import math
 
 class aircraft:
 
-  def __init__(self, name, hexcode, azimuth, altitude, speed):
+  def __init__(self, name, aircrafttype, hexcode, azimuth, altitude, speed):
 
     x, y = aphexcode.toxy(hexcode)
     facing = apazimuth.tofacing(azimuth)
@@ -29,7 +29,7 @@ class aircraft:
     self._flighttype    = "LV"
     self._fpcarry       = 0
     self._apcarry       = 0
-
+    self._aircrafttype  = apaircrafttype.aircrafttype(aircrafttype)
     self._destroyed     = False
     self._leftmap       = False
 
@@ -527,12 +527,14 @@ class aircraft:
 
       if self._maxturnrate == None:
         self._report("no turns.")
-        turnap = 0
+        turnap = 0.0
       else:
         self._report("maximum turn rate is %s." % self._maxturnrate)
-        # TODO: These hard-wired values are just for testing.
-        turndrag = { "EZ": 0.0, "TT": 0.0, "HT": 1.0, "BT": 2.0, }
-        turnap = -turndrag[self._maxturnrate]
+        if self._maxturnrate == "EZ":
+          turnap = 0.0
+        else:
+          # TODO: Don't assume CL.
+          turnap = -self._aircrafttype.turndrag("CL")[self._maxturnrate]
 
       self._report("power    APs = %+.1f." % self._powerap)
       self._report("turn     APs = %+.1f and %+.1f." % (turnap, self._sustainedturnap))
