@@ -28,7 +28,7 @@
   },
   "cruisespeed": 4.5,
   "climbspeed": 3.5,
-  "divespeedtable": { "LO": 7.0, "ML": 7.0, "MH": 6.5, "HI": 6.5, "VH": 6.0, "EH": 0.0 },
+  "maxdivespeedtable": { "LO": 7.0, "ML": 7.0, "MH": 6.5, "HI": 6.5, "VH": 6.0, "EH": 0.0 },
   "ceilingtable": { "CL": 41, "1/2": 36, "DT": 30 },
   "properties": [ "HTD" ]
 }

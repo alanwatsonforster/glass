@@ -50,13 +50,13 @@ class aircrafttype:
   def climbspeed(self):
     return self._data["climbspeed"]
 
-  def divespeed(self, altitudeband):
+  def maxdivespeed(self, altitudeband):
     if altitudeband == "UH":
       altitudeband = "EH"
-    if not altitudeband in self._data["divespeedtable"]:
+    if not altitudeband in self._data["maxdivespeedtable"]:
       return None
     else:
-      return self._data["divespeedtable"][altitudeband]
+      return self._data["maxdivespeedtable"][altitudeband]
 
   def ceiling(self, configuration):
     return self._data["ceilingtable"][configuration]

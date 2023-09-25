@@ -512,9 +512,9 @@ class aircraft:
       self._aircrafttype.cruisespeed(),
       self._aircrafttype.maxspeed("CL", self._altitudeband),
     ))
-    self._log("climb speed is %.1f, dive speed is %.1f, and M1 is %.1f." % ( 
+    self._log("climb speed is %.1f, max dive speed is %.1f, and M1 is %.1f." % ( 
       self._aircrafttype.climbspeed(),
-      self._aircrafttype.divespeed(self._altitudeband),
+      self._aircrafttype.maxdivespeed(self._altitudeband),
       self._m1(),
     ))
 
@@ -534,6 +534,11 @@ class aircraft:
     if (powersetting == "IDLE" or powersetting == "NOR") and self._speed > self._aircrafttype.cruisespeed():
       self._log("insufficient power above cruise speed.")
       self._powerap -= 1.0
+
+    # See rule 6.3.
+    if self._speed < self._aircrafttype.minspeed("CL", self._altitudeband):
+      self._log("aircraft has stalled.")
+      # TODO: Implement stalled or departed flight.
 
     # See rule 6.6.
     m1 = self._m1()
@@ -559,7 +564,7 @@ class aircraft:
     else:
       requiredhfp = 0
     if requiredhfp != 0:
-      self._log("when changing from %s to %s flight the first %d FPs must be HFPs." % (lastflighttype, flighttype, requiredhfp))
+      self._log("changing from %s to %s flight so the first %d FPs must be HFPs." % (lastflighttype, flighttype, requiredhfp))
 
     self._log("carrying %.1f FPs, %+.1f APs, and %s altitude levels." % (
       self._fpcarry, self._apcarry, apaltitude.formataltitudecarry(self._altitudecarry)
@@ -636,11 +641,35 @@ class aircraft:
         aprate = +3.0
       else:
         aprate = +2.0
-      if ap >= 0:
-        self._speed += 0.5 * (ap // aprate)
-      else:
+
+      # See rule 6.2 and 6.3
+      if ap < 0:
         self._speed -= 0.5 * (ap // aprate)
-      self._apcarry = ap % aprate
+        self._apcarry = ap % aprate
+      else:
+        if self._flighttype == "LV" or self._flighttype[1] == "C":
+          maxspeed = self._aircrafttype.maxspeed("CL", self._altitudeband)
+        elif self._flighttype[1] == "D":
+          maxspeed = self._aircrafttype.maxdivespeed(self._altitudeband)
+        if self._speed + 0.5 * (ap // aprate) > maxspeed:
+          self._log("speed is limited to %.1f." % maxspeed)
+          self._speed = maxspeed
+          self._apcarry = aprate - 0.5
+        else:
+          self._speed += 0.5 * (ap // aprate)
+          self._apcarry = ap % aprate
+
+      # See rule 6.3.
+      if self._flighttype == "LV" or self._flighttype[1] == "C":
+        maxspeed = self._aircrafttype.maxspeed("CL", self._altitudeband)
+        if self._speed > maxspeed:
+          self._log("speed is faded back from %.1f." % self._speed)
+          self._speed = max(self._speed - 1, maxspeed)
+      elif self._flighttype[1] == "D":
+        maxspeed = self._aircrafttype.maxdivespeed(self._altitudeband)
+        if self._speed > maxspeed:
+          self._log("speed is reduced from %.1f to maximum dive speed." % self._speed)
+          self._speed = maxspeed
 
       # See rule 6.2.
       if self._speed <= 0:
