@@ -439,13 +439,19 @@ class aircraft:
     if flighttype not in ["LV", "SC", "ZC", "VC", "SD", "UD", "VD"]:
       raise ValueError("invalid flight type %s." % flighttype)
 
-    # TODO: IDLE power.
-    if not isinstance(powerap, (int, float)) or powerap < 0 or powerap % 0.5 != 0:
-      raise ValueError("invalid power AP %s" % powerap)
     # TODO: Don't assume CL.
     powerchart = self._aircrafttype.powerchart("CL")
-    if powerap == 0:
+    if powerap == "IDLE":
+      powersetting = "IDLE"
+      powerap = 0
+    elif powerap == "NOR" or powerap == 0:
       powersetting = "NOR"
+      powerap = 0
+    elif powerap == "MIL" or (powerap == "AB" and "AB" in powerchart):
+      powersetting = powerap
+      powerap = powerchart[powersetting]
+    elif not isinstance(powerap, (int, float)) or powerap < 0 or powerap % 0.5 != 0:
+      raise ValueError("invalid power AP %s" % powerap)
     elif powerap <= powerchart["MIL"]:
       powersetting = "MIL"
     elif "AB" in powerchart and powerap <= powerchart["AB"]:
@@ -486,6 +492,25 @@ class aircraft:
     self._log("carrying %.1f FPs, %+.1f APs, and %s altitude levels." % (
       self._fpcarry, self._apcarry, apaltitude.formataltitudecarry(self._altitudecarry)
     ))
+
+    self._log("min speed is %.1f, cruise speed is %.1f, and max speed is %.1f." % ( 
+      self._aircrafttype.minspeed("CL", self._altitudeband),
+      self._aircrafttype.cruisespeed(),
+      self._aircrafttype.maxspeed("CL", self._altitudeband),
+    ))
+    self._log("climb speed is %.1f, dive speed is %.1f, and M1 is %.1f." % ( 
+      self._aircrafttype.climbspeed(),
+      self._aircrafttype.divespeed(self._altitudeband),
+      self._m1(),
+    ))
+
+    # See rule 6.1.
+    if (powersetting == "IDLE" or powersetting == "NOR") and self._speed > self._aircrafttype.cruisespeed():
+      self._log("insufficient power above cruise speed.")
+      self._powerap -= 1.0
+    if powersetting == "IDLE" and self._speed > 0.5:
+      self._log("reducing speed by 0.5 as the power setting is idle.")
+      self._speed -= 0.5
 
     m1 = self._m1()
     if self._speed >= m1:
@@ -560,8 +585,9 @@ class aircraft:
       self._log("total    APs = %+.1f with %+.1f carry = %+.1f." % (ap, self._apcarry, ap + self._apcarry))
       ap += self._apcarry
 
-      initialspeed = self._speed
+      # See rule 6.2.
       # TODO: rates for RA aircraft.
+      initialspeed = self._speed
       if ap < 0:
         aprate = -2.0
       elif initialspeed >= self._m1():
@@ -573,6 +599,13 @@ class aircraft:
       else:
         self._speed -= 0.5 * (ap // aprate)
       self._apcarry = ap % aprate
+
+      # See rule 6.2.
+      if self._speed <= 0:
+        self._speed = 0
+        if self._apcarry < 0:
+          self._apcarry = 0
+
       if self._speed != initialspeed:
         self._log("speed changed from %.1f to %.1f." % (initialspeed, self._speed))
       else:
