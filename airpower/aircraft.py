@@ -4,6 +4,7 @@ import airpower.azimuth      as apazimuth
 import airpower.draw         as apdraw
 import airpower.hex          as aphex
 import airpower.hexcode      as aphexcode
+import airpower.log          as aplog
 import airpower.map          as apmap
 import airpower.turn         as apturn
 
@@ -95,27 +96,27 @@ class aircraft:
   def _formatifp(self):
     return "FP %d" % (self._hfp + self._vfp)
 
-  def _report(self, s):
-    print("%s: turn %-2d : %s" % (self._name, apturn.turn(), s))
+  def _log(self, s):
+    aplog.log("%s: turn %-2d : %s" % (self._name, apturn.turn(), s))
 
-  def _reportbreak(self):
-    print()
+  def _logbreak(self):
+    aplog.logbreak()
 
-  def _reportposition(self):
-    self._report("%-5s : %-16s : %s" % ("", "", self._formatposition()))
+  def _logposition(self):
+    self._log("%-5s : %-16s : %s" % ("", "", self._formatposition()))
 
-  def _reportactionsandposition(self, action):
-    self._report("%-5s : %-16s : %s" % (self._formatifp(), action, self._formatposition()))
+  def _logactionsandposition(self, action):
+    self._log("%-5s : %-16s : %s" % (self._formatifp(), action, self._formatposition()))
   
-  def _reportevent(self, s):
-    self._report("%-5s : %s" % (self._formatifp(), s))
+  def _logevent(self, s):
+    self._log("%-5s : %s" % (self._formatifp(), s))
 
   #############################################################################
 
   # Elements
 
   def _A(self, what):
-    self._reportevent("attack with %s." % what)
+    self._logevent("attack with %s." % what)
 
   def _C(self, altitudechange):
 
@@ -165,7 +166,7 @@ class aircraft:
     self._x, self._y = aphex.nextposition(self._x, self._y, self._facing)
 
   def _K(self):
-    self._reportevent("aircraft has been killed.")
+    self._logevent("aircraft has been killed.")
     self._destroyed = True
 
   def _S(self, spbrfp):
@@ -364,7 +365,7 @@ class aircraft:
       assert aphex.isvalidfacing(self._x, self._y, self._facing)
       assert apaltitude.isvalidaltitude(self._altitude)
     
-      self._reportactionsandposition(action)
+      self._logactionsandposition(action)
       self._drawflightpath(lastx, lasty)
 
       self.checkforterraincollision()
@@ -390,12 +391,12 @@ class aircraft:
     if self._altitude <= altitudeofterrain:
       self._altitude = altitudeofterrain
       self._altitudecarry = 0
-      self._reportevent("aircraft has collided with terrain at altitude %d." % altitudeofterrain)
+      self._logevent("aircraft has collided with terrain at altitude %d." % altitudeofterrain)
       self._destroyed = True
 
   def checkforleavingmap(self):
     if not apmap.iswithinmap(self._x, self._y):
-      self._reportevent("aircraft has left the map.")
+      self._logevent("aircraft has left the map.")
       self._leftmap = True
   
   ##############################################################################
@@ -470,7 +471,7 @@ class aircraft:
     self._sustainedturnap = 0
     self._altitudeap      = 0
 
-    self._report("--- start of move --")
+    self._log("--- start of move --")
 
     if self._destroyed:
       self._endmove()
@@ -480,9 +481,9 @@ class aircraft:
       self._endmove()
       return
 
-    self._report("flight type is %s and power setting is %s (%+.1f APs)." % (self._flighttype, powersetting, powerap))
+    self._log("flight type is %s and power setting is %s (%+.1f APs)." % (self._flighttype, powersetting, powerap))
 
-    self._report("carrying %.1f FPs, %+.1f APs, and %s altitude levels." % (
+    self._log("carrying %.1f FPs, %+.1f APs, and %s altitude levels." % (
       self._fpcarry, self._apcarry, apaltitude.formataltitudecarry(self._altitudecarry)
     ))
 
@@ -495,10 +496,10 @@ class aircraft:
       speed = "%.1f (LTS)" % self._speed
     else:
       speed = "%.1f" % self._speed
-    self._report("speed is %s and %.1f FPs are available." % (speed, self._fp))
+    self._log("speed is %s and %.1f FPs are available." % (speed, self._fp))
 
-    self._report("---")
-    self._reportactionsandposition("")
+    self._log("---")
+    self._logactionsandposition("")
         
     self.continuemove(actions)
 
@@ -518,7 +519,7 @@ class aircraft:
     if fp + 1 > self._fp or self._destroyed or self._leftmap:
 
       self._drawaircraft("end")
-      self._report("---")
+      self._log("---")
       self._endmove()
       
     else:
@@ -529,21 +530,21 @@ class aircraft:
 
     if self._destroyed:
     
-      self._report("aircraft has been destroyed.")
+      self._log("aircraft has been destroyed.")
 
     elif self._leftmap:
 
-      self._report("aircraft has left the map.")
+      self._log("aircraft has left the map.")
 
     else:
 
-      self._report("used %d HFPs, %d VFPs, and %.1f SPBRFPs." % (self._hfp, self._vfp, self._spbrfp))
+      self._log("used %d HFPs, %d VFPs, and %.1f SPBRFPs." % (self._hfp, self._vfp, self._spbrfp))
 
       if self._maxturnrate == None:
-        self._report("no turns.")
+        self._log("no turns.")
         turnap = 0.0
       else:
-        self._report("maximum turn rate is %s." % self._maxturnrate)
+        self._log("maximum turn rate is %s." % self._maxturnrate)
         if self._maxturnrate == "EZ":
           turnap = 0.0
         else:
@@ -551,12 +552,12 @@ class aircraft:
           # TODO: Calculate this at the moment of the maximum turn, since it depends on the configuration.
           turnap = -self._aircrafttype.turndragchart("CL")[self._maxturnrate]
 
-      self._report("power    APs = %+.1f." % self._powerap)
-      self._report("turn     APs = %+.1f and %+.1f." % (turnap, self._sustainedturnap))
-      self._report("altitude APs = %+.1f" % self._altitudeap)
-      self._report("SPBR     APs = %+.1f." % (self._spbrap))
+      self._log("power    APs = %+.1f." % self._powerap)
+      self._log("turn     APs = %+.1f and %+.1f." % (turnap, self._sustainedturnap))
+      self._log("altitude APs = %+.1f" % self._altitudeap)
+      self._log("SPBR     APs = %+.1f." % (self._spbrap))
       ap = self._powerap + self._sustainedturnap + turnap + self._altitudeap + self._spbrap
-      self._report("total    APs = %+.1f with %+.1f carry = %+.1f." % (ap, self._apcarry, ap + self._apcarry))
+      self._log("total    APs = %+.1f with %+.1f carry = %+.1f." % (ap, self._apcarry, ap + self._apcarry))
       ap += self._apcarry
 
       initialspeed = self._speed
@@ -573,25 +574,25 @@ class aircraft:
         self._speed -= 0.5 * (ap // aprate)
       self._apcarry = ap % aprate
       if self._speed != initialspeed:
-        self._report("speed changed from %.1f to %.1f." % (initialspeed, self._speed))
+        self._log("speed changed from %.1f to %.1f." % (initialspeed, self._speed))
       else:
-        self._report("speed is unchanged at %.1f." % self._speed)
+        self._log("speed is unchanged at %.1f." % self._speed)
 
       initialaltitudeband = self._altitudeband
       self._altitudeband = apaltitude.altitudeband(self._altitude)
       if self._altitudeband != initialaltitudeband:
-        self._report("altitude band changed from %s to %s." % (initialaltitudeband, self._altitudeband))
+        self._log("altitude band changed from %s to %s." % (initialaltitudeband, self._altitudeband))
       else:
-        self._report("altitude band is unchanged at %s." % self._altitudeband)
+        self._log("altitude band is unchanged at %s." % self._altitudeband)
 
       fp = self._hfp + self._vfp + self._spbrfp
       self._fpcarry = self._fp - fp
 
-      self._report("carrying %.1f FPs, %+.1f APs, and %s altitude levels." % (
+      self._log("carrying %.1f FPs, %+.1f APs, and %s altitude levels." % (
         self._fpcarry, self._apcarry, apaltitude.formataltitudecarry(self._altitudecarry)
       ))
 
     self._save(apturn.turn())
 
-    self._report("--- end of move -- ")
-    self._reportbreak()
+    self._log("--- end of move -- ")
+    self._logbreak()

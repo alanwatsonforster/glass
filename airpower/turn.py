@@ -1,3 +1,4 @@
+import airpower.log as aplog
 import airpower.map as apmap
 
 _turn = None
@@ -16,14 +17,14 @@ def startturn(turn):
     raise ValueError("attempt to start turn %d out of sequence." % turn)
   _turn = turn
   _maxturn = max(_maxturn, _turn)
-  print("--- start of turn %d ---" % _turn)
-  print("")
+  aplog.log("--- start of turn %d ---" % _turn)
+  aplog.logbreak()
   apmap.drawmap()
 
 def endturn():
   global _turn
-  print("--- end of turn %d ---" % _turn)
-  print("")
+  aplog.log("--- end of turn %d ---" % _turn)
+  aplog.logbreak()
   _turn = None
 
 def turn():

@@ -1,3 +1,5 @@
+import airpower.log as aplog
+
 _northfacing = 90
 
 def setnorth(orientation):
@@ -18,6 +20,7 @@ def setnorth(orientation):
     _northfacing = 270
   else:
     raise ValueError("\"%s\" is not a valid orientation for north.")
+  aplog.log("north is %s." % orientation)
 
 def tofacing(azimuth):
 

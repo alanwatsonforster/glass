@@ -1,15 +1,17 @@
-import airpower.map    as apmap
 import airpower.azimuth as apazimuth
+import airpower.log     as aplog
+import airpower.map     as apmap
 import airpower.turn    as apturn
 
 def startprolog(sheets, compassrose, north="up"):
-  print("--- start prolog ---")
-  apazimuth.setnorth(north)
+  aplog.log("--- start prolog ---")
+  aplog.logbreak()
   apmap.setmap(sheets, compassrose)
+  apazimuth.setnorth(north)
   apmap.drawmap()
   apturn.restart()
-  print()
+  aplog.logbreak()
 
 def endprolog():
-  print("--- end prolog ---")
-  print()
+  aplog.log("--- end prolog ---")
+  aplog.logbreak()

@@ -2,6 +2,7 @@ import airpower.azimuth as apazimuth
 import airpower.draw    as apdraw
 import airpower.hex     as aphex
 import airpower.hexcode as aphexcode
+import airpower.log     as aplog
 
 import math
 
@@ -34,9 +35,11 @@ def setmap(sheetgrid, compassrose, verbose=True):
   _nysheetgrid = len(_sheetgrid)
   _nxsheetgrid = len(_sheetgrid[0])
 
-  if verbose:
-    for iy in range (0, _nysheetgrid):
-      print("%s" % " ".join(sheetgrid[iy]))
+  aplog.log("sheet layout is:")
+  aplog.logbreak()
+  for iy in range (0, _nysheetgrid):
+     aplog.log("  %s" % " ".join(sheetgrid[iy]))
+  aplog.logbreak()
 
   _sheetlist = []
   for iy in range (0, _nysheetgrid):
