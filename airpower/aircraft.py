@@ -9,7 +9,7 @@ import airpower.map          as apmap
 import airpower.turn         as apturn
 
 import math
-
+    
 class aircraft:
 
   def __init__(self, name, aircrafttype, hexcode, azimuth, altitude, speed):
@@ -34,6 +34,7 @@ class aircraft:
     self._aircrafttype  = apaircrafttype.aircrafttype(aircrafttype)
     self._destroyed     = False
     self._leftmap       = False
+    self._turnsstalled  = None
 
     self._saved = []
     self._save(0)
@@ -94,23 +95,17 @@ class aircraft:
     altitude = self._altitude
     return "%2s %-9s  %-3s  %2d" % (sheet, hexcode, azimuth, altitude)
 
-  def _formatifp(self):
-    return "FP %d" % (self._hfp + self._vfp)
-
   def _log(self, s):
     aplog.log("%s: turn %-2d : %s" % (self._name, apturn.turn(), s))
 
   def _logbreak(self):
     aplog.logbreak()
 
-  def _logposition(self):
-    self._log("%-5s : %-16s : %s" % ("", "", self._formatposition()))
+  def _logposition(self, s, t):
+    self._log("%-5s : %-16s : %s" % (s, t, self._formatposition()))
 
-  def _logactionsandposition(self, action):
-    self._log("%-5s : %-16s : %s" % (self._formatifp(), action, self._formatposition()))
-  
   def _logevent(self, s):
-    self._log("%-5s : %s" % (self._formatifp(), s))
+    self._log("%-5s : %s" % ("", s))
 
   #############################################################################
 
@@ -312,6 +307,8 @@ class aircraft:
       ["RR"  , lambda : self._TR(60)       , lambda: None],
       ["R"   , lambda : self._TR(30)       , lambda: None],
 
+      ["ST"  , lambda : self._ST()         , lambda: None],
+
       ["S1/2", lambda: self._S(1/2)        , lambda: None],
       ["S3/2", lambda: self._S(3/2)        , lambda: None],
       ["S½"  , lambda: self._S(1/2)        , lambda: None],
@@ -336,15 +333,21 @@ class aircraft:
 
   def _doaction(self, action):
 
-      if self._hfp + self._vfp + self._spbrfp + 1 > self._fp:
-        raise ValueError("only %d FPs are available." % self._fp)
-        
-      if action[0] == 'H':
-        self._hfp += 1
-      elif action[0] == 'D' or action[0] == 'C':
+      if self._flighttype == "ST":
+
         self._vfp += 1
+
       else:
-        raise ValueError("action %s does not begin with H, D, or C." % action)
+
+        if self._hfp + self._vfp + self._spbrfp + 1 > self._fp:
+          raise ValueError("only %d FPs are available." % self._fp)
+        
+        if action[0] == 'H':
+          self._hfp += 1
+        elif action[0] == 'D' or action[0] == 'C':
+          self._vfp += 1
+        else:
+          raise ValueError("action %s does not begin with H, D, or C." % action)
 
       lastx = self._x
       lasty = self._y
@@ -366,7 +369,7 @@ class aircraft:
       assert aphex.isvalidfacing(self._x, self._y, self._facing)
       assert apaltitude.isvalidaltitude(self._altitude)
     
-      self._logactionsandposition(action)
+      self._logposition("FP %d" % (self._hfp + self._vfp), action)
       self._drawflightpath(lastx, lasty)
 
       self.checkforterraincollision()
@@ -385,6 +388,22 @@ class aircraft:
         else:
           raise ValueError("unknown element %s in action %s." % (a, action))
 
+  ##############################################################################
+
+  def _dostalledflight(self):
+
+    altitudechange = math.ceil(self._speed + self._turnsstalled)
+    initialaltitude = self._altitude    
+    self._altitude, self._altitudecarry = apaltitude.adjustaltitude(self._altitude, self._altitudecarry, -altitudechange)
+    altitudechange = initialaltitude - self._altitude
+
+    self.checkforterraincollision()
+
+    if self._turnsstalled == 0:
+      self._altitudeap = 0.5 * altitudechange
+    else:
+      self._altitudeap = 1.0 * altitudechange
+      
   ##############################################################################
 
   def checkforterraincollision(self):
@@ -416,7 +435,8 @@ class aircraft:
     self._fpcarry, \
     self._apcarry, \
     self._destroyed, \
-    self._leftmap \
+    self._leftmap, \
+    self._turnsstalled \
     = self._saved[i]
 
   def _save(self, i):
@@ -435,149 +455,208 @@ class aircraft:
       self._apcarry, \
       self._destroyed, \
       self._leftmap, \
+      self._turnsstalled \
     )
 
-  def startmove(self, flighttype, powerap, actions):
+  ##############################################################################
 
-    if flighttype not in ["LV", "SC", "ZC", "VC", "SD", "UD", "VD"]:
-      raise ValueError("invalid flight type %s." % flighttype)
+  def _startmovepower(self, power):
+
+    lastpowersetting = self._lastpowersetting
 
     # TODO: Don't assume CL.
     powerapMIL = self._aircrafttype.power("CL", "MIL")
     powerapAB  = self._aircrafttype.power("CL", "AB")
-    if powerap == "IDLE":
+
+    if power == "IDLE":
       powersetting = "IDLE"
-      powerap = 0
-    elif powerap == "NOR" or powerap == 0:
+      powerap      = 0
+    elif power == "NOR" or power == 0:
       powersetting = "NOR"
       powerap      = 0
-    elif powerap == "MIL":
+    elif power == "MIL":
       powersetting = "MIL"
       powerap      = powerapMIL
-    elif powerap == "AB" and powerapAB == None:
+    elif power == "AB" and powerapAB == None:
       raise ValueError("aircraft does not have AB.")
-    elif powerap == "AB":
+    elif power == "AB":
       powersetting = "AB"
       powerap      = powerapAB
-    elif not isinstance(powerap, (int, float)) or powerap < 0 or powerap % 0.5 != 0:
-      raise ValueError("invalid power %s" % powerap)
-    elif powerap <= powerapMIL:
+    elif not isinstance(power, (int, float)) or power < 0 or power % 0.5 != 0:
+      raise ValueError("invalid power %r" % power)
+    elif power <= powerapMIL:
       powersetting = "MIL"
-    elif powerapAB != None and powerap <= powerapAB:
+      powerap      = power
+    elif powerapAB != None and power <= powerapAB:
       powersetting = "AB"
+      powerap      = power
     else:
-      raise ValueError("requested power of %s APs exceeds aircraft capability.")
+      raise ValueError("requested power of %s APs exceeds aircraft capability." % power)
 
-    self._restore(apturn.turn() - 1)
-
-    self._lastflighttype   = self._flighttype
-    self._lastpowersetting = self._powersetting
-
-    self._flighttype       = flighttype
-    self._powersetting     = powersetting
-
-    # See rule 5.4.
-    self._fp               = self._speed + self._fpcarry
-    self._fpcarry          = 0
-
-    self._hfp              = 0
-    self._vfp              = 0
-    self._spbrfp           = 0
-
-    self._altitudeband     = apaltitude.altitudeband(self._altitude)
-
-    self._turns            = 0
-    self._turnrate         = None
-    self._maxturnrate      = None
-
-    self._powerap          = powerap
-    self._spbrap           = 0
-    self._sustainedturnap  = 0
-    self._altitudeap       = 0
-
-    self._log("--- start of move --")
-
-    if self._destroyed:
-      self._endmove()
-      return
-
-    if self._leftmap:
-      self._endmove()
-      return
-
-    self._log("flight type is %s and power setting is %s (%+.1f APs)." % (self._flighttype, powersetting, powerap))
-
-    self._log("min speed is %.1f, cruise speed is %.1f, and max speed is %.1f." % ( 
-      self._aircrafttype.minspeed("CL", self._altitudeband),
-      self._aircrafttype.cruisespeed(),
-      self._aircrafttype.maxspeed("CL", self._altitudeband),
-    ))
-    self._log("climb speed is %.1f, max dive speed is %.1f, and M1 is %.1f." % ( 
-      self._aircrafttype.climbspeed(),
-      self._aircrafttype.maxdivespeed(self._altitudeband),
-      self._m1(),
-    ))
+    self._log("power setting is %s." % powersetting)
 
     # See rule 6.1.
     if powersetting == "IDLE":
-      idlefp = self._aircrafttype.power("CL", "IDLE")
+      speedchange = self._aircrafttype.power("CL", "IDLE")
       # This keeps the speed non-negative. See rule 6.2.
-      idlefp = min(idlefp, self._speed)
-      self._log("reducing speed by %.1f as the power setting is IDLE." % idlefp)
-      self._speed -= idlefp
+      speedchange = min(speedchange, self._speed)
+      self._log("reducing speed by %.1f as the power setting is IDLE." % speedchange)
+      self._speed -= speedchange
 
     # See rule 6.1.
-    if self._lastpowersetting == "IDLE" and self._powersetting == "AB" and not self._aircrafttype.hasproperty("RPR"):
+    if lastpowersetting == "IDLE" and powersetting == "AB" and not self._aircrafttype.hasproperty("RPR"):
       self._log("risk of flame-out as power setting has increased from IDLE to AB.")
 
     # See rule 6.1.
     if (powersetting == "IDLE" or powersetting == "NOR") and self._speed > self._aircrafttype.cruisespeed():
       self._log("insufficient power above cruise speed.")
-      self._powerap -= 1.0
+      powerap -= 1.0
+
+    self._log("power is %+.1f AP." % powerap)
+
+    return powersetting, powerap
+
+  ##############################################################################
+
+  def _startmoveflighttype(self, flighttype):
+
+    if flighttype not in ["LV", "SC", "ZC", "VC", "SD", "UD", "VD", "ST"]:
+      raise ValueError("invalid flight type %r." % flighttype)
+
+    lastflighttype = self._lastflighttype
+
+    requiredhfp = 0
 
     # See rule 6.3.
     if self._speed < self._aircrafttype.minspeed("CL", self._altitudeband):
-      self._log("aircraft has stalled.")
-      # TODO: Implement stalled or departed flight.
 
-    # See rule 6.6.
-    m1 = self._m1()
-    if self._speed >= m1:
-      speed = "%.1f (SS)" % self._speed
-    elif self._speed == m1 - 0.5:
-      speed = "%.1f (HT)" % self._speed
-    elif self._speed == m1 - 1.0:
-      speed = "%.1f (LT)" % self._speed
-    else:
-      speed = "%.1f" % self._speed
-    self._log("speed is %s and %.1f FPs are available." % (speed, self._fp))
+      # TODO: Implement departed flight.
+      # See rule 6.4.
+      # TODO: Implement a means to jetison stores while stalled.
 
-    # See rule 5.5.
-    lastflighttype = self._lastflighttype
-    if lastflighttype == "LV" and (lastflighttype[1] == "C" or flighttype[1] == "D"):
-      requiredhfp = 1
-    elif (lastflighttype[1] == "C" and flighttype[1] == "D") or (lastflighttype[1] == "D" and flighttype[1] == "C"):
-      if self._aircrafttype.hasproperty("HPR"):
-        requiredhfp = self._speed // 3
+      self._log("aircraft is stalled.")
+      if flighttype != "ST":
+        raise ValueError("flight type must be ST.")
+
+      if self._turnsstalled == None:
+        self._turnsstalled = 0
       else:
-        requiredhfp = self._speed // 2
+        self._turnsstalled += 1
+
+    elif flighttype == "ST":
+
+      raise ValueError("flight type cannot be ST as the aircraft is not stalled.")
+
+    elif lastflighttype == "ST":
+
+      # See rule 6.4.
+      if isclimbing(flighttype):
+        raise ValueError("flight type immediately after ST cannot be climbing.")
+
+      self._turnsstalled = None
+   
     else:
-      requiredhfp = 0
+
+      self._turnsstalled = None
+
+      # See rule 5.5.
+      if lastflighttype == "LV" and (_isclimbing(flighttype) or _isdiving(flighttype)):
+        requiredhfp = 1
+      elif (_isclimbing(lastflighttype) and _isdiving(_flighttype)) or (_isdiving(lastflighttype) and _isclimbing(flighttype)):
+        if self._aircrafttype.hasproperty("HPR"):
+          requiredhfp = self._speed // 3
+        else:
+          requiredhfp = self._speed // 2
+
+    self._log("flight type is %s." % (flighttype))
     if requiredhfp != 0:
       self._log("changing from %s to %s flight so the first %d FPs must be HFPs." % (lastflighttype, flighttype, requiredhfp))
 
-    self._log("carrying %.1f FPs, %+.1f APs, and %s altitude levels." % (
-      self._fpcarry, self._apcarry, apaltitude.formataltitudecarry(self._altitudecarry)
-    ))
+    return flighttype
 
-    self._log("---")
-    self._logactionsandposition("")
-        
-    self.continuemove(actions)
+  ##############################################################################
+
+  def startmove(self, flighttype, power, actions):
+
+    self._log("--- start of move --")
+
+    self._restore(apturn.turn() - 1)
+
+    if self._destroyed or self._leftmap:
+      self._endmove()
+      return
+
+    self._lastpowersetting = self._powersetting
+    self._lastflighttype   = self._flighttype
+
+    self._hfp              = 0
+    self._vfp              = 0
+    self._spbrfp           = 0
+
+    self._turns            = 0
+    self._turnrate         = None
+    self._maxturnrate      = None
+
+    self._spbrap           = 0
+    self._sustainedturnap  = 0
+    self._altitudeap       = 0
+
+    self._altitudeband     = apaltitude.altitudeband(self._altitude)
+
+    self._powersetting, \
+    self._powerap          = self._startmovepower(power)
+    self._flighttype       = self._startmoveflighttype(flighttype)
+
+    if self._flighttype == "ST":
+
+      self._log("carrying %+.1f APs, and %s altitude levels." % (
+        self._apcarry, apaltitude.formataltitudecarry(self._altitudecarry)
+      ))
+      
+      self._fp      = 0
+      self._fpcarry = 0
+      
+      self._log("speed is %s." % (self._speed))
+
+      if actions != "":
+        raise ValueError("invalid actions %r for flight type ST." % actions)
+
+      self._log("---")
+      self._logposition("start", "")
+      self._dostalledflight()
+      self._logposition("end", "")
+      self._log("---")
+      self._endmove()
+
+    else:
+
+      self._log("carrying %.1f FPs, %+.1f APs, and %s altitude levels." % (
+        self._fpcarry, self._apcarry, apaltitude.formataltitudecarry(self._altitudecarry)
+      ))
+      
+      # See rule 5.4.
+      self._fp      = self._speed + self._fpcarry
+      self._fpcarry = 0
+  
+      # See rule 6.6.
+      m1 = self._m1()
+      if self._speed >= m1:
+        speed = "%.1f (SS)" % self._speed
+      elif self._speed == m1 - 0.5:
+        speed = "%.1f (HT)" % self._speed
+      elif self._speed == m1 - 1.0:
+        speed = "%.1f (LT)" % self._speed
+      else:
+        speed = "%.1f" % self._speed
+      self._log("speed is %s and %.1f FPs are available." % (speed, self._fp))
+
+      self._log("---")
+      self._logposition("start", "")
+      self.continuemove(actions)
 
   def continuemove(self, actions):
 
-    if self._destroyed or self._leftmap:
+    if self._destroyed or self._leftmap or self._flighttype == "ST":
       return
   
     if actions != "":
@@ -610,7 +689,15 @@ class aircraft:
 
     else:
 
-      self._log("used %d HFPs, %d VFPs, and %.1f SPBRFPs." % (self._hfp, self._vfp, self._spbrfp))
+      if self._flighttype != "ST":
+        self._log("used %d HFPs, %d VFPs, and %.1f SPBRFPs." % (self._hfp, self._vfp, self._spbrfp))
+        
+      initialaltitudeband = self._altitudeband
+      self._altitudeband = apaltitude.altitudeband(self._altitude)
+      if self._altitudeband != initialaltitudeband:
+        self._log("altitude band changed from %s to %s." % (initialaltitudeband, self._altitudeband))
+      else:
+        self._log("altitude band is unchanged at %s." % self._altitudeband)
 
       if self._maxturnrate == None:
         self._log("no turns.")
@@ -626,7 +713,7 @@ class aircraft:
 
       self._log("power    APs = %+.1f." % self._powerap)
       self._log("turn     APs = %+.1f and %+.1f." % (turnap, self._sustainedturnap))
-      self._log("altitude APs = %+.1f" % self._altitudeap)
+      self._log("altitude APs = %+.1f." % self._altitudeap)
       self._log("SPBR     APs = %+.1f." % (self._spbrap))
       ap = self._powerap + self._sustainedturnap + turnap + self._altitudeap + self._spbrap
       self._log("total    APs = %+.1f with %+.1f carry = %+.1f." % (ap, self._apcarry, ap + self._apcarry))
@@ -652,9 +739,9 @@ class aircraft:
         self._speed -= 0.5 * (ap // aprate)
         self._apcarry = ap % aprate
       else:
-        if self._flighttype == "LV" or self._flighttype[1] == "C":
+        if self._flighttype == "LV" or _isclimbing(self._flighttype):
           maxspeed = self._aircrafttype.maxspeed("CL", self._altitudeband)
-        elif self._flighttype[1] == "D":
+        elif _isdiving(self._flighttype) or self._flighttype == "ST":
           maxspeed = self._aircrafttype.maxdivespeed(self._altitudeband)
         if self._speed + 0.5 * (ap // aprate) > maxspeed:
           self._log("speed is limited to %.1f." % maxspeed)
@@ -665,12 +752,12 @@ class aircraft:
           self._apcarry = ap % aprate
 
       # See rule 6.3.
-      if self._flighttype == "LV" or self._flighttype[1] == "C":
+      if self._flighttype == "LV" or _isclimbing(self._flighttype):
         maxspeed = self._aircrafttype.maxspeed("CL", self._altitudeband)
         if self._speed > maxspeed:
           self._log("speed is faded back from %.1f." % self._speed)
           self._speed = max(self._speed - 1, maxspeed)
-      elif self._flighttype[1] == "D":
+      elif _isdiving(self._flighttype) or self._flighttype == "ST":
         maxspeed = self._aircrafttype.maxdivespeed(self._altitudeband)
         if self._speed > maxspeed:
           self._log("speed is reduced from %.1f to maximum dive speed." % self._speed)
@@ -687,12 +774,11 @@ class aircraft:
       else:
         self._log("speed is unchanged at %.1f." % self._speed)
 
-      initialaltitudeband = self._altitudeband
-      self._altitudeband = apaltitude.altitudeband(self._altitude)
-      if self._altitudeband != initialaltitudeband:
-        self._log("altitude band changed from %s to %s." % (initialaltitudeband, self._altitudeband))
-      else:
-        self._log("altitude band is unchanged at %s." % self._altitudeband)
+      if self._flighttype == "ST":
+        if self._speed >= self._aircrafttype.minspeed("CL", self._altitudeband):
+          self._log("aircraft has exited from stall.")
+        else:
+          self._log("aircraft is still stalled.")
 
       # See rule 5.4.
       fp = self._hfp + self._vfp + self._spbrfp
@@ -706,3 +792,12 @@ class aircraft:
 
     self._log("--- end of move -- ")
     self._logbreak()
+
+################################################################################
+
+def _isdiving(flighttype):
+  return flighttype == "SD" or flighttype == "UD" or flighttype == "VD"
+
+def _isclimbing(flighttype):
+  return flighttype == "ZC" or flighttype == "SC" or flighttype == "VC"
+  
