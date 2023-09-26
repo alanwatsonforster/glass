@@ -12,7 +12,7 @@ import math
     
 class aircraft:
 
-  def __init__(self, name, aircrafttype, hexcode, azimuth, altitude, speed):
+  def __init__(self, name, aircrafttype, hexcode, azimuth, altitude, speed, configuration="CL"):
 
     x, y = aphexcode.toxy(hexcode)
     facing = apazimuth.tofacing(azimuth)
@@ -27,6 +27,7 @@ class aircraft:
     self._altitude      = altitude
     self._altitudecarry = 0
     self._speed         = speed
+    self._configuration = configuration
     self._flighttype    = "LV"
     self._powersetting  = "N"
     self._fpcarry       = 0
@@ -430,6 +431,7 @@ class aircraft:
     self._altitude, \
     self._altitudecarry, \
     self._speed, \
+    self._configuration, \
     self._powersetting, \
     self._flighttype, \
     self._fpcarry, \
@@ -449,6 +451,7 @@ class aircraft:
       self._altitude, \
       self._altitudecarry, \
       self._speed, \
+      self._configuration, \
       self._powersetting, \
       self._flighttype, \
       self._fpcarry, \
@@ -465,8 +468,8 @@ class aircraft:
     lastpowersetting = self._lastpowersetting
 
     # TODO: Don't assume CL.
-    powerapM  = self._aircrafttype.power("CL", "M")
-    powerapAB = self._aircrafttype.power("CL", "AB")
+    powerapM  = self._aircrafttype.power(_self._configuration, "M")
+    powerapAB = self._aircrafttype.power(_self._configuration, "AB")
 
     if power == "I":
       powersetting = "I"
@@ -497,7 +500,7 @@ class aircraft:
 
     # See rule 6.1.
     if powersetting == "I":
-      speedchange = self._aircrafttype.power("CL", "I")
+      speedchange = self._aircrafttype.power(_self._configuration, "I")
       # This keeps the speed non-negative. See rule 6.2.
       speedchange = min(speedchange, self._speed)
       self._log("reducing speed by %.1f as the power setting is IDLE." % speedchange)
@@ -528,7 +531,7 @@ class aircraft:
     requiredhfp = 0
 
     # See rule 6.3.
-    if self._speed < self._aircrafttype.minspeed("CL", self._altitudeband):
+    if self._speed < self._aircrafttype.minspeed(_self._configuration, self._altitudeband):
 
       # TODO: Implement departed flight.
       # See rule 6.4.
@@ -709,7 +712,7 @@ class aircraft:
         else:
           # TODO: Don't assume CL.
           # TODO: Calculate this at the moment of the maximum turn, since it depends on the configuration.
-          turnap = -self._aircrafttype.turndrag("CL", self._maxturnrate)
+          turnap = -self._aircrafttype.turndrag(_self._configuration, self._maxturnrate)
 
       self._log("power    APs = %+.1f." % self._powerap)
       self._log("turn     APs = %+.1f and %+.1f." % (turnap, self._sustainedturnap))
@@ -740,7 +743,7 @@ class aircraft:
         self._apcarry = ap % aprate
       else:
         if self._flighttype == "LV" or _isclimbing(self._flighttype):
-          maxspeed = self._aircrafttype.maxspeed("CL", self._altitudeband)
+          maxspeed = self._aircrafttype.maxspeed(_self._configuration, self._altitudeband)
         elif _isdiving(self._flighttype) or self._flighttype == "ST":
           maxspeed = self._aircrafttype.maxdivespeed(self._altitudeband)
         if self._speed + 0.5 * (ap // aprate) > maxspeed:
@@ -753,7 +756,7 @@ class aircraft:
 
       # See rule 6.3.
       if self._flighttype == "LV" or _isclimbing(self._flighttype):
-        maxspeed = self._aircrafttype.maxspeed("CL", self._altitudeband)
+        maxspeed = self._aircrafttype.maxspeed(_self._configuration, self._altitudeband)
         if self._speed > maxspeed:
           self._log("speed is faded back from %.1f." % self._speed)
           self._speed = max(self._speed - 1, maxspeed)
@@ -775,7 +778,7 @@ class aircraft:
         self._log("speed is unchanged at %.1f." % self._speed)
 
       if self._flighttype == "ST":
-        if self._speed >= self._aircrafttype.minspeed("CL", self._altitudeband):
+        if self._speed >= self._aircrafttype.minspeed(_self._configuration, self._altitudeband):
           self._log("aircraft has exited from stall.")
         else:
           self._log("aircraft is still stalled.")
