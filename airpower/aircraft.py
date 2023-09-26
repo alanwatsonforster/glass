@@ -36,6 +36,7 @@ class aircraft:
     self._destroyed     = False
     self._leftmap       = False
     self._turnsstalled  = None
+    self._turnsdeparted = None
 
     self._saved = []
     self._save(0)
@@ -410,7 +411,9 @@ class aircraft:
 
   ##############################################################################
 
-  def _dostalledflight(self, actions):
+  def _dostalledflight(self, action):
+
+    # See rule 6.4.
 
     initialaltitudeband = apaltitude.altitudeband(self._altitude)
 
@@ -433,11 +436,55 @@ class aircraft:
 
     self.checkforterraincollision()
 
-    if actions == "J1/2":
+    if action == "J1/2":
       self._J("1/2")
-    elif actions == "JCL":
+    elif action == "JCL":
       self._J("CL")
+    elif action != "":
+      raise ValueError("invalid action %r for stalled flight." % actions)
 
+  ##############################################################################
+
+  def _dodepartedflight(self, action):
+
+    # See rule 6.4.
+
+    initialaltitudeband = apaltitude.altitudeband(self._altitude)
+
+    altitudechange = math.ceil(self._speed + 2 * self._turnsdeparted)
+
+    initialaltitude = self._altitude    
+    self._altitude, self._altitudecarry = apaltitude.adjustaltitude(self._altitude, self._altitudecarry, -altitudechange)
+    altitudechange = initialaltitude - self._altitude
+    
+    if len(action) < 2 or (action[-1] != "R" and action[-1] != "L"):
+      raise ValueError("invalid action %r for departed flight." % action)
+    if not action[0:-1].isdecimal():
+      raise ValueError("invalid action %r for departed flight." % action)
+    n = int(action[0:-1])
+    if n < 1 or n > 10:
+      raise ValueError("invalid action %r for departed flight." % action)
+
+    # We extract the following part of the turning code in order to use it 
+    # withoutsetting turning rates or turning APs.
+
+    facingchange = n * 30
+    if action[-1] == "R":
+      if aphex.isedgeposition(self._x, self._y):
+        self._x, self._y = aphex.centertoright(self._x, self._y, self._facing)
+      self._facing = (self._facing - facingchange) % 360
+    else:
+      if aphex.isedgeposition(self._x, self._y):
+        self._x, self._y = aphex.centertoleft(self._x, self._y, self._facing)
+      self._facing = (self._facing + facingchange) % 360
+
+    self._logposition("end", "")
+
+    altitudeband = apaltitude.altitudeband(self._altitude)
+    if initialaltitudeband != altitudeband:
+      self._logevent("altitude band changed from %s to %s." % (initialaltitudeband, altitudeband))
+
+    self.checkforterraincollision()
       
   ##############################################################################
 
@@ -472,7 +519,8 @@ class aircraft:
     self._apcarry, \
     self._destroyed, \
     self._leftmap, \
-    self._turnsstalled \
+    self._turnsstalled, \
+    self._turnsdeparted \
     = self._saved[i]
 
   def _save(self, i):
@@ -492,7 +540,8 @@ class aircraft:
       self._apcarry, \
       self._destroyed, \
       self._leftmap, \
-      self._turnsstalled \
+      self._turnsstalled, \
+      self._turnsdeparted \
     )
 
   ##############################################################################
@@ -541,7 +590,7 @@ class aircraft:
 
     # See rule 6.1.
     if lastpowersetting == "I" and powersetting == "AB" and not self._aircrafttype.hasproperty("RPR"):
-      self._log("risk of flame-out as power setting has increased from IDLE to AB.")
+      self._log("risk of flame-out as power setting has increased from I to AB.")
 
     # See rule 6.1.
     if (powersetting == "I" or powersetting == "N") and self._speed > self._aircrafttype.cruisespeed():
@@ -554,28 +603,58 @@ class aircraft:
 
   def _startmoveflighttype(self, flighttype):
 
-    if flighttype not in ["LVL", "SC", "ZC", "VC", "SD", "UD", "VD", "ST"]:
+    if flighttype not in ["LVL", "SC", "ZC", "VC", "SD", "UD", "VD", "ST", "DP"]:
       raise ValueError("invalid flight type %r." % flighttype)
+
+    self._log("flight type is %s." % (flighttype))
 
     lastflighttype = self._lastflighttype
 
     requiredhfp = 0
 
-    # See rule 6.3.
-    if self._speed < self._aircrafttype.minspeed(self._configuration, self._altitudeband):
+    if flighttype == "DP":
 
-      # TODO: Implement departed flight.
       # See rule 6.4.
-      # TODO: Implement a means to jetison stores while stalled.
+
+      self._powerap = 0
+      self._apcarry = 0
+
+      if self._powersetting == "M" or self._powersetting == "AB":
+        self._log("risk of flame-out as power setting is %s in departed flight." % self._powersetting)
+
+      if lastflighttype != "DP":
+        self._turnsdeparted = 0
+      else:
+        self._turnsdeparted += 1
+      self._turnsstalled  = None
+  
+    elif lastflighttype == "DP":
+
+      # See rule 6.4.
+
+      if _isclimbing(flighttype):
+        raise ValueError("flight type immediately after DP must not be climbing.")
+      elif flighttype == "LVL" and not self._aircrafttype.hasproperty("HPR"):
+        raise ValueError("flight type immediately after DP must not be level.")
+
+      self._speed = max(self._speed, self._aircrafttype.minspeed(self._configuration, self._altitudeband))
+
+      self._turnsstalled  = None
+      self._turnsdeparted = None
+ 
+    elif self._speed < self._aircrafttype.minspeed(self._configuration, self._altitudeband):
+
+      # See rules 6.3 and 6.4.
 
       self._log("aircraft is stalled.")
       if flighttype != "ST":
         raise ValueError("flight type must be ST.")
 
-      if self._turnsstalled == None:
+      if lastflighttype != "ST":
         self._turnsstalled = 0
       else:
         self._turnsstalled += 1
+      self._turnsdeparted = None
 
     elif flighttype == "ST":
 
@@ -584,16 +663,17 @@ class aircraft:
     elif lastflighttype == "ST":
 
       # See rule 6.4.
-      if _isclimbing(flighttype):
-        raise ValueError("flight type immediately after ST cannot be climbing.")
 
-      self._turnsstalled = None
-   
+      if _isclimbing(flighttype):
+        raise ValueError("flight type immediately after ST must not be climbing.")
+
+      self._turnsstalled  = None
+      self._turnsdeparted = None
+
     else:
 
-      self._turnsstalled = None
-
       # See rule 5.5.
+
       if lastflighttype == "LVL" and (_isclimbing(flighttype) or _isdiving(flighttype)):
         requiredhfp = 1
       elif (_isclimbing(lastflighttype) and _isdiving(flighttype)) or (_isdiving(lastflighttype) and _isclimbing(flighttype)):
@@ -601,11 +681,11 @@ class aircraft:
           requiredhfp = self._speed // 3
         else:
           requiredhfp = self._speed // 2
-
-    self._log("flight type is %s." % (flighttype))
-    if requiredhfp != 0:
       self._log("changing from %s to %s flight so the first %d FPs must be HFPs." % (lastflighttype, flighttype, requiredhfp))
 
+      self._turnsstalled  = None
+      self._turnsdeparted = None
+  
     return flighttype
 
   ##############################################################################
@@ -653,15 +733,30 @@ class aircraft:
       
       self._log("speed is %s." % (self._speed))
 
-      if actions != "" and actions != "J1/2" and actions != "JCL":
-        raise ValueError("invalid actions %r for flight type ST." % actions)
-
       self._log("---")
       self._logposition("start", "")
       self._dostalledflight(actions)
       self._log("---")
       self._endmove()
 
+    elif self._flighttype == "DP":
+
+      self._log("carrying %s altitude levels." % (
+        apaltitude.formataltitudecarry(self._altitudecarry)
+      ))
+      
+      self._fp      = 0
+      self._fpcarry = 0
+      self._apcarry = 0
+      
+      self._log("speed is %s." % (self._speed))
+
+      self._log("---")
+      self._logposition("start", "")
+      self._dodepartedflight(actions)
+      self._log("---")
+      self._endmove()
+        
     else:
 
       self._log("carrying %.1f FPs, %+.2f APs, and %s altitude levels." % (
@@ -723,7 +818,7 @@ class aircraft:
 
     else:
 
-      if self._flighttype != "ST":
+      if self._flighttype != "ST" and self._flighttype != "DP":
         self._log("used %d HFPs, %d VFPs, and %.1f SPBRFPs." % (self._hfp, self._vfp, self._spbrfp))
 
       if self._lastconfiguration != self._configuration:
@@ -758,6 +853,7 @@ class aircraft:
       ap += self._apcarry
 
       # See rules 6.2 and 6.6.
+
       initialspeed = self._speed
       if ap < 0:
         aprate = -2.0
@@ -773,10 +869,15 @@ class aircraft:
           aprate = +2.0
 
       # See rule 6.2 and 6.3
+
       if ap < 0:
+
         self._speed -= 0.5 * (ap // aprate)
         self._apcarry = ap % aprate
-      else:
+
+      elif ap > 0:
+
+        assert self._flighttype != "DP"
         if self._flighttype == "LVL" or _isclimbing(self._flighttype):
           maxspeed = self._aircrafttype.maxspeed(self._configuration, self._altitudeband)
         elif _isdiving(self._flighttype) or self._flighttype == "ST":
@@ -790,18 +891,23 @@ class aircraft:
           self._apcarry = ap % aprate
 
       # See rule 6.3.
+
       if self._flighttype == "LVL" or _isclimbing(self._flighttype):
+
         maxspeed = self._aircrafttype.maxspeed(self._configuration, self._altitudeband)
         if self._speed > maxspeed:
           self._log("speed is faded back from %.1f." % self._speed)
           self._speed = max(self._speed - 1, maxspeed)
-      elif _isdiving(self._flighttype) or self._flighttype == "ST":
+
+      elif _isdiving(self._flighttype) or self._flighttype == "ST" or self._flighttype == "DP":
+
         maxspeed = self._aircrafttype.maxdivespeed(self._altitudeband)
         if self._speed > maxspeed:
           self._log("speed is reduced from %.1f to maximum dive speed." % self._speed)
           self._speed = maxspeed
 
       # See rule 6.2.
+
       if self._speed <= 0:
         self._speed = 0
         if self._apcarry < 0:
@@ -819,6 +925,7 @@ class aircraft:
           self._log("aircraft is still stalled.")
 
       # See rule 5.4.
+
       fp = self._hfp + self._vfp + self._spbrfp
       self._fpcarry = self._fp - fp
 
