@@ -168,7 +168,15 @@ class aircraft:
     self._x, self._y = aphex.nextposition(self._x, self._y, self._facing)
 
   def _J(self, configuration):
-    # See rule 4.4. We implement the delay of 1 FP by making this a non-movement element.
+
+    """
+    Jetison stores to achieve the specified configuration.
+    """
+
+    # See rule 4.4. 
+    
+    # We implement the delay of 1 FP by making this an epilog element.
+
     if self._configuration == configuration:
       raise ValueError("configuration is already %s." % configuration)
     if self._configuration == "CL" or configuration == "DT":
@@ -182,13 +190,22 @@ class aircraft:
     self._destroyed = True
 
   def _S(self, spbrfp):
-    # TODO: check against aircraft SPBR capability.
+
+    # See rule 6.5.
+
     if self._spbrfp != 0:
       raise ValueError("speedbrakes can only be used once per turn.")
+
     maxspbrfp = self._fp - self._hfp - self._vfp
     if spbrfp > maxspbrfp:
-      raise ValueError("attempt to use speedbrakes to eliminate %s FPs but only %s are remaining." % (spbrfp, maxspbrfp))
+      raise ValueError("only %s FPs are remaining." % maxspbrfp)
+      
+    maxspbrfp = self._aircrafttype.SPBR(self._configuration):
+    if spbrfp > maxspbrfp:
+      raise ValueError("speedbrake capability is only %.1f FPs." % maxspbrfp)
+
     self._spbrfp = spbrfp
+
     self._spbrap = -spbrfp / 0.5
 
   def _TD(self, turndirection, turnrate):
