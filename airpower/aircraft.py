@@ -621,8 +621,6 @@ class aircraft:
 
   def _startmovepower(self, power):
 
-    # TODO: enforce multiples of 1/4.
-
     lastpowersetting = self._lastpowersetting
 
     powerapM  = self._aircrafttype.power(self._configuration, "M")
@@ -642,7 +640,7 @@ class aircraft:
     elif power == "AB":
       powersetting = "AB"
       powerap      = powerapAB
-    elif not isinstance(power, (int, float)) or power < 0 or power % 0.5 != 0:
+    elif not isinstance(power, (int, float)) or power < 0 or power % 0.25 != 0:
       raise ValueError("invalid power %r" % power)
     elif power <= powerapM:
       powersetting = "M"
@@ -656,6 +654,7 @@ class aircraft:
     self._log("power setting is %s." % powersetting)
 
     # See rule 6.1.
+
     if powersetting == "I":
       speedchange = self._aircrafttype.power(self._configuration, "I")
       # This keeps the speed non-negative. See rule 6.2.
@@ -664,10 +663,12 @@ class aircraft:
       self._speed -= speedchange
 
     # See rule 6.1.
+
     if lastpowersetting == "I" and powersetting == "AB" and not self._aircrafttype.hasproperty("RPR"):
       self._log("risk of flame-out as power setting has increased from I to AB.")
 
     # See rule 6.1.
+
     if (powersetting == "I" or powersetting == "N") and self._speed > self._aircrafttype.cruisespeed():
       self._log("insufficient power above cruise speed.")
       powerap -= 1.0
