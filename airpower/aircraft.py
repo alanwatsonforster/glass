@@ -747,6 +747,31 @@ class aircraft:
       self._log("insufficient power above cruise speed.")
       powerap -= 1.0
 
+    # See the "Transonic Speeds" section of rule 6.6
+
+    self._transonicap = -0.0
+    if self._aircrafttype.hasproperty("LTD"):
+      if self._speed == self._m1() - 1.0:
+        self._transonicap = -0.0
+      elif self._speed == self._m1() - 0.5:
+        self._transonicap = -0.5
+      elif self._speed == self._m1():
+        self._transonicap = -1.0
+    elif self._aircrafttype.hasproperty("HTD"):
+      if self._speed == self._m1() - 1.0:
+        self._transonicap = -1.0
+      elif self._speed == self._m1() - 0.5:
+        self._transonicap = -1.5
+      elif self._speed == self._m1():
+        self._transonicap = -2.0        
+    else:
+      if self._speed == self._m1() - 1.0:
+        self._transonicap = -0.5
+      elif self._speed == self._m1() - 0.5:
+        self._transonicap = -1.0
+      elif self._speed == self._m1():
+        self._transonicap = -1.5       
+
     return powersetting, powerap
 
   ##############################################################################
@@ -995,18 +1020,18 @@ class aircraft:
 
       if self._maxturnrate == None:
         self._log("no turns.")
-        turnap = 0.0
       else:
         self._log("maximum turn rate is %s." % self._maxturnrate)
 
       # See rule 6.2.
 
-      self._log("turn     APs = %+.2f and %+.2f." % (self._turnap, self._sustainedturnap))
-      self._log("altitude APs = %+.2f." % self._altitudeap)
-      self._log("SPBR     APs = %+.2f." % self._spbrap)
-      self._log("power    APs = %+.2f." % self._powerap)
-      ap = self._powerap + self._sustainedturnap + self._turnap + self._altitudeap + self._spbrap
-      self._log("total    APs = %+.2f with %+.2f carry = %+.2f." % (ap, self._apcarry, ap + self._apcarry))
+      self._log("turn      APs = %+.2f and %+.2f." % (self._turnap, self._sustainedturnap))
+      self._log("altitude  APs = %+.2f." % self._altitudeap)
+      self._log("SPBR      APs = %+.2f." % self._spbrap)
+      self._log("power     APs = %+.2f." % self._powerap)
+      self._log("transonic APs = %+.2f." % self._transonicap)
+      ap = self._turnap + self._sustainedturnap + self._altitudeap + self._spbrap + self._powerap + self._transonicap
+      self._log("total     APs = %+.2f with %+.2f carry = %+.2f." % (ap, self._apcarry, ap + self._apcarry))
       ap += self._apcarry
 
       # See rules 6.2 and 6.6.
