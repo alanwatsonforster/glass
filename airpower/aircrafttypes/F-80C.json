@@ -2,10 +2,10 @@
   "name": "F-80C",
   "origin": "TSOH",
   "powertable": {
-    "CL"  : { "IDLE": 0.5, "NOR": 0.0, "MIL": 1.0, "SPBR": 0.5 },
-    "1/2" : { "IDLE": 0.5, "NOR": 0.0, "MIL": 1.0, "SPBR": 0.5 },
-    "DT"  : { "IDLE": 0.5, "NOR": 0.0, "MIL": 1.0, "SPBR": 0.5 },
-    "FUEL": { "IDLE": 0.0, "NOR": 0.5, "MIL": 1.0 }
+    "CL"  : { "I": 0.5, "N": 0.0, "M": 1.0, "SPBR": 0.5 },
+    "1/2" : { "I": 0.5, "N": 0.0, "M": 1.0, "SPBR": 0.5 },
+    "DT"  : { "I": 0.5, "N": 0.0, "M": 1.0, "SPBR": 0.5 },
+    "FUEL": { "I": 0.0, "N": 0.5, "M": 1.0 }
   },
   "maneuvertable": {
     "LR/DR": { "HFP": 1.0, "DP": 1.5 },

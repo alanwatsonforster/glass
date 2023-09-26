@@ -28,7 +28,7 @@ class aircraft:
     self._altitudecarry = 0
     self._speed         = speed
     self._flighttype    = "LV"
-    self._powersetting  = "NOR"
+    self._powersetting  = "N"
     self._fpcarry       = 0
     self._apcarry       = 0
     self._aircrafttype  = apaircrafttype.aircrafttype(aircrafttype)
@@ -465,18 +465,18 @@ class aircraft:
     lastpowersetting = self._lastpowersetting
 
     # TODO: Don't assume CL.
-    powerapMIL = self._aircrafttype.power("CL", "MIL")
-    powerapAB  = self._aircrafttype.power("CL", "AB")
+    powerapM  = self._aircrafttype.power("CL", "M")
+    powerapAB = self._aircrafttype.power("CL", "AB")
 
-    if power == "IDLE":
-      powersetting = "IDLE"
+    if power == "I":
+      powersetting = "I"
       powerap      = 0
-    elif power == "NOR" or power == 0:
-      powersetting = "NOR"
+    elif power == "N" or power == 0:
+      powersetting = "N"
       powerap      = 0
-    elif power == "MIL":
-      powersetting = "MIL"
-      powerap      = powerapMIL
+    elif power == "M":
+      powersetting = "M"
+      powerap      = powerapM
     elif power == "AB" and powerapAB == None:
       raise ValueError("aircraft does not have AB.")
     elif power == "AB":
@@ -484,8 +484,8 @@ class aircraft:
       powerap      = powerapAB
     elif not isinstance(power, (int, float)) or power < 0 or power % 0.5 != 0:
       raise ValueError("invalid power %r" % power)
-    elif power <= powerapMIL:
-      powersetting = "MIL"
+    elif power <= powerapM:
+      powersetting = "M"
       powerap      = power
     elif powerapAB != None and power <= powerapAB:
       powersetting = "AB"
@@ -496,19 +496,19 @@ class aircraft:
     self._log("power setting is %s." % powersetting)
 
     # See rule 6.1.
-    if powersetting == "IDLE":
-      speedchange = self._aircrafttype.power("CL", "IDLE")
+    if powersetting == "I":
+      speedchange = self._aircrafttype.power("CL", "I")
       # This keeps the speed non-negative. See rule 6.2.
       speedchange = min(speedchange, self._speed)
       self._log("reducing speed by %.1f as the power setting is IDLE." % speedchange)
       self._speed -= speedchange
 
     # See rule 6.1.
-    if lastpowersetting == "IDLE" and powersetting == "AB" and not self._aircrafttype.hasproperty("RPR"):
+    if lastpowersetting == "I" and powersetting == "AB" and not self._aircrafttype.hasproperty("RPR"):
       self._log("risk of flame-out as power setting has increased from IDLE to AB.")
 
     # See rule 6.1.
-    if (powersetting == "IDLE" or powersetting == "NOR") and self._speed > self._aircrafttype.cruisespeed():
+    if (powersetting == "I" or powersetting == "N") and self._speed > self._aircrafttype.cruisespeed():
       self._log("insufficient power above cruise speed.")
       powerap -= 1.0
 
