@@ -20,6 +20,10 @@ class aircraft:
     apaltitude.checkisvalidaltitude(altitude)
     aphex.checkisvalidfacing(x, y, facing)
 
+    # In addition to the specified position, azimuth, altitude, speed, and 
+    # configuration, aircraft initially have level flight, normal power, and
+    #no carries.
+
     self._name          = name
     self._x             = x
     self._y             = y
@@ -52,9 +56,13 @@ class aircraft:
       ["hexcode"      , aphexcode.fromxy(self._x, self._y) if not self._leftmap else "----"],
       ["facing"       , apazimuth.fromfacing(self._facing)],
       ["speed"        , self._speed],
+      ["altitude"     , self._altitude],
+      ["altitudeband" , self._altitudeband],
+      ["flighttype"   , self._flighttype],
+      ["powersetting" , self._powersetting],
+      ["configuration", self._configuration],
       ["fpcarry"      , self._fpcarry],
       ["apcarry"      , self._apcarry],
-      ["altitude"     , self._altitude],
       ["altitudecarry", self._altitudecarry],
       ["destroyed"    , self._destroyed],
       ["leftmap"      , self._leftmap],
@@ -200,7 +208,7 @@ class aircraft:
     if spbrfp > maxspbrfp:
       raise ValueError("only %s FPs are remaining." % maxspbrfp)
       
-    maxspbrfp = self._aircrafttype.SPBR(self._configuration):
+    maxspbrfp = self._aircrafttype.SPBR(self._configuration)
     if spbrfp > maxspbrfp:
       raise ValueError("speedbrake capability is only %.1f FPs." % maxspbrfp)
 
