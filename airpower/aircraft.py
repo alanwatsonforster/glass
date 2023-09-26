@@ -354,7 +354,7 @@ class aircraft:
       else:
 
         if self._hfp + self._vfp + self._spbrfp + 1 > self._fp:
-          raise ValueError("only %d FPs are available." % self._fp)
+          raise ValueError("only %.1f FPs are available." % self._fp)
         
         if action[0] == 'H':
           self._hfp += 1
@@ -379,7 +379,7 @@ class aircraft:
             a = a[len(element[0]):]
             break
         else:
-          raise ValueError("unknown element %s in action %s." % (a, action))
+          raise ValueError("unknown element %r in action %s." % (a, action))
 
       assert aphex.isvalidposition(self._x, self._y)
       assert aphex.isvalidfacing(self._x, self._y, self._facing)
@@ -406,7 +406,7 @@ class aircraft:
             a = a[len(element[0]):]
             break
         else:
-          raise ValueError("unknown element %s in action %s." % (a, action))
+          raise ValueError("unknown element %r in action %s." % (a, action))
 
   ##############################################################################
 
@@ -644,7 +644,7 @@ class aircraft:
 
     if self._flighttype == "ST":
 
-      self._log("carrying %+.1f APs, and %s altitude levels." % (
+      self._log("carrying %+.2f APs, and %s altitude levels." % (
         self._apcarry, apaltitude.formataltitudecarry(self._altitudecarry)
       ))
       
@@ -664,7 +664,7 @@ class aircraft:
 
     else:
 
-      self._log("carrying %.1f FPs, %+.1f APs, and %s altitude levels." % (
+      self._log("carrying %.1f FPs, %+.2f APs, and %s altitude levels." % (
         self._fpcarry, self._apcarry, apaltitude.formataltitudecarry(self._altitudecarry)
       ))
       
@@ -749,12 +749,12 @@ class aircraft:
           # TODO: Calculate this at the moment of the maximum turn, since it depends on the configuration.
           turnap = -self._aircrafttype.turndrag(self._configuration, self._maxturnrate)
 
-      self._log("turn     APs = %+.1f and %+.1f." % (turnap, self._sustainedturnap))
-      self._log("altitude APs = %+.1f." % self._altitudeap)
-      self._log("SPBR     APs = %+.1f." % self._spbrap)
-      self._log("power    APs = %+.1f." % self._powerap)
+      self._log("turn     APs = %+.2f and %+.2f." % (turnap, self._sustainedturnap))
+      self._log("altitude APs = %+.2f." % self._altitudeap)
+      self._log("SPBR     APs = %+.2f." % self._spbrap)
+      self._log("power    APs = %+.2f." % self._powerap)
       ap = self._powerap + self._sustainedturnap + turnap + self._altitudeap + self._spbrap
-      self._log("total    APs = %+.1f with %+.1f carry = %+.1f." % (ap, self._apcarry, ap + self._apcarry))
+      self._log("total    APs = %+.2f with %+.2f carry = %+.2f." % (ap, self._apcarry, ap + self._apcarry))
       ap += self._apcarry
 
       # See rules 6.2 and 6.6.
@@ -822,7 +822,7 @@ class aircraft:
       fp = self._hfp + self._vfp + self._spbrfp
       self._fpcarry = self._fp - fp
 
-      self._log("carrying %.1f FPs, %+.1f APs, and %s altitude levels." % (
+      self._log("carrying %.1f FPs, %+.2f APs, and %s altitude levels." % (
         self._fpcarry, self._apcarry, apaltitude.formataltitudecarry(self._altitudecarry)
       ))
 
