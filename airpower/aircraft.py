@@ -25,6 +25,7 @@ class aircraft:
     self._y             = y
     self._facing        = facing
     self._altitude      = altitude
+    self._altitudeband  = apaltitude.altitudeband(self._altitude)
     self._altitudecarry = 0
     self._speed         = speed
     self._configuration = configuration
@@ -95,7 +96,8 @@ class aircraft:
       hexcode = "----"
     azimuth = apazimuth.fromfacing(self._facing)
     altitude = self._altitude
-    return "%2s %-9s  %-3s  %2d  %2s" % (sheet, hexcode, azimuth, altitude, apaltitude.altitudeband(altitude))
+    altitudeband = self._altitudeband
+    return "%2s %-9s  %-3s  %2d  %2s" % (sheet, hexcode, azimuth, altitude, altitudeband)
 
   def _log(self, s):
     aplog.log("%s: turn %-2d : %s" % (self._name, apturn.turn(), s))
@@ -123,6 +125,7 @@ class aircraft:
 
     initialaltitude = self._altitude    
     self._altitude, self._altitudecarry = apaltitude.adjustaltitude(self._altitude, self._altitudecarry, +altitudechange)
+    self._altitudeband  = apaltitude.altitudeband(self._altitude)
     altitudechange = self._altitude - initialaltitude
 
     if self._flighttype == "ZC":
@@ -143,6 +146,7 @@ class aircraft:
 
     initialaltitude = self._altitude    
     self._altitude, self._altitudecarry = apaltitude.adjustaltitude(self._altitude, self._altitudecarry, -altitudechange)
+    self._altitudeband = apaltitude.altitudeband(self._altitude)
     altitudechange = initialaltitude - self._altitude
 
     if self._flighttype == "LVL":
@@ -369,7 +373,7 @@ class aircraft:
 
       elementdispatchlist = self._getelementdispatchlist()
 
-      initialaltitudeband = apaltitude.altitudeband(self._altitude)
+      initialaltitudeband = self._altitudeband
 
       # Movement elements.
       a = action
@@ -389,9 +393,8 @@ class aircraft:
       self._logposition("FP %d" % (self._hfp + self._vfp), action)
       self._drawflightpath(lastx, lasty)
 
-      altitudeband = apaltitude.altitudeband(self._altitude)
-      if initialaltitudeband != altitudeband:
-        self._logevent("altitude band changed from %s to %s." % (initialaltitudeband, altitudeband))
+      if initialaltitudeband != self._altitudeband:
+        self._logevent("altitude band changed from %s to %s." % (initialaltitudeband, self._altitudeband))
         
       self.checkforterraincollision()
       self.checkforleavingmap()
@@ -415,12 +418,13 @@ class aircraft:
 
     # See rule 6.4.
 
-    initialaltitudeband = apaltitude.altitudeband(self._altitude)
+    initialaltitudeband = self._altitudeband
 
     altitudechange = math.ceil(self._speed + self._turnsstalled)
 
     initialaltitude = self._altitude    
     self._altitude, self._altitudecarry = apaltitude.adjustaltitude(self._altitude, self._altitudecarry, -altitudechange)
+    self._altitudeband = apaltitude.altitudeband(self._altitude)
     altitudechange = initialaltitude - self._altitude
     
     if self._turnsstalled == 0:
@@ -430,9 +434,8 @@ class aircraft:
 
     self._logposition("end", "")
 
-    altitudeband = apaltitude.altitudeband(self._altitude)
-    if initialaltitudeband != altitudeband:
-      self._logevent("altitude band changed from %s to %s." % (initialaltitudeband, altitudeband))
+    if initialaltitudeband != self._altitudeband:
+      self._logevent("altitude band changed from %s to %s." % (initialaltitudeband, self._altitudeband))
 
     self.checkforterraincollision()
 
@@ -449,12 +452,13 @@ class aircraft:
 
     # See rule 6.4.
 
-    initialaltitudeband = apaltitude.altitudeband(self._altitude)
+    initialaltitudeband = self._altitudeband
 
     altitudechange = math.ceil(self._speed + 2 * self._turnsdeparted)
 
     initialaltitude = self._altitude    
     self._altitude, self._altitudecarry = apaltitude.adjustaltitude(self._altitude, self._altitudecarry, -altitudechange)
+    self._altitudeband = apaltitude.altitudeband(self._altitude)
     altitudechange = initialaltitude - self._altitude
     
     if len(action) < 2 or (action[-1] != "R" and action[-1] != "L"):
@@ -480,9 +484,8 @@ class aircraft:
 
     self._logposition("end", "")
 
-    altitudeband = apaltitude.altitudeband(self._altitude)
-    if initialaltitudeband != altitudeband:
-      self._logevent("altitude band changed from %s to %s." % (initialaltitudeband, altitudeband))
+    if initialaltitudeband != self._altitudeband:
+      self._logevent("altitude band changed from %s to %s." % (initialaltitudeband, self._altitudeband))
 
     self.checkforterraincollision()
       
@@ -522,6 +525,7 @@ class aircraft:
     self._turnsstalled, \
     self._turnsdeparted \
     = self._saved[i]
+    self._altitudeband = apaltitude.altitudeband(self._altitude)
 
   def _save(self, i):
     if len(self._saved) == i:
@@ -703,6 +707,8 @@ class aircraft:
     self._lastconfiguration = self._configuration
     self._lastpowersetting  = self._powersetting
     self._lastflighttype    = self._flighttype
+    self._lastaltitudeband  = self._altitudeband
+    self._lastspeed         = self._speed
 
     self._hfp              = 0
     self._vfp              = 0
@@ -716,7 +722,6 @@ class aircraft:
     self._sustainedturnap  = 0
     self._altitudeap       = 0
 
-    self._altitudeband     = apaltitude.altitudeband(self._altitude)
 
     self._powersetting, \
     self._powerap          = self._startmovepower(power)
@@ -736,6 +741,7 @@ class aircraft:
       self._log("---")
       self._logposition("start", "")
       self._dostalledflight(actions)
+      self._drawaircraft("end")
       self._log("---")
       self._endmove()
 
@@ -754,6 +760,7 @@ class aircraft:
       self._log("---")
       self._logposition("start", "")
       self._dodepartedflight(actions)
+      self._drawaircraft("end")
       self._log("---")
       self._endmove()
         
@@ -826,10 +833,8 @@ class aircraft:
       else:
         self._log("configuration is unchanged at %s." % self._configuration)
               
-      initialaltitudeband = self._altitudeband
-      self._altitudeband = apaltitude.altitudeband(self._altitude)
-      if self._altitudeband != initialaltitudeband:
-        self._log("altitude band changed from %s to %s." % (initialaltitudeband, self._altitudeband))
+      if self._lastaltitudeband != self._altitudeband:
+        self._log("altitude band changed from %s to %s." % (self._lastaltitudeband, self._altitudeband))
       else:
         self._log("altitude band is unchanged at %s." % self._altitudeband)
 
@@ -854,16 +859,15 @@ class aircraft:
 
       # See rules 6.2 and 6.6.
 
-      initialspeed = self._speed
       if ap < 0:
         aprate = -2.0
       elif self._aircrafttype.hasproperty("RA"):
-        if initialspeed >= self._m1():
+        if self._speed >= self._m1():
           aprate = +2.0
         else:
           aprate = +1.5
       else:
-        if initialspeed >= self._m1():
+        if self._speed >= self._m1():
           aprate = +3.0
         else:
           aprate = +2.0
@@ -878,10 +882,12 @@ class aircraft:
       elif ap > 0:
 
         assert self._flighttype != "DP"
+
         if self._flighttype == "LVL" or _isclimbing(self._flighttype):
           maxspeed = self._aircrafttype.maxspeed(self._configuration, self._altitudeband)
         elif _isdiving(self._flighttype) or self._flighttype == "ST":
           maxspeed = self._aircrafttype.maxdivespeed(self._altitudeband)
+
         if self._speed + 0.5 * (ap // aprate) > maxspeed:
           self._log("speed is limited to %.1f." % maxspeed)
           self._speed = maxspeed
@@ -913,8 +919,8 @@ class aircraft:
         if self._apcarry < 0:
           self._apcarry = 0
 
-      if self._speed != initialspeed:
-        self._log("speed changed from %.1f to %.1f." % (initialspeed, self._speed))
+      if self._lastspeed != self._speed:
+        self._log("speed changed from %.1f to %.1f." % (self._lastspeed, self._speed))
       else:
         self._log("speed is unchanged at %.1f." % self._speed)
 
