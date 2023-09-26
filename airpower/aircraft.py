@@ -123,10 +123,19 @@ class aircraft:
 
   # Elements
 
-  def _A(self, what):
-    self._logevent("attack with %s." % what)
+  def _A(self, weapon):
+
+    """
+    Declare an attack with the specified weapon.
+    """
+
+    self._logevent("attack with %s." % weapon)
 
   def _C(self, altitudechange):
+
+    """
+    Climb.
+    """
 
     if not self._flighttype in ["ZC", "SC", "VC"]:
       raise ValueError("attempt to climb while flight type is %s." % self._flighttype)
@@ -148,6 +157,10 @@ class aircraft:
       self._altitudeap -= 2.0 * altitudechange
 
   def _D(self, altitudechange):
+
+    """
+    Dive.
+    """
 
     if not self._flighttype in ["LVL", "SD", "UD", "VD"]:
       raise ValueError("attempt to dive while flight type is %s." % self._flighttype)
@@ -173,6 +186,11 @@ class aircraft:
       self._altitudeap += 1.0 * altitudechange
 
   def _H(self):
+
+    """
+    Move horizontally.
+    """
+
     self._x, self._y = aphex.nextposition(self._x, self._y, self._facing)
 
   def _J(self, configuration):
@@ -194,10 +212,19 @@ class aircraft:
     self._configuration = configuration
 
   def _K(self):
+
+    """
+    Declare that the aircraft has been killed.
+    """
+
     self._logevent("aircraft has been killed.")
     self._destroyed = True
 
   def _S(self, spbrfp):
+
+    """
+    Use the speedbrakes.
+    """
 
     # See rule 6.5.
 
@@ -217,9 +244,11 @@ class aircraft:
     self._spbrap = -spbrfp / 0.5
 
   def _TD(self, turndirection, turnrate):
+
     """
-    Declare a turn in the specified direction and rate.
+    Start a turn in the specified direction and rate.
     """
+    
     turnrates = ["EZ", "TT", "HT", "BT", "ET"]
     assert turnrate in turnrates
     self._turndirection = turndirection
@@ -235,13 +264,11 @@ class aircraft:
       # Implicitly declare a turn rate of EZ.
       self._TD("L", "EZ")
 
-    print(self._turnrate, self._maxturnrate)
     if self._maxturnrate == None:
       self._maxturnrate = self._turnrate
     else:
       turnrates = ["EZ", "TT", "HT", "BT", "ET"]
       self._maxturnrate = turnrates[max(turnrates.index(self._turnrate), turnrates.index(self._maxturnrate))]
-    print(self._turnrate, self._maxturnrate)
 
     if self._maxturnrate == "EZ":
       self._turnap = 0.0
@@ -269,13 +296,11 @@ class aircraft:
       # Implicitly declare a turn rate of EZ.
       self._TD("L", "EZ")
 
-    print(self._turnrate, self._maxturnrate)
     if self._maxturnrate == None:
       self._maxturnrate = self._turnrate
     else:
       turnrates = ["EZ", "TT", "HT", "BT", "ET"]
       self._maxturnrate = turnrates[max(turnrates.index(self._turnrate), turnrates.index(self._maxturnrate))]
-    print(self._turnrate, self._maxturnrate)
 
     if self._maxturnrate == "EZ":
       self._turnap = 0.0
@@ -586,6 +611,11 @@ class aircraft:
   ##############################################################################
 
   def checkforterraincollision(self):
+
+    """
+    Check if the aircraft has collided with terrain.
+    """
+
     altitudeofterrain = apaltitude.terrainaltitude()
     if self._altitude <= altitudeofterrain:
       self._altitude = altitudeofterrain
@@ -594,6 +624,11 @@ class aircraft:
       self._destroyed = True
 
   def checkforleavingmap(self):
+
+    """
+    Check if the aircraft has left the map.
+    """
+
     if not apmap.iswithinmap(self._x, self._y):
       self._logevent("aircraft has left the map.")
       self._leftmap = True
@@ -603,6 +638,11 @@ class aircraft:
   # Turn management
   
   def _restore(self, i):
+
+    """
+    Restore the aircraft properties at the start of the specified turn.
+    """
+
     self._x, \
     self._y, \
     self._facing, \
@@ -622,6 +662,11 @@ class aircraft:
     self._altitudeband = apaltitude.altitudeband(self._altitude)
 
   def _save(self, i):
+
+    """
+    Save the aircraft properties at the end of the specified turn.
+    """
+
     if len(self._saved) == i:
       self._saved.append(None)
     self._saved[i] = ( \
@@ -645,6 +690,10 @@ class aircraft:
   ##############################################################################
 
   def _startmovepower(self, power):
+
+    """
+    Carry out the rules to do with power at the start of a move.
+    """
 
     lastpowersetting = self._lastpowersetting
 
@@ -703,6 +752,10 @@ class aircraft:
   ##############################################################################
 
   def _startmoveflighttype(self, flighttype):
+
+    """
+    Carry out the rules to do with the flight type at the start of a move.
+    """
 
     if flighttype not in ["LVL", "SC", "ZC", "VC", "SD", "UD", "VD", "ST", "DP"]:
       raise ValueError("invalid flight type %r." % flighttype)
@@ -793,6 +846,11 @@ class aircraft:
 
   def startmove(self, flighttype, power, actions):
 
+    """
+    Start a move, declaring the flight type and power, and possible carrying 
+    out some actions.
+    """
+
     self._log("--- start of move --")
 
     self._restore(apturn.turn() - 1)
@@ -826,6 +884,8 @@ class aircraft:
 
     if self._flighttype == "ST":
 
+      # See rule 6.4.
+
       self._log("carrying %+.2f APs, and %s altitude levels." % (
         self._apcarry, apaltitude.formataltitudecarry(self._altitudecarry)
       ))
@@ -843,6 +903,8 @@ class aircraft:
       self._endmove()
 
     elif self._flighttype == "DP":
+
+      # See rule 6.4.
 
       self._log("carrying %s altitude levels." % (
         apaltitude.formataltitudecarry(self._altitudecarry)
@@ -891,6 +953,10 @@ class aircraft:
 
   def continuemove(self, actions):
 
+    """
+    Continue a move that has been started, possible carrying out some actions.
+    """
+
     if self._destroyed or self._leftmap or self._flighttype == "ST" or self._flighttype == "DP":
       return
 
@@ -899,6 +965,10 @@ class aircraft:
   ################################################################################
 
   def _endmove(self):
+
+    """
+    Process the end of a move.
+    """
 
     if self._destroyed:
     
@@ -929,6 +999,8 @@ class aircraft:
       else:
         self._log("maximum turn rate is %s." % self._maxturnrate)
 
+      # See rule 6.2.
+
       self._log("turn     APs = %+.2f and %+.2f." % (self._turnap, self._sustainedturnap))
       self._log("altitude APs = %+.2f." % self._altitudeap)
       self._log("SPBR     APs = %+.2f." % self._spbrap)
@@ -956,20 +1028,35 @@ class aircraft:
 
       if ap < 0:
 
+        assert self._flighttype != "DP"
+
         self._speed -= 0.5 * (ap // aprate)
         self._apcarry = ap % aprate
+
+        # See the "Maximum Deceleration" section of rule 6.2.
+
+        if self._speed <= 0:
+          self._speed = 0
+          if self._apcarry < 0:
+            self._apcarry = 0        
 
       elif ap > 0:
 
         assert self._flighttype != "DP"
+
+        # See rule 6.2 and the "Acceleration limits" section of rule 6.3.
 
         if self._flighttype == "LVL" or _isclimbing(self._flighttype):
           maxspeed = self._aircrafttype.maxspeed(self._configuration, self._altitudeband)
         elif _isdiving(self._flighttype) or self._flighttype == "ST":
           maxspeed = self._aircrafttype.maxdivespeed(self._altitudeband)
 
-        if self._speed + 0.5 * (ap // aprate) > maxspeed:
-          self._log("speed is limited to %.1f." % maxspeed)
+        if self._speed >= maxspeed:
+          if ap >= aprate:
+              self._log("acceleration is limited by speed.")
+              self._apcarry = aprate - 0.5
+        elif self._speed + 0.5 * (ap // aprate) > maxspeed:
+          self._log("acceleration is limited by speed.")
           self._speed = maxspeed
           self._apcarry = aprate - 0.5
         else:
@@ -980,6 +1067,8 @@ class aircraft:
 
       if self._flighttype == "LVL" or _isclimbing(self._flighttype):
 
+        # See the "Speed Fadeback" section of rule 6.3.
+
         maxspeed = self._aircrafttype.maxspeed(self._configuration, self._altitudeband)
         if self._speed > maxspeed:
           self._log("speed is faded back from %.1f." % self._speed)
@@ -987,17 +1076,12 @@ class aircraft:
 
       elif _isdiving(self._flighttype) or self._flighttype == "ST" or self._flighttype == "DP":
 
+        # See the "Diving Speed Limits" section of rule 6.3.
+
         maxspeed = self._aircrafttype.maxdivespeed(self._altitudeband)
         if self._speed > maxspeed:
           self._log("speed is reduced from %.1f to maximum dive speed." % self._speed)
           self._speed = maxspeed
-
-      # See rule 6.2.
-
-      if self._speed <= 0:
-        self._speed = 0
-        if self._apcarry < 0:
-          self._apcarry = 0
 
       if self._lastspeed != self._speed:
         self._log("speed changed from %.1f to %.1f." % (self._lastspeed, self._speed))
@@ -1027,8 +1111,18 @@ class aircraft:
 ################################################################################
 
 def _isdiving(flighttype):
+
+  """
+  Return True if the flight type is SD, UD, or VD. Otherwise return False.
+  """
+
   return flighttype == "SD" or flighttype == "UD" or flighttype == "VD"
 
 def _isclimbing(flighttype):
+
+  """
+  Return True if the flight type is ZC, SC, or VC. Otherwise return False.
+  """
+  
   return flighttype == "ZC" or flighttype == "SC" or flighttype == "VC"
 
