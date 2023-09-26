@@ -162,6 +162,16 @@ class aircraft:
   def _H(self):
     self._x, self._y = aphex.nextposition(self._x, self._y, self._facing)
 
+  def _J(self, configuration):
+    # See rule 4.4. We implement the delay of 1 FP by making this a non-movement element.
+    if self._configuration == configuration:
+      raise ValueError("configuration is already %s." % configuration)
+    if self._configuration == "CL" or configuration == "DT":
+      raise ValueError("attempt to change from configuration %s to %s." % (self._configuration, configuration))
+    self._logevent("jettisoned stores.")
+    self._logevent("changed configuration from %s to %s." % (self._configuration, configuration))
+    self._configuration = configuration
+
   def _K(self):
     self._logevent("aircraft has been killed.")
     self._destroyed = True
@@ -328,6 +338,9 @@ class aircraft:
       ["ARK" , lambda : None               , lambda: self._A("rockets")],
       ["ARP" , lambda : None               , lambda: self._A("rocket pods")],
 
+      ["J1/2", lambda : None               , lambda: self._J("1/2")],
+      ["JCL" , lambda : None               , lambda: self._J("CL") ],
+
       ["K"   , lambda : None               , lambda: self._K()],
 
     ]
@@ -391,7 +404,7 @@ class aircraft:
 
   ##############################################################################
 
-  def _dostalledflight(self):
+  def _dostalledflight(self, actions):
 
     altitudechange = math.ceil(self._speed + self._turnsstalled)
     initialaltitude = self._altitude    
@@ -404,6 +417,11 @@ class aircraft:
       self._altitudeap = 0.5 * altitudechange
     else:
       self._altitudeap = 1.0 * altitudechange
+
+    if actions == "J1/2":
+      self._J("1/2")
+    elif actions == "JCL":
+      self._J("CL")
       
   ##############################################################################
 
@@ -588,8 +606,9 @@ class aircraft:
       self._endmove()
       return
 
-    self._lastpowersetting = self._powersetting
-    self._lastflighttype   = self._flighttype
+    self._lastconfiguration = self._configuration
+    self._lastpowersetting  = self._powersetting
+    self._lastflighttype    = self._flighttype
 
     self._hfp              = 0
     self._vfp              = 0
@@ -620,12 +639,12 @@ class aircraft:
       
       self._log("speed is %s." % (self._speed))
 
-      if actions != "":
+      if actions != "" and actions != "J1/2" and actions != "JCL":
         raise ValueError("invalid actions %r for flight type ST." % actions)
 
       self._log("---")
       self._logposition("start", "")
-      self._dostalledflight()
+      self._dostalledflight(actions)
       self._logposition("end", "")
       self._log("---")
       self._endmove()
@@ -693,7 +712,12 @@ class aircraft:
 
       if self._flighttype != "ST":
         self._log("used %d HFPs, %d VFPs, and %.1f SPBRFPs." % (self._hfp, self._vfp, self._spbrfp))
-        
+
+      if self._lastconfiguration != self._configuration:
+        self._log("configuration changed from %s to %s." % (self._lastconfiguration, self._configuration))
+      else:
+        self._log("configuration is unchanged at %s." % self._configuration)
+              
       initialaltitudeband = self._altitudeband
       self._altitudeband = apaltitude.altitudeband(self._altitude)
       if self._altitudeband != initialaltitudeband:
@@ -801,4 +825,3 @@ def _isdiving(flighttype):
 
 def _isclimbing(flighttype):
   return flighttype == "ZC" or flighttype == "SC" or flighttype == "VC"
-  
