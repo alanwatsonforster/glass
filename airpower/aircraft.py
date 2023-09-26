@@ -28,7 +28,7 @@ class aircraft:
     self._altitudecarry = 0
     self._speed         = speed
     self._configuration = configuration
-    self._flighttype    = "LV"
+    self._flighttype    = "LVL"
     self._powersetting  = "N"
     self._fpcarry       = 0
     self._apcarry       = 0
@@ -137,14 +137,14 @@ class aircraft:
 
   def _D(self, altitudechange):
 
-    if not self._flighttype in ["LV", "SD", "UD", "VD"]:
+    if not self._flighttype in ["LVL", "SD", "UD", "VD"]:
       raise ValueError("attempt to dive while flight type is %s." % self._flighttype)
 
     initialaltitude = self._altitude    
     self._altitude, self._altitudecarry = apaltitude.adjustaltitude(self._altitude, self._altitudecarry, -altitudechange)
     altitudechange = initialaltitude - self._altitude
 
-    if self._flighttype == "LV":
+    if self._flighttype == "LVL":
       pass
     elif self._flighttype == "SD":
       if self._lastflighttype == "SD":
@@ -540,7 +540,7 @@ class aircraft:
 
   def _startmoveflighttype(self, flighttype):
 
-    if flighttype not in ["LV", "SC", "ZC", "VC", "SD", "UD", "VD", "ST"]:
+    if flighttype not in ["LVL", "SC", "ZC", "VC", "SD", "UD", "VD", "ST"]:
       raise ValueError("invalid flight type %r." % flighttype)
 
     lastflighttype = self._lastflighttype
@@ -580,7 +580,7 @@ class aircraft:
       self._turnsstalled = None
 
       # See rule 5.5.
-      if lastflighttype == "LV" and (_isclimbing(flighttype) or _isdiving(flighttype)):
+      if lastflighttype == "LVL" and (_isclimbing(flighttype) or _isdiving(flighttype)):
         requiredhfp = 1
       elif (_isclimbing(lastflighttype) and _isdiving(flighttype)) or (_isdiving(lastflighttype) and _isclimbing(flighttype)):
         if self._aircrafttype.hasproperty("HPR"):
@@ -764,7 +764,7 @@ class aircraft:
         self._speed -= 0.5 * (ap // aprate)
         self._apcarry = ap % aprate
       else:
-        if self._flighttype == "LV" or _isclimbing(self._flighttype):
+        if self._flighttype == "LVL" or _isclimbing(self._flighttype):
           maxspeed = self._aircrafttype.maxspeed(self._configuration, self._altitudeband)
         elif _isdiving(self._flighttype) or self._flighttype == "ST":
           maxspeed = self._aircrafttype.maxdivespeed(self._altitudeband)
@@ -777,7 +777,7 @@ class aircraft:
           self._apcarry = ap % aprate
 
       # See rule 6.3.
-      if self._flighttype == "LV" or _isclimbing(self._flighttype):
+      if self._flighttype == "LVL" or _isclimbing(self._flighttype):
         maxspeed = self._aircrafttype.maxspeed(self._configuration, self._altitudeband)
         if self._speed > maxspeed:
           self._log("speed is faded back from %.1f." % self._speed)
