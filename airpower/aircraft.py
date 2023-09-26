@@ -532,8 +532,6 @@ class aircraft:
       self._log("insufficient power above cruise speed.")
       powerap -= 1.0
 
-    self._log("power is %+.1f AP." % powerap)
-
     return powersetting, powerap
 
   ##############################################################################
@@ -736,10 +734,10 @@ class aircraft:
           # TODO: Calculate this at the moment of the maximum turn, since it depends on the configuration.
           turnap = -self._aircrafttype.turndrag(self._configuration, self._maxturnrate)
 
-      self._log("power    APs = %+.1f." % self._powerap)
       self._log("turn     APs = %+.1f and %+.1f." % (turnap, self._sustainedturnap))
       self._log("altitude APs = %+.1f." % self._altitudeap)
-      self._log("SPBR     APs = %+.1f." % (self._spbrap))
+      self._log("SPBR     APs = %+.1f." % self._spbrap)
+      self._log("power    APs = %+.1f." % self._powerap)
       ap = self._powerap + self._sustainedturnap + turnap + self._altitudeap + self._spbrap
       self._log("total    APs = %+.1f with %+.1f carry = %+.1f." % (ap, self._apcarry, ap + self._apcarry))
       ap += self._apcarry
