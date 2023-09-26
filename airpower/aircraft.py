@@ -169,7 +169,7 @@ class aircraft:
     if self._configuration == "CL" or configuration == "DT":
       raise ValueError("attempt to change from configuration %s to %s." % (self._configuration, configuration))
     self._logevent("jettisoned stores.")
-    self._logevent("changed configuration from %s to %s." % (self._configuration, configuration))
+    self._logevent("configuration changed from %s to %s." % (self._configuration, configuration))
     self._configuration = configuration
 
   def _K(self):
