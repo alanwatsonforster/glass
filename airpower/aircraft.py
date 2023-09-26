@@ -358,76 +358,98 @@ class aircraft:
 
   def _doaction(self, action):
 
-      if self._flighttype == "ST":
+    """
+    Carry out an action for normal flight.
+    """
 
-        self._vfp += 1
+    if self._hfp + self._vfp + self._spbrfp + 1 > self._fp:
+      raise ValueError("only %.1f FPs are available." % self._fp)
+        
+    if action[0] == 'H':
+      self._hfp += 1
+    elif action[0] == 'D' or action[0] == 'C':
+      self._vfp += 1
+    else:
+      raise ValueError("action %s does not begin with H, D, or C." % action)
 
+    lastx = self._x
+    lasty = self._y
+
+    elementdispatchlist = self._getelementdispatchlist()
+
+    initialaltitudeband = self._altitudeband
+
+    # Prolog elements.
+    a = action
+    while a != "":
+      for element in elementdispatchlist:
+        if element[0] == a[:len(element[0])]:
+          element[1]()
+          a = a[len(element[0]):]
+          break
       else:
+        raise ValueError("invalid element %r in action %r." % (a, action))
 
-        if self._hfp + self._vfp + self._spbrfp + 1 > self._fp:
-          raise ValueError("only %.1f FPs are available." % self._fp)
-        
-        if action[0] == 'H':
-          self._hfp += 1
-        elif action[0] == 'D' or action[0] == 'C':
-          self._vfp += 1
-        else:
-          raise ValueError("action %s does not begin with H, D, or C." % action)
+    # Movement elements.
+    a = action
+    while a != "":
+      for element in elementdispatchlist:
+        if element[0] == a[:len(element[0])]:
+          element[2]()
+          a = a[len(element[0]):]
+          break
+      else:
+        raise ValueError("invalid element %r in action %r." % (a, action))
 
-      lastx = self._x
-      lasty = self._y
-
-      elementdispatchlist = self._getelementdispatchlist()
-
-      initialaltitudeband = self._altitudeband
-
-      # Declaration elements.
-      a = action
-      while a != "":
-        for element in elementdispatchlist:
-          if element[0] == a[:len(element[0])]:
-            element[1]()
-            a = a[len(element[0]):]
-            break
-        else:
-          raise ValueError("unknown element %r in action %s." % (a, action))
-
-      # Movement elements.
-      a = action
-      while a != "":
-        for element in elementdispatchlist:
-          if element[0] == a[:len(element[0])]:
-            element[2]()
-            a = a[len(element[0]):]
-            break
-        else:
-          raise ValueError("unknown element %r in action %s." % (a, action))
-
-      assert aphex.isvalidposition(self._x, self._y)
-      assert aphex.isvalidfacing(self._x, self._y, self._facing)
-      assert apaltitude.isvalidaltitude(self._altitude)
+    assert aphex.isvalidposition(self._x, self._y)
+    assert aphex.isvalidfacing(self._x, self._y, self._facing)
+    assert apaltitude.isvalidaltitude(self._altitude)
     
-      self._logposition("FP %d" % (self._hfp + self._vfp), action)
-      self._drawflightpath(lastx, lasty)
+    self._logposition("FP %d" % (self._hfp + self._vfp), action)
+    self._drawflightpath(lastx, lasty)
 
-      if initialaltitudeband != self._altitudeband:
-        self._logevent("altitude band changed from %s to %s." % (initialaltitudeband, self._altitudeband))
+    if initialaltitudeband != self._altitudeband:
+      self._logevent("altitude band changed from %s to %s." % (initialaltitudeband, self._altitudeband))
         
-      self.checkforterraincollision()
-      self.checkforleavingmap()
-      if self._destroyed or self._leftmap:
-        return
+    self.checkforterraincollision()
+    self.checkforleavingmap()
+    if self._destroyed or self._leftmap:
+      return
 
-      # Other elements.
-      a = action
-      while a != "":
-        for element in elementdispatchlist:
-          if element[0] == a[:len(element[0])]:
-            element[3]()
-            a = a[len(element[0]):]
-            break
-        else:
-          raise ValueError("unknown element %r in action %s." % (a, action))
+    # Other elements.
+    a = action
+    while a != "":
+      for element in elementdispatchlist:
+        if element[0] == a[:len(element[0])]:
+          element[3]()
+          a = a[len(element[0]):]
+          break
+      else:
+        raise ValueError("invalid element %r in action %r." % (a, action))
+
+  def _donormalflight(self, actions):
+
+    """
+    Carry out normal flight.
+    """
+
+    if actions != "":
+      for action in actions.split(","):
+        if not self._destroyed and not self._leftmap:
+          self._doaction(action)
+
+    fp = self._hfp + self._vfp + self._spbrfp
+    assert fp <= self._fp
+
+    if fp + 1 > self._fp or self._destroyed or self._leftmap:
+
+      self._drawaircraft("end")
+      self._log("---")
+      self._endmove()
+      
+    else:
+      
+      self._drawaircraft("next")
 
   ##############################################################################
 
@@ -598,6 +620,8 @@ class aircraft:
   ##############################################################################
 
   def _startmovepower(self, power):
+
+    # TODO: enforce multiples of 1/4.
 
     lastpowersetting = self._lastpowersetting
 
@@ -837,28 +861,16 @@ class aircraft:
       self._logposition("start", "")
       self.continuemove(actions)
 
+  ################################################################################
+
   def continuemove(self, actions):
 
-    if self._destroyed or self._leftmap or self._flighttype == "ST":
+    if self._destroyed or self._leftmap or self._flighttype == "ST" or self._flighttype == "DP":
       return
-  
-    if actions != "":
-      for action in actions.split(","):
-        if not self._destroyed and not self._leftmap:
-          self._doaction(action)
-    
-    fp = self._hfp + self._vfp + self._spbrfp
-    assert fp <= self._fp
 
-    if fp + 1 > self._fp or self._destroyed or self._leftmap:
+    self._donormalflight(actions)
 
-      self._drawaircraft("end")
-      self._log("---")
-      self._endmove()
-      
-    else:
-      
-      self._drawaircraft("next")
+  ################################################################################
 
   def _endmove(self):
 
