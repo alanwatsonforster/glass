@@ -199,12 +199,9 @@ class aircraft:
     assert turnrate in turnrates
     self._turndirection = turndirection
     self._turnrate = turnrate
-    if self._maxturnrate == None:
-      self._maxturnrate = turnrate
-    else:
-      self._maxturnrate = turnrates[max(turnrates.index(turnrate), turnrates.index(self._maxturnrate))]
 
   def _TL(self, facingchange):
+
     """
     Turn left.
     """
@@ -212,6 +209,19 @@ class aircraft:
     if self._turnrate == None:
       # Implicitly declare a turn rate of EZ.
       self._TD("L", "EZ")
+
+    print(self._turnrate, self._maxturnrate)
+    if self._maxturnrate == None:
+      self._maxturnrate = self._turnrate
+    else:
+      turnrates = ["EZ", "TT", "HT", "BT", "ET"]
+      self._maxturnrate = turnrates[max(turnrates.index(self._turnrate), turnrates.index(self._maxturnrate))]
+    print(self._turnrate, self._maxturnrate)
+
+    if self._maxturnrate == "EZ":
+      self._turnap = 0.0
+    else:
+      self._turnap = -self._aircrafttype.turndrag(self._configuration, self._maxturnrate)
 
     # Change facing.
     if aphex.isedgeposition(self._x, self._y):
@@ -225,13 +235,27 @@ class aircraft:
       self._sustainedturnap -= facingchange // 30
       
   def _TR(self, facingchange):
+
     """
     Turn right.
     """
 
     if self._turnrate == None:
       # Implicitly declare a turn rate of EZ.
-      self._TD("R", "EZ")
+      self._TD("L", "EZ")
+
+    print(self._turnrate, self._maxturnrate)
+    if self._maxturnrate == None:
+      self._maxturnrate = self._turnrate
+    else:
+      turnrates = ["EZ", "TT", "HT", "BT", "ET"]
+      self._maxturnrate = turnrates[max(turnrates.index(self._turnrate), turnrates.index(self._maxturnrate))]
+    print(self._turnrate, self._maxturnrate)
+
+    if self._maxturnrate == "EZ":
+      self._turnap = 0.0
+    else:
+      self._turnap = -self._aircrafttype.turndrag(self._configuration, self._maxturnrate)
 
     # Change facing.
     if aphex.isedgeposition(self._x, self._y):
@@ -255,98 +279,97 @@ class aircraft:
       # [1] is the procedure for movement elements.
       # [2] is the procedure for other (non-movement) elements.
 
-      ["H"   , lambda : self._H()          , lambda: None],
+      ["H"   , lambda : None               , lambda : self._H()          , lambda: None],
 
-      ["C1/8", lambda : self._C(1/8)       , lambda: None],
-      ["C1/4", lambda : self._C(1/4)       , lambda: None],
-      ["C3/8", lambda : self._C(3/8)       , lambda: None],
-      ["C1/2", lambda : self._C(1/2)       , lambda: None],
-      ["C5/8", lambda : self._C(5/8)       , lambda: None],
-      ["C3/4", lambda : self._C(3/4)       , lambda: None],
-      ["C7/8", lambda : self._C(7/8)       , lambda: None],
-      ["C⅛"  , lambda : self._C(1/8)       , lambda: None],
-      ["C¼"  , lambda : self._C(1/4)       , lambda: None],
-      ["C⅜"  , lambda : self._C(3/8)       , lambda: None],
-      ["C½"  , lambda : self._C(1/2)       , lambda: None],
-      ["C⅝"  , lambda : self._C(5/8)       , lambda: None],
-      ["C¾"  , lambda : self._C(3/4)       , lambda: None],
-      ["C⅞"  , lambda : self._C(7/8)       , lambda: None],
-      ["C1"  , lambda : self._C(1)         , lambda: None],
-      ["C2"  , lambda : self._C(2)         , lambda: None],
-      ["CC"  , lambda : self._C(2)         , lambda: None],
-      ["C"   , lambda : self._C(1)         , lambda: None],
+      ["C1/8", lambda : None               , lambda : self._C(1/8)       , lambda: None],
+      ["C1/4", lambda : None               , lambda : self._C(1/4)       , lambda: None],
+      ["C3/8", lambda : None               , lambda : self._C(3/8)       , lambda: None],
+      ["C1/2", lambda : None               , lambda : self._C(1/2)       , lambda: None],
+      ["C5/8", lambda : None               , lambda : self._C(5/8)       , lambda: None],
+      ["C3/4", lambda : None               , lambda : self._C(3/4)       , lambda: None],
+      ["C7/8", lambda : None               , lambda : self._C(7/8)       , lambda: None],
+      ["C⅛"  , lambda : None               , lambda : self._C(1/8)       , lambda: None],
+      ["C¼"  , lambda : None               , lambda : self._C(1/4)       , lambda: None],
+      ["C⅜"  , lambda : None               , lambda : self._C(3/8)       , lambda: None],
+      ["C½"  , lambda : None               , lambda : self._C(1/2)       , lambda: None],
+      ["C⅝"  , lambda : None               , lambda : self._C(5/8)       , lambda: None],
+      ["C¾"  , lambda : None               , lambda : self._C(3/4)       , lambda: None],
+      ["C⅞"  , lambda : None               , lambda : self._C(7/8)       , lambda: None],
+      ["C1"  , lambda : None               , lambda : self._C(1)         , lambda: None],
+      ["C2"  , lambda : None               , lambda : self._C(2)         , lambda: None],
+      ["CC"  , lambda : None               , lambda : self._C(2)         , lambda: None],
+      ["C"   , lambda : None               , lambda : self._C(1)         , lambda: None],
 
-      ["D1/8", lambda : self._D(1/8)       , lambda: None],
-      ["D1/4", lambda : self._D(1/4)       , lambda: None],
-      ["D3/8", lambda : self._D(3/8)       , lambda: None],
-      ["D1/2", lambda : self._D(1/2)       , lambda: None],
-      ["D5/8", lambda : self._D(5/8)       , lambda: None],
-      ["D3/4", lambda : self._D(3/4)       , lambda: None],
-      ["D7/8", lambda : self._D(7/8)       , lambda: None],
-      ["D⅛"  , lambda : self._D(1/8)       , lambda: None],
-      ["D¼"  , lambda : self._D(1/4)       , lambda: None],
-      ["D⅜"  , lambda : self._D(3/8)       , lambda: None],
-      ["D½"  , lambda : self._D(1/2)       , lambda: None],
-      ["D⅝"  , lambda : self._D(5/8)       , lambda: None],
-      ["D¾"  , lambda : self._D(3/4)       , lambda: None],
-      ["D⅞"  , lambda : self._D(7/8)       , lambda: None],
-      ["D1"  , lambda : self._D(1)         , lambda: None],
-      ["D2"  , lambda : self._D(2)         , lambda: None],
-      ["D3"  , lambda : self._D(3)         , lambda: None],
-      ["DDD" , lambda : self._D(3)         , lambda: None],
-      ["DD"  , lambda : self._D(2)         , lambda: None],
-      ["D"   , lambda : self._D(1)         , lambda: None],
+      ["D1/8", lambda : None               , lambda : self._D(1/8)       , lambda: None],
+      ["D1/4", lambda : None               , lambda : self._D(1/4)       , lambda: None],
+      ["D3/8", lambda : None               , lambda : self._D(3/8)       , lambda: None],
+      ["D1/2", lambda : None               , lambda : self._D(1/2)       , lambda: None],
+      ["D5/8", lambda : None               , lambda : self._D(5/8)       , lambda: None],
+      ["D3/4", lambda : None               , lambda : self._D(3/4)       , lambda: None],
+      ["D7/8", lambda : None               , lambda : self._D(7/8)       , lambda: None],
+      ["D⅛"  , lambda : None               , lambda : self._D(1/8)       , lambda: None],
+      ["D¼"  , lambda : None               , lambda : self._D(1/4)       , lambda: None],
+      ["D⅜"  , lambda : None               , lambda : self._D(3/8)       , lambda: None],
+      ["D½"  , lambda : None               , lambda : self._D(1/2)       , lambda: None],
+      ["D⅝"  , lambda : None               , lambda : self._D(5/8)       , lambda: None],
+      ["D¾"  , lambda : None               , lambda : self._D(3/4)       , lambda: None],
+      ["D⅞"  , lambda : None               , lambda : self._D(7/8)       , lambda: None],
+      ["D1"  , lambda : None               , lambda : self._D(1)         , lambda: None],
+      ["D2"  , lambda : None               , lambda : self._D(2)         , lambda: None],
+      ["D3"  , lambda : None               , lambda : self._D(3)         , lambda: None],
+      ["DDD" , lambda : None               , lambda : self._D(3)         , lambda: None],
+      ["DD"  , lambda : None               , lambda : self._D(2)         , lambda: None],
+      ["D"   , lambda : None               , lambda : self._D(1)         , lambda: None],
 
-      ["LEZ" , lambda : self._TD("L", "EZ"), lambda: None],
-      ["LTT" , lambda : self._TD("L", "TT"), lambda: None],
-      ["LHT" , lambda : self._TD("L", "HT"), lambda: None],
-      ["LBT" , lambda : self._TD("L", "BT"), lambda: None],
-      ["LET" , lambda : self._TD("L", "ET"), lambda: None],
+      ["LEZ" , lambda : self._TD("L", "EZ"), lambda : None               , lambda: None],
+      ["LTT" , lambda : self._TD("L", "TT"), lambda : None               , lambda: None],
+      ["LHT" , lambda : self._TD("L", "HT"), lambda : None               , lambda: None],
+      ["LBT" , lambda : self._TD("L", "BT"), lambda : None               , lambda: None],
+      ["LET" , lambda : self._TD("L", "ET"), lambda : None               , lambda: None],
       
-      ["REZ" , lambda : self._TD("R", "EZ"), lambda: None],
-      ["RTT" , lambda : self._TD("R", "TT"), lambda: None],
-      ["RHT" , lambda : self._TD("R", "HT"), lambda: None],
-      ["RBT" , lambda : self._TD("R", "BT"), lambda: None],
-      ["RET" , lambda : self._TD("R", "ET"), lambda: None],
+      ["REZ" , lambda : self._TD("R", "EZ"), lambda : None               , lambda: None],
+      ["RTT" , lambda : self._TD("R", "TT"), lambda : None               , lambda: None],
+      ["RHT" , lambda : self._TD("R", "HT"), lambda : None               , lambda: None],
+      ["RBT" , lambda : self._TD("R", "BT"), lambda : None               , lambda: None],
+      ["RET" , lambda : self._TD("R", "ET"), lambda : None               , lambda: None],
 
-      ["L90" , lambda : self._TL(90)       , lambda: None],
-      ["L60" , lambda : self._TL(60)       , lambda: None],
-      ["L30" , lambda : self._TL(30)       , lambda: None],
-      ["LLL" , lambda : self._TL(90)       , lambda: None],
-      ["LL"  , lambda : self._TL(60)       , lambda: None],
-      ["L"   , lambda : self._TL(30)       , lambda: None],
+      ["L90" , lambda : None               , lambda : self._TL(90)       , lambda: None],
+      ["L60" , lambda : None               , lambda : self._TL(60)       , lambda: None],
+      ["L30" , lambda : None               , lambda : self._TL(30)       , lambda: None],
+      ["LLL" , lambda : None               , lambda : self._TL(90)       , lambda: None],
+      ["LL"  , lambda : None               , lambda : self._TL(60)       , lambda: None],
+      ["L"   , lambda : None               , lambda : self._TL(30)       , lambda: None],
 
-      ["R90" , lambda : self._TR(90)       , lambda: None],
-      ["R60" , lambda : self._TR(60)       , lambda: None],
-      ["R30" , lambda : self._TR(30)       , lambda: None],
-      ["RRR" , lambda : self._TR(90)       , lambda: None],
-      ["RR"  , lambda : self._TR(60)       , lambda: None],
-      ["R"   , lambda : self._TR(30)       , lambda: None],
+      ["R90" , lambda : None               , lambda : self._TR(90)       , lambda: None],
+      ["R60" , lambda : None               , lambda : self._TR(60)       , lambda: None],
+      ["R30" , lambda : None               , lambda : self._TR(30)       , lambda: None],
+      ["RRR" , lambda : None               , lambda : self._TR(90)       , lambda: None],
+      ["RR"  , lambda : None               , lambda : self._TR(60)       , lambda: None],
+      ["R"   , lambda : None               , lambda : self._TR(30)       , lambda: None],
 
-      ["ST"  , lambda : self._ST()         , lambda: None],
+      ["S1/2", lambda : None               , lambda: self._S(1/2)        , lambda: None],
+      ["S3/2", lambda : None               , lambda: self._S(3/2)        , lambda: None],
+      ["S½"  , lambda : None               , lambda: self._S(1/2)        , lambda: None],
+      ["S1½" , lambda : None               , lambda: self._S(3/2)        , lambda: None],
+      ["S1"  , lambda : None               , lambda: self._S(1)          , lambda: None],
+      ["S2"  , lambda : None               , lambda: self._S(2)          , lambda: None],
+      ["SSSS", lambda : None               , lambda: self._S(2)          , lambda: None],
+      ["SSS" , lambda : None               , lambda: self._S(3/2)        , lambda: None],
+      ["SS"  , lambda : None               , lambda: self._S(1)          , lambda: None],
+      ["S"   , lambda : None               , lambda: self._S(1/2)        , lambda: None],
 
-      ["S1/2", lambda: self._S(1/2)        , lambda: None],
-      ["S3/2", lambda: self._S(3/2)        , lambda: None],
-      ["S½"  , lambda: self._S(1/2)        , lambda: None],
-      ["S1½" , lambda: self._S(3/2)        , lambda: None],
-      ["S1"  , lambda: self._S(1)          , lambda: None],
-      ["S2"  , lambda: self._S(2)          , lambda: None],
-      ["SSSS", lambda: self._S(2)          , lambda: None],
-      ["SSS" , lambda: self._S(3/2)        , lambda: None],
-      ["SS"  , lambda: self._S(1)          , lambda: None],
-      ["S"   , lambda: self._S(1/2)        , lambda: None],
+      ["/"   , lambda : None               , lambda : None               , lambda: None],
 
-      ["/"   , lambda : None               , lambda: None],
+      ["AGN" , lambda : None               , lambda : None               , lambda: self._A("guns")],
+      ["AGP" , lambda : None               , lambda : None               , lambda: self._A("gun pod")],
+      ["ARK" , lambda : None               , lambda : None               , lambda: self._A("rockets")],
+      ["ARP" , lambda : None               , lambda : None               , lambda: self._A("rocket pods")],
 
-      ["AGN" , lambda : None               , lambda: self._A("guns")],
-      ["AGP" , lambda : None               , lambda: self._A("gun pod")],
-      ["ARK" , lambda : None               , lambda: self._A("rockets")],
-      ["ARP" , lambda : None               , lambda: self._A("rocket pods")],
+      ["J1/2", lambda : None               , lambda : None               , lambda: self._J("1/2")],
+      ["J½"  , lambda : None               , lambda : None               , lambda: self._J("1/2")],
+      ["JCL" , lambda : None               , lambda : None               , lambda: self._J("CL") ],
 
-      ["J1/2", lambda : None               , lambda: self._J("1/2")],
-      ["JCL" , lambda : None               , lambda: self._J("CL") ],
-
-      ["K"   , lambda : None               , lambda: self._K()],
+      ["K"   , lambda : None               , lambda : None               , lambda: self._K()],
 
     ]
 
@@ -375,12 +398,23 @@ class aircraft:
 
       initialaltitudeband = self._altitudeband
 
-      # Movement elements.
+      # Declaration elements.
       a = action
       while a != "":
         for element in elementdispatchlist:
           if element[0] == a[:len(element[0])]:
             element[1]()
+            a = a[len(element[0]):]
+            break
+        else:
+          raise ValueError("unknown element %r in action %s." % (a, action))
+
+      # Movement elements.
+      a = action
+      while a != "":
+        for element in elementdispatchlist:
+          if element[0] == a[:len(element[0])]:
+            element[2]()
             a = a[len(element[0]):]
             break
         else:
@@ -406,7 +440,7 @@ class aircraft:
       while a != "":
         for element in elementdispatchlist:
           if element[0] == a[:len(element[0])]:
-            element[2]()
+            element[3]()
             a = a[len(element[0]):]
             break
         else:
@@ -432,7 +466,7 @@ class aircraft:
     else:
       self._altitudeap = 1.0 * altitudechange
 
-    self._logposition("end", "")
+    self._logposition("end", action)
 
     if initialaltitudeband != self._altitudeband:
       self._logevent("altitude band changed from %s to %s." % (initialaltitudeband, self._altitudeband))
@@ -482,7 +516,7 @@ class aircraft:
         self._x, self._y = aphex.centertoleft(self._x, self._y, self._facing)
       self._facing = (self._facing + facingchange) % 360
 
-    self._logposition("end", "")
+    self._logposition("end", action)
 
     if initialaltitudeband != self._altitudeband:
       self._logevent("altitude band changed from %s to %s." % (initialaltitudeband, self._altitudeband))
@@ -719,9 +753,9 @@ class aircraft:
     self._maxturnrate      = None
 
     self._spbrap           = 0
+    self._turnap           = 0
     self._sustainedturnap  = 0
     self._altitudeap       = 0
-
 
     self._powersetting, \
     self._powerap          = self._startmovepower(power)
@@ -843,17 +877,12 @@ class aircraft:
         turnap = 0.0
       else:
         self._log("maximum turn rate is %s." % self._maxturnrate)
-        if self._maxturnrate == "EZ":
-          turnap = 0.0
-        else:
-          # TODO: Calculate this at the moment of the maximum turn, since it depends on the configuration.
-          turnap = -self._aircrafttype.turndrag(self._configuration, self._maxturnrate)
 
-      self._log("turn     APs = %+.2f and %+.2f." % (turnap, self._sustainedturnap))
+      self._log("turn     APs = %+.2f and %+.2f." % (self._turnap, self._sustainedturnap))
       self._log("altitude APs = %+.2f." % self._altitudeap)
       self._log("SPBR     APs = %+.2f." % self._spbrap)
       self._log("power    APs = %+.2f." % self._powerap)
-      ap = self._powerap + self._sustainedturnap + turnap + self._altitudeap + self._spbrap
+      ap = self._powerap + self._sustainedturnap + self._turnap + self._altitudeap + self._spbrap
       self._log("total    APs = %+.2f with %+.2f carry = %+.2f." % (ap, self._apcarry, ap + self._apcarry))
       ap += self._apcarry
 
