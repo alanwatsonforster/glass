@@ -482,32 +482,35 @@ class aircraft:
 
   ##############################################################################
 
-  def _dodepartedflight(self, action):
+  def _dodepartedaction(self, action):
+
+    """
+    Validate and carry out the action for departed flight.
+    """
 
     # See rule 6.4.
 
-    initialaltitudeband = self._altitudeband
+    if action == "R":
+      action = "R30"
+    elif action == "RR":
+      action = "R60"
+    elif action == "RRR":
+      action = "R90"
+    elif action == "L":
+      action = "L30"
+    elif action == "LL":
+      action = "L60"
+    elif action == "LLL":
+      action = "L90"
+  
+    if len(action) < 3 or (action[0] != "R" and action[0] != "L") or not action[1:].isdecimal():
+      raise ValueError("invalid action for departed flight %r." % action)
 
-    altitudechange = math.ceil(self._speed + 2 * self._turnsdeparted)
+    facingchange = int(action[1:])
+    if facingchange % 30 != 0 or facingchange <= 0 or facingchange > 300:
+      raise ValueError("invalid action for departed flight %r." % action)
 
-    initialaltitude = self._altitude    
-    self._altitude, self._altitudecarry = apaltitude.adjustaltitude(self._altitude, self._altitudecarry, -altitudechange)
-    self._altitudeband = apaltitude.altitudeband(self._altitude)
-    altitudechange = initialaltitude - self._altitude
-    
-    if len(action) < 2 or (action[-1] != "R" and action[-1] != "L"):
-      raise ValueError("invalid action %r for departed flight." % action)
-    if not action[0:-1].isdecimal():
-      raise ValueError("invalid action %r for departed flight." % action)
-    n = int(action[0:-1])
-    if n < 1 or n > 10:
-      raise ValueError("invalid action %r for departed flight." % action)
-
-    # We extract the following part of the turning code in order to use it 
-    # withoutsetting turning rates or turning APs.
-
-    facingchange = n * 30
-    if action[-1] == "R":
+    if action[0] == "R":
       if aphex.isedgeposition(self._x, self._y):
         self._x, self._y = aphex.centertoright(self._x, self._y, self._facing)
       self._facing = (self._facing - facingchange) % 360
@@ -515,11 +518,23 @@ class aircraft:
       if aphex.isedgeposition(self._x, self._y):
         self._x, self._y = aphex.centertoleft(self._x, self._y, self._facing)
       self._facing = (self._facing + facingchange) % 360
+ 
+  def _dodepartedflight(self, action):
 
-    self._logposition("end", action)
+    # See rule 6.4.
+
+    initialaltitudeband = self._altitudeband
+
+    altitudechange = math.ceil(self._speed + 2 * self._turnsdeparted)
+    self._altitude, self._altitudecarry = apaltitude.adjustaltitude(self._altitude, self._altitudecarry, -altitudechange)
+    self._altitudeband = apaltitude.altitudeband(self._altitude)
 
     if initialaltitudeband != self._altitudeband:
       self._logevent("altitude band changed from %s to %s." % (initialaltitudeband, self._altitudeband))
+      
+    self._dodepartedaction(action)
+    
+    self._logposition("end", action)
 
     self.checkforterraincollision()
       
