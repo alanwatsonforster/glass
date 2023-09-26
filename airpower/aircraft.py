@@ -94,7 +94,7 @@ class aircraft:
       hexcode = "----"
     azimuth = apazimuth.fromfacing(self._facing)
     altitude = self._altitude
-    return "%2s %-9s  %-3s  %2d" % (sheet, hexcode, azimuth, altitude)
+    return "%2s %-9s  %-3s  %2d  %2s" % (sheet, hexcode, azimuth, altitude, apaltitude.altitudeband(altitude))
 
   def _log(self, s):
     aplog.log("%s: turn %-2d : %s" % (self._name, apturn.turn(), s))
@@ -368,6 +368,8 @@ class aircraft:
 
       elementdispatchlist = self._getelementdispatchlist()
 
+      initialaltitudeband = apaltitude.altitudeband(self._altitude)
+
       # Movement elements.
       a = action
       while a != "":
@@ -386,6 +388,10 @@ class aircraft:
       self._logposition("FP %d" % (self._hfp + self._vfp), action)
       self._drawflightpath(lastx, lasty)
 
+      altitudeband = apaltitude.altitudeband(self._altitude)
+      if initialaltitudeband != altitudeband:
+        self._logevent("altitude band changed from %s to %s." % (initialaltitudeband, altitudeband))
+        
       self.checkforterraincollision()
       self.checkforleavingmap()
       if self._destroyed or self._leftmap:
@@ -406,22 +412,32 @@ class aircraft:
 
   def _dostalledflight(self, actions):
 
+    initialaltitudeband = apaltitude.altitudeband(self._altitude)
+
     altitudechange = math.ceil(self._speed + self._turnsstalled)
+
     initialaltitude = self._altitude    
     self._altitude, self._altitudecarry = apaltitude.adjustaltitude(self._altitude, self._altitudecarry, -altitudechange)
     altitudechange = initialaltitude - self._altitude
-
-    self.checkforterraincollision()
-
+    
     if self._turnsstalled == 0:
       self._altitudeap = 0.5 * altitudechange
     else:
       self._altitudeap = 1.0 * altitudechange
 
+    self._logposition("end", "")
+
+    altitudeband = apaltitude.altitudeband(self._altitude)
+    if initialaltitudeband != altitudeband:
+      self._logevent("altitude band changed from %s to %s." % (initialaltitudeband, altitudeband))
+
+    self.checkforterraincollision()
+
     if actions == "J1/2":
       self._J("1/2")
     elif actions == "JCL":
       self._J("CL")
+
       
   ##############################################################################
 
@@ -643,7 +659,6 @@ class aircraft:
       self._log("---")
       self._logposition("start", "")
       self._dostalledflight(actions)
-      self._logposition("end", "")
       self._log("---")
       self._endmove()
 
