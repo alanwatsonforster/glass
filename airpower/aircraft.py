@@ -467,9 +467,8 @@ class aircraft:
 
     lastpowersetting = self._lastpowersetting
 
-    # TODO: Don't assume CL.
-    powerapM  = self._aircrafttype.power(_self._configuration, "M")
-    powerapAB = self._aircrafttype.power(_self._configuration, "AB")
+    powerapM  = self._aircrafttype.power(self._configuration, "M")
+    powerapAB = self._aircrafttype.power(self._configuration, "AB")
 
     if power == "I":
       powersetting = "I"
@@ -500,7 +499,7 @@ class aircraft:
 
     # See rule 6.1.
     if powersetting == "I":
-      speedchange = self._aircrafttype.power(_self._configuration, "I")
+      speedchange = self._aircrafttype.power(self._configuration, "I")
       # This keeps the speed non-negative. See rule 6.2.
       speedchange = min(speedchange, self._speed)
       self._log("reducing speed by %.1f as the power setting is IDLE." % speedchange)
@@ -531,7 +530,7 @@ class aircraft:
     requiredhfp = 0
 
     # See rule 6.3.
-    if self._speed < self._aircrafttype.minspeed(_self._configuration, self._altitudeband):
+    if self._speed < self._aircrafttype.minspeed(self._configuration, self._altitudeband):
 
       # TODO: Implement departed flight.
       # See rule 6.4.
@@ -553,7 +552,7 @@ class aircraft:
     elif lastflighttype == "ST":
 
       # See rule 6.4.
-      if isclimbing(flighttype):
+      if _isclimbing(flighttype):
         raise ValueError("flight type immediately after ST cannot be climbing.")
 
       self._turnsstalled = None
@@ -565,7 +564,7 @@ class aircraft:
       # See rule 5.5.
       if lastflighttype == "LV" and (_isclimbing(flighttype) or _isdiving(flighttype)):
         requiredhfp = 1
-      elif (_isclimbing(lastflighttype) and _isdiving(_flighttype)) or (_isdiving(lastflighttype) and _isclimbing(flighttype)):
+      elif (_isclimbing(lastflighttype) and _isdiving(flighttype)) or (_isdiving(lastflighttype) and _isclimbing(flighttype)):
         if self._aircrafttype.hasproperty("HPR"):
           requiredhfp = self._speed // 3
         else:
@@ -710,9 +709,8 @@ class aircraft:
         if self._maxturnrate == "EZ":
           turnap = 0.0
         else:
-          # TODO: Don't assume CL.
           # TODO: Calculate this at the moment of the maximum turn, since it depends on the configuration.
-          turnap = -self._aircrafttype.turndrag(_self._configuration, self._maxturnrate)
+          turnap = -self._aircrafttype.turndrag(self._configuration, self._maxturnrate)
 
       self._log("power    APs = %+.1f." % self._powerap)
       self._log("turn     APs = %+.1f and %+.1f." % (turnap, self._sustainedturnap))
@@ -743,7 +741,7 @@ class aircraft:
         self._apcarry = ap % aprate
       else:
         if self._flighttype == "LV" or _isclimbing(self._flighttype):
-          maxspeed = self._aircrafttype.maxspeed(_self._configuration, self._altitudeband)
+          maxspeed = self._aircrafttype.maxspeed(self._configuration, self._altitudeband)
         elif _isdiving(self._flighttype) or self._flighttype == "ST":
           maxspeed = self._aircrafttype.maxdivespeed(self._altitudeband)
         if self._speed + 0.5 * (ap // aprate) > maxspeed:
@@ -756,7 +754,7 @@ class aircraft:
 
       # See rule 6.3.
       if self._flighttype == "LV" or _isclimbing(self._flighttype):
-        maxspeed = self._aircrafttype.maxspeed(_self._configuration, self._altitudeband)
+        maxspeed = self._aircrafttype.maxspeed(self._configuration, self._altitudeband)
         if self._speed > maxspeed:
           self._log("speed is faded back from %.1f." % self._speed)
           self._speed = max(self._speed - 1, maxspeed)
@@ -778,7 +776,7 @@ class aircraft:
         self._log("speed is unchanged at %.1f." % self._speed)
 
       if self._flighttype == "ST":
-        if self._speed >= self._aircrafttype.minspeed(_self._configuration, self._altitudeband):
+        if self._speed >= self._aircrafttype.minspeed(self._configuration, self._altitudeband):
           self._log("aircraft has exited from stall.")
         else:
           self._log("aircraft is still stalled.")
