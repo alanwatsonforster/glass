@@ -448,7 +448,24 @@ class aircraft:
 
   ##############################################################################
 
+  def _dostalledflightaction(self, action):
+
+    """
+    Validate and carry out an action for stalled flight.
+    """
+
+    if action == "J1/2":
+      self._J("1/2")
+    elif action == "JCL":
+      self._J("CL")
+    elif action != "":
+      raise ValueError("invalid action %r for stalled flight." % action)
+
   def _dostalledflight(self, action):
+
+    """
+    Carry out stalled flight.
+    """
 
     # See rule 6.4.
 
@@ -470,22 +487,16 @@ class aircraft:
 
     if initialaltitudeband != self._altitudeband:
       self._logevent("altitude band changed from %s to %s." % (initialaltitudeband, self._altitudeband))
-
     self.checkforterraincollision()
 
-    if action == "J1/2":
-      self._J("1/2")
-    elif action == "JCL":
-      self._J("CL")
-    elif action != "":
-      raise ValueError("invalid action %r for stalled flight." % actions)
+    self._dostalledflightaction(action)
 
   ##############################################################################
 
   def _dodepartedaction(self, action):
 
     """
-    Validate and carry out the action for departed flight.
+    Validate and carry out an action for departed flight.
     """
 
     # See rule 6.4.
@@ -504,11 +515,11 @@ class aircraft:
       action = "L90"
   
     if len(action) < 3 or (action[0] != "R" and action[0] != "L") or not action[1:].isdecimal():
-      raise ValueError("invalid action for departed flight %r." % action)
+      raise ValueError("invalid action %r for departed flight." % action)
 
     facingchange = int(action[1:])
     if facingchange % 30 != 0 or facingchange <= 0 or facingchange > 300:
-      raise ValueError("invalid action for departed flight %r." % action)
+      raise ValueError("invalid action %r for departed flight." % action)
 
     if action[0] == "R":
       if aphex.isedgeposition(self._x, self._y):
@@ -521,6 +532,10 @@ class aircraft:
  
   def _dodepartedflight(self, action):
 
+    """
+    Carry out departed flight.
+    """
+
     # See rule 6.4.
 
     initialaltitudeband = self._altitudeband
@@ -529,14 +544,14 @@ class aircraft:
     self._altitude, self._altitudecarry = apaltitude.adjustaltitude(self._altitude, self._altitudecarry, -altitudechange)
     self._altitudeband = apaltitude.altitudeband(self._altitude)
 
+    self._logposition("end", action)
+
     if initialaltitudeband != self._altitudeband:
       self._logevent("altitude band changed from %s to %s." % (initialaltitudeband, self._altitudeband))
+    self.checkforterraincollision()
       
     self._dodepartedaction(action)
     
-    self._logposition("end", action)
-
-    self.checkforterraincollision()
       
   ##############################################################################
 
@@ -995,3 +1010,4 @@ def _isdiving(flighttype):
 
 def _isclimbing(flighttype):
   return flighttype == "ZC" or flighttype == "SC" or flighttype == "VC"
+
