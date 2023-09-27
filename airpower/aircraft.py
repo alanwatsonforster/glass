@@ -1,6 +1,7 @@
 import airpower.aircrafttype as apaircrafttype
 import airpower.altitude     as apaltitude
 import airpower.azimuth      as apazimuth
+import airpower.data         as apdata
 import airpower.draw         as apdraw
 import airpower.hex          as aphex
 import airpower.hexcode      as aphexcode
@@ -35,6 +36,8 @@ class aircraft:
     self._configuration = configuration
     self._flighttype    = "LVL"
     self._powersetting  = "N"
+    self._turnfp        = 0
+    self._bank          = None
     self._fpcarry       = 0
     self._apcarry       = 0
     self._aircrafttype  = apaircrafttype.aircrafttype(aircrafttype)
@@ -235,7 +238,7 @@ class aircraft:
 
     self._spbrap = -spbrfp / 0.5
 
-  def _TD(self, turndirection, turnrate):
+  def _TD(self, bank, turnrate):
 
     """
     Start a turn in the specified direction and rate.
@@ -243,7 +246,7 @@ class aircraft:
     
     turnrates = ["EZ", "TT", "HT", "BT", "ET"]
     assert turnrate in turnrates
-    self._turndirection = turndirection
+    self._bank = bank
     self._turnrate = turnrate
 
   def _TL(self, facingchange):
@@ -252,9 +255,17 @@ class aircraft:
     Turn left.
     """
 
-    if self._turnrate == None:
-      # Implicitly declare a turn rate of EZ.
-      self._TD("L", "EZ")
+    if self._bank == "R":
+      self._turnfp -= 1
+    minturnrate = apdata.determineturnrate(self._altitudeband, self._speed, self._turnfp, facingchange)
+    if minturnrate == None:
+      raise ValueError("attempt to turn faster than the maximum turn rate.")
+
+    self._turnfp = 0
+    self._bank = "L"
+
+    # Implicitly declare turn rates.
+    self._turnrate = minturnrate
 
     if self._maxturnrate == None:
       self._maxturnrate = self._turnrate
@@ -288,9 +299,17 @@ class aircraft:
     Turn right.
     """
 
-    if self._turnrate == None:
-      # Implicitly declare a turn rate of EZ.
-      self._TD("L", "EZ")
+    if self._bank == "L":
+      self._turnfp -= 1
+    minturnrate = apdata.determineturnrate(self._altitudeband, self._speed, self._turnfp, facingchange)
+    if minturnrate == None:
+      raise ValueError("attempt to turn faster than the maximum turn rate.")
+
+    self._turnfp = 0
+    self._bank = "R"
+
+    # Implicitly declare turn rates.
+    self._turnrate = minturnrate
 
     if self._maxturnrate == None:
       self._maxturnrate = self._turnrate
@@ -421,6 +440,8 @@ class aircraft:
       self._vfp += 1
     else:
       raise ValueError("action %s does not begin with H, D, or C." % action)
+      
+    self._turnfp += 1
 
     lastx = self._x
     lasty = self._y
