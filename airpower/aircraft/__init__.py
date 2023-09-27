@@ -13,6 +13,8 @@ import math
     
 class aircraft:
 
+  from ._log import _log, _logposition, _logevent, _logbreak
+
   def __init__(self, name, aircrafttype, hexcode, azimuth, altitude, speed, configuration="CL"):
 
     x, y = aphexcode.toxy(hexcode)
@@ -84,33 +86,6 @@ class aircraft:
     apdraw.drawaircraft(self._x, self._y, self._facing, self._name, self._altitude, when)
         
 
-  ##############################################################################
-
-  # Reporting
-
-  def _formatposition(self):
-    if apmap.isonmap(self._x, self._y):
-      sheet = apmap.tosheet(self._x, self._y)
-      hexcode = aphexcode.fromxy(self._x, self._y)
-    else:
-      sheet = "--"
-      hexcode = "----"
-    azimuth = apazimuth.fromfacing(self._facing)
-    altitude = self._altitude
-    altitudeband = self._altitudeband
-    return "%2s %-9s  %-3s  %2d  %2s" % (sheet, hexcode, azimuth, altitude, altitudeband)
-
-  def _log(self, s):
-    aplog.log("%s: turn %-2d : %s" % (self._name, apturn.turn(), s))
-
-  def _logbreak(self):
-    aplog.logbreak()
-
-  def _logposition(self, s, t):
-    self._log("%-5s : %-16s : %s" % (s, t, self._formatposition()))
-
-  def _logevent(self, s):
-    self._log("%-5s : %s" % ("", s))
 
   #############################################################################
 
