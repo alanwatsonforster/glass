@@ -16,6 +16,7 @@ class aircraft:
   from ._departedflight import _dodepartedflight
   from ._draw           import _drawaircraft, _drawflightpath
   from ._log            import _log, _logposition, _logevent, _logbreak
+  from ._stalledflight  import _dostalledflight
 
   def __init__(self, name, aircrafttype, hexcode, azimuth, altitude, speed, configuration="CL"):
 
@@ -486,51 +487,6 @@ class aircraft:
     else:
       
       self._drawaircraft("next")
-
-  ##############################################################################
-
-  def _dostalledflightaction(self, action):
-
-    """
-    Validate and carry out an action for stalled flight.
-    """
-
-    if action == "J1/2":
-      self._J("1/2")
-    elif action == "JCL":
-      self._J("CL")
-    elif action != "":
-      raise ValueError("invalid action %r for stalled flight." % action)
-
-  def _dostalledflight(self, action):
-
-    """
-    Carry out stalled flight.
-    """
-
-    # See rule 6.4.
-
-    initialaltitudeband = self._altitudeband
-
-    altitudechange = math.ceil(self._speed + self._turnsstalled)
-
-    initialaltitude = self._altitude    
-    self._altitude, self._altitudecarry = apaltitude.adjustaltitude(self._altitude, self._altitudecarry, -altitudechange)
-    self._altitudeband = apaltitude.altitudeband(self._altitude)
-    altitudechange = initialaltitude - self._altitude
-    
-    if self._turnsstalled == 0:
-      self._altitudeap = 0.5 * altitudechange
-    else:
-      self._altitudeap = 1.0 * altitudechange
-
-    self._logposition("end", action)
-
-    if initialaltitudeband != self._altitudeband:
-      self._logevent("altitude band changed from %s to %s." % (initialaltitudeband, self._altitudeband))
-    self.checkforterraincollision()
-
-    self._dostalledflightaction(action)
 
   
       
