@@ -689,7 +689,7 @@ class aircraft:
 
   ##############################################################################
 
-  def _startmovepower(self, power):
+  def _startmovepower(self, power, flamedoutfraction):
 
     """
     Carry out the rules to do with power and drag at the start of a move.
@@ -699,6 +699,8 @@ class aircraft:
 
     powerapM  = self._aircrafttype.power(self._configuration, "M")
     powerapAB = self._aircrafttype.power(self._configuration, "AB")
+
+    # See rule 6.1.
 
     if power == "I":
       powersetting = "I"
@@ -726,6 +728,26 @@ class aircraft:
       raise ValueError("requested power of %s APs exceeds aircraft capability." % power)
 
     self._log("power setting is %s." % powersetting)
+
+    # See the "Effects of Flame-Out" section of rule 6.7
+
+    if flamedoutfraction == 1:
+
+      self._log("- power setting is treated as idle as all engines are flamed-out.")
+      power = "I"
+      powerap = 0
+
+    elif flamedoutfraction > 0.5:
+
+      self._log("- power is reduced by one third as more than half of engines are flamed-out.")
+      # 1/3 of APs, quantized in 1/4 units, rounding down.
+      powerap = math.floor(powerap / 3 * 4) / 4
+
+    elif flamedoutfraction > 0:
+
+      self._log("- power is reduced by one half as less than half of engines are flamed-out.")
+      # 1/2 of APs, quantized in 1/4 units, rounding up.
+      powerap = math.ceil(powerap / 2 * 4) / 4
 
     # See the "Rapid Power Response" section of rule 6.1.
 
@@ -898,7 +920,7 @@ class aircraft:
 
   ##############################################################################
 
-  def startmove(self, flighttype, power, actions):
+  def startmove(self, flighttype, power, actions, flamedoutfraction=0):
 
     """
     Start a move, declaring the flight type and power, and possible carrying 
@@ -934,7 +956,7 @@ class aircraft:
 
     self._powersetting,    \
     self._powerap,         \
-    self._dragap           = self._startmovepower(power)
+    self._dragap           = self._startmovepower(power, flamedoutfraction)
     self._flighttype       = self._startmoveflighttype(flighttype)
 
     if self._flighttype == "ST":
