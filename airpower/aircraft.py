@@ -753,6 +753,11 @@ class aircraft:
 
     if lastpowersetting == "I" and powersetting == "AB" and not self._aircrafttype.hasproperty("RPR"):
       self._log("- risk of flame-out as power setting has increased from I to AB.")
+
+    # See the "When Does a Jet Flame-Out?" section of rule 6.7.
+
+    if powersetting != "I" and self._altitude > self._aircrafttype.ceiling(self._configuration):
+      self._log("- risk of flame-out as aircraft is above its ceiling and power setting is %s." % powersetting)
       
     # See the "Speed of Sound" and "Transonic Speeds" section of rule 6.6.
 
@@ -887,7 +892,7 @@ class aircraft:
 
     elif flighttype == "ST":
 
-      raise ValueError("flight type cannot be ST as the aircraft is not stalled.")
+      raise ValueError("flight type cannot be ST as aircraft is not stalled.")
 
     elif lastflighttype == "ST":
 
