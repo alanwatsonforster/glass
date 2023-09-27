@@ -80,16 +80,6 @@ class aircraft:
   def _drawaircraft(self, when):
     apdraw.drawaircraft(self._x, self._y, self._facing, self._name, self._altitude, when)
         
-  ##############################################################################
-
-  def _m1(self):
-    altitudeband = self._altitudeband
-    if altitudeband == "LO" or altitudeband == "ML":
-      return 7.5
-    elif altitudeband == "MH" or altitudeband == "HI":
-      return 7.0
-    else:
-      return 6.5
 
   ##############################################################################
 
@@ -226,7 +216,7 @@ class aircraft:
     Use the speedbrakes.
     """
 
-    # See rule 6.5.
+    # See rule 6.5 and the "Supersonic Speeds" section of rule 6.6.
 
     if self._spbrfp != 0:
       raise ValueError("speedbrakes can only be used once per turn.")
@@ -236,6 +226,8 @@ class aircraft:
       raise ValueError("only %s FPs are remaining." % maxspbrfp)
       
     maxspbrfp = self._aircrafttype.SPBR(self._configuration)
+    if self._speed > _m1speed(self._altitudeband):
+      maxspbrfp += 0.5
     if spbrfp > maxspbrfp:
       raise ValueError("speedbrake capability is only %.1f FPs." % maxspbrfp)
 
@@ -271,9 +263,13 @@ class aircraft:
       self._maxturnrate = turnrates[max(turnrates.index(self._turnrate), turnrates.index(self._maxturnrate))]
 
     if self._maxturnrate == "EZ":
-      self._turnap = 0.0
+      self._turnrateap = 0.0
     else:
-      self._turnap = -self._aircrafttype.turndrag(self._configuration, self._maxturnrate)
+      self._turnrateap = -self._aircrafttype.turndrag(self._configuration, self._maxturnrate)
+
+    # See the "Supersonic Speeds" section of rule 6.6.
+    if self._speed > _m1speed(self._altitudeband):
+      self._turnrateap += 1
 
     # Change facing.
     if aphex.isedgeposition(self._x, self._y):
@@ -303,9 +299,13 @@ class aircraft:
       self._maxturnrate = turnrates[max(turnrates.index(self._turnrate), turnrates.index(self._maxturnrate))]
 
     if self._maxturnrate == "EZ":
-      self._turnap = 0.0
+      self._turnrateap = 0.0
     else:
-      self._turnap = -self._aircrafttype.turndrag(self._configuration, self._maxturnrate)
+      self._turnrateap = -self._aircrafttype.turndrag(self._configuration, self._maxturnrate)
+
+    # See the "Supersonic Speeds" section of rule 6.6.
+    if self._speed > _m1speed(self._altitudeband):
+      self._turnrateap += 1
 
     # Change facing.
     if aphex.isedgeposition(self._x, self._y):
@@ -692,7 +692,7 @@ class aircraft:
   def _startmovepower(self, power):
 
     """
-    Carry out the rules to do with power at the start of a move.
+    Carry out the rules to do with power and drag at the start of a move.
     """
 
     lastpowersetting = self._lastpowersetting
@@ -727,52 +727,80 @@ class aircraft:
 
     self._log("power setting is %s." % powersetting)
 
-    # See rule 6.1.
+    # See the "Rapid Power Response" section of rule 6.1.
+
+    if lastpowersetting == "I" and powersetting == "AB" and not self._aircrafttype.hasproperty("RPR"):
+      self._log("- risk of flame-out as power setting has increased from I to AB.")
+      
+    # See the "Speed of Sound" and "Transonic Speeds" section of rule 6.6.
+
+    m1speed = _m1speed(self._altitudeband)
+    htspeed = m1speed - 0.5
+    ltspeed = m1speed - 1.0
+
+    if self._speed >= m1speed:
+      speed = "%.1f (SS)" % self._speed
+    elif self._speed == htspeed:
+      speed = "%.1f (HT)" % self._speed
+    elif self._speed == ltspeed:
+      speed = "%.1f (LT)" % self._speed
+    else:
+      speed = "%.1f" % self._speed
+    self._log("speed is %s." % speed)
+
+    # See the "Idle" section of rule 6.1 and the "Supersonic Speeds" section of rule 6.6
 
     if powersetting == "I":
       speedchange = self._aircrafttype.power(self._configuration, "I")
+      if self._speed >= m1speed:
+        speedchange += 0.5
       # This keeps the speed non-negative. See rule 6.2.
       speedchange = min(speedchange, self._speed)
-      self._log("reducing speed by %.1f as the power setting is IDLE." % speedchange)
       self._speed -= speedchange
+      self._log("- reducing speed to %.1f as the power setting is I." % self._speed)
 
-    # See rule 6.1.
+    # There is some ambiguity as to whether the other effects that depend on 
+    # the start speed refer to it before or after the reduction for idle power.
+    # Here we use it after the reduction.
 
-    if lastpowersetting == "I" and powersetting == "AB" and not self._aircrafttype.hasproperty("RPR"):
-      self._log("risk of flame-out as power setting has increased from I to AB.")
+    startspeed = self._speed
 
-    # See rule 6.1.
+    # We use a explicit dragap rather than reducing powerap for drag effects.
+    dragap = 0.0
 
-    if (powersetting == "I" or powersetting == "N") and self._speed > self._aircrafttype.cruisespeed():
-      self._log("insufficient power above cruise speed.")
-      powerap -= 1.0
+    # See the "Decel Point Penalty for Insufficient Power" section of rule 6.1.
+
+    if startspeed > self._aircrafttype.cruisespeed():
+      if powersetting == "I" or powersetting == "N":
+        self._log("- insufficient power above cruise speed.")
+        dragap -= 1.0
+
+    # See the "Supersonic Speeds" section of rule 6.6
+    
+    if startspeed >= m1speed:
+      if powersetting == "I" or powersetting == "N":
+        dragap -= 2.0 * (startspeed - htspeed) / 0.5
+        self._log("- insufficient power at supersonic speed.")
+      elif powersetting == "M":
+        dragap -= 1.5 * (startspeed - htspeed) / 0.5
+        self._log("- insufficient power at supersonic speed.")
 
     # See the "Transonic Speeds" section of rule 6.6
 
-    self._transonicap = -0.0
-    if self._aircrafttype.hasproperty("LTD"):
-      if self._speed == self._m1() - 1.0:
-        self._transonicap = -0.0
-      elif self._speed == self._m1() - 0.5:
-        self._transonicap = -0.5
-      elif self._speed == self._m1():
-        self._transonicap = -1.0
-    elif self._aircrafttype.hasproperty("HTD"):
-      if self._speed == self._m1() - 1.0:
-        self._transonicap = -1.0
-      elif self._speed == self._m1() - 0.5:
-        self._transonicap = -1.5
-      elif self._speed == self._m1():
-        self._transonicap = -2.0        
-    else:
-      if self._speed == self._m1() - 1.0:
-        self._transonicap = -0.5
-      elif self._speed == self._m1() - 0.5:
-        self._transonicap = -1.0
-      elif self._speed == self._m1():
-        self._transonicap = -1.5       
+    if ltspeed <= startspeed and startspeed <= m1speed:
+      self._log("- transonic drag.")
+      if startspeed == ltspeed:
+        dragap -= 0.5
+      elif startspeed == htspeed:
+        dragap -= 1.0
+      elif startspeed == m1speed:
+        dragap -= 1.5
+      if self._aircrafttype.hasproperty("LTD"):
+        dragap += 0.5
+      elif self._aircrafttype.hasproperty("HTD"):
+        dragap -= 0.5
 
-    return powersetting, powerap
+    return powersetting, powerap, dragap
 
   ##############################################################################
 
@@ -799,7 +827,7 @@ class aircraft:
       self._apcarry = 0
 
       if self._powersetting == "M" or self._powersetting == "AB":
-        self._log("risk of flame-out as power setting is %s in departed flight." % self._powersetting)
+        self._log("- risk of flame-out as power setting is %s in departed flight." % self._powersetting)
 
       if lastflighttype != "DP":
         self._turnsdeparted = 0
@@ -825,7 +853,7 @@ class aircraft:
 
       # See rules 6.3 and 6.4.
 
-      self._log("aircraft is stalled.")
+      self._log("- aircraft is stalled.")
       if flighttype != "ST":
         raise ValueError("flight type must be ST.")
 
@@ -860,7 +888,8 @@ class aircraft:
           requiredhfp = self._speed // 3
         else:
           requiredhfp = self._speed // 2
-      self._log("changing from %s to %s flight so the first %d FPs must be HFPs." % (lastflighttype, flighttype, requiredhfp))
+      if requiredhfp > 0:
+        self._log("- changing from %s to %s flight so the first %d FPs must be HFPs." % (lastflighttype, flighttype, requiredhfp))
 
       self._turnsstalled  = None
       self._turnsdeparted = None
@@ -899,12 +928,13 @@ class aircraft:
     self._maxturnrate      = None
 
     self._spbrap           = 0
-    self._turnap           = 0
+    self._turnrateap       = 0
     self._sustainedturnap  = 0
     self._altitudeap       = 0
 
-    self._powersetting, \
-    self._powerap          = self._startmovepower(power)
+    self._powersetting,    \
+    self._powerap,         \
+    self._dragap           = self._startmovepower(power)
     self._flighttype       = self._startmoveflighttype(flighttype)
 
     if self._flighttype == "ST":
@@ -918,8 +948,6 @@ class aircraft:
       self._fp      = 0
       self._fpcarry = 0
       
-      self._log("speed is %s." % (self._speed))
-
       self._log("---")
       self._logposition("start", "")
       self._dostalledflight(actions)
@@ -939,8 +967,6 @@ class aircraft:
       self._fpcarry = 0
       self._apcarry = 0
       
-      self._log("speed is %s." % (self._speed))
-
       self._log("---")
       self._logposition("start", "")
       self._dodepartedflight(actions)
@@ -957,18 +983,7 @@ class aircraft:
       # See rule 5.4.
       self._fp      = self._speed + self._fpcarry
       self._fpcarry = 0
-  
-      # See rule 6.6.
-      m1 = self._m1()
-      if self._speed >= m1:
-        speed = "%.1f (SS)" % self._speed
-      elif self._speed == m1 - 0.5:
-        speed = "%.1f (HT)" % self._speed
-      elif self._speed == m1 - 1.0:
-        speed = "%.1f (LT)" % self._speed
-      else:
-        speed = "%.1f" % self._speed
-      self._log("speed is %s and %.1f FPs are available." % (speed, self._fp))
+      self._log("%.1f FPs are available." % self._fp)
 
       self._log("---")
       self._logposition("start", "")
@@ -1019,32 +1034,33 @@ class aircraft:
         self._log("altitude band is unchanged at %s." % self._altitudeband)
 
       if self._maxturnrate == None:
-        self._log("no turns.")
+        self._log("- no turns.")
       else:
-        self._log("maximum turn rate is %s." % self._maxturnrate)
+        self._log("- maximum turn rate is %s." % self._maxturnrate)
 
       # See rule 6.2.
 
-      self._log("turn      APs = %+.2f and %+.2f." % (self._turnap, self._sustainedturnap))
-      self._log("altitude  APs = %+.2f." % self._altitudeap)
-      self._log("SPBR      APs = %+.2f." % self._spbrap)
-      self._log("power     APs = %+.2f." % self._powerap)
-      self._log("transonic APs = %+.2f." % self._transonicap)
-      ap = self._turnap + self._sustainedturnap + self._altitudeap + self._spbrap + self._powerap + self._transonicap
-      self._log("total     APs = %+.2f with %+.2f carry = %+.2f." % (ap, self._apcarry, ap + self._apcarry))
+      self._log("- power     APs = %+.2f." % self._powerap)
+      self._log("- altitude  APs = %+.2f." % self._altitudeap)
+      self._log("- drag      APs = %+.2f." % self._dragap)
+      self._log("- turn      APs = %+.2f and %+.2f." % (self._turnrateap, self._sustainedturnap))
+      self._log("- SPBR      APs = %+.2f." % self._spbrap)
+      ap = self._turnrateap + self._sustainedturnap + self._altitudeap + self._spbrap + self._powerap + self._dragap
+      self._log("- total     APs = %+.2f with %+.2f carry = %+.2f." % (ap, self._apcarry, ap + self._apcarry))
       ap += self._apcarry
 
-      # See rules 6.2 and 6.6.
+      # See the "Speed Gain", "Speed Loss", and "Rapid Accel Aircraft" sections
+      # of rule 6.2 and the "Supersonic Speeds" section of rule 6.6.
 
       if ap < 0:
         aprate = -2.0
       elif self._aircrafttype.hasproperty("RA"):
-        if self._speed >= self._m1():
+        if self._speed >= _m1speed(self._altitudeband):
           aprate = +2.0
         else:
           aprate = +1.5
       else:
-        if self._speed >= self._m1():
+        if self._speed >= _m1speed(self._altitudeband):
           aprate = +3.0
         else:
           aprate = +2.0
@@ -1073,15 +1089,18 @@ class aircraft:
 
         if self._flighttype == "LVL" or _isclimbing(self._flighttype):
           maxspeed = self._aircrafttype.maxspeed(self._configuration, self._altitudeband)
+          maxspeedname = "maximum speed"
         elif _isdiving(self._flighttype) or self._flighttype == "ST":
           maxspeed = self._aircrafttype.maxdivespeed(self._altitudeband)
+          maxspeedname = "maximum dive speed"
 
-        if self._speed >= maxspeed:
-          if ap >= aprate:
-              self._log("acceleration is limited by speed.")
-              self._apcarry = aprate - 0.5
+        if self._speed >= maxspeed and ap >= aprate:
+          self._log("- acceleration is limited by %s of %.1f." % (maxspeedname, maxspeed))
+          self._apcarry = aprate - 0.5
+        elif self._speed >= maxspeed:
+          self._apcarry = ap
         elif self._speed + 0.5 * (ap // aprate) > maxspeed:
-          self._log("acceleration is limited by speed.")
+          self._log("- acceleration is limited by %s of %.1f." % (maxspeedname, maxspeed))
           self._speed = maxspeed
           self._apcarry = aprate - 0.5
         else:
@@ -1096,7 +1115,7 @@ class aircraft:
 
         maxspeed = self._aircrafttype.maxspeed(self._configuration, self._altitudeband)
         if self._speed > maxspeed:
-          self._log("speed is faded back from %.1f." % self._speed)
+          self._log("- speed is faded back from %.1f." % self._speed)
           self._speed = max(self._speed - 1, maxspeed)
 
       elif _isdiving(self._flighttype) or self._flighttype == "ST" or self._flighttype == "DP":
@@ -1105,7 +1124,7 @@ class aircraft:
 
         maxspeed = self._aircrafttype.maxdivespeed(self._altitudeband)
         if self._speed > maxspeed:
-          self._log("speed is reduced from %.1f to maximum dive speed." % self._speed)
+          self._log("- speed is reduced to maximum dive speed of %.1f." % maxspeed)
           self._speed = maxspeed
 
       if self._lastspeed != self._speed:
@@ -1115,9 +1134,9 @@ class aircraft:
 
       if self._flighttype == "ST":
         if self._speed >= self._aircrafttype.minspeed(self._configuration, self._altitudeband):
-          self._log("aircraft has exited from stall.")
+          self._log("- aircraft has exited from stall.")
         else:
-          self._log("aircraft is still stalled.")
+          self._log("- aircraft is still stalled.")
 
       # See rule 5.4.
 
@@ -1151,3 +1170,12 @@ def _isclimbing(flighttype):
   
   return flighttype == "ZC" or flighttype == "SC" or flighttype == "VC"
 
+################################################################################
+
+def _m1speed(altitudeband):
+  if altitudeband == "LO" or altitudeband == "ML":
+    return 7.5
+  elif altitudeband == "MH" or altitudeband == "HI":
+    return 7.0
+  else:
+    return 6.5
