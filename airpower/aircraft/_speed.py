@@ -76,15 +76,17 @@ def _startmovespeed(self, power, flamedoutfraction):
 
     # Warn of the risk of flame-outs.
 
+    # See the "When Does a Jet Flame-Out?" section of rule 6.7 
     # See the "Rapid Power Response" section of rule 6.1.
 
     if lastpowersetting == "I" and powersetting == "AB" and not self._aircrafttype.hasproperty("RPR"):
       self._log("- risk of flame-out as power setting has increased from I to AB.")
 
-    # See the "When Does a Jet Flame-Out?" section of rule 6.7.
-
     if powersetting != "I" and self._altitude > self._aircrafttype.ceiling(self._configuration):
       self._log("- risk of flame-out as aircraft is above its ceiling and power setting is %s." % powersetting)
+
+    if self._flighttype == "DP" and (powersetting == "M" or powersetting == "AB"):
+      self._log("- risk of flame-out as aircaft is in departed flight and power setting is %s." % powersetting)
 
     ############################################################################
 
@@ -125,8 +127,6 @@ def _startmovespeed(self, power, flamedoutfraction):
     dragap = 0.0
 
     # See the "Decel Point Penalty for Insufficient Power" section of rule 6.1.
-
-    print(speed, self._aircrafttype.cruisespeed())
 
     if speed > self._aircrafttype.cruisespeed():
       if powersetting == "I" or powersetting == "N":

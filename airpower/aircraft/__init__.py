@@ -165,9 +165,6 @@ class aircraft:
 
   ##############################################################################
 
- 
-  ##############################################################################
-
   def _startmoveflighttype(self, flighttype):
 
     """
@@ -189,9 +186,6 @@ class aircraft:
 
       self._powerap = 0
       self._apcarry = 0
-
-      if self._powersetting == "M" or self._powersetting == "AB":
-        self._log("- risk of flame-out as power setting is %s in departed flight." % self._powersetting)
 
       if lastflighttype != "DP":
         self._turnsdeparted = 0
@@ -303,9 +297,11 @@ class aircraft:
     self._sustainedturnap  = 0
     self._altitudeap       = 0
 
-    self._speed, self._powersetting, self._powerap, self._dragap = \
-      self._startmovespeed(power, flamedoutfraction)
     self._flighttype       = self._startmoveflighttype(flighttype)
+    self._speed,           \
+    self._powersetting,    \
+    self._powerap,         \
+    self._dragap           = self._startmovespeed(power, flamedoutfraction)
 
     if self._flighttype == "ST":
 
@@ -332,6 +328,9 @@ class aircraft:
       self._log("carrying %s altitude levels." % (
         apaltitude.formataltitudecarry(self._altitudecarry)
       ))
+
+      self._powerap = 0
+      self._dragap  = 0
       
       self._fp      = 0
       self._fpcarry = 0
