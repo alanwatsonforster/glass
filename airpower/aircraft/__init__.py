@@ -11,13 +11,17 @@ import airpower.speed        as apspeed
 import airpower.turn         as apturn
 
 import math
+
+from ._normalflight import _isdiving, _isclimbing
     
 class aircraft:
 
   from ._departedflight import _dodepartedflight
   from ._draw           import _drawaircraft, _drawflightpath
   from ._log            import _log, _logposition, _logevent, _logbreak
-  from ._normalflight   import _donormalflight, _doaction, _getelementdispatchlist, _A, _C, _D, _H, _J, _K, _TD, _TL, _TR, _S
+  from ._normalflight   import \
+    _donormalflight, _doaction, _getelementdispatchlist, \
+    _A, _C, _D, _H, _J, _K, _TD, _TL, _TR, _S
   from ._stalledflight  import _dostalledflight
 
   def __init__(self, name, aircrafttype, hexcode, azimuth, altitude, speed, configuration="CL"):
@@ -651,23 +655,5 @@ class aircraft:
 
     self._log("--- end of move -- ")
     self._logbreak()
-
-################################################################################
-
-def _isdiving(flighttype):
-
-  """
-  Return True if the flight type is SD, UD, or VD. Otherwise return False.
-  """
-
-  return flighttype == "SD" or flighttype == "UD" or flighttype == "VD"
-
-def _isclimbing(flighttype):
-
-  """
-  Return True if the flight type is ZC, SC, or VC. Otherwise return False.
-  """
-  
-  return flighttype == "ZC" or flighttype == "SC" or flighttype == "VC"
 
 ################################################################################

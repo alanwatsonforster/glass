@@ -415,3 +415,23 @@ def _donormalflight(self, actions):
     
     self._drawaircraft("next")
 
+################################################################################
+
+def _isdiving(flighttype):
+
+  """
+  Return True if the flight type is SD, UD, or VD. Otherwise return False.
+  """
+
+  return flighttype == "SD" or flighttype == "UD" or flighttype == "VD"
+
+def _isclimbing(flighttype):
+
+  """
+  Return True if the flight type is ZC, SC, or VC. Otherwise return False.
+  """
+  
+  return flighttype == "ZC" or flighttype == "SC" or flighttype == "VC"
+
+################################################################################
+
