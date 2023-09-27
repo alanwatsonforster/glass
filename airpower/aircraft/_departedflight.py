@@ -33,7 +33,6 @@ def _dodepartedflight(self, action):
   # - "R", "RR", and "RRR" which as usual mean "R30", "R60", and "R90"
   # - the "L" equivalents.
 
-
   if action == "R":
     action = "R30"
   elif action == "RR":

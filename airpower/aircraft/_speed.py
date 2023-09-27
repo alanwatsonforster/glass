@@ -1,12 +1,24 @@
-################################################################################
+import math
 
- def _startmovespeed(self, power, flamedoutfraction):
+import airpower.speed as apspeed
+
+from ._normalflight import _isclimbing, _isdiving
+
+def _startmovespeed(self, power, flamedoutfraction):
 
     """
-    Carry out the rules to do with speed, power, and drag at the start of a move.
+    Carry out the rules to do with power, speed, and speed-induced drag at the 
+    start of a move.
     """
+
+    ############################################################################
 
     lastpowersetting = self._lastpowersetting
+    speed            = self._speed
+
+    ############################################################################
+
+    # Determine the requested power setting and power AP
 
     powerapM  = self._aircrafttype.power(self._configuration, "M")
     powerapAB = self._aircrafttype.power(self._configuration, "AB")
@@ -45,7 +57,7 @@
     if flamedoutfraction == 1:
 
       self._log("- power setting is treated as idle as all engines are flamed-out.")
-      power = "I"
+      powersetting = "I"
       powerap = 0
 
     elif flamedoutfraction > 0.5:
@@ -60,6 +72,10 @@
       # 1/2 of APs, quantized in 1/4 units, rounding up.
       powerap = math.ceil(powerap / 2 * 4) / 4
 
+    ############################################################################
+
+    # Warn of the risk of flame-outs.
+
     # See the "Rapid Power Response" section of rule 6.1.
 
     if lastpowersetting == "I" and powersetting == "AB" and not self._aircrafttype.hasproperty("RPR"):
@@ -69,20 +85,23 @@
 
     if powersetting != "I" and self._altitude > self._aircrafttype.ceiling(self._configuration):
       self._log("- risk of flame-out as aircraft is above its ceiling and power setting is %s." % powersetting)
-      
+
+    ############################################################################
+
+    # Determine the speed.
+        
     m1speed = apspeed.m1speed(self._altitudeband)
     htspeed = apspeed.htspeed(self._altitudeband)
     ltspeed = apspeed.ltspeed(self._altitudeband)
 
-    if self._speed >= m1speed:
-      speed = "%.1f (SS)" % self._speed
-    elif self._speed == htspeed:
-      speed = "%.1f (HT)" % self._speed
+    if self._speed < ltspeed:
+      self._log("speed is %.1f" % speed)
     elif self._speed == ltspeed:
-      speed = "%.1f (LT)" % self._speed
+      self._log("speed is %.1f (LT)" % speed)
+    elif self._speed == htspeed:
+      self._log("speed is %.1f (HT)" % speed)
     else:
-      speed = "%.1f" % self._speed
-    self._log("speed is %s." % speed)
+      self._log("speed is %.1f (SS)" % speed)
 
     # See the "Idle" section of rule 6.1 and the "Supersonic Speeds" section of rule 6.6
 
@@ -92,55 +111,60 @@
         speedchange += 0.5
       # This keeps the speed non-negative. See rule 6.2.
       speedchange = min(speedchange, self._speed)
-      self._speed -= speedchange
-      self._log("- reducing speed to %.1f as the power setting is I." % self._speed)
+      speed -= speedchange
+      self._log("- reducing speed to %.1f as the power setting is I." % speed)
 
-    # There is some ambiguity as to whether the other effects that depend on 
-    # the start speed refer to it before or after the reduction for idle power.
-    # Here we use it after the reduction.
+    ############################################################################
 
-    startspeed = self._speed
+    # Determine the speed-induced drag.
 
-    # We use a explicit dragap rather than reducing powerap for drag effects.
+    # There is some ambiguity in the rules as to whether these effects depend 
+    # on the speed before or after the reduction for idle power. Here we use it 
+    # after the reduction.
+    
     dragap = 0.0
 
     # See the "Decel Point Penalty for Insufficient Power" section of rule 6.1.
 
-    if startspeed > self._aircrafttype.cruisespeed():
+    print(speed, self._aircrafttype.cruisespeed())
+
+    if speed > self._aircrafttype.cruisespeed():
       if powersetting == "I" or powersetting == "N":
         self._log("- insufficient power above cruise speed.")
         dragap -= 1.0
 
     # See the "Supersonic Speeds" section of rule 6.6
     
-    if startspeed >= m1speed:
+    if speed >= m1speed:
       if powersetting == "I" or powersetting == "N":
-        dragap -= 2.0 * (startspeed - htspeed) / 0.5
+        dragap -= 2.0 * (speed - htspeed) / 0.5
         self._log("- insufficient power at supersonic speed.")
       elif powersetting == "M":
-        dragap -= 1.5 * (startspeed - htspeed) / 0.5
+        dragap -= 1.5 * (speed - htspeed) / 0.5
         self._log("- insufficient power at supersonic speed.")
 
     # See the "Transonic Speeds" section of rule 6.6
 
-    if ltspeed <= startspeed and startspeed <= m1speed:
+    if ltspeed <= speed and speed <= m1speed:
       self._log("- transonic drag.")
-      if startspeed == ltspeed:
+      if speed == ltspeed:
         dragap -= 0.5
-      elif startspeed == htspeed:
+      elif speed == htspeed:
         dragap -= 1.0
-      elif startspeed == m1speed:
+      elif speed == m1speed:
         dragap -= 1.5
       if self._aircrafttype.hasproperty("LTD"):
         dragap += 0.5
       elif self._aircrafttype.hasproperty("HTD"):
         dragap -= 0.5
 
-    return powersetting, powerap, dragap
+    ############################################################################
+
+    return speed, powersetting, powerap, dragap
 
 ################################################################################
 
-def _endmovespeed():
+def _endmovespeed(self):
 
   """
   Carry out the rules to do with speed, power, and drag at the end of a move.

@@ -7,7 +7,6 @@ import airpower.hex          as aphex
 import airpower.hexcode      as aphexcode
 import airpower.log          as aplog
 import airpower.map          as apmap
-import airpower.speed        as apspeed
 import airpower.turn         as apturn
 
 import math
@@ -292,14 +291,20 @@ class aircraft:
     self._turnrate         = None
     self._maxturnrate      = None
 
+    # These account for the APs associated with power, drag (from insufficient
+    # power or high speed), speed-brakes, turns (split into the part for the 
+    # maximum turn rate and the part for sustained turns), and altitude loss
+    # or gain.
+
+    self._powerap          = 0
+    self._dragap           = 0
     self._spbrap           = 0
     self._turnrateap       = 0
     self._sustainedturnap  = 0
     self._altitudeap       = 0
 
-    self._powersetting,    \
-    self._powerap,         \
-    self._dragap           = self._startmovespeed(power, flamedoutfraction)
+    self._speed, self._powersetting, self._powerap, self._dragap = \
+      self._startmovespeed(power, flamedoutfraction)
     self._flighttype       = self._startmoveflighttype(flighttype)
 
     if self._flighttype == "ST":
@@ -403,7 +408,7 @@ class aircraft:
       else:
         self._log("maximum turn rate is %s." % self._maxturnrate)
         
-      _endmovespeed()
+      self._endmovespeed()
 
       # See rule 5.4.
 
