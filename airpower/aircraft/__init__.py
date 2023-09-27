@@ -291,8 +291,8 @@ class aircraft:
     # or gain.
 
     self._powerap          = 0
-    self._dragap           = 0
-    self._spbrap           = 0
+    self._speedap          = 0
+    self._speedbrakesap    = 0
     self._turnrateap       = 0
     self._sustainedturnap  = 0
     self._altitudeap       = 0
@@ -301,7 +301,7 @@ class aircraft:
     self._speed,           \
     self._powersetting,    \
     self._powerap,         \
-    self._dragap           = self._startmovespeed(power, flamedoutfraction)
+    self._speedap          = self._startmovespeed(power, flamedoutfraction)
 
     if self._flighttype == "ST":
 
@@ -330,7 +330,7 @@ class aircraft:
       ))
 
       self._powerap = 0
-      self._dragap  = 0
+      self._speedap = 0
       
       self._fp      = 0
       self._fpcarry = 0

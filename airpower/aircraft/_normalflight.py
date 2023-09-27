@@ -129,7 +129,7 @@ def _S(self, spbrfp):
 
   self._spbrfp = spbrfp
 
-  self._spbrap = -spbrfp / 0.5
+  self._speedbrakesap = -spbrfp / 0.5
 
 def _TD(self, bank, turnrate):
 

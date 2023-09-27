@@ -24,9 +24,9 @@ def _dostalledflight(self, action):
   altitudechange = initialaltitude - self._altitude
     
   if self._turnsstalled == 0:
-    self._altitudeap = 0.5 * altitudechange
+    self._apaltitude = 0.5 * altitudechange
   else:
-    self._altitudeap = 1.0 * altitudechange
+    self._apaltitude = 1.0 * altitudechange
 
   self._logposition("end", action)
 

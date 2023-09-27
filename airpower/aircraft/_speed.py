@@ -124,23 +124,23 @@ def _startmovespeed(self, power, flamedoutfraction):
     # on the speed before or after the reduction for idle power. Here we use it 
     # after the reduction.
     
-    dragap = 0.0
+    speedap = 0.0
 
     # See the "Decel Point Penalty for Insufficient Power" section of rule 6.1.
 
     if speed > self._aircrafttype.cruisespeed():
       if powersetting == "I" or powersetting == "N":
         self._log("- insufficient power above cruise speed.")
-        dragap -= 1.0
+        speedap -= 1.0
 
     # See the "Supersonic Speeds" section of rule 6.6
     
     if speed >= m1speed:
       if powersetting == "I" or powersetting == "N":
-        dragap -= 2.0 * (speed - htspeed) / 0.5
+        speedap -= 2.0 * (speed - htspeed) / 0.5
         self._log("- insufficient power at supersonic speed.")
       elif powersetting == "M":
-        dragap -= 1.5 * (speed - htspeed) / 0.5
+        speedap -= 1.5 * (speed - htspeed) / 0.5
         self._log("- insufficient power at supersonic speed.")
 
     # See the "Transonic Speeds" section of rule 6.6
@@ -148,19 +148,19 @@ def _startmovespeed(self, power, flamedoutfraction):
     if ltspeed <= speed and speed <= m1speed:
       self._log("- transonic drag.")
       if speed == ltspeed:
-        dragap -= 0.5
+        speedap -= 0.5
       elif speed == htspeed:
-        dragap -= 1.0
+        speedap -= 1.0
       elif speed == m1speed:
-        dragap -= 1.5
+        speedap -= 1.5
       if self._aircrafttype.hasproperty("LTD"):
-        dragap += 0.5
+        speedap += 0.5
       elif self._aircrafttype.hasproperty("HTD"):
-        dragap -= 0.5
+        speedap -= 0.5
 
     ############################################################################
 
-    return speed, powersetting, powerap, dragap
+    return speed, powersetting, powerap, speedap
 
 ################################################################################
 
@@ -172,13 +172,14 @@ def _endmovespeed(self):
 
   # See rule 6.2.
 
-  self._log("- power     APs = %+.2f." % self._powerap)
-  self._log("- altitude  APs = %+.2f." % self._altitudeap)
-  self._log("- drag      APs = %+.2f." % self._dragap)
-  self._log("- turn      APs = %+.2f and %+.2f." % (self._turnrateap, self._sustainedturnap))
-  self._log("- SPBR      APs = %+.2f." % self._spbrap)
-  ap = self._turnrateap + self._sustainedturnap + self._altitudeap + self._spbrap + self._powerap + self._dragap
-  self._log("- total     APs = %+.2f with %+.2f carry = %+.2f." % (ap, self._apcarry, ap + self._apcarry))
+  self._log("- power          APs = %+.2f." % self._powerap)
+  self._log("- speed          APs = %+.2f." % self._speedap)
+  self._log("- altitude       APs = %+.2f." % self._altitudeap)
+  self._log("- turn rate      APs = %+.2f and %+.2f." % (self._turnrateap, self._sustainedturnap))
+  self._log("- sustained turn APs = %+.2f and %+.2f." % (self._turnrateap, self._sustainedturnap))
+  self._log("- speedbrakes    APs = %+.2f." % self._speedbrakesap)
+  ap = self._turnrateap + self._sustainedturnap + self._altitudeap + self._speedbrakesap + self._powerap + self._speedap
+  self._log("- total          APs = %+.2f with %+.2f carry = %+.2f." % (ap, self._apcarry, ap + self._apcarry))
   ap += self._apcarry
 
   # See the "Speed Gain", "Speed Loss", and "Rapid Accel Aircraft" sections
