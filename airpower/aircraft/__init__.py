@@ -13,7 +13,8 @@ import math
     
 class aircraft:
 
-  from ._log import _log, _logposition, _logevent, _logbreak
+  from ._draw import _drawaircraft, _drawflightpath
+  from ._log  import _log, _logposition, _logevent, _logbreak
 
   def __init__(self, name, aircrafttype, hexcode, azimuth, altitude, speed, configuration="CL"):
 
@@ -74,18 +75,6 @@ class aircraft:
     ]:
       s += "%-16s: %s\n" % (x[0], x[1])
     return s
-
-  ##############################################################################
-
-  # Drawing
-
-  def _drawflightpath(self, lastx, lasty):
-    apdraw.drawflightpath(lastx, lasty, self._x, self._y)
-
-  def _drawaircraft(self, when):
-    apdraw.drawaircraft(self._x, self._y, self._facing, self._name, self._altitude, when)
-        
-
 
   #############################################################################
 
