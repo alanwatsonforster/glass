@@ -27,8 +27,6 @@ def _doclimb(self, altitudechange):
   if not self._flighttype in ["ZC", "SC", "VC"]:
     raise ValueError("attempt to climb while flight type is %s." % self._flighttype)
 
-  self._climb += 1
-
   initialaltitude = self._altitude    
   self._altitude, self._altitudecarry = apaltitude.adjustaltitude(self._altitude, self._altitudecarry, +altitudechange)
   self._altitudeband  = apaltitude.altitudeband(self._altitude)
@@ -53,8 +51,6 @@ def _dodive(self, altitudechange):
 
   if not self._flighttype in ["LVL", "SD", "UD", "VD"]:
     raise ValueError("attempt to dive while flight type is %s." % self._flighttype)
-
-  self._dive += 1
 
   initialaltitude = self._altitude    
   self._altitude, self._altitudecarry = apaltitude.adjustaltitude(self._altitude, self._altitudecarry, -altitudechange)
@@ -82,8 +78,6 @@ def _dohorizontal(self):
   Move horizontally.
   """
 
-  self._horizontal += 1
-
   self._x, self._y = aphex.nextposition(self._x, self._y, self._facing)
 
 def _dojettison(self, configuration):
@@ -104,7 +98,7 @@ def _dojettison(self, configuration):
   self._logevent("configuration changed from %s to %s." % (self._configuration, configuration))
   self._configuration = configuration
 
-def _dokill(self):
+def _dokilled(self):
 
   """
   Declare that the aircraft has been killed.
@@ -144,6 +138,7 @@ def _dobank(self, sense):
   # TODO: LRR
 
   self._bank = sense
+  self._turnrate = None
 
 def _dodeclareturn(self, sense, turnrate):
 
@@ -151,7 +146,9 @@ def _dodeclareturn(self, sense, turnrate):
   Start a turn in the specified direction and rate.
   """
 
+  # TODO: Minimum speed requirements.
   # TODO: HRR and LRR
+
   if self._bank != None and self._bank != sense:
     raise ValueError("invalid attempt to declare turn to %s while not banked correctly." % sense)
   
@@ -164,15 +161,14 @@ def _dodeclareturn(self, sense, turnrate):
 def _doturn(self, sense, facingchange):
 
   """
-  Turn left.
+  Turn.
   """
-
-  self._turn += 1
 
   if apvariants.withvariant("implicit turn declarations"): 
 
-    # TODO: correct the bank adjustment for LBR and HBR aircraft.
-    if self._bank != sense:
+    # TODO: correct the bank adjustment for LRR and HRR aircraft.
+    # TODO: minimum speed requirements.
+    if self.bank != None and self._bank != sense:
       self._turnfp -= 1
       self._bank = sense
 
@@ -182,15 +178,12 @@ def _doturn(self, sense, facingchange):
 
     self._turnrate = minturnrate
 
-    self._turnfp = 0
-
   else:
 
     print(self._bank, self._turnrate, self._turnfp)
 
-
     if self._bank != sense:
-      raise ValueError("attempt to turn %s while not banked correctly." % sense)
+      raise ValueError("attempt to turn %s against the sense of the declared turn." % sense)
 
     minturnrate = apdata.determineturnrate(self._altitudeband, self._speed, self._turnfp, facingchange)
     if minturnrate == None:
@@ -227,6 +220,9 @@ def _doturn(self, sense, facingchange):
     if aphex.isedgeposition(self._x, self._y):
       self._x, self._y = aphex.centertoright(self._x, self._y, self._facing)
     self._facing = (self._facing - facingchange) % 360
+
+  self._turnfp = 0
+
     
 def _getelementdispatchlist(self):
 
@@ -236,91 +232,113 @@ def _getelementdispatchlist(self):
     # ones that are prefixes (e.g., put C2 before C and D3/4 before D3).
 
     # [0] is the element code.
-    # [1] is the procedure for prolog elements.
-    # [2] is the procedure for movement elements.
-    # [3] is the procedure for the epilog elements.
-
-    ["/"   , None                                  , None                           , None],
-
-    ["H"   , None                                  , lambda: self._dohorizontal()   , None],
-
-    ["C1/8", None                                  , lambda: self._doclimb(1/8)     , None],
-    ["C1/4", None                                  , lambda: self._doclimb(1/4)     , None],
-    ["C3/8", None                                  , lambda: self._doclimb(3/8)     , None],
-    ["C1/2", None                                  , lambda: self._doclimb(1/2)     , None],
-    ["C5/8", None                                  , lambda: self._doclimb(5/8)     , None],
-    ["C3/4", None                                  , lambda: self._doclimb(3/4)     , None],
-    ["C7/8", None                                  , lambda: self._doclimb(7/8)     , None],
-    ["C1"  , None                                  , lambda: self._doclimb(1)       , None],
-    ["C2"  , None                                  , lambda: self._doclimb(2)       , None],
-    ["CC"  , None                                  , lambda: self._doclimb(2)       , None],
-    ["C"   , None                                  , lambda: self._doclimb(1)       , None],
-
-    ["D1/8", None                                  , lambda: self._dodive(1/8)      , None],
-    ["D1/4", None                                  , lambda: self._dodive(1/4)      , None],
-    ["D3/8", None                                  , lambda: self._dodive(3/8)      , None],
-    ["D1/2", None                                  , lambda: self._dodive(1/2)      , None],
-    ["D5/8", None                                  , lambda: self._dodive(5/8)      , None],
-    ["D3/4", None                                  , lambda: self._dodive(3/4)      , None],
-    ["D7/8", None                                  , lambda: self._dodive(7/8)      , None],
-    ["D1"  , None                                  , lambda: self._dodive(1)        , None],
-    ["D2"  , None                                  , lambda: self._dodive(2)        , None],
-    ["D3"  , None                                  , lambda: self._dodive(3)        , None],
-    ["DDD" , None                                  , lambda: self._dodive(3)        , None],
-    ["DD"  , None                                  , lambda: self._dodive(2)        , None],
-    ["D"   , None                                  , lambda: self._dodive(1)        , None],
-
-    ["LB"  , None                                   , None                          , lambda: self._dobank("L") ],
-    ["RB"  , None                                   , None                          , lambda: self._dobank("R") ],
-    ["WL"  , None                                   , None                          , lambda: self._dobank(None) ],
-
-    ["LEZ" , lambda: self._dodeclareturn("L", "EZ"), None                           , None],
-    ["LTT" , lambda: self._dodeclareturn("L", "TT"), None                           , None],
-    ["LHT" , lambda: self._dodeclareturn("L", "HT"), None                           , None],
-    ["LBT" , lambda: self._dodeclareturn("L", "BT"), None                           , None],
-    ["LET" , lambda: self._dodeclareturn("L", "ET"), None                           , None],
+    # [1] is the element type.
+    # [2] is the element procedure.
     
-    ["REZ" , lambda: self._dodeclareturn("R", "EZ"), None                           , None],
-    ["RTT" , lambda: self._dodeclareturn("R", "TT"), None                           , None],
-    ["RHT" , lambda: self._dodeclareturn("R", "HT"), None                           , None],
-    ["RBT" , lambda: self._dodeclareturn("R", "BT"), None                           , None],
-    ["RET" , lambda: self._dodeclareturn("R", "ET"), None                           , None],
-
-    ["L90" , None                                  , lambda: self._doturn("L", 90)  , None],
-    ["L60" , None                                  , lambda: self._doturn("L", 60)  , None],
-    ["L30" , None                                  , lambda: self._doturn("L", 30)  , None],
-    ["LLL" , None                                  , lambda: self._doturn("L", 90)  , None],
-    ["LL"  , None                                  , lambda: self._doturn("L", 60)  , None],
-    ["L"   , None                                  , lambda: self._doturn("L", 30)  , None],
-
-    ["R90" , None                                  , lambda: self._doturn("R", 90)  , None],
-    ["R60" , None                                  , lambda: self._doturn("R", 60)  , None],
-    ["R30" , None                                  , lambda: self._doturn("R", 30)  , None],
-    ["RRR" , None                                  , lambda: self._doturn("R", 90)  , None],
-    ["RR"  , None                                  , lambda: self._doturn("R", 60)  , None],
-    ["R"   , None                                  , lambda: self._doturn("R", 30)  , None],
-
-    ["S1/2", None                                  , lambda: self._dospeedbrakes(1/2), None],
-    ["S1"  , None                                  , lambda: self._dospeedbrakes(1)  , None],
-    ["S3/2", None                                  , lambda: self._dospeedbrakes(3/2), None],
-    ["S2"  , None                                  , lambda: self._dospeedbrakes(2)  , None],
-    ["S5/2", None                                  , lambda: self._dospeedbrakes(5/2), None],
-    ["S3"  , None                                  , lambda: self._dospeedbrakes(3)  , None],
-    ["SSS" , None                                  , lambda: self._dospeedbrakes(3/2), None],
-    ["SS"  , None                                  , lambda: self._dospeedbrakes(1)  , None],
-    ["S"   , None                                  , lambda: self._dospeedbrakes(1/2), None],
+    ["LEZ" , "turn declaration", lambda: self._dodeclareturn("L", "EZ") ],
+    ["LTT" , "turn declaration", lambda: self._dodeclareturn("L", "TT") ],
+    ["LHT" , "turn declaration", lambda: self._dodeclareturn("L", "HT") ],
+    ["LBT" , "turn declaration", lambda: self._dodeclareturn("L", "BT") ],
+    ["LET" , "turn declaration", lambda: self._dodeclareturn("L", "ET") ],
     
-    ["AGN" , None                                  , None                            , lambda: self._doattack("guns") ],
-    ["AGP" , None                                  , None                            , lambda: self._doattack("gun pod") ],
-    ["ARK" , None                                  , None                            , lambda: self._doattack("rockets") ],
-    ["ARP" , None                                  , None                            , lambda: self._doattack("rocket pods") ],
+    ["REZ" , "turn declaration", lambda: self._dodeclareturn("R", "EZ") ],
+    ["RTT" , "turn declaration", lambda: self._dodeclareturn("R", "TT") ],
+    ["RHT" , "turn declaration", lambda: self._dodeclareturn("R", "HT") ],
+    ["RBT" , "turn declaration", lambda: self._dodeclareturn("R", "BT") ],
+    ["RET" , "turn declaration", lambda: self._dodeclareturn("R", "ET") ],
+    
+    ["H"   , "H"               , lambda: self._dohorizontal() ],
 
-    ["J1/2", None                                  , None                            , lambda: self._dojettison("1/2") ],
-    ["JCL" , None                                  , None                            , lambda: self._dojettison("CL") ],
+    ["C1/8", "C or D"          , lambda: self._doclimb(1/8) ],
+    ["C1/4", "C or D"          , lambda: self._doclimb(1/4) ],
+    ["C3/8", "C or D"          , lambda: self._doclimb(3/8) ],
+    ["C1/2", "C or D"          , lambda: self._doclimb(1/2) ],
+    ["C5/8", "C or D"          , lambda: self._doclimb(5/8) ],
+    ["C3/4", "C or D"          , lambda: self._doclimb(3/4) ],
+    ["C7/8", "C or D"          , lambda: self._doclimb(7/8) ],
+    ["C1"  , "C or D"          , lambda: self._doclimb(1) ],
+    ["C2"  , "C or D"          , lambda: self._doclimb(2) ],
+    ["CC"  , "C or D"          , lambda: self._doclimb(2) ],
+    ["C"   , "C or D"          , lambda: self._doclimb(1) ],
 
-    ["K"   , None                                  , None                            , lambda: self._dokill()],
+    ["D1/8", "C or D"          , lambda: self._dodive(1/8) ],
+    ["D1/4", "C or D"          , lambda: self._dodive(1/4) ],
+    ["D3/8", "C or D"          , lambda: self._dodive(3/8) ],
+    ["D1/2", "C or D"          , lambda: self._dodive(1/2) ],
+    ["D5/8", "C or D"          , lambda: self._dodive(5/8) ],
+    ["D3/4", "C or D"          , lambda: self._dodive(3/4) ],
+    ["D7/8", "C or D"          , lambda: self._dodive(7/8) ],
+    ["D1"  , "C or D"          , lambda: self._dodive(1) ],
+    ["D2"  , "C or D"          , lambda: self._dodive(2) ],
+    ["D3"  , "C or D"          , lambda: self._dodive(3) ],
+    ["DDD" , "C or D"          , lambda: self._dodive(3) ],
+    ["DD"  , "C or D"          , lambda: self._dodive(2) ],
+    ["D"   , "C or D"          , lambda: self._dodive(1) ],
 
+    ["LB"  , "bank declaration", lambda: self._dobank("L") ],
+    ["RB"  , "bank declaration", lambda: self._dobank("R") ],
+    ["WL"  , "bank declaration", lambda: self._dobank(None) ],
+
+    ["L90" , "turn"            , lambda: self._doturn("L", 90) ],
+    ["L60" , "turn"            , lambda: self._doturn("L", 60) ],
+    ["L30" , "turn"            , lambda: self._doturn("L", 30) ],
+    ["LLL" , "turn"            , lambda: self._doturn("L", 90) ],
+    ["LL"  , "turn"            , lambda: self._doturn("L", 60) ],
+    ["L"   , "turn"            , lambda: self._doturn("L", 30) ],
+
+    ["R90" , "turn"            , lambda: self._doturn("R", 90) ],
+    ["R60" , "turn"            , lambda: self._doturn("R", 60) ],
+    ["R30" , "turn"            , lambda: self._doturn("R", 30) ],
+    ["RRR" , "turn"            , lambda: self._doturn("R", 90) ],
+    ["RR"  , "turn"            , lambda: self._doturn("R", 60) ],
+    ["R"   , "turn"            , lambda: self._doturn("R", 30) ],
+
+    ["S1/2", "other"           , lambda: self._dospeedbrakes(1/2) ],
+    ["S1"  , "other"           , lambda: self._dospeedbrakes(1) ],
+    ["S3/2", "other"           , lambda: self._dospeedbrakes(3/2) ],
+    ["S2"  , "other"           , lambda: self._dospeedbrakes(2) ],
+    ["S5/2", "other"           , lambda: self._dospeedbrakes(5/2) ],
+    ["S3"  , "other"           , lambda: self._dospeedbrakes(3) ],
+    ["SSS" , "other"           , lambda: self._dospeedbrakes(3/2) ],
+    ["SS"  , "other"           , lambda: self._dospeedbrakes(1) ],
+    ["S"   , "other"           , lambda: self._dospeedbrakes(1/2) ],
+    
+    ["J1/2", "other"           , lambda: self._dojettison("1/2") ],
+    ["JCL" , "other"           , lambda: self._dojettison("CL") ],
+    
+    ["AGN" , "other"           , lambda: self._doattack("guns") ],
+    ["AGP" , "other"           , lambda: self._doattack("gun pod") ],
+    ["ARK" , "other"           , lambda: self._doattack("rockets") ],
+    ["ARP" , "other"           , lambda: self._doattack("rocket pods") ],
+    ["K"   , "other"           , lambda: self._dokilled()],
+
+    ["/"   , "other"           , lambda: None ],
   ]
+
+def _doelements(self, action, selectedelementtype, allowrepeated):
+
+  ielement = 0
+
+  while action != "":
+    for element in self._getelementdispatchlist():
+
+      elementcode = element[0]
+      elementtype = element[1]
+      elementprocedure = element[2]
+
+      if len(elementcode) <= len(action) and elementcode == action[:len(elementcode)]:
+        if selectedelementtype == elementtype:
+          ielement += 1
+          elementprocedure()
+        action = action[len(elementcode):]
+        break
+    else:
+      raise ValueError("invalid action %r." % action)
+
+  if ielement > 1 and not allowrepeated:
+    raise ValueError("invalid action %r: repeated %s element." % (action, selectedelementtype))
+
+  return ielement
 
 def _doaction(self, action):
 
@@ -338,50 +356,26 @@ def _doaction(self, action):
 
   initialaltitudeband = self._altitudeband
 
-  # Prolog elements.
-  a = action
-  while a != "":
-    for element in elementdispatchlist:
-      if element[0] == a[:len(element[0])]:
-        if element[1] != None:
-            element[1]()
-        a = a[len(element[0]):]
-        break
-    else:
-      raise ValueError("invalid element %r in action %r." % (a, action))
+  self._doelements(action, "turn declaration", False)
 
-  # Movement elements.
+  actionhorizontal = (self._doelements(action, "H", False) == 1)
+  actionvertical   = (self._doelements(action, "C or D", False) == 1)
 
-  self._horizontal = 0
-  self._climb      = 0
-  self._dive       = 0
-  self._turn       = 0
-
-  a = action
-  while a != "":
-    for element in elementdispatchlist:
-      if element[0] == a[:len(element[0])]:
-        if element[2] != None:
-            element[2]()
-        a = a[len(element[0]):]
-        break
-    else:
-      raise ValueError("invalid element %r in action %r." % (a, action))
-
-  if self._horizontal > 1 or self._climb > 1 or self._dive > 1 or self._turn > 1:
-    raise ValueError("invalid action %r." % action)
-  
-  if self._horizontal == 1:
+  if actionhorizontal:
     self._hfp += 1
-  elif self._climb == 0 and self._dive == 0:
+  elif not actionvertical:
     raise ValueError("invalid action %r." % action)
   elif self._hfp < self._requiredhfp:
     raise ValueError("insufficient initial HFPs")
   else:
-    self._vfp += 1
+   self._vfp += 1
 
   self._turnfp += 1
 
+  # TODO: prevent an aircraft from explicily banking and turning in the same action.
+  self._doelements(action, "turn", False)
+  self._doelements(action, "bank declaration", False)
+  
   assert aphex.isvalidposition(self._x, self._y)
   assert aphex.isvalidfacing(self._x, self._y, self._facing)
   assert apaltitude.isvalidaltitude(self._altitude)
@@ -397,17 +391,7 @@ def _doaction(self, action):
   if self._destroyed or self._leftmap:
     return
 
-  # Epilog elements.
-  a = action
-  while a != "":
-    for element in elementdispatchlist:
-      if element[0] == a[:len(element[0])]:
-        if element[3] != None:
-            element[3]()
-        a = a[len(element[0]):]
-        break
-    else:
-      raise ValueError("invalid element %r in action %r." % (a, action))
+  self._doelements(action, "other", True)
 
 ################################################################################
 

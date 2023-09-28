@@ -20,8 +20,8 @@ class aircraft:
   from ._log            import _log, _logposition, _logevent, _logbreak
   from ._normalflight   import \
     _startnormalflight, _continuenormalflight, \
-    _doaction, _getelementdispatchlist, \
-    _doattack, _doclimb, _dodive, _dohorizontal, _dojettison, _dokill, \
+    _doaction, _doelements, _getelementdispatchlist, \
+    _doattack, _doclimb, _dodive, _dohorizontal, _dojettison, _dokilled, \
     _dobank, _dodeclareturn, _doturn, _dospeedbrakes
   from ._speed          import _startmovespeed, _endmovespeed
   from ._stalledflight  import _dostalledflight
