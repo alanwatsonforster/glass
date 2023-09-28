@@ -31,7 +31,10 @@ def _dostalledflight(self, action):
 
   if initialaltitudeband != self._altitudeband:
     self._logevent("altitude band changed from %s to %s." % (initialaltitudeband, self._altitudeband))
+
   self.checkforterraincollision()
+  if self._destroyed:
+    return
 
   # The only valid action is to do nothing or to jettison stores.
 
