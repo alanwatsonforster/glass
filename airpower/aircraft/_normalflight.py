@@ -164,7 +164,7 @@ def _doturn(self, sense, facingchange):
   Turn.
   """
 
-  if apvariants.withvariant("implicit turn declarations"): 
+  if apvariants.withvariant("implicit turn and bank declarations"): 
 
     # TODO: correct the bank adjustment for LRR and HRR aircraft.
     # TODO: minimum speed requirements.
@@ -180,8 +180,6 @@ def _doturn(self, sense, facingchange):
 
   else:
 
-    print(self._bank, self._turnrate, self._turnfp)
-
     if self._bank != sense:
       raise ValueError("attempt to turn %s against the sense of the declared turn." % sense)
 
@@ -189,7 +187,6 @@ def _doturn(self, sense, facingchange):
     if minturnrate == None:
       raise ValueError("attempt to turn faster than the maximum turn rate.")
 
-    print(minturnrate, self._turnrate)
     turnrates = ["EZ", "TT", "HT", "BT", "ET"]
     if turnrates.index(minturnrate) > turnrates.index(self._turnrate):
       raise ValueError("attempt to turn faster than the declared turn rate.")
@@ -275,23 +272,23 @@ def _getelementdispatchlist(self):
     ["DD"  , "C or D"          , lambda: self._dodive(2) ],
     ["D"   , "C or D"          , lambda: self._dodive(1) ],
 
-    ["LB"  , "bank declaration", lambda: self._dobank("L") ],
-    ["RB"  , "bank declaration", lambda: self._dobank("R") ],
-    ["WL"  , "bank declaration", lambda: self._dobank(None) ],
+    ["LB"  , "turn or bank"    , lambda: self._dobank("L") ],
+    ["RB"  , "turn or bank"    , lambda: self._dobank("R") ],
+    ["WL"  , "turn or bank"    , lambda: self._dobank(None) ],
 
-    ["L90" , "turn"            , lambda: self._doturn("L", 90) ],
-    ["L60" , "turn"            , lambda: self._doturn("L", 60) ],
-    ["L30" , "turn"            , lambda: self._doturn("L", 30) ],
-    ["LLL" , "turn"            , lambda: self._doturn("L", 90) ],
-    ["LL"  , "turn"            , lambda: self._doturn("L", 60) ],
-    ["L"   , "turn"            , lambda: self._doturn("L", 30) ],
+    ["L90" , "turn or bank"    , lambda: self._doturn("L", 90) ],
+    ["L60" , "turn or bank"    , lambda: self._doturn("L", 60) ],
+    ["L30" , "turn or bank"    , lambda: self._doturn("L", 30) ],
+    ["LLL" , "turn or bank"    , lambda: self._doturn("L", 90) ],
+    ["LL"  , "turn or bank"    , lambda: self._doturn("L", 60) ],
+    ["L"   , "turn or bank"    , lambda: self._doturn("L", 30) ],
 
-    ["R90" , "turn"            , lambda: self._doturn("R", 90) ],
-    ["R60" , "turn"            , lambda: self._doturn("R", 60) ],
-    ["R30" , "turn"            , lambda: self._doturn("R", 30) ],
-    ["RRR" , "turn"            , lambda: self._doturn("R", 90) ],
-    ["RR"  , "turn"            , lambda: self._doturn("R", 60) ],
-    ["R"   , "turn"            , lambda: self._doturn("R", 30) ],
+    ["R90" , "turn or bank"    , lambda: self._doturn("R", 90) ],
+    ["R60" , "turn or bank"    , lambda: self._doturn("R", 60) ],
+    ["R30" , "turn or bank"    , lambda: self._doturn("R", 30) ],
+    ["RRR" , "turn or bank"    , lambda: self._doturn("R", 90) ],
+    ["RR"  , "turn or bank"    , lambda: self._doturn("R", 60) ],
+    ["R"   , "turn or bank"    , lambda: self._doturn("R", 30) ],
 
     ["S1/2", "other"           , lambda: self._dospeedbrakes(1/2) ],
     ["S1"  , "other"           , lambda: self._dospeedbrakes(1) ],
@@ -372,9 +369,7 @@ def _doaction(self, action):
 
   self._turnfp += 1
 
-  # TODO: prevent an aircraft from explicily banking and turning in the same action.
-  self._doelements(action, "turn", False)
-  self._doelements(action, "bank declaration", False)
+  self._doelements(action, "turn or bank", False)
   
   assert aphex.isvalidposition(self._x, self._y)
   assert aphex.isvalidfacing(self._x, self._y, self._facing)
