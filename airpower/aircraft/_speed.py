@@ -181,12 +181,19 @@ def _endmovespeed(self):
   self._log("- power          APs = %+.2f." % self._powerap)
   self._log("- speed          APs = %+.2f." % self._speedap)
   self._log("- altitude       APs = %+.2f." % self._altitudeap)
-  self._log("- turn rate      APs = %+.2f and %+.2f." % (self._turnrateap, self._sustainedturnap))
-  self._log("- sustained turn APs = %+.2f and %+.2f." % (self._turnrateap, self._sustainedturnap))
+  self._log("- turn rate      APs = %+.2f." % self._turnrateap)
+  self._log("- sustained turn APs = %+.2f." % self._sustainedturnap)
   self._log("- speedbrakes    APs = %+.2f." % self._speedbrakesap)
-  ap = self._turnrateap + self._sustainedturnap + self._altitudeap + self._speedbrakesap + self._powerap + self._speedap
-  self._log("- total          APs = %+.2f with %+.2f carry = %+.2f." % (ap, self._apcarry, ap + self._apcarry))
-  ap += self._apcarry
+  self._log("- carry          APs = %+.2f." % self._apcarry)
+  ap = \
+    self._turnrateap + \
+    self._sustainedturnap + \
+    self._altitudeap + \
+    self._speedbrakesap + \
+    self._powerap + \
+    self._speedap + \
+    self._apcarry
+  self._log("- total          APs = %+.2f." % ap)
 
   # See the "Speed Gain", "Speed Loss", and "Rapid Accel Aircraft" sections
   # of rule 6.2 and the "Supersonic Speeds" section of rule 6.6.
