@@ -22,7 +22,7 @@ class aircraft:
     _startnormalflight, _continuenormalflight, \
     _doaction, _getelementdispatchlist, \
     _doattack, _doclimb, _dodive, _dohorizontal, _dojettison, _dokill, \
-    _dodeclareturn, _doturn, _dospeedbrakes
+    _dobank, _dodeclareturn, _doturn, _dospeedbrakes
   from ._speed          import _startmovespeed, _endmovespeed
   from ._stalledflight  import _dostalledflight
 
@@ -36,7 +36,7 @@ class aircraft:
 
     # In addition to the specified position, azimuth, altitude, speed, and 
     # configuration, aircraft initially have level flight, normal power, and
-    #no carries.
+    # no carries.
 
     self._name          = name
     self._x             = x
@@ -49,8 +49,9 @@ class aircraft:
     self._configuration = configuration
     self._flighttype    = "LVL"
     self._powersetting  = "N"
-    self._turnfp        = 0
     self._bank          = None
+    self._turnrate      = None
+    self._turnfp        = 0
     self._fpcarry       = 0
     self._apcarry       = 0
     self._aircrafttype  = apaircrafttype.aircrafttype(aircrafttype)
@@ -130,6 +131,9 @@ class aircraft:
     self._configuration, \
     self._powersetting, \
     self._flighttype, \
+    self._bank, \
+    self._turnrate, \
+    self._turnfp, \
     self._fpcarry, \
     self._apcarry, \
     self._destroyed, \
@@ -157,6 +161,9 @@ class aircraft:
       self._configuration, \
       self._powersetting, \
       self._flighttype, \
+      self._bank, \
+      self._turnrate, \
+      self._turnfp, \
       self._fpcarry, \
       self._apcarry, \
       self._destroyed, \

@@ -138,16 +138,28 @@ def _dospeedbrakes(self, spbrfp):
 
   self._spbrap = -spbrfp / 0.5
 
-def _dodeclareturn(self, bank, turnrate):
+def _dobank(self, sense):
+
+  # TODO: make sure we can't change bank on the same FP as we turn.
+  # TODO: LRR
+
+  self._bank = sense
+
+def _dodeclareturn(self, sense, turnrate):
 
   """
   Start a turn in the specified direction and rate.
   """
+
+  # TODO: HRR and LRR
+  if self._bank != None and self._bank != sense:
+    raise ValueError("invalid attempt to declare turn to %s while not banked correctly." % sense)
   
   turnrates = ["EZ", "TT", "HT", "BT", "ET"]
   assert turnrate in turnrates
-  self._bank = bank
   self._turnrate = turnrate
+  self._bank = sense
+  self._turnfp = 1
 
 def _doturn(self, sense, facingchange):
 
@@ -172,8 +184,22 @@ def _doturn(self, sense, facingchange):
 
     self._turnfp = 0
 
-  if self._bank != sense:
-    raise ValueError("attempting to turn %s while bank is %s." % (sense, self._bank))
+  else:
+
+    print(self._bank, self._turnrate, self._turnfp)
+
+
+    if self._bank != sense:
+      raise ValueError("attempt to turn %s while not banked correctly." % sense)
+
+    minturnrate = apdata.determineturnrate(self._altitudeband, self._speed, self._turnfp, facingchange)
+    if minturnrate == None:
+      raise ValueError("attempt to turn faster than the maximum turn rate.")
+
+    print(minturnrate, self._turnrate)
+    turnrates = ["EZ", "TT", "HT", "BT", "ET"]
+    if turnrates.index(minturnrate) > turnrates.index(self._turnrate):
+      raise ValueError("attempt to turn faster than the declared turn rate.")
 
   if self._maxturnrate == None:
     self._maxturnrate = self._turnrate
@@ -214,81 +240,85 @@ def _getelementdispatchlist(self):
     # [2] is the procedure for movement elements.
     # [3] is the procedure for the epilog elements.
 
-    ["/"   , None                                   , None                            , None],
+    ["/"   , None                                  , None                           , None],
 
-    ["H"   , None                                   , lambda : self._dohorizontal()   , None],
+    ["H"   , None                                  , lambda: self._dohorizontal()   , None],
 
-    ["C1/8", None                                   , lambda : self._doclimb(1/8)     , None],
-    ["C1/4", None                                   , lambda : self._doclimb(1/4)     , None],
-    ["C3/8", None                                   , lambda : self._doclimb(3/8)     , None],
-    ["C1/2", None                                   , lambda : self._doclimb(1/2)     , None],
-    ["C5/8", None                                   , lambda : self._doclimb(5/8)     , None],
-    ["C3/4", None                                   , lambda : self._doclimb(3/4)     , None],
-    ["C7/8", None                                   , lambda : self._doclimb(7/8)     , None],
-    ["C1"  , None                                   , lambda : self._doclimb(1)       , None],
-    ["C2"  , None                                   , lambda : self._doclimb(2)       , None],
-    ["CC"  , None                                   , lambda : self._doclimb(2)       , None],
-    ["C"   , None                                   , lambda : self._doclimb(1)       , None],
+    ["C1/8", None                                  , lambda: self._doclimb(1/8)     , None],
+    ["C1/4", None                                  , lambda: self._doclimb(1/4)     , None],
+    ["C3/8", None                                  , lambda: self._doclimb(3/8)     , None],
+    ["C1/2", None                                  , lambda: self._doclimb(1/2)     , None],
+    ["C5/8", None                                  , lambda: self._doclimb(5/8)     , None],
+    ["C3/4", None                                  , lambda: self._doclimb(3/4)     , None],
+    ["C7/8", None                                  , lambda: self._doclimb(7/8)     , None],
+    ["C1"  , None                                  , lambda: self._doclimb(1)       , None],
+    ["C2"  , None                                  , lambda: self._doclimb(2)       , None],
+    ["CC"  , None                                  , lambda: self._doclimb(2)       , None],
+    ["C"   , None                                  , lambda: self._doclimb(1)       , None],
 
-    ["D1/8", None                                   , lambda : self._dodive(1/8)      , None],
-    ["D1/4", None                                   , lambda : self._dodive(1/4)      , None],
-    ["D3/8", None                                   , lambda : self._dodive(3/8)      , None],
-    ["D1/2", None                                   , lambda : self._dodive(1/2)      , None],
-    ["D5/8", None                                   , lambda : self._dodive(5/8)      , None],
-    ["D3/4", None                                   , lambda : self._dodive(3/4)      , None],
-    ["D7/8", None                                   , lambda : self._dodive(7/8)      , None],
-    ["D1"  , None                                   , lambda : self._dodive(1)        , None],
-    ["D2"  , None                                   , lambda : self._dodive(2)        , None],
-    ["D3"  , None                                   , lambda : self._dodive(3)        , None],
-    ["DDD" , None                                   , lambda : self._dodive(3)        , None],
-    ["DD"  , None                                   , lambda : self._dodive(2)        , None],
-    ["D"   , None                                   , lambda : self._dodive(1)        , None],
+    ["D1/8", None                                  , lambda: self._dodive(1/8)      , None],
+    ["D1/4", None                                  , lambda: self._dodive(1/4)      , None],
+    ["D3/8", None                                  , lambda: self._dodive(3/8)      , None],
+    ["D1/2", None                                  , lambda: self._dodive(1/2)      , None],
+    ["D5/8", None                                  , lambda: self._dodive(5/8)      , None],
+    ["D3/4", None                                  , lambda: self._dodive(3/4)      , None],
+    ["D7/8", None                                  , lambda: self._dodive(7/8)      , None],
+    ["D1"  , None                                  , lambda: self._dodive(1)        , None],
+    ["D2"  , None                                  , lambda: self._dodive(2)        , None],
+    ["D3"  , None                                  , lambda: self._dodive(3)        , None],
+    ["DDD" , None                                  , lambda: self._dodive(3)        , None],
+    ["DD"  , None                                  , lambda: self._dodive(2)        , None],
+    ["D"   , None                                  , lambda: self._dodive(1)        , None],
 
-    ["LEZ" , lambda : self._dodeclareturn("L", "EZ"), None                            , None],
-    ["LTT" , lambda : self._dodeclareturn("L", "TT"), None                            , None],
-    ["LHT" , lambda : self._dodeclareturn("L", "HT"), None                            , None],
-    ["LBT" , lambda : self._dodeclareturn("L", "BT"), None                            , None],
-    ["LET" , lambda : self._dodeclareturn("L", "ET"), None                            , None],
+    ["LB"  , None                                   , None                          , lambda: self._dobank("L") ],
+    ["RB"  , None                                   , None                          , lambda: self._dobank("R") ],
+    ["WL"  , None                                   , None                          , lambda: self._dobank(None) ],
+
+    ["LEZ" , lambda: self._dodeclareturn("L", "EZ"), None                           , None],
+    ["LTT" , lambda: self._dodeclareturn("L", "TT"), None                           , None],
+    ["LHT" , lambda: self._dodeclareturn("L", "HT"), None                           , None],
+    ["LBT" , lambda: self._dodeclareturn("L", "BT"), None                           , None],
+    ["LET" , lambda: self._dodeclareturn("L", "ET"), None                           , None],
     
-    ["REZ" , lambda : self._dodeclareturn("R", "EZ"), None                            , None],
-    ["RTT" , lambda : self._dodeclareturn("R", "TT"), None                            , None],
-    ["RHT" , lambda : self._dodeclareturn("R", "HT"), None                            , None],
-    ["RBT" , lambda : self._dodeclareturn("R", "BT"), None                            , None],
-    ["RET" , lambda : self._dodeclareturn("R", "ET"), None                            , None],
+    ["REZ" , lambda: self._dodeclareturn("R", "EZ"), None                           , None],
+    ["RTT" , lambda: self._dodeclareturn("R", "TT"), None                           , None],
+    ["RHT" , lambda: self._dodeclareturn("R", "HT"), None                           , None],
+    ["RBT" , lambda: self._dodeclareturn("R", "BT"), None                           , None],
+    ["RET" , lambda: self._dodeclareturn("R", "ET"), None                           , None],
 
-    ["L90" , None                                   , lambda : self._doturn("L", 90)  , None],
-    ["L60" , None                                   , lambda : self._doturn("L", 60)  , None],
-    ["L30" , None                                   , lambda : self._doturn("L", 30)  , None],
-    ["LLL" , None                                   , lambda : self._doturn("L", 90)  , None],
-    ["LL"  , None                                   , lambda : self._doturn("L", 60)  , None],
-    ["L"   , None                                   , lambda : self._doturn("L", 30)  , None],
+    ["L90" , None                                  , lambda: self._doturn("L", 90)  , None],
+    ["L60" , None                                  , lambda: self._doturn("L", 60)  , None],
+    ["L30" , None                                  , lambda: self._doturn("L", 30)  , None],
+    ["LLL" , None                                  , lambda: self._doturn("L", 90)  , None],
+    ["LL"  , None                                  , lambda: self._doturn("L", 60)  , None],
+    ["L"   , None                                  , lambda: self._doturn("L", 30)  , None],
 
-    ["R90" , None                                   , lambda : self._doturn("R", 90)  , None],
-    ["R60" , None                                   , lambda : self._doturn("R", 60)  , None],
-    ["R30" , None                                   , lambda : self._doturn("R", 30)  , None],
-    ["RRR" , None                                   , lambda : self._doturn("R", 90)  , None],
-    ["RR"  , None                                   , lambda : self._doturn("R", 60)  , None],
-    ["R"   , None                                   , lambda : self._doturn("R", 30)  , None],
+    ["R90" , None                                  , lambda: self._doturn("R", 90)  , None],
+    ["R60" , None                                  , lambda: self._doturn("R", 60)  , None],
+    ["R30" , None                                  , lambda: self._doturn("R", 30)  , None],
+    ["RRR" , None                                  , lambda: self._doturn("R", 90)  , None],
+    ["RR"  , None                                  , lambda: self._doturn("R", 60)  , None],
+    ["R"   , None                                  , lambda: self._doturn("R", 30)  , None],
 
-    ["S1/2", None                                   , lambda: self._dospeedbrakes(1/2), None],
-    ["S1"  , None                                   , lambda: self._dospeedbrakes(1)  , None],
-    ["S3/2", None                                   , lambda: self._dospeedbrakes(3/2), None],
-    ["S2"  , None                                   , lambda: self._dospeedbrakes(2)  , None],
-    ["S5/2", None                                   , lambda: self._dospeedbrakes(5/2), None],
-    ["S3"  , None                                   , lambda: self._dospeedbrakes(3)  , None],
-    ["SSS" , None                                   , lambda: self._dospeedbrakes(3/2), None],
-    ["SS"  , None                                   , lambda: self._dospeedbrakes(1)  , None],
-    ["S"   , None                                   , lambda: self._dospeedbrakes(1/2), None],
+    ["S1/2", None                                  , lambda: self._dospeedbrakes(1/2), None],
+    ["S1"  , None                                  , lambda: self._dospeedbrakes(1)  , None],
+    ["S3/2", None                                  , lambda: self._dospeedbrakes(3/2), None],
+    ["S2"  , None                                  , lambda: self._dospeedbrakes(2)  , None],
+    ["S5/2", None                                  , lambda: self._dospeedbrakes(5/2), None],
+    ["S3"  , None                                  , lambda: self._dospeedbrakes(3)  , None],
+    ["SSS" , None                                  , lambda: self._dospeedbrakes(3/2), None],
+    ["SS"  , None                                  , lambda: self._dospeedbrakes(1)  , None],
+    ["S"   , None                                  , lambda: self._dospeedbrakes(1/2), None],
     
-    ["AGN" , None                                   , None                            , lambda: self._doattack("guns")],
-    ["AGP" , None                                   , None                            , lambda: self._doattack("gun pod")],
-    ["ARK" , None                                   , None                            , lambda: self._doattack("rockets")],
-    ["ARP" , None                                   , None                            , lambda: self._doattack("rocket pods")],
+    ["AGN" , None                                  , None                            , lambda: self._doattack("guns") ],
+    ["AGP" , None                                  , None                            , lambda: self._doattack("gun pod") ],
+    ["ARK" , None                                  , None                            , lambda: self._doattack("rockets") ],
+    ["ARP" , None                                  , None                            , lambda: self._doattack("rocket pods") ],
 
-    ["J1/2", None                                   , None                            , lambda: self._dojettison("1/2")],
-    ["JCL" , None                                   , None                            , lambda: self._dojettison("CL") ],
+    ["J1/2", None                                  , None                            , lambda: self._dojettison("1/2") ],
+    ["JCL" , None                                  , None                            , lambda: self._dojettison("CL") ],
 
-    ["K"   , None                                   , None                            , lambda: self._dokill()],
+    ["K"   , None                                  , None                            , lambda: self._dokill()],
 
   ]
 
@@ -300,8 +330,6 @@ def _doaction(self, action):
 
   if self._hfp + self._vfp + self._spbrfp + 1 > self._fp:
     raise ValueError("only %.1f FPs are available." % self._fp)
-    
-  self._turnfp += 1
 
   lastx = self._x
   lasty = self._y
@@ -351,6 +379,8 @@ def _doaction(self, action):
     raise ValueError("insufficient initial HFPs")
   else:
     self._vfp += 1
+
+  self._turnfp += 1
 
   assert aphex.isvalidposition(self._x, self._y)
   assert aphex.isvalidfacing(self._x, self._y, self._facing)
