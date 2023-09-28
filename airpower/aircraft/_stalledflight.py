@@ -14,6 +14,14 @@ def _dostalledflight(self, action):
 
   # See rule 6.4.
 
+  self._fpcarry = 0
+  self._log("- carrying %+.2f APs and %s altitude levels." % (
+    self._apcarry, apaltitude.formataltitudecarry(self._altitudecarry)
+  ))
+      
+  self._log("---")
+  self._logposition("start", "")
+
   altitudechange = math.ceil(self._speed + self._turnsstalled)
 
   initialaltitude = self._altitude    

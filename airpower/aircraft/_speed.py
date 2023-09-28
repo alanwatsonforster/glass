@@ -14,7 +14,7 @@ def _startmovespeed(self, power, flamedoutfraction):
     ############################################################################
 
     lastpowersetting = self._lastpowersetting
-    speed            = self._speed
+    speed  = self._speed
 
     ############################################################################
 
@@ -91,20 +91,27 @@ def _startmovespeed(self, power, flamedoutfraction):
     ############################################################################
 
     # Determine the speed.
-        
+    
     m1speed = apspeed.m1speed(self._altitudeband)
     htspeed = apspeed.htspeed(self._altitudeband)
     ltspeed = apspeed.ltspeed(self._altitudeband)
+    minspeed = self._aircrafttype.minspeed(self._configuration, self._altitudeband)
 
-    if self._speed < ltspeed:
+    if speed < ltspeed:
       self._log("speed is %.1f." % speed)
-    elif self._speed == ltspeed:
+    elif speed == ltspeed:
       self._log("speed is %.1f (LT)." % speed)
-    elif self._speed == htspeed:
+    elif speed == htspeed:
       self._log("speed is %.1f (HT)." % speed)
     else:
       self._log("speed is %.1f (SS)." % speed)
 
+    # See the "Recovering from Departed Flight" section of rule 6.4.
+
+    if self._lastflighttype == "DP" and self._flighttype != "DP" and speed < minspeed:
+      speed = minspeed
+      self._log("- increasing speed to %.1f after recovering from departed flight.")
+      
     # See the "Idle" section of rule 6.1 and the "Supersonic Speeds" section of rule 6.6
 
     if powersetting == "I":
@@ -115,7 +122,7 @@ def _startmovespeed(self, power, flamedoutfraction):
       speedchange = min(speedchange, self._speed)
       speed -= speedchange
       self._log("- reducing speed to %.1f as the power setting is I." % speed)
-
+      
     ############################################################################
 
     # Determine the speed-induced drag.
@@ -173,6 +180,7 @@ def _endmovespeed(self):
   # See the "Departed Flight Procedure" section of rule 6.4
 
   if self._flighttype == "DP":
+    self.apcarry = 0
     self._log("speed is unchanged at %.1f." % self._speed)
     return
 
@@ -275,6 +283,8 @@ def _endmovespeed(self):
   # See rule 6.4.
 
   minspeed = self._aircrafttype.minspeed(self._configuration, self._altitudeband)
+  if self._speed < minspeed:
+    self._log("- speed is below the minimum of %.1f." % minimum)
   if self._speed >= minspeed and self._flighttype == "ST":
     self._log("- aircraft is no longer stalled.")
   elif self._speed < minspeed and self._flighttype == "ST":

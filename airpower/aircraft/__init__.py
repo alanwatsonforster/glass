@@ -19,7 +19,7 @@ class aircraft:
   from ._draw           import _drawaircraft, _drawflightpath
   from ._log            import _log, _logposition, _logevent, _logbreak
   from ._normalflight   import \
-    _donormalflight, _doaction, _getelementdispatchlist, \
+    _startnormalflight, _continuenormalflight, _doaction, _getelementdispatchlist, \
     _A, _C, _D, _H, _J, _K, _TD, _TL, _TR, _S
   from ._speed          import _startmovespeed, _endmovespeed
   from ._stalledflight  import _dostalledflight
@@ -165,31 +165,23 @@ class aircraft:
 
   ##############################################################################
 
-  def _startmoveflighttype(self, flighttype):
+  def _checkflighttype(self):
 
     """
-    Carry out the rules to do with the flight type at the start of a move.
+    Check the flight type at the start of a move.
     """
+
+    flighttype     = self._flighttype
+    lastflighttype = self._lastflighttype
 
     if flighttype not in ["LVL", "SC", "ZC", "VC", "SD", "UD", "VD", "ST", "DP"]:
       raise ValueError("invalid flight type %r." % flighttype)
 
     self._log("flight type is %s." % flighttype)
 
-    lastflighttype = self._lastflighttype
+    minspeed = self._aircrafttype.minspeed(self._configuration, self._altitudeband)
 
-    requiredhfp = 0
-
-    if flighttype == "DP":
-
-      # See rule 6.4.
-
-      self._powerap = 0
-      self._apcarry = 0
-
-      self._turnsdeparted += 1
-
-    elif lastflighttype == "DP":
+    if lastflighttype == "DP" and flighttype != "DP":
 
       # See rule 6.4.
 
@@ -198,18 +190,14 @@ class aircraft:
       elif flighttype == "LVL" and not self._aircrafttype.hasproperty("HPR"):
         raise ValueError("flight type immediately after DP must not be level.")
 
-      self._speed = max(self._speed, self._aircrafttype.minspeed(self._configuration, self._altitudeband))
- 
-    elif self._speed < self._aircrafttype.minspeed(self._configuration, self._altitudeband):
+    elif self._speed < minspeed:
 
       # See rules 6.3 and 6.4.
 
-      self._log("- speed is below the minimum of %.1f." % self._aircrafttype.minspeed(self._configuration, self._altitudeband))
+      self._log("- speed is below the minimum of %.1f." % minspeed)
       self._log("- aircraft is stalled.")
       if flighttype != "ST":
         raise ValueError("flight type must be ST.")
-
-      self._turnsstalled += 1
 
     elif flighttype == "ST":
 
@@ -222,33 +210,7 @@ class aircraft:
       if _isclimbing(flighttype):
         raise ValueError("flight type immediately after ST must not be climbing.")
 
-      self._turnsstalled  = None
-      self._turnsdeparted = None
-
-    else:
-
-      # Normal flight.
-
-      self._turnsdeparted = 0
-      self._turnsstalled  = 0
-      
-      # See rule 5.5.
-
-      if lastflighttype == "LVL" and (_isclimbing(flighttype) or _isdiving(flighttype)):
-        requiredhfp = 1
-      elif (_isclimbing(lastflighttype) and _isdiving(flighttype)) or (_isdiving(lastflighttype) and _isclimbing(flighttype)):
-        if self._aircrafttype.hasproperty("HPR"):
-          requiredhfp = self._speed // 3
-        else:
-          requiredhfp = self._speed // 2
-      if requiredhfp > 0:
-        self._log("- changing from %s to %s flight so the first %d FPs must be HFPs." % (lastflighttype, flighttype, requiredhfp))
-
-      self._turnsstalled  = None
-      self._turnsdeparted = None
   
-    return flighttype
-
   ##############################################################################
 
   def startmove(self, flighttype, power, actions, flamedoutfraction=0):
@@ -274,19 +236,7 @@ class aircraft:
     self._lastaltitudeband  = self._altitudeband
     self._lastspeed         = self._speed
 
-    self._hfp              = 0
-    self._vfp              = 0
-    self._spbrfp           = 0
 
-    # The number of turns and the maximum turn rate in the current move. 
-    
-    self._turns            = 0
-    self._maxturnrate      = None
-
-    # The current turn rate and bank.
-
-    self._turnrate         = None
-    self._bank             = None
 
     # These account for the APs associated with power, speed, speed-brakes, 
     # turns (split into the part for the maximum turn rate and the part for 
@@ -299,7 +249,9 @@ class aircraft:
     self._sustainedturnap  = 0
     self._altitudeap       = 0
 
-    self._flighttype       = self._startmoveflighttype(flighttype)
+    self._flighttype       = flighttype
+    self._checkflighttype()
+
     self._speed,           \
     self._powersetting,    \
     self._powerap,         \
@@ -307,55 +259,21 @@ class aircraft:
 
     if self._flighttype == "ST":
 
-      # See rule 6.4.
-
-      self._log("carrying %+.2f APs, and %s altitude levels." % (
-        self._apcarry, apaltitude.formataltitudecarry(self._altitudecarry)
-      ))
-      
-      self._fp      = 0
-      self._fpcarry = 0
-      
-      self._log("---")
-      self._logposition("start", "")
+      self._turnsstalled += 1
       self._dostalledflight(actions)
-      self._drawaircraft("end")
-      self._log("---")
       self._endmove()
 
     elif self._flighttype == "DP":
 
-      # See rule 6.4.
-
-      self._log("carrying %s altitude levels." % (
-        apaltitude.formataltitudecarry(self._altitudecarry)
-      ))
-  
-      self._fp      = 0
-      self._fpcarry = 0
-      self._apcarry = 0
-      
-      self._log("---")
-      self._logposition("start", "")
+      self._turnsdeparted += 1
       self._dodepartedflight(actions)
-      self._drawaircraft("end")
-      self._log("---")
       self._endmove()
         
     else:
 
-      self._log("carrying %.1f FPs, %+.2f APs, and %s altitude levels." % (
-        self._fpcarry, self._apcarry, apaltitude.formataltitudecarry(self._altitudecarry)
-      ))
-      
-      # See rule 5.4.
-      self._fp      = self._speed + self._fpcarry
-      self._fpcarry = 0
-      self._log("%.1f FPs are available." % self._fp)
-
-      self._log("---")
-      self._logposition("start", "")
-      self._donormalflight(actions)
+      self._turnsstalled  = 0
+      self._turnsdeparted = 0
+      self._startnormalflight(actions)
 
   ################################################################################
 
@@ -368,7 +286,7 @@ class aircraft:
     if self._destroyed or self._leftmap or self._flighttype == "ST" or self._flighttype == "DP":
       return
 
-    self._donormalflight(actions)
+    self._continuenormalflight(actions)
 
   ################################################################################
 
@@ -378,6 +296,9 @@ class aircraft:
     Process the end of a move.
     """
 
+    self._drawaircraft("end")
+    self._log("---")
+    
     if self._destroyed:
     
       self._log("aircraft has been destroyed.")

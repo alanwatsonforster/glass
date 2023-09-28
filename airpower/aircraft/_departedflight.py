@@ -15,6 +15,15 @@ def _dodepartedflight(self, action):
 
   # See rule 6.4.
 
+  self._fpcarry = 0
+  self._apcarry = 0
+  self._log("carrying %s altitude levels." % (
+    apaltitude.formataltitudecarry(self._altitudecarry)
+  ))
+      
+  self._log("---")
+  self._logposition("start", "")
+      
   altitudechange = math.ceil(self._speed + 2 * self._turnsdeparted)
 
   initialaltitudeband = self._altitudeband

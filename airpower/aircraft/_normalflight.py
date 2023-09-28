@@ -391,10 +391,12 @@ def _doaction(self, action):
     else:
       raise ValueError("invalid element %r in action %r." % (a, action))
 
-def _donormalflight(self, actions):
+################################################################################
+
+def _continuenormalflight(self, actions):
 
   """
-  Carry out normal flight.
+  Continue to carry out out normal flight.
   """
 
   if actions != "":
@@ -407,13 +409,67 @@ def _donormalflight(self, actions):
 
   if fp + 1 > self._fp or self._destroyed or self._leftmap:
 
-    self._drawaircraft("end")
-    self._log("---")
+
     self._endmove()
     
   else:
     
     self._drawaircraft("next")
+
+################################################################################
+
+def _startnormalflight(self, actions):
+      
+  """
+  Start to carry out out normal flight.
+  """
+  
+  flighttype     = self._flighttype
+  lastflighttype = self._lastflighttype
+
+  # See rule 5.5.
+
+  if lastflighttype == "LVL" and (_isclimbing(flighttype) or _isdiving(flighttype)):
+    requiredhfp = 1
+  elif (_isclimbing(lastflighttype) and _isdiving(flighttype)) or (_isdiving(lastflighttype) and _isclimbing(flighttype)):
+    if self._aircrafttype.hasproperty("HPR"):
+      requiredhfp = self._speed // 3
+    else:
+      requiredhfp = self._speed // 2
+  else:
+    requiredhfp = 0
+  
+  if requiredhfp > 0:
+    self._log("- changing from %s to %s flight so the first %d FPs must be HFPs." % (lastflighttype, flighttype, requiredhfp))
+
+  self._log("- carrying %.1f FPs, %+.2f APs, and %s altitude levels." % (
+    self._fpcarry, self._apcarry, apaltitude.formataltitudecarry(self._altitudecarry)
+  ))
+      
+  # See rule 5.4.
+
+  self._fp      = self._speed + self._fpcarry
+  self._fpcarry = 0
+  self._log("%.1f FPs are available." % self._fp)
+
+  self._hfp              = 0
+  self._vfp              = 0
+  self._spbrfp           = 0
+
+  # The number of turns and the maximum turn rate in the current move. 
+    
+  self._turns            = 0
+  self._maxturnrate      = None
+
+  # The current turn rate and bank.
+
+  self._turnrate         = None
+  self._bank             = None
+    
+  self._log("---")
+  self._logposition("start", "")    
+      
+  self._continuenormalflight(actions)
 
 ################################################################################
 
