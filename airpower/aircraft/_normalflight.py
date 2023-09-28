@@ -9,7 +9,7 @@ import airpower.data     as apdata
 import airpower.hex      as aphex
 import airpower.speed    as apspeed
 
-def _A(self, weapon):
+def _doattack(self, weapon):
 
   """
   Declare an attack with the specified weapon.
@@ -17,7 +17,7 @@ def _A(self, weapon):
 
   self._logevent("attack with %s." % weapon)
 
-def _C(self, altitudechange):
+def _doclimb(self, altitudechange):
 
   """
   Climb.
@@ -26,7 +26,7 @@ def _C(self, altitudechange):
   if not self._flighttype in ["ZC", "SC", "VC"]:
     raise ValueError("attempt to climb while flight type is %s." % self._flighttype)
 
-  self._elementC += 1
+  self._climb += 1
 
   initialaltitude = self._altitude    
   self._altitude, self._altitudecarry = apaltitude.adjustaltitude(self._altitude, self._altitudecarry, +altitudechange)
@@ -44,7 +44,7 @@ def _C(self, altitudechange):
   elif self._flighttype == "VC":
     self._altitudeap -= 2.0 * altitudechange
 
-def _D(self, altitudechange):
+def _dodive(self, altitudechange):
 
   """
   Dive.
@@ -53,7 +53,7 @@ def _D(self, altitudechange):
   if not self._flighttype in ["LVL", "SD", "UD", "VD"]:
     raise ValueError("attempt to dive while flight type is %s." % self._flighttype)
 
-  self._elementD += 1
+  self._dive += 1
 
   initialaltitude = self._altitude    
   self._altitude, self._altitudecarry = apaltitude.adjustaltitude(self._altitude, self._altitudecarry, -altitudechange)
@@ -75,17 +75,17 @@ def _D(self, altitudechange):
   elif self._flighttype == "VD":
     self._altitudeap += 1.0 * altitudechange
 
-def _H(self):
+def _dohorizontal(self):
 
   """
   Move horizontally.
   """
 
-  self._elementH += 1
+  self._horizontal += 1
 
   self._x, self._y = aphex.nextposition(self._x, self._y, self._facing)
 
-def _J(self, configuration):
+def _dojettison(self, configuration):
 
   """
   Jetison stores to achieve the specified configuration.
@@ -103,7 +103,7 @@ def _J(self, configuration):
   self._logevent("configuration changed from %s to %s." % (self._configuration, configuration))
   self._configuration = configuration
 
-def _K(self):
+def _dokill(self):
 
   """
   Declare that the aircraft has been killed.
@@ -112,7 +112,7 @@ def _K(self):
   self._logevent("aircraft has been killed.")
   self._destroyed = True
 
-def _S(self, spbrfp):
+def _dospeedbrakes(self, spbrfp):
 
   """
   Use the speedbrakes.
@@ -137,7 +137,7 @@ def _S(self, spbrfp):
 
   self._speedbrakesap = -spbrfp / 0.5
 
-def _TD(self, bank, turnrate):
+def _dodeclareturn(self, bank, turnrate):
 
   """
   Start a turn in the specified direction and rate.
@@ -148,22 +148,24 @@ def _TD(self, bank, turnrate):
   self._bank = bank
   self._turnrate = turnrate
 
-def _TL(self, facingchange):
+def _doturn(self, sense, facingchange):
 
   """
   Turn left.
   """
 
-  self._elementT += 1
+  self._turn += 1
 
-  if self._bank == "R":
+  # TODO: correct the bak adjustment for LBR and HBR aircraft.
+  if self._bank != sense:
     self._turnfp -= 1
+
   minturnrate = apdata.determineturnrate(self._altitudeband, self._speed, self._turnfp, facingchange)
   if minturnrate == None:
     raise ValueError("attempt to turn faster than the maximum turn rate.")
 
   self._turnfp = 0
-  self._bank = "L"
+  self._bank = sense
 
   # Implicitly declare turn rates.
   self._turnrate = minturnrate
@@ -173,6 +175,8 @@ def _TL(self, facingchange):
   else:
     turnrates = ["EZ", "TT", "HT", "BT", "ET"]
     self._maxturnrate = turnrates[max(turnrates.index(self._turnrate), turnrates.index(self._maxturnrate))]
+    # TODO: drag for HBR and LBR aircraft.
+    self._sustainedturnap -= facingchange // 30
 
   if self._maxturnrate == "EZ":
     self._turnrateap = 0.0
@@ -184,61 +188,14 @@ def _TL(self, facingchange):
     self._turnrateap += 1
 
   # Change facing.
-  if aphex.isedgeposition(self._x, self._y):
-    self._x, self._y = aphex.centertoleft(self._x, self._y, self._facing)
-  self._facing = (self._facing + facingchange) % 360
-
-  self._turns += 1
-  if self._turns > 1:
-    # Apply the sustained turn drag penalty.
-    # TODO: drag for HBR and LBR aircraft.
-    self._sustainedturnap -= facingchange // 30
-    
-def _TR(self, facingchange):
-
-  """
-  Turn right.
-  """
-
-  self._elementT += 1
-
-  if self._bank == "L":
-    self._turnfp -= 1
-  minturnrate = apdata.determineturnrate(self._altitudeband, self._speed, self._turnfp, facingchange)
-  if minturnrate == None:
-    raise ValueError("attempt to turn faster than the maximum turn rate.")
-
-  self._turnfp = 0
-  self._bank = "R"
-
-  # Implicitly declare turn rates.
-  self._turnrate = minturnrate
-
-  if self._maxturnrate == None:
-    self._maxturnrate = self._turnrate
+  if sense == "L":
+    if aphex.isedgeposition(self._x, self._y):
+      self._x, self._y = aphex.centertoleft(self._x, self._y, self._facing)
+    self._facing = (self._facing + facingchange) % 360
   else:
-    turnrates = ["EZ", "TT", "HT", "BT", "ET"]
-    self._maxturnrate = turnrates[max(turnrates.index(self._turnrate), turnrates.index(self._maxturnrate))]
-
-  if self._maxturnrate == "EZ":
-    self._turnrateap = 0.0
-  else:
-    self._turnrateap = -self._aircrafttype.turndrag(self._configuration, self._maxturnrate)
-
-  # See the "Supersonic Speeds" section of rule 6.6.
-  if self._speed >= apspeed.m1speed(self._altitudeband):
-    self._turnrateap += 1
-
-  # Change facing.
-  if aphex.isedgeposition(self._x, self._y):
-    self._x, self._y = aphex.centertoright(self._x, self._y, self._facing)
-  self._facing = (self._facing - facingchange) % 360
-  
-  self._turns += 1
-  if self._turns > 1:
-    # Apply the sustained turn drag penalty.
-    # TODO: drag for HBR and LBR aircraft.
-    self._sustainedturnap -= facingchange // 30
+    if aphex.isedgeposition(self._x, self._y):
+      self._x, self._y = aphex.centertoright(self._x, self._y, self._facing)
+    self._facing = (self._facing - facingchange) % 360
     
 def _getelementdispatchlist(self):
 
@@ -248,83 +205,84 @@ def _getelementdispatchlist(self):
     # ones that are prefixes (e.g., put C2 before C and D3/4 before D3).
 
     # [0] is the element code.
-    # [1] is the procedure for movement elements.
-    # [2] is the procedure for other (non-movement) elements.
+    # [1] is the procedure for prolog elements.
+    # [2] is the procedure for movement elements.
+    # [3] is the procedure for the epilog elements.
 
-    ["H"   , lambda : None               , lambda : self._H()          , lambda: None],
+    ["/"   , None                                   , None                            , None],
 
-    ["C1/8", lambda : None               , lambda : self._C(1/8)       , lambda: None],
-    ["C1/4", lambda : None               , lambda : self._C(1/4)       , lambda: None],
-    ["C3/8", lambda : None               , lambda : self._C(3/8)       , lambda: None],
-    ["C1/2", lambda : None               , lambda : self._C(1/2)       , lambda: None],
-    ["C5/8", lambda : None               , lambda : self._C(5/8)       , lambda: None],
-    ["C3/4", lambda : None               , lambda : self._C(3/4)       , lambda: None],
-    ["C7/8", lambda : None               , lambda : self._C(7/8)       , lambda: None],
-    ["C1"  , lambda : None               , lambda : self._C(1)         , lambda: None],
-    ["C2"  , lambda : None               , lambda : self._C(2)         , lambda: None],
-    ["CC"  , lambda : None               , lambda : self._C(2)         , lambda: None],
-    ["C"   , lambda : None               , lambda : self._C(1)         , lambda: None],
+    ["H"   , None                                   , lambda : self._dohorizontal()   , None],
 
-    ["D1/8", lambda : None               , lambda : self._D(1/8)       , lambda: None],
-    ["D1/4", lambda : None               , lambda : self._D(1/4)       , lambda: None],
-    ["D3/8", lambda : None               , lambda : self._D(3/8)       , lambda: None],
-    ["D1/2", lambda : None               , lambda : self._D(1/2)       , lambda: None],
-    ["D5/8", lambda : None               , lambda : self._D(5/8)       , lambda: None],
-    ["D3/4", lambda : None               , lambda : self._D(3/4)       , lambda: None],
-    ["D7/8", lambda : None               , lambda : self._D(7/8)       , lambda: None],
-    ["D1"  , lambda : None               , lambda : self._D(1)         , lambda: None],
-    ["D2"  , lambda : None               , lambda : self._D(2)         , lambda: None],
-    ["D3"  , lambda : None               , lambda : self._D(3)         , lambda: None],
-    ["DDD" , lambda : None               , lambda : self._D(3)         , lambda: None],
-    ["DD"  , lambda : None               , lambda : self._D(2)         , lambda: None],
-    ["D"   , lambda : None               , lambda : self._D(1)         , lambda: None],
+    ["C1/8", None                                   , lambda : self._doclimb(1/8)     , None],
+    ["C1/4", None                                   , lambda : self._doclimb(1/4)     , None],
+    ["C3/8", None                                   , lambda : self._doclimb(3/8)     , None],
+    ["C1/2", None                                   , lambda : self._doclimb(1/2)     , None],
+    ["C5/8", None                                   , lambda : self._doclimb(5/8)     , None],
+    ["C3/4", None                                   , lambda : self._doclimb(3/4)     , None],
+    ["C7/8", None                                   , lambda : self._doclimb(7/8)     , None],
+    ["C1"  , None                                   , lambda : self._doclimb(1)       , None],
+    ["C2"  , None                                   , lambda : self._doclimb(2)       , None],
+    ["CC"  , None                                   , lambda : self._doclimb(2)       , None],
+    ["C"   , None                                   , lambda : self._doclimb(1)       , None],
 
-    ["LEZ" , lambda : self._TD("L", "EZ"), lambda : None               , lambda: None],
-    ["LTT" , lambda : self._TD("L", "TT"), lambda : None               , lambda: None],
-    ["LHT" , lambda : self._TD("L", "HT"), lambda : None               , lambda: None],
-    ["LBT" , lambda : self._TD("L", "BT"), lambda : None               , lambda: None],
-    ["LET" , lambda : self._TD("L", "ET"), lambda : None               , lambda: None],
+    ["D1/8", None                                   , lambda : self._dodive(1/8)      , None],
+    ["D1/4", None                                   , lambda : self._dodive(1/4)      , None],
+    ["D3/8", None                                   , lambda : self._dodive(3/8)      , None],
+    ["D1/2", None                                   , lambda : self._dodive(1/2)      , None],
+    ["D5/8", None                                   , lambda : self._dodive(5/8)      , None],
+    ["D3/4", None                                   , lambda : self._dodive(3/4)      , None],
+    ["D7/8", None                                   , lambda : self._dodive(7/8)      , None],
+    ["D1"  , None                                   , lambda : self._dodive(1)        , None],
+    ["D2"  , None                                   , lambda : self._dodive(2)        , None],
+    ["D3"  , None                                   , lambda : self._dodive(3)        , None],
+    ["DDD" , None                                   , lambda : self._dodive(3)        , None],
+    ["DD"  , None                                   , lambda : self._dodive(2)        , None],
+    ["D"   , None                                   , lambda : self._dodive(1)        , None],
+
+    ["LEZ" , lambda : self._dodeclareturn("L", "EZ"), None                            , None],
+    ["LTT" , lambda : self._dodeclareturn("L", "TT"), None                            , None],
+    ["LHT" , lambda : self._dodeclareturn("L", "HT"), None                            , None],
+    ["LBT" , lambda : self._dodeclareturn("L", "BT"), None                            , None],
+    ["LET" , lambda : self._dodeclareturn("L", "ET"), None                            , None],
     
-    ["REZ" , lambda : self._TD("R", "EZ"), lambda : None               , lambda: None],
-    ["RTT" , lambda : self._TD("R", "TT"), lambda : None               , lambda: None],
-    ["RHT" , lambda : self._TD("R", "HT"), lambda : None               , lambda: None],
-    ["RBT" , lambda : self._TD("R", "BT"), lambda : None               , lambda: None],
-    ["RET" , lambda : self._TD("R", "ET"), lambda : None               , lambda: None],
+    ["REZ" , lambda : self._dodeclareturn("R", "EZ"), None                            , None],
+    ["RTT" , lambda : self._dodeclareturn("R", "TT"), None                            , None],
+    ["RHT" , lambda : self._dodeclareturn("R", "HT"), None                            , None],
+    ["RBT" , lambda : self._dodeclareturn("R", "BT"), None                            , None],
+    ["RET" , lambda : self._dodeclareturn("R", "ET"), None                            , None],
 
-    ["L90" , lambda : None               , lambda : self._TL(90)       , lambda: None],
-    ["L60" , lambda : None               , lambda : self._TL(60)       , lambda: None],
-    ["L30" , lambda : None               , lambda : self._TL(30)       , lambda: None],
-    ["LLL" , lambda : None               , lambda : self._TL(90)       , lambda: None],
-    ["LL"  , lambda : None               , lambda : self._TL(60)       , lambda: None],
-    ["L"   , lambda : None               , lambda : self._TL(30)       , lambda: None],
+    ["L90" , None                                   , lambda : self._doturn("L", 90)  , None],
+    ["L60" , None                                   , lambda : self._doturn("L", 60)  , None],
+    ["L30" , None                                   , lambda : self._doturn("L", 30)  , None],
+    ["LLL" , None                                   , lambda : self._doturn("L", 90)  , None],
+    ["LL"  , None                                   , lambda : self._doturn("L", 60)  , None],
+    ["L"   , None                                   , lambda : self._doturn("L", 30)  , None],
 
-    ["R90" , lambda : None               , lambda : self._TR(90)       , lambda: None],
-    ["R60" , lambda : None               , lambda : self._TR(60)       , lambda: None],
-    ["R30" , lambda : None               , lambda : self._TR(30)       , lambda: None],
-    ["RRR" , lambda : None               , lambda : self._TR(90)       , lambda: None],
-    ["RR"  , lambda : None               , lambda : self._TR(60)       , lambda: None],
-    ["R"   , lambda : None               , lambda : self._TR(30)       , lambda: None],
+    ["R90" , None                                   , lambda : self._doturn("R", 90)  , None],
+    ["R60" , None                                   , lambda : self._doturn("R", 60)  , None],
+    ["R30" , None                                   , lambda : self._doturn("R", 30)  , None],
+    ["RRR" , None                                   , lambda : self._doturn("R", 90)  , None],
+    ["RR"  , None                                   , lambda : self._doturn("R", 60)  , None],
+    ["R"   , None                                   , lambda : self._doturn("R", 30)  , None],
 
-    ["S1/2", lambda : None               , lambda: self._S(1/2)        , lambda: None],
-    ["S1"  , lambda : None               , lambda: self._S(1)          , lambda: None],
-    ["S3/2", lambda : None               , lambda: self._S(3/2)        , lambda: None],
-    ["S2"  , lambda : None               , lambda: self._S(2)          , lambda: None],
-    ["SSSS", lambda : None               , lambda: self._S(2)          , lambda: None],
-    ["SSS" , lambda : None               , lambda: self._S(3/2)        , lambda: None],
-    ["SS"  , lambda : None               , lambda: self._S(1)          , lambda: None],
-    ["S"   , lambda : None               , lambda: self._S(1/2)        , lambda: None],
+    ["S1/2", None                                   , lambda: self._dospeedbrakes(1/2), None],
+    ["S1"  , None                                   , lambda: self._dospeedbrakes(1)  , None],
+    ["S3/2", None                                   , lambda: self._dospeedbrakes(3/2), None],
+    ["S2"  , None                                   , lambda: self._dospeedbrakes(2)  , None],
+    ["SSSS", None                                   , lambda: self._dospeedbrakes(2)  , None],
+    ["SSS" , None                                   , lambda: self._dospeedbrakes(3/2), None],
+    ["SS"  , None                                   , lambda: self._dospeedbrakes(1)  , None],
+    ["S"   , None                                   , lambda: self._dospeedbrakes(1/2), None],
+    
+    ["AGN" , None                                   , None                            , lambda: self._doattack("guns")],
+    ["AGP" , None                                   , None                            , lambda: self._doattack("gun pod")],
+    ["ARK" , None                                   , None                            , lambda: self._doattack("rockets")],
+    ["ARP" , None                                   , None                            , lambda: self._doattack("rocket pods")],
 
-    ["/"   , lambda : None               , lambda : None               , lambda: None],
+    ["J1/2", None                                   , None                            , lambda: self._dojettison("1/2")],
+    ["JCL" , None                                   , None                            , lambda: self._dojettison("CL") ],
 
-    ["AGN" , lambda : None               , lambda : None               , lambda: self._A("guns")],
-    ["AGP" , lambda : None               , lambda : None               , lambda: self._A("gun pod")],
-    ["ARK" , lambda : None               , lambda : None               , lambda: self._A("rockets")],
-    ["ARP" , lambda : None               , lambda : None               , lambda: self._A("rocket pods")],
-
-    ["J1/2", lambda : None               , lambda : None               , lambda: self._J("1/2")],
-    ["JCL" , lambda : None               , lambda : None               , lambda: self._J("CL") ],
-
-    ["K"   , lambda : None               , lambda : None               , lambda: self._K()],
+    ["K"   , None                                   , None                            , lambda: self._dokill()],
 
   ]
 
@@ -336,8 +294,6 @@ def _doaction(self, action):
 
   if self._hfp + self._vfp + self._spbrfp + 1 > self._fp:
     raise ValueError("only %.1f FPs are available." % self._fp)
-      
-
     
   self._turnfp += 1
 
@@ -353,7 +309,8 @@ def _doaction(self, action):
   while a != "":
     for element in elementdispatchlist:
       if element[0] == a[:len(element[0])]:
-        element[1]()
+        if element[1] != None:
+            element[1]()
         a = a[len(element[0]):]
         break
     else:
@@ -361,27 +318,28 @@ def _doaction(self, action):
 
   # Movement elements.
 
-  self._elementH = 0
-  self._elementC = 0
-  self._elementD = 0
-  self._elementT = 0
+  self._horizontal = 0
+  self._climb      = 0
+  self._dive       = 0
+  self._turn       = 0
 
   a = action
   while a != "":
     for element in elementdispatchlist:
       if element[0] == a[:len(element[0])]:
-        element[2]()
+        if element[2] != None:
+            element[2]()
         a = a[len(element[0]):]
         break
     else:
       raise ValueError("invalid element %r in action %r." % (a, action))
 
-  if self._elementH > 1 or self._elementC > 1 or self._elementD > 1 or self._elementT > 1:
+  if self._horizontal > 1 or self._climb > 1 or self._dive > 1 or self._turn > 1:
     raise ValueError("invalid action %r." % action)
   
-  if self._elementH == 1:
+  if self._horizontal == 1:
     self._hfp += 1
-  elif self._elementC == 0 and self._elementD == 0:
+  elif self._climb == 0 and self._dive == 0:
     raise ValueError("invalid action %r." % action)
   elif self._hfp < self._requiredhfp:
     raise ValueError("insufficient initial HFPs")
@@ -408,7 +366,8 @@ def _doaction(self, action):
   while a != "":
     for element in elementdispatchlist:
       if element[0] == a[:len(element[0])]:
-        element[3]()
+        if element[3] != None:
+            element[3]()
         a = a[len(element[0]):]
         break
     else:
@@ -482,8 +441,6 @@ def _startnormalflight(self, actions):
   self._hfp     = 0
   self._vfp     = 0
   self._spbrfp  = 0
-
-  self._turns            = 0
 
   self._log("---")
   self._logposition("start", "")    

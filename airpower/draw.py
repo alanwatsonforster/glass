@@ -106,7 +106,7 @@ def drawcompass(x, y, facing, **kwargs):
   _drawcompassinphysical(*hextophysical(x, y), facing, **kwargs)
 
 def drawflightpath(lastx, lasty, x, y):
-  drawline(lastx, lasty, x, y, color="lightgrey", linestyle="dashed", zorder=0.5)
+  drawline(lastx, lasty, x, y, color="darkgray", linestyle="dashed", zorder=0.5)
 
 def drawaircraft(x, y, facing, name, altitude, when):
   if when == "end":

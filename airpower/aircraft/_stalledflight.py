@@ -47,8 +47,8 @@ def _dostalledflight(self, action):
   # The only valid action is to do nothing or to jettison stores.
 
   if action == "J1/2":
-    self._J("1/2")
+    self._dojettison("1/2")
   elif action == "JCL":
-    self._J("CL")
+    self._dojettison("CL")
   elif action != "":
     raise ValueError("invalid action %r for stalled flight." % action)

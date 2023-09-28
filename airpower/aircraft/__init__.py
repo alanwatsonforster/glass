@@ -19,8 +19,10 @@ class aircraft:
   from ._draw           import _drawaircraft, _drawflightpath
   from ._log            import _log, _logposition, _logevent, _logbreak
   from ._normalflight   import \
-    _startnormalflight, _continuenormalflight, _doaction, _getelementdispatchlist, \
-    _A, _C, _D, _H, _J, _K, _TD, _TL, _TR, _S
+    _startnormalflight, _continuenormalflight, \
+    _doaction, _getelementdispatchlist, \
+    _doattack, _doclimb, _dodive, _dohorizontal, _dojettison, _dokill, \
+    _dodeclareturn, _doturn, _dospeedbrakes
   from ._speed          import _startmovespeed, _endmovespeed
   from ._stalledflight  import _dostalledflight
 
