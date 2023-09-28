@@ -261,14 +261,20 @@ class aircraft:
     self._powerap,         \
     self._speedap          = self._startmovespeed(power, flamedoutfraction)
   
+    self._log("carrying %+.2f APs and %s altitude levels." % (
+      self._apcarry, apaltitude.formataltitudecarry(self._altitudecarry)
+    ))
+      
     if self._flighttype == "ST":
 
+      self._fpcarry = 0
       self._turnsstalled += 1
       self._dostalledflight(actions)
       self._endmove()
 
     elif self._flighttype == "DP":
 
+      self._fpcarry = 0
       self._turnsdeparted += 1
       self._dodepartedflight(actions)
       self._endmove()

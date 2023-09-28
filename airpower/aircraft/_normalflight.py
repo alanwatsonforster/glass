@@ -408,6 +408,15 @@ def _startnormalflight(self, actions):
   Start to carry out normal flight.
   """
 
+  # See rule 5.4.
+
+  self._fp      = self._speed + self._fpcarry
+  self._fpcarry = 0
+  self._log("%.1f FPs (including %.1f carry)." % (self._fp, self._fpcarry))
+  
+  self._log("---")
+  self._logposition("start", "")   
+  
   # See rule 5.5.
 
   flighttype     = self._flighttype
@@ -428,22 +437,9 @@ def _startnormalflight(self, actions):
     self._log("- last flight type was %s so the first %d FPs must be HFPs." % (lastflighttype, requiredhfp))
   self._requiredhfp = requiredhfp
 
-  self._log("- carrying %.1f FPs, %+.2f APs, and %s altitude levels." % (
-    self._fpcarry, self._apcarry, apaltitude.formataltitudecarry(self._altitudecarry)
-  ))
-      
-  # See rule 5.4.
-
-  self._fp      = self._speed + self._fpcarry
-  self._fpcarry = 0
-  self._log("%.1f FPs are available." % self._fp)
-
   self._hfp     = 0
   self._vfp     = 0
-  self._spbrfp  = 0
-
-  self._log("---")
-  self._logposition("start", "")    
+  self._spbrfp  = 0 
       
   self._continuenormalflight(actions)
 

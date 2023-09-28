@@ -13,16 +13,10 @@ def _dodepartedflight(self, action):
   Carry out departed flight.
   """
 
-  # See rule 6.4.
-
-  self._fpcarry = 0
-  self._apcarry = 0
-  self._log("- carrying %.1f FPs, %+.2f APs, and %s altitude levels." % (
-    self._fpcarry, self._apcarry, apaltitude.formataltitudecarry(self._altitudecarry)
-  ))
-      
   self._log("---")
   self._logposition("start", "")
+
+  # See rule 6.4.
       
   altitudechange = math.ceil(self._speed + 2 * self._turnsdeparted)
 
