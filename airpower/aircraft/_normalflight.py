@@ -8,6 +8,7 @@ import airpower.altitude as apaltitude
 import airpower.data     as apdata
 import airpower.hex      as aphex
 import airpower.speed    as apspeed
+import airpower.variants as apvariants
 
 def _doattack(self, weapon):
 
@@ -156,19 +157,23 @@ def _doturn(self, sense, facingchange):
 
   self._turn += 1
 
-  # TODO: correct the bak adjustment for LBR and HBR aircraft.
+  if apvariants.withvariant("implicit turn declarations"): 
+
+    # TODO: correct the bank adjustment for LBR and HBR aircraft.
+    if self._bank != sense:
+      self._turnfp -= 1
+      self._bank = sense
+
+    minturnrate = apdata.determineturnrate(self._altitudeband, self._speed, self._turnfp, facingchange)
+    if minturnrate == None:
+      raise ValueError("attempt to turn faster than the maximum turn rate.")
+
+    self._turnrate = minturnrate
+
+    self._turnfp = 0
+
   if self._bank != sense:
-    self._turnfp -= 1
-
-  minturnrate = apdata.determineturnrate(self._altitudeband, self._speed, self._turnfp, facingchange)
-  if minturnrate == None:
-    raise ValueError("attempt to turn faster than the maximum turn rate.")
-
-  self._turnfp = 0
-  self._bank = sense
-
-  # Implicitly declare turn rates.
-  self._turnrate = minturnrate
+    raise ValueError("attempting to turn %s while bank is %s." % (sense, self._bank))
 
   if self._maxturnrate == None:
     self._maxturnrate = self._turnrate
