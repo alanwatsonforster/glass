@@ -76,8 +76,8 @@ def _startmovespeed(self, power, flamedoutfraction):
 
     # Warn of the risk of flame-outs.
 
-    # See the "When Does a Jet Flame-Out?" section of rule 6.7 
-    # See the "Rapid Power Response" section of rule 6.1.
+    # See the "Rapid Power Response" section of rule 6.1 and the "When Does a 
+    # Jet Flame-Out?" section of rule 6.7
 
     if lastpowersetting == "I" and powersetting == "AB" and not self._aircrafttype.hasproperty("RPR"):
       self._log("- risk of flame-out as power setting has increased from I to AB.")
@@ -97,13 +97,13 @@ def _startmovespeed(self, power, flamedoutfraction):
     ltspeed = apspeed.ltspeed(self._altitudeband)
 
     if self._speed < ltspeed:
-      self._log("speed is %.1f" % speed)
+      self._log("speed is %.1f." % speed)
     elif self._speed == ltspeed:
-      self._log("speed is %.1f (LT)" % speed)
+      self._log("speed is %.1f (LT)." % speed)
     elif self._speed == htspeed:
-      self._log("speed is %.1f (HT)" % speed)
+      self._log("speed is %.1f (HT)." % speed)
     else:
-      self._log("speed is %.1f (SS)" % speed)
+      self._log("speed is %.1f (SS)." % speed)
 
     # See the "Idle" section of rule 6.1 and the "Supersonic Speeds" section of rule 6.6
 
@@ -123,7 +123,7 @@ def _startmovespeed(self, power, flamedoutfraction):
     # There is some ambiguity in the rules as to whether these effects depend 
     # on the speed before or after the reduction for idle power. Here we use it 
     # after the reduction.
-    
+  
     speedap = 0.0
 
     # See the "Decel Point Penalty for Insufficient Power" section of rule 6.1.
@@ -170,7 +170,13 @@ def _endmovespeed(self):
   Carry out the rules to do with speed, power, and drag at the end of a move.
   """
 
-  # See rule 6.2.
+  # See the "Departed Flight Procedure" section of rule 6.4
+
+  if self._flighttype == "DP":
+    self._log("speed is unchanged at %.1f." % self._speed)
+    return
+
+  # See the "Speed Gain" and "Speed Loss" sections of rule 6.2.
 
   self._log("- power          APs = %+.2f." % self._powerap)
   self._log("- speed          APs = %+.2f." % self._speedap)
@@ -198,16 +204,13 @@ def _endmovespeed(self):
     else:
       aprate = +2.0
 
-  # See rule 6.2 and 6.3
 
   if ap < 0:
 
-    assert self._flighttype != "DP"
+    # See the "Speed Loss" and "Maximum Deceleration" sections of rule 6.2.
 
     self._speed -= 0.5 * (ap // aprate)
     self._apcarry = ap % aprate
-
-    # See the "Maximum Deceleration" section of rule 6.2.
 
     if self._speed <= 0:
       self._speed = 0
@@ -216,9 +219,8 @@ def _endmovespeed(self):
 
   elif ap > 0:
 
-    assert self._flighttype != "DP"
-
-    # See rule 6.2 and the "Acceleration limits" section of rule 6.3.
+    # See the "Speed Gain" section of rule 6.2 and the "Acceleration Limits"
+    # section of rule 6.3.
 
     if self._flighttype == "LVL" or _isclimbing(self._flighttype):
       maxspeed = self._aircrafttype.maxspeed(self._configuration, self._altitudeband)
@@ -239,8 +241,6 @@ def _endmovespeed(self):
     else:
       self._speed += 0.5 * (ap // aprate)
       self._apcarry = ap % aprate
-
-  # See rule 6.3.
 
   if self._flighttype == "LVL" or _isclimbing(self._flighttype):
 
@@ -265,8 +265,13 @@ def _endmovespeed(self):
   else:
     self._log("speed is unchanged at %.1f." % self._speed)
 
-  if self._flighttype == "ST":
-    if self._speed >= self._aircrafttype.minspeed(self._configuration, self._altitudeband):
-      self._log("- aircraft has exited from stall.")
-    else:
-      self._log("- aircraft is still stalled.")
+  # See rule 6.4.
+
+  minspeed = self._aircrafttype.minspeed(self._configuration, self._altitudeband)
+  if self._speed >= minspeed and self._flighttype == "ST":
+    self._log("- aircraft is no longer stalled.")
+  elif self._speed < minspeed and self._flighttype == "ST":
+    self._log("- aircraft is still stalled.")
+  elif self._speed < minspeed:
+    self._log("- aircraft has stalled.")
+

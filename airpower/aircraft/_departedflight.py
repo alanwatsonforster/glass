@@ -15,9 +15,9 @@ def _dodepartedflight(self, action):
 
   # See rule 6.4.
 
-  initialaltitudeband = self._altitudeband
-
   altitudechange = math.ceil(self._speed + 2 * self._turnsdeparted)
+
+  initialaltitudeband = self._altitudeband
   self._altitude, self._altitudecarry = apaltitude.adjustaltitude(self._altitude, self._altitudecarry, -altitudechange)
   self._altitudeband = apaltitude.altitudeband(self._altitude)
 

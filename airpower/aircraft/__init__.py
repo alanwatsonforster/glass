@@ -54,8 +54,8 @@ class aircraft:
     self._aircrafttype  = apaircrafttype.aircrafttype(aircrafttype)
     self._destroyed     = False
     self._leftmap       = False
-    self._turnsstalled  = None
-    self._turnsdeparted = None
+    self._turnsstalled  = 0
+    self._turnsdeparted = 0
 
     self._saved = []
     self._save(0)
@@ -174,7 +174,7 @@ class aircraft:
     if flighttype not in ["LVL", "SC", "ZC", "VC", "SD", "UD", "VD", "ST", "DP"]:
       raise ValueError("invalid flight type %r." % flighttype)
 
-    self._log("flight type is %s." % (flighttype))
+    self._log("flight type is %s." % flighttype)
 
     lastflighttype = self._lastflighttype
 
@@ -187,12 +187,8 @@ class aircraft:
       self._powerap = 0
       self._apcarry = 0
 
-      if lastflighttype != "DP":
-        self._turnsdeparted = 0
-      else:
-        self._turnsdeparted += 1
-      self._turnsstalled  = None
-  
+      self._turnsdeparted += 1
+
     elif lastflighttype == "DP":
 
       # See rule 6.4.
@@ -203,23 +199,17 @@ class aircraft:
         raise ValueError("flight type immediately after DP must not be level.")
 
       self._speed = max(self._speed, self._aircrafttype.minspeed(self._configuration, self._altitudeband))
-
-      self._turnsstalled  = None
-      self._turnsdeparted = None
  
     elif self._speed < self._aircrafttype.minspeed(self._configuration, self._altitudeband):
 
       # See rules 6.3 and 6.4.
 
+      self._log("- speed is below the minimum of %.1f." % self._aircrafttype.minspeed(self._configuration, self._altitudeband))
       self._log("- aircraft is stalled.")
       if flighttype != "ST":
         raise ValueError("flight type must be ST.")
 
-      if lastflighttype != "ST":
-        self._turnsstalled = 0
-      else:
-        self._turnsstalled += 1
-      self._turnsdeparted = None
+      self._turnsstalled += 1
 
     elif flighttype == "ST":
 
@@ -237,6 +227,11 @@ class aircraft:
 
     else:
 
+      # Normal flight.
+
+      self._turnsdeparted = 0
+      self._turnsstalled  = 0
+      
       # See rule 5.5.
 
       if lastflighttype == "LVL" and (_isclimbing(flighttype) or _isdiving(flighttype)):
@@ -271,6 +266,8 @@ class aircraft:
       self._endmove()
       return
 
+    # We save values of these variables at the end of the previous move.
+
     self._lastconfiguration = self._configuration
     self._lastpowersetting  = self._powersetting
     self._lastflighttype    = self._flighttype
@@ -281,14 +278,19 @@ class aircraft:
     self._vfp              = 0
     self._spbrfp           = 0
 
+    # The number of turns and the maximum turn rate in the current move. 
+    
     self._turns            = 0
-    self._turnrate         = None
     self._maxturnrate      = None
 
-    # These account for the APs associated with power, drag (from insufficient
-    # power or high speed), speed-brakes, turns (split into the part for the 
-    # maximum turn rate and the part for sustained turns), and altitude loss
-    # or gain.
+    # The current turn rate and bank.
+
+    self._turnrate         = None
+    self._bank             = None
+
+    # These account for the APs associated with power, speed, speed-brakes, 
+    # turns (split into the part for the maximum turn rate and the part for 
+    # sustained turns), and altitude loss or gain.
 
     self._powerap          = 0
     self._speedap          = 0
@@ -328,10 +330,7 @@ class aircraft:
       self._log("carrying %s altitude levels." % (
         apaltitude.formataltitudecarry(self._altitudecarry)
       ))
-
-      self._powerap = 0
-      self._speedap = 0
-      
+  
       self._fp      = 0
       self._fpcarry = 0
       self._apcarry = 0
@@ -356,7 +355,7 @@ class aircraft:
 
       self._log("---")
       self._logposition("start", "")
-      self.continuemove(actions)
+      self._donormalflight(actions)
 
   ################################################################################
 

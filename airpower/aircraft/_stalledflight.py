@@ -14,19 +14,18 @@ def _dostalledflight(self, action):
 
   # See rule 6.4.
 
-  initialaltitudeband = self._altitudeband
-
   altitudechange = math.ceil(self._speed + self._turnsstalled)
 
   initialaltitude = self._altitude    
+  initialaltitudeband = self._altitudeband
   self._altitude, self._altitudecarry = apaltitude.adjustaltitude(self._altitude, self._altitudecarry, -altitudechange)
   self._altitudeband = apaltitude.altitudeband(self._altitude)
   altitudechange = initialaltitude - self._altitude
     
-  if self._turnsstalled == 0:
-    self._apaltitude = 0.5 * altitudechange
+  if self._turnsstalled == 1:
+    self._altitudeap = 0.5 * altitudechange
   else:
-    self._apaltitude = 1.0 * altitudechange
+    self._altitudeap = 1.0 * altitudechange
 
   self._logposition("end", action)
 
