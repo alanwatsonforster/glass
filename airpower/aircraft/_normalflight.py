@@ -26,6 +26,8 @@ def _C(self, altitudechange):
   if not self._flighttype in ["ZC", "SC", "VC"]:
     raise ValueError("attempt to climb while flight type is %s." % self._flighttype)
 
+  self._elementC += 1
+
   initialaltitude = self._altitude    
   self._altitude, self._altitudecarry = apaltitude.adjustaltitude(self._altitude, self._altitudecarry, +altitudechange)
   self._altitudeband  = apaltitude.altitudeband(self._altitude)
@@ -50,6 +52,8 @@ def _D(self, altitudechange):
 
   if not self._flighttype in ["LVL", "SD", "UD", "VD"]:
     raise ValueError("attempt to dive while flight type is %s." % self._flighttype)
+
+  self._elementD += 1
 
   initialaltitude = self._altitude    
   self._altitude, self._altitudecarry = apaltitude.adjustaltitude(self._altitude, self._altitudecarry, -altitudechange)
@@ -76,6 +80,8 @@ def _H(self):
   """
   Move horizontally.
   """
+
+  self._elementH += 1
 
   self._x, self._y = aphex.nextposition(self._x, self._y, self._facing)
 
@@ -148,6 +154,8 @@ def _TL(self, facingchange):
   Turn left.
   """
 
+  self._elementT += 1
+
   if self._bank == "R":
     self._turnfp -= 1
   minturnrate = apdata.determineturnrate(self._altitudeband, self._speed, self._turnfp, facingchange)
@@ -191,6 +199,8 @@ def _TR(self, facingchange):
   """
   Turn right.
   """
+
+  self._elementT += 1
 
   if self._bank == "L":
     self._turnfp -= 1
@@ -327,14 +337,7 @@ def _doaction(self, action):
   if self._hfp + self._vfp + self._spbrfp + 1 > self._fp:
     raise ValueError("only %.1f FPs are available." % self._fp)
       
-  if action[0] == 'H':
-    self._hfp += 1
-  elif action[0] == 'D' or action[0] == 'C':
-    if self._hfp < self._requiredhfp:
-      raise ValueError("insufficient initial HFPs")
-    self._vfp += 1
-  else:
-    raise ValueError("action %s does not begin with H, D, or C." % action)
+
     
   self._turnfp += 1
 
@@ -357,6 +360,12 @@ def _doaction(self, action):
       raise ValueError("invalid element %r in action %r." % (a, action))
 
   # Movement elements.
+
+  self._elementH = 0
+  self._elementC = 0
+  self._elementD = 0
+  self._elementT = 0
+
   a = action
   while a != "":
     for element in elementdispatchlist:
@@ -366,6 +375,18 @@ def _doaction(self, action):
         break
     else:
       raise ValueError("invalid element %r in action %r." % (a, action))
+
+  if self._elementH > 1 or self._elementC > 1 or self._elementD > 1 or self._elementT > 1:
+    raise ValueError("invalid action %r." % action)
+  
+  if self._elementH == 1:
+    self._hfp += 1
+  elif self._elementC == 0 and self._elementD == 0:
+    raise ValueError("invalid action %r." % action)
+  elif self._hfp < self._requiredhfp:
+    raise ValueError("insufficient initial HFPs")
+  else:
+    self._vfp += 1
 
   assert aphex.isvalidposition(self._x, self._y)
   assert aphex.isvalidfacing(self._x, self._y, self._facing)
@@ -382,7 +403,7 @@ def _doaction(self, action):
   if self._destroyed or self._leftmap:
     return
 
-  # Other elements.
+  # Epilog elements.
   a = action
   while a != "":
     for element in elementdispatchlist:
@@ -425,14 +446,14 @@ def _continuenormalflight(self, actions):
 def _startnormalflight(self, actions):
       
   """
-  Start to carry out out normal flight.
+  Start to carry out normal flight.
   """
-  
-  flighttype     = self._flighttype
-  lastflighttype = self._lastflighttype
 
   # See rule 5.5.
 
+  flighttype     = self._flighttype
+  lastflighttype = self._lastflighttype
+  
   if lastflighttype == "LVL" and (_isclimbing(flighttype) or _isdiving(flighttype)):
     requiredhfp = 1
   elif (_isclimbing(lastflighttype) and _isdiving(flighttype)) or (_isdiving(lastflighttype) and _isclimbing(flighttype)):
