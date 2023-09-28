@@ -242,12 +242,12 @@ class aircraft:
     # turns (split into the part for the maximum turn rate and the part for 
     # sustained turns), and altitude loss or gain.
 
-    self._powerap          = 0
-    self._speedap          = 0
-    self._speedbrakesap    = 0
-    self._turnrateap       = 0
-    self._sustainedturnap  = 0
-    self._altitudeap       = 0
+    self._powerap         = 0
+    self._speedap         = 0
+    self._spbrap          = 0
+    self._turnrateap      = 0
+    self._sustainedturnap = 0
+    self._altitudeap      = 0
 
     # The maximum turn rate in the current move. 
     
@@ -320,7 +320,7 @@ class aircraft:
     else:
 
       if self._flighttype != "ST" and self._flighttype != "DP":
-        self._log("used %d HFPs, %d VFPs, and %.1f SPBRFPs." % (self._hfp, self._vfp, self._spbrfp))
+        self._log("used %d HFPs and %d VFPs (and %.1f FPs to speedbrakes)." % (self._hfp, self._vfp, self._spbrfp))
 
       if self._lastconfiguration != self._configuration:
         self._log("configuration changed from %s to %s." % (self._lastconfiguration, self._configuration))

@@ -135,7 +135,7 @@ def _dospeedbrakes(self, spbrfp):
 
   self._spbrfp = spbrfp
 
-  self._speedbrakesap = -spbrfp / 0.5
+  self._spbrap = -spbrfp / 0.5
 
 def _dodeclareturn(self, bank, turnrate):
 
@@ -414,9 +414,6 @@ def _startnormalflight(self, actions):
   self._fpcarry = 0
   self._log("%.1f FPs (including %.1f carry)." % (self._fp, self._fpcarry))
   
-  self._log("---")
-  self._logposition("start", "")   
-  
   # See rule 5.5.
 
   flighttype     = self._flighttype
@@ -437,6 +434,9 @@ def _startnormalflight(self, actions):
     self._log("- last flight type was %s so the first %d FPs must be HFPs." % (lastflighttype, requiredhfp))
   self._requiredhfp = requiredhfp
 
+  self._log("---")
+  self._logposition("start", "")   
+  
   self._hfp     = 0
   self._vfp     = 0
   self._spbrfp  = 0 
@@ -462,4 +462,3 @@ def _isclimbing(flighttype):
   return flighttype == "ZC" or flighttype == "SC" or flighttype == "VC"
 
 ################################################################################
-
