@@ -284,7 +284,7 @@ def _endmovespeed(self):
 
   minspeed = self._aircrafttype.minspeed(self._configuration, self._altitudeband)
   if self._speed < minspeed:
-    self._log("- speed is below the minimum of %.1f." % minimum)
+    self._log("- speed is below the minimum of %.1f." % minspeed)
   if self._speed >= minspeed and self._flighttype == "ST":
     self._log("- aircraft is no longer stalled.")
   elif self._speed < minspeed and self._flighttype == "ST":

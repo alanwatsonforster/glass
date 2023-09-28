@@ -236,8 +236,6 @@ class aircraft:
     self._lastaltitudeband  = self._altitudeband
     self._lastspeed         = self._speed
 
-
-
     # These account for the APs associated with power, speed, speed-brakes, 
     # turns (split into the part for the maximum turn rate and the part for 
     # sustained turns), and altitude loss or gain.
@@ -249,6 +247,10 @@ class aircraft:
     self._sustainedturnap  = 0
     self._altitudeap       = 0
 
+    # The maximum turn rate in the current move. 
+    
+    self._maxturnrate      = None
+
     self._flighttype       = flighttype
     self._checkflighttype()
 
@@ -256,7 +258,7 @@ class aircraft:
     self._powersetting,    \
     self._powerap,         \
     self._speedap          = self._startmovespeed(power, flamedoutfraction)
-
+  
     if self._flighttype == "ST":
 
       self._turnsstalled += 1
@@ -326,11 +328,6 @@ class aircraft:
         self._log("maximum turn rate was %s." % self._maxturnrate)
         
       self._endmovespeed()
-
-      # See rule 5.4.
-
-      fp = self._hfp + self._vfp + self._spbrfp
-      self._fpcarry = self._fp - fp
 
       self._log("carrying %.1f FPs, %+.2f APs, and %s altitude levels." % (
         self._fpcarry, self._apcarry, apaltitude.formataltitudecarry(self._altitudecarry)

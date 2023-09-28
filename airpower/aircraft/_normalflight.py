@@ -330,6 +330,8 @@ def _doaction(self, action):
   if action[0] == 'H':
     self._hfp += 1
   elif action[0] == 'D' or action[0] == 'C':
+    if self._hfp < self._requiredhfp:
+      raise ValueError("insufficient initial HFPs")
     self._vfp += 1
   else:
     raise ValueError("action %s does not begin with H, D, or C." % action)
@@ -409,6 +411,8 @@ def _continuenormalflight(self, actions):
 
   if fp + 1 > self._fp or self._destroyed or self._leftmap:
 
+    # See rule 5.4.
+    self._fpcarry = self._fp - fp
 
     self._endmove()
     
@@ -438,9 +442,11 @@ def _startnormalflight(self, actions):
       requiredhfp = self._speed // 2
   else:
     requiredhfp = 0
-  
-  if requiredhfp > 0:
-    self._log("- changing from %s to %s flight so the first %d FPs must be HFPs." % (lastflighttype, flighttype, requiredhfp))
+  if requiredhfp == 1:
+    self._log("- last flight type was %s so the first FP must be an HFP." % lastflighttype)
+  elif requiredhfp > 1:
+    self._log("- last flight type was %s so the first %d FPs must be HFPs." % (lastflighttype, requiredhfp))
+  self._requiredhfp = requiredhfp
 
   self._log("- carrying %.1f FPs, %+.2f APs, and %s altitude levels." % (
     self._fpcarry, self._apcarry, apaltitude.formataltitudecarry(self._altitudecarry)
@@ -452,20 +458,12 @@ def _startnormalflight(self, actions):
   self._fpcarry = 0
   self._log("%.1f FPs are available." % self._fp)
 
-  self._hfp              = 0
-  self._vfp              = 0
-  self._spbrfp           = 0
+  self._hfp     = 0
+  self._vfp     = 0
+  self._spbrfp  = 0
 
-  # The number of turns and the maximum turn rate in the current move. 
-    
   self._turns            = 0
-  self._maxturnrate      = None
 
-  # The current turn rate and bank.
-
-  self._turnrate         = None
-  self._bank             = None
-    
   self._log("---")
   self._logposition("start", "")    
       

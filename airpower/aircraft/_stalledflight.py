@@ -15,8 +15,8 @@ def _dostalledflight(self, action):
   # See rule 6.4.
 
   self._fpcarry = 0
-  self._log("- carrying %+.2f APs and %s altitude levels." % (
-    self._apcarry, apaltitude.formataltitudecarry(self._altitudecarry)
+  self._log("- carrying %.1f FPs, %+.2f APs, and %s altitude levels." % (
+    self._fpcarry, self._apcarry, apaltitude.formataltitudecarry(self._altitudecarry)
   ))
       
   self._log("---")

@@ -17,8 +17,8 @@ def _dodepartedflight(self, action):
 
   self._fpcarry = 0
   self._apcarry = 0
-  self._log("carrying %s altitude levels." % (
-    apaltitude.formataltitudecarry(self._altitudecarry)
+  self._log("- carrying %.1f FPs, %+.2f APs, and %s altitude levels." % (
+    self._fpcarry, self._apcarry, apaltitude.formataltitudecarry(self._altitudecarry)
   ))
       
   self._log("---")
