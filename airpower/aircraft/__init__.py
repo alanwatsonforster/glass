@@ -400,11 +400,9 @@ class aircraft:
         self._log("altitude band changed from %s to %s." % (self._lastaltitudeband, self._altitudeband))
       else:
         self._log("altitude band is unchanged at %s." % self._altitudeband)
-
-      if self._maxturnrate == None:
-        self._log("no turns.")
-      else:
-        self._log("maximum turn rate is %s." % self._maxturnrate)
+        
+      if self._maxturnrate != None:
+        self._log("maximum turn rate was %s." % self._maxturnrate)
         
       self._endmovespeed()
 
