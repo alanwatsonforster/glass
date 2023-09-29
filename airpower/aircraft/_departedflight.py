@@ -63,4 +63,6 @@ def _dodepartedflight(self, action):
   else:
     if aphex.isedgeposition(self._x, self._y):
       self._x, self._y = aphex.centertoleft(self._x, self._y, self._facing)
-    self._facing = (self._facing + facingchange) % 360  
+    self._facing = (self._facing + facingchange) % 360
+
+  self._log("---")

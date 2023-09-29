@@ -47,3 +47,5 @@ def _dostalledflight(self, action):
     self._dojettison("CL")
   elif action != "":
     raise RuntimeError("invalid action %r for stalled flight." % action)
+
+  self._log("---")

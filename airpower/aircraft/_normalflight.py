@@ -406,12 +406,17 @@ def _continuenormalflight(self, actions):
   fp = self._hfp + self._vfp + self._spbrfp
   assert fp <= self._fp
 
-  if fp + 1 > self._fp or self._destroyed or self._leftmap:
+  if self._destroyed or self._leftmap:
+  
+    self._log("---")
+    self._endmove()
+
+  elif fp + 1 > self._fp:
 
     # See rule 5.4.
     self._fpcarry = self._fp - fp
 
-    self._endmove()
+    self._endnormalflight()
     
   else:
     
@@ -424,13 +429,14 @@ def _startnormalflight(self, actions):
   """
   Start to carry out normal flight.
   """
-
-  # See rule 5.4.
-
-  self._fp      = self._speed + self._fpcarry
-  self._fpcarry = 0
-  self._log("%.1f FPs (including %.1f carry)." % (self._fp, self._fpcarry))
   
+  if self._turnfp > 0 and self._turnrate != None:
+    self._log("- is turning %s at %s rate with %d FPs carried." % (self._bank, self._turnrate, self._turnfp))
+  elif self._bank == None:
+    self._log("- has wings level.")
+  else:
+    self._log("- is banked %s." % self._bank)
+         
   # See rule 5.5.
 
   flighttype     = self._flighttype
@@ -451,14 +457,42 @@ def _startnormalflight(self, actions):
     self._log("- last flight type was %s so the first %d FPs must be HFPs." % (lastflighttype, requiredhfp))
   self._requiredhfp = requiredhfp
 
-  self._log("---")
-  self._logposition("start", "")   
-  
+  # See rule 5.4.
+
+  self._fp      = self._speed + self._fpcarry
+  self._fpcarry = 0
+  self._log("- has %.1f FPs (including %.1f carry)." % (self._fp, self._fpcarry))
+
   self._hfp     = 0
   self._vfp     = 0
   self._spbrfp  = 0 
       
+  self._log("---")
+  self._logposition("start", "")   
+
   self._continuenormalflight(actions)
+
+################################################################################
+
+def _endnormalflight(self):
+
+  self._log("---")
+
+  self._log("- used %d HFPs and %d VFPs, lost %.1f FPs to speedbrakes, and is carrying %.1f FPs." % (
+    self._hfp, self._vfp, self._spbrfp, self._fpcarry
+  ))
+
+  if self._maxturnrate != None:
+      self._log("- turned at %s rate." % self._maxturnrate)
+
+  if self._turnfp > 0 and self._turnrate != None:
+    self._log("- finished turning %s at %s rate with %d FPs carried." % (self._bank, self._turnrate, self._turnfp))
+  elif self._bank == None:
+    self._log("- finished with wings level.")
+  else:
+    self._log("- finished banked %s." % self._bank)
+
+  self._endmove()
 
 ################################################################################
 

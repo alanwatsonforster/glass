@@ -19,7 +19,7 @@ class aircraft:
   from ._draw           import _drawaircraft, _drawflightpath
   from ._log            import _log, _logposition, _logevent, _logbreak
   from ._normalflight   import \
-    _startnormalflight, _continuenormalflight, \
+    _startnormalflight, _continuenormalflight, _endnormalflight, \
     _doaction, _doelements, _getelementdispatchlist, \
     _doattack, _doclimb, _dodive, _dohorizontal, _dojettison, _dokilled, \
     _dobank, _dodeclareturn, _doturn, _dospeedbrakes
@@ -296,13 +296,11 @@ class aircraft:
      self._powersetting,    \
      self._powerap,         \
      self._speedap          = self._startmovespeed(power, flamedoutfraction)
-  
-     if self._turnfp > 0:
-       turncarry = "%d %s%s" % (self._turnfp, self._bank, self._turnrate)
-     else:
-       turncarry = "0"
-     self._log("carrying %+.2f APs, %s altitude levels, and %s turn FPs." % (
-       self._apcarry, apaltitude.formataltitudecarry(self._altitudecarry), turncarry
+
+     self._log("configuration is %s." % self._configuration)
+     self._log("altitude band is %s." % self._altitudeband)
+     self._log("carrying %+.2f APs and %s altitude levels." % (
+       self._apcarry, apaltitude.formataltitudecarry(self._altitudecarry)
      ))
       
      if self._flighttype == "ST":
@@ -356,7 +354,6 @@ class aircraft:
     """
 
     self._drawaircraft("end")
-    self._log("---")
     
     if self._destroyed:
     
@@ -367,31 +364,21 @@ class aircraft:
       self._log("aircraft has left the map.")
 
     else:
-
-      if self._flighttype != "ST" and self._flighttype != "DP":
-        self._log("used %d HFPs and %d VFPs (and %.1f FPs to speedbrakes)." % (self._hfp, self._vfp, self._spbrfp))
+     
+      self._endmovespeed()
 
       if self._lastconfiguration != self._configuration:
         self._log("configuration changed from %s to %s." % (self._lastconfiguration, self._configuration))
       else:
         self._log("configuration is unchanged at %s." % self._configuration)
-              
+        
       if self._lastaltitudeband != self._altitudeband:
         self._log("altitude band changed from %s to %s." % (self._lastaltitudeband, self._altitudeband))
       else:
         self._log("altitude band is unchanged at %s." % self._altitudeband)
-        
-      if self._maxturnrate != None:
-        self._log("maximum turn rate was %s." % self._maxturnrate)
-        
-      self._endmovespeed()
 
-      if self._turnfp > 0:
-        turncarry = "%d %s%s" % (self._turnfp, self._bank, self._turnrate)
-      else:
-        turncarry = "0"
-      self._log("carrying %.1f FPs, %+.2f APs, %s altitude levels, and %s turn FPs." % (
-        self._fpcarry, self._apcarry, apaltitude.formataltitudecarry(self._altitudecarry), turncarry
+      self._log("carrying %+.2f APs and %s altitude levels." % (
+        self._apcarry, apaltitude.formataltitudecarry(self._altitudecarry)
       ))
 
     self._save(apturn.turn())
