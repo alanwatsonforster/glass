@@ -282,8 +282,12 @@ class aircraft:
     self._powerap,         \
     self._speedap          = self._startmovespeed(power, flamedoutfraction)
   
-    self._log("carrying %+.2f APs and %s altitude levels." % (
-      self._apcarry, apaltitude.formataltitudecarry(self._altitudecarry)
+    if self._turnfp > 0:
+      turncarry = "%d %s%s" % (self._turnfp, self._bank, self._turnrate)
+    else:
+      turncarry = "0"
+    self._log("carrying %+.2f APs, %s altitude levels, and %s turn FPs." % (
+      self._apcarry, apaltitude.formataltitudecarry(self._altitudecarry), turncarry
     ))
       
     if self._flighttype == "ST":
@@ -358,8 +362,12 @@ class aircraft:
         
       self._endmovespeed()
 
-      self._log("carrying %.1f FPs, %+.2f APs, and %s altitude levels." % (
-        self._fpcarry, self._apcarry, apaltitude.formataltitudecarry(self._altitudecarry)
+      if self._turnfp > 0:
+        turncarry = "%d %s%s" % (self._turnfp, self._bank, self._turnrate)
+      else:
+        turncarry = "0"
+      self._log("carrying %.1f FPs, %+.2f APs, %s altitude levels, and %s turn FPs." % (
+        self._fpcarry, self._apcarry, apaltitude.formataltitudecarry(self._altitudecarry), turncarry
       ))
 
     self._save(apturn.turn())
