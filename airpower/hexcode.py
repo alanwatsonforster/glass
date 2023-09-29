@@ -207,7 +207,7 @@ def sheetorigin(sheet):
   elif sheetletter == "C":
     XX = 51
   else:
-    raise "invalid sheet %s." % sheet
+    raise ValueError("invalid sheet %s." % sheet)
 
   sheetnumber = sheet[1]
   if sheetnumber == "1":
@@ -215,7 +215,7 @@ def sheetorigin(sheet):
   elif sheetnumber == "2":
     YY = 30
   else:
-    raise "invalid sheet %s." % sheet
+    raise ValueError("invalid sheet %s." % sheet)
 
   return _join(XX, YY)
 
@@ -239,7 +239,6 @@ def isonsheet(h, sheet):
     return False
 
   return True
-
 
 def tosheet(h):
 
