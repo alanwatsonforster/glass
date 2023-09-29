@@ -1,5 +1,3 @@
-import airpower.variants as apvariants
-
 import numpy as np
 
 import matplotlib
@@ -11,8 +9,7 @@ _donotdraw = True
 
 def setcanvas(x, y):
   global _donotdraw
-  if apvariants.withvariant("do not draw"):
-    _donotdraw = True
+
   if _donotdraw:
     return
   matplotlib.rcParams['figure.figsize'] = [x, y]

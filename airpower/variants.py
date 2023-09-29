@@ -5,7 +5,6 @@ _known_variants = [
   "disallow ENE/ESE/WSW/WNW",
   "prefer NE/SE/SW/NW",
   "implicit turn and bank declarations"
-  "do not draw"
 ]
 
 _variants = []
