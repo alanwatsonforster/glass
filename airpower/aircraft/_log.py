@@ -16,18 +16,7 @@ def _logbreak(self):
 
 def _logposition(self, s, t):
 
-  if apmap.isonmap(self._x, self._y):
-    sheet = apmap.tosheet(self._x, self._y)
-    hexcode = aphexcode.fromxy(self._x, self._y)
-  else:
-    sheet = "--"
-    hexcode = "----"
-  azimuth = apazimuth.fromfacing(self._facing)
-  altitude = self._altitude
-  altitudeband = self._altitudeband
-  position = "%2s %-9s  %-3s  %2d  %2s" % (sheet, hexcode, azimuth, altitude, altitudeband)
-
-  self._log("%-5s : %-16s : %s" % (s, t, position))
+  self._log("%-5s : %-16s : %s" % (s, t, self.position()))
 
 def _logevent(self, s):
   self._log("%-5s : %s" % ("", s))
