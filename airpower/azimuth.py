@@ -68,6 +68,9 @@ def tofacing(azimuth):
     }
     if azimuth in named:
       azimuth = named[azimuth]
+
+  if not isinstance(azimuth, int):
+    raise RuntimeError("invalid azimuth %r." % azimuth)
   
   return (_northfacing - azimuth) % 360
 
