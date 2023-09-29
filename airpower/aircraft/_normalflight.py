@@ -364,8 +364,8 @@ def _doaction(self, action):
     self._hfp += 1
   elif not actionvertical:
     raise RuntimeError("invalid action %r." % action)
-  elif self._hfp < self._requiredhfp:
-    raise RuntimeError("insufficient initial HFPs")
+  elif self._hfp < self._requiredinitialhfp:
+    raise RuntimeError("insufficient initial HFPs.")
   else:
    self._vfp += 1
 
@@ -443,19 +443,19 @@ def _startnormalflight(self, actions):
   lastflighttype = self._lastflighttype
   
   if lastflighttype == "LVL" and (_isclimbing(flighttype) or _isdiving(flighttype)):
-    requiredhfp = 1
+    requiredinitialhfp = 1
   elif (_isclimbing(lastflighttype) and _isdiving(flighttype)) or (_isdiving(lastflighttype) and _isclimbing(flighttype)):
     if self._aircrafttype.hasproperty("HPR"):
-      requiredhfp = self._speed // 3
+      requiredinitialhfp = self._speed // 3
     else:
-      requiredhfp = self._speed // 2
+      requiredinitialhfp = self._speed // 2
   else:
-    requiredhfp = 0
-  if requiredhfp == 1:
+    requiredinitialhfp = 0
+  if requiredinitialhfp == 1:
     self._log("- last flight type was %s so the first FP must be an HFP." % lastflighttype)
-  elif requiredhfp > 1:
-    self._log("- last flight type was %s so the first %d FPs must be HFPs." % (lastflighttype, requiredhfp))
-  self._requiredhfp = requiredhfp
+  elif requiredinitialhfp > 1:
+    self._log("- last flight type was %s so the first %d FPs must be HFPs." % (lastflighttype, requiredinitialhfp))
+  self._requiredinitialhfp = requiredinitialhfp
 
   # See rule 5.4.
 
