@@ -26,6 +26,8 @@ class aircraft:
   from ._speed          import _startmovespeed, _endmovespeed
   from ._stalledflight  import _dostalledflight
 
+  #############################################################################
+
   def __init__(self, name, aircrafttype, hexcode, azimuth, altitude, speed, configuration="CL"):
 
     aplog.clearerror()
@@ -69,11 +71,9 @@ class aircraft:
       self._drawaircraft("end")
 
     except RuntimeError as e:
-      print("%r" % e)
-      print("%r" % e.args)
-      aplog.logerror(e.args)
-      self._error = a.args
+      aplog.logerror(e)
 
+  #############################################################################
 
   def __str__(self):
 
@@ -98,6 +98,8 @@ class aircraft:
       s += "%-16s: %s\n" % (x[0], x[1])
     return s
 
+  #############################################################################
+
   def position(self):
 
     if apmap.isonmap(self._x, self._y):
@@ -110,7 +112,6 @@ class aircraft:
     altitude = self._altitude
     altitudeband = self._altitudeband
     return "%2s %-9s  %-3s  %2d  %2s" % (sheet, hexcode, azimuth, altitude, altitudeband)
-
 
   #############################################################################
 
