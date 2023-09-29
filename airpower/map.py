@@ -15,7 +15,7 @@ _compassrose = None
 _dxsheet = 20
 _dysheet = 15
 
-def setmap(sheetgrid, compassrose, verbose=True):
+def setmap(sheetgrid, compassrose):
 
   """
   Set the arrangement of the sheets that form the map and the position of the 
@@ -30,6 +30,8 @@ def setmap(sheetgrid, compassrose, verbose=True):
 
   # The sheet grid argument follows visual layout, so we need to flip it 
   # vertically so that the lower-left sheet has indices (0,0).
+
+  # TODO: Validate arguments. For example, that sheet grid is not ["A1"].
 
   _sheetgrid = list(reversed(sheetgrid))
   _nysheetgrid = len(_sheetgrid)
