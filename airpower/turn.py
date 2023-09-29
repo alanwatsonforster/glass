@@ -12,9 +12,9 @@ def startturn(turn):
   global _turn
   global _maxturn
   if not isinstance(turn, int) or turn < 1:
-    raise ValueError("invalid turn %d." % turn)
+    raise RuntimeError("invalid turn %d." % turn)
   if turn > _maxturn + 1:
-    raise ValueError("attempt to start turn %d out of sequence." % turn)
+    raise RuntimeError("attempt to start turn %d out of sequence." % turn)
   _turn = turn
   _maxturn = max(_maxturn, _turn)
   aplog.log("--- start of turn %d ---" % _turn)

@@ -25,7 +25,7 @@ def _doclimb(self, altitudechange):
   """
 
   if not self._flighttype in ["ZC", "SC", "VC"]:
-    raise ValueError("attempt to climb while flight type is %s." % self._flighttype)
+    raise RuntimeError("attempt to climb while flight type is %s." % self._flighttype)
 
   initialaltitude = self._altitude    
   self._altitude, self._altitudecarry = apaltitude.adjustaltitude(self._altitude, self._altitudecarry, +altitudechange)
@@ -50,7 +50,7 @@ def _dodive(self, altitudechange):
   """
 
   if not self._flighttype in ["LVL", "SD", "UD", "VD"]:
-    raise ValueError("attempt to dive while flight type is %s." % self._flighttype)
+    raise RuntimeError("attempt to dive while flight type is %s." % self._flighttype)
 
   initialaltitude = self._altitude    
   self._altitude, self._altitudecarry = apaltitude.adjustaltitude(self._altitude, self._altitudecarry, -altitudechange)
@@ -91,9 +91,9 @@ def _dojettison(self, configuration):
   # We implement the delay of 1 FP by making this an epilog element.
 
   if self._configuration == configuration:
-    raise ValueError("configuration is already %s." % configuration)
+    raise RuntimeError("configuration is already %s." % configuration)
   if self._configuration == "CL" or configuration == "DT":
-    raise ValueError("attempt to change from configuration %s to %s." % (self._configuration, configuration))
+    raise RuntimeError("attempt to change from configuration %s to %s." % (self._configuration, configuration))
   self._logevent("jettisoned stores.")
   self._logevent("configuration changed from %s to %s." % (self._configuration, configuration))
   self._configuration = configuration
@@ -116,17 +116,17 @@ def _dospeedbrakes(self, spbrfp):
   # See rule 6.5 and the "Supersonic Speeds" section of rule 6.6.
 
   if self._spbrfp != 0:
-    raise ValueError("speedbrakes can only be used once per turn.")
+    raise RuntimeError("speedbrakes can only be used once per turn.")
 
   maxspbrfp = self._fp - self._hfp - self._vfp
   if spbrfp > maxspbrfp:
-    raise ValueError("only %s FPs are remaining." % maxspbrfp)
+    raise RuntimeError("only %s FPs are remaining." % maxspbrfp)
     
   maxspbrfp = self._aircrafttype.SPBR(self._configuration)
   if self._speed > apspeed.m1speed(self._altitudeband):
     maxspbrfp += 0.5
   if spbrfp > maxspbrfp:
-    raise ValueError("speedbrake capability is only %.1f FPs." % maxspbrfp)
+    raise RuntimeError("speedbrake capability is only %.1f FPs." % maxspbrfp)
 
   self._spbrfp = spbrfp
 
@@ -150,13 +150,13 @@ def _dodeclareturn(self, sense, turnrate):
   # TODO: HRR and LRR
 
   if self._bank != None and self._bank != sense:
-    raise ValueError("invalid attempt to declare turn to %s while not banked correctly." % sense)
+    raise RuntimeError("invalid attempt to declare turn to %s while not banked correctly." % sense)
   
   turnrates = ["EZ", "TT", "HT", "BT", "ET"]
   assert turnrate in turnrates
   self._turnrate = turnrate
   self._bank = sense
-  self._turnfp = 1
+  self._turnfp = 0
 
 def _doturn(self, sense, facingchange):
 
@@ -174,22 +174,25 @@ def _doturn(self, sense, facingchange):
 
     minturnrate = apdata.determineturnrate(self._altitudeband, self._speed, self._turnfp, facingchange)
     if minturnrate == None:
-      raise ValueError("attempt to turn faster than the maximum turn rate.")
+      raise RuntimeError("attempt to turn faster than the maximum turn rate.")
 
     self._turnrate = minturnrate
 
   else:
 
+    if self._turnrate == None:
+      raise RuntimeError("attempt to turn without a declared turn.")
+      
     if self._bank != sense:
-      raise ValueError("attempt to turn %s against the sense of the declared turn." % sense)
+      raise RuntimeError("attempt to turn %s against the sense of the declared turn." % sense)
 
     minturnrate = apdata.determineturnrate(self._altitudeband, self._speed, self._turnfp, facingchange)
     if minturnrate == None:
-      raise ValueError("attempt to turn faster than the maximum turn rate.")
+      raise RuntimeError("attempt to turn faster than the maximum turn rate.")
 
     turnrates = ["EZ", "TT", "HT", "BT", "ET"]
     if turnrates.index(minturnrate) > turnrates.index(self._turnrate):
-      raise ValueError("attempt to turn faster than the declared turn rate.")
+      raise RuntimeError("attempt to turn faster than the declared turn rate.")
 
   if self._maxturnrate == None:
     self._maxturnrate = self._turnrate
@@ -219,7 +222,6 @@ def _doturn(self, sense, facingchange):
     self._facing = (self._facing - facingchange) % 360
 
   self._turnfp = 0
-
     
 def _getelementdispatchlist(self):
 
@@ -330,10 +332,10 @@ def _doelements(self, action, selectedelementtype, allowrepeated):
         action = action[len(elementcode):]
         break
     else:
-      raise ValueError("invalid action %r." % action)
+      raise RuntimeError("invalid action %r." % action)
 
   if ielement > 1 and not allowrepeated:
-    raise ValueError("invalid action %r: repeated %s element." % (action, selectedelementtype))
+    raise RuntimeError("invalid action %r: repeated %s element." % (action, selectedelementtype))
 
   return ielement
 
@@ -344,7 +346,7 @@ def _doaction(self, action):
   """
 
   if self._hfp + self._vfp + self._spbrfp + 1 > self._fp:
-    raise ValueError("only %.1f FPs are available." % self._fp)
+    raise RuntimeError("only %.1f FPs are available." % self._fp)
 
   lastx = self._x
   lasty = self._y
@@ -361,9 +363,9 @@ def _doaction(self, action):
   if actionhorizontal:
     self._hfp += 1
   elif not actionvertical:
-    raise ValueError("invalid action %r." % action)
+    raise RuntimeError("invalid action %r." % action)
   elif self._hfp < self._requiredhfp:
-    raise ValueError("insufficient initial HFPs")
+    raise RuntimeError("insufficient initial HFPs")
   else:
    self._vfp += 1
 

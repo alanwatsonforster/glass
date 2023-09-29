@@ -28,44 +28,55 @@ class aircraft:
 
   def __init__(self, name, aircrafttype, hexcode, azimuth, altitude, speed, configuration="CL"):
 
-    x, y = aphexcode.toxy(hexcode)
-    facing = apazimuth.tofacing(azimuth)
+    aplog.clearerror()
+    try:
 
-    apaltitude.checkisvalidaltitude(altitude)
-    aphex.checkisvalidfacing(x, y, facing)
+      x, y = aphexcode.toxy(hexcode)
+      facing = apazimuth.tofacing(azimuth)
 
-    # In addition to the specified position, azimuth, altitude, speed, and 
-    # configuration, aircraft initially have level flight, normal power, and
-    # no carries.
+      apaltitude.checkisvalidaltitude(altitude)
+      aphex.checkisvalidfacing(x, y, facing)
 
-    self._name          = name
-    self._x             = x
-    self._y             = y
-    self._facing        = facing
-    self._altitude      = altitude
-    self._altitudeband  = apaltitude.altitudeband(self._altitude)
-    self._altitudecarry = 0
-    self._speed         = speed
-    self._configuration = configuration
-    self._flighttype    = "LVL"
-    self._powersetting  = "N"
-    self._bank          = None
-    self._turnrate      = None
-    self._turnfp        = 0
-    self._fpcarry       = 0
-    self._apcarry       = 0
-    self._aircrafttype  = apaircrafttype.aircrafttype(aircrafttype)
-    self._destroyed     = False
-    self._leftmap       = False
-    self._turnsstalled  = 0
-    self._turnsdeparted = 0
+      # In addition to the specified position, azimuth, altitude, speed, and 
+      # configuration, aircraft initially have level flight, normal power, and
+      # no carries.
 
-    self._saved = []
-    self._save(0)
+      self._name          = name
+      self._x             = x
+      self._y             = y
+      self._facing        = facing
+      self._altitude      = altitude
+      self._altitudeband  = apaltitude.altitudeband(self._altitude)
+      self._altitudecarry = 0
+      self._speed         = speed
+      self._configuration = configuration
+      self._flighttype    = "LVL"
+      self._powersetting  = "N"
+      self._bank          = None
+      self._turnrate      = None
+      self._turnfp        = 0
+      self._fpcarry       = 0
+      self._apcarry       = 0
+      self._aircrafttype  = apaircrafttype.aircrafttype(aircrafttype)
+      self._destroyed     = False
+      self._leftmap       = False
+      self._turnsstalled  = 0
+      self._turnsdeparted = 0
 
-    self._drawaircraft("end")
+      self._saved = []
+      self._save(0)
+
+      self._drawaircraft("end")
+
+    except RuntimeError as e:
+      print("%r" % e)
+      print("%r" % e.args)
+      aplog.logerror(e.args)
+      self._error = a.args
+
 
   def __str__(self):
+
     s = ""
     for x in [
       ["name"         , self._name],
@@ -198,7 +209,7 @@ class aircraft:
     lastflighttype = self._lastflighttype
 
     if flighttype not in ["LVL", "SC", "ZC", "VC", "SD", "UD", "VD", "ST", "DP"]:
-      raise ValueError("invalid flight type %r." % flighttype)
+      raise RuntimeError("invalid flight type %r." % flighttype)
 
     self._log("flight type is %s." % flighttype)
 
@@ -209,9 +220,9 @@ class aircraft:
       # See rule 6.4.
 
       if _isclimbing(flighttype):
-        raise ValueError("flight type immediately after DP must not be climbing.")
+        raise RuntimeError("flight type immediately after DP must not be climbing.")
       elif flighttype == "LVL" and not self._aircrafttype.hasproperty("HPR"):
-        raise ValueError("flight type immediately after DP must not be level.")
+        raise RuntimeError("flight type immediately after DP must not be level.")
 
     elif self._speed < minspeed:
 
@@ -220,18 +231,18 @@ class aircraft:
       self._log("- speed is below the minimum of %.1f." % minspeed)
       self._log("- aircraft is stalled.")
       if flighttype != "ST":
-        raise ValueError("flight type must be ST.")
+        raise RuntimeError("flight type must be ST.")
 
     elif flighttype == "ST":
 
-      raise ValueError("flight type cannot be ST as aircraft is not stalled.")
+      raise RuntimeError("flight type cannot be ST as aircraft is not stalled.")
 
     elif lastflighttype == "ST":
 
       # See rule 6.4.
 
       if _isclimbing(flighttype):
-        raise ValueError("flight type immediately after ST must not be climbing.")
+        raise RuntimeError("flight type immediately after ST must not be climbing.")
 
   
   ##############################################################################
@@ -243,72 +254,78 @@ class aircraft:
     out some actions.
     """
 
-    self._log("--- start of move --")
+    aplog.clearerror()
+    try:
 
-    self._restore(apturn.turn() - 1)
+     self._log("--- start of move --")
 
-    if self._destroyed or self._leftmap:
-      self._endmove()
-      return
+     self._restore(apturn.turn() - 1)
 
-    # We save values of these variables at the end of the previous move.
+     if self._destroyed or self._leftmap:
+       self._endmove()
+       return
 
-    self._lastconfiguration = self._configuration
-    self._lastpowersetting  = self._powersetting
-    self._lastflighttype    = self._flighttype
-    self._lastaltitudeband  = self._altitudeband
-    self._lastspeed         = self._speed
+     # We save values of these variables at the end of the previous move.
 
-    # These account for the APs associated with power, speed, speed-brakes, 
-    # turns (split into the part for the maximum turn rate and the part for 
-    # sustained turns), and altitude loss or gain.
+     self._lastconfiguration = self._configuration
+     self._lastpowersetting  = self._powersetting
+     self._lastflighttype    = self._flighttype
+     self._lastaltitudeband  = self._altitudeband
+     self._lastspeed         = self._speed
 
-    self._powerap         = 0
-    self._speedap         = 0
-    self._spbrap          = 0
-    self._turnrateap      = 0
-    self._sustainedturnap = 0
-    self._altitudeap      = 0
+     # These account for the APs associated with power, speed, speed-brakes, 
+     # turns (split into the part for the maximum turn rate and the part for 
+     # sustained turns), and altitude loss or gain.
 
-    # The maximum turn rate in the current move. 
+     self._powerap         = 0
+     self._speedap         = 0
+     self._spbrap          = 0
+     self._turnrateap      = 0
+     self._sustainedturnap = 0
+     self._altitudeap      = 0
+
+     # The maximum turn rate in the current move. 
     
-    self._maxturnrate      = None
+     self._maxturnrate      = None
 
-    self._flighttype       = flighttype
-    self._checkflighttype()
+     self._flighttype       = flighttype
+     self._checkflighttype()
 
-    self._speed,           \
-    self._powersetting,    \
-    self._powerap,         \
-    self._speedap          = self._startmovespeed(power, flamedoutfraction)
+     self._speed,           \
+     self._powersetting,    \
+     self._powerap,         \
+     self._speedap          = self._startmovespeed(power, flamedoutfraction)
   
-    if self._turnfp > 0:
-      turncarry = "%d %s%s" % (self._turnfp, self._bank, self._turnrate)
-    else:
-      turncarry = "0"
-    self._log("carrying %+.2f APs, %s altitude levels, and %s turn FPs." % (
-      self._apcarry, apaltitude.formataltitudecarry(self._altitudecarry), turncarry
-    ))
+     if self._turnfp > 0:
+       turncarry = "%d %s%s" % (self._turnfp, self._bank, self._turnrate)
+     else:
+       turncarry = "0"
+     self._log("carrying %+.2f APs, %s altitude levels, and %s turn FPs." % (
+       self._apcarry, apaltitude.formataltitudecarry(self._altitudecarry), turncarry
+     ))
       
-    if self._flighttype == "ST":
+     if self._flighttype == "ST":
 
-      self._fpcarry = 0
-      self._turnsstalled += 1
-      self._dostalledflight(actions)
-      self._endmove()
+       self._fpcarry = 0
+       self._turnsstalled += 1
+       self._dostalledflight(actions)
+       self._endmove()
 
-    elif self._flighttype == "DP":
+     elif self._flighttype == "DP":
 
-      self._fpcarry = 0
-      self._turnsdeparted += 1
-      self._dodepartedflight(actions)
-      self._endmove()
+       self._fpcarry = 0
+       self._turnsdeparted += 1
+       self._dodepartedflight(actions)
+       self._endmove()
         
-    else:
+     else:
 
-      self._turnsstalled  = 0
-      self._turnsdeparted = 0
-      self._startnormalflight(actions)
+       self._turnsstalled  = 0
+       self._turnsdeparted = 0
+       self._startnormalflight(actions)
+
+    except RuntimeError as e:
+      aplog.logerror(e)
 
   ################################################################################
 
@@ -318,10 +335,16 @@ class aircraft:
     Continue a move that has been started, possible carrying out some actions.
     """
 
-    if self._destroyed or self._leftmap or self._flighttype == "ST" or self._flighttype == "DP":
-      return
+    aplog.clearerror()
+    try:
 
-    self._continuenormalflight(actions)
+      if self._destroyed or self._leftmap or self._flighttype == "ST" or self._flighttype == "DP":
+        return
+
+      self._continuenormalflight(actions)
+
+    except RuntimeError as e:
+      aplog.logerror(e)
 
   ################################################################################
 

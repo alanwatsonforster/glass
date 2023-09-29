@@ -57,12 +57,12 @@ def isvalidhexcodeforcenter(h):
 def checkisvalidhexcodeforcenter(h):
 
   """
-  Raise a ValueError exception if h is not a gramatically valid hex code that
+  Raise a RuntimeError exception if h is not a gramatically valid hex code that
   corresponds to a hex center.
   """
 
   if not isvalidhexcodeforcenter(h):
-    raise ValueError("%s is not a valid hex code for a hex center." % h)
+    raise RuntimeError("%s is not a valid hex code for a hex center." % h)
 
 def isvalidhexcodeforedge(h):
 
@@ -89,12 +89,12 @@ def isvalidhexcodeforedge(h):
 def checkvalidhexcodeforedge(h):
 
   """
-  Raise a ValueError exception if h is not a gramatically valid hex code that
+  Raise a RuntimeError exception if h is not a gramatically valid hex code that
   corresponds to (the center of) the edge of a hex.
   """
 
   if not isvalidhexcodeforedge(h):
-    raise ValueError("%s is not a valid hex code for a hex edge." % h)
+    raise RuntimeError("%s is not a valid hex code for a hex edge." % h)
 
 def isvalidhexcode(h):
 
@@ -107,11 +107,11 @@ def isvalidhexcode(h):
 def checkisvalidhexcode(h):
 
   """
-  Raise a ValueError exception if h is not a gramatically valid hex code.
+  Raise a RuntimeError exception if h is not a gramatically valid hex code.
   """
 
   if not isvalidhexcode(h):
-    raise ValueError("%s is not a valid hex code." % h)
+    raise RuntimeError("%s is not a valid hex code." % h)
 
 def fromxy(x, y):
 
@@ -207,7 +207,7 @@ def sheetorigin(sheet):
   elif sheetletter == "C":
     XX = 51
   else:
-    raise ValueError("invalid sheet %s." % sheet)
+    raise RuntimeError("invalid sheet %s." % sheet)
 
   sheetnumber = sheet[1]
   if sheetnumber == "1":
@@ -215,7 +215,7 @@ def sheetorigin(sheet):
   elif sheetnumber == "2":
     YY = 30
   else:
-    raise ValueError("invalid sheet %s." % sheet)
+    raise RuntimeError("invalid sheet %s." % sheet)
 
   return _join(XX, YY)
 
@@ -257,7 +257,7 @@ def tosheet(h):
   elif 51 <= XX and XX <= 70:
     sheetletter = "C"
   else:
-    raise ValueError("invalid hex code %d." % h)
+    raise RuntimeError("invalid hex code %d." % h)
 
   if XX % 2 == 1 and 1 <= YY and YY <= 15:
     sheetnumber = "1"
@@ -268,7 +268,7 @@ def tosheet(h):
   elif XX % 2 == 0 and 17 <= YY and YY <= 31:
     sheetnumber = "2"
   else:
-    raise ValueError("invalid hex code %d." % h)
+    raise RuntimeError("invalid hex code %d." % h)
 
   return sheetletter + sheetnumber
 

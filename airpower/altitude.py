@@ -11,11 +11,11 @@ def isvalidaltitude(altitude):
 def checkisvalidaltitude(altitude):
 
   """
-  Raise a ValueError exception if z is not a valid altitude.
+  Raise a RuntimeError exception if z is not a valid altitude.
   """
 
   if not isvalidaltitude(altitude):
-    raise ValueError("%s is not a valid altitude." % altitude)
+    raise RuntimeError("%s is not a valid altitude." % altitude)
 
 def adjustaltitude(altitude, altitudecarry, altitudechange):
 

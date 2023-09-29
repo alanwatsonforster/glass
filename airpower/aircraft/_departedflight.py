@@ -50,11 +50,11 @@ def _dodepartedflight(self, action):
     action = "L90"
   
   if len(action) < 3 or (action[0] != "R" and action[0] != "L") or not action[1:].isdecimal():
-    raise ValueError("invalid action %r for departed flight." % action)
+    raise RuntimeError("invalid action %r for departed flight." % action)
 
   facingchange = int(action[1:])
   if facingchange % 30 != 0 or facingchange <= 0 or facingchange > 300:
-    raise ValueError("invalid action %r for departed flight." % action)
+    raise RuntimeError("invalid action %r for departed flight." % action)
 
   if action[0] == "R":
     if aphex.isedgeposition(self._x, self._y):

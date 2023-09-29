@@ -64,12 +64,12 @@ def areadjacent(x0, y0, x1, y1):
 def checkisvalidposition(x, y):
 
   """
-  Raise a ValueError exception if the point (x,y) in hex coordinates does not 
+  Raise a RuntimeError exception if the point (x,y) in hex coordinates does not 
   correspond to the center of a hex or to (the center of) the edge of a hex.
   """
 
   if not isvalidposition(x, y):
-    raise ValueError("(%s,%s) is not the center or edge of a hex." % (x,y))
+    raise RuntimeError("(%s,%s) is not the center or edge of a hex." % (x,y))
 
 def isvalidfacing(x, y, facing):
 
@@ -98,7 +98,7 @@ def isvalidfacing(x, y, facing):
 def checkisvalidfacing(x, y, facing):
 
   """
-  Raise a ValueError exception if facing is not a valid facing at the position 
+  Raise a RuntimeError exception if facing is not a valid facing at the position 
   (x, y) in hex coordinates, which must correspond to to the center of a hex or 
   to (the center of) the edge of a hex.
   """
@@ -106,7 +106,7 @@ def checkisvalidfacing(x, y, facing):
   assert isvalidposition(x, y)
 
   if not isvalidfacing(x, y, facing):
-    raise ValueError("(%s,%s) is not the center or edge of a hex." % (x,y))
+    raise RuntimeError("(%s,%s) is not the center or edge of a hex." % (x,y))
 
 def nextposition(x, y, facing):
 

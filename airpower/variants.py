@@ -20,7 +20,7 @@ def setvariants(variants):
 
   for variant in variants:
     if not variant in _known_variants:
-      raise ValueError("invalid variant %r." % variant)
+      raise RuntimeError("invalid variant %r." % variant)
     aplog.log("using variant %r." % variant)
 
   global _variants

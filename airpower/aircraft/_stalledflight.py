@@ -46,4 +46,4 @@ def _dostalledflight(self, action):
   elif action == "JCL":
     self._dojettison("CL")
   elif action != "":
-    raise ValueError("invalid action %r for stalled flight." % action)
+    raise RuntimeError("invalid action %r for stalled flight." % action)

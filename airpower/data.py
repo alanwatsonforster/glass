@@ -51,7 +51,7 @@ def turnrequirement(altitudeband, speed, rate):
       [  0,  0,  0,  4,  5,  6,  7,  8, 10, 12, 14, 18, ],
       [  0,  0,  0,  0,  4,  5,  6,  7,  9, 10, 12, 14, ],
     ][irate][ispeed]
-    if altitudebane == "UH" and raw != 0:
+    if altitudeband == "UH" and raw != 0:
       raw += 2
   
   if raw == 0:
@@ -59,7 +59,7 @@ def turnrequirement(altitudeband, speed, rate):
   else:
     return raw
 
-def determineturnrate(altitudeband, speed, fp, facingchange):
+def determineturnrate(altitudeband, speed, turnfp, facingchange):
 
   """
   Return the minimum turn rate capable of a turn of the given facing change 
@@ -71,7 +71,7 @@ def determineturnrate(altitudeband, speed, fp, facingchange):
     requirement = turnrequirement(altitudeband, speed, rate)
     if requirement == None:
       return None
-    if facingchange > 30 and facingchange <= requirement:
+    if facingchange == 30 and turnfp >= requirement:
       return rate
-    if fp >= requirement:
+    elif facingchange <= requirement:
       return rate

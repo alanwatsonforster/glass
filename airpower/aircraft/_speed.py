@@ -35,12 +35,12 @@ def _startmovespeed(self, power, flamedoutfraction):
       powersetting = "M"
       powerap      = powerapM
     elif power == "AB" and powerapAB == None:
-      raise ValueError("aircraft does not have AB.")
+      raise RuntimeError("aircraft does not have AB.")
     elif power == "AB":
       powersetting = "AB"
       powerap      = powerapAB
     elif not isinstance(power, (int, float)) or power < 0 or power % 0.25 != 0:
-      raise ValueError("invalid power %r" % power)
+      raise RuntimeError("invalid power %r" % power)
     elif power <= powerapM:
       powersetting = "M"
       powerap      = power
@@ -48,7 +48,7 @@ def _startmovespeed(self, power, flamedoutfraction):
       powersetting = "AB"
       powerap      = power
     else:
-      raise ValueError("requested power of %s APs exceeds aircraft capability." % power)
+      raise RuntimeError("requested power of %s APs exceeds aircraft capability." % power)
 
     self._log("power setting is %s." % powersetting)
 
