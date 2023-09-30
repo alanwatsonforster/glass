@@ -72,3 +72,7 @@ class aircrafttype:
     
   def hasproperty(self, p):
     return p in self._data["properties"]
+
+  def turnrates(self, configuration):
+    return ["EZ"] + list(self._data["turndragtable"][configuration].keys())
+

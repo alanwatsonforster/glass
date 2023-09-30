@@ -150,10 +150,14 @@ def _dodeclareturn(self, sense, turnrate):
   # TODO: HRR and LRR
 
   if self._bank != None and self._bank != sense:
-    raise RuntimeError("invalid attempt to declare turn to %s while not banked correctly." % sense)
-  
+    raise RuntimeError("attempt to declare a turn while not banked correctly.")
+
   turnrates = ["EZ", "TT", "HT", "BT", "ET"]
   assert turnrate in turnrates
+
+  if turnrate not in self._allowedturnrates:
+    raise RuntimeError("attempt to declare a turn rate tighter than the maximum allowed.")
+
   self._turnrate = turnrate
   self._bank = sense
   self._turnfp = 0
@@ -184,7 +188,7 @@ def _doturn(self, sense, facingchange):
       raise RuntimeError("attempt to turn without a declared turn.")
       
     if self._bank != sense:
-      raise RuntimeError("attempt to turn %s against the sense of the declared turn." % sense)
+      raise RuntimeError("attempt to turn against the sense of the declared turn.")
 
     minturnrate = apdata.determineturnrate(self._altitudeband, self._speed, self._turnfp, facingchange)
     if minturnrate == None:
@@ -436,6 +440,25 @@ def _startnormalflight(self, actions):
     self._log("- has wings level.")
   else:
     self._log("- is banked %s." % self._bank)
+
+  # See rule 7.5 "Turning and Minimum Speeds"
+
+  turnrates = self._aircrafttype.turnrates(self._configuration)
+  minspeed = self._aircrafttype.minspeed(self._configuration, self._altitudeband)
+  if self._speed == minspeed + 1.5 and "ET" in turnrates:
+    turnrates = turnrates[:4]
+  elif self._speed == minspeed + 1.0 and "BT" in turnrates:
+    turnrates = turnrates[:3]
+  elif self._speed == minspeed + 0.5 and "HT" in turnrates:
+    turnrates = turnrates[:2]
+  elif self._speed == minspeed and "TT" in turnrates:
+     turnrates = turnrates[:1]
+  self._log("- maximum allowed turn rate is %s." % turnrates[-1])
+  self._allowedturnrates = turnrates
+
+  if self._turnrate != None and not self._turnrate in self._allowedturnrates:
+    self._log("- carried turn rate is tighter than the maximum allowed turn rate.")
+    raise RuntimeError("aircraft has exceeded its maximum allowed turn rate and has entered a maneuvering departure.")
          
   # See rule 5.5.
 
