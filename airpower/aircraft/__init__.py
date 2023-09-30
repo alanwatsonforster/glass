@@ -377,7 +377,7 @@ class aircraft:
       else:
         self._log("altitude band is unchanged at %s." % self._altitudeband)
 
-      self._log("- carrying %+.2f APs and %s altitude levels." % (
+      self._log("carrying %+.2f APs and %s altitude levels." % (
         self._apcarry, apaltitude.formataltitudecarry(self._altitudecarry)
       ))
 

@@ -505,6 +505,11 @@ def _startnormalflight(self, actions):
       self._log("- must use no more than 1 VFP.")
     else:
       self._log("- must use no more than %d VFPs." % math.floor(twothirds(self._fp)))
+  elif self._flighttype == "VC":
+    if self._lastflighttype != "VC":
+      self._log("- must use exactly %d HFPs." % math.floor(onethird(self._fp)))
+    else:
+      self._log("- must use no more than %d HFPs." % math.floor(onethird(self._fp)))
 
   self._hfp     = 0
   self._vfp     = 0
@@ -540,6 +545,14 @@ def _endnormalflight(self):
     else:
       if self._vfp > twothirds(self._fp):
         self._log("must use no more than 2/3 of FPs as VFPs")
+  elif self._flighttype == "VC":
+    # See rule 8.1.3
+    if self._lastflighttype != "VC":
+      if (self._hfp != math.floor(onethird(self._fp))):
+        raise RuntimeError("must use exactly 1/3 of FPs as HFPs.")
+    else:
+      if (self._hfp > math.floor(onethird(self._fp))):
+        raise RuntimeError("must use no more 1/3 of FPs as HFPs.")
 
   if self._maxturnrate != None:
       self._log("- turned at %s rate." % self._maxturnrate)
