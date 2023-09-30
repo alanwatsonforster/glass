@@ -3,6 +3,7 @@ Normal flight for the aircraft class.
 """
 
 import math
+from typing_extensions import LiteralString
 from airpower.math import onethird, twothirds
 
 import airpower.altitude as apaltitude
@@ -615,26 +616,27 @@ def _startnormalflight(self, actions):
     maxhfp = fp
     minvfp = 0
     maxvfp = fp
+    minunloadedhfp = 0
+    maxunloadedhfp = 0
 
     if flighttype == "LVL":
 
       # See rule 5.3.
       maxvfp = 0
     
-    if flighttype == "ZC" or flighttype == "SD":
+    elif flighttype == "ZC":
 
-      # See rules 8.1.1 and 8.2.1.
+      # See rules 8.1.1.
       minhfp = math.ceil(onethird(fp))
 
     elif flighttype == "SC":
 
-      # See the "SC Prerequisits and Limits" sections of rule 8.1.2.
+      # See rule 8.1.2.
       if self._speed < self.minspeed() + 1.0:
         raise RuntimeError("insufficient speed for SC.")
 
       climbcapability = self.climbcapability()
 
-      # See the "SC Prerequisits and Limits" sections of rule 8.1.2.
       if self._speed < self.climbspeed():
         climbcapability /= 2
       
@@ -643,33 +645,45 @@ def _startnormalflight(self, actions):
       if self._speed >= apspeed.m1speed(self._altitudeband):
         climbcapability = apaltitude.roundaltitudefraction(climbcapability * 2/3)
   
-      # See the "SC Altitude Gain" section of rule 8.1.2.
       if climbcapability < 1:
         maxvfp = 1
       else:
         maxvfp = math.floor(twothirds(fp))
 
-    elif flighttype == "VC":
+    elif flighttype == "VC" or flighttype == "VD":
 
-      # See the "VC Procedure and Limits" section of rule 8.1.3.
-      if lastflighttype != "VC":
+      # See rules 8.1.3 and 8.2.3.
+      if lastflighttype != flighttype:
         minhfp = math.floor(onethird(fp))
         maxhfp = minhfp
       else:
         maxhfp = math.floor(onethird(fp))
 
+    elif flighttype == "SD":
+
+      # See rules 8.2.1 and 8.2.3.
+      if lastflighttype == "VD":
+        minvfp = math.floor(self._speed / 2)
+      else:
+        minhfp = math.ceil(onethird(fp))    
+
     elif flighttype == "UL":
 
-      # See rule 8.2.2.
-      maxvfp = 0
+      # See rule 8.2.2 and 8.2.3.
+      if lastflighttype == "VD":
+        minunloadedfp = math.floor(self._speed / 2)
+      else:
+        maxvfp = 0
 
     assert minvfp == 0
     if maxvfp != fp:
-      assert minhfp == 0
-      assert maxhfp == fp
-      if maxvfp == 0:
-        self._log("- all FPs must be HFPs")
+      if minvfp == maxvfp:
+        self._log("- exactly %d FPs must be VFPs." % minvfp)
+      elif minvfp > 0:
+        assert maxvfp == fp
+        self._log("- at least %d FPs must be VFPs." % minvfp)
       else:
+        assert mincfp == 0
         self._log("- at most %d FPs can be VFPs." % maxvfp)
     else:
       assert maxvfp == fp
@@ -681,11 +695,22 @@ def _startnormalflight(self, actions):
       else:
         assert minhfp == 0
         self._log("- at most %d FPs can be HFPs." % maxhfp)
+
+    if minunloadedhfp == maxunloadedhfp:
+      self._log("- exactly %d FPs must be HFPs." % minunloadedhfp)
+    elif minunloadedhfp > 0:
+      assert maxunloadedhfp == fp
+      self._log("- at least %d FPs must be unloaded HFPs." % minunloadedhfp)
+    else:
+      assert minunloadedhfp == 0
+      self._log("- at most %d FPs can be unloaded HFPs." % maxunloadedhfp)    
     
     self._minhfp = minhfp
     self._maxhfp = maxhfp
     self._minvfp = minvfp
     self._maxvfp = maxvfp
+    self._minunloadedhfp = minunloadedhfp
+    self._maxunloadedhfp = maxunloadedhfp
 
   reportturn()
   determineallowedturnrates()
@@ -722,6 +747,8 @@ def _endnormalflight(self):
 
     if self._vfp > self._maxvfp:
       raise RuntimeError("too many VFPs.")
+
+    # TODO: check unloaded HFPs.
   
   def reportturn():
 
