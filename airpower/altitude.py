@@ -1,30 +1,28 @@
-# _altitudequantum must be 1 over an integral power of 2.
-_altitudequantum = 1/8
-
-def isvalidaltitude(altitude):
+def isvalidaltitude(x):
 
   """
   Return True if altitude is a valid altitude.
   """
-  return isinstance(altitude, (int, float)) and altitude % 1 == 0 and altitude >= 0
 
-def checkisvalidaltitude(altitude):
+  return isinstance(x, int) and 0 <= x
 
-  """
-  Raise a RuntimeError exception if z is not a valid altitude.
-  """
-
-  if not isvalidaltitude(altitude):
-    raise RuntimeError("%s is not a valid altitude." % altitude)
-
-def roundaltitudefraction(altitudefraction):
+def isvalidaltitudecarry(x):
 
   """
-  Round an altitude fraction to a multiple of _altitudequantum.
+  Return true if the argument is a valid altitude carry.
   """
-  
-  return _altitudequantum * (altitudefraction // _altitudequantum)
-  
+
+  return isinstance(x, (int, float)) and 0 <= x and x < 1
+
+def checkisvalidaltitude(x):
+
+  """
+  Raise a RuntimeError exception if the argument is not a valid altitude.
+  """
+
+  if not isvalidaltitude(x):
+    raise RuntimeError("%r is not a valid altitude." % x)
+
 def adjustaltitude(altitude, altitudecarry, altitudechange):
 
     """
@@ -32,51 +30,48 @@ def adjustaltitude(altitude, altitudecarry, altitudechange):
     Return the new altitude and altitudecarry. 
     """
 
-    # Here we do altitude arithmetic, ensuring that _altitude stays as an
-    # non-negative integer and keeping track of fractions in _altitudecarry. 
-    # We require altitude changes to be multiples of _altitudequantum.
+    # See rule 8.1.4.
 
-    # See the "Partial Altitude Gains" and "Altitude Carry" section of rule
-    # 8.1.4.
+    assert isvalidaltitude(altitude)
+    assert isvalidaltitudecarry(altitudecarry)
+    assert isinstance(altitudechange, (int, float))
 
-    assert altitude % 1 == 0 and altitude >= 0
-    assert abs(altitudecarry) < 1 and altitudecarry % _altitudequantum == 0
-    assert altitudechange % _altitudequantum == 0
+    if altitudechange < 0:
 
-    altitude = altitude + altitudecarry + altitudechange
-    if altitudechange >= 0:
-      altitudecarry = altitude % +1
+      # Carry is only for climbing.
+      assert altitudecarry == 0
+      assert altitudechange % 1 == 0
+      altitude += altitudechange
+
     else:
-      altitudecarry = altitude % -1
-    altitude = altitude - altitudecarry
+
+      altitude += altitudecarry + altitudechange
+      altitudecarry = altitude % 1
+
+    altitude = int(altitude)
+
+    # We're working in float, and altitudecarry can be multiples of 1/12
+    # (raw CC of 0.25 multipled by the supersonic factor of 2/3) which
+    # can give a rounding error. Therefore, we check against full
+    # altitude levels with a tolerance.
+
+    tolerance = 1e-6
+    if altitudecarry < tolerance:
+      altitudecarry = 0
+    elif altitudecarry > 1 - tolerance:
+      altitudecarry = 0
+      altitude += 1
 
     if altitude < 0:
       altitude = 0
       altitudecarry = 0
 
-    assert altitude % 1 == 0 and altitude >= 0
-    assert abs(altitudecarry) < 1 and altitudecarry % _altitudequantum == 0
+    print(altitude, altitudecarry, altitudechange)
+
+    assert isvalidaltitude(altitude)
+    assert isvalidaltitudecarry(altitudecarry)
 
     return altitude, altitudecarry
-
-def formataltitudecarry(altitudecarry):
-
-  """
-  Return altitudecarry formatted as a signed fraction.
-  """
-
-  assert abs(altitudecarry) < 1 and altitudecarry % _altitudequantum == 0
-
-  n = altitudecarry / _altitudequantum
-  m = 1 / _altitudequantum
-
-  if n == 0:
-    return "0"
-
-  while n % 2 == 0:
-    n = n / 2
-    m = m / 2
-  return "%+d/%d" % (n, m)
   
 def altitudeband(altitude):
 
@@ -84,9 +79,9 @@ def altitudeband(altitude):
   Return the altitude band corresponding to altitude.
   """
 
-  assert altitude % 1 == 0 and altitude >= 0
+  assert isvalidaltitude(altitude)
 
-  # See the "Altitude Structure" section in chapter 8.
+  # See rule 8.0.
 
   if altitude <= 7:
     return "LO"
@@ -108,5 +103,7 @@ def terrainaltitude():
   """
   Return the altitude of the terrain.
   """
+
+  # TODO: Have terrain with non-zero altitude.
 
   return 0

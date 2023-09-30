@@ -44,7 +44,7 @@ def climbcapability(self):
   climbcapability = self._aircraftdata.climbcapability(self._configuration, self._altitudeband, self._powersetting)
   # See rule 6.6 and rule 8.1.4.
   if self._speed >= apspeed.m1speed(self._altitudeband):
-    climbcapability = apaltitude.roundaltitudefraction(climbcapability * 2/3)
+    climbcapability *= 2/3
   return climbcapability
 
 def hasproperty(self, p):

@@ -474,8 +474,8 @@ def _startnormalflight(self, actions):
      self._log("- carrying %+.2f APs." % self._apcarry)
  
   def reportaltitudecarry():
-     if self._altitudecarry != 0:
-      self._log("- carrying %s altitude levels." % apaltitude.formataltitudecarry(self._altitudecarry))
+    if self._altitudecarry != 0:
+     self._log("- carrying %.2f altitude levels." % self._altitudecarry)
 
   def reportturn():
 
