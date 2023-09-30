@@ -508,9 +508,11 @@ def _startnormalflight(self, actions):
   else:
     self._log("- is banked %s." % self._bank)
 
-  # See rule 7.5 "Turning and Minimum Speeds"
 
   turnrates = self.turnrates()
+
+  # See rule 7.5 "Turning and Minimum Speeds"
+
   minspeed = self.minspeed()
   if self._speed == minspeed + 1.5 and "ET" in turnrates:
     self._log("- speed is limiting the turn rate to BT.")
@@ -537,11 +539,12 @@ def _startnormalflight(self, actions):
     self._log("- SC is limiting the turn rate to EZ.")
     turnrates = turnrates[:1]
 
-  self._log("- maximum allowed turn rate is %s." % turnrates[-1])
   self._allowedturnrates = turnrates
 
-  # Issue: The consequences of violating the turn requirements of ZC and ZC
-  # flight are not clear, but we assume they result in a maneuvering
+  # See rule 7.7 "Maneuvering Departures"
+
+  # Issue: The consequences of carried turn violating the turn requirements of 
+  # ZC and SC flight are not clear, but we assume they result in a maneuvering
   # departure.
 
   if self._turnrate != None and not self._turnrate in self._allowedturnrates:
