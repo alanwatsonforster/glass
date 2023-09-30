@@ -443,7 +443,7 @@ def _doaction(self, action):
     self._hfp += 1
   elif not actionvertical:
     raise RuntimeError("invalid action %r." % action)
-  elif self._hfp < self._requiredinitialhfp:
+  elif self._hfp < self._mininitialhfp:
     raise RuntimeError("insufficient initial HFPs.")
   else:
    self._vfp += 1
@@ -582,7 +582,7 @@ def _startnormalflight(self, actions):
     self._vfp     = 0
     self._spbrfp  = 0 
 
-  def determinerequiredinitialfp():
+  def determinemininitialhfp():
 
     # See rule 5.5.
 
@@ -590,31 +590,43 @@ def _startnormalflight(self, actions):
     lastflighttype = self._lastflighttype
   
     if lastflighttype == "LVL" and (_isclimbing(flighttype) or _isdiving(flighttype)):
-      requiredinitialhfp = 1
+      mininitialhfp = 1
     elif (_isclimbing(lastflighttype) and _isdiving(flighttype)) or (_isdiving(lastflighttype) and _isclimbing(flighttype)):
       if self.hasproperty("HPR"):
-        requiredinitialhfp = self._speed // 3
+        mininitialhfp = self._speed // 3
       else:
-        requiredinitialhfp = self._speed // 2
+        mininitialhfp = self._speed // 2
     else:
-      requiredinitialhfp = 0
-    if requiredinitialhfp == 1:
+      mininitialhfp = 0
+    if mininitialhfp == 1:
       self._log("- last flight type was %s so the first FP must be an HFP." % lastflighttype)
-    elif requiredinitialhfp > 1:
-      self._log("- last flight type was %s so the first %d FPs must be HFPs." % (lastflighttype, requiredinitialhfp))
-    self._requiredinitialhfp = requiredinitialhfp
+    elif mininitialhfp > 1:
+      self._log("- last flight type was %s so the first %d FPs must be HFPs." % (lastflighttype, mininitialhfp))
 
-  def reportrequiredfp():
+    self._mininitialhfp = mininitialhfp
+
+  def determinerequiredhfpvfpmix():
 
     flighttype     = self._flighttype
     lastflighttype = self._lastflighttype
+    fp             = self._fp
+
+    minhfp = 0
+    maxhfp = fp
+    minvfp = 0
+    maxvfp = fp
+
+    if flighttype == "LVL":
+
+      # See rule 5.3.
+      maxvfp = 0
     
-    if self._flighttype == "ZC" or self._flighttype == "SD":
+    if flighttype == "ZC" or flighttype == "SD":
 
       # See rules 8.1.1 and 8.2.1.
-      self._log("- must use at least %d HFPs." % math.ceil(onethird(self._fp)))
+      minhfp = math.ceil(onethird(fp))
 
-    elif self._flighttype == "SC":
+    elif flighttype == "SC":
 
       # See the "SC Prerequisits and Limits" sections of rule 8.1.2.
       if self._speed < self.minspeed() + 1.0:
@@ -633,30 +645,55 @@ def _startnormalflight(self, actions):
   
       # See the "SC Altitude Gain" section of rule 8.1.2.
       if climbcapability < 1:
-        self._log("- must use no more than 1 VFP.")
+        maxvfp = 1
       else:
-        self._log("- must use no more than %d VFPs." % math.floor(twothirds(self._fp)))
+        maxvfp = math.floor(twothirds(fp))
 
-    elif self._flighttype == "VC":
+    elif flighttype == "VC":
 
       # See the "VC Procedure and Limits" section of rule 8.1.3.
-      if self._lastflighttype != "VC":
-        self._log("- must use exactly %d HFPs." % math.floor(onethird(self._fp)))
+      if lastflighttype != "VC":
+        minhfp = math.floor(onethird(fp))
+        maxhfp = minhfp
       else:
-        self._log("- must use no more than %d HFPs." % math.floor(onethird(self._fp)))
+        maxhfp = math.floor(onethird(fp))
 
-    elif self._flighttype == "UL":
+    elif flighttype == "UL":
 
       # See rule 8.2.2.
-      self._log("- all FPs must be HFPs but at least one must be unloaded.")    
+      maxvfp = 0
+
+    assert minvfp == 0
+    if maxvfp != fp:
+      assert minhfp == 0
+      assert maxhfp == fp
+      if maxvfp == 0:
+        self._log("- all FPs must be HFPs")
+      else:
+        self._log("- at most %d FPs can be VFPs." % maxvfp)
+    else:
+      assert maxvfp == fp
+      if minhfp == maxhfp:
+        self._log("- exactly %d FPs must be HFPs." % minhfp)
+      elif minhfp > 0:
+        assert maxhfp == fp
+        self._log("- at least %d FPs must be HFPs." % minhfp)
+      else:
+        assert minhfp == 0
+        self._log("- at most %d FPs can be HFPs." % maxhfp)
+    
+    self._minhfp = minhfp
+    self._maxhfp = maxhfp
+    self._minvfp = minvfp
+    self._maxvfp = maxvfp
 
   reportturn()
   determineallowedturnrates()
   checkformaneuveringdeparture()
 
   determinefp()
-  determinerequiredinitialfp()
-  reportrequiredfp()
+  determinemininitialhfp()
+  determinerequiredhfpvfpmix()
       
   self._log("---")
   self._logposition("start", "")   
@@ -674,39 +711,18 @@ def _endnormalflight(self):
 
   def checkfp():
 
-    if self._flighttype == "ZC" or self._flighttype == "SD":
+    if self._hfp < self._minhfp:
+      raise RuntimeError("too few HFPs.")
 
-      # See rules 8.1.1 and 8.2.1.
-      if self._hfp < onethird(self._fp):
-        raise RuntimeError("must use at least 1/3 of FPs as HFPs.")
+    if self._hfp > self._maxhfp:
+      raise RuntimeError("too many HFPs.")  
+      
+    if self._vfp < self._minvfp:
+      raise RuntimeError("too few VFPs.")
 
-    elif self._flighttype == "SC":
-
-      # See rule 8.1.2
-      climbcapability = self.climbcapability();
-      if climbcapability < 1:
-        if self._vfp > 1:
-          raise RuntimeError("must use no more than 1 VFP.")
-      else:
-        if self._vfp > twothirds(self._fp):
-          self._log("must use no more than 2/3 of FPs as VFPs")
-
-    elif self._flighttype == "VC":
+    if self._vfp > self._maxvfp:
+      raise RuntimeError("too many VFPs.")
   
-      # See rule 8.1.3
-      if self._lastflighttype != "VC":
-        if (self._hfp != math.floor(onethird(self._fp))):
-          raise RuntimeError("must use exactly 1/3 of FPs as HFPs.")
-      else:
-        if (self._hfp > math.floor(onethird(self._fp))):
-          raise RuntimeError("must use no more 1/3 of FPs as HFPs.")
-
-    elif self._flighttype == "UL":
-
-      # See rule 8.2.2.
-      if (self._vfp != 0):
-        raise RuntimeError("all FPs must be HFPs.")
-
   def reportturn():
 
     if self._maxturnrate != None:
