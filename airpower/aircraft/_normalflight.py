@@ -33,7 +33,8 @@ def _doclimb(self, altitudechange):
     
   climbcapability = self.climbcapability()
 
-  # See the "Supersonic Climbs" section of rule 8.1.4.
+  # See the "Supersonic Effects on Climb Capability" section of rule 6.6 and the 
+  # "Supersonic Climbs" section of rule 8.1.4.
   if self._speed >= apspeed.m1speed(self._altitudeband):
     climbcapability = apaltitude.roundaltitudefraction(climbcapability * 2/3)
 
@@ -592,9 +593,9 @@ def _startnormalflight(self, actions):
 
   # See rules 8.1 and 8.2.
 
-  if self._flighttype == "ZC":
+  if self._flighttype == "ZC" or self._flighttype == "SD":
 
-    # See the "ZC Procedure" section of rule 8.1.1
+    # See rules 8.1.1 and 8.2.1.
     self._log("- must use at least %d HFPs." % math.ceil(onethird(self._fp)))
 
   elif self._flighttype == "SC":
@@ -609,7 +610,8 @@ def _startnormalflight(self, actions):
     if self._speed < self.climbspeed():
       climbcapability /= 2
       
-    # See the "Supersonic Climbs" section of rule 8.1.4.
+    # See the "Supersonic Effects on Climb Capability" section of rule 6.6 and the 
+    # "Supersonic Climbs" section of rule 8.1.4.
     if self._speed >= apspeed.m1speed(self._altitudeband):
       climbcapability = apaltitude.roundaltitudefraction(climbcapability * 2/3)
   
@@ -648,11 +650,14 @@ def _endnormalflight(self):
 
   # See rules 8.1 and 8.2.
 
-  if self._flighttype == "ZC":
-    # See rule 8.1.1
+  if self._flighttype == "ZC" or self._flighttype == "SD":
+
+    # See rules 8.1.1 and 8.2.1.
     if self._hfp < onethird(self._fp):
       raise RuntimeError("must use at least 1/3 of FPs as HFPs.")
+
   elif self._flighttype == "SC":
+
     # See rule 8.1.2
     climbcapability = self.climbcapability();
     if climbcapability < 1:
@@ -661,7 +666,9 @@ def _endnormalflight(self):
     else:
       if self._vfp > twothirds(self._fp):
         self._log("must use no more than 2/3 of FPs as VFPs")
+
   elif self._flighttype == "VC":
+
     # See rule 8.1.3
     if self._lastflighttype != "VC":
       if (self._hfp != math.floor(onethird(self._fp))):
