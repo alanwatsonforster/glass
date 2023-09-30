@@ -458,7 +458,7 @@ def _startnormalflight(self, actions):
 
   if self._turnrate != None and not self._turnrate in self._allowedturnrates:
     self._log("- carried turn rate is tighter than the maximum allowed turn rate.")
-    raise RuntimeError("aircraft has exceeded its maximum allowed turn rate and has entered a maneuvering departure.")
+    raise RuntimeError("aircraft has entered departured flight while maneuvering.")
          
   # See rule 5.5.
 
