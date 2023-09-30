@@ -271,6 +271,7 @@ class aircraft:
      self._lastconfiguration = self._configuration
      self._lastpowersetting  = self._powersetting
      self._lastflighttype    = self._flighttype
+     self._lastaltitude      = self._altitude
      self._lastaltitudeband  = self._altitudeband
      self._lastspeed         = self._speed
 

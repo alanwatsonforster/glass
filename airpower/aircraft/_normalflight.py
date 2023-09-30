@@ -30,6 +30,44 @@ def _doclimb(self, altitudechange):
 
   if not self._flighttype in ["ZC", "SC", "VC"]:
     raise RuntimeError("attempt to climb while flight type is %s." % self._flighttype)
+    
+  climbcapability = self._aircrafttype.climbcapability(self._configuration, self._altitudeband, self._powersetting)
+
+  if self._flighttype == "ZC":
+
+    # See the "ZC Altitude Gain" section of rule 8.1.1.
+
+    if climbcapability <= 2.0 and altitudechange > 1.0:
+      raise RuntimeError("climb capability does not permit changing %d levels per VFP." % altitudechange)
+
+  elif self._flighttype == "SC":
+
+    # See the "SC Altitude Gain" section of rule 8.1.2.
+
+    if climbcapability < 1.0:
+      if altitudechange > climbcapability:
+        raise RuntimeError("climb capability does not permit changing %d levels per VFP." % altitudechange)
+
+    elif climbcapability <= 2.0:
+
+      if self._altitude == self._lastaltitude and climbcapability % 1 != 0:
+        if altitudechange > climbcapability % 1:
+          raise RuntimeError("climb capability does not permit changing %d levels with the first VFP." % altitudechange)
+      elif altitudechange > 1:
+          raise RuntimeError("climb capability does not permit changing %d levels per VFP." % altitudechange)
+
+    else:
+
+      # See the "VC Altitude Gain" section of rule 8.1.3.
+
+      if altitudechange > 2:
+          raise RuntimeError("climb capability does not permit changing %d levels per VFP." % altitudechange)
+
+  else:
+
+      if altitudechange > 2:
+          raise RuntimeError("ZC does not permit changing %d levels per VFP." % altitudechange)
+
 
   initialaltitude = self._altitude    
   self._altitude, self._altitudecarry = apaltitude.adjustaltitude(self._altitude, self._altitudecarry, +altitudechange)
@@ -37,14 +75,31 @@ def _doclimb(self, altitudechange):
   altitudechange = self._altitude - initialaltitude
 
   if self._flighttype == "ZC":
+
+    # See the "ZC Decel Points" section of rule 8.1.1.
+
     if self._lastflighttype == "ZC":
       self._altitudeap -= 1.5 * altitudechange
     else:
       self._altitudeap -= 1.0 * altitudechange
+
   elif self._flighttype == "SC":
+
+    # See the "SC Decel Points" section of rule 8.1.1.
     # TODO: deceleration for climb in excess of CC
-    self._altitudeap -= 0.5 * altitudechange
+
+    i = initialaltitude
+    while i < self._altitude:
+      i += 1
+      if i <= self._lastaltitude + climbcapability:
+        self._altitudeap -= 0.5
+      else:
+        self._altitudeap -= 1.0
+
   elif self._flighttype == "VC":
+
+    # See the "VC Decel Points" section of rule 8.1.1.
+
     self._altitudeap -= 2.0 * altitudechange
 
 def _dodive(self, altitudechange):
@@ -526,7 +581,7 @@ def _endnormalflight(self):
 
   self._log("---")
 
-  self._log("- used %d HFPs and %d VFPs, lost %.1f FPs to speedbrakes, and is carrying %.1f FPs." % (
+  self._log("- used %d HFPs and %d VFPs, lost %.1f FPs to speedbrakes, and carrying %.1f FPs." % (
     self._hfp, self._vfp, self._spbrfp, self._fpcarry
   ))
 
