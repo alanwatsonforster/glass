@@ -20,8 +20,8 @@ def _startmovespeed(self, power, flamedoutfraction):
 
     # Determine the requested power setting and power AP
 
-    powerapM  = self._aircrafttype.power(self._configuration, "M")
-    powerapAB = self._aircrafttype.power(self._configuration, "AB")
+    powerapM  = self.power("M")
+    powerapAB = self.power("AB")
 
     # See rule 6.1.
 
@@ -79,10 +79,10 @@ def _startmovespeed(self, power, flamedoutfraction):
     # See the "Rapid Power Response" section of rule 6.1 and the "When Does a 
     # Jet Flame-Out?" section of rule 6.7
 
-    if lastpowersetting == "I" and powersetting == "AB" and not self._aircrafttype.hasproperty("RPR"):
+    if lastpowersetting == "I" and powersetting == "AB" and not self.hasproperty("RPR"):
       self._log("- risk of flame-out as power setting has increased from I to AB.")
 
-    if powersetting != "I" and self._altitude > self._aircrafttype.ceiling(self._configuration):
+    if powersetting != "I" and self._altitude > self.ceiling():
       self._log("- risk of flame-out as aircraft is above its ceiling and power setting is %s." % powersetting)
 
     if self._flighttype == "DP" and (powersetting == "M" or powersetting == "AB"):
@@ -95,7 +95,7 @@ def _startmovespeed(self, power, flamedoutfraction):
     m1speed = apspeed.m1speed(self._altitudeband)
     htspeed = apspeed.htspeed(self._altitudeband)
     ltspeed = apspeed.ltspeed(self._altitudeband)
-    minspeed = self._aircrafttype.minspeed(self._configuration, self._altitudeband)
+    minspeed = self.minspeed()
 
     if speed < ltspeed:
       self._log("speed is %.1f." % speed)
@@ -115,7 +115,7 @@ def _startmovespeed(self, power, flamedoutfraction):
     # See the "Idle" section of rule 6.1 and the "Supersonic Speeds" section of rule 6.6
 
     if powersetting == "I":
-      speedchange = self._aircrafttype.power(self._configuration, "I")
+      speedchange = self.power("I")
       if self._speed >= m1speed:
         speedchange += 0.5
       # This keeps the speed non-negative. See rule 6.2.
@@ -135,7 +135,7 @@ def _startmovespeed(self, power, flamedoutfraction):
 
     # See the "Decel Point Penalty for Insufficient Power" section of rule 6.1.
 
-    if speed > self._aircrafttype.cruisespeed():
+    if speed > self.cruisespeed():
       if powersetting == "I" or powersetting == "N":
         self._log("- insufficient power above cruise speed.")
         speedap -= 1.0
@@ -160,9 +160,9 @@ def _startmovespeed(self, power, flamedoutfraction):
         speedap -= 1.0
       elif speed == m1speed:
         speedap -= 1.5
-      if self._aircrafttype.hasproperty("LTD"):
+      if self.hasproperty("LTD"):
         speedap += 0.5
-      elif self._aircrafttype.hasproperty("HTD"):
+      elif self.hasproperty("HTD"):
         speedap -= 0.5
 
     ############################################################################
@@ -208,7 +208,7 @@ def _endmovespeed(self):
 
   if ap < 0:
     aprate = -2.0
-  elif self._aircrafttype.hasproperty("RA"):
+  elif self.hasproperty("RA"):
     if self._speed >= apspeed.m1speed(self._altitudeband):
       aprate = +2.0
     else:
@@ -238,10 +238,10 @@ def _endmovespeed(self):
     # section of rule 6.3.
 
     if self._flighttype == "LVL" or _isclimbing(self._flighttype):
-      maxspeed = self._aircrafttype.maxspeed(self._configuration, self._altitudeband)
+      maxspeed = self.maxspeed()
       maxspeedname = "maximum speed"
     elif _isdiving(self._flighttype) or self._flighttype == "ST":
-      maxspeed = self._aircrafttype.maxdivespeed(self._altitudeband)
+      maxspeed = self.maxdivespeed()
       maxspeedname = "maximum dive speed"
 
     if self._speed >= maxspeed and ap >= aprate:
@@ -261,7 +261,7 @@ def _endmovespeed(self):
 
     # See the "Speed Fadeback" section of rule 6.3.
 
-    maxspeed = self._aircrafttype.maxspeed(self._configuration, self._altitudeband)
+    maxspeed = self.maxspeed()
     if self._speed > maxspeed:
       self._log("- speed is faded back from %.1f." % self._speed)
       self._speed = max(self._speed - 1, maxspeed)
@@ -270,7 +270,7 @@ def _endmovespeed(self):
 
     # See the "Diving Speed Limits" section of rule 6.3.
 
-    maxspeed = self._aircrafttype.maxdivespeed(self._altitudeband)
+    maxspeed = self.maxdivespeed()
     if self._speed > maxspeed:
       self._log("- speed is reduced to maximum dive speed of %.1f." % maxspeed)
       self._speed = maxspeed
@@ -282,7 +282,7 @@ def _endmovespeed(self):
 
   # See rule 6.4.
 
-  minspeed = self._aircrafttype.minspeed(self._configuration, self._altitudeband)
+  minspeed = self.minspeed()
   if self._speed < minspeed:
     self._log("- speed is below the minimum of %.1f." % minspeed)
   if self._speed >= minspeed and self._flighttype == "ST":

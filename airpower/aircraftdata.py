@@ -1,11 +1,11 @@
 import json
 
-class aircrafttype:
+class aircraftdata:
 
   def __init__(self, name):
     self._name = name
     # TODO: Look for the file using a relative path.
-    filename = "/content/src/airpower/aircrafttypes/%s.json" % name
+    filename = "/content/src/airpower/aircraftdata/%s.json" % name
     # TODO: Handle errors.
     self._data = json.load(open(filename, "r", encoding="utf-8"))
     assert name == self._data["name"]
@@ -25,6 +25,9 @@ class aircrafttype:
     else:
       return self._data["powertable"]["FUEL"][setting]
   
+  def turnrates(self, configuration):
+    return ["EZ"] + list(self._data["turndragtable"][configuration].keys())
+
   def turndrag(self, configuration, turnrate):
     if not turnrate in self._data["turndragtable"][configuration]:
       return None
@@ -72,9 +75,6 @@ class aircrafttype:
     
   def hasproperty(self, p):
     return p in self._data["properties"]
-
-  def turnrates(self, configuration):
-    return ["EZ"] + list(self._data["turndragtable"][configuration].keys())
 
   def climbcapability(self, configuration, altitudeband, powersetting):
     if powersetting == "AB":

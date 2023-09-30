@@ -31,7 +31,7 @@ def _doclimb(self, altitudechange):
   if not self._flighttype in ["ZC", "SC", "VC"]:
     raise RuntimeError("attempt to climb while flight type is %s." % self._flighttype)
     
-  climbcapability = self._aircrafttype.climbcapability(self._configuration, self._altitudeband, self._powersetting)
+  climbcapability = self.climbcapability()
 
   if self._flighttype == "ZC":
 
@@ -184,7 +184,7 @@ def _dospeedbrakes(self, spbrfp):
   if spbrfp > maxspbrfp:
     raise RuntimeError("only %s FPs are remaining." % maxspbrfp)
     
-  maxspbrfp = self._aircrafttype.SPBR(self._configuration)
+  maxspbrfp = self.SPBR()
   if self._speed > apspeed.m1speed(self._altitudeband):
     maxspbrfp += 0.5
   if spbrfp > maxspbrfp:
@@ -271,7 +271,7 @@ def _doturn(self, sense, facingchange):
   if self._maxturnrate == "EZ":
     self._turnrateap = 0.0
   else:
-    self._turnrateap = -self._aircrafttype.turndrag(self._configuration, self._maxturnrate)
+    self._turnrateap = -self.turndrag(self._maxturnrate)
 
   # See the "Supersonic Speeds" section of rule 6.6.
   if self._speed >= apspeed.m1speed(self._altitudeband):
@@ -505,8 +505,8 @@ def _startnormalflight(self, actions):
 
   # See rule 7.5 "Turning and Minimum Speeds"
 
-  turnrates = self._aircrafttype.turnrates(self._configuration)
-  minspeed = self._aircrafttype.minspeed(self._configuration, self._altitudeband)
+  turnrates = self.turnrates()
+  minspeed = self.minspeed()
   if self._speed == minspeed + 1.5 and "ET" in turnrates:
     turnrates = turnrates[:4]
   elif self._speed == minspeed + 1.0 and "BT" in turnrates:
@@ -530,7 +530,7 @@ def _startnormalflight(self, actions):
   if lastflighttype == "LVL" and (_isclimbing(flighttype) or _isdiving(flighttype)):
     requiredinitialhfp = 1
   elif (_isclimbing(lastflighttype) and _isdiving(flighttype)) or (_isdiving(lastflighttype) and _isclimbing(flighttype)):
-    if self._aircrafttype.hasproperty("HPR"):
+    if self.hasproperty("HPR"):
       requiredinitialhfp = self._speed // 3
     else:
       requiredinitialhfp = self._speed // 2
@@ -555,7 +555,7 @@ def _startnormalflight(self, actions):
     self._log("- must use at least %d HFPs." % math.ceil(onethird(self._fp)))
   elif self._flighttype == "SC":
     # See rule 8.1.2
-    climbcapability = self._aircrafttype.climbcapability(self._configuration, self._altitudeband, self._powersetting)
+    climbcapability = self.climbcapability()
     if climbcapability < 1:
       self._log("- must use no more than 1 VFP.")
     else:
@@ -593,7 +593,7 @@ def _endnormalflight(self):
       raise RuntimeError("must use at least 1/3 of FPs as HFPs.")
   elif self._flighttype == "SC":
     # See rule 8.1.2
-    climbcapability = self._aircrafttype.climbcapability(self._configuration, self._altitudeband, self._powersetting)
+    climbcapability = self.climbcapability();
     if climbcapability < 1:
       if self._vfp > 1:
         raise RuntimeError("must use no more than 1 VFP.")

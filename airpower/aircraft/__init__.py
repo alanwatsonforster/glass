@@ -1,4 +1,4 @@
-import airpower.aircrafttype as apaircrafttype
+import airpower.aircraftdata as apaircraftdata
 import airpower.altitude     as apaltitude
 import airpower.azimuth      as apazimuth
 import airpower.draw         as apdraw
@@ -15,20 +15,27 @@ from ._normalflight import _isdiving, _isclimbing
     
 class aircraft:
 
+  from ._stalledflight  import _dostalledflight
   from ._departedflight import _dodepartedflight
-  from ._draw           import _drawaircraft, _drawflightpath
-  from ._log            import _log, _logposition, _logevent, _logbreak
   from ._normalflight   import \
     _startnormalflight, _continuenormalflight, _endnormalflight, \
     _doaction, _doelements, _getelementdispatchlist, \
     _doattack, _doclimb, _dodive, _dohorizontal, _dojettison, _dokilled, \
     _dobank, _dodeclareturn, _doturn, _dospeedbrakes
   from ._speed          import _startmovespeed, _endmovespeed
-  from ._stalledflight  import _dostalledflight
+
+  from ._flightcapabilities import \
+    power, SPBR, fuelrate, turnrates, turndrag, \
+    minspeed, maxspeed, cruisespeed, climbspeed, maxdivespeed, ceiling, \
+    rollhfp, rolldrag, climbcapability, hasproperty
+
+  from ._draw           import _drawaircraft, _drawflightpath
+  from ._log            import _log, _logposition, _logevent, _logbreak
+
 
   #############################################################################
 
-  def __init__(self, name, aircrafttype, hexcode, azimuth, altitude, speed, configuration="CL"):
+  def __init__(self, name, aircraftdata, hexcode, azimuth, altitude, speed, configuration="CL"):
 
     aplog.clearerror()
     try:
@@ -59,7 +66,7 @@ class aircraft:
       self._turnfp        = 0
       self._fpcarry       = 0
       self._apcarry       = 0
-      self._aircrafttype  = apaircrafttype.aircrafttype(aircrafttype)
+      self._aircraftdata  = apaircraftdata.aircraftdata(aircraftdata)
       self._destroyed     = False
       self._leftmap       = False
       self._turnsstalled  = 0
@@ -214,7 +221,7 @@ class aircraft:
 
     self._log("flight type is %s." % flighttype)
 
-    minspeed = self._aircrafttype.minspeed(self._configuration, self._altitudeband)
+    minspeed = self.minspeed()
 
     if lastflighttype == "DP" and flighttype != "DP":
 
@@ -222,7 +229,7 @@ class aircraft:
 
       if _isclimbing(flighttype):
         raise RuntimeError("flight type immediately after DP must not be climbing.")
-      elif flighttype == "LVL" and not self._aircrafttype.hasproperty("HPR"):
+      elif flighttype == "LVL" and not self.hasproperty("HPR"):
         raise RuntimeError("flight type immediately after DP must not be level.")
 
     elif self._speed < minspeed:
