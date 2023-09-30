@@ -5,7 +5,7 @@ import matplotlib.pyplot as plt
 matplotlib.rcParams['figure.figsize'] = [7.5, 10]
 plt.rcParams.update({'font.size': 10})
 
-_donotdraw = True
+_donotdraw = False
 
 def setcanvas(x, y):
   global _donotdraw
