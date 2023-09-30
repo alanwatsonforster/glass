@@ -400,7 +400,7 @@ class aircraft:
       if self._flighttype != "DP":
         self._log("- carrying %+.2f APs" % self._apcarry)
       if self._flighttype != "ST" and self._flighttype != "DP":
-        self._log("- carrying %.1f HPs." % self._fpcarry)
+        self._log("- carrying %.1f FPs." % self._fpcarry)
    
     self._save(apturn.turn())
 
