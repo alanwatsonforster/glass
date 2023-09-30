@@ -3,6 +3,7 @@ Normal flight for the aircraft class.
 """
 
 import math
+from airpower.math import onethird, twothirds
 
 import airpower.altitude as apaltitude
 import airpower.hex      as aphex
@@ -23,6 +24,9 @@ def _doclimb(self, altitudechange):
   """
   Climb.
   """
+
+  # See the "Climbs or Dives Only" section of chapter 8 "Changing Aircraft 
+  # Altitude".
 
   if not self._flighttype in ["ZC", "SC", "VC"]:
     raise RuntimeError("attempt to climb while flight type is %s." % self._flighttype)
@@ -49,6 +53,9 @@ def _dodive(self, altitudechange):
   Dive.
   """
 
+  # See the "Climbs or Dives Only" section of chapter 8 "Changing Aircraft 
+  # Altitude" and rule 8.2.4 "Free Descent".
+  
   if not self._flighttype in ["LVL", "SD", "UD", "VD"]:
     raise RuntimeError("attempt to dive while flight type is %s." % self._flighttype)
 
@@ -486,6 +493,11 @@ def _startnormalflight(self, actions):
   self._fpcarry = 0
   self._log("- has %.1f FPs (including %.1f carry)." % (self._fp, self._fpcarry))
 
+  # See rules 8.1 and 8.2.
+
+  if self._flighttype == "ZC":
+    self._log("- must use at least %.1f HFPs." % onethird(self._fp))
+
   self._hfp     = 0
   self._vfp     = 0
   self._spbrfp  = 0 
@@ -504,6 +516,12 @@ def _endnormalflight(self):
   self._log("- used %d HFPs and %d VFPs, lost %.1f FPs to speedbrakes, and is carrying %.1f FPs." % (
     self._hfp, self._vfp, self._spbrfp, self._fpcarry
   ))
+
+  # See rules 8.1 and 8.2.
+
+  if self._flighttype == "ZC":
+    if self._hfp < onethird(self._fp):
+      raise RuntimeError("must use at least 1/3 of FPs as HFPs.")
 
   if self._maxturnrate != None:
       self._log("- turned at %s rate." % self._maxturnrate)
