@@ -288,6 +288,7 @@ class aircraft:
      self._lastflighttype    = self._flighttype
      self._lastaltitude      = self._altitude
      self._lastaltitudeband  = self._altitudeband
+     self._lastaltitudecarry = self._altitudecarry
      self._lastspeed         = self._speed
 
      # These account for the APs associated with power, speed, speed-brakes, 

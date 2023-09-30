@@ -656,7 +656,7 @@ def _startnormalflight(self, actions):
         self._log("- at most %d FPs can be HFPs." % maxhfp)
 
     if minunloadedhfp == maxunloadedhfp:
-      self._log("- exactly %d FPs must be HFPs." % minunloadedhfp)
+      self._log("- exactly %d FPs must be unloaded HFPs." % minunloadedhfp)
     elif minunloadedhfp > 0:
       assert maxunloadedhfp == fp
       self._log("- at least %d FPs must be unloaded HFPs." % minunloadedhfp)
@@ -739,21 +739,38 @@ def _endnormalflight(self):
 
     elif flighttype == "SC":
 
+      if altitudechange == 0:
 
-      # See rule 8.1.2 and 8.1.4.
-      if altitudechange < 1:
-        altitudeap = 0
-      elif altitudechange == 1:
-        # This was either a SC with a CC of 1 or the result of multiple
-        # turns of SC with a CC of less then 1.
-        altitudeap = -0.5
+        altitudeap = 0.0
+
       else:
+
+        # See rule 8.1.2 and 8.1.4.
+
         climbcapability = self.climbcapability()
         if self._speed < self.climbspeed():
           climbcapability /= 2
-        altitudeap = -0.5 * max(altitudechange, climbcapability)
-        if (altitudechange > climbcapability):
-          altitudeap += -1.0 * (altitudechange - climbcapability)
+
+        # We need to figure out how much was climbed at the SC rate and
+        # how much was climbed at the ZC rate. This is complicated since
+        # altitudechange can be more than the climbcapability because of
+        # altitudecarry. Therefore, we calculate how much was at the ZC
+        # rate from the true altitude change, including carry, and then
+        # assume that any difference was at the SC rate.
+        # 
+        # We also use that the altitude change at the ZC rate must be an
+        # integral number of levels.
+
+        truealtitude     = self._altitude     + self._altitudecarry
+        lasttruealtitude = self._lastaltitude + self._lastaltitudecarry
+
+        truealtitudechange = truealtitude - lasttruealtitude
+
+        scaltitudechange = min(truealtitudechange, climbcapability)
+        zcaltitudechange = int(truealtitudechange - scaltitudechange + 0.5)
+        scaltitudechange = altitudechange - zcaltitudechange
+
+        altitudeap = -0.5 * scaltitudechange + -1.0 * zcaltitudechange
 
     elif flighttype == "VC":
 
@@ -785,6 +802,9 @@ def _endnormalflight(self):
 
       # See rule 8.2.4.
       altitudeap = 0
+
+    # Round to nearest 0.25. See rule 6.2.
+    altitudeap = int(altitudeap * 4 + 0.5) / 4
 
     self._altitudeap = altitudeap
 
