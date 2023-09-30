@@ -500,7 +500,7 @@ def _startnormalflight(self, actions):
   """
   Start to carry out normal flight.
   """
-  
+
   if self._turnfp > 0 and self._turnrate != None:
     self._log("- is turning %s at %s rate with %d FPs carried." % (self._bank, self._turnrate, self._turnfp))
   elif self._bank == None:
@@ -513,15 +513,36 @@ def _startnormalflight(self, actions):
   turnrates = self.turnrates()
   minspeed = self.minspeed()
   if self._speed == minspeed + 1.5 and "ET" in turnrates:
+    self._log("- speed is limiting the turn rate to BT.")
     turnrates = turnrates[:4]
   elif self._speed == minspeed + 1.0 and "BT" in turnrates:
+    self._log("- speed is limiting the turn rate to HT.")
     turnrates = turnrates[:3]
   elif self._speed == minspeed + 0.5 and "HT" in turnrates:
+    self._log("- speed is limiting the turn rate to TT.")
     turnrates = turnrates[:2]
   elif self._speed == minspeed and "TT" in turnrates:
-     turnrates = turnrates[:1]
+    self._log("- speed is limiting the turn rate to EZ.")
+    turnrates = turnrates[:1]
+
+  # See the "ZC Restrictions" section of rule 8.1.1.
+
+  if self._flighttype == "ZC" and "ET" in turnrates:
+    self._log("- ZC is limiting the turn rate to BT.")
+    turnrates = turnrates[:4]
+
+  # See the "SC Restrictions" section of rule 8.1.1.
+
+  if self._flighttype == "SC" and "EZ" in turnrates:
+    self._log("- SC is limiting the turn rate to EZ.")
+    turnrates = turnrates[:1]
+
   self._log("- maximum allowed turn rate is %s." % turnrates[-1])
   self._allowedturnrates = turnrates
+
+  # Issue: The consequences of violating the turn requirements of ZC and ZC
+  # flight are not clear, but we assume they result in a maneuvering
+  # departure.
 
   if self._turnrate != None and not self._turnrate in self._allowedturnrates:
     self._log("- carried turn rate is tighter than the maximum allowed turn rate.")
