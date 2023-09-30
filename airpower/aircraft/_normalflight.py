@@ -683,7 +683,7 @@ def _startnormalflight(self, actions):
         assert maxvfp == fp
         self._log("- at least %d FPs must be VFPs." % minvfp)
       else:
-        assert mincfp == 0
+        assert minvfp == 0
         self._log("- at most %d FPs can be VFPs." % maxvfp)
     else:
       assert maxvfp == fp
