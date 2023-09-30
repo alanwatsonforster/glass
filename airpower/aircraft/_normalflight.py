@@ -509,129 +509,154 @@ def _startnormalflight(self, actions):
   Start to carry out normal flight.
   """
 
-  if self._turnfp > 0 and self._turnrate != None:
-    self._log("- is turning %s at %s rate with %d FPs carried." % (self._bank, self._turnrate, self._turnfp))
-  elif self._bank == None:
-    self._log("- has wings level.")
-  else:
-    self._log("- is banked %s." % self._bank)
+  def reportturn():
 
-
-  turnrates = self.turnrates()
-
-  # See rule 7.5 "Turning and Minimum Speeds"
-
-  minspeed = self.minspeed()
-  if self._speed == minspeed + 1.5 and "ET" in turnrates:
-    self._log("- speed is limiting the turn rate to BT.")
-    turnrates = turnrates[:4]
-  elif self._speed == minspeed + 1.0 and "BT" in turnrates:
-    self._log("- speed is limiting the turn rate to HT.")
-    turnrates = turnrates[:3]
-  elif self._speed == minspeed + 0.5 and "HT" in turnrates:
-    self._log("- speed is limiting the turn rate to TT.")
-    turnrates = turnrates[:2]
-  elif self._speed == minspeed and "TT" in turnrates:
-    self._log("- speed is limiting the turn rate to EZ.")
-    turnrates = turnrates[:1]
-
-  # See the "ZC Restrictions" section of rule 8.1.1.
-
-  if self._flighttype == "ZC" and "ET" in turnrates:
-    self._log("- ZC is limiting the turn rate to BT.")
-    turnrates = turnrates[:4]
-
-  # See the "SC Restrictions" section of rule 8.1.1.
-
-  if self._flighttype == "SC" and "EZ" in turnrates:
-    self._log("- SC is limiting the turn rate to EZ.")
-    turnrates = turnrates[:1]
-
-  # See the "VC Restrictions" section of rule 8.1.3.
-
-  if self._flighttype == "VC" and "EZ" in turnrates:
-    self._log("- VC disallows all turns.")
-    turnrates = []
-
-  self._allowedturnrates = turnrates
-
-  # See rule 7.7 "Maneuvering Departures"
-
-  # Issue: The consequences of carried turn violating the turn requirements of 
-  # ZC, SC, and VC flight are not clear, but for the moment we assume they 
-  # result in a maneuvering departure.
-
-  if self._turnrate != None and not self._turnrate in self._allowedturnrates:
-    self._log("- carried turn rate is tighter than the maximum allowed turn rate.")
-    raise RuntimeError("aircraft has entered departured flight while maneuvering.")
-         
-  # See rule 5.5.
-
-  flighttype     = self._flighttype
-  lastflighttype = self._lastflighttype
-  
-  if lastflighttype == "LVL" and (_isclimbing(flighttype) or _isdiving(flighttype)):
-    requiredinitialhfp = 1
-  elif (_isclimbing(lastflighttype) and _isdiving(flighttype)) or (_isdiving(lastflighttype) and _isclimbing(flighttype)):
-    if self.hasproperty("HPR"):
-      requiredinitialhfp = self._speed // 3
+    if self._turnfp > 0 and self._turnrate != None:
+      self._log("- is turning %s at %s rate with %d FPs carried." % (self._bank, self._turnrate, self._turnfp))
+    elif self._bank == None:
+      self._log("- has wings level.")
     else:
-      requiredinitialhfp = self._speed // 2
-  else:
-    requiredinitialhfp = 0
-  if requiredinitialhfp == 1:
-    self._log("- last flight type was %s so the first FP must be an HFP." % lastflighttype)
-  elif requiredinitialhfp > 1:
-    self._log("- last flight type was %s so the first %d FPs must be HFPs." % (lastflighttype, requiredinitialhfp))
-  self._requiredinitialhfp = requiredinitialhfp
+      self._log("- is banked %s." % self._bank)
 
-  # See rule 5.4.
+  def determineallowedturnrates():
 
-  self._fp      = self._speed + self._fpcarry
-  self._fpcarry = 0
-  self._log("- has %.1f FPs (including %.1f carry)." % (self._fp, self._fpcarry))
+    turnrates = self.turnrates()
 
-  # See rules 8.1 and 8.2.
+    # See rule 7.5 "Turning and Minimum Speeds"
 
-  if self._flighttype == "ZC" or self._flighttype == "SD":
+    minspeed = self.minspeed()
+    if self._speed == minspeed + 1.5 and "ET" in turnrates:
+      self._log("- speed is limiting the turn rate to BT.")
+      turnrates = turnrates[:4]
+    elif self._speed == minspeed + 1.0 and "BT" in turnrates:
+      self._log("- speed is limiting the turn rate to HT.")
+      turnrates = turnrates[:3]
+    elif self._speed == minspeed + 0.5 and "HT" in turnrates:
+      self._log("- speed is limiting the turn rate to TT.")
+      turnrates = turnrates[:2]
+    elif self._speed == minspeed and "TT" in turnrates:
+      self._log("- speed is limiting the turn rate to EZ.")
+      turnrates = turnrates[:1]
 
-    # See rules 8.1.1 and 8.2.1.
-    self._log("- must use at least %d HFPs." % math.ceil(onethird(self._fp)))
+    # See the "ZC Restrictions" section of rule 8.1.1.
 
-  elif self._flighttype == "SC":
+    if self._flighttype == "ZC" and "ET" in turnrates:
+      self._log("- ZC is limiting the turn rate to BT.")
+      turnrates = turnrates[:4]
 
-    # See the "SC Prerequisits and Limits" sections of rule 8.1.2.
-    if self._speed < self.minspeed() + 1.0:
-      raise RuntimeError("insufficient speed for SC.")
+    # See the "SC Restrictions" section of rule 8.1.1.
 
-    climbcapability = self.climbcapability()
+    if self._flighttype == "SC" and "EZ" in turnrates:
+      self._log("- SC is limiting the turn rate to EZ.")
+      turnrates = turnrates[:1]
 
-    # See the "SC Prerequisits and Limits" sections of rule 8.1.2.
-    if self._speed < self.climbspeed():
-      climbcapability /= 2
+    # See the "VC Restrictions" section of rule 8.1.3.
+
+    if self._flighttype == "VC" and "EZ" in turnrates:
+      self._log("- VC disallows all turns.")
+      turnrates = []
+
+    self._allowedturnrates = turnrates
+
+  def checkformaneuveringdeparture():
+
+    # See rule 7.7 "Maneuvering Departures"
+
+    # Issue: The consequences of carried turn violating the turn requirements of 
+    # ZC, SC, and VC flight are not clear, but for the moment we assume they 
+    # result in a maneuvering departure.
+
+    if self._turnrate != None and not self._turnrate in self._allowedturnrates:
+      self._log("- carried turn rate is tighter than the maximum allowed turn rate.")
+      raise RuntimeError("aircraft has entered departured flight while maneuvering.")
+
+  def determinefp():
+
+    # See rule 5.4.
+
+    self._fp      = self._speed + self._fpcarry
+    self._log("- has %.1f FPs (including %.1f carry)." % (self._fp, self._fpcarry))
+    self._fpcarry = 0
+
+    self._hfp     = 0
+    self._vfp     = 0
+    self._spbrfp  = 0 
+
+  def determinerequiredinitialfp():
+
+    # See rule 5.5.
+
+    flighttype     = self._flighttype
+    lastflighttype = self._lastflighttype
+  
+    if lastflighttype == "LVL" and (_isclimbing(flighttype) or _isdiving(flighttype)):
+      requiredinitialhfp = 1
+    elif (_isclimbing(lastflighttype) and _isdiving(flighttype)) or (_isdiving(lastflighttype) and _isclimbing(flighttype)):
+      if self.hasproperty("HPR"):
+        requiredinitialhfp = self._speed // 3
+      else:
+        requiredinitialhfp = self._speed // 2
+    else:
+      requiredinitialhfp = 0
+    if requiredinitialhfp == 1:
+      self._log("- last flight type was %s so the first FP must be an HFP." % lastflighttype)
+    elif requiredinitialhfp > 1:
+      self._log("- last flight type was %s so the first %d FPs must be HFPs." % (lastflighttype, requiredinitialhfp))
+    self._requiredinitialhfp = requiredinitialhfp
+
+  def reportrequiredfp():
+
+    flighttype     = self._flighttype
+    lastflighttype = self._lastflighttype
+    
+    if self._flighttype == "ZC" or self._flighttype == "SD":
+
+      # See rules 8.1.1 and 8.2.1.
+      self._log("- must use at least %d HFPs." % math.ceil(onethird(self._fp)))
+
+    elif self._flighttype == "SC":
+
+      # See the "SC Prerequisits and Limits" sections of rule 8.1.2.
+      if self._speed < self.minspeed() + 1.0:
+        raise RuntimeError("insufficient speed for SC.")
+
+      climbcapability = self.climbcapability()
+
+      # See the "SC Prerequisits and Limits" sections of rule 8.1.2.
+      if self._speed < self.climbspeed():
+        climbcapability /= 2
       
-    # See the "Supersonic Effects on Climb Capability" section of rule 6.6 and the 
-    # "Supersonic Climbs" section of rule 8.1.4.
-    if self._speed >= apspeed.m1speed(self._altitudeband):
-      climbcapability = apaltitude.roundaltitudefraction(climbcapability * 2/3)
+      # See the "Supersonic Effects on Climb Capability" section of rule 6.6 and the 
+      # "Supersonic Climbs" section of rule 8.1.4.
+      if self._speed >= apspeed.m1speed(self._altitudeband):
+        climbcapability = apaltitude.roundaltitudefraction(climbcapability * 2/3)
   
-    # See the "SC Altitude Gain" section of rule 8.1.2.
-    if climbcapability < 1:
-      self._log("- must use no more than 1 VFP.")
-    else:
-      self._log("- must use no more than %d VFPs." % math.floor(twothirds(self._fp)))
+      # See the "SC Altitude Gain" section of rule 8.1.2.
+      if climbcapability < 1:
+        self._log("- must use no more than 1 VFP.")
+      else:
+        self._log("- must use no more than %d VFPs." % math.floor(twothirds(self._fp)))
 
-  elif self._flighttype == "VC":
+    elif self._flighttype == "VC":
 
-    # See the "VC Procedure and Limits" section of rule 8.1.3.
-    if self._lastflighttype != "VC":
-      self._log("- must use exactly %d HFPs." % math.floor(onethird(self._fp)))
-    else:
-      self._log("- must use no more than %d HFPs." % math.floor(onethird(self._fp)))
+      # See the "VC Procedure and Limits" section of rule 8.1.3.
+      if self._lastflighttype != "VC":
+        self._log("- must use exactly %d HFPs." % math.floor(onethird(self._fp)))
+      else:
+        self._log("- must use no more than %d HFPs." % math.floor(onethird(self._fp)))
 
-  self._hfp     = 0
-  self._vfp     = 0
-  self._spbrfp  = 0 
+    elif self._flighttype == "UL":
+
+      # See rule 8.2.2.
+      self._log("- all FPs must be HFPs but at least one must be unloaded.")    
+
+  reportturn()
+  determineallowedturnrates()
+  checkformaneuveringdeparture()
+
+  determinefp()
+  determinerequiredinitialfp()
+  reportrequiredfp()
       
   self._log("---")
   self._logposition("start", "")   
@@ -642,50 +667,63 @@ def _startnormalflight(self, actions):
 
 def _endnormalflight(self):
 
-  self._log("---")
+  def reportfp():
+    self._log("- used %d HFPs and %d VFPs, lost %.1f FPs to speedbrakes, and carrying %.1f FPs." % (
+      self._hfp, self._vfp, self._spbrfp, self._fpcarry
+    ))    
 
-  self._log("- used %d HFPs and %d VFPs, lost %.1f FPs to speedbrakes, and carrying %.1f FPs." % (
-    self._hfp, self._vfp, self._spbrfp, self._fpcarry
-  ))
+  def checkfp():
 
-  # See rules 8.1 and 8.2.
+    if self._flighttype == "ZC" or self._flighttype == "SD":
 
-  if self._flighttype == "ZC" or self._flighttype == "SD":
+      # See rules 8.1.1 and 8.2.1.
+      if self._hfp < onethird(self._fp):
+        raise RuntimeError("must use at least 1/3 of FPs as HFPs.")
 
-    # See rules 8.1.1 and 8.2.1.
-    if self._hfp < onethird(self._fp):
-      raise RuntimeError("must use at least 1/3 of FPs as HFPs.")
+    elif self._flighttype == "SC":
 
-  elif self._flighttype == "SC":
+      # See rule 8.1.2
+      climbcapability = self.climbcapability();
+      if climbcapability < 1:
+        if self._vfp > 1:
+          raise RuntimeError("must use no more than 1 VFP.")
+      else:
+        if self._vfp > twothirds(self._fp):
+          self._log("must use no more than 2/3 of FPs as VFPs")
 
-    # See rule 8.1.2
-    climbcapability = self.climbcapability();
-    if climbcapability < 1:
-      if self._vfp > 1:
-        raise RuntimeError("must use no more than 1 VFP.")
-    else:
-      if self._vfp > twothirds(self._fp):
-        self._log("must use no more than 2/3 of FPs as VFPs")
+    elif self._flighttype == "VC":
+  
+      # See rule 8.1.3
+      if self._lastflighttype != "VC":
+        if (self._hfp != math.floor(onethird(self._fp))):
+          raise RuntimeError("must use exactly 1/3 of FPs as HFPs.")
+      else:
+        if (self._hfp > math.floor(onethird(self._fp))):
+          raise RuntimeError("must use no more 1/3 of FPs as HFPs.")
 
-  elif self._flighttype == "VC":
+    elif self._flighttype == "UL":
 
-    # See rule 8.1.3
-    if self._lastflighttype != "VC":
-      if (self._hfp != math.floor(onethird(self._fp))):
-        raise RuntimeError("must use exactly 1/3 of FPs as HFPs.")
-    else:
-      if (self._hfp > math.floor(onethird(self._fp))):
-        raise RuntimeError("must use no more 1/3 of FPs as HFPs.")
+      # See rule 8.2.2.
+      if (self._vfp != 0):
+        raise RuntimeError("all FPs must be HFPs.")
 
-  if self._maxturnrate != None:
+  def reportturn():
+
+    if self._maxturnrate != None:
       self._log("- turned at %s rate." % self._maxturnrate)
 
-  if self._turnfp > 0 and self._turnrate != None:
-    self._log("- finished turning %s at %s rate with %d FPs carried." % (self._bank, self._turnrate, self._turnfp))
-  elif self._bank == None:
-    self._log("- finished with wings level.")
-  else:
-    self._log("- finished banked %s." % self._bank)
+    if self._turnfp > 0 and self._turnrate != None:
+      self._log("- finished turning %s at %s rate with %d FPs carried." % (self._bank, self._turnrate, self._turnfp))
+    elif self._bank == None:
+      self._log("- finished with wings level.")
+    else:
+      self._log("- finished banked %s." % self._bank)    
+
+  self._log("---")
+
+  reportfp()
+  checkfp()
+  reportturn()
 
   self._endmove()
 
