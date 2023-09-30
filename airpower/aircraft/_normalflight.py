@@ -496,7 +496,15 @@ def _startnormalflight(self, actions):
   # See rules 8.1 and 8.2.
 
   if self._flighttype == "ZC":
-    self._log("- must use at least %.1f HFPs." % onethird(self._fp))
+    # See rule 8.1.1
+    self._log("- must use at least %d HFPs." % math.ceil(onethird(self._fp)))
+  elif self._flighttype == "SC":
+    # See rule 8.1.2
+    climbcapability = self._aircrafttype.climbcapability(self._configuration, self._altitudeband, self._powersetting)
+    if climbcapability < 1:
+      self._log("- must use no more than 1 VFP.")
+    else:
+      self._log("- must use no more than %d VFPs." % math.floor(twothirds(self._fp)))
 
   self._hfp     = 0
   self._vfp     = 0
@@ -520,8 +528,18 @@ def _endnormalflight(self):
   # See rules 8.1 and 8.2.
 
   if self._flighttype == "ZC":
+    # See rule 8.1.1
     if self._hfp < onethird(self._fp):
       raise RuntimeError("must use at least 1/3 of FPs as HFPs.")
+  elif self._flighttype == "SC":
+    # See rule 8.1.2
+    climbcapability = self._aircrafttype.climbcapability(self._configuration, self._altitudeband, self._powersetting)
+    if climbcapability < 1:
+      if self._vfp > 1:
+        raise RuntimeError("must use no more than 1 VFP.")
+    else:
+      if self._vfp > twothirds(self._fp):
+        self._log("must use no more than 2/3 of FPs as VFPs")
 
   if self._maxturnrate != None:
       self._log("- turned at %s rate." % self._maxturnrate)

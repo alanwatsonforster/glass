@@ -76,3 +76,12 @@ class aircrafttype:
   def turnrates(self, configuration):
     return ["EZ"] + list(self._data["turndragtable"][configuration].keys())
 
+  def climbcapability(self, configuration, altitudeband, powersetting):
+    if powersetting == "AB":
+      climbcapacity = self._data["climbcapabilitytable"][configuration][altitudeband]["AB"]
+    else:
+      climbcapacity = self._data["climbcapabilitytable"][configuration][altitudeband]["Other"]
+    if climbcapacity == 0:
+      return None
+    else:
+      return climbcapacity

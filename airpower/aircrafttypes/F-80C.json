@@ -30,5 +30,10 @@
   "climbspeed": 3.0,
   "maxdivespeedtable": { "LO": 6.5, "ML": 6.5, "MH": 6.5, "HI": 6.5, "VH": 6.0, "EH": 0.0 },
   "ceilingtable": { "CL": 45, "1/2": 40, "DT": 35 },
+  "climbcapabilitytable": {
+    "CL" : { "LO": { "AB": 0.0, "Other": 1.0 }, "ML": { "AB": 0.0, "Other": 1.0 }, "MH": { "AB": 0.0, "Other": 0.5 }, "HI": { "AB": 0.0, "Other": 0.5 }, "VH": { "AB": 0.0, "Other": 0.5  }, "EH": { "AB": 0.0, "Other": 0.0 } },
+    "1/2": { "LO": { "AB": 0.0, "Other": 1.0 }, "ML": { "AB": 0.0, "Other": 0.5 }, "MH": { "AB": 0.0, "Other": 0.5 }, "HI": { "AB": 0.0, "Other": 0.5 }, "VH": { "AB": 0.0, "Other": 0.5  }, "EH": { "AB": 0.0, "Other": 0.0 } },
+    "DT" : { "LO": { "AB": 0.0, "Other": 0.5 }, "ML": { "AB": 0.0, "Other": 0.5 }, "MH": { "AB": 0.0, "Other": 0.5 }, "HI": { "AB": 0.0, "Other": 0.5 }, "VH": { "AB": 0.0, "Other": 0.0 }, "EH": { "AB": 0.0, "Other": 0.0 } }
+  },
   "properties": [ "HTD" ]
 }
