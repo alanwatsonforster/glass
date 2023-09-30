@@ -42,6 +42,11 @@ def _doclimb(self, altitudechange):
 
   elif self._flighttype == "SC":
 
+    # See the "SC Prerequisits and Limits" section of rule 8.1.2.
+
+    if self._speed < self.climbspeed():
+      climbcapability /= 2
+
     # See the "SC Altitude Gain" section of rule 8.1.2.
 
     if climbcapability < 1.0:
@@ -551,16 +556,29 @@ def _startnormalflight(self, actions):
   # See rules 8.1 and 8.2.
 
   if self._flighttype == "ZC":
-    # See rule 8.1.1
+
+    # See the "ZC Procedure" section of rule 8.1.1
     self._log("- must use at least %d HFPs." % math.ceil(onethird(self._fp)))
+
   elif self._flighttype == "SC":
-    # See rule 8.1.2
+
+    # See the "SC Altitude Gain" and "SC Prerequisits and Limits sections of rule 8.1.2.
+
+    if self._speed < self.minspeed() + 1.0:
+      raise RuntimeError("insufficient speed for SC.")
+
     climbcapability = self.climbcapability()
+    print(climbcapability)
+    if self._speed < self.climbspeed():
+      climbcapability /= 2      
     if climbcapability < 1:
       self._log("- must use no more than 1 VFP.")
     else:
       self._log("- must use no more than %d VFPs." % math.floor(twothirds(self._fp)))
+
   elif self._flighttype == "VC":
+
+    # See the "VC Procedure and Limits" section of rule 8.1.3.
     if self._lastflighttype != "VC":
       self._log("- must use exactly %d HFPs." % math.floor(onethird(self._fp)))
     else:
