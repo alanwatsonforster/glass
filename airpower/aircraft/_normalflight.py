@@ -33,6 +33,10 @@ def _doclimb(self, altitudechange):
     
   climbcapability = self.climbcapability()
 
+  # See the "Supersonic Climbs" section of rule 8.1.4.
+  if self._speed >= apspeed.m1speed(self._altitudeband):
+    climbcapability = apaltitude.roundaltitudefraction(climbcapability * 2/3)
+
   if self._flighttype == "ZC":
 
     # See the "ZC Altitude Gain" section of rule 8.1.1.
@@ -218,6 +222,9 @@ def _dodeclareturn(self, sense, turnrate):
 
   if self._bank != None and self._bank != sense:
     raise RuntimeError("attempt to declare a turn while not banked correctly.")
+
+  if self._allowedturnrates == []:
+    raise RuntimeError("turns are forbidded.")
 
   turnrates = ["EZ", "TT", "HT", "BT", "ET"]
   assert turnrate in turnrates
@@ -539,13 +546,19 @@ def _startnormalflight(self, actions):
     self._log("- SC is limiting the turn rate to EZ.")
     turnrates = turnrates[:1]
 
+  # See the "VC Restrictions" section of rule 8.1.3.
+
+  if self._flighttype == "VC" and "EZ" in turnrates:
+    self._log("- VC disallows all turns.")
+    turnrates = []
+
   self._allowedturnrates = turnrates
 
   # See rule 7.7 "Maneuvering Departures"
 
   # Issue: The consequences of carried turn violating the turn requirements of 
-  # ZC and SC flight are not clear, but we assume they result in a maneuvering
-  # departure.
+  # ZC, SC, and VC flight are not clear, but for the moment we assume they 
+  # result in a maneuvering departure.
 
   if self._turnrate != None and not self._turnrate in self._allowedturnrates:
     self._log("- carried turn rate is tighter than the maximum allowed turn rate.")
@@ -586,15 +599,21 @@ def _startnormalflight(self, actions):
 
   elif self._flighttype == "SC":
 
-    # See the "SC Altitude Gain" and "SC Prerequisits and Limits sections of rule 8.1.2.
-
+    # See the "SC Prerequisits and Limits" sections of rule 8.1.2.
     if self._speed < self.minspeed() + 1.0:
       raise RuntimeError("insufficient speed for SC.")
 
     climbcapability = self.climbcapability()
-    print(climbcapability)
+
+    # See the "SC Prerequisits and Limits" sections of rule 8.1.2.
     if self._speed < self.climbspeed():
-      climbcapability /= 2      
+      climbcapability /= 2
+      
+    # See the "Supersonic Climbs" section of rule 8.1.4.
+    if self._speed >= apspeed.m1speed(self._altitudeband):
+      climbcapability = apaltitude.roundaltitudefraction(climbcapability * 2/3)
+  
+    # See the "SC Altitude Gain" section of rule 8.1.2.
     if climbcapability < 1:
       self._log("- must use no more than 1 VFP.")
     else:

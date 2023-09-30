@@ -17,6 +17,14 @@ def checkisvalidaltitude(altitude):
   if not isvalidaltitude(altitude):
     raise RuntimeError("%s is not a valid altitude." % altitude)
 
+def roundaltitudefraction(altitudefraction):
+
+  """
+  Round an altitude fraction to a multiple of _altitudequantum.
+  """
+  
+  return _altitudequantum * (altitudefraction // _altitudequantum)
+  
 def adjustaltitude(altitude, altitudecarry, altitudechange):
 
     """
@@ -27,6 +35,9 @@ def adjustaltitude(altitude, altitudecarry, altitudechange):
     # Here we do altitude arithmetic, ensuring that _altitude stays as an
     # non-negative integer and keeping track of fractions in _altitudecarry. 
     # We require altitude changes to be multiples of _altitudequantum.
+
+    # See the "Partial Altitude Gains" and "Altitude Carry" section of rule
+    # 8.1.4.
 
     assert altitude % 1 == 0 and altitude >= 0
     assert abs(altitudecarry) < 1 and altitudecarry % _altitudequantum == 0
