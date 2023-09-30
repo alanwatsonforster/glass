@@ -252,6 +252,14 @@ class aircraft:
       if _isclimbing(flighttype):
         raise RuntimeError("flight type immediately after ST must not be climbing.")
 
+    elif flighttype == "VC":
+
+      # See the "VC Prerequisites" section of rule 8.1.3.
+
+      if _isdiving(self._lastflighttype):
+        raise RuntimeError("flight type immediately after diving cannot be VC.")
+      elif self._lastflighttype == "LVL" and not (self.hasproperty("HPR") and self._speed < 4.0):
+        raise RuntimeError("flight type immediately after LVL cannot be VC.")
   
   ##############################################################################
 
