@@ -75,6 +75,8 @@ def altitudeband(altitude):
 
   assert altitude % 1 == 0 and altitude >= 0
 
+  # See the "Altitude Structure" section in chapter 8.
+
   if altitude <= 7:
     return "LO"
   elif altitude <= 16:
