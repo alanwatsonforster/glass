@@ -313,11 +313,12 @@ class aircraft:
      self._powerap,         \
      self._speedap          = self._startmovespeed(power, flamedoutfraction)
 
+     if not _isclimbing(self._flighttype):
+       # See rule 8.1.4.
+       self._altitudecarry = 0
+        
      self._log("configuration is %s." % self._configuration)
      self._log("altitude band is %s." % self._altitudeband)
-     self._log("carrying %+.2f APs and %s altitude levels." % (
-       self._apcarry, apaltitude.formataltitudecarry(self._altitudecarry)
-     ))
       
      if self._flighttype == "ST":
 
@@ -329,6 +330,7 @@ class aircraft:
      elif self._flighttype == "DP":
 
        self._fpcarry = 0
+       self._apcarry = 0
        self._turnsdeparted += 1
        self._dodepartedflight(actions)
        self._endmove()
@@ -393,10 +395,13 @@ class aircraft:
       else:
         self._log("altitude band is unchanged at %s." % self._altitudeband)
 
-      self._log("carrying %+.2f APs and %s altitude levels." % (
-        self._apcarry, apaltitude.formataltitudecarry(self._altitudecarry)
-      ))
-
+      if self._altitudecarry != 0:
+        self._log("- carrying %s altitude levels." % apaltitude.formataltitudecarry(self._altitudecarry))
+      if self._flighttype != "DP":
+        self._log("- carrying %+.2f APs" % self._apcarry)
+      if self._flighttype != "ST" and self._flighttype != "DP":
+        self._log("- carrying %.1f HPs." % self._fpcarry)
+   
     self._save(apturn.turn())
 
     self._log("--- end of move -- ")

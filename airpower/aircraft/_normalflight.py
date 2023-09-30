@@ -470,6 +470,13 @@ def _startnormalflight(self, actions):
   Start to carry out normal flight.
   """
 
+  def reportapcarry():
+     self._log("- carrying %+.2f APs." % self._apcarry)
+ 
+  def reportaltitudecarry():
+     if self._altitudecarry != 0:
+      self._log("- carrying %s altitude levels." % apaltitude.formataltitudecarry(self._altitudecarry))
+
   def reportturn():
 
     if self._turnfp > 0 and self._turnrate != None:
@@ -664,6 +671,8 @@ def _startnormalflight(self, actions):
     self._minunloadedhfp = minunloadedhfp
     self._maxunloadedhfp = maxunloadedhfp
 
+  reportapcarry()
+  reportaltitudecarry()
   reportturn()
   determineallowedturnrates()
   checkformaneuveringdeparture()
@@ -682,8 +691,8 @@ def _startnormalflight(self, actions):
 def _endnormalflight(self):
 
   def reportfp():
-    self._log("- used %d HFPs and %d VFPs, lost %.1f FPs to speedbrakes, and carrying %.1f FPs." % (
-      self._hfp, self._vfp, self._spbrfp, self._fpcarry
+    self._log("- used %d HFPs and %d VFPs (lost %.1f FPs to speedbrakes)." % (
+      self._hfp, self._vfp, self._spbrfp
     ))    
 
   def checkfp():

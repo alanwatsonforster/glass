@@ -14,6 +14,7 @@ def _dostalledflight(self, action):
 
   # See rule 6.4.
       
+  self._log("- carrying %+.2f APs." % self._apcarry)
   self._log("---")
   self._logposition("start", "")
 
