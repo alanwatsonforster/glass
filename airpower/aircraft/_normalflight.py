@@ -5,9 +5,9 @@ Normal flight for the aircraft class.
 import math
 
 import airpower.altitude as apaltitude
-import airpower.data     as apdata
 import airpower.hex      as aphex
 import airpower.speed    as apspeed
+import airpower.turnrate as apturnrate
 import airpower.variants as apvariants
 
 def _doattack(self, weapon):
@@ -176,7 +176,7 @@ def _doturn(self, sense, facingchange):
       self._turnfp -= 1
       self._bank = sense
 
-    minturnrate = apdata.determineturnrate(self._altitudeband, self._speed, self._turnfp, facingchange)
+    minturnrate = apturnrate.determineturnrate(self._altitudeband, self._speed, self._turnfp, facingchange)
     if minturnrate == None:
       raise RuntimeError("attempt to turn faster than the maximum turn rate.")
 
@@ -190,7 +190,7 @@ def _doturn(self, sense, facingchange):
     if self._bank != sense:
       raise RuntimeError("attempt to turn against the sense of the declared turn.")
 
-    minturnrate = apdata.determineturnrate(self._altitudeband, self._speed, self._turnfp, facingchange)
+    minturnrate = apturnrate.determineturnrate(self._altitudeband, self._speed, self._turnfp, facingchange)
     if minturnrate == None:
       raise RuntimeError("attempt to turn faster than the maximum turn rate.")
 

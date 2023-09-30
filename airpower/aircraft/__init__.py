@@ -1,13 +1,13 @@
 import airpower.aircrafttype as apaircrafttype
 import airpower.altitude     as apaltitude
 import airpower.azimuth      as apazimuth
-import airpower.data         as apdata
 import airpower.draw         as apdraw
 import airpower.hex          as aphex
 import airpower.hexcode      as aphexcode
 import airpower.log          as aplog
 import airpower.map          as apmap
 import airpower.turn         as apturn
+import airpower.turnrate     as apturnrate
 
 import math
 
