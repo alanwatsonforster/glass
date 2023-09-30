@@ -26,10 +26,9 @@ def _doclimb(self, altitudechange):
   Climb.
   """
 
-  def checkaltitudechange():
+  def determinealtitudechange(altitudechange):
 
-    assert altitudechange > 0.0
-    assert altitudechange <= 2.0
+    assert altitudechange == 1 or altitudechange == 2
 
     flighttype     = self._flighttype
     lastflighttype = self._lastflighttype  
@@ -39,9 +38,9 @@ def _doclimb(self, altitudechange):
     if flighttype == "ZC":
 
       # See rule 8.1.1.
-      if climbcapability <= 2.0 and altitudechange != 1.0:
+      if climbcapability <= 2 and altitudechange != 1:
         raise RuntimeError("invalid altitude change in climb.")
-      elif altitudechange != 1.0 and altitudechange != 2.0:
+      elif altitudechange != 1 and altitudechange != 2:
         raise RuntimeError("invalid altitude change in climb.")
 
     elif flighttype == "SC":
@@ -49,28 +48,26 @@ def _doclimb(self, altitudechange):
       # See rule 8.1.2.
       if self._speed < self.climbspeed():
         climbcapability /= 2
-      if climbcapability < 1.0:
-        if altitudechange > climbcapability:
-          raise RuntimeError("invalid altitude change in climb.")
-      elif climbcapability <= 2.0:
-        if self._altitude == self._lastaltitude and climbcapability % 1 != 0:
-          if altitudechange > climbcapability % 1:
-            raise RuntimeError("invalid altitude change in climb.")
-        elif altitudechange > 1:
-          raise RuntimeError("invalid altitude change in climb.")
-      else:
-        if altitudechange != 1.0 and altitudechange != 2.0:
-          raise RuntimeError("invalid altitude change in climb.")
+      if climbcapability < 2.0 and altitudechange == 2:
+        raise RuntimeError("invalid altitude change in climb.")
+      if self._altitude == self._lastaltitude and climbcapability % 1 != 0:
+        # First VFP with fractional climb capability.
+        altitudechange = climbcapability % 1
 
-    elif flighttype == "ZC":
+    elif flighttype == "VC":
 
-      if altitudechange != 1.0 and altitudechange != 2.0:
+      # See rule 8.1.3.
+      if altitudechange != 1 and altitudechange != 2:
         raise RuntimeError("invalid altitude change in climb.")
 
     else:
 
       # See rule 8.0.
       raise RuntimeError("attempt to climb while flight type is %s." % self._flighttype)
+
+    return altitudechange
+
+  altitudechange = determinealtitudechange(altitudechange)
     
   self._altitude, self._altitudecarry = apaltitude.adjustaltitude(self._altitude, self._altitudecarry, +altitudechange)
   self._altitudeband = apaltitude.altitudeband(self._altitude)
@@ -83,7 +80,7 @@ def _dodive(self, altitudechange):
 
   def checkaltitudechange():
 
-    assert altitudechange > 0.0
+    assert altitudechange == 1 or altitudechange == 2 or altitudechange == 3
 
     flighttype     = self._flighttype
     lastflighttype = self._lastflighttype    
@@ -91,25 +88,25 @@ def _dodive(self, altitudechange):
     if flighttype == "SD":
 
       # See rule 8.2.1.
-      if altitudechange != 1.0 and altitudechange != 2.0:
+      if altitudechange != 1 and altitudechange != 2:
         raise RuntimeError("attempt to dive levels per VFP while the flight type is SC.")
   
     elif flighttype == "UD":
 
       # See rule 8.2.2.
-      if altitudechange != 1.0:
+      if altitudechange != 1:
         raise RuntimeError("attempt to dive %d levels per unloaded HFP while the flight type is UL.")
 
     elif flighttype == "VD":
 
       # See rule 8.2.3.
-      if altitudechange != 2.0 or altitudechange != 3.0: 
+      if altitudechange != 2 or altitudechange != 3: 
         raise RuntimeError("attempt to dive %d levels per VFP while the flight type is VD.")
 
     elif flighttype == "LVL":
 
       # See rule 8.2.4.
-      if altitudechange != 1.0:
+      if altitudechange != 1:
         raise RuntimeError("attempt to descend of %d level while flight type is LVL.")
 
     else:
@@ -305,25 +302,11 @@ def _getelementdispatchlist(self):
     
     ["H"   , "H"               , lambda: self._dohorizontal() ],
 
-    ["C1/8", "C or D"          , lambda: self._doclimb(1/8) ],
-    ["C1/4", "C or D"          , lambda: self._doclimb(1/4) ],
-    ["C3/8", "C or D"          , lambda: self._doclimb(3/8) ],
-    ["C1/2", "C or D"          , lambda: self._doclimb(1/2) ],
-    ["C5/8", "C or D"          , lambda: self._doclimb(5/8) ],
-    ["C3/4", "C or D"          , lambda: self._doclimb(3/4) ],
-    ["C7/8", "C or D"          , lambda: self._doclimb(7/8) ],
     ["C1"  , "C or D"          , lambda: self._doclimb(1) ],
     ["C2"  , "C or D"          , lambda: self._doclimb(2) ],
     ["CC"  , "C or D"          , lambda: self._doclimb(2) ],
     ["C"   , "C or D"          , lambda: self._doclimb(1) ],
 
-    ["D1/8", "C or D"          , lambda: self._dodive(1/8) ],
-    ["D1/4", "C or D"          , lambda: self._dodive(1/4) ],
-    ["D3/8", "C or D"          , lambda: self._dodive(3/8) ],
-    ["D1/2", "C or D"          , lambda: self._dodive(1/2) ],
-    ["D5/8", "C or D"          , lambda: self._dodive(5/8) ],
-    ["D3/4", "C or D"          , lambda: self._dodive(3/4) ],
-    ["D7/8", "C or D"          , lambda: self._dodive(7/8) ],
     ["D1"  , "C or D"          , lambda: self._dodive(1) ],
     ["D2"  , "C or D"          , lambda: self._dodive(2) ],
     ["D3"  , "C or D"          , lambda: self._dodive(3) ],
