@@ -1,8 +1,8 @@
 def power(self, powersetting):
   return self._aircraftdata.power(self._configuration, powersetting)
 
-def SPBR(self):
-  return self._aircraftdata.SPBR(self._configuration)
+def spbr(self):
+  return self._aircraftdata.spbr(self._configuration)
 
 def fuelrate(self):
   return self._aircraftdata.fuelrate(self._powersetting)

@@ -16,7 +16,7 @@ class aircraftdata:
     else:
       return self._data["powertable"][configuration][setting]
 
-  def SPBR(self, configuration):
+  def spbr(self, configuration):
     return self._data["powertable"][configuration]["SPBR"]
 
   def fuelrate(self, setting):

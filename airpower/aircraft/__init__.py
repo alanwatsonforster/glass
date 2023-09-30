@@ -25,7 +25,7 @@ class aircraft:
   from ._speed          import _startmovespeed, _endmovespeed
 
   from ._flightcapabilities import \
-    power, SPBR, fuelrate, turnrates, turndrag, \
+    power, spbr, fuelrate, turnrates, turndrag, \
     minspeed, maxspeed, cruisespeed, climbspeed, maxdivespeed, ceiling, \
     rollhfp, rolldrag, climbcapability, hasproperty
 

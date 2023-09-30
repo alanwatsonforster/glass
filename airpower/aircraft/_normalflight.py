@@ -184,7 +184,7 @@ def _dospeedbrakes(self, spbrfp):
   if spbrfp > maxspbrfp:
     raise RuntimeError("only %s FPs are remaining." % maxspbrfp)
     
-  maxspbrfp = self.SPBR()
+  maxspbrfp = self.spbr()
   if self._speed > apspeed.m1speed(self._altitudeband):
     maxspbrfp += 0.5
   if spbrfp > maxspbrfp:
