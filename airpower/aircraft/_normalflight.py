@@ -26,92 +26,54 @@ def _doclimb(self, altitudechange):
   Climb.
   """
 
-  # See the "Climbs or Dives Only" section of chapter 8 "Changing Aircraft 
-  # Altitude".
+  def checkaltitudechange():
 
-  if not self._flighttype in ["ZC", "SC", "VC"]:
-    raise RuntimeError("attempt to climb while flight type is %s." % self._flighttype)
+    assert altitudechange > 0.0
+    assert altitudechange <= 2.0
+
+    flighttype     = self._flighttype
+    lastflighttype = self._lastflighttype  
     
-  climbcapability = self.climbcapability()
+    climbcapability = self.climbcapability()
 
-  # See the "Supersonic Effects on Climb Capability" section of rule 6.6 and the 
-  # "Supersonic Climbs" section of rule 8.1.4.
-  if self._speed >= apspeed.m1speed(self._altitudeband):
-    climbcapability = apaltitude.roundaltitudefraction(climbcapability * 2/3)
+    if flighttype == "ZC":
 
-  if self._flighttype == "ZC":
+      # See rule 8.1.1.
+      if climbcapability <= 2.0 and altitudechange != 1.0:
+        raise RuntimeError("invalid altitude change in climb.")
+      elif altitudechange != 1.0 and altitudechange != 2.0:
+        raise RuntimeError("invalid altitude change in climb.")
 
-    # See the "ZC Altitude Gain" section of rule 8.1.1.
+    elif flighttype == "SC":
 
-    if climbcapability <= 2.0 and altitudechange > 1.0:
-      raise RuntimeError("climb capability does not permit changing %d levels per VFP." % altitudechange)
-
-  elif self._flighttype == "SC":
-
-    # See the "SC Prerequisits and Limits" section of rule 8.1.2.
-
-    if self._speed < self.climbspeed():
-      climbcapability /= 2
-
-    # See the "SC Altitude Gain" section of rule 8.1.2.
-
-    if climbcapability < 1.0:
-      if altitudechange > climbcapability:
-        raise RuntimeError("climb capability does not permit changing %d levels per VFP." % altitudechange)
-
-    elif climbcapability <= 2.0:
-
-      if self._altitude == self._lastaltitude and climbcapability % 1 != 0:
-        if altitudechange > climbcapability % 1:
-          raise RuntimeError("climb capability does not permit changing %d levels with the first VFP." % altitudechange)
-      elif altitudechange > 1:
-          raise RuntimeError("climb capability does not permit changing %d levels per VFP." % altitudechange)
-
-    else:
-
-      # See the "VC Altitude Gain" section of rule 8.1.3.
-
-      if altitudechange > 2:
-          raise RuntimeError("climb capability does not permit changing %d levels per VFP." % altitudechange)
-
-  else:
-
-      if altitudechange > 2:
-          raise RuntimeError("ZC does not permit changing %d levels per VFP." % altitudechange)
-
-
-  initialaltitude = self._altitude    
-  self._altitude, self._altitudecarry = apaltitude.adjustaltitude(self._altitude, self._altitudecarry, +altitudechange)
-  self._altitudeband  = apaltitude.altitudeband(self._altitude)
-  altitudechange = self._altitude - initialaltitude
-
-  if self._flighttype == "ZC":
-
-    # See the "ZC Decel Points" section of rule 8.1.1.
-
-    if self._lastflighttype == "ZC":
-      self._altitudeap -= 1.5 * altitudechange
-    else:
-      self._altitudeap -= 1.0 * altitudechange
-
-  elif self._flighttype == "SC":
-
-    # See the "SC Decel Points" section of rule 8.1.1.
-    # TODO: deceleration for climb in excess of CC
-
-    i = initialaltitude
-    while i < self._altitude:
-      i += 1
-      if i <= self._lastaltitude + climbcapability:
-        self._altitudeap -= 0.5
+      # See rule 8.1.2.
+      if self._speed < self.climbspeed():
+        climbcapability /= 2
+      if climbcapability < 1.0:
+        if altitudechange > climbcapability:
+          raise RuntimeError("invalid altitude change in climb.")
+      elif climbcapability <= 2.0:
+        if self._altitude == self._lastaltitude and climbcapability % 1 != 0:
+          if altitudechange > climbcapability % 1:
+            raise RuntimeError("invalid altitude change in climb.")
+        elif altitudechange > 1:
+          raise RuntimeError("invalid altitude change in climb.")
       else:
-        self._altitudeap -= 1.0
+        if altitudechange != 1.0 and altitudechange != 2.0:
+          raise RuntimeError("invalid altitude change in climb.")
 
-  elif self._flighttype == "VC":
+    elif flighttype == "ZC":
 
-    # See the "VC Decel Points" section of rule 8.1.1.
+      if altitudechange != 1.0 and altitudechange != 2.0:
+        raise RuntimeError("invalid altitude change in climb.")
 
-    self._altitudeap -= 2.0 * altitudechange
+    else:
+
+      # See rule 8.0.
+      raise RuntimeError("attempt to climb while flight type is %s." % self._flighttype)
+    
+  self._altitude, self._altitudecarry = apaltitude.adjustaltitude(self._altitude, self._altitudecarry, +altitudechange)
+  self._altitudeband = apaltitude.altitudeband(self._altitude)
 
 def _dodive(self, altitudechange):
 
@@ -119,31 +81,46 @@ def _dodive(self, altitudechange):
   Dive.
   """
 
-  # See the "Climbs or Dives Only" section of chapter 8 "Changing Aircraft 
-  # Altitude" and rule 8.2.4 "Free Descent".
-  
-  if not self._flighttype in ["LVL", "SD", "UD", "VD"]:
-    raise RuntimeError("attempt to dive while flight type is %s." % self._flighttype)
+  def checkaltitudechange():
 
-  initialaltitude = self._altitude    
+    assert altitudechange > 0.0
+
+    flighttype     = self._flighttype
+    lastflighttype = self._lastflighttype    
+
+    if flighttype == "SD":
+
+      # See rule 8.2.1.
+      if altitudechange != 1.0 and altitudechange != 2.0:
+        raise RuntimeError("attempt to dive levels per VFP while the flight type is SC.")
+  
+    elif flighttype == "UD":
+
+      # See rule 8.2.2.
+      if altitudechange != 1.0:
+        raise RuntimeError("attempt to dive %d levels per unloaded HFP while the flight type is UL.")
+
+    elif flighttype == "VD":
+
+      # See rule 8.2.3.
+      if altitudechange != 2.0 or altitudechange != 3.0: 
+        raise RuntimeError("attempt to dive %d levels per VFP while the flight type is VD.")
+
+    elif flighttype == "LVL":
+
+      # See rule 8.2.4.
+      if altitudechange != 1.0:
+        raise RuntimeError("attempt to descend of %d level while flight type is LVL.")
+
+    else:
+
+      # See rule 8.0.
+      raise RuntimeError("attempt to dive while flight type is %s." % self._flighttype)
+    
+  checkaltitudechange()
+
   self._altitude, self._altitudecarry = apaltitude.adjustaltitude(self._altitude, self._altitudecarry, -altitudechange)
   self._altitudeband = apaltitude.altitudeband(self._altitude)
-  altitudechange = initialaltitude - self._altitude
-
-  if self._flighttype == "LVL":
-    pass
-  elif self._flighttype == "SD":
-    if self._lastflighttype == "SD":
-      self._altitudeap += 1.0 * altitudechange
-    else:
-      self._altitudeap += 0.5 * altitudechange
-  elif self._flighttype == "UD":
-    if self._lastflighttype == "UD":
-      self._altitudeap += 1.0 * altitudechange
-    else:
-      self._altitudeap += 0.5 * altitudechange
-  elif self._flighttype == "VD":
-    self._altitudeap += 1.0 * altitudechange
 
 def _dohorizontal(self):
 
@@ -634,17 +611,9 @@ def _startnormalflight(self, actions):
       # See rule 8.1.2.
       if self._speed < self.minspeed() + 1.0:
         raise RuntimeError("insufficient speed for SC.")
-
       climbcapability = self.climbcapability()
-
       if self._speed < self.climbspeed():
         climbcapability /= 2
-      
-      # See the "Supersonic Effects on Climb Capability" section of rule 6.6 and the 
-      # "Supersonic Climbs" section of rule 8.1.4.
-      if self._speed >= apspeed.m1speed(self._altitudeband):
-        climbcapability = apaltitude.roundaltitudefraction(climbcapability * 2/3)
-  
       if climbcapability < 1:
         maxvfp = 1
       else:
@@ -764,9 +733,68 @@ def _endnormalflight(self):
 
   self._log("---")
 
+  def determinealtitudeap():
+
+    altitudechange = self._altitude - self._lastaltitude
+
+    if flighttype == "ZC":
+
+      # See rule 8.1.1.
+      if lastflighttype == "ZC":
+        altitudeap = -1.5 * altitudechange
+      else:
+        altitudeap = -1.0 * altitudechange
+
+    elif flighttype == "SC":
+
+      # See rule 8.1.2.
+      climbcapability = self.climbcapability()
+      if self._speed < self.climbspeed():
+        climbcapability /= 2
+      altitudeap = -0.5 * max(altitudechange, climbcapability)
+      if (altitudechange > climbcapability):
+        self._altitudeap += -1.0 * (altitudechange - climbcapability)
+
+    elif flighttype == "VC":
+
+      # See rule 8.1.3.
+      altitudeap = -2.0 * altitudechange
+
+    elif flighttype == "SD":
+
+      # See rule 8.2.1.
+      if lastflighttype == "SD":
+        altitudeap = -1.0 * altitudechange
+      else:
+        altitudeap = -0.5 * altitudechange
+
+    elif flighttype == "UD":
+
+      # See rule 8.2.2.
+      if lastflighttype == "UD":
+        altitudeap = -1.0 * altitudechange
+      else:
+        altitudeap = -0.5 * altitudechange
+
+    elif flighttype == "VD":
+
+      # See rule 8.2.3
+      altitudeap = -1.0 * altitudechange
+
+    elif flighttype == "LVL":
+
+      # See rule 8.2.4.
+      altitudeap = 0
+
+    self._altitudeap = altitudeap
+
+  flighttype     = self._flighttype
+  lastflighttype = self._lastflighttype
+
   reportfp()
   checkfp()
   reportturn()
+  determinealtitudeap()
 
   self._endmove()
 

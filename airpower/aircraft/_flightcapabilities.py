@@ -1,3 +1,6 @@
+import airpower.speed    as apspeed
+import airpower.altitude as apaltitude
+
 def power(self, powersetting):
   return self._aircraftdata.power(self._configuration, powersetting)
 
@@ -38,7 +41,11 @@ def rolldrag(self, rolltype):
   return self._aircraftdata.rolldrag(rolltype)
 
 def climbcapability(self):
-  return self._aircraftdata.climbcapability(self._configuration, self._altitudeband, self._powersetting)
-  
+  climbcapability = self._aircraftdata.climbcapability(self._configuration, self._altitudeband, self._powersetting)
+  # See rule 6.6 and rule 8.1.4.
+  if self._speed >= apspeed.m1speed(self._altitudeband):
+    climbcapability = apaltitude.roundaltitudefraction(climbcapability * 2/3)
+  return climbcapability
+
 def hasproperty(self, p):
   return self._aircraftdata.hasproperty(p)
