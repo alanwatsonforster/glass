@@ -66,8 +66,6 @@ def adjustaltitude(altitude, altitudecarry, altitudechange):
       altitude = 0
       altitudecarry = 0
 
-    print(altitude, altitudecarry, altitudechange)
-
     assert isvalidaltitude(altitude)
     assert isvalidaltitudecarry(altitudecarry)
 
