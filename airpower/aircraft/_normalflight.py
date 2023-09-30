@@ -50,7 +50,7 @@ def _doclimb(self, altitudechange):
         climbcapability /= 2
       if climbcapability < 2.0 and altitudechange == 2:
         raise RuntimeError("invalid altitude change in climb.")
-      if self._altitude == self._lastaltitude and climbcapability % 1 != 0:
+      if self._vfp == 0 and climbcapability % 1 != 0:
         # First VFP with fractional climb capability.
         altitudechange = climbcapability % 1
 
@@ -739,13 +739,21 @@ def _endnormalflight(self):
 
     elif flighttype == "SC":
 
-      # See rule 8.1.2.
-      climbcapability = self.climbcapability()
-      if self._speed < self.climbspeed():
-        climbcapability /= 2
-      altitudeap = -0.5 * max(altitudechange, climbcapability)
-      if (altitudechange > climbcapability):
-        self._altitudeap += -1.0 * (altitudechange - climbcapability)
+
+      # See rule 8.1.2 and 8.1.4.
+      if altitudechange < 1:
+        altitudeap = 0
+      elif altitudechange == 1:
+        # This was either a SC with a CC of 1 or the result of multiple
+        # turns of SC with a CC of less then 1.
+        altitudeap = -0.5
+      else:
+        climbcapability = self.climbcapability()
+        if self._speed < self.climbspeed():
+          climbcapability /= 2
+        altitudeap = -0.5 * max(altitudechange, climbcapability)
+        if (altitudechange > climbcapability):
+          altitudeap += -1.0 * (altitudechange - climbcapability)
 
     elif flighttype == "VC":
 
