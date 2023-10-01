@@ -228,9 +228,13 @@ class aircraft:
       # See rule 6.4.
 
       if _isclimbing(flighttype):
-        raise RuntimeError("flight type immediately after DP must not be climbing.")
+        raise RuntimeError("flight type immediately after %s cannot be %s." % (
+          lastflighttype, flighttype
+        ))
       elif flighttype == "LVL" and not self.hasproperty("HPR"):
-        raise RuntimeError("flight type immediately after DP must not be level.")
+        raise RuntimeError("flight type immediately after %s cannot be %s." % (
+          lastflighttype, flighttype
+        ))
 
     elif self._speed < minspeed:
 
@@ -243,6 +247,8 @@ class aircraft:
 
     elif flighttype == "ST":
 
+      # See rule 6.3
+      
       raise RuntimeError("flight type cannot be ST as aircraft is not stalled.")
 
     elif lastflighttype == "ST":
@@ -250,17 +256,80 @@ class aircraft:
       # See rule 6.4.
 
       if _isclimbing(flighttype):
-        raise RuntimeError("flight type immediately after ST must not be climbing.")
+        raise RuntimeError("flight type immediately after %s cannot be %s." % (
+          lastflighttype, flighttype
+        ))
+
+    elif flighttype == "LVL":
+
+      # See rule 8.2.3
+      if lastflighttype == "VD" and not (self.hasproperty("HPR") and self._speed <= 3.0):
+        raise RuntimeError("flight type immediately after %s cannot be %s." % (
+          lastflighttype, flighttype
+        ))
+
+    elif flighttype == "ZC":
+
+      # See rule 8.2.3
+      if lastflighttype == "VD":
+        raise RuntimeError("flight type immediately after %s cannot be %s." % (
+          lastflighttype, flighttype
+        ))
+
+    elif flighttype == "SC":
+
+      # See rule 8.1.2.
+      if self._speed < self.minspeed() + 1:
+        raise RuntimeError("insufficient speed for SC.")
+
+      # See rule 8.2.3
+      if lastflighttype == "VD":
+        raise RuntimeError("flight type immediately after %s cannot be %s." % (
+          lastflighttype, flighttype
+        ))
 
     elif flighttype == "VC":
 
-      # See the "VC Prerequisites" section of rule 8.1.3.
+      # See rule 8.1.3.
+      if _isdiving(lastflighttype):
+        raise RuntimeError("flight type immediately after %s cannot be %s." % (
+          lastflighttype, flighttype
+        ))      
+      if self._lastflighttype == "LVL" and not (self.hasproperty("HPR") and self._speed < 4.0):
+        raise RuntimeError("flight type immediately after %s cannot be %s." % (
+          lastflighttype, flighttype
+        ))
 
-      if _isdiving(self._lastflighttype):
-        raise RuntimeError("flight type immediately after diving cannot be VC.")
-      elif self._lastflighttype == "LVL" and not (self.hasproperty("HPR") and self._speed < 4.0):
-        raise RuntimeError("flight type immediately after LVL cannot be VC.")
-  
+      # See rule 8.2.3
+      if lastflighttype == "VD":
+        raise RuntimeError("flight type immediately after %s cannot be %s." % (
+          lastflighttype, flighttype
+        ))
+        
+    elif flighttype == "SD":
+
+      # See rule 8.1.3.
+      if lastflighttype == "VC" and not self.hasproperty("HPR"):
+        raise RuntimeError("flight type immediately after %s cannot be %s." % (
+          lastflighttype, flighttype
+        ))
+
+    elif flighttype == "UD":
+
+      # See rule 8.1.3.
+      if lastflighttype == "VC" and not self.hasproperty("HPR"):
+        raise RuntimeError("flight type immediately after %s cannot be %s." % (
+          lastflighttype, flighttype
+        ))
+
+    elif flighttype == "VD":
+
+      # See rule 8.1.3.
+      if lastflighttype == "VC":
+        raise RuntimeError("flight type immediately after %s cannot be %s." % (
+          lastflighttype, flighttype
+        ))
+      
   ##############################################################################
 
   def startmove(self, flighttype, power, actions, flamedoutfraction=0):
