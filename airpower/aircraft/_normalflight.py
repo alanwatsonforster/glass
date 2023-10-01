@@ -89,25 +89,25 @@ def _dodive(self, altitudechange):
 
       # See rule 8.2.1.
       if altitudechange != 1 and altitudechange != 2:
-        raise RuntimeError("attempt to dive levels per VFP while the flight type is SC.")
+        raise RuntimeError("attempt to dive levels per VFP while the flight type is SC." % altitudechange)
   
     elif flighttype == "UD":
 
       # See rule 8.2.2.
       if altitudechange != 1:
-        raise RuntimeError("attempt to dive %d levels per unloaded HFP while the flight type is UL.")
+        raise RuntimeError("attempt to dive %d levels per unloaded HFP while the flight type is UL." % altitudechange)
 
     elif flighttype == "VD":
 
       # See rule 8.2.3.
       if altitudechange != 2 or altitudechange != 3: 
-        raise RuntimeError("attempt to dive %d levels per VFP while the flight type is VD.")
+        raise RuntimeError("attempt to dive %d levels per VFP while the flight type is VD." % altitudechange)
 
     elif flighttype == "LVL":
 
       # See rule 8.2.4.
       if altitudechange != 1:
-        raise RuntimeError("attempt to descend of %d level while flight type is LVL.")
+        raise RuntimeError("attempt to descend %d levels while flight type is LVL." % altitudechange)
 
     else:
 
@@ -700,6 +700,15 @@ def _endnormalflight(self):
       raise RuntimeError("too many VFPs.")
 
     # TODO: check unloaded HFPs.
+
+  def checkfreedescent():
+
+    # See rule 8.2.4.
+    
+    if self._flighttype == "LVL":
+      altitudechange = self._altitude - self._lastaltitude
+      if altitudechange < -1:
+        raise RuntimeError("free descent cannot only be taken once per move.")
   
   def reportturn():
 
@@ -803,6 +812,7 @@ def _endnormalflight(self):
 
   reportfp()
   checkfp()
+  checkfreedescent()
   reportturn()
   determinealtitudeap()
 
