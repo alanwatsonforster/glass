@@ -1,6 +1,7 @@
 import math
 
 import airpower.speed as apspeed
+from airpower.math import onethird, twothirds
 
 from ._normalflight import _isclimbing, _isdiving
 
@@ -22,6 +23,18 @@ def _startmovespeed(self, power, flamedoutfraction):
 
     powerapM  = self.power("M")
     powerapAB = self.power("AB")
+
+    # See rule 8.4.
+
+    if not self.hasproperty("HAE"):
+      if self._altitudeband == "VH":
+        powerapM  = max(0.5, twothirds(powerapM))
+        if powerapAB != None:
+          powerapAB = max(0.5, twothirds(powerapAB))
+      elif self._altitudeband == "EH" or self._altitudeband == "UH":
+        powerapM  = max(0.5, onethird(poweapM))
+        if powerapAB != None:
+          powerapAB = max(0.5, onethird(powerapAB))        
 
     # See rule 6.1.
 
@@ -52,6 +65,12 @@ def _startmovespeed(self, power, flamedoutfraction):
 
     self._log("power setting is %s." % powersetting)
 
+    # See rule 8.4. The reduction was done above, but we report it here.
+    if not self.hasproperty("HAE") and (
+      self._altitudeband == "VH" or self._altitudeband == "EH" or self._altitudeband == "UH"
+    ):
+      self._log("- power is reduced in the %s altitude band." % self._altitudeband)
+        
     # See the "Effects of Flame-Out" section of rule 6.7
 
     if flamedoutfraction == 1:
