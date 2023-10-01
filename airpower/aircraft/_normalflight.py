@@ -4,7 +4,7 @@ Normal flight for the aircraft class.
 
 import math
 from typing_extensions import LiteralString
-from airpower.math import onethird, twothirds
+from airpower.math import onethird, twothirds, roundtoquarter
 
 import airpower.altitude as apaltitude
 import airpower.hex      as aphex
@@ -567,9 +567,9 @@ def _startnormalflight(self, actions):
     else:
       mininitialhfp = 0
     if mininitialhfp == 1:
-      self._log("- last flight type was %s so the first FP must be an HFP." % lastflighttype)
+      self._log("- the first FP must be an HFP.")
     elif mininitialhfp > 1:
-      self._log("- last flight type was %s so the first %d FPs must be HFPs." % (lastflighttype, mininitialhfp))
+      self._log("- the first %d FPs must be HFPs." % mininitialhfp)
 
     self._mininitialhfp = mininitialhfp
 
@@ -577,7 +577,7 @@ def _startnormalflight(self, actions):
 
     flighttype     = self._flighttype
     lastflighttype = self._lastflighttype
-    fp             = self._fp
+    fp             = int(self._fp)
 
     minhfp = 0
     maxhfp = fp
@@ -628,40 +628,30 @@ def _startnormalflight(self, actions):
 
     elif flighttype == "UL":
 
-      # See rule 8.2.2 and 8.2.3.
+      # See rules 8.2.2 and 8.2.3.
       if lastflighttype == "VD":
         minunloadedfp = math.floor(self._speed / 2)
       else:
-        maxvfp = 0
+        minunloadedfp = 0
 
     assert minvfp == 0
-    if maxvfp != fp:
-      if minvfp == maxvfp:
-        self._log("- exactly %d FPs must be VFPs." % minvfp)
-      elif minvfp > 0:
-        assert maxvfp == fp
-        self._log("- at least %d FPs must be VFPs." % minvfp)
-      else:
-        assert minvfp == 0
-        self._log("- at most %d FPs can be VFPs." % maxvfp)
-    else:
-      assert maxvfp == fp
-      if minhfp == maxhfp:
-        self._log("- exactly %d FPs must be HFPs." % minhfp)
-      elif minhfp > 0:
-        assert maxhfp == fp
-        self._log("- at least %d FPs must be HFPs." % minhfp)
-      else:
-        assert minhfp == 0
-        self._log("- at most %d FPs can be HFPs." % maxhfp)
+    assert (minvfp == 0 and maxvfp == fp) or (minhfp == 0 and maxhfp == fp)
+    assert minhfp == 0 or maxhfp == fp
 
-    if minunloadedhfp == maxunloadedhfp:
-      self._log("- exactly %d FPs must be unloaded HFPs." % minunloadedhfp)
-    elif minunloadedhfp > 0:
-      assert maxunloadedhfp == fp
+    if maxvfp == 0:
+      self._log("- all FPs must be HFPs.")
+    elif minhfp == maxhfp:
+      self._log("- exactly %d FPs must be HFPs." % minhfp)
+    elif minhfp > 0:
+      self._log("- at least %d FPs must be HFPs." % minhfp)
+    elif maxhfp < fp:
+      self._log("- at most %d FPs can be HFPs." % maxhfp)
+    elif maxvfp < fp:
+      self._log("- at most %d FPs can be VFPs." % maxvfp)
+
+    if minunloadedhfp > 0:
       self._log("- at least %d FPs must be unloaded HFPs." % minunloadedhfp)
-    else:
-      assert minunloadedhfp == 0
+    if maxunloadedhfp > 0:
       self._log("- at most %d FPs can be unloaded HFPs." % maxunloadedhfp)    
     
     self._minhfp = minhfp
@@ -803,8 +793,8 @@ def _endnormalflight(self):
       # See rule 8.2.4.
       altitudeap = 0
 
-    # Round to nearest 0.25. See rule 6.2.
-    altitudeap = int(altitudeap * 4 + 0.5) / 4
+    # Round to nearest quarter. See rule 6.2.
+    altitudeap = roundtoquarter(altitudeap)
 
     self._altitudeap = altitudeap
 

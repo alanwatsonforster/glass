@@ -24,3 +24,33 @@ def twothirds(x):
   """
 
   return x - onethird(x)
+
+def round(x):
+
+  """
+  Return the argument rounded to the nearest integer, breaking ties by 
+  rounding towards zero.
+  """
+
+  if x > 0:
+    return int(x + 0.5)
+  else:
+    return int(x - 0.5)
+
+def rounftohalf(x):
+
+  """
+  Return the argument rounded to the nearest half-integer, breaking ties by 
+  rounding towards zero.
+  """
+
+  return round(x * 2) / 2
+
+def roundtoquarter(x):
+
+  """
+  Return the argument rounded to the nearest quarter-integer, breaking ties by 
+  rounding towards zero.
+  """
+
+  return round(x * 4) / 4
