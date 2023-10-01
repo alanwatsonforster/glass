@@ -100,7 +100,7 @@ def _dodive(self, altitudechange):
     elif flighttype == "VD":
 
       # See rule 8.2.3.
-      if altitudechange != 2 or altitudechange != 3: 
+      if altitudechange != 2 and altitudechange != 3: 
         raise RuntimeError("attempt to dive %d levels per VFP while the flight type is VD." % altitudechange)
 
     elif flighttype == "LVL":
@@ -411,6 +411,12 @@ def _doaction(self, action):
 
   self._turnfp += 1
 
+  if self._flighttype == "UD":
+    if self._firstunloadedfp == None and actionvertical:
+      self._firstunloadedfp = self._hfp
+    if actionvertical:
+      self._lastunloadedfp = self._hfp
+
   self._doelements(action, "turn or bank", False)
   
   assert aphex.isvalidposition(self._x, self._y)
@@ -550,13 +556,16 @@ def _startnormalflight(self, actions):
     self._vfp     = 0
     self._spbrfp  = 0 
 
+    self._firstunloadedfp = None
+    self._lastunloadedfp  = None
+
   def determinemininitialhfp():
 
     # See rule 5.5.
 
     flighttype     = self._flighttype
     lastflighttype = self._lastflighttype
-  
+
     if lastflighttype == "LVL" and (_isclimbing(flighttype) or _isdiving(flighttype)):
       mininitialhfp = 1
     elif (_isclimbing(lastflighttype) and _isdiving(flighttype)) or (_isdiving(lastflighttype) and _isclimbing(flighttype)):
@@ -626,17 +635,18 @@ def _startnormalflight(self, actions):
       else:
         minhfp = math.ceil(onethird(fp))    
 
-    elif flighttype == "UL":
+    elif flighttype == "UD":
 
       # See rules 8.2.2 and 8.2.3.
+      maxunloadedhfp = fp
       if lastflighttype == "VD":
-        minunloadedfp = math.floor(self._speed / 2)
+        minunloadedhfp = math.floor(self._speed / 2)
       else:
-        minunloadedfp = 0
+        minunloadedhfp = 0
 
     assert minvfp == 0
-    assert (minvfp == 0 and maxvfp == fp) or (minhfp == 0 and maxhfp == fp)
-    assert minhfp == 0 or maxhfp == fp
+    assert (minvfp == 0 and maxvfp == fp) or (minhfp == 0 and maxhfp == fp) or (minhfp == maxhfp)
+    assert minhfp == 0 or maxhfp == fp or (minhfp == maxhfp)
 
     if maxvfp == 0:
       self._log("- all FPs must be HFPs.")
@@ -699,7 +709,21 @@ def _endnormalflight(self):
     if self._vfp > self._maxvfp:
       raise RuntimeError("too many VFPs.")
 
-    # TODO: check unloaded HFPs.
+    if self._flighttype == "UD":
+      # See rule 8.2.2.
+      unloadedhfp = self._lastaltitude - self._altitude
+      if self._firstunloadedfp == None:
+        n = 0
+      elif self._lastunloadedfp == None:
+        n = self._hfp - self._firstunloadedfp + 1
+      else:
+        n = self._lastunloadedfp - self._firstunloadedfp + 1
+      if n != unloadedhfp:
+        raise RuntimeError("unloaded HFPs must be continuous.")
+      if unloadedhfp < self._minunloadedhfp:
+        raise RuntimeError("too few unloaded HFPs.")
+      if unloadedhfp > self._maxunloadedhfp:
+        raise RuntimeError("too many unloaded HFPs.")
 
   def checkfreedescent():
 
