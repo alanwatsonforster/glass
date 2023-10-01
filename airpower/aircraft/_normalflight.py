@@ -632,8 +632,7 @@ def _startnormalflight(self, actions):
       # See rules 8.2.1 and 8.2.3.
       if lastflighttype == "VD":
         minvfp = math.floor(self._speed / 2)
-      else:
-        minhfp = math.ceil(onethird(fp))    
+      minhfp = math.ceil(onethird(fp))    
 
     elif flighttype == "UD":
 
@@ -644,10 +643,6 @@ def _startnormalflight(self, actions):
       else:
         minunloadedhfp = 0
 
-    assert minvfp == 0
-    assert (minvfp == 0 and maxvfp == fp) or (minhfp == 0 and maxhfp == fp) or (minhfp == maxhfp)
-    assert minhfp == 0 or maxhfp == fp or (minhfp == maxhfp)
-
     if maxvfp == 0:
       self._log("- all FPs must be HFPs.")
     elif minhfp == maxhfp:
@@ -656,13 +651,16 @@ def _startnormalflight(self, actions):
       self._log("- at least %d FPs must be HFPs." % minhfp)
     elif maxhfp < fp:
       self._log("- at most %d FPs can be HFPs." % maxhfp)
+    if minvfp > 0:
+      self._log("- at least %d FPs must be VFPs." % maxvfp)
     elif maxvfp < fp:
       self._log("- at most %d FPs can be VFPs." % maxvfp)
 
+    assert minunloadedhfp == 0 or maxunloadedhfp == fp
     if minunloadedhfp > 0:
       self._log("- at least %d FPs must be unloaded HFPs." % minunloadedhfp)
-    if maxunloadedhfp > 0:
-      self._log("- at most %d FPs can be unloaded HFPs." % maxunloadedhfp)    
+    elif maxunloadedhfp == fp:
+      self._log("- all FPs may be unloaded HFPs.")    
     
     self._minhfp = minhfp
     self._maxhfp = maxhfp
