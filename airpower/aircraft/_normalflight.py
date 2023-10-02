@@ -460,10 +460,6 @@ def _continuenormalflight(self, actions):
     self._fpcarry = self._fp - fp
 
     self._endnormalflight()
-    
-  else:
-    
-    self._drawaircraft("next")
 
 ################################################################################
 
