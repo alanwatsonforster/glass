@@ -18,6 +18,9 @@ def _doattack(self, weapon):
   Declare an attack with the specified weapon.
   """
 
+  if self._unloaded:
+    raise RuntimeError("attempt to attack while unloaded.")
+
   self._logevent("attack with %s." % weapon)
 
 def _doclimb(self, altitudechange):
@@ -408,11 +411,11 @@ def _doaction(self, action):
 
   self._turnfp += 1
 
-  if self._flighttype == "UD":
-    if self._firstunloadedfp == None and actionvertical:
+  self._unloaded = self._flighttype == "UD" and actionvertical
+  if self._unloaded:
+    if self._firstunloadedfp == None:
       self._firstunloadedfp = self._hfp
-    if actionvertical:
-      self._lastunloadedfp = self._hfp
+    self._lastunloadedfp = self._hfp
 
   self._doelements(action, "turn or bank", False)
   
@@ -644,9 +647,10 @@ def _startnormalflight(self, actions):
       self._log("- at least %d FPs must be HFPs." % minhfp)
     elif maxhfp < fp:
       self._log("- at most %d FPs can be HFPs." % maxhfp)
+
     if minvfp > 0:
       self._log("- at least %d FPs must be VFPs." % maxvfp)
-    elif maxvfp < fp:
+    elif maxvfp != 0 and maxvfp < fp:
       self._log("- at most %d FPs can be VFPs." % maxvfp)
 
     assert minunloadedhfp == 0 or maxunloadedhfp == fp

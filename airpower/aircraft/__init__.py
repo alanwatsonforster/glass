@@ -518,7 +518,7 @@ class aircraft:
 
   def _endturn(self):
     if not self._destroyed and not self._leftmap and not self._finishedmove:
-      raise RuntimeError("aircraft %s has not finished its move." % self._name) 
+      raise RuntimeError("aircraft %s has not finished its move." % self._name)
 
   ################################################################################
 
