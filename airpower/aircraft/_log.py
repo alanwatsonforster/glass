@@ -6,10 +6,10 @@ import airpower.azimuth as apazimuth
 import airpower.hexcode as aphexcode
 import airpower.log     as aplog
 import airpower.map     as apmap
-import airpower.turn    as apturn
+import airpower         as ap
 
 def _log(self, s):
-  aplog.log("%s: turn %-2d : %s" % (self._name, apturn.turn(), s))
+  aplog.log("%s: turn %-2d : %s" % (self._name, ap.turn(), s))
 
 def _logbreak(self):
   aplog.logbreak()

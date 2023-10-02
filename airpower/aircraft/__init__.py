@@ -1,3 +1,4 @@
+import airpower              as ap
 import airpower.aircraftdata as apaircraftdata
 import airpower.altitude     as apaltitude
 import airpower.azimuth      as apazimuth
@@ -6,7 +7,6 @@ import airpower.hex          as aphex
 import airpower.hexcode      as aphexcode
 import airpower.log          as aplog
 import airpower.map          as apmap
-import airpower.turn         as apturn
 import airpower.turnrate     as apturnrate
 
 import math
@@ -374,7 +374,7 @@ class aircraft:
 
      self._log("--- start of move --")
 
-     self._restore(apturn.turn() - 1)
+     self._restore(ap.turn() - 1)
 
      if self._destroyed or self._leftmap:
        self._endmove()
@@ -504,7 +504,7 @@ class aircraft:
 
       self._finishedmove = True
    
-    self._save(apturn.turn())
+    self._save(ap.turn())
 
     self._log("--- end of move -- ")
     self._logbreak()
