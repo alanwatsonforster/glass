@@ -23,9 +23,9 @@ def sind(x):
   return np.sin(np.radians(x))
 
 def hextophysical(x,y):
-  return x * np.sqrt(3/4), y
+  return np.array(x) * np.sqrt(3/4), y
 def physicaltohex(x,y):
-  return x / np.sqrt(3/4), y
+  return np.array(x) / np.sqrt(3/4), y
 
 def _drawhexinphysical(x, y, size=1, color="lightgrey"):
   # size is inscribed diameter
@@ -61,6 +61,11 @@ def _drawlineinphysical(x0, y0, x1, y1, color="black", linestyle="solid", zorder
     return
   plt.plot((x0, x1), (y0, y1), linestyle=linestyle, color=color, zorder=zorder)
 
+def _drawlinesinphysical(x, y, color="black", linestyle="solid", zorder=1):
+  if _donotdraw:
+    return
+  plt.plot(x, y, linestyle=linestyle, color=color, zorder=zorder)
+  
 def _drawarrowinphysical(x, y, facing, size=1.0, dx=0, dy=0, color="black"):
   # size is length
   if _donotdraw:
@@ -123,6 +128,11 @@ def drawline(x0, y0, x1, y1, **kwargs):
     return
   _drawlineinphysical(*hextophysical(x0, y0), *hextophysical(x1, y1), **kwargs)
 
+def drawlines(x, y, **kwargs):
+  if _donotdraw:
+    return
+  _drawlinesinphysical(*hextophysical(x, y), **kwargs)
+
 def drawarrow(x, y, facing, **kwargs):
   if _donotdraw:
     return
@@ -143,10 +153,10 @@ def drawcompass(x, y, facing, **kwargs):
     return
   _drawcompassinphysical(*hextophysical(x, y), facing, **kwargs)
 
-def drawflightpath(lastx, lasty, x, y):
+def drawflightpath(x, y):
   if _donotdraw:
     return
-  drawline(lastx, lasty, x, y, color="darkgray", linestyle="dashed", zorder=0.5)
+  drawlines(x, y, color="darkgray", linestyle="dashed", zorder=0.5)
 
 def drawaircraft(x, y, facing, name, altitude, when):
   if _donotdraw:

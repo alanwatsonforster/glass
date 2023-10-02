@@ -388,9 +388,6 @@ def _doaction(self, action):
   if self._hfp + self._vfp + self._spbrfp + 1 > self._fp:
     raise RuntimeError("only %.1f FPs are available." % self._fp)
 
-  lastx = self._x
-  lasty = self._y
-
   elementdispatchlist = self._getelementdispatchlist()
 
   initialaltitudeband = self._altitudeband
@@ -424,7 +421,7 @@ def _doaction(self, action):
   assert apaltitude.isvalidaltitude(self._altitude)
   
   self._logposition("FP %d" % (self._hfp + self._vfp), action)
-  self._drawflightpath(lastx, lasty)
+  self._continueflightpath()
 
   if initialaltitudeband != self._altitudeband:
     self._logevent("altitude band changed from %s to %s." % (initialaltitudeband, self._altitudeband))

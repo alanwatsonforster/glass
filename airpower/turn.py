@@ -1,6 +1,5 @@
 import airpower.aircraft as apaircraft
 import airpower.log as aplog
-import airpower.map as apmap
 
 _turn = None
 _maxturn = 0
@@ -20,11 +19,10 @@ def startturn(turn):
   _maxturn = max(_maxturn, _turn)
   aplog.log("--- start of turn %d ---" % _turn)
   aplog.logbreak()
-  apaircraft._startturn()
-  apmap.drawmap()
+  apaircraft._allstartturn()
 
 def endturn():
-  apaircraft._endturn()
+  apaircraft._allendturn()
   global _turn
   aplog.log("--- end of turn %d ---" % _turn)
   aplog.logbreak()

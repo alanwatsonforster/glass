@@ -15,7 +15,6 @@ def startprolog(sheets, compassrose, north="up", variants=[]):
   apazimuth.setnorth(north)
   aplog.logbreak()
 
-  apmap.drawmap()
   apturn.restart()
   apaircraft._restart()
 

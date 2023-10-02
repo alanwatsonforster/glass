@@ -13,6 +13,27 @@ import math
 
 from ._normalflight import _isdiving, _isclimbing
 
+
+################################################################################
+
+_aircraftlist = []
+
+def _restart():
+  global _aircraftlist
+  _aircraftlist = []
+
+def _allstartturn():
+  for a in _aircraftlist:
+    a._startturn()
+
+def _allendturn():
+  for a in _aircraftlist:
+    a._endturn()
+
+def _alldraw():
+  for a in _aircraftlist:
+    a._draw()
+
 #############################################################################
 
 class aircraft:
@@ -31,7 +52,10 @@ class aircraft:
     minspeed, maxspeed, cruisespeed, climbspeed, maxdivespeed, ceiling, \
     rollhfp, rolldrag, climbcapability, hasproperty
 
-  from ._draw           import _drawaircraft, _drawflightpath
+  from ._draw import \
+    _drawatstart, _drawatend, \
+    _startflightpath, _continueflightpath, _drawflightpath
+
   from ._log            import _log, _logposition, _logevent, _logbreak
 
 
@@ -73,14 +97,15 @@ class aircraft:
       self._leftmap       = False
       self._turnsstalled  = 0
       self._turnsdeparted = 0
+      self._finishedmove  = True
+      self._flightpathx   = []
+      self._flightpathy   = []
 
       self._saved = []
       self._save(0)
 
       global _aircraftlist
       _aircraftlist.append(self)
-
-      self._drawaircraft("end")
 
     except RuntimeError as e:
       aplog.logerror(e)
@@ -355,6 +380,8 @@ class aircraft:
        self._endmove()
        return
 
+     self._startflightpath()
+
      # We save values of these variables at the end of the previous move.
 
      self._lastconfiguration = self._configuration
@@ -446,8 +473,6 @@ class aircraft:
     Process the end of a move.
     """
 
-    self._drawaircraft("end")
-
     if self._destroyed:
     
       self._log("aircraft has been destroyed.")
@@ -493,23 +518,16 @@ class aircraft:
 
   def _endturn(self):
     if not self._destroyed and not self._leftmap and not self._finishedmove:
-      raise RuntimeError("aircraft %s has not finished its move." % self._name)    
+      raise RuntimeError("aircraft %s has not finished its move." % self._name) 
 
-################################################################################
+  ################################################################################
 
-_aircraftlist = []
-
-def _restart():
-  global _aircraftlist
-  _aircraftlist = []
-
-def _startturn():
-  for a in _aircraftlist:
-    a._startturn()
-
-def _endturn():
-  for a in _aircraftlist:
-    a._endturn()
+  def _draw(self):
+    if self._destroyed or self._finishedmove:
+      self._drawflightpath()
+      self._drawatend()
+    elif not self._leftmap:
+      self._drawatstart()
 
 #############################################################################
 

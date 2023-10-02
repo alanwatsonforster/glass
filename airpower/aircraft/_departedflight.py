@@ -54,7 +54,6 @@ def _dodepartedflight(self, action):
 
   # Do the first facing change.
 
-  lastx, lasty = self._x, self._y
   if action[0] == "R":
     if aphex.isedgeposition(self._x, self._y):
       self._x, self._y = aphex.centertoright(self._x, self._y, self._facing)
@@ -63,7 +62,7 @@ def _dodepartedflight(self, action):
     if aphex.isedgeposition(self._x, self._y):
       self._x, self._y = aphex.centertoleft(self._x, self._y, self._facing)
     self._facing = (self._facing + 30) % 360
-  self._drawflightpath(lastx, lasty)
+  self._continueflightpath()
   facingchange -= 30
 
   # Possibly shift.
