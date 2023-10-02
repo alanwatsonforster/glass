@@ -72,7 +72,7 @@ def _dodepartedflight(self, action):
     for i in range(0, int(self._speed / 2)):
       lastx, lasty = self._x, self._y
       self._x, self._y = aphex.nextposition(self._x, self._y, self._facing)
-      self._drawflightpath(lastx, lasty)
+      self._continueflightpath()
       self.checkforterraincollision()
       self.checkforleavingmap()
       if self._destroyed or self._leftmap:
@@ -80,7 +80,6 @@ def _dodepartedflight(self, action):
 
   # Do any remaining facing changes.
 
-  lastx, lasty = self._x, self._y
   if action[0] == "R":
     if aphex.isedgeposition(self._x, self._y):
       self._x, self._y = aphex.centertoright(self._x, self._y, self._facing)
@@ -89,7 +88,7 @@ def _dodepartedflight(self, action):
     if aphex.isedgeposition(self._x, self._y):
       self._x, self._y = aphex.centertoleft(self._x, self._y, self._facing)
     self._facing = (self._facing + facingchange) % 360
-  self._drawflightpath(lastx, lasty)
+  self._continueflightpath()
 
   # Now lose altitude.
 
