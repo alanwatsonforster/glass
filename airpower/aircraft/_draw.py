@@ -13,7 +13,7 @@ def _continueflightpath(self):
   self._flightpathy.append(self._y)
 
 def _drawflightpath(self):
-  if self._flightpathx != [] and  self._flightpathy != []:
+  if self._flightpathx != [] and self._flightpathy != []:
     apdraw.drawflightpath(self._flightpathx, self._flightpathy)
 
 def _drawatstart(self):
