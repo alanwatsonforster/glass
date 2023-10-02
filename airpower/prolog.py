@@ -1,3 +1,4 @@
+import airpower.aircraft as apaircraft
 import airpower.azimuth  as apazimuth
 import airpower.log      as aplog
 import airpower.map      as apmap
@@ -16,6 +17,7 @@ def startprolog(sheets, compassrose, north="up", variants=[]):
 
   apmap.drawmap()
   apturn.restart()
+  apaircraft._restart()
 
 def endprolog():
   aplog.log("--- end prolog ---")

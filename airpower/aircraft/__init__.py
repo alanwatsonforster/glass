@@ -12,7 +12,9 @@ import airpower.turnrate     as apturnrate
 import math
 
 from ._normalflight import _isdiving, _isclimbing
-    
+
+#############################################################################
+
 class aircraft:
 
   from ._stalledflight  import _dostalledflight
@@ -74,6 +76,9 @@ class aircraft:
 
       self._saved = []
       self._save(0)
+
+      global _aircraftlist
+      _aircraftlist.append(self)
 
       self._drawaircraft("end")
 
@@ -442,7 +447,7 @@ class aircraft:
     """
 
     self._drawaircraft("end")
-    
+
     if self._destroyed:
     
       self._log("aircraft has been destroyed.")
@@ -471,10 +476,40 @@ class aircraft:
         self._log("- carrying %+.2f APs" % self._apcarry)
       if self._flighttype != "ST" and self._flighttype != "DP":
         self._log("- carrying %.1f FPs." % self._fpcarry)
+
+      self._finishedmove = True
    
     self._save(apturn.turn())
 
     self._log("--- end of move -- ")
     self._logbreak()
 
+  ################################################################################
+
+  def _startturn(self):
+    self._finishedmove = False
+
+  ################################################################################
+
+  def _endturn(self):
+    if not self._destroyed and not self._leftmap and not self._finishedmove:
+      raise RuntimeError("aircraft %s has not finished its move." % self._name)    
+
 ################################################################################
+
+_aircraftlist = []
+
+def _restart():
+  global _aircraftlist
+  _aircraftlist = []
+
+def _startturn():
+  for a in _aircraftlist:
+    a._startturn()
+
+def _endturn():
+  for a in _aircraftlist:
+    a._endturn()
+
+#############################################################################
+
