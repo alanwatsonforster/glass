@@ -76,7 +76,7 @@ def drawmap():
         # on this sheet.
         if isonmap(x, y) and (isonsheet(sheet, x, y) or isonsheet(sheet, x - 0.5, y + 0.25)):
           apdraw.drawhex(x, y)
-          apdraw.drawtext(x, y, 90, aphexcode.fromxy(x, y), dy=0.3, size=7, color="grey")        
+          apdraw.drawhexlabel(x, y, aphexcode.fromxy(x, y))
 
     x0, y0 = aphexcode.toxy(aphexcode.sheetorigin(sheet), sheet=sheet)
     apdraw.drawtext(x0 + 1.0, y0 + 1.5, 90, sheet, dy=-0.05, size=12, color="grey")

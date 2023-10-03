@@ -83,9 +83,13 @@ def _drawcompassinphysical(x, y, facing, color="black"):
   _drawdotinphysical(x, y, size=0.3, color=color)
   _drawarrowinphysical(x, y, facing, size=0.8, dy=+0.4, color=color)
   _drawtextinphysical(x, y, facing, "N", dy=0.95, color=color)
+
     
 def drawhex(x, y, **kwargs):
   _drawhexinphysical(*hextophysical(x, y), **kwargs)
+
+def drawhexlabel(x, y, label, dy=0.3, size=7, color="grey", **kwargs):
+  drawtext(x, y, 90, label, dy=dy, size=size, color=color, **kwargs)        
 
 def drawdot(x, y, **kwargs):
   _drawdotinphysical(*hextophysical(x, y), **kwargs)
