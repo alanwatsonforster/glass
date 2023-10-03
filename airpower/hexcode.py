@@ -136,8 +136,8 @@ def fromxy(x, y, sheet=None):
     XX0, YY0 = _split(sheetorigin(sheet))
     XX = XX0 + (x - x0)
     YY = YY0 - (y - y0)
-    if XX % 2 == 0:
-      YY += 0.5
+    if XX % 2 == 1:
+      YY -= 0.5
 
     return _join(XX, YY)
 
@@ -185,8 +185,8 @@ def toxy(h, sheet=None):
 
     dx = XX - XX0
     dy = YY0 - YY
-    if XX % 2 == 0:
-      dy += 0.5
+    if XX % 2 == 1:
+      dy -= 0.5
 
     return x0 + dx, y0 + dy
 
@@ -217,19 +217,19 @@ def sheetorigin(sheet):
 
   sheetletter = sheet[0]
   if sheetletter == "A":
-    XX = 11
+    XX = 10
   elif sheetletter == "B":
-    XX = 31
+    XX = 30
   elif sheetletter == "C":
-    XX = 51
+    XX = 50
   else:
     raise RuntimeError("invalid sheet %s." % sheet)
 
   sheetnumber = sheet[1]
   if sheetnumber == "1":
-    YY = 15
+    YY = 16
   elif sheetnumber == "2":
-    YY = 30
+    YY = 31
   else:
     raise RuntimeError("invalid sheet %s." % sheet)
 

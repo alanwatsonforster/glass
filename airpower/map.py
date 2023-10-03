@@ -78,22 +78,8 @@ def drawmap():
           apdraw.drawhex(x, y)
           apdraw.drawtext(x, y, 90, aphexcode.fromxy(x, y), dy=0.3, size=7, color="grey")        
 
-    #hexcodes = aphexcode.hexcodes(sheet)
-
-    #for hexcode in hexcodes:
-    #  x, y = aphexcode.toxy(hexcode)
-    #  if isonmap(x, y):
-    #    apdraw.drawhex(x, y)
-    #    apdraw.drawtext(x, y, 90, "%d" % hexcode, dy=0.3, size=7, color="grey")
-        
-    xmin, ymin, xmax, ymax = sheetlimits(sheet)
-    apdraw.drawline(xmin, ymin, xmin, ymax, color="grey")
-    apdraw.drawline(xmax, ymin, xmax, ymax, color="grey")
-    apdraw.drawline(xmin, ymin, xmax, ymin, color="grey")
-    apdraw.drawline(xmin, ymax, xmax, ymax, color="grey")
-
-    x0, y0 = aphexcode.toxy(aphexcode.sheetorigin(sheet))
-    apdraw.drawtext(x0, y0, 90, sheet, dy=-0.05, size=12, color="grey")
+    x0, y0 = aphexcode.toxy(aphexcode.sheetorigin(sheet), sheet=sheet)
+    apdraw.drawtext(x0 + 1.0, y0 + 1.5, 90, sheet, dy=-0.05, size=12, color="grey")
 
   if _compassrose != None:
     apdraw.drawcompass(*aphexcode.toxy(_compassrose), apazimuth.tofacing("N"))
@@ -152,8 +138,8 @@ def sheetlimits(sheet):
   for iy in range (0, _nysheetgrid):
     for ix in range (0, _nxsheetgrid):
       if sheet == _sheetgrid[iy][ix]:
-        xmin = ix * _dxsheet - 1.0
-        ymin = iy * _dysheet - 0.5
+        xmin = ix * _dxsheet
+        ymin = iy * _dysheet
         xmax = xmin + _dxsheet
         ymax = ymin + _dysheet
         return xmin, ymin, xmax, ymax
