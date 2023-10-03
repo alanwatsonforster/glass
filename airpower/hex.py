@@ -1,6 +1,3 @@
-from os import X_OK
-
-
 def iscenterposition(x, y):
 
   """
@@ -214,3 +211,29 @@ def centertoright(x, y, facing):
 
   return x, y
 
+def edgetocenters(x, y):
+
+  """
+  Returns the coordinates (x0, y0) and (x1, y1) of the hex centers adjacent
+  to the hex edge (x, y) as a tuple (x0, y0, x1, y1).
+  """
+
+  assert isedgeposition(x, y)
+
+  if x % 2 == 0.5 and y % 1 == 0.25:
+    x0, y0 = x - 0.5, y - 0.25
+    x1, y1 = x + 0.5, y + 0.25
+  elif x % 2 == 0.5 and y % 1 == 0.75:
+    x0, y0 = x - 0.5, y + 0.25
+    x1, y1 = x + 0.5, y - 0.25      
+  elif x % 2 == 1.5 and y % 1 == 0.25:
+    x0, y0 = x - 0.5, y + 0.25
+    x1, y1 = x + 0.5, y - 0.25   
+  elif x % 2 == 1.5 and y % 1 == 0.75:
+    x0, y0 = x - 0.5, y - 0.25
+    x1, y1 = x + 0.5, y + 0.25
+  else:
+    x0, y0 = x, y - 0.5
+    x1, y1 = x, y + 0.5
+
+  return x0, y0, x1, y1

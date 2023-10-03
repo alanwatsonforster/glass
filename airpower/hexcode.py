@@ -1,3 +1,4 @@
+from types import NoneType
 import airpower.hex as aphex
 import airpower.map as apmap
 
@@ -21,7 +22,7 @@ def _join(XX, YY):
   """
 
   assert 10 <= XX and XX <= 99 and XX % 1 == 0
-  assert  1 <= YY and YY <= 99 and YY % 1 == 0
+  assert 00 <= YY and YY <= 99 and YY % 1 == 0
 
   return int(100 * XX + YY)
 
@@ -81,7 +82,7 @@ def isvalidhexcodeforedge(h):
   if not m[0].isdecimal() or not _inrange(int(m[0])):
     return False
 
-  if not m[1].isdecimal() or not _inrange(int(m[2])):
+  if not m[1].isdecimal() or not _inrange(int(m[1])):
     return False
 
   return True
@@ -113,7 +114,7 @@ def checkisvalidhexcode(h):
   if not isvalidhexcode(h):
     raise RuntimeError("%s is not a valid hex code." % h)
 
-def fromxy(x, y):
+def fromxy(x, y, sheet=None):
 
   """
   Return the hex code corresponding to the hex coordinate (x, y).
@@ -123,7 +124,14 @@ def fromxy(x, y):
 
   if aphex.iscenterposition(x, y):
 
-    sheet = apmap.tosheet(x, y)
+    if sheet == None:
+      sheet = apmap.tosheet(x, y)
+      # Check the upper right edge.
+      if sheet == None:
+        sheet = apmap.tosheet(x - 0.50, y + 0.25)
+      if sheet == None:
+        raise RuntimeError("position is not within the map.")
+
     x0, y0 = apmap.sheetorigin(sheet)
     XX0, YY0 = _split(sheetorigin(sheet))
     XX = XX0 + (x - x0)
@@ -135,34 +143,27 @@ def fromxy(x, y):
 
   else:
 
-    if x % 2 == 0.5 and y % 1 == 0.25:
-      n0 = fromxy(x - 0.5, y - 0.25)
-      n1 = fromxy(x + 0.5, y + 0.25)
-    elif x % 2 == 0.5 and y % 1 == 0.75:
-      n0 = fromxy(x - 0.5, y + 0.25)
-      n1 = fromxy(x + 0.5, y - 0.25)      
-    elif x % 2 == 1.5 and y % 1 == 0.25:
-      n0 = fromxy(x - 0.5, y + 0.25)
-      n1 = fromxy(x + 0.5, y - 0.25)   
-    elif x % 2 == 1.5 and y % 1 == 0.75:
-      n0 = fromxy(x - 0.5, y - 0.25)
-      n1 = fromxy(x + 0.5, y + 0.25)
-    elif apmap.tosheet(x, y + 0.5) == None:
-      n0 = fromxy(x, y - 0.5)
-      n1 = n0 - 1
-    elif apmap.tosheet(x, y - 0.5) == None:
-      n0 = fromxy(x, y + 0.5)
-      n1 = n0 + 1
-    else:
-      n0 = fromxy(x, y - 0.5)
-      n1 = fromxy(x, y + 0.5)
+    x0, y0, x1, y1 = aphex.edgetocenters(x, y)
 
-    if n0 < n1:
-      return "%s/%s" % (n0, n1)
-    else:
-      return "%s/%s" % (n1, n0)
+    if sheet == None:
+      sheet0 = apmap.tosheet(x0, y0)
+      sheet1 = apmap.tosheet(x1, y1)
+      if sheet0 != None:
+        sheet = sheet0
+      elif sheet1 != None:
+        sheet = sheet1
+      else:
+        raise RuntimeError("position is not within the map.")
 
-def toxy(h):
+    h0 = fromxy(x0, y0, sheet=sheet)
+    h1 = fromxy(x1, y1, sheet=sheet)
+
+    if h0 < h1:
+      return "%s/%s" % (h0, h1)
+    else:
+      return "%s/%s" % (h1, h0)      
+
+def toxy(h, sheet=None):
 
   """
   Return the hex coordinate (x, y) corresponding to the hex code h.
@@ -174,7 +175,11 @@ def toxy(h):
 
     XX, YY = _split(h)
 
-    sheet = tosheet(h)
+    if sheet == None:
+      sheet = tosheet(h)
+      if sheet == None:
+        raise RuntimeError("hex code %s is not within the map." % h)
+
     XX0, YY0 = _split(sheetorigin(sheet))
     x0, y0 = apmap.sheetorigin(sheet)
 
@@ -188,8 +193,19 @@ def toxy(h):
   else:
 
     m = h.split("/")
-    x0, y0 = toxy(m[0])
-    x1, y1 = toxy(m[1])
+    h0 = m[0]
+    h1 = m[1]
+
+    if sheet == None:
+      sheet0 = tosheet(h0, strict=True)
+      sheet1 = tosheet(h1, strict=True)
+      if sheet0 == None:
+        sheet0 = sheet1
+      elif sheet1 == None:
+        sheet1 = sheet0
+
+    x0, y0 = toxy(h0, sheet=sheet0)
+    x1, y1 = toxy(h1, sheet=sheet1)
 
     return 0.5 * (x0 + x1), 0.5 * (y0 + y1)
 
@@ -240,35 +256,62 @@ def isonsheet(h, sheet):
 
   return True
 
-def tosheet(h):
+def tosheet(h, strict=False):
 
   """
   Returns the sheet containing the hex code h, which must refer to a hex center.
+  If strict is true, do not include the half-hexes on the lower and right sides.
+  if strict is false, include them.
   """
 
   checkisvalidhexcodeforcenter(h)
 
   XX, YY = _split(h)
 
-  if 11 <= XX and XX <= 30:
-    sheetletter = "A"
-  elif 31 <= XX and XX <= 50:
-    sheetletter = "B"
-  elif 51 <= XX and XX <= 70:
-    sheetletter = "C"
+  if strict:
+    if 11 <= XX and XX <= 29:
+      sheetletter = "A"
+    elif 31 <= XX and XX <= 49:
+      sheetletter = "B"
+    elif 51 <= XX and XX <= 69:
+      sheetletter = "C"
+    else:
+      return None
   else:
-    raise RuntimeError("invalid hex code %d." % h)
+    if 11 <= XX and XX <= 30:
+      sheetletter = "A"
+    elif 31 <= XX and XX <= 50:
+      sheetletter = "B"
+    elif 51 <= XX and XX <= 70:
+      sheetletter = "C"
+    else:
+      return None
+  
+  if strict:
 
-  if XX % 2 == 1 and 1 <= YY and YY <= 15:
-    sheetnumber = "1"
-  elif XX % 2 == 0 and 2 <= YY and YY <= 16:
-    sheetnumber = "1"
-  elif XX % 2 == 1 and 16 <= YY and YY <= 30:
-    sheetnumber = "2"
-  elif XX % 2 == 0 and 17 <= YY and YY <= 31:
-    sheetnumber = "2"
+    if XX % 2 == 1 and 1 <= YY and YY <= 15:
+      sheetnumber = "1"
+    elif XX % 2 == 0 and 2 <= YY and YY <= 15:
+      sheetnumber = "1"
+    elif XX % 2 == 1 and 16 <= YY and YY <= 30:
+      sheetnumber = "2"
+    elif XX % 2 == 0 and 17 <= YY and YY <= 30:
+      sheetnumber = "2"
+    else:
+      return None
+
   else:
-    raise RuntimeError("invalid hex code %d." % h)
+
+    if XX % 2 == 1 and 1 <= YY and YY <= 15:
+      sheetnumber = "1"
+    elif XX % 2 == 0 and 2 <= YY and YY <= 16:
+      sheetnumber = "1"
+    elif XX % 2 == 1 and 16 <= YY and YY <= 30:
+      sheetnumber = "2"
+    elif XX % 2 == 0 and 17 <= YY and YY <= 31:
+      sheetnumber = "2"
+    else:
+      return None
 
   return sheetletter + sheetnumber
 

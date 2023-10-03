@@ -60,12 +60,31 @@ def drawmap():
 
   for sheet in sheets():
 
-    hexcodes = aphexcode.hexcodes(sheet)
+    xmin, ymin, xmax, ymax = sheetlimits(sheet)
+    apdraw.drawline(xmin, ymin, xmin, ymax, color="grey")
+    apdraw.drawline(xmax, ymin, xmax, ymax, color="grey")
+    apdraw.drawline(xmin, ymin, xmax, ymin, color="grey")
+    apdraw.drawline(xmin, ymax, xmax, ymax, color="grey")
 
-    for hexcode in hexcodes:
-      x, y = aphexcode.toxy(hexcode)
-      apdraw.drawhex(x, y)
-      apdraw.drawtext(x, y, 90, "%d" % hexcode, dy=0.3, size=7, color="grey")
+    for ix in range(0, _dxsheet + 1):
+      for iy in range(0, _dysheet + 1):
+        x = xmin + ix
+        y = ymin + iy
+        if ix % 2 == 1:
+          y -= 0.5
+        # Draw the hex if it is on the map and either its center or its upper left edge are
+        # on this sheet.
+        if isonmap(x, y) and (isonsheet(sheet, x, y) or isonsheet(sheet, x - 0.5, y + 0.25)):
+          apdraw.drawhex(x, y)
+          apdraw.drawtext(x, y, 90, aphexcode.fromxy(x, y), dy=0.3, size=7, color="grey")        
+
+    #hexcodes = aphexcode.hexcodes(sheet)
+
+    #for hexcode in hexcodes:
+    #  x, y = aphexcode.toxy(hexcode)
+    #  if isonmap(x, y):
+    #    apdraw.drawhex(x, y)
+    #    apdraw.drawtext(x, y, 90, "%d" % hexcode, dy=0.3, size=7, color="grey")
         
     xmin, ymin, xmax, ymax = sheetlimits(sheet)
     apdraw.drawline(xmin, ymin, xmin, ymax, color="grey")
@@ -95,7 +114,7 @@ def _dotsheet(sheet):
       dy = 0.25
     for iy in range(-2, 60):
       y = y0 + iy / 2 + dy
-      if iswithinmap(x, y):
+      if isonmap(x, y):
         apdraw.drawdot(x, y)
 
 def sheetorigin(sheet):
@@ -123,7 +142,7 @@ def sheetlimits(sheet):
   contains all of the hex centers and hex edges in the specified sheet. A hex 
   coordinate (x, y) is considered in the sheet if it satisfies:
 
-    xmin <= x < xmax and ymin <= x < ymax. 
+    xmin < x < xmax and ymin < x < ymax. 
     
   The specified sheet must be in the map.
   """
@@ -133,7 +152,7 @@ def sheetlimits(sheet):
   for iy in range (0, _nysheetgrid):
     for ix in range (0, _nxsheetgrid):
       if sheet == _sheetgrid[iy][ix]:
-        xmin = ix * _dxsheet - 0.5
+        xmin = ix * _dxsheet - 1.0
         ymin = iy * _dysheet - 0.5
         xmax = xmin + _dxsheet
         ymax = ymin + _dysheet
@@ -150,43 +169,37 @@ def sheets():
 def isonsheet(sheet, x, y):
 
   """
-  Returns True if the hex coordinate (x, y) is on the specified sheet. 
-  Otherwise returns false. The sheet must be in the map.
+  Returns True if the hex coordinate (x, y) is on the specified sheet, 
+  excluding its edges. Otherwise returns false. The sheet must be in the map.
   """
 
   assert sheet in sheets()
 
   xmin, ymin, xmax, ymax = sheetlimits(sheet)
 
-  return xmin <= x and x < xmax and ymin <= y and y < ymax
+  return xmin < x and x < xmax and ymin < y and y < ymax
 
 def isonmap(x, y):
-
-  """
-  Returns True if the hex coordinate (x, y) is on the map, including its edges. 
-  Otherwise returns false.
-  """
-
-  return tosheet(x, y) != None
-
-def iswithinmap(x, y):
 
   """
   Returns True if the hex coordinate (x, y) is on the map, excluding its edges. 
   Otherwise returns false.
   """
 
-  if tosheet(x, y) == None:
-    return False
+  if tosheet(x, y) != None:
+    return True
 
-  d = 0.1
-  if tosheet(x + d, y) == None:
+  # The point is either off the map or on the edges between adjacent sheets
+  # in the map. So, we check the upper left, upper right, lower left, and lower
+  # right edges.
+
+  if tosheet(x + 0.50, y + 0.25) == None:
     return False 
-  if tosheet(x - d, y) == None:
+  if tosheet(x - 0.50, y + 0.25) == None:
     return False
-  if tosheet(x, y + d) == None:
+  if tosheet(x + 0.50, y - 0.25) == None:
     return False
-  if tosheet(x, y - d) == None:
+  if tosheet(x - 0.50, y - 0.25) == None:
     return False
 
   return True

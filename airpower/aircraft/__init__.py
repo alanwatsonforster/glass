@@ -171,7 +171,7 @@ class aircraft:
     Check if the aircraft has left the map.
     """
 
-    if not apmap.iswithinmap(self._x, self._y):
+    if not apmap.isonmap(self._x, self._y):
       self._logevent("aircraft has left the map.")
       self._leftmap = True
   
