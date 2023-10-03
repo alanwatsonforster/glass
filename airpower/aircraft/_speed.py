@@ -239,7 +239,11 @@ def _endmovespeed(self):
       aprate = +2.0
 
 
-  if ap < 0:
+  if ap == 0:
+
+    self._apcarry = 0
+
+  elif ap < 0:
 
     # See the "Speed Loss" and "Maximum Deceleration" sections of rule 6.2.
 
