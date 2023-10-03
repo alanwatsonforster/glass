@@ -79,10 +79,10 @@ def _drawtextinphysical(x, y, facing, s, size=10, dx=0, dy=0, color="black"):
            verticalalignment='center_baseline',
            rotation_mode="anchor")
 
-def _drawcompassinphysical(x, y, facing):
-  _drawdotinphysical(x, y, size=0.3)
-  _drawarrowinphysical(x, y, facing, size=0.8, dy=+0.4)
-  _drawtextinphysical(x, y, facing, "N", dy=0.95)
+def _drawcompassinphysical(x, y, facing, color="black"):
+  _drawdotinphysical(x, y, size=0.3, color=color)
+  _drawarrowinphysical(x, y, facing, size=0.8, dy=+0.4, color=color)
+  _drawtextinphysical(x, y, facing, "N", dy=0.95, color=color)
     
 def drawhex(x, y, **kwargs):
   _drawhexinphysical(*hextophysical(x, y), **kwargs)

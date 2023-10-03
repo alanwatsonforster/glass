@@ -82,7 +82,7 @@ def drawmap():
     apdraw.drawtext(x0 + 1.0, y0 + 1.5, 90, sheet, dy=-0.05, size=12, color="grey")
 
   if _compassrose != None:
-    apdraw.drawcompass(*aphexcode.toxy(_compassrose), apazimuth.tofacing("N"))
+    apdraw.drawcompass(*aphexcode.toxy(_compassrose), apazimuth.tofacing("N"), color="grey")
 
 def _dotsheet(sheet):
 
