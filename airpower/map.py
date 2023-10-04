@@ -1,3 +1,7 @@
+"""
+Handle the map.
+"""
+
 import airpower.azimuth as apazimuth
 import airpower.draw    as apdraw
 import airpower.hex     as aphex
@@ -61,53 +65,39 @@ def drawmap():
   for sheet in sheets():
 
     xmin, ymin, xmax, ymax = sheetlimits(sheet)
+
+    # Draw the sheet edge.
     apdraw.drawline(xmin, ymin, xmin, ymax, color="grey")
     apdraw.drawline(xmax, ymin, xmax, ymax, color="grey")
     apdraw.drawline(xmin, ymin, xmax, ymin, color="grey")
     apdraw.drawline(xmin, ymax, xmax, ymax, color="grey")
 
+    # Draw and label the hexes.
     for ix in range(0, _dxsheet + 1):
       for iy in range(0, _dysheet + 1):
         x = xmin + ix
         y = ymin + iy
         if ix % 2 == 1:
           y -= 0.5
-        # Draw the hex if it is on the map and either its center or its upper left edge are
-        # on this sheet.
+        # Draw the hex if it is on the map and either its center or the center 
+        # of its upper left edge are on this sheet.
         if isonmap(x, y) and (isonsheet(sheet, x, y) or isonsheet(sheet, x - 0.5, y + 0.25)):
           apdraw.drawhex(x, y)
           apdraw.drawhexlabel(x, y, aphexcode.fromxy(x, y))
 
+    # Label the sheet.
     x0, y0 = aphexcode.toxy(aphexcode.sheetorigin(sheet), sheet=sheet)
     apdraw.drawtext(x0 + 1.0, y0 + 1.5, 90, sheet, dy=-0.05, size=12, color="grey")
 
+  # Draw the compass rose.
   if _compassrose != None:
     apdraw.drawcompass(*aphexcode.toxy(_compassrose), apazimuth.tofacing("N"), color="grey")
-
-def _dotsheet(sheet):
-
-  """
-  Draw dots on all of the hex positions in the specified sheet that are within
-  the map.
-  """
-
-  x0, y0 = sheetorigin(sheet)
-  for ix in range(-2,40):
-    x = x0 + ix / 2
-    if x % 1 == 0:
-      dy = 0
-    else:
-      dy = 0.25
-    for iy in range(-2, 60):
-      y = y0 + iy / 2 + dy
-      if isonmap(x, y):
-        apdraw.drawdot(x, y)
 
 def sheetorigin(sheet):
 
   """
-  Returns the hex coordinates (x0, y0) of the center of the lower left hex in
-  the specified sheet.
+  Returns the hex coordinates (x0, y0) of the lower left corner of the 
+  specified sheet.
     
   The specified sheet must be in the map.
   """
@@ -124,25 +114,18 @@ def sheetorigin(sheet):
 def sheetlimits(sheet):
 
   """
-  Returns the hex coordinates (xmin, ymax) and (xmin, ymax) a rectangle that 
-  contains all of the hex centers and hex edges in the specified sheet. A hex 
-  coordinate (x, y) is considered in the sheet if it satisfies:
-
-    xmin < x < xmax and ymin < x < ymax. 
-    
-  The specified sheet must be in the map.
+  Returns the hex coordinates (xmin, ymin) and (xmax, ymax) the lower left
+  and upper right corners of the specified sheet.
   """
 
   assert sheet in sheets()
 
-  for iy in range (0, _nysheetgrid):
-    for ix in range (0, _nxsheetgrid):
-      if sheet == _sheetgrid[iy][ix]:
-        xmin = ix * _dxsheet
-        ymin = iy * _dysheet
-        xmax = xmin + _dxsheet
-        ymax = ymin + _dysheet
-        return xmin, ymin, xmax, ymax
+  xmin, ymin = sheetorigin(sheet)
+
+  xmax = xmin + _dxsheet
+  ymax = ymin + _dysheet
+
+  return xmin, ymin, xmax, ymax
 
 def sheets():
 

@@ -21,7 +21,7 @@ def _join(XX, YY):
   Return the hex code XXYY corresponding to the integers XX and YY.
   """
 
-  assert 10 <= XX and XX <= 99 and XX % 1 == 0
+  assert 00 <= XX and XX <= 99 and XX % 1 == 0
   assert 00 <= YY and YY <= 99 and YY % 1 == 0
 
   return int(100 * XX + YY)
@@ -33,9 +33,7 @@ def _inrange(h):
   Otherwise return False.
   """
 
-  # Hex codes must have four figures and must not have leading zeros.
-
-  return 1000 <= h and h <= 9999
+  return 0 <= h and h <= 9999
 
 def isvalidhexcodeforcenter(h):
 
@@ -176,7 +174,7 @@ def toxy(h, sheet=None):
     XX, YY = _split(h)
 
     if sheet == None:
-      sheet = tosheet(h)
+      sheet = tosheet(h, strict=False)
       if sheet == None:
         raise RuntimeError("hex code %s is not within the map." % h)
 
@@ -315,22 +313,3 @@ def tosheet(h, strict=False):
 
   return sheetletter + sheetnumber
 
-def hexcodes(sheet):
-
-  """
-  Return a list of the hex codes of the centers of the hexes on the specified
-  sheet.
-  """
-
-  XX0, YY0 = _split(sheetorigin(sheet))
-
-  hexcodes = []
-  for XX in range(XX0, XX0 + 20):
-    if XX % 2 == 1:
-      for YY in range(YY0 - 14, YY0 + 1):
-        hexcodes.append(_join(XX,YY))
-    else:
-      for YY in range(YY0 - 13, YY0 + 2):
-        hexcodes.append(_join(XX,YY))
-
-  return hexcodes
