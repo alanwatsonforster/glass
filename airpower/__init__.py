@@ -7,31 +7,39 @@ import airpower.variants as apvariants
 _turn = None
 
 def startprolog(sheets, compassrose, north="up", variants=[]):
+
   global _turn
-  _turn = None
+
   aplog.log("--- start prolog ---")
   aplog.logbreak()
+
   apvariants.setvariants(variants)
   aplog.logbreak()
+
   apmap.setmap(sheets, compassrose)
   aplog.logbreak()
+
   apazimuth.setnorth(north)
   aplog.logbreak()
 
   apaircraft._restart()
 
+  _turn = None
+
+
 def endprolog():
+
   global _turn
-  _turn = 0
+
   aplog.log("--- end prolog ---")
   aplog.logbreak()
 
+  _turn = 1
+
 def startturn():
 
-  global _turn
   if turn == None:
     aplog.error("startturn() called before endprolog().")
-  _turn += 1
 
   aplog.log("--- start of turn %d ---" % _turn)
   aplog.logbreak()
@@ -40,10 +48,14 @@ def startturn():
 
 def endturn():
 
+  global _turn
+
   apaircraft._allendturn()
 
   aplog.log("--- end of turn %d ---" % _turn)
   aplog.logbreak()
+
+  _turn += 1
 
 def turn():
   return _turn
