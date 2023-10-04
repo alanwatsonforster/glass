@@ -86,8 +86,7 @@ def drawmap():
           apdraw.drawhexlabel(x, y, aphexcode.fromxy(x, y))
 
     # Label the sheet.
-    x0, y0 = aphexcode.toxy(aphexcode.sheetorigin(sheet), sheet=sheet)
-    apdraw.drawtext(x0 + 1.0, y0 + 1.5, 90, sheet, dy=-0.05, size=12, color="grey")
+    apdraw.drawtext(xmin + 1.0, ymin + 1.5, 90, sheet, dy=-0.05, size=12, color="grey")
 
   # Draw the compass rose.
   if _compassrose != None:
