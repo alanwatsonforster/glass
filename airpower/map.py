@@ -1,5 +1,5 @@
 """
-Handle the map.
+The map.
 """
 
 import airpower.azimuth as apazimuth

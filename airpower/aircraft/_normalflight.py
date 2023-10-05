@@ -128,7 +128,7 @@ def _dohorizontal(self):
   Move horizontally.
   """
 
-  self._x, self._y = aphex.nextposition(self._x, self._y, self._facing)
+  self._x, self._y = aphex.next(self._x, self._y, self._facing)
 
 def _dojettison(self, configuration):
 
@@ -269,13 +269,11 @@ def _doturn(self, sense, facingchange):
     self._turnrateap += 1
 
   # Change facing.
+  if aphex.isedge(self._x, self._y):
+    self._x, self._y = aphex.edgetocenter(self._x, self._y, self._facing, sense)
   if sense == "L":
-    if aphex.isedgeposition(self._x, self._y):
-      self._x, self._y = aphex.centertoleft(self._x, self._y, self._facing)
     self._facing = (self._facing + facingchange) % 360
   else:
-    if aphex.isedgeposition(self._x, self._y):
-      self._x, self._y = aphex.centertoright(self._x, self._y, self._facing)
     self._facing = (self._facing - facingchange) % 360
 
   self._turnfp = 0
@@ -419,8 +417,7 @@ def _doaction(self, action):
 
   self._doelements(action, "turn or bank", False)
   
-  assert aphex.isvalidposition(self._x, self._y)
-  assert aphex.isvalidfacing(self._x, self._y, self._facing)
+  assert aphex.isvalid(self._x, self._y, facing=self._facing)
   assert apaltitude.isvalidaltitude(self._altitude)
   
   self._logposition("FP %d" % (self._hfp + self._vfp), action)

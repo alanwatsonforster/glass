@@ -1,4 +1,9 @@
-def iscenterposition(x, y):
+"""
+Manipulation of hex coordinates.
+"""
+
+
+def iscenter(x, y):
 
   """
   Return True if the point (x,y) in hex coordinates corresponds to the center 
@@ -12,7 +17,7 @@ def iscenterposition(x, y):
   else:
     return False
 
-def isedgeposition(x, y):
+def isedge(x, y):
 
   """
   Return True if the point (x,y) in hex coordinates corresponds to (the center 
@@ -30,14 +35,43 @@ def isedgeposition(x, y):
   else:
     return False
 
-def isvalidposition(x, y):
+def isvalid(x, y, facing=None):
 
   """
   Return True if the point (x,y) in hex coordinates corresponds to the center 
-  of a hex or to (the center of) the edge of a hex. Otherwise, return False.
+  of a hex or to (the center of) the edge of a hex and if facing, if given, is a multiple of 30 degrees for centers
+  and parallel to the edge foe edges. Otherwise, return False.
   """
 
-  return iscenterposition(x, y) or isedgeposition(x, y)
+  if iscenter(x, y):
+    if facing == None:
+      return True
+    else:
+      return facing % 30 == 0
+  elif isedge(x, y):
+    if facing == None:
+      return True
+    elif (x % 2 == 0.5 and y % 1 == 0.25) or (x % 2 == 1.5 and y % 1 == 0.75):
+      return facing % 180 == 120
+    elif (x % 2 == 0.5 and y % 1 == 0.75) or (x % 2 == 1.5 and y % 1 == 0.25):
+      return facing % 180 == 60
+    else:
+      return facing % 180 == 0
+  else:
+    return False
+
+def checkisvalid(x, y, facing=None):
+
+  """
+  Raise a RuntimeError exception if the point (x,y) in hex coordinates does not 
+  correspond to the center of a hex or to (the center of) the edge of a hex.
+  """
+
+  if not isvalid(x, y):
+    raise RuntimeError("(%r,%r) is not the center or edge of a hex." % (x, y))
+
+  if facing != None and not isvalid(x, y, facing=facing):
+      raise RuntimeError("%r is not a valid facing for (%r,%r)." % (facing, x, y))
 
 def areadjacent(x0, y0, x1, y1):
 
@@ -46,10 +80,10 @@ def areadjacent(x0, y0, x1, y1):
   of adjacent hexes. Otherwise, return False.
   """
 
-  assert isvalidposition(x0, y0)
-  assert isvalidposition(x1, y1)
+  assert isvalid(x0, y0)
+  assert isvalid(x1, y1)
 
-  if not iscenterposition(x0, y0) or not isoncenter(x1, y1):
+  if not iscenter(x0, y0) or not isoncenter(x1, y1):
     return False
   if abs(x1 - x0) == 1.0 and abs(y1 - y0) == 0.5:
     return True
@@ -58,62 +92,14 @@ def areadjacent(x0, y0, x1, y1):
   else:
     return False
 
-def checkisvalidposition(x, y):
-
-  """
-  Raise a RuntimeError exception if the point (x,y) in hex coordinates does not 
-  correspond to the center of a hex or to (the center of) the edge of a hex.
-  """
-
-  if not isvalidposition(x, y):
-    raise RuntimeError("(%s,%s) is not the center or edge of a hex." % (x,y))
-
-def isvalidfacing(x, y, facing):
-
-  """
-  Return True if facing is a valid facing at the position (x, y) in hex 
-  coordinates, which must correspond to to the center of a hex or to (the 
-  center of) the edge of a hex.
-  """
-
-  assert isvalidposition(x, y)
-
-  if iscenterposition(x, y):
-    return facing % 30 == 0
-
-  if x % 2 == 0.5 and y % 1.0 == 0.25:
-    return facing % 180 == 120
-  elif x % 2 == 0.5 and y % 1.0 == 0.75:
-    return facing % 180 == 60
-  elif x % 2 == 1.5 and y % 1 == 0.25:
-    return facing % 180 == 60
-  elif x % 2 == 1.5 and y % 1.0 == 0.75:
-    return facing % 180 == 120
-  else:
-    return facing % 180 == 0
-
-def checkisvalidfacing(x, y, facing):
-
-  """
-  Raise a RuntimeError exception if facing is not a valid facing at the position 
-  (x, y) in hex coordinates, which must correspond to to the center of a hex or 
-  to (the center of) the edge of a hex.
-  """
-
-  assert isvalidposition(x, y)
-
-  if not isvalidfacing(x, y, facing):
-    raise RuntimeError("(%s,%s) is not the center or edge of a hex." % (x,y))
-
-def nextposition(x, y, facing):
+def next(x, y, facing):
 
   """
   Return the coordinates of the next valid position after the point (x, y) with 
   respect to the facing.
   """
 
-  assert isvalidposition(x, y)
-  assert isvalidfacing(x, y, facing)
+  assert isvalid(x, y, facing=facing)
 
   if facing == 0:
     x += +1.00
@@ -154,61 +140,52 @@ def nextposition(x, y, facing):
   
   return x, y
 
-def centertoleft(x, y, facing):
+def edgetocenter(x, y, facing, sense):
 
   """
-  Return the coordinates of the hex center to the left of the edge
-  position (x, y) and where left is defined with respect to the facing.
+  Return the coordinates of the  center adjacent to the edge (x, y) in the 
+  given sense with respect to the facing.
   """
 
-  assert isedgeposition(x, y)
-  assert isvalidfacing(x, y, facing)
+  assert isedge(x, y)
+  assert isvalid(x, y, facing=facing)
+  assert sense == "L" or sense == "R"
 
-  if facing == 0:
-    y += 0.5
-  elif facing == 60:
-    x -= 0.50
-    y += 0.25
-  elif facing == 120:
-    x -= 0.50
-    y -= 0.25
-  elif facing == 180:
-    y -= 0.5
-  elif facing == 240:
-    x += 0.50
-    y -= 0.25
-  elif facing == 300:
-    x += 0.50
-    y += 0.25
-
-  return x, y
- 
-def centertoright(x, y, facing):
-
-  """
-  Return the coordinates of the hex center to the left of the edge
-  position (x, y) and where right is defined with respect to the facing.
-  """
-  assert isedgeposition(x, y)
-  assert isvalidfacing(x, y, facing)
-
-  if facing == 0:
-    y -= 0.5
-  elif facing == 60:
-    x += 0.50
-    y -= 0.25
-  elif facing == 120:
-    x += 0.50
-    y += 0.25
-  elif facing == 180:
-    y += 0.5
-  elif facing == 240:
-    x -= 0.50
-    y += 0.25
-  elif facing == 300:
-    x -= 0.50
-    y -= 0.25
-
+  if sense == "L":
+    if facing == 0:
+      y += 0.5
+    elif facing == 60:
+      x -= 0.50
+      y += 0.25
+    elif facing == 120:
+      x -= 0.50
+      y -= 0.25
+    elif facing == 180:
+      y -= 0.5
+    elif facing == 240:
+      x += 0.50
+      y -= 0.25
+    elif facing == 300:
+      x += 0.50
+      y += 0.25
+  elif sense == "R":
+    if facing == 0:
+      y -= 0.5
+    elif facing == 60:
+      x += 0.50
+      y -= 0.25
+    elif facing == 120:
+      x += 0.50
+      y += 0.25
+    elif facing == 180:
+      y += 0.5
+    elif facing == 240:
+      x -= 0.50
+      y += 0.25
+    elif facing == 300:
+      x -= 0.50
+      y -= 0.25
+    
   return x, y
 
 def edgetocenters(x, y):
@@ -218,7 +195,7 @@ def edgetocenters(x, y):
   to the hex edge (x, y) as a tuple (x0, y0, x1, y1).
   """
 
-  assert isedgeposition(x, y)
+  assert isedge(x, y)
 
   if x % 2 == 0.5 and y % 1 == 0.25:
     x0, y0 = x - 0.5, y - 0.25

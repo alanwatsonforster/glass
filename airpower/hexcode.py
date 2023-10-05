@@ -1,3 +1,7 @@
+"""
+Conversion between hex codes and hex coordinates.
+"""
+
 import airpower.hex as aphex
 import airpower.map as apmap
 
@@ -87,9 +91,9 @@ def fromxy(x, y, sheet=None):
   normal rules are used for edges.
   """
 
-  aphex.checkisvalidposition(x, y)
+  aphex.checkisvalid(x, y)
 
-  if aphex.iscenterposition(x, y):
+  if aphex.iscenter(x, y):
 
     if sheet == None:
       sheet = apmap.tosheet(x, y)

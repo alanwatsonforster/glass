@@ -70,7 +70,7 @@ class aircraft:
       facing = apazimuth.tofacing(azimuth)
 
       apaltitude.checkisvalidaltitude(altitude)
-      aphex.checkisvalidfacing(x, y, facing)
+      aphex.checkisvalid(x, y, facing)
 
       # In addition to the specified position, azimuth, altitude, speed, and 
       # configuration, aircraft initially have level flight, normal power, and

@@ -52,16 +52,16 @@ def _dodepartedflight(self, action):
   if facingchange % 30 != 0 or facingchange <= 0 or facingchange > 300:
     raise RuntimeError("invalid action %r for departed flight." % action)
 
+  sense = action[0]
+
   # Do the first facing change.
 
-  if action[0] == "R":
-    if aphex.isedgeposition(self._x, self._y):
-      self._x, self._y = aphex.centertoright(self._x, self._y, self._facing)
-    self._facing = (self._facing - 30) % 360
-  else:
-    if aphex.isedgeposition(self._x, self._y):
-      self._x, self._y = aphex.centertoleft(self._x, self._y, self._facing)
+  if aphex.isedge(self._x, self._y):
+    self._x, self._y = aphex.centertoright(self._x, self._y, self._facing, sense)
+  if action[0] == "L":
     self._facing = (self._facing + 30) % 360
+  else:
+    self._facing = (self._facing - 30) % 360
   self._continueflightpath()
   facingchange -= 30
 
@@ -71,7 +71,7 @@ def _dodepartedflight(self, action):
     i = self._speed // 2
     for i in range(0, int(self._speed / 2)):
       lastx, lasty = self._x, self._y
-      self._x, self._y = aphex.nextposition(self._x, self._y, self._facing)
+      self._x, self._y = aphex.next(self._x, self._y, self._facing)
       self._continueflightpath()
       self.checkforterraincollision()
       self.checkforleavingmap()
@@ -79,15 +79,12 @@ def _dodepartedflight(self, action):
         return
 
   # Do any remaining facing changes.
-
-  if action[0] == "R":
-    if aphex.isedgeposition(self._x, self._y):
-      self._x, self._y = aphex.centertoright(self._x, self._y, self._facing)
-    self._facing = (self._facing - facingchange) % 360
-  else:
-    if aphex.isedgeposition(self._x, self._y):
-      self._x, self._y = aphex.centertoleft(self._x, self._y, self._facing)
+  if aphex.isedge(self._x, self._y):
+    self._x, self._y = aphex.edgetocenter(self._x, self._y, self._facing, sense)
+  if action[0] == "L":
     self._facing = (self._facing + facingchange) % 360
+  else:
+    self._facing = (self._facing - facingchange) % 360
   self._continueflightpath()
 
   # Now lose altitude.
