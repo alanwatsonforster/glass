@@ -8,7 +8,7 @@ import airpower.map as apmap
 def isvalidhexcodeforcenter(h):
 
   """
-  Return True if h is grammatically a hex code for a center. 
+  Return True if h is grammatically a hex code that corresponds to a center. 
   Otherwise return False.
   """
 
@@ -26,18 +26,18 @@ def isvalidhexcodeforcenter(h):
 def checkisvalidhexcodeforcenter(h):
 
   """
-  Raise a RuntimeError exception if h is not a gramatically valid hex code for
-  a center.
+  Raise a RuntimeError exception if h is not a gramatically valid hex code that
+  corresponds to a center.
   """
 
   if not isvalidhexcodeforcenter(h):
-    raise RuntimeError("%r is not a valid hex code for a center." % h)
+    raise RuntimeError("%r is not a valid hex code for a hex." % h)
 
 def isvalidhexcodeforedge(h):
 
   """
-  Return True if h is grammatically a hex code for an edge. Otherwise return 
-  False.
+  Return True if h is grammatically a hex code that corresponds to an edge. 
+  Otherwise return False.
   """
 
   if not isinstance(h, str):
@@ -58,8 +58,8 @@ def isvalidhexcodeforedge(h):
 def checkvalidhexcodeforedge(h):
 
   """
-  Raise a RuntimeError exception if h is not a gramatically valid hex code for
-  an edge.
+  Raise a RuntimeError exception if h is not a gramatically valid hex code that
+  corresponds to an edge.
   """
 
   if not isvalidhexcodeforedge(h):

@@ -6,8 +6,8 @@ Manipulation of hex coordinates.
 def iscenter(x, y):
 
   """
-  Return True if the point (x,y) in hex coordinates corresponds to the center 
-  of a hex. Otherwise, return False.
+  Return True if the point (x,y) in hex coordinates corresponds to a center.
+  Otherwise, return False.
   """
 
   if x % 2 == 0.0 and y % 1.0 == 0.00:
@@ -20,8 +20,8 @@ def iscenter(x, y):
 def isedge(x, y):
 
   """
-  Return True if the point (x,y) in hex coordinates corresponds to (the center 
-  of) the edge of a hex. Otherwise, return False.
+  Return True if the point (x,y) in hex coordinates corresponds to an edge.
+  Otherwise, return False.
   """
 
   if x % 2 == 0.0 and y % 1.0 == 0.5:
@@ -38,8 +38,8 @@ def isedge(x, y):
 def isvalid(x, y, facing=None):
 
   """
-  Return True if the point (x,y) in hex coordinates corresponds to the center 
-  of a hex or to (the center of) the edge of a hex and if facing, if given, is a multiple of 30 degrees for centers
+  Return True if the point (x,y) in hex coordinates corresponds to a center or
+  edge and the facing, if given, is a multiple of 30 degrees for centers
   and parallel to the edge foe edges. Otherwise, return False.
   """
 
@@ -64,7 +64,7 @@ def checkisvalid(x, y, facing=None):
 
   """
   Raise a RuntimeError exception if the point (x,y) in hex coordinates does not 
-  correspond to the center of a hex or to (the center of) the edge of a hex.
+  correspond to a center or edge.
   """
 
   if not isvalid(x, y):
@@ -76,7 +76,7 @@ def checkisvalid(x, y, facing=None):
 def areadjacent(x0, y0, x1, y1):
 
   """
-  Return True if the positions (x0,y0) and (x1,y1) correspond the the centers 
+  Return True if the positions (x0,y0) and (x1,y1) correspond to the centers 
   of adjacent hexes. Otherwise, return False.
   """
 
@@ -143,7 +143,7 @@ def next(x, y, facing):
 def edgetocenter(x, y, facing, sense):
 
   """
-  Return the coordinates of the  center adjacent to the edge (x, y) in the 
+  Return the coordinates of the center adjacent to the edge (x, y) in the 
   given sense with respect to the facing.
   """
 
@@ -191,8 +191,8 @@ def edgetocenter(x, y, facing, sense):
 def edgetocenters(x, y):
 
   """
-  Returns the coordinates (x0, y0) and (x1, y1) of the hex centers adjacent
-  to the hex edge (x, y) as a tuple (x0, y0, x1, y1).
+  Returns the coordinates (x0, y0) and (x1, y1) of the centers adjacent
+  to the edge (x, y) as a tuple (x0, y0, x1, y1).
   """
 
   assert isedge(x, y)
