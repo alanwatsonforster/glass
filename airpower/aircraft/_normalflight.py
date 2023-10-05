@@ -184,7 +184,6 @@ def _dospeedbrakes(self, spbrfp):
 
 def _dobank(self, sense):
 
-  # TODO: make sure we can't change bank on the same FP as we turn.
   # TODO: LRR
 
   self._bank = sense
@@ -196,7 +195,6 @@ def _dodeclareturn(self, sense, turnrate):
   Start a turn in the specified direction and rate.
   """
 
-  # TODO: Minimum speed requirements.
   # TODO: HRR and LRR
 
   if self._bank != None and self._bank != sense:
@@ -208,9 +206,12 @@ def _dodeclareturn(self, sense, turnrate):
   turnrates = ["EZ", "TT", "HT", "BT", "ET"]
   assert turnrate in turnrates
 
-  # TODO: turn rates can depend on the configuration (e.g., F-100A).
   if turnrate not in self._allowedturnrates:
-    raise RuntimeError("attempt to declare a turn rate tighter than the maximum allowed.")
+    raise RuntimeError("attempt to declare a turn rate tighter than allowed by the flight type.")
+
+  turnrateap = self.turndrag(turnrate)
+  if turnrateap == None:
+    raise RuntimeError("attempt to declare a turn rate tighter than allowed by the aircraft.")
 
   self._turnrate = turnrate
   self._bank = sense
@@ -260,10 +261,7 @@ def _doturn(self, sense, facingchange):
     # TODO: drag for HBR and LBR aircraft.
     self._sustainedturnap -= facingchange // 30
 
-  if self._maxturnrate == "EZ":
-    self._turnrateap = 0.0
-  else:
-    self._turnrateap = -self.turndrag(self._maxturnrate)
+  self._turnrateap = -self.turndrag(self._maxturnrate)
 
   # See the "Supersonic Speeds" section of rule 6.6.
   if self._speed >= apspeed.m1speed(self._altitudeband):
@@ -488,39 +486,44 @@ def _startnormalflight(self, actions):
 
   def determineallowedturnrates():
 
-    turnrates = self.turnrates()
+    """
+    Determine the allowed turn rates according to the flight type. The
+    aircraft type and configuration may impose additional restrictions.
+    """
+
+    turnrates = ["EZ", "TT", "HT", "BT", "ET"]
 
     # See rule 7.5 "Turning and Minimum Speeds"
 
     minspeed = self.minspeed()
-    if self._speed == minspeed + 1.5 and "ET" in turnrates:
+    if self._speed == minspeed + 1.5:
       self._log("- speed is limiting the turn rate to BT.")
       turnrates = turnrates[:4]
-    elif self._speed == minspeed + 1.0 and "BT" in turnrates:
+    elif self._speed == minspeed + 1.0:
       self._log("- speed is limiting the turn rate to HT.")
       turnrates = turnrates[:3]
-    elif self._speed == minspeed + 0.5 and "HT" in turnrates:
+    elif self._speed == minspeed + 0.5:
       self._log("- speed is limiting the turn rate to TT.")
       turnrates = turnrates[:2]
-    elif self._speed == minspeed and "TT" in turnrates:
+    elif self._speed == minspeed:
       self._log("- speed is limiting the turn rate to EZ.")
       turnrates = turnrates[:1]
 
     # See the "ZC Restrictions" section of rule 8.1.1.
 
-    if self._flighttype == "ZC" and "ET" in turnrates:
+    if self._flighttype == "ZC":
       self._log("- ZC is limiting the turn rate to BT.")
       turnrates = turnrates[:4]
 
     # See the "SC Restrictions" section of rule 8.1.1.
 
-    if self._flighttype == "SC" and "EZ" in turnrates:
+    if self._flighttype == "SC":
       self._log("- SC is limiting the turn rate to EZ.")
       turnrates = turnrates[:1]
 
     # See the "VC Restrictions" section of rule 8.1.3.
 
-    if self._flighttype == "VC" and "EZ" in turnrates:
+    if self._flighttype == "VC":
       self._log("- VC disallows all turns.")
       turnrates = []
 

@@ -14,7 +14,10 @@ def turnrates(self):
   return self._aircraftdata.turnrates(self._configuration)
 
 def turndrag(self, turnrate):
-  return self._aircraftdata.turndrag(self._configuration, turnrate)
+  if turnrate == "EZ":
+    return 0.0
+  else:
+    return self._aircraftdata.turndrag(self._configuration, turnrate)
 
 def minspeed(self):
   return self._aircraftdata.minspeed(self._configuration, self._altitudeband)
