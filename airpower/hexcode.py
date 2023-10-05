@@ -5,10 +5,10 @@ Conversion between hex codes and hex coordinates.
 import airpower.hex as aphex
 import airpower.map as apmap
 
-def isvalidhexcodeforhex(h):
+def isvalidhexcodeforcenter(h):
 
   """
-  Return True if h is grammatically a hex code that corresponds to a hex. 
+  Return True if h is grammatically a hex code for a center. 
   Otherwise return False.
   """
 
@@ -23,21 +23,21 @@ def isvalidhexcodeforhex(h):
 
   return False
 
-def checkisvalidhexcodeforhex(h):
+def checkisvalidhexcodeforcenter(h):
 
   """
-  Raise a RuntimeError exception if h is not a gramatically valid hex code that
-  corresponds to a hex.
+  Raise a RuntimeError exception if h is not a gramatically valid hex code for
+  a center.
   """
 
-  if not isvalidhexcodeforhex(h):
-    raise RuntimeError("%r is not a valid hex code for a hex." % h)
+  if not isvalidhexcodeforcenter(h):
+    raise RuntimeError("%r is not a valid hex code for a center." % h)
 
 def isvalidhexcodeforedge(h):
 
   """
-  Return True if h is grammatically a hex code that corresponds to an edge. 
-  Otherwise return False.
+  Return True if h is grammatically a hex code for an edge. Otherwise return 
+  False.
   """
 
   if not isinstance(h, str):
@@ -58,8 +58,8 @@ def isvalidhexcodeforedge(h):
 def checkvalidhexcodeforedge(h):
 
   """
-  Raise a RuntimeError exception if h is not a gramatically valid hex code that
-  corresponds to an edge.
+  Raise a RuntimeError exception if h is not a gramatically valid hex code for
+  an edge.
   """
 
   if not isvalidhexcodeforedge(h):
@@ -71,7 +71,7 @@ def isvalidhexcode(h):
   Return True if h is a grammatically valid hex code. Otherwise return False.
   """
 
-  return isvalidhexcodeforhex(h) or isvalidhexcodeforedge(h)
+  return isvalidhexcodeforcenter(h) or isvalidhexcodeforedge(h)
 
 def checkisvalidhexcode(h):
 
@@ -86,9 +86,8 @@ def fromxy(x, y, sheet=None):
 
   """
   Return the hex code corresponding to the hex coordinate (x, y), which must
-  correspond to the center of a hex or the center of the edge of a hex. If a
-  sheet is specified, the hex code is chosen from that sheet. Otherwise the
-  normal rules are used for edges.
+  correspond to a center or an edge. If a sheet is specified, the hex code is 
+  chosen from that sheet. Otherwise the normal rules are used for edges.
   """
 
   aphex.checkisvalid(x, y)
@@ -142,7 +141,7 @@ def toxy(h, sheet=None):
 
   checkisvalidhexcode(h)
 
-  if isvalidhexcodeforhex(h):
+  if isvalidhexcodeforcenter(h):
 
     XX, YY = _split(h)
 
@@ -186,7 +185,7 @@ def _split(h):
   Split the hex code h of the form XXYY and return XX and YY as integers.
   """
 
-  assert isvalidhexcodeforhex(h)
+  assert isvalidhexcodeforcenter(h)
 
   h = int(h)
   XX = h // 100
@@ -245,12 +244,12 @@ def _tosheet(h,
   ):
 
   """
-  Returns the sheet containing the hex code h, which must refer to a hex center.
+  Returns the sheet containing the hex code h, which must refer to a center.
   Hexes on the edges are excluded unless explicity includeded by the keyword
   arguments.
   """
 
-  assert isvalidhexcodeforhex(h)
+  assert isvalidhexcodeforcenter(h)
 
   XX, YY = _split(h)
 
