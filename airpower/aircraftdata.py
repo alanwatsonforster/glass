@@ -1,5 +1,20 @@
 import json
 
+def _checkconfiguration(configuration):
+  assert configuration in ["CL", "1/2", "DT"]
+
+def _checkpowersetting(powersetting):
+  assert powersetting in ["AB", "M", "N", "I"]
+
+def _checkturnrate(turnrate):
+  assert turnrate in ["EZ", "TT", "HT", "BT", "ET"]
+
+def _checkaltitudeband(altitudeband):
+  assert altitudeband in ["LO", "ML", "MH", "HI", "VH", "EH", "UH"]
+
+def _configurationindex(configuration):
+  return ["CL", "1/2", "DT"].index(configuration)
+
 class aircraftdata:
 
   def __init__(self, name):
@@ -11,85 +26,109 @@ class aircraftdata:
     self._data = json.load(open(filename, "r", encoding="utf-8"))
     assert name == self._data["name"]
 
-  def power(self, configuration, setting):
-    if not setting in self._data["powertable"][configuration]:
+  def power(self, configuration, powersetting):
+    _checkconfiguration(configuration)
+    _checkpowersetting(powersetting)
+    if not powersetting in self._data["powertable"]:
       return None
     else:
-      return self._data["powertable"][configuration][setting]
+      return self._data["powertable"][powersetting][_configurationindex(configuration)]
 
   def spbr(self, configuration):
-    return self._data["powertable"][configuration]["SPBR"]
+    _checkconfiguration(configuration)
+    return self._data["powertable"]["SPBR"][_configurationindex(configuration)]
 
-  def fuelrate(self, setting):
-    if not setting in self._data["powertable"]["FUEL"]:
+  def fuelrate(self, powersetting):
+    _checkpowersetting(powersetting)
+    if not powersetting in self._data["powertable"]:
       return None
     else:
-      return self._data["powertable"]["FUEL"][setting]
+      return self._data["powertable"][powersetting][3]
   
   def turnrates(self, configuration):
-    return ["EZ"] + list(self._data["turndragtable"][configuration].keys())
+    return ["EZ"] + list(self._data["turndragtable"].keys())
 
   def turndrag(self, configuration, turnrate):
-    if not turnrate in self._data["turndragtable"][configuration]:
+    # TODO: implement slatted wings.
+    _checkconfiguration(configuration)
+    _checkturnrate(turnrate)
+    if not turnrate in self._data["turndragtable"]:
+      return None
+    raw = self._data["turndragtable"][turnrate][_configurationindex(configuration)]
+    if raw == "-":
       return None
     else:
-      return self._data["turndragtable"][configuration][turnrate]
+      return raw
 
   def minspeed(self, configuration, altitudeband):
+    _checkconfiguration(configuration)
+    _checkaltitudeband(altitudeband)
     if altitudeband == "UH":
       altitudeband = "EH"
-    if self._data["minspeedtable"][configuration][altitudeband] == 0.0:
+    raw = self._data["speedtable"][altitudeband][_configurationindex(configuration)][0]
+    if raw == "-":
       return None
     else:
-      return self._data["minspeedtable"][configuration][altitudeband]
+      return raw
 
   def maxspeed(self, configuration, altitudeband):
+    _checkconfiguration(configuration)
+    _checkaltitudeband(altitudeband)
     if altitudeband == "UH":
       altitudeband = "EH"
-    if self._data["maxspeedtable"][configuration][altitudeband] == 0.0:
+    raw = self._data["speedtable"][altitudeband][_configurationindex(configuration)][1]
+    if raw == "-":
       return None
     else:
-      return self._data["maxspeedtable"][configuration][altitudeband]
+      return raw
   
+  def maxdivespeed(self, altitudeband):
+    _checkaltitudeband(altitudeband)
+    if altitudeband == "UH":
+      altitudeband = "EH"
+    raw = self._data["speedtable"][altitudeband][3]
+    if raw == "-":
+      return None
+    else:
+      return raw
+
+  def ceiling(self, configuration):
+    _checkconfiguration(configuration)
+    return self._data["ceilingtable"][_configurationindex(configuration)]
+
   def cruisespeed(self):
     return self._data["cruisespeed"]
 
   def climbspeed(self):
     return self._data["climbspeed"]
 
-  def maxdivespeed(self, altitudeband):
-    if altitudeband == "UH":
-      altitudeband = "EH"
-    if self._data["maxdivespeedtable"][altitudeband] == 0.0:
-      return None
-    else:
-      return self._data["maxdivespeedtable"][altitudeband]
-
-  def ceiling(self, configuration):
-    return self._data["ceilingtable"][configuration]
-
   def rollhfp(self):
-    return self._data["maneuvertable"]["LR/DR"]["HFP"]
+    return self._data["maneuvertable"]["LR/DR"][0]
 
   def rolldrag(self, rolltype):
     assert rolltype in [ "VR", "LR", "DR" ]
     if rolltype != "VR":
       rolltype = "LR/DR"
-    return self._data["maneuvertable"][rolltype]["DP"]
+    return self._data["maneuvertable"][rolltype][1]
     
   def hasproperty(self, p):
+    # TODO: MiG-15bis and Mig-17 are LRR at high speed.
     return p in self._data["properties"]
 
   def climbcapability(self, configuration, altitudeband, powersetting):
+    _checkaltitudeband(altitudeband)
+    _checkpowersetting(powersetting)
+    if altitudeband == "UH":
+      altitudeband = "EH"
     if powersetting == "AB":
-      climbcapacity = self._data["climbcapabilitytable"][configuration][altitudeband]["AB"]
+      powersettingindex = 0
     else:
-      climbcapacity = self._data["climbcapabilitytable"][configuration][altitudeband]["Other"]
-    if climbcapacity == 0:
+      powersettingindex = 1
+    raw = self._data["climbcapabilitytable"][altitudeband][_configurationindex(configuration)][powersettingindex]
+    if raw == "-":
       return None
     else:
-      return climbcapacity
-
+      return raw
 
   def print(self):
 

@@ -208,6 +208,7 @@ def _dodeclareturn(self, sense, turnrate):
   turnrates = ["EZ", "TT", "HT", "BT", "ET"]
   assert turnrate in turnrates
 
+  # TODO: turn rates can depend on the configuration (e.g., F-100A).
   if turnrate not in self._allowedturnrates:
     raise RuntimeError("attempt to declare a turn rate tighter than the maximum allowed.")
 
