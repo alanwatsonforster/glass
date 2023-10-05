@@ -45,16 +45,24 @@ class aircraftdata:
     else:
       return self._data["powertable"][powersetting][3]
   
-  def turnrates(self, configuration):
-    return ["EZ"] + list(self._data["turndragtable"].keys())
+  def lowspeedturnlimit(self):
+    if "lowspeedturnlimit" in self._data:
+      return self._data["lowspeedturnlimit"]
+    else:
+      return None
 
-  def turndrag(self, configuration, turnrate):
-    # TODO: implement slatted wings.
+  def turndrag(self, configuration, turnrate, lowspeed=False, highspeed=False):
     _checkconfiguration(configuration)
     _checkturnrate(turnrate)
-    if not turnrate in self._data["turndragtable"]:
+    if lowspeed:
+      table = "lowspeedturndragtable"
+    elif highspeed:
+      table = "highspeedturndragtable"
+    else:
+      table = "turndragtable"
+    if not turnrate in self._data[table]:
       return None
-    raw = self._data["turndragtable"][turnrate][_configurationindex(configuration)]
+    raw = self._data[table][turnrate][_configurationindex(configuration)]
     if raw == "-":
       return None
     else:

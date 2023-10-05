@@ -10,14 +10,16 @@ def spbr(self):
 def fuelrate(self):
   return self._aircraftdata.fuelrate(self._powersetting)
 
-def turnrates(self):
-  return self._aircraftdata.turnrates(self._configuration)
-
 def turndrag(self, turnrate):
   if turnrate == "EZ":
     return 0.0
-  else:
+  lowspeedturnlimit = self._aircraftdata.lowspeedturnlimit()
+  if lowspeedturnlimit == None:
     return self._aircraftdata.turndrag(self._configuration, turnrate)
+  elif self._speed <= lowspeedturnlimit:
+    return self._aircraftdata.turndrag(self._configuration, turnrate, lowspeed=True)
+  else:
+    return self._aircraftdata.turndrag(self._configuration, turnrate, highspeed=True)
 
 def minspeed(self):
   return self._aircraftdata.minspeed(self._configuration, self._altitudeband)

@@ -14,20 +14,20 @@
     "LR/DR": [ 1.0, 1.0 ],
     "VR":    [ 0.0, 0.0 ]
   },
-  "slattedturnspeed": 4.0,
-  "turndragtable": {
+  "lowspeedturnlimit": 4.0,
+  "lowspeedturndragtable": {
     "TT": [ 1.0, 1.0, 1.0 ],
     "HT": [ 2.0, 2.0, 2.0 ],
     "BT": [ 3.0, 3.0, 4.0 ],
     "ET": [ 4.0, "-", "-" ]
   },
-  "slattedturndragtable": {
+  "highspeedturndragtable": {
     "TT": [ 1.0, 1.0, 1.0 ],
     "HT": [ 1.0, 2.0, 2.0 ],
     "BT": [ 2.0, 2.0, 3.0 ],
     "ET": [ 4.0, "-", "-" ]
   },
-  "ceilingtable": [ 48, 44, 40 ],
+  "ceilingtable": [ 51, 47, 41 ],
   "speedtable": {
     "EH": [ [  4.0,  8.0 ], [  "-",  "-" ], [  "-",  "-" ], 10.0 ],
     "VH": [ [  3.5,  9.0 ], [  4.0,  8.0 ], [  4.0,  7.5 ], 10.0 ],
@@ -44,5 +44,8 @@
     "ML": [ [ 3.0, 1.0 ], [ 2.0, 1.0 ], [ 1.0, 0.5 ] ],
     "LO": [ [ 3.0, 1.0 ], [ 2.0, 1.0 ], [ 2.0, 1.0 ] ]
   },
-  "properties": [ "HTD" ]
+  "properties": [ "HTD" ],
+  "comments": [
+    "The F-100A appears as a variant on the F-100C/D ADC."
+  ]
 }
