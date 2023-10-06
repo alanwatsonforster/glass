@@ -129,7 +129,7 @@ def _startmovespeed(self, power, flamedoutfraction):
 
     if self._lastflighttype == "DP" and self._flighttype != "DP" and speed < minspeed:
       speed = minspeed
-      self._log("- increasing speed to %.1f after recovering from departed flight.")
+      self._log("- increasing speed to %.1f after recovering from departed flight." % minspeed)
       
     # See the "Idle" section of rule 6.1 and the "Supersonic Speeds" section of rule 6.6
 
