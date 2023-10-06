@@ -140,15 +140,12 @@ class aircraft:
   def position(self):
 
     if apmap.isonmap(self._x, self._y):
-      sheet = apmap.tosheet(self._x, self._y)
       hexcode = aphexcode.fromxy(self._x, self._y)
     else:
-      sheet = "--"
       hexcode = "----"
     azimuth = apazimuth.fromfacing(self._facing)
     altitude = self._altitude
-    altitudeband = self._altitudeband
-    return "%2s %-9s  %-3s  %2d  %2s" % (sheet, hexcode, azimuth, altitude, altitudeband)
+    return "%-9s  %-3s  %2d" % (hexcode, azimuth, altitude)
 
   #############################################################################
 
