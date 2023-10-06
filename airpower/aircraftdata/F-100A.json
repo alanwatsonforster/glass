@@ -44,8 +44,8 @@
     "ML": [ [ 3.0, 1.0 ], [ 2.0, 1.0 ], [ 1.0, 0.5 ] ],
     "LO": [ [ 3.0, 1.0 ], [ 2.0, 1.0 ], [ 2.0, 1.0 ] ]
   },
-  "properties": [ "HTD" ],
+  "properties": [],
   "comments": [
-    "The F-100A appears as a variant on the F-100C/D ADC."
+    "The F-100A appears as a variant on the F-100C/D ADC in TSOH."
   ]
 }
