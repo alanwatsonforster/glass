@@ -18,13 +18,21 @@ def _configurationindex(configuration):
 class aircraftdata:
 
   def __init__(self, name):
+
+    def loadfile(name):
+      # TODO: Look for the file using a relative path.
+      # TODO: Handle errors.
+      filename = "/content/src/airpower/aircraftdata/%s.json" % name
+      return json.load(open(filename, "r", encoding="utf-8"))
+
     self._name = name
-    # TODO: Look for the file using a relative path.
-    filename = "/content/src/airpower/aircraftdata/%s.json" % name
-    # TODO: Handle errors.
     self._name = name
-    self._data = json.load(open(filename, "r", encoding="utf-8"))
-    assert name == self._data["name"]
+    data = loadfile(name)
+    if "base" in data:
+      basedata = loadfile(data["base"])
+      basedata.update(data)
+      data = basedata
+    self._data = data
 
   def power(self, configuration, powersetting):
     _checkconfiguration(configuration)
