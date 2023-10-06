@@ -32,7 +32,7 @@ def _startmovespeed(self, power, flamedoutfraction):
         if powerapAB != None:
           powerapAB = max(0.5, twothirds(powerapAB))
       elif self._altitudeband == "EH" or self._altitudeband == "UH":
-        powerapM  = max(0.5, onethird(poweapM))
+        powerapM  = max(0.5, onethird(powerapM))
         if powerapAB != None:
           powerapAB = max(0.5, onethird(powerapAB))        
 
