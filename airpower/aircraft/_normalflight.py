@@ -410,13 +410,15 @@ def _doaction(self, action):
   else:
    self._vfp += 1
 
-  self._turnfp += 1
-
   self._unloaded = self._flighttype == "UD" and actionvertical
   if self._unloaded:
     if self._firstunloadedfp == None:
       self._firstunloadedfp = self._hfp
     self._lastunloadedfp = self._hfp
+
+  # See rule 8.2.2.
+  if not self._unloaded:
+    self._turnfp += 1
 
   self._doelements(action, "turn or bank", False)
   
