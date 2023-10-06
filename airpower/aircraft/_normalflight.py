@@ -397,10 +397,14 @@ def _doaction(self, action):
   actionhorizontal = (self._doelements(action, "H", False) == 1)
   actionvertical   = (self._doelements(action, "C or D", False) == 1)
 
+  if not actionhorizontal and not actionvertical:
+    raise RuntimeError("%r is not a valid action." % action)
+  elif actionhorizontal and actionvertical:
+    if not self._flighttype == "UD" and not self._flighttype == "LVL":
+      raise RuntimeError("%r is not a valid action when the flight type is %s." % (action, self._flighttype))
+  
   if actionhorizontal:
     self._hfp += 1
-  elif not actionvertical:
-    raise RuntimeError("invalid action %r." % action)
   elif self._hfp < self._mininitialhfp:
     raise RuntimeError("insufficient initial HFPs.")
   else:
