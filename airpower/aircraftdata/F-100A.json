@@ -45,7 +45,8 @@
     "LO": [ [ 3.0, 1.0 ], [ 2.0, 1.0 ], [ 2.0, 1.0 ] ]
   },
   "properties": [],
-  "comments": [
-    "The F-100A appears as a variant on the F-100C/D ADC in TSOH."
+  "notes": [
+   "The F-100A appears as a variant on the F-100C/D ADC in TSOH.",
+   "Slats operate at speeds of 4.0 or less."
   ]
 }

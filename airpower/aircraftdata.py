@@ -275,5 +275,12 @@ class aircraftdata:
       s += " %s" % p
     print("Properties:%s" %s)
     print()
+    print("Origin: %s" % self._data["origin"])
+    print()
+    print("Notes:")
+    print()
+    if "notes" in self._data:
+      for note in self._data["notes"]:
+        print("%s" % note)
 
 
