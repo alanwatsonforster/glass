@@ -250,7 +250,11 @@ class aircraft:
 
     minspeed = self.minspeed()
 
-    if lastflighttype == "DP" and flighttype != "DP":
+    if flighttype == "DP":
+
+      pass
+
+    elif lastflighttype == "DP" and flighttype != "DP":
 
       # See rule 6.4.
 
