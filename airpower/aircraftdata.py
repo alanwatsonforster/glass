@@ -207,14 +207,34 @@ class aircraftdata:
 
     print("Turn:")
     print()
-    print("       CL   1/2  DT")
-    for turnrate in ["TT", "HT", "BT", "ET"]:
-      print("%s     %s  %s  %s" % (
-        turnrate,
-        f1(self.turndrag("CL" , turnrate)),
-        f1(self.turndrag("1/2", turnrate)),
-        f1(self.turndrag("DT" , turnrate)),
-      ))
+    if self.lowspeedturnlimit() != None:
+      print("For speed <= %.1f" % self.lowspeedturnlimit())
+      print("       CL   1/2  DT")
+      for turnrate in ["TT", "HT", "BT", "ET"]:
+        print("%s     %s  %s  %s" % (
+          turnrate,
+          f1(self.turndrag("CL" , turnrate, lowspeed=True)),
+          f1(self.turndrag("1/2", turnrate, lowspeed=True)),
+          f1(self.turndrag("DT" , turnrate, lowspeed=True)),
+        ))
+      print("For speed > %.1f" % self.lowspeedturnlimit())
+      print("       CL   1/2  DT")
+      for turnrate in ["TT", "HT", "BT", "ET"]:
+        print("%s     %s  %s  %s" % (
+          turnrate,
+          f1(self.turndrag("CL" , turnrate, highspeed=True)),
+          f1(self.turndrag("1/2", turnrate, highspeed=True)),
+          f1(self.turndrag("DT" , turnrate, highspeed=True)),
+        ))
+    else:
+      print("       CL   1/2  DT")
+      for turnrate in ["TT", "HT", "BT", "ET"]:
+        print("%s     %s  %s  %s" % (
+          turnrate,
+          f1(self.turndrag("CL" , turnrate)),
+          f1(self.turndrag("1/2", turnrate)),
+          f1(self.turndrag("DT" , turnrate)),
+        ))
     print()
 
     print("Speed and Ceiling:")
