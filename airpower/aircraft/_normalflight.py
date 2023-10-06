@@ -265,7 +265,7 @@ def _doturn(self, sense, facingchange):
 
   # See the "Supersonic Speeds" section of rule 6.6.
   if self._speed >= apspeed.m1speed(self._altitudeband):
-    self._turnrateap += 1
+    self._turnrateap -= 1
 
   # Change facing.
   if aphex.isedge(self._x, self._y):
