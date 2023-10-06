@@ -19,7 +19,6 @@
     "BT": [ 1.0, 1.0, 2.0 ]
   },
   "ceilingtable": [ 30, 24, 13 ],
-
   "speedtable": {
     "EH": [ [  "-",  "-" ], [  "-",  "-" ], [  "-",  "-" ],  "-" ],
     "VH": [ [  "-",  "-" ], [  "-",  "-" ], [  "-",  "-" ],  "-" ],
@@ -37,7 +36,7 @@
     "LO": [ [ "-", 1.0 ], [ "-", 1.0 ], [ "-", 0.5 ] ]
   },
   "properties": [],
-  "notes": {
+  "notes": [
     "The AD-4 Skyraider appears as a variant on the TSOH A-1J/H ADC."
-  }
+  ]
 }
