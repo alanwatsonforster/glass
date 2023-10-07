@@ -369,7 +369,7 @@ def _continuenormalflight(self, actions):
 
     self._maneuverap -= self.rolldrag("VR")
 
-    # See 13.3.6
+    # See rule 13.3.6
     if self._rolls > 0:
       self._maneuverap -= 1
 
