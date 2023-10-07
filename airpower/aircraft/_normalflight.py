@@ -17,8 +17,31 @@ def _checknormalflight(self):
   flighttype         = self._flighttype
   previousflighttype = self._previousflighttype
 
+  # See rule 13.3.5. A HRD is signalled by appending "/HRD" to the flight type.
+  if flighttype[-4:] == "/HRD":
+    self._hrd = True
+    flighttype = flighttype[:-4]
+    self._flighttype = flighttype
+  else:
+    self._hrd = False
+  hrd = self._hrd
+
   if flighttype not in ["LVL", "SC", "ZC", "VC", "SD", "UD", "VD"]:
     raise RuntimeError("invalid flight type %r." % flighttype)
+
+  # See rule 13.3.5 for restrictions on HRDs.
+
+  if hrd:
+    if previousflighttype == "LVL" and flighttype == "VD":
+      pass
+    elif (previousflighttype == "ZC" or previousflighttype == "SC") and flighttype == "VD":
+      pass
+    elif previousflighttype == "VC" and flighttype == "SD":
+      pass
+    else:
+      raise RuntimeError("flight type immediately after %s cannot be %s with a HRD." % (
+        previousflighttype, flighttype
+      ))
 
   if previousflighttype == "DP":
 
@@ -97,9 +120,10 @@ def _checknormalflight(self):
   elif flighttype == "SD":
 
     # See rule 8.1.3 on VC restrictions.
+    # See rule 13.3.5 on HRD restrictions.
 
-    if previousflighttype == "VC" and not self.hasproperty("HPR"):
-      raise RuntimeError("flight type immediately after %s cannot be %s." % (
+    if previousflighttype == "VC" and not (self.hasproperty("HPR") or hrd):
+      raise RuntimeError("flight type immediately after %s cannot be %s (without a HRD)." % (
         previousflighttype, flighttype
       ))
 
@@ -115,13 +139,24 @@ def _checknormalflight(self):
   elif flighttype == "VD":
 
     # See rule 8.2.3 (with errata) on VD restrictions.
+    # See rule 13.3.5 on HRD restrictions.
 
-    if not _isdiving(previousflighttype):
+    if previousflighttype == "LVL":
+      if not hrd:
+        raise RuntimeError("flight type immediately after %s cannot be %s (without a HRD)." % (
+          previousflighttype, flighttype
+        ))
+    elif (previousflighttype == "ZC" or previousflighttype == "SC"):
+      if hrd and self._speed > 4.0:
+        raise RuntimeError("flight type immediately after %s cannot be %s (without a low-speed HRD)." % (
+          previousflighttype, flighttype
+        ))
+    elif previousflighttype == "VC":
       raise RuntimeError("flight type immediately after %s cannot be %s." % (
         previousflighttype, flighttype
       ))
 
-    # See rule 8.1.3 on VC restrictions.
+    # See rule 8.1.3 on VC restrictions. This duplicates the restriction above.
 
     if previousflighttype == "VC":
       raise RuntimeError("flight type immediately after %s cannot be %s." % (
@@ -793,8 +828,12 @@ def _startnormalflight(self, actions):
   def determinemininitialhfp():
 
     # See rule 5.5.
+    # See rule 13.3.5 (with errata) on HRD restrictions.
 
-    if previousflighttype == "LVL" and (_isclimbing(flighttype) or _isdiving(flighttype)):
+    if (previousflighttype == "ZC" or previousflighttype == "SC") and flighttype == "VD":
+      assert self._hrd
+      mininitialhfp = self._speed // 3
+    elif previousflighttype == "LVL" and (_isclimbing(flighttype) or _isdiving(flighttype)):
       mininitialhfp = 1
     elif (_isclimbing(previousflighttype) and _isdiving(flighttype)) or (_isdiving(previousflighttype) and _isclimbing(flighttype)):
       if self.hasproperty("HPR"):
@@ -803,6 +842,7 @@ def _startnormalflight(self, actions):
         mininitialhfp = self._speed // 2
     else:
       mininitialhfp = 0
+
     if mininitialhfp == 1:
       self._log("- the first FP must be an HFP.")
     elif mininitialhfp > 1:
