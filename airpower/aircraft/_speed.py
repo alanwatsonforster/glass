@@ -125,13 +125,13 @@ def _startmovespeed(self, power, flamedoutfraction):
     else:
       self._log("speed is %.1f (SS)." % speed)
 
-    # See the "Recovering from Departed Flight" section of rule 6.4.
+    # See rule 6.4 on recovery from departed flight.
 
     if self._lastflighttype == "DP" and self._flighttype != "DP" and speed < minspeed:
       speed = minspeed
       self._log("- increasing speed to %.1f after recovering from departed flight." % minspeed)
       
-    # See the "Idle" section of rule 6.1 and the "Supersonic Speeds" section of rule 6.6
+    # See rules 6.1 and 6.6 on idle power setting.
 
     if powersetting == "I":
       speedchange = self.power("I")
@@ -141,7 +141,15 @@ def _startmovespeed(self, power, flamedoutfraction):
       speedchange = min(speedchange, self._speed)
       speed -= speedchange
       self._log("- reducing speed to %.1f as the power setting is I." % speed)
+
+    # See rule 6.3 on entering a stall.
       
+    if speed < minspeed:
+      self._log("- speed is below the minimum of %.1f." % minspeed)
+      self._log("- aircraft is stalled.")
+      if self._flighttype != "ST" and self._flighttype != "DP":
+        raise RuntimeError("flight type must be ST or DP.")
+    
     ############################################################################
 
     # Determine the speed-induced drag.

@@ -38,13 +38,18 @@ def _alldraw():
 
 class aircraft:
 
-  from ._stalledflight  import _dostalledflight
-  from ._departedflight import _dodepartedflight
+  from ._stalledflight  import \
+    _checkstalledflight, _dostalledflight
+
+  from ._departedflight import \
+    _checkdepartedflight, _dodepartedflight
+
   from ._normalflight   import \
-    _startnormalflight, _continuenormalflight, _endnormalflight, \
+    _checknormalflight, _startnormalflight, _continuenormalflight, _endnormalflight, \
     _doaction, _doelements, _getelementdispatchlist, \
     _doattack, _doclimb, _dodive, _dohorizontal, _dojettison, _dokilled, \
     _dobank, _dodeclareturn, _doturn, _dospeedbrakes
+
   from ._speed          import _startmovespeed, _endmovespeed
 
   from ._flightcapabilities import \
@@ -234,135 +239,6 @@ class aircraft:
 
   ##############################################################################
 
-  def _checkflighttype(self):
-
-    """
-    Check the flight type at the start of a move.
-    """
-
-    flighttype     = self._flighttype
-    lastflighttype = self._lastflighttype
-
-    if flighttype not in ["LVL", "SC", "ZC", "VC", "SD", "UD", "VD", "ST", "DP"]:
-      raise RuntimeError("invalid flight type %r." % flighttype)
-
-    self._log("flight type is %s." % flighttype)
-
-    minspeed = self.minspeed()
-
-    if flighttype == "DP":
-
-      pass
-
-    elif lastflighttype == "DP" and flighttype != "DP":
-
-      # See rule 6.4.
-
-      if _isclimbing(flighttype):
-        raise RuntimeError("flight type immediately after %s cannot be %s." % (
-          lastflighttype, flighttype
-        ))
-      elif flighttype == "LVL" and not self.hasproperty("HPR"):
-        raise RuntimeError("flight type immediately after %s cannot be %s." % (
-          lastflighttype, flighttype
-        ))
-
-    elif self._speed < minspeed:
-
-      # See rules 6.3 and 6.4.
-
-      self._log("- speed is below the minimum of %.1f." % minspeed)
-      self._log("- aircraft is stalled.")
-      if flighttype != "ST":
-        raise RuntimeError("flight type must be ST.")
-
-    elif flighttype == "ST":
-
-      # See rule 6.3
-      
-      raise RuntimeError("flight type cannot be ST as aircraft is not stalled.")
-
-    elif lastflighttype == "ST":
-
-      # See rule 6.4.
-
-      if _isclimbing(flighttype):
-        raise RuntimeError("flight type immediately after %s cannot be %s." % (
-          lastflighttype, flighttype
-        ))
-
-    elif flighttype == "LVL":
-
-      # See rule 8.2.3
-      if lastflighttype == "VD" and not (self.hasproperty("HPR") and self._speed <= 3.0):
-        raise RuntimeError("flight type immediately after %s cannot be %s." % (
-          lastflighttype, flighttype
-        ))
-
-    elif flighttype == "ZC":
-
-      # See rule 8.2.3
-      if lastflighttype == "VD":
-        raise RuntimeError("flight type immediately after %s cannot be %s." % (
-          lastflighttype, flighttype
-        ))
-
-    elif flighttype == "SC":
-
-      # See rule 8.1.2.
-      if self._speed < self.minspeed() + 1:
-        raise RuntimeError("insufficient speed for SC.")
-
-      # See rule 8.2.3
-      if lastflighttype == "VD":
-        raise RuntimeError("flight type immediately after %s cannot be %s." % (
-          lastflighttype, flighttype
-        ))
-
-    elif flighttype == "VC":
-
-      # See rule 8.1.3.
-      if _isdiving(lastflighttype):
-        raise RuntimeError("flight type immediately after %s cannot be %s." % (
-          lastflighttype, flighttype
-        ))      
-      if self._lastflighttype == "LVL" and not (self.hasproperty("HPR") and self._speed < 4.0):
-        raise RuntimeError("flight type immediately after %s cannot be %s." % (
-          lastflighttype, flighttype
-        ))
-
-      # See rule 8.2.3
-      if lastflighttype == "VD":
-        raise RuntimeError("flight type immediately after %s cannot be %s." % (
-          lastflighttype, flighttype
-        ))
-        
-    elif flighttype == "SD":
-
-      # See rule 8.1.3.
-      if lastflighttype == "VC" and not self.hasproperty("HPR"):
-        raise RuntimeError("flight type immediately after %s cannot be %s." % (
-          lastflighttype, flighttype
-        ))
-
-    elif flighttype == "UD":
-
-      # See rule 8.1.3.
-      if lastflighttype == "VC" and not self.hasproperty("HPR"):
-        raise RuntimeError("flight type immediately after %s cannot be %s." % (
-          lastflighttype, flighttype
-        ))
-
-    elif flighttype == "VD":
-
-      # See rule 8.1.3.
-      if lastflighttype == "VC":
-        raise RuntimeError("flight type immediately after %s cannot be %s." % (
-          lastflighttype, flighttype
-        ))
-      
-  ##############################################################################
-
   def startmove(self, flighttype, power, actions, flamedoutfraction=0):
 
     """
@@ -409,24 +285,25 @@ class aircraft:
      self._maxturnrate      = None
 
      self._flighttype       = flighttype
-     self._checkflighttype()
 
      self._speed,           \
      self._powersetting,    \
      self._powerap,         \
      self._speedap          = self._startmovespeed(power, flamedoutfraction)
 
-     if not _isclimbing(self._flighttype):
-       # See rule 8.1.4.
-       self._altitudecarry = 0
-        
      self._log("configuration is %s." % self._configuration)
      self._log("altitude band is %s." % self._altitudeband)
-      
+     self._log("flight type is %s." % self._flighttype)
+
+     # See rule 8.1.4 on altitude carry.
+     if not _isclimbing(self._flighttype):
+       self._altitudecarry = 0
+
      if self._flighttype == "ST":
 
        self._fpcarry = 0
        self._turnsstalled += 1
+       self._checkstalledflight()
        self._dostalledflight(actions)
        self._endmove()
 
@@ -435,6 +312,7 @@ class aircraft:
        self._fpcarry = 0
        self._apcarry = 0
        self._turnsdeparted += 1
+       self._checkdepartedflight()
        self._dodepartedflight(actions)
        self._endmove()
         
@@ -442,6 +320,7 @@ class aircraft:
 
        self._turnsstalled  = 0
        self._turnsdeparted = 0
+       self._checknormalflight()
        self._startnormalflight(actions)
 
     except RuntimeError as e:

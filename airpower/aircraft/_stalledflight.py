@@ -6,6 +6,16 @@ import math
 
 import airpower.altitude as apaltitude
 
+def _checkstalledflight(self):
+
+  # See rule 6.3.
+
+  if self._speed >= self.minspeed():
+      raise RuntimeError("flight type cannot be ST as aircraft is not stalled.")
+
+  self._log("- speed is below the minimum of %.1f." % self.minspeed())
+  self._log("- aircraft is stalled.")
+
 def _dostalledflight(self, action):
 
   """

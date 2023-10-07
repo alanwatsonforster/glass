@@ -12,6 +12,115 @@ import airpower.speed    as apspeed
 import airpower.turnrate as apturnrate
 import airpower.variants as apvariants
 
+def _checknormalflight(self):
+
+  flighttype     = self._flighttype
+  lastflighttype = self._lastflighttype
+
+  if flighttype not in ["LVL", "SC", "ZC", "VC", "SD", "UD", "VD"]:
+    raise RuntimeError("invalid flight type %r." % flighttype)
+
+  if lastflighttype == "DP":
+
+    # See rule 6.4 on recovering from departed flight.
+
+    if _isclimbing(flighttype):
+      raise RuntimeError("flight type immediately after %s cannot be %s." % (
+        lastflighttype, flighttype
+      ))
+    elif flighttype == "LVL" and not self.hasproperty("HPR"):
+      raise RuntimeError("flight type immediately after %s cannot be %s." % (
+        lastflighttype, flighttype
+      ))
+    
+  if lastflighttype == "ST":
+
+    # See rule 6.4 on recovering from stalled flight.
+
+    if _isclimbing(flighttype):
+      raise RuntimeError("flight type immediately after %s cannot be %s." % (
+        lastflighttype, flighttype
+      ))
+
+  if flighttype == "LVL":
+
+    # See rule 8.2.3 on VD recovery.
+
+    if lastflighttype == "VD" and not (self.hasproperty("HPR") and self._speed <= 3.0):
+      raise RuntimeError("flight type immediately after %s cannot be %s." % (
+        lastflighttype, flighttype
+      ))
+
+  elif flighttype == "ZC":
+
+    # See rule 8.2.3 on VD recovery.
+
+    if lastflighttype == "VD":
+      raise RuntimeError("flight type immediately after %s cannot be %s." % (
+        lastflighttype, flighttype
+      ))
+
+  elif flighttype == "SC":
+
+    # See rule 8.1.2 on SC prerequsistes.
+
+    if self._speed < self.minspeed() + 1:
+      raise RuntimeError("insufficient speed for SC.")
+
+    # See rule 8.2.3 on VD recovery.
+
+    if lastflighttype == "VD":
+      raise RuntimeError("flight type immediately after %s cannot be %s." % (
+        lastflighttype, flighttype
+      ))
+
+  elif flighttype == "VC":
+
+    # See rule 8.1.3 on VC prerequisites.
+
+    if _isdiving(lastflighttype):
+      raise RuntimeError("flight type immediately after %s cannot be %s." % (
+        lastflighttype, flighttype
+      ))      
+    if self._lastflighttype == "LVL" and not (self.hasproperty("HPR") and self._speed < 4.0):
+      raise RuntimeError("flight type immediately after %s cannot be %s." % (
+        lastflighttype, flighttype
+      ))
+
+    # See rule 8.2.3 on VD recovery.
+
+    if lastflighttype == "VD":
+      raise RuntimeError("flight type immediately after %s cannot be %s." % (
+        lastflighttype, flighttype
+      ))
+        
+  elif flighttype == "SD":
+
+    # See rule 8.1.3 on VC restrictions.
+
+    if lastflighttype == "VC" and not self.hasproperty("HPR"):
+      raise RuntimeError("flight type immediately after %s cannot be %s." % (
+        lastflighttype, flighttype
+      ))
+
+  elif flighttype == "UD":
+
+    # See rule 8.1.3 on VC restrictions.
+
+    if lastflighttype == "VC" and not self.hasproperty("HPR"):
+      raise RuntimeError("flight type immediately after %s cannot be %s." % (
+        lastflighttype, flighttype
+      ))
+
+  elif flighttype == "VD":
+
+    # See rule 8.1.3 on VC restrictions.
+
+    if lastflighttype == "VC":
+      raise RuntimeError("flight type immediately after %s cannot be %s." % (
+        lastflighttype, flighttype
+      ))
+
 def _doattack(self, weapon):
 
   """

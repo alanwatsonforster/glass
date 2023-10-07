@@ -7,6 +7,15 @@ import math
 import airpower.altitude as apaltitude
 import airpower.hex      as aphex
 
+def _checkdepartedflight(self):
+
+  """
+  Check departed flight is allowed.
+  """
+
+  # There are no requirements.
+  pass
+
 def _dodepartedflight(self, action):
 
   """
