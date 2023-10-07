@@ -22,6 +22,22 @@ def _dostalledflight(self, action):
   Carry out stalled flight.
   """
 
+  def dojettison(configuration):
+
+    """
+    Jetison stores to achieve the specified configuration.
+    """
+
+    # See rule 4.4. 
+  
+    if self._configuration == configuration:
+      raise RuntimeError("configuration is already %s." % configuration)
+    if self._configuration == "CL" or configuration == "DT":
+      raise RuntimeError("attempt to change from configuration %s to %s." % (self._configuration, configuration))
+    self._logevent("jettisoned stores.")
+    self._logevent("configuration changed from %s to %s." % (self._configuration, configuration))
+    self._configuration = configuration  
+
   # See rule 6.4.
       
   self._log("- carrying %+.2f APs." % self._apcarry)
@@ -53,9 +69,9 @@ def _dostalledflight(self, action):
   # The only valid action is to do nothing or to jettison stores.
 
   if action == "J1/2":
-    self._dojettison("1/2")
+    dojettison("1/2")
   elif action == "JCL":
-    self._dojettison("CL")
+    dojettison("CL")
   elif action != "":
     raise RuntimeError("invalid action %r for stalled flight." % action)
 

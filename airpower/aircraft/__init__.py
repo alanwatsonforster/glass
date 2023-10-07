@@ -38,19 +38,18 @@ def _alldraw():
 
 class aircraft:
 
-  from ._stalledflight  import \
+  from ._stalledflight import \
     _checkstalledflight, _dostalledflight
 
   from ._departedflight import \
     _checkdepartedflight, _dodepartedflight
 
-  from ._normalflight   import \
-    _checknormalflight, _startnormalflight, _continuenormalflight, _endnormalflight, \
-    _doaction, _doelements, _getelementdispatchlist, \
-    _doattack, _doclimb, _dodive, _dohorizontal, _dojettison, _dokilled, \
-    _dobank, _dodeclareturn, _doturn, _dospeedbrakes
+  from ._normalflight import \
+    _checknormalflight, \
+    _startnormalflight, _continuenormalflight, _endnormalflight
 
-  from ._speed          import _startmovespeed, _endmovespeed
+  from ._speed import \
+    _startmovespeed, _endmovespeed
 
   from ._flightcapabilities import \
     power, spbr, fuelrate, turndrag, \
@@ -61,8 +60,8 @@ class aircraft:
     _drawatstart, _drawatend, \
     _startflightpath, _continueflightpath, _drawflightpath
 
-  from ._log            import _log, _logposition, _logevent, _logbreak
-
+  from ._log import \
+    _log, _logposition, _logevent, _logbreak
 
   #############################################################################
 

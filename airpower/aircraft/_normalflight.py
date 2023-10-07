@@ -120,433 +120,7 @@ def _checknormalflight(self):
       raise RuntimeError("flight type immediately after %s cannot be %s." % (
         lastflighttype, flighttype
       ))
-
-def _doattack(self, weapon):
-
-  """
-  Declare an attack with the specified weapon.
-  """
-
-  if self._unloaded:
-    raise RuntimeError("attempt to attack while unloaded.")
-
-  self._logevent("attack with %s." % weapon)
-
-def _doclimb(self, altitudechange):
-
-  """
-  Climb.
-  """
-
-  def determinealtitudechange(altitudechange):
-
-    assert altitudechange == 1 or altitudechange == 2
-
-    flighttype     = self._flighttype
-    lastflighttype = self._lastflighttype  
     
-    climbcapability = self.climbcapability()
-
-    if flighttype == "ZC":
-
-      # See rule 8.1.1.
-      if climbcapability <= 2 and altitudechange != 1:
-        raise RuntimeError("invalid altitude change in climb.")
-      elif altitudechange != 1 and altitudechange != 2:
-        raise RuntimeError("invalid altitude change in climb.")
-
-    elif flighttype == "SC":
-
-      # See rule 8.1.2.
-      if self._speed < self.climbspeed():
-        climbcapability /= 2
-      if climbcapability < 2.0 and altitudechange == 2:
-        raise RuntimeError("invalid altitude change in climb.")
-      if self._vfp == 0 and climbcapability % 1 != 0:
-        # First VFP with fractional climb capability.
-        altitudechange = climbcapability % 1
-
-    elif flighttype == "VC":
-
-      # See rule 8.1.3.
-      if altitudechange != 1 and altitudechange != 2:
-        raise RuntimeError("invalid altitude change in climb.")
-
-    else:
-
-      # See rule 8.0.
-      raise RuntimeError("attempt to climb while flight type is %s." % self._flighttype)
-
-    return altitudechange
-
-  altitudechange = determinealtitudechange(altitudechange)
-    
-  self._altitude, self._altitudecarry = apaltitude.adjustaltitude(self._altitude, self._altitudecarry, +altitudechange)
-  self._altitudeband = apaltitude.altitudeband(self._altitude)
-
-def _dodive(self, altitudechange):
-
-  """
-  Dive.
-  """
-
-  def checkaltitudechange():
-
-    assert altitudechange == 1 or altitudechange == 2 or altitudechange == 3
-
-    flighttype     = self._flighttype
-    lastflighttype = self._lastflighttype    
-
-    if flighttype == "SD":
-
-      # See rule 8.2.1.
-      if altitudechange != 1 and altitudechange != 2:
-        raise RuntimeError("attempt to dive levels per VFP while the flight type is SC." % altitudechange)
-  
-    elif flighttype == "UD":
-
-      # See rule 8.2.2.
-      if altitudechange != 1:
-        raise RuntimeError("attempt to dive %d levels per unloaded HFP while the flight type is UL." % altitudechange)
-
-    elif flighttype == "VD":
-
-      # See rule 8.2.3.
-      if altitudechange != 2 and altitudechange != 3: 
-        raise RuntimeError("attempt to dive %d levels per VFP while the flight type is VD." % altitudechange)
-
-    elif flighttype == "LVL":
-
-      # See rule 8.2.4.
-      if altitudechange != 1:
-        raise RuntimeError("attempt to descend %d levels while flight type is LVL." % altitudechange)
-
-    else:
-
-      # See rule 8.0.
-      raise RuntimeError("attempt to dive while flight type is %s." % self._flighttype)
-    
-  checkaltitudechange()
-
-  self._altitude, self._altitudecarry = apaltitude.adjustaltitude(self._altitude, self._altitudecarry, -altitudechange)
-  self._altitudeband = apaltitude.altitudeband(self._altitude)
-
-def _dohorizontal(self):
-
-  """
-  Move horizontally.
-  """
-
-  self._x, self._y = aphex.next(self._x, self._y, self._facing)
-
-def _dojettison(self, configuration):
-
-  """
-  Jetison stores to achieve the specified configuration.
-  """
-
-  # See rule 4.4. 
-  
-  # We implement the delay of 1 FP by making this an epilog element.
-
-  if self._configuration == configuration:
-    raise RuntimeError("configuration is already %s." % configuration)
-  if self._configuration == "CL" or configuration == "DT":
-    raise RuntimeError("attempt to change from configuration %s to %s." % (self._configuration, configuration))
-  self._logevent("jettisoned stores.")
-  self._logevent("configuration changed from %s to %s." % (self._configuration, configuration))
-  self._configuration = configuration
-
-def _dokilled(self):
-
-  """
-  Declare that the aircraft has been killed.
-  """
-
-  self._logevent("aircraft has been killed.")
-  self._destroyed = True
-
-def _dospeedbrakes(self, spbrfp):
-
-  """
-  Use the speedbrakes.
-  """
-
-  # See rule 6.5 and the "Supersonic Speeds" section of rule 6.6.
-
-  if self._spbrfp != 0:
-    raise RuntimeError("speedbrakes can only be used once per turn.")
-
-  maxspbrfp = self._fp - self._hfp - self._vfp
-  if spbrfp > maxspbrfp:
-    raise RuntimeError("only %s FPs are remaining." % maxspbrfp)
-    
-  maxspbrfp = self.spbr()
-  if self._speed > apspeed.m1speed(self._altitudeband):
-    maxspbrfp += 0.5
-  if spbrfp > maxspbrfp:
-    raise RuntimeError("speedbrake capability is only %.1f FPs." % maxspbrfp)
-
-  self._spbrfp = spbrfp
-
-  self._spbrap = -spbrfp / 0.5
-
-def _dobank(self, sense):
-
-  # TODO: LRR
-
-  self._bank = sense
-  self._turnrate = None
-
-def _dodeclareturn(self, sense, turnrate):
-
-  """
-  Start a turn in the specified direction and rate.
-  """
-
-  # TODO: HRR and LRR
-
-  if self._bank != None and self._bank != sense:
-    raise RuntimeError("attempt to declare a turn while not banked correctly.")
-
-  if self._allowedturnrates == []:
-    raise RuntimeError("turns are forbidded.")
-
-  turnrates = ["EZ", "TT", "HT", "BT", "ET"]
-  assert turnrate in turnrates
-
-  if turnrate not in self._allowedturnrates:
-    raise RuntimeError("attempt to declare a turn rate tighter than allowed by the flight type.")
-
-  turnrateap = self.turndrag(turnrate)
-  if turnrateap == None:
-    raise RuntimeError("attempt to declare a turn rate tighter than allowed by the aircraft.")
-
-  self._turnrate = turnrate
-  self._bank = sense
-  self._turnfp = 0
-
-def _doturn(self, sense, facingchange):
-
-  """
-  Turn.
-  """
-
-  if apvariants.withvariant("implicit turn and bank declarations"): 
-
-    # TODO: correct the bank adjustment for LRR and HRR aircraft.
-    # TODO: minimum speed requirements.
-    if self.bank != None and self._bank != sense:
-      self._turnfp -= 1
-      self._bank = sense
-
-    minturnrate = apturnrate.determineturnrate(self._altitudeband, self._speed, self._turnfp, facingchange)
-    if minturnrate == None:
-      raise RuntimeError("attempt to turn faster than the maximum turn rate.")
-
-    self._turnrate = minturnrate
-
-  else:
-
-    if self._turnrate == None:
-      raise RuntimeError("attempt to turn without a declared turn.")
-      
-    if self._bank != sense:
-      raise RuntimeError("attempt to turn against the sense of the declared turn.")
-
-    minturnrate = apturnrate.determineturnrate(self._altitudeband, self._speed, self._turnfp, facingchange)
-    if minturnrate == None:
-      raise RuntimeError("attempt to turn faster than the maximum turn rate.")
-
-    turnrates = ["EZ", "TT", "HT", "BT", "ET"]
-    if turnrates.index(minturnrate) > turnrates.index(self._turnrate):
-      raise RuntimeError("attempt to turn faster than the declared turn rate.")
-
-  if self._maxturnrate == None:
-    self._maxturnrate = self._turnrate
-  else:
-    turnrates = ["EZ", "TT", "HT", "BT", "ET"]
-    self._maxturnrate = turnrates[max(turnrates.index(self._turnrate), turnrates.index(self._maxturnrate))]
-    # TODO: drag for HBR and LBR aircraft.
-    self._sustainedturnap -= facingchange // 30
-
-  self._turnrateap = -self.turndrag(self._maxturnrate)
-
-  # See the "Supersonic Speeds" section of rule 6.6.
-  if self._speed >= apspeed.m1speed(self._altitudeband):
-    self._turnrateap -= 1
-
-  # Change facing.
-  if aphex.isedge(self._x, self._y):
-    self._x, self._y = aphex.edgetocenter(self._x, self._y, self._facing, sense)
-  if sense == "L":
-    self._facing = (self._facing + facingchange) % 360
-  else:
-    self._facing = (self._facing - facingchange) % 360
-
-  self._turnfp = 0
-    
-def _getelementdispatchlist(self):
-
-  return [
-
-    # This table is searched in order, so put longer elements before shorter 
-    # ones that are prefixes (e.g., put C2 before C and D3/4 before D3).
-
-    # [0] is the element code.
-    # [1] is the element type.
-    # [2] is the element procedure.
-    
-    ["LEZ" , "turn declaration", lambda: self._dodeclareturn("L", "EZ") ],
-    ["LTT" , "turn declaration", lambda: self._dodeclareturn("L", "TT") ],
-    ["LHT" , "turn declaration", lambda: self._dodeclareturn("L", "HT") ],
-    ["LBT" , "turn declaration", lambda: self._dodeclareturn("L", "BT") ],
-    ["LET" , "turn declaration", lambda: self._dodeclareturn("L", "ET") ],
-    
-    ["REZ" , "turn declaration", lambda: self._dodeclareturn("R", "EZ") ],
-    ["RTT" , "turn declaration", lambda: self._dodeclareturn("R", "TT") ],
-    ["RHT" , "turn declaration", lambda: self._dodeclareturn("R", "HT") ],
-    ["RBT" , "turn declaration", lambda: self._dodeclareturn("R", "BT") ],
-    ["RET" , "turn declaration", lambda: self._dodeclareturn("R", "ET") ],
-    
-    ["H"   , "H"               , lambda: self._dohorizontal() ],
-
-    ["C1"  , "C or D"          , lambda: self._doclimb(1) ],
-    ["C2"  , "C or D"          , lambda: self._doclimb(2) ],
-    ["CC"  , "C or D"          , lambda: self._doclimb(2) ],
-    ["C"   , "C or D"          , lambda: self._doclimb(1) ],
-
-    ["D1"  , "C or D"          , lambda: self._dodive(1) ],
-    ["D2"  , "C or D"          , lambda: self._dodive(2) ],
-    ["D3"  , "C or D"          , lambda: self._dodive(3) ],
-    ["DDD" , "C or D"          , lambda: self._dodive(3) ],
-    ["DD"  , "C or D"          , lambda: self._dodive(2) ],
-    ["D"   , "C or D"          , lambda: self._dodive(1) ],
-
-    ["LB"  , "turn or bank"    , lambda: self._dobank("L") ],
-    ["RB"  , "turn or bank"    , lambda: self._dobank("R") ],
-    ["WL"  , "turn or bank"    , lambda: self._dobank(None) ],
-
-    ["L90" , "turn or bank"    , lambda: self._doturn("L", 90) ],
-    ["L60" , "turn or bank"    , lambda: self._doturn("L", 60) ],
-    ["L30" , "turn or bank"    , lambda: self._doturn("L", 30) ],
-    ["LLL" , "turn or bank"    , lambda: self._doturn("L", 90) ],
-    ["LL"  , "turn or bank"    , lambda: self._doturn("L", 60) ],
-    ["L"   , "turn or bank"    , lambda: self._doturn("L", 30) ],
-
-    ["R90" , "turn or bank"    , lambda: self._doturn("R", 90) ],
-    ["R60" , "turn or bank"    , lambda: self._doturn("R", 60) ],
-    ["R30" , "turn or bank"    , lambda: self._doturn("R", 30) ],
-    ["RRR" , "turn or bank"    , lambda: self._doturn("R", 90) ],
-    ["RR"  , "turn or bank"    , lambda: self._doturn("R", 60) ],
-    ["R"   , "turn or bank"    , lambda: self._doturn("R", 30) ],
-
-    ["S1/2", "other"           , lambda: self._dospeedbrakes(1/2) ],
-    ["S1"  , "other"           , lambda: self._dospeedbrakes(1) ],
-    ["S3/2", "other"           , lambda: self._dospeedbrakes(3/2) ],
-    ["S2"  , "other"           , lambda: self._dospeedbrakes(2) ],
-    ["S5/2", "other"           , lambda: self._dospeedbrakes(5/2) ],
-    ["S3"  , "other"           , lambda: self._dospeedbrakes(3) ],
-    ["SSS" , "other"           , lambda: self._dospeedbrakes(3/2) ],
-    ["SS"  , "other"           , lambda: self._dospeedbrakes(1) ],
-    ["S"   , "other"           , lambda: self._dospeedbrakes(1/2) ],
-    
-    ["J1/2", "other"           , lambda: self._dojettison("1/2") ],
-    ["JCL" , "other"           , lambda: self._dojettison("CL") ],
-    
-    ["AGN" , "other"           , lambda: self._doattack("guns") ],
-    ["AGP" , "other"           , lambda: self._doattack("gun pod") ],
-    ["ARK" , "other"           , lambda: self._doattack("rockets") ],
-    ["ARP" , "other"           , lambda: self._doattack("rocket pods") ],
-    ["K"   , "other"           , lambda: self._dokilled()],
-
-    ["/"   , "other"           , lambda: None ],
-  ]
-
-def _doelements(self, action, selectedelementtype, allowrepeated):
-
-  ielement = 0
-
-  while action != "":
-    for element in self._getelementdispatchlist():
-
-      elementcode = element[0]
-      elementtype = element[1]
-      elementprocedure = element[2]
-
-      if len(elementcode) <= len(action) and elementcode == action[:len(elementcode)]:
-        if selectedelementtype == elementtype:
-          ielement += 1
-          elementprocedure()
-        action = action[len(elementcode):]
-        break
-    else:
-      raise RuntimeError("invalid action %r." % action)
-
-  if ielement > 1 and not allowrepeated:
-    raise RuntimeError("invalid action %r: repeated %s element." % (action, selectedelementtype))
-
-  return ielement
-
-def _doaction(self, action):
-
-  """
-  Carry out an action for normal flight.
-  """
-
-  if self._hfp + self._vfp + self._spbrfp + 1 > self._fp:
-    raise RuntimeError("only %.1f FPs are available." % self._fp)
-
-  elementdispatchlist = self._getelementdispatchlist()
-
-  initialaltitudeband = self._altitudeband
-
-  self._doelements(action, "turn declaration", False)
-
-  actionhorizontal = (self._doelements(action, "H", False) == 1)
-  actionvertical   = (self._doelements(action, "C or D", False) == 1)
-
-  if not actionhorizontal and not actionvertical:
-    raise RuntimeError("%r is not a valid action." % action)
-  elif actionhorizontal and actionvertical:
-    if not self._flighttype == "UD" and not self._flighttype == "LVL":
-      raise RuntimeError("%r is not a valid action when the flight type is %s." % (action, self._flighttype))
-  
-  if actionhorizontal:
-    self._hfp += 1
-  elif self._hfp < self._mininitialhfp:
-    raise RuntimeError("insufficient initial HFPs.")
-  else:
-   self._vfp += 1
-
-  self._unloaded = self._flighttype == "UD" and actionvertical
-  if self._unloaded:
-    if self._firstunloadedfp == None:
-      self._firstunloadedfp = self._hfp
-    self._lastunloadedfp = self._hfp
-
-  # See rule 8.2.2.
-  if not self._unloaded:
-    self._turnfp += 1
-
-  self._doelements(action, "turn or bank", False)
-  
-  assert aphex.isvalid(self._x, self._y, facing=self._facing)
-  assert apaltitude.isvalidaltitude(self._altitude)
-  
-  self._logposition("FP %d" % (self._hfp + self._vfp), action)
-  self._continueflightpath()
-
-  if initialaltitudeband != self._altitudeband:
-    self._logevent("altitude band changed from %s to %s." % (initialaltitudeband, self._altitudeband))
-      
-  self.checkforterraincollision()
-  self.checkforleavingmap()
-  if self._destroyed or self._leftmap:
-    return
-
-  self._doelements(action, "other", True)
-
 ################################################################################
 
 def _continuenormalflight(self, actions):
@@ -555,10 +129,469 @@ def _continuenormalflight(self, actions):
   Continue to carry out out normal flight.
   """
 
+  ########################################
+
+  def dohorizontal():
+
+    """
+    Move horizontally.
+    """
+
+    self._x, self._y = aphex.next(self._x, self._y, self._facing)
+
+  ########################################
+
+  def doclimb(altitudechange):
+
+    """
+    Climb.
+    """
+
+    def determinealtitudechange(altitudechange):
+
+      assert altitudechange == 1 or altitudechange == 2
+
+      flighttype     = self._flighttype
+      lastflighttype = self._lastflighttype  
+    
+      climbcapability = self.climbcapability()
+
+      if flighttype == "ZC":
+
+        # See rule 8.1.1.
+        if climbcapability <= 2 and altitudechange != 1:
+          raise RuntimeError("invalid altitude change in climb.")
+        elif altitudechange != 1 and altitudechange != 2:
+          raise RuntimeError("invalid altitude change in climb.")
+
+      elif flighttype == "SC":
+
+        # See rule 8.1.2.
+        if self._speed < self.climbspeed():
+          climbcapability /= 2
+        if climbcapability < 2.0 and altitudechange == 2:
+          raise RuntimeError("invalid altitude change in climb.")
+        if self._vfp == 0 and climbcapability % 1 != 0:
+          # First VFP with fractional climb capability.
+          altitudechange = climbcapability % 1
+
+      elif flighttype == "VC":
+
+        # See rule 8.1.3.
+        if altitudechange != 1 and altitudechange != 2:
+          raise RuntimeError("invalid altitude change in climb.")
+
+      else:
+
+        # See rule 8.0.
+        raise RuntimeError("attempt to climb while flight type is %s." % self._flighttype)
+
+      return altitudechange
+
+    altitudechange = determinealtitudechange(altitudechange)
+    
+    self._altitude, self._altitudecarry = apaltitude.adjustaltitude(self._altitude, self._altitudecarry, +altitudechange)
+    self._altitudeband = apaltitude.altitudeband(self._altitude)
+
+  ########################################
+
+  def dodive(altitudechange):
+
+    """
+    Dive.
+    """
+
+    def checkaltitudechange():
+
+      assert altitudechange == 1 or altitudechange == 2 or altitudechange == 3
+
+      flighttype     = self._flighttype
+      lastflighttype = self._lastflighttype    
+
+      if flighttype == "SD":
+
+        # See rule 8.2.1.
+        if altitudechange != 1 and altitudechange != 2:
+          raise RuntimeError("attempt to dive levels per VFP while the flight type is SC." % altitudechange)
+  
+      elif flighttype == "UD":
+
+        # See rule 8.2.2.
+        if altitudechange != 1:
+          raise RuntimeError("attempt to dive %d levels per unloaded HFP while the flight type is UL." % altitudechange)
+
+      elif flighttype == "VD":
+
+        # See rule 8.2.3.
+        if altitudechange != 2 and altitudechange != 3: 
+          raise RuntimeError("attempt to dive %d levels per VFP while the flight type is VD." % altitudechange)
+
+      elif flighttype == "LVL":
+
+        # See rule 8.2.4.
+        if altitudechange != 1:
+          raise RuntimeError("attempt to descend %d levels while flight type is LVL." % altitudechange)
+
+      else:
+
+        # See rule 8.0.
+        raise RuntimeError("attempt to dive while flight type is %s." % self._flighttype)
+    
+    checkaltitudechange()
+
+    self._altitude, self._altitudecarry = apaltitude.adjustaltitude(self._altitude, self._altitudecarry, -altitudechange)
+    self._altitudeband = apaltitude.altitudeband(self._altitude)
+
+  ########################################
+
+  def dobank(sense):
+
+    # TODO: LRR
+
+    self._bank = sense
+    self._turnrate = None
+
+  ########################################
+
+  def dodeclareturn(sense, turnrate):
+
+    """
+    Declare the start of turn in the specified direction and rate.
+    """
+
+    # TODO: HRR and LRR
+
+    if self._bank != None and self._bank != sense:
+      raise RuntimeError("attempt to declare a turn while not banked correctly.")
+
+    if self._allowedturnrates == []:
+      raise RuntimeError("turns are forbidded.")
+
+    turnrates = ["EZ", "TT", "HT", "BT", "ET"]
+    assert turnrate in turnrates
+
+    if turnrate not in self._allowedturnrates:
+      raise RuntimeError("attempt to declare a turn rate tighter than allowed by the flight type.")
+
+    turnrateap = self.turndrag(turnrate)
+    if turnrateap == None:
+      raise RuntimeError("attempt to declare a turn rate tighter than allowed by the aircraft.")
+
+    self._turnrate = turnrate
+    self._bank = sense
+    self._turnfp = 0
+  
+  ########################################
+
+  def doturn(sense, facingchange):
+
+    """
+    Turn in the specified sense and amount.
+    """
+
+    if apvariants.withvariant("implicit turn and bank declarations"): 
+
+      # TODO: correct the bank adjustment for LRR and HRR aircraft.
+      # TODO: minimum speed requirements.
+      if self.bank != None and self._bank != sense:
+        self._turnfp -= 1
+        self._bank = sense
+
+      minturnrate = apturnrate.determineturnrate(self._altitudeband, self._speed, self._turnfp, facingchange)
+      if minturnrate == None:
+        raise RuntimeError("attempt to turn faster than the maximum turn rate.")
+
+      self._turnrate = minturnrate
+
+    else:
+
+      if self._turnrate == None:
+        raise RuntimeError("attempt to turn without a declared turn.")
+      
+      if self._bank != sense:
+        raise RuntimeError("attempt to turn against the sense of the declared turn.")
+
+      minturnrate = apturnrate.determineturnrate(self._altitudeband, self._speed, self._turnfp, facingchange)
+      if minturnrate == None:
+        raise RuntimeError("attempt to turn faster than the maximum turn rate.")
+
+      turnrates = ["EZ", "TT", "HT", "BT", "ET"]
+      if turnrates.index(minturnrate) > turnrates.index(self._turnrate):
+        raise RuntimeError("attempt to turn faster than the declared turn rate.")
+
+    if self._maxturnrate == None:
+      self._maxturnrate = self._turnrate
+    else:
+      turnrates = ["EZ", "TT", "HT", "BT", "ET"]
+      self._maxturnrate = turnrates[max(turnrates.index(self._turnrate), turnrates.index(self._maxturnrate))]
+      # TODO: drag for HBR and LBR aircraft.
+      self._sustainedturnap -= facingchange // 30
+
+    self._turnrateap = -self.turndrag(self._maxturnrate)
+
+    # See the "Supersonic Speeds" section of rule 6.6.
+    if self._speed >= apspeed.m1speed(self._altitudeband):
+      self._turnrateap -= 1
+
+    # Change facing.
+    if aphex.isedge(self._x, self._y):
+      self._x, self._y = aphex.edgetocenter(self._x, self._y, self._facing, sense)
+    if sense == "L":
+      self._facing = (self._facing + facingchange) % 360
+    else:
+      self._facing = (self._facing - facingchange) % 360
+
+    self._turnfp = 0
+  
+  ########################################
+
+  def dospeedbrakes(spbrfp):
+
+    """
+    Use the speedbrakes.
+    """
+
+    # See rules 6.5 and 6.6.
+
+    if self._spbrfp != 0:
+      raise RuntimeError("speedbrakes can only be used once per turn.")
+
+    maxspbrfp = self._fp - self._hfp - self._vfp
+    if spbrfp > maxspbrfp:
+      raise RuntimeError("only %s FPs are remaining." % maxspbrfp)
+    
+    maxspbrfp = self.spbr()
+    if self._speed > apspeed.m1speed(self._altitudeband):
+      maxspbrfp += 0.5
+    if spbrfp > maxspbrfp:
+      raise RuntimeError("speedbrake capability is only %.1f FPs." % maxspbrfp)
+
+    self._spbrfp = spbrfp
+
+    self._spbrap = -spbrfp / 0.5
+
+  ########################################
+
+  def dojettison(configuration):
+
+    """
+    Jetison stores to achieve the specified configuration.
+    """
+
+    # See rule 4.4. 
+  
+    # We implement the delay of 1 FP by making this an other element.
+
+    if self._configuration == configuration:
+      raise RuntimeError("configuration is already %s." % configuration)
+    if self._configuration == "CL" or configuration == "DT":
+      raise RuntimeError("attempt to change from configuration %s to %s." % (self._configuration, configuration))
+    self._logevent("jettisoned stores.")
+    self._logevent("configuration changed from %s to %s." % (self._configuration, configuration))
+    self._configuration = configuration
+  
+  ########################################
+
+  def doattack(weapon):
+
+    """
+    Declare an attack with the specified weapon.
+    """
+
+    if self._unloaded:
+      raise RuntimeError("attempt to attack while unloaded.")
+
+    self._logevent("attack with %s." % weapon)
+
+  ########################################
+
+  def dokilled():
+
+    """
+    Declare that the aircraft has been killed.
+    """
+
+    self._logevent("aircraft has been killed.")
+    self._destroyed = True
+
+  ########################################
+
+  elementdispatchlist = [
+
+    # This table is searched in order, so put longer elements before shorter 
+    # ones that are prefixes (e.g., put C2 before C and D3/4 before D3).
+
+    # [0] is the element code.
+    # [1] is the element type.
+    # [2] is the element procedure.
+  
+    ["H"   , "H"               , lambda: dohorizontal() ],
+
+    ["C1"  , "C or D"          , lambda: doclimb(1) ],
+    ["C2"  , "C or D"          , lambda: doclimb(2) ],
+    ["CC"  , "C or D"          , lambda: doclimb(2) ],
+    ["C"   , "C or D"          , lambda: doclimb(1) ],
+
+    ["D1"  , "C or D"          , lambda: dodive(1) ],
+    ["D2"  , "C or D"          , lambda: dodive(2) ],
+    ["D3"  , "C or D"          , lambda: dodive(3) ],
+    ["DDD" , "C or D"          , lambda: dodive(3) ],
+    ["DD"  , "C or D"          , lambda: dodive(2) ],
+    ["D"   , "C or D"          , lambda: dodive(1) ],
+
+    ["LEZ" , "turn declaration", lambda: dodeclareturn("L", "EZ") ],
+    ["LTT" , "turn declaration", lambda: dodeclareturn("L", "TT") ],
+    ["LHT" , "turn declaration", lambda: dodeclareturn("L", "HT") ],
+    ["LBT" , "turn declaration", lambda: dodeclareturn("L", "BT") ],
+    ["LET" , "turn declaration", lambda: dodeclareturn("L", "ET") ],
+    
+    ["REZ" , "turn declaration", lambda: dodeclareturn("R", "EZ") ],
+    ["RTT" , "turn declaration", lambda: dodeclareturn("R", "TT") ],
+    ["RHT" , "turn declaration", lambda: dodeclareturn("R", "HT") ],
+    ["RBT" , "turn declaration", lambda: dodeclareturn("R", "BT") ],
+    ["RET" , "turn declaration", lambda: dodeclareturn("R", "ET") ],
+    
+    ["LB"  , "turn or bank"    , lambda: dobank("L") ],
+    ["RB"  , "turn or bank"    , lambda: dobank("R") ],
+    ["WL"  , "turn or bank"    , lambda: dobank(None) ],
+
+    ["L90" , "turn or bank"    , lambda: doturn("L", 90) ],
+    ["L60" , "turn or bank"    , lambda: doturn("L", 60) ],
+    ["L30" , "turn or bank"    , lambda: doturn("L", 30) ],
+    ["LLL" , "turn or bank"    , lambda: doturn("L", 90) ],
+    ["LL"  , "turn or bank"    , lambda: doturn("L", 60) ],
+    ["L"   , "turn or bank"    , lambda: doturn("L", 30) ],
+
+    ["R90" , "turn or bank"    , lambda: doturn("R", 90) ],
+    ["R60" , "turn or bank"    , lambda: doturn("R", 60) ],
+    ["R30" , "turn or bank"    , lambda: doturn("R", 30) ],
+    ["RRR" , "turn or bank"    , lambda: doturn("R", 90) ],
+    ["RR"  , "turn or bank"    , lambda: doturn("R", 60) ],
+    ["R"   , "turn or bank"    , lambda: doturn("R", 30) ],
+
+    ["S1/2", "other"           , lambda: dospeedbrakes(1/2) ],
+    ["S1"  , "other"           , lambda: dospeedbrakes(1) ],
+    ["S3/2", "other"           , lambda: dospeedbrakes(3/2) ],
+    ["S2"  , "other"           , lambda: dospeedbrakes(2) ],
+    ["S5/2", "other"           , lambda: dospeedbrakes(5/2) ],
+    ["S3"  , "other"           , lambda: dospeedbrakes(3) ],
+    ["SSS" , "other"           , lambda: dospeedbrakes(3/2) ],
+    ["SS"  , "other"           , lambda: dospeedbrakes(1) ],
+    ["S"   , "other"           , lambda: dospeedbrakes(1/2) ],
+    
+    ["J1/2", "other"           , lambda: dojettison("1/2") ],
+    ["JCL" , "other"           , lambda: dojettison("CL") ],
+    
+    ["AGN" , "other"           , lambda: doattack("guns") ],
+    ["AGP" , "other"           , lambda: doattack("gun pod") ],
+    ["ARK" , "other"           , lambda: doattack("rockets") ],
+    ["ARP" , "other"           , lambda: doattack("rocket pods") ],
+
+    ["K"   , "other"           , lambda: dokilled()],
+
+    ["/"   , "other"           , lambda: None ],
+
+  ]
+
+  ########################################
+
+  def doelements(action, selectedelementtype, allowrepeated):
+
+    """
+    Carry out the elements in an action that match the element type.
+    """
+
+    ielement = 0
+
+    while action != "":
+
+      for element in elementdispatchlist:
+
+        elementcode = element[0]
+        elementtype = element[1]
+        elementprocedure = element[2]
+
+        if len(elementcode) <= len(action) and elementcode == action[:len(elementcode)]:
+          if selectedelementtype == elementtype:
+            ielement += 1
+            elementprocedure()
+          action = action[len(elementcode):]
+          break
+
+      else:
+
+        raise RuntimeError("invalid action %r." % action)
+
+    if ielement > 1 and not allowrepeated:
+      raise RuntimeError("invalid action %r: repeated %s element." % (action, selectedelementtype))
+
+    return ielement != 0
+  
+  ########################################
+
+  def doaction(action):
+
+    """
+    Carry out an action for normal flight.
+    """
+
+    if self._hfp + self._vfp + self._spbrfp + 1 > self._fp:
+      raise RuntimeError("only %.1f FPs are available." % self._fp)
+
+    initialaltitudeband = self._altitudeband
+
+    doelements(action, "turn declaration", False)
+
+    actionhorizontal = doelements(action, "H", False)
+    actionvertical   = doelements(action, "C or D", False)
+
+    if not actionhorizontal and not actionvertical:
+      raise RuntimeError("%r is not a valid action." % action)
+    elif actionhorizontal and actionvertical:
+      if not self._flighttype == "UD" and not self._flighttype == "LVL":
+        raise RuntimeError("%r is not a valid action when the flight type is %s." % (action, self._flighttype))
+  
+    if actionhorizontal:
+      self._hfp += 1
+    elif self._hfp < self._mininitialhfp:
+      raise RuntimeError("insufficient initial HFPs.")
+    else:
+     self._vfp += 1
+
+    self._unloaded = self._flighttype == "UD" and actionvertical
+    if self._unloaded:
+      if self._firstunloadedfp == None:
+        self._firstunloadedfp = self._hfp
+      self._lastunloadedfp = self._hfp
+
+    # See rule 8.2.2.
+    if not self._unloaded:
+      self._turnfp += 1
+
+    doelements(action, "turn or bank", False)
+  
+    assert aphex.isvalid(self._x, self._y, facing=self._facing)
+    assert apaltitude.isvalidaltitude(self._altitude)
+  
+    self._logposition("FP %d" % (self._hfp + self._vfp), action)
+    self._continueflightpath()
+
+    if initialaltitudeband != self._altitudeband:
+      self._logevent("altitude band changed from %s to %s." % (initialaltitudeband, self._altitudeband))
+      
+    self.checkforterraincollision()
+    self.checkforleavingmap()
+    if self._destroyed or self._leftmap:
+      return
+
+    doelements(action, "other", True)
+
+  ########################################
+  
   if actions != "":
     for action in actions.split(","):
       if not self._destroyed and not self._leftmap:
-        self._doaction(action)
+        doaction(action)
 
   fp = self._hfp + self._vfp + self._spbrfp
   assert fp <= self._fp
