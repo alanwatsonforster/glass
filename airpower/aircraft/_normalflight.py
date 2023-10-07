@@ -82,7 +82,7 @@ def _checknormalflight(self):
       raise RuntimeError("flight type immediately after %s cannot be %s." % (
         previousflighttype, flighttype
       ))      
-    if self._previousflighttype == "LVL" and not (self.hasproperty("HPR") and self._speed < 4.0):
+    if previousflighttype == "LVL" and not (self.hasproperty("HPR") and self._speed < 4.0):
       raise RuntimeError("flight type immediately after %s cannot be %s." % (
         previousflighttype, flighttype
       ))
@@ -151,8 +151,7 @@ def _continuenormalflight(self, actions):
 
       assert altitudechange == 1 or altitudechange == 2
 
-      flighttype         = self._flighttype
-      previousflighttype = self._previousflighttype  
+
     
       climbcapability = self.climbcapability()
 
@@ -204,9 +203,6 @@ def _continuenormalflight(self, actions):
     def checkaltitudechange():
 
       assert altitudechange == 1 or altitudechange == 2 or altitudechange == 3
-
-      flighttype         = self._flighttype
-      previousflighttype = self._previousflighttype    
 
       if flighttype == "SD":
 
@@ -357,7 +353,7 @@ def _continuenormalflight(self, actions):
       raise RuntimeError("attempt to roll vertically during an HFP.")
 
     # The following applies only to HPR aircaft that enter a VC from LVL.
-    if self._previousflighttype == "LVL" and self._flighttype != "VC" and not self._lastfp:
+    if previousflighttype == "LVL" and flighttype != "VC" and not self._lastfp:
       raise RuntimeError("attempt to roll vertically following LVL flight and not on the last FP.")
 
     self._maneuverap -= self.rolldrag("VR")
@@ -638,6 +634,9 @@ def _continuenormalflight(self, actions):
 
   ########################################
   
+  flighttype         = self._flighttype
+  previousflighttype = self._previousflighttype  
+  
   if actions != "":
     for action in actions.split(","):
       if not self._destroyed and not self._leftmap:
@@ -665,13 +664,19 @@ def _startnormalflight(self, actions):
   """
   Start to carry out normal flight.
   """
+  
+  ########################################
 
   def reportapcarry():
      self._log("- carrying %+.2f APs." % self._apcarry)
  
+  ########################################
+
   def reportaltitudecarry():
     if self._altitudecarry != 0:
      self._log("- carrying %.2f altitude levels." % self._altitudecarry)
+
+  ########################################
 
   def reportturn():
 
@@ -681,6 +686,8 @@ def _startnormalflight(self, actions):
       self._log("- has wings level.")
     else:
       self._log("- is banked %s." % self._bank)
+
+  ########################################
 
   def determineallowedturnrates():
 
@@ -727,6 +734,8 @@ def _startnormalflight(self, actions):
 
     self._allowedturnrates = turnrates
 
+  ########################################
+
   def checkformaneuveringdeparture():
 
     # See rule 7.7 "Maneuvering Departures"
@@ -738,6 +747,8 @@ def _startnormalflight(self, actions):
     if self._turnrate != None and not self._turnrate in self._allowedturnrates:
       self._log("- carried turn rate is tighter than the maximum allowed turn rate.")
       raise RuntimeError("aircraft has entered departured flight while maneuvering.")
+
+  ########################################
 
   def determinefp():
 
@@ -754,12 +765,11 @@ def _startnormalflight(self, actions):
     self._firstunloadedfp = None
     self._lastunloadedfp  = None
 
+  ########################################
+
   def determinemininitialhfp():
 
     # See rule 5.5.
-
-    flighttype         = self._flighttype
-    previousflighttype = self._previousflighttype
 
     if previousflighttype == "LVL" and (_isclimbing(flighttype) or _isdiving(flighttype)):
       mininitialhfp = 1
@@ -777,11 +787,11 @@ def _startnormalflight(self, actions):
 
     self._mininitialhfp = mininitialhfp
 
+  ########################################
+
   def determinerequiredhfpvfpmix():
 
-    flighttype     = self._flighttype
-    previousflighttype = self._previousflighttype
-    fp             = int(self._fp)
+    fp = int(self._fp)
 
     minhfp = 0
     maxhfp = fp
@@ -865,6 +875,11 @@ def _startnormalflight(self, actions):
     self._minunloadedhfp = minunloadedhfp
     self._maxunloadedhfp = maxunloadedhfp
 
+  ########################################
+
+  flighttype         = self._flighttype
+  previousflighttype = self._previousflighttype  
+  
   reportapcarry()
   reportaltitudecarry()
   reportturn()
@@ -1026,8 +1041,8 @@ def _endnormalflight(self):
     self._altitudeap = altitudeap
 
   flighttype         = self._flighttype
-  previousflighttype = self._previousflighttype
-
+  previousflighttype = self._previousflighttype  
+  
   reportfp()
   checkfp()
   checkfreedescent()
