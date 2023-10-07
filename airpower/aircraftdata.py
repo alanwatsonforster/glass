@@ -154,6 +154,12 @@ class aircraftdata:
       else:
         return "%.1f" % x
 
+    def f2(x):
+      if x == None:
+        return "----"
+      else:
+        return "%.2f" % x
+    
     def f1z(x):
       if x == 0:
         return "---"
@@ -268,13 +274,13 @@ class aircraftdata:
 
     print("Climb Capability:")
     print()
-    print("      CL       1/2      DT")
+    print("      CL         1/2        DT")
     for band in ["EH", "VH", "HI", "MH", "ML", "LO"]:
       print("%s    %s %s  %s %s  %s %s" % (
         band,
-        f1(self.climbcapability("CL" , band, "AB")), f1(self.climbcapability("CL" , band, "M")),
-        f1(self.climbcapability("1/2", band, "AB")), f1(self.climbcapability("1/2", band, "M")),
-        f1(self.climbcapability("DT" , band, "AB")), f1(self.climbcapability("DT" , band, "M")),
+        f2(self.climbcapability("CL" , band, "AB")), f2(self.climbcapability("CL" , band, "M")),
+        f2(self.climbcapability("1/2", band, "AB")), f2(self.climbcapability("1/2", band, "M")),
+        f2(self.climbcapability("DT" , band, "AB")), f2(self.climbcapability("DT" , band, "M")),
       ))
     print()
 
