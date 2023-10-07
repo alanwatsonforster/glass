@@ -242,7 +242,10 @@ def _continuenormalflight(self, actions):
 
   def dobank(sense):
 
-    # TODO: LRR
+    # See rule 7.4.
+    if self.hasproperty("LRR"):
+      if (self._bank == "L" and sense == "R") or (self._bank == "R" and sense == "L"):
+        raise RuntimeError("attempt to bank to %s while banked to %s in a LRR aircraft." % (sense, self._bank))
 
     self._bank = sense
     self._turnrate = None
@@ -255,10 +258,15 @@ def _continuenormalflight(self, actions):
     Declare the start of turn in the specified direction and rate.
     """
 
-    # TODO: HRR and LRR
+    # See rule 7.1.
 
-    if self._bank != None and self._bank != sense:
-      raise RuntimeError("attempt to declare a turn while not banked correctly.")
+    # Check the bank. See rule 7.4.
+    if self.hasproperty("LRR"):
+      if self._bank != sense:
+        raise RuntimeError("attempt to declare a turn to %s while not banked to %s in a LRR aircraft." % (sense, sense))
+    elif not self.hasproperty("HRR"):
+      if (self._bank == "L" and sense == "R") or (self._bank == "R" and sense == "L"):
+        raise RuntimeError("attempt to declare a turn to %s while banked to %s." % (sense, self._bank))
 
     if self._allowedturnrates == []:
       raise RuntimeError("turns are forbidded.")
@@ -284,6 +292,8 @@ def _continuenormalflight(self, actions):
     """
     Turn in the specified sense and amount.
     """
+
+    # See rule 7.1.
 
     if apvariants.withvariant("implicit turn and bank declarations"): 
 
@@ -344,8 +354,6 @@ def _continuenormalflight(self, actions):
   def doverticalroll(sense, facingchange, shift):
 
     # See rule 13.3.4.
-
-    # TODO: LRR restrictions
   
     if self._flighttype != "VC" and self._flighttype != "VD":
       raise RuntimeError("attempt to roll vertically while flight type is %s." % self._flighttype)
@@ -355,6 +363,9 @@ def _continuenormalflight(self, actions):
     # The following applies only to HPR aircaft that enter a VC from LVL.
     if previousflighttype == "LVL" and flighttype != "VC" and not self._lastfp:
       raise RuntimeError("attempt to roll vertically following LVL flight and not on the last FP.")
+
+    if self.hasproperty("LRR") and facingchange > 90:
+      raise RuntimeError("attempt to roll vertically by more than 90 degrees in LRR aircraft.")
 
     self._maneuverap -= self.rolldrag("VR")
 
