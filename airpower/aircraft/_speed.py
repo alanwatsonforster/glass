@@ -218,15 +218,17 @@ def _endmovespeed(self):
   self._log("- altitude       APs = %+.2f." % self._altitudeap)
   self._log("- turn rate      APs = %+.2f." % self._turnrateap)
   self._log("- sustained turn APs = %+.2f." % self._sustainedturnap)
+  self._log("- maneuver       APs = %+.2f." % self._maneuverap)
   self._log("- speedbrakes    APs = %+.2f." % self._spbrap)
   self._log("- carry          APs = %+.2f." % self._apcarry)
   ap = \
-    self._turnrateap + \
-    self._sustainedturnap + \
-    self._altitudeap + \
-    self._spbrap + \
     self._powerap + \
     self._speedap + \
+    self._altitudeap + \
+    self._turnrateap + \
+    self._sustainedturnap + \
+    self._maneuverap + \
+    self._spbrap + \
     self._apcarry
   self._log("- total          APs = %+.2f." % ap)
 

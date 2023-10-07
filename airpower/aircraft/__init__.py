@@ -278,6 +278,7 @@ class aircraft:
       self._turnrateap      = 0
       self._sustainedturnap = 0
       self._altitudeap      = 0
+      self._maneuverap      = 0
 
       # The maximum turn rate in the current move. 
     

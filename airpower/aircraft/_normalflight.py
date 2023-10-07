@@ -345,6 +345,28 @@ def _continuenormalflight(self, actions):
   
   ########################################
 
+  def doverticalroll(sense, facingchange, shift):
+
+    # TODO: HPR restrictions
+    # TODO: LRR restrictions
+  
+    if self._flighttype != "VC" and self._flighttype != "VD":
+        raise RuntimeError("attempt to roll vertically while flight type is %s." % self._flighttype)
+    if not self._vertical:
+        raise RuntimeError("attempt to roll vertically during an HFP.")
+
+    self._maneuverap -= self.rolldrag("VR")
+
+    # Change facing.
+    if aphex.isedge(self._x, self._y) and shift:
+      self._x, self._y = aphex.edgetocenter(self._x, self._y, self._facing, sense)
+    if sense == "L":
+      self._facing = (self._facing + facingchange) % 360
+    else:
+      self._facing = (self._facing - facingchange) % 360    
+
+  ########################################
+
   def dospeedbrakes(spbrfp):
 
     """
@@ -451,23 +473,41 @@ def _continuenormalflight(self, actions):
     ["RBT" , "turn declaration", lambda: dodeclareturn("R", "BT") ],
     ["RET" , "turn declaration", lambda: dodeclareturn("R", "ET") ],
     
-    ["LB"  , "turn or bank"    , lambda: dobank("L") ],
-    ["RB"  , "turn or bank"    , lambda: dobank("R") ],
-    ["WL"  , "turn or bank"    , lambda: dobank(None) ],
+    ["LB"  , "maneuver"    , lambda: dobank("L")  ],
+    ["RB"  , "maneuver"    , lambda: dobank("R")  ],
+    ["WL"  , "maneuver"    , lambda: dobank(None) ],
 
-    ["L90" , "turn or bank"    , lambda: doturn("L", 90) ],
-    ["L60" , "turn or bank"    , lambda: doturn("L", 60) ],
-    ["L30" , "turn or bank"    , lambda: doturn("L", 30) ],
-    ["LLL" , "turn or bank"    , lambda: doturn("L", 90) ],
-    ["LL"  , "turn or bank"    , lambda: doturn("L", 60) ],
-    ["L"   , "turn or bank"    , lambda: doturn("L", 30) ],
+    ["LVR180S" , "maneuver", lambda: doverticalroll("L", 180, True )],
+    ["LVR180"  , "maneuver", lambda: doverticalroll("L", 180, False)],
+    ["LVR150"  , "maneuver", lambda: doverticalroll("L", 150, True )],
+    ["LVR120"  , "maneuver", lambda: doverticalroll("L", 120, True )],
+    ["LVR90"   , "maneuver", lambda: doverticalroll("L",  90, True )],
+    ["LVR60"   , "maneuver", lambda: doverticalroll("L",  60, True )],
+    ["LVR30"   , "maneuver", lambda: doverticalroll("L",  30, True )],
+    ["LVR"     , "maneuver", lambda: doverticalroll("L",  30, True )],
 
-    ["R90" , "turn or bank"    , lambda: doturn("R", 90) ],
-    ["R60" , "turn or bank"    , lambda: doturn("R", 60) ],
-    ["R30" , "turn or bank"    , lambda: doturn("R", 30) ],
-    ["RRR" , "turn or bank"    , lambda: doturn("R", 90) ],
-    ["RR"  , "turn or bank"    , lambda: doturn("R", 60) ],
-    ["R"   , "turn or bank"    , lambda: doturn("R", 30) ],
+    ["RVR180S" , "maneuver", lambda: doverticalroll("R", 180, True )],
+    ["RVR180"  , "maneuver", lambda: doverticalroll("R", 180, False)],
+    ["RVR150"  , "maneuver", lambda: doverticalroll("R", 150, True )],
+    ["RVR120"  , "maneuver", lambda: doverticalroll("R", 120, True )],
+    ["RVR90"   , "maneuver", lambda: doverticalroll("R",  90, True )],
+    ["RVR60"   , "maneuver", lambda: doverticalroll("R",  60, True )],
+    ["RVR30"   , "maneuver", lambda: doverticalroll("R",  30, True )],
+    ["RVR"     , "maneuver", lambda: doverticalroll("R",  30, True )],
+
+    ["L90" , "maneuver"    , lambda: doturn("L", 90) ],
+    ["L60" , "maneuver"    , lambda: doturn("L", 60) ],
+    ["L30" , "maneuver"    , lambda: doturn("L", 30) ],
+    ["LLL" , "maneuver"    , lambda: doturn("L", 90) ],
+    ["LL"  , "maneuver"    , lambda: doturn("L", 60) ],
+    ["L"   , "maneuver"    , lambda: doturn("L", 30) ],
+
+    ["R90" , "maneuver"    , lambda: doturn("R", 90) ],
+    ["R60" , "maneuver"    , lambda: doturn("R", 60) ],
+    ["R30" , "maneuver"    , lambda: doturn("R", 30) ],
+    ["RRR" , "maneuver"    , lambda: doturn("R", 90) ],
+    ["RR"  , "maneuver"    , lambda: doturn("R", 60) ],
+    ["R"   , "maneuver"    , lambda: doturn("R", 30) ],
 
     ["S1/2", "other"           , lambda: dospeedbrakes(1/2) ],
     ["S1"  , "other"           , lambda: dospeedbrakes(1) ],
@@ -542,23 +582,23 @@ def _continuenormalflight(self, actions):
 
     doelements(action, "turn declaration", False)
 
-    actionhorizontal = doelements(action, "H", False)
-    actionvertical   = doelements(action, "C or D", False)
+    self._horizontal = doelements(action, "H", False)
+    self._vertical   = doelements(action, "C or D", False)
 
-    if not actionhorizontal and not actionvertical:
+    if not self._horizontal and not self._vertical:
       raise RuntimeError("%r is not a valid action." % action)
-    elif actionhorizontal and actionvertical:
+    elif self._horizontal and self._vertical:
       if not self._flighttype == "UD" and not self._flighttype == "LVL":
         raise RuntimeError("%r is not a valid action when the flight type is %s." % (action, self._flighttype))
   
-    if actionhorizontal:
+    if self._horizontal:
       self._hfp += 1
     elif self._hfp < self._mininitialhfp:
       raise RuntimeError("insufficient initial HFPs.")
     else:
      self._vfp += 1
 
-    self._unloaded = self._flighttype == "UD" and actionvertical
+    self._unloaded = self._flighttype == "UD" and self._vertical
     if self._unloaded:
       if self._firstunloadedfp == None:
         self._firstunloadedfp = self._hfp
@@ -568,7 +608,7 @@ def _continuenormalflight(self, actions):
     if not self._unloaded:
       self._turnfp += 1
 
-    doelements(action, "turn or bank", False)
+    doelements(action, "maneuver", False)
   
     assert aphex.isvalid(self._x, self._y, facing=self._facing)
     assert apaltitude.isvalidaltitude(self._altitude)
