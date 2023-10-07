@@ -114,6 +114,13 @@ def _checknormalflight(self):
 
   elif flighttype == "VD":
 
+    # See rule 8.2.3 (with errata) on VD restrictions.
+
+    if not _isdiving(previousflighttype):
+      raise RuntimeError("flight type immediately after %s cannot be %s." % (
+        previousflighttype, flighttype
+      ))
+
     # See rule 8.1.3 on VC restrictions.
 
     if previousflighttype == "VC":
