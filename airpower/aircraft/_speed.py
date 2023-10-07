@@ -246,7 +246,12 @@ def _endmovespeed(self):
     else:
       aprate = +2.0
 
+  # The speed is limited to the maximum dive speed if the aircraft dived at least
+  # two levels. See rules 6.3 and 8.2.
 
+  altitudeloss = self._lastaltitude - self._altitude
+  usemaxdivespeed = (altitudeloss >= 2)
+  
   if ap == 0:
 
     self._apcarry = 0
@@ -265,15 +270,14 @@ def _endmovespeed(self):
 
   elif ap > 0:
 
-    # See the "Speed Gain" section of rule 6.2 and the "Acceleration Limits"
-    # section of rule 6.3.
+    # See rules 6.2, 6.3, and 8.2.
 
-    if self._flighttype == "LVL" or _isclimbing(self._flighttype):
-      maxspeed = self.maxspeed()
-      maxspeedname = "maximum speed"
-    elif _isdiving(self._flighttype) or self._flighttype == "ST":
+    if usemaxdivespeed:
       maxspeed = self.maxdivespeed()
       maxspeedname = "maximum dive speed"
+    else:
+      maxspeed = self.maxspeed()
+      maxspeedname = "maximum speed"
 
     if self._speed >= maxspeed and ap >= aprate:
       self._log("- acceleration is limited by %s of %.1f." % (maxspeedname, maxspeed))
@@ -288,23 +292,16 @@ def _endmovespeed(self):
       self._speed += 0.5 * (ap // aprate)
       self._apcarry = ap % aprate
 
-  if self._flighttype == "LVL" or _isclimbing(self._flighttype):
-
-    # See the "Speed Fadeback" section of rule 6.3.
-
-    maxspeed = self.maxspeed()
-    if self._speed > maxspeed:
-      self._log("- speed is faded back from %.1f." % self._speed)
-      self._speed = max(self._speed - 1, maxspeed)
-
-  elif _isdiving(self._flighttype) or self._flighttype == "ST" or self._flighttype == "DP":
-
-    # See the "Diving Speed Limits" section of rule 6.3.
-
+  if usemaxdivespeed:
     maxspeed = self.maxdivespeed()
     if self._speed > maxspeed:
       self._log("- speed is reduced to maximum dive speed of %.1f." % maxspeed)
       self._speed = maxspeed
+  else:
+    maxspeed = self.maxspeed()
+    if self._speed > maxspeed:
+      self._log("- speed is faded back from %.1f." % self._speed)
+      self._speed = max(self._speed - 1, maxspeed)
 
   if self._lastspeed != self._speed:
     self._log("speed changed from %.1f to %.1f." % (self._lastspeed, self._speed))
