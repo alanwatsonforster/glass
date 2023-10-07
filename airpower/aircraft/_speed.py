@@ -1,6 +1,7 @@
 import math
 
 import airpower.speed as apspeed
+import airpower.variants as apvariants
 from airpower.math import onethird, twothirds
 
 from ._normalflight import _isclimbing, _isdiving
@@ -19,19 +20,41 @@ def _startmovespeed(self, power, flamedoutfraction):
 
     ############################################################################
 
-    # Determine the requested power setting and power AP
+    # Determine the requested power setting and power AP.
+
+    # Propeller-driver aircraft have ADCs that give "full throttle" and
+    # "half-throttle" power ratings, in addition to "normal". These are not
+    # mentioned in the AP rules, despite appearing on the ADC for the 
+    # propeller-driven Skyraider which is included with TSOH. However, we treat 
+    # them both as the equivalent of M power, except for fuel use. We refer to 
+    # them as "FT" and "HT". This extension can be disallowed by setting the
+    # "disallow HT/FT" variant.
+
+    # One unclear issue is whether an aircraft above its cruise speed needs to
+    # use FT to avoid a drag penalty or if HT is sufficient. In the absence of
+    # guidance and following the precedence that AB is not required for 
+    # jet-powered aircraft, I have implemented that HT is sufficient.
 
     powerapM  = self.power("M")
     powerapAB = self.power("AB")
+    if apvariants.withvariant("disallow HT/FT"):
+      powerapHT = None
+      powerapFT = None
+    else:
+      powerapHT = self.power("HT")
+      powerapFT = self.power("FT")
+
+    jet = (powerapM != None)
 
     # See rule 8.4.
 
-    if not self.hasproperty("HAE"):
-      if self._altitudeband == "VH":
+    if self._altitudeband == "VH":
+      if jet and not self.hasproperty("HAE"):
         powerapM  = max(0.5, twothirds(powerapM))
         if powerapAB != None:
           powerapAB = max(0.5, twothirds(powerapAB))
-      elif self._altitudeband == "EH" or self._altitudeband == "UH":
+    elif (self._altitudeband == "EH" or self._altitudeband == "UH"):
+      if jet and not self.hasproperty("HAE"):
         powerapM  = max(0.5, onethird(powerapM))
         if powerapAB != None:
           powerapAB = max(0.5, onethird(powerapAB))        
@@ -44,21 +67,39 @@ def _startmovespeed(self, power, flamedoutfraction):
     elif power == "N" or power == 0:
       powersetting = "N"
       powerap      = 0
+    elif power == "M" and powerapM == None:
+      raise RuntimeError("aircraft does not have an M power setting.")
     elif power == "M":
       powersetting = "M"
       powerap      = powerapM
     elif power == "AB" and powerapAB == None:
-      raise RuntimeError("aircraft does not have AB.")
+      raise RuntimeError("aircraft does not have an AB power setting.")
     elif power == "AB":
       powersetting = "AB"
       powerap      = powerapAB
+    elif power == "HT" and powerapHT == None:
+      raise RuntimeError("aircraft does not have an HT power setting.")
+    elif power == "HT":
+      powersetting = "HT"
+      powerap      = powerapHT
+    elif power == "FT" and powerapFT == None:
+      raise RuntimeError("aircraft does not have an FT power setting.")
+    elif power == "FT":
+      powersetting = "FT"
+      powerap      = powerapFT
     elif not isinstance(power, (int, float)) or power < 0 or power % 0.25 != 0:
       raise RuntimeError("invalid power %r" % power)
-    elif power <= powerapM:
+    elif powerapM != None and power <= powerapM:
       powersetting = "M"
       powerap      = power
     elif powerapAB != None and power <= powerapAB:
       powersetting = "AB"
+      powerap      = power
+    elif powerapHT != None and power <= powerapHT:
+      powersetting = "HT"
+      powerap      = power
+    elif powerapFT != None and power <= powerapFT:
+      powersetting = "FT"
       powerap      = power
     else:
       raise RuntimeError("requested power of %s APs exceeds aircraft capability." % power)
@@ -66,7 +107,7 @@ def _startmovespeed(self, power, flamedoutfraction):
     self._log("power setting is %s." % powersetting)
 
     # See rule 8.4. The reduction was done above, but we report it here.
-    if not self.hasproperty("HAE") and (
+    if jet and not self.hasproperty("HAE") and (
       self._altitudeband == "VH" or self._altitudeband == "EH" or self._altitudeband == "UH"
     ):
       self._log("- power is reduced in the %s altitude band." % self._altitudeband)

@@ -4,7 +4,7 @@ def _checkconfiguration(configuration):
   assert configuration in ["CL", "1/2", "DT"]
 
 def _checkpowersetting(powersetting):
-  assert powersetting in ["AB", "M", "N", "I"]
+  assert powersetting in ["AB", "M", "N", "I", "FT", "HT"]
 
 def _checkturnrate(turnrate):
   assert turnrate in ["EZ", "TT", "HT", "BT", "ET"]
@@ -178,18 +178,34 @@ class aircraftdata:
     print("Power:")
     print()
     print("       CL   1/2  DT  Fuel")
-    print("AB     %s  %s  %s  %s" % (
-      f1(self.power("CL", "AB")), 
-      f1(self.power("1/2", "AB")), 
-      f1(self.power("DT", "AB")), 
-      f1(self.fuelrate("AB"))
-    ))
-    print("M      %s  %s  %s  %s" % (
-      f1(self.power("CL", "M" )), 
-      f1(self.power("1/2", "M" )), 
-      f1(self.power("DT", "M" )), 
-      f1(self.fuelrate("M"))
-    ))
+    if self.power("CL", "M") != None:
+      print("AB     %s  %s  %s  %s" % (
+        f1(self.power("CL", "AB")), 
+        f1(self.power("1/2", "AB")), 
+        f1(self.power("DT", "AB")), 
+        f1(self.fuelrate("AB"))
+      ))
+    if self.power("CL", "M") != None:
+      print("M      %s  %s  %s  %s" % (
+        f1(self.power("CL", "M" )), 
+        f1(self.power("1/2", "M" )), 
+        f1(self.power("DT", "M" )), 
+        f1(self.fuelrate("M"))
+      ))
+    if self.power("CL", "FT") != None:
+      print("FT     %s  %s  %s  %s" % (
+        f1(self.power("CL", "FT")), 
+        f1(self.power("1/2", "FT")), 
+        f1(self.power("DT", "FT")), 
+        f1(self.fuelrate("FT"))
+      ))
+    if self.power("CL", "HT") != None:
+      print("HT     %s  %s  %s  %s" % (
+        f1(self.power("CL", "HT")), 
+        f1(self.power("1/2", "HT")), 
+        f1(self.power("DT", "HT")), 
+        f1(self.fuelrate("HT"))
+      ))
     print("N      %s  %s  %s  %s" % (
       f1(self.power("CL", "N" )), 
       f1(self.power("1/2", "N" )), 
