@@ -347,13 +347,18 @@ def _continuenormalflight(self, actions):
 
   def doverticalroll(sense, facingchange, shift):
 
-    # TODO: HPR restrictions
+    # See rule 13.3.4.
+
     # TODO: LRR restrictions
   
     if self._flighttype != "VC" and self._flighttype != "VD":
-        raise RuntimeError("attempt to roll vertically while flight type is %s." % self._flighttype)
+      raise RuntimeError("attempt to roll vertically while flight type is %s." % self._flighttype)
     if not self._vertical:
-        raise RuntimeError("attempt to roll vertically during an HFP.")
+      raise RuntimeError("attempt to roll vertically during an HFP.")
+
+    # The following applies only to HPR aircaft that enter a VC from LVL.
+    if self._lastflighttype == "LVL" and self._flighttype != "VC" and not self._lastfp:
+      raise RuntimeError("attempt to roll vertically following LVL flight and not on the last FP.")
 
     self._maneuverap -= self.rolldrag("VR")
 
@@ -607,6 +612,11 @@ def _continuenormalflight(self, actions):
     # See rule 8.2.2.
     if not self._unloaded:
       self._turnfp += 1
+
+    # Some rules apply only to the last FP of a move, so we determine if this 
+    # FP is the last FP. See rule 13.3.4.
+    fp = self._hfp + self._vfp + self._spbrfp
+    self._lastfp = (fp + 1 > self._fp) 
 
     doelements(action, "maneuver", False)
   
