@@ -249,79 +249,78 @@ class aircraft:
     aplog.clearerror()
     try:
 
-     self._log("--- start of move --")
+      self._log("--- start of move --")
 
-     self._restore(ap.turn() - 1)
+      self._restore(ap.turn() - 1)
 
-     if self._destroyed or self._leftmap:
-       self._endmove()
-       return
+      if self._destroyed or self._leftmap:
+        self._endmove()
+        return
 
-     self._startflightpath()
+      self._startflightpath()
 
-     # We save values of these variables at the end of the previous move.
+      # We save values of these variables at the end of the previous move.
 
-     self._lastconfiguration = self._configuration
-     self._lastpowersetting  = self._powersetting
-     self._lastflighttype    = self._flighttype
-     self._lastaltitude      = self._altitude
-     self._lastaltitudeband  = self._altitudeband
-     self._lastaltitudecarry = self._altitudecarry
-     self._lastspeed         = self._speed
+      self._lastconfiguration = self._configuration
+      self._lastpowersetting  = self._powersetting
+      self._lastflighttype    = self._flighttype
+      self._lastaltitude      = self._altitude
+      self._lastaltitudeband  = self._altitudeband
+      self._lastaltitudecarry = self._altitudecarry
+      self._lastspeed         = self._speed
 
-     # These account for the APs associated with power, speed, speed-brakes, 
-     # turns (split into the part for the maximum turn rate and the part for 
-     # sustained turns), and altitude loss or gain.
+      # These account for the APs associated with power, speed, speed-brakes, 
+      # turns (split into the part for the maximum turn rate and the part for 
+      # sustained turns), and altitude loss or gain.
 
-     self._powerap         = 0
-     self._speedap         = 0
-     self._spbrap          = 0
-     self._turnrateap      = 0
-     self._sustainedturnap = 0
-     self._altitudeap      = 0
+      self._powerap         = 0
+      self._speedap         = 0
+      self._spbrap          = 0
+      self._turnrateap      = 0
+      self._sustainedturnap = 0
+      self._altitudeap      = 0
 
-     # The maximum turn rate in the current move. 
+      # The maximum turn rate in the current move. 
     
-     self._maxturnrate      = None
+      self._maxturnrate      = None
 
-     self._flighttype       = flighttype
+      self._flighttype       = flighttype
 
-     self._speed,           \
-     self._powersetting,    \
-     self._powerap,         \
-     self._speedap          = self._startmovespeed(power, flamedoutfraction)
+      self._speed,           \
+      self._powersetting,    \
+      self._powerap,         \
+      self._speedap          = self._startmovespeed(power, flamedoutfraction)
 
-     self._log("configuration is %s." % self._configuration)
-     self._log("altitude band is %s." % self._altitudeband)
-     self._log("flight type is %s." % self._flighttype)
+      self._log("configuration is %s." % self._configuration)
+      self._log("altitude band is %s." % self._altitudeband)
+      self._log("flight type is %s." % self._flighttype)
 
-     # See rule 8.1.4 on altitude carry.
-     if not _isclimbing(self._flighttype):
-       self._altitudecarry = 0
+      # See rule 8.1.4 on altitude carry.
+      if not _isclimbing(self._flighttype):
+        self._altitudecarry = 0
 
-     if self._flighttype == "ST":
+      if self._flighttype == "ST":       
+        self._fpcarry = 0
+        self._turnsstalled += 1
+        self._checkstalledflight()
+        self._dostalledflight(actions)
+        self._endmove()
 
-       self._fpcarry = 0
-       self._turnsstalled += 1
-       self._checkstalledflight()
-       self._dostalledflight(actions)
-       self._endmove()
+      elif self._flighttype == "DP":
 
-     elif self._flighttype == "DP":
+        self._fpcarry = 0
+        self._apcarry = 0
+        self._turnsdeparted += 1
+        self._checkdepartedflight()
+        self._dodepartedflight(actions)
+        self._endmove()
 
-       self._fpcarry = 0
-       self._apcarry = 0
-       self._turnsdeparted += 1
-       self._checkdepartedflight()
-       self._dodepartedflight(actions)
-       self._endmove()
-        
-     else:
+      else:
 
-       self._turnsstalled  = 0
-       self._turnsdeparted = 0
-       self._checknormalflight()
-       self._startnormalflight(actions)
+        self._turnsstalled  = 0
+        self._turnsdeparted = 0
+        self._checknormalflight()
+        self._startnormalflight(actions)
 
     except RuntimeError as e:
       aplog.logerror(e)
