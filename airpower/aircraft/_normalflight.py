@@ -361,13 +361,19 @@ def _continuenormalflight(self, actions):
       raise RuntimeError("attempt to roll vertically during an HFP.")
 
     # The following applies only to HPR aircaft that enter a VC from LVL.
-    if previousflighttype == "LVL" and flighttype != "VC" and not self._lastfp:
+    if previousflighttype == "LVL" and flighttype == "VC" and not self._lastfp:
       raise RuntimeError("attempt to roll vertically following LVL flight and not on the last FP.")
 
     if self.hasproperty("LRR") and facingchange > 90:
       raise RuntimeError("attempt to roll vertically by more than 90 degrees in LRR aircraft.")
 
     self._maneuverap -= self.rolldrag("VR")
+
+    # See 13.3.6
+    if self._rolls > 0:
+      self._maneuverap -= 1
+
+    self._rolls += 1
 
     # Change facing.
     if aphex.isedge(self._x, self._y) and shift:

@@ -270,7 +270,7 @@ class aircraft:
 
       # These account for the APs associated with power, speed, speed-brakes, 
       # turns (split into the part for the maximum turn rate and the part for 
-      # sustained turns), and altitude loss or gain.
+      # sustained turns), altitude loss or gain, and special maneuvers.
 
       self._powerap         = 0
       self._speedap         = 0
@@ -281,15 +281,17 @@ class aircraft:
       self._maneuverap      = 0
 
       # The maximum turn rate in the current move. 
-    
-      self._maxturnrate      = None
+      self._maxturnrate     = None
 
-      self._flighttype       = flighttype
+      # The number of rolls in the current move.
+      self._rolls           = 0
 
-      self._speed,           \
-      self._powersetting,    \
-      self._powerap,         \
-      self._speedap          = self._startmovespeed(power, flamedoutfraction)
+      self._flighttype      = flighttype
+
+      self._speed,          \
+      self._powersetting,   \
+      self._powerap,        \
+      self._speedap         = self._startmovespeed(power, flamedoutfraction)
 
       self._log("configuration is %s." % self._configuration)
       self._log("altitude band is %s." % self._altitudeband)
