@@ -576,9 +576,13 @@ def _continuenormalflight(self, actions):
     Carry out an action for normal flight.
     """
 
-    if self._hfp + self._vfp + self._spbrfp + 1 > self._fp:
+    fp = self._hfp + self._vfp + self._spbrfp
+    if fp + 1 > self._fp:
       raise RuntimeError("only %.1f FPs are available." % self._fp)
 
+    # Determine if this FP is the last FP of the move.
+    self._lastfp = (fp + 2 > self._fp) 
+    
     initialaltitudeband = self._altitudeband
 
     doelements(action, "turn declaration", False)
@@ -608,11 +612,6 @@ def _continuenormalflight(self, actions):
     # See rule 8.2.2.
     if not self._unloaded:
       self._turnfp += 1
-
-    # Some rules apply only to the last FP of a move, so we determine if this 
-    # FP is the last FP. See rule 13.3.4.
-    fp = self._hfp + self._vfp + self._spbrfp
-    self._lastfp = (fp + 1 > self._fp) 
 
     doelements(action, "maneuver", False)
   
@@ -760,7 +759,7 @@ def _startnormalflight(self, actions):
 
     self._hfp     = 0
     self._vfp     = 0
-    self._spbrfp  = 0 
+    self._spbrfp  = 0
 
     self._firstunloadedfp = None
     self._lastunloadedfp  = None
@@ -899,10 +898,14 @@ def _startnormalflight(self, actions):
 
 def _endnormalflight(self):
 
+  ########################################
+
   def reportfp():
     self._log("- used %d HFPs and %d VFPs (lost %.1f FPs to speedbrakes)." % (
       self._hfp, self._vfp, self._spbrfp
     ))    
+
+  ########################################
 
   def checkfp():
 
@@ -934,6 +937,8 @@ def _endnormalflight(self):
       if unloadedhfp > self._maxunloadedhfp:
         raise RuntimeError("too many unloaded HFPs.")
 
+  ########################################
+
   def checkfreedescent():
 
     # See rule 8.2.4.
@@ -943,6 +948,8 @@ def _endnormalflight(self):
       if altitudechange < -1:
         raise RuntimeError("free descent cannot only be taken once per move.")
   
+  ########################################
+
   def reportturn():
 
     if self._maxturnrate != None:
@@ -955,7 +962,7 @@ def _endnormalflight(self):
     else:
       self._log("- finished banked %s." % self._bank)    
 
-  self._log("---")
+  ########################################
 
   def determinealtitudeap():
 
@@ -1040,9 +1047,12 @@ def _endnormalflight(self):
 
     self._altitudeap = altitudeap
 
+  ########################################
+
   flighttype         = self._flighttype
   previousflighttype = self._previousflighttype  
   
+  self._log("---")
   reportfp()
   checkfp()
   checkfreedescent()
@@ -1060,6 +1070,8 @@ def _isdiving(flighttype):
   """
 
   return flighttype == "SD" or flighttype == "UD" or flighttype == "VD"
+
+################################################################################
 
 def _isclimbing(flighttype):
 
