@@ -260,13 +260,13 @@ class aircraft:
 
       # We save values of these variables at the end of the previous move.
 
-      self._lastconfiguration = self._configuration
-      self._lastpowersetting  = self._powersetting
-      self._lastflighttype    = self._flighttype
-      self._lastaltitude      = self._altitude
-      self._lastaltitudeband  = self._altitudeband
-      self._lastaltitudecarry = self._altitudecarry
-      self._lastspeed         = self._speed
+      self._previousconfiguration = self._configuration
+      self._previouspowersetting  = self._powersetting
+      self._previousflighttype    = self._flighttype
+      self._previousaltitude      = self._altitude
+      self._previousaltitudeband  = self._altitudeband
+      self._previousaltitudecarry = self._altitudecarry
+      self._previousspeed         = self._speed
 
       # These account for the APs associated with power, speed, speed-brakes, 
       # turns (split into the part for the maximum turn rate and the part for 
@@ -364,13 +364,13 @@ class aircraft:
      
       self._endmovespeed()
 
-      if self._lastconfiguration != self._configuration:
-        self._log("configuration changed from %s to %s." % (self._lastconfiguration, self._configuration))
+      if self._previousconfiguration != self._configuration:
+        self._log("configuration changed from %s to %s." % (self._previousconfiguration, self._configuration))
       else:
         self._log("configuration is unchanged at %s." % self._configuration)
         
-      if self._lastaltitudeband != self._altitudeband:
-        self._log("altitude band changed from %s to %s." % (self._lastaltitudeband, self._altitudeband))
+      if self._previousaltitudeband != self._altitudeband:
+        self._log("altitude band changed from %s to %s." % (self._previousaltitudeband, self._altitudeband))
       else:
         self._log("altitude band is unchanged at %s." % self._altitudeband)
 

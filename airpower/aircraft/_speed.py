@@ -14,8 +14,8 @@ def _startmovespeed(self, power, flamedoutfraction):
 
     ############################################################################
 
-    lastpowersetting = self._lastpowersetting
-    speed  = self._speed
+    lastpowersetting = self._previouspowersetting
+    speed            = self._speed
 
     ############################################################################
 
@@ -127,7 +127,7 @@ def _startmovespeed(self, power, flamedoutfraction):
 
     # See rule 6.4 on recovery from departed flight.
 
-    if self._lastflighttype == "DP" and self._flighttype != "DP" and speed < minspeed:
+    if self._previousflighttype == "DP" and self._flighttype != "DP" and speed < minspeed:
       speed = minspeed
       self._log("- increasing speed to %.1f after recovering from departed flight." % minspeed)
       
@@ -251,7 +251,7 @@ def _endmovespeed(self):
   # The speed is limited to the maximum dive speed if the aircraft dived at least
   # two levels. See rules 6.3 and 8.2.
 
-  altitudeloss = self._lastaltitude - self._altitude
+  altitudeloss = self._previousaltitude - self._altitude
   usemaxdivespeed = (altitudeloss >= 2)
   
   if ap == 0:
@@ -305,8 +305,8 @@ def _endmovespeed(self):
       self._log("- speed is faded back from %.1f." % self._speed)
       self._speed = max(self._speed - 1, maxspeed)
 
-  if self._lastspeed != self._speed:
-    self._log("speed changed from %.1f to %.1f." % (self._lastspeed, self._speed))
+  if self._previousspeed != self._speed:
+    self._log("speed changed from %.1f to %.1f." % (self._previousspeed, self._speed))
   else:
     self._log("speed is unchanged at %.1f." % self._speed)
 
@@ -321,4 +321,3 @@ def _endmovespeed(self):
     self._log("- aircraft is still stalled.")
   elif self._speed < minspeed:
     self._log("- aircraft has stalled.")
-

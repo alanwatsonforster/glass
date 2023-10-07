@@ -14,50 +14,50 @@ import airpower.variants as apvariants
 
 def _checknormalflight(self):
 
-  flighttype     = self._flighttype
-  lastflighttype = self._lastflighttype
+  flighttype         = self._flighttype
+  previousflighttype = self._previousflighttype
 
   if flighttype not in ["LVL", "SC", "ZC", "VC", "SD", "UD", "VD"]:
     raise RuntimeError("invalid flight type %r." % flighttype)
 
-  if lastflighttype == "DP":
+  if previousflighttype == "DP":
 
     # See rule 6.4 on recovering from departed flight.
 
     if _isclimbing(flighttype):
       raise RuntimeError("flight type immediately after %s cannot be %s." % (
-        lastflighttype, flighttype
+        previousflighttype, flighttype
       ))
     elif flighttype == "LVL" and not self.hasproperty("HPR"):
       raise RuntimeError("flight type immediately after %s cannot be %s." % (
-        lastflighttype, flighttype
+        previousflighttype, flighttype
       ))
     
-  if lastflighttype == "ST":
+  if previousflighttype == "ST":
 
     # See rule 6.4 on recovering from stalled flight.
 
     if _isclimbing(flighttype):
       raise RuntimeError("flight type immediately after %s cannot be %s." % (
-        lastflighttype, flighttype
+        previousflighttype, flighttype
       ))
 
   if flighttype == "LVL":
 
     # See rule 8.2.3 on VD recovery.
 
-    if lastflighttype == "VD" and not (self.hasproperty("HPR") and self._speed <= 3.0):
+    if previousflighttype == "VD" and not (self.hasproperty("HPR") and self._speed <= 3.0):
       raise RuntimeError("flight type immediately after %s cannot be %s." % (
-        lastflighttype, flighttype
+        previousflighttype, flighttype
       ))
 
   elif flighttype == "ZC":
 
     # See rule 8.2.3 on VD recovery.
 
-    if lastflighttype == "VD":
+    if previousflighttype == "VD":
       raise RuntimeError("flight type immediately after %s cannot be %s." % (
-        lastflighttype, flighttype
+        previousflighttype, flighttype
       ))
 
   elif flighttype == "SC":
@@ -69,56 +69,56 @@ def _checknormalflight(self):
 
     # See rule 8.2.3 on VD recovery.
 
-    if lastflighttype == "VD":
+    if previousflighttype == "VD":
       raise RuntimeError("flight type immediately after %s cannot be %s." % (
-        lastflighttype, flighttype
+        previousflighttype, flighttype
       ))
 
   elif flighttype == "VC":
 
     # See rule 8.1.3 on VC prerequisites.
 
-    if _isdiving(lastflighttype):
+    if _isdiving(previousflighttype):
       raise RuntimeError("flight type immediately after %s cannot be %s." % (
-        lastflighttype, flighttype
+        previousflighttype, flighttype
       ))      
-    if self._lastflighttype == "LVL" and not (self.hasproperty("HPR") and self._speed < 4.0):
+    if self._previousflighttype == "LVL" and not (self.hasproperty("HPR") and self._speed < 4.0):
       raise RuntimeError("flight type immediately after %s cannot be %s." % (
-        lastflighttype, flighttype
+        previousflighttype, flighttype
       ))
 
     # See rule 8.2.3 on VD recovery.
 
-    if lastflighttype == "VD":
+    if previousflighttype == "VD":
       raise RuntimeError("flight type immediately after %s cannot be %s." % (
-        lastflighttype, flighttype
+        previousflighttype, flighttype
       ))
         
   elif flighttype == "SD":
 
     # See rule 8.1.3 on VC restrictions.
 
-    if lastflighttype == "VC" and not self.hasproperty("HPR"):
+    if previousflighttype == "VC" and not self.hasproperty("HPR"):
       raise RuntimeError("flight type immediately after %s cannot be %s." % (
-        lastflighttype, flighttype
+        previousflighttype, flighttype
       ))
 
   elif flighttype == "UD":
 
     # See rule 8.1.3 on VC restrictions.
 
-    if lastflighttype == "VC" and not self.hasproperty("HPR"):
+    if previousflighttype == "VC" and not self.hasproperty("HPR"):
       raise RuntimeError("flight type immediately after %s cannot be %s." % (
-        lastflighttype, flighttype
+        previousflighttype, flighttype
       ))
 
   elif flighttype == "VD":
 
     # See rule 8.1.3 on VC restrictions.
 
-    if lastflighttype == "VC":
+    if previousflighttype == "VC":
       raise RuntimeError("flight type immediately after %s cannot be %s." % (
-        lastflighttype, flighttype
+        previousflighttype, flighttype
       ))
     
 ################################################################################
@@ -151,8 +151,8 @@ def _continuenormalflight(self, actions):
 
       assert altitudechange == 1 or altitudechange == 2
 
-      flighttype     = self._flighttype
-      lastflighttype = self._lastflighttype  
+      flighttype         = self._flighttype
+      previousflighttype = self._previousflighttype  
     
       climbcapability = self.climbcapability()
 
@@ -205,8 +205,8 @@ def _continuenormalflight(self, actions):
 
       assert altitudechange == 1 or altitudechange == 2 or altitudechange == 3
 
-      flighttype     = self._flighttype
-      lastflighttype = self._lastflighttype    
+      flighttype         = self._flighttype
+      previousflighttype = self._previousflighttype    
 
       if flighttype == "SD":
 
@@ -357,7 +357,7 @@ def _continuenormalflight(self, actions):
       raise RuntimeError("attempt to roll vertically during an HFP.")
 
     # The following applies only to HPR aircaft that enter a VC from LVL.
-    if self._lastflighttype == "LVL" and self._flighttype != "VC" and not self._lastfp:
+    if self._previousflighttype == "LVL" and self._flighttype != "VC" and not self._lastfp:
       raise RuntimeError("attempt to roll vertically following LVL flight and not on the last FP.")
 
     self._maneuverap -= self.rolldrag("VR")
@@ -758,12 +758,12 @@ def _startnormalflight(self, actions):
 
     # See rule 5.5.
 
-    flighttype     = self._flighttype
-    lastflighttype = self._lastflighttype
+    flighttype         = self._flighttype
+    previousflighttype = self._previousflighttype
 
-    if lastflighttype == "LVL" and (_isclimbing(flighttype) or _isdiving(flighttype)):
+    if previousflighttype == "LVL" and (_isclimbing(flighttype) or _isdiving(flighttype)):
       mininitialhfp = 1
-    elif (_isclimbing(lastflighttype) and _isdiving(flighttype)) or (_isdiving(lastflighttype) and _isclimbing(flighttype)):
+    elif (_isclimbing(previousflighttype) and _isdiving(flighttype)) or (_isdiving(previousflighttype) and _isclimbing(flighttype)):
       if self.hasproperty("HPR"):
         mininitialhfp = self._speed // 3
       else:
@@ -780,7 +780,7 @@ def _startnormalflight(self, actions):
   def determinerequiredhfpvfpmix():
 
     flighttype     = self._flighttype
-    lastflighttype = self._lastflighttype
+    previousflighttype = self._previousflighttype
     fp             = int(self._fp)
 
     minhfp = 0
@@ -816,7 +816,7 @@ def _startnormalflight(self, actions):
     elif flighttype == "VC" or flighttype == "VD":
 
       # See rules 8.1.3 and 8.2.3.
-      if lastflighttype != flighttype:
+      if previousflighttype != flighttype:
         minhfp = math.floor(onethird(fp))
         maxhfp = minhfp
       else:
@@ -825,7 +825,7 @@ def _startnormalflight(self, actions):
     elif flighttype == "SD":
 
       # See rules 8.2.1 and 8.2.3.
-      if lastflighttype == "VD":
+      if previousflighttype == "VD":
         minvfp = math.floor(self._speed / 2)
       minhfp = math.ceil(onethird(fp))    
 
@@ -833,7 +833,7 @@ def _startnormalflight(self, actions):
 
       # See rules 8.2.2 and 8.2.3.
       maxunloadedhfp = fp
-      if lastflighttype == "VD":
+      if previousflighttype == "VD":
         minunloadedhfp = math.floor(self._speed / 2)
       else:
         minunloadedhfp = 1
@@ -905,7 +905,7 @@ def _endnormalflight(self):
 
     if self._flighttype == "UD":
       # See rule 8.2.2.
-      unloadedhfp = self._lastaltitude - self._altitude
+      unloadedhfp = self._previousaltitude - self._altitude
       if self._firstunloadedfp == None:
         n = 0
       elif self._lastunloadedfp == None:
@@ -924,7 +924,7 @@ def _endnormalflight(self):
     # See rule 8.2.4.
     
     if self._flighttype == "LVL":
-      altitudechange = self._altitude - self._lastaltitude
+      altitudechange = self._altitude - self._previousaltitude
       if altitudechange < -1:
         raise RuntimeError("free descent cannot only be taken once per move.")
   
@@ -944,12 +944,12 @@ def _endnormalflight(self):
 
   def determinealtitudeap():
 
-    altitudechange = self._altitude - self._lastaltitude
+    altitudechange = self._altitude - self._previousaltitude
 
     if flighttype == "ZC":
 
       # See rule 8.1.1.
-      if lastflighttype == "ZC":
+      if previousflighttype == "ZC":
         altitudeap = -1.5 * altitudechange
       else:
         altitudeap = -1.0 * altitudechange
@@ -978,8 +978,8 @@ def _endnormalflight(self):
         # We also use that the altitude change at the ZC rate must be an
         # integral number of levels.
 
-        truealtitude     = self._altitude     + self._altitudecarry
-        lasttruealtitude = self._lastaltitude + self._lastaltitudecarry
+        truealtitude     = self._altitude         + self._altitudecarry
+        lasttruealtitude = self._previousaltitude + self._previousaltitudecarry
 
         truealtitudechange = truealtitude - lasttruealtitude
 
@@ -997,7 +997,7 @@ def _endnormalflight(self):
     elif flighttype == "SD":
 
       # See rule 8.2.1.
-      if lastflighttype == "SD":
+      if previousflighttype == "SD":
         altitudeap = -1.0 * altitudechange
       else:
         altitudeap = -0.5 * altitudechange
@@ -1005,7 +1005,7 @@ def _endnormalflight(self):
     elif flighttype == "UD":
 
       # See rule 8.2.2.
-      if lastflighttype == "UD":
+      if previousflighttype == "UD":
         altitudeap = -1.0 * altitudechange
       else:
         altitudeap = -0.5 * altitudechange
@@ -1025,8 +1025,8 @@ def _endnormalflight(self):
 
     self._altitudeap = altitudeap
 
-  flighttype     = self._flighttype
-  lastflighttype = self._lastflighttype
+  flighttype         = self._flighttype
+  previousflighttype = self._previousflighttype
 
   reportfp()
   checkfp()
