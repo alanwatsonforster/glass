@@ -753,7 +753,7 @@ def _startnormalflight(self, actions):
       if lastflighttype == "VD":
         minunloadedhfp = math.floor(self._speed / 2)
       else:
-        minunloadedhfp = 0
+        minunloadedhfp = 1
 
     if maxvfp == 0:
       self._log("- all FPs must be HFPs.")
