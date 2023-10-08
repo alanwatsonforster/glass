@@ -44,7 +44,11 @@ class aircraftdata:
 
   def spbr(self, configuration):
     _checkconfiguration(configuration)
-    return self._data["powertable"]["SPBR"][_configurationindex(configuration)]
+    raw = self._data["powertable"]["SPBR"][_configurationindex(configuration)]
+    if raw == "-":
+      return None
+    else:
+      return raw
 
   def fuelrate(self, powersetting):
     _checkpowersetting(powersetting)

@@ -435,6 +435,8 @@ def _continuenormalflight(self, actions):
 
     # See rules 6.5 and 6.6.
 
+    maxspbrfp = self.spbr()
+
     if self._spbrfp != 0:
       raise RuntimeError("speedbrakes can only be used once per turn.")
 
@@ -443,6 +445,9 @@ def _continuenormalflight(self, actions):
       raise RuntimeError("only %s FPs are remaining." % maxspbrfp)
     
     maxspbrfp = self.spbr()
+    if maxspbrfp == None:
+      raise RuntimeError("aircraft does not have speedbrakes.")
+
     if self._speed > apspeed.m1speed(self._altitudeband):
       maxspbrfp += 0.5
     if spbrfp > maxspbrfp:
