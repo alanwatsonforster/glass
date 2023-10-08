@@ -772,41 +772,42 @@ def _startnormalflight(self, actions):
   def determineallowedturnrates():
 
     """
-    Determine the allowed turn rates according to the flight type. The
-    aircraft type and configuration may impose additional restrictions.
+    Determine the allowed turn rates according to the flight type and
+    speed. The aircraft type and configuration may impose additional
+    restrictions.
     """
 
     turnrates = ["EZ", "TT", "HT", "BT", "ET"]
 
-    # See rule 7.5 "Turning and Minimum Speeds"
+    # See rule 7.5.
 
     minspeed = self.minspeed()
     if self._speed == minspeed + 1.5:
-      self._log("- speed is limiting the turn rate to BT.")
+      self._log("- speed limits the turn rate to BT.")
       turnrates = turnrates[:4]
     elif self._speed == minspeed + 1.0:
-      self._log("- speed is limiting the turn rate to HT.")
+      self._log("- speed limits the turn rate to HT.")
       turnrates = turnrates[:3]
     elif self._speed == minspeed + 0.5:
-      self._log("- speed is limiting the turn rate to TT.")
+      self._log("- speed limits the turn rate to TT.")
       turnrates = turnrates[:2]
     elif self._speed == minspeed:
-      self._log("- speed is limiting the turn rate to EZ.")
+      self._log("- speed limits the turn rate to EZ.")
       turnrates = turnrates[:1]
 
-    # See the "ZC Restrictions" section of rule 8.1.1.
+    # See rule 8.1.1.
 
     if self._flighttype == "ZC":
-      self._log("- ZC is limiting the turn rate to BT.")
+      self._log("- ZC limits the turn rate to BT.")
       turnrates = turnrates[:4]
 
-    # See the "SC Restrictions" section of rule 8.1.1.
+    # See rule 8.1.1.
 
     if self._flighttype == "SC":
-      self._log("- SC is limiting the turn rate to EZ.")
+      self._log("- SC limits the turn rate to EZ.")
       turnrates = turnrates[:1]
 
-    # See the "VC Restrictions" section of rule 8.1.3.
+    # See rule 8.1.3.
 
     if self._flighttype == "VC":
       self._log("- VC disallows all turns.")
@@ -818,11 +819,16 @@ def _startnormalflight(self, actions):
 
   def checkformaneuveringdeparture():
 
-    # See rule 7.7 "Maneuvering Departures"
+    """
+    Check for a maneuvering departure caused by a carried turn exceeding the 
+    maximum allowed turn rate.
+    """
 
-    # Issue: The consequences of carried turn violating the turn requirements of 
-    # ZC, SC, and VC flight are not clear, but for the moment we assume they 
-    # result in a maneuvering departure.
+    # See rule 7.7.
+
+    # Issue: The consequences of carried turn violating the turn
+    # requirements of ZC, SC, and VC flight are not clear, but for the
+    # moment we assume they result in a maneuvering departure.
 
     if self._turnrate != None and not self._turnrate in self._allowedturnrates:
       self._log("- carried turn rate is tighter than the maximum allowed turn rate.")
@@ -832,22 +838,25 @@ def _startnormalflight(self, actions):
 
   def determinefp():
 
+    """
+    Determine the number of FPs available, according to the speed and any 
+    carried FPs.
+    """
+
     # See rule 5.4.
 
     self._fp      = self._speed + self._fpcarry
     self._log("- has %.1f FPs (including %.1f carry)." % (self._fp, self._fpcarry))
     self._fpcarry = 0
 
-    self._hfp     = 0
-    self._vfp     = 0
-    self._spbrfp  = 0
-
-    self._firstunloadedfp = None
-    self._lastunloadedfp  = None
-
   ########################################
 
   def determinemininitialhfp():
+
+    """
+    Determine the requirement, if any, on initial HFPs (e.g., when changing
+    from climbing to diving).
+    """
 
     # See rule 5.5.
     # See rule 13.3.5 (with errata) on HRD restrictions.
@@ -875,6 +884,11 @@ def _startnormalflight(self, actions):
   ########################################
 
   def determinerequiredhfpvfpmix():
+
+
+    """
+    Determine the minimum and maximum number of HFPs, VFPs, and unloaded HFPs.
+    """
 
     fp = int(self._fp)
 
@@ -953,10 +967,10 @@ def _startnormalflight(self, actions):
     elif maxunloadedhfp == fp:
       self._log("- all FPs may be unloaded HFPs.")    
     
-    self._minhfp = minhfp
-    self._maxhfp = maxhfp
-    self._minvfp = minvfp
-    self._maxvfp = maxvfp
+    self._minhfp         = minhfp
+    self._maxhfp         = maxhfp
+    self._minvfp         = minvfp
+    self._maxvfp         = maxvfp
     self._minunloadedhfp = minunloadedhfp
     self._maxunloadedhfp = maxunloadedhfp
 
@@ -975,6 +989,21 @@ def _startnormalflight(self, actions):
   determinemininitialhfp()
   determinerequiredhfpvfpmix()
       
+  # These keep track of the number of HFPs, VFPs, and FPs lost to
+  # speedbrakes. They are used to ensure that the right mix of HFPs
+  # and VFPs are used and to determine then the turn ends.
+
+  self._hfp     = 0
+  self._vfp     = 0
+  self._spbrfp  = 0
+
+  # These keep track of the index of the first and last unloaded HFPs
+  # in an UD. They are then used to ensure that the unloaded HFPs are
+  # continuous.
+
+  self._firstunloadedfp = None
+  self._lastunloadedfp  = None
+    
   self._log("---")
   self._logposition("start", "")   
 

@@ -270,7 +270,8 @@ class aircraft:
 
       # These account for the APs associated with power, speed, speed-brakes, 
       # turns (split into the part for the maximum turn rate and the part for 
-      # sustained turns), altitude loss or gain, and special maneuvers.
+      # sustained turns), altitude loss or gain, and special maneuvers. They
+      # are used in normal flight and stalled flight, but not departed flight.
 
       self._powerap         = 0
       self._speedap         = 0
@@ -279,6 +280,11 @@ class aircraft:
       self._sustainedturnap = 0
       self._altitudeap      = 0
       self._maneuverap      = 0
+
+      # These keep track of the maximum turn rate used in the turn, the
+      # number of roll maneuvers, and the effective cliumb capability
+      # (the climb capability at the moment the first VFP is used).
+      # Again, they are used to calculate the final speed.
 
       self._maxturnrate     = None
       self._rolls           = 0
@@ -300,6 +306,7 @@ class aircraft:
         self._altitudecarry = 0
 
       if self._flighttype == "ST":       
+
         self._fpcarry = 0
         self._turnsstalled += 1
         self._checkstalledflight()
