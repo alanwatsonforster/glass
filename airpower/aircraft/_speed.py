@@ -6,7 +6,7 @@ from airpower.math import onethird, twothirds
 
 from ._normalflight import _isclimbing, _isdiving
 
-def _startmovespeed(self, power, flamedoutfraction):
+def _startmovespeed(self, power, flamedoutengines):
 
     """
     Carry out the rules to do with power, speed, and speed-induced drag at the 
@@ -124,21 +124,30 @@ def _startmovespeed(self, power, flamedoutfraction):
     
     # See rule 6.7
 
+    flamedoutfraction = flamedoutengines / self.engines()
+
     if flamedoutfraction == 1:
 
-      self._log("- power setting is treated as idle as all engines are flamed-out.")
+      if self.engines() == 1:
+        self._log("- power setting is treated as idle as the engine is flamed-out.")
+      else:
+        self._log("- power setting is treated as idle as all %d engines are flamed-out." % self.engines())
       powersetting = "I"
       powerap = 0
 
     elif flamedoutfraction > 0.5:
 
-      self._log("- power is reduced by one third as more than half of engines are flamed-out.")
+      self._log("- power is reduced by one third as %d of the %d engines are flamed-out." % (
+        flamedoutengines, self.engines()
+      ))
       # 1/3 of APs, quantized in 1/4 units, rounding down.
       powerap = math.floor(powerap / 3 * 4) / 4
 
     elif flamedoutfraction > 0:
 
-      self._log("- power is reduced by one half as less than half of engines are flamed-out.")
+      self._log("- power is reduced by one half as %d of the %d engines are flamed-out." % (
+        flamedoutengines, self.engines()
+      ))
       # 1/2 of APs, quantized in 1/4 units, rounding up.
       powerap = math.ceil(powerap / 2 * 4) / 4
 

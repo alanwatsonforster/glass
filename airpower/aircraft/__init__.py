@@ -52,7 +52,7 @@ class aircraft:
     _startmovespeed, _endmovespeed
 
   from ._flightcapabilities import \
-    power, spbr, fuelrate, powerfade, turndrag, \
+    power, spbr, fuelrate, powerfade, engines, turndrag, \
     minspeed, maxspeed, cruisespeed, climbspeed, maxdivespeed, ceiling, \
     rollhfp, rolldrag, climbcapability, hasproperty
 
@@ -238,7 +238,7 @@ class aircraft:
 
   ##############################################################################
 
-  def startmove(self, flighttype, power, actions, flamedoutfraction=0):
+  def startmove(self, flighttype, power, actions, flamedoutengines=0):
 
     """
     Start a move, declaring the flight type and power, and possible carrying 
@@ -292,7 +292,7 @@ class aircraft:
 
       self._flighttype      = flighttype
 
-      self._startmovespeed(power, flamedoutfraction)
+      self._startmovespeed(power, flamedoutengines)
 
       self._log("configuration is %s." % self._configuration)
       self._log("altitude band is %s." % self._altitudeband)
