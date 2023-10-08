@@ -537,21 +537,21 @@ def _continuenormalflight(self, actions):
     ["DD"  , "C or D"          , lambda: dodive(2) ],
     ["D"   , "C or D"          , lambda: dodive(1) ],
 
-    ["LEZ" , "turn declaration", lambda: dodeclareturn("L", "EZ") ],
-    ["LTT" , "turn declaration", lambda: dodeclareturn("L", "TT") ],
-    ["LHT" , "turn declaration", lambda: dodeclareturn("L", "HT") ],
-    ["LBT" , "turn declaration", lambda: dodeclareturn("L", "BT") ],
-    ["LET" , "turn declaration", lambda: dodeclareturn("L", "ET") ],
+    ["LEZ" , "turn declaration or bank", lambda: dodeclareturn("L", "EZ") ],
+    ["LTT" , "turn declaration or bank", lambda: dodeclareturn("L", "TT") ],
+    ["LHT" , "turn declaration or bank", lambda: dodeclareturn("L", "HT") ],
+    ["LBT" , "turn declaration or bank", lambda: dodeclareturn("L", "BT") ],
+    ["LET" , "turn declaration or bank", lambda: dodeclareturn("L", "ET") ],
     
-    ["REZ" , "turn declaration", lambda: dodeclareturn("R", "EZ") ],
-    ["RTT" , "turn declaration", lambda: dodeclareturn("R", "TT") ],
-    ["RHT" , "turn declaration", lambda: dodeclareturn("R", "HT") ],
-    ["RBT" , "turn declaration", lambda: dodeclareturn("R", "BT") ],
-    ["RET" , "turn declaration", lambda: dodeclareturn("R", "ET") ],
+    ["REZ" , "turn declaration or bank", lambda: dodeclareturn("R", "EZ") ],
+    ["RTT" , "turn declaration or bank", lambda: dodeclareturn("R", "TT") ],
+    ["RHT" , "turn declaration or bank", lambda: dodeclareturn("R", "HT") ],
+    ["RBT" , "turn declaration or bank", lambda: dodeclareturn("R", "BT") ],
+    ["RET" , "turn declaration or bank", lambda: dodeclareturn("R", "ET") ],
     
-    ["LB"  , "maneuver"    , lambda: dobank("L")  ],
-    ["RB"  , "maneuver"    , lambda: dobank("R")  ],
-    ["WL"  , "maneuver"    , lambda: dobank(None) ],
+    ["LB"  , "turn declaration or bank", lambda: dobank("L")  ],
+    ["RB"  , "turn declaration or bank", lambda: dobank("R")  ],
+    ["WL"  , "turn declaration or bank", lambda: dobank(None) ],
 
     ["LVR180S" , "maneuver", lambda: doverticalroll("L", 180, True )],
     ["LVR180"  , "maneuver", lambda: doverticalroll("L", 180, False)],
@@ -617,6 +617,8 @@ def _continuenormalflight(self, actions):
     Carry out the elements in an action that match the element type.
     """
 
+    fullaction = action
+
     ielement = 0
 
     while action != "":
@@ -639,7 +641,7 @@ def _continuenormalflight(self, actions):
         raise RuntimeError("invalid action %r." % action)
 
     if ielement > 1 and not allowrepeated:
-      raise RuntimeError("invalid action %r: repeated %s element." % (action, selectedelementtype))
+      raise RuntimeError("invalid action %r: repeated %s element." % (fullaction, selectedelementtype))
 
     return ielement != 0
   
@@ -660,7 +662,7 @@ def _continuenormalflight(self, actions):
     
     initialaltitudeband = self._altitudeband
 
-    doelements(action, "turn declaration", False)
+    doelements(action, "turn declaration or bank", False)
 
     self._horizontal = doelements(action, "H", False)
     self._vertical   = doelements(action, "C or D", False)
