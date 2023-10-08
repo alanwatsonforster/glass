@@ -28,10 +28,26 @@ def turndrag(self, turnrate):
     return self._aircraftdata.turndrag(self._configuration, turnrate, highspeed=True)
 
 def minspeed(self):
-  return self._aircraftdata.minspeed(self._configuration, self._altitudeband)
+  minspeed = self._aircraftdata.minspeed(self._configuration, self._altitudeband)
+  if minspeed == None:
+    # The aircraft is temporarily above its ceiling, so take the speed from the
+    # highest band in the table.
+    for altitudeband in ["UH", "EH", "VH", "HI", "MH", "ML", "LO"]:
+      minspeed = self._aircraftdata.minspeed(self._configuration, altitudeband)
+      if minspeed != None:
+        break
+  return minspeed
 
 def maxspeed(self):
-  return self._aircraftdata.maxspeed(self._configuration, self._altitudeband)
+  maxspeed = self._aircraftdata.maxspeed(self._configuration, self._altitudeband)
+  if maxspeed == None:
+    # The aircraft is temporarily above its ceiling, so take the speed from the
+    # highest band in the table.
+    for altitudeband in ["UH", "EH", "VH", "HI", "MH", "ML", "LO"]:
+      maxspeed = self._aircraftdata.maxspeed(self._configuration, altitudeband)
+      if maxspeed != None:
+        break
+  return maxspeed
 
 def cruisespeed(self):
   return self._aircraftdata.cruisespeed()
@@ -40,7 +56,15 @@ def climbspeed(self):
   return self._aircraftdata.climbspeed()
 
 def maxdivespeed(self):
-  return self._aircraftdata.maxdivespeed(self._altitudeband)
+  raw = self._aircraftdata.maxdivespeed(self._altitudeband)
+  if raw != None:
+    return raw
+  # The aircraft is temporarily above its ceiling, so take the speed from the
+  # highest band in the table.
+  for altitudeband in ["UH", "EH", "VH", "HI", "MH", "ML", "LO"]:
+    raw = self._aircraftdata.maxdivespeed(altitudeband)
+    if raw != None:
+      return raw
 
 def ceiling(self):
   return self._aircraftdata.ceiling(self._configuration)
@@ -53,6 +77,13 @@ def rolldrag(self, rolltype):
 
 def climbcapability(self):
   climbcapability = self._aircraftdata.climbcapability(self._configuration, self._altitudeband, self._powersetting)
+  if climbcapability == None:
+    # The aircraft is temporarily above its ceiling, so take the speed from the
+    # highest band in the table.
+    for altitudeband in ["UH", "EH", "VH", "HI", "MH", "ML", "LO"]:
+      climbcapability = self._aircraftdata.climbcapability(self._configuration, altitudeband, self._powersetting)
+      if climbcapability != None:
+        break
   # See rule 6.6 and rule 8.1.4.
   if self._speed >= apspeed.m1speed(self._altitudeband):
     climbcapability *= 2/3
