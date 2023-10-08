@@ -372,8 +372,19 @@ def _continuenormalflight(self, actions):
     else:
       turnrates = ["EZ", "TT", "HT", "BT", "ET"]
       self._maxturnrate = turnrates[max(turnrates.index(self._turnrate), turnrates.index(self._maxturnrate))]
-      # TODO: drag for HBR and LBR aircraft.
-      self._sustainedturnap -= facingchange // 30
+      if apvariants.withvariant("prefer v1 bleed rates"):
+        if self.hasproperty("HBR"):
+          self._sustainedturnap -= facingchange // 30 * 2.0
+        else:
+          self._sustainedturnap -= facingchange // 30 * 1.0
+      else:
+        # Use the proposed bleed rates for 2nd edition from p. 4 of AP 32.
+        if self.hasproperty("LBR"):
+          self._sustainedturnap -= facingchange // 30 * 0.5
+        elif self.hasproperty("HBR"):
+          self._sustainedturnap -= facingchange // 30 * 1.5
+        else:
+          self._sustainedturnap -= facingchange // 30 * 1.0
 
     self._turnrateap = -self.turndrag(self._maxturnrate)
 
