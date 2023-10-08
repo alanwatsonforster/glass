@@ -192,10 +192,8 @@ def _continuenormalflight(self, actions):
     def determinealtitudechange(altitudechange):
 
       assert altitudechange == 1 or altitudechange == 2
-
-
     
-      climbcapability = self.climbcapability()
+      climbcapability = self._effectiveclimbcapability
 
       if flighttype == "ZC":
 
@@ -228,6 +226,12 @@ def _continuenormalflight(self, actions):
         raise RuntimeError("attempt to climb while flight type is %s." % self._flighttype)
 
       return altitudechange
+
+    # See rule 4.3 and 8.1.2.
+    if self._effectiveclimbcapability == None:
+      self._effectiveclimbcapability = self.climbcapability()
+      if flighttype == "SC" and self._speed < self.climbspeed():
+        self._effectiveclimbcapability /= 2
 
     altitudechange = determinealtitudechange(altitudechange)
     
@@ -1068,9 +1072,7 @@ def _endnormalflight(self):
 
         # See rule 8.1.2 and 8.1.4.
 
-        climbcapability = self.climbcapability()
-        if self._speed < self.climbspeed():
-          climbcapability /= 2
+        climbcapability = self._effectiveclimbcapability
 
         # We need to figure out how much was climbed at the SC rate and
         # how much was climbed at the ZC rate. This is complicated since

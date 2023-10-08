@@ -280,11 +280,9 @@ class aircraft:
       self._altitudeap      = 0
       self._maneuverap      = 0
 
-      # The maximum turn rate in the current move. 
       self._maxturnrate     = None
-
-      # The number of rolls in the current move.
       self._rolls           = 0
+      self._effectiveclimbcapability = None
 
       self._flighttype      = flighttype
 
