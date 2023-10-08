@@ -56,4 +56,8 @@ def climbcapability(self):
   return climbcapability
 
 def hasproperty(self, p):
-  return self._aircraftdata.hasproperty(p)
+  if self._aircraftdata.hasproperty(p):
+    return True
+  if p == "HRR" and self._configuration == "CL":
+    return self._aircraftdata.hasproperty("HRRCL")
+  return False
