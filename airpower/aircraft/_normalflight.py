@@ -455,7 +455,7 @@ def _continuenormalflight(self, actions):
     if self._spbrfp != 0:
       raise RuntimeError("speedbrakes can only be used once per turn.")
 
-    maxspbrfp = self._fp - self._hfp - self._vfp
+    maxspbrfp = self._maxfp - self._hfp - self._vfp
     if spbrfp > maxspbrfp:
       raise RuntimeError("only %s FPs are remaining." % maxspbrfp)
     
@@ -469,6 +469,7 @@ def _continuenormalflight(self, actions):
       raise RuntimeError("speedbrake capability is only %.1f FPs." % maxspbrfp)
 
     self._spbrfp = spbrfp
+    self._maxfp -= spbrfp
 
     self._spbrap = -spbrfp / 0.5
 
@@ -657,12 +658,12 @@ def _continuenormalflight(self, actions):
     Carry out an action for normal flight.
     """
 
-    fp = self._hfp + self._vfp + self._spbrfp
-    if fp + 1 > self._fp:
-      raise RuntimeError("only %.1f FPs are available." % self._fp)
+    # Check we have at least one FP remaining.
+    if self._fp + 1 > self._maxfp:
+      raise RuntimeError("only %.1f FPs are available." % self._maxfp)
 
     # Determine if this FP is the last FP of the move.
-    self._lastfp = (fp + 2 > self._fp) 
+    self._lastfp = (self._fp + 2 > self._maxfp) 
     
     initialaltitudeband = self._altitudeband
 
@@ -676,7 +677,8 @@ def _continuenormalflight(self, actions):
     elif self._horizontal and self._vertical:
       if not self._flighttype == "UD" and not self._flighttype == "LVL":
         raise RuntimeError("%r is not a valid action when the flight type is %s." % (action, self._flighttype))
-  
+
+    self._fp += 1  
     if self._horizontal:
       self._hfp += 1
     elif self._hfp < self._mininitialhfp:
@@ -684,7 +686,7 @@ def _continuenormalflight(self, actions):
     else:
      self._vfp += 1
 
-    self._unloaded = self._flighttype == "UD" and self._vertical
+    self._unloaded = (self._flighttype == "UD" and self._vertical)
     if self._unloaded:
       if self._firstunloadedfp == None:
         self._firstunloadedfp = self._hfp
@@ -722,18 +724,18 @@ def _continuenormalflight(self, actions):
       if not self._destroyed and not self._leftmap:
         doaction(action)
 
-  fp = self._hfp + self._vfp + self._spbrfp
-  assert fp <= self._fp
+  assert self._fp == self._hfp + self._vfp
+  assert self._fp <= self._maxfp
 
   if self._destroyed or self._leftmap:
   
     self._log("---")
     self._endmove()
 
-  elif fp + 1 > self._fp:
+  elif self._fp + 1 > self._maxfp:
 
     # See rule 5.4.
-    self._fpcarry = self._fp - fp
+    self._fpcarry = self._maxfp - self._fp
 
     self._endnormalflight()
 
@@ -783,40 +785,34 @@ def _startnormalflight(self, actions):
 
     minspeed = self.minspeed()
     if self._speed == minspeed + 1.5:
-      self._log("- turns limited to BT by speed.")
+      self._log("- speed limits the turn rate to BT.")
       turnrates = turnrates[:4]
     elif self._speed == minspeed + 1.0:
-      self._log("- turns limited to HT by speed.")
+      self._log("- speed limits the turn rate to HT.")
       turnrates = turnrates[:3]
     elif self._speed == minspeed + 0.5:
-      self._log("- turn limited to TT by speed.")
+      self._log("- speed limits the turn rate to TT.")
       turnrates = turnrates[:2]
     elif self._speed == minspeed:
-      self._log("- turns limited to EZ by speed.")
+      self._log("- speed limits the turn rate to EZ.")
       turnrates = turnrates[:1]
 
     # See rule 8.1.1.
 
     if self._flighttype == "ZC":
-      self._log("- turns limited to BT by ZC.")
+      self._log("- ZC limits the turn rate to BT.")
       turnrates = turnrates[:4]
 
     # See rule 8.1.1.
 
     if self._flighttype == "SC":
-      self._log("- turns limited to EZ by SC.")
+      self._log("- SC limits the turn rate to EZ.")
       turnrates = turnrates[:1]
 
     # See rule 8.1.3.
 
     if self._flighttype == "VC":
-      self._log("- all turns disallowed by VC.")
-      turnrates = []
-
-    # See rule 8.2.3.
-
-    if self._flighttype == "VD":
-      self._log("- all turns disalled by VD.")
+      self._log("- VC disallows all turns.")
       turnrates = []
 
     self._allowedturnrates = turnrates
@@ -842,7 +838,7 @@ def _startnormalflight(self, actions):
 
   ########################################
 
-  def determinefp():
+  def determinemaxfp():
 
     """
     Determine the number of FPs available, according to the speed and any 
@@ -851,8 +847,8 @@ def _startnormalflight(self, actions):
 
     # See rule 5.4.
 
-    self._fp      = self._speed + self._fpcarry
-    self._log("- has %.1f FPs (including %.1f carry)." % (self._fp, self._fpcarry))
+    self._maxfp = self._speed + self._fpcarry
+    self._log("- has %.1f FPs (including %.1f carry)." % (self._maxfp, self._fpcarry))
     self._fpcarry = 0
 
   ########################################
@@ -896,12 +892,12 @@ def _startnormalflight(self, actions):
     Determine the minimum and maximum number of HFPs, VFPs, and unloaded HFPs.
     """
 
-    fp = int(self._fp)
+    maxfp = int(self._maxfp)
 
     minhfp = 0
-    maxhfp = fp
+    maxhfp = maxfp
     minvfp = 0
-    maxvfp = fp
+    maxvfp = maxfp
     minunloadedhfp = 0
     maxunloadedhfp = 0
 
@@ -913,7 +909,7 @@ def _startnormalflight(self, actions):
     elif flighttype == "ZC":
 
       # See rules 8.1.1.
-      minhfp = math.ceil(onethird(fp))
+      minhfp = math.ceil(onethird(maxfp))
 
     elif flighttype == "SC":
 
@@ -926,28 +922,28 @@ def _startnormalflight(self, actions):
       if climbcapability < 1:
         maxvfp = 1
       else:
-        maxvfp = math.floor(twothirds(fp))
+        maxvfp = math.floor(twothirds(maxfp))
 
     elif flighttype == "VC" or flighttype == "VD":
 
       # See rules 8.1.3 and 8.2.3.
       if previousflighttype != flighttype:
-        minhfp = math.floor(onethird(fp))
+        minhfp = math.floor(onethird(maxfp))
         maxhfp = minhfp
       else:
-        maxhfp = math.floor(onethird(fp))
+        maxhfp = math.floor(onethird(maxfp))
 
     elif flighttype == "SD":
 
       # See rules 8.2.1 and 8.2.3.
       if previousflighttype == "VD":
         minvfp = math.floor(self._speed / 2)
-      minhfp = math.ceil(onethird(fp))    
+      minhfp = math.ceil(onethird(maxfp))    
 
     elif flighttype == "UD":
 
       # See rules 8.2.2 and 8.2.3.
-      maxunloadedhfp = fp
+      maxunloadedhfp = maxfp
       if previousflighttype == "VD":
         minunloadedhfp = math.floor(self._speed / 2)
       else:
@@ -959,18 +955,18 @@ def _startnormalflight(self, actions):
       self._log("- exactly %d FPs must be HFPs." % minhfp)
     elif minhfp > 0:
       self._log("- at least %d FPs must be HFPs." % minhfp)
-    elif maxhfp < fp:
+    elif maxhfp < maxfp:
       self._log("- at most %d FPs can be HFPs." % maxhfp)
 
     if minvfp > 0:
       self._log("- at least %d FPs must be VFPs." % maxvfp)
-    elif maxvfp != 0 and maxvfp < fp:
+    elif maxvfp != 0 and maxvfp < maxfp:
       self._log("- at most %d FPs can be VFPs." % maxvfp)
 
-    assert minunloadedhfp == 0 or maxunloadedhfp == fp
+    assert minunloadedhfp == 0 or maxunloadedhfp == maxfp
     if minunloadedhfp > 0:
       self._log("- at least %d FPs must be unloaded HFPs." % minunloadedhfp)
-    elif maxunloadedhfp == fp:
+    elif maxunloadedhfp == maxfp:
       self._log("- all FPs may be unloaded HFPs.")    
     
     self._minhfp         = minhfp
@@ -991,17 +987,19 @@ def _startnormalflight(self, actions):
   determineallowedturnrates()
   checkformaneuveringdeparture()
 
-  determinefp()
+  determinemaxfp()
   determinemininitialhfp()
   determinerequiredhfpvfpmix()
       
-  # These keep track of the number of HFPs, VFPs, and FPs lost to
-  # speedbrakes. They are used to ensure that the right mix of HFPs
-  # and VFPs are used and to determine then the turn ends.
+  # These keep track of the number of FPs, HFPs, and VFPs used and the
+  # number of FPs lost to speedbrakes. They are used to ensure that the
+  # right mix of HFPs and VFPs are used and to determine when the turn
+  # ends.
 
-  self._hfp     = 0
-  self._vfp     = 0
-  self._spbrfp  = 0
+  self._fp     = 0
+  self._hfp    = 0
+  self._vfp    = 0
+  self._spbrfp = 0
 
   # These keep track of the index of the first and last unloaded HFPs
   # in an UD. They are then used to ensure that the unloaded HFPs are
