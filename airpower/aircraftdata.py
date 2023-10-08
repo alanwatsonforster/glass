@@ -42,6 +42,15 @@ class aircraftdata:
     else:
       return self._data["powertable"][powersetting][_configurationindex(configuration)]
 
+  def powerfade(self, speed):
+    if not "powerfadetable" in self._data:
+      return None
+    fade = 0
+    for p in self._data["powerfadetable"]:
+      if speed > p[0]:
+        fade = p[1]
+    return fade
+
   def spbr(self, configuration):
     _checkconfiguration(configuration)
     raw = self._data["powertable"]["SPBR"][_configurationindex(configuration)]
@@ -228,6 +237,11 @@ class aircraftdata:
       f1(self.spbr("DT"))
     ))
     print()
+
+    if "powerfadetable" in self._data:
+      for p in self._data["powerfadetable"]:
+        print("- If the speed is more than %.1f, the power is reduced by %.1f." % (p[0], p[1]))
+      print()
 
     print("Maneuver:")
     print()

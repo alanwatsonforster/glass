@@ -57,7 +57,12 @@ def _startmovespeed(self, power, flamedoutfraction):
       if jet and not self.hasproperty("HAE"):
         powerapM  = max(0.5, onethird(powerapM))
         if powerapAB != None:
-          powerapAB = max(0.5, onethird(powerapAB))        
+          powerapAB = max(0.5, onethird(powerapAB))     
+
+    # Some propeller aircraft lose power at high speed.
+    if self.powerfade() != None:
+      powerapHT = max(0.0, powerapHT - self.powerfade())
+      powerapFT = max(0.0, powerapFT - self.powerfade())
 
     # See rule 6.1.
 
@@ -112,6 +117,10 @@ def _startmovespeed(self, power, flamedoutfraction):
     ):
       self._log("- power is reduced in the %s altitude band." % self._altitudeband)
         
+    # Again, the reduction was done above, but we report it here.
+    if self.powerfade() != None and self.powerfade() > 0.0:
+      self._log("- power is reduced by %.1f as the speed is %.1f." % (self.powerfade(), speed))
+    
     # See the "Effects of Flame-Out" section of rule 6.7
 
     if flamedoutfraction == 1:

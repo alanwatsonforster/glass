@@ -10,6 +10,9 @@ def spbr(self):
 def fuelrate(self):
   return self._aircraftdata.fuelrate(self._powersetting)
 
+def powerfade(self):
+  return self._aircraftdata.powerfade(self._speed)
+
 def turndrag(self, turnrate):
   if turnrate == "EZ":
     return 0.0

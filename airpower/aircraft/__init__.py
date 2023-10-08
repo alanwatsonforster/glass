@@ -52,7 +52,7 @@ class aircraft:
     _startmovespeed, _endmovespeed
 
   from ._flightcapabilities import \
-    power, spbr, fuelrate, turndrag, \
+    power, spbr, fuelrate, powerfade, turndrag, \
     minspeed, maxspeed, cruisespeed, climbspeed, maxdivespeed, ceiling, \
     rollhfp, rolldrag, climbcapability, hasproperty
 
