@@ -10,6 +10,9 @@ def spbr(self):
 def fuelrate(self):
   return self._aircraftdata.fuelrate(self._powersetting)
 
+def engines(self):
+  return self._aircraftdata.engines()
+
 def powerfade(self):
   return self._aircraftdata.powerfade(self._speed)
 

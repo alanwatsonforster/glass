@@ -34,6 +34,8 @@ class aircraftdata:
       data = basedata
     self._data = data
 
+    assert isinstance(self._data["engines"], int)
+
   def power(self, configuration, powersetting):
     _checkconfiguration(configuration)
     _checkpowersetting(powersetting)
@@ -65,6 +67,9 @@ class aircraftdata:
       return None
     else:
       return self._data["powertable"][powersetting][3]
+
+  def engines(self):
+    return self._data["engines"]
   
   def lowspeedturnlimit(self):
     if "lowspeedturnlimit" in self._data:

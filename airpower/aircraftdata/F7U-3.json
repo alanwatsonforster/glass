@@ -8,6 +8,7 @@
     "I"   : [ 0.5, 0.5, 0.5, 0.0 ],
     "SPBR": [ 0.5, 0.5, 0.5 ]
   },
+  "engines": 2,
   "cruisespeed": 5.0,
   "climbspeed" : 4.0,
   "maneuvertable": {
