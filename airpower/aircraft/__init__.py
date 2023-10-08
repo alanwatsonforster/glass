@@ -292,10 +292,7 @@ class aircraft:
 
       self._flighttype      = flighttype
 
-      self._speed,          \
-      self._powersetting,   \
-      self._powerap,        \
-      self._speedap         = self._startmovespeed(power, flamedoutfraction)
+      self._startmovespeed(power, flamedoutfraction)
 
       self._log("configuration is %s." % self._configuration)
       self._log("altitude band is %s." % self._altitudeband)

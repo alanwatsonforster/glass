@@ -23,17 +23,18 @@ def _startmovespeed(self, power, flamedoutfraction):
     # Determine the requested power setting and power AP.
 
     # Propeller-driver aircraft have ADCs that give "full throttle" and
-    # "half-throttle" power ratings, in addition to "normal". These are not
-    # mentioned in the AP rules, despite appearing on the ADC for the 
-    # propeller-driven Skyraider which is included with TSOH. However, we treat 
-    # them both as the equivalent of M power, except for fuel use. We refer to 
-    # them as "FT" and "HT". This extension can be disallowed by setting the
-    # "disallow HT/FT" variant.
+    # "half-throttle" power ratings, in addition to "normal". These are
+    # not mentioned in the AP rules, despite appearing on the ADC for
+    # the propeller-driven Skyraider which is included with TSOH.
+    # However, we treat them both as the equivalent of M power, except
+    # for fuel use. We refer to them as "FT" and "HT". This extension
+    # can be disallowed by setting the "disallow HT/FT" variant.
 
-    # One unclear issue is whether an aircraft above its cruise speed needs to
-    # use FT to avoid a drag penalty or if HT is sufficient. In the absence of
-    # guidance and following the precedence that AB is not required for 
-    # jet-powered aircraft, I have implemented that HT is sufficient.
+    # One unclear issue is whether an aircraft above its cruise speed
+    # needs to use FT to avoid a drag penalty or if HT is sufficient. In
+    # the absence of guidance and following the precedence that AB is
+    # not required for jet-powered aircraft, I have implemented that HT
+    # is sufficient.
 
     powerapM  = self.power("M")
     powerapAB = self.power("AB")
@@ -121,7 +122,7 @@ def _startmovespeed(self, power, flamedoutfraction):
     if self.powerfade() != None and self.powerfade() > 0.0:
       self._log("- power is reduced by %.1f as the speed is %.1f." % (self.powerfade(), speed))
     
-    # See the "Effects of Flame-Out" section of rule 6.7
+    # See rule 6.7
 
     if flamedoutfraction == 1:
 
@@ -145,8 +146,7 @@ def _startmovespeed(self, power, flamedoutfraction):
 
     # Warn of the risk of flame-outs.
 
-    # See the "Rapid Power Response" section of rule 6.1 and the "When Does a 
-    # Jet Flame-Out?" section of rule 6.7
+    # See rules 6.1 and 6.7.
 
     if lastpowersetting == "I" and powersetting == "AB" and not self.hasproperty("RPR"):
       self._log("- risk of flame-out as power setting has increased from I to AB.")
@@ -204,20 +204,24 @@ def _startmovespeed(self, power, flamedoutfraction):
 
     # Determine the speed-induced drag.
 
-    # There is some ambiguity in the rules as to whether these effects depend 
-    # on the speed before or after the reduction for idle power. Here we use it 
-    # after the reduction.
+    # The rules implement speed-induced drag as reductions in the power
+    # APs. We keep the power APs and speed-induced drag APs separate,
+    # for clarity. The two approaches are equivalent.
+
+    # There is some ambiguity in the rules as to whether these effects
+    # depend on the speed before or after the reduction for idle power.
+    # Here we use it after the reduction.
   
     speedap = 0.0
 
-    # See the "Decel Point Penalty for Insufficient Power" section of rule 6.1.
+    # See rule 6.1.
 
     if speed > self.cruisespeed():
       if powersetting == "I" or powersetting == "N":
         self._log("- insufficient power above cruise speed.")
         speedap -= 1.0
 
-    # See the "Supersonic Speeds" section of rule 6.6
+    # See rule 6.6
     
     if speed >= m1speed:
       if powersetting == "I" or powersetting == "N":
@@ -227,7 +231,7 @@ def _startmovespeed(self, power, flamedoutfraction):
         speedap -= 1.5 * (speed - htspeed) / 0.5
         self._log("- insufficient power at supersonic speed.")
 
-    # See the "Transonic Speeds" section of rule 6.6
+    # See rule 6.6
 
     if ltspeed <= speed and speed <= m1speed:
       self._log("- transonic drag.")
@@ -244,7 +248,10 @@ def _startmovespeed(self, power, flamedoutfraction):
 
     ############################################################################
 
-    return speed, powersetting, powerap, speedap
+    self._speed        = speed
+    self._powersetting = powersetting
+    self._powerap      = powerap
+    self._speedap      = speedap
 
 ################################################################################
 
