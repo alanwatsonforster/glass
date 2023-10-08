@@ -783,34 +783,40 @@ def _startnormalflight(self, actions):
 
     minspeed = self.minspeed()
     if self._speed == minspeed + 1.5:
-      self._log("- speed limits the turn rate to BT.")
+      self._log("- turns limited to BT by speed.")
       turnrates = turnrates[:4]
     elif self._speed == minspeed + 1.0:
-      self._log("- speed limits the turn rate to HT.")
+      self._log("- turns limited to HT by speed.")
       turnrates = turnrates[:3]
     elif self._speed == minspeed + 0.5:
-      self._log("- speed limits the turn rate to TT.")
+      self._log("- turn limited to TT by speed.")
       turnrates = turnrates[:2]
     elif self._speed == minspeed:
-      self._log("- speed limits the turn rate to EZ.")
+      self._log("- turns limited to EZ by speed.")
       turnrates = turnrates[:1]
 
     # See rule 8.1.1.
 
     if self._flighttype == "ZC":
-      self._log("- ZC limits the turn rate to BT.")
+      self._log("- turns limited to BT by ZC.")
       turnrates = turnrates[:4]
 
     # See rule 8.1.1.
 
     if self._flighttype == "SC":
-      self._log("- SC limits the turn rate to EZ.")
+      self._log("- turns limited to EZ by SC.")
       turnrates = turnrates[:1]
 
     # See rule 8.1.3.
 
     if self._flighttype == "VC":
-      self._log("- VC disallows all turns.")
+      self._log("- all turns disallowed by VC.")
+      turnrates = []
+
+    # See rule 8.2.3.
+
+    if self._flighttype == "VD":
+      self._log("- all turns disalled by VD.")
       turnrates = []
 
     self._allowedturnrates = turnrates
