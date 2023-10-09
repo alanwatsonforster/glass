@@ -536,6 +536,40 @@ def _continuenormalflight(self, actions):
 
   ########################################
 
+  def domaneuveringdeparture(sense, facingchange):
+
+    shift = int((self._maxfp - self._fp) / 2)
+
+    # Do the first facing change.
+
+    if aphex.isedge(self._x, self._y):
+      self._x, self._y = aphex.centertoright(self._x, self._y, self._facing, sense)
+    if action[0] == "L":
+      self._facing = (self._facing + 30) % 360
+    else:
+      self._facing = (self._facing - 30) % 360
+    self._continueflightpath()
+    facingchange -= 30
+
+    # Shift.
+
+    for i in range(0, shift):
+      self._x, self._y = aphex.next(self._x, self._y, self._facing)
+      self.checkforterraincollision()
+      self.checkforleavingmap()
+      if self._destroyed or self._leftmap:
+        return
+
+    # Do any remaining facing changes.
+    if aphex.isedge(self._x, self._y):
+      self._x, self._y = aphex.edgetocenter(self._x, self._y, self._facing, sense)
+    if action[0] == "L":
+      self._facing = (self._facing + facingchange) % 360
+    else:
+      self._facing = (self._facing - facingchange) % 360
+
+  ########################################
+
   elementdispatchlist = [
 
     # This table is searched in order, so put longer elements before shorter 
@@ -629,6 +663,28 @@ def _continuenormalflight(self, actions):
 
     ["/"   , "other"           , lambda: None ],
 
+    ["MDL300", "maneuvering departure", lambda: domaneuveringdeparture("L", 300)],
+    ["MDL270", "maneuvering departure", lambda: domaneuveringdeparture("L", 270)],
+    ["MDL240", "maneuvering departure", lambda: domaneuveringdeparture("L", 240)],
+    ["MDL210", "maneuvering departure", lambda: domaneuveringdeparture("L", 210)],
+    ["MDL180", "maneuvering departure", lambda: domaneuveringdeparture("L", 180)],
+    ["MDL150", "maneuvering departure", lambda: domaneuveringdeparture("L", 150)],
+    ["MDL120", "maneuvering departure", lambda: domaneuveringdeparture("L", 120)],
+    ["MDL90" , "maneuvering departure", lambda: domaneuveringdeparture("L",  90)],
+    ["MDL60" , "maneuvering departure", lambda: domaneuveringdeparture("L",  60)],
+    ["MDL30" , "maneuvering departure", lambda: domaneuveringdeparture("L",  30)],
+    
+    ["MDR300", "maneuvering departure", lambda: domaneuveringdeparture("R", 300)],
+    ["MDR270", "maneuvering departure", lambda: domaneuveringdeparture("R", 270)],
+    ["MDR240", "maneuvering departure", lambda: domaneuveringdeparture("R", 240)],
+    ["MDR210", "maneuvering departure", lambda: domaneuveringdeparture("R", 210)],
+    ["MDR180", "maneuvering departure", lambda: domaneuveringdeparture("R", 180)],
+    ["MDR150", "maneuvering departure", lambda: domaneuveringdeparture("R", 150)],
+    ["MDR120", "maneuvering departure", lambda: domaneuveringdeparture("R", 120)],
+    ["MDR90" , "maneuvering departure", lambda: domaneuveringdeparture("R",  90)],
+    ["MDR60" , "maneuvering departure", lambda: domaneuveringdeparture("R",  60)],
+    ["MDR30" , "maneuvering departure", lambda: domaneuveringdeparture("R",  30)],
+
   ]
 
   ########################################
@@ -684,6 +740,18 @@ def _continuenormalflight(self, actions):
     
     initialaltitude     = self._altitude
     initialaltitudeband = self._altitudeband
+
+    if doelements(action, "maneuvering departure", False):
+    
+      self._maneuveringdeparture = True
+
+      assert aphex.isvalid(self._x, self._y, facing=self._facing)
+      assert apaltitude.isvalidaltitude(self._altitude)
+  
+      self._logposition("FP %d" % (self._hfp + self._vfp), action)
+      self._continueflightpath()
+    
+      return
 
     doelements(action, "turn declaration or bank", False)
 
@@ -755,10 +823,10 @@ def _continuenormalflight(self, actions):
       if not self._destroyed and not self._leftmap:
         doaction(action)
 
-  assert self._fp == self._hfp + self._vfp
-  assert self._fp <= self._maxfp
+  assert self._maneuveringdeparture or (self._fp == self._hfp + self._vfp)
+  assert self._maneuveringdeparture or (self._fp <= self._maxfp)
 
-  if self._destroyed or self._leftmap:
+  if self._destroyed or self._leftmap or self._maneuveringdeparture:
   
     self._log("---")
     self._endmove()
@@ -1143,7 +1211,6 @@ def _endnormalflight(self):
 
   ########################################
 
-
   def determinealtitudeap():
 
     altitudechange = self._altitude - self._previousaltitude
@@ -1231,11 +1298,12 @@ def _endnormalflight(self):
   previousflighttype = self._previousflighttype  
   
   self._log("---")
-  reportfp()
-  checkfp()
-  checkfreedescent()
-  reportturn()
-  determinealtitudeap()
+  if not self._maneuveringdeparture:
+    reportfp()
+    checkfp()
+    checkfreedescent()
+    reportturn()
+    determinealtitudeap()
 
   self._endmove()
 

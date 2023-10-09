@@ -290,10 +290,14 @@ class aircraft:
       # (the climb capability at the moment the first VFP is used).
       # Again, they are used to calculate the final speed.
 
-      self._maxturnrate     = None
-      self._rolls           = 0
+      self._maxturnrate              = None
+      self._rolls                    = 0
       self._effectiveclimbcapability = None
 
+      # This flags whether a maneuvering departure has occured.
+      
+      self._maneuveringdeparture     = False
+      
       self._flighttype      = flighttype
 
       self._startmovespeed(power, flamedoutengines)
@@ -382,12 +386,12 @@ class aircraft:
       else:
         self._log("altitude band is unchanged at %s." % self._altitudeband)
 
-      if self._altitudecarry != 0:
-        self._log("- carrying %.2f altitude levels." % self._altitudecarry)
-      if self._flighttype != "DP":
+      if self._flighttype != "DP" and not self._maneuveringdeparture:
+        if self._altitudecarry != 0:
+          self._log("- carrying %.2f altitude levels." % self._altitudecarry)
         self._log("- carrying %+.2f APs" % self._apcarry)
-      if self._flighttype != "ST" and self._flighttype != "DP":
-        self._log("- carrying %.1f FPs." % self._fpcarry)
+        if self._flighttype != "ST":
+          self._log("- carrying %.1f FPs." % self._fpcarry)
 
       self._finishedmove = True
    

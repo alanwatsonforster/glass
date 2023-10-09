@@ -272,7 +272,7 @@ def _endmovespeed(self):
 
   # See the "Departed Flight Procedure" section of rule 6.4
 
-  if self._flighttype == "DP":
+  if self._flighttype == "DP" or self._maneuveringdeparture:
     self.apcarry = 0
     self._log("speed is unchanged at %.1f." % self._speed)
     return
