@@ -19,12 +19,22 @@ def _checknormalflight(self):
 
   # See rule 13.3.5. A HRD is signalled by appending "/HRD" to the flight type.
   if flighttype[-4:] == "/HRD":
-    self._hrd = True
+
+    hrd = True
     flighttype = flighttype[:-4]
     self._flighttype = flighttype
+
+    # See rule 7.7.
+    if self._altitude > self.ceiling():
+      self._log("check for a maneuvering departure as the aircraft is above its ceiling and attempted to roll.")
+    elif self._altitudeband == "EH" or self._altitudeband == "UH":
+      self._log("check for a maneuvering departure as the aircraft is in the %s altitude band and attempted to roll." % self._altitudeband)
+
   else:
-    self._hrd = False
-  hrd = self._hrd
+
+    hrd = False
+
+  self._hrd = hrd
 
   if flighttype not in ["LVL", "SC", "ZC", "VC", "SD", "UD", "VD"]:
     raise RuntimeError("invalid flight type %r." % flighttype)
@@ -445,7 +455,7 @@ def _continuenormalflight(self, actions):
     if sense == "L":
       self._facing = (self._facing + facingchange) % 360
     else:
-      self._facing = (self._facing - facingchange) % 360    
+      self._facing = (self._facing - facingchange) % 360
 
   ########################################
 
@@ -565,37 +575,37 @@ def _continuenormalflight(self, actions):
     ["RB"  , "turn declaration or bank", lambda: dobank("R")  ],
     ["WL"  , "turn declaration or bank", lambda: dobank(None) ],
 
-    ["LVR180S" , "maneuver", lambda: doverticalroll("L", 180, True )],
-    ["LVR180"  , "maneuver", lambda: doverticalroll("L", 180, False)],
-    ["LVR150"  , "maneuver", lambda: doverticalroll("L", 150, True )],
-    ["LVR120"  , "maneuver", lambda: doverticalroll("L", 120, True )],
-    ["LVR90"   , "maneuver", lambda: doverticalroll("L",  90, True )],
-    ["LVR60"   , "maneuver", lambda: doverticalroll("L",  60, True )],
-    ["LVR30"   , "maneuver", lambda: doverticalroll("L",  30, True )],
-    ["LVR"     , "maneuver", lambda: doverticalroll("L",  30, True )],
+    ["LVR180S" , "roll", lambda: doverticalroll("L", 180, True )],
+    ["LVR180"  , "roll", lambda: doverticalroll("L", 180, False)],
+    ["LVR150"  , "roll", lambda: doverticalroll("L", 150, True )],
+    ["LVR120"  , "roll", lambda: doverticalroll("L", 120, True )],
+    ["LVR90"   , "roll", lambda: doverticalroll("L",  90, True )],
+    ["LVR60"   , "roll", lambda: doverticalroll("L",  60, True )],
+    ["LVR30"   , "roll", lambda: doverticalroll("L",  30, True )],
+    ["LVR"     , "roll", lambda: doverticalroll("L",  30, True )],
 
-    ["RVR180S" , "maneuver", lambda: doverticalroll("R", 180, True )],
-    ["RVR180"  , "maneuver", lambda: doverticalroll("R", 180, False)],
-    ["RVR150"  , "maneuver", lambda: doverticalroll("R", 150, True )],
-    ["RVR120"  , "maneuver", lambda: doverticalroll("R", 120, True )],
-    ["RVR90"   , "maneuver", lambda: doverticalroll("R",  90, True )],
-    ["RVR60"   , "maneuver", lambda: doverticalroll("R",  60, True )],
-    ["RVR30"   , "maneuver", lambda: doverticalroll("R",  30, True )],
-    ["RVR"     , "maneuver", lambda: doverticalroll("R",  30, True )],
+    ["RVR180S" , "roll", lambda: doverticalroll("R", 180, True )],
+    ["RVR180"  , "roll", lambda: doverticalroll("R", 180, False)],
+    ["RVR150"  , "roll", lambda: doverticalroll("R", 150, True )],
+    ["RVR120"  , "roll", lambda: doverticalroll("R", 120, True )],
+    ["RVR90"   , "roll", lambda: doverticalroll("R",  90, True )],
+    ["RVR60"   , "roll", lambda: doverticalroll("R",  60, True )],
+    ["RVR30"   , "roll", lambda: doverticalroll("R",  30, True )],
+    ["RVR"     , "roll", lambda: doverticalroll("R",  30, True )],
 
-    ["L90" , "maneuver"    , lambda: doturn("L", 90) ],
-    ["L60" , "maneuver"    , lambda: doturn("L", 60) ],
-    ["L30" , "maneuver"    , lambda: doturn("L", 30) ],
-    ["LLL" , "maneuver"    , lambda: doturn("L", 90) ],
-    ["LL"  , "maneuver"    , lambda: doturn("L", 60) ],
-    ["L"   , "maneuver"    , lambda: doturn("L", 30) ],
+    ["L90" , "turn"    , lambda: doturn("L", 90) ],
+    ["L60" , "turn"    , lambda: doturn("L", 60) ],
+    ["L30" , "turn"    , lambda: doturn("L", 30) ],
+    ["LLL" , "turn"    , lambda: doturn("L", 90) ],
+    ["LL"  , "turn"    , lambda: doturn("L", 60) ],
+    ["L"   , "turn"    , lambda: doturn("L", 30) ],
 
-    ["R90" , "maneuver"    , lambda: doturn("R", 90) ],
-    ["R60" , "maneuver"    , lambda: doturn("R", 60) ],
-    ["R30" , "maneuver"    , lambda: doturn("R", 30) ],
-    ["RRR" , "maneuver"    , lambda: doturn("R", 90) ],
-    ["RR"  , "maneuver"    , lambda: doturn("R", 60) ],
-    ["R"   , "maneuver"    , lambda: doturn("R", 30) ],
+    ["R90" , "turn"    , lambda: doturn("R", 90) ],
+    ["R60" , "turn"    , lambda: doturn("R", 60) ],
+    ["R30" , "turn"    , lambda: doturn("R", 30) ],
+    ["RRR" , "turn"    , lambda: doturn("R", 90) ],
+    ["RR"  , "turn"    , lambda: doturn("R", 60) ],
+    ["R"   , "turn"    , lambda: doturn("R", 30) ],
 
     ["S1/2", "other"           , lambda: dospeedbrakes(1/2) ],
     ["S1"  , "other"           , lambda: dospeedbrakes(1) ],
@@ -672,6 +682,7 @@ def _continuenormalflight(self, actions):
     # Determine if this FP is the last FP of the move.
     self._lastfp = (self._fp + 2 > self._maxfp) 
     
+    initialaltitude     = self._altitude
     initialaltitudeband = self._altitudeband
 
     doelements(action, "turn declaration or bank", False)
@@ -703,14 +714,27 @@ def _continuenormalflight(self, actions):
     if not self._unloaded:
       self._turnfp += 1
 
-    doelements(action, "maneuver", False)
+    turn = doelements(action, "turn", False)
+    roll = doelements(action, "roll", False)
+    if turn and roll:
+      raise RuntimeError("an aircraft cannot turn and roll on the same FP.")
   
     assert aphex.isvalid(self._x, self._y, facing=self._facing)
     assert apaltitude.isvalidaltitude(self._altitude)
   
     self._logposition("FP %d" % (self._hfp + self._vfp), action)
     self._continueflightpath()
-
+    
+    # See rule 7.7.
+    if roll:
+      if initialaltitude > self.ceiling():
+        self._logevent("check for a maneuvering departure as the aircraft is above its ceiling and attempted to roll.")
+      elif initialaltitudeband == "EH" or initialaltitudeband == "UH":
+        self._logevent("check for a maneuvering departure as the aircraft is in the %s altitude band and attempted to roll." % initialaltitudeband)
+    elif turn:
+      if initialaltitude > self.ceiling() and self._turnrate != "EZ":
+        self._logevent("check for a maneuvering departure as the aircraft is above its ceiling and attempted to turn harder than EZ.")
+    
     if initialaltitudeband != self._altitudeband:
       self._logevent("altitude band changed from %s to %s." % (initialaltitudeband, self._altitudeband))
       
@@ -1118,6 +1142,7 @@ def _endnormalflight(self):
       self._log("- finished banked %s." % self._bank)    
 
   ########################################
+
 
   def determinealtitudeap():
 
