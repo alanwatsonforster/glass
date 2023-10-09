@@ -405,6 +405,10 @@ def _continuenormalflight(self, actions):
       self._facing = (self._facing - facingchange) % 360
 
     self._turnfp = 0
+
+    if self._turnrate == "ET" and self._altitude <= 25:
+      self._gloccheck += 1
+      self._log("- risk of GLOC (check %d in cycle)." % self._gloccheck)
   
   ########################################
 
@@ -1074,6 +1078,11 @@ def _endnormalflight(self):
     if self._maxturnrate != None:
       self._log("- turned at %s rate." % self._maxturnrate)
 
+    # See rule 7.6.
+    if self._gloccheck > 0 and self._maxturnrate != "ET" and self._maxturnrate != "BT":
+      self._log("- GLOC cycle ended.")
+      self._gloccheck = 0
+      
     if self._turnfp > 0 and self._turnrate != None:
       self._log("- finished turning %s at %s rate with %d FPs carried." % (self._bank, self._turnrate, self._turnfp))
     elif self._bank == None:

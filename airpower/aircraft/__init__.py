@@ -96,6 +96,7 @@ class aircraft:
       self._turnfp        = 0
       self._fpcarry       = 0
       self._apcarry       = 0
+      self._gloccheck     = 0
       self._aircraftdata  = apaircraftdata.aircraftdata(aircraftdata)
       self._destroyed     = False
       self._leftmap       = False
@@ -132,6 +133,7 @@ class aircraft:
       ["configuration", self._configuration],
       ["fpcarry"      , self._fpcarry],
       ["apcarry"      , self._apcarry],
+      ["gloccheck"    , self._gloccheck],
       ["altitudecarry", self._altitudecarry],
       ["destroyed"    , self._destroyed],
       ["leftmap"      , self._leftmap],
@@ -200,6 +202,7 @@ class aircraft:
     self._turnfp, \
     self._fpcarry, \
     self._apcarry, \
+    self._gloccheck, \
     self._destroyed, \
     self._leftmap, \
     self._turnsstalled, \
@@ -230,6 +233,7 @@ class aircraft:
       self._turnfp, \
       self._fpcarry, \
       self._apcarry, \
+      self._gloccheck, \
       self._destroyed, \
       self._leftmap, \
       self._turnsstalled, \
