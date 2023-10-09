@@ -976,6 +976,8 @@ def _startnormalflight(self, actions):
       else:
         minunloadedhfp = 1
 
+    minhfp = max(minhfp, self._mininitialhfp)
+
     if maxvfp == 0:
       self._log("- all FPs must be HFPs.")
     elif minhfp == maxhfp:
