@@ -433,8 +433,11 @@ def _continuenormalflight(self, actions):
     # See rule 13.3.6
     if self._rolls > 0:
       self._maneuverap -= 1
-
     self._rolls += 1
+
+    # See rule 6.6.
+    if self._speed >= apspeed.m1speed(self._altitudeband):
+      self._maneuverap -= 1
 
     # Change facing.
     if aphex.isedge(self._x, self._y) and shift:
