@@ -20,6 +20,9 @@ def _checknormalflight(self):
   # See rule 13.3.5. A HRD is signalled by appending "/HRD" to the flight type.
   if flighttype[-4:] == "/HRD":
 
+    if self.hasproperty("NRM"):
+      raise RuntimeError("aircraft cannot perform rolling maneuvers.")
+
     hrd = True
     flighttype = flighttype[:-4]
     self._flighttype = flighttype
@@ -424,6 +427,9 @@ def _continuenormalflight(self, actions):
 
   def doverticalroll(sense, facingchange, shift):
 
+    if self.hasproperty("NRM"):
+      raise RuntimeError("aircraft cannot perform rolling maneuvers.")
+      
     # See rule 13.3.4.
   
     if self._flighttype != "VC" and self._flighttype != "VD":

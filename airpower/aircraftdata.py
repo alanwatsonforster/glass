@@ -137,13 +137,21 @@ class aircraftdata:
     return self._data["climbspeed"]
 
   def rollhfp(self):
-    return self._data["maneuvertable"]["LR/DR"][0]
+    raw = self._data["maneuvertable"]["LR/DR"][0]
+    if raw == "-":
+      return None
+    else:
+      return raw
 
   def rolldrag(self, rolltype):
     assert rolltype in [ "VR", "LR", "DR" ]
     if rolltype != "VR":
       rolltype = "LR/DR"
-    return self._data["maneuvertable"][rolltype][1]
+    raw = self._data["maneuvertable"][rolltype][1]
+    if raw == "-":
+      return None
+    else:
+      return raw
     
   def hasproperty(self, p):
     # TODO: MiG-15bis and Mig-17 are LRR at high speed.
@@ -254,7 +262,7 @@ class aircraftdata:
       f1(self.rollhfp()), f1(self.rolldrag("LR"))
     ))
     print("VR     %s  %s" % (
-      f1(0.0), f1(self.rolldrag("VR"))
+      f1(None), f1(self.rolldrag("VR"))
     ))
     print()
 
