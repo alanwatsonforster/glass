@@ -82,10 +82,15 @@ def _checknormalflight(self):
 
     # See rule 8.2.3 on VD recovery.
 
-    if previousflighttype == "VD" and not (self.hasproperty("HPR") and self._speed <= 3.0):
-      raise RuntimeError("flight type immediately after %s cannot be %s." % (
-        previousflighttype, flighttype
-      ))
+    if previousflighttype == "VD":
+      if not self.hasproperty("HPR"):
+        raise RuntimeError("flight type immediately after %s cannot be %s." % (
+          previousflighttype, flighttype
+        ))
+      elif self._speed >= 3.5:
+        raise RuntimeError("flight type immediately after %s cannot be %s (for HPR aircraft at high speed)." % (
+          previousflighttype, flighttype
+        ))
 
   elif flighttype == "ZC":
 
@@ -118,10 +123,15 @@ def _checknormalflight(self):
       raise RuntimeError("flight type immediately after %s cannot be %s." % (
         previousflighttype, flighttype
       ))      
-    if previousflighttype == "LVL" and not (self.hasproperty("HPR") and self._speed < 4.0):
-      raise RuntimeError("flight type immediately after %s cannot be %s." % (
-        previousflighttype, flighttype
-      ))
+    if previousflighttype == "LVL":
+      if not self.hasproperty("HPR"):
+        raise RuntimeError("flight type immediately after %s cannot be %s." % (
+          previousflighttype, flighttype
+        ))
+      elif self._speed >= 4.0:
+        raise RuntimeError("flight type immediately after %s cannot be %s (for HPR aircraft at high speed)." % (
+          previousflighttype, flighttype
+        ))
 
     # See rule 8.2.3 on VD recovery.
 
@@ -1076,6 +1086,11 @@ def _startnormalflight(self, actions):
 
     minhfp = max(minhfp, self._mininitialhfp)
 
+    if minvfp > 0:
+      self._log("- at least %d FPs must be VFPs." % minvfp)
+    elif maxvfp != 0 and maxvfp < maxfp:
+      self._log("- at most %d FPs can be VFPs." % maxvfp)
+      
     if maxvfp == 0:
       self._log("- all FPs must be HFPs.")
     elif minhfp == maxhfp:
@@ -1085,11 +1100,11 @@ def _startnormalflight(self, actions):
     elif maxhfp < maxfp:
       self._log("- at most %d FPs can be HFPs." % maxhfp)
 
-    if minvfp > 0:
-      self._log("- at least %d FPs must be VFPs." % minvfp)
-    elif maxvfp != 0 and maxvfp < maxfp:
-      self._log("- at most %d FPs can be VFPs." % maxvfp)
-
+    if minhfp > maxhfp:
+      raise RuntimeError("flight type not permitted by HFP requirements.")
+    if minvfp > maxvfp:
+      raise RuntimeError("flight type not permitted by VFP requirements.")
+  
     assert minunloadedhfp == 0 or maxunloadedhfp == maxfp
     if minunloadedhfp > 0:
       self._log("- at least %d FPs must be unloaded HFPs." % minunloadedhfp)
