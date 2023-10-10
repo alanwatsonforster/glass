@@ -108,7 +108,7 @@ def compassrose(scenario):
     "TSOH:V-23": 5113,
     "TSOH:V-24": 3128,
     # V-25: See above.
-    "TSOH:V-E" : 3314,
+    "TSOH:V-E" : 3315,
   }
   if not scenario in compassrose:
     return None
