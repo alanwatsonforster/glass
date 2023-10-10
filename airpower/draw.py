@@ -76,8 +76,8 @@ def _drawtextinphysical(x, y, facing, s, size=10, dx=0, dy=0, color="black"):
   plt.text(x, y, s, size=size, rotation=facing - 90,
            color=color,
            horizontalalignment='center',
-           verticalalignment='center_baseline',
-           rotation_mode="anchor")
+           verticalalignment='baseline',
+           rotation_mode="default")
 
 def _drawcompassinphysical(x, y, facing, color="black"):
   _drawdotinphysical(x, y, size=0.3, color=color)
