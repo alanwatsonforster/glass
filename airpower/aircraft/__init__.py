@@ -242,7 +242,7 @@ class aircraft:
 
   ##############################################################################
 
-  def startmove(self, flighttype, power, actions, flamedoutengines=0):
+  def move(self, flighttype, power, actions, flamedoutengines=0):
 
     """
     Start a move, declaring the flight type and power, and possible carrying 

@@ -7,7 +7,7 @@ import airpower.scenarios as apscenarios
 
 _turn = None
 
-def startprolog(scenario, sheets=None, compassrose=None, north="up", variants=[]):
+def startsetup(scenario, sheets=None, compassrose=None, north="up", variants=[]):
 
   global _turn
 
@@ -33,7 +33,7 @@ def startprolog(scenario, sheets=None, compassrose=None, north="up", variants=[]
   _turn = None
 
 
-def endprolog():
+def endsetup():
 
   global _turn
 
