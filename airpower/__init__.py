@@ -1,12 +1,13 @@
-import airpower.aircraft as apaircraft
-import airpower.azimuth  as apazimuth
-import airpower.log      as aplog
-import airpower.map      as apmap
-import airpower.variants as apvariants
+import airpower.aircraft  as apaircraft
+import airpower.azimuth   as apazimuth
+import airpower.log       as aplog
+import airpower.map       as apmap
+import airpower.variants  as apvariants
+import airpower.scenarios as apscenarios
 
 _turn = None
 
-def startprolog(sheets, compassrose, north="up", variants=[]):
+def startprolog(scenario, sheets=None, compassrose=None, north="up", variants=[]):
 
   global _turn
 
@@ -15,6 +16,11 @@ def startprolog(sheets, compassrose, north="up", variants=[]):
 
   apvariants.setvariants(variants)
   aplog.logbreak()
+
+  if scenario != None:
+    sheets      = apscenarios.sheets(scenario)
+    compassrose = apscenarios.compassrose(scenario)
+    north       = apscenarios.north(scenario)
 
   apmap.setmap(sheets, compassrose)
   aplog.logbreak()
