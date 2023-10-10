@@ -1,3 +1,4 @@
+import os.path
 import json
 
 def _checkconfiguration(configuration):
@@ -20,9 +21,8 @@ class aircraftdata:
   def __init__(self, name):
 
     def loadfile(name):
-      # TODO: Look for the file using a relative path.
       # TODO: Handle errors.
-      filename = "/content/src/airpower/aircraftdata/%s.json" % name
+      filename = os.path.join(os.path.dirname(__file__), "aircraftdata", name + ".json")
       return json.load(open(filename, "r", encoding="utf-8"))
 
     self._name = name
