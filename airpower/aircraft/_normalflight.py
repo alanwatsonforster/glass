@@ -439,6 +439,8 @@ def _continuenormalflight(self, actions):
 
     if self.hasproperty("NRM"):
       raise RuntimeError("aircraft cannot perform rolling maneuvers.")
+    elif self._verticalrolls == 1 and self.hasproperty("OVR"):
+      raise RuntimeError("aircraft cannot only perform on vertical roll per turn.")
       
     # See rule 13.3.4.
   
@@ -457,9 +459,10 @@ def _continuenormalflight(self, actions):
     self._maneuverap -= self.rolldrag("VR")
 
     # See rule 13.3.6
-    if self._rolls > 0:
+    if self._rollmaneuvers > 0:
       self._maneuverap -= 1
-    self._rolls += 1
+    self._rollmaneuvers += 1
+    self._verticalrolls += 1
 
     # See rule 6.6.
     if self._speed >= apspeed.m1speed(self._altitudeband):
@@ -966,7 +969,7 @@ def _startnormalflight(self, actions):
 
     if self._hrd:
       # See rule 13.3.6.
-      self._rolls = 1
+      self._rollmaneuvers = 1
       # See rule 6.6.
       if self._speed >= apspeed.m1speed(self._altitudeband):
         self._maneuverap -= 1
@@ -1123,18 +1126,6 @@ def _startnormalflight(self, actions):
   flighttype         = self._flighttype
   previousflighttype = self._previousflighttype  
   
-  reportapcarry()
-  reportaltitudecarry()
-  reportturn()
-  determineallowedturnrates()
-  checkformaneuveringdeparture()
-
-  determinehrdap()
-
-  determinemaxfp()
-  determinemininitialhfp()
-  determinerequiredhfpvfpmix()
-      
   # These keep track of the number of FPs, HFPs, and VFPs used and the
   # number of FPs lost to speedbrakes. They are used to ensure that the
   # right mix of HFPs and VFPs are used and to determine when the turn
@@ -1151,6 +1142,23 @@ def _startnormalflight(self, actions):
 
   self._firstunloadedfp = None
   self._lastunloadedfp  = None
+
+  # This keeps track of the number of roll maneuvers and vertical rolls.
+
+  self._rollmaneuvers = 0
+  self._verticalrolls = 0
+  
+  reportapcarry()
+  reportaltitudecarry()
+  reportturn()
+  determineallowedturnrates()
+  checkformaneuveringdeparture()
+
+  determinehrdap()
+
+  determinemaxfp()
+  determinemininitialhfp()
+  determinerequiredhfpvfpmix()
     
   self._log("---")
   self._logposition("start", "")   

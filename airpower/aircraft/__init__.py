@@ -291,7 +291,6 @@ class aircraft:
       # Again, they are used to calculate the final speed.
 
       self._maxturnrate              = None
-      self._rolls                    = 0
       self._effectiveclimbcapability = None
 
       # This flags whether a maneuvering departure has occured.
