@@ -65,7 +65,7 @@ class aircraft:
 
   #############################################################################
 
-  def __init__(self, name, aircraftdata, hexcode, azimuth, altitude, speed, configuration="CL"):
+  def __init__(self, name, aircraftdata, hexcode, azimuth, altitude, speed, configuration):
 
     aplog.clearerror()
     try:
