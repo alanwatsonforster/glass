@@ -42,7 +42,7 @@ def _dostalledflight(self, action):
       
   self._log("- carrying %+.2f APs." % self._apcarry)
   self._log("---")
-  self._logposition("start", "")
+  self._logaction("start", "", self.position())   
 
   altitudechange = math.ceil(self._speed + self._turnsstalled)
 
@@ -57,7 +57,7 @@ def _dostalledflight(self, action):
   else:
     self._altitudeap = 1.0 * altitudechange
 
-  self._logposition("end", action)
+  self._logaction("end", action, self.position())
 
   if initialaltitudeband != self._altitudeband:
     self._logevent("altitude band changed from %s to %s." % (initialaltitudeband, self._altitudeband))

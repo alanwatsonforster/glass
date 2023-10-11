@@ -771,93 +771,99 @@ def _continuenormalflight(self, actions):
     Carry out an action for normal flight.
     """
 
-    # Check we have at least one FP remaining.
-    if self._fp + 1 > self._maxfp:
-      raise RuntimeError("only %.1f FPs are available." % self._maxfp)
+    try:
 
-    # Determine if this FP is the last FP of the move.
-    self._lastfp = (self._fp + 2 > self._maxfp) 
+      # Check we have at least one FP remaining.
+      if self._fp + 1 > self._maxfp:
+        raise RuntimeError("only %.1f FPs are available." % self._maxfp)
+
+      # Determine if this FP is the last FP of the move.
+      self._lastfp = (self._fp + 2 > self._maxfp) 
     
-    initialaltitude     = self._altitude
-    initialaltitudeband = self._altitudeband
+      initialaltitude     = self._altitude
+      initialaltitudeband = self._altitudeband
 
-    if doelements(action, "maneuvering departure", False):
+      if doelements(action, "maneuvering departure", False):
     
-      self._maneuveringdeparture = True
+        self._maneuveringdeparture = True
 
+        assert aphex.isvalid(self._x, self._y, facing=self._facing)
+        assert apaltitude.isvalidaltitude(self._altitude)
+  
+        self._logaction("end", action, self.position())
+        self._continueflightpath()
+    
+        return
+
+      doelements(action, "turn declaration or bank", False)
+
+      self._horizontal = doelements(action, "H", False)
+      self._vertical   = doelements(action, "C or D", False)
+
+      if not self._horizontal and not self._vertical:
+        raise RuntimeError("%r is not a valid action." % action)
+      elif self._horizontal and self._vertical:
+        if not flighttype == "UD" and not flighttype == "LVL":
+          raise RuntimeError("%r is not a valid action when the flight type is %s." % (action, flighttype))
+
+      self._fp += 1  
+      if self._horizontal:
+        self._hfp += 1
+      elif self._hfp < self._mininitialhfp:
+        raise RuntimeError("insufficient initial HFPs.")
+      else:
+       self._vfp += 1
+
+      self._unloaded = (self._flighttype == "UD" and self._vertical)
+      if self._unloaded:
+        if self._firstunloadedfp == None:
+          self._firstunloadedfp = self._hfp
+        self._lastunloadedfp = self._hfp
+
+      # See rule 8.2.2.
+      if not self._unloaded:
+        self._turnfp += 1
+
+      turn  = doelements(action, "turn" , False)
+      roll  = doelements(action, "roll" , False)
+      slide = doelements(action, "slide", False)
+      prep  = doelements(action, "prep" , False)
+      if roll and slide:
+        raise RuntimeError("an aircraft cannot roll and slide on the same FP.")
+      if turn and (roll or slide):
+        raise RuntimeError("an aircraft cannot turn and maneuver on the same FP.")
+      if prep and (roll or slide):
+        raise RuntimeError("an aircraft cannot maneuver and prepare for a maneuver on the same FP.")
+      if turn and prep:
+        raise RuntimeError("an aircraft cannot turn and prepare for a maneuver on the same FP.")
+
+      # See rule 13.1.
+      if prep and not self._horizontal:
+        raise RuntimeError("an aircraft can only prepare for a maneuver during an HFP.")
+      # See rule 8.2.2.
+      if prep and self._unloaded:
+        raise RuntimeError("an aircraft may not prepare for a maneuver during an unloaded HFP.")
+
+      if slide and not self._horizontal:
+        raise RuntimeError("an aircraft can only slide on a HFP.")
+
+      # See rule 13.1.
+      if prep:
+        self._prepfp += 1
+        self._turnrate = None
+        self._turnfp = 0
+      elif turn or slide or roll:
+        self._prepfp = 0
+        self._turnfp = 0
+  
       assert aphex.isvalid(self._x, self._y, facing=self._facing)
       assert apaltitude.isvalidaltitude(self._altitude)
+
+    except RuntimeError as e:
+      self._logaction("FP %d" % self._fp, action, "")
+      raise e
   
-      self._logposition("FP %d" % (self._hfp + self._vfp), action)
-      self._continueflightpath()
-    
-      return
-
-    doelements(action, "turn declaration or bank", False)
-
-    self._horizontal = doelements(action, "H", False)
-    self._vertical   = doelements(action, "C or D", False)
-
-    if not self._horizontal and not self._vertical:
-      raise RuntimeError("%r is not a valid action." % action)
-    elif self._horizontal and self._vertical:
-      if not flighttype == "UD" and not flighttype == "LVL":
-        raise RuntimeError("%r is not a valid action when the flight type is %s." % (action, flighttype))
-
-    self._fp += 1  
-    if self._horizontal:
-      self._hfp += 1
-    elif self._hfp < self._mininitialhfp:
-      raise RuntimeError("insufficient initial HFPs.")
-    else:
-     self._vfp += 1
-
-    self._unloaded = (self._flighttype == "UD" and self._vertical)
-    if self._unloaded:
-      if self._firstunloadedfp == None:
-        self._firstunloadedfp = self._hfp
-      self._lastunloadedfp = self._hfp
-
-    # See rule 8.2.2.
-    if not self._unloaded:
-      self._turnfp += 1
-
-    turn  = doelements(action, "turn" , False)
-    roll  = doelements(action, "roll" , False)
-    slide = doelements(action, "slide", False)
-    prep  = doelements(action, "prep" , False)
-    if roll and slide:
-      raise RuntimeError("an aircraft cannot roll and slide on the same FP.")
-    if turn and (roll or slide):
-      raise RuntimeError("an aircraft cannot turn and maneuver on the same FP.")
-    if prep and (roll or slide):
-      raise RuntimeError("an aircraft cannot maneuver and prepare for a maneuver on the same FP.")
-    if turn and prep:
-      raise RuntimeError("an aircraft cannot turn and prepare for a maneuver on the same FP.")
-
-    # See rule 13.1.
-    if prep and not self._horizontal:
-      raise RuntimeError("an aircraft can only prepare for a maneuver during an HFP.")
-    # See rule 8.2.2.
-    if prep and self._unloaded:
-      raise RuntimeError("an aircraft may not prepare for a maneuver during an unloaded HFP.")
-
-    if slide and not self._horizontal:
-      raise RuntimeError("an aircraft can only slide on a HFP.")
-
-    # See rule 13.1.
-    if prep:
-      self._prepfp += 1
-      self._turnrate = None
-      self._turnfp = 0
-    elif turn or slide or roll:
-      self._prepfp = 0
-      self._turnfp = 0
-  
-    assert aphex.isvalid(self._x, self._y, facing=self._facing)
-    assert apaltitude.isvalidaltitude(self._altitude)
-  
-    self._logposition("FP %d" % (self._hfp + self._vfp), action)
+    self._logaction("FP %d" % self._fp, action, self.position())
     self._continueflightpath()
     
     # See rules 7.7 and 8.5.
@@ -1192,7 +1198,7 @@ def _startnormalflight(self, actions):
   determinerequiredhfpvfpmix()
     
   self._log("---")
-  self._logposition("start", "")   
+  self._logaction("start", "", self.position())   
 
   self._continuenormalflight(actions)
 
