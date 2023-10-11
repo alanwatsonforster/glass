@@ -370,12 +370,18 @@ def _continuenormalflight(self, actions):
 
   def dodeclareslide(sense):
 
-    # TODO: check suffient HFPs have elapsed if this is the second slide of a turn.
-
     # See rule 8.1.3 and 8.2.3
     if flighttype == "VC" or flighttype == "VD":
       raise RuntimeError("attempt to declare slide while flight type is %s." % flighttype)
-      
+
+    # See 13.2.
+    if self._slides == 1 and self._speed <= 9.0:
+      raise RuntimeError("only one slide allowed per turn at low speed.")
+    elif self._slides == 1 and self._fp < self._slidefp + 4:
+      raise RuntimeError("attempt to start a second slide without sufficient intermediate FPs.")
+    elif self._slides == 2:
+      raise RuntimeError("at most two slides allowed per turn.")
+
     self._maneuvertype  = "SL"
     self._maneuversense = sense
     self._maneuverfp    = 0
@@ -459,22 +465,37 @@ def _continuenormalflight(self, actions):
 
   def doslide(sense):
 
-    # TODO: additional HFPs at altitude.
-    # TODO: additional HFPs at speed.
-    # TODO: drag
-
     # See rule 8.1.3 and 8.2.3
     if flighttype == "VC" or flighttype == "VD":
       raise RuntimeError("attempt to slide while flight type is %s." % flighttype)
 
     # See rules 13.1 and 13.2.
-    if self._maneuverfp < 2:
+    requiredfp = { "LO": 2, "ML": 2, "MH": 2, "HI": 3, "VH": 4, "EH": 5, "UH": 6 }[self._altitudeband]
+    if self._speed >= apspeed.m1speed(self._altitudeband):
+      requiredfp += 1
+    # The +1 in the next test because we are performing this calculation after
+    # the final H in the slide has been accounted for in self._maneuverfp.
+    if self._maneuverfp < requiredfp + 1:
       raise RuntimeError("attempt to slide without sufficient preparatory HFPs.")
 
-    # Slide. Remember that we have already moved forward one hex for the associated H element.
+    # Slide. Remember that we have already moved forward one hex for the final H element.
     self._x, self._y = aphex.slide(self._x, self._y, self._facing, sense)
 
-    self._maneuverfp = 0
+    # See rule 13.2.
+    if self._slides >= 1:
+      self._othermaneuverap -= 1
+
+    # Keep track of the number of slides and the FP of the last slide.
+    self._slides += 1
+    self._slidefp = self._fp
+
+    # Do not implicitly continue the maneuver.
+    self._maneuvertype  = None
+    self._maneuversense = None
+    self._maneuverfp    = 0
+
+    # Implicitly finish with wings level. This can be changed immediately by a bank.
+    self._bank = None
 
   ########################################
 
@@ -518,17 +539,17 @@ def _continuenormalflight(self, actions):
     if self.hasproperty("LRR") and facingchange > 90:
       raise RuntimeError("attempt to roll vertically by more than 90 degrees in LRR aircraft.")
 
-    self._maneuverap -= self.rolldrag("VR")
+    self._othermaneuverap -= self.rolldrag("VR")
 
     # See rule 13.3.6
     if self._rollmaneuvers > 0:
-      self._maneuverap -= 1
+      self._othermaneuverap -= 1
     self._rollmaneuvers += 1
     self._verticalrolls += 1
 
     # See rule 6.6.
     if self._speed >= apspeed.m1speed(self._altitudeband):
-      self._maneuverap -= 1
+      self._othermaneuverap -= 1
 
     # Change facing.
     if aphex.isedge(self._x, self._y) and shift:
@@ -873,9 +894,9 @@ def _continuenormalflight(self, actions):
 
       # See rule 8.2.2 and 13.1.
       if not self._unloaded:
-        if self._maneuvertype == "SL" and self._horizontal:
+        if _isturn(self._maneuvertype):
           self._maneuverfp += 1
-        else:
+        elif self._maneuvertype == "SL" and self._horizontal:
           self._maneuverfp += 1
 
       maneuver = doelements(action, "maneuver" , False)
@@ -1215,7 +1236,11 @@ def _startnormalflight(self, actions):
 
   self._rollmaneuvers = 0
   self._verticalrolls = 0
-  
+
+  # The number of slides performed and the FP of the last last performed.
+  self._slides = 0
+  self._slidefp = 0
+
   reportapcarry()
   reportaltitudecarry()
   reportturn()
