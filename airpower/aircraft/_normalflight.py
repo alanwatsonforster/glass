@@ -366,29 +366,7 @@ def _continuenormalflight(self, actions):
     self._maneuversense        = sense
     self._maneuverfp           = 0
     self._maneuveraltitudeband = self._altitudeband
-  
-  ########################################
 
-  def dodeclareslide(sense):
-
-    # See rule 8.1.3 and 8.2.3
-    if flighttype == "VC" or flighttype == "VD":
-      raise RuntimeError("attempt to declare slide while flight type is %s." % flighttype)
-
-    # See 13.2.
-    if self._slides == 1 and self._speed <= 9.0:
-      raise RuntimeError("only one slide allowed per turn at low speed.")
-    elif self._slides == 1 and self._fp < self._slidefp + 4:
-      raise RuntimeError("attempt to start a second slide without sufficient intermediate FPs.")
-    elif self._slides == 2:
-      raise RuntimeError("at most two slides allowed per turn.")
-
-    self._bank                 = None
-    self._maneuvertype         = "SL"
-    self._maneuversense        = sense
-    self._maneuverfp           = 0
-    self._maneuveraltitudeband = self._altitudeband
-    
   ########################################
 
   def doturn(sense, facingchange):
@@ -467,6 +445,28 @@ def _continuenormalflight(self, actions):
 
   ########################################
 
+  def dodeclareslide(sense):
+
+    # See rule 8.1.3 and 8.2.3
+    if flighttype == "VC" or flighttype == "VD":
+      raise RuntimeError("attempt to declare slide while flight type is %s." % flighttype)
+
+    # See 13.2.
+    if self._slides == 1 and self._speed <= 9.0:
+      raise RuntimeError("only one slide allowed per turn at low speed.")
+    if self._slides == 1 and self._fp - self._slidefp - 1 <  4:
+      raise RuntimeError("attempt to start a second slide without sufficient intermediate FPs.")
+    elif self._slides == 2:
+      raise RuntimeError("at most two slides allowed per turn.")
+
+    self._bank                 = None
+    self._maneuvertype         = "SL"
+    self._maneuversense        = sense
+    self._maneuverfp           = 0
+    self._maneuveraltitudeband = self._altitudeband
+    
+  ########################################
+
   def doslide(sense):
 
     # See rule 8.1.3 and 8.2.3
@@ -504,24 +504,7 @@ def _continuenormalflight(self, actions):
 
   ########################################
 
-  def doturnormaneuver(sense, facingchange):
-
-    if self._maneuvertype == None:
-      raise RuntimeError("attempt to maneuver without a declaration.")
-      
-    if self._maneuversense != sense:
-      raise RuntimeError("attempt to maneuver against the sense of the declaration.")
-
-    if self._maneuvertype == "SL":
-      if facingchange != 30:
-        raise RuntimeError("invalid facing change for slide.")
-      doslide(sense)
-    else:
-      doturn(sense, facingchange)
-
-  ########################################
-
-  def doverticalroll(sense, facingchange, shift):
+  def dodeclareverticalroll(sense):
 
     if self.hasproperty("NRM"):
       raise RuntimeError("aircraft cannot perform rolling maneuvers.")
@@ -530,15 +513,25 @@ def _continuenormalflight(self, actions):
       
     # See rule 13.3.4.  
     if self._flighttype != "VC" and self._flighttype != "VD":
-      raise RuntimeError("attempt to roll vertically while flight type is %s." % self._flighttype)
+      raise RuntimeError("attempt to declare vertical roll while flight type is %s." % self._flighttype)
     if not self._vertical:
-      raise RuntimeError("attempt to roll vertically during an HFP.")
+      raise RuntimeError("attempt to declare vertical roll during an HFP.")
     if previousflighttype == "LVL" and flighttype == "VC" and not self._lastfp:
-      raise RuntimeError("attempt to roll vertically in VC following LVL flight other than on the last FP.")
+      raise RuntimeError("attempt to declare a vertical roll in VC following LVL flight other than on the last FP.")
 
     # See rule 13.3.5.
     if self._hrd and not self._lastfp:
-      raise RuntimeError("attempt to roll vertically after HRD other than on the last FP.")
+      raise RuntimeError("attempt to declare vertical roll after HRD other than on the last FP.")
+
+    self._bank                 = None
+    self._maneuvertype         = "VR"
+    self._maneuversense        = sense
+    self._maneuverfp           = 0
+    self._maneuveraltitudeband = self._altitudeband
+    
+    ########################################
+
+  def doverticalroll(sense, facingchange, shift):
 
     # See rule 13.3.4.
     if self.hasproperty("LRR") and facingchange > 90:
@@ -564,11 +557,30 @@ def _continuenormalflight(self, actions):
     else:
       self._facing = (self._facing - facingchange) % 360
 
-    self._bank                 = None
-    self._maneuvertype         = "VR"
+    # Do not implicitly continue the maneuver.
+    self._maneuvertype         = None
     self._maneuversense        = None
     self._maneuverfp           = 0
-    self._maneuveraltitudeband = self._altitudeband
+    self._maneuveraltitudeband = None
+    
+    ########################################
+
+  def domaneuver(sense, facingchange, shift):
+
+    if self._maneuvertype == None:
+      raise RuntimeError("attempt to maneuver without a declaration.")
+      
+    if self._maneuversense != sense:
+      raise RuntimeError("attempt to maneuver against the sense of the declaration.")
+
+    if self._maneuvertype == "SL":
+      if facingchange != 30:
+        raise RuntimeError("invalid facing change for slide.")
+      doslide(sense)
+    elif self._maneuvertype == "VR":
+      doverticalroll(sense, facingchange, shift)
+    else:
+      doturn(sense, facingchange)
 
   ########################################
 
@@ -694,93 +706,85 @@ def _continuenormalflight(self, actions):
     # [1] is the element type.
     # [2] is the element procedure.
   
-    ["H"   , "H"               , lambda: dohorizontal() ],
+    ["H"    , "H"                   , lambda: dohorizontal() ],
 
-    ["C1"  , "C or D"          , lambda: doclimb(1) ],
-    ["C2"  , "C or D"          , lambda: doclimb(2) ],
-    ["CC"  , "C or D"          , lambda: doclimb(2) ],
-    ["C"   , "C or D"          , lambda: doclimb(1) ],
+    ["C1"   , "C or D"              , lambda: doclimb(1) ],
+    ["C2"   , "C or D"              , lambda: doclimb(2) ],
+    ["CC"   , "C or D"              , lambda: doclimb(2) ],
+    ["C"    , "C or D"              , lambda: doclimb(1) ],
 
-    ["D1"  , "C or D"          , lambda: dodive(1) ],
-    ["D2"  , "C or D"          , lambda: dodive(2) ],
-    ["D3"  , "C or D"          , lambda: dodive(3) ],
-    ["DDD" , "C or D"          , lambda: dodive(3) ],
-    ["DD"  , "C or D"          , lambda: dodive(2) ],
-    ["D"   , "C or D"          , lambda: dodive(1) ],
+    ["D1"   , "C or D"              , lambda: dodive(1) ],
+    ["D2"   , "C or D"              , lambda: dodive(2) ],
+    ["D3"   , "C or D"              , lambda: dodive(3) ],
+    ["DDD"  , "C or D"              , lambda: dodive(3) ],
+    ["DD"   , "C or D"              , lambda: dodive(2) ],
+    ["D"    , "C or D"              , lambda: dodive(1) ],
 
-    ["LSL"     , "maneuver declaration", lambda: dodeclareslide("L")],
+    ["LSL"  , "maneuver declaration", lambda: dodeclareslide("L") ],
+    ["RSL"  , "maneuver declaration", lambda: dodeclareslide("R") ],
 
-    ["RSL"     , "maneuver declaration", lambda: dodeclareslide("R")],
-
-    ["LEZ" , "maneuver declaration", lambda: dodeclareturn("L", "EZ") ],
-    ["LTT" , "maneuver declaration", lambda: dodeclareturn("L", "TT") ],
-    ["LHT" , "maneuver declaration", lambda: dodeclareturn("L", "HT") ],
-    ["LBT" , "maneuver declaration", lambda: dodeclareturn("L", "BT") ],
-    ["LET" , "maneuver declaration", lambda: dodeclareturn("L", "ET") ],
+    ["LVR"  , "maneuver declaration", lambda: dodeclareverticalroll("L") ],
+    ["RVR"  , "maneuver declaration", lambda: dodeclareverticalroll("R") ],
     
-    ["REZ" , "maneuver declaration", lambda: dodeclareturn("R", "EZ") ],
-    ["RTT" , "maneuver declaration", lambda: dodeclareturn("R", "TT") ],
-    ["RHT" , "maneuver declaration", lambda: dodeclareturn("R", "HT") ],
-    ["RBT" , "maneuver declaration", lambda: dodeclareturn("R", "BT") ],
-    ["RET" , "maneuver declaration", lambda: dodeclareturn("R", "ET") ],
+    ["LEZ"  , "maneuver declaration", lambda: dodeclareturn("L", "EZ") ],
+    ["LTT"  , "maneuver declaration", lambda: dodeclareturn("L", "TT") ],
+    ["LHT"  , "maneuver declaration", lambda: dodeclareturn("L", "HT") ],
+    ["LBT"  , "maneuver declaration", lambda: dodeclareturn("L", "BT") ],
+    ["LET"  , "maneuver declaration", lambda: dodeclareturn("L", "ET") ],
     
-    ["LVR180S" , "maneuver", lambda: doverticalroll("L", 180, True )],
-    ["LVR180"  , "maneuver", lambda: doverticalroll("L", 180, False)],
-    ["LVR150"  , "maneuver", lambda: doverticalroll("L", 150, True )],
-    ["LVR120"  , "maneuver", lambda: doverticalroll("L", 120, True )],
-    ["LVR90"   , "maneuver", lambda: doverticalroll("L",  90, True )],
-    ["LVR60"   , "maneuver", lambda: doverticalroll("L",  60, True )],
-    ["LVR30"   , "maneuver", lambda: doverticalroll("L",  30, True )],
-    ["LVR"     , "maneuver", lambda: doverticalroll("L",  30, True )],
-
-    ["RVR180S" , "maneuver", lambda: doverticalroll("R", 180, True )],
-    ["RVR180"  , "maneuver", lambda: doverticalroll("R", 180, False)],
-    ["RVR150"  , "maneuver", lambda: doverticalroll("R", 150, True )],
-    ["RVR120"  , "maneuver", lambda: doverticalroll("R", 120, True )],
-    ["RVR90"   , "maneuver", lambda: doverticalroll("R",  90, True )],
-    ["RVR60"   , "maneuver", lambda: doverticalroll("R",  60, True )],
-    ["RVR30"   , "maneuver", lambda: doverticalroll("R",  30, True )],
-    ["RVR"     , "maneuver", lambda: doverticalroll("R",  30, True )],
+    ["REZ"  , "maneuver declaration", lambda: dodeclareturn("R", "EZ") ],
+    ["RTT"  , "maneuver declaration", lambda: dodeclareturn("R", "TT") ],
+    ["RHT"  , "maneuver declaration", lambda: dodeclareturn("R", "HT") ],
+    ["RBT"  , "maneuver declaration", lambda: dodeclareturn("R", "BT") ],
+    ["RET"  , "maneuver declaration", lambda: dodeclareturn("R", "ET") ],
     
-    ["LB"  , "bank", lambda: dobank("L")  ],
-    ["RB"  , "bank", lambda: dobank("R")  ],
-    ["WL"  , "bank", lambda: dobank(None) ],
+    ["LB"    , "bank"               , lambda: dobank("L")  ],
+    ["RB"    , "bank"               , lambda: dobank("R")  ],
+    ["WL"    , "bank"               , lambda: dobank(None) ],
 
-    ["L90" , "maneuver"    , lambda: doturnormaneuver("L", 90) ],
-    ["L60" , "maneuver"    , lambda: doturnormaneuver("L", 60) ],
-    ["L30" , "maneuver"    , lambda: doturnormaneuver("L", 30) ],
-    ["LLL" , "maneuver"    , lambda: doturnormaneuver("L", 90) ],
-    ["LL"  , "maneuver"    , lambda: doturnormaneuver("L", 60) ],
-    ["L"   , "maneuver"    , lambda: doturnormaneuver("L", 30) ],
+    ["LS180" , "maneuver"           , lambda: domaneuver("L", 180, True )],
+    ["L180"  , "maneuver"           , lambda: domaneuver("L", 180, False)],
+    ["L150"  , "maneuver"           , lambda: domaneuver("L", 150, True )],
+    ["L120"  , "maneuver"           , lambda: domaneuver("L", 120, True )],
+    ["L90"   , "maneuver"           , lambda: domaneuver("L",  90, True ) ],
+    ["L60"   , "maneuver"           , lambda: domaneuver("L",  60, True ) ],
+    ["L30"   , "maneuver"           , lambda: domaneuver("L",  30, True ) ],
+    ["LLL"   , "maneuver"           , lambda: domaneuver("L",  90, True ) ],
+    ["LL"    , "maneuver"           , lambda: domaneuver("L",  60, True ) ],
+    ["L"     , "maneuver"           , lambda: domaneuver("L",  30, True ) ],
 
-    ["R90" , "maneuver"    , lambda: doturnormaneuver("R", 90) ],
-    ["R60" , "maneuver"    , lambda: doturnormaneuver("R", 60) ],
-    ["R30" , "maneuver"    , lambda: doturnormaneuver("R", 30) ],
-    ["RRR" , "maneuver"    , lambda: doturnormaneuver("R", 90) ],
-    ["RR"  , "maneuver"    , lambda: doturnormaneuver("R", 60) ],
-    ["R"   , "maneuver"    , lambda: doturnormaneuver("R", 30) ],
+    ["RS180" , "maneuver"           , lambda: domaneuver("R", 180, True )],
+    ["R180"  , "maneuver"           , lambda: domaneuver("R", 180, False)],
+    ["R150"  , "maneuver"           , lambda: domaneuver("R", 150, True )],
+    ["R120"  , "maneuver"           , lambda: domaneuver("R", 120, True )],
+    ["R90"   , "maneuver"           , lambda: domaneuver("R",  90, True ) ],
+    ["R60"   , "maneuver"           , lambda: domaneuver("R",  60, True ) ],
+    ["R30"   , "maneuver"           , lambda: domaneuver("R",  30, True ) ],
+    ["RRR"   , "maneuver"           , lambda: domaneuver("R",  90, True ) ],
+    ["RR"    , "maneuver"           , lambda: domaneuver("R",  60, True ) ],
+    ["R"     , "maneuver"           , lambda: domaneuver("R",  30, True ) ],
 
-    ["S1/2", "other"           , lambda: dospeedbrakes(1/2) ],
-    ["S1"  , "other"           , lambda: dospeedbrakes(1) ],
-    ["S3/2", "other"           , lambda: dospeedbrakes(3/2) ],
-    ["S2"  , "other"           , lambda: dospeedbrakes(2) ],
-    ["S5/2", "other"           , lambda: dospeedbrakes(5/2) ],
-    ["S3"  , "other"           , lambda: dospeedbrakes(3) ],
-    ["SSS" , "other"           , lambda: dospeedbrakes(3/2) ],
-    ["SS"  , "other"           , lambda: dospeedbrakes(1) ],
-    ["S"   , "other"           , lambda: dospeedbrakes(1/2) ],
+    ["S1/2"  , "other"              , lambda: dospeedbrakes(1/2) ],
+    ["S1"    , "other"              , lambda: dospeedbrakes(1) ],
+    ["S3/2"  , "other"              , lambda: dospeedbrakes(3/2) ],
+    ["S2"    , "other"              , lambda: dospeedbrakes(2) ],
+    ["S5/2"  , "other"              , lambda: dospeedbrakes(5/2) ],
+    ["S3"    , "other"              , lambda: dospeedbrakes(3) ],
+    ["SSS"   , "other"              , lambda: dospeedbrakes(3/2) ],
+    ["SS"    , "other"              , lambda: dospeedbrakes(1) ],
+    ["S"     , "other"              , lambda: dospeedbrakes(1/2) ],
     
-    ["J1/2", "other"           , lambda: dojettison("1/2") ],
-    ["JCL" , "other"           , lambda: dojettison("CL") ],
+    ["J1/2"  , "other"              , lambda: dojettison("1/2") ],
+    ["JCL"   , "other"              , lambda: dojettison("CL") ],
     
-    ["AGN" , "other"           , lambda: doattack("guns") ],
-    ["AGP" , "other"           , lambda: doattack("gun pod") ],
-    ["ARK" , "other"           , lambda: doattack("rockets") ],
-    ["ARP" , "other"           , lambda: doattack("rocket pods") ],
+    ["AGN"   , "other"              , lambda: doattack("guns") ],
+    ["AGP"   , "other"              , lambda: doattack("gun pod") ],
+    ["ARK"   , "other"              , lambda: doattack("rockets") ],
+    ["ARP"   , "other"              , lambda: doattack("rocket pods") ],
 
-    ["K"   , "other"           , lambda: dokilled()],
+    ["K"     , "other"              , lambda: dokilled()],
 
-    ["/"   , "other"           , lambda: None ],
+    ["/"     , "other"              , lambda: None ],
 
     ["MDL300", "maneuvering departure", lambda: domaneuveringdeparture("L", 300)],
     ["MDL270", "maneuvering departure", lambda: domaneuveringdeparture("L", 270)],
@@ -874,8 +878,6 @@ def _continuenormalflight(self, actions):
     
         return
 
-      doelements(action, "maneuver declaration", False)
-
       self._horizontal = doelements(action, "H", False)
       self._vertical   = doelements(action, "C or D", False)
 
@@ -899,13 +901,17 @@ def _continuenormalflight(self, actions):
           self._firstunloadedfp = self._hfp
         self._lastunloadedfp = self._hfp
 
+      doelements(action, "maneuver declaration", False)
+
       # See rule 8.2.2 and 13.1.
       if not self._unloaded:
         if _isturn(self._maneuvertype):
           self._maneuverfp += 1
         elif self._maneuvertype == "SL" and self._horizontal:
           self._maneuverfp += 1
-
+        elif self._maneuvertype == "VR" and self._vertical:
+          self._maneuverfp += 1
+  
       maneuver = doelements(action, "maneuver" , False)
       turn = maneuver and _isturn(self._maneuvertype)
       roll = maneuver and _isroll(self._maneuvertype)
