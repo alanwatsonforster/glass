@@ -154,6 +154,18 @@ def slide(x, y, facing, sense):
 
   return x + dx, y + dy
 
+def displacementroll(x, y, facing, sense):
+
+  """
+  Return the coordinates after performing a displacement roll from the point
+  (x, y) with respect to the facing and sense. The forward part of the 
+  displacement roll has already beeen carried out.
+  """
+
+  # It's identical to a slide.
+
+  return slide(x, y, facing, sense)
+
 def edgetocenter(x, y, facing, sense):
 
   """

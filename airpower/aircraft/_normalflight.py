@@ -458,11 +458,10 @@ def _continuenormalflight(self, actions):
       raise RuntimeError("attempt to slide while flight type is %s." % flighttype)
 
     # See rules 13.1 and 13.2.
-    requiredfp = { "LO": 2, "ML": 2, "MH": 2, "HI": 3, "VH": 4, "EH": 5, "UH": 6 }[self._altitudeband]
-    if self._speed >= apspeed.m1speed(self._altitudeband):
-      requiredfp += 1
+    requiredfp = 2 + _extrapreparatoryhfp(self._altitudeband, self._speed)
+
     # The +1 in the next test because we are performing this calculation after
-    # the final H in the slide has been accounted for in self._maneuverfp.
+    # the final H in the slide has been included in self._maneuverfp.
     if self._maneuverfp < requiredfp + 1:
       raise RuntimeError("attempt to slide without sufficient preparatory HFPs.")
 
@@ -483,10 +482,59 @@ def _continuenormalflight(self, actions):
     self._maneuverfp           = 0
     self._maneuveraltitudeband = None
 
-    # Implicitly finish with wings level. This can be changed immediately by a bank.
+    # Implicitly finish with wings level.
     self._bank = None
 
   ########################################
+
+  def dodeclaredisplacementroll(sense):
+
+    # See 13.3.1
+
+    if self.hasproperty("NRM"):
+      raise RuntimeError("aircraft cannot perform rolling maneuvers.")
+    if self.rolldrag("DR") == None:
+      raise RuntimeError("aircraft cannot perform displacement rolls.")
+      
+    # See rule 8.1.3 and 8.2.3
+    if flighttype == "VC" or flighttype == "VD":
+      raise RuntimeError("attempt to declare displacement roll while flight type is %s." % flighttype)
+
+    self._bank                 = None
+    self._maneuvertype         = "DR"
+    self._maneuversense        = sense
+    self._maneuverfp           = 0
+    self._maneuveraltitudeband = self._altitudeband
+
+  ########################################
+
+  def dodisplacementroll(sense):
+
+    # See rules 13.1 and 13.3.1.
+
+    requiredfp = self.rollhfp() + _extrapreparatoryhfp(self._altitudeband, self._speed)
+
+    # The +1 in the next test because we are performing this calculation after
+    # the final H in the slide has been included in self._maneuverfp.
+    if self._maneuverfp < requiredfp + 1:
+      raise RuntimeError("attempt to roll without sufficient preparatory HFPs.")
+
+    # Move.
+    self._x, self._y = aphex.displacementroll(self._x, self._y, self._facing, sense)
+
+    # See rule 13.3.1.
+    self._othermaneuversap -= self.rolldrag("DR")
+
+    # Do not implicitly continue the maneuver.
+    self._maneuvertype         = None
+    self._maneuversense        = None
+    self._maneuverfp           = 0
+    self._maneuveraltitudeband = None
+
+    # Implicitly finish with wings level. This can be changed immediately by a bank.
+    self._bank = None
+
+  ########################################  
 
   def dodeclareverticalroll(sense):
 
@@ -561,6 +609,10 @@ def _continuenormalflight(self, actions):
       if facingchange != 30:
         raise RuntimeError("invalid facing change for slide.")
       doslide(sense)
+    elif self._maneuvertype == "DR":
+      if facingchange != 30:
+        raise RuntimeError("invalid facing change for a displacement roll.")
+      dodisplacementroll(sense)
     elif self._maneuvertype == "VR":
       doverticalroll(sense, facingchange, shift)
     else:
@@ -693,6 +745,9 @@ def _continuenormalflight(self, actions):
     ["SLL"  , "maneuver declaration", lambda: dodeclareslide("L") ],
     ["SLR"  , "maneuver declaration", lambda: dodeclareslide("R") ],
 
+    ["DRL"  , "maneuver declaration", lambda: dodeclaredisplacementroll("L") ],
+    ["DRR"  , "maneuver declaration", lambda: dodeclaredisplacementroll("R") ],
+    
     ["VRL"  , "maneuver declaration", lambda: dodeclareverticalroll("L") ],
     ["VRR"  , "maneuver declaration", lambda: dodeclareverticalroll("R") ],
     
@@ -891,14 +946,15 @@ def _continuenormalflight(self, actions):
       if not self._unloaded:
         if _isturn(self._maneuvertype):
           self._maneuverfp += 1
-        elif self._maneuvertype == "SL" and self._horizontal:
-          self._maneuverfp += 1
         elif self._maneuvertype == "VR" and self._vertical:
           self._maneuverfp += 1
-  
+        elif self._horizontal:
+          self._maneuverfp += 1
+
       maneuver = doelements(action, "maneuver" , False)
       turn = maneuver and _isturn(self._maneuvertype)
       roll = maneuver and _isroll(self._maneuvertype)
+
       bank = doelements(action, "bank" , False)
       if bank and maneuver and not roll:
         raise RuntimeError("attempt to bank immediately after a maneuver that is not a roll.")
@@ -1465,3 +1521,14 @@ def _isclimbing(flighttype):
   return flighttype == "ZC" or flighttype == "SC" or flighttype == "VC"
 
 ################################################################################
+
+def _extrapreparatoryhfp(altitudeband, speed):
+
+    # See rule 13.1.
+
+    extrapreparatoryfp = { "LO": 0, "ML": 0, "MH": 0, "HI": 1, "VH": 2, "EH": 3, "UH": 4 }[altitudeband]
+
+    if speed >= apspeed.m1speed(altitudeband):
+      extrapreparatoryfp += 1.0
+
+    return extrapreparatoryfp
