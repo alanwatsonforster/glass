@@ -525,6 +525,11 @@ def _continuenormalflight(self, actions):
     # See rule 13.3.1.
     self._othermaneuversap -= self.rolldrag("DR")
 
+    # See rule 13.3.6
+    if self._rollmaneuvers > 0:
+      self._othermaneuversap -= 1
+    self._rollmaneuvers += 1
+    
     # Do not implicitly continue the maneuver.
     self._maneuvertype         = None
     self._maneuversense        = None
@@ -579,6 +584,11 @@ def _continuenormalflight(self, actions):
     # See rule 13.3.1.
     self._othermaneuversap -= self.rolldrag("LR")
 
+    # See rule 13.3.6
+    if self._rollmaneuvers > 0:
+      self._othermaneuversap -= 1
+    self._rollmaneuvers += 1
+    
     # Do not implicitly continue the maneuver.
     self._maneuvertype         = None
     self._maneuversense        = None
