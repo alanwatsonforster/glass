@@ -172,7 +172,20 @@ class aircraftdata:
     else:
       return raw
 
-  def print(self):
+  ##############################################################################
+
+  def __str__(self):
+
+    """
+    Return a string representation of an aircraft data object. The format 
+    follows that of the Aircraft Data Cards in TSOH.
+    """
+
+    global _result
+    _result = ""
+    def str(s):
+      global _result
+      _result += s + "\n"
 
     def f1(x):
       if x == None:
@@ -197,151 +210,155 @@ class aircraftdata:
         return "--"
       else:
         return "%2.0f" % x
+        
 
-    print("%s" % self._name)
-    print()
+    str("%s" % self._name)
+    str("")
 
-    print("Power:")
-    print()
-    print("       CL   1/2  DT  Fuel")
+    str("Power:")
+    str("")
+    str("       CL   1/2  DT  Fuel")
     if self.power("CL", "M") != None:
-      print("AB     %s  %s  %s  %s" % (
+      str("AB     %s  %s  %s  %s" % (
         f1(self.power("CL", "AB")), 
         f1(self.power("1/2", "AB")), 
         f1(self.power("DT", "AB")), 
         f1(self.fuelrate("AB"))
       ))
     if self.power("CL", "M") != None:
-      print("M      %s  %s  %s  %s" % (
+      str("M      %s  %s  %s  %s" % (
         f1(self.power("CL", "M" )), 
         f1(self.power("1/2", "M" )), 
         f1(self.power("DT", "M" )), 
         f1(self.fuelrate("M"))
       ))
     if self.power("CL", "FT") != None:
-      print("FT     %s  %s  %s  %s" % (
+      str("FT     %s  %s  %s  %s" % (
         f1(self.power("CL", "FT")), 
         f1(self.power("1/2", "FT")), 
         f1(self.power("DT", "FT")), 
         f1(self.fuelrate("FT"))
       ))
     if self.power("CL", "HT") != None:
-      print("HT     %s  %s  %s  %s" % (
+      str("HT     %s  %s  %s  %s" % (
         f1(self.power("CL", "HT")), 
         f1(self.power("1/2", "HT")), 
         f1(self.power("DT", "HT")), 
         f1(self.fuelrate("HT"))
       ))
-    print("N      %s  %s  %s  %s" % (
+    str("N      %s  %s  %s  %s" % (
       f1(self.power("CL", "N" )), 
       f1(self.power("1/2", "N" )), 
       f1(self.power("DT", "N" )), 
       f1(self.fuelrate("N"))
     ))
-    print("I      %s  %s  %s  %s" % (
+    str("I      %s  %s  %s  %s" % (
       f1(self.power("CL", "I")), 
       f1(self.power("1/2", "I")), 
       f1(self.power("DT", "I")), 
       f1(self.fuelrate("I"))
     ))
-    print("SPBR   %s  %s  %s" % (
+    str("SPBR   %s  %s  %s" % (
       f1(self.spbr("CL")), 
       f1(self.spbr("1/2")), 
       f1(self.spbr("DT"))
     ))
-    print()
+    str("")
 
     if "powerfadetable" in self._data:
       for p in self._data["powerfadetable"]:
-        print("- If the speed is more than %.1f, the power is reduced by %.1f." % (p[0], p[1]))
-      print()
+        str("- If the speed is more than %.1f, the power is reduced by %.1f." % (p[0], p[1]))
+      str()
 
-    print("Maneuver:")
-    print()
-    print("LR/DR  %s  %s" % (
+    str("Cruise Speed: %.1f" % self.cruisespeed())
+    str("Climb  Speed: %.1f" % self.climbspeed())
+    str("")
+
+    str("Roll Costs:")
+    str("")
+    str("LR/DR  %s  %s" % (
       f1(self.rollhfp()), f1(self.rolldrag("LR"))
     ))
-    print("VR     %s  %s" % (
+    str("VR     %s  %s" % (
       f1(None), f1(self.rolldrag("VR"))
     ))
-    print()
+    str("")
 
-    print("Turn:")
-    print()
+    str("Turn Drag:")
+    str("")
     if self.lowspeedturnlimit() != None:
-      print("For speed <= %.1f" % self.lowspeedturnlimit())
-      print("       CL   1/2  DT")
+      str("For speed <= %.1f" % self.lowspeedturnlimit())
+      str("       CL   1/2  DT")
       for turnrate in ["TT", "HT", "BT", "ET"]:
-        print("%s     %s  %s  %s" % (
+        str("%s     %s  %s  %s" % (
           turnrate,
           f1(self.turndrag("CL" , turnrate, lowspeed=True)),
           f1(self.turndrag("1/2", turnrate, lowspeed=True)),
           f1(self.turndrag("DT" , turnrate, lowspeed=True)),
         ))
-      print("For speed > %.1f" % self.lowspeedturnlimit())
-      print("       CL   1/2  DT")
+      str("For speed > %.1f" % self.lowspeedturnlimit())
+      str("       CL   1/2  DT")
       for turnrate in ["TT", "HT", "BT", "ET"]:
-        print("%s     %s  %s  %s" % (
+        str("%s     %s  %s  %s" % (
           turnrate,
           f1(self.turndrag("CL" , turnrate, highspeed=True)),
           f1(self.turndrag("1/2", turnrate, highspeed=True)),
           f1(self.turndrag("DT" , turnrate, highspeed=True)),
         ))
     else:
-      print("       CL   1/2  DT")
+      str("       CL   1/2  DT")
       for turnrate in ["TT", "HT", "BT", "ET"]:
-        print("%s     %s  %s  %s" % (
+        str("%s     %s  %s  %s" % (
           turnrate,
           f1(self.turndrag("CL" , turnrate)),
           f1(self.turndrag("1/2", turnrate)),
           f1(self.turndrag("DT" , turnrate)),
         ))
-    print()
+    str("")
 
-    print("Speed and Ceiling:")
-    print()
-    print("      CL       1/2      DT")
-    print("      %s       %s       %s" % (
+    str("Speed and Ceiling:")
+    str("")
+    str("      CL       1/2      DT")
+    str("      %s       %s       %s" % (
       f0(self.ceiling("CL")),
       f0(self.ceiling("1/2")),
       f0(self.ceiling("DT")),
     ))
     for band in ["EH", "VH", "HI", "MH", "ML", "LO"]:
-      print("%s    %s-%s  %s-%s  %s-%s  %s" % (
+      str("%s    %s-%s  %s-%s  %s-%s  %s" % (
         band,
         f1(self.minspeed("CL" , band)), f1(self.maxspeed("CL" , band)),
         f1(self.minspeed("1/2", band)), f1(self.maxspeed("1/2", band)),
         f1(self.minspeed("DT" , band)), f1(self.maxspeed("DT" , band)),
         f1(self.maxdivespeed(band))
       ))
-    print()
-    print("Cruise: %.1f" % self.cruisespeed())
-    print("Climb : %.1f" % self.climbspeed())
-    print()
+    str("")
 
-    print("Climb Capability:")
-    print()
-    print("      CL         1/2        DT")
+    str("Climb Capability:")
+    str("")
+    str("      CL         1/2        DT")
     for band in ["EH", "VH", "HI", "MH", "ML", "LO"]:
-      print("%s    %s %s  %s %s  %s %s" % (
+      str("%s    %s %s  %s %s  %s %s" % (
         band,
         f2(self.climbcapability("CL" , band, "AB")), f2(self.climbcapability("CL" , band, "M")),
         f2(self.climbcapability("1/2", band, "AB")), f2(self.climbcapability("1/2", band, "M")),
         f2(self.climbcapability("DT" , band, "AB")), f2(self.climbcapability("DT" , band, "M")),
       ))
-    print()
+    str("")
 
     s = ""
     for p in self._data["properties"]:
       s += " %s" % p
-    print("Properties:%s" %s)
-    print()
-    print("Origin: %s" % self._data["origin"])
-    print()
-    print("Notes:")
-    print()
+    str("Properties:%s" %s)
+    str("")
+    str("Origin: %s" % self._data["origin"])
+    str("")
+    str("Notes:")
+    str("")
     if "notes" in self._data:
       for note in self._data["notes"]:
-        print("%s" % note)
+        str("%s" % note)
 
+    return _result
 
+##############################################################################
