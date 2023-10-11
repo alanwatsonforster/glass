@@ -690,40 +690,26 @@ def _continuenormalflight(self, actions):
     # [1] is the element type.
     # [2] is the element procedure.
   
-    ["H"    , "H"                   , lambda: dohorizontal() ],
+    ["SLL"  , "maneuver declaration", lambda: dodeclareslide("L") ],
+    ["SLR"  , "maneuver declaration", lambda: dodeclareslide("R") ],
 
-    ["C1"   , "C or D"              , lambda: doclimb(1) ],
-    ["C2"   , "C or D"              , lambda: doclimb(2) ],
-    ["CC"   , "C or D"              , lambda: doclimb(2) ],
-    ["C"    , "C or D"              , lambda: doclimb(1) ],
-
-    ["D1"   , "C or D"              , lambda: dodive(1) ],
-    ["D2"   , "C or D"              , lambda: dodive(2) ],
-    ["D3"   , "C or D"              , lambda: dodive(3) ],
-    ["DDD"  , "C or D"              , lambda: dodive(3) ],
-    ["DD"   , "C or D"              , lambda: dodive(2) ],
-    ["D"    , "C or D"              , lambda: dodive(1) ],
-
-    ["LSL"  , "maneuver declaration", lambda: dodeclareslide("L") ],
-    ["RSL"  , "maneuver declaration", lambda: dodeclareslide("R") ],
-
-    ["LVR"  , "maneuver declaration", lambda: dodeclareverticalroll("L") ],
-    ["RVR"  , "maneuver declaration", lambda: dodeclareverticalroll("R") ],
+    ["VRL"  , "maneuver declaration", lambda: dodeclareverticalroll("L") ],
+    ["VRR"  , "maneuver declaration", lambda: dodeclareverticalroll("R") ],
     
-    ["LEZ"  , "maneuver declaration", lambda: dodeclareturn("L", "EZ") ],
-    ["LTT"  , "maneuver declaration", lambda: dodeclareturn("L", "TT") ],
-    ["LHT"  , "maneuver declaration", lambda: dodeclareturn("L", "HT") ],
-    ["LBT"  , "maneuver declaration", lambda: dodeclareturn("L", "BT") ],
-    ["LET"  , "maneuver declaration", lambda: dodeclareturn("L", "ET") ],
+    ["EZL"  , "maneuver declaration", lambda: dodeclareturn("L", "EZ") ],
+    ["TTL"  , "maneuver declaration", lambda: dodeclareturn("L", "TT") ],
+    ["HTL"  , "maneuver declaration", lambda: dodeclareturn("L", "HT") ],
+    ["BTL"  , "maneuver declaration", lambda: dodeclareturn("L", "BT") ],
+    ["ETL"  , "maneuver declaration", lambda: dodeclareturn("L", "ET") ],
     
-    ["REZ"  , "maneuver declaration", lambda: dodeclareturn("R", "EZ") ],
-    ["RTT"  , "maneuver declaration", lambda: dodeclareturn("R", "TT") ],
-    ["RHT"  , "maneuver declaration", lambda: dodeclareturn("R", "HT") ],
-    ["RBT"  , "maneuver declaration", lambda: dodeclareturn("R", "BT") ],
-    ["RET"  , "maneuver declaration", lambda: dodeclareturn("R", "ET") ],
+    ["EZR"  , "maneuver declaration", lambda: dodeclareturn("R", "EZ") ],
+    ["TTR"  , "maneuver declaration", lambda: dodeclareturn("R", "TT") ],
+    ["HTR"  , "maneuver declaration", lambda: dodeclareturn("R", "HT") ],
+    ["BTR"  , "maneuver declaration", lambda: dodeclareturn("R", "BT") ],
+    ["ETR"  , "maneuver declaration", lambda: dodeclareturn("R", "ET") ],
     
-    ["LB"    , "bank"               , lambda: dobank("L")  ],
-    ["RB"    , "bank"               , lambda: dobank("R")  ],
+    ["BKL"   , "bank"               , lambda: dobank("L")  ],
+    ["BKR"   , "bank"               , lambda: dobank("R")  ],
     ["WL"    , "bank"               , lambda: dobank(None) ],
 
     ["LS180" , "maneuver"           , lambda: domaneuver("L", 180, True )],
@@ -769,6 +755,20 @@ def _continuenormalflight(self, actions):
     ["K"     , "other"              , lambda: dokilled()],
 
     ["/"     , "other"              , lambda: None ],
+
+    ["H"    , "H"                   , lambda: dohorizontal() ],
+
+    ["C1"   , "C or D"              , lambda: doclimb(1) ],
+    ["C2"   , "C or D"              , lambda: doclimb(2) ],
+    ["CC"   , "C or D"              , lambda: doclimb(2) ],
+    ["C"    , "C or D"              , lambda: doclimb(1) ],
+
+    ["D1"   , "C or D"              , lambda: dodive(1) ],
+    ["D2"   , "C or D"              , lambda: dodive(2) ],
+    ["D3"   , "C or D"              , lambda: dodive(3) ],
+    ["DDD"  , "C or D"              , lambda: dodive(3) ],
+    ["DD"   , "C or D"              , lambda: dodive(2) ],
+    ["D"    , "C or D"              , lambda: dodive(1) ],
 
     ["MDL300", "maneuvering departure", lambda: domaneuveringdeparture("L", 300)],
     ["MDL270", "maneuvering departure", lambda: domaneuveringdeparture("L", 270)],
