@@ -261,6 +261,10 @@ def _continuenormalflight(self, actions):
     self._altitude, self._altitudecarry = apaltitude.adjustaltitude(self._altitude, self._altitudecarry, +altitudechange)
     self._altitudeband = apaltitude.altitudeband(self._altitude)
 
+    # See rule 8.5.
+    if flighttype == "SC" and self._altitude > self.ceiling():
+      raise RuntimeError("attempt to climb above ceiling in SC.")
+
   ########################################
 
   def dodive(altitudechange):
