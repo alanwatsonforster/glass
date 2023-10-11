@@ -92,10 +92,10 @@ def areadjacent(x0, y0, x1, y1):
   else:
     return False
 
-def next(x, y, facing):
+def forward(x, y, facing):
 
   """
-  Return the coordinates of the next valid position after the point (x, y) with 
+  Return the coordinates of the next valid position forward from the point (x, y) with 
   respect to the facing.
   """
 
@@ -121,7 +121,7 @@ def next(x, y, facing):
 def slide(x, y, facing, sense):
 
   """
-  Return the coordinates of the next valid slide position after the point (x, y) with 
+  Return the coordinates after performing a slide from the point (x, y) with 
   respect to the facing and sense. The forward part of the slide has already been
   carried out.
   """
@@ -163,6 +163,26 @@ def displacementroll(x, y, facing, sense):
   """
 
   # It's identical to a slide.
+
+  return slide(x, y, facing, sense)
+
+def lagroll(x, y, facing, sense):
+
+  """
+  Return the coordinates after performing a lag roll from the point (x, y) with 
+  respect to the facing and sense. The forward part of the lag roll has already been
+  carried out.
+  """
+
+  assert isvalid(x, y, facing=facing)
+  assert sense == "R" or sense == "L"
+
+  if isedge(x, y):
+    return edgetocenter(x, y, facing, sense)
+
+  lastx, lasty = forward(x, y, (facing + 180) % 360)
+  if isedge(lastx, lasty):
+    return edgetocenter(lastx, lasty, facing, sense)
 
   return slide(x, y, facing, sense)
 
