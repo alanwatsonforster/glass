@@ -94,6 +94,7 @@ class aircraft:
       self._bank          = None
       self._turnrate      = None
       self._turnfp        = 0
+      self._prepfp        = 0
       self._fpcarry       = 0
       self._apcarry       = 0
       self._gloccheck     = 0
@@ -200,6 +201,7 @@ class aircraft:
     self._bank, \
     self._turnrate, \
     self._turnfp, \
+    self._prepfp, \
     self._fpcarry, \
     self._apcarry, \
     self._gloccheck, \
@@ -231,6 +233,7 @@ class aircraft:
       self._bank, \
       self._turnrate, \
       self._turnfp, \
+      self._prepfp, \
       self._fpcarry, \
       self._apcarry, \
       self._gloccheck, \

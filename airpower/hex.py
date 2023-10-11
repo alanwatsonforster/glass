@@ -140,6 +140,96 @@ def next(x, y, facing):
   
   return x, y
 
+def slide(x, y, facing, sense):
+
+  """
+  Return the coordinates of the next valid slide position after the point (x, y) with 
+  respect to the facing and sense. The forward part of the slide has already been
+  carried out.
+  """
+
+  assert isvalid(x, y, facing=facing)
+  assert sense == "R" or sense == "L"
+
+  if facing == 0:
+    if sense == "R":
+      y += -0.5
+    else:
+      y += +0.5
+  elif facing == 30:
+    if sense == "R":
+      y += -1.0
+    else:
+      x += -1.0
+      y += +0.5
+  elif facing == 60:
+    if sense == "R":
+      x += +0.50
+      y += -0.25
+    else:
+      x += -0.50
+      y += +0.25
+  elif facing == 90:
+    if sense == "R":
+      x += +1.0
+      y += -0.5
+    else:
+      x += -1.0
+      y += -0.5
+  elif facing == 120:
+    if sense == "R":
+      x += +0.50
+      y += +0.25
+    else:
+      x += -0.50
+      y += -0.25
+  elif facing == 150:
+    if sense == "R":
+      x += +1.00
+      y += +0.50
+    else:
+      y += -1.0
+  elif facing == 180:
+    if sense == "R":
+      y += +0.5
+    else:
+      y += -0.5
+  elif facing == 210:
+    if sense == "R":
+      y += +1.0
+    else:
+      x += +1.0
+      y += -0.5
+  elif facing == 240:
+    if sense == "R":
+      x += -0.50
+      y += +0.25
+    else:
+      x += +0.50
+      y += -0.25
+  elif facing == 270:
+    if sense == "R":
+      x += -1.0
+      y += +0.5
+    else:
+      x += +1.0
+      y += +0.5
+  elif facing == 300:
+    if sense == "R":
+      x += -0.50
+      y += -0.25
+    else:
+      x += +0.50
+      y += +0.25
+  elif facing == 330:
+    if sense == "R":
+      x += -1.00
+      y += -0.50
+    else:
+      y += +1.0
+
+  return x, y
+
 def edgetocenter(x, y, facing, sense):
 
   """

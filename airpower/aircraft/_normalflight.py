@@ -430,8 +430,6 @@ def _continuenormalflight(self, actions):
       self._facing = (self._facing + facingchange) % 360
     else:
       self._facing = (self._facing - facingchange) % 360
-
-    self._turnfp = 0
   
   ########################################
 
@@ -477,6 +475,19 @@ def _continuenormalflight(self, actions):
       self._facing = (self._facing + facingchange) % 360
     else:
       self._facing = (self._facing - facingchange) % 360
+
+  ########################################
+
+  def doslide(sense):
+
+    # TODO: additional prepfps for altitude and speed.
+    if self._prepfp < 2:
+      raise RuntimeError("insufficient preparatory HFPs for a slide.")
+
+    # TODO: check number of slides
+    # TODO: check HFPs between first and second slides.
+
+    self._x, self._y = aphex.slide(self._x, self._y, self._facing, sense)
 
   ########################################
 
@@ -616,21 +627,8 @@ def _continuenormalflight(self, actions):
     ["DD"  , "C or D"          , lambda: dodive(2) ],
     ["D"   , "C or D"          , lambda: dodive(1) ],
 
-    ["LEZ" , "turn declaration or bank", lambda: dodeclareturn("L", "EZ") ],
-    ["LTT" , "turn declaration or bank", lambda: dodeclareturn("L", "TT") ],
-    ["LHT" , "turn declaration or bank", lambda: dodeclareturn("L", "HT") ],
-    ["LBT" , "turn declaration or bank", lambda: dodeclareturn("L", "BT") ],
-    ["LET" , "turn declaration or bank", lambda: dodeclareturn("L", "ET") ],
-    
-    ["REZ" , "turn declaration or bank", lambda: dodeclareturn("R", "EZ") ],
-    ["RTT" , "turn declaration or bank", lambda: dodeclareturn("R", "TT") ],
-    ["RHT" , "turn declaration or bank", lambda: dodeclareturn("R", "HT") ],
-    ["RBT" , "turn declaration or bank", lambda: dodeclareturn("R", "BT") ],
-    ["RET" , "turn declaration or bank", lambda: dodeclareturn("R", "ET") ],
-    
-    ["LB"  , "turn declaration or bank", lambda: dobank("L")  ],
-    ["RB"  , "turn declaration or bank", lambda: dobank("R")  ],
-    ["WL"  , "turn declaration or bank", lambda: dobank(None) ],
+    ["LSL"     , "slide", lambda: doslide("L")],
+    ["RSL"     , "slide", lambda: doslide("R")],
 
     ["LVR180S" , "roll", lambda: doverticalroll("L", 180, True )],
     ["LVR180"  , "roll", lambda: doverticalroll("L", 180, False)],
@@ -649,6 +647,22 @@ def _continuenormalflight(self, actions):
     ["RVR60"   , "roll", lambda: doverticalroll("R",  60, True )],
     ["RVR30"   , "roll", lambda: doverticalroll("R",  30, True )],
     ["RVR"     , "roll", lambda: doverticalroll("R",  30, True )],
+  
+    ["LEZ" , "turn declaration or bank", lambda: dodeclareturn("L", "EZ") ],
+    ["LTT" , "turn declaration or bank", lambda: dodeclareturn("L", "TT") ],
+    ["LHT" , "turn declaration or bank", lambda: dodeclareturn("L", "HT") ],
+    ["LBT" , "turn declaration or bank", lambda: dodeclareturn("L", "BT") ],
+    ["LET" , "turn declaration or bank", lambda: dodeclareturn("L", "ET") ],
+    
+    ["REZ" , "turn declaration or bank", lambda: dodeclareturn("R", "EZ") ],
+    ["RTT" , "turn declaration or bank", lambda: dodeclareturn("R", "TT") ],
+    ["RHT" , "turn declaration or bank", lambda: dodeclareturn("R", "HT") ],
+    ["RBT" , "turn declaration or bank", lambda: dodeclareturn("R", "BT") ],
+    ["RET" , "turn declaration or bank", lambda: dodeclareturn("R", "ET") ],
+    
+    ["LB"  , "turn declaration or bank", lambda: dobank("L")  ],
+    ["RB"  , "turn declaration or bank", lambda: dobank("R")  ],
+    ["WL"  , "turn declaration or bank", lambda: dobank(None) ],
 
     ["L90" , "turn"    , lambda: doturn("L", 90) ],
     ["L60" , "turn"    , lambda: doturn("L", 60) ],
@@ -663,6 +677,9 @@ def _continuenormalflight(self, actions):
     ["RRR" , "turn"    , lambda: doturn("R", 90) ],
     ["RR"  , "turn"    , lambda: doturn("R", 60) ],
     ["R"   , "turn"    , lambda: doturn("R", 30) ],
+
+    ["P"   , "prep"    , lambda: None ],
+
 
     ["S1/2", "other"           , lambda: dospeedbrakes(1/2) ],
     ["S1"  , "other"           , lambda: dospeedbrakes(1) ],
@@ -784,8 +801,8 @@ def _continuenormalflight(self, actions):
     if not self._horizontal and not self._vertical:
       raise RuntimeError("%r is not a valid action." % action)
     elif self._horizontal and self._vertical:
-      if not self._flighttype == "UD" and not self._flighttype == "LVL":
-        raise RuntimeError("%r is not a valid action when the flight type is %s." % (action, self._flighttype))
+      if not flighttype == "UD" and not flighttype == "LVL":
+        raise RuntimeError("%r is not a valid action when the flight type is %s." % (action, flighttype))
 
     self._fp += 1  
     if self._horizontal:
@@ -805,10 +822,37 @@ def _continuenormalflight(self, actions):
     if not self._unloaded:
       self._turnfp += 1
 
-    turn = doelements(action, "turn", False)
-    roll = doelements(action, "roll", False)
-    if turn and roll:
-      raise RuntimeError("an aircraft cannot turn and roll on the same FP.")
+    turn  = doelements(action, "turn" , False)
+    roll  = doelements(action, "roll" , False)
+    slide = doelements(action, "slide", False)
+    prep  = doelements(action, "prep" , False)
+    if roll and slide:
+      raise RuntimeError("an aircraft cannot roll and slide on the same FP.")
+    if turn and (roll or slide):
+      raise RuntimeError("an aircraft cannot turn and maneuver on the same FP.")
+    if prep and (roll or slide):
+      raise RuntimeError("an aircraft cannot maneuver and prepare for a maneuver on the same FP.")
+    if turn and prep:
+      raise RuntimeError("an aircraft cannot turn and prepare for a maneuver on the same FP.")
+
+    # See rule 13.1.
+    if prep and not self._horizontal:
+      raise RuntimeError("an aircraft can only prepare for a maneuver during an HFP.")
+    # See rule 8.2.2.
+    if prep and self._unloaded:
+      raise RuntimeError("an aircraft may not prepare for a maneuver during an unloaded HFP.")
+
+    if slide and not self._horizontal:
+      raise RuntimeError("an aircraft can only slide on a HFP.")
+
+    # See rule 13.1.
+    if prep:
+      self._prepfp += 1
+      self._turnrate = None
+      self._turnfp = 0
+    elif turn or slide or roll:
+      self._prepfp = 0
+      self._turnfp = 0
   
     assert aphex.isvalid(self._x, self._y, facing=self._facing)
     assert apaltitude.isvalidaltitude(self._altitude)
