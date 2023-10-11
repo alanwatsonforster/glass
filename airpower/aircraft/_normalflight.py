@@ -361,10 +361,11 @@ def _continuenormalflight(self, actions):
     if turnrateap == None:
       raise RuntimeError("attempt to declare a turn rate tighter than allowed by the aircraft.")
 
-    self._bank          = sense
-    self._maneuvertype  = turnrate
-    self._maneuversense = sense
-    self._maneuverfp    = 0
+    self._bank                 = sense
+    self._maneuvertype         = turnrate
+    self._maneuversense        = sense
+    self._maneuverfp           = 0
+    self._maneuveraltitudeband = self._altitudeband
   
   ########################################
 
@@ -382,10 +383,11 @@ def _continuenormalflight(self, actions):
     elif self._slides == 2:
       raise RuntimeError("at most two slides allowed per turn.")
 
-    self._maneuvertype  = "SL"
-    self._maneuversense = sense
-    self._maneuverfp    = 0
-    self._bank          = None
+    self._bank                 = None
+    self._maneuvertype         = "SL"
+    self._maneuversense        = sense
+    self._maneuverfp           = 0
+    self._maneuveraltitudeband = self._altitudeband
     
   ########################################
 
@@ -409,7 +411,7 @@ def _continuenormalflight(self, actions):
         self._maneuverfp -= 1
         self._bank = sense
 
-      minturnrate = apturnrate.determineturnrate(self._altitudeband, self._speed, self._maneuverfp, facingchange)
+      minturnrate = apturnrate.determineturnrate(self._maneuveraltitudeband, self._speed, self._maneuverfp, facingchange)
       if minturnrate == None:
         raise RuntimeError("attempt to turn faster than the maximum turn rate.")
 
@@ -418,7 +420,7 @@ def _continuenormalflight(self, actions):
 
     else:
 
-      minturnrate = apturnrate.determineturnrate(self._altitudeband, self._speed, self._maneuverfp, facingchange)
+      minturnrate = apturnrate.determineturnrate(self._maneuveraltitudeband, self._speed, self._maneuverfp, facingchange)
       if minturnrate == None:
         raise RuntimeError("attempt to turn faster than the maximum turn rate.")
 
@@ -459,7 +461,9 @@ def _continuenormalflight(self, actions):
     else:
       self._facing = (self._facing - facingchange) % 360
 
-    self._maneuverfp = 0
+    # Implicitly continue the turn.
+    self._maneuverfp           = 0
+    self._maneuveraltitudeband = self._altitudeband
 
   ########################################
 
@@ -490,9 +494,10 @@ def _continuenormalflight(self, actions):
     self._slidefp = self._fp
 
     # Do not implicitly continue the maneuver.
-    self._maneuvertype  = None
-    self._maneuversense = None
-    self._maneuverfp    = 0
+    self._maneuvertype         = None
+    self._maneuversense        = None
+    self._maneuverfp           = 0
+    self._maneuveraltitudeband = None
 
     # Implicitly finish with wings level. This can be changed immediately by a bank.
     self._bank = None
@@ -559,9 +564,11 @@ def _continuenormalflight(self, actions):
     else:
       self._facing = (self._facing - facingchange) % 360
 
-    self._maneuvertype  = "VR"
-    self._maneuversense = None
-    self._maneuverfp    = 0
+    self._bank                 = None
+    self._maneuvertype         = "VR"
+    self._maneuversense        = None
+    self._maneuverfp           = 0
+    self._maneuveraltitudeband = self._altitudeband
 
   ########################################
 

@@ -80,32 +80,33 @@ class aircraft:
       # configuration, aircraft initially have level flight, normal power, and
       # no carries.
 
-      self._name          = name
-      self._x             = x
-      self._y             = y
-      self._facing        = facing
-      self._altitude      = altitude
-      self._altitudeband  = apaltitude.altitudeband(self._altitude)
-      self._altitudecarry = 0
-      self._speed         = speed
-      self._configuration = configuration
-      self._flighttype    = "LVL"
-      self._powersetting  = "N"
-      self._bank          = None
-      self._maneuvertype  = None
-      self._maneuversense = None
-      self._maneuverfp    = 0
-      self._fpcarry       = 0
-      self._apcarry       = 0
-      self._gloccheck     = 0
-      self._aircraftdata  = apaircraftdata.aircraftdata(aircraftdata)
-      self._destroyed     = False
-      self._leftmap       = False
-      self._turnsstalled  = 0
-      self._turnsdeparted = 0
-      self._finishedmove  = True
-      self._flightpathx   = []
-      self._flightpathy   = []
+      self._name                 = name
+      self._x                    = x
+      self._y                    = y
+      self._facing               = facing
+      self._altitude             = altitude
+      self._altitudeband         = apaltitude.altitudeband(self._altitude)
+      self._altitudecarry        = 0
+      self._speed                = speed
+      self._configuration        = configuration
+      self._flighttype           = "LVL"
+      self._powersetting         = "N"
+      self._bank                 = None
+      self._maneuvertype         = None
+      self._maneuversense        = None
+      self._maneuverfp           = 0
+      self._maneuveraltitudeband = None
+      self._fpcarry              = 0
+      self._apcarry              = 0
+      self._gloccheck            = 0
+      self._aircraftdata         = apaircraftdata.aircraftdata(aircraftdata)
+      self._destroyed            = False
+      self._leftmap              = False
+      self._turnsstalled         = 0
+      self._turnsdeparted        = 0
+      self._finishedmove         = True
+      self._flightpathx          = []
+      self._flightpathy          = []
 
       self._saved = []
       self._save(0)
@@ -202,6 +203,7 @@ class aircraft:
     self._maneuvertype, \
     self._maneuversense, \
     self._maneuverfp, \
+    self._maneuveraltitudeband, \
     self._fpcarry, \
     self._apcarry, \
     self._gloccheck, \
@@ -234,6 +236,7 @@ class aircraft:
       self._maneuvertype, \
       self._maneuversense, \
       self._maneuverfp, \
+      self._maneuveraltitudeband, \
       self._fpcarry, \
       self._apcarry, \
       self._gloccheck, \
