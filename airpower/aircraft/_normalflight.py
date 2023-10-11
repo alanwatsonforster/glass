@@ -321,7 +321,10 @@ def _continuenormalflight(self, actions):
         raise RuntimeError("attempt to bank to %s while banked to %s in a LRR aircraft." % (sense, self._bank))
 
     self._bank = sense
-    self._turnrate = None
+    if _isturn(self._maneuvertype):
+      self._maneuvertype  = None
+      self._maneuversense = None
+      self._maneuverfp    = 0
 
   ########################################
 
@@ -331,6 +334,10 @@ def _continuenormalflight(self, actions):
     Declare the start of turn in the specified direction and rate.
     """
 
+    # See rule 8.1.3 and 8.2.3
+    if flighttype == "VC" or flighttype == "VD":
+      raise RuntimeError("attempt to declare turn while flight type is %s." % flighttype)
+      
     # See rule 7.1.
 
     # Check the bank. See rule 7.4.
@@ -354,10 +361,26 @@ def _continuenormalflight(self, actions):
     if turnrateap == None:
       raise RuntimeError("attempt to declare a turn rate tighter than allowed by the aircraft.")
 
-    self._turnrate = turnrate
-    self._bank = sense
-    self._turnfp = 0
+    self._bank          = sense
+    self._maneuvertype  = turnrate
+    self._maneuversense = sense
+    self._maneuverfp    = 0
   
+  ########################################
+
+  def dodeclareslide(sense):
+
+    # TODO: check suffient HFPs have elapsed if this is the second slide of a turn.
+
+    # See rule 8.1.3 and 8.2.3
+    if flighttype == "VC" or flighttype == "VD":
+      raise RuntimeError("attempt to declare slide while flight type is %s." % flighttype)
+      
+    self._maneuvertype  = "SL"
+    self._maneuversense = sense
+    self._maneuverfp    = 0
+    self._bank          = None
+    
   ########################################
 
   def doturn(sense, facingchange):
@@ -366,6 +389,10 @@ def _continuenormalflight(self, actions):
     Turn in the specified sense and amount.
     """
 
+    # See rule 8.1.3 and 8.2.3
+    if flighttype == "VC" or flighttype == "VD":
+      raise RuntimeError("attempt to turn while flight type is %s." % flighttype)
+      
     # See rule 7.1.
 
     if apvariants.withvariant("implicit turn and bank declarations"): 
@@ -373,36 +400,31 @@ def _continuenormalflight(self, actions):
       # TODO: correct the bank adjustment for LRR and HRR aircraft.
       # TODO: minimum speed requirements.
       if self.bank != None and self._bank != sense:
-        self._turnfp -= 1
+        self._maneuverfp -= 1
         self._bank = sense
 
-      minturnrate = apturnrate.determineturnrate(self._altitudeband, self._speed, self._turnfp, facingchange)
+      minturnrate = apturnrate.determineturnrate(self._altitudeband, self._speed, self._maneuverfp, facingchange)
       if minturnrate == None:
         raise RuntimeError("attempt to turn faster than the maximum turn rate.")
 
-      self._turnrate = minturnrate
+      self._maneuvertype = minturnrate
+      self._maneuversense = sense
 
     else:
 
-      if self._turnrate == None:
-        raise RuntimeError("attempt to turn without a declared turn.")
-      
-      if self._bank != sense:
-        raise RuntimeError("attempt to turn against the sense of the declared turn.")
-
-      minturnrate = apturnrate.determineturnrate(self._altitudeband, self._speed, self._turnfp, facingchange)
+      minturnrate = apturnrate.determineturnrate(self._altitudeband, self._speed, self._maneuverfp, facingchange)
       if minturnrate == None:
         raise RuntimeError("attempt to turn faster than the maximum turn rate.")
 
       turnrates = ["EZ", "TT", "HT", "BT", "ET"]
-      if turnrates.index(minturnrate) > turnrates.index(self._turnrate):
+      if turnrates.index(minturnrate) > turnrates.index(self._maneuvertype):
         raise RuntimeError("attempt to turn faster than the declared turn rate.")
 
     if self._maxturnrate == None:
-      self._maxturnrate = self._turnrate
+      self._maxturnrate = self._maneuvertype
     else:
       turnrates = ["EZ", "TT", "HT", "BT", "ET"]
-      self._maxturnrate = turnrates[max(turnrates.index(self._turnrate), turnrates.index(self._maxturnrate))]
+      self._maxturnrate = turnrates[max(turnrates.index(self._maneuvertype), turnrates.index(self._maxturnrate))]
       if apvariants.withvariant("prefer v1 bleed rates"):
         if self.hasproperty("HBR"):
           self._sustainedturnap -= facingchange // 30 * 2.0
@@ -430,7 +452,47 @@ def _continuenormalflight(self, actions):
       self._facing = (self._facing + facingchange) % 360
     else:
       self._facing = (self._facing - facingchange) % 360
-  
+
+    self._maneuverfp = 0
+
+  ########################################
+
+  def doslide(sense):
+
+    # TODO: additional HFPs at altitude.
+    # TODO: additional HFPs at speed.
+    # TODO: drag
+
+    # See rule 8.1.3 and 8.2.3
+    if flighttype == "VC" or flighttype == "VD":
+      raise RuntimeError("attempt to slide while flight type is %s." % flighttype)
+
+    # See rules 13.1 and 13.2.
+    if self._maneuverfp < 2:
+      raise RuntimeError("attempt to slide without sufficient preparatory HFPs.")
+
+    # Slide. Remember that we have already moved forward one hex for the associated H element.
+    self._x, self._y = aphex.slide(self._x, self._y, self._facing, sense)
+
+    self._maneuverfp = 0
+
+  ########################################
+
+  def doturnormaneuver(sense, facingchange):
+
+    if self._maneuvertype == None:
+      raise RuntimeError("attempt to maneuver without a declaration.")
+      
+    if self._maneuversense != sense:
+      raise RuntimeError("attempt to maneuver against the sense of the declaration.")
+
+    if self._maneuvertype == "SL":
+      if facingchange != 30:
+        raise RuntimeError("invalid facing change for slide.")
+      doslide(sense)
+    else:
+      doturn(sense, facingchange)
+
   ########################################
 
   def doverticalroll(sense, facingchange, shift):
@@ -476,18 +538,9 @@ def _continuenormalflight(self, actions):
     else:
       self._facing = (self._facing - facingchange) % 360
 
-  ########################################
-
-  def doslide(sense):
-
-    # TODO: additional prepfps for altitude and speed.
-    if self._prepfp < 2:
-      raise RuntimeError("insufficient preparatory HFPs for a slide.")
-
-    # TODO: check number of slides
-    # TODO: check HFPs between first and second slides.
-
-    self._x, self._y = aphex.slide(self._x, self._y, self._facing, sense)
+    self._maneuvertype  = "VR"
+    self._maneuversense = None
+    self._maneuverfp    = 0
 
   ########################################
 
@@ -627,59 +680,57 @@ def _continuenormalflight(self, actions):
     ["DD"  , "C or D"          , lambda: dodive(2) ],
     ["D"   , "C or D"          , lambda: dodive(1) ],
 
-    ["LSL"     , "slide", lambda: doslide("L")],
-    ["RSL"     , "slide", lambda: doslide("R")],
+    ["LSL"     , "maneuver declaration", lambda: dodeclareslide("L")],
 
-    ["LVR180S" , "roll", lambda: doverticalroll("L", 180, True )],
-    ["LVR180"  , "roll", lambda: doverticalroll("L", 180, False)],
-    ["LVR150"  , "roll", lambda: doverticalroll("L", 150, True )],
-    ["LVR120"  , "roll", lambda: doverticalroll("L", 120, True )],
-    ["LVR90"   , "roll", lambda: doverticalroll("L",  90, True )],
-    ["LVR60"   , "roll", lambda: doverticalroll("L",  60, True )],
-    ["LVR30"   , "roll", lambda: doverticalroll("L",  30, True )],
-    ["LVR"     , "roll", lambda: doverticalroll("L",  30, True )],
+    ["RSL"     , "maneuver declaration", lambda: dodeclareslide("R")],
 
-    ["RVR180S" , "roll", lambda: doverticalroll("R", 180, True )],
-    ["RVR180"  , "roll", lambda: doverticalroll("R", 180, False)],
-    ["RVR150"  , "roll", lambda: doverticalroll("R", 150, True )],
-    ["RVR120"  , "roll", lambda: doverticalroll("R", 120, True )],
-    ["RVR90"   , "roll", lambda: doverticalroll("R",  90, True )],
-    ["RVR60"   , "roll", lambda: doverticalroll("R",  60, True )],
-    ["RVR30"   , "roll", lambda: doverticalroll("R",  30, True )],
-    ["RVR"     , "roll", lambda: doverticalroll("R",  30, True )],
-  
-    ["LEZ" , "turn declaration or bank", lambda: dodeclareturn("L", "EZ") ],
-    ["LTT" , "turn declaration or bank", lambda: dodeclareturn("L", "TT") ],
-    ["LHT" , "turn declaration or bank", lambda: dodeclareturn("L", "HT") ],
-    ["LBT" , "turn declaration or bank", lambda: dodeclareturn("L", "BT") ],
-    ["LET" , "turn declaration or bank", lambda: dodeclareturn("L", "ET") ],
+    ["LEZ" , "maneuver declaration", lambda: dodeclareturn("L", "EZ") ],
+    ["LTT" , "maneuver declaration", lambda: dodeclareturn("L", "TT") ],
+    ["LHT" , "maneuver declaration", lambda: dodeclareturn("L", "HT") ],
+    ["LBT" , "maneuver declaration", lambda: dodeclareturn("L", "BT") ],
+    ["LET" , "maneuver declaration", lambda: dodeclareturn("L", "ET") ],
     
-    ["REZ" , "turn declaration or bank", lambda: dodeclareturn("R", "EZ") ],
-    ["RTT" , "turn declaration or bank", lambda: dodeclareturn("R", "TT") ],
-    ["RHT" , "turn declaration or bank", lambda: dodeclareturn("R", "HT") ],
-    ["RBT" , "turn declaration or bank", lambda: dodeclareturn("R", "BT") ],
-    ["RET" , "turn declaration or bank", lambda: dodeclareturn("R", "ET") ],
+    ["REZ" , "maneuver declaration", lambda: dodeclareturn("R", "EZ") ],
+    ["RTT" , "maneuver declaration", lambda: dodeclareturn("R", "TT") ],
+    ["RHT" , "maneuver declaration", lambda: dodeclareturn("R", "HT") ],
+    ["RBT" , "maneuver declaration", lambda: dodeclareturn("R", "BT") ],
+    ["RET" , "maneuver declaration", lambda: dodeclareturn("R", "ET") ],
     
-    ["LB"  , "turn declaration or bank", lambda: dobank("L")  ],
-    ["RB"  , "turn declaration or bank", lambda: dobank("R")  ],
-    ["WL"  , "turn declaration or bank", lambda: dobank(None) ],
+    ["LVR180S" , "maneuver", lambda: doverticalroll("L", 180, True )],
+    ["LVR180"  , "maneuver", lambda: doverticalroll("L", 180, False)],
+    ["LVR150"  , "maneuver", lambda: doverticalroll("L", 150, True )],
+    ["LVR120"  , "maneuver", lambda: doverticalroll("L", 120, True )],
+    ["LVR90"   , "maneuver", lambda: doverticalroll("L",  90, True )],
+    ["LVR60"   , "maneuver", lambda: doverticalroll("L",  60, True )],
+    ["LVR30"   , "maneuver", lambda: doverticalroll("L",  30, True )],
+    ["LVR"     , "maneuver", lambda: doverticalroll("L",  30, True )],
 
-    ["L90" , "turn"    , lambda: doturn("L", 90) ],
-    ["L60" , "turn"    , lambda: doturn("L", 60) ],
-    ["L30" , "turn"    , lambda: doturn("L", 30) ],
-    ["LLL" , "turn"    , lambda: doturn("L", 90) ],
-    ["LL"  , "turn"    , lambda: doturn("L", 60) ],
-    ["L"   , "turn"    , lambda: doturn("L", 30) ],
+    ["RVR180S" , "maneuver", lambda: doverticalroll("R", 180, True )],
+    ["RVR180"  , "maneuver", lambda: doverticalroll("R", 180, False)],
+    ["RVR150"  , "maneuver", lambda: doverticalroll("R", 150, True )],
+    ["RVR120"  , "maneuver", lambda: doverticalroll("R", 120, True )],
+    ["RVR90"   , "maneuver", lambda: doverticalroll("R",  90, True )],
+    ["RVR60"   , "maneuver", lambda: doverticalroll("R",  60, True )],
+    ["RVR30"   , "maneuver", lambda: doverticalroll("R",  30, True )],
+    ["RVR"     , "maneuver", lambda: doverticalroll("R",  30, True )],
+    
+    ["LB"  , "bank", lambda: dobank("L")  ],
+    ["RB"  , "bank", lambda: dobank("R")  ],
+    ["WL"  , "bank", lambda: dobank(None) ],
 
-    ["R90" , "turn"    , lambda: doturn("R", 90) ],
-    ["R60" , "turn"    , lambda: doturn("R", 60) ],
-    ["R30" , "turn"    , lambda: doturn("R", 30) ],
-    ["RRR" , "turn"    , lambda: doturn("R", 90) ],
-    ["RR"  , "turn"    , lambda: doturn("R", 60) ],
-    ["R"   , "turn"    , lambda: doturn("R", 30) ],
+    ["L90" , "maneuver"    , lambda: doturnormaneuver("L", 90) ],
+    ["L60" , "maneuver"    , lambda: doturnormaneuver("L", 60) ],
+    ["L30" , "maneuver"    , lambda: doturnormaneuver("L", 30) ],
+    ["LLL" , "maneuver"    , lambda: doturnormaneuver("L", 90) ],
+    ["LL"  , "maneuver"    , lambda: doturnormaneuver("L", 60) ],
+    ["L"   , "maneuver"    , lambda: doturnormaneuver("L", 30) ],
 
-    ["P"   , "prep"    , lambda: None ],
-
+    ["R90" , "maneuver"    , lambda: doturnormaneuver("R", 90) ],
+    ["R60" , "maneuver"    , lambda: doturnormaneuver("R", 60) ],
+    ["R30" , "maneuver"    , lambda: doturnormaneuver("R", 30) ],
+    ["RRR" , "maneuver"    , lambda: doturnormaneuver("R", 90) ],
+    ["RR"  , "maneuver"    , lambda: doturnormaneuver("R", 60) ],
+    ["R"   , "maneuver"    , lambda: doturnormaneuver("R", 30) ],
 
     ["S1/2", "other"           , lambda: dospeedbrakes(1/2) ],
     ["S1"  , "other"           , lambda: dospeedbrakes(1) ],
@@ -795,7 +846,7 @@ def _continuenormalflight(self, actions):
     
         return
 
-      doelements(action, "turn declaration or bank", False)
+      doelements(action, "maneuver declaration", False)
 
       self._horizontal = doelements(action, "H", False)
       self._vertical   = doelements(action, "C or D", False)
@@ -820,42 +871,20 @@ def _continuenormalflight(self, actions):
           self._firstunloadedfp = self._hfp
         self._lastunloadedfp = self._hfp
 
-      # See rule 8.2.2.
+      # See rule 8.2.2 and 13.1.
       if not self._unloaded:
-        self._turnfp += 1
+        if self._maneuvertype == "SL" and self._horizontal:
+          self._maneuverfp += 1
+        else:
+          self._maneuverfp += 1
 
-      turn  = doelements(action, "turn" , False)
-      roll  = doelements(action, "roll" , False)
-      slide = doelements(action, "slide", False)
-      prep  = doelements(action, "prep" , False)
-      if roll and slide:
-        raise RuntimeError("an aircraft cannot roll and slide on the same FP.")
-      if turn and (roll or slide):
-        raise RuntimeError("an aircraft cannot turn and maneuver on the same FP.")
-      if prep and (roll or slide):
-        raise RuntimeError("an aircraft cannot maneuver and prepare for a maneuver on the same FP.")
-      if turn and prep:
-        raise RuntimeError("an aircraft cannot turn and prepare for a maneuver on the same FP.")
+      maneuver = doelements(action, "maneuver" , False)
+      turn = maneuver and _isturn(self._maneuvertype)
+      roll = maneuver and _isroll(self._maneuvertype)
+      bank = doelements(action, "bank" , False)
+      if turn and bank:
+        raise RuntimeError("attempt to bank immediately after a turn.")
 
-      # See rule 13.1.
-      if prep and not self._horizontal:
-        raise RuntimeError("an aircraft can only prepare for a maneuver during an HFP.")
-      # See rule 8.2.2.
-      if prep and self._unloaded:
-        raise RuntimeError("an aircraft may not prepare for a maneuver during an unloaded HFP.")
-
-      if slide and not self._horizontal:
-        raise RuntimeError("an aircraft can only slide on a HFP.")
-
-      # See rule 13.1.
-      if prep:
-        self._prepfp += 1
-        self._turnrate = None
-        self._turnfp = 0
-      elif turn or slide or roll:
-        self._prepfp = 0
-        self._turnfp = 0
-  
       assert aphex.isvalid(self._x, self._y, facing=self._facing)
       assert apaltitude.isvalidaltitude(self._altitude)
 
@@ -875,9 +904,9 @@ def _continuenormalflight(self, actions):
     
     # See rules 7.7 and 8.5.
     if turn:
-      if initialaltitude > self.ceiling() and self._turnrate != "EZ":
+      if initialaltitude > self.ceiling() and self._maneuvertype != "EZ":
         self._logevent("- check for a maneuvering departure as the aircraft is above its ceiling and attempted to turn harder than EZ.")
-      if self._turnrate == "ET" and initialaltitude <= 25:
+      if self._maneuvertype == "ET" and initialaltitude <= 25:
         self._gloccheck += 1
         self._log("- check for GLOC as turn rate is ET and altitude band is %s (check %d in cycle)." % (initialaltitudeband, self._gloccheck))
     
@@ -939,8 +968,8 @@ def _startnormalflight(self, actions):
 
   def reportturn():
 
-    if self._turnfp > 0 and self._turnrate != None:
-      self._log("- is turning %s at %s rate with %d FPs carried." % (self._bank, self._turnrate, self._turnfp))
+    if self._maneuverfp > 0 and self._maneuvertype != None:
+      self._log("- is carrying %d FPs for %s%s." % (self._maneuverfp, self._maneuversense, self._maneuvertype))
     elif self._bank == None:
       self._log("- has wings level.")
     else:
@@ -1009,7 +1038,7 @@ def _startnormalflight(self, actions):
     # requirements of ZC, SC, and VC flight are not clear, but for the
     # moment we assume they result in a maneuvering departure.
 
-    if self._turnrate != None and not self._turnrate in self._allowedturnrates:
+    if _isturn(self._maneuvertype) and not self._maneuvertype in self._allowedturnrates:
       self._log("- carried turn rate is tighter than the maximum allowed turn rate.")
       raise RuntimeError("aircraft has entered departured flight while maneuvering.")
 
@@ -1268,8 +1297,8 @@ def _endnormalflight(self):
       self._log("- GLOC cycle ended.")
       self._gloccheck = 0
       
-    if self._turnfp > 0 and self._turnrate != None:
-      self._log("- finished turning %s at %s rate with %d FPs carried." % (self._bank, self._turnrate, self._turnfp))
+    if self._maneuverfp > 0 and self._maneuvertype != None:
+      self._log("- finished carrying %d FPs for %s%s." % (self._maneuverfp, self._maneuversense, self._maneuvertype))
     elif self._bank == None:
       self._log("- finished with wings level.")
     else:
@@ -1372,6 +1401,26 @@ def _endnormalflight(self):
     determinealtitudeap()
 
   self._endmove()
+
+################################################################################
+
+def _isturn(maneuvertype):
+
+  """
+  Return True if the maneuver type is a turn. Otherwise False.
+  """
+
+  return maneuvertype in ["EZ", "TT", "HT", "BT", "ET"]
+
+################################################################################
+
+def _isroll(maneuvertype):
+
+  """
+  Return True if the maneuver type is a roll. Otherwise False.
+  """
+
+  return maneuvertype in ["VR", "DR", "LR", "BR"]
 
 ################################################################################
 

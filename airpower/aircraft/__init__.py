@@ -92,9 +92,9 @@ class aircraft:
       self._flighttype    = "LVL"
       self._powersetting  = "N"
       self._bank          = None
-      self._turnrate      = None
-      self._turnfp        = 0
-      self._prepfp        = 0
+      self._maneuvertype  = None
+      self._maneuversense = None
+      self._maneuverfp    = 0
       self._fpcarry       = 0
       self._apcarry       = 0
       self._gloccheck     = 0
@@ -199,9 +199,9 @@ class aircraft:
     self._powersetting, \
     self._flighttype, \
     self._bank, \
-    self._turnrate, \
-    self._turnfp, \
-    self._prepfp, \
+    self._maneuvertype, \
+    self._maneuversense, \
+    self._maneuverfp, \
     self._fpcarry, \
     self._apcarry, \
     self._gloccheck, \
@@ -231,9 +231,9 @@ class aircraft:
       self._powersetting, \
       self._flighttype, \
       self._bank, \
-      self._turnrate, \
-      self._turnfp, \
-      self._prepfp, \
+      self._maneuvertype, \
+      self._maneuversense, \
+      self._maneuverfp, \
       self._fpcarry, \
       self._apcarry, \
       self._gloccheck, \
@@ -298,9 +298,9 @@ class aircraft:
 
       # This flags whether a maneuvering departure has occured.
       
-      self._maneuveringdeparture     = False
+      self._maneuveringdeparture = False
       
-      self._flighttype      = flighttype
+      self._flighttype = flighttype
 
       self._startmovespeed(power, flamedoutengines)
 
