@@ -176,13 +176,13 @@ def _startmovespeed(self, power, flamedoutengines):
     minspeed = self.minspeed()
 
     if speed < ltspeed:
-      self._log("speed is %.1f." % speed)
+      self._log("speed         is %.1f." % speed)
     elif speed == ltspeed:
-      self._log("speed is %.1f (LT)." % speed)
+      self._log("speed         is %.1f (LT)." % speed)
     elif speed == htspeed:
-      self._log("speed is %.1f (HT)." % speed)
+      self._log("speed         is %.1f (HT)." % speed)
     else:
-      self._log("speed is %.1f (SS)." % speed)
+      self._log("speed         is %.1f (SS)." % speed)
 
     # See rule 6.4 on recovery from departed flight.
 
@@ -281,13 +281,13 @@ def _endmovespeed(self):
 
   turnsap = self._turnrateap + self._sustainedturnap
 
-  self._log("- power           APs = %+.2f." % self._powerap)
-  self._log("- speed           APs = %+.2f." % self._speedap)
-  self._log("- altitude        APs = %+.2f." % self._altitudeap)
-  self._log("- turns           APs = %+.2f." % turnsap)
-  self._log("- other maneuvers APs = %+.2f." % self._othermaneuversap)
-  self._log("- speedbrakes     APs = %+.2f." % self._spbrap)
-  self._log("- carry           APs = %+.2f." % self._apcarry)
+  self._log("-- power           APs = %+.2f." % self._powerap)
+  self._log("-- speed           APs = %+.2f." % self._speedap)
+  self._log("-- altitude        APs = %+.2f." % self._altitudeap)
+  self._log("-- turns           APs = %+.2f." % turnsap)
+  self._log("-- other maneuvers APs = %+.2f." % self._othermaneuversap)
+  self._log("-- speedbrakes     APs = %+.2f." % self._spbrap)
+  self._log("-- carry           APs = %+.2f." % self._apcarry)
   ap = \
     self._powerap + \
     self._speedap + \
@@ -296,7 +296,7 @@ def _endmovespeed(self):
     self._othermaneuversap + \
     self._spbrap + \
     self._apcarry
-  self._log("- total           APs = %+.2f." % ap)
+  self._log("-- total           APs = %+.2f." % ap)
 
   # See the "Speed Gain", "Speed Loss", and "Rapid Accel Aircraft" sections
   # of rule 6.2 and the "Supersonic Speeds" section of rule 6.6.
@@ -360,6 +360,8 @@ def _endmovespeed(self):
       self._speed += 0.5 * (ap // aprate)
       self._apcarry = ap % aprate
 
+  self._log("- is carrying %+.2f APs." % self._apcarry)
+
   if usemaxdivespeed:
     maxspeed = self.maxdivespeed()
     if self._speed > maxspeed:
@@ -372,9 +374,9 @@ def _endmovespeed(self):
       self._speed = max(self._speed - 1, maxspeed)
 
   if self._previousspeed != self._speed:
-    self._log("speed changed from %.1f to %.1f." % (self._previousspeed, self._speed))
+    self._log("speed         changed from %.1f to %.1f." % (self._previousspeed, self._speed))
   else:
-    self._log("speed is unchanged at %.1f." % self._speed)
+    self._log("speed         is unchanged at %.1f." % self._speed)
 
   # See rule 6.4.
 

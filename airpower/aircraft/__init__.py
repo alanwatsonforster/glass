@@ -309,7 +309,7 @@ class aircraft:
 
       self._log("configuration is %s." % self._configuration)
       self._log("altitude band is %s." % self._altitudeband)
-      self._log("flight type is %s." % self._flighttype)
+      self._log("flight type   is %s." % self._flighttype)
 
       # See rule 8.1.4 on altitude carry.
       if not _isclimbing(self._flighttype):
@@ -390,13 +390,6 @@ class aircraft:
         self._log("altitude band changed from %s to %s." % (self._previousaltitudeband, self._altitudeband))
       else:
         self._log("altitude band is unchanged at %s." % self._altitudeband)
-
-      if self._flighttype != "DP" and not self._maneuveringdeparture:
-        if self._altitudecarry != 0:
-          self._log("- carrying %.2f altitude levels." % self._altitudecarry)
-        self._log("- carrying %+.2f APs" % self._apcarry)
-        if self._flighttype != "ST":
-          self._log("- carrying %.1f FPs." % self._fpcarry)
 
       self._finishedmove = True
    

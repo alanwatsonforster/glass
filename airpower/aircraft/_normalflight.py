@@ -1095,20 +1095,20 @@ def _startnormalflight(self, actions):
   ########################################
 
   def reportapcarry():
-     self._log("- carrying %+.2f APs." % self._apcarry)
+     self._log("- is carrying %+.2f APs." % self._apcarry)
  
   ########################################
 
   def reportaltitudecarry():
     if self._altitudecarry != 0:
-     self._log("- carrying %.2f altitude levels." % self._altitudecarry)
+     self._log("- is carrying %.2f altitude levels." % self._altitudecarry)
 
   ########################################
 
   def reportturn():
 
     if self._maneuverfp > 0 and self._maneuvertype != None:
-      self._log("- is carrying %d FPs for %s%s." % (self._maneuverfp, self._maneuversense, self._maneuvertype))
+      self._log("- is carrying %d FPs for %s%s." % (self._maneuverfp, self._maneuvertype, self._maneuversense))
     elif self._bank == None:
       self._log("- has wings level.")
     else:
@@ -1381,9 +1381,10 @@ def _endnormalflight(self):
   ########################################
 
   def reportfp():
-    self._log("- used %d HFPs and %d VFPs (lost %.1f FPs to speedbrakes)." % (
+    self._log("- used %d HFPs and %d VFPs (and lost %.1f FPs to speedbrakes)." % (
       self._hfp, self._vfp, self._spbrfp
     ))    
+    self._log("- is carrying %.1f FPs." % self._fpcarry)
 
   ########################################
 
@@ -1441,12 +1442,19 @@ def _endnormalflight(self):
       self._gloccheck = 0
       
     if self._maneuverfp > 0 and self._maneuvertype != None:
-      self._log("- carrying %d FPs for %s%s." % (self._maneuverfp, self._maneuversense, self._maneuvertype))
+      self._log("- is carrying %d FPs of %s%s." % (self._maneuverfp, self._maneuvertype, self._maneuversense))
     elif self._bank == None:
-      self._log("- finished with wings level.")
+      self._log("- has wings level.")
     else:
-      self._log("- banked %s." % self._bank)    
+      self._log("- is banked %s." % self._bank)    
 
+  ########################################
+
+  def reportcarry():
+
+    if self._altitudecarry != 0:
+      self._log("- is carrying %.2f altitude levels." % self._altitudecarry)
+          
   ########################################
 
   def determinealtitudeap():
