@@ -381,30 +381,13 @@ def _continuenormalflight(self, actions):
       
     # See rule 7.1.
 
-    if apvariants.withvariant("implicit turn and bank declarations"): 
+    minturnrate = apturnrate.determineturnrate(self._maneuveraltitudeband, self._speed, self._maneuverfp, facingchange)
+    if minturnrate == None:
+      raise RuntimeError("attempt to turn faster than the maximum turn rate.")
 
-      # TODO: correct the bank adjustment for LRR and HRR aircraft.
-      # TODO: minimum speed requirements.
-      if self.bank != None and self._bank != sense:
-        self._maneuverfp -= 1
-        self._bank = sense
-
-      minturnrate = apturnrate.determineturnrate(self._maneuveraltitudeband, self._speed, self._maneuverfp, facingchange)
-      if minturnrate == None:
-        raise RuntimeError("attempt to turn faster than the maximum turn rate.")
-
-      self._maneuvertype = minturnrate
-      self._maneuversense = sense
-
-    else:
-
-      minturnrate = apturnrate.determineturnrate(self._maneuveraltitudeband, self._speed, self._maneuverfp, facingchange)
-      if minturnrate == None:
-        raise RuntimeError("attempt to turn faster than the maximum turn rate.")
-
-      turnrates = ["EZ", "TT", "HT", "BT", "ET"]
-      if turnrates.index(minturnrate) > turnrates.index(self._maneuvertype):
-        raise RuntimeError("attempt to turn faster than the declared turn rate.")
+    turnrates = ["EZ", "TT", "HT", "BT", "ET"]
+    if turnrates.index(minturnrate) > turnrates.index(self._maneuvertype):
+      raise RuntimeError("attempt to turn faster than the declared turn rate.")
 
     if self._maxturnrate == None:
       self._maxturnrate = self._maneuvertype
@@ -412,6 +395,7 @@ def _continuenormalflight(self, actions):
       turnrates = ["EZ", "TT", "HT", "BT", "ET"]
       self._maxturnrate = turnrates[max(turnrates.index(self._maneuvertype), turnrates.index(self._maxturnrate))]
       if apvariants.withvariant("prefer v1 bleed rates"):
+        # Use the bleed rates from the 1st edition rules in TSOH.
         if self.hasproperty("HBR"):
           self._sustainedturnap -= facingchange // 30 * 2.0
         else:

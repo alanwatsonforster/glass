@@ -4,7 +4,6 @@ _known_variants = [
   "allow NE/SE/SW/NW",
   "disallow ENE/ESE/WSW/WNW",
   "prefer NE/SE/SW/NW",
-  "implicit turn and bank declarations",
   "disallow HT/FT",
   "prefer version 1 bleed rate",
   ""
