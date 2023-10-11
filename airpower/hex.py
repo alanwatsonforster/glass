@@ -101,44 +101,22 @@ def next(x, y, facing):
 
   assert isvalid(x, y, facing=facing)
 
-  if facing == 0:
-    x += +1.00
-    y += +0.00
-  elif facing == 30:
-    x += +1.00
-    y += +0.50
-  elif facing == 60:
-    x += +0.50
-    y += +0.75
-  elif facing == 90:
-    x += +0.00
-    y += +1.00
-  elif facing == 120:
-    x += -0.50
-    y += +0.75
-  elif facing == 150:
-    x += -1.00
-    y += +0.50
-  elif facing == 180:
-    x += -1.00
-    y += +0.00
-  elif facing == 210:
-    x += -1.00
-    y += -0.50
-  elif facing == 240:
-    x += -0.50
-    y += -0.75
-  elif facing == 270:
-    x += -0.00
-    y += -1.00
-  elif facing == 300:
-    x += +0.50
-    y += -0.75
-  elif facing == 330:
-    x += +1.00
-    y += -0.50
-  
-  return x, y
+
+  def dxdy(facing,):
+    if facing >= 180:
+      dx, dy = dxdy(facing - 180)
+      return -dx, -dy
+
+    if facing > 90:
+      dx, dy = dxdy(180 - facing)
+      return -dx, +dy
+
+    i = facing // 30
+    return [+1.00, +1.00, +0.50, +0.00][i], [+0.00, +0.50, +0.75, +1.00][i]
+
+  dx, dy = dxdy(facing)
+
+  return x + dx, y + dy
 
 def slide(x, y, facing, sense):
 
@@ -151,84 +129,30 @@ def slide(x, y, facing, sense):
   assert isvalid(x, y, facing=facing)
   assert sense == "R" or sense == "L"
 
-  if facing == 0:
-    if sense == "R":
-      y += -0.5
-    else:
-      y += +0.5
-  elif facing == 30:
-    if sense == "R":
-      y += -1.0
-    else:
-      x += -1.0
-      y += +0.5
-  elif facing == 60:
-    if sense == "R":
-      x += +0.50
-      y += -0.25
-    else:
-      x += -0.50
-      y += +0.25
-  elif facing == 90:
-    if sense == "R":
-      x += +1.0
-      y += -0.5
-    else:
-      x += -1.0
-      y += -0.5
-  elif facing == 120:
-    if sense == "R":
-      x += +0.50
-      y += +0.25
-    else:
-      x += -0.50
-      y += -0.25
-  elif facing == 150:
-    if sense == "R":
-      x += +1.00
-      y += +0.50
-    else:
-      y += -1.0
-  elif facing == 180:
-    if sense == "R":
-      y += +0.5
-    else:
-      y += -0.5
-  elif facing == 210:
-    if sense == "R":
-      y += +1.0
-    else:
-      x += +1.0
-      y += -0.5
-  elif facing == 240:
-    if sense == "R":
-      x += -0.50
-      y += +0.25
-    else:
-      x += +0.50
-      y += -0.25
-  elif facing == 270:
-    if sense == "R":
-      x += -1.0
-      y += +0.5
-    else:
-      x += +1.0
-      y += +0.5
-  elif facing == 300:
-    if sense == "R":
-      x += -0.50
-      y += -0.25
-    else:
-      x += +0.50
-      y += +0.25
-  elif facing == 330:
-    if sense == "R":
-      x += -1.00
-      y += -0.50
-    else:
-      y += +1.0
+  def dxdy(facing, sense):
 
-  return x, y
+    if sense == "R":
+      othersense = "L"
+    else:
+      othersense = "R"
+
+    if facing >= 180:
+      dx, dy = dxdy(facing - 180, sense)
+      return -dx, -dy
+
+    if facing > 90:
+      dx, dy = dxdy(180 - facing, othersense)
+      return -dx, +dy
+
+    i = facing // 30
+    if sense == "R":
+      return [+0.00, +0.00, +0.50, +1.00][i], [-0.50, -1.00, -0.25, -0.50][i]
+    else:
+      return [+0.00, -1.00, -0.50, -1.00][i], [+0.50, +0.50, +0.25, -0.50][i]
+
+  dx, dy = dxdy(facing, sense)
+
+  return x + dx, y + dy
 
 def edgetocenter(x, y, facing, sense):
 
@@ -239,44 +163,28 @@ def edgetocenter(x, y, facing, sense):
 
   assert isedge(x, y)
   assert isvalid(x, y, facing=facing)
-  assert sense == "L" or sense == "R"
+  assert sense == "R" or sense == "L"
 
-  if sense == "L":
-    if facing == 0:
-      y += 0.5
-    elif facing == 60:
-      x -= 0.50
-      y += 0.25
-    elif facing == 120:
-      x -= 0.50
-      y -= 0.25
-    elif facing == 180:
-      y -= 0.5
-    elif facing == 240:
-      x += 0.50
-      y -= 0.25
-    elif facing == 300:
-      x += 0.50
-      y += 0.25
-  elif sense == "R":
-    if facing == 0:
-      y -= 0.5
-    elif facing == 60:
-      x += 0.50
-      y -= 0.25
-    elif facing == 120:
-      x += 0.50
-      y += 0.25
-    elif facing == 180:
-      y += 0.5
-    elif facing == 240:
-      x -= 0.50
-      y += 0.25
-    elif facing == 300:
-      x -= 0.50
-      y -= 0.25
-    
-  return x, y
+  def dxdy(facing, sense):
+
+    if sense == "R":
+      othersense = "L"
+    else:
+      othersense = "R"
+
+    if facing >= 180:
+      dx, dy = dxdy(facing - 180, sense)
+      return -dx, -dy
+
+    i = facing // 60
+    if sense == "R":
+      return [+0.00, +0.50, +0.50][i], [-0.50, -0.25, +0.25][i]
+    else:
+      return [+0.00, -0.50, -0.50][i], [+0.50, +0.25, -0.25][i]
+
+  dx, dy = dxdy(facing, sense)
+
+  return x + dx, y + dy
 
 def edgetocenters(x, y):
 
