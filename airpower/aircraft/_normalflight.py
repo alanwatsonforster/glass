@@ -951,9 +951,9 @@ def _continuenormalflight(self, actions):
         elif self._horizontal:
           self._maneuverfp += 1
 
+      turn = _isturn(self._maneuvertype)
+      roll =  _isroll(self._maneuvertype)
       maneuver = doelements(action, "maneuver" , False)
-      turn = maneuver and _isturn(self._maneuvertype)
-      roll = maneuver and _isroll(self._maneuvertype)
 
       bank = doelements(action, "bank" , False)
       if bank and maneuver and not roll:
