@@ -29,9 +29,9 @@ def _checknormalflight(self):
 
     # See rule 7.7.
     if self._altitude > self.ceiling():
-      self._log("check for a maneuvering departure as the aircraft is above its ceiling and attempted to roll.")
+      self._log("- check for a maneuvering departure as the aircraft is above its ceiling and attempted to roll.")
     elif self._altitudeband == "EH" or self._altitudeband == "UH":
-      self._log("check for a maneuvering departure as the aircraft is in the %s altitude band and attempted to roll." % self._altitudeband)
+      self._log("- check for a maneuvering departure as the aircraft is in the %s altitude band and attempted to roll." % self._altitudeband)
 
   else:
 
@@ -432,10 +432,6 @@ def _continuenormalflight(self, actions):
       self._facing = (self._facing - facingchange) % 360
 
     self._turnfp = 0
-
-    if self._turnrate == "ET" and self._altitude <= 25:
-      self._gloccheck += 1
-      self._log("- risk of GLOC (check %d in cycle)." % self._gloccheck)
   
   ########################################
 
@@ -548,7 +544,7 @@ def _continuenormalflight(self, actions):
     if self._hrd:
       raise RuntimeError("attempt to attack after HRD.")
 
-    self._logevent("attack with %s." % weapon)
+    self._logevent("- attack with %s." % weapon)
 
   ########################################
 
@@ -558,7 +554,7 @@ def _continuenormalflight(self, actions):
     Declare that the aircraft has been killed.
     """
 
-    self._logevent("aircraft has been killed.")
+    self._logevent("- aircraft has been killed.")
     self._destroyed = True
 
   ########################################
@@ -820,18 +816,23 @@ def _continuenormalflight(self, actions):
     self._logposition("FP %d" % (self._hfp + self._vfp), action)
     self._continueflightpath()
     
-    # See rule 7.7.
+    # See rules 7.7 and 8.5.
     if roll:
       if initialaltitude > self.ceiling():
-        self._logevent("check for a maneuvering departure as the aircraft is above its ceiling and attempted to roll.")
+        self._logevent("- check for a maneuvering departure as the aircraft is above its ceiling and attempted to roll.")
       elif initialaltitudeband == "EH" or initialaltitudeband == "UH":
-        self._logevent("check for a maneuvering departure as the aircraft is in the %s altitude band and attempted to roll." % initialaltitudeband)
-    elif turn:
+        self._logevent("- check for a maneuvering departure as the aircraft is in the %s altitude band and attempted to roll." % initialaltitudeband)
+    
+    # See rules 7.7 and 8.5.
+    if turn:
       if initialaltitude > self.ceiling() and self._turnrate != "EZ":
-        self._logevent("check for a maneuvering departure as the aircraft is above its ceiling and attempted to turn harder than EZ.")
+        self._logevent("- check for a maneuvering departure as the aircraft is above its ceiling and attempted to turn harder than EZ.")
+      if self._turnrate == "ET" and initialaltitude <= 25:
+        self._gloccheck += 1
+        self._log("- check for GLOC as turn rate is ET and altitude band is %s (check %d in cycle)." % (initialaltitudeband, self._gloccheck))
     
     if initialaltitudeband != self._altitudeband:
-      self._logevent("altitude band changed from %s to %s." % (initialaltitudeband, self._altitudeband))
+      self._logevent("- altitude band changed from %s to %s." % (initialaltitudeband, self._altitudeband))
       
     self.checkforterraincollision()
     self.checkforleavingmap()

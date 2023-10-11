@@ -155,16 +155,16 @@ def _startmovespeed(self, power, flamedoutengines):
 
     # Warn of the risk of flame-outs.
 
-    # See rules 6.1 and 6.7.
+    # See rules 6.1, 6.7, and 8.5.
 
     if lastpowersetting == "I" and powersetting == "AB" and not self.hasproperty("RPR"):
-      self._log("- risk of flame-out as the power setting has increased from I to AB.")
+      self._log("- check for flame-out as the power setting has increased from I to AB.")
 
     if powersetting != "I" and self._altitude > self.ceiling():
-      self._log("- risk of flame-out as the aircraft is above its ceiling and the power setting is %s." % powersetting)
+      self._log("- check for flame-out as the aircraft is above its ceiling and the power setting is %s." % powersetting)
 
     if self._flighttype == "DP" and (powersetting == "M" or powersetting == "AB"):
-      self._log("- risk of flame-out as the aircaft is in departed flight and the power setting is %s." % powersetting)
+      self._log("- check for flame-out as the aircaft is in departed flight and the power setting is %s." % powersetting)
 
     ############################################################################
 
