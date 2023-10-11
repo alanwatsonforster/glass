@@ -439,20 +439,22 @@ def _continuenormalflight(self, actions):
 
     if self.hasproperty("NRM"):
       raise RuntimeError("aircraft cannot perform rolling maneuvers.")
-    elif self._verticalrolls == 1 and self.hasproperty("OVR"):
-      raise RuntimeError("aircraft cannot only perform on vertical roll per turn.")
+    if self._verticalrolls == 1 and self.hasproperty("OVR"):
+      raise RuntimeError("aircraft can only perform one vertical roll per turn.")
       
-    # See rule 13.3.4.
-  
+    # See rule 13.3.4.  
     if self._flighttype != "VC" and self._flighttype != "VD":
       raise RuntimeError("attempt to roll vertically while flight type is %s." % self._flighttype)
     if not self._vertical:
       raise RuntimeError("attempt to roll vertically during an HFP.")
-
-    # The following applies only to HPR aircaft that enter a VC from LVL.
     if previousflighttype == "LVL" and flighttype == "VC" and not self._lastfp:
-      raise RuntimeError("attempt to roll vertically following LVL flight and not on the last FP.")
+      raise RuntimeError("attempt to roll vertically in VC following LVL flight other than on the last FP.")
 
+    # See rule 13.3.5.
+    if self._hrd and not self._lastfp:
+      raise RuntimeError("attempt to roll vertically after HRD other than on the last FP.")
+
+    # See rule 13.3.4.
     if self.hasproperty("LRR") and facingchange > 90:
       raise RuntimeError("attempt to roll vertically by more than 90 degrees in LRR aircraft.")
 
@@ -539,6 +541,8 @@ def _continuenormalflight(self, actions):
 
     if self._unloaded:
       raise RuntimeError("attempt to attack while unloaded.")
+    if self._hrd:
+      raise RuntimeError("attempt to attack after HRD.")
 
     self._logevent("attack with %s." % weapon)
 
