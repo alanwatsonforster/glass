@@ -956,26 +956,6 @@ def _startnormalflight(self, actions):
 
   ########################################
 
-  def determinehrdap():
-
-    """
-    Determine the AP cost of a possible HRD.
-    """
-
-    # A HRD normally does not imply deceleration. However, it does count
-    # as a rolling maneuver, which can imply an additional cost for
-    # subsequent rolling maneuvers and which will have an additional
-    # cost at supersonic speeds.
-
-    if self._hrd:
-      # See rule 13.3.6.
-      self._rollmaneuvers = 1
-      # See rule 6.6.
-      if self._speed >= apspeed.m1speed(self._altitudeband):
-        self._maneuverap -= 1
-
-  ########################################
-
   def determinemaxfp():
 
     """
@@ -1153,8 +1133,6 @@ def _startnormalflight(self, actions):
   reportturn()
   determineallowedturnrates()
   checkformaneuveringdeparture()
-
-  determinehrdap()
 
   determinemaxfp()
   determinemininitialhfp()
