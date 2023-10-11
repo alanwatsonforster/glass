@@ -280,13 +280,13 @@ class aircraft:
       # sustained turns), altitude loss or gain, and special maneuvers. They
       # are used in normal flight and stalled flight, but not departed flight.
 
-      self._powerap         = 0
-      self._speedap         = 0
-      self._spbrap          = 0
-      self._turnrateap      = 0
-      self._sustainedturnap = 0
-      self._altitudeap      = 0
-      self._othermaneuverap = 0
+      self._powerap          = 0
+      self._speedap          = 0
+      self._spbrap           = 0
+      self._turnrateap       = 0
+      self._sustainedturnap  = 0
+      self._altitudeap       = 0
+      self._othermaneuversap = 0
 
       # These keep track of the maximum turn rate used in the turn, the
       # number of roll maneuvers, and the effective cliumb capability

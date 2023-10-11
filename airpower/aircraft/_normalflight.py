@@ -483,7 +483,7 @@ def _continuenormalflight(self, actions):
 
     # See rule 13.2.
     if self._slides >= 1:
-      self._othermaneuverap -= 1
+      self._othermaneuversap -= 1
 
     # Keep track of the number of slides and the FP of the last slide.
     self._slides += 1
@@ -539,17 +539,17 @@ def _continuenormalflight(self, actions):
     if self.hasproperty("LRR") and facingchange > 90:
       raise RuntimeError("attempt to roll vertically by more than 90 degrees in LRR aircraft.")
 
-    self._othermaneuverap -= self.rolldrag("VR")
+    self._othermaneuversap -= self.rolldrag("VR")
 
     # See rule 13.3.6
     if self._rollmaneuvers > 0:
-      self._othermaneuverap -= 1
+      self._othermaneuversap -= 1
     self._rollmaneuvers += 1
     self._verticalrolls += 1
 
     # See rule 6.6.
     if self._speed >= apspeed.m1speed(self._altitudeband):
-      self._othermaneuverap -= 1
+      self._othermaneuversap -= 1
 
     # Change facing.
     if aphex.isedge(self._x, self._y) and shift:
@@ -903,8 +903,8 @@ def _continuenormalflight(self, actions):
       turn = maneuver and _isturn(self._maneuvertype)
       roll = maneuver and _isroll(self._maneuvertype)
       bank = doelements(action, "bank" , False)
-      if turn and bank:
-        raise RuntimeError("attempt to bank immediately after a turn.")
+      if bank and maneuver and not roll:
+        raise RuntimeError("attempt to bank immediately after a maneuver that is not a roll.")
 
       assert aphex.isvalid(self._x, self._y, facing=self._facing)
       assert apaltitude.isvalidaltitude(self._altitude)
@@ -1323,11 +1323,11 @@ def _endnormalflight(self):
       self._gloccheck = 0
       
     if self._maneuverfp > 0 and self._maneuvertype != None:
-      self._log("- finished carrying %d FPs for %s%s." % (self._maneuverfp, self._maneuversense, self._maneuvertype))
+      self._log("- carrying %d FPs for %s%s." % (self._maneuverfp, self._maneuversense, self._maneuvertype))
     elif self._bank == None:
       self._log("- finished with wings level.")
     else:
-      self._log("- finished banked %s." % self._bank)    
+      self._log("- banked %s." % self._bank)    
 
   ########################################
 
