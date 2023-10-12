@@ -38,6 +38,10 @@ def _alldraw():
 
 class aircraft:
 
+  from ._closeformation import \
+    joincloseformation, leavecloseformation, \
+    showcloseformation, closeformationsize
+
   from ._stalledflight import \
     _checkstalledflight, _dostalledflight
 
@@ -100,6 +104,7 @@ class aircraft:
       self._fpcarry              = 0
       self._apcarry              = 0
       self._gloccheck            = 0
+      self._closeformation       = None
       self._aircraftdata         = apaircraftdata.aircraftdata(aircraftdata)
       self._destroyed            = False
       self._leftmap              = False
@@ -209,6 +214,7 @@ class aircraft:
     self._fpcarry, \
     self._apcarry, \
     self._gloccheck, \
+    self._closeformation, \
     self._destroyed, \
     self._leftmap, \
     self._turnsstalled, \
@@ -243,6 +249,7 @@ class aircraft:
       self._fpcarry, \
       self._apcarry, \
       self._gloccheck, \
+      self._closeformation, \
       self._destroyed, \
       self._leftmap, \
       self._turnsstalled, \
@@ -363,6 +370,7 @@ class aircraft:
 
     except RuntimeError as e:
       aplog.logerror(e)
+
 
   ################################################################################
 
