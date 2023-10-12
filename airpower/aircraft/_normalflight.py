@@ -281,7 +281,7 @@ def _continuenormalflight(self, actions):
 
         # See rule 8.2.1.
         if altitudechange != 1 and altitudechange != 2:
-          raise RuntimeError("attempt to dive levels per VFP while the flight type is SC." % altitudechange)
+          raise RuntimeError("attempt to dive %d levels per VFP while the flight type is SC." % altitudechange)
   
       elif flighttype == "UD":
 
