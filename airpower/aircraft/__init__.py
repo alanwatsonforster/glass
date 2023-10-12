@@ -13,26 +13,37 @@ import math
 
 from ._normalflight import _isdiving, _isclimbing
 
-
 ################################################################################
 
 _aircraftlist = []
 
-def _restart():
+def _startsetup():
   global _aircraftlist
   _aircraftlist = []
 
-def _allstartturn():
+def _endsetup():
   for a in _aircraftlist:
-    a._startturn()
+    a._save(ap.turn())
 
-def _allendturn():
+def _startturn():
   for a in _aircraftlist:
-    a._endturn()
+    a._finishedmove = False
+    a._checkcloseformation()
 
-def _alldraw():
+def _endturn():
   for a in _aircraftlist:
-    a._draw()
+    if not a._destroyed and not a._leftmap and not a._finishedmove:
+      raise RuntimeError("aircraft %s has not finished its move." % a._name)
+    a._checkcloseformation()
+    a._save(ap.turn())
+
+def _drawmap():
+  for a in _aircraftlist:
+    if a._destroyed or a._finishedmove:
+      a._drawflightpath()
+      a._drawatend()
+    elif not self._leftmap:
+      a._drawatstart()
 
 #############################################################################
 
@@ -116,7 +127,6 @@ class aircraft:
       self._flightpathy          = []
 
       self._saved = []
-      self._save(0)
 
       global _aircraftlist
       _aircraftlist.append(self)
@@ -413,24 +423,3 @@ class aircraft:
     self._logbreak()
 
   ################################################################################
-
-  def _startturn(self):
-    self._finishedmove = False
-
-  ################################################################################
-
-  def _endturn(self):
-    if not self._destroyed and not self._leftmap and not self._finishedmove:
-      raise RuntimeError("aircraft %s has not finished its move." % self._name)
-
-  ################################################################################
-
-  def _draw(self):
-    if self._destroyed or self._finishedmove:
-      self._drawflightpath()
-      self._drawatend()
-    elif not self._leftmap:
-      self._drawatstart()
-
-#############################################################################
-
