@@ -751,12 +751,19 @@ def _continuenormalflight(self, actions):
     Declare an attack with the specified weapon.
     """
 
+    # See rule 8.2.2.
     if self._unloaded:
-      raise RuntimeError("attempt to attack while unloaded.")
-    if self._hrd:
-      raise RuntimeError("attempt to attack after HRD.")
+      raise RuntimeError("attempt to use weapons while unloaded.")
 
-    self._logevent("- attack with %s." % weapon)
+    # See rule 13.3.5.
+    if self._hrd:
+      raise RuntimeError("attempt to use weapons during the turn after an HRD.")
+
+    # See rule 13.3.6.
+    if self._wasrollingonlastfp:
+      raise RuntimeError("attempt to use weapons on the FP immediately after rolling.")
+
+    self._logevent("- attack using %s." % weapon)
 
   ########################################
 
@@ -1026,12 +1033,12 @@ def _continuenormalflight(self, actions):
         elif self._horizontal:
           self._maneuverfp += 1
 
-      turn = _isturn(self._maneuvertype)
-      roll =  _isroll(self._maneuvertype)
+      turning = _isturn(self._maneuvertype)
+      rolling = _isroll(self._maneuvertype)
       maneuver = doelements(action, "maneuver" , False)
 
       bank = doelements(action, "bank" , False)
-      if bank and maneuver and not roll:
+      if bank and maneuver and not rolling:
         raise RuntimeError("attempt to bank immediately after a maneuver that is not a roll.")
 
       assert aphex.isvalid(self._x, self._y, facing=self._facing)
@@ -1045,14 +1052,14 @@ def _continuenormalflight(self, actions):
     self._continueflightpath()
     
     # See rules 7.7 and 8.5.
-    if roll:
+    if rolling:
       if initialaltitude > self.ceiling():
         self._logevent("- check for a maneuvering departure as the aircraft is above its ceiling and attempted to roll.")
       elif initialaltitudeband == "EH" or initialaltitudeband == "UH":
         self._logevent("- check for a maneuvering departure as the aircraft is in the %s altitude band and attempted to roll." % initialaltitudeband)
     
     # See rules 7.7 and 8.5.
-    if turn:
+    if turning:
       if initialaltitude > self.ceiling() and self._maneuvertype != "EZ":
         self._logevent("- check for a maneuvering departure as the aircraft is above its ceiling and attempted to turn harder than EZ.")
       if self._maneuvertype == "ET" and initialaltitude <= 25:
@@ -1068,6 +1075,8 @@ def _continuenormalflight(self, actions):
       return
 
     doelements(action, "other", True)
+
+    self._wasrollingonlastfp = rolling
 
   ########################################
   

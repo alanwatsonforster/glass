@@ -96,6 +96,7 @@ class aircraft:
       self._maneuversense        = None
       self._maneuverfp           = 0
       self._maneuveraltitudeband = None
+      self._wasrollingonlastfp   = False
       self._fpcarry              = 0
       self._apcarry              = 0
       self._gloccheck            = 0
@@ -204,6 +205,7 @@ class aircraft:
     self._maneuversense, \
     self._maneuverfp, \
     self._maneuveraltitudeband, \
+    self._wasrollingonlastfp, \
     self._fpcarry, \
     self._apcarry, \
     self._gloccheck, \
@@ -237,6 +239,7 @@ class aircraft:
       self._maneuversense, \
       self._maneuverfp, \
       self._maneuveraltitudeband, \
+      self._wasrollingonlastfp, \
       self._fpcarry, \
       self._apcarry, \
       self._gloccheck, \
