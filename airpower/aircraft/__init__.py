@@ -40,7 +40,8 @@ class aircraft:
 
   from ._closeformation import \
     joincloseformation, leavecloseformation, \
-    showcloseformation, closeformationsize
+    _checkcloseformation, _leaveanycloseformation, \
+    closeformationsize, closeformationnames
 
   from ._stalledflight import \
     _checkstalledflight, _dostalledflight
@@ -104,7 +105,7 @@ class aircraft:
       self._fpcarry              = 0
       self._apcarry              = 0
       self._gloccheck            = 0
-      self._closeformation       = None
+      self._closeformation       = []
       self._aircraftdata         = apaircraftdata.aircraftdata(aircraftdata)
       self._destroyed            = False
       self._leftmap              = False
@@ -175,6 +176,7 @@ class aircraft:
       self._altitudecarry = 0
       self._logevent("aircraft has collided with terrain at altitude %d." % altitudeofterrain)
       self._destroyed = True
+      self._leaveanycloseformation()
 
   def checkforleavingmap(self):
 
@@ -185,6 +187,7 @@ class aircraft:
     if not apmap.isonmap(self._x, self._y):
       self._logevent("aircraft has left the map.")
       self._leftmap = True
+      self._leaveanycloseformation()
   
   ##############################################################################
 
