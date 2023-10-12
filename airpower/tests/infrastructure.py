@@ -3,15 +3,17 @@ import airpower.log as aplog
 
 from airpower import aircraft
 
-def startfile(file):
-  print("starting tests in file %s." % file)
-
-def endfile(file):
-  print("finished tests in file %s." % file)
+import os.path
 
 aplog._silent = True
 
-def _error(error):
+def startfile(file, description):
+  print("running tests in file %s: %s." % (os.path.basename(file), description))
+
+def endfile(file):
+  pass
+
+def asserterror(error):
   if aplog._error != error:
     print("expected error: %r" % error)
     print("actual   error: %r" % aplog._error)

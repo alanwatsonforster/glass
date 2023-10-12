@@ -1,5 +1,5 @@
 from airpower.tests.infrastructure import *
-startfile(__file__)
+startfile(__file__, "aircraft data")
 
 # Checks on airpower.aircraftdata.
 

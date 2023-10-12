@@ -424,7 +424,7 @@ class aircraft:
 
   ################################################################################
 
-  def _assert(self, position, speed):
+  def _assert(self, position, speed, configuration=None):
 
     """
     Verify the position and speed of an aircraft.
@@ -442,7 +442,12 @@ class aircraft:
     if speed != None and speed != self._speed:
       print("== assertion failed ===")
       print("== actual speed  : %.1f" % self._speed)
-      print("== expected speed: %s" % position)
+      print("== expected speed: %.1f" % position)
       assert speed == self._speed
+    if configuration != None and configuration != self._configuration:
+      print("== assertion failed ===")
+      print("== actual speed  : %s" % self._configuration)
+      print("== expected speed: %s" % configuration)
+      assert configuration == self._configuration
 
   ################################################################################  
