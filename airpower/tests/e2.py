@@ -5,6 +5,37 @@ startfile(__file__, "dives")
 
 # Steep Dives
 
+startsetup()
+A1 = aircraft("A1", "F-80C", 1815, "N"  , 20, 3.0, "CL")
+endsetup()
+
+startturn()
+A1.move("SD",  "N", "H,H,H")
+A1._assert("1812       N    20",  3.0)
+A1.move("SD",  "N", "H,D,H")
+A1._assert("1813       N    19",  3.0)
+A1.move("SD",  "N", "H,D,D")
+A1._assert("1814       N    18",  3.0)
+A1.move("SD",  "N", "H,D3,D3")
+asserterror("attempt to dive 3 levels per VFP while the flight type is SC.")
+A1.move("SD",  "N", "H,D2,D2")
+A1._assert("1814       N    16",  3.5)
+endturn()
+
+startturn()
+A1.move("SD",  "N", "D,D,D")
+asserterror("too few HFPs.")
+A1.move("SD",  "N", "H,D2,H")
+A1._assert("1812       N    14",  4.0)
+A1.move("SD",  "N", "H,D2,D2")
+A1._assert("1813       N    12",  4.5)
+endturn()
+
+startturn()
+A1.move("SD",  "M", "BTR/H,H,H,H,HR")
+A1._assert("1808       NNE  12",  4.5)
+endturn()
+
 # Unloaded Dives
 
 startsetup()
