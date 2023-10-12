@@ -66,7 +66,6 @@ def joincloseformation(self, other):
 
     nself  = max(1, self.closeformationsize())
     nother = max(1, other.closeformationsize())
-    print(nself, nother)
     if nself + nother > 4:
       raise RuntimeError("attempt to form a close formation with more than four aircraft.")
 
@@ -93,7 +92,7 @@ def _checkcloseformation(self):
   Raise an exception if any of the other aircraft in close formation with the
   aircraft do not have the same position, altitude, facing, and speed.
   """
-  
+
   for a in self._closeformation:
     if self._x != a._x or self._y != a._y:
       raise RuntimeError("aircraft %s and %s cannot be in close formation as they do not have the same positions." % (self._name, a._name))

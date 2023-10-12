@@ -1,6 +1,8 @@
 from airpower.tests.infrastructure import *
 startfile(__file__)
 
+# Checks on airpower.aircraftdata.
+
 from airpower.aircraftdata import aircraftdata
 
 # Make sure all of the aircraft data files are readable.
@@ -36,7 +38,6 @@ aircraftdata("Yak-9D")
 # Check the basic functionallity using the F-104A as a test case.
 
 d = aircraftdata("F-104A")
-
 assert d.power("CL", "AB") == 3.5
 assert d.powerfade(6.0) == None
 assert d.spbr("DT") == 1.0
@@ -65,5 +66,12 @@ assert d.hasproperty("RAA") == True
 assert d.hasproperty("GSSM") == True
 assert d.hasproperty("RPR") == True
 assert d.hasproperty("HPR") == False
+
+# Check slatted wings using the F-100A as a test case.
+
+d = aircraftdata("F-100A")
+assert d.turndrag("CL", "BT", lowspeed=True) == 3.0
+assert d.turndrag("CL", "BT", highspeed=True) == 2.0
+assert d.lowspeedturnlimit() == 4.0
 
 endfile(__file__)
