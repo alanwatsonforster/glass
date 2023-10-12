@@ -132,7 +132,7 @@ class aircraft:
       _aircraftlist.append(self)
 
     except RuntimeError as e:
-      aplog.logerror(e)
+      aplog.logexception(e)
 
   #############################################################################
 
@@ -363,7 +363,7 @@ class aircraft:
         self._startnormalflight(actions)
 
     except RuntimeError as e:
-      aplog.logerror(e)
+      aplog.logexception(e)
 
   ################################################################################
 
@@ -382,7 +382,7 @@ class aircraft:
       self._continuenormalflight(actions)
 
     except RuntimeError as e:
-      aplog.logerror(e)
+      aplog.logexception(e)
 
 
   ################################################################################
@@ -423,3 +423,26 @@ class aircraft:
     self._logbreak()
 
   ################################################################################
+
+  def _assert(self, position, speed):
+
+    """
+    Verify the position and speed of an aircraft.
+    """
+
+    if aplog._error != None:
+      print("== assertion failed ===")
+      print("== unexpected error: %r" % aplog._error)
+      assert aplog._error == None
+    if position != None and position != self.position():
+      print("== assertion failed ===")
+      print("== actual position  : %s" % self.position())
+      print("== expected position: %s" % position)
+      assert position == self._position()
+    if speed != None and speed != self._speed:
+      print("== assertion failed ===")
+      print("== actual speed  : %.1f" % self._speed)
+      print("== expected speed: %s" % position)
+      assert speed == self._speed
+
+  ################################################################################  

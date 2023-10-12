@@ -1,12 +1,12 @@
-_donotlog = False
+_silent = False
 
 def log(s):
-  if _donotlog:
+  if _silent:
     return
   print(s)
 
 def logbreak():
-  if _donotlog:
+  if _silent:
     return
   print()
 
@@ -16,10 +16,10 @@ def clearerror():
   global _error
   _error = None
 
-def logerror(e):
+def logexception(e):
   global _error
   _error = str(e.args[0])
-  if _donotlog:
+  if _silent:
     return
   logbreak()
   log("=== ERROR: %s ===" % _error)

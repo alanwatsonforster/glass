@@ -40,7 +40,7 @@ def leavecloseformation(self):
     self._leaveanycloseformation()
   
   except RuntimeError as e:
-    aplog.logerror(e)
+    aplog.logexception(e)
 
 ################################################################################
 
@@ -82,7 +82,7 @@ def joincloseformation(self, other):
     self._checkcloseformation()
 
   except RuntimeError as e:
-    aplog.logerror(e)
+    aplog.logexception(e)
 
 ################################################################################
 

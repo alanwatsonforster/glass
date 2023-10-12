@@ -95,7 +95,7 @@ def endturn():
     apaircraft._endturn()
 
   except RuntimeError as e:
-    aplog.logerror(e)
+    aplog.logexception(e)
 
   aplog.log("--- end of turn %d ---" % _turn)
   aplog.logbreak()
