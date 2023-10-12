@@ -1008,7 +1008,7 @@ def _continuenormalflight(self, actions):
 
     try:
       
-        if doelements(action, "maneuvering departure", False):
+      if doelements(action, "maneuvering departure", False):
     
         self._maneuveringdeparture = True
 
@@ -1073,14 +1073,14 @@ def _continuenormalflight(self, actions):
     self._continueflightpath()
     
     # See rules 7.7 and 8.5.
-    if rolling:
+    if maneuver and rolling:
       if initialaltitude > self.ceiling():
         self._logevent("- check for a maneuvering departure as the aircraft is above its ceiling and attempted to roll.")
       elif initialaltitudeband == "EH" or initialaltitudeband == "UH":
         self._logevent("- check for a maneuvering departure as the aircraft is in the %s altitude band and attempted to roll." % initialaltitudeband)
     
     # See rules 7.7 and 8.5.
-    if turning:
+    if maneuver and turning:
       if initialaltitude > self.ceiling() and self._maneuvertype != "EZ":
         self._logevent("- check for a maneuvering departure as the aircraft is above its ceiling and attempted to turn harder than EZ.")
       if self._maneuvertype == "ET" and initialaltitude <= 25:
