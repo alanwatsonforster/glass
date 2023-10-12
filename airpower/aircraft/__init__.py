@@ -438,7 +438,7 @@ class aircraft:
       print("== assertion failed ===")
       print("== actual position  : %s" % self.position())
       print("== expected position: %s" % position)
-      assert position == self._position()
+      assert position == self.position()
     if speed != None and speed != self._speed:
       print("== assertion failed ===")
       print("== actual speed  : %.1f" % self._speed)
