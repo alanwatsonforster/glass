@@ -995,19 +995,20 @@ def _continuenormalflight(self, actions):
     Carry out an action for normal flight.
     """
 
-    try:
 
-      # Check we have at least one FP remaining.
-      if self._fp + 1 > self._maxfp:
-        raise RuntimeError("only %.1f FPs are available." % self._maxfp)
+    # Check we have at least one FP remaining.
+    if self._fp + 1 > self._maxfp:
+      raise RuntimeError("only %.1f FPs are available." % self._maxfp)
 
-      # Determine if this FP is the last FP of the move.
-      self._lastfp = (self._fp + 2 > self._maxfp) 
+    # Determine if this FP is the last FP of the move.
+    self._lastfp = (self._fp + 2 > self._maxfp) 
     
-      initialaltitude     = self._altitude
-      initialaltitudeband = self._altitudeband
+    initialaltitude     = self._altitude
+    initialaltitudeband = self._altitudeband
 
-      if doelements(action, "maneuvering departure", False):
+    try:
+      
+        if doelements(action, "maneuvering departure", False):
     
         self._maneuveringdeparture = True
 
