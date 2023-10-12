@@ -413,7 +413,10 @@ def _continuenormalflight(self, actions):
 
     # See the "Supersonic Speeds" section of rule 6.6.
     if self._speed >= apspeed.m1speed(self._altitudeband):
-      self._turnrateap -= 1
+      if self.hasproperty("PSSM"):
+        self._turnrateap -= 2.0
+      elif not self.hasproperty("GSSM"):
+        self._turnrateap -= 1.0
 
     # Change facing.
     if aphex.isedge(self._x, self._y):
@@ -525,7 +528,14 @@ def _continuenormalflight(self, actions):
     # See rule 13.3.1.
     self._othermaneuversap -= self.rolldrag("DR")
 
-    # See rule 13.3.6
+    # See rule 6.6.
+    if self._speed >= apspeed.m1speed(self._altitudeband):
+      if self.hasproperty("PSSM"):
+        self._othermaneuversap -= 2.0
+      elif not self.hasproperty("GSSM"):
+        self._othermaneuversap -= 1.0
+
+    # See rule 13.3.6.
     if self._rollmaneuvers > 0:
       self._othermaneuversap -= 1
     self._rollmaneuvers += 1
@@ -550,7 +560,7 @@ def _continuenormalflight(self, actions):
     if self.rolldrag("LR") == None:
       raise RuntimeError("aircraft cannot perform lag rolls.")
       
-    # See rule 8.1.3 and 8.2.3
+    # See rule 8.1.3 and 8.2.3.
     if flighttype == "VC" or flighttype == "VD":
       raise RuntimeError("attempt to declare a lag roll while flight type is %s." % flighttype)
 
@@ -584,7 +594,14 @@ def _continuenormalflight(self, actions):
     # See rule 13.3.1.
     self._othermaneuversap -= self.rolldrag("LR")
 
-    # See rule 13.3.6
+    # See rule 6.6.
+    if self._speed >= apspeed.m1speed(self._altitudeband):
+      if self.hasproperty("PSSM"):
+        self._othermaneuversap -= 2.0
+      elif not self.hasproperty("GSSM"):
+        self._othermaneuversap -= 1.0
+
+    # See rule 13.3.6.
     if self._rollmaneuvers > 0:
       self._othermaneuversap -= 1
     self._rollmaneuvers += 1
@@ -643,7 +660,10 @@ def _continuenormalflight(self, actions):
 
     # See rule 6.6.
     if self._speed >= apspeed.m1speed(self._altitudeband):
-      self._othermaneuversap -= 1
+      if self.hasproperty("PSSM"):
+        self._othermaneuversap -= 2.0
+      elif not self.hasproperty("GSSM"):
+        self._othermaneuversap -= 1.0
 
     # Change facing.
     if aphex.isedge(self._x, self._y) and shift:

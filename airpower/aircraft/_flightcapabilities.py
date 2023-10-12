@@ -17,8 +17,29 @@ def powerfade(self):
   return self._aircraftdata.powerfade(self._speed)
 
 def turndrag(self, turnrate):
+
+  def rawturndrag(turnrate):
+    lowspeedturnlimit = self._aircraftdata.lowspeedturnlimit()
+    if lowspeedturnlimit == None:
+      return self._aircraftdata.turndrag(self._configuration, turnrate)
+    elif self._speed <= lowspeedturnlimit:
+      return self._aircraftdata.turndrag(self._configuration, turnrate, lowspeed=True)
+    else:
+      return self._aircraftdata.turndrag(self._configuration, turnrate, highspeed=True)
+  
   if turnrate == "EZ":
-    return 0.0
+      return 0.0
+
+  # See rule 6.6  
+  if self.hasproperty("PSSM") and self._speed >= apspeed.m1speed(self._altitudeband):
+    # The aircraft has its maximum the turn rate reduced by one level, but not 
+    # to less than HT.
+    if turnrate == "ET":
+      return None
+    if turnrate == "BT" and rawturndrag("ET") == None:
+      return None
+  return rawturndrag(turnrate)
+
   lowspeedturnlimit = self._aircraftdata.lowspeedturnlimit()
   if lowspeedturnlimit == None:
     return self._aircraftdata.turndrag(self._configuration, turnrate)
