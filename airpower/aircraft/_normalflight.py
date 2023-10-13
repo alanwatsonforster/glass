@@ -499,8 +499,8 @@ def _continuenormalflight(self, actions):
     if self.rolldrag("DR") == None:
       raise RuntimeError("aircraft cannot perform displacement rolls.")
       
-    # See rule 8.1.3 and 8.2.3
-    if flighttype == "VC" or flighttype == "VD":
+    # See rules 8.1.2, 8.1.3, and 8.2.3.
+    if flighttype == "SC" or flighttype == "VC" or flighttype == "VD":
       raise RuntimeError("attempt to declare a displacement roll while flight type is %s." % flighttype)
 
     self._bank                 = None
@@ -560,8 +560,8 @@ def _continuenormalflight(self, actions):
     if self.rolldrag("LR") == None:
       raise RuntimeError("aircraft cannot perform lag rolls.")
       
-    # See rule 8.1.3 and 8.2.3.
-    if flighttype == "VC" or flighttype == "VD":
+    # See rules 8.1.2, 8.1.3, and 8.2.3.
+    if flighttype == "SC" or flighttype == "VC" or flighttype == "VD":
       raise RuntimeError("attempt to declare a lag roll while flight type is %s." % flighttype)
 
     self._bank                 = None

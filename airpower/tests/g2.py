@@ -246,6 +246,42 @@ A5.move("LVL",  "AB", "H,LRL/H,H,H,H,H,H,HL,H,H,H,H")
 A5._assert("2405       NNE  61",  12.0)
 endturn()
 
+
+# Check allowed flight types.
+
+startsetup()
+A1 = aircraft("A1", "F-80C", "1415", "N", 20, 4.0, "CL")
+A2 = aircraft("A1", "F-80C", "1615", "N", 20, 4.0, "CL")
+endsetup()
+
+startturn()
+A1.move("SC", "M", "LRL/H,H,H,H")
+asserterror("attempt to declare a lag roll while flight type is SC.")
+A2.move("SC", "M", "LRR/H,H,H,H")
+asserterror("attempt to declare a lag roll while flight type is SC.")
+A1.move("SC", "M", "H,H,H,H")
+A2.move("SC", "M", "H,H,H,H")
+endturn()
+
+startturn()
+A1.move("VC", "M", "LRL/H,C2,C2,C2")
+asserterror("attempt to declare a lag roll while flight type is VC.")
+A2.move("VC", "M", "LRR/H,C2,C2,C2")
+asserterror("attempt to declare a lag roll while flight type is VC.")
+A1.move("SD", "M", "H,H,H,H")
+A2.move("SD", "M", "H,H,H,H")
+endturn()
+
+startturn()
+A1.move("VD", "M", "LRL/H,H,D2,D2,D2")
+asserterror("attempt to declare a lag roll while flight type is VD.")
+A2.move("VD", "M", "LRR/H,H,D2,D2,D2")
+asserterror("attempt to declare a lag roll while flight type is VD.")
+A1.move("SD", "M", "H,H,H,H")
+A2.move("SD", "M", "H,H,H,H")
+endturn()
+
+
 # TODO: Check multiple rolls in one turn.
 
 # The issue is the F-104A is GSSM.
