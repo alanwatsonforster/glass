@@ -42,7 +42,7 @@ def _drawmap():
     if a._destroyed or a._finishedmove:
       a._drawflightpath()
       a._drawatend()
-    elif not self._leftmap:
+    elif not a._leftmap:
       a._drawatstart()
 
 #############################################################################
@@ -81,7 +81,9 @@ class aircraft:
 
   #############################################################################
 
-  def __init__(self, name, aircraftdata, hexcode, azimuth, altitude, speed, configuration):
+  def __init__(self, name, aircraftdata, hexcode, azimuth, altitude, speed, configuration,
+    color="black"
+  ):
 
     aplog.clearerror()
     try:
@@ -125,6 +127,7 @@ class aircraft:
       self._finishedmove         = True
       self._flightpathx          = []
       self._flightpathy          = []
+      self._color                = color
 
       self._saved = []
 

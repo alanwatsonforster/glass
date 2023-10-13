@@ -60,7 +60,7 @@ def _drawarrowinphysical(x, y, facing, size=1.0, dx=0, dy=0, color="black"):
   y1 = y0 + 1.0 * size * sind(facing)
   plt.arrow(x0, y0, x1 - x0, y1 - y0, width=0.01, head_width=0.1, color=color, length_includes_head=True, zorder=1)
 
-def _drawdartinphysical(x, y, facing, size=1.0, dx=0, dy=0, color="black"):
+def _drawdartinphysical(x, y, facing, size=1.0, dx=0, dy=0, facecolor="black", edgecolor="black"):
   # size is length
   x = x + dx * sind(facing) + dy * cosd(facing)
   y = y - dx * cosd(facing) + dy * sind(facing)
@@ -68,7 +68,10 @@ def _drawdartinphysical(x, y, facing, size=1.0, dx=0, dy=0, color="black"):
   y0 = y - 0.5 * size * sind(facing)
   x1 = x0 + 1.0 * size * cosd(facing)
   y1 = y0 + 1.0 * size * sind(facing)
-  plt.arrow(x0, y0, x1 - x0, y1 - y0, width=0.02, head_length=size, head_width=0.5*size, color=color, length_includes_head=True, zorder=1)
+  plt.arrow(x0, y0, x1 - x0, y1 - y0, width=0.02, \
+    facecolor=facecolor, edgecolor=edgecolor, \
+    head_length=size, head_width=0.5*size, length_includes_head=True, 
+    zorder=1)
 
 def _drawtextinphysical(x, y, facing, s, size=10, dx=0, dy=0, color="black"):
   x = x + dx * sind(facing) + dy * cosd(facing)
@@ -77,7 +80,7 @@ def _drawtextinphysical(x, y, facing, s, size=10, dx=0, dy=0, color="black"):
            color=color,
            horizontalalignment='center',
            verticalalignment='baseline',
-           rotation_mode="default")
+           rotation_mode="anchor")
 
 def _drawcompassinphysical(x, y, facing, color="black"):
   _drawdotinphysical(x, y, size=0.3, color=color)
@@ -118,11 +121,11 @@ def drawcompass(x, y, facing, **kwargs):
 def drawflightpath(x, y):
   drawlines(x, y, color="darkgray", linestyle="dashed", zorder=0.5)
 
-def drawaircraft(x, y, facing, name, altitude, when):
+def drawaircraft(x, y, facing, name, altitude, when, color):
   if when == "end":
-    color = "black"
+    facecolor = color
   else:
-    color = "grey"
-  drawdart(x, y, facing, dy=-0.02, size=0.5, color=color)
-  drawtext(x, y, facing, name, dx=-0.3, dy=0.0, size=7, color=color)
-  drawtext(x, y, facing, "%2d" % altitude, dx=+0.3, dy=0.0, size=7, color=color)
+    facecolor = "white"
+  drawdart(x, y, facing, dy=-0.02, size=0.4, facecolor=facecolor, edgecolor=color)
+  drawtext(x, y, facing, name, dx=-0.3, dy=0.0, size=7, color="black")
+  drawtext(x, y, facing, "%2d" % altitude, dx=+0.3, dy=0.0, size=7, color="black")

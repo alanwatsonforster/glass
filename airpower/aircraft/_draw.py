@@ -17,7 +17,7 @@ def _drawflightpath(self):
     apdraw.drawflightpath(self._flightpathx, self._flightpathy)
 
 def _drawatstart(self):
-  apdraw.drawaircraft(self._x, self._y, self._facing, self._name, self._altitude, "start")
+  apdraw.drawaircraft(self._x, self._y, self._facing, self._name, self._altitude, "start", color=self._color)
 
 def _drawatend(self):
-  apdraw.drawaircraft(self._x, self._y, self._facing, self._name, self._altitude, "end")
+  apdraw.drawaircraft(self._x, self._y, self._facing, self._name, self._altitude, "end", color=self._color)
