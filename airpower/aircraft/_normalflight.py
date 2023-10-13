@@ -31,8 +31,8 @@ def _checknormalflight(self):
     if self._altitude > self.ceiling():
       self._log("- check for a maneuvering departure as the aircraft is above its ceiling and attempted to roll.")
     elif self._altitudeband == "EH" or self._altitudeband == "UH":
-      self._log("- check for a maneuvering departure as the aircraft is in the %s altitude band and attempted to roll." % self._altitudeband)
-
+      self._log("- check for a maneuvering departure as the aircraft is in the %s altitude band and attempted to roll." % self._altitudeband)  
+      
   else:
 
     hrd = False
@@ -100,7 +100,7 @@ def _checknormalflight(self):
       raise RuntimeError("flight type immediately after %s cannot be %s." % (
         previousflighttype, flighttype
       ))
-
+      
   elif flighttype == "SC":
 
     # See rule 8.1.2 on SC prerequsistes.
@@ -184,8 +184,8 @@ def _checknormalflight(self):
     if previousflighttype == "VC":
       raise RuntimeError("flight type immediately after %s cannot be %s." % (
         previousflighttype, flighttype
-      ))
-    
+      ))  
+
 ################################################################################
 
 def _continuenormalflight(self, actions):
@@ -1086,6 +1086,17 @@ def _continuenormalflight(self, actions):
       if self._maneuvertype == "ET" and initialaltitude <= 25:
         self._gloccheck += 1
         self._log("- check for GLOC as turn rate is ET and altitude band is %s (check %d in cycle)." % (initialaltitudeband, self._gloccheck))
+
+    # See rule 7.8.
+    if turning and self.closeformationsize() != 0:
+      if (self.closeformationsize() > 2 and self._maneuvertype == "HT") or self._maneuvertype == "BT" or self._maneuvertype == "ET":
+        self._log("- close formation breaks down as the turn rate is %s." % self._maneuvertype)
+        self._breakdowncloseformation()
+
+    # See rule 13.7, interpreted in the same sense as rule 7.8.
+    if rolling and self.closeformationsize() != 0:
+      self._log("- close formation breaks down aircraft is rolling.")
+      self._breakdowncloseformation()      
     
     if initialaltitudeband != self._altitudeband:
       self._logevent("- altitude band changed from %s to %s." % (initialaltitudeband, self._altitudeband))
@@ -1201,6 +1212,29 @@ def _startnormalflight(self, actions):
       turnrates = []
 
     self._allowedturnrates = turnrates
+
+  ########################################
+
+  def checkcloseformationlimits():
+
+    if self.closeformationsize() == 0:
+      return
+
+    # See rule 13.7, interpreted in the same sense as rule 7.8.
+    if self._hrd:
+      self._log("- close formation breaks down upon a HRD.")
+      self._breakdowncloseformation()    
+
+    # See rule 8.6.
+    if flighttype == "ZC" or \
+      (flighttype == "SC" and self._powersetting == "AB") or \
+      flighttype == "VC" or \
+      flighttype == "UD" or \
+      flighttype == "VD":
+      self._log("- close formation breaks down as the flight type is %s." % flighttype)
+      self._breakdowncloseformation()
+
+    return
 
   ########################################
 
@@ -1404,6 +1438,7 @@ def _startnormalflight(self, actions):
   reportturn()
   determineallowedturnrates()
   checkformaneuveringdeparture()
+  checkcloseformationlimits()
 
   determinemaxfp()
   determinemininitialhfp()
@@ -1467,8 +1502,8 @@ def _endnormalflight(self):
     if self._flighttype == "LVL":
       altitudechange = self._altitude - self._previousaltitude
       if altitudechange < -1:
-        raise RuntimeError("free descent cannot only be taken once per move.")
-  
+        raise RuntimeError("free descent cannot only be taken once per move.")      
+
   ########################################
 
   def reportturn():
@@ -1514,6 +1549,7 @@ def _endnormalflight(self):
       if altitudechange == 0:
 
         altitudeap = 0.0
+        self._scwithzccomponent = False
 
       else:
 
@@ -1541,6 +1577,7 @@ def _endnormalflight(self):
         scaltitudechange = altitudechange - zcaltitudechange
 
         altitudeap = -0.5 * scaltitudechange + -1.0 * zcaltitudechange
+        self._scwithzccomponent = (zcaltitudechange != 0)
 
     elif flighttype == "VC":
 
@@ -1580,6 +1617,24 @@ def _endnormalflight(self):
 
   ########################################
 
+  def checkcloseformationlimits():
+
+    if self.closeformationsize == 0:
+      return
+
+    # See rule 8.6. The other climbing and diving cases are handled at
+    # the start of the move.
+
+    altitudeloss = self._previousaltitude - self._altitude
+    if flighttype == "SD" and altitudeloss > 2:
+      self._log("- close formation breaks down as the aircraft lost %d levels in an SD." % altitudeloss)
+      self._breakdowncloseformation()
+    elif flighttype == "SC" and self._scwithzccomponent:
+      self._log("- close formation breaks down as the aircraft climbed faster than the sustained climb rate.")
+      self._breakdowncloseformation()
+      
+  ########################################
+
   flighttype         = self._flighttype
   previousflighttype = self._previousflighttype  
   
@@ -1590,6 +1645,7 @@ def _endnormalflight(self):
     checkfreedescent()
     reportturn()
     determinealtitudeap()
+    checkcloseformationlimits()
 
   self._endmove()
 

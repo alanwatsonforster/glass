@@ -51,7 +51,7 @@ class aircraft:
 
   from ._closeformation import \
     joincloseformation, leavecloseformation, \
-    _checkcloseformation, _leaveanycloseformation, \
+    _checkcloseformation, _leaveanycloseformation, _breakdowncloseformation, \
     closeformationsize, closeformationnames
 
   from ._stalledflight import \

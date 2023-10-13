@@ -52,6 +52,8 @@ def joincloseformation(self, other):
   resulting close formation.
   """
 
+  # TODO: check we're called only during setup or after everyone has moved.
+
   aplog.clearerror()
   try:
 
@@ -115,6 +117,23 @@ def _leaveanycloseformation(self):
     self._closeformation.remove(self)
     self._closeformation = []
 
+################################################################################
+
+def _breakdowncloseformation(self):
+
+  """
+  Break down the close formation containing the aircraft.
+  """
+
+  aplog.clearerror()
+  try:
+
+    for a in self._closeformation.copy():
+      a._leaveanycloseformation()
+  
+  except RuntimeError as e:
+    aplog.logexception(e) 
+    
 ################################################################################
 
 
