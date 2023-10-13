@@ -113,6 +113,8 @@ def climbcapability(self):
 def hasproperty(self, p):
   if self._aircraftdata.hasproperty(p):
     return True
-  if p == "HRR" and self._configuration == "CL":
-    return self._aircraftdata.hasproperty("HRRCL")
+  if p == "HRR" and self._aircraftdata.hasproperty("HRRCL"):
+    return self._configuration == "CL"
+  if p == "LRR" and self._aircraftdata.hasproperty("LRRHS"):
+    return self._speed >= self._aircraftdata["LRRHSlimit"]
   return False

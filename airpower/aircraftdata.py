@@ -268,7 +268,7 @@ class aircraftdata:
     if "powerfadetable" in self._data:
       for p in self._data["powerfadetable"]:
         str("- If the speed is more than %.1f, the power is reduced by %.1f." % (p[0], p[1]))
-      str()
+      str("")
 
     str("Cruise Speed: %.1f" % self.cruisespeed())
     str("Climb  Speed: %.1f" % self.climbspeed())
@@ -355,9 +355,16 @@ class aircraftdata:
     str("")
     str("Notes:")
     str("")
+
+    if self.hasproperty("LRRHS"):
+      str(" - LRRHS: LRR if speed is %.1f or more." % self._data["LRRHSlimit"])
+
+    if self.hasproperty("HRRCL"):
+      str(" - HRRCL: HRR when CL.")
+
     if "notes" in self._data:
       for note in self._data["notes"]:
-        str("%s" % note)
+        str("- %s" % note)
 
     return _result
 
