@@ -1,15 +1,29 @@
 import numpy as np
+import pickle
 
-import matplotlib
 import matplotlib.pyplot as plt
-matplotlib.rcParams['figure.figsize'] = [7.5, 10]
-plt.rcParams.update({'font.size': 10})
+
+################################################################################
+
+_fig = None
 
 def setcanvas(x, y):
-  matplotlib.rcParams['figure.figsize'] = [x, y]
-  plt.figure()
+  global _fig
+  _fig = plt.figure(figsize=[x,y])
   plt.axis('equal')
   plt.axis('off')
+
+def save():
+  pickle.dump(_fig, open("airpower.pickle", "wb"))
+
+def restore():
+  global _fig
+  _fig = pickle.load(open("airpower.pickle", "rb"))
+
+def show():
+  _fig.show()
+
+################################################################################
 
 def cosd(x):
   return np.cos(np.radians(x))
@@ -26,7 +40,7 @@ def _drawhexinphysical(x, y, size=1, color="lightgrey"):
   azimuths = np.array((0, 60, 120, 180, 240, 300, 0))
   xvertices = x + 0.5 * size * cosd(azimuths) / cosd(30)
   yvertices = y + 0.5 * size * sind(azimuths) / cosd(30)
-  plt.plot(xvertices, yvertices, color=color, zorder=0)
+  plt.plot(xvertices, yvertices, linewidth=0.5, color=color, zorder=0)
 
 def _drawdotinphysical(x, y, size=1, facing=0, dx=0, dy=0, color="black"):
   x = x + dx * sind(facing) + dy * cosd(facing)
@@ -44,11 +58,11 @@ def _drawsquareinphysical(x, y, facing, size=1, dx=0, dy=0, color="black"):
   yvertices = y + 0.5 * size * sind(azimuths + facing)
   plt.plot(xvertices, yvertices, color=color, zorder=1)
 
-def _drawlineinphysical(x0, y0, x1, y1, color="black", linestyle="solid", zorder=1):
-  plt.plot((x0, x1), (y0, y1), linestyle=linestyle, color=color, zorder=zorder)
+def _drawlineinphysical(x0, y0, x1, y1, color="black", linewidth=0.5, linestyle="solid", zorder=1):
+  plt.plot((x0, x1), (y0, y1), linewidth=linewidth, linestyle=linestyle, color=color, zorder=zorder)
 
-def _drawlinesinphysical(x, y, color="black", linestyle="solid", zorder=1):
-  plt.plot(x, y, linestyle=linestyle, color=color, zorder=zorder)
+def _drawlinesinphysical(x, y, color="black", linewidth=0.5, linestyle="solid", zorder=1):
+  plt.plot(x, y, linewidth=linewidth, linestyle=linestyle, color=color, zorder=zorder)
   
 def _drawarrowinphysical(x, y, facing, size=1.0, dx=0, dy=0, color="black"):
   # size is length
@@ -119,7 +133,7 @@ def drawcompass(x, y, facing, **kwargs):
   _drawcompassinphysical(*hextophysical(x, y), facing, **kwargs)
 
 def drawflightpath(x, y):
-  drawlines(x, y, color="darkgray", linestyle="dashed", zorder=0.5)
+  drawlines(x, y, color="darkgray", linewidth=2, linestyle="dashed", zorder=0.5)
 
 def drawaircraft(x, y, facing, name, altitude, when, color):
   if when == "end":

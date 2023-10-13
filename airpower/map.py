@@ -19,6 +19,8 @@ _compassrose = None
 _dxsheet = 20
 _dysheet = 15
 
+_saved = False
+
 def setmap(sheetgrid, compassrose):
 
   """
@@ -54,11 +56,19 @@ def setmap(sheetgrid, compassrose):
 
   _compassrose = compassrose
 
-def drawmap():
+  global _saved
+  _saved = False
+
+def startdrawmap():
 
   """
   Draw the map.
   """
+
+  global _saved
+  if _saved:
+    apdraw.restore()
+    return
 
   apdraw.setcanvas(_nxsheetgrid * _dxsheet, _nysheetgrid * math.sqrt(3/4) * _dysheet)
 
@@ -91,6 +101,12 @@ def drawmap():
   # Draw the compass rose.
   if _compassrose != None:
     apdraw.drawcompass(*aphexcode.toxy(_compassrose), apazimuth.tofacing("N"), color="grey")
+
+  apdraw.save()
+  _saved = True
+
+def enddrawmap():
+  apdraw.show()
 
 def sheetorigin(sheet):
 

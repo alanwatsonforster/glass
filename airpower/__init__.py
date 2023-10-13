@@ -106,12 +106,10 @@ def endturn():
 
 ################################################################################
 
-import matplotlib.pyplot as plt
-
 def drawmap():
-  apmap.drawmap()
+  apmap.startdrawmap()
   apaircraft._drawmap()
-  plt.show()
+  apmap.enddrawmap()
 
 ################################################################################
 
