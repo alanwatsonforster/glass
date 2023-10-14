@@ -2,6 +2,7 @@ import airpower.aircraft  as apaircraft
 import airpower.azimuth   as apazimuth
 import airpower.log       as aplog
 import airpower.map       as apmap
+import airpower.marker    as apmarker
 import airpower.variants  as apvariants
 import airpower.scenarios as apscenarios
 
@@ -109,8 +110,10 @@ def endturn():
 def drawmap():
   apmap.startdrawmap()
   apaircraft._drawmap()
+  apmarker._drawmap()
   apmap.enddrawmap()
 
 ################################################################################
 
 from airpower.aircraft import aircraft
+from airpower.marker   import marker
