@@ -70,7 +70,7 @@ def startdrawmap():
     apdraw.restore()
     return
 
-  apdraw.setcanvas(_nxsheetgrid * _dxsheet, _nysheetgrid * math.sqrt(3/4) * _dysheet)
+  apdraw.setcanvas(_nxsheetgrid * math.sqrt(3/4) * _dxsheet, _nysheetgrid * _dysheet)
 
   for sheet in sheets():
 
