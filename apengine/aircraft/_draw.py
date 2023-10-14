@@ -2,7 +2,7 @@
 Drawing for the aircraft class.
 """
 
-import airpower.draw as apdraw
+import apengine.draw as apdraw
 
 def _startflightpath(self):
   self._flightpathx = [self._x]

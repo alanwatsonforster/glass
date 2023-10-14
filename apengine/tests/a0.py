@@ -1,9 +1,9 @@
-from airpower.tests.infrastructure import *
+from apengine.tests.infrastructure import *
 startfile(__file__, "aircraft data")
 
-# Checks on airpower.aircraftdata.
+# Checks on apengine.aircraftdata.
 
-from airpower.aircraftdata import aircraftdata
+from apengine.aircraftdata import aircraftdata
 
 # Make sure all of the aircraft data files are readable.
 

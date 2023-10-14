@@ -17,11 +17,11 @@ def setcanvas(x, y):
   _ax = plt.gca()
 
 def save():
-  pickle.dump(_fig, open("airpower.pickle", "wb"))
+  pickle.dump(_fig, open("apengine.pickle", "wb"))
 
 def restore():
   global _fig, _ax
-  _fig = pickle.load(open("airpower.pickle", "rb"))
+  _fig = pickle.load(open("apengine.pickle", "rb"))
   _ax = plt.gca()
 
 def show():

@@ -1,13 +1,13 @@
-import airpower              as ap
-import airpower.aircraftdata as apaircraftdata
-import airpower.altitude     as apaltitude
-import airpower.azimuth      as apazimuth
-import airpower.draw         as apdraw
-import airpower.hex          as aphex
-import airpower.hexcode      as aphexcode
-import airpower.log          as aplog
-import airpower.map          as apmap
-import airpower.turnrate     as apturnrate
+import apengine              as ap
+import apengine.aircraftdata as apaircraftdata
+import apengine.altitude     as apaltitude
+import apengine.azimuth      as apazimuth
+import apengine.draw         as apdraw
+import apengine.hex          as aphex
+import apengine.hexcode      as aphexcode
+import apengine.log          as aplog
+import apengine.map          as apmap
+import apengine.turnrate     as apturnrate
 
 import math
 

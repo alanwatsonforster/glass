@@ -1,7 +1,7 @@
-from airpower.tests.infrastructure import *
+from apengine.tests.infrastructure import *
 startfile(__file__, "azimuths")
 
-# Checks on airpower.azimuth.
+# Checks on apengine.azimuth.
 
 # Conversion of numeric azimuths to symbolic directions.
 

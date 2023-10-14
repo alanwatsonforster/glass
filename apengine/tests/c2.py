@@ -1,4 +1,4 @@
-from airpower.tests.infrastructure import *
+from apengine.tests.infrastructure import *
 startfile(__file__, "flamed-out engines")
 
 # Power with Flamed-Out Engines.

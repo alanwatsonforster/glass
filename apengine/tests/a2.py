@@ -1,9 +1,9 @@
-from airpower.tests.infrastructure import *
+from apengine.tests.infrastructure import *
 startfile(__file__, "math")
 
-# Checks on airpower.math.
+# Checks on apengine.math.
 
-from airpower.math import onethird, twothirds
+from apengine.math import onethird, twothirds
 
 # This table is from the play aids.
 

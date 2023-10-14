@@ -1,5 +1,5 @@
-import airpower.log      as aplog
-import airpower.variants as apvariants
+import apengine.log      as aplog
+import apengine.variants as apvariants
 
 _northfacing = 90
 

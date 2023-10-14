@@ -1,5 +1,5 @@
-import airpower.speed    as apspeed
-import airpower.altitude as apaltitude
+import apengine.speed    as apspeed
+import apengine.altitude as apaltitude
 
 def power(self, powersetting):
   return self._aircraftdata.power(self._configuration, powersetting)

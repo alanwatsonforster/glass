@@ -4,8 +4,8 @@ Departed flight for the aircraft class.
 
 import math
 
-import airpower.altitude as apaltitude
-import airpower.hex      as aphex
+import apengine.altitude as apaltitude
+import apengine.hex      as aphex
 
 def _checkdepartedflight(self):
 

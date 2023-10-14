@@ -1,8 +1,8 @@
 import math
 
-import airpower.speed as apspeed
-import airpower.variants as apvariants
-from airpower.math import onethird, twothirds
+import apengine.speed as apspeed
+import apengine.variants as apvariants
+from apengine.math import onethird, twothirds
 
 from ._normalflight import _isclimbing, _isdiving
 

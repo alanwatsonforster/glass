@@ -1,6 +1,6 @@
 # Manual
 
-This manual is written to help players use the airpower package to automate the flight part of JD Webster's "Air Power" rules, published in the game "The Speed of Heat".
+This manual is written to help players use the apengine package to automate the flight part of JD Webster's "Air Power" rules, published in the game "The Speed of Heat".
 
 The package is designed to run in a Google Colab notebook. You do not have to understand programming to use it.
 
@@ -30,10 +30,10 @@ For further information on Colab notebooks, see Google’s “[Welcome to Colab]
 
 Copy these commands into the first code cell in the Colab notebook:
 
-!test -d airpower || git clone https://github.com/alanwatsonforster/airpower.git
+!test -d apengine || git clone https://github.com/alanwatsonforster/apengine.git
 import sys
-sys.path.append('airpower')
-from airpower import *
+sys.path.append('apengine')
+from apengine import *
 Then run the cell by typing Ctrl-Enter. After a short delay while the notebook connects to the cloud, the commands will download the code and make it available for use in the notebook.
 
 ## Setting Up the Game
