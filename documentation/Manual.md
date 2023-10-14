@@ -30,10 +30,12 @@ For further information on Colab notebooks, see Google’s “[Welcome to Colab]
 
 Copy these commands into the first code cell in the Colab notebook:
 
-!test -d apengine || git clone https://github.com/alanwatsonforster/apengine.git
-import sys
-sys.path.append('apengine')
-from apengine import *
+    !test -d apengine || git clone --depth=1 https://github.com/alanwatsonforster/apengine.git -q
+    !cd apengine; git pull -q
+    import sys
+    sys.path.append('apengine')
+    from apengine import *
+
 Then run the cell by typing Ctrl-Enter. After a short delay while the notebook connects to the cloud, the commands will download the code and make it available for use in the notebook.
 
 ## Setting Up the Game
