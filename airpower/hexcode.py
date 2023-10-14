@@ -251,13 +251,14 @@ def _tosheet(h,
 
   assert isvalidhexcodeforcenter(h)
 
+
   XX, YY = _split(h)
 
-  if includerightedge:
+  if includeleftedge:
     dXXleft = -1
   else:
     dXXleft = 0
-  if includeleftedge:
+  if includerightedge:
     dXXright = +1
   else:
     dXXright = 0
@@ -276,10 +277,10 @@ def _tosheet(h,
   else:
     dYYtop = 0
   if includebottomedge:
-    dYYbottom = 0
-  else:
     dYYbottom = +1
-    
+  else:
+    dYYbottom = 0
+
   if XX % 2 == 1 and 1 <= YY and YY <= 15:
     sheetnumber = "1"
   elif XX % 2 == 0 and 2 + dYYtop <= YY and YY <= 15 + dYYbottom:
