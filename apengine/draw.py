@@ -41,24 +41,24 @@ def physicaltohex(x,y):
 
 ################################################################################
 
-def _drawhexinphysical(x, y, size=1, color="lightgrey"):
+def _drawhexinphysical(x, y, size=1, color="lightgrey", zorder=1):
   # size is inscribed diameter
   _ax.add_artist(patches.RegularPolygon(
     [x,y], 6, 
     radius=size*0.5*np.sqrt(4/3), orientation=np.pi/6, 
     edgecolor=color, fill=False,
-    zorder=0
+    zorder=zorder
   ))
   return
 
-def _drawdotinphysical(x, y, size=1, facing=0, dx=0, dy=0, color="black"):
+def _drawdotinphysical(x, y, size=1, facing=0, dx=0, dy=0, color="black", zorder=1):
   x = x + dx * sind(facing) + dy * cosd(facing)
   y = y - dx * cosd(facing) + dy * sind(facing)
   _ax.add_artist(patches.Circle(
     [x,y],
     radius=0.5*size,
     color=color,
-    zorder=1
+    zorder=zorder
   ))
 
 def _drawlineinphysical(x0, y0, x1, y1, color="black", linewidth=0.5, linestyle="solid", zorder=1):
@@ -67,7 +67,7 @@ def _drawlineinphysical(x0, y0, x1, y1, color="black", linewidth=0.5, linestyle=
 def _drawlinesinphysical(x, y, color="black", linewidth=0.5, linestyle="solid", zorder=1):
   plt.plot(x, y, linewidth=linewidth, linestyle=linestyle, color=color, zorder=zorder)
   
-def _drawarrowinphysical(x, y, facing, size=1.0, dx=0, dy=0, color="black"):
+def _drawarrowinphysical(x, y, facing, size=1.0, dx=0, dy=0, color="black", zorder=1):
   # size is length
   x = x + dx * sind(facing) + dy * cosd(facing)
   y = y - dx * cosd(facing) + dy * sind(facing)
@@ -78,10 +78,10 @@ def _drawarrowinphysical(x, y, facing, size=1.0, dx=0, dy=0, color="black"):
   _ax.add_artist(patches.FancyArrow(
     x, y, dx, dy,
     width=0.01, head_width=0.1, color=color, length_includes_head=True, 
-    zorder=1
+    zorder=zorder
   ))
 
-def _drawdartinphysical(x, y, facing, size=1.0, dx=0, dy=0, facecolor="black", edgecolor="black"):
+def _drawdartinphysical(x, y, facing, size=1.0, dx=0, dy=0, facecolor="black", edgecolor="black", zorder=1):
   # size is length
   x = x + dx * sind(facing) + dy * cosd(facing)
   y = y - dx * cosd(facing) + dy * sind(facing)
@@ -93,30 +93,31 @@ def _drawdartinphysical(x, y, facing, size=1.0, dx=0, dy=0, facecolor="black", e
     x, y, dx, dy,
     width=0.02, head_length=size, head_width=0.5*size, length_includes_head=True, 
     facecolor=facecolor, edgecolor=edgecolor, \
-    zorder=1
+    zorder=zorder
   ))
 
-def _drawtextinphysical(x, y, facing, s, size=10, dx=0, dy=0, color="black"):
+def _drawtextinphysical(x, y, facing, s, size=10, dx=0, dy=0, color="black", zorder=1):
   x = x + dx * sind(facing) + dy * cosd(facing)
   y = y - dx * cosd(facing) + dy * sind(facing)
   plt.text(x, y, s, size=size, rotation=facing - 90,
            color=color,
            horizontalalignment='center',
            verticalalignment='baseline',
-           rotation_mode="anchor")
+           rotation_mode="anchor",
+           zorder=zorder)
 
 def _drawcompassinphysical(x, y, facing, color="black"):
-  _drawdotinphysical(x, y, size=0.1, color=color)
-  _drawarrowinphysical(x, y, facing, size=0.8, dy=+0.4, color=color)
-  _drawtextinphysical(x, y, facing, "N", dy=0.95, color=color)
+  _drawdotinphysical(x, y, size=0.1, color=color, zorder=0.5)
+  _drawarrowinphysical(x, y, facing, size=0.8, dy=+0.4, color=color, zorder=0.5)
+  _drawtextinphysical(x, y, facing, "N", dy=0.95, color=color, zorder=0.5)
 
 ################################################################################
     
 def drawhex(x, y, **kwargs):
-  _drawhexinphysical(*hextophysical(x, y), **kwargs)
+  _drawhexinphysical(*hextophysical(x, y), zorder=0, **kwargs)
 
 def drawhexlabel(x, y, label, dy=0.3, size=7, color="grey", **kwargs):
-  drawtext(x, y, 90, label, dy=dy, size=size, color=color, **kwargs)        
+  drawtext(x, y, 90, label, dy=dy, size=size, color=color, zorder=0, **kwargs)        
 
 def drawdot(x, y, **kwargs):
   _drawdotinphysical(*hextophysical(x, y), **kwargs)
@@ -142,6 +143,7 @@ def drawcompass(x, y, facing, **kwargs):
 ################################################################################
 
 def drawflightpath(x, y):
+  drawdot(x[0], y[0], color="darkgray", size=0.1, zorder=0.5)
   drawlines(x, y, color="darkgray", linewidth=2, linestyle="dashed", zorder=0.5)
 
 def drawaircraft(x, y, facing, name, altitude, when, color):
