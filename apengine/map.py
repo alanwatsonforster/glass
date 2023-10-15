@@ -111,7 +111,7 @@ def startdrawmap():
     if aphexcode.tosheet(h) in sheets():
       apdraw.drawhex(*aphexcode.toxy(h), fillcolor=level2color, zorder=0)
 
-  # Draw the rivers.
+  # Draw the ridges.
   for ridge in ridges:
     sheet = ridge[0]
     if sheet in sheets():
@@ -124,7 +124,17 @@ def startdrawmap():
   # Draw the wooded areas.
   for h in woodedhexcodes:
     if aphexcode.tosheet(h) in sheets():
-      apdraw.drawhex(*aphexcode.toxy(h), linecolor=woodedcolor, hatch="o", zorder=0)
+      apdraw.drawhex(*aphexcode.toxy(h), linecolor=woodedcolor, hatch="oo", zorder=0)
+
+  # Draw the road clearings.
+  for clearing in clearings:
+    sheet = clearing[0]
+    if sheet in sheets():
+      p = clearing[1]
+      xy = [toxy(sheet, *p) for p in p]
+      x = [xy[0] for xy in xy]
+      y = [xy[1] for xy in xy]
+      apdraw.drawlines(x, y, color=level0color, linewidth=14, zorder=0)
 
   # Draw the urban areas.
   for h in urbanhexcodes:
@@ -591,6 +601,14 @@ rivers = [
   ["C2",[[50.00,16.00],[51.00,16.00],]],
   ["C2",[[60.00,16.00],[60.00,17.00],[59.00,17.00],[59.00,18.00],[61.00,17.00],[61.00,18.00],[61.50,18.25],[63.50,18.25],[65.00,19.00],[65.00,22.00],[66.00,23.00],[66.00,24.00],[65.00,24.00],[65.00,25.00],[60.00,28.00],[60.00,31.00],]],
   ["C2",[[70.00,31.00],[69.00,29.00],]],
+]
+
+clearings = [
+  ["A1",[[15.00,15.00],[15.00,14.00],[18.00,13.00],[18.00,10.00],]],
+  ["A1",[[18.00,12.00],[21.00,13.00],]],
+  ["B1",[[31.00, 6.00],[34.00, 5.00],]],
+  ["B1",[[35.00, 0.50],[35.00, 2.50],]],
+  ["C2",[[52.00,20.00],[53.00,20.00],[55.00,19.00],]],
 ]
 
 roads = [
