@@ -41,12 +41,12 @@ def physicaltohex(x,y):
 
 ################################################################################
 
-def _drawhexinphysical(x, y, size=1, linecolor="lightgrey", fillcolor=None, zorder=1):
+def _drawhexinphysical(x, y, size=1, linecolor="lightgrey", fillcolor=None, hatch=None, zorder=1):
   # size is inscribed diameter
   _ax.add_artist(patches.RegularPolygon(
     [x,y], 6, 
     radius=size*0.5*np.sqrt(4/3), orientation=np.pi/6, 
-    edgecolor=linecolor, facecolor=fillcolor, fill=(fillcolor != None),
+    edgecolor=linecolor, facecolor=fillcolor, fill=(fillcolor != None), hatch=hatch, 
     zorder=zorder
   ))
 
@@ -64,7 +64,7 @@ def _drawlineinphysical(x0, y0, x1, y1, color="black", linewidth=0.5, linestyle=
   plt.plot((x0, x1), (y0, y1), linewidth=linewidth, linestyle=linestyle, color=color, zorder=zorder)
 
 def _drawlinesinphysical(x, y, color="black", linewidth=0.5, linestyle="solid", zorder=1):
-  plt.plot(x, y, linewidth=linewidth, linestyle=linestyle, color=color, zorder=zorder)
+  plt.plot(x, y, linewidth=linewidth, linestyle=linestyle, color=color, solid_capstyle="butt", zorder=zorder)
   
 def _drawarrowinphysical(x, y, facing, size=1.0, dx=0, dy=0, color="black", zorder=1):
   # size is length
