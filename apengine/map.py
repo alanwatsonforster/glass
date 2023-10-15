@@ -22,15 +22,15 @@ _dysheet = 15
 
 _saved = False
 
-level0color    = ( 0.850, 0.900, 0.850 )
-level1color    = ( 0.824, 0.752, 0.640 )
-level2color    = ( 0.616, 0.664, 0.560 )
-ridgelinecolor = ( 0.600, 0.500, 0.450 )
-woodedcolor    = ( 0.000, 0.500, 0.000 )
-urbancolor     = ( 0.600, 0.600, 0.600 )
-watercolor     = ( 0.650, 0.820, 1.000 )
-roadcolor      = ( 0.600, 0.600, 0.600 )
-hexcolor       = ( 0.500, 0.500, 0.500 )
+level0color = ( 0.850, 0.900, 0.850 )
+level1color = ( 0.824, 0.752, 0.640 )
+level2color = ( 0.616, 0.664, 0.560 )
+ridgecolor  = ( 0.600, 0.500, 0.450 )
+woodedcolor = ( 0.000, 0.500, 0.000 )
+urbancolor  = ( 0.600, 0.600, 0.600 )
+watercolor  = ( 0.650, 0.820, 1.000 )
+roadcolor   = ( 0.600, 0.600, 0.600 )
+hexcolor    = ( 0.500, 0.500, 0.500 )
 
 def setmap(sheetgrid, compassrose):
 
@@ -111,25 +111,15 @@ def startdrawmap():
     if aphexcode.tosheet(h) in sheets():
       apdraw.drawhex(*aphexcode.toxy(h), fillcolor=level2color, zorder=0)
 
-  # Draw the ridgeline on sheets B2 and C2.
-  if "B2" in sheets():
-    x0, y0 = aphexcode.toxy(4522)
-    dx = np.array([ -0.67, +0.00, +1.00, +1.00, +0.00, +0.00, -1.00, -1.67 ])
-    dy = np.array([ +1.00, +0.00, -0.50, -1.50, -2.00, -5.00, -5.50, -6.50 ])
-    apdraw.drawlines(x0 + dx, y0 + dy, linewidth=7, color=ridgelinecolor, zorder=0)
-  if "C2" in sheets():
-    x0, y0 = aphexcode.toxy(5317)
-    dx = np.array([ -0.50, +1.00, +1.67 ])
-    dy = np.array([ +0.25, -0.50, -0.50 ])
-    apdraw.drawlines(x0 + dx, y0 + dy, linewidth=7, color=ridgelinecolor, zorder=0)
-    x0, y0 = aphexcode.toxy(5618)
-    dx = np.array([ -0.67, +0.00, +1.00, +1.00, +2.50 ])
-    dy = np.array([ +0.00, +0.00, -0.50, -1.50, -2.25 ])
-    apdraw.drawlines(x0 + dx, y0 + dy, linewidth=7, color=ridgelinecolor, zorder=0)    
-    x0, y0 = aphexcode.toxy(6320)
-    dx = np.array([ +0.00, +0.00, -2.50 ])
-    dy = np.array([ +0.50, -4.00, -5.25 ])
-    apdraw.drawlines(x0 + dx, y0 + dy, linewidth=7, color=ridgelinecolor, zorder=0)
+  # Draw the rivers.
+  for ridge in ridges:
+    sheet = ridge[0]
+    if sheet in sheets():
+      p = ridge[1]
+      xy = [toxy(sheet, *p) for p in p]
+      x = [xy[0] for xy in xy]
+      y = [xy[1] for xy in xy]
+      apdraw.drawlines(x, y, color=ridgecolor, linewidth=7, zorder=0)
   
   # Draw the wooded areas.
   for h in woodedhexcodes:
@@ -372,6 +362,12 @@ level2hexcodes = [
 
 ]
 
+ridges = [
+  ["B2", [[44.33,21.5],[45,22],[46,23],[46,24],[45,24],[45,27],[44,28],[43.33,28.5]]],
+  ["C2", [[52.50,16.75],[54,18],[54.67,17.5]]],
+  ["C2", [[55.33,17.5],[56,18],[57,18],[57,19],[58.5,19.75]]],
+  ["C2", [[63,19.5],[63,24],[60.5,25.25]]]
+]
 
 woodedhexcodes = [
     
