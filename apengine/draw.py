@@ -11,10 +11,11 @@ _ax = None
 
 def setcanvas(x, y):
   global _fig, _ax
-  _fig = plt.figure(figsize=[x,y])
+  _fig = plt.figure(figsize=[x*np.sqrt(3/4),y])
   plt.axis('equal')
   plt.axis('off')
   _ax = plt.gca()
+
 
 def save():
   pickle.dump(_fig, open("apengine.pickle", "wb"))
@@ -64,11 +65,13 @@ def _drawlineinphysical(x0, y0, x1, y1,
     color="black", linewidth=0.5, linestyle="solid", capstyle="butt", zorder=1
   ):
   plt.plot((x0, x1), (y0, y1), 
-  linewidth=linewidth, linestyle=linestyle, color=color, solid_capstyle=capstyle, clip_on=True,
-  zorder=zorder)
+    linewidth=linewidth, linestyle=linestyle, color=color, solid_capstyle=capstyle,
+    zorder=zorder)
+
+from matplotlib.patches import Rectangle
 
 def _drawlinesinphysical(x, y, 
-  color="black", linewidth=0.5, linestyle="solid", capstyle="butt", clip_on=True, zorder=1
+  color="black", linewidth=0.5, linestyle="solid", capstyle="butt",zorder=1
 ):
   plt.plot(x, y, 
     linewidth=linewidth, linestyle=linestyle, color=color, solid_capstyle=capstyle,

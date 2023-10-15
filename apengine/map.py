@@ -88,7 +88,7 @@ def startdrawmap():
   #  apdraw.restore()
   #  return
 
-  apdraw.setcanvas(_nxsheetgrid * math.sqrt(3/4) * _dxsheet, _nysheetgrid * _dysheet)
+  apdraw.setcanvas(_nxsheetgrid * _dxsheet, _nysheetgrid * _dysheet)
 
   # Draw the sheets and level 0.
   for sheet in sheets():
@@ -147,12 +147,7 @@ def startdrawmap():
     xy = [toxy(sheet, *p) for p in p]
     x = [xy[0] for xy in xy]
     y = [xy[1] for xy in xy]
-    apdraw.drawlines(x, y, color=watercolor, linewidth=11, capstyle="round", zorder=0)
-  for sheet in sheets():
-    xmin, ymin, xmax, ymax = sheetlimits(sheet)
-    for p in [[xmin,ymin],[xmin,ymax],[xmax,ymin],[xmax,ymax]]:
-      x, y = p
-      apdraw.drawline(x, y, x+0.01, y+0.01, color=watercolor, linewidth=11, capstyle="round", zorder=0)
+    apdraw.drawlines(x, y, color=watercolor, linewidth=7, capstyle="butt", zorder=0)
 
   # Draw and label the hexes.
   for sheet in sheets():
@@ -563,11 +558,11 @@ urbanhexcodes = [
 
 rivers = [
   ["A1", [[20,1],[20,3],[20.67,3.5],[27.33, 6.5],[28.67, 8.5],[27.33,10.5],
-    [29.67,14.5],[30,16]]],
+    [29.5,14.25],[29.5,15.25],[30,16]]],
   ["A1", [(19, 15), (20, 16), (20, 16.0)]],
   ["A1", [[10,  1], (11,  1), (11.5, 1.25)]],
   ["A2", [[20,16], [20, 16.5]]],
-  ["A2", [[10,16],[11.67,16.5],[17.33,18.5],[20,23],[20,27],[20.67,27.5],
+  ["A2", [[10,16],[11,16],[11.67,16.5],[17.33,18.5],[20,23],[20,27],[20.67,27.5],
     [20.67,28.5],[20.0,30.0],[20.0,31.0]]],
   ["A2", [[15.33, 17.5], [18,22], [20,23]]],
   ["A2", [[17.33, 23.5],[17.67,24.5]]],
