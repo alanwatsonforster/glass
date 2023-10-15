@@ -28,9 +28,16 @@ level2color = ( 0.616, 0.664, 0.560 )
 ridgecolor  = ( 0.600, 0.500, 0.450 )
 woodedcolor = ( 0.300, 0.500, 0.300 )
 urbancolor  = ( 0.600, 0.600, 0.600 )
+roadcolor   = urbancolor
+bridgecolor = urbancolor
 watercolor  = ( 0.650, 0.820, 1.000 )
-roadcolor   = ( 0.600, 0.600, 0.600 )
 hexcolor    = ( 0.500, 0.500, 0.500 )
+
+roadwidth        = 3
+riverwidth       = 10
+clearingwidth    = 14
+bridgeouterwidth = 14
+bridgeinnerwidth = 7
 
 def setmap(sheetgrid, compassrose):
 
@@ -134,7 +141,7 @@ def startdrawmap():
       xy = [toxy(sheet, *p) for p in p]
       x = [xy[0] for xy in xy]
       y = [xy[1] for xy in xy]
-      apdraw.drawlines(x, y, color=level0color, linewidth=14, zorder=0)
+      apdraw.drawlines(x, y, color=level0color, linewidth=clearingwidth, zorder=0)
 
   # Draw the urban areas.
   for h in urbanhexcodes:
@@ -149,7 +156,7 @@ def startdrawmap():
       xy = [toxy(sheet, *p) for p in p]
       x = [xy[0] for xy in xy]
       y = [xy[1] for xy in xy]
-      apdraw.drawlines(x, y, color=watercolor, linewidth=7, capstyle="butt", zorder=0)
+      apdraw.drawlines(x, y, color=watercolor, linewidth=riverwidth, capstyle="butt", zorder=0)
 
   # Draw the bridges.
   for bridge in bridges:
@@ -159,8 +166,8 @@ def startdrawmap():
       xy = [toxy(sheet, *p) for p in p]
       x = [xy[0] for xy in xy]
       y = [xy[1] for xy in xy]
-      apdraw.drawlines(x, y, color=roadcolor, linewidth=14, capstyle="butt", zorder=0)  
-      apdraw.drawlines(x, y, color=level0color, linewidth=7, capstyle="butt", zorder=0)  
+      apdraw.drawlines(x, y, color=bridgecolor, linewidth=bridgeouterwidth, capstyle="butt", zorder=0)  
+      apdraw.drawlines(x, y, color=level0color, linewidth=bridgeinnerwidth, capstyle="butt", zorder=0)  
 
   # Draw the roads.
   for road in roads:
@@ -170,7 +177,7 @@ def startdrawmap():
       xy = [toxy(sheet, *p) for p in p]
       x = [xy[0] for xy in xy]
       y = [xy[1] for xy in xy]
-      apdraw.drawlines(x, y, color=roadcolor, linewidth=3, capstyle="butt", zorder=0)
+      apdraw.drawlines(x, y, color=roadcolor, linewidth=roadwidth, capstyle="butt", zorder=0)
 
   # Draw and label the hexes.
   for sheet in sheets():
@@ -587,11 +594,11 @@ urbanhexcodes = [
 
 rivers = [
   ["A1",[[20.00, 1.00],[20.00, 3.00],[20.50, 3.75],[27.50, 6.75],[28.67, 9.00],[27.33,10.50],[29.50,13.75],[29.50,14.75],[30.00,16.00],]],
-  ["A1",[[19.00,15.00],[20.00,16.00],[20.00,16.00],]],
+  ["A1",[[19.00,15.00],[20.00,16.00],[20.00,16.01],]],
   ["A1",[[10.00, 1.00],[11.00, 1.00],[11.50, 0.75],]],
-  ["A2",[[20.00,16.00],[20.00,16.50],]],
-  ["A2",[[10.00,16.00],[11.00,16.00],[11.67,16.00],[17.33,18.50],[20.00,23.00],[20.00,27.00],[20.67,28.00],[20.67,29.00],[20.00,30.00],[20.00,31.00],]],
-  ["A2",[[15.33,17.50],[18.00,22.00],[20.00,23.00],]],
+  ["A2",[[20.00,16.00],[20.00,16.50],[20.00,16.51],]],
+  ["A2",[[10.00,16.00],[11.00,16.00],[12.00,16.50],[17.50,18.75],[20.00,23.00],[20.00,27.00],[20.67,28.00],[20.67,29.00],[20.00,30.00],[20.00,31.00],]],
+  ["A2",[[15.50,17.75],[18.00,22.00],[20.00,23.00],]],
   ["A2",[[17.33,23.50],[17.67,24.00],]],
   ["A2",[[11.33,18.50],[15.67,21.00],]],
   ["B1",[[30.00, 1.00],[31.00, 1.00],[31.00, 2.00],[32.00, 3.00],[33.00, 2.00],[34.00, 3.00],[34.00, 3.75],[35.50, 3.25],[36.00, 2.00],[37.00, 1.00],[38.00, 2.00],[38.00, 3.00],[39.00, 3.00],[40.00, 3.00],[40.00, 1.00],]],
@@ -602,7 +609,7 @@ rivers = [
   ["B2",[[50.00,31.00],[49.50,29.75],[49.50,29.25],[47.00,28.00],[47.00,27.00],[48.50,26.75],[48.50,24.00],]],
   ["B2",[[48.00,27.00],[47.00,26.00],]],
   ["B2",[[48.00,26.00],[48.50,26.25],]],
-  ["B2",[[40.00,16.00],[41.00,16.00],]],
+  ["B2",[[40.00,16.25],[41.00,16.00],]],
   ["B2",[[40.00,16.00],[40.00,17.00],[41.00,17.00],[38.00,19.00],[38.00,20.00],]],
   ["B2",[[41.00,17.00],[41.00,18.00],[40.00,19.00],[39.00,18.00],]],
   ["C1",[[50.00, 1.00],[51.00, 1.00],[51.00, 3.00],]],
