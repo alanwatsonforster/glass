@@ -33,13 +33,16 @@ bridgecolor = urbancolor
 watercolor  = ( 0.650, 0.820, 1.000 )
 hexcolor    = ( 0.500, 0.500, 0.500 )
 runwaycolor = urbancolor
+damcolor    = urbancolor
 
 roadwidth        = 3
 riverwidth       = 10
+wideriverwidth   = 20
 clearingwidth    = 14
 bridgeouterwidth = 14
 bridgeinnerwidth = 7
 runwaywidth      = 7
+damwidth         = 14
 
 def setmap(sheetgrid, compassrose):
 
@@ -130,6 +133,11 @@ def startdrawmap():
       y = [xy[1] for xy in xy]
       apdraw.drawlines(x, y, color=ridgecolor, linewidth=7, zorder=0)
   
+  # Draw water.
+  for h in waterhexcodes:
+    if aphexcode.tosheet(h) in sheets():
+      apdraw.drawhex(*aphexcode.toxy(h), fillcolor=watercolor, zorder=0)
+      
   # Draw the wooded areas.
   for h in woodedhexcodes:
     if aphexcode.tosheet(h) in sheets():
@@ -159,6 +167,14 @@ def startdrawmap():
       x = [xy[0] for xy in xy]
       y = [xy[1] for xy in xy]
       apdraw.drawlines(x, y, color=watercolor, linewidth=riverwidth, capstyle="butt", zorder=0)
+  for river in widerivers:
+    sheet = river[0]
+    if sheet in sheets():
+      p = river[1]
+      xy = [toxy(sheet, *p) for p in p]
+      x = [xy[0] for xy in xy]
+      y = [xy[1] for xy in xy]
+      apdraw.drawlines(x, y, color=watercolor, linewidth=wideriverwidth, capstyle="butt", zorder=0)
 
   # Draw the bridges.
   for bridge in bridges:
@@ -190,6 +206,16 @@ def startdrawmap():
       x = [xy[0] for xy in xy]
       y = [xy[1] for xy in xy]
       apdraw.drawlines(x, y, color=runwaycolor, linewidth=runwaywidth, capstyle="butt", zorder=0)
+      
+  # Draw the dams.
+  for dam in dams:
+    sheet = dam[0]
+    if sheet in sheets():
+      p = dam[1]
+      xy = [toxy(sheet, *p) for p in p]
+      x = [xy[0] for xy in xy]
+      y = [xy[1] for xy in xy]
+      apdraw.drawlines(x, y, color=damcolor, linewidth=damwidth, capstyle="butt", zorder=0)
       
   # Draw and label the hexes.
   for sheet in sheets():
@@ -402,6 +428,16 @@ level2hexcodes = [
 
 ]
 
+waterhexcodes = [
+
+  # A2
+  1219, 1319, 1420,
+
+  # C2
+  6127, 6227,
+
+]
+
 ridges = [
   ["B2",[[44.33,21.50],[45.00,22.00],[46.00,23.00],[46.00,24.00],[45.00,24.00],[45.00,27.00],[44.00,28.00],[43.33,28.50],]],
   ["C2",[[52.50,17.25],[54.00,18.00],[54.67,18.00],]],
@@ -609,10 +645,7 @@ rivers = [
   ["A1",[[19.00,15.00],[20.00,16.00],[20.00,16.01],]],
   ["A1",[[10.00, 1.00],[11.00, 1.00],[11.50, 0.75],]],
   ["A2",[[20.00,16.00],[20.00,16.50],[20.00,16.51],]],
-  ["A2",[[10.00,16.00],[11.00,16.00],[12.00,16.50],[17.50,18.75],[20.00,23.00],[20.00,27.00],[20.67,28.00],[20.67,29.00],[20.00,30.00],[20.00,31.00],]],
   ["A2",[[15.50,17.75],[18.00,22.00],[20.00,23.00],]],
-  ["A2",[[17.33,23.50],[17.67,24.00],]],
-  ["A2",[[11.33,18.50],[15.67,21.00],]],
   ["B1",[[30.00, 1.00],[31.00, 1.00],[31.00, 2.00],[32.00, 3.00],[33.00, 2.00],[34.00, 3.00],[34.00, 3.75],[35.50, 3.25],[36.00, 2.00],[37.00, 1.00],[38.00, 2.00],[38.00, 3.00],[39.00, 3.00],[40.00, 3.00],[40.00, 1.00],]],
   ["B1",[[30.00,16.00],[32.50,14.75],[38.50,14.75],[39.00,14.00],[40.00,15.00],[40.00,16.00],]],
   ["B1",[[40.00,16.00],[40.00,15.00],[39.00,14.00],[39.00,13.00],[42.00,12.00],[45.50,13.25],[46.50,13.75],[47.50,13.25],[49.00,14.00],[50.00,16.00],]],
@@ -631,6 +664,13 @@ rivers = [
   ["C2",[[50.00,16.00],[51.00,16.00],]],
   ["C2",[[60.00,16.00],[60.00,17.00],[59.00,17.00],[59.00,18.00],[61.00,17.00],[61.00,18.00],[61.50,18.25],[63.50,18.25],[65.00,19.00],[65.00,22.00],[66.00,23.00],[66.00,24.00],[65.00,24.00],[65.00,25.00],[60.00,28.00],[60.00,31.00],]],
   ["C2",[[70.00,31.00],[69.00,29.00],]],
+]
+
+widerivers = [
+  ["A2",[[10.00,16.00],[11.00,16.00],[12.00,16.50],[17.50,18.75],[19.00,21.00],[20.00,22.00],[20.00,27.00],[20.67,28.00],[20.67,29.00],[20.00,30.00],[20.00,31.00],]],
+  ["A2",[[15.50,17.75],[18.00,22.00],[20.00,23.00],]],
+  ["A2",[[14.00,20.00],[14.33,20.50],[16.33,21.50],]],
+  ["A2",[[17.33,23.50],[17.67,24.00],]],
 ]
 
 clearings = [
@@ -652,6 +692,10 @@ runways = [
   ["A1",[[12.60, 4.50],[13.75, 5.80],]],
   ["A2",[[22.60,23.25],[25.40,24.25],]],
   ["A2",[[23.00,22.60],[23.00,25.40],]],
+]
+
+dams = [
+  ["C2",[[60.23,27.35],[60.77,28.15],]],
 ]
 
 roads = [
