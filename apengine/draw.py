@@ -165,9 +165,11 @@ def drawcompass(x, y, facing, **kwargs):
 
 ################################################################################
 
+flightpathcolor=( 0.30, 0.30, 0.30 )
+
 def drawflightpath(x, y):
-  drawdot(x[0], y[0], color="darkgray", size=0.1, zorder=0.5)
-  drawlines(x, y, color="darkgray", linewidth=2, linestyle="dashed", zorder=0.5)
+  drawdot(x[0], y[0], color=flightpathcolor, size=0.1, zorder=0.5)
+  drawlines(x, y, color=flightpathcolor, linewidth=2, linestyle="dashed", zorder=0.5)
 
 def drawaircraft(x, y, facing, name, altitude, when, color):
   if when == "end":
