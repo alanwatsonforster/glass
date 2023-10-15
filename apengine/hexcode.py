@@ -146,7 +146,7 @@ def toxy(h, sheet=None):
     XX, YY = _split(h)
 
     if sheet == None:
-      sheet = _tosheet(h, includerightedge=True, includebottomedge=True)
+      sheet = tosheet(h, includerightedge=True, includebottomedge=True)
       if sheet == None:
         raise RuntimeError("hex code %r is not within the map." % h)
 
@@ -167,8 +167,8 @@ def toxy(h, sheet=None):
     h1 = m[1]
 
     if sheet == None:
-      sheet0 = _tosheet(h0)
-      sheet1 = _tosheet(h1)
+      sheet0 = tosheet(h0)
+      sheet1 = tosheet(h1)
       if sheet0 == None:
         sheet0 = sheet1
       elif sheet1 == None:
@@ -238,7 +238,7 @@ def _sheetorigin(sheet):
 
   return _join(XX, YY)
 
-def _tosheet(h, 
+def tosheet(h, 
   includerightedge=False, includeleftedge=False,
   includebottomedge=False, includetopedge=False
   ):
@@ -250,7 +250,6 @@ def _tosheet(h,
   """
 
   assert isvalidhexcodeforcenter(h)
-
 
   XX, YY = _split(h)
 

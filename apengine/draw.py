@@ -41,15 +41,14 @@ def physicaltohex(x,y):
 
 ################################################################################
 
-def _drawhexinphysical(x, y, size=1, color="lightgrey", zorder=1):
+def _drawhexinphysical(x, y, size=1, linecolor="lightgrey", fillcolor=None, zorder=1):
   # size is inscribed diameter
   _ax.add_artist(patches.RegularPolygon(
     [x,y], 6, 
     radius=size*0.5*np.sqrt(4/3), orientation=np.pi/6, 
-    edgecolor=color, fill=False,
+    edgecolor=linecolor, facecolor=fillcolor, fill=(fillcolor != None),
     zorder=zorder
   ))
-  return
 
 def _drawdotinphysical(x, y, size=1, facing=0, dx=0, dy=0, color="black", zorder=1):
   x = x + dx * sind(facing) + dy * cosd(facing)
@@ -106,18 +105,25 @@ def _drawtextinphysical(x, y, facing, s, size=10, dx=0, dy=0, color="black", zor
            rotation_mode="anchor",
            zorder=zorder)
 
-def _drawcompassinphysical(x, y, facing, color="black"):
-  _drawdotinphysical(x, y, size=0.1, color=color, zorder=0.5)
-  _drawarrowinphysical(x, y, facing, size=0.8, dy=+0.4, color=color, zorder=0.5)
-  _drawtextinphysical(x, y, facing, "N", dy=0.95, color=color, zorder=0.5)
+def _drawcompassinphysical(x, y, facing, color="black", zorder=1):
+  _drawdotinphysical(x, y, size=0.1, color=color, zorder=zorder)
+  _drawarrowinphysical(x, y, facing, size=0.8, dy=+0.4, color=color, zorder=zorder)
+  _drawtextinphysical(x, y, facing, "N", dy=0.95, color=color, zorder=zorder)
+
+def _drawpolygoninphysical(xy, linecolor="black", fillcolor="white", linewidth=1, zorder=1):
+  _ax.add_artist(patches.Polygon(
+    xy,
+    edgecolor=linecolor, facecolor=fillcolor, linewidth=linewidth,
+    zorder=zorder
+  ))  
 
 ################################################################################
     
 def drawhex(x, y, **kwargs):
-  _drawhexinphysical(*hextophysical(x, y), zorder=0, **kwargs)
+  _drawhexinphysical(*hextophysical(x, y), **kwargs)
 
-def drawhexlabel(x, y, label, dy=0.3, size=7, color="grey", **kwargs):
-  drawtext(x, y, 90, label, dy=dy, size=size, color=color, zorder=0, **kwargs)        
+def drawhexlabel(x, y, label, dy=0.3, size=7, color="lightgrey", **kwargs):
+  drawtext(x, y, 90, label, dy=dy, size=size, color=color, **kwargs)        
 
 def drawdot(x, y, **kwargs):
   _drawdotinphysical(*hextophysical(x, y), **kwargs)
@@ -136,6 +142,12 @@ def drawdart(x, y, facing, **kwargs):
 
 def drawtext(x, y, facing, s, **kwargs):
   _drawtextinphysical(*hextophysical(x, y), facing, s, **kwargs)
+
+def drawpolygon(xy, **kwargs):
+  _drawpolygoninphysical([hextophysical(*xy) for xy in xy], **kwargs)
+
+def drawrectangle(xmin, ymin, xmax, ymax, **kwargs):
+  drawpolygon([[xmin,ymin],[xmin,ymax],[xmax,ymax],[xmax,ymin]], **kwargs)
 
 def drawcompass(x, y, facing, **kwargs):
   _drawcompassinphysical(*hextophysical(x, y), facing, **kwargs)
