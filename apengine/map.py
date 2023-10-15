@@ -32,12 +32,14 @@ roadcolor   = urbancolor
 bridgecolor = urbancolor
 watercolor  = ( 0.650, 0.820, 1.000 )
 hexcolor    = ( 0.500, 0.500, 0.500 )
+runwaycolor = urbancolor
 
 roadwidth        = 3
 riverwidth       = 10
 clearingwidth    = 14
 bridgeouterwidth = 14
 bridgeinnerwidth = 7
+runwaywidth      = 7
 
 def setmap(sheetgrid, compassrose):
 
@@ -179,6 +181,16 @@ def startdrawmap():
       y = [xy[1] for xy in xy]
       apdraw.drawlines(x, y, color=roadcolor, linewidth=roadwidth, capstyle="butt", zorder=0)
 
+  # Draw the runways.
+  for runway in runways:
+    sheet = runway[0]
+    if sheet in sheets():
+      p = runway[1]
+      xy = [toxy(sheet, *p) for p in p]
+      x = [xy[0] for xy in xy]
+      y = [xy[1] for xy in xy]
+      apdraw.drawlines(x, y, color=runwaycolor, linewidth=runwaywidth, capstyle="butt", zorder=0)
+      
   # Draw and label the hexes.
   for sheet in sheets():
     xmin, ymin, xmax, ymax = sheetlimits(sheet)
@@ -634,6 +646,12 @@ bridges = [
   ["B1",[[35.00, 3.00],[35.00, 3.50],]],
   ["B1",[[45.00,12.75],[45.00,13.25],]],
   ["B1",[[47.00,13.00],[47.00,13.50],]],
+]
+
+runways = [
+  ["A1",[[12.60, 4.50],[13.75, 5.80],]],
+  ["A2",[[22.60,23.25],[25.40,24.25],]],
+  ["A2",[[23.00,22.60],[23.00,25.40],]],
 ]
 
 roads = [
