@@ -22,12 +22,13 @@ _dysheet = 15
 
 _saved = False
 
-level0color    = ( 0.850, 0.900, 0.850)
-level1color    = ( 0.824, 0.752, 0.640)
-level2color    = ( 0.616, 0.664, 0.560)
-ridgelinecolor = ( 0.500, 0.500, 0.450)
-woodcolor = (0.0, 0.5, 0.0)
-hexcolor       = ( 0.500, 0.500, 0.500)
+level0color    = ( 0.850, 0.900, 0.850 )
+level1color    = ( 0.824, 0.752, 0.640 )
+level2color    = ( 0.616, 0.664, 0.560 )
+ridgelinecolor = ( 0.500, 0.500, 0.450 )
+woodedcolor    = ( 0.000, 0.500, 0.000 )
+urbancolor     = ( 0.600, 0.600, 0.600 )
+hexcolor       = ( 0.500, 0.500, 0.500 )
 
 def setmap(sheetgrid, compassrose):
 
@@ -120,10 +121,15 @@ def startdrawmap():
     dy = np.array([ +0.50, -4.00, -5.25 ])
     apdraw.drawlines(x0 + dx, y0 + dy, linewidth=7, color=ridgelinecolor, zorder=0)
   
-  # Draw the woods.
-  for h in woodshexcodes:
+  # Draw wooded areas.
+  for h in woodedhexcodes:
     if aphexcode.tosheet(h) in sheets():
-      apdraw.drawhex(*aphexcode.toxy(h), linecolor=woodcolor, hatch="o", zorder=0)
+      apdraw.drawhex(*aphexcode.toxy(h), linecolor=woodedcolor, hatch="o", zorder=0)
+
+  # Draw urban areas.
+  for h in urbanhexcodes:
+    if aphexcode.tosheet(h) in sheets():
+      apdraw.drawhex(*aphexcode.toxy(h), linecolor=urbancolor, hatch="xx", zorder=0)
 
   # Draw and label the hexes.
   for sheet in sheets():
@@ -337,7 +343,7 @@ level2hexcodes = [
 ]
 
 
-woodshexcodes = [
+woodedhexcodes = [
     
   # A1
   1111, 1112,
@@ -431,3 +437,105 @@ woodshexcodes = [
   5822, 5823, 5824,
 
 ]
+
+urbanhexcodes = [
+    
+  # A1
+
+  1402, 1403,
+
+  1602, 1604, 1605,
+  1701, 1702, 1703, 1704, 1705,
+  1802,
+  1901, 1902, 1903,
+
+  2113,
+
+  2407,
+
+  2603,
+  2701, 2702,
+
+  2615,
+  2714, 2715,
+
+  2911,
+
+  # A2
+
+  1121, 1125,
+  1220, 1221, 1222, 1224, 1225, 1226,
+  1320, 1321, 1322, 1323, 1324, 1325, 1326, 1327, 1328,
+  1421, 1422, 1423, 1424, 1425, 1426, 1427, 1428, 1429, 1430,
+  1519, 1520, 1521, 1522, 1523, 1524, 1525, 1526, 1527,
+  1620, 1621, 1622, 1623, 1624, 1625, 1626, 1627, 1628, 1629, 1630,
+  1721, 1722, 1723, 1724, 1725, 1726, 1727, 1728, 1729,
+  1823, 1824, 1825, 1826, 1827, 1828, 
+  1923, 1924, 1925, 1926, 1927,
+  2028, 2029,
+
+  1516,
+  1617,
+
+  1919,
+  2020, 2021,
+  2120, 2121, 2122, 2123, 2124, 2125, 2126, 2127,
+  2222,
+
+  2529,
+  2628, 2629,
+  2728,
+
+  2618,
+  2717, 2718,
+  2818,
+
+  2921,
+
+  # B1
+
+  3513, 3514,
+  3614, 3615,
+  3713,
+
+  4708,
+  4808,
+  4908,
+
+  # B2
+
+  3227,
+
+  3318,
+  3418,
+
+  3630,
+
+  4728, 4729,
+  4829, 4830,
+
+  4924, 4925,
+
+  # C1
+
+  5110,
+
+  5215,
+
+  6105,
+
+  6514, 6515,
+  6615,
+  6715,
+
+  # C2
+
+  5427,
+
+  6630,
+  6730,
+
+    
+]
+
+
