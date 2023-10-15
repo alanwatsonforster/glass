@@ -42,12 +42,13 @@ def physicaltohex(x,y):
 
 ################################################################################
 
-def _drawhexinphysical(x, y, size=1, linecolor="lightgrey", fillcolor=None, hatch=None, zorder=1):
+def _drawhexinphysical(x, y, size=1, linecolor="lightgrey", linewidth=0.5, fillcolor=None, hatch=None, zorder=1):
   # size is inscribed diameter
   _ax.add_artist(patches.RegularPolygon(
     [x,y], 6, 
     radius=size*0.5*np.sqrt(4/3), orientation=np.pi/6, 
     edgecolor=linecolor, facecolor=fillcolor, fill=(fillcolor != None), hatch=hatch, 
+    linewidth=linewidth,
     zorder=zorder
   ))
 
@@ -121,10 +122,10 @@ def _drawcompassinphysical(x, y, facing, color="black", zorder=1):
   _drawarrowinphysical(x, y, facing, size=0.8, dy=+0.4, color=color, zorder=zorder)
   _drawtextinphysical(x, y, facing, "N", dy=0.95, color=color, zorder=zorder)
 
-def _drawpolygoninphysical(xy, linecolor="black", fillcolor="white", linewidth=1, zorder=1):
+def _drawpolygoninphysical(xy, linecolor="black", fillcolor=None, linewidth=0.5, zorder=1):
   _ax.add_artist(patches.Polygon(
     xy,
-    edgecolor=linecolor, facecolor=fillcolor, linewidth=linewidth,
+    edgecolor=linecolor, facecolor=fillcolor, fill=(fillcolor != None), linewidth=linewidth,
     zorder=zorder
   ))  
 
