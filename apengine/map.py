@@ -22,16 +22,16 @@ _dysheet = 15
 
 _saved = False
 
-level0color = ( 0.850, 0.900, 0.850 )
-level1color = ( 0.824, 0.752, 0.640 )
-level2color = ( 0.616, 0.664, 0.560 )
-ridgecolor  = ( 0.600, 0.500, 0.450 )
-woodedcolor = ( 0.300, 0.500, 0.300 )
-urbancolor  = ( 0.600, 0.600, 0.600 )
+level0color = ( 0.85, 0.90, 0.85 )
+level1color = ( 0.87, 0.85, 0.78 )
+level2color = ( 0.82, 0.75, 0.64 )
+ridgecolor  = ( 0.68, 0.60, 0.56 )
+woodedcolor = ( 0.30, 0.50, 0.30 )
+urbancolor  = ( 0.60, 0.60, 0.60 )
 roadcolor   = urbancolor
 bridgecolor = urbancolor
-watercolor  = ( 0.650, 0.820, 1.000 )
-hexcolor    = ( 0.400, 0.400, 0.400 )
+watercolor  = ( 0.65, 0.82, 1.00 )
+hexcolor    = ( 0.40, 0.40, 0.40 )
 runwaycolor = urbancolor
 damcolor    = urbancolor
 
