@@ -1,3 +1,6 @@
+import apengine.map as apmap
+import apengine.hex as aphex
+
 def isvalidaltitude(x):
 
   """
@@ -96,12 +99,16 @@ def altitudeband(altitude):
   else:
     return "UH"
 
-def terrainaltitude():
+def terrainaltitude(x, y):
 
   """
   Return the altitude of the terrain.
   """
 
-  # TODO: Have terrain with non-zero altitude.
+  assert aphex.isvalid(x, y)
 
-  return 0
+  if aphex.iscenter(x, y):
+    return apmap.altitude(x, y)
+  else:
+    x0, y0, x1, y1 = aphex.edgetocenters(x, y)
+    return max(apmap.altitude(x0, y0), apmap.altitude(x1, y1))

@@ -183,7 +183,7 @@ class aircraft:
     Check if the aircraft has collided with terrain.
     """
 
-    altitudeofterrain = apaltitude.terrainaltitude()
+    altitudeofterrain = apaltitude.terrainaltitude(self._x, self._y)
     if self._altitude <= altitudeofterrain:
       self._altitude = altitudeofterrain
       self._altitudecarry = 0

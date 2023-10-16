@@ -365,20 +365,20 @@ def tosheet(x, y):
 def altitude(x, y):
 
   """
-  Returns the altitude at the hexcode h.
+  Returns the altitude of the hex at the position (x, y), which must refer to a
+  hex center and must be on the map.
   """
 
-  if aphex.iscenter(x, y):
-    h = aphexcode.fromxy(x, y)
-    if h in level2hexcodes:
-      return 2
-    elif h in level1hexcodes:
-      return 1
-    else:
-      return 0
+  assert aphex.iscenter(x, y)
+  assert isonmap(x, y)
+
+  h = aphexcode.fromxy(x, y)
+  if h in level2hexcodes:
+    return 2
+  elif h in level1hexcodes:
+    return 1
   else:
-    x0, y0, x1, y1 = aphex.edgetocenters(x, y)
-    return max(altitude(x0, y0), altitude(x1, y1))
+    return 0
 
 ################################################################################
 
