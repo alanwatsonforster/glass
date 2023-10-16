@@ -366,11 +366,10 @@ def altitude(x, y):
 
   """
   Returns the altitude of the hex at the position (x, y), which must refer to a
-  hex center and must be on the map.
+  hex center.
   """
 
   assert aphex.iscenter(x, y)
-  assert isonmap(x, y)
 
   h = aphexcode.fromxy(x, y)
   if h in level2hexcodes:
