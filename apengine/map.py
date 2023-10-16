@@ -27,11 +27,11 @@ level1color = ( 0.87, 0.85, 0.78 )
 level2color = ( 0.82, 0.75, 0.64 )
 ridgecolor  = ( 0.68, 0.60, 0.56 )
 woodedcolor = ( 0.65, 0.75, 0.65 )
-urbancolor  = ( 0.60, 0.60, 0.60 )
+urbancolor  = ( 0.70, 0.70, 0.70 )
 roadcolor   = urbancolor
 bridgecolor = urbancolor
-watercolor  = ( 0.65, 0.82, 1.00 )
-hexcolor    = ( 0.40, 0.40, 0.40 )
+watercolor  = ( 0.70, 0.85, 0.95 )
+hexcolor    = ( 0.50, 0.50, 0.50 )
 runwaycolor = urbancolor
 damcolor    = urbancolor
 
@@ -361,6 +361,24 @@ def tosheet(x, y):
     if isonsheet(sheet, x, y):
       return sheet
   return None
+
+def altitude(x, y):
+
+  """
+  Returns the altitude at the hexcode h.
+  """
+
+  if aphex.iscenter(x, y):
+    h = aphexcode.fromxy(x, y)
+    if h in level2hexcodes:
+      return 2
+    elif h in level1hexcodes:
+      return 1
+    else:
+      return 0
+  else:
+    x0, y0, x1, y1 = aphex.edgetocenters(x, y)
+    return max(altitude(x0, y0), altitude(x1, y1))
 
 ################################################################################
 

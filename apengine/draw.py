@@ -78,7 +78,7 @@ def _drawlinesinphysical(x, y,
     linewidth=linewidth, linestyle=linestyle, color=color, solid_capstyle=capstyle,
     zorder=zorder)
   
-def _drawarrowinphysical(x, y, facing, size=1.0, dx=0, dy=0, color="black", zorder=1):
+def _drawarrowinphysical(x, y, facing, size=1.0, dx=0, dy=0, linewidth=0.5, color="black", zorder=1):
   # size is length
   x = x + dx * sind(facing) + dy * cosd(facing)
   y = y - dx * cosd(facing) + dy * sind(facing)
@@ -89,10 +89,11 @@ def _drawarrowinphysical(x, y, facing, size=1.0, dx=0, dy=0, color="black", zord
   _ax.add_artist(patches.FancyArrow(
     x, y, dx, dy,
     width=0.01, head_width=0.1, color=color, length_includes_head=True, 
+    linewidth=linewidth,
     zorder=zorder
   ))
 
-def _drawdartinphysical(x, y, facing, size=1.0, dx=0, dy=0, facecolor="black", edgecolor="black", zorder=1):
+def _drawdartinphysical(x, y, facing, size=1.0, dx=0, dy=0, linewidth=0.5, facecolor="black", edgecolor="black", zorder=1):
   # size is length
   x = x + dx * sind(facing) + dy * cosd(facing)
   y = y - dx * cosd(facing) + dy * sind(facing)
@@ -103,7 +104,7 @@ def _drawdartinphysical(x, y, facing, size=1.0, dx=0, dy=0, facecolor="black", e
   _ax.add_artist(patches.FancyArrow(
     x, y, dx, dy,
     width=0.02, head_length=size, head_width=0.5*size, length_includes_head=True, 
-    facecolor=facecolor, edgecolor=edgecolor, \
+    facecolor=facecolor, edgecolor=edgecolor, linewidth=linewidth, \
     zorder=zorder
   ))
 
