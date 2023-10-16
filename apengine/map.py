@@ -362,22 +362,35 @@ def tosheet(x, y):
       return sheet
   return None
 
-def altitude(x, y):
+def altitude(x, y, sheet=None):
 
   """
   Returns the altitude of the hex at the position (x, y), which must refer to a
   hex center.
   """
 
-  assert aphex.iscenter(x, y)
+  assert aphex.isvalid(x, y)
 
-  h = aphexcode.fromxy(x, y)
-  if h in level2hexcodes:
-    return 2
-  elif h in level1hexcodes:
-    return 1
+  if aphex.iscenter(x, y):
+    h = aphexcode.fromxy(x, y, sheet=sheet)
+    if h in level2hexcodes:
+      return 2
+    elif h in level1hexcodes:
+      return 1
+    else:
+      return 0
+
   else:
-    return 0
+
+    x0, y0, x1, y1 = aphex.edgetocenters(x, y)
+    sheet0 = tosheet(x0, y0)
+    sheet1 = tosheet(x1, y1)
+    assert sheet0 != None or sheet1 != None
+    if sheet0 == None:
+      sheet0 = sheet1
+    if sheet1 == None:
+      sheet1 = sheet0
+    return max(altitude(x0, y0, sheet=sheet0), altitude(x1, y1, sheet=sheet1))
 
 ################################################################################
 

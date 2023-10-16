@@ -107,8 +107,4 @@ def terrainaltitude(x, y):
 
   assert aphex.isvalid(x, y)
 
-  if aphex.iscenter(x, y):
-    return apmap.altitude(x, y)
-  else:
-    x0, y0, x1, y1 = aphex.edgetocenters(x, y)
-    return max(apmap.altitude(x0, y0), apmap.altitude(x1, y1))
+  return apmap.altitude(x, y)
