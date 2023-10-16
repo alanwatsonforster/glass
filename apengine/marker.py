@@ -5,6 +5,10 @@ import apengine.log     as aplog
 
 _markerlist = []
 
+def _startsetup():
+  global _markerlist
+  _markerlist = []
+  
 def _drawmap():
   for a in _markerlist:
       a._draw()

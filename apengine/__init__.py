@@ -56,6 +56,7 @@ def startsetup(scenario, sheets=None, compassrose=None, north="up", variants=[])
   aplog.logbreak()
 
   apaircraft._startsetup()
+  apmarker._startsetup()
 
 def endsetup():
 
@@ -109,8 +110,8 @@ def endturn():
 
 def drawmap():
   apmap.startdrawmap()
-  apaircraft._drawmap()
   apmarker._drawmap()
+  apaircraft._drawmap()
   apmap.enddrawmap()
 
 ################################################################################

@@ -4,7 +4,7 @@ Drawing for the aircraft class.
 
 import apengine.draw as apdraw
 
-flightpathcolor=( 0.50, 0.50, 0.50 )
+flightpathcolor=( 0.70, 0.70, 0.70 )
 
 def _startflightpath(self):
   self._flightpathx = [self._x]
