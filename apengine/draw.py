@@ -165,18 +165,3 @@ def drawcompass(x, y, facing, **kwargs):
   _drawcompassinphysical(*hextophysical(x, y), facing, **kwargs)
 
 ################################################################################
-
-flightpathcolor=( 0.30, 0.30, 0.30 )
-
-def drawflightpath(x, y):
-  drawdot(x[0], y[0], color=flightpathcolor, size=0.1, zorder=0.5)
-  drawlines(x, y, color=flightpathcolor, linewidth=2, linestyle="dashed", zorder=0.5)
-
-def drawaircraft(x, y, facing, name, altitude, when, color):
-  if when == "end":
-    facecolor = color
-  else:
-    facecolor = "white"
-  drawdart(x, y, facing, dy=-0.02, size=0.4, facecolor=facecolor, edgecolor=color)
-  drawtext(x, y, facing, name, dx=-0.25, dy=0.0, size=7, color="black")
-  drawtext(x, y, facing, "%2d" % altitude, dx=+0.25, dy=0.0, size=7, color="black")
