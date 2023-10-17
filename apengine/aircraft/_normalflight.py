@@ -1320,6 +1320,12 @@ def _startnormalflight(self, actions):
     minunloadedhfp = 0
     maxunloadedhfp = 0
 
+    # The comments below about "see the blue sheet" refer to the VFP
+    # requirements for SD, SC, and ZC, which do not appear in the rules
+    # but which do appear on the blue "Flight Rules Summary" sheet.
+    # Actually, there is no requirement for SCs even here, but we assume
+    # that at least one VFP must be used in this case too.
+
     if flighttype == "LVL":
 
       # See rule 5.3.
@@ -1327,11 +1333,17 @@ def _startnormalflight(self, actions):
     
     elif flighttype == "ZC":
 
+      # See blue sheet.
+      minvfp = 1      
+
       # See rules 8.1.1.
       minhfp = math.ceil(onethird(maxfp))
 
     elif flighttype == "SC":
 
+      # See blue sheet.
+      minvfp = 1
+      
       # See rule 8.1.2.
       if self._speed < self.minspeed() + 1.0:
         raise RuntimeError("insufficient speed for SC.")
@@ -1345,6 +1357,9 @@ def _startnormalflight(self, actions):
 
     elif flighttype == "VC" or flighttype == "VD":
 
+      # See blue sheet.
+      minvfp = 1
+      
       # See rules 8.1.3 and 8.2.3.
       if previousflighttype != flighttype:
         minhfp = math.floor(onethird(maxfp))
@@ -1354,6 +1369,9 @@ def _startnormalflight(self, actions):
 
     elif flighttype == "SD":
 
+      # See blue sheet.
+      minvfp = 1
+      
       # See rules 8.2.1 and 8.2.3.
       if previousflighttype == "VD":
         minvfp = math.floor(self._speed / 2)
@@ -1370,10 +1388,13 @@ def _startnormalflight(self, actions):
 
     minhfp = max(minhfp, self._mininitialhfp)
 
-    if minvfp > 0:
-      self._log("- at least %d FPs must be VFPs." % minvfp)
-    elif maxvfp != 0 and maxvfp < maxfp:
-      self._log("- at most %d FPs can be VFPs." % maxvfp)
+    if minvfp > 0 and minvfp == maxvfp:     
+      self._log("- exactly %d FPs must be VFPs." % minvfp)
+    else:
+      if minvfp > 0:
+        self._log("- at least %d FPs must be VFPs." % minvfp)
+      if maxvfp < maxfp:
+        self._log("- at most %d FPs can be VFPs." % maxvfp)
       
     if maxvfp == 0:
       self._log("- all FPs must be HFPs.")
