@@ -22,18 +22,19 @@ _dysheet = 15
 
 _saved = False
 
-level0color = ( 0.85, 0.90, 0.85 )
-level1color = ( 0.87, 0.85, 0.78 )
-level2color = ( 0.82, 0.75, 0.64 )
-ridgecolor  = ( 0.75, 0.66, 0.62 )
-woodedcolor = ( 0.65, 0.75, 0.65 )
-urbancolor  = ( 0.70, 0.70, 0.70 )
-roadcolor   = urbancolor
-bridgecolor = urbancolor
-watercolor  = ( 0.70, 0.85, 0.95 )
-hexcolor    = ( 0.50, 0.50, 0.50 )
-runwaycolor = urbancolor
-damcolor    = urbancolor
+level0color  = ( 0.85, 0.90, 0.85 )
+level1color  = ( 0.87, 0.85, 0.78 )
+level2color  = ( 0.82, 0.75, 0.64 )
+ridgecolor   = ( 0.75, 0.66, 0.62 )
+woodedcolor  = ( 0.65, 0.75, 0.65 )
+urbancolor   = ( 0.70, 0.70, 0.70 )
+roadcolor    = urbancolor
+bridgecolor  = urbancolor
+watercolor   = ( 0.70, 0.85, 0.95 )
+hexcolor     = ( 0.50, 0.50, 0.50 )
+runwaycolor  = urbancolor
+taxiwaycolor = urbancolor
+damcolor     = urbancolor
 
 roadwidth        = 3
 riverwidth       = 14
@@ -41,7 +42,8 @@ wideriverwidth   = 25
 clearingwidth    = 14
 bridgeouterwidth = 14
 bridgeinnerwidth = 7
-runwaywidth      = 7
+runwaywidth      = 10
+taxiwaywidth     = 7
 damwidth         = 14
 
 def setmap(sheetgrid, compassrose):
@@ -192,7 +194,7 @@ def startdrawmap():
       y = [xy[1] for xy in xy]
       apdraw.drawlines(x, y, color=roadcolor, linewidth=roadwidth, capstyle="butt", zorder=0)
 
-  # Draw the runways.
+  # Draw the runways and taxiways.
   for runway in runways:
     sheet = runway[0]
     if sheet in sheets():
@@ -201,6 +203,14 @@ def startdrawmap():
       x = [xy[0] for xy in xy]
       y = [xy[1] for xy in xy]
       apdraw.drawlines(x, y, color=runwaycolor, linewidth=runwaywidth, capstyle="butt", zorder=0)
+  for taxiway in taxiways:
+    sheet = taxiway[0]
+    if sheet in sheets():
+      p = taxiway[1]
+      xy = [toxy(sheet, *p) for p in p]
+      x = [xy[0] for xy in xy]
+      y = [xy[1] for xy in xy]
+      apdraw.drawlines(x, y, color=taxiwaycolor, linewidth=taxiwaywidth, joinstyle="miter", capstyle="butt", zorder=0)
       
   # Draw the dams.
   for dam in dams:
@@ -754,9 +764,12 @@ bridges = [
 ]
 
 runways = [
-  ["A1",[[12.60, 4.50],[13.75, 5.80],]],
+  ["A1",[[12.63, 4.50],[13.80, 5.75],]],
   ["A2",[[22.60,23.25],[25.40,24.25],]],
   ["A2",[[23.00,22.60],[23.00,25.40],]],
+]
+taxiways = [
+  ["A1",[[12.70, 4.60],[13.20, 4.10],[13.00, 4.60],]],
 ]
 
 dams = [

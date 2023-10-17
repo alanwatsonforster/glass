@@ -64,19 +64,19 @@ def _drawdotinphysical(x, y, size=1, facing=0, dx=0, dy=0, color="black", zorder
   ))
 
 def _drawlineinphysical(x0, y0, x1, y1, 
-    color="black", linewidth=0.5, linestyle="solid", capstyle="butt", zorder=1
+    color="black", linewidth=0.5, linestyle="solid", joinstyle="miter", capstyle="butt", zorder=1
   ):
   plt.plot((x0, x1), (y0, y1), 
-    linewidth=linewidth, linestyle=linestyle, color=color, solid_capstyle=capstyle,
+    linewidth=linewidth, linestyle=linestyle, color=color, solid_joinstyle=joinstyle, solid_capstyle=capstyle,
     zorder=zorder)
 
 from matplotlib.patches import Rectangle
 
 def _drawlinesinphysical(x, y, 
-  color="black", linewidth=0.5, linestyle="solid", capstyle="butt",zorder=1
+  color="black", linewidth=0.5, linestyle="solid", joinstyle="miter", capstyle="butt",zorder=1
 ):
   plt.plot(x, y, 
-    linewidth=linewidth, linestyle=linestyle, color=color, solid_capstyle=capstyle,
+    linewidth=linewidth, linestyle=linestyle, color=color, solid_joinstyle=joinstyle, solid_capstyle=capstyle,
     zorder=zorder)
   
 def _drawarrowinphysical(x, y, facing, size=1.0, dx=0, dy=0, linewidth=0.5, color="black", zorder=1):
