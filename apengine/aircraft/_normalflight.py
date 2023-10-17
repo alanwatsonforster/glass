@@ -1388,22 +1388,45 @@ def _startnormalflight(self, actions):
 
     minhfp = max(minhfp, self._mininitialhfp)
 
-    if minvfp > 0 and minvfp == maxvfp:     
-      self._log("- exactly %d FPs must be VFPs." % minvfp)
-    else:
-      if minvfp > 0:
-        self._log("- at least %d FPs must be VFPs." % minvfp)
-      if maxvfp < maxfp:
-        self._log("- at most %d FPs can be VFPs." % maxvfp)
-      
     if maxvfp == 0:
       self._log("- all FPs must be HFPs.")
     elif minhfp == maxhfp:
-      self._log("- exactly %d FPs must be HFPs." % minhfp)
+      if minhfp == 1:     
+        self._log("- exactly 1 FP must be a HFP.")
+      else:
+        self._log("- exactly %d FPs must be HFPs." % minhfp)
+    elif minhfp > 0 and maxhfp < maxfp:
+      self._log("- between %d and %d FP must be HFPs." % (minhfp, maxhfp))
     elif minhfp > 0:
-      self._log("- at least %d FPs must be HFPs." % minhfp)
-    elif maxhfp < maxfp:
-      self._log("- at most %d FPs can be HFPs." % maxhfp)
+      if minhfp == 1:
+        self._log("- at least 1 FP must be a HFP.")
+      else:
+        self._log("- at least %d FPs must be HFPs." % minhfp)
+    else:
+      if maxhfp == 1:
+        self._log("- at most 1 FP may be a HFP.")
+      else:
+        self._log("- at most %d FPs may be HFPs." % maxhfp)  
+        
+    if maxvfp == 0:
+      self._log("- no FPs may be VFPs.")
+    elif minvfp == maxvfp:
+      if minvfp == 1:     
+        self._log("- exactly 1 FP must be a VFP.")
+      else:
+        self._log("- exactly %d FPs must be VFPs." % minvfp)
+    elif minvfp > 0 and maxvfp < maxfp:
+      self._log("- between %d and %d FP must be VFPs." % (minvfp, maxvfp))
+    elif minvfp > 0:
+      if minvfp == 1:
+        self._log("- at least 1 FP must be a VFP.")
+      else:
+        self._log("- at least %d FPs must be VFPs." % minvfp)
+    else:
+      if maxvfp == 1:
+        self._log("- at most 1 FP may be a VFP.")
+      else:
+        self._log("- at most %d FPs may be VFPs." % maxvfp)      
 
     if minhfp > maxhfp:
       raise RuntimeError("flight type not permitted by HFP requirements.")
