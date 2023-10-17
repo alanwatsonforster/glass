@@ -59,7 +59,7 @@ def _drawdotinphysical(x, y, size=1, facing=0, dx=0, dy=0, color="black", zorder
   _ax.add_artist(patches.Circle(
     [x,y],
     radius=0.5*size,
-    color=color,
+    color=_mapcolor(color),
     zorder=zorder
   ))
 
@@ -67,7 +67,7 @@ def _drawlineinphysical(x0, y0, x1, y1,
     color="black", linewidth=0.5, linestyle="solid", joinstyle="miter", capstyle="butt", zorder=1
   ):
   plt.plot((x0, x1), (y0, y1), 
-    linewidth=linewidth, linestyle=linestyle, color=color, solid_joinstyle=joinstyle, solid_capstyle=capstyle,
+    linewidth=linewidth, linestyle=linestyle, color=_mapcolor(color), solid_joinstyle=joinstyle, solid_capstyle=capstyle,
     zorder=zorder)
 
 from matplotlib.patches import Rectangle
@@ -76,7 +76,7 @@ def _drawlinesinphysical(x, y,
   color="black", linewidth=0.5, linestyle="solid", joinstyle="miter", capstyle="butt",zorder=1
 ):
   plt.plot(x, y, 
-    linewidth=linewidth, linestyle=linestyle, color=color, solid_joinstyle=joinstyle, solid_capstyle=capstyle,
+    linewidth=linewidth, linestyle=linestyle, color=_mapcolor(color), solid_joinstyle=joinstyle, solid_capstyle=capstyle,
     zorder=zorder)
   
 def _drawarrowinphysical(x, y, facing, size=1.0, dx=0, dy=0, linewidth=0.5, color="black", zorder=1):
@@ -89,7 +89,7 @@ def _drawarrowinphysical(x, y, facing, size=1.0, dx=0, dy=0, linewidth=0.5, colo
   y -= 0.5 * dy
   _ax.add_artist(patches.FancyArrow(
     x, y, dx, dy,
-    width=0.01, head_width=0.1, color=color, length_includes_head=True, 
+    width=0.01, head_width=0.1, color=_mapcolor(color), length_includes_head=True, 
     linewidth=linewidth,
     zorder=zorder
   ))
@@ -105,7 +105,7 @@ def _drawdartinphysical(x, y, facing, size=1.0, dx=0, dy=0, linewidth=0.5, facec
   _ax.add_artist(patches.FancyArrow(
     x, y, dx, dy,
     width=0.02, head_length=size, head_width=0.5*size, length_includes_head=True, 
-    facecolor=facecolor, edgecolor=edgecolor, linewidth=linewidth, \
+    facecolor=_mapcolor(facecolor), edgecolor=_mapcolor(edgecolor), linewidth=linewidth, \
     zorder=zorder
   ))
 
@@ -113,7 +113,7 @@ def _drawtextinphysical(x, y, facing, s, size=10, dx=0, dy=0, color="black", zor
   x = x + dx * sind(facing) + dy * cosd(facing)
   y = y - dx * cosd(facing) + dy * sind(facing)
   plt.text(x, y, s, size=size, rotation=facing - 90,
-           color=color,
+           color=_mapcolor(color),
            horizontalalignment='center',
            verticalalignment='baseline',
            rotation_mode="anchor",
@@ -127,7 +127,7 @@ def _drawcompassinphysical(x, y, facing, color="black", zorder=1):
 def _drawpolygoninphysical(xy, linecolor="black", fillcolor=None, linewidth=0.5, zorder=1):
   _ax.add_artist(patches.Polygon(
     xy,
-    edgecolor=linecolor, facecolor=fillcolor, fill=(fillcolor != None), linewidth=linewidth,
+    edgecolor=_mapcolor(linecolor), facecolor=_mapcolor(fillcolor), fill=(fillcolor != None), linewidth=linewidth,
     zorder=zorder
   ))  
 
@@ -167,3 +167,43 @@ def drawcompass(x, y, facing, **kwargs):
   _drawcompassinphysical(*hextophysical(x, y), facing, **kwargs)
 
 ################################################################################
+
+_colors = {
+
+  # This is a mapping from "aircraft color" to "CSS color".
+
+  # Approximations to NATO blue and red. 
+  # https://en.wikipedia.org/wiki/NATO_Joint_Military_Symbology#APP-6A_affiliation
+
+  "blue"     : "deepskyblue",
+  "red"      : "tomato",
+
+  "aluminum" : "lightgray",
+  "aluminium": "lightgray",
+  "unpainted": "lightgray",
+
+  "white"    : "white",
+  "darkblue" : "midnightblue",
+  "green"    : "olivedrab",
+  "tan"      : "tan",
+  "sand"     : "blanchedalmond",
+  "darkgray" : "slategray",
+  "darkgrey" : "slategray",
+  "lightgray": "silver",
+  "lightgrey": "silver",
+
+}
+
+def _mapcolor(color):
+
+  if color == None:
+    return color
+  elif color in _colors:
+    return _colors[color]
+  elif color[0:4] == "css:":
+    return color[4:]
+  else:
+    return color
+
+################################################################################
+
