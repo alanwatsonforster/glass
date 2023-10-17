@@ -11,11 +11,12 @@ _ax = None
 
 def setcanvas(x, y):
   global _fig, _ax
-  _fig = plt.figure(figsize=[x*np.sqrt(3/4),y])
-  plt.axis('equal')
+  _fig = plt.figure(figsize=[x*np.sqrt(3/4),y], frameon=False)
   plt.axis('off')
+  plt.xlim(0,x*np.sqrt(3/4))
+  plt.ylim(0,y)
   _ax = plt.gca()
-
+  _ax.set_position([0,0,1,1])
 
 def save():
   pickle.dump(_fig, open("apengine.pickle", "wb"))

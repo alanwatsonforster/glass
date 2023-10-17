@@ -44,9 +44,6 @@ bridgeinnerwidth = 7
 runwaywidth      = 7
 damwidth         = 14
 
-border = 0.75
-bordercolor = (1.00, 1.00, 1.00)
-
 def setmap(sheetgrid, compassrose):
 
   """
@@ -224,16 +221,6 @@ def startdrawmap():
         ymin = iy * _dysheet
         ymax = ymin + _dysheet
         apdraw.drawrectangle(xmin, ymin, xmax, ymax, linecolor=None, fillcolor=bordercolor, zorder=0.0)
-
-  # Draw the border.
-  xmin = 0
-  ymin = 0
-  xmax = _nxsheetgrid * _dxsheet
-  ymax = _nysheetgrid * _dysheet
-  apdraw.drawrectangle(xmin-border, ymin-border, xmax+border, ymin, linecolor=None, fillcolor=bordercolor, zorder=0.0)
-  apdraw.drawrectangle(xmin-border, ymax+border, xmax+border, ymax, linecolor=None, fillcolor=bordercolor, zorder=0.0)
-  apdraw.drawrectangle(xmin-border, ymin-border, xmin, ymax+border, linecolor=None, fillcolor=bordercolor, zorder=0.0)
-  apdraw.drawrectangle(xmax+border, ymin-border, xmax, ymax+border, linecolor=None, fillcolor=bordercolor, zorder=0.0)
   
   # Draw and label the hexes.
   for sheet in sheets():
