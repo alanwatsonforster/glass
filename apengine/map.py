@@ -24,24 +24,25 @@ _saved = False
 
 level0color  = ( 0.85, 0.90, 0.85 )
 level1color  = ( 0.87, 0.85, 0.78 )
-level2color  = ( 0.82, 0.75, 0.64 )
-ridgecolor   = ( 0.75, 0.66, 0.62 )
+level2color  = ( 0.82, 0.75, 0.65 )
+level3color  = ( 0.77, 0.65, 0.55 )
 woodedcolor  = ( 0.65, 0.75, 0.65 )
 urbancolor   = ( 0.70, 0.70, 0.70 )
-roadcolor    = urbancolor
+roadcolor    = ( 0.80, 0.80, 0.80 )
 bridgecolor  = urbancolor
 watercolor   = ( 0.70, 0.85, 0.95 )
 hexcolor     = ( 0.50, 0.50, 0.50 )
-runwaycolor  = urbancolor
-taxiwaycolor = urbancolor
+runwaycolor  = roadcolor
+taxiwaycolor = roadcolor
 damcolor     = urbancolor
 
-roadwidth        = 3
+ridgewidth       = 14
+roadwidth        = 5
 riverwidth       = 14
 wideriverwidth   = 25
 clearingwidth    = 14
-bridgeouterwidth = 14
-bridgeinnerwidth = 7
+bridgeinnerwidth = roadwidth + 6
+bridgeouterwidth = bridgeinnerwidth + 6
 runwaywidth      = 10
 taxiwaywidth     = 7
 damwidth         = 14
@@ -121,15 +122,23 @@ def startdrawmap():
       apdraw.drawhex(*aphexcode.toxy(h), fillcolor=level2color, zorder=0)
 
   # Draw the ridges.
-  for ridge in ridges:
+  for ridge in level1ridges:
     sheet = ridge[0]
     if sheet in sheets():
       p = ridge[1]
       xy = [toxy(sheet, *p) for p in p]
       x = [xy[0] for xy in xy]
       y = [xy[1] for xy in xy]
-      apdraw.drawlines(x, y, color=ridgecolor, linewidth=7, zorder=0)
-  
+      apdraw.drawlines(x, y, color=level2color, linewidth=ridgewidth, zorder=0)
+  for ridge in level2ridges:
+    sheet = ridge[0]
+    if sheet in sheets():
+      p = ridge[1]
+      xy = [toxy(sheet, *p) for p in p]
+      x = [xy[0] for xy in xy]
+      y = [xy[1] for xy in xy]
+      apdraw.drawlines(x, y, color=level3color, linewidth=ridgewidth, zorder=0)
+
   # Draw water.
   for h in waterhexcodes:
     if aphexcode.tosheet(h) in sheets():
@@ -488,11 +497,15 @@ waterhexcodes = [
 
 ]
 
-ridges = [
-  ["B2",[[44.33,21.50],[45.00,22.00],[46.00,23.00],[46.00,24.00],[45.00,24.00],[45.00,27.00],[44.00,28.00],[43.33,28.50],]],
+level1ridges = [
+  ["B2",[[45.00,25.50],[45.00,27.00],[44.00,28.00],[43.33,28.50],]],
   ["C2",[[52.50,17.25],[54.00,18.00],[54.67,18.00],]],
   ["C2",[[55.33,17.50],[56.00,18.00],[57.00,18.00],[57.00,19.00],[58.50,20.25],]],
   ["C2",[[63.00,19.50],[63.00,24.00],[60.50,25.75],]],
+]
+
+level2ridges = [
+  ["B2",[[44.33,21.50],[45.00,22.00],[46.00,23.00],[46.00,24.00],[45.00,24.00],[45.00,25.50],]],
 ]
 
 woodedhexcodes = [
@@ -700,14 +713,13 @@ rivers = [
   ["A2",[[14.00,20.00],[14.33,20.50],[16.33,21.50],]],
   ["A2",[[17.33,23.50],[17.67,24.00],]],
   ["B1",[[29.67, 0.00],[30.00, 1.00],[31.00, 1.00],[31.00, 2.00],[32.00, 3.00],
-         [33.00, 2.00],[34.00, 3.00],[34.00, 3.75],[35.50, 3.25],[36.00, 2.00],
-         [37.00, 1.00],[38.00, 2.00],[38.00, 3.00],[39.00, 3.00],[40.00, 3.00],
-         [40.00, 0.50],]],
+         [33.00, 2.00],[34.00, 3.00],[34.33, 3.50],[35.67, 3.00],[36.00, 3.00],
+         [36.00, 2.00],[37.00, 1.00],[38.00, 2.00],[38.00, 3.00],[39.00, 3.00],
+         [40.00, 3.00],[40.00, 0.50],]],
   ["B1",[[30.00,16.00],[32.50,14.75],[38.50,14.75],[39.00,14.00],[40.00,15.00],
          [40.00,16.00],]],
   ["B1",[[40.00,16.50],[40.00,15.00],[39.00,14.00],[39.00,13.00],[42.00,12.00],
-         [45.50,13.25],[46.50,13.75],[47.50,13.25],[49.00,14.00],[50.00,16.00],
-         [50.50,16.25],]],
+         [45.00,13.00],[47.00,13.00],[49.00,14.00],[50.00,16.00],[50.50,16.25],]],
   ["B2",[[29.67,15.00],[30.00,16.00],[33.00,17.00],[33.00,17.50],[33.50,18.25],
          [34.00,19.00],[36.00,18.00],[37.00,18.00],[37.00,19.00],[39.00,20.00],
          [39.00,22.00],[38.00,23.00],[36.00,22.00],[35.00,22.00],[35.00,24.00],
@@ -758,9 +770,9 @@ clearings = [
 
 bridges = [
   ["A2",[[17.65,21.675],[20.35,20.825],]],
-  ["B1",[[35.00, 3.00],[35.00, 3.50],]],
+  ["B1",[[35.00, 2.75],[35.00, 3.25],]],
   ["B1",[[45.00,12.75],[45.00,13.25],]],
-  ["B1",[[47.00,13.00],[47.00,13.50],]],
+  ["B1",[[47.00,12.75],[47.00,13.25],]],
 ]
 
 runways = [
