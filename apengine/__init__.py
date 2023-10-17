@@ -33,86 +33,135 @@ def _checkinturn():
 
 def startsetup(scenario, sheets=None, compassrose=None, north="up", variants=[]):
 
-  global _turn, _savedturn
+  """
+  Start the set-up for the specified scenario (or for the specified map layout).
+  """
 
-  _turn = 0
-  _savedturn = _turn
+  aplog.clearerror()
+  try:
+    
+    global _turn, _savedturn
 
-  aplog.log("--- start prolog ---")
-  aplog.logbreak()
+    _turn = 0
+    _savedturn = _turn
 
-  apvariants.setvariants(variants)
-  aplog.logbreak()
+    aplog.log("--- start prolog ---")
+    aplog.logbreak()
 
-  if scenario != None:
-    sheets      = apscenarios.sheets(scenario)
-    compassrose = apscenarios.compassrose(scenario)
-    north       = apscenarios.north(scenario)
+    apvariants.setvariants(variants)
+    aplog.logbreak()
 
-  apmap.setmap(sheets, compassrose)
-  aplog.logbreak()
+    if scenario != None:
+      sheets      = apscenarios.sheets(scenario)
+      compassrose = apscenarios.compassrose(scenario)
+      north       = apscenarios.north(scenario)
 
-  apazimuth.setnorth(north)
-  aplog.logbreak()
+    apmap.setmap(sheets, compassrose)
+    aplog.logbreak()
 
-  apaircraft._startsetup()
-  apmarker._startsetup()
+    apazimuth.setnorth(north)
+    aplog.logbreak()
 
+    apaircraft._startsetup()
+    apmarker._startsetup()
+
+  except RuntimeError as e:
+    aplog.logexception(e)
+    
 def endsetup():
 
-  global _turn, _savedturn
+  """
+  End the setup.
+  """
 
-  apaircraft._endsetup()
+  aplog.clearerror()
+  try:
+    
+    global _turn, _savedturn
 
-  aplog.log("--- end prolog ---")
-  aplog.logbreak()
+    apaircraft._endsetup()
 
-  _turn += 1
-  _savedturn = _turn
-  _turn = None
+    aplog.log("--- end prolog ---")
+    aplog.logbreak()
+
+    _turn += 1
+    _savedturn = _turn
+    _turn = None
+
+  except RuntimeError as e:
+    aplog.logexception(e)
 
 ################################################################################
 
 def startturn():
 
-  global _turn, _savedturn
-
-  _turn = _savedturn
-
-  if turn == None:
-    aplog.error("startturn() called before endprolog().")
-
-  aplog.log("--- start of turn %d ---" % _turn)
-  aplog.logbreak()
-
-  apaircraft._startturn()
-
-def endturn():
-
-  global _turn, _savedturn
+  """
+  Start the next turn.
+  """
 
   aplog.clearerror()
   try:
+    
+    global _turn, _savedturn
 
-    apaircraft._endturn()
+    _turn = _savedturn
+
+    if turn != None or turn == 0:
+      raise RuntimeError("startturn() called out of sequence.")
+  
+    aplog.log("--- start of turn %d ---" % _turn)
+    aplog.logbreak()
+
+    apaircraft._startturn()
 
   except RuntimeError as e:
     aplog.logexception(e)
 
-  aplog.log("--- end of turn %d ---" % _turn)
-  aplog.logbreak()
+def endturn():
 
-  _turn += 1
-  _savedturn = _turn
-  _turn = None
+  """
+  End the current turn.
+  """
+
+  aplog.clearerror()
+  try:
+    
+    global _turn, _savedturn
+
+    if turn == None or turn == 0:
+      raise RuntimeError("endturn() called out of sequence.")    
+
+    apaircraft._endturn()
+
+    aplog.log("--- end of turn %d ---" % _turn)
+    aplog.logbreak()
+
+    _turn += 1
+    _savedturn = _turn
+    _turn = None
+      
+  except RuntimeError as e:
+    aplog.logexception(e)
+
 
 ################################################################################
 
 def drawmap():
-  apmap.startdrawmap()
-  apmarker._drawmap()
-  apaircraft._drawmap()
-  apmap.enddrawmap()
+
+  """
+  Draw the map, with aircraft and markers at their current positions.
+  """
+
+  aplog.clearerror()
+  try:
+
+    apmap.startdrawmap()
+    apmarker._drawmap()
+    apaircraft._drawmap()
+    apmap.enddrawmap()
+
+  except RuntimeError as e:
+    aplog.logexception(e)
 
 ################################################################################
 
