@@ -472,7 +472,7 @@ def _continuenormalflight(self, actions):
 
     # See rule 13.2.
     if self._slides >= 1:
-      self._othermaneuversap -= 1
+      self._othermaneuversap -= 1.0
 
     # Keep track of the number of slides and the FP of the last slide.
     self._slides += 1
@@ -530,7 +530,7 @@ def _continuenormalflight(self, actions):
     self._othermaneuversap -= self.rolldrag("DR")
 
     # See rule 6.6.
-    if self._speed >= apspeed.m1speed(self._altitudeband):
+    if self._maneuversupersonic:
       if self.hasproperty("PSSM"):
         self._othermaneuversap -= 2.0
       elif not self.hasproperty("GSSM"):
@@ -538,7 +538,7 @@ def _continuenormalflight(self, actions):
 
     # See rule 13.3.6.
     if self._rollmaneuvers > 0:
-      self._othermaneuversap -= 1
+      self._othermaneuversap -= 1.0
     self._rollmaneuvers += 1
     
     # Do not implicitly continue the maneuver.
@@ -598,7 +598,7 @@ def _continuenormalflight(self, actions):
     self._othermaneuversap -= self.rolldrag("LR")
 
     # See rule 6.6.
-    if self._speed >= apspeed.m1speed(self._altitudeband):
+    if self._maneuversupersonic:
       if self.hasproperty("PSSM"):
         self._othermaneuversap -= 2.0
       elif not self.hasproperty("GSSM"):
@@ -606,7 +606,7 @@ def _continuenormalflight(self, actions):
 
     # See rule 13.3.6.
     if self._rollmaneuvers > 0:
-      self._othermaneuversap -= 1
+      self._othermaneuversap -= 1.0
     self._rollmaneuvers += 1
     
     # Do not implicitly continue the maneuver.
@@ -664,7 +664,7 @@ def _continuenormalflight(self, actions):
     self._verticalrolls += 1
 
     # See rule 6.6.
-    if self._speed >= apspeed.m1speed(self._altitudeband):
+    if self._maneuversupersonic:
       if self.hasproperty("PSSM"):
         self._othermaneuversap -= 2.0
       elif not self.hasproperty("GSSM"):
