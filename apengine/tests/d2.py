@@ -82,22 +82,22 @@ endturn()
 
 # Turns and banking with HRRCL aircraft
 
-startsetup()
+startsetup(verbose=False)
 A1 = aircraft("A1", "Yak-9D" , 2010, "N"  , 10, 3.5, "CL")
 A2 = aircraft("A2", "Yak-9D" , 2210, "N"  , 10, 3.5, "1/2")
 A3 = aircraft("A3", "Yak-9D" , 2410, "N"  , 10, 3.0, "DT")
 endsetup()
 
 startturn()
-A1.move("LVL",  "N", "BTL/H,BTR/H,H")
+A1.move("LVL",  "HT", "BTL/H,BTR/H,H")
 A1._assert("2007       N    10",  3.5)
-A2.move("LVL",  "N", "BTL/H,BTR/H,H")
+A2.move("LVL",  "HT", "BTL/H,BTR/H,H")
 asserterror("attempt to declare a turn to R while banked to L.")
-A2.move("LVL",  "N", "BTL/H,WL/H,BTR/H")
+A2.move("LVL",  "HT", "BTL/H,WL/H,BTR/H")
 A2._assert("2207       N    10",  3.5)
-A3.move("LVL",  "N", "HTL/H,HTR/H,H")
+A3.move("LVL",  "HT", "HTL/H,HTR/H,H")
 asserterror("attempt to declare a turn to R while banked to L.")
-A3.move("LVL",  "N", "HTL/H,WL/H,HTR/H")
+A3.move("LVL",  "HT", "HTL/H,WL/H,HTR/H")
 A3._assert("2407       N    10",  3.0)
 endturn()
 

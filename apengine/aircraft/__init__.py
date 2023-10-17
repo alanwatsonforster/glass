@@ -114,6 +114,7 @@ class aircraft:
       self._maneuversense        = None
       self._maneuverfp           = 0
       self._maneuveraltitudeband = None
+      self._manueversupersonic   = False
       self._wasrollingonlastfp   = False
       self._fpcarry              = 0
       self._apcarry              = 0
@@ -226,6 +227,7 @@ class aircraft:
     self._maneuversense, \
     self._maneuverfp, \
     self._maneuveraltitudeband, \
+    self._manueversupersonic, \
     self._wasrollingonlastfp, \
     self._fpcarry, \
     self._apcarry, \
@@ -261,6 +263,7 @@ class aircraft:
       self._maneuversense, \
       self._maneuverfp, \
       self._maneuveraltitudeband, \
+      self._manueversupersonic, \
       self._wasrollingonlastfp, \
       self._fpcarry, \
       self._apcarry, \
@@ -445,7 +448,7 @@ class aircraft:
     if speed != None and speed != self._speed:
       print("== assertion failed ===")
       print("== actual speed  : %.1f" % self._speed)
-      print("== expected speed: %.1f" % position)
+      print("== expected speed: %.1f" % speed)
       assert speed == self._speed
     if configuration != None and configuration != self._configuration:
       print("== assertion failed ===")

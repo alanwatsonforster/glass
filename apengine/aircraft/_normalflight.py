@@ -361,11 +361,19 @@ def _continuenormalflight(self, actions):
     if turnrateap == None:
       raise RuntimeError("attempt to declare a turn rate tighter than allowed by the aircraft.")
 
+    # Determine the maximum turn rate.
+    if self._maxturnrate == None:
+      self._maxturnrate = turnrate
+    else:
+      turnrates = ["EZ", "TT", "HT", "BT", "ET"]
+      self._maxturnrate = turnrates[max(turnrates.index(turnrate), turnrates.index(self._maxturnrate))]
+      
     self._bank                 = sense
     self._maneuvertype         = turnrate
     self._maneuversense        = sense
     self._maneuverfp           = 0
     self._maneuveraltitudeband = self._altitudeband
+    self._maneuversupersonic   = (self._speed >= apspeed.m1speed(self._altitudeband))
 
   ########################################
 
@@ -389,11 +397,7 @@ def _continuenormalflight(self, actions):
     if turnrates.index(minturnrate) > turnrates.index(self._maneuvertype):
       raise RuntimeError("attempt to turn faster than the declared turn rate.")
 
-    if self._maxturnrate == None:
-      self._maxturnrate = self._maneuvertype
-    else:
-      turnrates = ["EZ", "TT", "HT", "BT", "ET"]
-      self._maxturnrate = turnrates[max(turnrates.index(self._maneuvertype), turnrates.index(self._maxturnrate))]
+    if self._turnmaneuvers > 0:
       if apvariants.withvariant("prefer v1 bleed rates"):
         # Use the bleed rates from the 1st edition rules in TSOH.
         if self.hasproperty("HBR"):
@@ -409,15 +413,8 @@ def _continuenormalflight(self, actions):
         else:
           self._sustainedturnap -= facingchange // 30 * 1.0
 
-    self._turnrateap = -self.turndrag(self._maxturnrate)
-
-    # See the "Supersonic Speeds" section of rule 6.6.
-    if self._speed >= apspeed.m1speed(self._altitudeband):
-      if self.hasproperty("PSSM"):
-        self._turnrateap -= 2.0
-      elif not self.hasproperty("GSSM"):
-        self._turnrateap -= 1.0
-
+    self._turnmaneuvers += 1
+    
     # Change facing.
     if aphex.isedge(self._x, self._y):
       self._x, self._y = aphex.edgetocenter(self._x, self._y, self._facing, sense)
@@ -429,6 +426,7 @@ def _continuenormalflight(self, actions):
     # Implicitly continue the turn.
     self._maneuverfp           = 0
     self._maneuveraltitudeband = self._altitudeband
+    self._maneuversupersonic   = (self._speed >= apspeed.m1speed(self._altitudeband))
 
   ########################################
 
@@ -451,6 +449,7 @@ def _continuenormalflight(self, actions):
     self._maneuversense        = sense
     self._maneuverfp           = 0
     self._maneuveraltitudeband = self._altitudeband
+    self._maneuversupersonic   = (self._speed >= apspeed.m1speed(self._altitudeband))
     
   ########################################
 
@@ -484,6 +483,7 @@ def _continuenormalflight(self, actions):
     self._maneuversense        = None
     self._maneuverfp           = 0
     self._maneuveraltitudeband = None
+    self._maneuversupersonic   = False
 
     # Implicitly finish with wings level.
     self._bank = None
@@ -508,6 +508,7 @@ def _continuenormalflight(self, actions):
     self._maneuversense        = sense
     self._maneuverfp           = 0
     self._maneuveraltitudeband = self._altitudeband
+    self._maneuversupersonic   = (self._speed >= apspeed.m1speed(self._altitudeband))
 
   ########################################
 
@@ -545,6 +546,7 @@ def _continuenormalflight(self, actions):
     self._maneuversense        = None
     self._maneuverfp           = 0
     self._maneuveraltitudeband = None
+    self._maneuversupersonic   = False
 
     # Implicitly finish with wings level. This can be changed immediately by a bank.
     self._bank = None
@@ -569,6 +571,7 @@ def _continuenormalflight(self, actions):
     self._maneuversense        = sense
     self._maneuverfp           = 0
     self._maneuveraltitudeband = self._altitudeband
+    self._maneuversupersonic   = (self._speed >= apspeed.m1speed(self._altitudeband))
 
   ########################################
 
@@ -611,6 +614,7 @@ def _continuenormalflight(self, actions):
     self._maneuversense        = None
     self._maneuverfp           = 0
     self._maneuveraltitudeband = None
+    self._maneuversupersonic   = False
 
     # Implicitly finish with wings level. This can be changed immediately by a bank.
     self._bank = None
@@ -641,7 +645,8 @@ def _continuenormalflight(self, actions):
     self._maneuversense        = sense
     self._maneuverfp           = 0
     self._maneuveraltitudeband = self._altitudeband
-    
+    self._maneuversupersonic   = (self._speed >= apspeed.m1speed(self._altitudeband))
+
     ########################################
 
   def doverticalroll(sense, facingchange, shift):
@@ -678,6 +683,7 @@ def _continuenormalflight(self, actions):
     self._maneuversense        = None
     self._maneuverfp           = 0
     self._maneuveraltitudeband = None
+    self._maneuversupersonic   = False
     
     ########################################
 
@@ -1071,6 +1077,9 @@ def _continuenormalflight(self, actions):
   
     self._logaction("FP %d" % self._fp, action, self.position())
     self._continueflightpath()
+
+    if turning and self._maneuversupersonic:
+      self._turningsupersonic = True
     
     # See rules 7.7 and 8.5.
     if maneuver and rolling:
@@ -1156,7 +1165,7 @@ def _startnormalflight(self, actions):
 
   ########################################
 
-  def reportturn():
+  def reportcarriedmaneuver():
 
     if self._maneuverfp > 0 and self._maneuvertype != None:
       self._log("- is carrying %d FPs for %s%s." % (self._maneuverfp, self._maneuvertype, self._maneuversense))
@@ -1164,6 +1173,23 @@ def _startnormalflight(self, actions):
       self._log("- has wings level.")
     else:
       self._log("- is banked %s." % self._bank)
+
+  ########################################
+
+  def determineinitialmaxturnrate():
+
+    """
+    Determine the initial maximum turn rate, according to any carried turn.
+    """
+
+    if _isturn(self._maneuvertype):
+      self._maxturnrate       = self._maneuvertype
+      self._turningsupersonic = self._maneuversupersonic
+    else:
+      self._maxturnrate       = None
+      self._turningsupersonic = False
+
+    self._log("- initial max turn rate is %r." % self._maxturnrate)
 
   ########################################
 
@@ -1305,7 +1331,6 @@ def _startnormalflight(self, actions):
   ########################################
 
   def determinerequiredhfpvfpmix():
-
 
     """
     Determine the minimum and maximum number of HFPs, VFPs, and unloaded HFPs.
@@ -1468,8 +1493,9 @@ def _startnormalflight(self, actions):
   self._firstunloadedfp = None
   self._lastunloadedfp  = None
 
-  # This keeps track of the number of roll maneuvers and vertical rolls.
+  # This keeps track of the number of turns, rolls, and vertical rolls.
 
+  self._turnmaneuvers = 0
   self._rollmaneuvers = 0
   self._verticalrolls = 0
 
@@ -1479,7 +1505,8 @@ def _startnormalflight(self, actions):
 
   reportapcarry()
   reportaltitudecarry()
-  reportturn()
+  reportcarriedmaneuver()
+  determineinitialmaxturnrate()
   determineallowedturnrates()
   checkformaneuveringdeparture()
   checkcloseformationlimits()
@@ -1550,7 +1577,7 @@ def _endnormalflight(self):
 
   ########################################
 
-  def reportturn():
+  def reportmaneuver():
 
     if self._maxturnrate != None:
       self._log("- turned at %s rate." % self._maxturnrate)
@@ -1574,6 +1601,29 @@ def _endnormalflight(self):
     if self._altitudecarry != 0:
       self._log("- is carrying %.2f altitude levels." % self._altitudecarry)
           
+  ########################################
+
+  def determinemaxturnrateap():
+
+    """
+    Determine the APs from the maximum turn rate used.
+    """
+
+    self._log("- initial max turn rate is %r." % self._maxturnrate)
+
+    if self._maxturnrate != None:
+      self._turnrateap = -self.turndrag(self._maxturnrate)
+    else:
+      self._turnrateap = 0
+
+    if self._turningsupersonic:
+      if self.hasproperty("PSSM"):
+        self._turnrateap -= 2.0
+      elif not self.hasproperty("GSSM"):
+        self._turnrateap -= 1.0
+
+    self._log("- turnrateap is %r." % self._turnrateap)
+
   ########################################
 
   def determinealtitudeap():
@@ -1687,7 +1737,8 @@ def _endnormalflight(self):
     reportfp()
     checkfp()
     checkfreedescent()
-    reportturn()
+    reportmaneuver()
+    determinemaxturnrateap()
     determinealtitudeap()
     checkcloseformationlimits()
 
