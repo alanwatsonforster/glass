@@ -175,8 +175,8 @@ _colors = {
   # Approximations to NATO blue and red. 
   # https://en.wikipedia.org/wiki/NATO_Joint_Military_Symbology#APP-6A_affiliation
 
-  "blue"     : "deepskyblue",
-  "red"      : "tomato",
+  "natoblue" : "deepskyblue",
+  "natored"  : "tomato",
 
   "aluminum" : "lightgray",
   "aluminium": "lightgray",
