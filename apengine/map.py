@@ -96,10 +96,10 @@ def startdrawmap():
     x0, y0 = aphexcode.toxy(XX * 100 + YY, sheet=sheet)
     return x0 + dx, y0 - dy
 
-  #global _saved
-  #if _saved:
-  #  apdraw.restore()
-  #  return
+  global _saved
+  if _saved:
+    apdraw.restore()
+    return
 
   apdraw.setcanvas(_nxsheetgrid * _dxsheet, _nysheetgrid * _dysheet)
 
@@ -251,8 +251,8 @@ def startdrawmap():
     xmin, ymin, xmax, ymax = sheetlimits(sheet)
     apdraw.drawrectangle(xmin, ymin, xmax, ymax, linecolor=hexcolor, zorder=0.5)
 
-  #apdraw.save()
-  #_saved = True
+  apdraw.save()
+  _saved = True
 
 def enddrawmap():
   apdraw.show()
