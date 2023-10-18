@@ -1,4 +1,7 @@
 {
-  "name": "MiG-15P",
-  "base": "MiG-15bis"
+  "name": "MiG-15ISh",
+  "base": "MiG-15bis",
+  "notes": [
+    "The MiG-15ISh appears as a variant on the TSOH ADC for the MiG-15bis."
+  ]
 }

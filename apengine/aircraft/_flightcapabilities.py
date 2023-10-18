@@ -14,7 +14,7 @@ def engines(self):
   return self._aircraftdata.engines()
 
 def powerfade(self):
-  return self._aircraftdata.powerfade(self._speed)
+  return self._aircraftdata.powerfade(self._speed, self._altitude)
 
 def turndrag(self, turnrate):
 
@@ -118,3 +118,6 @@ def hasproperty(self, p):
   if p == "LRR" and self._aircraftdata.hasproperty("LRRHS"):
     return self._speed >= self._aircraftdata["LRRHSlimit"]
   return False
+
+def specialclimbcapability(self):
+  return self._aircraftdata.specialclimbcapability()

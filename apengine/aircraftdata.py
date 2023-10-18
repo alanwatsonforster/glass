@@ -34,7 +34,10 @@ class aircraftdata:
       data = basedata
     self._data = data
 
-    assert isinstance(self._data["engines"], int)
+    self._special = ("special" in self._data)
+
+    if not self._special:
+      assert isinstance(self._data["engines"], int)
 
   def power(self, configuration, powersetting):
     _checkconfiguration(configuration)
@@ -44,14 +47,20 @@ class aircraftdata:
     else:
       return self._data["powertable"][powersetting][_configurationindex(configuration)]
 
-  def powerfade(self, speed):
-    if not "powerfadetable" in self._data:
+  def powerfade(self, speed, altitude):
+    if not "powerfadespeedtable" in self._data and not "poweraltitudefadetable" in self._data:
       return None
-    fade = 0
-    for p in self._data["powerfadetable"]:
-      if speed > p[0]:
-        fade = p[1]
-    return fade
+    fadespeed    = 0
+    fadealtitude = 0
+    if "powerfadespeedtable" in self._data:
+      for p in self._data["powerfadespeedtable"]:
+        if speed > p[0]:
+          fadespeed = p[1]
+    if "poweraltitudefadetable" in self._data:
+      for p in self._data["poweraltitudefadetable"]:
+        if altitude > p[0]:
+          fadealtitude = p[1]
+    return fadespeed + fadealtitude
 
   def spbr(self, configuration):
     _checkconfiguration(configuration)
@@ -172,6 +181,12 @@ class aircraftdata:
     else:
       return raw
 
+  def specialclimbcapability(self):
+    if "specialclimbcapability" in self._data:
+      return self._data["specialclimbcapability"]
+    else:
+      return 1
+
   ##############################################################################
 
   def __str__(self):
@@ -265,9 +280,13 @@ class aircraftdata:
     ))
     str("")
 
-    if "powerfadetable" in self._data:
-      for p in self._data["powerfadetable"]:
-        str("- If the speed is more than %.1f, the power is reduced by %.1f." % (p[0], p[1]))
+    if "powerfadespeedtable" in self._data or "poweraltitudefadetable" in self._data:
+      if "powerfadespeedtable" in self._data:
+        for p in self._data["powerfadespeedtable"]:
+          str("- If the speed is more than %.1f, the power is reduced by %.1f." % (p[0], p[1]))
+      if "poweraltitudefadetable" in self._data:
+        for p in self._data["poweraltitudefadetable"]:
+          str("- If the altitude is more than %d, the power is reduced by %.1f." % (p[0], p[1]))
       str("")
 
     str("Cruise Speed: %.1f" % self.cruisespeed())

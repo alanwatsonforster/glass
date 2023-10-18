@@ -39,7 +39,7 @@
     "LO": [ [ "-", 1.0  ], [ "-", 1.0  ], [ "-", 0.5  ] ]
   },
   "properties": [ "LBR", "HTD" ],
-  "powerfadetable": [ [3.0, 0.5] ],
+  "powerfadespeedtable": [ [3.0, 0.5] ],
   "notes": [
   ]
 }

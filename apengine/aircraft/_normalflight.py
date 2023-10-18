@@ -1189,8 +1189,6 @@ def _startnormalflight(self, actions):
       self._maxturnrate       = None
       self._turningsupersonic = False
 
-    self._log("- initial max turn rate is %r." % self._maxturnrate)
-
   ########################################
 
   def determineallowedturnrates():
@@ -1609,8 +1607,6 @@ def _endnormalflight(self):
     Determine the APs from the maximum turn rate used.
     """
 
-    self._log("- initial max turn rate is %r." % self._maxturnrate)
-
     if self._maxturnrate != None:
       self._turnrateap = -self.turndrag(self._maxturnrate)
     else:
@@ -1737,6 +1733,7 @@ def _endnormalflight(self):
     reportfp()
     checkfp()
     checkfreedescent()
+    reportcarry()
     reportmaneuver()
     determinemaxturnrateap()
     determinealtitudeap()
