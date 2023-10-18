@@ -57,65 +57,6 @@ def sheets(scenario):
     raise RuntimeError("%r is not a recognized scenario." % scenario)
   return sheets[scenario]
 
-def compassrose(scenario):
-  compassrose = {
-    "TSOH:T-1" : 1113,
-    "TSOH:T-2" : 5113,
-    "TSOH:T-3" : 5113,
-    "TSOH:T-4" : 1128,
-    "TSOH:T-5" : 5113,
-    "TSOH:T-6" : 3128,
-    "TSOH:G-1": 3128,
-    "TSOH:G-2": 5128,
-    "TSOH:G-3": 1113,
-    "TSOH:K-1" : 5113,
-    "TSOH:K-2" : 5113,
-    "TSOH:K-3" : 5128,
-    "TSOH:K-4" : 3113,
-    "TSOH:K-5" : 1113,
-    "TSOH:K-6" : 5113,
-    "TSOH:K-7" : 5128,
-    "TSOH:K-8" : 3128,
-    "TSOH:K-9" : 5113,
-    "TSOH:K-10": 5128,
-    "TSOH:CW-1": 1113,
-    "TSOH:CW-2": 5128,
-    "TSOH:CW-3": 5128,
-    "TSOH:CW-4": 5113,
-    "TSOH:CW-5": 3128,
-    "TSOH:V-1" : 5128,
-    "TSOH:V-2" : 3128,
-    "TSOH:V-3" : 5128,
-    "TSOH:V-4" : 3128,
-    "TSOH:V-5" : 5128,
-    "TSOH:V-6" : 1113,
-    "TSOH:V-7" : 1113,
-    "TSOH:V-8" : 5113,
-    "TSOH:V-9" : 3128,
-    "TSOH:V-10": 3128,
-    # V-11: See above.
-    "TSOH:V-12": 3113,
-    "TSOH:V-13": 1113,
-    "TSOH:V-14": 3128,
-    "TSOH:V-15": 1113,
-    "TSOH:V-16": 5128,
-    "TSOH:V-17": 5128,
-    "TSOH:V-18": 1113,
-    "TSOH:V-19": 3113,
-    "TSOH:V-20": 1113,
-    "TSOH:V-21": 3128,
-    # V-22: See above.
-    "TSOH:V-23": 5113,
-    "TSOH:V-24": 3128,
-    # V-25: See above.
-    "TSOH:V-E" : 3315,
-  }
-  if not scenario in compassrose:
-    return None
-    raise RuntimeError("%r is not a recognized scenario." % scenario)
-  return compassrose[scenario]  
-
-
 def north(scenario):
   left = ["TSOH:V-E"]
   if scenario in left:

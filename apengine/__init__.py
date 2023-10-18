@@ -31,7 +31,7 @@ def _checkinturn():
 
 ################################################################################
 
-def startsetup(scenario, sheets=None, compassrose=None, north="up", variants=[]):
+def startsetup(scenario, sheets=None, north="up", variants=[]):
 
   """
   Start the set-up for the specified scenario (or for the specified map layout).
@@ -53,10 +53,9 @@ def startsetup(scenario, sheets=None, compassrose=None, north="up", variants=[])
 
     if scenario != None:
       sheets      = apscenarios.sheets(scenario)
-      compassrose = apscenarios.compassrose(scenario)
       north       = apscenarios.north(scenario)
 
-    apmap.setmap(sheets, compassrose)
+    apmap.setmap(sheets)
     aplog.logbreak()
 
     apazimuth.setnorth(north)

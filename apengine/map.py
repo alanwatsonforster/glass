@@ -35,6 +35,7 @@ hexcolor     = ( 0.50, 0.50, 0.50 )
 runwaycolor  = roadcolor
 taxiwaycolor = roadcolor
 damcolor     = urbancolor
+missingcolor = ( 1.00, 1.00, 1.00 )
 
 ridgewidth       = 14
 roadwidth        = 5
@@ -47,7 +48,7 @@ runwaywidth      = 10
 taxiwaywidth     = 7
 damwidth         = 14
 
-def setmap(sheetgrid, compassrose):
+def setmap(sheetgrid):
 
   """
   Set the arrangement of the sheets that form the map and the position of the 
@@ -79,8 +80,6 @@ def setmap(sheetgrid, compassrose):
     for ix in range (0, _nxsheetgrid):
       if _sheetgrid[iy][ix] != "--":
         _sheetlist.append(_sheetgrid[iy][ix])
-
-  _compassrose = compassrose
 
   global _saved
   _saved = False
@@ -240,7 +239,7 @@ def startdrawmap():
         xmax = xmin + _dxsheet
         ymin = iy * _dysheet
         ymax = ymin + _dysheet
-        apdraw.drawrectangle(xmin, ymin, xmax, ymax, linecolor=None, fillcolor=bordercolor, zorder=0.0)
+        apdraw.drawrectangle(xmin, ymin, xmax, ymax, linecolor=None, fillcolor=missingcolor, zorder=0.0)
   
   # Draw and label the hexes.
   for sheet in sheets():
@@ -260,11 +259,15 @@ def startdrawmap():
   # Label the sheets.
   for sheet in sheets():
     xmin, ymin, xmax, ymax = sheetlimits(sheet)
-    apdraw.drawtext(xmin + 1.0, ymin + 1.5, 90, sheet, dy=-0.05, size=12, color=hexcolor, zorder=0.5)
+    apdraw.drawtext(xmin + 1.0, ymin + 0.5, 90, sheet, dy=-0.05, size=18, color=hexcolor, zorder=0.5)
 
-  # Draw the compass rose.
-  if _compassrose != None:
-    apdraw.drawcompass(*aphexcode.toxy(_compassrose), apazimuth.tofacing("N"), color=hexcolor, zorder=0.5)
+  # Draw the compass rose in the bottom sheet in the leftmost column.
+  for iy in range (0, _nysheetgrid):
+    sheet = _sheetgrid[iy][0]
+    if sheet != "--":
+      xmin, ymin, xmax, ymax = sheetlimits(sheet)
+      apdraw.drawcompass(xmin + 1.0, ymin + 1.5, apazimuth.tofacing("N"), color=hexcolor, zorder=0.5)
+      break
 
   # Draw the sheets outlines.
   for sheet in sheets():
@@ -746,7 +749,9 @@ rivers = [
          [67.00,15.00],[68.00,15.00],[68.00,14.00],[69.00,13.00],[69.00,14.00],
          [70.00,16.00],[70.50,16.25]]],
   ["C2",[[49.67,15.00],[50.00,16.00],[51.00,16.00],]],
-  ["C2",[[60.00,15.50],[60.00,17.00],[59.00,17.00],[59.00,18.00],[61.00,17.00],
+  ["C2",[[60.00,15.50],[60.00,17.00],[59.50,16.75],[59.00,17.50],[59.00,18.00],
+         [59.67,18.00],[60.33,17.50],[61.00,17.00],
+         [61.33,17.50],
          [61.00,18.00],[61.33,18.50],[62.00,19.00],[62.50,18.75],[63.50,18.25],[65.00,19.00],[65.00,22.00],
          [66.00,23.00],[66.00,24.00],[65.00,24.00],[65.00,25.00],[60.00,28.00],
          [60.00,31.50],]],
