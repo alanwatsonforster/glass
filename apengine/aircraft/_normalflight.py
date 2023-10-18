@@ -405,7 +405,7 @@ def _continuenormalflight(self, actions):
         else:
           self._sustainedturnap -= facingchange // 30 * 1.0
       else:
-        # Use the proposed bleed rates for 2nd edition from p. 4 of AP 32.
+        # Use the proposed bleed rates for 2nd edition from p. 4 of APJ 32.
         if self.hasproperty("LBR"):
           self._sustainedturnap -= facingchange // 30 * 0.5
         elif self.hasproperty("HBR"):
