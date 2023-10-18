@@ -8,7 +8,7 @@ startfile(__file__, "special flight")
 from apengine.tests.infrastructure import *
 
 startsetup()
-A1 = aircraft("A1", "B-29", 2030, "N", 40, 4.0, "CL", color="unpainted")
+A1 = aircraft("A1", "B-29A-special", 2030, "N", 40, 4.0, "CL", color="unpainted")
 
 endsetup()
 
