@@ -64,13 +64,18 @@ class aircraft:
     _checknormalflight, \
     _startnormalflight, _continuenormalflight, _endnormalflight
 
+  from ._specialflight import \
+    _checkspecialflight, \
+    _startspecialflight, _continuespecialflight, _endspecialflight
+
   from ._speed import \
     _startmovespeed, _endmovespeed
 
   from ._flightcapabilities import \
     power, spbr, fuelrate, powerfade, engines, turndrag, \
     minspeed, maxspeed, cruisespeed, climbspeed, maxdivespeed, ceiling, \
-    rollhfp, rolldrag, climbcapability, hasproperty
+    rollhfp, rolldrag, climbcapability, hasproperty, \
+    specialclimbcapability
 
   from ._draw import \
     _drawatstart, _drawatend, \
@@ -98,37 +103,37 @@ class aircraft:
       # configuration, aircraft initially have level flight, normal power, and
       # no carries.
 
-      self._name                 = name
-      self._x                    = x
-      self._y                    = y
-      self._facing               = facing
-      self._altitude             = altitude
-      self._altitudeband         = apaltitude.altitudeband(self._altitude)
-      self._altitudecarry        = 0
-      self._speed                = speed
-      self._configuration        = configuration
-      self._flighttype           = "LVL"
-      self._powersetting         = "N"
-      self._bank                 = None
-      self._maneuvertype         = None
-      self._maneuversense        = None
-      self._maneuverfp           = 0
-      self._maneuveraltitudeband = None
-      self._manueversupersonic   = False
-      self._wasrollingonlastfp   = False
-      self._fpcarry              = 0
-      self._apcarry              = 0
-      self._gloccheck            = 0
-      self._closeformation       = []
-      self._aircraftdata         = apaircraftdata.aircraftdata(aircraftdata)
-      self._destroyed            = False
-      self._leftmap              = False
-      self._turnsstalled         = 0
-      self._turnsdeparted        = 0
-      self._finishedmove         = True
-      self._flightpathx          = []
-      self._flightpathy          = []
-      self._color                = color
+      self._name                  = name
+      self._x                     = x
+      self._y                     = y
+      self._facing                = facing
+      self._altitude              = altitude
+      self._altitudeband          = apaltitude.altitudeband(self._altitude)
+      self._altitudecarry         = 0
+      self._speed                 = speed
+      self._configuration         = configuration
+      self._flighttype            = "LVL"
+      self._powersetting          = "N"
+      self._bank                  = None
+      self._maneuvertype          = None
+      self._maneuversense         = None
+      self._maneuverfp            = 0
+      self._maneuveraltitudeband  = None
+      self._manueversupersonic    = False
+      self._wasrollingonlastfp    = False
+      self._fpcarry               = 0
+      self._apcarry               = 0
+      self._gloccheck             = 0
+      self._closeformation        = []
+      self._aircraftdata          = apaircraftdata.aircraftdata(aircraftdata)
+      self._destroyed             = False
+      self._leftmap               = False
+      self._turnsstalled          = 0
+      self._turnsdeparted         = 0
+      self._finishedmove          = True
+      self._flightpathx           = []
+      self._flightpathy           = []
+      self._color                 = color
 
       self._saved = []
 
@@ -340,13 +345,10 @@ class aircraft:
       self._log("altitude band is %s." % self._altitudeband)
       self._log("flight type   is %s." % self._flighttype)
 
-      # See rule 8.1.4 on altitude carry.
-      if not _isclimbing(self._flighttype):
-        self._altitudecarry = 0
-
       if self._flighttype == "ST":       
 
         self._fpcarry = 0
+        self._altitudecarry = 0
         self._turnsstalled += 1
         self._checkstalledflight()
         self._dostalledflight(actions)
@@ -356,13 +358,25 @@ class aircraft:
 
         self._fpcarry = 0
         self._apcarry = 0
+        self._altitudecarry = 0
         self._turnsdeparted += 1
         self._checkdepartedflight()
         self._dodepartedflight(actions)
         self._endmove()
 
+      elif self._flighttype == "SP":
+
+        self._turnsstalled  = 0
+        self._turnsdeparted = 0
+        self._checkspecialflight()
+        self._startspecialflight(actions)
+        
       else:
 
+        # See rule 8.1.4 on altitude carry.
+        if not _isclimbing(self._flighttype):
+          self._altitudecarry = 0
+        
         self._turnsstalled  = 0
         self._turnsdeparted = 0
         self._checknormalflight()

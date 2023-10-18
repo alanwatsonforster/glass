@@ -13,6 +13,34 @@ def _startmovespeed(self, power, flamedoutengines):
     start of a move.
     """
 
+    m1speed = apspeed.m1speed(self._altitudeband)
+    htspeed = apspeed.htspeed(self._altitudeband)
+    ltspeed = apspeed.ltspeed(self._altitudeband)
+    
+    def reportspeed():
+      if speed < ltspeed:
+        self._log("speed         is %.1f." % speed)
+      elif speed == ltspeed:
+        self._log("speed         is %.1f (LT)." % speed)
+      elif speed == htspeed:
+        self._log("speed         is %.1f (HT)." % speed)
+      else:
+        self._log("speed         is %.1f (SS)." % speed)      
+
+    ############################################################################
+
+    # For aircraft with SP flight type, the power is interpreted as the
+    # speed and we skip the rest.
+
+    if self._flighttype == "SP":
+      speed = power
+      reportspeed()
+      self._speed        = speed
+      self._powersetting = ""
+      self._powerap      = 0
+      self._speedap      = 0
+      return
+
     ############################################################################
 
     lastpowersetting = self._previouspowersetting
@@ -170,20 +198,6 @@ def _startmovespeed(self, power, flamedoutengines):
 
     # Determine the speed.
     
-    m1speed = apspeed.m1speed(self._altitudeband)
-    htspeed = apspeed.htspeed(self._altitudeband)
-    ltspeed = apspeed.ltspeed(self._altitudeband)
-    minspeed = self.minspeed()
-
-    if speed < ltspeed:
-      self._log("speed         is %.1f." % speed)
-    elif speed == ltspeed:
-      self._log("speed         is %.1f (LT)." % speed)
-    elif speed == htspeed:
-      self._log("speed         is %.1f (HT)." % speed)
-    else:
-      self._log("speed         is %.1f (SS)." % speed)
-
     # See rule 6.4 on recovery from departed flight.
 
     if self._previousflighttype == "DP" and self._flighttype != "DP" and speed < minspeed:
@@ -201,8 +215,11 @@ def _startmovespeed(self, power, flamedoutengines):
       speed -= speedchange
       self._log("- reducing speed to %.1f as the power setting is I." % speed)
 
+    reportspeed()
+
     # See rule 6.3 on entering a stall.
       
+    minspeed = self.minspeed()
     if speed < minspeed:
       self._log("- speed is below the minimum of %.1f." % minspeed)
       self._log("- aircraft is stalled.")
@@ -269,6 +286,13 @@ def _endmovespeed(self):
   """
   Carry out the rules to do with speed, power, and drag at the end of a move.
   """
+
+    # For aircraft with SP flight type, we skip this.
+
+  if self._flighttype == "SP":
+    self.apcarry = 0
+    self._log("speed is unchanged at %.1f." % self._speed)
+    return
 
   # See the "Departed Flight Procedure" section of rule 6.4
 
