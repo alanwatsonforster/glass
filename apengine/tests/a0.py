@@ -47,7 +47,7 @@ aircraftdata("Yak-9D")
 
 d = aircraftdata("F-104A")
 assert d.power("CL", "AB") == 3.5
-assert d.powerfade(6.0) == None
+assert d.powerfade(6.0, 20) == None
 assert d.spbr("DT") == 1.0
 assert d.fuelrate("M") == 2.0
 assert d.engines() == 1
@@ -81,5 +81,33 @@ d = aircraftdata("F-100A")
 assert d.turndrag("CL", "BT", lowspeed=True) == 3.0
 assert d.turndrag("CL", "BT", highspeed=True) == 2.0
 assert d.lowspeedturnlimit() == 4.0
+
+# Check power fade with speed using the Sea Fury as an test case.
+
+d = aircraftdata("Sea Fury FB.11")
+
+assert d.powerfade(3.0, 0) == 0.0
+assert d.powerfade(3.5, 0) == 0.5
+assert d.powerfade(4.0, 0) == 0.5
+assert d.powerfade(4.5, 0) == 1.0
+
+assert d.powerfade(3.0, 30) == 0.0
+assert d.powerfade(3.5, 30) == 0.5
+assert d.powerfade(4.0, 30) == 0.5
+assert d.powerfade(4.5, 30) == 1.0
+
+# Check power fade with altitude using the AU-1 as a test case.
+
+d = aircraftdata("AU-1")
+
+assert d.powerfade(3.0, 16) == 0.0
+assert d.powerfade(3.5, 16) == 0.5
+assert d.powerfade(4.0, 16) == 0.5
+assert d.powerfade(4.5, 16) == 1.0
+
+assert d.powerfade(3.0, 17) == 0.5
+assert d.powerfade(3.5, 17) == 1.0
+assert d.powerfade(4.0, 17) == 1.0
+assert d.powerfade(4.5, 17) == 1.5
 
 endfile(__file__)
