@@ -1,5 +1,6 @@
 import os.path
 import json
+import re
 
 def _checkconfiguration(configuration):
   assert configuration in ["CL", "1/2", "DT"]
@@ -19,15 +20,22 @@ def _configurationindex(configuration):
 class aircraftdata:
 
   def __init__(self, name):
-
+  
     def loadfile(name):
-      # TODO: Handle errors.
-      filename = os.path.join(os.path.dirname(__file__), "aircraftdata", name + ".json")
-      return json.load(open(filename, "r", encoding="utf-8"))
 
+      # TODO: Handle errors.
+
+      filename = os.path.join(os.path.dirname(__file__), "aircraftdata", name + ".json")
+      with open(filename, "r", encoding="utf-8") as f:
+        s = f.read(-1)
+        # Strip whole-line // comments.
+        r = re.compile('^[ \t]*//.*$',re.MULTILINE)
+        s = re.sub(r, '', s)
+        return json.loads(s)
+      
     self._name = name
-    self._name = name
-    data = loadfile(name)
+
+    data = loadfile(name)   
     if "base" in data:
       basedata = loadfile(data["base"])
       basedata.update(data)
@@ -232,48 +240,48 @@ class aircraftdata:
 
     str("Power:")
     str("")
-    str("       CL   1/2  DT  Fuel")
+    str("       CL    1/2   DT    Fuel")
     if self.power("CL", "M") != None:
-      str("AB     %s  %s  %s  %s" % (
+      str("AB     %-4s  %-4s  %-4s  %-4s" % (
         f1(self.power("CL", "AB")), 
         f1(self.power("1/2", "AB")), 
         f1(self.power("DT", "AB")), 
         f1(self.fuelrate("AB"))
       ))
     if self.power("CL", "M") != None:
-      str("M      %s  %s  %s  %s" % (
+      str("M      %-4s  %-4s  %-4s  %-4s" % (
         f1(self.power("CL", "M" )), 
         f1(self.power("1/2", "M" )), 
         f1(self.power("DT", "M" )), 
         f1(self.fuelrate("M"))
       ))
     if self.power("CL", "FT") != None:
-      str("FT     %s  %s  %s  %s" % (
-        f1(self.power("CL", "FT")), 
-        f1(self.power("1/2", "FT")), 
-        f1(self.power("DT", "FT")), 
+      str("FT     %-4s  %-4s  %-4s  %-4s" % (
+        f2(self.power("CL", "FT")), 
+        f2(self.power("1/2", "FT")), 
+        f2(self.power("DT", "FT")), 
         f1(self.fuelrate("FT"))
       ))
     if self.power("CL", "HT") != None:
-      str("HT     %s  %s  %s  %s" % (
-        f1(self.power("CL", "HT")), 
-        f1(self.power("1/2", "HT")), 
-        f1(self.power("DT", "HT")), 
+      str("HT     %-4s  %-4s  %-4s  %-4s" % (
+        f2(self.power("CL", "HT")), 
+        f2(self.power("1/2", "HT")), 
+        f2(self.power("DT", "HT")), 
         f1(self.fuelrate("HT"))
       ))
-    str("N      %s  %s  %s  %s" % (
+    str("N      %-4s  %-4s  %-4s  %-4s" % (
       f1(self.power("CL", "N" )), 
       f1(self.power("1/2", "N" )), 
       f1(self.power("DT", "N" )), 
       f1(self.fuelrate("N"))
     ))
-    str("I      %s  %s  %s  %s" % (
+    str("I      %-4s  %-4s  %-4s  %-4s" % (
       f1(self.power("CL", "I")), 
       f1(self.power("1/2", "I")), 
       f1(self.power("DT", "I")), 
       f1(self.fuelrate("I"))
     ))
-    str("SPBR   %s  %s  %s" % (
+    str("SPBR   %-4s  %-4s  %-4s" % (
       f1(self.spbr("CL")), 
       f1(self.spbr("1/2")), 
       f1(self.spbr("DT"))
@@ -283,10 +291,10 @@ class aircraftdata:
     if "powerfadespeedtable" in self._data or "poweraltitudefadetable" in self._data:
       if "powerfadespeedtable" in self._data:
         for p in self._data["powerfadespeedtable"]:
-          str("- If the speed is more than %.1f, the power is reduced by %.1f." % (p[0], p[1]))
+          str("- If the speed is more than %.1f, the power is reduced by %s." % (p[0], p[1]))
       if "poweraltitudefadetable" in self._data:
         for p in self._data["poweraltitudefadetable"]:
-          str("- If the altitude is more than %d, the power is reduced by %.1f." % (p[0], p[1]))
+          str("- If the altitude is more than %d, the power is reduced by %s." % (p[0], p[1]))
       str("")
 
     str("Cruise Speed: %.1f" % self.cruisespeed())
