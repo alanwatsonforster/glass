@@ -15,7 +15,8 @@ _sheetgrid = []
 _sheetlist = []
 _nxsheetgrid = 0
 _nysheetgrid = 0
-_compassrose = None
+
+_bridges = []
 
 _dxsheet = 20
 _dysheet = 15
@@ -48,7 +49,7 @@ runwaywidth      = 10
 taxiwaywidth     = 7
 damwidth         = 14
 
-def setmap(sheetgrid):
+def setmap(sheetgrid, bridges=True):
 
   """
   Set the arrangement of the sheets that form the map and the position of the 
@@ -80,6 +81,14 @@ def setmap(sheetgrid):
     for ix in range (0, _nxsheetgrid):
       if _sheetgrid[iy][ix] != "--":
         _sheetlist.append(_sheetgrid[iy][ix])
+
+  if bridges == True:
+    bridges = [1921, 3503, 4513, 4713]
+  for bridge in bridges:
+    if not bridge in bridgepaths:
+      raise RuntimeError("unvalid bridge %r" % bridge)
+  global _bridges
+  _bridges = bridges
 
   global _saved
   _saved = False
@@ -149,10 +158,10 @@ def startdrawmap():
       apdraw.drawhex(*aphexcode.toxy(h), linecolor=woodedcolor, hatch="oo", zorder=0)
 
   # Draw the road clearings.
-  for clearing in clearings:
-    sheet = clearing[0]
+  for clearingpath in clearingpaths:
+    sheet = clearingpath[0]
     if sheet in sheets():
-      p = clearing[1]
+      p = clearingpath[1]
       xy = [toxy(sheet, *p) for p in p]
       x = [xy[0] for xy in xy]
       y = [xy[1] for xy in xy]
@@ -164,38 +173,39 @@ def startdrawmap():
       apdraw.drawhex(*aphexcode.toxy(h), fillcolor=None, linecolor=urbancolor, hatch="xx", zorder=0)
 
   # Draw the roads.
-  for road in roads:
-    sheet = road[0]
+  for roadpath in roadpaths:
+    sheet = roadpath[0]
     if sheet in sheets():
-      p = road[1]
+      p = roadpath[1]
       xy = [toxy(sheet, *p) for p in p]
       x = [xy[0] for xy in xy]
       y = [xy[1] for xy in xy]
       apdraw.drawlines(x, y, color=roadcolor, linewidth=roadwidth, capstyle="butt", zorder=0)
       
   # Draw the rivers.
-  for river in rivers:
-    sheet = river[0]
+  for riverpath in riverpaths:
+    sheet = riverpath[0]
     if sheet in sheets():
-      p = river[1]
+      p = riverpath[1]
       xy = [toxy(sheet, *p) for p in p]
       x = [xy[0] for xy in xy]
       y = [xy[1] for xy in xy]
       apdraw.drawlines(x, y, color=watercolor, linewidth=riverwidth, capstyle="butt", zorder=0)
-  for river in widerivers:
-    sheet = river[0]
+  for riverpath in wideriverpaths:
+    sheet = riverpath[0]
     if sheet in sheets():
-      p = river[1]
+      p = riverpath[1]
       xy = [toxy(sheet, *p) for p in p]
       x = [xy[0] for xy in xy]
       y = [xy[1] for xy in xy]
       apdraw.drawlines(x, y, color=watercolor, linewidth=wideriverwidth, capstyle="butt", zorder=0)
 
   # Draw the bridges.
-  for bridge in bridges:
-    sheet = bridge[0]
+  for bridge in _bridges:
+    bridgepath = bridgepaths[bridge]
+    sheet = bridgepath[0]
     if sheet in sheets():
-      p = bridge[1]
+      p = bridgepath[1]
       xy = [toxy(sheet, *p) for p in p]
       x = [xy[0] for xy in xy]
       y = [xy[1] for xy in xy]
@@ -204,28 +214,28 @@ def startdrawmap():
       apdraw.drawlines(x, y, color=roadcolor, linewidth=roadwidth, capstyle="projecting", zorder=0)
 
   # Draw the runways and taxiways.
-  for runway in runways:
-    sheet = runway[0]
+  for runwaypath in runwaypaths:
+    sheet = runwaypath[0]
     if sheet in sheets():
-      p = runway[1]
+      p = runwaypath[1]
       xy = [toxy(sheet, *p) for p in p]
       x = [xy[0] for xy in xy]
       y = [xy[1] for xy in xy]
       apdraw.drawlines(x, y, color=runwaycolor, linewidth=runwaywidth, capstyle="butt", zorder=0)
-  for taxiway in taxiways:
-    sheet = taxiway[0]
+  for taxiwaypath in taxiwaypaths:
+    sheet = taxiwaypath[0]
     if sheet in sheets():
-      p = taxiway[1]
+      p = taxiwaypath[1]
       xy = [toxy(sheet, *p) for p in p]
       x = [xy[0] for xy in xy]
       y = [xy[1] for xy in xy]
       apdraw.drawlines(x, y, color=taxiwaycolor, linewidth=taxiwaywidth, joinstyle="miter", capstyle="butt", zorder=0)
       
   # Draw the dams.
-  for dam in dams:
-    sheet = dam[0]
+  for dampath in dampaths:
+    sheet = dampath[0]
     if sheet in sheets():
-      p = dam[1]
+      p = dampath[1]
       xy = [toxy(sheet, *p) for p in p]
       x = [xy[0] for xy in xy]
       y = [xy[1] for xy in xy]
@@ -707,7 +717,7 @@ urbanhexcodes = [
     
 ]
 
-rivers = [
+riverpaths = [
   ["A1",[[20.00, 0.50],[20.00, 3.00],[21.00, 4.00],[28.00, 8.00],[28.67, 9.00],
          [27.33,10.50],[29.50,13.75],[29.50,14.75],[30.00,16.00],[30.50,16.25],]],
   ["A1",[[19.00,15.00],[20.00,16.00],[20.00,16.50],]],
@@ -758,7 +768,7 @@ rivers = [
   ["C2",[[70.50,31.25],[70.00,31.00],[69.00,29.00],]],
 ]
 
-widerivers = [
+wideriverpaths = [
   ["A2",[[ 9.67,15.00],[10.00,16.00],[11.00,16.00],[12.00,16.50],[18.50,19.75],
          [19.50,20.75],[20.00,23.00],[20.00,27.00],[20.67,28.00],[20.67,29.00],
          [20.00,30.00],[20.00,31.50],]],
@@ -766,7 +776,7 @@ widerivers = [
 
 ]
 
-clearings = [
+clearingpaths = [
   ["A1",[[15.00,15.00],[15.00,14.00],[18.00,13.00],[18.00,10.00],]],
   ["A1",[[18.00,12.00],[21.00,13.00],]],
   ["B1",[[31.00, 6.00],[34.00, 5.00],]],
@@ -774,35 +784,35 @@ clearings = [
   ["C2",[[52.00,20.00],[53.00,20.00],[55.00,19.00],]],
 ]
 
-bridges = [
-  ["A1",[[24.75, 6.625],[25.25, 5.875],]],   # 2506
-  ["A2",[[17.65,21.675],[20.35,20.825],]],   # 1822/1921/2012 - original
-  ["B1",[[35.00, 2.75 ],[35.00, 3.25 ],]],   # 3503 - original
-  ["B1",[[45.00,12.75 ],[45.00,13.25 ],]],   # 4513 - original
-  ["B1",[[47.00,12.75 ],[47.00,13.25 ],]],   # 4713 - original
-  ["B2",[[32.75,18.625],[33.25,17.875],]],   # 3318
-  ["B1",[[36.00,14.75 ],[36.00,15.25 ],]],   # 3615
-  ["C1",[[53.00,12.75 ],[53.00,13.25 ],]],   # 5313
-  ["C1",[[60.00, 9.75 ],[60.00,10.25 ],]],   # 6010
-  ["C1",[[59.75, 5.625],[60.25, 5.875],]],   # 6006
-  ["C1",[[64.75,14.375],[65.25,14.125],]],   # 6514
-  ["C2",[[62.00,18.75 ],[62.00,19.25 ],]],   # 6219
-]
+bridgepaths = {
+  2506: ["A1",[[24.75, 6.625],[25.25, 5.875],]],   # 2506
+  1921: ["A2",[[17.65,21.675],[20.35,20.825],]],   # 1822/1921/2012 - original
+  3503: ["B1",[[35.00, 2.75 ],[35.00, 3.25 ],]],   # 3503 - original
+  4513: ["B1",[[45.00,12.75 ],[45.00,13.25 ],]],   # 4513 - original
+  4713: ["B1",[[47.00,12.75 ],[47.00,13.25 ],]],   # 4713 - original
+  3318: ["B2",[[32.75,18.625],[33.25,17.875],]],   # 3318
+  3615: ["B1",[[36.00,14.75 ],[36.00,15.25 ],]],   # 3615
+  5313: ["C1",[[53.00,12.75 ],[53.00,13.25 ],]],   # 5313
+  6010: ["C1",[[60.00, 9.75 ],[60.00,10.25 ],]],   # 6010
+  6006: ["C1",[[59.75, 5.625],[60.25, 5.875],]],   # 6006
+  6514: ["C1",[[64.75,14.375],[65.25,14.125],]],   # 6514
+  6219: ["C2",[[62.00,18.75 ],[62.00,19.25 ],]],   # 6219
+}
 
-runways = [
+runwaypaths = [
   ["A1",[[12.63, 4.50],[13.80, 5.75],]],
   ["A2",[[22.60,23.25],[25.40,24.25],]],
   ["A2",[[23.00,22.60],[23.00,25.40],]],
 ]
-taxiways = [
+taxiwaypaths = [
   ["A1",[[12.70, 4.60],[13.20, 4.10],[13.00, 4.60],]],
 ]
 
-dams = [
+dampaths = [
   ["C2",[[60.23,27.35],[60.77,28.15],]],
 ]
 
-roads = [
+roadpaths = [
   ["A1",[[15.00, 0.50],[15.00, 9.00],]],
   ["A1",[[10.00, 6.00],[12.00, 5.00],[12.00, 4.00],[13.00, 3.00],[17.00, 5.00],[19.00, 4.00],[19.00, 2.00],]],
   ["A1",[[19.00, 4.00],[25.00, 7.00],[25.00,15.50],]],

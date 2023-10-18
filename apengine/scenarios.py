@@ -63,3 +63,12 @@ def north(scenario):
     return "left"
   else:
     return "up"
+
+def bridges(scenario):
+  bridges = {
+    "TSOH:K-9": [6010],
+  }
+  if scenario in bridges:
+    return bridges[scenario]
+  else:
+    return True
