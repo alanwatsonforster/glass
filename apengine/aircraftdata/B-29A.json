@@ -36,10 +36,10 @@
 
   "cruisespeed": 2.0,
 
-  // No data on the climb speed. I'm setting it to slightly less than the
-  // cruise speed by analogy with the B-26.
+  // The "B-29 Combat Crew Manual" (referenced on the Wikipedia page) states on
+  // pages III-4 and III-5 that the optimum speed for climbing is 200 mph.
 
-  "climbspeed" : 1.5,
+  "climbspeed" : 2.0,
 
   // The flight rules in TSOH forbid rolls.
 
