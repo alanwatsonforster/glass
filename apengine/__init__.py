@@ -54,9 +54,8 @@ def startsetup(scenario, sheets=None, north="up", bridges=True, variants=[]):
     if scenario != None:
       sheets  = apscenarios.sheets(scenario)
       north   = apscenarios.north(scenario)
-      bridges = apscenarios.bridges(scenario)
 
-    apmap.setmap(sheets, bridges=bridges)
+    apmap.setmap(sheets)
     aplog.logbreak()
 
     apazimuth.setnorth(north)
@@ -106,7 +105,7 @@ def startturn():
 
     _turn = _savedturn
 
-    if turn != None or turn == 0:
+    if turn == None or turn == 0:
       raise RuntimeError("startturn() called out of sequence.")
   
     aplog.log("--- start of turn %d ---" % _turn)

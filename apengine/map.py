@@ -16,27 +16,26 @@ _sheetlist = []
 _nxsheetgrid = 0
 _nysheetgrid = 0
 
-_bridges = []
-
 _dxsheet = 20
 _dysheet = 15
 
 _saved = False
 
-level0color  = ( 0.85, 0.90, 0.85 )
-level1color  = ( 0.87, 0.85, 0.78 )
-level2color  = ( 0.82, 0.75, 0.65 )
-level3color  = ( 0.77, 0.65, 0.55 )
-woodedcolor  = ( 0.70, 0.80, 0.70 )
-urbancolor   = ( 0.70, 0.70, 0.70 )
-roadcolor    = ( 0.80, 0.80, 0.80 )
-bridgecolor  = urbancolor
-watercolor   = ( 0.75, 0.88, 0.95 )
-hexcolor     = ( 0.50, 0.50, 0.50 )
-runwaycolor  = roadcolor
-taxiwaycolor = roadcolor
-damcolor     = urbancolor
-missingcolor = ( 1.00, 1.00, 1.00 )
+level0color       = ( 0.85, 0.90, 0.85 )
+level1color       = ( 0.87, 0.85, 0.78 )
+level2color       = ( 0.82, 0.75, 0.65 )
+level3color       = ( 0.77, 0.65, 0.55 )
+woodedcolor       = ( 0.70, 0.80, 0.70 )
+urbancolor        = ( 0.70, 0.70, 0.70 )
+roadcolor         = ( 0.80, 0.80, 0.80 )
+bridgecolor       = ( 0.70, 0.70, 0.70)
+smallbridgecolor  = ( 0.80, 0.80, 0.80 )
+watercolor        = ( 0.75, 0.88, 0.95 )
+hexcolor          = ( 0.50, 0.50, 0.50 )
+runwaycolor       = ( 0.70, 0.70, 0.70 )
+taxiwaycolor      = ( 0.70, 0.70, 0.70 )
+damcolor          = ( 0.70, 0.70, 0.70 )
+missingcolor      = ( 1.00, 1.00, 1.00 )
 
 ridgewidth       = 14
 roadwidth        = 5
@@ -49,7 +48,7 @@ runwaywidth      = 10
 taxiwaywidth     = 7
 damwidth         = 14
 
-def setmap(sheetgrid, bridges=True):
+def setmap(sheetgrid):
 
   """
   Set the arrangement of the sheets that form the map and the position of the 
@@ -81,14 +80,6 @@ def setmap(sheetgrid, bridges=True):
     for ix in range (0, _nxsheetgrid):
       if _sheetgrid[iy][ix] != "--":
         _sheetlist.append(_sheetgrid[iy][ix])
-
-  if bridges == True:
-    bridges = [1921, 3503, 4513, 4713]
-  for bridge in bridges:
-    if not bridge in bridgepaths:
-      raise RuntimeError("unvalid bridge %r" % bridge)
-  global _bridges
-  _bridges = bridges
 
   global _saved
   _saved = False
@@ -201,8 +192,17 @@ def startdrawmap():
       apdraw.drawlines(x, y, color=watercolor, linewidth=wideriverwidth, capstyle="butt", zorder=0)
 
   # Draw the bridges.
-  for bridge in _bridges:
-    bridgepath = bridgepaths[bridge]
+  for bridgepath in smallbridgepaths:
+    sheet = bridgepath[0]
+    if sheet in sheets():
+      p = bridgepath[1]
+      xy = [toxy(sheet, *p) for p in p]
+      x = [xy[0] for xy in xy]
+      y = [xy[1] for xy in xy]
+      apdraw.drawlines(x, y, color=smallbridgecolor, linewidth=bridgeouterwidth, capstyle="butt", zorder=0)  
+      apdraw.drawlines(x, y, color=level0color, linewidth=bridgeinnerwidth, capstyle="butt", zorder=0)  
+      apdraw.drawlines(x, y, color=roadcolor, linewidth=roadwidth, capstyle="projecting", zorder=0)
+  for bridgepath in largebridgepaths:
     sheet = bridgepath[0]
     if sheet in sheets():
       p = bridgepath[1]
@@ -798,6 +798,24 @@ bridgepaths = {
   6514: ["C1",[[64.75,14.375],[65.25,14.125],]],   # 6514
   6219: ["C2",[[62.00,18.75 ],[62.00,19.25 ],]],   # 6219
 }
+
+smallbridgepaths = [
+  ["A1",[[24.75, 6.625],[25.25, 5.875],]],   # 2506
+  ["B2",[[32.75,18.625],[33.25,17.875],]],   # 3318
+  ["B1",[[36.00,14.75 ],[36.00,15.25 ],]],   # 3615
+  ["C1",[[53.00,12.75 ],[53.00,13.25 ],]],   # 5313
+  ["C1",[[60.00, 9.75 ],[60.00,10.25 ],]],   # 6010
+  ["C1",[[59.75, 5.625],[60.25, 5.875],]],   # 6006
+  ["C1",[[64.75,14.375],[65.25,14.125],]],   # 6514
+  ["C2",[[62.00,18.75 ],[62.00,19.25 ],]],   # 6219
+]
+
+largebridgepaths = [
+  ["A2",[[17.65,21.675],[20.35,20.825],]],   # 1822/1921/2012 - original
+  ["B1",[[35.00, 2.75 ],[35.00, 3.25 ],]],   # 3503 - original
+  ["B1",[[45.00,12.75 ],[45.00,13.25 ],]],   # 4513 - original
+  ["B1",[[47.00,12.75 ],[47.00,13.25 ],]],   # 4713 - original
+]
 
 runwaypaths = [
   ["A1",[[12.63, 4.50],[13.80, 5.75],]],
