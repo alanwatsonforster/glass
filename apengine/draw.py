@@ -135,11 +135,12 @@ def _drawcompassinphysical(x, y, facing, color="black", alpha=1.0, zorder=1):
   _drawtextinphysical(x, y, facing, "N", dx=-0.1, dy=-0.05, color=color, alpha=alpha, zorder=zorder)
 
 def _drawpolygoninphysical(xy, 
-  linecolor="black", fillcolor=None, linewidth=0.5, alpha=1.0,
+  linecolor="black", fillcolor=None, linewidth=0.5, hatch=None, alpha=1.0,
   zorder=1):
   _ax.add_artist(patches.Polygon(
     xy,
-    edgecolor=_mapcolor(linecolor), facecolor=_mapcolor(fillcolor), fill=(fillcolor != None), linewidth=linewidth, alpha=alpha, 
+    edgecolor=_mapcolor(linecolor), facecolor=_mapcolor(fillcolor), 
+    fill=(fillcolor != None), linewidth=linewidth, hatch=hatch, alpha=alpha, 
     zorder=zorder
   ))  
 

@@ -63,3 +63,10 @@ def north(scenario):
     return "left"
   else:
     return "up"
+
+def allforest(scenario):
+  allforest = [
+    "TSOH:V-10",
+    "TSOH:V-11",
+  ]
+  return scenario in allforest
