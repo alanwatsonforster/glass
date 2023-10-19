@@ -33,9 +33,9 @@ smallbridgecolor  = ( 0.80, 0.80, 0.80 )
 watercolor        = ( 0.75, 0.88, 0.95 )
 hexcolor          = ( 0.60, 0.60, 0.60 )
 megahexcolor      = ( 1.00, 1.00, 1.00 )
-runwaycolor       = ( 0.70, 0.70, 0.70 )
-taxiwaycolor      = ( 0.70, 0.70, 0.70 )
-damcolor          = ( 0.70, 0.70, 0.70 )
+runwaycolor       = ( 0.80, 0.80, 0.80 )
+taxiwaycolor      = ( 0.80, 0.80, 0.80 )
+damcolor          = ( 0.80, 0.80, 0.80 )
 missingcolor      = ( 1.00, 1.00, 1.00 )
 
 ridgewidth       = 14
