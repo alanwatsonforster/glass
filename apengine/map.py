@@ -25,7 +25,7 @@ level0color       = ( 0.85, 0.90, 0.85 )
 level1color       = ( 0.87, 0.85, 0.78 )
 level2color       = ( 0.82, 0.75, 0.65 )
 level3color       = ( 0.77, 0.65, 0.55 )
-woodedcolor       = ( 0.70, 0.80, 0.70 )
+forestcolor       = ( 0.70, 0.80, 0.70 )
 urbancolor        = ( 0.70, 0.70, 0.70 )
 roadcolor         = ( 0.80, 0.80, 0.80 )
 bridgecolor       = ( 0.70, 0.70, 0.70)
@@ -149,10 +149,10 @@ def startdrawmap():
     if aphexcode.tosheet(h) in sheets():
       apdraw.drawhex(*aphexcode.toxy(h), linewidth=0, fillcolor=watercolor, zorder=0)
           
-  # Draw the wooded areas.
-  for h in woodedhexcodes:
+  # Draw the forest areas.
+  for h in foresthexcodes:
     if aphexcode.tosheet(h) in sheets():
-      apdraw.drawhex(*aphexcode.toxy(h), linewidth=0, linecolor=woodedcolor, hatch="oo", zorder=0)
+      apdraw.drawhex(*aphexcode.toxy(h), linewidth=0, linecolor=forestcolor, hatch="oo", zorder=0)
 
   # Draw the road clearings.
   for clearingpath in clearingpaths:
@@ -540,7 +540,7 @@ level2ridges = [
   ["B2",[[44.33,21.50],[45.00,22.00],[46.00,23.00],[46.00,24.00],[45.00,24.00],[45.00,25.50],]],
 ]
 
-woodedhexcodes = [
+foresthexcodes = [
     
   # A1
   1111, 1112,
@@ -558,7 +558,7 @@ woodedhexcodes = [
   2310, 2311, 2312, 2314,
   2411, 2412,
 
-  # A2 has no woods.
+  # A2 has no forest.
 
   # B1
 
