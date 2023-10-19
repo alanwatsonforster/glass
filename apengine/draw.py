@@ -43,43 +43,49 @@ def physicaltohex(x,y):
 
 ################################################################################
 
-def _drawhexinphysical(x, y, size=1, linecolor="lightgrey", linewidth=0.5, fillcolor=None, hatch=None, zorder=1):
+def _drawhexinphysical(x, y, size=1, 
+  linecolor="black", linewidth=0.5, fillcolor=None, hatch=None, alpha=1.0,
+  zorder=1):
   # size is inscribed diameter
   _ax.add_artist(patches.RegularPolygon(
     [x,y], 6, 
     radius=size*0.5*np.sqrt(4/3), orientation=np.pi/6, 
     edgecolor=linecolor, facecolor=fillcolor, fill=(fillcolor != None), hatch=hatch, 
-    linewidth=linewidth,
+    linewidth=linewidth, alpha=alpha,
     zorder=zorder
   ))
 
-def _drawdotinphysical(x, y, size=1, facing=0, dx=0, dy=0, color="black", zorder=1):
+def _drawdotinphysical(x, y, size=1, facing=0, dx=0, dy=0, 
+  color="black", alpha=1.0,
+  zorder=1):
   x = x + dx * sind(facing) + dy * cosd(facing)
   y = y - dx * cosd(facing) + dy * sind(facing)
   _ax.add_artist(patches.Circle(
     [x,y],
-    radius=0.5*size,
-    color=_mapcolor(color),
+    radius=0.5*size, color=_mapcolor(color), alpha=alpha, 
     zorder=zorder
   ))
 
 def _drawlineinphysical(x0, y0, x1, y1, 
-    color="black", linewidth=0.5, linestyle="solid", joinstyle="miter", capstyle="butt", zorder=1
+    color="black", linewidth=0.5, linestyle="solid", joinstyle="miter", capstyle="butt", alpha=1.0,
+    zorder=1
   ):
   plt.plot((x0, x1), (y0, y1), 
-    linewidth=linewidth, linestyle=linestyle, color=_mapcolor(color), solid_joinstyle=joinstyle, solid_capstyle=capstyle,
+    linewidth=linewidth, linestyle=linestyle, color=_mapcolor(color), solid_joinstyle=joinstyle, solid_capstyle=capstyle, alpha=alpha, 
     zorder=zorder)
 
 from matplotlib.patches import Rectangle
 
 def _drawlinesinphysical(x, y, 
-  color="black", linewidth=0.5, linestyle="solid", joinstyle="miter", capstyle="butt",zorder=1
-):
+  color="black", linewidth=0.5, linestyle="solid", joinstyle="miter", capstyle="butt", alpha=1.0,
+  zorder=1):
   plt.plot(x, y, 
-    linewidth=linewidth, linestyle=linestyle, color=_mapcolor(color), solid_joinstyle=joinstyle, solid_capstyle=capstyle,
+    linewidth=linewidth, linestyle=linestyle, color=_mapcolor(color), solid_joinstyle=joinstyle, solid_capstyle=capstyle, alpha=alpha, 
     zorder=zorder)
   
-def _drawarrowinphysical(x, y, facing, size=1.0, dx=0, dy=0, linewidth=0.5, color="black", zorder=1):
+def _drawarrowinphysical(x, y, facing, size=1.0, dx=0, dy=0, 
+  color="black", linewidth=0.5, alpha=1.0,
+  zorder=1):
   # size is length
   x = x + dx * sind(facing) + dy * cosd(facing)
   y = y - dx * cosd(facing) + dy * sind(facing)
@@ -90,11 +96,13 @@ def _drawarrowinphysical(x, y, facing, size=1.0, dx=0, dy=0, linewidth=0.5, colo
   _ax.add_artist(patches.FancyArrow(
     x, y, dx, dy,
     width=0.01, head_width=0.1, color=_mapcolor(color), length_includes_head=True, 
-    linewidth=linewidth,
+    linewidth=linewidth, alpha=alpha, 
     zorder=zorder
   ))
 
-def _drawdartinphysical(x, y, facing, size=1.0, dx=0, dy=0, linewidth=0.5, facecolor="black", edgecolor="black", zorder=1):
+def _drawdartinphysical(x, y, facing, size=1.0, dx=0, dy=0, 
+  facecolor="black", edgecolor="black", linewidth=0.5, alpha=1.0,
+  zorder=1):
   # size is length
   x = x + dx * sind(facing) + dy * cosd(facing)
   y = y - dx * cosd(facing) + dy * sind(facing)
@@ -105,29 +113,33 @@ def _drawdartinphysical(x, y, facing, size=1.0, dx=0, dy=0, linewidth=0.5, facec
   _ax.add_artist(patches.FancyArrow(
     x, y, dx, dy,
     width=0.02, head_length=size, head_width=0.5*size, length_includes_head=True, 
-    facecolor=_mapcolor(facecolor), edgecolor=_mapcolor(edgecolor), linewidth=linewidth, \
+    facecolor=_mapcolor(facecolor), edgecolor=_mapcolor(edgecolor), linewidth=linewidth, alpha=alpha, 
     zorder=zorder
   ))
 
-def _drawtextinphysical(x, y, facing, s, size=10, dx=0, dy=0, color="black", zorder=1):
+def _drawtextinphysical(x, y, facing, s, dx=0, dy=0, 
+  color="black", size=10, alpha=1.0,
+  zorder=1):
   x = x + dx * sind(facing) + dy * cosd(facing)
   y = y - dx * cosd(facing) + dy * sind(facing)
   plt.text(x, y, s, size=size, rotation=facing - 90,
-           color=_mapcolor(color),
+           color=_mapcolor(color), alpha=alpha, 
            horizontalalignment='center',
            verticalalignment='baseline',
            rotation_mode="anchor",
            zorder=zorder)
 
-def _drawcompassinphysical(x, y, facing, color="black", zorder=1):
-  _drawdotinphysical(x, y, facing=facing, size=0.07, dy=-0.3, color=color, zorder=zorder)
-  _drawarrowinphysical(x, y, facing, size=0.6, dy=0, color=color, zorder=zorder)
-  _drawtextinphysical(x, y, facing, "N", dx=-0.1, dy=-0.05, color=color, zorder=zorder)
+def _drawcompassinphysical(x, y, facing, color="black", alpha=1.0, zorder=1):
+  _drawdotinphysical(x, y, facing=facing, size=0.07, dy=-0.3, color=color, alpha=alpha, zorder=zorder)
+  _drawarrowinphysical(x, y, facing, size=0.6, dy=0, color=color, alpha=alpha, zorder=zorder)
+  _drawtextinphysical(x, y, facing, "N", dx=-0.1, dy=-0.05, color=color, alpha=alpha, zorder=zorder)
 
-def _drawpolygoninphysical(xy, linecolor="black", fillcolor=None, linewidth=0.5, zorder=1):
+def _drawpolygoninphysical(xy, 
+  linecolor="black", fillcolor=None, linewidth=0.5, alpha=1.0,
+  zorder=1):
   _ax.add_artist(patches.Polygon(
     xy,
-    edgecolor=_mapcolor(linecolor), facecolor=_mapcolor(fillcolor), fill=(fillcolor != None), linewidth=linewidth,
+    edgecolor=_mapcolor(linecolor), facecolor=_mapcolor(fillcolor), fill=(fillcolor != None), linewidth=linewidth, alpha=alpha, 
     zorder=zorder
   ))  
 
