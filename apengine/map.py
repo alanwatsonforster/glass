@@ -31,7 +31,8 @@ roadcolor         = ( 0.80, 0.80, 0.80 )
 bridgecolor       = ( 0.70, 0.70, 0.70)
 smallbridgecolor  = ( 0.80, 0.80, 0.80 )
 watercolor        = ( 0.75, 0.88, 0.95 )
-hexcolor          = ( 0.50, 0.50, 0.50 )
+hexcolor          = ( 0.60, 0.60, 0.60 )
+megahexcolor      = ( 1.00, 1.00, 1.00 )
 runwaycolor       = ( 0.70, 0.70, 0.70 )
 taxiwaycolor      = ( 0.70, 0.70, 0.70 )
 damcolor          = ( 0.70, 0.70, 0.70 )
@@ -47,6 +48,11 @@ bridgeouterwidth = bridgeinnerwidth + 6
 runwaywidth      = 10
 taxiwaywidth     = 7
 damwidth         = 14
+hexwidth         = 0.5
+megahexwidth     = 5
+
+hexalpha         = 1.0
+megahexalpha     = 0.15
 
 def setmap(sheetgrid):
 
@@ -142,7 +148,7 @@ def startdrawmap():
   for h in waterhexcodes:
     if aphexcode.tosheet(h) in sheets():
       apdraw.drawhex(*aphexcode.toxy(h), fillcolor=watercolor, zorder=0)
-      
+          
   # Draw the wooded areas.
   for h in woodedhexcodes:
     if aphexcode.tosheet(h) in sheets():
@@ -162,16 +168,6 @@ def startdrawmap():
   for h in urbanhexcodes:
     if aphexcode.tosheet(h) in sheets():
       apdraw.drawhex(*aphexcode.toxy(h), fillcolor=None, linecolor=urbancolor, hatch="xx", zorder=0)
-
-  # Draw the roads.
-  for roadpath in roadpaths:
-    sheet = roadpath[0]
-    if sheet in sheets():
-      p = roadpath[1]
-      xy = [toxy(sheet, *p) for p in p]
-      x = [xy[0] for xy in xy]
-      y = [xy[1] for xy in xy]
-      apdraw.drawlines(x, y, color=roadcolor, linewidth=roadwidth, capstyle="butt", zorder=0)
       
   # Draw the rivers.
   for riverpath in riverpaths:
@@ -213,6 +209,16 @@ def startdrawmap():
       apdraw.drawlines(x, y, color=level0color, linewidth=bridgeinnerwidth, capstyle="butt", zorder=0)  
       apdraw.drawlines(x, y, color=roadcolor, linewidth=roadwidth, capstyle="projecting", zorder=0)
 
+  # Draw the roads.
+  for roadpath in roadpaths:
+    sheet = roadpath[0]
+    if sheet in sheets():
+      p = roadpath[1]
+      xy = [toxy(sheet, *p) for p in p]
+      x = [xy[0] for xy in xy]
+      y = [xy[1] for xy in xy]
+      apdraw.drawlines(x, y, color=roadcolor, linewidth=roadwidth, capstyle="butt", zorder=0)
+      
   # Draw the runways and taxiways.
   for runwaypath in runwaypaths:
     sheet = runwaypath[0]
@@ -250,7 +256,19 @@ def startdrawmap():
         ymin = iy * _dysheet
         ymax = ymin + _dysheet
         apdraw.drawrectangle(xmin, ymin, xmax, ymax, linecolor=None, fillcolor=missingcolor, zorder=0.0)
-  
+          
+  # Draw the megahexes.
+  for sheet in sheets():
+    xmin, ymin, xmax, ymax = sheetlimits(sheet)
+    for ix in range(0, _dxsheet):
+      for iy in range(0, _dysheet):
+        x = xmin + ix
+        y = ymin + iy
+        if ix % 2 == 1:
+          y -= 0.5
+        if (x % 10 == 0 and y % 5 == 0) or (x % 10 == 5 and y % 5 == 2.5):
+          apdraw.drawhex(x, y, size=5, linecolor=megahexcolor, linewidth=megahexwidth, alpha=megahexalpha, zorder=0.0)
+          
   # Draw and label the hexes.
   for sheet in sheets():
     xmin, ymin, xmax, ymax = sheetlimits(sheet)
@@ -263,7 +281,7 @@ def startdrawmap():
         # Draw the hex if it is on the map and either its center or the center 
         # of its upper left edge are on this sheet.
         if isonmap(x, y) and (isonsheet(sheet, x, y) or isonsheet(sheet, x - 0.5, y + 0.25)):
-          apdraw.drawhex(x, y, linecolor=hexcolor, zorder=0.5)
+          apdraw.drawhex(x, y, linecolor=hexcolor, linewidth=hexwidth, alpha=hexalpha, zorder=0.5)
           apdraw.drawhexlabel(x, y, aphexcode.fromxy(x, y), color=hexcolor, zorder=0.5)
 
   # Label the sheets.
