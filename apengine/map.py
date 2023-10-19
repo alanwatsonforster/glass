@@ -25,7 +25,7 @@ level0color       = ( 0.85, 0.90, 0.85 )
 level1color       = ( 0.87, 0.85, 0.78 )
 level2color       = ( 0.82, 0.75, 0.65 )
 level3color       = ( 0.77, 0.65, 0.55 )
-forestcolor       = ( 0.70, 0.80, 0.70 )
+forestcolor       = ( 0.50, 0.65, 0.50 )
 urbancolor        = ( 0.70, 0.70, 0.70 )
 roadcolor         = ( 0.80, 0.80, 0.80 )
 bridgecolor       = ( 0.70, 0.70, 0.70)
@@ -53,6 +53,7 @@ megahexwidth     = 5
 
 hexalpha         = 1.0
 megahexalpha     = 0.15
+forestalpha      = 0.7
 
 def setmap(sheetgrid):
 
@@ -152,7 +153,8 @@ def startdrawmap():
   # Draw the forest areas.
   for h in foresthexcodes:
     if aphexcode.tosheet(h) in sheets():
-      apdraw.drawhex(*aphexcode.toxy(h), linewidth=0, linecolor=forestcolor, hatch="oo", zorder=0)
+      apdraw.drawhex(*aphexcode.toxy(h), linewidth=0, linecolor=forestcolor, 
+        hatch="oo", alpha=forestalpha, zorder=0)
 
   # Draw the road clearings.
   for clearingpath in clearingpaths:
