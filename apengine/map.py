@@ -114,17 +114,17 @@ def startdrawmap():
   # Draw the sheets and level 0.
   for sheet in sheets():
     xmin, ymin, xmax, ymax = sheetlimits(sheet)
-    apdraw.drawrectangle(xmin, ymin, xmax, ymax, linecolor=None, fillcolor=level0color, zorder=0)
+    apdraw.drawrectangle(xmin, ymin, xmax, ymax, linewidth=0, fillcolor=level0color, zorder=0)
 
   # Draw level 1.
   for h in level1hexcodes:
     if aphexcode.tosheet(h) in sheets():
-      apdraw.drawhex(*aphexcode.toxy(h), fillcolor=level1color, zorder=0)
+      apdraw.drawhex(*aphexcode.toxy(h), linewidth=0, fillcolor=level1color, zorder=0)
 
   # Draw level 2.
   for h in level2hexcodes:
     if aphexcode.tosheet(h) in sheets():
-      apdraw.drawhex(*aphexcode.toxy(h), fillcolor=level2color, zorder=0)
+      apdraw.drawhex(*aphexcode.toxy(h), linewidth=0, fillcolor=level2color, zorder=0)
 
   # Draw the ridges.
   for ridge in level1ridges:
@@ -147,12 +147,12 @@ def startdrawmap():
   # Draw water.
   for h in waterhexcodes:
     if aphexcode.tosheet(h) in sheets():
-      apdraw.drawhex(*aphexcode.toxy(h), fillcolor=watercolor, zorder=0)
+      apdraw.drawhex(*aphexcode.toxy(h), linewidth=0, fillcolor=watercolor, zorder=0)
           
   # Draw the wooded areas.
   for h in woodedhexcodes:
     if aphexcode.tosheet(h) in sheets():
-      apdraw.drawhex(*aphexcode.toxy(h), linecolor=woodedcolor, hatch="oo", zorder=0)
+      apdraw.drawhex(*aphexcode.toxy(h), linewidth=0, linecolor=woodedcolor, hatch="oo", zorder=0)
 
   # Draw the road clearings.
   for clearingpath in clearingpaths:
@@ -167,7 +167,7 @@ def startdrawmap():
   # Draw the urban areas.
   for h in urbanhexcodes:
     if aphexcode.tosheet(h) in sheets():
-      apdraw.drawhex(*aphexcode.toxy(h), fillcolor=None, linecolor=urbancolor, hatch="xx", zorder=0)
+      apdraw.drawhex(*aphexcode.toxy(h), linewidth=0, linecolor=urbancolor, hatch="xx", zorder=0)
       
   # Draw the rivers.
   for riverpath in riverpaths:
