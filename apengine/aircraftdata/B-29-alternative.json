@@ -7,22 +7,24 @@
   // - Moves at speed 3.0 or 2.0, if H or C damaged.
   // - Gain 0.2 or lose 1.0 altitudes per turn.
   //
-  // We make no attempt to change the properties with altitude or configuration. 
+  // We make no attempt to change the properties with altitude. 
+  //
+  // We set the cruise speed to 2.0. If the aircraft is H or C damaged, 
+  // simply reduce the power to N and the aircraft will fade back to this
+  // speed.
   //
   // When flying the aircraft, apply these restrictions manually:
   //
-  // - Do not use ZC, VC, UD, or VD. 
-  // - Restrict SC and SD to 1 VFP and SD to 1 altitude level per VFP.
+  // - Do not use ZC, VC, or VD. 
+  // - Restrict UD and SD to one altitude level. 
+  // - Restrict SC to 1 VFP.
   
-  "name": "B-29A",
+  "name": "B-29",
   "origin": "Watson",
   "powertable": {
 
-    // I have no data on the power levels but these give very slow
-    // acceleration, of about 60 mph/min (0.5 in speed in 4 turns) and
-    // half that above 300 mph (0.5 in speed in 8 turns).
-
-    // Fuel rates are twice those of the two-engined B-26.
+    // No data on the power levels but these give very slow acceleration,
+    // especially above 300 mph. Fuel rates are twice that of the B-26.
 
     "FT"  : [ 0.5 , 0.5 , 0.5 , 2.0 ],
     "HT"  : [ 0.25, 0.25, 0.25, 1.0 ],
@@ -38,8 +40,7 @@
 
   "cruisespeed": 2.0,
 
-  // The "B-29 Combat Crew Manual" (referenced on the Wikipedia page) states on
-  // pages III-4 and III-5 that the optimum speed for climbing is 200 mph.
+  // No data on the climb speed.
 
   "climbspeed" : 2.0,
 
@@ -65,17 +66,13 @@
   // speed slightly faster. Again, we make no 
   // attempt to adjust any of these for altitude or configuration.
 
-  // Since the aircraft can only lose 1 altitude level per turn, the dive 
-  // speed is irrelevant and the aircraft can never exceed its level maximum 
-  // speed of 3.5.
-
   "speedtable": {
     "EH": [ [  "-",  "-" ], [  "-",  "-" ], [  "-",  "-" ],  "-" ],
     "VH": [ [  "-",  "-" ], [  "-",  "-" ], [  "-",  "-" ],  "-" ],
-    "HI": [ [  1.0,  3.5 ], [  1.0,  3.5 ], [  1.0,  3.5 ],  3.5 ],
-    "MH": [ [  1.0,  3.5 ], [  1.0,  3.5 ], [  1.0,  3.5 ],  3.5 ],
-    "ML": [ [  1.0,  3.5 ], [  1.0,  3.5 ], [  1.0,  3.5 ],  3.5 ],
-    "LO": [ [  1.0,  3.5 ], [  1.0,  3.5 ], [  1.0,  3.5 ],  3.5 ]
+    "HI": [ [  1.0,  3.5 ], [  1.0,  3.5 ], [  1.0,  3.5 ],  4.0 ],
+    "MH": [ [  1.0,  3.5 ], [  1.0,  3.5 ], [  1.0,  3.5 ],  4.0 ],
+    "ML": [ [  1.0,  3.5 ], [  1.0,  3.5 ], [  2.0,  3.5 ],  4.0 ],
+    "LO": [ [  1.0,  3.5 ], [  1.0,  3.5 ], [  2.0,  3.5 ],  4.0 ]
   },
 
   // The TSOH flight rules give a climb rate of 1000 ft/min. The Wikipedia
@@ -92,11 +89,9 @@
   },
 
   "properties": [ "LRR", "NRM" ],
-
   "notes": [
       "UD, VD, ZC, and VC are forbidded.",
       "SC and SD may only use 1 VFP per turn.",
-      "SD may only lose 1 altitude level per VFP.",
       "Limited to power level N with H or C damage."
   ]
 
