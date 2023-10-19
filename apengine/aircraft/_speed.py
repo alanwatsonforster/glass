@@ -148,7 +148,7 @@ def _startmovespeed(self, power, flamedoutengines):
         
     # Again, the reduction was done above, but we report it here.
     if self.powerfade() != None and self.powerfade() > 0.0:
-      self._log("- power is reduced by %.1f as the speed is %.1f." % (self.powerfade(), speed))
+      self._log("- power is reduced by %.2f as the speed is %.1f." % (self.powerfade(), speed))
     
     # See rule 6.7
 
