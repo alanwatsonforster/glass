@@ -14,6 +14,9 @@ import apengine.variants as apvariants
 
 def _checknormalflight(self):
 
+  if self.hasproperty("SPFL"):
+    raise RuntimeError("special-flight aircraft cannot perform normal flight.")
+
   flighttype         = self._flighttype
   previousflighttype = self._previousflighttype
 

@@ -337,19 +337,36 @@ class aircraft:
       self._maneuveringdeparture = False
       
       self._flighttype = flighttype
-
       self._log("flight type   is %s." % self._flighttype)
+
+      if flighttype == "SP":
+        self._checkspecialflight()
+      elif flighttype == "ST":
+        self._checkstalledflight()
+      elif flighttype == "DP":
+        self._checkdepartedflight()
+      else:
+        self._checknormalflight()
+
       if flighttype != "SP":
         self._startmovespeed(power, flamedoutengines)
         self._log("configuration is %s." % self._configuration)
       self._log("altitude band is %s." % self._altitudeband)
 
-      if self._flighttype == "ST":       
+      if self._flighttype == "SP":
+
+        self._fpcarry = 0
+        self._apcarry = 0
+        self._turnsstalled  = 0
+        self._turnsdeparted = 0
+        self._dospecialflight(actions)
+        self._endmove()
+        
+      elif self._flighttype == "ST":       
 
         self._fpcarry = 0
         self._altitudecarry = 0
         self._turnsstalled += 1
-        self._checkstalledflight()
         self._dostalledflight(actions)
         self._endmove()
 
@@ -359,17 +376,9 @@ class aircraft:
         self._apcarry = 0
         self._altitudecarry = 0
         self._turnsdeparted += 1
-        self._checkdepartedflight()
         self._dodepartedflight(actions)
         self._endmove()
 
-      elif self._flighttype == "SP":
-
-        self._turnsstalled  = 0
-        self._turnsdeparted = 0
-        self._checkspecialflight()
-        self._dospecialflight(actions)
-        
       else:
 
         # See rule 8.1.4 on altitude carry.
@@ -378,7 +387,6 @@ class aircraft:
         
         self._turnsstalled  = 0
         self._turnsdeparted = 0
-        self._checknormalflight()
         self._startnormalflight(actions)
 
     except RuntimeError as e:

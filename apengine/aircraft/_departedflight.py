@@ -13,8 +13,8 @@ def _checkdepartedflight(self):
   Check departed flight is allowed.
   """
 
-  # There are no requirements.
-  pass
+  if self.hasproperty("SPFL"):
+    raise RuntimeError("special-flight aircraft cannot perform departed flight.")
 
 def _dodepartedflight(self, action):
 

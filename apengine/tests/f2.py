@@ -13,6 +13,15 @@ A1 = aircraft("A1", "O-1E", 2030, "N", 40, 0, "CL", color="green")
 endsetup()
 
 startturn()
+
+A1.move("LVL", 0, "")
+asserterror("special-flight aircraft cannot perform normal flight.")
+A1.move("ST", 0, "")
+asserterror("special-flight aircraft cannot perform stalled flight.")
+A1.move("DP", 0, "")
+asserterror("special-flight aircraft cannot perform departed flight.")
+
+
 A1.move("SP", 0, "H,H,H")
 A1._assert("2027       N    40", 0)
 A1.move("SP", 0, "H,H,HR")

@@ -8,6 +8,9 @@ import apengine.altitude as apaltitude
 
 def _checkstalledflight(self):
 
+  if self.hasproperty("SPFL"):
+    raise RuntimeError("special-flight aircraft cannot perform stalled flight.")
+
   # See rule 6.3.
 
   if self._speed >= self.minspeed():
