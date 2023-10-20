@@ -1,15 +1,16 @@
 {
-  "name": "O-1E",
+  "name": "O-2A",
   "origin": "TSOH",
   "properties": [ "SPFL" ],
-  "specialclimbcapability": 0.25,
+  "specialclimbcapability": 0.50,
   "notes": [
     "See TSOH scenario V-10.",
     "Special flight options are:",
     "  move forward one hex;",
+    "  move forward two hexes;",
     "  move forward one hex and change facing by 30 or 60 degrees;",
     "  change facing by 30 or 60 degrees and move forward one hex;",
     "  change facing by 60, 90, or 120 degrees;",
-    "  any of the above while climbing 0.25 levels or diving 1 level."
+    "  any of the above while climbing 0.5 levels or diving 1 level."
   ]
 }

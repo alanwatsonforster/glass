@@ -106,19 +106,25 @@ def _dospecialflight(self, action):
     # This table is searched in order, so put longer elements before shorter 
     # ones that are prefixes (e.g., put C2 before C).
   
-    ["L90"  , lambda: doturn("L", 90) ],
-    ["L60"  , lambda: doturn("L", 60) ],
-    ["L30"  , lambda: doturn("L", 30) ],
-    ["LLL"  , lambda: doturn("L", 90) ],
-    ["LL"   , lambda: doturn("L", 60) ],
-    ["L"    , lambda: doturn("L", 30) ],
+    ["L180" , lambda: doturn("L", 180) ],
+    ["L150" , lambda: doturn("L", 150) ],
+    ["L120" , lambda: doturn("L", 120) ],
+    ["L90"  , lambda: doturn("L",  90) ],
+    ["L60"  , lambda: doturn("L",  60) ],
+    ["L30"  , lambda: doturn("L",  30) ],
+    ["LLL"  , lambda: doturn("L",  90) ],
+    ["LL"   , lambda: doturn("L",  60) ],
+    ["L"    , lambda: doturn("L",  30) ],
 
-    ["R90"  , lambda: doturn("R", 90) ],
-    ["R60"  , lambda: doturn("R", 60) ],
-    ["R30"  , lambda: doturn("R", 30) ],
-    ["RRR"  , lambda: doturn("R", 90) ],
-    ["RR"   , lambda: doturn("R", 60) ],
-    ["R"    , lambda: doturn("R", 30) ],
+    ["R180" , lambda: doturn("R", 180) ],
+    ["R150" , lambda: doturn("R", 150) ],
+    ["R120" , lambda: doturn("R", 120) ],
+    ["R90"  , lambda: doturn("R",  90) ],
+    ["R60"  , lambda: doturn("R",  60) ],
+    ["R30"  , lambda: doturn("R",  30) ],
+    ["RRR"  , lambda: doturn("R",  90) ],
+    ["RR"   , lambda: doturn("R",  60) ],
+    ["R"    , lambda: doturn("R",  30) ],
 
     ["AGN"  , lambda: doattack("guns") ],
     ["AGP"  , lambda: doattack("gun pod") ],
@@ -156,7 +162,9 @@ def _dospecialflight(self, action):
     
   self._log("---")
   self._logaction("start", "", self.position()) 
-  
+
+  fullaction = action
+
   initialaltitude     = self._altitude
   initialaltitudeband = self._altitudeband
 
@@ -181,7 +189,7 @@ def _dospecialflight(self, action):
 
       raise RuntimeError("invalid action %r." % action)
   
-  self._logaction("end", action, self.position())
+  self._logaction("end", fullaction, self.position())
 
   if initialaltitudeband != self._altitudeband:
     self._logevent("- altitude band changed from %s to %s." % (initialaltitudeband, self._altitudeband))

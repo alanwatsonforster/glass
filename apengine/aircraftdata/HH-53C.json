@@ -1,0 +1,17 @@
+{
+  "name": "HH-53C",
+  "origin": "TSOH",
+  "properties": [ "SPFL" ],
+  "specialclimbcapability": 0.25,
+  "notes": [
+    "See TSOH scenario V-11.",
+    "Special flight options are:",
+    "  stay in the same hex;",
+    "  move forward one hex:",
+    "  move forward one/two hexes with speed of 1.5;",
+    "  move one hex and change facing by 30 or 60 degrees;",
+    "  change facing by 30 or 60 degrees and move forward one hex;",
+    "  stay in the same hex and change facing by 30, 60, 90, 120, 150, or 180 degrees;",
+    "  any of the above while climbing 0.25 levels or diving 1 level."
+  ]
+}
