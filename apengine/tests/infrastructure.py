@@ -11,7 +11,7 @@ def startfile(file, description):
   print("running tests in file %s: %s." % (os.path.basename(file), description))
 
 def endfile(file):
-  pass
+  aplog._silent = False
 
 def asserterror(error):
   if aplog._error != error:
@@ -21,7 +21,7 @@ def asserterror(error):
 
 def starttestsetup(sheets=[["A1"],["A2"]], north="up", variants=[], verbose=False):
   aplog._silent = not verbose
-  ap.starttestsetup(None, sheets=sheets, north=north, variants=variants)
+  ap.startsetup(None, sheets=sheets, north=north, variants=variants)
 
 def endtestsetup():
   ap.endsetup()
