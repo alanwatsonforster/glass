@@ -131,9 +131,6 @@ def startdrawmap():
   for h in level1hexcodes:
     if aphexcode.tosheet(h) in sheets():
       apdraw.drawhex(*aphexcode.toxy(h), linewidth=0, fillcolor=level1color, zorder=0)
-      if _allforest:
-        apdraw.drawhex(*aphexcode.toxy(h), linewidth=0, linecolor=forestcolor, 
-          hatch=foresthatch, alpha=forestalpha, zorder=0) 
 
   # Draw level 2.
   for h in level2hexcodes:
@@ -157,7 +154,13 @@ def startdrawmap():
       x = [xy[0] for xy in xy]
       y = [xy[1] for xy in xy]
       apdraw.drawlines(x, y, color=level3color, linewidth=ridgewidth, zorder=0)
-  
+
+  if _allforest:
+    for h in level1hexcodes + level2hexcodes:
+      if aphexcode.tosheet(h) in sheets():
+        apdraw.drawhex(*aphexcode.toxy(h), linewidth=0, linecolor=forestcolor, 
+          hatch=foresthatch, alpha=forestalpha, zorder=0)
+
   if not _allforest:
 
     # Draw the forest areas.
