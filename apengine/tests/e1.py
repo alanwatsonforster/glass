@@ -5,12 +5,12 @@ startfile(__file__, "climbs")
 
 # Sustained Climbs
 
-startsetup()
+starttestsetup()
 A1 = aircraft("A1", "F-80C", 1815, "N"  , 20, 4.0, "CL")
 A2 = aircraft("A2", "F-80C", 2015, "N"  , 10, 4.0, "CL")
 A3 = aircraft("A3", "F-84E", 2215, "N"  ,  1, 5.0, "CL")
 A4 = aircraft("A4", "F-80C", 2415, "N"  , 45, 5.0, "CL")
-endsetup()
+endtestsetup()
 
 startturn()
 A1.move("SC",  "M", "H,H,H,C"  )
@@ -40,10 +40,10 @@ endturn()
 
 # Zoom Climbs
 
-startsetup()
+starttestsetup()
 A1 = aircraft("A1", "F-80C", 1815, "N"  ,  1, 5.5, "CL")
 A2 = aircraft("A2", "F-80C", 2015, "N"  , 45, 4.0, "CL")
-endsetup()
+endtestsetup()
 
 startturn()
 A1.move("ZC",  "M", "H,C,C,C,C" )
@@ -108,10 +108,10 @@ endturn()
 
 # Vertical Climbs
 
-startsetup()
+starttestsetup()
 A1 = aircraft("A1", "F-80C", 1815, "N"  , 1, 5.5, "CL")
 A2 = aircraft("A2", "F-80C", 2015, "N"  ,45, 4.0, "CL")
-endsetup()
+endtestsetup()
 
 startturn()
 A1.move("VC",  "M", "H,C,C,C,C")

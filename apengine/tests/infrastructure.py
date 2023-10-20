@@ -19,11 +19,11 @@ def asserterror(error):
     print("actual   error: %r" % aplog._error)
     assert aplog._error == error
 
-def startsetup(sheets=[["A1"],["A2"]], north="up", variants=[], verbose=False):
+def starttestsetup(sheets=[["A1"],["A2"]], north="up", variants=[], verbose=False):
   aplog._silent = not verbose
-  ap.startsetup(None, sheets=sheets, north=north, variants=variants)
+  ap.starttestsetup(None, sheets=sheets, north=north, variants=variants)
 
-def endsetup():
+def endtestsetup():
   ap.endsetup()
 
 def startturn():

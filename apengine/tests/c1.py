@@ -3,10 +3,10 @@ startfile(__file__, "propeller power")
 
 # Propeller Power
 
-startsetup()
+starttestsetup()
 A1 = aircraft("A1", "AD-4", 2015, "N", 10, 2.0, "CL")
 A2 = aircraft("A2", "AD-4", 2215, "N", 10, 2.0, "CL")
-endsetup()
+endtestsetup()
 
 startturn()
 A1.move("LVL",  "M", "")
@@ -44,11 +44,11 @@ endturn()
 
 # Power Fade
 
-startsetup()
+starttestsetup()
 A1 = aircraft("A1", "Sea Fury FB.11", 2015, "N", 10, 4.5, "CL")
 A2 = aircraft("A2", "Sea Fury FB.11", 2215, "N", 10, 3.5, "CL")
 A3 = aircraft("A3", "Sea Fury FB.11", 2415, "N", 10, 3.0, "CL")
-endsetup()
+endtestsetup()
 
 startturn()
 A1.move("LVL",  2.0, "H,H,H,H")

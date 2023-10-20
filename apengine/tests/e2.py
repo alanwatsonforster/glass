@@ -5,9 +5,9 @@ startfile(__file__, "dives")
 
 # Steep Dives
 
-startsetup()
+starttestsetup()
 A1 = aircraft("A1", "F-80C", 1815, "N"  , 20, 3.0, "CL")
-endsetup()
+endtestsetup()
 
 startturn()
 A1.move("SD",  "N", "H,H,H")
@@ -38,9 +38,9 @@ endturn()
 
 # Unloaded Dives
 
-startsetup()
+starttestsetup()
 A1 = aircraft("A1", "F-80C", 1815, "N"  , 20, 3.0, "CL")
-endsetup()
+endtestsetup()
 
 startturn()
 A1.move("UD",  "M", "HD,H,HD")
@@ -76,9 +76,9 @@ endturn()
 
 # Verify that attacks cannot happen on unloaded FPs.
 
-startsetup(verbose=False)
+starttestsetup(verbose=False)
 A1 = aircraft("A1", "F-80C", 2015, "N", 20, 4.0, "CL")
-endsetup()
+endtestsetup()
 
 startturn()
 A1.move("UD"    ,  "M", "HD,HD,HD,HD/AGN" )
@@ -89,9 +89,9 @@ endturn()
 
 # Vertical Dives
 
-startsetup(sheets=[["A1"],["A2"]])
+starttestsetup(sheets=[["A1"],["A2"]])
 A1 = aircraft("A1", "F-80C", 1820, "N"  , 17, 5.0, "CL")
-endsetup()
+endtestsetup()
 
 startturn()
 A1.move("SD",  "N", "H,H,H,H,H")
@@ -138,9 +138,9 @@ A1.move("UD",  "M", "HD,HD,HD,HD,HD,HD")
 A1._assert("1808       N     4",  6.5)
 endturn()
 
-startsetup(sheets=[["A1"],["A2"]])
+starttestsetup(sheets=[["A1"],["A2"]])
 A1 = aircraft("A1", "F-80C", 1817, "N"  , 45, 2.5, "CL")
-endsetup()
+endtestsetup()
 
 startturn()
 A1.move("SD",  "N", "H,H")
@@ -166,9 +166,9 @@ endturn()
 
 # Free Descent
 
-startsetup()
+starttestsetup()
 A1 = aircraft("A1", "F-80C", 1815, "N"  , 10, 4.0, "CL")
-endsetup()
+endtestsetup()
 
 startturn()
 A1.move("LVL",  "M", "HD2,H,H,H")

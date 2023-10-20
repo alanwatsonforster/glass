@@ -3,9 +3,9 @@ startfile(__file__, "attacks after rolls")
 
 # Attacks after Rolls
 
-startsetup(verbose=False)
+starttestsetup(verbose=False)
 A1 = aircraft("A1", "F-80C", 2015, "N", 20, 4.0, "CL")
-endsetup()
+endtestsetup()
 
 startturn()
 A1.move("LVL"   ,  "M", "DRR/H,HR,H,H"    )

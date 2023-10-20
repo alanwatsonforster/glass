@@ -4,9 +4,9 @@ startfile(__file__, "banking")
 
 # Turns and banking with normal RR aircraft
 
-startsetup()
+starttestsetup()
 A1 = aircraft("A1", "F-80C" , 2015, "N"  , 10, 4.0, "CL")
-endsetup()
+endtestsetup()
 startturn()
 A1.move("LVL",  "M", "H/WL,EZL/H,H,H")
 A1._assert("2011       N    10",  4.0)
@@ -30,9 +30,9 @@ endturn()
 
 # Turns and banking with LRR aircraft
 
-startsetup()
+starttestsetup()
 A1 = aircraft("A1", "Meteor F.8" , 2015, "N"  , 10, 4.0, "CL")
-endsetup()
+endtestsetup()
 startturn()
 A1.move("LVL",  "M", "H/WL,EZL/H,H,H")
 asserterror("attempt to declare a turn to L while not banked to L in a LRR aircraft.")
@@ -56,9 +56,9 @@ endturn()
 
 # Turns and banking with HRR aircraft
 
-startsetup()
+starttestsetup()
 A1 = aircraft("A1", "F-5A" , 2015, "N"  , 10, 4.0, "CL")
-endsetup()
+endtestsetup()
 startturn()
 A1.move("LVL",  "M", "H/WL,EZL/H,H,H")
 A1._assert("2011       N    10",  4.0)
@@ -82,11 +82,11 @@ endturn()
 
 # Turns and banking with HRRCL aircraft
 
-startsetup(verbose=False)
+starttestsetup(verbose=False)
 A1 = aircraft("A1", "Yak-9D" , 2010, "N"  , 10, 3.5, "CL")
 A2 = aircraft("A2", "Yak-9D" , 2210, "N"  , 10, 3.5, "1/2")
 A3 = aircraft("A3", "Yak-9D" , 2410, "N"  , 10, 3.0, "DT")
-endsetup()
+endtestsetup()
 
 startturn()
 A1.move("LVL",  "HT", "BTL/H,BTR/H,H")

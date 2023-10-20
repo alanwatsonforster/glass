@@ -3,10 +3,10 @@ startfile(__file__, "slatted wings")
 
 # Turns with slatted wings.
 
-startsetup()
+starttestsetup()
 A1 = aircraft("A1", "F-100A" , 1110, "N", 10, 4.0, "CL")
 A2 = aircraft("A2", "F-100A" , 1310, "N", 10, 4.5, "CL")
-endsetup()
+endtestsetup()
 startturn()
 A1.move("LVL",  "AB", "BTR/HRR,HRR,HRR,HR")
 A1._assert("1310       SSW  10",  2.5)

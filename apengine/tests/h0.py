@@ -3,9 +3,9 @@ startfile(__file__, "jettisoning stores")
 
 # Jettisoning Stores
 
-startsetup()
+starttestsetup()
 A1 = aircraft("A1", "F-80C", 1815, "N"  , 10, 3.0, "DT")
-endsetup()
+endtestsetup()
 
 A1._assert("1815       N    10", 3.0, configuration="DT")
 

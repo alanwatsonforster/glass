@@ -3,11 +3,11 @@ startfile(__file__, "stalled flight")
 
 # Stalled flight
 
-startsetup()
+starttestsetup()
 A1 = aircraft("A1", "F-80C", 1914, "N", 10, 1.0, configuration="DT")
 A2 = aircraft("A2", "F-80C", 2114, "N",  3, 1.0, configuration="DT")
 A3 = aircraft("A3", "F-80C", 2314, "N",  2, 1.0, configuration="DT")
-endsetup()
+endtestsetup()
 
 startturn()
 A1.move("ST", "M", "")

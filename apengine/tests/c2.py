@@ -3,13 +3,13 @@ startfile(__file__, "flamed-out engines")
 
 # Power with Flamed-Out Engines.
 
-startsetup()
+starttestsetup()
 A1 = aircraft("A1", "F-80C", 1330, "N", 10, 4.0, "CL")
 A2 = aircraft("A2", "F-80C", 1530, "N", 10, 4.0, "CL")
 A3 = aircraft("A3", "F7U-3", 1730, "N", 10, 4.0, "CL")
 A4 = aircraft("A4", "F7U-3", 1930, "N", 10, 4.0, "CL")
 A5 = aircraft("A5", "F7U-3", 2130, "N", 10, 4.0, "CL")
-endsetup()
+endtestsetup()
 
 startturn()
 A1.move("LVL",  "M", "H,H,H,H")
@@ -67,11 +67,11 @@ endturn()
 
 # We don't automatically check that the warnings are issued, but if the code is run with verbose=True they should appear.
 
-startsetup(sheets=[["A1"],["A2"]], verbose=False)
+starttestsetup(sheets=[["A1"],["A2"]], verbose=False)
 A1 = aircraft("A1", "F-80C", 1330, "N", 45, 4.0, "CL")
 A2 = aircraft("A2", "F-80C", 1530, "N", 10, 4.0, "CL")
 A3 = aircraft("A3", "F7U-3", 1730, "N", 10, 4.0, "CL")
-endsetup()
+endtestsetup()
 
 startturn()
 A1.move("ZC",  "M", "H,H,H,C")

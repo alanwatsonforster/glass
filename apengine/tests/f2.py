@@ -3,11 +3,11 @@ startfile(__file__, "special flight")
 
 from apengine.tests.infrastructure import *
 
-startsetup()
+starttestsetup()
 A1 = aircraft("A1", "O-1E"  , 2030, "N", 5, 0, "CL", color="green")
 A2 = aircraft("A2", "O-2A"  , 2230, "N", 5, 0, "CL", color="green")
 A3 = aircraft("A3", "HH-53C", 2430, "N", 5, 0, "CL", color="green")
-endsetup()
+endtestsetup()
 
 startturn()
 

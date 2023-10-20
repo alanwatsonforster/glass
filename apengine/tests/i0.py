@@ -3,7 +3,7 @@ startfile(__file__, "close formations")
 
 # Close Formations
 
-startsetup()
+starttestsetup()
 A1 = aircraft("A1", "F-80C", "2115", "N", 20, 4.0, "CL")
 A2 = aircraft("A2", "F-80C", "2115", "N", 20, 4.0, "CL")
 A3 = aircraft("A3", "F-80C", "2115", "N", 20, 4.0, "CL")
@@ -53,9 +53,9 @@ assert A1.closeformationnames() == ["A1", "A2", "A3", "A4"]
 assert A2.closeformationnames() == ["A1", "A2", "A3", "A4"]
 assert A3.closeformationnames() == ["A1", "A2", "A3", "A4"]
 assert A4.closeformationnames() == ["A1", "A2", "A3", "A4"]
-endsetup()
+endtestsetup()
 
-startsetup()
+starttestsetup()
 A1 = aircraft("A1", "F-80C", "2115", "N", 20, 4.0, "CL")
 A2 = aircraft("A2", "F-80C", "2115", "N", 20, 4.0, "CL")
 A3 = aircraft("A3", "F-80C", "2115", "N", 20, 4.0, "CL")
@@ -93,9 +93,9 @@ asserterror("attempt to form a close formation from aircraft with different alti
 A1.joincloseformation(A9)
 asserterror("attempt to form a close formation from aircraft with different speeds.")
 
-endsetup()
+endtestsetup()
 
-startsetup(verbose=False)
+starttestsetup(verbose=False)
 A1 = aircraft("A1", "F-80C", "2115", "N", 20, 4.0, "CL")
 A2 = aircraft("A2", "F-80C", "2115", "N", 20, 4.0, "CL")
 A3 = aircraft("A3", "F-80C", "2115", "N", 20, 4.0, "CL")
@@ -109,7 +109,7 @@ assert A2.closeformationnames() == ["A1", "A2", "A3", "A4"]
 assert A3.closeformationnames() == ["A1", "A2", "A3", "A4"]
 assert A4.closeformationnames() == ["A1", "A2", "A3", "A4"]
 
-endsetup()
+endtestsetup()
 
 startturn()
 

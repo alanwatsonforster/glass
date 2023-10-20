@@ -3,9 +3,9 @@ startfile(__file__, "departed flight")
 
 # Maneuvering Departures
 
-startsetup(verbose=False)
+starttestsetup(verbose=False)
 A1 = aircraft("A1", "F-80C", 2010, "N", 10, 3.0, "CL")
-endsetup()
+endtestsetup()
 
 startturn()
 A1.move("LVL" ,  "M", "MDR60"    )
@@ -18,9 +18,9 @@ endturn()
 
 # Maneuvering Departures from Carried Turn
 
-startsetup()
+starttestsetup()
 A1 = aircraft("A1", "F-80C", 2010, "N", 10, 3.0, "CL")
-endsetup()
+endtestsetup()
 
 startturn()
 A1.move("SD" ,  "M", "BTR/H/RRR,H/RRR,D/RRR"    )
@@ -37,11 +37,11 @@ endturn()
 # Maneuvering Departures from Rolls. Run with verbose=True to check that the 
 # warnings are issued.
 
-startsetup(verbose=False)
+starttestsetup(verbose=False)
 A1 = aircraft("A1", "F-80C" , 2030, "N", 46, 3.0, "CL")
 A2 = aircraft("A2", "F-104A", 2230, "N", 59, 6.0, "CL")
 A3 = aircraft("A3", "F-80C" , 2430, "N", 46, 3.0, "CL")
-endsetup()
+endtestsetup()
 
 startturn()
 A1.move("VD/HRD",  "M", "H,D2,D2"          )
@@ -65,10 +65,10 @@ endturn()
 
 # Departed Flight
 
-startsetup()
+starttestsetup()
 A1 = aircraft("A1", "F-80C", 1814, "N", 10, 3.0, "CL")
 A2 = aircraft("A1", "F-80C", 2014, "N", 10, 1.0, "CL")
-endsetup()
+endtestsetup()
 
 startturn()
 A1.move("DP",  "M", "R150")

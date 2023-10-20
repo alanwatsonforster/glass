@@ -5,12 +5,12 @@ startfile(__file__, "initial HFPs")
 # HFPs required when transitioning from level to climbing/diving flight, between 
 # climbing and diving flight, and between diving and climbing flight.
 
-startsetup()
+starttestsetup()
 A1 = aircraft("A1", "F-80C", 1815, "N", 10, 4.0, "CL")
 A2 = aircraft("A2", "F-80C", 2015, "N", 10, 4.0, "CL")
 A3 = aircraft("A3", "F-80C", 2215, "N", 10, 4.0, "CL")
 A4 = aircraft("A4", "F-80C", 2415, "N", 10, 4.0, "CL")
-endsetup()
+endtestsetup()
 
 startturn()
 A1.move("ZC" ,  "M", "C,H,H,H")
@@ -40,12 +40,12 @@ A4.move("ZC" ,  "M", "C,H,H,H")
 A4._assert("2409       N    12",  4.0)
 endturn()
 
-startsetup()
+starttestsetup()
 A1 = aircraft("A1", "F-80C", 1815, "N", 10, 4.0, "CL")
 A2 = aircraft("A2", "F-80C", 2015, "N", 10, 4.0, "CL")
 A3 = aircraft("A3", "F-80C", 2215, "N", 10, 4.0, "CL")
 A4 = aircraft("A4", "F-80C", 2415, "N", 10, 4.0, "CL")
-endsetup()
+endtestsetup()
 
 startturn()
 A1.move("SD" ,  "N", "D,H,H,H")

@@ -3,9 +3,9 @@ startfile(__file__, "NRM aircraft")
 
 # Rolls and NRM aircraft
 
-startsetup()
+starttestsetup()
 A1 = aircraft("A1", "B-26B", 2015, "N", 24, 3.0, "CL")
-endsetup()
+endtestsetup()
 
 startturn()
 A1.move("VD/HRD",  "FT", "H,D2,D2,D2")
