@@ -1,0 +1,9 @@
+{
+  "name": "O-1E",
+  "origin": "TSOH",
+  "properties": [ "SPFL" ],
+  "specialclimbcapability": 0.25,
+  "notes": [
+    "Special flight. See TSOH scenario V-10."
+  ]
+}

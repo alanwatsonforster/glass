@@ -65,8 +65,7 @@ class aircraft:
     _startnormalflight, _continuenormalflight, _endnormalflight
 
   from ._specialflight import \
-    _checkspecialflight, \
-    _startspecialflight, _continuespecialflight, _endspecialflight
+    _checkspecialflight, _dospecialflight
 
   from ._speed import \
     _startmovespeed, _endmovespeed
@@ -339,11 +338,11 @@ class aircraft:
       
       self._flighttype = flighttype
 
-      self._startmovespeed(power, flamedoutengines)
-
-      self._log("configuration is %s." % self._configuration)
-      self._log("altitude band is %s." % self._altitudeband)
       self._log("flight type   is %s." % self._flighttype)
+      if flighttype != "SP":
+        self._startmovespeed(power, flamedoutengines)
+        self._log("configuration is %s." % self._configuration)
+      self._log("altitude band is %s." % self._altitudeband)
 
       if self._flighttype == "ST":       
 
@@ -369,7 +368,7 @@ class aircraft:
         self._turnsstalled  = 0
         self._turnsdeparted = 0
         self._checkspecialflight()
-        self._startspecialflight(actions)
+        self._dospecialflight(actions)
         
       else:
 
@@ -422,13 +421,15 @@ class aircraft:
       self._log("aircraft has left the map.")
 
     else:
-     
-      self._endmovespeed()
 
-      if self._previousconfiguration != self._configuration:
-        self._log("configuration changed from %s to %s." % (self._previousconfiguration, self._configuration))
-      else:
-        self._log("configuration is unchanged at %s." % self._configuration)
+      if self._flighttype != "SP":
+
+        self._endmovespeed()
+
+        if self._previousconfiguration != self._configuration:
+          self._log("configuration changed from %s to %s." % (self._previousconfiguration, self._configuration))
+        else:
+          self._log("configuration is unchanged at %s." % self._configuration)
         
       if self._previousaltitudeband != self._altitudeband:
         self._log("altitude band changed from %s to %s." % (self._previousaltitudeband, self._altitudeband))
