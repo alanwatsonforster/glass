@@ -134,7 +134,7 @@ def _dospecialflight(self, action):
     ["K"    , lambda: dokilled()],
 
     ["/"    , lambda: None ],
-    [","    , lambda: None ],
+    [","    , lambda: self._continueflightpath() ],
 
     ["H"    , lambda: dohorizontal() ],
 
@@ -178,7 +178,6 @@ def _dospecialflight(self, action):
       if len(elementcode) <= len(action) and elementcode == action[:len(elementcode)]:
         elementprocedure()
         action = action[len(elementcode):]
-        self._continueflightpath()
         self.checkforterraincollision()
         self.checkforleavingmap()
         if self._destroyed or self._leftmap:
@@ -190,6 +189,7 @@ def _dospecialflight(self, action):
       raise RuntimeError("invalid action %r." % action)
   
   self._logaction("end", fullaction, self.position())
+  self._continueflightpath()
 
   if initialaltitudeband != self._altitudeband:
     self._logevent("- altitude band changed from %s to %s." % (initialaltitudeband, self._altitudeband))
