@@ -3,6 +3,7 @@ import math
 import apengine.speed as apspeed
 import apengine.variants as apvariants
 from apengine.math import onethird, twothirds
+from apengine.log import plural
 
 from ._normalflight import _isclimbing, _isdiving
 
@@ -136,7 +137,8 @@ def _startmovespeed(self, power, flamedoutengines):
       powersetting = "FT"
       powerap      = power
     else:
-      raise RuntimeError("requested power of %s APs exceeds aircraft capability." % power)
+      raise RuntimeError("requested power of %s exceeds aircraft capability." % (
+        plural(power, "1 AP", "%s APs" % power)))
 
     self._log("power setting is %s." % powersetting)
 

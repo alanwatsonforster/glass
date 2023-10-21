@@ -24,3 +24,9 @@ def logexception(e):
   logbreak()
   log("=== ERROR: %s ===" % _error)
   logbreak()
+
+def plural(i, singular, plural):
+  if i == 1:
+    return singular
+  else:
+    return plural

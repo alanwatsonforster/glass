@@ -12,6 +12,8 @@ import apengine.speed    as apspeed
 import apengine.turnrate as apturnrate
 import apengine.variants as apvariants
 
+from apengine.log import plural
+
 def _checknormalflight(self):
 
   if self.hasproperty("SPFL"):
@@ -296,7 +298,8 @@ def _continuenormalflight(self, actions):
 
         # See rule 8.2.3.
         if altitudechange != 2 and altitudechange != 3: 
-          raise RuntimeError("attempt to dive %d levels per VFP while the flight type is VD." % altitudechange)
+          raise RuntimeError("attempt to dive %s per VFP while the flight type is VD." % 
+            plural(altitudechange, "1 level", "%d levels" % altitudechange))
 
       elif flighttype == "LVL":
 
@@ -736,7 +739,9 @@ def _continuenormalflight(self, actions):
 
     maxspbrfp = self._maxfp - self._hfp - self._vfp
     if spbrfp > maxspbrfp:
-      raise RuntimeError("only %s FPs are remaining." % maxspbrfp)
+      raise RuntimeError(plural(maxspbrfp,
+        "only 1 FP remains.",
+        "only %s remain." % maxspbrfp))
     
     maxspbrfp = self.spbr()
     if maxspbrfp == None:
@@ -745,7 +750,9 @@ def _continuenormalflight(self, actions):
     if self._speed > apspeed.m1speed(self._altitudeband):
       maxspbrfp += 0.5
     if spbrfp > maxspbrfp:
-      raise RuntimeError("speedbrake capability is only %.1f FPs." % maxspbrfp)
+      raise RuntimeError(plural(maxspbrfp,
+        "speedbrake capability is only 1 FP.",
+        "speedbrake capability is only %.1f FPs." % maxspbrfp))
 
     self._spbrfp = spbrfp
     self._maxfp -= spbrfp
@@ -1008,10 +1015,11 @@ def _continuenormalflight(self, actions):
     Carry out an action for normal flight.
     """
 
-
     # Check we have at least one FP remaining.
     if self._fp + 1 > self._maxfp:
-      raise RuntimeError("only %.1f FPs are available." % self._maxfp)
+      raise RuntimeError(plural(self._maxfp,
+        "only 1 FP is available",
+        "only %.1f FPs are available." % self._maxfp))
 
     # Determine if this FP is the last FP of the move.
     self._lastfp = (self._fp + 2 > self._maxfp) 
@@ -1175,7 +1183,9 @@ def _startnormalflight(self, actions):
   def reportcarriedmaneuver():
 
     if self._maneuvertype != None:
-      self._log("- is carrying %d FPs for %s%s." % (self._maneuverfp, self._maneuvertype, self._maneuversense))
+      self._log("- is carrying %s for %s%s." % (
+        plural(self._maneuverfp, "1 FP", "%d FPs" % self._maneuverfp), 
+        self._maneuvertype, self._maneuversense))
     elif self._bank == None:
       self._log("- has wings level.")
     else:
@@ -1403,12 +1413,6 @@ def _startnormalflight(self, actions):
 
     minhfp = max(minhfp, mininitialhfp)
 
-    def oneormore(i, s1, s2):
-      if i == 1:
-        return s1
-      else:
-        return s2
-
     if maxvfp == 0:
 
       self._log("- all FPs must be HFPs.")
@@ -1421,37 +1425,37 @@ def _startnormalflight(self, actions):
         self._log("- the first %d FPs must be HFPs." % mininitialhfp)
       
       if minhfp == maxhfp:
-        self._log(oneormore(minhfp,
+        self._log(plural(minhfp,
           "- exactly 1 FP must be an HFP.",
           "- exactly %d FPs must be HFPs." % minhfp
         ))
       elif minhfp > 0 and maxhfp < maxfp:
         self._log("- between %d and %d FP must be HFPs." % (minhfp, maxhfp))
       elif minhfp > 0:
-        self._log(oneormore(minhfp,
+        self._log(plural(minhfp,
           "- at least 1 FP must be an HFP.",
           "- at least %d FPs must be HFPs." % minhfp
         ))
       else:
-        self._log(oneormore(maxhfp,
+        self._log(plural(maxhfp,
           "- at most 1 FP may be an HFP.",
           "- at most %d FPs may be HFPs." % maxhfp
         ))
 
       if minvfp == maxvfp:
-        self._log(oneormore(minvfp,
+        self._log(plural(minvfp,
           "- exactly 1 FP must be a VFP.",
           "- exactly %d FPs must be VFPs." % minvfp
         ))
       elif minvfp > 0 and maxvfp < maxfp:
         self._log("- between %d and %d FP must be VFPs." % (minvfp, maxvfp))
       elif minvfp > 0:
-        self._log(oneormore(minvfp,
+        self._log(plural(minvfp,
           "- at least 1 FP must be a VFP.",
           "- at least %d FPs must be VFPs." % minvfp
         ))
       else:
-        self._log(oneormore(maxvfp,
+        self._log(plural(maxvfp,
           "- at most 1 FP may be a VFP.",
           "- at most %d FPs may be VFPs." % maxvfp
         ))
@@ -1462,7 +1466,7 @@ def _startnormalflight(self, actions):
       raise RuntimeError("flight type not permitted by VFP requirements.")
   
     if minunloadedhfp > 0:
-      self._log(oneormore(minunloadedhfp,
+      self._log(plural(minunloadedhfp,
         "- at least 1 FP must be an unloaded HFP.",
         "- at least %d FPs must be unloaded HFPs." % minunloadedhfp
       ))
@@ -1530,9 +1534,12 @@ def _endnormalflight(self):
   ########################################
 
   def reportfp():
-    self._log("- used %d HFPs and %d VFPs (and lost %.1f FPs to speedbrakes)." % (
-      self._hfp, self._vfp, self._spbrfp
+    self._log("- used %s and %s." % (
+      plural(self._hfp, "1 HFP", "%d HFPs" % self._hfp),
+      plural(self._vfp, "1 VFP", "%d VFPs" % self._vfp)
     ))    
+    if self._spbrfp > 0:
+      self._log("- lost %.1f FPs to speedbrakes." % self._spbrfp)
     self._log("- is carrying %.1f FPs." % self._fpcarry)
 
   ########################################
@@ -1591,7 +1598,9 @@ def _endnormalflight(self):
       self._gloccheck = 0
       
     if self._maneuvertype != None:
-      self._log("- is carrying %d FPs of %s%s." % (self._maneuverfp, self._maneuvertype, self._maneuversense))
+      self._log("- is carrying %s of %s%s." % (
+        plural(self._maneuverfp, "1 FP", "%d FPs" % self._maneuverfp),
+        self._maneuvertype, self._maneuversense))
     elif self._bank == None:
       self._log("- has wings level.")
     else:
