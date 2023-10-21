@@ -294,6 +294,7 @@ class aircraft:
 
       self._log("--- start of move --")
 
+      self._startflightpath()
       self._restore(ap.turn() - 1)
 
       if self._destroyed or self._leftmap:
