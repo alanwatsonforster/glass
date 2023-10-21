@@ -1712,7 +1712,7 @@ def _endnormalflight(self):
 
   def checkcloseformationlimits():
 
-    if self.closeformationsize == 0:
+    if self.closeformationsize() == 0:
       return
 
     # See rule 8.6. The other climbing and diving cases are handled at
