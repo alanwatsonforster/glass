@@ -32,7 +32,9 @@ def tofacing(azimuth):
   through east.
 
   If the variant "disallow ENE/ESE/WSW/WNW" is selected, these are not valid 
-  azimuths. If the variant "allow NE/SE/SW/NW" is selected, these are valid 
+  azimuths. 
+  
+  If the variant "disallow NE/SE/SW/NW" is selected, these are also not valid 
   azimuths.
   """
 
@@ -49,7 +51,7 @@ def tofacing(azimuth):
   if azimuth in named:
     azimuth = named[azimuth]
 
-  if apvariants.withvariant("allow NE/SE/SW/NW"):
+  if not apvariants.withvariant("disallow NE/SE/SW/NW"):
     named = {
       "NE":  60,
       "SE": 120,

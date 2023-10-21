@@ -31,22 +31,9 @@ A2._assert("1315       ESE  10", 4.0)
 A3._assert("1515       WSW  10", 4.0)
 A4._assert("1715       WNW  10", 4.0)
 
-# Check that NE/SE/SW/NW are not accepted.
-
-starttestsetup()
-A1 = aircraft("A1", "F-80C", 1115, "NE", 10, 4.0, "CL")
-asserterror("invalid azimuth 'NE'.")
-A2 = aircraft("A2", "F-80C", 1315, "SE", 10, 4.0, "CL")
-asserterror("invalid azimuth 'SE'.")
-A3 = aircraft("A3", "F-80C", 1515, "SW", 10, 4.0, "CL")
-asserterror("invalid azimuth 'SW'.")
-A4 = aircraft("A4", "F-80C", 1715, "NW", 10, 4.0, "CL")
-asserterror("invalid azimuth 'NW'.")
-endtestsetup()
-
 # Check that NE/SE/SW/NW are accepted but converted to ENE/ESE/WSW/WNW.
 
-starttestsetup(variants=["allow NE/SE/SW/NW"])
+starttestsetup()
 A1 = aircraft("A1", "F-80C", 1115, "NE", 10, 4.0, "CL")
 A2 = aircraft("A2", "F-80C", 1315, "SE", 10, 4.0, "CL")
 A3 = aircraft("A3", "F-80C", 1515, "SW", 10, 4.0, "CL")
@@ -58,9 +45,22 @@ A2._assert("1315       ESE  10", 4.0)
 A3._assert("1515       WSW  10", 4.0)
 A4._assert("1715       WNW  10", 4.0)
 
+# Check that NE/SE/SW/NW are not accepted.
+
+starttestsetup(variants=["disallow NE/SE/SW/NW"])
+A1 = aircraft("A1", "F-80C", 1115, "NE", 10, 4.0, "CL")
+asserterror("invalid azimuth 'NE'.")
+A2 = aircraft("A2", "F-80C", 1315, "SE", 10, 4.0, "CL")
+asserterror("invalid azimuth 'SE'.")
+A3 = aircraft("A3", "F-80C", 1515, "SW", 10, 4.0, "CL")
+asserterror("invalid azimuth 'SW'.")
+A4 = aircraft("A4", "F-80C", 1715, "NW", 10, 4.0, "CL")
+asserterror("invalid azimuth 'NW'.")
+endtestsetup()
+
 # Check that NE/SE/SW/NW are accepted but not converted to ENE/ESE/WSW/WNW.
 
-starttestsetup(variants=["allow NE/SE/SW/NW", "prefer NE/SE/SW/NW"])
+starttestsetup(variants=["prefer NE/SE/SW/NW"])
 A1 = aircraft("A1", "F-80C", 1115, "NE", 10, 4.0, "CL")
 A2 = aircraft("A2", "F-80C", 1315, "SE", 10, 4.0, "CL")
 A3 = aircraft("A2", "F-80C", 1515, "SW", 10, 4.0, "CL")
@@ -74,7 +74,7 @@ A4._assert("1715       NW   10", 4.0)
 
 # Check that only NE/SE/SW/NW are accepted.
 
-starttestsetup(variants=["allow NE/SE/SW/NW", "disallow ENE/ESE/WSW/WNW"])
+starttestsetup(variants=["disallow ENE/ESE/WSW/WNW"])
 A1 = aircraft("A1", "F-80C", 1115, "ENE", 10, 4.0, "CL")
 asserterror("invalid azimuth 'ENE'.")
 A2 = aircraft("A2", "F-80C", 1315, "ESE", 10, 4.0, "CL")

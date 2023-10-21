@@ -1,7 +1,7 @@
 import apengine.log as aplog
 
 _known_variants = [
-  "allow NE/SE/SW/NW",
+  "disallow NE/SE/SW/NW",
   "disallow ENE/ESE/WSW/WNW",
   "prefer NE/SE/SW/NW",
   "disallow HT/FT",
