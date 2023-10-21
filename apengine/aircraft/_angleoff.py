@@ -1,7 +1,29 @@
 import math
+import apengine     as ap
 import apengine.hex as aphex
+import apengine.log as aplog
 
-def angleoff(self, other):
+def showangleoff(self, other):
+
+  """
+  Show the angle-off another aircraft's tail.
+  """
+
+  aplog.clearerror()
+  try:
+
+    ap._checkinstartuporturn()
+
+    s = self._angleoff(other)
+    if s[-3:] == "arc":
+      self._log("in the %s of %s." % (self._angleoff(other), other._name))
+    else:
+      self._log("on the %s of %s." % (self._angleoff(other), other._name))
+
+  except RuntimeError as e:
+    aplog.logexception(e)  
+    
+def _angleoff(self, other):
 
   """
   Determine the angle-off another aircraft's tail.
@@ -9,15 +31,18 @@ def angleoff(self, other):
 
   # See rule 9.2.
 
-  def fromxy(xself, yself, facingself, xother, yother, facingother):
+  def _dtheta(xself, yself, facingself, xother, yother, facingother):
 
     dx = xother - xself
     dy = yother - yself
 
+    dx, dy = aphex.tophysical(dx, dy)
+
     if dx == 0 and dy == 0:
-      dtheta = facingself - facingother
+      dtheta = facingself
     else:
-      dtheta = math.degrees(math.atan2(dy, dx)) - facingother
+      dtheta = math.degrees(math.atan2(dy, dx))
+    dtheta -= facingother
 
     dtheta %= 360
     if dtheta > 180:
@@ -40,7 +65,7 @@ def angleoff(self, other):
   yother      = other._y
   facingother = other._facing
 
-  dtheta = fromxy(xself, yself, facingself, xother, yother, facingother)
+  dtheta = _dtheta(xself, yself, facingself, xother, yother, facingother)
 
   # If the aircraft fall on the 30, 60, 90, 120, or 150 degree lines and
   # one aircraft is faster than the other, move the faster aircraft
@@ -50,7 +75,7 @@ def angleoff(self, other):
       xself, yself = aphex.forward(xself, yself, facingself)
     elif other._speed > self._speed:
       xother, yother = aphex.forward(xother, yother, facingother)
-    dtheta = fromxy(xself, yself, facingself, xother, yother, facingother)
+    dtheta = _dtheta(xself, yself, facingself, xother, yother, facingother)
 
   # To be on the 0 or 180 degree lines, the aircraft has to be facing
   # the other.

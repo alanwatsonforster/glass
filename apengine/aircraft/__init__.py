@@ -81,12 +81,12 @@ class aircraft:
     _log, _logaction, _logevent, _logbreak
 
   from ._angleoff import \
-    angleoff
+    showangleoff, _angleoff
 
   #############################################################################
 
   def __init__(self, name, aircraftdata, hexcode, azimuth, altitude, speed, configuration,
-    color="black"
+    color="unpainted"
   ):
 
     aplog.clearerror()
@@ -410,8 +410,7 @@ class aircraft:
 
     except RuntimeError as e:
       aplog.logexception(e)
-
-
+ 
   ################################################################################
 
   def _endmove(self):
