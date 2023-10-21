@@ -29,6 +29,7 @@ def _startturn():
   for a in _aircraftlist:
     a._finishedmove = False
     a._checkcloseformation()
+    a._startflightpath()
 
 def _endturn():
   for a in _aircraftlist:
@@ -298,8 +299,6 @@ class aircraft:
       if self._destroyed or self._leftmap:
         self._endmove()
         return
-
-      self._startflightpath()
 
       # We save values of these variables at the end of the previous move.
 
