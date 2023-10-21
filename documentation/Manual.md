@@ -91,9 +91,9 @@ When the map is drawn, it is sized to fit the width of the window. You can zoom 
 
 On the map, each  aircraft is shown as a dart, with its name to the left and altitude level to the right. Here is the map at the start of Training Scenario 3, and a zoom to show the aircraft.
 
-![The map at the start of Training Scenario 3](<"./Manual/T-3-start.png">)
+![The map at the start of Training Scenario 3](<https://github.com/alanwatsonforster/apengine/blob/88b74b5478f899e3fdaf60e0c2d8655b9b3b524b/documentation/Manual/T-3-start-zoom.png>)
 
-![The aircraft at the start of Training Scenario 3](<"./Manual/T-3-start-zoom.png">)
+![The aircraft at the start of Training Scenario 3](<./Manual/T-3-start-zoom.png>)
 
 
 
