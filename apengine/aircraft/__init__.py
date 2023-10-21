@@ -83,6 +83,9 @@ class aircraft:
   from ._log import \
     _log, _logaction, _logevent, _logbreak
 
+  from ._angleoff import \
+    angleoff
+
   #############################################################################
 
   def __init__(self, name, aircraftdata, hexcode, azimuth, altitude, speed, configuration,
