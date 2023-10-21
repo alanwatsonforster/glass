@@ -24,17 +24,18 @@ def _drawflightpath(self):
     apdraw.drawdot(x[0], y[0], color=flightpathcolor, size=flightpathdotsize, zorder=0.5)
     apdraw.drawlines(x, y, color=flightpathcolor, linewidth=flightpathwidth, linestyle=flightpathlinestyle, zorder=0.5)
 
-def _drawatstart(self):
-  _drawaircraft(self._x, self._y, self._facing, self._name, self._altitude, "start", color=self._color)
-
-def _drawatend(self):
-  _drawaircraft(self._x, self._y, self._facing, self._name, self._altitude, "end", color=self._color)
-
-def _drawaircraft(x, y, facing, name, altitude, when, color):
-  if when == "end":
-    facecolor = color
+def _drawaircraft(self):
+  if self._leftmap:
+    return
+  if self._destroyed:
+    facecolor = "black"
+    altitude  = "--"
   else:
-    facecolor = color
+    facecolor = self._color
+    altitude  = "%2d" % self._altitude
+  x = self._x
+  y = self._y
+  facing = self._facing
   apdraw.drawdart(x, y, facing, dy=-0.02, size=0.4, facecolor=facecolor, linewidth=1, edgecolor="black", zorder=1)
-  apdraw.drawtext(x, y, facing, name, dx=-0.25, dy=0.0, size=7, color="black", zorder=1)
-  apdraw.drawtext(x, y, facing, "%2d" % altitude, dx=+0.25, dy=0.0, size=7, color="black", zorder=1)
+  apdraw.drawtext(x, y, facing, self._name, dx=-0.25, dy=0.0, size=7, color="black", zorder=1)
+  apdraw.drawtext(x, y, facing, altitude  , dx=+0.25, dy=0.0, size=7, color="black", zorder=1)

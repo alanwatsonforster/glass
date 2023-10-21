@@ -39,11 +39,8 @@ def _endturn():
 
 def _drawmap():
   for a in _aircraftlist:
-    if a._destroyed or a._finishedmove:
-      a._drawflightpath()
-      a._drawatend()
-    elif not a._leftmap:
-      a._drawatstart()
+    a._drawflightpath()
+    a._drawaircraft()
 
 #############################################################################
 
@@ -77,7 +74,7 @@ class aircraft:
     specialclimbcapability
 
   from ._draw import \
-    _drawatstart, _drawatend, \
+    _drawaircraft, \
     _startflightpath, _continueflightpath, _drawflightpath
 
   from ._log import \
