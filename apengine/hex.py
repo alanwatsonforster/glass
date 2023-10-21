@@ -2,6 +2,7 @@
 Manipulation of hex coordinates.
 """
 
+import math
 
 def iscenter(x, y):
 
@@ -221,7 +222,7 @@ def edgetocenter(x, y, facing, sense):
 def edgetocenters(x, y):
 
   """
-  Returns the coordinates (x0, y0) and (x1, y1) of the centers adjacent
+  Return the coordinates (x0, y0) and (x1, y1) of the centers adjacent
   to the edge (x, y) as a tuple (x0, y0, x1, y1).
   """
 
@@ -244,3 +245,19 @@ def edgetocenters(x, y):
     x1, y1 = x, y + 0.5
 
   return x0, y0, x1, y1
+
+def tophysical(x, y):
+
+  """
+  Return the physical coordinates corresponding to the given hex coordinates.
+  """
+
+  return x * math.sqrt(3/4), y
+
+def fromphysical(x,y):
+
+  """
+  Return the hex coordinates corresponding to the given physical coordinates.
+  """
+
+  return x / math.sqrt(3/4), y

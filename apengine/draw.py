@@ -1,4 +1,7 @@
-import numpy as np
+import math
+
+import apengine.hex as aphex
+
 import pickle
 
 import matplotlib.pyplot as plt
@@ -11,9 +14,10 @@ _ax = None
 
 def setcanvas(x, y):
   global _fig, _ax
-  _fig = plt.figure(figsize=[x*np.sqrt(3/4),y], frameon=False)
+  x, y = aphex.tophysical(x, y)
+  _fig = plt.figure(figsize=[x,y], frameon=False)
   plt.axis('off')
-  plt.xlim(0,x*np.sqrt(3/4))
+  plt.xlim(0,x)
   plt.ylim(0,y)
   _ax = plt.gca()
   _ax.set_position([0,0,1,1])
@@ -32,14 +36,9 @@ def show():
 ################################################################################
 
 def cosd(x):
-  return np.cos(np.radians(x))
+  return math.cos(math.radians(x))
 def sind(x):
-  return np.sin(np.radians(x))
-
-def hextophysical(x,y):
-  return np.array(x) * np.sqrt(3/4), y
-def physicaltohex(x,y):
-  return np.array(x) / np.sqrt(3/4), y
+  return math.sin(math.radians(x))
 
 ################################################################################
 
@@ -49,7 +48,7 @@ def _drawhexinphysical(x, y, size=1,
   # size is inscribed diameter
   _ax.add_artist(patches.RegularPolygon(
     [x,y], 6, 
-    radius=size*0.5*np.sqrt(4/3), orientation=np.pi/6, 
+    radius=size*0.5*math.sqrt(4/3), orientation=math.pi/6, 
     edgecolor=linecolor, facecolor=fillcolor, fill=(fillcolor != None), hatch=hatch, 
     linewidth=linewidth, alpha=alpha,
     zorder=zorder
@@ -65,16 +64,6 @@ def _drawdotinphysical(x, y, size=1, facing=0, dx=0, dy=0,
     radius=0.5*size, color=_mapcolor(color), alpha=alpha, 
     zorder=zorder
   ))
-
-def _drawlineinphysical(x0, y0, x1, y1, 
-    color="black", linewidth=0.5, linestyle="solid", joinstyle="miter", capstyle="butt", alpha=1.0,
-    zorder=1
-  ):
-  plt.plot((x0, x1), (y0, y1), 
-    linewidth=linewidth, linestyle=linestyle, color=_mapcolor(color), solid_joinstyle=joinstyle, solid_capstyle=capstyle, alpha=alpha, 
-    zorder=zorder)
-
-from matplotlib.patches import Rectangle
 
 def _drawlinesinphysical(x, y, 
   color="black", linewidth=0.5, linestyle="solid", joinstyle="miter", capstyle="butt", alpha=1.0,
@@ -129,11 +118,6 @@ def _drawtextinphysical(x, y, facing, s, dx=0, dy=0,
            rotation_mode="anchor",
            zorder=zorder)
 
-def _drawcompassinphysical(x, y, facing, color="black", alpha=1.0, zorder=1):
-  _drawdotinphysical(x, y, facing=facing, size=0.07, dy=-0.3, color=color, alpha=alpha, zorder=zorder)
-  _drawarrowinphysical(x, y, facing, size=0.6, dy=0, color=color, alpha=alpha, zorder=zorder)
-  _drawtextinphysical(x, y, facing, "N", dx=-0.1, dy=-0.05, color=color, alpha=alpha, zorder=zorder)
-
 def _drawpolygoninphysical(xy, 
   linecolor="black", fillcolor=None, linewidth=0.5, hatch=None, alpha=1.0,
   zorder=1):
@@ -144,40 +128,51 @@ def _drawpolygoninphysical(xy,
     zorder=zorder
   ))  
 
+def _drawrectangleinphysical(xmin, ymin, xmax, ymax, **kwargs): 
+  _drawpolygoninphysical([[xmin,ymin],[xmin,ymax],[xmax,ymax],[xmax,ymin]], **kwargs)
+
+
+def _drawcompassinphysical(x, y, facing, color="black", alpha=1.0, zorder=1):
+  _drawdotinphysical(x, y, facing=facing, size=0.07, dy=-0.3, color=color, alpha=alpha, zorder=zorder)
+  _drawarrowinphysical(x, y, facing, size=0.6, dy=0, color=color, alpha=alpha, zorder=zorder)
+  _drawtextinphysical(x, y, facing, "N", dx=-0.1, dy=-0.05, color=color, alpha=alpha, zorder=zorder)
+  
 ################################################################################
     
 def drawhex(x, y, **kwargs):
-  _drawhexinphysical(*hextophysical(x, y), **kwargs)
+  _drawhexinphysical(*aphex.tophysical(x, y), **kwargs)
 
 def drawhexlabel(x, y, label, dy=0.35, size=9, color="lightgrey", **kwargs):
   drawtext(x, y, 90, label, dy=dy, size=size, color=color, **kwargs)        
 
 def drawdot(x, y, **kwargs):
-  _drawdotinphysical(*hextophysical(x, y), **kwargs)
-
-def drawline(x0, y0, x1, y1, **kwargs):
-  _drawlineinphysical(*hextophysical(x0, y0), *hextophysical(x1, y1), **kwargs)
+  _drawdotinphysical(*aphex.tophysical(x, y), **kwargs)
 
 def drawlines(x, y, **kwargs):
-  _drawlinesinphysical(*hextophysical(x, y), **kwargs)
+  xy = [aphex.tophysical(xy[0], xy[1]) for xy in zip(x, y)]
+  x = [xy[0] for xy in xy]
+  y = [xy[1] for xy in xy]
+  _drawlinesinphysical(x, y, **kwargs)
 
 def drawarrow(x, y, facing, **kwargs):
-  _drawarrowinphysical(*hextophysical(x, y), facing, **kwargs)
+  _drawarrowinphysical(*aphex.tophysical(x, y), facing, **kwargs)
 
 def drawdart(x, y, facing, **kwargs):
-  _drawdartinphysical(*hextophysical(x, y), facing, **kwargs)
+  _drawdartinphysical(*aphex.tophysical(x, y), facing, **kwargs)
 
 def drawtext(x, y, facing, s, **kwargs):
-  _drawtextinphysical(*hextophysical(x, y), facing, s, **kwargs)
+  _drawtextinphysical(*aphex.tophysical(x, y), facing, s, **kwargs)
 
 def drawpolygon(xy, **kwargs):
-  _drawpolygoninphysical([hextophysical(*xy) for xy in xy], **kwargs)
+  _drawpolygoninphysical([aphex.tophysical(*xy) for xy in xy], **kwargs)
 
 def drawrectangle(xmin, ymin, xmax, ymax, **kwargs):
-  drawpolygon([[xmin,ymin],[xmin,ymax],[xmax,ymax],[xmax,ymin]], **kwargs)
+  xmin, ymin = aphex.tophysical(xmin, ymin)
+  xmax, ymax = aphex.tophysical(xmax, ymax)
+  _drawrectangleinphysical(xmin, ymin, xmax, ymax, **kwargs)
 
 def drawcompass(x, y, facing, **kwargs):
-  _drawcompassinphysical(*hextophysical(x, y), facing, **kwargs)
+  _drawcompassinphysical(*aphex.tophysical(x, y), facing, **kwargs)
 
 ################################################################################
 
