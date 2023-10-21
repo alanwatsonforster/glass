@@ -793,6 +793,10 @@ def _continuenormalflight(self, actions):
       raise RuntimeError("attempt to use weapons on the FP immediately after rolling.")
 
     self._logevent("- attack using %s." % weapon)
+    if self._maxturnrate != None:
+      self._logevent("- maximum turn rate so far is %s." % self._maxturnrate)
+    else:
+      self._logevent("- no turns used so far.")
 
   ########################################
 
@@ -1620,8 +1624,6 @@ def _endnormalflight(self):
         self._turnrateap -= 2.0
       elif not self.hasproperty("GSSM"):
         self._turnrateap -= 1.0
-
-    self._log("- turnrateap is %r." % self._turnrateap)
 
   ########################################
 
