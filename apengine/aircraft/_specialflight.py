@@ -200,6 +200,4 @@ def _dospecialflight(self, action):
     if self._altitudecarry != 0:
       self._log("- is carrying %.2f altitude levels." % self._altitudecarry)
 
-  self._endmove()
-
 ################################################################################
