@@ -292,10 +292,12 @@ class aircraft:
     aplog.clearerror()
     try:
 
+      ap._checkinturn()
+
       self._log("--- start of move --")
 
-      self._startflightpath()
       self._restore(ap.turn() - 1)
+      self._startflightpath()
 
       if self._destroyed or self._leftmap:
         self._endmove()
@@ -403,6 +405,8 @@ class aircraft:
     aplog.clearerror()
     try:
 
+      ap._checkinturn()
+
       if self._destroyed or self._leftmap or self._flighttype == "ST" or self._flighttype == "DP":
         return
 
@@ -453,7 +457,9 @@ class aircraft:
   ################################################################################
 
   def hasbeenkilled(self):
+    ap._checkinturn()
     self._log("has been killed.")
+    self._destroyed = True
 
   ################################################################################
 
