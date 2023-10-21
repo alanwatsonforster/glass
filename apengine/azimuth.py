@@ -1,4 +1,3 @@
-import apengine.log      as aplog
 import apengine.variants as apvariants
 
 _northfacing = 90
@@ -21,7 +20,6 @@ def setnorth(orientation):
     _northfacing = 270
   else:
     raise RuntimeError("\"%s\" is not a valid orientation for north.")
-  aplog.log("north is %s." % orientation)
 
 def tofacing(azimuth):
 

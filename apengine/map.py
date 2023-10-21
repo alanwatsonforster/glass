@@ -6,7 +6,6 @@ import apengine.azimuth as apazimuth
 import apengine.draw    as apdraw
 import apengine.hex     as aphex
 import apengine.hexcode as aphexcode
-import apengine.log     as aplog
 
 import math
 import numpy as np
@@ -82,11 +81,6 @@ def setmap(sheetgrid, allforest=False):
   _nxsheetgrid = len(_sheetgrid[0])
 
   _allforest = allforest
-
-  aplog.log("sheet layout is:")
-  aplog.logbreak()
-  for iy in range (0, _nysheetgrid):
-     aplog.log("  %s" % " ".join(sheetgrid[iy]))
 
   _sheetlist = []
   for iy in range (0, _nysheetgrid):

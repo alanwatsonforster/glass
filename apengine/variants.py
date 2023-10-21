@@ -1,5 +1,3 @@
-import apengine.log as aplog
-
 _known_variants = [
   "disallow NE/SE/SW/NW",
   "disallow ENE/ESE/WSW/WNW",
@@ -16,14 +14,6 @@ def setvariants(variants):
   """
   Set the variants.
   """
-
-  if variants == []:
-    aplog.log("using default variants.")
-
-  for variant in variants:
-    if not variant in _known_variants:
-      raise RuntimeError("invalid variant %r." % variant)
-    aplog.log("using variant %r." % variant)
 
   global _variants
   _variants = variants

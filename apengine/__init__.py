@@ -45,11 +45,10 @@ def startsetup(scenario, sheets=None, north="up", allforest=False, variants=[]):
     _turn = 0
     _savedturn = _turn
 
-    aplog.log("--- start prolog ---")
+    aplog.log("--- start setup ---")
     aplog.logbreak()
 
     apvariants.setvariants(variants)
-    aplog.logbreak()
 
     if scenario != None:
       sheets    = apscenarios.sheets(scenario)
@@ -57,10 +56,8 @@ def startsetup(scenario, sheets=None, north="up", allforest=False, variants=[]):
       allforest = apscenarios.allforest(scenario)
 
     apmap.setmap(sheets, allforest=allforest)
-    aplog.logbreak()
 
     apazimuth.setnorth(north)
-    aplog.logbreak()
 
     apaircraft._startsetup()
     apmarker._startsetup()
@@ -81,7 +78,7 @@ def endsetup():
 
     apaircraft._endsetup()
 
-    aplog.log("--- end prolog ---")
+    aplog.log("--- end setup ---")
     aplog.logbreak()
 
     _turn += 1
