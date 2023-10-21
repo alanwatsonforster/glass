@@ -89,11 +89,11 @@ Rather than leaving all of the aircraft unpainted, I'm using NATO blue for the F
 
 When the map is drawn, it is sized to fit the width of the window. You can zoom in by clicking on the map and see it full-screen by selecting "view output fullscreen" in the ... menu in the upper right of the cell. 
 
-On the map, each  aircraft is shown as a dart, with its name to the left and altitude level to the right. Here is the map at the start of Training Scenario 3, and a zoom to show the aircraft.
+On the map, each  aircraft is shown as a dart, with its name to the left and altitude level to the right. Here is the map at the start of Training Scenario 3, and a zoom to show the aircraft. The F-86 is blue and is at altitude level 20. The MiG-15s are red and are at altitude level 18.
 
 ![The map at the start of Training Scenario 3](<./Manual/T-3-start.png>)
 
 ![The aircraft at the start of Training Scenario 3](<./Manual/T-3-start-zoom.png>)
 
-
+The representation of the map was designed with the aim of making aircraft and other markers stand out clearly. With a physical map, this is less of an issue as the counters stand out from the map in relief and texture. Therefore, the terrain and hex grid deliberately has low contrast and saturation and the aircraft typically have higher contrast and saturation and are outlined in black.
 
