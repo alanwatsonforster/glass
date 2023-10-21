@@ -8,6 +8,9 @@ flightpathcolor     = ( 0.00, 0.00, 0.00 )
 flightpathwidth     = 2.0
 flightpathlinestyle = "dotted"
 flightpathdotsize   = 0.05
+edgecolor           = ( 0.00, 0.00, 0.00 )
+textsize            = 10
+textcolor           = ( 0.00, 0.00, 0.00 )
 
 def _startflightpath(self):
   self._flightpathx = [self._x]
@@ -36,6 +39,6 @@ def _drawaircraft(self):
   x = self._x
   y = self._y
   facing = self._facing
-  apdraw.drawdart(x, y, facing, dy=-0.02, size=0.4, facecolor=facecolor, linewidth=1, edgecolor="black", zorder=1)
-  apdraw.drawtext(x, y, facing, self._name, dx=-0.25, dy=0.0, size=7, color="black", zorder=1)
-  apdraw.drawtext(x, y, facing, altitude  , dx=+0.25, dy=0.0, size=7, color="black", zorder=1)
+  apdraw.drawdart(x, y, facing, dy=-0.02, size=0.4, facecolor=facecolor, linewidth=1, edgecolor=edgecolor, zorder=1)
+  apdraw.drawtext(x, y, facing, self._name, dx=-0.25, dy=0.0, size=textsize, color=textcolor, zorder=1)
+  apdraw.drawtext(x, y, facing, altitude  , dx=+0.25, dy=0.0, size=textsize, color=textcolor, zorder=1)
