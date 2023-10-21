@@ -1303,11 +1303,10 @@ def _startnormalflight(self, actions):
 
   ########################################
 
-  def determinemininitialhfp():
+  def determinefprequirements():
 
     """
-    Determine the requirement, if any, on initial HFPs (e.g., when changing
-    from climbing to diving).
+    Determine the requirements on the use of FPs.
     """
 
     # See rule 5.5.
@@ -1325,21 +1324,6 @@ def _startnormalflight(self, actions):
         mininitialhfp = self._speed // 2
     else:
       mininitialhfp = 0
-
-    if mininitialhfp == 1:
-      self._log("- the first FP must be an HFP.")
-    elif mininitialhfp > 1:
-      self._log("- the first %d FPs must be HFPs." % mininitialhfp)
-
-    self._mininitialhfp = mininitialhfp
-
-  ########################################
-
-  def determinerequiredhfpvfpmix():
-
-    """
-    Determine the minimum and maximum number of HFPs, VFPs, and unloaded HFPs.
-    """
 
     maxfp = int(self._maxfp)
 
@@ -1410,71 +1394,86 @@ def _startnormalflight(self, actions):
     elif flighttype == "UD":
 
       # See rules 8.2.2 and 8.2.3.
+      maxvfp = 0
       maxunloadedhfp = maxfp
       if previousflighttype == "VD":
         minunloadedhfp = math.floor(self._speed / 2)
       else:
         minunloadedhfp = 1
 
-    minhfp = max(minhfp, self._mininitialhfp)
+    minhfp = max(minhfp, mininitialhfp)
+
+    def oneormore(i, s1, s2):
+      if i == 1:
+        return s1
+      else:
+        return s2
 
     if maxvfp == 0:
+
       self._log("- all FPs must be HFPs.")
-    elif minhfp == maxhfp:
-      if minhfp == 1:     
-        self._log("- exactly 1 FP must be a HFP.")
-      else:
-        self._log("- exactly %d FPs must be HFPs." % minhfp)
-    elif minhfp > 0 and maxhfp < maxfp:
-      self._log("- between %d and %d FP must be HFPs." % (minhfp, maxhfp))
-    elif minhfp > 0:
-      if minhfp == 1:
-        self._log("- at least 1 FP must be a HFP.")
-      else:
-        self._log("- at least %d FPs must be HFPs." % minhfp)
+
     else:
-      if maxhfp == 1:
-        self._log("- at most 1 FP may be a HFP.")
+
+      if mininitialhfp == 1:
+        self._log("- the first FP must be an HFP.")
+      elif mininitialhfp > 1:
+        self._log("- the first %d FPs must be HFPs." % mininitialhfp)
+      
+      if minhfp == maxhfp:
+        self._log(oneormore(minhfp,
+          "- exactly 1 FP must be an HFP.",
+          "- exactly %d FPs must be HFPs." % minhfp
+        ))
+      elif minhfp > 0 and maxhfp < maxfp:
+        self._log("- between %d and %d FP must be HFPs." % (minhfp, maxhfp))
+      elif minhfp > 0:
+        self._log(oneormore(minhfp,
+          "- at least 1 FP must be an HFP.",
+          "- at least %d FPs must be HFPs." % minhfp
+        ))
       else:
-        self._log("- at most %d FPs may be HFPs." % maxhfp)  
-        
-    if maxvfp == 0:
-      self._log("- no FPs may be VFPs.")
-    elif minvfp == maxvfp:
-      if minvfp == 1:     
-        self._log("- exactly 1 FP must be a VFP.")
+        self._log(oneormore(maxhfp,
+          "- at most 1 FP may be an HFP.",
+          "- at most %d FPs may be HFPs." % maxhfp
+        ))
+
+      if minvfp == maxvfp:
+        self._log(oneormore(minvfp,
+          "- exactly 1 FP must be a VFP.",
+          "- exactly %d FPs must be VFPs." % minvfp
+        ))
+      elif minvfp > 0 and maxvfp < maxfp:
+        self._log("- between %d and %d FP must be VFPs." % (minvfp, maxvfp))
+      elif minvfp > 0:
+        self._log(oneormore(minvfp,
+          "- at least 1 FP must be a VFP.",
+          "- at least %d FPs must be VFPs." % minvfp
+        ))
       else:
-        self._log("- exactly %d FPs must be VFPs." % minvfp)
-    elif minvfp > 0 and maxvfp < maxfp:
-      self._log("- between %d and %d FP must be VFPs." % (minvfp, maxvfp))
-    elif minvfp > 0:
-      if minvfp == 1:
-        self._log("- at least 1 FP must be a VFP.")
-      else:
-        self._log("- at least %d FPs must be VFPs." % minvfp)
-    else:
-      if maxvfp == 1:
-        self._log("- at most 1 FP may be a VFP.")
-      else:
-        self._log("- at most %d FPs may be VFPs." % maxvfp)      
+        self._log(oneormore(maxvfp,
+          "- at most 1 FP may be a VFP.",
+          "- at most %d FPs may be VFPs." % maxvfp
+        ))
 
     if minhfp > maxhfp:
       raise RuntimeError("flight type not permitted by HFP requirements.")
     if minvfp > maxvfp:
       raise RuntimeError("flight type not permitted by VFP requirements.")
   
-    assert minunloadedhfp == 0 or maxunloadedhfp == maxfp
     if minunloadedhfp > 0:
-      self._log("- at least %d FPs must be unloaded HFPs." % minunloadedhfp)
-    elif maxunloadedhfp == maxfp:
-      self._log("- all FPs may be unloaded HFPs.")    
-    
+      self._log(oneormore(minunloadedhfp,
+        "- at least 1 FP must be an unloaded HFP.",
+        "- at least %d FPs must be unloaded HFPs." % minunloadedhfp
+      ))
+
+    self._mininitialhfp  = mininitialhfp
     self._minhfp         = minhfp
     self._maxhfp         = maxhfp
     self._minvfp         = minvfp
     self._maxvfp         = maxvfp
     self._minunloadedhfp = minunloadedhfp
-    self._maxunloadedhfp = maxunloadedhfp
+    self._maxunloadedhfp = maxunloadedhfp      
 
   ########################################
 
@@ -1517,8 +1516,7 @@ def _startnormalflight(self, actions):
   checkcloseformationlimits()
 
   determinemaxfp()
-  determinemininitialhfp()
-  determinerequiredhfpvfpmix()
+  determinefprequirements()
     
   self._log("---")
   self._logaction("start", "", self.position())   
