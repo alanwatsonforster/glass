@@ -1170,7 +1170,7 @@ def _startnormalflight(self, actions):
 
   def reportcarriedmaneuver():
 
-    if self._maneuverfp > 0 and self._maneuvertype != None:
+    if self._maneuvertype != None:
       self._log("- is carrying %d FPs for %s%s." % (self._maneuverfp, self._maneuvertype, self._maneuversense))
     elif self._bank == None:
       self._log("- has wings level.")
