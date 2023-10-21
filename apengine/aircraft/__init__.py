@@ -451,6 +451,11 @@ class aircraft:
 
   ################################################################################
 
+  def hasbeenkilled(self):
+    self._log("has been killed.")
+
+  ################################################################################
+
   def _assert(self, position, speed, configuration=None):
 
     """
