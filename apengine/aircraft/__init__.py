@@ -86,7 +86,7 @@ class aircraft:
     _log, _logaction, _logevent, _logbreak
 
   from ._angleoff import \
-    showangleoff, _angleoff
+    showgeometry, angleofftail, gunattackrange, inlimitedradararc
 
   #############################################################################
 
