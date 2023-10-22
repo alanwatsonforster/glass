@@ -6,9 +6,9 @@ startfile(__file__, "vertical rolls")
 # Check we can only perform a VR on a VFP in a VD or VD.
 
 starttestsetup(verbose=False)
-A1 = aircraft("A1", "F-80C", 2013, "N", 40, 4.0, "CL")
-A2 = aircraft("A2", "F-80C", 2213, "N", 40, 4.0, "CL")
-A3 = aircraft("A3", "F-80C", 2413, "N", 10, 5.0, "CL")
+A1 = aircraft("A1", "F-80C", "2013", "N", 40, 4.0, "CL")
+A2 = aircraft("A2", "F-80C", "2213", "N", 40, 4.0, "CL")
+A3 = aircraft("A3", "F-80C", "2413", "N", 10, 5.0, "CL")
 endtestsetup()
 
 startturn()
@@ -57,8 +57,8 @@ endturn()
 # Check VRs with multiple facing changes.
 
 starttestsetup(verbose=False)
-A1 = aircraft("A1", "F-80C", 2213, "N", 40, 4.0, "CL")
-A2 = aircraft("A2", "F-80C", 2413, "N", 10, 5.0, "CL")
+A1 = aircraft("A1", "F-80C", "2213", "N", 40, 4.0, "CL")
+A2 = aircraft("A2", "F-80C", "2413", "N", 10, 5.0, "CL")
 endtestsetup()
 
 startturn()
@@ -124,7 +124,7 @@ endturn()
 # Check VR with shifts off an edge.
 
 starttestsetup(verbose=False)
-A1 = aircraft("A1", "F-80C", 2213, "NNW", 40, 4.0, "CL")
+A1 = aircraft("A1", "F-80C", "2213", "NNW", 40, 4.0, "CL")
 endtestsetup()
 
 startturn()
@@ -167,7 +167,7 @@ endturn()
 # Check multiple VRs in the same turn and the extra drag these incur.
 
 starttestsetup()
-A1 = aircraft("A1", "F-80C", 2018, "N", 41, 4.0, "CL")
+A1 = aircraft("A1", "F-80C", "2018", "N", 41, 4.0, "CL")
 endtestsetup()
 
 startturn()
@@ -209,7 +209,7 @@ endturn()
 # Check VRs with a LRR aircraft.
 
 starttestsetup()
-A1 = aircraft("A1", "Meteor F.8", 2018, "N", 41, 4.0, "CL")
+A1 = aircraft("A1", "Meteor F.8", "2018", "N", 41, 4.0, "CL")
 endtestsetup()
 
 startturn()
@@ -242,7 +242,7 @@ endturn()
 # Check the extra drag of VRs at SS speed.
 
 starttestsetup(verbose=False)
-A1 = aircraft("A1", "F-100A", 2029, "N", 1, 8.0, "CL")
+A1 = aircraft("A1", "F-100A", "2029", "N", 1, 8.0, "CL")
 endtestsetup()
 
 startturn()
@@ -261,7 +261,7 @@ endturn()
 # the B-66. These can perform only one vertical roll per game turn.
 
 starttestsetup(verbose=False)
-A1 = aircraft("A1", "B-66", 2030, "N", 30, 5.0, "CL")
+A1 = aircraft("A1", "B-66", "2030", "N", 30, 5.0, "CL")
 endtestsetup()
 
 startturn()
@@ -283,9 +283,9 @@ endturn()
 # Supersonic speed.
 
 starttestsetup()
-A1 = aircraft("A1", "F-104A", 1215, "N", 30, 7.5, "CL") # GSSM
-A2 = aircraft("A2", "F-100A", 1415, "N", 30, 7.5, "CL")
-A3 = aircraft("A3", "F-102A", 1615, "N", 30, 7.5, "CL") # PSSM
+A1 = aircraft("A1", "F-104A", "1215", "N", 30, 7.5, "CL") # GSSM
+A2 = aircraft("A2", "F-100A", "1415", "N", 30, 7.5, "CL")
+A3 = aircraft("A3", "F-102A", "1615", "N", 30, 7.5, "CL") # PSSM
 endtestsetup()
 
 startturn()

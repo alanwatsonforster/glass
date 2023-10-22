@@ -4,7 +4,7 @@ startfile(__file__, "LBR/HBR aircraft")
 # Sustained turns with LBR aircraft.
 
 starttestsetup(verbose=False)
-A1 = aircraft("A1", "Sea Fury FB.11", 2010, "N", 10, 4.5, "CL")
+A1 = aircraft("A1", "Sea Fury FB.11", "2010", "N", 10, 4.5, "CL")
 endtestsetup()
 
 startturn()
@@ -35,7 +35,7 @@ endturn()
 # Sustained turns with HBR aircraft
 
 starttestsetup()
-A1 = aircraft("A1", "F7U-3", 2010, "N", 10, 6.5, "CL")
+A1 = aircraft("A1", "F7U-3", "2010", "N", 10, 6.5, "CL")
 endtestsetup()
 
 startturn()

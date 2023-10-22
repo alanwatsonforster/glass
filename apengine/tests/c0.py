@@ -4,7 +4,7 @@ startfile(__file__, "speed")
 # Speed limits
 
 starttestsetup()
-A1 = aircraft("A1", "F-80C" , 1115, "N"  , 20, 5.0, "CL")
+A1 = aircraft("A1", "F-80C" , "1115", "N"  , 20, 5.0, "CL")
 endtestsetup()
 startturn()
 A1.move("SD",  "M", "H,H,D2,D2,D2")
@@ -24,10 +24,10 @@ endturn()
 # Acceleration and deceleration
 
 starttestsetup()
-A1 = aircraft("A1", "F-80C", 1115, "N", 10, 2.5, "CL")
-A2 = aircraft("A2", "F-80C", 1315, "N", 10, 3.0, "CL")
-A3 = aircraft("A3", "F-80C", 1515, "N", 10, 3.5, "CL")
-A4 = aircraft("A4", "F-80C", 1715, "N", 10, 4.0, "CL")
+A1 = aircraft("A1", "F-80C", "1115", "N", 10, 2.5, "CL")
+A2 = aircraft("A2", "F-80C", "1315", "N", 10, 3.0, "CL")
+A3 = aircraft("A3", "F-80C", "1515", "N", 10, 3.5, "CL")
+A4 = aircraft("A4", "F-80C", "1715", "N", 10, 4.0, "CL")
 endtestsetup()
 
 A1._assert("1115       N    10", 2.5)
@@ -71,10 +71,10 @@ endturn()
 # SS acceleration and deceleration
 
 starttestsetup(sheets=[["A1"],["A2"],["B1"],["B2"]])
-A1 = aircraft("A1", "F-100A", 2002, "S", 51, 5.5, "CL")
-A2 = aircraft("A2", "F-100A", 2202, "S", 51, 5.5, "CL")
-A3 = aircraft("A3", "F-100A", 2402, "S", 51, 5.5, "CL")
-A4 = aircraft("A4", "F-100A", 2602, "S", 51, 5.5, "CL")
+A1 = aircraft("A1", "F-100A", "2002", "S", 51, 5.5, "CL")
+A2 = aircraft("A2", "F-100A", "2202", "S", 51, 5.5, "CL")
+A3 = aircraft("A3", "F-100A", "2402", "S", 51, 5.5, "CL")
+A4 = aircraft("A4", "F-100A", "2602", "S", 51, 5.5, "CL")
 endtestsetup()
 
 startturn()

@@ -1,3 +1,11 @@
+def isvalidspeed(speed):
+
+  """
+  Return True if the argument is a valid speed.
+  """
+  
+  return isinstance(speed, (int, float)) and speed >= 0
+
 # See the "Transonic/Supersonic Speed Reference Table" chart and the "Speed of 
 # Sound" and "Transonic Speeds" section of rule 6.6.
 

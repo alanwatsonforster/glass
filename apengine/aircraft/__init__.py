@@ -1,13 +1,15 @@
-import apengine              as ap
-import apengine.aircraftdata as apaircraftdata
-import apengine.altitude     as apaltitude
-import apengine.azimuth      as apazimuth
-import apengine.draw         as apdraw
-import apengine.hex          as aphex
-import apengine.hexcode      as aphexcode
-import apengine.log          as aplog
-import apengine.map          as apmap
-import apengine.turnrate     as apturnrate
+import apengine               as ap
+import apengine.aircraftdata  as apaircraftdata
+import apengine.altitude      as apaltitude
+import apengine.azimuth       as apazimuth
+import apengine.configuration as apconfiguration
+import apengine.draw          as apdraw
+import apengine.hex           as aphex
+import apengine.hexcode       as aphexcode
+import apengine.log           as aplog
+import apengine.map           as apmap
+import apengine.speed         as apspeed
+import apengine.turnrate      as apturnrate
 
 import math
 
@@ -86,18 +88,35 @@ class aircraft:
 
   #############################################################################
 
-  def __init__(self, name, aircraftdata, hexcode, azimuth, altitude, speed, configuration,
+  def __init__(self, name, aircrafttype, hexcode, azimuth, altitude, speed, configuration,
     color="unpainted"
   ):
 
     aplog.clearerror()
     try:
 
+      if not isinstance(name, str):
+        raise RuntimeError("the name argument must be a string.")
+      if not isinstance(aircrafttype, str):
+        raise RuntimeError("the aircrafttype argument must be a string.")
+      # Require the hexcode to be a string to avoid surprised with things like 2020/2120 rather than "2020/2120".
+      if not isinstance(hexcode, str):
+        raise RuntimeError("the hexcode argument must be a string.")
+      if not aphexcode.isvalidhexcode(hexcode):
+        raise RuntimeError("the hexcode argument is not valid.")
+      if not apazimuth.isvalidazimuth(azimuth):
+        raise RuntimeError("the azimuth argument is not valid.")
+      if not apaltitude.isvalidaltitude(altitude):
+        raise RuntimeError("the altitude argument is not valid.")
+      if not apspeed.isvalidspeed(speed):
+        raise RuntimeError("the speed argument is not valid.")
+      if not apconfiguration.isvalidconfiguration(configuration):
+        raise RuntimeError("the configuration argument is not valid.")
+
       x, y = aphexcode.toxy(hexcode)
       facing = apazimuth.tofacing(azimuth)
-
-      apaltitude.checkisvalidaltitude(altitude)
-      aphex.checkisvalid(x, y, facing)
+      if not aphex.isvalid(x, y, facing):
+        raise RuntimeError("the combination of hexcode and facing are not valid.")
 
       # In addition to the specified position, azimuth, altitude, speed, and 
       # configuration, aircraft initially have level flight, normal power, and
@@ -125,7 +144,7 @@ class aircraft:
       self._apcarry               = 0
       self._gloccheck             = 0
       self._closeformation        = []
-      self._aircraftdata          = apaircraftdata.aircraftdata(aircraftdata)
+      self._aircraftdata          = apaircraftdata.aircraftdata(aircrafttype)
       self._destroyed             = False
       self._leftmap               = False
       self._turnsstalled          = 0

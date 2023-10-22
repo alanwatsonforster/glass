@@ -6,10 +6,10 @@ startfile(__file__, "turns")
 # Basic Turns
 
 starttestsetup()
-A1 = aircraft("A1", "F-80C", 1815, "N", 10, 4.0, "CL")
-A2 = aircraft("A2", "F-80C", 2015, "N", 10, 4.0, "CL")
-A3 = aircraft("A3", "F-80C", 2215, "N", 10, 4.0, "CL")
-A4 = aircraft("A4", "F-80C", 2415, "N", 10, 4.0, "CL")
+A1 = aircraft("A1", "F-80C", "1815", "N", 10, 4.0, "CL")
+A2 = aircraft("A2", "F-80C", "2015", "N", 10, 4.0, "CL")
+A3 = aircraft("A3", "F-80C", "2215", "N", 10, 4.0, "CL")
+A4 = aircraft("A4", "F-80C", "2415", "N", 10, 4.0, "CL")
 endtestsetup()
 
 startturn()
@@ -46,8 +46,8 @@ A4._assert("2905       NNE  10",  4.0)
 endturn()
 
 starttestsetup()
-A1 = aircraft("A1", "F-80C", 1915, "N", 12, 4.0, "CL")
-A2 = aircraft("A2", "F-80C", 2115, "N", 12, 4.0, "CL")
+A1 = aircraft("A1", "F-80C", "1915", "N", 12, 4.0, "CL")
+A2 = aircraft("A2", "F-80C", "2115", "N", 12, 4.0, "CL")
 endtestsetup()
 
 startturn()
@@ -58,8 +58,8 @@ A2._assert("2212       N    12", 4.0)
 endturn()
 
 starttestsetup()
-A1 = aircraft("A1", "F-80C", 2014, "W", 12, 2.0, "CL")
-A2 = aircraft("A2", "F-80C", 2015, "W", 12, 3.0, "CL")
+A1 = aircraft("A1", "F-80C", "2014", "W", 12, 2.0, "CL")
+A2 = aircraft("A2", "F-80C", "2015", "W", 12, 3.0, "CL")
 endtestsetup()
 
 for i in range(1, 13):
@@ -71,8 +71,8 @@ A1._assert("2014       W    12", 2.0)
 A2._assert("2015       W    12", 3.0)
 
 starttestsetup()
-A1 = aircraft("A1", "F-80C", 2014, "E", 12, 2.0, "CL")
-A2 = aircraft("A2", "F-80C", 2015, "E", 12, 3.0, "CL")
+A1 = aircraft("A1", "F-80C", "2014", "E", 12, 2.0, "CL")
+A2 = aircraft("A2", "F-80C", "2015", "E", 12, 3.0, "CL")
 endtestsetup()
 
 for i in range(1, 13):
@@ -85,10 +85,10 @@ A1._assert("2014       E    12", 2.0)
 A2._assert("2015       E    12", 3.0)
 
 starttestsetup()
-A1 = aircraft("A1", "F-80C", 1815, "ENE", 10, 4.0, "CL")
-A2 = aircraft("A2", "F-80C", 2015, "ENE", 10, 4.0, "CL")
-A3 = aircraft("A3", "F-80C", 2215, "ENE", 10, 4.0, "CL")
-A4 = aircraft("A4", "F-80C", 2415, "ENE", 10, 4.0, "CL")
+A1 = aircraft("A1", "F-80C", "1815", "ENE", 10, 4.0, "CL")
+A2 = aircraft("A2", "F-80C", "2015", "ENE", 10, 4.0, "CL")
+A3 = aircraft("A3", "F-80C", "2215", "ENE", 10, 4.0, "CL")
+A4 = aircraft("A4", "F-80C", "2415", "ENE", 10, 4.0, "CL")
 endtestsetup()
 
 startturn()
@@ -114,10 +114,10 @@ A4._assert("2809       N    10",  4.5)
 endturn()
 
 starttestsetup()
-A1 = aircraft("A1", "F-80C", 1815, "NNE", 10, 4.0, "CL")
-A2 = aircraft("A2", "F-80C", 2015, "NNE", 10, 4.0, "CL")
-A3 = aircraft("A3", "F-80C", 2215, "NNE", 10, 4.0, "CL")
-A4 = aircraft("A4", "F-80C", 2415, "NNE", 10, 4.0, "CL")
+A1 = aircraft("A1", "F-80C", "1815", "NNE", 10, 4.0, "CL")
+A2 = aircraft("A2", "F-80C", "2015", "NNE", 10, 4.0, "CL")
+A3 = aircraft("A3", "F-80C", "2215", "NNE", 10, 4.0, "CL")
+A4 = aircraft("A4", "F-80C", "2415", "NNE", 10, 4.0, "CL")
 endtestsetup()
 
 startturn()
@@ -146,7 +146,7 @@ endturn()
 # EZ turn rate).
 
 starttestsetup()
-A1 = aircraft("A1", "F-80C", 2030, "N", 25, 4.0, "CL")
+A1 = aircraft("A1", "F-80C", "2030", "N", 25, 4.0, "CL")
 endtestsetup()
 
 startturn()
@@ -171,11 +171,11 @@ endturn()
 # Turning and minimum speeds.
 
 starttestsetup()
-A1 = aircraft("A1", "F-80C", 1815, "N", 10, 1.5, "CL")
-A2 = aircraft("A2", "F-80C", 2015, "N", 10, 2.0, "CL")
-A3 = aircraft("A3", "F-80C", 2215, "N", 10, 2.5, "CL")
-A4 = aircraft("A4", "F-80C", 2415, "N", 10, 3.0, "CL")
-A5 = aircraft("A5", "F-80C", 2615, "N", 10, 3.5, "CL")
+A1 = aircraft("A1", "F-80C", "1815", "N", 10, 1.5, "CL")
+A2 = aircraft("A2", "F-80C", "2015", "N", 10, 2.0, "CL")
+A3 = aircraft("A3", "F-80C", "2215", "N", 10, 2.5, "CL")
+A4 = aircraft("A4", "F-80C", "2415", "N", 10, 3.0, "CL")
+A5 = aircraft("A5", "F-80C", "2615", "N", 10, 3.5, "CL")
 endtestsetup()
 
 startturn()
@@ -208,8 +208,8 @@ endturn()
 # Turning and configuration.
 
 starttestsetup(verbose=False)
-A1 = aircraft("A1", "F-104A", 1815, "N", 10, 6.0, "CL")
-A2 = aircraft("A2", "F-104A", 2015, "N", 10, 6.0, "1/2")
+A1 = aircraft("A1", "F-104A", "1815", "N", 10, 6.0, "CL")
+A2 = aircraft("A2", "F-104A", "2015", "N", 10, 6.0, "1/2")
 endtestsetup()
 
 startturn()
@@ -224,7 +224,7 @@ endturn()
 # Turning at SS speed
 
 starttestsetup(verbose=False)
-A1 = aircraft("A1", "F-100A", 1815, "N", 20, 8.5, "CL")
+A1 = aircraft("A1", "F-100A", "1815", "N", 20, 8.5, "CL")
 endtestsetup()
 
 startturn()
@@ -235,10 +235,10 @@ endturn()
 # Turning and GSSM/PSSM aircraft
 
 starttestsetup(verbose=False)
-A1 = aircraft("A1", "F-104A", 1215, "N", 10, 7.5, "CL") # GSSM
-A2 = aircraft("A2", "F-100A", 1415, "N", 10, 7.5, "CL")
-A3 = aircraft("A3", "F-102A", 1615, "N", 10, 7.5, "CL") # PSSM
-A4 = aircraft("A4", "F-102A", 1815, "N", 10, 7.5, "1/2") # PSSM
+A1 = aircraft("A1", "F-104A", "1215", "N", 10, 7.5, "CL") # GSSM
+A2 = aircraft("A2", "F-100A", "1415", "N", 10, 7.5, "CL")
+A3 = aircraft("A3", "F-102A", "1615", "N", 10, 7.5, "CL") # PSSM
+A4 = aircraft("A4", "F-102A", "1815", "N", 10, 7.5, "1/2") # PSSM
 endtestsetup()
 
 startturn()
@@ -265,8 +265,8 @@ endturn()
 # Check that turn drag applies even if the aircraft doesn't change facing.
 
 starttestsetup(verbose=False)
-A1 = aircraft("A1", "F-80C", 1230, "N", 10, 4.0, "CL")
-A2 = aircraft("A2", "F-80C", 1230, "N", 10, 4.0, "CL")
+A1 = aircraft("A1", "F-80C", "1230", "N", 10, 4.0, "CL")
+A2 = aircraft("A2", "F-80C", "1230", "N", 10, 4.0, "CL")
 endtestsetup()
 
 startturn()

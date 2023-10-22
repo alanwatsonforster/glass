@@ -5,8 +5,8 @@ startfile(__file__, "loss of thrust with altitude")
 # Loss of Thrust With Altitude
 
 starttestsetup()
-A1 = aircraft("A1", "F-80C", 1815, "N"  , 10, 3.0, "CL")
-A2 = aircraft("A2", "F-80C", 2015, "N"  , 40, 3.0, "CL")
+A1 = aircraft("A1", "F-80C", "1815", "N"  , 10, 3.0, "CL")
+A2 = aircraft("A2", "F-80C", "2015", "N"  , 40, 3.0, "CL")
 endtestsetup()
 
 startturn()

@@ -2,6 +2,13 @@ import apengine.variants as apvariants
 
 _northfacing = 90
 
+def isvalidazimuth(azimuth):
+  try:
+    facing = tofacing(azimuth)
+    return True
+  except:
+    return False
+
 def setnorth(orientation):
 
   """

@@ -6,9 +6,9 @@ startfile(__file__, "gloc")
 # warnings can be seen by running the code with verbose=True.
 
 starttestsetup(verbose=False)
-A1 = aircraft("A1", "F-100A", 1215, "N", 25, 6.5, "CL")
-A2 = aircraft("A2", "F-100A", 1415, "N", 25, 6.5, "CL")
-A3 = aircraft("A3", "F-100A", 1615, "N", 26, 6.5, "CL")
+A1 = aircraft("A1", "F-100A", "1215", "N", 25, 6.5, "CL")
+A2 = aircraft("A2", "F-100A", "1415", "N", 25, 6.5, "CL")
+A3 = aircraft("A3", "F-100A", "1615", "N", 26, 6.5, "CL")
 endtestsetup()
 
 startturn()
