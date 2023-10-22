@@ -2,9 +2,11 @@
 
 This manual is written to help players use the apengine package to automate the flight part of JD Webster's "Air Power" rules, published in the game "The Speed of Heat". Most of the other parts of the game, including combat, still need to handled manually.
 
-The package is designed to run in a Google Colab notebook. You do not have to understand programming to use it.
+The package is designed to run in a Google Colab notebook. You basically have to type commands that specify the flight type, power setting, and action for each aircraft. You do not have to understand programming to use it.
 
-## Using Colab Notebooks
+## Introduction
+
+### Using Colab Notebooks
 
 A Colab notebook allows you to use your browser to edit and run commands in the cloud and to see the results. You can also share Colab notebooks with other players. You do not have to install any software on your computer to use colab (other than a browser) and it is free of charge.
 
@@ -26,7 +28,7 @@ You can create additional cells by hovering your cursor over the midpoint of the
 
 For further information on Colab notebooks, see Google’s “[Welcome to Colab](https://colab.research.google.com/#scrollTo=-gE-Ez1qtyIA)” page and in particular the tutorial video.
 
-## Loading the Package
+### Loading the Package
 
 Copy these commands into the first code cell in the Colab notebook:
 
@@ -38,7 +40,7 @@ Copy these commands into the first code cell in the Colab notebook:
 
 Then run the cell by typing Ctrl-Enter. After a short delay while the notebook connects to the cloud, the commands will download the code and make it available for use in the notebook.
 
-## Setting Up the Game
+### Setting Up the Game
 
 Before you can play, you need to set up the game: the map sheets, the direction of north, and the initial positions of aircraft.
 
@@ -97,3 +99,147 @@ On the map, each  aircraft is shown as a dart, with its name to the left and alt
 
 The representation of the map was designed with the aim of making aircraft and other markers stand out clearly. With a physical map, this is less of an issue as the counters stand out from the map in relief and texture. Therefore, the terrain and hex grid deliberately has low contrast and saturation and the aircraft typically have higher contrast and saturation and are outlined in black.
 
+### Turns
+
+Create another code cell. Copy this into the cell:
+
+    startturn()
+    drawmap()
+    
+(For the time being, don't add a endturn command.)
+If we run these, we see the aircraft at the start of the turn.
+
+Now, add calls to more the aircraft. In this scenario, 
+the MiGs follow random movement. Edit the cell to add these last three commands:
+
+    startturn()
+    drawmap()
+    C1.move("SP", 0, "H,HL,CL,H,H")
+    C2.move("SP", 0, "H,HL,DD,DR,H")
+    drawmap()
+
+The C1.move and C2.move command move the MiGs C1 and C2 according to special flight moves with actions "H,HL,CL,H,H" and "H,HL,DD,DR,H". I'll explain special flight moves more completely below. After that, these is another drawmap command.
+
+If we run the cell (Ctrl-Enter), two maps are produced: one before any aircraft move and one after the MiGs move. Here is a zoom on the second map. Notice that the flight paths of the two MiGs is shown by a dotted line. Also, MiG C2 is now at altitude level 15. The F-86 has yet to move.
+
+![Turn 1 after the MiGs have moved](<./Manual/T-3-1a.png>)
+
+Above the maps, we get a log of what happened:
+
+    C1: turn 1  : --- start of move --
+    C1: turn 1  : flight type   is SP.
+    C1: turn 1  : altitude band is MH.
+    C1: turn 1  : ---
+    C1: turn 1  : start :                  : 5127       N    18
+    C1: turn 1  : end   : H,HL,CL,H,H      : 6909       WNW  19
+    C1: turn 1  : ---
+    C1: turn 1  : altitude band is unchanged at MH.
+    C1: turn 1  : --- end of move -- 
+
+    C2: turn 1  : --- start of move --
+    C2: turn 1  : flight type   is SP.
+    C2: turn 1  : altitude band is MH.
+    C2: turn 1  : ---
+    C2: turn 1  : start :                  : 5228       N    18
+    C2: turn 1  : end   : H,HL,DD,DR,H     : 5225       N    15
+    C2: turn 1  :       : - altitude band changed from MH to ML.
+    C2: turn 1  : ---
+    C2: turn 1  : altitude band changed from MH to ML.
+    C2: turn 1  : --- end of move -- 
+
+Now let's move the F-86. This flies according to standard flight rules, so is more representative of a typical aircraft. Let's assume we want to dive down towards MiG C2 while doing a BT to the left to come in on its tail. Let's add two commands to the cell to reflect this. One specifies the flight of the F-86 and the other draws the map again.
+
+    startturn()
+    drawmap()
+    C1.move("SP", 0, "H,HL,CL,H,H")
+    C2.move("SP", 0, "H,HL,DD,DR,H")
+    drawmap()
+    U1.move("SD","M","BTL/H,H/L,H,H/L,DD/WL,DD")
+    drawmap()
+
+The first argument to the U1.move command is the type of flight, in this case SD for a steep dive. The second is the power setting, in this case M for full military power. The last argument gives the actions, separated by commas:
+
+- BTL/H: declare a BT to the left and move forward one hex
+- H/L: move forward one hex and change facing 30 degrees to the left
+- H: move forward one hex
+- H/L:  move forward one hex and change facing 30 degrees to the left
+- DD/WL: dive two levels and come to wings-level
+- DD: dive two more levels
+
+The slashes simply serve to visually separate the elements of each action. They can be omitted.
+
+We can run the cell again (Ctrl-Enter). The startturn command restores the positions of the aircraft to where they were at the start of the turn, so we can run this cell multiple times if we want (and often do so as we develop the flight path for each aircraft). After doing so, the third map looks like this:
+
+![Turn 1 after the F-86 has moved](<./Manual/T-3-1b.png>)
+
+Again, above the maps we have a log of what happened, this time giving details of the flight of the F-86, and in particular its final speed:
+
+    U1: turn 1  : --- start of move --
+    U1: turn 1  : flight type   is SD.
+    U1: turn 1  : power setting is M.
+    U1: turn 1  : speed         is 6.0 (LT).
+    U1: turn 1  : - transonic drag.
+    U1: turn 1  : configuration is CL.
+    U1: turn 1  : altitude band is MH.
+    U1: turn 1  : - is carrying +0.00 APs.
+    U1: turn 1  : - has wings level.
+    U1: turn 1  : - has 6.0 FPs (including 0.0 carry).
+    U1: turn 1  : - the first FP must be an HFP.
+    U1: turn 1  : - at least 2 FPs must be HFPs.
+    U1: turn 1  : - at least 1 FP must be a VFP.
+    U1: turn 1  : ---
+    U1: turn 1  : start :                  : 6914       ENE  20
+    U1: turn 1  : FP 1  : BTL/H            : 7014       ENE  20
+    U1: turn 1  : FP 2  : H/L              : 5128       NNE  20
+    U1: turn 1  : FP 3  : H                : 5127/5228  NNE  20
+    U1: turn 1  : FP 4  : H/L              : 5227       N    20
+    U1: turn 1  : FP 5  : DD/WL            : 5227       N    18
+    U1: turn 1  : FP 6  : DD               : 5227       N    16
+    U1: turn 1  :       : - altitude band changed from MH to ML.
+    U1: turn 1  : ---
+    U1: turn 1  : - used 4 HFPs and 2 VFPs.
+    U1: turn 1  : - is carrying 0.0 FPs.
+    U1: turn 1  : - turned at BT rate.
+    U1: turn 1  : - has wings level.
+    U1: turn 1  : -- power           APs = +1.00.
+    U1: turn 1  : -- speed           APs = -1.00.
+    U1: turn 1  : -- altitude        APs = +2.00.
+    U1: turn 1  : -- turns           APs = -2.00.
+    U1: turn 1  : -- other maneuvers APs = +0.00.
+    U1: turn 1  : -- speedbrakes     APs = +0.00.
+    U1: turn 1  : -- carry           APs = +0.00.
+    U1: turn 1  : -- total           APs = +0.00.
+    U1: turn 1  : - is carrying +0.00 APs.
+    U1: turn 1  : speed         is unchanged at 6.0.
+    U1: turn 1  : configuration is unchanged at CL.
+    U1: turn 1  : altitude band changed from MH to ML.
+    U1: turn 1  : --- end of move -- 
+
+The APEngine code interprets the flight type, power setting, and actions and correctly moves the aircraft and determines its finally speed. Note that APEngine treats DPs as negative APs. For clarity, it also separates the power APs (thrust from the power setting) from the speed APs (drag due to the speed).
+
+APEngine also checks for invalid moves, such as entering VC straight from LVL flight (in an aircraft that is not HPR), using too few or too many FPs, using the incorrect combination of HFPs and VFPs, attempting to change facing before accumulating sufficient preparatory FPs, and many other incorrect situations. For example, if we try to dive three levels on a single VFP in order to get down to altitude level 15:
+
+    U1.move("SD","M","BTL/H,H/L,H,H/L,DDD/WL,DD")
+
+then it complains:
+
+    === ERROR: attempt to dive 3 levels per VFP while the flight type is SC. ===
+
+Once all of the aircraft have moved, we finish the turn by adding an endturn command at the end:
+
+    endturn()
+    
+The complete cell now looks like this:
+
+    startturn()
+    drawmap()
+    C1.move("SP", 0, "H,HL,CL,H,H")
+    C2.move("SP", 0, "H,HL,DD,DR,H")
+    drawmap()
+    U1.move("SD","M","BTL/H,H/L,H,H/L,DD/WL,DD")
+    drawmap()
+    endturn()
+
+Once we run this cell, with the endturn command, the turn is finished. 
+
+Having added the endturn command, if we run the cell more than once, instead of repeating turn 1, it will be run turn 2 but with identical commands to turn 1. This is almost certainly not what we want to do. Fortunately, we can easily recover from this by selecting "Run all" from the "Runtime" menu to run everything again from scratch.
