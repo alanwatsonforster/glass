@@ -49,7 +49,7 @@ def _drawhexinphysical(x, y, size=1,
   _ax.add_artist(patches.RegularPolygon(
     [x,y], 6, 
     radius=size*0.5*math.sqrt(4/3), orientation=math.pi/6, 
-    edgecolor=linecolor, facecolor=fillcolor, fill=(fillcolor != None), hatch=hatch, 
+    edgecolor=_mapcolor(linecolor), facecolor=_mapcolor(fillcolor), fill=(fillcolor != None), hatch=hatch, 
     linewidth=linewidth, alpha=alpha,
     zorder=zorder
   ))
@@ -60,7 +60,7 @@ def _drawcircleinphysical(x, y, size=1,
   _ax.add_artist(patches.Circle(
     [x,y],
     radius=0.5*size, 
-    edgecolor=linecolor, facecolor=fillcolor, fill=(fillcolor != None), hatch=hatch, 
+    edgecolor=_mapcolor(linecolor), facecolor=_mapcolor(fillcolor), fill=(fillcolor != None), hatch=hatch, 
     linewidth=linewidth, alpha=alpha,
     zorder=zorder
   ))
