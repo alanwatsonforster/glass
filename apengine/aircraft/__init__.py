@@ -48,6 +48,9 @@ def _drawmap():
 
 from ._geometry import \
   _showgeometry, _angleofftail, _gunattackrange, _inlimitedradararc
+
+from ._normalflight import \
+  _isclimbingflight, _isdivingflight, _islevelflight
     
 class aircraft:
 
@@ -243,6 +246,36 @@ class aircraft:
 
     _showgeometry(self, other)
   
+  #############################################################################
+
+  def climbingflight(self):
+
+    """
+    Return true if the aircraft is climbing.
+    """
+
+    return _isclimbingflight(self._flighttype)
+
+  #############################################################################
+
+  def divingflight(self):
+
+    """
+    Return true if the aircraft is diving.
+    """
+
+    return _isdivingflight(self._flighttype)
+   
+  #############################################################################
+
+  def levelflight(self):
+
+    """
+    Return true if the aircraft is in level flight.
+    """
+
+    return _islevelflight(self._flighttype)
+    
   #############################################################################
 
   def checkforterraincollision(self):

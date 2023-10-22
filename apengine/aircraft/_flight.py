@@ -7,7 +7,7 @@ Aircraft flight.
 import apengine     as ap
 import apengine.log as aplog
 
-from ._normalflight import _isdiving, _isclimbing
+from ._normalflight import _isdivingflight, _isclimbingflight, _islevelflight
 
 ##############################################################################
 
@@ -113,7 +113,7 @@ def move(self, flighttype, power, actions, flamedoutengines=0):
     else:
 
       # See rule 8.1.4 on altitude carry.
-      if not _isclimbing(self._flighttype):
+      if not self.climbingflight():
         self._altitudecarry = 0
       
       self._turnsstalled  = 0

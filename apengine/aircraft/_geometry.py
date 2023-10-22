@@ -179,6 +179,18 @@ def _gunattackrange(a0, a1):
   r = horizontalrange()
   if r is False:
     return False
+
+  # Apply the relative altitude restrictions for climbing, diving, and level flight.
+  if a0.climbingflight() and a0._altitude > a1._altitude:
+    return False
+  if a0.divingflight() and a0._altitude < a1._altitude:
+    return False
+  if a0.levelflight():
+    if r == 0 and a0._altitude != a1._altitude:
+      return False
+    if r > 0 and abs(a0._altitude - a1._altitude) > 1:
+      return False
+
   r += verticalrange()
   if r > 2:
     return False

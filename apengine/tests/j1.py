@@ -223,130 +223,223 @@ assert A1.gunattackrange(A2) is False
 A2 = aircraft("A2", "F-80C"  , "2325", "E", 5, 4.0, "CL")
 assert A1.gunattackrange(A2) is False
 
-A1 = aircraft("A1", "F-80C"  , "2025", "N", 10, 4.0, "CL")
+endtestsetup()
 
-A2 = aircraft("A2", "F-80C"  , "2025", "N", 10, 4.0, "CL")
-assert A1.gunattackrange(A2) is not False and A1.gunattackrange(A2) == 0
+# Check altitude requirements and the vertical component of range.
 
-A2 = aircraft("A2", "F-80C"  , "2025", "N", 11, 4.0, "CL")
-assert A1.gunattackrange(A2) is not False and A1.gunattackrange(A2) == 0
-A2 = aircraft("A2", "F-80C"  , "2025", "N", 12, 4.0, "CL")
-assert A1.gunattackrange(A2) is not False and A1.gunattackrange(A2) == 1
-A2 = aircraft("A2", "F-80C"  , "2025", "N", 13, 4.0, "CL")
-assert A1.gunattackrange(A2) is not False and A1.gunattackrange(A2) == 1
-A2 = aircraft("A2", "F-80C"  , "2025", "N", 14, 4.0, "CL")
-assert A1.gunattackrange(A2) is not False and A1.gunattackrange(A2) == 2
-A2 = aircraft("A2", "F-80C"  , "2025", "N", 15, 4.0, "CL")
-assert A1.gunattackrange(A2) is not False and A1.gunattackrange(A2) == 2
-A2 = aircraft("A2", "F-80C"  , "2025", "N", 16, 4.0, "CL")
-assert A1.gunattackrange(A2) is False
-
-A2 = aircraft("A2", "F-80C"  , "2025", "N",  9, 4.0, "CL")
-assert A1.gunattackrange(A2) is not False and A1.gunattackrange(A2) == 0
-A2 = aircraft("A2", "F-80C"  , "2025", "N",  8, 4.0, "CL")
-assert A1.gunattackrange(A2) is not False and A1.gunattackrange(A2) == 1
-A2 = aircraft("A2", "F-80C"  , "2025", "N",  7, 4.0, "CL")
-assert A1.gunattackrange(A2) is not False and A1.gunattackrange(A2) == 1
-A2 = aircraft("A2", "F-80C"  , "2025", "N",  6, 4.0, "CL")
-assert A1.gunattackrange(A2) is not False and A1.gunattackrange(A2) == 2
-A2 = aircraft("A2", "F-80C"  , "2025", "N",  5, 4.0, "CL")
-assert A1.gunattackrange(A2) is not False and A1.gunattackrange(A2) == 2
-A2 = aircraft("A2", "F-80C"  , "2025", "N",  4, 4.0, "CL")
-assert A1.gunattackrange(A2) is False
-
-# Check vertical component of range.
+starttestsetup()
 
 A1 = aircraft("A1", "F-80C"  , "2025", "N", 10, 4.0, "CL")
-
 A2 = aircraft("A2", "F-80C"  , "2025", "N", 10, 4.0, "CL")
-assert A1.gunattackrange(A2) is not False and A1.gunattackrange(A2) == 0
+A3 = aircraft("A3", "F-80C"  , "2025", "N", 10, 4.0, "CL")
 
-A2 = aircraft("A2", "F-80C"  , "2025", "N", 11, 4.0, "CL")
-assert A1.gunattackrange(A2) is not False and A1.gunattackrange(A2) == 0
-A2 = aircraft("A2", "F-80C"  , "2025", "N", 12, 4.0, "CL")
-assert A1.gunattackrange(A2) is not False and A1.gunattackrange(A2) == 1
-A2 = aircraft("A2", "F-80C"  , "2025", "N", 13, 4.0, "CL")
-assert A1.gunattackrange(A2) is not False and A1.gunattackrange(A2) == 1
-A2 = aircraft("A2", "F-80C"  , "2025", "N", 14, 4.0, "CL")
-assert A1.gunattackrange(A2) is not False and A1.gunattackrange(A2) == 2
-A2 = aircraft("A2", "F-80C"  , "2025", "N", 15, 4.0, "CL")
-assert A1.gunattackrange(A2) is not False and A1.gunattackrange(A2) == 2
-A2 = aircraft("A2", "F-80C"  , "2025", "N", 16, 4.0, "CL")
-assert A1.gunattackrange(A2) is False
+endtestsetup()
 
-A2 = aircraft("A2", "F-80C"  , "2025", "N",  9, 4.0, "CL")
-assert A1.gunattackrange(A2) is not False and A1.gunattackrange(A2) == 0
-A2 = aircraft("A2", "F-80C"  , "2025", "N",  8, 4.0, "CL")
-assert A1.gunattackrange(A2) is not False and A1.gunattackrange(A2) == 1
-A2 = aircraft("A2", "F-80C"  , "2025", "N",  7, 4.0, "CL")
-assert A1.gunattackrange(A2) is not False and A1.gunattackrange(A2) == 1
-A2 = aircraft("A2", "F-80C"  , "2025", "N",  6, 4.0, "CL")
-assert A1.gunattackrange(A2) is not False and A1.gunattackrange(A2) == 2
-A2 = aircraft("A2", "F-80C"  , "2025", "N",  5, 4.0, "CL")
-assert A1.gunattackrange(A2) is not False and A1.gunattackrange(A2) == 2
-A2 = aircraft("A2", "F-80C"  , "2025", "N",  4, 4.0, "CL")
-assert A1.gunattackrange(A2) is False
+startturn()
 
-A1 = aircraft("A1", "F-80C"  , "2026", "N", 10, 4.0, "CL")
+A1.move("LVL", "M", "")
+A2.move("SD" , "M", "")
+A3.move("SC" , "M", "")
 
-A2 = aircraft("A2", "F-80C"  , "2025", "N", 10, 4.0, "CL")
-assert A1.gunattackrange(A2) is not False and A1.gunattackrange(A2) == 1
+# Horizontal range 0
 
-A2 = aircraft("A2", "F-80C"  , "2025", "N", 11, 4.0, "CL")
-assert A1.gunattackrange(A2) is not False and A1.gunattackrange(A2) == 1
-A2 = aircraft("A2", "F-80C"  , "2025", "N", 12, 4.0, "CL")
-assert A1.gunattackrange(A2) is not False and A1.gunattackrange(A2) == 2
-A2 = aircraft("A2", "F-80C"  , "2025", "N", 13, 4.0, "CL")
-assert A1.gunattackrange(A2) is not False and A1.gunattackrange(A2) == 2
-A2 = aircraft("A2", "F-80C"  , "2025", "N", 14, 4.0, "CL")
-assert A1.gunattackrange(A2) is False
-A2 = aircraft("A2", "F-80C"  , "2025", "N", 15, 4.0, "CL")
-assert A1.gunattackrange(A2) is False
-A2 = aircraft("A2", "F-80C"  , "2025", "N", 16, 4.0, "CL")
-assert A1.gunattackrange(A2) is False
+A0 = aircraft("A0", "F-80C"  , "2025", "N",  4, 4.0, "CL")
+assert A1.gunattackrange(A0) is False
+assert A2.gunattackrange(A0) is False
+assert A3.gunattackrange(A0) is False
 
-A2 = aircraft("A2", "F-80C"  , "2025", "N",  9, 4.0, "CL")
-assert A1.gunattackrange(A2) is not False and A1.gunattackrange(A2) == 1
-A2 = aircraft("A2", "F-80C"  , "2025", "N",  8, 4.0, "CL")
-assert A1.gunattackrange(A2) is not False and A1.gunattackrange(A2) == 2
-A2 = aircraft("A2", "F-80C"  , "2025", "N",  7, 4.0, "CL")
-assert A1.gunattackrange(A2) is not False and A1.gunattackrange(A2) == 2
-A2 = aircraft("A2", "F-80C"  , "2025", "N",  6, 4.0, "CL")
-assert A1.gunattackrange(A2) is False
-A2 = aircraft("A2", "F-80C"  , "2025", "N",  5, 4.0, "CL")
-assert A1.gunattackrange(A2) is False
-A2 = aircraft("A2", "F-80C"  , "2025", "N",  4, 4.0, "CL")
-assert A1.gunattackrange(A2) is False
+A0 = aircraft("A0", "F-80C"  , "2025", "N",  5, 4.0, "CL")
+assert A1.gunattackrange(A0) is False
+assert A2.gunattackrange(A0) is not False and A2.gunattackrange(A0) == 2
+assert A3.gunattackrange(A0) is False
 
-A1 = aircraft("A1", "F-80C"  , "2027", "N", 10, 4.0, "CL")
+A0 = aircraft("A0", "F-80C"  , "2025", "N",  6, 4.0, "CL")
+assert A1.gunattackrange(A0) is False
+assert A2.gunattackrange(A0) is not False and A2.gunattackrange(A0) == 2
+assert A3.gunattackrange(A0) is False
 
-A2 = aircraft("A2", "F-80C"  , "2025", "N", 10, 4.0, "CL")
-assert A1.gunattackrange(A2) is not False and A1.gunattackrange(A2) == 2
+A0 = aircraft("A0", "F-80C"  , "2025", "N",  7, 4.0, "CL")
+assert A1.gunattackrange(A0) is False
+assert A2.gunattackrange(A0) is not False and A2.gunattackrange(A0) == 1
+assert A3.gunattackrange(A0) is False
 
-A2 = aircraft("A2", "F-80C"  , "2025", "N", 11, 4.0, "CL")
-assert A1.gunattackrange(A2) is not False and A1.gunattackrange(A2) == 2
-A2 = aircraft("A2", "F-80C"  , "2025", "N", 12, 4.0, "CL")
-assert A1.gunattackrange(A2) is False
-A2 = aircraft("A2", "F-80C"  , "2025", "N", 13, 4.0, "CL")
-assert A1.gunattackrange(A2) is False
-A2 = aircraft("A2", "F-80C"  , "2025", "N", 14, 4.0, "CL")
-assert A1.gunattackrange(A2) is False
-A2 = aircraft("A2", "F-80C"  , "2025", "N", 15, 4.0, "CL")
-assert A1.gunattackrange(A2) is False
-A2 = aircraft("A2", "F-80C"  , "2025", "N", 16, 4.0, "CL")
-assert A1.gunattackrange(A2) is False
+A0 = aircraft("A0", "F-80C"  , "2025", "N",  8, 4.0, "CL")
+assert A1.gunattackrange(A0) is False
+assert A2.gunattackrange(A0) is not False and A2.gunattackrange(A0) == 1
+assert A3.gunattackrange(A0) is False
 
-A2 = aircraft("A2", "F-80C"  , "2025", "N",  9, 4.0, "CL")
-assert A1.gunattackrange(A2) is not False and A1.gunattackrange(A2) == 2
-A2 = aircraft("A2", "F-80C"  , "2025", "N",  8, 4.0, "CL")
-assert A1.gunattackrange(A2) is False
-A2 = aircraft("A2", "F-80C"  , "2025", "N",  7, 4.0, "CL")
-assert A1.gunattackrange(A2) is False
-A2 = aircraft("A2", "F-80C"  , "2025", "N",  6, 4.0, "CL")
-assert A1.gunattackrange(A2) is False
-A2 = aircraft("A2", "F-80C"  , "2025", "N",  5, 4.0, "CL")
-assert A1.gunattackrange(A2) is False
-A2 = aircraft("A2", "F-80C"  , "2025", "N",  4, 4.0, "CL")
-assert A1.gunattackrange(A2) is False
+A0 = aircraft("A0", "F-80C"  , "2025", "N",  9, 4.0, "CL")
+assert A1.gunattackrange(A0) is False
+assert A2.gunattackrange(A0) is not False and A2.gunattackrange(A0) == 0
+assert A3.gunattackrange(A0) is False
+
+A0 = aircraft("A0", "F-80C"  , "2025", "N", 10, 4.0, "CL")
+assert A1.gunattackrange(A0) is not False and A1.gunattackrange(A0) == 0
+assert A2.gunattackrange(A0) is not False and A2.gunattackrange(A0) == 0
+assert A3.gunattackrange(A0) is not False and A3.gunattackrange(A0) == 0
+
+A0 = aircraft("A0", "F-80C"  , "2025", "N", 11, 4.0, "CL")
+assert A1.gunattackrange(A0) is False
+assert A2.gunattackrange(A0) is False
+assert A3.gunattackrange(A0) is not False and A3.gunattackrange(A0) == 0
+
+A0 = aircraft("A0", "F-80C"  , "2025", "N", 12, 4.0, "CL")
+assert A1.gunattackrange(A0) is False
+assert A2.gunattackrange(A0) is False
+assert A3.gunattackrange(A0) is not False and A3.gunattackrange(A0) == 1
+
+A0 = aircraft("A0", "F-80C"  , "2025", "N", 13, 4.0, "CL")
+assert A1.gunattackrange(A0) is False
+assert A2.gunattackrange(A0) is False
+assert A3.gunattackrange(A0) is not False and A3.gunattackrange(A0) == 1
+
+A0 = aircraft("A0", "F-80C"  , "2025", "N", 14, 4.0, "CL")
+assert A1.gunattackrange(A0) is False
+assert A2.gunattackrange(A0) is False
+assert A3.gunattackrange(A0) is not False and A3.gunattackrange(A0) == 2
+
+A0 = aircraft("A0", "F-80C"  , "2025", "N", 15, 4.0, "CL")
+assert A1.gunattackrange(A0) is False
+assert A2.gunattackrange(A0) is False
+assert A3.gunattackrange(A0) is not False and A3.gunattackrange(A0) == 2
+
+A0 = aircraft("A0", "F-80C"  , "2025", "N", 16, 4.0, "CL")
+assert A1.gunattackrange(A0) is False
+assert A2.gunattackrange(A0) is False
+assert A3.gunattackrange(A0) is False
+
+# Horizontal range 1
+
+A0 = aircraft("A0", "F-80C"  , "2024", "N",  4, 4.0, "CL")
+assert A1.gunattackrange(A0) is False
+assert A2.gunattackrange(A0) is False
+assert A3.gunattackrange(A0) is False
+
+A0 = aircraft("A0", "F-80C"  , "2024", "N",  5, 4.0, "CL")
+assert A1.gunattackrange(A0) is False
+assert A2.gunattackrange(A0) is False
+assert A3.gunattackrange(A0) is False
+
+A0 = aircraft("A0", "F-80C"  , "2024", "N",  6, 4.0, "CL")
+assert A1.gunattackrange(A0) is False
+assert A2.gunattackrange(A0) is False
+assert A3.gunattackrange(A0) is False
+
+A0 = aircraft("A0", "F-80C"  , "2024", "N",  7, 4.0, "CL")
+assert A1.gunattackrange(A0) is False
+assert A2.gunattackrange(A0) is not False and A2.gunattackrange(A0) == 2
+assert A3.gunattackrange(A0) is False
+
+A0 = aircraft("A0", "F-80C"  , "2024", "N",  8, 4.0, "CL")
+assert A1.gunattackrange(A0) is False
+assert A2.gunattackrange(A0) is not False and A2.gunattackrange(A0) == 2
+assert A3.gunattackrange(A0) is False
+
+A0 = aircraft("A0", "F-80C"  , "2024", "N",  9, 4.0, "CL")
+assert A1.gunattackrange(A0) is not False and A1.gunattackrange(A0) == 1
+assert A2.gunattackrange(A0) is not False and A2.gunattackrange(A0) == 1
+assert A3.gunattackrange(A0) is False
+
+A0 = aircraft("A0", "F-80C"  , "2024", "N", 10, 4.0, "CL")
+assert A1.gunattackrange(A0) is not False and A1.gunattackrange(A0) == 1
+assert A2.gunattackrange(A0) is not False and A2.gunattackrange(A0) == 1
+assert A3.gunattackrange(A0) is not False and A3.gunattackrange(A0) == 1
+
+A0 = aircraft("A0", "F-80C"  , "2024", "N", 11, 4.0, "CL")
+assert A1.gunattackrange(A0) is not False and A1.gunattackrange(A0) == 1
+assert A2.gunattackrange(A0) is False
+assert A3.gunattackrange(A0) is not False and A3.gunattackrange(A0) == 1
+
+A0 = aircraft("A0", "F-80C"  , "2024", "N", 12, 4.0, "CL")
+assert A1.gunattackrange(A0) is False
+assert A2.gunattackrange(A0) is False
+assert A3.gunattackrange(A0) is not False and A3.gunattackrange(A0) == 2
+
+A0 = aircraft("A0", "F-80C"  , "2024", "N", 13, 4.0, "CL")
+assert A1.gunattackrange(A0) is False
+assert A2.gunattackrange(A0) is False
+assert A3.gunattackrange(A0) is not False and A3.gunattackrange(A0) == 2
+
+A0 = aircraft("A0", "F-80C"  , "2024", "N", 14, 4.0, "CL")
+assert A1.gunattackrange(A0) is False
+assert A2.gunattackrange(A0) is False
+assert A3.gunattackrange(A0) is False
+
+A0 = aircraft("A0", "F-80C"  , "2024", "N", 15, 4.0, "CL")
+assert A1.gunattackrange(A0) is False
+assert A2.gunattackrange(A0) is False
+assert A3.gunattackrange(A0) is False
+
+A0 = aircraft("A0", "F-80C"  , "2024", "N", 16, 4.0, "CL")
+assert A1.gunattackrange(A0) is False
+assert A2.gunattackrange(A0) is False
+assert A3.gunattackrange(A0) is False
+
+# Horizontal range 2
+
+A0 = aircraft("A0", "F-80C"  , "2023", "N",  4, 4.0, "CL")
+assert A1.gunattackrange(A0) is False
+assert A2.gunattackrange(A0) is False
+assert A3.gunattackrange(A0) is False
+
+A0 = aircraft("A0", "F-80C"  , "2023", "N",  5, 4.0, "CL")
+assert A1.gunattackrange(A0) is False
+assert A2.gunattackrange(A0) is False
+assert A3.gunattackrange(A0) is False
+
+A0 = aircraft("A0", "F-80C"  , "2023", "N",  6, 4.0, "CL")
+assert A1.gunattackrange(A0) is False
+assert A2.gunattackrange(A0) is False
+assert A3.gunattackrange(A0) is False
+
+A0 = aircraft("A0", "F-80C"  , "2023", "N",  7, 4.0, "CL")
+assert A1.gunattackrange(A0) is False
+assert A2.gunattackrange(A0) is False
+assert A3.gunattackrange(A0) is False
+
+A0 = aircraft("A0", "F-80C"  , "2023", "N",  8, 4.0, "CL")
+assert A1.gunattackrange(A0) is False
+assert A2.gunattackrange(A0) is False
+assert A3.gunattackrange(A0) is False
+
+A0 = aircraft("A0", "F-80C"  , "2023", "N",  9, 4.0, "CL")
+assert A1.gunattackrange(A0) is not False and A1.gunattackrange(A0) == 2
+assert A2.gunattackrange(A0) is not False and A2.gunattackrange(A0) == 2
+assert A3.gunattackrange(A0) is False
+
+A0 = aircraft("A0", "F-80C"  , "2023", "N", 10, 4.0, "CL")
+assert A1.gunattackrange(A0) is not False and A1.gunattackrange(A0) == 2
+assert A2.gunattackrange(A0) is not False and A2.gunattackrange(A0) == 2
+assert A3.gunattackrange(A0) is not False and A3.gunattackrange(A0) == 2
+
+A0 = aircraft("A0", "F-80C"  , "2023", "N", 11, 4.0, "CL")
+assert A1.gunattackrange(A0) is not False and A1.gunattackrange(A0) == 2
+assert A2.gunattackrange(A0) is False
+assert A3.gunattackrange(A0) is not False and A3.gunattackrange(A0) == 2
+
+A0 = aircraft("A0", "F-80C"  , "2023", "N", 12, 4.0, "CL")
+assert A1.gunattackrange(A0) is False
+assert A2.gunattackrange(A0) is False
+assert A3.gunattackrange(A0) is False
+
+A0 = aircraft("A0", "F-80C"  , "2023", "N", 13, 4.0, "CL")
+assert A1.gunattackrange(A0) is False
+assert A2.gunattackrange(A0) is False
+assert A3.gunattackrange(A0) is False
+
+A0 = aircraft("A0", "F-80C"  , "2023", "N", 14, 4.0, "CL")
+assert A1.gunattackrange(A0) is False
+assert A2.gunattackrange(A0) is False
+assert A3.gunattackrange(A0) is False
+
+A0 = aircraft("A0", "F-80C"  , "2023", "N", 15, 4.0, "CL")
+assert A1.gunattackrange(A0) is False
+assert A2.gunattackrange(A0) is False
+assert A3.gunattackrange(A0) is False
+
+A0 = aircraft("A0", "F-80C"  , "2023", "N", 16, 4.0, "CL")
+assert A1.gunattackrange(A0) is False
+assert A2.gunattackrange(A0) is False
+assert A3.gunattackrange(A0) is False
 
 endfile(__file__)

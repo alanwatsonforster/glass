@@ -5,7 +5,7 @@ import apengine.variants as apvariants
 from apengine.math import onethird, twothirds
 from apengine.log import plural
 
-from ._normalflight import _isclimbing, _isdiving
+from ._normalflight import _isclimbingflight, _isdivingflight
 
 def _startmovespeed(self, power, flamedoutengines):
 

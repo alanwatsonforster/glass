@@ -65,7 +65,7 @@ def _checknormalflight(self):
 
     # See rule 6.4 on recovering from departed flight.
 
-    if _isclimbing(flighttype):
+    if _isclimbingflight(flighttype):
       raise RuntimeError("flight type immediately after %s cannot be %s." % (
         previousflighttype, flighttype
       ))
@@ -78,7 +78,7 @@ def _checknormalflight(self):
 
     # See rule 6.4 on recovering from stalled flight.
 
-    if _isclimbing(flighttype):
+    if _isclimbingflight(flighttype):
       raise RuntimeError("flight type immediately after %s cannot be %s." % (
         previousflighttype, flighttype
       ))
@@ -124,7 +124,7 @@ def _checknormalflight(self):
 
     # See rule 8.1.3 on VC prerequisites.
 
-    if _isdiving(previousflighttype):
+    if _isdivingflight(previousflighttype):
       raise RuntimeError("flight type immediately after %s cannot be %s." % (
         previousflighttype, flighttype
       ))      
@@ -1325,9 +1325,9 @@ def _startnormalflight(self, actions):
     if (previousflighttype == "ZC" or previousflighttype == "SC") and flighttype == "VD":
       assert self._hrd
       mininitialhfp = self._speed // 3
-    elif previousflighttype == "LVL" and (_isclimbing(flighttype) or _isdiving(flighttype)):
+    elif previousflighttype == "LVL" and (_isclimbingflight(flighttype) or _isdivingflight(flighttype)):
       mininitialhfp = 1
-    elif (_isclimbing(previousflighttype) and _isdiving(flighttype)) or (_isdiving(previousflighttype) and _isclimbing(flighttype)):
+    elif (_isclimbingflight(previousflighttype) and _isdivingflight(flighttype)) or (_isdivingflight(previousflighttype) and _isclimbingflight(flighttype)):
       if self.hasproperty("HPR"):
         mininitialhfp = self._speed // 3
       else:
@@ -1775,7 +1775,7 @@ def _isroll(maneuvertype):
 
 ################################################################################
 
-def _isdiving(flighttype):
+def _isdivingflight(flighttype):
 
   """
   Return True if the flight type is SD, UD, or VD. Otherwise return False.
@@ -1785,7 +1785,7 @@ def _isdiving(flighttype):
 
 ################################################################################
 
-def _isclimbing(flighttype):
+def _isclimbingflight(flighttype):
 
   """
   Return True if the flight type is ZC, SC, or VC. Otherwise return False.
@@ -1793,6 +1793,16 @@ def _isclimbing(flighttype):
   
   return flighttype == "ZC" or flighttype == "SC" or flighttype == "VC"
 
+################################################################################
+
+def _islevelflight(flighttype):
+
+  """
+  Return True if the flight type is LVL. Otherwise return False.
+  """
+  
+  return flighttype == "LVL"
+  
 ################################################################################
 
 def _extrapreparatoryhfp(altitudeband, speed):
