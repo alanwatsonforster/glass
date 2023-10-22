@@ -52,6 +52,8 @@ aircraftdata("RB-66")
 aircraftdata("RF-5A")
 aircraftdata("F-51D")
 aircraftdata("RF-80C")
+aircraftdata("Sabre 5")
+aircraftdata("Sabre 6")
 aircraftdata("Sea Fury FB.11")
 aircraftdata("Yak-9D")
 
