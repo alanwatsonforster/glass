@@ -46,6 +46,9 @@ def _drawmap():
 
 #############################################################################
 
+from ._geometry import \
+  _showgeometry, _angleofftail, _gunattackrange, _inlimitedradararc
+    
 class aircraft:
 
   from ._closeformation import \
@@ -84,9 +87,6 @@ class aircraft:
 
   from ._log import \
     _log, _logaction, _logevent, _logbreak
-
-  from ._angleoff import \
-    showgeometry, angleofftail, gunattackrange, inlimitedradararc
 
   #############################################################################
 
@@ -202,6 +202,47 @@ class aircraft:
     altitude = self._altitude
     return "%-9s  %-3s  %2d" % (hexcode, azimuth, altitude)
 
+  #############################################################################
+
+  def angleofftail(self, other):
+
+    """
+    Return the angle of the aircraft off the tail of the other aircraft.
+    """
+
+    return _angleofftail(self, other)
+
+  #############################################################################
+
+  def gunattackrange(self, other):
+
+    """
+    Return the gun attack range of the other aircraft from the aircraft
+    or False if it cannot be attacked.
+    """
+
+    return _gunattackrange(self, other)
+
+  #############################################################################
+
+  def inlimitedradararc(self, other):
+
+    """
+    Return True if the other aircraft is in the limited radar arc of the aircraft.
+    """
+
+    return _inlimitedradararc(self, other)
+    
+  #############################################################################
+  
+  def showgeometry(self, other):
+
+    """
+    Show the geometry of the other aircraft with respect to the aircraft.
+    """
+
+    _showgeometry(self, other)
+  
   #############################################################################
 
   def checkforterraincollision(self):

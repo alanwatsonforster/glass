@@ -66,12 +66,6 @@ def _relativepositions(x0, y0, facing0, x1, y1, facing1):
 
 ##############################################################################
 
-def angleofftail(self, other):
-  """
-  Return the angle of the aircraft off the tail of the other aircraft.
-  """
-  return _angleofftail(self, other)
-
 def _angleofftail(a0, a1):
 
   """
@@ -129,14 +123,6 @@ def _angleofftail(a0, a1):
 
 ##############################################################################
 
-def gunattackrange(self, other):
-
-  """
-  Returns the gun attack range of the other aircraft from the aircraft.
-  """
-
-  return _gunattackrange(self, other)
-
 def _gunattackrange(a0, a1):
 
   """
@@ -184,12 +170,6 @@ def _gunattackrange(a0, a1):
 
 ##############################################################################
 
-def inlimitedradararc(self, other):
-  """
-  Return True if the other aircraft is in the limited radar arc of the aircraft.
-  """
-  return _inlimitedradararc(self, other)
-
 def _inlimitedradararc(a0, a1):
 
   """
@@ -221,9 +201,6 @@ def _inlimitedradararc(a0, a1):
     
 ##############################################################################
 
-def showgeometry(self, other):
-  _showgeometry(self, other)
-
 def _showgeometry(a0, a1):
 
   """
@@ -238,17 +215,17 @@ def _showgeometry(a0, a1):
 
     ap._checkinstartuporturn()
 
-    anglofftail = a0.angleofftail(a1)
-    if anglofftail == "0 line" or angleofftail == "180 line":
-      a0._log("the target %s has %s on its %s." % (name1, name0, anglofftail))
+    angleofftail = a0.angleofftail(a1)
+    if angleofftail == "0 line" or angleofftail == "180 line":
+      a0._log("the target %s has %s on its %s." % (name1, name0, angleofftail))
     else:
-      a0._log("the target %s has %s in its %s." % (name1, name0, anglofftail))
+      a0._log("the target %s has %s in its %s." % (name1, name0, angleofftail))
 
-    anglofftail = a1.angleofftail(a0)
-    if anglofftail == "0 line" or angleofftail == "180 line":
-      a0._log("the target %s is on the %s line of %s." % (name1, anglofftail, name0))
+    angleofftail = a1.angleofftail(a0)
+    if angleofftail == "0 line" or angleofftail == "180 line":
+      a0._log("the target %s is on the %s line of %s." % (name1, angleofftail, name0))
     else:
-      a0._log("the target %s is in the %s arc of %s." % (name1, anglofftail, name0))
+      a0._log("the target %s is in the %s arc of %s." % (name1, angleofftail, name0))
 
     inlimitedradararc = a0.inlimitedradararc(a1)
     if inlimitedradararc:
@@ -264,6 +241,4 @@ def _showgeometry(a0, a1):
       
   except RuntimeError as e:
     aplog.logexception(e)
-
-
 
