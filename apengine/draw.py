@@ -54,6 +54,17 @@ def _drawhexinphysical(x, y, size=1,
     zorder=zorder
   ))
 
+def _drawcircleinphysical(x, y, size=1, 
+  linecolor="black", linewidth=0.5, fillcolor=None, hatch=None, alpha=1.0,
+  zorder=1):
+  _ax.add_artist(patches.Circle(
+    [x,y],
+    radius=0.5*size, 
+    edgecolor=linecolor, facecolor=fillcolor, fill=(fillcolor != None), hatch=hatch, 
+    linewidth=linewidth, alpha=alpha,
+    zorder=zorder
+  ))
+
 def _drawdotinphysical(x, y, size=1, facing=0, dx=0, dy=0, 
   color="black", alpha=1.0,
   zorder=1):
@@ -114,7 +125,7 @@ def _drawtextinphysical(x, y, facing, s, dx=0, dy=0,
   plt.text(x, y, s, size=size, rotation=facing - 90,
            color=_mapcolor(color), alpha=alpha, 
            horizontalalignment='center',
-           verticalalignment='baseline',
+           verticalalignment='center',
            rotation_mode="anchor",
            zorder=zorder)
 
@@ -131,7 +142,6 @@ def _drawpolygoninphysical(xy,
 def _drawrectangleinphysical(xmin, ymin, xmax, ymax, **kwargs): 
   _drawpolygoninphysical([[xmin,ymin],[xmin,ymax],[xmax,ymax],[xmax,ymin]], **kwargs)
 
-
 def _drawcompassinphysical(x, y, facing, color="black", alpha=1.0, zorder=1):
   _drawdotinphysical(x, y, facing=facing, size=0.07, dy=-0.3, color=color, alpha=alpha, zorder=zorder)
   _drawarrowinphysical(x, y, facing, size=0.6, dy=0, color=color, alpha=alpha, zorder=zorder)
@@ -142,6 +152,9 @@ def _drawcompassinphysical(x, y, facing, color="black", alpha=1.0, zorder=1):
 def drawhex(x, y, **kwargs):
   _drawhexinphysical(*aphex.tophysical(x, y), **kwargs)
 
+def drawcircle(x, y, **kwargs):
+  _drawcircleinphysical(*aphex.tophysical(x, y), **kwargs)
+  
 def drawhexlabel(x, y, label, dy=0.35, size=9, color="lightgrey", **kwargs):
   drawtext(x, y, 90, label, dy=dy, size=size, color=color, **kwargs)        
 

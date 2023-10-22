@@ -15,12 +15,12 @@ def _drawmap():
 
 class marker:
 
-  def __init__(self, type, hexcode, azimuth=0, color="black"):
+  def __init__(self, type, hexcode, azimuth=0, label="", color="black"):
 
     aplog.clearerror()
     try:
 
-      if not type in ["dot"]:
+      if not type in ["dot", "circle"]:
         raise RuntimeError("invalid marker type.")
 
       x, y = aphexcode.toxy(hexcode)
@@ -29,6 +29,8 @@ class marker:
       self._type    = type
       self._x       = x
       self._y       = y
+      self._facing  = facing
+      self._label   = label
       self._color   = color
       self._removed = False
 
@@ -60,4 +62,10 @@ class marker:
       return
 
     if self._type == "dot":
+
       apdraw.drawdot(self._x, self._y, size=0.1, color=self._color)
+    
+    elif self._type == "circle":
+
+      apdraw.drawcircle(self._x, self._y, size=0.65, linecolor=self._color, linewidth=2)
+      apdraw.drawtext(self._x, self._y, self._facing, self._label, size=11, color=self._color)
