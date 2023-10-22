@@ -133,40 +133,57 @@ def _gunattackrange(a0, a1):
 
   # TODO: include altitude difference.
 
-  x0      = a0._x
-  y0      = a0._y
-  facing0 = a0._facing
+  def verticalrange():
 
-  x1      = a1._x
-  y1      = a1._y
-  facing1 = a1._facing
-  
-  angleofftail, angleoffnose, r, dx, dy = _relativepositions(x0, y0, facing0, x1, y1, facing1)
+    altitude0 = a0._altitude
+    altitude1 = a1._altitude
+    return int(abs(altitude0 - altitude1) / 2)
 
-  if dx < 0:
+  def horizontalrange():
+
+    x0      = a0._x
+    y0      = a0._y
+    facing0 = a0._facing
+
+    x1      = a1._x
+    y1      = a1._y
+    facing1 = a1._facing
+    
+    angleofftail, angleoffnose, r, dx, dy = _relativepositions(x0, y0, facing0, x1, y1, facing1)
+
+    if dx < 0:
+      return False
+    elif dx == 0:
+      if dy == 0:
+        return 0
+      else:
+        return False
+    elif dx <= 1.0:
+      if dy == 0:
+        return 1
+      else:
+        return False
+    elif dx < 1.5:
+      if abs(dy) <= 0.5:
+        return 1
+      else:
+        return False
+    elif dx <= 2.2:
+      if abs(dy) <= 0.5:
+        return 2
+      else:
+        return False
+    else:
+      return False
+
+  r = horizontalrange()
+  if r is False:
     return False
-  if dx == 0:
-    if dy == 0:
-      return 0
-    else:
-      return False
-  elif dx <= 1.0:
-    if dy == 0:
-      return 1
-    else:
-      return False
-  elif dx < 1.5:
-    if abs(dy) <= 0.5:
-      return 1
-    else:
-      return False
-  elif dx <= 2.2:
-    if abs(dy) <= 0.5:
-      return 2
-    else:
-      return False
+  r += verticalrange()
+  if r > 2:
+    return False
   else:
-    return False
+    return r
 
 ##############################################################################
 
@@ -223,9 +240,9 @@ def _showgeometry(a0, a1):
 
     angleofftail = a1.angleofftail(a0)
     if angleofftail == "0 line" or angleofftail == "180 line":
-      a0._log("the target %s is on the %s line of %s." % (name1, angleofftail, name0))
+      a0._log("the target %s is on the %s of %s." % (name1, angleofftail, name0))
     else:
-      a0._log("the target %s is in the %s arc of %s." % (name1, angleofftail, name0))
+      a0._log("the target %s is in the %s of %s." % (name1, angleofftail, name0))
 
     inlimitedradararc = a0.inlimitedradararc(a1)
     if inlimitedradararc:
@@ -234,7 +251,7 @@ def _showgeometry(a0, a1):
       a0._log("the target %s is not in the limited radar arc of %s." % (name1, name0))      
 
     gunattackrange = a0.gunattackrange(a1)
-    if gunattackrange == False:
+    if gunattackrange is False:
       a0._log("the target %s cannot be attacked with guns." % (name1))
     else:
       a0._log("the target %s can be attacked with guns at a range of %d." % (name1, gunattackrange))
