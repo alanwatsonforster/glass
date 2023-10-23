@@ -5,6 +5,18 @@ import apengine.log as aplog
 
 ##############################################################################
 
+def _round(x):
+
+  """
+  Round x to 1/256 of a unit.
+  """
+  if x >= 0:
+    return int(x * 256 + 0.5) / 256
+  else:
+    return int(x * 256 - 0.5) / 256 
+      
+##############################################################################
+
 def _relativepositions(x0, y0, facing0, x1, y1, facing1):
 
   # Determine the offsets of 1 from 0.
@@ -45,16 +57,6 @@ def _relativepositions(x0, y0, facing0, x1, y1, facing1):
   dy = r * math.sin(math.radians(angleoffnose))
 
   # Round everything.
-
-  def _round(x):
-
-    """
-    Round x to 1/256 of a unit.
-    """
-    if x >= 0:
-      return int(x * 256 + 0.5) / 256
-    else:
-      return int(x * 256 - 0.5) / 256    
 
   r            = _round(r)
   angleoffnose = _round(angleoffnose)
@@ -197,9 +199,10 @@ def _gunattackrange(a0, a1):
   else:
     return r
 
+   
 ##############################################################################
 
-def _inlimitedradararc(a0, a1):
+def _inlimitedradararc(a0, a1, x1=None, y1=None, facing1=None):
 
   """
   Return True if a1 is is the limited radar arc of a0.
@@ -211,22 +214,23 @@ def _inlimitedradararc(a0, a1):
   y0      = a0._y
   facing0 = a0._facing
 
-  x1      = a1._x
-  y1      = a1._y
-  facing1 = a1._facing
+  if a1 != None:
+    x1      = a1._x
+    y1      = a1._y
+    facing1 = a1._facing
   
   angleofftail, angleoffnose, r, dx, dy = _relativepositions(x0, y0, facing0, x1, y1, facing1)
       
   if dx <= 0:
     return False
-  elif dx <= 1:
+  elif dx < _round(1.25 * math.sqrt(3/4)):
     return dy == 0
-  elif dx <= 4.0:
+  elif dx < _round(5.5 * math.sqrt(3/4)):
     return abs(dy) <= 0.5
-  elif dx <= 9.0:
+  elif dx < _round(10.5 * math.sqrt(3/4)):
     return abs(dy) <= 1.0
   else:
-    return abs(dy) <= 2.0
+    return abs(dy) <= 1.5
     
 ##############################################################################
 
