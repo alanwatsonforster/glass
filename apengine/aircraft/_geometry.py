@@ -58,13 +58,12 @@ def _relativepositions(x0, y0, facing0, x1, y1, facing1):
 
   # Round everything.
 
-  r            = _round(r)
-  angleoffnose = _round(angleoffnose)
   angleofftail = _round(angleofftail)
+  r            = _round(r)
   dx           = _round(dx)
   dy           = _round(dy)
 
-  return angleofftail, angleoffnose, r, dx, dy
+  return angleofftail, r, dx, dy
 
 ##############################################################################
 
@@ -77,7 +76,7 @@ def _angleofftail(a0, a1):
   # See rule 9.2.
 
   def trueangleofftail(x0, y0, facing0, x1, y1, facing1):
-    angleofftail, angleoffnose, r, dx, dy = _relativepositions(x0, y0, facing0, x1, y1, facing1)
+    angleofftail, r, dx, dy = _relativepositions(x0, y0, facing0, x1, y1, facing1)
     return angleofftail
 
   x0      = a0._x
@@ -131,15 +130,7 @@ def _gunattackrange(a0, a1):
   Returns the range of an air-to-air gun attack from a0 on a1.
   """
 
-  # See the Air-to-Air Gun Attack diagram in the sheets.
-
-  # TODO: include altitude difference.
-
-  def verticalrange():
-
-    altitude0 = a0._altitude
-    altitude1 = a1._altitude
-    return int(abs(altitude0 - altitude1) / 2)
+  # See rule 9.1 and the Air-to-Air Gun Attack diagram in the sheets.
 
   def horizontalrange():
 
@@ -151,7 +142,7 @@ def _gunattackrange(a0, a1):
     y1      = a1._y
     facing1 = a1._facing
     
-    angleofftail, angleoffnose, r, dx, dy = _relativepositions(x0, y0, facing0, x1, y1, facing1)
+    angleofftail, r, dx, dy = _relativepositions(x0, y0, facing0, x1, y1, facing1)
 
     if dx < 0:
       return False
@@ -178,6 +169,12 @@ def _gunattackrange(a0, a1):
     else:
       return False
 
+  def verticalrange():
+
+    altitude0 = a0._altitude
+    altitude1 = a1._altitude
+    return int(abs(altitude0 - altitude1) / 2)
+    
   r = horizontalrange()
   if r is False:
     return False
@@ -199,7 +196,55 @@ def _gunattackrange(a0, a1):
   else:
     return r
 
-   
+##############################################################################
+
+def _rocketattackrange(a0, a1):
+
+  # See rule 9.3.
+
+  def horizontalrange():
+
+    x0      = a0._x
+    y0      = a0._y
+    facing0 = a0._facing
+
+    x1      = a1._x
+    y1      = a1._y
+    facing1 = a1._facing
+    
+    angleofftail, r, dx, dy = _relativepositions(x0, y0, facing0, x1, y1, facing1)
+
+    return r
+
+  def verticalrange():
+
+    altitude0 = a0._altitude
+    altitude1 = a1._altitude
+    return int(abs(altitude0 - altitude1) / 2)
+    
+  if not a0.inlimitedradararc(a1):
+    return False
+
+  r = horizontalrange()
+
+  # Attacks in the same hex are not allowed.
+  if r == 0:
+    return False
+
+  # Apply the relative altitude restrictions for climbing, diving, and level flight.
+  if a0.climbingflight() and a0._altitude > a1._altitude:
+    return False
+  if a0.divingflight() and a0._altitude < a1._altitude:
+    return False
+  if a0.levelflight() and abs(a0._altitude - a1._altitude) > 1:
+    return False
+  
+  r += verticalrange()
+  if r > 4:
+    return False
+  else:
+    return r
+
 ##############################################################################
 
 def _inlimitedradararc(a0, a1, x1=None, y1=None, facing1=None):
@@ -219,7 +264,7 @@ def _inlimitedradararc(a0, a1, x1=None, y1=None, facing1=None):
     y1      = a1._y
     facing1 = a1._facing
   
-  angleofftail, angleoffnose, r, dx, dy = _relativepositions(x0, y0, facing0, x1, y1, facing1)
+  angleofftail, r, dx, dy = _relativepositions(x0, y0, facing0, x1, y1, facing1)
       
   if dx <= 0:
     return False
@@ -231,6 +276,12 @@ def _inlimitedradararc(a0, a1, x1=None, y1=None, facing1=None):
     return abs(dy) <= 1.0
   else:
     return abs(dy) <= 1.5
+
+  r += verticalrange()
+  if r > 4:
+    return False
+  else:
+    return r
     
 ##############################################################################
 
@@ -271,6 +322,12 @@ def _showgeometry(a0, a1):
       a0._log("the target %s cannot be attacked with guns." % (name1))
     else:
       a0._log("the target %s can be attacked with guns at a range of %d." % (name1, gunattackrange))
+      
+    rocketattackrange = a0.rocketattackrange(a1)
+    if gunattackrange is False:
+      a0._log("the target %s cannot be attacked with rockets." % (name1))
+    else:
+      a0._log("the target %s can be attacked with rockets at a range of %d." % (name1, rocketattackrange))
       
   except RuntimeError as e:
     aplog.logexception(e)

@@ -47,7 +47,7 @@ def _drawmap():
 #############################################################################
 
 from ._geometry import \
-  _showgeometry, _angleofftail, _gunattackrange, _inlimitedradararc
+  _showgeometry, _angleofftail, _gunattackrange, _rocketattackrange, _inlimitedradararc
 
 from ._normalflight import \
   _isclimbingflight, _isdivingflight, _islevelflight
@@ -225,6 +225,17 @@ class aircraft:
     """
 
     return _gunattackrange(self, other)
+
+  #############################################################################
+
+  def rocketattackrange(self, other):
+
+    """
+    Return the rocket attack range of the other aircraft from the aircraft
+    or False if it cannot be attacked.
+    """
+
+    return _rocketattackrange(self, other)
 
   #############################################################################
 
