@@ -4,7 +4,7 @@ import apengine._log       as aplog
 import apengine._map       as apmap
 import apengine._marker    as apmarker
 import apengine.variants   as apvariants
-import apengine.scenarios  as apscenarios
+import apengine._scenarios as apscenarios
  
 ################################################################################
 
