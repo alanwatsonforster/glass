@@ -3,7 +3,7 @@ startfile(__file__, "math")
 
 # Checks on apengine.math.
 
-from apengine.math import onethird, twothirds
+from apengine._math import onethird, twothirds
 
 # This table is from the play aids.
 

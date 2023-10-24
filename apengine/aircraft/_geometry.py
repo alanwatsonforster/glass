@@ -240,6 +240,7 @@ def _rocketattackrange(a0, a1):
     return False
   
   r += verticalrange()
+  r = int(r + 0.5)
   if r > 4:
     return False
   else:

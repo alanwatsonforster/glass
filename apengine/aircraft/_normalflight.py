@@ -4,7 +4,7 @@ Normal flight for the aircraft class.
 
 import math
 from typing_extensions import LiteralString
-from apengine.math import onethird, twothirds, roundtoquarter
+from apengine._math import onethird, twothirds, roundtoquarter
 
 import apengine.altitude as apaltitude
 import apengine.hex      as aphex
