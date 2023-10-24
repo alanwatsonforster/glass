@@ -1,6 +1,6 @@
 import math
-import apengine     as ap
-import apengine.hex as aphex
+import apengine      as ap
+import apengine._hex as aphex
 import apengine.log as aplog
 
 ##############################################################################

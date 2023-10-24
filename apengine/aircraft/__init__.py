@@ -4,7 +4,7 @@ import apengine._altitude      as apaltitude
 import apengine._azimuth       as apazimuth
 import apengine._configuration as apconfiguration
 import apengine._draw          as apdraw
-import apengine.hex            as aphex
+import apengine._hex           as aphex
 import apengine.hexcode        as aphexcode
 import apengine.log            as aplog
 import apengine.map            as apmap

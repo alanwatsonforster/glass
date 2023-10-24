@@ -4,7 +4,7 @@ The map.
 
 import apengine._azimuth as apazimuth
 import apengine._draw    as apdraw
-import apengine.hex      as aphex
+import apengine._hex     as aphex
 import apengine.hexcode  as aphexcode
 
 import math

@@ -2,8 +2,8 @@
 Conversion between hex codes and hex coordinates.
 """
 
-import apengine.hex as aphex
-import apengine.map as apmap
+import apengine._hex as aphex
+import apengine.map  as apmap
 
 def isvalidhexcodeforcenter(h):
 

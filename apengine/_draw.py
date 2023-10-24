@@ -1,6 +1,6 @@
 import math
 
-import apengine.hex as aphex
+import apengine._hex as aphex
 
 import pickle
 
