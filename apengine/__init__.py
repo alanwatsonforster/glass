@@ -31,7 +31,7 @@ def _checkinturn():
 
 ################################################################################
 
-def startsetup(scenario, sheets=None, north="up", allforest=False, variants=[]):
+def startsetup(scenario, sheets=None, north="up", variants=[], **kwargs):
 
   """
   Start the set-up for the specified scenario (or for the specified map layout).
@@ -55,7 +55,7 @@ def startsetup(scenario, sheets=None, north="up", allforest=False, variants=[]):
       north     = apscenarios.north(scenario)
       allforest = apscenarios.allforest(scenario)
 
-    apmap.setmap(sheets, allforest=allforest)
+    apmap.setmap(sheets, **kwargs)
 
     apazimuth.setnorth(north)
 
