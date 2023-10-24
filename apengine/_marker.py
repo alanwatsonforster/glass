@@ -20,7 +20,7 @@ class marker:
     aplog.clearerror()
     try:
 
-      if not type in ["dot", "circle"]:
+      if not type in ["dot", "circle", "square"]:
         raise RuntimeError("invalid marker type.")
 
       x, y = aphexcode.toxy(hexcode)
@@ -68,4 +68,9 @@ class marker:
     elif self._type == "circle":
 
       apdraw.drawcircle(self._x, self._y, size=0.65, linecolor=self._color, linewidth=2)
+      apdraw.drawtext(self._x, self._y, self._facing, self._label, size=11, color=self._color)
+
+    elif self._type == "square":
+
+      apdraw.drawsquare(self._x, self._y, size=0.65, linecolor=self._color, linewidth=2, facing=self._facing)
       apdraw.drawtext(self._x, self._y, self._facing, self._label, size=11, color=self._color)
