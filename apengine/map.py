@@ -3,7 +3,7 @@ The map.
 """
 
 import apengine._azimuth as apazimuth
-import apengine.draw     as apdraw
+import apengine._draw    as apdraw
 import apengine.hex      as aphex
 import apengine.hexcode  as aphexcode
 

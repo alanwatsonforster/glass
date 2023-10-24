@@ -1,5 +1,5 @@
 import apengine._azimuth as apazimuth
-import apengine.draw     as apdraw
+import apengine._draw    as apdraw
 import apengine.hexcode  as aphexcode
 import apengine.log      as aplog
 
