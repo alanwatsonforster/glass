@@ -65,6 +65,18 @@ def _drawcircleinphysical(x, y, size=1,
     zorder=zorder
   ))
 
+def _drawsquareinphysical(x, y, size=1, facing=0,
+  linecolor="black", linewidth=0.5, fillcolor=None, hatch=None, alpha=1.0,
+  zorder=1):
+  # size is circumscribed diameter
+  _ax.add_artist(patches.RegularPolygon(
+    [x,y], 4, 
+    radius=size*0.5, orientation=math.radians(facing), 
+    edgecolor=_mapcolor(linecolor), facecolor=_mapcolor(fillcolor), fill=(fillcolor != None), hatch=hatch, 
+    linewidth=linewidth, alpha=alpha,
+    zorder=zorder
+  ))
+
 def _drawdotinphysical(x, y, size=1, facing=0, dx=0, dy=0, 
   color="black", alpha=1.0,
   zorder=1):
@@ -101,7 +113,7 @@ def _drawarrowinphysical(x, y, facing, size=1.0, dx=0, dy=0,
   ))
 
 def _drawdartinphysical(x, y, facing, size=1.0, dx=0, dy=0, 
-  facecolor="black", edgecolor="black", linewidth=0.5, alpha=1.0,
+  linecolor="black", fillcolor="black", linewidth=0.5, alpha=1.0,
   zorder=1):
   # size is length
   x = x + dx * sind(facing) + dy * cosd(facing)
@@ -113,7 +125,7 @@ def _drawdartinphysical(x, y, facing, size=1.0, dx=0, dy=0,
   _ax.add_artist(patches.FancyArrow(
     x, y, dx, dy,
     width=0.02, head_length=size, head_width=0.5*size, length_includes_head=True, 
-    facecolor=_mapcolor(facecolor), edgecolor=_mapcolor(edgecolor), linewidth=linewidth, alpha=alpha, 
+    facecolor=_mapcolor(fillcolor), edgecolor=_mapcolor(linecolor), linewidth=linewidth, alpha=alpha, 
     zorder=zorder
   ))
 
@@ -154,6 +166,9 @@ def drawhex(x, y, **kwargs):
 
 def drawcircle(x, y, **kwargs):
   _drawcircleinphysical(*aphex.tophysical(x, y), **kwargs)
+
+def drawsquare(x, y, **kwargs):
+  _drawsquareinphysical(*aphex.tophysical(x, y), **kwargs)
   
 def drawhexlabel(x, y, label, dy=0.35, size=9, color="lightgrey", **kwargs):
   drawtext(x, y, 90, label, dy=dy, size=size, color=color, **kwargs)        
@@ -183,7 +198,7 @@ def drawrectangle(xmin, ymin, xmax, ymax, **kwargs):
   xmin, ymin = aphex.tophysical(xmin, ymin)
   xmax, ymax = aphex.tophysical(xmax, ymax)
   _drawrectangleinphysical(xmin, ymin, xmax, ymax, **kwargs)
-
+  
 def drawcompass(x, y, facing, **kwargs):
   _drawcompassinphysical(*aphex.tophysical(x, y), facing, **kwargs)
 
