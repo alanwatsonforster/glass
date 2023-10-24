@@ -94,7 +94,7 @@ class aircraft:
   #############################################################################
 
   def __init__(self, name, aircrafttype, hexcode, azimuth, altitude, speed, configuration,
-    color="unpainted"
+    color="unpainted", counter=False
   ):
 
     aplog.clearerror()
@@ -158,6 +158,7 @@ class aircraft:
       self._flightpathx           = []
       self._flightpathy           = []
       self._color                 = color
+      self._counter               = counter
 
       self._saved = []
 

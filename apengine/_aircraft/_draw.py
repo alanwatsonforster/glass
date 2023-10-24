@@ -8,7 +8,7 @@ flightpathcolor     = ( 0.00, 0.00, 0.00 )
 flightpathwidth     = 2.0
 flightpathlinestyle = "dotted"
 flightpathdotsize   = 0.05
-edgecolor           = ( 0.00, 0.00, 0.00 )
+linecolor           = ( 0.00, 0.00, 0.00 )
 textsize            = 10
 textcolor           = ( 0.00, 0.00, 0.00 )
 
@@ -31,14 +31,18 @@ def _drawaircraft(self):
   if self._leftmap:
     return
   if self._destroyed:
-    facecolor = "black"
+    fillcolor = "black"
     altitude  = "--"
   else:
-    facecolor = self._color
+    fillcolor = self._color
     altitude  = "%2d" % self._altitude
   x = self._x
   y = self._y
   facing = self._facing
-  apdraw.drawdart(x, y, facing, dy=-0.02, size=0.4, facecolor=facecolor, linewidth=1, edgecolor=edgecolor, zorder=1)
-  apdraw.drawtext(x, y, facing, self._name, dx=-0.25, dy=0.0, size=textsize, color=textcolor, zorder=1)
-  apdraw.drawtext(x, y, facing, altitude  , dx=+0.25, dy=0.0, size=textsize, color=textcolor, zorder=1)
+  if self._counter:
+    apdraw.drawsquare(x, y, facing=facing, size=1, linecolor="black", fillcolor=self._color, zorder=1)
+    apdraw.drawdart(x, y, facing, size=0.4, fillcolor="black", linewidth=1, linecolor="black", zorder=1)
+  else:
+    apdraw.drawdart(x, y, facing, dy=-0.02, size=0.4, fillcolor=fillcolor, linewidth=1, linecolor=linecolor, zorder=1)
+    apdraw.drawtext(x, y, facing, self._name, dx=-0.25, dy=0.0, size=textsize, color=textcolor, zorder=1)
+    apdraw.drawtext(x, y, facing, altitude  , dx=+0.25, dy=0.0, size=textsize, color=textcolor, zorder=1)
