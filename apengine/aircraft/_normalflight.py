@@ -12,7 +12,7 @@ import apengine.speed     as apspeed
 import apengine.turnrate  as apturnrate
 import apengine.variants  as apvariants
 
-from apengine.log import plural
+from apengine._log import plural
 
 def _checknormalflight(self):
 

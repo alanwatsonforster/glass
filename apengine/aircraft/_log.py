@@ -2,8 +2,8 @@
 Logging for the aircraft class.
 """
 
-import apengine.log     as aplog
-import apengine         as ap
+import apengine      as ap
+import apengine._log as aplog
 
 def _log(self, s):
   aplog.log("%s: turn %-2d : %s" % (self._name, ap.turn(), s))

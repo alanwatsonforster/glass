@@ -1,4 +1,4 @@
-import apengine.log as aplog
+import apengine._log as aplog
 
 ################################################################################
 

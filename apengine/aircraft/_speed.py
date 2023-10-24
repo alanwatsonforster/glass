@@ -3,7 +3,7 @@ import math
 import apengine.speed as apspeed
 import apengine.variants as apvariants
 from apengine._math import onethird, twothirds
-from apengine.log import plural
+from apengine._log import plural
 
 from ._normalflight import _isclimbingflight, _isdivingflight
 

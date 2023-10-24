@@ -4,8 +4,8 @@ Aircraft flight.
 
 ##############################################################################
 
-import apengine     as ap
-import apengine.log as aplog
+import apengine      as ap
+import apengine._log as aplog
 
 from ._normalflight import _isdivingflight, _isclimbingflight, _islevelflight
 

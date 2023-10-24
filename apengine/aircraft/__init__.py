@@ -6,7 +6,7 @@ import apengine._configuration as apconfiguration
 import apengine._draw          as apdraw
 import apengine._hex           as aphex
 import apengine._hexcode       as aphexcode
-import apengine.log            as aplog
+import apengine._log           as aplog
 import apengine.map            as apmap
 import apengine.speed          as apspeed
 import apengine.turnrate       as apturnrate

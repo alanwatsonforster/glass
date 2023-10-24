@@ -1,7 +1,7 @@
 import apengine._azimuth as apazimuth
 import apengine._draw    as apdraw
 import apengine._hexcode as aphexcode
-import apengine.log      as aplog
+import apengine._log     as aplog
 
 _markerlist = []
 

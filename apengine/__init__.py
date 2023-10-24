@@ -1,6 +1,6 @@
 import apengine.aircraft   as apaircraft
 import apengine._azimuth   as apazimuth
-import apengine.log        as aplog
+import apengine._log       as aplog
 import apengine.map        as apmap
 import apengine.marker     as apmarker
 import apengine.variants   as apvariants
