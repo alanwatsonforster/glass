@@ -3,7 +3,7 @@ Conversion between hex codes and hex coordinates.
 """
 
 import apengine._hex as aphex
-import apengine.map  as apmap
+import apengine._map as apmap
 
 def isvalidhexcodeforcenter(h):
 
