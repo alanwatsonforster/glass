@@ -10,7 +10,7 @@ import apengine._altitude as apaltitude
 import apengine._hex      as aphex
 import apengine._speed    as apspeed
 import apengine._turnrate as apturnrate
-import apengine.variants  as apvariants
+import apengine._variants as apvariants
 
 from apengine._log import plural
 

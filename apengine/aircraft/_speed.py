@@ -1,7 +1,7 @@
 import math
 
-import apengine._speed   as apspeed
-import apengine.variants as apvariants
+import apengine._speed    as apspeed
+import apengine._variants as apvariants
 from apengine._math import onethird, twothirds
 from apengine._log import plural
 
