@@ -6,11 +6,11 @@ import math
 from typing_extensions import LiteralString
 from apengine._math import onethird, twothirds, roundtoquarter
 
-import apengine.altitude as apaltitude
-import apengine.hex      as aphex
-import apengine.speed    as apspeed
-import apengine.turnrate as apturnrate
-import apengine.variants as apvariants
+import apengine._altitude as apaltitude
+import apengine.hex       as aphex
+import apengine.speed     as apspeed
+import apengine.turnrate  as apturnrate
+import apengine.variants  as apvariants
 
 from apengine.log import plural
 

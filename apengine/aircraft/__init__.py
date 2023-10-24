@@ -1,6 +1,6 @@
 import apengine               as ap
 import apengine.aircraftdata  as apaircraftdata
-import apengine.altitude      as apaltitude
+import apengine._altitude     as apaltitude
 import apengine.azimuth       as apazimuth
 import apengine.configuration as apconfiguration
 import apengine.draw          as apdraw
