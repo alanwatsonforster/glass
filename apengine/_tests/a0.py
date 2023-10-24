@@ -3,7 +3,7 @@ startfile(__file__, "aircraft data")
 
 # Checks on apengine.aircraftdata.
 
-from apengine.aircraftdata import aircraftdata
+from apengine._aircraftdata import aircraftdata
 
 # Make sure all of the aircraft data files are readable.
 

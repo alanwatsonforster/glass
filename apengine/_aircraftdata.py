@@ -25,7 +25,7 @@ class aircraftdata:
 
       # TODO: Handle errors.
 
-      filename = os.path.join(os.path.dirname(__file__), "aircraftdata", name + ".json")
+      filename = os.path.join(os.path.dirname(__file__), "_aircraftdata", name + ".json")
       with open(filename, "r", encoding="utf-8") as f:
         s = f.read(-1)
         # Strip whole-line // comments.

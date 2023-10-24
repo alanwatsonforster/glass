@@ -1,5 +1,5 @@
 import apengine                as ap
-import apengine.aircraftdata   as apaircraftdata
+import apengine._aircraftdata  as apaircraftdata
 import apengine._altitude      as apaltitude
 import apengine._azimuth       as apazimuth
 import apengine._configuration as apconfiguration
