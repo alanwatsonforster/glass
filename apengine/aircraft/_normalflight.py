@@ -9,7 +9,7 @@ from apengine._math import onethird, twothirds, roundtoquarter
 import apengine._altitude as apaltitude
 import apengine._hex      as aphex
 import apengine._speed    as apspeed
-import apengine.turnrate  as apturnrate
+import apengine._turnrate as apturnrate
 import apengine.variants  as apvariants
 
 from apengine._log import plural
