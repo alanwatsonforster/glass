@@ -8,7 +8,7 @@ import apengine._hex           as aphex
 import apengine._hexcode       as aphexcode
 import apengine._log           as aplog
 import apengine._map           as apmap
-import apengine.speed          as apspeed
+import apengine._speed         as apspeed
 import apengine.turnrate       as apturnrate
 
 import math

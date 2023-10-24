@@ -1,4 +1,4 @@
-import apengine.speed     as apspeed
+import apengine._speed    as apspeed
 import apengine._altitude as apaltitude
 
 def power(self, powersetting):
