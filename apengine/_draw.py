@@ -12,15 +12,22 @@ import matplotlib.patches as patches
 _fig = None
 _ax = None
 
-def setcanvas(x, y):
+def setcanvas(xmin, ymin, xmax, ymax, dpi=100):
   global _fig, _ax
-  x, y = aphex.tophysical(x, y)
-  _fig = plt.figure(figsize=[x,y], frameon=False)
+  xmin, ymin = aphex.tophysical(xmin, ymin)
+  xmax, ymax = aphex.tophysical(xmax, ymax)
+  _fig = plt.figure(figsize=[(xmax-xmin),(ymax-ymin)], frameon=False, dpi=dpi)
   plt.axis('off')
-  plt.xlim(0,x)
-  plt.ylim(0,y)
+  plt.xlim(xmin,xmax)
+  plt.ylim(ymin,ymax)
   _ax = plt.gca()
   _ax.set_position([0,0,1,1])
+  _ax.add_artist(patches.Polygon(
+    [[xmin,ymin],[xmin,ymax],[xmax,ymax],[xmax,ymin]],
+    edgecolor=None, facecolor="white", 
+    fill=True, linewidth=0, 
+    zorder=0
+  ))  
 
 def save():
   pickle.dump(_fig, open("apengine.pickle", "wb"))
@@ -112,6 +119,10 @@ def _drawarrowinphysical(x, y, facing, size=1.0, dx=0, dy=0,
     zorder=zorder
   ))
 
+def _drawdoublearrowinphysical(x, y, facing, **kwargs):
+  _drawarrowinphysical(x, y, facing, **kwargs)
+  _drawarrowinphysical(x, y, facing + 180, **kwargs)
+
 def _drawdartinphysical(x, y, facing, size=1.0, dx=0, dy=0, 
   linecolor="black", fillcolor="black", linewidth=0.5, alpha=1.0,
   zorder=1):
@@ -185,6 +196,9 @@ def drawlines(x, y, **kwargs):
 def drawarrow(x, y, facing, **kwargs):
   _drawarrowinphysical(*aphex.tophysical(x, y), facing, **kwargs)
 
+def drawdoublearrow(x, y, facing, **kwargs):
+  _drawdoublearrowinphysical(*aphex.tophysical(x, y), facing, **kwargs)
+  
 def drawdart(x, y, facing, **kwargs):
   _drawdartinphysical(*aphex.tophysical(x, y), facing, **kwargs)
 

@@ -214,7 +214,16 @@ def _rocketattackrange(a0, a1):
     
     angleofftail, r, dx, dy = _relativepositions(x0, y0, facing0, x1, y1, facing1)
 
-    return r
+    if r < 0.4:
+      return 0
+    elif r < 1.4:
+      return 1
+    elif r < 2.2:
+      return 2
+    elif r < 3.1:
+      return 3
+    elif r < 4.1:
+      return 4
 
   def verticalrange():
 
@@ -269,14 +278,14 @@ def _inlimitedradararc(a0, a1, x1=None, y1=None, facing1=None):
       
   if dx <= 0:
     return False
-  elif dx < _round(1.25 * math.sqrt(3/4)):
+  elif dx <= _round(1.25 * math.sqrt(3/4)):
     return dy == 0
-  elif dx < _round(5.5 * math.sqrt(3/4)):
-    return abs(dy) <= 0.5
-  elif dx < _round(10.5 * math.sqrt(3/4)):
-    return abs(dy) <= 1.0
+  elif dx <= _round(5.1 * math.sqrt(3/4)):
+    return abs(dy) <= 0.6
+  elif dx <= _round(10.1 * math.sqrt(3/4)):
+    return abs(dy) <= 1.1
   else:
-    return abs(dy) <= 1.5
+    return abs(dy) <= 1.6
 
   r += verticalrange()
   if r > 4:

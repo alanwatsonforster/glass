@@ -18,6 +18,11 @@ _sheetlist   = []
 _nxsheetgrid = 0
 _nysheetgrid = 0
 _allforest   = False
+_xmin        = None
+_xmax        = None
+_ymin        = None
+_ymax        = None
+_dpi         = 100
 
 _dxsheet = 20
 _dysheet = 15
@@ -61,7 +66,11 @@ forestalpha      = 0.7
 foresthatch      = "oo"
 urbanhatch       = "xx"
 
-def setmap(sheetgrid, allforest=False, drawterrain=True, drawlabels=True):
+def setmap(sheetgrid, 
+  allforest=False, 
+  drawterrain=True, drawlabels=True, 
+  xmin=0, ymin=0, xmax=None, ymax=None, dpi=100
+  ):
 
   """
   Set the arrangement of the sheets that form the map and the position of the 
@@ -75,6 +84,11 @@ def setmap(sheetgrid, allforest=False, drawterrain=True, drawlabels=True):
   global _nysheetgrid
   global _nxsheetgrid
   global _allforest
+  global _xmin
+  global _ymin
+  global _xmax
+  global _ymax
+  global _dpi
 
   # The sheet grid argument follows visual layout, so we need to flip it 
   # vertically so that the lower-left sheet has indices (0,0).
@@ -88,6 +102,12 @@ def setmap(sheetgrid, allforest=False, drawterrain=True, drawlabels=True):
   _drawterrain = drawterrain
   _drawlabels  = drawlabels
   _allforest   = allforest
+
+  _xmin        = xmin
+  _ymin        = ymin
+  _xmax        = xmax
+  _ymax        = ymax
+  _dpi         = dpi
 
   _sheetlist = []
   for iy in range (0, _nysheetgrid):
@@ -117,7 +137,10 @@ def startdrawmap():
     apdraw.restore()
     return
 
-  apdraw.setcanvas(_nxsheetgrid * _dxsheet, _nysheetgrid * _dysheet)
+  if _xmax != None and _ymax != None:
+    apdraw.setcanvas(_xmin, _ymin, _xmax, _ymax, dpi=_dpi)
+  else:
+    apdraw.setcanvas(_xmin, _ymin, _nxsheetgrid * _dxsheet, _nysheetgrid * _dysheet, dpi=_dpi)
 
   if _drawterrain:
 
