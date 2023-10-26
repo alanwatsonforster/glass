@@ -13,6 +13,8 @@ textsize            = 10
 textcolor           = ( 0.00, 0.00, 0.00 )
 counterlinewidth    = 2
 
+_zorder = 0
+
 def _startflightpath(self):
   self._flightpathx = [self._x]
   self._flightpathy = [self._y]
@@ -40,10 +42,11 @@ def _drawaircraft(self):
   x = self._x
   y = self._y
   facing = self._facing
+  zorder = self._zorder
   if self._counter:
-    apdraw.drawsquare(x, y, facing=facing, size=1, linecolor="black", linewidth=counterlinewidth, fillcolor=self._color, zorder=1)
-    apdraw.drawdart(x, y, facing, size=0.4, fillcolor="black", linewidth=1, linecolor="black", zorder=1)
+    apdraw.drawsquare(x, y, facing=facing, size=1, linecolor="black", linewidth=counterlinewidth, fillcolor=self._color, zorder=zorder)
+    apdraw.drawdart(x, y, facing, size=0.4, fillcolor="black", linewidth=1, linecolor="black", zorder=zorder)
   else:
-    apdraw.drawdart(x, y, facing, dy=-0.02, size=0.4, fillcolor=fillcolor, linewidth=1, linecolor=linecolor, zorder=1)
-    apdraw.drawtext(x, y, facing, self._name, dx=-0.25, dy=0.0, size=textsize, color=textcolor, zorder=1)
-    apdraw.drawtext(x, y, facing, altitude  , dx=+0.25, dy=0.0, size=textsize, color=textcolor, zorder=1)
+    apdraw.drawdart(x, y, facing, dy=-0.02, size=0.4, fillcolor=fillcolor, linewidth=1, linecolor=linecolor, zorder=zorder)
+    apdraw.drawtext(x, y, facing, self._name, dx=-0.25, dy=0.0, size=textsize, color=textcolor, zorder=zorder)
+    apdraw.drawtext(x, y, facing, altitude  , dx=+0.25, dy=0.0, size=textsize, color=textcolor, zorder=zorder)

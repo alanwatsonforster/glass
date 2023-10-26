@@ -13,20 +13,23 @@ import apengine._turnrate      as apturnrate
 
 import math
 
-
 ################################################################################
 
 _aircraftlist = []
 
 def _startsetup():
   global _aircraftlist
+  global _zorder
   _aircraftlist = []
+  _zorder = 0
 
 def _endsetup():
   for a in _aircraftlist:
     a._save(ap.turn())
 
 def _startturn():
+  global _zorder
+  zorder = 0
   for a in _aircraftlist:
     a._finishedmove = False
     a._checkcloseformation()
@@ -45,6 +48,9 @@ def _drawmap():
     a._drawaircraft()
 
 #############################################################################
+
+from ._draw import \
+  _zorder
 
 from ._geometry import \
   _showgeometry, _angleofftail, _gunattackrange, _rocketattackrange, _inlimitedradararc
@@ -160,6 +166,10 @@ class aircraft:
       self._color                 = color
       self._counter               = counter
 
+      global _zorder
+      _zorder += 1
+      self._zorder = _zorder
+    
       self._saved = []
 
       global _aircraftlist

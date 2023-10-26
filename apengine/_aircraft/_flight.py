@@ -8,6 +8,7 @@ import apengine      as ap
 import apengine._log as aplog
 
 from ._normalflight import _isdivingflight, _isclimbingflight, _islevelflight
+from ._draw import _zorder
 
 ##############################################################################
 
@@ -27,6 +28,10 @@ def move(self, flighttype, power, actions, flamedoutengines=0):
 
     self._restore(ap.turn() - 1)
     self._startflightpath()
+
+    global _zorder
+    _zorder += 1
+    self._zorder = _zorder
 
     if self._destroyed or self._leftmap:
       self._endmove()
