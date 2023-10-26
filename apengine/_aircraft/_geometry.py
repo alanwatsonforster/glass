@@ -214,16 +214,10 @@ def _rocketattackrange(a0, a1):
     
     angleofftail, r, dx, dy = _relativepositions(x0, y0, facing0, x1, y1, facing1)
 
-    if r < 0.4:
-      return 0
-    elif r < 1.4:
-      return 1
-    elif r < 2.2:
-      return 2
-    elif r < 3.1:
-      return 3
-    elif r < 4.1:
-      return 4
+    if facing0 % 60 == 0:
+      r *= math.sqrt(4/3)
+    r = int(r + 0.45)
+    return r
 
   def verticalrange():
 
@@ -249,7 +243,6 @@ def _rocketattackrange(a0, a1):
     return False
   
   r += verticalrange()
-  r = int(r + 0.5)
   if r > 4:
     return False
   else:
