@@ -75,9 +75,9 @@ def _angleofftail(a0, a1):
 
   # See rule 9.2.
 
-  def trueangleofftail(x0, y0, facing0, x1, y1, facing1):
+  def truegeometry(x0, y0, facing0, x1, y1, facing1):
     angleofftail, r, dx, dy = _relativepositions(x0, y0, facing0, x1, y1, facing1)
-    return angleofftail
+    return angleofftail, r
 
   x0      = a0._x
   y0      = a0._y
@@ -87,17 +87,17 @@ def _angleofftail(a0, a1):
   y1      = a1._y
   facing1 = a1._facing
 
-  angleofftail = trueangleofftail(x0, y0, facing0, x1, y1, facing1)
+  angleofftail, r = truegeometry(x0, y0, facing0, x1, y1, facing1)
 
   # If the aircraft fall on the 30, 60, 90, 120, or 150 degree lines and
   # one aircraft is faster than the other, move the faster aircraft
   # forward one hex and recompute.
-  if angleofftail != 0 and abs(angleofftail) != 180 and angleofftail % 30 == 0:
+  if r > 0 and angleofftail != 0 and abs(angleofftail) != 180 and angleofftail % 30 == 0:
     if a0._speed > a1._speed:
       x0, y0 = aphex.forward(x0, y0, facing0)
     elif a1._speed > a0._speed:
       x1, y1 = aphex.forward(x1, y1, facing1)
-    angleofftail = trueangleofftail(x0, y0, facing0, x1, y1, facing1)
+    angleofftail, r = truegeometry(x0, y0, facing0, x1, y1, facing1)
 
   # To be on the 0 or 180 degree lines, the aircraft has to be facing
   # the other.
@@ -105,7 +105,6 @@ def _angleofftail(a0, a1):
     return "0 line"
   elif angleofftail == 180 and abs(facing0 - facing1) == 180:
     return "180 line"
-
 
   # Resolve cases on the 30, 60, 90, 120, and 150 degree lines in favor
   # of aircraft 0 (round 150 to 180).
@@ -327,7 +326,7 @@ def _showgeometry(a0, a1):
       a0._log("the target %s can be attacked with guns at a range of %d." % (name1, gunattackrange))
       
     rocketattackrange = a0.rocketattackrange(a1)
-    if gunattackrange is False:
+    if rocketattackrange is False:
       a0._log("the target %s cannot be attacked with rockets." % (name1))
     else:
       a0._log("the target %s can be attacked with rockets at a range of %d." % (name1, rocketattackrange))
