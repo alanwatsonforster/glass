@@ -1087,12 +1087,15 @@ def _continuenormalflight(self, actions):
       assert apaltitude.isvalidaltitude(self._altitude)
 
     except RuntimeError as e:
-      self._logaction("FP %d" % self._fp, action, "")
-      raise e
-  
-    self._logaction("FP %d" % self._fp, action, self.position())
-    self._continueflightpath()
 
+      raise e
+      
+    finally:
+      self._logaction("FP %d" % self._fp, action, "")
+      self._continueflightpath()
+
+
+  
     if turning and self._maneuversupersonic:
       self._turningsupersonic = True
     
