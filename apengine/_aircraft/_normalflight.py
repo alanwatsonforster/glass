@@ -361,7 +361,7 @@ def _continuenormalflight(self, actions):
     assert turnrate in turnrates
 
     if turnrate not in self._allowedturnrates:
-      raise RuntimeError("attempt to declare a turn rate tighter than allowed by the flight type.")
+      raise RuntimeError("attempt to declare a turn rate tighter than allowed by the speed or flight type.")
 
     turnrateap = self.turndrag(turnrate)
     if turnrateap == None:
@@ -1089,12 +1089,10 @@ def _continuenormalflight(self, actions):
     except RuntimeError as e:
 
       raise e
-      
+  
     finally:
-      self._logaction("FP %d" % self._fp, action, "")
+      self._logaction("FP %d" % self._fp, action, self.position())
       self._continueflightpath()
-
-
   
     if turning and self._maneuversupersonic:
       self._turningsupersonic = True
