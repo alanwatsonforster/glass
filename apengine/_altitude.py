@@ -107,4 +107,7 @@ def terrainaltitude(x, y):
 
   assert aphex.isvalid(x, y)
 
-  return apmap.altitude(x, y)
+  if apmap.isonmap(x, y):
+    return apmap.altitude(x, y)
+  else:
+    return 0
