@@ -68,7 +68,8 @@ def _dodepartedflight(self, action):
 
   # Now lose altitude.
 
-  altitudechange = math.ceil(self._speed + 2 * self._turnsdeparted)
+  if self._turnsdeparted > 0:
+    altitudechange = math.ceil(self._speed + 2 * self._turnsdeparted)
 
   initialaltitudeband = self._altitudeband
   self._altitude, self._altitudecarry = apaltitude.adjustaltitude(self._altitude, self._altitudecarry, -altitudechange)
