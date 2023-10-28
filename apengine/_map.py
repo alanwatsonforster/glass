@@ -13,16 +13,18 @@ import numpy as np
 _drawterrain = True
 _drawlabels  = True
 
-_sheetgrid   = []
-_sheetlist   = []
-_nxsheetgrid = 0
-_nysheetgrid = 0
-_allforest   = False
-_xmin        = None
-_xmax        = None
-_ymin        = None
-_ymax        = None
-_dpi         = 100
+_sheetgrid      = []
+_loweredgeonmap = {}
+_rightedgeonmap = {}
+_sheetlist      = []
+_nxsheetgrid    = 0
+_nysheetgrid    = 0
+_allforest      = False
+_xmin           = None
+_xmax           = None
+_ymin           = None
+_ymax           = None
+_dpi            = 100
 
 _dxsheet = 20
 _dysheet = 15
@@ -81,6 +83,8 @@ def setmap(sheetgrid,
   global _drawlabels
   global _sheetgrid
   global _sheetlist
+  global _loweredgeonmap
+  global _rightedgeonmap
   global _nysheetgrid
   global _nxsheetgrid
   global _allforest
@@ -109,11 +113,26 @@ def setmap(sheetgrid,
   _ymax        = ymax
   _dpi         = dpi
 
+  def sheettoright(iy, ix):
+    if ix < _nxsheetgrid - 1:
+      return _sheetgrid[iy][ix + 1]
+    else:
+      return "--"
+
+  def sheetbelow(iy, ix):
+    if iy > 0:
+      return _sheetgrid[iy - 1][ix]
+    else:
+      return "--"
+
   _sheetlist = []
   for iy in range (0, _nysheetgrid):
     for ix in range (0, _nxsheetgrid):
-      if _sheetgrid[iy][ix] != "--":
-        _sheetlist.append(_sheetgrid[iy][ix])
+      sheet =  _sheetgrid[iy][ix]
+      if sheet != "--":
+        _sheetlist.append(sheet)
+        _loweredgeonmap.update({ sheet: sheetbelow(iy, ix) != "--"})
+        _rightedgeonmap.update({ sheet: sheettoright(iy, ix)   != "--"})
 
   global _saved
   _saved = False
@@ -404,40 +423,22 @@ def sheets():
 def isonsheet(sheet, x, y):
 
   """
-  Returns True if the hex coordinate (x, y) is on the specified sheet, 
-  excluding its edges. Otherwise returns false. The sheet must be in the map.
+  Returns True if the hex coordinate (x, y) is on the specified sheet.
+  Otherwise returns false. The sheet must be in the map.
   """
 
   assert sheet in sheets()
 
   xmin, ymin, xmax, ymax = sheetlimits(sheet)
 
-  return xmin < x and x < xmax and ymin < y and y < ymax
-
-def isonmap(x, y):
-
-  """
-  Returns True if the hex coordinate (x, y) is on the map, excluding its edges. 
-  Otherwise returns false.
-  """
-
-  if tosheet(x, y) != None:
-    return True
-
-  # The point is either off the map or on the edges between adjacent sheets
-  # in the map. So, we check the upper left, upper right, lower left, and lower
-  # right edges.
-
-  if tosheet(x + 0.50, y + 0.25) == None:
-    return False 
-  if tosheet(x - 0.50, y + 0.25) == None:
-    return False
-  if tosheet(x + 0.50, y - 0.25) == None:
-    return False
-  if tosheet(x - 0.50, y - 0.25) == None:
-    return False
-
-  return True
+  if _rightedgeonmap[sheet] and _loweredgeonmap[sheet]:
+    return xmin < x and x <= xmax and ymin <= y and y < ymax
+  elif _rightedgeonmap[sheet]:
+    return xmin < x and x <= xmax and ymin < y and y < ymax
+  elif _loweredgeonmap[sheet]:
+    return xmin < x and x < xmax and ymin <= y and y < ymax
+  else:
+    return xmin < x and x < xmax and ymin < y and y < ymax
 
 def tosheet(x, y):
 
@@ -450,6 +451,15 @@ def tosheet(x, y):
     if isonsheet(sheet, x, y):
       return sheet
   return None
+  
+def isonmap(x, y):
+
+  """
+  Returns True if the hex coordinate (x, y) is on the map. 
+  Otherwise returns false.
+  """
+  
+  return tosheet(x, y) != None
 
 def altitude(x, y, sheet=None):
 
@@ -461,6 +471,7 @@ def altitude(x, y, sheet=None):
   assert aphex.isvalid(x, y)
 
   if aphex.iscenter(x, y):
+
     h = aphexcode.fromxy(x, y, sheet=sheet)
     if h in level2hexcodes:
       return 2

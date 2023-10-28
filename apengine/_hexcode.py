@@ -96,9 +96,6 @@ def fromxy(x, y, sheet=None):
 
     if sheet == None:
       sheet = apmap.tosheet(x, y)
-      # Check the upper right edge.
-      if sheet == None:
-        sheet = apmap.tosheet(x - 0.50, y + 0.25)
       if sheet == None:
         raise RuntimeError("position is not within the map.")
 
