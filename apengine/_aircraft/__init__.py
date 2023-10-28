@@ -31,9 +31,11 @@ def _startturn():
   global _zorder
   zorder = 0
   for a in _aircraftlist:
+    a._restore(ap.turn() - 1)
     a._finishedmove = False
-    a._checkcloseformation()
     a._startflightpath()
+    a._checkcloseformation()
+
 
 def _endturn():
   for a in _aircraftlist:
