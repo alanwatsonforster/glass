@@ -24,7 +24,8 @@ _xmin           = None
 _xmax           = None
 _ymin           = None
 _ymax           = None
-_dpi            = 100
+_dpi            = None
+_writefile      = None
 
 _dxsheet = 20
 _dysheet = 15
@@ -71,7 +72,7 @@ urbanhatch       = "xx"
 def setmap(sheetgrid, 
   allforest=False, 
   drawterrain=True, drawlabels=True, 
-  xmin=0, ymin=0, xmax=None, ymax=None, dpi=100
+  xmin=0, ymin=0, xmax=None, ymax=None, dpi=100, writefile=False
   ):
 
   """
@@ -93,6 +94,7 @@ def setmap(sheetgrid,
   global _xmax
   global _ymax
   global _dpi
+  global _writefile
 
   # The sheet grid argument follows visual layout, so we need to flip it 
   # vertically so that the lower-left sheet has indices (0,0).
@@ -112,6 +114,7 @@ def setmap(sheetgrid,
   _xmax        = xmax
   _ymax        = ymax
   _dpi         = dpi
+  _writefile   = writefile
 
   def sheettoright(iy, ix):
     if ix < _nxsheetgrid - 1:
@@ -375,8 +378,10 @@ def startdrawmap():
   apdraw.save()
   _saved = True
 
-def enddrawmap():
+def enddrawmap(turn):
   apdraw.show()
+  if _writefile:
+    apdraw.writefile("turn-%02d.png" % turn)
 
 def sheetorigin(sheet):
 

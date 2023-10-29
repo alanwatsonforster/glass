@@ -40,6 +40,9 @@ def restore():
 def show():
   _fig.show()
 
+def writefile(name):
+  _fig.savefig(name)
+
 ################################################################################
 
 def cosd(x):
