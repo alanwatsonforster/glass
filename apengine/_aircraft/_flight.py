@@ -103,8 +103,8 @@ def move(self, flighttype, power, actions, flamedoutengines=0):
 
       self._fpcarry = 0
       self._altitudecarry = 0
-      self._turnsstalled += 1
       self._dostalledflight(actions)
+      self._turnsstalled += 1
       self._endmove()
 
     elif self._flighttype == "DP":
@@ -112,8 +112,8 @@ def move(self, flighttype, power, actions, flamedoutengines=0):
       self._fpcarry = 0
       self._apcarry = 0
       self._altitudecarry = 0
-      self._turnsdeparted += 1
       self._dodepartedflight(actions)
+      self._turnsdeparted += 1
       self._endmove()
 
     else:

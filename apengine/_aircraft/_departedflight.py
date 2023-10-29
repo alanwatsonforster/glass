@@ -35,6 +35,12 @@ def _dodepartedflight(self, action):
   # - "R", "RR", and "RRR" which as usual mean "R30", "R60", and "R90"
   # - the "L" equivalents.
 
+  if action[0:2] == "MD":
+    maneuveringdeparture = True
+    action = action[2:]
+  else:
+    maneuveringdeparture = False
+
   if action == "R":
     action = "R30"
   elif action == "RR":
@@ -56,7 +62,34 @@ def _dodepartedflight(self, action):
   if facingchange % 30 != 0 or facingchange <= 0 or facingchange > 300:
     raise RuntimeError("invalid action %r for departed flight." % action)
 
-   # Do the facing change.
+  if maneuveringdeparture:
+
+      # Do the first facing change.
+
+      if aphex.isedge(self._x, self._y):
+        self._x, self._y = aphex.centertoright(self._x, self._y, self._facing, sense)
+      if action[0] == "L":
+        self._facing = (self._facing + 30) % 360
+      else:
+        self._facing = (self._facing - 30) % 360
+      self._continueflightpath()
+      facingchange -= 30
+
+      # Shift.
+
+      # See rule 5.4.
+      self._maxfp = self._speed + self._fpcarry
+      self._fpcarry = 0
+
+      shift = int((self._maxfp) / 2)
+      for i in range(0, shift):
+        self._x, self._y = aphex.forward(self._x, self._y, self._facing)
+        self.checkforterraincollision()
+        self.checkforleavingmap()
+        if self._destroyed or self._leftmap:
+          return
+
+   # Do the (remaining) facing change.
 
   if aphex.isedge(self._x, self._y):
     self._x, self._y = aphex.edgetocenter(self._x, self._y, self._facing, sense)
@@ -68,10 +101,8 @@ def _dodepartedflight(self, action):
 
   # Now lose altitude.
 
-  if self._turnsdeparted > 0:
-    altitudechange = math.ceil(self._speed + 2 * self._turnsdeparted)
-
   initialaltitudeband = self._altitudeband
+  altitudechange = math.ceil(self._speed + 2 * self._turnsdeparted)
   self._altitude, self._altitudecarry = apaltitude.adjustaltitude(self._altitude, self._altitudecarry, -altitudechange)
   self._altitudeband = apaltitude.altitudeband(self._altitude)
   

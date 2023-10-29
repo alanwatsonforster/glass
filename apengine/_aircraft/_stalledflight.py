@@ -55,7 +55,7 @@ def _dostalledflight(self, action):
   self._altitudeband = apaltitude.altitudeband(self._altitude)
   altitudechange = initialaltitude - self._altitude
     
-  if self._turnsstalled == 1:
+  if self._turnsstalled == 0:
     self._altitudeap = 0.5 * altitudechange
   else:
     self._altitudeap = 1.0 * altitudechange
