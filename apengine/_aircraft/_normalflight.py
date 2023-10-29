@@ -373,7 +373,7 @@ def _continuenormalflight(self, actions):
     else:
       turnrates = ["EZ", "TT", "HT", "BT", "ET"]
       self._maxturnrate = turnrates[max(turnrates.index(turnrate), turnrates.index(self._maxturnrate))]
-      
+
     self._bank                 = sense
     self._maneuvertype         = turnrate
     self._maneuversense        = sense
@@ -740,8 +740,8 @@ def _continuenormalflight(self, actions):
     maxspbrfp = self._maxfp - self._hfp - self._vfp
     if spbrfp > maxspbrfp:
       raise RuntimeError(plural(maxspbrfp,
-        "only 1 FP remains.",
-        "only %s remain." % maxspbrfp))
+        "invalid use of speedbrakes when only 1 FP remains.",
+        "invalid use of speedbrakes when only %s FPs remain." % maxspbrfp))
     
     maxspbrfp = self.spbr()
     if maxspbrfp == None:
@@ -820,8 +820,6 @@ def _continuenormalflight(self, actions):
 
   def domaneuveringdeparture(sense, facingchange):
 
-    shift = int((self._maxfp - self._fp) / 2)
-
     # Do the first facing change.
 
     if aphex.isedge(self._x, self._y):
@@ -835,6 +833,7 @@ def _continuenormalflight(self, actions):
 
     # Shift.
 
+    shift = int((self._maxfp - self._fp) / 2)
     for i in range(0, shift):
       self._x, self._y = aphex.forward(self._x, self._y, self._facing)
       self.checkforterraincollision()
