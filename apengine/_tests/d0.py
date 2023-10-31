@@ -143,20 +143,30 @@ endturn()
 # Check that we use the correct alitude band when we change altitude. When we 
 # pop up from MH (25) to HI (26), we use the turn rate in MH (4 FPs for an EZ 
 # turn rate). When we pop down again, we use the turn rate in HI (6 FPs for an 
-# EZ turn rate).
+# EZ turn rate). Check that the turn requirement is recalculated at the start
+# of each game turn.
 
 starttestsetup()
 A1 = aircraft("A1", "F-80C", "2030", "N", 25, 4.0, "CL")
+A2 = aircraft("A2", "F-80C", "2230", "N", 25, 4.0, "CL")
 endtestsetup()
 
 startturn()
 A1.move("ZC" ,  "M", "H,EZR/H,H,C")
 A1._assert("2027       N    26",  4.0)
+A2.move("LVL",  "M", "H,H,H,EZR/H")
+A2._assert("2226       N    25",  4.0)
 endturn()
 
 startturn()
 A1.move("SD" ,  "M", "H/R,H,H,D"  )
-A1._assert("2124       NNE  25",  4.0)
+asserterror("attempt to turn faster than the declared turn rate.")
+A1.move("SD" ,  "M", "H,H/R,H,D"  )
+asserterror("attempt to turn faster than the declared turn rate.")
+A1.move("SD" ,  "M", "H,H,H/R,D"  )
+A1._assert("2024       NNE  25",  4.0)
+A2.move("ZC" , "M", "H,C,H/R,H"   )
+A2._assert("2223/2323  NNE  26",  4.0)
 endturn()
 
 startturn()
@@ -165,7 +175,17 @@ asserterror("attempt to turn faster than the declared turn rate.")
 A1.move("LVL",  "M", "H,H/R,H,H"  )
 asserterror("attempt to turn faster than the declared turn rate.")
 A1.move("LVL",  "M", "H,H,H/R,H"  )
-A1._assert("2422       ENE  25",  4.5)
+A1._assert("2321       ENE  25",  4.5)
+A2.move("LVL",  "M", "H,H,H,HR"    )
+asserterror("attempt to turn faster than the declared turn rate.")
+A2.move("LVL",  "M", "H,H,H,H"    )
+A2._assert("2420/2520  NNE  26",  4.5)
+endturn()
+
+startturn()
+A1.move("LVL",  "M", "H,H,H,H"  )
+A2.move("SD",  "M", "HR,D,H,H"    )
+A2._assert("2718       ENE  25",  4.5)
 endturn()
 
 # Turning and minimum speeds.

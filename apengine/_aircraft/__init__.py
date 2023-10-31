@@ -36,7 +36,6 @@ def _startturn():
     a._startflightpath()
     a._checkcloseformation()
 
-
 def _endturn():
   for a in _aircraftlist:
     if not a._destroyed and not a._leftmap and not a._finishedmove:
@@ -150,6 +149,8 @@ class aircraft:
       self._maneuvertype          = None
       self._maneuversense         = None
       self._maneuverfp            = 0
+      self._maneuverrequiredfp    = 0
+      self._maneuverfacingchange  = 0
       self._maneuveraltitudeband  = None
       self._manueversupersonic    = False
       self._wasrollingonlastfp    = False
@@ -217,6 +218,25 @@ class aircraft:
     azimuth = apazimuth.fromfacing(self._facing)
     altitude = self._altitude
     return "%-9s  %-3s  %2d" % (hexcode, azimuth, altitude)
+
+  #############################################################################
+
+  def positionandmaneuver(self):
+
+    if apmap.isonmap(self._x, self._y):
+      hexcode = aphexcode.fromxy(self._x, self._y)
+    else:
+      hexcode = "----"
+    azimuth = apazimuth.fromfacing(self._facing)
+    altitude = self._altitude
+    if self._maneuvertype == None:
+      maneuver = ""
+    elif self._maneuverfacingchange == 60 or self._maneuverfacingchange == 90:
+      maneuver = "%s%s %d/%d %d" % (self._maneuvertype, self._maneuversense, self._maneuverfp, self._maneuverrequiredfp, self._maneuverfacingchange)
+    else:
+      maneuver = "%s%s %d/%d" % (self._maneuvertype, self._maneuversense, self._maneuverfp, self._maneuverrequiredfp)
+        
+    return "%-9s  %-3s  %2d  %s" % (hexcode, azimuth, altitude, maneuver)
 
   #############################################################################
 
@@ -350,6 +370,8 @@ class aircraft:
     self._maneuvertype, \
     self._maneuversense, \
     self._maneuverfp, \
+    self._maneuverrequiredfp, \
+    self._maneuverfacingchange, \
     self._maneuveraltitudeband, \
     self._manueversupersonic, \
     self._wasrollingonlastfp, \
@@ -386,6 +408,8 @@ class aircraft:
       self._maneuvertype, \
       self._maneuversense, \
       self._maneuverfp, \
+      self._maneuverrequiredfp, \
+      self._maneuverfacingchange, \
       self._maneuveraltitudeband, \
       self._manueversupersonic, \
       self._wasrollingonlastfp, \

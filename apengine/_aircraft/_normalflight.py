@@ -378,6 +378,15 @@ def _continuenormalflight(self, actions):
     self._maneuvertype         = turnrate
     self._maneuversense        = sense
     self._maneuverfp           = 0
+    turnrequirement = apturnrate.turnrequirement(self._altitudeband, self._speed, self._maneuvertype)
+    if turnrequirement == None:
+      raise RuntimeError("attempt to declare a turn rate tigher than allowed by the speed and altitude.")
+    if turnrequirement >= 60:
+      self._maneuverrequiredfp   = 1
+      self._maneuverfacingchange = turnrequirement
+    else:
+      self._maneuverrequiredfp   = turnrequirement
+      self._maneuverfacingchange = 30
     self._maneuveraltitudeband = self._altitudeband
     self._maneuversupersonic   = (self._speed >= apspeed.m1speed(self._altitudeband))
 
@@ -403,6 +412,8 @@ def _continuenormalflight(self, actions):
     if turnrates.index(minturnrate) > turnrates.index(self._maneuvertype):
       raise RuntimeError("attempt to turn faster than the declared turn rate.")
 
+    assert self._maneuverfp >= self._maneuverrequiredfp
+
     if self._turnmaneuvers > 0:
       if apvariants.withvariant("prefer v1 bleed rates"):
         # Use the bleed rates from the 1st edition rules in TSOH.
@@ -420,7 +431,7 @@ def _continuenormalflight(self, actions):
           self._sustainedturnap -= facingchange // 30 * 1.0
 
     self._turnmaneuvers += 1
-    
+
     # Change facing.
     if aphex.isedge(self._x, self._y):
       self._x, self._y = aphex.edgetocenter(self._x, self._y, self._facing, sense)
@@ -431,6 +442,15 @@ def _continuenormalflight(self, actions):
 
     # Implicitly continue the turn.
     self._maneuverfp           = 0
+    turnrequirement = apturnrate.turnrequirement(self._altitudeband, self._speed, self._maneuvertype)
+    if turnrequirement == None:
+      raise RuntimeError("attempt to declare a turn rate tigher than allowed by the speed and altitude.")
+    if turnrequirement >= 60:
+      self._maneuverrequiredfp   = 1
+      self._maneuverfacingchange = turnrequirement
+    else:
+      self._maneuverrequiredfp   = turnrequirement
+      self._maneuverfacingchange = 30
     self._maneuveraltitudeband = self._altitudeband
     self._maneuversupersonic   = (self._speed >= apspeed.m1speed(self._altitudeband))
 
@@ -454,6 +474,8 @@ def _continuenormalflight(self, actions):
     self._maneuvertype         = "SL"
     self._maneuversense        = sense
     self._maneuverfp           = 0
+    # The requirement has +1 FP to account for the final H.
+    self._maneuverrequiredfp   = 2 + _extrapreparatoryhfp(self._altitudeband, self._speed) + 1
     self._maneuveraltitudeband = self._altitudeband
     self._maneuversupersonic   = (self._speed >= apspeed.m1speed(self._altitudeband))
     
@@ -472,6 +494,8 @@ def _continuenormalflight(self, actions):
     # the final H in the slide has been included in self._maneuverfp.
     if self._maneuverfp < requiredfp + 1:
       raise RuntimeError("attempt to slide without sufficient preparatory HFPs.")
+
+    assert self._maneuverfp >= self._maneuverrequiredfp
 
     # Slide. Remember that we have already moved forward one hex for the final H element.
     self._x, self._y = aphex.slide(self._x, self._y, self._facing, sense)
@@ -513,6 +537,8 @@ def _continuenormalflight(self, actions):
     self._maneuvertype         = "DR"
     self._maneuversense        = sense
     self._maneuverfp           = 0
+    # The requirement has +1 FP to account for the final H.
+    self._maneuverrequiredfp   = self.rollhfp() + _extrapreparatoryhfp(self._altitudeband, self._speed) + 1
     self._maneuveraltitudeband = self._altitudeband
     self._maneuversupersonic   = (self._speed >= apspeed.m1speed(self._altitudeband))
 
@@ -528,6 +554,8 @@ def _continuenormalflight(self, actions):
     # the final H in the slide has been included in self._maneuverfp.
     if self._maneuverfp < requiredfp + 1:
       raise RuntimeError("attempt to roll without sufficient preparatory HFPs.")
+
+    assert self._maneuverfp >= self._maneuverrequiredfp
 
     # Move.
     self._x, self._y = aphex.displacementroll(self._x, self._y, self._facing, sense)
@@ -576,6 +604,8 @@ def _continuenormalflight(self, actions):
     self._maneuvertype         = "LR"
     self._maneuversense        = sense
     self._maneuverfp           = 0
+    # The requirement has +1 FP to account for the final H.
+    self._maneuverrequiredfp   = self.rollhfp() + _extrapreparatoryhfp(self._altitudeband, self._speed) + 1
     self._maneuveraltitudeband = self._altitudeband
     self._maneuversupersonic   = (self._speed >= apspeed.m1speed(self._altitudeband))
 
@@ -591,6 +621,8 @@ def _continuenormalflight(self, actions):
     # the final H in the slide has been included in self._maneuverfp.
     if self._maneuverfp < requiredfp + 1:
       raise RuntimeError("attempt to roll without sufficient preparatory HFPs.")
+
+    assert self._maneuverfp >= self._maneuverrequiredfp
 
     # Move.
     self._x, self._y = aphex.lagroll(self._x, self._y, self._facing, sense)
@@ -650,12 +682,15 @@ def _continuenormalflight(self, actions):
     self._maneuvertype         = "VR"
     self._maneuversense        = sense
     self._maneuverfp           = 0
+    self._maneuverrequiredfp   = 1
     self._maneuveraltitudeband = self._altitudeband
     self._maneuversupersonic   = (self._speed >= apspeed.m1speed(self._altitudeband))
 
     ########################################
 
   def doverticalroll(sense, facingchange, shift):
+
+    assert self._maneuverfp >= self._maneuverrequiredfp
 
     # See rule 13.3.4.
     if self.hasproperty("LRR") and facingchange > 90:
@@ -1025,7 +1060,7 @@ def _continuenormalflight(self, actions):
     
     initialaltitude     = self._altitude
     initialaltitudeband = self._altitudeband
-
+  
     try:
       
       if doelements(action, "maneuvering departure", False):
@@ -1090,7 +1125,7 @@ def _continuenormalflight(self, actions):
       raise e
   
     finally:
-      self._logaction("FP %d" % self._fp, action, self.position())
+      self._logaction("FP %d" % self._fp, action, "%s" % (self.positionandmaneuver()))
       self._continueflightpath()
   
     if turning and self._maneuversupersonic:
@@ -1292,9 +1327,11 @@ def _startnormalflight(self, actions):
     # requirements of ZC, SC, and VC flight are not clear, but for the
     # moment we assume they result in a maneuvering departure.
 
-    if _isturn(self._maneuvertype) and not self._maneuvertype in self._allowedturnrates:
-      self._log("- carried turn rate is tighter than the maximum allowed turn rate.")
-      raise RuntimeError("aircraft has entered departured flight while maneuvering.")
+    if _isturn(self._maneuvertype):
+      turnrequirement = apturnrate.turnrequirement(self._altitudeband, self._speed, self._maneuvertype)
+      if not self._maneuvertype in self._allowedturnrates or turnrequirement == None:
+        self._log("- carried turn rate is tighter than the maximum allowed turn rate.")
+        raise RuntimeError("aircraft has entered departured flight while maneuvering.")
 
   ########################################
 
@@ -1481,6 +1518,33 @@ def _startnormalflight(self, actions):
 
   ########################################
 
+  def determineturnrequiredfp():
+
+    """
+    Determine the turn requirements at the start of a game turn.
+    """
+
+    if _isturn(self._maneuvertype):
+      previousmaneuverrequiredfp    = self._maneuverrequiredfp
+      previous_maneuverfacingchange = self._maneuverfacingchange
+      turnrequirement = apturnrate.turnrequirement(self._altitudeband, self._speed, self._maneuvertype)
+      if turnrequirement >= 60:
+        self._maneuverrequiredfp   = 1
+        self._maneuverfacingchange = turnrequirement
+      else:
+        self._maneuverrequiredfp   = turnrequirement
+        self._maneuverfacingchange = 30
+      self._maneuveraltitudeband = self._altitudeband
+      self._maneuversupersonic = (self._speed >= apspeed.m1speed(self._altitudeband))
+
+      if self._maneuverrequiredfp != previousmaneuverrequiredfp or self._maneuverfacingchange != previous_maneuverfacingchange:
+        if self._maneuverfacingchange > 30:
+          self._log("- turn requirement changed to %d in 1 FP." % self._maneuverfacingchange)
+        else:
+          self._log("- turn requirement changed to %s." % plural(self._maneuverrequiredfp, "1 FP", "%d FPs" % self._maneuverrequiredfp))
+
+  ########################################
+
   flighttype         = self._flighttype
   previousflighttype = self._previousflighttype  
   
@@ -1517,13 +1581,14 @@ def _startnormalflight(self, actions):
   determineinitialmaxturnrate()
   determineallowedturnrates()
   checkformaneuveringdeparture()
+  determineturnrequiredfp()
   checkcloseformationlimits()
 
   determinemaxfp()
   determinefprequirements()
     
   self._log("---")
-  self._logaction("start", "", self.position())   
+  self._logaction("start", "", self.positionandmaneuver())   
 
   self._continuenormalflight(actions)
 
