@@ -91,7 +91,11 @@ def ceiling(self):
   return self._aircraftdata.ceiling(self._configuration)
 
 def rollhfp(self):
-  return self._aircraftdata.rollhfp()
+  # See rule 7.4.
+  fp = self._aircraftdata.rollhfp()
+  if self.hasproperty("LRR"):
+    fp += 1
+  return fp
 
 def rolldrag(self, rolltype):
   return self._aircraftdata.rolldrag(rolltype)
