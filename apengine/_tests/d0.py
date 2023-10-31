@@ -122,7 +122,7 @@ endtestsetup()
 
 startturn()
 A1.move("LVL",  "M", "BTL/HLLL,HLLL,HLLL,HLLL")
-asserterror("attempt to turn faster than the maximum turn rate.")
+asserterror("attempt to turn faster than the declared turn rate.")
 A1.move("LVL",  "M", "BTL/HLL,HLL,HLL,HLL")
 A1._assert("1615       SSE  10",  2.5)
 A2.move("LVL",  "M", "HTL/HLL,HL,HL,HL"       )

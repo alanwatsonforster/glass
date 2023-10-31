@@ -66,20 +66,3 @@ def turnrequirement(altitudeband, speed, rate):
     return None
   else:
     return raw
-
-def determineturnrate(altitudeband, speed, turnfp, facingchange):
-
-  """
-  Return the minimum turn rate capable of a turn of the given facing change 
-  after expending the given number of FPs. If no turn rate is capable, return 
-  None.
-  """
-
-  for rate in ["EZ", "TT", "HT", "BT", "ET"]:
-    requirement = turnrequirement(altitudeband, speed, rate)
-    if requirement == None:
-      return None
-    if facingchange == 30 and turnfp >= requirement:
-      return rate
-    elif facingchange <= requirement:
-      return rate
