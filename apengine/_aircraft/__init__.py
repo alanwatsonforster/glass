@@ -150,7 +150,7 @@ class aircraft:
       self._maneuversense         = None
       self._maneuverfp            = 0
       self._maneuverrequiredfp    = 0
-      self._maneuverfacingchange  = 0
+      self._maneuverfacingchange  = None
       self._manueversupersonic    = False
       self._wasrollingonlastfp    = False
       self._fpcarry               = 0
@@ -228,12 +228,14 @@ class aircraft:
       hexcode = "----"
     azimuth = apazimuth.fromfacing(self._facing)
     altitude = self._altitude
-    if self._maneuvertype == None:
-      maneuver = ""
-    elif self._maneuverfacingchange == 60 or self._maneuverfacingchange == 90:
+    if self._maneuverfacingchange == 60 or self._maneuverfacingchange == 90:
       maneuver = "%s%s %d/%d %d" % (self._maneuvertype, self._maneuversense, self._maneuverfp, self._maneuverrequiredfp, self._maneuverfacingchange)
-    else:
+    elif self._maneuvertype != None:
       maneuver = "%s%s %d/%d" % (self._maneuvertype, self._maneuversense, self._maneuverfp, self._maneuverrequiredfp)
+    elif self._bank != None:
+      maneuver = "BK%s" % self._bank
+    else:
+      maneuver = "WL"
         
     return "%-9s  %-3s  %2d  %s" % (hexcode, azimuth, altitude, maneuver)
 

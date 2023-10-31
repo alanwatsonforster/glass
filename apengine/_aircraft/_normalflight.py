@@ -328,9 +328,10 @@ def _continuenormalflight(self, actions):
 
     self._bank = sense
     if _isturn(self._maneuvertype):
-      self._maneuvertype  = None
-      self._maneuversense = None
-      self._maneuverfp    = 0
+      self._maneuvertype         = None
+      self._maneuversense        = None
+      self._maneuverfacingchange = None
+      self._maneuverfp           = 0
 
   ########################################
 
@@ -466,6 +467,7 @@ def _continuenormalflight(self, actions):
     self._bank                 = None
     self._maneuvertype         = "SL"
     self._maneuversense        = sense
+    self._maneuverfacingchange = None
     self._maneuverfp           = 0
     # The requirement has +1 FP to account for the final H.
     self._maneuverrequiredfp   = 2 + _extrapreparatoryhfp(self._altitudeband, self._speed) + 1
@@ -498,6 +500,7 @@ def _continuenormalflight(self, actions):
     # Do not implicitly continue the maneuver.
     self._maneuvertype         = None
     self._maneuversense        = None
+    self._maneuverfacingchange = None
     self._maneuverfp           = 0
     self._maneuversupersonic   = False
 
@@ -522,6 +525,7 @@ def _continuenormalflight(self, actions):
     self._bank                 = None
     self._maneuvertype         = "DR"
     self._maneuversense        = sense
+    self._maneuverfacingchange = None
     self._maneuverfp           = 0
     # The requirement has +1 FP to account for the final H.
     self._maneuverrequiredfp   = self.rollhfp() + _extrapreparatoryhfp(self._altitudeband, self._speed) + 1
@@ -557,6 +561,7 @@ def _continuenormalflight(self, actions):
     # Do not implicitly continue the maneuver.
     self._maneuvertype         = None
     self._maneuversense        = None
+    self._maneuverfacingchange = None
     self._maneuverfp           = 0
     self._maneuversupersonic   = False
 
@@ -581,6 +586,7 @@ def _continuenormalflight(self, actions):
     self._bank                 = None
     self._maneuvertype         = "LR"
     self._maneuversense        = sense
+    self._maneuverfacingchange = None
     self._maneuverfp           = 0
     # The requirement has +1 FP to account for the final H.
     self._maneuverrequiredfp   = self.rollhfp() + _extrapreparatoryhfp(self._altitudeband, self._speed) + 1
@@ -621,6 +627,7 @@ def _continuenormalflight(self, actions):
     # Do not implicitly continue the maneuver.
     self._maneuvertype         = None
     self._maneuversense        = None
+    self._maneuverfacingchange = None
     self._maneuverfp           = 0
     self._maneuversupersonic   = False
 
@@ -651,6 +658,7 @@ def _continuenormalflight(self, actions):
     self._bank                 = None
     self._maneuvertype         = "VR"
     self._maneuversense        = sense
+    self._maneuverfacingchange = None
     self._maneuverfp           = 0
     self._maneuverrequiredfp   = 1
     self._maneuversupersonic   = (self._speed >= apspeed.m1speed(self._altitudeband))
@@ -692,6 +700,7 @@ def _continuenormalflight(self, actions):
     # Do not implicitly continue the maneuver.
     self._maneuvertype         = None
     self._maneuversense        = None
+    self._maneuverfacingchange = None
     self._maneuverfp           = 0
     self._maneuversupersonic   = False
     
@@ -1080,6 +1089,7 @@ def _continuenormalflight(self, actions):
 
       turning = _isturn(self._maneuvertype)
       rolling = _isroll(self._maneuvertype)
+      sliding = _isslide(self._maneuvertype)
       maneuver = doelements(action, "maneuver" , False)
 
       bank = doelements(action, "bank" , False)
@@ -1181,19 +1191,6 @@ def _startnormalflight(self, actions):
   def reportaltitudecarry():
     if self._altitudecarry != 0:
      self._log("- is carrying %.2f altitude levels." % self._altitudecarry)
-
-  ########################################
-
-  def reportcarriedmaneuver():
-
-    if self._maneuvertype != None:
-      self._log("- is carrying %s for %s%s." % (
-        plural(self._maneuverfp, "1 FP", "%d FPs" % self._maneuverfp), 
-        self._maneuvertype, self._maneuversense))
-    elif self._bank == None:
-      self._log("- has wings level.")
-    else:
-      self._log("- is banked %s." % self._bank)
 
   ########################################
 
@@ -1547,7 +1544,6 @@ def _startnormalflight(self, actions):
 
   reportapcarry()
   reportaltitudecarry()
-  reportcarriedmaneuver()
   determineinitialmaxturnrate()
   determineallowedturnrates()
   checkformaneuveringdeparture()
@@ -1622,24 +1618,12 @@ def _endnormalflight(self):
 
   ########################################
 
-  def reportmaneuver():
-
-    if self._maxturnrate != None:
-      self._log("- turned at %s rate." % self._maxturnrate)
+  def reportgloccycle():
 
     # See rule 7.6.
     if self._gloccheck > 0 and self._maxturnrate != "ET" and self._maxturnrate != "BT":
       self._log("- GLOC cycle ended.")
-      self._gloccheck = 0
-      
-    if self._maneuvertype != None:
-      self._log("- is carrying %s of %s%s." % (
-        plural(self._maneuverfp, "1 FP", "%d FPs" % self._maneuverfp),
-        self._maneuvertype, self._maneuversense))
-    elif self._bank == None:
-      self._log("- has wings level.")
-    else:
-      self._log("- is banked %s." % self._bank)    
+      self._gloccheck = 0 
 
   ########################################
 
@@ -1781,7 +1765,7 @@ def _endnormalflight(self):
     checkfp()
     checkfreedescent()
     reportcarry()
-    reportmaneuver()
+    reportgloccycle()
     determinemaxturnrateap()
     determinealtitudeap()
     checkcloseformationlimits()
@@ -1808,6 +1792,16 @@ def _isroll(maneuvertype):
 
   return maneuvertype in ["VR", "DR", "LR", "BR"]
 
+################################################################################
+
+def _isslide(maneuvertype):
+
+  """
+  Return True if the maneuver type is a slide. Otherwise False.
+  """
+
+  return maneuvertype == "SL"
+  
 ################################################################################
 
 def _isdivingflight(flighttype):
