@@ -379,6 +379,7 @@ def _continuenormalflight(self, actions):
     self._maneuvertype         = turnrate
     self._maneuversense        = sense
     self._maneuverfp           = 0
+    self._maneuversupersonic   = (self._speed >= apspeed.m1speed(self._altitudeband))
     turnrequirement = apturnrate.turnrequirement(self._altitudeband, self._speed, self._maneuvertype)
     if turnrequirement == None:
       raise RuntimeError("attempt to declare a turn rate tigher than allowed by the speed and altitude.")
@@ -388,11 +389,10 @@ def _continuenormalflight(self, actions):
     else:
       self._maneuverrequiredfp   = turnrequirement
       self._maneuverfacingchange = 30
-    self._maneuversupersonic   = (self._speed >= apspeed.m1speed(self._altitudeband))
 
   ########################################
 
-  def doturn(sense, facingchange):
+  def doturn(sense, facingchange, continuous):
 
     """
     Turn in the specified sense and amount.
@@ -434,18 +434,34 @@ def _continuenormalflight(self, actions):
     else:
       self._facing = (self._facing - facingchange) % 360
 
-    # Implicitly continue the turn.
     self._maneuverfp           = 0
-    turnrequirement = apturnrate.turnrequirement(self._altitudeband, self._speed, self._maneuvertype)
-    if turnrequirement == None:
-      raise RuntimeError("attempt to declare a turn rate tigher than allowed by the speed and altitude.")
-    if turnrequirement >= 60:
-      self._maneuverrequiredfp   = 1
-      self._maneuverfacingchange = turnrequirement
+
+    if continuous:
+
+      self._maneuversupersonic   = (self._speed >= apspeed.m1speed(self._altitudeband))
+      turnrequirement = apturnrate.turnrequirement(self._altitudeband, self._speed, self._maneuvertype)
+      if turnrequirement == None:
+        raise RuntimeError("attempt to declare a turn rate tigher than allowed by the speed and altitude.")
+      if turnrequirement >= 60:
+        self._maneuverrequiredfp   = 1
+        self._maneuverfacingchange = turnrequirement
+      else:
+        self._maneuverrequiredfp   = turnrequirement
+        self._maneuverfacingchange = 30
+      
     else:
-      self._maneuverrequiredfp   = turnrequirement
-      self._maneuverfacingchange = 30
-    self._maneuversupersonic   = (self._speed >= apspeed.m1speed(self._altitudeband))
+
+      self._maneuvertype         = None
+      self._maneuversense        = None
+      self._maneuverfacingchange = None
+      self._maneuverrequiredfp   = 0
+      self._maneuversupersonic   = False
+
+    return
+
+
+    # Implicitly continue the turn.
+
 
   ########################################
 
@@ -469,9 +485,9 @@ def _continuenormalflight(self, actions):
     self._maneuversense        = sense
     self._maneuverfacingchange = None
     self._maneuverfp           = 0
+    self._maneuversupersonic   = (self._speed >= apspeed.m1speed(self._altitudeband))
     # The requirement has +1 FP to account for the final H.
     self._maneuverrequiredfp   = 2 + _extrapreparatoryhfp(self._altitudeband, self._speed) + 1
-    self._maneuversupersonic   = (self._speed >= apspeed.m1speed(self._altitudeband))
     
   ########################################
 
@@ -527,9 +543,9 @@ def _continuenormalflight(self, actions):
     self._maneuversense        = sense
     self._maneuverfacingchange = None
     self._maneuverfp           = 0
+    self._maneuversupersonic   = (self._speed >= apspeed.m1speed(self._altitudeband))
     # The requirement has +1 FP to account for the final H.
     self._maneuverrequiredfp   = self.rollhfp() + _extrapreparatoryhfp(self._altitudeband, self._speed) + 1
-    self._maneuversupersonic   = (self._speed >= apspeed.m1speed(self._altitudeband))
 
   ########################################
 
@@ -588,9 +604,9 @@ def _continuenormalflight(self, actions):
     self._maneuversense        = sense
     self._maneuverfacingchange = None
     self._maneuverfp           = 0
+    self._maneuversupersonic   = (self._speed >= apspeed.m1speed(self._altitudeband))
     # The requirement has +1 FP to account for the final H.
     self._maneuverrequiredfp   = self.rollhfp() + _extrapreparatoryhfp(self._altitudeband, self._speed) + 1
-    self._maneuversupersonic   = (self._speed >= apspeed.m1speed(self._altitudeband))
 
   ########################################
 
@@ -660,8 +676,8 @@ def _continuenormalflight(self, actions):
     self._maneuversense        = sense
     self._maneuverfacingchange = None
     self._maneuverfp           = 0
-    self._maneuverrequiredfp   = 1
     self._maneuversupersonic   = (self._speed >= apspeed.m1speed(self._altitudeband))
+    self._maneuverrequiredfp   = 1
 
     ########################################
 
@@ -706,7 +722,7 @@ def _continuenormalflight(self, actions):
     
     ########################################
 
-  def domaneuver(sense, facingchange, shift):
+  def domaneuver(sense, facingchange, shift, continuous):
 
     if self._maneuvertype == None:
       raise RuntimeError("attempt to maneuver without a declaration.")
@@ -733,7 +749,7 @@ def _continuenormalflight(self, actions):
     else:
       if facingchange == None:
         facingchange = 30
-      doturn(sense, facingchange)
+      doturn(sense, facingchange, continuous)
 
   ########################################
 
@@ -901,27 +917,41 @@ def _continuenormalflight(self, actions):
     ["BKR"   , "bank"               , lambda: dobank("R")  ],
     ["WL"    , "bank"               , lambda: dobank(None) ],
 
-    ["LS180" , "maneuver"           , lambda: domaneuver("L",  180, True )],
-    ["L180"  , "maneuver"           , lambda: domaneuver("L",  180, False)],
-    ["L150"  , "maneuver"           , lambda: domaneuver("L",  150, True )],
-    ["L120"  , "maneuver"           , lambda: domaneuver("L",  120, True )],
-    ["L90"   , "maneuver"           , lambda: domaneuver("L",   90, True ) ],
-    ["L60"   , "maneuver"           , lambda: domaneuver("L",   60, True ) ],
-    ["L30"   , "maneuver"           , lambda: domaneuver("L",   30, True ) ],
-    ["LLL"   , "maneuver"           , lambda: domaneuver("L",   90, True ) ],
-    ["LL"    , "maneuver"           , lambda: domaneuver("L",   60, True ) ],
-    ["L"     , "maneuver"           , lambda: domaneuver("L", None, True ) ],
+    ["L90+"  , "maneuver"           , lambda: domaneuver("L",   90, True , True ) ],
+    ["L60+"  , "maneuver"           , lambda: domaneuver("L",   60, True , True ) ],
+    ["L30+"  , "maneuver"           , lambda: domaneuver("L",   30, True , True ) ],
+    ["LLL+"  , "maneuver"           , lambda: domaneuver("L",   90, True , True ) ],
+    ["LL+"   , "maneuver"           , lambda: domaneuver("L",   60, True , True ) ],
+    ["L+"    , "maneuver"           , lambda: domaneuver("L", None, True , True ) ],
+    
+    ["R90+"  , "maneuver"           , lambda: domaneuver("R",   90, True , True ) ],
+    ["R60+"  , "maneuver"           , lambda: domaneuver("R",   60, True , True ) ],
+    ["R30+"  , "maneuver"           , lambda: domaneuver("R",   30, True , True ) ],
+    ["RRR+"  , "maneuver"           , lambda: domaneuver("R",   90, True , True ) ],
+    ["RR+"   , "maneuver"           , lambda: domaneuver("R",   60, True , True ) ],
+    ["R+"    , "maneuver"           , lambda: domaneuver("R", None, True , True ) ],    
 
-    ["RS180" , "maneuver"           , lambda: domaneuver("R",  180, True )],
-    ["R180"  , "maneuver"           , lambda: domaneuver("R",  180, False)],
-    ["R150"  , "maneuver"           , lambda: domaneuver("R",  150, True )],
-    ["R120"  , "maneuver"           , lambda: domaneuver("R",  120, True )],
-    ["R90"   , "maneuver"           , lambda: domaneuver("R",   90, True ) ],
-    ["R60"   , "maneuver"           , lambda: domaneuver("R",   60, True ) ],
-    ["R30"   , "maneuver"           , lambda: domaneuver("R",   30, True ) ],
-    ["RRR"   , "maneuver"           , lambda: domaneuver("R",   90, True ) ],
-    ["RR"    , "maneuver"           , lambda: domaneuver("R",   60, True ) ],
-    ["R"     , "maneuver"           , lambda: domaneuver("R", None, True ) ],
+    ["LS180" , "maneuver"           , lambda: domaneuver("L",  180, True , False)],
+    ["L180"  , "maneuver"           , lambda: domaneuver("L",  180, False, False)],
+    ["L150"  , "maneuver"           , lambda: domaneuver("L",  150, True , False)],
+    ["L120"  , "maneuver"           , lambda: domaneuver("L",  120, True , False)],
+    ["L90"   , "maneuver"           , lambda: domaneuver("L",   90, True , False) ],
+    ["L60"   , "maneuver"           , lambda: domaneuver("L",   60, True , False) ],
+    ["L30"   , "maneuver"           , lambda: domaneuver("L",   30, True , False) ],
+    ["LLL"   , "maneuver"           , lambda: domaneuver("L",   90, True , False) ],
+    ["LL"    , "maneuver"           , lambda: domaneuver("L",   60, True , False) ],
+    ["L"     , "maneuver"           , lambda: domaneuver("L", None, True , False) ],
+
+    ["RS180" , "maneuver"           , lambda: domaneuver("R",  180, True , False)],
+    ["R180"  , "maneuver"           , lambda: domaneuver("R",  180, False, False)],
+    ["R150"  , "maneuver"           , lambda: domaneuver("R",  150, True , False)],
+    ["R120"  , "maneuver"           , lambda: domaneuver("R",  120, True , False)],
+    ["R90"   , "maneuver"           , lambda: domaneuver("R",   90, True , False) ],
+    ["R60"   , "maneuver"           , lambda: domaneuver("R",   60, True , False) ],
+    ["R30"   , "maneuver"           , lambda: domaneuver("R",   30, True , False) ],
+    ["RRR"   , "maneuver"           , lambda: domaneuver("R",   90, True , False) ],
+    ["RR"    , "maneuver"           , lambda: domaneuver("R",   60, True , False) ],
+    ["R"     , "maneuver"           , lambda: domaneuver("R", None, True , False) ],
 
     ["S1/2"  , "other"              , lambda: dospeedbrakes(1/2) ],
     ["S1"    , "other"              , lambda: dospeedbrakes(1) ],
@@ -1041,6 +1071,8 @@ def _continuenormalflight(self, actions):
   
     try:
       
+      declaredmaneuver    = None
+
       if doelements(action, "maneuvering departure", False):
     
         self._maneuveringdeparture = True
@@ -1076,7 +1108,8 @@ def _continuenormalflight(self, actions):
           self._firstunloadedfp = self._hfp
         self._lastunloadedfp = self._hfp
 
-      doelements(action, "maneuver declaration", False)
+      if doelements(action, "maneuver declaration", False):
+        declaredmaneuver = self.maneuver()
 
       # See rule 8.2.2 and 13.1.
       if not self._unloaded:
@@ -1104,7 +1137,10 @@ def _continuenormalflight(self, actions):
       raise e
   
     finally:
-      self._logaction("FP %d" % self._fp, action, "%s" % (self.positionandmaneuver()))
+      if declaredmaneuver != None:
+        self._logaction("FP %d" % self._fp, action, "%-10s : %s : %s" % (declaredmaneuver, self.position(), self.maneuver()))
+      else:
+        self._logaction("FP %d" % self._fp, action, "%-10s : %s : %s" % ("", self.position(), self.maneuver()))
       self._continueflightpath()
   
     if turning and self._maneuversupersonic:
@@ -1194,21 +1230,6 @@ def _startnormalflight(self, actions):
 
   ########################################
 
-  def determineinitialmaxturnrate():
-
-    """
-    Determine the initial maximum turn rate, according to any carried turn.
-    """
-
-    if _isturn(self._maneuvertype):
-      self._maxturnrate       = self._maneuvertype
-      self._turningsupersonic = self._maneuversupersonic
-    else:
-      self._maxturnrate       = None
-      self._turningsupersonic = False
-
-  ########################################
-
   def determineallowedturnrates():
 
     """
@@ -1277,27 +1298,6 @@ def _startnormalflight(self, actions):
       self._breakdowncloseformation()
 
     return
-
-  ########################################
-
-  def checkformaneuveringdeparture():
-
-    """
-    Check for a maneuvering departure caused by a carried turn exceeding the 
-    maximum allowed turn rate.
-    """
-
-    # See rule 7.7.
-
-    # Issue: The consequences of carried turn violating the turn
-    # requirements of ZC, SC, and VC flight are not clear, but for the
-    # moment we assume they result in a maneuvering departure.
-
-    if _isturn(self._maneuvertype):
-      turnrequirement = apturnrate.turnrequirement(self._altitudeband, self._speed, self._maneuvertype)
-      if not self._maneuvertype in self._allowedturnrates or turnrequirement == None:
-        self._log("- carried turn rate is tighter than the maximum allowed turn rate.")
-        raise RuntimeError("aircraft has entered departured flight while maneuvering.")
 
   ########################################
 
@@ -1484,17 +1484,31 @@ def _startnormalflight(self, actions):
 
   ########################################
 
-  def determineturnrequiredfp():
+  def handlecarriedturn():
 
     """
-    Determine the turn requirements at the start of a game turn.
+    Handle any carried turn.
     """
 
     if _isturn(self._maneuvertype):
 
+      # See rule 7.7.
+
+      # Issue: The consequences of carried turn violating the turn
+      # requirements of ZC, SC, and VC flight are not clear, but for the
+      # moment we assume they result in a maneuvering departure.
+
+      turnrequirement = apturnrate.turnrequirement(self._altitudeband, self._speed, self._maneuvertype)
+      if not self._maneuvertype in self._allowedturnrates or turnrequirement == None:
+        self._log("- carried turn rate is tighter than the maximum allowed turn rate.")
+        raise RuntimeError("aircraft has entered departed flight while maneuvering.")
+
+      # See rule 7.1.
+
       previousmaneuverrequiredfp    = self._maneuverrequiredfp
       previous_maneuverfacingchange = self._maneuverfacingchange
 
+      self._maneuversupersonic   = self._speed >= apspeed.m1speed(self._altitudeband)
       turnrequirement = apturnrate.turnrequirement(self._altitudeband, self._speed, self._maneuvertype)
       if turnrequirement >= 60:
         self._maneuverrequiredfp   = 1
@@ -1502,7 +1516,6 @@ def _startnormalflight(self, actions):
       else:
         self._maneuverrequiredfp   = turnrequirement
         self._maneuverfacingchange = 30
-      self._maneuversupersonic = (self._speed >= apspeed.m1speed(self._altitudeband))
 
       if self._maneuverrequiredfp != previousmaneuverrequiredfp or self._maneuverfacingchange != previous_maneuverfacingchange:
         if self._maneuverfacingchange > 30:
@@ -1510,6 +1523,14 @@ def _startnormalflight(self, actions):
         else:
           self._log("- turn requirement changed to %s." % plural(self._maneuverrequiredfp, "1 FP", "%d FPs" % self._maneuverrequiredfp))
 
+      self._maxturnrate       = self._maneuvertype
+      self._turningsupersonic = self._maneuversupersonic
+
+    else:
+
+      self._maxturnrate       = None
+      self._turningsupersonic = False
+      
   ########################################
 
   flighttype         = self._flighttype
@@ -1544,17 +1565,14 @@ def _startnormalflight(self, actions):
 
   reportapcarry()
   reportaltitudecarry()
-  determineinitialmaxturnrate()
   determineallowedturnrates()
-  checkformaneuveringdeparture()
-  determineturnrequiredfp()
+  handlecarriedturn()
   checkcloseformationlimits()
-
   determinemaxfp()
   determinefprequirements()
     
   self._log("---")
-  self._logaction("start", "", self.positionandmaneuver())   
+  self._logaction("start", "", "%-10s : %s : %s" % ("", self.position(), self.maneuver()))   
 
   self._continuenormalflight(actions)
 

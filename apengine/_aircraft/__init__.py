@@ -220,24 +220,15 @@ class aircraft:
 
   #############################################################################
 
-  def positionandmaneuver(self):
-
-    if apmap.isonmap(self._x, self._y):
-      hexcode = aphexcode.fromxy(self._x, self._y)
-    else:
-      hexcode = "----"
-    azimuth = apazimuth.fromfacing(self._facing)
-    altitude = self._altitude
+  def maneuver(self):
     if self._maneuverfacingchange == 60 or self._maneuverfacingchange == 90:
-      maneuver = "%s%s %d/%d %d" % (self._maneuvertype, self._maneuversense, self._maneuverfp, self._maneuverrequiredfp, self._maneuverfacingchange)
+      return "%s%s %d/%d %d" % (self._maneuvertype, self._maneuversense, self._maneuverfp, self._maneuverrequiredfp, self._maneuverfacingchange)
     elif self._maneuvertype != None:
-      maneuver = "%s%s %d/%d" % (self._maneuvertype, self._maneuversense, self._maneuverfp, self._maneuverrequiredfp)
+      return "%s%s %d/%d" % (self._maneuvertype, self._maneuversense, self._maneuverfp, self._maneuverrequiredfp)
     elif self._bank != None:
-      maneuver = "BK%s" % self._bank
+      return "BK%s" % self._bank
     else:
-      maneuver = "WL"
-        
-    return "%-9s  %-3s  %2d  %s" % (hexcode, azimuth, altitude, maneuver)
+      return "WL"
 
   #############################################################################
 
