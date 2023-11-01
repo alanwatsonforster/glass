@@ -403,8 +403,6 @@ def _continuenormalflight(self, actions):
     if self._maneuverfp < self._maneuverrequiredfp or facingchange > self._maneuverfacingchange:
       raise RuntimeError("attempt to turn faster than the declared turn rate.")
 
-    assert self._maneuverfp >= self._maneuverrequiredfp
-
     if self._turnmaneuvers > 0:
       if apvariants.withvariant("prefer v1 bleed rates"):
         # Use the bleed rates from the 1st edition rules in TSOH.
