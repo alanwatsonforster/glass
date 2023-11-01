@@ -358,9 +358,6 @@ def _continuenormalflight(self, actions):
     if self._allowedturnrates == []:
       raise RuntimeError("turns are forbidded.")
 
-    turnrates = ["EZ", "TT", "HT", "BT", "ET"]
-    assert turnrate in turnrates
-
     if turnrate not in self._allowedturnrates:
       raise RuntimeError("attempt to declare a turn rate tighter than allowed by the speed or flight type.")
 
@@ -434,35 +431,6 @@ def _continuenormalflight(self, actions):
     else:
       self._facing = (self._facing - facingchange) % 360
 
-    self._maneuverfp           = 0
-
-    if continuous:
-
-      self._maneuversupersonic   = (self._speed >= apspeed.m1speed(self._altitudeband))
-      turnrequirement = apturnrate.turnrequirement(self._altitudeband, self._speed, self._maneuvertype)
-      if turnrequirement == None:
-        raise RuntimeError("attempt to declare a turn rate tigher than allowed by the speed and altitude.")
-      if turnrequirement >= 60:
-        self._maneuverrequiredfp   = 1
-        self._maneuverfacingchange = turnrequirement
-      else:
-        self._maneuverrequiredfp   = turnrequirement
-        self._maneuverfacingchange = 30
-      
-    else:
-
-      self._maneuvertype         = None
-      self._maneuversense        = None
-      self._maneuverfacingchange = None
-      self._maneuverrequiredfp   = 0
-      self._maneuversupersonic   = False
-
-    return
-
-
-    # Implicitly continue the turn.
-
-
   ########################################
 
   def dodeclareslide(sense):
@@ -512,13 +480,6 @@ def _continuenormalflight(self, actions):
     # Keep track of the number of slides and the FP of the last slide.
     self._slides += 1
     self._slidefp = self._fp
-
-    # Do not implicitly continue the maneuver.
-    self._maneuvertype         = None
-    self._maneuversense        = None
-    self._maneuverfacingchange = None
-    self._maneuverfp           = 0
-    self._maneuversupersonic   = False
 
     # Implicitly finish with wings level.
     self._bank = None
@@ -573,13 +534,6 @@ def _continuenormalflight(self, actions):
     if self._rollmaneuvers > 0:
       self._othermaneuversap -= 1.0
     self._rollmaneuvers += 1
-    
-    # Do not implicitly continue the maneuver.
-    self._maneuvertype         = None
-    self._maneuversense        = None
-    self._maneuverfacingchange = None
-    self._maneuverfp           = 0
-    self._maneuversupersonic   = False
 
     # Implicitly finish with wings level. This can be changed immediately by a bank.
     self._bank = None
@@ -639,13 +593,6 @@ def _continuenormalflight(self, actions):
     if self._rollmaneuvers > 0:
       self._othermaneuversap -= 1.0
     self._rollmaneuvers += 1
-    
-    # Do not implicitly continue the maneuver.
-    self._maneuvertype         = None
-    self._maneuversense        = None
-    self._maneuverfacingchange = None
-    self._maneuverfp           = 0
-    self._maneuversupersonic   = False
 
     # Implicitly finish with wings level. This can be changed immediately by a bank.
     self._bank = None
@@ -712,13 +659,6 @@ def _continuenormalflight(self, actions):
       self._facing = (self._facing + facingchange) % 360
     else:
       self._facing = (self._facing - facingchange) % 360
-
-    # Do not implicitly continue the maneuver.
-    self._maneuvertype         = None
-    self._maneuversense        = None
-    self._maneuverfacingchange = None
-    self._maneuverfp           = 0
-    self._maneuversupersonic   = False
     
     ########################################
 
@@ -732,15 +672,15 @@ def _continuenormalflight(self, actions):
 
     if self._maneuvertype == "SL":
       if facingchange != None:
-        raise RuntimeError("invalid facing change for slide.")
+        raise RuntimeError("invalid element for a slide.")
       doslide(sense)
     elif self._maneuvertype == "DR":
       if facingchange != None:
-        raise RuntimeError("invalid facing change for a displacement roll.")
+        raise RuntimeError("invalid element for a displacement roll.")
       dodisplacementroll(sense)
     elif self._maneuvertype == "LR":
       if facingchange != None:
-        raise RuntimeError("invalid facing change for a lag roll.")
+        raise RuntimeError("invalid element for a lag roll.")
       dolagroll(sense)
     elif self._maneuvertype == "VR":
       if facingchange == None:
@@ -750,6 +690,25 @@ def _continuenormalflight(self, actions):
       if facingchange == None:
         facingchange = 30
       doturn(sense, facingchange, continuous)
+
+    self._maneuverfp = 0
+
+    if not continuous:
+      self._maneuvertype         = None
+      self._maneuversense        = None
+      self._maneuverfacingchange = None
+      self._maneuverrequiredfp   = 0
+      self._maneuversupersonic   = False
+    elif self._maneuvertype == "SL":
+      dodeclareslide(self._maneuversense)
+    elif self._maneuvertype == "DR":
+      dodeclaredisplacementroll(self._maneuversense)
+    elif self._maneuvertype == "LR":
+      dodeclarelagroll(self._maneuversense)
+    elif self._maneuvertype == "VR":
+      dodeclareverticalroll(self._maneuversense)
+    else:
+      dodeclareturn(self._maneuversense, self._maneuvertype)
 
   ########################################
 
