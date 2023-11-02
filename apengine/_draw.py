@@ -225,11 +225,13 @@ _colors = {
 
   # This is a mapping from "aircraft color" to "CSS color".
 
-  # Approximations to NATO blue and red. 
+  # Approximations to NATO blue, red, green, and yellow.
   # https://en.wikipedia.org/wiki/NATO_Joint_Military_Symbology#APP-6A_affiliation
 
-  "natoblue" : "deepskyblue",
-  "natored"  : "tomato",
+  "natoblue"  : (0.45, 0.87, 1.00),
+  "natored"   : (1.00, 0.45, 0.45),
+  "natogreen" : (0.55, 1.00, 0.55),
+  "natoyellow": (1.00, 1.00, 0.46),
 
   "aluminum" : "lightgray",
   "aluminium": "lightgray",
@@ -249,7 +251,7 @@ _colors = {
 
 def _mapcolor(color):
 
-  if color == None:
+  if not isinstance(color, str):
     return color
   elif color in _colors:
     return _colors[color]
