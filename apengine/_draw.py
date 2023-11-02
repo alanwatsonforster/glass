@@ -237,19 +237,19 @@ _colors = {
   "natoneutral" : "natogreen",
   "natounknown" : "natoyellow",
 
-  "aluminum"    : "lightgray",
-  "aluminium"   : "lightgray",
-  "unpainted"   : "lightgray",
+  "aluminum"    : "css:lightgray",
+  "aluminium"   : "aluminum",
+  "unpainted"   : "aluminum",
 
-  "white"       : "white",
-  "darkblue"    : "midnightblue",
-  "green"       : "olivedrab",
-  "tan"         : "tan",
-  "sand"        : "blanchedalmond",
-  "darkgray"    : "slategray",
-  "darkgrey"    : "slategray",
-  "lightgray"   : "silver",
-  "lightgrey"   : "silver",
+  "white"       : "css:white",
+  "darkblue"    : "css:midnightblue",
+  "green"       : "css:olivedrab",
+  "tan"         : "css:tan",
+  "sand"        : "css:blanchedalmond",
+  "darkgray"    : "css:slategray",
+  "darkgrey"    : "darkgray",
+  "lightgray"   : "css:silver",
+  "lightgrey"   : "lightgray",
 
 }
 
@@ -257,10 +257,10 @@ def _mapcolor(color):
 
   if not isinstance(color, str):
     return color
-  elif color in _colors:
-    return _colors[color]
   elif color[0:4] == "css:":
     return color[4:]
+  elif color in _colors:
+    return _mapcolor(_colors[color])
   else:
     return color
 
