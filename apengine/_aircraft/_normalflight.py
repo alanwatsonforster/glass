@@ -7,6 +7,7 @@ import re
 from apengine._math import onethird, twothirds, roundtoquarter
 
 import apengine._altitude as apaltitude
+import apengine._aircraft as apaircraft
 import apengine._hex      as aphex
 import apengine._speed    as apspeed
 import apengine._turnrate as apturnrate
@@ -786,12 +787,14 @@ def _continuenormalflight(self, actions):
       raise RuntimeError("attempt to use weapons on the FP immediately after rolling.")
 
     if m:
-      target = m[1]
+      targetname = m[1]
+      target     = apaircraft._fromname(targetname)
     else:
-      target = None
+      targetname = None
+      target     = None
 
     if target != None:
-      self._logevent("- attack on %s using %s." % (target, weapon))
+      self._logevent("- attack on %s using %s." % (targetname, weapon))
     else:
       self._logevent("- attack using %s." % weapon)
 
@@ -800,6 +803,22 @@ def _continuenormalflight(self, actions):
     else:
       self._logevent("- no turns used so far.")
 
+    if target == None:
+      return
+
+    if weapon == "GN" or weapon == "GP":
+      gunattackrange = self.gunattackrange(target)
+      if gunattackrange is False:
+        raise RuntimeError("the target cannot be attacked with guns.")
+      self._logevent("- gun range is %d." % gunattackrange)
+    elif weapon == "RK" or weapon == "RP":
+      rocketattackrange = a0.rocketattackrange(a1)
+      if rocketattackrange is False:
+        raise RuntimeError("the target cannot be attacked with rockets.")
+      self._logevent("- range is %d." % rocketattackrange)
+      
+    self._logevent("- angle-off-tail is %s." % self.angleofftail(target))
+      
   ########################################
 
   def dokilled():
@@ -933,10 +952,10 @@ def _continuenormalflight(self, actions):
     ["J1/2"  , "other"              , None, lambda: dojettison("1/2") ],
     ["JCL"   , "other"              , None, lambda: dojettison("CL") ],
     
-    ["AGN"   , "other"              , "\\(([^)]*)\\)", lambda m: doattack(m, "guns") ],
-    ["AGP"   , "other"              , "\(([^)]*)\)", lambda m: doattack(m, "gun pod") ],
-    ["ARK"   , "other"              , "\(([^)]*)\)", lambda m: doattack(m, "rockets") ],
-    ["ARP"   , "other"              , "\(([^)]*)\)", lambda m: doattack(m, "rocket pods") ],
+    ["AGN"   , "other"              , "\\(([^)]*)\\)", lambda m: doattack(m, "GN") ],
+    ["AGP"   , "other"              , "\\(([^)]*)\\)", lambda m: doattack(m, "GP") ],
+    ["ARK"   , "other"              , "\\(([^)]*)\\)", lambda m: doattack(m, "RK") ],
+    ["ARP"   , "other"              , "\\(([^)]*)\\)", lambda m: doattack(m, "RP") ],
 
     ["K"     , "other"              , None, lambda: dokilled()],
 

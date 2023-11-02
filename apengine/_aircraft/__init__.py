@@ -48,6 +48,12 @@ def _drawmap():
     a._drawflightpath()
     a._drawaircraft()
 
+def _fromname(name):
+  for a in _aircraftlist:
+    if a._name == name:
+      return a
+  return None
+
 #############################################################################
 
 from ._draw import \
