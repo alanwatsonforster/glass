@@ -225,7 +225,7 @@ def _rocketattackrange(a0, a1):
     y1      = a1._y
     facing1 = a1._facing
     
-    angleofftail, r, dx, dy = _relativepositions(x0, y0, facing0, x1, y1, facing1)
+    angleofftail, angleoffnose, r, dx, dy = _relativepositions(x0, y0, facing0, x1, y1, facing1)
 
     if facing0 % 60 == 0:
       r *= math.sqrt(4/3)
@@ -280,7 +280,7 @@ def _inlimitedradararc(a0, a1, x1=None, y1=None, facing1=None):
     y1      = a1._y
     facing1 = a1._facing
   
-  angleofftail, r, dx, dy = _relativepositions(x0, y0, facing0, x1, y1, facing1)
+  angleofftail, angleoffnose, r, dx, dy = _relativepositions(x0, y0, facing0, x1, y1, facing1)
       
   if dx <= 0:
     return False
