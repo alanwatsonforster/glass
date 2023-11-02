@@ -14,7 +14,7 @@ assert A1.angleofftail(A2) == "60 arc"
 A2 = aircraft("A2", "F-80C"  , "2023", "W", 5, 4.0, "CL")
 assert A1.angleofftail(A2) == "90 arc"
 A2 = aircraft("A2", "F-80C"  , "2023", "WSW", 5, 4.0, "CL")
-assert A1.angleofftail(A2) == "120 arc"
+assert A1.angleofftail(A2) == "150 arc"
 A2 = aircraft("A2", "F-80C"  , "2023", "SSW", 5, 4.0, "CL")
 assert A1.angleofftail(A2) == "180 arc"
 A2 = aircraft("A2", "F-80C"  , "2023", "S", 5, 4.0, "CL")
@@ -22,7 +22,7 @@ assert A1.angleofftail(A2) == "180 line"
 A2 = aircraft("A2", "F-80C"  , "2023", "SSE", 5, 4.0, "CL")
 assert A1.angleofftail(A2) == "180 arc"
 A2 = aircraft("A2", "F-80C"  , "2023", "ESE", 5, 4.0, "CL")
-assert A1.angleofftail(A2) == "120 arc"
+assert A1.angleofftail(A2) == "150 arc"
 A2 = aircraft("A2", "F-80C"  , "2023", "E", 5, 4.0, "CL")
 assert A1.angleofftail(A2) == "90 arc"
 A2 = aircraft("A2", "F-80C"  , "2023", "ENE", 5, 4.0, "CL")
@@ -41,7 +41,7 @@ assert A1.angleofftail(A2) == "60 arc"
 A2 = aircraft("A2", "F-80C"  , "2023", "W", 5, 4.0, "CL")
 assert A1.angleofftail(A2) == "90 arc"
 A2 = aircraft("A2", "F-80C"  , "2023", "WSW", 5, 4.0, "CL")
-assert A1.angleofftail(A2) == "120 arc"
+assert A1.angleofftail(A2) == "150 arc"
 A2 = aircraft("A2", "F-80C"  , "2023", "SSW", 5, 4.0, "CL")
 assert A1.angleofftail(A2) == "180 arc"
 A2 = aircraft("A2", "F-80C"  , "2023", "S", 5, 4.0, "CL")
@@ -49,7 +49,7 @@ assert A1.angleofftail(A2) == "180 arc"
 A2 = aircraft("A2", "F-80C"  , "2023", "SSE", 5, 4.0, "CL")
 assert A1.angleofftail(A2) == "180 arc"
 A2 = aircraft("A2", "F-80C"  , "2023", "ESE", 5, 4.0, "CL")
-assert A1.angleofftail(A2) == "120 arc"
+assert A1.angleofftail(A2) == "150 arc"
 A2 = aircraft("A2", "F-80C"  , "2023", "E", 5, 4.0, "CL")
 assert A1.angleofftail(A2) == "90 arc"
 A2 = aircraft("A2", "F-80C"  , "2023", "ENE", 5, 4.0, "CL")
@@ -86,7 +86,7 @@ assert A1.angleofftail(A2) == "60 arc"
 
 A1 = aircraft("A1", "F-80C"  , "2024", "NNE", 5, 5.0, "CL")
 A2 = aircraft("A2", "F-80C"  , "2023", "W", 5, 4.0, "CL")
-assert A1.angleofftail(A2) == "30 arc"
+assert A1.angleofftail(A2) == "90 arc"
 
 A1 = aircraft("A1", "F-80C"  , "2024", "NNE", 5, 4.0, "CL")
 A2 = aircraft("A2", "F-80C"  , "2023", "W", 5, 4.0, "CL")
@@ -94,11 +94,11 @@ assert A1.angleofftail(A2) == "90 arc"
 
 A1 = aircraft("A1", "F-80C"  , "2024", "NNE", 5, 4.0, "CL")
 A2 = aircraft("A2", "F-80C"  , "2023", "W", 5, 5.0, "CL")
-assert A1.angleofftail(A2) == "60 arc"
+assert A1.angleofftail(A2) == "90 arc"
 
 A1 = aircraft("A1", "F-80C"  , "2024", "NNW", 5, 5.0, "CL")
 A2 = aircraft("A2", "F-80C"  , "2023", "W", 5, 4.0, "CL")
-assert A1.angleofftail(A2) == "180 arc"
+assert A1.angleofftail(A2) == "120 arc"
 
 A1 = aircraft("A1", "F-80C"  , "2024", "NNW", 5, 4.0, "CL")
 A2 = aircraft("A2", "F-80C"  , "2023", "W", 5, 4.0, "CL")
@@ -106,6 +106,7 @@ assert A1.angleofftail(A2) == "90 arc"
 
 A1 = aircraft("A1", "F-80C"  , "2024", "NNE", 5, 4.0, "CL")
 A2 = aircraft("A2", "F-80C"  , "2023", "W", 5, 5.0, "CL")
-assert A1.angleofftail(A2) == "60 arc"
+ap.drawmap()
+assert A1.angleofftail(A2) == "90 arc"
 
 endfile(__file__)

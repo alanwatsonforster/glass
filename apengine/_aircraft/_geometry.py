@@ -59,11 +59,12 @@ def _relativepositions(x0, y0, facing0, x1, y1, facing1):
   # Round everything.
 
   angleofftail = _round(angleofftail)
+  angleoffnose = _round(angleoffnose)
   r            = _round(r)
   dx           = _round(dx)
   dy           = _round(dy)
 
-  return angleofftail, r, dx, dy
+  return angleofftail, angleoffnose, r, dx, dy
 
 ##############################################################################
 
@@ -76,8 +77,8 @@ def _angleofftail(a0, a1):
   # See rule 9.2.
 
   def truegeometry(x0, y0, facing0, x1, y1, facing1):
-    angleofftail, r, dx, dy = _relativepositions(x0, y0, facing0, x1, y1, facing1)
-    return angleofftail, r
+    angleofftail, angleoffnose, r, dx, dy = _relativepositions(x0, y0, facing0, x1, y1, facing1)
+    return angleofftail, angleoffnose, r
 
   x0      = a0._x
   y0      = a0._y
@@ -87,17 +88,30 @@ def _angleofftail(a0, a1):
   y1      = a1._y
   facing1 = a1._facing
 
-  angleofftail, r = truegeometry(x0, y0, facing0, x1, y1, facing1)
+  angleofftail, angleoffnose, r = truegeometry(x0, y0, facing0, x1, y1, facing1)
 
-  # If the aircraft fall on the 30, 60, 90, 120, or 150 degree lines and
-  # one aircraft is faster than the other, move the faster aircraft
-  # forward one hex and recompute.
-  if r > 0 and angleofftail != 0 and abs(angleofftail) != 180 and angleofftail % 30 == 0:
-    if a0._speed > a1._speed:
-      x0, y0 = aphex.forward(x0, y0, facing0)
-    elif a1._speed > a0._speed:
-      x1, y1 = aphex.forward(x1, y1, facing1)
-    angleofftail, r = truegeometry(x0, y0, facing0, x1, y1, facing1)
+  if r > 0 and angleofftail != 0.0 and angleofftail != 180.0 and angleofftail % 30 == 0.0:
+
+    # Distinguish cases on the 30, 60, 90, 120, and 150 degree arcs.
+
+    # If 0 is slower, it falls in the rear arc.
+    # If 0 is faster and headed behind 0, it falls in the rear arc. 
+    # If 0 is faster and headed in front of 1, it falls in the front arc.
+  
+    inreararc = False
+    infrontarc = False
+    if a0._speed < a1._speed:
+      inreararc = True
+    elif a0._speed > a1._speed and angleoffnose != 0:
+      if (angleofftail > 0 and angleoffnose > 0) or (angleofftail < 0 and angleoffnose < 0):
+        infrontarc = True
+      elif (angleofftail > 0 and angleoffnose < 0) or (angleofftail < 0 and angleoffnose > 0):
+        inreararc = True
+
+    if (infrontarc and angleofftail > 0) or (inreararc and angleofftail < 0):
+        angleofftail += 1
+    elif (infrontarc and angleofftail < 0) or (inreararc and angleofftail > 0):
+        angleofftail -= 1
 
   # To be on the 0 or 180 degree lines, the aircraft has to be facing
   # the other.
@@ -107,14 +121,14 @@ def _angleofftail(a0, a1):
     return "180 line"
 
   # Resolve cases on the 30, 60, 90, 120, and 150 degree lines in favor
-  # of aircraft 0 (round 150 to 180).
+  # of aircraft 0 (round 120 to 150 and 150 to 180).
   if abs(angleofftail) <= 30:
     return "30 arc"
   elif abs(angleofftail) <= 60:
     return "60 arc"
   elif abs(angleofftail) <= 90:
     return "90 arc"
-  elif abs(angleofftail) <= 120:
+  elif abs(angleofftail) < 120:
     return "120 arc"
   elif abs(angleofftail) < 150:
     return "150 arc"
@@ -141,7 +155,7 @@ def _gunattackrange(a0, a1):
     y1      = a1._y
     facing1 = a1._facing
     
-    angleofftail, r, dx, dy = _relativepositions(x0, y0, facing0, x1, y1, facing1)
+    angleofftail, angleoffnose, r, dx, dy = _relativepositions(x0, y0, facing0, x1, y1, facing1)
 
     if dx < 0:
       return False
