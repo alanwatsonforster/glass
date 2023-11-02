@@ -228,24 +228,28 @@ _colors = {
   # Approximations to NATO blue, red, green, and yellow.
   # https://en.wikipedia.org/wiki/NATO_Joint_Military_Symbology#APP-6A_affiliation
 
-  "natoblue"  : (0.45, 0.87, 1.00),
-  "natored"   : (1.00, 0.45, 0.45),
-  "natogreen" : (0.55, 1.00, 0.55),
-  "natoyellow": (1.00, 1.00, 0.46),
+  "natoblue"    : (0.45, 0.87, 1.00),
+  "natored"     : (1.00, 0.45, 0.45),
+  "natogreen"   : (0.55, 1.00, 0.55),
+  "natoyellow"  : (1.00, 1.00, 0.46),
+  "natofriendly": "natoblue",
+  "natohostile" : "natored",
+  "natoneutral" : "natogreen",
+  "natounknown" : "natoyellow",
 
-  "aluminum" : "lightgray",
-  "aluminium": "lightgray",
-  "unpainted": "lightgray",
+  "aluminum"    : "lightgray",
+  "aluminium"   : "lightgray",
+  "unpainted"   : "lightgray",
 
-  "white"    : "white",
-  "darkblue" : "midnightblue",
-  "green"    : "olivedrab",
-  "tan"      : "tan",
-  "sand"     : "blanchedalmond",
-  "darkgray" : "slategray",
-  "darkgrey" : "slategray",
-  "lightgray": "silver",
-  "lightgrey": "silver",
+  "white"       : "white",
+  "darkblue"    : "midnightblue",
+  "green"       : "olivedrab",
+  "tan"         : "tan",
+  "sand"        : "blanchedalmond",
+  "darkgray"    : "slategray",
+  "darkgrey"    : "slategray",
+  "lightgray"   : "silver",
+  "lightgrey"   : "silver",
 
 }
 
