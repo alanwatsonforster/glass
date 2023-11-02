@@ -768,10 +768,10 @@ def _continuenormalflight(self, actions):
   
   ########################################
 
-  def doattack(m, weapon):
+  def doataattack(m, weapon):
 
     """
-    Declare an attack with the specified weapon.
+    Declare an air-to-air attack with the specified weapon.
     """
 
     # See rule 8.2.2.
@@ -789,14 +789,11 @@ def _continuenormalflight(self, actions):
     if m:
       targetname = m[1]
       target     = apaircraft._fromname(targetname)
+      self._logevent("- air-to-air attack on %s using %s." % (targetname, weapon))
     else:
       targetname = None
       target     = None
-
-    if target != None:
-      self._logevent("- attack on %s using %s." % (targetname, weapon))
-    else:
-      self._logevent("- attack using %s." % weapon)
+      self._logevent("- air-to-air attack using %s." % weapon)
 
     if self._maxturnrate != None:
       self._logevent("- maximum turn rate so far is %s." % self._maxturnrate)
@@ -807,16 +804,14 @@ def _continuenormalflight(self, actions):
       return
 
     if weapon == "GN" or weapon == "GP":
-      gunattackrange = self.gunattackrange(target)
-      if gunattackrange is False:
-        raise RuntimeError("the target cannot be attacked with guns.")
-      self._logevent("- gun range is %d." % gunattackrange)
-    elif weapon == "RK" or weapon == "RP":
-      rocketattackrange = a0.rocketattackrange(a1)
-      if rocketattackrange is False:
-        raise RuntimeError("the target cannot be attacked with rockets.")
-      self._logevent("- range is %d." % rocketattackrange)
-      
+      r = self.gunattackrange(target)
+    else:
+      r = self.rocketattackrange(target)
+
+    if isinstance(r, str):
+        raise RuntimeError(r)      
+
+    self._logevent("- range is %d." % r)      
     self._logevent("- angle-off-tail is %s." % self.angleofftail(target))
       
   ########################################
@@ -952,10 +947,10 @@ def _continuenormalflight(self, actions):
     ["J1/2"  , "other"              , None, lambda: dojettison("1/2") ],
     ["JCL"   , "other"              , None, lambda: dojettison("CL") ],
     
-    ["AGN"   , "other"              , "\\(([^)]*)\\)", lambda m: doattack(m, "GN") ],
-    ["AGP"   , "other"              , "\\(([^)]*)\\)", lambda m: doattack(m, "GP") ],
-    ["ARK"   , "other"              , "\\(([^)]*)\\)", lambda m: doattack(m, "RK") ],
-    ["ARP"   , "other"              , "\\(([^)]*)\\)", lambda m: doattack(m, "RP") ],
+    ["AAGN"  , "other"              , "\\(([^)]*)\\)", lambda m: doataattack(m, "GN") ],
+    ["AAGP"  , "other"              , "\\(([^)]*)\\)", lambda m: doataattack(m, "GP") ],
+    ["AARK"  , "other"              , "\\(([^)]*)\\)", lambda m: doataattack(m, "RK") ],
+    ["AARP"  , "other"              , "\\(([^)]*)\\)", lambda m: doataattack(m, "RP") ],
 
     ["K"     , "other"              , None, lambda: dokilled()],
 

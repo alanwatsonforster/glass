@@ -257,7 +257,7 @@ class aircraft:
 
     """
     Return the gun attack range of the other aircraft from the aircraft
-    or False if it cannot be attacked.
+    or a string explaining why it cannot be attacked.
     """
 
     return _gunattackrange(self, other)
@@ -268,7 +268,7 @@ class aircraft:
 
     """
     Return the rocket attack range of the other aircraft from the aircraft
-    or False if it cannot be attacked.
+    or a string explaining why it cannot be attacked.
     """
 
     return _rocketattackrange(self, other)
