@@ -138,7 +138,6 @@ starttestsetup()
 
 A1 = aircraft("A1", "F-80C"  , "2024", "NNE", 5, 4.0, "CL")
 A2 = aircraft("A2", "F-80C"  , "2023", "W", 5, 5.0, "CL")
-ap.drawmap()
 assert A1.angleofftail(A2) == "90 arc"
 
 endtestsetup()
