@@ -3,7 +3,7 @@ Normal flight for the aircraft class.
 """
 
 import math
-from typing_extensions import LiteralString
+import re
 from apengine._math import onethird, twothirds, roundtoquarter
 
 import apengine._altitude as apaltitude
@@ -767,7 +767,7 @@ def _continuenormalflight(self, actions):
   
   ########################################
 
-  def doattack(weapon):
+  def doattack(m, weapon):
 
     """
     Declare an attack with the specified weapon.
@@ -785,7 +785,16 @@ def _continuenormalflight(self, actions):
     if self._wasrollingonlastfp:
       raise RuntimeError("attempt to use weapons on the FP immediately after rolling.")
 
-    self._logevent("- attack using %s." % weapon)
+    if m:
+      target = m[1]
+    else:
+      target = None
+
+    if target != None:
+      self._logevent("- attack on %s using %s." % (target, weapon))
+    else:
+      self._logevent("- attack using %s." % weapon)
+
     if self._maxturnrate != None:
       self._logevent("- maximum turn rate so far is %s." % self._maxturnrate)
     else:
@@ -844,129 +853,130 @@ def _continuenormalflight(self, actions):
 
     # [0] is the element code.
     # [1] is the element type.
-    # [2] is the element procedure.
+    # [2] is a possible regex to apply
+    # [3] is the element procedure.
   
-    ["SLL"  , "maneuver declaration", lambda: dodeclareslide("L") ],
-    ["SLR"  , "maneuver declaration", lambda: dodeclareslide("R") ],
+    ["SLL"  , "maneuver declaration", None, lambda: dodeclareslide("L") ],
+    ["SLR"  , "maneuver declaration", None, lambda: dodeclareslide("R") ],
 
-    ["DRL"  , "maneuver declaration", lambda: dodeclaredisplacementroll("L") ],
-    ["DRR"  , "maneuver declaration", lambda: dodeclaredisplacementroll("R") ],
+    ["DRL"  , "maneuver declaration", None, lambda: dodeclaredisplacementroll("L") ],
+    ["DRR"  , "maneuver declaration", None, lambda: dodeclaredisplacementroll("R") ],
 
-    ["LRL"  , "maneuver declaration", lambda: dodeclarelagroll("L") ],
-    ["LRR"  , "maneuver declaration", lambda: dodeclarelagroll("R") ],
+    ["LRL"  , "maneuver declaration", None, lambda: dodeclarelagroll("L") ],
+    ["LRR"  , "maneuver declaration", None, lambda: dodeclarelagroll("R") ],
         
-    ["VRL"  , "maneuver declaration", lambda: dodeclareverticalroll("L") ],
-    ["VRR"  , "maneuver declaration", lambda: dodeclareverticalroll("R") ],
+    ["VRL"  , "maneuver declaration", None, lambda: dodeclareverticalroll("L") ],
+    ["VRR"  , "maneuver declaration", None, lambda: dodeclareverticalroll("R") ],
     
-    ["EZL"  , "maneuver declaration", lambda: dodeclareturn("L", "EZ") ],
-    ["TTL"  , "maneuver declaration", lambda: dodeclareturn("L", "TT") ],
-    ["HTL"  , "maneuver declaration", lambda: dodeclareturn("L", "HT") ],
-    ["BTL"  , "maneuver declaration", lambda: dodeclareturn("L", "BT") ],
-    ["ETL"  , "maneuver declaration", lambda: dodeclareturn("L", "ET") ],
+    ["EZL"  , "maneuver declaration", None, lambda: dodeclareturn("L", "EZ") ],
+    ["TTL"  , "maneuver declaration", None, lambda: dodeclareturn("L", "TT") ],
+    ["HTL"  , "maneuver declaration", None, lambda: dodeclareturn("L", "HT") ],
+    ["BTL"  , "maneuver declaration", None, lambda: dodeclareturn("L", "BT") ],
+    ["ETL"  , "maneuver declaration", None, lambda: dodeclareturn("L", "ET") ],
     
-    ["EZR"  , "maneuver declaration", lambda: dodeclareturn("R", "EZ") ],
-    ["TTR"  , "maneuver declaration", lambda: dodeclareturn("R", "TT") ],
-    ["HTR"  , "maneuver declaration", lambda: dodeclareturn("R", "HT") ],
-    ["BTR"  , "maneuver declaration", lambda: dodeclareturn("R", "BT") ],
-    ["ETR"  , "maneuver declaration", lambda: dodeclareturn("R", "ET") ],
+    ["EZR"  , "maneuver declaration", None, lambda: dodeclareturn("R", "EZ") ],
+    ["TTR"  , "maneuver declaration", None, lambda: dodeclareturn("R", "TT") ],
+    ["HTR"  , "maneuver declaration", None, lambda: dodeclareturn("R", "HT") ],
+    ["BTR"  , "maneuver declaration", None, lambda: dodeclareturn("R", "BT") ],
+    ["ETR"  , "maneuver declaration", None, lambda: dodeclareturn("R", "ET") ],
     
-    ["BKL"   , "bank"               , lambda: dobank("L")  ],
-    ["BKR"   , "bank"               , lambda: dobank("R")  ],
-    ["WL"    , "bank"               , lambda: dobank(None) ],
+    ["BKL"   , "bank"               , None, lambda: dobank("L")  ],
+    ["BKR"   , "bank"               , None, lambda: dobank("R")  ],
+    ["WL"    , "bank"               , None, lambda: dobank(None) ],
 
-    ["L90+"  , "maneuver"           , lambda: domaneuver("L",   90, True , True ) ],
-    ["L60+"  , "maneuver"           , lambda: domaneuver("L",   60, True , True ) ],
-    ["L30+"  , "maneuver"           , lambda: domaneuver("L",   30, True , True ) ],
-    ["LLL+"  , "maneuver"           , lambda: domaneuver("L",   90, True , True ) ],
-    ["LL+"   , "maneuver"           , lambda: domaneuver("L",   60, True , True ) ],
-    ["L+"    , "maneuver"           , lambda: domaneuver("L", None, True , True ) ],
+    ["L90+"  , "maneuver"           , None, lambda: domaneuver("L",   90, True , True ) ],
+    ["L60+"  , "maneuver"           , None, lambda: domaneuver("L",   60, True , True ) ],
+    ["L30+"  , "maneuver"           , None, lambda: domaneuver("L",   30, True , True ) ],
+    ["LLL+"  , "maneuver"           , None, lambda: domaneuver("L",   90, True , True ) ],
+    ["LL+"   , "maneuver"           , None, lambda: domaneuver("L",   60, True , True ) ],
+    ["L+"    , "maneuver"           , None, lambda: domaneuver("L", None, True , True ) ],
     
-    ["R90+"  , "maneuver"           , lambda: domaneuver("R",   90, True , True ) ],
-    ["R60+"  , "maneuver"           , lambda: domaneuver("R",   60, True , True ) ],
-    ["R30+"  , "maneuver"           , lambda: domaneuver("R",   30, True , True ) ],
-    ["RRR+"  , "maneuver"           , lambda: domaneuver("R",   90, True , True ) ],
-    ["RR+"   , "maneuver"           , lambda: domaneuver("R",   60, True , True ) ],
-    ["R+"    , "maneuver"           , lambda: domaneuver("R", None, True , True ) ],    
+    ["R90+"  , "maneuver"           , None, lambda: domaneuver("R",   90, True , True ) ],
+    ["R60+"  , "maneuver"           , None, lambda: domaneuver("R",   60, True , True ) ],
+    ["R30+"  , "maneuver"           , None, lambda: domaneuver("R",   30, True , True ) ],
+    ["RRR+"  , "maneuver"           , None, lambda: domaneuver("R",   90, True , True ) ],
+    ["RR+"   , "maneuver"           , None, lambda: domaneuver("R",   60, True , True ) ],
+    ["R+"    , "maneuver"           , None, lambda: domaneuver("R", None, True , True ) ],    
 
-    ["LS180" , "maneuver"           , lambda: domaneuver("L",  180, True , False)],
-    ["L180"  , "maneuver"           , lambda: domaneuver("L",  180, False, False)],
-    ["L150"  , "maneuver"           , lambda: domaneuver("L",  150, True , False)],
-    ["L120"  , "maneuver"           , lambda: domaneuver("L",  120, True , False)],
-    ["L90"   , "maneuver"           , lambda: domaneuver("L",   90, True , False) ],
-    ["L60"   , "maneuver"           , lambda: domaneuver("L",   60, True , False) ],
-    ["L30"   , "maneuver"           , lambda: domaneuver("L",   30, True , False) ],
-    ["LLL"   , "maneuver"           , lambda: domaneuver("L",   90, True , False) ],
-    ["LL"    , "maneuver"           , lambda: domaneuver("L",   60, True , False) ],
-    ["L"     , "maneuver"           , lambda: domaneuver("L", None, True , False) ],
+    ["LS180" , "maneuver"           , None, lambda: domaneuver("L",  180, True , False)],
+    ["L180"  , "maneuver"           , None, lambda: domaneuver("L",  180, False, False)],
+    ["L150"  , "maneuver"           , None, lambda: domaneuver("L",  150, True , False)],
+    ["L120"  , "maneuver"           , None, lambda: domaneuver("L",  120, True , False)],
+    ["L90"   , "maneuver"           , None, lambda: domaneuver("L",   90, True , False) ],
+    ["L60"   , "maneuver"           , None, lambda: domaneuver("L",   60, True , False) ],
+    ["L30"   , "maneuver"           , None, lambda: domaneuver("L",   30, True , False) ],
+    ["LLL"   , "maneuver"           , None, lambda: domaneuver("L",   90, True , False) ],
+    ["LL"    , "maneuver"           , None, lambda: domaneuver("L",   60, True , False) ],
+    ["L"     , "maneuver"           , None, lambda: domaneuver("L", None, True , False) ],
 
-    ["RS180" , "maneuver"           , lambda: domaneuver("R",  180, True , False)],
-    ["R180"  , "maneuver"           , lambda: domaneuver("R",  180, False, False)],
-    ["R150"  , "maneuver"           , lambda: domaneuver("R",  150, True , False)],
-    ["R120"  , "maneuver"           , lambda: domaneuver("R",  120, True , False)],
-    ["R90"   , "maneuver"           , lambda: domaneuver("R",   90, True , False) ],
-    ["R60"   , "maneuver"           , lambda: domaneuver("R",   60, True , False) ],
-    ["R30"   , "maneuver"           , lambda: domaneuver("R",   30, True , False) ],
-    ["RRR"   , "maneuver"           , lambda: domaneuver("R",   90, True , False) ],
-    ["RR"    , "maneuver"           , lambda: domaneuver("R",   60, True , False) ],
-    ["R"     , "maneuver"           , lambda: domaneuver("R", None, True , False) ],
+    ["RS180" , "maneuver"           , None, lambda: domaneuver("R",  180, True , False)],
+    ["R180"  , "maneuver"           , None, lambda: domaneuver("R",  180, False, False)],
+    ["R150"  , "maneuver"           , None, lambda: domaneuver("R",  150, True , False)],
+    ["R120"  , "maneuver"           , None, lambda: domaneuver("R",  120, True , False)],
+    ["R90"   , "maneuver"           , None, lambda: domaneuver("R",   90, True , False) ],
+    ["R60"   , "maneuver"           , None, lambda: domaneuver("R",   60, True , False) ],
+    ["R30"   , "maneuver"           , None, lambda: domaneuver("R",   30, True , False) ],
+    ["RRR"   , "maneuver"           , None, lambda: domaneuver("R",   90, True , False) ],
+    ["RR"    , "maneuver"           , None, lambda: domaneuver("R",   60, True , False) ],
+    ["R"     , "maneuver"           , None, lambda: domaneuver("R", None, True , False) ],
 
-    ["S1/2"  , "other"              , lambda: dospeedbrakes(1/2) ],
-    ["S1"    , "other"              , lambda: dospeedbrakes(1) ],
-    ["S3/2"  , "other"              , lambda: dospeedbrakes(3/2) ],
-    ["S2"    , "other"              , lambda: dospeedbrakes(2) ],
-    ["S5/2"  , "other"              , lambda: dospeedbrakes(5/2) ],
-    ["S3"    , "other"              , lambda: dospeedbrakes(3) ],
-    ["SSS"   , "other"              , lambda: dospeedbrakes(3/2) ],
-    ["SS"    , "other"              , lambda: dospeedbrakes(1) ],
-    ["S"     , "other"              , lambda: dospeedbrakes(1/2) ],
+    ["S1/2"  , "other"              , None, lambda: dospeedbrakes(1/2) ],
+    ["S1"    , "other"              , None, lambda: dospeedbrakes(1) ],
+    ["S3/2"  , "other"              , None, lambda: dospeedbrakes(3/2) ],
+    ["S2"    , "other"              , None, lambda: dospeedbrakes(2) ],
+    ["S5/2"  , "other"              , None, lambda: dospeedbrakes(5/2) ],
+    ["S3"    , "other"              , None, lambda: dospeedbrakes(3) ],
+    ["SSS"   , "other"              , None, lambda: dospeedbrakes(3/2) ],
+    ["SS"    , "other"              , None, lambda: dospeedbrakes(1) ],
+    ["S"     , "other"              , None, lambda: dospeedbrakes(1/2) ],
     
-    ["J1/2"  , "other"              , lambda: dojettison("1/2") ],
-    ["JCL"   , "other"              , lambda: dojettison("CL") ],
+    ["J1/2"  , "other"              , None, lambda: dojettison("1/2") ],
+    ["JCL"   , "other"              , None, lambda: dojettison("CL") ],
     
-    ["AGN"   , "other"              , lambda: doattack("guns") ],
-    ["AGP"   , "other"              , lambda: doattack("gun pod") ],
-    ["ARK"   , "other"              , lambda: doattack("rockets") ],
-    ["ARP"   , "other"              , lambda: doattack("rocket pods") ],
+    ["AGN"   , "other"              , "\\(([^)]*)\\)", lambda m: doattack(m, "guns") ],
+    ["AGP"   , "other"              , "\(([^)]*)\)", lambda m: doattack(m, "gun pod") ],
+    ["ARK"   , "other"              , "\(([^)]*)\)", lambda m: doattack(m, "rockets") ],
+    ["ARP"   , "other"              , "\(([^)]*)\)", lambda m: doattack(m, "rocket pods") ],
 
-    ["K"     , "other"              , lambda: dokilled()],
+    ["K"     , "other"              , None, lambda: dokilled()],
 
-    ["/"     , "other"              , lambda: None ],
+    ["/"     , "other"              , None, lambda: None ],
 
-    ["H"    , "H"                   , lambda: dohorizontal() ],
+    ["H"    , "H"                   , None, lambda: dohorizontal() ],
 
-    ["C1"   , "C or D"              , lambda: doclimb(1) ],
-    ["C2"   , "C or D"              , lambda: doclimb(2) ],
-    ["CC"   , "C or D"              , lambda: doclimb(2) ],
-    ["C"    , "C or D"              , lambda: doclimb(1) ],
+    ["C1"   , "C or D"              , None, lambda: doclimb(1) ],
+    ["C2"   , "C or D"              , None, lambda: doclimb(2) ],
+    ["CC"   , "C or D"              , None, lambda: doclimb(2) ],
+    ["C"    , "C or D"              , None, lambda: doclimb(1) ],
 
-    ["D1"   , "C or D"              , lambda: dodive(1) ],
-    ["D2"   , "C or D"              , lambda: dodive(2) ],
-    ["D3"   , "C or D"              , lambda: dodive(3) ],
-    ["DDD"  , "C or D"              , lambda: dodive(3) ],
-    ["DD"   , "C or D"              , lambda: dodive(2) ],
-    ["D"    , "C or D"              , lambda: dodive(1) ],
+    ["D1"   , "C or D"              , None, lambda: dodive(1) ],
+    ["D2"   , "C or D"              , None, lambda: dodive(2) ],
+    ["D3"   , "C or D"              , None, lambda: dodive(3) ],
+    ["DDD"  , "C or D"              , None, lambda: dodive(3) ],
+    ["DD"   , "C or D"              , None, lambda: dodive(2) ],
+    ["D"    , "C or D"              , None, lambda: dodive(1) ],
 
-    ["MDL300", "maneuvering departure", lambda: domaneuveringdeparture("L", 300)],
-    ["MDL270", "maneuvering departure", lambda: domaneuveringdeparture("L", 270)],
-    ["MDL240", "maneuvering departure", lambda: domaneuveringdeparture("L", 240)],
-    ["MDL210", "maneuvering departure", lambda: domaneuveringdeparture("L", 210)],
-    ["MDL180", "maneuvering departure", lambda: domaneuveringdeparture("L", 180)],
-    ["MDL150", "maneuvering departure", lambda: domaneuveringdeparture("L", 150)],
-    ["MDL120", "maneuvering departure", lambda: domaneuveringdeparture("L", 120)],
-    ["MDL90" , "maneuvering departure", lambda: domaneuveringdeparture("L",  90)],
-    ["MDL60" , "maneuvering departure", lambda: domaneuveringdeparture("L",  60)],
-    ["MDL30" , "maneuvering departure", lambda: domaneuveringdeparture("L",  30)],
+    ["MDL300", "maneuvering departure", None, lambda: domaneuveringdeparture("L", 300)],
+    ["MDL270", "maneuvering departure", None, lambda: domaneuveringdeparture("L", 270)],
+    ["MDL240", "maneuvering departure", None, lambda: domaneuveringdeparture("L", 240)],
+    ["MDL210", "maneuvering departure", None, lambda: domaneuveringdeparture("L", 210)],
+    ["MDL180", "maneuvering departure", None, lambda: domaneuveringdeparture("L", 180)],
+    ["MDL150", "maneuvering departure", None, lambda: domaneuveringdeparture("L", 150)],
+    ["MDL120", "maneuvering departure", None, lambda: domaneuveringdeparture("L", 120)],
+    ["MDL90" , "maneuvering departure", None, lambda: domaneuveringdeparture("L",  90)],
+    ["MDL60" , "maneuvering departure", None, lambda: domaneuveringdeparture("L",  60)],
+    ["MDL30" , "maneuvering departure", None, lambda: domaneuveringdeparture("L",  30)],
     
-    ["MDR300", "maneuvering departure", lambda: domaneuveringdeparture("R", 300)],
-    ["MDR270", "maneuvering departure", lambda: domaneuveringdeparture("R", 270)],
-    ["MDR240", "maneuvering departure", lambda: domaneuveringdeparture("R", 240)],
-    ["MDR210", "maneuvering departure", lambda: domaneuveringdeparture("R", 210)],
-    ["MDR180", "maneuvering departure", lambda: domaneuveringdeparture("R", 180)],
-    ["MDR150", "maneuvering departure", lambda: domaneuveringdeparture("R", 150)],
-    ["MDR120", "maneuvering departure", lambda: domaneuveringdeparture("R", 120)],
-    ["MDR90" , "maneuvering departure", lambda: domaneuveringdeparture("R",  90)],
-    ["MDR60" , "maneuvering departure", lambda: domaneuveringdeparture("R",  60)],
-    ["MDR30" , "maneuvering departure", lambda: domaneuveringdeparture("R",  30)],
+    ["MDR300", "maneuvering departure", None, lambda: domaneuveringdeparture("R", 300)],
+    ["MDR270", "maneuvering departure", None, lambda: domaneuveringdeparture("R", 270)],
+    ["MDR240", "maneuvering departure", None, lambda: domaneuveringdeparture("R", 240)],
+    ["MDR210", "maneuvering departure", None, lambda: domaneuveringdeparture("R", 210)],
+    ["MDR180", "maneuvering departure", None, lambda: domaneuveringdeparture("R", 180)],
+    ["MDR150", "maneuvering departure", None, lambda: domaneuveringdeparture("R", 150)],
+    ["MDR120", "maneuvering departure", None, lambda: domaneuveringdeparture("R", 120)],
+    ["MDR90" , "maneuvering departure", None, lambda: domaneuveringdeparture("R",  90)],
+    ["MDR60" , "maneuvering departure", None, lambda: domaneuveringdeparture("R",  60)],
+    ["MDR30" , "maneuvering departure", None, lambda: domaneuveringdeparture("R",  30)],
 
   ]
 
@@ -986,15 +996,25 @@ def _continuenormalflight(self, actions):
 
       for element in elementdispatchlist:
 
-        elementcode = element[0]
-        elementtype = element[1]
-        elementprocedure = element[2]
+        elementcode      = element[0]
+        elementtype      = element[1]
+        elementregex     = element[2]
+        elementprocedure = element[3]
 
-        if len(elementcode) <= len(action) and elementcode == action[:len(elementcode)]:
+        if elementcode == action[:len(elementcode)]:
+          action = action[len(elementcode):]
+          if elementregex == None:
+            m = None
+          else:
+            m = re.compile(elementregex).match(action)
+            if m:
+              action = action[len(m.group()):]   
           if selectedelementtype == elementtype:
             ielement += 1
-            elementprocedure()
-          action = action[len(elementcode):]
+            if elementregex == None:
+              elementprocedure()
+            else:
+              elementprocedure(m)
           break
 
       else:
