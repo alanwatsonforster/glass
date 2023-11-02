@@ -104,11 +104,17 @@ class aircraft:
     color="unpainted", counter=False
   ):
 
+    global _aircraftlist
+
     aplog.clearerror()
     try:
 
       if not isinstance(name, str):
         raise RuntimeError("the name argument must be a string.")
+      for a in _aircraftlist:
+        if name == a._name:
+          raise RuntimeError("the name argument must be unique.")
+
       if not isinstance(aircrafttype, str):
         raise RuntimeError("the aircrafttype argument must be a string.")
       # Require the hexcode to be a string to avoid surprised with things like 2020/2120 rather than "2020/2120".
@@ -174,7 +180,6 @@ class aircraft:
     
       self._saved = []
 
-      global _aircraftlist
       _aircraftlist.append(self)
 
     except RuntimeError as e:

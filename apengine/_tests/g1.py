@@ -249,7 +249,7 @@ endturn()
 
 starttestsetup()
 A1 = aircraft("A1", "F-80C", "1415", "N", 20, 4.0, "CL")
-A2 = aircraft("A1", "F-80C", "1615", "N", 20, 4.0, "CL")
+A2 = aircraft("A2", "F-80C", "1615", "N", 20, 4.0, "CL")
 endtestsetup()
 
 startturn()

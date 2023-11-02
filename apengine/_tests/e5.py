@@ -7,7 +7,7 @@ starttestsetup(sheets=[["C2"]],verbose=False)
 A1 = aircraft("A1", "F-80C", "6625", "WSW", 1, 4.0, "CL")
 A2 = aircraft("A2", "F-80C", "6624", "WSW", 1, 4.0, "CL")
 A3 = aircraft("A3", "F-80C", "6623", "WSW", 2, 4.0, "CL")
-A4 = aircraft("A3", "F-80C", "6628/6727", "NNW", 1, 4.0, "CL")
+A4 = aircraft("A4", "F-80C", "6628/6727", "NNW", 1, 4.0, "CL")
 endtestsetup()
 
 startturn()

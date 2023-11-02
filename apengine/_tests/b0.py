@@ -73,7 +73,7 @@ A2._assert("2010       N    12", 2.0)
 
 starttestsetup()
 A1 = aircraft("A1", "F-80C" , "1115", "N"  , 10, 4.0, "CL")
-A2 = aircraft("A1", "F-80C" , "1315", "N"  , 10, 4.0, "CL")
+A2 = aircraft("A2", "F-80C" , "1315", "N"  , 10, 4.0, "CL")
 endtestsetup()
 
 startturn()
