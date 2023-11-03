@@ -814,14 +814,15 @@ def _continuenormalflight(self, actions):
     self._logevent("- range is %d." % r)      
     self._logevent("- angle-off-tail is %s." % self.angleofftail(target))
 
-    if m[2] != "":
-      if m[2] == "M":
-        self._logevent("- missed.")
-      elif m[2] == "-":
-        self._logevent("- hit but inflicted no damage.")
-      else:
-        self._logevent("- hit and inflicted %s damage." % m[2])
-        target.takedamage(m[2])
+    if m[2] == "":
+      self._logevent("- result of attack not specified.")
+    elif m[2] == "M":
+      self._logevent("- missed.")
+    elif m[2] == "-":
+      self._logevent("- hit but inflicted no damage.")
+    else:
+      self._logevent("- hit and inflicted %s damage." % m[2])
+      target.takedamage(m[2])
 
   ########################################
 
