@@ -48,7 +48,7 @@ def move(self, flighttype, power, actions, flamedoutengines=0):
     self._previousaltitudeband  = self._altitudeband
     self._previousaltitudecarry = self._altitudecarry
     self._previousspeed         = self._speed
-
+  
     # These account for the APs associated with power, speed, speed-brakes, 
     # turns (split into the part for the maximum turn rate and the part for 
     # sustained turns), altitude loss or gain, and special maneuvers. They

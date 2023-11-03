@@ -29,18 +29,24 @@ def _endsetup():
 
 def _startturn():
   global _zorder
-  zorder = 0
+  _zorder = 0
   for a in _aircraftlist:
     a._restore(ap.turn() - 1)
     a._finishedmove = False
     a._startflightpath()
+  for a in _aircraftlist:
     a._checkcloseformation()
 
 def _endturn():
   for a in _aircraftlist:
     if not a._destroyed and not a._leftmap and not a._finishedmove:
       raise RuntimeError("aircraft %s has not finished its move." % a._name)
+  for a in _aircraftlist:
+    a._speed = a._newspeed
+    a._newspeed = None
+  for a in _aircraftlist:
     a._checkcloseformation()
+  for a in _aircraftlist:
     a._save(ap.turn())
 
 def _drawmap():
@@ -154,6 +160,7 @@ class aircraft:
       self._altitudeband          = apaltitude.altitudeband(self._altitude)
       self._altitudecarry         = 0
       self._speed                 = speed
+      self._newspeed              = None
       self._configuration         = configuration
       self._flighttype            = "LVL"
       self._powersetting          = "N"
@@ -475,7 +482,7 @@ class aircraft:
   def _assert(self, position, speed, configuration=None):
 
     """
-    Verify the position and speed of an aircraft.
+    Verify the position and new speed of an aircraft.
     """
 
     if aplog._error != None:
@@ -487,11 +494,19 @@ class aircraft:
       print("== actual position  : %s" % self.position())
       print("== expected position: %s" % position)
       assert position == self.position()
-    if speed != None and speed != self._speed:
-      print("== assertion failed ===")
-      print("== actual speed  : %.1f" % self._speed)
-      print("== expected speed: %.1f" % speed)
-      assert speed == self._speed
+    if speed is not None:
+      if self._newspeed is None:
+        if speed != self._speed:
+          print("== assertion failed ===")
+          print("== actual   speed: %.1f" % self._speed)
+          print("== expected speed: %.1f" % speed)
+          assert speed == self._speed
+      else:
+        if speed != self._newspeed:
+          print("== assertion failed ===")
+          print("== actual   new speed: %.1f" % self._newspeed)
+          print("== expected new speed: %.1f" % newspeed)
+          assert speed == self._newspeed
     if configuration != None and configuration != self._configuration:
       print("== assertion failed ===")
       print("== actual speed  : %s" % self._configuration)

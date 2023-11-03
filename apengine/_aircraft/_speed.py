@@ -346,6 +346,8 @@ def _endmovespeed(self):
   altitudeloss = self._previousaltitude - self._altitude
   usemaxdivespeed = (altitudeloss >= 2)
   
+  self._newspeed = self._speed
+
   if ap == 0:
 
     self._apcarry = 0
@@ -354,11 +356,11 @@ def _endmovespeed(self):
 
     # See the "Speed Loss" and "Maximum Deceleration" sections of rule 6.2.
 
-    self._speed -= 0.5 * (ap // aprate)
+    self._newspeed -= 0.5 * (ap // aprate)
     self._apcarry = ap % aprate
 
-    if self._speed <= 0:
-      self._speed = 0
+    if self._newspeed <= 0:
+      self._newspeed = 0
       if self._apcarry < 0:
         self._apcarry = 0        
 
@@ -380,38 +382,38 @@ def _endmovespeed(self):
       self._apcarry = ap
     elif self._speed + 0.5 * (ap // aprate) > maxspeed:
       self._log("- acceleration is limited by %s of %.1f." % (maxspeedname, maxspeed))
-      self._speed = maxspeed
+      self._newspeed = maxspeed
       self._apcarry = aprate - 0.5
     else:
-      self._speed += 0.5 * (ap // aprate)
+      self._newspeed += 0.5 * (ap // aprate)
       self._apcarry = ap % aprate
 
   self._log("- is carrying %+.2f APs." % self._apcarry)
 
   if usemaxdivespeed:
     maxspeed = self.maxdivespeed()
-    if self._speed > maxspeed:
+    if self._newspeed > maxspeed:
       self._log("- speed is reduced to maximum dive speed of %.1f." % maxspeed)
-      self._speed = maxspeed
+      self._newspeed = maxspeed
   else:
     maxspeed = self.maxspeed()
-    if self._speed > maxspeed:
-      self._log("- speed is faded back from %.1f." % self._speed)
-      self._speed = max(self._speed - 1, maxspeed)
+    if self._newspeed > maxspeed:
+      self._log("- speed is faded back from %.1f." % self._newspeed)
+      self._newspeed = max(self._newspeed - 1, maxspeed)
 
   if self._previousspeed != self._speed:
-    self._log("speed         changed from %.1f to %.1f." % (self._previousspeed, self._speed))
+    self._log("speed         changed from %.1f to %.1f." % (self._previousspeed, self._newspeed))
   else:
-    self._log("speed         is unchanged at %.1f." % self._speed)
+    self._log("speed         is unchanged at %.1f." % self._newspeed)
 
   # See rule 6.4.
 
   minspeed = self.minspeed()
-  if self._speed < minspeed:
+  if self._newspeed < minspeed:
     self._log("- speed is below the minimum of %.1f." % minspeed)
-  if self._speed >= minspeed and self._flighttype == "ST":
+  if self._newspeed >= minspeed and self._flighttype == "ST":
     self._log("- aircraft is no longer stalled.")
-  elif self._speed < minspeed and self._flighttype == "ST":
+  elif self._newspeed < minspeed and self._flighttype == "ST":
     self._log("- aircraft is still stalled.")
-  elif self._speed < minspeed:
+  elif self._newspeed < minspeed:
     self._log("- aircraft has stalled.")

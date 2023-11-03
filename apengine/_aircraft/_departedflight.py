@@ -111,5 +111,7 @@ def _dodepartedflight(self, action):
     self._logevent("altitude band changed from %s to %s." % (initialaltitudeband, self._altitudeband))
   self.checkforterraincollision()
 
+  self._newspeed = self._speed
+
   self._log("---")
 
