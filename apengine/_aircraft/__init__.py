@@ -243,6 +243,45 @@ class aircraft:
 
   #############################################################################
 
+  def returnfire(self, target, arc=False):
+
+    """
+    Return fire, either with fixed guns or articulated guns.
+    """
+
+    aplog.clearerror()
+    try:
+
+      if arc:
+
+        self._logevent("- %s returning fire: air-to-air attack on %s using articulated GN covering %s arc." % (self._name, target._name, arc))
+  
+        r = self.gunattackrange(target, arc=arc)
+        if isinstance(r, str):
+          raise RuntimeError(r)
+
+        self._logevent("- %s returning fire: range is %d." % (self._name, r)      )
+        self._logevent("- %s returning fire: angle-off-tail of %s is %s." % (self._name, self._name, target.angleofftail(self)))  
+        
+      else:
+        
+        self._log("- returning fire: air-to-air attack on %s using fixed GN." % target._name)
+
+        r = self.gunattackrange(target)
+        if isinstance(r, str):
+          raise RuntimeError(r)
+        angleofftail = self.angleofftail(target)
+        if angleofftail != "180 line":
+          raise RuntimeError("fixed guns can only return fire to head-on attacks.")
+
+        self._log("- returning fire: range is %d." % r)      
+        self._log("- returning fire: angle-off-tail is %s." % angleofftail)   
+
+    except RuntimeError as e:
+      aplog.logexception(e)
+    
+  #############################################################################
+
   def angleofftail(self, other):
 
     """
@@ -253,14 +292,14 @@ class aircraft:
 
   #############################################################################
 
-  def gunattackrange(self, other):
+  def gunattackrange(self, other, arc=False):
 
     """
     Return the gun attack range of the other aircraft from the aircraft
     or a string explaining why it cannot be attacked.
     """
 
-    return _gunattackrange(self, other)
+    return _gunattackrange(self, other, arc=arc)
 
   #############################################################################
 
