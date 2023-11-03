@@ -48,6 +48,7 @@ def move(self, flighttype, power, actions, flamedoutengines=0):
     self._previousaltitudeband  = self._altitudeband
     self._previousaltitudecarry = self._altitudecarry
     self._previousspeed         = self._speed
+    self._previousdamage        = self.damage()
   
     # These account for the APs associated with power, speed, speed-brakes, 
     # turns (split into the part for the maximum turn rate and the part for 
@@ -90,6 +91,7 @@ def move(self, flighttype, power, actions, flamedoutengines=0):
       self._startmovespeed(power, flamedoutengines)
       self._log("configuration is %s." % self._configuration)
     self._log("altitude band is %s." % self._altitudeband)
+    self._log("damage        is %s." % self.damage())
 
     if self._flighttype == "SP":
 
@@ -183,6 +185,11 @@ def _endmove(self):
     else:
       self._log("altitude band is unchanged at %s." % self._altitudeband)
 
+    if self._previousdamage != self.damage():
+      self._log("damage        changed from %s to %s." % (self._previousdamage, self.damage()))
+    else:
+      self._log("damage        is unchanged at %s." % self.damage())
+      
     self._finishedmove = True
   
   self._save(ap.turn())

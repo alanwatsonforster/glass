@@ -97,6 +97,9 @@ class aircraft:
   from ._speed import \
     _startmovespeed, _endmovespeed
 
+  from ._damage import \
+    damage, takedamage
+
   from ._flightcapabilities import \
     power, spbr, fuelrate, powerfade, engines, turndrag, \
     minspeed, maxspeed, cruisespeed, climbspeed, maxdivespeed, ceiling, \
@@ -162,6 +165,10 @@ class aircraft:
       self._speed                 = speed
       self._newspeed              = None
       self._configuration         = configuration
+      self._damageL               = 0
+      self._damageH               = 0
+      self._damageC               = 0
+      self._damageK               = 0
       self._flighttype            = "LVL"
       self._powersetting          = "N"
       self._bank                  = None
@@ -413,6 +420,10 @@ class aircraft:
     self._altitudecarry, \
     self._speed, \
     self._configuration, \
+    self._damageL, \
+    self._damageH, \
+    self._damageC, \
+    self._damageK, \
     self._powersetting, \
     self._flighttype, \
     self._bank, \
@@ -450,6 +461,10 @@ class aircraft:
       self._altitudecarry, \
       self._speed, \
       self._configuration, \
+      self._damageL, \
+      self._damageH, \
+      self._damageC, \
+      self._damageK, \
       self._powersetting, \
       self._flighttype, \
       self._bank, \
