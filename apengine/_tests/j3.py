@@ -231,7 +231,7 @@ endtestsetup()
 
 # Check altitude requirements and the vertical component of range.
 
-starttestsetup(verbose=True)
+starttestsetup()
 
 A1 = aircraft("A1", "F-80C"  , "2025", "N", 10, 4.0, "CL")
 A2 = aircraft("A2", "F-80C"  , "2025", "N", 10, 4.0, "CL")
