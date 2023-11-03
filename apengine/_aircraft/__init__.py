@@ -12,6 +12,7 @@ import apengine._speed         as apspeed
 import apengine._turnrate      as apturnrate
 
 import math
+import re
 
 ################################################################################
 
@@ -257,7 +258,7 @@ class aircraft:
 
   #############################################################################
 
-  def returnfire(self, target, arc=False):
+  def returnfire(self, action, arc=False):
 
     """
     Return fire, either with fixed guns or articulated guns.
@@ -266,20 +267,32 @@ class aircraft:
     aplog.clearerror()
     try:
 
+      m = re.compile("AAGN\\(([^)]*)\\)\\(([^)]*)\\)").match(action)
+      if m is None:
+        raise RuntimeError("invalid action %r" % action)
+
+      targetname = m[1]
+      target = _fromname(targetname)
+      
+      prefix = "%s returning fire on %s" % (self._name, target._name)
+
+      def log(s):
+        self._logevent("- %s: %s" % (prefix, s))
+
       if arc:
 
-        self._logevent("- %s returning fire: air-to-air attack on %s using articulated guns covering %s arc." % (self._name, target._name, arc))
+        log("air-to-air attack on %s using articulated guns covering %s arc." % (target._name, arc))
   
         r = self.gunattackrange(target, arc=arc)
         if isinstance(r, str):
           raise RuntimeError(r)
 
-        self._logevent("- %s returning fire: range is %d." % (self._name, r)      )
-        self._logevent("- %s returning fire: angle-off-tail of %s is %s." % (self._name, self._name, target.angleofftail(self)))  
+        log("range is %d." % r)
+        log("angle-off-tail of %s is %s." % (self._name, target.angleofftail(self)))  
         
       else:
         
-        self._log("- returning fire: air-to-air attack on %s using fixed guns." % target._name)
+        log("air-to-air attack on %s using fixed guns." % target._name)
 
         r = self.gunattackrange(target)
         if isinstance(r, str):
@@ -288,8 +301,18 @@ class aircraft:
         if angleofftail != "180 line":
           raise RuntimeError("fixed guns can only return fire to head-on attacks.")
 
-        self._log("- returning fire: range is %d." % r)      
-        self._log("- returning fire: angle-off-tail is %s." % angleofftail)   
+        log("range is %d." % r)      
+        log("angle-off-tail is %s." % angleofftail)
+
+      if m[2] == "":
+        log("result of attack not specified")
+      elif m[2] == "M":
+        log("missed.")
+      elif m[2] == "-":
+        log("hit but inflicted no damage.")
+      else:
+        log("hit and inflicted %s damage." % m[2])
+        target.takedamage(m[2])        
 
     except RuntimeError as e:
       aplog.logexception(e)
