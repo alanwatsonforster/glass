@@ -814,6 +814,15 @@ def _continuenormalflight(self, actions):
     self._logevent("- range is %d." % r)      
     self._logevent("- angle-off-tail is %s." % self.angleofftail(target))
 
+    if m[2] != "":
+      if m[2] == "M":
+        self._logevent("- missed.")
+      elif m[2] == "-":
+        self._logevent("- hit but inflicted no damage.")
+      else:
+        self._logevent("- hit and inflicted %s damage." % m[2])
+        target.takedamage(m[2])
+
   ########################################
 
   def domaneuveringdeparture(sense, facingchange):
@@ -936,8 +945,8 @@ def _continuenormalflight(self, actions):
     ["J1/2"  , "other"              , None, lambda: dojettison("1/2") ],
     ["JCL"   , "other"              , None, lambda: dojettison("CL") ],
     
-    ["AAGN"  , "other"              , "\\(([^)]*)\\)", lambda m: doataattack(m, "guns") ],
-    ["AARK"  , "other"              , "\\(([^)]*)\\)", lambda m: doataattack(m, "rockets") ],
+    ["AAGN"  , "other"              , "\\(([^)]*)\\)\\(([^)]*)\\)", lambda m: doataattack(m, "guns") ],
+    ["AARK"  , "other"              , "\\(([^)]*)\\)\\(([^)]*)\\)", lambda m: doataattack(m, "rockets") ],
 
     ["/"     , "other"              , None, lambda: None ],
 
