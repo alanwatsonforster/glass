@@ -254,7 +254,7 @@ class aircraft:
 
       if arc:
 
-        self._logevent("- %s returning fire: air-to-air attack on %s using articulated GN covering %s arc." % (self._name, target._name, arc))
+        self._logevent("- %s returning fire: air-to-air attack on %s using articulated guns covering %s arc." % (self._name, target._name, arc))
   
         r = self.gunattackrange(target, arc=arc)
         if isinstance(r, str):
@@ -265,7 +265,7 @@ class aircraft:
         
       else:
         
-        self._log("- returning fire: air-to-air attack on %s using fixed GN." % target._name)
+        self._log("- returning fire: air-to-air attack on %s using fixed guns." % target._name)
 
         r = self.gunattackrange(target)
         if isinstance(r, str):

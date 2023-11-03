@@ -803,7 +803,7 @@ def _continuenormalflight(self, actions):
     if target == None:
       return
 
-    if weapon == "GN" or weapon == "GP":
+    if weapon == "guns":
       r = self.gunattackrange(target)
     else:
       r = self.rocketattackrange(target)
@@ -947,10 +947,8 @@ def _continuenormalflight(self, actions):
     ["J1/2"  , "other"              , None, lambda: dojettison("1/2") ],
     ["JCL"   , "other"              , None, lambda: dojettison("CL") ],
     
-    ["AAGN"  , "other"              , "\\(([^)]*)\\)", lambda m: doataattack(m, "GN") ],
-    ["AAGP"  , "other"              , "\\(([^)]*)\\)", lambda m: doataattack(m, "GP") ],
-    ["AARK"  , "other"              , "\\(([^)]*)\\)", lambda m: doataattack(m, "RK") ],
-    ["AARP"  , "other"              , "\\(([^)]*)\\)", lambda m: doataattack(m, "RP") ],
+    ["AAGN"  , "other"              , "\\(([^)]*)\\)", lambda m: doataattack(m, "guns") ],
+    ["AARK"  , "other"              , "\\(([^)]*)\\)", lambda m: doataattack(m, "rockets") ],
 
     ["K"     , "other"              , None, lambda: dokilled()],
 
