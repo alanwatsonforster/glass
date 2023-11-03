@@ -87,7 +87,9 @@ def move(self, flighttype, power, actions, flamedoutengines=0):
     else:
       self._checknormalflight()
 
-    if flighttype != "SP":
+    if flighttype == "SP":
+      self._speed = power
+    else:
       self._startmovespeed(power, flamedoutengines)
       self._log("configuration is %s." % self._configuration)
     self._log("altitude band is %s." % self._altitudeband)
@@ -171,7 +173,11 @@ def _endmove(self):
 
   else:
 
-    if self._flighttype != "SP":
+    if self._flighttype == "SP":
+
+      self._newspeed = self._speed
+
+    else:
 
       self._endmovespeed()
 
