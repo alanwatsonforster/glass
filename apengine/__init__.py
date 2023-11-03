@@ -80,7 +80,6 @@ def endsetup():
     apaircraft._endsetup()
 
     aplog.log("--- end setup ---")
-    aplog.logbreak()
 
     _turn += 1
     _savedturn = _turn
@@ -106,7 +105,6 @@ def startturn():
       raise RuntimeError("startturn() called out of sequence.")
   
     aplog.log("--- start of turn %d ---" % _turn)
-    aplog.logbreak()
 
     apaircraft._startturn()
 
@@ -128,8 +126,8 @@ def endturn():
 
     apaircraft._endturn()
 
-    aplog.log("--- end of turn %d ---" % _turn)
     aplog.logbreak()
+    aplog.log("--- end of turn %d ---" % _turn)
 
     _turn += 1
     _savedturn = _turn

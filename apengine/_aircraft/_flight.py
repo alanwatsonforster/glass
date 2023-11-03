@@ -24,6 +24,7 @@ def move(self, flighttype, power, actions, flamedoutengines=0):
 
     ap._checkinturn()
 
+    self._logbreak()
     self._log("--- start of move --")
 
     self._restore(ap.turn() - 1)
@@ -187,5 +188,4 @@ def _endmove(self):
   self._save(ap.turn())
 
   self._log("--- end of move -- ")
-  self._logbreak()
 
