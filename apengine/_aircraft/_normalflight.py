@@ -813,17 +813,6 @@ def _continuenormalflight(self, actions):
 
     self._logevent("- range is %d." % r)      
     self._logevent("- angle-off-tail is %s." % self.angleofftail(target))
-      
-  ########################################
-
-  def dokilled():
-
-    """
-    Declare that the aircraft has been killed.
-    """
-
-    self._logevent("- aircraft has been killed.")
-    self._destroyed = True
 
   ########################################
 
@@ -949,8 +938,6 @@ def _continuenormalflight(self, actions):
     
     ["AAGN"  , "other"              , "\\(([^)]*)\\)", lambda m: doataattack(m, "guns") ],
     ["AARK"  , "other"              , "\\(([^)]*)\\)", lambda m: doataattack(m, "rockets") ],
-
-    ["K"     , "other"              , None, lambda: dokilled()],
 
     ["/"     , "other"              , None, lambda: None ],
 
