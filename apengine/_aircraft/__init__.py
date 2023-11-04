@@ -112,7 +112,7 @@ class aircraft:
     _startflightpath, _continueflightpath, _drawflightpath
 
   from ._log import \
-    _log, _logaction, _logstart, _logend, _logevent, _logline, _logbreak
+    _log, _logaction, _logstart, _logend, _logevent, _logline, _logbreak, _lognote
 
   #############################################################################
 
@@ -259,11 +259,11 @@ class aircraft:
   #############################################################################
 
   def note(self, s):
-    self._log("note  : - %s" % s)
+    self._lognote(s)
 
   #############################################################################
 
-  def returnfire(self, action):
+  def returnfire(self, action, note=False):
 
     """
     Return fire, either with fixed guns or articulated guns.
@@ -321,6 +321,8 @@ class aircraft:
         log("hit and inflicted %s damage." % m[2])
         target.takedamage(m[2])        
 
+      self._lognote(note)
+  
     except RuntimeError as e:
       aplog.logexception(e)
     

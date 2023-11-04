@@ -18,7 +18,7 @@ def _checkspecialflight(self):
 
 ################################################################################
 
-def _dospecialflight(self, action):
+def _dospecialflight(self, action, note=False):
 
   """
   Carry out out special flight.
@@ -186,6 +186,8 @@ def _dospecialflight(self, action):
     else:
 
       raise RuntimeError("invalid action %r." % action)
+
+  self._lognote(note)
   
   self._logaction("end", fullaction, self.position())
   self._continueflightpath()

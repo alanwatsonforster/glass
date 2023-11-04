@@ -19,7 +19,7 @@ def _checkstalledflight(self):
   self._logstart("- speed is below the minimum of %.1f." % self.minspeed())
   self._logstart("- aircraft is stalled.")
 
-def _dostalledflight(self, action):
+def _dostalledflight(self, action, note=False):
 
   """
   Carry out stalled flight.
@@ -59,6 +59,8 @@ def _dostalledflight(self, action):
     self._altitudeap = 0.5 * altitudechange
   else:
     self._altitudeap = 1.0 * altitudechange
+
+  self._lognote(note)
 
   self._logaction("end", action, self.position())
 

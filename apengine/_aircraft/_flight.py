@@ -12,7 +12,7 @@ from ._draw import _zorder
 
 ##############################################################################
 
-def move(self, flighttype, power, actions, flamedoutengines=0):
+def move(self, flighttype, power, actions, flamedoutengines=0, note=False):
 
   """
   Start a move, declaring the flight type and power, and possible carrying 
@@ -97,14 +97,14 @@ def move(self, flighttype, power, actions, flamedoutengines=0):
       self._apcarry = 0
       self._turnsstalled  = 0
       self._turnsdeparted = 0
-      self._dospecialflight(actions)
+      self._dospecialflight(actions, note=note)
       self._endmove()
       
     elif self._flighttype == "ST":       
 
       self._fpcarry = 0
       self._altitudecarry = 0
-      self._dostalledflight(actions)
+      self._dostalledflight(actions, note=note)
       self._turnsstalled += 1
       self._endmove()
 
@@ -113,7 +113,7 @@ def move(self, flighttype, power, actions, flamedoutengines=0):
       self._fpcarry = 0
       self._apcarry = 0
       self._altitudecarry = 0
-      self._dodepartedflight(actions)
+      self._dodepartedflight(actions, note=note)
       self._turnsdeparted += 1
       self._endmove()
 
@@ -125,14 +125,14 @@ def move(self, flighttype, power, actions, flamedoutengines=0):
       
       self._turnsstalled  = 0
       self._turnsdeparted = 0
-      self._startnormalflight(actions)
+      self._startnormalflight(actions, note=note)
 
   except RuntimeError as e:
     aplog.logexception(e)
 
 ################################################################################
 
-def continuemove(self, actions):
+def continuemove(self, actions, note=False):
 
   """
   Continue a move that has been started, possible carrying out some actions.
@@ -143,10 +143,10 @@ def continuemove(self, actions):
 
     ap._checkinturn()
 
-    if self._destroyed or self._leftmap or self._flighttype == "ST" or self._flighttype == "DP":
-      return
-
-    self._continuenormalflight(actions)
+    if not self._destroyed and not self._leftmap and self._flighttype != "ST" and self._flighttype != "DP" and self._flighttype != "SP":
+      self._continuenormalflight(actions, note=note)
+    else:
+      self._lognote(note)
 
   except RuntimeError as e:
     aplog.logexception(e)

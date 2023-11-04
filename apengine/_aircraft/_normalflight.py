@@ -194,7 +194,7 @@ def _checknormalflight(self):
 
 ################################################################################
 
-def _continuenormalflight(self, actions):
+def _continuenormalflight(self, actions, note=False):
 
   """
   Continue to carry out out normal flight.
@@ -1198,6 +1198,8 @@ def _continuenormalflight(self, actions):
       if not self._destroyed and not self._leftmap:
         doaction(action)
 
+  self._lognote(note)
+
   assert self._maneuveringdeparture or (self._fp == self._hfp + self._vfp)
   assert self._maneuveringdeparture or (self._fp <= self._maxfp)
 
@@ -1215,7 +1217,7 @@ def _continuenormalflight(self, actions):
 
 ################################################################################
 
-def _startnormalflight(self, actions):
+def _startnormalflight(self, actions, note=False):
       
   """
   Start to carry out normal flight.
@@ -1590,7 +1592,7 @@ def _startnormalflight(self, actions):
   self._logline()
   self._logstart("%-10s : %s : %s" % ("", self.position(), self.maneuver()))   
 
-  self._continuenormalflight(actions)
+  self._continuenormalflight(actions, note=note)
 
 ################################################################################
 

@@ -331,13 +331,13 @@ def _endmovespeed(self):
 
   turnsap = self._turnrateap + self._sustainedturnap
 
-  self._logend("-- power           APs = %+.2f." % self._powerap)
-  self._logend("-- speed           APs = %+.2f." % self._speedap)
-  self._logend("-- altitude        APs = %+.2f." % self._altitudeap)
-  self._logend("-- turns           APs = %+.2f." % turnsap)
-  self._logend("-- other maneuvers APs = %+.2f." % self._othermaneuversap)
-  self._logend("-- speedbrakes     APs = %+.2f." % self._spbrap)
-  self._logend("-- carry           APs = %+.2f." % self._apcarry)
+  self._logend("- power           APs = %+.2f." % self._powerap)
+  self._logend("- speed           APs = %+.2f." % self._speedap)
+  self._logend("- altitude        APs = %+.2f." % self._altitudeap)
+  self._logend("- turns           APs = %+.2f." % turnsap)
+  self._logend("- other maneuvers APs = %+.2f." % self._othermaneuversap)
+  self._logend("- speedbrakes     APs = %+.2f." % self._spbrap)
+  self._logend("- carry           APs = %+.2f." % self._apcarry)
   ap = \
     self._powerap + \
     self._speedap + \
@@ -346,7 +346,7 @@ def _endmovespeed(self):
     self._othermaneuversap + \
     self._spbrap + \
     self._apcarry
-  self._logend("-- total           APs = %+.2f." % ap)
+  self._logend("- total           APs = %+.2f." % ap)
 
   # See the "Speed Gain", "Speed Loss", and "Rapid Accel Aircraft" sections
   # of rule 6.2 and the "Supersonic Speeds" section of rule 6.6.

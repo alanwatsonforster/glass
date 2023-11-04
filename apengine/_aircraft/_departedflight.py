@@ -16,7 +16,7 @@ def _checkdepartedflight(self):
   if self.hasproperty("SPFL"):
     raise RuntimeError("special-flight aircraft cannot perform departed flight.")
 
-def _dodepartedflight(self, action):
+def _dodepartedflight(self, action, note=False):
 
   """
   Carry out departed flight.
@@ -106,6 +106,8 @@ def _dodepartedflight(self, action):
   self._altitude, self._altitudecarry = apaltitude.adjustaltitude(self._altitude, self._altitudecarry, -altitudechange)
   self._altitudeband = apaltitude.altitudeband(self._altitude)
   
+  self._lognote(note)
+
   self._logaction("end", action, self.position())
   if initialaltitudeband != self._altitudeband:
     self._logevent("altitude band changed from %s to %s." % (initialaltitudeband, self._altitudeband))
