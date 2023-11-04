@@ -422,7 +422,7 @@ def _endmovespeed(self):
       self._log("- speed is faded back from %.1f." % self._newspeed)
       self._newspeed = max(self._newspeed - 1, maxspeed)
 
-  if self._previousspeed != self._speed:
+  if self._previousspeed != self._newspeed:
     self._log("speed         changed from %.1f to %.1f." % (self._previousspeed, self._newspeed))
   else:
     self._log("speed         is unchanged at %.1f." % self._newspeed)

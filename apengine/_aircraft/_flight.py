@@ -27,10 +27,6 @@ def move(self, flighttype, power, actions, flamedoutengines=0):
     self._logbreak()
     self._log("--- start of move --")
 
-    self._restore(ap.turn() - 1)
-    self._finishedmove = False
-    self._startflightpath()
-
     global _zorder
     _zorder += 1
     self._zorder = _zorder
