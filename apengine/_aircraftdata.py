@@ -194,7 +194,7 @@ class aircraftdata:
     if "gunarc" in self._data:
       return self._data["gunarc"]
     else:
-      return False
+      return None
 
   ##############################################################################
 
@@ -374,6 +374,10 @@ class aircraftdata:
           f2(self.climbcapability("1/2", band, "AB")), f2(self.climbcapability("1/2", band, "M")),
           f2(self.climbcapability("DT" , band, "AB")), f2(self.climbcapability("DT" , band, "M")),
         ))
+      str("")
+
+    if "gunarc" in self._data:
+      str("Gun arc: %s" % self._data["gunarc"])
       str("")
 
     s = ""
