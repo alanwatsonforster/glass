@@ -383,10 +383,14 @@ def _endmovespeed(self):
     maxspeed = self.maxspeed()
     maxspeedname = "maximum speed"
 
-  # See the Aircraft Damage Effects Table.
+  # See the Aircraft Damage Effects Table. We interpret its prohibition
+  # on SS flight as follows: If an aircraft has at least H damage and
+  # its speed exceeds HT speed, it performs a fadeback to HT speed. Its
+  # maximum level speed and maximum dive speed are limited to HT speed.
+
   if maxspeed >= m1speed and self.damageatleast("H"):
-    usedivespeed = False
     self._logevent("maximum speed limited to HT speed by damage.")
+    usedivespeed = False
     maxspeed = htspeed
     maxspeedname = "HT speed"
 

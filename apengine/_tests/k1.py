@@ -341,10 +341,10 @@ endturn()
 
 # Speed
 
-startsetup()
+starttestsetup()
 A1 = aircraft("A1", "F-104A", "2030", "N", 5, 9.0, "CL")
 A2 = aircraft("A2", "F-104A", "2030", "N", 5, 9.0, "CL")
-endsetup()
+endtestsetup()
 
 startturn()
 A1.move("LVL", "AB", "H,H,H,H,H,H,H,H,H")
