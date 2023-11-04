@@ -360,7 +360,7 @@ def _continuenormalflight(self, actions):
       raise RuntimeError("turns are forbidded.")
 
     if turnrate not in self._allowedturnrates:
-      raise RuntimeError("attempt to declare a turn rate tighter than allowed by the speed or flight type.")
+      raise RuntimeError("attempt to declare a turn rate tighter than allowed by the damage, speed, or flight type.")
 
     turnrateap = self.turndrag(turnrate)
     if turnrateap == None:
@@ -1225,6 +1225,18 @@ def _startnormalflight(self, actions):
     """
 
     turnrates = ["EZ", "TT", "HT", "BT", "ET"]
+
+    # See "Aircraft Damage Effects" in Play Aids.
+
+    if self.damageatleast("C"):
+      self._log("- damage limits the turn rate to TT.")
+      turnrates = turnrates[:2]
+    elif self.damageatleast("2L"):
+      self._log("- damage limits the turn rate to HT.")
+      turnrates = turnrates[:3]
+    elif self.damageatleast("L"):
+      self._log("- damage limits the turn rate to BT.")
+      turnrates = turnrates[:4]
 
     # See rule 7.5.
 
