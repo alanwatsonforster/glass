@@ -454,8 +454,26 @@ def _continuenormalflight(self, actions):
     self._maneuverfp           = 0
     self._maneuversupersonic   = (self._speed >= apspeed.m1speed(self._altitudeband))
     # The requirement has +1 FP to account for the final H.
-    self._maneuverrequiredfp   = 2 + _extrapreparatoryhfp(self._altitudeband, self._speed) + 1
+    self._maneuverrequiredfp   = 2 + extrapreparatoryhfp() + 1
     
+  ########################################
+
+  def extrapreparatoryhfp():
+
+    # See rule 13.1.
+
+    extrapreparatoryfp = { "LO": 0, "ML": 0, "MH": 0, "HI": 1, "VH": 2, "EH": 3, "UH": 4 }[self._altitudeband]
+
+    if self._speed >= apspeed.m1speed(self._altitudeband):
+      extrapreparatoryfp += 1.0
+
+    # See "Aircraft Damage Effects" in the Play Aids.
+
+    if self.damageatleast("2L"):
+      extrapreparatoryfp += 1.0
+
+    return extrapreparatoryfp
+
   ########################################
 
   def doslide(sense):
@@ -505,7 +523,7 @@ def _continuenormalflight(self, actions):
     self._maneuverfp           = 0
     self._maneuversupersonic   = (self._speed >= apspeed.m1speed(self._altitudeband))
     # The requirement has +1 FP to account for the final H.
-    self._maneuverrequiredfp   = self.rollhfp() + _extrapreparatoryhfp(self._altitudeband, self._speed) + 1
+    self._maneuverrequiredfp   = self.rollhfp() + extrapreparatoryhfp() + 1
 
   ########################################
 
@@ -559,7 +577,7 @@ def _continuenormalflight(self, actions):
     self._maneuverfp           = 0
     self._maneuversupersonic   = (self._speed >= apspeed.m1speed(self._altitudeband))
     # The requirement has +1 FP to account for the final H.
-    self._maneuverrequiredfp   = self.rollhfp() + _extrapreparatoryhfp(self._altitudeband, self._speed) + 1
+    self._maneuverrequiredfp   = self.rollhfp() + extrapreparatoryhfp() + 1
 
   ########################################
 
@@ -625,7 +643,7 @@ def _continuenormalflight(self, actions):
     self._maneuversupersonic   = (self._speed >= apspeed.m1speed(self._altitudeband))
     self._maneuverrequiredfp   = 1
 
-    ########################################
+  ########################################
 
   def doverticalroll(sense, facingchange, shift):
 
@@ -659,7 +677,7 @@ def _continuenormalflight(self, actions):
     else:
       self._facing = (self._facing - facingchange) % 360
     
-    ########################################
+  ########################################
 
   def domaneuver(sense, facingchange, shift, continuous):
 
@@ -1849,14 +1867,3 @@ def _islevelflight(flighttype):
   return flighttype == "LVL"
   
 ################################################################################
-
-def _extrapreparatoryhfp(altitudeband, speed):
-
-    # See rule 13.1.
-
-    extrapreparatoryfp = { "LO": 0, "ML": 0, "MH": 0, "HI": 1, "VH": 2, "EH": 3, "UH": 4 }[altitudeband]
-
-    if speed >= apspeed.m1speed(altitudeband):
-      extrapreparatoryfp += 1.0
-
-    return extrapreparatoryfp
