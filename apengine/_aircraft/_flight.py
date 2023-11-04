@@ -25,7 +25,7 @@ def move(self, flighttype, power, actions, flamedoutengines=0):
     ap._checkinturn()
 
     self._logbreak()
-    self._log("--- start of move --")
+    self._logline()
 
     global _zorder
     _zorder += 1
@@ -72,7 +72,7 @@ def move(self, flighttype, power, actions, flamedoutengines=0):
     self._maneuveringdeparture = False
     
     self._flighttype = flighttype
-    self._log("flight type   is %s." % self._flighttype)
+    self._logstart("flight type   is %s." % self._flighttype)
 
     if flighttype == "SP":
       self._checkspecialflight()
@@ -87,9 +87,9 @@ def move(self, flighttype, power, actions, flamedoutengines=0):
       self._speed = power
     else:
       self._startmovespeed(power, flamedoutengines)
-      self._log("configuration is %s." % self._configuration)
-    self._log("altitude band is %s." % self._altitudeband)
-    self._log("damage        is %s." % self.damage())
+      self._logstart("configuration is %s." % self._configuration)
+    self._logstart("altitude band is %s." % self._altitudeband)
+    self._logstart("damage        is %s." % self.damage())
 
     if self._flighttype == "SP":
 
@@ -161,11 +161,11 @@ def _endmove(self):
 
   if self._destroyed:
   
-    self._log("aircraft has been destroyed.")
+    self._logend("aircraft has been destroyed.")
 
   elif self._leftmap:
 
-    self._log("aircraft has left the map.")
+    self._logend("aircraft has left the map.")
 
   else:
 
@@ -178,23 +178,24 @@ def _endmove(self):
       self._endmovespeed()
 
       if self._previousconfiguration != self._configuration:
-        self._log("configuration changed from %s to %s." % (self._previousconfiguration, self._configuration))
+        self._logend("configuration changed from %s to %s." % (self._previousconfiguration, self._configuration))
       else:
-        self._log("configuration is unchanged at %s." % self._configuration)
+        self._logend("configuration is unchanged at %s." % self._configuration)
       
     if self._previousaltitudeband != self._altitudeband:
-      self._log("altitude band changed from %s to %s." % (self._previousaltitudeband, self._altitudeband))
+      self._logend("altitude band changed from %s to %s." % (self._previousaltitudeband, self._altitudeband))
     else:
-      self._log("altitude band is unchanged at %s." % self._altitudeband)
+      self._logend("altitude band is unchanged at %s." % self._altitudeband)
 
     if self._previousdamage != self.damage():
-      self._log("damage        changed from %s to %s." % (self._previousdamage, self.damage()))
+      self._logend("damage        changed from %s to %s." % (self._previousdamage, self.damage()))
     else:
-      self._log("damage        is unchanged at %s." % self.damage())
+      self._logend("damage        is unchanged at %s." % self.damage())
       
     self._finishedmove = True
   
   self._save(ap.turn())
 
-  self._log("--- end of move -- ")
+  self._logline()
+
 

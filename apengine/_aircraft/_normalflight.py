@@ -35,9 +35,9 @@ def _checknormalflight(self):
 
     # See rule 7.7.
     if self._altitude > self.ceiling():
-      self._log("- check for a maneuvering departure as the aircraft is above its ceiling and attempted to roll.")
+      self._logstart("- check for a maneuvering departure as the aircraft is above its ceiling and attempted to roll.")
     elif self._altitudeband == "EH" or self._altitudeband == "UH":
-      self._log("- check for a maneuvering departure as the aircraft is in the %s altitude band and attempted to roll." % self._altitudeband)  
+      self._logstart("- check for a maneuvering departure as the aircraft is in the %s altitude band and attempted to roll." % self._altitudeband)  
       
   else:
 
@@ -1163,17 +1163,17 @@ def _continuenormalflight(self, actions):
         self._logevent("- check for a maneuvering departure as the aircraft is above its ceiling and attempted to turn harder than EZ.")
       if self._maneuvertype == "ET" and initialaltitude <= 25:
         self._gloccheck += 1
-        self._log("- check for GLOC as turn rate is ET and altitude band is %s (check %d in cycle)." % (initialaltitudeband, self._gloccheck))
+        self._logevent("- check for GLOC as turn rate is ET and altitude band is %s (check %d in cycle)." % (initialaltitudeband, self._gloccheck))
 
     # See rule 7.8.
     if turning and self.closeformationsize() != 0:
       if (self.closeformationsize() > 2 and self._maneuvertype == "HT") or self._maneuvertype == "BT" or self._maneuvertype == "ET":
-        self._log("- close formation breaks down as the turn rate is %s." % self._maneuvertype)
+        self._logevent("- close formation breaks down as the turn rate is %s." % self._maneuvertype)
         self._breakdowncloseformation()
 
     # See rule 13.7, interpreted in the same sense as rule 7.8.
     if rolling and self.closeformationsize() != 0:
-      self._log("- close formation breaks down aircraft is rolling.")
+      self._logevent("- close formation breaks down aircraft is rolling.")
       self._breakdowncloseformation()      
     
     if initialaltitudeband != self._altitudeband:
@@ -1203,7 +1203,7 @@ def _continuenormalflight(self, actions):
 
   if self._destroyed or self._leftmap or self._maneuveringdeparture:
   
-    self._log("---")
+    self._logline()
     self._endmove()
 
   elif self._fp + 1 > self._maxfp:
@@ -1224,13 +1224,13 @@ def _startnormalflight(self, actions):
   ########################################
 
   def reportapcarry():
-     self._log("- is carrying %+.2f APs." % self._apcarry)
+     self._logstart("- is carrying %+.2f APs." % self._apcarry)
  
   ########################################
 
   def reportaltitudecarry():
     if self._altitudecarry != 0:
-     self._log("- is carrying %.2f altitude levels." % self._altitudecarry)
+     self._logstart("- is carrying %.2f altitude levels." % self._altitudecarry)
 
   ########################################
 
@@ -1247,47 +1247,47 @@ def _startnormalflight(self, actions):
     # See "Aircraft Damage Effects" in Play Aids.
 
     if self.damageatleast("C"):
-      self._log("- damage limits the turn rate to TT.")
+      self._logstart("- damage limits the turn rate to TT.")
       turnrates = turnrates[:2]
     elif self.damageatleast("2L"):
-      self._log("- damage limits the turn rate to HT.")
+      self._logstart("- damage limits the turn rate to HT.")
       turnrates = turnrates[:3]
     elif self.damageatleast("L"):
-      self._log("- damage limits the turn rate to BT.")
+      self._logstart("- damage limits the turn rate to BT.")
       turnrates = turnrates[:4]
 
     # See rule 7.5.
 
     minspeed = self.minspeed()
     if self._speed == minspeed + 1.5:
-      self._log("- speed limits the turn rate to BT.")
+      self._logstart("- speed limits the turn rate to BT.")
       turnrates = turnrates[:4]
     elif self._speed == minspeed + 1.0:
-      self._log("- speed limits the turn rate to HT.")
+      self._logstart("- speed limits the turn rate to HT.")
       turnrates = turnrates[:3]
     elif self._speed == minspeed + 0.5:
-      self._log("- speed limits the turn rate to TT.")
+      self._logstart("- speed limits the turn rate to TT.")
       turnrates = turnrates[:2]
     elif self._speed == minspeed:
-      self._log("- speed limits the turn rate to EZ.")
+      self._logstart("- speed limits the turn rate to EZ.")
       turnrates = turnrates[:1]
 
     # See rule 8.1.1.
 
     if self._flighttype == "ZC":
-      self._log("- ZC limits the turn rate to BT.")
+      self._logstart("- ZC limits the turn rate to BT.")
       turnrates = turnrates[:4]
 
     # See rule 8.1.1.
 
     if self._flighttype == "SC":
-      self._log("- SC limits the turn rate to EZ.")
+      self._logstart("- SC limits the turn rate to EZ.")
       turnrates = turnrates[:1]
 
     # See rule 8.1.3.
 
     if self._flighttype == "VC":
-      self._log("- VC disallows all turns.")
+      self._logstart("- VC disallows all turns.")
       turnrates = []
 
     self._allowedturnrates = turnrates
@@ -1301,7 +1301,7 @@ def _startnormalflight(self, actions):
 
     # See rule 13.7, interpreted in the same sense as rule 7.8.
     if self._hrd:
-      self._log("- close formation breaks down upon a HRD.")
+      self._logstart("- close formation breaks down upon a HRD.")
       self._breakdowncloseformation()    
 
     # See rule 8.6.
@@ -1310,7 +1310,7 @@ def _startnormalflight(self, actions):
       flighttype == "VC" or \
       flighttype == "UD" or \
       flighttype == "VD":
-      self._log("- close formation breaks down as the flight type is %s." % flighttype)
+      self._logstart("- close formation breaks down as the flight type is %s." % flighttype)
       self._breakdowncloseformation()
 
     return
@@ -1327,7 +1327,7 @@ def _startnormalflight(self, actions):
     # See rule 5.4.
 
     self._maxfp = self._speed + self._fpcarry
-    self._log("- has %.1f FPs (including %.1f carry)." % (self._maxfp, self._fpcarry))
+    self._logstart("- has %.1f FPs (including %.1f carry)." % (self._maxfp, self._fpcarry))
     self._fpcarry = 0
 
   ########################################
@@ -1434,47 +1434,47 @@ def _startnormalflight(self, actions):
 
     if maxvfp == 0:
 
-      self._log("- all FPs must be HFPs.")
+      self._logstart("- all FPs must be HFPs.")
 
     else:
 
       if mininitialhfp == 1:
-        self._log("- the first FP must be an HFP.")
+        self._logstart("- the first FP must be an HFP.")
       elif mininitialhfp > 1:
-        self._log("- the first %d FPs must be HFPs." % mininitialhfp)
+        self._logstart("- the first %d FPs must be HFPs." % mininitialhfp)
       
       if minhfp == maxhfp:
-        self._log(plural(minhfp,
+        self._logstart(plural(minhfp,
           "- exactly 1 FP must be an HFP.",
           "- exactly %d FPs must be HFPs." % minhfp
         ))
       elif minhfp > 0 and maxhfp < maxfp:
-        self._log("- between %d and %d FP must be HFPs." % (minhfp, maxhfp))
+        self._logstart("- between %d and %d FP must be HFPs." % (minhfp, maxhfp))
       elif minhfp > 0:
-        self._log(plural(minhfp,
+        self._logstart(plural(minhfp,
           "- at least 1 FP must be an HFP.",
           "- at least %d FPs must be HFPs." % minhfp
         ))
       else:
-        self._log(plural(maxhfp,
+        self._logstart(plural(maxhfp,
           "- at most 1 FP may be an HFP.",
           "- at most %d FPs may be HFPs." % maxhfp
         ))
 
       if minvfp == maxvfp:
-        self._log(plural(minvfp,
+        self._logstart(plural(minvfp,
           "- exactly 1 FP must be a VFP.",
           "- exactly %d FPs must be VFPs." % minvfp
         ))
       elif minvfp > 0 and maxvfp < maxfp:
-        self._log("- between %d and %d FP must be VFPs." % (minvfp, maxvfp))
+        self._logstart("- between %d and %d FP must be VFPs." % (minvfp, maxvfp))
       elif minvfp > 0:
-        self._log(plural(minvfp,
+        self._logstart(plural(minvfp,
           "- at least 1 FP must be a VFP.",
           "- at least %d FPs must be VFPs." % minvfp
         ))
       else:
-        self._log(plural(maxvfp,
+        self._logstart(plural(maxvfp,
           "- at most 1 FP may be a VFP.",
           "- at most %d FPs may be VFPs." % maxvfp
         ))
@@ -1485,7 +1485,7 @@ def _startnormalflight(self, actions):
       raise RuntimeError("flight type not permitted by VFP requirements.")
   
     if minunloadedhfp > 0:
-      self._log(plural(minunloadedhfp,
+      self._logstart(plural(minunloadedhfp,
         "- at least 1 FP must be an unloaded HFP.",
         "- at least %d FPs must be unloaded HFPs." % minunloadedhfp
       ))
@@ -1516,7 +1516,7 @@ def _startnormalflight(self, actions):
 
       turnrequirement = apturnrate.turnrequirement(self._altitudeband, self._speed, self._maneuvertype)
       if not self._maneuvertype in self._allowedturnrates or turnrequirement == None:
-        self._log("- carried turn rate is tighter than the maximum allowed turn rate.")
+        self._logstart("- carried turn rate is tighter than the maximum allowed turn rate.")
         raise RuntimeError("aircraft has entered departed flight while maneuvering.")
 
       # See rule 7.1.
@@ -1535,9 +1535,9 @@ def _startnormalflight(self, actions):
 
       if self._maneuverrequiredfp != previousmaneuverrequiredfp or self._maneuverfacingchange != previous_maneuverfacingchange:
         if self._maneuverfacingchange > 30:
-          self._log("- turn requirement changed to %d in 1 FP." % self._maneuverfacingchange)
+          self._logstart("- turn requirement changed to %d in 1 FP." % self._maneuverfacingchange)
         else:
-          self._log("- turn requirement changed to %s." % plural(self._maneuverrequiredfp, "1 FP", "%d FPs" % self._maneuverrequiredfp))
+          self._logstart("- turn requirement changed to %s." % plural(self._maneuverrequiredfp, "1 FP", "%d FPs" % self._maneuverrequiredfp))
 
       self._maxturnrate       = self._maneuvertype
       self._turningsupersonic = self._maneuversupersonic
@@ -1587,8 +1587,8 @@ def _startnormalflight(self, actions):
   determinemaxfp()
   determinefprequirements()
     
-  self._log("---")
-  self._logaction("start", "", "%-10s : %s : %s" % ("", self.position(), self.maneuver()))   
+  self._logline()
+  self._logstart("%-10s : %s : %s" % ("", self.position(), self.maneuver()))   
 
   self._continuenormalflight(actions)
 
@@ -1599,13 +1599,13 @@ def _endnormalflight(self):
   ########################################
 
   def reportfp():
-    self._log("- used %s and %s." % (
+    self._logend("- used %s and %s." % (
       plural(self._hfp, "1 HFP", "%d HFPs" % self._hfp),
       plural(self._vfp, "1 VFP", "%d VFPs" % self._vfp)
     ))    
     if self._spbrfp > 0:
-      self._log("- lost %.1f FPs to speedbrakes." % self._spbrfp)
-    self._log("- is carrying %.1f FPs." % self._fpcarry)
+      self._logend("- lost %.1f FPs to speedbrakes." % self._spbrfp)
+    self._logend("- is carrying %.1f FPs." % self._fpcarry)
 
   ########################################
 
@@ -1656,7 +1656,7 @@ def _endnormalflight(self):
 
     # See rule 7.6.
     if self._gloccheck > 0 and self._maxturnrate != "ET" and self._maxturnrate != "BT":
-      self._log("- GLOC cycle ended.")
+      self._logend("- GLOC cycle ended.")
       self._gloccheck = 0 
 
   ########################################
@@ -1664,7 +1664,7 @@ def _endnormalflight(self):
   def reportcarry():
 
     if self._altitudecarry != 0:
-      self._log("- is carrying %.2f altitude levels." % self._altitudecarry)
+      self._logend("- is carrying %.2f altitude levels." % self._altitudecarry)
           
   ########################################
 
@@ -1782,10 +1782,10 @@ def _endnormalflight(self):
 
     altitudeloss = self._previousaltitude - self._altitude
     if flighttype == "SD" and altitudeloss > 2:
-      self._log("- close formation breaks down as the aircraft lost %d levels in an SD." % altitudeloss)
+      self._logend("- close formation breaks down as the aircraft lost %d levels in an SD." % altitudeloss)
       self._breakdowncloseformation()
     elif flighttype == "SC" and self._scwithzccomponent:
-      self._log("- close formation breaks down as the aircraft climbed faster than the sustained climb rate.")
+      self._logend("- close formation breaks down as the aircraft climbed faster than the sustained climb rate.")
       self._breakdowncloseformation()
       
   ########################################
@@ -1793,7 +1793,7 @@ def _endnormalflight(self):
   flighttype         = self._flighttype
   previousflighttype = self._previousflighttype  
   
-  self._log("---")
+  self._logline()
   if not self._maneuveringdeparture:
     reportfp()
     checkfp()

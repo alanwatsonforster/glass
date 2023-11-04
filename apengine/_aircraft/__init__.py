@@ -112,7 +112,7 @@ class aircraft:
     _startflightpath, _continueflightpath, _drawflightpath
 
   from ._log import \
-    _log, _logaction, _logevent, _logbreak
+    _log, _logaction, _logstart, _logend, _logevent, _logline, _logbreak
 
   #############################################################################
 

@@ -159,7 +159,7 @@ def _dospecialflight(self, action):
     Carry out an action for special flight.
     """
     
-  self._log("---")
+  self._logline()
   self._logaction("start", "", self.position()) 
 
   fullaction = action
@@ -193,11 +193,11 @@ def _dospecialflight(self, action):
   if initialaltitudeband != self._altitudeband:
     self._logevent("- altitude band changed from %s to %s." % (initialaltitudeband, self._altitudeband))
   
-  self._log("---")
+  self._logline()
 
   if not self._destroyed and not self._leftmap:
     if self._altitudecarry != 0:
-      self._log("- is carrying %.2f altitude levels." % self._altitudecarry)
+      self._logend("- is carrying %.2f altitude levels." % self._altitudecarry)
 
   self._newspeed = self._speed
 

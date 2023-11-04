@@ -22,7 +22,7 @@ def _dodepartedflight(self, action):
   Carry out departed flight.
   """
 
-  self._log("---")
+  self._logline()
   self._logaction("start", "", self.position())   
 
   # See rule 6.4 "Abnormal FLight (Stalls and Departures)" and rule 7.7 
@@ -113,5 +113,5 @@ def _dodepartedflight(self, action):
 
   self._newspeed = self._speed
 
-  self._log("---")
+  self._logline()
 

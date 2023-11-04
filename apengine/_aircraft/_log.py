@@ -16,3 +16,12 @@ def _logaction(self, s, t, u):
 
 def _logevent(self, s):
   self._log("%-5s : %s" % ("", s))
+
+def _logstart(self, s):
+  self._log("%-5s : %s" % ("start", s))
+
+def _logend(self, s):
+  self._log("%-5s : %s" % ("end", s))
+
+def _logline(self):
+  self._log("%-5s :" % "-----")  
