@@ -339,4 +339,19 @@ A1.move("LVL", "M", "H,H,H,H,H")
 A1._assert("2025       N     5", 5.0)
 endturn()
 
+# Speed
+
+startsetup()
+A1 = aircraft("A1", "F-104A", "2030", "N", 5, 9.0, "CL")
+A2 = aircraft("A2", "F-104A", "2030", "N", 5, 9.0, "CL")
+endsetup()
+
+startturn()
+A1.move("LVL", "AB", "H,H,H,H,H,H,H,H,H")
+A1._assert("2021       N     5", 9.0)
+A2.takedamage("H")
+A2.move("LVL", "AB", "H,H,H,H,H,H,H,H,H")
+A2._assert("2021       N     5", 8.0)
+endturn()
+
 endfile(__file__)

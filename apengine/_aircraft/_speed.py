@@ -250,7 +250,7 @@ def _startmovespeed(self, power, flamedoutengines):
     # See the "Aircraft Damage Effects" in the Play Aids.
 
     if speed >= m1speed and self.damageatleast("H"):
-      self._logevent("check for progressive damage as damage is %s at supersonic speed." % self._damage())
+      self._logevent("check for progressive damage as damage is %s at supersonic speed." % self.damage())
 
     ############################################################################
 
@@ -313,7 +313,11 @@ def _endmovespeed(self):
   Carry out the rules to do with speed, power, and drag at the end of a move.
   """
 
-    # For aircraft with SP flight type, we skip this.
+  m1speed = apspeed.m1speed(self._altitudeband)
+  htspeed = apspeed.htspeed(self._altitudeband)
+  ltspeed = apspeed.ltspeed(self._altitudeband)
+    
+  # For aircraft with SP flight type, we skip this.
 
   if self._flighttype == "SP":
     self.apcarry = 0
@@ -354,12 +358,12 @@ def _endmovespeed(self):
   if ap < 0:
     aprate = -2.0
   elif self.hasproperty("RA"):
-    if self._speed >= apspeed.m1speed(self._altitudeband):
+    if self._speed >= m1speed:
       aprate = +2.0
     else:
       aprate = +1.5
   else:
-    if self._speed >= apspeed.m1speed(self._altitudeband):
+    if self._speed >= m1speed:
       aprate = +3.0
     else:
       aprate = +2.0
@@ -368,8 +372,24 @@ def _endmovespeed(self):
   # two levels. See rules 6.3 and 8.2.
 
   altitudeloss = self._previousaltitude - self._altitude
-  usemaxdivespeed = (altitudeloss >= 2)
+  usemaxdivespeed = (altitudeloss >= 2) and not self.damageatleast("H")
   
+  # See rules 6.2, 6.3, and 8.2.
+
+  if usemaxdivespeed:
+    maxspeed = self.maxdivespeed()
+    maxspeedname = "maximum dive speed"
+  else:
+    maxspeed = self.maxspeed()
+    maxspeedname = "maximum speed"
+
+  # See the Aircraft Damage Effects Table.
+  if maxspeed >= m1speed and self.damageatleast("H"):
+    usedivespeed = False
+    self._logevent("maximum speed limited to HT speed by damage.")
+    maxspeed = htspeed
+    maxspeedname = "HT speed"
+
   self._newspeed = self._speed
 
   if ap == 0:
@@ -390,15 +410,6 @@ def _endmovespeed(self):
 
   elif ap > 0:
 
-    # See rules 6.2, 6.3, and 8.2.
-
-    if usemaxdivespeed:
-      maxspeed = self.maxdivespeed()
-      maxspeedname = "maximum dive speed"
-    else:
-      maxspeed = self.maxspeed()
-      maxspeedname = "maximum speed"
-
     if self._speed >= maxspeed and ap >= aprate:
       self._logevent("acceleration is limited by %s of %.1f." % (maxspeedname, maxspeed))
       self._apcarry = aprate - 0.5
@@ -412,15 +423,13 @@ def _endmovespeed(self):
       self._newspeed += 0.5 * (ap // aprate)
       self._apcarry = ap % aprate
 
-  self._logevent("is carrying %+.2f APs." % self._apcarry)
+  self._logevent("will carry %+.2f APs." % self._apcarry)
 
   if usemaxdivespeed:
-    maxspeed = self.maxdivespeed()
     if self._newspeed > maxspeed:
       self._logevent("speed is reduced to maximum dive speed of %.1f." % maxspeed)
       self._newspeed = maxspeed
   else:
-    maxspeed = self.maxspeed()
     if self._newspeed > maxspeed:
       self._logevent("speed is faded back from %.1f." % self._newspeed)
       self._newspeed = max(self._newspeed - 1, maxspeed)
