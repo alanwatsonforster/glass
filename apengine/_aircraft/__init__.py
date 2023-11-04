@@ -99,7 +99,7 @@ class aircraft:
     _startmovespeed, _endmovespeed
 
   from ._damage import \
-    damage, takedamage, damageatleast
+    damage, takedamage, damageatleast, damageatmost
 
   from ._flightcapabilities import \
     power, spbr, fuelrate, powerfade, engines, turndrag, \

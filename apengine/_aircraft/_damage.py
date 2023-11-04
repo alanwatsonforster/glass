@@ -87,8 +87,10 @@ def takedamage(self, damage):
     aplog.logexception(e)
 
 def damageatleast(self, damage):
-  assert damage in ["L", "2L", "H", "C", "K"]
-  if damage == "L":
+  assert damage in ["none", "L", "2L", "H", "C", "K"]
+  if damage == "none":
+    return True
+  elif damage == "L":
     return self._damageL >= 1 or self.damageatleast("2L")
   elif damage == "2L":
     return self._damageL >= 2 or self.damageatleast("H")
@@ -99,5 +101,17 @@ def damageatleast(self, damage):
   elif damage == "K":
     return self._damageK >= 1
 
-    
-      
+def damageatmost(self, damage):
+  assert damage in ["none", "L", "2L", "H", "C", "K"]
+  if damage == "none":
+    return not self.damageatleast("L")
+  elif damage == "L":
+    return not self.damageatleast("2L")
+  elif damage == "2L":
+    return not self.damageatleast("H")
+  elif damage == "H":
+    return not self.damageatleast("C")
+  elif damage == "C":
+    return not self.damageatleast("K")
+  elif damage == "K":
+    return True

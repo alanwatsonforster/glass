@@ -115,12 +115,25 @@ def climbcapability(self):
   return climbcapability
 
 def hasproperty(self, p):
+
+  # See "Aircraft Damage Effects" in the Play Aids.
+  if p == "HPR" and self.damageatleast("L"):
+    return False
+  if p == "HRR" and self.damageatleast("L"):
+    return False
+  if p == "LRR" and self.damageatleast("L"):
+    return True
+  if p == "NRM" and self.damageatleast("H"):
+    return True
+
   if self._aircraftdata.hasproperty(p):
     return True
+
   if p == "HRR" and self._aircraftdata.hasproperty("HRRCL"):
     return self._configuration == "CL"
   if p == "LRR" and self._aircraftdata.hasproperty("LRRHS"):
     return self._speed >= self._aircraftdata["LRRHSlimit"]
+
   return False
 
 def specialclimbcapability(self):
