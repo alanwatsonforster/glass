@@ -168,10 +168,8 @@ def _startmovespeed(self, power, flamedoutengines):
       self._logstart("- power is reduced by %.2f as the speed is %.1f." % (self.powerfade(), speed))
     
     # Again, the reduction was done above, but we report it here.
-    if self.damageatleast("C"):
-      self._logstart("- M power is reduced by 1/2 and no AB as damage is at least C.")
-    elif self.damageatleast("H"):
-      self._logstart("- M and AB power are reduced by 1/2 as damage is at least H.")      
+    if self.damageatleast("H"):
+      self._logstart("- power is reduced as damage is %s." % self.damage())
 
     # See rule 6.7
 
@@ -249,6 +247,11 @@ def _startmovespeed(self, power, flamedoutengines):
       if self._flighttype != "ST" and self._flighttype != "DP":
         raise RuntimeError("flight type must be ST or DP.")
     
+    # See the "Aircraft Damage Effects" in the Play Aids.
+
+    if speed >= m1speed and self.damageatleast("H"):
+      self._logstart("- check for progressive damage as damage is %s at supersonic speed." % self._damage())
+
     ############################################################################
 
     # Determine the speed-induced drag.
