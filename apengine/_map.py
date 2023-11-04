@@ -20,6 +20,7 @@ _sheetlist      = []
 _nxsheetgrid    = 0
 _nysheetgrid    = 0
 _allforest      = False
+_allwater       = False
 _xmin           = None
 _xmax           = None
 _ymin           = None
@@ -41,8 +42,8 @@ urbancolor        = ( 0.70, 0.70, 0.70 )
 roadcolor         = ( 0.80, 0.80, 0.80 )
 bridgecolor       = ( 0.70, 0.70, 0.70)
 smallbridgecolor  = ( 0.80, 0.80, 0.80 )
-watercolor        = ( 0.75, 0.88, 0.95 )
-hexcolor          = ( 0.60, 0.60, 0.60 )
+watercolor        = ( 0.77, 0.89, 0.95 )
+hexcolor          = ( 0.00, 0.00, 0.00 )
 megahexcolor      = ( 1.00, 1.00, 1.00 )
 runwaycolor       = ( 0.80, 0.80, 0.80 )
 taxiwaycolor      = ( 0.80, 0.80, 0.80 )
@@ -62,7 +63,7 @@ damwidth         = 14
 hexwidth         = 0.5
 megahexwidth     = 5
 
-hexalpha         = 1.0
+hexalpha         = 0.4
 megahexalpha     = 0.15
 forestalpha      = 0.7
 
@@ -70,7 +71,7 @@ foresthatch      = "oo"
 urbanhatch       = "xx"
 
 def setmap(sheetgrid, 
-  allforest=False, 
+  allforest=False, allwater=False,
   drawterrain=True, drawlabels=True, 
   xmin=0, ymin=0, xmax=None, ymax=None, dpi=100, writefile=False
   ):
@@ -89,6 +90,7 @@ def setmap(sheetgrid,
   global _nysheetgrid
   global _nxsheetgrid
   global _allforest
+  global _allwater
   global _xmin
   global _ymin
   global _xmax
@@ -101,6 +103,9 @@ def setmap(sheetgrid,
 
   # TODO: Validate arguments. For example, that sheet grid is not ["A1"].
 
+  if allforest and allwater:
+    raise RuntimeError("allforest and allwater cannot both be specified.")
+
   _sheetgrid = list(reversed(sheetgrid))
   _nysheetgrid = len(_sheetgrid)
   _nxsheetgrid = len(_sheetgrid[0])
@@ -108,6 +113,7 @@ def setmap(sheetgrid,
   _drawterrain = drawterrain
   _drawlabels  = drawlabels
   _allforest   = allforest
+  _allwater    = allwater
 
   _xmin        = xmin
   _ymin        = ymin
@@ -166,178 +172,175 @@ def startdrawmap():
 
   if _drawterrain:
 
-    # Draw the sheets and level 0.
-    for sheet in sheets():
-      xmin, ymin, xmax, ymax = sheetlimits(sheet)
-      apdraw.drawrectangle(xmin, ymin, xmax, ymax, linewidth=0, fillcolor=level0color, zorder=0)
-      if _allforest:
-        apdraw.drawrectangle(xmin, ymin, xmax, ymax, \
-          hatch=foresthatch, linecolor=forestcolor, alpha=forestalpha, linewidth=0, fillcolor=None, 
-          zorder=0)
-    
-    # Draw level 1.
-    for h in level1hexcodes:
-      if aphexcode.tosheet(h) in sheets():
-        apdraw.drawhex(*aphexcode.toxy(h), linewidth=0, fillcolor=level1color, zorder=0)
+    if _allwater:
 
-    # Draw level 2.
-    for h in level2hexcodes:
-      if aphexcode.tosheet(h) in sheets():
-        apdraw.drawhex(*aphexcode.toxy(h), linewidth=0, fillcolor=level2color, zorder=0)
+      # Draw the sheets and level 0.
+      for sheet in sheets():
+        xmin, ymin, xmax, ymax = sheetlimits(sheet)
+        apdraw.drawrectangle(xmin, ymin, xmax, ymax, linewidth=0, fillcolor=watercolor, zorder=0)
 
-    # Draw the ridges.
-    for ridge in level1ridges:
-      sheet = ridge[0]
-      if sheet in sheets():
-        p = ridge[1]
-        xy = [toxy(sheet, *p) for p in p]
-        x = [xy[0] for xy in xy]
-        y = [xy[1] for xy in xy]
-        apdraw.drawlines(x, y, color=level2color, linewidth=ridgewidth, zorder=0)
-    for ridge in level2ridges:
-      sheet = ridge[0]
-      if sheet in sheets():
-        p = ridge[1]
-        xy = [toxy(sheet, *p) for p in p]
-        x = [xy[0] for xy in xy]
-        y = [xy[1] for xy in xy]
-        apdraw.drawlines(x, y, color=level3color, linewidth=ridgewidth, zorder=0)
+    else:
 
-    if _allforest:
-      for h in level1hexcodes + level2hexcodes:
-        if aphexcode.tosheet(h) in sheets():
-          apdraw.drawhex(*aphexcode.toxy(h), linewidth=0, linecolor=forestcolor, 
-            hatch=foresthatch, alpha=forestalpha, zorder=0)
-
-    if not _allforest:
-
-      # Draw the forest areas.
-      for h in foresthexcodes:
-        if aphexcode.tosheet(h) in sheets():
-          apdraw.drawhex(*aphexcode.toxy(h), linewidth=0, linecolor=forestcolor, 
-            hatch=foresthatch, alpha=forestalpha, zorder=0)
-
-      # Draw the road clearings.
-      for clearingpath in clearingpaths:
-        sheet = clearingpath[0]
-        if sheet in sheets():
-          p = clearingpath[1]
-          xy = [toxy(sheet, *p) for p in p]
-          x = [xy[0] for xy in xy]
-          y = [xy[1] for xy in xy]
-          apdraw.drawlines(x, y, color=level0color, linewidth=clearingwidth, zorder=0)
-
-      # Draw the urban areas.
-      for h in urbanhexcodes:
-        if aphexcode.tosheet(h) in sheets():
-          apdraw.drawhex(*aphexcode.toxy(h), linewidth=0, linecolor=urbancolor, hatch=urbanhatch, zorder=0)
-
-    # Draw water.
-    for h in waterhexcodes:
-      if aphexcode.tosheet(h) in sheets():
-        apdraw.drawhex(*aphexcode.toxy(h), linewidth=0, fillcolor=watercolor, zorder=0)
-        
-    # Draw the rivers.
-    for riverpath in riverpaths:
-      sheet = riverpath[0]
-      if sheet in sheets():
-        p = riverpath[1]
-        xy = [toxy(sheet, *p) for p in p]
-        x = [xy[0] for xy in xy]
-        y = [xy[1] for xy in xy]
-        apdraw.drawlines(x, y, color=watercolor, linewidth=riverwidth, capstyle="butt", zorder=0)
-    for riverpath in wideriverpaths:
-      sheet = riverpath[0]
-      if sheet in sheets():
-        p = riverpath[1]
-        xy = [toxy(sheet, *p) for p in p]
-        x = [xy[0] for xy in xy]
-        y = [xy[1] for xy in xy]
-        apdraw.drawlines(x, y, color=watercolor, linewidth=wideriverwidth, capstyle="butt", zorder=0)
-
-    # Draw the bridges.
-    for bridgepath in smallbridgepaths:
-      sheet = bridgepath[0]
-      if sheet in sheets():
-        p = bridgepath[1]
-        xy = [toxy(sheet, *p) for p in p]
-        x = [xy[0] for xy in xy]
-        y = [xy[1] for xy in xy]
-        apdraw.drawlines(x, y, color=smallbridgecolor, linewidth=bridgeouterwidth, capstyle="butt", zorder=0)  
-        apdraw.drawlines(x, y, color=level0color, linewidth=bridgeinnerwidth, capstyle="butt", zorder=0)  
-        apdraw.drawlines(x, y, color=roadcolor, linewidth=roadwidth, capstyle="projecting", zorder=0)
-    for bridgepath in largebridgepaths:
-      sheet = bridgepath[0]
-      if sheet in sheets():
-        p = bridgepath[1]
-        xy = [toxy(sheet, *p) for p in p]
-        x = [xy[0] for xy in xy]
-        y = [xy[1] for xy in xy]
-        apdraw.drawlines(x, y, color=bridgecolor, linewidth=bridgeouterwidth, capstyle="butt", zorder=0)  
-        apdraw.drawlines(x, y, color=level0color, linewidth=bridgeinnerwidth, capstyle="butt", zorder=0)  
-        apdraw.drawlines(x, y, color=roadcolor, linewidth=roadwidth, capstyle="projecting", zorder=0)
-
-    # Draw the roads.
-    for roadpath in roadpaths:
-      sheet = roadpath[0]
-      if sheet in sheets():
-        p = roadpath[1]
-        xy = [toxy(sheet, *p) for p in p]
-        x = [xy[0] for xy in xy]
-        y = [xy[1] for xy in xy]
-        apdraw.drawlines(x, y, color=roadcolor, linewidth=roadwidth, capstyle="butt", zorder=0)
-        
-    if not _allforest:
-
-      # Draw the runways and taxiways.
-      for runwaypath in runwaypaths:
-        sheet = runwaypath[0]
-        if sheet in sheets():
-          p = runwaypath[1]
-          xy = [toxy(sheet, *p) for p in p]
-          x = [xy[0] for xy in xy]
-          y = [xy[1] for xy in xy]
-          apdraw.drawlines(x, y, color=runwaycolor, linewidth=runwaywidth, capstyle="butt", zorder=0)
-      for taxiwaypath in taxiwaypaths:
-        sheet = taxiwaypath[0]
-        if sheet in sheets():
-          p = taxiwaypath[1]
-          xy = [toxy(sheet, *p) for p in p]
-          x = [xy[0] for xy in xy]
-          y = [xy[1] for xy in xy]
-          apdraw.drawlines(x, y, color=taxiwaycolor, linewidth=taxiwaywidth, joinstyle="miter", capstyle="butt", zorder=0)
-        
-      # Draw the dams.
-      for dampath in dampaths:
-        sheet = dampath[0]
-        if sheet in sheets():
-          p = dampath[1]
-          xy = [toxy(sheet, *p) for p in p]
-          x = [xy[0] for xy in xy]
-          y = [xy[1] for xy in xy]
-          apdraw.drawlines(x, y, color=damcolor, linewidth=damwidth, capstyle="butt", zorder=0)
+      # Draw the sheets and level 0.
+      for sheet in sheets():
+        xmin, ymin, xmax, ymax = sheetlimits(sheet)
+        apdraw.drawrectangle(xmin, ymin, xmax, ymax, linewidth=0, fillcolor=level0color, zorder=0)
+        if _allforest:
+          apdraw.drawrectangle(xmin, ymin, xmax, ymax, \
+            hatch=foresthatch, linecolor=forestcolor, alpha=forestalpha, linewidth=0, fillcolor=None, 
+            zorder=0)
       
-    # Draw missing sheets.
-    for iy in range (0, _nysheetgrid):
-      for ix in range (0, _nxsheetgrid):
-        if _sheetgrid[iy][ix] == "--":
-          xmin = ix * _dxsheet
-          xmax = xmin + _dxsheet
-          ymin = iy * _dysheet
-          ymax = ymin + _dysheet
-          apdraw.drawrectangle(xmin, ymin, xmax, ymax, linecolor=None, fillcolor=missingcolor, zorder=0.0)
-            
-  # Draw the megahexes.
-  for sheet in sheets():
-    xmin, ymin, xmax, ymax = sheetlimits(sheet)
-    for ix in range(0, _dxsheet):
-      for iy in range(0, _dysheet):
-        x = xmin + ix
-        y = ymin + iy
-        if ix % 2 == 1:
-          y -= 0.5
-        if (x % 10 == 0 and y % 5 == 0) or (x % 10 == 5 and y % 5 == 2.5):
-          apdraw.drawhex(x, y, size=5, linecolor=megahexcolor, linewidth=megahexwidth, alpha=megahexalpha, zorder=0.0)
+      # Draw level 1.
+      for h in level1hexcodes:
+        if aphexcode.tosheet(h) in sheets():
+          apdraw.drawhex(*aphexcode.toxy(h), linewidth=0, fillcolor=level1color, zorder=0)
+
+      # Draw level 2.
+      for h in level2hexcodes:
+        if aphexcode.tosheet(h) in sheets():
+          apdraw.drawhex(*aphexcode.toxy(h), linewidth=0, fillcolor=level2color, zorder=0)
+
+      # Draw the ridges.
+      for ridge in level1ridges:
+        sheet = ridge[0]
+        if sheet in sheets():
+          p = ridge[1]
+          xy = [toxy(sheet, *p) for p in p]
+          x = [xy[0] for xy in xy]
+          y = [xy[1] for xy in xy]
+          apdraw.drawlines(x, y, color=level2color, linewidth=ridgewidth, zorder=0)
+      for ridge in level2ridges:
+        sheet = ridge[0]
+        if sheet in sheets():
+          p = ridge[1]
+          xy = [toxy(sheet, *p) for p in p]
+          x = [xy[0] for xy in xy]
+          y = [xy[1] for xy in xy]
+          apdraw.drawlines(x, y, color=level3color, linewidth=ridgewidth, zorder=0)
+
+      if _allforest:
+        for h in level1hexcodes + level2hexcodes:
+          if aphexcode.tosheet(h) in sheets():
+            apdraw.drawhex(*aphexcode.toxy(h), linewidth=0, linecolor=forestcolor, 
+              hatch=foresthatch, alpha=forestalpha, zorder=0)
+
+      if not _allforest:
+
+        # Draw the forest areas.
+        for h in foresthexcodes:
+          if aphexcode.tosheet(h) in sheets():
+            apdraw.drawhex(*aphexcode.toxy(h), linewidth=0, linecolor=forestcolor, 
+              hatch=foresthatch, alpha=forestalpha, zorder=0)
+
+        # Draw the road clearings.
+        for clearingpath in clearingpaths:
+          sheet = clearingpath[0]
+          if sheet in sheets():
+            p = clearingpath[1]
+            xy = [toxy(sheet, *p) for p in p]
+            x = [xy[0] for xy in xy]
+            y = [xy[1] for xy in xy]
+            apdraw.drawlines(x, y, color=level0color, linewidth=clearingwidth, zorder=0)
+
+        # Draw the urban areas.
+        for h in urbanhexcodes:
+          if aphexcode.tosheet(h) in sheets():
+            apdraw.drawhex(*aphexcode.toxy(h), linewidth=0, linecolor=urbancolor, hatch=urbanhatch, zorder=0)
+
+      # Draw water.
+      for h in waterhexcodes:
+        if aphexcode.tosheet(h) in sheets():
+          apdraw.drawhex(*aphexcode.toxy(h), linewidth=0, fillcolor=watercolor, zorder=0)
+          
+      # Draw the rivers.
+      for riverpath in riverpaths:
+        sheet = riverpath[0]
+        if sheet in sheets():
+          p = riverpath[1]
+          xy = [toxy(sheet, *p) for p in p]
+          x = [xy[0] for xy in xy]
+          y = [xy[1] for xy in xy]
+          apdraw.drawlines(x, y, color=watercolor, linewidth=riverwidth, capstyle="butt", zorder=0)
+      for riverpath in wideriverpaths:
+        sheet = riverpath[0]
+        if sheet in sheets():
+          p = riverpath[1]
+          xy = [toxy(sheet, *p) for p in p]
+          x = [xy[0] for xy in xy]
+          y = [xy[1] for xy in xy]
+          apdraw.drawlines(x, y, color=watercolor, linewidth=wideriverwidth, capstyle="butt", zorder=0)
+
+      # Draw the bridges.
+      for bridgepath in smallbridgepaths:
+        sheet = bridgepath[0]
+        if sheet in sheets():
+          p = bridgepath[1]
+          xy = [toxy(sheet, *p) for p in p]
+          x = [xy[0] for xy in xy]
+          y = [xy[1] for xy in xy]
+          apdraw.drawlines(x, y, color=smallbridgecolor, linewidth=bridgeouterwidth, capstyle="butt", zorder=0)  
+          apdraw.drawlines(x, y, color=level0color, linewidth=bridgeinnerwidth, capstyle="butt", zorder=0)  
+          apdraw.drawlines(x, y, color=roadcolor, linewidth=roadwidth, capstyle="projecting", zorder=0)
+      for bridgepath in largebridgepaths:
+        sheet = bridgepath[0]
+        if sheet in sheets():
+          p = bridgepath[1]
+          xy = [toxy(sheet, *p) for p in p]
+          x = [xy[0] for xy in xy]
+          y = [xy[1] for xy in xy]
+          apdraw.drawlines(x, y, color=bridgecolor, linewidth=bridgeouterwidth, capstyle="butt", zorder=0)  
+          apdraw.drawlines(x, y, color=level0color, linewidth=bridgeinnerwidth, capstyle="butt", zorder=0)  
+          apdraw.drawlines(x, y, color=roadcolor, linewidth=roadwidth, capstyle="projecting", zorder=0)
+
+      # Draw the roads.
+      for roadpath in roadpaths:
+        sheet = roadpath[0]
+        if sheet in sheets():
+          p = roadpath[1]
+          xy = [toxy(sheet, *p) for p in p]
+          x = [xy[0] for xy in xy]
+          y = [xy[1] for xy in xy]
+          apdraw.drawlines(x, y, color=roadcolor, linewidth=roadwidth, capstyle="butt", zorder=0)
+          
+      if not _allforest:
+
+        # Draw the runways and taxiways.
+        for runwaypath in runwaypaths:
+          sheet = runwaypath[0]
+          if sheet in sheets():
+            p = runwaypath[1]
+            xy = [toxy(sheet, *p) for p in p]
+            x = [xy[0] for xy in xy]
+            y = [xy[1] for xy in xy]
+            apdraw.drawlines(x, y, color=runwaycolor, linewidth=runwaywidth, capstyle="butt", zorder=0)
+        for taxiwaypath in taxiwaypaths:
+          sheet = taxiwaypath[0]
+          if sheet in sheets():
+            p = taxiwaypath[1]
+            xy = [toxy(sheet, *p) for p in p]
+            x = [xy[0] for xy in xy]
+            y = [xy[1] for xy in xy]
+            apdraw.drawlines(x, y, color=taxiwaycolor, linewidth=taxiwaywidth, joinstyle="miter", capstyle="butt", zorder=0)
+          
+        # Draw the dams.
+        for dampath in dampaths:
+          sheet = dampath[0]
+          if sheet in sheets():
+            p = dampath[1]
+            xy = [toxy(sheet, *p) for p in p]
+            x = [xy[0] for xy in xy]
+            y = [xy[1] for xy in xy]
+            apdraw.drawlines(x, y, color=damcolor, linewidth=damwidth, capstyle="butt", zorder=0)
+      
+  # Draw missing sheets.
+  for iy in range (0, _nysheetgrid):
+    for ix in range (0, _nxsheetgrid):
+      if _sheetgrid[iy][ix] == "--":
+        xmin = ix * _dxsheet
+        xmax = xmin + _dxsheet
+        ymin = iy * _dysheet
+        ymax = ymin + _dysheet
+        apdraw.drawrectangle(xmin, ymin, xmax, ymax, linecolor=None, fillcolor=missingcolor, zorder=0.0)
             
   # Draw and label the hexes.
   for sheet in sheets():
@@ -351,29 +354,41 @@ def startdrawmap():
         # Draw the hex if it is on the map and either its center or the center 
         # of its upper left edge are on this sheet.
         if isonmap(x, y) and (isonsheet(sheet, x, y) or isonsheet(sheet, x - 0.5, y + 0.25)):
-          apdraw.drawhex(x, y, linecolor=hexcolor, linewidth=hexwidth, alpha=hexalpha, zorder=0.5)
+          apdraw.drawhex(x, y, linecolor=hexcolor, alpha=hexalpha, linewidth=hexwidth, zorder=0.5)
           if _drawlabels:
-            apdraw.drawhexlabel(x, y, aphexcode.fromxy(x, y), color=hexcolor, zorder=0.5)
+            apdraw.drawhexlabel(x, y, aphexcode.fromxy(x, y), color=hexcolor, alpha=hexalpha, zorder=0.5)
 
+  # Draw the megahexes.
+  for sheet in sheets():
+    xmin, ymin, xmax, ymax = sheetlimits(sheet)
+    for ix in range(0, _dxsheet):
+      for iy in range(0, _dysheet):
+        x = xmin + ix
+        y = ymin + iy
+        if ix % 2 == 1:
+          y -= 0.5
+        if (x % 10 == 0 and y % 5 == 0) or (x % 10 == 5 and y % 5 == 2.5):
+          apdraw.drawhex(x, y, size=5, linecolor=megahexcolor, linewidth=megahexwidth, alpha=megahexalpha, zorder=0.0)
+            
   if _drawlabels:
 
     # Label the sheets.
     for sheet in sheets():
       xmin, ymin, xmax, ymax = sheetlimits(sheet)
-      apdraw.drawtext(xmin + 1.0, ymin + 0.5, 90, sheet, dy=-0.05, size=18, color=hexcolor, zorder=0.5)
+      apdraw.drawtext(xmin + 1.0, ymin + 0.5, 90, sheet, dy=-0.05, size=18, color=hexcolor, alpha=hexalpha, zorder=0.5)
 
     # Draw the compass rose in the bottom sheet in the leftmost column.
     for iy in range (0, _nysheetgrid):
       sheet = _sheetgrid[iy][0]
       if sheet != "--":
         xmin, ymin, xmax, ymax = sheetlimits(sheet)
-        apdraw.drawcompass(xmin + 1.0, ymin + 1.5, apazimuth.tofacing("N"), color=hexcolor, zorder=0.5)
+        apdraw.drawcompass(xmin + 1.0, ymin + 1.5, apazimuth.tofacing("N"), color=hexcolor, alpha=hexalpha, zorder=0.5)
         break
 
   # Draw the sheets outlines.
   for sheet in sheets():
     xmin, ymin, xmax, ymax = sheetlimits(sheet)
-    apdraw.drawrectangle(xmin, ymin, xmax, ymax, linecolor=hexcolor, zorder=0.5)
+    apdraw.drawrectangle(xmin, ymin, xmax, ymax, linecolor=hexcolor, alpha=hexalpha, zorder=0.5)
 
   apdraw.save()
   _saved = True
@@ -476,6 +491,9 @@ def altitude(x, y, sheet=None):
   assert aphex.isvalid(x, y)
 
   if aphex.iscenter(x, y):
+
+    if _allwater:
+      return 0
 
     h = aphexcode.fromxy(x, y, sheet=sheet)
     if h in level2hexcodes:
