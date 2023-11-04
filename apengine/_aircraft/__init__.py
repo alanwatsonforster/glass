@@ -99,7 +99,7 @@ class aircraft:
     _startmovespeed, _endmovespeed
 
   from ._damage import \
-    damage, takedamage
+    damage, takedamage, damageatleast
 
   from ._flightcapabilities import \
     power, spbr, fuelrate, powerfade, engines, turndrag, \
@@ -548,7 +548,7 @@ class aircraft:
         if speed != self._newspeed:
           print("== assertion failed ===")
           print("== actual   new speed: %.1f" % self._newspeed)
-          print("== expected new speed: %.1f" % newspeed)
+          print("== expected new speed: %.1f" % speed)
           assert speed == self._newspeed
     if configuration != None and configuration != self._configuration:
       print("== assertion failed ===")

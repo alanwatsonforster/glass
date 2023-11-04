@@ -7,7 +7,7 @@ import apengine._log as aplog
 
 def damage(self):
 
-  if self._damageK == 1:
+  if self._damageK > 0:
     return "K"
 
   damage = ""
@@ -70,7 +70,8 @@ def takedamage(self, damage):
     if self._damageH > 0 and self._damageC > 0:
       self._damageK = 1
 
-    if self._damageK == 1:
+    if self._damageK > 0:
+      self._damageK = 1
       self._damageL = 0
       self._damageH = 0
       self._damageC = 0
@@ -84,6 +85,19 @@ def takedamage(self, damage):
 
   except RuntimeError as e:
     aplog.logexception(e)
-    
+
+def damageatleast(self, damage):
+  assert damage in ["L", "2L", "H", "C", "K"]
+  if damage == "L":
+    return self._damageL >= 1 or self.damageatleast("2L")
+  elif damage == "2L":
+    return self._damageL >= 2 or self.damageatleast("H")
+  elif damage == "H":
+    return self._damageH >= 1 or self.damageatleast("C")
+  elif damage == "C":
+    return self._damageC >= 1 or self.damageatleast("K")
+  elif damage == "K":
+    return self._damageK >= 1
+
     
       
