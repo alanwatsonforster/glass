@@ -44,7 +44,7 @@ def startsetup(scenario, sheets=None, north="up", variants=[], **kwargs):
     _turn = 0
     _savedturn = _turn
 
-    aplog.log("--- start setup ---")
+    aplog.log("setup  : start of setup.")
     aplog.logbreak()
 
     apvariants.setvariants(variants)
@@ -79,7 +79,7 @@ def endsetup():
       
     apaircraft._endsetup()
 
-    aplog.log("--- end setup ---")
+    aplog.log("setup : end of setup.")
 
     _turn += 1
     _savedturn = _turn
@@ -104,7 +104,7 @@ def startturn():
     if _turn == None or _turn == 0:
       raise RuntimeError("startturn() called out of sequence.")
   
-    aplog.log("--- start of turn %d ---" % _turn)
+    aplog.log("turn %-2d: start of turn." % _turn)
 
     apaircraft._startturn()
 
@@ -127,7 +127,7 @@ def endturn():
     apaircraft._endturn()
 
     aplog.logbreak()
-    aplog.log("--- end of turn %d ---" % _turn)
+    aplog.log("turn %-2d: end of turn." % _turn)
 
     _turn += 1
     _savedturn = _turn

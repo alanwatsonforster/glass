@@ -99,7 +99,7 @@ class aircraft:
     _startmovespeed, _endmovespeed
 
   from ._damage import \
-    damage, takedamage, damageatleast, damageatmost
+    damage, _takedamage, takedamage, damageatleast, damageatmost
 
   from ._flightcapabilities import \
     power, spbr, fuelrate, powerfade, engines, turndrag, \
@@ -112,7 +112,9 @@ class aircraft:
     _startflightpath, _continueflightpath, _drawflightpath
 
   from ._log import \
-    _log, _logaction, _logstart, _logend, _logevent, _logline, _logbreak, _lognote
+    _log, _logaction, _logstart, _logend, _logevent, _logline, _logbreak, \
+    _lognote, _log1, _log2, \
+    _logpositionandmaneuver, _logposition
 
   #############################################################################
 
@@ -260,6 +262,7 @@ class aircraft:
 
   def note(self, s):
     self._lognote(s)
+    self._logline()
 
   #############################################################################
 
@@ -272,34 +275,31 @@ class aircraft:
     aplog.clearerror()
     try:
 
+      self._logaction("RF", action)
+
       m = re.compile("AAGN\\(([^)]*)\\)\\(([^)]*)\\)").match(action)
       if m is None:
         raise RuntimeError("invalid action %r" % action)
 
       targetname = m[1]
       target = _fromname(targetname)
-      
-      prefix = "%s returning fire on %s" % (self._name, target._name)
-
-      def log(s):
-        self._logevent("- %s: %s" % (prefix, s))
 
       arc = self.gunarc()
 
       if arc:
 
-        log("air-to-air attack on %s using articulated guns covering %s arc." % (target._name, arc))
+        self._logevent("air-to-air attack on %s using articulated guns covering %s arc." % (target._name, arc))
   
         r = self.gunattackrange(target, arc=arc)
         if isinstance(r, str):
           raise RuntimeError(r)
 
-        log("range is %d." % r)
-        log("angle-off-tail of %s is %s." % (self._name, target.angleofftail(self)))  
+        self._logevent("range is %d." % r)
+        self._logevent("angle-off-tail of %s is %s." % (self._name, target.angleofftail(self)))  
         
       else:
         
-        log("air-to-air attack on %s using fixed guns." % target._name)
+        self._logevent("air-to-air attack on %s using fixed guns." % target._name)
 
         r = self.gunattackrange(target)
         if isinstance(r, str):
@@ -308,21 +308,22 @@ class aircraft:
         if angleofftail != "180 line":
           raise RuntimeError("fixed guns can only return fire to head-on attacks.")
 
-        log("range is %d." % r)      
-        log("angle-off-tail is %s." % angleofftail)
+        self._logevent("range is %d." % r)      
+        self._logevent("angle-off-tail is %s." % angleofftail)
 
       if m[2] == "":
-        log("result of attack not specified")
+        self._logevent("result of attack not specified.")
       elif m[2] == "M":
-        log("missed.")
+        self._logevent("missed.")
       elif m[2] == "-":
-        log("hit but inflicted no damage.")
+        self._logevent("hit but inflicted no damage.")
       else:
-        log("hit and inflicted %s damage." % m[2])
-        target.takedamage(m[2])        
+        self._logevent("hit and inflicted %s damage." % m[2])
+        target._takedamage(m[2])        
 
       self._lognote(note)
-  
+      self._logline()
+
     except RuntimeError as e:
       aplog.logexception(e)
     
@@ -420,7 +421,7 @@ class aircraft:
     if self._altitude <= altitudeofterrain:
       self._altitude = altitudeofterrain
       self._altitudecarry = 0
-      self._logevent("aircraft has collided with terrain at altitude %d." % altitudeofterrain)
+      self._logaction("", "aircraft has collided with terrain at altitude %d." % altitudeofterrain)
       self._destroyed = True
       self._leaveanycloseformation()
 
@@ -431,7 +432,7 @@ class aircraft:
     """
 
     if not apmap.isonmap(self._x, self._y):
-      self._logevent("aircraft has left the map.")
+      self._logaction("", "aircraft has left the map.")
       self._leftmap = True
       self._leaveanycloseformation()
   

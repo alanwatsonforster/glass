@@ -160,9 +160,8 @@ def _dospecialflight(self, action, note=False):
     """
     
   self._logline()
-  self._logaction("start", "", self.position()) 
-
-  fullaction = action
+  self._logposition("start")
+  self._logaction("", action)
 
   initialaltitude     = self._altitude
   initialaltitudeband = self._altitudeband
@@ -189,7 +188,7 @@ def _dospecialflight(self, action, note=False):
 
   self._lognote(note)
   
-  self._logaction("end", fullaction, self.position())
+  self._logposition("end")
   self._continueflightpath()
 
   if initialaltitudeband != self._altitudeband:

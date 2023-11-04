@@ -161,15 +161,15 @@ def _startmovespeed(self, power, flamedoutengines):
     if jet and not self.hasproperty("HAE") and (
       self._altitudeband == "VH" or self._altitudeband == "EH" or self._altitudeband == "UH"
     ):
-      self._logstart("- power is reduced in the %s altitude band." % self._altitudeband)
+      self._logevent("power is reduced in the %s altitude band." % self._altitudeband)
         
     # Again, the reduction was done above, but we report it here.
     if self.powerfade() != None and self.powerfade() > 0.0:
-      self._logstart("- power is reduced by %.2f as the speed is %.1f." % (self.powerfade(), speed))
+      self._logevent("power is reduced by %.2f as the speed is %.1f." % (self.powerfade(), speed))
     
     # Again, the reduction was done above, but we report it here.
     if self.damageatleast("H"):
-      self._logstart("- power is reduced as damage is %s." % self.damage())
+      self._logevent("power is reduced as damage is %s." % self.damage())
 
     # See rule 6.7
 
@@ -178,15 +178,15 @@ def _startmovespeed(self, power, flamedoutengines):
     if flamedoutfraction == 1:
 
       if self.engines() == 1:
-        self._logstart("- power setting is treated as idle as the engine is flamed-out.")
+        self._logevent("power setting is treated as idle as the engine is flamed-out.")
       else:
-        self._logstart("- power setting is treated as idle as all %d engines are flamed-out." % self.engines())
+        self._logevent("power setting is treated as idle as all %d engines are flamed-out." % self.engines())
       powersetting = "I"
       powerap = 0
 
     elif flamedoutfraction > 0.5:
 
-      self._logstart("- power is reduced by one third as %d of the %d engines are flamed-out." % (
+      self._logevent("power is reduced by one third as %d of the %d engines are flamed-out." % (
         flamedoutengines, self.engines()
       ))
       # 1/3 of APs, quantized in 1/4 units, rounding down.
@@ -194,7 +194,7 @@ def _startmovespeed(self, power, flamedoutengines):
 
     elif flamedoutfraction > 0:
 
-      self._logstart("- power is reduced by one half as %d of the %d engines are flamed-out." % (
+      self._logevent("power is reduced by one half as %d of the %d engines are flamed-out." % (
         flamedoutengines, self.engines()
       ))
       # 1/2 of APs, quantized in 1/4 units, rounding up.
@@ -207,13 +207,13 @@ def _startmovespeed(self, power, flamedoutengines):
     # See rules 6.1, 6.7, and 8.5.
 
     if lastpowersetting == "I" and powersetting == "AB" and not self.hasproperty("RPR"):
-      self._logstart("- check for flame-out as the power setting has increased from I to AB.")
+      self._logevent("check for flame-out as the power setting has increased from I to AB.")
 
     if powersetting != "I" and self._altitude > self.ceiling():
-      self._logstart("- check for flame-out as the aircraft is above its ceiling and the power setting is %s." % powersetting)
+      self._logevent("check for flame-out as the aircraft is above its ceiling and the power setting is %s." % powersetting)
 
     if self._flighttype == "DP" and (powersetting == "M" or powersetting == "AB"):
-      self._logstart("- check for flame-out as the aircaft is in departed flight and the power setting is %s." % powersetting)
+      self._logevent("check for flame-out as the aircaft is in departed flight and the power setting is %s." % powersetting)
 
     ############################################################################
 
@@ -223,7 +223,7 @@ def _startmovespeed(self, power, flamedoutengines):
 
     if self._previousflighttype == "DP" and self._flighttype != "DP" and speed < minspeed:
       speed = minspeed
-      self._logstart("- increasing speed to %.1f after recovering from departed flight." % minspeed)
+      self._logevent("increasing speed to %.1f after recovering from departed flight." % minspeed)
       
     # See rules 6.1 and 6.6 on idle power setting.
 
@@ -234,7 +234,7 @@ def _startmovespeed(self, power, flamedoutengines):
       # This keeps the speed non-negative. See rule 6.2.
       speedchange = min(speedchange, self._speed)
       speed -= speedchange
-      self._logstart("- reducing speed to %.1f as the power setting is I." % speed)
+      self._logevent("reducing speed to %.1f as the power setting is I." % speed)
 
     reportspeed()
 
@@ -242,15 +242,15 @@ def _startmovespeed(self, power, flamedoutengines):
       
     minspeed = self.minspeed()
     if speed < minspeed:
-      self._logstart("- speed is below the minimum of %.1f." % minspeed)
-      self._logstart("- aircraft is stalled.")
+      self._logevent("speed is below the minimum of %.1f." % minspeed)
+      self._logevent("aircraft is stalled.")
       if self._flighttype != "ST" and self._flighttype != "DP":
         raise RuntimeError("flight type must be ST or DP.")
     
     # See the "Aircraft Damage Effects" in the Play Aids.
 
     if speed >= m1speed and self.damageatleast("H"):
-      self._logstart("- check for progressive damage as damage is %s at supersonic speed." % self._damage())
+      self._logevent("check for progressive damage as damage is %s at supersonic speed." % self._damage())
 
     ############################################################################
 
@@ -270,7 +270,7 @@ def _startmovespeed(self, power, flamedoutengines):
 
     if speed > self.cruisespeed():
       if powersetting == "I" or powersetting == "N":
-        self._logstart("- insufficient power above cruise speed.")
+        self._logevent("insufficient power above cruise speed.")
         speedap -= 1.0
 
     # See rule 6.6
@@ -278,15 +278,15 @@ def _startmovespeed(self, power, flamedoutengines):
     if speed >= m1speed:
       if powersetting == "I" or powersetting == "N":
         speedap -= 2.0 * (speed - htspeed) / 0.5
-        self._logstart("- insufficient power at supersonic speed.")
+        self._logevent("insufficient power at supersonic speed.")
       elif powersetting == "M":
         speedap -= 1.5 * (speed - htspeed) / 0.5
-        self._logstart("- insufficient power at supersonic speed.")
+        self._logevent("insufficient power at supersonic speed.")
 
     # See rule 6.6
 
     if ltspeed <= speed and speed <= m1speed:
-      self._logstart("- transonic drag.")
+      self._logevent("transonic drag.")
       if speed == ltspeed:
         speedap -= 0.5
       elif speed == htspeed:
@@ -317,27 +317,27 @@ def _endmovespeed(self):
 
   if self._flighttype == "SP":
     self.apcarry = 0
-    self._logend("speed is unchanged at %.1f." % self._speed)
+    self._logevent("speed is unchanged at %.1f." % self._speed)
     return
 
   # See the "Departed Flight Procedure" section of rule 6.4
 
   if self._flighttype == "DP" or self._maneuveringdeparture:
     self.apcarry = 0
-    self._logend("speed is unchanged at %.1f." % self._speed)
+    self._logevent("speed is unchanged at %.1f." % self._speed)
     return
 
   # See the "Speed Gain" and "Speed Loss" sections of rule 6.2.
 
   turnsap = self._turnrateap + self._sustainedturnap
 
-  self._logend("- power           APs = %+.2f." % self._powerap)
-  self._logend("- speed           APs = %+.2f." % self._speedap)
-  self._logend("- altitude        APs = %+.2f." % self._altitudeap)
-  self._logend("- turns           APs = %+.2f." % turnsap)
-  self._logend("- other maneuvers APs = %+.2f." % self._othermaneuversap)
-  self._logend("- speedbrakes     APs = %+.2f." % self._spbrap)
-  self._logend("- carry           APs = %+.2f." % self._apcarry)
+  self._logevent("power           APs = %+.2f." % self._powerap)
+  self._logevent("speed           APs = %+.2f." % self._speedap)
+  self._logevent("altitude        APs = %+.2f." % self._altitudeap)
+  self._logevent("turns           APs = %+.2f." % turnsap)
+  self._logevent("other maneuvers APs = %+.2f." % self._othermaneuversap)
+  self._logevent("speedbrakes     APs = %+.2f." % self._spbrap)
+  self._logevent("carry           APs = %+.2f." % self._apcarry)
   ap = \
     self._powerap + \
     self._speedap + \
@@ -346,7 +346,7 @@ def _endmovespeed(self):
     self._othermaneuversap + \
     self._spbrap + \
     self._apcarry
-  self._logend("- total           APs = %+.2f." % ap)
+  self._logevent("total           APs = %+.2f." % ap)
 
   # See the "Speed Gain", "Speed Loss", and "Rapid Accel Aircraft" sections
   # of rule 6.2 and the "Supersonic Speeds" section of rule 6.6.
@@ -400,44 +400,44 @@ def _endmovespeed(self):
       maxspeedname = "maximum speed"
 
     if self._speed >= maxspeed and ap >= aprate:
-      self._logend("- acceleration is limited by %s of %.1f." % (maxspeedname, maxspeed))
+      self._logevent("acceleration is limited by %s of %.1f." % (maxspeedname, maxspeed))
       self._apcarry = aprate - 0.5
     elif self._speed >= maxspeed:
       self._apcarry = ap
     elif self._speed + 0.5 * (ap // aprate) > maxspeed:
-      self._logend("- acceleration is limited by %s of %.1f." % (maxspeedname, maxspeed))
+      self._logevent("acceleration is limited by %s of %.1f." % (maxspeedname, maxspeed))
       self._newspeed = maxspeed
       self._apcarry = aprate - 0.5
     else:
       self._newspeed += 0.5 * (ap // aprate)
       self._apcarry = ap % aprate
 
-  self._logend("- is carrying %+.2f APs." % self._apcarry)
+  self._logevent("is carrying %+.2f APs." % self._apcarry)
 
   if usemaxdivespeed:
     maxspeed = self.maxdivespeed()
     if self._newspeed > maxspeed:
-      self._logend("- speed is reduced to maximum dive speed of %.1f." % maxspeed)
+      self._logevent("speed is reduced to maximum dive speed of %.1f." % maxspeed)
       self._newspeed = maxspeed
   else:
     maxspeed = self.maxspeed()
     if self._newspeed > maxspeed:
-      self._logend("- speed is faded back from %.1f." % self._newspeed)
+      self._logevent("speed is faded back from %.1f." % self._newspeed)
       self._newspeed = max(self._newspeed - 1, maxspeed)
 
-  if self._previousspeed != self._newspeed:
-    self._logend("speed         changed from %.1f to %.1f." % (self._previousspeed, self._newspeed))
+  if self._speed != self._newspeed:
+    self._logend("speed will change from %.1f to %.1f." % (self._speed, self._newspeed))
   else:
-    self._logend("speed         is unchanged at %.1f." % self._newspeed)
+    self._logend("speed will be unchanged at %.1f." % self._newspeed)
 
   # See rule 6.4.
 
   minspeed = self.minspeed()
   if self._newspeed < minspeed:
-    self._logend("- speed is below the minimum of %.1f." % minspeed)
+    self._logevent("speed is below the minimum of %.1f." % minspeed)
   if self._newspeed >= minspeed and self._flighttype == "ST":
-    self._logend("- aircraft is no longer stalled.")
+    self._logevent("aircraft is no longer stalled.")
   elif self._newspeed < minspeed and self._flighttype == "ST":
-    self._logend("- aircraft is still stalled.")
+    self._logevent("aircraft is still stalled.")
   elif self._newspeed < minspeed:
-    self._logend("- aircraft has stalled.")
+    self._logevent("aircraft has stalled.")

@@ -44,7 +44,6 @@ def move(self, flighttype, power, actions, flamedoutengines=0, note=False):
     self._previousaltitudeband  = self._altitudeband
     self._previousaltitudecarry = self._altitudecarry
     self._previousspeed         = self._speed
-    self._previousdamage        = self.damage()
   
     # These account for the APs associated with power, speed, speed-brakes, 
     # turns (split into the part for the maximum turn rate and the part for 
@@ -127,6 +126,8 @@ def move(self, flighttype, power, actions, flamedoutengines=0, note=False):
       self._turnsdeparted = 0
       self._startnormalflight(actions, note=note)
 
+    self._logline()
+
   except RuntimeError as e:
     aplog.logexception(e)
 
@@ -147,6 +148,7 @@ def continuemove(self, actions, note=False):
       self._continuenormalflight(actions, note=note)
     else:
       self._lognote(note)
+    self._logline()
 
   except RuntimeError as e:
     aplog.logexception(e)
@@ -186,16 +188,7 @@ def _endmove(self):
       self._logend("altitude band changed from %s to %s." % (self._previousaltitudeband, self._altitudeband))
     else:
       self._logend("altitude band is unchanged at %s." % self._altitudeband)
-
-    if self._previousdamage != self.damage():
-      self._logend("damage        changed from %s to %s." % (self._previousdamage, self.damage()))
-    else:
-      self._logend("damage        is unchanged at %s." % self.damage())
       
     self._finishedmove = True
   
   self._save(ap.turn())
-
-  self._logline()
-
-

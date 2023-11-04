@@ -23,7 +23,7 @@ def _dodepartedflight(self, action, note=False):
   """
 
   self._logline()
-  self._logaction("start", "", self.position())   
+  self._logposition("start")   
 
   # See rule 6.4 "Abnormal FLight (Stalls and Departures)" and rule 7.7 
   # "Manuevering Departures".
@@ -108,7 +108,7 @@ def _dodepartedflight(self, action, note=False):
   
   self._lognote(note)
 
-  self._logaction("end", action, self.position())
+  self._logposition("end")
   if initialaltitudeband != self._altitudeband:
     self._logevent("altitude band changed from %s to %s." % (initialaltitudeband, self._altitudeband))
   self.checkforterraincollision()

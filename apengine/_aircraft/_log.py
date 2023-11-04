@@ -6,25 +6,38 @@ import apengine      as ap
 import apengine._log as aplog
 
 def _log(self, s):
-  aplog.log("%s: turn %-2d : %s" % (self._name, ap.turn(), s))
+  aplog.log("turn %-2d : %-4s : %s" % (ap.turn(), self._name, s))
 
 def _logbreak(self):
   aplog.logbreak()
 
-def _logaction(self, s, t, u):
-  self._log("%-5s : %-16s : %s" % (s, t, u))
+def _logline(self):
+  aplog.log("turn %-2d : ---- : ----- :" % (ap.turn()))
+  
+def _log1(self, s, t):
+  self._log("%-5s : %s" % (s, t))
+
+def _log2(self, s, t):
+  self._log("%-5s : %-32s %s" % (s, "", t))
+
+def _logposition(self, s):
+  self._log1(s, self.position())
+def _logpositionandmaneuver(self, s):
+  self._log1(s, "%s  %s" % (self.position(), self.maneuver()))
+
+def _logaction(self, s, t):
+  self._log1(s, t)
 
 def _logevent(self, s):
-  self._log("%-5s : %s" % ("", s))
+  self._log2("", ": %s" % s)
 
 def _logstart(self, s):
-  self._log("%-5s : %s" % ("start", s))
+  self._log1("start", s)
 
 def _logend(self, s):
-  self._log("%-5s : %s" % ("end", s))
+  self._log1("end", s)
 
-def _logline(self):
-  self._log("%-5s :" % "-----")  
+
 
 def _lognote(self, note):
 
@@ -57,4 +70,4 @@ def _lognote(self, note):
 
   if note is not False:
     for line in splitandtrim(note):
-      self._log("note  : -- %s" % line)
+      self._log2("", ": - %s" % line)
