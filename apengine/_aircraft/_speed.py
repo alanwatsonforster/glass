@@ -94,6 +94,21 @@ def _startmovespeed(self, power, flamedoutengines):
       powerapHT = max(0.0, powerapHT - self.powerfade())
       powerapFT = max(0.0, powerapFT - self.powerfade())
 
+    # See "Aircraft Damage Effects" in the Play Aids.
+    if self.damageatleast("H"):
+      if jet:
+        powerapM /= 2
+        if powerapAB != None:
+          powerapAB /= 2
+      else:
+        powerapHT /= 2
+        powerapFT /= 2
+    if self.damageatleast("C"):
+      if jet:
+        powerapAB = None
+      else:
+        powerapFT = None
+
     # See rule 6.1.
 
     if power == "I":
@@ -152,6 +167,12 @@ def _startmovespeed(self, power, flamedoutengines):
     if self.powerfade() != None and self.powerfade() > 0.0:
       self._log("- power is reduced by %.2f as the speed is %.1f." % (self.powerfade(), speed))
     
+    # Again, the reduction was done above, but we report it here.
+    if self.damageatleast("C"):
+      self._log("- M power is reduced by 1/2 and no AB as damage is at least C.")
+    elif self.damageatleast("H"):
+      self._log("- M and AB power are reduced by 1/2 as damage is at least H.")      
+
     # See rule 6.7
 
     flamedoutfraction = flamedoutengines / self.engines()
