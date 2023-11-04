@@ -37,8 +37,6 @@ def _logstart(self, s):
 def _logend(self, s):
   self._log1("end", s)
 
-
-
 def _lognote(self, note):
 
   # This is adapted from the public-domain code in PEP 257.

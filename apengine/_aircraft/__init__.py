@@ -286,19 +286,8 @@ class aircraft:
 
       arc = self.gunarc()
 
-      if arc:
+      if arc is None:
 
-        self._logevent("air-to-air attack on %s using articulated guns covering %s arc." % (target._name, arc))
-  
-        r = self.gunattackrange(target, arc=arc)
-        if isinstance(r, str):
-          raise RuntimeError(r)
-
-        self._logevent("range is %d." % r)
-        self._logevent("angle-off-tail of %s is %s." % (self._name, target.angleofftail(self)))  
-        
-      else:
-        
         self._logevent("air-to-air attack on %s using fixed guns." % target._name)
 
         r = self.gunattackrange(target)
@@ -310,6 +299,17 @@ class aircraft:
 
         self._logevent("range is %d." % r)      
         self._logevent("angle-off-tail is %s." % angleofftail)
+
+      else:
+        
+        self._logevent("air-to-air attack on %s using guns covering the %s arc." % (target._name, arc))
+  
+        r = self.gunattackrange(target, arc=arc)
+        if isinstance(r, str):
+          raise RuntimeError(r)
+
+        self._logevent("range is %d." % r)
+        self._logevent("angle-off-tail of %s is %s." % (self._name, target.angleofftail(self)))  
 
       if m[2] == "":
         self._logevent("result of attack not specified.")

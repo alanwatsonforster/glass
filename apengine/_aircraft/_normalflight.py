@@ -804,14 +804,21 @@ def _continuenormalflight(self, actions, note=False):
     if self._wasrollingonlastfp:
       raise RuntimeError("attempt to use weapons on the FP immediately after rolling.")
 
+    if weapon != "guns":
+      fullweapon = weapon
+    elif self.gunarc() == None:
+      fullweapon = "fixed guns"
+    else:
+      fullweapon = "guns covering the %s arc" % self.gunarc()
+   
     if m:
       targetname = m[1]
       target     = apaircraft._fromname(targetname)
-      self._logevent("air-to-air attack on %s using %s." % (targetname, weapon))
+      self._logevent("air-to-air attack on %s using %s." % (targetname, fullweapon))
     else:
       targetname = None
       target     = None
-      self._logevent("air-to-air attack using %s." % weapon)
+      self._logevent("air-to-air attack using %s." % fullweapon)
 
     if self._maxturnrate != None:
       self._logevent("maximum turn rate so far is %s." % self._maxturnrate)
