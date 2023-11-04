@@ -39,6 +39,7 @@
   },
   "properties": [ "LRR", "NRM" ],
   "powerfadespeedtable": [ [2.5, 0.5] ],
+  "gunarc": "180-",
   "notes": [
   ]
 }

@@ -138,3 +138,6 @@ def hasproperty(self, p):
 
 def specialclimbcapability(self):
   return self._aircraftdata.specialclimbcapability()
+
+def gunarc(self):
+  return self._aircraftdata.gunarc()

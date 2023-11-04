@@ -190,6 +190,12 @@ class aircraftdata:
     else:
       return 1
 
+  def gunarc(self):
+    if "gunarc" in self._data:
+      return self._data["gunarc"]
+    else:
+      return False
+
   ##############################################################################
 
   def __str__(self):

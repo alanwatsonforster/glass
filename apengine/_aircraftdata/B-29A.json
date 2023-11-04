@@ -93,6 +93,8 @@
 
   "properties": [ "LRR", "NRM" ],
 
+  "gunarc": "180-",
+
   "notes": [
       "UD, VD, ZC, and VC are forbidded.",
       "SC and SD may only use 1 VFP per turn.",

@@ -105,7 +105,7 @@ class aircraft:
     power, spbr, fuelrate, powerfade, engines, turndrag, \
     minspeed, maxspeed, cruisespeed, climbspeed, maxdivespeed, ceiling, \
     rollhfp, rolldrag, climbcapability, hasproperty, \
-    specialclimbcapability
+    specialclimbcapability, gunarc
 
   from ._draw import \
     _drawaircraft, \
@@ -263,7 +263,7 @@ class aircraft:
 
   #############################################################################
 
-  def returnfire(self, action, arc=False):
+  def returnfire(self, action):
 
     """
     Return fire, either with fixed guns or articulated guns.
@@ -283,6 +283,8 @@ class aircraft:
 
       def log(s):
         self._logevent("- %s: %s" % (prefix, s))
+
+      arc = self.gunarc()
 
       if arc:
 

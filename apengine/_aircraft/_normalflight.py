@@ -822,7 +822,7 @@ def _continuenormalflight(self, actions):
       return
 
     if weapon == "guns":
-      r = self.gunattackrange(target)
+      r = self.gunattackrange(target, arc=self.gunarc())
     else:
       r = self.rocketattackrange(target)
 
