@@ -40,4 +40,24 @@ A1 = aircraft("A1", "F-80C", "2024", "N", 10, 4.0,
 A1._assert("2024       N    10", 4.0, configuration="CL")
 endtestsetup()
 
+# Check effect of external fuel on load. An F-104A can have 2 points on
+# its central load point and still be clean. A FT/600L has 2 points when
+# empty and 3 points when full.
+
+starttestsetup(verbose=True)
+A1 = aircraft("A1", "F-104A", "2024", "N", 10, 4.0, fuel="100%",
+              stores={
+                "3": "FT/600L",
+              })
+A1._assert("2024       N    10", 4.0, configuration="CL")
+endtestsetup()
+
+starttestsetup(verbose=True)
+A1 = aircraft("A1", "F-104A", "2024", "N", 10, 4.0, fuel="101%",
+              stores={
+                "3": "FT/600L",
+              })
+A1._assert("2024       N    10", 4.0, configuration="1/2")
+endtestsetup()
+
 endfile(__file__)

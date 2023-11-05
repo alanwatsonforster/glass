@@ -30,29 +30,35 @@ _storedict = {
 
 ################################################################################
 
-def storeclass(storename):
+def _class(storename):
   if not storename in _storedict:
     raise RuntimeError("unknown store %r." % storename)
   return _storedict[storename][0]
 
-def weight(storename):
+def _weight(storename):
   if not storename in _storedict:
     raise RuntimeError("unknown store %r." % storename)
   return _storedict[storename][1]
 
-def load(storename, empty=True):
+def _load(storename, fuel=0):
+
+  # We make the crude assumption that if there is any external fuel,
+  # then none of the FTs are empty.
+
+  empty = fuel is None or fuel == 0
+  
   if not storename in _storedict:
     raise RuntimeError("unknown store %r." % storename)
-  if storeclass(storename) == "FT" and empty:
-    # Empty load.
+
+  if _class(storename) == "FT" and empty:
     return _storedict[storename][3]
   else:
     return _storedict[storename][2]
   
-def fuelcapacity(storename):
+def _fuelcapacity(storename):
   if not storename in _storedict:
     raise RuntimeError("unknown store %r." % storename)
-  if storeclass(storename) == "FT":
+  if _class(storename) == "FT":
     return _storedict[storename][4]
   else:
     return 0
@@ -62,13 +68,13 @@ def fuelcapacity(storename):
 def totalweight(stores):
   totalweight = 0
   for loadpoint, storename in stores.items():
-    totalweight += weight(storename)
+    totalweight += _weight(storename)
   return totalweight
 
-def totalload(stores, empty=True):
+def totalload(stores, fuel=0):
   totalload = 0
   for loadpoint, storename in stores.items():
-    totalload += load(storename, empty=empty)
+    totalload += _load(storename, fuel=fuel)
   # Round down. See 4.3.
   totalload = int(totalload)
   return totalload
@@ -76,26 +82,25 @@ def totalload(stores, empty=True):
 def totalfuelcapacity(stores):
   totalfuelcapacity = 0
   for loadpoint, storename in stores.items():
-    totalfuelcapacity += fuelcapacity(storename)
+    totalfuelcapacity += _fuelcapacity(storename)
   return totalfuelcapacity
 
 ################################################################################
 
 def _showstores(stores, printer=print, fuel=0):
 
-  # We make the crude assumption that if there is any external fuel,
-  # then none of the FTs are empty.
-
-  empty = fuel is None or fuel is 0
-
   printer("stores are:")
   for loadpoint, name in sorted(stores.items()):
-    if storeclass(name) == "FT":
-      printer("  %-2s: %-16s  %2s / %4d / %.1f / %3d" % (loadpoint, name, storeclass(name), weight(name), load(name, empty=empty), fuelcapacity(name)))
-    else:
-      printer("  %-2s: %-16s  %2s / %4d / %.1f" % (loadpoint, name, storeclass(name), weight(name), load(name, empty=empty)))
+      printer("  %-2s: %-17s  %2s / %4d / %.1f%s" % (
+        loadpoint, 
+        name, 
+        _class(name), 
+        _weight(name), 
+        _load(name, fuel=fuel),
+        " / %d" % _fuelcapacity(name) if _class(name) == "FT" else ""
+        ))
   printer("stores total weight        is %d." % totalweight(stores))
-  printer("stores total load          is %d." % totalload(stores, empty=empty))
+  printer("stores total load          is %d." % totalload(stores, fuel=fuel))
   printer("stores total fuel capacity is %d." % totalfuelcapacity(stores))
   if fuel is not None:
     printer("stores total fuel          is %.1f." % fuel)

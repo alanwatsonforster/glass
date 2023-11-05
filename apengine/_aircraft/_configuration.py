@@ -7,13 +7,12 @@ def configuration(self):
   # assume the configuration is CL.
 
   if not self._aircraftdata.hasstoreslimits():
-    print("no stores limit")
     return "CL"
 
   # See rule 4.2 and 4.3.
 
   totalweight = apstores.totalweight(self._stores)
-  totalload   = apstores.totalload(self._stores)
+  totalload   = apstores.totalload(self._stores, fuel=self.externalfuel())
 
   if totalweight > self._aircraftdata.storeslimit("DT"):
     return False

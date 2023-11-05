@@ -38,4 +38,14 @@ startturn()
 A1.move("LVL", "N", "H,H,H,H,H", flamedoutengines=2)
 assert A1._fuel == 100
 
+starttestsetup()
+A1 = aircraft("A1", "F-80C"  , "2025", "N", 5, 5.0, "CL", fuel="100%")
+endtestsetup()
+assert A1._fuel == 135
+
+starttestsetup()
+A1 = aircraft("A1", "F-80C"  , "2025", "N", 5, 5.0, "CL", fuel="50%")
+endtestsetup()
+assert A1._fuel == 67.5
+
 endfile(__file__)
