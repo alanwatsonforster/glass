@@ -238,13 +238,14 @@ class aircraft:
       # Determine the configuration, either explicitly or from the specified
       # stores.
 
-      self._stores = stores
-      if self._stores is None:
+      if stores is None:
 
+        self._stores        = stores
         self._configuration = configuration
 
       else:
 
+        self._stores = apstores._checkstores(stores)
         if len(self._stores) != 0:
           apstores._showstores(stores, 
             printer=lambda s: self._logaction("", s), 

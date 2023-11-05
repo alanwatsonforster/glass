@@ -107,6 +107,26 @@ def _showstores(stores, printer=print, fuel=0):
 
 ################################################################################
 
+def _checkstores(stores):
+
+  newstores = {}
+
+  for loadpoint, name in stores.items():
+
+    if isinstance(loadpoint, int):
+      loadpoint = "%d" % loadpoint
+    if not isinstance(loadpoint, str):
+      raise RuntimeError("invalid load-point %r." % loadpoint)
+
+    if name not in _storedict:
+      raise RuntimeError("invalid store %r." % name)
+
+    newstores[loadpoint] = name
+
+  return newstores
+
+################################################################################
+
 def _release(stores, released, printer=print):
 
   newstores = stores.copy()
@@ -129,7 +149,7 @@ def _release(stores, released, printer=print):
 
     loadpoint = released
 
-    if not loadpoint in stores:
+    if loadpoint not in stores:
       raise RuntimeError("load-point %s is not loaded." % loadpoint)
 
     printer("releasing %s: %s." % (loadpoint, stores[loadpoint]))
