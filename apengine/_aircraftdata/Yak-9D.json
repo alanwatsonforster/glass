@@ -11,6 +11,7 @@
   "engines": 1,
   "cruisespeed": 3.0,
   "climbspeed" : 1.5,
+  "fuel": 35,
   "maneuvertable": {
     "LR/DR": [ 1.0, 1.0 ],
     "VR":    [ 0.0, 1.0 ]

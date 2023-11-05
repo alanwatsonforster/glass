@@ -42,6 +42,8 @@
   // pages III-4 and III-5 that the optimum speed for climbing is 200 mph.
 
   "climbspeed" : 2.0,
+  
+  // TODO: fuel.
 
   // The flight rules in TSOH forbid rolls.
 

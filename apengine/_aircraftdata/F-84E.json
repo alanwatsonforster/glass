@@ -10,6 +10,8 @@
   "engines": 1,
   "cruisespeed": 4.0,
   "climbspeed" : 3.0,
+  // ADC has 295, but this includes the wing-tip FTs.
+  "fuel": 145,
   "maneuvertable": {
     "LR/DR": [ 1.0, 1.5 ],
     "VR":    [ 0.0, 0.5 ]
