@@ -37,6 +37,9 @@ def startsetup(scenario, sheets=None, north="up", variants=[], **kwargs):
   Start the set-up for the specified scenario (or for the specified map layout).
   """
 
+  def log(s):
+    aplog.log("set-up  : %s" % s)
+
   aplog.clearerror()
   try:
     
@@ -44,14 +47,23 @@ def startsetup(scenario, sheets=None, north="up", variants=[], **kwargs):
     _turn = 0
     _savedturn = _turn
 
-    aplog.log("set-up  : start of set-up.")
+    log("start of set-up.")
+    aplog.logbreak()
 
     apvariants.setvariants(variants)
 
     if scenario != None:
+      log("scenario is %s." % scenario)
       sheets    = apscenarios.sheets(scenario)
       north     = apscenarios.north(scenario)
       allforest = apscenarios.allforest(scenario)
+    else:
+      log("no scenario specified.")
+      log("sheets are %r." % sheets)
+      log("north is %s." % north)
+
+    for key in kwargs.keys():
+      log("map option %s is %r." % (key, kwargs[key]))
 
     apmap.setmap(sheets, **kwargs)
 
