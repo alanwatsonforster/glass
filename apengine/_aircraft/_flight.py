@@ -37,11 +37,9 @@ def move(self, flighttype, power, actions, flamedoutengines=0, note=False):
 
     # We save values of these variables at the end of the previous move.
 
-    self._previousconfiguration = self._configuration
     self._previouspowersetting  = self._powersetting
     self._previousflighttype    = self._flighttype
     self._previousaltitude      = self._altitude
-    self._previousaltitudeband  = self._altitudeband
     self._previousaltitudecarry = self._altitudecarry
     self._previousspeed         = self._speed
   
@@ -179,16 +177,6 @@ def _endmove(self):
 
       self._endmovespeed()
 
-      if self._previousconfiguration != self._configuration:
-        self._logend("configuration changed from %s to %s." % (self._previousconfiguration, self._configuration))
-      else:
-        self._logend("configuration is unchanged at %s." % self._configuration)
-      
-    if self._previousaltitudeband != self._altitudeband:
-      self._logend("altitude band changed from %s to %s." % (self._previousaltitudeband, self._altitudeband))
-    else:
-      self._logend("altitude band is unchanged at %s." % self._altitudeband)
-      
     self._finishedmove = True
   
   self._save(ap.turn())

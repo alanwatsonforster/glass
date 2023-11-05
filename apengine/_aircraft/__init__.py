@@ -266,7 +266,7 @@ class aircraft:
 
   #############################################################################
 
-  def returnfire(self, action, note=False):
+  def react(self, action, note=False):
 
     """
     Return fire, either with fixed guns or articulated guns.
@@ -275,7 +275,7 @@ class aircraft:
     aplog.clearerror()
     try:
 
-      self._logaction("RF", action)
+      self._logaction("react", action)
 
       m = re.compile("AAGN\\(([^)]*)\\)\\(([^)]*)\\)").match(action)
       if m is None:
@@ -371,14 +371,26 @@ class aircraft:
     
   #############################################################################
   
-  def showgeometry(self, other):
+  def showgeometry(self, other, note=False):
 
     """
     Show the geometry of the other aircraft with respect to the aircraft.
     """
 
-    _showgeometry(self, other)
+    aplog.clearerror()
+    try:
+
+      self._logbreak()
+      self._logline()
+
+      _showgeometry(self, other)
   
+      self._lognote(note)
+      self._logline()
+
+    except RuntimeError as e:
+      aplog.logexception(e)
+      
   #############################################################################
 
   def climbingflight(self):

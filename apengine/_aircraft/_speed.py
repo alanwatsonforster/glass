@@ -427,30 +427,31 @@ def _endmovespeed(self):
       self._newspeed += 0.5 * (ap // aprate)
       self._apcarry = ap % aprate
 
-  self._logevent("will carry %+.2f APs." % self._apcarry)
 
   if usemaxdivespeed:
     if self._newspeed > maxspeed:
-      self._logevent("speed is reduced to maximum dive speed of %.1f." % maxspeed)
+      self._logevent("speed will be reduced to maximum dive speed of %.1f." % maxspeed)
       self._newspeed = maxspeed
   else:
     if self._newspeed > maxspeed:
-      self._logevent("speed is faded back from %.1f." % self._newspeed)
+      self._logevent("speed will be faded back from %.1f." % self._newspeed)
       self._newspeed = max(self._newspeed - 1, maxspeed)
 
   if self._speed != self._newspeed:
-    self._logend("speed will change from %.1f to %.1f." % (self._speed, self._newspeed))
+    self._logevent("speed will change from %.1f to %.1f." % (self._speed, self._newspeed))
   else:
-    self._logend("speed will be unchanged at %.1f." % self._newspeed)
+    self._logevent("speed will be unchanged at %.1f." % self._newspeed)
+
+  self._logevent("will carry %+.2f APs." % self._apcarry)
 
   # See rule 6.4.
 
   minspeed = self.minspeed()
   if self._newspeed < minspeed:
-    self._logevent("speed is below the minimum of %.1f." % minspeed)
+    self._logevent("speed will be below the minimum of %.1f." % minspeed)
   if self._newspeed >= minspeed and self._flighttype == "ST":
-    self._logevent("aircraft is no longer stalled.")
+    self._logevent("aircraft will no longer be stalled.")
   elif self._newspeed < minspeed and self._flighttype == "ST":
-    self._logevent("aircraft is still stalled.")
+    self._logevent("aircraft will still stalled.")
   elif self._newspeed < minspeed:
-    self._logevent("aircraft has stalled.")
+    self._logevent("aircraft will have stalled.")

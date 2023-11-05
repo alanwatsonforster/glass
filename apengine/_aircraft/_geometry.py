@@ -336,32 +336,27 @@ def _showgeometry(a0, a1):
   Show the angle-off another aircraft's tail.
   """
 
-  aplog.clearerror()
-  try:
+  name0 = a0._name
+  name1 = a1._name
 
-    name0 = a0._name
-    name1 = a1._name
+  ap._checkinstartuporturn()
 
-    ap._checkinstartuporturn()
+  angleofftail = a0.angleofftail(a1)
+  if angleofftail == "0 line" or angleofftail == "180 line":
+    a0._logevent("%s has %s on its %s." % (name1, name0, angleofftail))
+  else:
+    a0._logevent("%s has %s in its %s." % (name1, name0, angleofftail))
 
-    angleofftail = a0.angleofftail(a1)
-    if angleofftail == "0 line" or angleofftail == "180 line":
-      a0._log("the target %s has %s on its %s." % (name1, name0, angleofftail))
-    else:
-      a0._log("the target %s has %s in its %s." % (name1, name0, angleofftail))
+  angleofftail = a1.angleofftail(a0)
+  if angleofftail == "0 line" or angleofftail == "180 line":
+    a0._logevent("%s is on the %s of %s." % (name1, angleofftail, name0))
+  else:
+    a0._logevent("%s is in the %s of %s." % (name1, angleofftail, name0))
 
-    angleofftail = a1.angleofftail(a0)
-    if angleofftail == "0 line" or angleofftail == "180 line":
-      a0._log("the target %s is on the %s of %s." % (name1, angleofftail, name0))
-    else:
-      a0._log("the target %s is in the %s of %s." % (name1, angleofftail, name0))
-
-    inlimitedradararc = a0.inlimitedradararc(a1)
-    if inlimitedradararc:
-      a0._log("the target %s is in the limited radar arc of %s." % (name1, name0))
-    else:
-      a0._log("the target %s is not in the limited radar arc of %s." % (name1, name0))
+  inlimitedradararc = a0.inlimitedradararc(a1)
+  if inlimitedradararc:
+    a0._logevent("%s is in the limited radar arc of %s." % (name1, name0))
+  else:
+    a0._logevent("%s is not in the limited radar arc of %s." % (name1, name0))
       
-  except RuntimeError as e:
-    aplog.logexception(e)
 

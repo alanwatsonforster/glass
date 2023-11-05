@@ -1611,7 +1611,7 @@ def _endnormalflight(self):
     ))    
     if self._spbrfp > 0:
       self._logevent("lost %.1f FPs to speedbrakes." % self._spbrfp)
-    self._logevent("is carrying %.1f FPs." % self._fpcarry)
+    self._logevent("will carry %.1f FPs." % self._fpcarry)
 
   ########################################
 

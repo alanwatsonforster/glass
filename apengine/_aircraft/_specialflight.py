@@ -85,7 +85,7 @@ def _dospecialflight(self, action, note=False):
     Declare an attack with the specified weapon.
     """
 
-    self._logevent("- attack using %s." % weapon)
+    self._logevent("attack using %s." % weapon)
 
   ########################################
 
@@ -95,7 +95,7 @@ def _dospecialflight(self, action, note=False):
     Declare that the aircraft has been killed.
     """
 
-    self._logevent("- aircraft has been killed.")
+    self._logaction("aircraft has been killed.")
     self._destroyed = True
 
   ########################################
@@ -125,10 +125,8 @@ def _dospecialflight(self, action, note=False):
     ["RR"   , lambda: doturn("R",  60) ],
     ["R"    , lambda: doturn("R",  30) ],
 
-    ["AGN"  , lambda: doattack("guns") ],
-    ["AGP"  , lambda: doattack("gun pod") ],
-    ["ARK"  , lambda: doattack("rockets") ],
-    ["ARP"  , lambda: doattack("rocket pods") ],
+    ["AAGN"  , lambda: doattack("guns") ],
+    ["AARK"  , lambda: doattack("rockets") ],
 
     ["K"    , lambda: dokilled()],
 
@@ -159,7 +157,6 @@ def _dospecialflight(self, action, note=False):
     Carry out an action for special flight.
     """
     
-  self._logline()
   self._logposition("start")
   self._logaction("", action)
 
@@ -192,13 +189,11 @@ def _dospecialflight(self, action, note=False):
   self._continueflightpath()
 
   if initialaltitudeband != self._altitudeband:
-    self._logevent("- altitude band changed from %s to %s." % (initialaltitudeband, self._altitudeband))
+    self._logevent("altitude band changed from %s to %s." % (initialaltitudeband, self._altitudeband))
   
-  self._logline()
-
   if not self._destroyed and not self._leftmap:
     if self._altitudecarry != 0:
-      self._logend("- is carrying %.2f altitude levels." % self._altitudecarry)
+      self._logend("is carrying %.2f altitude levels." % self._altitudecarry)
 
   self._newspeed = self._speed
 

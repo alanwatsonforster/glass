@@ -79,7 +79,7 @@ def endsetup():
       
     apaircraft._endsetup()
 
-    aplog.log("setup : end of setup.")
+    aplog.log("setup  : end of setup.")
 
     _turn += 1
     _savedturn = _turn

@@ -16,8 +16,8 @@ def _checkstalledflight(self):
   if self._speed >= self.minspeed():
       raise RuntimeError("flight type cannot be ST as aircraft is not stalled.")
 
-  self._logstart("- speed is below the minimum of %.1f." % self.minspeed())
-  self._logstart("- aircraft is stalled.")
+  self._logstart("speed is below the minimum of %.1f." % self.minspeed())
+  self._logstart("aircraft is stalled.")
 
 def _dostalledflight(self, action, note=False):
 
@@ -43,8 +43,8 @@ def _dostalledflight(self, action, note=False):
 
   # See rule 6.4.
       
-  self._logstart("- carrying %+.2f APs." % self._apcarry)
-  self._logline()
+  self._logevent("is carrying %+.2f APs." % self._apcarry)
+
   self._logposition("start")   
 
   altitudechange = math.ceil(self._speed + self._turnsstalled)
