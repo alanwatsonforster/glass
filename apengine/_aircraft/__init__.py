@@ -244,19 +244,7 @@ class aircraft:
       else:
 
         if len(self._stores) != 0:
-          self._logaction("", "stores are:")
-          for loadpoint, name in sorted(stores.items()):
-            storeclass = apstores.storeclass(name)
-            weight     = apstores.weight(name)
-            load       = apstores.load(name)
-            fuel       = apstores.fuel(name)
-            if apstores.storeclass(name) == "FT":
-              self._logaction("", "  %-2s: %-16s  %2s / %4d / %.1f / %3d" % (loadpoint, name, storeclass, weight, load, fuel))
-            else:
-              self._logaction("", "  %-2s: %-16s  %2s / %4d / %.1f" % (loadpoint, name, storeclass, weight, load))
-        self._logaction("", "total stores weight is %d." % apstores.totalweight(self._stores))
-        self._logaction("", "total stores load   is %d." % apstores.totalload(self._stores))
-        self._logaction("", "total stores fuel   is %d." % apstores.totalfuel(self._stores))
+          apstores._showstores(stores, printer=lambda s: self._logaction("", s))
 
         if self.configuration() is False:
           raise RuntimeError("total stores weight exceeds the aircraft capability.")
@@ -424,6 +412,28 @@ class aircraft:
 
     return _inlimitedradararc(self, other)
     
+  #############################################################################
+
+  def showstores(self, note=False):
+    """
+    Show the aircraft's stores.
+    """
+
+    aplog.clearerror()
+    try:
+
+      self._logbreak()
+      self._logline()
+
+      apstores._showstores(self._stores, printer=lambda s: self._log(s))
+  
+      self._lognote(note)
+      self._logline()
+
+    except RuntimeError as e:
+      aplog.logexception(e)
+
+
   #############################################################################
   
   def showgeometry(self, other, note=False):

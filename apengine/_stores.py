@@ -86,13 +86,16 @@ def totalfuel(stores):
       fuel += _storedict[storename][3]
   return fuel
 
-def _showstores(stores):
-  for loadpoint in sorted(stores):
-    storename = load[loadpoint]
-    print(loadpoint, storename, store[storename])
-  print(totalweight(stores))
-  print(totallp(stores))
-  print(totalfuel(stores))
+def _showstores(stores, printer=print):
+  printer("stores are:")
+  for loadpoint, name in sorted(stores.items()):
+    if storeclass(name) == "FT":
+      printer("  %-2s: %-16s  %2s / %4d / %.1f / %3d" % (loadpoint, name, storeclass(name), weight(name), load(name), fuel(name)))
+    else:
+      printer("  %-2s: %-16s  %2s / %4d / %.1f" % (loadpoint, name, storeclass(name), weight(name), load(name)))
+  printer("stores total weight is %d." % totalweight(stores))
+  printer("stores total load   is %d." % totalload(stores))
+  printer("stores total fuel   is %d." % totalfuel(stores))
 
 def _releasestore(stores, loadpoint):
   if not loadpoint in stores:
