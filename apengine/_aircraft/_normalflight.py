@@ -811,33 +811,31 @@ def _continuenormalflight(self, actions, note=False):
     else:
       fullweapon = "guns covering the %s arc" % self.gunarc()
    
-    if m:
-      targetname = m[1]
-      target     = apaircraft._fromname(targetname)
-      self._logevent("air-to-air attack on %s using %s." % (targetname, fullweapon))
-    else:
+    if m[1] == "":
       targetname = None
       target     = None
       self._logevent("air-to-air attack using %s." % fullweapon)
+    else:
+      targetname = m[1]
+      target     = apaircraft._fromname(targetname)
+      if target == None:
+        raise RuntimeError("unknown target aircraft %s." % targetname)
+      self._logevent("air-to-air attack on %s using %s." % (targetname, fullweapon))
 
     if self._maxturnrate != None:
       self._logevent("maximum turn rate so far is %s." % self._maxturnrate)
     else:
       self._logevent("no turns used so far.")
 
-    if target == None:
-      return
-
-    if weapon == "guns":
-      r = self.gunattackrange(target, arc=self.gunarc())
-    else:
-      r = self.rocketattackrange(target)
-
-    if isinstance(r, str):
-        raise RuntimeError(r)      
-
-    self._logevent("range is %d." % r)      
-    self._logevent("angle-off-tail is %s." % self.angleofftail(target))
+    if target != None:
+      if weapon == "guns":
+        r = self.gunattackrange(target, arc=self.gunarc())
+      else:
+        r = self.rocketattackrange(target)
+      if isinstance(r, str):
+          raise RuntimeError(r)      
+      self._logevent("range is %d." % r)      
+      self._logevent("angle-off-tail is %s." % self.angleofftail(target))
 
     if m[2] == "":
       self._logevent("result of attack not specified.")
@@ -847,7 +845,8 @@ def _continuenormalflight(self, actions, note=False):
       self._logevent("hit but inflicted no damage.")
     else:
       self._logevent("hit and inflicted %s damage." % m[2])
-      target._takedamage(m[2])
+      if target != None:
+        target._takedamage(m[2])
 
   ########################################
 

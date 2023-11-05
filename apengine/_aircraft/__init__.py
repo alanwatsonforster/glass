@@ -9,6 +9,7 @@ import apengine._hexcode       as aphexcode
 import apengine._log           as aplog
 import apengine._map           as apmap
 import apengine._speed         as apspeed
+import apengine._stores        as apstores
 import apengine._turnrate      as apturnrate
 
 import math
@@ -98,6 +99,9 @@ class aircraft:
   from ._speed import \
     _startmovespeed, _endmovespeed
 
+  from ._configuration import \
+    configuration
+
   from ._damage import \
     damage, _takedamage, takedamage, damageatleast, damageatmost
 
@@ -118,8 +122,10 @@ class aircraft:
 
   #############################################################################
 
-  def __init__(self, name, aircrafttype, hexcode, azimuth, altitude, speed, configuration,
-    fuel=None, bingo=None,
+  def __init__(self, name, aircrafttype, hexcode, azimuth, altitude, speed,
+    configuration="CL",
+    fuel=None, bingo=None, 
+    stores=None, 
     color="unpainted", counter=False
   ):
 
@@ -172,7 +178,6 @@ class aircraft:
       self._altitudecarry         = 0
       self._speed                 = speed
       self._newspeed              = None
-      self._configuration         = configuration
       self._damageL               = 0
       self._damageH               = 0
       self._damageC               = 0
@@ -206,9 +211,10 @@ class aircraft:
         fuel *= self._aircraftdata.fuel()
       if bingo is not None and bingo <= 1:
         bingo *= self._aircraftdata.fuel()
-
       self._fuel                  = fuel
       self._bingo                 = bingo
+
+      self._stores                = stores
 
       global _zorder
       _zorder += 1
@@ -221,12 +227,43 @@ class aircraft:
       self._logaction("", "aircraft type is %s." % aircrafttype)
       self._logaction("", "position      is %s." % self.position())
       self._logaction("", "speed         is %.1f." % self._speed)
-      self._logaction("", "configuration is %s." % self._configuration)
       if not self._fuel is None:
         if self._bingo is None:
           self._logaction("", "fuel          is %.1f." % self._fuel)
         else:
           self._logaction("", "fuel          is %.0f%% of bingo (%.1f/%.1f)." % (self._fuel / self._bingo * 100, self._fuel, self._bingo)) 
+
+      # Determine the configuration, either explicitly or from the specified
+      # stores.
+
+      self._stores = stores
+      if self._stores is None:
+
+        self._configuration = configuration
+
+      else:
+
+        if len(self._stores) != 0:
+          self._logaction("", "stores are:")
+          for loadpoint, name in sorted(stores.items()):
+            storeclass = apstores.storeclass(name)
+            weight     = apstores.weight(name)
+            load       = apstores.load(name)
+            fuel       = apstores.fuel(name)
+            if apstores.storeclass(name) == "FT":
+              self._logaction("", "  %-2s: %-16s  %2s / %4d / %.1f / %3d" % (loadpoint, name, storeclass, weight, load, fuel))
+            else:
+              self._logaction("", "  %-2s: %-16s  %2s / %4d / %.1f" % (loadpoint, name, storeclass, weight, load))
+        self._logaction("", "total stores weight is %d." % apstores.totalweight(self._stores))
+        self._logaction("", "total stores load   is %d." % apstores.totalload(self._stores))
+        self._logaction("", "total stores fuel   is %d." % apstores.totalfuel(self._stores))
+
+        if self.configuration() is False:
+          raise RuntimeError("total stores weight exceeds the aircraft capability.")
+        self._configuration = self.configuration()
+
+      self._logaction("", "configuration is %s." % self._configuration)
+
       self._logline()
 
     except RuntimeError as e:
@@ -305,35 +342,28 @@ class aircraft:
       if m is None:
         raise RuntimeError("invalid action %r" % action)
 
-      targetname = m[1]
-      target = _fromname(targetname)
-
-      arc = self.gunarc()
-
-      if arc is None:
-
-        self._logevent("air-to-air attack on %s using fixed guns." % target._name)
-
-        r = self.gunattackrange(target)
-        if isinstance(r, str):
-          raise RuntimeError(r)
-        angleofftail = self.angleofftail(target)
-        if angleofftail != "180 line":
-          raise RuntimeError("fixed guns can only return fire to head-on attacks.")
-
-        self._logevent("range is %d." % r)      
-        self._logevent("angle-off-tail is %s." % angleofftail)
-
+      if self.gunarc() == None:
+        fullweapon = "fixed guns"
       else:
-        
-        self._logevent("air-to-air attack on %s using guns covering the %s arc." % (target._name, arc))
-  
-        r = self.gunattackrange(target, arc=arc)
-        if isinstance(r, str):
-          raise RuntimeError(r)
+        fullweapon = "guns covering the %s arc" % self.gunarc()
+      
+      if m[1] == "":
+        targetname = None
+        target     = None
+        self._logevent("air-to-air attack using %s." % fullweapon)
+      else:
+        targetname = m[1]
+        target     = _fromname(targetname)
+        if target == None:
+          raise RuntimeError("unknown target aircraft %s." % targetname)
+        self._logevent("air-to-air attack on %s using %s." % (targetname, fullweapon))
 
-        self._logevent("range is %d." % r)
-        self._logevent("angle-off-tail of %s is %s." % (self._name, target.angleofftail(self)))  
+      if target != None:
+        r = self.gunattackrange(target, arc=self.gunarc())
+        if isinstance(r, str):
+            raise RuntimeError(r)      
+        self._logevent("range is %d." % r)      
+        self._logevent("angle-off-tail is %s." % self.angleofftail(target))
 
       if m[2] == "":
         self._logevent("result of attack not specified.")
@@ -343,7 +373,8 @@ class aircraft:
         self._logevent("hit but inflicted no damage.")
       else:
         self._logevent("hit and inflicted %s damage." % m[2])
-        target._takedamage(m[2])        
+        if target != None:
+          target._takedamage(m[2])      
 
       self._lognote(note)
       self._logline()

@@ -201,6 +201,30 @@ class aircraftdata:
     else:
       return None
 
+  def hasstoreslimits(self):
+    """
+    Return True if the aircraft data has a stores limit configured.
+    """
+    return "storeslimits" in self._data
+
+  def storeslimit(self, configuration):
+
+    """
+    Return the stores limit for the given configuration. If
+    configuration is "CL" or "1/2", return the load point limit. If
+    configuration is "DT", return the weight limit.
+    """
+
+    assert configuration in ["CL", "1/2", "DT"]
+    assert self.hasstoreslimits()
+
+    if configuration == "CL":
+      return self._data["storeslimits"][0]
+    elif configuration == "1/2":
+      return self._data["storeslimits"][1]
+    elif configuration == "DT":
+      return self._data["storeslimits"][2]
+
   ##############################################################################
 
   def __str__(self):

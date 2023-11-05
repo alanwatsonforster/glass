@@ -39,6 +39,7 @@
     "ML": [ [ "-", 1.0  ], [ "-", 0.5  ], [ "-", 0.5  ] ],
     "LO": [ [ "-", 1.0  ], [ "-", 1.0  ], [ "-", 0.5  ] ]
   },
+  "storeslimits": [ 0, 2, 450 ],
   "properties": [ "LBR", "HTD", "HRRCL" ],
   "powerfadespeedtable": [ [3.0, 0.5] ],
   "notes": [

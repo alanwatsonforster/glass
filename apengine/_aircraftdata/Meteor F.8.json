@@ -38,6 +38,7 @@
     "ML": [ [ "-", 1.0 ], [ "-", 1.0 ], [ "-", 0.5  ] ],
     "LO": [ [ "-", 1.0 ], [ "-", 1.0 ], [ "-", 0.5  ] ]
   },
+  "storeslimits": [ 2, 5, 3600 ],
   "properties": [ "HTD", "LRR" ],
   "notes": [
     "The centerline conformal FT restricts the maximum speed to 4.0 until jettisoned."

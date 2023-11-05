@@ -1,4 +1,5 @@
 {
   "name": "F-100D",
-  "base": "F-100C"
+  "base": "F-100C",
+  "storeslimits": [ 4, 10, 7500 ]
 }
