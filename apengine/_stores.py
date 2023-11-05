@@ -1,40 +1,34 @@
 
 _storedict = {
-    "FT/250L"          : ["FT",  550, 1.5,  25],
-    "FT/250L/empty"    : ["FT",  550, 1.0,   0],
-    "FT/400L"          : ["FT",  700, 2.0,  30],
-    "FT/400L/empty"    : ["FT",  700, 1.0,   0],
-    "FT/450L"          : ["FT",  800, 2.5,  40],
-    "FT/450L/empty"    : ["FT",  800, 1.5,   0],
-    "FT/600L"          : ["FT", 1100, 3.0,  50],
-    "FT/600L/empty"    : ["FT", 1100, 2.0,   0],
-    "FT/700L"          : ["FT", 1300, 3.0,  60],
-    "FT/700L/empty"    : ["FT", 1300, 2.0,   0],
-    "FT/850L"          : ["FT", 1500, 3.5,  75],
-    "FT/850L/empty"    : ["FT", 1500, 2.5,   0],
-    "FT/1000L"         : ["FT", 1800, 3.5,  85],
-    "FT/1000L/empty"   : ["FT", 1800, 2.5,   0],
-    "FT/1200L"         : ["FT", 2200, 4.0, 100],
-    "FT/1200L/empty"   : ["FT", 2200, 2.5,   0],
-    "FT/1400L"         : ["FT", 2700, 4.0, 120],
-    "FT/1400L/empty"   : ["FT", 2700, 3.0,   0],
-    "FT/1700L"         : ["FT", 3000, 5.0, 140],
-    "FT/1700L/empty"   : ["FT", 3000, 3.5,   0],
-    "FT/1900L"         : ["FT", 3500, 6.0, 175],
-    "FT/1900L/empty"   : ["FT", 3500, 4.0,   0],
-    "FT/2200L"         : ["FT", 4500, 8.0, 200],
-    "FT/2200L/empty"   : ["FT", 4500, 5.0,   0],
-    "RK/HVAR"          : ["RK",  140, 1.0],
-    "RK/Tiny Tim"      : ["RK", 1200, 2.0],
-    "BB/M30"           : ["BB",  100, 0.5],
-    "BB/M57"           : ["BB",  250, 1.5],
-    "BB/M64"           : ["BB",  500, 2.0],
-    "BB/M65"           : ["BB", 1000, 3.0],
-    "BB/M66"           : ["BB", 2000, 4.0],
-    "BB/M74"           : ["BB",  100, 0.5],
-    "BB/M76"           : ["BB",  500, 1.5],
-    "BB/BLU-1"         : ["BB",  750, 2.5],
-  }
+
+  # In the value, [0] is the class, [1] is the weight, and [2] is the
+  # load. For FTs, [3] is the empty load and [4] is the fuel capacity.
+
+  "FT/250L"          : ["FT",  550, 1.5, 1.0, 25],
+  "FT/400L"          : ["FT",  700, 2.0, 1.0, 30],
+  "FT/450L"          : ["FT",  800, 2.5, 1.5, 40],
+  "FT/600L"          : ["FT", 1100, 3.0, 2.0, 50],
+  "FT/700L"          : ["FT", 1300, 3.0, 2.0, 60],
+  "FT/850L"          : ["FT", 1500, 3.5, 2.5, 75],
+  "FT/1000L"         : ["FT", 1800, 3.5, 2.5, 85],
+  "FT/1200L"         : ["FT", 2200, 4.0, 2.5, 100],
+  "FT/1400L"         : ["FT", 2700, 4.0, 3.0, 120],
+  "FT/1700L"         : ["FT", 3000, 5.0, 3.5, 140],
+  "FT/1900L"         : ["FT", 3500, 6.0, 4.0, 175],
+  "FT/2200L"         : ["FT", 4500, 8.0, 5.0, 200],
+  "RK/HVAR"          : ["RK",  140, 1.0],
+  "RK/Tiny Tim"      : ["RK", 1200, 2.0],
+  "BB/M30"           : ["BB",  100, 0.5],
+  "BB/M57"           : ["BB",  250, 1.5],
+  "BB/M64"           : ["BB",  500, 2.0],
+  "BB/M65"           : ["BB", 1000, 3.0],
+  "BB/M66"           : ["BB", 2000, 4.0],
+  "BB/M74"           : ["BB",  100, 0.5],
+  "BB/M76"           : ["BB",  500, 1.5],
+  "BB/BLU-1"         : ["BB",  750, 2.5],
+}
+
+################################################################################
 
 def storeclass(storename):
   if not storename in _storedict:
@@ -46,56 +40,67 @@ def weight(storename):
     raise RuntimeError("unknown store %r." % storename)
   return _storedict[storename][1]
 
-def load(storename):
+def load(storename, empty=True):
   if not storename in _storedict:
     raise RuntimeError("unknown store %r." % storename)
-  return _storedict[storename][2]
+  if storeclass(storename) == "FT" and empty:
+    # Empty load.
+    return _storedict[storename][3]
+  else:
+    return _storedict[storename][2]
   
-def fuel(storename):
+def fuelcapacity(storename):
   if not storename in _storedict:
     raise RuntimeError("unknown store %r." % storename)
   if storeclass(storename) == "FT":
-    return _storedict[storename][3]
+    return _storedict[storename][4]
   else:
     return 0
   
+################################################################################
+
 def totalweight(stores):
-  weight = 0
+  totalweight = 0
   for loadpoint, storename in stores.items():
-    if not storename in _storedict:
-      raise RuntimeError("unknown store %r." % storename)
-    weight += _storedict[storename][1]
-  return weight
+    totalweight += weight(storename)
+  return totalweight
 
-def totalload(stores):
-  load = 0
+def totalload(stores, empty=True):
+  totalload = 0
   for loadpoint, storename in stores.items():
-    if not storename in _storedict:
-      raise RuntimeError("unknown store %r." % storename)
-    load += _storedict[storename][2]
+    totalload += load(storename, empty=empty)
   # Round down. See 4.3.
-  load = int(load)
-  return load
+  totalload = int(totalload)
+  return totalload
 
-def totalfuel(stores):
-  fuel = 0
+def totalfuelcapacity(stores):
+  totalfuelcapacity = 0
   for loadpoint, storename in stores.items():
-    if not storename in _storedict:
-      raise RuntimeError("unknown store %r." % storename)
-    if _storedict[storename][0] == "FT":
-      fuel += _storedict[storename][3]
-  return fuel
+    totalfuelcapacity += fuelcapacity(storename)
+  return totalfuelcapacity
 
-def _showstores(stores, printer=print):
+################################################################################
+
+def _showstores(stores, printer=print, fuel=0):
+
+  # We make the crude assumption that if there is any external fuel,
+  # then none of the FTs are empty.
+
+  empty = fuel is None or fuel is 0
+
   printer("stores are:")
   for loadpoint, name in sorted(stores.items()):
     if storeclass(name) == "FT":
-      printer("  %-2s: %-16s  %2s / %4d / %.1f / %3d" % (loadpoint, name, storeclass(name), weight(name), load(name), fuel(name)))
+      printer("  %-2s: %-16s  %2s / %4d / %.1f / %3d" % (loadpoint, name, storeclass(name), weight(name), load(name, empty=empty), fuelcapacity(name)))
     else:
-      printer("  %-2s: %-16s  %2s / %4d / %.1f" % (loadpoint, name, storeclass(name), weight(name), load(name)))
-  printer("stores total weight is %d." % totalweight(stores))
-  printer("stores total load   is %d." % totalload(stores))
-  printer("stores total fuel   is %d." % totalfuel(stores))
+      printer("  %-2s: %-16s  %2s / %4d / %.1f" % (loadpoint, name, storeclass(name), weight(name), load(name, empty=empty)))
+  printer("stores total weight        is %d." % totalweight(stores))
+  printer("stores total load          is %d." % totalload(stores, empty=empty))
+  printer("stores total fuel capacity is %d." % totalfuelcapacity(stores))
+  if fuel is not None:
+    printer("stores total fuel          is %.1f." % fuel)
+
+################################################################################
 
 def _releasestore(stores, loadpoint):
   if not loadpoint in stores:
@@ -103,3 +108,5 @@ def _releasestore(stores, loadpoint):
   newstores = stores.copy()
   del newstores[loadpoint]
   return newstores
+
+################################################################################

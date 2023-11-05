@@ -206,23 +206,20 @@ class aircraft:
       self._flightpathy           = []
       self._color                 = color
       self._counter               = counter
+
+      # Determine the fuel and bingo levels.
     
-      if fuel is not None and fuel <= 1:
-        fuel *= self._aircraftdata.fuel()
-      if bingo is not None and bingo <= 1:
-        bingo *= self._aircraftdata.fuel()
-      self._fuel                  = fuel
-      self._bingo                 = bingo
+      if isinstance(fuel, str) and fuel[-1] == "%" and fuel[:-1].isdecimal():
+        fuel = float(fuel[:-1]) / 100 * self.internalfuelcapacity()
+      elif fuel is not None and not isinstance(fuel, int|float):
+        raise RuntimeError("invalid fuel value %r" % fuel)
+      self._fuel = fuel
 
-      self._stores                = stores
-
-      global _zorder
-      _zorder += 1
-      self._zorder = _zorder
-    
-      self._saved = []
-
-      _aircraftlist.append(self)
+      if isinstance(bingo, str) and bingo[-1] == "%" and bingo[:-1].isdecimal():
+        bingo = float(bingo[:-1]) / 100 * self.internalfuelcapacity()
+      elif bingo is not None and not isinstance(fuel, int|float):
+        raise RuntimeError("invalid bingo value %r" % bingo)
+      self._bingo = bingo
 
       self._logaction("", "aircraft type is %s." % aircrafttype)
       self._logaction("", "position      is %s." % self.position())
@@ -244,14 +241,27 @@ class aircraft:
       else:
 
         if len(self._stores) != 0:
-          apstores._showstores(stores, printer=lambda s: self._logaction("", s))
+          apstores._showstores(stores, 
+            printer=lambda s: self._logaction("", s), 
+            fuel=self.externalfuel())
 
         if self.configuration() is False:
-          raise RuntimeError("total stores weight exceeds the aircraft capability.")
+          raise RuntimeError("total stores weight exceeds the aircraft capacity.")
+        if self.fuel() is not None and self.fuel() > self.internalfuelcapacity() + self.externalfuelcapacity():
+          raise RuntimeError("total fuel exceeds the internal and external capacity.")
+
         self._configuration = self.configuration()
 
       self._logaction("", "configuration is %s." % self._configuration)
 
+      global _zorder
+      _zorder += 1
+      self._zorder = _zorder
+    
+      self._saved = []
+
+      _aircraftlist.append(self)
+      
       self._logline()
 
     except RuntimeError as e:
@@ -324,6 +334,7 @@ class aircraft:
     aplog.clearerror()
     try:
 
+      ap._checkinturn()
       self._logaction("react", action)
 
       m = re.compile("AAGN\\(([^)]*)\\)\\(([^)]*)\\)").match(action)
@@ -414,6 +425,29 @@ class aircraft:
     
   #############################################################################
 
+  def fuel(self):
+    return self._fuel
+
+  def internalfuel(self):
+    if self.fuel() is None:
+      return None
+    else:
+      return min(self.fuel(), self.internalfuelcapacity())
+
+  def externalfuel(self):
+    if self.fuel() is None:
+      return None
+    else:
+      return max(0, self.fuel() - self.internalfuelcapacity())
+
+  def externalfuelcapacity(self):
+    return apstores.totalfuelcapacity(self._stores)
+
+  def internalfuelcapacity(self):
+    return self._aircraftdata.fuel()
+
+  #############################################################################
+
   def showstores(self, note=False):
     """
     Show the aircraft's stores.
@@ -422,17 +456,19 @@ class aircraft:
     aplog.clearerror()
     try:
 
+      ap._checkinsetuporturn()
       self._logbreak()
       self._logline()
 
-      apstores._showstores(self._stores, printer=lambda s: self._log(s))
+      apstores._showstores(self._stores, 
+        printer=lambda s: self._log(s),
+        fuel=self.externalfuel())
   
       self._lognote(note)
       self._logline()
 
     except RuntimeError as e:
       aplog.logexception(e)
-
 
   #############################################################################
   
@@ -445,6 +481,7 @@ class aircraft:
     aplog.clearerror()
     try:
 
+      ap._checkinsetuporturn()
       self._logbreak()
       self._logline()
 
