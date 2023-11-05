@@ -21,7 +21,7 @@ _savedturn = None
 def turn():
   return _turn
 
-def _checkinstartuporturn():
+def _checkinsetuporturn():
   if _turn == None:
     raise RuntimeError("activity outside of setup or turn.")
 
