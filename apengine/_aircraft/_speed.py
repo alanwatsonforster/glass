@@ -324,12 +324,12 @@ def _startmovespeed(self, power, flamedoutengines):
       if self._bingo is None:
         self._logevent("fuel is %.1f." % self._fuel)
       else:
-        self._logevent("fuel is %.0f%% of bingo (%.1f/%.1f)." % (self._fuel / self._bingo * 100, self._fuel, self._bingo))
+        self._logevent("fuel is %.1f and bingo is %.1f." % (self._fuel, self._bingo))
       
     # Determine the fuel consumption. See rule 29.1.
 
     if not self._fuel is None:
-      self._fuel -= min(self._fuel, self.fuelrate() * (1 - flamedoutfraction))
+      self._fuelconsumption = min(self._fuel, self.fuelrate() * (1 - flamedoutfraction))
 
 ################################################################################
 
@@ -353,11 +353,32 @@ def _endmovespeed(self):
   # Report fuel.
 
   if not self._fuel is None:
+
+    previousexternalfuel = self.externalfuel()
+    previousinternalfuel = self.internalfuel()
+
+    self._logevent("fuel consumption was %.1f." % self._fuelconsumption)
+    self._fuel -= self._fuelconsumption
+
+    if previousexternalfuel > 0 and self.externalfuel() == 0:
+
+      self._logevent("external fuel is exhausted.")
+
+      previousconfiguration = self._configuration
+      self._updateconfiguration()
+      if self._configuration != previousconfiguration:
+        self._logevent("fuel consumption changed configuration from %s to %s." % (
+          previousconfiguration, self._configuration
+        ))
+
     if self._bingo is None:
       self._logevent("fuel is %.1f." % self._fuel)
     else:
-      self._logevent("fuel is %.0f%% of bingo (%.1f/%.1f)." % (self._fuel / self._bingo * 100, self._fuel, self._bingo))
+      self._logevent("fuel is %.1f and bingo is %.1f." % (self._fuel, self._bingo))
       
+    if previousinternalfuel > 0 and self.internalfuel() == 0:
+      self._logevent("internal fuel is exhausted.")
+
   # See the "Departed Flight Procedure" section of rule 6.4
 
   if self._flighttype == "DP" or self._maneuveringdeparture:
@@ -460,7 +481,6 @@ def _endmovespeed(self):
     else:
       self._newspeed += 0.5 * (ap // aprate)
       self._apcarry = ap % aprate
-
 
   if usemaxdivespeed:
     if self._newspeed > maxspeed:

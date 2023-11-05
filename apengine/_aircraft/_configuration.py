@@ -1,13 +1,17 @@
 import apengine._stores       as apstores
 import apengine._aircraftdata as apaircraftdata
 
-def configuration(self):
+def _updateconfiguration(self):
 
-  # If the aircraft type does not have a stores limit configured,
-  # assume the configuration is CL.
+  """
+  Updated the configuration based on the current stores.
+  """
 
-  if not self._aircraftdata.hasstoreslimits():
-    return "CL"
+  # If no stores are specified, do nothing.
+  if self._stores == None:
+    return
+
+  assert self._aircraftdata.hasstoreslimits()
 
   # See rule 4.2 and 4.3.
 
@@ -15,10 +19,11 @@ def configuration(self):
   totalload   = apstores.totalload(self._stores, fuel=self.externalfuel())
 
   if totalweight > self._aircraftdata.storeslimit("DT"):
-    return False
-  elif totalload <= self._aircraftdata.storeslimit("CL"):
-    return "CL"
+    raise RuntimeError("total stores weight exceeds the aircraft capacity.")
+
+  if totalload <= self._aircraftdata.storeslimit("CL"):
+    self._configuration = "CL"
   elif totalload <= self._aircraftdata.storeslimit("1/2"):
-    return "1/2"
+    self._configuration = "1/2"
   else:
-    return "DT"
+    self._configuration = "DT"

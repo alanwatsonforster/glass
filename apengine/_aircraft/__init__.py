@@ -100,7 +100,7 @@ class aircraft:
     _startmovespeed, _endmovespeed
 
   from ._configuration import \
-    configuration
+    _updateconfiguration
 
   from ._damage import \
     damage, _takedamage, takedamage, damageatleast, damageatmost
@@ -245,13 +245,10 @@ class aircraft:
             printer=lambda s: self._logaction("", s), 
             fuel=self.externalfuel())
 
-        if self.configuration() is False:
-          raise RuntimeError("total stores weight exceeds the aircraft capacity.")
         if self.fuel() is not None and self.fuel() > self.internalfuelcapacity() + self.externalfuelcapacity():
           raise RuntimeError("total fuel exceeds the internal and external capacity.")
 
-        self._configuration = self.configuration()
-
+      self._updateconfiguration()
       self._logaction("", "configuration is %s." % self._configuration)
 
       global _zorder

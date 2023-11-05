@@ -44,7 +44,7 @@ endtestsetup()
 # its central load point and still be clean. A FT/600L has 2 points when
 # empty and 3 points when full.
 
-starttestsetup(verbose=True)
+starttestsetup()
 A1 = aircraft("A1", "F-104A", "2024", "N", 10, 4.0, fuel="100%",
               stores={
                 "3": "FT/600L",
@@ -59,5 +59,12 @@ A1 = aircraft("A1", "F-104A", "2024", "N", 10, 4.0, fuel="101%",
               })
 A1._assert("2024       N    10", 4.0, configuration="1/2")
 endtestsetup()
+
+# Check configuration changes when we exhaust external fuel.
+
+startturn()
+A1.move("LVL", "AB", "H,H,H,H")
+A1._assert("2020       N    10", 4.5, configuration="CL")
+endturn()
 
 endfile(__file__)
