@@ -1,7 +1,7 @@
 from apengine._tests.infrastructure import *
 startfile(__file__, "fuel")
 
-starttestsetup(verbose=True)
+starttestsetup()
 A1 = aircraft("A1", "F-104A"  , "2025", "N", 5, 5.0, "CL", fuel=100)
 endtestsetup()
 
