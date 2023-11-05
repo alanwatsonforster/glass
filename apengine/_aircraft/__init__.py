@@ -169,8 +169,7 @@ class aircraft:
       self._speed                 = speed
       self._newspeed              = None
       self._configuration         = configuration
-      self._fuel                  = fuel
-      self._bingo                 = bingo
+
       self._damageL               = 0
       self._damageH               = 0
       self._damageC               = 0
@@ -200,6 +199,14 @@ class aircraft:
       self._color                 = color
       self._counter               = counter
     
+      if fuel is not None and fuel <= 1:
+        fuel *= self._aircraftdata.fuel()
+      if bingo is not None and bingo <= 1:
+        bingo *= self._aircraftdata.fuel()
+
+      self._fuel                  = fuel
+      self._bingo                 = bingo
+
       global _zorder
       _zorder += 1
       self._zorder = _zorder

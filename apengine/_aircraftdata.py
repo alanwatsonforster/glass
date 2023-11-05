@@ -80,6 +80,11 @@ class aircraftdata:
     else:
       return self._data["powertable"][powersetting][3]
 
+  def fuel(self):
+    if not "fuel" in self._data:
+      raise RuntimeError("the fuel capacity is not specified for this aircraft type.")
+    return self._data["fuel"]
+
   def engines(self):
     return self._data["engines"]
   
