@@ -339,7 +339,7 @@ def _showgeometry(a0, a1):
   name0 = a0._name
   name1 = a1._name
 
-  ap._checkinstartuporturn()
+  ap._checkinsetuporturn()
 
   angleofftail = a0.angleofftail(a1)
   if angleofftail == "0 line" or angleofftail == "180 line":

@@ -107,11 +107,34 @@ def _showstores(stores, printer=print, fuel=0):
 
 ################################################################################
 
-def _releasestore(stores, loadpoint):
-  if not loadpoint in stores:
-    raise RuntimeError("load-point %s is not loaded." % loadpoint)
+def _release(stores, released, printer=print):
+
   newstores = stores.copy()
-  del newstores[loadpoint]
+
+  if released in [ 
+    "FT", 
+    "IRM", "BRM", "RHM", "AHM",
+    "ARM", 
+    "BB", "BS", "BG", "RK", 
+    "RP", "RG", 
+    "WR", "GP", "EP", "DP", "LP"
+  ]:
+
+    for loadpoint, name in sorted(stores.items()):
+      if _class(name) == released:
+        printer("releasing %s: %s." % (loadpoint, name))
+        del newstores[loadpoint]
+
+  else:
+
+    loadpoint = released
+
+    if not loadpoint in stores:
+      raise RuntimeError("load-point %s is not loaded." % loadpoint)
+
+    printer("releasing %s: %s." % (loadpoint, stores[loadpoint]))
+    del newstores[released]
+  
   return newstores
 
 ################################################################################

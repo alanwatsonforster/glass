@@ -365,17 +365,17 @@ def _endmovespeed(self):
     else:
       self._logevent("fuel is %.1f and bingo fuel is %.1f." % (self._fuel, self._bingofuel))
       if self._fuel < self._bingofuel:
-        self._logend("fuel is below bingo fuel.")
+        self._logevent("fuel is below bingo fuel.")
 
     if self.internalfuel() == 0:
       self._logend("fuel is exhausted.")
 
     if previousexternalfuel > 0 and self.externalfuel() == 0:
-      self._logend("external fuel is exhausted.")
+      self._logevent("external fuel is exhausted.")
       previousconfiguration = self._configuration
       self._updateconfiguration()
       if self._configuration != previousconfiguration:
-        self._logend("fuel consumption changed configuration from %s to %s." % (
+        self._logevent("changed configuration from %s to %s." % (
           previousconfiguration, self._configuration
         ))
 

@@ -3,8 +3,10 @@ Stalled flight for the aircraft class.
 """
 
 import math
+import re
 
 import apengine._altitude as apaltitude
+import apengine._stores   as apstores
 
 def _checkstalledflight(self):
 
@@ -25,22 +27,25 @@ def _dostalledflight(self, action, note=False):
   Carry out stalled flight.
   """
 
-  def dojettison(configuration):
+  def dojettison(m):
 
-    """
-    Jetison stores to achieve the specified configuration.
-    """
+    # See rule 4.4.   
+    # We implement the delay of 1 FP by making this an other element.
+    
+    previousconfiguration = self._configuration
 
-    # See rule 4.4. 
+    for released in m[1].split("+"):
+      self._stores = apstores._release(self._stores, released,
+        printer=lambda s: self._logevent(s)
+      )
+
+    self._updateconfiguration()
+
+    if self._configuration != previousconfiguration:
+      self._logevent("configuration changed from %s to %s." % (
+        previousconfiguration, self._configuration
+      ))
   
-    if self._configuration == configuration:
-      raise RuntimeError("configuration is already %s." % configuration)
-    if self._configuration == "CL" or configuration == "DT":
-      raise RuntimeError("attempt to change from configuration %s to %s." % (self._configuration, configuration))
-    self._logevent("jettisoned stores.")
-    self._logevent("configuration changed from %s to %s." % (self._configuration, configuration))
-    self._configuration = configuration  
-
   # See rule 6.4.
       
   self._logevent("is carrying %+.2f APs." % self._apcarry)
@@ -71,13 +76,15 @@ def _dostalledflight(self, action, note=False):
   if self._destroyed:
     return
 
-  # The only valid action is to do nothing or to jettison stores.
+  # The only valid actions are to do nothing or to jettison stores.
 
-  if action == "J1/2":
-    dojettison("1/2")
-  elif action == "JCL":
-    dojettison("CL")
-  elif action != "":
-    raise RuntimeError("invalid action %r for stalled flight." % action)
+  fullaction = action
+  while action != "":
+    m = re.compile(r"J\(([^)]*)\)").match(action)
+    if not m:
+      raise RuntimeError("invalid action %r for stalled flight." % fullaction)
+    dojettison(m)  
+    action = action[len(m.group()):]
+
 
   self._logline()

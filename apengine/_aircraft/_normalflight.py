@@ -10,6 +10,7 @@ import apengine._altitude as apaltitude
 import apengine._aircraft as apaircraft
 import apengine._hex      as aphex
 import apengine._speed    as apspeed
+import apengine._stores   as apstores
 import apengine._turnrate as apturnrate
 import apengine._variants as apvariants
 
@@ -763,27 +764,28 @@ def _continuenormalflight(self, actions, note=False):
     self._maxfp -= spbrfp
 
     self._spbrap = -spbrfp / 0.5
-
+  
   ########################################
 
-  def dojettison(configuration):
+  def dojettison(m):
 
-    """
-    Jetison stores to achieve the specified configuration.
-    """
-
-    # See rule 4.4. 
-  
+    # See rule 4.4.   
     # We implement the delay of 1 FP by making this an other element.
+    
+    previousconfiguration = self._configuration
 
-    if self._configuration == configuration:
-      raise RuntimeError("configuration is already %s." % configuration)
-    if self._configuration == "CL" or configuration == "DT":
-      raise RuntimeError("attempt to change from configuration %s to %s." % (self._configuration, configuration))
-    self._logevent("jettisoned stores.")
-    self._logevent("configuration changed from %s to %s." % (self._configuration, configuration))
-    self._configuration = configuration
-  
+    for released in m[1].split("+"):
+      self._stores = apstores._release(self._stores, released,
+        printer=lambda s: self._logevent(s)
+      )
+
+    self._updateconfiguration()
+
+    if self._configuration != previousconfiguration:
+      self._logevent("configuration changed from %s to %s." % (
+        previousconfiguration, self._configuration
+      ))
+
   ########################################
 
   def doataattack(m, weapon):
@@ -966,9 +968,8 @@ def _continuenormalflight(self, actions, note=False):
     ["SSS"   , "other"              , None, lambda: dospeedbrakes(3/2) ],
     ["SS"    , "other"              , None, lambda: dospeedbrakes(1) ],
     ["S"     , "other"              , None, lambda: dospeedbrakes(1/2) ],
-    
-    ["J1/2"  , "other"              , None, lambda: dojettison("1/2") ],
-    ["JCL"   , "other"              , None, lambda: dojettison("CL") ],
+     
+    ["J"     , "other"              , r"\(([^)]*)\)", lambda m: dojettison(m) ],
     
     ["AAGN"  , "other"              , "\\(([^)]*)\\)\\(([^)]*)\\)", lambda m: doataattack(m, "guns") ],
     ["AARK"  , "other"              , "\\(([^)]*)\\)\\(([^)]*)\\)", lambda m: doataattack(m, "rockets") ],
