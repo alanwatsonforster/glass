@@ -88,13 +88,15 @@ def _drawsquareinphysical(x, y, size=1, facing=0,
   ))
 
 def _drawdotinphysical(x, y, size=1, facing=0, dx=0, dy=0, 
-  color="black", alpha=1.0,
+  fillcolor="black", linecolor="black", linewidth=0.5, alpha=1.0,
   zorder=1):
   x = x + dx * sind(facing) + dy * cosd(facing)
   y = y - dx * cosd(facing) + dy * sind(facing)
   _ax.add_artist(patches.Circle(
     [x,y],
-    radius=0.5*size, color=_mapcolor(color), alpha=alpha, 
+    radius=0.5*size, 
+    facecolor=_mapcolor(fillcolor), edgecolor=_mapcolor(linecolor), 
+    linewidth=linewidth, alpha=alpha, 
     zorder=zorder
   ))
 
@@ -169,7 +171,7 @@ def _drawrectangleinphysical(xmin, ymin, xmax, ymax, **kwargs):
   _drawpolygoninphysical([[xmin,ymin],[xmin,ymax],[xmax,ymax],[xmax,ymin]], **kwargs)
 
 def _drawcompassinphysical(x, y, facing, color="black", alpha=1.0, zorder=1):
-  _drawdotinphysical(x, y, facing=facing, size=0.07, dy=-0.3, color=color, alpha=alpha, zorder=zorder)
+  _drawdotinphysical(x, y, facing=facing, size=0.07, dy=-0.3, fillcolor=color, linewidth=None, alpha=alpha, zorder=zorder)
   _drawarrowinphysical(x, y, facing, size=0.6, dy=0, color=color, alpha=alpha, zorder=zorder)
   _drawtextinphysical(x, y, facing, "N", dx=-0.1, dy=-0.05, color=color, alpha=alpha, zorder=zorder)
   

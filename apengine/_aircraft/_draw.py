@@ -7,12 +7,13 @@ import apengine._draw as apdraw
 flightpathcolor            = ( 0.00, 0.00, 0.00 )
 flightpathlinewidth        = 2.0
 flightpathlinestyle        = "dotted"
-flightpathdotsize          = 0.05
+flightpathdotsize          = 0.1
 textsize                   = 10
 counterlinewidth           = 2
 destroyedaircraftfillcolor = ( 0.50, 0.50, 0.50 )
 destroyedaircraftlinecolor = ( 0.50, 0.50, 0.50 )
 aircraftlinecolor          = ( 0.00, 0.00, 0.00 )
+aircraftlinewidth          = 1
 
 _zorder = 0
 
@@ -25,11 +26,15 @@ def _continueflightpath(self):
   self._flightpathy.append(self._y)
 
 def _drawflightpath(self):
+  if self._destroyed:
+    fillcolor = destroyedaircraftfillcolor
+  else:
+    fillcolor = self._color
   x = self._flightpathx
   y = self._flightpathy
   if x != [] and y != []:
-    apdraw.drawdot(x[0], y[0], color=flightpathcolor, size=flightpathdotsize, zorder=0.5)
     apdraw.drawlines(x, y, color=flightpathcolor, linewidth=flightpathlinewidth, linestyle=flightpathlinestyle, zorder=0.5)
+    apdraw.drawdot(x[0], y[0], fillcolor=fillcolor, linecolor=flightpathcolor, linewidth=aircraftlinewidth, size=flightpathdotsize, zorder=0.6)
 
 def _drawaircraft(self):
   if self._leftmap:
@@ -50,6 +55,6 @@ def _drawaircraft(self):
     apdraw.drawsquare(x, y, facing=facing, size=1, linecolor="black", linewidth=counterlinewidth, fillcolor=self._color, zorder=zorder)
     apdraw.drawdart(x, y, facing, size=0.4, fillcolor="black", linewidth=1, linecolor="black", zorder=zorder)
   else:
-    apdraw.drawdart(x, y, facing, dy=-0.02, size=0.4, fillcolor=fillcolor, linewidth=1, linecolor=linecolor, zorder=zorder)
+    apdraw.drawdart(x, y, facing, dy=-0.02, size=0.4, fillcolor=fillcolor, linewidth=aircraftlinewidth, linecolor=linecolor, zorder=zorder)
     apdraw.drawtext(x, y, facing, self._name, dx=-0.25, dy=0.0, size=textsize, color=linecolor, zorder=zorder)
     apdraw.drawtext(x, y, facing, altitude  , dx=+0.25, dy=0.0, size=textsize, color=linecolor, zorder=zorder)
