@@ -52,7 +52,7 @@ A1 = aircraft("A1", "F-104A", "2024", "N", 10, 4.0, fuel="100%",
 A1._assert("2024       N    10", 4.0, configuration="CL")
 endtestsetup()
 
-starttestsetup(verbose=True)
+starttestsetup()
 A1 = aircraft("A1", "F-104A", "2024", "N", 10, 4.0, fuel="101%",
               stores={
                 "3": "FT/600L",

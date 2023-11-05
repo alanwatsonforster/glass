@@ -124,7 +124,7 @@ class aircraft:
 
   def __init__(self, name, aircrafttype, hexcode, azimuth, altitude, speed,
     configuration="CL",
-    fuel=None, bingo=None, 
+    fuel=None, bingofuel=None, 
     stores=None, 
     color="unpainted", counter=False
   ):
@@ -168,7 +168,7 @@ class aircraft:
       self._logbreak()
       self._logline()
       self._name                  = name
-      self._logaction("", "creating %s." % name)
+      self._logaction("", "creating aircraft %s." % name)
 
       self._x                     = x
       self._y                     = y
@@ -207,28 +207,33 @@ class aircraft:
       self._color                 = color
       self._counter               = counter
 
+      self._logaction("", "type          is %s." % aircrafttype)
+      self._logaction("", "position      is %s." % self.position())
+      self._logaction("", "speed         is %.1f." % self._speed)
+
       # Determine the fuel and bingo levels.
     
       if isinstance(fuel, str) and fuel[-1] == "%" and fuel[:-1].isdecimal():
-        fuel = float(fuel[:-1]) / 100 * self.internalfuelcapacity()
+        fuel = float(fuel[:-1]) / 100
+        self._logaction("", "fuel          is %3.0f%% of internal capacity." % (fuel * 100))
+        fuel *= self.internalfuelcapacity()
       elif fuel is not None and not isinstance(fuel, int|float):
         raise RuntimeError("invalid fuel value %r" % fuel)
       self._fuel = fuel
 
-      if isinstance(bingo, str) and bingo[-1] == "%" and bingo[:-1].isdecimal():
-        bingo = float(bingo[:-1]) / 100 * self.internalfuelcapacity()
-      elif bingo is not None and not isinstance(fuel, int|float):
-        raise RuntimeError("invalid bingo value %r" % bingo)
-      self._bingo = bingo
+      if isinstance(bingofuel, str) and bingofuel[-1] == "%" and bingofuel[:-1].isdecimal():
+        bingofuel = float(bingofuel[:-1]) / 100 
+        self._logaction("", "bingo fuel    is %3.0f%% of internal capacity." % (bingofuel * 100))
+        bingofuel *= self.internalfuelcapacity()
+      elif bingofuel is not None and not isinstance(bingofuel, int|float):
+        raise RuntimeError("invalid bingo fuel value %r" % bingofuel)
+      self._bingofuel = bingofuel
 
-      self._logaction("", "aircraft type is %s." % aircrafttype)
-      self._logaction("", "position      is %s." % self.position())
-      self._logaction("", "speed         is %.1f." % self._speed)
       if not self._fuel is None:
-        if self._bingo is None:
+        if self._bingofuel is None:
           self._logaction("", "fuel          is %.1f." % self._fuel)
         else:
-          self._logaction("", "fuel          is %.0f%% of bingo (%.1f/%.1f)." % (self._fuel / self._bingo * 100, self._fuel, self._bingo)) 
+          self._logaction("", "fuel          is %.1f and bingo fuel is %.1f." % (self._fuel, self._bingofuel)) 
 
       # Determine the configuration, either explicitly or from the specified
       # stores.

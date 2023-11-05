@@ -321,10 +321,10 @@ def _startmovespeed(self, power, flamedoutengines):
     # Report fuel.
 
     if not self._fuel is None:
-      if self._bingo is None:
+      if self._bingofuel is None:
         self._logevent("fuel is %.1f." % self._fuel)
       else:
-        self._logevent("fuel is %.1f and bingo is %.1f." % (self._fuel, self._bingo))
+        self._logevent("fuel is %.1f and bingo fuel is %.1f." % (self._fuel, self._bingofuel))
       
     # Determine the fuel consumption. See rule 29.1.
 
@@ -359,25 +359,25 @@ def _endmovespeed(self):
 
     self._logevent("fuel consumption was %.1f." % self._fuelconsumption)
     self._fuel -= self._fuelconsumption
+      
+    if self._bingofuel is None:
+      self._logevent("fuel is %.1f." % self._fuel)
+    else:
+      self._logevent("fuel is %.1f and bingo fuel is %.1f." % (self._fuel, self._bingofuel))
+      if self._fuel < self._bingofuel:
+        self._logend("fuel is below bingo fuel.")
+
+    if self.internalfuel() == 0:
+      self._logend("fuel is exhausted.")
 
     if previousexternalfuel > 0 and self.externalfuel() == 0:
-
-      self._logevent("external fuel is exhausted.")
-
+      self._logend("external fuel is exhausted.")
       previousconfiguration = self._configuration
       self._updateconfiguration()
       if self._configuration != previousconfiguration:
-        self._logevent("fuel consumption changed configuration from %s to %s." % (
+        self._logend("fuel consumption changed configuration from %s to %s." % (
           previousconfiguration, self._configuration
         ))
-
-    if self._bingo is None:
-      self._logevent("fuel is %.1f." % self._fuel)
-    else:
-      self._logevent("fuel is %.1f and bingo is %.1f." % (self._fuel, self._bingo))
-      
-    if previousinternalfuel > 0 and self.internalfuel() == 0:
-      self._logevent("internal fuel is exhausted.")
 
   # See the "Departed Flight Procedure" section of rule 6.4
 
