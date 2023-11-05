@@ -49,13 +49,8 @@ def _startmovespeed(self, power, flamedoutengines):
 
     ############################################################################
 
+    # See rule 29.1.
     if not self._fuel is None:
-
-      self._logstart("fuel          is %.1f." % self._fuel)
-      if not self._bingo is None:
-        self._logstart("fuel          is %.0f%% of bingo." % (self._fuel / self._bingo * 100))
-
-      # See rule 29.1.
       if self._fuel == 0:
         if self.engines() == 1:
           self._logevent("the engine is flamed-out from a lack of fuel.")
@@ -323,6 +318,14 @@ def _startmovespeed(self, power, flamedoutengines):
     
     ############################################################################
 
+    # Report fuel.
+
+    if not self._fuel is None:
+      if self._bingo is None:
+        self._logevent("fuel is %.1f." % self._fuel)
+      else:
+        self._logevent("fuel is %.0f%% of bingo (%.1f/%.1f)." % (self._fuel / self._bingo * 100, self._fuel, self._bingo))
+      
     # Determine the fuel consumption. See rule 29.1.
 
     if not self._fuel is None:
@@ -351,9 +354,9 @@ def _endmovespeed(self):
 
   if not self._fuel is None:
     if self._bingo is None:
-      self._logend("fuel is %.1f." % self._fuel)
+      self._logevent("fuel is %.1f." % self._fuel)
     else:
-      self._logend("fuel is %.0f%% of bingo (%.1f/%.1f)." % (self._fuel / self._bingo * 100, self._fuel, self._bingo))
+      self._logevent("fuel is %.0f%% of bingo (%.1f/%.1f)." % (self._fuel / self._bingo * 100, self._fuel, self._bingo))
       
   # See the "Departed Flight Procedure" section of rule 6.4
 
