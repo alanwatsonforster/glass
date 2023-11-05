@@ -63,7 +63,7 @@ class marker:
 
     if self._type == "dot":
 
-      apdraw.drawdot(self._x, self._y, size=0.1, color=self._color)
+      apdraw.drawdot(self._x, self._y, size=0.1, fillcolor=self._color)
     
     elif self._type == "circle":
 
