@@ -44,8 +44,7 @@ def startsetup(scenario, sheets=None, north="up", variants=[], **kwargs):
     _turn = 0
     _savedturn = _turn
 
-    aplog.log("setup  : start of setup.")
-    aplog.logbreak()
+    aplog.log("set-up  : start of set-up.")
 
     apvariants.setvariants(variants)
 
@@ -67,7 +66,7 @@ def startsetup(scenario, sheets=None, north="up", variants=[], **kwargs):
 def endsetup():
 
   """
-  End the setup.
+  End the set-up.
   """
 
   aplog.clearerror()
@@ -79,7 +78,8 @@ def endsetup():
       
     apaircraft._endsetup()
 
-    aplog.log("setup  : end of setup.")
+    aplog.logbreak()
+    aplog.log("set-up  : end of set-up.")
 
     _turn += 1
     _savedturn = _turn

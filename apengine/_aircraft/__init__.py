@@ -159,7 +159,11 @@ class aircraft:
       # configuration, aircraft initially have level flight, normal power, and
       # no carries.
 
+      self._logbreak()
+      self._logline()
       self._name                  = name
+      self._logaction("", "creating %s." % name)
+
       self._x                     = x
       self._y                     = y
       self._facing                = facing
@@ -169,7 +173,6 @@ class aircraft:
       self._speed                 = speed
       self._newspeed              = None
       self._configuration         = configuration
-
       self._damageL               = 0
       self._damageH               = 0
       self._damageC               = 0
@@ -214,6 +217,17 @@ class aircraft:
       self._saved = []
 
       _aircraftlist.append(self)
+
+      self._logaction("", "aircraft type is %s." % aircrafttype)
+      self._logaction("", "position      is %s." % self.position())
+      self._logaction("", "speed         is %.1f." % self._speed)
+      self._logaction("", "configuration is %s." % self._configuration)
+      if not self._fuel is None:
+        if self._bingo is None:
+          self._logaction("", "fuel          is %.1f." % self._fuel)
+        else:
+          self._logaction("", "fuel          is %.0f%% of bingo (%.1f/%.1f)." % (self._fuel / self._bingo * 100, self._fuel, self._bingo)) 
+      self._logline()
 
     except RuntimeError as e:
       aplog.logexception(e)

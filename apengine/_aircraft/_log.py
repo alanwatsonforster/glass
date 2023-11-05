@@ -9,11 +9,17 @@ def _logbreak(self):
   aplog.logbreak()
   
 def _log(self, s):
-  aplog.log("turn %-2d : %-4s : %s" % (ap.turn(), self._name, s))
+  if ap.turn() == 0:
+    aplog.log("set-up  : %-4s : %s" % (self._name, s))
+  else:
+    aplog.log("turn %-2d : %-4s : %s" % (ap.turn(), self._name, s))
 
 def _logline(self):
-  aplog.log("turn %-2d : ---- : ----- :" % (ap.turn()))
-  
+  if ap.turn() == 0:
+    aplog.log("set-up  : %-4s : %s :" % ("----", "-----"))
+  else:
+    aplog.log("turn %-2d : %-4s : %s :" % (ap.turn(), "----", "-----"))
+    
 def _log1(self, s, t):
   self._log("%-5s : %s" % (s, t))
 
