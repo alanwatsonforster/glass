@@ -49,6 +49,22 @@ def _startmovespeed(self, power, flamedoutengines):
 
     ############################################################################
 
+    if not self._fuel is None:
+
+      self._logstart("fuel          is %.1f." % self._fuel)
+      if not self._bingo is None:
+        self._logstart("fuel          is %.0f%% of bingo." % (self._fuel / self._bingo * 100))
+
+      # See rule 29.1.
+      if self._fuel == 0:
+        if self.engines() == 1:
+          self._logevent("the engine is flamed-out from a lack of fuel.")
+        else:
+          self._logstart("all engines are flamed-out from a lack of fuel.")
+        flamedoutengines = self.engines()
+      
+    ############################################################################
+
     # Determine the requested power setting and power AP.
 
     # Propeller-driver aircraft have ADCs that give "full throttle" and
@@ -178,9 +194,9 @@ def _startmovespeed(self, power, flamedoutengines):
     if flamedoutfraction == 1:
 
       if self.engines() == 1:
-        self._logevent("power setting is treated as idle as the engine is flamed-out.")
+        self._logevent("power setting is treated as I as the engine is flamed-out.")
       else:
-        self._logevent("power setting is treated as idle as all %d engines are flamed-out." % self.engines())
+        self._logevent("power setting is treated as I as all %d engines are flamed-out." % self.engines())
       powersetting = "I"
       powerap = 0
 
@@ -251,7 +267,7 @@ def _startmovespeed(self, power, flamedoutengines):
 
     if speed >= m1speed and self.damageatleast("H"):
       self._logevent("check for progressive damage as damage is %s at supersonic speed." % self.damage())
-
+    
     ############################################################################
 
     # Determine the speed-induced drag.
@@ -304,6 +320,13 @@ def _startmovespeed(self, power, flamedoutengines):
     self._powersetting = powersetting
     self._powerap      = powerap
     self._speedap      = speedap
+    
+    ############################################################################
+
+    # Determine the fuel consumption. See rule 29.1.
+
+    if not self._fuel is None:
+      self._fuel -= min(self._fuel, self.fuelrate() * (1 - flamedoutfraction))
 
 ################################################################################
 
@@ -324,6 +347,14 @@ def _endmovespeed(self):
     self._logevent("speed is unchanged at %.1f." % self._speed)
     return
 
+  # Report fuel.
+
+  if not self._fuel is None:
+    if self._bingo is None:
+      self._logend("fuel is %.1f." % self._fuel)
+    else:
+      self._logend("fuel is %.0f%% of bingo (%.1f/%.1f)." % (self._fuel / self._bingo * 100, self._fuel, self._bingo))
+      
   # See the "Departed Flight Procedure" section of rule 6.4
 
   if self._flighttype == "DP" or self._maneuveringdeparture:
@@ -455,3 +486,4 @@ def _endmovespeed(self):
     self._logevent("aircraft will still stalled.")
   elif self._newspeed < minspeed:
     self._logevent("aircraft will have stalled.")
+

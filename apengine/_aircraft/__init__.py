@@ -119,6 +119,7 @@ class aircraft:
   #############################################################################
 
   def __init__(self, name, aircrafttype, hexcode, azimuth, altitude, speed, configuration,
+    fuel=None, bingo=None,
     color="unpainted", counter=False
   ):
 
@@ -168,6 +169,8 @@ class aircraft:
       self._speed                 = speed
       self._newspeed              = None
       self._configuration         = configuration
+      self._fuel                  = fuel
+      self._bingo                 = bingo
       self._damageL               = 0
       self._damageH               = 0
       self._damageC               = 0
@@ -196,7 +199,7 @@ class aircraft:
       self._flightpathy           = []
       self._color                 = color
       self._counter               = counter
-
+    
       global _zorder
       _zorder += 1
       self._zorder = _zorder
@@ -465,6 +468,7 @@ class aircraft:
     self._altitudecarry, \
     self._speed, \
     self._configuration, \
+    self._fuel, \
     self._damageL, \
     self._damageH, \
     self._damageC, \
@@ -506,6 +510,7 @@ class aircraft:
       self._altitudecarry, \
       self._speed, \
       self._configuration, \
+      self._fuel, \
       self._damageL, \
       self._damageH, \
       self._damageC, \
