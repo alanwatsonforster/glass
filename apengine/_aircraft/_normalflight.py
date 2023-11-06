@@ -812,14 +812,14 @@ def _continuenormalflight(self, actions, note=False):
 
     if weapon == "GN":
       weaponname = "gun"
-      if self._gunammunition < 2:
+      if self._gunammunition < 1.0:
         raise RuntimeError("gun ammunition is %d." % self._gunammunition)
-      self._gunammunition -= 2
+      self._gunammunition -= 1.0
     elif weapon == "SSGN":
       weaponname = "snap-shot gun"
-      if self._gunammunition < 1:
+      if self._gunammunition < 0.5:
         raise RuntimeError("gun ammunition is %d." % self._gunammunition)
-      self._gunammunition -= 1
+      self._gunammunition -= 0.5
     elif weapon == "RK":
       weaponname = "rocket"
     else:
