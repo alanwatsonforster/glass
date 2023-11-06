@@ -862,7 +862,7 @@ def _continuenormalflight(self, actions, note=False):
         target._takedamage(result)
 
     if weapon == "GN" or weapon == "SSGN":
-      self._logevent("gun ammunition is now %d." % self._gunammunition)
+      self._logevent("gun ammunition is now %.1f." % self._gunammunition)
 
   ########################################
 
