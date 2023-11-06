@@ -812,8 +812,14 @@ def _continuenormalflight(self, actions, note=False):
 
     if weapon == "GN":
       weaponname = "gun"
+      if self._gunammunition < 2:
+        raise RuntimeError("gun ammunition is %d." % self._gunammunition)
+      self._gunammunition -= 2
     elif weapon == "SSGN":
       weaponname = "snap-shot gun"
+      if self._gunammunition < 1:
+        raise RuntimeError("gun ammunition is %d." % self._gunammunition)
+      self._gunammunition -= 1
     elif weapon == "RK":
       weaponname = "rocket"
     else:
@@ -854,6 +860,9 @@ def _continuenormalflight(self, actions, note=False):
       self._logevent("hit and inflicted %s damage." % result)
       if target != None:
         target._takedamage(result)
+
+    if weapon == "GN" or weapon == "SSGN":
+      self._logevent("gun ammunition is now %d." % self._gunammunition)
 
   ########################################
 

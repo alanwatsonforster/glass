@@ -197,6 +197,7 @@ class aircraft:
       self._gloccheck             = 0
       self._closeformation        = []
       self._aircraftdata          = apaircraftdata.aircraftdata(aircrafttype)
+      self._gunammunition         = self._aircraftdata.gunammunition()
       self._destroyed             = False
       self._leftmap               = False
       self._turnsstalled          = 0
@@ -350,8 +351,14 @@ class aircraft:
 
       if weapon == "GN":
         weaponname = "gun"
+        if self._gunammunition < 2:
+          raise RuntimeError("gun ammunition is %d." % self._gunammunition)
+        self._gunammunition -= 2
       elif weapon == "SSGN":
         weaponname = "snap-shot gun"
+        if self._gunammunition < 1:
+          raise RuntimeError("gun ammunition is %d." % self._gunammunition)
+        self._gunammunition -= 1
       else:
         raise RuntimeError("invalid weapon %r." % weapon)
 
@@ -381,6 +388,9 @@ class aircraft:
         if target != None:
           target._takedamage(result)
 
+      if weapon == "GN" or weapon == "SSGN":
+        self._logevent("gun ammunition is now %d." % self._gunammunition)
+      
       self._lognote(note)
       self._logline()
 
@@ -573,6 +583,7 @@ class aircraft:
     self._altitudecarry, \
     self._speed, \
     self._configuration, \
+    self._gunammunition, \
     self._fuel, \
     self._damageL, \
     self._damageH, \
@@ -615,6 +626,7 @@ class aircraft:
       self._altitudecarry, \
       self._speed, \
       self._configuration, \
+      self._gunammunition, \
       self._fuel, \
       self._damageL, \
       self._damageH, \

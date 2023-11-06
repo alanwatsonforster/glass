@@ -201,6 +201,12 @@ class aircraftdata:
     else:
       return None
 
+  def gunammunition(self):
+    if "gunammunition" in self._data:
+      return self._data["gunammunition"]
+    else:
+      return 0
+
   def hasstoreslimits(self):
     """
     Return True if the aircraft data has a stores limit configured.

@@ -1,4 +1,5 @@
 {
   "name": "Tu-4",
-  "base": "B-29A"
+  "base": "B-29A",
+  "gunammunition": 20
 }
