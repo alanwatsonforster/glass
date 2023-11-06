@@ -340,43 +340,46 @@ class aircraft:
       ap._checkinturn()
       self._logaction("react", action)
 
-      m = re.compile("AAGN\\(([^)]*)\\)\\(([^)]*)\\)").match(action)
+      m = re.compile("AA" + 3 * r"\(([^)]*)\)").match(action)
       if m is None:
         raise RuntimeError("invalid action %r" % action)
 
-      if self.gunarc() == None:
-        fullweapon = "fixed guns"
+      weapon     = m[1]
+      targetname = m[2]
+      result     = m[3]
+
+      if weapon == "GN":
+        weaponname = "gun"
+      elif weapon == "SSGN":
+        weaponname = "snap-shot gun"
       else:
-        fullweapon = "guns covering the %s arc" % self.gunarc()
-      
-      if m[1] == "":
-        targetname = None
-        target     = None
-        self._logevent("air-to-air attack using %s." % fullweapon)
+        raise RuntimeError("invalid weapon %r." % weapon)
+
+      if targetname == "":
+        self._logevent("%s air-to-air attack." % weaponname)
       else:
-        targetname = m[1]
-        target     = _fromname(targetname)
+        target = _fromname(targetname)
         if target == None:
           raise RuntimeError("unknown target aircraft %s." % targetname)
-        self._logevent("air-to-air attack on %s using %s." % (targetname, fullweapon))
+        self._logevent("%s air-to-air attack on %s." % (weaponname, targetname))
 
-      if target != None:
+      if targetname != "":
         r = self.gunattackrange(target, arc=self.gunarc())
         if isinstance(r, str):
             raise RuntimeError(r)      
         self._logevent("range is %d." % r)      
         self._logevent("angle-off-tail is %s." % self.angleofftail(target))
 
-      if m[2] == "":
+      if result == "":
         self._logevent("result of attack not specified.")
-      elif m[2] == "M":
+      elif result == "M":
         self._logevent("missed.")
-      elif m[2] == "-":
+      elif result == "-":
         self._logevent("hit but inflicted no damage.")
       else:
-        self._logevent("hit and inflicted %s damage." % m[2])
+        self._logevent("hit and inflicted %s damage." % result)
         if target != None:
-          target._takedamage(m[2])      
+          target._takedamage(result)
 
       self._lognote(note)
       self._logline()

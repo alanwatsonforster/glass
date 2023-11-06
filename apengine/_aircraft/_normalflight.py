@@ -788,10 +788,10 @@ def _continuenormalflight(self, actions, note=False):
 
   ########################################
 
-  def doataattack(m, weapon):
+  def doataattack(m):
 
     """
-    Declare an air-to-air attack with the specified weapon.
+    Declare an air-to-air attack.
     """
 
     # See rule 8.2.2.
@@ -806,31 +806,36 @@ def _continuenormalflight(self, actions, note=False):
     if self._wasrollingonlastfp:
       raise RuntimeError("attempt to use weapons on the FP immediately after rolling.")
 
-    if weapon != "guns":
-      fullweapon = weapon
-    elif self.gunarc() == None:
-      fullweapon = "fixed guns"
+    weapon     = m[1]
+    targetname = m[2]
+    result     = m[3]
+
+    if weapon == "GN":
+      weaponname = "gun"
+    elif weapon == "SSGN":
+      weaponname = "snap-shot gun"
+    elif weapon == "RK":
+      weaponname = "rocket"
     else:
-      fullweapon = "guns covering the %s arc" % self.gunarc()
-   
-    if m[1] == "":
-      targetname = None
-      target     = None
-      self._logevent("air-to-air attack using %s." % fullweapon)
+      raise RuntimeError("invalid weapon %r." % weapon)
+
+    if targetname == "":
+      self._logevent("%s air-to-air attack." % weaponname)
     else:
-      targetname = m[1]
-      target     = apaircraft._fromname(targetname)
+      target = apaircraft._fromname(targetname)
       if target == None:
         raise RuntimeError("unknown target aircraft %s." % targetname)
-      self._logevent("air-to-air attack on %s using %s." % (targetname, fullweapon))
+      self._logevent("%s air-to-air attack on %s." % (weaponname, targetname))
 
     if self._maxturnrate != None:
       self._logevent("maximum turn rate so far is %s." % self._maxturnrate)
     else:
       self._logevent("no turns used so far.")
 
-    if target != None:
-      if weapon == "guns":
+    if targetname != "":
+      if weapon == "GN" or weapon == "SSGN":
+        if self.gunarc != None:
+          self._logevent("gunnery arc is %s." % self.gunarc())
         r = self.gunattackrange(target, arc=self.gunarc())
       else:
         r = self.rocketattackrange(target)
@@ -839,16 +844,16 @@ def _continuenormalflight(self, actions, note=False):
       self._logevent("range is %d." % r)      
       self._logevent("angle-off-tail is %s." % self.angleofftail(target))
 
-    if m[2] == "":
+    if result == "":
       self._logevent("result of attack not specified.")
-    elif m[2] == "M":
+    elif result == "M":
       self._logevent("missed.")
-    elif m[2] == "-":
+    elif result == "-":
       self._logevent("hit but inflicted no damage.")
     else:
-      self._logevent("hit and inflicted %s damage." % m[2])
+      self._logevent("hit and inflicted %s damage." % result)
       if target != None:
-        target._takedamage(m[2])
+        target._takedamage(result)
 
   ########################################
 
@@ -884,6 +889,12 @@ def _continuenormalflight(self, actions, note=False):
       self._facing = (self._facing - facingchange) % 360
 
   ########################################
+
+  def argsregex(n):
+    """
+    Return a regex to match n arguments.
+    """
+    return r"\(([^)]*)\)" * n
 
   elementdispatchlist = [
 
@@ -969,10 +980,9 @@ def _continuenormalflight(self, actions, note=False):
     ["SS"    , "other"              , None, lambda: dospeedbrakes(1) ],
     ["S"     , "other"              , None, lambda: dospeedbrakes(1/2) ],
      
-    ["J"     , "other"              , r"\(([^)]*)\)", lambda m: dojettison(m) ],
+    ["J"     , "other"              , argsregex(1), lambda m: dojettison(m) ],
     
-    ["AAGN"  , "other"              , "\\(([^)]*)\\)\\(([^)]*)\\)", lambda m: doataattack(m, "guns") ],
-    ["AARK"  , "other"              , "\\(([^)]*)\\)\\(([^)]*)\\)", lambda m: doataattack(m, "rockets") ],
+    ["AA"    , "other"              , argsregex(3), lambda m: doataattack(m) ],
 
     ["/"     , "other"              , None, lambda: None ],
 
@@ -1041,6 +1051,8 @@ def _continuenormalflight(self, actions, note=False):
             m = None
           else:
             m = re.compile(elementregex).match(action)
+            if not m:
+              raise RuntimeError("invalid arguments to %s element." % elementcode)
             if m:
               action = action[len(m.group()):]   
           if selectedelementtype == elementtype:

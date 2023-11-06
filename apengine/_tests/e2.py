@@ -93,7 +93,7 @@ A1 = aircraft("A1", "F-80C", "2015", "N", 20, 4.0, "CL")
 endtestsetup()
 
 startturn()
-A1.move("UD"    ,  "M", "HD,HD,HD,HD/AAGN" )
+A1.move("UD"    ,  "M", "HD,HD,HD,HD/AA(GN)()()" )
 asserterror("attempt to use weapons while unloaded.")
 startturn()
 A1.move("UD"    ,  "M", "HD,HD,HD,HD"     )
