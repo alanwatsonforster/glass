@@ -370,6 +370,9 @@ class aircraft:
           raise RuntimeError("unknown target aircraft %s." % targetname)
         self._logevent("%s air-to-air attack on %s." % (weaponname, targetname))
 
+      if self.gunarc() != None:
+        self._logevent("gunnery arc is %s." % self.gunarc())
+
       if targetname != "":
         r = self.gunattackrange(target, arc=self.gunarc())
         if isinstance(r, str):

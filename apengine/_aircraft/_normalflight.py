@@ -840,7 +840,7 @@ def _continuenormalflight(self, actions, note=False):
 
     if targetname != "":
       if weapon == "GN" or weapon == "SSGN":
-        if self.gunarc != None:
+        if self.gunarc() != None:
           self._logevent("gunnery arc is %s." % self.gunarc())
         r = self.gunattackrange(target, arc=self.gunarc())
       else:
