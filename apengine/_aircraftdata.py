@@ -429,10 +429,13 @@ class aircraftdata:
     str("")
 
     if self.hasproperty("LRRHS"):
-      str(" - LRRHS: LRR if speed is %.1f or more." % self._data["LRRHSlimit"])
+      str("- LRRHS: LRR if speed is %.1f or more." % self._data["LRRHSlimit"])
 
     if self.hasproperty("HRRCL"):
-      str(" - HRRCL: HRR when CL.")
+      str("- HRRCL: HRR when CL.")
+
+    if self.hasproperty("ABSF"):
+      str("- Maximum speed is reduced by %.1f unless AB is used." % self._data["ABSFamount"])
 
     if "notes" in self._data:
       for note in self._data["notes"]:

@@ -60,7 +60,9 @@ def minspeed(self):
   return minspeed
 
 def maxspeed(self):
+
   maxspeed = self._aircraftdata.maxspeed(self._configuration, self._altitudeband)
+
   if maxspeed == None:
     # The aircraft is temporarily above its ceiling, so take the speed from the
     # highest band in the table.
@@ -68,6 +70,11 @@ def maxspeed(self):
       maxspeed = self._aircraftdata.maxspeed(self._configuration, altitudeband)
       if maxspeed != None:
         break
+
+  if self._aircraftdata.hasproperty("ABSF"):
+    if self._powersetting != "AB":
+      maxspeed -= self._aircraftdata._data["ABSFamount"]
+
   return maxspeed
 
 def cruisespeed(self):

@@ -1,0 +1,8 @@
+{
+  "name": "F-89J",
+  "base": "F-89D",
+  // The J differs from the D in radar and armament.
+  "notes" : [
+    "This version of the J has wing-top pods from the D with rockets and fuel."
+  ]
+}
