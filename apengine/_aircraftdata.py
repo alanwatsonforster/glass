@@ -337,6 +337,7 @@ class aircraftdata:
 
       str("Cruise Speed: %.1f" % self.cruisespeed())
       str("Climb  Speed: %.1f" % self.climbspeed())
+      str("Fuel        : %.1f" % self.fuel())
       str("")
 
       str("Roll Costs:")
@@ -411,9 +412,11 @@ class aircraftdata:
         ))
       str("")
 
+    if "gunammunition" in self._data:
+      str("Gun ammunition: %.1f" % self._data["gunammunition"])
     if "gunarc" in self._data:
       str("Gun arc: %s" % self._data["gunarc"])
-      str("")
+    str("")
 
     s = ""
     for p in self._data["properties"]:
