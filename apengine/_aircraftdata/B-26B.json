@@ -38,6 +38,7 @@
     "ML": [ [ "-", 0.5 ], [ "-", 0.5  ], [ "-", 0.25 ] ],
     "LO": [ [ "-", 0.5 ], [ "-", 0.5  ], [ "-", 0.5  ] ]
   },
+  "gunammunition": 10,
   "storeslimits": [ 6, 10, 6000 ],
   "properties": [ "LRR", "NRM" ],
   "powerfadespeedtable": [ [2.5, 0.5] ],

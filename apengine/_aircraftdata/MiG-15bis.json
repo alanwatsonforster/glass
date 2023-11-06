@@ -37,6 +37,7 @@
     "ML": [ [ "-", 1.5 ], [ "-", 1.0 ], [ "-", 1.0 ] ],
     "LO": [ [ "-", 1.5 ], [ "-", 1.5 ], [ "-", 1.0 ] ]
   },
+  "gunammunition": 3.0,
   "storeslimits": [ 1, 4, 1600 ],  
   "LRRHSlimit": 4.5,
   "properties": [ "HTD", "LRRHS" ]
