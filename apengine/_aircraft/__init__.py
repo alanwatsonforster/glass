@@ -356,31 +356,36 @@ class aircraft:
       targetname = m[2]
       result     = m[3]
 
-      if weapon == "GN":
-        weaponname = "gun"
-        if self._gunammunition < 1.0:
-          raise RuntimeError("gun ammunition is %d." % self._gunammunition)
-        self._gunammunition -= 1.0
-      elif weapon == "SSGN":
-        weaponname = "snap-shot gun"
-        if self._gunammunition < 0.5:
-          raise RuntimeError("gun ammunition is %d." % self._gunammunition)
-        self._gunammunition -= 0.5
-      else:
-        raise RuntimeError("invalid weapon %r." % weapon)
-
       if targetname == "":
-        self._logevent("%s air-to-air attack." % weaponname)
+        targetdescription = ""
       else:
-        target = _fromname(targetname)
-        if target == None:
-          raise RuntimeError("unknown target aircraft %s." % targetname)
-        self._logevent("%s air-to-air attack on %s." % (weaponname, targetname))
+        targetdescription = " on %s" % targetname
+        
+      if weapon == "GN":
+
+        self._logevent("gun air-to-air attack%s." % targetdescription)
+        if self._gunammunition < 1.0:
+          raise RuntimeError("available gun ammunition is %.1f." % self._gunammunition)
+        self._gunammunition -= 1.0
+
+      elif weapon == "GNSS":
+
+        self._logevent("snap-shot gun air-to-air attack%s." % targetdescription)
+        if self._gunammunition < 0.5:
+          raise RuntimeError("available gun ammunition is %.1f." % self._gunammunition)
+        self._gunammunition -= 0.5
+
+      else:
+
+        raise RuntimeError("invalid weapon %r." % weapon)
 
       if self.gunarc() != None:
         self._logevent("gunnery arc is %s." % self.gunarc())
 
       if targetname != "":
+        target = _fromname(targetname)
+        if target == None:
+          raise RuntimeError("unknown target aircraft %s." % targetname)
         r = self.gunattackrange(target, arc=self.gunarc())
         if isinstance(r, str):
             raise RuntimeError(r)      
@@ -398,9 +403,8 @@ class aircraft:
         if target != None:
           target._takedamage(result)
 
-      if weapon == "GN" or weapon == "SSGN":
-        self._logevent("gun ammunition is now %.1f." % self._gunammunition)
-      
+      self._logevent("%.1f gun ammunition remain" % self._gunammunition)
+
       self._lognote(note)
       self._logline()
 

@@ -40,6 +40,7 @@
     "LO": [ [ 3.0, 1.0 ], [ 2.0, 1.0 ], [ 2.0, 1.0 ] ]
   },
   "gunammunition": 0.0,
+  "rocketfactors": 2,
   "storeslimits": [ 3, 6, 4000 ],
   "properties": [ "LTD", "PSSM", "HBR" ],
   "notes": [

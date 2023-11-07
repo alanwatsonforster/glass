@@ -1,5 +1,6 @@
 {
   "name": "F-89H",
-  "base": "F-89D"
+  "base": "F-89D",
+  "rocketfactors": 4
   // The H differs from the D in radar and armament.
 }

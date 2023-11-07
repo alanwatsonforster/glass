@@ -810,36 +810,47 @@ def _continuenormalflight(self, actions, note=False):
     targetname = m[2]
     result     = m[3]
 
-    if weapon == "GN":
-      weaponname = "gun"
-      if self._gunammunition < 1.0:
-        raise RuntimeError("gun ammunition is %d." % self._gunammunition)
-      self._gunammunition -= 1.0
-    elif weapon == "SSGN":
-      weaponname = "snap-shot gun"
-      if self._gunammunition < 0.5:
-        raise RuntimeError("gun ammunition is %d." % self._gunammunition)
-      self._gunammunition -= 0.5
-    elif weapon == "RK":
-      weaponname = "rocket"
+    if targetname == "":
+      targetdescription = ""
     else:
+      targetdescription = " on %s" % targetname
+      
+    if weapon == "GN":
+
+      self._logevent("gun air-to-air attack%s." % targetdescription)
+      if self._gunammunition < 1.0:
+        raise RuntimeError("available gun ammunition is %.1f." % self._gunammunition)
+      self._gunammunition -= 1.0
+
+    elif weapon == "GNSS":
+
+      self._logevent("snap-shot gun air-to-air attack%s." % targetdescription)
+      if self._gunammunition < 0.5:
+        raise RuntimeError("available gun ammunition is %.1f." % self._gunammunition)
+      self._gunammunition -= 0.5
+
+    elif weapon[0:2] == "RK":
+
+      if not weapon[2:].isdigit():
+        raise RuntimeError("invalid weapon %r." % weapon)
+      rocketfactors = int(weapon[2:])
+      self._logevent("rocket air-to-air attack with %d factors%s." % (rocketfactors, targetdescription))
+
+      if self._rocketfactors < rocketfactors:
+        raise RuntimeError("available rocket factors are %d." % self._rocketfactors)
+      self._rocketfactors -= rocketfactors
+
+    else:
+
       raise RuntimeError("invalid weapon %r." % weapon)
 
-    if targetname == "":
-      self._logevent("%s air-to-air attack." % weaponname)
-    else:
+    if targetname != "":
+
       target = apaircraft._fromname(targetname)
       if target == None:
         raise RuntimeError("unknown target aircraft %s." % targetname)
-      self._logevent("%s air-to-air attack on %s." % (weaponname, targetname))
-
-    if self._maxturnrate != None:
-      self._logevent("maximum turn rate so far is %s." % self._maxturnrate)
-    else:
-      self._logevent("no turns used so far.")
-
-    if targetname != "":
-      if weapon == "GN" or weapon == "SSGN":
+      
+      if weapon == "GN" or weapon == "GNSS":
         if self.gunarc() != None:
           self._logevent("gunnery arc is %s." % self.gunarc())
         r = self.gunattackrange(target, arc=self.gunarc())
@@ -850,6 +861,11 @@ def _continuenormalflight(self, actions, note=False):
       self._logevent("range is %d." % r)      
       self._logevent("angle-off-tail is %s." % self.angleofftail(target))
 
+    if self._maxturnrate != None:
+      self._logevent("maximum turn rate so far is %s." % self._maxturnrate)
+    else:
+      self._logevent("no turns used so far.")
+      
     if result == "":
       self._logevent("result of attack not specified.")
     elif result == "M":
@@ -861,8 +877,10 @@ def _continuenormalflight(self, actions, note=False):
       if target != None:
         target._takedamage(result)
 
-    if weapon == "GN" or weapon == "SSGN":
-      self._logevent("gun ammunition is now %.1f." % self._gunammunition)
+    if weapon == "GN" or weapon == "GNSS":
+      self._logevent("%.1f gun ammunition remain" % self._gunammunition)
+    else:
+      self._logevent("%d rocket %s." % (self._rocketfactors, plural(self._rocketfactors, "factor remains", "factors remain")))
 
   ########################################
 

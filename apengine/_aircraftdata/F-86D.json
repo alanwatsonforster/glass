@@ -45,6 +45,7 @@
     "LO": [ [ 2.0, 1.0 ], [ 1.5, 1.0 ], [ 1.5, 1.0 ] ]
   },
   "gunammunition": 0.0,
+  "rocketfactors": 2,
   "storeslimits": [ 2, 6, 4000 ],  
   "properties": [ "HTD" ]
 }

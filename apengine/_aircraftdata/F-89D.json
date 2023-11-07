@@ -40,6 +40,7 @@
     "LO": [ [ 1.0, 0.5  ], [ 1.0, 0.5  ], [ 1.0, 0.5  ] ]
   },
   "gunammunition": 0.0,
+  "rocketfactors": 9,
   "storeslimits": [ 4, 8, 4400 ],  
   "properties": [ "HTD", "ABSF" ],
   "ABSFamount": 0.5
