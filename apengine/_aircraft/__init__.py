@@ -125,7 +125,7 @@ class aircraft:
   def __init__(self, name, aircrafttype, hexcode, azimuth, altitude, speed,
     configuration="CL",
     fuel=None, bingofuel=None, 
-    stores=None, 
+    gunammunition=None, rocketfactors=None, stores=None, 
     color="unpainted", counter=False
   ):
 
@@ -197,7 +197,14 @@ class aircraft:
       self._gloccheck             = 0
       self._closeformation        = []
       self._aircraftdata          = apaircraftdata.aircraftdata(aircrafttype)
-      self._gunammunition         = self._aircraftdata.gunammunition()
+      if gunammunition is None:
+        self._gunammunition       = self._aircraftdata.gunammunition()
+      else:
+        self._gunammunition       = gunammunition
+      if rocketfactors is None:
+        self._rocketfactors       = self._aircraftdata.rocketfactors()
+      else:
+        self._rocketfactors       = rocketfactors
       self._destroyed             = False
       self._leftmap               = False
       self._turnsstalled          = 0

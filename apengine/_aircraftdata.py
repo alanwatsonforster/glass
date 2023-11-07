@@ -207,6 +207,12 @@ class aircraftdata:
     else:
       return 0
 
+  def rocketfactors(self):
+    if "rocketfactors" in self._data:
+      return self._data["rocketfactors"]
+    else:
+      return 0
+
   def hasstoreslimits(self):
     """
     Return True if the aircraft data has a stores limit configured.
@@ -416,6 +422,8 @@ class aircraftdata:
       str("Gun ammunition: %.1f" % self._data["gunammunition"])
     if "gunarc" in self._data:
       str("Gun arc: %s" % self._data["gunarc"])
+    if "rocketfactors" in self._data:
+      str("Rocket factors: %.0f" % self._data["rocketfactors"])
     str("")
 
     s = ""
