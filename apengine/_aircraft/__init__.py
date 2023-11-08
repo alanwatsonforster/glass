@@ -389,8 +389,11 @@ class aircraft:
         r = self.gunattackrange(target, arc=self.gunarc())
         if isinstance(r, str):
             raise RuntimeError(r)      
-        self._logevent("range is %d." % r)      
-        self._logevent("angle-off-tail is %s." % self.angleofftail(target))
+        self._logevent("range is %d." % r)     
+        if self.gunarc != None: 
+          self._logevent("angle-off-tail is %s." % target.angleofftail(self))
+        else:
+          self._logevent("angle-off-tail is %s." % self.angleofftail(target))
 
       if result == "":
         self._logevent("result of attack not specified.")
