@@ -176,7 +176,7 @@ def _startmovespeed(self, power, flamedoutengines):
         
     # Again, the reduction was done above, but we report it here.
     if self.powerfade() != None and self.powerfade() > 0.0:
-      self._logevent("power is reduced by %.2f as the speed is %.1f." % (self.powerfade(), speed))
+      self._logevent("power is reduced as the speed is %.1f." % speed)
     
     # Again, the reduction was done above, but we report it here.
     if self.damageatleast("H"):
@@ -197,7 +197,7 @@ def _startmovespeed(self, power, flamedoutengines):
 
     elif flamedoutfraction > 0.5:
 
-      self._logevent("power is reduced by one third as %d of the %d engines are flamed-out." % (
+      self._logevent("maximum power is reduced by one third as %d of the %d engines are flamed-out." % (
         flamedoutengines, self.engines()
       ))
       # 1/3 of APs, quantized in 1/4 units, rounding down.
@@ -205,11 +205,13 @@ def _startmovespeed(self, power, flamedoutengines):
 
     elif flamedoutfraction > 0:
 
-      self._logevent("power is reduced by one half as %d of the %d engines are flamed-out." % (
+      self._logevent("maximum power is reduced by one half as %d of the %d engines are flamed-out." % (
         flamedoutengines, self.engines()
       ))
       # 1/2 of APs, quantized in 1/4 units, rounding up.
       powerap = math.ceil(powerap / 2 * 4) / 4
+
+    self._logevent("power is %.2f AP." % powerap)
 
     ############################################################################
 
