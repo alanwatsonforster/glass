@@ -19,8 +19,11 @@ _rightedgeonmap = {}
 _sheetlist      = []
 _nxsheetgrid    = 0
 _nysheetgrid    = 0
+
 _allforest      = False
 _allwater       = False
+_wilderness     = False
+
 _xmin           = None
 _xmax           = None
 _ymin           = None
@@ -33,21 +36,9 @@ _dysheet = 15
 
 _saved = False
 
-level0color       = ( 0.85, 0.90, 0.85 )
-level1color       = ( 0.87, 0.85, 0.78 )
-level2color       = ( 0.82, 0.75, 0.65 )
-level3color       = ( 0.77, 0.65, 0.55 )
-forestcolor       = ( 0.50, 0.65, 0.50 )
-urbancolor        = ( 0.70, 0.70, 0.70 )
-roadcolor         = ( 0.80, 0.80, 0.80 )
-bridgecolor       = ( 0.70, 0.70, 0.70)
-smallbridgecolor  = ( 0.80, 0.80, 0.80 )
-watercolor        = ( 0.77, 0.89, 0.95 )
 hexcolor          = ( 0.00, 0.00, 0.00 )
-megahexcolor      = ( 1.00, 1.00, 1.00 )
-runwaycolor       = ( 0.80, 0.80, 0.80 )
-taxiwaycolor      = ( 0.80, 0.80, 0.80 )
-damcolor          = ( 0.80, 0.80, 0.80 )
+hexalpha         = 0.4
+
 missingcolor      = ( 1.00, 1.00, 1.00 )
 
 ridgewidth       = 14
@@ -63,23 +54,28 @@ damwidth         = 14
 hexwidth         = 0.5
 megahexwidth     = 5
 
-hexalpha         = 0.4
-megahexalpha     = 0.15
-forestalpha      = 0.7
-
-foresthatch      = "oo"
+foresthatch      = "o"
 urbanhatch       = "xx"
 
 def setmap(sheetgrid, 
   allforest=False, allwater=False,
   drawterrain=True, drawlabels=True, 
-  xmin=0, ymin=0, xmax=None, ymax=None, dpi=100, writefile=False
+  xmin=0, ymin=0, xmax=None, ymax=None, dpi=100, writefile=False,
+  terrain=None, wilderness=False
   ):
 
   """
   Set the arrangement of the sheets that form the map and the position of the 
   compass rose.
   """
+
+  # villages=True
+  # towns=True
+  # wilderness=False
+  # forest=True
+  # allforest=False
+  # allwater=False
+
 
   global _drawterrain
   global _drawlabels
@@ -91,6 +87,7 @@ def setmap(sheetgrid,
   global _nxsheetgrid
   global _allforest
   global _allwater
+  global _wilderness
   global _xmin
   global _ymin
   global _xmax
@@ -114,6 +111,7 @@ def setmap(sheetgrid,
   _drawlabels  = drawlabels
   _allforest   = allforest
   _allwater    = allwater
+  _wilderness  = wilderness
 
   _xmin        = xmin
   _ymin        = ymin
@@ -146,7 +144,106 @@ def setmap(sheetgrid,
   global _saved
   _saved = False
 
-def startdrawmap():
+  global level0color, level1color, level2color, level3color
+  global forestcolor, forestalpha
+  global megahexcolor, megahexalpha
+  global urbancolor, urbanalpha
+  global roadcolor
+  global watercolor
+  global bridgecolor, smallbridgecolor, runwaycolor, taxiwaycolor, damcolor
+
+  if terrain == None:
+
+    level0color       = ( 0.85, 0.90, 0.85 )
+    level1color       = ( 0.87, 0.85, 0.78 )
+    level2color       = ( 0.82, 0.75, 0.65 )
+    level3color       = ( 0.77, 0.65, 0.55 )
+
+    watercolor        = ( 0.77, 0.89, 0.95 )
+
+    forestcolor       = ( 0.50, 0.65, 0.50 )
+    forestalpha       = 0.7
+
+    urbancolor        = ( 0.70, 0.70, 0.70 )
+    urbanalpha        = 1.0
+
+    roadcolor         = ( 0.80, 0.80, 0.80 )
+    bridgecolor       = ( 0.70, 0.70, 0.70 )
+
+    megahexcolor      = ( 1.00, 1.00, 1.00 )
+    megahexalpha      = 0.15
+
+  else:
+
+    def lighten(color, f):
+      return list((1 - f) + f * x for x in color)
+
+    def darken(color, f):
+      return list(min(1, f * x) for x in color)
+
+    def equivalentgray(color):
+      x = (0.30 * color[0] + 0.59 * color[1] + 0.11 * color[2])
+      return (x, x, x)
+
+    if terrain == "arctic":
+
+      basecolor    = ( 0.85, 0.85, 0.85 )
+      dilution     = [ 0/2, 1/2, 2/2, 3/2 ]
+      
+      megahexcolor = ( 0.00, 0.00, 0.00 )
+      megahexalpha = 0.025
+
+    elif terrain == "arid":
+
+      basecolor    = ( 0.78, 0.76, 0.67 )
+      dilution     = [ 1/3, 2/3, 3/3, 4/3 ]
+
+      megahexcolor = ( 1.00, 1.00, 1.00 )
+      megahexalpha = 0.25
+
+    elif terrain == "temperate":
+
+      basecolor    = ( 0.50, 0.65, 0.50 )
+      dilution     = [ 2/6, 3/6, 4/6, 5/6 ]
+
+      megahexcolor = ( 1.00, 1.00, 1.00 )
+      megahexalpha = 0.15
+    
+    elif terrain == "tropical":
+
+      basecolor    = ( 0.50, 0.65, 0.50 )
+      dilution     = [ 3/6, 4/6, 5/6, 6/6 ]
+
+      megahexcolor = ( 1.00, 1.00, 1.00 )
+      megahexalpha = 0.10
+
+    level0color = lighten(basecolor, dilution[0])
+    level1color = lighten(basecolor, dilution[1])
+    level2color = lighten(basecolor, dilution[2])
+    level3color = lighten(basecolor, dilution[3])
+
+    # Darken the water to 95% of the grey value of level 0. Do not lighten it.
+    watercolor  = ( 0.77, 0.89, 0.95 )
+    watergrayvalue  = equivalentgray(watercolor)[0]
+    targetgrayvalue = 0.95 * equivalentgray(level0color)[0]
+    if watergrayvalue > targetgrayvalue:
+      watercolor = darken(watercolor, targetgrayvalue / watergrayvalue)
+
+    roadcolor    = darken(equivalentgray(level1color), 0.95)
+    bridgecolor  = darken(roadcolor, 0.85)
+
+    urbancolor   = ( 0.00, 0.00, 0.00 )
+    urbanalpha   = 0.2
+
+    forestcolor  = ( 0.50, 0.65, 0.50 )
+    forestalpha  = 0.7
+
+  smallbridgecolor  = roadcolor
+  runwaycolor       = roadcolor
+  taxiwaycolor      = roadcolor
+  damcolor          = roadcolor
+
+def startdrawmap(show=False):
 
   """
   Draw the map.
@@ -219,12 +316,13 @@ def startdrawmap():
           apdraw.drawlines(x, y, color=level3color, linewidth=ridgewidth, zorder=0)
 
       if _allforest:
+
         for h in level1hexcodes + level2hexcodes:
           if aphexcode.tosheet(h) in sheets():
             apdraw.drawhex(*aphexcode.toxy(h), linewidth=0, linecolor=forestcolor, 
               hatch=foresthatch, alpha=forestalpha, zorder=0)
 
-      if not _allforest:
+      else:
 
         # Draw the forest areas.
         for h in foresthexcodes:
@@ -232,21 +330,23 @@ def startdrawmap():
             apdraw.drawhex(*aphexcode.toxy(h), linewidth=0, linecolor=forestcolor, 
               hatch=foresthatch, alpha=forestalpha, zorder=0)
 
-        # Draw the road clearings.
-        for clearingpath in clearingpaths:
-          sheet = clearingpath[0]
-          if sheet in sheets():
-            p = clearingpath[1]
-            xy = [toxy(sheet, *p) for p in p]
-            x = [xy[0] for xy in xy]
-            y = [xy[1] for xy in xy]
-            apdraw.drawlines(x, y, color=level0color, linewidth=clearingwidth, zorder=0)
+        if not _wilderness:
 
-        # Draw the urban areas.
-        for h in urbanhexcodes:
-          if aphexcode.tosheet(h) in sheets():
-            apdraw.drawhex(*aphexcode.toxy(h), linewidth=0, linecolor=urbancolor, hatch=urbanhatch, zorder=0)
+          # Draw the road clearings.
+          for clearingpath in clearingpaths:
+            sheet = clearingpath[0]
+            if sheet in sheets():
+              p = clearingpath[1]
+              xy = [toxy(sheet, *p) for p in p]
+              x = [xy[0] for xy in xy]
+              y = [xy[1] for xy in xy]
+              apdraw.drawlines(x, y, color=level0color, linewidth=clearingwidth, zorder=0)
 
+          # Draw the urban areas.
+          for h in urbanhexcodes:
+            if aphexcode.tosheet(h) in sheets():
+              apdraw.drawhex(*aphexcode.toxy(h), linewidth=0, linecolor=urbancolor, alpha=urbanalpha, hatch=urbanhatch, zorder=0)
+          
       # Draw water.
       for h in waterhexcodes:
         if aphexcode.tosheet(h) in sheets():
@@ -270,39 +370,51 @@ def startdrawmap():
           y = [xy[1] for xy in xy]
           apdraw.drawlines(x, y, color=watercolor, linewidth=wideriverwidth, capstyle="butt", zorder=0)
 
-      # Draw the bridges.
-      for bridgepath in smallbridgepaths:
-        sheet = bridgepath[0]
-        if sheet in sheets():
-          p = bridgepath[1]
-          xy = [toxy(sheet, *p) for p in p]
-          x = [xy[0] for xy in xy]
-          y = [xy[1] for xy in xy]
-          apdraw.drawlines(x, y, color=smallbridgecolor, linewidth=bridgeouterwidth, capstyle="butt", zorder=0)  
-          apdraw.drawlines(x, y, color=level0color, linewidth=bridgeinnerwidth, capstyle="butt", zorder=0)  
-          apdraw.drawlines(x, y, color=roadcolor, linewidth=roadwidth, capstyle="projecting", zorder=0)
-      for bridgepath in largebridgepaths:
-        sheet = bridgepath[0]
-        if sheet in sheets():
-          p = bridgepath[1]
-          xy = [toxy(sheet, *p) for p in p]
-          x = [xy[0] for xy in xy]
-          y = [xy[1] for xy in xy]
-          apdraw.drawlines(x, y, color=bridgecolor, linewidth=bridgeouterwidth, capstyle="butt", zorder=0)  
-          apdraw.drawlines(x, y, color=level0color, linewidth=bridgeinnerwidth, capstyle="butt", zorder=0)  
-          apdraw.drawlines(x, y, color=roadcolor, linewidth=roadwidth, capstyle="projecting", zorder=0)
-
-      # Draw the roads.
-      for roadpath in roadpaths:
-        sheet = roadpath[0]
-        if sheet in sheets():
-          p = roadpath[1]
-          xy = [toxy(sheet, *p) for p in p]
-          x = [xy[0] for xy in xy]
-          y = [xy[1] for xy in xy]
-          apdraw.drawlines(x, y, color=roadcolor, linewidth=roadwidth, capstyle="butt", zorder=0)
+      # Draw the megahexes.
+      for sheet in sheets():
+        xmin, ymin, xmax, ymax = sheetlimits(sheet)
+        for ix in range(0, _dxsheet):
+          for iy in range(0, _dysheet):
+            x = xmin + ix
+            y = ymin + iy
+            if ix % 2 == 1:
+              y -= 0.5
+            if (x % 10 == 0 and y % 5 == 0) or (x % 10 == 5 and y % 5 == 2.5):
+              apdraw.drawhex(x, y, size=5, linecolor=megahexcolor, linewidth=megahexwidth, alpha=megahexalpha, zorder=0.0)
           
-      if not _allforest:
+      if not _wilderness:
+
+        # Draw the bridges.
+        for bridgepath in smallbridgepaths:
+          sheet = bridgepath[0]
+          if sheet in sheets():
+            p = bridgepath[1]
+            xy = [toxy(sheet, *p) for p in p]
+            x = [xy[0] for xy in xy]
+            y = [xy[1] for xy in xy]
+            apdraw.drawlines(x, y, color=smallbridgecolor, linewidth=bridgeouterwidth, capstyle="butt", zorder=0)  
+            apdraw.drawlines(x, y, color=level0color, linewidth=bridgeinnerwidth, capstyle="butt", zorder=0)  
+            apdraw.drawlines(x, y, color=roadcolor, linewidth=roadwidth, capstyle="projecting", zorder=0)
+        for bridgepath in largebridgepaths:
+          sheet = bridgepath[0]
+          if sheet in sheets():
+            p = bridgepath[1]
+            xy = [toxy(sheet, *p) for p in p]
+            x = [xy[0] for xy in xy]
+            y = [xy[1] for xy in xy]
+            apdraw.drawlines(x, y, color=bridgecolor, linewidth=bridgeouterwidth, capstyle="butt", zorder=0)  
+            apdraw.drawlines(x, y, color=level0color, linewidth=bridgeinnerwidth, capstyle="butt", zorder=0)  
+            apdraw.drawlines(x, y, color=roadcolor, linewidth=roadwidth, capstyle="projecting", zorder=0)
+
+        # Draw the roads.
+        for roadpath in roadpaths:
+          sheet = roadpath[0]
+          if sheet in sheets():
+            p = roadpath[1]
+            xy = [toxy(sheet, *p) for p in p]
+            x = [xy[0] for xy in xy]
+            y = [xy[1] for xy in xy]
+            apdraw.drawlines(x, y, color=roadcolor, linewidth=roadwidth, capstyle="butt", zorder=0)
 
         # Draw the runways and taxiways.
         for runwaypath in runwaypaths:
@@ -321,7 +433,7 @@ def startdrawmap():
             x = [xy[0] for xy in xy]
             y = [xy[1] for xy in xy]
             apdraw.drawlines(x, y, color=taxiwaycolor, linewidth=taxiwaywidth, joinstyle="miter", capstyle="butt", zorder=0)
-          
+            
         # Draw the dams.
         for dampath in dampaths:
           sheet = dampath[0]
@@ -357,18 +469,6 @@ def startdrawmap():
           apdraw.drawhex(x, y, linecolor=hexcolor, alpha=hexalpha, linewidth=hexwidth, zorder=0.5)
           if _drawlabels:
             apdraw.drawhexlabel(x, y, aphexcode.fromxy(x, y), color=hexcolor, alpha=hexalpha, zorder=0.5)
-
-  # Draw the megahexes.
-  for sheet in sheets():
-    xmin, ymin, xmax, ymax = sheetlimits(sheet)
-    for ix in range(0, _dxsheet):
-      for iy in range(0, _dysheet):
-        x = xmin + ix
-        y = ymin + iy
-        if ix % 2 == 1:
-          y -= 0.5
-        if (x % 10 == 0 and y % 5 == 0) or (x % 10 == 5 and y % 5 == 2.5):
-          apdraw.drawhex(x, y, size=5, linecolor=megahexcolor, linewidth=megahexwidth, alpha=megahexalpha, zorder=0.0)
             
   if _drawlabels:
 
