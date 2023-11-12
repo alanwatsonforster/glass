@@ -108,7 +108,7 @@ def _drawlinesinphysical(x, y,
     zorder=zorder)
   
 def _drawarrowinphysical(x, y, facing, size=1.0, dx=0, dy=0, 
-  color="black", linewidth=0.5, alpha=1.0,
+  linecolor="black", fillcolor="black", linewidth=0.5, alpha=1.0,
   zorder=1):
   # size is length
   x = x + dx * sind(facing) + dy * cosd(facing)
@@ -119,8 +119,8 @@ def _drawarrowinphysical(x, y, facing, size=1.0, dx=0, dy=0,
   y -= 0.5 * dy
   _ax.add_artist(patches.FancyArrow(
     x, y, dx, dy,
-    width=0.01, head_width=0.1, color=_mapcolor(color), length_includes_head=True, 
-    linewidth=linewidth, alpha=alpha, 
+    width=0.01, head_width=0.1, length_includes_head=True, 
+    edgecolor=_mapcolor(linecolor), facecolor=_mapcolor(linecolor), linewidth=linewidth, alpha=alpha, 
     zorder=zorder
   ))
 
@@ -141,7 +141,7 @@ def _drawdartinphysical(x, y, facing, size=1.0, dx=0, dy=0,
   _ax.add_artist(patches.FancyArrow(
     x, y, dx, dy,
     width=0.02, head_length=size, head_width=0.5*size, length_includes_head=True, 
-    facecolor=_mapcolor(fillcolor), edgecolor=_mapcolor(linecolor), linewidth=linewidth, alpha=alpha, 
+    edgecolor=_mapcolor(linecolor), facecolor=_mapcolor(fillcolor), linewidth=linewidth, alpha=alpha, 
     zorder=zorder
   ))
 
@@ -171,9 +171,9 @@ def _drawrectangleinphysical(xmin, ymin, xmax, ymax, **kwargs):
   _drawpolygoninphysical([[xmin,ymin],[xmin,ymax],[xmax,ymax],[xmax,ymin]], **kwargs)
 
 def _drawcompassinphysical(x, y, facing, color="black", alpha=1.0, zorder=1):
-  _drawdotinphysical(x, y, facing=facing, size=0.07, dy=-0.3, fillcolor=color, linewidth=None, alpha=alpha, zorder=zorder)
-  _drawarrowinphysical(x, y, facing, size=0.6, dy=0, color=color, alpha=alpha, zorder=zorder)
-  _drawtextinphysical(x, y, facing, "N", dx=-0.1, dy=-0.05, color=color, alpha=alpha, zorder=zorder)
+  _drawdotinphysical(x, y, facing=facing, size=0.07, dy=-0.3, linecolor=None, fillcolor=color, alpha=alpha, zorder=zorder)
+  _drawarrowinphysical(x, y, facing, size=0.6, dy=0, linecolor=color, fillcolor=color, linewidth=1, alpha=alpha, zorder=zorder)
+  _drawtextinphysical(x, y, facing, "N", size=14, dx=-0.15, dy=-0.05, color=color, alpha=alpha, zorder=zorder)
   
 ################################################################################
     
