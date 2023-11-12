@@ -33,8 +33,8 @@ def _drawflightpath(self):
   x = self._flightpathx
   y = self._flightpathy
   if x != [] and y != []:
-    apdraw.drawlines(x, y, color=flightpathcolor, linewidth=flightpathlinewidth, linestyle=flightpathlinestyle, zorder=0.5)
-    apdraw.drawdot(x[0], y[0], fillcolor=fillcolor, linecolor=flightpathcolor, linewidth=aircraftlinewidth, size=flightpathdotsize, zorder=0.6)
+    apdraw.drawlines(x, y, color=flightpathcolor, linewidth=flightpathlinewidth, linestyle=flightpathlinestyle, zorder=0.1)
+    apdraw.drawdot(x[0], y[0], fillcolor=fillcolor, linecolor=flightpathcolor, linewidth=aircraftlinewidth, size=flightpathdotsize, zorder=self._zorder)
 
 def _drawaircraft(self):
   if self._leftmap:
