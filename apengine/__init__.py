@@ -86,7 +86,7 @@ def endsetup():
     
     global _turn, _savedturn
     if _turn != 0:
-      raise RuntimeError("endturn() called out of sequence.")    
+      raise RuntimeError("endsetup() called out of sequence.")    
       
     apaircraft._endsetup()
 
