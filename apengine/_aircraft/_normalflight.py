@@ -871,7 +871,10 @@ def _continuenormalflight(self, actions, note=False):
       self._logevent("applicable turn rate is HT.")
     else:
       self._logevent("no applicable turn rate.")
-      
+
+    interval = onethird(self._speed)
+    self._logevent("SSGT interval is %.1f %s." % (interval, plural(interval, "FP", "FPs")))
+
     if result == "":
       self._logevent("result of attack not specified.")
     elif result == "M":
