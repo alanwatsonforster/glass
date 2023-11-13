@@ -53,7 +53,7 @@ waterourlinewidth = 2
 def setmap(sheetgrid, 
   drawterrain=True, drawlabels=True, 
   xmin=0, ymin=0, xmax=None, ymax=None, dpi=100, writefile=False,
-  terrain="original", 
+  style="original", 
   wilderness=None, forest=None, rivers=None, allforest=None, maxurbansize=None,
   ):
 
@@ -164,7 +164,7 @@ def setmap(sheetgrid,
   hexcolor         = [ 0.00, 0.00, 0.00 ]
   hexalpha         = 0.3
 
-  if terrain == "openwater":
+  if style == "openwater":
 
     _allwater  = True
     watercolor = [ 0.77, 0.89, 0.95 ]
@@ -176,7 +176,7 @@ def setmap(sheetgrid,
     hexalpha = 1.0
     labelcolor = hexcolor
     
-  elif terrain == "seaice":
+  elif style == "seaice":
 
     _allwater  = True
     # This is the same color as level 0 of winter tundra below.
@@ -195,8 +195,8 @@ def setmap(sheetgrid,
     forestalpha = 0.3
     forestcolor  = [ 0.50, 0.65, 0.50 ]
     
-    if terrain == "wintertundra" or \
-       terrain == "winterborealforest":
+    if style == "wintertundra" or \
+       style == "winterborealforest":
 
       basecolor    = [ 0.85, 0.85, 0.85 ]
       dilution     = [ 1/20, 1/2, 2/2, 3/2 ]
@@ -213,8 +213,8 @@ def setmap(sheetgrid,
         megahexcolor = forestcolor
         megahexalpha = 0.07
 
-    elif terrain == "arid" or \
-         terrain == "desert":
+    elif style == "arid" or \
+         style == "desert":
 
       basecolor    = [ 0.78, 0.76, 0.67 ]
       dilution     = [ 1/3, 2/3, 3/3, 4/3 ]
@@ -224,15 +224,15 @@ def setmap(sheetgrid,
 
       riverwidth = 9
 
-      if terrain == "desert":
+      if style == "desert":
         _wilderness   = True
         _forest       = False
         _rivers       = False
         _maxurbansize = 0
 
-    elif terrain == "temperate" or \
-         terrain == "summertundra" or \
-         terrain == "original":
+    elif style == "temperate" or \
+         style == "summertundra" or \
+         style == "original":
 
       basecolor    = [ 0.50, 0.70, 0.45 ]
       dilution     = [ 2/6, 3/6, 4/6, 5/6 ]
@@ -240,14 +240,14 @@ def setmap(sheetgrid,
       megahexcolor = [ 1.00, 1.00, 1.00 ]
       megahexalpha = 0.12
 
-      if terrain == "summertundra":
+      if style == "summertundra":
         _forest       = False
         _wilderness   = True
         _maxurbansize = 0
 
-    elif terrain == "tropical" or \
-         terrain == "tropicalforest" or \
-         terrain == "summerborealforest":
+    elif style == "tropical" or \
+         style == "tropicalforest" or \
+         style == "summerborealforest":
 
       basecolor    = [ 0.50, 0.70, 0.45 ]
       dilution     = [ 3/6, 4/6, 5/6, 6/6 ]
@@ -257,25 +257,25 @@ def setmap(sheetgrid,
       megahexcolor = [ 1.00, 1.00, 1.00 ]
       megahexalpha = 0.08
 
-      if terrain == "tropicalforest":
+      if style == "tropicalforest":
         _allforest    = True
         _wilderness   = False
         _maxurbansize = 4                
-      elif terrain == "summerborealforest":
+      elif style == "summerborealforest":
         _allforest    = True
         _wilderness   = True
         _maxurbansize = 0
 
     else:
 
-      raise RuntimeError("invalid terrain %r." % terrain)
+      raise RuntimeError("invalid map style %r." % style)
 
     level0color = lighten(basecolor, dilution[0])
     level1color = lighten(basecolor, dilution[1])
     level2color = lighten(basecolor, dilution[2])
     level3color = lighten(basecolor, dilution[3])
 
-    if terrain == "original":
+    if style == "original":
       level1color       = [ 0.87, 0.85, 0.78 ]
       level2color       = [ 0.82, 0.75, 0.65 ]
       level3color       = [ 0.77, 0.65, 0.55 ] 
