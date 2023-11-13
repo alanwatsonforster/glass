@@ -195,6 +195,9 @@ class aircraft:
       self._fpcarry               = 0
       self._apcarry               = 0
       self._gloccheck             = 0
+      self._ETrecoveryfp          = -1
+      self._BTrecoveryfp          = -1
+      self._HTrecoveryfp          = -1
       self._closeformation        = []
       self._aircraftdata          = apaircraftdata.aircraftdata(aircrafttype)
       if gunammunition is None:
@@ -619,6 +622,9 @@ class aircraft:
     self._fpcarry, \
     self._apcarry, \
     self._gloccheck, \
+    self._ETrecoveryfp, \
+    self._BTrecoveryfp, \
+    self._HTrecoveryfp, \
     self._closeformation, \
     self._destroyed, \
     self._leftmap, \
@@ -662,6 +668,9 @@ class aircraft:
       self._fpcarry, \
       self._apcarry, \
       self._gloccheck, \
+      self._ETrecoveryfp, \
+      self._BTrecoveryfp, \
+      self._HTrecoveryfp, \
       self._closeformation, \
       self._destroyed, \
       self._leftmap, \

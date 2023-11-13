@@ -806,6 +806,10 @@ def _continuenormalflight(self, actions, note=False):
     if self._wasrollingonlastfp:
       raise RuntimeError("attempt to use weapons on the FP immediately after rolling.")
 
+    # See rule 10.1.
+    if self._ETrecoveryfp > 0:
+      raise RuntimeError("attempt to use weapons in or while recovering from an ET.")
+
     weapon     = m[1]
     targetname = m[2]
     result     = m[3]
@@ -861,10 +865,12 @@ def _continuenormalflight(self, actions, note=False):
       self._logevent("range is %d." % r)      
       self._logevent("angle-off-tail is %s." % self.angleofftail(target))
 
-    if self._maxturnrate != None:
-      self._logevent("maximum turn rate so far is %s." % self._maxturnrate)
+    if self._BTrecoveryfp > 0:
+      self._logevent("applicable turn rate is BT.")
+    elif self._HTrecoveryfp > 0:
+      self._logevent("applicable turn rate is HT.")
     else:
-      self._logevent("no turns used so far.")
+      self._logevent("no applicable turn rate.")
       
     if result == "":
       self._logevent("result of attack not specified.")
@@ -1175,8 +1181,38 @@ def _continuenormalflight(self, actions, note=False):
       turning = _isturn(self._maneuvertype)
       rolling = _isroll(self._maneuvertype)
       sliding = _isslide(self._maneuvertype)
-      maneuver = doelements(action, "maneuver" , False)
+      
+      # See rule 9.1. We do this calculation here because any turn rate used in 
+      # this turn is still reflected in self._maneuvertype; the turn may be stopped after the
+      # facing change. The +1 is because the recovery period is this turn plus half of the
+      # speed, rounding down.
 
+      if self._maneuvertype == "ET":
+        self._ETrecoveryfp = int(self._speed / 2) + 1
+        self._BTrecoveryfp = -1
+        self._HTrecoveryfp = -1
+      elif self._maneuvertype == "BT":
+        self._ETrecoveryfp -= 1
+        self._BTrecoveryfp = int(self._speed / 2) + 1
+        self._HTrecoveryfp = -1
+      elif self._maneuvertype == "HT":
+        self._ETrecoveryfp -= 1
+        self._BTrecoveryfp -= 1
+        self._HTrecoveryfp = int(self._speed / 2) + 1
+      else:
+        self._ETrecoveryfp -= 1
+        self._BTrecoveryfp -= 1
+        self._HTrecoveryfp -= 1
+  
+      if self._ETrecoveryfp == 0:
+        self._logevent("recovered from ET.")
+      if self._BTrecoveryfp == 0:
+        self._logevent("recovered from BT.")
+      if self._HTrecoveryfp == 0:
+        self._logevent("recovered from HT.")
+
+      maneuver = doelements(action, "maneuver" , False)
+      
       bank = doelements(action, "bank" , False)
       if bank and maneuver and not rolling:
         raise RuntimeError("attempt to bank immediately after a maneuver that is not a roll.")
@@ -1191,7 +1227,7 @@ def _continuenormalflight(self, actions, note=False):
     finally:
       self._logpositionandmaneuver("")
       self._continueflightpath()
-  
+        
     if turning and self._maneuversupersonic:
       self._turningsupersonic = True
     
