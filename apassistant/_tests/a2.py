@@ -1,9 +1,9 @@
-from apengine._tests.infrastructure import *
+from apassistant._tests.infrastructure import *
 startfile(__file__, "math")
 
-# Checks on apengine.math.
+# Checks on apassistant.math.
 
-from apengine._math import onethird, twothirds
+from apassistant._math import onethird, twothirds
 
 # This table is from the play aids.
 

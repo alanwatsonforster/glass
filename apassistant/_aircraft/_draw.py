@@ -2,7 +2,7 @@
 Drawing for the aircraft class.
 """
 
-import apengine._draw as apdraw
+import apassistant._draw as apdraw
 
 flightpathcolor            = ( 0.00, 0.00, 0.00 )
 flightpathlinewidth        = 2.0

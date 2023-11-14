@@ -1,10 +1,10 @@
-import apengine._aircraft  as apaircraft
-import apengine._azimuth   as apazimuth
-import apengine._log       as aplog
-import apengine._map       as apmap
-import apengine._marker    as apmarker
-import apengine._variants  as apvariants
-import apengine._scenarios as apscenarios
+import apassistant._aircraft  as apaircraft
+import apassistant._azimuth   as apazimuth
+import apassistant._log       as aplog
+import apassistant._map       as apmap
+import apassistant._marker    as apmarker
+import apassistant._variants  as apvariants
+import apassistant._scenarios as apscenarios
  
 ################################################################################
 
@@ -170,5 +170,5 @@ def drawmap():
 
 ################################################################################
 
-from apengine._aircraft import aircraft
-from apengine._marker   import marker
+from apassistant._aircraft import aircraft
+from apassistant._marker   import marker

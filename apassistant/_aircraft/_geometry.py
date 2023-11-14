@@ -1,7 +1,7 @@
 import math
-import apengine      as ap
-import apengine._hex as aphex
-import apengine._log as aplog
+import apassistant      as ap
+import apassistant._hex as aphex
+import apassistant._log as aplog
 
 ##############################################################################
 

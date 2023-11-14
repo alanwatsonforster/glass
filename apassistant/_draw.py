@@ -1,6 +1,6 @@
 import math
 
-import apengine._hex as aphex
+import apassistant._hex as aphex
 
 import pickle
 
@@ -30,11 +30,11 @@ def setcanvas(xmin, ymin, xmax, ymax, dpi=100):
   ))  
 
 def save():
-  pickle.dump(_fig, open("apengine.pickle", "wb"))
+  pickle.dump(_fig, open("apassistant.pickle", "wb"))
 
 def restore():
   global _fig, _ax
-  _fig = pickle.load(open("apengine.pickle", "rb"))
+  _fig = pickle.load(open("apassistant.pickle", "rb"))
   _ax = plt.gca()
 
 def show():

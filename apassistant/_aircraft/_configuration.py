@@ -1,5 +1,5 @@
-import apengine._stores       as apstores
-import apengine._aircraftdata as apaircraftdata
+import apassistant._stores       as apstores
+import apassistant._aircraftdata as apaircraftdata
 
 def _updateconfiguration(self):
 

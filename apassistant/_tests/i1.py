@@ -1,11 +1,11 @@
-from apengine._tests.infrastructure import *
+from apassistant._tests.infrastructure import *
 startfile(__file__, "close formation flying limits")
 
 # Close Formation flying limits
 
 # Climbing and Diving
 
-from apengine._tests.infrastructure import *
+from apassistant._tests.infrastructure import *
 
 starttestsetup()
 A1 = aircraft("A1", "F-104A", "1530", "N", 10, 5.0, "CL")
@@ -173,7 +173,7 @@ endturn()
 assert A1.closeformationnames() == []
 assert A2.closeformationnames() == []
 
-from apengine._tests.infrastructure import *
+from apassistant._tests.infrastructure import *
 
 # Turns with 4 aircraft formations
 

@@ -1,4 +1,4 @@
-from apengine._tests.infrastructure import *
+from apassistant._tests.infrastructure import *
 startfile(__file__, "flamed-out engines")
 
 # Power with Flamed-Out Engines.

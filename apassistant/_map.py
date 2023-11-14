@@ -2,10 +2,10 @@
 The map.
 """
 
-import apengine._azimuth as apazimuth
-import apengine._draw    as apdraw
-import apengine._hex     as aphex
-import apengine._hexcode as aphexcode
+import apassistant._azimuth as apazimuth
+import apassistant._draw    as apdraw
+import apassistant._hex     as aphex
+import apassistant._hexcode as aphexcode
 
 import math
 import numpy as np

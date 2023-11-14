@@ -4,8 +4,8 @@ Aircraft flight.
 
 ##############################################################################
 
-import apengine      as ap
-import apengine._log as aplog
+import apassistant      as ap
+import apassistant._log as aplog
 
 from ._normalflight import _isdivingflight, _isclimbingflight, _islevelflight
 from ._draw import _zorder

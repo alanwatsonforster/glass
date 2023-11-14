@@ -1,5 +1,5 @@
-import apengine._map  as apmap
-import apengine._hex as aphex
+import apassistant._map  as apmap
+import apassistant._hex as aphex
 
 def isvalidaltitude(x):
 

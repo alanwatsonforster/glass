@@ -1,4 +1,4 @@
-import apengine._variants as apvariants
+import apassistant._variants as apvariants
 
 _northfacing = 90
 

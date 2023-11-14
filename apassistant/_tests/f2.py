@@ -1,7 +1,7 @@
-from apengine._tests.infrastructure import *
+from apassistant._tests.infrastructure import *
 startfile(__file__, "special flight")
 
-from apengine._tests.infrastructure import *
+from apassistant._tests.infrastructure import *
 
 starttestsetup()
 A1 = aircraft("A1", "O-1E"  , "2030", "N", 5, 0, "CL", color="green")

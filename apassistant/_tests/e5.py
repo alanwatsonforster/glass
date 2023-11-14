@@ -1,7 +1,7 @@
-from apengine._tests.infrastructure import *
+from apassistant._tests.infrastructure import *
 startfile(__file__, "collision with terrain")
 
-from apengine._tests.infrastructure import *
+from apassistant._tests.infrastructure import *
 
 starttestsetup(sheets=[["C2"]],verbose=False)
 A1 = aircraft("A1", "F-80C", "6625", "WSW", 1, 4.0, "CL")

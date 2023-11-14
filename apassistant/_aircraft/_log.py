@@ -2,8 +2,8 @@
 Logging for the aircraft class.
 """
 
-import apengine      as ap
-import apengine._log as aplog
+import apassistant      as ap
+import apassistant._log as aplog
 
 def _logbreak(self):
   aplog.logbreak()

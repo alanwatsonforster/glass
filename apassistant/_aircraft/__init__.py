@@ -1,16 +1,16 @@
-import apengine                as ap
-import apengine._aircraftdata  as apaircraftdata
-import apengine._altitude      as apaltitude
-import apengine._azimuth       as apazimuth
-import apengine._configuration as apconfiguration
-import apengine._draw          as apdraw
-import apengine._hex           as aphex
-import apengine._hexcode       as aphexcode
-import apengine._log           as aplog
-import apengine._map           as apmap
-import apengine._speed         as apspeed
-import apengine._stores        as apstores
-import apengine._turnrate      as apturnrate
+import apassistant                as ap
+import apassistant._aircraftdata  as apaircraftdata
+import apassistant._altitude      as apaltitude
+import apassistant._azimuth       as apazimuth
+import apassistant._configuration as apconfiguration
+import apassistant._draw          as apdraw
+import apassistant._hex           as aphex
+import apassistant._hexcode       as aphexcode
+import apassistant._log           as aplog
+import apassistant._map           as apmap
+import apassistant._speed         as apspeed
+import apassistant._stores        as apstores
+import apassistant._turnrate      as apturnrate
 
 import math
 import re

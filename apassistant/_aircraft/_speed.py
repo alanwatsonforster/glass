@@ -1,9 +1,9 @@
 import math
 
-import apengine._speed    as apspeed
-import apengine._variants as apvariants
-from apengine._math import onethird, twothirds
-from apengine._log import plural
+import apassistant._speed    as apspeed
+import apassistant._variants as apvariants
+from apassistant._math import onethird, twothirds
+from apassistant._log import plural
 
 from ._normalflight import _isclimbingflight, _isdivingflight
 

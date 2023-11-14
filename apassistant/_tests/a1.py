@@ -1,4 +1,4 @@
-from apengine._tests.infrastructure import *
+from apassistant._tests.infrastructure import *
 startfile(__file__, "aircraft creation")
 
 # Checks on aircraft creation.

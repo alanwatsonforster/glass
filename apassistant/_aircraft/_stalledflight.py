@@ -5,8 +5,8 @@ Stalled flight for the aircraft class.
 import math
 import re
 
-import apengine._altitude as apaltitude
-import apengine._stores   as apstores
+import apassistant._altitude as apaltitude
+import apassistant._stores   as apstores
 
 def _checkstalledflight(self):
 

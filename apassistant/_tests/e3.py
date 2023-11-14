@@ -1,4 +1,4 @@
-from apengine._tests.infrastructure import *
+from apassistant._tests.infrastructure import *
 startfile(__file__, "loss of thrust with altitude")
 
 

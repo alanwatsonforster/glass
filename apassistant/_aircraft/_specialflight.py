@@ -3,13 +3,13 @@ Normal flight for the aircraft class.
 """
 
 import math
-from apengine._math import onethird, twothirds, roundtoquarter
+from apassistant._math import onethird, twothirds, roundtoquarter
 
-import apengine._altitude as apaltitude
-import apengine._hex      as aphex
-import apengine._speed    as apspeed
-import apengine._turnrate as apturnrate
-import apengine._variants as apvariants
+import apassistant._altitude as apaltitude
+import apassistant._hex      as aphex
+import apassistant._speed    as apspeed
+import apassistant._turnrate as apturnrate
+import apassistant._variants as apvariants
 
 ################################################################################
 

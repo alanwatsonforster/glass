@@ -1,7 +1,7 @@
-from apengine._tests.infrastructure import *
+from apassistant._tests.infrastructure import *
 startfile(__file__, "ABSF aircraft")
 
-from apengine._tests.infrastructure import *
+from apassistant._tests.infrastructure import *
 
 # The F-89D has a different max speed with AB and M power.
 

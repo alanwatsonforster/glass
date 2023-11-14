@@ -1,7 +1,7 @@
-import apengine as ap
-import apengine._log as aplog
+import apassistant as ap
+import apassistant._log as aplog
 
-from apengine import aircraft
+from apassistant import aircraft
 
 import os.path
 

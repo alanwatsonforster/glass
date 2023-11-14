@@ -1,4 +1,4 @@
-from apengine._tests.infrastructure import *
+from apassistant._tests.infrastructure import *
 startfile(__file__, "initial HFPs")
 
 # Required HFPs. Here we check enforcement of rule 5.4 on the number of initial 

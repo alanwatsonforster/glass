@@ -1,7 +1,7 @@
-from apengine._tests.infrastructure import *
+from apassistant._tests.infrastructure import *
 startfile(__file__, "azimuths")
 
-# Checks on apengine.azimuth.
+# Checks on apassistant.azimuth.
 
 # Conversion of numeric azimuths to symbolic directions.
 

@@ -4,17 +4,17 @@ Normal flight for the aircraft class.
 
 import math
 import re
-from apengine._math import onethird, twothirds, roundtoquarter
+from apassistant._math import onethird, twothirds, roundtoquarter
 
-import apengine._altitude as apaltitude
-import apengine._aircraft as apaircraft
-import apengine._hex      as aphex
-import apengine._speed    as apspeed
-import apengine._stores   as apstores
-import apengine._turnrate as apturnrate
-import apengine._variants as apvariants
+import apassistant._altitude as apaltitude
+import apassistant._aircraft as apaircraft
+import apassistant._hex      as aphex
+import apassistant._speed    as apspeed
+import apassistant._stores   as apstores
+import apassistant._turnrate as apturnrate
+import apassistant._variants as apvariants
 
-from apengine._log import plural
+from apassistant._log import plural
 
 def _checknormalflight(self):
 
