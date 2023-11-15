@@ -208,7 +208,7 @@ def setmap(sheetgrid,
       _wilderness   = True
       _maxurbansize = 0
       _frozen       = True
-      if terrain == "winterborealforest":
+      if style == "winterborealforest":
         _allforest = True
         megahexcolor = forestcolor
         megahexalpha = 0.07
