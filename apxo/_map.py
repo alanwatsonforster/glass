@@ -295,12 +295,12 @@ def setmap(sheetgrid,
         watercolor = darken(watercolor, targetgrayvalue / watergrayvalue)
       wateroutlinecolor = darken(watercolor, 0.80)
 
-      urbancolor        = equivalentgray(level0color)
-      urbanoutlinecolor = darken(urbancolor, 0.7)
-      roadcolor         = urbancolor
-      roadoutlinecolor  = urbanoutlinecolor
+    urbancolor        = equivalentgray(level0color)
+    urbanoutlinecolor = darken(urbancolor, 0.7)
+    roadcolor         = urbancolor
+    roadoutlinecolor  = urbanoutlinecolor
   
-      labelcolor = urbanoutlinecolor
+    labelcolor = urbanoutlinecolor
 
   if allforest != None:
     _allforest = allforest
