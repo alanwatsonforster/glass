@@ -8,6 +8,7 @@ A3 = aircraft("A3", "F-80C"  , "2025", "N", 5, 4.0, "CL", gunammunition=3.5)
 A4 = aircraft("A4", "Tu-4"   , "2023", "E", 5, 4.0, "CL", gunammunition=11.0)
 A5 = aircraft("A5", "F-89D"  , "2023", "E", 5, 4.0, "CL")
 A6 = aircraft("A6", "F-102A" , "2023", "E", 5, 4.0, "CL", rocketfactors=0)
+A7 = aircraft("A7", "F-100C" , "2025", "N", 5, 6.0, "CL")
 endtestsetup()
 
 startturn()
@@ -33,3 +34,20 @@ assert A5._rocketfactors == 6
 
 assert A6._rocketfactors == 0
 
+# Check recovery after ET.
+
+startturn()
+A7.move("LVL", "M", "ETR/H/AA(GN)()()")
+asserterror("attempt to use weapons in or while recovering from an ET.")
+startturn()
+A7.move("LVL", "M", "ETR/HR,H/AA(GN)()()")
+asserterror("attempt to use weapons in or while recovering from an ET.")
+startturn()
+A7.move("LVL", "M", "ETR/HR,H,H/AA(GN)()()")
+asserterror("attempt to use weapons in or while recovering from an ET.")
+startturn()
+A7.move("LVL", "M", "ETR/HR,H,H,H/AA(GN)()()")
+asserterror("attempt to use weapons in or while recovering from an ET.")
+startturn()
+A7.move("LVL", "M", "ETR/HR,H,H,H,H/AA(GN)()()")
+A7._assert("2221       NNE   5", 6.0)
