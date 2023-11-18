@@ -51,3 +51,21 @@ asserterror("attempt to use weapons in or while recovering from an ET.")
 startturn()
 A7.move("LVL", "M", "ETR/HR,H,H,H,H/AA(GN)()()")
 A7._assert("2221       NNE   5", 6.0)
+
+# Check error if attack results are not specified at end of turn.
+starttestsetup()
+A1 = aircraft("A1", "F-80C"  , "2025", "N", 5, 4.0, "CL")
+A2 = aircraft("A2", "Tu-4"   , "2024", "N", 5, 3.0, "CL")
+endtestsetup()
+
+startturn()
+A2.move("LVL", "FT", "H,H,H")
+A1.move("LVL", "M", "H,H,H,H/AA(GN)(A2)()")
+endturn()
+asserterror("aircraft A1 has 1 unspecified attack result.")
+
+startturn()
+A2.move("LVL", "FT", "H,H,H")
+A1.move("LVL", "M", "H,H,H/AA(GN)(A2)(),H/AA(GN)(A2)()")
+endturn()
+asserterror("aircraft A1 has 2 unspecified attack results.")

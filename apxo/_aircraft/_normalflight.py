@@ -877,6 +877,7 @@ def _continuenormalflight(self, actions, note=False):
 
     if result == "":
       self._logevent("result of attack not specified.")
+      self._unspecifiedattackresult += 1
     elif result == "M":
       self._logevent("missed.")
     elif result == "-":

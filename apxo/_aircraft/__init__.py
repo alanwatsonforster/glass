@@ -35,6 +35,7 @@ def _startturn():
   for a in _aircraftlist:
     a._restore(ap.turn() - 1)
     a._finishedmove = False
+    a._unspecifiedattackresult = 0
     a._startflightpath()
   for a in _aircraftlist:
     a._checkcloseformation()
@@ -43,6 +44,10 @@ def _endturn():
   for a in _aircraftlist:
     if not a._destroyed and not a._leftmap and not a._finishedmove:
       raise RuntimeError("aircraft %s has not finished its move." % a._name)
+    if a._unspecifiedattackresult > 0:
+      raise RuntimeError("aircraft %s has %d unspecified attack %s." % (
+        a._name, a._unspecifiedattackresult, aplog.plural(a._unspecifiedattackresult, "result", "results")
+      ))
   for a in _aircraftlist:
     a._speed = a._newspeed
     a._newspeed = None
@@ -400,6 +405,7 @@ class aircraft:
 
       if result == "":
         self._logevent("result of attack not specified.")
+        self._unspecifiedattackresult += 1
       elif result == "M":
         self._logevent("missed.")
       elif result == "-":
