@@ -12,7 +12,7 @@ from ._draw import _zorder
 
 ##############################################################################
 
-def move(self, flighttype, power, actions, flamedoutengines=0, note=False):
+def move(self, flighttype, power, actions="", flamedoutengines=0, note=False):
 
   """
   Start a move, declaring the flight type and power, and possible carrying 
@@ -131,7 +131,7 @@ def move(self, flighttype, power, actions, flamedoutengines=0, note=False):
 
 ################################################################################
 
-def continuemove(self, actions, note=False):
+def continuemove(self, actions="", note=False):
 
   """
   Continue a move that has been started, possible carrying out some actions.
