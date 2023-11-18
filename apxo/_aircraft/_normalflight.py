@@ -1228,7 +1228,10 @@ def _continuenormalflight(self, actions, note=False):
       raise e
   
     finally:
-      self._logpositionandmaneuver("")
+      if self._lastfp:
+        self._logpositionandmaneuver("end")
+      else:
+        self._logpositionandmaneuver("")
       self._continueflightpath()
         
     if turning and self._maneuversupersonic:
