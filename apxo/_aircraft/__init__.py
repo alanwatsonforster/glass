@@ -11,7 +11,7 @@ import apxo._map           as apmap
 import apxo._speed         as apspeed
 import apxo._stores        as apstores
 import apxo._turnrate      as apturnrate
-
+import apxo._geometry      as apgeometry
 import math
 import re
 
@@ -71,9 +71,6 @@ def _fromname(name):
 
 from ._draw import \
   _zorder
-
-from ._geometry import \
-  _showgeometry, _angleofftail, _gunattackrange, _rocketattackrange, _inlimitedradararc
 
 from ._normalflight import \
   _isclimbingflight, _isdivingflight, _islevelflight
@@ -431,7 +428,7 @@ class aircraft:
     Return the angle of the aircraft off the tail of the other aircraft.
     """
 
-    return _angleofftail(self, other)
+    return apgeometry.angleofftail(self, other)
 
   #############################################################################
 
@@ -442,7 +439,7 @@ class aircraft:
     or a string explaining why it cannot be attacked.
     """
 
-    return _gunattackrange(self, other, arc=arc)
+    return apgeometry.gunattackrange(self, other, arc=arc)
 
   #############################################################################
 
@@ -453,7 +450,7 @@ class aircraft:
     or a string explaining why it cannot be attacked.
     """
 
-    return _rocketattackrange(self, other)
+    return apgeometry.rocketattackrange(self, other)
 
   #############################################################################
 
@@ -463,7 +460,7 @@ class aircraft:
     Return True if the other aircraft is in the limited radar arc of the aircraft.
     """
 
-    return _inlimitedradararc(self, other)
+    return apgeometry.inlimitedradararc(self, other)
     
   #############################################################################
 

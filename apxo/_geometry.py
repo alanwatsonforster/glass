@@ -68,7 +68,7 @@ def _relativepositions(x0, y0, facing0, x1, y1, facing1):
 
 ##############################################################################
 
-def _angleofftail(a0, a1):
+def angleofftail(a0, a1):
 
   """
   Return the angle of a0 off the tail of a1.
@@ -137,7 +137,7 @@ def _angleofftail(a0, a1):
 
 ##############################################################################
 
-def _gunattackrange(attacker, target, arc=False):
+def gunattackrange(attacker, target, arc=False):
 
   """
   Returns the range of an air-to-air gun attack from the attacker on the target
@@ -249,7 +249,7 @@ def _gunattackrange(attacker, target, arc=False):
 
 ##############################################################################
 
-def _rocketattackrange(attacker, target):
+def rocketattackrange(attacker, target):
 
   # See rule 9.3.
 
@@ -292,7 +292,7 @@ def _rocketattackrange(attacker, target):
 
 ##############################################################################
 
-def _inlimitedradararc(a0, a1, x1=None, y1=None, facing1=None):
+def inlimitedradararc(a0, a1, x1=None, y1=None, facing1=None):
 
   """
   Return True if a1 is is the limited radar arc of a0.
@@ -330,7 +330,7 @@ def _inlimitedradararc(a0, a1, x1=None, y1=None, facing1=None):
     
 ##############################################################################
 
-def _showgeometry(a0, a1):
+def showgeometry(a0, a1):
 
   """
   Show the angle-off another aircraft's tail.
