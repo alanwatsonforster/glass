@@ -70,8 +70,8 @@ def _dospecialflight(self, action, note=False):
     """
     
     # Change facing.
-    if aphex.isedge(self._x, self._y):
-      self._x, self._y = aphex.edgetocenter(self._x, self._y, self._facing, sense)
+    if aphex.isside(self._x, self._y):
+      self._x, self._y = aphex.sidetocenter(self._x, self._y, self._facing, sense)
     if sense == "L":
       self._facing = (self._facing + facingchange) % 360
     else:

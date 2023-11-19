@@ -159,7 +159,7 @@ A2.move("VC" ,  "M", "H,H,C,C,C/VRL/L180" )
 A2._assert("2407       S    14",  4.0)
 endturn()
 
-# Check VR with shifts off an edge.
+# Check VR with shifts off a side.
 
 starttestsetup(verbose=False)
 A1 = aircraft("A1", "F-80C", "2213", "NNW", 40, 4.0, "CL")

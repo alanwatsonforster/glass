@@ -33,10 +33,10 @@ def checkisvalidhexcodeforcenter(h):
   if not isvalidhexcodeforcenter(h):
     raise RuntimeError("%r is not a valid hex code for a hex." % h)
 
-def isvalidhexcodeforedge(h):
+def isvalidhexcodeforside(h):
 
   """
-  Return True if h is grammatically a hex code that corresponds to an edge. 
+  Return True if h is grammatically a hex code that corresponds to an side. 
   Otherwise return False.
   """
 
@@ -55,15 +55,15 @@ def isvalidhexcodeforedge(h):
 
   return True
 
-def checkvalidhexcodeforedge(h):
+def checkvalidhexcodeforside(h):
 
   """
   Raise a RuntimeError exception if h is not a gramatically valid hex code that
-  corresponds to an edge.
+  corresponds to an side.
   """
 
-  if not isvalidhexcodeforedge(h):
-    raise RuntimeError("%r is not a valid hex code for an edge." % h)
+  if not isvalidhexcodeforside(h):
+    raise RuntimeError("%r is not a valid hex code for an side." % h)
 
 def isvalidhexcode(h):
 
@@ -71,7 +71,7 @@ def isvalidhexcode(h):
   Return True if h is a grammatically valid hex code. Otherwise return False.
   """
 
-  return isvalidhexcodeforcenter(h) or isvalidhexcodeforedge(h)
+  return isvalidhexcodeforcenter(h) or isvalidhexcodeforside(h)
 
 def checkisvalidhexcode(h):
 
@@ -86,8 +86,8 @@ def fromxy(x, y, sheet=None):
 
   """
   Return the hex code corresponding to the hex coordinate (x, y), which must
-  correspond to a center or an edge. If a sheet is specified, the hex code is 
-  chosen from that sheet. Otherwise the normal rules are used for edges.
+  correspond to a center or an side. If a sheet is specified, the hex code is 
+  chosen from that sheet. Otherwise the normal rules are used for sides.
   """
 
   aphex.checkisvalid(x, y)
@@ -110,7 +110,7 @@ def fromxy(x, y, sheet=None):
 
   else:
 
-    x0, y0, x1, y1 = aphex.edgetocenters(x, y)
+    x0, y0, x1, y1 = aphex.sidetocenters(x, y)
 
     if sheet == None:
       sheet0 = apmap.tosheet(x0, y0)
@@ -143,7 +143,7 @@ def toxy(h, sheet=None):
     XX, YY = _split(h)
 
     if sheet == None:
-      sheet = tosheet(h, includerightedge=True, includebottomedge=True)
+      sheet = tosheet(h, includerightside=True, includebottomside=True)
       if sheet == None:
         raise RuntimeError("hex code %r is not within the map." % h)
 
@@ -236,13 +236,13 @@ def _sheetorigin(sheet):
   return _join(XX, YY)
 
 def tosheet(h, 
-  includerightedge=False, includeleftedge=False,
-  includebottomedge=False, includetopedge=False
+  includerightside=False, includeleftside=False,
+  includebottomside=False, includetopside=False
   ):
 
   """
   Returns the sheet containing the hex code h, which must refer to a center.
-  Hexes on the edges are excluded unless explicity includeded by the keyword
+  Hexes on the sides are excluded unless explicity includeded by the keyword
   arguments.
   """
 
@@ -250,11 +250,11 @@ def tosheet(h,
 
   XX, YY = _split(h)
 
-  if includeleftedge:
+  if includeleftside:
     dXXleft = -1
   else:
     dXXleft = 0
-  if includerightedge:
+  if includerightside:
     dXXright = +1
   else:
     dXXright = 0
@@ -268,11 +268,11 @@ def tosheet(h,
   else:
     return None
 
-  if includetopedge:
+  if includetopside:
     dYYtop = -1
   else:
     dYYtop = 0
-  if includebottomedge:
+  if includebottomside:
     dYYbottom = +1
   else:
     dYYbottom = 0

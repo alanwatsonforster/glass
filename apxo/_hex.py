@@ -18,10 +18,10 @@ def iscenter(x, y):
   else:
     return False
 
-def isedge(x, y):
+def isside(x, y):
 
   """
-  Return True if the point (x,y) in hex coordinates corresponds to an edge.
+  Return True if the point (x,y) in hex coordinates corresponds to a side.
   Otherwise, return False.
   """
 
@@ -40,8 +40,8 @@ def isvalid(x, y, facing=None):
 
   """
   Return True if the point (x,y) in hex coordinates corresponds to a center or
-  edge and the facing, if given, is a multiple of 30 degrees for centers
-  and parallel to the edge foe edges. Otherwise, return False.
+  side and the facing, if given, is a multiple of 30 degrees for centers
+  and parallel to the side for sides. Otherwise, return False.
   """
 
   if iscenter(x, y):
@@ -49,7 +49,7 @@ def isvalid(x, y, facing=None):
       return True
     else:
       return facing % 30 == 0
-  elif isedge(x, y):
+  elif isside(x, y):
     if facing == None:
       return True
     elif (x % 2 == 0.5 and y % 1 == 0.25) or (x % 2 == 1.5 and y % 1 == 0.75):
@@ -65,11 +65,11 @@ def checkisvalid(x, y, facing=None):
 
   """
   Raise a RuntimeError exception if the point (x,y) in hex coordinates does not 
-  correspond to a center or edge.
+  correspond to a center or side.
   """
 
   if not isvalid(x, y):
-    raise RuntimeError("(%r,%r) is not the center or edge of a hex." % (x, y))
+    raise RuntimeError("(%r,%r) is not a valid hex center or hex side." % (x, y))
 
   if facing != None and not isvalid(x, y, facing=facing):
       raise RuntimeError("%r is not a valid facing for (%r,%r)." % (facing, x, y))
@@ -178,23 +178,23 @@ def lagroll(x, y, facing, sense):
   assert isvalid(x, y, facing=facing)
   assert sense == "R" or sense == "L"
 
-  if isedge(x, y):
-    return edgetocenter(x, y, facing, sense)
+  if isside(x, y):
+    return sidetocenter(x, y, facing, sense)
 
   lastx, lasty = forward(x, y, (facing + 180) % 360)
-  if isedge(lastx, lasty):
-    return edgetocenter(lastx, lasty, facing, sense)
+  if isside(lastx, lasty):
+    return sidetocenter(lastx, lasty, facing, sense)
 
   return slide(x, y, facing, sense)
 
-def edgetocenter(x, y, facing, sense):
+def sidetocenter(x, y, facing, sense):
 
   """
-  Return the coordinates of the center adjacent to the edge (x, y) in the 
+  Return the coordinates of the center adjacent to the side (x, y) in the 
   given sense with respect to the facing.
   """
 
-  assert isedge(x, y)
+  assert isside(x, y)
   assert isvalid(x, y, facing=facing)
   assert sense == "R" or sense == "L"
 
@@ -219,14 +219,14 @@ def edgetocenter(x, y, facing, sense):
 
   return x + dx, y + dy
 
-def edgetocenters(x, y):
+def sidetocenters(x, y):
 
   """
   Return the coordinates (x0, y0) and (x1, y1) of the centers adjacent
-  to the edge (x, y) as a tuple (x0, y0, x1, y1).
+  to the side (x, y) as a tuple (x0, y0, x1, y1).
   """
 
-  assert isedge(x, y)
+  assert isside(x, y)
 
   if x % 2 == 0.5 and y % 1 == 0.25:
     x0, y0 = x - 0.5, y - 0.25

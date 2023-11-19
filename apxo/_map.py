@@ -644,7 +644,7 @@ def altitude(x, y, sheet=None):
 
   else:
 
-    x0, y0, x1, y1 = aphex.edgetocenters(x, y)
+    x0, y0, x1, y1 = aphex.sidetocenters(x, y)
     sheet0 = tosheet(x0, y0)
     sheet1 = tosheet(x1, y1)
     assert sheet0 != None or sheet1 != None

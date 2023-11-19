@@ -65,7 +65,7 @@ def _dodepartedflight(self, action, note=False):
 
       # Do the first facing change.
 
-      if aphex.isedge(self._x, self._y):
+      if aphex.isside(self._x, self._y):
         self._x, self._y = aphex.centertoright(self._x, self._y, self._facing, sense)
       if action[0] == "L":
         self._facing = (self._facing + 30) % 360
@@ -90,8 +90,8 @@ def _dodepartedflight(self, action, note=False):
 
    # Do the (remaining) facing change.
 
-  if aphex.isedge(self._x, self._y):
-    self._x, self._y = aphex.edgetocenter(self._x, self._y, self._facing, sense)
+  if aphex.isside(self._x, self._y):
+    self._x, self._y = aphex.sidetocenter(self._x, self._y, self._facing, sense)
   if action[0] == "L":
     self._facing = (self._facing + facingchange) % 360
   else:
