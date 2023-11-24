@@ -254,16 +254,7 @@ def rocketattackrange(attacker, target):
   # See rule 9.3.
 
   def horizontalrange():
-
-    angleofftail, angleoffnose, r, dx, dy = _relativepositions(
-      attacker._x, attacker._y, attacker._facing, 
-      target._x, target._y, target._facing
-    )
-
-    if attacker._facing % 60 == 0:
-      r *= math.sqrt(4/3)
-    r = int(r + 0.45)
-    return r
+    return aphex.distance(attacker._x, attacker._y, target._x, target._y)
 
   def verticalrange():
     return int(abs(attacker._altitude - target._altitude) / 2)
@@ -329,34 +320,3 @@ def inlimitedradararc(a0, a1, x1=None, y1=None, facing1=None):
     return r
     
 ##############################################################################
-
-def showgeometry(a0, a1):
-
-  """
-  Show the angle-off another aircraft's tail.
-  """
-
-  name0 = a0._name
-  name1 = a1._name
-
-  ap._checkinsetuporturn()
-
-  angleofftail = a0.angleofftail(a1)
-  if angleofftail == "0 line" or angleofftail == "180 line":
-    a0._logevent("%s has %s on its %s." % (name1, name0, angleofftail))
-  else:
-    a0._logevent("%s has %s in its %s." % (name1, name0, angleofftail))
-
-  angleofftail = a1.angleofftail(a0)
-  if angleofftail == "0 line" or angleofftail == "180 line":
-    a0._logevent("%s is on the %s of %s." % (name1, angleofftail, name0))
-  else:
-    a0._logevent("%s is in the %s of %s." % (name1, angleofftail, name0))
-
-  inlimitedradararc = a0.inlimitedradararc(a1)
-  if inlimitedradararc:
-    a0._logevent("%s is in the limited radar arc of %s." % (name1, name0))
-  else:
-    a0._logevent("%s is not in the limited radar arc of %s." % (name1, name0))
-      
-
