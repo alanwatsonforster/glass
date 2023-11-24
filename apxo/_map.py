@@ -24,7 +24,7 @@ _xmin           = None
 _xmax           = None
 _ymin           = None
 _ymax           = None
-_dpi            = None
+_dotsperhex     = None
 _writefile      = None
 
 _dxsheet = 20
@@ -52,7 +52,7 @@ waterourlinewidth = 2
 
 def setmap(sheetgrid, 
   drawterrain=True, drawlabels=True, 
-  xmin=0, ymin=0, xmax=None, ymax=None, dpi=100, writefile=False,
+  xmin=0, ymin=0, xmax=None, ymax=None, dotsperhex=100, writefile=False,
   style="original", 
   wilderness=None, forest=None, rivers=None, allforest=None, maxurbansize=None,
   ):
@@ -75,7 +75,7 @@ def setmap(sheetgrid,
   global _ymin
   global _xmax
   global _ymax
-  global _dpi
+  global _dotsperhex
   global _writefile
 
   # The sheet grid argument follows visual layout, so we need to flip it 
@@ -94,7 +94,7 @@ def setmap(sheetgrid,
   _ymin        = ymin
   _xmax        = xmax
   _ymax        = ymax
-  _dpi         = dpi
+  _dotsperhex  = dotsperhex
   _writefile   = writefile
 
   def sheettoright(iy, ix):
@@ -355,7 +355,7 @@ def startdrawmap(show=False):
   if _xmax != None and _ymax != None:
     apdraw.setcanvas(_xmin, _ymin, _xmax, _ymax, dpi=_dpi)
   else:
-    apdraw.setcanvas(_xmin, _ymin, _nxsheetgrid * _dxsheet, _nysheetgrid * _dysheet, dpi=_dpi)
+    apdraw.setcanvas(_xmin, _ymin, _nxsheetgrid * _dxsheet, _nysheetgrid * _dysheet, dpi=_dotsperhex)
 
   if _drawterrain:
 
