@@ -49,9 +49,9 @@ A2 = aircraft("R2", "F-80C"  , "2123", "W", 5, 4.0, "CL")
 assert A1.rocketattackrange(A2) == "the target is not in the weapon range or arc."
 
 A2 = aircraft("S2", "F-80C"  , "1923/2023", "NNW", 5, 4.0, "CL")
-assert A1.rocketattackrange(A2) == 2
+assert A1.rocketattackrange(A2) == 1
 A2 = aircraft("T2", "F-80C"  , "2123/2023", "NNE", 5, 4.0, "CL")
-assert A1.rocketattackrange(A2) == 2
+assert A1.rocketattackrange(A2) == 1
 
 A2 = aircraft("U2", "F-80C"  , "1922/1923", "W", 5, 4.0, "CL")
 assert A1.rocketattackrange(A2) == "the target is not in the weapon range or arc."
@@ -73,9 +73,9 @@ A2 = aircraft("AB2", "F-80C"  , "2122", "W", 5, 4.0, "CL")
 assert A1.rocketattackrange(A2) == "the target is not in the weapon range or arc."
 
 A2 = aircraft("AC2", "F-80C"  , "1922/2022", "NNW", 5, 4.0, "CL")
-assert A1.rocketattackrange(A2) == 3
+assert A1.rocketattackrange(A2) == 2
 A2 = aircraft("AD2", "F-80C"  , "2122/2022", "NNE", 5, 4.0, "CL")
-assert A1.rocketattackrange(A2) == 3
+assert A1.rocketattackrange(A2) == 2
 
 A2 = aircraft("AE2", "F-80C"  , "1921/1922", "W", 5, 4.0, "CL")
 assert A1.rocketattackrange(A2) == "the target is not in the weapon range or arc."
@@ -97,9 +97,9 @@ A2 = aircraft("AL2", "F-80C"  , "2121", "W", 5, 4.0, "CL")
 assert A1.rocketattackrange(A2) == "the target is not in the weapon range or arc."
 
 A2 = aircraft("AM2", "F-80C"  , "1921/2021", "NNW", 5, 4.0, "CL")
-assert A1.rocketattackrange(A2) == 4
+assert A1.rocketattackrange(A2) == 3
 A2 = aircraft("AN2", "F-80C"  , "2121/2021", "NNE", 5, 4.0, "CL")
-assert A1.rocketattackrange(A2) == 4
+assert A1.rocketattackrange(A2) == 3
 
 A2 = aircraft("AO2", "F-80C"  , "1920/1921", "W", 5, 4.0, "CL")
 assert A1.rocketattackrange(A2) == "the target is not in the weapon range or arc."
@@ -121,9 +121,9 @@ A2 = aircraft("AV2", "F-80C"  , "2120", "W", 5, 4.0, "CL")
 assert A1.rocketattackrange(A2) == "the target is not in the weapon range or arc."
 
 A2 = aircraft("AW2", "F-80C"  , "1920/2020", "NNW", 5, 4.0, "CL")
-assert A1.rocketattackrange(A2) == "the target is not in the weapon range or arc."
+assert A1.rocketattackrange(A2) == 4
 A2 = aircraft("AX2", "F-80C"  , "2120/2020", "NNE", 5, 4.0, "CL")
-assert A1.rocketattackrange(A2) == "the target is not in the weapon range or arc."
+assert A1.rocketattackrange(A2) == 4
 
 A2 = aircraft("AY2", "F-80C"  , "1919/1920", "W", 5, 4.0, "CL")
 assert A1.rocketattackrange(A2) == "the target is not in the weapon range or arc."
@@ -175,7 +175,7 @@ assert A1.rocketattackrange(A2) == "the target is not in the weapon range or arc
 A2 = aircraft("K2", "F-80C"  , "2024", "NNE", 5, 4.0, "CL")
 assert A1.rocketattackrange(A2) == "the target is not in the weapon range or arc."
 A2 = aircraft("L2", "F-80C"  , "2024/2124", "NNE", 5, 4.0, "CL")
-assert A1.rocketattackrange(A2) == 1
+assert A1.rocketattackrange(A2) == "the target is not in the weapon range or arc."
 A2 = aircraft("M2", "F-80C"  , "2124", "NNE", 5, 4.0, "CL")
 assert A1.rocketattackrange(A2) == "the target is not in the weapon range or arc."
 A2 = aircraft("N2", "F-80C"  , "2124/2225", "NNE", 5, 4.0, "CL")
@@ -193,11 +193,11 @@ assert A1.rocketattackrange(A2) == "the target is not in the weapon range or arc
 A2 = aircraft("S2", "F-80C"  , "2023", "NNE", 5, 4.0, "CL")
 assert A1.rocketattackrange(A2) == "the target is not in the weapon range or arc."
 A2 = aircraft("T2", "F-80C"  , "2023/2123", "NNE", 5, 4.0, "CL")
-assert A1.rocketattackrange(A2) == 2
+assert A1.rocketattackrange(A2) == 1
 A2 = aircraft("U2", "F-80C"  , "2123", "NNE", 5, 4.0, "CL")
 assert A1.rocketattackrange(A2) == 2
 A2 = aircraft("V2", "F-80C"  , "2123/2224", "NNE", 5, 4.0, "CL")
-assert A1.rocketattackrange(A2) == 2
+assert A1.rocketattackrange(A2) == 1
 A2 = aircraft("W2", "F-80C"  , "2224", "NNE", 5, 4.0, "CL")
 assert A1.rocketattackrange(A2) == "the target is not in the weapon range or arc."
 
@@ -215,7 +215,7 @@ assert A1.rocketattackrange(A2) == "the target is not in the weapon range or arc
 A2 = aircraft("AC2", "F-80C"  , "2122", "NNE", 5, 4.0, "CL")
 assert A1.rocketattackrange(A2) == 3
 A2 = aircraft("AD2", "F-80C"  , "2122/2223", "NNE", 5, 4.0, "CL")
-assert A1.rocketattackrange(A2) == 3
+assert A1.rocketattackrange(A2) == 2
 A2 = aircraft("AE2", "F-80C"  , "2223", "NNE", 5, 4.0, "CL")
 assert A1.rocketattackrange(A2) == 3
 A2 = aircraft("AF2", "F-80C"  , "2223/2323", "NNE", 5, 4.0, "CL")
@@ -233,11 +233,11 @@ assert A1.rocketattackrange(A2) == "the target is not in the weapon range or arc
 A2 = aircraft("AK2", "F-80C"  , "2121", "NNE", 5, 4.0, "CL")
 assert A1.rocketattackrange(A2) == "the target is not in the weapon range or arc."
 A2 = aircraft("AL2", "F-80C"  , "2121/2222", "NNE", 5, 4.0, "CL")
-assert A1.rocketattackrange(A2) == 4
+assert A1.rocketattackrange(A2) == 3
 A2 = aircraft("AM2", "F-80C"  , "2222", "NNE", 5, 4.0, "CL")
 assert A1.rocketattackrange(A2) == 4
 A2 = aircraft("AN2", "F-80C"  , "2222/2322", "NNE", 5, 4.0, "CL")
-assert A1.rocketattackrange(A2) == 4
+assert A1.rocketattackrange(A2) == 3
 A2 = aircraft("AO2", "F-80C"  , "2322", "NNE", 5, 4.0, "CL")
 assert A1.rocketattackrange(A2) == "the target is not in the weapon range or arc."
 
@@ -255,7 +255,7 @@ assert A1.rocketattackrange(A2) == "the target is not in the weapon range or arc
 A2 = aircraft("AU2", "F-80C"  , "2221", "NNE", 5, 4.0, "CL")
 assert A1.rocketattackrange(A2) == "the target is not in the weapon range or arc."
 A2 = aircraft("AV2", "F-80C"  , "2221/2321", "NNE", 5, 4.0, "CL")
-assert A1.rocketattackrange(A2) == "the target is not in the weapon range or arc."
+assert A1.rocketattackrange(A2) == 4
 A2 = aircraft("AW2", "F-80C"  , "2321", "NNE", 5, 4.0, "CL")
 assert A1.rocketattackrange(A2) == "the target is not in the weapon range or arc."
 A2 = aircraft("AX2", "F-80C"  , "2321/2422", "NNE", 5, 4.0, "CL")

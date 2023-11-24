@@ -524,8 +524,29 @@ class aircraft:
       self._logbreak()
       self._logline()
 
-      _showgeometry(self, other)
-  
+      selfname = self._name
+      othername = other._name
+
+      ap._checkinsetuporturn()
+
+      angleofftail = self.angleofftail(other)
+      if angleofftail == "0 line" or angleofftail == "180 line":
+        self._logevent("%s has %s on its %s." % (othername, selfname, angleofftail))
+      else:
+        self._logevent("%s has %s in its %s." % (othername, selfname, angleofftail))
+
+      angleofftail = other.angleofftail(self)
+      if angleofftail == "0 line" or angleofftail == "180 line":
+        self._logevent("%s is on the %s of %s." % (othername, angleofftail, selfname))
+      else:
+        self._logevent("%s is in the %s of %s." % (othername, angleofftail, selfname))
+
+      inlimitedradararc = self.inlimitedradararc(other)
+      if inlimitedradararc:
+        self._logevent("%s is in the limited radar arc of %s." % (othername, selfname))
+      else:
+        self._logevent("%s is not in the limited radar arc of %s." % (othername, selfname))  
+
       self._lognote(note)
       self._logline()
 
