@@ -353,7 +353,7 @@ def startdrawmap(show=False):
     return
 
   if _xmax != None and _ymax != None:
-    apdraw.setcanvas(_xmin, _ymin, _xmax, _ymax, dpi=_dpi)
+    apdraw.setcanvas(_xmin, _ymin, _xmax, _ymax, dpi=_dotsperhex)
   else:
     apdraw.setcanvas(_xmin, _ymin, _nxsheetgrid * _dxsheet, _nysheetgrid * _dysheet, dpi=_dotsperhex)
 
