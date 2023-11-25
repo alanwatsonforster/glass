@@ -1,10 +1,20 @@
-import apxo._aircraft  as apaircraft
-import apxo._azimuth   as apazimuth
-import apxo._log       as aplog
-import apxo._map       as apmap
-import apxo._marker    as apmarker
-import apxo._variants  as apvariants
-import apxo._scenarios as apscenarios
+import apxo.azimuth   as apazimuth
+import apxo.aircraft  as apaircraft
+import apxo.log       as aplog
+import apxo.map       as apmap
+import apxo.marker    as apmarker
+import apxo.variants  as apvariants
+import apxo.scenarios as apscenarios
+
+__all__ = [
+  "startsetup",
+  "endsetup",
+  "startturn",
+  "endturn",
+  "drawmap",
+  "aircraft",
+  "marker"
+]
  
 ################################################################################
 
@@ -170,5 +180,5 @@ def drawmap():
 
 ################################################################################
 
-from apxo._aircraft import aircraft
-from apxo._marker   import marker
+from apxo.aircraft import aircraft
+from apxo.marker   import marker
