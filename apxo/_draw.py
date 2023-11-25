@@ -12,11 +12,11 @@ import matplotlib.patches as patches
 _fig = None
 _ax = None
 
-def setcanvas(xmin, ymin, xmax, ymax, dpi=100):
+def setcanvas(xmin, ymin, xmax, ymax, dotsperhex=100):
   global _fig, _ax
   xmin, ymin = aphex.tophysical(xmin, ymin)
   xmax, ymax = aphex.tophysical(xmax, ymax)
-  _fig = plt.figure(figsize=[(xmax-xmin),(ymax-ymin)], frameon=False, dpi=dpi)
+  _fig = plt.figure(figsize=[(xmax-xmin),(ymax-ymin)], frameon=False, dpi=dotsperhex)
   plt.axis('off')
   plt.xlim(xmin,xmax)
   plt.ylim(ymin,ymax)
