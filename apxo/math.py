@@ -1,5 +1,3 @@
-print("apxo.math")
-
 def onethird(x):
 
   """
