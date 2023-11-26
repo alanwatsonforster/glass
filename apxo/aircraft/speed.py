@@ -264,6 +264,15 @@ def _startmovespeed(self, power, flamedoutengines):
 
     if speed >= m1speed and self.damageatleast("H"):
       self._logevent("check for progressive damage as damage is %s at supersonic speed." % self.damage())
+
+    # Re slats or maneuvering flaps.
+
+    lowspeedturnlimit = self._aircraftdata.lowspeedturnlimit()
+    if lowspeedturnlimit != None:
+      if speed <= lowspeedturnlimit:
+        self._logevent("slats/flaps extended.")
+      else:
+        self._logevent("slats/flaps retracted.")
     
     ############################################################################
 
