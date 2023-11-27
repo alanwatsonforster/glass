@@ -49,7 +49,7 @@ waterourlinewidth = 2
 
 def setmap(sheetgrid, 
   drawterrain=True, drawlabels=True, 
-  xmin=0, ymin=0, xmax=None, ymax=None, dotsperhex=100, writefile=False,
+  xmin=0, ymin=0, xmax=None, ymax=None, dotsperhex=80, writefile=False,
   style="original", 
   wilderness=None, forest=None, rivers=None, allforest=None, maxurbansize=None,
   ):
