@@ -16,6 +16,7 @@
     "VR":    [ 0.0, 0.0 ]
   },
   "lowspeedturnlimit": 3.5,
+  "lowspeedturndevice": "leading-edge slats",
   "lowspeedturndragtable": {
     "TT": [ 0.0, 0.0, 1.0 ],
     "HT": [ 1.0, 1.0, 1.0 ],

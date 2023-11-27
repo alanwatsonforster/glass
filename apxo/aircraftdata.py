@@ -94,6 +94,12 @@ class aircraftdata:
     else:
       return None
 
+  def lowspeedturndevice(self):
+    if "lowspeedturndevice" in self._data:
+      return self._data["lowspeedturndevice"]
+    else:
+      return None
+  
   def turndrag(self, configuration, turnrate, lowspeed=False, highspeed=False):
     _checkconfiguration(configuration)
     _checkturnrate(turnrate)

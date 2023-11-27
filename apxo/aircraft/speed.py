@@ -270,9 +270,9 @@ def _startmovespeed(self, power, flamedoutengines):
     lowspeedturnlimit = self._aircraftdata.lowspeedturnlimit()
     if lowspeedturnlimit != None:
       if speed <= lowspeedturnlimit:
-        self._logevent("slats/flaps extended.")
+        self._logevent("%s extended." % self._aircraftdata.lowspeedturndevice())
       else:
-        self._logevent("slats/flaps retracted.")
+        self._logevent("%s retracted." % self._aircraftdata.lowspeedturndevice())
     
     ############################################################################
 
