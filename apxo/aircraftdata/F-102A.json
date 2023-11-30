@@ -1,6 +1,7 @@
 {
   "name": "F-102A",
   "origin": "TSOH",
+  "crew": [ "Pilot" ],
   "powertable": {
     "AB"  : [ 2.5, 2.0, 2.0, 7.0 ],
     "M"   : [ 1.0, 1.0, 1.0, 2.0 ],
@@ -11,7 +12,13 @@
   "engines": 1,
   "cruisespeed": 5.5,
   "climbspeed" : 4.5,
-  "fuel": 340,
+  "visibility": 7,
+  "sizemodifier": 0,
+  "vulnerability": -1,
+  "restrictedarcs": "",
+  "blindarcs": "60-",
+  "atarefuel": false,
+  "internalfuel": 340,
   "maneuvertable": {
     "LR/DR": [ 1.0, 1.5 ],
     "VR":    [ 0.0, 0.5 ]
@@ -42,7 +49,7 @@
   "gunammunition": 0.0,
   "rocketfactors": 2,
   "storeslimits": [ 3, 6, 4000 ],
-  "properties": [ "LTD", "PSSM", "HBR" ],
+  "properties": [ "SMP", "LTD", "PSSM", "HBR" ],
   "notes": [
   ]
 }

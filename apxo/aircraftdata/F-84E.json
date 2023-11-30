@@ -10,8 +10,15 @@
   "engines": 1,
   "cruisespeed": 4.0,
   "climbspeed" : 3.0,
+  "visibility": 5,
+  "sizemodifier": 0,
+  "vulnerability": 0,
+  "restrictedarcs": "60-",
+  "blindarcs": "30-",
+  "atarefuel": false,
+  "internalfuel": 185,
   // ADC has 295, but this includes the wing-tip FTs.
-  "fuel": 145,
+  "internalfuel": 145,
   "maneuvertable": {
     "LR/DR": [ 1.0, 1.5 ],
     "VR":    [ 0.0, 0.5 ]

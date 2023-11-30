@@ -1,6 +1,13 @@
 {
   "name": "O-2A",
   "origin": "TSOH",
+  "visibility": 4,
+  "sizemodifier": 2,
+  "vulnerability": -2,
+  // Arcs guessed
+  "restrictedarcs": "",
+  "blindarcs": "60-",
+  "atarefuel": false,
   "properties": [ "SPFL" ],
   "specialclimbcapability": 0.50,
   "notes": [

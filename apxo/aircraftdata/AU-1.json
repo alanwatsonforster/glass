@@ -2,6 +2,7 @@
   "name": "AU-1",
   "base": "F4U-5",
   "ceilingtable": [ 41, 31, 20 ],
+  "vulnerability": 2,
   // The ADC says reduce all max speeds if in the MH+ bands by 0.5.
   // I've done this for the max speed, but not the dive speed.
   "speedtable": {

@@ -482,7 +482,7 @@ class aircraft:
     return apstores.totalfuelcapacity(self.stores)
 
   def internalfuelcapacity(self):
-    return self._aircraftdata.fuel()
+    return self._aircraftdata.internalfuelcapacity()
 
   #############################################################################
 

@@ -1,0 +1,58 @@
+{
+  "name": "MiG-21MF",
+  "origin": "TSOH",
+  "crew": [ "Pilot" ],
+  "powertable": {
+    "AB"  : [ 3.5, 2.5, 2.5, 6.0 ],
+    "M"   : [ 1.5, 1.0, 1.0, 2.0 ],
+    "N"   : [ 0.0, 0.0, 0.0, 1.0 ],
+    "I"   : [ 0.5, 0.5, 1.0, 0.0 ],
+    "SPBR": [ 0.5, 1.0, 1.0 ]
+  },
+  "engines": 1,
+  "cruisespeed": 6.0,
+  "climbspeed" : 4.5,
+  "visibility": 5,
+  "sizemodifier": 0,
+  "vulnerability": -2,
+  "restrictedarcs": "180L/60-",
+  "blindarcs": "30-",
+  "internalfuel": 220,
+  "atarefuel": false,
+  "ejectionseat": "standard",
+  "maneuvertable": {
+    "LR/DR": [ 1.0, 1.0 ],
+    "VR":    [ 0.0, 0.0 ]
+  },
+  "turndragtable": {
+    "TT": [ 1.0, 1.0, 1.0 ],
+    "HT": [ 2.0, 2.0, 3.0 ],
+    "BT": [ 4.0, 4.0, 4.0 ],
+    "ET": [ 4.0, 5.0, "-" ]
+  },
+  "ceilingtable": [ 56, 50, 44 ],
+  "speedtable": {
+    "EH": [ [ 4.0, 11.0 ], [ 4.5, 10.0 ], [ "-", "-" ], 12.0 ],
+    "VH": [ [ 3.5, 12.0 ], [ 4.0, 11.0 ], [ 5.0, 9.0 ], 12.0 ],
+    "HI": [ [ 3.0, 10.5 ], [ 3.5,  9.0 ], [ 4.0, 8.0 ], 12.0 ],
+    "MH": [ [ 3.0,  9.0 ], [ 3.0,  8.0 ], [ 3.0, 7.0 ], 10.0 ],
+    "ML": [ [ 2.5,  8.5 ], [ 2.5,  7.5 ], [ 2.5, 6.5 ],  9.0 ],
+    "LO": [ [ 2.0,  8.0 ], [ 2.0,  7.0 ], [ 2.0, 6.0 ],  8.5 ]
+  },
+  "climbcapabilitytable": {
+    "EH": [ [ 1.0, 0.5 ], [ 1.0, 0.5 ], [ "-", "-" ] ],
+    "VH": [ [ 1.0, 0.5 ], [ 1.0, 0.5 ], [ 1.0, 0.5 ] ],
+    "HI": [ [ 2.0, 0.5 ], [ 1.0, 0.5 ], [ 1.0, 0.5 ] ],
+    "MH": [ [ 3.0, 1.0 ], [ 2.0, 1.0 ], [ 1.5, 0.5 ] ],
+    "ML": [ [ 4.0, 1.0 ], [ 3.0, 1.0 ], [ 1.5, 0.5 ] ],
+    "LO": [ [ 4.0, 2.0 ], [ 3.0, 1.0 ], [ 2.0, 1.0 ] ]
+  },
+  "storeslimits": [ 4, 6, 4400 ],
+  "gunammunition": 2.0,
+  "properties": [ ],
+  "notes": [
+    "NATO reporting name is Fishbed-J.",
+    "Combat flaps: when selected, minimum speeds are reduced by 0.5 but turn DP is increased by 1.0 at speeds of less than 5.0.",
+    "Thick front canopy: +1 to sighting rolls for targets in the 180+ arcs."
+  ]
+}

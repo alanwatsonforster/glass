@@ -1,5 +1,5 @@
 {
-  "name": "F-104A",
+  "name": "F-104A Starfighter",
   "origin": "TSOH",
   "powertable": {
     "AB"  : [ 3.5, 3.5, 3.0, 5.0 ],
@@ -11,7 +11,13 @@
   "engines": 1,
   "cruisespeed": 6.0,
   "climbspeed" : 4.5,
-  "fuel": 290,
+  "visibility": 5,
+  "sizemodifier": 0,
+  "vulnerability": 0,
+  "restrictedarcs": "",
+  "blindarcs": "30-",
+  "atarefuel": false,
+  "internalfuel": 290,
   "maneuvertable": {
     "LR/DR": [ 1.0, 1.0 ],
     "VR":    [ 0.0, 0.0 ]
@@ -41,5 +47,8 @@
   },
   "gunammunition": 3.5,
   "storeslimits": [ 2.0, 5.0, 7800 ],
-  "properties": [ "LTD", "RAA", "RPR", "GSSM" ]
+  "properties": [ "SMP", "LTD", "RAA", "RPR", "GSSM" ],
+  "notes": [
+    "Before 1958, F-104As has downward ejecting seats. No ejections allowed unless aircraft is at least 2 levels above terrain."
+  ]
 }

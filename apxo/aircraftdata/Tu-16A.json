@@ -1,0 +1,54 @@
+{
+  "name": "Tu-16A",
+  "origin": "TSOH",
+  "crew": [ "Pilot", "Copilot", "Weapons Officer", "Gunner", "Gunner" ],
+  "powertable": {
+    "M"   : [ 1.0, 1.0, 0.5, 10.0 ],
+    "N"   : [ 0.0, 0.0, 0.0,  4.0 ],
+    "I"   : [ 0.5, 0.5, 1.0,  1.0 ],
+    "SPBR": [ 0.5, 0.5, 0.5 ]
+  },
+  "engines": 2,
+  "cruisespeed": 5.0,
+  "climbspeed" : 3.5,
+  "visibility": 10,
+  "sizemodifier": -2,
+  "vulnerability": 1,
+  "restrictedarcs": "-",
+  "blindarcs": "-",
+  "internalfuel": 3750,
+  "atarefuel": false,
+  "ejectionseat": "early",
+  "maneuvertable": {
+    "LR/DR": [ "-", "-" ],
+    "VR":    [ "-", "-" ]
+  },
+  "turndragtable": {
+    "TT": [ 1.0, 2.0, 2.0 ],
+    "HT": [ 2.0, 3.0, 3.0 ]
+  },
+  "ceilingtable": [ 44, 38, 32 ],
+  "speedtable": {
+    "EH": [ [ "-", "-" ], [ "-", "-" ], [ "-", "-" ], "-" ],
+    "VH": [ [ 3.0, 5.5 ], [ 3.5, 5.0 ], [ "-", "-" ], 6.0 ],
+    "HI": [ [ 3.0, 5.5 ], [ 3.5, 5.0 ], [ 3.5, 5.0 ], 6.5 ],
+    "MH": [ [ 2.5, 6.0 ], [ 3.0, 5.5 ], [ 3.0, 5.0 ], 6.5 ],
+    "ML": [ [ 2.0, 6.0 ], [ 2.5, 5.5 ], [ 2.5, 5.0 ], 6.5 ],
+    "LO": [ [ 1.5, 5.5 ], [ 2.0, 5.0 ], [ 2.0, 4.5 ], 6.5 ]
+  },
+  "climbcapabilitytable": {
+    "EH": [ [ "-", "-"  ], [ "-", "-"  ], [ "-", "-"  ] ],
+    "VH": [ [ "-", 0.25 ], [ "-", 0.25 ], [ "-", "-"  ] ],
+    "HI": [ [ "-", 0.25 ], [ "-", 0.25 ], [ "-", 0.25 ] ],
+    "MH": [ [ "-", 0.5  ], [ "-", 0.5  ], [ "-", 0.5  ] ],
+    "ML": [ [ "-", 0.5  ], [ "-", 0.5  ], [ "-", 0.5  ] ],
+    "LO": [ [ "-", 1.0  ], [ "-", 1.0  ], [ "-", 0.5  ] ]
+  },
+  "storeslimits": [ 10, 18, 20000 ],
+  "gunarc": "180-",
+  "gunammunition": 12.0,
+  "properties": [ "NRM" ],
+  "notes": [
+    "NATO reporting name is Badger-A."
+  ]
+}

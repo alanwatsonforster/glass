@@ -1,4 +1,5 @@
 {
   "name": "A-1H",
-  "base": "AD-4"
+  "base": "AD-4",
+  "vulnerability": 2
 }

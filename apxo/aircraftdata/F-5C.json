@@ -1,4 +1,5 @@
 {
   "name": "F-5C",
-  "base": "F-5A"
+  "base": "F-5A",
+  "atarefuel": true
 }

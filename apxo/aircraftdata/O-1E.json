@@ -1,6 +1,13 @@
 {
   "name": "O-1E",
   "origin": "TSOH",
+  "visibility": 4,
+  "sizemodifier": 2,
+  "vulnerability": -3,
+  // Arcs guessed.
+  "restrictedarcs": "",
+  "blindarcs": "",
+  "atarefuel": false,
   "properties": [ "SPFL" ],
   "specialclimbcapability": 0.25,
   "notes": [

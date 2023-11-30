@@ -10,7 +10,13 @@
   "engines": 1,
   "cruisespeed": 5.0,
   "climbspeed" : 3.5,
-  "fuel": 125,
+  "visibility": 4,
+  "sizemodifier": 1,
+  "vulnerability": 1,
+  "restrictedarcs": "60-",
+  "blindarcs": "30-",
+  "atarefuel": false,
+  "internalfuel": 125,
   "maneuvertable": {
     "LR/DR": [ 1.0, 1.5 ],
     "VR":    [ 0.0, 0.5 ]
@@ -40,5 +46,8 @@
   "gunammunition": 3.0,
   "storeslimits": [ 1, 4, 1600 ],  
   "LRRHSlimit": 4.5,
-  "properties": [ "HTD", "LRRHS" ]
+  "properties": [ "HTD", "LRRHS" ],
+  "notes": [
+     "NATO reporting name is Fagot-B."
+  ]
 }

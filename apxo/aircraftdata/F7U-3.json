@@ -11,7 +11,13 @@
   "engines": 2,
   "cruisespeed": 5.0,
   "climbspeed" : 4.0,
-  "fuel": 365,
+  "visibility": 6,
+  "sizemodifier": 0,
+  "vulnerability": 1,
+  "restrictedarcs": "60-",
+  "blindarcs": "30-",
+  "atarefuel": false,
+  "internalfuel": 365,
   "maneuvertable": {
     "LR/DR": [ 1.0, 1.5 ],
     "VR":    [ 0.0, 0.5 ]

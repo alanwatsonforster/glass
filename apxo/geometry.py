@@ -1,3 +1,4 @@
+##############################################################################
 import math
 import apxo      as ap
 import apxo.hex as aphex
@@ -97,7 +98,7 @@ def angleofftail(a0, a1):
     # If 0 is slower, it falls in the rear arc.
     # If 0 is faster and headed behind 0, it falls in the rear arc. 
     # If 0 is faster and headed in front of 1, it falls in the front arc.
-  
+
     inreararc = False
     infrontarc = False
     if a0._speed < a1._speed:
@@ -320,3 +321,66 @@ def inlimitedradararc(a0, a1, x1=None, y1=None, facing1=None):
     return r
     
 ##############################################################################
+
+def visualsightingrange(a0, a1):
+
+  """
+  Return the visual sighting range from aircraft a0 to aircraft a1.
+  """
+
+  # See rule 11.1.
+
+  x0 = a0._x
+  y0 = a1._y
+  x1 = a1._x
+  y1 = a1._y
+
+  horizontalrange = hex.distance(x0, y0, x1, y1)
+
+  altitude0 = a0._altitude
+  altitude1 = a1._altitude
+
+  if a0 >= a1:
+    verticalrange = int((a0 - a1) / 2)
+  else:
+    verticalrange = int((a1 - a0) / 4)
+
+  return horizontalrange + verticalrange
+
+##############################################################################
+
+def inblindarc(a0, a1):
+
+  """
+  Return True if a1 is in the blind arc of a0.
+  """
+
+  # See rules 9.2 and 11.1.
+
+  blindarcs = a0.blindarcs()
+
+  if blindarcs == None:
+    return True
+
+  angleoff = target.angleofftail(attacker)
+  if blindarcs == "30-":
+    blindangloff = [ "0 line", "30 arc" ]
+  elif arc == "60-":
+    blindangloff = [ "0 line", "30 arc", "60 arc" ]
+  elif blindarcs == "90-":
+    blindangloff = [ "0 line", "30 arc", "60 arc", "90 arc" ]
+  elif blindarcs == "120-":
+    blindangloff = [ "0 line", "30 arc", "60 arc", "90 arc", "120 arc" ]
+  elif blindarcs == "150-":
+    blindangloff = [ "0 line", "30 arc", "60 arc", "90 arc", "120 arc", "150 arc" ]
+  elif blindarcs == "180-":
+    blindangloff = [ "0 line", "30 arc", "60 arc", "90 arc", "120 arc", "150 arc", "180 arc", "180 line" ]
+  else:
+    raise RuntimeError("invalid arc %r." % arc)
+
+  return angleoff in blindarcs
+
+##############################################################################
+
+
+

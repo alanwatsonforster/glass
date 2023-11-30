@@ -80,10 +80,10 @@ class aircraftdata:
     else:
       return self._data["powertable"][powersetting][3]
 
-  def fuel(self):
-    if not "fuel" in self._data:
-      raise RuntimeError("the fuel capacity is not specified for this aircraft type.")
-    return self._data["fuel"]
+  def internalfuelcapacity(self):
+    if not "internalfuel" in self._data:
+      raise RuntimeError("the internal fuel capacity is not specified for this aircraft type.")
+    return self._data["internalfuel"]
 
   def engines(self):
     return self._data["engines"]
@@ -158,6 +158,9 @@ class aircraftdata:
 
   def climbspeed(self):
     return self._data["climbspeed"]
+
+  def blindarcs(self):
+    return self._data["blindarcs"]
 
   def rollhfp(self):
     raw = self._data["maneuvertable"]["LR/DR"][0]
@@ -349,7 +352,7 @@ class aircraftdata:
 
       str("Cruise Speed: %.1f" % self.cruisespeed())
       str("Climb  Speed: %.1f" % self.climbspeed())
-      str("Fuel        : %.1f" % self.fuel())
+      str("Internal Fuel: %.1f" % self.internalfuel())
       str("")
 
       str("Roll Costs:")

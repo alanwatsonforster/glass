@@ -148,3 +148,6 @@ def specialclimbcapability(self):
 
 def gunarc(self):
   return self._aircraftdata.gunarc()
+
+def blindarcs(self):
+  return self._aircraftdata.blindarcs()

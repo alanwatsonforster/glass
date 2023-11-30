@@ -1,0 +1,55 @@
+{
+  "name": "Il-28",
+  "origin": "TSOH",
+  "crew": [ "Pilot", "Bombardier", "Gunner" ],
+  "powertable": {
+    "M"   : [ 1.0, 1.0, 0.5, 2.0 ],
+    "N"   : [ 0.0, 0.0, 0.0, 1.0 ],
+    "I"   : [ 0.5, 0.5, 0.5, 0.0 ],
+    "SPBR": [ 0.5, 0.5, 0.5 ]
+  },
+  "engines": 2,
+  "cruisespeed": 4.5,
+  "climbspeed" : 3.5,
+  "visibility": 8,
+  "sizemodifier": -1,
+  "vulnerability": -2,
+  "restrictedarcs": "-",
+  "blindarcs": "-",
+  "internalfuel": 565,
+  "atarefuel": false,
+  "ejectionseat": "early",
+  "maneuvertable": {
+    "LR/DR": [ "-", "-" ],
+    "VR":    [ "-", "-" ]
+  },
+  "turndragtable": {
+    "TT": [ 0.0, 1.0, 1.0 ],
+    "HT": [ 1.0, 2.0, 2.0 ]
+  },
+  "ceilingtable": [ 40, 36, 32 ],
+  "speedtable": {
+    "EH": [ [  "-", "-"  ], [  "-", "-"  ], [  "-", "-"  ], "-" ],
+    "VH": [ [  3.0, 5.0  ], [  3.0, 4.5  ], [  "-", "-"  ], 6.0 ],
+    "HI": [ [  2.5, 5.0  ], [  3.0, 5.0  ], [  3.0, 5.0  ], 6.0 ],
+    "MH": [ [  2.5, 5.5  ], [  2.5, 5.5  ], [  3.0, 5.0  ], 6.0 ],
+    "ML": [ [  2.0, 5.0  ], [  2.5, 5.0  ], [  2.5, 4.5  ], 6.0 ],
+    "LO": [ [  2.0, 4.5  ], [  2.0, 4.5  ], [  2.0, 4.5  ], 6.0 ]
+  },
+  "climbcapabilitytable": {
+    "EH": [ [ "-", "-" ], [ "-", "-" ], [ "-", "-" ] ],
+    "VH": [ [ "-", 0.5 ], [ "-", 0.5 ], [ "-", "-" ] ],
+    "HI": [ [ "-", 0.5 ], [ "-", 0.5 ], [ "-", 0.5 ] ],
+    "MH": [ [ "-", 0.5 ], [ "-", 0.5 ], [ "-", 0.5 ] ],
+    "ML": [ [ "-", 0.5 ], [ "-", 0.5 ], [ "-", 0.5 ] ],
+    "LO": [ [ "-", 1.0 ], [ "-", 1.0 ], [ "-", 0.5 ] ]
+  },
+  "storeslimits": [ 4, 8, 6600 ],
+  "gunarc": "60-",
+  "gunammunition": 6.0,
+  "properties": [ "HTD", "LRR", "NRM" ],
+  "notes": [
+    "NATO reporting name is Beagle.",
+    "Tail gunner has no ejection seat."
+  ]
+}

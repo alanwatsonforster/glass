@@ -1,0 +1,7 @@
+{
+  "name": "F-104B Starfighter",
+  "base": "F-104A",
+  "crew": [ "Pilot", "Observer" ],
+  "gunammunition": "-",
+  "internalfuel": 230
+}

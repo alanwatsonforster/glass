@@ -1,6 +1,13 @@
 {
   "name": "HH-53C",
   "origin": "TSOH",
+  "visibility": 6,
+  "sizemodifier": 0,
+  "vulnerability": 2,
+  // Arcs are my guesses.
+  "restrictedarcs": "",
+  "blindarcs": "60-",
+  "atarefuel": true,
   "properties": [ "SPFL" ],
   "specialclimbcapability": 0.25,
   "notes": [

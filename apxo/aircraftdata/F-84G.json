@@ -2,6 +2,7 @@
   "name": "F-84G",
   "origin": "TSOH",
   "base": "F-84E",
+  "atarefuel": true,
   "powertable": {
     "M"   : [ 1.0, 1.0, 1.0, 1.0 ],
     "N"   : [ 0.0, 0.0, 0.0, 0.5 ],

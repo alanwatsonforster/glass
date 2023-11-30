@@ -1,0 +1,56 @@
+{
+  "name": "",
+  "origin": "",
+  "crew": [],
+  "powertable": {
+    "AB"  : [ , , ,  ],
+    "M"   : [ , , ,  ],
+    "N"   : [ , , ,  ],
+    "I"   : [ , , ,  ],
+    "SPBR": [ , ,  ]
+  },
+  "engines": ,
+  "cruisespeed": ,
+  "climbspeed" : ,
+  "visibility": ,
+  "sizemodifier": ,
+  "vulnerability": ,
+  "restrictedarcs": "",
+  "blindarcs": "",
+  "internalfuel": ,
+  "atarefuel": ,
+  "ejectionseat": "",
+  "maneuvertable": {
+    "LR/DR": [ "", "" ],
+    "VR":    [ ,  ]
+  },
+  "turndragtable": {
+    "TT": [ , ,  ],
+    "HT": [ , ,  ],
+    "BT": [ , ,  ],
+    "ET": [ , ,  ]
+  },
+  "ceilingtable": [ , ,  ],
+  "speedtable": {
+    "EH": [ [  ,   ], [  ,   ], [  ,   ],  ],
+    "VH": [ [  ,   ], [  ,   ], [  ,   ],  ],
+    "HI": [ [  ,   ], [  ,   ], [  ,   ],  ],
+    "MH": [ [  ,   ], [  ,   ], [  ,   ],  ],
+    "ML": [ [  ,   ], [  ,   ], [  ,   ],  ],
+    "LO": [ [  ,   ], [  ,   ], [  ,   ],  ]
+  },
+  "climbcapabilitytable": {
+    "EH": [ [ ,  ], [ ,  ], [ ,  ] ],
+    "VH": [ [ ,  ], [ ,  ], [ ,  ] ],
+    "HI": [ [ ,  ], [ ,  ], [ ,  ] ],
+    "MH": [ [ ,  ], [ ,  ], [ ,  ] ],
+    "ML": [ [ ,  ], [ ,  ], [ ,  ] ],
+    "LO": [ [ ,  ], [ ,  ], [ ,  ] ]
+  },
+  "storeslimits": [ , ,  ],
+  "gunarc": "",
+  "gunammunition": ,
+  "properties": [],
+  "notes": [
+  ]
+}

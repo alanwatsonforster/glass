@@ -43,6 +43,13 @@
 
   "climbspeed" : 2.0,
   
+  "visibility": 10,
+  "sizemodifier": -2,
+  "vulnerability": 2,
+  "restrictedarcs": "",
+  "blindarcs": "",
+  "atarefuel": false,
+
   // TODO: fuel.
 
   // The flight rules in TSOH forbid rolls.
