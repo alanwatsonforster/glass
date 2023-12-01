@@ -1,6 +1,8 @@
 import apxo.aircraft as apaircraft
 import apxo.geometry as apgeometry
 import apxo.hex      as aphex
+import apxo.log      as aplog
+import apxo.math     as apmath
 
 ##############################################################################
 
@@ -148,6 +150,88 @@ def rocketattackrange(attacker, target):
   else:
     return r
 
+##############################################################################
+
+def attack(attacker, weapon, targetname, result):
+
+  if targetname == "":
+    targetdescription = ""
+  else:
+    targetdescription = " on %s" % targetname
+    
+  if weapon == "GN":
+
+    attacker._logevent("gun air-to-air attack%s." % targetdescription)
+    if attacker._gunammunition < 1.0:
+      raise RuntimeError("available gun ammunition is %.1f." % attacker._gunammunition)
+    attacker._gunammunition -= 1.0
+
+  elif weapon == "GNSS":
+
+    attacker._logevent("snap-shot gun air-to-air attack%s." % targetdescription)
+    if attacker._gunammunition < 0.5:
+      raise RuntimeError("available gun ammunition is %.1f." % attacker._gunammunition)
+    attacker._gunammunition -= 0.5
+
+  elif weapon[0:2] == "RK":
+
+    if not weapon[2:].isdigit():
+      raise RuntimeError("invalid weapon %r." % weapon)
+    rocketfactors = int(weapon[2:])
+    attacker._logevent("rocket air-to-air attack with %d factors%s." % (rocketfactors, targetdescription))
+
+    if attacker._rocketfactors < rocketfactors:
+      raise RuntimeError("available rocket factors are %d." % attacker._rocketfactors)
+    attacker._rocketfactors -= rocketfactors
+
+  else:
+
+    raise RuntimeError("invalid weapon %r." % weapon)
+
+  if targetname != "":
+
+    target = apaircraft._fromname(targetname)
+    if target == None:
+      raise RuntimeError("unknown target aircraft %s." % targetname)
+    
+    if weapon == "GN" or weapon == "GNSS":
+      if attacker.gunarc() != None:
+        attacker._logevent("gunnery arc is %s." % attacker.gunarc())
+      r = attacker.gunattackrange(target, arc=attacker.gunarc())
+    else:
+      r = attacker.rocketattackrange(target)
+    if isinstance(r, str):
+        raise RuntimeError(r)      
+    attacker._logevent("range is %d." % r)      
+    attacker._logevent("angle-off-tail is %s." % attacker.angleofftail(target))
+
+  if attacker._BTrecoveryfp > 0:
+    attacker._logevent("applicable turn rate is BT.")
+  elif attacker._HTrecoveryfp > 0:
+    attacker._logevent("applicable turn rate is HT.")
+  else:
+    attacker._logevent("no applicable turn rate.")
+
+  interval = apmath.onethird(attacker._speed)
+  attacker._logevent("SSGT interval is %.1f %s." % (interval, aplog.plural(interval, "FP", "FPs")))
+
+  if result == "":
+    attacker._logevent("result of attack not specified.")
+    attacker._unspecifiedattackresult += 1
+  elif result == "M":
+    attacker._logevent("missed.")
+  elif result == "-":
+    attacker._logevent("hit but inflicted no damage.")
+  else:
+    attacker._logevent("hit and inflicted %s damage." % result)
+    if target != None:
+      target._takedamage(result)
+
+  if weapon == "GN" or weapon == "GNSS":
+    attacker._logevent("%.1f gun ammunition remain" % attacker._gunammunition)
+  else:
+    attacker._logevent("%d rocket %s." % (attacker._rocketfactors, aplog.plural(attacker._rocketfactors, "factor remains", "factors remain")))
+      
 ##############################################################################
 
 def react(attacker, weapon, targetname, result):

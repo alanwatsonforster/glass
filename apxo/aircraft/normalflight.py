@@ -6,6 +6,7 @@ import math
 import re
 from apxo.math import onethird, twothirds, roundtoquarter
 
+import apxo.airtoair as apairtoair
 import apxo.altitude as apaltitude
 import apxo.aircraft as apaircraft
 import apxo.hex      as aphex
@@ -814,83 +815,7 @@ def _continuenormalflight(self, actions, note=False):
     targetname = m[2]
     result     = m[3]
 
-    if targetname == "":
-      targetdescription = ""
-    else:
-      targetdescription = " on %s" % targetname
-      
-    if weapon == "GN":
-
-      self._logevent("gun air-to-air attack%s." % targetdescription)
-      if self._gunammunition < 1.0:
-        raise RuntimeError("available gun ammunition is %.1f." % self._gunammunition)
-      self._gunammunition -= 1.0
-
-    elif weapon == "GNSS":
-
-      self._logevent("snap-shot gun air-to-air attack%s." % targetdescription)
-      if self._gunammunition < 0.5:
-        raise RuntimeError("available gun ammunition is %.1f." % self._gunammunition)
-      self._gunammunition -= 0.5
-
-    elif weapon[0:2] == "RK":
-
-      if not weapon[2:].isdigit():
-        raise RuntimeError("invalid weapon %r." % weapon)
-      rocketfactors = int(weapon[2:])
-      self._logevent("rocket air-to-air attack with %d factors%s." % (rocketfactors, targetdescription))
-
-      if self._rocketfactors < rocketfactors:
-        raise RuntimeError("available rocket factors are %d." % self._rocketfactors)
-      self._rocketfactors -= rocketfactors
-
-    else:
-
-      raise RuntimeError("invalid weapon %r." % weapon)
-
-    if targetname != "":
-
-      target = apaircraft._fromname(targetname)
-      if target == None:
-        raise RuntimeError("unknown target aircraft %s." % targetname)
-      
-      if weapon == "GN" or weapon == "GNSS":
-        if self.gunarc() != None:
-          self._logevent("gunnery arc is %s." % self.gunarc())
-        r = self.gunattackrange(target, arc=self.gunarc())
-      else:
-        r = self.rocketattackrange(target)
-      if isinstance(r, str):
-          raise RuntimeError(r)      
-      self._logevent("range is %d." % r)      
-      self._logevent("angle-off-tail is %s." % self.angleofftail(target))
-
-    if self._BTrecoveryfp > 0:
-      self._logevent("applicable turn rate is BT.")
-    elif self._HTrecoveryfp > 0:
-      self._logevent("applicable turn rate is HT.")
-    else:
-      self._logevent("no applicable turn rate.")
-
-    interval = onethird(self._speed)
-    self._logevent("SSGT interval is %.1f %s." % (interval, plural(interval, "FP", "FPs")))
-
-    if result == "":
-      self._logevent("result of attack not specified.")
-      self._unspecifiedattackresult += 1
-    elif result == "M":
-      self._logevent("missed.")
-    elif result == "-":
-      self._logevent("hit but inflicted no damage.")
-    else:
-      self._logevent("hit and inflicted %s damage." % result)
-      if target != None:
-        target._takedamage(result)
-
-    if weapon == "GN" or weapon == "GNSS":
-      self._logevent("%.1f gun ammunition remain" % self._gunammunition)
-    else:
-      self._logevent("%d rocket %s." % (self._rocketfactors, plural(self._rocketfactors, "factor remains", "factors remain")))
+    apairtoair.attack(self, weapon, targetname, result)
 
   ########################################
 
