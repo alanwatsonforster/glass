@@ -134,7 +134,7 @@ def drawmap():
     apmap.startdrawmap()
     apmarker._drawmap()
     apaircraft._drawmap()
-    apmap.enddrawmap(_savedturn)
+    apmap.enddrawmap(apturn.turn())
 
   except RuntimeError as e:
     aplog.logexception(e)
