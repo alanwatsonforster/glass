@@ -5,7 +5,8 @@ Aircraft flight.
 ##############################################################################
 
 import apxo      as ap
-import apxo.log as aplog
+import apxo.log  as aplog
+import apxo.turn as apturn
 
 from .normalflight import _isdivingflight, _isclimbingflight, _islevelflight
 from .draw import _zorder
@@ -22,7 +23,7 @@ def move(self, flighttype, power, actions="", flamedoutengines=0, note=False):
   aplog.clearerror()
   try:
 
-    ap._checkinturn()
+    apturn.checkinturn()
 
     self._logbreak()
     self._logline()
@@ -140,7 +141,7 @@ def continuemove(self, actions="", note=False):
   aplog.clearerror()
   try:
 
-    ap._checkinturn()
+    apturn.checkinturn()
 
     if not self._destroyed and not self._leftmap and self.flighttype != "ST" and self.flighttype != "DP" and self.flighttype != "SP":
       self._continuenormalflight(actions, note=note)
@@ -179,4 +180,4 @@ def _endmove(self):
 
     self._finishedmove = True
   
-  self._save(ap.turn())
+  self._save(apturn.turn())

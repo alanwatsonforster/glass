@@ -1,10 +1,12 @@
-import apxo.azimuth   as apazimuth
-import apxo.aircraft  as apaircraft
-import apxo.log       as aplog
-import apxo.map       as apmap
-import apxo.marker    as apmarker
-import apxo.variants  as apvariants
-import apxo.scenarios as apscenarios
+import apxo.azimuth        as apazimuth
+import apxo.aircraft       as apaircraft
+import apxo.log            as aplog
+import apxo.map            as apmap
+import apxo.marker         as apmarker
+import apxo.variants       as apvariants
+import apxo.scenarios      as apscenarios
+import apxo.turn           as apturn
+import apxo.visualsighting as apvisualsighting
 
 __all__ = [
   "startsetup",
@@ -18,62 +20,34 @@ __all__ = [
  
 ################################################################################
 
-# Turn is 0 between startsetup/endsetup, an integer greater than zero between
-# startturn/endturn, and Null otherwise. It is incremented by endsetup/endturn.
-
-_turn = None
-
-# _savedturn holds the value of _turn outside of startsetup/endsetup and
-# startturn/endturn.
-
-_savedturn = None
-
-def turn():
-  return _turn
-
-def _checkinsetuporturn():
-  if _turn == None:
-    raise RuntimeError("activity outside of setup or turn.")
-
-def _checkinturn():
-  if _turn == None or _turn == 0:
-    raise RuntimeError("activity outside of turn.")
-
-################################################################################
-
 def startsetup(scenario, sheets=None, north="up", variants=[], **kwargs):
 
   """
   Start the set-up for the specified scenario (or for the specified map layout).
   """
 
-  def log(s):
-    aplog.log("set-up  : %s" % s)
-
   aplog.clearerror()
   try:
     
-    global _turn, _savedturn
-    _turn = 0
-    _savedturn = _turn
+    apturn.startsetup()
 
-    log("start of set-up.")
+    aplog.log("start of set-up.")
     aplog.logbreak()
 
     apvariants.setvariants(variants)
 
     if scenario != None:
-      log("scenario is %s." % scenario)
+      aplog.log("scenario is %s." % scenario)
       sheets    = apscenarios.sheets(scenario)
       north     = apscenarios.north(scenario)
       allforest = apscenarios.allforest(scenario)
     else:
-      log("no scenario specified.")
-      log("sheets are %r." % sheets)
-      log("north is %s." % north)
+      aplog.log("no scenario specified.")
+      aplog.log("sheets are %r." % sheets)
+      aplog.log("north is %s." % north)
 
     for key in kwargs.keys():
-      log("map option %s is %r." % (key, kwargs[key]))
+      aplog.log("map option %s is %r." % (key, kwargs[key]))
 
     apmap.setmap(sheets, **kwargs)
 
@@ -93,19 +67,13 @@ def endsetup():
 
   aplog.clearerror()
   try:
-    
-    global _turn, _savedturn
-    if _turn != 0:
-      raise RuntimeError("endsetup() called out of sequence.")    
-      
+          
     apaircraft._endsetup()
 
     aplog.logbreak()
-    aplog.log("set-up  : end of set-up.")
+    aplog.log("end of set-up.")
 
-    _turn += 1
-    _savedturn = _turn
-    _turn = None
+    apturn.endsetup()
 
   except RuntimeError as e:
     aplog.logexception(e)
@@ -121,14 +89,13 @@ def startturn():
   aplog.clearerror()
   try:
     
-    global _turn, _savedturn
-    _turn = _savedturn
-    if _turn == None or _turn == 0:
-      raise RuntimeError("startturn() called out of sequence.")
+    apturn.startturn()
   
-    aplog.log("turn %-2d: start of turn." % _turn)
+    aplog.log("start of turn.")
 
     apaircraft._startturn()
+
+    apvisualsighting.showvisualsighting(apaircraft.all())
 
   except RuntimeError as e:
     aplog.logexception(e)
@@ -142,18 +109,12 @@ def endturn():
   aplog.clearerror()
   try:
     
-    global _turn, _savedturn
-    if _turn == None or _turn == 0:
-      raise RuntimeError("endturn() called out of sequence.")    
-
     apaircraft._endturn()
 
     aplog.logbreak()
-    aplog.log("turn %-2d: end of turn." % _turn)
+    aplog.log("end of turn.")
 
-    _turn += 1
-    _savedturn = _turn
-    _turn = None
+    apturn.endturn()
       
   except RuntimeError as e:
     aplog.logexception(e)

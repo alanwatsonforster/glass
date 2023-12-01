@@ -12,6 +12,8 @@ import apxo.speed         as apspeed
 import apxo.stores        as apstores
 import apxo.turnrate      as apturnrate
 import apxo.geometry      as apgeometry
+import apxo.turn          as apturn
+
 import re
 
 ################################################################################
@@ -26,13 +28,16 @@ def _startsetup():
 
 def _endsetup():
   for a in _aircraftlist:
-    a._save(ap.turn())
+    a._save(apturn.turn())
+
+def all():
+  return _aircraftlist
 
 def _startturn():
   global _zorder
   _zorder = 0
   for a in _aircraftlist:
-    a._restore(ap.turn() - 1)
+    a._restore(apturn.turn() - 1)
     a._finishedmove = False
     a._unspecifiedattackresult = 0
     a._startflightpath()
@@ -53,7 +58,7 @@ def _endturn():
   for a in _aircraftlist:
     a._checkcloseformation()
   for a in _aircraftlist:
-    a._save(ap.turn())
+    a._save(apturn.turn())
 
 def _drawmap():
   for a in _aircraftlist:
@@ -349,7 +354,7 @@ class aircraft:
     aplog.clearerror()
     try:
 
-      ap._checkinturn()
+      apturn.checkinturn()
       self._logaction("react", action)
 
       m = re.compile("AA" + 3 * r"\(([^)]*)\)").match(action)
