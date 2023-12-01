@@ -12,6 +12,7 @@ import apxo.speed         as apspeed
 import apxo.stores        as apstores
 import apxo.turnrate      as apturnrate
 import apxo.geometry      as apgeometry
+import apxo.gunnery       as apgunnery
 import apxo.turn          as apturn
 
 import re
@@ -395,7 +396,7 @@ class aircraft:
         target = _fromname(targetname)
         if target == None:
           raise RuntimeError("unknown target aircraft %s." % targetname)
-        r = self.gunattackrange(target, arc=self.gunarc())
+        r = self.gunrange(target, arc=self.gunarc())
         if isinstance(r, str):
             raise RuntimeError(r)      
         self._logevent("range is %d." % r)     
@@ -436,14 +437,14 @@ class aircraft:
 
   #############################################################################
 
-  def gunattackrange(self, other, arc=False):
+  def gunrange(self, other, arc=False):
 
     """
     Return the gun attack range of the other aircraft from the aircraft
     or a string explaining why it cannot be attacked.
     """
 
-    return apgeometry.gunattackrange(self, other, arc=arc)
+    return apgunnery.gunrange(self, other, arc=arc)
 
   #############################################################################
 
