@@ -152,12 +152,12 @@ def rocketattackrange(attacker, target):
 
 ##############################################################################
 
-def attack(attacker, weapon, targetname, result):
+def attack(attacker, weapon, target, result):
 
-  if targetname == "":
+  if target is None:
     targetdescription = ""
   else:
-    targetdescription = " on %s" % targetname
+    targetdescription = targetdescription = " on %s" % target.name()
     
   if weapon == "GN":
 
@@ -188,12 +188,8 @@ def attack(attacker, weapon, targetname, result):
 
     raise RuntimeError("invalid weapon %r." % weapon)
 
-  if targetname != "":
+  if target is not None:
 
-    target = apaircraft._fromname(targetname)
-    if target == None:
-      raise RuntimeError("unknown target aircraft %s." % targetname)
-    
     if weapon == "GN" or weapon == "GNSS":
       if attacker.gunarc() != None:
         attacker._logevent("gunnery arc is %s." % attacker.gunarc())
@@ -234,17 +230,17 @@ def attack(attacker, weapon, targetname, result):
       
 ##############################################################################
 
-def react(attacker, weapon, targetname, result):
+def react(attacker, weapon, target, result):
 
   """
   Return fire, either with fixed guns or articulated guns.
   """
 
-  if targetname == "":
+  if target is None:
     targetdescription = ""
   else:
-    targetdescription = " on %s" % targetname
-    
+    targetdescription = targetdescription = " on %s" % target.name()
+      
   if weapon == "GN":
 
     attacker._logevent("gun air-to-air attack%s." % targetdescription)
@@ -266,10 +262,7 @@ def react(attacker, weapon, targetname, result):
   if attacker.gunarc() != None:
     attacker._logevent("gunnery arc is %s." % attacker.gunarc())
 
-  if targetname != "":
-    target = apaircraft._fromname(targetname)
-    if target == None:
-      raise RuntimeError("unknown target aircraft %s." % targetname)
+  if target is not None:
     r = attacker.gunattackrange(target, arc=attacker.gunarc())
     if isinstance(r, str):
         raise RuntimeError(r)      

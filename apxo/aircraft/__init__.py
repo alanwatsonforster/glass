@@ -66,7 +66,11 @@ def _drawmap():
     a._drawflightpath()
     a._drawaircraft()
 
-def _fromname(name):
+def fromname(name):
+  """
+  Look for the aircraft with the given name. Return the aircraft or None if 
+  no matching aircraft is found.
+  """
   for a in _aircraftlist:
     if a._name == name:
       return a
@@ -316,27 +320,38 @@ class aircraft:
 
   #############################################################################
 
+  def name(self):
+    """Return the name of the aircraft."""
+    return self._name
+
+  #############################################################################
+
   def x(self):
+    """Return the x hex coordinate of the aircraft."""
     return self._x
 
   #############################################################################
 
   def y(self):
+    """Return the y hex coordinate of the aircraft."""
     return self._y
     
   #############################################################################
 
   def facing(self):
+    """Return the facing of the aircraft in degrees."""
     return self._facing
       
   #############################################################################
 
   def altitude(self):
+    """Return the altitude of the aircraft in altitude levels."""
     return self._altitude
       
   #############################################################################
 
   def speed(self):
+    """Return the speed of the aircraft."""
     return self._speed
       
   #############################################################################
@@ -391,7 +406,14 @@ class aircraft:
       targetname = m[2]
       result     = m[3]
 
-      apairtoair.react(self, weapon, targetname, result)
+      if targetname == "":
+        target = None
+      else:
+        target = fromname(targetname)
+        if target is None:
+          raise RuntimeError("unknown target aircraft %s." % targetname)
+        
+      apairtoair.react(self, weapon, target, result)
     
       self._lognote(note)
       self._logline()

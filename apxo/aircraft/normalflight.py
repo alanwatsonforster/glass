@@ -815,7 +815,14 @@ def _continuenormalflight(self, actions, note=False):
     targetname = m[2]
     result     = m[3]
 
-    apairtoair.attack(self, weapon, targetname, result)
+    if targetname == "":
+      target = None
+    else:
+      target = apaircraft.fromname(targetname)
+      if target is None:
+        raise RuntimeError("unknown target aircraft %s." % targetname)
+      
+    apairtoair.attack(self, weapon, target, result)
 
   ########################################
 
