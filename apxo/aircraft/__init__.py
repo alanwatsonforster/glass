@@ -404,7 +404,7 @@ class aircraft:
     or a string explaining why it cannot be attacked.
     """
 
-    return apgeometry.rocketattackrange(self, other)
+    return apairtoair.rocketattackrange(self, other)
 
   #############################################################################
 
