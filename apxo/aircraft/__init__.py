@@ -12,7 +12,7 @@ import apxo.speed         as apspeed
 import apxo.stores        as apstores
 import apxo.turnrate      as apturnrate
 import apxo.geometry      as apgeometry
-import apxo.gunnery       as apgunnery
+import apxo.airtoair      as apairtoair
 import apxo.turn          as apturn
 
 import re
@@ -366,59 +366,8 @@ class aircraft:
       targetname = m[2]
       result     = m[3]
 
-      if targetname == "":
-        targetdescription = ""
-      else:
-        targetdescription = " on %s" % targetname
-        
-      if weapon == "GN":
-
-        self._logevent("gun air-to-air attack%s." % targetdescription)
-        if self._gunammunition < 1.0:
-          raise RuntimeError("available gun ammunition is %.1f." % self._gunammunition)
-        self._gunammunition -= 1.0
-
-      elif weapon == "GNSS":
-
-        self._logevent("snap-shot gun air-to-air attack%s." % targetdescription)
-        if self._gunammunition < 0.5:
-          raise RuntimeError("available gun ammunition is %.1f." % self._gunammunition)
-        self._gunammunition -= 0.5
-
-      else:
-
-        raise RuntimeError("invalid weapon %r." % weapon)
-
-      if self.gunarc() != None:
-        self._logevent("gunnery arc is %s." % self.gunarc())
-
-      if targetname != "":
-        target = _fromname(targetname)
-        if target == None:
-          raise RuntimeError("unknown target aircraft %s." % targetname)
-        r = self.gunrange(target, arc=self.gunarc())
-        if isinstance(r, str):
-            raise RuntimeError(r)      
-        self._logevent("range is %d." % r)     
-        if self.gunarc != None: 
-          self._logevent("angle-off-tail is %s." % target.angleofftail(self))
-        else:
-          self._logevent("angle-off-tail is %s." % self.angleofftail(target))
-
-      if result == "":
-        self._logevent("result of attack not specified.")
-        self._unspecifiedattackresult += 1
-      elif result == "M":
-        self._logevent("missed.")
-      elif result == "-":
-        self._logevent("hit but inflicted no damage.")
-      else:
-        self._logevent("hit and inflicted %s damage." % result)
-        if target != None:
-          target._takedamage(result)
-
-      self._logevent("%.1f gun ammunition remain" % self._gunammunition)
-
+      apairtoair.react(self, weapon, targetname, result)
+    
       self._lognote(note)
       self._logline()
 
@@ -437,14 +386,14 @@ class aircraft:
 
   #############################################################################
 
-  def gunrange(self, other, arc=False):
+  def gunattackrange(self, other, arc=False):
 
     """
     Return the gun attack range of the other aircraft from the aircraft
     or a string explaining why it cannot be attacked.
     """
 
-    return apgunnery.gunrange(self, other, arc=arc)
+    return apairtoair.gunattackrange(self, other, arc=arc)
 
   #############################################################################
 

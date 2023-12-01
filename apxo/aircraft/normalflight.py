@@ -857,7 +857,7 @@ def _continuenormalflight(self, actions, note=False):
       if weapon == "GN" or weapon == "GNSS":
         if self.gunarc() != None:
           self._logevent("gunnery arc is %s." % self.gunarc())
-        r = self.gunrange(target, arc=self.gunarc())
+        r = self.gunattackrange(target, arc=self.gunarc())
       else:
         r = self.rocketattackrange(target)
       if isinstance(r, str):

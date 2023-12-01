@@ -1,8 +1,9 @@
+import apxo.aircraft as apaircraft
 import apxo.geometry as apgeometry
 
 ##############################################################################
 
-def gunrange(attacker, target, arc=False):
+def gunattackrange(attacker, target, arc=False):
 
   """
   Returns the range of an air-to-air gun attack from the attacker on the target
@@ -113,3 +114,65 @@ def gunrange(attacker, target, arc=False):
       return r
 
 ##############################################################################
+
+def react(attacker, weapon, targetname, result):
+
+  """
+  Return fire, either with fixed guns or articulated guns.
+  """
+
+  if targetname == "":
+    targetdescription = ""
+  else:
+    targetdescription = " on %s" % targetname
+    
+  if weapon == "GN":
+
+    attacker._logevent("gun air-to-air attack%s." % targetdescription)
+    if attacker._gunammunition < 1.0:
+      raise RuntimeError("available gun ammunition is %.1f." % attacker._gunammunition)
+    attacker._gunammunition -= 1.0
+
+  elif weapon == "GNSS":
+
+    attacker._logevent("snap-shot gun air-to-air attack%s." % targetdescription)
+    if attacker._gunammunition < 0.5:
+      raise RuntimeError("available gun ammunition is %.1f." % attacker._gunammunition)
+    attacker._gunammunition -= 0.5
+
+  else:
+
+    raise RuntimeError("invalid weapon %r." % weapon)
+
+  if attacker.gunarc() != None:
+    attacker._logevent("gunnery arc is %s." % attacker.gunarc())
+
+  if targetname != "":
+    target = apaircraft._fromname(targetname)
+    if target == None:
+      raise RuntimeError("unknown target aircraft %s." % targetname)
+    r = attacker.gunattackrange(target, arc=attacker.gunarc())
+    if isinstance(r, str):
+        raise RuntimeError(r)      
+    attacker._logevent("range is %d." % r)     
+    if attacker.gunarc != None: 
+      attacker._logevent("angle-off-tail is %s." % target.angleofftail(attacker))
+    else:
+      attacker._logevent("angle-off-tail is %s." % attacker.angleofftail(target))
+
+  if result == "":
+    attacker._logevent("result of attack not specified.")
+    attacker._unspecifiedattackresult += 1
+  elif result == "M":
+    attacker._logevent("missed.")
+  elif result == "-":
+    attacker._logevent("hit but inflicted no damage.")
+  else:
+    attacker._logevent("hit and inflicted %s damage." % result)
+    if target != None:
+      target._takedamage(result)
+
+  attacker._logevent("%.1f gun ammunition remain" % attacker._gunammunition)
+
+##############################################################################
+
