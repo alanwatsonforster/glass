@@ -81,13 +81,13 @@ def angleofftail(a0, a1):
     angleofftail, angleoffnose, r, dx, dy = relativepositions(x0, y0, facing0, x1, y1, facing1)
     return angleofftail, angleoffnose, r
 
-  x0      = a0._x
-  y0      = a0._y
-  facing0 = a0._facing
+  x0      = a0.x()
+  y0      = a0.y()
+  facing0 = a0.facing()
 
-  x1      = a1._x
-  y1      = a1._y
-  facing1 = a1._facing
+  x1      = a1.x()
+  y1      = a1.y()
+  facing1 = a1.facing()
 
   angleofftail, angleoffnose, r = truegeometry(x0, y0, facing0, x1, y1, facing1)
 
@@ -101,9 +101,9 @@ def angleofftail(a0, a1):
 
     inreararc = False
     infrontarc = False
-    if a0._speed < a1._speed:
+    if a0.speed() < a1.speed():
       inreararc = True
-    elif a0._speed > a1._speed and angleoffnose != 0:
+    elif a0.speed() > a1.speed() and angleoffnose != 0:
       if (angleofftail > 0 and angleoffnose > 0) or (angleofftail < 0 and angleoffnose < 0):
         infrontarc = True
       elif (angleofftail > 0 and angleoffnose < 0) or (angleofftail < 0 and angleoffnose > 0):
@@ -147,14 +147,14 @@ def inlimitedradararc(a0, a1, x1=None, y1=None, facing1=None):
 
   # See the Limited Radar Arc diagram in the sheets.
 
-  x0      = a0._x
-  y0      = a0._y
-  facing0 = a0._facing
+  x0      = a0.x()
+  y0      = a0.y()
+  facing0 = a0.facing()
 
   if a1 != None:
-    x1      = a1._x
-    y1      = a1._y
-    facing1 = a1._facing
+    x1      = a1.x()
+    y1      = a1.y()
+    facing1 = a1.facing()
   
   angleofftail, angleoffnose, r, dx, dy = relativepositions(x0, y0, facing0, x1, y1, facing1)
       

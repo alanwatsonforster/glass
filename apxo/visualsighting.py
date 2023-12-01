@@ -26,20 +26,20 @@ def visualsightingrange(a0, a1):
 
   # See rule 11.1.
 
-  x0 = a0._x
-  y0 = a1._y
-  x1 = a1._x
-  y1 = a1._y
+  x0 = a0.x()
+  y0 = a1.y()
+  x1 = a1.x()
+  y1 = a1.y()
 
   horizontalrange = aphex.distance(x0, y0, x1, y1)
 
-  altitude0 = a0._altitude
-  altitude1 = a1._altitude
+  altitude0 = a0.altitude()
+  altitude1 = a1.altitude()
 
-  if a0._altitude >= a1._altitude:
-    verticalrange = int((a0._altitude - a1._altitude) / 2)
+  if a0.altitude() >= a1.altitude():
+    verticalrange = int((a0.altitude() - a1.altitude()) / 2)
   else:
-    verticalrange = int((a1._altitude - a0._altitude) / 4)
+    verticalrange = int((a1.altitude() - a0.altitude()) / 4)
 
   return horizontalrange + verticalrange
 

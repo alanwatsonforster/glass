@@ -43,15 +43,15 @@ def gunattackrange(attacker, target, arc=False):
       return False
 
   def verticalrange():
-    return int(abs(attacker._altitude - target._altitude) / 2)
+    return int(abs(attacker.altitude() - target.altitude()) / 2)
 
   if arc:
 
     rmin = False
     for facing in range(0, 361, 30):
       r = horizontalrange(
-        attacker._x, attacker._y, facing, 
-        target._x, target._y, target._facing
+        attacker.x(), attacker.y(), facing, 
+        target.x(), target.y(), target.facing()
       )
       if rmin is False:
         rmin = r
@@ -90,22 +90,22 @@ def gunattackrange(attacker, target, arc=False):
   else:
     
     r = horizontalrange(
-      attacker._x, attacker._y, attacker._facing, 
-      target._x, target._y, target._facing
+      attacker.x(), attacker.y(), attacker.facing(), 
+      target.x(), target.y(), target.facing()
     )
 
     if r is False:
       return "the target is not in the weapon range or arc."
 
     # Apply the relative altitude restrictions for climbing, diving, and level flight.
-    if attacker.climbingflight() and attacker._altitude > target._altitude:
+    if attacker.climbingflight() and attacker.altitude() > target.altitude():
       return "aircraft in climbing flight cannot fire on aircraft at lower altitudes."
-    if attacker.divingflight() and attacker._altitude < target._altitude:
+    if attacker.divingflight() and attacker.altitude() < target.altitude():
       return "aircraft in diving flight cannot fire on aircraft at higher altitudes."
     if attacker.levelflight():
-      if r == 0 and attacker._altitude != target._altitude:
+      if r == 0 and attacker.altitude() != target.altitude():
         return "aircraft in level flight cannot fire at range 0 on aircraft at a different altitude."
-      if r > 0 and abs(attacker._altitude - target._altitude) > 1:
+      if r > 0 and abs(attacker.altitude() - target.altitude()) > 1:
         return "aircraft in level flight cannot fire on aircraft with more than 1 level of difference in altitude."
         
     r += verticalrange()
@@ -121,10 +121,10 @@ def rocketattackrange(attacker, target):
   # See rule 9.3.
 
   def horizontalrange():
-    return aphex.distance(attacker._x, attacker._y, target._x, target._y)
+    return aphex.distance(attacker.x(), attacker.y(), target.x(), target.y())
 
   def verticalrange():
-    return int(abs(attacker._altitude - target._altitude) / 2)
+    return int(abs(attacker.altitude() - target.altitude()) / 2)
     
   if not attacker.inlimitedradararc(target):
     return "the target is not in the weapon range or arc."
@@ -132,14 +132,14 @@ def rocketattackrange(attacker, target):
   r = horizontalrange()
 
   # Apply the relative altitude restrictions for climbing, diving, and level flight.
-  if attacker.climbingflight() and attacker._altitude > target._altitude:
+  if attacker.climbingflight() and attacker.altitude() > target.altitude():
     return "aircraft in climbing flight cannot fire on aircraft at lower altitudes."
-  if attacker.divingflight() and attacker._altitude < target._altitude:
+  if attacker.divingflight() and attacker.altitude() < target.altitude():
     return "aircraft in diving flight cannot fire on aircraft at higher altitudes."
   if attacker.levelflight():
-    if r == 0 and attacker._altitude != target._altitude:
+    if r == 0 and attacker.altitude() != target.altitude():
       return "aircraft in level flight cannot fire at range 0 on aircraft at a different altitude."
-    if r > 0 and abs(attacker._altitude - target._altitude) > 1:
+    if r > 0 and abs(attacker.altitude() - target.altitude()) > 1:
       return "aircraft in level flight cannot fire on aircraft with more than 1 level of difference in altitude."
   
   r += verticalrange()
