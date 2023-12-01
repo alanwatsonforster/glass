@@ -152,8 +152,15 @@ def rocketattackrange(attacker, target):
 
 ##############################################################################
 
-def attack(attacker, weapon, target, result):
+def _attack(attacker, weapon, target, result, allowRK=True, allowSSGT=True):
 
+  """
+  Attack and aircraft with fixed guns, articulated guns, or rockets.
+  """
+
+  if attacker._ETrecoveryfp > 0:
+    raise RuntimeError("attempt to use weapons in or while recovering from an ET.")
+    
   if target is None:
     targetdescription = ""
   else:
@@ -173,7 +180,7 @@ def attack(attacker, weapon, target, result):
       raise RuntimeError("available gun ammunition is %.1f." % attacker._gunammunition)
     attacker._gunammunition -= 0.5
 
-  elif weapon[0:2] == "RK":
+  elif allowRK and weapon[0:2] == "RK":
 
     if not weapon[2:].isdigit():
       raise RuntimeError("invalid weapon %r." % weapon)
@@ -201,16 +208,17 @@ def attack(attacker, weapon, target, result):
     attacker._logevent("range is %d." % r)      
     attacker._logevent("angle-off-tail is %s." % attacker.angleofftail(target))
 
+  if allowSSGT:
+    interval = apmath.onethird(attacker._speed)
+    attacker._logevent("SSGT interval is %.1f %s." % (interval, aplog.plural(interval, "FP", "FPs")))
+
   if attacker._BTrecoveryfp > 0:
     attacker._logevent("applicable turn rate is BT.")
   elif attacker._HTrecoveryfp > 0:
     attacker._logevent("applicable turn rate is HT.")
   else:
     attacker._logevent("no applicable turn rate.")
-
-  interval = apmath.onethird(attacker._speed)
-  attacker._logevent("SSGT interval is %.1f %s." % (interval, aplog.plural(interval, "FP", "FPs")))
-
+    
   if result == "":
     attacker._logevent("result of attack not specified.")
     attacker._unspecifiedattackresult += 1
@@ -230,61 +238,23 @@ def attack(attacker, weapon, target, result):
       
 ##############################################################################
 
+def attack(attacker, weapon, target, result):
+
+  """
+  Attack an aircraft, with fixed guns, articulated guns, or rockets.
+  """
+
+  _attack(attacker, weapon, target, result)
+      
+##############################################################################
+
 def react(attacker, weapon, target, result):
 
   """
-  Return fire, either with fixed guns or articulated guns.
+  Return fire, with fixed guns or articulated guns.
   """
 
-  if target is None:
-    targetdescription = ""
-  else:
-    targetdescription = targetdescription = " on %s" % target.name()
-      
-  if weapon == "GN":
-
-    attacker._logevent("gun air-to-air attack%s." % targetdescription)
-    if attacker._gunammunition < 1.0:
-      raise RuntimeError("available gun ammunition is %.1f." % attacker._gunammunition)
-    attacker._gunammunition -= 1.0
-
-  elif weapon == "GNSS":
-
-    attacker._logevent("snap-shot gun air-to-air attack%s." % targetdescription)
-    if attacker._gunammunition < 0.5:
-      raise RuntimeError("available gun ammunition is %.1f." % attacker._gunammunition)
-    attacker._gunammunition -= 0.5
-
-  else:
-
-    raise RuntimeError("invalid weapon %r." % weapon)
-
-  if attacker.gunarc() != None:
-    attacker._logevent("gunnery arc is %s." % attacker.gunarc())
-
-  if target is not None:
-    r = attacker.gunattackrange(target, arc=attacker.gunarc())
-    if isinstance(r, str):
-        raise RuntimeError(r)      
-    attacker._logevent("range is %d." % r)     
-    if attacker.gunarc != None: 
-      attacker._logevent("angle-off-tail is %s." % target.angleofftail(attacker))
-    else:
-      attacker._logevent("angle-off-tail is %s." % attacker.angleofftail(target))
-
-  if result == "":
-    attacker._logevent("result of attack not specified.")
-    attacker._unspecifiedattackresult += 1
-  elif result == "M":
-    attacker._logevent("missed.")
-  elif result == "-":
-    attacker._logevent("hit but inflicted no damage.")
-  else:
-    attacker._logevent("hit and inflicted %s damage." % result)
-    if target != None:
-      target._takedamage(result)
-
-  attacker._logevent("%.1f gun ammunition remain" % attacker._gunammunition)
+  return _attack(attacker, weapon, target, result, allowSSGT=False, allowRK=False)
 
 ##############################################################################
 
