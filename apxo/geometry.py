@@ -18,6 +18,11 @@ def _round(x):
       
 ##############################################################################
 
+def samehorizontalposition(a0, a1):
+  return a0.x() == a1.x() and a0.y() == a1.y()
+
+##############################################################################
+
 def relativepositions(x0, y0, facing0, x1, y1, facing1):
 
   # Determine the offsets of 1 from 0.

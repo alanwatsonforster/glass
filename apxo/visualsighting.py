@@ -2,37 +2,54 @@
 
 import apxo.log as aplog
 import apxo.hex as aphex
+import apxo.geometry as apgeometry
 
 ##############################################################################
 
 def showvisualsighting(alist):
 
-  aplog.logbreak()
-  aplog.log("visual sighting.")
-
   for target in alist:
-    aplog.log("target %s:" % target.name())
+    aplog.logbreak()
+    #aplog.log("target %s:" % target.name())
     maxr = 4 * target.visibility()
-    aplog.log("maximum visbible sighting range is %d." % maxr)
+    aplog.log("%-4s: maximum visual range is %d." % (target.name(), maxr))
     for searcher in alist:
+
       if target.name() == searcher.name():
         continue
+
       r = visualsightingrange(searcher, target)
-      blindarc      = _blindarc(searcher, target)
-      restrictedarc = _restrictedarc(searcher, target)
-      if blindarc is not None:
-        aplog.log("target %s: searcher %s: blind (%s arc)." % (target.name(), searcher.name(), blindarc))
-      elif restrictedarc is not None:
-        aplog.log("target %s: searcher %s: range is %d but restricted (%s arc)." % (target.name(), searcher.name(), r, restrictedarc))
+      if  apgeometry.samehorizontalposition(searcher, target):
+        # I'm confused by the rules for determining arcs if two aircraft are in
+        # the same hex, so for the time being I assume blind and restricted arcs
+        # do not apply in this case.
+        blindarc = None
+        restrictedarc = None
       else:
-        aplog.log("target %s: searcher %s: range is %d." % (target.name(), searcher.name(), r))
+        blindarc      = _blindarc(searcher, target)
+        restrictedarc = _restrictedarc(searcher, target)
+
+      if r > maxr:
+        result = "beyond visual range."
+      elif apgeometry.samehorizontalposition(searcher, target) and searcher.altitude() > target.altitude():
+        result = "within visual range and can padlock, but blind (immediately below)."
+      elif apgeometry.samehorizontalposition(searcher, target) and searcher.altitude() < target.altitude():
+        result = "within visual range (immediately above)."
+      elif blindarc is not None:
+        result = "within visual range but blind (%s arc)." % blindarc
+      elif restrictedarc is not None:
+        result = "within visual range but restricted (%s arc)." % restrictedarc
+      else:
+        result = "within visual range."
+
+      aplog.log("%-4s: searcher %s: range is %2d: %s" % (target.name(), searcher.name(), r, result))
 
 ##############################################################################
 
 def visualsightingrange(searcher, target):
 
   """
-  Return the visual sighting range from aircraft a0 to aircraft a1.
+  Return the visual sighting range from the searcher to the target.
   """
 
   # See rule 11.1.
