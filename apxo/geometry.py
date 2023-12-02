@@ -69,7 +69,7 @@ def relativepositions(x0, y0, facing0, x1, y1, facing1):
 
 ##############################################################################
 
-def angleofftail(a0, a1):
+def angleofftail(a0, a1, arconly=False):
 
   """
   Return the angle of a0 off the tail of a1.
@@ -114,12 +114,13 @@ def angleofftail(a0, a1):
     elif (infrontarc and angleofftail < 0) or (inreararc and angleofftail > 0):
         angleofftail -= 1
 
-  # To be on the 0 or 180 degree lines, the aircraft has to be facing
-  # the other.
-  if angleofftail == 0 and facing0 == facing1:
-    return "0 line"
-  elif angleofftail == 180 and abs(facing0 - facing1) == 180:
-    return "180 line"
+  if not arconly:
+    # To be on the 0 or 180 degree lines, the aircraft has to be facing
+    # the other.
+    if angleofftail == 0 and facing0 == facing1:
+      return "0 line"
+    elif angleofftail == 180 and abs(facing0 - facing1) == 180:
+      return "180 line"
 
   # Resolve cases on the 30, 60, 90, 120, and 150 degree lines in favor
   # of aircraft 0 (round 120 to 150 and 150 to 180).

@@ -31,8 +31,13 @@ def _endsetup():
   for a in _aircraftlist:
     a._save(apturn.turn())
 
-def all():
-  return _aircraftlist
+def aslist(withdestroyed=False, withleftmap=False):
+  alist = _aircraftlist
+  if not withdestroyed:
+    alist = filter(lambda x: not x._destroyed, alist)
+  if not withleftmap:
+    alist = filter(lambda x: not x._leftmap, alist)
+  return list(alist)
 
 def _startturn():
   global _zorder
@@ -120,7 +125,7 @@ class aircraft:
     power, spbr, fuelrate, powerfade, engines, turndrag, \
     minspeed, maxspeed, cruisespeed, climbspeed, maxdivespeed, ceiling, \
     rollhfp, rolldrag, climbcapability, hasproperty, \
-    specialclimbcapability, gunarc
+    specialclimbcapability, gunarc, blindarcs, restrictedarcs
 
   from .draw import \
     _drawaircraft, \
@@ -423,13 +428,13 @@ class aircraft:
     
   #############################################################################
 
-  def angleofftail(self, other):
+  def angleofftail(self, other, **kwargs):
 
     """
     Return the angle of the aircraft off the tail of the other aircraft.
     """
 
-    return apgeometry.angleofftail(self, other)
+    return apgeometry.angleofftail(self, other, **kwargs)
 
   #############################################################################
 

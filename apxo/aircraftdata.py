@@ -160,7 +160,16 @@ class aircraftdata:
     return self._data["climbspeed"]
 
   def blindarcs(self):
-    return self._data["blindarcs"]
+    if self._data["blindarcs"] == "":
+      return []
+    else:
+      return self._data["blindarcs"].split("/")
+
+  def restrictedarcs(self):
+    if self._data["restrictedarcs"] == "":
+      return []
+    else:
+      return self._data["restrictedarcs"].split("/")
 
   def rollhfp(self):
     raw = self._data["maneuvertable"]["LR/DR"][0]

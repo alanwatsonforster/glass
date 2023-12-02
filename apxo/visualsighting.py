@@ -7,18 +7,27 @@ import apxo.hex as aphex
 
 def showvisualsighting(alist):
 
+  aplog.logbreak()
   aplog.log("visual sighting.")
 
-  for a0 in alist:
-    rlist = [visualsightingrange(a0, a1) for a1 in alist]
-    zipped = sorted(list(zip(rlist, alist)), key=lambda x: x[0])
-    for r, a1 in zipped:
-      if a0._name != a1._name:
-        aplog.log("range from %s to %s is %d." % (a1._name, a0._name, r))
+  for target in alist:
+    aplog.log("target %s:" % target.name())
+    for searcher in alist:
+      if target.name() == searcher.name():
+        continue
+      r = visualsightingrange(searcher, target)
+      blindarc      = _blindarc(searcher, target)
+      restrictedarc = _restrictedarc(searcher, target)
+      if blindarc is not None:
+        aplog.log("target %s: searcher %s: blind (%s arc)." % (target.name(), searcher.name(), blindarc))
+      elif restrictedarc is not None:
+        aplog.log("target %s: searcher %s: range is %d but restricted (%s arc)." % (target.name(), searcher.name(), r, restrictedarc))
+      else:
+        aplog.log("target %s: searcher %s: range is %d." % (target.name(), searcher.name(), r))
 
 ##############################################################################
 
-def visualsightingrange(a0, a1):
+def visualsightingrange(searcher, target):
 
   """
   Return the visual sighting range from aircraft a0 to aircraft a1.
@@ -26,54 +35,60 @@ def visualsightingrange(a0, a1):
 
   # See rule 11.1.
 
-  x0 = a0.x()
-  y0 = a1.y()
-  x1 = a1.x()
-  y1 = a1.y()
+  horizontalrange = aphex.distance(target.x(), target.y(), searcher.x(), searcher.y())
 
-  horizontalrange = aphex.distance(x0, y0, x1, y1)
-
-  altitude0 = a0.altitude()
-  altitude1 = a1.altitude()
-
-  if a0.altitude() >= a1.altitude():
-    verticalrange = int((a0.altitude() - a1.altitude()) / 2)
+  if searcher.altitude() >= target.altitude():
+    verticalrange = int((searcher.altitude() - target.altitude()) / 2)
   else:
-    verticalrange = int((a1.altitude() - a0.altitude()) / 4)
+    verticalrange = int((target.altitude() - searcher.altitude()) / 4)
 
   return horizontalrange + verticalrange
 
 ##############################################################################
 
-def inblindarc(a0, a1):
+def _arc(searcher, target, arcs):
+
+  angleoff = target.angleofftail(searcher, arconly=True)
+
+  for arc in arcs:
+    if arc == "30-" or arc == "60L":
+      angleoffs = [ "30 arc" ]
+    elif arc == "60-" or arc == "60L":
+      angleoffs = [ "30 arc", "60 arc" ]
+    elif arc == "90-" or arc == "90L":
+      angleoffs = [ "30 arc", "60 arc", "90 arc" ]
+    elif arc == "180L":
+      angleoffs = [ "180 arc" ]
+    else:
+      raise RuntimeError("invalid arc %r." % arc)
+    lower = (arc[-1] == "L")
+    if lower and searcher.altitude() <= target.altitude():
+      continue
+    if angleoff in angleoffs:
+      return arc
+
+  return None
+
+def _blindarc(searcher, target):
 
   """
-  Return True if a1 is in the blind arc of a0.
+  If the target is in the blind arcs of the target, return the arc. Otherwise
+  return None.
   """
 
   # See rules 9.2 and 11.1.
 
-  blindarcs = a0.blindarcs()
+  return _arc(searcher, target, searcher.blindarcs())
 
-  if blindarcs == None:
-    return True
+def _restrictedarc(searcher, target):
 
-  angleoff = target.angleofftail(attacker)
-  if blindarcs == "30-":
-    blindangloff = [ "0 line", "30 arc" ]
-  elif arc == "60-":
-    blindangloff = [ "0 line", "30 arc", "60 arc" ]
-  elif blindarcs == "90-":
-    blindangloff = [ "0 line", "30 arc", "60 arc", "90 arc" ]
-  elif blindarcs == "120-":
-    blindangloff = [ "0 line", "30 arc", "60 arc", "90 arc", "120 arc" ]
-  elif blindarcs == "150-":
-    blindangloff = [ "0 line", "30 arc", "60 arc", "90 arc", "120 arc", "150 arc" ]
-  elif blindarcs == "180-":
-    blindangloff = [ "0 line", "30 arc", "60 arc", "90 arc", "120 arc", "150 arc", "180 arc", "180 line" ]
-  else:
-    raise RuntimeError("invalid arc %r." % arc)
+  """
+  If the target is in the restricted arcs of the target, return the arc. Otherwise
+  return None.
+  """
 
-  return angleoff in blindarcs
+  # See rules 9.2 and 11.1.
+
+  return _arc(searcher, target, searcher.restrictedarcs())
 
 ##############################################################################

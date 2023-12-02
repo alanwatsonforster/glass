@@ -95,7 +95,7 @@ def startturn():
 
     apaircraft._startturn()
 
-    apvisualsighting.showvisualsighting(apaircraft.all())
+    apvisualsighting.showvisualsighting(apaircraft.aslist())
 
   except RuntimeError as e:
     aplog.logexception(e)

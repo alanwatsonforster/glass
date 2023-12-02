@@ -83,6 +83,12 @@ def cruisespeed(self):
 def climbspeed(self):
   return self._aircraftdata.climbspeed()
 
+def blindarcs(self):
+  return self._aircraftdata.blindarcs()
+
+def restrictedarcs(self):
+  return self._aircraftdata.restrictedarcs()
+
 def maxdivespeed(self):
   raw = self._aircraftdata.maxdivespeed(self._altitudeband)
   if raw != None:
