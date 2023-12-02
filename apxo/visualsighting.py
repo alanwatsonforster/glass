@@ -6,21 +6,6 @@ import apxo.geometry as apgeometry
 
 ##############################################################################
 
-def showvisualsighting(alist):
-
-  for target in alist:
-    aplog.logbreak()
-    aplog.log("%-4s: maximum visual range is %d." % (target.name(), target.maxvisualsightingrange()))
-    for searcher in alist:
-      if target.name() != searcher.name():
-        aplog.log("%-4s: searcher %s: range is %2d: %s." % (
-          target.name(), searcher.name(), 
-          visualsightingrange(searcher, target), 
-          visualsightingcondition(searcher, target)[0]
-        ))
-
-##############################################################################
-
 def maxvisualsightingrange(target):
 
   """

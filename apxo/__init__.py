@@ -6,13 +6,14 @@ import apxo.marker         as apmarker
 import apxo.variants       as apvariants
 import apxo.scenarios      as apscenarios
 import apxo.turn           as apturn
-import apxo.visualsighting as apvisualsighting
 
 __all__ = [
   "startsetup",
   "endsetup",
   "startturn",
   "endturn",
+  "startvisualsighting",
+  "endvisualsighting",
   "drawmap",
   "aircraft",
   "marker"
@@ -95,7 +96,7 @@ def startturn():
 
     apaircraft._startturn()
 
-    apvisualsighting.showvisualsighting(apaircraft.aslist())
+    apaircraft.startvisualsighting()
 
   except RuntimeError as e:
     aplog.logexception(e)
@@ -119,6 +120,14 @@ def endturn():
   except RuntimeError as e:
     aplog.logexception(e)
 
+
+################################################################################
+
+def startvisualsighting():
+  apaircraft.startvisualsighting()
+
+def endvisualsighting():
+  apaircraft.endvisualsighting()
 
 ################################################################################
 

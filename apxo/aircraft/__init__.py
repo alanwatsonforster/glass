@@ -46,6 +46,8 @@ def _startturn():
   for a in _aircraftlist:
     a._restore(apturn.turn() - 1)
     a._finishedmove = False
+    a._sightedpreviousturn = a._sighted
+    a._sighted = False
     a._unspecifiedattackresult = 0
     a._startflightpath()
   for a in _aircraftlist:
@@ -71,6 +73,8 @@ def _drawmap():
   for a in _aircraftlist:
     a._drawflightpath()
     a._drawaircraft()
+
+##############################################################################
 
 def fromname(name):
   """
@@ -228,11 +232,12 @@ class aircraft:
         self._rocketfactors       = rocketfactors
       self._destroyed             = False
       self._leftmap               = False
+      self._sighted               = False
       self._turnsstalled          = 0
       self._turnsdeparted         = 0
       self._finishedmove          = True
-      self.flightpathx           = []
-      self.flightpathy           = []
+      self.flightpathx            = []
+      self.flightpathy            = []
       self._color                 = color
       self._counter               = counter
 
@@ -511,12 +516,18 @@ class aircraft:
     self._logbreak()
     self._logline()
     self._log("padlocks %s." % target.name())
+
+    if not target._sightedpreviousturn:
+      raise RuntimeError("%s was not sighted on previous turn." % (target.name()))
+
     self._logevent("range is %d." % apvisualsighting.visualsightingrange(self, target))
     self._logevent("%s." % apvisualsighting.visualsightingcondition(self, target)[0])
 
     condition, cansight, canpadlock = apvisualsighting.visualsightingcondition(self, target)
     if not canpadlock:
       raise RuntimeError("%s cannot padlock %s." % (self.name(), target.name()))
+
+    target._sighted = True
 
     self._lognote(note)
     self._logline()
@@ -540,6 +551,7 @@ class aircraft:
 
     if success is True:
       self._log("succeeds.")
+      target._sighted = True
     elif success is False:
       self._log("fails.")
 
@@ -735,6 +747,7 @@ class aircraft:
     self.closeformation, \
     self._destroyed, \
     self._leftmap, \
+    self._sighted, \
     self._turnsstalled, \
     self._turnsdeparted \
     = self._saved[i]
@@ -781,6 +794,7 @@ class aircraft:
       self.closeformation, \
       self._destroyed, \
       self._leftmap, \
+      self._sighted, \
       self._turnsstalled, \
       self._turnsdeparted \
     )
@@ -828,4 +842,34 @@ class aircraft:
       print("== expected speed: %s" % configuration)
       assert configuration == self.configuration
 
-  ################################################################################  
+################################################################################  
+
+def startvisualsighting():
+
+  for target in aslist():
+    aplog.logbreak()
+    if target._sightedpreviousturn:
+      aplog.log("%-4s : was sighted on previous turn." % target.name())
+    else:
+      aplog.log("%-4s : was unsighted on previous turn." % target.name())
+    aplog.log("%-4s : maximum visual range is %d." % (target.name(), target.maxvisualsightingrange()))
+    for searcher in aslist():
+      if target.name() != searcher.name():
+        aplog.log("%-4s : searcher %s: range is %2d: %s." % (
+          target.name(), searcher.name(), 
+          apvisualsighting.visualsightingrange(searcher, target), 
+          apvisualsighting.visualsightingcondition(searcher, target)[0]
+        ))
+
+################################################################################
+
+def endvisualsighting():
+
+  aplog.logbreak()
+  for target in aslist():
+    if target._sighted:
+      aplog.log("%-4s : is sighted." % target.name())
+    else:
+      aplog.log("%-4s : is unsighted." % target.name())
+
+################################################################################
