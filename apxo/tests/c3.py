@@ -4,10 +4,10 @@ startfile(__file__, "speed brakes")
 # Speed Brakes
 
 starttestsetup()
-A1 = aircraft("A1", "F-80C", "1115", "N", 10, 2.5, "CL")
-A2 = aircraft("A2", "F-80C", "1315", "N", 10, 3.0, "CL")
-A3 = aircraft("A3", "F-80C", "1515", "N", 10, 3.5, "CL")
-A4 = aircraft("A4", "F-80C", "1715", "N", 10, 4.0, "CL")
+A1 = aircraft("A1", "AF", "F-80C", "1115", "N", 10, 2.5, "CL")
+A2 = aircraft("A2", "AF", "F-80C", "1315", "N", 10, 3.0, "CL")
+A3 = aircraft("A3", "AF", "F-80C", "1515", "N", 10, 3.5, "CL")
+A4 = aircraft("A4", "AF", "F-80C", "1715", "N", 10, 4.0, "CL")
 endtestsetup()
 
 startturn()
@@ -44,7 +44,7 @@ A4._assert("1705       N    10",  3.5)
 endturn()
 
 starttestsetup()
-A1 = aircraft("A1", "Sea Fury FB.11", "2015", "N", 10, 2.0, "CL")
+A1 = aircraft("A1", "AF", "Sea Fury FB.11", "2015", "N", 10, 2.0, "CL")
 endtestsetup()
 
 startturn()

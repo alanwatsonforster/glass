@@ -2,13 +2,13 @@ from apxo.tests.infrastructure import *
 startfile(__file__, "air-to-air attack elements")
 
 starttestsetup()
-A1 = aircraft("A1", "F-80C"  , "2025", "N", 5, 4.0, "CL")
-A2 = aircraft("A2", "Tu-4"   , "2023", "E", 5, 4.0, "CL")
-A3 = aircraft("A3", "F-80C"  , "2025", "N", 5, 4.0, "CL", gunammunition=3.5)
-A4 = aircraft("A4", "Tu-4"   , "2023", "E", 5, 4.0, "CL", gunammunition=11.0)
-A5 = aircraft("A5", "F-89D"  , "2023", "E", 5, 4.0, "CL")
-A6 = aircraft("A6", "F-102A" , "2023", "E", 5, 4.0, "CL", rocketfactors=0)
-A7 = aircraft("A7", "F-100C" , "2025", "N", 5, 6.0, "CL")
+A1 = aircraft("A1", "AF", "F-80C"  , "2025", "N", 5, 4.0, "CL")
+A2 = aircraft("A2", "AF", "Tu-4"   , "2023", "E", 5, 4.0, "CL")
+A3 = aircraft("A3", "AF", "F-80C"  , "2025", "N", 5, 4.0, "CL", gunammunition=3.5)
+A4 = aircraft("A4", "AF", "Tu-4"   , "2023", "E", 5, 4.0, "CL", gunammunition=11.0)
+A5 = aircraft("A5", "AF", "F-89D"  , "2023", "E", 5, 4.0, "CL")
+A6 = aircraft("A6", "AF", "F-102A" , "2023", "E", 5, 4.0, "CL", rocketfactors=0)
+A7 = aircraft("A7", "AF", "F-100C" , "2025", "N", 5, 6.0, "CL")
 endtestsetup()
 
 startturn()
@@ -54,8 +54,8 @@ A7._assert("2221       NNE   5", 6.0)
 
 # Check error if attack results are not specified at end of turn.
 starttestsetup()
-A1 = aircraft("A1", "F-80C"  , "2025", "N", 5, 4.0, "CL")
-A2 = aircraft("A2", "Tu-4"   , "2024", "N", 5, 3.0, "CL")
+A1 = aircraft("A1", "AF", "F-80C"  , "2025", "N", 5, 4.0, "CL")
+A2 = aircraft("A2", "AF", "Tu-4"   , "2024", "N", 5, 3.0, "CL")
 endtestsetup()
 
 startturn()

@@ -4,7 +4,7 @@ startfile(__file__, "departed flight")
 # Maneuvering Departures
 
 starttestsetup(verbose=False)
-A1 = aircraft("A1", "F-80C", "2010", "N", 10, 3.0, "CL")
+A1 = aircraft("A1", "AF", "F-80C", "2010", "N", 10, 3.0, "CL")
 endtestsetup()
 
 startturn()
@@ -21,7 +21,7 @@ endturn()
 # Maneuvering Departures from Carried Turn
 
 starttestsetup()
-A1 = aircraft("A1", "F-80C", "2010", "N", 10, 3.0, "CL")
+A1 = aircraft("A1", "AF", "F-80C", "2010", "N", 10, 3.0, "CL")
 endtestsetup()
 
 startturn()
@@ -41,9 +41,9 @@ endturn()
 # warnings are issued.
 
 starttestsetup(verbose=False)
-A1 = aircraft("A1", "F-80C" , "2030", "N", 46, 3.0, "CL")
-A2 = aircraft("A2", "F-104A", "2230", "N", 59, 6.0, "CL")
-A3 = aircraft("A3", "F-80C" , "2430", "N", 46, 3.0, "CL")
+A1 = aircraft("A1", "AF", "F-80C" , "2030", "N", 46, 3.0, "CL")
+A2 = aircraft("A2", "AF", "F-104A", "2230", "N", 59, 6.0, "CL")
+A3 = aircraft("A3", "AF", "F-80C" , "2430", "N", 46, 3.0, "CL")
 endtestsetup()
 
 startturn()
@@ -70,9 +70,9 @@ endturn()
 # Departed Flight
 
 starttestsetup(verbose=False)
-A1 = aircraft("A1", "F-80C", "1814", "N", 10, 3.0, "CL")
-A2 = aircraft("A2", "F-80C", "2014", "N", 10, 1.0, "CL")
-A3 = aircraft("A3", "F-80C", "2214", "N", 10, 5.0, "CL")
+A1 = aircraft("A1", "AF", "F-80C", "1814", "N", 10, 3.0, "CL")
+A2 = aircraft("A2", "AF", "F-80C", "2014", "N", 10, 1.0, "CL")
+A3 = aircraft("A3", "AF", "F-80C", "2214", "N", 10, 5.0, "CL")
 endtestsetup()
 
 startturn()

@@ -4,9 +4,9 @@ startfile(__file__, "HPR aircraft")
 # Rolls and HPR Aircraft
 
 starttestsetup()
-A1 = aircraft("A1", "F7U-3", "2015", "N", 10, 3.5, "CL")
-A2 = aircraft("A2", "F7U-3", "2215", "N", 10, 4.0, "CL")
-A3 = aircraft("A3", "F7U-3", "2415", "N", 10, 2.0, "CL")
+A1 = aircraft("A1", "AF", "F7U-3", "2015", "N", 10, 3.5, "CL")
+A2 = aircraft("A2", "AF", "F7U-3", "2215", "N", 10, 4.0, "CL")
+A3 = aircraft("A3", "AF", "F7U-3", "2415", "N", 10, 2.0, "CL")
 endtestsetup()
 
 startturn()

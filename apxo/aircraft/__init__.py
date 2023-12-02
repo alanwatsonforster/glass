@@ -144,7 +144,7 @@ class aircraft:
 
   #############################################################################
 
-  def __init__(self, name, aircrafttype, hexcode, azimuth, altitude, speed,
+  def __init__(self, name, force, aircrafttype, hexcode, azimuth, altitude, speed,
     configuration="CL",
     fuel=None, bingofuel=None, 
     gunammunition=None, rocketfactors=None, stores=None, 
@@ -240,6 +240,7 @@ class aircraft:
       self.flightpathy            = []
       self._color                 = color
       self._counter               = counter
+      self._force                 = force
 
       self._logaction("", "type          is %s." % aircrafttype)
       self._logaction("", "position      is %s." % self.position())
@@ -335,6 +336,12 @@ class aircraft:
   def name(self):
     """Return the name of the aircraft."""
     return self._name
+
+  #############################################################################
+
+  def force(self):
+    """Return the force of the aircraft."""
+    return self._force
 
   #############################################################################
 
@@ -508,6 +515,11 @@ class aircraft:
     """
 
     return apvisualsighting.visualsightingcondition(self, target)
+
+  ##############################################################################
+
+  def sighted(self):
+    return self._sighted
 
   ##############################################################################
 
@@ -854,7 +866,7 @@ def startvisualsighting():
       aplog.log("%-4s : was unsighted on previous turn." % target.name())
     aplog.log("%-4s : maximum visual range is %d." % (target.name(), target.maxvisualsightingrange()))
     for searcher in aslist():
-      if target.name() != searcher.name():
+      if target.name() != searcher.name() and target.force() != searcher.force():
         aplog.log("%-4s : searcher %s: range is %2d: %s." % (
           target.name(), searcher.name(), 
           apvisualsighting.visualsightingrange(searcher, target), 

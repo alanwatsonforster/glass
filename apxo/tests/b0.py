@@ -7,10 +7,10 @@ startfile(__file__, "forward movement")
 # H movements.
 
 starttestsetup()
-A1 = aircraft("A1", "F-80C", "1115", "N", 10, 2.5, "CL")
-A2 = aircraft("A2", "F-80C", "1315", "N", 10, 3.0, "CL")
-A3 = aircraft("A3", "F-80C", "1515", "N", 10, 3.5, "CL")
-A4 = aircraft("A4", "F-80C", "1715", "N", 10, 4.0, "CL")
+A1 = aircraft("A1", "AF", "F-80C", "1115", "N", 10, 2.5, "CL")
+A2 = aircraft("A2", "AF", "F-80C", "1315", "N", 10, 3.0, "CL")
+A3 = aircraft("A3", "AF", "F-80C", "1515", "N", 10, 3.5, "CL")
+A4 = aircraft("A4", "AF", "F-80C", "1715", "N", 10, 4.0, "CL")
 endtestsetup()
 
 A1._assert("1115       N    10", 2.5)
@@ -52,8 +52,8 @@ A4._assert("1703       N    10",  4.0)
 endturn()
 
 starttestsetup()
-A1 = aircraft("A1", "F-80C", "1830", "N", 12, 1.5, "CL")
-A2 = aircraft("A2", "F-80C", "2030", "N", 12, 2.0, "CL")
+A1 = aircraft("A1", "AF", "F-80C", "1830", "N", 12, 1.5, "CL")
+A2 = aircraft("A2", "AF", "F-80C", "2030", "N", 12, 2.0, "CL")
 endtestsetup()
 
 for i in range(1, 10, 2):
@@ -72,8 +72,8 @@ A2._assert("2010       N    12", 2.0)
 # HC and HD combinations.
 
 starttestsetup()
-A1 = aircraft("A1", "F-80C" , "1115", "N"  , 10, 4.0, "CL")
-A2 = aircraft("A2", "F-80C" , "1315", "N"  , 10, 4.0, "CL")
+A1 = aircraft("A1", "AF", "F-80C" , "1115", "N"  , 10, 4.0, "CL")
+A2 = aircraft("A2", "AF", "F-80C" , "1315", "N"  , 10, 4.0, "CL")
 endtestsetup()
 
 startturn()

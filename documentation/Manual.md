@@ -68,22 +68,22 @@ The commands end by drawing the map. It will probably appear quite small in your
 
 Now you need to add aircraft. Between "startsetup" and "endsetup" add lines like these:
 
-    A1 = aircraft("A1", "F-80C", "3211"", "N", 30, 4.5, "CL")
+    A1 = aircraft("A1", "AF", "F-80C", "3211"", "N", 30, 4.5, "CL")
     
 This creates an F-80C in hex 3211, flying north, at altitude level 30, with speed 4.5, and clean configuration. We use A1 both for the name of the aircraft (the first argument to the call) and the name of the variable (before the equals sign). I recommend using a letter and a number, with the letter being the first letter of the call-sign. So, for example, "Ford 3" would be "F3".
 
 By default, aircraft are unpainted, but you can specify a color like this:
 
-    A1 = aircraft("A1", "F-80C", "3211"", "N", 30, 4.5, "CL", color="natoblue")
+    A1 = aircraft("A1", "AF", "F-80C", "3211"", "N", 30, 4.5, "CL", color="natoblue")
     
 Commonly used colors are: unpainted, silver, aluminum (or aluminium), green, tan, sand, white, darkblue, lightgray (or lightgrey), darkgray (or darkgrey), natoblue, and natored.
 
 For example, here is how I would set up Training Scenario 3 from The Speed of Heat:
 
     startsetup("TSOH:T-3")
-    C1 = aircraft("C1", "MiG-15bis", "5127", "N" , 18, 5.0, "CL", color="natored")
-    C2 = aircraft("C2", "MiG-15bis", "5228", "N" , 18, 5.0, "CL", color="natored")
-    U1 = aircraft("U1", "F-86E"    , "6914", "NE", 20, 6.0, "CL", color="natoblue")
+    C1 = aircraft("C1", "AF", "MiG-15bis", "5127", "N" , 18, 5.0, "CL", color="natored")
+    C2 = aircraft("C2", "AF", "MiG-15bis", "5228", "N" , 18, 5.0, "CL", color="natored")
+    U1 = aircraft("U1", "AF", "F-86E"    , "6914", "NE", 20, 6.0, "CL", color="natoblue")
     endsetup()
     drawmap()
 
