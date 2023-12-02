@@ -526,62 +526,78 @@ class aircraft:
 
   def padlocks(self, target, note=False):
 
-    self._logbreak()
-    self._logline()
-    self._log("padlocks %s." % target.name())
+    aplog.clearerror()
+    try:
 
-    if not target._sightedpreviousturn:
-      raise RuntimeError("%s was not sighted on previous turn." % (target.name()))
+      apturn.checkinturn()
+      self._logbreak()
+      self._logline()
 
-    self._logevent("range is %d." % apvisualsighting.visualsightingrange(self, target))
-    self._logevent("%s." % apvisualsighting.visualsightingcondition(self, target)[0])
+      self._log("padlocks %s." % target.name())
 
-    condition, cansight, canpadlock = apvisualsighting.visualsightingcondition(self, target)
-    if not canpadlock:
-      raise RuntimeError("%s cannot padlock %s." % (self.name(), target.name()))
+      if not target._sightedpreviousturn:
+        raise RuntimeError("%s was not sighted on previous turn." % (target.name()))
 
-    target._sighted = True
+      self._logevent("range is %d." % apvisualsighting.visualsightingrange(self, target))
+      self._logevent("%s." % apvisualsighting.visualsightingcondition(self, target)[0])
 
-    self._lognote(note)
-    self._logline()
+      condition, cansight, canpadlock = apvisualsighting.visualsightingcondition(self, target)
+      if not canpadlock:
+        raise RuntimeError("%s cannot padlock %s." % (self.name(), target.name()))
+
+      target._sighted = True
+
+      self._lognote(note)
+      self._logline()
+
+    except RuntimeError as e:
+      aplog.logexception(e)
 
   ##############################################################################
 
   def attemptstosight(self, target, success=None, note=False):
 
-    self._logbreak()
-    self._logline()
-    self._log("attempts to sight %s." % target.name())
-    self._logevent("range is %d." % apvisualsighting.visualsightingrange(self, target))
-    self._logevent("range modifier is %+d." % apvisualsighting.visualsightingrangemodifier(self,target))
-    self._logevent("%s." % apvisualsighting.visualsightingcondition(self, target)[0])
+    aplog.clearerror()
+    try:
+
+      apturn.checkinturn()
+      self._logbreak()
+      self._logline()
+
+      self._log("attempts to sight %s." % target.name())
+      self._logevent("range is %d." % apvisualsighting.visualsightingrange(self, target))
+      self._logevent("range modifier is %+d." % apvisualsighting.visualsightingrangemodifier(self,target))
+      self._logevent("%s." % apvisualsighting.visualsightingcondition(self, target)[0])
+      
+      condition, cansight, canpadlock = apvisualsighting.visualsightingcondition(self, target)
+      if not cansight:
+        raise RuntimeError("%s cannot sight %s." % (self.name(), target.name()))
+
+      additionalsearchers = 0
+      for searcher in aslist():
+        if searcher.name() != self.name() and searcher.force() == self.force():
+          condition, cansight, canpadlock = apvisualsighting.visualsightingcondition(searcher, target)
+          self._logevent("additional searcher %s: %s." % (searcher.name(), condition))
+          if cansight:
+            additionalsearchers += 1
+      if additionalsearchers >= 1:
+        self._logevent("%d additional %s." % (additionalsearchers, aplog.plural(additionalsearchers, "searcher", "searchers")))
+        self._logevent("searchers modifier is %+d." % apvisualsighting.visualsightingsearchersmodifier(additionalsearchers + 1))
+      else:
+        self._logevent("no additional searchers.")
+      self._lognote(note)
+
+      if success is True:
+        self._log("sighting attempt succeeds.")
+        target._sighted = True
+      elif success is False:
+        self._log("sighting attempt fails.")
+
+      self._logline()
     
-    condition, cansight, canpadlock = apvisualsighting.visualsightingcondition(self, target)
-    if not cansight:
-      raise RuntimeError("%s cannot sight %s." % (self.name(), target.name()))
-
-    additionalsearchers = 0
-    for searcher in aslist():
-      if searcher.name() != self.name() and searcher.force() == self.force():
-        condition, cansight, canpadlock = apvisualsighting.visualsightingcondition(searcher, target)
-        self._logevent("additional searcher %s: %s." % (searcher.name(), condition))
-        if cansight:
-          additionalsearchers += 1
-    if additionalsearchers >= 1:
-      self._logevent("%d additional %s." % (additionalsearchers, aplog.plural(additionalsearchers, "searcher", "searchers")))
-      self._logevent("searchers modifier is %+d." % apvisualsighting.visualsightingsearchersmodifier(additionalsearchers + 1))
-    else:
-      self._logevent("no additional searchers.")
-    self._lognote(note)
-
-    if success is True:
-      self._log("sighting attempt succeeds.")
-      target._sighted = True
-    elif success is False:
-      self._log("sighting attempt fails.")
-
-    self._logline()
-    
+    except RuntimeError as e:
+      aplog.logexception(e)
+      
   #############################################################################
 
   def fuel(self):
@@ -615,7 +631,7 @@ class aircraft:
     aplog.clearerror()
     try:
 
-      ap._checkinsetuporturn()
+      apturn.checkinsetuporturn()
       self._logbreak()
       self._logline()
 
@@ -640,14 +656,14 @@ class aircraft:
     aplog.clearerror()
     try:
 
-      ap._checkinsetuporturn()
+      apturn.checkinturn()
       self._logbreak()
       self._logline()
 
       selfname = self._name
       othername = other._name
 
-      ap._checkinsetuporturn()
+      apturn.checkinsetuporturn()
 
       angleofftail = self.angleofftail(other)
       if angleofftail == "0 line" or angleofftail == "180 line":
@@ -871,30 +887,46 @@ class aircraft:
 
 def startvisualsighting():
 
-  for target in aslist():
-    aplog.logbreak()
-    if target._sightedpreviousturn:
-      aplog.log("%-4s : was sighted on previous turn." % target.name())
-    else:
-      aplog.log("%-4s : was unsighted on previous turn." % target.name())
-    aplog.log("%-4s : maximum visual range is %d." % (target.name(), target.maxvisualsightingrange()))
-    for searcher in aslist():
-      if target.name() != searcher.name() and target.force() != searcher.force():
-        aplog.log("%-4s : searcher %s: range is %2d: %s." % (
-          target.name(), searcher.name(), 
-          apvisualsighting.visualsightingrange(searcher, target), 
-          apvisualsighting.visualsightingcondition(searcher, target)[0]
-        ))
+  aplog.clearerror()
+  try:
 
+    apturn.checkinturn()
+
+    for target in aslist():
+      aplog.logbreak()
+      if target._sightedpreviousturn:
+        aplog.log("%-4s : was sighted on previous turn." % target.name())
+      else:
+        aplog.log("%-4s : was unsighted on previous turn." % target.name())
+      aplog.log("%-4s : maximum visual range is %d." % (target.name(), target.maxvisualsightingrange()))
+      for searcher in aslist():
+        if target.name() != searcher.name() and target.force() != searcher.force():
+          aplog.log("%-4s : searcher %s: range is %2d: %s." % (
+            target.name(), searcher.name(), 
+            apvisualsighting.visualsightingrange(searcher, target), 
+            apvisualsighting.visualsightingcondition(searcher, target)[0]
+          ))
+
+  except RuntimeError as e:
+    aplog.logexception(e)
+      
 ################################################################################
 
 def endvisualsighting():
 
-  aplog.logbreak()
-  for target in aslist():
-    if target._sighted:
-      aplog.log("%-4s : is sighted." % target.name())
-    else:
-      aplog.log("%-4s : is unsighted." % target.name())
+  aplog.clearerror()
+  try:
 
+    apturn.checkinturn()
+
+    aplog.logbreak()
+    for target in aslist():
+      if target._sighted:
+        aplog.log("%-4s : is sighted." % target.name())
+      else:
+        aplog.log("%-4s : is unsighted." % target.name())
+
+  except RuntimeError as e:
+    aplog.logexception(e)
+      
 ################################################################################

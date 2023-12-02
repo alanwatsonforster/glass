@@ -39,3 +39,7 @@ def checkinsetup():
 def checkinturn():
   if _activeturn is None or _activeturn == 0:
     raise RuntimeError("activity outside of turn.")
+
+def checkinsetuporturn():
+  if _activeturn is None:
+    raise RuntimeError("activity outside of setup or turn.")
