@@ -1,19 +1,20 @@
-import apxo               as ap
-import apxo.aircraftdata  as apaircraftdata
-import apxo.altitude      as apaltitude
-import apxo.azimuth       as apazimuth
-import apxo.configuration as apconfiguration
-import apxo.draw          as apdraw
-import apxo.hex           as aphex
-import apxo.hexcode       as aphexcode
-import apxo.log           as aplog
-import apxo.map           as apmap
-import apxo.speed         as apspeed
-import apxo.stores        as apstores
-import apxo.turnrate      as apturnrate
-import apxo.geometry      as apgeometry
-import apxo.airtoair      as apairtoair
-import apxo.turn          as apturn
+import apxo                as ap
+import apxo.aircraftdata   as apaircraftdata
+import apxo.altitude       as apaltitude
+import apxo.azimuth        as apazimuth
+import apxo.configuration  as apconfiguration
+import apxo.draw           as apdraw
+import apxo.hex            as aphex
+import apxo.hexcode        as aphexcode
+import apxo.log            as aplog
+import apxo.map            as apmap
+import apxo.speed          as apspeed
+import apxo.stores         as apstores
+import apxo.turnrate       as apturnrate
+import apxo.geometry       as apgeometry
+import apxo.airtoair       as apairtoair
+import apxo.turn           as apturn
+import apxo.visualsighting as apvisualsighting
 
 import re
 
@@ -469,6 +470,38 @@ class aircraft:
 
     return apgeometry.inlimitedradararc(self, other)
     
+  #############################################################################
+
+  def maxvisualsightingrange(self):
+
+    """
+    Return the maximum visual sighting range of the aircraft.
+    """
+
+    return apvisualsighting.maxvisualsightingrange(self)
+
+  #############################################################################
+
+  def visualsightingrange(self, target):
+
+    """
+    Return the visual sighting range for a visual sighting attempt from the 
+    aircraft on the target.
+    """
+
+    return apvisualsighting.visualsightingrange(self, target)
+
+  #############################################################################
+
+  def visualsightingcondition(self, target):
+
+    """
+    Return a string describing the visual sighting condition for a visual
+    sighting attempt from the aircraft on the target.
+    """
+
+    return apvisualsighting.visualsightingcondition(self, target)
+
   #############################################################################
 
   def fuel(self):
