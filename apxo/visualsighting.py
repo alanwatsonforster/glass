@@ -66,6 +66,25 @@ def visualsightingrangemodifier(searcher, target):
 
 ##############################################################################
 
+def visualsightingsearchersmodifier(searchers):
+
+  """
+  Return the visual sighting modifier for searchers beyond the first.
+  """
+
+  # See the sheets. 
+  
+  if searchers <= 2:
+    return 0
+  elif searchers <= 4:
+    return -1
+  elif searchers <= 8:
+    return -2
+  else:
+    return -3
+
+##############################################################################
+
 def visualsightingcondition(searcher, target):
 
   """

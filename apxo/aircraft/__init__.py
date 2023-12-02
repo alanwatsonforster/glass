@@ -242,6 +242,7 @@ class aircraft:
       self._counter               = counter
       self._force                 = force
 
+      self._logaction("", "force         is %s." % force)
       self._logaction("", "type          is %s." % aircrafttype)
       self._logaction("", "position      is %s." % self.position())
       self._logaction("", "speed         is %.1f." % self._speed)
@@ -559,13 +560,25 @@ class aircraft:
     if not cansight:
       raise RuntimeError("%s cannot sight %s." % (self.name(), target.name()))
 
+    additionalsearchers = 0
+    for searcher in aslist():
+      if searcher.name() != self.name() and searcher.force() == self.force():
+        condition, cansight, canpadlock = apvisualsighting.visualsightingcondition(searcher, target)
+        self._logevent("additional searcher %s: %s." % (searcher.name(), condition))
+        if cansight:
+          additionalsearchers += 1
+    if additionalsearchers >= 1:
+      self._logevent("%d additional %s." % (additionalsearchers, aplog.plural(additionalsearchers, "searcher", "searchers")))
+      self._logevent("searchers modifier is %+d." % apvisualsighting.visualsightingsearchersmodifier(additionalsearchers + 1))
+    else:
+      self._logevent("no additional searchers.")
     self._lognote(note)
 
     if success is True:
-      self._log("succeeds.")
+      self._log("sighting attempt succeeds.")
       target._sighted = True
     elif success is False:
-      self._log("fails.")
+      self._log("sighting attempt fails.")
 
     self._logline()
     
