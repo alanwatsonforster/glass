@@ -16,7 +16,7 @@ def showvisualsighting(alist):
         aplog.log("%-4s: searcher %s: range is %2d: %s." % (
           target.name(), searcher.name(), 
           visualsightingrange(searcher, target), 
-          visualsightingcondition(searcher, target)
+          visualsightingcondition(searcher, target)[0]
         ))
 
 ##############################################################################
@@ -52,11 +52,42 @@ def visualsightingrange(searcher, target):
 
 ##############################################################################
 
+def visualsightingrangemodifier(searcher, target):
+
+  """
+  Return the visual sighting range modifier for a search by searcher for target.
+  """
+
+  # See rule 11.1 and the sheets.
+
+  r = visualsightingrange(searcher, target)
+
+  if r <= 3:
+    return -2
+  elif r <= 6:
+    return -1
+  elif r <= 9:
+    return 0
+  elif r <= 12:
+    return +1
+  elif r <= 15:
+    return +2
+  elif r <= 20:
+    return +3
+  elif r <= 30:
+    return +5
+  else:
+    return +8
+
+##############################################################################
+
 def visualsightingcondition(searcher, target):
 
   """
-  Return a string describing the visual sighting condition for a search by
-  searcher for target.
+  Return a tuple describing the visual sighting condition for a visual
+  sighting attempt from searcher on the target: a descriptive string,
+  a boolean indicating if sighting is possible, and a boolean indicating if
+  padlocking is possible.
   """
 
   # See rule 11.1.
@@ -72,17 +103,17 @@ def visualsightingcondition(searcher, target):
     restrictedarc = _restrictedarc(searcher, target)
 
   if visualsightingrange(searcher, target) > target.maxvisualsightingrange():
-    return "beyond visual range"
+    return "beyond visual range", False, False
   elif apgeometry.samehorizontalposition(searcher, target) and searcher.altitude() > target.altitude():
-    return "within visual range and can padlock, but blind (immediately below)"
+    return "within visual range and can padlock, but blind (immediately below)", False, True
   elif apgeometry.samehorizontalposition(searcher, target) and searcher.altitude() < target.altitude():
-    return "within visual range (immediately above)"
+    return "within visual range (immediately above)", True, True
   elif blindarc is not None:
-    return "within visual range but blind (%s arc)" % blindarc
+    return "within visual range but blind (%s arc)" % blindarc, False, False
   elif restrictedarc is not None:
-    return "within visual range but restricted (%s arc)" % restrictedarc
+    return "within visual range but restricted (%s arc)" % restrictedarc, True, True
   else:
-    return "within visual range"
+    return "within visual range", True, True
 
 ##############################################################################
 

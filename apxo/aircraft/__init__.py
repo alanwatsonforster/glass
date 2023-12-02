@@ -496,12 +496,55 @@ class aircraft:
   def visualsightingcondition(self, target):
 
     """
-    Return a string describing the visual sighting condition for a visual
-    sighting attempt from the aircraft on the target.
+    Return a tuple describing the visual sighting condition for a visual
+    sighting attempt from the aircraft on the target: a descriptive string,
+    a boolean indicating if sighting is possible, and a boolean indicating if
+    padlocking is possible.
     """
 
     return apvisualsighting.visualsightingcondition(self, target)
 
+  ##############################################################################
+
+  def padlocks(self, target, note=False):
+
+    self._logbreak()
+    self._logline()
+    self._log("padlocks %s." % target.name())
+    self._logevent("range is %d." % apvisualsighting.visualsightingrange(self, target))
+    self._logevent("%s." % apvisualsighting.visualsightingcondition(self, target)[0])
+
+    condition, cansight, canpadlock = apvisualsighting.visualsightingcondition(self, target)
+    if not canpadlock:
+      raise RuntimeError("%s cannot padlock %s." % (self.name(), target.name()))
+
+    self._lognote(note)
+    self._logline()
+
+  ##############################################################################
+
+  def attemptstosight(self, target, success=None, note=False):
+
+    self._logbreak()
+    self._logline()
+    self._log("attempts to sight %s." % target.name())
+    self._logevent("range is %d." % apvisualsighting.visualsightingrange(self, target))
+    self._logevent("range modifier is %+d." % apvisualsighting.visualsightingrangemodifier(self,target))
+    self._logevent("%s." % apvisualsighting.visualsightingcondition(self, target)[0])
+    
+    condition, cansight, canpadlock = apvisualsighting.visualsightingcondition(self, target)
+    if not cansight:
+      raise RuntimeError("%s cannot sight %s." % (self.name(), target.name()))
+
+    self._lognote(note)
+
+    if success is True:
+      self._log("succeeds.")
+    elif success is False:
+      self._log("fails.")
+
+    self._logline()
+    
   #############################################################################
 
   def fuel(self):
