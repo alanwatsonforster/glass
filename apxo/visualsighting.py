@@ -12,6 +12,8 @@ def showvisualsighting(alist):
 
   for target in alist:
     aplog.log("target %s:" % target.name())
+    maxr = 4 * target.visibility()
+    aplog.log("maximum visbible sighting range is %d." % maxr)
     for searcher in alist:
       if target.name() == searcher.name():
         continue
@@ -48,6 +50,11 @@ def visualsightingrange(searcher, target):
 
 def _arc(searcher, target, arcs):
 
+  """
+  If the target is in the specified arcs of the searcher, return the arc. Otherwise
+  return None.
+  """
+  
   angleoff = target.angleofftail(searcher, arconly=True)
 
   for arc in arcs:
@@ -72,7 +79,7 @@ def _arc(searcher, target, arcs):
 def _blindarc(searcher, target):
 
   """
-  If the target is in the blind arcs of the target, return the arc. Otherwise
+  If the target is in the blind arcs of the searcher, return the arc. Otherwise
   return None.
   """
 
@@ -83,7 +90,7 @@ def _blindarc(searcher, target):
 def _restrictedarc(searcher, target):
 
   """
-  If the target is in the restricted arcs of the target, return the arc. Otherwise
+  If the target is in the restricted arcs of the searcher, return the arc. Otherwise
   return None.
   """
 

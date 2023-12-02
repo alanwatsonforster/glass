@@ -171,6 +171,9 @@ class aircraftdata:
     else:
       return self._data["restrictedarcs"].split("/")
 
+  def visibility(self):
+    return self._data["visibility"]
+      
   def rollhfp(self):
     raw = self._data["maneuvertable"]["LR/DR"][0]
     if raw == "-":

@@ -89,6 +89,9 @@ def blindarcs(self):
 def restrictedarcs(self):
   return self._aircraftdata.restrictedarcs()
 
+def visibility(self):
+  return self._aircraftdata.visibility()
+
 def maxdivespeed(self):
   raw = self._aircraftdata.maxdivespeed(self._altitudeband)
   if raw != None:

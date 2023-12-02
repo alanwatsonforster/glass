@@ -125,7 +125,8 @@ class aircraft:
     power, spbr, fuelrate, powerfade, engines, turndrag, \
     minspeed, maxspeed, cruisespeed, climbspeed, maxdivespeed, ceiling, \
     rollhfp, rolldrag, climbcapability, hasproperty, \
-    specialclimbcapability, gunarc, blindarcs, restrictedarcs
+    specialclimbcapability, gunarc, \
+    visibility, blindarcs, restrictedarcs
 
   from .draw import \
     _drawaircraft, \
