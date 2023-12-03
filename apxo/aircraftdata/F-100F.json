@@ -1,5 +1,5 @@
 {
   "name": "F-100F",
   "base": "F-100C",
-  "crew": [ "Pilot", "Observer" ],  
+  "crew": [ "Pilot", "Observer" ]
 }
