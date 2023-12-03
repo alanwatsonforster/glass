@@ -182,6 +182,9 @@ def _startmovespeed(self, power, flamedoutengines):
     if self.damageatleast("H"):
       self._logevent("power is reduced as damage is %s." % self.damage())
 
+    # Is the engine smoking?
+    self._enginesmoking = (self.hasproperty("SMP") and powersetting == "M")
+
     # See rule 6.7
 
     flamedoutfraction = flamedoutengines / self.engines()

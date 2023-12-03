@@ -144,13 +144,69 @@ def visualsightingpaintschememodifier(searcher, target):
 
 ################################################################################
 
+def visualsightingcrewmodifier(searcher):
+
+  """
+  Return the visual sighting crew modifier for a search by searcher.
+  """
+
+  # See rule 11.1 and the sheets.
+
+  if len(searcher.crew()) > 1:
+    return -1
+  else:
+    return +0
+    
+################################################################################
+
+def visualsightingsmokingmodifier(searcher, target):
+
+  """
+  Return the visual sighting smoking modifier for a search by searcher for target.
+  """
+
+  # See rule 11.1 and the sheets.
+
+  smoking = target.enginesmoking()
+
+  if not smoking:
+    return 0
+  elif searcher.altitude() > target.altitude():
+    # Target lower than searcher
+    return -1
+  elif searcher.altitude() == target.altitude():
+    # Target level with searcher
+    return -2
+  else:
+    # Target higher than searcher
+    return -2
+  
+################################################################################
+
+def visualsightingallrestrictedmodifier(allrestricted):
+
+  """
+  Return the visual sighting crew modifier for a search by searchers that are
+  all restricted.
+  """
+
+  # See rule 11.1 and the sheets.
+
+  if allrestricted:
+    return +2
+  else:
+    return +0
+    
+################################################################################
+
 def visualsightingcondition(searcher, target):
 
   """
   Return a tuple describing the visual sighting condition for a visual
   sighting attempt from searcher on the target: a descriptive string,
-  a boolean indicating if sighting is possible, and a boolean indicating if
-  padlocking is possible.
+  a boolean indicating if sighting is possible, a boolean indicating if
+  padlocking is possible, and a boolean indicating if the target is within
+  range but in the searcher's restricted arc.
   """
 
   # See rule 11.1.
@@ -166,33 +222,18 @@ def visualsightingcondition(searcher, target):
     restrictedarc = _restrictedarc(searcher, target)
 
   if visualsightingrange(searcher, target) > target.maxvisualsightingrange():
-    return "beyond visual range", False, False
+    return "beyond visual range", False, False, False
   elif apgeometry.samehorizontalposition(searcher, target) and searcher.altitude() > target.altitude():
-    return "within visual range and can padlock, but blind (immediately below)", False, True
+    return "within visual range and can padlock, but blind (immediately below)", False, True, False
   elif apgeometry.samehorizontalposition(searcher, target) and searcher.altitude() < target.altitude():
-    return "within visual range (immediately above)", True, True
+    return "within visual range (immediately above)", True, True, False
   elif blindarc is not None:
-    return "within visual range but blind (%s arc)" % blindarc, False, False
+    return "within visual range but blind (%s arc)" % blindarc, False, False, False
   elif restrictedarc is not None:
-    return "within visual range but restricted (%s arc)" % restrictedarc, True, True
+    return "within visual range but restricted (%s arc)" % restrictedarc, True, True, True
   else:
-    return "within visual range", True, True
-
-################################################################################
-
-def visualsightingcrewmodifier(searcher):
-
-  """
-  Return the visual sighting crew modifier for a search by searcher.
-  """
-
-  # See rule 11.1 and the sheets.
-
-  if len(searcher.crew()) > 1:
-    return -1
-  else:
-    return +0
-    
+    return "within visual range", True, True, False
+  
 ################################################################################
 
 def _arc(searcher, target, arcs):

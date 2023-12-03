@@ -46,7 +46,8 @@ def _startturn():
   for a in _aircraftlist:
     a._restore(apturn.turn() - 1)
     a._finishedmove = False
-    a._sightedpreviousturn = a._sighted
+    a._sightedonpreviousturn = a._sighted
+    a._enginesmokingonpreviousturn = a._enginesmoking
     a._sighted = False
     a._unspecifiedattackresult = 0
     a._startflightpath()
@@ -247,6 +248,7 @@ class aircraft:
       self._color                 = color
       self._counter               = counter
       self._force                 = force
+      self._enginesmoking         = False
 
       self._logaction("", "force         is %s." % force)
       self._logaction("", "type          is %s." % aircrafttype)
@@ -392,6 +394,12 @@ class aircraft:
     """Return the crew of the aircraft."""
     return self._crew
     
+  #############################################################################
+
+  def enginesmoking(self):
+    """Return whether the engine was smoking."""
+    return self._enginesmokingonpreviousturn
+
   #############################################################################
 
   def position(self):
@@ -553,13 +561,13 @@ class aircraft:
 
       self._log("padlocks %s." % target.name())
 
-      if not target._sightedpreviousturn:
+      if not target._sightedonpreviousturn:
         raise RuntimeError("%s was not sighted on previous turn." % (target.name()))
 
       self._logevent("range is %d." % apvisualsighting.visualsightingrange(self, target))
       self._logevent("%s." % apvisualsighting.visualsightingcondition(self, target)[0])
 
-      condition, cansight, canpadlock = apvisualsighting.visualsightingcondition(self, target)
+      condition, cansight, canpadlock, restricted = apvisualsighting.visualsightingcondition(self, target)
       if not canpadlock:
         raise RuntimeError("%s cannot padlock %s." % (self.name(), target.name()))
 
@@ -586,31 +594,52 @@ class aircraft:
       self._logevent("range is %d." % apvisualsighting.visualsightingrange(self, target))
       self._logevent("%s." % apvisualsighting.visualsightingcondition(self, target)[0])
       
-      condition, cansight, canpadlock = apvisualsighting.visualsightingcondition(self, target)
+      condition, cansight, canpadlock, restricted = apvisualsighting.visualsightingcondition(self, target)
       if not cansight:
         raise RuntimeError("%s cannot sight %s." % (self.name(), target.name()))
+
+      allrestricted = restricted
 
       additionalsearchers = 0
       for searcher in aslist():
         if searcher.name() != self.name() and searcher.force() == self.force():
-          condition, cansight, canpadlock = apvisualsighting.visualsightingcondition(searcher, target)
+          condition, cansight, canpadlock, restricted = apvisualsighting.visualsightingcondition(searcher, target)
           self._logevent("additional searcher %s: %s." % (searcher.name(), condition))
           if cansight:
             additionalsearchers += 1
+            allrestricted = allrestricted and restricted
       if additionalsearchers == 0:
         self._logevent("no additional searchers.")
       else:
         self._logevent("%d additional %s." % (additionalsearchers, aplog.plural(additionalsearchers, "searcher", "searchers")))
 
       modifier = 0
-      self._logevent("range modifier        is %+d." % apvisualsighting.visualsightingrangemodifier(self,target))
-      modifier += apvisualsighting.visualsightingrangemodifier(self,target)
-      self._logevent("searchers modifier    is %+d." % apvisualsighting.visualsightingsearchersmodifier(additionalsearchers + 1))
-      modifier += apvisualsighting.visualsightingsearchersmodifier(additionalsearchers + 1)
-      self._logevent("paint-scheme modifier is %+d." % apvisualsighting.visualsightingpaintschememodifier(self, target))
-      modifier += apvisualsighting.visualsightingpaintschememodifier(self,target)
-      self._logevent("crew modifier         is %+d." % apvisualsighting.visualsightingcrewmodifier(self))
-      modifier += apvisualsighting.visualsightingcrewmodifier(self)
+
+      dmodifier = apvisualsighting.visualsightingrangemodifier(self, target)
+      self._logevent("range modifier        is %+d." % dmodifier)
+      modifier += dmodifier
+
+      dmodifier = apvisualsighting.visualsightingallrestrictedmodifier(allrestricted)
+      self._logevent("restricted modifier   is %+d." % dmodifier)
+      modifier += dmodifier
+
+      dmodifier = apvisualsighting.visualsightingsearchersmodifier(additionalsearchers + 1)
+      self._logevent("searchers modifier    is %+d." % dmodifier)
+      modifier += dmodifier
+
+      dmodifier = apvisualsighting.visualsightingpaintschememodifier(self, target)
+      self._logevent("paint-scheme modifier is %+d." % dmodifier)
+      modifier += dmodifier
+
+      dmodifier = apvisualsighting.visualsightingcrewmodifier(self)
+      if dmodifier != 0:
+        self._logevent("crew modifier         is %+d." % dmodifier)
+
+      dmodifier = apvisualsighting.visualsightingsmokingmodifier(self, target)
+      if dmodifier != 0:
+        self._logevent("smoking modifier      is %+d." % dmodifier)
+      modifier += dmodifier
+
       self._logevent("modifier is %+d." % modifier)
 
       self._lognote(note)
@@ -818,7 +847,8 @@ class aircraft:
     self._leftmap, \
     self._sighted, \
     self._turnsstalled, \
-    self._turnsdeparted \
+    self._turnsdeparted, \
+    self._enginesmoking \
     = self._saved[i]
     self._altitudeband = apaltitude.altitudeband(self._altitude)
 
@@ -865,7 +895,8 @@ class aircraft:
       self._leftmap, \
       self._sighted, \
       self._turnsstalled, \
-      self._turnsdeparted \
+      self._turnsdeparted, \
+      self._enginesmoking \
     )
 
  ################################################################################
@@ -922,7 +953,7 @@ def startvisualsighting():
 
     for target in aslist():
       aplog.logbreak()
-      if target._sightedpreviousturn:
+      if target._sightedonpreviousturn:
         aplog.log("%-4s : was sighted on previous turn." % target.name())
       else:
         aplog.log("%-4s : was unsighted on previous turn." % target.name())
