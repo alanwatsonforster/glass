@@ -14,7 +14,7 @@
   "visibility": 4,
   "sizemodifier": 1,
   "vulnerability": 1,
-  "restrictedarcs": "60-",
+  "restrictedarcs": "",
   "blindarcs": "30-",
   "atarefuel": false,
   "internalfuel": 125,
