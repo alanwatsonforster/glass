@@ -148,6 +148,7 @@ class aircraft:
     configuration="CL",
     fuel=None, bingofuel=None, 
     gunammunition=None, rocketfactors=None, stores=None, 
+    paintscheme="unpainted",
     color="unpainted", counter=False
   ):
 
@@ -177,6 +178,9 @@ class aircraft:
         raise RuntimeError("the speed argument is not valid.")
       if not apconfiguration.isvalidconfiguration(configuration):
         raise RuntimeError("the configuration argument is not valid.")
+      if not apvisualsighting.isvalidpaintscheme(paintscheme):
+        raise RuntimeError("the paintscheme argument is not valid.")
+      
 
       x, y = aphexcode.toxy(hexcode)
       facing = apazimuth.tofacing(azimuth)
@@ -233,6 +237,7 @@ class aircraft:
       self._destroyed             = False
       self._leftmap               = False
       self._sighted               = False
+      self._paintscheme           = paintscheme
       self._turnsstalled          = 0
       self._turnsdeparted         = 0
       self._finishedmove          = True
@@ -373,6 +378,12 @@ class aircraft:
   def speed(self):
     """Return the speed of the aircraft."""
     return self._speed
+      
+  #############################################################################
+
+  def paintscheme(self):
+    """Return the paint scheme of the aircraft."""
+    return self._paintscheme
       
   #############################################################################
 
@@ -566,7 +577,6 @@ class aircraft:
 
       self._log("attempts to sight %s." % target.name())
       self._logevent("range is %d." % apvisualsighting.visualsightingrange(self, target))
-      self._logevent("range modifier is %+d." % apvisualsighting.visualsightingrangemodifier(self,target))
       self._logevent("%s." % apvisualsighting.visualsightingcondition(self, target)[0])
       
       condition, cansight, canpadlock = apvisualsighting.visualsightingcondition(self, target)
@@ -580,11 +590,20 @@ class aircraft:
           self._logevent("additional searcher %s: %s." % (searcher.name(), condition))
           if cansight:
             additionalsearchers += 1
-      if additionalsearchers >= 1:
-        self._logevent("%d additional %s." % (additionalsearchers, aplog.plural(additionalsearchers, "searcher", "searchers")))
-        self._logevent("searchers modifier is %+d." % apvisualsighting.visualsightingsearchersmodifier(additionalsearchers + 1))
-      else:
+      if additionalsearchers == 0:
         self._logevent("no additional searchers.")
+      else:
+        self._logevent("%d additional %s." % (additionalsearchers, aplog.plural(additionalsearchers, "searcher", "searchers")))
+
+      modifier = 0
+      self._logevent("range modifier        is %+d." % apvisualsighting.visualsightingrangemodifier(self,target))
+      modifier += apvisualsighting.visualsightingrangemodifier(self,target)
+      self._logevent("searchers modifier    is %+d." % apvisualsighting.visualsightingsearchersmodifier(additionalsearchers + 1))
+      modifier += apvisualsighting.visualsightingsearchersmodifier(additionalsearchers + 1)
+      self._logevent("paint-scheme modifier is %+d." % apvisualsighting.visualsightingpaintschememodifier(self, target))
+      modifier += apvisualsighting.visualsightingpaintschememodifier(self,target)
+      self._logevent("modifier is %+d." % modifier)
+
       self._lognote(note)
 
       if success is True:

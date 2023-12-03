@@ -85,6 +85,65 @@ def visualsightingsearchersmodifier(searchers):
 
 ##############################################################################
 
+def isvalidpaintscheme(paintscheme):
+
+  return paintscheme in [
+    "silver", "aluminum", "aluminium", "unpainted",
+    "uncamouflaged",
+    "camouflaged",
+    "lowvisibilitygray", "lowvisibilitygrey"
+  ]
+  
+##############################################################################
+
+def visualsightingpaintschememodifier(searcher, target):
+
+  """
+  Return the visual sighting paint scheme modifier for a search by seacher for target.
+  """
+
+  paintscheme = target.paintscheme()
+
+  # Map alternate names to standard names.
+  paintscheme = {
+    "unpainted"        : "unpainted",
+    "silver"           : "unpainted",
+    "aluminum"         : "unpainted",
+    "aluminium"        : "unpainted",
+    "uncamouflaged"    : "uncamouflaged",
+    "camouflaged"      : "camouflaged",
+    "lowvisibilitygray": "lowvisibilitygray",
+    "lowvisibilitygrey": "lowvisibilitygray"
+
+  }[paintscheme]
+
+  if searcher.altitude() > target.altitude():
+    # Target lower than searcher
+    return {
+      "unpainted"        : -2, 
+      "uncamouflaged"    : -1, 
+      "camouflaged"      : +1, 
+      "lowvisibilitygray": +0
+    }[paintscheme]
+  elif searcher.altitude() == target.altitude():
+    # Target level with searcher
+    return {
+      "unpainted"        : -1, 
+      "uncamouflaged"    : +0, 
+      "camouflaged"      : +0, 
+      "lowvisibilitygray": +1
+    }[paintscheme]
+  else:
+    # Target higher than searcher
+    return {
+      "unpainted"        : -1, 
+      "uncamouflaged"    : +0, 
+      "camouflaged"      : -1, 
+      "lowvisibilitygray": +1
+    }[paintscheme]
+
+##############################################################################
+
 def visualsightingcondition(searcher, target):
 
   """
