@@ -234,6 +234,7 @@ class aircraft:
         self._rocketfactors       = self._aircraftdata.rocketfactors()
       else:
         self._rocketfactors       = rocketfactors
+      self._crew                  = self._aircraftdata.crew()
       self._destroyed             = False
       self._leftmap               = False
       self._sighted               = False
@@ -385,6 +386,12 @@ class aircraft:
     """Return the paint scheme of the aircraft."""
     return self._paintscheme
       
+  #############################################################################
+
+  def crew(self):
+    """Return the crew of the aircraft."""
+    return self._crew
+    
   #############################################################################
 
   def position(self):
@@ -602,6 +609,8 @@ class aircraft:
       modifier += apvisualsighting.visualsightingsearchersmodifier(additionalsearchers + 1)
       self._logevent("paint-scheme modifier is %+d." % apvisualsighting.visualsightingpaintschememodifier(self, target))
       modifier += apvisualsighting.visualsightingpaintschememodifier(self,target)
+      self._logevent("crew modifier         is %+d." % apvisualsighting.visualsightingcrewmodifier(self))
+      modifier += apvisualsighting.visualsightingcrewmodifier(self)
       self._logevent("modifier is %+d." % modifier)
 
       self._lognote(note)

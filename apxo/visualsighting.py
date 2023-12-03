@@ -1,10 +1,10 @@
-##############################################################################
+################################################################################
 
 import apxo.log      as aplog
 import apxo.hex      as aphex
 import apxo.geometry as apgeometry
 
-##############################################################################
+################################################################################
 
 def maxvisualsightingrange(target):
 
@@ -16,7 +16,7 @@ def maxvisualsightingrange(target):
     
   return  4 * target.visibility()
 
-##############################################################################
+################################################################################
 
 def visualsightingrange(searcher, target):
 
@@ -35,7 +35,7 @@ def visualsightingrange(searcher, target):
 
   return horizontalrange + verticalrange
 
-##############################################################################
+################################################################################
 
 def visualsightingrangemodifier(searcher, target):
 
@@ -64,7 +64,7 @@ def visualsightingrangemodifier(searcher, target):
   else:
     return +8
 
-##############################################################################
+################################################################################
 
 def visualsightingsearchersmodifier(searchers):
 
@@ -83,7 +83,7 @@ def visualsightingsearchersmodifier(searchers):
   else:
     return -3
 
-##############################################################################
+################################################################################
 
 def isvalidpaintscheme(paintscheme):
 
@@ -94,7 +94,7 @@ def isvalidpaintscheme(paintscheme):
     "lowvisibilitygray", "lowvisibilitygrey"
   ]
   
-##############################################################################
+################################################################################
 
 def visualsightingpaintschememodifier(searcher, target):
 
@@ -142,7 +142,7 @@ def visualsightingpaintschememodifier(searcher, target):
       "lowvisibilitygray": +1
     }[paintscheme]
 
-##############################################################################
+################################################################################
 
 def visualsightingcondition(searcher, target):
 
@@ -178,7 +178,22 @@ def visualsightingcondition(searcher, target):
   else:
     return "within visual range", True, True
 
-##############################################################################
+################################################################################
+
+def visualsightingcrewmodifier(searcher):
+
+  """
+  Return the visual sighting crew modifier for a search by searcher.
+  """
+
+  # See rule 11.1 and the sheets.
+
+  if len(searcher.crew()) > 1:
+    return -1
+  else:
+    return +0
+    
+################################################################################
 
 def _arc(searcher, target, arcs):
 
@@ -208,7 +223,7 @@ def _arc(searcher, target, arcs):
 
   return None
 
-##############################################################################
+################################################################################
 
 def _blindarc(searcher, target):
 
@@ -221,7 +236,7 @@ def _blindarc(searcher, target):
 
   return _arc(searcher, target, searcher.blindarcs())
 
-##############################################################################
+################################################################################
 
 def _restrictedarc(searcher, target):
 
@@ -234,4 +249,4 @@ def _restrictedarc(searcher, target):
 
   return _arc(searcher, target, searcher.restrictedarcs())
 
-##############################################################################
+################################################################################

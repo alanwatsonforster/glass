@@ -42,6 +42,9 @@ class aircraftdata:
       data = basedata
     self._data = data
 
+  def crew(self):
+    return self._data["crew"]    
+
   def power(self, configuration, powersetting):
     _checkconfiguration(configuration)
     _checkpowersetting(powersetting)
