@@ -1,6 +1,7 @@
 {
   "name": "Sea Fury FB.11",
   "origin": "APJ 32",
+  "crew": [ "Pilot" ],
   "powertable": {
     "FT"  : [ 2.0, 1.5, 1.0, 0.5 ],
     "HT"  : [ 0.5, 0.5, 0.5, 0.2 ],

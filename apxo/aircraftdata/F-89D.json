@@ -1,6 +1,7 @@
 {
   "name": "F-89D",
   "origin": "TSOH",
+  "crew": [ "Pilot", "Radar Officer" ],
   "powertable": {
     "AB"  : [ 1.0, 1.0, 1.0, 6.0 ],
     "M"   : [ 1.0, 1.0, 0.5, 3.0 ],

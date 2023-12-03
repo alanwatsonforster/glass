@@ -1,6 +1,7 @@
 {
   "name": "F-86H Early",
   "origin": "APJ 25",
+  "crew": [ "Pilot" ],
   "powertable": {
     "M"   : [ 1.5, 1.5, 1.0, 1.0 ],
     "N"   : [ 0.0, 0.0, 0.0, 0.5 ],

@@ -1,6 +1,7 @@
 {
   "name": "O-2A",
   "origin": "TSOH",
+  "crew": [ "Pilot", "Observer" ],
   "visibility": 4,
   "sizemodifier": 2,
   "vulnerability": -2,

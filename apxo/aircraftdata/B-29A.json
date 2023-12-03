@@ -16,6 +16,20 @@
   
   "name": "B-29A",
   "origin": "Watson",
+  "crew": [
+   "Pilot", 
+   "Co-pilot",
+   "Bombardier",
+   "Flight Engineer",
+   "Navigator",
+   "Radio Operator",
+   "Radar Observer",
+   "Right Gunner", 
+   "Left Gunner", 
+   "Fire Control Officer", 
+   "Tail Gunner"
+   ],
+  
   "powertable": {
 
     // I have no data on the power levels but these give very slow

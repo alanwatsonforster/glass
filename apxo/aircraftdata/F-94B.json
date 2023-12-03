@@ -1,6 +1,7 @@
 {
   "name": "F-94B",
   "origin": "APJ 50",
+  "crew": [ "Pilot", "Radar Officer" ],
   "powertable": {
     "AB"  : [ 1.0, 1.0, 1.0, 2.0 ],
     "M"   : [ 1.0, 0.5, 0.5, 1.0 ],

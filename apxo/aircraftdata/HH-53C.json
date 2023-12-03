@@ -1,6 +1,13 @@
 {
   "name": "HH-53C",
   "origin": "TSOH",
+  "crew": [
+    "Pilot", 
+    "Co-pilot", 
+    "Crew Chief",
+    "Pararescuer",
+    "Pararescuer"
+  ],
   "visibility": 6,
   "sizemodifier": 0,
   "vulnerability": 2,

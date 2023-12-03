@@ -1,6 +1,7 @@
 {
   "name": "F-51D",
   "origin": "APJ 32",
+  "crew": [ "Pilot" ],
   "powertable": {
     "FT"  : [ 1.5, 1.5, 1.0, 0.5 ],
     "HT"  : [ 0.5, 0.5, 0.5, 0.2 ],

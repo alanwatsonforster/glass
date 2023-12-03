@@ -1,6 +1,7 @@
 {
   "name": "F-104A Starfighter",
   "origin": "TSOH",
+  "crew": [ "Pilot" ],
   "powertable": {
     "AB"  : [ 3.5, 3.5, 3.0, 5.0 ],
     "M"   : [ 2.0, 2.0, 1.5, 2.0 ],

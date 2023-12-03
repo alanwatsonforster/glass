@@ -1,6 +1,7 @@
 {
   "name": "B-26B",
   "origin": "APJ 51",
+  "crew": [ "Pilot", "Navigator", "Gunner" ],
   "powertable": {
     "FT"  : [ 1.0, 1.0, 1.0, 1.0 ],
     "HT"  : [ 0.5, 0.5, 0.5, 0.5 ],
