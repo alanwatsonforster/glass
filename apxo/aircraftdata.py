@@ -164,6 +164,15 @@ class aircraftdata:
   def climbspeed(self):
     return self._data["climbspeed"]
 
+  def sizemodifier(self):
+    return self._data["sizemodifier"]
+
+  def vulnerability(self):
+    return self._data["vulnerability"]
+
+  def visibility(self):
+    return self._data["visibility"]
+
   def blindarcs(self):
     if self._data["blindarcs"] == "":
       return []
@@ -306,6 +315,8 @@ class aircraftdata:
     str("Type: %s" % self._name)
     str("")
 
+    str("Crew: %d %s" % (len(self.crew()), ", ".join(self.crew())))
+
     if not self.hasproperty("SPFL"):
 
       str("Power:")
@@ -369,6 +380,11 @@ class aircraftdata:
 
       str("Cruise Speed: %.1f" % self.cruisespeed())
       str("Climb  Speed: %.1f" % self.climbspeed())
+      str("Visibility: %.1f" % self.visibility())
+      str("Visibility: %.1f" % self.visibility())
+      str("Vulnerability: %.1f" % self.vulnerability())
+      str("Restricted arcs: %s" % self.restrictedarcs())
+      str("Blind arcs: %s" % self.blindarcs())
       str("Internal Fuel: %.1f" % self.internalfuelcapacity())
       str("")
 
