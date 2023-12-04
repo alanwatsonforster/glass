@@ -1,7 +1,7 @@
 {
   "name": "F-4J Phantom II",
   "base": "F-4E",
-  "internalfuel": "610",
+  "internalfuel": 610,
   "ceilingtable": [ 62, 48, 40 ],
-  "gunammunition": "-"
+  "gunammunition": 0
 }

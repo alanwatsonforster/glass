@@ -1,7 +1,7 @@
 {
   "name": "MiG-17PFU",
   "base": "MiG-17F",
-  "gunammunition": "-",
+  "gunammunition": 0,
   "notes": [
     "NATO reporting name is Fresco-E."
   ]

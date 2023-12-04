@@ -647,7 +647,8 @@ class aircraft:
         self._logevent("smoking modifier      is %+d." % dmodifier)
       modifier += dmodifier
 
-      self._logevent("modifier is %+d." % modifier)
+      self._logevent("total modifier        is %+d." % modifier)
+      self._logevent("target visibility is %d." % target.visibility())
 
       self._lognote(note)
 

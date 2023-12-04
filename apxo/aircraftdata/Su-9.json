@@ -47,7 +47,7 @@
     "LO": [ [ 5.0, 2.0 ], [ 4.0, 2.0 ], [ 3.0, 1.0 ] ]
   },
   "storeslimits": [ 2, 6, 3000 ],
-  "gunammunition": "-",
+  "gunammunition": 0,
   "properties": [ "SMP" ],
   "notes": [
     "NATO reporting name is Fishpot-B."

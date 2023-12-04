@@ -65,6 +65,10 @@
   "atarefuel": false,
 
   // TODO: fuel.
+  // 8288 US gallons after installation of semipermanent bomb bay tanks: http://www.joebaugher.com/usaf_bombers/b29_4.html
+  // 7.0 pounts per gallon: https://powersportsguide.com/jet-fuel-weight/
+  // 8288*7/20 = 2900
+  "internalfuel": 2900,
 
   // The flight rules in TSOH forbid rolls.
 

@@ -36,8 +36,10 @@ class aircraftdata:
     self._name = name
 
     data = loadfile(name)   
-    if "base" in data:
-      basedata = loadfile(data["base"])
+    while "base" in data:
+      base = data["base"]
+      del data["base"]
+      basedata = loadfile(base)
       basedata.update(data)
       data = basedata
     self._data = data
@@ -367,7 +369,7 @@ class aircraftdata:
 
       str("Cruise Speed: %.1f" % self.cruisespeed())
       str("Climb  Speed: %.1f" % self.climbspeed())
-      str("Internal Fuel: %.1f" % self.internalfuel())
+      str("Internal Fuel: %.1f" % self.internalfuelcapacity())
       str("")
 
       str("Roll Costs:")
