@@ -18,6 +18,18 @@ def maxvisualsightingrange(target):
 
 ################################################################################
 
+def maxvisualidentificationrange(target):
+
+  """
+  Return the maximum visual identification range of the target.
+  """
+
+  # See rule 11.5.
+    
+  return  2 * target.visibility()
+
+################################################################################
+
 def visualsightingrange(searcher, target):
 
   """
@@ -291,3 +303,17 @@ def _restrictedarc(searcher, target):
   return _arc(searcher, target, searcher.restrictedarcs())
 
 ################################################################################
+
+def canidentify(searcher, target):
+
+  """
+  Return true if searcher can visually identify target, assuming target is
+  sighted or padlocked.
+  """
+
+  # See rule 11.5.
+
+  return visualsightingrange(searcher, target) <= maxvisualidentificationrange(target)
+  
+################################################################################
+

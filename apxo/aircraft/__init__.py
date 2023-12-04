@@ -49,6 +49,8 @@ def _startturn():
     a._sightedonpreviousturn = a._sighted
     a._enginesmokingonpreviousturn = a._enginesmoking
     a._sighted = False
+    a._identifiedonpreviousturn = a._identified
+    a._identified = False
     a._unspecifiedattackresult = 0
     a._startflightpath()
   for a in _aircraftlist:
@@ -182,7 +184,6 @@ class aircraft:
       if not apvisualsighting.isvalidpaintscheme(paintscheme):
         raise RuntimeError("the paintscheme argument is not valid.")
       
-
       x, y = aphexcode.toxy(hexcode)
       facing = apazimuth.tofacing(azimuth)
       if not aphex.isvalid(x, y, facing):
@@ -239,6 +240,7 @@ class aircraft:
       self._destroyed             = False
       self._leftmap               = False
       self._sighted               = False
+      self._identified            = False
       self._paintscheme           = paintscheme
       self._turnsstalled          = 0
       self._turnsdeparted         = 0
@@ -572,6 +574,11 @@ class aircraft:
         raise RuntimeError("%s cannot padlock %s." % (self.name(), target.name()))
 
       target._sighted = True
+      target._identified = target._identifiedonpreviousturn or apvisualsighting.canidentify(self, target)
+      if target._identified:
+        self._log("%s is sighted and identified." % target.name())
+      else:
+        self._log("%s is sighted but not identified." % target.name())
 
       self._lognote(note)
       self._logline()
@@ -644,11 +651,15 @@ class aircraft:
 
       self._lognote(note)
 
-      if success is True:
-        self._log("sighting attempt succeeds.")
+      if success is False:
+        self._log("%s is unsighted." % target.name())
+      elif success is True:
         target._sighted = True
-      elif success is False:
-        self._log("sighting attempt fails.")
+        target._identified = target._identifiedonpreviousturn or apvisualsighting.canidentify(self, target)
+        if target._identified:
+          self._log("%s is sighted and identified." % target.name())
+        else:
+          self._log("%s is sighted but not identified." % target.name())
 
       self._logline()
     
@@ -846,6 +857,7 @@ class aircraft:
     self._destroyed, \
     self._leftmap, \
     self._sighted, \
+    self._identified, \
     self._turnsstalled, \
     self._turnsdeparted, \
     self._enginesmoking \
@@ -894,6 +906,7 @@ class aircraft:
       self._destroyed, \
       self._leftmap, \
       self._sighted, \
+      self._identified, \
       self._turnsstalled, \
       self._turnsdeparted, \
       self._enginesmoking \
@@ -980,7 +993,9 @@ def endvisualsighting():
 
     aplog.logbreak()
     for target in aslist():
-      if target._sighted:
+      if target._sighted and target._identified:
+        aplog.log("%-4s : is sighted and identified." % target.name())
+      elif target._sighted:
         aplog.log("%-4s : is sighted." % target.name())
       else:
         aplog.log("%-4s : is unsighted." % target.name())
