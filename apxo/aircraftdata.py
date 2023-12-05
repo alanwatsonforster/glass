@@ -383,8 +383,8 @@ class aircraftdata:
       str("Visibility: %.1f" % self.visibility())
       str("Visibility: %.1f" % self.visibility())
       str("Vulnerability: %.1f" % self.vulnerability())
-      str("Restricted arcs: %s" % self.restrictedarcs())
-      str("Blind arcs: %s" % self.blindarcs())
+      str("Restricted arcs: %s" % (" ".join(self.restrictedarcs())))
+      str("Blind arcs: %s" % (" ".join(self.blindarcs())))
       str("Internal Fuel: %.1f" % self.internalfuelcapacity())
       str("")
 
