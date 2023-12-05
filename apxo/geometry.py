@@ -19,7 +19,23 @@ def _round(x):
 ##############################################################################
 
 def samehorizontalposition(a0, a1):
+
+  """
+  Return True if aircraft a0 to a1 are in the same horizontal position, 
+  otherwise return False.
+  """
+
   return a0.x() == a1.x() and a0.y() == a1.y()
+
+##############################################################################
+
+def horizontalrange(a0, a1):
+
+  """
+  Return the horizontal range in hexes from aircraft a0 to a1.
+  """
+
+  return aphex.distance(a0.x(), a0.y(), a1.x(), a1.y())
 
 ##############################################################################
 

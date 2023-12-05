@@ -122,16 +122,13 @@ def rocketattackrange(attacker, target):
 
   # See rule 9.3.
 
-  def horizontalrange():
-    return aphex.distance(attacker.x(), attacker.y(), target.x(), target.y())
-
   def verticalrange():
     return int(abs(attacker.altitude() - target.altitude()) / 2)
     
   if not attacker.inlimitedradararc(target):
     return "the target is not in the weapon range or arc."
 
-  r = horizontalrange()
+  r = apgeometry.horizontalrange(attacker, target)
 
   # Apply the relative altitude restrictions for climbing, diving, and level flight.
   if attacker.climbingflight() and attacker.altitude() > target.altitude():

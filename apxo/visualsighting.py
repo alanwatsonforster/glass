@@ -38,7 +38,7 @@ def visualsightingrange(searcher, target):
 
   # See rule 11.1.
 
-  horizontalrange = aphex.distance(target.x(), target.y(), searcher.x(), searcher.y())
+  horizontalrange = apgeometry.horizontalrange(searcher, target)
 
   if searcher.altitude() >= target.altitude():
     verticalrange = int((searcher.altitude() - target.altitude()) / 2)
