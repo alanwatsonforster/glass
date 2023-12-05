@@ -206,11 +206,11 @@ class aircraft:
       self._altitudecarry         = 0
       self._speed                 = speed
       self._newspeed              = None
-      self.damageL               = 0
-      self.damageH               = 0
-      self.damageC               = 0
-      self.damageK               = 0
-      self.flighttype            = "LVL"
+      self._damageL               = 0
+      self._damageH               = 0
+      self._damageC               = 0
+      self._damageK               = 0
+      self._flighttype            = "LVL"
       self._powersetting          = "N"
       self._bank                  = None
       self._maneuvertype          = None
@@ -226,7 +226,7 @@ class aircraft:
       self._ETrecoveryfp          = -1
       self._BTrecoveryfp          = -1
       self._HTrecoveryfp          = -1
-      self.closeformation        = []
+      self._closeformation        = []
       self._aircraftdata          = apaircraftdata.aircraftdata(aircrafttype)
       if gunammunition is None:
         self._gunammunition       = self._aircraftdata.gunammunition()
@@ -245,8 +245,8 @@ class aircraft:
       self._turnsstalled          = 0
       self._turnsdeparted         = 0
       self._finishedmove          = True
-      self.flightpathx            = []
-      self.flightpathy            = []
+      self._flightpathx           = []
+      self._flightpathy           = []
       self._color                 = color
       self._counter               = counter
       self._force                 = force
@@ -286,13 +286,13 @@ class aircraft:
 
       if stores is None:
 
-        self.stores        = stores
-        self.configuration = configuration
+        self._stores        = stores
+        self._configuration = configuration
 
       else:
 
-        self.stores = apstores._checkstores(stores)
-        if len(self.stores) != 0:
+        self._stores = apstores._checkstores(stores)
+        if len(self._stores) != 0:
           apstores._showstores(stores, 
             printer=lambda s: self._logaction("", s), 
             fuel=self.externalfuel())
@@ -301,7 +301,7 @@ class aircraft:
           raise RuntimeError("total fuel exceeds the internal and external capacity.")
 
       self._updateconfiguration()
-      self._logaction("", "configuration is %s." % self.configuration)
+      self._logaction("", "configuration is %s." % self._configuration)
 
       global _zorder
       _zorder += 1
@@ -329,9 +329,9 @@ class aircraft:
       ["speed"        , self._speed],
       ["altitude"     , self._altitude],
       ["altitudeband" , self._altitudeband],
-      ["flighttype"   , self.flighttype],
+      ["flighttype"   , self._flighttype],
       ["powersetting" , self._powersetting],
-      ["configuration", self.configuration],
+      ["configuration", self._configuration],
       ["fpcarry"      , self._fpcarry],
       ["apcarry"      , self._apcarry],
       ["gloccheck"    , self._gloccheck],
@@ -685,7 +685,7 @@ class aircraft:
       return max(0, self.fuel() - self.internalfuelcapacity())
 
   def externalfuelcapacity(self):
-    return apstores.totalfuelcapacity(self.stores)
+    return apstores.totalfuelcapacity(self._stores)
 
   def internalfuelcapacity(self):
     return self._aircraftdata.internalfuelcapacity()
@@ -704,7 +704,7 @@ class aircraft:
       self._logbreak()
       self._logline()
 
-      apstores._showstores(self.stores, 
+      apstores._showstores(self._stores, 
         printer=lambda s: self._log(s),
         fuel=self.externalfuel())
   
@@ -766,7 +766,7 @@ class aircraft:
     Return true if the aircraft is climbing.
     """
 
-    return _isclimbingflight(self.flighttype)
+    return _isclimbingflight(self._flighttype)
 
   #############################################################################
 
@@ -776,7 +776,7 @@ class aircraft:
     Return true if the aircraft is diving.
     """
 
-    return _isdivingflight(self.flighttype)
+    return _isdivingflight(self._flighttype)
    
   #############################################################################
 
@@ -786,7 +786,7 @@ class aircraft:
     Return true if the aircraft is in level flight.
     """
 
-    return _islevelflight(self.flighttype)
+    return _islevelflight(self._flighttype)
     
   #############################################################################
 
@@ -831,15 +831,16 @@ class aircraft:
     self._altitude, \
     self._altitudecarry, \
     self._speed, \
-    self.configuration, \
+    self._configuration, \
+    self._stores, \
     self._gunammunition, \
     self._fuel, \
-    self.damageL, \
-    self.damageH, \
-    self.damageC, \
-    self.damageK, \
+    self._damageL, \
+    self._damageH, \
+    self._damageC, \
+    self._damageK, \
     self._powersetting, \
-    self.flighttype, \
+    self._flighttype, \
     self._bank, \
     self._maneuvertype, \
     self._maneuversense, \
@@ -854,7 +855,7 @@ class aircraft:
     self._ETrecoveryfp, \
     self._BTrecoveryfp, \
     self._HTrecoveryfp, \
-    self.closeformation, \
+    self._closeformation, \
     self._destroyed, \
     self._leftmap, \
     self._sighted, \
@@ -880,15 +881,16 @@ class aircraft:
       self._altitude, \
       self._altitudecarry, \
       self._speed, \
-      self.configuration, \
+      self._configuration, \
+      self._stores, \
       self._gunammunition, \
       self._fuel, \
-      self.damageL, \
-      self.damageH, \
-      self.damageC, \
-      self.damageK, \
+      self._damageL, \
+      self._damageH, \
+      self._damageC, \
+      self._damageK, \
       self._powersetting, \
-      self.flighttype, \
+      self._flighttype, \
       self._bank, \
       self._maneuvertype, \
       self._maneuversense, \
@@ -903,7 +905,7 @@ class aircraft:
       self._ETrecoveryfp, \
       self._BTrecoveryfp, \
       self._HTrecoveryfp, \
-      self.closeformation, \
+      self._closeformation, \
       self._destroyed, \
       self._leftmap, \
       self._sighted, \
@@ -934,7 +936,7 @@ class aircraft:
       assert aplog._error == None
     if position != None and position != self.position():
       print("== assertion failed ===")
-      print("== actual position  : %s" % self.position())
+      print("== actual   position: %s" % self.position())
       print("== expected position: %s" % position)
       assert position == self.position()
     if speed is not None:
@@ -950,11 +952,11 @@ class aircraft:
           print("== actual   new speed: %.1f" % self._newspeed)
           print("== expected new speed: %.1f" % speed)
           assert speed == self._newspeed
-    if configuration != None and configuration != self.configuration:
+    if configuration != None and configuration != self._configuration:
       print("== assertion failed ===")
-      print("== actual speed  : %s" % self.configuration)
-      print("== expected speed: %s" % configuration)
-      assert configuration == self.configuration
+      print("== actual   configuration: %s" % self._configuration)
+      print("== expected configuration: %s" % configuration)
+      assert configuration == self._configuration
 
 ################################################################################  
 

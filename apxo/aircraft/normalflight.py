@@ -22,7 +22,7 @@ def _checknormalflight(self):
   if self.hasproperty("SPFL"):
     raise RuntimeError("special-flight aircraft cannot perform normal flight.")
 
-  flighttype         = self.flighttype
+  flighttype         = self._flighttype
   previousflighttype = self._previousflighttype
 
   # See rule 13.3.5. A HRD is signalled by appending "/HRD" to the flight type.
@@ -33,7 +33,7 @@ def _checknormalflight(self):
 
     hrd = True
     flighttype = flighttype[:-4]
-    self.flighttype = flighttype
+    self._flighttype = flighttype
 
     # See rule 7.7.
     if self._altitude > self.ceiling():
@@ -254,7 +254,7 @@ def _continuenormalflight(self, actions, note=False):
       else:
 
         # See rule 8.0.
-        raise RuntimeError("attempt to climb while flight type is %s." % self.flighttype)
+        raise RuntimeError("attempt to climb while flight type is %s." % self._flighttype)
 
       return altitudechange
 
@@ -313,7 +313,7 @@ def _continuenormalflight(self, actions, note=False):
       else:
 
         # See rule 8.0.
-        raise RuntimeError("attempt to dive while flight type is %s." % self.flighttype)
+        raise RuntimeError("attempt to dive while flight type is %s." % self._flighttype)
     
     checkaltitudechange()
 
@@ -626,8 +626,8 @@ def _continuenormalflight(self, actions, note=False):
       raise RuntimeError("aircraft can only perform one vertical roll per turn.")
       
     # See rule 13.3.4.  
-    if self.flighttype != "VC" and self.flighttype != "VD":
-      raise RuntimeError("attempt to declare a vertical roll while flight type is %s." % self.flighttype)
+    if self._flighttype != "VC" and self._flighttype != "VD":
+      raise RuntimeError("attempt to declare a vertical roll while flight type is %s." % self._flighttype)
     if not self._vertical:
       raise RuntimeError("attempt to declare a vertical roll during an HFP.")
     if previousflighttype == "LVL" and flighttype == "VC" and not self._lastfp:
@@ -773,18 +773,18 @@ def _continuenormalflight(self, actions, note=False):
     # See rule 4.4.   
     # We implement the delay of 1 FP by making this an other element.
     
-    previousconfiguration = self.configuration
+    previousconfiguration = self._configuration
 
     for released in m[1].split("+"):
-      self.stores = apstores._release(self.stores, released,
+      self._stores = apstores._release(self._stores, released,
         printer=lambda s: self._logevent(s)
       )
 
     self._updateconfiguration()
 
-    if self.configuration != previousconfiguration:
+    if self._configuration != previousconfiguration:
       self._logevent("configuration changed from %s to %s." % (
-        previousconfiguration, self.configuration
+        previousconfiguration, self._configuration
       ))
 
   ########################################
@@ -1096,7 +1096,7 @@ def _continuenormalflight(self, actions, note=False):
       else:
        self._vfp += 1
 
-      self._unloaded = (self.flighttype == "UD" and self._vertical)
+      self._unloaded = (self._flighttype == "UD" and self._vertical)
       if self._unloaded:
         if self._firstunloadedfp == None:
           self._firstunloadedfp = self._hfp
@@ -1210,7 +1210,7 @@ def _continuenormalflight(self, actions, note=False):
 
   ########################################
   
-  flighttype         = self.flighttype
+  flighttype         = self._flighttype
   previousflighttype = self._previousflighttype  
   
   if actions != "":
@@ -1295,19 +1295,19 @@ def _startnormalflight(self, actions, note=False):
 
     # See rule 8.1.1.
 
-    if self.flighttype == "ZC":
+    if self._flighttype == "ZC":
       self._logevent("ZC limits the turn rate to BT.")
       turnrates = turnrates[:4]
 
     # See rule 8.1.1.
 
-    if self.flighttype == "SC":
+    if self._flighttype == "SC":
       self._logevent("SC limits the turn rate to EZ.")
       turnrates = turnrates[:1]
 
     # See rule 8.1.3.
 
-    if self.flighttype == "VC":
+    if self._flighttype == "VC":
       self._logevent("VC disallows all turns.")
       turnrates = []
 
@@ -1570,7 +1570,7 @@ def _startnormalflight(self, actions, note=False):
       
   ########################################
 
-  flighttype         = self.flighttype
+  flighttype         = self._flighttype
   previousflighttype = self._previousflighttype  
   
   # These keep track of the number of FPs, HFPs, and VFPs used and the
@@ -1643,7 +1643,7 @@ def _endnormalflight(self):
     if self._vfp > self._maxvfp:
       raise RuntimeError("too many VFPs.")
 
-    if self.flighttype == "UD":
+    if self._flighttype == "UD":
       # See rule 8.2.2.
       unloadedhfp = self._previousaltitude - self._altitude
       if self._firstunloadedfp == None:
@@ -1665,7 +1665,7 @@ def _endnormalflight(self):
 
     # See rule 8.2.4.
     
-    if self.flighttype == "LVL":
+    if self._flighttype == "LVL":
       altitudechange = self._altitude - self._previousaltitude
       if altitudechange < -1:
         raise RuntimeError("free descent cannot only be taken once per move.")      
@@ -1810,7 +1810,7 @@ def _endnormalflight(self):
       
   ########################################
 
-  flighttype         = self.flighttype
+  flighttype         = self._flighttype
   previousflighttype = self._previousflighttype  
   
   if not self._maneuveringdeparture:

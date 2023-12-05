@@ -33,7 +33,7 @@ def _startmovespeed(self, power, flamedoutengines):
     # For aircraft with SP flight type, the power is interpreted as the
     # speed and we skip the rest.
 
-    if self.flighttype == "SP":
+    if self._flighttype == "SP":
       speed = power
       reportspeed()
       self._speed        = speed
@@ -228,7 +228,7 @@ def _startmovespeed(self, power, flamedoutengines):
     if powersetting != "I" and self._altitude > self.ceiling():
       self._logevent("check for flame-out as the aircraft is above its ceiling and the power setting is %s." % powersetting)
 
-    if self.flighttype == "DP" and (powersetting == "M" or powersetting == "AB"):
+    if self._flighttype == "DP" and (powersetting == "M" or powersetting == "AB"):
       self._logevent("check for flame-out as the aircaft is in departed flight and the power setting is %s." % powersetting)
 
     ############################################################################
@@ -237,7 +237,7 @@ def _startmovespeed(self, power, flamedoutengines):
     
     # See rule 6.4 on recovery from departed flight.
 
-    if self._previousflighttype == "DP" and self.flighttype != "DP" and speed < minspeed:
+    if self._previousflighttype == "DP" and self._flighttype != "DP" and speed < minspeed:
       speed = minspeed
       self._logevent("increasing speed to %.1f after recovering from departed flight." % minspeed)
       
@@ -260,7 +260,7 @@ def _startmovespeed(self, power, flamedoutengines):
     if speed < minspeed:
       self._logevent("speed is below the minimum of %.1f." % minspeed)
       self._logevent("aircraft is stalled.")
-      if self.flighttype != "ST" and self.flighttype != "DP":
+      if self._flighttype != "ST" and self._flighttype != "DP":
         raise RuntimeError("flight type must be ST or DP.")
     
     # See the "Aircraft Damage Effects" in the Play Aids.
@@ -359,7 +359,7 @@ def _endmovespeed(self):
     
   # For aircraft with SP flight type, we skip this.
 
-  if self.flighttype == "SP":
+  if self._flighttype == "SP":
     self.apcarry = 0
     self._logevent("speed is unchanged at %.1f." % self._speed)
     return
@@ -386,16 +386,16 @@ def _endmovespeed(self):
 
     if previousexternalfuel > 0 and self.externalfuel() == 0:
       self._logevent("external fuel is exhausted.")
-      previousconfiguration = self.configuration
+      previousconfiguration = self._configuration
       self._updateconfiguration()
-      if self.configuration != previousconfiguration:
+      if self._configuration != previousconfiguration:
         self._logevent("changed configuration from %s to %s." % (
-          previousconfiguration, self.configuration
+          previousconfiguration, self._configuration
         ))
 
   # See the "Departed Flight Procedure" section of rule 6.4
 
-  if self.flighttype == "DP" or self._maneuveringdeparture:
+  if self._flighttype == "DP" or self._maneuveringdeparture:
     self.apcarry = 0
     self._logevent("speed is unchanged at %.1f." % self._speed)
     return
@@ -517,9 +517,9 @@ def _endmovespeed(self):
   minspeed = self.minspeed()
   if self._newspeed < minspeed:
     self._logevent("speed will be below the minimum of %.1f." % minspeed)
-  if self._newspeed >= minspeed and self.flighttype == "ST":
+  if self._newspeed >= minspeed and self._flighttype == "ST":
     self._logevent("aircraft will no longer be stalled.")
-  elif self._newspeed < minspeed and self.flighttype == "ST":
+  elif self._newspeed < minspeed and self._flighttype == "ST":
     self._logevent("aircraft will still stalled.")
   elif self._newspeed < minspeed:
     self._logevent("aircraft will have stalled.")

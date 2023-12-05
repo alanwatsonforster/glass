@@ -32,18 +32,18 @@ def _dostalledflight(self, action, note=False):
     # See rule 4.4.   
     # We implement the delay of 1 FP by making this an other element.
     
-    previousconfiguration = self.configuration
+    previousconfiguration = self._configuration
 
     for released in m[1].split("+"):
-      self.stores = apstores._release(self.stores, released,
+      self._stores = apstores._release(self._stores, released,
         printer=lambda s: self._logevent(s)
       )
 
     self._updateconfiguration()
 
-    if self.configuration != previousconfiguration:
+    if self._configuration != previousconfiguration:
       self._logevent("configuration changed from %s to %s." % (
-        previousconfiguration, self.configuration
+        previousconfiguration, self._configuration
       ))
   
   # See rule 6.4.

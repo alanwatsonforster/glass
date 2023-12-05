@@ -39,7 +39,7 @@ def move(self, flighttype, power, actions="", flamedoutengines=0, note=False):
     # We save values of these variables at the end of the previous move.
 
     self._previouspowersetting  = self._powersetting
-    self._previousflighttype    = self.flighttype
+    self._previousflighttype    = self._flighttype
     self._previousaltitude      = self._altitude
     self._previousaltitudecarry = self._altitudecarry
     self._previousspeed         = self._speed
@@ -69,8 +69,8 @@ def move(self, flighttype, power, actions="", flamedoutengines=0, note=False):
     
     self._maneuveringdeparture = False
     
-    self.flighttype = flighttype
-    self._logstart("flight type   is %s." % self.flighttype)
+    self._flighttype = flighttype
+    self._logstart("flight type   is %s." % self._flighttype)
 
     if flighttype == "SP":
       self._checkspecialflight()
@@ -85,11 +85,11 @@ def move(self, flighttype, power, actions="", flamedoutengines=0, note=False):
       self._speed = power
     else:
       self._startmovespeed(power, flamedoutengines)
-      self._logstart("configuration is %s." % self.configuration)
+      self._logstart("configuration is %s." % self._configuration)
     self._logstart("altitude band is %s." % self._altitudeband)
     self._logstart("damage        is %s." % self.damage())
 
-    if self.flighttype == "SP":
+    if self._flighttype == "SP":
 
       self._fpcarry = 0
       self._apcarry = 0
@@ -98,7 +98,7 @@ def move(self, flighttype, power, actions="", flamedoutengines=0, note=False):
       self._dospecialflight(actions, note=note)
       self._endmove()
       
-    elif self.flighttype == "ST":       
+    elif self._flighttype == "ST":       
 
       self._fpcarry = 0
       self._altitudecarry = 0
@@ -106,7 +106,7 @@ def move(self, flighttype, power, actions="", flamedoutengines=0, note=False):
       self._turnsstalled += 1
       self._endmove()
 
-    elif self.flighttype == "DP":
+    elif self._flighttype == "DP":
 
       self._fpcarry = 0
       self._apcarry = 0
@@ -143,7 +143,7 @@ def continuemove(self, actions="", note=False):
 
     apturn.checkinturn()
 
-    if not self._destroyed and not self._leftmap and self.flighttype != "ST" and self.flighttype != "DP" and self.flighttype != "SP":
+    if not self._destroyed and not self._leftmap and self._flighttype != "ST" and self._flighttype != "DP" and self._flighttype != "SP":
       self._continuenormalflight(actions, note=note)
     else:
       self._lognote(note)
@@ -170,7 +170,7 @@ def _endmove(self):
 
   else:
 
-    if self.flighttype == "SP":
+    if self._flighttype == "SP":
 
       self._newspeed = self._speed
 

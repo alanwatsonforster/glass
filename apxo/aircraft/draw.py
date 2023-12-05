@@ -18,20 +18,20 @@ aircraftlinewidth          = 1
 _zorder = 0
 
 def _startflightpath(self):
-  self.flightpathx = [self._x]
-  self.flightpathy = [self._y]
+  self._flightpathx = [self._x]
+  self._flightpathy = [self._y]
 
 def _continueflightpath(self):
-  self.flightpathx.append(self._x)
-  self.flightpathy.append(self._y)
+  self._flightpathx.append(self._x)
+  self._flightpathy.append(self._y)
 
 def _drawflightpath(self):
   if self._destroyed:
     fillcolor = destroyedaircraftfillcolor
   else:
     fillcolor = self._color
-  x = self.flightpathx
-  y = self.flightpathy
+  x = self._flightpathx
+  y = self._flightpathy
   if len(x) > 1:
     apdraw.drawlines(x, y, color=flightpathcolor, linewidth=flightpathlinewidth, linestyle=flightpathlinestyle, zorder=0.1)
     apdraw.drawdot(x[0], y[0], fillcolor=fillcolor, linecolor=flightpathcolor, linewidth=aircraftlinewidth, size=flightpathdotsize, zorder=self._zorder)

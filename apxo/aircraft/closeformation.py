@@ -9,7 +9,7 @@ def closeformationnames(self):
   aircraft or an empty list if the aircraft is not in close formation.
   """
 
-  return sorted(map(lambda a: a._name, self.closeformation))
+  return sorted(map(lambda a: a._name, self._closeformation))
 
 ################################################################################
 
@@ -21,7 +21,7 @@ def closeformationsize(self):
   aircraft or zero if the aircraft is not in close formation.
   """
 
-  return len(self.closeformation)
+  return len(self._closeformation)
 
 ################################################################################
 
@@ -71,15 +71,15 @@ def joincloseformation(self, other):
     if nself + nother > 4:
       raise RuntimeError("attempt to form a close formation with more than four aircraft.")
 
-    if self.closeformation == []:
-      self.closeformation = [self]
+    if self._closeformation == []:
+      self._closeformation = [self]
 
-    if other.closeformation == []:
-      other.closeformation = [other]
+    if other._closeformation == []:
+      other._closeformation = [other]
       
-    self.closeformation += other.closeformation
-    for a in self.closeformation:
-      a.closeformation = self.closeformation
+    self._closeformation += other._closeformation
+    for a in self._closeformation:
+      a._closeformation = self._closeformation
 
     self._checkcloseformation()
 
@@ -95,7 +95,7 @@ def _checkcloseformation(self):
   aircraft do not have the same position, altitude, facing, and speed.
   """
 
-  for a in self.closeformation:
+  for a in self._closeformation:
     if self._x != a._x or self._y != a._y:
       raise RuntimeError("aircraft %s and %s cannot be in close formation as they do not have the same positions." % (self._name, a._name))
     if self._altitude != a._altitude:
@@ -113,9 +113,9 @@ def _leaveanycloseformation(self):
   The aircraft leaves its close formation, if it is in one.
   """
 
-  if self.closeformation != []:
-    self.closeformation.remove(self)
-    self.closeformation = []
+  if self._closeformation != []:
+    self._closeformation.remove(self)
+    self._closeformation = []
 
 ################################################################################
 
@@ -128,7 +128,7 @@ def _breakdowncloseformation(self):
   aplog.clearerror()
   try:
 
-    for a in self.closeformation.copy():
+    for a in self._closeformation.copy():
       a._leaveanycloseformation()
   
   except RuntimeError as e:

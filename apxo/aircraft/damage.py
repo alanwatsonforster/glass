@@ -7,19 +7,19 @@ import apxo.log as aplog
 
 def damage(self):
 
-  if self.damageK > 0:
+  if self._damageK > 0:
     return "K"
 
   damage = ""
-  if self.damageL == 1:
+  if self._damageL == 1:
     damage = "L"
-  elif self.damageL == 2:
+  elif self._damageL == 2:
     damage = "2L"  
-  if self.damageH == 1:
+  if self._damageH == 1:
     damage = "%sH" % (
       "" if damage == "" else damage + "+",
     )
-  if self.damageC == 1:
+  if self._damageC == 1:
     damage = "%sC" % (
       "" if damage == "" else damage + "+"
     )
@@ -48,15 +48,15 @@ def _takedamage(self, damage):
   previousdamage = self.damage()
 
   if damage == "L":
-    self.damageL += 1
+    self._damageL += 1
   elif damage == "2L":
-    self.damageL += 2
+    self._damageL += 2
   elif damage == "H":
-    self.damageH += 1
+    self._damageH += 1
   elif damage == "C":
-    self.damageC += 1
+    self._damageC += 1
   elif damage == "K":
-    self.damageK += 1
+    self._damageK += 1
   else:
     raise RuntimeError("invalid damage %r" % damage)
     
@@ -66,25 +66,25 @@ def _takedamage(self, damage):
     self._logaction("", "%s is already destroyed." % self._name)
     return
 
-  if self.damageL >= 3:
-    self.damageL -= 3
-    self.damageH += 1
+  if self._damageL >= 3:
+    self._damageL -= 3
+    self._damageH += 1
 
-  if self.damageH >= 2:
-    self.damageH -= 2
-    self.damageC += 1
+  if self._damageH >= 2:
+    self._damageH -= 2
+    self._damageC += 1
 
-  if self.damageC >= 2:
-    self.damageK = 1
+  if self._damageC >= 2:
+    self._damageK = 1
 
-  if self.damageH > 0 and self.damageC > 0:
-    self.damageK = 1
+  if self._damageH > 0 and self._damageC > 0:
+    self._damageK = 1
 
-  if self.damageK > 0:
-    self.damageK = 1
-    self.damageL = 0
-    self.damageH = 0
-    self.damageC = 0
+  if self._damageK > 0:
+    self._damageK = 1
+    self._damageL = 0
+    self._damageH = 0
+    self._damageC = 0
     self._destroyed = True
 
   self._logaction("", "%s damage changed from %s to %s." % (self._name, previousdamage, self.damage()
@@ -97,15 +97,15 @@ def damageatleast(self, damage):
   if damage == "none":
     return True
   elif damage == "L":
-    return self.damageL >= 1 or self.damageatleast("2L")
+    return self._damageL >= 1 or self.damageatleast("2L")
   elif damage == "2L":
-    return self.damageL >= 2 or self.damageatleast("H")
+    return self._damageL >= 2 or self.damageatleast("H")
   elif damage == "H":
-    return self.damageH >= 1 or self.damageatleast("C")
+    return self._damageH >= 1 or self.damageatleast("C")
   elif damage == "C":
-    return self.damageC >= 1 or self.damageatleast("K")
+    return self._damageC >= 1 or self.damageatleast("K")
   elif damage == "K":
-    return self.damageK >= 1
+    return self._damageK >= 1
 
 def damageatmost(self, damage):
   assert damage in ["none", "L", "2L", "H", "C", "K"]

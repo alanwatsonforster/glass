@@ -2,10 +2,10 @@ import apxo.speed    as apspeed
 import apxo.altitude as apaltitude
 
 def power(self, powersetting):
-  return self._aircraftdata.power(self.configuration, powersetting)
+  return self._aircraftdata.power(self._configuration, powersetting)
 
 def spbr(self):
-  return self._aircraftdata.spbr(self.configuration)
+  return self._aircraftdata.spbr(self._configuration)
 
 def fuelrate(self):
   return self._aircraftdata.fuelrate(self._powersetting)
@@ -21,11 +21,11 @@ def turndrag(self, turnrate):
   def rawturndrag(turnrate):
     lowspeedturnlimit = self._aircraftdata.lowspeedturnlimit()
     if lowspeedturnlimit == None:
-      return self._aircraftdata.turndrag(self.configuration, turnrate)
+      return self._aircraftdata.turndrag(self._configuration, turnrate)
     elif self._speed <= lowspeedturnlimit:
-      return self._aircraftdata.turndrag(self.configuration, turnrate, lowspeed=True)
+      return self._aircraftdata.turndrag(self._configuration, turnrate, lowspeed=True)
     else:
-      return self._aircraftdata.turndrag(self.configuration, turnrate, highspeed=True)
+      return self._aircraftdata.turndrag(self._configuration, turnrate, highspeed=True)
   
   if turnrate == "EZ":
       return 0.0
@@ -42,32 +42,32 @@ def turndrag(self, turnrate):
 
   lowspeedturnlimit = self._aircraftdata.lowspeedturnlimit()
   if lowspeedturnlimit == None:
-    return self._aircraftdata.turndrag(self.configuration, turnrate)
+    return self._aircraftdata.turndrag(self._configuration, turnrate)
   elif self._speed <= lowspeedturnlimit:
-    return self._aircraftdata.turndrag(self.configuration, turnrate, lowspeed=True)
+    return self._aircraftdata.turndrag(self._configuration, turnrate, lowspeed=True)
   else:
-    return self._aircraftdata.turndrag(self.configuration, turnrate, highspeed=True)
+    return self._aircraftdata.turndrag(self._configuration, turnrate, highspeed=True)
 
 def minspeed(self):
-  minspeed = self._aircraftdata.minspeed(self.configuration, self._altitudeband)
+  minspeed = self._aircraftdata.minspeed(self._configuration, self._altitudeband)
   if minspeed == None:
     # The aircraft is temporarily above its ceiling, so take the speed from the
     # highest band in the table.
     for altitudeband in ["UH", "EH", "VH", "HI", "MH", "ML", "LO"]:
-      minspeed = self._aircraftdata.minspeed(self.configuration, altitudeband)
+      minspeed = self._aircraftdata.minspeed(self._configuration, altitudeband)
       if minspeed != None:
         break
   return minspeed
 
 def maxspeed(self):
 
-  maxspeed = self._aircraftdata.maxspeed(self.configuration, self._altitudeband)
+  maxspeed = self._aircraftdata.maxspeed(self._configuration, self._altitudeband)
 
   if maxspeed == None:
     # The aircraft is temporarily above its ceiling, so take the speed from the
     # highest band in the table.
     for altitudeband in ["UH", "EH", "VH", "HI", "MH", "ML", "LO"]:
-      maxspeed = self._aircraftdata.maxspeed(self.configuration, altitudeband)
+      maxspeed = self._aircraftdata.maxspeed(self._configuration, altitudeband)
       if maxspeed != None:
         break
 
@@ -104,7 +104,7 @@ def maxdivespeed(self):
       return raw
 
 def ceiling(self):
-  return self._aircraftdata.ceiling(self.configuration)
+  return self._aircraftdata.ceiling(self._configuration)
 
 def rollhfp(self):
   # See rule 7.4.
@@ -117,12 +117,12 @@ def rolldrag(self, rolltype):
   return self._aircraftdata.rolldrag(rolltype)
 
 def climbcapability(self):
-  climbcapability = self._aircraftdata.climbcapability(self.configuration, self._altitudeband, self._powersetting)
+  climbcapability = self._aircraftdata.climbcapability(self._configuration, self._altitudeband, self._powersetting)
   if climbcapability == None:
     # The aircraft is temporarily above its ceiling, so take the speed from the
     # highest band in the table.
     for altitudeband in ["UH", "EH", "VH", "HI", "MH", "ML", "LO"]:
-      climbcapability = self._aircraftdata.climbcapability(self.configuration, altitudeband, self._powersetting)
+      climbcapability = self._aircraftdata.climbcapability(self._configuration, altitudeband, self._powersetting)
       if climbcapability != None:
         break
   # See rule 6.6 and rule 8.1.4.
@@ -146,7 +146,7 @@ def hasproperty(self, p):
     return True
 
   if p == "HRR" and self._aircraftdata.hasproperty("HRRCL"):
-    return self.configuration == "CL"
+    return self._configuration == "CL"
   if p == "LRR" and self._aircraftdata.hasproperty("LRRHS"):
     return self._speed >= self._aircraftdata["LRRHSlimit"]
 
