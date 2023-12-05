@@ -1857,23 +1857,29 @@ def _isslide(maneuvertype):
   
 ################################################################################
 
-def _isdivingflight(flighttype):
+def _isdivingflight(flighttype, vertical=False):
 
   """
   Return True if the flight type is SD, UD, or VD. Otherwise return False.
   """
 
-  return flighttype == "SD" or flighttype == "UD" or flighttype == "VD"
+  if vertical:
+    return flighttype == "VD"
+  else:
+    return flighttype == "SD" or flighttype == "UD" or flighttype == "VD"
 
 ################################################################################
 
-def _isclimbingflight(flighttype):
+def _isclimbingflight(flighttype, vertical=False):
 
   """
   Return True if the flight type is ZC, SC, or VC. Otherwise return False.
   """
   
-  return flighttype == "ZC" or flighttype == "SC" or flighttype == "VC"
+  if vertical:
+    return flighttype == "VD"
+  else:
+    return flighttype == "ZC" or flighttype == "SC" or flighttype == "VC"
 
 ################################################################################
 

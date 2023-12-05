@@ -14,6 +14,7 @@ __all__ = [
   "endturn",
   "startvisualsighting",
   "endvisualsighting",
+  "showadvantagecategories",
   "drawmap",
   "aircraft",
   "marker"
@@ -126,6 +127,11 @@ def startvisualsighting():
 
 def endvisualsighting():
   apaircraft.endvisualsighting()
+
+################################################################################
+
+def showadvantagecategories():
+  apaircraft.showadvantagecategories()
 
 ################################################################################
 

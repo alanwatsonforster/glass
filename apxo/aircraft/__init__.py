@@ -13,6 +13,7 @@ import apxo.stores         as apstores
 import apxo.turnrate       as apturnrate
 import apxo.geometry       as apgeometry
 import apxo.airtoair       as apairtoair
+import apxo.advantage      as apadvantage
 import apxo.turn           as apturn
 import apxo.visualsighting as apvisualsighting
 
@@ -760,23 +761,23 @@ class aircraft:
       
   #############################################################################
 
-  def climbingflight(self):
+  def climbingflight(self, vertical=False):
 
     """
     Return true if the aircraft is climbing.
     """
 
-    return _isclimbingflight(self._flighttype)
+    return _isclimbingflight(self._flighttype, vertical=vertical)
 
   #############################################################################
 
-  def divingflight(self):
+  def divingflight(self, vertical=False):
 
     """
     Return true if the aircraft is diving.
     """
 
-    return _isdivingflight(self._flighttype)
+    return _isdivingflight(self._flighttype, vertical=vertical)
    
   #############################################################################
 
@@ -1003,7 +1004,67 @@ def endvisualsighting():
       else:
         aplog.log("%-4s : is unsighted." % target.name())
 
+    showadvantagecategories()
+
   except RuntimeError as e:
     aplog.logexception(e)
       
 ################################################################################
+
+def showadvantagecategories():
+
+  aplog.clearerror()
+  try:
+
+    apturn.checkinturn()
+    aplog.logbreak()
+    #aplog.logline()
+
+    for a in aslist():
+
+      # TODO: departed, stalled, and engaged.
+
+      aplog.logbreak()
+      aplog.log("%-4s : determining advantage category." % a.name())
+
+      if not a.sighted():
+
+        a._advantagecategory = "unsighted"
+
+      else:
+
+        advantaged    = False
+        disadvantaged = False
+        for b in aslist():
+          if a.force() != b.force():
+            if apadvantage.advantaged(a, b):
+              a._logevent("is advantaged over %s." % b.name())
+              advantaged   = True
+            elif apadvantage.disadvantaged(a, b):
+              a._logevent("is disadvantaged by %s." % b.name())
+              disadvantaged = True
+
+        if advantaged and not disadvantaged:
+          a._advantagecategory = "advantaged"
+        elif disadvantaged and not advantaged:
+          a._advantagecategory = "disadvantaged"
+        else:
+          a._advantagecategory = "nonadvantaged"
+
+      aplog.log("%-4s : is %s." % (a.name(), a._advantagecategory))
+
+    #aplog.logline()
+
+    aplog.logbreak()
+    #aplog.logline()
+
+    for category in ["disadvantaged", "nonadvantaged", "advantaged", "unsighted"]:
+      aplog.log("%s aircraft:" % category)
+      for a in aslist():
+        if a._advantagecategory == category:
+          aplog.log("  %s" % a.name())
+
+  except RuntimeError as e:
+    aplog.logexception(e)
+      
+  #############################################################################
