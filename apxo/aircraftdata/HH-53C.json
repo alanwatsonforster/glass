@@ -15,6 +15,7 @@
   "restrictedarcs": "",
   "blindarcs": "60-",
   "atarefuel": true,
+  "ejectionseat": "none",
   "properties": [ "SPFL" ],
   "specialclimbcapability": 0.25,
   "notes": [

@@ -187,6 +187,12 @@ class aircraftdata:
 
   def visibility(self):
     return self._data["visibility"]
+
+  def atarefuel(self):
+    return self._data["atarefuel"]
+      
+  def ejectionseat(self):
+    return self._data["ejectionseat"]
       
   def rollhfp(self):
     raw = self._data["maneuvertable"]["LR/DR"][0]
@@ -315,7 +321,8 @@ class aircraftdata:
     str("Type: %s" % self._name)
     str("")
 
-    str("Crew: %d %s" % (len(self.crew()), ", ".join(self.crew())))
+    str("Crew           : %d %s" % (len(self.crew()), ", ".join(self.crew())))
+    str("Ejection Seat  : %s" % self.ejectionseat())
 
     if not self.hasproperty("SPFL"):
 
@@ -378,14 +385,16 @@ class aircraftdata:
             str("- If the altitude is more than %d, the power is reduced by %s." % (p[0], p[1]))
         str("")
 
-      str("Cruise Speed: %.1f" % self.cruisespeed())
-      str("Climb  Speed: %.1f" % self.climbspeed())
-      str("Visibility: %.1f" % self.visibility())
-      str("Visibility: %.1f" % self.visibility())
-      str("Vulnerability: %.1f" % self.vulnerability())
+      str("Engines        : %d" % self.engines())
+      str("Cruise Speed   : %.1f" % self.cruisespeed())
+      str("Climb  Speed   : %.1f" % self.climbspeed())
+      str("Visibility     : %d" % self.visibility())
+      str("Size Modifier  : %+d" % self.sizemodifier())
+      str("Vulnerability  : %+d" % self.vulnerability())
       str("Restricted arcs: %s" % (" ".join(self.restrictedarcs())))
-      str("Blind arcs: %s" % (" ".join(self.blindarcs())))
-      str("Internal Fuel: %.1f" % self.internalfuelcapacity())
+      str("Blind arcs     : %s" % (" ".join(self.blindarcs())))
+      str("Internal Fuel  : %.1f" % self.internalfuelcapacity())
+      str("ATA Refuel     : %s" % self.atarefuel())
       str("")
 
       str("Roll Costs:")

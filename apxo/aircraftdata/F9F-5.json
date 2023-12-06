@@ -1,0 +1,11 @@
+{
+  "name": "F9F-5 Panther",
+  "base": "F9F-2",
+  "turndragtable": {
+    "TT": [ 0.0, 1.0, 1.0 ],
+    "HT": [ 1.0, 2.0, 2.0 ],
+    "BT": [ 2.0, 2.0, 2.0 ]
+  },
+  "internalfuel": 320,
+  "storeslimits": [ 2, 6, 3000 ]
+}

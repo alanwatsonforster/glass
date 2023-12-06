@@ -70,6 +70,8 @@
   // 8288*7/20 = 2900
   "internalfuel": 2900,
 
+  "ejectionseat": "none",
+
   // The flight rules in TSOH forbid rolls.
 
   "maneuvertable": {

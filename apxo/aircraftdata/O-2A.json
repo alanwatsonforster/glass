@@ -1,5 +1,5 @@
 {
-  "name": "O-2A",
+  "name": "O-2A Skymaster",
   "origin": "TSOH",
   "crew": [ "Pilot", "Observer" ],
   "visibility": 4,
@@ -9,6 +9,7 @@
   "restrictedarcs": "",
   "blindarcs": "60-",
   "atarefuel": false,
+  "ejectionseat": "none",
   "properties": [ "SPFL" ],
   "specialclimbcapability": 0.50,
   "notes": [

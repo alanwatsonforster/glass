@@ -16,10 +16,10 @@
   "vulnerability": 0,
   "restrictedarcs": "60-",
   "blindarcs": "30-",
-  "atarefuel": false,
-  "internalfuel": 185,
   // ADC has 295, but this includes the wing-tip FTs.
   "internalfuel": 145,
+  "atarefuel": false,
+  "ejectionseat": "early",
   "maneuvertable": {
     "LR/DR": [ 1.0, 1.5 ],
     "VR":    [ 0.0, 0.5 ]

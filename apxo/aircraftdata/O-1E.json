@@ -1,5 +1,5 @@
 {
-  "name": "O-1E",
+  "name": "O-1E Bird Dog",
   "origin": "TSOH",
   "crew": [ "Pilot", "Observer" ],
   "visibility": 4,
@@ -9,6 +9,7 @@
   "restrictedarcs": "",
   "blindarcs": "",
   "atarefuel": false,
+  "ejectionseat": "none",
   "properties": [ "SPFL" ],
   "specialclimbcapability": 0.25,
   "notes": [

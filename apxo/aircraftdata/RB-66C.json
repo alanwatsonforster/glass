@@ -1,0 +1,6 @@
+{
+  "name": "RB-66",
+  "base": "B-66B",
+  "crew": [ "Pilot", "Navigator", "EW Officer", "EW Officer", "EW Officer"],
+  "gunammunition": 0
+}

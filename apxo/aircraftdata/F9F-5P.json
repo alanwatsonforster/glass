@@ -1,0 +1,8 @@
+{
+  "name": "F9F-5P Panther",
+  "base": "F9F-5",
+  "gunammunition": 0,
+  "notes": [
+    "Oblique and overhead cameras."
+  ]
+}

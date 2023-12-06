@@ -328,10 +328,10 @@ A1._assert("2020       NNE  12",  1.0)
 endturn()
 
 # Check VRs with aircraft with the OVR property ("one vertical roll"), such as 
-# the B-66. These can perform only one vertical roll per game turn.
+# the B-66B. These can perform only one vertical roll per game turn.
 
 starttestsetup(verbose=False)
-A1 = aircraft("A1", "AF", "B-66", "2030", "N", 30, 5.0, "CL")
+A1 = aircraft("A1", "AF", "B-66B", "2030", "N", 30, 5.0, "CL")
 endtestsetup()
 
 startturn()

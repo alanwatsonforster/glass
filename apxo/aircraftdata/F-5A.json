@@ -17,8 +17,9 @@
   "vulnerability": -1,
   "restrictedarcs": "60-",
   "blindarcs": "30-",
-  "atarefuel": false,
   "internalfuel": 185,
+  "atarefuel": false,
+  "ejectionseat": "standard",
   "maneuvertable": {
     "LR/DR": [ 1.0, 1.0 ],
     "VR":    [ 0.0, 0.0 ]
