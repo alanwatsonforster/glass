@@ -223,15 +223,8 @@ def visualsightingcondition(searcher, target):
 
   # See rule 11.1.
 
-  if  apgeometry.samehorizontalposition(searcher, target):
-    # I'm confused by the rules for determining arcs if two aircraft are in
-    # the same hex, so for the time being I assume blind and restricted arcs
-    # do not apply in this case.
-    blindarc = None
-    restrictedarc = None
-  else:
-    blindarc      = _blindarc(searcher, target)
-    restrictedarc = _restrictedarc(searcher, target)
+  blindarc      = _blindarc(searcher, target)
+  restrictedarc = _restrictedarc(searcher, target)
 
   if visualsightingrange(searcher, target) > target.maxvisualsightingrange():
     return "beyond visual range", False, False, False
