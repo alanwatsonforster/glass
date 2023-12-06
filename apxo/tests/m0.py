@@ -79,7 +79,7 @@ assert A3.visualsightingcondition(A4) == ("within visual range", True, True, Fal
 assert A5.visualsightingrange    (A4) == 0
 assert A5.visualsightingcondition(A4) == ("within visual range (immediately above)", True, True, False)
 assert A6.visualsightingrange    (A4) == 0
-assert A6.visualsightingcondition(A4) == ("within visual range", True, True, False)
+assert A6.visualsightingcondition(A4) == ("within visual range but blind (30- arc)", False, False, False)
 assert A7.visualsightingrange    (A4) == 0
 assert A7.visualsightingcondition(A4) == ("within visual range and can padlock, but blind (immediately below)", False, True, False)
 assert A8.visualsightingrange    (A4) == 20
@@ -113,7 +113,7 @@ assert A2.visualsightingcondition(A6) == ("within visual range", True, True, Fal
 assert A3.visualsightingrange    (A6) == 1
 assert A3.visualsightingcondition(A6) == ("within visual range", True, True, False)
 assert A4.visualsightingrange    (A6) == 0
-assert A4.visualsightingcondition(A6) == ("within visual range", True, True, False)
+assert A4.visualsightingcondition(A6) == ("within visual range but blind (30- arc)", False, False, False)
 assert A5.visualsightingrange    (A6) == 0
 assert A5.visualsightingcondition(A6) == ("within visual range (immediately above)", True, True, False)
 assert A7.visualsightingrange    (A6) == 0
@@ -157,7 +157,7 @@ assert A6.visualsightingcondition(A8) == ("within visual range", True, True, Fal
 assert A7.visualsightingrange    (A8) == 20
 assert A7.visualsightingcondition(A8) == ("within visual range", True, True, False)
 assert A9.visualsightingrange    (A8) == 0
-assert A9.visualsightingcondition(A8) == ("within visual range", True, True, False)
+assert A9.visualsightingcondition(A8) == ("within visual range but blind (30- arc)", False, False, False)
 
 assert A9.maxvisualsightingrange() == 16
 assert A1.visualsightingrange    (A9) == 20
@@ -175,6 +175,6 @@ assert A6.visualsightingcondition(A9) == ("beyond visual range", False, False, F
 assert A7.visualsightingrange    (A9) == 20
 assert A7.visualsightingcondition(A9) == ("beyond visual range", False, False, False)
 assert A8.visualsightingrange    (A9) == 0
-assert A8.visualsightingcondition(A9) == ("within visual range", True, True, False)
+assert A8.visualsightingcondition(A9) == ("within visual range but blind (30- arc)", False, False, False)
 
 endfile(__file__)
