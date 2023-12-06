@@ -3,6 +3,7 @@ import apxo.aircraft       as apaircraft
 import apxo.log            as aplog
 import apxo.map            as apmap
 import apxo.marker         as apmarker
+import apxo.order          as aporder
 import apxo.variants       as apvariants
 import apxo.scenarios      as apscenarios
 import apxo.turn           as apturn
@@ -14,7 +15,7 @@ __all__ = [
   "endturn",
   "startvisualsighting",
   "endvisualsighting",
-  "showadvantagecategories",
+  "orderofflightdeterminationphase",
   "drawmap",
   "aircraft",
   "marker"
@@ -130,8 +131,13 @@ def endvisualsighting():
 
 ################################################################################
 
-def showadvantagecategories():
-  apaircraft.showadvantagecategories()
+def orderofflightdeterminationphase():
+  aplog.clearerror()
+  try:
+    apturn.checkinturn()
+    aporder.orderofflightdeterminationphase()
+  except RuntimeError as e:
+    aplog.logexception(e)
 
 ################################################################################
 

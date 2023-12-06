@@ -1,10 +1,14 @@
 import apxo.aircraft as apaircraft
 import apxo.geometry as apgeometry
+import apxo.log      as aplog
+import apxo.turn     as apturn
 
-def advantaged(a0, a1):
+#############################################################################
+
+def advantaged(a, b):
 
   """
-  Return True if a0 is advantaged over a1.
+  Return True if a is advantaged over b.
   """
 
   # See rule 12.2.
@@ -12,48 +16,101 @@ def advantaged(a0, a1):
   # TODO: tailing.
 
   # Sighted.
-  if not a1.sighted():
+  if not b.sighted():
     return False
 
-  # Not same hex.
-  if apgeometry.samehorizontalposition(a0, a1):
+  # Not same hex or hexside.
+  if apgeometry.samehorizontalposition(a, b):
     return False
 
   # In 150 or 180 arc.
-  arc = apgeometry.angleofftail(a0, a1, arconly=True)
+  arc = apgeometry.angleofftail(a, b, arconly=True)
   if arc != "150 arc" and arc != "180 arc":
     return False
 
   # Within 9 hexes horizontally.
-  if apgeometry.horizontalrange(a0, a1) > 9:
+  if apgeometry.horizontalrange(a, b) > 9:
     return False
 
   # No more than 6 altitude levels above.
-  if a1.altitude() > a0.altitude() + 6:
+  if b.altitude() > a.altitude() + 6:
     return False
 
   # No more than 9 altitude levels below.
-  if a1.altitude() < a0.altitude() - 9:
+  if b.altitude() < a.altitude() - 9:
     return False
 
   # Not below if in VC.
-  if a0.climbingflight(vertical=True) and a1.altitude() < a0.altitude():
+  if a.climbingflight(vertical=True) and b.altitude() < a.altitude():
     return False
 
   # Not above if in VD.
-  if a0.divingflight(vertical=True) and a1.altitude() > a0.altitude():
+  if a.divingflight(vertical=True) and b.altitude() > a.altitude():
     return False
 
   return True
 
-def disadvantaged(a0, a1):
+#############################################################################
+
+def disadvantaged(a, b):
 
   """
-  Return True if a0 is disadvantaged by a1.
+  Return True if a is disadvantaged by b.
   """
 
   # See rule 12.2.
 
-  # This is equivalent to a1 being advantaged over a0.
+  # This is equivalent to b being advantaged over a.
   
-  return advantaged(a1, a0)
+  return advantaged(b, a)
+
+#############################################################################
+
+def orderofflightdeterminationphase():
+
+  aplog.logbreak()
+  aplog.log("order of flight determination phase.")
+
+  unsightedlist     = []
+  advantagedlist    = []
+  disadvantagedlist = []
+  nonadvantagedlist = []
+
+  for a in apaircraft.aslist():
+
+    # TODO: departed, stalled, and engaged.
+
+    if not a.sighted():
+
+      unsightedlist.append(a)
+
+    else:
+
+      isadvantaged    = False
+      isdisadvantaged = False
+      for b in apaircraft.aslist():
+        if a.force() != b.force():
+          if advantaged(a, b):
+            a._logevent("is advantaged over %s." % b.name())
+            isadvantaged   = True
+          elif disadvantaged(a, b):
+            a._logevent("is disadvantaged by %s." % b.name())
+            isdisadvantaged = True
+
+      if isadvantaged and not isdisadvantaged:
+        advantagedlist.append(a)
+      elif isdisadvantaged and not isadvantaged:
+        disadvantagedlist.append(a)
+      else:
+        nonadvantagedlist.append(a)
+
+  def showcategory(category, categorylist):
+    names = " ".join(list(a.name() for a in categorylist))
+    aplog.log("%-13s aircraft: %s" % (category, names))
+
+  showcategory("disadvantaged", disadvantagedlist)
+  showcategory("nonadvantaged", nonadvantagedlist)
+  showcategory("advantaged"   , advantagedlist   )
+  showcategory("unsighted"    , unsightedlist    )
+      
+#############################################################################
