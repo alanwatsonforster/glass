@@ -15,6 +15,7 @@ __all__ = [
   "endturn",
   "startvisualsighting",
   "endvisualsighting",
+  "settraining",
   "orderofflightdeterminationphase",
   "drawmap",
   "aircraft",
@@ -131,11 +132,29 @@ def endvisualsighting():
 
 ################################################################################
 
-def orderofflightdeterminationphase(forcerolls):
+def settraining(training):
+  aplog.clearerror()
+  try:
+    apturn.checkinsetup()
+    aporder.settraining(training)
+  except RuntimeError as e:
+    aplog.logexception(e)
+
+################################################################################
+
+def orderofflightdeterminationphase(
+  rolls,
+  firstkill=None,
+  mostkills=None
+  ):
   aplog.clearerror()
   try:
     apturn.checkinturn()
-    aporder.orderofflightdeterminationphase(forcerolls)
+    aporder.orderofflightdeterminationphase(
+      rolls,
+      firstkill=firstkill,
+      mostkills=mostkills
+      )
   except RuntimeError as e:
     aplog.logexception(e)
 

@@ -24,7 +24,7 @@ def advantaged(a, b):
     return False
 
   # In 150 or 180 arc.
-  arc = apgeometry.angleofftail(a, b, arconly=True)
+  arc = apgeometry.angleofftail(b, a, arconly=True)
   if arc != "150 arc" and arc != "180 arc":
     return False
 
@@ -66,16 +66,66 @@ def disadvantaged(a, b):
 
 #############################################################################
 
-def orderofflightdeterminationphase(forcerolls):
+_training = {}
+
+_trainingmodifier = {
+  "excellent": +2,
+  "good"     : +1,
+  "average"  : +0,
+  "limited"  : -1,
+  "poor"     : -2
+}
+
+def settraining(training):
+
+  global _training
+  _training = training
+
+  aplog.logbreak()
+  aplog.log("training.")
+  for k, v in training.items():
+    aplog.logcomment(None, "training modifier is %+d (%s) for %s." % (
+      _trainingmodifier[v],
+      v,
+      k
+    ))
+
+#############################################################################
+
+def orderofflightdeterminationphase(
+  rolls,
+  firstkill=None,
+  mostkills=None
+  ):
 
   def score(a):
-    return forcerolls[a.force()]
+    i = rolls[a.force()]
+    if a.force() in _training:
+      i += _trainingmodifier[_training[a.force()]]
+    if a.force() == firstkill:
+      i += 1
+    if a.force() == mostkills:
+      i += 1
+    return i
     
   aplog.logbreak()
   aplog.log("start of order of flight determination phase.")
 
-  for k, v in forcerolls.items():
+  for k, v in rolls.items():
     aplog.logcomment(None, "roll is %2d for %s." % (v, k))
+  for k, v in _training.items():
+    aplog.logcomment(None, "training   modifier is %+d (%s) for %s." % (
+      _trainingmodifier[v],
+      v,
+      k
+    ))
+  if firstkill is not None:
+    aplog.logcomment(None, "first kill modifier is +1 for %s." % firstkill)
+  if mostkills is not None:
+    aplog.logcomment(None, "most kills modifier is +1 for %s." % mostkills)
+
+  for a in apaircraft.aslist():
+    aplog.logaction(a, "%s has a score of %d." % (a.name(), score(a)))
 
   unsightedlist     = []
   advantagedlist    = []
@@ -114,22 +164,25 @@ def orderofflightdeterminationphase(forcerolls):
         nonadvantagedlist.append(a)
         category = "nonadvantaged"
 
-    aplog.logcomment(a, "%s and has a score of %d." % (category, score(a)))
+    aplog.logaction(a, "%s is %s." % (a.name(), category))
 
-  def showcategory(category, alist, forcerolls):
+  def showcategory(category, alist):
     adict = {}
     for a in alist:
       adict[score(a)] = []
     for a in alist:
       adict[score(a)].append(a.name())
     for k, v in sorted(adict.items()):
-      aplog.logmain(None, "  %s" % " ".join(v))
+      aplog.logaction(None, "  %s" % " ".join(v))
 
-  aplog.logmain(None, "order of flight is:")
-  showcategory("disadvantaged", disadvantagedlist, forcerolls)
-  showcategory("nonadvantaged", nonadvantagedlist, forcerolls)
-  showcategory("advantaged"   , advantagedlist   , forcerolls)
-  showcategory("unsighted"    , unsightedlist    , forcerolls)
+  aplog.logaction(None, "")
+  aplog.logaction(None, "order of flight is:")
+  aplog.logaction(None, "")
+  showcategory("disadvantaged", disadvantagedlist)
+  showcategory("nonadvantaged", nonadvantagedlist)
+  showcategory("advantaged"   , advantagedlist   )
+  showcategory("unsighted"    , unsightedlist    )
+  aplog.logaction(None, "")
 
   aplog.log("end of order of flight determination phase.")
 
