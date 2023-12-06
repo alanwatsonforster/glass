@@ -99,6 +99,11 @@ def startturn():
 
     apaircraft._startturn()
 
+    aplog.logbreak()
+    aplog.log("initial positions, maneuvers, flight types, and speeds are:")
+    for a in apaircraft.aslist():
+      aplog.logaction(a, "%s  %-9s  %-3s  %4.1f" % (a.position(), a.maneuver(), a.flighttype(), a.speed()))
+
   except RuntimeError as e:
     aplog.logexception(e)
 

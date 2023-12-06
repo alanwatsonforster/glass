@@ -428,6 +428,12 @@ class aircraft:
 
   #############################################################################
 
+  def flighttype(self):
+    """Return the flight type of the aircraft."""
+    return self._flighttype
+
+  #############################################################################
+
   def note(self, s):
     self._lognote(s)
     self._logline()
