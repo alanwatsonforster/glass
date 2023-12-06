@@ -1877,7 +1877,7 @@ def _isclimbingflight(flighttype, vertical=False):
   """
   
   if vertical:
-    return flighttype == "VD"
+    return flighttype == "VC"
   else:
     return flighttype == "ZC" or flighttype == "SC" or flighttype == "VC"
 
