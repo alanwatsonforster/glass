@@ -17,6 +17,28 @@ def log(s):
   else:
     print("turn %d: %s" % (apturn.turn(), s))
 
+def logmain(a, s):
+  log("%-4s : %s" % (
+    a.name() if a is not None else "",
+    s
+    ))
+
+
+def logcomment(a, s):
+  log("%-4s : %-5s : %-32s : %s" % (
+    a.name() if a is not None else "",
+    "",
+    "",
+    s
+    ))
+
+def logaction(a, s):
+  log("%-4s : %-5s : %s" % (
+    a.name() if a is not None else "",
+    "",
+    s
+    ))
+
 def logbreak():
   if _silent:
     return

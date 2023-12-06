@@ -131,11 +131,11 @@ def endvisualsighting():
 
 ################################################################################
 
-def orderofflightdeterminationphase():
+def orderofflightdeterminationphase(forcerolls):
   aplog.clearerror()
   try:
     apturn.checkinturn()
-    aporder.orderofflightdeterminationphase()
+    aporder.orderofflightdeterminationphase(forcerolls)
   except RuntimeError as e:
     aplog.logexception(e)
 

@@ -66,10 +66,16 @@ def disadvantaged(a, b):
 
 #############################################################################
 
-def orderofflightdeterminationphase():
+def orderofflightdeterminationphase(forcerolls):
 
+  def score(a):
+    return forcerolls[a.force()]
+    
   aplog.logbreak()
-  aplog.log("order of flight determination phase.")
+  aplog.log("start of order of flight determination phase.")
+
+  for k, v in forcerolls.items():
+    aplog.logcomment(None, "roll is %2d for %s." % (v, k))
 
   unsightedlist     = []
   advantagedlist    = []
@@ -83,6 +89,7 @@ def orderofflightdeterminationphase():
     if not a.sighted():
 
       unsightedlist.append(a)
+      category = "unsighted"
 
     else:
 
@@ -99,18 +106,32 @@ def orderofflightdeterminationphase():
 
       if isadvantaged and not isdisadvantaged:
         advantagedlist.append(a)
+        category = "advantaged"
       elif isdisadvantaged and not isadvantaged:
         disadvantagedlist.append(a)
+        category = "disadvantaged"
       else:
         nonadvantagedlist.append(a)
+        category = "nonadvantaged"
 
-  def showcategory(category, categorylist):
-    names = " ".join(list(a.name() for a in categorylist))
-    aplog.log("%-13s aircraft: %s" % (category, names))
+    aplog.logcomment(a, "%s and has a score of %d." % (category, score(a)))
 
-  showcategory("disadvantaged", disadvantagedlist)
-  showcategory("nonadvantaged", nonadvantagedlist)
-  showcategory("advantaged"   , advantagedlist   )
-  showcategory("unsighted"    , unsightedlist    )
+  def showcategory(category, alist, forcerolls):
+    adict = {}
+    for a in alist:
+      adict[score(a)] = []
+    for a in alist:
+      adict[score(a)].append(a.name())
+    for k, v in sorted(adict.items()):
+      aplog.logmain(None, "  %s" % " ".join(v))
+
+  aplog.logmain(None, "order of flight is:")
+  showcategory("disadvantaged", disadvantagedlist, forcerolls)
+  showcategory("nonadvantaged", nonadvantagedlist, forcerolls)
+  showcategory("advantaged"   , advantagedlist   , forcerolls)
+  showcategory("unsighted"    , unsightedlist    , forcerolls)
+
+  aplog.log("end of order of flight determination phase.")
+
       
 #############################################################################
