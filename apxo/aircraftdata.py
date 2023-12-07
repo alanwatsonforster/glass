@@ -1,3 +1,5 @@
+import apxo.variants as apvariants
+
 import os.path
 import json
 import re
@@ -75,6 +77,8 @@ class aircraftdata:
     raw = self._data["powertable"]["SPBR"][_configurationindex(configuration)]
     if raw == "-":
       return None
+    elif apvariants.withvariant("use APJ 53 rules"):
+      return raw * 2
     else:
       return raw
 

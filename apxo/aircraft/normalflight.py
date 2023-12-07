@@ -731,7 +731,7 @@ def _continuenormalflight(self, actions, note=False):
 
   ########################################
 
-  def dospeedbrakes(spbrfp):
+  def dospeedbrakes(spbr):
 
     """
     Use the speedbrakes.
@@ -739,32 +739,46 @@ def _continuenormalflight(self, actions, note=False):
 
     # See rules 6.5 and 6.6.
 
-    maxspbrfp = self.spbr()
-
-    if self._spbrfp != 0:
+    if self._spbrap != 0:
       raise RuntimeError("speedbrakes can only be used once per turn.")
-
-    maxspbrfp = self._maxfp - self._hfp - self._vfp
-    if spbrfp > maxspbrfp:
-      raise RuntimeError(plural(maxspbrfp,
-        "invalid use of speedbrakes when only 1 FP remains.",
-        "invalid use of speedbrakes when only %s FPs remain." % maxspbrfp))
-    
-    maxspbrfp = self.spbr()
-    if maxspbrfp == None:
+        
+    maxspbr = self.spbr()
+    if maxspbr == None:
       raise RuntimeError("aircraft does not have speedbrakes.")
+        
+    if apvariants.withvariant("use APJ 53 rules"):
 
-    if self._speed > apspeed.m1speed(self._altitudeband):
-      maxspbrfp += 0.5
-    if spbrfp > maxspbrfp:
-      raise RuntimeError(plural(maxspbrfp,
-        "speedbrake capability is only 1 FP.",
-        "speedbrake capability is only %.1f FPs." % maxspbrfp))
+      maxspbrap = self.spbr()
 
-    self._spbrfp = spbrfp
-    self._maxfp -= spbrfp
+      if spbr > maxspbrap:
+        raise RuntimeError(plural(maxspbrfp,
+          "speedbrake capability is only 1 DP.",
+          "speedbrake capability is only %.1f DPs." % maxspbr))
+          
+      self._spbrap = -spbr
+          
+    else:
 
-    self._spbrap = -spbrfp / 0.5
+      maxspbrfp = self.spbr()
+
+      if self._speed > apspeed.m1speed(self._altitudeband):
+        maxspbr += 0.5
+        
+      if spbr > maxspbrfp:
+        raise RuntimeError(plural(maxspbrfp,
+          "speedbrake capability is only 1 FP.",
+          "speedbrake capability is only %.1f FPs." % maxspbrfp))
+          
+      maxspbrfp = self._maxfp - self._hfp - self._vfp
+      if spbr > maxspbrfp:
+        raise RuntimeError(plural(maxspbrfp,
+          "invalid use of speedbrakes when only 1 FP remains.",
+          "invalid use of speedbrakes when only %s FPs remain." % maxspbrfp))
+
+      self._spbrfp = spbr
+      self._maxfp -= spbr
+
+      self._spbrap = -spbr / 0.5
   
   ########################################
 

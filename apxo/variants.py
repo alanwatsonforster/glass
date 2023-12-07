@@ -4,6 +4,7 @@ _knownvariants = [
   "prefer NE/SE/SW/NW",
   "disallow HT/FT",
   "prefer version 1 bleed rate",
+  "use APJ 53 rules"
   ""
 ]
 
