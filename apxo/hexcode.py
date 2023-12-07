@@ -82,6 +82,19 @@ def checkisvalidhexcode(h):
   if not isvalidhexcode(h):
     raise RuntimeError("%r is not a valid hex code." % h)
 
+
+def yoffsetforoddx():
+
+  """
+  Return the offset in y for odd rows in x. This differs between Air Superiority
+  and TSOH sheets.
+  """
+
+  if apmap.airsuperioritysheets():
+    return +0.5
+  else:
+    return -0.5
+
 def fromxy(x, y, sheet=None):
 
   """
@@ -104,9 +117,9 @@ def fromxy(x, y, sheet=None):
     XX = XX0 + (x - x0)
     YY = YY0 - (y - y0)
     if XX % 2 == 1:
-      YY -= 0.5
+      YY += yoffsetforoddx()
 
-    return _join(XX, YY)
+    return "%04d" % _join(XX, YY)
 
   else:
 
@@ -126,9 +139,9 @@ def fromxy(x, y, sheet=None):
     h1 = fromxy(x1, y1, sheet=sheet)
 
     if h0 < h1:
-      return "%04d/%04d" % (h0, h1)
+      return "%s/%s" % (h0, h1)
     else:
-      return "%04d/%04d" % (h1, h0)      
+      return "%s/%s" % (h1, h0)      
 
 def toxy(h, sheet=None):
 
@@ -153,7 +166,7 @@ def toxy(h, sheet=None):
     dx = XX - XX0
     dy = YY0 - YY
     if XX % 2 == 1:
-      dy -= 0.5
+      dy += yoffsetforoddx()
     
     return x0 + dx, y0 + dy
 
@@ -215,23 +228,43 @@ def _sheetorigin(sheet):
   Return the hex code of the center of the lower left hex in the specified sheet.
   """
 
-  sheetletter = sheet[0]
-  if sheetletter == "A":
-    XX = 10
-  elif sheetletter == "B":
-    XX = 30
-  elif sheetletter == "C":
-    XX = 50
-  else:
-    raise RuntimeError("%r is not a valid sheet." % sheet)
+  if apmap.airsuperioritysheets():
 
-  sheetnumber = sheet[1]
-  if sheetnumber == "1":
-    YY = 16
-  elif sheetnumber == "2":
-    YY = 31
+    # The four Air Superiority maps are identical. However, we notionally
+    # shift sheets B, C, and D by 20, 40, and 60 columns.
+
+    if sheet == "A":
+      XX = 00
+    elif sheet == "B":
+      XX = 20
+    elif sheet == "C":
+      XX = 40
+    elif sheet == "D":
+      XX = 60
+    else:
+      raise RuntimeError("%r is not a valid sheet." % sheet)
+
+    YY = 25
+
   else:
-    raise RuntimeError("%r is not a valid sheet." % sheet)
+
+    sheetletter = sheet[0]
+    if sheetletter == "A":
+      XX = 10
+    elif sheetletter == "B":
+      XX = 30
+    elif sheetletter == "C":
+      XX = 50
+    else:
+      raise RuntimeError("%r is not a valid sheet." % sheet)
+
+    sheetnumber = sheet[1]
+    if sheetnumber == "1":
+      YY = 16
+    elif sheetnumber == "2":
+      YY = 31
+    else:
+      raise RuntimeError("%r is not a valid sheet." % sheet)
 
   return _join(XX, YY)
 
@@ -259,15 +292,6 @@ def tosheet(h,
   else:
     dXXright = 0
 
-  if 11 + dXXleft <= XX and XX <= 29 + dXXright:
-    sheetletter = "A"
-  elif 31 + dXXleft <= XX and XX <= 49 + dXXright:
-    sheetletter = "B"
-  elif 51 + dXXleft <= XX and XX <= 69 + dXXright:
-    sheetletter = "C"
-  else:
-    return None
-
   if includetopside:
     dYYtop = -1
   else:
@@ -276,16 +300,49 @@ def tosheet(h,
     dYYbottom = +1
   else:
     dYYbottom = 0
+    
+  if apmap.airsuperioritysheets():
 
-  if XX % 2 == 1 and 1 <= YY and YY <= 15:
-    sheetnumber = "1"
-  elif XX % 2 == 0 and 2 + dYYtop <= YY and YY <= 15 + dYYbottom:
-    sheetnumber = "1"
-  elif XX % 2 == 1 and 16 <= YY and YY <= 30:
-    sheetnumber = "2"
-  elif XX % 2 == 0 and 17 + dYYtop <= YY and YY <= 30 + dYYbottom:
-    sheetnumber = "2"
+    if 1 + dXXleft <= XX and XX <= 19 + dXXright:
+      sheet = "A"
+    elif 21 + dXXleft <= XX and XX <= 39 + dXXright:
+      sheet = "B"
+    elif 41 + dXXleft <= XX and XX <= 59 + dXXright:
+      sheet = "C"
+    elif 61 + dXXleft <= XX and XX <= 79 + dXXright:
+      sheet = "D"
+    else:
+      return None
+
+    if XX % 2 == 1 and 1 <= YY and YY <= 25:
+      pass
+    elif XX % 2 == 0 and 1 + dYYtop <= YY and YY <= 24 + dYYbottom:
+      pass
+    else:
+      return None
+    
   else:
-    return None
 
-  return sheetletter + sheetnumber
+    if 11 + dXXleft <= XX and XX <= 29 + dXXright:
+      sheetletter = "A"
+    elif 31 + dXXleft <= XX and XX <= 49 + dXXright:
+      sheetletter = "B"
+    elif 51 + dXXleft <= XX and XX <= 69 + dXXright:
+      sheetletter = "C"
+    else:
+      return None
+
+    if XX % 2 == 1 and 1 <= YY and YY <= 15:
+      sheetnumber = "1"
+    elif XX % 2 == 0 and 2 + dYYtop <= YY and YY <= 15 + dYYbottom:
+      sheetnumber = "1"
+    elif XX % 2 == 1 and 16 <= YY and YY <= 30:
+      sheetnumber = "2"
+    elif XX % 2 == 0 and 17 + dYYtop <= YY and YY <= 30 + dYYbottom:
+      sheetnumber = "2"
+    else:
+      return None
+
+    sheet = sheetletter + sheetnumber
+
+  return sheet

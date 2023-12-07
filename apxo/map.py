@@ -2,13 +2,18 @@
 The map.
 """
 
-import apxo.azimuth as apazimuth
-import apxo.draw    as apdraw
-import apxo.hex     as aphex
-import apxo.hexcode as aphexcode
+import apxo.azimuth  as apazimuth
+import apxo.draw     as apdraw
+import apxo.hex      as aphex
+import apxo.hexcode  as aphexcode
 
 _drawterrain = True
 _drawlabels  = True
+
+_airsuperioritysheets = False
+
+_dxsheet = 20
+_dysheet = 15
 
 _sheetgrid      = []
 _loweredgeonmap = {}
@@ -23,9 +28,6 @@ _ymin           = None
 _ymax           = None
 _dotsperhex     = None
 _writefile      = None
-
-_dxsheet = 20
-_dysheet = 15
 
 _saved = False
 
@@ -47,17 +49,25 @@ megahexwidth     = 7
 roadoutlinewidth  = 2
 waterourlinewidth = 2
 
+def airsuperioritysheets():
+  return _airsuperioritysheets
+
 def setmap(sheetgrid, 
   drawterrain=True, drawlabels=True, 
   xmin=0, ymin=0, xmax=None, ymax=None, dotsperhex=80, writefile=False,
   style="original", 
   wilderness=None, forest=None, rivers=None, allforest=None, maxurbansize=None,
+  airsuperioritysheets=False
   ):
 
   """
   Set the arrangement of the sheets that form the map and the position of the 
   compass rose.
   """
+
+  global _airsuperioritysheets
+  global _dxsheet
+  global _dysheet
 
   global _drawterrain
   global _drawlabels
@@ -74,6 +84,16 @@ def setmap(sheetgrid,
   global _ymax
   global _dotsperhex
   global _writefile
+
+  _airsuperioritysheets = airsuperioritysheets
+
+  if _airsuperioritysheets:
+    _dxsheet = 20
+    _dysheet = 25
+    style = "openwater"
+  else:
+    _dxsheet = 20
+    _dysheet = 15    
 
   # The sheet grid argument follows visual layout, so we need to flip it 
   # vertically so that the lower-left sheet has indices (0,0).
@@ -504,6 +524,7 @@ def startdrawmap(show=False):
         y = ymin + iy
         if ix % 2 == 1:
           y -= 0.5
+          #aphexode.yoffsetforoddx()
         # Draw the hex if it is on the map and either its center or the center 
         # of its upper left edge are on this sheet.
         if isonmap(x, y) and (isonsheet(sheet, x, y) or isonsheet(sheet, x - 0.5, y + 0.25)):
@@ -631,7 +652,7 @@ def altitude(x, y, sheet=None):
     if _allwater:
       return 0
 
-    h = aphexcode.fromxy(x, y, sheet=sheet)
+    h = int(aphexcode.fromxy(x, y, sheet=sheet))
     if h in level2hexcodes:
       return 2
     elif h in level1hexcodes:
