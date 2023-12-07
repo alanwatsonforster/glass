@@ -86,11 +86,11 @@ def checkisvalidhexcode(h):
 def yoffsetforoddx():
 
   """
-  Return the offset in y for odd rows in x. This differs between Air Superiority
+  Return the offset in y for odd rows in x. This differs between GDW
   and TSOH sheets.
   """
 
-  if apmap.airsuperioritysheets():
+  if apmap.gdwsheets():
     return +0.5
   else:
     return -0.5
@@ -228,7 +228,7 @@ def _sheetorigin(sheet):
   Return the hex code of the center of the lower left hex in the specified sheet.
   """
 
-  if apmap.airsuperioritysheets():
+  if apmap.gdwsheets():
 
     # The four Air Superiority maps are identical. However, we notionally
     # shift sheets B, C, and D by 20, 40, and 60 columns.
@@ -301,8 +301,11 @@ def tosheet(h,
   else:
     dYYbottom = 0
     
-  if apmap.airsuperioritysheets():
+  if apmap.gdwsheets():
 
+    # The four Air Superiority maps are identical. However, we notionally
+    # shift sheets B, C, and D by 20, 40, and 60 columns.
+    
     if 1 + dXXleft <= XX and XX <= 19 + dXXright:
       sheet = "A"
     elif 21 + dXXleft <= XX and XX <= 39 + dXXright:

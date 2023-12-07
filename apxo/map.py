@@ -10,7 +10,7 @@ import apxo.hexcode  as aphexcode
 _drawterrain = True
 _drawlabels  = True
 
-_airsuperioritysheets = False
+_gdwsheets = False
 
 _dxsheet = 20
 _dysheet = 15
@@ -49,15 +49,14 @@ megahexwidth     = 7
 roadoutlinewidth  = 2
 waterourlinewidth = 2
 
-def airsuperioritysheets():
-  return _airsuperioritysheets
+def gdwsheets():
+  return _gdwsheets
 
 def setmap(sheetgrid, 
   drawterrain=True, drawlabels=True, 
   xmin=0, ymin=0, xmax=None, ymax=None, dotsperhex=80, writefile=False,
   style="original", 
-  wilderness=None, forest=None, rivers=None, allforest=None, maxurbansize=None,
-  airsuperioritysheets=False
+  wilderness=None, forest=None, rivers=None, allforest=None, maxurbansize=None
   ):
 
   """
@@ -65,7 +64,7 @@ def setmap(sheetgrid,
   compass rose.
   """
 
-  global _airsuperioritysheets
+  global _gdwsheets
   global _dxsheet
   global _dysheet
 
@@ -85,19 +84,11 @@ def setmap(sheetgrid,
   global _dotsperhex
   global _writefile
 
-  _airsuperioritysheets = airsuperioritysheets
-
-  if _airsuperioritysheets:
-    _dxsheet = 20
-    _dysheet = 25
-    style = "openwater"
-    validsheets = ["A", "B", "C", "D"]
-  else:
-    _dxsheet = 20
-    _dysheet = 15    
-    validsheets = ["A1", "A2", "B1", "B2", "C1", "C2"]
-
   blanksheets = ["", "-", "--"]
+  gdwsheets = ["A", "B", "C", "D"]
+  coasheets = ["A1", "A2", "B1", "B2", "C1", "C2"]
+
+  _gdwsheets = None
 
   if not isinstance(sheetgrid, list):
     raise RuntimeError("the sheet grid is not a list of lists.")
@@ -107,8 +98,22 @@ def setmap(sheetgrid,
     if len(row) != len(sheetgrid[0]):
       raise RuntimeError("the sheet grid is not rectangular.")
     for sheet in row:
-      if sheet not in validsheets and sheet not in blanksheets:
+      if sheet in blanksheets:
+        pass
+      elif _gdwsheets is not False and sheet in gdwsheets:
+        _gdwsheets = True
+      elif _gdwsheets is not True and sheet in coasheets:
+        _gdwsheets = False
+      else:
         raise RuntimeError("invalid sheet %s." % sheet)
+
+  if _gdwsheets:
+    _dxsheet = 20
+    _dysheet = 25
+    style = "openwater"
+  else:
+    _dxsheet = 20
+    _dysheet = 15    
 
   # The sheet grid argument follows visual layout, so we need to flip it 
   # vertically so that the lower-left sheet has indices (0,0).
