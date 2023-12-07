@@ -91,19 +91,32 @@ def setmap(sheetgrid,
     _dxsheet = 20
     _dysheet = 25
     style = "openwater"
+    validsheets = ["A", "B", "C", "D"]
   else:
     _dxsheet = 20
     _dysheet = 15    
+    validsheets = ["A1", "A2", "B1", "B2", "C1", "C2"]
+
+  blanksheets = ["", "-", "--"]
+
+  if not isinstance(sheetgrid, list):
+    raise RuntimeError("the sheet grid is not a list of lists.")
+  for row in sheetgrid:
+    if not isinstance(row, list):
+      raise RuntimeError("the sheet grid is not a list of lists.")
+    if len(row) != len(sheetgrid[0]):
+      raise RuntimeError("the sheet grid is not rectangular.")
+    for sheet in row:
+      if sheet not in validsheets and sheet not in blanksheets:
+        raise RuntimeError("invalid sheet %s." % sheet)
 
   # The sheet grid argument follows visual layout, so we need to flip it 
   # vertically so that the lower-left sheet has indices (0,0).
-
-  # TODO: Validate arguments. For example, that sheet grid is not ["A1"].
-
   _sheetgrid = list(reversed(sheetgrid))
+
   _nysheetgrid = len(_sheetgrid)
   _nxsheetgrid = len(_sheetgrid[0])
-
+  
   _drawterrain = drawterrain
   _drawlabels  = drawlabels
 
@@ -118,22 +131,22 @@ def setmap(sheetgrid,
     if ix < _nxsheetgrid - 1:
       return _sheetgrid[iy][ix + 1]
     else:
-      return "--"
+      return ""
 
   def sheetbelow(iy, ix):
     if iy > 0:
       return _sheetgrid[iy - 1][ix]
     else:
-      return "--"
+      return ""
 
   _sheetlist = []
   for iy in range (0, _nysheetgrid):
     for ix in range (0, _nxsheetgrid):
-      sheet =  _sheetgrid[iy][ix]
-      if sheet != "--":
+      sheet = _sheetgrid[iy][ix]
+      if sheet not in blanksheets:
         _sheetlist.append(sheet)
-        _loweredgeonmap.update({ sheet: sheetbelow(iy, ix) != "--"})
-        _rightedgeonmap.update({ sheet: sheettoright(iy, ix)   != "--"})
+        _loweredgeonmap.update({ sheet: sheetbelow(iy, ix) != ""})
+        _rightedgeonmap.update({ sheet: sheettoright(iy, ix) != ""})
 
   global _saved
   _saved = False
