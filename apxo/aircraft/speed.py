@@ -241,9 +241,9 @@ def _startmovespeed(self, power, flamedoutengines):
       speed = minspeed
       self._logevent("increasing speed to %.1f after recovering from departed flight." % minspeed)
       
-    # See rules 6.1 and 6.6 on idle power setting.
+    # See rules 6.1 and 6.6 on idle power setting, and the new rule in APJ 53.
 
-    if powersetting == "I":
+    if powersetting == "I" and not apvariants.withvariant("use APJ 53 rules"):
       speedchange = self.power("I")
       if self._speed >= m1speed:
         speedchange += 0.5
@@ -295,18 +295,24 @@ def _startmovespeed(self, power, flamedoutengines):
 
     if speed > self.cruisespeed():
       if powersetting == "I" or powersetting == "N":
-        self._logevent("insufficient power above cruise speed.")
+        self._logevent("insufficient power above cruise speed (%.1f)." % self.cruisespeed())
         speedap -= 1.0
+
+    # See APJ 53.
+
+    if powersetting == "I" and apvariants.withvariant("use APJ 53 rules"):
+      self._logevent("idle power.")
+      speedap -= self.power("I")
 
     # See rule 6.6
     
     if speed >= m1speed:
       if powersetting == "I" or powersetting == "N":
         speedap -= 2.0 * (speed - htspeed) / 0.5
-        self._logevent("insufficient power at supersonic speed.")
+        self._logevent("insufficient power at supersonic speed (%.1f or more)." % m1speed)
       elif powersetting == "M":
         speedap -= 1.5 * (speed - htspeed) / 0.5
-        self._logevent("insufficient power at supersonic speed.")
+        self._logevent("insufficient power at supersonic speed (%.1f or more)." % m1speed)
 
     # See rule 6.6
 

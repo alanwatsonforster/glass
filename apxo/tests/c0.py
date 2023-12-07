@@ -155,5 +155,45 @@ A4.move("LVL",  "I", "H,H,H,H,H")
 A4._assert("4610       S    30",  5.0)
 endturn()
 
+# Check APJ 53 rules for idle power.
+
+starttestsetup(sheets=[["A1"],["A2"],["B1"],["B2"]], variants=["use APJ 53 rules"])
+A4 = aircraft("A4", "AF", "F-100A", "2602", "S", 51, 5.5, "CL")
+endtestsetup()
+
+startturn()
+A4.move("SD",  "AB", "H,H,H,H,D"    )
+A4._assert("2606       S    50",  5.5)
+endturn()
+
+startturn()
+A4.move("VD",  "AB", "H,H,D3,D3,D3,D3")
+A4._assert("2608       S    38",  8.5)
+endturn()
+
+startturn()
+A4.move("SD",  "AB", "H,H,H,H,D2,D2,D2,D2")
+A4._assert("2612       S    30",  9.5)
+endturn()
+
+startturn()
+A4.move("LVL",  "AB", "H,H,H,H,H,H,H,H,H,H")
+A4._assert("2622       S    30",  8.5)
+endturn()
+
+startturn()
+A4.move("LVL",  "I", "H,H,H,H,H,H,H,H")
+A4._assert("2630       S    30",  7.0)
+endturn()
+
+startturn()
+A4.move("LVL",  "I", "H,H,H,H,H,H,H")
+A4._assert("4607       S    30",  5.5)
+endturn()
+
+startturn()
+A4.move("LVL",  "I", "H,H,H,H,H,H")
+A4._assert("4613       S    30",  5.0)
+endturn()
 
 endfile(__file__)

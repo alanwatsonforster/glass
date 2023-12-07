@@ -54,6 +54,8 @@ class aircraftdata:
     _checkpowersetting(powersetting)
     if not powersetting in self._data["powertable"]:
       return None
+    elif powersetting == "I" and apvariants.withvariant("use APJ 53 rules"):
+      return self._data["powertable"][powersetting][_configurationindex(configuration)] * 2
     else:
       return self._data["powertable"][powersetting][_configurationindex(configuration)]
 
