@@ -90,7 +90,9 @@ def relativepositions(x0, y0, facing0, x1, y1, facing1):
 
 ##############################################################################
 
-def angleofftail(a0, a1, arconly=False):
+def angleofftail(a0, a1, 
+  arconly=False,
+  x1=None, y1=None, facing1=None):
 
   """
   Return the angle of a0 off the tail of a1.
@@ -106,9 +108,10 @@ def angleofftail(a0, a1, arconly=False):
   y0      = a0.y()
   facing0 = a0.facing()
 
-  x1      = a1.x()
-  y1      = a1.y()
-  facing1 = a1.facing()
+  if a1 is not None:
+    x1      = a1.x()
+    y1      = a1.y()
+    facing1 = a1.facing()
 
   angleofftail, angleoffnose, r = truegeometry(x0, y0, facing0, x1, y1, facing1)
 
