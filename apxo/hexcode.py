@@ -335,7 +335,7 @@ def tosheet(h,
     elif XX % 2 == 1 and 51 <= YY and YY <= 75:
       sheet = sheets[2]
     elif XX % 2 == 0 and 51 + dYYtop <= YY and YY <= 74 + dYYbottom:
-      sheet = sheets[3]
+      sheet = sheets[2]
     else:
       return None
     
