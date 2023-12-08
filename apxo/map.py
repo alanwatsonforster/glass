@@ -125,10 +125,10 @@ def setmap(sheetgrid,
   _drawterrain = drawterrain
   _drawlabels  = drawlabels
 
-  _xmin        = xmin
-  _ymin        = ymin
-  _xmax        = xmax
-  _ymax        = ymax
+  _xmin = xmin if xmin is not None else 0
+  _xmax = xmax if xmax is not None else _dxsheet * _nxsheetgrid
+  _ymin = ymin if ymin is not None else 0
+  _ymax = ymax if ymax is not None else _dysheet * _nysheetgrid
   _dotsperhex  = dotsperhex
   _writefile   = writefile
 
@@ -555,14 +555,19 @@ def startdrawmap(show=False):
     # Label the sheets.
     for sheet in sheets():
       xmin, ymin, xmax, ymax = sheetlimits(sheet)
-      apdraw.drawtext(xmin + 1.0, ymin + 0.5, 90, sheet, dy=-0.05, size=24, color=labelcolor, alpha=1, zorder=0)
+      dx = 1.0
+      dy = 0.5
+      if isonmap(xmin + dx, ymin + dy):
+        apdraw.drawtext(xmin + dx, ymin + dy, 90, sheet, dy=-0.05, size=24, color=labelcolor, alpha=1, zorder=0)
 
     # Draw the compass rose in the bottom sheet in the leftmost column.
     for iy in range (0, _nysheetgrid):
       sheet = _sheetgrid[iy][0]
-      if sheet != "--":
-        xmin, ymin, xmax, ymax = sheetlimits(sheet)
-        apdraw.drawcompass(xmin + 1.0, ymin + 1.5, apazimuth.tofacing("N"), color=labelcolor, alpha=1, zorder=0)
+      xmin, ymin, xmax, ymax = sheetlimits(sheet)
+      dx = 1.0
+      dy = 1.5
+      if sheet != "--" and isonmap(xmin + dx, ymin + dy):
+        apdraw.drawcompass(xmin + dx, ymin + dy, apazimuth.tofacing("N"), color=labelcolor, alpha=1, zorder=0)
         break
 
   apdraw.save()
@@ -653,8 +658,8 @@ def isonmap(x, y):
   Returns True if the hex coordinate (x, y) is on the map. 
   Otherwise returns false.
   """
-  
-  return tosheet(x, y) != None
+
+  return tosheet(x, y) != None and (_xmin < x and x < _xmax and _ymin < y and y < _ymax)
 
 def altitude(x, y, sheet=None):
 
