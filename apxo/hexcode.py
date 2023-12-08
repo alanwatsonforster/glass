@@ -230,21 +230,28 @@ def _sheetorigin(sheet):
 
   if apmap.gdwsheets():
 
-    # The four Air Superiority maps are identical. However, we notionally
-    # shift sheets B, C, and D by 20, 40, and 60 columns.
+    # The first generation maps are all labeled identically. However, we notionally
+    # shift them by 0, 20, 40, and 60 columns and 0, 25, and 75 rows.
 
-    if sheet == "A":
+    if sheet in ["A", "E", "I"]:
       XX = 00
-    elif sheet == "B":
+    elif sheet in ["B", "F", "J"]:
       XX = 20
-    elif sheet == "C":
+    elif sheet in ["C", "G", "K"]:
       XX = 40
-    elif sheet == "D":
+    elif sheet in ["D", "H", "L"]:
       XX = 60
     else:
       raise RuntimeError("%r is not a valid sheet." % sheet)
 
-    YY = 25
+    if sheet in ["A", "B", "C", "D"]:
+      YY = 25
+    elif sheet in ["E", "F", "G", "H"]:
+      YY = 50
+    elif sheet in ["I", "J", "K", "L"]:
+      YY = 75
+    else:
+      raise RuntimeError("%r is not a valid sheet." % sheet)
 
   else:
 
@@ -304,23 +311,31 @@ def tosheet(h,
   if apmap.gdwsheets():
 
     # The four Air Superiority maps are identical. However, we notionally
-    # shift sheets B, C, and D by 20, 40, and 60 columns.
+    # shift sheets the sheets by 20 columns and 25 rows to make them distinct.
     
     if 1 + dXXleft <= XX and XX <= 19 + dXXright:
-      sheet = "A"
+      sheets = "AEI"
     elif 21 + dXXleft <= XX and XX <= 39 + dXXright:
-      sheet = "B"
+      sheets = "BFJ"
     elif 41 + dXXleft <= XX and XX <= 59 + dXXright:
-      sheet = "C"
+      sheets = "CGK"
     elif 61 + dXXleft <= XX and XX <= 79 + dXXright:
-      sheet = "D"
+      sheets = "DHL"
     else:
       return None
 
     if XX % 2 == 1 and 1 <= YY and YY <= 25:
-      pass
+      sheet = sheets[0]
     elif XX % 2 == 0 and 1 + dYYtop <= YY and YY <= 24 + dYYbottom:
-      pass
+      sheet = sheets[0]
+    elif XX % 2 == 1 and 26 <= YY and YY <= 50:
+      sheet = sheets[1]
+    elif XX % 2 == 0 and 26 + dYYtop <= YY and YY <= 49 + dYYbottom:
+      sheet = sheets[1]
+    elif XX % 2 == 1 and 51 <= YY and YY <= 75:
+      sheet = sheets[2]
+    elif XX % 2 == 0 and 51 + dYYtop <= YY and YY <= 74 + dYYbottom:
+      sheet = sheets[3]
     else:
       return None
     
