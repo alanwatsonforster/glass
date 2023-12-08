@@ -196,16 +196,19 @@ def setmap(sheetgrid,
   cityhatch        = "xxx"
   foresthatch      = ".o"
 
-  hexcolor         = [ 0.00, 0.00, 0.00 ]
-  hexalpha         = 0.3
+  if not _drawterrain:
 
-  if style == "openwater":
+    hexcolor = [ 0.50, 0.50, 0.50 ]
+    hexalpha = 1.0
+    labelcolor = hexcolor
+
+  elif style == "openwater":
 
     _allwater  = True
     watercolor = [ 0.77, 0.89, 0.95 ]
 
-    megahexcolor      = [ 1.00, 1.00, 1.00 ]
-    megahexalpha      = 0.12
+    megahexcolor = [ 1.00, 1.00, 1.00 ]
+    megahexalpha = 0.12
       
     hexcolor = darken(watercolor, 0.7)
     hexalpha = 1.0
@@ -334,6 +337,9 @@ def setmap(sheetgrid,
     urbanoutlinecolor = darken(urbancolor, 0.7)
     roadcolor         = urbancolor
     roadoutlinecolor  = urbanoutlinecolor
+
+    hexcolor = urbanoutlinecolor
+    hexalpha = 1.0
   
     labelcolor = urbanoutlinecolor
 
@@ -349,7 +355,7 @@ def setmap(sheetgrid,
     _maxurbansize = maxurbansize
 
   if _allforest:
-    hexalpha *= 1.5
+    hexcolor = darken(hexcolor, 0.7)
   if _frozen:
     forestalpha += 0.20
 
