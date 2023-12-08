@@ -86,7 +86,14 @@ def setmap(sheetgrid,
 
   blanksheets = ["", "-", "--"]
   gdwsheets = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L"]
-  coasheets = ["A1", "A2", "B1", "B2", "C1", "C2"]
+  coasheets = [
+      "A1", "B1", "C1", "D1",
+      "A2", "B2", "C2", "D2",
+      "A3", "B3", "C3", "D3",
+      "A4", "B4", "C4", "D4",
+      "A5", "B5", "C5", "D5",
+      "A6", "B6", "C6", "D6",
+  ]
 
   _gdwsheets = None
 

@@ -262,6 +262,8 @@ def _sheetorigin(sheet):
       XX = 30
     elif sheetletter == "C":
       XX = 50
+    elif sheetletter == "D":
+      XX = 70
     else:
       raise RuntimeError("%r is not a valid sheet." % sheet)
 
@@ -270,6 +272,14 @@ def _sheetorigin(sheet):
       YY = 16
     elif sheetnumber == "2":
       YY = 31
+    elif sheetnumber == "3":
+      YY = 46
+    elif sheetnumber == "4":
+      YY = 61
+    elif sheetnumber == "5":
+      YY = 76
+    elif sheetnumber == "6":
+      YY = 91
     else:
       raise RuntimeError("%r is not a valid sheet." % sheet)
 
@@ -347,6 +357,8 @@ def tosheet(h,
       sheetletter = "B"
     elif 51 + dXXleft <= XX and XX <= 69 + dXXright:
       sheetletter = "C"
+    elif 71 + dXXleft <= XX and XX <= 89 + dXXright:
+      sheetletter = "D"
     else:
       return None
 
@@ -354,10 +366,32 @@ def tosheet(h,
       sheetnumber = "1"
     elif XX % 2 == 0 and 2 + dYYtop <= YY and YY <= 15 + dYYbottom:
       sheetnumber = "1"
+
     elif XX % 2 == 1 and 16 <= YY and YY <= 30:
       sheetnumber = "2"
     elif XX % 2 == 0 and 17 + dYYtop <= YY and YY <= 30 + dYYbottom:
       sheetnumber = "2"
+
+    elif XX % 2 == 1 and 31 <= YY and YY <= 45:
+      sheetnumber = "3"
+    elif XX % 2 == 0 and 32 + dYYtop <= YY and YY <= 45 + dYYbottom:
+      sheetnumber = "3"
+
+    elif XX % 2 == 1 and 46 <= YY and YY <= 60:
+      sheetnumber = "4"
+    elif XX % 2 == 0 and 47 + dYYtop <= YY and YY <= 60 + dYYbottom:
+      sheetnumber = "4"
+
+    elif XX % 2 == 1 and 61 <= YY and YY <= 75:
+      sheetnumber = "5"
+    elif XX % 2 == 0 and 62 + dYYtop <= YY and YY <= 75 + dYYbottom:
+      sheetnumber = "5"
+
+    elif XX % 2 == 1 and 86 <= YY and YY <= 90:
+      sheetnumber = "6"
+    elif XX % 2 == 0 and 87 + dYYtop <= YY and YY <= 90 + dYYbottom:
+      sheetnumber = "6"
+
     else:
       return None
 
