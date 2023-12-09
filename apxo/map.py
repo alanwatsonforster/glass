@@ -37,6 +37,7 @@ missingcolor     = [ 1.00, 1.00, 1.00 ]
 
 ridgewidth       = 14
 roadwidth        = 5
+dockwidth        = 5
 clearingwidth    = 20
 bridgeinnerwidth = roadwidth + 8
 bridgeouterwidth = bridgeinnerwidth + 6
@@ -47,6 +48,7 @@ hexwidth         = 0.5
 megahexwidth     = 7
 
 roadoutlinewidth  = 2
+dockoutlinewidth  = 2
 waterourlinewidth = 2
 
 def gdwsheets():
@@ -170,6 +172,7 @@ def setmap(sheetgrid,
   global urbancolor, urbanalpha, urbanoutlinecolor, townhatch, cityhatch
   global megahexcolor, megahexalpha
   global roadcolor, roadoutlinecolor
+  global dockcolor, dockoutlinecolor
   global watercolor, wateroutlinecolor
   global riverwidth, wideriverwidth
   global hexcolor, hexalpha
@@ -343,6 +346,8 @@ def setmap(sheetgrid,
     urbanoutlinecolor = darken(urbancolor, 0.7)
     roadcolor         = urbancolor
     roadoutlinecolor  = urbanoutlinecolor
+    dockcolor         = urbancolor
+    dockoutlinecolor  = urbanoutlinecolor
 
     hexcolor = urbanoutlinecolor
     hexalpha = 1.0
@@ -437,10 +442,6 @@ def startdrawmap(show=False):
       
       for sheet in sheets():
 
-        def drawhexes(sheet, hexcodes, **kwargs):
-          for h in hexcodes:
-            apdraw.drawhex(*aphexcode.toxy(h, sheet=sheet), zorder=0, **kwargs)
-
         # Draw level 0.
         drawhexes(sheet, _terrain[sheet]["level0hexes"], linewidth=0, fillcolor=level0color)
 
@@ -487,7 +488,7 @@ def startdrawmap(show=False):
             townhexes += _terrain[sheet]["town4hexes"]
           if _maxurbansize >= 5:
             townhexes += _terrain[sheet]["town5hexes"]
-          drawhexes(sheet, townhexes, linewidth=0, fillcolor=urbancolor, linecolor=urbanoutlinecolor, hatch=townhatch)
+          drawhexes(sheet, townhexes, linewidth=0, fillcolor=None, linecolor=urbanoutlinecolor, hatch=townhatch)
 
           if _maxurbansize >= 5:
             drawhexes(sheet, _terrain[sheet]["cityhexes"], linewidth=0, fillcolor=urbancolor, linecolor=urbanoutlinecolor, hatch=cityhatch)
@@ -497,12 +498,14 @@ def startdrawmap(show=False):
         # Draw water and rivers.
 
         for sheet in sheets():
-          drawhexes(sheet, _terrain[sheet]["waterhexes"], fillcolor=watercolor, linecolor=wateroutlinecolor, linewidth=waterourlinewidth)
+          # Do not outline sea hexes.
+          drawhexes(sheet, _terrain[sheet]["lakehexes"], fillcolor=watercolor, linecolor=wateroutlinecolor, linewidth=waterourlinewidth)
           drawpaths(sheet, _terrain[sheet]["riverpaths"], color=wateroutlinecolor, linewidth=riverwidth+waterourlinewidth, capstyle="projecting")
           drawpaths(sheet, _terrain[sheet]["wideriverpaths"], color=wateroutlinecolor, linewidth=wideriverwidth+waterourlinewidth, capstyle="projecting")
             
         for sheet in sheets():
-          drawhexes(sheet, _terrain[sheet]["waterhexes"], fillcolor=watercolor, linewidth=0)
+          drawhexes(sheet, _terrain[sheet]["seahexes"], linewidth=0, fillcolor=watercolor)
+          drawhexes(sheet, _terrain[sheet]["lakehexes"], fillcolor=watercolor, linewidth=0)
           drawpaths(sheet, _terrain[sheet]["riverpaths"], color=watercolor, linewidth=riverwidth, capstyle="projecting")
           drawpaths(sheet, _terrain[sheet]["wideriverpaths"], color=watercolor, linewidth=wideriverwidth, capstyle="projecting")
 
@@ -518,40 +521,46 @@ def startdrawmap(show=False):
             if (x % 10 == 0 and y % 5 == 0) or (x % 10 == 5 and y % 5 == 2.5):
               apdraw.drawhex(x, y, size=5, linecolor=megahexcolor, linewidth=megahexwidth, alpha=megahexalpha, zorder=0)
 
-        if not _wilderness:
+      if not _wilderness:
 
-          if _rivers:
+        if _rivers:
 
-            # Draw the bridges.
-            for sheet in sheets():
-              drawpaths(sheet, _terrain[sheet]["smallbridgepaths"], color=urbanoutlinecolor, linewidth=bridgeouterwidth, capstyle="butt")  
-              drawpaths(sheet, _terrain[sheet]["smallbridgepaths"], color=urbancolor, linewidth=bridgeinnerwidth, capstyle="butt")  
-              drawpaths(sheet, _terrain[sheet]["smallbridgepaths"], color=roadcolor, linewidth=roadwidth, capstyle="projecting")
-              drawpaths(sheet, _terrain[sheet]["largebridgepaths"], color=urbanoutlinecolor, linewidth=bridgeouterwidth, capstyle="butt")  
-              drawpaths(sheet, _terrain[sheet]["largebridgepaths"], color=urbancolor, linewidth=bridgeinnerwidth, capstyle="butt")  
-              drawpaths(sheet, _terrain[sheet]["largebridgepaths"], color=roadcolor, linewidth=roadwidth, capstyle="projecting")
+          # Draw the bridges.
+          for sheet in sheets():
+            drawpaths(sheet, _terrain[sheet]["smallbridgepaths"], color=urbanoutlinecolor, linewidth=bridgeouterwidth, capstyle="butt")  
+            drawpaths(sheet, _terrain[sheet]["smallbridgepaths"], color=urbancolor, linewidth=bridgeinnerwidth, capstyle="butt")  
+            drawpaths(sheet, _terrain[sheet]["smallbridgepaths"], color=roadcolor, linewidth=roadwidth, capstyle="projecting")
+            drawpaths(sheet, _terrain[sheet]["largebridgepaths"], color=urbanoutlinecolor, linewidth=bridgeouterwidth, capstyle="butt")  
+            drawpaths(sheet, _terrain[sheet]["largebridgepaths"], color=urbancolor, linewidth=bridgeinnerwidth, capstyle="butt")  
+            drawpaths(sheet, _terrain[sheet]["largebridgepaths"], color=roadcolor, linewidth=roadwidth, capstyle="projecting")
 
-            # Draw the roads.
-            for sheet in sheets():
-              drawpaths(sheet, _terrain[sheet]["roadpaths"], color=roadoutlinecolor, linewidth=roadwidth+roadoutlinewidth, capstyle="projecting")
-            for sheet in sheets():
-              drawpaths(sheet, _terrain[sheet]["roadpaths"], color=roadcolor, linewidth=roadwidth, capstyle="projecting")
+          # Draw the roads.
+          for sheet in sheets():
+            drawpaths(sheet, _terrain[sheet]["roadpaths"], color=roadoutlinecolor, linewidth=roadwidth+roadoutlinewidth, capstyle="projecting")
+          for sheet in sheets():
+            drawpaths(sheet, _terrain[sheet]["roadpaths"], color=roadcolor, linewidth=roadwidth, capstyle="projecting")
 
-          if not _allforest:
+          # Draw the docks.
+          for sheet in sheets():
+            drawpaths(sheet, _terrain[sheet]["dockpaths"], color=dockoutlinecolor, linewidth=dockwidth+dockoutlinewidth, capstyle="projecting")
+          for sheet in sheets():
+            drawpaths(sheet, _terrain[sheet]["dockpaths"], color=dockcolor, linewidth=dockwidth, capstyle="projecting")
 
-            # Draw the runways and taxiways.
-            for sheet in sheets():
-              drawpaths(sheet, _terrain[sheet]["runwaypaths"], color=roadoutlinecolor, linewidth=runwaywidth+roadoutlinewidth, capstyle="projecting")
-              drawpaths(sheet, _terrain[sheet]["taxiwaypaths"], color=roadoutlinecolor, linewidth=taxiwaywidth+roadoutlinewidth, joinstyle="miter", capstyle="projecting")
-              drawpaths(sheet, _terrain[sheet]["runwaypaths"], color=roadcolor, linewidth=runwaywidth, capstyle="projecting")
-              drawpaths(sheet, _terrain[sheet]["taxiwaypaths"], color=roadcolor, linewidth=taxiwaywidth, joinstyle="miter", capstyle="projecting")
-              
-          if _rivers:
+        if not _allforest:
 
-            # Draw the dams.
-            for sheet in sheets():
-              drawpaths(sheet, _terrain[sheet]["dampaths"], color=roadoutlinecolor, linewidth=damwidth+roadoutlinewidth, capstyle="projecting")
-              drawpaths(sheet, _terrain[sheet]["dampaths"], color=roadcolor, linewidth=damwidth, capstyle="projecting")
+          # Draw the runways and taxiways.
+          for sheet in sheets():
+            drawpaths(sheet, _terrain[sheet]["runwaypaths"], color=roadoutlinecolor, linewidth=runwaywidth+roadoutlinewidth, capstyle="projecting")
+            drawpaths(sheet, _terrain[sheet]["taxiwaypaths"], color=roadoutlinecolor, linewidth=taxiwaywidth+roadoutlinewidth, joinstyle="miter", capstyle="projecting")
+            drawpaths(sheet, _terrain[sheet]["runwaypaths"], color=roadcolor, linewidth=runwaywidth, capstyle="projecting")
+            drawpaths(sheet, _terrain[sheet]["taxiwaypaths"], color=roadcolor, linewidth=taxiwaywidth, joinstyle="miter", capstyle="projecting")
+            
+        if _rivers:
+
+          # Draw the dams.
+          for sheet in sheets():
+            drawpaths(sheet, _terrain[sheet]["dampaths"], color=roadoutlinecolor, linewidth=damwidth+roadoutlinewidth, capstyle="projecting")
+            drawpaths(sheet, _terrain[sheet]["dampaths"], color=roadcolor, linewidth=damwidth, capstyle="projecting")
       
   # Draw missing sheets.
   for iy in range (0, _nysheetgrid):
@@ -732,6 +741,7 @@ def altitude(x, y, sheet=None):
 _terrain = {
   "A1": {
     "base": "land",
+    "seahexes": [],
     "level0hexes": [],
     "level1hexes": [],
     "level2hexes": [],
@@ -773,7 +783,7 @@ _terrain = {
         1901, 1902, 1903,
     ],
     "cityhexes": [],
-    "waterhexes": [],
+    "lakehexes": [],
     "riverpaths": [
         [[20.00, 0.50],[20.00, 3.00],[21.00, 4.00],[28.00, 8.00],[28.67, 9.00],
               [27.33,10.50],[29.50,13.75],[29.50,14.75],[30.00,16.00],[30.50,16.25],],
@@ -797,6 +807,7 @@ _terrain = {
         [[27.00,15.50],[27.00,15.00],],
         [[27.00, 0.50],[27.00, 1.00],],
     ],
+    "dockpaths": [],
     "smallbridgepaths": [
         [[24.75, 6.625],[25.25, 5.875],],   # 2506
     ],
@@ -811,6 +822,7 @@ _terrain = {
   },
   "B1": {
     "base": "land",
+    "seahexes": [],
     "level0hexes": [],
     "level1hexes": [
         3309, 
@@ -853,7 +865,7 @@ _terrain = {
         3513, 3514, 3614, 3615, 3713,      
     ],
     "cityhexes": [],
-    "waterhexes": [],
+    "lakehexes": [],
     "riverpaths": [
         [[29.67, 0.00],[30.00, 1.00],[31.00, 1.00],[31.00, 2.00],[32.00, 3.00],
          [33.00, 2.00],[34.00, 3.00],[34.33, 3.50],[35.67, 3.00],[36.00, 3.00],
@@ -884,6 +896,7 @@ _terrain = {
         [[47.00, 0.50],[47.00, 1.00],[48.00, 2.00],[48.00, 4.00],[49.00, 4.00],[49.00, 7.00],[48.00, 8.00],],
         [[50.00, 6.00],[49.00, 6.00],[49.00, 6.50]],
    ],
+    "dockpaths": [],
     "smallbridgepaths": [
         [[36.00,14.75 ],[36.00,15.25 ],],   # 3615
     ],
@@ -898,6 +911,7 @@ _terrain = {
   },
   "C1": {
     "base": "land",
+    "seahexes": [],
     "level0hexes": [],
     "level1hexes": [
       5406, 5407,
@@ -949,7 +963,7 @@ _terrain = {
     ],
     "town5hexes": [],
     "cityhexes": [],
-    "waterhexes": [],
+    "lakehexes": [],
     "riverpaths": [
         [[49.67, 0.00],[50.00, 1.00],[51.00, 1.00],[51.00, 3.00],],
         [[51.00, 3.00],[51.00, 2.00],[52.00, 2.00],[53.00, 2.00],],
@@ -979,6 +993,7 @@ _terrain = {
         [[67.00,15.50],[67.00,15.17],],
         [[63.50, 1.75],[64.00, 2.00],[65.00, 2.00],[67.00, 1.00],[67.00, 0.50],],
     ],
+    "dockpaths": [],
     "smallbridgepaths": [
         [[53.00,12.75 ],[53.00,13.25 ],],   # 5313
         [[60.00, 9.75 ],[60.00,10.25 ],],   # 6010
@@ -992,6 +1007,7 @@ _terrain = {
   },
   "D1": {
     "base": "land",
+    "seahexes": [],
     "level0hexes": [],
     "level1hexes": [],
     "level2hexes": [],
@@ -1004,11 +1020,12 @@ _terrain = {
     "town4hexes": [],
     "town5hexes": [],
     "cityhexes": [],
-    "waterhexes": [],
+    "lakehexes": [],
     "riverpaths": [],
     "wideriverpaths": [],
     "clearingpaths": [],
     "roadpaths": [],
+    "dockpaths": [],
     "smallbridgepaths": [],
     "largebridgepaths": [],
     "runwaypaths": [],
@@ -1017,6 +1034,7 @@ _terrain = {
   },
   "A2": {
     "base": "land",
+    "seahexes": [],
     "level0hexes": [],
     "level1hexes": [],
     "level2hexes": [],
@@ -1053,7 +1071,7 @@ _terrain = {
         2120, 2121, 2122, 2123, 2124, 2125, 2126, 2127,
         2222,  
     ],
-    "waterhexes": [
+    "lakehexes": [
         1219, 1319, 1420,
     ],
     "riverpaths": [
@@ -1088,6 +1106,7 @@ _terrain = {
         [[25.00,30.00],[25.00,29.00],[27.00,28.00],[27.00,24.00],[26.00,24.00]],
         [[29.00,21.00],[30.00,21.00],],
     ],
+    "dockpaths": [],
     "smallbridgepaths": [],
     "largebridgepaths": [
         [[17.65,21.675],[20.35,20.825],],   # 1822/1921/2012 - original
@@ -1101,6 +1120,7 @@ _terrain = {
   },
   "B2": {
     "base": "land",
+    "seahexes": [],
     "level0hexes": [],
     "level1hexes": [
         3123, 3124,
@@ -1170,7 +1190,7 @@ _terrain = {
     ],
     "town5hexes": [],
     "cityhexes": [],
-    "waterhexes": [],
+    "lakehexes": [],
     "riverpaths": [
         [[29.67,15.00],[30.00,16.00],[33.00,17.00],[33.00,18.00],
           [34.00,19.00],[36.00,18.00],[37.00,18.00],[37.00,19.00],[39.00,20.00],
@@ -1200,6 +1220,7 @@ _terrain = {
         [[30.00,26.00],[32.00,27.00],],
         [[35.00,30.50],[35.00,30.00],[35.83,29.67],],
     ],
+    "dockpaths": [],
     "smallbridgepaths": [
         [[32.75,18.625],[33.25,17.875],],   # 3318
         [[36.00,14.75 ],[36.00,15.25 ],],   # 3615
@@ -1211,6 +1232,7 @@ _terrain = {
   },
   "C2": {
     "base": "land",
+    "seahexes": [],
     "level0hexes": [],
     "level1hexes": [
       5217, 5218, 5219,
@@ -1254,7 +1276,7 @@ _terrain = {
     "town4hexes": [],
     "town5hexes": [],
     "cityhexes": [],
-    "waterhexes": [
+    "lakehexes": [
       6127, 6227,
     ],
     "riverpaths": [
@@ -1281,6 +1303,7 @@ _terrain = {
         [[65.00,30.50],[65.00,29.00],[68.00,28.00],[68.00,22.00],[70.00,21.00],],
         [[68.00,24.00],[68.00,25.00],[70.00,26.00],],
     ],
+    "dockpaths": [],
     "smallbridgepaths": [
         [[62.00,18.75 ],[62.00,19.25 ],],   # 6219
     ],
@@ -1293,6 +1316,7 @@ _terrain = {
   },
   "D2": {
     "base": "land",
+    "seahexes": [],
     "level0hexes": [],
     "level1hexes": [],
     "level2hexes": [],
@@ -1305,11 +1329,12 @@ _terrain = {
     "town4hexes": [],
     "town5hexes": [],
     "cityhexes": [],
-    "waterhexes": [],
+    "lakehexes": [],
     "riverpaths": [],
     "wideriverpaths": [],
     "clearingpaths": [],
     "roadpaths": [],
+    "dockpaths": [],
     "smallbridgepaths": [],
     "largebridgepaths": [],
     "runwaypaths": [],
@@ -1318,6 +1343,7 @@ _terrain = {
   },
   "A3": {
     "base": "land",
+    "seahexes": [],
     "level0hexes": [],
     "level1hexes": [],
     "level2hexes": [],
@@ -1330,11 +1356,12 @@ _terrain = {
     "town4hexes": [],
     "town5hexes": [],
     "cityhexes": [],
-    "waterhexes": [],
+    "lakehexes": [],
     "riverpaths": [],
     "wideriverpaths": [],
     "clearingpaths": [],
     "roadpaths": [],
+    "dockpaths": [],
     "smallbridgepaths": [],
     "largebridgepaths": [],
     "runwaypaths": [],
@@ -1343,6 +1370,7 @@ _terrain = {
   },
   "B3": {
     "base": "land",
+    "seahexes": [],
     "level0hexes": [],
     "level1hexes": [],
     "level2hexes": [],
@@ -1355,11 +1383,12 @@ _terrain = {
     "town4hexes": [],
     "town5hexes": [],
     "cityhexes": [],
-    "waterhexes": [],
+    "lakehexes": [],
     "riverpaths": [],
     "wideriverpaths": [],
     "clearingpaths": [],
     "roadpaths": [],
+    "dockpaths": [],
     "smallbridgepaths": [],
     "largebridgepaths": [],
     "runwaypaths": [],
@@ -1368,6 +1397,7 @@ _terrain = {
   },
   "C3": {
     "base": "land",
+    "seahexes": [],
     "level0hexes": [],
     "level1hexes": [],
     "level2hexes": [],
@@ -1380,11 +1410,12 @@ _terrain = {
     "town4hexes": [],
     "town5hexes": [],
     "cityhexes": [],
-    "waterhexes": [],
+    "lakehexes": [],
     "riverpaths": [],
     "wideriverpaths": [],
     "clearingpaths": [],
     "roadpaths": [],
+    "dockpaths": [],
     "smallbridgepaths": [],
     "largebridgepaths": [],
     "runwaypaths": [],
@@ -1393,6 +1424,7 @@ _terrain = {
   },
   "D3": {
     "base": "land",
+    "seahexes": [],
     "level0hexes": [],
     "level1hexes": [],
     "level2hexes": [],
@@ -1405,11 +1437,12 @@ _terrain = {
     "town4hexes": [],
     "town5hexes": [],
     "cityhexes": [],
-    "waterhexes": [],
+    "lakehexes": [],
     "riverpaths": [],
     "wideriverpaths": [],
     "clearingpaths": [],
     "roadpaths": [],
+    "dockpaths": [],
     "smallbridgepaths": [],
     "largebridgepaths": [],
     "runwaypaths": [],
@@ -1418,6 +1451,7 @@ _terrain = {
   },
   "A4": {
     "base": "land",
+    "seahexes": [],
     "level0hexes": [],
     "level1hexes": [],
     "level2hexes": [],
@@ -1430,11 +1464,12 @@ _terrain = {
     "town4hexes": [],
     "town5hexes": [],
     "cityhexes": [],
-    "waterhexes": [],
+    "lakehexes": [],
     "riverpaths": [],
     "wideriverpaths": [],
     "clearingpaths": [],
     "roadpaths": [],
+    "dockpaths": [],
     "smallbridgepaths": [],
     "largebridgepaths": [],
     "runwaypaths": [],
@@ -1443,6 +1478,7 @@ _terrain = {
   },
   "B4": {
     "base": "land",
+    "seahexes": [],
     "level0hexes": [],
     "level1hexes": [],
     "level2hexes": [],
@@ -1455,11 +1491,12 @@ _terrain = {
     "town4hexes": [],
     "town5hexes": [],
     "cityhexes": [],
-    "waterhexes": [],
+    "lakehexes": [],
     "riverpaths": [],
     "wideriverpaths": [],
     "clearingpaths": [],
     "roadpaths": [],
+    "dockpaths": [],
     "smallbridgepaths": [],
     "largebridgepaths": [],
     "runwaypaths": [],
@@ -1468,6 +1505,7 @@ _terrain = {
   },
   "C4": {
     "base": "land",
+    "seahexes": [],
     "level0hexes": [],
     "level1hexes": [],
     "level2hexes": [],
@@ -1480,11 +1518,12 @@ _terrain = {
     "town4hexes": [],
     "town5hexes": [],
     "cityhexes": [],
-    "waterhexes": [],
+    "lakehexes": [],
     "riverpaths": [],
     "wideriverpaths": [],
     "clearingpaths": [],
     "roadpaths": [],
+    "dockpaths": [],
     "smallbridgepaths": [],
     "largebridgepaths": [],
     "runwaypaths": [],
@@ -1493,6 +1532,7 @@ _terrain = {
   },
   "D4": {
     "base": "land",
+    "seahexes": [],
     "level0hexes": [],
     "level1hexes": [],
     "level2hexes": [],
@@ -1505,11 +1545,12 @@ _terrain = {
     "town4hexes": [],
     "town5hexes": [],
     "cityhexes": [],
-    "waterhexes": [],
+    "lakehexes": [],
     "riverpaths": [],
     "wideriverpaths": [],
     "clearingpaths": [],
     "roadpaths": [],
+    "dockpaths": [],
     "smallbridgepaths": [],
     "largebridgepaths": [],
     "runwaypaths": [],
@@ -1518,6 +1559,7 @@ _terrain = {
   },
   "A5": {
     "base": "land",
+    "seahexes": [],
     "level0hexes": [],
     "level1hexes": [],
     "level2hexes": [],
@@ -1530,11 +1572,12 @@ _terrain = {
     "town4hexes": [],
     "town5hexes": [],
     "cityhexes": [],
-    "waterhexes": [],
+    "lakehexes": [],
     "riverpaths": [],
     "wideriverpaths": [],
     "clearingpaths": [],
     "roadpaths": [],
+    "dockpaths": [],
     "smallbridgepaths": [],
     "largebridgepaths": [],
     "runwaypaths": [],
@@ -1543,6 +1586,7 @@ _terrain = {
   },
   "B5": {
     "base": "land",
+    "seahexes": [],
     "level0hexes": [],
     "level1hexes": [],
     "level2hexes": [],
@@ -1555,11 +1599,12 @@ _terrain = {
     "town4hexes": [],
     "town5hexes": [],
     "cityhexes": [],
-    "waterhexes": [],
+    "lakehexes": [],
     "riverpaths": [],
     "wideriverpaths": [],
     "clearingpaths": [],
     "roadpaths": [],
+    "dockpaths": [],
     "smallbridgepaths": [],
     "largebridgepaths": [],
     "runwaypaths": [],
@@ -1568,6 +1613,7 @@ _terrain = {
   },
   "C5": {
     "base": "land",
+    "seahexes": [],
     "level0hexes": [],
     "level1hexes": [],
     "level2hexes": [],
@@ -1580,11 +1626,12 @@ _terrain = {
     "town4hexes": [],
     "town5hexes": [],
     "cityhexes": [],
-    "waterhexes": [],
+    "lakehexes": [],
     "riverpaths": [],
     "wideriverpaths": [],
     "clearingpaths": [],
     "roadpaths": [],
+    "dockpaths": [],
     "smallbridgepaths": [],
     "largebridgepaths": [],
     "runwaypaths": [],
@@ -1593,6 +1640,7 @@ _terrain = {
   },
   "D5": {
     "base": "land",
+    "seahexes": [],
     "level0hexes": [],
     "level1hexes": [],
     "level2hexes": [],
@@ -1605,11 +1653,12 @@ _terrain = {
     "town4hexes": [],
     "town5hexes": [],
     "cityhexes": [],
-    "waterhexes": [],
+    "lakehexes": [],
     "riverpaths": [],
     "wideriverpaths": [],
     "clearingpaths": [],
     "roadpaths": [],
+    "dockpaths": [],
     "smallbridgepaths": [],
     "largebridgepaths": [],
     "runwaypaths": [],
@@ -1618,6 +1667,7 @@ _terrain = {
   },
   "A6": {
     "base": "land",
+    "seahexes": [],
     "level0hexes": [],
     "level1hexes": [],
     "level2hexes": [],
@@ -1630,11 +1680,12 @@ _terrain = {
     "town4hexes": [],
     "town5hexes": [],
     "cityhexes": [],
-    "waterhexes": [],
+    "lakehexes": [],
     "riverpaths": [],
     "wideriverpaths": [],
     "clearingpaths": [],
     "roadpaths": [],
+    "dockpaths": [],
     "smallbridgepaths": [],
     "largebridgepaths": [],
     "runwaypaths": [],
@@ -1643,6 +1694,7 @@ _terrain = {
   },
   "B6": {
     "base": "land",
+    "seahexes": [],
     "level0hexes": [],
     "level1hexes": [],
     "level2hexes": [],
@@ -1655,11 +1707,12 @@ _terrain = {
     "town4hexes": [],
     "town5hexes": [],
     "cityhexes": [],
-    "waterhexes": [],
+    "lakehexes": [],
     "riverpaths": [],
     "wideriverpaths": [],
     "clearingpaths": [],
     "roadpaths": [],
+    "dockpaths": [],
     "smallbridgepaths": [],
     "largebridgepaths": [],
     "runwaypaths": [],
@@ -1668,6 +1721,7 @@ _terrain = {
   },
   "C6": {
     "base": "land",
+    "seahexes": [],
     "level0hexes": [],
     "level1hexes": [],
     "level2hexes": [],
@@ -1680,11 +1734,12 @@ _terrain = {
     "town4hexes": [],
     "town5hexes": [],
     "cityhexes": [],
-    "waterhexes": [],
+    "lakehexes": [],
     "riverpaths": [],
     "wideriverpaths": [],
     "clearingpaths": [],
     "roadpaths": [],
+    "dockpaths": [],
     "smallbridgepaths": [],
     "largebridgepaths": [],
     "runwaypaths": [],
@@ -1693,6 +1748,7 @@ _terrain = {
   },
   "D6": {
     "base": "land",
+    "seahexes": [],
     "level0hexes": [],
     "level1hexes": [],
     "level2hexes": [],
@@ -1705,11 +1761,12 @@ _terrain = {
     "town4hexes": [],
     "town5hexes": [],
     "cityhexes": [],
-    "waterhexes": [],
+    "lakehexes": [],
     "riverpaths": [],
     "wideriverpaths": [],
     "clearingpaths": [],
     "roadpaths": [],
+    "dockpaths": [],
     "smallbridgepaths": [],
     "largebridgepaths": [],
     "runwaypaths": [],
@@ -1718,6 +1775,7 @@ _terrain = {
   },
   "A": {
     "base": "water",
+    "seahexes": [],
     "level0hexes": [],
     "level1hexes": [],
     "level2hexes": [],
@@ -1730,11 +1788,12 @@ _terrain = {
     "town4hexes": [],
     "town5hexes": [],
     "cityhexes": [],
-    "waterhexes": [],
+    "lakehexes": [],
     "riverpaths": [],
     "wideriverpaths": [],
     "clearingpaths": [],
     "roadpaths": [],
+    "dockpaths": [],
     "smallbridgepaths": [],
     "largebridgepaths": [],
     "runwaypaths": [],
@@ -1743,6 +1802,7 @@ _terrain = {
   },
   "B": {
     "base": "water",
+    "seahexes": [],
     "level0hexes": [],
     "level1hexes": [],
     "level2hexes": [],
@@ -1755,11 +1815,12 @@ _terrain = {
     "town4hexes": [],
     "town5hexes": [],
     "cityhexes": [],
-    "waterhexes": [],
+    "lakehexes": [],
     "riverpaths": [],
     "wideriverpaths": [],
     "clearingpaths": [],
     "roadpaths": [],
+    "dockpaths": [],
     "smallbridgepaths": [],
     "largebridgepaths": [],
     "runwaypaths": [],
@@ -1768,6 +1829,7 @@ _terrain = {
   },
   "C": {
     "base": "water",
+    "seahexes": [],
     "level0hexes": [],
     "level1hexes": [],
     "level2hexes": [],
@@ -1780,11 +1842,12 @@ _terrain = {
     "town4hexes": [],
     "town5hexes": [],
     "cityhexes": [],
-    "waterhexes": [],
+    "lakehexes": [],
     "riverpaths": [],
     "wideriverpaths": [],
     "clearingpaths": [],
     "roadpaths": [],
+    "dockpaths": [],
     "smallbridgepaths": [],
     "largebridgepaths": [],
     "runwaypaths": [],
@@ -1793,6 +1856,7 @@ _terrain = {
   },
   "D": {
     "base": "water",
+    "seahexes": [],
     "level0hexes": [],
     "level1hexes": [],
     "level2hexes": [],
@@ -1805,11 +1869,12 @@ _terrain = {
     "town4hexes": [],
     "town5hexes": [],
     "cityhexes": [],
-    "waterhexes": [],
+    "lakehexes": [],
     "riverpaths": [],
     "wideriverpaths": [],
     "clearingpaths": [],
     "roadpaths": [],
+    "dockpaths": [],
     "smallbridgepaths": [],
     "largebridgepaths": [],
     "runwaypaths": [],
@@ -1817,32 +1882,143 @@ _terrain = {
     "dampaths": [],
   },
   "E": {
-    "base": "water",
-    "level0hexes": [ 1928, 2026 ],
-    "level1hexes": [],
+    "base": "land",
+    "seahexes": [
+      25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50,
+      126, 127, 128, 129, 130, 131, 132, 133, 146, 147, 148, 149, 150,
+      225, 226, 227, 228, 229, 230, 231, 232, 233,
+      325, 326, 327, 328, 330, 331, 332, 333,
+      425, 426, 429, 430, 
+      526,
+      625,
+      726,
+      825,
+      1025,
+      1225,
+      1325,
+      1425, 1427,
+      1526, 1528,
+      1625, 1626, 1627,
+      1726,
+      1825,
+      2025,      
+    ],
+    "level0hexes": [],
+    "level1hexes": [
+      1347, 1348, 1349,
+      1445, 1446, 1447, 1448, 1449,
+      1545, 1546, 1547, 1548, 1549, 1550,
+      1644, 1645, 1646, 1647, 1648, 1649,
+      1745, 1746, 1747, 1748, 1749,
+      1843, 1844, 1845,
+    ],
     "level2hexes": [],
     "level1ridges": [],
-    "foresthexes": [],
+    "foresthexes": [
+      950,
+      1044, 1045, 1048, 1049,
+      1144, 1145, 1146, 1147, 1148,
+      1245, 1246,
+      1341,
+      1643, 1647, 1648,
+      1742, 1743, 1744, 1748, 1749, 1750,
+      1837, 1839, 1847, 1848, 1849,
+      1938, 1939, 1947,
+    ],
     "level2ridges": [],
-    "town1hexes": [],
+    "town1hexes": [
+      138,
+      239,
+      433,
+      841,
+      1339,
+      1544
+    ],
     "town2hexes": [],
-    "town3hexes": [],
-    "town4hexes": [],
-    "town5hexes": [],
-    "cityhexes": [],
-    "waterhexes": [],
-    "riverpaths": [],
-    "wideriverpaths": [],
+    "town3hexes": [
+      1447, 1547, 1548,
+    ],
+    "town4hexes": [
+      1539, 1540, 1541, 1639,
+      1733, 1734, 1833, 1934,
+
+    ],
+    "town5hexes": [
+      746, 845, 846, 945, 946,
+      246, 247, 248, 347, 348, 349, 449,
+      634, 635, 636, 637, 736, 737, 836, 838, 839, 937, 938, 939, 1037, 1138, 1237, 1337,
+      531, 532, 629, 630, 731, 733, 831, 832, 932,
+    ],
+    "cityhexes": [
+      528, 529, 530, 627, 628, 727, 728, 729, 826, 827, 
+      439, 539, 540, 541, 542, 639, 640, 641, 
+      135, 136, 137, 234, 235, 236, 335, 334, 
+      835, 935, 936, 1034, 1035, 1036, 1135, 1136, 1137,1234, 1235, 1236, 
+      1335, 1336, 1434, 1435, 1436, 1535, 1536,
+      930, 930, 931, 1026, 1027, 1028, 1029, 1030, 1031, 1032, 1128, 1129, 1130, 1131, 1132, 1229, 1230, 1231,
+      1331, 1332, 1429, 1430, 1530, 1531, 1629, 1630, 1631, 1730, 1731,
+      1826, 1827, 1828, 1829, 1830, 1927, 1928, 1929
+
+    ],
+    "lakehexes": [
+       1834,
+    ],
+    "riverpaths": [
+      [[18.00,34.00],[17.00,34.00],[17.00,33.00],[16.00,32.00],[14.00,33.00],
+       [13.00,33.00],[11.00,34.00],[10.00,33.00],[ 8.00,34.00],[ 3.00,32.00],],
+      [[16.00,43.00],[14.00,42.00],[10.00,44.00],[ 8.00,43.00],[ 7.00,44.00],
+       [ 5.00,43.00],[ 4.00,43.00],[ 4.00,45.00],[ 1.00,47.00]],
+      [[12.00,47.00],[11.50,47.25],[11.00,47.50],[11.00,49.00],[10.00,49.00],[10.00,50.00],],
+    ],
+    "wideriverpaths": [
+      [[ 2.33,28.50],[ 2.66,28.00],[ 3.33,28.50],[ 3.66,29.00],
+       [ 3.33,29.50],[ 2.66,29.00],[ 2.33,28.50]],
+    ],
     "clearingpaths": [],
-    "roadpaths": [],
-    "smallbridgepaths": [],
-    "largebridgepaths": [],
-    "runwaypaths": [],
+    "roadpaths": [
+        [[ 5.00,50.50],[ 5.00,50.00],[ 2.00,48.00],[ 2.00,45.00],[ 1.00, 45.00],
+         [ 1.00,40.00],[ 8.00,36.00],[15.00,40.00],[17.00,39.00],[20.00,40.00],
+         [21.00,40.00]],
+        [[15.00,50.00],[15.00,44.00]],
+        [[20.00,45.00],[15.00,48.00],[10.00,45.00],[ 4.00,48.00],[ 4.00,49.00],[5.00,50.00]],
+        [[20.00,35.00],[ 8.00,41.00],[ 8.00,46.00],[ 7.00,47.00]],
+        [[ 9.00,39.00],[ 8.00,39.00],[ 8.00,45.00]],
+        [[ 9.00,39.00],[ 8.00,39.00],[ 2.00,36.00],[ 1.00,37.00],[ 2.00,36.00],[ 2.00,35.00],],
+        [[15.00,41.00],[15.00,36.00]],
+        [[18.00,39.00],[17.00,39.00],[17.00,37.00],[18.00,36.00]],
+        [[13.00,35.00],[13.00,32.00]],
+        [[10.00,37.00],[ 9.00,37.00],[ 9.00,32.00],[10.00,31.00],[10.00,26.00]],
+        [[ 4.00,28.00],[ 5.00,28.00],[10.00,30.00],[13.50,28.75],[16.50,28.25],
+         [20.00,30.00]],
+        [[ 5.00,31.00],[ 5.00,29.00],[ 6.00,28.00],[ 7.00,29.00]],
+        [[17.00,27.00],[17.00,29.00],[18.00,29.00]],
+        [[17.20,27.00],[17.20,29.10],[18.00,29.00]],
+        [[16.80,26.50],[16.80,28.40],[18.00,29.00]],
+        [[16.60,27.50],[16.60,28.30],[18.00,29.00]],
+
+    ],
+    "dockpaths": [
+        [[ 0.75,47.00],[ 0.75,47.375],[ 1.50,48.25]],
+        [[ 1.00,47.00],[ 1.50,47.25]],
+    ],
+    "smallbridgepaths": [
+      [[ 8.00,42.75],[ 8.00,43.25]],
+      [[ 2.00,45.75],[ 2.00,46.25]],
+    ],
+    "largebridgepaths": [
+      [[ 9.00,33.75],[ 9.00,34.25]],
+      [[13.00,32.75],[13.00,33.25]],
+    ],
+    "runwaypaths": [
+      [[ 2.00,44.30],[ 2.00,41.00]],
+      [[ 1.80,44.50],[ 3.20,41.90]]
+    ],
     "taxiwaypaths": [],
     "dampaths": [],
   },
   "F": {
     "base": "land",
+    "seahexes": [],
     "level0hexes": [],
     "level1hexes": [],
     "level2hexes": [],
@@ -1855,11 +2031,12 @@ _terrain = {
     "town4hexes": [],
     "town5hexes": [],
     "cityhexes": [],
-    "waterhexes": [],
+    "lakehexes": [],
     "riverpaths": [],
     "wideriverpaths": [],
     "clearingpaths": [],
     "roadpaths": [],
+    "dockpaths": [],
     "smallbridgepaths": [],
     "largebridgepaths": [],
     "runwaypaths": [],
@@ -1868,6 +2045,7 @@ _terrain = {
   },
   "G": {
     "base": "land",
+    "seahexes": [],
     "level0hexes": [],
     "level1hexes": [],
     "level2hexes": [],
@@ -1880,11 +2058,12 @@ _terrain = {
     "town4hexes": [],
     "town5hexes": [],
     "cityhexes": [],
-    "waterhexes": [],
+    "lakehexes": [],
     "riverpaths": [],
     "wideriverpaths": [],
     "clearingpaths": [],
     "roadpaths": [],
+    "dockpaths": [],
     "smallbridgepaths": [],
     "largebridgepaths": [],
     "runwaypaths": [],
@@ -1893,6 +2072,7 @@ _terrain = {
   },
   "H": {
     "base": "land",
+    "seahexes": [],
     "level0hexes": [],
     "level1hexes": [],
     "level2hexes": [],
@@ -1905,11 +2085,12 @@ _terrain = {
     "town4hexes": [],
     "town5hexes": [],
     "cityhexes": [],
-    "waterhexes": [],
+    "lakehexes": [],
     "riverpaths": [],
     "wideriverpaths": [],
     "clearingpaths": [],
     "roadpaths": [],
+    "dockpaths": [],
     "smallbridgepaths": [],
     "largebridgepaths": [],
     "runwaypaths": [],
@@ -1918,6 +2099,7 @@ _terrain = {
   },
   "I": {
     "base": "land",
+    "seahexes": [],
     "level0hexes": [],
     "level1hexes": [],
     "level2hexes": [],
@@ -1930,11 +2112,12 @@ _terrain = {
     "town4hexes": [],
     "town5hexes": [],
     "cityhexes": [],
-    "waterhexes": [],
+    "lakehexes": [],
     "riverpaths": [],
     "wideriverpaths": [],
     "clearingpaths": [],
     "roadpaths": [],
+    "dockpaths": [],
     "smallbridgepaths": [],
     "largebridgepaths": [],
     "runwaypaths": [],
@@ -1943,6 +2126,7 @@ _terrain = {
   },
   "J": {
     "base": "land",
+    "seahexes": [],
     "level0hexes": [],
     "level1hexes": [],
     "level2hexes": [],
@@ -1955,11 +2139,12 @@ _terrain = {
     "town4hexes": [],
     "town5hexes": [],
     "cityhexes": [],
-    "waterhexes": [],
+    "lakehexes": [],
     "riverpaths": [],
     "wideriverpaths": [],
     "clearingpaths": [],
     "roadpaths": [],
+    "dockpaths": [],
     "smallbridgepaths": [],
     "largebridgepaths": [],
     "runwaypaths": [],
@@ -1968,6 +2153,7 @@ _terrain = {
   },
   "K": {
     "base": "land",
+    "seahexes": [],
     "level0hexes": [],
     "level1hexes": [],
     "level2hexes": [],
@@ -1980,11 +2166,12 @@ _terrain = {
     "town4hexes": [],
     "town5hexes": [],
     "cityhexes": [],
-    "waterhexes": [],
+    "lakehexes": [],
     "riverpaths": [],
     "wideriverpaths": [],
     "clearingpaths": [],
     "roadpaths": [],
+    "dockpaths": [],
     "smallbridgepaths": [],
     "largebridgepaths": [],
     "runwaypaths": [],
@@ -1993,6 +2180,7 @@ _terrain = {
   },
   "L": {
     "base": "water",
+    "seahexes": [],
     "level0hexes": [],
     "level1hexes": [],
     "level2hexes": [],
@@ -2005,11 +2193,12 @@ _terrain = {
     "town4hexes": [],
     "town5hexes": [],
     "cityhexes": [],
-    "waterhexes": [],
+    "lakehexes": [],
     "riverpaths": [],
     "wideriverpaths": [],
     "clearingpaths": [],
     "roadpaths": [],
+    "dockpaths": [],
     "smallbridgepaths": [],
     "largebridgepaths": [],
     "runwaypaths": [],
