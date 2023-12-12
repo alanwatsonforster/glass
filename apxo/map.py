@@ -51,6 +51,9 @@ roadoutlinewidth  = 2
 dockoutlinewidth  = 2
 waterourlinewidth = 2
 
+tunnelinnerwidth = roadwidth + 8
+tunnelouterwidth = tunnelinnerwidth + 6
+
 def gdwsheets():
   return _gdwsheets
 
@@ -167,7 +170,7 @@ def setmap(sheetgrid,
   global _allwater, _forest, _allforest, _rivers, _wilderness, _maxurbansize
 
   global level0color, level1color, level2color, level3color
-  global level1ridgecolor, level2ridgecolor
+  global level0ridgecolor, level1ridgecolor, level2ridgecolor
   global forestcolor, forestalpha, foresthatch
   global urbancolor, urbanalpha, urbanoutlinecolor, townhatch, cityhatch
   global megahexcolor, megahexalpha
@@ -202,7 +205,7 @@ def setmap(sheetgrid,
   wideriverwidth   = 35
 
   townhatch        = "xx"
-  cityhatch        = "xxx"
+  cityhatch        = "xx"
   foresthatch      = ".o"
 
   if not _drawterrain:
@@ -239,7 +242,7 @@ def setmap(sheetgrid,
   else:
 
     _allwater = False
-    forestalpha = 0.3
+    forestalpha = 0.5
     forestcolor  = [ 0.50, 0.65, 0.50 ]
     
     if style == "wintertundra" or \
@@ -327,6 +330,7 @@ def setmap(sheetgrid,
       level2color       = [ 0.82, 0.75, 0.65 ]
       level3color       = [ 0.77, 0.65, 0.55 ] 
 
+    level0ridgecolor = level1color
     level1ridgecolor = level2color
     level2ridgecolor = level3color
 
@@ -442,16 +446,17 @@ def startdrawmap(show=False):
       
       for sheet in sheets():
 
-        # Draw level 0.
+        # Draw levels 0, 1, and 2.
         drawhexes(sheet, _terrain[sheet]["level0hexes"], linewidth=0, fillcolor=level0color)
-
-        # Draw level 1.
         drawhexes(sheet, _terrain[sheet]["level1hexes"], linewidth=0, fillcolor=level1color)
-
-        # Draw level 2.
         drawhexes(sheet, _terrain[sheet]["level2hexes"], linewidth=0, fillcolor=level2color)
 
+        if not _wilderness:
+          drawpaths(sheet, _terrain[sheet]["tunnelpaths"], color=roadoutlinecolor, linewidth=tunnelouterwidth, linestyle=(0,(0.3,0.3)))
+          drawpaths(sheet, _terrain[sheet]["tunnelpaths"], color=level1color, linewidth=tunnelinnerwidth)
+
         # Draw the ridges.
+        drawpaths(sheet, _terrain[sheet]["level0ridges"], color=level0ridgecolor, linewidth=ridgewidth)
         drawpaths(sheet, _terrain[sheet]["level1ridges"], color=level1ridgecolor, linewidth=ridgewidth)
         drawpaths(sheet, _terrain[sheet]["level2ridges"], color=level2ridgecolor, linewidth=ridgewidth)
 
@@ -561,7 +566,8 @@ def startdrawmap(show=False):
           for sheet in sheets():
             drawpaths(sheet, _terrain[sheet]["dampaths"], color=roadoutlinecolor, linewidth=damwidth+roadoutlinewidth, capstyle="projecting")
             drawpaths(sheet, _terrain[sheet]["dampaths"], color=roadcolor, linewidth=damwidth, capstyle="projecting")
-      
+
+
   # Draw missing sheets.
   for iy in range (0, _nysheetgrid):
     for ix in range (0, _nxsheetgrid):
@@ -745,6 +751,7 @@ _terrain = {
     "level0hexes": [],
     "level1hexes": [],
     "level2hexes": [],
+    "level0ridges": [],
     "level1ridges": [],
     "level2ridges": [],
     "foresthexes": [
@@ -819,6 +826,7 @@ _terrain = {
         [[12.70, 4.60],[13.20, 4.10],[13.00, 4.60],]
     ],
     "dampaths": [],
+    "tunnelpaths": [],
   },
   "B1": {
     "base": "land",
@@ -832,6 +840,7 @@ _terrain = {
         3707, 3708,
     ],
     "level2hexes": [],
+    "level0ridges": [],
     "level1ridges": [],
     "level2ridges": [],
     "foresthexes": [
@@ -908,6 +917,7 @@ _terrain = {
     "runwaypaths": [],
     "taxiwaypaths": [],
     "dampaths": [],
+    "tunnelpaths": [],
   },
   "C1": {
     "base": "land",
@@ -938,6 +948,7 @@ _terrain = {
       6910, 6911,
     ],
     "level2hexes": [],
+    "level0ridges": [],
     "level1ridges": [],
     "level2ridges": [],
     "foresthexes": [
@@ -1004,6 +1015,7 @@ _terrain = {
     "runwaypaths": [],
     "taxiwaypaths": [],
     "dampaths": [],
+    "tunnelpaths": [],
   },
   "D1": {
     "base": "land",
@@ -1011,6 +1023,7 @@ _terrain = {
     "level0hexes": [],
     "level1hexes": [],
     "level2hexes": [],
+    "level0ridges": [],
     "level1ridges": [],
     "level2ridges": [],
     "foresthexes": [],
@@ -1031,6 +1044,7 @@ _terrain = {
     "runwaypaths": [],
     "taxiwaypaths": [],
     "dampaths": [],
+    "tunnelpaths": [],
   },
   "A2": {
     "base": "land",
@@ -1117,6 +1131,7 @@ _terrain = {
     ],
     "taxiwaypaths": [],
     "dampaths": [],
+    "tunnelpaths": [],
   },
   "B2": {
     "base": "land",
@@ -1149,6 +1164,7 @@ _terrain = {
         4622, 4623, 4624, 4625,
         4722      
     ],
+    "level0ridges": [],
     "level1ridges": [
         [[45.00,25.50],[45.00,27.00],[44.00,28.00],[43.33,28.50],],
     ],
@@ -1229,6 +1245,7 @@ _terrain = {
     "runwaypaths": [],
     "taxiwaypaths": [],
     "dampaths": [],
+    "tunnelpaths": [],
   },
   "C2": {
     "base": "land",
@@ -1251,6 +1268,7 @@ _terrain = {
       6523, 6526,
     ],
     "level2hexes": [],
+    "level0ridges": [],
     "level1ridges": [
       [[52.50,17.25],[54.00,18.00],[54.67,18.00],],
       [[55.33,17.50],[56.00,18.00],[57.00,18.00],[57.00,19.00],[58.50,20.25],],
@@ -1313,6 +1331,7 @@ _terrain = {
     "dampaths": [
       [[60.23,27.35],[60.77,28.15],]
     ],
+    "tunnelpaths": [],
   },
   "D2": {
     "base": "land",
@@ -1320,6 +1339,7 @@ _terrain = {
     "level0hexes": [],
     "level1hexes": [],
     "level2hexes": [],
+    "level0ridges": [],
     "level1ridges": [],
     "level2ridges": [],
     "foresthexes": [],
@@ -1340,6 +1360,7 @@ _terrain = {
     "runwaypaths": [],
     "taxiwaypaths": [],
     "dampaths": [],
+    "tunnelpaths": [],
   },
   "A3": {
     "base": "land",
@@ -1347,6 +1368,7 @@ _terrain = {
     "level0hexes": [],
     "level1hexes": [],
     "level2hexes": [],
+    "level0ridges": [],
     "level1ridges": [],
     "level2ridges": [],
     "foresthexes": [],
@@ -1367,6 +1389,7 @@ _terrain = {
     "runwaypaths": [],
     "taxiwaypaths": [],
     "dampaths": [],
+    "tunnelpaths": [],
   },
   "B3": {
     "base": "land",
@@ -1374,6 +1397,7 @@ _terrain = {
     "level0hexes": [],
     "level1hexes": [],
     "level2hexes": [],
+    "level0ridges": [],
     "level1ridges": [],
     "level2ridges": [],
     "foresthexes": [],
@@ -1394,6 +1418,7 @@ _terrain = {
     "runwaypaths": [],
     "taxiwaypaths": [],
     "dampaths": [],
+    "tunnelpaths": [],
   },
   "C3": {
     "base": "land",
@@ -1401,6 +1426,7 @@ _terrain = {
     "level0hexes": [],
     "level1hexes": [],
     "level2hexes": [],
+    "level0ridges": [],
     "level1ridges": [],
     "level2ridges": [],
     "foresthexes": [],
@@ -1421,6 +1447,7 @@ _terrain = {
     "runwaypaths": [],
     "taxiwaypaths": [],
     "dampaths": [],
+    "tunnelpaths": [],
   },
   "D3": {
     "base": "land",
@@ -1428,6 +1455,7 @@ _terrain = {
     "level0hexes": [],
     "level1hexes": [],
     "level2hexes": [],
+    "level0ridges": [],
     "level1ridges": [],
     "level2ridges": [],
     "foresthexes": [],
@@ -1448,6 +1476,7 @@ _terrain = {
     "runwaypaths": [],
     "taxiwaypaths": [],
     "dampaths": [],
+    "tunnelpaths": [],
   },
   "A4": {
     "base": "land",
@@ -1455,6 +1484,7 @@ _terrain = {
     "level0hexes": [],
     "level1hexes": [],
     "level2hexes": [],
+    "level0ridges": [],
     "level1ridges": [],
     "level2ridges": [],
     "foresthexes": [],
@@ -1475,6 +1505,7 @@ _terrain = {
     "runwaypaths": [],
     "taxiwaypaths": [],
     "dampaths": [],
+    "tunnelpaths": [],
   },
   "B4": {
     "base": "land",
@@ -1482,6 +1513,7 @@ _terrain = {
     "level0hexes": [],
     "level1hexes": [],
     "level2hexes": [],
+    "level0ridges": [],
     "level1ridges": [],
     "level2ridges": [],
     "foresthexes": [],
@@ -1502,6 +1534,7 @@ _terrain = {
     "runwaypaths": [],
     "taxiwaypaths": [],
     "dampaths": [],
+    "tunnelpaths": [],
   },
   "C4": {
     "base": "land",
@@ -1509,6 +1542,7 @@ _terrain = {
     "level0hexes": [],
     "level1hexes": [],
     "level2hexes": [],
+    "level0ridges": [],
     "level1ridges": [],
     "level2ridges": [],
     "foresthexes": [],
@@ -1529,6 +1563,7 @@ _terrain = {
     "runwaypaths": [],
     "taxiwaypaths": [],
     "dampaths": [],
+    "tunnelpaths": [],
   },
   "D4": {
     "base": "land",
@@ -1536,6 +1571,7 @@ _terrain = {
     "level0hexes": [],
     "level1hexes": [],
     "level2hexes": [],
+    "level0ridges": [],
     "level1ridges": [],
     "level2ridges": [],
     "foresthexes": [],
@@ -1556,6 +1592,7 @@ _terrain = {
     "runwaypaths": [],
     "taxiwaypaths": [],
     "dampaths": [],
+    "tunnelpaths": [],
   },
   "A5": {
     "base": "land",
@@ -1563,6 +1600,7 @@ _terrain = {
     "level0hexes": [],
     "level1hexes": [],
     "level2hexes": [],
+    "level0ridges": [],
     "level1ridges": [],
     "level2ridges": [],
     "foresthexes": [],
@@ -1583,6 +1621,7 @@ _terrain = {
     "runwaypaths": [],
     "taxiwaypaths": [],
     "dampaths": [],
+    "tunnelpaths": [],
   },
   "B5": {
     "base": "land",
@@ -1590,6 +1629,7 @@ _terrain = {
     "level0hexes": [],
     "level1hexes": [],
     "level2hexes": [],
+    "level0ridges": [],
     "level1ridges": [],
     "level2ridges": [],
     "foresthexes": [],
@@ -1610,6 +1650,7 @@ _terrain = {
     "runwaypaths": [],
     "taxiwaypaths": [],
     "dampaths": [],
+    "tunnelpaths": [],
   },
   "C5": {
     "base": "land",
@@ -1617,6 +1658,7 @@ _terrain = {
     "level0hexes": [],
     "level1hexes": [],
     "level2hexes": [],
+    "level0ridges": [],
     "level1ridges": [],
     "level2ridges": [],
     "foresthexes": [],
@@ -1637,6 +1679,7 @@ _terrain = {
     "runwaypaths": [],
     "taxiwaypaths": [],
     "dampaths": [],
+    "tunnelpaths": [],
   },
   "D5": {
     "base": "land",
@@ -1644,6 +1687,7 @@ _terrain = {
     "level0hexes": [],
     "level1hexes": [],
     "level2hexes": [],
+    "level0ridges": [],
     "level1ridges": [],
     "level2ridges": [],
     "foresthexes": [],
@@ -1664,6 +1708,7 @@ _terrain = {
     "runwaypaths": [],
     "taxiwaypaths": [],
     "dampaths": [],
+    "tunnelpaths": [],
   },
   "A6": {
     "base": "land",
@@ -1671,6 +1716,7 @@ _terrain = {
     "level0hexes": [],
     "level1hexes": [],
     "level2hexes": [],
+    "level0ridges": [],
     "level1ridges": [],
     "level2ridges": [],
     "foresthexes": [],
@@ -1691,6 +1737,7 @@ _terrain = {
     "runwaypaths": [],
     "taxiwaypaths": [],
     "dampaths": [],
+    "tunnelpaths": [],
   },
   "B6": {
     "base": "land",
@@ -1698,6 +1745,7 @@ _terrain = {
     "level0hexes": [],
     "level1hexes": [],
     "level2hexes": [],
+    "level0ridges": [],
     "level1ridges": [],
     "level2ridges": [],
     "foresthexes": [],
@@ -1718,6 +1766,7 @@ _terrain = {
     "runwaypaths": [],
     "taxiwaypaths": [],
     "dampaths": [],
+    "tunnelpaths": [],
   },
   "C6": {
     "base": "land",
@@ -1725,6 +1774,7 @@ _terrain = {
     "level0hexes": [],
     "level1hexes": [],
     "level2hexes": [],
+    "level0ridges": [],
     "level1ridges": [],
     "level2ridges": [],
     "foresthexes": [],
@@ -1745,6 +1795,7 @@ _terrain = {
     "runwaypaths": [],
     "taxiwaypaths": [],
     "dampaths": [],
+    "tunnelpaths": [],
   },
   "D6": {
     "base": "land",
@@ -1752,6 +1803,7 @@ _terrain = {
     "level0hexes": [],
     "level1hexes": [],
     "level2hexes": [],
+    "level0ridges": [],
     "level1ridges": [],
     "level2ridges": [],
     "foresthexes": [],
@@ -1772,6 +1824,7 @@ _terrain = {
     "runwaypaths": [],
     "taxiwaypaths": [],
     "dampaths": [],
+    "tunnelpaths": [],
   },
   "A": {
     "base": "water",
@@ -1779,6 +1832,7 @@ _terrain = {
     "level0hexes": [],
     "level1hexes": [],
     "level2hexes": [],
+    "level0ridges": [],
     "level1ridges": [],
     "level2ridges": [],
     "foresthexes": [],
@@ -1799,6 +1853,7 @@ _terrain = {
     "runwaypaths": [],
     "taxiwaypaths": [],
     "dampaths": [],
+    "tunnelpaths": [],
   },
   "B": {
     "base": "water",
@@ -1806,6 +1861,7 @@ _terrain = {
     "level0hexes": [],
     "level1hexes": [],
     "level2hexes": [],
+    "level0ridges": [],
     "level1ridges": [],
     "level2ridges": [],
     "foresthexes": [],
@@ -1826,6 +1882,7 @@ _terrain = {
     "runwaypaths": [],
     "taxiwaypaths": [],
     "dampaths": [],
+    "tunnelpaths": [],
   },
   "C": {
     "base": "water",
@@ -1833,6 +1890,7 @@ _terrain = {
     "level0hexes": [],
     "level1hexes": [],
     "level2hexes": [],
+    "level0ridges": [],
     "level1ridges": [],
     "level2ridges": [],
     "foresthexes": [],
@@ -1853,6 +1911,7 @@ _terrain = {
     "runwaypaths": [],
     "taxiwaypaths": [],
     "dampaths": [],
+    "tunnelpaths": [],
   },
   "D": {
     "base": "water",
@@ -1860,6 +1919,7 @@ _terrain = {
     "level0hexes": [],
     "level1hexes": [],
     "level2hexes": [],
+    "level0ridges": [],
     "level1ridges": [],
     "level2ridges": [],
     "foresthexes": [],
@@ -1880,6 +1940,7 @@ _terrain = {
     "runwaypaths": [],
     "taxiwaypaths": [],
     "dampaths": [],
+    "tunnelpaths": [],
   },
   "E": {
     "base": "land",
@@ -1913,7 +1974,9 @@ _terrain = {
       1843, 1844, 1845,
     ],
     "level2hexes": [],
+    "level0ridges": [],
     "level1ridges": [],
+    "level2ridges": [],
     "foresthexes": [
       950,
       1044, 1045, 1048, 1049,
@@ -1925,7 +1988,6 @@ _terrain = {
       1837, 1839, 1847, 1848, 1849,
       1938, 1939, 1947,
     ],
-    "level2ridges": [],
     "town1hexes": [
       138,
       239,
@@ -1977,19 +2039,23 @@ _terrain = {
     "clearingpaths": [],
     "roadpaths": [
         [[ 5.00,50.50],[ 5.00,50.00],[ 2.00,48.00],[ 2.00,45.00],[ 1.00, 45.00],
-         [ 1.00,40.00],[ 8.00,36.00],[15.00,40.00],[17.00,39.00],[20.00,40.00],
-         [21.00,40.00]],
-        [[15.00,50.00],[15.00,44.00]],
-        [[20.00,45.00],[15.00,48.00],[10.00,45.00],[ 4.00,48.00],[ 4.00,49.00],[5.00,50.00]],
-        [[20.00,35.00],[ 8.00,41.00],[ 8.00,46.00],[ 7.00,47.00]],
+         [ 1.00,40.00],[ 8.00,36.00],[15.00,40.00],[17.00,39.00],
+         [19.90,40.50],[20.00,40.00]],
+        [[15.00,50.50],[15.00,44.00]],
+        [[20.00,45.00],[19.90,45.50],
+         [15.00,48.00],[10.00,45.00],[ 4.00,48.00],[ 4.00,49.00],
+         [5.00,50.00]],
+        [[20.00,35.00],[19.90,35.50],[17.00,37.00],
+         [ 8.00,41.00],[ 8.00,46.00],[ 7.00,47.00]],
         [[ 9.00,39.00],[ 8.00,39.00],[ 8.00,45.00]],
-        [[ 9.00,39.00],[ 8.00,39.00],[ 2.00,36.00],[ 1.00,37.00],[ 2.00,36.00],[ 2.00,35.00],],
+        [[ 9.00,39.00],[ 8.00,39.00],[ 2.00,36.00],[ 1.00,37.00],[ 2.00,36.00],
+         [ 2.00,35.00],],
         [[15.00,41.00],[15.00,36.00]],
         [[18.00,39.00],[17.00,39.00],[17.00,37.00],[18.00,36.00]],
         [[13.00,35.00],[13.00,32.00]],
         [[10.00,37.00],[ 9.00,37.00],[ 9.00,32.00],[10.00,31.00],[10.00,26.00]],
         [[ 4.00,28.00],[ 5.00,28.00],[10.00,30.00],[13.50,28.75],[16.50,28.25],
-         [20.00,30.00]],
+         [18.00,29.00],[19.90,30.50],[20.00,30.00]],
         [[ 5.00,31.00],[ 5.00,29.00],[ 6.00,28.00],[ 7.00,29.00]],
         [[17.00,27.00],[17.00,29.00],[18.00,29.00]],
         [[17.20,27.00],[17.20,29.10],[18.00,29.00]],
@@ -2015,33 +2081,162 @@ _terrain = {
     ],
     "taxiwaypaths": [],
     "dampaths": [],
+    "tunnelpaths": [],
   },
   "F": {
     "base": "land",
     "seahexes": [],
     "level0hexes": [],
-    "level1hexes": [],
-    "level2hexes": [],
-    "level1ridges": [],
-    "level2ridges": [],
-    "foresthexes": [],
-    "town1hexes": [],
-    "town2hexes": [],
-    "town3hexes": [],
-    "town4hexes": [],
-    "town5hexes": [],
+    "level1hexes": [
+      2126, 2127, 2128, 2129,
+      2226, 2227, 2228, 2229, 2230,
+      2328, 2329, 2330, 2331, 2338, 2339,
+      2428, 2429, 2430, 2437, 2438, 2439,
+      2525, 2534, 2535, 2536, 2537, 2538, 2539, 2540,
+      2632, 2633, 2634, 2635, 2636,  2638, 2639, 2640, 2641,
+      2732, 2733, 2734, 2735, 2741, 2742,
+      2831, 2832, 2834, 2835, 2841, 2842, 2846,
+      2936, 2937, 2939, 2940, 2945, 2946, 2947,
+      3037, 3038, 3039, 3043, 3044, 3045, 3046, 3047,
+      3132, 3133, 3134, 3138, 3139, 3140, 3147,
+      3231, 3234, 3235,
+      3332,
+      3432, 3433, 3434, 3435, 3436,
+      3535, 3536, 3548, 3549,
+      3627, 3628, 3642, 3643, 3644, 3645, 3646, 3648, 3649,
+      3727, 3728, 3729, 3730, 3743, 3744, 3745, 3746, 3747, 3748, 3749,
+      3827, 3828, 3829, 3842, 3843, 3844, 3846, 3847, 3848,
+      3944,
+    ],
+    "level2hexes": [
+      2637,
+      2736, 2737, 2738, 2739, 2740,
+      2836, 2837, 2838, 2839, 2840, 
+      2938,
+      3232, 3233, 
+      3333, 3334,
+    ],
+    "level0ridges": [
+      [[33.67,32.00],[34.33,30.50],[35.33,30.50],[35.67,30.00],[35.67,29.00]],
+      [[34.50,33.75],[38.00,32.00],[38.50,31.25],[38.50,29.25]],
+    ],
+    "level1ridges": [
+      [[34.50,33.75],[34.00,34.00],[33.50,34.25]],
+      [[33.50,34.25],[34.50,34.25],[34.50,35.75],[34.1,36.40]],
+      [[27.00,36.00],[26.33,34.50],[26.33,33.50],[28.00,31.00]],
+      [[25.50,37.75],[23.00,39.00],[22.50,38.50]],
+      [[30.50,42.75],[30.00,43.00],[30.00,44.00],[28.50,44.75]],
+      [[30.00,43.00],[30.00,45.00],[29.00,47.00],[28.50,46.75]],
+      [[36.00,49.00],[37.00,49.00],[37.00,44.00],[36.33,42.50]],
+      [[37.67,43.00],[37.00,44.00],[37.00,45.00]],
+      [[36.00,49.00],[37.00,49.00],[36.33,47.50]]
+    ],
+    "level2ridges": [
+      [[27.67,37.50],[27.67,39.00],[28.00,39.00],[28.00,40.25]],
+    ],
+    "foresthexes": [
+      2130, 2131, 2132, 2135,
+      2227, 2228, 2229, 2230, 2231, 2234, 2235,
+      2327, 2328, 2329, 2330, 2331, 2341, 2342,
+      2427, 2429, 2430, 2431, 2432, 2439, 2440,
+      2529, 2530, 2531, 2532, 2540, 2541, 2542,
+      2629, 2639, 2640, 2641,
+      2741, 2742,
+      2833, 2841, 2842, 2843,
+      2934, 2941, 2942, 2943, 2944,
+      3030, 3032, 3033, 3034, 3040, 3041, 3042,
+      3131, 3132, 3133, 3134, 3135, 3142, 3143, 3144,
+      3230, 3231, 3232, 3241, 3242, 3243, 3244,
+      3331, 3332, 3333, 3340, 3341, 3342, 3343, 3344, 3348, 3349, 3350,
+      3430, 3432, 3433, 3434, 3435, 3436, 3437, 3441, 3443, 3449,
+      3532, 3534, 3535, 3536, 3544,
+      3635,
+    ],
+    "town1hexes": [
+      2528,
+      2442,
+      2643,
+      2846,
+      3527,
+    ],
+    "town2hexes": [
+      2236, 2337,
+      3840, 3941,
+    ],
+    "town3hexes": [
+      3631, 3632, 3732,
+    ],
+    "town4hexes": [
+      3637, 3737, 3738, 3836,
+    ],
+    "town5hexes": [
+      2141, 2239, 2240, 2241, 2339,
+    ],
     "cityhexes": [],
-    "lakehexes": [],
-    "riverpaths": [],
+    "lakehexes": [
+      2232,
+    ],
+    "riverpaths": [
+      [[25.50,33.25],[25.00,33.00],[24.00,33.00],[23.00,33.00],[23.00,32.50],
+       [22.70,31.75],[22.00,32.00]],
+      [[30.00,25.00],[30.00,27.00],[31.00,28.00],[31.00,31.00],[29.00,32.00],
+       [29.00,34.00],[31.00,35.00],[31.00,37.00],[30.00,36.00],[30.00,34.00],
+       [31.00,35.00],
+       [31.00,37.00],[32.00,37.00],[32.00,40.00],
+       [29.50,41.75],[28.50,42.75],
+       [28.00,43.00],[26.00,42.00],[25.00,43.00],[25.00,45.00],[27.00,46.00],
+       [27.00,47.00],[28.00,47.00],[28.00,49.00],[29.00,50.00],
+       [30.00,49.80],[30.00,50.50]],
+      [[35.50,44.25],[34.00,43.00],[32.00,43.00],[29.25,42.13],[29.00,42.50]],
+    ],
     "wideriverpaths": [],
     "clearingpaths": [],
-    "roadpaths": [],
+    "roadpaths": [
+      [[35.00,25.50],[35.00,27.00]],
+      [[25.00,25.50],[25.00,28.00],[20.05,30.00],[20.00,30.00]],
+      [[25.00,27.00],[25.00,28.00],[28.00,29.00],[30.00,29.00],
+       [30.60,29.50],[31.40,30.00],[33.00,29.00],[36.00,30.00],
+       [36.00,33.00],[39.95,35.50],[40.00,35.00]],
+      [[36.00,32.50],[36.00,32.00],[37.00,32.00],
+       [39.90,30.50],[40.00,30.00]],
+      [[37.00,34.00],[38.00,34.00],[38.00,36.00],[37.00,37.00],
+       [36.00,36.00],[35.00,37.00],[35.00,38.00],[39.00,40.00],
+       [39.00,45.00],[37.50,45.75]],
+      [[39.00,44.00],[39.00,45.00],[39.90,45.50],[40.00,45.00]],
+      [[39.00,42.00],[39.00,41.00],[39.90,40.50],[40.00,40.00]],
+      [[35.00,37.00],[35.00,38.00],
+       [34.50,37.75],
+       [33.50,38.25],
+       [32.50,36.25],
+       [28.50,34.25],[27.50,34.75],
+       [22.50,36.75],[22.00,37.50],
+       [22.00,41.00],
+       [24.00,42.00]],
+      [[23.00,42.00],[21.00,41.00],[20.10,40.00],[20.00,40.00]],
+      [[24.00,36.00],[23.00,37.00],[22.00,36.00],
+       [20.10,35.00],[20.00,35.00]],
+      [[25.00,50.50],[25.00,48.00],[21.00,46.00],
+       [20.10,45.00],[20.00,45.00]],
+      [[25.00,49.00],[25.00,48.00],
+       [29.50,45.75],[30.50,45.25],[34.00,47.00],
+       [34.00,48.50],[34.50,49.25],[35.00,50.40],[35.00,50.50]],
+      [[27.00,47.00],[28.00,46.00],[28.00,44.50],[27.50,44.25],
+       [26.00,43.00]],
+      [[34.00,48.00],[34.00,47.00],[35.50,46.75]],
+    ],
     "dockpaths": [],
-    "smallbridgepaths": [],
-    "largebridgepaths": [],
+    "smallbridgepaths": [
+      [[30.75,29.50],[31.25,30.00]]
+    ],
+    "largebridgepaths": [
+      [[29.60,35.30],[31.40,36.20]],
+    ],
     "runwaypaths": [],
     "taxiwaypaths": [],
     "dampaths": [],
+    "tunnelpaths": [
+      [[35.50,46.75],[37.50,45.75]],
+    ],
   },
   "G": {
     "base": "land",
@@ -2049,9 +2244,10 @@ _terrain = {
     "level0hexes": [],
     "level1hexes": [],
     "level2hexes": [],
+    "level0ridges": [],
     "level1ridges": [],
-    "foresthexes": [],
     "level2ridges": [],
+    "foresthexes": [],
     "town1hexes": [],
     "town2hexes": [],
     "town3hexes": [],
@@ -2069,6 +2265,7 @@ _terrain = {
     "runwaypaths": [],
     "taxiwaypaths": [],
     "dampaths": [],
+    "tunnelpaths": [],
   },
   "H": {
     "base": "land",
@@ -2076,9 +2273,10 @@ _terrain = {
     "level0hexes": [],
     "level1hexes": [],
     "level2hexes": [],
+    "level0ridges": [],
     "level1ridges": [],
-    "foresthexes": [],
     "level2ridges": [],
+    "foresthexes": [],
     "town1hexes": [],
     "town2hexes": [],
     "town3hexes": [],
@@ -2096,6 +2294,7 @@ _terrain = {
     "runwaypaths": [],
     "taxiwaypaths": [],
     "dampaths": [],
+    "tunnelpaths": [],
   },
   "I": {
     "base": "land",
@@ -2103,9 +2302,10 @@ _terrain = {
     "level0hexes": [],
     "level1hexes": [],
     "level2hexes": [],
+    "level0ridges": [],
     "level1ridges": [],
-    "foresthexes": [],
     "level2ridges": [],
+    "foresthexes": [],
     "town1hexes": [],
     "town2hexes": [],
     "town3hexes": [],
@@ -2123,6 +2323,7 @@ _terrain = {
     "runwaypaths": [],
     "taxiwaypaths": [],
     "dampaths": [],
+    "tunnelpaths": [],
   },
   "J": {
     "base": "land",
@@ -2130,6 +2331,7 @@ _terrain = {
     "level0hexes": [],
     "level1hexes": [],
     "level2hexes": [],
+    "level0ridges": [],
     "level1ridges": [],
     "level2ridges": [],
     "foresthexes": [],
@@ -2150,6 +2352,7 @@ _terrain = {
     "runwaypaths": [],
     "taxiwaypaths": [],
     "dampaths": [],
+    "tunnelpaths": [],
   },
   "K": {
     "base": "land",
@@ -2157,9 +2360,10 @@ _terrain = {
     "level0hexes": [],
     "level1hexes": [],
     "level2hexes": [],
+    "level0ridges": [],
     "level1ridges": [],
-    "foresthexes": [],
     "level2ridges": [],
+    "foresthexes": [],
     "town1hexes": [],
     "town2hexes": [],
     "town3hexes": [],
@@ -2177,13 +2381,15 @@ _terrain = {
     "runwaypaths": [],
     "taxiwaypaths": [],
     "dampaths": [],
+    "tunnelpaths": [],
   },
   "L": {
-    "base": "water",
+    "base": "land",
     "seahexes": [],
     "level0hexes": [],
     "level1hexes": [],
     "level2hexes": [],
+    "level0ridges": [],
     "level1ridges": [],
     "level2ridges": [],
     "foresthexes": [],
@@ -2204,5 +2410,6 @@ _terrain = {
     "runwaypaths": [],
     "taxiwaypaths": [],
     "dampaths": [],
+    "tunnelpaths": [],
   },
 }
