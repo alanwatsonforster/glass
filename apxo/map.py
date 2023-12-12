@@ -10,7 +10,7 @@ import apxo.hexcode  as aphexcode
 _drawterrain = True
 _drawlabels  = True
 
-_gdwsheets = False
+_usingfirstgenerationsheets = False
 
 _dxsheet = 20
 _dysheet = 15
@@ -54,8 +54,23 @@ waterourlinewidth = 2
 tunnelinnerwidth = roadwidth + 8
 tunnelouterwidth = tunnelinnerwidth + 6
 
-def gdwsheets():
-  return _gdwsheets
+blanksheets = ["", "-", "--"]
+firstgenerationsheets = [
+    "A", "B", "C", "D", 
+    "E", "F", "G", "H", 
+    "I", "J", "K", "L"
+]
+secondgenerationsheets = [
+    "A1", "B1", "C1", "D1",
+    "A2", "B2", "C2", "D2",
+    "A3", "B3", "C3", "D3",
+    "A4", "B4", "C4", "D4",
+    "A5", "B5", "C5", "D5",
+    "A6", "B6", "C6", "D6",
+]
+
+def usingfirstgenerationsheets():
+  return _usingfirstgenerationsheets
 
 def setmap(sheetgrid, 
   drawterrain=True, drawlabels=True, 
@@ -69,7 +84,7 @@ def setmap(sheetgrid,
   compass rose.
   """
 
-  global _gdwsheets
+  global _usingfirstgenerationsheets
   global _dxsheet
   global _dysheet
 
@@ -89,18 +104,7 @@ def setmap(sheetgrid,
   global _dotsperhex
   global _writefile
 
-  blanksheets = ["", "-", "--"]
-  gdwsheets = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L"]
-  coasheets = [
-      "A1", "B1", "C1", "D1",
-      "A2", "B2", "C2", "D2",
-      "A3", "B3", "C3", "D3",
-      "A4", "B4", "C4", "D4",
-      "A5", "B5", "C5", "D5",
-      "A6", "B6", "C6", "D6",
-  ]
-
-  _gdwsheets = None
+  _usingfirstgenerationsheets = None
 
   if not isinstance(sheetgrid, list):
     raise RuntimeError("the sheet grid is not a list of lists.")
@@ -112,14 +116,14 @@ def setmap(sheetgrid,
     for sheet in row:
       if sheet in blanksheets:
         pass
-      elif _gdwsheets is not False and sheet in gdwsheets:
-        _gdwsheets = True
-      elif _gdwsheets is not True and sheet in coasheets:
-        _gdwsheets = False
+      elif _usingfirstgenerationsheets is not False and sheet in firstgenerationsheets:
+        _usingfirstgenerationsheets = True
+      elif _usingfirstgenerationsheets is not True and sheet in secondgenerationsheets:
+        _usingfirstgenerationsheets = False
       else:
         raise RuntimeError("invalid sheet %s." % sheet)
 
-  if _gdwsheets:
+  if _usingfirstgenerationsheets:
     _dxsheet = 20
     _dysheet = 25
   else:
@@ -567,17 +571,6 @@ def startdrawmap(show=False):
             drawpaths(sheet, _terrain[sheet]["dampaths"], color=roadoutlinecolor, linewidth=damwidth+roadoutlinewidth, capstyle="projecting")
             drawpaths(sheet, _terrain[sheet]["dampaths"], color=roadcolor, linewidth=damwidth, capstyle="projecting")
 
-
-  # Draw missing sheets.
-  for iy in range (0, _nysheetgrid):
-    for ix in range (0, _nxsheetgrid):
-      if _sheetgrid[iy][ix] == "--":
-        xmin = ix * _dxsheet
-        xmax = xmin + _dxsheet
-        ymin = iy * _dysheet
-        ymax = ymin + _dysheet
-        apdraw.drawrectangle(xmin, ymin, xmax, ymax, linecolor=None, fillcolor=missingcolor, zorder=0)
-            
   # Draw and label the hexes.
   for sheet in sheets():
     xmin, ymin, xmax, ymax = sheetlimits(sheet)
@@ -595,6 +588,17 @@ def startdrawmap(show=False):
           if _drawlabels:
             apdraw.drawhexlabel(x, y, aphexcode.fromxy(x, y), color=hexcolor, alpha=hexalpha, zorder=0)
             
+  # Draw missing sheets.
+  for iy in range (0, _nysheetgrid):
+    for ix in range (0, _nxsheetgrid):
+      if _sheetgrid[iy][ix] in blanksheets:
+        xmin = ix * _dxsheet
+        xmax = xmin + _dxsheet
+        ymin = iy * _dysheet
+        ymax = ymin + _dysheet
+        apdraw.drawrectangle(xmin, ymin, xmax, ymax, linecolor=None, fillcolor=missingcolor, zorder=0)
+            
+            
   if _drawlabels:
 
     # Label the sheets.
@@ -608,10 +612,10 @@ def startdrawmap(show=False):
     # Draw the compass rose in the bottom sheet in the leftmost column.
     for iy in range (0, _nysheetgrid):
       sheet = _sheetgrid[iy][0]
-      xmin, ymin, xmax, ymax = sheetlimits(sheet)
-      dx = 1.0
-      dy = 1.5
-      if sheet != "--" and isonmap(xmin + dx, ymin + dy):
+      if sheet not in blanksheets:
+        xmin, ymin, xmax, ymax = sheetlimits(sheet)
+        dx = 1.0
+        dy = 1.5
         apdraw.drawcompass(xmin + dx, ymin + dy, apazimuth.tofacing("N"), color=labelcolor, alpha=1, zorder=0)
         break
 

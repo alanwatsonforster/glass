@@ -90,7 +90,7 @@ def yoffsetforoddx():
   and TSOH sheets.
   """
 
-  if apmap.gdwsheets():
+  if apmap.usingfirstgenerationsheets():
     return +0.5
   else:
     return -0.5
@@ -228,7 +228,7 @@ def _sheetorigin(sheet):
   Return the hex code of the center of the lower left hex in the specified sheet.
   """
 
-  if apmap.gdwsheets():
+  if apmap.usingfirstgenerationsheets():
 
     # The first generation maps are all labeled identically. However, we notionally
     # shift them by 0, 20, 40, and 60 columns and 0, 25, and 75 rows.
@@ -318,7 +318,7 @@ def tosheet(h,
   else:
     dYYbottom = 0
     
-  if apmap.gdwsheets():
+  if apmap.usingfirstgenerationsheets():
 
     # The four Air Superiority maps are identical. However, we notionally
     # shift sheets the sheets by 20 columns and 25 rows to make them distinct.
