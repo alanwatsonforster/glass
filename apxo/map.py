@@ -63,7 +63,8 @@ blanksheets = ["", "-", "--"]
 firstgenerationsheets = [
     "A", "B", "C", "D", 
     "E", "F", "G", "H", 
-    "I", "J", "K", "L"
+    "I", "J", "K", "L",
+    "M", "N"
 ]
 secondgenerationsheets = [
     "A1", "B1", "C1", "D1",
@@ -173,6 +174,13 @@ def setmap(sheetgrid,
         _loweredgeonmap.update({ sheet: sheetbelow(iy, ix) != ""})
         _rightedgeonmap.update({ sheet: sheettoright(iy, ix) != ""})
 
+  # We cannot use sheet A simultaneously with sheet M or sheet B simultaneously 
+  # with sheet N, since they have the same hexcodes.
+  if "A" in _sheetlist and "M" in _sheetlist:
+    raise RuntimeError("sheets A and M cannot be used simultaneously.")
+  if "B" in _sheetlist and "N" in _sheetlist:
+    raise RuntimeError("sheets B and N cannot be used simultaneously.")
+  
   for sheet in _sheetlist:
     filename = os.path.join(os.path.dirname(__file__), "mapsheets", sheet + ".py")
     with open(filename, "r", encoding="utf-8") as f:

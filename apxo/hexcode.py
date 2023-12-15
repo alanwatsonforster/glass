@@ -233,9 +233,9 @@ def _sheetorigin(sheet):
     # The first generation maps are all labeled identically. However, we notionally
     # shift them by 0, 20, 40, and 60 columns and 0, 25, and 75 rows.
 
-    if sheet in ["A", "E", "I"]:
+    if sheet in ["A", "E", "I", "M"]:
       XX = 00
-    elif sheet in ["B", "F", "J"]:
+    elif sheet in ["B", "F", "J", "N"]:
       XX = 20
     elif sheet in ["C", "G", "K"]:
       XX = 40
@@ -244,7 +244,7 @@ def _sheetorigin(sheet):
     else:
       raise RuntimeError("%r is not a valid sheet." % sheet)
 
-    if sheet in ["A", "B", "C", "D"]:
+    if sheet in ["A", "B", "C", "D", "M", "N"]:
       YY = 25
     elif sheet in ["E", "F", "G", "H"]:
       YY = 50
@@ -348,6 +348,12 @@ def tosheet(h,
       sheet = sheets[2]
     else:
       return None
+
+    # Sheets A and M and sheets B and N share the same hexcodes.
+    if sheet == "A" and "M" in map.sheets():
+      return "M"
+    if sheet == "B" and "N" in map.sheets():
+      return "N"
     
   else:
 
