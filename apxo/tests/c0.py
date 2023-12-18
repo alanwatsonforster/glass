@@ -155,9 +155,9 @@ A4.move("LVL",  "I", "H,H,H,H,H")
 A4._assert("4610       S    30",  5.0)
 endturn()
 
-# Check APJ 53 rules for idle power.
+# Check version 2.4 rules for idle power.
 
-starttestsetup(sheets=[["A1"],["A2"],["B1"],["B2"]], variants=["use APJ 53 rules"])
+starttestsetup(sheets=[["A1"],["A2"],["B1"],["B2"]], variants=["use version 2.4 rules"])
 A4 = aircraft("A4", "AF", "F-100A", "2602", "S", 51, 5.5, "CL")
 endtestsetup()
 

@@ -55,9 +55,9 @@ A1.move("LVL",  "N", "H,H")
 A1._assert("2013       N    10",  2.0)
 endturn()
 
-# Check APJ 53 rules for speed brakes.
+# Check version 2.4 rules for speed brakes.
 
-starttestsetup(variants=["use APJ 53 rules"])
+starttestsetup(variants=["use version 2.4 rules"])
 A1 = aircraft("A1", "AF", "F-80C", "1125", "N", 10, 2.5, "CL")
 A2 = aircraft("A2", "AF", "F-80C", "1325", "N", 10, 3.0, "CL")
 A3 = aircraft("A3", "AF", "F-80C", "1525", "N", 10, 3.5, "CL")

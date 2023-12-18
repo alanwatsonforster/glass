@@ -54,7 +54,7 @@ class aircraftdata:
     _checkpowersetting(powersetting)
     if not powersetting in self._data["powertable"]:
       return None
-    elif powersetting == "I" and apvariants.withvariant("use APJ 53 rules"):
+    elif powersetting == "I" and apvariants.withvariant("use version 2.4 rules"):
       return self._data["powertable"][powersetting][_configurationindex(configuration)] * 2
     else:
       return self._data["powertable"][powersetting][_configurationindex(configuration)]
@@ -79,7 +79,7 @@ class aircraftdata:
     raw = self._data["powertable"]["SPBR"][_configurationindex(configuration)]
     if raw == "-":
       return None
-    elif apvariants.withvariant("use APJ 53 rules"):
+    elif apvariants.withvariant("use version 2.4 rules"):
       return raw * 2
     else:
       return raw

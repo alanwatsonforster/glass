@@ -746,7 +746,7 @@ def _continuenormalflight(self, actions, note=False):
     if maxspbr == None:
       raise RuntimeError("aircraft does not have speedbrakes.")
         
-    if apvariants.withvariant("use APJ 53 rules"):
+    if apvariants.withvariant("use version 2.4 rules"):
 
       maxspbrap = self.spbr()
 
