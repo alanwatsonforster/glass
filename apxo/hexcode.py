@@ -350,9 +350,9 @@ def tosheet(h,
       return None
 
     # Sheets A and M and sheets B and N share the same hexcodes.
-    if sheet == "A" and "M" in map.sheets():
+    if sheet == "A" and "M" in apmap.sheets():
       return "M"
-    if sheet == "B" and "N" in map.sheets():
+    if sheet == "B" and "N" in apmap.sheets():
       return "N"
     
   else:
