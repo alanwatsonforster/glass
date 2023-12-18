@@ -164,8 +164,14 @@ class aircraftdata:
     _checkconfiguration(configuration)
     return self._data["ceilingtable"][_configurationindex(configuration)]
 
-  def cruisespeed(self):
-    return self._data["cruisespeed"]
+  def cruisespeed(self, configuration):
+    basecruisespeed = self._data["cruisespeed"]
+    if configuration == "CL" or not apvariants.withvariant("use version 2.4 rules"):
+      return basecruisespeed
+    elif configuration == "1/2":
+      return basecruisespeed - 0.5
+    else:
+      return basecruisespeed - 1.0
 
   def climbspeed(self):
     return self._data["climbspeed"]

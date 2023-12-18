@@ -1,5 +1,6 @@
-import apxo.speed    as apspeed
 import apxo.altitude as apaltitude
+import apxo.speed    as apspeed
+import apxo.variants as apvariants
 
 def power(self, powersetting):
   return self._aircraftdata.power(self._configuration, powersetting)
@@ -78,7 +79,7 @@ def maxspeed(self):
   return maxspeed
 
 def cruisespeed(self):
-  return self._aircraftdata.cruisespeed()
+  return self._aircraftdata.cruisespeed(self._configuration)
 
 def climbspeed(self):
   return self._aircraftdata.climbspeed()
