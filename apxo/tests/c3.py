@@ -55,6 +55,33 @@ A1.move("LVL",  "N", "H,H")
 A1._assert("2013       N    10",  2.0)
 endturn()
 
+# Check at supersonic speeds.
+
+starttestsetup()
+A1 = aircraft("A1", "AF", "F-104A", "2025", "N", 10, 10.0, "CL")
+A2 = aircraft("A2", "AF", "F-104A", "2025", "N", 10,  7.0, "CL")
+endtestsetup()
+
+startturn()
+A1.move("LVL",  "AB", "HS2"    )
+asserterror("speedbrake capability is only 1 FP.")
+A2.move("LVL",  0.5 , "HS1"    )
+asserterror("speedbrake capability is only 0.5 FPs.")
+
+startturn()
+A1.move("LVL",  "AB", "HS1,H,H,H,H,H,H,H,H"    )
+A1._assert("2016       N    10",  10.0)
+A2.move("LVL",  0.5 , "HS1/2,H,H,H,H,H"    )
+A2._assert("2019       N    10",  7.0)
+endturn()
+
+startturn()
+A1.move("LVL",  "AB", "HS1,H,H,H,H,H,H,H,H"    )
+A1._assert("2007       N    10",  10.5)
+A2.move("LVL",  0.5 , "HS1/2,H,H,H,H,H,H"    )
+A2._assert("2012       N    10",  6.5)
+endturn()
+
 # Check version 2.4 rules for speed brakes.
 
 starttestsetup(variants=["use version 2.4 rules"])
@@ -106,6 +133,34 @@ A3.move("LVL",  "N", "HSS,H,H"  )
 A3._assert("1512       N    10",  2.5)
 A4.move("LVL",  "N", "HSS,H,H,H")
 A4._assert("1710       N    10",  3.0)
+endturn()
+
+# Check at supersonic speeds.
+
+starttestsetup(variants=["use version 2.4 rules"])
+A1 = aircraft("A1", "AF", "F-104A", "2025", "N", 10, 10.0, "CL")
+A2 = aircraft("A2", "AF", "F-104A", "2025", "N", 10,  7.0, "CL")
+endtestsetup()
+
+startturn()
+A1.move("LVL",  "I", "HS4"    )
+asserterror("speedbrake capability is only 3.0 DPs.")
+A2.move("LVL",  "I" , "HS2"    )
+asserterror("speedbrake capability is only 1 DP.")
+
+startturn()
+A1.move("LVL",  "I", "HS3,H,H,H,H,H,H,H,H,H"    )
+A1._assert("2015       N    10",  6.0)
+
+A2.move("LVL",  0.5 , "HS1,H,H,H,H,H,H"    )
+A2._assert("2018       N    10",  7.0)
+endturn()
+
+startturn()
+A1.move("LVL",  "I", "HS1,H,H,H,H,H"    )
+A1._assert("2009       N    10",  5.5)
+A2.move("LVL",  0.5 , "HS1,H,H,H,H,H,H"    )
+A2._assert("2011       N    10",  6.5)
 endturn()
 
 endfile(__file__)

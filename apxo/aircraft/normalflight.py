@@ -748,10 +748,13 @@ def _continuenormalflight(self, actions, note=False):
         
     if apvariants.withvariant("use version 2.4 rules"):
 
-      maxspbrap = self.spbr()
+      maxspbr = self.spbr()
 
-      if spbr > maxspbrap:
-        raise RuntimeError(plural(maxspbrfp,
+      if self._speed >= apspeed.m1speed(self._altitudeband):
+        maxspbr += 2.0      
+
+      if spbr > maxspbr:
+        raise RuntimeError(plural(maxspbr,
           "speedbrake capability is only 1 DP.",
           "speedbrake capability is only %.1f DPs." % maxspbr))
           
@@ -759,21 +762,19 @@ def _continuenormalflight(self, actions, note=False):
           
     else:
 
-      maxspbrfp = self.spbr()
-
       if self._speed > apspeed.m1speed(self._altitudeband):
         maxspbr += 0.5
         
-      if spbr > maxspbrfp:
-        raise RuntimeError(plural(maxspbrfp,
+      if spbr > maxspbr:
+        raise RuntimeError(plural(maxspbr,
           "speedbrake capability is only 1 FP.",
-          "speedbrake capability is only %.1f FPs." % maxspbrfp))
+          "speedbrake capability is only %.1f FPs." % maxspbr))
           
-      maxspbrfp = self._maxfp - self._hfp - self._vfp
-      if spbr > maxspbrfp:
-        raise RuntimeError(plural(maxspbrfp,
+      maxspbr = self._maxfp - self._hfp - self._vfp
+      if spbr > maxspbr:
+        raise RuntimeError(plural(maxspbr,
           "invalid use of speedbrakes when only 1 FP remains.",
-          "invalid use of speedbrakes when only %s FPs remain." % maxspbrfp))
+          "invalid use of speedbrakes when only %s FPs remain." % maxspbr))
 
       self._spbrfp = spbr
       self._maxfp -= spbr
@@ -954,13 +955,15 @@ def _continuenormalflight(self, actions, note=False):
     ["R"     , "maneuver"           , None, lambda: domaneuver("R", None, True , False) ],
 
     ["S1/2"  , "other"              , None, lambda: dospeedbrakes(1/2) ],
-    ["S1"    , "other"              , None, lambda: dospeedbrakes(1) ],
+    ["S1"    , "other"              , None, lambda: dospeedbrakes(1)   ],
     ["S3/2"  , "other"              , None, lambda: dospeedbrakes(3/2) ],
-    ["S2"    , "other"              , None, lambda: dospeedbrakes(2) ],
+    ["S2"    , "other"              , None, lambda: dospeedbrakes(2)   ],
     ["S5/2"  , "other"              , None, lambda: dospeedbrakes(5/2) ],
-    ["S3"    , "other"              , None, lambda: dospeedbrakes(3) ],
+    ["S3"    , "other"              , None, lambda: dospeedbrakes(3)   ],
+    ["S7/2"  , "other"              , None, lambda: dospeedbrakes(7/2) ],
+    ["S4"    , "other"              , None, lambda: dospeedbrakes(4)   ],
     ["SSS"   , "other"              , None, lambda: dospeedbrakes(3/2) ],
-    ["SS"    , "other"              , None, lambda: dospeedbrakes(1) ],
+    ["SS"    , "other"              , None, lambda: dospeedbrakes(1)   ],
     ["S"     , "other"              , None, lambda: dospeedbrakes(1/2) ],
      
     ["J"     , "other"              , argsregex(1), lambda m: dojettison(m) ],
