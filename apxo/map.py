@@ -64,8 +64,12 @@ firstgenerationsheets = [
     "A", "B", "C", "D", 
     "E", "F", "G", "H", 
     "I", "J", "K", "L",
-    "M", "N"
+    "M", "N", "O", "P",
+    "Q", "R", "S", "T",
+    "U", "V", "W", "X"
 ]
+print(firstgenerationsheets)
+
 secondgenerationsheets = [
     "A1", "B1", "C1", "D1",
     "A2", "B2", "C2", "D2",
@@ -174,12 +178,32 @@ def setmap(sheetgrid,
         _loweredgeonmap.update({ sheet: sheetbelow(iy, ix) != ""})
         _rightedgeonmap.update({ sheet: sheettoright(iy, ix) != ""})
 
-  # We cannot use sheet A simultaneously with sheet M or sheet B simultaneously 
-  # with sheet N, since they have the same hexcodes.
+  # We cannot use sheet A to L simultaneously with the corresponding sheets M
+  # to X, since they have the same hexcodes.
   if "A" in _sheetlist and "M" in _sheetlist:
     raise RuntimeError("sheets A and M cannot be used simultaneously.")
   if "B" in _sheetlist and "N" in _sheetlist:
     raise RuntimeError("sheets B and N cannot be used simultaneously.")
+  if "C" in _sheetlist and "O" in _sheetlist:
+    raise RuntimeError("sheets C and O cannot be used simultaneously.")
+  if "D" in _sheetlist and "P" in _sheetlist:
+    raise RuntimeError("sheets D and P cannot be used simultaneously.")
+  if "E" in _sheetlist and "Q" in _sheetlist:
+    raise RuntimeError("sheets E and Q cannot be used simultaneously.")
+  if "F" in _sheetlist and "R" in _sheetlist:
+    raise RuntimeError("sheets F and R cannot be used simultaneously.")
+  if "G" in _sheetlist and "S" in _sheetlist:
+    raise RuntimeError("sheets G and S cannot be used simultaneously.")
+  if "H" in _sheetlist and "T" in _sheetlist:
+    raise RuntimeError("sheets H and T cannot be used simultaneously.")
+  if "I" in _sheetlist and "U" in _sheetlist:
+    raise RuntimeError("sheets I and U cannot be used simultaneously.")
+  if "J" in _sheetlist and "V" in _sheetlist:
+    raise RuntimeError("sheets J and V cannot be used simultaneously.")
+  if "K" in _sheetlist and "W" in _sheetlist:
+    raise RuntimeError("sheets K and W cannot be used simultaneously.")
+  if "L" in _sheetlist and "X" in _sheetlist:
+    raise RuntimeError("sheets L and X cannot be used simultaneously.")
   
   for sheet in _sheetlist:
     filename = os.path.join(os.path.dirname(__file__), "mapsheets", sheet + ".py")

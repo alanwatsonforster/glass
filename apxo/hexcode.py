@@ -230,25 +230,25 @@ def _sheetorigin(sheet):
 
   if apmap.usingfirstgenerationsheets():
 
-    # The first generation maps are all labeled identically. However, we notionally
+    # The first-generation maps are all labeled identically. However, we notionally
     # shift them by 0, 20, 40, and 60 columns and 0, 25, and 75 rows.
 
-    if sheet in ["A", "E", "I", "M"]:
+    if sheet in ["A", "E", "I", "M", "Q", "U"]:
       XX = 00
-    elif sheet in ["B", "F", "J", "N"]:
+    elif sheet in ["B", "F", "J", "N", "R", "V"]:
       XX = 20
-    elif sheet in ["C", "G", "K"]:
+    elif sheet in ["C", "G", "K", "O", "S", "W"]:
       XX = 40
-    elif sheet in ["D", "H", "L"]:
+    elif sheet in ["D", "H", "L", "P", "T", "X"]:
       XX = 60
     else:
       raise RuntimeError("%r is not a valid sheet." % sheet)
 
-    if sheet in ["A", "B", "C", "D", "M", "N"]:
+    if sheet in ["A", "B", "C", "D", "M", "N", "O", "P"]:
       YY = 25
-    elif sheet in ["E", "F", "G", "H"]:
+    elif sheet in ["E", "F", "G", "H", "Q", "R", "S", "T"]:
       YY = 50
-    elif sheet in ["I", "J", "K", "L"]:
+    elif sheet in ["I", "J", "K", "L", "U", "V", "W", "X"]:
       YY = 75
     else:
       raise RuntimeError("%r is not a valid sheet." % sheet)
@@ -320,7 +320,7 @@ def tosheet(h,
     
   if apmap.usingfirstgenerationsheets():
 
-    # The four Air Superiority maps are identical. However, we notionally
+    # The first-genetation maps are identical. However, we notionally
     # shift sheets the sheets by 20 columns and 25 rows to make them distinct.
     
     if 1 + dXXleft <= XX and XX <= 19 + dXXright:
@@ -349,12 +349,32 @@ def tosheet(h,
     else:
       return None
 
-    # Sheets A and M and sheets B and N share the same hexcodes.
+    # Sheets A to L and the corresponding sheets N to X share the same hexcodes.
     if sheet == "A" and "M" in apmap.sheets():
       return "M"
     if sheet == "B" and "N" in apmap.sheets():
       return "N"
-    
+    if sheet == "C" and "O" in apmap.sheets():
+      return "O"
+    if sheet == "D" and "P" in apmap.sheets():
+      return "P"
+    if sheet == "E" and "Q" in apmap.sheets():
+      return "Q"
+    if sheet == "F" and "R" in apmap.sheets():
+      return "R"
+    if sheet == "G" and "S" in apmap.sheets():
+      return "S"
+    if sheet == "H" and "T" in apmap.sheets():
+      return "T"
+    if sheet == "I" and "U" in apmap.sheets():
+      return "U"
+    if sheet == "J" and "V" in apmap.sheets():
+      return "V"
+    if sheet == "K" and "W" in apmap.sheets():
+      return "W"
+    if sheet == "L" and "X" in apmap.sheets():
+      return "X"
+
   else:
 
     if 11 + dXXleft <= XX and XX <= 29 + dXXright:
