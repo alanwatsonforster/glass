@@ -398,7 +398,7 @@ class aircraftdata:
         str("")
 
       str("Engines        : %d" % self.engines())
-      str("Cruise Speed   : %.1f" % self.cruisespeed())
+      str("Cruise Speed   : %.1f" % self.cruisespeed("CL"))
       str("Climb  Speed   : %.1f" % self.climbspeed())
       str("Visibility     : %d" % self.visibility())
       str("Size Modifier  : %+d" % self.sizemodifier())
