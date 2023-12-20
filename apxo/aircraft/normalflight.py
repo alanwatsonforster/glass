@@ -771,7 +771,7 @@ def _continuenormalflight(self, actions, note=False):
           "speedbrake capability is only %.1f FPs." % maxspbr))
           
       maxspbr = self._maxfp - self._hfp - self._vfp
-      if spbr > maxspbr:
+      if spbr >= maxspbr:
         raise RuntimeError(plural(maxspbr,
           "invalid use of speedbrakes when only 1 FP remains.",
           "invalid use of speedbrakes when only %s FPs remain." % maxspbr))
