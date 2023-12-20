@@ -407,18 +407,16 @@ def _continuenormalflight(self, actions, note=False):
       raise RuntimeError("attempt to turn faster than the declared turn rate.")
 
     if self._turnmaneuvers > 0:
-      if apvariants.withvariant("prefer v1 bleed rates"):
-        # Use the bleed rates from the 1st edition rules in TSOH.
-        if self.hasproperty("HBR"):
-          self._sustainedturnap -= facingchange // 30 * 2.0
-        else:
-          self._sustainedturnap -= facingchange // 30 * 1.0
-      else:
-        # Use the proposed bleed rates for 2nd edition from p. 4 of APJ 32.
+      if apvariants.withvariant("use version 2.4 rules"):
         if self.hasproperty("LBR"):
           self._sustainedturnap -= facingchange // 30 * 0.5
         elif self.hasproperty("HBR"):
           self._sustainedturnap -= facingchange // 30 * 1.5
+        else:
+          self._sustainedturnap -= facingchange // 30 * 1.0
+      else:
+        if self.hasproperty("HBR"):
+          self._sustainedturnap -= facingchange // 30 * 2.0
         else:
           self._sustainedturnap -= facingchange // 30 * 1.0
 

@@ -3,7 +3,6 @@ _knownvariants = [
   "disallow ENE/ESE/WSW/WNW",
   "prefer NE/SE/SW/NW",
   "disallow HT/FT",
-  "prefer version 1 bleed rate",
   "use version 2.4 rules"
 ]
 
