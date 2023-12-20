@@ -183,12 +183,12 @@ endturn()
 
 startturn()
 A4.move("LVL",  "I", "H,H,H,H,H,H,H,H")
-A4._assert("2630       S    30",  7.0)
+A4._assert("2630       S    30",  6.5)
 endturn()
 
 startturn()
 A4.move("LVL",  "I", "H,H,H,H,H,H,H")
-A4._assert("4607       S    30",  5.5)
+A4._assert("4607       S    30",  6.0)
 endturn()
 
 startturn()

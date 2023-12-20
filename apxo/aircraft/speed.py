@@ -184,6 +184,8 @@ def _startmovespeed(self, power, flamedoutengines):
 
     # Is the engine smoking?
     self._enginesmoking = (self.hasproperty("SMP") and powersetting == "M")
+    if self._enginesmoking:
+      self._logevent("engine is smoking.")
 
     # See rule 6.7
 
@@ -231,6 +233,10 @@ def _startmovespeed(self, power, flamedoutengines):
     if self._flighttype == "DP" and (powersetting == "M" or powersetting == "AB"):
       self._logevent("check for flame-out as the aircaft is in departed flight and the power setting is %s." % powersetting)
 
+    if apvariants.withvariant("use version 2.4 rules"):
+      if speed >= m1speed and (powersetting == "I" or powersetting == "M"):
+        self._logevent("check for flame-out as the speed is supersonic and the power setting is %s." % powersetting)
+
     ############################################################################
 
     # Determine the speed.
@@ -241,16 +247,17 @@ def _startmovespeed(self, power, flamedoutengines):
       speed = minspeed
       self._logevent("increasing speed to %.1f after recovering from departed flight." % minspeed)
       
-    # See rules 6.1 and 6.6 on idle power setting, and the new rule in version 2.4.
+    # See rules 6.1 and 6.6 on idle power setting, and compared with the new rule in version 2.4.
 
-    if powersetting == "I" and not apvariants.withvariant("use version 2.4 rules"):
-      speedchange = self.power("I")
-      if self._speed >= m1speed:
-        speedchange += 0.5
-      # This keeps the speed non-negative. See rule 6.2.
-      speedchange = min(speedchange, self._speed)
-      speed -= speedchange
-      self._logevent("reducing speed to %.1f as the power setting is I." % speed)
+    if not apvariants.withvariant("use version 2.4 rules"):
+      if powersetting == "I":
+        speedchange = self.power("I")
+        if self._speed >= m1speed:
+          speedchange += 0.5
+        # This keeps the speed non-negative. See rule 6.2.
+        speedchange = min(speedchange, self._speed)
+        speed -= speedchange
+        self._logevent("reducing speed to %.1f as the power setting is I." % speed)
 
     reportspeed()
 
@@ -298,11 +305,14 @@ def _startmovespeed(self, power, flamedoutengines):
         self._logevent("insufficient power above cruise speed (%.1f)." % self.cruisespeed())
         speedap -= 1.0
 
-    # See version 2.4.
+    # See rules 6.1 and 6.6 in version 2.4.
 
-    if powersetting == "I" and apvariants.withvariant("use version 2.4 rules"):
-      self._logevent("idle power.")
-      speedap -= self.power("I")
+    if apvariants.withvariant("use version 2.4 rules"):
+      if powersetting == "I":
+        self._logevent("idle power.")
+        speedap -= self.power("I")
+        if speed >= m1speed:
+          speedap -= 1.0
 
     # See rule 6.6
     

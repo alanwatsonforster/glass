@@ -150,15 +150,15 @@ asserterror("speedbrake capability is only 1 DP.")
 
 startturn()
 A1.move("LVL",  "I", "HS3,H,H,H,H,H,H,H,H,H"    )
-A1._assert("2015       N    10",  6.0)
+A1._assert("2015       N    10",  5.5)
 
 A2.move("LVL",  0.5 , "HS1,H,H,H,H,H,H"    )
 A2._assert("2018       N    10",  7.0)
 endturn()
 
 startturn()
-A1.move("LVL",  "I", "HS1,H,H,H,H,H"    )
-A1._assert("2009       N    10",  5.5)
+A1.move("LVL",  "I", "HS1,H,H,H,H"    )
+A1._assert("2010       N    10",  5.0)
 A2.move("LVL",  0.5 , "HS1,H,H,H,H,H,H"    )
 A2._assert("2011       N    10",  6.5)
 endturn()
