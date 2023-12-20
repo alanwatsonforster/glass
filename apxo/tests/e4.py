@@ -47,7 +47,7 @@ endturn()
 
 startturn()
 A2.move("ZC",  "AB", "H,H,C,C,C,C,C")
-A2._assert("2209       N     7",  5.5)
+A2._assert("2209       N     7",  6.0)
 startturn()
 A1.move("LVL",  "AB", "H,H,H"       )
 A1._assert("2010       N    12",  2.5)

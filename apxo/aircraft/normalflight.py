@@ -1730,10 +1730,13 @@ def _endnormalflight(self):
     if flighttype == "ZC":
 
       # See rule 8.1.1.
-      if previousflighttype == "ZC":
-        altitudeap = -1.5 * altitudechange
-      else:
+      if apvariants.withvariant("use version 2.4 rules"):
         altitudeap = -1.0 * altitudechange
+      else:
+        if _isclimbingflight(previousflighttype):
+          altitudeap = -1.5 * altitudechange
+        else:
+          altitudeap = -1.0 * altitudechange
 
     elif flighttype == "SC":
 
@@ -1767,7 +1770,13 @@ def _endnormalflight(self):
         zcaltitudechange = int(truealtitudechange - scaltitudechange + 0.5)
         scaltitudechange = altitudechange - zcaltitudechange
 
-        altitudeap = -0.5 * scaltitudechange + -1.0 * zcaltitudechange
+        if apvariants.withvariant("use version 2.4 rules"):
+          altitudeap = -0.5 * scaltitudechange + -1.0 * zcaltitudechange
+        else:
+          if _isclimbingflight(previousflighttype):
+            altitudeap = -0.5 * scaltitudechange + -1.5 * zcaltitudechange
+          else:
+            altitudeap = -0.5 * scaltitudechange + -1.0 * zcaltitudechange
         self._scwithzccomponent = (zcaltitudechange != 0)
 
     elif flighttype == "VC":
@@ -1778,18 +1787,24 @@ def _endnormalflight(self):
     elif flighttype == "SD":
 
       # See rule 8.2.1.
-      if previousflighttype == "SD":
+      if apvariants.withvariant("use version 2.4 rules"):
         altitudeap = -1.0 * altitudechange
       else:
-        altitudeap = -0.5 * altitudechange
+        if _isdivingflight(previousflighttype):
+          altitudeap = -1.0 * altitudechange
+        else:
+          altitudeap = -0.5 * altitudechange
 
     elif flighttype == "UD":
 
       # See rule 8.2.2.
-      if previousflighttype == "UD":
+      if apvariants.withvariant("use version 2.4 rules"):
         altitudeap = -1.0 * altitudechange
       else:
-        altitudeap = -0.5 * altitudechange
+        if _isdivingflight(previousflighttype):
+          altitudeap = -1.0 * altitudechange
+        else:
+          altitudeap = -0.5 * altitudechange
 
     elif flighttype == "VD":
 

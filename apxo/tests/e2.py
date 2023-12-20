@@ -80,10 +80,10 @@ A1.move("UD",  "N", "TTR/HD,HDR,H,H,H")
 asserterror("attempt to turn faster than the declared turn rate.")
 startturn()
 A1.move("UD",  "N", "TTR/H,HR,H,HD,HD")
-A1._assert("1903/2004  NNE  10",  4.5)
+A1._assert("1903/2004  NNE  10",  5.0)
 startturn()
 A1.move("UD",  "N", "HD,HD,H,H,H")
-A1._assert("1803       N    10",  4.5)
+A1._assert("1803       N    10",  5.0)
 endturn()
 
 # Verify that attacks cannot happen on unloaded FPs.
