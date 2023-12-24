@@ -68,7 +68,6 @@ firstgenerationsheets = [
     "Q", "R", "S", "T",
     "U", "V", "W", "X"
 ]
-print(firstgenerationsheets)
 
 secondgenerationsheets = [
     "A1", "B1", "C1", "D1",
