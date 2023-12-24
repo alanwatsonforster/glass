@@ -24,10 +24,12 @@
     "LR/DR": [ 1.0, 1.0 ],
     "VR":    [ 0.0, 0.0 ]
   },
+  // Turn drag table changed to match the ADC supplied by Carl Smeaton without
+  // flaps.
   "turndragtable": {
     "TT": [ 1.0, 1.0, 2.0 ],
-    "HT": [ 2.0, 2.0, 3.0 ],
-    "BT": [ 3.0, 4.0, 4.0 ],
+    "HT": [ 1.0, 2.0, 3.0 ],
+    "BT": [ 2.0, 3.0, 3.0 ],
     "ET": [ "-", "-", "-" ]
   },
   "ceilingtable": [ 48, 42, 34 ],
