@@ -1,18 +1,17 @@
 from apxo.tests.infrastructure import *
 startfile(__file__, "gloc")
 
-
 # GLOC Warning The check for a GLOC warning is not automated. However, the 
 # warnings can be seen by running the code with verbose=True.
 
-starttestsetup(verbose=False)
+starttestsetup(verbose=True)
 A1 = aircraft("A1", "AF", "F-100A", "1215", "N", 25, 6.5, "CL")
 A2 = aircraft("A2", "AF", "F-100A", "1415", "N", 25, 6.5, "CL")
 A3 = aircraft("A3", "AF", "F-100A", "1615", "N", 26, 6.5, "CL")
 endtestsetup()
 
 startturn()
-A1.move("LVL" ,  "AB", "ETR/HR+,HR+,HR+,HR+,HR+,HR+" )
+A1.move("LVL" ,  "AB", "ETR/HR,ETR/HR+,HR+,HR+,HR+,HR+" )
 A1._assert("1615       S    25",  4.5)
 A2.move("LVL" ,  "AB", "BTR/H,HR+,H,HR+,H,HR+"    )
 A2._assert("1710       E    25",  6.0)

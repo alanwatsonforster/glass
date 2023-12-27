@@ -1126,47 +1126,23 @@ def _continuenormalflight(self, actions, note=False):
       if doelements(action, "maneuver declaration", False):
         self._logevent("declared %s." % self.maneuver())
 
+      # We save maneuvertype, as self._maneuvertype may be set to None of the
+      # maneuver is completed below.
+
+      maneuvertype = self._maneuvertype
+      turning = _isturn(maneuvertype)
+      rolling = _isroll(maneuvertype)
+      sliding = _isslide(maneuvertype)
+      
       # See rule 8.2.2 and 13.1.
       if not self._unloaded:
-        if _isturn(self._maneuvertype):
+        if turning:
           self._maneuverfp += 1
-        elif self._maneuvertype == "VR" and self._vertical:
+        elif maneuvertype == "VR" and self._vertical:
           self._maneuverfp += 1
         elif self._horizontal:
           self._maneuverfp += 1
-
-      turning = _isturn(self._maneuvertype)
-      rolling = _isroll(self._maneuvertype)
-      sliding = _isslide(self._maneuvertype)
-      
-      # See rule 9.1. We do this calculation here because any turn rate used in 
-      # this turn is still reflected in self._maneuvertype; the turn may be stopped after the
-      # facing change. The +1 is because the recovery period is this turn plus half of the
-      # speed, rounding down.
-
-      if self._maneuvertype == "ET":
-        self._ETrecoveryfp = int(self._speed / 2) + 1
-        self._BTrecoveryfp = -1
-        self._HTrecoveryfp = -1
-      elif self._maneuvertype == "BT":
-        self._ETrecoveryfp -= 1
-        self._BTrecoveryfp = int(self._speed / 2) + 1
-        self._HTrecoveryfp = -1
-      elif self._maneuvertype == "HT":
-        self._ETrecoveryfp -= 1
-        self._BTrecoveryfp -= 1
-        self._HTrecoveryfp = int(self._speed / 2) + 1
-      else:
-        self._ETrecoveryfp -= 1
-        self._BTrecoveryfp -= 1
-        self._HTrecoveryfp -= 1
-  
-      if self._ETrecoveryfp == 0:
-        self._logevent("recovered from ET.")
-      if self._BTrecoveryfp == 0:
-        self._logevent("recovered from BT.")
-      if self._HTrecoveryfp == 0:
-        self._logevent("recovered from HT.")
+    
 
       maneuver = doelements(action, "maneuver" , False)
       
@@ -1191,6 +1167,35 @@ def _continuenormalflight(self, actions, note=False):
     if turning and self._maneuversupersonic:
       self._turningsupersonic = True
     
+      # See rule 9.1. We do this calculation here because any turn rate used in 
+      # this turn is still reflected in self._maneuvertype; the turn may be stopped after the
+      # facing change. The +1 is because the recovery period is this turn plus half of the
+      # speed, rounding down.
+
+    if maneuvertype == "ET":
+      self._ETrecoveryfp = int(self._speed / 2) + 1
+      self._BTrecoveryfp = -1
+      self._HTrecoveryfp = -1
+    elif maneuvertype == "BT":
+      self._ETrecoveryfp -= 1
+      self._BTrecoveryfp = int(self._speed / 2) + 1
+      self._HTrecoveryfp = -1
+    elif maneuvertype == "HT":
+      self._ETrecoveryfp -= 1
+      self._BTrecoveryfp -= 1
+      self._HTrecoveryfp = int(self._speed / 2) + 1
+    else:
+      self._ETrecoveryfp -= 1
+      self._BTrecoveryfp -= 1
+      self._HTrecoveryfp -= 1
+
+    if self._ETrecoveryfp == 0:
+      self._logevent("recovered from ET.")
+    if self._BTrecoveryfp == 0:
+      self._logevent("recovered from BT.")
+    if self._HTrecoveryfp == 0:
+      self._logevent("recovered from HT.")
+        
     # See rules 7.7 and 8.5.
     if maneuver and rolling:
       if initialaltitude > self.ceiling():
@@ -1200,16 +1205,16 @@ def _continuenormalflight(self, actions, note=False):
     
     # See rules 7.7 and 8.5.
     if maneuver and turning:
-      if initialaltitude > self.ceiling() and self._maneuvertype != "EZ":
+      if initialaltitude > self.ceiling() and maneuvertype != "EZ":
         self._logevent("check for a maneuvering departure as the aircraft is above its ceiling and attempted to turn harder than EZ.")
-      if self._maneuvertype == "ET" and initialaltitude <= 25:
+      if maneuvertype == "ET" and initialaltitude <= 25:
         self._gloccheck += 1
         self._logevent("check for GLOC as turn rate is ET and altitude band is %s (check %d in cycle)." % (initialaltitudeband, self._gloccheck))
 
     # See rule 7.8.
     if turning and self.closeformationsize() != 0:
-      if (self.closeformationsize() > 2 and self._maneuvertype == "HT") or self._maneuvertype == "BT" or self._maneuvertype == "ET":
-        self._logevent("close formation breaks down as the turn rate is %s." % self._maneuvertype)
+      if (self.closeformationsize() > 2 and maneuvertype == "HT") or maneuvertype == "BT" or maneuvertype == "ET":
+        self._logevent("close formation breaks down as the turn rate is %s." % maneuvertype)
         self._breakdowncloseformation()
 
     # See rule 13.7, interpreted in the same sense as rule 7.8.
