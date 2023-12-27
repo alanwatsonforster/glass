@@ -11,25 +11,25 @@ endtestsetup()
 
 startturn()
 A1.move("ST", "M", "")
-A1._assert("1914       N     9", 1.0)
+A1._assert("A1-1914       N     9", 1.0)
 A2.move("ST", "M", "")
-A2._assert("2114       N     2", 1.0)
+A2._assert("A1-2114       N     2", 1.0)
 A3.move("ST", "M", "")
-A3._assert("2314       N     1", 1.0)
+A3._assert("A1-2314       N     1", 1.0)
 endturn()
 
 startturn()
 A1.move("ST", "M", "")
-A1._assert("1914       N     7", 2.0)
+A1._assert("A1-1914       N     7", 2.0)
 A2.move("ST", "M", "")
-A2._assert("2114       N     0", 1.0)
+A2._assert("A1-2114       N     0", 1.0)
 A3.move("ST", "M", "")
-A3._assert("2314       N     0", 1.0)
+A3._assert("A1-2314       N     0", 1.0)
 endturn()
 
 startturn()
 A1.move("LVL", "M", "H,H")
-A1._assert("1912       N     7", 2.0)
+A1._assert("A1-1912       N     7", 2.0)
 endturn()
 
 # Check jettisoning.
@@ -42,17 +42,17 @@ A1 = aircraft("A1", "AF", "F-80C", "2024", "N", 10, 1.0,
                 "2": "BB/M57",
                 "3": "BB/M57"
               })
-A1._assert("2024       N    10", 1.0, expectedconfiguration="DT")
+A1._assert("A2-2024       N    10", 1.0, expectedconfiguration="DT")
 endtestsetup()
 
 startturn()
 A1.move("ST", "N", "J(BB)")
-A1._assert("2024       N     9", 1.0, expectedconfiguration="1/2")
+A1._assert("A2-2024       N     9", 1.0, expectedconfiguration="1/2")
 endturn()
 
 startturn()
 A1.move("ST", "N", "J(1+4)")
-A1._assert("2024       N     7", 1.5, expectedconfiguration="CL")
+A1._assert("A2-2024       N     7", 1.5, expectedconfiguration="CL")
 endturn()
 
 

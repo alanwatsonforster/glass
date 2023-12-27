@@ -12,10 +12,10 @@ A3 = aircraft("A3", "AF", "F-80C", "1515", 180, 10, 4.0, "CL")
 A4 = aircraft("A4", "AF", "F-80C", "1715", 270, 10, 4.0, "CL")
 endtestsetup()
 
-A1._assert("1115       N    10", 4.0)
-A2._assert("1315       E    10", 4.0)
-A3._assert("1515       S    10", 4.0)
-A4._assert("1715       W    10", 4.0)
+A1._assert("A1-1115       N    10", 4.0)
+A2._assert("A1-1315       E    10", 4.0)
+A3._assert("A1-1515       S    10", 4.0)
+A4._assert("A1-1715       W    10", 4.0)
 
 # Check that ENE/ESE/WSW/WNW are accepted.
 
@@ -26,10 +26,10 @@ A3 = aircraft("A3", "AF", "F-80C", "1515", "WSW", 10, 4.0, "CL")
 A4 = aircraft("A4", "AF", "F-80C", "1715", "WNW", 10, 4.0, "CL")
 endtestsetup()
 
-A1._assert("1115       ENE  10", 4.0)
-A2._assert("1315       ESE  10", 4.0)
-A3._assert("1515       WSW  10", 4.0)
-A4._assert("1715       WNW  10", 4.0)
+A1._assert("A1-1115       ENE  10", 4.0)
+A2._assert("A1-1315       ESE  10", 4.0)
+A3._assert("A1-1515       WSW  10", 4.0)
+A4._assert("A1-1715       WNW  10", 4.0)
 
 # Check that NE/SE/SW/NW are accepted but converted to ENE/ESE/WSW/WNW.
 
@@ -40,10 +40,10 @@ A3 = aircraft("A3", "AF", "F-80C", "1515", "SW", 10, 4.0, "CL")
 A4 = aircraft("A4", "AF", "F-80C", "1715", "NW", 10, 4.0, "CL")
 endtestsetup()
 
-A1._assert("1115       ENE  10", 4.0)
-A2._assert("1315       ESE  10", 4.0)
-A3._assert("1515       WSW  10", 4.0)
-A4._assert("1715       WNW  10", 4.0)
+A1._assert("A1-1115       ENE  10", 4.0)
+A2._assert("A1-1315       ESE  10", 4.0)
+A3._assert("A1-1515       WSW  10", 4.0)
+A4._assert("A1-1715       WNW  10", 4.0)
 
 # Check that NE/SE/SW/NW are not accepted.
 
@@ -67,10 +67,10 @@ A3 = aircraft("A3", "AF", "F-80C", "1515", "SW", 10, 4.0, "CL")
 A4 = aircraft("A4", "AF", "F-80C", "1715", "NW", 10, 4.0, "CL")
 endtestsetup()
 
-A1._assert("1115       NE   10", 4.0)
-A2._assert("1315       SE   10", 4.0)
-A3._assert("1515       SW   10", 4.0)
-A4._assert("1715       NW   10", 4.0)
+A1._assert("A1-1115       NE   10", 4.0)
+A2._assert("A1-1315       SE   10", 4.0)
+A3._assert("A1-1515       SW   10", 4.0)
+A4._assert("A1-1715       NW   10", 4.0)
 
 # Check that only NE/SE/SW/NW are accepted.
 

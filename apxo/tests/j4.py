@@ -20,8 +20,8 @@ A2.react("AA(GNSS)(A1)(L)")
 A1.continuemove("H,H")
 A2.move("LVL", "N", "H,H,H,H")
 
-A1._assert("2021       N     5", 4.0)
-A2._assert("2423       E     5", 3.5)
+A1._assert("A2-2021       N     5", 4.0)
+A2._assert("A2-2423       E     5", 3.5)
 assert A1._gunammunition == 6.5
 assert A2._gunammunition == 18.5
 
@@ -50,7 +50,7 @@ A7.move("LVL", "M", "ETR/HR,H,H,H/AA(GN)()()")
 asserterror("attempt to use weapons in or while recovering from an ET.")
 startturn()
 A7.move("LVL", "M", "ETR/HR,H,H,H,H/AA(GN)()()")
-A7._assert("2221       NNE   5", 6.0)
+A7._assert("A2-2221       NNE   5", 6.0)
 
 # Check error if attack results are not specified at end of turn.
 starttestsetup()
