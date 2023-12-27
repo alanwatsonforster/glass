@@ -26,7 +26,7 @@ endtestsetup()
 
 startturn()
 A1.move("SD" ,  "M", "BTR/H/RRR+,H/RRR+,D/RRR+"    )
-A1._assert("2109       W     9",  2.0)
+A1._assert("2109       W     9",  1.5)
 endturn()
 
 startturn()
@@ -34,7 +34,7 @@ A1.move("SD" ,  "M", "H")
 asserterror("aircraft has entered departed flight while maneuvering.")
 startturn()
 A1.move("DP" ,  "M", "R30"    )
-A1._assert("2109       WNW   7",  2.0)
+A1._assert("2109       WNW   7",  1.5)
 endturn()
 
 # Maneuvering Departures from Rolls. Run with verbose=True to check that the 

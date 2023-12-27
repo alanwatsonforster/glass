@@ -406,19 +406,24 @@ def _continuenormalflight(self, actions, note=False):
     if self._maneuverfp < self._maneuverrequiredfp or facingchange > self._maneuverfacingchange:
       raise RuntimeError("attempt to turn faster than the declared turn rate.")
 
-    if self._turnmaneuvers > 0:
-      if apvariants.withvariant("use version 2.4 rules"):
-        if self.hasproperty("LBR"):
-          self._sustainedturnap -= facingchange // 30 * 0.5
-        elif self.hasproperty("HBR"):
-          self._sustainedturnap -= facingchange // 30 * 1.5
-        else:
-          self._sustainedturnap -= facingchange // 30 * 1.0
+    # See Hack's article in APJ 36
+    if self._turnmaneuvers == 0:
+      sustainedfacingchanges = facingchange // 30 - 1
+    else:
+      sustainedfacingchanges = facingchange // 30
+
+    if apvariants.withvariant("use version 2.4 rules"):
+      if self.hasproperty("LBR"):
+        self._sustainedturnap -= sustainedfacingchanges * 0.5
+      elif self.hasproperty("HBR"):
+        self._sustainedturnap -= sustainedfacingchanges * 1.5
       else:
-        if self.hasproperty("HBR"):
-          self._sustainedturnap -= facingchange // 30 * 2.0
-        else:
-          self._sustainedturnap -= facingchange // 30 * 1.0
+        self._sustainedturnap -= sustainedfacingchanges * 1.0
+    else:
+      if self.hasproperty("HBR"):
+        self._sustainedturnap -= sustainedfacingchanges * 2.0
+      else:
+        self._sustainedturnap -= sustainedfacingchanges * 1.0
 
     self._turnmaneuvers += 1
 

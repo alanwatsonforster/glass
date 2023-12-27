@@ -14,22 +14,22 @@ endturn()
 
 startturn()
 A1.move("LVL",  "FT", "BTR/H/RR,BTR/H/RR,BTR/H/RR,BTR/H/RR")
-A1._assert("2108       ESE  10",  3.5)
+A1._assert("2108       ESE  10",  3.0)
 endturn()
 
 startturn()
-A1.move("LVL",  "FT", "BTR/H/RRR,BTR/H/RRR,BTR/H/RRR,HTR/H/RR")
-A1._assert("2108       E    10",  2.5)
-endturn()
-
-startturn()
-A1.move("LVL",  "FT", "HTR/H/RRR,HTR/H/RRR")
-A1._assert("2210       W    10",  2.5)
+A1.move("LVL",  "FT", "BTR/H/RRR,BTR/H/RRR,BTR/H/RRR")
+A1._assert("2009       NNE  10",  2.5)
 endturn()
 
 startturn()
 A1.move("LVL",  "FT", "HTR/H/RRR,HTR/H/RRR,HTR/H/RRR")
-A1._assert("2209       S    10",  2.5)
+A1._assert("2109       WNW  10",  2.0)
+endturn()
+
+startturn()
+A1.move("LVL",  "FT", "HTR/H/RRR,HTR/H/RRR")
+A1._assert("2108       ESE  10",  1.5)
 endturn()
 
 # Sustained turns with HBR aircraft
@@ -45,7 +45,7 @@ endturn()
 
 startturn()
 A1.move("LVL",  "AB", "BTR/H/RR,BTR/H/RR,BTR/H/RR,BTR/H/RR")
-A1._assert("2210       ENE  10",  1.5)
+A1._assert("2210       ENE  10",  1.0)
 endturn()
 
 endfile(__file__)

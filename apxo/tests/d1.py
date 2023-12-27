@@ -11,7 +11,7 @@ startturn()
 A1.move("LVL",  "AB", "BTR/HRR,BTR/HRR,BTR/HRR,BTR/HR")
 A1._assert("1310       SSW  10",  2.5)
 A2.move("LVL",  "AB", "BTR/HRR,BTR/HRR,BTR/HRR,BTR/HR")
-A2._assert("1510       SSW  10",  3.5)
+A2._assert("1510       SSW  10",  3.0)
 endturn()
 
 
