@@ -14,20 +14,8 @@ def isvalidhexcodeforcenter(h):
   Otherwise return False.
   """
 
-  if isinstance(h, int) and _inrange(h):
-    return True
-
-  if isinstance(h, float) and h % 1.0 == 0.0 and _inrange(h):
-    return True
-
-  if isinstance(h, str) and h.isdecimal() and _inrange(int(h)):
-    return True
-
   p = re.compile(r"[A-Z]+[0-9]?-[0-9][0-9][0-9][0-9]")
-  if isinstance(h, str) and p.fullmatch(h) is not None:
-    return True
-
-  return False
+  return isinstance(h, str) and p.fullmatch(h) is not None
 
 def checkisvalidhexcodeforcenter(h):
 
@@ -46,24 +34,8 @@ def isvalidhexcodeforside(h):
   Otherwise return False.
   """
 
-  if not isinstance(h, str):
-    return False
-
   p = re.compile(r"^[A-Z]+[0-9]?-[0-9][0-9][0-9][0-9]/[0-9][0-9][0-9][0-9]$")
-  if isinstance(h, str) and p.match(h):
-    return True
-
-  m = h.split("/")
-  if len(m) != 2:
-    return False
-
-  if not m[0].isdecimal() or not _inrange(int(m[0])):
-    return False
-
-  if not m[1].isdecimal() or not _inrange(int(m[1])):
-    return False
-
-  return True
+  return isinstance(h, str) and p.fullmatch(h) is not None
 
 def checkvalidhexcodeforside(h):
 
@@ -123,7 +95,7 @@ def fromxy(x, y, sheet=None):
         raise RuntimeError("position is not within the map.")
 
     x0, y0 = apmap.sheetorigin(sheet)
-    XX0, YY0 = _split(_sheetorigin(sheet))
+    XX0, YY0 = _sheetorigin(sheet)
     XX = XX0 + (x - x0)
     YY = YY0 - (y - y0)
     if XX % 2 == 1:
@@ -165,14 +137,11 @@ def toxy(h, sheet=None):
 
     sheet, label = _SPLITCENTER(h)
 
-    if sheet == None:
-      sheet = tosheet(h, includerightside=True, includebottomside=True)
-      if sheet == None:
-        raise RuntimeError("hex code %r is not within the map." % h)
+    assert sheet is not None
 
     XX, YY = _SPLITLABEL(label)
 
-    XX0, YY0 = _split(_sheetorigin(sheet))
+    XX0, YY0 = _sheetorigin(sheet)
     x0, y0 = apmap.sheetorigin(sheet)
 
     dx = XX - XX0
@@ -186,16 +155,10 @@ def toxy(h, sheet=None):
 
     sheet, label0, label1 = _SPLITSIDE(h)
 
-    if sheet == None:
-      sheet0 = tosheet(label0)
-      sheet1 = tosheet(label1)
-      if sheet0 == None:
-        sheet0 = sheet1
-      elif sheet1 == None:
-        sheet1 = sheet0
+    assert sheet is not None
 
-    x0, y0 = toxy("%s-%04d" % (sheet0, label0))
-    x1, y1 = toxy("%s-%04d" % (sheet1, label1))
+    x0, y0 = toxy("%s-%04d" % (sheet, label0))
+    x1, y1 = toxy("%s-%04d" % (sheet, label1))
 
     return 0.5 * (x0 + x1), 0.5 * (y0 + y1)
 
@@ -284,7 +247,7 @@ def _sheetorigin(sheet):
 
     # The first-generation maps are all labeled identically.
 
-    return "0025"
+    return 0, 25
 
     if sheet in ["A", "E", "I", "M", "Q", "U"]:
       XX = 00
@@ -336,7 +299,7 @@ def _sheetorigin(sheet):
     else:
       raise RuntimeError("%r is not a valid sheet." % sheet)
 
-  return _join(XX, YY)
+  return XX, YY
 
 def tosheet(h, 
   includerightside=False, includeleftside=False,
