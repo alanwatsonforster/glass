@@ -42,17 +42,17 @@ A1 = aircraft("A1", "AF", "F-80C", "2024", "N", 10, 1.0,
                 "2": "BB/M57",
                 "3": "BB/M57"
               })
-A1._assert("2024       N    10", 1.0, configuration="DT")
+A1._assert("2024       N    10", 1.0, expectedconfiguration="DT")
 endtestsetup()
 
 startturn()
 A1.move("ST", "N", "J(BB)")
-A1._assert("2024       N     9", 1.0, configuration="1/2")
+A1._assert("2024       N     9", 1.0, expectedconfiguration="1/2")
 endturn()
 
 startturn()
 A1.move("ST", "N", "J(1+4)")
-A1._assert("2024       N     7", 1.5, configuration="CL")
+A1._assert("2024       N     7", 1.5, expectedconfiguration="CL")
 endturn()
 
 

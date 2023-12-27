@@ -934,7 +934,7 @@ class aircraft:
 
   ################################################################################
 
-  def _assert(self, position, speed, configuration=None):
+  def _assert(self, expectedposition, expectedspeed, expectedconfiguration=None):
 
     """
     Verify the position and new speed of an aircraft.
@@ -944,29 +944,33 @@ class aircraft:
       print("== assertion failed ===")
       print("== unexpected error: %r" % aplog._error)
       assert aplog._error == None
-    if position != None and position != self.position():
+
+    expectedposition = re.sub(" +", " ", expectedposition)
+    actualposition   = re.sub(" +", " ", self.position())
+
+    if expectedposition != None and expectedposition != actualposition:
       print("== assertion failed ===")
-      print("== actual   position: %s" % self.position())
-      print("== expected position: %s" % position)
-      assert position == self.position()
-    if speed is not None:
+      print("== actual   position: %s" % actualposition)
+      print("== expected position: %s" % expectedposition)
+      assert expectedposition == actualposition
+    if expectedspeed is not None:
       if self._newspeed is None:
-        if speed != self._speed:
+        if expectedspeed != self._speed:
           print("== assertion failed ===")
           print("== actual   speed: %.1f" % self._speed)
-          print("== expected speed: %.1f" % speed)
-          assert speed == self._speed
+          print("== expected speed: %.1f" % expectedspeed)
+          assert expectedspeed == self._speed
       else:
-        if speed != self._newspeed:
+        if expectedspeed != self._newspeed:
           print("== assertion failed ===")
           print("== actual   new speed: %.1f" % self._newspeed)
-          print("== expected new speed: %.1f" % speed)
-          assert speed == self._newspeed
-    if configuration != None and configuration != self._configuration:
+          print("== expected new speed: %.1f" % expectedspeed)
+          assert expectedspeed == self._newspeed
+    if expectedconfiguration != None and expectedconfiguration != self._configuration:
       print("== assertion failed ===")
       print("== actual   configuration: %s" % self._configuration)
-      print("== expected configuration: %s" % configuration)
-      assert configuration == self._configuration
+      print("== expected configuration: %s" % expectedconfiguration)
+      assert expectedconfiguration == self._configuration
 
 ################################################################################  
 
