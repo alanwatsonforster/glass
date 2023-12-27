@@ -17,16 +17,25 @@ def engines(self):
 def powerfade(self):
   return self._aircraftdata.powerfade(self._speed, self._altitude)
 
+def lowspeedliftdevicename(self):
+    return self._aircraftdata.lowspeedliftdevicename()
+
+def lowspeedliftdevicelimit(self):
+    return self._aircraftdata.lowspeedliftdevicelimit()
+    
+def lowspeedliftdeviceselectable(self):
+    return self._aircraftdata.lowspeedliftdeviceselectable()
+    
 def turndrag(self, turnrate):
 
   def rawturndrag(turnrate):
-    lowspeedliftlimit = self._aircraftdata.lowspeedliftlimit()
-    if lowspeedliftlimit == None:
+    lowspeedliftdevicelimit = self._aircraftdata.lowspeedliftdevicelimit()
+    if lowspeedliftdevicelimit == None:
       return self._aircraftdata.turndrag(self._configuration, turnrate)
-    elif self._speed <= lowspeedliftlimit:
-      return self._aircraftdata.turndrag(self._configuration, turnrate, lowspeed=True)
+    elif self._lowspeedliftdeviceextended:
+      return self._aircraftdata.turndrag(self._configuration, turnrate, lowspeedliftdevice=True)
     else:
-      return self._aircraftdata.turndrag(self._configuration, turnrate, highspeed=True)
+      return self._aircraftdata.turndrag(self._configuration, turnrate)
   
   if turnrate == "EZ":
       return 0.0
@@ -39,18 +48,13 @@ def turndrag(self, turnrate):
       return None
     if turnrate == "BT" and rawturndrag("ET") == None:
       return None
+
   return rawturndrag(turnrate)
 
-  lowspeedliftlimit = self._aircraftdata.lowspeedliftlimit()
-  if lowspeedliftlimit == None:
-    return self._aircraftdata.turndrag(self._configuration, turnrate)
-  elif self._speed <= lowspeedliftlimit:
-    return self._aircraftdata.turndrag(self._configuration, turnrate, lowspeed=True)
-  else:
-    return self._aircraftdata.turndrag(self._configuration, turnrate, highspeed=True)
-
 def minspeed(self):
+
   minspeed = self._aircraftdata.minspeed(self._configuration, self._altitudeband)
+
   if minspeed == None:
     # The aircraft is temporarily above its ceiling, so take the speed from the
     # highest band in the table.
@@ -58,6 +62,12 @@ def minspeed(self):
       minspeed = self._aircraftdata.minspeed(self._configuration, altitudeband)
       if minspeed != None:
         break
+
+  if apvariants.withvariant("use version 2.4 rules"):
+    # See rule 7.6 in version 2.4.
+    if self.lowspeedliftdeviceselectable() and self._lowspeedliftdeviceextended:
+      minspeed -= 0.5
+
   return minspeed
 
 def maxspeed(self):

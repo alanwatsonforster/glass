@@ -24,8 +24,16 @@
     "LR/DR": [ 1.0, 1.0 ],
     "VR":    [ 0.0, 0.0 ]
   },
-  // Turn drag table changed to match the ADC supplied by Carl Smeaton without
-  // flaps.
+  // Leading-edge slats from the ADC supplied by Carl Smeaton.
+  "lowspeedliftdevicename": "leading-edge slats",
+  "lowspeedliftdeviceselectable": true,
+  "lowspeedliftdevicelimit": 4.0,
+  "lowspeedliftdeviceturndragtable": {
+    "TT": [ 1.0, 1.0, 2.0 ],
+    "HT": [ 2.0, 2.0, 3.0 ],
+    "BT": [ 3.0, 4.0, 4.0 ],
+    "ET": [ "-", "-", "-" ]
+  },
   "turndragtable": {
     "TT": [ 1.0, 1.0, 2.0 ],
     "HT": [ 1.0, 2.0, 3.0 ],

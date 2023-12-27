@@ -99,25 +99,29 @@ class aircraftdata:
   def engines(self):
     return self._data["engines"]
   
-  def lowspeedliftlimit(self):
-    if "lowspeedliftlimit" in self._data:
-      return self._data["lowspeedliftlimit"]
+  def lowspeedliftdeviceselectable(self):
+    if "lowspeedliftdeviceselectable" in self._data:
+      return self._data["lowspeedliftdeviceselectable"]
+    else:
+      return False
+      
+  def lowspeedliftdevicelimit(self):
+    if "lowspeedliftdevicelimit" in self._data:
+      return self._data["lowspeedliftdevicelimit"]
     else:
       return None
 
-  def lowspeedliftdevice(self):
-    if "lowspeedliftdevice" in self._data:
-      return self._data["lowspeedliftdevice"]
+  def lowspeedliftdevicename(self):
+    if "lowspeedliftdevicename" in self._data:
+      return self._data["lowspeedliftdevicename"]
     else:
       return None
   
-  def turndrag(self, configuration, turnrate, lowspeed=False, highspeed=False):
+  def turndrag(self, configuration, turnrate, lowspeedliftdevice=False):
     _checkconfiguration(configuration)
     _checkturnrate(turnrate)
-    if lowspeed:
-      table = "lowspeedliftdragtable"
-    elif highspeed:
-      table = "highspeedturndragtable"
+    if lowspeedliftdevice:
+      table = "lowspeedliftdeviceturndragtable"
     else:
       table = "turndragtable"
     if not turnrate in self._data[table]:
@@ -421,24 +425,35 @@ class aircraftdata:
 
       str("Turn Drag:")
       str("")
-      if self.lowspeedliftlimit() != None:
-        str("For speed <= %.1f" % self.lowspeedliftlimit())
+      if self.lowspeedliftdevicelimit() != None:
+        str("Low-speed lift device           : %s" % self.lowspeedliftdevicename())
+        str("Low-speed lift device limit     : %.1f" % self.lowspeedliftdevicelimit())
+        str("Low-speed lift device selectable: %r" % self.lowspeedliftdeviceselectable())
+        str("")
+        if self.lowspeedliftdeviceselectable():
+          str("For speed <= %.1f and selected." % self.lowspeedliftdevicelimit())
+        else:
+          str("For speed <= %.1f." % self.lowspeedliftdevicelimit())
         str("       CL   1/2  DT")
         for turnrate in ["TT", "HT", "BT", "ET"]:
           str("%s     %s  %s  %s" % (
             turnrate,
-            f1(self.turndrag("CL" , turnrate, lowspeed=True)),
-            f1(self.turndrag("1/2", turnrate, lowspeed=True)),
-            f1(self.turndrag("DT" , turnrate, lowspeed=True)),
+            f1(self.turndrag("CL" , turnrate, lowspeedliftdevice=True)),
+            f1(self.turndrag("1/2", turnrate, lowspeedliftdevice=True)),
+            f1(self.turndrag("DT" , turnrate, lowspeedliftdevice=True)),
           ))
-        str("For speed > %.1f" % self.lowspeedliftlimit())
+        str("")
+        if self.lowspeedliftdeviceselectable():
+          str("For speed > %.1f or not selected." % self.lowspeedliftdevicelimit())
+        else:
+          str("For speed > %.1f." % self.lowspeedliftdevicelimit())
         str("       CL   1/2  DT")
         for turnrate in ["TT", "HT", "BT", "ET"]:
           str("%s     %s  %s  %s" % (
             turnrate,
-            f1(self.turndrag("CL" , turnrate, highspeed=True)),
-            f1(self.turndrag("1/2", turnrate, highspeed=True)),
-            f1(self.turndrag("DT" , turnrate, highspeed=True)),
+            f1(self.turndrag("CL" , turnrate)),
+            f1(self.turndrag("1/2", turnrate)),
+            f1(self.turndrag("DT" , turnrate)),
           ))
       else:
         str("       CL   1/2  DT")

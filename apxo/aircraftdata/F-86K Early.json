@@ -24,14 +24,14 @@
     "LR/DR": [ 1.0, 1.0 ],
     "VR":    [ 0.0, 0.0 ]
   },
-  "lowspeedliftlimit": 3.5,
-  "lowspeedliftdevice": "leading-edge slats",
-  "lowspeedliftdragtable": {
+  "lowspeedliftdevicelimit": 3.5,
+  "lowspeedliftdevicename": "leading-edge slats",
+  "lowspeedliftdeviceturndragtable": {
     "TT": [ 1.0, 1.0, 1.0 ],
     "HT": [ 1.0, 2.0, 2.0 ],
     "BT": [ 3.0, 3.0, 3.0 ]
   },
-  "highspeedturndragtable": {
+  "turndragtable": {
     "TT": [ 1.0, 1.0, 1.0 ],
     "HT": [ 1.0, 1.0, 1.0 ],
     "BT": [ 2.0, 2.0, 2.0 ]

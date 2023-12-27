@@ -132,6 +132,7 @@ class aircraft:
   from .flightcapabilities import \
     power, spbr, fuelrate, powerfade, engines, turndrag, \
     minspeed, maxspeed, cruisespeed, climbspeed, maxdivespeed, ceiling, \
+    lowspeedliftdevicename, lowspeedliftdevicelimit, lowspeedliftdeviceselectable, \
     rollhfp, rolldrag, climbcapability, hasproperty, \
     specialclimbcapability, gunarc, \
     visibility, blindarcs, restrictedarcs
@@ -195,62 +196,63 @@ class aircraft:
 
       self._logbreak()
       self._logline()
-      self._name                  = name
+      self._name                       = name
       self._logaction("", "creating aircraft %s." % name)
 
-      self._x                     = x
-      self._y                     = y
-      self._facing                = facing
-      self._altitude              = altitude
-      self._altitudeband          = apaltitude.altitudeband(self._altitude)
-      self._altitudecarry         = 0
-      self._speed                 = speed
-      self._newspeed              = None
-      self._damageL               = 0
-      self._damageH               = 0
-      self._damageC               = 0
-      self._damageK               = 0
-      self._flighttype            = "LVL"
-      self._powersetting          = "N"
-      self._bank                  = None
-      self._maneuvertype          = None
-      self._maneuversense         = None
-      self._maneuverfp            = 0
-      self._maneuverrequiredfp    = 0
-      self._maneuverfacingchange  = None
-      self._manueversupersonic    = False
-      self._wasrollingonlastfp    = False
-      self._fpcarry               = 0
-      self._apcarry               = 0
-      self._gloccheck             = 0
-      self._ETrecoveryfp          = -1
-      self._BTrecoveryfp          = -1
-      self._HTrecoveryfp          = -1
-      self._closeformation        = []
-      self._aircraftdata          = apaircraftdata.aircraftdata(aircrafttype)
+      self._x                          = x
+      self._y                          = y
+      self._facing                     = facing
+      self._altitude                   = altitude
+      self._altitudeband               = apaltitude.altitudeband(self._altitude)
+      self._altitudecarry              = 0
+      self._speed                      = speed
+      self._newspeed                   = None
+      self._damageL                    = 0
+      self._damageH                    = 0
+      self._damageC                    = 0
+      self._damageK                    = 0
+      self._flighttype                 = "LVL"
+      self._powersetting               = "N"
+      self._bank                       = None
+      self._maneuvertype               = None
+      self._maneuversense              = None
+      self._maneuverfp                 = 0
+      self._maneuverrequiredfp         = 0
+      self._maneuverfacingchange       = None
+      self._manueversupersonic         = False
+      self._wasrollingonlastfp         = False
+      self._fpcarry                    = 0
+      self._apcarry                    = 0
+      self._gloccheck                  = 0
+      self._ETrecoveryfp               = -1
+      self._BTrecoveryfp               = -1
+      self._HTrecoveryfp               = -1
+      self._lowspeedliftdeviceselected = False
+      self._closeformation             = []
+      self._aircraftdata               = apaircraftdata.aircraftdata(aircrafttype)
       if gunammunition is None:
-        self._gunammunition       = self._aircraftdata.gunammunition()
+        self._gunammunition            = self._aircraftdata.gunammunition()
       else:
-        self._gunammunition       = gunammunition
+        self._gunammunition            = gunammunition
       if rocketfactors is None:
-        self._rocketfactors       = self._aircraftdata.rocketfactors()
+        self._rocketfactors            = self._aircraftdata.rocketfactors()
       else:
-        self._rocketfactors       = rocketfactors
-      self._crew                  = self._aircraftdata.crew()
-      self._destroyed             = False
-      self._leftmap               = False
-      self._sighted               = False
-      self._identified            = False
-      self._paintscheme           = paintscheme
-      self._turnsstalled          = 0
-      self._turnsdeparted         = 0
-      self._finishedmove          = True
-      self._flightpathx           = []
-      self._flightpathy           = []
-      self._color                 = color
-      self._counter               = counter
-      self._force                 = force
-      self._enginesmoking         = False
+        self._rocketfactors            = rocketfactors
+      self._crew                       = self._aircraftdata.crew()
+      self._destroyed                  = False
+      self._leftmap                    = False
+      self._sighted                    = False
+      self._identified                 = False
+      self._paintscheme                = paintscheme
+      self._turnsstalled               = 0
+      self._turnsdeparted              = 0
+      self._finishedmove               = True
+      self._flightpathx                = []
+      self._flightpathy                = []
+      self._color                      = color
+      self._counter                    = counter
+      self._force                      = force
+      self._enginesmoking              = False
 
       self._logaction("", "force         is %s." % force)
       self._logaction("", "type          is %s." % aircrafttype)
@@ -861,6 +863,7 @@ class aircraft:
     self._ETrecoveryfp, \
     self._BTrecoveryfp, \
     self._HTrecoveryfp, \
+    self._lowspeedliftdeviceselected, \
     self._closeformation, \
     self._destroyed, \
     self._leftmap, \
@@ -911,6 +914,7 @@ class aircraft:
       self._ETrecoveryfp, \
       self._BTrecoveryfp, \
       self._HTrecoveryfp, \
+      self._lowspeedliftdeviceselected, \
       self._closeformation, \
       self._destroyed, \
       self._leftmap, \

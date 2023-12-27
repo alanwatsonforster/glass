@@ -24,7 +24,7 @@ assert d.powerfade(6.0, 20) == None
 assert d.spbr("DT") == 1.0
 assert d.fuelrate("M") == 2.0
 assert d.engines() == 1
-assert d.lowspeedliftlimit() == None
+assert d.lowspeedliftdevicelimit() == None
 assert d.turndrag("CL", "BT") == 4.0
 assert d.turndrag("CL", "ET") == None
 assert d.turndrag("DT", "BT") == None
@@ -61,9 +61,9 @@ apxo.variants.setvariants([])
 # Check slatted wings using the F-100A as a test case.
 
 d = aircraftdata("F-100A")
-assert d.turndrag("CL", "BT", lowspeed=True) == 3.0
-assert d.turndrag("CL", "BT", highspeed=True) == 2.0
-assert d.lowspeedliftlimit() == 4.0
+assert d.turndrag("CL", "BT", lowspeedliftdevice=True) == 3.0
+assert d.turndrag("CL", "BT") == 2.0
+assert d.lowspeedliftdevicelimit() == 4.0
 
 # Check power fade with speed using the Sea Fury as an test case.
 

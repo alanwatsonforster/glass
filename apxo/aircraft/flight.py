@@ -13,7 +13,8 @@ from .draw import _zorder
 
 ##############################################################################
 
-def move(self, flighttype, power, actions="", flamedoutengines=0, note=False):
+def move(self, flighttype, power, actions="", 
+  flamedoutengines=0, lowspeedliftdeviceselected=None, note=False):
 
   """
   Start a move, declaring the flight type and power, and possible carrying 
@@ -84,7 +85,7 @@ def move(self, flighttype, power, actions="", flamedoutengines=0, note=False):
     if flighttype == "SP":
       self._speed = power
     else:
-      self._startmovespeed(power, flamedoutengines)
+      self._startmovespeed(power, flamedoutengines, lowspeedliftdeviceselected)
       self._logstart("configuration is %s." % self._configuration)
     self._logstart("altitude band is %s." % self._altitudeband)
     self._logstart("damage        is %s." % self.damage())

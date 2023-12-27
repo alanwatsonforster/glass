@@ -7,7 +7,7 @@ from apxo.log import plural
 
 from .normalflight import _isclimbingflight, _isdivingflight
 
-def _startmovespeed(self, power, flamedoutengines):
+def _startmovespeed(self, power, flamedoutengines, lowspeedliftdeviceselected):
 
     """
     Carry out the rules to do with power, speed, and speed-induced drag at the 
@@ -260,6 +260,48 @@ def _startmovespeed(self, power, flamedoutengines):
         self._logevent("reducing speed to %.1f as the power setting is I." % speed)
 
     reportspeed()
+    
+    ############################################################################
+
+    # See the "Aircraft Damage Effects" in the Play Aids.
+
+    if speed >= m1speed and self.damageatleast("H"):
+      self._logevent("check for progressive damage as damage is %s at supersonic speed." % self.damage())
+
+    ############################################################################
+
+    # Low-speed lift devices (e.g., slats or flaps).
+
+    if self.lowspeedliftdevicelimit() is None:
+
+      self._lowspeedliftdeviceextended = False
+ 
+    else:
+      
+      if apvariants.withvariant("use version 2.4 rules") and self.lowspeedliftdeviceselectable():
+
+        if lowspeedliftdeviceselected is not None:
+          self._lowspeedliftdeviceselected = lowspeedliftdeviceselected
+
+        if self._lowspeedliftdeviceselected:
+          self._logevent("%s selected." % self.lowspeedliftdevicename())
+        else:
+          self._logevent("%s not selected." % self.lowspeedliftdevicename())
+
+        self._lowspeedliftdeviceextended = self._lowspeedliftdeviceselected and (speed <= self.lowspeedliftdevicelimit())
+
+      else:
+
+        self._lowspeedliftdeviceextended = (speed <= self.lowspeedliftdevicelimit())
+
+      if self._lowspeedliftdeviceextended:
+        self._logevent("%s extended." % self.lowspeedliftdevicename())
+      else:
+        self._logevent("%s retracted." % self.lowspeedliftdevicename())
+
+    self._logevent("minumum speed is %.1f." % self.minspeed())
+    
+    ############################################################################
 
     # See rule 6.3 on entering a stall.
       
@@ -269,21 +311,7 @@ def _startmovespeed(self, power, flamedoutengines):
       self._logevent("aircraft is stalled.")
       if self._flighttype != "ST" and self._flighttype != "DP":
         raise RuntimeError("flight type must be ST or DP.")
-    
-    # See the "Aircraft Damage Effects" in the Play Aids.
-
-    if speed >= m1speed and self.damageatleast("H"):
-      self._logevent("check for progressive damage as damage is %s at supersonic speed." % self.damage())
-
-    # Re slats or maneuvering flaps.
-
-    lowspeedliftlimit = self._aircraftdata.lowspeedliftlimit()
-    if lowspeedliftlimit != None:
-      if speed <= lowspeedliftlimit:
-        self._logevent("%s extended." % self._aircraftdata.lowspeedliftdevice())
-      else:
-        self._logevent("%s retracted." % self._aircraftdata.lowspeedliftdevice())
-    
+        
     ############################################################################
 
     # Determine the speed-induced drag.
