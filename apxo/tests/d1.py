@@ -4,8 +4,8 @@ startfile(__file__, "slatted wings")
 # Turns with slatted wings.
 
 starttestsetup()
-A1 = aircraft("A1", "AF", "F-100A" , "1110", "N", 10, 4.0, "CL")
-A2 = aircraft("A2", "AF", "F-100A" , "1310", "N", 10, 4.5, "CL")
+A1 = aircraft("A1", "AF", "F-100A" , "A1-1110", "N", 10, 4.0, "CL")
+A2 = aircraft("A2", "AF", "F-100A" , "A1-1310", "N", 10, 4.5, "CL")
 endtestsetup()
 startturn()
 A1.move("LVL",  "AB", "BTR/HRR,BTR/HRR,BTR/HRR,BTR/HR")
@@ -17,8 +17,8 @@ endturn()
 # Turns with selectable slats.
 
 starttestsetup(variants=["use version 2.4 rules"], verbose=False)
-A1 = aircraft("A1", "AF", "F-5A" , "1110", "N", 10, 4.0, "CL")
-A2 = aircraft("A2", "AF", "F-5A" , "1310", "N", 10, 4.0, "CL")
+A1 = aircraft("A1", "AF", "F-5A" , "A1-1110", "N", 10, 4.0, "CL")
+A2 = aircraft("A2", "AF", "F-5A" , "A1-1310", "N", 10, 4.0, "CL")
 endtestsetup()
 
 startturn()

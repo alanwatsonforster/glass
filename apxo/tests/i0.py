@@ -4,10 +4,10 @@ startfile(__file__, "close formations")
 # Close Formations
 
 starttestsetup()
-A1 = aircraft("A1", "AF", "F-80C", "2115", "N", 20, 4.0, "CL")
-A2 = aircraft("A2", "AF", "F-80C", "2115", "N", 20, 4.0, "CL")
-A3 = aircraft("A3", "AF", "F-80C", "2115", "N", 20, 4.0, "CL")
-A4 = aircraft("A4", "AF", "F-80C", "2115", "N", 20, 4.0, "CL")
+A1 = aircraft("A1", "AF", "F-80C", "A1-2115", "N", 20, 4.0, "CL")
+A2 = aircraft("A2", "AF", "F-80C", "A1-2115", "N", 20, 4.0, "CL")
+A3 = aircraft("A3", "AF", "F-80C", "A1-2115", "N", 20, 4.0, "CL")
+A4 = aircraft("A4", "AF", "F-80C", "A1-2115", "N", 20, 4.0, "CL")
 
 A1.joincloseformation(A2)
 
@@ -56,17 +56,17 @@ assert A4.closeformationnames() == ["A1", "A2", "A3", "A4"]
 endtestsetup()
 
 starttestsetup()
-A1 = aircraft("A1", "AF", "F-80C", "2115", "N", 20, 4.0, "CL")
-A2 = aircraft("A2", "AF", "F-80C", "2115", "N", 20, 4.0, "CL")
-A3 = aircraft("A3", "AF", "F-80C", "2115", "N", 20, 4.0, "CL")
-A4 = aircraft("A4", "AF", "F-80C", "2115", "N", 20, 4.0, "CL")
+A1 = aircraft("A1", "AF", "F-80C", "A1-2115", "N", 20, 4.0, "CL")
+A2 = aircraft("A2", "AF", "F-80C", "A1-2115", "N", 20, 4.0, "CL")
+A3 = aircraft("A3", "AF", "F-80C", "A1-2115", "N", 20, 4.0, "CL")
+A4 = aircraft("A4", "AF", "F-80C", "A1-2115", "N", 20, 4.0, "CL")
 
-A5 = aircraft("A5", "AF", "F-80C", "2115", "N", 20, 4.0, "CL")
+A5 = aircraft("A5", "AF", "F-80C", "A1-2115", "N", 20, 4.0, "CL")
 
-A6 = aircraft("A6", "AF", "F-80C", "2116", "N", 20, 4.0, "CL")
-A7 = aircraft("A7", "AF", "F-80C", "2115", "E", 20, 4.0, "CL")
-A8 = aircraft("A8", "AF", "F-80C", "2115", "N", 21, 4.0, "CL")
-A9 = aircraft("A9", "AF", "F-80C", "2115", "N", 20, 4.5, "CL")
+A6 = aircraft("A6", "AF", "F-80C", "A1-2116", "N", 20, 4.0, "CL")
+A7 = aircraft("A7", "AF", "F-80C", "A1-2115", "E", 20, 4.0, "CL")
+A8 = aircraft("A8", "AF", "F-80C", "A1-2115", "N", 21, 4.0, "CL")
+A9 = aircraft("A9", "AF", "F-80C", "A1-2115", "N", 20, 4.5, "CL")
 
 A1.joincloseformation(A2)
 A1.joincloseformation(A3)
@@ -96,10 +96,10 @@ asserterror("attempt to form a close formation from aircraft with different spee
 endtestsetup()
 
 starttestsetup(verbose=False)
-A1 = aircraft("A1", "AF", "F-80C", "2115", "N", 20, 4.0, "CL")
-A2 = aircraft("A2", "AF", "F-80C", "2115", "N", 20, 4.0, "CL")
-A3 = aircraft("A3", "AF", "F-80C", "2115", "N", 20, 4.0, "CL")
-A4 = aircraft("A4", "AF", "F-80C", "2115", "N", 20, 4.0, "CL")
+A1 = aircraft("A1", "AF", "F-80C", "A1-2115", "N", 20, 4.0, "CL")
+A2 = aircraft("A2", "AF", "F-80C", "A1-2115", "N", 20, 4.0, "CL")
+A3 = aircraft("A3", "AF", "F-80C", "A1-2115", "N", 20, 4.0, "CL")
+A4 = aircraft("A4", "AF", "F-80C", "A1-2115", "N", 20, 4.0, "CL")
 
 A1.joincloseformation(A2)
 A1.joincloseformation(A3)

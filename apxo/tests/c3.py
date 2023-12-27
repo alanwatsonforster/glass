@@ -4,10 +4,10 @@ startfile(__file__, "speed brakes")
 # Speed Brakes
 
 starttestsetup()
-A1 = aircraft("A1", "AF", "F-80C", "1115", "N", 10, 2.5, "CL")
-A2 = aircraft("A2", "AF", "F-80C", "1315", "N", 10, 3.0, "CL")
-A3 = aircraft("A3", "AF", "F-80C", "1515", "N", 10, 3.5, "CL")
-A4 = aircraft("A4", "AF", "F-80C", "1715", "N", 10, 4.0, "CL")
+A1 = aircraft("A1", "AF", "F-80C", "A1-1115", "N", 10, 2.5, "CL")
+A2 = aircraft("A2", "AF", "F-80C", "A1-1315", "N", 10, 3.0, "CL")
+A3 = aircraft("A3", "AF", "F-80C", "A1-1515", "N", 10, 3.5, "CL")
+A4 = aircraft("A4", "AF", "F-80C", "A1-1715", "N", 10, 4.0, "CL")
 endtestsetup()
 
 startturn()
@@ -44,7 +44,7 @@ A4._assert("A1-1705       N    10",  3.5)
 endturn()
 
 starttestsetup()
-A1 = aircraft("A1", "AF", "Sea Fury FB.11", "2015", "N", 10, 2.0, "CL")
+A1 = aircraft("A1", "AF", "Sea Fury FB.11", "A1-2015", "N", 10, 2.0, "CL")
 endtestsetup()
 
 startturn()
@@ -58,8 +58,8 @@ endturn()
 # Check at supersonic speeds.
 
 starttestsetup()
-A1 = aircraft("A1", "AF", "F-104A", "2025", "N", 10, 10.0, "CL")
-A2 = aircraft("A2", "AF", "F-104A", "2025", "N", 10,  7.0, "CL")
+A1 = aircraft("A1", "AF", "F-104A", "A2-2025", "N", 10, 10.0, "CL")
+A2 = aircraft("A2", "AF", "F-104A", "A2-2025", "N", 10,  7.0, "CL")
 endtestsetup()
 
 startturn()
@@ -85,10 +85,10 @@ endturn()
 # Check version 2.4 rules for speed brakes.
 
 starttestsetup(variants=["use version 2.4 rules"])
-A1 = aircraft("A1", "AF", "F-80C", "1125", "N", 10, 2.5, "CL")
-A2 = aircraft("A2", "AF", "F-80C", "1325", "N", 10, 3.0, "CL")
-A3 = aircraft("A3", "AF", "F-80C", "1525", "N", 10, 3.5, "CL")
-A4 = aircraft("A4", "AF", "F-80C", "1725", "N", 10, 4.0, "CL")
+A1 = aircraft("A1", "AF", "F-80C", "A2-1125", "N", 10, 2.5, "CL")
+A2 = aircraft("A2", "AF", "F-80C", "A2-1325", "N", 10, 3.0, "CL")
+A3 = aircraft("A3", "AF", "F-80C", "A2-1525", "N", 10, 3.5, "CL")
+A4 = aircraft("A4", "AF", "F-80C", "A2-1725", "N", 10, 4.0, "CL")
 endtestsetup()
 
 startturn()
@@ -138,8 +138,8 @@ endturn()
 # Check at supersonic speeds.
 
 starttestsetup(variants=["use version 2.4 rules"])
-A1 = aircraft("A1", "AF", "F-104A", "2025", "N", 10, 10.0, "CL")
-A2 = aircraft("A2", "AF", "F-104A", "2025", "N", 10,  7.0, "CL")
+A1 = aircraft("A1", "AF", "F-104A", "A2-2025", "N", 10, 10.0, "CL")
+A2 = aircraft("A2", "AF", "F-104A", "A2-2025", "N", 10,  7.0, "CL")
 endtestsetup()
 
 startturn()

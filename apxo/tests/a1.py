@@ -4,11 +4,11 @@ startfile(__file__, "aircraft creation")
 # Checks on aircraft creation.
 
 starttestsetup()
-A1 = aircraft("A1", "AF", "F-80C" , "1115", "N"  , 10, 4.0, "CL")
-A2 = aircraft("A2", "AF", "F-84E" , "1315", "NNE", 20, 4.5, "CL")
-A3 = aircraft("A3", "AF", "F-84G" , "1515", "ENE", 30, 5.0, "1/2")
-A4 = aircraft("A4", "AF", "F-100A", "1715", "NNW", 40, 5.5, "CL")
-A5 = aircraft("A5", "AF", "F-104A", "1915", "WNW", 50, 6.0, "DT")
+A1 = aircraft("A1", "AF", "F-80C" , "A1-1115", "N"  , 10, 4.0, "CL")
+A2 = aircraft("A2", "AF", "F-84E" , "A1-1315", "NNE", 20, 4.5, "CL")
+A3 = aircraft("A3", "AF", "F-84G" , "A1-1515", "ENE", 30, 5.0, "1/2")
+A4 = aircraft("A4", "AF", "F-100A", "A1-1715", "NNW", 40, 5.5, "CL")
+A5 = aircraft("A5", "AF", "F-104A", "A1-1915", "WNW", 50, 6.0, "DT")
 endtestsetup()
 
 A1._assert("A1-1115           N    10", 4.0, expectedconfiguration="CL")

@@ -5,7 +5,7 @@ startfile(__file__, "banking")
 # Turns and banking with normal RR aircraft
 
 starttestsetup()
-A1 = aircraft("A1", "AF", "F-80C" , "2015", "N"  , 10, 4.0, "CL")
+A1 = aircraft("A1", "AF", "F-80C" , "A1-2015", "N"  , 10, 4.0, "CL")
 endtestsetup()
 startturn()
 A1.move("LVL",  "M", "H/WL,EZL/H,H,H")
@@ -39,7 +39,7 @@ endturn()
 # Turns and banking with LRR aircraft
 
 starttestsetup()
-A1 = aircraft("A1", "AF", "Meteor F.8" , "2015", "N"  , 10, 4.0, "CL")
+A1 = aircraft("A1", "AF", "Meteor F.8" , "A1-2015", "N"  , 10, 4.0, "CL")
 endtestsetup()
 startturn()
 A1.move("LVL",  "M", "H/WL,EZL/H,H,H")
@@ -73,7 +73,7 @@ endturn()
 # Turns and banking with HRR aircraft
 
 starttestsetup()
-A1 = aircraft("A1", "AF", "F-5A" , "2015", "N"  , 10, 4.0, "CL")
+A1 = aircraft("A1", "AF", "F-5A" , "A1-2015", "N"  , 10, 4.0, "CL")
 endtestsetup()
 startturn()
 A1.move("LVL",  "M", "H/WL,EZL/H,H,H")
@@ -107,9 +107,9 @@ endturn()
 # Turns and banking with HRRCL aircraft
 
 starttestsetup(verbose=False)
-A1 = aircraft("A1", "AF", "Yak-9D" , "2010", "N"  , 10, 3.5, "CL")
-A2 = aircraft("A2", "AF", "Yak-9D" , "2210", "N"  , 10, 3.5, "1/2")
-A3 = aircraft("A3", "AF", "Yak-9D" , "2410", "N"  , 10, 3.0, "DT")
+A1 = aircraft("A1", "AF", "Yak-9D" , "A1-2010", "N"  , 10, 3.5, "CL")
+A2 = aircraft("A2", "AF", "Yak-9D" , "A1-2210", "N"  , 10, 3.5, "1/2")
+A3 = aircraft("A3", "AF", "Yak-9D" , "A1-2410", "N"  , 10, 3.0, "DT")
 endtestsetup()
 
 startturn()

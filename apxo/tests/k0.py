@@ -3,7 +3,7 @@ startfile(__file__, "damage")
 
 starttestsetup()
 
-A1 = aircraft("A1", "AF", "F-80C"  , "2025", "W", 5, 4.0, "CL")
+A1 = aircraft("A1", "AF", "F-80C"  , "A2-2025", "W", 5, 4.0, "CL")
 
 assert A1.damage() == "none"
 assert not A1.damageatleast("L")
@@ -103,7 +103,7 @@ endtestsetup()
 
 starttestsetup()
 
-A1 = aircraft("A1", "AF", "F-80C"  , "2025", "W", 5, 4.0, "CL")
+A1 = aircraft("A1", "AF", "F-80C"  , "A2-2025", "W", 5, 4.0, "CL")
 
 assert A1.damage() == "none"
 A1.takedamage("L")
@@ -117,7 +117,7 @@ endtestsetup()
 
 starttestsetup()
 
-A1 = aircraft("A1", "AF", "F-80C"  , "2025", "W", 5, 4.0, "CL")
+A1 = aircraft("A1", "AF", "F-80C"  , "A2-2025", "W", 5, 4.0, "CL")
 
 assert A1.damage() == "none"
 A1.takedamage("H")

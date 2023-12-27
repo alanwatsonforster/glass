@@ -6,10 +6,10 @@ startfile(__file__, "climbs")
 # Sustained Climbs
 
 starttestsetup()
-A1 = aircraft("A1", "AF", "F-80C", "1815", "N"  , 20, 4.0, "CL")
-A2 = aircraft("A2", "AF", "F-80C", "2015", "N"  , 10, 4.0, "CL")
-A3 = aircraft("A3", "AF", "F-84E", "2215", "N"  ,  1, 5.0, "CL")
-A4 = aircraft("A4", "AF", "F-80C", "2415", "N"  , 45, 5.0, "CL")
+A1 = aircraft("A1", "AF", "F-80C", "A1-1815", "N"  , 20, 4.0, "CL")
+A2 = aircraft("A2", "AF", "F-80C", "A1-2015", "N"  , 10, 4.0, "CL")
+A3 = aircraft("A3", "AF", "F-84E", "A1-2215", "N"  ,  1, 5.0, "CL")
+A4 = aircraft("A4", "AF", "F-80C", "A1-2415", "N"  , 45, 5.0, "CL")
 endtestsetup()
 
 startturn()
@@ -43,8 +43,8 @@ endturn()
 # Zoom Climbs
 
 starttestsetup()
-A1 = aircraft("A1", "AF", "F-80C", "1815", "N"  ,  1, 5.5, "CL")
-A2 = aircraft("A2", "AF", "F-80C", "2015", "N"  , 45, 4.0, "CL")
+A1 = aircraft("A1", "AF", "F-80C", "A1-1815", "N"  ,  1, 5.5, "CL")
+A2 = aircraft("A2", "AF", "F-80C", "A1-2015", "N"  , 45, 4.0, "CL")
 endtestsetup()
 
 startturn()
@@ -113,8 +113,8 @@ endturn()
 # Vertical Climbs
 
 starttestsetup()
-A1 = aircraft("A1", "AF", "F-80C", "1815", "N"  , 1, 5.5, "CL")
-A2 = aircraft("A2", "AF", "F-80C", "2015", "N"  ,45, 4.0, "CL")
+A1 = aircraft("A1", "AF", "F-80C", "A1-1815", "N"  , 1, 5.5, "CL")
+A2 = aircraft("A2", "AF", "F-80C", "A1-2015", "N"  ,45, 4.0, "CL")
 endtestsetup()
 
 startturn()
