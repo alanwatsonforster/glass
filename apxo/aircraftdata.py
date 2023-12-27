@@ -99,15 +99,15 @@ class aircraftdata:
   def engines(self):
     return self._data["engines"]
   
-  def lowspeedturnlimit(self):
-    if "lowspeedturnlimit" in self._data:
-      return self._data["lowspeedturnlimit"]
+  def lowspeedliftlimit(self):
+    if "lowspeedliftlimit" in self._data:
+      return self._data["lowspeedliftlimit"]
     else:
       return None
 
-  def lowspeedturndevice(self):
-    if "lowspeedturndevice" in self._data:
-      return self._data["lowspeedturndevice"]
+  def lowspeedliftdevice(self):
+    if "lowspeedliftdevice" in self._data:
+      return self._data["lowspeedliftdevice"]
     else:
       return None
   
@@ -115,7 +115,7 @@ class aircraftdata:
     _checkconfiguration(configuration)
     _checkturnrate(turnrate)
     if lowspeed:
-      table = "lowspeedturndragtable"
+      table = "lowspeedliftdragtable"
     elif highspeed:
       table = "highspeedturndragtable"
     else:
@@ -421,8 +421,8 @@ class aircraftdata:
 
       str("Turn Drag:")
       str("")
-      if self.lowspeedturnlimit() != None:
-        str("For speed <= %.1f" % self.lowspeedturnlimit())
+      if self.lowspeedliftlimit() != None:
+        str("For speed <= %.1f" % self.lowspeedliftlimit())
         str("       CL   1/2  DT")
         for turnrate in ["TT", "HT", "BT", "ET"]:
           str("%s     %s  %s  %s" % (
@@ -431,7 +431,7 @@ class aircraftdata:
             f1(self.turndrag("1/2", turnrate, lowspeed=True)),
             f1(self.turndrag("DT" , turnrate, lowspeed=True)),
           ))
-        str("For speed > %.1f" % self.lowspeedturnlimit())
+        str("For speed > %.1f" % self.lowspeedliftlimit())
         str("       CL   1/2  DT")
         for turnrate in ["TT", "HT", "BT", "ET"]:
           str("%s     %s  %s  %s" % (

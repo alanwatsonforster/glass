@@ -277,12 +277,12 @@ def _startmovespeed(self, power, flamedoutengines):
 
     # Re slats or maneuvering flaps.
 
-    lowspeedturnlimit = self._aircraftdata.lowspeedturnlimit()
-    if lowspeedturnlimit != None:
-      if speed <= lowspeedturnlimit:
-        self._logevent("%s extended." % self._aircraftdata.lowspeedturndevice())
+    lowspeedliftlimit = self._aircraftdata.lowspeedliftlimit()
+    if lowspeedliftlimit != None:
+      if speed <= lowspeedliftlimit:
+        self._logevent("%s extended." % self._aircraftdata.lowspeedliftdevice())
       else:
-        self._logevent("%s retracted." % self._aircraftdata.lowspeedturndevice())
+        self._logevent("%s retracted." % self._aircraftdata.lowspeedliftdevice())
     
     ############################################################################
 

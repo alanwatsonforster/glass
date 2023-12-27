@@ -20,10 +20,10 @@ def powerfade(self):
 def turndrag(self, turnrate):
 
   def rawturndrag(turnrate):
-    lowspeedturnlimit = self._aircraftdata.lowspeedturnlimit()
-    if lowspeedturnlimit == None:
+    lowspeedliftlimit = self._aircraftdata.lowspeedliftlimit()
+    if lowspeedliftlimit == None:
       return self._aircraftdata.turndrag(self._configuration, turnrate)
-    elif self._speed <= lowspeedturnlimit:
+    elif self._speed <= lowspeedliftlimit:
       return self._aircraftdata.turndrag(self._configuration, turnrate, lowspeed=True)
     else:
       return self._aircraftdata.turndrag(self._configuration, turnrate, highspeed=True)
@@ -41,10 +41,10 @@ def turndrag(self, turnrate):
       return None
   return rawturndrag(turnrate)
 
-  lowspeedturnlimit = self._aircraftdata.lowspeedturnlimit()
-  if lowspeedturnlimit == None:
+  lowspeedliftlimit = self._aircraftdata.lowspeedliftlimit()
+  if lowspeedliftlimit == None:
     return self._aircraftdata.turndrag(self._configuration, turnrate)
-  elif self._speed <= lowspeedturnlimit:
+  elif self._speed <= lowspeedliftlimit:
     return self._aircraftdata.turndrag(self._configuration, turnrate, lowspeed=True)
   else:
     return self._aircraftdata.turndrag(self._configuration, turnrate, highspeed=True)

@@ -24,7 +24,7 @@ assert d.powerfade(6.0, 20) == None
 assert d.spbr("DT") == 1.0
 assert d.fuelrate("M") == 2.0
 assert d.engines() == 1
-assert d.lowspeedturnlimit() == None
+assert d.lowspeedliftlimit() == None
 assert d.turndrag("CL", "BT") == 4.0
 assert d.turndrag("CL", "ET") == None
 assert d.turndrag("DT", "BT") == None
@@ -63,7 +63,7 @@ apxo.variants.setvariants([])
 d = aircraftdata("F-100A")
 assert d.turndrag("CL", "BT", lowspeed=True) == 3.0
 assert d.turndrag("CL", "BT", highspeed=True) == 2.0
-assert d.lowspeedturnlimit() == 4.0
+assert d.lowspeedliftlimit() == 4.0
 
 # Check power fade with speed using the Sea Fury as an test case.
 
