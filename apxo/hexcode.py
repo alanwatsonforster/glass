@@ -5,6 +5,8 @@ Conversion between hex codes and hex coordinates.
 import apxo.hex as aphex
 import apxo.map as apmap
 
+import re
+
 def isvalidhexcodeforcenter(h):
 
   """
@@ -19,6 +21,10 @@ def isvalidhexcodeforcenter(h):
     return True
 
   if isinstance(h, str) and h.isdecimal() and _inrange(int(h)):
+    return True
+
+  p = re.compile(r"[A-Z]+[0-9]?-[0-9][0-9][0-9][0-9]")
+  if isinstance(h, str) and p.fullmatch(h) is not None:
     return True
 
   return False
@@ -42,6 +48,10 @@ def isvalidhexcodeforside(h):
 
   if not isinstance(h, str):
     return False
+
+  p = re.compile(r"^[A-Z]+[0-9]?-[0-9][0-9][0-9][0-9]/[0-9][0-9][0-9][0-9]$")
+  if isinstance(h, str) and p.match(h):
+    return True
 
   m = h.split("/")
   if len(m) != 2:
@@ -119,7 +129,7 @@ def fromxy(x, y, sheet=None):
     if XX % 2 == 1:
       YY += yoffsetforoddx()
 
-    return "%04d" % _join(XX, YY)
+    return "%s-%04d" % (sheet, _join(XX, YY))
 
   else:
 
@@ -135,13 +145,13 @@ def fromxy(x, y, sheet=None):
       else:
         raise RuntimeError("position is not within the map.")
 
-    h0 = fromxy(x0, y0, sheet=sheet)
-    h1 = fromxy(x1, y1, sheet=sheet)
+    sheet0, label0 = _SPLITCENTER(fromxy(x0, y0, sheet=sheet))
+    sheet1, label1 = _SPLITCENTER(fromxy(x1, y1, sheet=sheet))
 
-    if h0 < h1:
-      return "%s/%s" % (h0, h1)
+    if label0 < label1:
+      return "%s-%s/%s" % (sheet, label0, label1)
     else:
-      return "%s/%s" % (h1, h0)      
+      return "%s-%s/%s" % (sheet, label1, label0)
 
 def toxy(h, sheet=None):
 
@@ -153,12 +163,14 @@ def toxy(h, sheet=None):
 
   if isvalidhexcodeforcenter(h):
 
-    XX, YY = _split(h)
+    sheet, label = _SPLITCENTER(h)
 
     if sheet == None:
       sheet = tosheet(h, includerightside=True, includebottomside=True)
       if sheet == None:
         raise RuntimeError("hex code %r is not within the map." % h)
+
+    XX, YY = _SPLITLABEL(label)
 
     XX0, YY0 = _split(_sheetorigin(sheet))
     x0, y0 = apmap.sheetorigin(sheet)
@@ -172,22 +184,62 @@ def toxy(h, sheet=None):
 
   else:
 
-    m = h.split("/")
-    h0 = m[0]
-    h1 = m[1]
+    sheet, label0, label1 = _SPLITSIDE(h)
 
     if sheet == None:
-      sheet0 = tosheet(h0)
-      sheet1 = tosheet(h1)
+      sheet0 = tosheet(label0)
+      sheet1 = tosheet(label1)
       if sheet0 == None:
         sheet0 = sheet1
       elif sheet1 == None:
         sheet1 = sheet0
 
-    x0, y0 = toxy(h0, sheet=sheet0)
-    x1, y1 = toxy(h1, sheet=sheet1)
+    x0, y0 = toxy("%s-%04d" % (sheet0, label0))
+    x1, y1 = toxy("%s-%04d" % (sheet1, label1))
 
     return 0.5 * (x0 + x1), 0.5 * (y0 + y1)
+
+def _SPLITLABEL(label):
+
+  """
+  Return the XX and YY components of the label as integers.
+  """
+
+  n = int(label)
+  XX = n // 100
+  YY = n % 100
+  return XX, YY
+
+def _SPLITCENTER(h):
+
+  assert isvalidhexcodeforcenter(h)
+
+  p = re.compile(r"([A-Z][0-9]?)-([0-9][0-9][0-9][0-9])")
+  m = p.fullmatch(h)
+  if m is not None:
+    sheet = m[1]
+    label = int(m[2])
+  else:
+    sheet = None
+    label = int(h)
+  return sheet, label
+
+def _SPLITSIDE(h):
+
+  assert isvalidhexcodeforside(h)
+
+  p = re.compile(r"([A-Z]+[0-9]?)-([0-9][0-9][0-9][0-9])/([0-9][0-9][0-9][0-9])")
+  m = p.fullmatch(h)
+  if m is not None:
+    sheet = m[1]
+    label0 = int(m[2])
+    label1 = int(m[3])
+  else:
+    sheet = None
+    m = h.split("/")
+    label0 = int(m[0])
+    label1 = int(m[1])
+  return sheet, label0, label1
 
 def _split(h):
 
@@ -230,8 +282,9 @@ def _sheetorigin(sheet):
 
   if apmap.usingfirstgenerationsheets():
 
-    # The first-generation maps are all labeled identically. However, we notionally
-    # shift them by 0, 20, 40, and 60 columns and 0, 25, and 75 rows.
+    # The first-generation maps are all labeled identically.
+
+    return "0025"
 
     if sheet in ["A", "E", "I", "M", "Q", "U"]:
       XX = 00

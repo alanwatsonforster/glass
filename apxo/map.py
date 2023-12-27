@@ -774,10 +774,10 @@ def altitude(x, y, sheet=None):
 
     if sheet is None:
       sheet = tosheet(x, y)
-    h = int(aphexcode.fromxy(x, y, sheet=sheet))
-    if h in _terrain[sheet]["level2hexes"]:
+    newsheet, label = aphexcode._SPLITCENTER(aphexcode.fromxy(x, y, sheet=sheet))
+    if label in _terrain[sheet]["level2hexes"]:
       return 2
-    elif h in _terrain[sheet]["level1hexes"]:
+    elif label in _terrain[sheet]["level1hexes"]:
       return 1
     else:
       return 0
