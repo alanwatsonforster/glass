@@ -1,5 +1,5 @@
 {
-  "base": "water",
+  "base": "land",
   "seahexes": [
   ],
   "level0hexes": [
