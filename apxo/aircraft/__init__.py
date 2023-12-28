@@ -411,10 +411,10 @@ class aircraft:
     if apmap.isonmap(self._x, self._y):
       hexcode = aphexcode.fromxy(self._x, self._y)
     else:
-      hexcode = "----"
+      hexcode = "-------"
     azimuth = apazimuth.fromfacing(self._facing)
     altitude = self._altitude
-    return "%-9s  %-3s  %2d" % (hexcode, azimuth, altitude)
+    return "%-12s  %-3s  %2d" % (hexcode, azimuth, altitude)
 
   #############################################################################
 
