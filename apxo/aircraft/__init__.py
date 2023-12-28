@@ -424,7 +424,7 @@ class aircraft:
     elif self._maneuvertype != None:
       return "%s%s %d/%d" % (self._maneuvertype, self._maneuversense, self._maneuverfp, self._maneuverrequiredfp)
     elif self._bank != None:
-      return "BK%s" % self._bank
+      return "B%s" % self._bank
     else:
       return "WL"
 

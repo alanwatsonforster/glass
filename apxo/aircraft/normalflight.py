@@ -917,8 +917,8 @@ def _continuenormalflight(self, actions, note=False):
     ["BTR"  , "maneuver declaration", None, lambda: dodeclareturn("R", "BT") ],
     ["ETR"  , "maneuver declaration", None, lambda: dodeclareturn("R", "ET") ],
     
-    ["BKL"   , "bank"               , None, lambda: dobank("L")  ],
-    ["BKR"   , "bank"               , None, lambda: dobank("R")  ],
+    ["BL"    , "bank"               , None, lambda: dobank("L")  ],
+    ["BR"    , "bank"               , None, lambda: dobank("R")  ],
     ["WL"    , "bank"               , None, lambda: dobank(None) ],
 
     ["L90+"  , "maneuver"           , None, lambda: domaneuver("L",   90, True , True ) ],
