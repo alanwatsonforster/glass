@@ -607,7 +607,8 @@ def startdrawmap(show=False):
         if isonmap(x, y) and (isonsheet(sheet, x, y) or isonsheet(sheet, x - 0.5, y + 0.25)):
           apdraw.drawhex(x, y, linecolor=hexcolor, alpha=hexalpha, linewidth=hexwidth, zorder=0)
           if _drawlabels:
-            apdraw.drawhexlabel(x, y, aphexcode.fromxy(x, y), color=hexcolor, alpha=hexalpha, zorder=0)
+            label = aphexcode.tolabel(aphexcode.fromxy(x, y))
+            apdraw.drawhexlabel(x, y, label, color=hexcolor, alpha=hexalpha, zorder=0)
             
   # Draw missing sheets.
   for iy in range (0, _nysheetgrid):
@@ -618,7 +619,6 @@ def startdrawmap(show=False):
         ymin = iy * _dysheet
         ymax = ymin + _dysheet
         apdraw.drawrectangle(xmin, ymin, xmax, ymax, linecolor=None, fillcolor=missingcolor, zorder=0)
-            
             
   if _drawlabels:
 
