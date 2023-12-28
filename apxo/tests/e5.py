@@ -3,7 +3,7 @@ startfile(__file__, "collision with terrain")
 
 from apxo.tests.infrastructure import *
 
-starttestsetup(sheets=[["C2"]],verbose=False)
+starttestsetup(sheets=[["C2"]])
 A1 = aircraft("A1", "AF", "F-80C", "C2-6625", "WSW", 1, 4.0, "CL")
 A2 = aircraft("A2", "AF", "F-80C", "C2-6624", "WSW", 1, 4.0, "CL")
 A3 = aircraft("A3", "AF", "F-80C", "C2-6623", "WSW", 2, 4.0, "CL")

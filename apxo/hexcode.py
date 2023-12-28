@@ -7,6 +7,9 @@ import apxo.map as apmap
 
 import re
 
+hexcodeforcenterre = re.compile(r"([A-Z]+[0-9]?)-([0-9][0-9][0-9][0-9])")
+hexcodeforsidere   = re.compile(r"([A-Z]+[0-9]?)-([0-9][0-9][0-9][0-9])/([0-9][0-9][0-9][0-9])")
+
 def isvalidhexcodeforcenter(h):
 
   """
@@ -14,8 +17,7 @@ def isvalidhexcodeforcenter(h):
   Otherwise return False.
   """
 
-  p = re.compile(r"[A-Z]+[0-9]?-[0-9][0-9][0-9][0-9]")
-  return isinstance(h, str) and p.fullmatch(h) is not None
+  return isinstance(h, str) and hexcodeforcenterre.fullmatch(h) is not None
 
 def checkisvalidhexcodeforcenter(h):
 
@@ -34,8 +36,7 @@ def isvalidhexcodeforside(h):
   Otherwise return False.
   """
 
-  p = re.compile(r"^[A-Z]+[0-9]?-[0-9][0-9][0-9][0-9]/[0-9][0-9][0-9][0-9]$")
-  return isinstance(h, str) and p.fullmatch(h) is not None
+  return isinstance(h, str) and hexcodeforsidere.fullmatch(h) is not None
 
 def checkvalidhexcodeforside(h):
 
@@ -63,7 +64,6 @@ def checkisvalidhexcode(h):
 
   if not isvalidhexcode(h):
     raise RuntimeError("%r is not a valid hex code." % h)
-
 
 def yoffsetforoddx():
 
@@ -101,7 +101,7 @@ def fromxy(x, y, sheet=None):
     if XX % 2 == 1:
       YY += yoffsetforoddx()
 
-    return "%s-%04d" % (sheet, _join(XX, YY))
+    return "%s-%02d%02d" % (sheet, XX, YY)
 
   else:
 
@@ -117,15 +117,15 @@ def fromxy(x, y, sheet=None):
       else:
         raise RuntimeError("position is not within the map.")
 
-    sheet0, label0 = _SPLITCENTER(fromxy(x0, y0, sheet=sheet))
-    sheet1, label1 = _SPLITCENTER(fromxy(x1, y1, sheet=sheet))
+    sheet0, label0 = _splithexcodeforcenter(fromxy(x0, y0, sheet=sheet))
+    sheet1, label1 = _splithexcodeforcenter(fromxy(x1, y1, sheet=sheet))
 
     if label0 < label1:
       return "%s-%s/%s" % (sheet, label0, label1)
     else:
       return "%s-%s/%s" % (sheet, label1, label0)
 
-def toxy(h, sheet=None):
+def toxy(h):
 
   """
   Return the hex coordinate (x, y) corresponding to the hex code h.
@@ -135,11 +135,8 @@ def toxy(h, sheet=None):
 
   if isvalidhexcodeforcenter(h):
 
-    sheet, label = _SPLITCENTER(h)
-
-    assert sheet is not None
-
-    XX, YY = _SPLITLABEL(label)
+    sheet, label = _splithexcodeforcenter(h)
+    XX, YY = _splitlabelforcenter(label)
 
     XX0, YY0 = _sheetorigin(sheet)
     x0, y0 = apmap.sheetorigin(sheet)
@@ -153,19 +150,44 @@ def toxy(h, sheet=None):
 
   else:
 
-    sheet, label0, label1 = _SPLITSIDE(h)
+    sheet, label0, label1 = _splithexcodeforside(h)
 
-    assert sheet is not None
-
-    x0, y0 = toxy("%s-%04d" % (sheet, label0))
-    x1, y1 = toxy("%s-%04d" % (sheet, label1))
+    x0, y0 = toxy("%s-%s" % (sheet, label0))
+    x1, y1 = toxy("%s-%s" % (sheet, label1))
 
     return 0.5 * (x0 + x1), 0.5 * (y0 + y1)
 
-def _SPLITLABEL(label):
+def tosheet(h):
 
   """
-  Return the XX and YY components of the label as integers.
+  Return the sheet corresponding to the hex code h.
+  """
+
+  checkisvalidhexcode(h)
+  if isvalidhexcodeforcenter(h):
+    sheet, label = _splithexcodeforcenter(h)
+  else:
+    sheet, label0, label1 = _splithexcodeforside(h)
+  return sheet
+
+def tolabel(h):
+
+  """
+  Return the label corresponding to the hex code h.
+  """
+
+  checkisvalidhexcode(h)
+  if isvalidhexcodeforcenter(h):
+    sheet, label = _splithexcodeforcenter(h)
+    return label
+  else:
+    sheet, label0, label1 = _splithexcodeforside(h)
+    return "%s/%s" % (label0, label1)
+
+def _splitlabelforcenter(label):
+
+  """
+  Return the XX and YY components of a center label as integers.
   """
 
   n = int(label)
@@ -173,69 +195,34 @@ def _SPLITLABEL(label):
   YY = n % 100
   return XX, YY
 
-def _SPLITCENTER(h):
+def _splithexcodeforcenter(h):
+
+  """
+  Return the sheet and label for the hexcode, which must correspond to a hex
+  center.
+  """
 
   assert isvalidhexcodeforcenter(h)
 
-  p = re.compile(r"([A-Z][0-9]?)-([0-9][0-9][0-9][0-9])")
-  m = p.fullmatch(h)
-  if m is not None:
-    sheet = m[1]
-    label = int(m[2])
-  else:
-    sheet = None
-    label = int(h)
+  m = hexcodeforcenterre.fullmatch(h)
+  sheet = m[1]
+  label = m[2]
   return sheet, label
 
-def _SPLITSIDE(h):
+def _splithexcodeforside(h):
+
+  """
+  Return the sheet and labels for the hexcode, which must correspond to a hex
+  side.
+  """
 
   assert isvalidhexcodeforside(h)
 
-  p = re.compile(r"([A-Z]+[0-9]?)-([0-9][0-9][0-9][0-9])/([0-9][0-9][0-9][0-9])")
-  m = p.fullmatch(h)
-  if m is not None:
-    sheet = m[1]
-    label0 = int(m[2])
-    label1 = int(m[3])
-  else:
-    sheet = None
-    m = h.split("/")
-    label0 = int(m[0])
-    label1 = int(m[1])
+  m = hexcodeforsidere.fullmatch(h)
+  sheet = m[1]
+  label0 = m[2]
+  label1 = m[3]
   return sheet, label0, label1
-
-def _split(h):
-
-  """ 
-  Split the hex code h of the form XXYY and return XX and YY as integers.
-  """
-
-  assert isvalidhexcodeforcenter(h)
-
-  h = int(h)
-  XX = h // 100
-  YY = h % 100
-  return XX, YY
-
-def _join(XX, YY):
-
-  """
-  Return the hex code XXYY corresponding to the integers XX and YY.
-  """
-
-  assert 00 <= XX and XX <= 99 and XX % 1 == 0
-  assert 00 <= YY and YY <= 99 and YY % 1 == 0
-
-  return int(100 * XX + YY)
-
-def _inrange(h):
-
-  """
-  Return True if h is within the range of valid hex codes of the form XXYY. 
-  Otherwise return False.
-  """
-
-  return 0 <= h and h <= 9999
 
 def _sheetorigin(sheet):
 
@@ -247,27 +234,8 @@ def _sheetorigin(sheet):
 
     # The first-generation maps are all labeled identically.
 
-    return 0, 25
-
-    if sheet in ["A", "E", "I", "M", "Q", "U"]:
-      XX = 00
-    elif sheet in ["B", "F", "J", "N", "R", "V"]:
-      XX = 20
-    elif sheet in ["C", "G", "K", "O", "S", "W"]:
-      XX = 40
-    elif sheet in ["D", "H", "L", "P", "T", "X"]:
-      XX = 60
-    else:
-      raise RuntimeError("%r is not a valid sheet." % sheet)
-
-    if sheet in ["A", "B", "C", "D", "M", "N", "O", "P"]:
-      YY = 25
-    elif sheet in ["E", "F", "G", "H", "Q", "R", "S", "T"]:
-      YY = 50
-    elif sheet in ["I", "J", "K", "L", "U", "V", "W", "X"]:
-      YY = 75
-    else:
-      raise RuntimeError("%r is not a valid sheet." % sheet)
+    XX = 0
+    YY = 25
 
   else:
 
@@ -300,143 +268,3 @@ def _sheetorigin(sheet):
       raise RuntimeError("%r is not a valid sheet." % sheet)
 
   return XX, YY
-
-def tosheet(h, 
-  includerightside=False, includeleftside=False,
-  includebottomside=False, includetopside=False
-  ):
-
-  """
-  Returns the sheet containing the hex code h, which must refer to a center.
-  Hexes on the sides are excluded unless explicity includeded by the keyword
-  arguments.
-  """
-
-  assert isvalidhexcodeforcenter(h)
-
-  XX, YY = _split(h)
-
-  if includeleftside:
-    dXXleft = -1
-  else:
-    dXXleft = 0
-  if includerightside:
-    dXXright = +1
-  else:
-    dXXright = 0
-
-  if includetopside:
-    dYYtop = -1
-  else:
-    dYYtop = 0
-  if includebottomside:
-    dYYbottom = +1
-  else:
-    dYYbottom = 0
-    
-  if apmap.usingfirstgenerationsheets():
-
-    # The first-genetation maps are identical. However, we notionally
-    # shift sheets the sheets by 20 columns and 25 rows to make them distinct.
-    
-    if 1 + dXXleft <= XX and XX <= 19 + dXXright:
-      sheets = "AEI"
-    elif 21 + dXXleft <= XX and XX <= 39 + dXXright:
-      sheets = "BFJ"
-    elif 41 + dXXleft <= XX and XX <= 59 + dXXright:
-      sheets = "CGK"
-    elif 61 + dXXleft <= XX and XX <= 79 + dXXright:
-      sheets = "DHL"
-    else:
-      return None
-
-    if XX % 2 == 1 and 1 <= YY and YY <= 25:
-      sheet = sheets[0]
-    elif XX % 2 == 0 and 1 + dYYtop <= YY and YY <= 24 + dYYbottom:
-      sheet = sheets[0]
-    elif XX % 2 == 1 and 26 <= YY and YY <= 50:
-      sheet = sheets[1]
-    elif XX % 2 == 0 and 26 + dYYtop <= YY and YY <= 49 + dYYbottom:
-      sheet = sheets[1]
-    elif XX % 2 == 1 and 51 <= YY and YY <= 75:
-      sheet = sheets[2]
-    elif XX % 2 == 0 and 51 + dYYtop <= YY and YY <= 74 + dYYbottom:
-      sheet = sheets[2]
-    else:
-      return None
-
-    # Sheets A to L and the corresponding sheets N to X share the same hexcodes.
-    if sheet == "A" and "M" in apmap.sheets():
-      return "M"
-    if sheet == "B" and "N" in apmap.sheets():
-      return "N"
-    if sheet == "C" and "O" in apmap.sheets():
-      return "O"
-    if sheet == "D" and "P" in apmap.sheets():
-      return "P"
-    if sheet == "E" and "Q" in apmap.sheets():
-      return "Q"
-    if sheet == "F" and "R" in apmap.sheets():
-      return "R"
-    if sheet == "G" and "S" in apmap.sheets():
-      return "S"
-    if sheet == "H" and "T" in apmap.sheets():
-      return "T"
-    if sheet == "I" and "U" in apmap.sheets():
-      return "U"
-    if sheet == "J" and "V" in apmap.sheets():
-      return "V"
-    if sheet == "K" and "W" in apmap.sheets():
-      return "W"
-    if sheet == "L" and "X" in apmap.sheets():
-      return "X"
-
-  else:
-
-    if 11 + dXXleft <= XX and XX <= 29 + dXXright:
-      sheetletter = "A"
-    elif 31 + dXXleft <= XX and XX <= 49 + dXXright:
-      sheetletter = "B"
-    elif 51 + dXXleft <= XX and XX <= 69 + dXXright:
-      sheetletter = "C"
-    elif 71 + dXXleft <= XX and XX <= 89 + dXXright:
-      sheetletter = "D"
-    else:
-      return None
-
-    if XX % 2 == 1 and 1 <= YY and YY <= 15:
-      sheetnumber = "1"
-    elif XX % 2 == 0 and 2 + dYYtop <= YY and YY <= 15 + dYYbottom:
-      sheetnumber = "1"
-
-    elif XX % 2 == 1 and 16 <= YY and YY <= 30:
-      sheetnumber = "2"
-    elif XX % 2 == 0 and 17 + dYYtop <= YY and YY <= 30 + dYYbottom:
-      sheetnumber = "2"
-
-    elif XX % 2 == 1 and 31 <= YY and YY <= 45:
-      sheetnumber = "3"
-    elif XX % 2 == 0 and 32 + dYYtop <= YY and YY <= 45 + dYYbottom:
-      sheetnumber = "3"
-
-    elif XX % 2 == 1 and 46 <= YY and YY <= 60:
-      sheetnumber = "4"
-    elif XX % 2 == 0 and 47 + dYYtop <= YY and YY <= 60 + dYYbottom:
-      sheetnumber = "4"
-
-    elif XX % 2 == 1 and 61 <= YY and YY <= 75:
-      sheetnumber = "5"
-    elif XX % 2 == 0 and 62 + dYYtop <= YY and YY <= 75 + dYYbottom:
-      sheetnumber = "5"
-
-    elif XX % 2 == 1 and 86 <= YY and YY <= 90:
-      sheetnumber = "6"
-    elif XX % 2 == 0 and 87 + dYYtop <= YY and YY <= 90 + dYYbottom:
-      sheetnumber = "6"
-
-    else:
-      return None
-
-    sheet = sheetletter + sheetnumber
-
-  return sheet
