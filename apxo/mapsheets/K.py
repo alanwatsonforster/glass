@@ -48,6 +48,14 @@
   ],
   "wideriverpaths": [
   ],
+  "seapaths": [
+  ],
+  "wideseapaths": [
+  ],
+  "clearingpaths": [
+  ],
+  "wideseapaths": [
+  ],
   "clearingpaths": [
   ],
   "trailpaths": [

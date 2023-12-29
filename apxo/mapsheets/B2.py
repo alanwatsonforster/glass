@@ -91,6 +91,10 @@
       [[39.00,18.25],[41.00,17.25],[41.00,17.00],[40.00,17.00],[40.00,15.50]],
   ],
   "wideriverpaths": [],
+  "seapaths": [
+  ],
+  "wideseapaths": [
+  ],
   "clearingpaths": [],
   "trailpaths": [],
   "roadpaths": [

@@ -86,7 +86,7 @@ def setmap(sheetgrid,
   drawterrain=True, drawlabels=True, 
   xmin=0, ymin=0, xmax=None, ymax=None, dotsperhex=80, writefile=False,
   style="original", 
-  wilderness=None, forest=None, rivers=None, allforest=None, maxurbansize=None
+  wilderness=None, forest=None, freshwater=None, allforest=None, maxurbansize=None
   ):
 
   """
@@ -187,7 +187,7 @@ def setmap(sheetgrid,
   global _saved
   _saved = False
 
-  global _allwater, _forest, _allforest, _rivers, _wilderness, _maxurbansize
+  global _allwater, _forest, _allforest, _freshwater, _wilderness, _maxurbansize
 
   global level0color, level1color, level2color, level3color
   global level0ridgecolor, level1ridgecolor, level2ridgecolor
@@ -217,7 +217,7 @@ def setmap(sheetgrid,
   _allforest       = False
   _forest          = True
   _maxurbansize    = 5
-  _rivers          = True
+  _freshwater      = True
   _frozen          = False
   _wilderness      = False
 
@@ -297,7 +297,7 @@ def setmap(sheetgrid,
       if style == "desert":
         _wilderness   = True
         _forest       = False
-        _rivers       = False
+        _freshwater   = False
         _maxurbansize = 0
 
     elif style == "temperate" or \
@@ -345,14 +345,19 @@ def setmap(sheetgrid,
     level2color = lighten(basecolor, dilution[2])
     level3color = lighten(basecolor, dilution[3])
 
-    if style == "original":
-      level1color       = [ 0.87, 0.85, 0.78 ]
-      level2color       = [ 0.82, 0.75, 0.65 ]
-      level3color       = [ 0.77, 0.65, 0.55 ] 
-
     level0ridgecolor = level1color
     level1ridgecolor = level2color
     level2ridgecolor = level3color
+
+    if style == "original":
+      # The original colors don't fit into the scheme of increasingly darker 
+      # shades of the same color, so are hard wired.
+      level1color      = [ 0.87, 0.85, 0.78 ]
+      level2color      = [ 0.82, 0.75, 0.65 ]
+      level3color      = [ 0.77, 0.65, 0.55 ] 
+      level0ridgecolor = lighten(basecolor, 1/2)
+      level1ridgecolor = level2color
+      level2ridgecolor = level3color
 
     if _frozen:
       watercolor = lighten([ 0.85, 0.85, 0.85 ], 1/20)
@@ -384,8 +389,8 @@ def setmap(sheetgrid,
     _forest = forest
   if wilderness != None:
     _wilderness = wilderness
-  if rivers != None:
-    _rivers = rivers
+  if freshwater != None:
+    _freshwater = freshwater
   if maxurbansize != None:
     _maxurbansize = maxurbansize
 
@@ -518,22 +523,26 @@ def startdrawmap(show=False):
           if _maxurbansize >= 5:
             drawhexes(sheet, _terrain[sheet]["cityhexes"], linewidth=0, fillcolor=urbancolor, linecolor=urbanoutlinecolor, hatch=cityhatch)
 
-      if _rivers:
-
+      if _freshwater:
         # Draw water and rivers.
-
         for sheet in sheets():
-          # Do not outline sea hexes.
           drawhexes(sheet, _terrain[sheet]["lakehexes"], fillcolor=watercolor, linecolor=wateroutlinecolor, linewidth=waterourlinewidth)
           drawpaths(sheet, _terrain[sheet]["riverpaths"], color=wateroutlinecolor, linewidth=riverwidth+waterourlinewidth, capstyle="projecting")
           drawpaths(sheet, _terrain[sheet]["wideriverpaths"], color=wateroutlinecolor, linewidth=wideriverwidth+waterourlinewidth, capstyle="projecting")
-            
         for sheet in sheets():
-          drawhexes(sheet, _terrain[sheet]["seahexes"], linewidth=0, fillcolor=watercolor)
           drawhexes(sheet, _terrain[sheet]["lakehexes"], fillcolor=watercolor, linewidth=0)
           drawpaths(sheet, _terrain[sheet]["riverpaths"], color=watercolor, linewidth=riverwidth, capstyle="projecting")
           drawpaths(sheet, _terrain[sheet]["wideriverpaths"], color=watercolor, linewidth=wideriverwidth, capstyle="projecting")
 
+      for sheet in sheets():
+        # Do not outline sea hexes.
+        drawpaths(sheet, _terrain[sheet]["seapaths"], color=wateroutlinecolor, linewidth=riverwidth+waterourlinewidth, capstyle="projecting")
+        drawpaths(sheet, _terrain[sheet]["wideseapaths"], color=wateroutlinecolor, linewidth=wideriverwidth+waterourlinewidth, capstyle="projecting")
+      for sheet in sheets():
+        drawhexes(sheet, _terrain[sheet]["seahexes"], linewidth=0, fillcolor=watercolor)
+        drawpaths(sheet, _terrain[sheet]["seapaths"], color=watercolor, linewidth=riverwidth, capstyle="projecting")
+        drawpaths(sheet, _terrain[sheet]["wideseapaths"], color=watercolor, linewidth=wideriverwidth, capstyle="projecting")
+          
       for sheet in sheets():
         # Draw the megahexes.
         xmin, ymin, xmax, ymax = sheetlimits(sheet)
@@ -548,7 +557,7 @@ def startdrawmap(show=False):
 
       if not _wilderness:
 
-        if _rivers:
+        if _freshwater:
 
           # Draw the bridges.
           for sheet in sheets():
@@ -586,7 +595,7 @@ def startdrawmap(show=False):
             drawpaths(sheet, _terrain[sheet]["runwaypaths"], color=roadcolor, linewidth=runwaywidth, capstyle="projecting")
             drawpaths(sheet, _terrain[sheet]["taxiwaypaths"], color=roadcolor, linewidth=taxiwaywidth, joinstyle="miter", capstyle="projecting")
             
-        if _rivers:
+        if _freshwater:
 
           # Draw the dams.
           for sheet in sheets():
@@ -645,9 +654,9 @@ def startdrawmap(show=False):
   _saved = True
 
 def enddrawmap(turn):
-  apdraw.show()
   if _writefile:
     apdraw.writefile("turn-%02d.png" % turn)
+  apdraw.show()
 
 def sheetorigin(sheet):
 

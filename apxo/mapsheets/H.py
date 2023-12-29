@@ -81,6 +81,14 @@
   "wideriverpaths": [
     [[17.00, 7.00],[16.50, 6.75],],
   ],
+  "seapaths": [
+  ],
+  "wideseapaths": [
+  ],
+  "clearingpaths": [
+  ],
+  "wideseapaths": [
+  ],
   "clearingpaths": [
   ],
   "trailpaths": [

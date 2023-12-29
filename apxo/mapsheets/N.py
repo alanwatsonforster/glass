@@ -50,6 +50,14 @@
   "wideriverpaths": [
     [[10.00, 0.00],[10.00,25.00],],
   ],
+  "seapaths": [
+  ],
+  "wideseapaths": [
+  ],
+  "clearingpaths": [
+  ],
+  "wideseapaths": [
+  ],
   "clearingpaths": [
   ],
   "trailpaths": [

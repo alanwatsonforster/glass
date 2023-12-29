@@ -17,6 +17,14 @@
   "lakehexes": [],
   "riverpaths": [],
   "wideriverpaths": [],
+  "seapaths": [
+  ],
+  "wideseapaths": [
+  ],
+  "clearingpaths": [],
+  ],
+  "wideseapaths": [
+  ],
   "clearingpaths": [],
   "trailpaths": [],
   "roadpaths": [],

@@ -67,6 +67,10 @@
         [70.00,16.00],[70.50,16.25],],
   ],
   "wideriverpaths": [],
+  "seapaths": [
+  ],
+  "wideseapaths": [
+  ],
   "clearingpaths": [],
   "trailpaths": [],
   "roadpaths": [
