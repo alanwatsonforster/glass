@@ -1306,18 +1306,20 @@ def _startnormalflight(self, actions, note=False):
     # See rule 7.5.
 
     minspeed = self.minspeed()
-    if self._speed == minspeed + 1.5:
-      self._logevent("speed limits the turn rate to BT.")
-      turnrates = turnrates[:4]
-    elif self._speed == minspeed + 1.0:
-      self._logevent("speed limits the turn rate to HT.")
-      turnrates = turnrates[:3]
+    if self._speed == minspeed:
+      self._logevent("speed limits the turn rate to EZ.")
+      turnrates = turnrates[:1]
     elif self._speed == minspeed + 0.5:
       self._logevent("speed limits the turn rate to TT.")
       turnrates = turnrates[:2]
-    elif self._speed == minspeed:
-      self._logevent("speed limits the turn rate to EZ.")
-      turnrates = turnrates[:1]
+    elif self._speed == minspeed + 1.0:
+      self._logevent("speed limits the turn rate to HT.")
+      turnrates = turnrates[:3]
+    elif self._speed == minspeed + 1.5:
+      self._logevent("speed limits the turn rate to BT.")
+      turnrates = turnrates[:4]
+    else:
+      self._logevent("speed does not limit the turn rate.")
 
     # See rule 8.1.1.
 
