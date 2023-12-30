@@ -354,4 +354,28 @@ A2.move("LVL", "AB", "H,H,H,H,H,H,H,H,H")
 A2._assert("A2-2021       N     5", 8.0)
 endturn()
 
+# Climb capability
+
+starttestsetup()
+A1 = aircraft("A1", "AF", "F-80C"  , "A2-2025", "N", 5, 5.0, "CL")
+A2 = aircraft("A2", "AF", "F-80C"  , "A2-2225", "N", 5, 5.0, "CL")
+endtestsetup()
+
+startturn()
+A1.takedamage("H")
+A1.move("SC","M","H,H,C,H,H")
+A1._assert("A2-2021       N     5", 5.0)
+A2.takedamage("2L")
+A2.move("SC","M","H,H,C,H,H")
+A2._assert("A2-2221       N     6", 5.0)
+endturn()
+
+startturn()
+A1.move("SC","M","H,H,C,H,H")
+A1._assert("A2-2017       N     6", 5.0)
+A2.move("SC","M","H,H,C,H,H")
+A2._assert("A2-2217       N     7", 5.0)
+endturn()
+
+
 endfile(__file__)
