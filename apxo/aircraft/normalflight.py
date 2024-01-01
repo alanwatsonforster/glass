@@ -1143,7 +1143,6 @@ def _continuenormalflight(self, actions, note=False):
         elif self._horizontal:
           self._maneuverfp += 1
     
-
       maneuver = doelements(action, "maneuver" , False)
       
       bank = doelements(action, "bank" , False)
@@ -1167,35 +1166,59 @@ def _continuenormalflight(self, actions, note=False):
     if turning and self._maneuversupersonic:
       self._turningsupersonic = True
     
-      # See rule 9.1. We do this calculation here because any turn rate used in 
+      # See rules 9.1 and 13.3.6. We do this calculation here because any turn rate used in 
       # this turn is still reflected in self._maneuvertype; the turn may be stopped after the
       # facing change. The +1 is because the recovery period is this turn plus half of the
       # speed, rounding down.
 
     if maneuvertype == "ET":
-      self._ETrecoveryfp = int(self._speed / 2) + 1
-      self._BTrecoveryfp = -1
-      self._HTrecoveryfp = -1
+      self._ETrecoveryfp   = int(self._speed / 2) + 1
+      self._BTrecoveryfp   = -1
+      self._rollrecoveryfp = -1
+      self._HTrecoveryfp   = -1
+      self._TTrecoveryfp   = -1
     elif maneuvertype == "BT":
-      self._ETrecoveryfp -= 1
-      self._BTrecoveryfp = int(self._speed / 2) + 1
-      self._HTrecoveryfp = -1
+      self._ETrecoveryfp   -= 1
+      self._BTrecoveryfp   = int(self._speed / 2) + 1
+      self._rollrecoveryfp = -1
+      self._HTrecoveryfp   = -1
+      self._TTrecoveryfp   = -1
+    elif maneuvertype in ["VR", "LR", "DR"] or (self._hrd and self._fp == 1):
+      self._ETrecoveryfp   -= 1
+      self._BTrecoveryfp   = -1
+      self._rollrecoveryfp = int(self._speed / 2) + 1
+      self._HTrecoveryfp   = -1
+      self._TTrecoveryfp   = -1
     elif maneuvertype == "HT":
-      self._ETrecoveryfp -= 1
-      self._BTrecoveryfp -= 1
-      self._HTrecoveryfp = int(self._speed / 2) + 1
+      self._ETrecoveryfp   -= 1
+      self._BTrecoveryfp   -= 1
+      self._rollrecoveryfp -= 1
+      self._HTrecoveryfp   = int(self._speed / 2) + 1
+      self._TTrecoveryfp   = -1
+    elif maneuvertype == "TT":
+      self._ETrecoveryfp   -= 1
+      self._BTrecoveryfp   -= 1
+      self._rollrecoveryfp -= 1
+      self._HTrecoveryfp   -= 1
+      self._TTrecoveryfp   = int(self._speed / 2) + 1
     else:
-      self._ETrecoveryfp -= 1
-      self._BTrecoveryfp -= 1
-      self._HTrecoveryfp -= 1
+      self._ETrecoveryfp   -= 1
+      self._BTrecoveryfp   -= 1
+      self._rollrecoveryfp -= 1
+      self._HTrecoveryfp   -= 1
+      self._TTrecoveryfp   -= 1
 
     if self._ETrecoveryfp == 0:
       self._logevent("recovered from ET.")
     if self._BTrecoveryfp == 0:
       self._logevent("recovered from BT.")
+    if self._rollrecoveryfp == 0:
+      self._logevent("recovered from roll.")
     if self._HTrecoveryfp == 0:
       self._logevent("recovered from HT.")
-        
+    if self._TTrecoveryfp == 0:
+      self._logevent("recovered from TT.")
+          
     # See rules 7.7 and 8.5.
     if maneuver and rolling:
       if initialaltitude > self.ceiling():

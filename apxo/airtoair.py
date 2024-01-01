@@ -211,8 +211,12 @@ def _attack(attacker, weapon, target, result, allowRK=True, allowSSGT=True):
 
   if attacker._BTrecoveryfp > 0:
     attacker._logevent("applicable turn rate is BT.")
+  if attacker._rollrecoveryfp > 0:
+    attacker._logevent("applicable turn rate is BT (for a roll).")
   elif attacker._HTrecoveryfp > 0:
     attacker._logevent("applicable turn rate is HT.")
+  elif attacker._TTrecoveryfp > 0:
+    attacker._logevent("applicable turn rate is TT.")
   else:
     attacker._logevent("no applicable turn rate.")
     
