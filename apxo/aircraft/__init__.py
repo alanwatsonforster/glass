@@ -2,6 +2,7 @@ import apxo                as ap
 import apxo.aircraftdata   as apaircraftdata
 import apxo.altitude       as apaltitude
 import apxo.azimuth        as apazimuth
+import apxo.closeformation as apcloseformation
 import apxo.configuration  as apconfiguration
 import apxo.draw           as apdraw
 import apxo.hex            as aphex
@@ -57,7 +58,7 @@ def _startturn():
     a._unspecifiedattackresult = 0
     a._startflightpath()
   for a in _aircraftlist:
-    a._checkcloseformation()
+    apcloseformation.check(a)
 
 def _endturn():
   for a in _aircraftlist:
@@ -71,7 +72,7 @@ def _endturn():
     a._speed = a._newspeed
     a._newspeed = None
   for a in _aircraftlist:
-    a._checkcloseformation()
+    apcloseformation.check(a)
   for a in _aircraftlist:
     a._save(apturn.turn())
 
@@ -95,11 +96,6 @@ def fromname(name):
 #############################################################################
 
 class aircraft:
-
-  from .closeformation import \
-    joincloseformation, leavecloseformation, \
-    _checkcloseformation, _leaveanycloseformation, _breakdowncloseformation, \
-    closeformationsize, closeformationnames
 
   from .flight import \
     move, continuemove, _endmove
@@ -781,7 +777,7 @@ class aircraft:
       self._altitudecarry = 0
       self._logaction("", "aircraft has collided with terrain at altitude %d." % altitudeofterrain)
       self._destroyed = True
-      self._leaveanycloseformation()
+      apcloseformation.leaveany(self)
 
   def checkforleavingmap(self):
 
@@ -980,6 +976,20 @@ class aircraft:
 
   def _endmovespeed(self):
     apspeed.endmovespeed(self)
+
+  ################################################################################  
+
+  def joincloseformation(self, other):
+    apcloseformation.join(self, other)
+
+  def leavecloseformation(self):
+    apcloseformation.leave(self)
+
+  def closeformationsize(self):
+    return apcloseformation.size(self)
+    
+  def closeformationnames(self):
+    return apcloseformation.names(self)
 
 ################################################################################  
 

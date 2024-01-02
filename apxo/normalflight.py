@@ -6,15 +6,16 @@ import math
 import re
 from apxo.math import onethird, twothirds, roundtoquarter
 
-import apxo.airtoair     as apairtoair
-import apxo.altitude     as apaltitude
-import apxo.aircraft     as apaircraft
-import apxo.capabilities as apcapabilities
-import apxo.hex          as aphex
-import apxo.speed        as apspeed
-import apxo.stores       as apstores
-import apxo.turnrate     as apturnrate
-import apxo.variants     as apvariants
+import apxo.airtoair       as apairtoair
+import apxo.altitude       as apaltitude
+import apxo.aircraft       as apaircraft
+import apxo.capabilities   as apcapabilities
+import apxo.closeformation as apcloseformation
+import apxo.hex            as aphex
+import apxo.speed          as apspeed
+import apxo.stores         as apstores
+import apxo.turnrate       as apturnrate
+import apxo.variants       as apvariants
 
 from apxo.log import plural
 
@@ -1250,15 +1251,15 @@ def continueflight(a, actions, note=False):
         a._logevent("check for GLOC as turn rate is ET and altitude band is %s (check %d in cycle)." % (initialaltitudeband, a._gloccheck))
 
     # See rule 7.8.
-    if turning and a.closeformationsize() != 0:
-      if (a.closeformationsize() > 2 and maneuvertype == "HT") or maneuvertype == "BT" or maneuvertype == "ET":
+    if turning and apcloseformation.size(a) != 0:
+      if (apcloseformation.size(a) > 2 and maneuvertype == "HT") or maneuvertype == "BT" or maneuvertype == "ET":
         a._logevent("close formation breaks down as the turn rate is %s." % maneuvertype)
-        a._breakdowncloseformation()
+        apcloseformation.breakdown(a)
 
     # See rule 13.7, interpreted in the same sense as rule 7.8.
-    if rolling and a.closeformationsize() != 0:
+    if rolling and apcloseformation.size(a) != 0:
       a._logevent("close formation breaks down aircraft is rolling.")
-      a._breakdowncloseformation()      
+      apcloseformation.breakdown(a)
     
     if initialaltitudeband != a._altitudeband:
       a._logevent("altitude band changed from %s to %s." % (initialaltitudeband, a._altitudeband))
@@ -1389,7 +1390,7 @@ def startflight(a, actions, note=False):
     # See rule 13.7, interpreted in the same sense as rule 7.8.
     if a._hrd:
       a._logevent("close formation breaks down upon a HRD.")
-      a._breakdowncloseformation()    
+      apcloseformation.breakdown(a)    
 
     # See rule 8.6.
     if flighttype == "ZC" or \
@@ -1398,7 +1399,7 @@ def startflight(a, actions, note=False):
       flighttype == "UD" or \
       flighttype == "VD":
       a._logevent("close formation breaks down as the flight type is %s." % flighttype)
-      a._breakdowncloseformation()
+      apcloseformation.breakdown(a)
 
     return
 
@@ -1884,10 +1885,10 @@ def endflight(a):
     altitudeloss = a._previousaltitude - a._altitude
     if flighttype == "SD" and altitudeloss > 2:
       a._logevent("close formation breaks down as the aircraft lost %d levels in an SD." % altitudeloss)
-      a._breakdowncloseformation()
+      apcloseformation.breakdown(a)
     elif flighttype == "SC" and a._scwithzccomponent:
       a._logevent("close formation breaks down as the aircraft climbed faster than the sustained climb rate.")
-      a._breakdowncloseformation()
+      apcloseformation.breakdown(a)
       
   ########################################
 
