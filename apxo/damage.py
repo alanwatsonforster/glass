@@ -31,23 +31,7 @@ def damage(A):
 
 ##############################################################################
 
-def takedamage(A, damage, note=False):
-
-
-  aplog.clearerror()
-  try:
-
-    _takedamage(A, damage)
-
-    A._lognote(note)
-    A._logline()
-
-  except RuntimeError as e:
-    aplog.logexception(e)
-
-##############################################################################
-
-def _takedamage(A, damage):
+def takedamage(A, damage):
 
   previousdamage = A.damage()
 

@@ -232,7 +232,7 @@ def _attack(attacker, weapon, target, result, allowRK=True, allowSSGT=True):
   else:
     attacker._logevent("hit and inflicted %s damage." % result)
     if target != None:
-      apdamage._takedamage(target, result)
+      apdamage.takedamage(target, result)
 
   if weapon == "GN" or weapon == "GNSS":
     attacker._logevent("%.1f gun ammunition remain" % attacker._gunammunition)

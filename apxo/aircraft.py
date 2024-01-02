@@ -997,11 +997,17 @@ class aircraft:
 
   ################################################################################  
  
+  def takedamage(self, damage, note=False):
+    aplog.clearerror()
+    try:    
+      apdamage.takedamage(self, damage)
+      self._lognote(note)
+      self._logline()
+    except RuntimeError as e:
+      aplog.logexception(e)
+      
   def damage(self):
     return apdamage.damage(self)
-
-  def takedamage(self, damage):
-    apdamage.takedamage(self, damage)
 
   def damageatleast(self, damage):
     return apdamage.damageatleast(self, damage)
