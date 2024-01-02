@@ -118,9 +118,6 @@ class aircraft:
   from .specialflight import \
     _checkspecialflight, _dospecialflight
 
-  from .speed import \
-    _startmovespeed, _endmovespeed
-
   from .configuration import \
     _updateconfiguration
 
@@ -997,6 +994,14 @@ class aircraft:
     else:
       color = self._color
     apdraw.drawaircraft(self._x, self._y, self._facing, color, self._name, self._altitude, self._zorder)
+
+  ################################################################################  
+
+  def _startmovespeed(self, power, flamedoutengines, lowspeedliftdeviceselected):
+    apspeed.startmovespeed(self, power, flamedoutengines, lowspeedliftdeviceselected)
+
+  def _endmovespeed(self):
+    apspeed.endmovespeed(self)
 
 ################################################################################  
 
