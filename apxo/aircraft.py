@@ -329,7 +329,7 @@ class aircraft:
   #############################################################################
 
   def altitude(self):
-    """Return the altitude of the aircraft in altitude levels."""
+    """Return the altitude of the aircraft in whole altitude levels."""
     return self._altitude
       
   #############################################################################
@@ -353,13 +353,13 @@ class aircraft:
   #############################################################################
 
   def enginesmoking(self):
-    """Return whether the engine was smoking."""
+    """Return whether the engine is smoking."""
     return self._enginesmokingonpreviousturn
 
   #############################################################################
 
   def position(self):
-
+    """Return a string describing the current position of the aircraft."""
     if apmap.isonmap(self._x, self._y):
       hexcode = aphexcode.fromxy(self._x, self._y)
     else:
@@ -371,6 +371,7 @@ class aircraft:
   #############################################################################
 
   def maneuver(self):
+    """Return a string describing the current maneuver of the aircraft."""
     if self._maneuverfacingchange == 60 or self._maneuverfacingchange == 90:
       return "%s%s %d/%d %d" % (self._maneuvertype, self._maneuversense, self._maneuverfp, self._maneuverrequiredfp, self._maneuverfacingchange)
     elif self._maneuvertype != None:
@@ -389,6 +390,7 @@ class aircraft:
   #############################################################################
 
   def note(self, s):
+    """Write a note to the log."""
     self._lognote(s)
     self._logline()
 
@@ -508,11 +510,18 @@ class aircraft:
   ##############################################################################
 
   def sighted(self):
+    """Return True if the aircraft is sighted, otherwise return False."""
     return self._sighted
 
   ##############################################################################
 
-  def padlocks(self, target, note=False):
+  def padlocks(self, other, note=False):
+
+    """
+    Padlock another aircraft.
+    """
+
+    # TODO: Check we are in the visual sighting phase.
 
     aplog.clearerror()
     try:
@@ -521,24 +530,24 @@ class aircraft:
       self._logbreak()
       self._logline()
 
-      self._log("padlocks %s." % target.name())
+      self._log("padlocks %s." % other.name())
 
-      if not target._sightedonpreviousturn:
-        raise RuntimeError("%s was not sighted on previous turn." % (target.name()))
+      if not other._sightedonpreviousturn:
+        raise RuntimeError("%s was not sighted on previous turn." % (other.name()))
 
-      self._logevent("range is %d." % apvisualsighting.visualsightingrange(self, target))
-      self._logevent("%s." % apvisualsighting.visualsightingcondition(self, target)[0])
+      self._logevent("range is %d." % apvisualsighting.visualsightingrange(self, other))
+      self._logevent("%s." % apvisualsighting.visualsightingcondition(self, other)[0])
 
-      condition, cansight, canpadlock, restricted = apvisualsighting.visualsightingcondition(self, target)
+      condition, cansight, canpadlock, restricted = apvisualsighting.visualsightingcondition(self, other)
       if not canpadlock:
-        raise RuntimeError("%s cannot padlock %s." % (self.name(), target.name()))
+        raise RuntimeError("%s cannot padlock %s." % (self.name(), other.name()))
 
-      target._sighted = True
-      target._identified = target._identifiedonpreviousturn or apvisualsighting.canidentify(self, target)
-      if target._identified:
-        self._log("%s is sighted and identified." % target.name())
+      other._sighted = True
+      other._identified = other._identifiedonpreviousturn or apvisualsighting.canidentify(self, other)
+      if other._identified:
+        self._log("%s is sighted and identified." % other.name())
       else:
-        self._log("%s is sighted but not identified." % target.name())
+        self._log("%s is sighted but not identified." % other.name())
 
       self._lognote(note)
       self._logline()
@@ -548,7 +557,11 @@ class aircraft:
 
   ##############################################################################
 
-  def attemptstosight(self, target, success=None, note=False):
+  def attemptstosight(self, other, success=None, note=False):
+
+    """
+    Attempt to sight another aircraft.
+    """
 
     aplog.clearerror()
     try:
@@ -557,20 +570,20 @@ class aircraft:
       self._logbreak()
       self._logline()
 
-      self._log("attempts to sight %s." % target.name())
-      self._logevent("range is %d." % apvisualsighting.visualsightingrange(self, target))
-      self._logevent("%s." % apvisualsighting.visualsightingcondition(self, target)[0])
+      self._log("attempts to sight %s." % other.name())
+      self._logevent("range is %d." % apvisualsighting.visualsightingrange(self, other))
+      self._logevent("%s." % apvisualsighting.visualsightingcondition(self, other)[0])
       
-      condition, cansight, canpadlock, restricted = apvisualsighting.visualsightingcondition(self, target)
+      condition, cansight, canpadlock, restricted = apvisualsighting.visualsightingcondition(self, other)
       if not cansight:
-        raise RuntimeError("%s cannot sight %s." % (self.name(), target.name()))
+        raise RuntimeError("%s cannot sight %s." % (self.name(), other.name()))
 
       allrestricted = restricted
 
       additionalsearchers = 0
       for searcher in aslist():
         if searcher.name() != self.name() and searcher.force() == self.force():
-          condition, cansight, canpadlock, restricted = apvisualsighting.visualsightingcondition(searcher, target)
+          condition, cansight, canpadlock, restricted = apvisualsighting.visualsightingcondition(searcher, other)
           self._logevent("additional searcher %s: %s." % (searcher.name(), condition))
           if cansight:
             additionalsearchers += 1
@@ -582,7 +595,7 @@ class aircraft:
 
       modifier = 0
 
-      dmodifier = apvisualsighting.visualsightingrangemodifier(self, target)
+      dmodifier = apvisualsighting.visualsightingrangemodifier(self, other)
       self._logevent("range modifier        is %+d." % dmodifier)
       modifier += dmodifier
 
@@ -594,7 +607,7 @@ class aircraft:
       self._logevent("searchers modifier    is %+d." % dmodifier)
       modifier += dmodifier
 
-      dmodifier = apvisualsighting.visualsightingpaintschememodifier(self, target)
+      dmodifier = apvisualsighting.visualsightingpaintschememodifier(self, other)
       self._logevent("paint-scheme modifier is %+d." % dmodifier)
       modifier += dmodifier
 
@@ -602,25 +615,25 @@ class aircraft:
       if dmodifier != 0:
         self._logevent("crew modifier         is %+d." % dmodifier)
 
-      dmodifier = apvisualsighting.visualsightingsmokingmodifier(self, target)
+      dmodifier = apvisualsighting.visualsightingsmokingmodifier(self, other)
       if dmodifier != 0:
         self._logevent("smoking modifier      is %+d." % dmodifier)
       modifier += dmodifier
 
       self._logevent("total modifier        is %+d." % modifier)
-      self._logevent("target visibility is %d." % apcapabilities.visibility(target))
+      self._logevent("target visibility is %d." % apcapabilities.visibility(other))
 
       self._lognote(note)
 
       if success is False:
-        self._log("%s is unsighted." % target.name())
+        self._log("%s is unsighted." % other.name())
       elif success is True:
-        target._sighted = True
-        target._identified = target._identifiedonpreviousturn or apvisualsighting.canidentify(self, target)
-        if target._identified:
-          self._log("%s is sighted and identified." % target.name())
+        other._sighted = True
+        other._identified = other._identifiedonpreviousturn or apvisualsighting.canidentify(self, other)
+        if other._identified:
+          self._log("%s is sighted and identified." % other.name())
         else:
-          self._log("%s is sighted but not identified." % target.name())
+          self._log("%s is sighted but not identified." % other.name())
 
       self._logline()
     
@@ -630,31 +643,36 @@ class aircraft:
   #############################################################################
 
   def fuel(self):
+    """Return the current fuel points."""
     return self._fuel
 
   def internalfuel(self):
+    """Return the current internal fuel points."""
     if self.fuel() is None:
       return None
     else:
       return min(self.fuel(), self.internalfuelcapacity())
 
   def externalfuel(self):
+    """Return the current external fuel points."""
     if self.fuel() is None:
       return None
     else:
       return max(0, self.fuel() - self.internalfuelcapacity())
 
-  def externalfuelcapacity(self):
-    return apstores.totalfuelcapacity(self._stores)
-
   def internalfuelcapacity(self):
+    """Return the internal fuel capacity."""
     return self._aircraftdata.internalfuelcapacity()
+    
+  def externalfuelcapacity(self):
+    """Return the external fuel capacity."""
+    return apstores.totalfuelcapacity(self._stores)
 
   #############################################################################
 
   def showstores(self, note=False):
     """
-    Show the aircraft's stores.
+    Show the aircraft's stores to the log.
     """
 
     aplog.clearerror()
