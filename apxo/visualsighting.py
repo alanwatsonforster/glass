@@ -311,3 +311,34 @@ def canidentify(A, B):
   
 ################################################################################
 
+def startvisualsighting():
+
+  for target in apaircraft.aslist():
+    aplog.logbreak()
+    if target._sightedonpreviousturn:
+      aplog.log("%-4s : was sighted on previous turn." % target.name())
+    else:
+      aplog.log("%-4s : was unsighted on previous turn." % target.name())
+    aplog.log("%-4s : maximum visual range is %d." % (target.name(), target.maxvisualsightingrange()))
+    for searcher in aslist():
+      if target.name() != searcher.name() and target.force() != searcher.force():
+        aplog.log("%-4s : searcher %s: range is %2d: %s." % (
+          target.name(), searcher.name(), 
+          visualsightingrange(searcher, target), 
+          visualsightingcondition(searcher, target)[0]
+        ))
+
+################################################################################
+
+def endvisualsighting():
+
+  aplog.logbreak()
+  for target in apaircraft.aslist():
+    if target._sighted and target._identified:
+      aplog.log("%-4s : is sighted and identified." % target.name())
+    elif target._sighted:
+      aplog.log("%-4s : is sighted." % target.name())
+    else:
+      aplog.log("%-4s : is unsighted." % target.name())
+
+################################################################################

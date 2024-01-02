@@ -7,6 +7,7 @@ import apxo.order          as aporder
 import apxo.variants       as apvariants
 import apxo.scenarios      as apscenarios
 import apxo.turn           as apturn
+import apxo.visualsighting as apvisualsighting
 
 __all__ = [
   "startsetup",
@@ -130,10 +131,20 @@ def endturn():
 ################################################################################
 
 def startvisualsighting():
-  apaircraft.startvisualsighting()
+  aplog.clearerror()
+  try:
+    apturn.checkinturn()
+    apvisualsighting.startvisualsighting(), 
+  except RuntimeError as e:
+    aplog.logexception(e)
 
 def endvisualsighting():
-  apaircraft.endvisualsighting()
+  aplog.clearerror()
+  try:
+    apturn.checkinturn()
+    apvisualsighting.endvisualsighting(), 
+  except RuntimeError as e:
+    aplog.logexception(e)
 
 ################################################################################
 
