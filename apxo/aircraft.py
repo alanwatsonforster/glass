@@ -122,9 +122,6 @@ class aircraft:
 
       if not isinstance(aircrafttype, str):
         raise RuntimeError("the aircrafttype argument must be a string.")
-      # Require the hexcode to be a string to avoid surprised with things like 2020/2120 rather than "2020/2120".
-      if not isinstance(hexcode, str):
-        raise RuntimeError("the hexcode argument must be a string.")
       if not aphexcode.isvalidhexcode(hexcode):
         raise RuntimeError("the hexcode argument is not valid.")
       if not apazimuth.isvalidazimuth(azimuth):
