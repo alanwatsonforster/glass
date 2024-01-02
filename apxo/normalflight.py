@@ -11,6 +11,7 @@ import apxo.altitude       as apaltitude
 import apxo.aircraft       as apaircraft
 import apxo.capabilities   as apcapabilities
 import apxo.closeformation as apcloseformation
+import apxo.configuration  as apconfiguration
 import apxo.flight         as apflight
 import apxo.hex            as aphex
 import apxo.speed          as apspeed
@@ -813,7 +814,7 @@ def continueflight(a, actions, note=False):
         printer=lambda s: a._logevent(s)
       )
 
-    a._updateconfiguration()
+    apconfiguration.update(a)
 
     if a._configuration != previousconfiguration:
       a._logevent("configuration changed from %s to %s." % (

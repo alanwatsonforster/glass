@@ -1,7 +1,8 @@
 import math
 
-import apxo.capabilities as apcapabilities
-import apxo.variants     as apvariants
+import apxo.capabilities  as apcapabilities
+import apxo.configuration as apconfiguration
+import apxo.variants      as apvariants
 
 from apxo.math         import onethird, twothirds
 from apxo.normalflight import _isclimbingflight, _isdivingflight
@@ -469,7 +470,7 @@ def endmovespeed(a):
     if previousexternalfuel > 0 and a.externalfuel() == 0:
       a._logevent("external fuel is exhausted.")
       previousconfiguration = a._configuration
-      a._updateconfiguration()
+      apconfiguration.update(a)
       if a._configuration != previousconfiguration:
         a._logevent("changed configuration from %s to %s." % (
           previousconfiguration, a._configuration

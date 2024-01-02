@@ -98,9 +98,6 @@ def fromname(name):
 
 class aircraft:
 
-  from .configuration import \
-    _updateconfiguration
-
   from .damage import \
     damage, _takedamage, takedamage, damageatleast, damageatmost
 
@@ -143,7 +140,7 @@ class aircraft:
         raise RuntimeError("the altitude argument is not valid.")
       if not apspeed.isvalidspeed(speed):
         raise RuntimeError("the speed argument is not valid.")
-      if not apconfiguration.isvalidconfiguration(configuration):
+      if not apconfiguration.isvalid(configuration):
         raise RuntimeError("the configuration argument is not valid.")
       if not apvisualsighting.isvalidpaintscheme(paintscheme):
         raise RuntimeError("the paintscheme argument is not valid.")
@@ -267,7 +264,7 @@ class aircraft:
         if self.fuel() is not None and self.fuel() > self.internalfuelcapacity() + self.externalfuelcapacity():
           raise RuntimeError("total fuel exceeds the internal and external capacity.")
 
-      self._updateconfiguration()
+      apconfiguration.update(self)
       self._logaction("", "configuration is %s." % self._configuration)
 
       global _zorder

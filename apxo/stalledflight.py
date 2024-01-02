@@ -5,9 +5,10 @@ Stalled flight for aircraft.
 import math
 import re
 
-import apxo.altitude     as apaltitude
-import apxo.capabilities as apcapabilities
-import apxo.stores       as apstores
+import apxo.altitude      as apaltitude
+import apxo.capabilities  as apcapabilities
+import apxo.configuration as apconfiguration
+import apxo.stores        as apstores
 
 def checkflight(a):
 
@@ -40,7 +41,7 @@ def doflight(a, action, note=False):
         printer=lambda s: a._logevent(s)
       )
 
-    a._updateconfiguration()
+    apconfiguration.update(a)
 
     if a._configuration != previousconfiguration:
       a._logevent("configuration changed from %s to %s." % (
