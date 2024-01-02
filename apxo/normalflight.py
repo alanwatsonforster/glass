@@ -95,7 +95,9 @@ def checkflight(A):
     # See rule 8.2.3 on VD recovery.
 
     if previousflighttype == "VD":
-      if not apcapabilities.hasproperty(A, "HPR"):
+      if apvariants.withvariant("use version 2.4 rules") and A._speed <= 2.0:
+        pass
+      elif not apcapabilities.hasproperty(A, "HPR"):
         raise RuntimeError("flight type immediately after %s cannot be %s." % (
           previousflighttype, flighttype
         ))

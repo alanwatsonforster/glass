@@ -243,4 +243,32 @@ A1.move("LVL",  "M", "HD,H,H,H")
 A1._assert("A1-1807       N     8",  4.5)
 endturn()
 
+# In version 2.4, normal aircraft can go from VD to LVL if their speed is no
+# more than 2.0.
+
+starttestsetup(variants=["use version 2.4 rules"])
+A1 = aircraft("A1", "AF", "F-80C"  , "A2-2025", "N", 20, 2.0, "CL")
+A2 = aircraft("A2", "AF", "F-80C"  , "A2-2225", "N", 20, 2.5, "CL")
+endtestsetup()
+
+startturn()
+A1.move("VD/HRD", "I", "S1/H,D2")
+A1._assert("A2-2024       N    18", 2.0)
+A2.move("VD/HRD", "I", "S1/H,D2")
+A2._assert("A2-2224       N    18", 2.5)
+endturn()
+
+startturn()
+A1.move("LVL", "I", "H,H")
+A1._assert("A2-2022       N    18", 2.0)
+A2.move("LVL", "I", "H,H,H")
+asserterror("flight type immediately after VD cannot be LVL.")
+
+startturn()
+A1.move("LVL", "I", "H,H")
+A1._assert("A2-2022       N    18", 2.0)
+A2.move("SD", "I", "H,D,D")
+A2._assert("A2-2223       N    16", 2.5)
+endturn()
+
 endfile(__file__)
