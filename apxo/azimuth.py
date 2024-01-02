@@ -3,11 +3,29 @@ import apxo.variants as apvariants
 _northfacing = 90
 
 def isvalidazimuth(azimuth):
-  try:
-    facing = tofacing(azimuth)
+
+  """
+  Return True if the argument is a valid azimuth, otherwise return
+  False.
+
+  Normally, valid azimuths are integers and the strings: N, NNE, NE,
+  ENE, E, SE, SSE, S, SSW, SW, WSW, W, NW, WNW, NNW. However If the
+  variant "disallow ENE/ESE/WSW/WNW" is selected, these are not valid
+  azimuths and if the variant "disallow NE/SE/SW/NW" is selected, these
+  are also not valid azimuths.
+  """
+  
+  if isinstance(azimuth, int):
     return True
-  except:
-    return False
+
+  if azimuth in ["N", "NNE", "E", "SSE", "S", "SSW", "W", "NNW"]:
+    return True
+  if not apvariants.withvariant("disallow NE/SE/SW/NW") and azimuth in ["NE", "SE", "SW", "NW"]:
+    return True
+  if not apvariants.withvariant("disallow ENE/ESE/WSW/WNW") and azimuth in ["ENE", "ESE", "WSW", "WNW"]:
+    return True
+
+  return False
 
 def setnorth(orientation):
 
@@ -31,66 +49,43 @@ def setnorth(orientation):
 def tofacing(azimuth):
 
   """
-  Return the facing corresponding to the azimuth argument, which can be one of 
-  the strings "N", "NNE", "ENE", "E", "ESE", "SSE", "S", "SSW", "WSW", "W", 
-  "WNW", or "NNW", or a number, specifying the azimuth in degrees from north 
-  through east.
-
-  If the variant "disallow ENE/ESE/WSW/WNW" is selected, these are not valid 
-  azimuths. 
-  
-  If the variant "disallow NE/SE/SW/NW" is selected, these are also not valid 
-  azimuths.
+  Return the facing corresponding to the azimuth argument.
   """
+
+  if not isvalidazimuth(azimuth):
+    raise RuntimeError("invalid azimuth %r." % azimuth)
 
   named = {
     "N"  :   0, 
     "NNE":  30, 
+    "NE" :  60, "ENE":  60,
     "E"  :  90, 
+    "SE" : 120, "ESE": 120,
     "SSE": 150, 
     "S"  : 180, 
     "SSW": 210, 
+    "SW" : 240, "WSW": 240, 
     "W"  : 270, 
+    "NW" : 300, "WNW": 300,
     "NNW": 330, 
-  }
+    }
   if azimuth in named:
     azimuth = named[azimuth]
-
-  if not apvariants.withvariant("disallow NE/SE/SW/NW"):
-    named = {
-      "NE":  60,
-      "SE": 120,
-      "SW": 240, 
-      "NW": 300,
-    }
-    if azimuth in named:
-      azimuth = named[azimuth]
-
-  if not apvariants.withvariant("disallow ENE/ESE/WSW/WNW"):
-    named = {
-      "ENE":  60,
-      "ESE": 120,
-      "WSW": 240, 
-      "WNW": 300,
-    }
-    if azimuth in named:
-      azimuth = named[azimuth]
-
-  if not isinstance(azimuth, int):
-    raise RuntimeError("invalid azimuth %r." % azimuth)
   
   return (_northfacing - azimuth) % 360
 
 def fromfacing(facing):
 
   """
-  Return the azimuth corresponding to the facing argument. If the azimuth
-  is a multiple of 30 degrees, the corresponding string "N", "NNE", "ENE", "E", 
-  "ESE", "SSE", "S", "SSW", "WSW", "W", "WNW", or "NNW" is returned. Otherwise,
-  a number is returned, giving the azimuth in degrees from north through east.
+  Return the azimuth corresponding to the facing argument.
 
-  If the variant "prefer NE/SE/SW/NW" is selected, these are returned instead 
-  of ENE/ESE/WSW/WNW.
+  If the azimuth is a multiple of 30 degrees, the corresponding string
+  "N", "NNE", "ENE", "E", "ESE", "SSE", "S", "SSW", "WSW", "W", "WNW",
+  or "NNW" is returned. Otherwise, a number is returned, giving the
+  azimuth in degrees from north through east.
+
+  If the variant "prefer NE/SE/SW/NW" is selected, these are returned
+  instead of ENE/ESE/WSW/WNW.
   """
 
   if apvariants.withvariant("prefer NE/SE/SW/NW"):
