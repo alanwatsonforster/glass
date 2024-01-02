@@ -21,6 +21,7 @@ import re
 ################################################################################
 
 _aircraftlist = []
+_zorder = 0
 
 def _startsetup():
   global _aircraftlist
@@ -91,9 +92,6 @@ def fromname(name):
 
 #############################################################################
 
-from .draw import \
-  _zorder
-
 from .normalflight import \
   _isclimbingflight, _isdivingflight, _islevelflight
     
@@ -136,10 +134,6 @@ class aircraft:
     rollhfp, rolldrag, climbcapability, hasproperty, \
     specialclimbcapability, gunarc, \
     visibility, blindarcs, restrictedarcs
-
-  from .draw import \
-    _drawaircraft, \
-    _startflightpath, _continueflightpath, _drawflightpath
 
   from .log import \
     _log, _logaction, _logstart, _logend, _logevent, _logline, _logbreak, \
@@ -977,6 +971,32 @@ class aircraft:
       print("== actual   configuration: %s" % self._configuration)
       print("== expected configuration: %s" % expectedconfiguration)
       assert expectedconfiguration == self._configuration
+
+  ################################################################################
+
+  def _startflightpath(self):
+    self._flightpathx = [self._x]
+    self._flightpathy = [self._y]
+
+  def _continueflightpath(self):
+    self._flightpathx.append(self._x)
+    self._flightpathy.append(self._y)
+
+  def _drawflightpath(self):
+    if self._destroyed:
+      color = None
+    else:
+      color = self._color
+    apdraw.drawflightpath(self._flightpathx, self._flightpathy, color, self._zorder)
+
+  def _drawaircraft(self):
+    if self._leftmap:
+      return
+    if self._destroyed:
+      color = None
+    else:
+      color = self._color
+    apdraw.drawaircraft(self._x, self._y, self._facing, color, self._name, self._altitude, self._zorder)
 
 ################################################################################  
 

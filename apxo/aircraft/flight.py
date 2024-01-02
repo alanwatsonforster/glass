@@ -9,7 +9,7 @@ import apxo.log  as aplog
 import apxo.turn as apturn
 
 from .normalflight import _isdivingflight, _isclimbingflight, _islevelflight
-from .draw import _zorder
+from apxo.aircraft import _zorder
 
 ##############################################################################
 
