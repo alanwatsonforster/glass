@@ -4,8 +4,9 @@ Departed flight for the aircraft class.
 
 import math
 
-import apxo.altitude as apaltitude
-import apxo.hex      as aphex
+import apxo.altitude     as apaltitude
+import apxo.capabilities as apcapabilities
+import apxo.hex          as aphex
 
 def _checkdepartedflight(self):
 
@@ -13,7 +14,7 @@ def _checkdepartedflight(self):
   Check departed flight is allowed.
   """
 
-  if self.hasproperty("SPFL"):
+  if apcapabilities.hasproperty(self, "SPFL"):
     raise RuntimeError("special-flight aircraft cannot perform departed flight.")
 
 def _dodepartedflight(self, action, note=False):

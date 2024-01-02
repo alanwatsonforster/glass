@@ -4,11 +4,12 @@ Normal flight for the aircraft class.
 
 from apxo.math import onethird, twothirds, roundtoquarter
 
-import apxo.altitude as apaltitude
-import apxo.hex      as aphex
-import apxo.speed    as apspeed
-import apxo.turnrate as apturnrate
-import apxo.variants as apvariants
+import apxo.altitude     as apaltitude
+import apxo.capabilities as apcapabilities
+import apxo.hex          as aphex
+import apxo.speed        as apspeed
+import apxo.turnrate     as apturnrate
+import apxo.variants     as apvariants
 
 ################################################################################
 
@@ -42,7 +43,7 @@ def _dospecialflight(self, action, note=False):
     """
 
     if altitudechange == 1:
-      altitudechange = self.specialclimbcapability()
+      altitudechange = apcapabilities.specialclimbcapability(self)
     
     self._altitude, self._altitudecarry = apaltitude.adjustaltitude(self._altitude, self._altitudecarry, +altitudechange)
     self._altitudeband = apaltitude.altitudeband(self._altitude)

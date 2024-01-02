@@ -1,8 +1,9 @@
-import apxo.aircraft as apaircraft
-import apxo.geometry as apgeometry
-import apxo.hex      as aphex
-import apxo.log      as aplog
-import apxo.math     as apmath
+import apxo.aircraft     as apaircraft
+import apxo.capabilities as apcapabilities
+import apxo.geometry     as apgeometry
+import apxo.hex          as aphex
+import apxo.log          as aplog
+import apxo.math         as apmath
 
 ##############################################################################
 
@@ -195,9 +196,9 @@ def _attack(attacker, weapon, target, result, allowRK=True, allowSSGT=True):
   if target is not None:
 
     if weapon == "GN" or weapon == "GNSS":
-      if attacker.gunarc() != None:
-        attacker._logevent("gunnery arc is %s." % attacker.gunarc())
-      r = attacker.gunattackrange(target, arc=attacker.gunarc())
+      if apcapabilities.gunarc(attacker) != None:
+        attacker._logevent("gunnery arc is %s." % apcapabilities.gunarc(attacker))
+      r = attacker.gunattackrange(target, arc=apcapabilities.gunarc(attacker))
     else:
       r = attacker.rocketattackrange(target)
     if isinstance(r, str):

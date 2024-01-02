@@ -1,8 +1,9 @@
 ################################################################################
 
-import apxo.log      as aplog
-import apxo.hex      as aphex
-import apxo.geometry as apgeometry
+import apxo.capabilities as apcapabilities
+import apxo.hex          as aphex
+import apxo.geometry     as apgeometry
+import apxo.log          as aplog
 
 ################################################################################
 
@@ -14,7 +15,7 @@ def maxvisualsightingrange(target):
 
   # See rule 11.1.
     
-  return  4 * target.visibility()
+  return  4 * apcapabilities.visibility(target)
 
 ################################################################################
 
@@ -26,7 +27,7 @@ def maxvisualidentificationrange(target):
 
   # See rule 11.5.
     
-  return  2 * target.visibility()
+  return  2 * apcapabilities.visibility(target)
 
 ################################################################################
 
@@ -280,7 +281,7 @@ def _blindarc(searcher, target):
 
   # See rules 9.2 and 11.1.
 
-  return _arc(searcher, target, searcher.blindarcs())
+  return _arc(searcher, target, apcapabilities.blindarcs(searcher))
 
 ################################################################################
 
@@ -293,7 +294,7 @@ def _restrictedarc(searcher, target):
 
   # See rules 9.2 and 11.1.
 
-  return _arc(searcher, target, searcher.restrictedarcs())
+  return _arc(searcher, target, apcapabilities.restrictedarcs(searcher))
 
 ################################################################################
 

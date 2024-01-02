@@ -1,6 +1,8 @@
 import math
 
-import apxo.variants as apvariants
+import apxo.capabilities as apcapabilities
+import apxo.variants     as apvariants
+
 from apxo.math import onethird, twothirds
 from apxo.log import plural
 
@@ -94,11 +96,11 @@ def startmovespeed(a, power, flamedoutengines, lowspeedliftdeviceselected):
     # See rule 29.1.
     if not a._fuel is None:
       if a._fuel == 0:
-        if a.engines() == 1:
+        if apcapabilities.engines(a) == 1:
           a._logevent("the engine is flamed-out from a lack of fuel.")
         else:
           a._logstart("all engines are flamed-out from a lack of fuel.")
-        flamedoutengines = a.engines()
+        flamedoutengines = apcapabilities.engines(a)
       
     ############################################################################
 
@@ -118,34 +120,34 @@ def startmovespeed(a, power, flamedoutengines, lowspeedliftdeviceselected):
     # not required for jet-powered aircraft, I have implemented that HT
     # is sufficient.
 
-    powerapM  = a.power("M")
-    powerapAB = a.power("AB")
+    powerapM  = apcapabilities.power(a, "M")
+    powerapAB = apcapabilities.power(a, "AB")
     if apvariants.withvariant("disallow HT/FT"):
       powerapHT = None
       powerapFT = None
     else:
-      powerapHT = a.power("HT")
-      powerapFT = a.power("FT")
+      powerapHT = apcapabilities.power(a, "HT")
+      powerapFT = apcapabilities.power(a, "FT")
 
     jet = (powerapM != None)
 
     # See rule 8.4.
 
     if a._altitudeband == "VH":
-      if jet and not a.hasproperty("HAE"):
+      if jet and not apcapabilities.hasproperty(a, "HAE"):
         powerapM  = max(0.5, twothirds(powerapM))
         if powerapAB != None:
           powerapAB = max(0.5, twothirds(powerapAB))
     elif (a._altitudeband == "EH" or a._altitudeband == "UH"):
-      if jet and not a.hasproperty("HAE"):
+      if jet and not apcapabilities.hasproperty(a, "HAE"):
         powerapM  = max(0.5, onethird(powerapM))
         if powerapAB != None:
           powerapAB = max(0.5, onethird(powerapAB))     
 
     # Some propeller aircraft lose power at high speed.
-    if a.powerfade() != None:
-      powerapHT = max(0.0, powerapHT - a.powerfade())
-      powerapFT = max(0.0, powerapFT - a.powerfade())
+    if apcapabilities.powerfade(a) != None:
+      powerapHT = max(0.0, powerapHT - apcapabilities.powerfade(a))
+      powerapFT = max(0.0, powerapFT - apcapabilities.powerfade(a))
 
     # See "Aircraft Damage Effects" in the Play Aids.
     if a.damageatleast("H"):
@@ -211,13 +213,13 @@ def startmovespeed(a, power, flamedoutengines, lowspeedliftdeviceselected):
     a._logstart("power setting is %s." % powersetting)
 
     # See rule 8.4. The reduction was done above, but we report it here.
-    if jet and not a.hasproperty("HAE") and (
+    if jet and not apcapabilities.hasproperty(a, "HAE") and (
       a._altitudeband == "VH" or a._altitudeband == "EH" or a._altitudeband == "UH"
     ):
       a._logevent("power is reduced in the %s altitude band." % a._altitudeband)
         
     # Again, the reduction was done above, but we report it here.
-    if a.powerfade() != None and a.powerfade() > 0.0:
+    if apcapabilities.powerfade(a) != None and apcapabilities.powerfade(a) > 0.0:
       a._logevent("power is reduced as the speed is %.1f." % speed)
     
     # Again, the reduction was done above, but we report it here.
@@ -225,27 +227,27 @@ def startmovespeed(a, power, flamedoutengines, lowspeedliftdeviceselected):
       a._logevent("power is reduced as damage is %s." % a.damage())
 
     # Is the engine smoking?
-    a._enginesmoking = (a.hasproperty("SMP") and powersetting == "M")
+    a._enginesmoking = (apcapabilities.hasproperty(a, "SMP") and powersetting == "M")
     if a._enginesmoking:
       a._logevent("engine is smoking.")
 
     # See rule 6.7
 
-    flamedoutfraction = flamedoutengines / a.engines()
+    flamedoutfraction = flamedoutengines / apcapabilities.engines(a)
 
     if flamedoutfraction == 1:
 
-      if a.engines() == 1:
+      if apcapabilities.engines(a) == 1:
         a._logevent("power setting is treated as I as the engine is flamed-out.")
       else:
-        a._logevent("power setting is treated as I as all %d engines are flamed-out." % a.engines())
+        a._logevent("power setting is treated as I as all %d engines are flamed-out." % apcapabilities.engines(a))
       powersetting = "I"
       powerap = 0
 
     elif flamedoutfraction > 0.5:
 
       a._logevent("maximum power is reduced by one third as %d of the %d engines are flamed-out." % (
-        flamedoutengines, a.engines()
+        flamedoutengines, apcapabilities.engines(a)
       ))
       # 1/3 of APs, quantized in 1/4 units, rounding down.
       powerap = math.floor(powerap / 3 * 4) / 4
@@ -253,7 +255,7 @@ def startmovespeed(a, power, flamedoutengines, lowspeedliftdeviceselected):
     elif flamedoutfraction > 0:
 
       a._logevent("maximum power is reduced by one half as %d of the %d engines are flamed-out." % (
-        flamedoutengines, a.engines()
+        flamedoutengines, apcapabilities.engines(a)
       ))
       # 1/2 of APs, quantized in 1/4 units, rounding up.
       powerap = math.ceil(powerap / 2 * 4) / 4
@@ -266,10 +268,10 @@ def startmovespeed(a, power, flamedoutengines, lowspeedliftdeviceselected):
 
     # See rules 6.1, 6.7, and 8.5.
 
-    if lastpowersetting == "I" and powersetting == "AB" and not a.hasproperty("RPR"):
+    if lastpowersetting == "I" and powersetting == "AB" and not apcapabilities.hasproperty(a, "RPR"):
       a._logevent("check for flame-out as the power setting has increased from I to AB.")
 
-    if powersetting != "I" and a._altitude > a.ceiling():
+    if powersetting != "I" and a._altitude > apcapabilities.ceiling(a):
       a._logevent("check for flame-out as the aircraft is above its ceiling and the power setting is %s." % powersetting)
 
     if a._flighttype == "DP" and (powersetting == "M" or powersetting == "AB"):
@@ -293,7 +295,7 @@ def startmovespeed(a, power, flamedoutengines, lowspeedliftdeviceselected):
 
     if not apvariants.withvariant("use version 2.4 rules"):
       if powersetting == "I":
-        speedchange = a.power("I")
+        speedchange = apcapabilities.power(a, "I")
         if a._speed >= m1speed(a._altitudeband):
           speedchange += 0.5
         # This keeps the speed non-negative. See rule 6.2.
@@ -314,40 +316,40 @@ def startmovespeed(a, power, flamedoutengines, lowspeedliftdeviceselected):
 
     # Low-speed lift devices (e.g., slats or flaps).
 
-    if a.lowspeedliftdevicelimit() is None:
+    if apcapabilities.lowspeedliftdevicelimit(a) is None:
 
       a._lowspeedliftdeviceextended = False
  
     else:
       
-      if apvariants.withvariant("use version 2.4 rules") and a.lowspeedliftdeviceselectable():
+      if apvariants.withvariant("use version 2.4 rules") and apcapabilities.lowspeedliftdeviceselectable(a):
 
         if lowspeedliftdeviceselected is not None:
           a._lowspeedliftdeviceselected = lowspeedliftdeviceselected
 
         if a._lowspeedliftdeviceselected:
-          a._logevent("%s selected." % a.lowspeedliftdevicename())
+          a._logevent("%s selected." % apcapabilities.lowspeedliftdevicename(a))
         else:
-          a._logevent("%s not selected." % a.lowspeedliftdevicename())
+          a._logevent("%s not selected." % apcapabilities.lowspeedliftdevicename(a))
 
-        a._lowspeedliftdeviceextended = a._lowspeedliftdeviceselected and (speed <= a.lowspeedliftdevicelimit())
+        a._lowspeedliftdeviceextended = a._lowspeedliftdeviceselected and (speed <= apcapabilities.lowspeedliftdevicelimit(a))
 
       else:
 
-        a._lowspeedliftdeviceextended = (speed <= a.lowspeedliftdevicelimit())
+        a._lowspeedliftdeviceextended = (speed <= apcapabilities.lowspeedliftdevicelimit(a))
 
       if a._lowspeedliftdeviceextended:
-        a._logevent("%s extended." % a.lowspeedliftdevicename())
+        a._logevent("%s extended." % apcapabilities.lowspeedliftdevicename(a))
       else:
-        a._logevent("%s retracted." % a.lowspeedliftdevicename())
+        a._logevent("%s retracted." % apcapabilities.lowspeedliftdevicename(a))
 
-    a._logevent("minumum speed is %.1f." % a.minspeed())
+    a._logevent("minumum speed is %.1f." % apcapabilities.minspeed(a))
     
     ############################################################################
 
     # See rule 6.3 on entering a stall.
       
-    minspeed = a.minspeed()
+    minspeed = apcapabilities.minspeed(a)
     if speed < minspeed:
       a._logevent("speed is below the minimum of %.1f." % minspeed)
       a._logevent("aircraft is stalled.")
@@ -370,9 +372,9 @@ def startmovespeed(a, power, flamedoutengines, lowspeedliftdeviceselected):
 
     # See rule 6.1.
 
-    if speed > a.cruisespeed():
+    if speed > apcapabilities.cruisespeed(a):
       if powersetting == "I" or powersetting == "N":
-        a._logevent("insufficient power above cruise speed (%.1f)." % a.cruisespeed())
+        a._logevent("insufficient power above cruise speed (%.1f)." % apcapabilities.cruisespeed(a))
         speedap -= 1.0
 
     # See rules 6.1 and 6.6 in version 2.4.
@@ -380,7 +382,7 @@ def startmovespeed(a, power, flamedoutengines, lowspeedliftdeviceselected):
     if apvariants.withvariant("use version 2.4 rules"):
       if powersetting == "I":
         a._logevent("idle power.")
-        speedap -= a.power("I")
+        speedap -= apcapabilities.power(a, "I")
         if speed >= m1speed(a._altitudeband):
           speedap -= 1.0
 
@@ -404,9 +406,9 @@ def startmovespeed(a, power, flamedoutengines, lowspeedliftdeviceselected):
         speedap -= 1.0
       elif speed == m1speed(a._altitudeband):
         speedap -= 1.5
-      if a.hasproperty("LTD"):
+      if apcapabilities.hasproperty(a, "LTD"):
         speedap += 0.5
-      elif a.hasproperty("HTD"):
+      elif apcapabilities.hasproperty(a, "HTD"):
         speedap -= 0.5
 
     ############################################################################
@@ -429,7 +431,7 @@ def startmovespeed(a, power, flamedoutengines, lowspeedliftdeviceselected):
     # Determine the fuel consumption. See rule 29.1.
 
     if not a._fuel is None:
-      a._fuelconsumption = min(a._fuel, a.fuelrate() * (1 - flamedoutfraction))
+      a._fuelconsumption = min(a._fuel, apcapabilities.fuelrate(a) * (1 - flamedoutfraction))
 
 ################################################################################
 
@@ -508,7 +510,7 @@ def endmovespeed(a):
 
   if ap < 0:
     aprate = -2.0
-  elif a.hasproperty("RA"):
+  elif apcapabilities.hasproperty(a, "RA"):
     if a._speed >= m1speed(a._altitudeband):
       aprate = +2.0
     else:
@@ -528,10 +530,10 @@ def endmovespeed(a):
   # See rules 6.2, 6.3, and 8.2.
 
   if usemaxdivespeed:
-    maxspeed = a.maxdivespeed()
+    maxspeed = apcapabilities.maxdivespeed(a)
     maxspeedname = "maximum dive speed"
   else:
-    maxspeed = a.maxspeed()
+    maxspeed = apcapabilities.maxspeed(a)
     maxspeedname = "maximum speed"
 
   # See the Aircraft Damage Effects Table. We interpret its prohibition
@@ -596,7 +598,7 @@ def endmovespeed(a):
 
   # See rule 6.4.
 
-  minspeed = a.minspeed()
+  minspeed = apcapabilities.minspeed(a)
   if a._newspeed < minspeed:
     a._logevent("speed will be below the minimum of %.1f." % minspeed)
   if a._newspeed >= minspeed and a._flighttype == "ST":

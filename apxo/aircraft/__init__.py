@@ -124,14 +124,6 @@ class aircraft:
   from .damage import \
     damage, _takedamage, takedamage, damageatleast, damageatmost
 
-  from .flightcapabilities import \
-    power, spbr, fuelrate, powerfade, engines, turndrag, \
-    minspeed, maxspeed, cruisespeed, climbspeed, maxdivespeed, ceiling, \
-    lowspeedliftdevicename, lowspeedliftdevicelimit, lowspeedliftdeviceselectable, \
-    rollhfp, rolldrag, climbcapability, hasproperty, \
-    specialclimbcapability, gunarc, \
-    visibility, blindarcs, restrictedarcs
-
   from .log import \
     _log, _logaction, _logstart, _logend, _logevent, _logline, _logbreak, \
     _lognote, _log1, _log2, \
@@ -649,7 +641,7 @@ class aircraft:
       modifier += dmodifier
 
       self._logevent("total modifier        is %+d." % modifier)
-      self._logevent("target visibility is %d." % target.visibility())
+      self._logevent("target visibility is %d." % apcapabilities.visibility(target))
 
       self._lognote(note)
 

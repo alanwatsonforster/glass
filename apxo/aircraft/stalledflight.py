@@ -5,20 +5,21 @@ Stalled flight for the aircraft class.
 import math
 import re
 
-import apxo.altitude as apaltitude
-import apxo.stores   as apstores
+import apxo.altitude     as apaltitude
+import apxo.capabilities as apcapabilities
+import apxo.stores       as apstores
 
 def _checkstalledflight(self):
 
-  if self.hasproperty("SPFL"):
+  if apcapabilities.hasproperty(self, "SPFL"):
     raise RuntimeError("special-flight aircraft cannot perform stalled flight.")
 
   # See rule 6.3.
 
-  if self._speed >= self.minspeed():
+  if self._speed >= apcapabilities.minspeed(self):
       raise RuntimeError("flight type cannot be ST as aircraft is not stalled.")
 
-  self._logstart("speed is below the minimum of %.1f." % self.minspeed())
+  self._logstart("speed is below the minimum of %.1f." % apcapabilities.minspeed(self))
   self._logstart("aircraft is stalled.")
 
 def _dostalledflight(self, action, note=False):
