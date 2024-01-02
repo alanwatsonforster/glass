@@ -1,5 +1,6 @@
 import apxo.aircraft     as apaircraft
 import apxo.capabilities as apcapabilities
+import apxo.damage       as apdamage
 import apxo.geometry     as apgeometry
 import apxo.hex          as aphex
 import apxo.log          as aplog
@@ -231,7 +232,7 @@ def _attack(attacker, weapon, target, result, allowRK=True, allowSSGT=True):
   else:
     attacker._logevent("hit and inflicted %s damage." % result)
     if target != None:
-      target._takedamage(result)
+      apdamage._takedamage(target, result)
 
   if weapon == "GN" or weapon == "GNSS":
     attacker._logevent("%.1f gun ammunition remain" % attacker._gunammunition)

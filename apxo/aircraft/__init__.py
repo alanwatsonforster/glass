@@ -4,6 +4,7 @@ import apxo.altitude       as apaltitude
 import apxo.azimuth        as apazimuth
 import apxo.closeformation as apcloseformation
 import apxo.configuration  as apconfiguration
+import apxo.damage         as apdamage
 import apxo.draw           as apdraw
 import apxo.flight         as apflight
 import apxo.hex            as aphex
@@ -97,9 +98,6 @@ def fromname(name):
 #############################################################################
 
 class aircraft:
-
-  from .damage import \
-    damage, _takedamage, takedamage, damageatleast, damageatmost
 
   from .log import \
     _log, _logaction, _logstart, _logend, _logevent, _logline, _logbreak, \
@@ -994,6 +992,20 @@ class aircraft:
   def continuemove(self, *args, **kwargs):
     apflight.continuemove(self, *args, **kwargs)
 
+  ################################################################################  
+ 
+  def damage(self):
+    return apdamage.damage(self)
+
+  def takedamage(self, damage):
+    apdamage.takedamage(self, damage)
+
+  def damageatleast(self, damage):
+    return apdamage.damageatleast(self, damage)
+
+  def damageatmost(self, damage):
+    return apdamageatmost(self, damage)
+    
 ################################################################################  
 
 def startvisualsighting():
