@@ -3,8 +3,9 @@ import math
 import apxo.capabilities as apcapabilities
 import apxo.variants     as apvariants
 
-from apxo.math import onethird, twothirds
-from apxo.log import plural
+from apxo.math         import onethird, twothirds
+from apxo.normalflight import _isclimbingflight, _isdivingflight
+from apxo.log           import plural
 
 ################################################################################
 
@@ -51,9 +52,6 @@ def ltspeed(altitudeband):
   return m1speed(altitudeband) - 1.0
 
 ################################################################################
-
-
-from apxo.aircraft.normalflight import _isclimbingflight, _isdivingflight
 
 def startmovespeed(a, power, flamedoutengines, lowspeedliftdeviceselected):
 

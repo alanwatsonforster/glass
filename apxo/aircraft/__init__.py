@@ -16,6 +16,8 @@ import apxo.airtoair       as apairtoair
 import apxo.turn           as apturn
 import apxo.visualsighting as apvisualsighting
 
+from apxo.normalflight import _isclimbingflight, _isdivingflight, _islevelflight
+
 import re
 
 ################################################################################
@@ -92,9 +94,6 @@ def fromname(name):
 
 #############################################################################
 
-from .normalflight import \
-  _isclimbingflight, _isdivingflight, _islevelflight
-    
 class aircraft:
 
   from .closeformation import \
@@ -104,10 +103,6 @@ class aircraft:
 
   from .flight import \
     move, continuemove, _endmove
-
-  from .normalflight import \
-    _checknormalflight, \
-    _startnormalflight, _continuenormalflight, _endnormalflight
 
   from .configuration import \
     _updateconfiguration

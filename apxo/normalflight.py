@@ -1,5 +1,5 @@
 """
-Normal flight for the aircraft class.
+Normal flight for aircraft.
 """
 
 import math
@@ -18,35 +18,35 @@ import apxo.variants     as apvariants
 
 from apxo.log import plural
 
-def _checknormalflight(self):
+def checkflight(a):
 
-  if apcapabilities.hasproperty(self, "SPFL"):
+  if apcapabilities.hasproperty(a, "SPFL"):
     raise RuntimeError("special-flight aircraft cannot perform normal flight.")
 
-  flighttype         = self._flighttype
-  previousflighttype = self._previousflighttype
+  flighttype         = a._flighttype
+  previousflighttype = a._previousflighttype
 
   # See rule 13.3.5. A HRD is signalled by appending "/HRD" to the flight type.
   if flighttype[-4:] == "/HRD":
 
-    if apcapabilities.hasproperty(self, "NRM"):
+    if apcapabilities.hasproperty(a, "NRM"):
       raise RuntimeError("aircraft cannot perform rolling maneuvers.")
 
     hrd = True
     flighttype = flighttype[:-4]
-    self._flighttype = flighttype
+    a._flighttype = flighttype
 
     # See rule 7.7.
-    if self._altitude > apcapabilities.ceiling(self):
-      self._logevent("check for a maneuvering departure as the aircraft is above its ceiling and attempted to roll.")
-    elif self._altitudeband == "EH" or self._altitudeband == "UH":
-      self._logevent("check for a maneuvering departure as the aircraft is in the %s altitude band and attempted to roll." % self._altitudeband)  
+    if a._altitude > apcapabilities.ceiling(a):
+      a._logevent("check for a maneuvering departure as the aircraft is above its ceiling and attempted to roll.")
+    elif a._altitudeband == "EH" or a._altitudeband == "UH":
+      a._logevent("check for a maneuvering departure as the aircraft is in the %s altitude band and attempted to roll." % a._altitudeband)  
       
   else:
 
     hrd = False
 
-  self._hrd = hrd
+  a._hrd = hrd
 
   if flighttype not in ["LVL", "SC", "ZC", "VC", "SD", "UD", "VD"]:
     raise RuntimeError("invalid flight type %r." % flighttype)
@@ -73,7 +73,7 @@ def _checknormalflight(self):
       raise RuntimeError("flight type immediately after %s cannot be %s." % (
         previousflighttype, flighttype
       ))
-    elif flighttype == "LVL" and not apcapabilities.hasproperty(self, "HPR"):
+    elif flighttype == "LVL" and not apcapabilities.hasproperty(a, "HPR"):
       raise RuntimeError("flight type immediately after %s cannot be %s." % (
         previousflighttype, flighttype
       ))
@@ -92,11 +92,11 @@ def _checknormalflight(self):
     # See rule 8.2.3 on VD recovery.
 
     if previousflighttype == "VD":
-      if not apcapabilities.hasproperty(self, "HPR"):
+      if not apcapabilities.hasproperty(a, "HPR"):
         raise RuntimeError("flight type immediately after %s cannot be %s." % (
           previousflighttype, flighttype
         ))
-      elif self._speed >= 3.5:
+      elif a._speed >= 3.5:
         raise RuntimeError("flight type immediately after %s cannot be %s (for HPR aircraft at high speed)." % (
           previousflighttype, flighttype
         ))
@@ -114,7 +114,7 @@ def _checknormalflight(self):
 
     # See rule 8.1.2 on SC prerequsistes.
 
-    if self._speed < apcapabilities.minspeed(self) + 1:
+    if a._speed < apcapabilities.minspeed(a) + 1:
       raise RuntimeError("insufficient speed for SC.")
 
     # See rule 8.2.3 on VD recovery.
@@ -133,11 +133,11 @@ def _checknormalflight(self):
         previousflighttype, flighttype
       ))      
     if previousflighttype == "LVL":
-      if not apcapabilities.hasproperty(self, "HPR"):
+      if not apcapabilities.hasproperty(a, "HPR"):
         raise RuntimeError("flight type immediately after %s cannot be %s." % (
           previousflighttype, flighttype
         ))
-      elif self._speed >= 4.0:
+      elif a._speed >= 4.0:
         raise RuntimeError("flight type immediately after %s cannot be %s (for HPR aircraft at high speed)." % (
           previousflighttype, flighttype
         ))
@@ -154,7 +154,7 @@ def _checknormalflight(self):
     # See rule 8.1.3 on VC restrictions.
     # See rule 13.3.5 on HRD restrictions.
 
-    if previousflighttype == "VC" and not (apcapabilities.hasproperty(self, "HPR") or hrd):
+    if previousflighttype == "VC" and not (apcapabilities.hasproperty(a, "HPR") or hrd):
       raise RuntimeError("flight type immediately after %s cannot be %s (without a HRD)." % (
         previousflighttype, flighttype
       ))
@@ -163,7 +163,7 @@ def _checknormalflight(self):
 
     # See rule 8.1.3 on VC restrictions.
 
-    if previousflighttype == "VC" and not apcapabilities.hasproperty(self, "HPR"):
+    if previousflighttype == "VC" and not apcapabilities.hasproperty(a, "HPR"):
       raise RuntimeError("flight type immediately after %s cannot be %s." % (
         previousflighttype, flighttype
       ))
@@ -179,7 +179,7 @@ def _checknormalflight(self):
           previousflighttype, flighttype
         ))
     elif (previousflighttype == "ZC" or previousflighttype == "SC"):
-      if hrd and self._speed > 4.0:
+      if hrd and a._speed > 4.0:
         raise RuntimeError("flight type immediately after %s cannot be %s (without a low-speed HRD)." % (
           previousflighttype, flighttype
         ))
@@ -197,7 +197,7 @@ def _checknormalflight(self):
 
 ################################################################################
 
-def _continuenormalflight(self, actions, note=False):
+def continueflight(a, actions, note=False):
 
   """
   Continue to carry out out normal flight.
@@ -211,7 +211,7 @@ def _continuenormalflight(self, actions, note=False):
     Move horizontally.
     """
 
-    self._x, self._y = aphex.forward(self._x, self._y, self._facing)
+    a._x, a._y = aphex.forward(a._x, a._y, a._facing)
 
   ########################################
 
@@ -225,7 +225,7 @@ def _continuenormalflight(self, actions, note=False):
 
       assert altitudechange == 1 or altitudechange == 2
     
-      climbcapability = self._effectiveclimbcapability
+      climbcapability = a._effectiveclimbcapability
 
       if flighttype == "ZC":
 
@@ -238,11 +238,11 @@ def _continuenormalflight(self, actions, note=False):
       elif flighttype == "SC":
 
         # See rule 8.1.2.
-        if self._speed < apcapabilities.climbspeed(self):
+        if a._speed < apcapabilities.climbspeed(a):
           climbcapability /= 2
         if climbcapability < 2.0 and altitudechange == 2:
           raise RuntimeError("invalid altitude change in climb.")
-        if self._vfp == 0 and climbcapability % 1 != 0:
+        if a._vfp == 0 and climbcapability % 1 != 0:
           # First VFP with fractional climb capability.
           altitudechange = climbcapability % 1
 
@@ -255,23 +255,23 @@ def _continuenormalflight(self, actions, note=False):
       else:
 
         # See rule 8.0.
-        raise RuntimeError("attempt to climb while flight type is %s." % self._flighttype)
+        raise RuntimeError("attempt to climb while flight type is %s." % a._flighttype)
 
       return altitudechange
 
     # See rule 4.3 and 8.1.2.
-    if self._effectiveclimbcapability == None:
-      self._effectiveclimbcapability = apcapabilities.climbcapability(self)
-      if flighttype == "SC" and self._speed < apcapabilities.climbspeed(self):
-        self._effectiveclimbcapability /= 2
+    if a._effectiveclimbcapability == None:
+      a._effectiveclimbcapability = apcapabilities.climbcapability(a)
+      if flighttype == "SC" and a._speed < apcapabilities.climbspeed(a):
+        a._effectiveclimbcapability /= 2
 
     altitudechange = determinealtitudechange(altitudechange)
     
-    self._altitude, self._altitudecarry = apaltitude.adjustaltitude(self._altitude, self._altitudecarry, +altitudechange)
-    self._altitudeband = apaltitude.altitudeband(self._altitude)
+    a._altitude, a._altitudecarry = apaltitude.adjustaltitude(a._altitude, a._altitudecarry, +altitudechange)
+    a._altitudeband = apaltitude.altitudeband(a._altitude)
 
     # See rule 8.5.
-    if flighttype == "SC" and self._altitude > apcapabilities.ceiling(self):
+    if flighttype == "SC" and a._altitude > apcapabilities.ceiling(a):
       raise RuntimeError("attempt to climb above ceiling in SC.")
 
   ########################################
@@ -314,28 +314,28 @@ def _continuenormalflight(self, actions, note=False):
       else:
 
         # See rule 8.0.
-        raise RuntimeError("attempt to dive while flight type is %s." % self._flighttype)
+        raise RuntimeError("attempt to dive while flight type is %s." % a._flighttype)
     
     checkaltitudechange()
 
-    self._altitude, self._altitudecarry = apaltitude.adjustaltitude(self._altitude, self._altitudecarry, -altitudechange)
-    self._altitudeband = apaltitude.altitudeband(self._altitude)
+    a._altitude, a._altitudecarry = apaltitude.adjustaltitude(a._altitude, a._altitudecarry, -altitudechange)
+    a._altitudeband = apaltitude.altitudeband(a._altitude)
 
   ########################################
 
   def dobank(sense):
 
     # See rule 7.4.
-    if apcapabilities.hasproperty(self, "LRR"):
-      if (self._bank == "L" and sense == "R") or (self._bank == "R" and sense == "L"):
-        raise RuntimeError("attempt to bank to %s while banked to %s in a LRR aircraft." % (sense, self._bank))
+    if apcapabilities.hasproperty(a, "LRR"):
+      if (a._bank == "L" and sense == "R") or (a._bank == "R" and sense == "L"):
+        raise RuntimeError("attempt to bank to %s while banked to %s in a LRR aircraft." % (sense, a._bank))
 
-    self._bank = sense
-    if _isturn(self._maneuvertype):
-      self._maneuvertype         = None
-      self._maneuversense        = None
-      self._maneuverfacingchange = None
-      self._maneuverfp           = 0
+    a._bank = sense
+    if _isturn(a._maneuvertype):
+      a._maneuvertype         = None
+      a._maneuversense        = None
+      a._maneuverfacingchange = None
+      a._maneuverfp           = 0
 
   ########################################
 
@@ -352,44 +352,44 @@ def _continuenormalflight(self, actions, note=False):
     # See rule 7.1.
 
     # Check the bank. See rule 7.4.
-    if apcapabilities.hasproperty(self, "LRR"):
-      if self._bank != sense:
+    if apcapabilities.hasproperty(a, "LRR"):
+      if a._bank != sense:
         raise RuntimeError("attempt to declare a turn to %s while not banked to %s in a LRR aircraft." % (sense, sense))
-    elif not apcapabilities.hasproperty(self, "HRR"):
-      if (self._bank == "L" and sense == "R") or (self._bank == "R" and sense == "L"):
-        raise RuntimeError("attempt to declare a turn to %s while banked to %s." % (sense, self._bank))
+    elif not apcapabilities.hasproperty(a, "HRR"):
+      if (a._bank == "L" and sense == "R") or (a._bank == "R" and sense == "L"):
+        raise RuntimeError("attempt to declare a turn to %s while banked to %s." % (sense, a._bank))
 
-    if self._allowedturnrates == []:
+    if a._allowedturnrates == []:
       raise RuntimeError("turns are forbidded.")
 
-    if turnrate not in self._allowedturnrates:
+    if turnrate not in a._allowedturnrates:
       raise RuntimeError("attempt to declare a turn rate tighter than allowed by the damage, speed, or flight type.")
 
-    turnrateap = apcapabilities.turndrag(self, turnrate)
+    turnrateap = apcapabilities.turndrag(a, turnrate)
     if turnrateap == None:
       raise RuntimeError("attempt to declare a turn rate tighter than allowed by the aircraft.")
 
     # Determine the maximum turn rate.
-    if self._maxturnrate == None:
-      self._maxturnrate = turnrate
+    if a._maxturnrate == None:
+      a._maxturnrate = turnrate
     else:
       turnrates = ["EZ", "TT", "HT", "BT", "ET"]
-      self._maxturnrate = turnrates[max(turnrates.index(turnrate), turnrates.index(self._maxturnrate))]
+      a._maxturnrate = turnrates[max(turnrates.index(turnrate), turnrates.index(a._maxturnrate))]
 
-    self._bank                 = sense
-    self._maneuvertype         = turnrate
-    self._maneuversense        = sense
-    self._maneuverfp           = 0
-    self._maneuversupersonic   = (self._speed >= apspeed.m1speed(self._altitudeband))
-    turnrequirement = apturnrate.turnrequirement(self._altitudeband, self._speed, self._maneuvertype)
+    a._bank                 = sense
+    a._maneuvertype         = turnrate
+    a._maneuversense        = sense
+    a._maneuverfp           = 0
+    a._maneuversupersonic   = (a._speed >= apspeed.m1speed(a._altitudeband))
+    turnrequirement = apturnrate.turnrequirement(a._altitudeband, a._speed, a._maneuvertype)
     if turnrequirement == None:
       raise RuntimeError("attempt to declare a turn rate tigher than allowed by the speed and altitude.")
     if turnrequirement >= 60:
-      self._maneuverrequiredfp   = 1
-      self._maneuverfacingchange = turnrequirement
+      a._maneuverrequiredfp   = 1
+      a._maneuverfacingchange = turnrequirement
     else:
-      self._maneuverrequiredfp   = turnrequirement
-      self._maneuverfacingchange = 30
+      a._maneuverrequiredfp   = turnrequirement
+      a._maneuverfacingchange = 30
 
   ########################################
 
@@ -404,37 +404,37 @@ def _continuenormalflight(self, actions, note=False):
       raise RuntimeError("attempt to turn while flight type is %s." % flighttype)
       
     # See rule 7.1.
-    if self._maneuverfp < self._maneuverrequiredfp or facingchange > self._maneuverfacingchange:
+    if a._maneuverfp < a._maneuverrequiredfp or facingchange > a._maneuverfacingchange:
       raise RuntimeError("attempt to turn faster than the declared turn rate.")
 
     # See Hack's article in APJ 36
-    if self._turnmaneuvers == 0:
+    if a._turnmaneuvers == 0:
       sustainedfacingchanges = facingchange // 30 - 1
     else:
       sustainedfacingchanges = facingchange // 30
 
     if apvariants.withvariant("use version 2.4 rules"):
-      if apcapabilities.hasproperty(self, "LBR"):
-        self._sustainedturnap -= sustainedfacingchanges * 0.5
-      elif apcapabilities.hasproperty(self, "HBR"):
-        self._sustainedturnap -= sustainedfacingchanges * 1.5
+      if apcapabilities.hasproperty(a, "LBR"):
+        a._sustainedturnap -= sustainedfacingchanges * 0.5
+      elif apcapabilities.hasproperty(a, "HBR"):
+        a._sustainedturnap -= sustainedfacingchanges * 1.5
       else:
-        self._sustainedturnap -= sustainedfacingchanges * 1.0
+        a._sustainedturnap -= sustainedfacingchanges * 1.0
     else:
-      if apcapabilities.hasproperty(self, "HBR"):
-        self._sustainedturnap -= sustainedfacingchanges * 2.0
+      if apcapabilities.hasproperty(a, "HBR"):
+        a._sustainedturnap -= sustainedfacingchanges * 2.0
       else:
-        self._sustainedturnap -= sustainedfacingchanges * 1.0
+        a._sustainedturnap -= sustainedfacingchanges * 1.0
 
-    self._turnmaneuvers += 1
+    a._turnmaneuvers += 1
 
     # Change facing.
-    if aphex.isside(self._x, self._y):
-      self._x, self._y = aphex.sidetocenter(self._x, self._y, self._facing, sense)
+    if aphex.isside(a._x, a._y):
+      a._x, a._y = aphex.sidetocenter(a._x, a._y, a._facing, sense)
     if sense == "L":
-      self._facing = (self._facing + facingchange) % 360
+      a._facing = (a._facing + facingchange) % 360
     else:
-      self._facing = (self._facing - facingchange) % 360
+      a._facing = (a._facing - facingchange) % 360
 
   ########################################
 
@@ -446,21 +446,21 @@ def _continuenormalflight(self, actions, note=False):
 
     # See rules 13.1 and 13.2.
 
-    if self._slides == 1 and self._speed <= 9.0:
+    if a._slides == 1 and a._speed <= 9.0:
       raise RuntimeError("only one slide allowed per turn at low speed.")
-    if self._slides == 1 and self._fp - self._slidefp - 1 <  4:
+    if a._slides == 1 and a._fp - a._slidefp - 1 <  4:
       raise RuntimeError("attempt to start a second slide without sufficient intermediate FPs.")
-    elif self._slides == 2:
+    elif a._slides == 2:
       raise RuntimeError("at most two slides allowed per turn.")
 
-    self._bank                 = None
-    self._maneuvertype         = "SL"
-    self._maneuversense        = sense
-    self._maneuverfacingchange = None
-    self._maneuverfp           = 0
-    self._maneuversupersonic   = (self._speed >= apspeed.m1speed(self._altitudeband))
+    a._bank                 = None
+    a._maneuvertype         = "SL"
+    a._maneuversense        = sense
+    a._maneuverfacingchange = None
+    a._maneuverfp           = 0
+    a._maneuversupersonic   = (a._speed >= apspeed.m1speed(a._altitudeband))
     # The requirement has +1 FP to account for the final H.
-    self._maneuverrequiredfp   = 2 + extrapreparatoryhfp() + 1
+    a._maneuverrequiredfp   = 2 + extrapreparatoryhfp() + 1
     
   ########################################
 
@@ -468,14 +468,14 @@ def _continuenormalflight(self, actions, note=False):
 
     # See rule 13.1.
 
-    extrapreparatoryfp = { "LO": 0, "ML": 0, "MH": 0, "HI": 1, "VH": 2, "EH": 3, "UH": 4 }[self._altitudeband]
+    extrapreparatoryfp = { "LO": 0, "ML": 0, "MH": 0, "HI": 1, "VH": 2, "EH": 3, "UH": 4 }[a._altitudeband]
 
-    if self._speed >= apspeed.m1speed(self._altitudeband):
+    if a._speed >= apspeed.m1speed(a._altitudeband):
       extrapreparatoryfp += 1.0
 
     # See "Aircraft Damage Effects" in the Play Aids.
 
-    if self.damageatleast("2L"):
+    if a.damageatleast("2L"):
       extrapreparatoryfp += 1.0
 
     return extrapreparatoryfp
@@ -490,22 +490,22 @@ def _continuenormalflight(self, actions, note=False):
 
     # See rules 13.1 and 13.2.
 
-    if self._maneuverfp < self._maneuverrequiredfp:
+    if a._maneuverfp < a._maneuverrequiredfp:
       raise RuntimeError("attempt to slide without sufficient preparatory HFPs.")
 
     # Slide. Remember that we have already moved forward one hex for the final H element.
-    self._x, self._y = aphex.slide(self._x, self._y, self._facing, sense)
+    a._x, a._y = aphex.slide(a._x, a._y, a._facing, sense)
 
     # See rule 13.2.
-    if self._slides >= 1:
-      self._othermaneuversap -= 1.0
+    if a._slides >= 1:
+      a._othermaneuversap -= 1.0
 
     # Keep track of the number of slides and the FP of the last slide.
-    self._slides += 1
-    self._slidefp = self._fp
+    a._slides += 1
+    a._slidefp = a._fp
 
     # Implicitly finish with wings level.
-    self._bank = None
+    a._bank = None
 
   ########################################
 
@@ -513,26 +513,26 @@ def _continuenormalflight(self, actions, note=False):
 
     # See rules 13.1 and 13.3.1.
 
-    if apcapabilities.hasproperty(self, "NRM"):
+    if apcapabilities.hasproperty(a, "NRM"):
       raise RuntimeError("aircraft cannot perform rolling maneuvers.")
-    if apcapabilities.rolldrag(self, "DR") == None:
+    if apcapabilities.rolldrag(a, "DR") == None:
       raise RuntimeError("aircraft cannot perform displacement rolls.")
       
     # See rules 8.1.2, 8.1.3, and 8.2.3.
     if flighttype == "SC" or flighttype == "VC" or flighttype == "VD":
       raise RuntimeError("attempt to declare a displacement roll while flight type is %s." % flighttype)
 
-    self._bank                 = None
-    self._maneuvertype         = "DR"
-    self._maneuversense        = sense
-    self._maneuverfacingchange = None
-    self._maneuverfp           = 0
-    self._maneuversupersonic   = (self._speed >= apspeed.m1speed(self._altitudeband))
+    a._bank                 = None
+    a._maneuvertype         = "DR"
+    a._maneuversense        = sense
+    a._maneuverfacingchange = None
+    a._maneuverfp           = 0
+    a._maneuversupersonic   = (a._speed >= apspeed.m1speed(a._altitudeband))
     # The requirement includes the FPs used to execute the roll.
     if apvariants.withvariant("use version 2.4 rules"):
-      self._maneuverrequiredfp   = apcapabilities.rollhfp(self) + extrapreparatoryhfp() + onethird(self._speed)
+      a._maneuverrequiredfp   = apcapabilities.rollhfp(a) + extrapreparatoryhfp() + onethird(a._speed)
     else:
-      self._maneuverrequiredfp   = apcapabilities.rollhfp(self) + extrapreparatoryhfp() + 1
+      a._maneuverrequiredfp   = apcapabilities.rollhfp(a) + extrapreparatoryhfp() + 1
 
   ########################################
 
@@ -540,32 +540,32 @@ def _continuenormalflight(self, actions, note=False):
 
     # See rules 13.1 and 13.3.1.
 
-    if self._maneuverfp < self._maneuverrequiredfp:
+    if a._maneuverfp < a._maneuverrequiredfp:
       raise RuntimeError("attempt to roll without sufficient preparatory FPs.")
 
-    if not self._horizontal:
+    if not a._horizontal:
       raise RuntimeError("attempt to roll on a VFP.")
       
     # Move.
-    self._x, self._y = aphex.displacementroll(self._x, self._y, self._facing, sense)
+    a._x, a._y = aphex.displacementroll(a._x, a._y, a._facing, sense)
 
     # See rule 13.3.1.
-    self._othermaneuversap -= apcapabilities.rolldrag(self, "DR")
+    a._othermaneuversap -= apcapabilities.rolldrag(a, "DR")
 
     # See rule 6.6.
-    if self._maneuversupersonic:
-      if apcapabilities.hasproperty(self, "PSSM"):
-        self._othermaneuversap -= 2.0
-      elif not apcapabilities.hasproperty(self, "GSSM"):
-        self._othermaneuversap -= 1.0
+    if a._maneuversupersonic:
+      if apcapabilities.hasproperty(a, "PSSM"):
+        a._othermaneuversap -= 2.0
+      elif not apcapabilities.hasproperty(a, "GSSM"):
+        a._othermaneuversap -= 1.0
 
     # See rule 13.3.6.
-    if self._rollmaneuvers > 0:
-      self._othermaneuversap -= 1.0
-    self._rollmaneuvers += 1
+    if a._rollmaneuvers > 0:
+      a._othermaneuversap -= 1.0
+    a._rollmaneuvers += 1
 
     # Implicitly finish with wings level. This can be changed immediately by a bank.
-    self._bank = None
+    a._bank = None
 
   ########################################
 
@@ -573,26 +573,26 @@ def _continuenormalflight(self, actions, note=False):
 
     # See rule 13.3.2.
 
-    if apcapabilities.hasproperty(self, "NRM"):
+    if apcapabilities.hasproperty(a, "NRM"):
       raise RuntimeError("aircraft cannot perform rolling maneuvers.")
-    if apcapabilities.rolldrag(self, "LR") == None:
+    if apcapabilities.rolldrag(a, "LR") == None:
       raise RuntimeError("aircraft cannot perform lag rolls.")
       
     # See rules 8.1.2, 8.1.3, and 8.2.3.
     if flighttype == "SC" or flighttype == "VC" or flighttype == "VD":
       raise RuntimeError("attempt to declare a lag roll while flight type is %s." % flighttype)
 
-    self._bank                 = None
-    self._maneuvertype         = "LR"
-    self._maneuversense        = sense
-    self._maneuverfacingchange = None
-    self._maneuverfp           = 0
-    self._maneuversupersonic   = (self._speed >= apspeed.m1speed(self._altitudeband))
+    a._bank                 = None
+    a._maneuvertype         = "LR"
+    a._maneuversense        = sense
+    a._maneuverfacingchange = None
+    a._maneuverfp           = 0
+    a._maneuversupersonic   = (a._speed >= apspeed.m1speed(a._altitudeband))
     # The requirement includes the FPs used to execute the roll.
     if apvariants.withvariant("use version 2.4 rules"):
-      self._maneuverrequiredfp   = apcapabilities.rollhfp(self) + extrapreparatoryhfp() + onethird(self._speed)
+      a._maneuverrequiredfp   = apcapabilities.rollhfp(a) + extrapreparatoryhfp() + onethird(a._speed)
     else:
-      self._maneuverrequiredfp   = apcapabilities.rollhfp(self) + extrapreparatoryhfp() + 1
+      a._maneuverrequiredfp   = apcapabilities.rollhfp(a) + extrapreparatoryhfp() + 1
 
   ########################################
 
@@ -600,124 +600,124 @@ def _continuenormalflight(self, actions, note=False):
 
     # See rules 13.1 and 13.3.2.
 
-    if self._maneuverfp < self._maneuverrequiredfp:
+    if a._maneuverfp < a._maneuverrequiredfp:
       raise RuntimeError("attempt to roll without sufficient preparatory FPs.")
 
-    if not self._horizontal:
+    if not a._horizontal:
       raise RuntimeError("attempt to roll on a VFP.")
 
     # Move.
-    self._x, self._y = aphex.lagroll(self._x, self._y, self._facing, sense)
+    a._x, a._y = aphex.lagroll(a._x, a._y, a._facing, sense)
     if sense == "R":
-      self._facing += 30
+      a._facing += 30
     else:
-      self._facing -= 30
-    self._facing %= 360
+      a._facing -= 30
+    a._facing %= 360
 
     # See rule 13.3.1.
-    self._othermaneuversap -= apcapabilities.rolldrag(self, "LR")
+    a._othermaneuversap -= apcapabilities.rolldrag(a, "LR")
 
     # See rule 6.6.
-    if self._maneuversupersonic:
-      if apcapabilities.hasproperty(self, "PSSM"):
-        self._othermaneuversap -= 2.0
-      elif not apcapabilities.hasproperty(self, "GSSM"):
-        self._othermaneuversap -= 1.0
+    if a._maneuversupersonic:
+      if apcapabilities.hasproperty(a, "PSSM"):
+        a._othermaneuversap -= 2.0
+      elif not apcapabilities.hasproperty(a, "GSSM"):
+        a._othermaneuversap -= 1.0
 
     # See rule 13.3.6.
-    if self._rollmaneuvers > 0:
-      self._othermaneuversap -= 1.0
-    self._rollmaneuvers += 1
+    if a._rollmaneuvers > 0:
+      a._othermaneuversap -= 1.0
+    a._rollmaneuvers += 1
 
     # Implicitly finish with wings level. This can be changed immediately by a bank.
-    self._bank = None
+    a._bank = None
 
   ########################################  
 
   def dodeclareverticalroll(sense):
 
-    if apcapabilities.hasproperty(self, "NRM"):
+    if apcapabilities.hasproperty(a, "NRM"):
       raise RuntimeError("aircraft cannot perform rolling maneuvers.")
-    if self._verticalrolls == 1 and apcapabilities.hasproperty(self, "OVR"):
+    if a._verticalrolls == 1 and apcapabilities.hasproperty(a, "OVR"):
       raise RuntimeError("aircraft can only perform one vertical roll per turn.")
       
     # See rule 13.3.4.  
-    if self._flighttype != "VC" and self._flighttype != "VD":
-      raise RuntimeError("attempt to declare a vertical roll while flight type is %s." % self._flighttype)
-    if not self._vertical:
+    if a._flighttype != "VC" and a._flighttype != "VD":
+      raise RuntimeError("attempt to declare a vertical roll while flight type is %s." % a._flighttype)
+    if not a._vertical:
       raise RuntimeError("attempt to declare a vertical roll during an HFP.")
-    if previousflighttype == "LVL" and flighttype == "VC" and not self._lastfp:
+    if previousflighttype == "LVL" and flighttype == "VC" and not a._lastfp:
       raise RuntimeError("attempt to declare a vertical roll in VC following LVL flight other than on the last FP.")
 
     # See rule 13.3.5.
-    if self._hrd and not self._lastfp:
+    if a._hrd and not a._lastfp:
       raise RuntimeError("attempt to declare a vertical roll after HRD other than on the last FP.")
       
-    self._bank                 = None
-    self._maneuvertype         = "VR"
-    self._maneuversense        = sense
-    self._maneuverfacingchange = None
-    self._maneuverfp           = 0
-    self._maneuversupersonic   = (self._speed >= apspeed.m1speed(self._altitudeband))
-    self._maneuverrequiredfp   = 1
+    a._bank                 = None
+    a._maneuvertype         = "VR"
+    a._maneuversense        = sense
+    a._maneuverfacingchange = None
+    a._maneuverfp           = 0
+    a._maneuversupersonic   = (a._speed >= apspeed.m1speed(a._altitudeband))
+    a._maneuverrequiredfp   = 1
 
   ########################################
 
   def doverticalroll(sense, facingchange, shift):
 
-    if self._maneuverfp < self._maneuverrequiredfp:
+    if a._maneuverfp < a._maneuverrequiredfp:
       raise RuntimeError("attempt to roll without sufficient preparatory HFPs.")
   
     # See rule 13.3.4.
-    if apcapabilities.hasproperty(self, "LRR") and facingchange > 90:
+    if apcapabilities.hasproperty(a, "LRR") and facingchange > 90:
       raise RuntimeError("attempt to roll vertically by more than 90 degrees in LRR aircraft.")
 
-    self._othermaneuversap -= apcapabilities.rolldrag(self, "VR")
+    a._othermaneuversap -= apcapabilities.rolldrag(a, "VR")
 
     # See rule 13.3.6
-    if self._rollmaneuvers > 0:
-      self._othermaneuversap -= 1
-    self._rollmaneuvers += 1
-    self._verticalrolls += 1
+    if a._rollmaneuvers > 0:
+      a._othermaneuversap -= 1
+    a._rollmaneuvers += 1
+    a._verticalrolls += 1
 
     # See rule 6.6.
-    if self._maneuversupersonic:
-      if apcapabilities.hasproperty(self, "PSSM"):
-        self._othermaneuversap -= 2.0
-      elif not apcapabilities.hasproperty(self, "GSSM"):
-        self._othermaneuversap -= 1.0
+    if a._maneuversupersonic:
+      if apcapabilities.hasproperty(a, "PSSM"):
+        a._othermaneuversap -= 2.0
+      elif not apcapabilities.hasproperty(a, "GSSM"):
+        a._othermaneuversap -= 1.0
 
     # Change facing.
-    if aphex.isside(self._x, self._y) and shift:
-      self._x, self._y = aphex.sidetocenter(self._x, self._y, self._facing, sense)
+    if aphex.isside(a._x, a._y) and shift:
+      a._x, a._y = aphex.sidetocenter(a._x, a._y, a._facing, sense)
     if sense == "L":
-      self._facing = (self._facing + facingchange) % 360
+      a._facing = (a._facing + facingchange) % 360
     else:
-      self._facing = (self._facing - facingchange) % 360
+      a._facing = (a._facing - facingchange) % 360
     
   ########################################
 
   def domaneuver(sense, facingchange, shift, continuous):
 
-    if self._maneuvertype == None:
+    if a._maneuvertype == None:
       raise RuntimeError("attempt to maneuver without a declaration.")
       
-    if self._maneuversense != sense:
+    if a._maneuversense != sense:
       raise RuntimeError("attempt to maneuver against the sense of the declaration.")
 
-    if self._maneuvertype == "SL":
+    if a._maneuvertype == "SL":
       if facingchange != None:
         raise RuntimeError("invalid element for a slide.")
       doslide(sense)
-    elif self._maneuvertype == "DR":
+    elif a._maneuvertype == "DR":
       if facingchange != None:
         raise RuntimeError("invalid element for a displacement roll.")
       dodisplacementroll(sense)
-    elif self._maneuvertype == "LR":
+    elif a._maneuvertype == "LR":
       if facingchange != None:
         raise RuntimeError("invalid element for a lag roll.")
       dolagroll(sense)
-    elif self._maneuvertype == "VR":
+    elif a._maneuvertype == "VR":
       if facingchange == None:
         facingchange = 30
       doverticalroll(sense, facingchange, shift)
@@ -726,24 +726,24 @@ def _continuenormalflight(self, actions, note=False):
         facingchange = 30
       doturn(sense, facingchange, continuous)
 
-    self._maneuverfp = 0
+    a._maneuverfp = 0
 
     if not continuous:
-      self._maneuvertype         = None
-      self._maneuversense        = None
-      self._maneuverfacingchange = None
-      self._maneuverrequiredfp   = 0
-      self._maneuversupersonic   = False
-    elif self._maneuvertype == "SL":
-      dodeclareslide(self._maneuversense)
-    elif self._maneuvertype == "DR":
-      dodeclaredisplacementroll(self._maneuversense)
-    elif self._maneuvertype == "LR":
-      dodeclarelagroll(self._maneuversense)
-    elif self._maneuvertype == "VR":
-      dodeclareverticalroll(self._maneuversense)
+      a._maneuvertype         = None
+      a._maneuversense        = None
+      a._maneuverfacingchange = None
+      a._maneuverrequiredfp   = 0
+      a._maneuversupersonic   = False
+    elif a._maneuvertype == "SL":
+      dodeclareslide(a._maneuversense)
+    elif a._maneuvertype == "DR":
+      dodeclaredisplacementroll(a._maneuversense)
+    elif a._maneuvertype == "LR":
+      dodeclarelagroll(a._maneuversense)
+    elif a._maneuvertype == "VR":
+      dodeclareverticalroll(a._maneuversense)
     else:
-      dodeclareturn(self._maneuversense, self._maneuvertype)
+      dodeclareturn(a._maneuversense, a._maneuvertype)
 
   ########################################
 
@@ -755,18 +755,18 @@ def _continuenormalflight(self, actions, note=False):
 
     # See rules 6.5 and 6.6.
 
-    if self._spbrap != 0:
+    if a._spbrap != 0:
       raise RuntimeError("speedbrakes can only be used once per turn.")
         
-    maxspbr = apcapabilities.spbr(self)
+    maxspbr = apcapabilities.spbr(a)
     if maxspbr == None:
       raise RuntimeError("aircraft does not have speedbrakes.")
         
     if apvariants.withvariant("use version 2.4 rules"):
 
-      maxspbr = apcapabilities.spbr(self)
+      maxspbr = apcapabilities.spbr(a)
 
-      if self._speed >= apspeed.m1speed(self._altitudeband):
+      if a._speed >= apspeed.m1speed(a._altitudeband):
         maxspbr += 2.0      
 
       if spbr > maxspbr:
@@ -774,11 +774,11 @@ def _continuenormalflight(self, actions, note=False):
           "speedbrake capability is only 1 DP.",
           "speedbrake capability is only %.1f DPs." % maxspbr))
           
-      self._spbrap = -spbr
+      a._spbrap = -spbr
           
     else:
 
-      if self._speed > apspeed.m1speed(self._altitudeband):
+      if a._speed > apspeed.m1speed(a._altitudeband):
         maxspbr += 0.5
         
       if spbr > maxspbr:
@@ -786,16 +786,16 @@ def _continuenormalflight(self, actions, note=False):
           "speedbrake capability is only 1 FP.",
           "speedbrake capability is only %.1f FPs." % maxspbr))
           
-      maxspbr = self._maxfp - self._hfp - self._vfp
+      maxspbr = a._maxfp - a._hfp - a._vfp
       if spbr >= maxspbr:
         raise RuntimeError(plural(maxspbr,
           "invalid use of speedbrakes when only 1 FP remains.",
           "invalid use of speedbrakes when only %s FPs remain." % maxspbr))
 
-      self._spbrfp = spbr
-      self._maxfp -= spbr
+      a._spbrfp = spbr
+      a._maxfp -= spbr
 
-      self._spbrap = -spbr / 0.5
+      a._spbrap = -spbr / 0.5
   
   ########################################
 
@@ -804,18 +804,18 @@ def _continuenormalflight(self, actions, note=False):
     # See rule 4.4.   
     # We implement the delay of 1 FP by making this an other element.
     
-    previousconfiguration = self._configuration
+    previousconfiguration = a._configuration
 
     for released in m[1].split("+"):
-      self._stores = apstores._release(self._stores, released,
-        printer=lambda s: self._logevent(s)
+      a._stores = apstores._release(a._stores, released,
+        printer=lambda s: a._logevent(s)
       )
 
-    self._updateconfiguration()
+    a._updateconfiguration()
 
-    if self._configuration != previousconfiguration:
-      self._logevent("configuration changed from %s to %s." % (
-        previousconfiguration, self._configuration
+    if a._configuration != previousconfiguration:
+      a._logevent("configuration changed from %s to %s." % (
+        previousconfiguration, a._configuration
       ))
 
   ########################################
@@ -827,19 +827,19 @@ def _continuenormalflight(self, actions, note=False):
     """
 
     # See rule 8.2.2.
-    if self._unloaded:
+    if a._unloaded:
       raise RuntimeError("attempt to use weapons while unloaded.")
 
     # See rule 13.3.5.
-    if self._hrd:
+    if a._hrd:
       raise RuntimeError("attempt to use weapons during the turn after an HRD.")
 
     # See rule 13.3.6.
-    if self._wasrollingonlastfp:
+    if a._wasrollingonlastfp:
       raise RuntimeError("attempt to use weapons on the FP immediately after rolling.")
 
     # See rule 10.1.
-    if self._ETrecoveryfp > 0:
+    if a._ETrecoveryfp > 0:
       raise RuntimeError("attempt to use weapons in or while recovering from an ET.")
 
     weapon     = m[1]
@@ -853,7 +853,7 @@ def _continuenormalflight(self, actions, note=False):
       if target is None:
         raise RuntimeError("unknown target aircraft %s." % targetname)
       
-    apairtoair.attack(self, weapon, target, result)
+    apairtoair.attack(a, weapon, target, result)
 
   ########################################
 
@@ -861,32 +861,32 @@ def _continuenormalflight(self, actions, note=False):
 
     # Do the first facing change.
 
-    if aphex.isside(self._x, self._y):
-      self._x, self._y = aphex.centertoright(self._x, self._y, self._facing, sense)
+    if aphex.isside(a._x, a._y):
+      a._x, a._y = aphex.centertoright(a._x, a._y, a._facing, sense)
     if action[0] == "L":
-      self._facing = (self._facing + 30) % 360
+      a._facing = (a._facing + 30) % 360
     else:
-      self._facing = (self._facing - 30) % 360
-    self._continueflightpath()
+      a._facing = (a._facing - 30) % 360
+    a._continueflightpath()
     facingchange -= 30
 
     # Shift.
 
-    shift = int((self._maxfp - self._fp) / 2)
+    shift = int((a._maxfp - a._fp) / 2)
     for i in range(0, shift):
-      self._x, self._y = aphex.forward(self._x, self._y, self._facing)
-      self.checkforterraincollision()
-      self.checkforleavingmap()
-      if self._destroyed or self._leftmap:
+      a._x, a._y = aphex.forward(a._x, a._y, a._facing)
+      a.checkforterraincollision()
+      a.checkforleavingmap()
+      if a._destroyed or a._leftmap:
         return
 
     # Do any remaining facing changes.
-    if aphex.isside(self._x, self._y):
-      self._x, self._y = aphex.sidetocenter(self._x, self._y, self._facing, sense)
+    if aphex.isside(a._x, a._y):
+      a._x, a._y = aphex.sidetocenter(a._x, a._y, a._facing, sense)
     if action[0] == "L":
-      self._facing = (self._facing + facingchange) % 360
+      a._facing = (a._facing + facingchange) % 360
     else:
-      self._facing = (self._facing - facingchange) % 360
+      a._facing = (a._facing - facingchange) % 360
 
   ########################################
 
@@ -1083,19 +1083,19 @@ def _continuenormalflight(self, actions, note=False):
     Carry out an action for normal flight.
     """
 
-    self._log1("FP %d" % (self._fp + 1), action)
+    a._log1("FP %d" % (a._fp + 1), action)
 
     # Check we have at least one FP remaining.
-    if self._fp + 1 > self._maxfp:
-      raise RuntimeError(plural(self._maxfp,
+    if a._fp + 1 > a._maxfp:
+      raise RuntimeError(plural(a._maxfp,
         "only 1 FP is available",
-        "only %.1f FPs are available." % self._maxfp))
+        "only %.1f FPs are available." % a._maxfp))
 
     # Determine if this FP is the last FP of the move.
-    self._lastfp = (self._fp + 2 > self._maxfp) 
+    a._lastfp = (a._fp + 2 > a._maxfp) 
     
-    initialaltitude     = self._altitude
-    initialaltitudeband = self._altitudeband
+    initialaltitude     = a._altitude
+    initialaltitudeband = a._altitudeband
   
     try:
       
@@ -1103,60 +1103,60 @@ def _continuenormalflight(self, actions, note=False):
 
       if doelements(action, "maneuvering departure", False):
     
-        self._maneuveringdeparture = True
+        a._maneuveringdeparture = True
 
-        assert aphex.isvalid(self._x, self._y, facing=self._facing)
-        assert apaltitude.isvalidaltitude(self._altitude)
+        assert aphex.isvalid(a._x, a._y, facing=a._facing)
+        assert apaltitude.isvalidaltitude(a._altitude)
   
-        self._logposition("end")
-        self._continueflightpath()
+        a._logposition("end")
+        a._continueflightpath()
     
         return
 
-      self._horizontal = doelements(action, "H", False)
-      self._vertical   = doelements(action, "C or D", False)
+      a._horizontal = doelements(action, "H", False)
+      a._vertical   = doelements(action, "C or D", False)
 
-      if not self._horizontal and not self._vertical:
+      if not a._horizontal and not a._vertical:
         raise RuntimeError("%r is not a valid action." % action)
-      elif self._horizontal and self._vertical:
+      elif a._horizontal and a._vertical:
         if not flighttype == "UD" and not flighttype == "LVL":
           raise RuntimeError("%r is not a valid action when the flight type is %s." % (action, flighttype))
 
-      self._fp += 1  
-      if self._horizontal:
-        self._hfp += 1
-      elif self._hfp < self._mininitialhfp:
+      a._fp += 1  
+      if a._horizontal:
+        a._hfp += 1
+      elif a._hfp < a._mininitialhfp:
         raise RuntimeError("insufficient initial HFPs.")
       else:
-       self._vfp += 1
+       a._vfp += 1
 
-      self._unloaded = (self._flighttype == "UD" and self._vertical)
-      if self._unloaded:
-        if self._firstunloadedfp == None:
-          self._firstunloadedfp = self._hfp
-        self._lastunloadedfp = self._hfp
+      a._unloaded = (a._flighttype == "UD" and a._vertical)
+      if a._unloaded:
+        if a._firstunloadedfp == None:
+          a._firstunloadedfp = a._hfp
+        a._lastunloadedfp = a._hfp
 
       if doelements(action, "maneuver declaration", False):
-        self._logevent("declared %s." % self.maneuver())
+        a._logevent("declared %s." % a.maneuver())
 
-      # We save maneuvertype, as self._maneuvertype may be set to None of the
+      # We save maneuvertype, as a._maneuvertype may be set to None of the
       # maneuver is completed below.
 
-      maneuvertype = self._maneuvertype
+      maneuvertype = a._maneuvertype
       turning = _isturn(maneuvertype)
       rolling = _isroll(maneuvertype)
       sliding = _isslide(maneuvertype)
       
       # See rule 8.2.2 and 13.1.
-      if not self._unloaded:
+      if not a._unloaded:
         if turning:
-          self._maneuverfp += 1
-        elif maneuvertype == "VR" and self._vertical:
-          self._maneuverfp += 1
+          a._maneuverfp += 1
+        elif maneuvertype == "VR" and a._vertical:
+          a._maneuverfp += 1
         elif apvariants.withvariant("use version 2.4 rules") and (maneuvertype == "DR" or maneuvertype == "LR"):
-          self._maneuverfp += 1
-        elif self._horizontal:
-          self._maneuverfp += 1
+          a._maneuverfp += 1
+        elif a._horizontal:
+          a._maneuverfp += 1
     
       maneuver = doelements(action, "maneuver" , False)
       
@@ -1164,143 +1164,143 @@ def _continuenormalflight(self, actions, note=False):
       if bank and maneuver and not rolling:
         raise RuntimeError("attempt to bank immediately after a maneuver that is not a roll.")
 
-      assert aphex.isvalid(self._x, self._y, facing=self._facing)
-      assert apaltitude.isvalidaltitude(self._altitude)
+      assert aphex.isvalid(a._x, a._y, facing=a._facing)
+      assert apaltitude.isvalidaltitude(a._altitude)
 
     except RuntimeError as e:
 
       raise e
   
     finally:
-      if self._lastfp:
-        self._logpositionandmaneuver("end")
+      if a._lastfp:
+        a._logpositionandmaneuver("end")
       else:
-        self._logpositionandmaneuver("")
-      self._continueflightpath()
+        a._logpositionandmaneuver("")
+      a._continueflightpath()
         
-    if turning and self._maneuversupersonic:
-      self._turningsupersonic = True
+    if turning and a._maneuversupersonic:
+      a._turningsupersonic = True
     
       # See rules 9.1 and 13.3.6. We do this calculation here because any turn rate used in 
-      # this turn is still reflected in self._maneuvertype; the turn may be stopped after the
+      # this turn is still reflected in a._maneuvertype; the turn may be stopped after the
       # facing change. The +1 is because the recovery period is this turn plus half of the
       # speed, rounding down.
 
     if maneuvertype == "ET":
-      self._ETrecoveryfp   = int(self._speed / 2) + 1
-      self._BTrecoveryfp   = -1
-      self._rollrecoveryfp = -1
-      self._HTrecoveryfp   = -1
-      self._TTrecoveryfp   = -1
+      a._ETrecoveryfp   = int(a._speed / 2) + 1
+      a._BTrecoveryfp   = -1
+      a._rollrecoveryfp = -1
+      a._HTrecoveryfp   = -1
+      a._TTrecoveryfp   = -1
     elif maneuvertype == "BT":
-      self._ETrecoveryfp   -= 1
-      self._BTrecoveryfp   = int(self._speed / 2) + 1
-      self._rollrecoveryfp = -1
-      self._HTrecoveryfp   = -1
-      self._TTrecoveryfp   = -1
-    elif maneuvertype in ["VR", "LR", "DR"] or (self._hrd and self._fp == 1):
-      self._ETrecoveryfp   -= 1
-      self._BTrecoveryfp   = -1
-      self._rollrecoveryfp = int(self._speed / 2) + 1
-      self._HTrecoveryfp   = -1
-      self._TTrecoveryfp   = -1
+      a._ETrecoveryfp   -= 1
+      a._BTrecoveryfp   = int(a._speed / 2) + 1
+      a._rollrecoveryfp = -1
+      a._HTrecoveryfp   = -1
+      a._TTrecoveryfp   = -1
+    elif maneuvertype in ["VR", "LR", "DR"] or (a._hrd and a._fp == 1):
+      a._ETrecoveryfp   -= 1
+      a._BTrecoveryfp   = -1
+      a._rollrecoveryfp = int(a._speed / 2) + 1
+      a._HTrecoveryfp   = -1
+      a._TTrecoveryfp   = -1
     elif maneuvertype == "HT":
-      self._ETrecoveryfp   -= 1
-      self._BTrecoveryfp   -= 1
-      self._rollrecoveryfp -= 1
-      self._HTrecoveryfp   = int(self._speed / 2) + 1
-      self._TTrecoveryfp   = -1
+      a._ETrecoveryfp   -= 1
+      a._BTrecoveryfp   -= 1
+      a._rollrecoveryfp -= 1
+      a._HTrecoveryfp   = int(a._speed / 2) + 1
+      a._TTrecoveryfp   = -1
     elif maneuvertype == "TT":
-      self._ETrecoveryfp   -= 1
-      self._BTrecoveryfp   -= 1
-      self._rollrecoveryfp -= 1
-      self._HTrecoveryfp   -= 1
-      self._TTrecoveryfp   = int(self._speed / 2) + 1
+      a._ETrecoveryfp   -= 1
+      a._BTrecoveryfp   -= 1
+      a._rollrecoveryfp -= 1
+      a._HTrecoveryfp   -= 1
+      a._TTrecoveryfp   = int(a._speed / 2) + 1
     else:
-      self._ETrecoveryfp   -= 1
-      self._BTrecoveryfp   -= 1
-      self._rollrecoveryfp -= 1
-      self._HTrecoveryfp   -= 1
-      self._TTrecoveryfp   -= 1
+      a._ETrecoveryfp   -= 1
+      a._BTrecoveryfp   -= 1
+      a._rollrecoveryfp -= 1
+      a._HTrecoveryfp   -= 1
+      a._TTrecoveryfp   -= 1
 
-    if self._ETrecoveryfp == 0:
-      self._logevent("recovered from ET.")
-    if self._BTrecoveryfp == 0:
-      self._logevent("recovered from BT.")
-    if self._rollrecoveryfp == 0:
-      self._logevent("recovered from roll.")
-    if self._HTrecoveryfp == 0:
-      self._logevent("recovered from HT.")
-    if self._TTrecoveryfp == 0:
-      self._logevent("recovered from TT.")
+    if a._ETrecoveryfp == 0:
+      a._logevent("recovered from ET.")
+    if a._BTrecoveryfp == 0:
+      a._logevent("recovered from BT.")
+    if a._rollrecoveryfp == 0:
+      a._logevent("recovered from roll.")
+    if a._HTrecoveryfp == 0:
+      a._logevent("recovered from HT.")
+    if a._TTrecoveryfp == 0:
+      a._logevent("recovered from TT.")
           
     # See rules 7.7 and 8.5.
     if maneuver and rolling:
-      if initialaltitude > apcapabilities.ceiling(self):
-        self._logevent("check for a maneuvering departure as the aircraft is above its ceiling and attempted to roll.")
+      if initialaltitude > apcapabilities.ceiling(a):
+        a._logevent("check for a maneuvering departure as the aircraft is above its ceiling and attempted to roll.")
       elif initialaltitudeband == "EH" or initialaltitudeband == "UH":
-        self._logevent("check for a maneuvering departure as the aircraft is in the %s altitude band and attempted to roll." % initialaltitudeband)
+        a._logevent("check for a maneuvering departure as the aircraft is in the %s altitude band and attempted to roll." % initialaltitudeband)
     
     # See rules 7.7 and 8.5.
     if maneuver and turning:
-      if initialaltitude > apcapabilities.ceiling(self) and maneuvertype != "EZ":
-        self._logevent("check for a maneuvering departure as the aircraft is above its ceiling and attempted to turn harder than EZ.")
+      if initialaltitude > apcapabilities.ceiling(a) and maneuvertype != "EZ":
+        a._logevent("check for a maneuvering departure as the aircraft is above its ceiling and attempted to turn harder than EZ.")
       if maneuvertype == "ET" and initialaltitude <= 25:
-        self._gloccheck += 1
-        self._logevent("check for GLOC as turn rate is ET and altitude band is %s (check %d in cycle)." % (initialaltitudeband, self._gloccheck))
+        a._gloccheck += 1
+        a._logevent("check for GLOC as turn rate is ET and altitude band is %s (check %d in cycle)." % (initialaltitudeband, a._gloccheck))
 
     # See rule 7.8.
-    if turning and self.closeformationsize() != 0:
-      if (self.closeformationsize() > 2 and maneuvertype == "HT") or maneuvertype == "BT" or maneuvertype == "ET":
-        self._logevent("close formation breaks down as the turn rate is %s." % maneuvertype)
-        self._breakdowncloseformation()
+    if turning and a.closeformationsize() != 0:
+      if (a.closeformationsize() > 2 and maneuvertype == "HT") or maneuvertype == "BT" or maneuvertype == "ET":
+        a._logevent("close formation breaks down as the turn rate is %s." % maneuvertype)
+        a._breakdowncloseformation()
 
     # See rule 13.7, interpreted in the same sense as rule 7.8.
-    if rolling and self.closeformationsize() != 0:
-      self._logevent("close formation breaks down aircraft is rolling.")
-      self._breakdowncloseformation()      
+    if rolling and a.closeformationsize() != 0:
+      a._logevent("close formation breaks down aircraft is rolling.")
+      a._breakdowncloseformation()      
     
-    if initialaltitudeband != self._altitudeband:
-      self._logevent("altitude band changed from %s to %s." % (initialaltitudeband, self._altitudeband))
+    if initialaltitudeband != a._altitudeband:
+      a._logevent("altitude band changed from %s to %s." % (initialaltitudeband, a._altitudeband))
       
-    self.checkforterraincollision()
-    self.checkforleavingmap()
-    if self._destroyed or self._leftmap:
+    a.checkforterraincollision()
+    a.checkforleavingmap()
+    if a._destroyed or a._leftmap:
       return
 
     doelements(action, "other", True)
 
-    self._wasrollingonlastfp = rolling
+    a._wasrollingonlastfp = rolling
 
   ########################################
   
-  flighttype         = self._flighttype
-  previousflighttype = self._previousflighttype  
+  flighttype         = a._flighttype
+  previousflighttype = a._previousflighttype  
   
   if actions != "":
     for action in actions.split(","):
-      if not self._destroyed and not self._leftmap:
+      if not a._destroyed and not a._leftmap:
         doaction(action)
 
-  self._lognote(note)
+  a._lognote(note)
 
-  assert self._maneuveringdeparture or (self._fp == self._hfp + self._vfp)
-  assert self._maneuveringdeparture or (self._fp <= self._maxfp)
+  assert a._maneuveringdeparture or (a._fp == a._hfp + a._vfp)
+  assert a._maneuveringdeparture or (a._fp <= a._maxfp)
 
-  if self._destroyed or self._leftmap or self._maneuveringdeparture:
+  if a._destroyed or a._leftmap or a._maneuveringdeparture:
   
-    self._endmove()
+    a._endmove()
 
-  elif self._fp + 1 > self._maxfp:
+  elif a._fp + 1 > a._maxfp:
 
     # See rule 5.4.
-    self._fpcarry = self._maxfp - self._fp
+    a._fpcarry = a._maxfp - a._fp
 
-    self._endnormalflight()
+    endflight(a)
 
 ################################################################################
 
-def _startnormalflight(self, actions, note=False):
+def startflight(a, actions, note=False):
       
   """
   Start to carry out normal flight.
@@ -1309,13 +1309,13 @@ def _startnormalflight(self, actions, note=False):
   ########################################
 
   def reportapcarry():
-     self._logevent("is carrying %+.2f APs." % self._apcarry)
+     a._logevent("is carrying %+.2f APs." % a._apcarry)
  
   ########################################
 
   def reportaltitudecarry():
-    if self._altitudecarry != 0:
-     self._logevent("is carrying %.2f altitude levels." % self._altitudecarry)
+    if a._altitudecarry != 0:
+     a._logevent("is carrying %.2f altitude levels." % a._altitudecarry)
 
   ########################################
 
@@ -1331,74 +1331,74 @@ def _startnormalflight(self, actions, note=False):
 
     # See "Aircraft Damage Effects" in Play Aids.
 
-    if self.damageatleast("C"):
-      self._logevent("damage limits the turn rate to TT.")
+    if a.damageatleast("C"):
+      a._logevent("damage limits the turn rate to TT.")
       turnrates = turnrates[:2]
-    elif self.damageatleast("2L"):
-      self._logevent("damage limits the turn rate to HT.")
+    elif a.damageatleast("2L"):
+      a._logevent("damage limits the turn rate to HT.")
       turnrates = turnrates[:3]
-    elif self.damageatleast("L"):
-      self._logevent("damage limits the turn rate to BT.")
+    elif a.damageatleast("L"):
+      a._logevent("damage limits the turn rate to BT.")
       turnrates = turnrates[:4]
 
     # See rule 7.5.
 
-    minspeed = apcapabilities.minspeed(self)
-    if self._speed == minspeed:
-      self._logevent("speed limits the turn rate to EZ.")
+    minspeed = apcapabilities.minspeed(a)
+    if a._speed == minspeed:
+      a._logevent("speed limits the turn rate to EZ.")
       turnrates = turnrates[:1]
-    elif self._speed == minspeed + 0.5:
-      self._logevent("speed limits the turn rate to TT.")
+    elif a._speed == minspeed + 0.5:
+      a._logevent("speed limits the turn rate to TT.")
       turnrates = turnrates[:2]
-    elif self._speed == minspeed + 1.0:
-      self._logevent("speed limits the turn rate to HT.")
+    elif a._speed == minspeed + 1.0:
+      a._logevent("speed limits the turn rate to HT.")
       turnrates = turnrates[:3]
-    elif self._speed == minspeed + 1.5:
-      self._logevent("speed limits the turn rate to BT.")
+    elif a._speed == minspeed + 1.5:
+      a._logevent("speed limits the turn rate to BT.")
       turnrates = turnrates[:4]
     else:
-      self._logevent("speed does not limit the turn rate.")
+      a._logevent("speed does not limit the turn rate.")
 
     # See rule 8.1.1.
 
-    if self._flighttype == "ZC":
-      self._logevent("ZC limits the turn rate to BT.")
+    if a._flighttype == "ZC":
+      a._logevent("ZC limits the turn rate to BT.")
       turnrates = turnrates[:4]
 
     # See rule 8.1.1.
 
-    if self._flighttype == "SC":
-      self._logevent("SC limits the turn rate to EZ.")
+    if a._flighttype == "SC":
+      a._logevent("SC limits the turn rate to EZ.")
       turnrates = turnrates[:1]
 
     # See rule 8.1.3.
 
-    if self._flighttype == "VC":
-      self._logevent("VC disallows all turns.")
+    if a._flighttype == "VC":
+      a._logevent("VC disallows all turns.")
       turnrates = []
 
-    self._allowedturnrates = turnrates
+    a._allowedturnrates = turnrates
 
   ########################################
 
   def checkcloseformationlimits():
 
-    if self.closeformationsize() == 0:
+    if a.closeformationsize() == 0:
       return
 
     # See rule 13.7, interpreted in the same sense as rule 7.8.
-    if self._hrd:
-      self._logevent("close formation breaks down upon a HRD.")
-      self._breakdowncloseformation()    
+    if a._hrd:
+      a._logevent("close formation breaks down upon a HRD.")
+      a._breakdowncloseformation()    
 
     # See rule 8.6.
     if flighttype == "ZC" or \
-      (flighttype == "SC" and self._powersetting == "AB") or \
+      (flighttype == "SC" and a._powersetting == "AB") or \
       flighttype == "VC" or \
       flighttype == "UD" or \
       flighttype == "VD":
-      self._logevent("close formation breaks down as the flight type is %s." % flighttype)
-      self._breakdowncloseformation()
+      a._logevent("close formation breaks down as the flight type is %s." % flighttype)
+      a._breakdowncloseformation()
 
     return
 
@@ -1413,9 +1413,9 @@ def _startnormalflight(self, actions, note=False):
 
     # See rule 5.4.
 
-    self._maxfp = self._speed + self._fpcarry
-    self._logevent("has %.1f FPs (including %.1f carry)." % (self._maxfp, self._fpcarry))
-    self._fpcarry = 0
+    a._maxfp = a._speed + a._fpcarry
+    a._logevent("has %.1f FPs (including %.1f carry)." % (a._maxfp, a._fpcarry))
+    a._fpcarry = 0
 
   ########################################
 
@@ -1429,19 +1429,19 @@ def _startnormalflight(self, actions, note=False):
     # See rule 13.3.5 (with errata) on HRD restrictions.
 
     if (previousflighttype == "ZC" or previousflighttype == "SC") and flighttype == "VD":
-      assert self._hrd
-      mininitialhfp = self._speed // 3
+      assert a._hrd
+      mininitialhfp = a._speed // 3
     elif previousflighttype == "LVL" and (_isclimbingflight(flighttype) or _isdivingflight(flighttype)):
       mininitialhfp = 1
     elif (_isclimbingflight(previousflighttype) and _isdivingflight(flighttype)) or (_isdivingflight(previousflighttype) and _isclimbingflight(flighttype)):
-      if apcapabilities.hasproperty(self, "HPR"):
-        mininitialhfp = self._speed // 3
+      if apcapabilities.hasproperty(a, "HPR"):
+        mininitialhfp = a._speed // 3
       else:
-        mininitialhfp = self._speed // 2
+        mininitialhfp = a._speed // 2
     else:
       mininitialhfp = 0
 
-    maxfp = int(self._maxfp)
+    maxfp = int(a._maxfp)
 
     minhfp = 0
     maxhfp = maxfp
@@ -1475,10 +1475,10 @@ def _startnormalflight(self, actions, note=False):
       minvfp = 1
       
       # See rule 8.1.2.
-      if self._speed < apcapabilities.minspeed(self) + 1.0:
+      if a._speed < apcapabilities.minspeed(a) + 1.0:
         raise RuntimeError("insufficient speed for SC.")
-      climbcapability = apcapabilities.climbcapability(self)
-      if self._speed < apcapabilities.climbspeed(self):
+      climbcapability = apcapabilities.climbcapability(a)
+      if a._speed < apcapabilities.climbspeed(a):
         climbcapability /= 2
       if climbcapability < 1:
         maxvfp = 1
@@ -1521,47 +1521,47 @@ def _startnormalflight(self, actions, note=False):
 
     if maxvfp == 0:
 
-      self._logevent("all FPs must be HFPs.")
+      a._logevent("all FPs must be HFPs.")
 
     else:
 
       if mininitialhfp == 1:
-        self._logevent("the first FP must be an HFP.")
+        a._logevent("the first FP must be an HFP.")
       elif mininitialhfp > 1:
-        self._logevent("the first %d FPs must be HFPs." % mininitialhfp)
+        a._logevent("the first %d FPs must be HFPs." % mininitialhfp)
       
       if minhfp == maxhfp:
-        self._logevent(plural(minhfp,
+        a._logevent(plural(minhfp,
           "exactly 1 FP must be an HFP.",
           "exactly %d FPs must be HFPs." % minhfp
         ))
       elif minhfp > 0 and maxhfp < maxfp:
-        self._logevent("between %d and %d FP must be HFPs." % (minhfp, maxhfp))
+        a._logevent("between %d and %d FP must be HFPs." % (minhfp, maxhfp))
       elif minhfp > 0:
-        self._logevent(plural(minhfp,
+        a._logevent(plural(minhfp,
           "at least 1 FP must be an HFP.",
           "at least %d FPs must be HFPs." % minhfp
         ))
       else:
-        self._logevent(plural(maxhfp,
+        a._logevent(plural(maxhfp,
           "at most 1 FP may be an HFP.",
           "at most %d FPs may be HFPs." % maxhfp
         ))
 
       if minvfp == maxvfp:
-        self._logevent(plural(minvfp,
+        a._logevent(plural(minvfp,
           "exactly 1 FP must be a VFP.",
           "exactly %d FPs must be VFPs." % minvfp
         ))
       elif minvfp > 0 and maxvfp < maxfp:
-        self._logevent("between %d and %d FP must be VFPs." % (minvfp, maxvfp))
+        a._logevent("between %d and %d FP must be VFPs." % (minvfp, maxvfp))
       elif minvfp > 0:
-        self._logevent(plural(minvfp,
+        a._logevent(plural(minvfp,
           "at least 1 FP must be a VFP.",
           "at least %d FPs must be VFPs." % minvfp
         ))
       else:
-        self._logevent(plural(maxvfp,
+        a._logevent(plural(maxvfp,
           "at most 1 FP may be a VFP.",
           "at most %d FPs may be VFPs." % maxvfp
         ))
@@ -1572,18 +1572,18 @@ def _startnormalflight(self, actions, note=False):
       raise RuntimeError("flight type not permitted by VFP requirements.")
   
     if minunloadedhfp > 0:
-      self._logevent(plural(minunloadedhfp,
+      a._logevent(plural(minunloadedhfp,
         "at least 1 FP must be an unloaded HFP.",
         "at least %d FPs must be unloaded HFPs." % minunloadedhfp
       ))
 
-    self._mininitialhfp  = mininitialhfp
-    self._minhfp         = minhfp
-    self._maxhfp         = maxhfp
-    self._minvfp         = minvfp
-    self._maxvfp         = maxvfp
-    self._minunloadedhfp = minunloadedhfp
-    self._maxunloadedhfp = maxunloadedhfp      
+    a._mininitialhfp  = mininitialhfp
+    a._minhfp         = minhfp
+    a._maxhfp         = maxhfp
+    a._minvfp         = minvfp
+    a._maxvfp         = maxvfp
+    a._minunloadedhfp = minunloadedhfp
+    a._maxunloadedhfp = maxunloadedhfp      
 
   ########################################
 
@@ -1593,7 +1593,7 @@ def _startnormalflight(self, actions, note=False):
     Handle any carried turn.
     """
 
-    if _isturn(self._maneuvertype):
+    if _isturn(a._maneuvertype):
 
       # See rule 7.7.
 
@@ -1601,70 +1601,70 @@ def _startnormalflight(self, actions, note=False):
       # requirements of ZC, SC, and VC flight are not clear, but for the
       # moment we assume they result in a maneuvering departure.
 
-      turnrequirement = apturnrate.turnrequirement(self._altitudeband, self._speed, self._maneuvertype)
-      if not self._maneuvertype in self._allowedturnrates or turnrequirement == None:
-        self._logevent("carried turn rate is tighter than the maximum allowed turn rate.")
+      turnrequirement = apturnrate.turnrequirement(a._altitudeband, a._speed, a._maneuvertype)
+      if not a._maneuvertype in a._allowedturnrates or turnrequirement == None:
+        a._logevent("carried turn rate is tighter than the maximum allowed turn rate.")
         raise RuntimeError("aircraft has entered departed flight while maneuvering.")
 
       # See rule 7.1.
 
-      previousmaneuverrequiredfp    = self._maneuverrequiredfp
-      previous_maneuverfacingchange = self._maneuverfacingchange
+      previousmaneuverrequiredfp    = a._maneuverrequiredfp
+      previous_maneuverfacingchange = a._maneuverfacingchange
 
-      self._maneuversupersonic   = self._speed >= apspeed.m1speed(self._altitudeband)
-      turnrequirement = apturnrate.turnrequirement(self._altitudeband, self._speed, self._maneuvertype)
+      a._maneuversupersonic   = a._speed >= apspeed.m1speed(a._altitudeband)
+      turnrequirement = apturnrate.turnrequirement(a._altitudeband, a._speed, a._maneuvertype)
       if turnrequirement >= 60:
-        self._maneuverrequiredfp   = 1
-        self._maneuverfacingchange = turnrequirement
+        a._maneuverrequiredfp   = 1
+        a._maneuverfacingchange = turnrequirement
       else:
-        self._maneuverrequiredfp   = turnrequirement
-        self._maneuverfacingchange = 30
+        a._maneuverrequiredfp   = turnrequirement
+        a._maneuverfacingchange = 30
 
-      if self._maneuverrequiredfp != previousmaneuverrequiredfp or self._maneuverfacingchange != previous_maneuverfacingchange:
-        if self._maneuverfacingchange > 30:
-          self._logevent("turn requirement changed to %d in 1 FP." % self._maneuverfacingchange)
+      if a._maneuverrequiredfp != previousmaneuverrequiredfp or a._maneuverfacingchange != previous_maneuverfacingchange:
+        if a._maneuverfacingchange > 30:
+          a._logevent("turn requirement changed to %d in 1 FP." % a._maneuverfacingchange)
         else:
-          self._logevent("turn requirement changed to %s." % plural(self._maneuverrequiredfp, "1 FP", "%d FPs" % self._maneuverrequiredfp))
+          a._logevent("turn requirement changed to %s." % plural(a._maneuverrequiredfp, "1 FP", "%d FPs" % a._maneuverrequiredfp))
 
-      self._maxturnrate       = self._maneuvertype
-      self._turningsupersonic = self._maneuversupersonic
+      a._maxturnrate       = a._maneuvertype
+      a._turningsupersonic = a._maneuversupersonic
 
     else:
 
-      self._maxturnrate       = None
-      self._turningsupersonic = False
+      a._maxturnrate       = None
+      a._turningsupersonic = False
       
   ########################################
 
-  flighttype         = self._flighttype
-  previousflighttype = self._previousflighttype  
+  flighttype         = a._flighttype
+  previousflighttype = a._previousflighttype  
   
   # These keep track of the number of FPs, HFPs, and VFPs used and the
   # number of FPs lost to speedbrakes. They are used to ensure that the
   # right mix of HFPs and VFPs are used and to determine when the turn
   # ends.
 
-  self._fp     = 0
-  self._hfp    = 0
-  self._vfp    = 0
-  self._spbrfp = 0
+  a._fp     = 0
+  a._hfp    = 0
+  a._vfp    = 0
+  a._spbrfp = 0
 
   # These keep track of the index of the first and last unloaded HFPs
   # in an UD. They are then used to ensure that the unloaded HFPs are
   # continuous.
 
-  self._firstunloadedfp = None
-  self._lastunloadedfp  = None
+  a._firstunloadedfp = None
+  a._lastunloadedfp  = None
 
   # This keeps track of the number of turns, rolls, and vertical rolls.
 
-  self._turnmaneuvers = 0
-  self._rollmaneuvers = 0
-  self._verticalrolls = 0
+  a._turnmaneuvers = 0
+  a._rollmaneuvers = 0
+  a._verticalrolls = 0
 
   # The number of slides performed and the FP of the last last performed.
-  self._slides = 0
-  self._slidefp = 0
+  a._slides = 0
+  a._slidefp = 0
 
   reportapcarry()
   reportaltitudecarry()
@@ -1674,55 +1674,55 @@ def _startnormalflight(self, actions, note=False):
   determinemaxfp()
   determinefprequirements()
     
-  self._logpositionandmaneuver("start")
+  a._logpositionandmaneuver("start")
 
-  self._continuenormalflight(actions, note=note)
+  continueflight(a, actions, note=note)
 
 ################################################################################
 
-def _endnormalflight(self):
+def endflight(a):
 
   ########################################
 
   def reportfp():
-    self._logevent("used %s and %s." % (
-      plural(self._hfp, "1 HFP", "%d HFPs" % self._hfp),
-      plural(self._vfp, "1 VFP", "%d VFPs" % self._vfp)
+    a._logevent("used %s and %s." % (
+      plural(a._hfp, "1 HFP", "%d HFPs" % a._hfp),
+      plural(a._vfp, "1 VFP", "%d VFPs" % a._vfp)
     ))    
-    if self._spbrfp > 0:
-      self._logevent("lost %.1f FPs to speedbrakes." % self._spbrfp)
-    self._logevent("will carry %.1f FPs." % self._fpcarry)
+    if a._spbrfp > 0:
+      a._logevent("lost %.1f FPs to speedbrakes." % a._spbrfp)
+    a._logevent("will carry %.1f FPs." % a._fpcarry)
 
   ########################################
 
   def checkfp():
 
-    if self._hfp < self._minhfp:
+    if a._hfp < a._minhfp:
       raise RuntimeError("too few HFPs.")
 
-    if self._hfp > self._maxhfp:
+    if a._hfp > a._maxhfp:
       raise RuntimeError("too many HFPs.")  
       
-    if self._vfp < self._minvfp:
+    if a._vfp < a._minvfp:
       raise RuntimeError("too few VFPs.")
 
-    if self._vfp > self._maxvfp:
+    if a._vfp > a._maxvfp:
       raise RuntimeError("too many VFPs.")
 
-    if self._flighttype == "UD":
+    if a._flighttype == "UD":
       # See rule 8.2.2.
-      unloadedhfp = self._previousaltitude - self._altitude
-      if self._firstunloadedfp == None:
+      unloadedhfp = a._previousaltitude - a._altitude
+      if a._firstunloadedfp == None:
         n = 0
-      elif self._lastunloadedfp == None:
-        n = self._hfp - self._firstunloadedfp + 1
+      elif a._lastunloadedfp == None:
+        n = a._hfp - a._firstunloadedfp + 1
       else:
-        n = self._lastunloadedfp - self._firstunloadedfp + 1
+        n = a._lastunloadedfp - a._firstunloadedfp + 1
       if n != unloadedhfp:
         raise RuntimeError("unloaded HFPs must be continuous.")
-      if unloadedhfp < self._minunloadedhfp:
+      if unloadedhfp < a._minunloadedhfp:
         raise RuntimeError("too few unloaded HFPs.")
-      if unloadedhfp > self._maxunloadedhfp:
+      if unloadedhfp > a._maxunloadedhfp:
         raise RuntimeError("too many unloaded HFPs.")
 
   ########################################
@@ -1731,8 +1731,8 @@ def _endnormalflight(self):
 
     # See rule 8.2.4.
     
-    if self._flighttype == "LVL":
-      altitudechange = self._altitude - self._previousaltitude
+    if a._flighttype == "LVL":
+      altitudechange = a._altitude - a._previousaltitude
       if altitudechange < -1:
         raise RuntimeError("free descent cannot only be taken once per move.")      
 
@@ -1741,16 +1741,16 @@ def _endnormalflight(self):
   def reportgloccycle():
 
     # See rule 7.6.
-    if self._gloccheck > 0 and self._maxturnrate != "ET" and self._maxturnrate != "BT":
-      self._logevent("GLOC cycle ended.")
-      self._gloccheck = 0 
+    if a._gloccheck > 0 and a._maxturnrate != "ET" and a._maxturnrate != "BT":
+      a._logevent("GLOC cycle ended.")
+      a._gloccheck = 0 
 
   ########################################
 
   def reportcarry():
 
-    if self._altitudecarry != 0:
-      self._logevent("is carrying %.2f altitude levels." % self._altitudecarry)
+    if a._altitudecarry != 0:
+      a._logevent("is carrying %.2f altitude levels." % a._altitudecarry)
           
   ########################################
 
@@ -1760,22 +1760,22 @@ def _endnormalflight(self):
     Determine the APs from the maximum turn rate used.
     """
 
-    if self._maxturnrate != None:
-      self.turnrateap = -apcapabilities.turndrag(self, self._maxturnrate)
+    if a._maxturnrate != None:
+      a.turnrateap = -apcapabilities.turndrag(a, a._maxturnrate)
     else:
-      self.turnrateap = 0
+      a.turnrateap = 0
 
-    if self._turningsupersonic:
-      if apcapabilities.hasproperty(self, "PSSM"):
-        self.turnrateap -= 2.0
-      elif not apcapabilities.hasproperty(self, "GSSM"):
-        self.turnrateap -= 1.0
+    if a._turningsupersonic:
+      if apcapabilities.hasproperty(a, "PSSM"):
+        a.turnrateap -= 2.0
+      elif not apcapabilities.hasproperty(a, "GSSM"):
+        a.turnrateap -= 1.0
 
   ########################################
 
   def determinealtitudeap():
 
-    altitudechange = self._altitude - self._previousaltitude
+    altitudechange = a._altitude - a._previousaltitude
 
     if flighttype == "ZC":
 
@@ -1793,13 +1793,13 @@ def _endnormalflight(self):
       if altitudechange == 0:
 
         altitudeap = 0.0
-        self._scwithzccomponent = False
+        a._scwithzccomponent = False
 
       else:
 
         # See rule 8.1.2 and 8.1.4.
 
-        climbcapability = self._effectiveclimbcapability
+        climbcapability = a._effectiveclimbcapability
 
         # We need to figure out how much was climbed at the SC rate and
         # how much was climbed at the ZC rate. This is complicated since
@@ -1811,8 +1811,8 @@ def _endnormalflight(self):
         # We also use that the altitude change at the ZC rate must be an
         # integral number of levels.
 
-        truealtitude     = self._altitude         + self._altitudecarry
-        lasttruealtitude = self._previousaltitude + self._previousaltitudecarry
+        truealtitude     = a._altitude         + a._altitudecarry
+        lasttruealtitude = a._previousaltitude + a._previousaltitudecarry
 
         truealtitudechange = truealtitude - lasttruealtitude
 
@@ -1827,7 +1827,7 @@ def _endnormalflight(self):
             altitudeap = -0.5 * scaltitudechange + -1.5 * zcaltitudechange
           else:
             altitudeap = -0.5 * scaltitudechange + -1.0 * zcaltitudechange
-        self._scwithzccomponent = (zcaltitudechange != 0)
+        a._scwithzccomponent = (zcaltitudechange != 0)
 
     elif flighttype == "VC":
 
@@ -1869,32 +1869,32 @@ def _endnormalflight(self):
     # Round to nearest quarter. See rule 6.2.
     altitudeap = roundtoquarter(altitudeap)
 
-    self._altitudeap = altitudeap
+    a._altitudeap = altitudeap
 
   ########################################
 
   def checkcloseformationlimits():
 
-    if self.closeformationsize() == 0:
+    if a.closeformationsize() == 0:
       return
 
     # See rule 8.6. The other climbing and diving cases are handled at
     # the start of the move.
 
-    altitudeloss = self._previousaltitude - self._altitude
+    altitudeloss = a._previousaltitude - a._altitude
     if flighttype == "SD" and altitudeloss > 2:
-      self._logevent("close formation breaks down as the aircraft lost %d levels in an SD." % altitudeloss)
-      self._breakdowncloseformation()
-    elif flighttype == "SC" and self._scwithzccomponent:
-      self._logevent("close formation breaks down as the aircraft climbed faster than the sustained climb rate.")
-      self._breakdowncloseformation()
+      a._logevent("close formation breaks down as the aircraft lost %d levels in an SD." % altitudeloss)
+      a._breakdowncloseformation()
+    elif flighttype == "SC" and a._scwithzccomponent:
+      a._logevent("close formation breaks down as the aircraft climbed faster than the sustained climb rate.")
+      a._breakdowncloseformation()
       
   ########################################
 
-  flighttype         = self._flighttype
-  previousflighttype = self._previousflighttype  
+  flighttype         = a._flighttype
+  previousflighttype = a._previousflighttype  
   
-  if not self._maneuveringdeparture:
+  if not a._maneuveringdeparture:
     reportfp()
     checkfp()
     checkfreedescent()
@@ -1904,7 +1904,7 @@ def _endnormalflight(self):
     determinealtitudeap()
     checkcloseformationlimits()
 
-  self._endmove()
+  a._endmove()
 
 ################################################################################
 

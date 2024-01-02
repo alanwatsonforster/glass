@@ -7,12 +7,13 @@ Aircraft flight.
 import apxo                as ap
 import apxo.departedflight as apdepartedflight
 import apxo.log            as aplog
+import apxo.normalflight   as apnormalflight
 import apxo.specialflight  as apspecialflight
 import apxo.stalledflight  as apstalledflight
 import apxo.turn           as apturn
 
-from .normalflight import _isdivingflight, _isclimbingflight, _islevelflight
-from apxo.aircraft import _zorder
+from apxo.normalflight import _isdivingflight, _isclimbingflight, _islevelflight
+from apxo.aircraft     import _zorder
 
 ##############################################################################
 
@@ -83,7 +84,7 @@ def move(self, flighttype, power, actions="",
     elif flighttype == "DP":
       apdepartedflight.checkflight(self)
     else:
-      self._checknormalflight()
+      apnormalflight.checkflight(self)
 
     if flighttype == "SP":
       self._speed = power
@@ -127,7 +128,7 @@ def move(self, flighttype, power, actions="",
       
       self._turnsstalled  = 0
       self._turnsdeparted = 0
-      self._startnormalflight(actions, note=note)
+      apnormalflight.startflight(self, actions, note=note)
 
     self._logline()
 
@@ -148,7 +149,7 @@ def continuemove(self, actions="", note=False):
     apturn.checkinturn()
 
     if not self._destroyed and not self._leftmap and self._flighttype != "ST" and self._flighttype != "DP" and self._flighttype != "SP":
-      self._continuenormalflight(actions, note=note)
+      apnormalflight.continueflight(self, actions, note=note)
     else:
       self._lognote(note)
     self._logline()
