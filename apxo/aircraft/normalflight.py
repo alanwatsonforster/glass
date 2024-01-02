@@ -540,7 +540,7 @@ def _continuenormalflight(self, actions, note=False):
     # See rules 13.1 and 13.3.1.
 
     if self._maneuverfp < self._maneuverrequiredfp:
-      raise RuntimeError("attempt to roll without sufficient preparatory HFPs.")
+      raise RuntimeError("attempt to roll without sufficient preparatory FPs.")
 
     if not self._horizontal:
       raise RuntimeError("attempt to roll on a VFP.")
@@ -600,7 +600,7 @@ def _continuenormalflight(self, actions, note=False):
     # See rules 13.1 and 13.3.2.
 
     if self._maneuverfp < self._maneuverrequiredfp:
-      raise RuntimeError("attempt to roll without sufficient preparatory HFPs.")
+      raise RuntimeError("attempt to roll without sufficient preparatory FPs.")
 
     if not self._horizontal:
       raise RuntimeError("attempt to roll on a VFP.")
