@@ -542,6 +542,9 @@ def _continuenormalflight(self, actions, note=False):
     if self._maneuverfp < self._maneuverrequiredfp:
       raise RuntimeError("attempt to roll without sufficient preparatory HFPs.")
 
+    if not self._horizontal:
+      raise RuntimeError("attempt to roll on a VFP.")
+      
     # Move.
     self._x, self._y = aphex.displacementroll(self._x, self._y, self._facing, sense)
 
@@ -598,6 +601,9 @@ def _continuenormalflight(self, actions, note=False):
 
     if self._maneuverfp < self._maneuverrequiredfp:
       raise RuntimeError("attempt to roll without sufficient preparatory HFPs.")
+
+    if not self._horizontal:
+      raise RuntimeError("attempt to roll on a VFP.")
 
     # Move.
     self._x, self._y = aphex.lagroll(self._x, self._y, self._facing, sense)
@@ -1145,6 +1151,8 @@ def _continuenormalflight(self, actions, note=False):
         if turning:
           self._maneuverfp += 1
         elif maneuvertype == "VR" and self._vertical:
+          self._maneuverfp += 1
+        elif apvariants.withvariant("use version 2.4 rules") and (maneuvertype == "DR" or maneuvertype == "LR"):
           self._maneuverfp += 1
         elif self._horizontal:
           self._maneuverfp += 1

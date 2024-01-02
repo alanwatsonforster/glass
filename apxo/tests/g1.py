@@ -399,7 +399,6 @@ A3._assert("A1-1609       N    20",  6.5)
 
 endturn()
 
-
 # Additional prepatory FPs in version 2.4.
 
 starttestsetup(variants=["use version 2.4 rules"], verbose=False)
@@ -425,5 +424,24 @@ A3.move("LVL", "M", "DRR/H,H,H/R,H,H,H")
 A3._assert("A2-2519       N    20", 6.0)
 endturn()
 
+# In version 2.4, the preparatory FPs can be HFPs or VFPs, but the roll must
+# be executed on an HFP.
+
+starttestsetup(variants=["use version 2.4 rules"])
+A1 = aircraft("A1", "AF", "F-104A"  , "A2-2025", "N", 20, 6.0, "CL")
+endtestsetup()
+
+startturn()
+A1.move("ZC", "M", "H,H,H,H,H,C")
+endturn()
+
+startturn()
+A1.move("ZC", "M", "DRR/C,C,C/R")
+asserterror("attempt to roll on a VFP.")
+
+startturn()
+A1.move("ZC", "M", "DRR/C,C,H/R,H,H,H")
+A1._assert("A2-2116       N    23", 6.0)
+endturn()
 
 endfile(__file__)
