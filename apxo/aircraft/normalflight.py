@@ -1503,7 +1503,7 @@ def _startnormalflight(self, actions, note=False):
       
       # See rules 8.2.1 and 8.2.3.
       if previousflighttype == "VD":
-        minvfp = math.floor(self._speed / 2)
+        minvfp = math.floor(maxfp / 2)
       minhfp = math.ceil(onethird(maxfp))    
 
     elif flighttype == "UD":
@@ -1512,7 +1512,7 @@ def _startnormalflight(self, actions, note=False):
       maxvfp = 0
       maxunloadedhfp = maxfp
       if previousflighttype == "VD":
-        minunloadedhfp = math.floor(self._speed / 2)
+        minunloadedhfp = math.floor(maxfp / 2)
       else:
         minunloadedhfp = 1
 

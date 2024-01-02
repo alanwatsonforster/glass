@@ -193,6 +193,34 @@ A1.move("VD",  "M", "D3,D3,D3,D3,D3,D3")
 A1._assert("A1-1815       N    13",  6.5)
 endturn()
 
+# Recoverty from Vertical Dives.
+
+starttestsetup(sheets=[["A1"],["A2"]], variants=["use version 2.4 rules"])
+A1 = aircraft("A1", "AF", "F-80C", "A2-1817", "N"  , 45, 3.5, "CL")
+endtestsetup()
+
+startturn()
+A1.move("SD",  "M", "H,H,D2")
+A1._assert("A1-1815       N    43",  4.0)
+endturn()
+
+startturn()
+A1.move("VD",  "M", "H,D2,D2,D2")
+A1._assert("A1-1814       N    37",  5.5)
+endturn()
+
+# The dive was crafted so that the aircraft has a speed of 5.5 but
+# has 6 FP. Thus, it must dive for 3 VFPs on the next turn rather than 2.
+
+startturn()
+A1.move("SD",  "M", "D,D,H,H,H,H")
+asserterror("too few VFPs.")
+
+startturn()
+A1.move("SD",  "M", "D,D,D,H,H")
+A1._assert("A1-1812       N    34",  5.5)
+endturn()
+
 # Free Descent
 
 starttestsetup()
