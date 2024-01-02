@@ -990,10 +990,18 @@ class aircraft:
   ################################################################################  
 
   def move(self, *args, **kwargs):
-    apflight.move(self, *args, **kwargs)
+    aplog.clearerror()
+    try:
+      apflight.move(self, *args, **kwargs)
+    except RuntimeError as e:
+      aplog.logexception(e)
 
   def continuemove(self, *args, **kwargs):
-    apflight.continuemove(self, *args, **kwargs)
+    aplog.clearerror()
+    try:
+        apflight.continuemove(self, *args, **kwargs)
+    except RuntimeError as e:
+      aplog.logexception(e)
 
   ################################################################################  
  
