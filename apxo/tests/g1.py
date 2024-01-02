@@ -400,5 +400,30 @@ A3._assert("A1-1609       N    20",  6.5)
 endturn()
 
 
+# Additional prepatory FPs in version 2.4.
+
+starttestsetup(variants=["use version 2.4 rules"], verbose=False)
+A1 = aircraft("A1", "AF", "F-104A"  , "A2-2025", "N", 20, 4.0, "CL")
+A2 = aircraft("A2", "AF", "F-104A"  , "A2-2225", "N", 20, 5.0, "CL")
+A3 = aircraft("A3", "AF", "F-104A"  , "A2-2425", "N", 20, 6.0, "CL")
+endtestsetup()
+
+startturn()
+A1.move("LVL", "M", "DRR/H/R,H,H,H")
+asserterror("attempt to roll without sufficient preparatory HFPs.")
+A2.move("LVL", "M", "DRR/H,H/R,H,H,H")
+asserterror("attempt to roll without sufficient preparatory HFPs.")
+A3.move("LVL", "M", "DRR/H,H/R,H,H,H,H")
+asserterror("attempt to roll without sufficient preparatory HFPs.")
+
+startturn()
+A1.move("LVL", "M", "DRR/H,H/R,H,H")
+A1._assert("A2-2121       N    20", 4.0)
+A2.move("LVL", "M", "DRR/H,H,H/R,H,H")
+A2._assert("A2-2320       N    20", 5.0)
+A3.move("LVL", "M", "DRR/H,H,H/R,H,H,H")
+A3._assert("A2-2519       N    20", 6.0)
+endturn()
+
 
 endfile(__file__)

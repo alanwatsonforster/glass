@@ -527,8 +527,11 @@ def _continuenormalflight(self, actions, note=False):
     self._maneuverfacingchange = None
     self._maneuverfp           = 0
     self._maneuversupersonic   = (self._speed >= apspeed.m1speed(self._altitudeband))
-    # The requirement has +1 FP to account for the final H.
-    self._maneuverrequiredfp   = self.rollhfp() + extrapreparatoryhfp() + 1
+    # The requirement includes the FPs used to execute the roll.
+    if apvariants.withvariant("use version 2.4 rules"):
+      self._maneuverrequiredfp   = self.rollhfp() + extrapreparatoryhfp() + onethird(self._speed)
+    else:
+      self._maneuverrequiredfp   = self.rollhfp() + extrapreparatoryhfp() + 1
 
   ########################################
 
@@ -581,8 +584,11 @@ def _continuenormalflight(self, actions, note=False):
     self._maneuverfacingchange = None
     self._maneuverfp           = 0
     self._maneuversupersonic   = (self._speed >= apspeed.m1speed(self._altitudeband))
-    # The requirement has +1 FP to account for the final H.
-    self._maneuverrequiredfp   = self.rollhfp() + extrapreparatoryhfp() + 1
+    # The requirement includes the FPs used to execute the roll.
+    if apvariants.withvariant("use version 2.4 rules"):
+      self._maneuverrequiredfp   = self.rollhfp() + extrapreparatoryhfp() + onethird(self._speed)
+    else:
+      self._maneuverrequiredfp   = self.rollhfp() + extrapreparatoryhfp() + 1
 
   ########################################
 
