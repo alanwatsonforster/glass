@@ -437,6 +437,11 @@ class aircraft:
 
   ##############################################################################
 
+  def sighted(self):
+    return apvisualsighting.sighted(self)
+
+  ##############################################################################
+
   def padlock(self, other, note=False):
 
     """

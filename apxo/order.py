@@ -136,7 +136,7 @@ def orderofflightdeterminationphase(
 
     # TODO: departed, stalled, and engaged.
 
-    if not A.sighted():
+    if not A.issighted():
 
       unsightedlist.append(A)
       category = "unsighted"

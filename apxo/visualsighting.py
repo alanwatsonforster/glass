@@ -9,6 +9,10 @@ import apxo.log          as aplog
 
 def startvisualsighting():
 
+  """
+  Report sighting status at the start of the visual sighting phase.
+  """
+
   for target in apaircraft.aslist():
     aplog.logbreak()
     if target._sightedonpreviousturn:
@@ -28,6 +32,10 @@ def startvisualsighting():
 
 def endvisualsighting():
 
+  """
+  Report sighting status at the end of the visual sighting phase.
+  """
+  
   aplog.logbreak()
   for target in apaircraft.aslist():
     if target._sighted and target._identified:
@@ -40,6 +48,10 @@ def endvisualsighting():
 ################################################################################
 
 def padlock(A, B, note=False):
+
+  """
+  Carry out a padlock on aircraft B by aircraft A
+  """
 
   A._logbreak()
   A._logline()
@@ -71,7 +83,7 @@ def padlock(A, B, note=False):
 def attempttosight(A, B, success=None, note=False):
 
   """
-  Attempt to sight an aircraft B.
+  Carry out an attempt to sight on aircraft B by aircraft A.
   """
 
   A._logbreak()
@@ -146,6 +158,14 @@ def attempttosight(A, B, success=None, note=False):
 
 ################################################################################
 
+def issighted(A):
+  """
+  Return True is the aircraft A is sighted, otherwise return False.
+  """
+  return A._sighted
+  
+################################################################################
+
 def setsighted(A):
   """
   Set the aircraft A to be sighted.
@@ -208,7 +228,8 @@ def visualsightingrange(A, B):
 def visualsightingrangemodifier(A, B):
 
   """
-  Return the visual sighting range modifier for a search by searcher A for target B.
+  Return the visual sighting range modifier for a search by searcher A
+  for target B.
   """
 
   # See rule 11.1 and the sheets.
@@ -267,7 +288,8 @@ def isvalidpaintscheme(paintscheme):
 def visualsightingpaintschememodifier(A, B):
 
   """
-  Return the visual sighting paint scheme modifier for a search by seacher A for target B.
+  Return the visual sighting paint scheme modifier for a search by
+  seacher A for target B.
   """
 
   paintscheme = B.paintscheme()
@@ -330,7 +352,8 @@ def visualsightingcrewmodifier(A):
 def visualsightingsmokingmodifier(A, B):
 
   """
-  Return the visual sighting smoking modifier for a search by searcher A for target B.
+  Return the visual sighting smoking modifier for a search by searcher A
+  for target B.
   """
 
   # See rule 11.1 and the sheets.
@@ -400,8 +423,8 @@ def visualsightingcondition(A, B):
 def _arc(A, B, arcs):
 
   """
-  If the target B is in the specified arcs of the searcher A, return the arc. Bwise
-  return None.
+  If the target B is in the specified arcs of the searcher A, return the arc. 
+  Otherwisereturn None.
   """
   
   angleoff = apgeometry.angleofftail(B, A, arconly=True)
@@ -430,8 +453,8 @@ def _arc(A, B, arcs):
 def _blindarc(A, B):
 
   """
-  If the target B is in the blind arcs of the searcher A, return the arc. Bwise
-  return None.
+  If the target B is in the blind arcs of the searcher A, return the arc. 
+  Otherwisereturn None.
   """
 
   # See rules 9.2 and 11.1.
@@ -443,8 +466,8 @@ def _blindarc(A, B):
 def _restrictedarc(A, B):
 
   """
-  If the target B is in the restricted arcs of the searcher A, return the arc. Bwise
-  return None.
+  If the target B is in the restricted arcs of the searcher A, return the arc. 
+  Otherwise return None.
   """
 
   # See rules 9.2 and 11.1.
@@ -456,8 +479,8 @@ def _restrictedarc(A, B):
 def canidentify(A, B):
 
   """
-  Return true if the searcher A can visually identify the target B, assuming target is
-  sighted or padlocked.
+  Return true if the searcher A can visually identify the target B, assuming 
+  target is sighted or padlocked.
   """
 
   # See rule 11.5.
