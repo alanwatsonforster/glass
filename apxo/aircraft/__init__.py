@@ -5,6 +5,7 @@ import apxo.azimuth        as apazimuth
 import apxo.closeformation as apcloseformation
 import apxo.configuration  as apconfiguration
 import apxo.draw           as apdraw
+import apxo.flight         as apflight
 import apxo.hex            as aphex
 import apxo.hexcode        as aphexcode
 import apxo.log            as aplog
@@ -96,9 +97,6 @@ def fromname(name):
 #############################################################################
 
 class aircraft:
-
-  from .flight import \
-    move, continuemove, _endmove
 
   from .configuration import \
     _updateconfiguration
@@ -990,6 +988,14 @@ class aircraft:
     
   def closeformationnames(self):
     return apcloseformation.names(self)
+
+  ################################################################################  
+
+  def move(self, *args, **kwargs):
+    apflight.move(self, *args, **kwargs)
+
+  def continuemove(self, *args, **kwargs):
+    apflight.continuemove(self, *args, **kwargs)
 
 ################################################################################  
 

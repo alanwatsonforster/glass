@@ -11,6 +11,7 @@ import apxo.altitude       as apaltitude
 import apxo.aircraft       as apaircraft
 import apxo.capabilities   as apcapabilities
 import apxo.closeformation as apcloseformation
+import apxo.flight         as apflight
 import apxo.hex            as aphex
 import apxo.speed          as apspeed
 import apxo.stores         as apstores
@@ -1290,7 +1291,7 @@ def continueflight(a, actions, note=False):
 
   if a._destroyed or a._leftmap or a._maneuveringdeparture:
   
-    a._endmove()
+    apflight.endmove(a)
 
   elif a._fp + 1 > a._maxfp:
 
@@ -1905,7 +1906,7 @@ def endflight(a):
     determinealtitudeap()
     checkcloseformationlimits()
 
-  a._endmove()
+  apflight.endmove(a)
 
 ################################################################################
 
