@@ -437,8 +437,8 @@ class aircraft:
 
   ##############################################################################
 
-  def sighted(self):
-    return apvisualsighting.sighted(self)
+  def issighted(self):
+    return apvisualsighting.issighted(self)
 
   ##############################################################################
 

@@ -16,7 +16,7 @@ def advantaged(A, B):
   # TODO: tailing.
 
   # Sighted.
-  if not B.sighted():
+  if not B.issighted():
     return False
 
   # Not same hex or hexside.
