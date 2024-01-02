@@ -1,5 +1,5 @@
 """
-Departed flight for the aircraft class.
+Departed flight for aircraft.
 """
 
 import math
@@ -8,22 +8,22 @@ import apxo.altitude     as apaltitude
 import apxo.capabilities as apcapabilities
 import apxo.hex          as aphex
 
-def _checkdepartedflight(self):
+def checkflight(a):
 
   """
   Check departed flight is allowed.
   """
 
-  if apcapabilities.hasproperty(self, "SPFL"):
+  if apcapabilities.hasproperty(a, "SPFL"):
     raise RuntimeError("special-flight aircraft cannot perform departed flight.")
 
-def _dodepartedflight(self, action, note=False):
+def doflight(a, action, note=False):
 
   """
   Carry out departed flight.
   """
 
-  self._logposition("start")   
+  a._logposition("start")   
 
   # See rule 6.4 "Abnormal FLight (Stalls and Departures)" and rule 7.7 
   # "Manuevering Departures".
@@ -66,51 +66,51 @@ def _dodepartedflight(self, action, note=False):
 
       # Do the first facing change.
 
-      if aphex.isside(self._x, self._y):
-        self._x, self._y = aphex.centertoright(self._x, self._y, self._facing, sense)
+      if aphex.isside(a._x, a._y):
+        a._x, a._y = aphex.centertoright(a._x, a._y, a._facing, sense)
       if action[0] == "L":
-        self._facing = (self._facing + 30) % 360
+        a._facing = (a._facing + 30) % 360
       else:
-        self._facing = (self._facing - 30) % 360
-      self._continueflightpath()
+        a._facing = (a._facing - 30) % 360
+      a._continueflightpath()
       facingchange -= 30
 
       # Shift.
 
       # See rule 5.4.
-      self._maxfp = self._speed + self._fpcarry
-      self._fpcarry = 0
+      a._maxfp = a._speed + a._fpcarry
+      a._fpcarry = 0
 
-      shift = int((self._maxfp) / 2)
+      shift = int((a._maxfp) / 2)
       for i in range(0, shift):
-        self._x, self._y = aphex.forward(self._x, self._y, self._facing)
-        self.checkforterraincollision()
-        self.checkforleavingmap()
-        if self._destroyed or self._leftmap:
+        a._x, a._y = aphex.forward(a._x, a._y, a._facing)
+        a.checkforterraincollision()
+        a.checkforleavingmap()
+        if a._destroyed or a._leftmap:
           return
 
    # Do the (remaining) facing change.
 
-  if aphex.isside(self._x, self._y):
-    self._x, self._y = aphex.sidetocenter(self._x, self._y, self._facing, sense)
+  if aphex.isside(a._x, a._y):
+    a._x, a._y = aphex.sidetocenter(a._x, a._y, a._facing, sense)
   if action[0] == "L":
-    self._facing = (self._facing + facingchange) % 360
+    a._facing = (a._facing + facingchange) % 360
   else:
-    self._facing = (self._facing - facingchange) % 360
-  self._continueflightpath()
+    a._facing = (a._facing - facingchange) % 360
+  a._continueflightpath()
 
   # Now lose altitude.
 
-  initialaltitudeband = self._altitudeband
-  altitudechange = math.ceil(self._speed + 2 * self._turnsdeparted)
-  self._altitude, self._altitudecarry = apaltitude.adjustaltitude(self._altitude, self._altitudecarry, -altitudechange)
-  self._altitudeband = apaltitude.altitudeband(self._altitude)
+  initialaltitudeband = a._altitudeband
+  altitudechange = math.ceil(a._speed + 2 * a._turnsdeparted)
+  a._altitude, a._altitudecarry = apaltitude.adjustaltitude(a._altitude, a._altitudecarry, -altitudechange)
+  a._altitudeband = apaltitude.altitudeband(a._altitude)
   
-  self._lognote(note)
+  a._lognote(note)
 
-  self._logposition("end")
-  if initialaltitudeband != self._altitudeband:
-    self._logevent("altitude band changed from %s to %s." % (initialaltitudeband, self._altitudeband))
-  self.checkforterraincollision()
+  a._logposition("end")
+  if initialaltitudeband != a._altitudeband:
+    a._logevent("altitude band changed from %s to %s." % (initialaltitudeband, a._altitudeband))
+  a.checkforterraincollision()
 
-  self._newspeed = self._speed
+  a._newspeed = a._speed

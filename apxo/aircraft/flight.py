@@ -4,11 +4,12 @@ Aircraft flight.
 
 ##############################################################################
 
-import apxo               as ap
-import apxo.log           as aplog
-import apxo.specialflight as apspecialflight
-import apxo.stalledflight as apstalledflight
-import apxo.turn          as apturn
+import apxo                as ap
+import apxo.departedflight as apdepartedflight
+import apxo.log            as aplog
+import apxo.specialflight  as apspecialflight
+import apxo.stalledflight  as apstalledflight
+import apxo.turn           as apturn
 
 from .normalflight import _isdivingflight, _isclimbingflight, _islevelflight
 from apxo.aircraft import _zorder
@@ -80,7 +81,7 @@ def move(self, flighttype, power, actions="",
     elif flighttype == "ST":
       apstalledflight.checkflight(self)
     elif flighttype == "DP":
-      self._checkdepartedflight()
+      apdepartedflight.checkflight(self)
     else:
       self._checknormalflight()
 
@@ -114,7 +115,7 @@ def move(self, flighttype, power, actions="",
       self._fpcarry = 0
       self._apcarry = 0
       self._altitudecarry = 0
-      self._dodepartedflight(actions, note=note)
+      apdepartedflight.doflight(self, actions, note=note)
       self._turnsdeparted += 1
       self._endmove()
 

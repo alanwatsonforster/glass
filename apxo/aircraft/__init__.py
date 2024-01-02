@@ -105,9 +105,6 @@ class aircraft:
   from .flight import \
     move, continuemove, _endmove
 
-  from .departedflight import \
-    _checkdepartedflight, _dodepartedflight
-
   from .normalflight import \
     _checknormalflight, \
     _startnormalflight, _continuenormalflight, _endnormalflight
