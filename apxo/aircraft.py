@@ -430,52 +430,58 @@ class aircraft:
 
     except RuntimeError as e:
       aplog.logexception(e)
-    
+
+  ##############################################################################
+
+  # Visual Sighting
+
+  ##############################################################################
+
+  def padlock(self, other, note=False):
+
+    """
+    Padlock another aircraft.
+    """
+
+    # TODO: Check we are in the visual sighting phase.
+
+    aplog.clearerror()
+    try:
+      apturn.checkinturn()
+      apvisualsighting.padlock(self, other, note=note)
+    except RuntimeError as e:
+      aplog.logexception(e)
+
+  ##############################################################################
+
+  def attempttosight(self, other, success=None, note=False):
+
+    """
+    Attempt to sight another aircraft.
+    """
+
+    aplog.clearerror()
+    try:
+      apturn.checkinturn()
+      apvisualsighting.attempttosight(self, other, success=None, note=False)
+    except RuntimeError as e:
+      aplog.logexception(e)
+      
   #############################################################################
 
-  def angleofftail(self, other, **kwargs):
-
-    """
-    Return the angle of the aircraft off the tail of the other aircraft.
-    """
-
-    return apgeometry.angleofftail(self, other, **kwargs)
+  def setsighted(self):
+    """Set the aircraft to be sighted regardless."""
+    apvisualsighting.setsighted(self)
 
   #############################################################################
 
-  def gunattackrange(self, other, arc=False):
-
-    """
-    Return the gun attack range of the other aircraft from the aircraft
-    or a string explaining why it cannot be attacked.
-    """
-
-    return apairtoair.gunattackrange(self, other, arc=arc)
+  def setunsighted(self):
+    """Set the aircraft to be unsighted regardless."""
+    apvisualsighting.unsetsighted(self)
 
   #############################################################################
 
-  def rocketattackrange(self, other):
-
-    """
-    Return the rocket attack range of the other aircraft from the aircraft
-    or a string explaining why it cannot be attacked.
-    """
-
-    return apairtoair.rocketattackrange(self, other)
-
-  #############################################################################
-
-  def inlimitedradararc(self, other):
-
-    """
-    Return True if the other aircraft is in the limited radar arc of the aircraft.
-    """
-
-    return apgeometry.inlimitedradararc(self, other)
-    
-  #############################################################################
-
-  def maxvisualsightingrange(self):
+  def _maxvisualsightingrange(self):
 
     """
     Return the maximum visual sighting range of the aircraft.
@@ -485,7 +491,7 @@ class aircraft:
 
   #############################################################################
 
-  def visualsightingrange(self, target):
+  def _visualsightingrange(self, target):
 
     """
     Return the visual sighting range for a visual sighting attempt from the 
@@ -496,7 +502,7 @@ class aircraft:
 
   #############################################################################
 
-  def visualsightingcondition(self, target):
+  def _visualsightingcondition(self, target):
 
     """
     Return a tuple describing the visual sighting condition for a visual
@@ -507,139 +513,10 @@ class aircraft:
 
     return apvisualsighting.visualsightingcondition(self, target)
 
-  ##############################################################################
+  #############################################################################
 
-  def sighted(self):
-    """Return True if the aircraft is sighted, otherwise return False."""
-    return self._sighted
+  # Fuel
 
-  ##############################################################################
-
-  def padlocks(self, other, note=False):
-
-    """
-    Padlock another aircraft.
-    """
-
-    # TODO: Check we are in the visual sighting phase.
-
-    aplog.clearerror()
-    try:
-
-      apturn.checkinturn()
-      self._logbreak()
-      self._logline()
-
-      self._log("padlocks %s." % other.name())
-
-      if not other._sightedonpreviousturn:
-        raise RuntimeError("%s was not sighted on previous turn." % (other.name()))
-
-      self._logevent("range is %d." % apvisualsighting.visualsightingrange(self, other))
-      self._logevent("%s." % apvisualsighting.visualsightingcondition(self, other)[0])
-
-      condition, cansight, canpadlock, restricted = apvisualsighting.visualsightingcondition(self, other)
-      if not canpadlock:
-        raise RuntimeError("%s cannot padlock %s." % (self.name(), other.name()))
-
-      other._sighted = True
-      other._identified = other._identifiedonpreviousturn or apvisualsighting.canidentify(self, other)
-      if other._identified:
-        self._log("%s is sighted and identified." % other.name())
-      else:
-        self._log("%s is sighted but not identified." % other.name())
-
-      self._lognote(note)
-      self._logline()
-
-    except RuntimeError as e:
-      aplog.logexception(e)
-
-  ##############################################################################
-
-  def attemptstosight(self, other, success=None, note=False):
-
-    """
-    Attempt to sight another aircraft.
-    """
-
-    aplog.clearerror()
-    try:
-
-      apturn.checkinturn()
-      self._logbreak()
-      self._logline()
-
-      self._log("attempts to sight %s." % other.name())
-      self._logevent("range is %d." % apvisualsighting.visualsightingrange(self, other))
-      self._logevent("%s." % apvisualsighting.visualsightingcondition(self, other)[0])
-      
-      condition, cansight, canpadlock, restricted = apvisualsighting.visualsightingcondition(self, other)
-      if not cansight:
-        raise RuntimeError("%s cannot sight %s." % (self.name(), other.name()))
-
-      allrestricted = restricted
-
-      additionalsearchers = 0
-      for searcher in aslist():
-        if searcher.name() != self.name() and searcher.force() == self.force():
-          condition, cansight, canpadlock, restricted = apvisualsighting.visualsightingcondition(searcher, other)
-          self._logevent("additional searcher %s: %s." % (searcher.name(), condition))
-          if cansight:
-            additionalsearchers += 1
-            allrestricted = allrestricted and restricted
-      if additionalsearchers == 0:
-        self._logevent("no additional searchers.")
-      else:
-        self._logevent("%d additional %s." % (additionalsearchers, aplog.plural(additionalsearchers, "searcher", "searchers")))
-
-      modifier = 0
-
-      dmodifier = apvisualsighting.visualsightingrangemodifier(self, other)
-      self._logevent("range modifier        is %+d." % dmodifier)
-      modifier += dmodifier
-
-      dmodifier = apvisualsighting.visualsightingallrestrictedmodifier(allrestricted)
-      self._logevent("restricted modifier   is %+d." % dmodifier)
-      modifier += dmodifier
-
-      dmodifier = apvisualsighting.visualsightingsearchersmodifier(additionalsearchers + 1)
-      self._logevent("searchers modifier    is %+d." % dmodifier)
-      modifier += dmodifier
-
-      dmodifier = apvisualsighting.visualsightingpaintschememodifier(self, other)
-      self._logevent("paint-scheme modifier is %+d." % dmodifier)
-      modifier += dmodifier
-
-      dmodifier = apvisualsighting.visualsightingcrewmodifier(self)
-      if dmodifier != 0:
-        self._logevent("crew modifier         is %+d." % dmodifier)
-
-      dmodifier = apvisualsighting.visualsightingsmokingmodifier(self, other)
-      if dmodifier != 0:
-        self._logevent("smoking modifier      is %+d." % dmodifier)
-      modifier += dmodifier
-
-      self._logevent("total modifier        is %+d." % modifier)
-      self._logevent("target visibility is %d." % apcapabilities.visibility(other))
-
-      self._lognote(note)
-
-      if success is False:
-        self._log("%s is unsighted." % other.name())
-      elif success is True:
-        other._sighted = True
-        other._identified = other._identifiedonpreviousturn or apvisualsighting.canidentify(self, other)
-        if other._identified:
-          self._log("%s is sighted and identified." % other.name())
-        else:
-          self._log("%s is sighted but not identified." % other.name())
-
-      self._logline()
-    
-    except RuntimeError as e:
-      aplog.logexception(e)
-      
   #############################################################################
 
   def fuel(self):
@@ -670,6 +547,10 @@ class aircraft:
 
   #############################################################################
 
+  # Stores
+
+  #############################################################################
+
   def showstores(self, note=False):
     """
     Show the aircraft's stores to the log.
@@ -693,7 +574,11 @@ class aircraft:
       aplog.logexception(e)
 
   #############################################################################
+
+  # Geometry
   
+  #############################################################################
+
   def showgeometry(self, other, note=False):
 
     """
@@ -702,40 +587,53 @@ class aircraft:
 
     aplog.clearerror()
     try:
-
       apturn.checkinturn()
-      self._logbreak()
-      self._logline()
-
-      selfname = self._name
-      othername = other._name
-
-      apturn.checkinsetuporturn()
-
-      angleofftail = self.angleofftail(other)
-      if angleofftail == "0 line" or angleofftail == "180 line":
-        self._logevent("%s has %s on its %s." % (othername, selfname, angleofftail))
-      else:
-        self._logevent("%s has %s in its %s." % (othername, selfname, angleofftail))
-
-      angleofftail = other.angleofftail(self)
-      if angleofftail == "0 line" or angleofftail == "180 line":
-        self._logevent("%s is on the %s of %s." % (othername, angleofftail, selfname))
-      else:
-        self._logevent("%s is in the %s of %s." % (othername, angleofftail, selfname))
-
-      inlimitedradararc = self.inlimitedradararc(other)
-      if inlimitedradararc:
-        self._logevent("%s is in the limited radar arc of %s." % (othername, selfname))
-      else:
-        self._logevent("%s is not in the limited radar arc of %s." % (othername, selfname))  
-
-      self._lognote(note)
-      self._logline()
-
+      showgeometry(self, other, note=False)
     except RuntimeError as e:
       aplog.logexception(e)
       
+  #############################################################################
+
+  def _angleofftail(self, other, **kwargs):
+
+    """
+    Return the angle of the aircraft off the tail of the other aircraft.
+    """
+
+    return apgeometry.angleofftail(self, other, **kwargs)
+
+  #############################################################################
+
+  def _gunattackrange(self, other, arc=False):
+
+    """
+    Return the gun attack range of the other aircraft from the aircraft
+    or a string explaining why it cannot be attacked.
+    """
+
+    return apairtoair.gunattackrange(self, other, arc=arc)
+
+  #############################################################################
+
+  def _rocketattackrange(self, other):
+
+    """
+    Return the rocket attack range of the other aircraft from the aircraft
+    or a string explaining why it cannot be attacked.
+    """
+
+    return apairtoair.rocketattackrange(self, other)
+
+  #############################################################################
+
+  def _inlimitedradararc(self, other):
+
+    """
+    Return True if the other aircraft is in the limited radar arc of the aircraft.
+    """
+
+    return apgeometry.inlimitedradararc(self, other)
+    
   #############################################################################
 
   def climbingflight(self, vertical=False):

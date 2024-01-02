@@ -66,7 +66,7 @@ def gunattackrange(attacker, target, arc=False):
     if r is False:
       return "the target is not in the weapon range or arc."
 
-    angleoff = target.angleofftail(attacker)
+    angleoff = apgeometry.angleofftail(target, attacker)
     if arc == "30-":
       allowedangleoff = [ "0 line", "30 arc" ]
     elif arc == "60-":
@@ -127,7 +127,7 @@ def rocketattackrange(attacker, target):
   def verticalrange():
     return int(abs(attacker.altitude() - target.altitude()) / 2)
     
-  if not attacker.inlimitedradararc(target):
+  if not apgeometry.inlimitedradararc(attacker, target):
     return "the target is not in the weapon range or arc."
 
   r = apgeometry.horizontalrange(attacker, target)
@@ -199,13 +199,13 @@ def _attack(attacker, weapon, target, result, allowRK=True, allowSSGT=True):
     if weapon == "GN" or weapon == "GNSS":
       if apcapabilities.gunarc(attacker) != None:
         attacker._logevent("gunnery arc is %s." % apcapabilities.gunarc(attacker))
-      r = attacker.gunattackrange(target, arc=apcapabilities.gunarc(attacker))
+      r = gunattackrange(attacker, target, arc=apcapabilities.gunarc(attacker))
     else:
-      r = attacker.rocketattackrange(target)
+      r = rocketattackrange(attacker, target)
     if isinstance(r, str):
         raise RuntimeError(r)      
     attacker._logevent("range is %d." % r)      
-    attacker._logevent("angle-off-tail is %s." % attacker.angleofftail(target))
+    attacker._logevent("angle-off-tail is %s." % apgeometry.angleofftail(attacker, target))
 
   if allowSSGT:
     interval = apmath.onethird(attacker._speed)

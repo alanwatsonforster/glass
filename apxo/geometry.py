@@ -6,6 +6,43 @@ import apxo.log as aplog
 
 ##############################################################################
 
+def showgeometry(A, B, note=False):
+
+  """
+  Show the geometry of aircraft B with respect to the aircraft A.
+  """
+
+  A._logbreak()
+  A._logline()
+
+  Aname = A._name
+  Bname = B._name
+
+  apturn.checkinsetuporturn()
+
+  angleofftail = A.angleofftail(B)
+  if angleofftail == "0 line" or angleofftail == "180 line":
+    A._logevent("%s has %s on its %s." % (Bname, Aname, angleofftail))
+  else:
+    A._logevent("%s has %s in its %s." % (Bname, Aname, angleofftail))
+
+  angleofftail = B.angleofftail(A)
+  if angleofftail == "0 line" or angleofftail == "180 line":
+    A._logevent("%s is on the %s of %s." % (Bname, angleofftail, Aname))
+  else:
+    A._logevent("%s is in the %s of %s." % (Bname, angleofftail, Aname))
+
+  inlimitedradararc = A.inlimitedradararc(B)
+  if inlimitedradararc:
+    A._logevent("%s is in the limited radar arc of %s." % (Bname, Aname))
+  else:
+    A._logevent("%s is not in the limited radar arc of %s." % (Bname, Aname))  
+
+  A._lognote(note)
+  A._logline()
+      
+##############################################################################
+
 def _round(x):
 
   """
@@ -18,24 +55,24 @@ def _round(x):
       
 ##############################################################################
 
-def samehorizontalposition(a0, a1):
+def samehorizontalposition(A0, A1):
 
   """
-  Return True if aircraft a0 to a1 are in the same horizontal position, 
-  otherwise return False.
+  Return True if aircraft A0 to A1 are in the same horizontal position, 
+  Bwise return False.
   """
 
-  return a0.x() == a1.x() and a0.y() == a1.y()
+  return A0.x() == A1.x() and A0.y() == A1.y()
 
 ##############################################################################
 
-def horizontalrange(a0, a1):
+def horizontalrange(A0, A1):
 
   """
-  Return the horizontal range in hexes from aircraft a0 to a1.
+  Return the horizontal range in hexes from aircraft A0 to A1.
   """
 
-  return aphex.distance(a0.x(), a0.y(), a1.x(), a1.y())
+  return aphex.distance(A0.x(), A0.y(), A1.x(), A1.y())
 
 ##############################################################################
 
@@ -90,12 +127,12 @@ def relativepositions(x0, y0, facing0, x1, y1, facing1):
 
 ##############################################################################
 
-def angleofftail(a0, a1, 
+def angleofftail(A0, A1, 
   arconly=False,
   x1=None, y1=None, facing1=None):
 
   """
-  Return the angle of a0 off the tail of a1.
+  Return the angle of A0 off the tail of A1.
   """
 
   # See rule 9.2.
@@ -104,14 +141,14 @@ def angleofftail(a0, a1,
     angleofftail, angleoffnose, r, dx, dy = relativepositions(x0, y0, facing0, x1, y1, facing1)
     return angleofftail, angleoffnose, r
 
-  x0      = a0.x()
-  y0      = a0.y()
-  facing0 = a0.facing()
+  x0      = A0.x()
+  y0      = A0.y()
+  facing0 = A0.facing()
 
-  if a1 is not None:
-    x1      = a1.x()
-    y1      = a1.y()
-    facing1 = a1.facing()
+  if A1 is not None:
+    x1      = A1.x()
+    y1      = A1.y()
+    facing1 = A1.facing()
 
   angleofftail, angleoffnose, r = truegeometry(x0, y0, facing0, x1, y1, facing1)
 
@@ -125,9 +162,9 @@ def angleofftail(a0, a1,
 
     inreararc = False
     infrontarc = False
-    if a0.speed() < a1.speed():
+    if A0.speed() < A1.speed():
       inreararc = True
-    elif a0.speed() > a1.speed() and angleoffnose != 0:
+    elif A0.speed() > A1.speed() and angleoffnose != 0:
       if (angleofftail > 0 and angleoffnose > 0) or (angleofftail < 0 and angleoffnose < 0):
         infrontarc = True
       elif (angleofftail > 0 and angleoffnose < 0) or (angleofftail < 0 and angleoffnose > 0):
@@ -140,7 +177,7 @@ def angleofftail(a0, a1,
 
   if not arconly:
     # To be on the 0 or 180 degree lines, the aircraft has to be facing
-    # the other.
+    # the B.
     if angleofftail == 0 and facing0 == facing1:
       return "0 line"
     elif angleofftail == 180 and abs(facing0 - facing1) == 180:
@@ -164,22 +201,22 @@ def angleofftail(a0, a1,
 
 ##############################################################################
 
-def inlimitedradararc(a0, a1, x1=None, y1=None, facing1=None):
+def inlimitedradararc(A0, A1, x1=None, y1=None, facing1=None):
 
   """
-  Return True if a1 is is the limited radar arc of a0.
+  Return True if A1 is is the limited radar arc of A0.
   """
 
   # See the Limited Radar Arc diagram in the sheets.
 
-  x0      = a0.x()
-  y0      = a0.y()
-  facing0 = a0.facing()
+  x0      = A0.x()
+  y0      = A0.y()
+  facing0 = A0.facing()
 
-  if a1 != None:
-    x1      = a1.x()
-    y1      = a1.y()
-    facing1 = a1.facing()
+  if A1 != None:
+    x1      = A1.x()
+    y1      = A1.y()
+    facing1 = A1.facing()
   
   angleofftail, angleoffnose, r, dx, dy = relativepositions(x0, y0, facing0, x1, y1, facing1)
       

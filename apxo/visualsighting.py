@@ -7,6 +7,161 @@ import apxo.log          as aplog
 
 ################################################################################
 
+def startvisualsighting():
+
+  for target in apaircraft.aslist():
+    aplog.logbreak()
+    if target._sightedonpreviousturn:
+      aplog.log("%-4s : was sighted on previous turn." % target.name())
+    else:
+      aplog.log("%-4s : was unsighted on previous turn." % target.name())
+    aplog.log("%-4s : maximum visual range is %d." % (target.name(), target.maxvisualsightingrange()))
+    for searcher in aslist():
+      if target.name() != searcher.name() and target.force() != searcher.force():
+        aplog.log("%-4s : searcher %s: range is %2d: %s." % (
+          target.name(), searcher.name(), 
+          visualsightingrange(searcher, target), 
+          visualsightingcondition(searcher, target)[0]
+        ))
+
+################################################################################
+
+def endvisualsighting():
+
+  aplog.logbreak()
+  for target in apaircraft.aslist():
+    if target._sighted and target._identified:
+      aplog.log("%-4s : is sighted and identified." % target.name())
+    elif target._sighted:
+      aplog.log("%-4s : is sighted." % target.name())
+    else:
+      aplog.log("%-4s : is unsighted." % target.name())
+
+################################################################################
+
+def padlock(A, B, note=False):
+
+  A._logbreak()
+  A._logline()
+
+  A._log("padlocks %s." % B.name())
+
+  if not B._sightedonpreviousturn:
+    raise RuntimeError("%s was not sighted on previous turn." % (B.name()))
+
+  A._logevent("range is %d." % visualsightingrange(A, B))
+  A._logevent("%s." % visualsightingcondition(A, B)[0])
+
+  condition, cansight, canpadlock, restricted = visualsightingcondition(A, B)
+  if not canpadlock:
+    raise RuntimeError("%s cannot padlock %s." % (A.name(), B.name()))
+
+  B._sighted = True
+  B._identified = B._identifiedonpreviousturn or canidentify(A, B)
+  if B._identified:
+    A._log("%s is sighted and identified." % B.name())
+  else:
+    A._log("%s is sighted but not identified." % B.name())
+
+  A._lognote(note)
+  A._logline()
+
+################################################################################
+
+def attempttosight(A, B, success=None, note=False):
+
+  """
+  Attempt to sight an aircraft B.
+  """
+
+  A._logbreak()
+  A._logline()
+
+  A._log("attempts to sight %s." % B.name())
+  A._logevent("range is %d." % visualsightingrange(A, B))
+  A._logevent("%s." % visualsightingcondition(A, B)[0])
+  
+  condition, cansight, canpadlock, restricted = visualsightingcondition(A, B)
+  if not cansight:
+    raise RuntimeError("%s cannot sight %s." % (A.name(), B.name()))
+
+  allrestricted = restricted
+
+  additionalsearchers = 0
+  for searcher in aslist():
+    if searcher.name() != A.name() and searcher.force() == A.force():
+      condition, cansight, canpadlock, restricted = visualsightingcondition(searcher, B)
+      A._logevent("additional searcher %s: %s." % (searcher.name(), condition))
+      if cansight:
+        additionalsearchers += 1
+        allrestricted = allrestricted and restricted
+  if additionalsearchers == 0:
+    A._logevent("no additional searchers.")
+  else:
+    A._logevent("%d additional %s." % (additionalsearchers, aplog.plural(additionalsearchers, "searcher", "searchers")))
+
+  modifier = 0
+
+  dmodifier = visualsightingrangemodifier(A, B)
+  A._logevent("range modifier        is %+d." % dmodifier)
+  modifier += dmodifier
+
+  dmodifier = visualsightingallrestrictedmodifier(allrestricted)
+  A._logevent("restricted modifier   is %+d." % dmodifier)
+  modifier += dmodifier
+
+  dmodifier = visualsightingsearchersmodifier(additionalsearchers + 1)
+  A._logevent("searchers modifier    is %+d." % dmodifier)
+  modifier += dmodifier
+
+  dmodifier = visualsightingpaintschememodifier(A, B)
+  A._logevent("paint-scheme modifier is %+d." % dmodifier)
+  modifier += dmodifier
+
+  dmodifier = visualsightingcrewmodifier(A)
+  if dmodifier != 0:
+    A._logevent("crew modifier         is %+d." % dmodifier)
+
+  dmodifier = visualsightingsmokingmodifier(A, B)
+  if dmodifier != 0:
+    A._logevent("smoking modifier      is %+d." % dmodifier)
+  modifier += dmodifier
+
+  A._logevent("total modifier        is %+d." % modifier)
+  A._logevent("target visibility is %d." % apcapabilities.visibility(B))
+
+  A._lognote(note)
+
+  if success is False:
+    A._log("%s is unsighted." % B.name())
+  elif success is True:
+    B._sighted = True
+    B._identified = B._identifiedonpreviousturn or canidentify(A, B)
+    if B._identified:
+      A._log("%s is sighted and identified." % B.name())
+    else:
+      A._log("%s is sighted but not identified." % B.name())
+
+  A._logline()
+
+################################################################################
+
+def setsighted(A):
+  """
+  Set the aircraft A to be sighted.
+  """
+  A._sighted = True
+
+################################################################################
+
+def setunsighted(A):
+  """
+  Set the aircraft A to be unsighted.
+  """
+  A._sighted = False
+
+################################################################################
+
 def maxvisualsightingrange(A):
 
   """
@@ -227,7 +382,7 @@ def visualsightingcondition(A, B):
   blindarc      = _blindarc(A, B)
   restrictedarc = _restrictedarc(A, B)
 
-  if visualsightingrange(A, B) > B.maxvisualsightingrange():
+  if visualsightingrange(A, B) > maxvisualsightingrange(B):
     return "beyond visual range", False, False, False
   elif apgeometry.samehorizontalposition(A, B) and A.altitude() > B.altitude():
     return "within visual range and can padlock, but blind (immediately below)", False, True, False
@@ -245,11 +400,11 @@ def visualsightingcondition(A, B):
 def _arc(A, B, arcs):
 
   """
-  If the target B is in the specified arcs of the searcher A, return the arc. Otherwise
+  If the target B is in the specified arcs of the searcher A, return the arc. Bwise
   return None.
   """
   
-  angleoff = B.angleofftail(A, arconly=True)
+  angleoff = apgeometry.angleofftail(B, A, arconly=True)
 
   for arc in arcs:
     if arc == "30-" or arc == "60L":
@@ -275,7 +430,7 @@ def _arc(A, B, arcs):
 def _blindarc(A, B):
 
   """
-  If the target B is in the blind arcs of the searcher A, return the arc. Otherwise
+  If the target B is in the blind arcs of the searcher A, return the arc. Bwise
   return None.
   """
 
@@ -288,7 +443,7 @@ def _blindarc(A, B):
 def _restrictedarc(A, B):
 
   """
-  If the target B is in the restricted arcs of the searcher A, return the arc. Otherwise
+  If the target B is in the restricted arcs of the searcher A, return the arc. Bwise
   return None.
   """
 
@@ -309,36 +464,4 @@ def canidentify(A, B):
 
   return visualsightingrange(A, B) <= maxvisualidentificationrange(B)
   
-################################################################################
-
-def startvisualsighting():
-
-  for target in apaircraft.aslist():
-    aplog.logbreak()
-    if target._sightedonpreviousturn:
-      aplog.log("%-4s : was sighted on previous turn." % target.name())
-    else:
-      aplog.log("%-4s : was unsighted on previous turn." % target.name())
-    aplog.log("%-4s : maximum visual range is %d." % (target.name(), target.maxvisualsightingrange()))
-    for searcher in aslist():
-      if target.name() != searcher.name() and target.force() != searcher.force():
-        aplog.log("%-4s : searcher %s: range is %2d: %s." % (
-          target.name(), searcher.name(), 
-          visualsightingrange(searcher, target), 
-          visualsightingcondition(searcher, target)[0]
-        ))
-
-################################################################################
-
-def endvisualsighting():
-
-  aplog.logbreak()
-  for target in apaircraft.aslist():
-    if target._sighted and target._identified:
-      aplog.log("%-4s : is sighted and identified." % target.name())
-    elif target._sighted:
-      aplog.log("%-4s : is sighted." % target.name())
-    else:
-      aplog.log("%-4s : is unsighted." % target.name())
-
 ################################################################################
