@@ -31,17 +31,11 @@ def leave(A):
   The aircraft leaves its close formation.
   """
 
-  aplog.clearerror()
-  try:
+  if size(A) == 0:
+   raise RuntimeError("%s: is not in a close formation." % A._name)
 
-    if size(A) == 0:
-     raise RuntimeError("%s: is not in a close formation." % A._name)
-
-    leaveany(A)
+  leaveany(A)
   
-  except RuntimeError as e:
-    aplog.logexception(e)
-
 ################################################################################
 
 def join(A, B):
@@ -54,37 +48,31 @@ def join(A, B):
 
   # TODO: check we're called only during setup or after everyone has moved.
 
-  aplog.clearerror()
-  try:
+  if A._x != B._x or A._y != B._y:
+    raise RuntimeError("attempt to form a close formation from aircraft with different positions.")
+  if A._altitude != B._altitude:
+    raise RuntimeError("attempt to form a close formation from aircraft with different altitudes.")
+  if A._facing != B._facing:
+    raise RuntimeError("attempt to form a close formation from aircraft with different facings.")
+  if A._speed != B._speed:
+    raise RuntimeError("attempt to form a close formation from aircraft with different speeds.")
 
-    if A._x != B._x or A._y != B._y:
-      raise RuntimeError("attempt to form a close formation from aircraft with different positions.")
-    if A._altitude != B._altitude:
-      raise RuntimeError("attempt to form a close formation from aircraft with different altitudes.")
-    if A._facing != B._facing:
-      raise RuntimeError("attempt to form a close formation from aircraft with different facings.")
-    if A._speed != B._speed:
-      raise RuntimeError("attempt to form a close formation from aircraft with different speeds.")
+  nA = max(1, size(A))
+  nB = max(1, size(B))
+  if nA + nB > 4:
+    raise RuntimeError("attempt to form a close formation with more than four aircraft.")
 
-    nA = max(1, size(A))
-    nB = max(1, size(B))
-    if nA + nB > 4:
-      raise RuntimeError("attempt to form a close formation with more than four aircraft.")
+  if A._closeformation == []:
+    A._closeformation = [A]
 
-    if A._closeformation == []:
-      A._closeformation = [A]
+  if B._closeformation == []:
+    B._closeformation = [B]
+    
+  A._closeformation += B._closeformation
+  for a in A._closeformation:
+    a._closeformation = A._closeformation
 
-    if B._closeformation == []:
-      B._closeformation = [B]
-      
-    A._closeformation += B._closeformation
-    for a in A._closeformation:
-      a._closeformation = A._closeformation
-
-    check(A)
-
-  except RuntimeError as e:
-    aplog.logexception(e)
+  check(A)
 
 ################################################################################
 
@@ -125,14 +113,8 @@ def breakdown(A):
   Break down the close formation containing the aircraft A.
   """
 
-  aplog.clearerror()
-  try:
-
-    for a in A._closeformation.copy():
-      leaveany(a)
-  
-  except RuntimeError as e:
-    aplog.logexception(e) 
+  for a in A._closeformation.copy():
+    leaveany(a)
     
 ################################################################################
 

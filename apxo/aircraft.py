@@ -968,10 +968,18 @@ class aircraft:
   ################################################################################  
 
   def joincloseformation(self, other):
-    apcloseformation.join(self, other)
+    aplog.clearerror()
+    try:
+      apcloseformation.join(self, other)
+    except RuntimeError as e:
+      aplog.logexception(e)
 
   def leavecloseformation(self):
-    apcloseformation.leave(self)
+    aplog.clearerror()
+    try:    
+      apcloseformation.leave(self)
+    except RuntimeError as e:
+      aplog.logexception(e)
 
   def closeformationsize(self):
     return apcloseformation.size(self)
