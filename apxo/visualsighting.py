@@ -7,58 +7,58 @@ import apxo.log          as aplog
 
 ################################################################################
 
-def maxvisualsightingrange(target):
+def maxvisualsightingrange(A):
 
   """
-  Return the maximum visual sighting range of the target.
+  Return the maximum visual sighting range of the target A.
   """
 
   # See rule 11.1.
     
-  return  4 * apcapabilities.visibility(target)
+  return 4 * apcapabilities.visibility(A)
 
 ################################################################################
 
-def maxvisualidentificationrange(target):
+def maxvisualidentificationrange(A):
 
   """
-  Return the maximum visual identification range of the target.
+  Return the maximum visual identification range of the target A.
   """
 
   # See rule 11.5.
     
-  return  2 * apcapabilities.visibility(target)
+  return 2 * apcapabilities.visibility(A)
 
 ################################################################################
 
-def visualsightingrange(searcher, target):
+def visualsightingrange(A, B):
 
   """
-  Return the visual sighting range for a search by searcher for target.
+  Return the visual sighting range for a search by searcher A for target B.
   """
 
   # See rule 11.1.
 
-  horizontalrange = apgeometry.horizontalrange(searcher, target)
+  horizontalrange = apgeometry.horizontalrange(A, B)
 
-  if searcher.altitude() >= target.altitude():
-    verticalrange = int((searcher.altitude() - target.altitude()) / 2)
+  if A.altitude() >= B.altitude():
+    verticalrange = int((A.altitude() - B.altitude()) / 2)
   else:
-    verticalrange = int((target.altitude() - searcher.altitude()) / 4)
+    verticalrange = int((B.altitude() - A.altitude()) / 4)
 
   return horizontalrange + verticalrange
 
 ################################################################################
 
-def visualsightingrangemodifier(searcher, target):
+def visualsightingrangemodifier(A, B):
 
   """
-  Return the visual sighting range modifier for a search by searcher for target.
+  Return the visual sighting range modifier for a search by searcher A for target B.
   """
 
   # See rule 11.1 and the sheets.
 
-  r = visualsightingrange(searcher, target)
+  r = visualsightingrange(A, B)
 
   if r <= 3:
     return -2
@@ -109,13 +109,13 @@ def isvalidpaintscheme(paintscheme):
   
 ################################################################################
 
-def visualsightingpaintschememodifier(searcher, target):
+def visualsightingpaintschememodifier(A, B):
 
   """
-  Return the visual sighting paint scheme modifier for a search by seacher for target.
+  Return the visual sighting paint scheme modifier for a search by seacher A for target B.
   """
 
-  paintscheme = target.paintscheme()
+  paintscheme = B.paintscheme()
 
   # Map alternate names to standard names.
   paintscheme = {
@@ -130,7 +130,7 @@ def visualsightingpaintschememodifier(searcher, target):
 
   }[paintscheme]
 
-  if searcher.altitude() > target.altitude():
+  if A.altitude() > B.altitude():
     # Target lower than searcher
     return {
       "unpainted"        : -2, 
@@ -138,7 +138,7 @@ def visualsightingpaintschememodifier(searcher, target):
       "camouflaged"      : +1, 
       "lowvisibilitygray": +0
     }[paintscheme]
-  elif searcher.altitude() == target.altitude():
+  elif A.altitude() == B.altitude():
     # Target level with searcher
     return {
       "unpainted"        : -1, 
@@ -157,37 +157,37 @@ def visualsightingpaintschememodifier(searcher, target):
 
 ################################################################################
 
-def visualsightingcrewmodifier(searcher):
+def visualsightingcrewmodifier(A):
 
   """
-  Return the visual sighting crew modifier for a search by searcher.
+  Return the visual sighting crew modifier for a search by searcher A.
   """
 
   # See rule 11.1 and the sheets.
 
-  if len(searcher.crew()) > 1:
+  if len(A.crew()) > 1:
     return -1
   else:
     return +0
     
 ################################################################################
 
-def visualsightingsmokingmodifier(searcher, target):
+def visualsightingsmokingmodifier(A, B):
 
   """
-  Return the visual sighting smoking modifier for a search by searcher for target.
+  Return the visual sighting smoking modifier for a search by searcher A for target B.
   """
 
   # See rule 11.1 and the sheets.
 
-  smoking = target.enginesmoking()
+  smoking = B.enginesmoking()
 
   if not smoking:
     return 0
-  elif searcher.altitude() > target.altitude():
+  elif A.altitude() > B.altitude():
     # Target lower than searcher
     return -1
-  elif searcher.altitude() == target.altitude():
+  elif A.altitude() == B.altitude():
     # Target level with searcher
     return -2
   else:
@@ -212,11 +212,11 @@ def visualsightingallrestrictedmodifier(allrestricted):
     
 ################################################################################
 
-def visualsightingcondition(searcher, target):
+def visualsightingcondition(A, B):
 
   """
   Return a tuple describing the visual sighting condition for a visual
-  sighting attempt from searcher on the target: a descriptive string,
+  sighting attempt from searcher A on the target B: a descriptive string,
   a boolean indicating if sighting is possible, a boolean indicating if
   padlocking is possible, and a boolean indicating if the target is within
   range but in the searcher's restricted arc.
@@ -224,14 +224,14 @@ def visualsightingcondition(searcher, target):
 
   # See rule 11.1.
 
-  blindarc      = _blindarc(searcher, target)
-  restrictedarc = _restrictedarc(searcher, target)
+  blindarc      = _blindarc(A, B)
+  restrictedarc = _restrictedarc(A, B)
 
-  if visualsightingrange(searcher, target) > target.maxvisualsightingrange():
+  if visualsightingrange(A, B) > B.maxvisualsightingrange():
     return "beyond visual range", False, False, False
-  elif apgeometry.samehorizontalposition(searcher, target) and searcher.altitude() > target.altitude():
+  elif apgeometry.samehorizontalposition(A, B) and A.altitude() > B.altitude():
     return "within visual range and can padlock, but blind (immediately below)", False, True, False
-  elif apgeometry.samehorizontalposition(searcher, target) and searcher.altitude() < target.altitude():
+  elif apgeometry.samehorizontalposition(A, B) and A.altitude() < B.altitude():
     return "within visual range (immediately above)", True, True, False
   elif blindarc is not None:
     return "within visual range but blind (%s arc)" % blindarc, False, False, False
@@ -242,14 +242,14 @@ def visualsightingcondition(searcher, target):
   
 ################################################################################
 
-def _arc(searcher, target, arcs):
+def _arc(A, B, arcs):
 
   """
-  If the target is in the specified arcs of the searcher, return the arc. Otherwise
+  If the target B is in the specified arcs of the searcher A, return the arc. Otherwise
   return None.
   """
   
-  angleoff = target.angleofftail(searcher, arconly=True)
+  angleoff = B.angleofftail(A, arconly=True)
 
   for arc in arcs:
     if arc == "30-" or arc == "60L":
@@ -263,7 +263,7 @@ def _arc(searcher, target, arcs):
     else:
       raise RuntimeError("invalid arc %r." % arc)
     lower = (arc[-1] == "L")
-    if lower and searcher.altitude() <= target.altitude():
+    if lower and A.altitude() <= B.altitude():
       continue
     if angleoff in angleoffs:
       return arc
@@ -272,42 +272,42 @@ def _arc(searcher, target, arcs):
 
 ################################################################################
 
-def _blindarc(searcher, target):
+def _blindarc(A, B):
 
   """
-  If the target is in the blind arcs of the searcher, return the arc. Otherwise
+  If the target B is in the blind arcs of the searcher A, return the arc. Otherwise
   return None.
   """
 
   # See rules 9.2 and 11.1.
 
-  return _arc(searcher, target, apcapabilities.blindarcs(searcher))
+  return _arc(A, B, apcapabilities.blindarcs(A))
 
 ################################################################################
 
-def _restrictedarc(searcher, target):
+def _restrictedarc(A, B):
 
   """
-  If the target is in the restricted arcs of the searcher, return the arc. Otherwise
+  If the target B is in the restricted arcs of the searcher A, return the arc. Otherwise
   return None.
   """
 
   # See rules 9.2 and 11.1.
 
-  return _arc(searcher, target, apcapabilities.restrictedarcs(searcher))
+  return _arc(A, B, apcapabilities.restrictedarcs(A))
 
 ################################################################################
 
-def canidentify(searcher, target):
+def canidentify(A, B):
 
   """
-  Return true if searcher can visually identify target, assuming target is
+  Return true if the searcher A can visually identify the target B, assuming target is
   sighted or padlocked.
   """
 
   # See rule 11.5.
 
-  return visualsightingrange(searcher, target) <= maxvisualidentificationrange(target)
+  return visualsightingrange(A, B) <= maxvisualidentificationrange(B)
   
 ################################################################################
 

@@ -10,20 +10,20 @@ import apxo.capabilities  as apcapabilities
 import apxo.configuration as apconfiguration
 import apxo.stores        as apstores
 
-def checkflight(a):
+def checkflight(A):
 
-  if apcapabilities.hasproperty(a, "SPFL"):
+  if apcapabilities.hasproperty(A, "SPFL"):
     raise RuntimeError("special-flight aircraft cannot perform stalled flight.")
 
   # See rule 6.3.
 
-  if a._speed >= apcapabilities.minspeed(a):
+  if A._speed >= apcapabilities.minspeed(A):
       raise RuntimeError("flight type cannot be ST as aircraft is not stalled.")
 
-  a._logstart("speed is below the minimum of %.1f." % apcapabilities.minspeed(a))
-  a._logstart("aircraft is stalled.")
+  A._logstart("speed is below the minimum of %.1f." % apcapabilities.minspeed(A))
+  A._logstart("aircraft is stalled.")
 
-def doflight(a, action, note=False):
+def doflight(A, action, note=False):
 
   """
   Carry out stalled flight.
@@ -34,48 +34,48 @@ def doflight(a, action, note=False):
     # See rule 4.4.   
     # We implement the delay of 1 FP by making this an other element.
     
-    previousconfiguration = a._configuration
+    previousconfiguration = A._configuration
 
     for released in m[1].split("+"):
-      a._stores = apstores._release(a._stores, released,
-        printer=lambda s: a._logevent(s)
+      A._stores = apstores._release(A._stores, released,
+        printer=lambda s: A._logevent(s)
       )
 
-    apconfiguration.update(a)
+    apconfiguration.update(A)
 
-    if a._configuration != previousconfiguration:
-      a._logevent("configuration changed from %s to %s." % (
-        previousconfiguration, a._configuration
+    if A._configuration != previousconfiguration:
+      A._logevent("configuration changed from %s to %s." % (
+        previousconfiguration, A._configuration
       ))
   
   # See rule 6.4.
       
-  a._logevent("is carrying %+.2f APs." % a._apcarry)
+  A._logevent("is carrying %+.2f APs." % A._apcarry)
 
-  a._logposition("start")   
+  A._logposition("start")   
 
-  altitudechange = math.ceil(a._speed + a._turnsstalled)
+  altitudechange = math.ceil(A._speed + A._turnsstalled)
 
-  initialaltitude = a._altitude    
-  initialaltitudeband = a._altitudeband
-  a._altitude, a._altitudecarry = apaltitude.adjustaltitude(a._altitude, a._altitudecarry, -altitudechange)
-  a._altitudeband = apaltitude.altitudeband(a._altitude)
-  altitudechange = initialaltitude - a._altitude
+  initialaltitude = A._altitude    
+  initialaltitudeband = A._altitudeband
+  A._altitude, A._altitudecarry = apaltitude.adjustaltitude(A._altitude, A._altitudecarry, -altitudechange)
+  A._altitudeband = apaltitude.altitudeband(A._altitude)
+  altitudechange = initialaltitude - A._altitude
     
-  if a._turnsstalled == 0:
-    a._altitudeap = 0.5 * altitudechange
+  if A._turnsstalled == 0:
+    A._altitudeap = 0.5 * altitudechange
   else:
-    a._altitudeap = 1.0 * altitudechange
+    A._altitudeap = 1.0 * altitudechange
 
-  a._lognote(note)
+  A._lognote(note)
 
-  a._logposition("end")
+  A._logposition("end")
 
-  if initialaltitudeband != a._altitudeband:
-    a._logevent("altitude band changed from %s to %s." % (initialaltitudeband, a._altitudeband))
+  if initialaltitudeband != A._altitudeband:
+    A._logevent("altitude band changed from %s to %s." % (initialaltitudeband, A._altitudeband))
 
-  a.checkforterraincollision()
-  if a._destroyed:
+  A.checkforterraincollision()
+  if A._destroyed:
     return
 
   # The only valid actions are to do nothing or to jettison stores.
@@ -89,4 +89,4 @@ def doflight(a, action, note=False):
     action = action[len(m.group()):]
 
 
-  a._logline()
+  A._logline()

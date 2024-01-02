@@ -2,46 +2,46 @@ import apxo.altitude as apaltitude
 import apxo.speed    as apspeed
 import apxo.variants as apvariants
 
-def power(a, powersetting):
-  return a._aircraftdata.power(a._configuration, powersetting)
+def power(A, powersetting):
+  return A._aircraftdata.power(A._configuration, powersetting)
 
-def spbr(a):
-  return a._aircraftdata.spbr(a._configuration)
+def spbr(A):
+  return A._aircraftdata.spbr(A._configuration)
 
-def fuelrate(a):
-  return a._aircraftdata.fuelrate(a._powersetting)
+def fuelrate(A):
+  return A._aircraftdata.fuelrate(A._powersetting)
 
-def engines(a):
-  return a._aircraftdata.engines()
+def engines(A):
+  return A._aircraftdata.engines()
 
-def powerfade(a):
-  return a._aircraftdata.powerfade(a._speed, a._altitude)
+def powerfade(A):
+  return A._aircraftdata.powerfade(A._speed, A._altitude)
 
-def lowspeedliftdevicename(a):
-    return a._aircraftdata.lowspeedliftdevicename()
+def lowspeedliftdevicename(A):
+    return A._aircraftdata.lowspeedliftdevicename()
 
-def lowspeedliftdevicelimit(a):
-    return a._aircraftdata.lowspeedliftdevicelimit()
+def lowspeedliftdevicelimit(A):
+    return A._aircraftdata.lowspeedliftdevicelimit()
     
-def lowspeedliftdeviceselectable(a):
-    return a._aircraftdata.lowspeedliftdeviceselectable()
+def lowspeedliftdeviceselectable(A):
+    return A._aircraftdata.lowspeedliftdeviceselectable()
     
-def turndrag(a, turnrate):
+def turndrag(A, turnrate):
 
   def rawturndrag(turnrate):
-    lowspeedliftdevicelimit = a._aircraftdata.lowspeedliftdevicelimit()
+    lowspeedliftdevicelimit = A._aircraftdata.lowspeedliftdevicelimit()
     if lowspeedliftdevicelimit == None:
-      return a._aircraftdata.turndrag(a._configuration, turnrate)
-    elif a._lowspeedliftdeviceextended:
-      return a._aircraftdata.turndrag(a._configuration, turnrate, lowspeedliftdevice=True)
+      return A._aircraftdata.turndrag(A._configuration, turnrate)
+    elif A._lowspeedliftdeviceextended:
+      return A._aircraftdata.turndrag(A._configuration, turnrate, lowspeedliftdevice=True)
     else:
-      return a._aircraftdata.turndrag(a._configuration, turnrate)
+      return A._aircraftdata.turndrag(A._configuration, turnrate)
   
   if turnrate == "EZ":
       return 0.0
 
   # See rule 6.6  
-  if hasproperty(a, "PSSM") and a._speed >= apspeed.m1speed(a._altitudeband):
+  if hasproperty(A, "PSSM") and A._speed >= apspeed.m1speed(A._altitudeband):
     # The aircraft has its maximum the turn rate reduced by one level, but not 
     # to less than HT.
     if turnrate == "ET":
@@ -51,123 +51,123 @@ def turndrag(a, turnrate):
 
   return rawturndrag(turnrate)
 
-def minspeed(a):
+def minspeed(A):
 
-  minspeed = a._aircraftdata.minspeed(a._configuration, a._altitudeband)
+  minspeed = A._aircraftdata.minspeed(A._configuration, A._altitudeband)
 
   if minspeed == None:
     # The aircraft is temporarily above its ceiling, so take the speed from the
     # highest band in the table.
     for altitudeband in ["UH", "EH", "VH", "HI", "MH", "ML", "LO"]:
-      minspeed = a._aircraftdata.minspeed(a._configuration, altitudeband)
+      minspeed = A._aircraftdata.minspeed(A._configuration, altitudeband)
       if minspeed != None:
         break
 
   if apvariants.withvariant("use version 2.4 rules"):
     # See rule 7.6 in version 2.4.
-    if lowspeedliftdeviceselectable(a) and a._lowspeedliftdeviceextended:
+    if lowspeedliftdeviceselectable(A) and A._lowspeedliftdeviceextended:
       minspeed -= 0.5
 
   return minspeed
 
-def maxspeed(a):
+def maxspeed(A):
 
-  maxspeed = a._aircraftdata.maxspeed(a._configuration, a._altitudeband)
+  maxspeed = A._aircraftdata.maxspeed(A._configuration, A._altitudeband)
 
   if maxspeed == None:
     # The aircraft is temporarily above its ceiling, so take the speed from the
     # highest band in the table.
     for altitudeband in ["UH", "EH", "VH", "HI", "MH", "ML", "LO"]:
-      maxspeed = a._aircraftdata.maxspeed(a._configuration, altitudeband)
+      maxspeed = A._aircraftdata.maxspeed(A._configuration, altitudeband)
       if maxspeed != None:
         break
 
-  if hasproperty(a, "ABSF"):
-    if a._powersetting != "AB":
-      maxspeed -= a._aircraftdata._data["ABSFamount"]
+  if hasproperty(A, "ABSF"):
+    if A._powersetting != "AB":
+      maxspeed -= A._aircraftdata._data["ABSFamount"]
 
   return maxspeed
 
-def cruisespeed(a):
-  return a._aircraftdata.cruisespeed(a._configuration)
+def cruisespeed(A):
+  return A._aircraftdata.cruisespeed(A._configuration)
 
-def climbspeed(a):
-  return a._aircraftdata.climbspeed()
+def climbspeed(A):
+  return A._aircraftdata.climbspeed()
 
-def blindarcs(a):
-  return a._aircraftdata.blindarcs()
+def blindarcs(A):
+  return A._aircraftdata.blindarcs()
 
-def restrictedarcs(a):
-  return a._aircraftdata.restrictedarcs()
+def restrictedarcs(A):
+  return A._aircraftdata.restrictedarcs()
 
-def visibility(a):
-  return a._aircraftdata.visibility()
+def visibility(A):
+  return A._aircraftdata.visibility()
 
-def maxdivespeed(a):
-  raw = a._aircraftdata.maxdivespeed(a._altitudeband)
+def maxdivespeed(A):
+  raw = A._aircraftdata.maxdivespeed(A._altitudeband)
   if raw != None:
     return raw
   # The aircraft is temporarily above its ceiling, so take the speed from the
   # highest band in the table.
   for altitudeband in ["UH", "EH", "VH", "HI", "MH", "ML", "LO"]:
-    raw = a._aircraftdata.maxdivespeed(altitudeband)
+    raw = A._aircraftdata.maxdivespeed(altitudeband)
     if raw != None:
       return raw
 
-def ceiling(a):
-  return a._aircraftdata.ceiling(a._configuration)
+def ceiling(A):
+  return A._aircraftdata.ceiling(A._configuration)
 
-def rollhfp(a):
+def rollhfp(A):
   # See rule 7.4.
-  fp = a._aircraftdata.rollhfp()
-  if hasproperty(a, "LRR"):
+  fp = A._aircraftdata.rollhfp()
+  if hasproperty(A, "LRR"):
     fp += 1
   return fp
 
-def rolldrag(a, rolltype):
-  return a._aircraftdata.rolldrag(rolltype)
+def rolldrag(A, rolltype):
+  return A._aircraftdata.rolldrag(rolltype)
 
-def climbcapability(a):
-  climbcapability = a._aircraftdata.climbcapability(a._configuration, a._altitudeband, a._powersetting)
+def climbcapability(A):
+  climbcapability = A._aircraftdata.climbcapability(A._configuration, A._altitudeband, A._powersetting)
   if climbcapability == None:
     # The aircraft is temporarily above its ceiling, so take the speed from the
     # highest band in the table.
     for altitudeband in ["UH", "EH", "VH", "HI", "MH", "ML", "LO"]:
-      climbcapability = a._aircraftdata.climbcapability(a._configuration, altitudeband, a._powersetting)
+      climbcapability = A._aircraftdata.climbcapability(A._configuration, altitudeband, A._powersetting)
       if climbcapability != None:
         break
   # See the Aircraft Damage Effects Table in the charts.
-  if a.damageatleast("H"):
+  if A.damageatleast("H"):
     climbcapability *= 0.5
   # See rule 6.6 and rule 8.1.4.
-  if a._speed >= apspeed.m1speed(a._altitudeband):
+  if A._speed >= apspeed.m1speed(A._altitudeband):
     climbcapability *= 2/3
   return climbcapability
 
-def hasproperty(a, p):
+def hasproperty(A, p):
 
   # See "Aircraft Damage Effects" in the Play Aids.
-  if p == "HPR" and a.damageatleast("L"):
+  if p == "HPR" and A.damageatleast("L"):
     return False
-  if p == "HRR" and a.damageatleast("L"):
+  if p == "HRR" and A.damageatleast("L"):
     return False
-  if p == "LRR" and a.damageatleast("L"):
+  if p == "LRR" and A.damageatleast("L"):
     return True
-  if p == "NRM" and a.damageatleast("H"):
+  if p == "NRM" and A.damageatleast("H"):
     return True
 
-  if a._aircraftdata.hasproperty(p):
+  if A._aircraftdata.hasproperty(p):
     return True
 
-  if p == "HRR" and a._aircraftdata.hasproperty("HRRCL"):
-    return a._configuration == "CL"
-  if p == "LRR" and a._aircraftdata.hasproperty("LRRHS"):
-    return a._speed >= a._aircraftdata["LRRHSlimit"]
+  if p == "HRR" and A._aircraftdata.hasproperty("HRRCL"):
+    return A._configuration == "CL"
+  if p == "LRR" and A._aircraftdata.hasproperty("LRRHS"):
+    return A._speed >= A._aircraftdata["LRRHSlimit"]
 
   return False
 
-def specialclimbcapability(a):
-  return a._aircraftdata.specialclimbcapability()
+def specialclimbcapability(A):
+  return A._aircraftdata.specialclimbcapability()
 
-def gunarc(a):
-  return a._aircraftdata.gunarc()
+def gunarc(A):
+  return A._aircraftdata.gunarc()

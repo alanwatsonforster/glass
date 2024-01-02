@@ -13,12 +13,12 @@ import apxo.variants     as apvariants
 
 ################################################################################
 
-def checkflight(a):
+def checkflight(A):
   return
 
 ################################################################################
 
-def doflight(a, action, note=False):
+def doflight(A, action, note=False):
 
   """
   Carry out out special flight.
@@ -32,7 +32,7 @@ def doflight(a, action, note=False):
     Move horizontally.
     """
 
-    a._x, a._y = aphex.forward(a._x, a._y, a._facing)
+    A._x, A._y = aphex.forward(A._x, A._y, A._facing)
 
   ########################################
 
@@ -43,10 +43,10 @@ def doflight(a, action, note=False):
     """
 
     if altitudechange == 1:
-      altitudechange = apcapabilities.specialclimbcapability(a)
+      altitudechange = apcapabilities.specialclimbcapability(A)
     
-    a._altitude, a._altitudecarry = apaltitude.adjustaltitude(a._altitude, a._altitudecarry, +altitudechange)
-    a._altitudeband = apaltitude.altitudeband(a._altitude)
+    A._altitude, A._altitudecarry = apaltitude.adjustaltitude(A._altitude, A._altitudecarry, +altitudechange)
+    A._altitudeband = apaltitude.altitudeband(A._altitude)
 
   ########################################
 
@@ -56,10 +56,10 @@ def doflight(a, action, note=False):
     Dive.
     """
 
-    a._altitudecarry = 0
+    A._altitudecarry = 0
     
-    a._altitude, a._altitudecarry = apaltitude.adjustaltitude(a._altitude, a._altitudecarry, -altitudechange)
-    a._altitudeband = apaltitude.altitudeband(a._altitude)
+    A._altitude, A._altitudecarry = apaltitude.adjustaltitude(A._altitude, A._altitudecarry, -altitudechange)
+    A._altitudeband = apaltitude.altitudeband(A._altitude)
 
   ########################################
 
@@ -70,12 +70,12 @@ def doflight(a, action, note=False):
     """
     
     # Change facing.
-    if aphex.isside(a._x, a._y):
-      a._x, a._y = aphex.sidetocenter(a._x, a._y, a._facing, sense)
+    if aphex.isside(A._x, A._y):
+      A._x, A._y = aphex.sidetocenter(A._x, A._y, A._facing, sense)
     if sense == "L":
-      a._facing = (a._facing + facingchange) % 360
+      A._facing = (A._facing + facingchange) % 360
     else:
-      a._facing = (a._facing - facingchange) % 360
+      A._facing = (A._facing - facingchange) % 360
 
   ########################################
 
@@ -85,7 +85,7 @@ def doflight(a, action, note=False):
     Declare an attack with the specified weapon.
     """
 
-    a._logevent("attack using %s." % weapon)
+    A._logevent("attack using %s." % weapon)
 
   ########################################
 
@@ -95,8 +95,8 @@ def doflight(a, action, note=False):
     Declare that the aircraft has been killed.
     """
 
-    a._logaction("aircraft has been killed.")
-    a._destroyed = True
+    A._logaction("aircraft has been killed.")
+    A._destroyed = True
 
   ########################################
 
@@ -131,7 +131,7 @@ def doflight(a, action, note=False):
     ["K"    , lambda: dokilled()],
 
     ["/"    , lambda: None ],
-    [","    , lambda: a._continueflightpath() ],
+    [","    , lambda: A._continueflightpath() ],
 
     ["H"    , lambda: dohorizontal() ],
 
@@ -157,11 +157,11 @@ def doflight(a, action, note=False):
     Carry out an action for special flight.
     """
     
-  a._logposition("start")
-  a._logaction("", action)
+  A._logposition("start")
+  A._logaction("", action)
 
-  initialaltitude     = a._altitude
-  initialaltitudeband = a._altitudeband
+  initialaltitude     = A._altitude
+  initialaltitudeband = A._altitudeband
 
   while action != "":
 
@@ -173,9 +173,9 @@ def doflight(a, action, note=False):
       if len(elementcode) <= len(action) and elementcode == action[:len(elementcode)]:
         elementprocedure()
         action = action[len(elementcode):]
-        a.checkforterraincollision()
-        a.checkforleavingmap()
-        if a._destroyed or a._leftmap:
+        A.checkforterraincollision()
+        A.checkforleavingmap()
+        if A._destroyed or A._leftmap:
           return
         break
 
@@ -183,18 +183,18 @@ def doflight(a, action, note=False):
 
       raise RuntimeError("invalid action %r." % action)
 
-  a._lognote(note)
+  A._lognote(note)
   
-  a._logposition("end")
-  a._continueflightpath()
+  A._logposition("end")
+  A._continueflightpath()
 
-  if initialaltitudeband != a._altitudeband:
-    a._logevent("altitude band changed from %s to %s." % (initialaltitudeband, a._altitudeband))
+  if initialaltitudeband != A._altitudeband:
+    A._logevent("altitude band changed from %s to %s." % (initialaltitudeband, A._altitudeband))
   
-  if not a._destroyed and not a._leftmap:
-    if a._altitudecarry != 0:
-      a._logend("is carrying %.2f altitude levels." % a._altitudecarry)
+  if not A._destroyed and not A._leftmap:
+    if A._altitudecarry != 0:
+      A._logend("is carrying %.2f altitude levels." % A._altitudecarry)
 
-  a._newspeed = a._speed
+  A._newspeed = A._speed
 
 ################################################################################

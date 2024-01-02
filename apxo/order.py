@@ -5,10 +5,10 @@ import apxo.turn     as apturn
 
 #############################################################################
 
-def advantaged(a, b):
+def advantaged(A, B):
 
   """
-  Return True if a is advantaged over b.
+  Return True if A is advantaged over B.
   """
 
   # See rule 12.2.
@@ -16,53 +16,53 @@ def advantaged(a, b):
   # TODO: tailing.
 
   # Sighted.
-  if not b.sighted():
+  if not B.sighted():
     return False
 
   # Not same hex or hexside.
-  if apgeometry.samehorizontalposition(a, b):
+  if apgeometry.samehorizontalposition(A, B):
     return False
 
   # In 150 or 180 arc.
-  arc = apgeometry.angleofftail(b, a, arconly=True)
+  arc = apgeometry.angleofftail(B, A, arconly=True)
   if arc != "150 arc" and arc != "180 arc":
     return False
 
   # Within 9 hexes horizontally.
-  if apgeometry.horizontalrange(a, b) > 9:
+  if apgeometry.horizontalrange(A, B) > 9:
     return False
 
   # No more than 6 altitude levels above.
-  if b.altitude() > a.altitude() + 6:
+  if B.altitude() > A.altitude() + 6:
     return False
 
   # No more than 9 altitude levels below.
-  if b.altitude() < a.altitude() - 9:
+  if B.altitude() < A.altitude() - 9:
     return False
 
   # Not below if in VC.
-  if a.climbingflight(vertical=True) and b.altitude() < a.altitude():
+  if A.climbingflight(vertical=True) and B.altitude() < A.altitude():
     return False
 
   # Not above if in VD.
-  if a.divingflight(vertical=True) and b.altitude() > a.altitude():
+  if A.divingflight(vertical=True) and B.altitude() > A.altitude():
     return False
 
   return True
 
 #############################################################################
 
-def disadvantaged(a, b):
+def disadvantaged(A, B):
 
   """
-  Return True if a is disadvantaged by b.
+  Return True if A is disadvantaged by B.
   """
 
   # See rule 12.2.
 
-  # This is equivalent to b being advantaged over a.
+  # This is equivalent to B being advantaged over A.
   
-  return advantaged(b, a)
+  return advantaged(B, A)
 
 #############################################################################
 
@@ -98,13 +98,13 @@ def orderofflightdeterminationphase(
   mostkills=None
   ):
 
-  def score(a):
-    i = rolls[a.force()]
-    if a.force() in _training:
-      i += _trainingmodifier[_training[a.force()]]
-    if a.force() == firstkill:
+  def score(A):
+    i = rolls[A.force()]
+    if A.force() in _training:
+      i += _trainingmodifier[_training[A.force()]]
+    if A.force() == firstkill:
       i += 1
-    if a.force() == mostkills:
+    if A.force() == mostkills:
       i += 1
     return i
     
@@ -124,54 +124,54 @@ def orderofflightdeterminationphase(
   if mostkills is not None:
     aplog.logcomment(None, "most kills modifier is +1 for %s." % mostkills)
 
-  for a in apaircraft.aslist():
-    aplog.logaction(a, "%s has a score of %d." % (a.name(), score(a)))
+  for A in apaircraft.aslist():
+    aplog.logaction(A, "%s has A score of %d." % (A.name(), score(A)))
 
   unsightedlist     = []
   advantagedlist    = []
   disadvantagedlist = []
   nonadvantagedlist = []
 
-  for a in apaircraft.aslist():
+  for A in apaircraft.aslist():
 
     # TODO: departed, stalled, and engaged.
 
-    if not a.sighted():
+    if not A.sighted():
 
-      unsightedlist.append(a)
+      unsightedlist.append(A)
       category = "unsighted"
 
     else:
 
       isadvantaged    = False
       isdisadvantaged = False
-      for b in apaircraft.aslist():
-        if a.force() != b.force():
-          if advantaged(a, b):
-            a._logevent("is advantaged over %s." % b.name())
+      for B in apaircraft.aslist():
+        if A.force() != B.force():
+          if advantaged(A, B):
+            A._logevent("is advantaged over %s." % B.name())
             isadvantaged   = True
-          elif disadvantaged(a, b):
-            a._logevent("is disadvantaged by %s." % b.name())
+          elif disadvantaged(A, B):
+            A._logevent("is disadvantaged by %s." % B.name())
             isdisadvantaged = True
 
       if isadvantaged and not isdisadvantaged:
-        advantagedlist.append(a)
+        advantagedlist.append(A)
         category = "advantaged"
       elif isdisadvantaged and not isadvantaged:
-        disadvantagedlist.append(a)
+        disadvantagedlist.append(A)
         category = "disadvantaged"
       else:
-        nonadvantagedlist.append(a)
+        nonadvantagedlist.append(A)
         category = "nonadvantaged"
 
-    aplog.logaction(a, "%s is %s." % (a.name(), category))
+    aplog.logaction(A, "%s is %s." % (A.name(), category))
 
   def showcategory(category, alist):
     adict = {}
-    for a in alist:
-      adict[score(a)] = []
-    for a in alist:
-      adict[score(a)].append(a.name())
+    for A in alist:
+      adict[score(A)] = []
+    for A in alist:
+      adict[score(A)].append(A.name())
     for k, v in sorted(adict.items()):
       aplog.logaction(None, "  %s" % " ".join(v))
 
