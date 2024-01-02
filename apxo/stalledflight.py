@@ -1,5 +1,5 @@
 """
-Stalled flight for the aircraft class.
+Stalled flight for aircraft.
 """
 
 import math

@@ -112,9 +112,6 @@ class aircraft:
     _checknormalflight, \
     _startnormalflight, _continuenormalflight, _endnormalflight
 
-  from .specialflight import \
-    _checkspecialflight, _dospecialflight
-
   from .configuration import \
     _updateconfiguration
 

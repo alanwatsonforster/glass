@@ -1,5 +1,5 @@
 """
-Normal flight for the aircraft class.
+Special flight for aircaft.
 """
 
 from apxo.math import onethird, twothirds, roundtoquarter
@@ -13,12 +13,12 @@ import apxo.variants     as apvariants
 
 ################################################################################
 
-def _checkspecialflight(self):
+def checkflight(a):
   return
 
 ################################################################################
 
-def _dospecialflight(self, action, note=False):
+def doflight(a, action, note=False):
 
   """
   Carry out out special flight.
@@ -32,7 +32,7 @@ def _dospecialflight(self, action, note=False):
     Move horizontally.
     """
 
-    self._x, self._y = aphex.forward(self._x, self._y, self._facing)
+    a._x, a._y = aphex.forward(a._x, a._y, a._facing)
 
   ########################################
 
@@ -43,10 +43,10 @@ def _dospecialflight(self, action, note=False):
     """
 
     if altitudechange == 1:
-      altitudechange = apcapabilities.specialclimbcapability(self)
+      altitudechange = apcapabilities.specialclimbcapability(a)
     
-    self._altitude, self._altitudecarry = apaltitude.adjustaltitude(self._altitude, self._altitudecarry, +altitudechange)
-    self._altitudeband = apaltitude.altitudeband(self._altitude)
+    a._altitude, a._altitudecarry = apaltitude.adjustaltitude(a._altitude, a._altitudecarry, +altitudechange)
+    a._altitudeband = apaltitude.altitudeband(a._altitude)
 
   ########################################
 
@@ -56,10 +56,10 @@ def _dospecialflight(self, action, note=False):
     Dive.
     """
 
-    self._altitudecarry = 0
+    a._altitudecarry = 0
     
-    self._altitude, self._altitudecarry = apaltitude.adjustaltitude(self._altitude, self._altitudecarry, -altitudechange)
-    self._altitudeband = apaltitude.altitudeband(self._altitude)
+    a._altitude, a._altitudecarry = apaltitude.adjustaltitude(a._altitude, a._altitudecarry, -altitudechange)
+    a._altitudeband = apaltitude.altitudeband(a._altitude)
 
   ########################################
 
@@ -70,12 +70,12 @@ def _dospecialflight(self, action, note=False):
     """
     
     # Change facing.
-    if aphex.isside(self._x, self._y):
-      self._x, self._y = aphex.sidetocenter(self._x, self._y, self._facing, sense)
+    if aphex.isside(a._x, a._y):
+      a._x, a._y = aphex.sidetocenter(a._x, a._y, a._facing, sense)
     if sense == "L":
-      self._facing = (self._facing + facingchange) % 360
+      a._facing = (a._facing + facingchange) % 360
     else:
-      self._facing = (self._facing - facingchange) % 360
+      a._facing = (a._facing - facingchange) % 360
 
   ########################################
 
@@ -85,7 +85,7 @@ def _dospecialflight(self, action, note=False):
     Declare an attack with the specified weapon.
     """
 
-    self._logevent("attack using %s." % weapon)
+    a._logevent("attack using %s." % weapon)
 
   ########################################
 
@@ -95,8 +95,8 @@ def _dospecialflight(self, action, note=False):
     Declare that the aircraft has been killed.
     """
 
-    self._logaction("aircraft has been killed.")
-    self._destroyed = True
+    a._logaction("aircraft has been killed.")
+    a._destroyed = True
 
   ########################################
 
@@ -131,7 +131,7 @@ def _dospecialflight(self, action, note=False):
     ["K"    , lambda: dokilled()],
 
     ["/"    , lambda: None ],
-    [","    , lambda: self._continueflightpath() ],
+    [","    , lambda: a._continueflightpath() ],
 
     ["H"    , lambda: dohorizontal() ],
 
@@ -157,11 +157,11 @@ def _dospecialflight(self, action, note=False):
     Carry out an action for special flight.
     """
     
-  self._logposition("start")
-  self._logaction("", action)
+  a._logposition("start")
+  a._logaction("", action)
 
-  initialaltitude     = self._altitude
-  initialaltitudeband = self._altitudeband
+  initialaltitude     = a._altitude
+  initialaltitudeband = a._altitudeband
 
   while action != "":
 
@@ -173,9 +173,9 @@ def _dospecialflight(self, action, note=False):
       if len(elementcode) <= len(action) and elementcode == action[:len(elementcode)]:
         elementprocedure()
         action = action[len(elementcode):]
-        self.checkforterraincollision()
-        self.checkforleavingmap()
-        if self._destroyed or self._leftmap:
+        a.checkforterraincollision()
+        a.checkforleavingmap()
+        if a._destroyed or a._leftmap:
           return
         break
 
@@ -183,18 +183,18 @@ def _dospecialflight(self, action, note=False):
 
       raise RuntimeError("invalid action %r." % action)
 
-  self._lognote(note)
+  a._lognote(note)
   
-  self._logposition("end")
-  self._continueflightpath()
+  a._logposition("end")
+  a._continueflightpath()
 
-  if initialaltitudeband != self._altitudeband:
-    self._logevent("altitude band changed from %s to %s." % (initialaltitudeband, self._altitudeband))
+  if initialaltitudeband != a._altitudeband:
+    a._logevent("altitude band changed from %s to %s." % (initialaltitudeband, a._altitudeband))
   
-  if not self._destroyed and not self._leftmap:
-    if self._altitudecarry != 0:
-      self._logend("is carrying %.2f altitude levels." % self._altitudecarry)
+  if not a._destroyed and not a._leftmap:
+    if a._altitudecarry != 0:
+      a._logend("is carrying %.2f altitude levels." % a._altitudecarry)
 
-  self._newspeed = self._speed
+  a._newspeed = a._speed
 
 ################################################################################

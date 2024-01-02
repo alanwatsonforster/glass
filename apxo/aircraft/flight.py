@@ -6,6 +6,7 @@ Aircraft flight.
 
 import apxo               as ap
 import apxo.log           as aplog
+import apxo.specialflight as apspecialflight
 import apxo.stalledflight as apstalledflight
 import apxo.turn          as apturn
 
@@ -75,7 +76,7 @@ def move(self, flighttype, power, actions="",
     self._logstart("flight type   is %s." % self._flighttype)
 
     if flighttype == "SP":
-      self._checkspecialflight()
+      apspecialflight.checkflight(self)
     elif flighttype == "ST":
       apstalledflight.checkflight(self)
     elif flighttype == "DP":
@@ -97,7 +98,7 @@ def move(self, flighttype, power, actions="",
       self._apcarry = 0
       self._turnsstalled  = 0
       self._turnsdeparted = 0
-      self._dospecialflight(actions, note=note)
+      apspecialflight.doflight(self, actions, note=note)
       self._endmove()
       
     elif self._flighttype == "ST":       
