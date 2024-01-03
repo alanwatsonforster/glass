@@ -84,7 +84,7 @@ def usingfirstgenerationsheets():
 
 def setmap(sheetgrid, 
   drawterrain=True, drawlabels=True, 
-  xmin=0, ymin=0, xmax=None, ymax=None, dotsperhex=80, writefile=False,
+  xmin=0, ymin=0, xmax=None, ymax=None, dotsperhex=80, writefile=[],
   style="original", 
   wilderness=None, forest=None, freshwater=None, allforest=None, maxurbansize=None
   ):
@@ -654,8 +654,8 @@ def startdrawmap(show=False):
   _saved = True
 
 def enddrawmap(turn):
-  if _writefile:
-    apdraw.writefile("turn-%02d.png" % turn)
+  for filetype in _writefile:
+    apdraw.writefile("turn-%02d.%s" % (turn, filetype))
   apdraw.show()
 
 def sheetorigin(sheet):
