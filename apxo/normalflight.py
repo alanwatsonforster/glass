@@ -166,12 +166,26 @@ def checkflight(A):
 
   elif flighttype == "UD":
 
-    # See rule 8.1.3 on VC restrictions.
+    # See rule 8.2.2 on VC restrictions.
 
-    if previousflighttype == "VC" and not apcapabilities.hasproperty(A, "HPR"):
-      raise RuntimeError("flight type immediately after %s cannot be %s." % (
-        previousflighttype, flighttype
-      ))
+    if apvariants.withvariant("use version 2.4 rules"):
+
+      # I interpret the text "start from level flight" to mean that the aircraft
+      # must have been in level flight on the previous turn.
+
+      if previousflighttype != "LVL":
+        raise RuntimeError("flight type immediately after %s cannot be %s." % (
+          previousflighttype, flighttype
+        ))
+
+    else:
+
+      # See rule 8.1.3 on VC restrictions.
+
+      if previousflighttype == "VC" and not apcapabilities.hasproperty(A, "HPR"):
+        raise RuntimeError("flight type immediately after %s cannot be %s." % (
+          previousflighttype, flighttype
+        ))
 
   elif flighttype == "VD":
 
@@ -210,12 +224,34 @@ def continueflight(A, actions, note=False):
 
   ########################################
 
-  def dohorizontal():
+  def invalidelement(element):
+    raise RuntimeError("%r is not a valid element." % element)
+
+  ########################################
+
+  def dohorizontal(element):
 
     """
     Move horizontally.
     """
 
+    altitudechange = 0
+
+    if element == "HD":
+      if flighttype == "LVL":
+        altitudechange = -1
+      else:
+        raise RuntimeError("%r is not a valid element when the flight type is %s." % (element, A._flighttype))
+    elif element == "HU":
+      if flighttype == "UD":
+        A._unloaded = True
+        altitudechange = -1
+      else:
+        raise RuntimeError("%r is not a valid element when the flight type is %s." % (element, A._flighttype))
+
+    A._horizontal = True
+    A._altitude, A._altitudecarry = apaltitude.adjustaltitude(A._altitude, A._altitudecarry, altitudechange)
+    A._altitudeband = apaltitude.altitudeband(A._altitude)
     A._x, A._y = aphex.forward(A._x, A._y, A._facing)
 
   ########################################
@@ -272,6 +308,7 @@ def continueflight(A, actions, note=False):
 
     altitudechange = determinealtitudechange(altitudechange)
     
+    A._vertical = True
     A._altitude, A._altitudecarry = apaltitude.adjustaltitude(A._altitude, A._altitudecarry, +altitudechange)
     A._altitudeband = apaltitude.altitudeband(A._altitude)
 
@@ -323,6 +360,7 @@ def continueflight(A, actions, note=False):
     
     checkaltitudechange()
 
+    A._vertical = True
     A._altitude, A._altitudecarry = apaltitude.adjustaltitude(A._altitude, A._altitudecarry, -altitudechange)
     A._altitudeband = apaltitude.altitudeband(A._altitude)
 
@@ -994,19 +1032,33 @@ def continueflight(A, actions, note=False):
 
     ["/"     , "other"              , None, lambda: None ],
 
-    ["H"    , "H"                   , None, lambda: dohorizontal() ],
+    ["HC1"   , "FP"                , None, lambda: invalidelement("HC1")  ],
+    ["HC2"   , "FP"                , None, lambda: invalidelement("HC2")  ],
+    ["HCC"   , "FP"                , None, lambda: invalidelement("HCC")  ],
+    ["HC"    , "FP"                , None, lambda: invalidelement("HC")   ],
+    
+    ["HD1"   , "FP"                , None, lambda: dohorizontal("HD")     ],
+    ["HD2"   , "FP"                , None, lambda: invalidelement("HD2")  ],
+    ["HD3"   , "FP"                , None, lambda: invalidelement("HD3")  ],
+    ["HDDD"  , "FP"                , None, lambda: invalidelement("HDDD") ],
+    ["HDD"   , "FP"                , None, lambda: invalidelement("HDD")  ],
+    ["HD"    , "FP"                , None, lambda: dohorizontal("HD")     ],
 
-    ["C1"   , "C or D"              , None, lambda: doclimb(1) ],
-    ["C2"   , "C or D"              , None, lambda: doclimb(2) ],
-    ["CC"   , "C or D"              , None, lambda: doclimb(2) ],
-    ["C"    , "C or D"              , None, lambda: doclimb(1) ],
+    ["HU"   , "FP"                 , None, lambda: dohorizontal("HU")     ],
 
-    ["D1"   , "C or D"              , None, lambda: dodive(1) ],
-    ["D2"   , "C or D"              , None, lambda: dodive(2) ],
-    ["D3"   , "C or D"              , None, lambda: dodive(3) ],
-    ["DDD"  , "C or D"              , None, lambda: dodive(3) ],
-    ["DD"   , "C or D"              , None, lambda: dodive(2) ],
-    ["D"    , "C or D"              , None, lambda: dodive(1) ],
+    ["H"    , "FP"                 , None, lambda: dohorizontal("H")      ],
+
+    ["C1"   , "FP"                 , None, lambda: doclimb(1) ],
+    ["C2"   , "FP"                 , None, lambda: doclimb(2) ],
+    ["CC"   , "FP"                 , None, lambda: doclimb(2) ],
+    ["C"    , "FP"                 , None, lambda: doclimb(1) ],
+
+    ["D1"   , "FP"                 , None, lambda: dodive(1) ],
+    ["D2"   , "FP"                 , None, lambda: dodive(2) ],
+    ["D3"   , "FP"                 , None, lambda: dodive(3) ],
+    ["DDD"  , "FP"                 , None, lambda: dodive(3) ],
+    ["DD"   , "FP"                 , None, lambda: dodive(2) ],
+    ["D"    , "FP"                 , None, lambda: dodive(1) ],
 
     ["MDL300", "maneuvering departure", None, lambda: domaneuveringdeparture("L", 300)],
     ["MDL270", "maneuvering departure", None, lambda: domaneuveringdeparture("L", 270)],
@@ -1118,28 +1170,24 @@ def continueflight(A, actions, note=False):
     
         return
 
-      A._horizontal = doelements(action, "H", False)
-      A._vertical   = doelements(action, "C or D", False)
+      A._unloaded   = False
+      A._horizontal = False
+      A._vertical   = False
 
-      if not A._horizontal and not A._vertical:
-        raise RuntimeError("%r is not a valid action." % action)
-      elif A._horizontal and A._vertical:
-        if not flighttype == "UD" and not flighttype == "LVL":
-          raise RuntimeError("%r is not a valid action when the flight type is %s." % (action, flighttype))
+      if not doelements(action, "FP", False):
+        raise RuntimeError("%r is not a valid action as it does not expend an FP." % action)
 
       A._fp += 1  
       if A._horizontal:
         A._hfp += 1
-      elif A._hfp < A._mininitialhfp:
-        raise RuntimeError("insufficient initial HFPs.")
+        if A._unloaded:
+          if A._firstunloadedfp == None:
+            A._firstunloadedfp = A._hfp
+          A._lastunloadedfp = A._hfp
       else:
-       A._vfp += 1
-
-      A._unloaded = (A._flighttype == "UD" and A._vertical)
-      if A._unloaded:
-        if A._firstunloadedfp == None:
-          A._firstunloadedfp = A._hfp
-        A._lastunloadedfp = A._hfp
+        A._vfp += 1
+        if A._hfp < A._mininitialhfp:
+          raise RuntimeError("insufficient initial HFPs.")
 
       if doelements(action, "maneuver declaration", False):
         A._logevent("declared %s." % A.maneuver())
@@ -1514,13 +1562,24 @@ def startflight(A, actions, note=False):
 
     elif flighttype == "UD":
 
-      # See rules 8.2.2 and 8.2.3.
-      maxvfp = 0
-      maxunloadedhfp = maxfp
-      if previousflighttype == "VD":
+      if apvariants.withvariant("use version 2.4 rules"):
+
+        A._logevent("*** WARNING: v2.4 UDs are not completely implemented. ***")
+
+        # See rules 8.2.2.
+        minvfp = 1
+        maxvfp = 2
         minunloadedhfp = math.floor(maxfp / 2)
+          
       else:
-        minunloadedhfp = 1
+
+        # See rules 8.2.2 and 8.2.3.
+        maxvfp = 0
+        maxunloadedhfp = maxfp
+        if previousflighttype == "VD":
+          minunloadedhfp = math.floor(maxfp / 2)
+        else:
+          minunloadedhfp = 1
 
     minhfp = max(minhfp, mininitialhfp)
 
