@@ -245,6 +245,7 @@ def continueflight(A, actions, note=False):
     elif element == "HU":
       if flighttype == "UD":
         A._unloaded = True
+        A._unloadedhfp += 1
         altitudechange = -1
       else:
         raise RuntimeError("%r is not a valid element when the flight type is %s." % (element, A._flighttype))
@@ -1708,15 +1709,16 @@ def startflight(A, actions, note=False):
   # right mix of HFPs and VFPs are used and to determine when the turn
   # ends.
 
-  A._fp     = 0
-  A._hfp    = 0
-  A._vfp    = 0
-  A._spbrfp = 0
+  A._fp         = 0
+  A._hfp        = 0
+  A._vfp        = 0
+  A._spbrfp     = 0
 
-  # These keep track of the index of the first and last unloaded HFPs
-  # in an UD. They are then used to ensure that the unloaded HFPs are
-  # continuous.
+  # These keep track of the number of unloaded HFPs and the indices of
+  # the first and last unloaded HFPs in an UD. They are then used to
+  # ensure that the unloaded HFPs are continuous.
 
+  A._unloadedhfp     = 0
   A._firstunloadedfp = None
   A._lastunloadedfp  = None
 
@@ -1775,18 +1777,15 @@ def endflight(A):
 
     if A._flighttype == "UD":
       # See rule 8.2.2.
-      unloadedhfp = A._previousaltitude - A._altitude
       if A._firstunloadedfp == None:
         n = 0
-      elif A._lastunloadedfp == None:
-        n = A._hfp - A._firstunloadedfp + 1
       else:
         n = A._lastunloadedfp - A._firstunloadedfp + 1
-      if n != unloadedhfp:
+      if A._unloadedhfp != n:
         raise RuntimeError("unloaded HFPs must be continuous.")
-      if unloadedhfp < A._minunloadedhfp:
+      if A._unloadedhfp < A._minunloadedhfp:
         raise RuntimeError("too few unloaded HFPs.")
-      if unloadedhfp > A._maxunloadedhfp:
+      if A._unloadedhfp > A._maxunloadedhfp:
         raise RuntimeError("too many unloaded HFPs.")
 
   ########################################
