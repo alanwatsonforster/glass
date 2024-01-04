@@ -246,7 +246,16 @@ def continueflight(A, actions, note=False):
       if flighttype == "UD":
         A._unloaded = True
         A._unloadedhfp += 1
-        altitudechange = -1
+        if apvariants.withvariant("use version 2.4 rules"):
+          if math.floor(A._maxfp) == 1:
+            # Both half FPs and all FPs.
+            altitudechange = -2
+          elif A._unloadedhfp == math.floor(A._maxfp / 2):
+            altitudechange = -1
+          elif A._unloadedhfp == math.floor(A._maxfp):
+            altitudechange = -1
+        else:
+          altitudechange = -1
       else:
         raise RuntimeError("%r is not a valid element when the flight type is %s." % (element, A._flighttype))
 
@@ -1565,12 +1574,10 @@ def startflight(A, actions, note=False):
 
       if apvariants.withvariant("use version 2.4 rules"):
 
-        A._logevent("*** WARNING: v2.4 UDs are not completely implemented. ***")
-
         # See rules 8.2.2.
-        minvfp = 1
-        maxvfp = 2
-        minunloadedhfp = math.floor(maxfp / 2)
+        maxvfp = 0
+        minunloadedhfp = 1
+        maxunloadedhfp = maxfp
           
       else:
 
@@ -1954,6 +1961,20 @@ def endflight(A):
       
   ########################################
 
+  def handleunloadeddiveflighttype():
+
+    if flighttype == "UD" and apvariants.withvariant("use version 2.4 rules"):
+      # See rule 8.2.2.
+      altitudechange = A._altitude - A._previousaltitude
+      if altitudechange == -2:
+        A._logevent("UD ends as flight type SD.")
+        A._flighttype = "SD"
+      else:
+        A._logevent("UD ends as flight type LVL.")
+        A._flighttype = "LVL"
+        
+  ########################################
+
   flighttype         = A._flighttype
   previousflighttype = A._previousflighttype  
   
@@ -1966,6 +1987,7 @@ def endflight(A):
     determinemaxturnrateap()
     determinealtitudeap()
     checkcloseformationlimits()
+    handleunloadeddiveflighttype()
 
   apflight.endmove(A)
 
