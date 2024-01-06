@@ -750,6 +750,18 @@ class aircraft:
     = self._saved[i]
     self._altitudeband = apaltitude.altitudeband(self._altitude)
 
+    self._startx             = self._x
+    self._starty             = self._y
+    self._startaltitude      = self._altitude
+    self._startfacing        = self._facing
+    self._startspeed         = self._speed
+    self._startfpcarry       = self._fpcarry
+    self._startapcarry       = self._apcarry
+    self._startaltitudecarry = self._altitudecarry
+    self._startmaneuvertype  = self._maneuvertype
+    self._startmaneuversense = self._maneuversense
+    self._startmaneuverfp    = self._maneuverfp
+
   def _save(self, i):
 
     """
@@ -1010,4 +1022,68 @@ class aircraft:
         self._log2("", "- %s" % line)
 
     
-################################################################################  
+  ################################################################################
+
+  def reportmove(self):
+
+    print()
+    print("Game Turn                : %d " % apturn.turn())
+    print("Aircraft name            : %s" % self._name)
+    if apmap.isonmap(self._startx, self._starty):
+      position = aphexcode.fromxy(self._startx, self._starty)
+    else:
+      position = "not on map"
+    print("Start position           : %s" % position)
+    print("Start facing             : %s" % apazimuth.fromfacing(self._startfacing))
+    print("Start altiude            : %d" % self._startaltitude)
+    print("Start speed              : %.1f" % self._speed)
+    print("Start FP carry           : %.1f" % self._startfpcarry)
+    print("Start AP carry           : %.2f" % self._startapcarry)
+    print("Start altitude carry     : %.2f" % self._startaltitudecarry)
+    if self._startmaneuvertype != None and self._startmaneuverfp != 0:
+      print("Start turn/maneuver carry: %d%s%s" % (self._startmaneuverfp, self._startmaneuvertype, self._startmaneuversense))
+    else:
+      print("Start turn/maneuver carry: none")
+    print("Flight type              : %s%s" % (self._flighttype, "/HRD" if self._hrd else ""))
+    print("Power setting            : %s" % self._powersetting)
+    print("Actions                  : %s" % self._actions)
+    print("Conventional actions     : %s" % self._conventionalactions)
+
+    if apmap.isonmap(self._x, self._y):
+      position = aphexcode.fromxy(self._x, self._y)
+    else:
+      position = "not on map"
+    print("End position             : %s" % position)
+    print("End facing               : %s" % apazimuth.fromfacing(self._facing))
+    print("End altiude              : %d" % self._altitude)
+    if self._bank == None:
+      print("End bank                 : WL")
+    else:
+      print("End bank                 : B%s" % self._bank)
+    print("Power                APs : %+.2f" % self._powerap)
+    print("Speed                APs : %+.2f" % self._speedap)
+    print("Altitude             APs : %+.2f" % self._altitudeap)
+    print("Turns                APs : %+.2f" % self._turnsap)
+    print("Other maneuvers      APs : %+.2f" % self._othermaneuversap)
+    print("Speedbrakes          APs : %+.2f" % self._spbrap)
+    print("Carry                APs : %+.2f" % self._startapcarry)
+    ap = \
+      self._powerap + \
+      self._speedap + \
+      self._altitudeap + \
+      self._turnsap + \
+      self._othermaneuversap + \
+      self._spbrap + \
+      self._startapcarry
+    print("Total                APs : %+.2f" % ap)
+    print("End speed                : %.1f" % self._newspeed)
+    print("End FP carry             : %.1f" % self._fpcarry)
+    print("End AP carry             : %+.2f" % self._apcarry)
+    print("End altitude carry       : %+.2f" % self._altitudecarry)
+    if self._maneuvertype != None and self._maneuverfp != 0:
+      print("End turn/maneuver carry  : %d%s%s" % (self._maneuverfp, self._maneuvertype, self._maneuversense))
+    else:
+      print("End turn/maneuver carry  : none")
+
+  ################################################################################
+

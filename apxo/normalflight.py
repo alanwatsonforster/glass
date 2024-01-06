@@ -264,6 +264,10 @@ def continueflight(A, actions, note=False):
     A._altitudeband = apaltitude.altitudeband(A._altitude)
     A._x, A._y = aphex.forward(A._x, A._y, A._facing)
 
+    A._conventionalactions += (" %s" % element)
+    if A._maneuvertype in ["SL", "DR", "LR"]:
+      A._conventionalactions += "P"
+
   ########################################
 
   def doclimb(altitudechange):
@@ -326,6 +330,13 @@ def continueflight(A, actions, note=False):
     if flighttype == "SC" and A._altitude > apcapabilities.ceiling(A):
       raise RuntimeError("attempt to climb above ceiling in SC.")
 
+    if altitudechange > 1:
+      A._conventionalactions += (" C%d" % altitudechange)
+    elif altitudechange == 1:
+      A._conventionalactions += " C"
+    else:
+      A._conventionalactions += (" C%.2f" % altitudechange)
+
   ########################################
 
   def dodive(altitudechange):
@@ -374,6 +385,11 @@ def continueflight(A, actions, note=False):
     A._altitude, A._altitudecarry = apaltitude.adjustaltitude(A._altitude, A._altitudecarry, -altitudechange)
     A._altitudeband = apaltitude.altitudeband(A._altitude)
 
+    if altitudechange > 1:
+      A._conventionalactions += (" D%d" % altitudechange)
+    elif altitudechange == 1:
+      A._conventionalactions += " D"
+      
   ########################################
 
   def dobank(sense):
@@ -489,6 +505,11 @@ def continueflight(A, actions, note=False):
     else:
       A._facing = (A._facing - facingchange) % 360
 
+    if facingchange == 30:
+      A._conventionalactions += (" %s%s" % (A._maneuvertype, sense))
+    else:
+      A._conventionalactions += (" %s%s%d" % (A._maneuvertype, sense, facingchange))
+      
   ########################################
 
   def dodeclareslide(sense):
@@ -515,6 +536,8 @@ def continueflight(A, actions, note=False):
     # The requirement has +1 FP to account for the final H.
     A._maneuverrequiredfp   = 2 + extrapreparatoryhfp() + 1
     
+    A._conventionalactions += "P"
+
   ########################################
 
   def extrapreparatoryhfp():
@@ -560,6 +583,9 @@ def continueflight(A, actions, note=False):
     # Implicitly finish with wings level.
     A._bank = None
 
+    # Remove the "HP" before adding the "SLL" or "SLR".
+    A._conventionalactions = A._conventionalactions[:-2] + ("SL%s" % sense)
+
   ########################################
 
   def dodeclaredisplacementroll(sense):
@@ -586,6 +612,8 @@ def continueflight(A, actions, note=False):
       A._maneuverrequiredfp   = apcapabilities.rollhfp(A) + extrapreparatoryhfp() + onethird(A._speed)
     else:
       A._maneuverrequiredfp   = apcapabilities.rollhfp(A) + extrapreparatoryhfp() + 1
+
+    A._conventionalactions += "P"
 
   ########################################
 
@@ -620,6 +648,9 @@ def continueflight(A, actions, note=False):
     # Implicitly finish with wings level. This can be changed immediately by a bank.
     A._bank = None
 
+    # Remove the "HP" before adding the "DRL" or "DRR".
+    A._conventionalactions = A._conventionalactions[:-2] + ("DR%s" % sense)
+    
   ########################################
 
   def dodeclarelagroll(sense):
@@ -646,6 +677,8 @@ def continueflight(A, actions, note=False):
       A._maneuverrequiredfp   = apcapabilities.rollhfp(A) + extrapreparatoryhfp() + onethird(A._speed)
     else:
       A._maneuverrequiredfp   = apcapabilities.rollhfp(A) + extrapreparatoryhfp() + 1
+
+    A._conventionalactions += "P"
 
   ########################################
 
@@ -685,6 +718,9 @@ def continueflight(A, actions, note=False):
     # Implicitly finish with wings level. This can be changed immediately by a bank.
     A._bank = None
 
+    # Remove the "HP" before adding the "LRL" or "LRR".
+    A._conventionalactions = A._conventionalactions[:-2] + ("LR%s" % sense)
+    
   ########################################  
 
   def dodeclareverticalroll(sense):
@@ -748,6 +784,11 @@ def continueflight(A, actions, note=False):
     else:
       A._facing = (A._facing - facingchange) % 360
     
+    if facingchange == 30:
+      A._conventionalactions += (" %s%s%s" % (A._maneuvertype, "S" if shift else "", sense))
+    else:
+      A._conventionalactions += (" %s%s%s%d" % (A._maneuvertype, "S" if shift else "", sense, facingchange))
+      
   ########################################
 
   def domaneuver(sense, facingchange, shift, continuous):
@@ -849,6 +890,13 @@ def continueflight(A, actions, note=False):
       A._maxfp -= spbr
 
       A._spbrap = -spbr / 0.5
+
+    if spbr == 1:
+      A._conventionalactions += " S"
+    elif int(spbr) == spbr:
+      A._conventionalactions += (" S%d" % spbr)
+    else:
+      A._conventionalactions += (" S%.2f" % spbr)
   
   ########################################
 
@@ -1335,6 +1383,9 @@ def continueflight(A, actions, note=False):
 
     A._wasrollingonlastfp = rolling
 
+    A._conventionalactions += ","
+    A._actions += (" %s," % action)
+
   ########################################
   
   flighttype         = A._flighttype
@@ -1352,6 +1403,10 @@ def continueflight(A, actions, note=False):
 
   if A._destroyed or A._leftmap or A._maneuveringdeparture:
   
+    # Remove initial space and final comma.
+    A._actions             = A._actions[1:-1]
+    A._conventionalactions = A._conventionalactions[1:-1]
+  
     apflight.endmove(A)
 
   elif A._fp + 1 > A._maxfp:
@@ -1359,6 +1414,10 @@ def continueflight(A, actions, note=False):
     # See rule 5.4.
     A._fpcarry = A._maxfp - A._fp
 
+    # Remove initial space and final comma.
+    A._actions             = A._actions[1:-1]
+    A._conventionalactions = A._conventionalactions[1:-1]
+    
     endflight(A)
 
 ################################################################################
@@ -1738,6 +1797,13 @@ def startflight(A, actions, note=False):
   # The number of slides performed and the FP of the last last performed.
   A._slides = 0
   A._slidefp = 0
+
+  # The string that we create to describe the actions.
+  A._actions = ""
+
+  # The string that we create to describe the actions conventionally
+  # (e.g., using "H ETR" instead of "ETR/H/R".)
+  A._conventionalactions = ""
 
   reportapcarry()
   reportaltitudecarry()

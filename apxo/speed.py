@@ -485,12 +485,12 @@ def endmovespeed(A):
 
   # See the "Speed Gain" and "Speed Loss" sections of rule 6.2.
 
-  turnsap = A.turnrateap + A._sustainedturnap
+  A._turnsap = A.turnrateap + A._sustainedturnap
 
   A._logevent("power           APs = %+.2f." % A._powerap)
   A._logevent("speed           APs = %+.2f." % A._speedap)
   A._logevent("altitude        APs = %+.2f." % A._altitudeap)
-  A._logevent("turns           APs = %+.2f." % turnsap)
+  A._logevent("turns           APs = %+.2f." % A._turnsap)
   A._logevent("other maneuvers APs = %+.2f." % A._othermaneuversap)
   A._logevent("speedbrakes     APs = %+.2f." % A._spbrap)
   A._logevent("carry           APs = %+.2f." % A._apcarry)
@@ -498,7 +498,7 @@ def endmovespeed(A):
     A._powerap + \
     A._speedap + \
     A._altitudeap + \
-    turnsap + \
+    A._turnsap + \
     A._othermaneuversap + \
     A._spbrap + \
     A._apcarry
