@@ -48,7 +48,7 @@
     "LO": [ [ "-", 1.0  ], [ "-", 1.0  ], [ "-", 0.5  ] ]
   },
   "gunammunition": 10,
-  "gunsightmodifiers": [ "TT": 0, "HT": 1, "BT": 2 ],
+  "gunsightmodifiers": { "TT": 0, "HT": 1, "BT": 2 },
   "storeslimits": [ 2, 4, 2000 ],  
   "properties": [ "LBR", "HTD" ],
   "powerfadespeedtable": [ [3.0, 0.5] ],

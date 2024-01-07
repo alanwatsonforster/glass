@@ -56,7 +56,7 @@
     "LO": [ [ 3.0, 1.0 ], [ 2.0, 1.0 ], [ 2.0, 1.0 ] ]
   },
   "gunammunition": 4.0,
-  "gunsightmodifiers": [ "TT": 0, "HT": 1, "BT": 2 ],
+  "gunsightmodifiers": { "TT": 0, "HT": 1, "BT": 2 },
   "storeslimits": [ 4, 10, 6000 ],
   "properties": [ "SMP" ],
   "notes": [
