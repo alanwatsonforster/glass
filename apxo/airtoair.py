@@ -11,7 +11,7 @@ import apxo.math         as apmath
 def gunattackrange(attacker, target, arc=False):
 
   """
-  Returns the range of an air-to-air gun attack from the attacker on the target
+  Return the range of an air-to-air gun attack from the attacker on the target
   or the reason the attack is forbidden.
   """
 
@@ -120,8 +120,23 @@ def gunattackrange(attacker, target, arc=False):
 
 ##############################################################################
 
+def issamehexattack(attacker, target):
+
+  """
+  Return true if the attacker and target are in the same hex.
+  """
+
+  return (attacker.x() == target.x()) and (attacker.y() == target.y())
+
+##############################################################################
+
 def rocketattackrange(attacker, target):
 
+  """
+  Return the range of an air-to-air rocket attack from the attacker on the target
+  or the reason the attack is forbidden.
+  """
+  
   # See rule 9.3.
 
   def verticalrange():
@@ -201,8 +216,43 @@ def _attack(attacker, weapon, target, result, allowRK=True, allowSSGT=True):
       r = rocketattackrange(attacker, target)
     if isinstance(r, str):
         raise RuntimeError(r)      
-    attacker._logevent("range is %d." % r)      
-    attacker._logevent("angle-off-tail is %s." % apgeometry.angleofftail(attacker, target))
+    attacker._logevent("range is %d." % r)
+
+    angleofftail = apgeometry.angleofftail(attacker, target)
+    attacker._logevent("angle-off-tail is %s." % angleofftail)
+    if angleofftail == "0 line":
+      angleofftailmodifier = -2
+    elif angleofftail == "30 arc":
+      angleofftailmodifier = +0
+    elif angleofftail == "60 arc":
+      angleofftailmodifier = +2
+    elif angleofftail == "90 arc" or angleofftail == "120 arc" or angleofftail == "150 arc":
+      angleofftailmodifier = +4
+    elif angleofftail == "180 arc":
+      angleofftailmodifier = +3
+    elif angleofftail == "180 line":
+      angleofftailmodifier = +2
+    attacker._logevent("angle-off-tail modifier %+d." % angleofftailmodifier)
+
+    if (weapon == "GN" or weapon == "GNSS") and issamehexattack(attacker, target):
+      # See rule 9.2 with errata.
+      if attacker.isinclimbingflight():
+        if target.isinclimbingflight():
+          verticalmodifier = +0
+        elif target.isinlevelflight():
+          verticalmodifier = +1
+        else:
+          verticalmodifier = +2
+      elif attacker.isinlevelflight():
+        verticalmodifier = +0
+      else:
+        if target.isinclimbingflight():
+          verticalmodifier = +2
+        elif target.isinlevelflight():
+          verticalmodifier = +1
+        else:
+          verticalmodifier = +0    
+      attacker._logevent("same-hex vertical modifier is %+d." % verticalmodifier)
 
   if allowSSGT:
     interval = apmath.onethird(attacker._speed)
