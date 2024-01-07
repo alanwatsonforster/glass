@@ -170,14 +170,12 @@ def _attack(attacker, weapon, target, result, allowRK=True, allowSSGT=True):
     attacker._logevent("gun air-to-air attack%s." % targetdescription)
     if attacker._gunammunition < 1.0:
       raise RuntimeError("available gun ammunition is %.1f." % attacker._gunammunition)
-    attacker._gunammunition -= 1.0
 
   elif weapon == "GNSS":
 
     attacker._logevent("snap-shot gun air-to-air attack%s." % targetdescription)
     if attacker._gunammunition < 0.5:
       raise RuntimeError("available gun ammunition is %.1f." % attacker._gunammunition)
-    attacker._gunammunition -= 0.5
 
   elif allowRK and weapon[0:2] == "RK":
 
@@ -188,7 +186,6 @@ def _attack(attacker, weapon, target, result, allowRK=True, allowSSGT=True):
 
     if attacker._rocketfactors < rocketfactors:
       raise RuntimeError("available rocket factors are %d." % attacker._rocketfactors)
-    attacker._rocketfactors -= rocketfactors
 
   else:
 
@@ -223,8 +220,10 @@ def _attack(attacker, weapon, target, result, allowRK=True, allowSSGT=True):
     attacker._logevent("no applicable turn rate.")
     
   if result == "":
-    attacker._logevent("result of attack not specified.")
+    attacker._logevent("unspecified result.")
     attacker._unspecifiedattackresult += 1
+  elif result == "A":
+    attacker._logevent("aborted.")
   elif result == "M":
     attacker._logevent("missed.")
   elif result == "-":
@@ -234,8 +233,16 @@ def _attack(attacker, weapon, target, result, allowRK=True, allowSSGT=True):
     if target != None:
       apdamage.takedamage(target, result)
 
+  if result != "A":
+    if weapon == "GN":
+      attacker._gunammunition -= 1.0
+    elif weapon == "GNSS":
+      attacker._gunammunition -= 0.5
+    else:
+      attacker._rocketfactors -= rocketfactors
+
   if weapon == "GN" or weapon == "GNSS":
-    attacker._logevent("%.1f gun ammunition remain" % attacker._gunammunition)
+    attacker._logevent("%.1f gun ammunition remain." % attacker._gunammunition)
   else:
     attacker._logevent("%d rocket %s." % (attacker._rocketfactors, aplog.plural(attacker._rocketfactors, "factor remains", "factors remain")))
       

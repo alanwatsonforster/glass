@@ -19,17 +19,23 @@ A1.continuemove("H/AA(GNSS)(A2)(M)")
 A2.react("AA(GNSS)(A1)(L)")
 A1.continuemove("H,H")
 A2.move("LVL", "N", "H,H,H,H")
-
 A1._assert("A2-2021       N     5", 4.0)
 A2._assert("A2-2423       E     5", 3.5)
 assert A1._gunammunition == 6.5
 assert A2._gunammunition == 18.5
 
 assert A3._gunammunition == 3.5
+A3.move("LVL", "M", "H/AA(GN)(A4)(A)")
+assert A3._gunammunition == 3.5
+A3.continuemove("H/AA(GN)(A4)(-)")
+assert A3._gunammunition == 2.5
+
 assert A4._gunammunition == 11.0
 
 assert A5._rocketfactors == 9
-A5.move("LVL", "M", "H/AA(RK3)(A2)()")
+A5.move("LVL", "M", "H/AA(RK3)(A2)(A)")
+assert A5._rocketfactors == 9
+A5.continuemove("H/AA(RK3)(A2)(-)")
 assert A5._rocketfactors == 6
 
 assert A6._rocketfactors == 0
