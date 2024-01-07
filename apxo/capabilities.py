@@ -103,6 +103,9 @@ def restrictedarcs(A):
 def visibility(A):
   return A._aircraftdata.visibility()
 
+def sizemodifier(A):
+  return A._aircraftdata.sizemodifier()
+
 def maxdivespeed(A):
   raw = A._aircraftdata.maxdivespeed(A._altitudeband)
   if raw != None:

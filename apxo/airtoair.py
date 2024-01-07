@@ -238,7 +238,9 @@ def _attack(attacker, weapon, target, result, allowRK=True, allowSSGT=True):
       allowSSGT = False
       
     if (weapon == "GN" or weapon == "GNSS") and issamehexattack(attacker, target):
-      # See rule 9.2 with errata.
+      # See rule 9.2 with errata. Note that the rules do not give a vertical 
+      # modifier for an attacker in level flight with a target in climbing or
+      # diving flight.
       if attacker.isinclimbingflight():
         if target.isinclimbingflight():
           verticalmodifier = +0
@@ -256,6 +258,8 @@ def _attack(attacker, weapon, target, result, allowRK=True, allowSSGT=True):
         else:
           verticalmodifier = +0    
       attacker._logevent("same-hex vertical modifier is %+d." % verticalmodifier)
+
+    attacker._logevent("target size modifier is %+d." % apcapabilities.sizemodifier(target))
 
   if allowSSGT:
     interval = apmath.onethird(attacker._speed)
