@@ -1897,15 +1897,15 @@ def endflight(A):
     """
 
     if A._maxturnrate != None:
-      A.turnrateap = -apcapabilities.turndrag(A, A._maxturnrate)
+      A._turnrateap = -apcapabilities.turndrag(A, A._maxturnrate)
     else:
-      A.turnrateap = 0
+      A._turnrateap = 0
 
     if A._turningsupersonic:
       if apcapabilities.hasproperty(A, "PSSM"):
-        A.turnrateap -= 2.0
+        A._turnrateap -= 2.0
       elif not apcapabilities.hasproperty(A, "GSSM"):
-        A.turnrateap -= 1.0
+        A._turnrateap -= 1.0
 
   ########################################
 
