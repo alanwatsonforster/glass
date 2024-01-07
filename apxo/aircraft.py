@@ -641,7 +641,7 @@ class aircraft:
     
   #############################################################################
 
-  def climbingflight(self, vertical=False):
+  def isinclimbingflight(self, vertical=False):
 
     """
     Return true if the aircraft is climbing.
@@ -651,7 +651,7 @@ class aircraft:
 
   #############################################################################
 
-  def divingflight(self, vertical=False):
+  def isindivingflight(self, vertical=False):
 
     """
     Return true if the aircraft is diving.
@@ -661,7 +661,7 @@ class aircraft:
    
   #############################################################################
 
-  def levelflight(self):
+  def isinlevelflight(self):
 
     """
     Return true if the aircraft is in level flight.

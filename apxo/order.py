@@ -41,11 +41,11 @@ def advantaged(A, B):
     return False
 
   # Not below if in VC.
-  if A.climbingflight(vertical=True) and B.altitude() < A.altitude():
+  if A.isinclimbingflight(vertical=True) and B.altitude() < A.altitude():
     return False
 
   # Not above if in VD.
-  if A.divingflight(vertical=True) and B.altitude() > A.altitude():
+  if A.isindivingflight(vertical=True) and B.altitude() > A.altitude():
     return False
 
   return True

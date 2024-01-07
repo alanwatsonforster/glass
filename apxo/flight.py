@@ -119,7 +119,7 @@ def move(A, flighttype, power, actions="",
   else:
 
     # See rule 8.1.4 on altitude carry.
-    if not A.climbingflight():
+    if not A.isinclimbingflight():
       A._altitudecarry = 0
     
     A._turnsstalled  = 0

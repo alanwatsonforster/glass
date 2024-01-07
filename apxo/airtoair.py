@@ -102,11 +102,11 @@ def gunattackrange(attacker, target, arc=False):
       return "the target is not in the weapon range or arc."
 
     # Apply the relative altitude restrictions for climbing, diving, and level flight.
-    if attacker.climbingflight() and attacker.altitude() > target.altitude():
+    if attacker.isinclimbingflight() and attacker.altitude() > target.altitude():
       return "aircraft in climbing flight cannot fire on aircraft at lower altitudes."
-    if attacker.divingflight() and attacker.altitude() < target.altitude():
+    if attacker.isindivingflight() and attacker.altitude() < target.altitude():
       return "aircraft in diving flight cannot fire on aircraft at higher altitudes."
-    if attacker.levelflight():
+    if attacker.isinlevelflight():
       if r == 0 and attacker.altitude() != target.altitude():
         return "aircraft in level flight cannot fire at range 0 on aircraft at a different altitude."
       if r > 0 and abs(attacker.altitude() - target.altitude()) > 1:
@@ -133,11 +133,11 @@ def rocketattackrange(attacker, target):
   r = apgeometry.horizontalrange(attacker, target)
 
   # Apply the relative altitude restrictions for climbing, diving, and level flight.
-  if attacker.climbingflight() and attacker.altitude() > target.altitude():
+  if attacker.isinclimbingflight() and attacker.altitude() > target.altitude():
     return "aircraft in climbing flight cannot fire on aircraft at lower altitudes."
-  if attacker.divingflight() and attacker.altitude() < target.altitude():
+  if attacker.isindivingflight() and attacker.altitude() < target.altitude():
     return "aircraft in diving flight cannot fire on aircraft at higher altitudes."
-  if attacker.levelflight():
+  if attacker.isinlevelflight():
     if r == 0 and attacker.altitude() != target.altitude():
       return "aircraft in level flight cannot fire at range 0 on aircraft at a different altitude."
     if r > 0 and abs(attacker.altitude() - target.altitude()) > 1:
@@ -218,7 +218,7 @@ def _attack(attacker, weapon, target, result, allowRK=True, allowSSGT=True):
     attacker._logevent("applicable turn rate is TT.")
   else:
     attacker._logevent("no applicable turn rate.")
-    
+
   if result == "":
     attacker._logevent("unspecified result.")
     attacker._unspecifiedattackresult += 1
