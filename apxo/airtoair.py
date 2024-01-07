@@ -232,7 +232,7 @@ def _attack(attacker, weapon, target, result, allowRK=True, allowSSGT=True):
       angleofftailmodifier = +3
     elif angleofftail == "180 line":
       angleofftailmodifier = +2
-    attacker._logevent("angle-off-tail modifier %+d." % angleofftailmodifier)
+    attacker._logevent("angle-off-tail     modifier is %+d." % angleofftailmodifier)
 
     if angleofftail != "0 line" and angleofftail != "30 arc" and angleofftail != "60 arc":
       allowSSGT = False
@@ -257,10 +257,20 @@ def _attack(attacker, weapon, target, result, allowRK=True, allowSSGT=True):
           verticalmodifier = +1
         else:
           verticalmodifier = +0    
-      attacker._logevent("same-hex vertical modifier is %+d." % verticalmodifier)
+      attacker._logevent("same-hex vertical  modifier is %+d." % verticalmodifier)
 
-    attacker._logevent("target size modifier is %+d." % apcapabilities.sizemodifier(target))
+    attacker._logevent("target size        modifier is %+d." % apcapabilities.sizemodifier(target))
 
+  if apdamage.damageatleast(attacker, "C"):
+    damagemodifier = +3
+  elif apdamage.damageatleast(attacker, "H"):
+    damagemodifier = +2
+  elif apdamage.damageatleast(attacker, "L"):
+    damagemodifier = +1
+  else:
+    damagemodifier = +0
+  attacker._logevent("attacker damage    modifier is %+d." % damagemodifier)
+  
   if allowSSGT:
     interval = apmath.onethird(attacker._speed)
     attacker._logevent("SSGT interval is %.1f %s." % (interval, aplog.plural(interval, "FP", "FPs")))
