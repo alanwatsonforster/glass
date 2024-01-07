@@ -234,6 +234,9 @@ def _attack(attacker, weapon, target, result, allowRK=True, allowSSGT=True):
       angleofftailmodifier = +2
     attacker._logevent("angle-off-tail modifier %+d." % angleofftailmodifier)
 
+    if angleofftail != "0 line" and angleofftail != "30 arc" and angleofftail != "60 arc":
+      allowSSGT = False
+      
     if (weapon == "GN" or weapon == "GNSS") and issamehexattack(attacker, target):
       # See rule 9.2 with errata.
       if attacker.isinclimbingflight():
@@ -257,6 +260,8 @@ def _attack(attacker, weapon, target, result, allowRK=True, allowSSGT=True):
   if allowSSGT:
     interval = apmath.onethird(attacker._speed)
     attacker._logevent("SSGT interval is %.1f %s." % (interval, aplog.plural(interval, "FP", "FPs")))
+  else:
+    attacker._logevent("SSGT not allowed.")
 
   if attacker._BTrecoveryfp > 0:
     attacker._logevent("applicable turn rate is BT.")
