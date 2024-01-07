@@ -264,6 +264,14 @@ class aircraftdata:
     else:
       return 0
 
+  def gunsightmodifier(self, turnrate):
+    if "gunsightmodifiers" not in self._data:
+      return None
+    elif turnrate not in self._data["gunsightmodifiers"]:
+      return None
+    else:
+      return self._data["gunsightmodifiers"][turnrate]
+
   def rocketfactors(self):
     if "rocketfactors" in self._data:
       return self._data["rocketfactors"]
@@ -502,6 +510,12 @@ class aircraftdata:
       str("Gun arc: %s" % self._data["gunarc"])
     if "rocketfactors" in self._data:
       str("Rocket factors: %.0f" % self._data["rocketfactors"])
+
+    if "gunammunition" in self._data or "rocketfactors" in self._data:
+      str("Gunsight modifiers: ")
+      for turnrate in ["TT", "HT", "BT"]:
+        if self.gunsightmodifier(turnrate) is not None:
+          str("  %s %+d" % (turnrate, self.gunsightmodifier(turnrate)))
     str("")
 
     s = ""

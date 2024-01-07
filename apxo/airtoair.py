@@ -206,7 +206,18 @@ def _attack(attacker, weapon, target, result, allowRK=True, allowSSGT=True):
 
     raise RuntimeError("invalid weapon %r." % weapon)
 
-  if target is not None:
+  if weapon == "GNSS":
+    snapshotmodifier = +1
+  else:
+    snapshotmodifier = None
+
+  if target is None:
+
+    sizemodifier         = None
+    verticalmodifier     = None
+    angleofftailmodifier = None
+
+  else:
 
     if weapon == "GN" or weapon == "GNSS":
       if apcapabilities.gunarc(attacker) != None:
@@ -232,11 +243,11 @@ def _attack(attacker, weapon, target, result, allowRK=True, allowSSGT=True):
       angleofftailmodifier = +3
     elif angleofftail == "180 line":
       angleofftailmodifier = +2
-    attacker._logevent("angle-off-tail     modifier is %+d." % angleofftailmodifier)
 
     if angleofftail != "0 line" and angleofftail != "30 arc" and angleofftail != "60 arc":
       allowSSGT = False
       
+    verticalmodifier = None
     if (weapon == "GN" or weapon == "GNSS") and issamehexattack(attacker, target):
       # See rule 9.2 with errata. Note that the rules do not give a vertical 
       # modifier for an attacker in level flight with a target in climbing or
@@ -248,29 +259,16 @@ def _attack(attacker, weapon, target, result, allowRK=True, allowSSGT=True):
           verticalmodifier = +1
         else:
           verticalmodifier = +2
-      elif attacker.isinlevelflight():
-        verticalmodifier = +0
-      else:
+      elif attacker.isindivingflight():
         if target.isinclimbingflight():
           verticalmodifier = +2
         elif target.isinlevelflight():
           verticalmodifier = +1
         else:
           verticalmodifier = +0    
-      attacker._logevent("same-hex vertical  modifier is %+d." % verticalmodifier)
 
-    attacker._logevent("target size        modifier is %+d." % apcapabilities.sizemodifier(target))
+    sizemodifier = apcapabilities.sizemodifier(target)
 
-  if apdamage.damageatleast(attacker, "C"):
-    damagemodifier = +3
-  elif apdamage.damageatleast(attacker, "H"):
-    damagemodifier = +2
-  elif apdamage.damageatleast(attacker, "L"):
-    damagemodifier = +1
-  else:
-    damagemodifier = +0
-  attacker._logevent("attacker damage    modifier is %+d." % damagemodifier)
-  
   if allowSSGT:
     interval = apmath.onethird(attacker._speed)
     attacker._logevent("SSGT interval is %.1f %s." % (interval, aplog.plural(interval, "FP", "FPs")))
@@ -279,14 +277,41 @@ def _attack(attacker, weapon, target, result, allowRK=True, allowSSGT=True):
 
   if attacker._BTrecoveryfp > 0:
     attacker._logevent("applicable turn rate is BT.")
+    turnratemodifier = apcapabilities.gunsightmodifier(attacker, "BT")
   if attacker._rollrecoveryfp > 0:
     attacker._logevent("applicable turn rate is BT (for a roll).")
+    turnratemodifier = apcapabilities.gunsightmodifier(attacker, "BT")
   elif attacker._HTrecoveryfp > 0:
     attacker._logevent("applicable turn rate is HT.")
+    turnratemodifier = apcapabilities.gunsightmodifier(attacker, "HT")
   elif attacker._TTrecoveryfp > 0:
     attacker._logevent("applicable turn rate is TT.")
+    turnratemodifier = apcapabilities.gunsightmodifier(attacker, "TT")
   else:
     attacker._logevent("no applicable turn rate.")
+    turnratemodifier = None
+    
+  if apdamage.damageatleast(attacker, "C"):
+    damagemodifier = +3
+  elif apdamage.damageatleast(attacker, "H"):
+    damagemodifier = +2
+  elif apdamage.damageatleast(attacker, "L"):
+    damagemodifier = +1
+  else:
+    damagemodifier = None
+
+  if snapshotmodifier is not None:
+    attacker._logevent("snap-shot          modifier is %+d." % snapshotmodifier)
+  if sizemodifier is not None:
+    attacker._logevent("target size        modifier is %+d." % sizemodifier)
+  if verticalmodifier is not None:
+    attacker._logevent("same-hex vertical  modifier is %+d." % verticalmodifier)
+  if angleofftailmodifier is not None:
+    attacker._logevent("angle-off-tail     modifier is %+d." % angleofftailmodifier)
+  if turnratemodifier is not None:
+    attacker._logevent("attacker turn-rate modifier is %+d." % turnratemodifier)
+  if damagemodifier is not None:
+    attacker._logevent("attacker damage    modifier is %+d." % damagemodifier)
 
   if result == "":
     attacker._logevent("unspecified result.")

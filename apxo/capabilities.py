@@ -174,3 +174,6 @@ def specialclimbcapability(A):
 
 def gunarc(A):
   return A._aircraftdata.gunarc()
+
+def gunsightmodifier(A, turnrate):
+  return A._aircraftdata.gunsightmodifier(turnrate)
