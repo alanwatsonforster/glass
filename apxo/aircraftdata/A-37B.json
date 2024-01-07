@@ -47,6 +47,7 @@
   },
   "storeslimits": [ 4, 7, 5700 ],
   "gunammunition": 8.0,
+  "gunsightmodifiers": [ "TT": 1, "HT": 2, "BT": 3 ],
   "properties": [ "HTD" ],
   "notes": [
   ]

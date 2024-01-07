@@ -47,6 +47,7 @@
     "LO": [ [ "-", 1.0 ], [ "-", 1.0 ], [ "-", 0.5 ] ]
   },
   "gunammunition": 6.0,
+  "gunsightmodifiers": [ "TT": 0, "HT": 1, "BT": 2 ],
   "storeslimits": [ 6, 12, 8000 ],
   "properties": [],
   "notes": [

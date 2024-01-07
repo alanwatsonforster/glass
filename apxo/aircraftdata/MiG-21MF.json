@@ -49,6 +49,7 @@
   },
   "storeslimits": [ 4, 6, 4400 ],
   "gunammunition": 2.0,
+  "gunsightmodifiers": [ "TT": 0, "HT": 2, "BT": 3 ],
   "properties": [ ],
   "notes": [
     "NATO reporting name is Fishbed-J.",
