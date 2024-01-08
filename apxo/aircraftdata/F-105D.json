@@ -49,6 +49,8 @@
   "storeslimits": [ 4, 12, 14000 ],
   "gunammunition": 5.0,
   "gunsightmodifiers": { "TT": 0, "HT": 1, "BT": 2 },
+  "araradarranging": "RE",
+  "atalockon": 6,
   "properties": [ "SMP", "RAACL", "LTD" ],
   "notes": [
   ]

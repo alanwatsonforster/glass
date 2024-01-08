@@ -2,6 +2,8 @@
   "name": "MiG-17PFU",
   "base": "MiG-17F",
   "gunammunition": 0,
+  "araradarranging": "RE",
+  "atalockon": 6,
   "notes": [
     "NATO reporting name is Fresco-E."
   ]

@@ -49,6 +49,7 @@
   },
   "gunammunition": 0.0,
   "rocketfactors": 2,
+  "atalockon": 7,
   "storeslimits": [ 3, 6, 4000 ],
   "properties": [ "SMP", "LTD", "PSSM", "HBR" ],
   "notes": [

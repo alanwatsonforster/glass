@@ -54,6 +54,8 @@
   },
   "gunammunition": 3.5,
   "gunsightmodifiers": { "TT": 0, "HT": 1, "BT": 2 },
+  "araradarranging": "RE",
+  "atalockon": 7,
   "storeslimits": [ 2, 6, 4400 ],  
   // Note: Not HTD.
   "properties": []

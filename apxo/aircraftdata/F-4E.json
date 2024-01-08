@@ -50,6 +50,8 @@
   "storeslimits": [ 8, 14, 16000 ],
   "gunammunition": 3.0,
   "gunsightmodifiers": { "TT": 0, "HT": 1, "BT": 2 },
+  "araradarranging": "RE",
+  "atalockon": 7,
   "properties": [ "SMP", "RPR" ],
   "notes": [
   ]
