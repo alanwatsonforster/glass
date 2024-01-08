@@ -272,6 +272,23 @@ class aircraftdata:
     else:
       return self._data["gunsightmodifiers"][turnrate]
 
+  def ataradarrangingtype(self):
+    if "ataradarranging" not in self._data:
+      return None
+    elif self._data["ataradarranging"] == "-":
+      return None
+    else:
+      assert self._data["ataradarranging"] in ["RE", "CA", "IG"]
+      return self._data["ataradarranging"]
+
+  def atalockon(self):
+    if "atalockon" not in self._data:
+      return None
+    elif self._data["atalockon"] == "-":
+      return None
+    else:
+      return self._data["atalockon"]
+
   def rocketfactors(self):
     if "rocketfactors" in self._data:
       return self._data["rocketfactors"]
@@ -516,6 +533,11 @@ class aircraftdata:
       for turnrate in ["TT", "HT", "BT"]:
         if self.gunsightmodifier(turnrate) is not None:
           str("  %s %+d" % (turnrate, self.gunsightmodifier(turnrate)))
+    if self.ataradarrangingtype() is not None:
+      str("ATA Radar-ranging: %s" % self.ataradarrangingtype())
+    if self.atalockon() is not None:
+      str("ATA Lock-On: %d" % self.atalockon())
+
     str("")
 
     s = ""

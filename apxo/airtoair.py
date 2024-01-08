@@ -281,6 +281,38 @@ def _attack(attacker, weapon, target, radarranging, result, allowRK=True, allowt
     attacker._logevent("SSGT not allowed.")
     trackingmodifier = None
 
+  radarrangingtype = apcapabilities.ataradarrangingtype(attacker)
+  if radarranging == "":
+    if radarrangingtype is None:
+      attacker._logevent("attacker does not have radar ranging.")
+    elif radarrangingtype == "RE" and attacker._trackingfp == 0:
+      attacker._logevent("RE radar-ranging requires SSGT.")
+    else:
+      attacker._logevent("%s radar-ranging lock-on roll is %d." % (radarrangingtype, apcapabilities.atalockon(attacker)))
+    radarrangingmodifier = None
+  elif radarranging == "T":
+    if radarrangingtype is None:
+      raise RuntimeError("attacker does not have radar ranging.")
+    elif radarrangingtype == "RE":
+      if attacker._trackingfp == 0:
+        raise RuntimeError("RE radar-ranging requires SSGT.")
+      radarrangingmodifier = -1
+    elif radarrangingtype == "CA":
+      radarrangingmodifier = -2
+    elif radarrangingtype == "IG":
+      radarrangingmodifier = -3
+    attacker._logevent("%s radar-ranging succeeded." % radarrangingtype)
+  elif radarranging == "F":
+    if radarrangingtype is None:
+      attacker._logevent("attacker does not have radar ranging.")
+    elif radarrangingtype == "RE" and attacker._trackingfp == 0:
+      attacker._logevent("RE radar-ranging requires SSGT.")
+    else:
+      attacker._logevent("%s radar-ranging failed." % radarrangingtype)
+    radarrangingmodifier = None
+  else:
+    raise RuntimeError("invalid radar-ranging argument %r." % radarranging)
+
   if attacker._BTrecoveryfp > 0:
     attacker._logevent("applicable turn rate is BT.")
     turnratemodifier = apcapabilities.gunsightmodifier(attacker, "BT")
@@ -322,13 +354,16 @@ def _attack(attacker, weapon, target, radarranging, result, allowRK=True, allowt
   if trackingmodifier is not None:
     attacker._logevent("SSGT               modifier is %+d." % trackingmodifier)
     modifier += trackingmodifier
+  if radarrangingmodifier is not None:
+    attacker._logevent("radar-ranging      modifier is %+d." % radarrangingmodifier)
+    modifier += radarrangingmodifier
   if turnratemodifier is not None:
     attacker._logevent("attacker turn-rate modifier is %+d." % turnratemodifier)
     modifier += turnratemodifier
   if damagemodifier is not None:
     attacker._logevent("attacker damage    modifier is %+d." % damagemodifier)
     modifier += damagemodifier
-  attacker._logevent("total to-hit modifier is %+d." % modifier)
+  attacker._logevent("total to-hit       modifier is %+d." % modifier)
 
   if result == "":
     attacker._logevent("unspecified result.")

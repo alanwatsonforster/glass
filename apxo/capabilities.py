@@ -177,3 +177,9 @@ def gunarc(A):
 
 def gunsightmodifier(A, turnrate):
   return A._aircraftdata.gunsightmodifier(turnrate)
+
+def ataradarrangingtype(A):
+  return A._aircraftdata.ataradarrangingtype()
+
+def atalockon(A):
+  return A._aircraftdata.atalockon()
