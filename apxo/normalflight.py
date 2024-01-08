@@ -943,10 +943,9 @@ def continueflight(A, actions, note=False):
     if A._ETrecoveryfp > 0:
       raise RuntimeError("attempt to use weapons in or while recovering from an ET.")
 
-    weapon       = m[1]
+    attacktype   = m[1]
     targetname   = m[2]
-    radarranging = m[3]
-    result       = m[4]
+    result       = m[3]
 
     if targetname == "":
       target = None
@@ -955,7 +954,7 @@ def continueflight(A, actions, note=False):
       if target is None:
         raise RuntimeError("unknown target aircraft %s." % targetname)
       
-    apairtoair.attack(A, weapon, target, radarranging, result)
+    apairtoair.attack(A, attacktype, target, result)
 
   ########################################
 
@@ -1107,7 +1106,7 @@ def continueflight(A, actions, note=False):
     ["RR"    , "maneuver"           , None, lambda: domaneuver("R",   60, True , False) ],
     ["R"     , "maneuver"           , None, lambda: domaneuver("R", None, True , False) ],
     
-    ["AA"    , "other"              , argsregex(4), lambda m: doataattack(m) ],
+    ["AA"    , "other"              , argsregex(3), lambda m: doataattack(m) ],
     ["SSGT"  , "prolog"             , None, lambda: dossgt() ],
 
     ["S1/2"  , "other"              , None, lambda: dospeedbrakes(1/2) ],

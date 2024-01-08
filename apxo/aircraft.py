@@ -409,14 +409,13 @@ class aircraft:
       apturn.checkinturn()
       self._logaction("react", action)
 
-      m = re.compile("AA" + 4 * r"\(([^)]*)\)").match(action)
+      m = re.compile("AA" + 3 * r"\(([^)]*)\)").match(action)
       if m is None:
         raise RuntimeError("invalid action %r" % action)
 
-      weapon       = m[1]
+      attacktype   = m[1]
       targetname   = m[2]
-      radarranging = m[3]
-      result       = m[4]
+      result       = m[3]
 
       if targetname == "":
         target = None
@@ -425,7 +424,7 @@ class aircraft:
         if target is None:
           raise RuntimeError("unknown target aircraft %s." % targetname)
         
-      apairtoair.react(self, weapon, target, radarranging, result)
+      apairtoair.react(self, attacktype, target, result)
     
       self._lognote(note)
       self._logline()

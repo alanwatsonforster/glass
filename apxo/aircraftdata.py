@@ -287,6 +287,12 @@ class aircraftdata:
     else:
       return None
       
+  def gunatadamagerating(self):
+    if "gunatadamagerating" in self._data:
+      return self._data["gunatadamagerating"]
+    else:
+      return None
+      
   def ataradarrangingtype(self):
     if "ataradarranging" not in self._data:
       return None

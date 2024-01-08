@@ -106,6 +106,9 @@ def visibility(A):
 def sizemodifier(A):
   return A._aircraftdata.sizemodifier()
 
+def vulnerability(A):
+  return A._aircraftdata.vulnerability()
+  
 def maxdivespeed(A):
   raw = A._aircraftdata.maxdivespeed(A._altitudeband)
   if raw != None:
@@ -174,6 +177,9 @@ def specialclimbcapability(A):
 
 def gunatatohitroll(A, range):
   return A._aircraftdata.gunatatohitroll(range)
+  
+def gunatadamagerating(A):
+  return A._aircraftdata.gunatadamagerating()
   
 def gunarc(A):
   return A._aircraftdata.gunarc()

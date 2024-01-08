@@ -166,7 +166,7 @@ def rocketattackrange(attacker, target):
 
 ##############################################################################
 
-def _attack(attacker, weapon, target, radarranging, result, allowRK=True, allowtracking=True):
+def _attack(attacker, attacktype, target, result, allowRK=True, allowtracking=True):
 
   """
   Attack and aircraft with fixed guns, articulated guns, or rockets.
@@ -178,27 +178,48 @@ def _attack(attacker, weapon, target, radarranging, result, allowRK=True, allowt
   if target is None:
     targetdescription = ""
   else:
-    targetdescription = targetdescription = " on %s" % target.name()
+    targetdescription = " on %s" % target.name()
+
+  weapon          = attacktype[:2]
+  attackmodifiers = attacktype[2:]
+
+  snapshot      = False
+  radarranging  = False
+  rocketfactors = None
+
+  while attackmodifiers != "":
+    if weapon == "GN" and attackmodifiers[:3] == "/SS":
+      snapshot = True
+      attackmodifiers = attackmodifiers[3:]
+    elif attackmodifiers[:3] == "/RR":
+      radarranging = True
+      attackmodifiers = attackmodifiers[3:]
+    elif weapon == "RK" and attackmodifiers[0] == "/" and len(attackmodifiers) >= 2 and attackmodifiers[1].isdecimal():
+      attackmodifiers = attackmodifiers[1:]
+      rocketfactors = 0
+      while attackmodifiers != "" and attackmodifiers[0].isdecimal():
+        rocketfactors *= 10
+        rocketfactors += int(attackmodifiers[0])
+        attackmodifiers = attackmodifiers[1:]
+    else:
+      raise RuntimeError("invalid attack type %r" % attacktype)
     
   if weapon == "GN":
 
-    attacker._logevent("gun air-to-air attack%s." % targetdescription)
-    if attacker._gunammunition < 1.0:
-      raise RuntimeError("available gun ammunition is %.1f." % attacker._gunammunition)
+    if snapshot:
+      attacker._logevent("snap-shot gun air-to-air attack%s." % targetdescription)
+      if attacker._gunammunition < 0.5:
+        raise RuntimeError("available gun ammunition is %.1f." % attacker._gunammunition)
+    else:
+      attacker._logevent("gun air-to-air attack%s." % targetdescription)
+      if attacker._gunammunition < 1.0:
+        raise RuntimeError("available gun ammunition is %.1f." % attacker._gunammunition)
 
-  elif weapon == "GNSS":
+  elif allowRK and weapon == "RK":
 
-    attacker._logevent("snap-shot gun air-to-air attack%s." % targetdescription)
-    if attacker._gunammunition < 0.5:
-      raise RuntimeError("available gun ammunition is %.1f." % attacker._gunammunition)
-
-  elif allowRK and weapon[0:2] == "RK":
-
-    if not weapon[2:].isdigit():
-      raise RuntimeError("invalid weapon %r." % weapon)
-    rocketfactors = int(weapon[2:])
+    if rocketfactors is None:
+      raise RuntimeError("number of rocket factors not specified.")
     attacker._logevent("rocket air-to-air attack with %d factors%s." % (rocketfactors, targetdescription))
-
     if attacker._rocketfactors < rocketfactors:
       raise RuntimeError("available rocket factors are %d." % attacker._rocketfactors)
 
@@ -206,7 +227,7 @@ def _attack(attacker, weapon, target, radarranging, result, allowRK=True, allowt
 
     raise RuntimeError("invalid weapon %r." % weapon)
 
-  if weapon == "GNSS":
+  if snapshot:
     snapshotmodifier = +1
   else:
     snapshotmodifier = None
@@ -220,7 +241,7 @@ def _attack(attacker, weapon, target, radarranging, result, allowRK=True, allowt
 
   else:
 
-    if weapon == "GN" or weapon == "GNSS":
+    if weapon == "GN":
       if apcapabilities.gunarc(attacker) != None:
         attacker._logevent("gunnery arc is %s." % apcapabilities.gunarc(attacker))
       r = gunattackrange(attacker, target, arc=apcapabilities.gunarc(attacker))
@@ -283,36 +304,26 @@ def _attack(attacker, weapon, target, radarranging, result, allowRK=True, allowt
     trackingmodifier = None
 
   radarrangingtype = apcapabilities.ataradarrangingtype(attacker)
-  if radarranging == "":
-    if radarrangingtype is None:
-      attacker._logevent("attacker does not have radar ranging.")
-    elif radarrangingtype == "RE" and attacker._trackingfp == 0:
-      attacker._logevent("RE radar-ranging requires SSGT.")
-    else:
-      attacker._logevent("%s radar-ranging lock-on roll is %d." % (radarrangingtype, apcapabilities.atalockon(attacker)))
-    radarrangingmodifier = None
-  elif radarranging == "T":
-    if radarrangingtype is None:
+  if radarrangingtype is None:
+    attacker._logevent("attacker does not have radar ranging.")
+    if radarranging:
       raise RuntimeError("attacker does not have radar ranging.")
-    elif radarrangingtype == "RE":
-      if attacker._trackingfp == 0:
-        raise RuntimeError("RE radar-ranging requires SSGT.")
+  elif radarrangingtype == "RE" and attacker._trackingfp == 0:
+    attacker._logevent("RE radar-ranging requires SSGT.")
+    if radarranging:
+      raise RuntimeError("RE radar-ranging requires SSGT.")
+  else:
+    attacker._logevent("%s radar-ranging lock-on roll is %d." % (radarrangingtype, apcapabilities.atalockon(attacker)))
+  if radarranging:
+    attacker._logevent("%s radar-ranging succeeded." % radarrangingtype)
+    if radarrangingtype == "RE":
       radarrangingmodifier = -1
     elif radarrangingtype == "CA":
       radarrangingmodifier = -2
     elif radarrangingtype == "IG":
       radarrangingmodifier = -3
-    attacker._logevent("%s radar-ranging succeeded." % radarrangingtype)
-  elif radarranging == "F":
-    if radarrangingtype is None:
-      attacker._logevent("attacker does not have radar ranging.")
-    elif radarrangingtype == "RE" and attacker._trackingfp == 0:
-      attacker._logevent("RE radar-ranging requires SSGT.")
-    else:
-      attacker._logevent("%s radar-ranging failed." % radarrangingtype)
-    radarrangingmodifier = None
   else:
-    raise RuntimeError("invalid radar-ranging argument %r." % radarranging)
+    radarrangingmodifier = None
 
   if attacker._BTrecoveryfp > 0:
     attacker._logevent("applicable turn rate is BT.")
@@ -367,9 +378,22 @@ def _attack(attacker, weapon, target, radarranging, result, allowRK=True, allowt
   attacker._logevent("total to-hit       modifier is %+d." % tohitmodifier)
 
   if r is not None:
-    if weapon == "GN" or weapon == "GNSS":
+    if weapon == "GN":
       tohitroll = apcapabilities.gunatatohitroll(attacker, r)
       attacker._logevent("to-hit roll is %d + %+d = %d." % (tohitroll, tohitmodifier, tohitroll + tohitmodifier))
+
+  if (result is not "A") and (result is not "M") and (target is not None):
+    if weapon == "GN":
+      damagerating = apcapabilities.gunatadamagerating(attacker)
+      damageratingmodifier = 0
+      if snapshot:
+        attacker._logevent("snap-shot damage modifier is -1.")
+        damageratingmodifier -= 1
+      if apdamage.damageatleast(target, "L"):
+        attacker._logevent("target    damage modifier is -1.")
+        damageratingmodifier += 1
+      attacker._logevent("damage rating is %d + %+d = %d." % (damagerating, damageratingmodifier, damagerating + damageratingmodifier))    
+      attacker._logevent("target vulnerability is %+d." % apcapabilities.vulnerability(target))
 
   if result == "":
     attacker._logevent("unspecified result.")
@@ -387,36 +411,37 @@ def _attack(attacker, weapon, target, radarranging, result, allowRK=True, allowt
 
   if result != "A":
     if weapon == "GN":
-      attacker._gunammunition -= 1.0
-    elif weapon == "GNSS":
-      attacker._gunammunition -= 0.5
+      if snapshot:
+        attacker._gunammunition -= 0.5
+      else:
+        attacker._gunammunition -= 1.0
     else:
       attacker._rocketfactors -= rocketfactors
 
-  if weapon == "GN" or weapon == "GNSS":
+  if weapon == "GN":
     attacker._logevent("%.1f gun ammunition remain." % attacker._gunammunition)
   else:
     attacker._logevent("%d rocket %s." % (attacker._rocketfactors, aplog.plural(attacker._rocketfactors, "factor remains", "factors remain")))
       
 ##############################################################################
 
-def attack(attacker, weapon, target, radarranging, result):
+def attack(attacker, attacktype, target, result):
 
   """
   Attack an aircraft, with fixed guns, articulated guns, or rockets.
   """
 
-  _attack(attacker, weapon, target, radarranging, result)
+  _attack(attacker, attacktype, target, result)
       
 ##############################################################################
 
-def react(attacker, weapon, target, radarranging, result):
+def react(attacker, attacktype, target, result):
 
   """
   Return fire, with fixed guns or articulated guns.
   """
 
-  return _attack(attacker, weapon, target, radarranging, result, allowtracking=False, allowRK=False)
+  return _attack(attacker, attacktype, target, result, allowtracking=False, allowRK=False)
 
 ##############################################################################
 
