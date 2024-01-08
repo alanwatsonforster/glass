@@ -172,6 +172,9 @@ def hasproperty(A, p):
 def specialclimbcapability(A):
   return A._aircraftdata.specialclimbcapability()
 
+def gunatatohitroll(A, range):
+  return A._aircraftdata.gunatatohitroll(range)
+  
 def gunarc(A):
   return A._aircraftdata.gunarc()
 

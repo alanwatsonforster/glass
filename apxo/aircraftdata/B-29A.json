@@ -124,6 +124,9 @@
 
   "properties": [ "LRR", "NRM" ],
 
+  "gun": "Ten .50 cal in turrets and tail",
+  "gunatatohitrolls": [ 2, 1, 1 ],
+  "gunatadamagerating": 2,
   "gunarc": "180-",
   "gunammunition": 20,
 

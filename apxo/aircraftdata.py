@@ -252,6 +252,12 @@ class aircraftdata:
     else:
       return 1
 
+  def gun(self):
+    if "gun" in self._data:
+      return self._data["gun"]
+    else:
+      return None
+      
   def gunarc(self):
     if "gunarc" in self._data:
       return self._data["gunarc"]
@@ -272,6 +278,15 @@ class aircraftdata:
     else:
       return self._data["gunsightmodifiers"][turnrate]
 
+  def gunatatohitroll(self, range):
+    if "gunatatohitrolls" in self._data:
+      tohitroll = self._data["gunatatohitrolls"][range]
+      if tohitroll == "-":
+        tohitroll = None
+      return tohitroll
+    else:
+      return None
+      
   def ataradarrangingtype(self):
     if "ataradarranging" not in self._data:
       return None
@@ -521,10 +536,13 @@ class aircraftdata:
         ))
       str("")
 
-    if "gunammunition" in self._data:
+    if self.gun() != None:
+      str("Gun: %s" % self.gun())
       str("Gun ammunition: %.1f" % self._data["gunammunition"])
-    if "gunarc" in self._data:
-      str("Gun arc: %s" % self._data["gunarc"])
+      str("ATA To-Hit: %d %d %r" % (self.gunatatohitroll(0), self.gunatatohitroll(1), self.gunatatohitroll(2)))
+      if "gunarc" in self._data:
+        str("Gun arc: %s" % self._data["gunarc"])
+
     if "rocketfactors" in self._data:
       str("Rocket factors: %.0f" % self._data["rocketfactors"])
 

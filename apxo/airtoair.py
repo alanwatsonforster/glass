@@ -216,6 +216,7 @@ def _attack(attacker, weapon, target, radarranging, result, allowRK=True, allowt
     sizemodifier         = None
     verticalmodifier     = None
     angleofftailmodifier = None
+    r                    = None
 
   else:
 
@@ -338,32 +339,37 @@ def _attack(attacker, weapon, target, radarranging, result, allowRK=True, allowt
   else:
     damagemodifier = None
 
-  modifier = 0
+  tohitmodifier = 0
   if snapshotmodifier is not None:
     attacker._logevent("snap-shot          modifier is %+d." % snapshotmodifier)
-    modifier += snapshotmodifier
+    tohitmodifier += snapshotmodifier
   if sizemodifier is not None:
     attacker._logevent("target size        modifier is %+d." % sizemodifier)
-    modifier += sizemodifier
+    tohitmodifier += sizemodifier
   if verticalmodifier is not None:
     attacker._logevent("same-hex vertical  modifier is %+d." % verticalmodifier)
-    modifier += verticalmodifier
+    tohitmodifier += verticalmodifier
   if angleofftailmodifier is not None:
     attacker._logevent("angle-off-tail     modifier is %+d." % angleofftailmodifier)
-    modifier += angleofftailmodifier
+    tohitmodifier += angleofftailmodifier
   if trackingmodifier is not None:
     attacker._logevent("SSGT               modifier is %+d." % trackingmodifier)
-    modifier += trackingmodifier
+    tohitmodifier += trackingmodifier
   if radarrangingmodifier is not None:
     attacker._logevent("radar-ranging      modifier is %+d." % radarrangingmodifier)
-    modifier += radarrangingmodifier
+    tohitmodifier += radarrangingmodifier
   if turnratemodifier is not None:
     attacker._logevent("attacker turn-rate modifier is %+d." % turnratemodifier)
-    modifier += turnratemodifier
+    tohitmodifier += turnratemodifier
   if damagemodifier is not None:
     attacker._logevent("attacker damage    modifier is %+d." % damagemodifier)
-    modifier += damagemodifier
-  attacker._logevent("total to-hit       modifier is %+d." % modifier)
+    tohitmodifier += damagemodifier
+  attacker._logevent("total to-hit       modifier is %+d." % tohitmodifier)
+
+  if r is not None:
+    if weapon == "GN" or weapon == "GNSS":
+      tohitroll = apcapabilities.gunatatohitroll(attacker, r)
+      attacker._logevent("to-hit roll is %d + %+d = %d." % (tohitroll, tohitmodifier, tohitroll + tohitmodifier))
 
   if result == "":
     attacker._logevent("unspecified result.")

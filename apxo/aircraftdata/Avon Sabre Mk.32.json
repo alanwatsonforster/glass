@@ -45,7 +45,7 @@
     "ML": [ [ "-", 2.0 ], [ "-", 1.5 ], [ "-", 1.0 ] ],
     "LO": [ [ "-", 2.0 ], [ "-", 2.0 ], [ "-", 1.5 ] ]
   },
-  "gun": "Two 30 mm Aden"
+  "gun": "Two 30 mm Aden",
   "gunatatohitrolls": [ 6, 3, 3 ],
   "gunatadamagerating": 2,
   "gunammunition": 7.0,
