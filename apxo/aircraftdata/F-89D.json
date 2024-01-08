@@ -49,6 +49,8 @@
   },
   "gunammunition": 0.0,
   "gunsightmodifiers": { "TT": 0, "HT": 1, "BT": 2 },
+  "ataradarranging": "RE",
+  "atalockon": 7,
   "rocketfactors": 9,
   "storeslimits": [ 4, 8, 4400 ],  
   "properties": [ "HTD", "ABSF" ],

@@ -1,7 +1,7 @@
 {
   "name": "MiG-19PF",
   "base": "MiG-19SF",
-  "araradarranging": "RE",
+  "ataradarranging": "RE",
   "atalockon": 7,
   "notes": [
     "NATO reporting name is Farmer-D."

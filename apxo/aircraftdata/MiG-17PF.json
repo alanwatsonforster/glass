@@ -1,7 +1,7 @@
 {
   "name": "MiG-17PF",
   "base": "MiG-17F",
-  "araradarranging": "RE",
+  "ataradarranging": "RE",
   "atalockon": 6,
   "notes": [
     "NATO reporting name is Fresco-D."

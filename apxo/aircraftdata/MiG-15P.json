@@ -1,6 +1,6 @@
 {
   "name": "MiG-15P",
   "base": "MiG-15bis",
-  "araradarranging": "RE",
+  "ataradarranging": "RE",
   "atalockon": 5
 }
