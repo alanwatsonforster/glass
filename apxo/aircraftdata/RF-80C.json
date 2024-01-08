@@ -1,6 +1,8 @@
 {
   "name": "RF-80C",
   "base": "F-80C",
+  "gun": "",
+  "gunammunition": 0,
   "notes": [
     "The RF-80C appears as a variant on the TSOH ADC for the F-80C."
   ]

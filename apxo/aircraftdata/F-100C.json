@@ -55,6 +55,9 @@
     "ML": [ [ 3.0, 1.0 ], [ 2.0, 1.0 ], [ 1.0, 0.5 ] ],
     "LO": [ [ 3.0, 1.0 ], [ 2.0, 1.0 ], [ 2.0, 1.0 ] ]
   },
+  "gun": "Four 20 mm M39",
+  "gunatatohitrolls": [ 6, 4, 3 ],
+  "gunatadamagerating": 5,
   "gunammunition": 4.0,
   "gunsightmodifiers": { "TT": 0, "HT": 1, "BT": 2 },
   "ataradarranging": "RE",

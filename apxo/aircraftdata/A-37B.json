@@ -46,6 +46,9 @@
     "LO": [ [ "-", 1.0 ], [ "-", 1.0 ], [ "-", 1.0 ] ]
   },
   "storeslimits": [ 4, 7, 5700 ],
+  "gun": "7.62 mm GAU-2B",
+  "gunatatohitrolls": [ 5, 1, "-" ],
+  "gunatadamagerating": 2,
   "gunammunition": 8.0,
   "gunsightmodifiers": { "TT": 1, "HT": 2, "BT": 3 },
   "properties": [ "HTD" ],

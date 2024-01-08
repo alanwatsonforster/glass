@@ -1,6 +1,9 @@
 {
   "name": "AT-33",
   "base": "F-80C",
+  "gun": "Two .50 cal",
+  "gunatatohitrolls": [ 4, 2, "-" ],
+  "gunatadamagerating": 1,
   "notes": [
     "The AT-33 appears as a variant on the TSOH ADC for the F-80C."
   ]

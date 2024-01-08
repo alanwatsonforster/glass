@@ -51,6 +51,9 @@
     "LO": [ [ 5.0, 1.0 ], [ 4.0, 1.0 ], [ 3.0, 1.0 ] ]
   },
   "storeslimits": [ 2, 6, 3700 ],
+  "gun": "Three 30 mm NR-30",
+  "gunatatohitrolls": [ 6, 4, 1 ],
+  "gunatadamagerating": 6,
   "gunammunition": 2.5,
   "gunsightmodifiers": { "TT": 0, "HT": 2, "BT": 3 },
   "properties": [],

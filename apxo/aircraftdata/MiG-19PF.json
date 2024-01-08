@@ -1,6 +1,9 @@
 {
   "name": "MiG-19PF",
   "base": "MiG-19SF",
+  "gun": "Two 23 mm NR-30",
+  "gunatatohitrolls": [ 5, 3, 1 ],
+  "gunatadamagerating": 5,
   "ataradarranging": "RE",
   "atalockon": 7,
   "notes": [

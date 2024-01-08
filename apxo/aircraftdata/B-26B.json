@@ -46,6 +46,9 @@
     "ML": [ [ "-", 0.5 ], [ "-", 0.5  ], [ "-", 0.25 ] ],
     "LO": [ [ "-", 0.5 ], [ "-", 0.5  ], [ "-", 0.5  ] ]
   },
+  "gun": "Fourteen .50 cal",
+  "gunatatohitrolls": [ 4, 2, 1 ],
+  "gunatadamagerating": 7,
   "gunammunition": 10,
   "gunsightmodifiers": { "TT": 1, "HT": 2 },
   "storeslimits": [ 6, 10, 6000 ],

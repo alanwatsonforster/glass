@@ -47,6 +47,9 @@
     "LO": [ [ 5.0, 2.0 ], [ 3.0, 1.0 ], [ 2.0, 1.0 ] ]
   },
   "storeslimits": [ 4, 12, 14000 ],
+  "gun": "20 mm M61 Vulcan",
+  "gunatatohitrolls": [ 7, 5, 3 ],
+  "gunatadamagerating": 6,
   "gunammunition": 5.0,
   "gunsightmodifiers": { "TT": 0, "HT": 1, "BT": 2 },
   "ataradarranging": "RE",

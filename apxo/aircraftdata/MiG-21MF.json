@@ -48,6 +48,9 @@
     "LO": [ [ 4.0, 2.0 ], [ 3.0, 1.0 ], [ 2.0, 1.0 ] ]
   },
   "storeslimits": [ 4, 6, 4400 ],
+  "gun": "23 mm GSh-23",
+  "gunatatohitrolls": [ 7, 4, 2 ],
+  "gunatadamagerating": 5,
   "gunammunition": 2.0,
   "gunsightmodifiers": { "TT": 0, "HT": 2, "BT": 3 },
   "ataradarranging": "RE",

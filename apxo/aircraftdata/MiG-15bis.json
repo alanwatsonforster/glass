@@ -45,6 +45,9 @@
     "ML": [ [ "-", 1.5 ], [ "-", 1.0 ], [ "-", 1.0 ] ],
     "LO": [ [ "-", 1.5 ], [ "-", 1.5 ], [ "-", 1.0 ] ]
   },
+  "gun": "Two 23 mm NR-23 and one 37 mm N-37",
+  "gunatatohitrolls": [ 4, 2, 1 ],
+  "gunatadamagerating": 5,
   "gunammunition": 3.0,
   "gunsightmodifiers": { "TT": 0, "HT": 2, "BT": 3 },
   "storeslimits": [ 1, 4, 1600 ],  
