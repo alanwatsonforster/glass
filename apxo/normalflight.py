@@ -943,9 +943,10 @@ def continueflight(A, actions, note=False):
     if A._ETrecoveryfp > 0:
       raise RuntimeError("attempt to use weapons in or while recovering from an ET.")
 
-    weapon     = m[1]
-    targetname = m[2]
-    result     = m[3]
+    weapon       = m[1]
+    targetname   = m[2]
+    radarranging = m[3]
+    result       = m[4]
 
     if targetname == "":
       target = None
@@ -954,7 +955,42 @@ def continueflight(A, actions, note=False):
       if target is None:
         raise RuntimeError("unknown target aircraft %s." % targetname)
       
-    apairtoair.attack(A, weapon, target, result)
+    apairtoair.attack(A, weapon, target, radarranging, result)
+
+  ########################################
+
+  def dossgt():
+
+    """
+    Start SSGT.
+    """
+
+    # See rule 9.4.
+
+    # The rules only explicitly prohibit SSGT during recovery from an
+    # ET. However, we assume that SSGT has the same restrictions as
+    # attacks.
+
+    # See rule 8.2.2.
+    if A._unloaded:
+      raise RuntimeError("attempt to start SSGT while unloaded.")
+
+    # See rule 13.3.5.
+    if A._hrd:
+      raise RuntimeError("attempt to start SSGT during the turn after an HRD.")
+
+    # See rule 13.3.6.
+    if A._wasrollingonlastfp:
+      raise RuntimeError("attempt to start SSGT on the FP immediately after rolling.")
+
+    # See rule 10.1.
+    if A._ETrecoveryfp > 0:
+      raise RuntimeError("attempt to start SSGT in or while recovering from an ET.")
+
+    # TODO: Check we can start SSGT on a specific target.
+
+    A._logevent("started SSGT.")
+    A._tracking = True
 
   ########################################
 
@@ -1070,6 +1106,9 @@ def continueflight(A, actions, note=False):
     ["RRR"   , "maneuver"           , None, lambda: domaneuver("R",   90, True , False) ],
     ["RR"    , "maneuver"           , None, lambda: domaneuver("R",   60, True , False) ],
     ["R"     , "maneuver"           , None, lambda: domaneuver("R", None, True , False) ],
+    
+    ["AA"    , "other"              , argsregex(4), lambda m: doataattack(m) ],
+    ["SSGT"  , "prolog"             , None, lambda: dossgt() ],
 
     ["S1/2"  , "other"              , None, lambda: dospeedbrakes(1/2) ],
     ["S1"    , "other"              , None, lambda: dospeedbrakes(1)   ],
@@ -1085,8 +1124,6 @@ def continueflight(A, actions, note=False):
     ["S"     , "other"              , None, lambda: dospeedbrakes(1)   ],
      
     ["J"     , "other"              , argsregex(1), lambda m: dojettison(m) ],
-    
-    ["AA"    , "other"              , argsregex(3), lambda m: doataattack(m) ],
 
     ["/"     , "other"              , None, lambda: None ],
 
@@ -1232,6 +1269,8 @@ def continueflight(A, actions, note=False):
       A._horizontal = False
       A._vertical   = False
 
+      doelements(action, "prolog", True)
+
       if not doelements(action, "FP", False):
         raise RuntimeError("%r is not a valid action as it does not expend an FP." % action)
 
@@ -1345,6 +1384,15 @@ def continueflight(A, actions, note=False):
     if A._TTrecoveryfp == 0:
       A._logevent("recovered from TT.")
           
+    # See rule 9.4.
+    if A._tracking:
+      if A._unloaded or A._hrd or A._wasrollingonlastfp or A._ETrecoveryfp > 0:
+        A._logevent("stopped SSGT.")
+        A._tracking   = False
+        A._trackingfp = 0
+      else:
+        A._trackingfp += 1
+              
     # See rules 7.7 and 8.5.
     if maneuver and rolling:
       if initialaltitude > apcapabilities.ceiling(A):
@@ -1770,23 +1818,28 @@ def startflight(A, actions, note=False):
   flighttype         = A._flighttype
   previousflighttype = A._previousflighttype  
   
-  # These keep track of the number of FPs, HFPs, and VFPs used and the
-  # number of FPs lost to speedbrakes. They are used to ensure that the
-  # right mix of HFPs and VFPs are used and to determine when the turn
-  # ends.
+  # The number of FPs, HFPs, and VFPs used and the number of FPs lost to
+  # speedbrakes. They are used to ensure that the right mix of HFPs and
+  # VFPs are used and to determine when the turn ends.
 
   A._fp         = 0
   A._hfp        = 0
   A._vfp        = 0
   A._spbrfp     = 0
 
-  # These keep track of the number of unloaded HFPs and the indices of
-  # the first and last unloaded HFPs in an UD. They are then used to
-  # ensure that the unloaded HFPs are continuous.
+  # The number of unloaded HFPs and the indices of the first and last
+  # unloaded HFPs in an UD. They are then used to ensure that the
+  # unloaded HFPs are continuous.
 
   A._unloadedhfp     = 0
   A._firstunloadedfp = None
   A._lastunloadedfp  = None
+
+  # Whether the aircraft is tracking and the number of FPs expended
+  # while tracking.
+
+  A._tracking   = False
+  A._trackingfp = 0
 
   # This keeps track of the number of turns, rolls, and vertical rolls.
 
@@ -1795,14 +1848,17 @@ def startflight(A, actions, note=False):
   A._verticalrolls = 0
 
   # The number of slides performed and the FP of the last last performed.
+
   A._slides = 0
   A._slidefp = 0
 
   # The string that we create to describe the actions.
+
   A._actions = ""
 
   # The string that we create to describe the actions conventionally
   # (e.g., using "H ETR" instead of "ETR/H/R".)
+
   A._conventionalactions = ""
 
   reportapcarry()

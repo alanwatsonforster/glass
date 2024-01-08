@@ -179,6 +179,7 @@ class aircraft:
       self._HTrecoveryfp               = -1
       self._TTrecoveryfp               = -1
       self._rollrecoveryfp             = -1
+      self._trackingfp                 = 0
       self._lowspeedliftdeviceselected = False
       self._closeformation             = []
       self._aircraftdata               = apaircraftdata.aircraftdata(aircrafttype)
@@ -408,13 +409,14 @@ class aircraft:
       apturn.checkinturn()
       self._logaction("react", action)
 
-      m = re.compile("AA" + 3 * r"\(([^)]*)\)").match(action)
+      m = re.compile("AA" + 4 * r"\(([^)]*)\)").match(action)
       if m is None:
         raise RuntimeError("invalid action %r" % action)
 
-      weapon     = m[1]
-      targetname = m[2]
-      result     = m[3]
+      weapon       = m[1]
+      targetname   = m[2]
+      radarranging = m[3]
+      result       = m[4]
 
       if targetname == "":
         target = None
@@ -423,7 +425,7 @@ class aircraft:
         if target is None:
           raise RuntimeError("unknown target aircraft %s." % targetname)
         
-      apairtoair.react(self, weapon, target, result)
+      apairtoair.react(self, weapon, target, radarranging, result)
     
       self._lognote(note)
       self._logline()

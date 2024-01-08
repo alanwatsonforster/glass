@@ -166,7 +166,7 @@ def rocketattackrange(attacker, target):
 
 ##############################################################################
 
-def _attack(attacker, weapon, target, result, allowRK=True, allowSSGT=True):
+def _attack(attacker, weapon, target, radarranging, result, allowRK=True, allowtracking=True):
 
   """
   Attack and aircraft with fixed guns, articulated guns, or rockets.
@@ -269,11 +269,17 @@ def _attack(attacker, weapon, target, result, allowRK=True, allowSSGT=True):
 
     sizemodifier = apcapabilities.sizemodifier(target)
 
-  if allowSSGT:
-    interval = apmath.onethird(attacker._speed)
-    attacker._logevent("SSGT interval is %.1f %s." % (interval, aplog.plural(interval, "FP", "FPs")))
+  if allowtracking:
+    attacker._logevent("SSGT for %d %s." % (attacker._trackingfp, aplog.plural(attacker._trackingfp, "FP", "FPs")))
+    if attacker._trackingfp >= apmath.twothirds(attacker.speed()):
+      trackingmodifier = -2
+    elif attacker._trackingfp >= apmath.onethird(attacker.speed()):
+      trackingmodifier = -1
+    else:
+      trackingmodifier = -0
   else:
     attacker._logevent("SSGT not allowed.")
+    trackingmodifier = None
 
   if attacker._BTrecoveryfp > 0:
     attacker._logevent("applicable turn rate is BT.")
@@ -300,18 +306,29 @@ def _attack(attacker, weapon, target, result, allowRK=True, allowSSGT=True):
   else:
     damagemodifier = None
 
+  modifier = 0
   if snapshotmodifier is not None:
     attacker._logevent("snap-shot          modifier is %+d." % snapshotmodifier)
+    modifier += snapshotmodifier
   if sizemodifier is not None:
     attacker._logevent("target size        modifier is %+d." % sizemodifier)
+    modifier += sizemodifier
   if verticalmodifier is not None:
     attacker._logevent("same-hex vertical  modifier is %+d." % verticalmodifier)
+    modifier += verticalmodifier
   if angleofftailmodifier is not None:
     attacker._logevent("angle-off-tail     modifier is %+d." % angleofftailmodifier)
+    modifier += angleofftailmodifier
+  if trackingmodifier is not None:
+    attacker._logevent("SSGT               modifier is %+d." % trackingmodifier)
+    modifier += trackingmodifier
   if turnratemodifier is not None:
     attacker._logevent("attacker turn-rate modifier is %+d." % turnratemodifier)
+    modifier += turnratemodifier
   if damagemodifier is not None:
     attacker._logevent("attacker damage    modifier is %+d." % damagemodifier)
+    modifier += damagemodifier
+  attacker._logevent("total to-hit modifier is %+d." % modifier)
 
   if result == "":
     attacker._logevent("unspecified result.")
@@ -342,23 +359,23 @@ def _attack(attacker, weapon, target, result, allowRK=True, allowSSGT=True):
       
 ##############################################################################
 
-def attack(attacker, weapon, target, result):
+def attack(attacker, weapon, target, radarranging, result):
 
   """
   Attack an aircraft, with fixed guns, articulated guns, or rockets.
   """
 
-  _attack(attacker, weapon, target, result)
+  _attack(attacker, weapon, target, radarranging, result)
       
 ##############################################################################
 
-def react(attacker, weapon, target, result):
+def react(attacker, weapon, target, radarranging, result):
 
   """
   Return fire, with fixed guns or articulated guns.
   """
 
-  return _attack(attacker, weapon, target, result, allowSSGT=False, allowRK=False)
+  return _attack(attacker, weapon, target, radarranging, result, allowtracking=False, allowRK=False)
 
 ##############################################################################
 
