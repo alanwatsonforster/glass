@@ -1106,53 +1106,53 @@ def continueflight(A, actions, note=False):
     ["RR"    , "maneuver"           , None, lambda: domaneuver("R",   60, True , False) ],
     ["R"     , "maneuver"           , None, lambda: domaneuver("R", None, True , False) ],
     
-    ["AA"    , "other"              , argsregex(3), lambda m: doataattack(m) ],
+    ["AA"    , "epilog"             , argsregex(3), lambda m: doataattack(m) ],
     ["SSGT"  , "prolog"             , None, lambda: dossgt() ],
 
-    ["S1/2"  , "other"              , None, lambda: dospeedbrakes(1/2) ],
-    ["S1"    , "other"              , None, lambda: dospeedbrakes(1)   ],
-    ["S3/2"  , "other"              , None, lambda: dospeedbrakes(3/2) ],
-    ["S2"    , "other"              , None, lambda: dospeedbrakes(2)   ],
-    ["S5/2"  , "other"              , None, lambda: dospeedbrakes(5/2) ],
-    ["S3"    , "other"              , None, lambda: dospeedbrakes(3)   ],
-    ["S7/2"  , "other"              , None, lambda: dospeedbrakes(7/2) ],
-    ["S4"    , "other"              , None, lambda: dospeedbrakes(4)   ],
-    ["SSSS"  , "other"              , None, lambda: dospeedbrakes(4)   ],
-    ["SSS"   , "other"              , None, lambda: dospeedbrakes(3)   ],
-    ["SS"    , "other"              , None, lambda: dospeedbrakes(2)   ],
-    ["S"     , "other"              , None, lambda: dospeedbrakes(1)   ],
+    ["S1/2"  , "prolog"             , None, lambda: dospeedbrakes(1/2) ],
+    ["S1"    , "prolog"             , None, lambda: dospeedbrakes(1)   ],
+    ["S3/2"  , "prolog"             , None, lambda: dospeedbrakes(3/2) ],
+    ["S2"    , "prolog"             , None, lambda: dospeedbrakes(2)   ],
+    ["S5/2"  , "prolog"             , None, lambda: dospeedbrakes(5/2) ],
+    ["S3"    , "prolog"             , None, lambda: dospeedbrakes(3)   ],
+    ["S7/2"  , "prolog"             , None, lambda: dospeedbrakes(7/2) ],
+    ["S4"    , "prolog"             , None, lambda: dospeedbrakes(4)   ],
+    ["SSSS"  , "prolog"             , None, lambda: dospeedbrakes(4)   ],
+    ["SSS"   , "prolog"             , None, lambda: dospeedbrakes(3)   ],
+    ["SS"    , "prolog"             , None, lambda: dospeedbrakes(2)   ],
+    ["S"     , "prolog"             , None, lambda: dospeedbrakes(1)   ],
      
-    ["J"     , "other"              , argsregex(1), lambda m: dojettison(m) ],
+    ["J"     , "epilog"             , argsregex(1), lambda m: dojettison(m) ],
 
-    ["/"     , "other"              , None, lambda: None ],
+    ["/"     , "prolog"             , None, lambda: None ],
 
-    ["HC1"   , "FP"                , None, lambda: invalidelement("HC1")  ],
-    ["HC2"   , "FP"                , None, lambda: invalidelement("HC2")  ],
-    ["HCC"   , "FP"                , None, lambda: invalidelement("HCC")  ],
-    ["HC"    , "FP"                , None, lambda: invalidelement("HC")   ],
+    ["HC1"   , "FP"                 , None, lambda: invalidelement("HC1")  ],
+    ["HC2"   , "FP"                 , None, lambda: invalidelement("HC2")  ],
+    ["HCC"   , "FP"                 , None, lambda: invalidelement("HCC")  ],
+    ["HC"    , "FP"                 , None, lambda: invalidelement("HC")   ],
     
-    ["HD1"   , "FP"                , None, lambda: dohorizontal("HD")     ],
-    ["HD2"   , "FP"                , None, lambda: invalidelement("HD2")  ],
-    ["HD3"   , "FP"                , None, lambda: invalidelement("HD3")  ],
-    ["HDDD"  , "FP"                , None, lambda: invalidelement("HDDD") ],
-    ["HDD"   , "FP"                , None, lambda: invalidelement("HDD")  ],
-    ["HD"    , "FP"                , None, lambda: dohorizontal("HD")     ],
+    ["HD1"   , "FP"                 , None, lambda: dohorizontal("HD")     ],
+    ["HD2"   , "FP"                 , None, lambda: invalidelement("HD2")  ],
+    ["HD3"   , "FP"                 , None, lambda: invalidelement("HD3")  ],
+    ["HDDD"  , "FP"                 , None, lambda: invalidelement("HDDD") ],
+    ["HDD"   , "FP"                 , None, lambda: invalidelement("HDD")  ],
+    ["HD"    , "FP"                 , None, lambda: dohorizontal("HD")     ],
 
-    ["HU"   , "FP"                 , None, lambda: dohorizontal("HU")     ],
+    ["HU"   , "FP"                  , None, lambda: dohorizontal("HU")     ],
 
-    ["H"    , "FP"                 , None, lambda: dohorizontal("H")      ],
+    ["H"    , "FP"                  , None, lambda: dohorizontal("H")      ],
 
-    ["C1"   , "FP"                 , None, lambda: doclimb(1) ],
-    ["C2"   , "FP"                 , None, lambda: doclimb(2) ],
-    ["CC"   , "FP"                 , None, lambda: doclimb(2) ],
-    ["C"    , "FP"                 , None, lambda: doclimb(1) ],
+    ["C1"   , "FP"                  , None, lambda: doclimb(1) ],
+    ["C2"   , "FP"                  , None, lambda: doclimb(2) ],
+    ["CC"   , "FP"                  , None, lambda: doclimb(2) ],
+    ["C"    , "FP"                  , None, lambda: doclimb(1) ],
 
-    ["D1"   , "FP"                 , None, lambda: dodive(1) ],
-    ["D2"   , "FP"                 , None, lambda: dodive(2) ],
-    ["D3"   , "FP"                 , None, lambda: dodive(3) ],
-    ["DDD"  , "FP"                 , None, lambda: dodive(3) ],
-    ["DD"   , "FP"                 , None, lambda: dodive(2) ],
-    ["D"    , "FP"                 , None, lambda: dodive(1) ],
+    ["D1"   , "FP"                  , None, lambda: dodive(1) ],
+    ["D2"   , "FP"                  , None, lambda: dodive(2) ],
+    ["D3"   , "FP"                  , None, lambda: dodive(3) ],
+    ["DDD"  , "FP"                  , None, lambda: dodive(3) ],
+    ["DD"   , "FP"                  , None, lambda: dodive(2) ],
+    ["D"    , "FP"                  , None, lambda: dodive(1) ],
 
     ["MDL300", "maneuvering departure", None, lambda: domaneuveringdeparture("L", 300)],
     ["MDL270", "maneuvering departure", None, lambda: domaneuveringdeparture("L", 270)],
@@ -1307,7 +1307,7 @@ def continueflight(A, actions, note=False):
         elif A._horizontal:
           A._maneuverfp += 1
     
-      maneuver = doelements(action, "maneuver" , False)
+      maneuver = doelements(action, "maneuver", False)
       
       bank = doelements(action, "bank" , False)
       if bank and maneuver and not rolling:
@@ -1426,7 +1426,7 @@ def continueflight(A, actions, note=False):
     if A._destroyed or A._leftmap:
       return
 
-    doelements(action, "other", True)
+    doelements(action, "epilog", True)
 
     A._wasrollingonlastfp = rolling
 
