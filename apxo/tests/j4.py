@@ -55,6 +55,12 @@ startturn()
 A7.move("LVL", "M", "SSGT/H/AA(GN/RR/SS)(A2)(-)")
 assert A7._gunammunition == 3.5
 
+# Check CC
+startturn()
+A2.move("LVL", "N", "H,H,H,H")
+A5.move("LVL", "M", "H/AA(RK/3/CC)(A2)(-)")
+assert A5._rocketfactors == 3
+
 # Check recovery after ET.
 
 startturn()

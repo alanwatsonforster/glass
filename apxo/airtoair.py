@@ -183,9 +183,10 @@ def _attack(attacker, attacktype, target, result, allowRK=True, allowtracking=Tr
   weapon          = attacktype[:2]
   attackmodifiers = attacktype[2:]
 
-  snapshot      = False
-  radarranging  = False
-  rocketfactors = None
+  snapshot        = False
+  radarranging    = False
+  collisioncourse = False
+  rocketfactors   = None
 
   while attackmodifiers != "":
     if weapon == "GN" and attackmodifiers[:3] == "/SS":
@@ -193,6 +194,9 @@ def _attack(attacker, attacktype, target, result, allowRK=True, allowtracking=Tr
       attackmodifiers = attackmodifiers[3:]
     elif attackmodifiers[:3] == "/RR":
       radarranging = True
+      attackmodifiers = attackmodifiers[3:]
+    elif weapon == "RK" and attackmodifiers[:3] == "/CC":
+      collisioncourse = True
       attackmodifiers = attackmodifiers[3:]
     elif weapon == "RK" and attackmodifiers[0] == "/" and len(attackmodifiers) >= 2 and attackmodifiers[1].isdecimal():
       attackmodifiers = attackmodifiers[1:]
@@ -325,6 +329,11 @@ def _attack(attacker, attacktype, target, result, allowRK=True, allowtracking=Tr
   else:
     radarrangingmodifier = None
 
+  collisioncoursemodifier = None
+  if collisioncourse:
+    attacker._logevent("collision-course attack.")
+    collisioncoursemodifier = -2
+
   if attacker._BTrecoveryfp > 0:
     attacker._logevent("applicable turn rate is BT.")
     turnratemodifier = apcapabilities.gunsightmodifier(attacker, "BT")
@@ -341,7 +350,10 @@ def _attack(attacker, attacktype, target, result, allowRK=True, allowtracking=Tr
     attacker._logevent("no applicable turn rate.")
     turnratemodifier = None
     
-  if apdamage.damageatleast(attacker, "C"):
+  if weapon == "RK":
+    # See rule 9.3; attacker damage does not modify rocket attacks.
+    damagemodifier = None
+  elif apdamage.damageatleast(attacker, "C"):
     damagemodifier = +3
   elif apdamage.damageatleast(attacker, "H"):
     damagemodifier = +2
@@ -369,6 +381,9 @@ def _attack(attacker, attacktype, target, result, allowRK=True, allowtracking=Tr
   if radarrangingmodifier is not None:
     attacker._logevent("radar-ranging      modifier is %+d." % radarrangingmodifier)
     tohitmodifier += radarrangingmodifier
+  if collisioncoursemodifier is not None:
+    attacker._logevent("collision-course   modifier is %+d." % collisioncoursemodifier)
+    tohitmodifier += collisioncoursemodifier
   if turnratemodifier is not None:
     attacker._logevent("attacker turn-rate modifier is %+d." % turnratemodifier)
     tohitmodifier += turnratemodifier
