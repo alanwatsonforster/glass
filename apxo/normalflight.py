@@ -235,6 +235,9 @@ def continueflight(A, actions, note=False):
     Move horizontally.
     """
 
+    if A._maneuvertype == "VR":
+      raise RuntimeError("attempt to declare a vertical roll during an HFP.")
+      
     altitudechange = 0
 
     if element == "HD":
@@ -522,7 +525,7 @@ def continueflight(A, actions, note=False):
 
     if A._slides == 1 and A._speed <= 9.0:
       raise RuntimeError("only one slide allowed per turn at low speed.")
-    if A._slides == 1 and A._fp - A._slidefp - 1 <  4:
+    if A._slides == 1 and A._fp - A._slidefp <  4:
       raise RuntimeError("attempt to start a second slide without sufficient intermediate FPs.")
     elif A._slides == 2:
       raise RuntimeError("at most two slides allowed per turn.")
@@ -733,8 +736,6 @@ def continueflight(A, actions, note=False):
     # See rule 13.3.4.  
     if A._flighttype != "VC" and A._flighttype != "VD":
       raise RuntimeError("attempt to declare a vertical roll while flight type is %s." % A._flighttype)
-    if not A._vertical:
-      raise RuntimeError("attempt to declare a vertical roll during an HFP.")
     if previousflighttype == "LVL" and flighttype == "VC" and not A._lastfp:
       raise RuntimeError("attempt to declare a vertical roll in VC following LVL flight other than on the last FP.")
 
@@ -1270,6 +1271,9 @@ def continueflight(A, actions, note=False):
 
       doelements(action, "prolog", True)
 
+      if doelements(action, "maneuver declaration", False):
+        A._logevent("declared %s." % A.maneuver())
+        
       if not doelements(action, "FP", False):
         raise RuntimeError("%r is not a valid action as it does not expend an FP." % action)
 
@@ -1284,9 +1288,6 @@ def continueflight(A, actions, note=False):
         A._vfp += 1
         if A._hfp < A._mininitialhfp:
           raise RuntimeError("insufficient initial HFPs.")
-
-      if doelements(action, "maneuver declaration", False):
-        A._logevent("declared %s." % A.maneuver())
 
       # We save maneuvertype, as A._maneuvertype may be set to None of the
       # maneuver is completed below.
