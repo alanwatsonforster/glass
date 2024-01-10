@@ -44,7 +44,7 @@ endturn()
 
 # Unloaded Dives
 
-starttestsetup()
+starttestsetup(verbose=False)
 A1 = aircraft("A1", "AF", "F-80C", "A1-1815", "N"  , 20, 3.0, "CL")
 endtestsetup()
 
