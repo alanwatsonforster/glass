@@ -16,7 +16,7 @@ A1._assert("A1-2013       N    23",  3.0)
 endturn()
 
 startturn()
-A1.move("VD",  "FT", "H,D3,D3/VRL/L")
+A1.move("VD",  "FT", "H,D3,VRL/D3/L")
 asserterror("aircraft cannot perform rolling maneuvers.")
 startturn()
 A1.move("VD",  "FT", "H,D3,D3")

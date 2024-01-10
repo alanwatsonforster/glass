@@ -1194,21 +1194,23 @@ def continueflight(A, actions, note=False):
     ["MDR60" , "maneuvering departure", None, lambda: domaneuveringdeparture("R",  60)],
     ["MDR30" , "maneuvering departure", None, lambda: domaneuveringdeparture("R",  30)],
 
+    [""      , ""                     , None, None                                    ],
+
   ]
 
   ########################################
 
-  def doelements(action, selectedelementtype, allowrepeated):
+  def doelements(action, selectedelementtype):
 
     """
     Carry out the elements in an action that match the element type.
     """
 
-    fullaction = action
-
-    ielement = 0
-
     while action != "":
+
+      if action[0] == "/" or action[0] == " ":
+        action = action[1:]
+        continue
 
       for element in elementdispatchlist:
 
@@ -1217,32 +1219,27 @@ def continueflight(A, actions, note=False):
         elementregex     = element[2]
         elementprocedure = element[3]
 
+        if selectedelementtype != elementtype:
+          continue
+          
         if elementcode == action[:len(elementcode)]:
-          action = action[len(elementcode):]
-          if elementregex == None:
-            m = None
-          else:
-            m = re.compile(elementregex).match(action)
-            if not m:
-              raise RuntimeError("invalid arguments to %s element." % elementcode)
-            if m:
-              action = action[len(m.group()):]   
-          if selectedelementtype == elementtype:
-            ielement += 1
-            if elementregex == None:
-              elementprocedure()
-            else:
-              elementprocedure(m)
           break
 
+      if elementprocedure is None:
+        break
+
+      action = action[len(elementcode):]
+
+      if elementregex == None:
+        elementprocedure()
       else:
+        m = re.compile(elementregex).match(action)
+        if not m:
+          raise RuntimeError("invalid arguments to %s element." % elementcode)
+        action = action[len(m.group()):]   
+        elementprocedure(m)
 
-        raise RuntimeError("invalid action %r." % action)
-
-    if ielement > 1 and not allowrepeated:
-      raise RuntimeError("invalid action %r: repeated %s element." % (fullaction, selectedelementtype))
-
-    return ielement != 0
+    return action
   
   ################################################################################
 
@@ -1380,8 +1377,11 @@ def continueflight(A, actions, note=False):
     initialaltitudeband = A._altitudeband
 
     try:
-      
-      if doelements(action, "maneuvering departure", False):
+
+      remainingaction = action
+
+      remainingaction = doelements(remainingaction, "maneuvering departure")
+      if remainingaction != action:
     
         A._maneuveringdeparture = True
 
@@ -1402,10 +1402,14 @@ def continueflight(A, actions, note=False):
       A._hasrolled            = False
       A._hasbanked            = False
 
-      doelements(action, "prolog", True)
-        
-      if not doelements(action, "FP", False):
+      remainingaction = doelements(remainingaction, "prolog")
+      
+      fp = A._fp
+      remainingaction = doelements(remainingaction, "FP")
+      if A._fp == fp:
         raise RuntimeError("%r is not a valid action as it does not expend an FP." % action)
+      elif A._fp > fp + 1:
+        raise RuntimeError("%r is not a valid action as it attemps to expend more than one FP." % action)
 
       # We save maneuvertype, as A._maneuvertype may be set to None of the
       # maneuver is completed below.
@@ -1432,11 +1436,13 @@ def continueflight(A, actions, note=False):
       checkrecovery()
       checktracking()
               
-      doelements(action, "epilog", True)
+      remainingaction = doelements(remainingaction, "epilog")
 
-      doelements(action, "bank" , False)
       if A._hasbanked and A._hasmaneuvered and not A._hasrolled:
         raise RuntimeError("attempt to bank immediately after a maneuver that is not a roll.")
+
+      if remainingaction != "":
+        raise RuntimeError("%r is not a valid action." % action)
 
       assert aphex.isvalid(A._x, A._y, facing=A._facing)
       assert apaltitude.isvalidaltitude(A._altitude)
