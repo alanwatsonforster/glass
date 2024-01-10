@@ -851,6 +851,7 @@ def continueflight(A, actions, note=False):
         facingchange = 30
       doturn(sense, facingchange, continuous)
 
+    A._maneuver   = True
     A._maneuverfp = 0
 
     if not continuous:
@@ -1118,41 +1119,41 @@ def continueflight(A, actions, note=False):
     ["BR"    , "bank"               , None, lambda: dobank("R")  ],
     ["WL"    , "bank"               , None, lambda: dobank(None) ],
 
-    ["L90+"  , "maneuver"           , None, lambda: domaneuver("L",   90, True , True ) ],
-    ["L60+"  , "maneuver"           , None, lambda: domaneuver("L",   60, True , True ) ],
-    ["L30+"  , "maneuver"           , None, lambda: domaneuver("L",   30, True , True ) ],
-    ["LLL+"  , "maneuver"           , None, lambda: domaneuver("L",   90, True , True ) ],
-    ["LL+"   , "maneuver"           , None, lambda: domaneuver("L",   60, True , True ) ],
-    ["L+"    , "maneuver"           , None, lambda: domaneuver("L", None, True , True ) ],
+    ["L90+"  , "epilog"             , None, lambda: domaneuver("L",   90, True , True ) ],
+    ["L60+"  , "epilog"             , None, lambda: domaneuver("L",   60, True , True ) ],
+    ["L30+"  , "epilog"             , None, lambda: domaneuver("L",   30, True , True ) ],
+    ["LLL+"  , "epilog"             , None, lambda: domaneuver("L",   90, True , True ) ],
+    ["LL+"   , "epilog"             , None, lambda: domaneuver("L",   60, True , True ) ],
+    ["L+"    , "epilog"             , None, lambda: domaneuver("L", None, True , True ) ],
     
-    ["R90+"  , "maneuver"           , None, lambda: domaneuver("R",   90, True , True ) ],
-    ["R60+"  , "maneuver"           , None, lambda: domaneuver("R",   60, True , True ) ],
-    ["R30+"  , "maneuver"           , None, lambda: domaneuver("R",   30, True , True ) ],
-    ["RRR+"  , "maneuver"           , None, lambda: domaneuver("R",   90, True , True ) ],
-    ["RR+"   , "maneuver"           , None, lambda: domaneuver("R",   60, True , True ) ],
-    ["R+"    , "maneuver"           , None, lambda: domaneuver("R", None, True , True ) ],    
+    ["R90+"  , "epilog"             , None, lambda: domaneuver("R",   90, True , True ) ],
+    ["R60+"  , "epilog"             , None, lambda: domaneuver("R",   60, True , True ) ],
+    ["R30+"  , "epilog"             , None, lambda: domaneuver("R",   30, True , True ) ],
+    ["RRR+"  , "epilog"             , None, lambda: domaneuver("R",   90, True , True ) ],
+    ["RR+"   , "epilog"             , None, lambda: domaneuver("R",   60, True , True ) ],
+    ["R+"    , "epilog"             , None, lambda: domaneuver("R", None, True , True ) ],    
 
-    ["LS180" , "maneuver"           , None, lambda: domaneuver("L",  180, True , False) ],
-    ["L180"  , "maneuver"           , None, lambda: domaneuver("L",  180, False, False) ],
-    ["L150"  , "maneuver"           , None, lambda: domaneuver("L",  150, True , False) ],
-    ["L120"  , "maneuver"           , None, lambda: domaneuver("L",  120, True , False) ],
-    ["L90"   , "maneuver"           , None, lambda: domaneuver("L",   90, True , False) ],
-    ["L60"   , "maneuver"           , None, lambda: domaneuver("L",   60, True , False) ],
-    ["L30"   , "maneuver"           , None, lambda: domaneuver("L",   30, True , False) ],
-    ["LLL"   , "maneuver"           , None, lambda: domaneuver("L",   90, True , False) ],
-    ["LL"    , "maneuver"           , None, lambda: domaneuver("L",   60, True , False) ],
-    ["L"     , "maneuver"           , None, lambda: domaneuver("L", None, True , False) ],
+    ["LS180" , "epilog"             , None, lambda: domaneuver("L",  180, True , False) ],
+    ["L180"  , "epilog"             , None, lambda: domaneuver("L",  180, False, False) ],
+    ["L150"  , "epilog"             , None, lambda: domaneuver("L",  150, True , False) ],
+    ["L120"  , "epilog"             , None, lambda: domaneuver("L",  120, True , False) ],
+    ["L90"   , "epilog"             , None, lambda: domaneuver("L",   90, True , False) ],
+    ["L60"   , "epilog"             , None, lambda: domaneuver("L",   60, True , False) ],
+    ["L30"   , "epilog"             , None, lambda: domaneuver("L",   30, True , False) ],
+    ["LLL"   , "epilog"             , None, lambda: domaneuver("L",   90, True , False) ],
+    ["LL"    , "epilog"             , None, lambda: domaneuver("L",   60, True , False) ],
+    ["L"     , "epilog"             , None, lambda: domaneuver("L", None, True , False) ],
 
-    ["RS180" , "maneuver"           , None, lambda: domaneuver("R",  180, True , False) ],
-    ["R180"  , "maneuver"           , None, lambda: domaneuver("R",  180, False, False) ],
-    ["R150"  , "maneuver"           , None, lambda: domaneuver("R",  150, True , False) ],
-    ["R120"  , "maneuver"           , None, lambda: domaneuver("R",  120, True , False) ],
-    ["R90"   , "maneuver"           , None, lambda: domaneuver("R",   90, True , False) ],
-    ["R60"   , "maneuver"           , None, lambda: domaneuver("R",   60, True , False) ],
-    ["R30"   , "maneuver"           , None, lambda: domaneuver("R",   30, True , False) ],
-    ["RRR"   , "maneuver"           , None, lambda: domaneuver("R",   90, True , False) ],
-    ["RR"    , "maneuver"           , None, lambda: domaneuver("R",   60, True , False) ],
-    ["R"     , "maneuver"           , None, lambda: domaneuver("R", None, True , False) ],
+    ["RS180" , "epilog"             , None, lambda: domaneuver("R",  180, True , False) ],
+    ["R180"  , "epilog"             , None, lambda: domaneuver("R",  180, False, False) ],
+    ["R150"  , "epilog"             , None, lambda: domaneuver("R",  150, True , False) ],
+    ["R120"  , "epilog"             , None, lambda: domaneuver("R",  120, True , False) ],
+    ["R90"   , "epilog"             , None, lambda: domaneuver("R",   90, True , False) ],
+    ["R60"   , "epilog"             , None, lambda: domaneuver("R",   60, True , False) ],
+    ["R30"   , "epilog"             , None, lambda: domaneuver("R",   30, True , False) ],
+    ["RRR"   , "epilog"             , None, lambda: domaneuver("R",   90, True , False) ],
+    ["RR"    , "epilog"             , None, lambda: domaneuver("R",   60, True , False) ],
+    ["R"     , "epilog"             , None, lambda: domaneuver("R", None, True , False) ],
     
     ["AA"    , "epilog"             , argsregex(3), lambda m: doataattack(m) ],
 
@@ -1282,7 +1283,6 @@ def continueflight(A, actions, note=False):
     initialaltitude     = A._altitude
     initialaltitudeband = A._altitudeband
 
-    A._hasdeclaredamaneuver = False
   
     try:
       
@@ -1298,9 +1298,11 @@ def continueflight(A, actions, note=False):
     
         return
 
-      A._unloaded   = False
-      A._horizontal = False
-      A._vertical   = False
+      A._unloaded             = False
+      A._horizontal           = False
+      A._vertical             = False
+      A._hasdeclaredamaneuver = False
+      A._maneuver             = False
 
       doelements(action, "prolog", True)
         
@@ -1337,11 +1339,76 @@ def continueflight(A, actions, note=False):
           A._maneuverfp += 1
         elif A._horizontal:
           A._maneuverfp += 1
-    
-      maneuver = doelements(action, "maneuver", False)
+          
+      if turning and A._maneuversupersonic:
+        A._turningsupersonic = True
       
+        # See rules 9.1 and 13.3.6. We do this calculation here because any turn rate used in 
+        # this turn is still reflected in A._maneuvertype; the turn may be stopped after the
+        # facing change. The +1 is because the recovery period is this turn plus half of the
+        # speed, rounding down.
+
+      if maneuvertype == "ET":
+        A._ETrecoveryfp   = int(A._speed / 2) + 1
+        A._BTrecoveryfp   = -1
+        A._rollrecoveryfp = -1
+        A._HTrecoveryfp   = -1
+        A._TTrecoveryfp   = -1
+      elif maneuvertype == "BT":
+        A._ETrecoveryfp   -= 1
+        A._BTrecoveryfp   = int(A._speed / 2) + 1
+        A._rollrecoveryfp = -1
+        A._HTrecoveryfp   = -1
+        A._TTrecoveryfp   = -1
+      elif maneuvertype in ["VR", "LR", "DR"] or (A._hrd and A._fp == 1):
+        A._ETrecoveryfp   -= 1
+        A._BTrecoveryfp   = -1
+        A._rollrecoveryfp = int(A._speed / 2) + 1
+        A._HTrecoveryfp   = -1
+        A._TTrecoveryfp   = -1
+      elif maneuvertype == "HT":
+        A._ETrecoveryfp   -= 1
+        A._BTrecoveryfp   -= 1
+        A._rollrecoveryfp -= 1
+        A._HTrecoveryfp   = int(A._speed / 2) + 1
+        A._TTrecoveryfp   = -1
+      elif maneuvertype == "TT":
+        A._ETrecoveryfp   -= 1
+        A._BTrecoveryfp   -= 1
+        A._rollrecoveryfp -= 1
+        A._HTrecoveryfp   -= 1
+        A._TTrecoveryfp   = int(A._speed / 2) + 1
+      else:
+        A._ETrecoveryfp   -= 1
+        A._BTrecoveryfp   -= 1
+        A._rollrecoveryfp -= 1
+        A._HTrecoveryfp   -= 1
+        A._TTrecoveryfp   -= 1
+
+      if A._ETrecoveryfp == 0:
+        A._logevent("recovered from ET.")
+      if A._BTrecoveryfp == 0:
+        A._logevent("recovered from BT.")
+      if A._rollrecoveryfp == 0:
+        A._logevent("recovered from roll.")
+      if A._HTrecoveryfp == 0:
+        A._logevent("recovered from HT.")
+      if A._TTrecoveryfp == 0:
+        A._logevent("recovered from TT.")
+            
+      # See rule 9.4.
+      if A._tracking:
+        if A._unloaded or A._hrd or A._wasrollingonlastfp or A._ETrecoveryfp > 0:
+          A._logevent("stopped SSGT.")
+          A._tracking   = False
+          A._trackingfp = 0
+        else:
+          A._trackingfp += 1
+              
+      doelements(action, "epilog", True)
+
       bank = doelements(action, "bank" , False)
-      if bank and maneuver and not rolling:
+      if bank and A._maneuver and not rolling:
         raise RuntimeError("attempt to bank immediately after a maneuver that is not a roll.")
 
       assert aphex.isvalid(A._x, A._y, facing=A._facing)
@@ -1358,80 +1425,16 @@ def continueflight(A, actions, note=False):
         A._logpositionandmaneuver("")
       A._continueflightpath()
         
-    if turning and A._maneuversupersonic:
-      A._turningsupersonic = True
-    
-      # See rules 9.1 and 13.3.6. We do this calculation here because any turn rate used in 
-      # this turn is still reflected in A._maneuvertype; the turn may be stopped after the
-      # facing change. The +1 is because the recovery period is this turn plus half of the
-      # speed, rounding down.
 
-    if maneuvertype == "ET":
-      A._ETrecoveryfp   = int(A._speed / 2) + 1
-      A._BTrecoveryfp   = -1
-      A._rollrecoveryfp = -1
-      A._HTrecoveryfp   = -1
-      A._TTrecoveryfp   = -1
-    elif maneuvertype == "BT":
-      A._ETrecoveryfp   -= 1
-      A._BTrecoveryfp   = int(A._speed / 2) + 1
-      A._rollrecoveryfp = -1
-      A._HTrecoveryfp   = -1
-      A._TTrecoveryfp   = -1
-    elif maneuvertype in ["VR", "LR", "DR"] or (A._hrd and A._fp == 1):
-      A._ETrecoveryfp   -= 1
-      A._BTrecoveryfp   = -1
-      A._rollrecoveryfp = int(A._speed / 2) + 1
-      A._HTrecoveryfp   = -1
-      A._TTrecoveryfp   = -1
-    elif maneuvertype == "HT":
-      A._ETrecoveryfp   -= 1
-      A._BTrecoveryfp   -= 1
-      A._rollrecoveryfp -= 1
-      A._HTrecoveryfp   = int(A._speed / 2) + 1
-      A._TTrecoveryfp   = -1
-    elif maneuvertype == "TT":
-      A._ETrecoveryfp   -= 1
-      A._BTrecoveryfp   -= 1
-      A._rollrecoveryfp -= 1
-      A._HTrecoveryfp   -= 1
-      A._TTrecoveryfp   = int(A._speed / 2) + 1
-    else:
-      A._ETrecoveryfp   -= 1
-      A._BTrecoveryfp   -= 1
-      A._rollrecoveryfp -= 1
-      A._HTrecoveryfp   -= 1
-      A._TTrecoveryfp   -= 1
-
-    if A._ETrecoveryfp == 0:
-      A._logevent("recovered from ET.")
-    if A._BTrecoveryfp == 0:
-      A._logevent("recovered from BT.")
-    if A._rollrecoveryfp == 0:
-      A._logevent("recovered from roll.")
-    if A._HTrecoveryfp == 0:
-      A._logevent("recovered from HT.")
-    if A._TTrecoveryfp == 0:
-      A._logevent("recovered from TT.")
-          
-    # See rule 9.4.
-    if A._tracking:
-      if A._unloaded or A._hrd or A._wasrollingonlastfp or A._ETrecoveryfp > 0:
-        A._logevent("stopped SSGT.")
-        A._tracking   = False
-        A._trackingfp = 0
-      else:
-        A._trackingfp += 1
-              
     # See rules 7.7 and 8.5.
-    if maneuver and rolling:
+    if A._maneuver and rolling:
       if initialaltitude > apcapabilities.ceiling(A):
         A._logevent("check for a maneuvering departure as the aircraft is above its ceiling and attempted to roll.")
       elif initialaltitudeband == "EH" or initialaltitudeband == "UH":
         A._logevent("check for a maneuvering departure as the aircraft is in the %s altitude band and attempted to roll." % initialaltitudeband)
     
     # See rules 7.7 and 8.5.
-    if maneuver and turning:
+    if A._maneuver and turning:
       if initialaltitude > apcapabilities.ceiling(A) and maneuvertype != "EZ":
         A._logevent("check for a maneuvering departure as the aircraft is above its ceiling and attempted to turn harder than EZ.")
       if maneuvertype == "ET" and initialaltitude <= 25:
@@ -1456,8 +1459,6 @@ def continueflight(A, actions, note=False):
     A.checkforleavingmap()
     if A._destroyed or A._leftmap:
       return
-
-    doelements(action, "epilog", True)
 
     A._wasrollingonlastfp = rolling
 
