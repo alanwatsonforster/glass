@@ -455,7 +455,7 @@ def continueflight(A, actions, note=False):
     A._maneuversupersonic   = (A._speed >= apspeed.m1speed(A._altitudeband))
     turnrequirement = apturnrate.turnrequirement(A._altitudeband, A._speed, A._maneuvertype)
     if turnrequirement == None:
-      raise RuntimeError("attempt to declare a turn rate tigher than allowed by the speed and altitude.")
+      raise RuntimeError("attempt to declare a turn rate tighter than allowed by the speed and altitude.")
     if turnrequirement >= 60:
       A._maneuverrequiredfp   = 1
       A._maneuverfacingchange = turnrequirement
