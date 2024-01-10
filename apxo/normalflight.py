@@ -397,6 +397,9 @@ def continueflight(A, actions, note=False):
 
   def dobank(sense):
 
+    if A._hasbanked:
+      raise RuntimeError("attempt to bank twice.")
+
     # See rule 7.4.
     if apcapabilities.hasproperty(A, "LRR"):
       if (A._bank == "L" and sense == "R") or (A._bank == "R" and sense == "L"):
@@ -409,16 +412,15 @@ def continueflight(A, actions, note=False):
       A._maneuverfacingchange = None
       A._maneuverfp           = 0
 
+    A._hasbanked = True
+
   ########################################
 
-  def dodeclareturn(sense, turnrate):
+  def dodeclareturn(turnrate, sense):
 
     """
     Declare the start of turn in the specified direction and rate.
     """
-
-    if A._hasdeclaredamaneuver:
-      raise RuntimeError("attempt to declare a second maneuver.")
 
     # See rule 8.1.3 and 8.2.3
     if flighttype == "VC" or flighttype == "VD":
@@ -465,9 +467,6 @@ def continueflight(A, actions, note=False):
     else:
       A._maneuverrequiredfp   = turnrequirement
       A._maneuverfacingchange = 30
-
-    A._logevent("declared %s." % A.maneuver())
-    A._hasdeclaredamaneuver = True
 
   ########################################
 
@@ -523,9 +522,6 @@ def continueflight(A, actions, note=False):
 
   def dodeclareslide(sense):
 
-    if A._hasdeclaredamaneuver:
-      raise RuntimeError("attempt to declare a second maneuver.")
-
     # See rule 8.1.3 and 8.2.3
     if flighttype == "VC" or flighttype == "VD":
       raise RuntimeError("attempt to declare slide while flight type is %s." % flighttype)
@@ -549,9 +545,6 @@ def continueflight(A, actions, note=False):
     A._maneuverrequiredfp   = 2 + extrapreparatoryhfp() + 1
     
     A._conventionalactions += "P"
-
-    A._logevent("declared %s." % A.maneuver())
-    A._hasdeclaredamaneuver = True
 
   ########################################
 
@@ -605,9 +598,6 @@ def continueflight(A, actions, note=False):
 
   def dodeclaredisplacementroll(sense):
 
-    if A._hasdeclaredamaneuver:
-      raise RuntimeError("attempt to declare a second maneuver.")
-
     # See rules 13.1 and 13.3.1.
 
     if apcapabilities.hasproperty(A, "NRM"):
@@ -632,9 +622,6 @@ def continueflight(A, actions, note=False):
       A._maneuverrequiredfp   = apcapabilities.rollhfp(A) + extrapreparatoryhfp() + 1
 
     A._conventionalactions += "P"
-
-    A._logevent("declared %s." % A.maneuver())
-    A._hasdeclaredamaneuver = True
 
   ########################################
 
@@ -676,9 +663,6 @@ def continueflight(A, actions, note=False):
 
   def dodeclarelagroll(sense):
 
-    if A._hasdeclaredamaneuver:
-      raise RuntimeError("attempt to declare a second maneuver.")
-
     # See rule 13.3.2.
 
     if apcapabilities.hasproperty(A, "NRM"):
@@ -703,9 +687,6 @@ def continueflight(A, actions, note=False):
       A._maneuverrequiredfp   = apcapabilities.rollhfp(A) + extrapreparatoryhfp() + 1
 
     A._conventionalactions += "P"
-
-    A._logevent("declared %s." % A.maneuver())
-    A._hasdeclaredamaneuver = True
 
   ########################################
 
@@ -752,9 +733,6 @@ def continueflight(A, actions, note=False):
 
   def dodeclareverticalroll(sense):
 
-    if A._hasdeclaredamaneuver:
-      raise RuntimeError("attempt to declare a second maneuver.")
-
     if apcapabilities.hasproperty(A, "NRM"):
       raise RuntimeError("aircraft cannot perform rolling maneuvers.")
     if A._verticalrolls == 1 and apcapabilities.hasproperty(A, "OVR"):
@@ -777,9 +755,6 @@ def continueflight(A, actions, note=False):
     A._maneuverfp           = 0
     A._maneuversupersonic   = (A._speed >= apspeed.m1speed(A._altitudeband))
     A._maneuverrequiredfp   = 1
-
-    A._logevent("declared %s." % A.maneuver())
-    A._hasdeclaredamaneuver = True
   
   ########################################
 
@@ -822,6 +797,27 @@ def continueflight(A, actions, note=False):
       
   ########################################
 
+  def dodeclaremaneuver(maneuvertype, sense):
+
+    if A._hasdeclaredamaneuver:
+      raise RuntimeError("attempt to declare a second maneuver.")
+      
+    if maneuvertype == "SL":
+      dodeclareslide(sense)
+    elif maneuvertype == "DR":
+      dodeclaredisplacementroll(sense)
+    elif maneuvertype == "LR":
+      dodeclarelagroll(sense)
+    elif maneuvertype == "VR":
+      dodeclareverticalroll(sense)
+    else:
+      dodeclareturn(maneuvertype, sense)
+      
+    A._logevent("declared %s." % A.maneuver())
+    A._hasdeclaredamaneuver = True
+
+  ########################################
+
   def domaneuver(sense, facingchange, shift, continuous):
 
     if A._maneuvertype == None:
@@ -862,16 +858,7 @@ def continueflight(A, actions, note=False):
       A._maneuversupersonic   = False
     else:
       A._hasdeclaredamaneuver = False
-      if A._maneuvertype == "SL":
-        dodeclareslide(A._maneuversense)
-      elif A._maneuvertype == "DR":
-        dodeclaredisplacementroll(A._maneuversense)
-      elif A._maneuvertype == "LR":
-        dodeclarelagroll(A._maneuversense)
-      elif A._maneuvertype == "VR":
-        dodeclareverticalroll(A._maneuversense)
-      else:
-        dodeclareturn(A._maneuversense, A._maneuvertype)
+      dodeclaremaneuver(A._maneuvertype, A._maneuversense)
 
   ########################################
 
@@ -1076,29 +1063,29 @@ def continueflight(A, actions, note=False):
     # [2] is a possible regex to apply
     # [3] is the element procedure.
   
-    ["SLL"  , "prolog"              , None, lambda: dodeclareslide("L") ],
-    ["SLR"  , "prolog"              , None, lambda: dodeclareslide("R") ],
+    ["SLL"   , "prolog"             , None, lambda: dodeclaremaneuver("SL", "L") ],
+    ["SLR"   , "prolog"             , None, lambda: dodeclaremaneuver("SL", "R") ],
 
-    ["DRL"  , "prolog"              , None, lambda: dodeclaredisplacementroll("L") ],
-    ["DRR"  , "prolog"              , None, lambda: dodeclaredisplacementroll("R") ],
+    ["DRL"   , "prolog"             , None, lambda: dodeclaremaneuver("DR", "L") ],
+    ["DRR"   , "prolog"             , None, lambda: dodeclaremaneuver("DR", "R") ],
 
-    ["LRL"  , "prolog"              , None, lambda: dodeclarelagroll("L") ],
-    ["LRR"  , "prolog"              , None, lambda: dodeclarelagroll("R") ],
+    ["LRL"   , "prolog"             , None, lambda: dodeclaremaneuver("LR", "L") ],
+    ["LRR"   , "prolog"             , None, lambda: dodeclaremaneuver("LR", "R") ],
         
-    ["VRL"  , "prolog"              , None, lambda: dodeclareverticalroll("L") ],
-    ["VRR"  , "prolog"              , None, lambda: dodeclareverticalroll("R") ],
+    ["VRL"   , "prolog"             , None, lambda: dodeclaremaneuver("VR", "L") ],
+    ["VRR"   , "prolog"             , None, lambda: dodeclaremaneuver("VR", "R") ],
     
-    ["EZL"  , "prolog"              , None, lambda: dodeclareturn("L", "EZ") ],
-    ["TTL"  , "prolog"              , None, lambda: dodeclareturn("L", "TT") ],
-    ["HTL"  , "prolog"              , None, lambda: dodeclareturn("L", "HT") ],
-    ["BTL"  , "prolog"              , None, lambda: dodeclareturn("L", "BT") ],
-    ["ETL"  , "prolog"              , None, lambda: dodeclareturn("L", "ET") ],
+    ["EZL"   , "prolog"             , None, lambda: dodeclaremaneuver("EZ", "L") ],
+    ["TTL"   , "prolog"             , None, lambda: dodeclaremaneuver("TT", "L") ],
+    ["HTL"   , "prolog"             , None, lambda: dodeclaremaneuver("HT", "L") ],
+    ["BTL"   , "prolog"             , None, lambda: dodeclaremaneuver("BT", "L") ],
+    ["ETL"   , "prolog"             , None, lambda: dodeclaremaneuver("ET", "L") ],
     
-    ["EZR"  , "prolog"              , None, lambda: dodeclareturn("R", "EZ") ],
-    ["TTR"  , "prolog"              , None, lambda: dodeclareturn("R", "TT") ],
-    ["HTR"  , "prolog"              , None, lambda: dodeclareturn("R", "HT") ],
-    ["BTR"  , "prolog"              , None, lambda: dodeclareturn("R", "BT") ],
-    ["ETR"  , "prolog"              , None, lambda: dodeclareturn("R", "ET") ],
+    ["EZR"   , "prolog"             , None, lambda: dodeclaremaneuver("EZ", "R") ],
+    ["TTR"   , "prolog"             , None, lambda: dodeclaremaneuver("TT", "R") ],
+    ["HTR"   , "prolog"             , None, lambda: dodeclaremaneuver("HT", "R") ],
+    ["BTR"   , "prolog"             , None, lambda: dodeclaremaneuver("BT", "R") ],
+    ["ETR"   , "prolog"             , None, lambda: dodeclaremaneuver("ET", "R") ],
     
     ["SSGT"  , "prolog"             , None, lambda: dossgt() ],
 
@@ -1115,9 +1102,9 @@ def continueflight(A, actions, note=False):
     ["SS"    , "prolog"             , None, lambda: dospeedbrakes(2)   ],
     ["S"     , "prolog"             , None, lambda: dospeedbrakes(1)   ],
     
-    ["BL"    , "bank"               , None, lambda: dobank("L")  ],
-    ["BR"    , "bank"               , None, lambda: dobank("R")  ],
-    ["WL"    , "bank"               , None, lambda: dobank(None) ],
+    ["BL"    , "epilog"             , None, lambda: dobank("L")  ],
+    ["BR"    , "epilog"             , None, lambda: dobank("R")  ],
+    ["WL"    , "epilog"             , None, lambda: dobank(None) ],
 
     ["L90+"  , "epilog"             , None, lambda: domaneuver("L",   90, True , True ) ],
     ["L60+"  , "epilog"             , None, lambda: domaneuver("L",   60, True , True ) ],
@@ -1303,6 +1290,7 @@ def continueflight(A, actions, note=False):
       A._vertical             = False
       A._hasdeclaredamaneuver = False
       A._maneuver             = False
+      A._hasbanked            = False
 
       doelements(action, "prolog", True)
         
@@ -1407,8 +1395,8 @@ def continueflight(A, actions, note=False):
               
       doelements(action, "epilog", True)
 
-      bank = doelements(action, "bank" , False)
-      if bank and A._maneuver and not rolling:
+      doelements(action, "bank" , False)
+      if A._hasbanked and A._maneuver and not rolling:
         raise RuntimeError("attempt to bank immediately after a maneuver that is not a roll.")
 
       assert aphex.isvalid(A._x, A._y, facing=A._facing)
