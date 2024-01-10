@@ -240,29 +240,39 @@ def continueflight(A, actions, note=False):
       
     altitudechange = 0
 
+    A._horizontal = True
+    A._fp += 1
+    A._hfp += 1
+
     if element == "HD":
+
       if flighttype == "LVL":
         altitudechange = -1
       else:
         raise RuntimeError("%r is not a valid element when the flight type is %s." % (element, A._flighttype))
+
     elif element == "HU":
-      if flighttype == "UD":
-        A._unloaded = True
-        A._unloadedhfp += 1
-        if apvariants.withvariant("use version 2.4 rules"):
-          if math.floor(A._maxfp) == 1:
-            # Both half FPs and all FPs.
-            altitudechange = -2
-          elif A._unloadedhfp == math.floor(A._maxfp / 2):
-            altitudechange = -1
-          elif A._unloadedhfp == math.floor(A._maxfp):
-            altitudechange = -1
-        else:
-          altitudechange = -1
-      else:
+
+      if flighttype != "UD":
         raise RuntimeError("%r is not a valid element when the flight type is %s." % (element, A._flighttype))
 
-    A._horizontal = True
+      A._unloaded = True
+      A._unloadedhfp += 1
+      if A._firstunloadedfp == None:
+        A._firstunloadedfp = A._hfp
+      A._lastunloadedfp = A._hfp
+
+      if apvariants.withvariant("use version 2.4 rules"):
+        if math.floor(A._maxfp) == 1:
+          # Both half FPs and all FPs.
+          altitudechange = -2
+        elif A._unloadedhfp == math.floor(A._maxfp / 2):
+          altitudechange = -1
+        elif A._unloadedhfp == math.floor(A._maxfp):
+          altitudechange = -1
+      else:
+        altitudechange = -1
+
     A._altitude, A._altitudecarry = apaltitude.adjustaltitude(A._altitude, A._altitudecarry, altitudechange)
     A._altitudeband = apaltitude.altitudeband(A._altitude)
     A._x, A._y = aphex.forward(A._x, A._y, A._facing)
@@ -317,15 +327,21 @@ def continueflight(A, actions, note=False):
 
       return altitudechange
 
+    if A._hfp < A._mininitialhfp:
+      raise RuntimeError("insufficient initial HFPs.")
+      
     # See rule 4.3 and 8.1.2.
     if A._effectiveclimbcapability == None:
       A._effectiveclimbcapability = apcapabilities.climbcapability(A)
       if flighttype == "SC" and A._speed < apcapabilities.climbspeed(A):
         A._effectiveclimbcapability /= 2
-
+      
     altitudechange = determinealtitudechange(altitudechange)
     
     A._vertical = True
+    A._fp += 1  
+    A._vfp += 1
+
     A._altitude, A._altitudecarry = apaltitude.adjustaltitude(A._altitude, A._altitudecarry, +altitudechange)
     A._altitudeband = apaltitude.altitudeband(A._altitude)
 
@@ -384,7 +400,13 @@ def continueflight(A, actions, note=False):
     
     checkaltitudechange()
 
+    if A._hfp < A._mininitialhfp:
+      raise RuntimeError("insufficient initial HFPs.")
+      
     A._vertical = True
+    A._fp += 1  
+    A._vfp += 1
+  
     A._altitude, A._altitudecarry = apaltitude.adjustaltitude(A._altitude, A._altitudecarry, -altitudechange)
     A._altitudeband = apaltitude.altitudeband(A._altitude)
 
@@ -1270,7 +1292,6 @@ def continueflight(A, actions, note=False):
     initialaltitude     = A._altitude
     initialaltitudeband = A._altitudeband
 
-  
     try:
       
       if doelements(action, "maneuvering departure", False):
@@ -1296,18 +1317,6 @@ def continueflight(A, actions, note=False):
         
       if not doelements(action, "FP", False):
         raise RuntimeError("%r is not a valid action as it does not expend an FP." % action)
-
-      A._fp += 1  
-      if A._horizontal:
-        A._hfp += 1
-        if A._unloaded:
-          if A._firstunloadedfp == None:
-            A._firstunloadedfp = A._hfp
-          A._lastunloadedfp = A._hfp
-      else:
-        A._vfp += 1
-        if A._hfp < A._mininitialhfp:
-          raise RuntimeError("insufficient initial HFPs.")
 
       # We save maneuvertype, as A._maneuvertype may be set to None of the
       # maneuver is completed below.
