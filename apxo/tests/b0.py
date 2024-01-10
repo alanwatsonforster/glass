@@ -3,7 +3,6 @@ startfile(__file__, "forward movement")
 
 # Check basic movement.
 
-
 # H movements.
 
 starttestsetup()
@@ -119,5 +118,6 @@ A1._assert("A1-1111       N    14",  2.5)
 A2.move("VD",  "N", "H,D2,D2,D2")
 A2._assert("A1-1311       N     3",  5.5)
 endturn()
+
 
 endfile(__file__)

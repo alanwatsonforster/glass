@@ -1219,11 +1219,16 @@ def continueflight(A, actions, note=False):
         elementregex     = element[2]
         elementprocedure = element[3]
 
-        if selectedelementtype != elementtype:
-          continue
-          
         if elementcode == action[:len(elementcode)]:
           break
+          
+      if selectedelementtype == "prolog" and elementtype == "epilog":
+        raise RuntimeError("unexpected %s element in action prolog." % elementcode)
+      if selectedelementtype == "epilog" and elementtype == "prolog":
+        raise RuntimeError("unexpected %s element in action epilog." % elementcode)
+
+      if selectedelementtype != elementtype:
+        break
 
       if elementprocedure is None:
         break
