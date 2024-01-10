@@ -174,6 +174,7 @@ class aircraft:
       self._fpcarry                    = 0
       self._apcarry                    = 0
       self._gloccheck                  = 0
+      self._unloadedrecoveryfp         = -1
       self._ETrecoveryfp               = -1
       self._BTrecoveryfp               = -1
       self._HTrecoveryfp               = -1
@@ -734,6 +735,7 @@ class aircraft:
     self._fpcarry, \
     self._apcarry, \
     self._gloccheck, \
+    self._unloadedrecoveryfp, \
     self._ETrecoveryfp, \
     self._BTrecoveryfp, \
     self._HTrecoveryfp, \
@@ -799,6 +801,7 @@ class aircraft:
       self._fpcarry, \
       self._apcarry, \
       self._gloccheck, \
+      self._unloadedrecoveryfp, \
       self._ETrecoveryfp, \
       self._BTrecoveryfp, \
       self._HTrecoveryfp, \

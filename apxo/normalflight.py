@@ -970,21 +970,8 @@ def continueflight(A, actions, note=False):
     Declare an air-to-air attack.
     """
 
-    # See rule 8.2.2.
-    if A._hasunloaded:
-      raise RuntimeError("attempt to use weapons while unloaded.")
-
-    # See rule 13.3.5.
-    if A._hrd:
-      raise RuntimeError("attempt to use weapons during the turn after an HRD.")
-
-    # See rule 13.3.6.
-    if A._wasrollingonlastfp:
-      raise RuntimeError("attempt to use weapons on the FP immediately after rolling.")
-
-    # See rule 10.1.
-    if A._ETrecoveryfp > 0:
-      raise RuntimeError("attempt to use weapons in or while recovering from an ET.")
+    if useofweaponsforbidden():
+      raise RuntimeError("attempt to use weapons %s." % useofweaponsforbidden())
 
     attacktype   = m[1]
     targetname   = m[2]
@@ -1013,21 +1000,8 @@ def continueflight(A, actions, note=False):
     # ET. However, we assume that SSGT has the same restrictions as
     # attacks.
 
-    # See rule 8.2.2.
-    if A._hasunloaded:
-      raise RuntimeError("attempt to start SSGT while unloaded.")
-
-    # See rule 13.3.5.
-    if A._hrd:
-      raise RuntimeError("attempt to start SSGT during the turn after an HRD.")
-
-    # See rule 13.3.6.
-    if A._wasrollingonlastfp:
-      raise RuntimeError("attempt to start SSGT on the FP immediately after rolling.")
-
-    # See rule 10.1.
-    if A._ETrecoveryfp > 0:
-      raise RuntimeError("attempt to start SSGT in or while recovering from an ET.")
+    if useofweaponsforbidden():
+      raise RuntimeError("attempt to start SSGT while %s" % useofweaponsforbidden())
 
     # TODO: Check we can start SSGT on a specific target.
 
@@ -1277,42 +1251,56 @@ def continueflight(A, actions, note=False):
     # See rules 9.1 and 13.3.6. The +1 is because the recovery period is
     # this turn plus half of the speed, rounding down.
 
-    if A._maneuvertype == "ET":
-      A._ETrecoveryfp   = int(A._speed / 2) + 1
-      A._BTrecoveryfp   = -1
-      A._rollrecoveryfp = -1
-      A._HTrecoveryfp   = -1
-      A._TTrecoveryfp   = -1
+    if A._hasunloaded:
+      A._unloadedrecoveryfp = int(A._speed / 2) + 1
+      A._ETrecoveryfp       -= 1
+      A._BTrecoveryfp       = -1
+      A._rollrecoveryfp     = -1
+      A._HTrecoveryfp       = -1
+      A._TTrecoveryfp       = -1
+    elif A._maneuvertype == "ET":
+      A._unloadedrecoveryfp = -1
+      A._ETrecoveryfp       = int(A._speed / 2) + 1
+      A._BTrecoveryfp       = -1
+      A._rollrecoveryfp     = -1
+      A._HTrecoveryfp       = -1
+      A._TTrecoveryfp       = -1
     elif A._maneuvertype == "BT":
-      A._ETrecoveryfp   -= 1
-      A._BTrecoveryfp   = int(A._speed / 2) + 1
-      A._rollrecoveryfp = -1
-      A._HTrecoveryfp   = -1
-      A._TTrecoveryfp   = -1
+      A._unloadedrecoveryfp -= 1
+      A._ETrecoveryfp       -= 1
+      A._BTrecoveryfp       = int(A._speed / 2) + 1
+      A._rollrecoveryfp     = -1
+      A._HTrecoveryfp       = -1
+      A._TTrecoveryfp       = -1
     elif A._maneuvertype in ["VR", "LR", "DR"] or (A._hrd and A._fp == 1):
-      A._ETrecoveryfp   -= 1
-      A._BTrecoveryfp   = -1
-      A._rollrecoveryfp = int(A._speed / 2) + 1
-      A._HTrecoveryfp   = -1
-      A._TTrecoveryfp   = -1
+      A._unloadedrecoveryfp -= 1
+      A._ETrecoveryfp       -= 1
+      A._BTrecoveryfp       = -1
+      A._rollrecoveryfp     = int(A._speed / 2) + 1
+      A._HTrecoveryfp       = -1
+      A._TTrecoveryfp       = -1
     elif A._maneuvertype == "HT":
-      A._ETrecoveryfp   -= 1
-      A._BTrecoveryfp   -= 1
-      A._rollrecoveryfp -= 1
-      A._HTrecoveryfp   = int(A._speed / 2) + 1
-      A._TTrecoveryfp   = -1
+      A._unloadedrecoveryfp -= 1
+      A._ETrecoveryfp       -= 1
+      A._BTrecoveryfp       -= 1
+      A._rollrecoveryfp     -= 1
+      A._HTrecoveryfp       = int(A._speed / 2) + 1
+      A._TTrecoveryfp       = -1
     elif A._maneuvertype == "TT":
-      A._ETrecoveryfp   -= 1
-      A._BTrecoveryfp   -= 1
-      A._rollrecoveryfp -= 1
-      A._HTrecoveryfp   -= 1
-      A._TTrecoveryfp   = int(A._speed / 2) + 1
+      A._unloadedrecoveryfp -= 1
+      A._ETrecoveryfp       -= 1
+      A._BTrecoveryfp       -= 1
+      A._rollrecoveryfp     -= 1
+      A._HTrecoveryfp       -= 1
+      A._TTrecoveryfp       = int(A._speed / 2) + 1
+      A._unloadedrecoveryfp -= 1
     else:
-      A._ETrecoveryfp   -= 1
-      A._BTrecoveryfp   -= 1
-      A._rollrecoveryfp -= 1
-      A._HTrecoveryfp   -= 1
-      A._TTrecoveryfp   -= 1
+      A._unloadedrecoveryfp -= 1
+      A._ETrecoveryfp       -= 1
+      A._BTrecoveryfp       -= 1
+      A._rollrecoveryfp     -= 1
+      A._HTrecoveryfp       -= 1
+      A._TTrecoveryfp       -= 1
 
     if A._ETrecoveryfp == 0:
       A._logevent("recovered from ET.")
@@ -1327,8 +1315,34 @@ def continueflight(A, actions, note=False):
 
   ################################################################################
 
-  def canuseweapons():
-    return not A._hasunloaded and not A._hrd and not A._wasrollingonlastfp and not A._ETrecoveryfp > 0
+  def useofweaponsforbidden():
+
+    # See rule 8.2.2.
+    if A._unloadedhfp:
+      return "while unloaded"
+    if A._unloadedrecoveryfp > 0:
+      return "while recovering from being unloaded"
+
+    # See rule 10.1.
+    if A._maneuvertype == "ET":
+      return "while in an ET"
+
+    if A._ETrecoveryfp > 0:
+      return "while recovering from an ET"
+
+    # See rule 13.3.5.
+    if A._hrd:
+      return "after HRD"
+
+    # See rule 13.3.6.
+    if A._hasrolled and A._hasmaneuvered:
+      return "immediately after rolling"
+      
+    # See rule 13.3.6.
+    if A._hasrolled:
+      return "while rolling"
+
+    return False
 
   ################################################################################
 
@@ -1336,12 +1350,12 @@ def continueflight(A, actions, note=False):
 
     # See rule 9.4.
     if A._tracking:
-      if canuseweapons():
-        A._trackingfp += 1
-      else:
+      if useofweaponsforbidden():
         A._logevent("stopped SSGT.")
         A._tracking   = False
         A._trackingfp = 0
+      else:
+        A._trackingfp += 1
 
   ########################################
 
@@ -1385,6 +1399,7 @@ def continueflight(A, actions, note=False):
       A._hasunloaded          = False
       A._hasdeclaredamaneuver = False
       A._hasmaneuvered        = False
+      A._hasrolled            = False
       A._hasbanked            = False
 
       doelements(action, "prolog", True)
@@ -1396,13 +1411,13 @@ def continueflight(A, actions, note=False):
       # maneuver is completed below.
 
       maneuvertype = A._maneuvertype
-      turning = _isturn(A._maneuvertype)
-      rolling = _isroll(A._maneuvertype)
-      sliding = _isslide(A._maneuvertype)
+      A._hasturned = _isturn(A._maneuvertype)
+      A._hasrolled = _isroll(A._maneuvertype)
+      A._hasslid   = _isslide(A._maneuvertype)
       
       # See rule 8.2.2 and 13.1.
       if not A._hasunloaded:
-        if turning:
+        if A._hasturned:
           A._maneuverfp += 1
         elif A._maneuvertype == "VR" and A._vertical:
           A._maneuverfp += 1
@@ -1411,7 +1426,7 @@ def continueflight(A, actions, note=False):
         elif A._horizontal:
           A._maneuverfp += 1
           
-      if turning and A._maneuversupersonic:
+      if A._hasturned and A._maneuversupersonic:
         A._turningsupersonic = True
 
       checkrecovery()
@@ -1420,7 +1435,7 @@ def continueflight(A, actions, note=False):
       doelements(action, "epilog", True)
 
       doelements(action, "bank" , False)
-      if A._hasbanked and A._hasmaneuvered and not rolling:
+      if A._hasbanked and A._hasmaneuvered and not A._hasrolled:
         raise RuntimeError("attempt to bank immediately after a maneuver that is not a roll.")
 
       assert aphex.isvalid(A._x, A._y, facing=A._facing)
@@ -1438,14 +1453,14 @@ def continueflight(A, actions, note=False):
       A._continueflightpath()
         
     # See rules 7.7 and 8.5.
-    if A._hasmaneuvered and rolling:
+    if A._hasmaneuvered and A._hasrolled:
       if initialaltitude > apcapabilities.ceiling(A):
         A._logevent("check for a maneuvering departure as the aircraft is above its ceiling and attempted to roll.")
       elif initialaltitudeband == "EH" or initialaltitudeband == "UH":
         A._logevent("check for a maneuvering departure as the aircraft is in the %s altitude band and attempted to roll." % initialaltitudeband)
     
     # See rules 7.7 and 8.5.
-    if A._hasmaneuvered and turning:
+    if A._hasmaneuvered and A._hasturned:
       if initialaltitude > apcapabilities.ceiling(A) and maneuvertype != "EZ":
         A._logevent("check for a maneuvering departure as the aircraft is above its ceiling and attempted to turn harder than EZ.")
       if maneuvertype == "ET" and initialaltitude <= 25:
@@ -1453,13 +1468,13 @@ def continueflight(A, actions, note=False):
         A._logevent("check for GLOC as turn rate is ET and altitude band is %s (check %d in cycle)." % (initialaltitudeband, A._gloccheck))
 
     # See rule 7.8.
-    if turning and apcloseformation.size(A) != 0:
+    if A._hasturned and apcloseformation.size(A) != 0:
       if (apcloseformation.size(A) > 2 and maneuvertype == "HT") or maneuvertype == "BT" or maneuvertype == "ET":
         A._logevent("close formation breaks down as the turn rate is %s." % maneuvertype)
         apcloseformation.breakdown(A)
 
     # See rule 13.7, interpreted in the same sense as rule 7.8.
-    if rolling and apcloseformation.size(A) != 0:
+    if A._hasrolled and apcloseformation.size(A) != 0:
       A._logevent("close formation breaks down aircraft is rolling.")
       apcloseformation.breakdown(A)
     
@@ -1470,8 +1485,6 @@ def continueflight(A, actions, note=False):
     A.checkforleavingmap()
     if A._destroyed or A._leftmap:
       return
-
-    A._wasrollingonlastfp = rolling
 
     A._conventionalactions += ","
     A._actions += (" %s," % action)
