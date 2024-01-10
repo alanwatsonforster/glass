@@ -463,6 +463,8 @@ def continueflight(A, actions, note=False):
       A._maneuverrequiredfp   = turnrequirement
       A._maneuverfacingchange = 30
 
+    A._logevent("declared %s." % A.maneuver())
+
   ########################################
 
   def doturn(sense, facingchange, continuous):
@@ -541,6 +543,8 @@ def continueflight(A, actions, note=False):
     
     A._conventionalactions += "P"
 
+    A._logevent("declared %s." % A.maneuver())
+
   ########################################
 
   def extrapreparatoryhfp():
@@ -618,6 +622,8 @@ def continueflight(A, actions, note=False):
 
     A._conventionalactions += "P"
 
+    A._logevent("declared %s." % A.maneuver())
+
   ########################################
 
   def dodisplacementroll(sense):
@@ -682,6 +688,8 @@ def continueflight(A, actions, note=False):
       A._maneuverrequiredfp   = apcapabilities.rollhfp(A) + extrapreparatoryhfp() + 1
 
     A._conventionalactions += "P"
+
+    A._logevent("declared %s." % A.maneuver())
 
   ########################################
 
@@ -750,6 +758,8 @@ def continueflight(A, actions, note=False):
     A._maneuverfp           = 0
     A._maneuversupersonic   = (A._speed >= apspeed.m1speed(A._altitudeband))
     A._maneuverrequiredfp   = 1
+
+    A._logevent("declared %s." % A.maneuver())
 
   ########################################
 
@@ -1043,29 +1053,44 @@ def continueflight(A, actions, note=False):
     # [2] is a possible regex to apply
     # [3] is the element procedure.
   
-    ["SLL"  , "maneuver declaration", None, lambda: dodeclareslide("L") ],
-    ["SLR"  , "maneuver declaration", None, lambda: dodeclareslide("R") ],
+    ["SLL"  , "prolog"              , None, lambda: dodeclareslide("L") ],
+    ["SLR"  , "prolog"              , None, lambda: dodeclareslide("R") ],
 
-    ["DRL"  , "maneuver declaration", None, lambda: dodeclaredisplacementroll("L") ],
-    ["DRR"  , "maneuver declaration", None, lambda: dodeclaredisplacementroll("R") ],
+    ["DRL"  , "prolog"              , None, lambda: dodeclaredisplacementroll("L") ],
+    ["DRR"  , "prolog"              , None, lambda: dodeclaredisplacementroll("R") ],
 
-    ["LRL"  , "maneuver declaration", None, lambda: dodeclarelagroll("L") ],
-    ["LRR"  , "maneuver declaration", None, lambda: dodeclarelagroll("R") ],
+    ["LRL"  , "prolog"              , None, lambda: dodeclarelagroll("L") ],
+    ["LRR"  , "prolog"              , None, lambda: dodeclarelagroll("R") ],
         
-    ["VRL"  , "maneuver declaration", None, lambda: dodeclareverticalroll("L") ],
-    ["VRR"  , "maneuver declaration", None, lambda: dodeclareverticalroll("R") ],
+    ["VRL"  , "prolog"              , None, lambda: dodeclareverticalroll("L") ],
+    ["VRR"  , "prolog"              , None, lambda: dodeclareverticalroll("R") ],
     
-    ["EZL"  , "maneuver declaration", None, lambda: dodeclareturn("L", "EZ") ],
-    ["TTL"  , "maneuver declaration", None, lambda: dodeclareturn("L", "TT") ],
-    ["HTL"  , "maneuver declaration", None, lambda: dodeclareturn("L", "HT") ],
-    ["BTL"  , "maneuver declaration", None, lambda: dodeclareturn("L", "BT") ],
-    ["ETL"  , "maneuver declaration", None, lambda: dodeclareturn("L", "ET") ],
+    ["EZL"  , "prolog"              , None, lambda: dodeclareturn("L", "EZ") ],
+    ["TTL"  , "prolog"              , None, lambda: dodeclareturn("L", "TT") ],
+    ["HTL"  , "prolog"              , None, lambda: dodeclareturn("L", "HT") ],
+    ["BTL"  , "prolog"              , None, lambda: dodeclareturn("L", "BT") ],
+    ["ETL"  , "prolog"              , None, lambda: dodeclareturn("L", "ET") ],
     
-    ["EZR"  , "maneuver declaration", None, lambda: dodeclareturn("R", "EZ") ],
-    ["TTR"  , "maneuver declaration", None, lambda: dodeclareturn("R", "TT") ],
-    ["HTR"  , "maneuver declaration", None, lambda: dodeclareturn("R", "HT") ],
-    ["BTR"  , "maneuver declaration", None, lambda: dodeclareturn("R", "BT") ],
-    ["ETR"  , "maneuver declaration", None, lambda: dodeclareturn("R", "ET") ],
+    ["EZR"  , "prolog"              , None, lambda: dodeclareturn("R", "EZ") ],
+    ["TTR"  , "prolog"              , None, lambda: dodeclareturn("R", "TT") ],
+    ["HTR"  , "prolog"              , None, lambda: dodeclareturn("R", "HT") ],
+    ["BTR"  , "prolog"              , None, lambda: dodeclareturn("R", "BT") ],
+    ["ETR"  , "prolog"              , None, lambda: dodeclareturn("R", "ET") ],
+    
+    ["SSGT"  , "prolog"             , None, lambda: dossgt() ],
+
+    ["S1/2"  , "prolog"             , None, lambda: dospeedbrakes(1/2) ],
+    ["S1"    , "prolog"             , None, lambda: dospeedbrakes(1)   ],
+    ["S3/2"  , "prolog"             , None, lambda: dospeedbrakes(3/2) ],
+    ["S2"    , "prolog"             , None, lambda: dospeedbrakes(2)   ],
+    ["S5/2"  , "prolog"             , None, lambda: dospeedbrakes(5/2) ],
+    ["S3"    , "prolog"             , None, lambda: dospeedbrakes(3)   ],
+    ["S7/2"  , "prolog"             , None, lambda: dospeedbrakes(7/2) ],
+    ["S4"    , "prolog"             , None, lambda: dospeedbrakes(4)   ],
+    ["SSSS"  , "prolog"             , None, lambda: dospeedbrakes(4)   ],
+    ["SSS"   , "prolog"             , None, lambda: dospeedbrakes(3)   ],
+    ["SS"    , "prolog"             , None, lambda: dospeedbrakes(2)   ],
+    ["S"     , "prolog"             , None, lambda: dospeedbrakes(1)   ],
     
     ["BL"    , "bank"               , None, lambda: dobank("L")  ],
     ["BR"    , "bank"               , None, lambda: dobank("R")  ],
@@ -1108,21 +1133,7 @@ def continueflight(A, actions, note=False):
     ["R"     , "maneuver"           , None, lambda: domaneuver("R", None, True , False) ],
     
     ["AA"    , "epilog"             , argsregex(3), lambda m: doataattack(m) ],
-    ["SSGT"  , "prolog"             , None, lambda: dossgt() ],
 
-    ["S1/2"  , "prolog"             , None, lambda: dospeedbrakes(1/2) ],
-    ["S1"    , "prolog"             , None, lambda: dospeedbrakes(1)   ],
-    ["S3/2"  , "prolog"             , None, lambda: dospeedbrakes(3/2) ],
-    ["S2"    , "prolog"             , None, lambda: dospeedbrakes(2)   ],
-    ["S5/2"  , "prolog"             , None, lambda: dospeedbrakes(5/2) ],
-    ["S3"    , "prolog"             , None, lambda: dospeedbrakes(3)   ],
-    ["S7/2"  , "prolog"             , None, lambda: dospeedbrakes(7/2) ],
-    ["S4"    , "prolog"             , None, lambda: dospeedbrakes(4)   ],
-    ["SSSS"  , "prolog"             , None, lambda: dospeedbrakes(4)   ],
-    ["SSS"   , "prolog"             , None, lambda: dospeedbrakes(3)   ],
-    ["SS"    , "prolog"             , None, lambda: dospeedbrakes(2)   ],
-    ["S"     , "prolog"             , None, lambda: dospeedbrakes(1)   ],
-     
     ["J"     , "epilog"             , argsregex(1), lambda m: dojettison(m) ],
 
     ["/"     , "prolog"             , None, lambda: None ],
@@ -1251,8 +1262,6 @@ def continueflight(A, actions, note=False):
   
     try:
       
-      declaredmaneuver    = None
-
       if doelements(action, "maneuvering departure", False):
     
         A._maneuveringdeparture = True
@@ -1270,9 +1279,6 @@ def continueflight(A, actions, note=False):
       A._vertical   = False
 
       doelements(action, "prolog", True)
-
-      if doelements(action, "maneuver declaration", False):
-        A._logevent("declared %s." % A.maneuver())
         
       if not doelements(action, "FP", False):
         raise RuntimeError("%r is not a valid action as it does not expend an FP." % action)
