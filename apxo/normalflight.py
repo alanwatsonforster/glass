@@ -417,6 +417,9 @@ def continueflight(A, actions, note=False):
     Declare the start of turn in the specified direction and rate.
     """
 
+    if A._hasdeclaredamaneuver:
+      raise RuntimeError("attempt to declare a second maneuver.")
+
     # See rule 8.1.3 and 8.2.3
     if flighttype == "VC" or flighttype == "VD":
       raise RuntimeError("attempt to declare turn while flight type is %s." % flighttype)
@@ -464,6 +467,7 @@ def continueflight(A, actions, note=False):
       A._maneuverfacingchange = 30
 
     A._logevent("declared %s." % A.maneuver())
+    A._hasdeclaredamaneuver = True
 
   ########################################
 
@@ -519,6 +523,9 @@ def continueflight(A, actions, note=False):
 
   def dodeclareslide(sense):
 
+    if A._hasdeclaredamaneuver:
+      raise RuntimeError("attempt to declare a second maneuver.")
+
     # See rule 8.1.3 and 8.2.3
     if flighttype == "VC" or flighttype == "VD":
       raise RuntimeError("attempt to declare slide while flight type is %s." % flighttype)
@@ -544,6 +551,7 @@ def continueflight(A, actions, note=False):
     A._conventionalactions += "P"
 
     A._logevent("declared %s." % A.maneuver())
+    A._hasdeclaredamaneuver = True
 
   ########################################
 
@@ -597,6 +605,9 @@ def continueflight(A, actions, note=False):
 
   def dodeclaredisplacementroll(sense):
 
+    if A._hasdeclaredamaneuver:
+      raise RuntimeError("attempt to declare a second maneuver.")
+
     # See rules 13.1 and 13.3.1.
 
     if apcapabilities.hasproperty(A, "NRM"):
@@ -623,6 +634,7 @@ def continueflight(A, actions, note=False):
     A._conventionalactions += "P"
 
     A._logevent("declared %s." % A.maneuver())
+    A._hasdeclaredamaneuver = True
 
   ########################################
 
@@ -664,6 +676,9 @@ def continueflight(A, actions, note=False):
 
   def dodeclarelagroll(sense):
 
+    if A._hasdeclaredamaneuver:
+      raise RuntimeError("attempt to declare a second maneuver.")
+
     # See rule 13.3.2.
 
     if apcapabilities.hasproperty(A, "NRM"):
@@ -690,6 +705,7 @@ def continueflight(A, actions, note=False):
     A._conventionalactions += "P"
 
     A._logevent("declared %s." % A.maneuver())
+    A._hasdeclaredamaneuver = True
 
   ########################################
 
@@ -736,6 +752,9 @@ def continueflight(A, actions, note=False):
 
   def dodeclareverticalroll(sense):
 
+    if A._hasdeclaredamaneuver:
+      raise RuntimeError("attempt to declare a second maneuver.")
+
     if apcapabilities.hasproperty(A, "NRM"):
       raise RuntimeError("aircraft cannot perform rolling maneuvers.")
     if A._verticalrolls == 1 and apcapabilities.hasproperty(A, "OVR"):
@@ -760,7 +779,8 @@ def continueflight(A, actions, note=False):
     A._maneuverrequiredfp   = 1
 
     A._logevent("declared %s." % A.maneuver())
-
+    A._hasdeclaredamaneuver = True
+  
   ########################################
 
   def doverticalroll(sense, facingchange, shift):
@@ -839,16 +859,18 @@ def continueflight(A, actions, note=False):
       A._maneuverfacingchange = None
       A._maneuverrequiredfp   = 0
       A._maneuversupersonic   = False
-    elif A._maneuvertype == "SL":
-      dodeclareslide(A._maneuversense)
-    elif A._maneuvertype == "DR":
-      dodeclaredisplacementroll(A._maneuversense)
-    elif A._maneuvertype == "LR":
-      dodeclarelagroll(A._maneuversense)
-    elif A._maneuvertype == "VR":
-      dodeclareverticalroll(A._maneuversense)
     else:
-      dodeclareturn(A._maneuversense, A._maneuvertype)
+      A._hasdeclaredamaneuver = False
+      if A._maneuvertype == "SL":
+        dodeclareslide(A._maneuversense)
+      elif A._maneuvertype == "DR":
+        dodeclaredisplacementroll(A._maneuversense)
+      elif A._maneuvertype == "LR":
+        dodeclarelagroll(A._maneuversense)
+      elif A._maneuvertype == "VR":
+        dodeclareverticalroll(A._maneuversense)
+      else:
+        dodeclareturn(A._maneuversense, A._maneuvertype)
 
   ########################################
 
@@ -1259,6 +1281,8 @@ def continueflight(A, actions, note=False):
     
     initialaltitude     = A._altitude
     initialaltitudeband = A._altitudeband
+
+    A._hasdeclaredamaneuver = False
   
     try:
       
