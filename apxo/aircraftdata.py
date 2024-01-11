@@ -253,7 +253,7 @@ class aircraftdata:
       return 1
 
   def gun(self):
-    if "gun" in self._data:
+    if "gun" in self._data and self._data["gun"] != "":
       return self._data["gun"]
     else:
       return None
