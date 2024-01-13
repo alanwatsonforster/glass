@@ -92,29 +92,29 @@ def gunattackrange(attacker, target, arc=False):
       return r
     
   else:
-    
-    r = horizontalrange(
-      attacker.x(), attacker.y(), attacker.facing(), 
-      target.x(), target.y(), target.facing()
-    )
-
-    if r is False:
-      return "the target is not in the weapon range or arc."
-
+ 
     # Apply the relative altitude restrictions for climbing, diving, and level flight.
     if attacker.isinclimbingflight() and attacker.altitude() > target.altitude():
       return "aircraft in climbing flight cannot fire on aircraft at lower altitudes."
     if attacker.isindivingflight() and attacker.altitude() < target.altitude():
       return "aircraft in diving flight cannot fire on aircraft at higher altitudes."
     if attacker.isinlevelflight():
-      if r == 0 and attacker.altitude() != target.altitude():
+      if issamehexattack(attacker, target) and attacker.altitude() != target.altitude():
         return "aircraft in level flight cannot fire at range 0 on aircraft at a different altitude."
-      if r > 0 and abs(attacker.altitude() - target.altitude()) > 1:
+      elif abs(attacker.altitude() - target.altitude()) > 1:
         return "aircraft in level flight cannot fire on aircraft with more than 1 level of difference in altitude."
+   
+    r = horizontalrange(
+      attacker.x(), attacker.y(), attacker.facing(), 
+      target.x(), target.y(), target.facing()
+    )
+
+    if r is False:
+      return "the target is not in the arc or range of the weapon."
         
     r += verticalrange()
     if r > 2:
-      return "the target is not in the weapon range or arc."
+      return "the target is not in the arc or range of the weapon."
     else:
       return r
 
@@ -141,26 +141,27 @@ def rocketattackrange(attacker, target):
 
   def verticalrange():
     return int(abs(attacker.altitude() - target.altitude()) / 2)
-    
-  if not apgeometry.inlimitedradararc(attacker, target):
-    return "the target is not in the weapon range or arc."
-
-  r = apgeometry.horizontalrange(attacker, target)
-
+        
   # Apply the relative altitude restrictions for climbing, diving, and level flight.
   if attacker.isinclimbingflight() and attacker.altitude() > target.altitude():
     return "aircraft in climbing flight cannot fire on aircraft at lower altitudes."
   if attacker.isindivingflight() and attacker.altitude() < target.altitude():
     return "aircraft in diving flight cannot fire on aircraft at higher altitudes."
   if attacker.isinlevelflight():
-    if r == 0 and attacker.altitude() != target.altitude():
-      return "aircraft in level flight cannot fire at range 0 on aircraft at a different altitude."
-    if r > 0 and abs(attacker.altitude() - target.altitude()) > 1:
+    if abs(attacker.altitude() - target.altitude()) > 1:
       return "aircraft in level flight cannot fire on aircraft with more than 1 level of difference in altitude."
+    if issamehexattack(attacker, target) and attacker.altitude() != target.altitude():
+      return "aircraft in level flight cannot fire at range 0 on aircraft at a different altitude."
+
   
+  if not apgeometry.inlimitedradararc(attacker, target):
+    return "the target is not in the arc or range of the weapon."
+
+  r = apgeometry.horizontalrange(attacker, target)
+
   r += verticalrange()
   if r == 0 or r > 4:
-    return "the target is not in the weapon range or arc."
+    return "the target is not in the arc or range of the weapon."
   else:
     return r
 

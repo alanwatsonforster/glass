@@ -207,8 +207,6 @@ def inlimitedradararc(A0, A1, x1=None, y1=None, facing1=None):
   Return True if A1 is is the limited radar arc of A0.
   """
 
-  # See the Limited Radar Arc diagram in the sheets.
-
   x0      = A0.x()
   y0      = A0.y()
   facing0 = A0.facing()
@@ -217,7 +215,30 @@ def inlimitedradararc(A0, A1, x1=None, y1=None, facing1=None):
     x1      = A1.x()
     y1      = A1.y()
     facing1 = A1.facing()
+
+  # See rule 16.5.
+
+  if A0._flighttype == "VD":
+    fmax, fmin = -2.0, -9.0
+  elif A0._flighttype == "SD" or A0._flighttype == "UD":
+    fmax, fmin = -0.5, -3.0
+  elif A0._flighttype == "LVL":
+    fmax, fmin = +0.5, -0.5
+  elif A0._flighttype == "SC":
+    fmax, fmin = +2.0, +0.0
+  elif A0._flighttype == "ZC":
+    fmax, fmin = +4.0, +0.5
+  else:
+    fmax, fmin = +9.0, +2.0
+
+  r = horizontalrange(A0, A1)
+  altitudemax = A0.altitude() + int(fmax * r)
+  altitudemin = A0.altitude() + int(fmin * r)
+  if A1.altitude() < altitudemin or altitudemax < A1.altitude():
+    return False
   
+  # See the Limited Radar Arc diagram in the sheets.
+
   angleofftail, angleoffnose, r, dx, dy = relativepositions(x0, y0, facing0, x1, y1, facing1)
       
   if dx <= 0:
@@ -230,12 +251,6 @@ def inlimitedradararc(A0, A1, x1=None, y1=None, facing1=None):
     return abs(dy) <= 1.1
   else:
     return abs(dy) <= 1.6
-
-  r += verticalrange()
-  if r > 4:
-    return False
-  else:
-    return r
     
 ##############################################################################
 
