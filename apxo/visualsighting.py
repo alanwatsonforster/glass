@@ -424,7 +424,7 @@ def _arc(A, B, arcs):
 
   """
   If the target B is in the specified arcs of the searcher A, return the arc. 
-  Otherwisereturn None.
+  Otherwise return None.
   """
   
   angleoff = apgeometry.angleofftail(B, A, arconly=True)
