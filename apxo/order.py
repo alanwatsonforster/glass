@@ -23,9 +23,8 @@ def advantaged(A, B):
   if apgeometry.samehorizontalposition(A, B):
     return False
 
-  # In 150 or 180 arc.
-  arc = apgeometry.angleofftail(B, A, arconly=True)
-  if arc != "150 arc" and arc != "180 arc":
+  # In 150+ arc.
+  if not apgeometry.inarc(B, A, "150+"):
     return False
 
   # Within 9 hexes horizontally.

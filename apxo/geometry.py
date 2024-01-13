@@ -134,6 +134,8 @@ def relativepositions(x0, y0, facing0, x1, y1, facing1):
 
 def angleofftail(A0, A1, 
   arconly=False,
+  resolveborderline="likegunnery",
+  x0=None, y0=None, facing0=None,
   x1=None, y1=None, facing1=None):
 
   """
@@ -146,9 +148,10 @@ def angleofftail(A0, A1,
     angleofftail, angleoffnose, r, dx, dy = relativepositions(x0, y0, facing0, x1, y1, facing1)
     return angleofftail, angleoffnose, r
 
-  x0      = A0.x()
-  y0      = A0.y()
-  facing0 = A0.facing()
+  if A0 is not None:
+    x0      = A0.x()
+    y0      = A0.y()
+    facing0 = A0.facing()
 
   if A1 is not None:
     x1      = A1.x()
@@ -157,28 +160,35 @@ def angleofftail(A0, A1,
 
   angleofftail, angleoffnose, r = truegeometry(x0, y0, facing0, x1, y1, facing1)
 
-  if r > 0 and angleofftail != 0.0 and angleofftail != 180.0 and angleofftail % 30 == 0.0:
+  assert resolveborderline == "likegunnery" or resolveborderline == "likeradar"
+  if resolveborderline == "likegunnery":
 
-    # Distinguish cases on the 30, 60, 90, 120, and 150 degree arcs.
+    if r > 0 and angleofftail != 0.0 and angleofftail != 180.0 and angleofftail % 30 == 0.0:
 
-    # If 0 is slower, it falls in the rear arc.
-    # If 0 is faster and headed behind 0, it falls in the rear arc. 
-    # If 0 is faster and headed in front of 1, it falls in the front arc.
+      # Distinguish cases on the 30, 60, 90, 120, and 150 degree arcs.
 
-    inreararc = False
-    infrontarc = False
-    if A0.speed() < A1.speed():
-      inreararc = True
-    elif A0.speed() > A1.speed() and angleoffnose != 0:
-      if (angleofftail > 0 and angleoffnose > 0) or (angleofftail < 0 and angleoffnose < 0):
-        infrontarc = True
-      elif (angleofftail > 0 and angleoffnose < 0) or (angleofftail < 0 and angleoffnose > 0):
+      # If 0 is slower, it falls in the rear arc.
+      # If 0 is faster and headed behind 0, it falls in the rear arc. 
+      # If 0 is faster and headed in front of 1, it falls in the front arc.
+
+      inreararc = False
+      infrontarc = False
+      if A0.speed() < A1.speed():
         inreararc = True
+      elif A0.speed() > A1.speed() and angleoffnose != 0:
+        if (angleofftail > 0 and angleoffnose > 0) or (angleofftail < 0 and angleoffnose < 0):
+          infrontarc = True
+        elif (angleofftail > 0 and angleoffnose < 0) or (angleofftail < 0 and angleoffnose > 0):
+          inreararc = True
 
-    if (infrontarc and angleofftail > 0) or (inreararc and angleofftail < 0):
-        angleofftail += 1
-    elif (infrontarc and angleofftail < 0) or (inreararc and angleofftail > 0):
-        angleofftail -= 1
+      if (infrontarc and angleofftail > 0) or (inreararc and angleofftail < 0):
+          angleofftail += 1
+      elif (infrontarc and angleofftail < 0) or (inreararc and angleofftail > 0):
+          angleofftail -= 1
+
+  else:
+
+    angleofftail += 1
 
   if not arconly:
     # To be on the 0 or 180 degree lines, the aircraft has to be facing
@@ -205,10 +215,55 @@ def angleofftail(A0, A1,
 
 ##############################################################################
 
+def inarc(A0, A1, arc, 
+  x1=None, y1=None, facing1=None, 
+  resolveborderline="likegunnery"):
+
+  """
+  Return True is A1 is in the specified arc of A0. Vertical limits do not
+  apply. The arc may be: 180+, 150+, 120+, 90-, 60-, or 30-.
+  """
+
+  x0      = A0.x()
+  y0      = A0.y()
+  facing0 = A0.facing()
+
+  if A1 != None:
+    x1      = A1.x()
+    y1      = A1.y()
+    facing1 = A1.facing()
+  
+  if arc == "180+":
+    arcs = ["180 line", "180 arc"]
+  elif arc == "150+":
+    arcs = ["180 line", "180 arc", "150 arc"]
+  elif arc == "120+":
+    arcs = ["180 line", "180 arc", "150 arc", "120 arc"]
+  elif arc == "90+":
+    arcs = ["180 line", "180 arc", "150 arc", "120 arc", "90 arc"]
+  elif arc == "60+":
+    arcs = ["180 line", "180 arc", "150 arc", "120 arc", "90 arc", "60 arc"]
+  elif arc == "30-":
+    arcs = ["0 line", "0 arc"]
+  elif arc == "60-":
+    arcs = ["0 line", "0 arc", "30 arc", "60 arc"]
+  elif arc == "90-":
+    arcs = ["0 line", "0 arc", "30 arc", "60 arc", "90 arc"]
+  elif arc == "120-":
+    arcs = ["0 line", "0 arc", "30 arc", "60 arc", "90 arc", "120 arc"]
+  elif arc == "150-":
+    arcs = ["0 line", "0 arc", "30 arc", "60 arc", "90 arc", "120 arc", "150 arc"]
+  else:
+    raise RuntimeError("invalid arc %r" % arc)
+
+  return angleofftail(None, None, x0=x1, y0=y1, facing0=facing1, x1=x0, y1=x0, facing1=facing0, arcsonly=True, resolveborderline=resolveborderline) in arcs
+  
+##############################################################################
+
 def inlimitedarc(A0, A1, x1=None, y1=None, facing1=None):
 
   """
-  Return True if A1 is is the limited arc of A0. Vertical limits do not
+  Return True if A1 is in the limited arc of A0. Vertical limits do not
   apply to limited arcs.
   """
 
@@ -241,7 +296,7 @@ def inlimitedarc(A0, A1, x1=None, y1=None, facing1=None):
 def inlimitedradararc(A0, A1, x1=None, y1=None, facing1=None):
 
   """
-  Return True if A1 is is the limited radar arc of A0. Vertical limits do apply
+  Return True if A1 is in the limited radar arc of A0. Vertical limits do apply
   to limited radar arcs.
   """
 
