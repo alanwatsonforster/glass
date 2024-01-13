@@ -1457,7 +1457,9 @@ def continueflight(A, actions, note=False):
       raise e
   
     finally:
-      if not A._lastfp:
+      if A._lastfp:
+        A._logpositionandmaneuver("end")
+      else:
         A._logpositionandmaneuver("")
       A._continueflightpath()
         
@@ -2160,8 +2162,6 @@ def endflight(A):
         A._flighttype = "LVL"
         
   ########################################
-
-  A._logpositionandmaneuver("end")
 
   flighttype         = A._flighttype
   previousflighttype = A._previousflighttype  
