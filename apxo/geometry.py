@@ -66,13 +66,18 @@ def samehorizontalposition(A0, A1):
 
 ##############################################################################
 
-def horizontalrange(A0, A1):
+def horizontalrange(A0, A1, x1=None, y1=None):
 
   """
   Return the horizontal range in hexes from aircraft A0 to A1.
   """
 
-  return aphex.distance(A0.x(), A0.y(), A1.x(), A1.y())
+  if A1 is not None:
+    x1 = A1.x()
+    y1 = A1.y()
+
+
+  return aphex.distance(A0.x(), A0.y(), x1, y1)
 
 ##############################################################################
 
@@ -198,13 +203,46 @@ def angleofftail(A0, A1,
   else:
     return "180 arc"
 
+##############################################################################
 
+def inlimitedarc(A0, A1, x1=None, y1=None, facing1=None):
+
+  """
+  Return True if A1 is is the limited arc of A0. Vertical limits do not
+  apply to limited arcs.
+  """
+
+  x0      = A0.x()
+  y0      = A0.y()
+  facing0 = A0.facing()
+
+  if A1 != None:
+    x1      = A1.x()
+    y1      = A1.y()
+    facing1 = A1.facing()
+  
+  # See the Limited Radar Arc diagram in the sheets.
+
+  angleofftail, angleoffnose, r, dx, dy = relativepositions(x0, y0, facing0, x1, y1, facing1)
+      
+  if dx <= 0:
+    return False
+  elif dx <= _round(1.25 * math.sqrt(3/4)):
+    return dy == 0
+  elif dx <= _round(5.1 * math.sqrt(3/4)):
+    return abs(dy) <= 0.6
+  elif dx <= _round(10.1 * math.sqrt(3/4)):
+    return abs(dy) <= 1.1
+  else:
+    return abs(dy) <= 1.6
+    
 ##############################################################################
 
 def inlimitedradararc(A0, A1, x1=None, y1=None, facing1=None):
 
   """
-  Return True if A1 is is the limited radar arc of A0.
+  Return True if A1 is is the limited radar arc of A0. Vertical limits do apply
+  to limited radar arcs.
   """
 
   x0      = A0.x()
@@ -231,26 +269,13 @@ def inlimitedradararc(A0, A1, x1=None, y1=None, facing1=None):
   else:
     fmax, fmin = +9.0, +2.0
 
-  r = horizontalrange(A0, A1)
+  r = horizontalrange(A0, None, x1=x1, y1=y1)
   altitudemax = A0.altitude() + int(fmax * r)
   altitudemin = A0.altitude() + int(fmin * r)
   if A1.altitude() < altitudemin or altitudemax < A1.altitude():
     return False
   
-  # See the Limited Radar Arc diagram in the sheets.
-
-  angleofftail, angleoffnose, r, dx, dy = relativepositions(x0, y0, facing0, x1, y1, facing1)
-      
-  if dx <= 0:
-    return False
-  elif dx <= _round(1.25 * math.sqrt(3/4)):
-    return dy == 0
-  elif dx <= _round(5.1 * math.sqrt(3/4)):
-    return abs(dy) <= 0.6
-  elif dx <= _round(10.1 * math.sqrt(3/4)):
-    return abs(dy) <= 1.1
-  else:
-    return abs(dy) <= 1.6
+  return inlimitedarc(A0, None, x1=x1, y1=y1, facing1=facing1)
     
 ##############################################################################
 
