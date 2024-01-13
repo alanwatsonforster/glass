@@ -639,7 +639,7 @@ class aircraft:
     Return True if the other aircraft is in the limited radar arc of the aircraft.
     """
 
-    return apgeometry.inlimitedradararc(self, other)
+    return apgeometry.inradararc(self, other, "limited")
     
   #############################################################################
 

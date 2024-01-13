@@ -154,7 +154,7 @@ def rocketattackrange(attacker, target):
       return "aircraft in level flight cannot fire at range 0 on aircraft at a different altitude."
 
   
-  if not apgeometry.inlimitedradararc(attacker, target):
+  if not apgeometry.inradararc(attacker, target, "limited"):
     return "the target is not in the arc or range of the weapon."
 
   r = apgeometry.horizontalrange(attacker, target)
