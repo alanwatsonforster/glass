@@ -396,7 +396,7 @@ def _attack(attacker, attacktype, target, result, allowRK=True, allowtracking=Tr
   if r is not None:
     if weapon == "GN":
       tohitroll = apcapabilities.gunatatohitroll(attacker, r)
-      attacker._logevent("to-hit roll is %d + %+d = %d." % (tohitroll, tohitmodifier, tohitroll + tohitmodifier))
+      attacker._logevent("to-hit roll is %d." % tohitroll)
 
   if (result is not "A") and (result is not "M") and (target is not None):
     if weapon == "GN":
