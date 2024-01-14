@@ -5,6 +5,7 @@ import apxo.geometry     as apgeometry
 import apxo.hex          as aphex
 import apxo.log          as aplog
 import apxo.math         as apmath
+import apxo.variants     as apvariants
 
 ##############################################################################
 
@@ -470,12 +471,15 @@ def trackingforbidden(attacker, target):
   # The check on the ability to use weapons (necessary for tracking) is
   # carried out elsewhere.
 
-  if not apgeometry.inarc(attacker, target, "limited"):
-    return "%s is not in the limited arc of %s." % (target.name(), attacker.name())
   if not apgeometry.horizontalrange(attacker, target) <= 6:
     return "%s is more than 6 hexes from %s." % (target.name(), attacker.name())
   if not apgeometry.inarc(target, attacker, "60-"):
     return "%s is not in its 60- arc of %s." % (attacker.name(), target.name())
+  if apgeometry.horizontalrange(attacker, target) > 0 and not apgeometry.inarc(attacker, target, "limited"):
+    return "%s is not in the limited arc of %s." % (target.name(), attacker.name())
+  if apvariants.withvariant("require limited radar arc for SSGT"):
+    if apgeometry.horizontalrange(attacker, target) > 0 and not apgeometry.inradararc(attacker, target, "limited"):
+      return "%s is not in the limited radar arc of %s." % (target.name(), attacker.name())
 
   return False
 

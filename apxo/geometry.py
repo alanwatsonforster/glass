@@ -1,8 +1,8 @@
 ##############################################################################
 import math
-import apxo      as ap
-import apxo.hex as aphex
-import apxo.log as aplog
+import apxo          as ap
+import apxo.hex      as aphex
+import apxo.log      as aplog
 
 ##############################################################################
 
@@ -247,8 +247,7 @@ def inradarverticallimits(A0, A1, arc):
 
 ##############################################################################
 
-def inarc(A0, A1, arc, 
-  resolveborderline="likegunnery"):
+def inarc(A0, A1, arc, resolveborderline="likegunnery"):
 
   """
   Return True is A1 is in the specified arc of A0. Vertical limits do not
