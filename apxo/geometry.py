@@ -260,25 +260,25 @@ def inarc(A0, A1, arc, resolveborderline="likegunnery"):
     return inlimitedarc(A0, A1)
 
   if arc == "180+":
-    arcs = ["180 line", "180 arc"]
+    arcs = ["180 arc"]
   elif arc == "150+":
-    arcs = ["180 line", "180 arc", "150 arc"]
+    arcs = ["180 arc", "150 arc"]
   elif arc == "120+":
-    arcs = ["180 line", "180 arc", "150 arc", "120 arc"]
+    arcs = ["180 arc", "150 arc", "120 arc"]
   elif arc == "90+":
-    arcs = ["180 line", "180 arc", "150 arc", "120 arc", "90 arc"]
+    arcs = ["180 arc", "150 arc", "120 arc", "90 arc"]
   elif arc == "60+":
-    arcs = ["180 line", "180 arc", "150 arc", "120 arc", "90 arc", "60 arc"]
+    arcs = ["180 arc", "150 arc", "120 arc", "90 arc", "60 arc"]
   elif arc == "30-":
-    arcs = ["0 line", "0 arc"]
+    arcs = ["30 arc"]
   elif arc == "60-":
-    arcs = ["0 line", "0 arc", "30 arc", "60 arc"]
+    arcs = ["30 arc", "60 arc"]
   elif arc == "90-":
-    arcs = ["0 line", "0 arc", "30 arc", "60 arc", "90 arc"]
+    arcs = ["30 arc", "60 arc", "90 arc"]
   elif arc == "120-":
-    arcs = ["0 line", "0 arc", "30 arc", "60 arc", "90 arc", "120 arc"]
+    arcs = ["30 arc", "60 arc", "90 arc", "120 arc"]
   elif arc == "150-":
-    arcs = ["0 line", "0 arc", "30 arc", "60 arc", "90 arc", "120 arc", "150 arc"]
+    arcs = ["30 arc", "60 arc", "90 arc", "120 arc", "150 arc"]
   else:
     raise RuntimeError("invalid arc %r" % arc)
 
