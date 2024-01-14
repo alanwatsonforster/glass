@@ -461,3 +461,24 @@ def react(attacker, attacktype, target, result):
 
 ##############################################################################
 
+def trackingforbidden(attacker, target):
+
+  """
+  Check that the attacker can carry out SSGT on the target.
+  """
+
+  # The check on the ability to use weapons (necessary for tracking) is
+  # carried out elsewhere.
+
+  if not apgeometry.inarc(attacker, target, "limited"):
+    return "%s is not in the limited arc of %s." % (target.name(), attacker.name())
+  if not apgeometry.horizontalrange(attacker, target) <= 6:
+    return "%s is more than 6 hexes from %s." % (target.name(), attacker.name())
+  if not apgeometry.inarc(target, attacker, "60-"):
+    return "%s is not in its 60- arc of %s." % (attacker.name(), target.name())
+
+  return False
+
+
+
+

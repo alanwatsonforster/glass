@@ -248,7 +248,6 @@ def inradarverticallimits(A0, A1, arc):
 ##############################################################################
 
 def inarc(A0, A1, arc, 
-  x1=None, y1=None, facing1=None, 
   resolveborderline="likegunnery"):
 
   """
@@ -258,17 +257,8 @@ def inarc(A0, A1, arc,
 
   assert arc in ["limited", "180+", "150+", "120+", "90+", "60+", "30-", "60-", "90-", "120-", "150-"]
 
-  x0      = A0.x()
-  y0      = A0.y()
-  facing0 = A0.facing()
-
-  if A1 != None:
-    x1      = A1.x()
-    y1      = A1.y()
-    facing1 = A1.facing()
-
   if arc == "limited":
-    return inlimitedarc(A0, None, x1=x1, y1=y1, facing1=facing1)
+    return inlimitedarc(A0, A1)
 
   if arc == "180+":
     arcs = ["180 line", "180 arc"]
@@ -293,12 +283,11 @@ def inarc(A0, A1, arc,
   else:
     raise RuntimeError("invalid arc %r" % arc)
 
-  return angleofftail(None, None, x0=x1, y0=y1, facing0=facing1, x1=x0, y1=y0, facing1=facing0, arconly=True, resolveborderline=resolveborderline) in arcs
+  return angleofftail(A1, A0, arconly=True, resolveborderline=resolveborderline) in arcs
   
 ##############################################################################
 
-def inradararc(A0, A1, arc, 
-  x1=None, y1=None, facing1=None):
+def inradararc(A0, A1, arc):
 
   assert arc in ["limited", "180+", "150+", "120+"]
 
@@ -325,7 +314,7 @@ def inlimitedarc(A0, A1, x1=None, y1=None, facing1=None):
   # See the Limited Radar Arc diagram in the sheets.
 
   angleofftail, angleoffnose, r, dx, dy = relativepositions(x0, y0, facing0, x1, y1, facing1)
-      
+
   if dx <= 0:
     return False
   elif dx <= _round(1.25 * math.sqrt(3/4)):

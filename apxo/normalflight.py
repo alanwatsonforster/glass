@@ -988,7 +988,7 @@ def continueflight(A, actions, note=False):
 
   ########################################
 
-  def dossgt():
+  def dossgt(m):
 
     """
     Start SSGT.
@@ -1005,8 +1005,17 @@ def continueflight(A, actions, note=False):
 
     # TODO: Check we can start SSGT on a specific target.
 
-    A._logevent("started SSGT.")
-    A._tracking = True
+    targetname = m[1]
+
+    target = apaircraft.fromname(targetname)
+    if target is None:
+      raise RuntimeError("unknown target aircraft %s." % targetname)
+
+    if apairtoair.trackingforbidden(A, target):
+      raise RuntimeError("attempt to start SSGT while %s" %  apairtoair.trackingforbidden(A, target))
+
+    A._logevent("started SSGT on %s." % targetname)
+    A._tracking = target
 
   ########################################
 
@@ -1083,7 +1092,7 @@ def continueflight(A, actions, note=False):
     ["BTR"   , "prolog"             , None, lambda: dodeclaremaneuver("BT", "R") ],
     ["ETR"   , "prolog"             , None, lambda: dodeclaremaneuver("ET", "R") ],
     
-    ["SSGT"  , "prolog"             , None, lambda: dossgt() ],
+    ["SSGT"  , "prolog"             , argsregex(1), lambda m: dossgt(m) ],
 
     ["S1/2"  , "prolog"             , None, lambda: dospeedbrakes(1/2) ],
     ["S1"    , "prolog"             , None, lambda: dospeedbrakes(1)   ],
@@ -1141,8 +1150,6 @@ def continueflight(A, actions, note=False):
     ["AA"    , "epilog"             , argsregex(3), lambda m: doataattack(m) ],
 
     ["J"     , "epilog"             , argsregex(1), lambda m: dojettison(m) ],
-
-    ["/"     , "prolog"             , None, lambda: None ],
 
     ["HC1"   , "FP"                 , None, lambda: invalidelement("HC1")  ],
     ["HC2"   , "FP"                 , None, lambda: invalidelement("HC2")  ],
@@ -1354,9 +1361,13 @@ def continueflight(A, actions, note=False):
     if A._tracking:
       if useofweaponsforbidden():
         A._logevent("stopped SSGT.")
-        A._tracking   = False
+        A._tracking   = None
         A._trackingfp = 0
-      else:
+      elif apairtoair.trackingforbidden(A, A._tracking):
+        A._logevent("stopped SSGT as %s" % apairtoair.trackingforbidden(A, A._tracking))
+        A._tracking   = None
+        A._trackingfp = 0
+      else:        
         A._trackingfp += 1
 
   ########################################
@@ -1901,10 +1912,10 @@ def startflight(A, actions, note=False):
   A._firstunloadedfp = None
   A._lastunloadedfp  = None
 
-  # Whether the aircraft is tracking and the number of FPs expended
+  # The aircraft being tracked and the number of FPs expended
   # while tracking.
 
-  A._tracking   = False
+  A._tracking   = None
   A._trackingfp = 0
 
   # This keeps track of the number of turns, rolls, and vertical rolls.
