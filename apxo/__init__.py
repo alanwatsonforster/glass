@@ -85,7 +85,7 @@ def endsetup():
 
 ################################################################################
 
-def startturn():
+def startturn(note=False):
 
   """
   Start the next turn.
@@ -104,11 +104,12 @@ def startturn():
     aplog.log("initial positions, maneuvers, flight types, and speeds are:")
     for a in apaircraft.aslist():
       aplog.logaction(a, "%s  %-9s  %-3s  %4.1f" % (a.position(), a.maneuver(), a.flighttype(), a.speed()))
+    aplog.lognote(None, note)
 
   except RuntimeError as e:
     aplog.logexception(e)
 
-def endturn():
+def endturn(note=False):
 
   """
   End the current turn.
@@ -121,6 +122,7 @@ def endturn():
 
     aplog.logbreak()
     aplog.log("end of turn.")
+    aplog.lognote(None, note)
 
     apturn.endturn()
       
