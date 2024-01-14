@@ -399,7 +399,7 @@ def _attack(attacker, attacktype, target, result, allowRK=True, allowtracking=Tr
       tohitroll = apcapabilities.gunatatohitroll(attacker, r)
       attacker._logevent("to-hit roll is %d." % tohitroll)
 
-  if (result is not "A") and (result is not "M") and (target is not None):
+  if (result != "A") and (result != "M") and (target is not None):
     if weapon == "GN":
       damagerating = apcapabilities.gunatadamagerating(attacker)
       damageratingmodifier = 0
