@@ -221,7 +221,7 @@ def inradarverticallimits(A0, A1, arc):
   from math import inf
 
   table = {
-    "limited": { "VD": [-2.0, -9.0], "SD": [-0.5, -3.0], "LVL": [+0.5, -0.5], "SC": [+2.0, +0.0], "ZC": [+4.0, +0.5], "VC": [+9.0, +2-0] },
+    "limited": { "VD": [-2.0, -9.0], "SD": [-0.5, -3.0], "LVL": [+0.5, -0.5], "SC": [+2.0, +0.0], "ZC": [+4.0, +0.5], "VC": [+9.0, +2.0] },
     "180+"   : { "VD": [-1.0, -inf], "SD": [-0.0, -5.0], "LVL": [+1.0, -1.0], "SC": [+3.0, -0.5], "ZC": [+5.0, +0.0], "VC": [+inf, +1.0] },
     "150+"   : { "VD": [-0.5, -inf], "SD": [-0.0, -8.0], "LVL": [+2.0, -2.0], "SC": [+4.0, -1.0], "ZC": [+8.0, +0.0], "VC": [+inf, +0.5] },
     "120+"   : { "VD": [-0.0, -inf], "SD": [+0.5, -inf], "LVL": [+4.0, -4.0], "SC": [+6.0, -2.0], "ZC": [+inf, -0.5], "VC": [+inf, +0.0] }
@@ -235,8 +235,14 @@ def inradarverticallimits(A0, A1, arc):
   fmin = table[arc][flighttype][1]
 
   r = horizontalrange(A0, A1)
-  altitudemax = A0.altitude() + int(fmax * r)
-  altitudemin = A0.altitude() + int(fmin * r)
+  if math.isinf(fmax):
+    altitudemax = +inf
+  else:
+    altitudemax = A0.altitude() + int(fmax * r)
+  if math.isinf(fmin):
+    altitudemin = -inf
+  else:
+    altitudemin = A0.altitude() + int(fmin * r)
   return altitudemin <= A1.altitude() and A1.altitude() <= altitudemax
 
 ##############################################################################
@@ -287,7 +293,7 @@ def inarc(A0, A1, arc,
   else:
     raise RuntimeError("invalid arc %r" % arc)
 
-  return angleofftail(None, None, x0=x1, y0=y1, facing0=facing1, x1=x0, y1=x0, facing1=facing0, arcsonly=True, resolveborderline=resolveborderline) in arcs
+  return angleofftail(None, None, x0=x1, y0=y1, facing0=facing1, x1=x0, y1=y0, facing1=facing0, arconly=True, resolveborderline=resolveborderline) in arcs
   
 ##############################################################################
 

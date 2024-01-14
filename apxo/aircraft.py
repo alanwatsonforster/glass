@@ -611,6 +611,28 @@ class aircraft:
 
   #############################################################################
 
+  def _inarc(self, other, arc):
+
+    """
+    Return True if the other aircraft is in the specified arc of the aircraft.
+    Otherwise, return False.
+    """
+
+    return apgeometry.inarc(self, other, arc)
+    
+  #############################################################################
+
+  def _inradararc(self, other, arc):
+
+    """
+    Return True if the other aircraft is in the specified radar arc of the 
+    aircraft. Otherwise, return False.
+    """
+
+    return apgeometry.inradararc(self, other, arc)
+    
+  #############################################################################
+
   def _gunattackrange(self, other, arc=False):
 
     """
