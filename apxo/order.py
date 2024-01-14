@@ -24,7 +24,7 @@ def advantaged(A, B):
     return False
 
   # In 150+ arc.
-  if not apgeometry.inarc(B, A, "150+"):
+  if not apgeometry.inarc(A, B, "150+"):
     return False
 
   # Within 9 hexes horizontally.
