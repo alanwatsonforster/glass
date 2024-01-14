@@ -181,6 +181,7 @@ class aircraft:
       self._TTrecoveryfp               = -1
       self._rollrecoveryfp             = -1
       self._trackingfp                 = 0
+      self._climbslope                 = 0
       self._lowspeedliftdeviceselected = False
       self._closeformation             = []
       self._aircraftdata               = apaircraftdata.aircraftdata(aircrafttype)
@@ -763,6 +764,7 @@ class aircraft:
     self._HTrecoveryfp, \
     self._TTrecoveryfp, \
     self._rollrecoveryfp, \
+    self._climbslope, \
     self._lowspeedliftdeviceselected, \
     self._closeformation, \
     self._destroyed, \
@@ -829,6 +831,7 @@ class aircraft:
       self._HTrecoveryfp, \
       self._TTrecoveryfp, \
       self._rollrecoveryfp, \
+      self._climbslope, \
       self._lowspeedliftdeviceselected, \
       self._closeformation, \
       self._destroyed, \

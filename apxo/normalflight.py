@@ -1427,6 +1427,14 @@ def continueflight(A, actions, note=False):
       elif A._fp > fp + 1:
         raise RuntimeError("%r is not a valid action as it attemps to expend more than one FP." % action)
 
+      # The climb slope is defined in APJ 39.
+      if A._hfp != 0:
+        A._climbslope = (A._altitude - A._startaltitude) / float(A._hfp)
+      elif A._altitude > A._startaltitude:
+        A._climbslope = +math.inf
+      else:
+        A._climbslope = -math.inf
+
       # We save maneuvertype, as A._maneuvertype may be set to None of the
       # maneuver is completed below.
 
