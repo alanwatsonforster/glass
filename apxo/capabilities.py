@@ -142,12 +142,6 @@ def climbcapability(A):
       climbcapability = A._aircraftdata.climbcapability(A._configuration, altitudeband, A._powersetting)
       if climbcapability != None:
         break
-  # See the Aircraft Damage Effects Table in the charts.
-  if A.damageatleast("H"):
-    climbcapability *= 0.5
-  # See rule 6.6 and rule 8.1.4.
-  if A._speed >= apspeed.m1speed(A._altitudeband):
-    climbcapability *= 2/3
   return climbcapability
 
 def hasproperty(A, p):

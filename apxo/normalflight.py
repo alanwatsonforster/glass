@@ -330,12 +330,6 @@ def continueflight(A, actions, note=False):
     if A._hfp < A._mininitialhfp:
       raise RuntimeError("insufficient initial HFPs.")
       
-    # See rule 4.3 and 8.1.2.
-    if A._effectiveclimbcapability == None:
-      A._effectiveclimbcapability = apcapabilities.climbcapability(A)
-      if flighttype == "SC" and A._speed < apcapabilities.climbspeed(A):
-        A._effectiveclimbcapability /= 2
-      
     altitudechange = determinealtitudechange(altitudechange)
     
     A._vertical = True
@@ -1897,7 +1891,36 @@ def startflight(A, actions, note=False):
 
       A._maxturnrate       = None
       A._turningsupersonic = False
-      
+
+  ########################################
+
+  def determineeffectiveclimbcapability():
+
+    if _isclimbingflight(flighttype):
+
+      A._effectiveclimbcapability = apcapabilities.climbcapability(A)
+
+      # See rule 4.3 and 8.1.2.
+      if flighttype == "SC" and A._speed < apcapabilities.climbspeed(A):
+        A._logevent("climb capability reduced in SC below climb speed.")
+        A._effectiveclimbcapability *= 0.5
+
+      # See the Aircraft Damage Effects Table in the charts.
+      if A.damageatleast("H"):
+        A._logevent("climb capability reduced by damage.")
+        A._effectiveclimbcapability *= 0.5
+
+      # See rule 6.6 and rule 8.1.4.
+      if A._speed >= apspeed.m1speed(A._altitudeband):
+        A._logevent("climb capability reduced at supersonic speed.")
+        A._effectiveclimbcapability *= 2/3
+    
+      A._logevent("effective climb capability is %.2f." % A._effectiveclimbcapability)
+
+    else:
+
+      A._effectiveclimbcapability = None
+
   ########################################
 
   flighttype         = A._flighttype
@@ -1953,6 +1976,7 @@ def startflight(A, actions, note=False):
   checkcloseformationlimits()
   determinemaxfp()
   determinefprequirements()
+  determineeffectiveclimbcapability()
     
   A._logpositionandmaneuver("start")
 
