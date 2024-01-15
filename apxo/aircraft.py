@@ -170,7 +170,6 @@ class aircraft:
       self._maneuverrequiredfp         = 0
       self._maneuverfacingchange       = None
       self._manueversupersonic         = False
-      self._wasrollingonlastfp         = False
       self._fpcarry                    = 0
       self._apcarry                    = 0
       self._gloccheck                  = 0
@@ -754,7 +753,6 @@ class aircraft:
     self._maneuverrequiredfp, \
     self._maneuverfacingchange, \
     self._manueversupersonic, \
-    self._wasrollingonlastfp, \
     self._fpcarry, \
     self._apcarry, \
     self._gloccheck, \
@@ -821,7 +819,6 @@ class aircraft:
       self._maneuverrequiredfp, \
       self._maneuverfacingchange, \
       self._manueversupersonic, \
-      self._wasrollingonlastfp, \
       self._fpcarry, \
       self._apcarry, \
       self._gloccheck, \
