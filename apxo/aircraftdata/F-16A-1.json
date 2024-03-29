@@ -1,0 +1,64 @@
+{
+  "name": "F-16A-1",
+  "origin": "Carl Smeaton",
+  "crew": [ "Pilot" ],
+  "powertable": {
+    "AB"  : [ 4.5, 3.5, 2.5, 10.0 ],
+    "M"   : [ 2.5, 2.0, 1.0,  2.0 ],
+    "N"   : [ 0.0, 0.0, 0.0,  1.0 ],
+    "I"   : [ 0.5, 0.5, 1.0,  0.0 ],
+    "SPBR": [ 0.5, 1.0, 1.0 ]
+  },
+  "engines": 1,
+  "cruisespeed": 6.0,
+  "climbspeed" : 4.5,
+  "visibility": 6,
+  "sizemodifier": 0,
+  "vulnerability": 1,
+  "restrictedarcs": "",
+  "blindarcs": "30L",
+  "internalfuel": 350,
+  "atarefuel": true,
+  "ejectionseat": "advanced",
+  "maneuvertable": {
+    "LR/DR": [ 1.0, 1.0 ],
+    "VR":    [ 0.0, 0.0 ]
+  },
+  "turndragtable": {
+    "TT": [ 1.0, 1.0, 1.0 ],
+    "HT": [ 1.0, 1.0, 2.0 ],
+    "BT": [ 2.0, 2.0, 3.0 ],
+    "ET": [ 3.0, 3.0, 4.0 ]
+  },
+  "ceilingtable": [ 60, 55, 45 ],
+  "speedtable": {
+    "EH": [ [ 3.5, 14.0 ], [ 4.0, 12.0 ], [ "-", "-"  ], 15.0 ],
+    "VH": [ [ 3.0, 14.0 ], [ 3.5, 11.5 ], [ 3.5, 10.0 ], 15.0 ],
+    "HI": [ [ 2.5, 13.0 ], [ 2.5, 11.0 ], [ 3.0,  9.0 ], 15.0 ],
+    "MH": [ [ 2.0, 12.0 ], [ 2.0, 10.0 ], [ 2.5,  8.5 ], 14.0 ],
+    "ML": [ [ 1.5, 10.0 ], [ 2.0,  8.5 ], [ 2.0,  8.0 ], 12.0 ],
+    "LO": [ [ 1.0,  9.0 ], [ 1.5,  8.0 ], [ 2.0,  7.5 ], 10.0 ]
+  },
+  "climbcapabilitytable": {
+    "EH": [ [ 2.0, 1.0 ], [ 1.0, 0.5 ], [ "-", "-" ] ],
+    "VH": [ [ 4.0, 1.0 ], [ 3.0, 1.0 ], [ 1.0, 0.5 ] ],
+    "HI": [ [ 5.0, 1.5 ], [ 3.0, 1.0 ], [ 2.0, 0.5 ] ],
+    "MH": [ [ 6.0, 2.0 ], [ 4.0, 1.0 ], [ 2.0, 1.0 ] ],
+    "ML": [ [ 7.0, 2.0 ], [ 5.0, 1.0 ], [ 2.0, 1.0 ] ],
+    "LO": [ [ 8.0, 3.0 ], [ 5.0, 2.0 ], [ 3.0, 1.0 ] ]
+  },
+  "gun": "20 mm M61 Vulcan",
+  "gunatatohitrolls": [ 7, 5, 3 ],
+  "gunatadamagerating": 6,
+  "gunammunition": 2.5,
+  "gunsightmodifiers": { "TT": 0, "HT": 0, "BT": 1 },
+  "ataradarranging": "CA",
+  "atalockon": 8,
+  "storeslimits": [ 6, 14, 20000 ],
+  "properties": [ "HPR", "RPR", "LTDCL", "HRR", "GSSM" ],
+  "notes": [
+    "Fly-by-wire.",
+    "Maneuvering flaps at speed ≤ 3.5.",
+    "Canted seat."
+  ]
+}
