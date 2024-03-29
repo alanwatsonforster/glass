@@ -159,6 +159,8 @@ def hasproperty(A, p):
   if A._aircraftdata.hasproperty(p):
     return True
 
+  if p == "LTD" and A._aircraftdata.hasproperty("LTDCL"):
+    return A._configuration == "CL"
   if p == "HRR" and A._aircraftdata.hasproperty("HRRCL"):
     return A._configuration == "CL"
   if p == "LRR" and A._aircraftdata.hasproperty("LRRHS"):
