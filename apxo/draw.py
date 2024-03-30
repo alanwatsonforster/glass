@@ -265,7 +265,25 @@ def drawaircraft(x, y, facing, color, name, altitude, zorder):
     drawtext(x, y, facing, name, dx=-0.25, dy=0.0, size=aircrafttextsize, color=linecolor, zorder=zorder)
     drawtext(x, y, facing, altitude  , dx=+0.25, dy=0.0, size=aircrafttextsize, color=linecolor, zorder=zorder)
 
-################################################################################
+def drawmissile(x, y, facing, color, name, altitude, zorder):
+  if color is None:
+    fillcolor = aircraftdestroyedfillcolor
+    linecolor = aircraftdestroyedlinecolor
+    altitude = ""
+  else:
+    fillcolor = color
+    linecolor = aircraftlinecolor
+    altitude  = "%2d" % altitude
+  if apvariants.withvariant("draw counters"):
+    drawsquare(x, y, facing=facing, size=1, linecolor="black", linewidth=counterlinewidth, fillcolor=a._color, zorder=zorder)
+    drawarrow(x, y, facing, size=0.4, fillcolor="black", linewidth=1, linecolor="black", zorder=zorder)
+  else:
+    drawdart(x, y, facing, dy=-0.01, size=0.2, fillcolor=fillcolor, linewidth=aircraftlinewidth, linecolor=linecolor, zorder=zorder)
+    #drawarrow(x, y, facing, dy=-0.02, size=0.4, fillcolor=fillcolor, linewidth=aircraftlinewidth, linecolor=linecolor, zorder=zorder)
+    drawtext(x, y, facing, name, dx=-0.25, dy=0.0, size=aircrafttextsize, color=linecolor, zorder=zorder)
+    drawtext(x, y, facing, altitude  , dx=+0.25, dy=0.0, size=aircrafttextsize, color=linecolor, zorder=zorder)
+    
+  ################################################################################
 
 _colors = {
 

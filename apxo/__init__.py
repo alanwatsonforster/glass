@@ -3,6 +3,7 @@ import apxo.aircraft       as apaircraft
 import apxo.log            as aplog
 import apxo.map            as apmap
 import apxo.marker         as apmarker
+import apxo.missile        as apmissile
 import apxo.order          as aporder
 import apxo.variants       as apvariants
 import apxo.scenarios      as apscenarios
@@ -20,7 +21,8 @@ __all__ = [
   "orderofflightdeterminationphase",
   "drawmap",
   "aircraft",
-  "marker"
+  "marker",
+  "missile"
 ]
  
 ################################################################################
@@ -60,6 +62,7 @@ def startsetup(scenario, sheets=None, north="up", variants=[], **kwargs):
 
     apaircraft._startsetup()
     apmarker._startsetup()
+    apmissile._startsetup()
 
   except RuntimeError as e:
     aplog.logexception(e)
@@ -99,6 +102,7 @@ def startturn(note=False):
     aplog.log("start of turn.")
 
     apaircraft._startturn()
+    apmissile._startturn()
 
     aplog.logbreak()
     aplog.log("initial positions, maneuvers, flight types, and speeds are:")
@@ -119,6 +123,7 @@ def endturn(note=False):
   try:
     
     apaircraft._endturn()
+    apmissile._endturn()
 
     aplog.logbreak()
     aplog.log("end of turn.")
@@ -190,6 +195,7 @@ def drawmap():
     apmap.startdrawmap()
     apmarker._drawmap()
     apaircraft._drawmap()
+    apmissile._drawmap()
     apmap.enddrawmap(apturn.turn())
 
   except RuntimeError as e:
@@ -199,3 +205,4 @@ def drawmap():
 
 from apxo.aircraft import aircraft
 from apxo.marker   import marker
+from apxo.missile  import missile
