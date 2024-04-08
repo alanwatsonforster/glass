@@ -291,17 +291,24 @@ def continueflight(A, actions, note=False):
 
     def determinealtitudechange(altitudechange):
 
-      assert altitudechange == 1 or altitudechange == 2
+      assert altitudechange == 1 or altitudechange == 2 or altitudechange == 3
     
       climbcapability = A._effectiveclimbcapability
 
       if flighttype == "ZC":
 
         # See rule 8.1.1.
-        if climbcapability <= 2 and altitudechange != 1:
-          raise RuntimeError("invalid altitude change in climb.")
-        elif altitudechange != 1 and altitudechange != 2:
-          raise RuntimeError("invalid altitude change in climb.")
+        if altitudechange == 2:
+          if climbcapability <= 2.0:
+            raise RuntimeError("invalid altitude change in climb.")
+        elif altitudechange == 3:
+          if not apvariants.withvariant("use version 2.4 rules"):
+            raise RuntimeError("invalid altitude change in climb.")
+          if climbcapability < 6.0:
+            raise RuntimeError("invalid altitude change in climb.")
+          if A._usedsuperclimb:
+            raise RuntimeError("invalid altitude change in climb.")
+          A._usedsuperclimb = True
 
       elif flighttype == "SC":
 
@@ -1163,6 +1170,8 @@ def continueflight(A, actions, note=False):
 
     ["C1"   , "FP"                  , None, lambda: doclimb(1) ],
     ["C2"   , "FP"                  , None, lambda: doclimb(2) ],
+    ["C3"   , "FP"                  , None, lambda: doclimb(3) ],
+    ["CCC"  , "FP"                  , None, lambda: doclimb(3) ],
     ["CC"   , "FP"                  , None, lambda: doclimb(2) ],
     ["C"    , "FP"                  , None, lambda: doclimb(1) ],
 
@@ -1942,6 +1951,9 @@ def startflight(A, actions, note=False):
   A._unloadedhfp     = 0
   A._firstunloadedfp = None
   A._lastunloadedfp  = None
+
+  # Whether the aircraft has used a superclimb (C3).
+  A._usedsuperclimb = False
 
   # The aircraft being tracked and the number of FPs expended
   # while tracking.

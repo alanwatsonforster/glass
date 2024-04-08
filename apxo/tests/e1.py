@@ -102,12 +102,38 @@ A2.move("LVL",  "M", "H,H")
 A2._assert("A1-2009       N    49",  2.5)
 endturn()
 
-
 startturn()
 A1.move("ZC" ,  "M", "H,C"  )
 A1._assert("A1-1804       N    18",  1.5)
 A2.move("LVL",  "M", "H,H,H")
 A2._assert("A1-2006       N    49",  3.0)
+endturn()
+
+starttestsetup(variants=["use version 2.4 rules"])
+A1 = aircraft("A1", "AF", "F-104A", "A1-1815", "N"  , 1, 4.5, "CL")
+endtestsetup()
+
+startturn()
+A1.move("ZC" ,  "M", "H,C3,H,H"  )
+asserterror("invalid altitude change in climb.")
+startturn()
+A1.move("ZC", "AB", "H,C2,H,H")
+A1._assert("A1-1812       N    3",  4.5)
+endturn()
+
+starttestsetup(variants=["use version 2.4 rules"])
+A1 = aircraft("A1", "AF", "F-104A", "A1-1815", "N"  , 1, 4.5, "CL")
+endtestsetup()
+
+startturn()
+A1.move("ZC" ,  "M", "H,C3,H,H"  )
+asserterror("invalid altitude change in climb.")
+startturn()
+A1.move("ZC", "AB", "H,C3,C3,H")
+asserterror("invalid altitude change in climb.")
+startturn()
+A1.move("ZC", "AB", "H,C3,C2,H")
+A1._assert("A1-1813       N    6",  4.5)
 endturn()
 
 # Vertical Climbs
