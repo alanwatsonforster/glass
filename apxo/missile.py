@@ -119,7 +119,11 @@ class missile:
       self._logbreak()
       self._logline()
       self._logposition("start")
-      self.continuemove(actions)
+      if actions != "":
+        for action in actions.split(","):
+          if not self._removed:
+            _doaction(self, action)
+      self._logline()
 
     except RuntimeError as e:
       aplog.logexception(e)
@@ -131,10 +135,13 @@ class missile:
     aplog.clearerror()
     try:
       
+      self._logbreak()
+      self._logline()
       if actions != "":
         for action in actions.split(","):
           if not self._removed:
             _doaction(self, action)
+      self._logline()
 
     except RuntimeError as e:
       aplog.logexception(e)
@@ -269,19 +276,36 @@ def _doaction(M, action, note=False):
 
   ########################################
 
-  def doturn(sense, facingchange):
-
-    """
-    Turn in the specified sense and amount.
-    """
+  def dodeclaremaneuver(maneuvertype, sense):
+    M._maneuvertype  = maneuvertype
+    M._maneuversense = sense
     
-    # Change facing.
-    if aphex.isside(M._x, M._y):
-      M._x, M._y = aphex.sidetocenter(M._x, M._y, M._facing, sense)
-    if sense == "L":
-      M._facing = (M._facing + facingchange) % 360
+  ########################################
+
+  def domaneuver(sense, facingchange, shift, continuous):
+
+    if M._maneuvertype == None:
+      raise RuntimeError("attempt to maneuver without a declaration.")
+      
+    if M._maneuversense != sense:
+      raise RuntimeError("attempt to maneuver against the sense of the declaration.")
+
+    if M._maneuvertype == "SL":
+
+      M._x, M._y = aphex.slide(M._x, M._y, M._facing, sense)
+
     else:
-      M._facing = (M._facing - facingchange) % 360
+    
+      if aphex.isside(M._x, M._y) and shift:
+        M._x, M._y = aphex.sidetocenter(M._x, M._y, M._facing, sense)
+      if sense == "L":
+        M._facing = (M._facing + facingchange) % 360
+      else:
+        M._facing = (M._facing - facingchange) % 360
+
+    if not continuous:
+      M._maneuvertype  = None
+      M._maneuversense = None
 
   ########################################
 
@@ -311,25 +335,49 @@ def _doaction(M, action, note=False):
     # This table is searched in order, so put longer elements before shorter 
     # ones that are prefixes (e.g., put C2 before C).
   
-    ["L180" , lambda: doturn("L", 180) ],
-    ["L150" , lambda: doturn("L", 150) ],
-    ["L120" , lambda: doturn("L", 120) ],
-    ["L90"  , lambda: doturn("L",  90) ],
-    ["L60"  , lambda: doturn("L",  60) ],
-    ["L30"  , lambda: doturn("L",  30) ],
-    ["LLL"  , lambda: doturn("L",  90) ],
-    ["LL"   , lambda: doturn("L",  60) ],
-    ["L"    , lambda: doturn("L",  30) ],
+    ["LS180" , lambda: domaneuver("L", 180, True , False) ],
+    ["L180"  , lambda: domaneuver("L", 180, False, False) ],
+    ["L150"  , lambda: domaneuver("L", 150, True , False) ],
+    ["L120"  , lambda: domaneuver("L", 120, True , False, False) ],
+    ["L90"   , lambda: domaneuver("L",  90, True , False) ],
+    ["L60"   , lambda: domaneuver("L",  60, True , False) ],
+    ["L30"   , lambda: domaneuver("L",  30, True , False) ],
+    ["LLL"   , lambda: domaneuver("L",  90, True , False) ],
+    ["LL"    , lambda: domaneuver("L",  60, True , False) ],
+    ["L"     , lambda: domaneuver("L",  30, True , False) ],
+ 
+    ["RS180" , lambda: domaneuver("R", 180, True , False) ],
+    ["R180"  , lambda: domaneuver("R", 180, False, False) ],
+    ["R150"  , lambda: domaneuver("R", 150, True , False) ],
+    ["R120"  , lambda: domaneuver("R", 120, True , False) ],
+    ["R90"   , lambda: domaneuver("R",  90, True , False) ],
+    ["R60"   , lambda: domaneuver("R",  60, True , False) ],
+    ["R30"   , lambda: domaneuver("R",  30, True , False) ],
+    ["RRR"   , lambda: domaneuver("R",  90, True , False) ],
+    ["RR"    , lambda: domaneuver("R",  60, True , False) ],
+    ["R"     , lambda: domaneuver("R",  30, True , False) ],
 
-    ["R180" , lambda: doturn("R", 180) ],
-    ["R150" , lambda: doturn("R", 150) ],
-    ["R120" , lambda: doturn("R", 120) ],
-    ["R90"  , lambda: doturn("R",  90) ],
-    ["R60"  , lambda: doturn("R",  60) ],
-    ["R30"  , lambda: doturn("R",  30) ],
-    ["RRR"  , lambda: doturn("R",  90) ],
-    ["RR"   , lambda: doturn("R",  60) ],
-    ["R"    , lambda: doturn("R",  30) ],
+    ["LS180+", lambda: domaneuver("L", 180, True , True ) ],
+    ["L180+" , lambda: domaneuver("L", 180, False, True ) ],
+    ["L150+" , lambda: domaneuver("L", 150, True , True ) ],
+    ["L120+" , lambda: domaneuver("L", 120, True , True ) ],
+    ["L90+"  , lambda: domaneuver("L",  90, True , True ) ],
+    ["L60+"  , lambda: domaneuver("L",  60, True , True ) ],
+    ["L30+"  , lambda: domaneuver("L",  30, True , True ) ],
+    ["LLL+"  , lambda: domaneuver("L",  90, True , True ) ],
+    ["LL+"   , lambda: domaneuver("L",  60, True , True ) ],
+    ["L+"    , lambda: domaneuver("L",  30, True , True ) ],
+
+    ["RS180+", lambda: domaneuver("R", 180, True , True ) ],
+    ["R180+" , lambda: domaneuver("R", 180, False, True ) ],
+    ["R150+" , lambda: domaneuver("R", 150, True , True ) ],
+    ["R120+" , lambda: domaneuver("R", 120, True , True ) ],
+    ["R90+"  , lambda: domaneuver("R",  90, True , True ) ],
+    ["R60+"  , lambda: domaneuver("R",  60, True , True ) ],
+    ["R30+"  , lambda: domaneuver("R",  30, True , True ) ],
+    ["RRR+"  , lambda: domaneuver("R",  90, True , True ) ],
+    ["RR+"   , lambda: domaneuver("R",  60, True , True ) ],
+    ["R+"    , lambda: domaneuver("R",  30, True , True ) ],
 
     ["AA"  , lambda: doattack() ],
 
@@ -352,6 +400,12 @@ def _doaction(M, action, note=False):
     ["DD"   , lambda: dodive(2) ],
     ["D"    , lambda: dodive(1) ],
 
+    ["TL"   , lambda: dodeclaremaneuver("T" , "L") ],
+    ["TR"   , lambda: dodeclaremaneuver("T" , "R") ],
+    ["SLL"  , lambda: dodeclaremaneuver("SL", "L") ],
+    ["SLR"  , lambda: dodeclaremaneuver("SL", "R") ],
+    ["VRL"  , lambda: dodeclaremaneuver("VR", "L") ],
+    ["VRR"  , lambda: dodeclaremaneuver("VR", "R") ],
   ]
 
   ########################################
