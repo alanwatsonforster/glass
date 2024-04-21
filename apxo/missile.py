@@ -49,6 +49,9 @@ class missile:
       self._altitudeband = apaltitude.altitudeband(self._altitude)
       self._logaction("", "position      is %s." % self.position())
 
+      self._maneuvertype  = None
+      self._maneuversense = None
+
       self._color    = color
       self._removed  = False
       self._zorder   = launcher._zorder
@@ -77,6 +80,8 @@ class missile:
     self._y, \
     self._facing, \
     self._altitude, \
+    self._maneuvertype, \
+    self._maneuversense, \
     self._removed, \
     = self._saved
     self._altitudeband = apaltitude.altitudeband(self._altitude)
@@ -92,6 +97,8 @@ class missile:
       self._y, \
       self._facing, \
       self._altitude, \
+      self._maneuvertype, \
+      self._maneuversense, \
       self._removed, \
     )
 
@@ -239,7 +246,7 @@ class missile:
 def _doaction(M, action, note=False):
 
   """
-  Carry out out special flight.
+  Carry out out missile flight.
   """
 
   ########################################
@@ -443,7 +450,7 @@ def _doaction(M, action, note=False):
 
   M._lognote(note)
   
-  M._logposition("end")
+  M._logposition("")
   M._continueflightpath()
 
   if initialaltitudeband != M._altitudeband:
