@@ -3,13 +3,13 @@ startfile(__file__, "math")
 
 # Checks on apxo.math.
 
-from apxo.math import onethird, twothirds
+from apxo.math import onethirdfromtable, twothirdsfromtable
 
 # This table is from the play aids.
 
 def checkthirds(a, b, c):
-  assert onethird(a) == b
-  assert twothirds(a) == c
+  assert onethirdfromtable(a) == b
+  assert twothirdsfromtable(a) == c
 
 checkthirds( 1.0, 0.5,  0.5)
 checkthirds( 1.5, 0.5,  1.0)

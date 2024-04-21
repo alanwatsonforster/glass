@@ -2,8 +2,6 @@
 Special flight for aircaft.
 """
 
-from apxo.math import onethird, twothirds, roundtoquarter
-
 import apxo.altitude     as apaltitude
 import apxo.capabilities as apcapabilities
 import apxo.hex          as aphex

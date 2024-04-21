@@ -4,7 +4,7 @@ Normal flight for aircraft.
 
 import math
 import re
-from apxo.math import onethird, twothirds, roundtoquarter
+from apxo.math import *
 
 import apxo.airtoair       as apairtoair
 import apxo.altitude       as apaltitude
@@ -640,7 +640,7 @@ def continueflight(A, actions, note=False):
     A._maneuversupersonic   = (A._speed >= apspeed.m1speed(A._altitudeband))
     # The requirement includes the FPs used to execute the roll.
     if apvariants.withvariant("use version 2.4 rules"):
-      A._maneuverrequiredfp   = apcapabilities.rollhfp(A) + extrapreparatoryhfp() + onethird(A._speed)
+      A._maneuverrequiredfp   = apcapabilities.rollhfp(A) + extrapreparatoryhfp() + rounddown(A._speed / 3)
     else:
       A._maneuverrequiredfp   = apcapabilities.rollhfp(A) + extrapreparatoryhfp() + 1
 
@@ -705,7 +705,7 @@ def continueflight(A, actions, note=False):
     A._maneuversupersonic   = (A._speed >= apspeed.m1speed(A._altitudeband))
     # The requirement includes the FPs used to execute the roll.
     if apvariants.withvariant("use version 2.4 rules"):
-      A._maneuverrequiredfp   = apcapabilities.rollhfp(A) + extrapreparatoryhfp() + onethird(A._speed)
+      A._maneuverrequiredfp   = apcapabilities.rollhfp(A) + extrapreparatoryhfp() + rounddown(A._speed / 3)
     else:
       A._maneuverrequiredfp   = apcapabilities.rollhfp(A) + extrapreparatoryhfp() + 1
 
@@ -1725,7 +1725,7 @@ def startflight(A, actions, note=False):
       minvfp = 1      
 
       # See rules 8.1.1.
-      minhfp = math.ceil(onethird(maxfp))
+      minhfp = rounddown(onethirdfromtable(maxfp))
 
     elif flighttype == "SC":
 
@@ -1741,7 +1741,7 @@ def startflight(A, actions, note=False):
       if climbcapability < 1:
         maxvfp = 1
       else:
-        maxvfp = math.floor(twothirds(maxfp))
+        maxvfp = rounddown(twothirdsfromtable(maxfp))
 
     elif flighttype == "VC" or flighttype == "VD":
 
@@ -1750,10 +1750,10 @@ def startflight(A, actions, note=False):
       
       # See rules 8.1.3 and 8.2.3.
       if previousflighttype != flighttype:
-        minhfp = math.floor(onethird(maxfp))
+        minhfp = rounddown(onethirdfromtable(maxfp))
         maxhfp = minhfp
       else:
-        maxhfp = math.floor(onethird(maxfp))
+        maxhfp = rounddown(onethirdfromtable(maxfp))
 
     elif flighttype == "SD":
 
@@ -1762,8 +1762,8 @@ def startflight(A, actions, note=False):
       
       # See rules 8.2.1 and 8.2.3.
       if previousflighttype == "VD":
-        minvfp = math.floor(maxfp / 2)
-      minhfp = math.ceil(onethird(maxfp))    
+        minvfp = rounddown(maxfp / 2)
+      minhfp = rounddown(onethirdfromtable(maxfp))    
 
     elif flighttype == "UD":
 
@@ -1780,7 +1780,7 @@ def startflight(A, actions, note=False):
         maxvfp = 0
         maxunloadedhfp = maxfp
         if previousflighttype == "VD":
-          minunloadedhfp = math.floor(maxfp / 2)
+          minunloadedhfp = rounddown(maxfp / 2)
         else:
           minunloadedhfp = 1
 

@@ -4,9 +4,9 @@ import apxo.capabilities  as apcapabilities
 import apxo.configuration as apconfiguration
 import apxo.variants      as apvariants
 
-from apxo.math         import onethird, twothirds
+from apxo.math         import *
 from apxo.normalflight import _isclimbingflight, _isdivingflight
-from apxo.log           import plural
+from apxo.log          import plural
 
 ################################################################################
 
@@ -134,14 +134,14 @@ def startmovespeed(A, power, flamedoutengines, lowspeedliftdeviceselected):
 
     if A._altitudeband == "VH":
       if jet and not apcapabilities.hasproperty(A, "HAE"):
-        powerapM  = max(0.5, twothirds(powerapM))
+        powerapM  = max(0.5, twothirdsfromtable(powerapM))
         if powerapAB != None:
-          powerapAB = max(0.5, twothirds(powerapAB))
+          powerapAB = max(0.5, twothirdsfromtable(powerapAB))
     elif (A._altitudeband == "EH" or A._altitudeband == "UH"):
       if jet and not apcapabilities.hasproperty(A, "HAE"):
-        powerapM  = max(0.5, onethird(powerapM))
+        powerapM  = max(0.5, onethirdfromtable(powerapM))
         if powerapAB != None:
-          powerapAB = max(0.5, onethird(powerapAB))     
+          powerapAB = max(0.5, onethirdfromtable(powerapAB))     
 
     # Some propeller aircraft lose power at high speed.
     if apcapabilities.powerfade(A) != None:
