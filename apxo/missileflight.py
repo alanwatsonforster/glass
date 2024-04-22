@@ -31,7 +31,9 @@ def move(M, speed, actions, note=False):
   M._logstart("altitude band is %s." % M._altitudeband)
   M._logposition("start")
 
-  M._fp = 0
+  M._fp  = 0
+  M._hfp = 0
+  M._vfp = 0
 
   continuemove(M, actions, note)
 
@@ -63,6 +65,9 @@ def _doaction(M, action):
     Move horizontally.
     """
 
+    M._fp  += 1
+    M._hfp += 1
+
     if element == "HD":
       M._altitude -= 1
 
@@ -76,6 +81,9 @@ def _doaction(M, action):
     Climb.
     """
 
+    M._fp  += 1
+    M._vfp += 1
+    
     M._altitude += altitudechange
     M._altitudeband = apaltitude.altitudeband(M._altitude)
 
@@ -86,6 +94,9 @@ def _doaction(M, action):
     """
     Dive.
     """
+
+    M._fp  += 1
+    M._vfp += 1
 
     M._altitude -= altitudechange
     M._altitudeband = apaltitude.altitudeband(M._altitude)
@@ -226,16 +237,20 @@ def _doaction(M, action):
   initialaltitude     = M._altitude
   initialaltitudeband = M._altitudeband
 
-  while action != "":
+  fp = M._fp
+
+  remainingaction = action
+
+  while remainingaction != "":
 
     for element in elementdispatchlist:
 
       elementcode = element[0]
       elementprocedure = element[1]
 
-      if len(elementcode) <= len(action) and elementcode == action[:len(elementcode)]:
+      if len(elementcode) <= len(remainingaction) and elementcode == remainingaction[:len(elementcode)]:
         elementprocedure()
-        action = action[len(elementcode):]
+        remainingaction = remainingaction[len(elementcode):]
         M.checkforterraincollision()
         M.checkforleavingmap()
         if M._removed:
@@ -246,7 +261,11 @@ def _doaction(M, action):
 
       raise RuntimeError("invalid action %r." % action)
 
-  M._fp += 1
+  if M._fp == fp:
+    raise RuntimeError("%r is not a valid action as it does not expend an FP." % action)
+  elif M._fp > fp + 1:
+    raise RuntimeError("%r is not a valid action as it attempts to expend more than one FP." % action)
+
   M._flightpath.next(M._x, M._y)
 
   if M._fp == M._speed:
