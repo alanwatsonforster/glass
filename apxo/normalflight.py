@@ -1428,7 +1428,7 @@ def continueflight(A, actions, note=False):
       if A._fp == fp:
         raise RuntimeError("%r is not a valid action as it does not expend an FP." % action)
       elif A._fp > fp + 1:
-        raise RuntimeError("%r is not a valid action as it attemps to expend more than one FP." % action)
+        raise RuntimeError("%r is not a valid action as it attempts to expend more than one FP." % action)
 
       # The climb slope is defined in APJ 39.
       if A._hfp != 0:
