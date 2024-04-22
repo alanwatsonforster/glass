@@ -57,11 +57,14 @@ def _doaction(M, action):
 
   ########################################
 
-  def dohorizontal():
+  def dohorizontal(element):
 
     """
     Move horizontally.
     """
+
+    if element == "HD":
+      M._altitude -= 1
 
     M._x, M._y = aphex.forward(M._x, M._y, M._facing)
 
@@ -148,6 +151,29 @@ def _doaction(M, action):
     # This table is searched in order, so put longer elements before shorter 
     # ones that are prefixes (e.g., put C2 before C).
   
+    ["SLL"  , lambda: dodeclaremaneuver("SL", "L") ],
+    ["SLR"  , lambda: dodeclaremaneuver("SL", "R") ],
+
+    ["VRL"  , lambda: dodeclaremaneuver("VR", "L") ],
+    ["VRR"  , lambda: dodeclaremaneuver("VR", "R") ],
+    
+    ["TL"   , lambda: dodeclaremaneuver("T" , "L") ],
+    ["TR"   , lambda: dodeclaremaneuver("T" , "R") ],
+    
+    ["L90+"  , lambda: domaneuver("L",  90, True , True ) ],
+    ["L60+"  , lambda: domaneuver("L",  60, True , True ) ],
+    ["L30+"  , lambda: domaneuver("L",  30, True , True ) ],
+    ["LLL+"  , lambda: domaneuver("L",  90, True , True ) ],
+    ["LL+"   , lambda: domaneuver("L",  60, True , True ) ],
+    ["L+"    , lambda: domaneuver("L",  30, True , True ) ],
+
+    ["R90+"  , lambda: domaneuver("R",  90, True , True ) ],
+    ["R60+"  , lambda: domaneuver("R",  60, True , True ) ],
+    ["R30+"  , lambda: domaneuver("R",  30, True , True ) ],
+    ["RRR+"  , lambda: domaneuver("R",  90, True , True ) ],
+    ["RR+"   , lambda: domaneuver("R",  60, True , True ) ],
+    ["R+"    , lambda: domaneuver("R",  30, True , True ) ],
+    
     ["LS180" , lambda: domaneuver("L", 180, True , False) ],
     ["L180"  , lambda: domaneuver("L", 180, False, False) ],
     ["L150"  , lambda: domaneuver("L", 150, True , False) ],
@@ -170,36 +196,9 @@ def _doaction(M, action):
     ["RR"    , lambda: domaneuver("R",  60, True , False) ],
     ["R"     , lambda: domaneuver("R",  30, True , False) ],
 
-    ["LS180+", lambda: domaneuver("L", 180, True , True ) ],
-    ["L180+" , lambda: domaneuver("L", 180, False, True ) ],
-    ["L150+" , lambda: domaneuver("L", 150, True , True ) ],
-    ["L120+" , lambda: domaneuver("L", 120, True , True ) ],
-    ["L90+"  , lambda: domaneuver("L",  90, True , True ) ],
-    ["L60+"  , lambda: domaneuver("L",  60, True , True ) ],
-    ["L30+"  , lambda: domaneuver("L",  30, True , True ) ],
-    ["LLL+"  , lambda: domaneuver("L",  90, True , True ) ],
-    ["LL+"   , lambda: domaneuver("L",  60, True , True ) ],
-    ["L+"    , lambda: domaneuver("L",  30, True , True ) ],
-
-    ["RS180+", lambda: domaneuver("R", 180, True , True ) ],
-    ["R180+" , lambda: domaneuver("R", 180, False, True ) ],
-    ["R150+" , lambda: domaneuver("R", 150, True , True ) ],
-    ["R120+" , lambda: domaneuver("R", 120, True , True ) ],
-    ["R90+"  , lambda: domaneuver("R",  90, True , True ) ],
-    ["R60+"  , lambda: domaneuver("R",  60, True , True ) ],
-    ["R30+"  , lambda: domaneuver("R",  30, True , True ) ],
-    ["RRR+"  , lambda: domaneuver("R",  90, True , True ) ],
-    ["RR+"   , lambda: domaneuver("R",  60, True , True ) ],
-    ["R+"    , lambda: domaneuver("R",  30, True , True ) ],
-
-    ["AA"  , lambda: doattack() ],
-
-    ["K"    , lambda: dokilled()],
-
-    ["/"    , lambda: None ],
-
-    ["H"    , lambda: dohorizontal() ],
-
+    ["HD"   , lambda: dohorizontal("HD") ],
+    ["H"    , lambda: dohorizontal("H")  ],
+    
     ["C1"   , lambda: doclimb(1) ],
     ["C2"   , lambda: doclimb(2) ],
     ["CC"   , lambda: doclimb(2) ],
@@ -212,12 +211,12 @@ def _doaction(M, action):
     ["DD"   , lambda: dodive(2) ],
     ["D"    , lambda: dodive(1) ],
 
-    ["TL"   , lambda: dodeclaremaneuver("T" , "L") ],
-    ["TR"   , lambda: dodeclaremaneuver("T" , "R") ],
-    ["SLL"  , lambda: dodeclaremaneuver("SL", "L") ],
-    ["SLR"  , lambda: dodeclaremaneuver("SL", "R") ],
-    ["VRL"  , lambda: dodeclaremaneuver("VR", "L") ],
-    ["VRR"  , lambda: dodeclaremaneuver("VR", "R") ],
+    ["AA"  , lambda: doattack() ],
+
+    ["K"    , lambda: dokilled()],
+
+    ["/"    , lambda: None ],
+
   ]
 
   ########################################
