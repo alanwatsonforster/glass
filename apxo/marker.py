@@ -10,8 +10,32 @@ def _startsetup():
   _markerlist = []
   
 def _drawmap():
-  for a in _markerlist:
-      a._draw()
+  for m in _markerlist:
+      m._draw()
+
+##############################################################################
+
+def aslist(withremoved=False):
+  markerlist = _markerlist
+  if not withremoved:
+    markerlist = filter(lambda x: not x._removed, markerlist)
+  return list(alist)
+
+##############################################################################
+
+def _xminforzoom():
+  return min([m._x for a in aslist()])
+
+def _xmaxforzoom():
+  return max([m._x for m in aslist()])
+
+def _yminforzoom():
+  return min([m._y for m in aslist()])
+
+def _ymaxforzoom():
+  return max([m._y for m in aslist()])
+
+##############################################################################
 
 class marker:
 

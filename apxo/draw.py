@@ -32,7 +32,7 @@ def setcanvas(xmin, ymin, xmax, ymax, dotsperhex=100):
     edgecolor=None, facecolor="white", 
     fill=True, linewidth=0, 
     zorder=0
-  ))  
+  ))
 
 def save():
   pickle.dump(_fig, open("apxo.pickle", "wb"))
@@ -160,6 +160,7 @@ def _drawtextinphysical(x, y, facing, s, dx=0, dy=0,
            horizontalalignment='center',
            verticalalignment='center',
            rotation_mode="anchor",
+           clip_on=True,
            zorder=zorder)
 
 def _drawpolygoninphysical(xy, 

@@ -38,14 +38,6 @@ def _endsetup():
   for a in _aircraftlist:
     a._save(apturn.turn())
 
-def aslist(withdestroyed=False, withleftmap=False):
-  alist = _aircraftlist
-  if not withdestroyed:
-    alist = filter(lambda x: not x._destroyed, alist)
-  if not withleftmap:
-    alist = filter(lambda x: not x._leftmap, alist)
-  return list(alist)
-
 def _startturn():
   global _zorder
   _zorder = 0
@@ -82,6 +74,30 @@ def _drawmap():
   for a in _aircraftlist:
     a._drawflightpath()
     a._drawaircraft()
+
+##############################################################################
+
+def aslist(withdestroyed=False, withleftmap=False):
+  aircraftlist = _aircraftlist
+  if not withdestroyed:
+    aircraftlist = filter(lambda x: not x._destroyed, aircraftlist)
+  if not withleftmap:
+    aircraftlist = filter(lambda x: not x._leftmap, aircraftlist)
+  return list(aircraftlist)
+  
+##############################################################################
+
+def _xminforzoom(withdestroyed=False):
+  return min([min(a._x, min(a._flightpathx)) for a in aslist(withdestroyed=withdestroyed)])
+
+def _xmaxforzoom(withdestroyed=False):
+  return max([max(a._x, max(a._flightpathx)) for a in aslist(withdestroyed=withdestroyed)])
+
+def _yminforzoom(withdestroyed=False):
+  return min([min(a._y, min(a._flightpathy)) for a in aslist(withdestroyed=withdestroyed)])
+
+def _ymaxforzoom(withdestroyed=False):
+  return max([max(a._y, max(a._flightpathy)) for a in aslist(withdestroyed=withdestroyed)])
 
 ##############################################################################
 
@@ -201,12 +217,12 @@ class aircraft:
       self._turnsstalled               = 0
       self._turnsdeparted              = 0
       self._finishedmove               = True
-      self._flightpathx                = []
-      self._flightpathy                = []
       self._color                      = color
       self._counter                    = counter
       self._force                      = force
       self._enginesmoking              = False
+
+      self._startflightpath()
 
       self._logaction("", "force         is %s." % force)
       self._logaction("", "type          is %s." % aircrafttype)

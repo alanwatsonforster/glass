@@ -399,7 +399,7 @@ def setmap(sheetgrid,
   if _frozen:
     forestalpha += 0.20
 
-def startdrawmap(show=False):
+def startdrawmap(show=False, xmin=None, ymin=None, xmax=None, ymax=None):
 
   """
   Draw the map.
@@ -424,15 +424,24 @@ def startdrawmap(show=False):
       y = [xy[1] for xy in xy]
       apdraw.drawlines(x, y, zorder=0, **kwargs)
 
+  fullmap = (xmin is None) and (xmax is None) and (ymin is None) and (ymax is None)
+
   global _saved
-  if _saved:
+  if fullmap and _saved:
     apdraw.restore()
     return
 
-  if _xmax != None and _ymax != None:
-    apdraw.setcanvas(_xmin, _ymin, _xmax, _ymax, dotsperhex=_dotsperhex)
-  else:
-    apdraw.setcanvas(_xmin, _ymin, _nxsheetgrid * _dxsheet, _nysheetgrid * _dysheet, dotsperhex=_dotsperhex)
+  xmin = xmin if xmin is not None else 0
+  xmax = xmax if xmax is not None else _dxsheet * _nxsheetgrid
+  ymin = ymin if ymin is not None else 0
+  ymax = ymax if ymax is not None else _dysheet * _nysheetgrid
+
+  xmin = max(_xmin, xmin)
+  xmax = min(_xmax, xmax)
+  ymin = max(_ymin, ymin)
+  ymax = min(_ymax, ymax)
+
+  apdraw.setcanvas(xmin, ymin, xmax, ymax, dotsperhex=_dotsperhex)
 
   if _drawterrain:
 
@@ -650,8 +659,9 @@ def startdrawmap(show=False):
         apdraw.drawcompass(xmin + dx, ymin + dy, apazimuth.tofacing("N"), color=labelcolor, alpha=1, zorder=0)
         break
 
-  apdraw.save()
-  _saved = True
+  if fullmap:
+    apdraw.save()
+    _saved = True
 
 def enddrawmap(turn):
   for filetype in _writefile:

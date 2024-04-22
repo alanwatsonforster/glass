@@ -27,6 +27,31 @@ def _drawmap():
     M._drawflightpath()
     M._draw()
 
+##############################################################################
+
+def aslist(withremoved=False):
+  missilelist = _missilelist
+  if not withremoved:
+    missilelist = filter(lambda x: not x._removed, missilelist)
+  return list(missilelist)
+  
+##############################################################################
+
+def _xminforzoom():
+  return min([min(m._x, min(m._flightpathx)) for m in aslist()])
+
+def _xmaxforzoom():
+  return max([max(m._x, max(m._flightpathx)) for m in aslist()])
+
+def _yminforzoom():
+  return min([min(m._y, min(m._flightpathy)) for m in aslist()])
+
+def _ymaxforzoom():
+  return max([max(m._y, max(m._flightpathy)) for m in aslist()])
+
+##############################################################################
+
+
 class missile:
 
   def __init__(self, name, missiletype, launcher, color="white"):

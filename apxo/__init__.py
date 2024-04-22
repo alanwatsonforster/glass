@@ -183,16 +183,47 @@ def orderofflightdeterminationphase(
 
 ################################################################################
 
-def drawmap():
+def drawmap(
+  zoom=True, 
+  zoomincludesdestroyed=False,
+  zoomborder=2,
+  xmin=None, ymin=None, xmax=None, ymax=None
+  ):
 
   """
   Draw the map, with aircraft and markers at their current positions.
+
+  If zoom is True, zoom the map to include region including the
+  aircraft, missiles, and markers with a border of zoomborder hexes. If
+  zoomincludesdestroyed is True, include destroyed aircraft in the zoom.
+
+  If zoom is False, use xmin, xmax, ymin, and ymax to defined the area
+  drawn. If these are None, use the natural border of the map. Otherwise
+  use their value.
   """
 
   aplog.clearerror()
   try:
 
-    apmap.startdrawmap()
+    if zoom:
+
+      xmin = apaircraft._xminforzoom(withdestroyed=zoomincludesdestroyed)
+      xmax = apaircraft._xmaxforzoom(withdestroyed=zoomincludesdestroyed)
+      ymin = apaircraft._yminforzoom(withdestroyed=zoomincludesdestroyed)
+      ymax = apaircraft._ymaxforzoom(withdestroyed=zoomincludesdestroyed)
+
+      if len(apmissile.aslist()) > 0:
+        xmin = min(xmin, apmissile._xminforzoom())
+        xmax = max(xmax, apmissile._xmaxforzoom())
+        ymin = min(ymin, apmissile._yminforzoom())
+        ymax = max(ymax, apmissile._ymaxforzoom())
+
+      xmin -= zoomborder
+      ymin -= zoomborder
+      xmax += zoomborder
+      ymax += zoomborder
+
+    apmap.startdrawmap(xmin=xmin, ymin=ymin, xmax=xmax, ymax=ymax)
     apmarker._drawmap()
     apaircraft._drawmap()
     apmissile._drawmap()
