@@ -84,7 +84,7 @@ def usingfirstgenerationsheets():
 
 def setmap(sheetgrid, 
   drawterrain=True, drawlabels=True, 
-  xmin=0, ymin=0, xmax=None, ymax=None, dotsperhex=80, writefile=[],
+  dotsperhex=80, writefile=[],
   style="original", 
   wilderness=None, forest=None, freshwater=None, allforest=None, maxurbansize=None
   ):
@@ -150,12 +150,13 @@ def setmap(sheetgrid,
   _drawterrain = drawterrain
   _drawlabels  = drawlabels
 
-  _xmin = xmin if xmin is not None else 0
-  _xmax = xmax if xmax is not None else _dxsheet * _nxsheetgrid
-  _ymin = ymin if ymin is not None else 0
-  _ymax = ymax if ymax is not None else _dysheet * _nysheetgrid
   _dotsperhex  = dotsperhex
   _writefile   = writefile
+
+  _xmin = 0
+  _xmax = _dxsheet * _nxsheetgrid
+  _ymin = 0
+  _ymax = _dysheet * _nysheetgrid
 
   def sheettoright(iy, ix):
     if ix < _nxsheetgrid - 1:
