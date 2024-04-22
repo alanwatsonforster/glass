@@ -141,28 +141,19 @@ class missile:
     
   #############################################################################
     
-  def move(self, actions):
+  def move(self, speed, actions, note=False):
 
     aplog.clearerror()
     try:
 
-      self._flightpath.start(self._x, self._y)
-
-      self._logbreak()
-      self._logline()
-      self._logposition("start")
-      if actions != "":
-        for action in actions.split(","):
-          if not self._removed:
-            apmissileflight._doaction(self, action)
-      self._logline()
+      apmissileflight.move(self, speed, actions)
 
     except RuntimeError as e:
       aplog.logexception(e)
 
   #############################################################################
 
-  def continuemove(self, actions):
+  def continuemove(self, actions, note=False):
 
     aplog.clearerror()
     try:

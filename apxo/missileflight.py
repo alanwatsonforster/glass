@@ -1,8 +1,55 @@
-import apxo.altitude      as apaltitude
-import apxo.flightpath    as apflightpath
-import apxo.hex           as aphex
+import apxo.altitude   as apaltitude
+import apxo.flightpath as apflightpath
+import apxo.hex        as aphex
+import apxo.speed      as apspeed
+import apxo.turn       as apturn
 
-def _doaction(M, action, note=False):
+################################################################################
+
+def move(M, speed, actions, note=False):
+
+  """
+  Start a move and possibly carry out some actions.
+  """
+
+  apturn.checkinturn()
+
+  M._logbreak()
+  M._logline()
+
+  M._flightpath.start(M._x, M._y)
+
+  if M._removed:
+    M._endmove()
+    return
+
+  M._speed = speed
+  if speed < apspeed.m1speed(M._altitudeband):
+    M._logstart("speed         is %.1f." % speed)
+  else:
+    M._logstart("speed         is %.1f (SS)." % speed)  
+  M._logstart("altitude band is %s." % M._altitudeband)
+  M._logposition("start")
+
+  M._fp = 0
+
+  continuemove(M, actions, note)
+
+def continuemove(M, actions, note=False):
+  _doactions(M, actions)
+  M._lognote(note)
+
+################################################################################
+
+def _doactions(M, actions):
+  if actions != "":
+    for action in actions.split(","):
+      if not M._removed:
+        _doaction(M, action)
+
+################################################################################
+
+def _doaction(M, action):
 
   """
   Carry out out missile flight.
@@ -174,14 +221,8 @@ def _doaction(M, action, note=False):
   ]
 
   ########################################
-
-  def doaction(action):
-
-    """
-    Carry out an action for missile flight.
-    """
     
-  M._logaction("", action)
+  M._logaction("FP %d" % (M._fp + 1), action)
 
   initialaltitude     = M._altitude
   initialaltitudeband = M._altitudeband
@@ -206,10 +247,14 @@ def _doaction(M, action, note=False):
 
       raise RuntimeError("invalid action %r." % action)
 
-  M._lognote(note)
-  
-  M._logposition("")
+  M._fp += 1
   M._flightpath.next(M._x, M._y)
+
+  if M._fp == M._speed:
+    M._logposition("end")
+    M._logline()
+  else:
+    M._logposition("")
 
   if initialaltitudeband != M._altitudeband:
     M._logevent("altitude band changed from %s to %s." % (initialaltitudeband, M._altitudeband))
