@@ -1045,7 +1045,6 @@ class aircraft:
     print("Flight type              : %s%s" % (self._flighttype, "/HRD" if self._hrd else ""))
     print("Power setting            : %s" % self._powersetting)
     print("Actions                  : %s" % self._actions)
-    print("Conventional actions     : %s" % self._conventionalactions)
 
     if apmap.isonmap(self._x, self._y):
       position = aphexcode.fromxy(self._x, self._y)
