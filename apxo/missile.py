@@ -1,11 +1,12 @@
-import apxo.altitude as apaltitude
-import apxo.azimuth  as apazimuth
-import apxo.draw     as apdraw
-import apxo.hex      as aphex
-import apxo.hexcode  as aphexcode
-import apxo.log      as aplog
-import apxo.map      as apmap
-import apxo.turn     as apturn
+import apxo.altitude   as apaltitude
+import apxo.azimuth    as apazimuth
+import apxo.draw       as apdraw
+import apxo.flightpath as apflightpath
+import apxo.hex        as aphex
+import apxo.hexcode    as aphexcode
+import apxo.log        as aplog
+import apxo.map        as apmap
+import apxo.turn       as apturn
 
 _missilelist = []
 
@@ -16,16 +17,17 @@ def _startsetup():
 def _startturn():
   for M in _missilelist:
     M._restore()
-    M._startflightpath()
+    M._flightpath.start(M._x, M._y)
 
 def _endturn():
   for M in _missilelist:
     M._save()
   
 def _drawmap():
-  for M in _missilelist:
-    M._drawflightpath()
-    M._draw()
+  for M in aslist():
+    if not M._removed:
+      M._flightpath.draw(M._color, M._zorder)
+      M._draw()
 
 ##############################################################################
 
@@ -38,16 +40,16 @@ def aslist(withremoved=False):
 ##############################################################################
 
 def _xminforzoom():
-  return min([min(m._x, min(m._flightpathx)) for m in aslist()])
+  return min([min(M._x, M._flightpath.xmin()) for M in aslist()])
 
 def _xmaxforzoom():
-  return max([max(m._x, max(m._flightpathx)) for m in aslist()])
+  return max([max(M._x, M._flightpath.xmax()) for M in aslist()])
 
 def _yminforzoom():
-  return min([min(m._y, min(m._flightpathy)) for m in aslist()])
+  return min([min(M._y, M._flightpath.ymin()) for M in aslist()])
 
 def _ymaxforzoom():
-  return max([max(m._y, max(m._flightpathy)) for m in aslist()])
+  return max([max(M._y, M._flightpath.ymax()) for M in aslist()])
 
 ##############################################################################
 
@@ -81,7 +83,7 @@ class missile:
       self._removed  = False
       self._zorder   = launcher._zorder
 
-      self._startflightpath()
+      self._flightpath = apflightpath.flightpath(self._x, self._y)
 
       global _missilelist
       _missilelist.append(self)
@@ -146,7 +148,7 @@ class missile:
     aplog.clearerror()
     try:
 
-      self._startflightpath()
+      self._flightpath.start(self._x, self._y)
 
       self._logbreak()
       self._logline()
@@ -184,23 +186,8 @@ class missile:
     self._removed = True
     
   #############################################################################
-
-  def _startflightpath(self):
-    self._flightpathx = [self._x]
-    self._flightpathy = [self._y]
-
-  def _continueflightpath(self):
-    self._flightpathx.append(self._x)
-    self._flightpathy.append(self._y)
-
-  def _drawflightpath(self):
-    if self._removed:
-      return
-    apdraw.drawflightpath(self._flightpathx, self._flightpathy, self._color, self._zorder)
     
   def _draw(self):
-    if self._removed:
-      return
     apdraw.drawmissile(self._x, self._y, self._facing, self._color, self._name, self._altitude, self._zorder)
 
   ########################################
@@ -416,7 +403,6 @@ def _doaction(M, action, note=False):
     ["K"    , lambda: dokilled()],
 
     ["/"    , lambda: None ],
-    [","    , lambda: M._continueflightpath() ],
 
     ["H"    , lambda: dohorizontal() ],
 
@@ -476,7 +462,7 @@ def _doaction(M, action, note=False):
   M._lognote(note)
   
   M._logposition("")
-  M._continueflightpath()
+  M._flightpath.next(M._x, M._y)
 
   if initialaltitudeband != M._altitudeband:
     M._logevent("altitude band changed from %s to %s." % (initialaltitudeband, M._altitudeband))

@@ -129,7 +129,6 @@ def doflight(A, action, note=False):
     ["K"    , lambda: dokilled()],
 
     ["/"    , lambda: None ],
-    [","    , lambda: A._continueflightpath() ],
 
     ["H"    , lambda: dohorizontal() ],
 
@@ -184,7 +183,7 @@ def doflight(A, action, note=False):
   A._lognote(note)
   
   A._logposition("end")
-  A._continueflightpath()
+  A._flightpath.next(A._x, A._y)
 
   if initialaltitudeband != A._altitudeband:
     A._logevent("altitude band changed from %s to %s." % (initialaltitudeband, A._altitudeband))

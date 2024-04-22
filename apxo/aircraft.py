@@ -7,6 +7,7 @@ import apxo.configuration  as apconfiguration
 import apxo.damage         as apdamage
 import apxo.draw           as apdraw
 import apxo.flight         as apflight
+import apxo.flightpath     as apflightpath
 import apxo.hex            as aphex
 import apxo.hexcode        as aphexcode
 import apxo.log            as aplog
@@ -50,7 +51,7 @@ def _startturn():
     a._identifiedonpreviousturn = a._identified
     a._identified = False
     a._unspecifiedattackresult = 0
-    a._startflightpath()
+    a._flightpath.start(a._x, a._y)
   for a in _aircraftlist:
     apcloseformation.check(a)
 
@@ -72,7 +73,7 @@ def _endturn():
 
 def _drawmap():
   for a in _aircraftlist:
-    a._drawflightpath()
+    a._flightpath.draw(a._color, a._zorder)
     a._drawaircraft()
 
 ##############################################################################
@@ -88,16 +89,16 @@ def aslist(withdestroyed=False, withleftmap=False):
 ##############################################################################
 
 def _xminforzoom(withdestroyed=False):
-  return min([min(a._x, min(a._flightpathx)) for a in aslist(withdestroyed=withdestroyed)])
+  return min([min(a._x, a._flightpath.xmin()) for a in aslist(withdestroyed=withdestroyed)])
 
 def _xmaxforzoom(withdestroyed=False):
-  return max([max(a._x, max(a._flightpathx)) for a in aslist(withdestroyed=withdestroyed)])
+  return max([max(a._x, a._flightpath.xmax()) for a in aslist(withdestroyed=withdestroyed)])
 
 def _yminforzoom(withdestroyed=False):
-  return min([min(a._y, min(a._flightpathy)) for a in aslist(withdestroyed=withdestroyed)])
+  return min([min(a._y, a._flightpath.ymin()) for a in aslist(withdestroyed=withdestroyed)])
 
 def _ymaxforzoom(withdestroyed=False):
-  return max([max(a._y, max(a._flightpathy)) for a in aslist(withdestroyed=withdestroyed)])
+  return max([max(a._y, a._flightpath.ymax()) for a in aslist(withdestroyed=withdestroyed)])
 
 ##############################################################################
 
@@ -222,7 +223,7 @@ class aircraft:
       self._force                      = force
       self._enginesmoking              = False
 
-      self._startflightpath()
+      self._flightpath = apflightpath.flightpath(self._x, self._y)
 
       self._logaction("", "force         is %s." % force)
       self._logaction("", "type          is %s." % aircrafttype)
@@ -859,9 +860,10 @@ class aircraft:
  ################################################################################
 
   def hasbeenkilled(self):
-    ap._checkinturn()
+    apturn.checkinturn()
     self._log("has been killed.")
     self._destroyed = True
+    self._color = None
 
   ################################################################################
 
@@ -904,21 +906,6 @@ class aircraft:
       assert expectedconfiguration == self._configuration
 
   ################################################################################
-
-  def _startflightpath(self):
-    self._flightpathx = [self._x]
-    self._flightpathy = [self._y]
-
-  def _continueflightpath(self):
-    self._flightpathx.append(self._x)
-    self._flightpathy.append(self._y)
-
-  def _drawflightpath(self):
-    if self._destroyed:
-      color = None
-    else:
-      color = self._color
-    apdraw.drawflightpath(self._flightpathx, self._flightpathy, color, self._zorder)
 
   def _drawaircraft(self):
     if self._leftmap:
