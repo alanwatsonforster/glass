@@ -286,6 +286,13 @@ def drawmissile(x, y, facing, color, name, altitude, zorder):
     
   ################################################################################
 
+# I determine colors from images using the Digital Color Meter on macOS. I use
+# native RGB values. However, colors are often percieved to be darker when seen 
+# in small areas. To counter this, I lighten certain colors.
+
+def _lighten(color, factor):
+  return list([min(1.0, component * factor) for component in color])
+
 _colors = {
 
   # This is a mapping from "aircraft color" to "CSS color".
@@ -307,6 +314,7 @@ _colors = {
   "unpainted"   : "aluminum",
 
   "white"       : "css:white",
+  "black"       : "css:black",
   "darkblue"    : "css:midnightblue",
   "green"       : "css:olivedrab",
   "tan"         : "css:tan",
@@ -315,6 +323,19 @@ _colors = {
   "darkgrey"    : "darkgray",
   "lightgray"   : "css:silver",
   "lightgrey"   : "lightgray",
+
+  # The blue of the IAF roundel.
+  # https://en.wikipedia.org/wiki/General_Dynamics_F-16_Fighting_Falcon_variants#F-16I_Sufa
+  # This blue is darker and more saturated that the NATO blue.
+  "iafblue"     : _lighten((   0/255, 138/255, 192/255 ), 1.4),
+
+  # Pan-Arab colors.
+  # https://en.wikipedia.org/wiki/Pan-Arab_colors
+  # https://en.wikipedia.org/wiki/Pan-Arab_colors#/media/File:Flag_of_Hejaz_1917.svg
+  # This red is darker and more saturated than the NATO red. This green is lighter and
+  # more saturated than the standard green.
+  "panarabred"  : _lighten(( 199/255,  18/255,  34/244), 1.4),
+  "panarabgreen": _lighten((   9/255, 111/255,  53/255), 1.4),
 
 }
 
