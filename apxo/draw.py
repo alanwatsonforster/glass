@@ -152,12 +152,15 @@ def _drawdartinphysical(x, y, facing, size=1.0, dx=0, dy=0,
 
 def _drawtextinphysical(x, y, facing, s, dx=0, dy=0, 
   color="black", size=10, alpha=1.0,
-  zorder=1):
+  zorder=1, alignment="center"):
   x = x + dx * sind(facing) + dy * cosd(facing)
   y = y - dx * cosd(facing) + dy * sind(facing)
+  # These empirical corrections seem necessary to get rotated text right.
+  y += -0.0155 * cosd(facing) + +0.004
+  x += +0.0155 * sind(facing) + -0.015
   plt.text(x, y, s, size=size, rotation=facing - 90,
            color=_mapcolor(color), alpha=alpha, 
-           horizontalalignment='center',
+           horizontalalignment=alignment,
            verticalalignment='center',
            rotation_mode="anchor",
            clip_on=True,
@@ -239,8 +242,9 @@ aircraftdestroyedfillcolor = ( 0.50, 0.50, 0.50 )
 aircraftdestroyedlinecolor = ( 0.50, 0.50, 0.50 )
 aircraftlinecolor          = ( 0.00, 0.00, 0.00 )
 aircraftlinewidth          = 1
+textcolor                  = ( 0.00, 0.00, 0.00 )
 
-def drawflightpath(x, y, color, zorder):
+def drawflightpath(x, y, facing, altitude, color, zorder):
   if color is None:
     fillcolor = aircraftdestroyedfillcolor
   else:
@@ -248,41 +252,52 @@ def drawflightpath(x, y, color, zorder):
   if len(x) > 1:
     drawlines(x, y, color=flightpathcolor, linewidth=flightpathlinewidth, linestyle=flightpathlinestyle, zorder=0.1)
     drawdot(x[0], y[0], fillcolor=fillcolor, linecolor=flightpathcolor, linewidth=aircraftlinewidth, size=flightpathdotsize, zorder=zorder)
+    drawtext(x[0], y[0], facing[0], "%02d" % altitude[0], dx=+0.08, dy=0.0, 
+      size=aircrafttextsize, color=textcolor, alignment="left", zorder=zorder)
 
-def drawaircraft(x, y, facing, color, name, altitude, zorder):
+def drawaircraft(x, y, facing, color, name, altitude, speed, flighttype, zorder):
   if color is None:
     fillcolor = aircraftdestroyedfillcolor
     linecolor = aircraftdestroyedlinecolor
-    altitude = ""
+    altitudetext = ""
   else:
     fillcolor = color
     linecolor = aircraftlinecolor
-    altitude  = "%2d" % altitude
+    altitudetext  = "%2d" % altitude
   if apvariants.withvariant("draw counters"):
     drawsquare(x, y, facing=facing, size=1, linecolor="black", linewidth=counterlinewidth, fillcolor=a._color, zorder=zorder)
     drawdart(x, y, facing, size=0.4, fillcolor="black", linewidth=1, linecolor="black", zorder=zorder)
   else:
     drawdart(x, y, facing, dy=-0.02, size=0.4, fillcolor=fillcolor, linewidth=aircraftlinewidth, linecolor=linecolor, zorder=zorder)
-    drawtext(x, y, facing, name, dx=-0.25, dy=0.0, size=aircrafttextsize, color=linecolor, zorder=zorder)
-    drawtext(x, y, facing, altitude  , dx=+0.25, dy=0.0, size=aircrafttextsize, color=linecolor, zorder=zorder)
+    drawtext(x, y, facing, name, dx=-0.10, dy=+0.00, 
+      size=aircrafttextsize, color=textcolor, alignment="right", zorder=zorder)
+    drawtext(x, y, facing, flighttype[:2], dx=+0.10, dy=+0.15, 
+      size=aircrafttextsize, color=textcolor, alignment="left", zorder=zorder)
+    drawtext(x, y, facing, altitudetext, dx=+0.10, dy=+0.00, 
+      size=aircrafttextsize, color=textcolor, alignment="left", zorder=zorder)
+    speedtext = "%.1f" % speed
+    drawtext(x, y, facing, speedtext, dx=+0.10, dy=-0.15, 
+      size=aircrafttextsize, color=textcolor, alignment="left", zorder=zorder)
 
-def drawmissile(x, y, facing, color, name, altitude, zorder):
+def drawmissile(x, y, facing, color, name, altitude, speed, zorder):
   if color is None:
     fillcolor = aircraftdestroyedfillcolor
     linecolor = aircraftdestroyedlinecolor
-    altitude = ""
+    altitudetext = ""
   else:
     fillcolor = color
     linecolor = aircraftlinecolor
-    altitude  = "%2d" % altitude
+    altitudetext  = "%2d" % altitude
   if apvariants.withvariant("draw counters"):
     drawsquare(x, y, facing=facing, size=1, linecolor="black", linewidth=counterlinewidth, fillcolor=a._color, zorder=zorder)
     drawarrow(x, y, facing, size=0.4, fillcolor="black", linewidth=1, linecolor="black", zorder=zorder)
   else:
     drawdart(x, y, facing, dy=-0.01, size=0.2, fillcolor=fillcolor, linewidth=aircraftlinewidth, linecolor=linecolor, zorder=zorder)
-    #drawarrow(x, y, facing, dy=-0.02, size=0.4, fillcolor=fillcolor, linewidth=aircraftlinewidth, linecolor=linecolor, zorder=zorder)
-    drawtext(x, y, facing, name, dx=-0.25, dy=0.0, size=aircrafttextsize, color=linecolor, zorder=zorder)
-    drawtext(x, y, facing, altitude  , dx=+0.25, dy=0.0, size=aircrafttextsize, color=linecolor, zorder=zorder)
+    drawtext(x, y, facing, name, dx=-0.10, dy=0.0, 
+      size=aircrafttextsize, color=textcolor, alignment="right", zorder=zorder)
+    drawtext(x, y, facing, altitudetext, dx=+0.10, dy=0.0, 
+      size=aircrafttextsize, color=textcolor, alignment="left", zorder=zorder)
+
     
   ################################################################################
 

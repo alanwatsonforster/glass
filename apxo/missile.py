@@ -16,7 +16,7 @@ def _startsetup():
 def _startturn():
   for M in _missilelist:
     M._restore()
-    M._flightpath.start(M._x, M._y)
+    M._flightpath.start(M._x, M._y, M._facing, M._altitude)
 
 def _endturn():
   for M in _missilelist:
@@ -25,7 +25,6 @@ def _endturn():
 def _drawmap():
   for M in aslist():
     if not M._removed:
-      M._flightpath.draw(M._color, M._zorder)
       M._draw()
 
 ##############################################################################
@@ -72,6 +71,7 @@ class missile:
       self._facing       = launcher.facing()
       self._altitude     = launcher.altitude()
       self._altitudeband = apaltitude.altitudeband(self._altitude)
+      self._speed        = 0
       self._logaction("", "position      is %s." % self.position())
 
       self._maneuvertype  = None
@@ -81,7 +81,7 @@ class missile:
       self._removed  = False
       self._zorder   = launcher._zorder
 
-      self._flightpath = apflightpath.flightpath(self._x, self._y)
+      self._flightpath = apflightpath.flightpath(self._x, self._y, self._facing, self._altitude)
 
       global _missilelist
       _missilelist.append(self)
@@ -177,7 +177,8 @@ class missile:
   #############################################################################
     
   def _draw(self):
-    apdraw.drawmissile(self._x, self._y, self._facing, self._color, self._name, self._altitude, self._zorder)
+    self._flightpath.draw(self._color, self._zorder)
+    apdraw.drawmissile(self._x, self._y, self._facing, self._color, self._name, self._altitude, self._speed, self._zorder)
 
   ########################################
 

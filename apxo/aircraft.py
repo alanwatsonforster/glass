@@ -51,7 +51,7 @@ def _startturn():
     a._identifiedonpreviousturn = a._identified
     a._identified = False
     a._unspecifiedattackresult = 0
-    a._flightpath.start(a._x, a._y)
+    a._flightpath.start(a._x, a._y, a._facing, a._altitude)
   for a in _aircraftlist:
     apcloseformation.check(a)
 
@@ -73,7 +73,6 @@ def _endturn():
 
 def _drawmap():
   for a in _aircraftlist:
-    a._flightpath.draw(a._color, a._zorder)
     a._drawaircraft()
 
 ##############################################################################
@@ -223,7 +222,9 @@ class aircraft:
       self._force                      = force
       self._enginesmoking              = False
 
-      self._flightpath = apflightpath.flightpath(self._x, self._y)
+      self._startaltitude              = self._altitude
+
+      self._flightpath = apflightpath.flightpath(self._x, self._y, self._facing, self._altitude)
 
       self._logaction("", "force         is %s." % force)
       self._logaction("", "type          is %s." % aircrafttype)
@@ -908,13 +909,14 @@ class aircraft:
   ################################################################################
 
   def _drawaircraft(self):
+    self._flightpath.draw(self._color, self._zorder)
     if self._leftmap:
       return
     if self._destroyed:
       color = None
     else:
       color = self._color
-    apdraw.drawaircraft(self._x, self._y, self._facing, color, self._name, self._altitude, self._zorder)
+    apdraw.drawaircraft(self._x, self._y, self._facing, color, self._name, self._altitude, self._speed, self._flighttype, self._zorder)
 
   ################################################################################  
 

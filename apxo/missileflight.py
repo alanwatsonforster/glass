@@ -17,7 +17,7 @@ def move(M, speed, actions, note=False):
   M._logbreak()
   M._logline()
 
-  M._flightpath.start(M._x, M._y)
+  M._flightpath.start(M._x, M._y, M._facing, M._altitude)
 
   if M._removed:
     M._endmove()
@@ -266,7 +266,7 @@ def _doaction(M, action):
   elif M._fp > fp + 1:
     raise RuntimeError("%r is not a valid action as it attempts to expend more than one FP." % action)
 
-  M._flightpath.next(M._x, M._y)
+  M._flightpath.next(M._x, M._y, M._facing, M._altitude)
 
   if M._fp == M._speed:
     M._logposition("end")

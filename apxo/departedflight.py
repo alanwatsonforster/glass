@@ -72,7 +72,7 @@ def doflight(A, action, note=False):
         A._facing = (A._facing + 30) % 360
       else:
         A._facing = (A._facing - 30) % 360
-      A._flightpath.next(A._x, A._y)
+      A._flightpath.next(A._x, A._y, A._facing, A._altitude)
       facingchange -= 30
 
       # Shift.
@@ -97,7 +97,7 @@ def doflight(A, action, note=False):
     A._facing = (A._facing + facingchange) % 360
   else:
     A._facing = (A._facing - facingchange) % 360
-  A._flightpath.next(A._x, A._y)
+  A._flightpath.next(A._x, A._y, A._facing, A._altitude)
 
   # Now lose altitude.
 
