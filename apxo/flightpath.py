@@ -17,8 +17,9 @@ class flightpath:
     self._facing.append(facing)
     self._altitude.append(altitude)
 
-  def draw(self, color, zorder):
-    apdraw.drawflightpath(self._x, self._y, self._facing, self._altitude, color, zorder)
+  def draw(self, color, zorder, annotate=True):
+    apdraw.drawflightpath(self._x, self._y, self._facing, self._altitude, color, 
+      zorder, annotate=annotate)
 
   def xmin(self):
     return min(self._x)

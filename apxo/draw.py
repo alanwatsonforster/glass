@@ -249,7 +249,7 @@ aircraftlinecolor          = ( 0.00, 0.00, 0.00 )
 aircraftlinewidth          = 1
 textcolor                  = ( 0.00, 0.00, 0.00 )
 
-def drawflightpath(x, y, facing, altitude, color, zorder):
+def drawflightpath(x, y, facing, altitude, color, zorder, annotate=True):
   if color is None:
     fillcolor = aircraftdestroyedfillcolor
   else:
@@ -257,8 +257,9 @@ def drawflightpath(x, y, facing, altitude, color, zorder):
   if len(x) > 1:
     drawlines(x, y, color=flightpathcolor, linewidth=flightpathlinewidth, linestyle=flightpathlinestyle, zorder=0.1)
     drawdot(x[0], y[0], fillcolor=fillcolor, linecolor=flightpathcolor, linewidth=aircraftlinewidth, size=flightpathdotsize, zorder=zorder)
-    drawtext(x[0], y[0], facing[0], "%02d" % altitude[0], dx=+0.08, dy=0.0, 
-      size=aircrafttextsize, color=textcolor, alignment="left", zorder=zorder)
+    if annotate:
+      drawtext(x[0], y[0], facing[0], "%02d" % altitude[0], dx=+0.08, dy=0.0, 
+        size=aircrafttextsize, color=textcolor, alignment="left", zorder=zorder)
 
 def drawaircraft(x, y, facing, color, name, altitude, speed, flighttype, zorder):
   if color is None:

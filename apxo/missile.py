@@ -177,7 +177,7 @@ class missile:
   #############################################################################
     
   def _draw(self):
-    self._flightpath.draw(self._color, self._zorder)
+    self._flightpath.draw(self._color, self._zorder, annotate=False)
     apdraw.drawmissile(self._x, self._y, self._facing, self._color, self._name, self._altitude, self._speed, self._zorder)
 
   ########################################
