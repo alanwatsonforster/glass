@@ -155,9 +155,14 @@ def _drawtextinphysical(x, y, facing, s, dx=0, dy=0,
   zorder=1, alignment="center"):
   x = x + dx * sind(facing) + dy * cosd(facing)
   y = y - dx * cosd(facing) + dy * sind(facing)
-  # These empirical corrections seem necessary to get rotated text right.
-  y += -0.0155 * cosd(facing) + +0.004
-  x += +0.0155 * sind(facing) + -0.015
+  # For reasons I do not understand, the alignment seems to be wrong for
+  # rotated short strings. One fix is to pad the strings with spaces.
+  if alignment == "left":
+    s = "  " + s
+  elif alignment == "center":
+    s = "  " + s + "  "
+  elif alignment == "right":
+    s = s + "  "
   plt.text(x, y, s, size=size, rotation=facing - 90,
            color=_mapcolor(color), alpha=alpha, 
            horizontalalignment=alignment,
@@ -268,15 +273,17 @@ def drawaircraft(x, y, facing, color, name, altitude, speed, flighttype, zorder)
     drawsquare(x, y, facing=facing, size=1, linecolor="black", linewidth=counterlinewidth, fillcolor=a._color, zorder=zorder)
     drawdart(x, y, facing, size=0.4, fillcolor="black", linewidth=1, linecolor="black", zorder=zorder)
   else:
-    drawdart(x, y, facing, dy=-0.02, size=0.4, fillcolor=fillcolor, linewidth=aircraftlinewidth, linecolor=linecolor, zorder=zorder)
-    drawtext(x, y, facing, name, dx=-0.10, dy=+0.00, 
+    textdx = 0.10
+    textdy = 0.15
+    drawdart(x, y, facing, size=0.4, fillcolor=fillcolor, linewidth=aircraftlinewidth, linecolor=linecolor, zorder=zorder)
+    drawtext(x, y, facing, name, dx=-textdx, dy=0, 
       size=aircrafttextsize, color=textcolor, alignment="right", zorder=zorder)
-    drawtext(x, y, facing, flighttype[:2], dx=+0.10, dy=+0.15, 
+    drawtext(x, y, facing, flighttype[:2], dx=+textdx, dy=+textdy, 
       size=aircrafttextsize, color=textcolor, alignment="left", zorder=zorder)
-    drawtext(x, y, facing, altitudetext, dx=+0.10, dy=+0.00, 
+    drawtext(x, y, facing, altitudetext, dx=+textdx, dy=0, 
       size=aircrafttextsize, color=textcolor, alignment="left", zorder=zorder)
     speedtext = "%.1f" % speed
-    drawtext(x, y, facing, speedtext, dx=+0.10, dy=-0.15, 
+    drawtext(x, y, facing, speedtext, dx=+textdx, dy=-textdy, 
       size=aircrafttextsize, color=textcolor, alignment="left", zorder=zorder)
 
 def drawmissile(x, y, facing, color, name, altitude, speed, zorder):
@@ -292,10 +299,11 @@ def drawmissile(x, y, facing, color, name, altitude, speed, zorder):
     drawsquare(x, y, facing=facing, size=1, linecolor="black", linewidth=counterlinewidth, fillcolor=a._color, zorder=zorder)
     drawarrow(x, y, facing, size=0.4, fillcolor="black", linewidth=1, linecolor="black", zorder=zorder)
   else:
-    drawdart(x, y, facing, dy=-0.01, size=0.2, fillcolor=fillcolor, linewidth=aircraftlinewidth, linecolor=linecolor, zorder=zorder)
-    drawtext(x, y, facing, name, dx=-0.10, dy=0.0, 
+    textdx = 0.10
+    drawdart(x, y, facing, size=0.2, fillcolor=fillcolor, linewidth=aircraftlinewidth, linecolor=linecolor, zorder=zorder)
+    drawtext(x, y, facing, name, dx=-textdx, dy=0, 
       size=aircrafttextsize, color=textcolor, alignment="right", zorder=zorder)
-    drawtext(x, y, facing, altitudetext, dx=+0.10, dy=0.0, 
+    drawtext(x, y, facing, altitudetext, dx=+textdx, dy=0, 
       size=aircrafttextsize, color=textcolor, alignment="left", zorder=zorder)
 
     
