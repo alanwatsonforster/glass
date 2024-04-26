@@ -299,9 +299,9 @@ def _attack(attacker, attacktype, target, result, allowRK=True, allowtracking=Tr
 
   if allowtracking:
     attacker._logevent("SSGT for %d %s." % (attacker._trackingfp, aplog.plural(attacker._trackingfp, "FP", "FPs")))
-    if attacker._trackingfp >= 2 * apmath.onethirdfromtable(attacker.speed()):
+    if attacker._trackingfp >= 2 * apmath.rounddown(apmath.onethirdfromtable(attacker.speed())):
       trackingmodifier = -2
-    elif attacker._trackingfp >= 1 * apmath.onethirdfromtable(attacker.speed()):
+    elif attacker._trackingfp >= 1 * apmath.rounddown(apmath.onethirdfromtable(attacker.speed())):
       trackingmodifier = -1
     else:
       trackingmodifier = -0
