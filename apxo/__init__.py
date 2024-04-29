@@ -1,5 +1,6 @@
 import apxo.azimuth        as apazimuth
 import apxo.aircraft       as apaircraft
+import apxo.draw           as apdraw
 import apxo.log            as aplog
 import apxo.map            as apmap
 import apxo.marker         as apmarker
@@ -187,7 +188,8 @@ def drawmap(
   zoom=True, 
   zoomincludesdestroyed=False,
   zoomborder=2,
-  xmin=None, ymin=None, xmax=None, ymax=None
+  xmin=None, ymin=None, xmax=None, ymax=None,
+  drawlimitedarc=[]
   ):
 
   """
@@ -227,6 +229,10 @@ def drawmap(
     apmarker._drawmap()
     apaircraft._drawmap()
     apmissile._drawmap()
+
+    for A in drawlimitedarc:
+      apdraw.drawlimitedarc(A.x(), A.y(), A.facing())
+
     apmap.enddrawmap(apturn.turn())
 
   except RuntimeError as e:

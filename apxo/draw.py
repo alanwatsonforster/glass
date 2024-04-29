@@ -237,6 +237,48 @@ def drawcompass(x, y, facing, **kwargs):
 
 ################################################################################
 
+arccolor            = ( 0.00, 0.00, 0.00 )
+arclinewidth        = 1.0
+arclinestyle        = "dashed"
+
+def drawlimitedarc(x0, y0, facing):
+
+  x0, y0 = aphex.tophysical(x0, y0)
+
+  dxdy = [
+    [0.333, +0.0],
+    [  1.5, +0.625],
+    [  5.0, +0.625],
+    [  6.0, +1.125],
+    [ 10.0, +1.125],
+    [ 11.0, +1.625],
+    [100.0, +1.625],    
+  ]
+
+  dxdy = [aphex.tophysical(dxdy[0], dxdy[1]) for dxdy in dxdy]
+  x = [x0 + dxdy[0] * cosd(facing) - dxdy[1] * sind(facing) for dxdy in dxdy]
+  y = [y0 + dxdy[0] * sind(facing) + dxdy[1] * cosd(facing) for dxdy in dxdy]
+  _drawlinesinphysical(x, y, 
+    color=arccolor, linewidth=arclinewidth, linestyle=arclinestyle)
+
+  dxdy = [
+    [0.333, -0.0],
+    [  1.5, -0.625],
+    [  5.0, -0.625],
+    [  6.0, -1.125],
+    [ 10.0, -1.125],
+    [ 11.0, -1.625],
+    [100.0, -1.625],    
+  ]
+
+  dxdy = [aphex.tophysical(dxdy[0], dxdy[1]) for dxdy in dxdy]
+  x = [x0 + dxdy[0] * cosd(facing) - dxdy[1] * sind(facing) for dxdy in dxdy]
+  y = [y0 + dxdy[0] * sind(facing) + dxdy[1] * cosd(facing) for dxdy in dxdy]
+  _drawlinesinphysical(x, y, 
+    color=arccolor, linewidth=arclinewidth, linestyle=arclinestyle)
+
+################################################################################
+
 flightpathcolor            = ( 0.00, 0.00, 0.00 )
 flightpathlinewidth        = 2.0
 flightpathlinestyle        = "dotted"
@@ -307,8 +349,7 @@ def drawmissile(x, y, facing, color, name, altitude, speed, zorder):
     drawtext(x, y, facing, altitudetext, dx=+textdx, dy=0, 
       size=aircrafttextsize, color=textcolor, alignment="left", zorder=zorder)
 
-    
-  ################################################################################
+################################################################################
 
 # I determine colors from images using the Digital Color Meter on macOS. I use
 # native RGB values. However, colors are often percieved to be darker when seen 
