@@ -53,7 +53,7 @@ def _ymaxforzoom():
 
 class missile:
 
-  def __init__(self, name, missiletype, launcher, color="white"):
+  def __init__(self, name, missiletype, launcher, target, color="white"):
 
     aplog.clearerror()
     try:
@@ -74,6 +74,9 @@ class missile:
       self._speed        = 0
       self._logaction("", "position      is %s." % self.position())
 
+      self._target = target
+      self._logaction("", "target        is %s." % self._target.name())
+
       self._maneuvertype  = None
       self._maneuversense = None
 
@@ -82,6 +85,7 @@ class missile:
       self._zorder   = launcher._zorder
 
       self._flightpath = apflightpath.flightpath(self._x, self._y, self._facing, self._altitude)
+
 
       global _missilelist
       _missilelist.append(self)
@@ -129,6 +133,18 @@ class missile:
 
   #############################################################################
 
+  def x(self):
+    return self._x
+
+  def y(self):
+    return self._y
+  
+  def altitude(self):
+    return self._altitude
+
+  def facing(self):
+    return self._facing
+
   def position(self):
     """Return a string describing the current position of the aircraft."""
     if apmap.isonmap(self._x, self._y):
@@ -146,7 +162,7 @@ class missile:
     aplog.clearerror()
     try:
 
-      apmissileflight.move(self, speed, actions)
+      apmissileflight.move(self, speed, actions, note=note)
 
     except RuntimeError as e:
       aplog.logexception(e)
@@ -157,14 +173,16 @@ class missile:
 
     aplog.clearerror()
     try:
+
+      apmissileflight.continuemove(self, actions, note=note)
       
-      self._logbreak()
-      self._logline()
-      if actions != "":
-        for action in actions.split(","):
-          if not self._removed:
-            apmissileflight._doaction(self, action)
-      self._logline()
+      #self._logbreak()
+      #self._logline()
+      #if actions != "":
+      #  for action in actions.split(","):
+      #    if not self._removed:
+      #      apmissileflight._doaction(self, action)
+      #self._logline()
 
     except RuntimeError as e:
       aplog.logexception(e)

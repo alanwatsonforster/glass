@@ -1,5 +1,6 @@
 import apxo.altitude   as apaltitude
 import apxo.flightpath as apflightpath
+import apxo.geometry   as apgeometry
 import apxo.hex        as aphex
 import apxo.speed      as apspeed
 import apxo.turn       as apturn
@@ -38,7 +39,50 @@ def move(M, speed, actions, note=False):
   continuemove(M, actions, note)
 
 def continuemove(M, actions, note=False):
+
+  startaltitude = M._altitude
+  starthfp      = M._hfp
+
   _doactions(M, actions)
+
+  endaltitude   = M._altitude
+  endhfp        = M._hfp
+
+  slopenumerator   = endaltitude - startaltitude
+  slopedenominator = endhfp - starthfp
+  M._logevent("flight slope is %+d/%d." % (slopenumerator, slopedenominator))
+  
+  horizontalrange = apgeometry.horizontalrange(M, M._target)
+  M._logevent("horizontal range is %d." % horizontalrange)
+
+  altitudedifference = M._target.altitude() - M._altitude
+  M._logevent("altitude difference is %+d." % altitudedifference)
+
+  def checknormallimit(minf, maxf):
+    minaltitudedifference = int(minf * horizontalrange)
+    maxaltitudedifference = int(maxf * horizontalrange)
+    M._logevent("the allowed altitude difference range is [%+d,%+d]." % (minaltitudedifference, maxaltitudedifference))
+    if altitudedifference < minaltitudedifference or altitudedifference > maxaltitudedifference:
+      M._logevent("the target is not within the seeker vertical limits.")
+    else:
+      M._logevent("the target is within the seeker vertical limits.")
+
+
+  if slopenumerator < - 3 * slopedenominator:
+    pass
+  elif slopenumerator < -1 * slopedenominator:
+    checknormallimit(-7.0, -0.5)
+  elif slopenumerator < 0:
+    checknormallimit(-2.0, +0.5)
+  elif slopenumerator == 0:
+    checknormallimit(-1.0, +1.0)
+  elif slopenumerator <= +1 * slopedenominator:
+    checknormallimit(-0.5, +2.0)
+  elif abs(slopenumerator) <= 3 * slopedenominator:
+    checknormallimit(+0.5, +7.0)
+  else:
+    pass
+
   M._lognote(note)
 
 ################################################################################
