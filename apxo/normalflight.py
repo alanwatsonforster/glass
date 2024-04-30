@@ -1512,7 +1512,7 @@ def startflight(A, actions, note=False):
   """
   Start to carry out normal flight.
   """
-  
+
   ########################################
 
   def reportapcarry():
@@ -1523,7 +1523,7 @@ def startflight(A, actions, note=False):
   def reportaltitudecarry():
     if A._altitudecarry != 0:
      A._logevent("is carrying %.2f altitude levels." % A._altitudecarry)
-
+  
   ########################################
 
   def determineallowedturnrates():
