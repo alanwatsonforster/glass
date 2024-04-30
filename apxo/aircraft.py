@@ -22,6 +22,8 @@ import apxo.visualsighting as apvisualsighting
 
 from apxo.normalflight import _isclimbingflight, _isdivingflight, _islevelflight
 
+from apxo.element import element
+
 import re
 
 ################################################################################
@@ -51,7 +53,7 @@ def _startturn():
     a._identifiedonpreviousturn = a._identified
     a._identified = False
     a._unspecifiedattackresult = 0
-    a._flightpath.start(a._x, a._y, a._facing, a._altitude)
+    a._flightpath.start(a.x(), a._y, a._facing, a._altitude)
   for a in _aircraftlist:
     apcloseformation.check(a)
 
@@ -71,10 +73,6 @@ def _endturn():
   for a in _aircraftlist:
     a._save(apturn.turn())
 
-def _drawmap():
-  for a in _aircraftlist:
-    a._drawaircraft()
-
 ##############################################################################
 
 def aslist(withdestroyed=False, withleftmap=False):
@@ -88,10 +86,10 @@ def aslist(withdestroyed=False, withleftmap=False):
 ##############################################################################
 
 def _xminforzoom(withdestroyed=False):
-  return min([min(a._x, a._flightpath.xmin()) for a in aslist(withdestroyed=withdestroyed)])
+  return min([min(a.x(), a._flightpath.xmin()) for a in aslist(withdestroyed=withdestroyed)])
 
 def _xmaxforzoom(withdestroyed=False):
-  return max([max(a._x, a._flightpath.xmax()) for a in aslist(withdestroyed=withdestroyed)])
+  return max([max(a.x(), a._flightpath.xmax()) for a in aslist(withdestroyed=withdestroyed)])
 
 def _yminforzoom(withdestroyed=False):
   return min([min(a._y, a._flightpath.ymin()) for a in aslist(withdestroyed=withdestroyed)])
@@ -113,7 +111,7 @@ def fromname(name):
 
 #############################################################################
 
-class aircraft:
+class aircraft(element):
 
   #############################################################################
 
@@ -130,48 +128,26 @@ class aircraft:
     aplog.clearerror()
     try:
 
-      if not isinstance(name, str):
-        raise RuntimeError("the name argument must be a string.")
-      for a in _aircraftlist:
-        if name == a._name:
-          raise RuntimeError("the name argument must be unique.")
+      super().__init__(name,
+        hexcode=hexcode, azimuth=azimuth, altitude=altitude, speed=speed,
+        color=color
+      )
 
       if not isinstance(aircrafttype, str):
         raise RuntimeError("the aircrafttype argument must be a string.")
-      if not aphexcode.isvalidhexcode(hexcode):
-        raise RuntimeError("the hexcode argument is not valid.")
-      if not apazimuth.isvalidazimuth(azimuth):
-        raise RuntimeError("the azimuth argument is not valid.")
-      if not apaltitude.isvalidaltitude(altitude):
-        raise RuntimeError("the altitude argument is not valid.")
-      if not apspeed.isvalidspeed(speed):
-        raise RuntimeError("the speed argument is not valid.")
-      if not apconfiguration.isvalid(configuration):
         raise RuntimeError("the configuration argument is not valid.")
       if not apvisualsighting.isvalidpaintscheme(paintscheme):
         raise RuntimeError("the paintscheme argument is not valid.")
       
-      x, y = aphexcode.toxy(hexcode)
-      facing = apazimuth.tofacing(azimuth)
-      if not aphex.isvalid(x, y, facing):
-        raise RuntimeError("the combination of hexcode and facing are not valid.")
-
       # In addition to the specified position, azimuth, altitude, speed, and 
       # configuration, aircraft initially have level flight, normal power, and
       # no carries.
 
       self._logbreak()
       self._logline()
-      self._name                       = name
       self._logaction("", "creating aircraft %s." % name)
 
-      self._x                          = x
-      self._y                          = y
-      self._facing                     = facing
-      self._altitude                   = altitude
-      self._altitudeband               = apaltitude.altitudeband(self._altitude)
       self._altitudecarry              = 0
-      self._speed                      = speed
       self._newspeed                   = None
       self._damageL                    = 0
       self._damageH                    = 0
@@ -217,19 +193,18 @@ class aircraft:
       self._turnsstalled               = 0
       self._turnsdeparted              = 0
       self._finishedmove               = True
-      self._color                      = color
       self._counter                    = counter
       self._force                      = force
       self._enginesmoking              = False
 
       self._startaltitude              = self._altitude
 
-      self._flightpath = apflightpath.flightpath(self._x, self._y, self._facing, self._altitude)
+      self._flightpath = apflightpath.flightpath(self.x(), self._y, self._facing, self._altitude)
 
       self._logaction("", "force         is %s." % force)
       self._logaction("", "type          is %s." % aircrafttype)
       self._logaction("", "position      is %s." % self.position())
-      self._logaction("", "speed         is %.1f." % self._speed)
+      self._logaction("", "speed         is %.1f." % self.speed())
 
       # Determine the fuel and bingo levels.
     
@@ -297,10 +272,10 @@ class aircraft:
     s = ""
     for x in [
       ["name"         , self._name],
-      ["sheet"        , apmap.tosheet(self._x, self._y) if not self._leftmap else "-- "],
-      ["hexcode"      , aphexcode.fromxy(self._x, self._y) if not self._leftmap else "----"],
+      ["sheet"        , apmap.tosheet(self.x(), self._y) if not self._leftmap else "-- "],
+      ["hexcode"      , aphexcode.fromxy(self.x(), self._y) if not self._leftmap else "----"],
       ["facing"       , apazimuth.fromfacing(self._facing)],
-      ["speed"        , self._speed],
+      ["speed"        , self.speed()],
       ["altitude"     , self._altitude],
       ["altitudeband" , self._altitudeband],
       ["flighttype"   , self._flighttype],
@@ -318,46 +293,10 @@ class aircraft:
 
   #############################################################################
 
-  def name(self):
-    """Return the name of the aircraft."""
-    return self._name
-
-  #############################################################################
-
   def force(self):
     """Return the force of the aircraft."""
     return self._force
 
-  #############################################################################
-
-  def x(self):
-    """Return the x hex coordinate of the aircraft."""
-    return self._x
-
-  #############################################################################
-
-  def y(self):
-    """Return the y hex coordinate of the aircraft."""
-    return self._y
-    
-  #############################################################################
-
-  def facing(self):
-    """Return the facing of the aircraft in degrees."""
-    return self._facing
-      
-  #############################################################################
-
-  def altitude(self):
-    """Return the altitude of the aircraft in whole altitude levels."""
-    return self._altitude
-      
-  #############################################################################
-
-  def speed(self):
-    """Return the speed of the aircraft."""
-    return self._speed
-      
   #############################################################################
 
   def paintscheme(self):
@@ -380,8 +319,8 @@ class aircraft:
 
   def position(self):
     """Return a string describing the current position of the aircraft."""
-    if apmap.isonmap(self._x, self._y):
-      hexcode = aphexcode.fromxy(self._x, self._y)
+    if apmap.isonmap(self.x(), self._y):
+      hexcode = aphexcode.fromxy(self.x(), self._y)
     else:
       hexcode = "-------"
     azimuth = apazimuth.fromfacing(self._facing)
@@ -719,7 +658,7 @@ class aircraft:
     Check if the aircraft has collided with terrain.
     """
 
-    altitudeofterrain = apaltitude.terrainaltitude(self._x, self._y)
+    altitudeofterrain = apaltitude.terrainaltitude(self.x(), self._y)
     if self._altitude <= altitudeofterrain:
       self._altitude = altitudeofterrain
       self._altitudecarry = 0
@@ -733,7 +672,7 @@ class aircraft:
     Check if the aircraft has left the map.
     """
 
-    if not apmap.isonmap(self._x, self._y):
+    if not apmap.isonmap(self.x(), self._y):
       self._logaction("", "aircraft has left the map.")
       self._leftmap = True
       self._leaveanycloseformation()
@@ -748,12 +687,12 @@ class aircraft:
     Restore the aircraft properties at the start of the specified turn.
     """
 
-    self._x, \
-    self._y, \
-    self._facing, \
-    self._altitude, \
+    x, \
+    y, \
+    facing, \
+    altitude, \
     self._altitudecarry, \
-    self._speed, \
+    speed, \
     self._configuration, \
     self._stores, \
     self._gunammunition, \
@@ -791,13 +730,14 @@ class aircraft:
     self._turnsdeparted, \
     self._enginesmoking \
     = self._saved[i]
-    self._altitudeband = apaltitude.altitudeband(self._altitude)
+    self.setposition(x=x, y=y, facing=facing, altitude=altitude)
+    self.setspeed(speed=speed)
 
-    self._startx             = self._x
-    self._starty             = self._y
-    self._startaltitude      = self._altitude
-    self._startfacing        = self._facing
-    self._startspeed         = self._speed
+    self._startx             = self.x()
+    self._starty             = self.y()
+    self._startaltitude      = self.altitude()
+    self._startfacing        = self.facing()
+    self._startspeed         = self.speed()
     self._startfpcarry       = self._fpcarry
     self._startapcarry       = self._apcarry
     self._startaltitudecarry = self._altitudecarry
@@ -814,12 +754,12 @@ class aircraft:
     if len(self._saved) == i:
       self._saved.append(None)
     self._saved[i] = ( \
-      self._x, \
-      self._y, \
-      self._facing, \
-      self._altitude, \
+      self.x(), \
+      self.y(), \
+      self.facing(), \
+      self.altitude(), \
       self._altitudecarry, \
-      self._speed, \
+      self.speed(), \
       self._configuration, \
       self._stores, \
       self._gunammunition, \
@@ -889,11 +829,11 @@ class aircraft:
       assert expectedposition == actualposition
     if expectedspeed is not None:
       if self._newspeed is None:
-        if expectedspeed != self._speed:
+        if expectedspeed != self.speed():
           print("== assertion failed ===")
-          print("== actual   speed: %.1f" % self._speed)
+          print("== actual   speed: %.1f" % self.speed())
           print("== expected speed: %.1f" % expectedspeed)
-          assert expectedspeed == self._speed
+          assert expectedspeed == self.speed()
       else:
         if expectedspeed != self._newspeed:
           print("== assertion failed ===")
@@ -908,7 +848,7 @@ class aircraft:
 
   ################################################################################
 
-  def _drawaircraft(self):
+  def _draw(self):
     self._flightpath.draw(self._color, self._zorder)
     if self._leftmap:
       return
@@ -916,7 +856,7 @@ class aircraft:
       color = None
     else:
       color = self._color
-    apdraw.drawaircraft(self._x, self._y, self._facing, color, self._name, self._altitude, self._speed, self._flighttype, self._zorder)
+    apdraw.drawaircraft(self.x(), self._y, self._facing, color, self._name, self._altitude, self.speed(), self._flighttype, self._zorder)
 
   ################################################################################  
 
@@ -1036,7 +976,7 @@ class aircraft:
     print("Start position           : %s" % position)
     print("Start facing             : %s" % apazimuth.fromfacing(self._startfacing))
     print("Start altiude            : %d" % self._startaltitude)
-    print("Start speed              : %.1f" % self._speed)
+    print("Start speed              : %.1f" % self.speed())
     print("Start FP carry           : %.1f" % self._startfpcarry)
     print("Start AP carry           : %.2f" % self._startapcarry)
     print("Start altitude carry     : %.2f" % self._startaltitudecarry)
@@ -1048,8 +988,8 @@ class aircraft:
     print("Power setting            : %s" % self._powersetting)
     print("Actions                  : %s" % self._actions)
 
-    if apmap.isonmap(self._x, self._y):
-      position = aphexcode.fromxy(self._x, self._y)
+    if apmap.isonmap(self.x(), self._y):
+      position = aphexcode.fromxy(self.x(), self._y)
     else:
       position = "not on map"
     print("End position             : %s" % position)

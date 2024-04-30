@@ -235,8 +235,6 @@ def drawmap(
       ymax += zoomborder
 
     apmap.startdrawmap(xmin=xmin, ymin=ymin, xmax=xmax, ymax=ymax)
-    apelement._drawmap()
-    apaircraft._drawmap()
 
     for A in drawlimitedarc:
       apdraw.drawarc(A.x(), A.y(), A.facing(), "limited")
@@ -257,6 +255,8 @@ def drawmap(
     for A in drawR180arc:
       apdraw.drawarc(A.x(), A.y(), A.facing(), "R180+")
           
+    apelement._drawmap()
+
     apmap.enddrawmap(apturn.turn())
 
   except RuntimeError as e:
