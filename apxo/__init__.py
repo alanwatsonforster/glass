@@ -1,6 +1,7 @@
 import apxo.azimuth        as apazimuth
 import apxo.aircraft       as apaircraft
 import apxo.draw           as apdraw
+import apxo.element        as apelement
 import apxo.log            as aplog
 import apxo.map            as apmap
 import apxo.marker         as apmarker
@@ -62,8 +63,8 @@ def startsetup(scenario, sheets=None, north="up", variants=[], **kwargs):
     apazimuth.setnorth(north)
 
     apaircraft._startsetup()
-    apmarker._startsetup()
     apmissile._startsetup()
+    apelement._startsetup()
 
   except RuntimeError as e:
     aplog.logexception(e)
@@ -234,7 +235,7 @@ def drawmap(
       ymax += zoomborder
 
     apmap.startdrawmap(xmin=xmin, ymin=ymin, xmax=xmax, ymax=ymax)
-    apmarker._drawmap()
+    apelement._drawmap()
     apaircraft._drawmap()
     apmissile._drawmap()
 

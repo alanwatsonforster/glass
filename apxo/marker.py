@@ -1,45 +1,15 @@
-import apxo.azimuth as apazimuth
 import apxo.draw    as apdraw
-import apxo.hexcode as aphexcode
 import apxo.log     as aplog
 
-_markerlist = []
-
-def _startsetup():
-  global _markerlist
-  _markerlist = []
-  
-def _drawmap():
-  for m in _markerlist:
-      m._draw()
+from apxo.element import element
 
 ##############################################################################
 
-def aslist(withremoved=False):
-  markerlist = _markerlist
-  if not withremoved:
-    markerlist = filter(lambda x: not x._removed, markerlist)
-  return list(alist)
+class marker(element):
 
-##############################################################################
+  ############################################################################
 
-def _xminforzoom():
-  return min([m._x for a in aslist()])
-
-def _xmaxforzoom():
-  return max([m._x for m in aslist()])
-
-def _yminforzoom():
-  return min([m._y for m in aslist()])
-
-def _ymaxforzoom():
-  return max([m._y for m in aslist()])
-
-##############################################################################
-
-class marker:
-
-  def __init__(self, type, hexcode, azimuth=0, label="", color="black"):
+  def __init__(self, type, hexcode, azimuth=0, speed=0, altitude=0, name="", color="black"):
 
     aplog.clearerror()
     try:
@@ -47,39 +17,18 @@ class marker:
       if not type in ["dot", "circle", "square"]:
         raise RuntimeError("invalid marker type.")
 
-      x, y = aphexcode.toxy(hexcode)
-      facing = apazimuth.tofacing(azimuth)
+      super().__init__(name,  
+        hexcode=hexcode, azimuth=azimuth, altitude=altitude, speed=speed,
+        color=color)
       
       self._type    = type
-      self._x       = x
-      self._y       = y
-      self._facing  = facing
-      self._label   = label
-      self._color   = color
       self._removed = False
 
-      global _markerlist
-      _markerlist.append(self)
-
     except RuntimeError as e:
       aplog.logexception(e)
 
-  def move(self, hexcode):
+  ############################################################################
 
-    aplog.clearerror()
-    try:
-
-      x, y = aphexcode.toxy(hexcode)
-      
-      self._x     = x
-      self._y     = y
-
-    except RuntimeError as e:
-      aplog.logexception(e)
-
-  def remove(self):
-    self._removed = True
-    
   def _draw(self):
 
     if self._removed:
@@ -87,14 +36,14 @@ class marker:
 
     if self._type == "dot":
 
-      apdraw.drawdot(self._x, self._y, size=0.1, fillcolor=self._color)
+      apdraw.drawdot(*self.xy(), size=0.1, fillcolor=self.color())
     
     elif self._type == "circle":
 
-      apdraw.drawcircle(self._x, self._y, size=0.65, linecolor=self._color, linewidth=2)
-      apdraw.drawtext(self._x, self._y, self._facing, self._label, size=11, color=self._color)
+      apdraw.drawcircle(*self.xy(), size=0.65, linecolor=self.color(), linewidth=2)
+      apdraw.drawtext(*self.xy(), self.facing(), self.name(), color=self.color())
 
     elif self._type == "square":
 
-      apdraw.drawsquare(self._x, self._y, size=0.65, linecolor=self._color, linewidth=2, facing=self._facing)
-      apdraw.drawtext(self._x, self._y, self._facing, self._label, size=11, color=self._color)
+      apdraw.drawsquare(*self.xy(), size=0.65, linecolor=self.color(), linewidth=2, facing=self.facing())
+      apdraw.drawtext(*self.xy(), self.facing(), self.name(), color=self.color())
