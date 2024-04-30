@@ -18,18 +18,18 @@ def move(M, speed, actions, note=False):
   M._logbreak()
   M._logline()
 
-  M._flightpath.start(M._x, M._y, M._facing, M._altitude)
+  M._flightpath.start(*M.xy(), M.facing(), M.altitude())
 
-  if M._removed:
+  if M.removed():
     M._endmove()
     return
 
-  M._speed = speed
-  if speed < apspeed.m1speed(M._altitudeband):
+  M.setspeed(speed)
+  if speed < apspeed.m1speed(M.altitudeband()):
     M._logstart("speed         is %.1f." % speed)
   else:
     M._logstart("speed         is %.1f (SS)." % speed)  
-  M._logstart("altitude band is %s." % M._altitudeband)
+  M._logstart("altitude band is %s." % M.altitudeband())
   M._logposition("start")
 
   M._fp  = 0
@@ -40,12 +40,12 @@ def move(M, speed, actions, note=False):
 
 def continuemove(M, actions, note=False):
 
-  startaltitude = M._altitude
+  startaltitude = M.altitude()
   starthfp      = M._hfp
 
   _doactions(M, actions)
 
-  endaltitude   = M._altitude
+  endaltitude   = M.altitude()
   endhfp        = M._hfp
 
   slopenumerator   = endaltitude - startaltitude
@@ -55,7 +55,7 @@ def continuemove(M, actions, note=False):
   horizontalrange = apgeometry.horizontalrange(M, M._target)
   M._logevent("horizontal range is %d." % horizontalrange)
 
-  altitudedifference = M._target.altitude() - M._altitude
+  altitudedifference = M._target.altitude() - M.altitude()
   M._logevent("altitude difference is %+d." % altitudedifference)
 
   def checknormallimit(minf, maxf):
@@ -113,9 +113,9 @@ def _doaction(M, action):
     M._hfp += 1
 
     if element == "HD":
-      M._altitude -= 1
+      M.setaltitude(M.altitude() - 1)
 
-    M._x, M._y = aphex.forward(M._x, M._y, M._facing)
+    M.setposition(*aphex.forward(M._x, M._y, M._facing))
 
   ########################################
 
@@ -128,8 +128,7 @@ def _doaction(M, action):
     M._fp  += 1
     M._vfp += 1
     
-    M._altitude += altitudechange
-    M._altitudeband = apaltitude.altitudeband(M._altitude)
+    M.setaltitude(M.altitude() + altitudechange)
 
   ########################################
 
@@ -142,8 +141,7 @@ def _doaction(M, action):
     M._fp  += 1
     M._vfp += 1
 
-    M._altitude -= altitudechange
-    M._altitudeband = apaltitude.altitudeband(M._altitude)
+    M.setaltitude(M.altitude() - altitudechange)
 
   ########################################
 
@@ -161,18 +159,20 @@ def _doaction(M, action):
     if M._maneuversense != sense:
       raise RuntimeError("attempt to maneuver against the sense of the declaration.")
 
+    assert(M._maneuvertype == "SL" or M._maneuvertype == "T" or M._maneuvertype == "VR")
+
     if M._maneuvertype == "SL":
 
-      M._x, M._y = aphex.slide(M._x, M._y, M._facing, sense)
+      M.setposition(*aphex.slide(*M.xy(), M.facing(), sense))
 
     else:
     
       if aphex.isside(M._x, M._y) and shift:
-        M._x, M._y = aphex.sidetocenter(M._x, M._y, M._facing, sense)
+        M.setposition(*aphex.sidetocenter(*M.xy(), M.facing(), sense))
       if sense == "L":
-        M._facing = (M._facing + facingchange) % 360
+        M.setposition(facing=(M.facing() + facingchange) % 360)
       else:
-        M._facing = (M._facing - facingchange) % 360
+        M.setposition(facing=(M.facing() - facingchange) % 360)
 
     if not continuous:
       M._maneuvertype  = None
@@ -278,8 +278,8 @@ def _doaction(M, action):
     
   M._logaction("FP %d" % (M._fp + 1), action)
 
-  initialaltitude     = M._altitude
-  initialaltitudeband = M._altitudeband
+  initialaltitude     = M.altitude()
+  initialaltitudeband = M.altitudeband()
 
   fp = M._fp
 
@@ -310,13 +310,13 @@ def _doaction(M, action):
   elif M._fp > fp + 1:
     raise RuntimeError("%r is not a valid action as it attempts to expend more than one FP." % action)
 
-  M._flightpath.next(M._x, M._y, M._facing, M._altitude)
+  M._flightpath.next(*M.xy(), M.facing(), M.altitude())
 
-  if M._fp == M._speed:
+  if M._fp == M.speed():
     M._logposition("end")
     M._logline()
   else:
     M._logposition("")
 
-  if initialaltitudeband != M._altitudeband:
-    M._logevent("altitude band changed from %s to %s." % (initialaltitudeband, M._altitudeband))
+  if initialaltitudeband != M.altitudeband():
+    M._logevent("altitude band changed from %s to %s." % (initialaltitudeband, M.altitudeband()))

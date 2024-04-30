@@ -106,7 +106,7 @@ class element:
         raise RuntimeError("the hexcode argument is not valid.")
       x, y = aphexcode.toxy(hexcode)
 
-    if x in None:
+    if x is None:
       x = self.x()
     if y is None:
       y = self.y()
@@ -127,7 +127,6 @@ class element:
     if not apaltitude.isvalidaltitude(altitude):
       raise RuntimeError("the altitude argument is not valid.")
 
-    self._name         = name
     self._x            = x
     self._y            = y
     self._facing       = facing

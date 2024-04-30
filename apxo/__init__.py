@@ -237,7 +237,6 @@ def drawmap(
     apmap.startdrawmap(xmin=xmin, ymin=ymin, xmax=xmax, ymax=ymax)
     apelement._drawmap()
     apaircraft._drawmap()
-    apmissile._drawmap()
 
     for A in drawlimitedarc:
       apdraw.drawarc(A.x(), A.y(), A.facing(), "limited")

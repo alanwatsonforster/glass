@@ -7,6 +7,8 @@ import apxo.log           as aplog
 import apxo.map           as apmap
 import apxo.missileflight as apmissileflight
 
+from apxo.element import element
+
 _missilelist = []
 
 def _startsetup():
@@ -21,11 +23,6 @@ def _startturn():
 def _endturn():
   for M in _missilelist:
     M._save()
-  
-def _drawmap():
-  for M in aslist():
-    if not M._removed:
-      M._draw()
 
 ##############################################################################
 
@@ -51,7 +48,7 @@ def _ymaxforzoom():
 
 ##############################################################################
 
-class missile:
+class missile(element):
 
   def __init__(self, name, missiletype, launcher, target, color="white"):
 
@@ -67,11 +64,13 @@ class missile:
       self._type     = missiletype
       self._logaction("", "type          is %s." % missiletype)
 
-      self._x, self._y   = launcher.x(), launcher.y()
-      self._facing       = launcher.facing()
-      self._altitude     = launcher.altitude()
-      self._altitudeband = apaltitude.altitudeband(self._altitude)
-      self._speed        = 0
+      super().__init__(name,  
+        x=launcher.x(), y=launcher.y(), 
+        facing=launcher.facing(), 
+        altitude=launcher.altitude(), 
+        speed=0,
+        color=color)
+
       self._logaction("", "position      is %s." % self.position())
 
       self._target = target
@@ -80,12 +79,9 @@ class missile:
       self._maneuvertype  = None
       self._maneuversense = None
 
-      self._color    = color
-      self._removed  = False
       self._zorder   = launcher._zorder
 
-      self._flightpath = apflightpath.flightpath(self._x, self._y, self._facing, self._altitude)
-
+      self._flightpath = apflightpath.flightpath(*self.xy(), self.facing(), self.altitude())
 
       global _missilelist
       _missilelist.append(self)
@@ -105,15 +101,15 @@ class missile:
     Restore the missile properties at the start of the turn.
     """
 
-    self._x, \
-    self._y, \
-    self._facing, \
-    self._altitude, \
+    x, \
+    y, \
+    facing, \
+    altitude, \
     self._maneuvertype, \
     self._maneuversense, \
     self._removed, \
     = self._saved
-    self._altitudeband = apaltitude.altitudeband(self._altitude)
+    self.setposition(x=x, y=y, facing=facing, altitude=altitude)
 
   def _save(self):
 
@@ -122,10 +118,10 @@ class missile:
     """
 
     self._saved = ( \
-      self._x, \
-      self._y, \
-      self._facing, \
-      self._altitude, \
+      self.x(), \
+      self.y(), \
+      self.facing(), \
+      self.altitude(), \
       self._maneuvertype, \
       self._maneuversense, \
       self._removed, \
@@ -133,26 +129,14 @@ class missile:
 
   #############################################################################
 
-  def x(self):
-    return self._x
-
-  def y(self):
-    return self._y
-  
-  def altitude(self):
-    return self._altitude
-
-  def facing(self):
-    return self._facing
-
   def position(self):
     """Return a string describing the current position of the aircraft."""
-    if apmap.isonmap(self._x, self._y):
-      hexcode = aphexcode.fromxy(self._x, self._y)
+    if apmap.isonmap(*self.xy()):
+      hexcode = aphexcode.fromxy(*self.xy())
     else:
       hexcode = "-------"
-    azimuth = apazimuth.fromfacing(self._facing)
-    altitude = self._altitude
+    azimuth = apazimuth.fromfacing(self.facing())
+    altitude = self.altitude()
     return "%-12s  %-3s  %2d" % (hexcode, azimuth, altitude)
     
   #############################################################################
@@ -188,11 +172,6 @@ class missile:
       aplog.logexception(e)
 
   #############################################################################
-
-  def remove(self):
-    self._removed = True
-    
-  #############################################################################
     
   def _draw(self):
     self._flightpath.draw(self._color, self._zorder, annotate=False)
@@ -204,7 +183,7 @@ class missile:
     aplog.logbreak()
     
   def _log(self, s):
-    aplog.log("%-4s : %s" % (self._name, s))
+    aplog.log("%-4s : %s" % (self.name(), s))
 
   def _logline(self):
     aplog.log("%-4s : %s :" % ("----", "-----"))
@@ -244,7 +223,7 @@ class missile:
     Check if the missile has collided with terrain.
     """
 
-    altitudeofterrain = apaltitude.terrainaltitude(self._x, self._y)
+    altitudeofterrain = apaltitude.terrainaltitude(*self.xy())
     if self._altitude <= altitudeofterrain:
       self._altitude = altitudeofterrain
       self._altitudecarry = 0
@@ -257,7 +236,7 @@ class missile:
     Check if the missile has left the map.
     """
 
-    if not apmap.isonmap(self._x, self._y):
+    if not apmap.isonmap(*self.xy()):
       self._logaction("", "missile has left the map.")
       self._removed = True
   
