@@ -241,41 +241,63 @@ arccolor            = ( 0.00, 0.00, 0.00 )
 arclinewidth        = 1.0
 arclinestyle        = "dashed"
 
-def drawlimitedarc(x0, y0, facing):
+def drawarc(x0, y0, facing, arc):
+    
+  def drawdxdy(dxdy, reflect=False):
+
+    #dxdy = [aphex.tophysical(dxdy[0], dxdy[1]) for dxdy in dxdy]
+
+    x = [x0 + dxdy[0] * cosd(facing) - dxdy[1] * sind(facing) for dxdy in dxdy]
+    y = [y0 + dxdy[0] * sind(facing) + dxdy[1] * cosd(facing) for dxdy in dxdy]
+    _drawlinesinphysical(x, y, 
+      color=arccolor, linewidth=arclinewidth, linestyle=arclinestyle)
+
+  if arc == "limited":
+
+    dxdy = [
+     [0.333, +0.0],
+      [  1.5, +0.625],
+      [  5.0, +0.625],
+      [  6.0, +1.125],
+      [ 10.0, +1.125],
+      [11.0, +1.625],
+      [100.0, +1.625],    
+    ]
+    dxdy = [aphex.tophysical(dxdy[0], dxdy[1]) for dxdy in dxdy]
+
+  else:
+
+    if arc == "180+" or arc == "L180+":
+      halfangle = 30
+    elif arc == "R180+":
+      halfangle = -30
+    elif arc == "150+":
+      halfangle = 60    
+    elif arc == "120+" or arc == "90-":
+      halfangle = 90  
+    elif arc == "60-":
+      halfangle = 120  
+    elif arc == "30-":
+      halfangle = 150  
+    else:
+      raise RuntimeError("invalid arc %s." % arc)        
+  
+    dxdy = [
+      [0, 0],
+      [100 * cosd(halfangle), 100 * sind(halfangle)]
+    ]
 
   x0, y0 = aphex.tophysical(x0, y0)
 
-  dxdy = [
-    [0.333, +0.0],
-    [  1.5, +0.625],
-    [  5.0, +0.625],
-    [  6.0, +1.125],
-    [ 10.0, +1.125],
-    [ 11.0, +1.625],
-    [100.0, +1.625],    
-  ]
+  drawdxdy(dxdy)
 
-  dxdy = [aphex.tophysical(dxdy[0], dxdy[1]) for dxdy in dxdy]
-  x = [x0 + dxdy[0] * cosd(facing) - dxdy[1] * sind(facing) for dxdy in dxdy]
-  y = [y0 + dxdy[0] * sind(facing) + dxdy[1] * cosd(facing) for dxdy in dxdy]
-  _drawlinesinphysical(x, y, 
-    color=arccolor, linewidth=arclinewidth, linestyle=arclinestyle)
+  if arc[0] != "L" and arc[0] != "R":
+    drawdxdy([[dxdy[0], -dxdy[1]] for dxdy in dxdy])
 
-  dxdy = [
-    [0.333, -0.0],
-    [  1.5, -0.625],
-    [  5.0, -0.625],
-    [  6.0, -1.125],
-    [ 10.0, -1.125],
-    [ 11.0, -1.625],
-    [100.0, -1.625],    
-  ]
-
-  dxdy = [aphex.tophysical(dxdy[0], dxdy[1]) for dxdy in dxdy]
-  x = [x0 + dxdy[0] * cosd(facing) - dxdy[1] * sind(facing) for dxdy in dxdy]
-  y = [y0 + dxdy[0] * sind(facing) + dxdy[1] * cosd(facing) for dxdy in dxdy]
-  _drawlinesinphysical(x, y, 
-    color=arccolor, linewidth=arclinewidth, linestyle=arclinestyle)
+  if arc[-1] == "+":
+    drawdxdy([[0,0],[+100,0]])
+  elif arc[-1] == "-":
+    drawdxdy([[0,0],[-100,0]])
 
 ################################################################################
 

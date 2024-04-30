@@ -189,7 +189,15 @@ def drawmap(
   zoomincludesdestroyed=False,
   zoomborder=2,
   xmin=None, ymin=None, xmax=None, ymax=None,
-  drawlimitedarc=[]
+  drawlimitedarc=[],
+  draw180arc=[],
+  draw150arc=[],
+  draw120arc=[],
+  draw90arc=[],
+  draw60arc=[],
+  draw30arc=[],
+  drawL180arc=[],
+  drawR180arc=[],
   ):
 
   """
@@ -231,8 +239,24 @@ def drawmap(
     apmissile._drawmap()
 
     for A in drawlimitedarc:
-      apdraw.drawlimitedarc(A.x(), A.y(), A.facing())
-
+      apdraw.drawarc(A.x(), A.y(), A.facing(), "limited")
+    for A in draw30arc:
+      apdraw.drawarc(A.x(), A.y(), A.facing(), "30-")
+    for A in draw60arc:
+      apdraw.drawarc(A.x(), A.y(), A.facing(), "60-")
+    for A in draw90arc:
+      apdraw.drawarc(A.x(), A.y(), A.facing(), "90-")
+    for A in draw120arc:
+      apdraw.drawarc(A.x(), A.y(), A.facing(), "120+")
+    for A in draw150arc:
+      apdraw.drawarc(A.x(), A.y(), A.facing(), "150+")
+    for A in draw180arc:
+      apdraw.drawarc(A.x(), A.y(), A.facing(), "180+")
+    for A in drawL180arc:
+      apdraw.drawarc(A.x(), A.y(), A.facing(), "L180+")
+    for A in drawR180arc:
+      apdraw.drawarc(A.x(), A.y(), A.facing(), "R180+")
+          
     apmap.enddrawmap(apturn.turn())
 
   except RuntimeError as e:
