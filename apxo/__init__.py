@@ -105,6 +105,7 @@ def startturn(note=False):
 
     apaircraft._startturn()
     apmissile._startturn()
+    apelement._startturn()
 
     aplog.logbreak()
     aplog.log("initial positions, maneuvers, flight types, and speeds are:")

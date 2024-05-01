@@ -11,7 +11,7 @@ class path:
     self._facing   = [facing]
     self._altitude = [altitude]
 
-  def next(self, x, y, facing, altitude):
+  def extend(self, x, y, facing, altitude):
     self._x.append(x)
     self._y.append(y)
     self._facing.append(facing)

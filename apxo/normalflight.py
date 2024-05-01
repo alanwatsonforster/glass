@@ -957,7 +957,7 @@ def continueflight(A, actions, note=False):
 
     # Do the first facing change.
     A._doturn(sense, 30)
-    A._path.next(A.x(), A.y(), A.facing(), A.altitude())
+    A._extendpath()
     facingchange -= 30
 
     # Shift.
@@ -965,6 +965,7 @@ def continueflight(A, actions, note=False):
     shift = int((A._maxfp - A._fp) / 2)
     for i in range(0, shift):
       A._doforward()
+      A._extendpath()
       A.checkforterraincollision()
       A.checkforleavingmap()
       if A._destroyed or A._leftmap:
@@ -972,7 +973,7 @@ def continueflight(A, actions, note=False):
 
     # Do any remaining facing changes.
     A._doturn(sense, facingchange)
-    A._path.next(A.x(), A.y(), A.facing(), A.altitude())
+    A._extendpath()
 
   ########################################
 
@@ -1331,7 +1332,6 @@ def continueflight(A, actions, note=False):
         assert apaltitude.isvalidaltitude(A.altitude())
   
         A._logposition("end")
-        A._path.next(A.x(), A.y(), A.facing(), A.altitude())
     
         return
 
@@ -1406,7 +1406,7 @@ def continueflight(A, actions, note=False):
         A._logpositionandmaneuver("end")
       else:
         A._logpositionandmaneuver("")
-      A._path.next(A.x(), A.y(), A.facing(), A.altitude())
+      A._extendpath()
         
     # See rules 7.7 and 8.5.
     if A._hasmaneuvered and A._hasrolled:

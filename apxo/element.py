@@ -18,6 +18,10 @@ _elementlist = []
 def _startsetup():
   global _elementlist
   _elementlist = []
+  
+def _startturn():
+  for E in _elementlist:
+    E._startpath()
 
 def _drawmap():
   for E in _elementlist:
@@ -165,7 +169,7 @@ class element:
     self._altitude      = altitude
     self._altitudeband  = apaltitude.altitudeband(self._altitude)
     self._altitudecarry = altitudecarry
-    
+        
   ############################################################################
 
   def _setxy(self, x=None, y=None):
@@ -290,5 +294,17 @@ class element:
       self._setfacing((self.facing() - facingchange) % 360)      
       
   ############################################################################
+
+  def _startpath(self):
+    self._path.start(self.x(), self.y(), self.facing(), self.altitude())
+    
+  def _extendpath(self):
+    self._path.extend(self.x(), self.y(), self.facing(), self.altitude())
+    
+  def _drawpath(self, color, zorder, annotate=True):
+    self._path.draw(color, zorder, annotate=annotate)
+    
+  ############################################################################
+
 
   

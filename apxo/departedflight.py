@@ -67,7 +67,7 @@ def doflight(A, action, note=False):
       # Do the first facing change.
 
       A._doturn(sense, 30)
-      A._path.next(A.x(), A.y(), A.facing(), A.altitude())
+      A._extendpath()
       facingchange -= 30
 
       # Shift.
@@ -79,6 +79,7 @@ def doflight(A, action, note=False):
       shift = int((A._maxfp) / 2)
       for i in range(0, shift):
         A._doforward()
+        A._extendpath()
         A.checkforterraincollision()
         A.checkforleavingmap()
         if A._destroyed or A._leftmap:
@@ -87,7 +88,7 @@ def doflight(A, action, note=False):
    # Do the (remaining) facing change.
 
   A._doturn(sense, facingchange)
-  A._path.next(A.x(), A.y(), A.facing(), A.altitude())
+  A._extendpath()
 
   # Now lose altitude.
 

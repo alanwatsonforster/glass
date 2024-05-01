@@ -174,7 +174,7 @@ def doflight(A, action, note=False):
   A._lognote(note)
   
   A._logposition("end")
-  A._path.next(A.x(), A.y(), A.facing(), A.altitude())
+  A._extendpath()
 
   if initialaltitudeband != A.altitudeband():
     A._logevent("altitude band changed from %s to %s." % (initialaltitudeband, A.altitudeband()))
