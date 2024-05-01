@@ -287,8 +287,8 @@ def _doaction(M, action):
             ):
                 elementprocedure()
                 remainingaction = remainingaction[len(elementcode) :]
-                M.checkforterraincollision()
-                M.checkforleavingmap()
+                M._checkforterraincollision()
+                M._checkforleavingmap()
                 if M._removed:
                     return
                 break

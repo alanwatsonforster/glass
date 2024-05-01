@@ -253,7 +253,10 @@ class aircraft(apelement.element):
                     aplog.plural(self._unspecifiedattackresult, "result", "results"),
                 )
             )
-        apcloseformation.check(self)
+        if self._destroyed or self._leftmap:
+            apcloseformation.leaveany(self)
+        else:
+            apcloseformation.check(self)
 
     #############################################################################
 
@@ -607,35 +610,6 @@ class aircraft(apelement.element):
         """
 
         return _islevelflight(self._flighttype)
-
-    #############################################################################
-
-    def checkforterraincollision(self):
-        """
-        Check if the aircraft has collided with terrain.
-        """
-
-        altitudeofterrain = apaltitude.terrainaltitude(self.x(), self.y())
-        if self.altitude() <= altitudeofterrain:
-            self._setaltitude(altitudeofterrain)
-            self._altitudecarry = 0
-            self._logaction(
-                "",
-                "aircraft has collided with terrain at altitude %d."
-                % altitudeofterrain,
-            )
-            self._destroyed = True
-            apcloseformation.leaveany(self)
-
-    def checkforleavingmap(self):
-        """
-        Check if the aircraft has left the map.
-        """
-
-        if not apmap.isonmap(self.x(), self.y()):
-            self._logaction("", "aircraft has left the map.")
-            self._leftmap = True
-            apcloseformation.leaveany(self)
 
     ##############################################################################
 

@@ -386,6 +386,33 @@ class element:
         self.__dict__.update(saveddict)
         self._saveddict = saveddict
 
+    #############################################################################
+
+    def _checkforterraincollision(self):
+        """
+        Check if the element has collided with terrain.
+        """
+
+        altitudeofterrain = apaltitude.terrainaltitude(self.x(), self.y())
+        if self.altitude() <= altitudeofterrain:
+            self._setaltitude(altitudeofterrain)
+            self._altitudecarry = 0
+            self._logaction(
+                "",
+                "%s has collided with terrain at altitude %d."
+                % (self.name(), altitudeofterrain),
+            )
+            self._destroyed = True
+
+    def _checkforleavingmap(self):
+        """
+        Check if the element has left the map.
+        """
+
+        if not apmap.isonmap(self.x(), self.y()):
+            self._logaction("", "%s has left the map." % self.name())
+            self._leftmap = True
+
     ############################################################################
 
     def _logbreak(self):

@@ -84,8 +84,8 @@ def doflight(A, action, note=False):
         for i in range(0, shift):
             A._moveforward()
             A._extendpath()
-            A.checkforterraincollision()
-            A.checkforleavingmap()
+            A._checkforterraincollision()
+            A._checkforleavingmap()
             if A._destroyed or A._leftmap:
                 return
 
@@ -108,6 +108,6 @@ def doflight(A, action, note=False):
             "altitude band changed from %s to %s."
             % (initialaltitudeband, A.altitudeband())
         )
-    A.checkforterraincollision()
+    A._checkforterraincollision()
 
     A._newspeed = A.speed()

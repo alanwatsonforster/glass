@@ -78,7 +78,7 @@ def doflight(A, action, note=False):
             % (initialaltitudeband, A.altitudeband())
         )
 
-    A.checkforterraincollision()
+    A._checkforterraincollision()
     if A._destroyed:
         return
 

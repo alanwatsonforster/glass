@@ -121,29 +121,3 @@ class missile(apelement.element):
             return ""
 
     #############################################################################
-
-    def checkforterraincollision(self):
-        """
-        Check if the missile has collided with terrain.
-        """
-
-        altitudeofterrain = apaltitude.terrainaltitude(*self.xy())
-        if self.altitude() <= altitudeofterrain:
-            self._setaltitude(altitudeofterrain)
-            self._altitudecarry = 0
-            self._logaction(
-                "",
-                "missile has collided with terrain at altitude %d." % altitudeofterrain,
-            )
-            self._removed = True
-
-    def checkforleavingmap(self):
-        """
-        Check if the missile has left the map.
-        """
-
-        if not apmap.isonmap(*self.xy()):
-            self._logaction("", "missile has left the map.")
-            self._removed = True
-
-    ################################################################################

@@ -149,8 +149,8 @@ def doflight(A, action, note=False):
             ):
                 elementprocedure()
                 action = action[len(elementcode) :]
-                A.checkforterraincollision()
-                A.checkforleavingmap()
+                A._checkforterraincollision()
+                A._checkforleavingmap()
                 if A._destroyed or A._leftmap:
                     return
                 break

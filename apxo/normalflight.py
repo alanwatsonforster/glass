@@ -1098,8 +1098,8 @@ def continueflight(A, actions, note=False):
         for i in range(0, shift):
             A._moveforward()
             A._extendpath()
-            A.checkforterraincollision()
-            A.checkforleavingmap()
+            A._checkforterraincollision()
+            A._checkforleavingmap()
             if A._destroyed or A._leftmap:
                 return
 
@@ -1678,8 +1678,8 @@ def continueflight(A, actions, note=False):
                 % (initialaltitudeband, A.altitudeband())
             )
 
-        A.checkforterraincollision()
-        A.checkforleavingmap()
+        A._checkforterraincollision()
+        A._checkforleavingmap()
         if A._destroyed or A._leftmap:
             return
 
