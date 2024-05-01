@@ -9,11 +9,12 @@ from apxo.math import *
 import apxo.airtoair as apairtoair
 import apxo.altitude as apaltitude
 import apxo.aircraft as apaircraft
+import apxo.aircraftflight as apaircraftflight
 import apxo.capabilities as apcapabilities
 import apxo.closeformation as apcloseformation
 import apxo.configuration as apconfiguration
 import apxo.element as apelement
-import apxo.aircraftflight as apaircraftflight
+import apxo.flight as apflight
 import apxo.hex as aphex
 import apxo.speed as apspeed
 import apxo.stores as apstores
@@ -255,12 +256,12 @@ def continueflight(A, actions, note=False):
 
     ########################################
 
-    def invalidelement(element):
+    def invalidelement(A, element):
         raise RuntimeError("%r is not a valid element." % element)
 
     ########################################
 
-    def dohorizontal(element):
+    def dohorizontal(A, element):
         """
         Move horizontally.
         """
@@ -314,7 +315,7 @@ def continueflight(A, actions, note=False):
 
     ########################################
 
-    def doclimb(altitudechange):
+    def doclimb(A, altitudechange):
         """
         Climb.
         """
@@ -383,7 +384,7 @@ def continueflight(A, actions, note=False):
 
     ########################################
 
-    def dodive(altitudechange):
+    def dodive(A, altitudechange):
         """
         Dive.
         """
@@ -450,7 +451,7 @@ def continueflight(A, actions, note=False):
 
     ########################################
 
-    def dobank(sense):
+    def dobank(A, sense):
 
         if A._hasbanked:
             raise RuntimeError("attempt to bank twice.")
@@ -464,7 +465,7 @@ def continueflight(A, actions, note=False):
                 )
 
         A._bank = sense
-        if _isturn(A._maneuvertype):
+        if apflight._isturn(A._maneuvertype):
             A._maneuvertype = None
             A._maneuversense = None
             A._maneuverfacingchange = None
@@ -474,7 +475,7 @@ def continueflight(A, actions, note=False):
 
     ########################################
 
-    def dodeclareturn(turnrate, sense):
+    def dodeclareturn(A, turnrate, sense):
         """
         Declare the start of turn in the specified direction and rate.
         """
@@ -545,7 +546,7 @@ def continueflight(A, actions, note=False):
 
     ########################################
 
-    def doturn(sense, facingchange, continuous):
+    def doturn(A, sense, facingchange, continuous):
         """
         Turn in the specified sense and amount.
         """
@@ -586,7 +587,7 @@ def continueflight(A, actions, note=False):
 
     ########################################
 
-    def dodeclareslide(sense):
+    def dodeclareslide(A, sense):
 
         # See rule 8.1.3 and 8.2.3
         if flighttype == "VC" or flighttype == "VD":
@@ -642,7 +643,7 @@ def continueflight(A, actions, note=False):
 
     ########################################
 
-    def doslide(sense):
+    def doslide(A, sense):
 
         # See rule 8.1.3 and 8.2.3
         if flighttype == "VC" or flighttype == "VD":
@@ -669,7 +670,7 @@ def continueflight(A, actions, note=False):
 
     ########################################
 
-    def dodeclaredisplacementroll(sense):
+    def dodeclaredisplacementroll(A, sense):
 
         # See rules 13.1 and 13.3.1.
 
@@ -705,7 +706,7 @@ def continueflight(A, actions, note=False):
 
     ########################################
 
-    def dodisplacementroll(sense):
+    def dodisplacementroll(A, sense):
 
         # See rules 13.1 and 13.3.1.
 
@@ -738,7 +739,7 @@ def continueflight(A, actions, note=False):
 
     ########################################
 
-    def dodeclarelagroll(sense):
+    def dodeclarelagroll(A, sense):
 
         # See rule 13.3.2.
 
@@ -773,7 +774,7 @@ def continueflight(A, actions, note=False):
 
     ########################################
 
-    def dolagroll(sense):
+    def dolagroll(A, sense):
 
         # See rules 13.1 and 13.3.2.
 
@@ -806,7 +807,7 @@ def continueflight(A, actions, note=False):
 
     ########################################
 
-    def dodeclareverticalroll(sense):
+    def dodeclareverticalroll(A, sense):
 
         if apcapabilities.hasproperty(A, "NRM"):
             raise RuntimeError("aircraft cannot perform rolling maneuvers.")
@@ -840,7 +841,7 @@ def continueflight(A, actions, note=False):
 
     ########################################
 
-    def doverticalroll(sense, facingchange, shift):
+    def doverticalroll(A, sense, facingchange, shift):
 
         if A._maneuverfp < A._maneuverrequiredfp:
             raise RuntimeError("attempt to roll without sufficient preparatory HFPs.")
@@ -871,28 +872,28 @@ def continueflight(A, actions, note=False):
 
     ########################################
 
-    def dodeclaremaneuver(maneuvertype, sense):
+    def dodeclaremaneuver(A, maneuvertype, sense):
 
         if A._hasdeclaredamaneuver:
             raise RuntimeError("attempt to declare a second maneuver.")
 
         if maneuvertype == "SL":
-            dodeclareslide(sense)
+            dodeclareslide(A, sense)
         elif maneuvertype == "DR":
-            dodeclaredisplacementroll(sense)
+            dodeclaredisplacementroll(A, sense)
         elif maneuvertype == "LR":
-            dodeclarelagroll(sense)
+            dodeclarelagroll(A, sense)
         elif maneuvertype == "VR":
-            dodeclareverticalroll(sense)
+            dodeclareverticalroll(A, sense)
         else:
-            dodeclareturn(maneuvertype, sense)
+            dodeclareturn(A, maneuvertype, sense)
 
         A._logevent("declared %s." % A.maneuver())
         A._hasdeclaredamaneuver = True
 
     ########################################
 
-    def domaneuver(sense, facingchange, shift, continuous):
+    def domaneuver(A, sense, facingchange, shift, continuous):
 
         if A._maneuvertype == None:
             raise RuntimeError("attempt to maneuver without a declaration.")
@@ -905,23 +906,23 @@ def continueflight(A, actions, note=False):
         if A._maneuvertype == "SL":
             if facingchange != None:
                 raise RuntimeError("invalid element for a slide.")
-            doslide(sense)
+            doslide(A, sense)
         elif A._maneuvertype == "DR":
             if facingchange != None:
                 raise RuntimeError("invalid element for a displacement roll.")
-            dodisplacementroll(sense)
+            dodisplacementroll(A, sense)
         elif A._maneuvertype == "LR":
             if facingchange != None:
                 raise RuntimeError("invalid element for a lag roll.")
-            dolagroll(sense)
+            dolagroll(A, sense)
         elif A._maneuvertype == "VR":
             if facingchange == None:
                 facingchange = 30
-            doverticalroll(sense, facingchange, shift)
+            doverticalroll(A, sense, facingchange, shift)
         else:
             if facingchange == None:
                 facingchange = 30
-            doturn(sense, facingchange, continuous)
+            doturn(A, sense, facingchange, continuous)
 
         A._hasmaneuvered = True
         A._maneuverfp = 0
@@ -934,11 +935,11 @@ def continueflight(A, actions, note=False):
             A._maneuversupersonic = False
         else:
             A._hasdeclaredamaneuver = False
-            dodeclaremaneuver(A._maneuvertype, A._maneuversense)
+            dodeclaremaneuver(A, A._maneuvertype, A._maneuversense)
 
     ########################################
 
-    def dospeedbrakes(spbr):
+    def dospeedbrakes(A, spbr):
         """
         Use the speedbrakes.
         """
@@ -1001,7 +1002,7 @@ def continueflight(A, actions, note=False):
 
     ########################################
 
-    def dojettison(m):
+    def dojettison(A, m):
 
         # See rule 4.4.
         # We implement the delay of 1 FP by making this an other element.
@@ -1023,13 +1024,15 @@ def continueflight(A, actions, note=False):
 
     ########################################
 
-    def doataattack(m):
+    def doataattack(A, m):
         """
         Declare an air-to-air attack.
         """
 
-        if useofweaponsforbidden():
-            raise RuntimeError("attempt to use weapons %s." % useofweaponsforbidden())
+        if apflight.useofweaponsforbidden(A):
+            raise RuntimeError(
+                "attempt to use weapons %s." % apflight.useofweaponsforbidden(A)
+            )
 
         attacktype = m[1]
         targetname = m[2]
@@ -1048,7 +1051,7 @@ def continueflight(A, actions, note=False):
 
     ########################################
 
-    def dossgt(m):
+    def dossgt(A, m):
         """
         Start SSGT.
         """
@@ -1059,9 +1062,9 @@ def continueflight(A, actions, note=False):
         # ET. However, we assume that SSGT has the same restrictions as
         # attacks.
 
-        if useofweaponsforbidden():
+        if apflight.useofweaponsforbidden(A):
             raise RuntimeError(
-                "attempt to start SSGT while %s" % useofweaponsforbidden()
+                "attempt to start SSGT while %s" % apflight.useofweaponsforbidden(A)
             )
 
         # TODO: Check we can start SSGT on a specific target.
@@ -1085,7 +1088,7 @@ def continueflight(A, actions, note=False):
 
     ########################################
 
-    def domaneuveringdeparture(sense, facingchange):
+    def domaneuveringdeparture(A, sense, facingchange):
 
         # Do the first facing change.
         A._moveturn(sense, 30)
@@ -1122,576 +1125,229 @@ def continueflight(A, actions, note=False):
         # [1] is the element type.
         # [2] is a possible regex to apply
         # [3] is the element procedure.
-        ["SLL", "prolog", None, lambda: dodeclaremaneuver("SL", "L")],
-        ["SLR", "prolog", None, lambda: dodeclaremaneuver("SL", "R")],
-        ["DRL", "prolog", None, lambda: dodeclaremaneuver("DR", "L")],
-        ["DRR", "prolog", None, lambda: dodeclaremaneuver("DR", "R")],
-        ["LRL", "prolog", None, lambda: dodeclaremaneuver("LR", "L")],
-        ["LRR", "prolog", None, lambda: dodeclaremaneuver("LR", "R")],
-        ["VRL", "prolog", None, lambda: dodeclaremaneuver("VR", "L")],
-        ["VRR", "prolog", None, lambda: dodeclaremaneuver("VR", "R")],
-        ["EZL", "prolog", None, lambda: dodeclaremaneuver("EZ", "L")],
-        ["TTL", "prolog", None, lambda: dodeclaremaneuver("TT", "L")],
-        ["HTL", "prolog", None, lambda: dodeclaremaneuver("HT", "L")],
-        ["BTL", "prolog", None, lambda: dodeclaremaneuver("BT", "L")],
-        ["ETL", "prolog", None, lambda: dodeclaremaneuver("ET", "L")],
-        ["EZR", "prolog", None, lambda: dodeclaremaneuver("EZ", "R")],
-        ["TTR", "prolog", None, lambda: dodeclaremaneuver("TT", "R")],
-        ["HTR", "prolog", None, lambda: dodeclaremaneuver("HT", "R")],
-        ["BTR", "prolog", None, lambda: dodeclaremaneuver("BT", "R")],
-        ["ETR", "prolog", None, lambda: dodeclaremaneuver("ET", "R")],
-        ["SSGT", "prolog", argsregex(1), lambda m: dossgt(m)],
-        ["S1/2", "prolog", None, lambda: dospeedbrakes(1 / 2)],
-        ["S1", "prolog", None, lambda: dospeedbrakes(1)],
-        ["S3/2", "prolog", None, lambda: dospeedbrakes(3 / 2)],
-        ["S2", "prolog", None, lambda: dospeedbrakes(2)],
-        ["S5/2", "prolog", None, lambda: dospeedbrakes(5 / 2)],
-        ["S3", "prolog", None, lambda: dospeedbrakes(3)],
-        ["S7/2", "prolog", None, lambda: dospeedbrakes(7 / 2)],
-        ["S4", "prolog", None, lambda: dospeedbrakes(4)],
-        ["SSSS", "prolog", None, lambda: dospeedbrakes(4)],
-        ["SSS", "prolog", None, lambda: dospeedbrakes(3)],
-        ["SS", "prolog", None, lambda: dospeedbrakes(2)],
-        ["S", "prolog", None, lambda: dospeedbrakes(1)],
-        ["BL", "epilog", None, lambda: dobank("L")],
-        ["BR", "epilog", None, lambda: dobank("R")],
-        ["WL", "epilog", None, lambda: dobank(None)],
-        ["L90+", "epilog", None, lambda: domaneuver("L", 90, True, True)],
-        ["L60+", "epilog", None, lambda: domaneuver("L", 60, True, True)],
-        ["L30+", "epilog", None, lambda: domaneuver("L", 30, True, True)],
-        ["LLL+", "epilog", None, lambda: domaneuver("L", 90, True, True)],
-        ["LL+", "epilog", None, lambda: domaneuver("L", 60, True, True)],
-        ["L+", "epilog", None, lambda: domaneuver("L", None, True, True)],
-        ["R90+", "epilog", None, lambda: domaneuver("R", 90, True, True)],
-        ["R60+", "epilog", None, lambda: domaneuver("R", 60, True, True)],
-        ["R30+", "epilog", None, lambda: domaneuver("R", 30, True, True)],
-        ["RRR+", "epilog", None, lambda: domaneuver("R", 90, True, True)],
-        ["RR+", "epilog", None, lambda: domaneuver("R", 60, True, True)],
-        ["R+", "epilog", None, lambda: domaneuver("R", None, True, True)],
-        ["LS180", "epilog", None, lambda: domaneuver("L", 180, True, False)],
-        ["L180", "epilog", None, lambda: domaneuver("L", 180, False, False)],
-        ["L150", "epilog", None, lambda: domaneuver("L", 150, True, False)],
-        ["L120", "epilog", None, lambda: domaneuver("L", 120, True, False)],
-        ["L90", "epilog", None, lambda: domaneuver("L", 90, True, False)],
-        ["L60", "epilog", None, lambda: domaneuver("L", 60, True, False)],
-        ["L30", "epilog", None, lambda: domaneuver("L", 30, True, False)],
-        ["LLL", "epilog", None, lambda: domaneuver("L", 90, True, False)],
-        ["LL", "epilog", None, lambda: domaneuver("L", 60, True, False)],
-        ["L", "epilog", None, lambda: domaneuver("L", None, True, False)],
-        ["RS180", "epilog", None, lambda: domaneuver("R", 180, True, False)],
-        ["R180", "epilog", None, lambda: domaneuver("R", 180, False, False)],
-        ["R150", "epilog", None, lambda: domaneuver("R", 150, True, False)],
-        ["R120", "epilog", None, lambda: domaneuver("R", 120, True, False)],
-        ["R90", "epilog", None, lambda: domaneuver("R", 90, True, False)],
-        ["R60", "epilog", None, lambda: domaneuver("R", 60, True, False)],
-        ["R30", "epilog", None, lambda: domaneuver("R", 30, True, False)],
-        ["RRR", "epilog", None, lambda: domaneuver("R", 90, True, False)],
-        ["RR", "epilog", None, lambda: domaneuver("R", 60, True, False)],
-        ["R", "epilog", None, lambda: domaneuver("R", None, True, False)],
-        ["AA", "epilog", argsregex(3), lambda m: doataattack(m)],
-        ["J", "epilog", argsregex(1), lambda m: dojettison(m)],
-        ["HC1", "FP", None, lambda: invalidelement("HC1")],
-        ["HC2", "FP", None, lambda: invalidelement("HC2")],
-        ["HCC", "FP", None, lambda: invalidelement("HCC")],
-        ["HC", "FP", None, lambda: invalidelement("HC")],
-        ["HD1", "FP", None, lambda: dohorizontal("HD")],
-        ["HD2", "FP", None, lambda: invalidelement("HD2")],
-        ["HD3", "FP", None, lambda: invalidelement("HD3")],
-        ["HDDD", "FP", None, lambda: invalidelement("HDDD")],
-        ["HDD", "FP", None, lambda: invalidelement("HDD")],
-        ["HD", "FP", None, lambda: dohorizontal("HD")],
-        ["HU", "FP", None, lambda: dohorizontal("HU")],
-        ["H", "FP", None, lambda: dohorizontal("H")],
-        ["C1", "FP", None, lambda: doclimb(1)],
-        ["C2", "FP", None, lambda: doclimb(2)],
-        ["C3", "FP", None, lambda: doclimb(3)],
-        ["CCC", "FP", None, lambda: doclimb(3)],
-        ["CC", "FP", None, lambda: doclimb(2)],
-        ["C", "FP", None, lambda: doclimb(1)],
-        ["D1", "FP", None, lambda: dodive(1)],
-        ["D2", "FP", None, lambda: dodive(2)],
-        ["D3", "FP", None, lambda: dodive(3)],
-        ["DDD", "FP", None, lambda: dodive(3)],
-        ["DD", "FP", None, lambda: dodive(2)],
-        ["D", "FP", None, lambda: dodive(1)],
+        ["SLL", "prolog", None, lambda A: dodeclaremaneuver(A, "SL", "L")],
+        ["SLR", "prolog", None, lambda A: dodeclaremaneuver(A, "SL", "R")],
+        ["DRL", "prolog", None, lambda A: dodeclaremaneuver(A, "DR", "L")],
+        ["DRR", "prolog", None, lambda A: dodeclaremaneuver(A, "DR", "R")],
+        ["LRL", "prolog", None, lambda A: dodeclaremaneuver(A, "LR", "L")],
+        ["LRR", "prolog", None, lambda A: dodeclaremaneuver(A, "LR", "R")],
+        ["VRL", "prolog", None, lambda A: dodeclaremaneuver(A, "VR", "L")],
+        ["VRR", "prolog", None, lambda A: dodeclaremaneuver(A, "VR", "R")],
+        ["EZL", "prolog", None, lambda A: dodeclaremaneuver(A, "EZ", "L")],
+        ["TTL", "prolog", None, lambda A: dodeclaremaneuver(A, "TT", "L")],
+        ["HTL", "prolog", None, lambda A: dodeclaremaneuver(A, "HT", "L")],
+        ["BTL", "prolog", None, lambda A: dodeclaremaneuver(A, "BT", "L")],
+        ["ETL", "prolog", None, lambda A: dodeclaremaneuver(A, "ET", "L")],
+        ["EZR", "prolog", None, lambda A: dodeclaremaneuver(A, "EZ", "R")],
+        ["TTR", "prolog", None, lambda A: dodeclaremaneuver(A, "TT", "R")],
+        ["HTR", "prolog", None, lambda A: dodeclaremaneuver(A, "HT", "R")],
+        ["BTR", "prolog", None, lambda A: dodeclaremaneuver(A, "BT", "R")],
+        ["ETR", "prolog", None, lambda A: dodeclaremaneuver(A, "ET", "R")],
+        ["SSGT", "prolog", argsregex(1), lambda A, m: dossgt(A, m)],
+        ["S1/2", "prolog", None, lambda A: dospeedbrakes(A, 1 / 2)],
+        ["S1", "prolog", None, lambda A: dospeedbrakes(A, 1)],
+        ["S3/2", "prolog", None, lambda A: dospeedbrakes(A, 3 / 2)],
+        ["S2", "prolog", None, lambda A: dospeedbrakes(A, 2)],
+        ["S5/2", "prolog", None, lambda A: dospeedbrakes(A, 5 / 2)],
+        ["S3", "prolog", None, lambda A: dospeedbrakes(A, 3)],
+        ["S7/2", "prolog", None, lambda A: dospeedbrakes(A, 7 / 2)],
+        ["S4", "prolog", None, lambda A: dospeedbrakes(A, 4)],
+        ["SSSS", "prolog", None, lambda A: dospeedbrakes(A, 4)],
+        ["SSS", "prolog", None, lambda A: dospeedbrakes(A, 3)],
+        ["SS", "prolog", None, lambda A: dospeedbrakes(A, 2)],
+        ["S", "prolog", None, lambda A: dospeedbrakes(A, 1)],
+        ["BL", "epilog", None, lambda A: dobank(A, "L")],
+        ["BR", "epilog", None, lambda A: dobank(A, "R")],
+        ["WL", "epilog", None, lambda A: dobank(A, None)],
+        ["L90+", "epilog", None, lambda A: domaneuver(A, "L", 90, True, True)],
+        ["L60+", "epilog", None, lambda A: domaneuver(A, "L", 60, True, True)],
+        ["L30+", "epilog", None, lambda A: domaneuver(A, "L", 30, True, True)],
+        ["LLL+", "epilog", None, lambda A: domaneuver(A, "L", 90, True, True)],
+        ["LL+", "epilog", None, lambda A: domaneuver(A, "L", 60, True, True)],
+        ["L+", "epilog", None, lambda A: domaneuver(A, "L", None, True, True)],
+        ["R90+", "epilog", None, lambda A: domaneuver(A, "R", 90, True, True)],
+        ["R60+", "epilog", None, lambda A: domaneuver(A, "R", 60, True, True)],
+        ["R30+", "epilog", None, lambda A: domaneuver(A, "R", 30, True, True)],
+        ["RRR+", "epilog", None, lambda A: domaneuver(A, "R", 90, True, True)],
+        ["RR+", "epilog", None, lambda A: domaneuver(A, "R", 60, True, True)],
+        ["R+", "epilog", None, lambda A: domaneuver(A, "R", None, True, True)],
+        ["LS180", "epilog", None, lambda A: domaneuver(A, "L", 180, True, False)],
+        ["L180", "epilog", None, lambda A: domaneuver(A, "L", 180, False, False)],
+        ["L150", "epilog", None, lambda A: domaneuver(A, "L", 150, True, False)],
+        ["L120", "epilog", None, lambda A: domaneuver(A, "L", 120, True, False)],
+        ["L90", "epilog", None, lambda A: domaneuver(A, "L", 90, True, False)],
+        ["L60", "epilog", None, lambda A: domaneuver(A, "L", 60, True, False)],
+        ["L30", "epilog", None, lambda A: domaneuver(A, "L", 30, True, False)],
+        ["LLL", "epilog", None, lambda A: domaneuver(A, "L", 90, True, False)],
+        ["LL", "epilog", None, lambda A: domaneuver(A, "L", 60, True, False)],
+        ["L", "epilog", None, lambda A: domaneuver(A, "L", None, True, False)],
+        ["RS180", "epilog", None, lambda A: domaneuver(A, "R", 180, True, False)],
+        ["R180", "epilog", None, lambda A: domaneuver(A, "R", 180, False, False)],
+        ["R150", "epilog", None, lambda A: domaneuver(A, "R", 150, True, False)],
+        ["R120", "epilog", None, lambda A: domaneuver(A, "R", 120, True, False)],
+        ["R90", "epilog", None, lambda A: domaneuver(A, "R", 90, True, False)],
+        ["R60", "epilog", None, lambda A: domaneuver(A, "R", 60, True, False)],
+        ["R30", "epilog", None, lambda A: domaneuver(A, "R", 30, True, False)],
+        ["RRR", "epilog", None, lambda A: domaneuver(A, "R", 90, True, False)],
+        ["RR", "epilog", None, lambda A: domaneuver(A, "R", 60, True, False)],
+        ["R", "epilog", None, lambda A: domaneuver(A, "R", None, True, False)],
+        ["AA", "epilog", argsregex(3), lambda A, m: doataattack(A, m)],
+        ["J", "epilog", argsregex(1), lambda A, m: dojettison(A, m)],
+        ["HC1", "FP", None, lambda A: invalidelement(A, "HC1")],
+        ["HC2", "FP", None, lambda A: invalidelement(A, "HC2")],
+        ["HCC", "FP", None, lambda A: invalidelement(A, "HCC")],
+        ["HC", "FP", None, lambda A: invalidelement(A, "HC")],
+        ["HD1", "FP", None, lambda A: dohorizontal(A, "HD")],
+        ["HD2", "FP", None, lambda A: invalidelement(A, "HD2")],
+        ["HD3", "FP", None, lambda A: invalidelement(A, "HD3")],
+        ["HDDD", "FP", None, lambda A: invalidelement(A, "HDDD")],
+        ["HDD", "FP", None, lambda A: invalidelement(A, "HDD")],
+        ["HD", "FP", None, lambda A: dohorizontal(A, "HD")],
+        ["HU", "FP", None, lambda A: dohorizontal(A, "HU")],
+        ["H", "FP", None, lambda A: dohorizontal(A, "H")],
+        ["C1", "FP", None, lambda A: doclimb(A, 1)],
+        ["C2", "FP", None, lambda A: doclimb(A, 2)],
+        ["C3", "FP", None, lambda A: doclimb(A, 3)],
+        ["CCC", "FP", None, lambda A: doclimb(A, 3)],
+        ["CC", "FP", None, lambda A: doclimb(A, 2)],
+        ["C", "FP", None, lambda A: doclimb(A, 1)],
+        ["D1", "FP", None, lambda A: dodive(A, 1)],
+        ["D2", "FP", None, lambda A: dodive(A, 2)],
+        ["D3", "FP", None, lambda A: dodive(A, 3)],
+        ["DDD", "FP", None, lambda A: dodive(A, 3)],
+        ["DD", "FP", None, lambda A: dodive(A, 2)],
+        ["D", "FP", None, lambda A: dodive(A, 1)],
         [
             "MDL300",
             "maneuvering departure",
             None,
-            lambda: domaneuveringdeparture("L", 300),
+            lambda A: domaneuveringdeparture(A, "L", 300),
         ],
         [
             "MDL270",
             "maneuvering departure",
             None,
-            lambda: domaneuveringdeparture("L", 270),
+            lambda A: domaneuveringdeparture(A, "L", 270),
         ],
         [
             "MDL240",
             "maneuvering departure",
             None,
-            lambda: domaneuveringdeparture("L", 240),
+            lambda A: domaneuveringdeparture(A, "L", 240),
         ],
         [
             "MDL210",
             "maneuvering departure",
             None,
-            lambda: domaneuveringdeparture("L", 210),
+            lambda A: domaneuveringdeparture(A, "L", 210),
         ],
         [
             "MDL180",
             "maneuvering departure",
             None,
-            lambda: domaneuveringdeparture("L", 180),
+            lambda A: domaneuveringdeparture(A, "L", 180),
         ],
         [
             "MDL150",
             "maneuvering departure",
             None,
-            lambda: domaneuveringdeparture("L", 150),
+            lambda A: domaneuveringdeparture(A, "L", 150),
         ],
         [
             "MDL120",
             "maneuvering departure",
             None,
-            lambda: domaneuveringdeparture("L", 120),
+            lambda A: domaneuveringdeparture(A, "L", 120),
         ],
         [
             "MDL90",
             "maneuvering departure",
             None,
-            lambda: domaneuveringdeparture("L", 90),
+            lambda A: domaneuveringdeparture(A, "L", 90),
         ],
         [
             "MDL60",
             "maneuvering departure",
             None,
-            lambda: domaneuveringdeparture("L", 60),
+            lambda A: domaneuveringdeparture(A, "L", 60),
         ],
         [
             "MDL30",
             "maneuvering departure",
             None,
-            lambda: domaneuveringdeparture("L", 30),
+            lambda A: domaneuveringdeparture(A, "L", 30),
         ],
         [
             "MDR300",
             "maneuvering departure",
             None,
-            lambda: domaneuveringdeparture("R", 300),
+            lambda A: domaneuveringdeparture(A, "R", 300),
         ],
         [
             "MDR270",
             "maneuvering departure",
             None,
-            lambda: domaneuveringdeparture("R", 270),
+            lambda A: domaneuveringdeparture(A, "R", 270),
         ],
         [
             "MDR240",
             "maneuvering departure",
             None,
-            lambda: domaneuveringdeparture("R", 240),
+            lambda A: domaneuveringdeparture(A, "R", 240),
         ],
         [
             "MDR210",
             "maneuvering departure",
             None,
-            lambda: domaneuveringdeparture("R", 210),
+            lambda A: domaneuveringdeparture(A, "R", 210),
         ],
         [
             "MDR180",
             "maneuvering departure",
             None,
-            lambda: domaneuveringdeparture("R", 180),
+            lambda A: domaneuveringdeparture(A, "R", 180),
         ],
         [
             "MDR150",
             "maneuvering departure",
             None,
-            lambda: domaneuveringdeparture("R", 150),
+            lambda A: domaneuveringdeparture(A, "R", 150),
         ],
         [
             "MDR120",
             "maneuvering departure",
             None,
-            lambda: domaneuveringdeparture("R", 120),
+            lambda A: domaneuveringdeparture(A, "R", 120),
         ],
         [
             "MDR90",
             "maneuvering departure",
             None,
-            lambda: domaneuveringdeparture("R", 90),
+            lambda A: domaneuveringdeparture(A, "R", 90),
         ],
         [
             "MDR60",
             "maneuvering departure",
             None,
-            lambda: domaneuveringdeparture("R", 60),
+            lambda A: domaneuveringdeparture(A, "R", 60),
         ],
         [
             "MDR30",
             "maneuvering departure",
             None,
-            lambda: domaneuveringdeparture("R", 30),
+            lambda A: domaneuveringdeparture(A, "R", 30),
         ],
         ["", "", None, None],
     ]
 
-    ########################################
-
-    def doelements(action, selectedelementtype):
-        """
-        Carry out the elements in an action that match the element type.
-        """
-
-        while action != "":
-
-            if action[0] == "/" or action[0] == " ":
-                action = action[1:]
-                continue
-
-            for element in elementdispatchlist:
-
-                elementcode = element[0]
-                elementtype = element[1]
-                elementregex = element[2]
-                elementprocedure = element[3]
-
-                if elementcode == action[: len(elementcode)]:
-                    break
-
-            if selectedelementtype == "prolog" and elementtype == "epilog":
-                raise RuntimeError(
-                    "unexpected %s element in action prolog." % elementcode
-                )
-            if selectedelementtype == "epilog" and elementtype == "prolog":
-                raise RuntimeError(
-                    "unexpected %s element in action epilog." % elementcode
-                )
-
-            if selectedelementtype != elementtype:
-                break
-
-            if elementprocedure is None:
-                break
-
-            action = action[len(elementcode) :]
-
-            if elementregex == None:
-                elementprocedure()
-            else:
-                m = re.compile(elementregex).match(action)
-                if not m:
-                    raise RuntimeError("invalid arguments to %s element." % elementcode)
-                action = action[len(m.group()) :]
-                elementprocedure(m)
-
-        return action
-
     ################################################################################
-
-    def checkrecovery():
-
-        # See rules 9.1 and 13.3.6. The +1 is because the recovery period is
-        # this turn plus half of the speed, rounding down.
-
-        if A._hasunloaded:
-            A._unloadedrecoveryfp = int(A.speed() / 2) + 1
-            A._ETrecoveryfp -= 1
-            A._BTrecoveryfp = -1
-            A._rollrecoveryfp = -1
-            A._HTrecoveryfp = -1
-            A._TTrecoveryfp = -1
-        elif A._maneuvertype == "ET":
-            A._unloadedrecoveryfp = -1
-            A._ETrecoveryfp = int(A.speed() / 2) + 1
-            A._BTrecoveryfp = -1
-            A._rollrecoveryfp = -1
-            A._HTrecoveryfp = -1
-            A._TTrecoveryfp = -1
-        elif A._maneuvertype == "BT":
-            A._unloadedrecoveryfp -= 1
-            A._ETrecoveryfp -= 1
-            A._BTrecoveryfp = int(A.speed() / 2) + 1
-            A._rollrecoveryfp = -1
-            A._HTrecoveryfp = -1
-            A._TTrecoveryfp = -1
-        elif A._maneuvertype in ["VR", "LR", "DR"] or (A._hrd and A._fp == 1):
-            A._unloadedrecoveryfp -= 1
-            A._ETrecoveryfp -= 1
-            A._BTrecoveryfp = -1
-            A._rollrecoveryfp = int(A.speed() / 2) + 1
-            A._HTrecoveryfp = -1
-            A._TTrecoveryfp = -1
-        elif A._maneuvertype == "HT":
-            A._unloadedrecoveryfp -= 1
-            A._ETrecoveryfp -= 1
-            A._BTrecoveryfp -= 1
-            A._rollrecoveryfp -= 1
-            A._HTrecoveryfp = int(A.speed() / 2) + 1
-            A._TTrecoveryfp = -1
-        elif A._maneuvertype == "TT":
-            A._unloadedrecoveryfp -= 1
-            A._ETrecoveryfp -= 1
-            A._BTrecoveryfp -= 1
-            A._rollrecoveryfp -= 1
-            A._HTrecoveryfp -= 1
-            A._TTrecoveryfp = int(A.speed() / 2) + 1
-            A._unloadedrecoveryfp -= 1
-        else:
-            A._unloadedrecoveryfp -= 1
-            A._ETrecoveryfp -= 1
-            A._BTrecoveryfp -= 1
-            A._rollrecoveryfp -= 1
-            A._HTrecoveryfp -= 1
-            A._TTrecoveryfp -= 1
-
-        if A._ETrecoveryfp == 0:
-            A._logevent("recovered from ET.")
-        if A._BTrecoveryfp == 0:
-            A._logevent("recovered from BT.")
-        if A._rollrecoveryfp == 0:
-            A._logevent("recovered from roll.")
-        if A._HTrecoveryfp == 0:
-            A._logevent("recovered from HT.")
-        if A._TTrecoveryfp == 0:
-            A._logevent("recovered from TT.")
-
-    ################################################################################
-
-    def useofweaponsforbidden():
-
-        # See rule 8.2.2.
-        if A._unloadedhfp:
-            return "while unloaded"
-        if A._unloadedrecoveryfp > 0:
-            return "while recovering from being unloaded"
-
-        # See rule 10.1.
-        if A._maneuvertype == "ET":
-            return "while in an ET"
-
-        if A._ETrecoveryfp > 0:
-            return "while recovering from an ET"
-
-        # See rule 13.3.5.
-        if A._hrd:
-            return "after HRD"
-
-        # See rule 13.3.6.
-        if A._hasrolled and A._hasmaneuvered:
-            return "immediately after rolling"
-
-        # See rule 13.3.6.
-        if A._hasrolled:
-            return "while rolling"
-
-        return False
-
-    ################################################################################
-
-    def checktracking():
-
-        # See rule 9.4.
-        if A._tracking:
-            if useofweaponsforbidden():
-                A._logevent("stopped SSGT.")
-                A._tracking = None
-                A._trackingfp = 0
-            elif apairtoair.trackingforbidden(A, A._tracking):
-                A._logevent(
-                    "stopped SSGT as %s" % apairtoair.trackingforbidden(A, A._tracking)
-                )
-                A._tracking = None
-                A._trackingfp = 0
-            else:
-                A._trackingfp += 1
-
-    ########################################
-
-    def doaction(action):
-        """
-        Carry out an action for normal flight.
-        """
-
-        A._log1("FP %d" % (A._fp + 1), action)
-
-        # Check we have at least one FP remaining.
-        if A._fp + 1 > A._maxfp:
-            raise RuntimeError(
-                plural(
-                    A._maxfp,
-                    "only 1 FP is available",
-                    "only %.1f FPs are available." % A._maxfp,
-                )
-            )
-
-        # Determine if this FP is the last FP of the move.
-        A._lastfp = A._fp + 2 > A._maxfp
-
-        initialaltitude = A.altitude()
-        initialaltitudeband = A.altitudeband()
-
-        try:
-
-            remainingaction = action
-
-            remainingaction = doelements(remainingaction, "maneuvering departure")
-            if remainingaction != action:
-
-                A._maneuveringdeparture = True
-
-                assert aphex.isvalid(A.x(), A.y(), facing=A.facing())
-                assert apaltitude.isvalidaltitude(A.altitude())
-
-                A._logposition("end")
-
-                return
-
-            A._horizontal = False
-            A._vertical = False
-
-            A._hasunloaded = False
-            A._hasdeclaredamaneuver = False
-            A._hasmaneuvered = False
-            A._hasrolled = False
-            A._hasbanked = False
-
-            remainingaction = doelements(remainingaction, "prolog")
-
-            fp = A._fp
-            remainingaction = doelements(remainingaction, "FP")
-            if A._fp == fp:
-                raise RuntimeError(
-                    "%r is not a valid action as it does not expend an FP." % action
-                )
-            elif A._fp > fp + 1:
-                raise RuntimeError(
-                    "%r is not a valid action as it attempts to expend more than one FP."
-                    % action
-                )
-
-            # The climb slope is defined in APJ 39.
-            if A._hfp != 0:
-                A._climbslope = (A.altitude() - A._startaltitude) / float(A._hfp)
-            elif A.altitude() > A._startaltitude:
-                A._climbslope = +math.inf
-            else:
-                A._climbslope = -math.inf
-
-            # We save maneuvertype, as A._maneuvertype may be set to None of the
-            # maneuver is completed below.
-
-            maneuvertype = A._maneuvertype
-            A._hasturned = _isturn(A._maneuvertype)
-            A._hasrolled = _isroll(A._maneuvertype)
-            A._hasslid = _isslide(A._maneuvertype)
-
-            # See rule 8.2.2 and 13.1.
-            if not A._hasunloaded:
-                if A._hasturned:
-                    A._maneuverfp += 1
-                elif A._maneuvertype == "VR" and A._vertical:
-                    A._maneuverfp += 1
-                elif apvariants.withvariant("use version 2.4 rules") and (
-                    A._maneuvertype == "DR" or A._maneuvertype == "LR"
-                ):
-                    A._maneuverfp += 1
-                elif A._horizontal:
-                    A._maneuverfp += 1
-
-            if A._hasturned and A._maneuversupersonic:
-                A._turningsupersonic = True
-
-            checkrecovery()
-            checktracking()
-
-            remainingaction = doelements(remainingaction, "epilog")
-
-            if A._hasbanked and A._hasmaneuvered and not A._hasrolled:
-                raise RuntimeError(
-                    "attempt to bank immediately after a maneuver that is not a roll."
-                )
-
-            if remainingaction != "":
-                raise RuntimeError("%r is not a valid action." % action)
-
-            assert aphex.isvalid(A.x(), A.y(), facing=A.facing())
-            assert apaltitude.isvalidaltitude(A.altitude())
-
-        except RuntimeError as e:
-
-            raise e
-
-        finally:
-            if A._lastfp:
-                A._logpositionandmaneuver("end")
-            else:
-                A._logpositionandmaneuver("")
-            A._extendpath()
-
-        # See rules 7.7 and 8.5.
-        if A._hasmaneuvered and A._hasrolled:
-            if initialaltitude > apcapabilities.ceiling(A):
-                A._logevent(
-                    "check for a maneuvering departure as the aircraft is above its ceiling and attempted to roll."
-                )
-            elif initialaltitudeband == "EH" or initialaltitudeband == "UH":
-                A._logevent(
-                    "check for a maneuvering departure as the aircraft is in the %s altitude band and attempted to roll."
-                    % initialaltitudeband
-                )
-
-        # See rules 7.7 and 8.5.
-        if A._hasmaneuvered and A._hasturned:
-            if initialaltitude > apcapabilities.ceiling(A) and maneuvertype != "EZ":
-                A._logevent(
-                    "check for a maneuvering departure as the aircraft is above its ceiling and attempted to turn harder than EZ."
-                )
-            if maneuvertype == "ET" and initialaltitude <= 25:
-                A._gloccheck += 1
-                A._logevent(
-                    "check for GLOC as turn rate is ET and altitude band is %s (check %d in cycle)."
-                    % (initialaltitudeband, A._gloccheck)
-                )
-
-        # See rule 7.8.
-        if A._hasturned and apcloseformation.size(A) != 0:
-            if (
-                (apcloseformation.size(A) > 2 and maneuvertype == "HT")
-                or maneuvertype == "BT"
-                or maneuvertype == "ET"
-            ):
-                A._logevent(
-                    "close formation breaks down as the turn rate is %s." % maneuvertype
-                )
-                apcloseformation.breakdown(A)
-
-        # See rule 13.7, interpreted in the same sense as rule 7.8.
-        if A._hasrolled and apcloseformation.size(A) != 0:
-            A._logevent("close formation breaks down aircraft is rolling.")
-            apcloseformation.breakdown(A)
-
-        if initialaltitudeband != A.altitudeband():
-            A._logevent(
-                "altitude band changed from %s to %s."
-                % (initialaltitudeband, A.altitudeband())
-            )
-
-        A._checkforterraincollision()
-        A._checkforleavingmap()
-        if A._destroyed or A._leftmap:
-            return
 
     ########################################
 
     flighttype = A._flighttype
     previousflighttype = A._previousflighttype
 
-    if actions != "":
-        for action in actions.split(","):
-            if not A._destroyed and not A._leftmap:
-                doaction(action)
+    apflight.doactions(A, actions, elementdispatchlist)
 
     A._lognote(note)
 
@@ -2041,7 +1697,7 @@ def startflight(A, actions, note=False):
         Handle any carried turn.
         """
 
-        if _isturn(A._maneuvertype):
+        if apflight._isturn(A._maneuvertype):
 
             # See rule 7.7.
 
@@ -2445,39 +2101,6 @@ def endflight(A):
 ################################################################################
 
 
-def _isturn(maneuvertype):
-    """
-    Return True if the maneuver type is a turn. Otherwise False.
-    """
-
-    return maneuvertype in ["EZ", "TT", "HT", "BT", "ET"]
-
-
-################################################################################
-
-
-def _isroll(maneuvertype):
-    """
-    Return True if the maneuver type is a roll. Otherwise False.
-    """
-
-    return maneuvertype in ["VR", "DR", "LR", "BR"]
-
-
-################################################################################
-
-
-def _isslide(maneuvertype):
-    """
-    Return True if the maneuver type is a slide. Otherwise False.
-    """
-
-    return maneuvertype == "SL"
-
-
-################################################################################
-
-
 def _isdivingflight(flighttype, vertical=False):
     """
     Return True if the flight type is SD, UD, or VD. Otherwise return False.
@@ -2489,9 +2112,6 @@ def _isdivingflight(flighttype, vertical=False):
         return flighttype == "SD" or flighttype == "UD" or flighttype == "VD"
 
 
-################################################################################
-
-
 def _isclimbingflight(flighttype, vertical=False):
     """
     Return True if the flight type is ZC, SC, or VC. Otherwise return False.
@@ -2501,9 +2121,6 @@ def _isclimbingflight(flighttype, vertical=False):
         return flighttype == "VC"
     else:
         return flighttype == "ZC" or flighttype == "SC" or flighttype == "VC"
-
-
-################################################################################
 
 
 def _islevelflight(flighttype):
