@@ -12,23 +12,23 @@ import re
 ################################################################################
 
 
-def doactions(E, actions, elementdispatchlist):
+def dotasks(E, tasks, actiondispatchlist):
 
-    if actions != "":
-        for action in actions.split(","):
+    if tasks != "":
+        for task in tasks.split(","):
             if not E._destroyed and not E._leftmap:
-                doaction(E, action, elementdispatchlist)
+                dotask(E, task, actiondispatchlist)
 
 
 ################################################################################
 
 
-def doaction(E, action, elementdispatchlist):
+def dotask(E, task, actiondispatchlist):
     """
-    Carry out an action for normal flight.
+    Carry out an task for normal flight.
     """
 
-    E._log1("FP %d" % (E._fp + 1), action)
+    E._log1("FP %d" % (E._fp + 1), task)
 
     # Check we have at least one FP remaining.
     if E._fp + 1 > E._maxfp:
@@ -43,17 +43,17 @@ def doaction(E, action, elementdispatchlist):
     # Determine if this FP is the last FP of the move.
     E._lastfp = E._fp + 2 > E._maxfp
 
-    E._actionaltitude = E.altitude()
-    E._actionaltitudeband = E.altitudeband()
+    E._taskaltitude = E.altitude()
+    E._taskaltitudeband = E.altitudeband()
 
     try:
 
-        remainingaction = action
+        remainingtask = task
 
-        remainingaction = doelements(
-            E, remainingaction, elementdispatchlist, "maneuvering departure"
+        remainingtask = doactions(
+            E, remainingtask, actiondispatchlist, "maneuvering departure"
         )
-        if remainingaction != action:
+        if remainingtask != task:
 
             E._maneuveringdeparture = True
 
@@ -73,24 +73,24 @@ def doaction(E, action, elementdispatchlist):
         E._hasrolled = False
         E._hasbanked = False
 
-        remainingaction = doelements(E, remainingaction, elementdispatchlist, "prolog")
+        remainingtask = doactions(E, remainingtask, actiondispatchlist, "prolog")
 
         fp = E._fp
-        remainingaction = doelements(E, remainingaction, elementdispatchlist, "FP")
+        remainingtask = doactions(E, remainingtask, actiondispatchlist, "FP")
         if E._fp == fp:
             raise RuntimeError(
-                "%r is not a valid action as it does not expend an FP." % action
+                "%r is not a valid task as it does not expend an FP." % task
             )
         elif E._fp > fp + 1:
             raise RuntimeError(
-                "%r is not a valid action as it attempts to expend more than one FP."
-                % action
+                "%r is not a valid task as it attempts to expend more than one FP."
+                % task
             )
 
         # We save maneuvertype, as E._maneuvertype may be set to None of the
         # maneuver is completed below.
 
-        E._actionmaneuvertype = E._maneuvertype
+        E._taskmaneuvertype = E._maneuvertype
         E._hasturned = _isturn(E._maneuvertype)
         E._hasrolled = _isroll(E._maneuvertype)
         E._hasslid = _isslide(E._maneuvertype)
@@ -114,15 +114,15 @@ def doaction(E, action, elementdispatchlist):
         _checkrecovery(E)
         _checktracking(E)
 
-        remainingaction = doelements(E, remainingaction, elementdispatchlist, "epilog")
+        remainingtask = doactions(E, remainingtask, actiondispatchlist, "epilog")
 
         if E._hasbanked and E._hasmaneuvered and not E._hasrolled:
             raise RuntimeError(
                 "attempt to bank immediately after a maneuver that is not a roll."
             )
 
-        if remainingaction != "":
-            raise RuntimeError("%r is not a valid action." % action)
+        if remainingtask != "":
+            raise RuntimeError("%r is not a valid task." % task)
 
         assert aphex.isvalid(E.x(), E.y(), facing=E.facing())
         assert apaltitude.isvalidaltitude(E.altitude())
@@ -138,12 +138,12 @@ def doaction(E, action, elementdispatchlist):
             E._logpositionandmaneuver("")
         E._extendpath()
 
-    _afteraction(E)
+    _aftertask(E)
 
-    if E._actionaltitudeband != E.altitudeband():
+    if E._taskaltitudeband != E.altitudeband():
         E._logevent(
             "altitude band changed from %s to %s."
-            % (E._actionaltitudeband, E.altitudeband())
+            % (E._taskaltitudeband, E.altitudeband())
         )
 
     E._checkforterraincollision()
@@ -155,50 +155,50 @@ def doaction(E, action, elementdispatchlist):
 ################################################################################
 
 
-def doelements(E, action, elementdispatchlist, selectedelementtype):
+def doactions(E, task, actiondispatchlist, selectedactiontype):
     """
-    Carry out the elements in an action that match the element type.
+    Carry out the actions in an task that match the action type.
     """
 
-    while action != "":
+    while task != "":
 
-        if action[0] == "/" or action[0] == " ":
-            action = action[1:]
+        if task[0] == "/" or task[0] == " ":
+            task = task[1:]
             continue
 
-        for element in elementdispatchlist:
+        for action in actiondispatchlist:
 
-            elementcode = element[0]
-            elementtype = element[1]
-            elementregex = element[2]
-            elementprocedure = element[3]
+            actioncode = action[0]
+            actiontype = action[1]
+            actionregex = action[2]
+            actionprocedure = action[3]
 
-            if elementcode == action[: len(elementcode)]:
+            if actioncode == task[: len(actioncode)]:
                 break
 
-        if selectedelementtype == "prolog" and elementtype == "epilog":
-            raise RuntimeError("unexpected %s element in action prolog." % elementcode)
-        if selectedelementtype == "epilog" and elementtype == "prolog":
-            raise RuntimeError("unexpected %s element in action epilog." % elementcode)
+        if selectedactiontype == "prolog" and actiontype == "epilog":
+            raise RuntimeError("unexpected %s action in task prolog." % actioncode)
+        if selectedactiontype == "epilog" and actiontype == "prolog":
+            raise RuntimeError("unexpected %s action in task epilog." % actioncode)
 
-        if selectedelementtype != elementtype:
+        if selectedactiontype != actiontype:
             break
 
-        if elementprocedure is None:
+        if actionprocedure is None:
             break
 
-        action = action[len(elementcode) :]
+        task = task[len(actioncode) :]
 
-        if elementregex == None:
-            elementprocedure(E)
+        if actionregex == None:
+            actionprocedure(E)
         else:
-            m = re.compile(elementregex).match(action)
+            m = re.compile(actionregex).match(task)
             if not m:
-                raise RuntimeError("invalid arguments to %s element." % elementcode)
-            action = action[len(m.group()) :]
-            elementprocedure(E, m)
+                raise RuntimeError("invalid arguments to %s action." % actioncode)
+            task = task[len(m.group()) :]
+            actionprocedure(E, m)
 
-    return action
+    return task
 
 
 ################################################################################
@@ -231,46 +231,46 @@ def _isslide(maneuvertype):
 ################################################################################
 
 
-def _afteraction(A):
+def _aftertask(A):
 
     # See rules 7.7 and 8.5.
     if A._hasmaneuvered and A._hasrolled:
-        if A._actionaltitude > apcapabilities.ceiling(A):
+        if A._taskaltitude > apcapabilities.ceiling(A):
             A._logevent(
                 "check for a maneuvering departure as the aircraft is above its ceiling and attempted to roll."
             )
-        elif A._actionaltitudeband == "EH" or A._actionaltitudeband == "UH":
+        elif A._taskaltitudeband == "EH" or A._taskaltitudeband == "UH":
             A._logevent(
                 "check for a maneuvering departure as the aircraft is in the %s altitude band and attempted to roll."
-                % A._actionaltitudeband
+                % A._taskaltitudeband
             )
 
     # See rules 7.7 and 8.5.
     if A._hasmaneuvered and A._hasturned:
         if (
-            A._actionaltitude > apcapabilities.ceiling(A)
-            and A._actionmaneuvertype != "EZ"
+            A._taskaltitude > apcapabilities.ceiling(A)
+            and A._taskmaneuvertype != "EZ"
         ):
             A._logevent(
                 "check for a maneuvering departure as the aircraft is above its ceiling and attempted to turn harder than EZ."
             )
-        if A._actionmaneuvertype == "ET" and A._actionaltitude <= 25:
+        if A._taskmaneuvertype == "ET" and A._taskaltitude <= 25:
             A._gloccheck += 1
             A._logevent(
                 "check for GLOC as turn rate is ET and altitude band is %s (check %d in cycle)."
-                % (A._actionaltitudeband, A._gloccheck)
+                % (A._taskaltitudeband, A._gloccheck)
             )
 
     # See rule 7.8.
     if A._hasturned and apcloseformation.size(A) != 0:
         if (
-            (apcloseformation.size(A) > 2 and A._actionmaneuvertype == "HT")
-            or A._actionmaneuvertype == "BT"
-            or A._actionmaneuvertype == "ET"
+            (apcloseformation.size(A) > 2 and A._taskmaneuvertype == "HT")
+            or A._taskmaneuvertype == "BT"
+            or A._taskmaneuvertype == "ET"
         ):
             A._logevent(
                 "close formation breaks down as the turn rate is %s."
-                % A._actionmaneuvertype
+                % A._taskmaneuvertype
             )
             apcloseformation.breakdown(A)
 

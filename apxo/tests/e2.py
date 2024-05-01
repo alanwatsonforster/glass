@@ -261,7 +261,7 @@ endtestsetup()
 
 startgameturn()
 A1.move("LVL", "M", "HD2,H,H,H")
-asserterror("'HD2' is not a valid element.")
+asserterror("'HD2' is not a valid action.")
 startgameturn()
 A1.move("LVL", "M", "HD,H,H,HD")
 asserterror("free descent cannot only be taken once per move.")

@@ -1,6 +1,6 @@
 from apxo.tests.infrastructure import *
 
-startfile(__file__, "air-to-air attack elements")
+startfile(__file__, "air-to-air attack actions")
 
 starttestsetup(verbose=False)
 A1 = aircraft("A1", "AF", "F-80C", "A2-2025", "N", 5, 4.0, "CL")

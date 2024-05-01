@@ -21,14 +21,14 @@ def move(
     A,
     flighttype,
     power,
-    actions="",
+    tasks="",
     flamedoutengines=0,
     lowspeedliftdeviceselected=None,
     note=False,
 ):
     """
     Start a move, declaring the flight type and power, and possible carrying
-    out some actions.
+    out some tasks.
     """
 
     A._logbreak()
@@ -97,14 +97,14 @@ def move(
         A._apcarry = 0
         A._turnsstalled = 0
         A._turnsdeparted = 0
-        apspecialflight.doflight(A, actions, note=note)
+        apspecialflight.doflight(A, tasks, note=note)
         endmove(A)
 
     elif A._flighttype == "ST":
 
         A._fpcarry = 0
         A._setaltitudecarry(0)
-        apstalledflight.doflight(A, actions, note=note)
+        apstalledflight.doflight(A, tasks, note=note)
         A._turnsstalled += 1
         endmove(A)
 
@@ -113,7 +113,7 @@ def move(
         A._fpcarry = 0
         A._apcarry = 0
         A._setaltitudecarry(0)
-        apdepartedflight.doflight(A, actions, note=note)
+        apdepartedflight.doflight(A, tasks, note=note)
         A._turnsdeparted += 1
         endmove(A)
 
@@ -125,7 +125,7 @@ def move(
 
         A._turnsstalled = 0
         A._turnsdeparted = 0
-        apnormalflight.startflight(A, actions, note=note)
+        apnormalflight.startflight(A, tasks, note=note)
 
     A._logline()
 
@@ -133,9 +133,9 @@ def move(
 ################################################################################
 
 
-def continuemove(A, actions="", note=False):
+def continuemove(A, tasks="", note=False):
     """
-    Continue a move that has been started, possible carrying out some actions.
+    Continue a move that has been started, possible carrying out some tasks.
     """
 
     if (
@@ -145,7 +145,7 @@ def continuemove(A, actions="", note=False):
         and A._flighttype != "DP"
         and A._flighttype != "SP"
     ):
-        apnormalflight.continueflight(A, actions, note=note)
+        apnormalflight.continueflight(A, tasks, note=note)
     else:
         A._lognote(note)
     A._logline()

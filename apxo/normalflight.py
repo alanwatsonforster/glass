@@ -249,19 +249,19 @@ def checkflight(A):
 ################################################################################
 
 
-def continueflight(A, actions, note=False):
+def continueflight(A, tasks, note=False):
     """
     Continue to carry out out normal flight.
     """
 
     ########################################
 
-    def invalidelement(A, element):
-        raise RuntimeError("%r is not a valid element." % element)
+    def invalidaction(A, action):
+        raise RuntimeError("%r is not a valid action." % action)
 
     ########################################
 
-    def dohorizontal(A, element):
+    def dohorizontal(A, action):
         """
         Move horizontally.
         """
@@ -275,22 +275,22 @@ def continueflight(A, actions, note=False):
         A._fp += 1
         A._hfp += 1
 
-        if element == "HD":
+        if action == "HD":
 
             if flighttype == "LVL":
                 altitudechange = 1
             else:
                 raise RuntimeError(
-                    "%r is not a valid element when the flight type is %s."
-                    % (element, A._flighttype)
+                    "%r is not a valid action when the flight type is %s."
+                    % (action, A._flighttype)
                 )
 
-        elif element == "HU":
+        elif action == "HU":
 
             if flighttype != "UD":
                 raise RuntimeError(
-                    "%r is not a valid element when the flight type is %s."
-                    % (element, A._flighttype)
+                    "%r is not a valid action when the flight type is %s."
+                    % (action, A._flighttype)
                 )
 
             A._hasunloaded = True
@@ -905,15 +905,15 @@ def continueflight(A, actions, note=False):
 
         if A._maneuvertype == "SL":
             if facingchange != None:
-                raise RuntimeError("invalid element for a slide.")
+                raise RuntimeError("invalid action for a slide.")
             doslide(A, sense)
         elif A._maneuvertype == "DR":
             if facingchange != None:
-                raise RuntimeError("invalid element for a displacement roll.")
+                raise RuntimeError("invalid action for a displacement roll.")
             dodisplacementroll(A, sense)
         elif A._maneuvertype == "LR":
             if facingchange != None:
-                raise RuntimeError("invalid element for a lag roll.")
+                raise RuntimeError("invalid action for a lag roll.")
             dolagroll(A, sense)
         elif A._maneuvertype == "VR":
             if facingchange == None:
@@ -1005,7 +1005,7 @@ def continueflight(A, actions, note=False):
     def dojettison(A, m):
 
         # See rule 4.4.
-        # We implement the delay of 1 FP by making this an other element.
+        # We implement the delay of 1 FP by making this an other action.
 
         previousconfiguration = A._configuration
 
@@ -1118,13 +1118,13 @@ def continueflight(A, actions, note=False):
         """
         return r"\(([^)]*)\)" * n
 
-    elementdispatchlist = [
-        # This table is searched in order, so put longer elements before shorter
+    actiondispatchlist = [
+        # This table is searched in order, so put longer actions before shorter
         # ones that are prefixes (e.g., put C2 before C and D3/4 before D3).
-        # [0] is the element code.
-        # [1] is the element type.
+        # [0] is the action code.
+        # [1] is the action type.
         # [2] is a possible regex to apply
-        # [3] is the element procedure.
+        # [3] is the action procedure.
         ["SLL", "prolog", None, lambda A: dodeclaremaneuver(A, "SL", "L")],
         ["SLR", "prolog", None, lambda A: dodeclaremaneuver(A, "SL", "R")],
         ["DRL", "prolog", None, lambda A: dodeclaremaneuver(A, "DR", "L")],
@@ -1193,15 +1193,15 @@ def continueflight(A, actions, note=False):
         ["R", "epilog", None, lambda A: domaneuver(A, "R", None, True, False)],
         ["AA", "epilog", argsregex(3), lambda A, m: doataattack(A, m)],
         ["J", "epilog", argsregex(1), lambda A, m: dojettison(A, m)],
-        ["HC1", "FP", None, lambda A: invalidelement(A, "HC1")],
-        ["HC2", "FP", None, lambda A: invalidelement(A, "HC2")],
-        ["HCC", "FP", None, lambda A: invalidelement(A, "HCC")],
-        ["HC", "FP", None, lambda A: invalidelement(A, "HC")],
+        ["HC1", "FP", None, lambda A: invalidaction(A, "HC1")],
+        ["HC2", "FP", None, lambda A: invalidaction(A, "HC2")],
+        ["HCC", "FP", None, lambda A: invalidaction(A, "HCC")],
+        ["HC", "FP", None, lambda A: invalidaction(A, "HC")],
         ["HD1", "FP", None, lambda A: dohorizontal(A, "HD")],
-        ["HD2", "FP", None, lambda A: invalidelement(A, "HD2")],
-        ["HD3", "FP", None, lambda A: invalidelement(A, "HD3")],
-        ["HDDD", "FP", None, lambda A: invalidelement(A, "HDDD")],
-        ["HDD", "FP", None, lambda A: invalidelement(A, "HDD")],
+        ["HD2", "FP", None, lambda A: invalidaction(A, "HD2")],
+        ["HD3", "FP", None, lambda A: invalidaction(A, "HD3")],
+        ["HDDD", "FP", None, lambda A: invalidaction(A, "HDDD")],
+        ["HDD", "FP", None, lambda A: invalidaction(A, "HDD")],
         ["HD", "FP", None, lambda A: dohorizontal(A, "HD")],
         ["HU", "FP", None, lambda A: dohorizontal(A, "HU")],
         ["H", "FP", None, lambda A: dohorizontal(A, "H")],
@@ -1342,12 +1342,10 @@ def continueflight(A, actions, note=False):
 
     ################################################################################
 
-    ########################################
-
     flighttype = A._flighttype
     previousflighttype = A._previousflighttype
 
-    apflight.doactions(A, actions, elementdispatchlist)
+    apflight.dotasks(A, tasks, actiondispatchlist)
 
     A._lognote(note)
 

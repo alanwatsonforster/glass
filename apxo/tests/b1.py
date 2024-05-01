@@ -1,6 +1,6 @@
 from apxo.tests.infrastructure import *
 
-startfile(__file__, "order of elements")
+startfile(__file__, "order of actions")
 
 # Check basic movement.
 
@@ -12,8 +12,8 @@ endtestsetup()
 
 startgameturn()
 A1.move("LVL", "M", "WL/H")
-asserterror("unexpected WL element in action prolog.")
+asserterror("unexpected WL action in task prolog.")
 
 startgameturn()
 A1.move("LVL", "M", "H/TTR")
-asserterror("unexpected TTR element in action epilog.")
+asserterror("unexpected TTR action in task epilog.")
