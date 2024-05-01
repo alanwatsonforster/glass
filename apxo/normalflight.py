@@ -1683,8 +1683,6 @@ def continueflight(A, actions, note=False):
         if A._destroyed or A._leftmap:
             return
 
-        A._actions += " %s," % action
-
     ########################################
 
     flighttype = A._flighttype
@@ -1702,18 +1700,12 @@ def continueflight(A, actions, note=False):
 
     if A._destroyed or A._leftmap or A._maneuveringdeparture:
 
-        # Remove initial space and final comma.
-        A._actions = A._actions[1:-1]
-
         apaircraftflight.endmove(A)
 
     elif A._fp + 1 > A._maxfp:
 
         # See rule 5.4.
         A._fpcarry = A._maxfp - A._fp
-
-        # Remove initial space and final comma.
-        A._actions = A._actions[1:-1]
 
         endflight(A)
 
@@ -2183,10 +2175,6 @@ def startflight(A, actions, note=False):
 
     A._slides = 0
     A._slidefp = 0
-
-    # The string that we create to describe the actions.
-
-    A._actions = ""
 
     reportapcarry()
     reportaltitudecarry()
