@@ -17,14 +17,11 @@ def _startsetup():
 
 
 def _startturn():
-    for M in _missilelist:
-        M._restore()
+    pass
 
 
 def _endturn():
-    for M in _missilelist:
-        M._save()
-
+    pass
 
 ##############################################################################
 
@@ -82,41 +79,6 @@ class missile(element):
 
         except RuntimeError as e:
             aplog.logexception(e)
-
-    ##############################################################################
-
-    # Turn management
-
-    def _restore(self):
-        """
-        Restore the missile properties at the start of the turn.
-        """
-
-        (
-            x,
-            y,
-            facing,
-            altitude,
-            self._maneuvertype,
-            self._maneuversense,
-            self._removed,
-        ) = self._saved
-        self._setposition(x=x, y=y, facing=facing, altitude=altitude)
-
-    def _save(self):
-        """
-        Save the missile properties at the end of the turn.
-        """
-
-        self._saved = (
-            self.x(),
-            self.y(),
-            self.facing(),
-            self.altitude(),
-            self._maneuvertype,
-            self._maneuversense,
-            self._removed,
-        )
 
     #############################################################################
 

@@ -1,3 +1,5 @@
+import copy
+
 import apxo.altitude as apaltitude
 import apxo.azimuth as apazimuth
 import apxo.path as appath
@@ -15,22 +17,28 @@ import apxo.speed as apspeed
 
 _elementlist = []
 
-
 def _startsetup():
     global _elementlist
     _elementlist = []
 
+def _endsetup():
+    for E in _elementlist:
+        E._save()
 
 def _startturn():
     for E in _elementlist:
+        E._restore()
+    for E in _elementlist:
         E._startpath()
 
+def _endturn():
+    for E in _elementlist:
+        E._save()
 
 def _drawmap():
     for E in _elementlist:
         if not E.removed():
             E._draw()
-
 
 def fromname(name):
     """
@@ -328,5 +336,16 @@ class element:
 
     def _drawpath(self, color, zorder, annotate=True):
         self._path.draw(color, zorder, annotate=annotate)
+
+    ############################################################################
+
+    def _save(self):
+        self._saveddict = None
+        self._saveddict = copy.copy(self.__dict__)
+        
+    def _restore(self):
+        saveddict = self._saveddict
+        self.__dict__.update(saveddict)
+        self._saveddict = saveddict
 
     ############################################################################

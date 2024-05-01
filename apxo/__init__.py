@@ -79,6 +79,7 @@ def endsetup():
     try:
 
         apaircraft._endsetup()
+        apelement._endsetup()
 
         aplog.logbreak()
         aplog.log("end of set-up.")
@@ -132,6 +133,7 @@ def endturn(note=False):
 
         apaircraft._endturn()
         apmissile._endturn()
+        apelement._endturn()
 
         aplog.logbreak()
         aplog.log("end of turn.")

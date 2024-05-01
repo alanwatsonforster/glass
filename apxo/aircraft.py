@@ -39,15 +39,14 @@ def _startsetup():
 
 
 def _endsetup():
-    for a in _aircraftlist:
-        a._save(apturn.turn())
+    pass
 
 
 def _startturn():
     global _zorder
     _zorder = 0
     for a in _aircraftlist:
-        a._restore(apturn.turn() - 1)
+        #a._restore(apturn.turn() - 1)
         a._finishedmove = False
         a._sightedonpreviousturn = a._sighted
         a._enginesmokingonpreviousturn = a._enginesmoking
@@ -77,9 +76,6 @@ def _endturn():
         a._newspeed = None
     for a in _aircraftlist:
         apcloseformation.check(a)
-    for a in _aircraftlist:
-        a._save(apturn.turn())
-
 
 ##############################################################################
 
@@ -163,6 +159,7 @@ class aircraft(element):
             self._logaction("", "creating aircraft %s." % name)
 
             self._newspeed = None
+            self._unspecifiedattackresult = 0
             self._damageL = 0
             self._damageH = 0
             self._damageC = 0
@@ -290,7 +287,7 @@ class aircraft(element):
             _zorder += 1
             self._zorder = _zorder
 
-            self._saved = []
+            #self._saved = []
 
             _aircraftlist.append(self)
 
@@ -709,131 +706,9 @@ class aircraft(element):
         if not apmap.isonmap(self.x(), self.y()):
             self._logaction("", "aircraft has left the map.")
             self._leftmap = True
-            self._leaveanycloseformation()
+            apcloseformation.leaveany(self)
 
     ##############################################################################
-
-    # Turn management
-
-    def _restore(self, i):
-        """
-        Restore the aircraft properties at the start of the specified turn.
-        """
-
-        (
-            x,
-            y,
-            facing,
-            altitude,
-            altitudecarry,
-            speed,
-            self._configuration,
-            self._stores,
-            self._gunammunition,
-            self._fuel,
-            self._damageL,
-            self._damageH,
-            self._damageC,
-            self._damageK,
-            self._powersetting,
-            self._flighttype,
-            self._bank,
-            self._maneuvertype,
-            self._maneuversense,
-            self._maneuverfp,
-            self._maneuverrequiredfp,
-            self._maneuverfacingchange,
-            self._manueversupersonic,
-            self._fpcarry,
-            self._apcarry,
-            self._gloccheck,
-            self._unloadedrecoveryfp,
-            self._ETrecoveryfp,
-            self._BTrecoveryfp,
-            self._HTrecoveryfp,
-            self._TTrecoveryfp,
-            self._rollrecoveryfp,
-            self._climbslope,
-            self._lowspeedliftdeviceselected,
-            self._closeformation,
-            self._destroyed,
-            self._leftmap,
-            self._sighted,
-            self._identified,
-            self._turnsstalled,
-            self._turnsdeparted,
-            self._enginesmoking,
-        ) = self._saved[i]
-        self._setposition(
-            x=x, y=y, facing=facing, altitude=altitude, altitudecarry=altitudecarry
-        )
-        self._setspeed(speed=speed)
-
-        self._startx = self.x()
-        self._starty = self.y()
-        self._startaltitude = self.altitude()
-        self._startfacing = self.facing()
-        self._startspeed = self.speed()
-        self._startfpcarry = self._fpcarry
-        self._startapcarry = self._apcarry
-        self._startaltitudecarry = self.altitudecarry()
-        self._startmaneuvertype = self._maneuvertype
-        self._startmaneuversense = self._maneuversense
-        self._startmaneuverfp = self._maneuverfp
-
-    def _save(self, i):
-        """
-        Save the aircraft properties at the end of the specified turn.
-        """
-
-        if len(self._saved) == i:
-            self._saved.append(None)
-        self._saved[i] = (
-            self.x(),
-            self.y(),
-            self.facing(),
-            self.altitude(),
-            self.altitudecarry(),
-            self.speed(),
-            self._configuration,
-            self._stores,
-            self._gunammunition,
-            self._fuel,
-            self._damageL,
-            self._damageH,
-            self._damageC,
-            self._damageK,
-            self._powersetting,
-            self._flighttype,
-            self._bank,
-            self._maneuvertype,
-            self._maneuversense,
-            self._maneuverfp,
-            self._maneuverrequiredfp,
-            self._maneuverfacingchange,
-            self._manueversupersonic,
-            self._fpcarry,
-            self._apcarry,
-            self._gloccheck,
-            self._unloadedrecoveryfp,
-            self._ETrecoveryfp,
-            self._BTrecoveryfp,
-            self._HTrecoveryfp,
-            self._TTrecoveryfp,
-            self._rollrecoveryfp,
-            self._climbslope,
-            self._lowspeedliftdeviceselected,
-            self._closeformation,
-            self._destroyed,
-            self._leftmap,
-            self._sighted,
-            self._identified,
-            self._turnsstalled,
-            self._turnsdeparted,
-            self._enginesmoking,
-        )
-
-    ################################################################################
 
     def hasbeenkilled(self):
         apturn.checkinturn()

@@ -41,7 +41,7 @@ def move(
     A._zorder = apxoaircraft._zorder
 
     if A._destroyed or A._leftmap:
-        A._endmove()
+        endmove(A)
         return
 
     # We save values of these variables at the end of the previous move.
@@ -187,4 +187,4 @@ def endmove(A):
 
         A._finishedmove = True
 
-    A._save(apturn.turn())
+    #A._save(apturn.turn())

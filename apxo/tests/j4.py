@@ -61,7 +61,7 @@ assert A7._gunammunition == 3.5
 startturn()
 A2.move("LVL", "N", "H,H,H,H")
 A5.move("LVL", "M", "H/AA(RK/3/CC)(A2)(-)")
-assert A5._rocketfactors == 3
+assert A5._rocketfactors == 6
 
 # Check recovery after ET.
 
