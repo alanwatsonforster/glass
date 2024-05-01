@@ -35,6 +35,14 @@ class marker(element):
         except RuntimeError as e:
             aplog.logexception(e)
 
+    #############################################################################
+
+    def _startturn(self):
+        pass
+
+    def _endturn(self):
+        pass
+
     ############################################################################
 
     def _draw(self):

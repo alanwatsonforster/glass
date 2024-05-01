@@ -45,37 +45,9 @@ def _endsetup():
 def _startturn():
     global _zorder
     _zorder = 0
-    for a in _aircraftlist:
-        #a._restore(apturn.turn() - 1)
-        a._finishedmove = False
-        a._sightedonpreviousturn = a._sighted
-        a._enginesmokingonpreviousturn = a._enginesmoking
-        a._sighted = False
-        a._identifiedonpreviousturn = a._identified
-        a._identified = False
-        a._unspecifiedattackresult = 0
-    for a in _aircraftlist:
-        apcloseformation.check(a)
-
 
 def _endturn():
-    for a in _aircraftlist:
-        if not a._destroyed and not a._leftmap and not a._finishedmove:
-            raise RuntimeError("aircraft %s has not finished its move." % a._name)
-        if a._unspecifiedattackresult > 0:
-            raise RuntimeError(
-                "aircraft %s has %d unspecified attack %s."
-                % (
-                    a._name,
-                    a._unspecifiedattackresult,
-                    aplog.plural(a._unspecifiedattackresult, "result", "results"),
-                )
-            )
-    for a in _aircraftlist:
-        a._setspeed(a._newspeed)
-        a._newspeed = None
-    for a in _aircraftlist:
-        apcloseformation.check(a)
+    pass
 
 ##############################################################################
 
@@ -287,7 +259,7 @@ class aircraft(element):
             _zorder += 1
             self._zorder = _zorder
 
-            #self._saved = []
+            # self._saved = []
 
             _aircraftlist.append(self)
 
@@ -295,6 +267,34 @@ class aircraft(element):
 
         except RuntimeError as e:
             aplog.logexception(e)
+
+    #############################################################################
+
+    def _startturn(self):
+        self._setspeed(self._newspeed)
+        self._newspeed = None
+        self._finishedmove = False
+        self._sightedonpreviousturn = self._sighted
+        self._enginesmokingonpreviousturn = self._enginesmoking
+        self._sighted = False
+        self._identifiedonpreviousturn = self._identified
+        self._identified = False
+        self._unspecifiedattackresult = 0
+        apcloseformation.check(self)
+
+    def _endturn(self):
+        if not self._destroyed and not self._leftmap and not self._finishedmove:
+            raise RuntimeError("aircraft %s has not finished its move." % self._name)
+        if self._unspecifiedattackresult > 0:
+            raise RuntimeError(
+                "aircraft %s has %d unspecified attack %s."
+                % (
+                    self._name,
+                    self._unspecifiedattackresult,
+                    aplog.plural(self._unspecifiedattackresult, "result", "results"),
+                )
+            )
+        apcloseformation.check(self)
 
     #############################################################################
 

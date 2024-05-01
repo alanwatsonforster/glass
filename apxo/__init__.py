@@ -106,7 +106,6 @@ def startturn(note=False):
         aplog.log("start of turn.")
 
         apaircraft._startturn()
-        apmissile._startturn()
         apelement._startturn()
 
         aplog.logbreak()
@@ -132,7 +131,6 @@ def endturn(note=False):
     try:
 
         apaircraft._endturn()
-        apmissile._endturn()
         apelement._endturn()
 
         aplog.logbreak()

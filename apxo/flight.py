@@ -187,4 +187,4 @@ def endmove(A):
 
         A._finishedmove = True
 
-    #A._save(apturn.turn())
+    # A._save(apturn.turn())

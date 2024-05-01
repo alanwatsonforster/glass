@@ -16,13 +16,6 @@ def _startsetup():
     _missilelist = []
 
 
-def _startturn():
-    pass
-
-
-def _endturn():
-    pass
-
 ##############################################################################
 
 
@@ -79,6 +72,14 @@ class missile(element):
 
         except RuntimeError as e:
             aplog.logexception(e)
+
+    #############################################################################
+
+    def _startturn():
+        pass
+
+    def _endturn():
+        pass
 
     #############################################################################
 
