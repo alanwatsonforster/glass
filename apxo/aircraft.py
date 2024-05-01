@@ -7,7 +7,7 @@ import apxo.configuration as apconfiguration
 import apxo.damage as apdamage
 import apxo.draw as apdraw
 import apxo.element as apelement
-import apxo.flight as apflight
+import apxo.aircraftflight as apaircraftflight
 import apxo.gameturn as apgameturn
 import apxo.hex as aphex
 import apxo.hexcode as aphexcode
@@ -712,10 +712,10 @@ class aircraft(apelement.element):
     ################################################################################
 
     def _move(self, *args, **kwargs):
-        apflight.move(self, *args, **kwargs)
+        apaircraftflight.move(self, *args, **kwargs)
 
     def continuemove(self, *args, **kwargs):
-        apflight.continuemove(self, *args, **kwargs)
+        apaircraftflight.continuemove(self, *args, **kwargs)
 
     ################################################################################
 

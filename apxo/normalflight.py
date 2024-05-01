@@ -13,7 +13,7 @@ import apxo.capabilities as apcapabilities
 import apxo.closeformation as apcloseformation
 import apxo.configuration as apconfiguration
 import apxo.element as apelement
-import apxo.flight as apflight
+import apxo.aircraftflight as apaircraftflight
 import apxo.hex as aphex
 import apxo.speed as apspeed
 import apxo.stores as apstores
@@ -1705,7 +1705,7 @@ def continueflight(A, actions, note=False):
         # Remove initial space and final comma.
         A._actions = A._actions[1:-1]
 
-        apflight.endmove(A)
+        apaircraftflight.endmove(A)
 
     elif A._fp + 1 > A._maxfp:
 
@@ -2451,7 +2451,7 @@ def endflight(A):
         checkcloseformationlimits()
         handleunloadeddiveflighttype()
 
-    apflight.endmove(A)
+    apaircraftflight.endmove(A)
 
 
 ################################################################################
