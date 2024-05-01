@@ -30,7 +30,7 @@ def doflight(A, action, note=False):
     Move horizontally.
     """
 
-    A._setxy(*aphex.forward(A.x(), A.y(), A.facing()))
+    A._doforward()
 
   ########################################
 
@@ -64,13 +64,7 @@ def doflight(A, action, note=False):
     Turn in the specified sense and amount.
     """
     
-    # Change facing.
-    if aphex.isside(A.x(), A.y()):
-      A._setxy(*aphex.sidetocenter(A.x(), A.y(), A.facing(), sense))
-    if sense == "L":
-      A._setfacing((A.facing() + facingchange) % 360)
-    else:
-      A._setfacing((A.facing() - facingchange) % 360)
+    A._doturn(sense, facingchange)
 
   ########################################
 

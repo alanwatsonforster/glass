@@ -115,7 +115,7 @@ def _doaction(M, action):
     if element == "HD":
       M._dodive(1)
 
-    M._setxy(*aphex.forward(M.x(), M.y(), M.facing()))
+    M._forward()
 
   ########################################
 
@@ -163,17 +163,16 @@ def _doaction(M, action):
 
     if M._maneuvertype == "SL":
 
-      M._setxy(*aphex.slide(*M.xy(), M.facing(), sense))
+      M._slide(sense)
 
+    elif M._maneuvertyoe == "VR":
+    
+      M._doverticalroll(sense, facingchange, shift)
+      
     else:
     
-      if aphex.isside(M.x(), M.y()) and shift:
-        M._setxy(*aphex.sidetocenter(*M.xy(), M.facing(), sense))
-      if sense == "L":
-        M._setfacing((M.facing() + facingchange) % 360)
-      else:
-        M._setfacing((M.facing() - facingchange) % 360)
-
+      M._doturn(sense, facingchange)
+    
     if not continuous:
       M._maneuvertype  = None
       M._maneuversense = None

@@ -274,7 +274,7 @@ def continueflight(A, actions, note=False):
         altitudechange = 1
 
     A._dodive(altitudechange)
-    A._setxy(*aphex.forward(A.x(), A.y(), A.facing()))
+    A._doforward()
 
   ########################################
 
@@ -509,13 +509,7 @@ def continueflight(A, actions, note=False):
 
     A._turnmaneuvers += 1
 
-    # Change facing.
-    if aphex.isside(A.x(), A.y()):
-      A._setxy(*aphex.sidetocenter(A.x(), A.y(), A.facing(), sense))
-    if sense == "L":
-      A._setfacing((A.facing() + facingchange) % 360)
-    else:
-      A._setfacing((A.facing() - facingchange) % 360)
+    A._doturn(sense, facingchange)
 
   ########################################
 
@@ -574,8 +568,8 @@ def continueflight(A, actions, note=False):
     if A._maneuverfp < A._maneuverrequiredfp:
       raise RuntimeError("attempt to slide without sufficient preparatory HFPs.")
 
-    # Slide. Remember that we have already moved forward one hex for the final H element.
-    A._setxy(*aphex.slide(A.x(), A.y(), A.facing(), sense))
+    # Move.
+    A._doslide(sense)
 
     # See rule 13.2.
     if A._slides >= 1:
@@ -628,7 +622,7 @@ def continueflight(A, actions, note=False):
       raise RuntimeError("attempt to roll on a VFP.")
       
     # Move.
-    A._setxy(*aphex.displacementroll(A.x(), A.y(), A.facing(), sense))
+    A._dodisplacementroll(sense)
 
     # See rule 13.3.1.
     A._othermaneuversap -= apcapabilities.rolldrag(A, "DR")
@@ -688,11 +682,7 @@ def continueflight(A, actions, note=False):
       raise RuntimeError("attempt to roll on a VFP.")
 
     # Move.
-    A._setxy(*aphex.lagroll(A.x(), A.y(), A.facing(), sense))
-    if sense == "R":
-      A._setfacing((A.facing() + 30) % 360)
-    else:
-      A._setfacing((A.facing() - 30) % 360)
+    A._dolagroll(sense)
 
     # See rule 13.3.1.
     A._othermaneuversap -= apcapabilities.rolldrag(A, "LR")
@@ -765,13 +755,8 @@ def continueflight(A, actions, note=False):
       elif not apcapabilities.hasproperty(A, "GSSM"):
         A._othermaneuversap -= 1.0
 
-    # Change facing.
-    if aphex.isside(A.x(), A.y()) and shift:
-      A._setxy(*aphex.sidetocenter(A.x(), A.y(), A.facing(), sense))
-    if sense == "L":
-      A._setfacing((A.facing() + facingchange) % 360)
-    else:
-      A._setfacing((A.facing() - facingchange) % 360)
+    # Move.
+    A._doverticalroll(sense, facingchange, shift)
       
   ########################################
 
@@ -971,13 +956,7 @@ def continueflight(A, actions, note=False):
   def domaneuveringdeparture(sense, facingchange):
 
     # Do the first facing change.
-
-    if aphex.isside(A.x(), A.y()):
-      A._setxy(*aphex.centertoright(A.x(), A.y(), A.facing(), sense))
-    if action[0] == "L":
-      A._setfacing((A.facing() + 30) % 360)
-    else:
-      A._setfacing((A.facing() - 30) % 360)
+    A._doturn(sense, 30)
     A._flightpath.next(A.x(), A.y(), A.facing(), A.altitude())
     facingchange -= 30
 
@@ -985,19 +964,15 @@ def continueflight(A, actions, note=False):
 
     shift = int((A._maxfp - A._fp) / 2)
     for i in range(0, shift):
-      A._setxy(*aphex.forward(A.x(), A.y(), A.facing()))
+      A._doforward()
       A.checkforterraincollision()
       A.checkforleavingmap()
       if A._destroyed or A._leftmap:
         return
 
     # Do any remaining facing changes.
-    if aphex.isside(A.x(), A.y()):
-      A._setxy(*aphex.sidetocenter(A.x(), A.y(), A.facing(), sense))
-    if action[0] == "L":
-      A._setfacing((A.facing() + facingchange) % 360)
-    else:
-      A._setfacing((A.facing() - facingchange) % 360)
+    A._doturn(sense, facingchange)
+    A._flightpath.next(A.x(), A.y(), A.facing(), A.altitude())
 
   ########################################
 
