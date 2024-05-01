@@ -98,10 +98,10 @@ endtestsetup()
 
 # Check expectedconfiguration changes when we exhaust external fuel.
 
-startturn()
+startgameturn()
 A1.move("LVL", "AB", "H,H,H,H")
 A1._assert("A2-2020       N    10", 4.5, expectedconfiguration="CL")
-endturn()
+endgameturn()
 
 # Check jettisoning.
 
@@ -119,15 +119,15 @@ A1 = aircraft(
 A1._assert("A2-2024       N    10", 4.0, expectedconfiguration="DT")
 endtestsetup()
 
-startturn()
+startgameturn()
 A1.move("LVL", "N", "H/J(BB),H,H,H")
 A1._assert("A2-2020       N    10", 4.0, expectedconfiguration="1/2")
-endturn()
+endgameturn()
 
-startturn()
+startgameturn()
 A1.move("LVL", "N", "H/J(1+4),H,H,H")
 A1._assert("A1-2016       N    10", 4.0, expectedconfiguration="CL")
-endturn()
+endgameturn()
 
 
 endfile(__file__)

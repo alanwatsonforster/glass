@@ -13,7 +13,7 @@ A7 = aircraft("A7", "AF", "F-100C", "A2-2025", "N", 5, 6.0, "CL")
 A8 = aircraft("A8", "AF", "Tu-4", "A2-2023", "N", 5, 4.0, "CL")
 endtestsetup()
 
-startturn()
+startgameturn()
 
 A1.move("LVL", "M", "TTR/H/AA(GN)(A2)(L)")
 A2.react("AA(GN)(A1)()(L)")
@@ -44,40 +44,40 @@ assert A6._rocketfactors == 0
 
 # Check SSGT and RR
 
-startturn()
+startgameturn()
 A7.move("LVL", "M", "H/AA(GN/RR)(A8)(-)")
 asserterror("RE radar-ranging requires SSGT.")
-startturn()
+startgameturn()
 A7.move("LVL", "M", "SSGT(A8)/H/AA(GN/RR)(A8)(-)")
 assert A7._gunammunition == 3.0
-startturn()
+startgameturn()
 A7.move("LVL", "M", "SSGT(A8)/H/AA(GN/SS/RR)(A8)(-)")
 assert A7._gunammunition == 3.5
-startturn()
+startgameturn()
 A7.move("LVL", "M", "SSGT(A8)/H/AA(GN/RR/SS)(A8)(-)")
 assert A7._gunammunition == 3.5
 
 # Check CC
-startturn()
+startgameturn()
 A2.move("LVL", "N", "H,H,H,H")
 A5.move("LVL", "M", "H/AA(RK/3/CC)(A2)(-)")
 assert A5._rocketfactors == 6
 
 # Check recovery after ET.
 
-startturn()
+startgameturn()
 A7.move("LVL", "M", "ETR/H/AA(GN)()()")
 asserterror("attempt to use weapons while in an ET.")
-startturn()
+startgameturn()
 A7.move("LVL", "M", "ETR/HR,H/AA(GN)()()")
 asserterror("attempt to use weapons while recovering from an ET.")
-startturn()
+startgameturn()
 A7.move("LVL", "M", "ETR/HR,H,H/AA(GN)()()")
 asserterror("attempt to use weapons while recovering from an ET.")
-startturn()
+startgameturn()
 A7.move("LVL", "M", "ETR/HR,H,H,H/AA(GN)()()")
 asserterror("attempt to use weapons while recovering from an ET.")
-startturn()
+startgameturn()
 A7.move("LVL", "M", "ETR/HR,H,H,H,H/AA(GN)()()")
 A7._assert("A2-2221       NNE   5", 6.0)
 
@@ -87,16 +87,16 @@ A1 = aircraft("A1", "AF", "F-80C", "A2-2025", "N", 5, 4.0, "CL")
 A2 = aircraft("A2", "AF", "Tu-4", "A2-2024", "N", 5, 3.0, "CL")
 endtestsetup()
 
-startturn()
+startgameturn()
 A2.move("LVL", "FT", "H,H,H")
 A1.move("LVL", "M", "H,H,H,H/AA(GN)(A2)()")
-endturn()
+endgameturn()
 asserterror("aircraft A1 has 1 unspecified attack result.")
 
-startturn()
+startgameturn()
 A2.move("LVL", "FT", "H,H,H")
 A1.move("LVL", "M", "H,H,H/AA(GN)(A2)(),H/AA(GN)(A2)()")
-endturn()
+endgameturn()
 asserterror("aircraft A1 has 2 unspecified attack results.")
 
 # Check SSGT
@@ -109,24 +109,24 @@ A3 = aircraft("A3", "AF", "F-80C", "A1-2210", "W", 20, 4.0, "CL")
 A4 = aircraft("A4", "AF", "F-80C", "A1-1810", "N", 20, 4.0, "CL")
 endtestsetup()
 
-startturn()
+startgameturn()
 A1.move("LVL", "M", "H,H,H,H")
 A0.move("LVL", "M", "SSGT(A1)/H,H,H,H/AA(GN)(A1)(-)")
 
-startturn()
+startgameturn()
 A2.move("LVL", "M", "H,H,H,H")
 A0.move("LVL", "M", "SSGT(A2)/H,H,H,H/AA(GN)(A2)(-)")
 
-startturn()
+startgameturn()
 A3.move("LVL", "M", "H,H,H,H")
 A0.move("LVL", "M", "SSGT(A3)/H,H,H,H/AA(GN)(A3)(-)")
 asserterror("attempt to start SSGT while A0 is not in its 60- arc of A3.")
 
-startturn()
+startgameturn()
 A4.move("LVL", "M", "H,H,H,H")
 A0.move("LVL", "M", "SSGT(A4)/H,H,H,H/AA(GN)(A4)(-)")
 asserterror("attempt to start SSGT while A4 is more than 6 hexes from A0.")
 
-startturn()
+startgameturn()
 A1.move("LVL", "M", "H,H,H,H")
 A0.move("LVL", "M", "SSGT(A1)/BTR/H/R,H/WL,BTL/H/L+,H/L/AA(GN)(A1)(-)")

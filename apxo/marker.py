@@ -41,10 +41,10 @@ class marker(apelement.element):
 
     #############################################################################
 
-    def _startturn(self):
+    def _startgameturn(self):
         pass
 
-    def _endturn(self):
+    def _endgameturn(self):
         pass
 
     ############################################################################

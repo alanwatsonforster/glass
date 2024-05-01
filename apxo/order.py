@@ -1,7 +1,7 @@
 import apxo.aircraft as apaircraft
+import apxo.gameturn as apgameturn
 import apxo.geometry as apgeometry
 import apxo.log as aplog
-import apxo.turn as apturn
 
 #############################################################################
 

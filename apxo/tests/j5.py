@@ -247,7 +247,7 @@ A0 = aircraft("A1", "AF", "F-80C", "A2-2025", "N", 20, 4.0, "CL")
 A1 = aircraft("A2", "AF", "F-80C", "A2-2023", "N", 20, 4.0, "CL")
 endtestsetup()
 
-startturn()
+startgameturn()
 A0.move("ZC", "M", "H,H,H,C")
 A1.move("LVL", "M", "H,H,H,H")
 
@@ -260,7 +260,7 @@ assert not A0._inradararc(A1, "180+")
 assert not A0._inradararc(A1, "150+")
 assert A0._inradararc(A1, "120+")
 
-startturn()
+startgameturn()
 A0.move("ZC", "M", "H,H,C,C")
 A1.move("LVL", "M", "H,H,H,H")
 
@@ -273,7 +273,7 @@ assert not A0._inradararc(A1, "180+")
 assert not A0._inradararc(A1, "150+")
 assert A0._inradararc(A1, "120+")
 
-startturn()
+startgameturn()
 A0.move("ZC", "M", "H,C,C,C")
 A1.move("LVL", "M", "H,H,H,H")
 

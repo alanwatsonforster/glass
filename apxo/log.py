@@ -2,7 +2,7 @@
 Logging.
 """
 
-import apxo.turn as apturn
+import apxo.gameturn as apgameturn
 
 _silent = False
 
@@ -10,12 +10,12 @@ _silent = False
 def log(s):
     if _silent:
         return
-    if apturn.turn() is None:
+    if apgameturn.gameturn() is None:
         print(s)
-    elif apturn.turn() == 0:
+    elif apgameturn.gameturn() == 0:
         print("set-up: %s" % s)
     else:
-        print("turn %d: %s" % (apturn.turn(), s))
+        print("game turn %d: %s" % (apgameturn.gameturn(), s))
 
 
 def logmain(a, s):

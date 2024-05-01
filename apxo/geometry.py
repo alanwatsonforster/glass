@@ -18,7 +18,7 @@ def showgeometry(A, B, note=False):
     Aname = A._name
     Bname = B._name
 
-    apturn.checkinsetuporturn()
+    apgameturn.checkingamesetuporgameturn()
 
     angleofftail = A.angleofftail(B)
     if angleofftail == "0 line" or angleofftail == "180 line":

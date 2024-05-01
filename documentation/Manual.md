@@ -49,8 +49,8 @@ Create a second code cell, below the one used to load the package. (Use the “I
 Copy these commands into the second code cell:
 
 
-    startsetup("TSOH:T-3")
-    endsetup()
+    startgamesetup("TSOH:T-3")
+    endgamesetup()
     drawmap()
     
 These commands set up the map for Training Scenario T-3 in The Speed of Heat. Maps are available for all of the scenarios in The Speed of Heat, except V-11 and V-22 (which use inverted map sheets) and V-25 (which uses sheet C1 twice). They are labeled:
@@ -66,7 +66,7 @@ You can also set up your own arrangement of maps, but we’ll get to that later.
 
 The commands end by drawing the map. It will probably appear quite small in your browser, but if you click on it it will be displayed at full size.
 
-Now you need to add aircraft. Between "startsetup" and "endsetup" add lines like these:
+Now you need to add aircraft. Between "startgamesetup" and "endgamesetup" add lines like these:
 
     A1 = aircraft("A1", "AF", "F-80C", "3211"", "N", 30, 4.5, "CL")
     
@@ -80,11 +80,11 @@ Commonly used colors are: unpainted, silver, aluminum (or aluminium), green, tan
 
 For example, here is how I would set up Training Scenario 3 from The Speed of Heat:
 
-    startsetup("TSOH:T-3")
+    startgamesetup("TSOH:T-3")
     C1 = aircraft("C1", "AF", "MiG-15bis", "5127", "N" , 18, 5.0, "CL", color="natored")
     C2 = aircraft("C2", "AF", "MiG-15bis", "5228", "N" , 18, 5.0, "CL", color="natored")
     U1 = aircraft("U1", "AF", "F-86E"    , "6914", "NE", 20, 6.0, "CL", color="natoblue")
-    endsetup()
+    endgamesetup()
     drawmap()
 
 Rather than leaving all of the aircraft unpainted, I'm using NATO blue for the F-86 and NATO red for the MiG-15s.
@@ -103,16 +103,16 @@ The representation of the map was designed with the aim of making aircraft and o
 
 Create another code cell. Copy this into the cell:
 
-    startturn()
+    startgameturn()
     drawmap()
     
-(For the time being, don't add a endturn command.)
+(For the time being, don't add a endgameturn command.)
 If we run these, we see the aircraft at the start of the turn.
 
 Now, add calls to more the aircraft. In this scenario, 
 the MiGs follow random movement. Edit the cell to add these last three commands:
 
-    startturn()
+    startgameturn()
     drawmap()
     C1.move("SP", 0, "H,HL,CL,H,H")
     C2.move("SP", 0, "H,HL,DD,DR,H")
@@ -149,7 +149,7 @@ Above the maps, we get a log of what happened:
 
 Now let's move the F-86. This flies according to standard flight rules, so is more representative of a typical aircraft. Let's assume we want to dive down towards MiG C2 while doing a BT to the left to come in on its tail. Let's add two commands to the cell to reflect this. One specifies the flight of the F-86 and the other draws the map again.
 
-    startturn()
+    startgameturn()
     drawmap()
     C1.move("SP", 0, "H,HL,CL,H,H")
     C2.move("SP", 0, "H,HL,DD,DR,H")
@@ -168,7 +168,7 @@ The first argument to the U1.move command is the type of flight, in this case SD
 
 The slashes simply serve to visually separate the elements of each action. They can be omitted.
 
-We can run the cell again (Ctrl-Enter). The startturn command restores the positions of the aircraft to where they were at the start of the turn, so we can run this cell multiple times if we want (and often do so as we develop the flight path for each aircraft). After doing so, the third map looks like this:
+We can run the cell again (Ctrl-Enter). The startgameturn command restores the positions of the aircraft to where they were at the start of the turn, so we can run this cell multiple times if we want (and often do so as we develop the flight path for each aircraft). After doing so, the third map looks like this:
 
 ![Turn 1 after the F-86 has moved](<./Manual/T-3-1b.png>)
 
@@ -225,21 +225,21 @@ then it complains:
 
     === ERROR: attempt to dive 3 levels per VFP while the flight type is SC. ===
 
-Once all of the aircraft have moved, we finish the turn by adding an endturn command at the end:
+Once all of the aircraft have moved, we finish the turn by adding an endgameturn command at the end:
 
-    endturn()
+    endgameturn()
     
 The complete cell now looks like this:
 
-    startturn()
+    startgameturn()
     drawmap()
     C1.move("SP", 0, "H,HL,CL,H,H")
     C2.move("SP", 0, "H,HL,DD,DR,H")
     drawmap()
     U1.move("SD","M","BTL/H,H/L,H,H/L,DD/WL,DD")
     drawmap()
-    endturn()
+    endgameturn()
 
-Once we run this cell, with the endturn command, the turn is finished. 
+Once we run this cell, with the endgameturn command, the turn is finished. 
 
-Having added the endturn command, if we run the cell more than once, instead of repeating turn 1, it will be run turn 2 but with identical commands to turn 1. This is almost certainly not what we want to do. Fortunately, we can easily recover from this by selecting "Run all" from the "Runtime" menu to run everything again from scratch.
+Having added the endgameturn command, if we run the cell more than once, instead of repeating turn 1, it will be run turn 2 but with identical commands to turn 1. This is almost certainly not what we want to do. Fortunately, we can easily recover from this by selecting "Run all" from the "Runtime" menu to run everything again from scratch.

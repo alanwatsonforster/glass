@@ -15,10 +15,10 @@ A1.joincloseformation(A2)
 assert A1.closeformationnames() == ["A1", "A2"]
 assert A2.closeformationnames() == ["A1", "A2"]
 endtestsetup()
-startturn()
+startgameturn()
 A1.move("LVL", "AB", "H,H,H,H,H")
 A2.move("LVL", "AB", "H,H,H,H,H")
-endturn()
+endgameturn()
 assert A1.closeformationnames() == ["A1", "A2"]
 assert A2.closeformationnames() == ["A1", "A2"]
 
@@ -29,10 +29,10 @@ A1.joincloseformation(A2)
 assert A1.closeformationnames() == ["A1", "A2"]
 assert A2.closeformationnames() == ["A1", "A2"]
 endtestsetup()
-startturn()
+startgameturn()
 A1.move("ZC", "AB", "H,H,H,H,C")
 A2.move("ZC", "AB", "H,H,H,H,C")
-endturn()
+endgameturn()
 assert A1.closeformationnames() == []
 assert A2.closeformationnames() == []
 
@@ -43,10 +43,10 @@ A1.joincloseformation(A2)
 assert A1.closeformationnames() == ["A1", "A2"]
 assert A2.closeformationnames() == ["A1", "A2"]
 endtestsetup()
-startturn()
+startgameturn()
 A1.move("SC", "AB", "H,H,H,H,C")
 A2.move("SC", "AB", "H,H,H,H,C")
-endturn()
+endgameturn()
 assert A1.closeformationnames() == []
 assert A2.closeformationnames() == []
 
@@ -57,10 +57,10 @@ A1.joincloseformation(A2)
 assert A1.closeformationnames() == ["A1", "A2"]
 assert A2.closeformationnames() == ["A1", "A2"]
 endtestsetup()
-startturn()
+startgameturn()
 A1.move("SC", "M", "H,H,H,H,C")
 A2.move("SC", "M", "H,H,H,H,C")
-endturn()
+endgameturn()
 assert A1.closeformationnames() == ["A1", "A2"]
 assert A2.closeformationnames() == ["A1", "A2"]
 
@@ -71,10 +71,10 @@ A1.joincloseformation(A2)
 assert A1.closeformationnames() == ["A1", "A2"]
 assert A2.closeformationnames() == ["A1", "A2"]
 endtestsetup()
-startturn()
+startgameturn()
 A1.move("SC", "M", "H,H,H,C,C")
 A2.move("SC", "M", "H,H,H,C,C")
-endturn()
+endgameturn()
 assert A1.closeformationnames() == ["A1", "A2"]
 assert A2.closeformationnames() == ["A1", "A2"]
 
@@ -85,10 +85,10 @@ A1.joincloseformation(A2)
 assert A1.closeformationnames() == ["A1", "A2"]
 assert A2.closeformationnames() == ["A1", "A2"]
 endtestsetup()
-startturn()
+startgameturn()
 A1.move("SC", "M", "H,H,C,C,C")
 A2.move("SC", "M", "H,H,C,C,C")
-endturn()
+endgameturn()
 assert A1.closeformationnames() == []
 assert A2.closeformationnames() == []
 
@@ -99,16 +99,16 @@ A1.joincloseformation(A2)
 assert A1.closeformationnames() == ["A1", "A2"]
 assert A2.closeformationnames() == ["A1", "A2"]
 endtestsetup()
-startturn()
+startgameturn()
 A1.move("SC", "M", "H,H,H,C,C")
 A2.move("SC", "M", "H,H,H,C,C")
-endturn()
+endgameturn()
 assert A1.closeformationnames() == ["A1", "A2"]
 assert A2.closeformationnames() == ["A1", "A2"]
-startturn()
+startgameturn()
 A1.move("VC", "M", "H,H,C2,C2,C2")
 A2.move("VC", "M", "H,H,C2,C2,C2")
-endturn()
+endgameturn()
 assert A1.closeformationnames() == []
 assert A2.closeformationnames() == []
 
@@ -119,10 +119,10 @@ A1.joincloseformation(A2)
 assert A1.closeformationnames() == ["A1", "A2"]
 assert A2.closeformationnames() == ["A1", "A2"]
 endtestsetup()
-startturn()
+startgameturn()
 A1.move("SD", "M", "H,H,H,D,D")
 A2.move("SD", "M", "H,H,H,D,D")
-endturn()
+endgameturn()
 assert A1.closeformationnames() == ["A1", "A2"]
 assert A2.closeformationnames() == ["A1", "A2"]
 
@@ -133,10 +133,10 @@ A1.joincloseformation(A2)
 assert A1.closeformationnames() == ["A1", "A2"]
 assert A2.closeformationnames() == ["A1", "A2"]
 endtestsetup()
-startturn()
+startgameturn()
 A1.move("SD", "M", "H,H,D,D,D")
 A2.move("SD", "M", "H,H,D,D,D")
-endturn()
+endgameturn()
 assert A1.closeformationnames() == []
 assert A2.closeformationnames() == []
 
@@ -147,10 +147,10 @@ A1.joincloseformation(A2)
 assert A1.closeformationnames() == ["A1", "A2"]
 assert A2.closeformationnames() == ["A1", "A2"]
 endtestsetup()
-startturn()
+startgameturn()
 A1.move("UD", "M", "H,H,H,H,HD")
 A2.move("UD", "M", "H,H,H,H,HD")
-endturn()
+endgameturn()
 assert A1.closeformationnames() == []
 assert A2.closeformationnames() == []
 
@@ -161,16 +161,16 @@ A1.joincloseformation(A2)
 assert A1.closeformationnames() == ["A1", "A2"]
 assert A2.closeformationnames() == ["A1", "A2"]
 endtestsetup()
-startturn()
+startgameturn()
 A1.move("SD", "M", "H,H,H,D,D")
 A2.move("SD", "M", "H,H,H,D,D")
-endturn()
+endgameturn()
 assert A1.closeformationnames() == ["A1", "A2"]
 assert A2.closeformationnames() == ["A1", "A2"]
-startturn()
+startgameturn()
 A1.move("VD", "M", "H,H,D2,D2,D2")
 A2.move("VD", "M", "H,H,D2,D2,D2")
-endturn()
+endgameturn()
 assert A1.closeformationnames() == []
 assert A2.closeformationnames() == []
 
@@ -192,23 +192,23 @@ assert A3.closeformationnames() == ["A1", "A2", "A3", "A4"]
 assert A4.closeformationnames() == ["A1", "A2", "A3", "A4"]
 endtestsetup()
 
-startturn()
+startgameturn()
 A1.move("LVL", "N", "TTR/H,H,H,H,H")
 A2.move("LVL", "N", "TTR/H,H,H,H,H")
 A3.move("LVL", "N", "TTR/H,H,H,H,H")
 A4.move("LVL", "N", "TTR/H,H,H,H,H")
-endturn()
+endgameturn()
 assert A1.closeformationnames() == ["A1", "A2", "A3", "A4"]
 assert A2.closeformationnames() == ["A1", "A2", "A3", "A4"]
 assert A3.closeformationnames() == ["A1", "A2", "A3", "A4"]
 assert A4.closeformationnames() == ["A1", "A2", "A3", "A4"]
 
-startturn()
+startgameturn()
 A1.move("LVL", "N", "HTR/H,H,H,H,H")
 A2.move("LVL", "N", "HTR/H,H,H,H,H")
 A3.move("LVL", "N", "HTR/H,H,H,H,H")
 A4.move("LVL", "N", "HTR/H,H,H,H,H")
-endturn()
+endgameturn()
 assert A1.closeformationnames() == []
 assert A2.closeformationnames() == []
 assert A3.closeformationnames() == []
@@ -227,20 +227,20 @@ assert A2.closeformationnames() == ["A1", "A2", "A3"]
 assert A3.closeformationnames() == ["A1", "A2", "A3"]
 endtestsetup()
 
-startturn()
+startgameturn()
 A1.move("LVL", "N", "TTR/H,H,H,H,H")
 A2.move("LVL", "N", "TTR/H,H,H,H,H")
 A3.move("LVL", "N", "TTR/H,H,H,H,H")
-endturn()
+endgameturn()
 assert A1.closeformationnames() == ["A1", "A2", "A3"]
 assert A2.closeformationnames() == ["A1", "A2", "A3"]
 assert A3.closeformationnames() == ["A1", "A2", "A3"]
 
-startturn()
+startgameturn()
 A1.move("LVL", "N", "HTR/H,H,H,H,H")
 A2.move("LVL", "N", "HTR/H,H,H,H,H")
 A3.move("LVL", "N", "HTR/H,H,H,H,H")
-endturn()
+endgameturn()
 assert A1.closeformationnames() == []
 assert A2.closeformationnames() == []
 assert A3.closeformationnames() == []
@@ -255,17 +255,17 @@ assert A1.closeformationnames() == ["A1", "A2"]
 assert A2.closeformationnames() == ["A1", "A2"]
 endtestsetup()
 
-startturn()
+startgameturn()
 A1.move("LVL", "N", "HTR/H,H,H,H,H")
 A2.move("LVL", "N", "HTR/H,H,H,H,H")
-endturn()
+endgameturn()
 assert A1.closeformationnames() == ["A1", "A2"]
 assert A2.closeformationnames() == ["A1", "A2"]
 
-startturn()
+startgameturn()
 A1.move("LVL", "N", "BTR/H,H,H,H,H")
 A2.move("LVL", "N", "BTR/H,H,H,H,H")
-endturn()
+endgameturn()
 assert A1.closeformationnames() == []
 assert A2.closeformationnames() == []
 
@@ -279,10 +279,10 @@ assert A1.closeformationnames() == ["A1", "A2"]
 assert A2.closeformationnames() == ["A1", "A2"]
 endtestsetup()
 
-startturn()
+startgameturn()
 A1.move("LVL", "N", "SLR/H,H,H,H,H")
 A2.move("LVL", "N", "SLR/H,H,H,H,H")
-endturn()
+endgameturn()
 assert A1.closeformationnames() == ["A1", "A2"]
 assert A2.closeformationnames() == ["A1", "A2"]
 
@@ -296,10 +296,10 @@ assert A1.closeformationnames() == ["A1", "A2"]
 assert A2.closeformationnames() == ["A1", "A2"]
 endtestsetup()
 
-startturn()
+startgameturn()
 A1.move("LVL", "N", "DRR/H,H,H,H,H")
 A2.move("LVL", "N", "DRR/H,H,H,H,H")
-endturn()
+endgameturn()
 assert A1.closeformationnames() == []
 assert A2.closeformationnames() == []
 
@@ -311,10 +311,10 @@ assert A1.closeformationnames() == ["A1", "A2"]
 assert A2.closeformationnames() == ["A1", "A2"]
 endtestsetup()
 
-startturn()
+startgameturn()
 A1.move("LVL", "N", "LRR/H,H,H,H,H")
 A2.move("LVL", "N", "LRR/H,H,H,H,H")
-endturn()
+endgameturn()
 assert A1.closeformationnames() == []
 assert A2.closeformationnames() == []
 

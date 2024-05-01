@@ -15,11 +15,11 @@ A2 = aircraft(
 )
 endtestsetup()
 
-startturn()
+startgameturn()
 A1.move("LVL", "AB", "H,H,H,H,H,H")
 A1._assert("A2-2024       N    30", 6.0)
 A2.move("LVL", "M", "H,H,H,H,H,H")
 A2._assert("A2-2024       N    30", 5.5)
-endturn()
+endgameturn()
 
 endfile(__file__)

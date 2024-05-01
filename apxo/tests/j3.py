@@ -336,7 +336,7 @@ A3 = aircraft("A3", "AF", "F-80C", "A2-2025", "N", 10, 4.0, "CL")
 
 endtestsetup()
 
-startturn()
+startgameturn()
 
 A1.move("LVL", "M", "")
 A2.move("SD", "M", "")

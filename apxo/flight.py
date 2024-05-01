@@ -11,7 +11,6 @@ import apxo.log as aplog
 import apxo.normalflight as apnormalflight
 import apxo.specialflight as apspecialflight
 import apxo.stalledflight as apstalledflight
-import apxo.turn as apturn
 
 from apxo.normalflight import _isdivingflight, _isclimbingflight, _islevelflight
 
@@ -31,8 +30,6 @@ def move(
     Start a move, declaring the flight type and power, and possible carrying
     out some actions.
     """
-
-    apturn.checkinturn()
 
     A._logbreak()
     A._logline()
@@ -141,8 +138,6 @@ def continuemove(A, actions="", note=False):
     Continue a move that has been started, possible carrying out some actions.
     """
 
-    apturn.checkinturn()
-
     if (
         not A._destroyed
         and not A._leftmap
@@ -183,5 +178,3 @@ def endmove(A):
             A._endmovespeed()
 
         A._finishedmove = True
-
-    # A._save(apturn.turn())

@@ -2,19 +2,19 @@ import apxo.azimuth as apazimuth
 import apxo.aircraft as apaircraft
 import apxo.draw as apdraw
 import apxo.element as apelement
+import apxo.gameturn as apgameturn
 import apxo.log as aplog
 import apxo.map as apmap
 import apxo.order as aporder
 import apxo.variants as apvariants
 import apxo.scenarios as apscenarios
-import apxo.turn as apturn
 import apxo.visualsighting as apvisualsighting
 
 __all__ = [
-    "startsetup",
-    "endsetup",
-    "startturn",
-    "endturn",
+    "startgamesetup",
+    "endgamesetup",
+    "startgameturn",
+    "endgameturn",
     "startvisualsighting",
     "endvisualsighting",
     "settraining",
@@ -28,15 +28,15 @@ __all__ = [
 ################################################################################
 
 
-def startsetup(scenario, sheets=None, north="up", variants=[], **kwargs):
+def startgamesetup(scenario, sheets=None, north="up", variants=[], **kwargs):
     """
-    Start the set-up for the specified scenario (or for the specified map layout).
+    Start the game set-up for the specified scenario (or for the specified map layout).
     """
 
     aplog.clearerror()
     try:
 
-        apturn.startsetup()
+        apgameturn.startgamesetup()
 
         aplog.log("start of set-up.")
         aplog.logbreak()
@@ -60,26 +60,26 @@ def startsetup(scenario, sheets=None, north="up", variants=[], **kwargs):
 
         apazimuth.setnorth(north)
 
-        apelement._startsetup()
+        apelement._startgamesetup()
 
     except RuntimeError as e:
         aplog.logexception(e)
 
 
-def endsetup():
+def endgamesetup():
     """
-    End the set-up.
+    End the game set-up.
     """
 
     aplog.clearerror()
     try:
 
-        apelement._endsetup()
+        apelement._endgamesetup()
 
         aplog.logbreak()
         aplog.log("end of set-up.")
 
-        apturn.endsetup()
+        apgameturn.endgamesetup()
 
     except RuntimeError as e:
         aplog.logexception(e)
@@ -88,19 +88,19 @@ def endsetup():
 ################################################################################
 
 
-def startturn(note=False):
+def startgameturn(note=False):
     """
-    Start the next turn.
+    Start the next game turn.
     """
 
     aplog.clearerror()
     try:
 
-        apturn.startturn()
+        apgameturn.startgameturn()
 
         aplog.log("start of turn.")
 
-        apelement._startturn()
+        apelement._startgameturn()
 
         aplog.logbreak()
         aplog.log("initial positions, maneuvers, flight types, and speeds are:")
@@ -116,7 +116,7 @@ def startturn(note=False):
         aplog.logexception(e)
 
 
-def endturn(note=False):
+def endgameturn(note=False):
     """
     End the current turn.
     """
@@ -124,13 +124,13 @@ def endturn(note=False):
     aplog.clearerror()
     try:
 
-        apelement._endturn()
+        apelement._endgameturn()
 
         aplog.logbreak()
         aplog.log("end of turn.")
         aplog.lognote(None, note)
 
-        apturn.endturn()
+        apgameturn.endgameturn()
 
     except RuntimeError as e:
         aplog.logexception(e)
@@ -142,7 +142,7 @@ def endturn(note=False):
 def startvisualsighting():
     aplog.clearerror()
     try:
-        apturn.checkinturn()
+        apgameturn.checkinturn()
         apvisualsighting.startvisualsighting(),
     except RuntimeError as e:
         aplog.logexception(e)
@@ -151,7 +151,7 @@ def startvisualsighting():
 def endvisualsighting():
     aplog.clearerror()
     try:
-        apturn.checkinturn()
+        apgameturn.checkinturn()
         apvisualsighting.endvisualsighting(),
     except RuntimeError as e:
         aplog.logexception(e)
@@ -163,7 +163,7 @@ def endvisualsighting():
 def settraining(training):
     aplog.clearerror()
     try:
-        apturn.checkinsetup()
+        apgameturn.checkinsetup()
         aporder.settraining(training)
     except RuntimeError as e:
         aplog.logexception(e)
@@ -175,7 +175,7 @@ def settraining(training):
 def orderofflightdeterminationphase(rolls, firstkill=None, mostkills=None):
     aplog.clearerror()
     try:
-        apturn.checkinturn()
+        apgameturn.checkinturn()
         aporder.orderofflightdeterminationphase(
             rolls, firstkill=firstkill, mostkills=mostkills
         )
@@ -254,7 +254,7 @@ def drawmap(
 
         apelement._drawmap()
 
-        apmap.enddrawmap(apturn.turn())
+        apmap.enddrawmap(apgameturn.gameturn())
 
     except RuntimeError as e:
         aplog.logexception(e)

@@ -8,6 +8,7 @@ import apxo.damage as apdamage
 import apxo.draw as apdraw
 import apxo.element as apelement
 import apxo.flight as apflight
+import apxo.gameturn as apgameturn
 import apxo.hex as aphex
 import apxo.hexcode as aphexcode
 import apxo.log as aplog
@@ -17,7 +18,6 @@ import apxo.stores as apstores
 import apxo.turnrate as apturnrate
 import apxo.geometry as apgeometry
 import apxo.airtoair as apairtoair
-import apxo.turn as apturn
 import apxo.visualsighting as apvisualsighting
 
 from apxo.normalflight import _isclimbingflight, _isdivingflight, _islevelflight
@@ -229,7 +229,7 @@ class aircraft(apelement.element):
 
     #############################################################################
 
-    def _startturn(self):
+    def _startgameturn(self):
         self._setspeed(self._newspeed)
         self._newspeed = None
         self._finishedmove = False
@@ -241,7 +241,7 @@ class aircraft(apelement.element):
         self._unspecifiedattackresult = 0
         apcloseformation.check(self)
 
-    def _endturn(self):
+    def _endgameturn(self):
         if not self._destroyed and not self._leftmap and not self._finishedmove:
             raise RuntimeError("aircraft %s has not finished its move." % self._name)
         if self._unspecifiedattackresult > 0:
@@ -329,7 +329,7 @@ class aircraft(apelement.element):
         aplog.clearerror()
         try:
 
-            apturn.checkinturn()
+            apgameturn.checkingameturn()
             self._logaction("react", action)
 
             m = re.compile("AA" + 3 * r"\(([^)]*)\)").match(action)
@@ -377,7 +377,7 @@ class aircraft(apelement.element):
 
         aplog.clearerror()
         try:
-            apturn.checkinturn()
+            apgameturn.checkingameturn()
             apvisualsighting.padlock(self, other, note=note)
         except RuntimeError as e:
             aplog.logexception(e)
@@ -391,7 +391,7 @@ class aircraft(apelement.element):
 
         aplog.clearerror()
         try:
-            apturn.checkinturn()
+            apgameturn.checkingameturn()
             apvisualsighting.attempttosight(self, other, success=None, note=False)
         except RuntimeError as e:
             aplog.logexception(e)
@@ -485,7 +485,7 @@ class aircraft(apelement.element):
         aplog.clearerror()
         try:
 
-            apturn.checkinsetuporturn()
+            apgameturn.checkingamesetuporgameturn()
             self._logbreak()
             self._logline()
 
@@ -512,7 +512,7 @@ class aircraft(apelement.element):
 
         aplog.clearerror()
         try:
-            apturn.checkinturn()
+            apgameturn.checkingameturn()
             showgeometry(self, other, note=False)
         except RuntimeError as e:
             aplog.logexception(e)
@@ -605,7 +605,7 @@ class aircraft(apelement.element):
     ##############################################################################
 
     def hasbeenkilled(self):
-        apturn.checkinturn()
+        apgameturn.checkingameturn()
         self._drawontop()
         self._log("has been killed.")
         self._destroyed = True
@@ -715,6 +715,7 @@ class aircraft(apelement.element):
         self._drawontop()
         aplog.clearerror()
         try:
+            apgameturn.checkingameturn()
             apflight.move(self, *args, **kwargs)
         except RuntimeError as e:
             aplog.logexception(e)
@@ -723,6 +724,7 @@ class aircraft(apelement.element):
         self._drawontop()
         aplog.clearerror()
         try:
+            apgameturn.checkingameturn()
             apflight.continuemove(self, *args, **kwargs)
         except RuntimeError as e:
             aplog.logexception(e)

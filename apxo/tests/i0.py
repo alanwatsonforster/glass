@@ -112,7 +112,7 @@ assert A4.closeformationnames() == ["A1", "A2", "A3", "A4"]
 
 endtestsetup()
 
-startturn()
+startgameturn()
 
 assert A1.closeformationnames() == ["A1", "A2", "A3", "A4"]
 assert A2.closeformationnames() == ["A1", "A2", "A3", "A4"]
@@ -129,9 +129,9 @@ assert A2.closeformationnames() == ["A1", "A2", "A3", "A4"]
 assert A3.closeformationnames() == ["A1", "A2", "A3", "A4"]
 assert A4.closeformationnames() == ["A1", "A2", "A3", "A4"]
 
-endturn()
+endgameturn()
 
-startturn()
+startgameturn()
 
 assert A1.closeformationnames() == ["A1", "A2", "A3", "A4"]
 assert A2.closeformationnames() == ["A1", "A2", "A3", "A4"]
@@ -148,7 +148,7 @@ assert A2.closeformationnames() == ["A1", "A2", "A3", "A4"]
 assert A3.closeformationnames() == ["A1", "A2", "A3", "A4"]
 assert A4.closeformationnames() == ["A1", "A2", "A3", "A4"]
 
-endturn()
+endgameturn()
 asserterror(
     "aircraft A1 and A4 cannot be in close formation as they do not have the same facings."
 )

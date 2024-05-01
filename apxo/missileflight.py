@@ -1,8 +1,8 @@
 import apxo.altitude as apaltitude
+import apxo.gameturn as apgameturn
 import apxo.geometry as apgeometry
 import apxo.hex as aphex
 import apxo.speed as apspeed
-import apxo.turn as apturn
 
 ################################################################################
 
@@ -11,8 +11,6 @@ def move(M, speed, actions, note=False):
     """
     Start a move and possibly carry out some actions.
     """
-
-    apturn.checkinturn()
 
     M._logbreak()
     M._logline()

@@ -14,7 +14,7 @@ A8 = aircraft("A8", "AF", "F-84E", "B1-4012", "NNE", 7, 3.5)
 A9 = aircraft("A9", "AF", "MiG-15bis", "B1-4012", "NNE", 7, 3.5)
 endtestsetup()
 
-startturn()
+startgameturn()
 
 assert A1._maxvisualsightingrange() == 16
 assert A2._visualsightingrange(A1) == 3

@@ -20,28 +20,28 @@ _elementlist = []
 _zorder = 0
 
 
-def _startsetup():
+def _startgamesetup():
     global _elementlist
     _elementlist = []
 
 
-def _endsetup():
+def _endgamesetup():
     for E in _elementlist:
         E._save()
 
 
-def _startturn():
+def _startgameturn():
     for E in _elementlist:
         E._restore()
     for E in _elementlist:
         E._startpath()
     for E in _elementlist:
-        E._startturn()
+        E._startgameturn()
 
 
-def _endturn():
+def _endgameturn():
     for E in _elementlist:
-        E._endturn()
+        E._endgameturn()
     for E in _elementlist:
         E._save()
 

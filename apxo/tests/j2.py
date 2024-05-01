@@ -587,7 +587,7 @@ A3 = aircraft("A3", "AF", "F-80C", "A2-2025", "N", 10, 4.0, "CL")
 
 endtestsetup()
 
-startturn()
+startgameturn()
 
 A1.move("LVL", "M", "")
 A2.move("SD", "M", "")
@@ -866,7 +866,7 @@ assert (
     A3._rocketattackrange(A0) == "the target is not in the arc or range of the weapon."
 )
 
-endturn()
+endgameturn()
 
 starttestsetup()
 
@@ -876,7 +876,7 @@ A3 = aircraft("A3", "AF", "F-80C", "A2-2025", "N", 10, 4.0, "CL")
 
 endtestsetup()
 
-startturn()
+startgameturn()
 
 A1.move("LVL", "M", "")
 A2.move("SD", "M", "")
@@ -1137,7 +1137,7 @@ assert (
     A3._rocketattackrange(A0) == "the target is not in the arc or range of the weapon."
 )
 
-endturn()
+endgameturn()
 
 starttestsetup()
 
@@ -1147,7 +1147,7 @@ A3 = aircraft("A3", "AF", "F-80C", "A2-2025", "N", 10, 4.0, "CL")
 
 endtestsetup()
 
-startturn()
+startgameturn()
 
 A1.move("LVL", "M", "")
 A2.move("SD", "M", "")
@@ -1294,7 +1294,7 @@ assert (
     A3._rocketattackrange(A0) == "the target is not in the arc or range of the weapon."
 )
 
-endturn()
+endgameturn()
 
 starttestsetup()
 
@@ -1304,7 +1304,7 @@ A3 = aircraft("A3", "AF", "F-80C", "A2-2026", "N", 10, 4.0, "CL")
 
 endtestsetup()
 
-startturn()
+startgameturn()
 
 A1.move("LVL", "M", "")
 A2.move("SD", "M", "")
@@ -1457,7 +1457,7 @@ assert (
     A3._rocketattackrange(A0) == "the target is not in the arc or range of the weapon."
 )
 
-endturn()
+endgameturn()
 
 starttestsetup()
 
@@ -1467,7 +1467,7 @@ A3 = aircraft("A3", "AF", "F-80C", "A2-2027", "N", 10, 4.0, "CL")
 
 endtestsetup()
 
-startturn()
+startgameturn()
 
 A1.move("LVL", "M", "")
 A2.move("SD", "M", "")
@@ -1630,6 +1630,6 @@ assert (
     A3._rocketattackrange(A0) == "the target is not in the arc or range of the weapon."
 )
 
-endturn()
+endgameturn()
 
 endfile(__file__)

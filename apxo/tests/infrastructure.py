@@ -27,18 +27,18 @@ def starttestsetup(
     sheets=[["A1"], ["A2"]], north="up", variants=[], drawterrain=False, verbose=False
 ):
     aplog._silent = not verbose
-    ap.startsetup(
+    ap.startgamesetup(
         None, sheets=sheets, north=north, drawterrain=drawterrain, variants=variants
     )
 
 
 def endtestsetup():
-    ap.endsetup()
+    ap.endgamesetup()
 
 
-def startturn():
-    ap.startturn()
+def startgameturn():
+    ap.startgameturn()
 
 
-def endturn():
-    ap.endturn()
+def endgameturn():
+    ap.endgameturn()

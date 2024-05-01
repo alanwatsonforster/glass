@@ -2,6 +2,7 @@ import apxo.altitude as apaltitude
 import apxo.azimuth as apazimuth
 import apxo.draw as apdraw
 import apxo.element as apelement
+import apxo.gameturn as apgameturn
 import apxo.hexcode as aphexcode
 import apxo.log as aplog
 import apxo.map as apmap
@@ -56,10 +57,10 @@ class missile(apelement.element):
 
     #############################################################################
 
-    def _startturn(self):
+    def _startgameturn(self):
         pass
 
-    def _endturn(self):
+    def _endgameturn(self):
         pass
 
     #############################################################################
@@ -70,6 +71,7 @@ class missile(apelement.element):
         aplog.clearerror()
         try:
 
+            apgameturn.checkingameturn()
             apmissileflight.move(self, speed, actions, note=note)
 
         except RuntimeError as e:
@@ -83,6 +85,7 @@ class missile(apelement.element):
         aplog.clearerror()
         try:
 
+            apgameturn.checkingameturn()
             apmissileflight.continuemove(self, actions, note=note)
 
             # self._logbreak()
