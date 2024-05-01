@@ -5,7 +5,6 @@ import apxo.configuration as apconfiguration
 import apxo.variants as apvariants
 
 from apxo.math import *
-from apxo.normalflight import _isclimbingflight, _isdivingflight
 from apxo.log import plural
 
 ################################################################################

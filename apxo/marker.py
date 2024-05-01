@@ -1,12 +1,11 @@
 import apxo.draw as apdraw
+import apxo.element as apelement
 import apxo.log as aplog
-
-from apxo.element import element
 
 ##############################################################################
 
 
-class marker(element):
+class marker(apelement.element):
 
     ############################################################################
 

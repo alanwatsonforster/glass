@@ -1,17 +1,16 @@
 import apxo.altitude as apaltitude
 import apxo.azimuth as apazimuth
 import apxo.draw as apdraw
+import apxo.element as apelement
 import apxo.hexcode as aphexcode
 import apxo.log as aplog
 import apxo.map as apmap
 import apxo.missileflight as apmissileflight
 
-from apxo.element import element
-
 ##############################################################################
 
 
-class missile(element):
+class missile(apelement.element):
 
     def __init__(self, name, missiletype, launcher, target, color="white"):
 

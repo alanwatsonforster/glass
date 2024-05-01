@@ -6,6 +6,7 @@ import apxo.closeformation as apcloseformation
 import apxo.configuration as apconfiguration
 import apxo.damage as apdamage
 import apxo.draw as apdraw
+import apxo.element as apelement
 import apxo.flight as apflight
 import apxo.hex as aphex
 import apxo.hexcode as aphexcode
@@ -21,37 +22,14 @@ import apxo.visualsighting as apvisualsighting
 
 from apxo.normalflight import _isclimbingflight, _isdivingflight, _islevelflight
 
-from apxo.element import element
-
 import re
-
-################################################################################
-
-_aircraftlist = []
-
-
-def _startsetup():
-    global _aircraftlist
-    _aircraftlist = []
-
-
-def _endsetup():
-    pass
-
-
-def _startturn():
-    pass
-
-
-def _endturn():
-    pass
-
 
 ##############################################################################
 
 
 def aslist(withdestroyed=False, withleftmap=False):
-    aircraftlist = _aircraftlist
+    elementlist = apelement.aslist()
+    aircraftlist = filter(lambda E: E.isaircraft(), elementlist)
     if not withdestroyed:
         aircraftlist = filter(lambda x: not x._destroyed, aircraftlist)
     if not withleftmap:
@@ -59,24 +37,10 @@ def aslist(withdestroyed=False, withleftmap=False):
     return list(aircraftlist)
 
 
-##############################################################################
-
-
-def fromname(name):
-    """
-    Look for the aircraft with the given name. Return the aircraft or None if
-    no matching aircraft is found.
-    """
-    for a in _aircraftlist:
-        if a._name == name:
-            return a
-    return None
-
-
 #############################################################################
 
 
-class aircraft(element):
+class aircraft(apelement.element):
 
     #############################################################################
 
@@ -253,8 +217,6 @@ class aircraft(element):
             apconfiguration.update(self)
             self._logaction("", "configuration is %s." % self._configuration)
 
-            _aircraftlist.append(self)
-
             self._logline()
 
         except RuntimeError as e:
@@ -419,9 +381,11 @@ class aircraft(element):
             if targetname == "":
                 target = None
             else:
-                target = fromname(targetname)
+                target = apelement.fromname(targetname)
                 if target is None:
-                    raise RuntimeError("unknown target aircraft %s." % targetname)
+                    raise RuntimeError("unknown target %s." % targetname)
+                if not target.isaircraft():
+                    raise RuntimeError("target %s is not an aircraft." % targetname)
 
             apairtoair.react(self, attacktype, target, result)
 

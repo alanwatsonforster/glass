@@ -60,7 +60,6 @@ def startsetup(scenario, sheets=None, north="up", variants=[], **kwargs):
 
         apazimuth.setnorth(north)
 
-        apaircraft._startsetup()
         apelement._startsetup()
 
     except RuntimeError as e:
@@ -75,7 +74,6 @@ def endsetup():
     aplog.clearerror()
     try:
 
-        apaircraft._endsetup()
         apelement._endsetup()
 
         aplog.logbreak()
@@ -102,7 +100,6 @@ def startturn(note=False):
 
         aplog.log("start of turn.")
 
-        apaircraft._startturn()
         apelement._startturn()
 
         aplog.logbreak()
@@ -127,7 +124,6 @@ def endturn(note=False):
     aplog.clearerror()
     try:
 
-        apaircraft._endturn()
         apelement._endturn()
 
         aplog.logbreak()

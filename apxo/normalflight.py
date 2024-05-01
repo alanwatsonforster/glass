@@ -12,6 +12,7 @@ import apxo.aircraft as apaircraft
 import apxo.capabilities as apcapabilities
 import apxo.closeformation as apcloseformation
 import apxo.configuration as apconfiguration
+import apxo.element as apelement
 import apxo.flight as apflight
 import apxo.hex as aphex
 import apxo.speed as apspeed
@@ -1037,9 +1038,12 @@ def continueflight(A, actions, note=False):
         if targetname == "":
             target = None
         else:
-            target = apaircraft.fromname(targetname)
+            target = apelement.fromname(targetname)
             if target is None:
-                raise RuntimeError("unknown target aircraft %s." % targetname)
+                raise RuntimeError("unknown target %s." % targetname)
+            if not target.isaircraft():
+                raise RuntimeError("target %s is not an aircraft." % targetname)
+            
 
         apairtoair.attack(A, attacktype, target, result)
 
@@ -1065,9 +1069,11 @@ def continueflight(A, actions, note=False):
 
         targetname = m[1]
 
-        target = apaircraft.fromname(targetname)
+        target = apelement.fromname(targetname)
         if target is None:
-            raise RuntimeError("unknown target aircraft %s." % targetname)
+            raise RuntimeError("unknown target %s." % targetname)
+        if not target.isaircraft():
+            raise RuntimeError("target %s is not an aircraft." % targetname)
 
         if apairtoair.trackingforbidden(A, target):
             raise RuntimeError(
