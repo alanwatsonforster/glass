@@ -298,6 +298,17 @@ class element:
 
     ############################################################################
 
+    def isaircraft(self):
+        return False
+
+    def ismissile(self):
+        return False
+
+    def ismarker(self):
+        return False
+
+    ############################################################################
+
     def _moveforward(self):
         self._setxy(*aphex.forward(self.x(), self.y(), self.facing()))
 

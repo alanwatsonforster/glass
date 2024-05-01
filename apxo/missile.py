@@ -8,24 +8,6 @@ import apxo.missileflight as apmissileflight
 
 from apxo.element import element
 
-_missilelist = []
-
-
-def _startsetup():
-    global _missilelist
-    _missilelist = []
-
-
-##############################################################################
-
-
-def aslist(withremoved=False):
-    missilelist = _missilelist
-    if not withremoved:
-        missilelist = filter(lambda x: not x._removed, missilelist)
-    return list(missilelist)
-
-
 ##############################################################################
 
 
@@ -63,13 +45,15 @@ class missile(element):
             self._maneuvertype = None
             self._maneuversense = None
 
-            global _missilelist
-            _missilelist.append(self)
-
             self._logline()
 
         except RuntimeError as e:
             aplog.logexception(e)
+
+    #############################################################################
+
+    def ismissile(self):
+        return True
 
     #############################################################################
 

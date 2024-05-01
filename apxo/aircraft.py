@@ -262,6 +262,11 @@ class aircraft(element):
 
     #############################################################################
 
+    def isaircraft(self):
+        return True
+
+    #############################################################################
+
     def _startturn(self):
         self._setspeed(self._newspeed)
         self._newspeed = None
