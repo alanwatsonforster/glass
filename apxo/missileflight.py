@@ -115,7 +115,7 @@ def _doaction(M, action):
     if element == "HD":
       M._dodive(1)
 
-    M._forward()
+    M._doforward()
 
   ########################################
 
@@ -163,9 +163,9 @@ def _doaction(M, action):
 
     if M._maneuvertype == "SL":
 
-      M._slide(sense)
+      M._doslide(sense)
 
-    elif M._maneuvertyoe == "VR":
+    elif M._maneuvertype == "VR":
     
       M._doverticalroll(sense, facingchange, shift)
       
