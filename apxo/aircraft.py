@@ -284,15 +284,6 @@ class aircraft(apelement.element):
 
     #############################################################################
 
-    def position(self):
-        """Return a string describing the current position of the aircraft."""
-        hexcode = self.hexcode()
-        if hexcode is None:
-            hexcode = "-------"
-        return "%-12s  %-3s  %2d" % (hexcode, self.azimuth(), self.altitude())
-
-    #############################################################################
-
     def maneuver(self):
         """Return a string describing the current maneuver of the aircraft."""
         if self._maneuverfacingchange == 60 or self._maneuverfacingchange == 90:
