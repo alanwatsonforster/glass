@@ -28,14 +28,11 @@ import re
 ################################################################################
 
 _aircraftlist = []
-_zorder = 0
 
 
 def _startsetup():
     global _aircraftlist
-    global _zorder
     _aircraftlist = []
-    _zorder = 0
 
 
 def _endsetup():
@@ -43,8 +40,7 @@ def _endsetup():
 
 
 def _startturn():
-    global _zorder
-    _zorder = 0
+    pass
 
 
 def _endturn():
@@ -256,12 +252,6 @@ class aircraft(element):
 
             apconfiguration.update(self)
             self._logaction("", "configuration is %s." % self._configuration)
-
-            global _zorder
-            _zorder += 1
-            self._zorder = _zorder
-
-            # self._saved = []
 
             _aircraftlist.append(self)
 
@@ -714,6 +704,7 @@ class aircraft(element):
 
     def hasbeenkilled(self):
         apturn.checkinturn()
+        self._drawontop()
         self._log("has been killed.")
         self._destroyed = True
         self._color = None
@@ -769,7 +760,7 @@ class aircraft(element):
             color = None
         else:
             color = self._color
-        self._drawpath(color, self._zorder)
+        self._drawpath(color, self.zorder())
         apdraw.drawaircraft(
             self.x(),
             self.y(),
@@ -779,7 +770,7 @@ class aircraft(element):
             self.altitude(),
             self.speed(),
             self._flighttype,
-            self._zorder,
+            self.zorder(),
         )
 
     ################################################################################
@@ -795,6 +786,7 @@ class aircraft(element):
     ################################################################################
 
     def joincloseformation(self, other):
+        self._drawontop()
         aplog.clearerror()
         try:
             apcloseformation.join(self, other)
@@ -802,6 +794,7 @@ class aircraft(element):
             aplog.logexception(e)
 
     def leavecloseformation(self):
+        self._drawontop()
         aplog.clearerror()
         try:
             apcloseformation.leave(self)
@@ -817,6 +810,7 @@ class aircraft(element):
     ################################################################################
 
     def move(self, *args, **kwargs):
+        self._drawontop()
         aplog.clearerror()
         try:
             apflight.move(self, *args, **kwargs)
@@ -824,6 +818,7 @@ class aircraft(element):
             aplog.logexception(e)
 
     def continuemove(self, *args, **kwargs):
+        self._drawontop()
         aplog.clearerror()
         try:
             apflight.continuemove(self, *args, **kwargs)
@@ -833,6 +828,7 @@ class aircraft(element):
     ################################################################################
 
     def takedamage(self, damage, note=False):
+        self._drawontop()
         aplog.clearerror()
         try:
             apdamage.takedamage(self, damage)

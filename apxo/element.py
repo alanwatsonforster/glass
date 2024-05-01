@@ -16,6 +16,7 @@ import apxo.speed as apspeed
 ##############################################################################
 
 _elementlist = []
+_zorder = 0
 
 
 def _startsetup():
@@ -160,6 +161,8 @@ class element:
         self._color = color
         self._removed = False
 
+        self._drawontop()
+
         _elementlist.append(self)
 
     ############################################################################
@@ -287,6 +290,9 @@ class element:
     def color(self):
         return self._color
 
+    def zorder(self):
+        return self._zorder
+
     def removed(self):
         return self._removed
 
@@ -346,6 +352,13 @@ class element:
 
     def _drawpath(self, color, zorder, annotate=True):
         self._path.draw(color, zorder, annotate=annotate)
+
+    ############################################################################
+
+    def _drawontop(self):
+        global _zorder
+        _zorder += 1
+        self._zorder = _zorder
 
     ############################################################################
 

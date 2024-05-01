@@ -37,9 +37,6 @@ def move(
     A._logbreak()
     A._logline()
 
-    apxoaircraft._zorder += 1
-    A._zorder = apxoaircraft._zorder
-
     if A._destroyed or A._leftmap:
         endmove(A)
         return

@@ -63,8 +63,6 @@ class missile(element):
             self._maneuvertype = None
             self._maneuversense = None
 
-            self._zorder = launcher._zorder
-
             global _missilelist
             _missilelist.append(self)
 
@@ -85,6 +83,7 @@ class missile(element):
 
     def move(self, speed, actions, note=False):
 
+        self._drawontop()
         aplog.clearerror()
         try:
 
@@ -97,6 +96,7 @@ class missile(element):
 
     def continuemove(self, actions, note=False):
 
+        self._drawontop()
         aplog.clearerror()
         try:
 
@@ -116,7 +116,7 @@ class missile(element):
     #############################################################################
 
     def _draw(self):
-        self._drawpath(self._color, self._zorder, annotate=False)
+        self._drawpath(self._color, self.zorder(), annotate=False)
         apdraw.drawmissile(
             self.x(),
             self.y(),
@@ -125,7 +125,7 @@ class missile(element):
             self._name,
             self.altitude(),
             self.speed(),
-            self._zorder,
+            self.zorder(),
         )
 
     ########################################
