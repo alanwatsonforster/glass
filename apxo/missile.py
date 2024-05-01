@@ -31,20 +31,6 @@ def aslist(withremoved=False):
   if not withremoved:
     missilelist = filter(lambda x: not x._removed, missilelist)
   return list(missilelist)
-  
-##############################################################################
-
-def _xminforzoom():
-  return min([min(M._x, M._flightpath.xmin()) for M in aslist()])
-
-def _xmaxforzoom():
-  return max([max(M._x, M._flightpath.xmax()) for M in aslist()])
-
-def _yminforzoom():
-  return min([min(M._y, M._flightpath.ymin()) for M in aslist()])
-
-def _ymaxforzoom():
-  return max([max(M._y, M._flightpath.ymax()) for M in aslist()])
 
 ##############################################################################
 

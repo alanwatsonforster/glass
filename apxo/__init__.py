@@ -218,16 +218,10 @@ def drawmap(
 
     if zoom:
 
-      xmin = apaircraft._xminforzoom(withdestroyed=zoomincludesdestroyed)
-      xmax = apaircraft._xmaxforzoom(withdestroyed=zoomincludesdestroyed)
-      ymin = apaircraft._yminforzoom(withdestroyed=zoomincludesdestroyed)
-      ymax = apaircraft._ymaxforzoom(withdestroyed=zoomincludesdestroyed)
-
-      if len(apmissile.aslist()) > 0:
-        xmin = min(xmin, apmissile._xminforzoom())
-        xmax = max(xmax, apmissile._xmaxforzoom())
-        ymin = min(ymin, apmissile._yminforzoom())
-        ymax = max(ymax, apmissile._ymaxforzoom())
+      xmin = apelement._xminforzoom(withdestroyed=zoomincludesdestroyed)
+      xmax = apelement._xmaxforzoom(withdestroyed=zoomincludesdestroyed)
+      ymin = apelement._yminforzoom(withdestroyed=zoomincludesdestroyed)
+      ymax = apelement._ymaxforzoom(withdestroyed=zoomincludesdestroyed)
 
       xmin -= zoomborder
       ymin -= zoomborder

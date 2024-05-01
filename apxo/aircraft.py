@@ -82,20 +82,6 @@ def aslist(withdestroyed=False, withleftmap=False):
   if not withleftmap:
     aircraftlist = filter(lambda x: not x._leftmap, aircraftlist)
   return list(aircraftlist)
-  
-##############################################################################
-
-def _xminforzoom(withdestroyed=False):
-  return min([min(a.x(), a._flightpath.xmin()) for a in aslist(withdestroyed=withdestroyed)])
-
-def _xmaxforzoom(withdestroyed=False):
-  return max([max(a.x(), a._flightpath.xmax()) for a in aslist(withdestroyed=withdestroyed)])
-
-def _yminforzoom(withdestroyed=False):
-  return min([min(a._y, a._flightpath.ymin()) for a in aslist(withdestroyed=withdestroyed)])
-
-def _ymaxforzoom(withdestroyed=False):
-  return max([max(a._y, a._flightpath.ymax()) for a in aslist(withdestroyed=withdestroyed)])
 
 ##############################################################################
 

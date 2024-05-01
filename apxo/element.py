@@ -1,8 +1,9 @@
-import apxo.altitude as apaltitude
-import apxo.azimuth  as apazimuth
-import apxo.hex      as aphex
-import apxo.hexcode  as aphexcode
-import apxo.speed    as apspeed
+import apxo.altitude   as apaltitude
+import apxo.azimuth    as apazimuth
+import apxo.flightpath as apflightpath
+import apxo.hex        as aphex
+import apxo.hexcode    as aphexcode
+import apxo.speed      as apspeed
 
 # Elements are anything that can be placed on a map: aircraft, missiles,
 # ground units, and markers. This class gathers together their common
@@ -34,6 +35,30 @@ def fromname(name):
       return E
   return None
     
+##############################################################################
+
+def aslist(withdestroyed=False, withleftmap=False):
+  elementlist = _elementlist
+  #if not withdestroyed:
+  #  elementlist = filter(lambda x: not x.removed(), elementlist)
+  #if not withleftmap:
+  #  elementlist = filter(lambda x: not x._leftmap, elementlist)
+  return list(elementlist)
+  
+##############################################################################
+
+def _xminforzoom(withdestroyed=False):
+  return min([min(E.x(), E._flightpath.xmin()) for E in aslist(withdestroyed=withdestroyed)])
+
+def _xmaxforzoom(withdestroyed=False):
+  return max([max(E.x(), E._flightpath.xmax()) for E in aslist(withdestroyed=withdestroyed)])
+
+def _yminforzoom(withdestroyed=False):
+  return min([min(E._y, E._flightpath.ymin()) for E in aslist(withdestroyed=withdestroyed)])
+
+def _ymaxforzoom(withdestroyed=False):
+  return max([max(E._y, E._flightpath.ymax()) for E in aslist(withdestroyed=withdestroyed)])
+  
 ##############################################################################
 
 class element:
@@ -86,6 +111,8 @@ class element:
       raise RuntimeError("the speed argument is not valid.")
     
     self._speed        = speed
+
+    self._flightpath   = apflightpath.flightpath(x, y, facing, altitude)
 
     self._color        = color
     self._removed      = False
