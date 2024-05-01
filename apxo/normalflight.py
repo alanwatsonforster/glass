@@ -273,8 +273,8 @@ def continueflight(A, actions, note=False):
       else:
         altitudechange = 1
 
-    A._dodive(altitudechange)
-    A._doforward()
+    A._movedive(altitudechange)
+    A._moveforward()
 
   ########################################
 
@@ -338,7 +338,7 @@ def continueflight(A, actions, note=False):
     A._fp += 1  
     A._vfp += 1
 
-    A._doclimb(altitudechange)
+    A._moveclimb(altitudechange)
 
     # See rule 8.5.
     if flighttype == "SC" and A.altitude() > apcapabilities.ceiling(A):
@@ -395,7 +395,7 @@ def continueflight(A, actions, note=False):
     A._fp += 1  
     A._vfp += 1
   
-    A._dodive(altitudechange)
+    A._movedive(altitudechange)
 
   ########################################
 
@@ -509,7 +509,7 @@ def continueflight(A, actions, note=False):
 
     A._turnmaneuvers += 1
 
-    A._doturn(sense, facingchange)
+    A._moveturn(sense, facingchange)
 
   ########################################
 
@@ -569,7 +569,7 @@ def continueflight(A, actions, note=False):
       raise RuntimeError("attempt to slide without sufficient preparatory HFPs.")
 
     # Move.
-    A._doslide(sense)
+    A._moveslide(sense)
 
     # See rule 13.2.
     if A._slides >= 1:
@@ -622,7 +622,7 @@ def continueflight(A, actions, note=False):
       raise RuntimeError("attempt to roll on a VFP.")
       
     # Move.
-    A._dodisplacementroll(sense)
+    A._movedisplacementroll(sense)
 
     # See rule 13.3.1.
     A._othermaneuversap -= apcapabilities.rolldrag(A, "DR")
@@ -682,7 +682,7 @@ def continueflight(A, actions, note=False):
       raise RuntimeError("attempt to roll on a VFP.")
 
     # Move.
-    A._dolagroll(sense)
+    A._movelagroll(sense)
 
     # See rule 13.3.1.
     A._othermaneuversap -= apcapabilities.rolldrag(A, "LR")
@@ -756,7 +756,7 @@ def continueflight(A, actions, note=False):
         A._othermaneuversap -= 1.0
 
     # Move.
-    A._doverticalroll(sense, facingchange, shift)
+    A._moveverticalroll(sense, facingchange, shift)
       
   ########################################
 
@@ -956,7 +956,7 @@ def continueflight(A, actions, note=False):
   def domaneuveringdeparture(sense, facingchange):
 
     # Do the first facing change.
-    A._doturn(sense, 30)
+    A._moveturn(sense, 30)
     A._extendpath()
     facingchange -= 30
 
@@ -964,7 +964,7 @@ def continueflight(A, actions, note=False):
 
     shift = int((A._maxfp - A._fp) / 2)
     for i in range(0, shift):
-      A._doforward()
+      A._moveforward()
       A._extendpath()
       A.checkforterraincollision()
       A.checkforleavingmap()
@@ -972,7 +972,7 @@ def continueflight(A, actions, note=False):
         return
 
     # Do any remaining facing changes.
-    A._doturn(sense, facingchange)
+    A._moveturn(sense, facingchange)
     A._extendpath()
 
   ########################################

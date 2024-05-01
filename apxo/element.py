@@ -253,18 +253,18 @@ class element:
 
   ############################################################################
 
-  def _doforward(self):
+  def _moveforward(self):
     self._setxy(*aphex.forward(self.x(), self.y(), self.facing()))
   
-  def _doclimb(self, altitudechange):
+  def _moveclimb(self, altitudechange):
     altitude, altitudecarry = apaltitude.adjustaltitude(self.altitude(), self.altitudecarry(), +altitudechange)
     self._setposition(altitude=altitude, altitudecarry=altitudecarry)
 
-  def _dodive(self, altitudechange):
+  def _movedive(self, altitudechange):
     altitude, altitudecarry = apaltitude.adjustaltitude(self.altitude(), self.altitudecarry(), -altitudechange)
     self._setposition(altitude=altitude, altitudecarry=altitudecarry)
     
-  def _doturn(self, sense, facingchange):
+  def _moveturn(self, sense, facingchange):
     if aphex.isside(self.x(), self.y()):
       self._setxy(*aphex.sidetocenter(self.x(), self.y(), self.facing(), sense))
     if sense == "L":
@@ -272,20 +272,20 @@ class element:
     else:
       self._setfacing((self.facing() - facingchange) % 360)  
 
-  def _doslide(self, sense):
+  def _moveslide(self, sense):
     self._setxy(*aphex.slide(self.x(), self.y(), self.facing(), sense))
     
-  def _dodisplacementroll(self, sense):
+  def _movedisplacementroll(self, sense):
     self._setxy(*aphex.displacementroll(self.x(), self.y(), self.facing(), sense))
     
-  def _dolagroll(self, sense):
+  def _movelagroll(self, sense):
     self._setxy(*aphex.lagroll(self.x(), self.y(), self.facing(), sense))
     if sense == "R":
       self._setfacing((self.facing() + 30) % 360)
     else:
       self._setfacing((self.facing() - 30) % 360)  
       
-  def _doverticalroll(self, sense, facingchange, shift):
+  def _moveverticalroll(self, sense, facingchange, shift):
     if aphex.isside(self.x(), self.y()) and shift:
       self._setxy(*aphex.sidetocenter(self.x(), self.y(), self.facing(), sense))
     if sense == "L":

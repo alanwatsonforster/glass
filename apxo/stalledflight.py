@@ -58,7 +58,7 @@ def doflight(A, action, note=False):
 
   initialaltitude = A.altitude()    
   initialaltitudeband = A.altitudeband()
-  A._dodive(altitudechange)
+  A._movedive(altitudechange)
   altitudechange = initialaltitude - A.altitude()
     
   if A._turnsstalled == 0:

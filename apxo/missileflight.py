@@ -110,9 +110,9 @@ def _doaction(M, action):
     M._hfp += 1
 
     if element == "HD":
-      M._dodive(1)
+      M._movedive(1)
 
-    M._doforward()
+    M._moveforward()
 
   ########################################
 
@@ -125,7 +125,7 @@ def _doaction(M, action):
     M._fp  += 1
     M._vfp += 1
     
-    M._doclimb(altitudechange)
+    M._moveclimb(altitudechange)
 
   ########################################
 
@@ -138,7 +138,7 @@ def _doaction(M, action):
     M._fp  += 1
     M._vfp += 1
 
-    M._dodive(altitudechange)
+    M._movedive(altitudechange)
 
   ########################################
 
@@ -160,15 +160,15 @@ def _doaction(M, action):
 
     if M._maneuvertype == "SL":
 
-      M._doslide(sense)
+      M._moveslide(sense)
 
     elif M._maneuvertype == "VR":
     
-      M._doverticalroll(sense, facingchange, shift)
+      M._moveverticalroll(sense, facingchange, shift)
       
     else:
     
-      M._doturn(sense, facingchange)
+      M._moveturn(sense, facingchange)
     
     if not continuous:
       M._maneuvertype  = None

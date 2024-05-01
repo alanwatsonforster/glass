@@ -30,7 +30,7 @@ def doflight(A, action, note=False):
     Move horizontally.
     """
 
-    A._doforward()
+    A._moveforward()
 
   ########################################
 
@@ -43,7 +43,7 @@ def doflight(A, action, note=False):
     if altitudechange == 1:
       altitudechange = apcapabilities.specialclimbcapability(A)
     
-    A._doclimb(altitudechange)
+    A._moveclimb(altitudechange)
 
   ########################################
 
@@ -54,7 +54,7 @@ def doflight(A, action, note=False):
     """
 
     A._setaltitudecarry(0)
-    A._dodive(altitudechange)
+    A._movedive(altitudechange)
 
   ########################################
 
@@ -64,7 +64,7 @@ def doflight(A, action, note=False):
     Turn in the specified sense and amount.
     """
     
-    A._doturn(sense, facingchange)
+    A._moveturn(sense, facingchange)
 
   ########################################
 
