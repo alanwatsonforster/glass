@@ -5,6 +5,7 @@ import apxo.azimuth as apazimuth
 import apxo.path as appath
 import apxo.hex as aphex
 import apxo.hexcode as aphexcode
+import apxo.log as aplog
 import apxo.map as apmap
 import apxo.speed as apspeed
 
@@ -287,6 +288,9 @@ class element:
     def speed(self):
         return self._speed
 
+    def maneuver(self):
+        return ""
+
     def color(self):
         return self._color
 
@@ -383,3 +387,41 @@ class element:
         self._saveddict = saveddict
 
     ############################################################################
+
+    def _logbreak(self):
+        aplog.logbreak()
+
+    def _log(self, s):
+        aplog.log("%-4s : %s" % (self._name, s))
+
+    def _logline(self):
+        aplog.log("%-4s : %s :" % ("----", "-----"))
+
+    def _log1(self, s, t):
+        self._log("%-5s : %s" % (s, t))
+
+    def _log2(self, s, t):
+        self._log("%-5s : %-32s : %s" % (s, "", t))
+
+    def _logposition(self, s):
+        self._log1(s, self.position())
+
+    def _logpositionandmaneuver(self, s):
+        self._log1(s, "%s  %s" % (self.position(), self.maneuver()))
+
+    def _logaction(self, s, t):
+        self._log1(s, t)
+
+    def _logevent(self, s):
+        self._log2("", s)
+
+    def _logstart(self, s):
+        self._log1("start", s)
+
+    def _logend(self, s):
+        self._log1("end", s)
+
+    def _lognote(self, note):
+        aplog.lognote(self, note)
+
+    ################################################################################

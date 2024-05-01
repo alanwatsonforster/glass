@@ -310,10 +310,10 @@ def _doaction(M, action):
     M._extendpath()
 
     if M._fp == M.speed():
-        M._logposition("end")
+        M._logpositionandmaneuver("end")
         M._logline()
     else:
-        M._logposition("")
+        M._logpositionandmaneuver("")
 
     if initialaltitudeband != M.altitudeband():
         M._logevent(

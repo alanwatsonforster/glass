@@ -1043,7 +1043,6 @@ def continueflight(A, actions, note=False):
                 raise RuntimeError("unknown target %s." % targetname)
             if not target.isaircraft():
                 raise RuntimeError("target %s is not an aircraft." % targetname)
-            
 
         apairtoair.attack(A, attacktype, target, result)
 
