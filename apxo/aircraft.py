@@ -53,7 +53,7 @@ def _startturn():
     a._identifiedonpreviousturn = a._identified
     a._identified = False
     a._unspecifiedattackresult = 0
-    a._flightpath.start(a.x(), a._y, a._facing, a._altitude)
+    a._flightpath.start(a.x(), a.y(), a.facing(), a.altitude())
   for a in _aircraftlist:
     apcloseformation.check(a)
 
@@ -66,7 +66,7 @@ def _endturn():
         a._name, a._unspecifiedattackresult, aplog.plural(a._unspecifiedattackresult, "result", "results")
       ))
   for a in _aircraftlist:
-    a._speed = a._newspeed
+    a.setspeed(a._newspeed)
     a._newspeed = None
   for a in _aircraftlist:
     apcloseformation.check(a)
@@ -183,9 +183,9 @@ class aircraft(element):
       self._force                      = force
       self._enginesmoking              = False
 
-      self._startaltitude              = self._altitude
+      self._startaltitude              = self.altitude()
 
-      self._flightpath = apflightpath.flightpath(self.x(), self._y, self._facing, self._altitude)
+      self._flightpath = apflightpath.flightpath(self.x(), self.y(), self.facing(), self.altitude())
 
       self._logaction("", "force         is %s." % force)
       self._logaction("", "type          is %s." % aircrafttype)
@@ -258,12 +258,12 @@ class aircraft(element):
     s = ""
     for x in [
       ["name"         , self._name],
-      ["sheet"        , apmap.tosheet(self.x(), self._y) if not self._leftmap else "-- "],
-      ["hexcode"      , aphexcode.fromxy(self.x(), self._y) if not self._leftmap else "----"],
-      ["facing"       , apazimuth.fromfacing(self._facing)],
+      ["sheet"        , apmap.tosheet(self.x(), self.y()) if not self._leftmap else "-- "],
+      ["hexcode"      , aphexcode.fromxy(self.x(), self.y()) if not self._leftmap else "----"],
+      ["facing"       , apazimuth.fromfacing(self.facing())],
       ["speed"        , self.speed()],
-      ["altitude"     , self._altitude],
-      ["altitudeband" , self._altitudeband],
+      ["altitude"     , self.altitude()],
+      ["altitudeband" , self.altitudeband()],
       ["flighttype"   , self._flighttype],
       ["powersetting" , self._powersetting],
       ["configuration", self._configuration],
@@ -305,12 +305,12 @@ class aircraft(element):
 
   def position(self):
     """Return a string describing the current position of the aircraft."""
-    if apmap.isonmap(self.x(), self._y):
-      hexcode = aphexcode.fromxy(self.x(), self._y)
+    if apmap.isonmap(self.x(), self.y()):
+      hexcode = aphexcode.fromxy(self.x(), self.y())
     else:
       hexcode = "-------"
-    azimuth = apazimuth.fromfacing(self._facing)
-    altitude = self._altitude
+    azimuth = apazimuth.fromfacing(self.facing())
+    altitude = self.altitude()
     return "%-12s  %-3s  %2d" % (hexcode, azimuth, altitude)
 
   #############################################################################
@@ -644,9 +644,9 @@ class aircraft(element):
     Check if the aircraft has collided with terrain.
     """
 
-    altitudeofterrain = apaltitude.terrainaltitude(self.x(), self._y)
-    if self._altitude <= altitudeofterrain:
-      self._altitude = altitudeofterrain
+    altitudeofterrain = apaltitude.terrainaltitude(self.x(), self.y())
+    if self.altitude() <= altitudeofterrain:
+      self.setaltitude(altitudeofterrain)
       self._altitudecarry = 0
       self._logaction("", "aircraft has collided with terrain at altitude %d." % altitudeofterrain)
       self._destroyed = True
@@ -658,7 +658,7 @@ class aircraft(element):
     Check if the aircraft has left the map.
     """
 
-    if not apmap.isonmap(self.x(), self._y):
+    if not apmap.isonmap(self.x(), self.y()):
       self._logaction("", "aircraft has left the map.")
       self._leftmap = True
       self._leaveanycloseformation()
@@ -835,14 +835,14 @@ class aircraft(element):
   ################################################################################
 
   def _draw(self):
-    self._flightpath.draw(self._color, self._zorder)
+    self._flightpath.draw(self.color(), self._zorder)
     if self._leftmap:
       return
     if self._destroyed:
       color = None
     else:
       color = self._color
-    apdraw.drawaircraft(self.x(), self._y, self._facing, color, self._name, self._altitude, self.speed(), self._flighttype, self._zorder)
+    apdraw.drawaircraft(self.x(), self.y(), self.facing(), color, self.name(), self.altitude(), self.speed(), self._flighttype, self._zorder)
 
   ################################################################################  
 
@@ -974,13 +974,13 @@ class aircraft(element):
     print("Power setting            : %s" % self._powersetting)
     print("Actions                  : %s" % self._actions)
 
-    if apmap.isonmap(self.x(), self._y):
-      position = aphexcode.fromxy(self.x(), self._y)
+    if apmap.isonmap(self.x(), self.y()):
+      position = aphexcode.fromxy(self.x(), self.y())
     else:
       position = "not on map"
     print("End position             : %s" % position)
-    print("End facing               : %s" % apazimuth.fromfacing(self._facing))
-    print("End altiude              : %d" % self._altitude)
+    print("End facing               : %s" % apazimuth.fromfacing(self.facing()))
+    print("End altiude              : %d" % self.altitude())
     if self._bank == None:
       print("End bank                 : WL")
     else:
