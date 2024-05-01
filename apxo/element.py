@@ -123,7 +123,7 @@ class element:
 
   ############################################################################
 
-  def setposition(self, 
+  def _setposition(self, 
     x=None, y=None, facing=None, 
     hexcode=None, 
     azimuth=None, 
@@ -168,19 +168,19 @@ class element:
     
   ############################################################################
 
-  def setxy(self, x=None, y=None):
-    self.setposition(x=x, y=y)
+  def _setxy(self, x=None, y=None):
+    self._setposition(x=x, y=y)
     
-  def setfacing(self, facing):
-    self.setposition(facing=facing)
+  def _setfacing(self, facing):
+    self._setposition(facing=facing)
 
-  def setaltitude(self, altitude=None):
-    self.setposition(altitude=altitude)
+  def _setaltitude(self, altitude=None):
+    self._setposition(altitude=altitude)
     
-  def setaltitudecarry(self, altitudecarry=None):
-    self.setposition(altitudecarry=altitudecarry)
+  def _setaltitudecarry(self, altitudecarry=None):
+    self._setposition(altitudecarry=altitudecarry)
     
-  def setspeed(self, 
+  def _setspeed(self, 
     speed=None
   ):
     if speed is None:
@@ -251,9 +251,9 @@ class element:
   
   def _doclimb(self, altitudechange):
     altitude, altitudecarry = apaltitude.adjustaltitude(self.altitude(), self.altitudecarry(), +altitudechange)
-    self.setposition(altitude=altitude, altitudecarry=altitudecarry)
+    self._setposition(altitude=altitude, altitudecarry=altitudecarry)
 
   def _dodive(self, altitudechange):
     altitude, altitudecarry = apaltitude.adjustaltitude(self.altitude(), self.altitudecarry(), -altitudechange)
-    self.setposition(altitude=altitude, altitudecarry=altitudecarry)
+    self._setposition(altitude=altitude, altitudecarry=altitudecarry)
 

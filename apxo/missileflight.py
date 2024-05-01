@@ -24,7 +24,7 @@ def move(M, speed, actions, note=False):
     M._endmove()
     return
 
-  M.setspeed(speed)
+  M._setspeed(speed)
   if speed < apspeed.m1speed(M.altitudeband()):
     M._logstart("speed         is %.1f." % speed)
   else:
@@ -115,7 +115,7 @@ def _doaction(M, action):
     if element == "HD":
       M._dodive(1)
 
-    M.setxy(*aphex.forward(M.x(), M.y(), M.facing()))
+    M._setxy(*aphex.forward(M.x(), M.y(), M.facing()))
 
   ########################################
 
@@ -163,16 +163,16 @@ def _doaction(M, action):
 
     if M._maneuvertype == "SL":
 
-      M.setxy(*aphex.slide(*M.xy(), M.facing(), sense))
+      M._setxy(*aphex.slide(*M.xy(), M.facing(), sense))
 
     else:
     
       if aphex.isside(M.x(), M.y()) and shift:
-        M.setxy(*aphex.sidetocenter(*M.xy(), M.facing(), sense))
+        M._setxy(*aphex.sidetocenter(*M.xy(), M.facing(), sense))
       if sense == "L":
-        M.setfacing((M.facing() + facingchange) % 360)
+        M._setfacing((M.facing() + facingchange) % 360)
       else:
-        M.setfacing((M.facing() - facingchange) % 360)
+        M._setfacing((M.facing() - facingchange) % 360)
 
     if not continuous:
       M._maneuvertype  = None

@@ -30,7 +30,7 @@ def doflight(A, action, note=False):
     Move horizontally.
     """
 
-    A.setxy(*aphex.forward(A.x(), A.y(), A.facing()))
+    A._setxy(*aphex.forward(A.x(), A.y(), A.facing()))
 
   ########################################
 
@@ -53,7 +53,7 @@ def doflight(A, action, note=False):
     Dive.
     """
 
-    A.setaltitudecarry(0)
+    A._setaltitudecarry(0)
     A._dodive(altitudechange)
 
   ########################################
@@ -66,11 +66,11 @@ def doflight(A, action, note=False):
     
     # Change facing.
     if aphex.isside(A.x(), A.y()):
-      A.setxy(*aphex.sidetocenter(A.x(), A.y(), A.facing(), sense))
+      A._setxy(*aphex.sidetocenter(A.x(), A.y(), A.facing(), sense))
     if sense == "L":
-      A.setfacing((A.facing() + facingchange) % 360)
+      A._setfacing((A.facing() + facingchange) % 360)
     else:
-      A.setfacing((A.facing() - facingchange) % 360)
+      A._setfacing((A.facing() - facingchange) % 360)
 
   ########################################
 

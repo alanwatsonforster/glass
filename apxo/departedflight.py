@@ -67,11 +67,11 @@ def doflight(A, action, note=False):
       # Do the first facing change.
 
       if aphex.isside(A.x(), A.y()):
-        A.setxy(*aphex.centertoright(A.x(), A.y(), A.facing(), sense))
+        A._setxy(*aphex.centertoright(A.x(), A.y(), A.facing(), sense))
       if action[0] == "L":
-        A.setfacing((A.facing() + 30) % 360)
+        A._setfacing((A.facing() + 30) % 360)
       else:
-        A.setfacing((A.facing() - 30) % 360)
+        A._setfacing((A.facing() - 30) % 360)
       A._flightpath.next(A.x(), A.y(), A.facing(), A.altitude())
       facingchange -= 30
 
@@ -83,7 +83,7 @@ def doflight(A, action, note=False):
 
       shift = int((A._maxfp) / 2)
       for i in range(0, shift):
-        A.setxy(*aphex.forward(A.x(), A.y(), A.facing()))
+        A._setxy(*aphex.forward(A.x(), A.y(), A.facing()))
         A.checkforterraincollision()
         A.checkforleavingmap()
         if A._destroyed or A._leftmap:
@@ -92,11 +92,11 @@ def doflight(A, action, note=False):
    # Do the (remaining) facing change.
 
   if aphex.isside(A.x(), A.y()):
-    A.setxy(*aphex.sidetocenter(A.x(), A.y(), A.facing(), sense))
+    A._setxy(*aphex.sidetocenter(A.x(), A.y(), A.facing(), sense))
   if action[0] == "L":
-    A.setfacing((A.facing() + facingchange) % 360)
+    A._setfacing((A.facing() + facingchange) % 360)
   else:
-    A.setfacing((A.facing() - facingchange) % 360)
+    A._setfacing((A.facing() - facingchange) % 360)
   A._flightpath.next(A.x(), A.y(), A.facing(), A.altitude())
 
   # Now lose altitude.

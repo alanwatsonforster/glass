@@ -83,7 +83,7 @@ def move(A, flighttype, power, actions="",
     apnormalflight.checkflight(A)
 
   if flighttype == "SP":
-    A.setspeed(power)
+    A._setspeed(power)
   else:
     A._startmovespeed(power, flamedoutengines, lowspeedliftdeviceselected)
     A._logstart("configuration is %s." % A._configuration)
@@ -102,7 +102,7 @@ def move(A, flighttype, power, actions="",
   elif A._flighttype == "ST":       
 
     A._fpcarry = 0
-    A.setaltitudecarry(0)
+    A._setaltitudecarry(0)
     apstalledflight.doflight(A, actions, note=note)
     A._turnsstalled += 1
     endmove(A)
@@ -111,7 +111,7 @@ def move(A, flighttype, power, actions="",
 
     A._fpcarry = 0
     A._apcarry = 0
-    A.setaltitudecarry(0)
+    A._setaltitudecarry(0)
     apdepartedflight.doflight(A, actions, note=note)
     A._turnsdeparted += 1
     endmove(A)
@@ -120,7 +120,7 @@ def move(A, flighttype, power, actions="",
 
     # See rule 8.1.4 on altitude carry.
     if not A.isinclimbingflight():
-      A.setaltitudecarry(0)
+      A._setaltitudecarry(0)
 
     A._turnsstalled  = 0
     A._turnsdeparted = 0

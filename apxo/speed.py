@@ -79,7 +79,7 @@ def startmovespeed(A, power, flamedoutengines, lowspeedliftdeviceselected):
     if A._flighttype == "SP":
       speed = power
       reportspeed()
-      A.setspeed(speed)
+      A._setspeed(speed)
       A._powersetting = ""
       A._powerap      = 0
       A._speedap      = 0
@@ -412,7 +412,7 @@ def startmovespeed(A, power, flamedoutengines, lowspeedliftdeviceselected):
 
     ############################################################################
 
-    A.setspeed(speed)
+    A._setspeed(speed)
     A._powersetting = powersetting
     A._powerap      = powerap
     A._speedap      = speedap

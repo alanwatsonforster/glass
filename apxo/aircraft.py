@@ -66,7 +66,7 @@ def _endturn():
         a._name, a._unspecifiedattackresult, aplog.plural(a._unspecifiedattackresult, "result", "results")
       ))
   for a in _aircraftlist:
-    a.setspeed(a._newspeed)
+    a._setspeed(a._newspeed)
     a._newspeed = None
   for a in _aircraftlist:
     apcloseformation.check(a)
@@ -642,7 +642,7 @@ class aircraft(element):
 
     altitudeofterrain = apaltitude.terrainaltitude(self.x(), self.y())
     if self.altitude() <= altitudeofterrain:
-      self.setaltitude(altitudeofterrain)
+      self._setaltitude(altitudeofterrain)
       self._altitudecarry = 0
       self._logaction("", "aircraft has collided with terrain at altitude %d." % altitudeofterrain)
       self._destroyed = True
@@ -712,8 +712,8 @@ class aircraft(element):
     self._turnsdeparted, \
     self._enginesmoking \
     = self._saved[i]
-    self.setposition(x=x, y=y, facing=facing, altitude=altitude, altitudecarry=altitudecarry)
-    self.setspeed(speed=speed)
+    self._setposition(x=x, y=y, facing=facing, altitude=altitude, altitudecarry=altitudecarry)
+    self._setspeed(speed=speed)
 
     self._startx             = self.x()
     self._starty             = self.y()

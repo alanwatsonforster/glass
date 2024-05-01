@@ -274,7 +274,7 @@ def continueflight(A, actions, note=False):
         altitudechange = 1
 
     A._dodive(altitudechange)
-    A.setxy(*aphex.forward(A.x(), A.y(), A.facing()))
+    A._setxy(*aphex.forward(A.x(), A.y(), A.facing()))
 
   ########################################
 
@@ -511,11 +511,11 @@ def continueflight(A, actions, note=False):
 
     # Change facing.
     if aphex.isside(A.x(), A.y()):
-      A.setxy(*aphex.sidetocenter(A.x(), A.y(), A.facing(), sense))
+      A._setxy(*aphex.sidetocenter(A.x(), A.y(), A.facing(), sense))
     if sense == "L":
-      A.setfacing((A.facing() + facingchange) % 360)
+      A._setfacing((A.facing() + facingchange) % 360)
     else:
-      A.setfacing((A.facing() - facingchange) % 360)
+      A._setfacing((A.facing() - facingchange) % 360)
 
   ########################################
 
@@ -575,7 +575,7 @@ def continueflight(A, actions, note=False):
       raise RuntimeError("attempt to slide without sufficient preparatory HFPs.")
 
     # Slide. Remember that we have already moved forward one hex for the final H element.
-    A.setxy(*aphex.slide(A.x(), A.y(), A.facing(), sense))
+    A._setxy(*aphex.slide(A.x(), A.y(), A.facing(), sense))
 
     # See rule 13.2.
     if A._slides >= 1:
@@ -628,7 +628,7 @@ def continueflight(A, actions, note=False):
       raise RuntimeError("attempt to roll on a VFP.")
       
     # Move.
-    A.setxy(*aphex.displacementroll(A.x(), A.y(), A.facing(), sense))
+    A._setxy(*aphex.displacementroll(A.x(), A.y(), A.facing(), sense))
 
     # See rule 13.3.1.
     A._othermaneuversap -= apcapabilities.rolldrag(A, "DR")
@@ -688,11 +688,11 @@ def continueflight(A, actions, note=False):
       raise RuntimeError("attempt to roll on a VFP.")
 
     # Move.
-    A.setxy(*aphex.lagroll(A.x(), A.y(), A.facing(), sense))
+    A._setxy(*aphex.lagroll(A.x(), A.y(), A.facing(), sense))
     if sense == "R":
-      A.setfacing((A.facing() + 30) % 360)
+      A._setfacing((A.facing() + 30) % 360)
     else:
-      A.setfacing((A.facing() - 30) % 360)
+      A._setfacing((A.facing() - 30) % 360)
 
     # See rule 13.3.1.
     A._othermaneuversap -= apcapabilities.rolldrag(A, "LR")
@@ -767,11 +767,11 @@ def continueflight(A, actions, note=False):
 
     # Change facing.
     if aphex.isside(A.x(), A.y()) and shift:
-      A.setxy(*aphex.sidetocenter(A.x(), A.y(), A.facing(), sense))
+      A._setxy(*aphex.sidetocenter(A.x(), A.y(), A.facing(), sense))
     if sense == "L":
-      A.setfacing((A.facing() + facingchange) % 360)
+      A._setfacing((A.facing() + facingchange) % 360)
     else:
-      A.setfacing((A.facing() - facingchange) % 360)
+      A._setfacing((A.facing() - facingchange) % 360)
       
   ########################################
 
@@ -973,11 +973,11 @@ def continueflight(A, actions, note=False):
     # Do the first facing change.
 
     if aphex.isside(A.x(), A.y()):
-      A.setxy(*aphex.centertoright(A.x(), A.y(), A.facing(), sense))
+      A._setxy(*aphex.centertoright(A.x(), A.y(), A.facing(), sense))
     if action[0] == "L":
-      A.setfacing((A.facing() + 30) % 360)
+      A._setfacing((A.facing() + 30) % 360)
     else:
-      A.setfacing((A.facing() - 30) % 360)
+      A._setfacing((A.facing() - 30) % 360)
     A._flightpath.next(A.x(), A.y(), A.facing(), A.altitude())
     facingchange -= 30
 
@@ -985,7 +985,7 @@ def continueflight(A, actions, note=False):
 
     shift = int((A._maxfp - A._fp) / 2)
     for i in range(0, shift):
-      A.setxy(*aphex.forward(A.x(), A.y(), A.facing()))
+      A._setxy(*aphex.forward(A.x(), A.y(), A.facing()))
       A.checkforterraincollision()
       A.checkforleavingmap()
       if A._destroyed or A._leftmap:
@@ -993,11 +993,11 @@ def continueflight(A, actions, note=False):
 
     # Do any remaining facing changes.
     if aphex.isside(A.x(), A.y()):
-      A.setxy(*aphex.sidetocenter(A.x(), A.y(), A.facing(), sense))
+      A._setxy(*aphex.sidetocenter(A.x(), A.y(), A.facing(), sense))
     if action[0] == "L":
-      A.setfacing((A.facing() + facingchange) % 360)
+      A._setfacing((A.facing() + facingchange) % 360)
     else:
-      A.setfacing((A.facing() - facingchange) % 360)
+      A._setfacing((A.facing() - facingchange) % 360)
 
   ########################################
 

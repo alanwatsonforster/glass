@@ -95,7 +95,7 @@ class missile(element):
     self._maneuversense, \
     self._removed, \
     = self._saved
-    self.setposition(x=x, y=y, facing=facing, altitude=altitude)
+    self._setposition(x=x, y=y, facing=facing, altitude=altitude)
 
   def _save(self):
 
@@ -199,7 +199,7 @@ class missile(element):
 
     altitudeofterrain = apaltitude.terrainaltitude(*self.xy())
     if self.altitude() <= altitudeofterrain:
-      self.setaltitude(altitudeofterrain)
+      self._setaltitude(altitudeofterrain)
       self._altitudecarry = 0
       self._logaction("", "missile has collided with terrain at altitude %d." % altitudeofterrain)
       self._removed = True
