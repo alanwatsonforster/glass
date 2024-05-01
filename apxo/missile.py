@@ -65,39 +65,13 @@ class missile(apelement.element):
 
     #############################################################################
 
-    def move(self, speed, actions, note=False):
-
-        self._drawontop()
-        aplog.clearerror()
-        try:
-
-            apgameturn.checkingameturn()
-            apmissileflight.move(self, speed, actions, note=note)
-
-        except RuntimeError as e:
-            aplog.logexception(e)
+    def _move(self, speed, actions, note=False):
+        apmissileflight.move(self, speed, actions, note=note)
 
     #############################################################################
 
-    def continuemove(self, actions, note=False):
-
-        self._drawontop()
-        aplog.clearerror()
-        try:
-
-            apgameturn.checkingameturn()
-            apmissileflight.continuemove(self, actions, note=note)
-
-            # self._logbreak()
-            # self._logline()
-            # if actions != "":
-            #  for action in actions.split(","):
-            #    if not self._removed:
-            #      apmissileflight._doaction(self, action)
-            # self._logline()
-
-        except RuntimeError as e:
-            aplog.logexception(e)
+    def _continuemove(self, actions, note=False):
+        apmissileflight.continuemove(self, actions, note=note)
 
     #############################################################################
 

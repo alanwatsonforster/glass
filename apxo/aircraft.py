@@ -711,23 +711,11 @@ class aircraft(apelement.element):
 
     ################################################################################
 
-    def move(self, *args, **kwargs):
-        self._drawontop()
-        aplog.clearerror()
-        try:
-            apgameturn.checkingameturn()
-            apflight.move(self, *args, **kwargs)
-        except RuntimeError as e:
-            aplog.logexception(e)
+    def _move(self, *args, **kwargs):
+        apflight.move(self, *args, **kwargs)
 
     def continuemove(self, *args, **kwargs):
-        self._drawontop()
-        aplog.clearerror()
-        try:
-            apgameturn.checkingameturn()
-            apflight.continuemove(self, *args, **kwargs)
-        except RuntimeError as e:
-            aplog.logexception(e)
+        apflight.continuemove(self, *args, **kwargs)
 
     ################################################################################
 

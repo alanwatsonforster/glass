@@ -5,6 +5,7 @@ import apxo.azimuth as apazimuth
 import apxo.path as appath
 import apxo.hex as aphex
 import apxo.hexcode as aphexcode
+import apxo.gameturn as apgameturn
 import apxo.log as aplog
 import apxo.map as apmap
 import apxo.speed as apspeed
@@ -52,6 +53,9 @@ def _drawmap():
             E._draw()
 
 
+##############################################################################
+
+
 def fromname(name):
     """
     Look for the element with the given name. Return the element or None if
@@ -62,9 +66,6 @@ def fromname(name):
         if E.name() == name:
             return E
     return None
-
-
-##############################################################################
 
 
 def aslist(withdestroyed=False, withleftmap=False):
@@ -310,6 +311,32 @@ class element:
 
     def ismarker(self):
         return False
+
+    ############################################################################
+
+    def _move(self, *args, **kwargs):
+        raise RuntimeError("%s cannot be moved." % self.name())
+
+    def move(self, *args, **kwargs):
+        aplog.clearerror()
+        try:
+            apgameturn.checkingameturn()
+            self._drawontop()
+            self._move(*args, **kwargs)
+        except RuntimeError as e:
+            aplog.logexception(e)
+
+    def _continuemove(self, *args, **kwargs):
+        raise RuntimeError("%s cannot be moved." % self.name())
+
+    def continuemove(self, *args, **kwargs):
+        aplog.clearerror()
+        try:
+            apgameturn.checkingameturn()
+            self._drawontop()
+            self._continuemove(*args, **kwargs)
+        except RuntimeError as e:
+            aplog.logexception(e)
 
     ############################################################################
 
