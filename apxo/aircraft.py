@@ -7,7 +7,7 @@ import apxo.configuration  as apconfiguration
 import apxo.damage         as apdamage
 import apxo.draw           as apdraw
 import apxo.flight         as apflight
-import apxo.flightpath     as apflightpath
+import apxo.path           as appath
 import apxo.hex            as aphex
 import apxo.hexcode        as aphexcode
 import apxo.log            as aplog
@@ -53,7 +53,7 @@ def _startturn():
     a._identifiedonpreviousturn = a._identified
     a._identified = False
     a._unspecifiedattackresult = 0
-    a._flightpath.start(a.x(), a.y(), a.facing(), a.altitude())
+    a._path.start(a.x(), a.y(), a.facing(), a.altitude())
   for a in _aircraftlist:
     apcloseformation.check(a)
 
@@ -184,7 +184,7 @@ class aircraft(element):
 
       self._startaltitude              = self.altitude()
 
-      self._flightpath = apflightpath.flightpath(self.x(), self.y(), self.facing(), self.altitude())
+      self._path = appath.path(self.x(), self.y(), self.facing(), self.altitude())
 
       self._logaction("", "force         is %s." % force)
       self._logaction("", "type          is %s." % aircrafttype)
@@ -831,7 +831,7 @@ class aircraft(element):
   ################################################################################
 
   def _draw(self):
-    self._flightpath.draw(self.color(), self._zorder)
+    self._path.draw(self.color(), self._zorder)
     if self._leftmap:
       return
     if self._destroyed:

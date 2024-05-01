@@ -1,6 +1,6 @@
 import apxo.draw as apdraw
 
-class flightpath:
+class path:
 
   def __init__(self, x, y, facing, altitude):
     self.start(x, y, facing, altitude)
@@ -18,7 +18,7 @@ class flightpath:
     self._altitude.append(altitude)
 
   def draw(self, color, zorder, annotate=True):
-    apdraw.drawflightpath(self._x, self._y, self._facing, self._altitude, color, 
+    apdraw.drawpath(self._x, self._y, self._facing, self._altitude, color, 
       zorder, annotate=annotate)
 
   def xmin(self):

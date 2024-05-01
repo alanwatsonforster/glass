@@ -301,10 +301,10 @@ def drawarc(x0, y0, facing, arc):
 
 ################################################################################
 
-flightpathcolor            = ( 0.00, 0.00, 0.00 )
-flightpathlinewidth        = 2.0
-flightpathlinestyle        = "dotted"
-flightpathdotsize          = 0.1
+pathcolor            = ( 0.00, 0.00, 0.00 )
+pathlinewidth        = 2.0
+pathlinestyle        = "dotted"
+pathdotsize          = 0.1
 aircrafttextsize           = 10
 aircraftcounterlinewidth   = 2
 aircraftdestroyedfillcolor = ( 0.50, 0.50, 0.50 )
@@ -313,14 +313,14 @@ aircraftlinecolor          = ( 0.00, 0.00, 0.00 )
 aircraftlinewidth          = 1
 textcolor                  = ( 0.00, 0.00, 0.00 )
 
-def drawflightpath(x, y, facing, altitude, color, zorder, annotate=True):
+def drawpath(x, y, facing, altitude, color, zorder, annotate=True):
   if color is None:
     fillcolor = aircraftdestroyedfillcolor
   else:
     fillcolor = color
   if len(x) > 1:
-    drawlines(x, y, color=flightpathcolor, linewidth=flightpathlinewidth, linestyle=flightpathlinestyle, zorder=0.1)
-    drawdot(x[0], y[0], fillcolor=fillcolor, linecolor=flightpathcolor, linewidth=aircraftlinewidth, size=flightpathdotsize, zorder=zorder)
+    drawlines(x, y, color=pathcolor, linewidth=pathlinewidth, linestyle=pathlinestyle, zorder=0.1)
+    drawdot(x[0], y[0], fillcolor=fillcolor, linecolor=pathcolor, linewidth=aircraftlinewidth, size=pathdotsize, zorder=zorder)
     if annotate:
       drawtext(x[0], y[0], facing[0], "%02d" % altitude[0], dx=+0.08, dy=0.0, 
         size=aircrafttextsize, color=textcolor, alignment="left", zorder=zorder)

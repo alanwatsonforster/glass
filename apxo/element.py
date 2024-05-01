@@ -1,10 +1,10 @@
-import apxo.altitude   as apaltitude
-import apxo.azimuth    as apazimuth
-import apxo.flightpath as apflightpath
-import apxo.hex        as aphex
-import apxo.hexcode    as aphexcode
-import apxo.map        as apmap
-import apxo.speed      as apspeed
+import apxo.altitude as apaltitude
+import apxo.azimuth  as apazimuth
+import apxo.path     as appath
+import apxo.hex      as aphex
+import apxo.hexcode  as aphexcode
+import apxo.map      as apmap
+import apxo.speed    as apspeed
 
 # Elements are anything that can be placed on a map: aircraft, missiles,
 # ground units, and markers. This class gathers together their common
@@ -49,16 +49,16 @@ def aslist(withdestroyed=False, withleftmap=False):
 ##############################################################################
 
 def _xminforzoom(withdestroyed=False):
-  return min([min(E.x(), E._flightpath.xmin()) for E in aslist(withdestroyed=withdestroyed)])
+  return min([min(E.x(), E._path.xmin()) for E in aslist(withdestroyed=withdestroyed)])
 
 def _xmaxforzoom(withdestroyed=False):
-  return max([max(E.x(), E._flightpath.xmax()) for E in aslist(withdestroyed=withdestroyed)])
+  return max([max(E.x(), E._path.xmax()) for E in aslist(withdestroyed=withdestroyed)])
 
 def _yminforzoom(withdestroyed=False):
-  return min([min(E._y, E._flightpath.ymin()) for E in aslist(withdestroyed=withdestroyed)])
+  return min([min(E._y, E._path.ymin()) for E in aslist(withdestroyed=withdestroyed)])
 
 def _ymaxforzoom(withdestroyed=False):
-  return max([max(E._y, E._flightpath.ymax()) for E in aslist(withdestroyed=withdestroyed)])
+  return max([max(E._y, E._path.ymax()) for E in aslist(withdestroyed=withdestroyed)])
   
 ##############################################################################
 
@@ -114,7 +114,7 @@ class element:
     
     self._speed        = speed
 
-    self._flightpath   = apflightpath.flightpath(x, y, facing, altitude)
+    self._path   = appath.path(x, y, facing, altitude)
 
     self._color        = color
     self._removed      = False

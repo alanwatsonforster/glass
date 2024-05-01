@@ -1,5 +1,5 @@
 import apxo.altitude   as apaltitude
-import apxo.flightpath as apflightpath
+import apxo.path       as appath
 import apxo.geometry   as apgeometry
 import apxo.hex        as aphex
 import apxo.speed      as apspeed
@@ -18,7 +18,7 @@ def move(M, speed, actions, note=False):
   M._logbreak()
   M._logline()
 
-  M._flightpath.start(*M.xy(), M.facing(), M.altitude())
+  M._path.start(*M.xy(), M.facing(), M.altitude())
 
   if M.removed():
     M._endmove()
@@ -309,7 +309,7 @@ def _doaction(M, action):
   elif M._fp > fp + 1:
     raise RuntimeError("%r is not a valid action as it attempts to expend more than one FP." % action)
 
-  M._flightpath.next(*M.xy(), M.facing(), M.altitude())
+  M._path.next(*M.xy(), M.facing(), M.altitude())
 
   if M._fp == M.speed():
     M._logposition("end")

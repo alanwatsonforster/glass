@@ -1,7 +1,7 @@
 import apxo.altitude      as apaltitude
 import apxo.azimuth       as apazimuth
 import apxo.draw          as apdraw
-import apxo.flightpath    as apflightpath
+import apxo.path          as appath
 import apxo.hexcode       as aphexcode
 import apxo.log           as aplog
 import apxo.map           as apmap
@@ -18,7 +18,7 @@ def _startsetup():
 def _startturn():
   for M in _missilelist:
     M._restore()
-    M._flightpath.start(M.x(), M.y(), M.facing(), M.altitude())
+    M._path.start(M.x(), M.y(), M.facing(), M.altitude())
 
 def _endturn():
   for M in _missilelist:
@@ -67,7 +67,7 @@ class missile(element):
 
       self._zorder   = launcher._zorder
 
-      self._flightpath = apflightpath.flightpath(*self.xy(), self.facing(), self.altitude())
+      self._path = appath.path(*self.xy(), self.facing(), self.altitude())
 
       global _missilelist
       _missilelist.append(self)
@@ -148,7 +148,7 @@ class missile(element):
   #############################################################################
     
   def _draw(self):
-    self._flightpath.draw(self._color, self._zorder, annotate=False)
+    self._path.draw(self._color, self._zorder, annotate=False)
     apdraw.drawmissile(self.x(), self.y(), self.facing(), self._color, self._name, self.altitude(), self.speed(), self._zorder)
 
   ########################################
