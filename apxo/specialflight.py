@@ -30,7 +30,7 @@ def doflight(A, action, note=False):
     Move horizontally.
     """
 
-    A._x, A._y = aphex.forward(A._x, A._y, A._facing)
+    A.setxy(*aphex.forward(A.x(), A.y(), A.facing()))
 
   ########################################
 
@@ -43,8 +43,9 @@ def doflight(A, action, note=False):
     if altitudechange == 1:
       altitudechange = apcapabilities.specialclimbcapability(A)
     
-    A._altitude, A._altitudecarry = apaltitude.adjustaltitude(A._altitude, A._altitudecarry, +altitudechange)
-    A._altitudeband = apaltitude.altitudeband(A._altitude)
+    altitude, altitudecarry = apaltitude.adjustaltitude(A.altitude(), A._altitudecarry, altitudechange)
+    A.setaltitude(altitude)
+    A._altitudecarry = altitudecarry
 
   ########################################
 
@@ -56,8 +57,8 @@ def doflight(A, action, note=False):
 
     A._altitudecarry = 0
     
-    A._altitude, A._altitudecarry = apaltitude.adjustaltitude(A._altitude, A._altitudecarry, -altitudechange)
-    A._altitudeband = apaltitude.altitudeband(A._altitude)
+    altitude, altitudecarry = apaltitude.adjustaltitude(A.altitude(), A._altitudecarry, -altitudechange)
+    A.setaltitude(altitude)
 
   ########################################
 
@@ -68,12 +69,12 @@ def doflight(A, action, note=False):
     """
     
     # Change facing.
-    if aphex.isside(A._x, A._y):
-      A._x, A._y = aphex.sidetocenter(A._x, A._y, A._facing, sense)
+    if aphex.isside(A.x(), A.y()):
+      A.setxy(*aphex.sidetocenter(A.x(), A.y(), A.facing(), sense))
     if sense == "L":
-      A._facing = (A._facing + facingchange) % 360
+      A.setfacing((A.facing() + facingchange) % 360)
     else:
-      A._facing = (A._facing - facingchange) % 360
+      A.setfacing((A.facing() - facingchange) % 360)
 
   ########################################
 
@@ -157,8 +158,8 @@ def doflight(A, action, note=False):
   A._logposition("start")
   A._logaction("", action)
 
-  initialaltitude     = A._altitude
-  initialaltitudeband = A._altitudeband
+  initialaltitude     = A.altitude()
+  initialaltitudeband = A.altitudeband()
 
   while action != "":
 
@@ -183,15 +184,15 @@ def doflight(A, action, note=False):
   A._lognote(note)
   
   A._logposition("end")
-  A._flightpath.next(A._x, A._y, A._facing, A._altitude)
+  A._flightpath.next(A.x(), A.y(), A.facing(), A.altitude())
 
-  if initialaltitudeband != A._altitudeband:
-    A._logevent("altitude band changed from %s to %s." % (initialaltitudeband, A._altitudeband))
+  if initialaltitudeband != A.altitudeband():
+    A._logevent("altitude band changed from %s to %s." % (initialaltitudeband, A.altitudeband()))
   
   if not A._destroyed and not A._leftmap:
     if A._altitudecarry != 0:
       A._logend("is carrying %.2f altitude levels." % A._altitudecarry)
 
-  A._newspeed = A._speed
+  A._newspeed = A.speed()
 
 ################################################################################

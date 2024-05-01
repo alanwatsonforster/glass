@@ -15,7 +15,7 @@ def engines(A):
   return A._aircraftdata.engines()
 
 def powerfade(A):
-  return A._aircraftdata.powerfade(A._speed, A._altitude)
+  return A._aircraftdata.powerfade(A.speed(), A.altitude())
 
 def lowspeedliftdevicename(A):
     return A._aircraftdata.lowspeedliftdevicename()
@@ -41,7 +41,7 @@ def turndrag(A, turnrate):
       return 0.0
 
   # See rule 6.6  
-  if hasproperty(A, "PSSM") and A._speed >= apspeed.m1speed(A._altitudeband):
+  if hasproperty(A, "PSSM") and A.speed() >= apspeed.m1speed(A.altitudeband()):
     # The aircraft has its maximum the turn rate reduced by one level, but not 
     # to less than HT.
     if turnrate == "ET":
@@ -53,7 +53,7 @@ def turndrag(A, turnrate):
 
 def minspeed(A):
 
-  minspeed = A._aircraftdata.minspeed(A._configuration, A._altitudeband)
+  minspeed = A._aircraftdata.minspeed(A._configuration, A.altitudeband())
 
   if minspeed == None:
     # The aircraft is temporarily above its ceiling, so take the speed from the
@@ -72,7 +72,7 @@ def minspeed(A):
 
 def maxspeed(A):
 
-  maxspeed = A._aircraftdata.maxspeed(A._configuration, A._altitudeband)
+  maxspeed = A._aircraftdata.maxspeed(A._configuration, A.altitudeband())
 
   if maxspeed == None:
     # The aircraft is temporarily above its ceiling, so take the speed from the
@@ -110,7 +110,7 @@ def vulnerability(A):
   return A._aircraftdata.vulnerability()
   
 def maxdivespeed(A):
-  raw = A._aircraftdata.maxdivespeed(A._altitudeband)
+  raw = A._aircraftdata.maxdivespeed(A.altitudeband())
   if raw != None:
     return raw
   # The aircraft is temporarily above its ceiling, so take the speed from the
@@ -134,7 +134,7 @@ def rolldrag(A, rolltype):
   return A._aircraftdata.rolldrag(rolltype)
 
 def climbcapability(A):
-  climbcapability = A._aircraftdata.climbcapability(A._configuration, A._altitudeband, A._powersetting)
+  climbcapability = A._aircraftdata.climbcapability(A._configuration, A.altitudeband(), A._powersetting)
   if climbcapability == None:
     # The aircraft is temporarily above its ceiling, so take the speed from the
     # highest band in the table.
@@ -164,7 +164,7 @@ def hasproperty(A, p):
   if p == "HRR" and A._aircraftdata.hasproperty("HRRCL"):
     return A._configuration == "CL"
   if p == "LRR" and A._aircraftdata.hasproperty("LRRHS"):
-    return A._speed >= A._aircraftdata["LRRHSlimit"]
+    return A.speed() >= A._aircraftdata["LRRHSlimit"]
 
   return False
 

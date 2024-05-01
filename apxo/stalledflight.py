@@ -17,7 +17,7 @@ def checkflight(A):
 
   # See rule 6.3.
 
-  if A._speed >= apcapabilities.minspeed(A):
+  if A.speed() >= apcapabilities.minspeed(A):
       raise RuntimeError("flight type cannot be ST as aircraft is not stalled.")
 
   A._logstart("speed is below the minimum of %.1f." % apcapabilities.minspeed(A))
@@ -54,13 +54,14 @@ def doflight(A, action, note=False):
 
   A._logposition("start")   
 
-  altitudechange = math.ceil(A._speed + A._turnsstalled)
+  altitudechange = math.ceil(A.speed() + A._turnsstalled)
 
-  initialaltitude = A._altitude    
-  initialaltitudeband = A._altitudeband
-  A._altitude, A._altitudecarry = apaltitude.adjustaltitude(A._altitude, A._altitudecarry, -altitudechange)
-  A._altitudeband = apaltitude.altitudeband(A._altitude)
-  altitudechange = initialaltitude - A._altitude
+  initialaltitude = A.altitude()    
+  initialaltitudeband = A.altitudeband()
+  altitude, altitudecarry = apaltitude.adjustaltitude(A.altitude(), A._altitudecarry, -altitudechange)
+  A.setaltitude(altitude)
+  A._altitudecarry = altitudecarry
+  altitudechange = initialaltitude - A.altitude()
     
   if A._turnsstalled == 0:
     A._altitudeap = 0.5 * altitudechange
@@ -71,8 +72,8 @@ def doflight(A, action, note=False):
 
   A._logposition("end")
 
-  if initialaltitudeband != A._altitudeband:
-    A._logevent("altitude band changed from %s to %s." % (initialaltitudeband, A._altitudeband))
+  if initialaltitudeband != A.altitudeband():
+    A._logevent("altitude band changed from %s to %s." % (initialaltitudeband, A.altitudeband()))
 
   A.checkforterraincollision()
   if A._destroyed:

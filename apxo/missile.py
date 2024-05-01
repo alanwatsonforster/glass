@@ -18,7 +18,7 @@ def _startsetup():
 def _startturn():
   for M in _missilelist:
     M._restore()
-    M._flightpath.start(M._x, M._y, M._facing, M._altitude)
+    M._flightpath.start(M.x(), M.y(), M.facing(), M.altitude())
 
 def _endturn():
   for M in _missilelist:
@@ -161,7 +161,7 @@ class missile(element):
     
   def _draw(self):
     self._flightpath.draw(self._color, self._zorder, annotate=False)
-    apdraw.drawmissile(self._x, self._y, self._facing, self._color, self._name, self._altitude, self._speed, self._zorder)
+    apdraw.drawmissile(self.x(), self.y(), self.facing(), self._color, self._name, self.altitude(), self.speed(), self._zorder)
 
   ########################################
 
@@ -210,8 +210,8 @@ class missile(element):
     """
 
     altitudeofterrain = apaltitude.terrainaltitude(*self.xy())
-    if self._altitude <= altitudeofterrain:
-      self._altitude = altitudeofterrain
+    if self.altitude() <= altitudeofterrain:
+      self.setaltitude(altitudeofterrain)
       self._altitudecarry = 0
       self._logaction("", "missile has collided with terrain at altitude %d." % altitudeofterrain)
       self._removed = True

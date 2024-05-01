@@ -115,7 +115,7 @@ def _doaction(M, action):
     if element == "HD":
       M.setaltitude(M.altitude() - 1)
 
-    M.setposition(*aphex.forward(M._x, M._y, M._facing))
+    M.setxy(*aphex.forward(M.x(), M.y(), M.facing()))
 
   ########################################
 
@@ -163,16 +163,16 @@ def _doaction(M, action):
 
     if M._maneuvertype == "SL":
 
-      M.setposition(*aphex.slide(*M.xy(), M.facing(), sense))
+      M.setxy(*aphex.slide(*M.xy(), M.facing(), sense))
 
     else:
     
-      if aphex.isside(M._x, M._y) and shift:
-        M.setposition(*aphex.sidetocenter(*M.xy(), M.facing(), sense))
+      if aphex.isside(M.x(), M.y()) and shift:
+        M.setxy(*aphex.sidetocenter(*M.xy(), M.facing(), sense))
       if sense == "L":
-        M.setposition(facing=(M.facing() + facingchange) % 360)
+        M.setfacing((M.facing() + facingchange) % 360)
       else:
-        M.setposition(facing=(M.facing() - facingchange) % 360)
+        M.setfacing((M.facing() - facingchange) % 360)
 
     if not continuous:
       M._maneuvertype  = None

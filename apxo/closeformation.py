@@ -48,13 +48,13 @@ def join(A, B):
 
   # TODO: check we're called only during setup or after everyone has moved.
 
-  if A._x != B._x or A._y != B._y:
+  if A.x() != B.x() or A.y() != B.y():
     raise RuntimeError("attempt to form a close formation from aircraft with different positions.")
-  if A._altitude != B._altitude:
+  if A.altitude() != B.altitude():
     raise RuntimeError("attempt to form a close formation from aircraft with different altitudes.")
-  if A._facing != B._facing:
+  if A.facing() != B.facing():
     raise RuntimeError("attempt to form a close formation from aircraft with different facings.")
-  if A._speed != B._speed:
+  if A.speed() != B.speed():
     raise RuntimeError("attempt to form a close formation from aircraft with different speeds.")
 
   nA = max(1, size(A))
@@ -84,13 +84,13 @@ def check(A):
   """
 
   for a in A._closeformation:
-    if A._x != a._x or A._y != a._y:
+    if A.x() != a.x() or A.y() != a.y():
       raise RuntimeError("aircraft %s and %s cannot be in close formation as they do not have the same positions." % (A._name, a._name))
-    if A._altitude != a._altitude:
+    if A.altitude() != a.altitude():
       raise RuntimeError("aircraft %s and %s cannot be in close formation as they do not have the same altitudes." % (A._name, a._name))
-    if A._facing != a._facing:
+    if A.facing() != a.facing():
       raise RuntimeError("aircraft %s and %s cannot be in close formation as they do not have the same facings." % (A._name, a._name))
-    if A._speed != a._speed:
+    if A.speed() != a.speed():
       raise RuntimeError("aircraft %s and %s cannot be in close formation as they do not have the same speeds." % (A._name, a._name))
 
 ################################################################################

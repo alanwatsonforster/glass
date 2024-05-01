@@ -40,10 +40,10 @@ def checkflight(A):
     A._flighttype = flighttype
 
     # See rule 7.7.
-    if A._altitude > apcapabilities.ceiling(A):
+    if A.altitude() > apcapabilities.ceiling(A):
       A._logevent("check for a maneuvering departure as the aircraft is above its ceiling and attempted to roll.")
-    elif A._altitudeband == "EH" or A._altitudeband == "UH":
-      A._logevent("check for a maneuvering departure as the aircraft is in the %s altitude band and attempted to roll." % A._altitudeband)  
+    elif A.altitudeband() == "EH" or A.altitudeband() == "UH":
+      A._logevent("check for a maneuvering departure as the aircraft is in the %s altitude band and attempted to roll." % A.altitudeband())  
       
   else:
 
@@ -95,13 +95,13 @@ def checkflight(A):
     # See rule 8.2.3 on VD recovery.
 
     if previousflighttype == "VD":
-      if apvariants.withvariant("use version 2.4 rules") and A._speed <= 2.0:
+      if apvariants.withvariant("use version 2.4 rules") and A.speed() <= 2.0:
         pass
       elif not apcapabilities.hasproperty(A, "HPR"):
         raise RuntimeError("flight type immediately after %s cannot be %s." % (
           previousflighttype, flighttype
         ))
-      elif A._speed >= 3.5:
+      elif A.speed() >= 3.5:
         raise RuntimeError("flight type immediately after %s cannot be %s (for HPR aircraft at high speed)." % (
           previousflighttype, flighttype
         ))
@@ -119,7 +119,7 @@ def checkflight(A):
 
     # See rule 8.1.2 on SC prerequsistes.
 
-    if A._speed < apcapabilities.minspeed(A) + 1:
+    if A.speed() < apcapabilities.minspeed(A) + 1:
       raise RuntimeError("insufficient speed for SC.")
 
     # See rule 8.2.3 on VD recovery.
@@ -142,7 +142,7 @@ def checkflight(A):
         raise RuntimeError("flight type immediately after %s cannot be %s." % (
           previousflighttype, flighttype
         ))
-      elif A._speed >= 4.0:
+      elif A.speed() >= 4.0:
         raise RuntimeError("flight type immediately after %s cannot be %s (for HPR aircraft at high speed)." % (
           previousflighttype, flighttype
         ))
@@ -198,7 +198,7 @@ def checkflight(A):
           previousflighttype, flighttype
         ))
     elif (previousflighttype == "ZC" or previousflighttype == "SC"):
-      if hrd and A._speed > 4.0:
+      if hrd and A.speed() > 4.0:
         raise RuntimeError("flight type immediately after %s cannot be %s (without a low-speed HRD)." % (
           previousflighttype, flighttype
         ))
@@ -273,9 +273,10 @@ def continueflight(A, actions, note=False):
       else:
         altitudechange = -1
 
-    A._altitude, A._altitudecarry = apaltitude.adjustaltitude(A._altitude, A._altitudecarry, altitudechange)
-    A._altitudeband = apaltitude.altitudeband(A._altitude)
-    A._x, A._y = aphex.forward(A._x, A._y, A._facing)
+    altitude, altitudecarry = apaltitude.adjustaltitude(A.altitude(), A._altitudecarry, altitudechange)
+    A.setaltitude(altitude)
+    A._altitudecarry = altitudecarry
+    A.setxy(*aphex.forward(A.x(), A.y(), A.facing()))
 
   ########################################
 
@@ -309,7 +310,7 @@ def continueflight(A, actions, note=False):
       elif flighttype == "SC":
 
         # See rule 8.1.2.
-        if A._speed < apcapabilities.climbspeed(A):
+        if A.speed() < apcapabilities.climbspeed(A):
           climbcapability /= 2
         if climbcapability < 2.0 and altitudechange == 2:
           raise RuntimeError("invalid altitude change in climb.")
@@ -339,11 +340,12 @@ def continueflight(A, actions, note=False):
     A._fp += 1  
     A._vfp += 1
 
-    A._altitude, A._altitudecarry = apaltitude.adjustaltitude(A._altitude, A._altitudecarry, +altitudechange)
-    A._altitudeband = apaltitude.altitudeband(A._altitude)
+    altitude, altitudecarry = apaltitude.adjustaltitude(A.altitude(), A._altitudecarry, altitudechange)
+    A.setaltitude(altitude)
+    A._altitudecarry = altitudecarry
 
     # See rule 8.5.
-    if flighttype == "SC" and A._altitude > apcapabilities.ceiling(A):
+    if flighttype == "SC" and A.altitude() > apcapabilities.ceiling(A):
       raise RuntimeError("attempt to climb above ceiling in SC.")
 
   ########################################
@@ -397,8 +399,9 @@ def continueflight(A, actions, note=False):
     A._fp += 1  
     A._vfp += 1
   
-    A._altitude, A._altitudecarry = apaltitude.adjustaltitude(A._altitude, A._altitudecarry, -altitudechange)
-    A._altitudeband = apaltitude.altitudeband(A._altitude)
+    altitude, altitudecarry = apaltitude.adjustaltitude(A.altitude(), A._altitudecarry, -altitudechange)
+    A.setaltitude(altitude)
+    A._altitudecarry = altitudecarry
 
   ########################################
 
@@ -464,8 +467,8 @@ def continueflight(A, actions, note=False):
     A._maneuvertype         = turnrate
     A._maneuversense        = sense
     A._maneuverfp           = 0
-    A._maneuversupersonic   = (A._speed >= apspeed.m1speed(A._altitudeband))
-    turnrequirement = apturnrate.turnrequirement(A._altitudeband, A._speed, A._maneuvertype)
+    A._maneuversupersonic   = (A.speed() >= apspeed.m1speed(A.altitudeband()))
+    turnrequirement = apturnrate.turnrequirement(A.altitudeband(), A.speed(), A._maneuvertype)
     if turnrequirement == None:
       raise RuntimeError("attempt to declare a turn rate tighter than allowed by the speed and altitude.")
     if turnrequirement >= 60:
@@ -513,12 +516,12 @@ def continueflight(A, actions, note=False):
     A._turnmaneuvers += 1
 
     # Change facing.
-    if aphex.isside(A._x, A._y):
-      A._x, A._y = aphex.sidetocenter(A._x, A._y, A._facing, sense)
+    if aphex.isside(A.x(), A.y()):
+      A.setxy(*aphex.sidetocenter(A.x(), A.y(), A.facing(), sense))
     if sense == "L":
-      A._facing = (A._facing + facingchange) % 360
+      A.setfacing((A.facing() + facingchange) % 360)
     else:
-      A._facing = (A._facing - facingchange) % 360
+      A.setfacing((A.facing() - facingchange) % 360)
 
   ########################################
 
@@ -530,7 +533,7 @@ def continueflight(A, actions, note=False):
 
     # See rules 13.1 and 13.2.
 
-    if A._slides == 1 and A._speed <= 9.0:
+    if A._slides == 1 and A.speed() <= 9.0:
       raise RuntimeError("only one slide allowed per turn at low speed.")
     if A._slides == 1 and A._fp - A._slidefp <  4:
       raise RuntimeError("attempt to start a second slide without sufficient intermediate FPs.")
@@ -542,7 +545,7 @@ def continueflight(A, actions, note=False):
     A._maneuversense        = sense
     A._maneuverfacingchange = None
     A._maneuverfp           = 0
-    A._maneuversupersonic   = (A._speed >= apspeed.m1speed(A._altitudeband))
+    A._maneuversupersonic   = (A.speed() >= apspeed.m1speed(A.altitudeband()))
     # The requirement has +1 FP to account for the final H.
     A._maneuverrequiredfp   = 2 + extrapreparatoryhfp() + 1
 
@@ -552,9 +555,9 @@ def continueflight(A, actions, note=False):
 
     # See rule 13.1.
 
-    extrapreparatoryfp = { "LO": 0, "ML": 0, "MH": 0, "HI": 1, "VH": 2, "EH": 3, "UH": 4 }[A._altitudeband]
+    extrapreparatoryfp = { "LO": 0, "ML": 0, "MH": 0, "HI": 1, "VH": 2, "EH": 3, "UH": 4 }[A.altitudeband()]
 
-    if A._speed >= apspeed.m1speed(A._altitudeband):
+    if A.speed() >= apspeed.m1speed(A.altitudeband()):
       extrapreparatoryfp += 1.0
 
     # See "Aircraft Damage Effects" in the Play Aids.
@@ -578,7 +581,7 @@ def continueflight(A, actions, note=False):
       raise RuntimeError("attempt to slide without sufficient preparatory HFPs.")
 
     # Slide. Remember that we have already moved forward one hex for the final H element.
-    A._x, A._y = aphex.slide(A._x, A._y, A._facing, sense)
+    A.setxy(*aphex.slide(A.x(), A.y(), A.facing(), sense))
 
     # See rule 13.2.
     if A._slides >= 1:
@@ -611,10 +614,10 @@ def continueflight(A, actions, note=False):
     A._maneuversense        = sense
     A._maneuverfacingchange = None
     A._maneuverfp           = 0
-    A._maneuversupersonic   = (A._speed >= apspeed.m1speed(A._altitudeband))
+    A._maneuversupersonic   = (A.speed() >= apspeed.m1speed(A.altitudeband()))
     # The requirement includes the FPs used to execute the roll.
     if apvariants.withvariant("use version 2.4 rules"):
-      A._maneuverrequiredfp   = apcapabilities.rollhfp(A) + extrapreparatoryhfp() + rounddown(A._speed / 3)
+      A._maneuverrequiredfp   = apcapabilities.rollhfp(A) + extrapreparatoryhfp() + rounddown(A.speed() / 3)
     else:
       A._maneuverrequiredfp   = apcapabilities.rollhfp(A) + extrapreparatoryhfp() + 1
 
@@ -631,7 +634,7 @@ def continueflight(A, actions, note=False):
       raise RuntimeError("attempt to roll on a VFP.")
       
     # Move.
-    A._x, A._y = aphex.displacementroll(A._x, A._y, A._facing, sense)
+    A.setxy(*aphex.displacementroll(A.x(), A.y(), A.facing(), sense))
 
     # See rule 13.3.1.
     A._othermaneuversap -= apcapabilities.rolldrag(A, "DR")
@@ -671,10 +674,10 @@ def continueflight(A, actions, note=False):
     A._maneuversense        = sense
     A._maneuverfacingchange = None
     A._maneuverfp           = 0
-    A._maneuversupersonic   = (A._speed >= apspeed.m1speed(A._altitudeband))
+    A._maneuversupersonic   = (A.speed() >= apspeed.m1speed(A.altitudeband()))
     # The requirement includes the FPs used to execute the roll.
     if apvariants.withvariant("use version 2.4 rules"):
-      A._maneuverrequiredfp   = apcapabilities.rollhfp(A) + extrapreparatoryhfp() + rounddown(A._speed / 3)
+      A._maneuverrequiredfp   = apcapabilities.rollhfp(A) + extrapreparatoryhfp() + rounddown(A.speed() / 3)
     else:
       A._maneuverrequiredfp   = apcapabilities.rollhfp(A) + extrapreparatoryhfp() + 1
 
@@ -691,12 +694,11 @@ def continueflight(A, actions, note=False):
       raise RuntimeError("attempt to roll on a VFP.")
 
     # Move.
-    A._x, A._y = aphex.lagroll(A._x, A._y, A._facing, sense)
+    A.setxy(*aphex.lagroll(A.x(), A.y(), A.facing(), sense))
     if sense == "R":
-      A._facing += 30
+      A.setfacing((A.facing() + 30) % 360)
     else:
-      A._facing -= 30
-    A._facing %= 360
+      A.setfacing((A.facing() - 30) % 360)
 
     # See rule 13.3.1.
     A._othermaneuversap -= apcapabilities.rolldrag(A, "LR")
@@ -740,7 +742,7 @@ def continueflight(A, actions, note=False):
     A._maneuversense        = sense
     A._maneuverfacingchange = None
     A._maneuverfp           = 0
-    A._maneuversupersonic   = (A._speed >= apspeed.m1speed(A._altitudeband))
+    A._maneuversupersonic   = (A.speed() >= apspeed.m1speed(A.altitudeband()))
     A._maneuverrequiredfp   = 1
   
   ########################################
@@ -770,12 +772,12 @@ def continueflight(A, actions, note=False):
         A._othermaneuversap -= 1.0
 
     # Change facing.
-    if aphex.isside(A._x, A._y) and shift:
-      A._x, A._y = aphex.sidetocenter(A._x, A._y, A._facing, sense)
+    if aphex.isside(A.x(), A.y()) and shift:
+      A.setxy(*aphex.sidetocenter(A.x(), A.y(), A.facing(), sense))
     if sense == "L":
-      A._facing = (A._facing + facingchange) % 360
+      A.setfacing((A.facing() + facingchange) % 360)
     else:
-      A._facing = (A._facing - facingchange) % 360
+      A.setfacing((A.facing() - facingchange) % 360)
       
   ########################################
 
@@ -863,7 +865,7 @@ def continueflight(A, actions, note=False):
 
       maxspbr = apcapabilities.spbr(A)
 
-      if A._speed >= apspeed.m1speed(A._altitudeband):
+      if A.speed() >= apspeed.m1speed(A.altitudeband()):
         maxspbr += 2.0      
 
       if spbr > maxspbr:
@@ -875,7 +877,7 @@ def continueflight(A, actions, note=False):
           
     else:
 
-      if A._speed > apspeed.m1speed(A._altitudeband):
+      if A.speed() > apspeed.m1speed(A.altitudeband()):
         maxspbr += 0.5
         
       if spbr > maxspbr:
@@ -976,32 +978,32 @@ def continueflight(A, actions, note=False):
 
     # Do the first facing change.
 
-    if aphex.isside(A._x, A._y):
-      A._x, A._y = aphex.centertoright(A._x, A._y, A._facing, sense)
+    if aphex.isside(A.x(), A.y()):
+      A.setxy(*aphex.centertoright(A.x(), A.y(), A.facing(), sense))
     if action[0] == "L":
-      A._facing = (A._facing + 30) % 360
+      A.setfacing((A.facing() + 30) % 360)
     else:
-      A._facing = (A._facing - 30) % 360
-    A._flightpath.next(A._x, A._y, A._facing, A._altitude)
+      A.setfacing((A.facing() - 30) % 360)
+    A._flightpath.next(A.x(), A.y(), A.facing(), A.altitude())
     facingchange -= 30
 
     # Shift.
 
     shift = int((A._maxfp - A._fp) / 2)
     for i in range(0, shift):
-      A._x, A._y = aphex.forward(A._x, A._y, A._facing)
+      A.setxy(*aphex.forward(A.x(), A.y(), A.facing()))
       A.checkforterraincollision()
       A.checkforleavingmap()
       if A._destroyed or A._leftmap:
         return
 
     # Do any remaining facing changes.
-    if aphex.isside(A._x, A._y):
-      A._x, A._y = aphex.sidetocenter(A._x, A._y, A._facing, sense)
+    if aphex.isside(A.x(), A.y()):
+      A.setxy(*aphex.sidetocenter(A.x(), A.y(), A.facing(), sense))
     if action[0] == "L":
-      A._facing = (A._facing + facingchange) % 360
+      A.setfacing((A.facing() + facingchange) % 360)
     else:
-      A._facing = (A._facing - facingchange) % 360
+      A.setfacing((A.facing() - facingchange) % 360)
 
   ########################################
 
@@ -1216,7 +1218,7 @@ def continueflight(A, actions, note=False):
     # this turn plus half of the speed, rounding down.
 
     if A._hasunloaded:
-      A._unloadedrecoveryfp = int(A._speed / 2) + 1
+      A._unloadedrecoveryfp = int(A.speed() / 2) + 1
       A._ETrecoveryfp       -= 1
       A._BTrecoveryfp       = -1
       A._rollrecoveryfp     = -1
@@ -1224,7 +1226,7 @@ def continueflight(A, actions, note=False):
       A._TTrecoveryfp       = -1
     elif A._maneuvertype == "ET":
       A._unloadedrecoveryfp = -1
-      A._ETrecoveryfp       = int(A._speed / 2) + 1
+      A._ETrecoveryfp       = int(A.speed() / 2) + 1
       A._BTrecoveryfp       = -1
       A._rollrecoveryfp     = -1
       A._HTrecoveryfp       = -1
@@ -1232,7 +1234,7 @@ def continueflight(A, actions, note=False):
     elif A._maneuvertype == "BT":
       A._unloadedrecoveryfp -= 1
       A._ETrecoveryfp       -= 1
-      A._BTrecoveryfp       = int(A._speed / 2) + 1
+      A._BTrecoveryfp       = int(A.speed() / 2) + 1
       A._rollrecoveryfp     = -1
       A._HTrecoveryfp       = -1
       A._TTrecoveryfp       = -1
@@ -1240,7 +1242,7 @@ def continueflight(A, actions, note=False):
       A._unloadedrecoveryfp -= 1
       A._ETrecoveryfp       -= 1
       A._BTrecoveryfp       = -1
-      A._rollrecoveryfp     = int(A._speed / 2) + 1
+      A._rollrecoveryfp     = int(A.speed() / 2) + 1
       A._HTrecoveryfp       = -1
       A._TTrecoveryfp       = -1
     elif A._maneuvertype == "HT":
@@ -1248,7 +1250,7 @@ def continueflight(A, actions, note=False):
       A._ETrecoveryfp       -= 1
       A._BTrecoveryfp       -= 1
       A._rollrecoveryfp     -= 1
-      A._HTrecoveryfp       = int(A._speed / 2) + 1
+      A._HTrecoveryfp       = int(A.speed() / 2) + 1
       A._TTrecoveryfp       = -1
     elif A._maneuvertype == "TT":
       A._unloadedrecoveryfp -= 1
@@ -1256,7 +1258,7 @@ def continueflight(A, actions, note=False):
       A._BTrecoveryfp       -= 1
       A._rollrecoveryfp     -= 1
       A._HTrecoveryfp       -= 1
-      A._TTrecoveryfp       = int(A._speed / 2) + 1
+      A._TTrecoveryfp       = int(A.speed() / 2) + 1
       A._unloadedrecoveryfp -= 1
     else:
       A._unloadedrecoveryfp -= 1
@@ -1344,8 +1346,8 @@ def continueflight(A, actions, note=False):
     # Determine if this FP is the last FP of the move.
     A._lastfp = (A._fp + 2 > A._maxfp) 
     
-    initialaltitude     = A._altitude
-    initialaltitudeband = A._altitudeband
+    initialaltitude     = A.altitude()
+    initialaltitudeband = A.altitudeband()
 
     try:
 
@@ -1356,11 +1358,11 @@ def continueflight(A, actions, note=False):
     
         A._maneuveringdeparture = True
 
-        assert aphex.isvalid(A._x, A._y, facing=A._facing)
-        assert apaltitude.isvalidaltitude(A._altitude)
+        assert aphex.isvalid(A.x(), A.y(), facing=A.facing())
+        assert apaltitude.isvalidaltitude(A.altitude())
   
         A._logposition("end")
-        A._flightpath.next(A._x, A._y, A._facing, A._altitude)
+        A._flightpath.next(A.x(), A.y(), A.facing(), A.altitude())
     
         return
 
@@ -1384,8 +1386,8 @@ def continueflight(A, actions, note=False):
 
       # The climb slope is defined in APJ 39.
       if A._hfp != 0:
-        A._climbslope = (A._altitude - A._startaltitude) / float(A._hfp)
-      elif A._altitude > A._startaltitude:
+        A._climbslope = (A.altitude() - A._startaltitude) / float(A._hfp)
+      elif A.altitude() > A._startaltitude:
         A._climbslope = +math.inf
       else:
         A._climbslope = -math.inf
@@ -1423,8 +1425,8 @@ def continueflight(A, actions, note=False):
       if remainingaction != "":
         raise RuntimeError("%r is not a valid action." % action)
 
-      assert aphex.isvalid(A._x, A._y, facing=A._facing)
-      assert apaltitude.isvalidaltitude(A._altitude)
+      assert aphex.isvalid(A.x(), A.y(), facing=A.facing())
+      assert apaltitude.isvalidaltitude(A.altitude())
 
     except RuntimeError as e:
 
@@ -1435,7 +1437,7 @@ def continueflight(A, actions, note=False):
         A._logpositionandmaneuver("end")
       else:
         A._logpositionandmaneuver("")
-      A._flightpath.next(A._x, A._y, A._facing, A._altitude)
+      A._flightpath.next(A.x(), A.y(), A.facing(), A.altitude())
         
     # See rules 7.7 and 8.5.
     if A._hasmaneuvered and A._hasrolled:
@@ -1463,8 +1465,8 @@ def continueflight(A, actions, note=False):
       A._logevent("close formation breaks down aircraft is rolling.")
       apcloseformation.breakdown(A)
     
-    if initialaltitudeband != A._altitudeband:
-      A._logevent("altitude band changed from %s to %s." % (initialaltitudeband, A._altitudeband))
+    if initialaltitudeband != A.altitudeband():
+      A._logevent("altitude band changed from %s to %s." % (initialaltitudeband, A.altitudeband()))
       
     A.checkforterraincollision()
     A.checkforleavingmap()
@@ -1551,16 +1553,16 @@ def startflight(A, actions, note=False):
     # See rule 7.5.
 
     minspeed = apcapabilities.minspeed(A)
-    if A._speed == minspeed:
+    if A.speed() == minspeed:
       A._logevent("speed limits the turn rate to EZ.")
       turnrates = turnrates[:1]
-    elif A._speed == minspeed + 0.5:
+    elif A.speed() == minspeed + 0.5:
       A._logevent("speed limits the turn rate to TT.")
       turnrates = turnrates[:2]
-    elif A._speed == minspeed + 1.0:
+    elif A.speed() == minspeed + 1.0:
       A._logevent("speed limits the turn rate to HT.")
       turnrates = turnrates[:3]
-    elif A._speed == minspeed + 1.5:
+    elif A.speed() == minspeed + 1.5:
       A._logevent("speed limits the turn rate to BT.")
       turnrates = turnrates[:4]
     else:
@@ -1620,7 +1622,7 @@ def startflight(A, actions, note=False):
 
     # See rule 5.4.
 
-    A._maxfp = A._speed + A._fpcarry
+    A._maxfp = A.speed() + A._fpcarry
     A._logevent("has %.1f FPs (including %.1f carry)." % (A._maxfp, A._fpcarry))
     A._fpcarry = 0
 
@@ -1637,14 +1639,14 @@ def startflight(A, actions, note=False):
 
     if (previousflighttype == "ZC" or previousflighttype == "SC") and flighttype == "VD":
       assert A._hrd
-      mininitialhfp = A._speed // 3
+      mininitialhfp = A.speed() // 3
     elif previousflighttype == "LVL" and (_isclimbingflight(flighttype) or _isdivingflight(flighttype)):
       mininitialhfp = 1
     elif (_isclimbingflight(previousflighttype) and _isdivingflight(flighttype)) or (_isdivingflight(previousflighttype) and _isclimbingflight(flighttype)):
       if apcapabilities.hasproperty(A, "HPR"):
-        mininitialhfp = A._speed // 3
+        mininitialhfp = A.speed() // 3
       else:
-        mininitialhfp = A._speed // 2
+        mininitialhfp = A.speed() // 2
     else:
       mininitialhfp = 0
 
@@ -1682,10 +1684,10 @@ def startflight(A, actions, note=False):
       minvfp = 1
       
       # See rule 8.1.2.
-      if A._speed < apcapabilities.minspeed(A) + 1.0:
+      if A.speed() < apcapabilities.minspeed(A) + 1.0:
         raise RuntimeError("insufficient speed for SC.")
       climbcapability = apcapabilities.climbcapability(A)
-      if A._speed < apcapabilities.climbspeed(A):
+      if A.speed() < apcapabilities.climbspeed(A):
         climbcapability /= 2
       if climbcapability < 1:
         maxvfp = 1
@@ -1817,7 +1819,7 @@ def startflight(A, actions, note=False):
       # requirements of ZC, SC, and VC flight are not clear, but for the
       # moment we assume they result in a maneuvering departure.
 
-      turnrequirement = apturnrate.turnrequirement(A._altitudeband, A._speed, A._maneuvertype)
+      turnrequirement = apturnrate.turnrequirement(A.altitudeband(), A.speed(), A._maneuvertype)
       if not A._maneuvertype in A._allowedturnrates or turnrequirement == None:
         A._logevent("carried turn rate is tighter than the maximum allowed turn rate.")
         raise RuntimeError("aircraft has entered departed flight while maneuvering.")
@@ -1827,8 +1829,8 @@ def startflight(A, actions, note=False):
       previousmaneuverrequiredfp    = A._maneuverrequiredfp
       previous_maneuverfacingchange = A._maneuverfacingchange
 
-      A._maneuversupersonic   = A._speed >= apspeed.m1speed(A._altitudeband)
-      turnrequirement = apturnrate.turnrequirement(A._altitudeband, A._speed, A._maneuvertype)
+      A._maneuversupersonic   = A.speed() >= apspeed.m1speed(A.altitudeband())
+      turnrequirement = apturnrate.turnrequirement(A.altitudeband(), A.speed(), A._maneuvertype)
       if turnrequirement >= 60:
         A._maneuverrequiredfp   = 1
         A._maneuverfacingchange = turnrequirement
@@ -1859,7 +1861,7 @@ def startflight(A, actions, note=False):
       A._effectiveclimbcapability = apcapabilities.climbcapability(A)
 
       # See rule 4.3 and 8.1.2.
-      if flighttype == "SC" and A._speed < apcapabilities.climbspeed(A):
+      if flighttype == "SC" and A.speed() < apcapabilities.climbspeed(A):
         A._logevent("climb capability reduced in SC below climb speed.")
         A._effectiveclimbcapability *= 0.5
 
@@ -1869,7 +1871,7 @@ def startflight(A, actions, note=False):
         A._effectiveclimbcapability *= 0.5
 
       # See rule 6.6 and rule 8.1.4.
-      if A._speed >= apspeed.m1speed(A._altitudeband):
+      if A.speed() >= apspeed.m1speed(A.altitudeband()):
         A._logevent("climb capability reduced at supersonic speed.")
         A._effectiveclimbcapability *= 2/3
     
@@ -1989,7 +1991,7 @@ def endflight(A):
     # See rule 8.2.4.
     
     if A._flighttype == "LVL":
-      altitudechange = A._altitude - A._previousaltitude
+      altitudechange = A.altitude() - A._previousaltitude
       if altitudechange < -1:
         raise RuntimeError("free descent cannot only be taken once per move.")      
 
@@ -2032,7 +2034,7 @@ def endflight(A):
 
   def determinealtitudeap():
 
-    altitudechange = A._altitude - A._previousaltitude
+    altitudechange = A.altitude() - A._previousaltitude
 
     if flighttype == "ZC":
 
@@ -2068,7 +2070,7 @@ def endflight(A):
         # We also use that the altitude change at the ZC rate must be an
         # integral number of levels.
 
-        truealtitude     = A._altitude         + A._altitudecarry
+        truealtitude     = A.altitude()         + A._altitudecarry
         lasttruealtitude = A._previousaltitude + A._previousaltitudecarry
 
         truealtitudechange = truealtitude - lasttruealtitude
@@ -2141,7 +2143,7 @@ def endflight(A):
     # See rule 8.6. The other climbing and diving cases are handled at
     # the start of the move.
 
-    altitudeloss = A._previousaltitude - A._altitude
+    altitudeloss = A._previousaltitude - A.altitude()
     if flighttype == "SD" and altitudeloss > 2:
       A._logevent("close formation breaks down as the aircraft lost %d levels in an SD." % altitudeloss)
       apcloseformation.breakdown(A)
@@ -2155,7 +2157,7 @@ def endflight(A):
 
     if flighttype == "UD" and apvariants.withvariant("use version 2.4 rules"):
       # See rule 8.2.2.
-      altitudechange = A._altitude - A._previousaltitude
+      altitudechange = A.altitude() - A._previousaltitude
       if altitudechange == -2:
         A._logevent("UD ends as flight type SD.")
         A._flighttype = "SD"

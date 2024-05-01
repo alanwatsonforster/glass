@@ -66,24 +66,24 @@ def doflight(A, action, note=False):
 
       # Do the first facing change.
 
-      if aphex.isside(A._x, A._y):
-        A._x, A._y = aphex.centertoright(A._x, A._y, A._facing, sense)
+      if aphex.isside(A.x(), A.y()):
+        A.setxy(*aphex.centertoright(A.x(), A.y(), A.facing(), sense))
       if action[0] == "L":
-        A._facing = (A._facing + 30) % 360
+        A.setfacing((A.facing() + 30) % 360)
       else:
-        A._facing = (A._facing - 30) % 360
-      A._flightpath.next(A._x, A._y, A._facing, A._altitude)
+        A.setfacing((A.facing() - 30) % 360)
+      A._flightpath.next(A.x(), A.y(), A.facing(), A.altitude())
       facingchange -= 30
 
       # Shift.
 
       # See rule 5.4.
-      A._maxfp = A._speed + A._fpcarry
+      A._maxfp = A.speed() + A._fpcarry
       A._fpcarry = 0
 
       shift = int((A._maxfp) / 2)
       for i in range(0, shift):
-        A._x, A._y = aphex.forward(A._x, A._y, A._facing)
+        A.setxy(*aphex.forward(A.x(), A.y(), A.facing()))
         A.checkforterraincollision()
         A.checkforleavingmap()
         if A._destroyed or A._leftmap:
@@ -91,26 +91,27 @@ def doflight(A, action, note=False):
 
    # Do the (remaining) facing change.
 
-  if aphex.isside(A._x, A._y):
-    A._x, A._y = aphex.sidetocenter(A._x, A._y, A._facing, sense)
+  if aphex.isside(A.x(), A.y()):
+    A.setxy(*aphex.sidetocenter(A.x(), A.y(), A.facing(), sense))
   if action[0] == "L":
-    A._facing = (A._facing + facingchange) % 360
+    A.setfacing((A.facing() + facingchange) % 360)
   else:
-    A._facing = (A._facing - facingchange) % 360
-  A._flightpath.next(A._x, A._y, A._facing, A._altitude)
+    A.setfacing((A.facing() - facingchange) % 360)
+  A._flightpath.next(A.x(), A.y(), A.facing(), A.altitude())
 
   # Now lose altitude.
 
-  initialaltitudeband = A._altitudeband
-  altitudechange = math.ceil(A._speed + 2 * A._turnsdeparted)
-  A._altitude, A._altitudecarry = apaltitude.adjustaltitude(A._altitude, A._altitudecarry, -altitudechange)
-  A._altitudeband = apaltitude.altitudeband(A._altitude)
+  initialaltitudeband = A.altitudeband()
+  altitudechange = math.ceil(A.speed() + 2 * A._turnsdeparted)
+  altitude, altitudecarry = apaltitude.adjustaltitude(A.altitude(), A._altitudecarry, -altitudechange)
+  A.setaltitude(altitude)
+  A._altitudecarry = altitudecarry
   
   A._lognote(note)
 
   A._logposition("end")
-  if initialaltitudeband != A._altitudeband:
-    A._logevent("altitude band changed from %s to %s." % (initialaltitudeband, A._altitudeband))
+  if initialaltitudeband != A.altitudeband():
+    A._logevent("altitude band changed from %s to %s." % (initialaltitudeband, A.altitudeband()))
   A.checkforterraincollision()
 
-  A._newspeed = A._speed
+  A._newspeed = A.speed()

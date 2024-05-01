@@ -41,9 +41,9 @@ def move(A, flighttype, power, actions="",
 
   A._previouspowersetting  = A._powersetting
   A._previousflighttype    = A._flighttype
-  A._previousaltitude      = A._altitude
+  A._previousaltitude      = A.altitude()
   A._previousaltitudecarry = A._altitudecarry
-  A._previousspeed         = A._speed
+  A._previousspeed         = A.speed()
 
   # These account for the APs associated with power, speed, speed-brakes, 
   # turns (split into the part for the maximum turn rate and the part for 
@@ -83,11 +83,11 @@ def move(A, flighttype, power, actions="",
     apnormalflight.checkflight(A)
 
   if flighttype == "SP":
-    A._speed = power
+    A.setspeed(power)
   else:
     A._startmovespeed(power, flamedoutengines, lowspeedliftdeviceselected)
     A._logstart("configuration is %s." % A._configuration)
-  A._logstart("altitude band is %s." % A._altitudeband)
+  A._logstart("altitude band is %s." % A.altitudeband())
   A._logstart("damage        is %s." % A.damage())
 
   if A._flighttype == "SP":
@@ -166,7 +166,7 @@ def endmove(A):
 
     if A._flighttype == "SP":
 
-      A._newspeed = A._speed
+      A._newspeed = A.speed()
 
     else:
 

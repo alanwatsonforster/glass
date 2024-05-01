@@ -159,6 +159,12 @@ class element:
     self._facing       = facing
     self._altitude     = altitude
     self._altitudeband = apaltitude.altitudeband(self._altitude)
+    
+  def setxy(self, x=None, y=None):
+    self.setposition(x=x, y=y)
+    
+  def setfacing(self, facing):
+    self.setposition(facing=facing)
 
   def setaltitude(self, altitude=None):
     self.setposition(altitude=altitude)

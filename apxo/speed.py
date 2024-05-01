@@ -62,11 +62,11 @@ def startmovespeed(A, power, flamedoutengines, lowspeedliftdeviceselected):
     """
 
     def reportspeed():
-      if speed < ltspeed(A._altitudeband):
+      if speed < ltspeed(A.altitudeband()):
         A._logstart("speed         is %.1f." % speed)
-      elif speed == ltspeed(A._altitudeband):
+      elif speed == ltspeed(A.altitudeband()):
         A._logstart("speed         is %.1f (LT)." % speed)
-      elif speed == htspeed(A._altitudeband):
+      elif speed == htspeed(A.altitudeband()):
         A._logstart("speed         is %.1f (HT)." % speed)
       else:
         A._logstart("speed         is %.1f (SS)." % speed)      
@@ -79,7 +79,7 @@ def startmovespeed(A, power, flamedoutengines, lowspeedliftdeviceselected):
     if A._flighttype == "SP":
       speed = power
       reportspeed()
-      A._speed        = speed
+      A.setspeed(speed)
       A._powersetting = ""
       A._powerap      = 0
       A._speedap      = 0
@@ -88,7 +88,7 @@ def startmovespeed(A, power, flamedoutengines, lowspeedliftdeviceselected):
     ############################################################################
 
     lastpowersetting = A._previouspowersetting
-    speed            = A._speed
+    speed            = A.speed()
 
     ############################################################################
 
@@ -132,12 +132,12 @@ def startmovespeed(A, power, flamedoutengines, lowspeedliftdeviceselected):
 
     # See rule 8.4.
 
-    if A._altitudeband == "VH":
+    if A.altitudeband() == "VH":
       if jet and not apcapabilities.hasproperty(A, "HAE"):
         powerapM  = max(0.5, twothirdsfromtable(powerapM))
         if powerapAB != None:
           powerapAB = max(0.5, twothirdsfromtable(powerapAB))
-    elif (A._altitudeband == "EH" or A._altitudeband == "UH"):
+    elif (A.altitudeband() == "EH" or A.altitudeband() == "UH"):
       if jet and not apcapabilities.hasproperty(A, "HAE"):
         powerapM  = max(0.5, onethirdfromtable(powerapM))
         if powerapAB != None:
@@ -213,9 +213,9 @@ def startmovespeed(A, power, flamedoutengines, lowspeedliftdeviceselected):
 
     # See rule 8.4. The reduction was done above, but we report it here.
     if jet and not apcapabilities.hasproperty(A, "HAE") and (
-      A._altitudeband == "VH" or A._altitudeband == "EH" or A._altitudeband == "UH"
+      A.altitudeband() == "VH" or A.altitudeband() == "EH" or A.altitudeband() == "UH"
     ):
-      A._logevent("power is reduced in the %s altitude band." % A._altitudeband)
+      A._logevent("power is reduced in the %s altitude band." % A.altitudeband())
         
     # Again, the reduction was done above, but we report it here.
     if apcapabilities.powerfade(A) != None and apcapabilities.powerfade(A) > 0.0:
@@ -270,14 +270,14 @@ def startmovespeed(A, power, flamedoutengines, lowspeedliftdeviceselected):
     if lastpowersetting == "I" and powersetting == "AB" and not apcapabilities.hasproperty(A, "RPR"):
       A._logevent("check for flame-out as the power setting has increased from I to AB.")
 
-    if powersetting != "I" and A._altitude > apcapabilities.ceiling(A):
+    if powersetting != "I" and A.altitude() > apcapabilities.ceiling(A):
       A._logevent("check for flame-out as the aircraft is above its ceiling and the power setting is %s." % powersetting)
 
     if A._flighttype == "DP" and (powersetting == "M" or powersetting == "AB"):
       A._logevent("check for flame-out as the aircaft is in departed flight and the power setting is %s." % powersetting)
 
     if apvariants.withvariant("use version 2.4 rules"):
-      if speed >= m1speed(A._altitudeband) and (powersetting == "I" or powersetting == "M"):
+      if speed >= m1speed(A.altitudeband()) and (powersetting == "I" or powersetting == "M"):
         A._logevent("check for flame-out as the speed is supersonic and the power setting is %s." % powersetting)
 
     ############################################################################
@@ -295,10 +295,10 @@ def startmovespeed(A, power, flamedoutengines, lowspeedliftdeviceselected):
     if not apvariants.withvariant("use version 2.4 rules"):
       if powersetting == "I":
         speedchange = apcapabilities.power(A, "I")
-        if A._speed >= m1speed(A._altitudeband):
+        if A.speed() >= m1speed(A.altitudeband()):
           speedchange += 0.5
         # This keeps the speed non-negative. See rule 6.2.
-        speedchange = min(speedchange, A._speed)
+        speedchange = min(speedchange, A.speed())
         speed -= speedchange
         A._logevent("reducing speed to %.1f as the power setting is I." % speed)
 
@@ -308,7 +308,7 @@ def startmovespeed(A, power, flamedoutengines, lowspeedliftdeviceselected):
 
     # See the "Aircraft Damage Effects" in the Play Aids.
 
-    if speed >= m1speed(A._altitudeband) and A.damageatleast("H"):
+    if speed >= m1speed(A.altitudeband()) and A.damageatleast("H"):
       A._logevent("check for progressive damage as damage is %s at supersonic speed." % A.damage())
 
     ############################################################################
@@ -382,28 +382,28 @@ def startmovespeed(A, power, flamedoutengines, lowspeedliftdeviceselected):
       if powersetting == "I":
         A._logevent("idle power.")
         speedap -= apcapabilities.power(A, "I")
-        if speed >= m1speed(A._altitudeband):
+        if speed >= m1speed(A.altitudeband()):
           speedap -= 1.0
 
     # See rule 6.6
     
-    if speed >= m1speed(A._altitudeband):
+    if speed >= m1speed(A.altitudeband()):
       if powersetting == "I" or powersetting == "N":
-        speedap -= 2.0 * (speed - htspeed(A._altitudeband)) / 0.5
-        A._logevent("insufficient power at supersonic speed (%.1f or more)." % m1speed(A._altitudeband))
+        speedap -= 2.0 * (speed - htspeed(A.altitudeband())) / 0.5
+        A._logevent("insufficient power at supersonic speed (%.1f or more)." % m1speed(A.altitudeband()))
       elif powersetting == "M":
-        speedap -= 1.5 * (speed - htspeed(A._altitudeband)) / 0.5
-        A._logevent("insufficient power at supersonic speed (%.1f or more)." % m1speed(A._altitudeband))
+        speedap -= 1.5 * (speed - htspeed(A.altitudeband())) / 0.5
+        A._logevent("insufficient power at supersonic speed (%.1f or more)." % m1speed(A.altitudeband()))
 
     # See rule 6.6
 
-    if ltspeed(A._altitudeband) <= speed and speed <= m1speed(A._altitudeband):
+    if ltspeed(A.altitudeband()) <= speed and speed <= m1speed(A.altitudeband()):
       A._logevent("transonic drag.")
-      if speed == ltspeed(A._altitudeband):
+      if speed == ltspeed(A.altitudeband()):
         speedap -= 0.5
-      elif speed == htspeed(A._altitudeband):
+      elif speed == htspeed(A.altitudeband()):
         speedap -= 1.0
-      elif speed == m1speed(A._altitudeband):
+      elif speed == m1speed(A.altitudeband()):
         speedap -= 1.5
       if apcapabilities.hasproperty(A, "LTD"):
         speedap += 0.5
@@ -412,7 +412,7 @@ def startmovespeed(A, power, flamedoutengines, lowspeedliftdeviceselected):
 
     ############################################################################
 
-    A._speed        = speed
+    A.setspeed(speed)
     A._powersetting = powersetting
     A._powerap      = powerap
     A._speedap      = speedap
@@ -444,7 +444,7 @@ def endmovespeed(A):
 
   if A._flighttype == "SP":
     A.apcarry = 0
-    A._logevent("speed is unchanged at %.1f." % A._speed)
+    A._logevent("speed is unchanged at %.1f." % A.speed())
     return
 
   # Report fuel.
@@ -480,7 +480,7 @@ def endmovespeed(A):
 
   if A._flighttype == "DP" or A._maneuveringdeparture:
     A.apcarry = 0
-    A._logevent("speed is unchanged at %.1f." % A._speed)
+    A._logevent("speed is unchanged at %.1f." % A.speed())
     return
 
   # See the "Speed Gain" and "Speed Loss" sections of rule 6.2.
@@ -510,12 +510,12 @@ def endmovespeed(A):
   if ap < 0:
     aprate = -2.0
   elif apcapabilities.hasproperty(A, "RA"):
-    if A._speed >= m1speed(A._altitudeband):
+    if A.speed() >= m1speed(A.altitudeband()):
       aprate = +2.0
     else:
       aprate = +1.5
   else:
-    if A._speed >= m1speed(A._altitudeband):
+    if A.speed() >= m1speed(A.altitudeband()):
       aprate = +3.0
     else:
       aprate = +2.0
@@ -523,7 +523,7 @@ def endmovespeed(A):
   # The speed is limited to the maximum dive speed if the aircraft dived at least
   # two levels. See rules 6.3 and 8.2.
 
-  altitudeloss = A._previousaltitude - A._altitude
+  altitudeloss = A._previousaltitude - A.altitude()
   usemaxdivespeed = (altitudeloss >= 2) and not A.damageatleast("H")
   
   # See rules 6.2, 6.3, and 8.2.
@@ -540,13 +540,13 @@ def endmovespeed(A):
   # its speed exceeds HT speed, it performs a fadeback to HT speed. Its
   # maximum level speed and maximum dive speed are limited to HT speed.
 
-  if maxspeed >= m1speed(A._altitudeband) and A.damageatleast("H"):
+  if maxspeed >= m1speed(A.altitudeband()) and A.damageatleast("H"):
     A._logevent("maximum speed limited to HT speed by damage.")
     usedivespeed = False
-    maxspeed = htspeed(A._altitudeband)
+    maxspeed = htspeed(A.altitudeband())
     maxspeedname = "HT speed"
 
-  A._newspeed = A._speed
+  A._newspeed = A.speed()
 
   if ap == 0:
 
@@ -566,12 +566,12 @@ def endmovespeed(A):
 
   elif ap > 0:
 
-    if A._speed >= maxspeed and ap >= aprate:
+    if A.speed() >= maxspeed and ap >= aprate:
       A._logevent("acceleration is limited by %s of %.1f." % (maxspeedname, maxspeed))
       A._apcarry = aprate - 0.5
-    elif A._speed >= maxspeed:
+    elif A.speed() >= maxspeed:
       A._apcarry = ap
-    elif A._speed + 0.5 * (ap // aprate) > maxspeed:
+    elif A.speed() + 0.5 * (ap // aprate) > maxspeed:
       A._logevent("acceleration is limited by %s of %.1f." % (maxspeedname, maxspeed))
       A._newspeed = maxspeed
       A._apcarry = aprate - 0.5
@@ -588,8 +588,8 @@ def endmovespeed(A):
       A._logevent("speed will be faded back from %.1f." % A._newspeed)
       A._newspeed = max(A._newspeed - 1, maxspeed)
 
-  if A._speed != A._newspeed:
-    A._logevent("speed will change from %.1f to %.1f." % (A._speed, A._newspeed))
+  if A.speed() != A._newspeed:
+    A._logevent("speed will change from %.1f to %.1f." % (A.speed(), A._newspeed))
   else:
     A._logevent("speed will be unchanged at %.1f." % A._newspeed)
 
