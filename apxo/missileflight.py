@@ -113,7 +113,7 @@ def _doaction(M, action):
     M._hfp += 1
 
     if element == "HD":
-      M.setaltitude(M.altitude() - 1)
+      M._dodive(1)
 
     M.setxy(*aphex.forward(M.x(), M.y(), M.facing()))
 
@@ -128,7 +128,7 @@ def _doaction(M, action):
     M._fp  += 1
     M._vfp += 1
     
-    M.setaltitude(M.altitude() + altitudechange)
+    M._doclimb(altitudechange)
 
   ########################################
 
@@ -141,7 +141,7 @@ def _doaction(M, action):
     M._fp  += 1
     M._vfp += 1
 
-    M.setaltitude(M.altitude() - altitudechange)
+    M._dodive(altitudechange)
 
   ########################################
 

@@ -103,9 +103,7 @@ def doflight(A, action, note=False):
 
   initialaltitudeband = A.altitudeband()
   altitudechange = math.ceil(A.speed() + 2 * A._turnsdeparted)
-  altitude, altitudecarry = apaltitude.adjustaltitude(A.altitude(), A._altitudecarry, -altitudechange)
-  A.setaltitude(altitude)
-  A._altitudecarry = altitudecarry
+  A._dodive(altitudechange)
   
   A._lognote(note)
 

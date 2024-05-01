@@ -133,7 +133,6 @@ class aircraft(element):
       self._logline()
       self._logaction("", "creating aircraft %s." % name)
 
-      self._altitudecarry              = 0
       self._newspeed                   = None
       self._damageL                    = 0
       self._damageH                    = 0
@@ -674,7 +673,7 @@ class aircraft(element):
     y, \
     facing, \
     altitude, \
-    self._altitudecarry, \
+    altitudecarry, \
     speed, \
     self._configuration, \
     self._stores, \
@@ -713,7 +712,7 @@ class aircraft(element):
     self._turnsdeparted, \
     self._enginesmoking \
     = self._saved[i]
-    self.setposition(x=x, y=y, facing=facing, altitude=altitude)
+    self.setposition(x=x, y=y, facing=facing, altitude=altitude, altitudecarry=altitudecarry)
     self.setspeed(speed=speed)
 
     self._startx             = self.x()
@@ -723,7 +722,7 @@ class aircraft(element):
     self._startspeed         = self.speed()
     self._startfpcarry       = self._fpcarry
     self._startapcarry       = self._apcarry
-    self._startaltitudecarry = self._altitudecarry
+    self._startaltitudecarry = self.altitudecarry()
     self._startmaneuvertype  = self._maneuvertype
     self._startmaneuversense = self._maneuversense
     self._startmaneuverfp    = self._maneuverfp
@@ -741,7 +740,7 @@ class aircraft(element):
       self.y(), \
       self.facing(), \
       self.altitude(), \
-      self._altitudecarry, \
+      self.altitudecarry(), \
       self.speed(), \
       self._configuration, \
       self._stores, \

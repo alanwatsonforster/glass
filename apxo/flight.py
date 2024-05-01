@@ -42,7 +42,7 @@ def move(A, flighttype, power, actions="",
   A._previouspowersetting  = A._powersetting
   A._previousflighttype    = A._flighttype
   A._previousaltitude      = A.altitude()
-  A._previousaltitudecarry = A._altitudecarry
+  A._previousaltitudecarry = A.altitudecarry()
   A._previousspeed         = A.speed()
 
   # These account for the APs associated with power, speed, speed-brakes, 
@@ -102,7 +102,7 @@ def move(A, flighttype, power, actions="",
   elif A._flighttype == "ST":       
 
     A._fpcarry = 0
-    A._altitudecarry = 0
+    A.setaltitudecarry(0)
     apstalledflight.doflight(A, actions, note=note)
     A._turnsstalled += 1
     endmove(A)
@@ -111,7 +111,7 @@ def move(A, flighttype, power, actions="",
 
     A._fpcarry = 0
     A._apcarry = 0
-    A._altitudecarry = 0
+    A.setaltitudecarry(0)
     apdepartedflight.doflight(A, actions, note=note)
     A._turnsdeparted += 1
     endmove(A)
@@ -120,8 +120,8 @@ def move(A, flighttype, power, actions="",
 
     # See rule 8.1.4 on altitude carry.
     if not A.isinclimbingflight():
-      A._altitudecarry = 0
-    
+      A.setaltitudecarry(0)
+
     A._turnsstalled  = 0
     A._turnsdeparted = 0
     apnormalflight.startflight(A, actions, note=note)

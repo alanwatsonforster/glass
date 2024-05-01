@@ -247,7 +247,7 @@ def continueflight(A, actions, note=False):
     if element == "HD":
 
       if flighttype == "LVL":
-        altitudechange = -1
+        altitudechange = 1
       else:
         raise RuntimeError("%r is not a valid element when the flight type is %s." % (element, A._flighttype))
 
@@ -265,17 +265,15 @@ def continueflight(A, actions, note=False):
       if apvariants.withvariant("use version 2.4 rules"):
         if math.floor(A._maxfp) == 1:
           # Both half FPs and all FPs.
-          altitudechange = -2
+          altitudechange = 2
         elif A._unloadedhfp == math.floor(A._maxfp / 2):
-          altitudechange = -1
+          altitudechange = 1
         elif A._unloadedhfp == math.floor(A._maxfp):
-          altitudechange = -1
+          altitudechange = 1
       else:
-        altitudechange = -1
+        altitudechange = 1
 
-    altitude, altitudecarry = apaltitude.adjustaltitude(A.altitude(), A._altitudecarry, altitudechange)
-    A.setaltitude(altitude)
-    A._altitudecarry = altitudecarry
+    A._dodive(altitudechange)
     A.setxy(*aphex.forward(A.x(), A.y(), A.facing()))
 
   ########################################
@@ -340,9 +338,7 @@ def continueflight(A, actions, note=False):
     A._fp += 1  
     A._vfp += 1
 
-    altitude, altitudecarry = apaltitude.adjustaltitude(A.altitude(), A._altitudecarry, altitudechange)
-    A.setaltitude(altitude)
-    A._altitudecarry = altitudecarry
+    A._doclimb(altitudechange)
 
     # See rule 8.5.
     if flighttype == "SC" and A.altitude() > apcapabilities.ceiling(A):
@@ -399,9 +395,7 @@ def continueflight(A, actions, note=False):
     A._fp += 1  
     A._vfp += 1
   
-    altitude, altitudecarry = apaltitude.adjustaltitude(A.altitude(), A._altitudecarry, -altitudechange)
-    A.setaltitude(altitude)
-    A._altitudecarry = altitudecarry
+    A._dodive(altitudechange)
 
   ########################################
 

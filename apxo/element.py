@@ -102,11 +102,12 @@ class element:
     if not apaltitude.isvalidaltitude(altitude):
       raise RuntimeError("the altitude argument is not valid.")
 
-    self._x            = x
-    self._y            = y
-    self._facing       = facing
-    self._altitude     = altitude
-    self._altitudeband = apaltitude.altitudeband(self._altitude)
+    self._x             = x
+    self._y             = y
+    self._facing        = facing
+    self._altitude      = altitude
+    self._altitudeband  = apaltitude.altitudeband(self._altitude)
+    self._altitudecarry = 0
     
     if not apspeed.isvalidspeed(speed):
       raise RuntimeError("the speed argument is not valid.")
@@ -126,7 +127,7 @@ class element:
     x=None, y=None, facing=None, 
     hexcode=None, 
     azimuth=None, 
-    altitude=None
+    altitude=None, altitudecarry=None
   ):
 
     if hexcode is not None:
@@ -135,9 +136,9 @@ class element:
       x, y = aphexcode.toxy(hexcode)
 
     if x is None:
-      x = self.x()
+      x = self._x
     if y is None:
-      y = self.y()
+      y = self._y
       
     if azimuth is not None:
       if not apazimuth.isvalidazimuth(azimuth):
@@ -145,22 +146,28 @@ class element:
       facing = apazimuth.tofacing(azimuth)
 
     if facing is None:
-      facing = self.facing()
+      facing = self._facing
 
     if not aphex.isvalid(x, y, facing):
       raise RuntimeError("the combination of hexcode and facing are not valid.")
 
     if altitude is None:
-      altitude = self.altitude()
+      altitude = self._altitude
     if not apaltitude.isvalidaltitude(altitude):
       raise RuntimeError("the altitude argument is not valid.")
+      
+    if altitudecarry is None:
+      altitudecarry = self._altitudecarry
 
-    self._x            = x
-    self._y            = y
-    self._facing       = facing
-    self._altitude     = altitude
-    self._altitudeband = apaltitude.altitudeband(self._altitude)
+    self._x             = x
+    self._y             = y
+    self._facing        = facing
+    self._altitude      = altitude
+    self._altitudeband  = apaltitude.altitudeband(self._altitude)
+    self._altitudecarry = altitudecarry
     
+  ############################################################################
+
   def setxy(self, x=None, y=None):
     self.setposition(x=x, y=y)
     
@@ -169,7 +176,10 @@ class element:
 
   def setaltitude(self, altitude=None):
     self.setposition(altitude=altitude)
-
+    
+  def setaltitudecarry(self, altitudecarry=None):
+    self.setposition(altitudecarry=altitudecarry)
+    
   def setspeed(self, 
     speed=None
   ):
@@ -216,6 +226,9 @@ class element:
   def altitudeband(self):
     return self._altitudeband
     
+  def altitudecarry(self):
+    return self._altitudecarry
+    
   def position(self):
     hexcode = self.hexcode()
     if hexcode is None:
@@ -235,4 +248,12 @@ class element:
     return self._removed
 
   ############################################################################
+  
+  def _doclimb(self, altitudechange):
+    altitude, altitudecarry = apaltitude.adjustaltitude(self.altitude(), self.altitudecarry(), +altitudechange)
+    self.setposition(altitude=altitude, altitudecarry=altitudecarry)
+
+  def _dodive(self, altitudechange):
+    altitude, altitudecarry = apaltitude.adjustaltitude(self.altitude(), self.altitudecarry(), -altitudechange)
+    self.setposition(altitude=altitude, altitudecarry=altitudecarry)
 

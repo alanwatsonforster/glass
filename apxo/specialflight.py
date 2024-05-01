@@ -43,9 +43,7 @@ def doflight(A, action, note=False):
     if altitudechange == 1:
       altitudechange = apcapabilities.specialclimbcapability(A)
     
-    altitude, altitudecarry = apaltitude.adjustaltitude(A.altitude(), A._altitudecarry, altitudechange)
-    A.setaltitude(altitude)
-    A._altitudecarry = altitudecarry
+    A._doclimb(altitudechange)
 
   ########################################
 
@@ -55,10 +53,8 @@ def doflight(A, action, note=False):
     Dive.
     """
 
-    A._altitudecarry = 0
-    
-    altitude, altitudecarry = apaltitude.adjustaltitude(A.altitude(), A._altitudecarry, -altitudechange)
-    A.setaltitude(altitude)
+    A.setaltitudecarry(0)
+    A._dodive(altitudechange)
 
   ########################################
 
