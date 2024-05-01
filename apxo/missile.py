@@ -112,18 +112,6 @@ class missile(element):
       self._maneuversense, \
       self._removed, \
     )
-
-  #############################################################################
-
-  def position(self):
-    """Return a string describing the current position of the aircraft."""
-    if apmap.isonmap(*self.xy()):
-      hexcode = aphexcode.fromxy(*self.xy())
-    else:
-      hexcode = "-------"
-    azimuth = apazimuth.fromfacing(self.facing())
-    altitude = self.altitude()
-    return "%-12s  %-3s  %2d" % (hexcode, azimuth, altitude)
     
   #############################################################################
     

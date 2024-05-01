@@ -305,13 +305,10 @@ class aircraft(element):
 
   def position(self):
     """Return a string describing the current position of the aircraft."""
-    if apmap.isonmap(self.x(), self.y()):
-      hexcode = aphexcode.fromxy(self.x(), self.y())
-    else:
+    hexcode = self.hexcode()
+    if hexcode is None:
       hexcode = "-------"
-    azimuth = apazimuth.fromfacing(self.facing())
-    altitude = self.altitude()
-    return "%-12s  %-3s  %2d" % (hexcode, azimuth, altitude)
+    return "%-12s  %-3s  %2d" % (hexcode, self.azimuth(), self.altitude())
 
   #############################################################################
 

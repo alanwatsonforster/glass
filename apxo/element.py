@@ -3,6 +3,7 @@ import apxo.azimuth    as apazimuth
 import apxo.flightpath as apflightpath
 import apxo.hex        as aphex
 import apxo.hexcode    as aphexcode
+import apxo.map        as apmap
 import apxo.speed      as apspeed
 
 # Elements are anything that can be placed on a map: aircraft, missiles,
@@ -197,15 +198,33 @@ class element:
   def xy(self):
     return self._x, self._y
 
+  def hexcode(self):
+    if apmap.isonmap(self.x(), self.y()):
+      return aphexcode.fromxy(self.x(), self.y())
+    else:
+      return None
+      
   def facing(self):
     return self._facing
 
+  def azimuth(self):
+    return apazimuth.fromfacing(self.facing())
+    
   def altitude(self):
     return self._altitude
 
   def altitudeband(self):
     return self._altitudeband
-
+    
+  def position(self):
+    hexcode = self.hexcode()
+    if hexcode is None:
+      hexcode = "-------"
+    azimuth = self.azimuth()
+    if azimuth is None:
+      azimuth = "---"
+    return "%-12s  %-3s  %2d" % (hexcode, azimuth, self.altitude())
+      
   def speed(self):
     return self._speed
 
