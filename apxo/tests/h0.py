@@ -1,42 +1,60 @@
 from apxo.tests.infrastructure import *
+
 startfile(__file__, "stores")
 
 starttestsetup()
-A1 = aircraft("A1", "AF", "F-80C", "A2-2024", "N", 10, 4.0,
-              stores={
-                "1": "FT/600L",
-                "4": "FT/600L",
-                "2": "BB/M65",
-                "3": "BB/M65"
-              })
+A1 = aircraft(
+    "A1",
+    "AF",
+    "F-80C",
+    "A2-2024",
+    "N",
+    10,
+    4.0,
+    stores={"1": "FT/600L", "4": "FT/600L", "2": "BB/M65", "3": "BB/M65"},
+)
 A1._assert("A2-2024       N    10", 4.0, expectedconfiguration="DT")
 endtestsetup()
 
 starttestsetup()
-A1 = aircraft("A1", "AF", "F-80C", "A2-2024", "N", 10, 4.0,
-              stores={
-                "1": "FT/600L",
-                "4": "FT/600L",
-              })
+A1 = aircraft(
+    "A1",
+    "AF",
+    "F-80C",
+    "A2-2024",
+    "N",
+    10,
+    4.0,
+    stores={
+        "1": "FT/600L",
+        "4": "FT/600L",
+    },
+)
 A1._assert("A2-2024       N    10", 4.0, expectedconfiguration="1/2")
 endtestsetup()
 
 
 starttestsetup()
-A1 = aircraft("A1", "AF", "F-80C", "A2-2024", "N", 10, 4.0,
-              stores={
-                "5": "RK/HVAR",
-                "8": "RK/HVAR",
-              })
+A1 = aircraft(
+    "A1",
+    "AF",
+    "F-80C",
+    "A2-2024",
+    "N",
+    10,
+    4.0,
+    stores={
+        "5": "RK/HVAR",
+        "8": "RK/HVAR",
+    },
+)
 A1._assert("A2-2024       N    10", 4.0, expectedconfiguration="CL")
 endtestsetup()
 
 starttestsetup()
-A1 = aircraft("A1", "AF", "F-80C", "A2-2024", "N", 10, 4.0,
-              stores={
-                "3": "BB/M57",
-                "4": "BB/M57"
-              })
+A1 = aircraft(
+    "A1", "AF", "F-80C", "A2-2024", "N", 10, 4.0, stores={"3": "BB/M57", "4": "BB/M57"}
+)
 A1._assert("A2-2024       N    10", 4.0, expectedconfiguration="CL")
 endtestsetup()
 
@@ -45,18 +63,36 @@ endtestsetup()
 # empty and 3 points when full.
 
 starttestsetup()
-A1 = aircraft("A1", "AF", "F-104A", "A2-2024", "N", 10, 4.0, fuel="100%",
-              stores={
-                "3": "FT/600L",
-              })
+A1 = aircraft(
+    "A1",
+    "AF",
+    "F-104A",
+    "A2-2024",
+    "N",
+    10,
+    4.0,
+    fuel="100%",
+    stores={
+        "3": "FT/600L",
+    },
+)
 A1._assert("A2-2024       N    10", 4.0, expectedconfiguration="CL")
 endtestsetup()
 
 starttestsetup()
-A1 = aircraft("A1", "AF", "F-104A", "A2-2024", "N", 10, 4.0, fuel="101%",
-              stores={
-                "3": "FT/600L",
-              })
+A1 = aircraft(
+    "A1",
+    "AF",
+    "F-104A",
+    "A2-2024",
+    "N",
+    10,
+    4.0,
+    fuel="101%",
+    stores={
+        "3": "FT/600L",
+    },
+)
 A1._assert("A2-2024       N    10", 4.0, expectedconfiguration="1/2")
 endtestsetup()
 
@@ -70,13 +106,16 @@ endturn()
 # Check jettisoning.
 
 starttestsetup()
-A1 = aircraft("A1", "AF", "F-80C", "A2-2024", "N", 10, 4.0,
-              stores={
-                "1": "FT/600L",
-                "4": "FT/600L",
-                "2": "BB/M57",
-                "3": "BB/M57"
-              })
+A1 = aircraft(
+    "A1",
+    "AF",
+    "F-80C",
+    "A2-2024",
+    "N",
+    10,
+    4.0,
+    stores={"1": "FT/600L", "4": "FT/600L", "2": "BB/M57", "3": "BB/M57"},
+)
 A1._assert("A2-2024       N    10", 4.0, expectedconfiguration="DT")
 endtestsetup()
 

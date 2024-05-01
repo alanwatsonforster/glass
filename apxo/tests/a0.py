@@ -1,4 +1,5 @@
 from apxo.tests.infrastructure import *
+
 startfile(__file__, "aircraft data")
 
 # Checks on apxo.aircraftdata.
@@ -10,11 +11,12 @@ import apxo.variants
 
 import glob
 import os.path
+
 pathlist = sorted(list(glob.glob("apxo/aircraftdata/*.json")))
 for path in pathlist:
-  aircrafttype = os.path.basename(path)[:-5]
-  if aircrafttype != "_TEMPLATE":
-    str(aircraftdata(aircrafttype))
+    aircrafttype = os.path.basename(path)[:-5]
+    if aircrafttype != "_TEMPLATE":
+        str(aircraftdata(aircrafttype))
 
 # Check the basic functionallity using the F-104A as a test case.
 

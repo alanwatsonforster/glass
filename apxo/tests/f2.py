@@ -1,11 +1,12 @@
 from apxo.tests.infrastructure import *
+
 startfile(__file__, "special flight")
 
 from apxo.tests.infrastructure import *
 
 starttestsetup()
-A1 = aircraft("A1", "AF", "O-1E"  , "A2-2030", "N", 5, 0, "CL", color="green")
-A2 = aircraft("A2", "AF", "O-2A"  , "A2-2230", "N", 5, 0, "CL", color="green")
+A1 = aircraft("A1", "AF", "O-1E", "A2-2030", "N", 5, 0, "CL", color="green")
+A2 = aircraft("A2", "AF", "O-2A", "A2-2230", "N", 5, 0, "CL", color="green")
 A3 = aircraft("A3", "AF", "HH-53C", "A2-2430", "N", 5, 0, "CL", color="green")
 endtestsetup()
 

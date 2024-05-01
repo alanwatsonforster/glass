@@ -1,4 +1,5 @@
 from apxo.tests.infrastructure import *
+
 startfile(__file__, "attacks after rolls")
 
 # Attacks after Rolls
@@ -8,25 +9,25 @@ A1 = aircraft("A1", "AF", "F-80C", "A1-2015", "N", 20, 4.0, "CL")
 endtestsetup()
 
 startturn()
-A1.move("LVL"   ,  "M", "DRR/H,HR,H,H"    )
-A1._assert("A1-2111       N    20",  4.0)
+A1.move("LVL", "M", "DRR/H,HR,H,H")
+A1._assert("A1-2111       N    20", 4.0)
 startturn()
-A1.move("LVL"   ,  "M", "DRR/H,HR/AA(GN)()(),H,H")
+A1.move("LVL", "M", "DRR/H,HR/AA(GN)()(),H,H")
 asserterror("attempt to use weapons immediately after rolling.")
 startturn()
-A1.move("VD/HRD",  "M", "H,D2,D2,D2/AA(GN)()()"  )
+A1.move("VD/HRD", "M", "H,D2,D2,D2/AA(GN)()()")
 asserterror("attempt to use weapons after HRD.")
 startturn()
-A1.move("VD/HRD",  "M", "H,D2,D2,D2"      )
-A1._assert("A1-2014       N    14",  5.5)
+A1.move("VD/HRD", "M", "H,D2,D2,D2")
+A1._assert("A1-2014       N    14", 5.5)
 endturn()
 
 startturn()
-A1.move("VD"    ,  "M", "D2,D2,VRR/D2/RAA(GN)()(),D2,D2")
+A1.move("VD", "M", "D2,D2,VRR/D2/RAA(GN)()(),D2,D2")
 asserterror("attempt to use weapons immediately after rolling.")
 startturn()
-A1.move("VD"    ,  "M", "D2,D2,VRR/D2/R,D2,D2"    )
-A1._assert("A1-2014       NNE   4",  6.5)
+A1.move("VD", "M", "D2,D2,VRR/D2/R,D2,D2")
+A1._assert("A1-2014       NNE   4", 6.5)
 endturn()
 
 endfile(__file__)

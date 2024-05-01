@@ -1,4 +1,5 @@
 from apxo.tests.infrastructure import *
+
 startfile(__file__, "azimuths")
 
 # Checks on apxo.azimuth.
@@ -6,8 +7,8 @@ startfile(__file__, "azimuths")
 # Conversion of numeric azimuths to symbolic directions.
 
 starttestsetup()
-A1 = aircraft("A1", "AF", "F-80C", "A1-1115",   0, 10, 4.0, "CL")
-A2 = aircraft("A2", "AF", "F-80C", "A1-1315",  90, 10, 4.0, "CL")
+A1 = aircraft("A1", "AF", "F-80C", "A1-1115", 0, 10, 4.0, "CL")
+A2 = aircraft("A2", "AF", "F-80C", "A1-1315", 90, 10, 4.0, "CL")
 A3 = aircraft("A3", "AF", "F-80C", "A1-1515", 180, 10, 4.0, "CL")
 A4 = aircraft("A4", "AF", "F-80C", "A1-1715", 270, 10, 4.0, "CL")
 endtestsetup()

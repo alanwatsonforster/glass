@@ -1,12 +1,13 @@
 from apxo.tests.infrastructure import *
+
 startfile(__file__, "stalled flight")
 
 # Stalled flight
 
 starttestsetup(verbose=False)
 A1 = aircraft("A1", "AF", "F-80C", "A1-1914", "N", 10, 1.0, configuration="DT")
-A2 = aircraft("A2", "AF", "F-80C", "A1-2114", "N",  3, 1.0, configuration="DT")
-A3 = aircraft("A3", "AF", "F-80C", "A1-2314", "N",  2, 1.0, configuration="DT")
+A2 = aircraft("A2", "AF", "F-80C", "A1-2114", "N", 3, 1.0, configuration="DT")
+A3 = aircraft("A3", "AF", "F-80C", "A1-2314", "N", 2, 1.0, configuration="DT")
 endtestsetup()
 
 startturn()
@@ -35,13 +36,16 @@ endturn()
 # Check jettisoning.
 
 starttestsetup()
-A1 = aircraft("A1", "AF", "F-80C", "A2-2024", "N", 10, 1.0,
-              stores={
-                "1": "FT/600L",
-                "4": "FT/600L",
-                "2": "BB/M57",
-                "3": "BB/M57"
-              })
+A1 = aircraft(
+    "A1",
+    "AF",
+    "F-80C",
+    "A2-2024",
+    "N",
+    10,
+    1.0,
+    stores={"1": "FT/600L", "4": "FT/600L", "2": "BB/M57", "3": "BB/M57"},
+)
 A1._assert("A2-2024       N    10", 1.0, expectedconfiguration="DT")
 endtestsetup()
 

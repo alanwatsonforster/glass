@@ -1,4 +1,5 @@
 from apxo.tests.infrastructure import *
+
 startfile(__file__, "close formations")
 
 # Close Formations
@@ -148,6 +149,8 @@ assert A3.closeformationnames() == ["A1", "A2", "A3", "A4"]
 assert A4.closeformationnames() == ["A1", "A2", "A3", "A4"]
 
 endturn()
-asserterror("aircraft A1 and A4 cannot be in close formation as they do not have the same facings.")
+asserterror(
+    "aircraft A1 and A4 cannot be in close formation as they do not have the same facings."
+)
 
 endfile(__file__)

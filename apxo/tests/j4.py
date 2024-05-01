@@ -1,15 +1,16 @@
 from apxo.tests.infrastructure import *
+
 startfile(__file__, "air-to-air attack elements")
 
 starttestsetup(verbose=False)
-A1 = aircraft("A1", "AF", "F-80C"  , "A2-2025", "N", 5, 4.0, "CL")
-A2 = aircraft("A2", "AF", "Tu-4"   , "A2-2023", "E", 5, 4.0, "CL")
-A3 = aircraft("A3", "AF", "F-80C"  , "A2-2025", "N", 5, 4.0, "CL", gunammunition=3.5)
-A4 = aircraft("A4", "AF", "Tu-4"   , "A2-2023", "E", 5, 4.0, "CL", gunammunition=11.0)
-A5 = aircraft("A5", "AF", "F-89D"  , "A2-2023", "E", 5, 4.0, "CL")
-A6 = aircraft("A6", "AF", "F-102A" , "A2-2023", "E", 5, 4.0, "CL", rocketfactors=0)
-A7 = aircraft("A7", "AF", "F-100C" , "A2-2025", "N", 5, 6.0, "CL")
-A8 = aircraft("A8", "AF", "Tu-4"   , "A2-2023", "N", 5, 4.0, "CL")
+A1 = aircraft("A1", "AF", "F-80C", "A2-2025", "N", 5, 4.0, "CL")
+A2 = aircraft("A2", "AF", "Tu-4", "A2-2023", "E", 5, 4.0, "CL")
+A3 = aircraft("A3", "AF", "F-80C", "A2-2025", "N", 5, 4.0, "CL", gunammunition=3.5)
+A4 = aircraft("A4", "AF", "Tu-4", "A2-2023", "E", 5, 4.0, "CL", gunammunition=11.0)
+A5 = aircraft("A5", "AF", "F-89D", "A2-2023", "E", 5, 4.0, "CL")
+A6 = aircraft("A6", "AF", "F-102A", "A2-2023", "E", 5, 4.0, "CL", rocketfactors=0)
+A7 = aircraft("A7", "AF", "F-100C", "A2-2025", "N", 5, 6.0, "CL")
+A8 = aircraft("A8", "AF", "Tu-4", "A2-2023", "N", 5, 4.0, "CL")
 endtestsetup()
 
 startturn()
@@ -82,8 +83,8 @@ A7._assert("A2-2221       NNE   5", 6.0)
 
 # Check error if attack results are not specified at end of turn.
 starttestsetup()
-A1 = aircraft("A1", "AF", "F-80C"  , "A2-2025", "N", 5, 4.0, "CL")
-A2 = aircraft("A2", "AF", "Tu-4"   , "A2-2024", "N", 5, 3.0, "CL")
+A1 = aircraft("A1", "AF", "F-80C", "A2-2025", "N", 5, 4.0, "CL")
+A2 = aircraft("A2", "AF", "Tu-4", "A2-2024", "N", 5, 3.0, "CL")
 endtestsetup()
 
 startturn()
@@ -129,4 +130,3 @@ asserterror("attempt to start SSGT while A4 is more than 6 hexes from A0.")
 startturn()
 A1.move("LVL", "M", "H,H,H,H")
 A0.move("LVL", "M", "SSGT(A1)/BTR/H/R,H/WL,BTL/H/L+,H/L/AA(GN)(A1)(-)")
-

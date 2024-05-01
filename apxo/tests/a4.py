@@ -1,4 +1,5 @@
 from apxo.tests.infrastructure import *
+
 startfile(__file__, "distances")
 
 starttestsetup()
