@@ -20,7 +20,7 @@ import apxo.geometry as apgeometry
 import apxo.airtoair as apairtoair
 import apxo.visualsighting as apvisualsighting
 
-from apxo.normalflight import _isclimbingflight, _isdivingflight, _islevelflight
+from apxo.aircraftflight import _isclimbingflight, _isdivingflight, _islevelflight
 
 import re
 
