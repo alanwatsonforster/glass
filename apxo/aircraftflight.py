@@ -1289,17 +1289,6 @@ def continuespecialflight(A, tasks, start=False, note=False):
 
     ########################################
 
-    def dohorizontal(A):
-        """
-        Move horizontally.
-        """
-
-        A._moveforward()
-        A._fp += 1
-        A._hfp += 1
-
-    ########################################
-
     def doclimb(A, altitudechange):
         """
         Climb.
@@ -1368,7 +1357,8 @@ def continuespecialflight(A, tasks, start=False, note=False):
         ["AAGN", "epilog", None, lambda A: doattack(A, "guns")],
         ["AARK", "epilog", None, lambda A: doattack(A, "rockets")],
         ["S", "FP", None, lambda A: dostationary(A)],
-        ["H", "FP", None, lambda A: dohorizontal(A)],
+        ["H", "FP", None, lambda A: dohorizontal(A, "H")],
+        ["HD", "FP", None, lambda A: dohorizontal(A, "HD")],
         ["C1", "FP", None, lambda A: doclimb(A, 1)],
         ["C2", "FP", None, lambda A: doclimb(A, 2)],
         ["CC", "FP", None, lambda A: doclimb(A, 2)],
@@ -1728,18 +1718,14 @@ def dohorizontal(A, action):
     Move horizontally.
     """
 
+    altitudechange = 0
+
     if A._maneuvertype == "VR":
         raise RuntimeError("attempt to declare a vertical roll during an HFP.")
 
-    altitudechange = 0
-
-    A._horizontal = True
-    A._fp += 1
-    A._hfp += 1
-
     if action == "HD":
 
-        if A._flighttype == "LVL":
+        if A._flighttype == "LVL" or A._flighttype == "SP":
             altitudechange = 1
         else:
             raise RuntimeError(
@@ -1772,6 +1758,10 @@ def dohorizontal(A, action):
                 altitudechange = 1
         else:
             altitudechange = 1
+
+    A._horizontal = True
+    A._fp += 1
+    A._hfp += 1
 
     A._movedive(altitudechange)
     A._moveforward()
