@@ -4,6 +4,7 @@ Special flight for aircaft.
 
 import apxo.altitude as apaltitude
 import apxo.capabilities as apcapabilities
+import apxo.flight as apflight
 import apxo.hex as aphex
 import apxo.speed as apspeed
 import apxo.turnrate as apturnrate
@@ -19,23 +20,34 @@ def checkflight(A):
 ################################################################################
 
 
-def doflight(A, action, note=False):
+def doflight(A, tasks, note=False):
     """
     Carry out out special flight.
     """
 
     ########################################
 
-    def dohorizontal():
+    def dostationary(A):
+        """
+        Stay stationary.
+        """
+
+        A._fp += 1
+
+    ########################################
+
+    def dohorizontal(A):
         """
         Move horizontally.
         """
 
         A._moveforward()
+        A._fp += 1
+        A._hfp += 1
 
     ########################################
 
-    def doclimb(altitudechange):
+    def doclimb(A, altitudechange):
         """
         Climb.
         """
@@ -44,20 +56,24 @@ def doflight(A, action, note=False):
             altitudechange = apcapabilities.specialclimbcapability(A)
 
         A._moveclimb(altitudechange)
+        A._fp += 1
+        A._vfp += 1
 
     ########################################
 
-    def dodive(altitudechange):
+    def dodive(A, altitudechange):
         """
         Dive.
         """
 
         A._setaltitudecarry(0)
         A._movedive(altitudechange)
+        A._fp += 1
+        A._vfp += 1
 
     ########################################
 
-    def doturn(sense, facingchange):
+    def doturn(A, sense, facingchange):
         """
         Turn in the specified sense and amount.
         """
@@ -66,7 +82,7 @@ def doflight(A, action, note=False):
 
     ########################################
 
-    def doattack(weapon):
+    def doattack(A, weapon):
         """
         Declare an attack with the specified weapon.
         """
@@ -75,100 +91,54 @@ def doflight(A, action, note=False):
 
     ########################################
 
-    def dokilled():
-        """
-        Declare that the aircraft has been killed.
-        """
-
-        A._logaction("aircraft has been killed.")
-        A._destroyed = True
-
-    ########################################
-
-    elementdispatchlist = [
+    taskdispatchlist = [
         # This table is searched in order, so put longer elements before shorter
         # ones that are prefixes (e.g., put C2 before C).
-        ["L180", lambda: doturn("L", 180)],
-        ["L150", lambda: doturn("L", 150)],
-        ["L120", lambda: doturn("L", 120)],
-        ["L90", lambda: doturn("L", 90)],
-        ["L60", lambda: doturn("L", 60)],
-        ["L30", lambda: doturn("L", 30)],
-        ["LLL", lambda: doturn("L", 90)],
-        ["LL", lambda: doturn("L", 60)],
-        ["L", lambda: doturn("L", 30)],
-        ["R180", lambda: doturn("R", 180)],
-        ["R150", lambda: doturn("R", 150)],
-        ["R120", lambda: doturn("R", 120)],
-        ["R90", lambda: doturn("R", 90)],
-        ["R60", lambda: doturn("R", 60)],
-        ["R30", lambda: doturn("R", 30)],
-        ["RRR", lambda: doturn("R", 90)],
-        ["RR", lambda: doturn("R", 60)],
-        ["R", lambda: doturn("R", 30)],
-        ["AAGN", lambda: doattack("guns")],
-        ["AARK", lambda: doattack("rockets")],
-        ["K", lambda: dokilled()],
-        ["/", lambda: None],
-        ["H", lambda: dohorizontal()],
-        ["C1", lambda: doclimb(1)],
-        ["C2", lambda: doclimb(2)],
-        ["CC", lambda: doclimb(2)],
-        ["C", lambda: doclimb(1)],
-        ["D1", lambda: dodive(1)],
-        ["D2", lambda: dodive(2)],
-        ["D3", lambda: dodive(3)],
-        ["DDD", lambda: dodive(3)],
-        ["DD", lambda: dodive(2)],
-        ["D", lambda: dodive(1)],
+        ["L180", "epilog", None, lambda A: doturn(A, "L", 180)],
+        ["L150", "epilog", None, lambda A: doturn(A, "L", 150)],
+        ["L120", "epilog", None, lambda A: doturn(A, "L", 120)],
+        ["L90", "epilog", None, lambda A: doturn(A, "L", 90)],
+        ["L60", "epilog", None, lambda A: doturn(A, "L", 60)],
+        ["L30", "epilog", None, lambda A: doturn(A, "L", 30)],
+        ["LLL", "epilog", None, lambda A: doturn(A, "L", 90)],
+        ["LL", "epilog", None, lambda A: doturn(A, "L", 60)],
+        ["L", "epilog", None, lambda A: doturn(A, "L", 30)],
+        ["R180", "epilog", None, lambda A: doturn(A, "R", 180)],
+        ["R150", "epilog", None, lambda A: doturn(A, "R", 150)],
+        ["R120", "epilog", None, lambda A: doturn(A, "R", 120)],
+        ["R90", "epilog", None, lambda A: doturn(A, "R", 90)],
+        ["R60", "epilog", None, lambda A: doturn(A, "R", 60)],
+        ["R30", "epilog", None, lambda A: doturn(A, "R", 30)],
+        ["RRR", "epilog", None, lambda A: doturn(A, "R", 90)],
+        ["RR", "epilog", None, lambda A: doturn(A, "R", 60)],
+        ["R", "epilog", None, lambda A: doturn(A, "R", 30)],
+        ["AAGN", "epilog", None, lambda A: doattack(A, "guns")],
+        ["AARK", "epilog", None, lambda A: doattack(A, "rockets")],
+        ["S", "FP", None, lambda A: dostationary(A)],
+        ["H", "FP", None, lambda A: dohorizontal(A)],
+        ["C1", "FP", None, lambda A: doclimb(A, 1)],
+        ["C2", "FP", None, lambda A: doclimb(A, 2)],
+        ["CC", "FP", None, lambda A: doclimb(A, 2)],
+        ["C", "FP", None, lambda A: doclimb(A, 1)],
+        ["D1", "FP", None, lambda A: dodive(A, 1)],
+        ["D2", "FP", None, lambda A: dodive(A, 2)],
+        ["D3", "FP", None, lambda A: dodive(A, 3)],
+        ["DDD", "FP", None, lambda A: dodive(A, 3)],
+        ["DD", "FP", None, lambda A: dodive(A, 2)],
+        ["D", "FP", None, lambda A: dodive(A, 1)],
     ]
 
     ########################################
 
-    def doaction(action):
-        """
-        Carry out an action for special flight.
-        """
+    A._maxfp = len(tasks.split(","))
 
     A._logposition("start")
-    A._logaction("", action)
 
-    initialaltitude = A.altitude()
-    initialaltitudeband = A.altitudeband()
-
-    while action != "":
-
-        for element in elementdispatchlist:
-
-            elementcode = element[0]
-            elementprocedure = element[1]
-
-            if (
-                len(elementcode) <= len(action)
-                and elementcode == action[: len(elementcode)]
-            ):
-                elementprocedure()
-                action = action[len(elementcode) :]
-                A._checkforterraincollision()
-                A._checkforleavingmap()
-                if A._destroyed or A._leftmap:
-                    return
-                break
-
-        else:
-
-            raise RuntimeError("invalid action %r." % action)
+    apflight.dotasks(A, tasks, taskdispatchlist, start=True)
 
     A._lognote(note)
 
     A._logposition("end")
-    A._extendpath()
-
-    if initialaltitudeband != A.altitudeband():
-        A._logevent(
-            "altitude band changed from %s to %s."
-            % (initialaltitudeband, A.altitudeband())
-        )
 
     if not A._destroyed and not A._leftmap:
         if A._altitudecarry != 0:

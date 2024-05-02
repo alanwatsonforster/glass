@@ -249,7 +249,7 @@ def checkflight(A):
 ################################################################################
 
 
-def continueflight(A, tasks, note=False):
+def continueflight(A, tasks, start=False, note=False):
     """
     Continue to carry out out normal flight.
     """
@@ -306,6 +306,7 @@ def continueflight(A, tasks, note=False):
                 elif A._unloadedhfp == math.floor(A._maxfp / 2):
                     altitudechange = 1
                 elif A._unloadedhfp == math.floor(A._maxfp):
+                    altitudechange = 1
                     altitudechange = 1
             else:
                 altitudechange = 1
@@ -1344,7 +1345,12 @@ def continueflight(A, tasks, note=False):
     previousflighttype = A._previousflighttype
 
     apflight.dotasks(
-        A, tasks, actiondispatchlist, afterFP=_afterFP, aftertask=_aftertask
+        A,
+        tasks,
+        actiondispatchlist,
+        start=start,
+        afterFP=_afterFP,
+        aftertask=_aftertask,
     )
 
     A._lognote(note)
@@ -1793,43 +1799,6 @@ def startflight(A, actions, note=False):
     flighttype = A._flighttype
     previousflighttype = A._previousflighttype
 
-    # The number of FPs, HFPs, and VFPs used and the number of FPs lost to
-    # speedbrakes. They are used to ensure that the right mix of HFPs and
-    # VFPs are used and to determine when the turn ends.
-
-    A._fp = 0
-    A._hfp = 0
-    A._vfp = 0
-    A._spbrfp = 0
-
-    # The number of unloaded HFPs and the indices of the first and last
-    # unloaded HFPs in an UD. They are then used to ensure that the
-    # unloaded HFPs are continuous.
-
-    A._unloadedhfp = 0
-    A._firstunloadedfp = None
-    A._lastunloadedfp = None
-
-    # Whether the aircraft has used a superclimb (C3).
-    A._usedsuperclimb = False
-
-    # The aircraft being tracked and the number of FPs expended
-    # while tracking.
-
-    A._tracking = None
-    A._trackingfp = 0
-
-    # This keeps track of the number of turns, rolls, and vertical rolls.
-
-    A._turnmaneuvers = 0
-    A._rollmaneuvers = 0
-    A._verticalrolls = 0
-
-    # The number of slides performed and the FP of the last last performed.
-
-    A._slides = 0
-    A._slidefp = 0
-
     reportapcarry()
     reportaltitudecarry()
     determineallowedturnrates()
@@ -1841,7 +1810,7 @@ def startflight(A, actions, note=False):
 
     A._logpositionandmaneuver("start")
 
-    continueflight(A, actions, note=note)
+    continueflight(A, actions, start=True, note=note)
 
 
 ################################################################################
