@@ -111,8 +111,7 @@ def move(
         A._apcarry = 0
         A._turnsstalled = 0
         A._turnsdeparted = 0
-        dospecialflight(A, tasks, note=note)
-        endmove(A)
+        startspecialflight(A, tasks, note=note)
 
     elif A._flighttype == "ST":
 
@@ -152,16 +151,12 @@ def continuemove(A, tasks="", note=False):
     Continue a move that has been started, possible carrying out some tasks.
     """
 
-    if (
-        not A._destroyed
-        and not A._leftmap
-        and A._flighttype != "ST"
-        and A._flighttype != "DP"
-        and A._flighttype != "SP"
-    ):
-        continuenormalflight(A, tasks, note=note)
-    else:
+    if A._destroyed or A._leftmap or A._flighttype == "ST" or A._flighttype == "DP":
         A._lognote(note)
+    elif A._flighttype == "SP":
+        continuespecialflight(A, tasks, note=note)
+    else:
+        continuenormalflight(A, tasks, note=note)
     A._logline()
 
 
@@ -425,7 +420,7 @@ def checkspecialflight(A):
 ################################################################################
 
 
-def startnormalflight(A, actions, note=False):
+def startnormalflight(A, tasks, note=False):
     """
     Start to carry out normal flight.
     """
@@ -861,7 +856,20 @@ def startnormalflight(A, actions, note=False):
 
     A._logpositionandmaneuver("start")
 
-    continuenormalflight(A, actions, start=True, note=note)
+    continuenormalflight(A, tasks, start=True, note=note)
+
+
+########################################
+
+
+def startspecialflight(A, tasks, note=False):
+
+    A._maxfp = A.speed()
+    A._logevent("has %.1f FPs." % A._maxfp)
+
+    A._logpositionandmaneuver("start")
+
+    continuespecialflight(A, tasks, start=True, note=note)
 
 
 ################################################################################
@@ -1265,9 +1273,9 @@ def continuenormalflight(A, tasks, start=False, note=False):
 ########################################
 
 
-def dospecialflight(A, tasks, note=False):
+def continuespecialflight(A, tasks, start=False, note=False):
     """
-    Carry out out special flight.
+    Continue to carry out out special flight.
     """
 
     ########################################
@@ -1375,21 +1383,19 @@ def dospecialflight(A, tasks, note=False):
 
     ########################################
 
-    A._maxfp = len(tasks.split(","))
-
-    A._logposition("start")
-
-    apflight.dotasks(A, tasks, taskdispatchlist, start=True)
+    apflight.dotasks(A, tasks, taskdispatchlist, start=start)
 
     A._lognote(note)
-
-    A._logposition("end")
 
     if not A._destroyed and not A._leftmap:
         if A._altitudecarry != 0:
             A._logend("is carrying %.2f altitude levels." % A._altitudecarry)
 
     A._newspeed = A.speed()
+
+    if A._destroyed or A._leftmap or A._fp + 1 > A._maxfp:
+
+        endmove(A)
 
 
 ################################################################################
