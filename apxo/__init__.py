@@ -38,7 +38,7 @@ def startgamesetup(scenario, sheets=None, north="up", variants=[], **kwargs):
 
         apgameturn.startgamesetup()
 
-        aplog.log("start of set-up.")
+        aplog.log("start of game set-up.")
         aplog.logbreak()
 
         apvariants.setvariants(variants)
@@ -77,7 +77,7 @@ def endgamesetup():
         apelement._endgamesetup()
 
         aplog.logbreak()
-        aplog.log("end of set-up.")
+        aplog.log("end of game set-up.")
 
         apgameturn.endgamesetup()
 
@@ -98,7 +98,7 @@ def startgameturn(note=False):
 
         apgameturn.startgameturn()
 
-        aplog.log("start of turn.")
+        aplog.log("start of game turn.")
 
         apelement._startgameturn()
 
@@ -127,7 +127,7 @@ def endgameturn(note=False):
         apelement._endgameturn()
 
         aplog.logbreak()
-        aplog.log("end of turn.")
+        aplog.log("end of game turn.")
         aplog.lognote(None, note)
 
         apgameturn.endgameturn()
