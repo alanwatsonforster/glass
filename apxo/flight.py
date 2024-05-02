@@ -12,20 +12,23 @@ import re
 ################################################################################
 
 
-def dotasks(E, tasks, actiondispatchlist):
+def dotasks(E, tasks, actiondispatchlist, afterFP=None, aftertask=None):
+    """
+    Carry out flight tasks.
+    """
 
     if tasks != "":
         for task in tasks.split(","):
             if not E._destroyed and not E._leftmap:
-                dotask(E, task, actiondispatchlist)
+                dotask(E, task, actiondispatchlist, afterFP, aftertask)
 
 
 ################################################################################
 
 
-def dotask(E, task, actiondispatchlist):
+def dotask(E, task, actiondispatchlist, afterFP, aftertask):
     """
-    Carry out an task for normal flight.
+    Carry out a flight task.
     """
 
     E._log1("FP %d" % (E._fp + 1), task)
@@ -111,8 +114,8 @@ def dotask(E, task, actiondispatchlist):
         if E._hasturned and E._maneuversupersonic:
             E._turningsupersonic = True
 
-        _checkrecovery(E)
-        _checktracking(E)
+        if afterFP is not None:
+            afterFP(E)
 
         remainingtask = doactions(E, remainingtask, actiondispatchlist, "epilog")
 
@@ -138,18 +141,20 @@ def dotask(E, task, actiondispatchlist):
             E._logpositionandmaneuver("")
         E._extendpath()
 
-    _aftertask(E)
-
     if E._taskaltitudeband != E.altitudeband():
         E._logevent(
             "altitude band changed from %s to %s."
             % (E._taskaltitudeband, E.altitudeband())
         )
 
-    E._checkforterraincollision()
-    E._checkforleavingmap()
     if E._destroyed or E._leftmap:
         return
+
+    E._checkforterraincollision()
+    E._checkforleavingmap()
+
+    if aftertask is not None:
+        aftertask(E)
 
 
 ################################################################################
@@ -226,180 +231,6 @@ def _isslide(maneuvertype):
     """
 
     return maneuvertype == "SL"
-
-
-################################################################################
-
-
-def _aftertask(A):
-
-    # See rules 7.7 and 8.5.
-    if A._hasmaneuvered and A._hasrolled:
-        if A._taskaltitude > apcapabilities.ceiling(A):
-            A._logevent(
-                "check for a maneuvering departure as the aircraft is above its ceiling and attempted to roll."
-            )
-        elif A._taskaltitudeband == "EH" or A._taskaltitudeband == "UH":
-            A._logevent(
-                "check for a maneuvering departure as the aircraft is in the %s altitude band and attempted to roll."
-                % A._taskaltitudeband
-            )
-
-    # See rules 7.7 and 8.5.
-    if A._hasmaneuvered and A._hasturned:
-        if (
-            A._taskaltitude > apcapabilities.ceiling(A)
-            and A._taskmaneuvertype != "EZ"
-        ):
-            A._logevent(
-                "check for a maneuvering departure as the aircraft is above its ceiling and attempted to turn harder than EZ."
-            )
-        if A._taskmaneuvertype == "ET" and A._taskaltitude <= 25:
-            A._gloccheck += 1
-            A._logevent(
-                "check for GLOC as turn rate is ET and altitude band is %s (check %d in cycle)."
-                % (A._taskaltitudeband, A._gloccheck)
-            )
-
-    # See rule 7.8.
-    if A._hasturned and apcloseformation.size(A) != 0:
-        if (
-            (apcloseformation.size(A) > 2 and A._taskmaneuvertype == "HT")
-            or A._taskmaneuvertype == "BT"
-            or A._taskmaneuvertype == "ET"
-        ):
-            A._logevent(
-                "close formation breaks down as the turn rate is %s."
-                % A._taskmaneuvertype
-            )
-            apcloseformation.breakdown(A)
-
-    # See rule 13.7, interpreted in the same sense as rule 7.8.
-    if A._hasrolled and apcloseformation.size(A) != 0:
-        A._logevent("close formation breaks down aircraft is rolling.")
-        apcloseformation.breakdown(A)
-
-
-def _checkrecovery(A):
-
-    # See rules 9.1 and 13.3.6. The +1 is because the recovery period is
-    # this turn plus half of the speed, rounding down.
-
-    if A._hasunloaded:
-        A._unloadedrecoveryfp = int(A.speed() / 2) + 1
-        A._ETrecoveryfp -= 1
-        A._BTrecoveryfp = -1
-        A._rollrecoveryfp = -1
-        A._HTrecoveryfp = -1
-        A._TTrecoveryfp = -1
-    elif A._maneuvertype == "ET":
-        A._unloadedrecoveryfp = -1
-        A._ETrecoveryfp = int(A.speed() / 2) + 1
-        A._BTrecoveryfp = -1
-        A._rollrecoveryfp = -1
-        A._HTrecoveryfp = -1
-        A._TTrecoveryfp = -1
-    elif A._maneuvertype == "BT":
-        A._unloadedrecoveryfp -= 1
-        A._ETrecoveryfp -= 1
-        A._BTrecoveryfp = int(A.speed() / 2) + 1
-        A._rollrecoveryfp = -1
-        A._HTrecoveryfp = -1
-        A._TTrecoveryfp = -1
-    elif A._maneuvertype in ["VR", "LR", "DR"] or (A._hrd and A._fp == 1):
-        A._unloadedrecoveryfp -= 1
-        A._ETrecoveryfp -= 1
-        A._BTrecoveryfp = -1
-        A._rollrecoveryfp = int(A.speed() / 2) + 1
-        A._HTrecoveryfp = -1
-        A._TTrecoveryfp = -1
-    elif A._maneuvertype == "HT":
-        A._unloadedrecoveryfp -= 1
-        A._ETrecoveryfp -= 1
-        A._BTrecoveryfp -= 1
-        A._rollrecoveryfp -= 1
-        A._HTrecoveryfp = int(A.speed() / 2) + 1
-        A._TTrecoveryfp = -1
-    elif A._maneuvertype == "TT":
-        A._unloadedrecoveryfp -= 1
-        A._ETrecoveryfp -= 1
-        A._BTrecoveryfp -= 1
-        A._rollrecoveryfp -= 1
-        A._HTrecoveryfp -= 1
-        A._TTrecoveryfp = int(A.speed() / 2) + 1
-        A._unloadedrecoveryfp -= 1
-    else:
-        A._unloadedrecoveryfp -= 1
-        A._ETrecoveryfp -= 1
-        A._BTrecoveryfp -= 1
-        A._rollrecoveryfp -= 1
-        A._HTrecoveryfp -= 1
-        A._TTrecoveryfp -= 1
-
-    if A._ETrecoveryfp == 0:
-        A._logevent("recovered from ET.")
-    if A._BTrecoveryfp == 0:
-        A._logevent("recovered from BT.")
-    if A._rollrecoveryfp == 0:
-        A._logevent("recovered from roll.")
-    if A._HTrecoveryfp == 0:
-        A._logevent("recovered from HT.")
-    if A._TTrecoveryfp == 0:
-        A._logevent("recovered from TT.")
-
-
-################################################################################
-
-
-def _checktracking(A):
-
-    # See rule 9.4.
-    if A._tracking:
-        if useofweaponsforbidden(A):
-            A._logevent("stopped SSGT.")
-            A._tracking = None
-            A._trackingfp = 0
-        elif apairtoair.trackingforbidden(A, A._tracking):
-            A._logevent(
-                "stopped SSGT as %s" % apairtoair.trackingforbidden(A, A._tracking)
-            )
-            A._tracking = None
-            A._trackingfp = 0
-        else:
-            A._trackingfp += 1
-
-
-################################################################################
-
-
-def useofweaponsforbidden(A):
-
-    # See rule 8.2.2.
-    if A._unloadedhfp:
-        return "while unloaded"
-    if A._unloadedrecoveryfp > 0:
-        return "while recovering from being unloaded"
-
-    # See rule 10.1.
-    if A._maneuvertype == "ET":
-        return "while in an ET"
-
-    if A._ETrecoveryfp > 0:
-        return "while recovering from an ET"
-
-    # See rule 13.3.5.
-    if A._hrd:
-        return "after HRD"
-
-    # See rule 13.3.6.
-    if A._hasrolled and A._hasmaneuvered:
-        return "immediately after rolling"
-
-    # See rule 13.3.6.
-    if A._hasrolled:
-        return "while rolling"
-
-    return False
 
 
 ################################################################################
