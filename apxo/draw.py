@@ -550,7 +550,7 @@ def drawpath(x, y, facing, altitude, color, zorder, annotate=True):
             color=pathcolor,
             linewidth=pathlinewidth,
             linestyle=pathlinestyle,
-            zorder=0.1,
+            zorder=zorder,
         )
         drawdot(
             x[0],
