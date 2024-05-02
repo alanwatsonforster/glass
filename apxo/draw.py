@@ -567,11 +567,11 @@ def drawpath(x, y, facing, altitude, color, zorder, annotate=True):
                 y[0],
                 facing[0],
                 "%02d" % altitude[0],
-                dx=+0.08,
+                dx=-0.08,
                 dy=0.0,
                 size=aircrafttextsize,
                 color=textcolor,
-                alignment="left",
+                alignment="right",
                 zorder=zorder,
             )
 
@@ -607,7 +607,7 @@ def drawaircraft(x, y, facing, color, name, altitude, speed, flighttype, zorder)
             zorder=zorder,
         )
     else:
-        textdx = 0.10
+        textdx = 0.08
         textdy = 0.15
         drawdart(
             x,
@@ -624,8 +624,20 @@ def drawaircraft(x, y, facing, color, name, altitude, speed, flighttype, zorder)
             y,
             facing,
             name,
-            dx=-textdx,
+            dx=+textdx,
             dy=0,
+            size=aircrafttextsize,
+            color=textcolor,
+            alignment="left",
+            zorder=zorder,
+        )
+        drawtext(
+            x,
+            y,
+            facing,
+            flighttype[:2],
+            dx=-textdx,
+            dy=+textdy,
             size=aircrafttextsize,
             color=textcolor,
             alignment="right",
@@ -635,24 +647,12 @@ def drawaircraft(x, y, facing, color, name, altitude, speed, flighttype, zorder)
             x,
             y,
             facing,
-            flighttype[:2],
-            dx=+textdx,
-            dy=+textdy,
-            size=aircrafttextsize,
-            color=textcolor,
-            alignment="left",
-            zorder=zorder,
-        )
-        drawtext(
-            x,
-            y,
-            facing,
             altitudetext,
-            dx=+textdx,
+            dx=-textdx,
             dy=0,
             size=aircrafttextsize,
             color=textcolor,
-            alignment="left",
+            alignment="right",
             zorder=zorder,
         )
         speedtext = "%.1f" % speed
@@ -661,11 +661,11 @@ def drawaircraft(x, y, facing, color, name, altitude, speed, flighttype, zorder)
             y,
             facing,
             speedtext,
-            dx=+textdx,
+            dx=-textdx,
             dy=-textdy,
             size=aircrafttextsize,
             color=textcolor,
-            alignment="left",
+            alignment="right",
             zorder=zorder,
         )
 
@@ -701,7 +701,7 @@ def drawmissile(x, y, facing, color, name, altitude, speed, zorder):
             zorder=zorder,
         )
     else:
-        textdx = 0.10
+        textdx = 0.08
         drawdart(
             x,
             y,
@@ -717,11 +717,11 @@ def drawmissile(x, y, facing, color, name, altitude, speed, zorder):
             y,
             facing,
             name,
-            dx=-textdx,
+            dx=+textdx,
             dy=0,
             size=aircrafttextsize,
             color=textcolor,
-            alignment="right",
+            alignment="left",
             zorder=zorder,
         )
         drawtext(
@@ -729,11 +729,11 @@ def drawmissile(x, y, facing, color, name, altitude, speed, zorder):
             y,
             facing,
             altitudetext,
-            dx=+textdx,
+            dx=-textdx,
             dy=0,
             size=aircrafttextsize,
             color=textcolor,
-            alignment="left",
+            alignment="right",
             zorder=zorder,
         )
 
