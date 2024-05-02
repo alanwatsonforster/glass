@@ -74,7 +74,7 @@ def move(
     A._othermaneuversap = 0
 
     # These keep track of the maximum turn rate used in the turn, the
-    # number of roll maneuvers, and the effective cliumb capability
+    # number of roll maneuvers, and the effective climb capability
     # (the climb capability at the moment the first VFP is used).
     # Again, they are used to calculate the final speed.
 
@@ -867,6 +867,9 @@ def startspecialflight(A, tasks, note=False):
     A._maxfp = A.speed()
     A._logevent("has %.1f FPs." % A._maxfp)
 
+    A._effectiveclimbcapability = apcapabilities.specialclimbcapability(A)
+    A._logevent("effective climb capability is %.2f." % A._effectiveclimbcapability)
+
     A._logpositionandmaneuver("start")
 
     continuespecialflight(A, tasks, start=True, note=note)
@@ -1286,32 +1289,6 @@ def continuespecialflight(A, tasks, start=False, note=False):
         """
 
         A._fp += 1
-
-    ########################################
-
-    def doclimb(A, altitudechange):
-        """
-        Climb.
-        """
-
-        if altitudechange == 1:
-            altitudechange = apcapabilities.specialclimbcapability(A)
-
-        A._moveclimb(altitudechange)
-        A._fp += 1
-        A._vfp += 1
-
-    ########################################
-
-    def dodive(A, altitudechange):
-        """
-        Dive.
-        """
-
-        A._setaltitudecarry(0)
-        A._movedive(altitudechange)
-        A._fp += 1
-        A._vfp += 1
 
     ########################################
 
@@ -1781,7 +1758,12 @@ def doclimb(A, altitudechange):
 
         climbcapability = A._effectiveclimbcapability
 
-        if A._flighttype == "ZC":
+        if A._flighttype == "SP":
+
+            if altitudechange == 1:
+                altitudechange = climbcapability
+
+        elif A._flighttype == "ZC":
 
             # See rule 8.1.1.
             if altitudechange == 2:
@@ -1822,7 +1804,7 @@ def doclimb(A, altitudechange):
 
         return altitudechange
 
-    if A._hfp < A._mininitialhfp:
+    if A._flighttype != "SP" and A._hfp < A._mininitialhfp:
         raise RuntimeError("insufficient initial HFPs.")
 
     altitudechange = determinealtitudechange(altitudechange)
@@ -1850,7 +1832,11 @@ def dodive(A, altitudechange):
 
         assert altitudechange == 1 or altitudechange == 2 or altitudechange == 3
 
-        if A._flighttype == "SD":
+        if A._flighttype == "SP":
+
+            pass
+
+        elif A._flighttype == "SD":
 
             # See rule 8.2.1.
             if altitudechange != 1 and altitudechange != 2:
@@ -1895,7 +1881,7 @@ def dodive(A, altitudechange):
 
     checkaltitudechange()
 
-    if A._hfp < A._mininitialhfp:
+    if A._flighttype != "SP" and A._hfp < A._mininitialhfp:
         raise RuntimeError("insufficient initial HFPs.")
 
     A._vertical = True
