@@ -580,11 +580,17 @@ def drawaircraft(x, y, facing, color, name, altitude, speed, flighttype, zorder)
     if color is None:
         fillcolor = aircraftdestroyedfillcolor
         linecolor = aircraftdestroyedlinecolor
+        nametext = ""
         altitudetext = ""
+        speedtext = ""
+        flighttypetext = ""
     else:
         fillcolor = color
         linecolor = aircraftlinecolor
+        nametext =name
         altitudetext = "%2d" % altitude
+        speedtext = "%.1f" % speed
+        flighttypetext = flighttype[:2]
     if apvariants.withvariant("draw counters"):
         drawsquare(
             x,
@@ -623,7 +629,7 @@ def drawaircraft(x, y, facing, color, name, altitude, speed, flighttype, zorder)
             x,
             y,
             facing,
-            name,
+            nametext,
             dx=+textdx,
             dy=0,
             size=aircrafttextsize,
@@ -635,7 +641,7 @@ def drawaircraft(x, y, facing, color, name, altitude, speed, flighttype, zorder)
             x,
             y,
             facing,
-            flighttype[:2],
+            flighttypetext,
             dx=-textdx,
             dy=+textdy,
             size=aircrafttextsize,
@@ -655,7 +661,6 @@ def drawaircraft(x, y, facing, color, name, altitude, speed, flighttype, zorder)
             alignment="right",
             zorder=zorder,
         )
-        speedtext = "%.1f" % speed
         drawtext(
             x,
             y,
