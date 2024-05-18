@@ -76,7 +76,7 @@ class missile(apelement.element):
     #############################################################################
 
     def _draw(self):
-        self._drawpath(self._color, self.zorder(), annotate=False)
+        self._drawpath(self._color, annotate=False)
         apdraw.drawmissile(
             self.x(),
             self.y(),
@@ -85,7 +85,6 @@ class missile(apelement.element):
             self._name,
             self.altitude(),
             self.speed(),
-            self.zorder(),
         )
 
     ########################################

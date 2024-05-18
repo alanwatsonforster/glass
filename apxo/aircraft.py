@@ -606,7 +606,6 @@ class aircraft(apelement.element):
 
     def hasbeenkilled(self):
         apgameturn.checkingameturn()
-        self._drawontop()
         self._log("has been killed.")
         self._destroyed = True
         self._color = None
@@ -662,7 +661,7 @@ class aircraft(apelement.element):
             color = None
         else:
             color = self._color
-        self._drawpath(color, self.zorder())
+        self._drawpath(color)
         apdraw.drawaircraft(
             self.x(),
             self.y(),
@@ -672,7 +671,6 @@ class aircraft(apelement.element):
             self.altitude(),
             self.speed(),
             self._flighttype,
-            self.zorder(),
         )
 
     ################################################################################
@@ -688,7 +686,6 @@ class aircraft(apelement.element):
     ################################################################################
 
     def joincloseformation(self, other):
-        self._drawontop()
         aplog.clearerror()
         try:
             apcloseformation.join(self, other)
@@ -696,7 +693,6 @@ class aircraft(apelement.element):
             aplog.logexception(e)
 
     def leavecloseformation(self):
-        self._drawontop()
         aplog.clearerror()
         try:
             apcloseformation.leave(self)
@@ -720,7 +716,6 @@ class aircraft(apelement.element):
     ################################################################################
 
     def takedamage(self, damage, note=False):
-        self._drawontop()
         aplog.clearerror()
         try:
             apdamage.takedamage(self, damage)

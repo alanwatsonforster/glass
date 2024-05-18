@@ -18,7 +18,6 @@ import apxo.speed as apspeed
 ##############################################################################
 
 _elementlist = []
-_zorder = 0
 
 
 def _startgamesetup():
@@ -163,8 +162,6 @@ class element:
         self._color = color
         self._removed = False
 
-        self._drawontop()
-
         _elementlist.append(self)
 
     ############################################################################
@@ -295,9 +292,6 @@ class element:
     def color(self):
         return self._color
 
-    def zorder(self):
-        return self._zorder
-
     def removed(self):
         return self._removed
 
@@ -321,7 +315,6 @@ class element:
         aplog.clearerror()
         try:
             apgameturn.checkingameturn()
-            self._drawontop()
             self._move(*args, **kwargs)
         except RuntimeError as e:
             aplog.logexception(e)
@@ -333,7 +326,6 @@ class element:
         aplog.clearerror()
         try:
             apgameturn.checkingameturn()
-            self._drawontop()
             self._continuemove(*args, **kwargs)
         except RuntimeError as e:
             aplog.logexception(e)
@@ -392,15 +384,8 @@ class element:
     def _extendpath(self):
         self._path.extend(self.x(), self.y(), self.facing(), self.altitude())
 
-    def _drawpath(self, color, zorder, annotate=True):
-        self._path.draw(color, zorder, annotate=annotate)
-
-    ############################################################################
-
-    def _drawontop(self):
-        global _zorder
-        _zorder += 1
-        self._zorder = _zorder
+    def _drawpath(self, color, annotate=True):
+        self._path.draw(color, annotate=annotate)
 
     ############################################################################
 

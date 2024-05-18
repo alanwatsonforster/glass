@@ -538,7 +538,7 @@ aircraftlinewidth = 1
 textcolor = (0.00, 0.00, 0.00)
 
 
-def drawpath(x, y, facing, altitude, color, zorder, annotate=True):
+def drawpath(x, y, facing, altitude, color, annotate=True):
     if color is None:
         fillcolor = aircraftdestroyedfillcolor
     else:
@@ -550,8 +550,9 @@ def drawpath(x, y, facing, altitude, color, zorder, annotate=True):
             color=pathcolor,
             linewidth=pathlinewidth,
             linestyle=pathlinestyle,
-            zorder=zorder,
+            zorder=0,
         )
+        zorder = altitude[0]
         drawdot(
             x[0],
             y[0],
@@ -576,7 +577,8 @@ def drawpath(x, y, facing, altitude, color, zorder, annotate=True):
             )
 
 
-def drawaircraft(x, y, facing, color, name, altitude, speed, flighttype, zorder):
+def drawaircraft(x, y, facing, color, name, altitude, speed, flighttype):
+    zorder = altitude + 1
     if color is None:
         fillcolor = aircraftdestroyedfillcolor
         linecolor = aircraftdestroyedlinecolor
@@ -587,7 +589,7 @@ def drawaircraft(x, y, facing, color, name, altitude, speed, flighttype, zorder)
     else:
         fillcolor = color
         linecolor = aircraftlinecolor
-        nametext =name
+        nametext = name
         altitudetext = "%2d" % altitude
         speedtext = "%.1f" % speed
         flighttypetext = flighttype[:2]
@@ -675,7 +677,8 @@ def drawaircraft(x, y, facing, color, name, altitude, speed, flighttype, zorder)
         )
 
 
-def drawmissile(x, y, facing, color, name, altitude, speed, zorder):
+def drawmissile(x, y, facing, color, name, altitude, speed):
+    zorder = altitude + 1
     if color is None:
         fillcolor = aircraftdestroyedfillcolor
         linecolor = aircraftdestroyedlinecolor

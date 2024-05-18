@@ -18,14 +18,13 @@ class path:
         self._facing.append(facing)
         self._altitude.append(altitude)
 
-    def draw(self, color, zorder, annotate=True):
+    def draw(self, color, annotate=True):
         apdraw.drawpath(
             self._x,
             self._y,
             self._facing,
             self._altitude,
             color,
-            zorder,
             annotate=annotate,
         )
 

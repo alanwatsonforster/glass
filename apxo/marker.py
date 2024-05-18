@@ -54,16 +54,23 @@ class marker(apelement.element):
         if self._removed:
             return
 
+        zorder = self.altitude() + 1
         if self._type == "dot":
 
-            apdraw.drawdot(*self.xy(), size=0.1, fillcolor=self.color())
+            apdraw.drawdot(*self.xy(), size=0.1, fillcolor=self.color(), zorder=zorder)
 
         elif self._type == "circle":
 
             apdraw.drawcircle(
                 *self.xy(), size=0.65, linecolor=self.color(), linewidth=2
             )
-            apdraw.drawtext(*self.xy(), self.facing(), self.name(), color=self.color())
+            apdraw.drawtext(
+                *self.xy(),
+                self.facing(),
+                self.name(),
+                color=self.color(),
+                zorder=zorder
+            )
 
         elif self._type == "square":
 
@@ -72,6 +79,7 @@ class marker(apelement.element):
                 size=0.65,
                 linecolor=self.color(),
                 linewidth=2,
-                facing=self.facing()
+                facing=self.facing(),
+                zorder=zorder
             )
             apdraw.drawtext(*self.xy(), self.facing(), self.name(), color=self.color())
