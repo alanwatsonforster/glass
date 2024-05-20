@@ -746,6 +746,42 @@ def drawmissile(x, y, facing, color, name, altitude, speed):
         )
 
 
+def drawgroundunit(x, y, type, color, name):
+    zorder = 0
+    if color is None:
+        fillcolor = aircraftdestroyedfillcolor
+        linecolor = aircraftdestroyedlinecolor
+        nametext = ""
+    else:
+        fillcolor = color
+        linecolor = aircraftlinecolor
+        nametext = name
+    textdx = 0.0
+    textdy = 0.0
+    drawsquare(
+        x,
+        y,
+        facing=45,
+        size=0.7,
+        linecolor="black",
+        linewidth=2,
+        fillcolor=color,
+        zorder=zorder,
+    )
+    drawtext(
+        x,
+        y,
+        90,
+        nametext,
+        dx=+textdx,
+        dy=0,
+        size=aircrafttextsize,
+        color=textcolor,
+        alignment="center",
+        zorder=zorder,
+    )
+
+
 ################################################################################
 
 # I determine colors from images using the Digital Color Meter on macOS. I use

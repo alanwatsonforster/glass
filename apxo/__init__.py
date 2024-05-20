@@ -3,6 +3,7 @@ import apxo.aircraft as apaircraft
 import apxo.draw as apdraw
 import apxo.element as apelement
 import apxo.gameturn as apgameturn
+import apxo.groundunit as apgroundunit
 import apxo.log as aplog
 import apxo.map as apmap
 import apxo.order as aporder
@@ -21,6 +22,7 @@ __all__ = [
     "orderofflightdeterminationphase",
     "drawmap",
     "aircraft",
+    "groundunit",
     "marker",
     "missile",
 ]
@@ -263,5 +265,6 @@ def drawmap(
 ################################################################################
 
 from apxo.aircraft import aircraft
+from apxo.groundunit import groundunit
 from apxo.marker import marker
 from apxo.missile import missile

@@ -142,14 +142,14 @@ class element:
         if not aphex.isvalid(x, y, facing):
             raise RuntimeError("the combination of hexcode and facing are not valid.")
 
-        if not apaltitude.isvalidaltitude(altitude):
+        if altitude is not None and not apaltitude.isvalidaltitude(altitude):
             raise RuntimeError("the altitude argument is not valid.")
 
         self._x = x
         self._y = y
         self._facing = facing
         self._altitude = altitude
-        self._altitudeband = apaltitude.altitudeband(self._altitude)
+        self._altitudeband = apaltitude.altitudeband(self.altitude())
         self._altitudecarry = 0
 
         if not apspeed.isvalidspeed(speed):
@@ -266,7 +266,10 @@ class element:
         return apazimuth.fromfacing(self.facing())
 
     def altitude(self):
-        return self._altitude
+        if self._altitude is None:
+            return apaltitude.terrainaltitude(self.x(), self.y())
+        else:
+            return self._altitude
 
     def altitudeband(self):
         return self._altitudeband
