@@ -9,7 +9,7 @@ class groundunit(apelement.element):
 
     ############################################################################
 
-    def __init__(self, name, type, hexcode, color="black"):
+    def __init__(self, name, hexcode, symbol="", color="black"):
 
         aplog.clearerror()
         try:
@@ -22,7 +22,7 @@ class groundunit(apelement.element):
                 color=color,
             )
 
-            self._type = type
+            self._symbol = symbol
             self._removed = False
 
         except RuntimeError as e:
@@ -48,4 +48,4 @@ class groundunit(apelement.element):
         if self._removed:
             return
 
-        apdraw.drawgroundunit(*self.xy(), self._type, self.color(), self.name())
+        apdraw.drawgroundunit(*self.xy(), self._symbol, self.color(), self.name())
