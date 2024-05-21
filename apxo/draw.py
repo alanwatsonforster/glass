@@ -751,11 +751,11 @@ groundunitdx = 0.6
 groundunitdy = 0.4
 
 
-def drawgroundunit(x, y, type, color, name):
-    _drawgroundunitinphysical(*aphex.tophysical(x, y), type, color, name)
+def drawgroundunit(x, y, type, color, name, designation):
+    _drawgroundunitinphysical(*aphex.tophysical(x, y), type, color, name, designation)
 
 
-def _drawgroundunitinphysical(x, y, symbol, color, name):
+def _drawgroundunitinphysical(x, y, symbol, color, name, designation):
 
     zorder = 0
 
@@ -853,10 +853,13 @@ def _drawgroundunitinphysical(x, y, symbol, color, name):
         def airdefencey(theta):
             return y - groundunitdy / 2 + fy * groundunitdy * sind(theta)
 
-        _drawlinesinphysical(
-            list([airdefencex(theta) for theta in theta]),
-            list([airdefencey(theta) for theta in theta]),
-            color="black",
+        _drawpolygoninphysical(
+            list(zip(
+              list([airdefencex(theta) for theta in theta]),
+              list([airdefencey(theta) for theta in theta])
+            )),
+            linecolor="black",
+            fillcolor=color,
             linewidth=groundunitlinewidth,
             zorder=zorder,
         )
@@ -909,7 +912,7 @@ def _drawgroundunitinphysical(x, y, symbol, color, name):
 
     def drawmissilesymbol():
         fx = 0.075
-        fy0 = 0.25
+        fy0 = 0.0
         fy1 = 0.70
         theta = range(0, 181)
 
@@ -1094,8 +1097,39 @@ def _drawgroundunitinphysical(x, y, symbol, color, name):
             zorder=zorder,
         )
 
+    def drawlimitedwheeledsymbol():
+        fx = 0.20
+        fy = 0.15
+        ry = 0.05
+        _drawcircleinphysical(
+            x - fx * groundunitdx,
+            y + (fy - 0.5) * groundunitdy,
+            2 * ry * groundunitdy,
+            linecolor="black",
+            linewidth=groundunitlinewidth,
+            zorder=zorder,
+        )
+        _drawcircleinphysical(
+            x + fx * groundunitdx,
+            y + (fy - 0.5) * groundunitdy,
+            2 * ry * groundunitdy,
+            linecolor="black",
+            linewidth=groundunitlinewidth,
+            zorder=zorder,
+        )
+
     def drawsupplysymbol():
         fy = 0.25
+        _drawlinesinphysical(
+            [x - 0.5 * groundunitdx, x + 0.5 * groundunitdx],
+            [y + (fy - 0.5) * groundunitdy, y + (fy - 0.5) * groundunitdy],
+            color="black",
+            linewidth=groundunitlinewidth,
+            zorder=zorder,
+        )
+
+    def drawheadquartersymbol():
+        fy = 0.75
         _drawlinesinphysical(
             [x - 0.5 * groundunitdx, x + 0.5 * groundunitdx],
             [y + (fy - 0.5) * groundunitdy, y + (fy - 0.5) * groundunitdy],
@@ -1126,6 +1160,139 @@ def _drawgroundunitinphysical(x, y, symbol, color, name):
                 zorder=zorder,
             )
 
+    def drawlocomotivesymbol():
+        fx = 0.25
+        fy = 0.25
+        dx = fx * groundunitdx
+        dy = fy * groundunitdy
+        _drawpolygoninphysical(
+            [
+              [x - dx, y - dy],
+              [x - dx, y + dy],
+              [x, y + dy],
+              [x, y],
+              [x + dx, y],
+              [x + dx, y - dy]
+            ],
+            linecolor="black",
+            linewidth=groundunitlinewidth,
+            zorder=zorder,
+        )
+        drawrailsymbol()
+
+    def drawcarsymbol():
+        fx0 = 0.25
+        fy0 = 0.25
+        fy1 = 0.15
+        theta = range(0, 181)
+        def dx(theta):
+            return fx0 * groundunitdx * cosd(theta)
+        def dy(theta):
+            return fy0 * groundunitdy - fy1 * groundunitdy * sind(theta)
+        _drawlinesinphysical(
+            list([x + dx(theta) for theta in theta]),
+            list([y + dy(theta) for theta in theta]),
+            color="black",
+            linewidth=groundunitlinewidth,
+            zorder=zorder,
+        )
+        _drawlinesinphysical(
+            [
+              x - fx0 * groundunitdx, 
+              x - fx0 * groundunitdx, 
+              x + fx0 * groundunitdx, 
+              x + fx0 * groundunitdx, 
+            ],
+            [
+              y + fy0 * groundunitdy,
+              y - fy0 * groundunitdy,
+              y - fy0 * groundunitdy,
+              y + fy0 * groundunitdy,
+            ],
+            color="black",
+            linewidth=groundunitlinewidth,
+            zorder=zorder,
+        )
+
+    def drawrailsymbol():
+        fx1 = 0.20
+        fx2 = 0.10
+        fy2 = 0.35
+        ry = 0.05
+        _drawcircleinphysical(
+            x - fx2 * groundunitdx,
+            y - fy2 * groundunitdy,
+            2 * ry * groundunitdy,
+            linecolor="black",
+            linewidth=groundunitlinewidth,
+            zorder=zorder,
+        )
+        _drawcircleinphysical(
+            x - fx1 * groundunitdx,
+            y - fy2 * groundunitdy,
+            2 * ry * groundunitdy,
+            linecolor="black",
+            linewidth=groundunitlinewidth,
+            zorder=zorder,
+        )
+        _drawcircleinphysical(
+            x + fx1 * groundunitdx,
+            y - fy2 * groundunitdy,
+            2 * ry * groundunitdy,
+            linecolor="black",
+            linewidth=groundunitlinewidth,
+            zorder=zorder,
+        )
+        _drawcircleinphysical(
+            x + fx2 * groundunitdx,
+            y - fy2 * groundunitdy,
+            2 * ry * groundunitdy,
+            linecolor="black",
+            linewidth=groundunitlinewidth,
+            zorder=zorder,
+        )
+
+    def drawrailcarsymbol():
+        drawcarsymbol()
+        drawrailsymbol()
+        
+    def drawtrucksymbol():
+        drawcarsymbol()
+        drawlimitedwheeledsymbol()
+        
+    def drawbargesymbol():
+        fx0 = 0.25
+        fy0 = 0.0
+        fy1 = 0.2
+        theta = range(0, 181)
+        def dx(theta):
+            return fx0 * groundunitdx * cosd(theta)
+        def dy(theta):
+            return fy0 * groundunitdy - fy1 * groundunitdy * sind(theta)
+        _drawlinesinphysical(
+            list([x + dx(theta) for theta in theta]),
+            list([y + dy(theta) for theta in theta]),
+            color="black",
+            linewidth=groundunitlinewidth,
+            zorder=zorder,
+        )
+        _drawlinesinphysical(
+            [
+              x - fx0 * groundunitdx, 
+              x + fx0 * groundunitdx, 
+            ],
+            [
+              y + fy0 * groundunitdy,
+              y + fy0 * groundunitdy,
+            ],
+            color="black",
+            linewidth=groundunitlinewidth,
+            zorder=zorder,
+        )
+
+    if "missile" in symbol:
+        drawmissilesymbol()
+        
     if "infantry" in symbol:
         drawinfantrysymbol()
     if "armor" in symbol:
@@ -1138,6 +1305,8 @@ def _drawgroundunitinphysical(x, y, symbol, color, name):
         drawairdefensesymbol()
     if "supply" in symbol:
         drawsupplysymbol()
+    if "headquarter" in symbol:
+        drawheadquartersymbol()
     if "transportation" in symbol:
         drawtransportationsymbol()
     if "radar" in symbol:
@@ -1151,13 +1320,20 @@ def _drawgroundunitinphysical(x, y, symbol, color, name):
 
     if "gun" in symbol or "cannon" in symbol:
         drawgunsymbol()
-    if "missile" in symbol:
-        drawmissilesymbol()
     if "motorized" in symbol:
         drawmotorizedsymbol()
     if "wheeled" in symbol:
         drawwheeledsymbol()
 
+    if "raillocomotive" in symbol:
+        drawlocomotivesymbol()
+    if "railcar" in symbol:
+        drawrailcarsymbol()
+    if "barge" in symbol:
+        drawbargesymbol()
+    if "truck" in symbol:
+        drawtrucksymbol()
+      
     if "light" in symbol:
         drawlightsymbol()
     if "medium" in symbol:
@@ -1169,7 +1345,7 @@ def _drawgroundunitinphysical(x, y, symbol, color, name):
         x,
         y,
         90,
-        nametext,
+        name,
         dx=groundunitdx / 2 - 0.05,
         dy=-0.01,
         size=aircrafttextsize,
@@ -1178,6 +1354,18 @@ def _drawgroundunitinphysical(x, y, symbol, color, name):
         zorder=zorder,
     )
 
+    _drawtextinphysical(
+        x,
+        y,
+        90,
+        designation,
+        dx=0,
+        dy=-groundunitdy / 2 -0.1,
+        size=aircrafttextsize,
+        color=textcolor,
+        alignment="center",
+        zorder=zorder,
+    )
 
 ################################################################################
 
