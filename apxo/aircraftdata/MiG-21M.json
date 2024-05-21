@@ -9,8 +9,9 @@
     "I"   : [ 0.5, 0.5, 1.0, 0.0 ],
     "SPBR": [ 0.5, 1.0, 1.0 ]
   },
-  // Actually min + 2.5
-  "lowspeedliftdevicelimit": 5.0,
+  "lowspeedliftdeviceselectable": true,
+  "lowspeedliftdevicelimit": 2.5,
+  "lowspeedliftdevicelimittype": "relative",
   "lowspeedliftdevicename": "combat flaps",
   "turndragtable": {
     "TT": [ 1.0, 1.0, 1.0 ],

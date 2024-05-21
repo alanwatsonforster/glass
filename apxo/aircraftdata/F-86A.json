@@ -24,6 +24,7 @@
     "VR":    [ 0.0, 0.0 ]
   },
   "lowspeedliftdevicelimit": 3.5,
+  "lowspeedliftdevicelimittype": "absolute",
   "lowspeedliftdevicename": "leading-edge slats",
   "lowspeedliftdeviceturndragtable": {
     "TT": [ 0.0, 1.0, 1.0 ],

@@ -28,7 +28,15 @@ def lowspeedliftdevicename(A):
 
 
 def lowspeedliftdevicelimit(A):
-    return A._aircraftdata.lowspeedliftdevicelimit()
+    """
+    Return the maximum speed at which the low-speed lift devices operate.
+    """
+    if A._aircraftdata.lowspeedliftdevicelimittype() is None:
+        return None
+    elif A._aircraftdata.lowspeedliftdevicelimittype() == "absolute":
+        return A._aircraftdata.lowspeedliftdevicelimit()
+    else:
+        return A._aircraftdata.lowspeedliftdevicelimit() + rawminspeed(A)
 
 
 def lowspeedliftdeviceselectable(A):
@@ -63,7 +71,7 @@ def turndrag(A, turnrate):
     return rawturndrag(turnrate)
 
 
-def minspeed(A):
+def rawminspeed(A):
 
     minspeed = A._aircraftdata.minspeed(A._configuration, A.altitudeband())
 
@@ -74,6 +82,13 @@ def minspeed(A):
             minspeed = A._aircraftdata.minspeed(A._configuration, altitudeband)
             if minspeed != None:
                 break
+
+    return minspeed
+
+
+def minspeed(A):
+
+    minspeed = rawminspeed(A)
 
     if apvariants.withvariant("use version 2.4 rules"):
         # See rule 7.6 in version 2.4.

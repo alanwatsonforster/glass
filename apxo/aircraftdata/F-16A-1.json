@@ -27,6 +27,7 @@
   "lowspeedliftdevicename": "automatic maneuvering flaps",
   "lowspeedliftdeviceselectable": false,
   "lowspeedliftdevicelimit": 3.5,  
+  "lowspeedliftdevicelimittype": "absolute",
   "lowspeedliftdeviceturndragtable": {
     "TT": [ 1.0, 1.0, 1.0 ],
     "HT": [ 2.0, 2.0, 2.0 ],

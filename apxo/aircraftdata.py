@@ -125,6 +125,12 @@ class aircraftdata:
         else:
             return False
 
+    def lowspeedliftdevicelimittype(self):
+        if "lowspeedliftdevicelimittype" in self._data:
+            return self._data["lowspeedliftdevicelimittype"]
+        else:
+            return None
+
     def lowspeedliftdevicelimit(self):
         if "lowspeedliftdevicelimit" in self._data:
             return self._data["lowspeedliftdevicelimit"]

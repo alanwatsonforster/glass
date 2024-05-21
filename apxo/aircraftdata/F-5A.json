@@ -28,6 +28,7 @@
   "lowspeedliftdevicename": "leading-edge slats",
   "lowspeedliftdeviceselectable": true,
   "lowspeedliftdevicelimit": 4.0,
+  "lowspeedliftdevicelimittype": "absolute",
   "lowspeedliftdeviceturndragtable": {
     "TT": [ 1.0, 1.0, 2.0 ],
     "HT": [ 2.0, 2.0, 3.0 ],
