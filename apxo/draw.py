@@ -808,7 +808,7 @@ def _drawgroundunitinphysical(x, y, symbol, color, name, designation):
         )
 
     def drawarmorsymbol():
-        fx = 0.2
+        fx = 0.15
         fy = 0.2
         theta = range(0, 361)
 
@@ -832,11 +832,11 @@ def _drawgroundunitinphysical(x, y, symbol, color, name, designation):
         )
 
     def drawartillerysymbol():
-        ry = 0.2
+        ry = 0.1
         _drawcircleinphysical(
             x,
             y,
-            ry * groundunitdy,
+            2 * ry * groundunitdy,
             linecolor="black",
             fillcolor="black",
             linewidth=groundunitlinewidth,
@@ -844,7 +844,7 @@ def _drawgroundunitinphysical(x, y, symbol, color, name, designation):
         )
 
     def drawairdefensesymbol():
-        fy = 0.25
+        fy = 0.30
         theta = range(0, 180)
 
         def airdefencex(theta):
@@ -865,9 +865,9 @@ def _drawgroundunitinphysical(x, y, symbol, color, name, designation):
         )
 
     def drawradarsymbol():
-        fy0 = 0.1
+        fy0 = 0.15
         fy1 = 0.05
-        ry = 0.25
+        ry = 0.22
         y0 = y + fy0 * groundunitdy
         theta0 = 45
         theta = range(90 + theta0, 270 + theta0)
@@ -901,7 +901,7 @@ def _drawgroundunitinphysical(x, y, symbol, color, name, designation):
         )
 
     def drawgunsymbol():
-        fx = 0.12
+        fx = 0.15
         _drawlinesinphysical(
             [x + (fx - 0.5) * groundunitdx, x + (fx - 0.5) * groundunitdx],
             [y - 0.5 * groundunitdy, y + 0.5 * groundunitdy],
@@ -910,10 +910,31 @@ def _drawgroundunitinphysical(x, y, symbol, color, name, designation):
             zorder=zorder,
         )
 
+    def drawmultiplerocketsymbol():
+        fx0 = 0.10
+        fy0 = 0.10
+        fy1 = 0.10
+        fy2 = 0.15
+        for i in range(2):
+          _drawlinesinphysical(
+            [
+              x - fx0 * groundunitdx, 
+            x,
+            x + fx0 * groundunitdx
+            ],
+            [
+              y + (fy0 + i * fy1) * groundunitdy, 
+              y + (fy0 + i * fy1 + fy2) * groundunitdy, 
+              y + (fy0 + i * fy1) * groundunitdy],
+            color="black",
+            linewidth=groundunitlinewidth,
+            zorder=zorder,
+        )
+        
     def drawmissilesymbol():
-        fx = 0.075
-        fy0 = 0.0
-        fy1 = 0.70
+        fx = 0.1
+        fy0 = -0.5
+        fy1 = 0.3
         theta = range(0, 181)
 
         def dx(theta):
@@ -921,9 +942,9 @@ def _drawgroundunitinphysical(x, y, symbol, color, name, designation):
 
         def dy(theta):
             if theta == 0 or theta == 180:
-                return (fy0 - 0.5) * groundunitdy
+                return fy0 * groundunitdy
             else:
-                return (fy1 - 0.5) * groundunitdy + fx * groundunitdx * sind(theta)
+                return fy1 * groundunitdy + fx * groundunitdx * (sind(theta) - 1)
 
         _drawlinesinphysical(
             list([x + dx(theta) for theta in theta]),
@@ -935,8 +956,8 @@ def _drawgroundunitinphysical(x, y, symbol, color, name, designation):
         _drawlinesinphysical(
             [x, x],
             [
-                y + (fy0 - 0.5) * groundunitdy,
-                y + (fy1 - 0.5) * groundunitdy + fx * groundunitdx,
+                y + fy0 * groundunitdy,
+                y + fy1 * groundunitdy,
             ],
             color="black",
             linewidth=groundunitlinewidth,
@@ -944,20 +965,19 @@ def _drawgroundunitinphysical(x, y, symbol, color, name, designation):
         )
 
     def drawammunitionsymbol():
-        fx0 = 0.075
+        fx0 = 0.1
         fx1 = 0.15
-        fy0 = 0.25
-        fy1 = 0.70
+        fy0 = 0.20
         theta = range(0, 181)
 
         def dx(theta):
             return fx0 * groundunitdx * cosd(theta)
 
         def dy(theta):
-            if theta == 0 or theta == 180:
-                return (fy0 - 0.5) * groundunitdy
-            else:
-                return (fy1 - 0.5) * groundunitdy + fx0 * groundunitdx * sind(theta)
+          if theta == 0 or theta == 180:
+            return -fy0 * groundunitdy
+          else:
+            return fy0 * groundunitdy + fx0 * groundunitdx * (sind(theta) - 1)
 
         _drawlinesinphysical(
             list([x + dx(theta) for theta in theta]),
@@ -967,25 +987,30 @@ def _drawgroundunitinphysical(x, y, symbol, color, name, designation):
             zorder=zorder,
         )
         _drawlinesinphysical(
-            [x - fx1 * groundunitdx, x + fx1 * groundunitdx],
-            [y + (fy0 - 0.5) * groundunitdy, y + (fy0 - 0.5) * groundunitdy],
+            [
+              x - fx1 * groundunitdx, 
+              x + fx1 * groundunitdx
+            ],
+            [
+              y - fy0 * groundunitdy, 
+              y - fy0 * groundunitdy
+            ],
             color="black",
             linewidth=groundunitlinewidth,
             zorder=zorder,
         )
 
     def drawfuelsymbol():
-        fx = 0.2
-        fy0 = 0.2
-        fy1 = 0.8
+        fx = 0.15
+        fy0 = 0.20
         _drawlinesinphysical(
             [x, x, x - 0.5 * fx * groundunitdx, x + 0.5 * fx * groundunitdx, x],
             [
-                y + (fy0 - 0.5) * groundunitdy,
-                y + (fy1 - 0.5) * groundunitdy - fx * groundunitdx * cosd(30),
-                y + (fy1 - 0.5) * groundunitdy,
-                y + (fy1 - 0.5) * groundunitdy,
-                y + (fy1 - 0.5) * groundunitdy - fx * groundunitdx * cosd(30),
+                y - fy0 * groundunitdy,
+                y + fy0 * groundunitdy - fx * groundunitdx * cosd(30),
+                y + fy0 * groundunitdy,
+                y + fy0 * groundunitdy,
+                y + fy0 * groundunitdy - fx * groundunitdx * cosd(30),
             ],
             color="black",
             linewidth=groundunitlinewidth,
@@ -993,22 +1018,21 @@ def _drawgroundunitinphysical(x, y, symbol, color, name, designation):
         )
 
     def drawordnancesymbol():
-        ry0 = 0.25
-        ry1 = 0.40
-        fy = 0.0
+        ry0 = 0.20
+        ry1 = 0.35
         for theta in range(45, 180, 90):
             dx = ry1 * groundunitdy * cosd(theta)
             dy = ry1 * groundunitdy * sind(theta)
             _drawlinesinphysical(
                 [x - dx, x + dx],
-                [y + fy * groundunitdy - dy, y + fy * groundunitdy + dy],
+                [y - dy, y + dy],
                 color="black",
                 linewidth=groundunitlinewidth,
                 zorder=zorder,
             )
         _drawcircleinphysical(
             x,
-            y + fy * groundunitdy,
+            y,
             2 * ry0 * groundunitdy,
             linecolor="black",
             linewidth=groundunitlinewidth,
@@ -1023,7 +1047,7 @@ def _drawgroundunitinphysical(x, y, symbol, color, name, designation):
             90,
             "L",
             dx=0,
-            dy=-groundunitdy / 2 + 0.04,
+            dy=-groundunitdy * 0.38,
             size=7,
             color=textcolor,
             alignment="center",
@@ -1037,7 +1061,7 @@ def _drawgroundunitinphysical(x, y, symbol, color, name, designation):
             90,
             "M",
             dx=0,
-            dy=-groundunitdy / 2 + 0.04,
+            dy=-groundunitdy * 0.38,
             size=7,
             color=textcolor,
             alignment="center",
@@ -1051,7 +1075,7 @@ def _drawgroundunitinphysical(x, y, symbol, color, name, designation):
             90,
             "H",
             dx=0,
-            dy=-groundunitdy / 2 + 0.04,
+            dy=-groundunitdy * 0.38,
             size=7,
             color=textcolor,
             alignment="center",
@@ -1070,11 +1094,11 @@ def _drawgroundunitinphysical(x, y, symbol, color, name, designation):
 
     def drawwheeledsymbol():
         fx = 0.12
-        fy = 0.12
+        fy = 0.38
         ry = 0.05
         _drawcircleinphysical(
             x - fx * groundunitdx,
-            y + (fy - 0.5) * groundunitdy,
+            y - fy * groundunitdy,
             2 * ry * groundunitdy,
             linecolor="black",
             linewidth=groundunitlinewidth,
@@ -1082,7 +1106,7 @@ def _drawgroundunitinphysical(x, y, symbol, color, name, designation):
         )
         _drawcircleinphysical(
             x,
-            y + (fy - 0.5) * groundunitdy,
+            y - fy * groundunitdy,
             2 * ry * groundunitdy,
             linecolor="black",
             linewidth=groundunitlinewidth,
@@ -1090,7 +1114,7 @@ def _drawgroundunitinphysical(x, y, symbol, color, name, designation):
         )
         _drawcircleinphysical(
             x + fx * groundunitdx,
-            y + (fy - 0.5) * groundunitdy,
+            y - fy * groundunitdy,
             2 * ry * groundunitdy,
             linecolor="black",
             linewidth=groundunitlinewidth,
@@ -1098,12 +1122,12 @@ def _drawgroundunitinphysical(x, y, symbol, color, name, designation):
         )
 
     def drawlimitedwheeledsymbol():
-        fx = 0.20
-        fy = 0.15
+        fx = 0.12
+        fy = 0.38
         ry = 0.05
         _drawcircleinphysical(
             x - fx * groundunitdx,
-            y + (fy - 0.5) * groundunitdy,
+            y - fy * groundunitdy,
             2 * ry * groundunitdy,
             linecolor="black",
             linewidth=groundunitlinewidth,
@@ -1111,7 +1135,7 @@ def _drawgroundunitinphysical(x, y, symbol, color, name, designation):
         )
         _drawcircleinphysical(
             x + fx * groundunitdx,
-            y + (fy - 0.5) * groundunitdy,
+            y - fy * groundunitdy,
             2 * ry * groundunitdy,
             linecolor="black",
             linewidth=groundunitlinewidth,
@@ -1129,10 +1153,10 @@ def _drawgroundunitinphysical(x, y, symbol, color, name, designation):
         )
 
     def drawheadquartersymbol():
-        fy = 0.75
+        fy = 0.25
         _drawlinesinphysical(
             [x - 0.5 * groundunitdx, x + 0.5 * groundunitdx],
-            [y + (fy - 0.5) * groundunitdy, y + (fy - 0.5) * groundunitdy],
+            [y + fy * groundunitdy, y + fy * groundunitdy],
             color="black",
             linewidth=groundunitlinewidth,
             zorder=zorder,
@@ -1140,7 +1164,7 @@ def _drawgroundunitinphysical(x, y, symbol, color, name, designation):
 
     def drawtransportationsymbol():
         ry = 0.25
-        fy = 0.1
+        fy = 0.0
         _drawcircleinphysical(
             x,
             y + fy * groundunitdy,
@@ -1217,7 +1241,7 @@ def _drawgroundunitinphysical(x, y, symbol, color, name, designation):
     def drawrailsymbol():
         fx1 = 0.20
         fx2 = 0.10
-        fy2 = 0.35
+        fy2 = 0.38
         ry = 0.05
         _drawcircleinphysical(
             x - fx2 * groundunitdx,
@@ -1290,6 +1314,42 @@ def _drawgroundunitinphysical(x, y, symbol, color, name, designation):
             zorder=zorder,
         )
 
+    def drawechelonsymbol(n):
+      if n <= 3:
+        fx = 0.12
+        fy = 0.65
+        ry = 0.04
+        for i in range(n):
+            _drawcircleinphysical(
+              x - fx * groundunitdx * (i - (n - 1) / 2),
+              y + fy * groundunitdy,
+              2 * ry * groundunitdy,
+              linecolor="black",
+              fillcolor="black",
+              linewidth=groundunitlinewidth,
+              zorder=zorder,
+          )
+      else:
+          n -= 3
+          fx = 0.08
+          fy0 = 0.55
+          fy1 = 0.75
+          for i in range(n):
+            _drawlinesinphysical(
+              [
+                x - fx * groundunitdx * (i - (n - 1) / 2),
+                x - fx * groundunitdx * (i - (n - 1) / 2),
+              ],
+              [
+                y + fy0 * groundunitdy,
+                y + fy1 * groundunitdy,
+              ],
+              color="black",
+              linewidth=groundunitlinewidth,
+              zorder=zorder,
+          )
+
+        
     if "missile" in symbol:
         drawmissilesymbol()
         
@@ -1320,11 +1380,15 @@ def _drawgroundunitinphysical(x, y, symbol, color, name, designation):
 
     if "gun" in symbol or "cannon" in symbol:
         drawgunsymbol()
+    if "multiplerocket" in symbol:
+        drawmultiplerocketsymbol()
     if "motorized" in symbol:
         drawmotorizedsymbol()
-    if "wheeled" in symbol:
+    if "wheeled" in symbol and "limitedwheeled" not in symbol:
         drawwheeledsymbol()
-
+    if "limitedwheeled" in symbol:
+        drawlimitedwheeledsymbol()
+      
     if "raillocomotive" in symbol:
         drawlocomotivesymbol()
     if "railcar" in symbol:
@@ -1340,6 +1404,19 @@ def _drawgroundunitinphysical(x, y, symbol, color, name, designation):
         drawmediumsymbol()
     if "heavy" in symbol:
         drawheavysymbol()
+
+    if "squad" in symbol:
+        drawechelonsymbol(1)
+    if "section" in symbol:
+        drawechelonsymbol(2)
+    if "platoon" in symbol:
+        drawechelonsymbol(3)
+    if "company" in symbol:
+        drawechelonsymbol(4)
+    if "battalion" in symbol:
+        drawechelonsymbol(5)  
+    if "regiment" in symbol:
+        drawechelonsymbol(6)  
 
     _drawtextinphysical(
         x,
@@ -1360,8 +1437,8 @@ def _drawgroundunitinphysical(x, y, symbol, color, name, designation):
         90,
         designation,
         dx=0,
-        dy=-groundunitdy / 2 -0.1,
-        size=aircrafttextsize,
+        dy=-groundunitdy / 2 - 0.12,
+        size=8,
         color=textcolor,
         alignment="center",
         zorder=zorder,
