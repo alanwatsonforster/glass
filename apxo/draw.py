@@ -1401,7 +1401,7 @@ def _drawgroundunitinphysical(x0, y0, symbols, color, name, stack):
     if "limitedwheeled" in symbols:
         drawlimitedwheeledsymbol()
       
-    if "raillocomotive" in symbols:
+    if "locomotive" in symbols:
         drawlocomotivesymbol()
     if "railcar" in symbols:
         drawrailcarsymbol()
@@ -1473,9 +1473,12 @@ _colors = {
     "white": "css:white",
     "black": "css:black",
     "darkblue": "css:midnightblue",
-    "green": "css:olivedrab",
-    "lightgreen": "css:yellowgreen",
+    "green": "olivedrab",
+    "olivedrab": "css:olivedrab",
+    "lightgreen": "lightolivedrab",
+    "lightolivedrab": "#9fb670",
     "tan": "css:tan",
+    "darktan": "#937e62",
     "sand": "css:blanchedalmond",
     "darkgray": "css:slategray",
     "darkgrey": "darkgray",
