@@ -746,16 +746,18 @@ def drawmissile(x, y, facing, color, name, altitude, speed):
         )
 
 
+################################################################################
+
 groundunitlinewidth = 1
 groundunitdx = 0.6
 groundunitdy = 0.4
 
 
-def drawgroundunit(x, y, type, color, name, designation):
-    _drawgroundunitinphysical(*aphex.tophysical(x, y), type, color, name, designation)
+def drawgroundunit(x, y, symbols, color, name, stack):
+    _drawgroundunitinphysical(*aphex.tophysical(x, y), symbols, color, name, stack)
 
 
-def _drawgroundunitinphysical(x, y, symbol, color, name, designation):
+def _drawgroundunitinphysical(x0, y0, symbols, color, name, stack):
 
     zorder = 0
 
@@ -770,6 +772,50 @@ def _drawgroundunitinphysical(x, y, symbol, color, name, designation):
 
     textdx = 0
     textdy = 0.3
+
+    stackdx = 0.09
+    stackdy = 0.07
+
+    if stack == "1/2":
+      x = x0 + 1.0 * stackdx
+      y = y0 + 1.5 * stackdy
+      zorder = 0.0
+    elif stack == "2/2":
+      x = x0 - 1.0 * stackdx
+      y = y0 - 1.5 * stackdy
+      zorder = 0.1
+    elif stack == "1/3":
+      x = x0 + 1.0 * stackdx
+      y = y0 + 1.5 * stackdy
+      zorder = 0.0
+    elif stack == "2/3":
+      x = x0 - 1.0 * stackdx
+      y = y0
+      zorder = 0.1
+    elif stack == "3/3":
+      x = x0 + 1.0 * stackdx
+      y = y0 - 1.5 * stackdy
+      zorder = 0.2
+    elif stack == "1/4":
+      x = x0 + 1.0 * stackdx
+      y = y0 + 1.5 * stackdy
+      zorder = 0.0
+    elif stack == "2/4":
+      x = x0 - 1.0 * stackdx
+      y = y0 + 0.5 * stackdy
+      zorder = 0.1
+    elif stack == "3/4":
+      x = x0 + 1.0 * stackdx
+      y = y0 - 0.5 * stackdy
+      zorder = 0.2
+    elif stack == "4/4":
+      x = x0 - 1.0 * stackdx
+      y = y0 - 1.5 * stackdy
+      zorder = 0.3
+    else:
+      x = x0
+      y = y0
+      zorder = 0.0
 
     _drawrectangleinphysical(
         x - groundunitdx / 2,
@@ -1314,135 +1360,89 @@ def _drawgroundunitinphysical(x, y, symbol, color, name, designation):
             zorder=zorder,
         )
 
-    def drawechelonsymbol(n):
-      if n <= 3:
-        fx = 0.12
-        fy = 0.65
-        ry = 0.04
-        for i in range(n):
-            _drawcircleinphysical(
-              x - fx * groundunitdx * (i - (n - 1) / 2),
-              y + fy * groundunitdy,
-              2 * ry * groundunitdy,
-              linecolor="black",
-              fillcolor="black",
-              linewidth=groundunitlinewidth,
-              zorder=zorder,
-          )
-      else:
-          n -= 3
-          fx = 0.08
-          fy0 = 0.55
-          fy1 = 0.75
-          for i in range(n):
-            _drawlinesinphysical(
-              [
-                x - fx * groundunitdx * (i - (n - 1) / 2),
-                x - fx * groundunitdx * (i - (n - 1) / 2),
-              ],
-              [
-                y + fy0 * groundunitdy,
-                y + fy1 * groundunitdy,
-              ],
-              color="black",
-              linewidth=groundunitlinewidth,
-              zorder=zorder,
-          )
-
-        
-    if "missile" in symbol:
+    # Draw missile and air defences first, since air defense missile is 
+    # different to surface-to-surface missile.        
+    if "missile" in symbols:
         drawmissilesymbol()
-        
-    if "infantry" in symbol:
-        drawinfantrysymbol()
-    if "armor" in symbol:
-        drawarmorsymbol()
-    if "artillery" in symbol:
-        drawartillerysymbol()
-    if "reconnaissance" in symbol:
-        drawreconnaissancesymbol()
-    if "airdefense" in symbol:
+    if "airdefense" in symbols:
         drawairdefensesymbol()
-    if "supply" in symbol:
+
+    if "infantry" in symbols:
+        drawinfantrysymbol()
+    if "armor" in symbols:
+        drawarmorsymbol()
+    if "artillery" in symbols:
+        drawartillerysymbol()
+    if "reconnaissance" in symbols:
+        drawreconnaissancesymbol()
+    if "supply" in symbols:
         drawsupplysymbol()
-    if "headquarter" in symbol:
+    if "headquarter" in symbols:
         drawheadquartersymbol()
-    if "transportation" in symbol:
+    if "transportation" in symbols:
         drawtransportationsymbol()
-    if "radar" in symbol:
+    if "radar" in symbols:
         drawradarsymbol()
-    if "ammunition" in symbol:
+    if "ammunition" in symbols:
         drawammunitionsymbol()
-    if "fuel" in symbol:
+    if "fuel" in symbols:
         drawfuelsymbol()
-    if "ordnance" in symbol:
+    if "ordnance" in symbols:
         drawordnancesymbol()
 
-    if "gun" in symbol or "cannon" in symbol:
+    if "gun" in symbols or "cannon" in symbols:
         drawgunsymbol()
-    if "multiplerocket" in symbol:
+    if "multiplerocket" in symbols:
         drawmultiplerocketsymbol()
-    if "motorized" in symbol:
+    if "motorized" in symbols:
         drawmotorizedsymbol()
-    if "wheeled" in symbol and "limitedwheeled" not in symbol:
+    if "wheeled" in symbols:
         drawwheeledsymbol()
-    if "limitedwheeled" in symbol:
+    if "limitedwheeled" in symbols:
         drawlimitedwheeledsymbol()
       
-    if "raillocomotive" in symbol:
+    if "raillocomotive" in symbols:
         drawlocomotivesymbol()
-    if "railcar" in symbol:
+    if "railcar" in symbols:
         drawrailcarsymbol()
-    if "barge" in symbol:
+    if "barge" in symbols:
         drawbargesymbol()
-    if "truck" in symbol:
+    if "truck" in symbols:
         drawtrucksymbol()
       
-    if "light" in symbol:
+    if "light" in symbols:
         drawlightsymbol()
-    if "medium" in symbol:
+    if "medium" in symbols:
         drawmediumsymbol()
-    if "heavy" in symbol:
+    if "heavy" in symbols:
         drawheavysymbol()
 
-    if "squad" in symbol:
-        drawechelonsymbol(1)
-    if "section" in symbol:
-        drawechelonsymbol(2)
-    if "platoon" in symbol:
-        drawechelonsymbol(3)
-    if "company" in symbol:
-        drawechelonsymbol(4)
-    if "battalion" in symbol:
-        drawechelonsymbol(5)  
-    if "regiment" in symbol:
-        drawechelonsymbol(6)  
-
-    _drawtextinphysical(
-        x,
-        y,
-        90,
-        name,
-        dx=groundunitdx / 2 - 0.05,
-        dy=-0.01,
-        size=aircrafttextsize,
-        color=textcolor,
-        alignment="left",
-        zorder=zorder,
-    )
-
-    _drawtextinphysical(
-        x,
-        y,
-        90,
-        designation,
-        dx=0,
-        dy=-groundunitdy / 2 - 0.12,
-        size=8,
-        color=textcolor,
-        alignment="center",
-        zorder=zorder,
-    )
+    if x >= x0:
+      _drawtextinphysical(
+          x,
+          y,
+          90,
+          name,
+          dx=groundunitdx / 2 - 0.05,
+          dy=-0.01,
+          size=aircrafttextsize,
+          color=textcolor,
+          alignment="left",
+          zorder=zorder,
+      )
+    else:
+      _drawtextinphysical(
+          x,
+          y,
+          90,
+          name,
+          dx=-groundunitdx / 2 + 0.05,
+          dy=-0.01,
+          size=aircrafttextsize,
+          color=textcolor,
+          alignment="right",
+          zorder=zorder,
+      )
 
 ################################################################################
 
@@ -1474,6 +1474,7 @@ _colors = {
     "black": "css:black",
     "darkblue": "css:midnightblue",
     "green": "css:olivedrab",
+    "lightgreen": "css:yellowgreen",
     "tan": "css:tan",
     "sand": "css:blanchedalmond",
     "darkgray": "css:slategray",
