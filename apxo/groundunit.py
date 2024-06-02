@@ -9,8 +9,7 @@ class groundunit(apelement.element):
 
     ############################################################################
 
-    def __init__(self, name, hexcode, symbols="", 
-      color="white", stack=None):
+    def __init__(self, name, hexcode, symbols="", color="white", stack=None):
 
         aplog.clearerror()
         try:
@@ -24,7 +23,7 @@ class groundunit(apelement.element):
             )
 
             if isinstance(symbols, str):
-              symbols = symbols.split("/")
+                symbols = symbols.split("/")
             self._symbols = symbols
             self._stack = stack
             self._removed = False
@@ -52,4 +51,6 @@ class groundunit(apelement.element):
         if self._removed:
             return
 
-        apdraw.drawgroundunit(*self.xy(), self._symbols, self.color(), self.name(), self._stack)
+        apdraw.drawgroundunit(
+            *self.xy(), self._symbols, self.color(), self.name(), self._stack
+        )

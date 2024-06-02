@@ -777,45 +777,45 @@ def _drawgroundunitinphysical(x0, y0, symbols, color, name, stack):
     stackdy = 0.07
 
     if stack == "1/2":
-      x = x0 + 1.0 * stackdx
-      y = y0 + 1.5 * stackdy
-      zorder = 0.0
+        x = x0 + 1.0 * stackdx
+        y = y0 + 1.5 * stackdy
+        zorder = 0.0
     elif stack == "2/2":
-      x = x0 - 1.0 * stackdx
-      y = y0 - 1.5 * stackdy
-      zorder = 0.1
+        x = x0 - 1.0 * stackdx
+        y = y0 - 1.5 * stackdy
+        zorder = 0.1
     elif stack == "1/3":
-      x = x0 + 1.0 * stackdx
-      y = y0 + 1.5 * stackdy
-      zorder = 0.0
+        x = x0 + 1.0 * stackdx
+        y = y0 + 1.5 * stackdy
+        zorder = 0.0
     elif stack == "2/3":
-      x = x0 - 1.0 * stackdx
-      y = y0
-      zorder = 0.1
+        x = x0 - 1.0 * stackdx
+        y = y0
+        zorder = 0.1
     elif stack == "3/3":
-      x = x0 + 1.0 * stackdx
-      y = y0 - 1.5 * stackdy
-      zorder = 0.2
+        x = x0 + 1.0 * stackdx
+        y = y0 - 1.5 * stackdy
+        zorder = 0.2
     elif stack == "1/4":
-      x = x0 + 1.0 * stackdx
-      y = y0 + 1.5 * stackdy
-      zorder = 0.0
+        x = x0 + 1.0 * stackdx
+        y = y0 + 1.5 * stackdy
+        zorder = 0.0
     elif stack == "2/4":
-      x = x0 - 1.0 * stackdx
-      y = y0 + 0.5 * stackdy
-      zorder = 0.1
+        x = x0 - 1.0 * stackdx
+        y = y0 + 0.5 * stackdy
+        zorder = 0.1
     elif stack == "3/4":
-      x = x0 + 1.0 * stackdx
-      y = y0 - 0.5 * stackdy
-      zorder = 0.2
+        x = x0 + 1.0 * stackdx
+        y = y0 - 0.5 * stackdy
+        zorder = 0.2
     elif stack == "4/4":
-      x = x0 - 1.0 * stackdx
-      y = y0 - 1.5 * stackdy
-      zorder = 0.3
+        x = x0 - 1.0 * stackdx
+        y = y0 - 1.5 * stackdy
+        zorder = 0.3
     else:
-      x = x0
-      y = y0
-      zorder = 0.0
+        x = x0
+        y = y0
+        zorder = 0.0
 
     _drawrectangleinphysical(
         x - groundunitdx / 2,
@@ -900,10 +900,12 @@ def _drawgroundunitinphysical(x0, y0, symbols, color, name, stack):
             return y - groundunitdy / 2 + fy * groundunitdy * sind(theta)
 
         _drawpolygoninphysical(
-            list(zip(
-              list([airdefencex(theta) for theta in theta]),
-              list([airdefencey(theta) for theta in theta])
-            )),
+            list(
+                zip(
+                    list([airdefencex(theta) for theta in theta]),
+                    list([airdefencey(theta) for theta in theta]),
+                )
+            ),
             linecolor="black",
             fillcolor=color,
             linewidth=groundunitlinewidth,
@@ -962,21 +964,18 @@ def _drawgroundunitinphysical(x0, y0, symbols, color, name, stack):
         fy1 = 0.10
         fy2 = 0.15
         for i in range(2):
-          _drawlinesinphysical(
-            [
-              x - fx0 * groundunitdx, 
-            x,
-            x + fx0 * groundunitdx
-            ],
-            [
-              y + (fy0 + i * fy1) * groundunitdy, 
-              y + (fy0 + i * fy1 + fy2) * groundunitdy, 
-              y + (fy0 + i * fy1) * groundunitdy],
-            color="black",
-            linewidth=groundunitlinewidth,
-            zorder=zorder,
-        )
-        
+            _drawlinesinphysical(
+                [x - fx0 * groundunitdx, x, x + fx0 * groundunitdx],
+                [
+                    y + (fy0 + i * fy1) * groundunitdy,
+                    y + (fy0 + i * fy1 + fy2) * groundunitdy,
+                    y + (fy0 + i * fy1) * groundunitdy,
+                ],
+                color="black",
+                linewidth=groundunitlinewidth,
+                zorder=zorder,
+            )
+
     def drawmissilesymbol():
         fx = 0.1
         fy0 = -0.5
@@ -1020,10 +1019,10 @@ def _drawgroundunitinphysical(x0, y0, symbols, color, name, stack):
             return fx0 * groundunitdx * cosd(theta)
 
         def dy(theta):
-          if theta == 0 or theta == 180:
-            return -fy0 * groundunitdy
-          else:
-            return fy0 * groundunitdy + fx0 * groundunitdx * (sind(theta) - 1)
+            if theta == 0 or theta == 180:
+                return -fy0 * groundunitdy
+            else:
+                return fy0 * groundunitdy + fx0 * groundunitdx * (sind(theta) - 1)
 
         _drawlinesinphysical(
             list([x + dx(theta) for theta in theta]),
@@ -1033,14 +1032,8 @@ def _drawgroundunitinphysical(x0, y0, symbols, color, name, stack):
             zorder=zorder,
         )
         _drawlinesinphysical(
-            [
-              x - fx1 * groundunitdx, 
-              x + fx1 * groundunitdx
-            ],
-            [
-              y - fy0 * groundunitdy, 
-              y - fy0 * groundunitdy
-            ],
+            [x - fx1 * groundunitdx, x + fx1 * groundunitdx],
+            [y - fy0 * groundunitdy, y - fy0 * groundunitdy],
             color="black",
             linewidth=groundunitlinewidth,
             zorder=zorder,
@@ -1237,12 +1230,12 @@ def _drawgroundunitinphysical(x0, y0, symbols, color, name, stack):
         dy = fy * groundunitdy
         _drawpolygoninphysical(
             [
-              [x - dx, y - dy],
-              [x - dx, y + dy],
-              [x, y + dy],
-              [x, y],
-              [x + dx, y],
-              [x + dx, y - dy]
+                [x - dx, y - dy],
+                [x - dx, y + dy],
+                [x, y + dy],
+                [x, y],
+                [x + dx, y],
+                [x + dx, y - dy],
             ],
             linecolor="black",
             linewidth=groundunitlinewidth,
@@ -1255,10 +1248,13 @@ def _drawgroundunitinphysical(x0, y0, symbols, color, name, stack):
         fy0 = 0.25
         fy1 = 0.15
         theta = range(0, 181)
+
         def dx(theta):
             return fx0 * groundunitdx * cosd(theta)
+
         def dy(theta):
             return fy0 * groundunitdy - fy1 * groundunitdy * sind(theta)
+
         _drawlinesinphysical(
             list([x + dx(theta) for theta in theta]),
             list([y + dy(theta) for theta in theta]),
@@ -1268,16 +1264,16 @@ def _drawgroundunitinphysical(x0, y0, symbols, color, name, stack):
         )
         _drawlinesinphysical(
             [
-              x - fx0 * groundunitdx, 
-              x - fx0 * groundunitdx, 
-              x + fx0 * groundunitdx, 
-              x + fx0 * groundunitdx, 
+                x - fx0 * groundunitdx,
+                x - fx0 * groundunitdx,
+                x + fx0 * groundunitdx,
+                x + fx0 * groundunitdx,
             ],
             [
-              y + fy0 * groundunitdy,
-              y - fy0 * groundunitdy,
-              y - fy0 * groundunitdy,
-              y + fy0 * groundunitdy,
+                y + fy0 * groundunitdy,
+                y - fy0 * groundunitdy,
+                y - fy0 * groundunitdy,
+                y + fy0 * groundunitdy,
             ],
             color="black",
             linewidth=groundunitlinewidth,
@@ -1325,20 +1321,23 @@ def _drawgroundunitinphysical(x0, y0, symbols, color, name, stack):
     def drawrailcarsymbol():
         drawcarsymbol()
         drawrailsymbol()
-        
+
     def drawtrucksymbol():
         drawcarsymbol()
         drawlimitedwheeledsymbol()
-        
+
     def drawbargesymbol():
         fx0 = 0.25
         fy0 = 0.0
         fy1 = 0.2
         theta = range(0, 181)
+
         def dx(theta):
             return fx0 * groundunitdx * cosd(theta)
+
         def dy(theta):
             return fy0 * groundunitdy - fy1 * groundunitdy * sind(theta)
+
         _drawlinesinphysical(
             list([x + dx(theta) for theta in theta]),
             list([y + dy(theta) for theta in theta]),
@@ -1348,20 +1347,20 @@ def _drawgroundunitinphysical(x0, y0, symbols, color, name, stack):
         )
         _drawlinesinphysical(
             [
-              x - fx0 * groundunitdx, 
-              x + fx0 * groundunitdx, 
+                x - fx0 * groundunitdx,
+                x + fx0 * groundunitdx,
             ],
             [
-              y + fy0 * groundunitdy,
-              y + fy0 * groundunitdy,
+                y + fy0 * groundunitdy,
+                y + fy0 * groundunitdy,
             ],
             color="black",
             linewidth=groundunitlinewidth,
             zorder=zorder,
         )
 
-    # Draw missile and air defences first, since air defense missile is 
-    # different to surface-to-surface missile.        
+    # Draw missile and air defences first, since air defense missile is
+    # different to surface-to-surface missile.
     if "missile" in symbols:
         drawmissilesymbol()
     if "airdefense" in symbols:
@@ -1400,7 +1399,7 @@ def _drawgroundunitinphysical(x0, y0, symbols, color, name, stack):
         drawwheeledsymbol()
     if "limitedwheeled" in symbols:
         drawlimitedwheeledsymbol()
-      
+
     if "locomotive" in symbols:
         drawlocomotivesymbol()
     if "railcar" in symbols:
@@ -1409,7 +1408,7 @@ def _drawgroundunitinphysical(x0, y0, symbols, color, name, stack):
         drawbargesymbol()
     if "truck" in symbols:
         drawtrucksymbol()
-      
+
     if "light" in symbols:
         drawlightsymbol()
     if "medium" in symbols:
@@ -1418,31 +1417,32 @@ def _drawgroundunitinphysical(x0, y0, symbols, color, name, stack):
         drawheavysymbol()
 
     if x >= x0:
-      _drawtextinphysical(
-          x,
-          y,
-          90,
-          name,
-          dx=groundunitdx / 2 - 0.05,
-          dy=-0.01,
-          size=aircrafttextsize,
-          color=textcolor,
-          alignment="left",
-          zorder=zorder,
-      )
+        _drawtextinphysical(
+            x,
+            y,
+            90,
+            name,
+            dx=groundunitdx / 2 - 0.05,
+            dy=-0.01,
+            size=aircrafttextsize,
+            color=textcolor,
+            alignment="left",
+            zorder=zorder,
+        )
     else:
-      _drawtextinphysical(
-          x,
-          y,
-          90,
-          name,
-          dx=-groundunitdx / 2 + 0.05,
-          dy=-0.01,
-          size=aircrafttextsize,
-          color=textcolor,
-          alignment="right",
-          zorder=zorder,
-      )
+        _drawtextinphysical(
+            x,
+            y,
+            90,
+            name,
+            dx=-groundunitdx / 2 + 0.05,
+            dy=-0.01,
+            size=aircrafttextsize,
+            color=textcolor,
+            alignment="right",
+            zorder=zorder,
+        )
+
 
 ################################################################################
 
