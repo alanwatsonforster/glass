@@ -1781,8 +1781,6 @@ def doclimb(A, altitudechange):
         elif A._flighttype == "SC":
 
             # See rule 8.1.2.
-            if A.speed() < apcapabilities.climbspeed(A):
-                climbcapability /= 2
             if climbcapability < 2.0 and altitudechange == 2:
                 raise RuntimeError("invalid altitude change in climb.")
             if A._vfp == 0 and climbcapability % 1 != 0:
