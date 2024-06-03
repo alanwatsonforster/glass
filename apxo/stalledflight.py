@@ -79,7 +79,7 @@ def doflight(A, action, note=False):
         )
 
     A._checkforterraincollision()
-    if A._destroyed:
+    if A.killed():
         return
 
     # The only valid actions are to do nothing or to jettison stores.

@@ -86,7 +86,7 @@ def doflight(A, action, note=False):
             A._extendpath()
             A._checkforterraincollision()
             A._checkforleavingmap()
-            if A._destroyed or A._leftmap:
+            if A.killed() or A.removed():
                 return
 
     # Do the (remaining) facing change.

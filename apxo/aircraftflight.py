@@ -48,7 +48,7 @@ def move(
     A._logbreak()
     A._logline()
 
-    if A._destroyed or A._leftmap:
+    if A.killed() or A.removed():
         endmove(A)
         return
 
@@ -151,7 +151,7 @@ def continuemove(A, tasks="", note=False):
     Continue a move that has been started, possible carrying out some tasks.
     """
 
-    if A._destroyed or A._leftmap or A._flighttype == "ST" or A._flighttype == "DP":
+    if A.killed() or A.removed() or A._flighttype == "ST" or A._flighttype == "DP":
         A._lognote(note)
     elif A._flighttype == "SP":
         continuespecialflight(A, tasks, note=note)
@@ -168,11 +168,11 @@ def endmove(A):
     Process the end of a move.
     """
 
-    if A._destroyed:
+    if A.killed():
 
-        A._logend("aircraft has been destroyed.")
+        A._logend("aircraft has been killed.")
 
-    elif A._leftmap:
+    elif A.removed():
 
         A._logend("aircraft has left the map.")
 
@@ -1261,7 +1261,7 @@ def continuenormalflight(A, tasks, start=False, note=False):
     assert A._maneuveringdeparture or (A._fp == A._hfp + A._vfp)
     assert A._maneuveringdeparture or (A._fp <= A._maxfp)
 
-    if A._destroyed or A._leftmap or A._maneuveringdeparture:
+    if A.killed() or A.removed() or A._maneuveringdeparture:
 
         endmove(A)
 
@@ -1354,13 +1354,13 @@ def continuespecialflight(A, tasks, start=False, note=False):
 
     A._lognote(note)
 
-    if not A._destroyed and not A._leftmap:
+    if not A.killed() and not A.removed():
         if A._altitudecarry != 0:
             A._logend("is carrying %.2f altitude levels." % A._altitudecarry)
 
     A._newspeed = A.speed()
 
-    if A._destroyed or A._leftmap or A._fp + 1 > A._maxfp:
+    if A.killed() or A.removed() or A._fp + 1 > A._maxfp:
 
         endmove(A)
 
@@ -2565,7 +2565,7 @@ def domaneuveringdeparture(A, sense, facingchange):
         A._extendpath()
         A._checkforterraincollision()
         A._checkforleavingmap()
-        if A._destroyed or A._leftmap:
+        if A.killed() or A.removed():
             return
 
     # Do any remaining facing changes.

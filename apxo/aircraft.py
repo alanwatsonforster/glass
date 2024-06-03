@@ -27,13 +27,13 @@ import re
 ##############################################################################
 
 
-def aslist(withdestroyed=False, withleftmap=False):
+def aslist(withkilled=False, withleftmap=False):
     elementlist = apelement.aslist()
     aircraftlist = filter(lambda E: E.isaircraft(), elementlist)
-    if not withdestroyed:
-        aircraftlist = filter(lambda x: not x._destroyed, aircraftlist)
+    if not withkilled:
+        aircraftlist = filter(lambda x: not x.killed(), aircraftlist)
     if not withleftmap:
-        aircraftlist = filter(lambda x: not x._leftmap, aircraftlist)
+        aircraftlist = filter(lambda x: not x.removed(), aircraftlist)
     return list(aircraftlist)
 
 
@@ -130,8 +130,6 @@ class aircraft(apelement.element):
             else:
                 self._rocketfactors = rocketfactors
             self._crew = self._aircraftdata.crew()
-            self._destroyed = False
-            self._leftmap = False
             self._sighted = False
             self._identified = False
             self._paintscheme = paintscheme
@@ -242,7 +240,7 @@ class aircraft(apelement.element):
         apcloseformation.check(self)
 
     def _endgameturn(self):
-        if not self._destroyed and not self._leftmap and not self._finishedmove:
+        if not self.killed() and not self.removed() and not self._finishedmove:
             raise RuntimeError("aircraft %s has not finished its move." % self._name)
         if self._unspecifiedattackresult > 0:
             raise RuntimeError(
@@ -253,7 +251,7 @@ class aircraft(apelement.element):
                     aplog.plural(self._unspecifiedattackresult, "result", "results"),
                 )
             )
-        if self._destroyed or self._leftmap:
+        if self.killed() or self.removed():
             apcloseformation.leaveany(self)
         else:
             apcloseformation.check(self)
@@ -606,8 +604,8 @@ class aircraft(apelement.element):
 
     def hasbeenkilled(self):
         apgameturn.checkingameturn()
+        self.kill()
         self._log("has been killed.")
-        self._destroyed = True
         self._color = None
 
     ################################################################################
@@ -655,9 +653,7 @@ class aircraft(apelement.element):
     ################################################################################
 
     def _draw(self):
-        if self._leftmap:
-            return
-        if self._destroyed:
+        if self.killed():
             color = None
         else:
             color = self._color

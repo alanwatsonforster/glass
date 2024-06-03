@@ -49,8 +49,8 @@ def takedamage(A, damage):
 
     A._logaction("", "%s takes %s damage." % (A._name, damage))
 
-    if A._destroyed:
-        A._logaction("", "%s is already destroyed." % A._name)
+    if A.killed():
+        A._logaction("", "%s is already killed." % A._name)
         return
 
     if A._damageL >= 3:
@@ -72,13 +72,13 @@ def takedamage(A, damage):
         A._damageL = 0
         A._damageH = 0
         A._damageC = 0
-        A._destroyed = True
+        A.kill()
 
     A._logaction(
         "", "%s damage changed from %s to %s." % (A._name, previousdamage, A.damage())
     )
-    if A._destroyed:
-        A._logaction("", "%s is destroyed." % A._name)
+    if A.killed():
+        A._logaction("", "%s is killed." % A._name)
 
 
 ##############################################################################

@@ -29,7 +29,6 @@ class marker(apelement.element):
             )
 
             self._type = type
-            self._removed = False
 
         except RuntimeError as e:
             aplog.logexception(e)
@@ -50,9 +49,6 @@ class marker(apelement.element):
     ############################################################################
 
     def _draw(self):
-
-        if self._removed:
-            return
 
         zorder = self.altitude() + 1
         if self._type == "dot":

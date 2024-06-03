@@ -26,7 +26,6 @@ class groundunit(apelement.element):
                 symbols = symbols.split("/")
             self._symbols = symbols
             self._stack = stack
-            self._removed = False
 
         except RuntimeError as e:
             aplog.logexception(e)
@@ -47,10 +46,6 @@ class groundunit(apelement.element):
     ############################################################################
 
     def _draw(self):
-
-        if self._removed:
-            return
-
         apdraw.drawgroundunit(
             *self.xy(), self._symbols, self.color(), self.name(), self._stack
         )

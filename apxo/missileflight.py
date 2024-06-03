@@ -93,7 +93,7 @@ def continuemove(M, actions, note=False):
 def _doactions(M, actions):
     if actions != "":
         for action in actions.split(","):
-            if not M._removed:
+            if not M.removed():
                 _doaction(M, action)
 
 
@@ -199,7 +199,7 @@ def _doaction(M, action):
         """
 
         M._logaction("missile has been killed.")
-        M._destroyed = True
+        M.kill()
 
     ########################################
 
@@ -287,7 +287,7 @@ def _doaction(M, action):
                 remainingaction = remainingaction[len(elementcode) :]
                 M._checkforterraincollision()
                 M._checkforleavingmap()
-                if M._removed:
+                if M.removed():
                     return
                 break
 

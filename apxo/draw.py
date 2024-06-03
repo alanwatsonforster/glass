@@ -531,8 +531,8 @@ pathlinestyle = "dotted"
 pathdotsize = 0.1
 aircrafttextsize = 10
 aircraftcounterlinewidth = 2
-aircraftdestroyedfillcolor = (0.50, 0.50, 0.50)
-aircraftdestroyedlinecolor = (0.50, 0.50, 0.50)
+aircraftkilledfillcolor = (0.50, 0.50, 0.50)
+aircraftkilledlinecolor = (0.50, 0.50, 0.50)
 aircraftlinecolor = (0.00, 0.00, 0.00)
 aircraftlinewidth = 1
 textcolor = (0.00, 0.00, 0.00)
@@ -540,7 +540,7 @@ textcolor = (0.00, 0.00, 0.00)
 
 def drawpath(x, y, facing, altitude, color, annotate=True):
     if color is None:
-        fillcolor = aircraftdestroyedfillcolor
+        fillcolor = aircraftkilledfillcolor
     else:
         fillcolor = color
     if len(x) > 1:
@@ -580,8 +580,8 @@ def drawpath(x, y, facing, altitude, color, annotate=True):
 def drawaircraft(x, y, facing, color, name, altitude, speed, flighttype):
     zorder = altitude + 1
     if color is None:
-        fillcolor = aircraftdestroyedfillcolor
-        linecolor = aircraftdestroyedlinecolor
+        fillcolor = aircraftkilledfillcolor
+        linecolor = aircraftkilledlinecolor
         nametext = ""
         altitudetext = ""
         speedtext = ""
@@ -680,8 +680,8 @@ def drawaircraft(x, y, facing, color, name, altitude, speed, flighttype):
 def drawmissile(x, y, facing, color, name, altitude, speed):
     zorder = altitude + 1
     if color is None:
-        fillcolor = aircraftdestroyedfillcolor
-        linecolor = aircraftdestroyedlinecolor
+        fillcolor = aircraftkilledfillcolor
+        linecolor = aircraftkilledlinecolor
         altitudetext = ""
     else:
         fillcolor = color
@@ -762,8 +762,8 @@ def _drawgroundunitinphysical(x0, y0, symbols, color, name, stack):
     zorder = 0
 
     if color is None:
-        fillcolor = aircraftdestroyedfillcolor
-        linecolor = aircraftdestroyedlinecolor
+        fillcolor = aircraftkilledfillcolor
+        linecolor = aircraftkilledlinecolor
         nametext = ""
     else:
         fillcolor = color

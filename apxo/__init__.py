@@ -190,7 +190,7 @@ def orderofflightdeterminationphase(rolls, firstkill=None, mostkills=None):
 
 def drawmap(
     zoom=True,
-    zoomincludesdestroyed=False,
+    zoomincludeskilled=False,
     zoomborder=2,
     xmin=None,
     ymin=None,
@@ -211,7 +211,7 @@ def drawmap(
 
     If zoom is True, zoom the map to include region including the
     aircraft, missiles, and markers with a border of zoomborder hexes. If
-    zoomincludesdestroyed is True, include destroyed aircraft in the zoom.
+    zoomincludeskilled is True, include killed aircraft in the zoom.
 
     If zoom is False, use xmin, xmax, ymin, and ymax to defined the area
     drawn. If these are None, use the natural border of the map. Otherwise
@@ -223,10 +223,10 @@ def drawmap(
 
         if zoom:
 
-            xmin = apelement._xminforzoom(withdestroyed=zoomincludesdestroyed)
-            xmax = apelement._xmaxforzoom(withdestroyed=zoomincludesdestroyed)
-            ymin = apelement._yminforzoom(withdestroyed=zoomincludesdestroyed)
-            ymax = apelement._ymaxforzoom(withdestroyed=zoomincludesdestroyed)
+            xmin = apelement._xminforzoom(withkilled=zoomincludeskilled)
+            xmax = apelement._xmaxforzoom(withkilled=zoomincludeskilled)
+            ymin = apelement._yminforzoom(withkilled=zoomincludeskilled)
+            ymax = apelement._ymaxforzoom(withkilled=zoomincludeskilled)
 
             xmin -= zoomborder
             ymin -= zoomborder

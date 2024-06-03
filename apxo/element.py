@@ -67,36 +67,31 @@ def fromname(name):
     return None
 
 
-def aslist(withdestroyed=False, withleftmap=False):
+def aslist(withkilled=False):
     elementlist = _elementlist
-    # if not withdestroyed:
-    #  elementlist = filter(lambda x: not x.removed(), elementlist)
-    # if not withleftmap:
-    #  elementlist = filter(lambda x: not x._leftmap, elementlist)
+    elementlist = filter(lambda E: not E.removed(), elementlist)
+    if not withkilled:
+        elementlist = filter(lambda E: not E.killed(), elementlist)
     return list(elementlist)
 
 
 ##############################################################################
 
 
-def _xminforzoom(withdestroyed=False):
-    return min(
-        [min(E.x(), E._path.xmin()) for E in aslist(withdestroyed=withdestroyed)]
-    )
+def _xminforzoom(withkilled=False):
+    return min([min(E.x(), E._path.xmin()) for E in aslist(withkilled=withkilled)])
 
 
-def _xmaxforzoom(withdestroyed=False):
-    return max(
-        [max(E.x(), E._path.xmax()) for E in aslist(withdestroyed=withdestroyed)]
-    )
+def _xmaxforzoom(withkilled=False):
+    return max([max(E.x(), E._path.xmax()) for E in aslist(withkilled=withkilled)])
 
 
-def _yminforzoom(withdestroyed=False):
-    return min([min(E._y, E._path.ymin()) for E in aslist(withdestroyed=withdestroyed)])
+def _yminforzoom(withkilled=False):
+    return min([min(E._y, E._path.ymin()) for E in aslist(withkilled=withkilled)])
 
 
-def _ymaxforzoom(withdestroyed=False):
-    return max([max(E._y, E._path.ymax()) for E in aslist(withdestroyed=withdestroyed)])
+def _ymaxforzoom(withkilled=False):
+    return max([max(E._y, E._path.ymax()) for E in aslist(withkilled=withkilled)])
 
 
 ##############################################################################
@@ -152,6 +147,9 @@ class element:
         self._altitudeband = apaltitude.altitudeband(self.altitude())
         self._altitudecarry = 0
 
+        self._killed = False
+        self._removed = False
+
         if not apspeed.isvalidspeed(speed):
             raise RuntimeError("the speed argument is not valid.")
 
@@ -160,7 +158,6 @@ class element:
         self._path = appath.path(x, y, facing, altitude)
 
         self._color = color
-        self._removed = False
 
         _elementlist.append(self)
 
@@ -236,6 +233,9 @@ class element:
 
     ############################################################################
 
+    def kill(self):
+        self._killed = True
+
     def remove(self):
         self._removed = True
 
@@ -294,6 +294,9 @@ class element:
 
     def color(self):
         return self._color
+
+    def killed(self):
+        return self._killed
 
     def removed(self):
         return self._removed
@@ -417,7 +420,7 @@ class element:
                 "%s has collided with terrain at altitude %d."
                 % (self.name(), altitudeofterrain),
             )
-            self._destroyed = True
+            self.kill()
 
     def _checkforleavingmap(self):
         """
@@ -426,7 +429,7 @@ class element:
 
         if not apmap.isonmap(self.x(), self.y()):
             self._logaction("", "%s has left the map." % self.name())
-            self._leftmap = True
+            self.remove()
 
     ############################################################################
 

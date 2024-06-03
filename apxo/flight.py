@@ -58,7 +58,7 @@ def dotasks(E, tasks, actiondispatchlist, start=False, afterFP=None, aftertask=N
 
     if tasks != "":
         for task in tasks.split(","):
-            if not E._destroyed and not E._leftmap:
+            if not E.killed() and not E.removed():
                 dotask(E, task, actiondispatchlist, afterFP, aftertask)
 
 
@@ -186,7 +186,7 @@ def dotask(E, task, actiondispatchlist, afterFP, aftertask):
             % (E._taskaltitudeband, E.altitudeband())
         )
 
-    if E._destroyed or E._leftmap:
+    if E.killed() or E.removed():
         return
 
     E._checkforterraincollision()
