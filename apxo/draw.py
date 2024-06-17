@@ -461,8 +461,8 @@ def drawcompass(x, y, facing, **kwargs):
 
 ################################################################################
 
-arccolor = (0.00, 0.00, 0.00)
-arclinewidth = 1.0
+arccolor = (0.70, 0.70, 0.70)
+arclinewidth = 2.0
 arclinestyle = "dashed"
 
 
