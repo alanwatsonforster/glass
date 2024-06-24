@@ -304,11 +304,11 @@ def startmovespeed(A, power, flamedoutengines, lowspeedliftdeviceselected):
 
     if apvariants.withvariant("use version 2.4 rules"):
         if speed >= m1speed(A.altitudeband()) and (
-            powersetting == "I" or powersetting == "M"
+            powersetting == "I" or powersetting == "N"
         ):
             A._logevent(
-                "check for flame-out as the speed is supersonic and the power setting is %s."
-                % powersetting
+                "%s flame-out as the speed is supersonic and the power setting is %s."
+                % (plural(apcapabilities.engines(A), "engine", "engines"), powersetting)
             )
 
     ############################################################################
