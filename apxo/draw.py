@@ -475,7 +475,12 @@ def drawarc(x0, y0, facing, arc):
         x = [x0 + dxdy[0] * cosd(facing) - dxdy[1] * sind(facing) for dxdy in dxdy]
         y = [y0 + dxdy[0] * sind(facing) + dxdy[1] * cosd(facing) for dxdy in dxdy]
         _drawlinesinphysical(
-            x, y, color=arccolor, linewidth=arclinewidth, linestyle=arclinestyle
+            x,
+            y,
+            color=arccolor,
+            linewidth=arclinewidth,
+            linestyle=arclinestyle,
+            zorder=0,
         )
 
     if arc == "limited":
