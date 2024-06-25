@@ -168,8 +168,6 @@ def endmove(A):
     Process the end of a move.
     """
 
-    _checkforleavingmap
-
     if A.killed():
 
         A._logend("aircraft has been killed.")
