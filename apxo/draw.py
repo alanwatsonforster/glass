@@ -461,8 +461,8 @@ def drawcompass(x, y, facing, **kwargs):
 
 ################################################################################
 
-arccolor = (0.00, 0.00, 0.00)
-arclinewidth = 1.0
+arccolor = (0.70, 0.70, 0.70)
+arclinewidth = 2.0
 arclinestyle = "dashed"
 
 
@@ -475,7 +475,12 @@ def drawarc(x0, y0, facing, arc):
         x = [x0 + dxdy[0] * cosd(facing) - dxdy[1] * sind(facing) for dxdy in dxdy]
         y = [y0 + dxdy[0] * sind(facing) + dxdy[1] * cosd(facing) for dxdy in dxdy]
         _drawlinesinphysical(
-            x, y, color=arccolor, linewidth=arclinewidth, linestyle=arclinestyle
+            x,
+            y,
+            color=arccolor,
+            linewidth=arclinewidth,
+            linestyle=arclinestyle,
+            zorder=0,
         )
 
     if arc == "limited":

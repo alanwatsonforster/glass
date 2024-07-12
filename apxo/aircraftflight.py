@@ -172,10 +172,6 @@ def endmove(A):
 
         A._logend("aircraft has been killed.")
 
-    elif A.removed():
-
-        A._logend("aircraft has left the map.")
-
     else:
 
         if A._flighttype == "SP":
@@ -632,7 +628,10 @@ def startnormalflight(A, tasks, note=False):
 
             # See rules 8.2.1 and 8.2.3.
             if A._previousflighttype == "VD":
-                minvfp = rounddown(maxfp / 2)
+                if apcapabilities.hasproperty(A, "HPR"):
+                    minvfp = rounddown(onethirdfromtable(maxfp))
+                else:
+                    minvfp = rounddown(maxfp / 2)
             minhfp = rounddown(onethirdfromtable(maxfp))
 
         elif A._flighttype == "UD":

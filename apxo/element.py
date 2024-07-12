@@ -429,7 +429,6 @@ class element:
 
         if not apmap.isonmap(self.x(), self.y()):
             self._logaction("", "%s has left the map." % self.name())
-            self.remove()
 
     ############################################################################
 
