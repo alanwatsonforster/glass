@@ -27,13 +27,11 @@ import re
 ##############################################################################
 
 
-def aslist(withkilled=False, withleftmap=False):
+def aslist(withkilled=False):
     elementlist = apelement.aslist()
     aircraftlist = filter(lambda E: E.isaircraft(), elementlist)
     if not withkilled:
         aircraftlist = filter(lambda x: not x.killed(), aircraftlist)
-    if not withleftmap:
-        aircraftlist = filter(lambda x: not x.removed(), aircraftlist)
     return list(aircraftlist)
 
 
