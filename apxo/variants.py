@@ -6,6 +6,7 @@ _knownvariants = [
     "use version 2.4 rules",
     "draw counters",
     "require limited radar arc for SSGT",
+    "use house rules",
 ]
 
 variants = []

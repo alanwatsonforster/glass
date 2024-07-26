@@ -46,6 +46,8 @@ def lowspeedliftdeviceselectable(A):
 def turndrag(A, turnrate):
 
     def rawturndrag(turnrate):
+        if turnrate == "EZ":
+            return 0.0
         lowspeedliftdevicelimit = A._aircraftdata.lowspeedliftdevicelimit()
         if lowspeedliftdevicelimit == None:
             return A._aircraftdata.turndrag(A._configuration, turnrate)
@@ -56,9 +58,6 @@ def turndrag(A, turnrate):
         else:
             return A._aircraftdata.turndrag(A._configuration, turnrate)
 
-    if turnrate == "EZ":
-        return 0.0
-
     # See rule 6.6
     if hasproperty(A, "PSSM") and A.speed() >= apspeed.m1speed(A.altitudeband()):
         # The aircraft has its maximum the turn rate reduced by one level, but not
@@ -68,7 +67,12 @@ def turndrag(A, turnrate):
         if turnrate == "BT" and rawturndrag("ET") == None:
             return None
 
-    return rawturndrag(turnrate)
+    if rawturndrag(turnrate) == None:
+        return None
+    elif apvariants.withvariant("use house rules"):
+        return (rawturndrag(turnrate) + 1.0) / 2.0
+    else:
+        return rawturndrag(turnrate)
 
 
 def rawminspeed(A):

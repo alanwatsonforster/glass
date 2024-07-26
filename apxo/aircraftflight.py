@@ -1446,16 +1446,20 @@ def endnormalflight(A):
         Determine the APs from the maximum turn rate used.
         """
 
-        if A._maxturnrate != None:
-            A._turnrateap = -apcapabilities.turndrag(A, A._maxturnrate)
+        if apvariants.withvariant("use house rules"):
+            pass
         else:
-            A._turnrateap = 0
 
-        if A._turningsupersonic:
-            if apcapabilities.hasproperty(A, "PSSM"):
-                A._turnrateap -= 2.0
-            elif not apcapabilities.hasproperty(A, "GSSM"):
-                A._turnrateap -= 1.0
+            if A._maxturnrate != None:
+                A._turnrateap = -apcapabilities.turndrag(A, A._maxturnrate)
+            else:
+                A._turnrateap = 0
+
+            if A._turningsupersonic:
+                if apcapabilities.hasproperty(A, "PSSM"):
+                    A._turnrateap -= 2.0
+                elif not apcapabilities.hasproperty(A, "GSSM"):
+                    A._turnrateap -= 1.0
 
     ########################################
 
@@ -1985,6 +1989,14 @@ def dodeclareturn(A, turnrate, sense):
         A._maneuverrequiredfp = turnrequirement
         A._maneuverfacingchange = 30
 
+    if apvariants.withvariant("use house rules"):
+        A._turnrateap -= turnrateap
+        if A._maneuversupersonic:
+            if apcapabilities.hasproperty(A, "PSSM"):
+                A._turnrateap -= 1.0
+            elif not apcapabilities.hasproperty(A, "GSSM"):
+                A._turnrateap -= 0.5
+
 
 ########################################
 
@@ -2008,7 +2020,9 @@ def doturn(A, sense, facingchange, continuous):
     else:
         sustainedfacingchanges = facingchange // 30
 
-    if apvariants.withvariant("use version 2.4 rules"):
+    if apvariants.withvariant("use house rules"):
+        pass
+    elif apvariants.withvariant("use version 2.4 rules"):
         if apcapabilities.hasproperty(A, "LBR"):
             A._sustainedturnap -= sustainedfacingchanges * 0.5
         elif apcapabilities.hasproperty(A, "HBR"):
