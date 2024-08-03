@@ -2118,8 +2118,9 @@ def doslide(A, sense):
     A._moveslide(sense)
 
     # See rule 13.2.
-    if A._slides >= 1:
-        A._othermaneuversap -= 1.0
+    if not apvariants.withvariant("use house rules"):
+        if A._slides >= 1:
+            A._othermaneuversap -= 1.0
 
     # Keep track of the number of slides and the FP of the last slide.
     A._slides += 1
@@ -2164,6 +2165,15 @@ def dodeclaredisplacementroll(A, sense):
     else:
         A._maneuverrequiredfp = apcapabilities.rollhfp(A) + extrapreparatoryhfp(A) + 1
 
+    # See rules 13.3.1 and 6.6.
+    if apvariants.withvariant("use house rules"):
+        A._othermaneuversap -= apcapabilities.rolldrag(A, "DR")
+        if A._maneuversupersonic:
+            if apcapabilities.hasproperty(A, "PSSM"):
+                A._othermaneuversap -= 2.0
+            elif not apcapabilities.hasproperty(A, "GSSM"):
+                A._othermaneuversap -= 1.0
+
 
 ########################################
 
@@ -2182,7 +2192,8 @@ def dodisplacementroll(A, sense):
     A._movedisplacementroll(sense)
 
     # See rule 13.3.1.
-    A._othermaneuversap -= apcapabilities.rolldrag(A, "DR")
+    if not apvariants.withvariant("use house rules"):
+        A._othermaneuversap -= apcapabilities.rolldrag(A, "DR")
 
     # See rule 6.6.
     if A._maneuversupersonic:
@@ -2192,9 +2203,10 @@ def dodisplacementroll(A, sense):
             A._othermaneuversap -= 1.0
 
     # See rule 13.3.6.
-    if A._rollmaneuvers > 0:
-        A._othermaneuversap -= 1.0
-    A._rollmaneuvers += 1
+    if not apvariants.withvariant("use house rules"):
+        if A._rollmaneuvers > 0:
+            A._othermaneuversap -= 1.0
+        A._rollmaneuvers += 1
 
     # Implicitly finish with wings level. This can be changed immediately by a bank.
     A._bank = None
@@ -2234,6 +2246,15 @@ def dodeclarelagroll(A, sense):
     else:
         A._maneuverrequiredfp = apcapabilities.rollhfp(A) + extrapreparatoryhfp(A) + 1
 
+    # See rules 13.3.1 and 6.6.
+    if apvariants.withvariant("use house rules"):
+        A._othermaneuversap -= apcapabilities.rolldrag(A, "LR")
+        if A._maneuversupersonic:
+            if apcapabilities.hasproperty(A, "PSSM"):
+                A._othermaneuversap -= 2.0
+            elif not apcapabilities.hasproperty(A, "GSSM"):
+                A._othermaneuversap -= 1.0
+
 
 ########################################
 
@@ -2252,7 +2273,8 @@ def dolagroll(A, sense):
     A._movelagroll(sense)
 
     # See rule 13.3.1.
-    A._othermaneuversap -= apcapabilities.rolldrag(A, "LR")
+    if not apvariants.withvariant("use house rules"):
+        A._othermaneuversap -= apcapabilities.rolldrag(A, "LR")
 
     # See rule 6.6.
     if A._maneuversupersonic:
@@ -2262,9 +2284,10 @@ def dolagroll(A, sense):
             A._othermaneuversap -= 1.0
 
     # See rule 13.3.6.
-    if A._rollmaneuvers > 0:
-        A._othermaneuversap -= 1.0
-    A._rollmaneuvers += 1
+    if not apvariants.withvariant("use house rules"):
+        if A._rollmaneuvers > 0:
+            A._othermaneuversap -= 1.0
+        A._rollmaneuvers += 1
 
     # Implicitly finish with wings level. This can be changed immediately by a bank.
     A._bank = None
@@ -2305,6 +2328,15 @@ def dodeclareverticalroll(A, sense):
     A._maneuversupersonic = A.speed() >= apspeed.m1speed(A.altitudeband())
     A._maneuverrequiredfp = 1
 
+    # See rules 6.6 and 13.3.6
+    if apvariants.withvariant("use house rules"):
+        A._othermaneuversap -= apcapabilities.rolldrag(A, "VR")
+        if A._maneuversupersonic:
+            if apcapabilities.hasproperty(A, "PSSM"):
+                A._othermaneuversap -= 2.0
+            elif not apcapabilities.hasproperty(A, "GSSM"):
+                A._othermaneuversap -= 1.0
+
 
 ########################################
 
@@ -2320,20 +2352,23 @@ def doverticalroll(A, sense, facingchange, shift):
             "attempt to roll vertically by more than 90 degrees in LRR aircraft."
         )
 
-    A._othermaneuversap -= apcapabilities.rolldrag(A, "VR")
+    if not apvariants.withvariant("use house rules"):
+        A._othermaneuversap -= apcapabilities.rolldrag(A, "VR")
 
     # See rule 13.3.6
-    if A._rollmaneuvers > 0:
-        A._othermaneuversap -= 1
+    if not apvariants.withvariant("use house rules"):
+        if A._rollmaneuvers > 0:
+            A._othermaneuversap -= 1
     A._rollmaneuvers += 1
     A._verticalrolls += 1
 
     # See rule 6.6.
-    if A._maneuversupersonic:
-        if apcapabilities.hasproperty(A, "PSSM"):
-            A._othermaneuversap -= 2.0
-        elif not apcapabilities.hasproperty(A, "GSSM"):
-            A._othermaneuversap -= 1.0
+    if not apvariants.withvariant("use house rules"):
+        if A._maneuversupersonic:
+            if apcapabilities.hasproperty(A, "PSSM"):
+                A._othermaneuversap -= 2.0
+            elif not apcapabilities.hasproperty(A, "GSSM"):
+                A._othermaneuversap -= 1.0
 
     # Move.
     A._moveverticalroll(sense, facingchange, shift)
