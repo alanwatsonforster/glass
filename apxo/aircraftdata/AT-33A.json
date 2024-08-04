@@ -1,5 +1,5 @@
 {
-  "name": "AT-33",
+  "name": "AT-33A",
   "base": "F-80C",
   "gun": "Two .50 cal",
   "gunatatohitrolls": [ 4, 2, "-" ],
