@@ -62,7 +62,7 @@ class aircraftdata:
         _checkpowersetting(powersetting)
         if not powersetting in self._data["powertable"]:
             return None
-        elif powersetting == "I" and apvariants.withvariant("use version 2.4 rules"):
+        elif powersetting == "I":
             return (
                 self._data["powertable"][powersetting][
                     _configurationindex(configuration)

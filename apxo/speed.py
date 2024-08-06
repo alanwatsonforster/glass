@@ -302,14 +302,13 @@ def startmovespeed(A, power, flamedoutengines, lowspeedliftdeviceselected):
             % powersetting
         )
 
-    if apvariants.withvariant("use version 2.4 rules"):
-        if speed >= m1speed(A.altitudeband()) and (
-            powersetting == "I" or powersetting == "N"
-        ):
-            A._logevent(
-                "%s flame-out as the speed is supersonic and the power setting is %s."
-                % (plural(apcapabilities.engines(A), "engine", "engines"), powersetting)
-            )
+    if speed >= m1speed(A.altitudeband()) and (
+        powersetting == "I" or powersetting == "N"
+    ):
+        A._logevent(
+            "%s flame-out as the speed is supersonic and the power setting is %s."
+            % (plural(apcapabilities.engines(A), "engine", "engines"), powersetting)
+        )
 
     ############################################################################
 
@@ -322,18 +321,6 @@ def startmovespeed(A, power, flamedoutengines, lowspeedliftdeviceselected):
         A._logevent(
             "increasing speed to %.1f after recovering from departed flight." % minspeed
         )
-
-    # See rules 6.1 and 6.6 on idle power setting, and compared with the new rule in version 2.4.
-
-    if not apvariants.withvariant("use version 2.4 rules"):
-        if powersetting == "I":
-            speedchange = apcapabilities.power(A, "I")
-            if A.speed() >= m1speed(A.altitudeband()):
-                speedchange += 0.5
-            # This keeps the speed non-negative. See rule 6.2.
-            speedchange = min(speedchange, A.speed())
-            speed -= speedchange
-            A._logevent("reducing speed to %.1f as the power setting is I." % speed)
 
     reportspeed()
 
@@ -425,12 +412,11 @@ def startmovespeed(A, power, flamedoutengines, lowspeedliftdeviceselected):
 
     # See rules 6.1 and 6.6 in version 2.4.
 
-    if apvariants.withvariant("use version 2.4 rules"):
-        if powersetting == "I":
-            A._logevent("idle power.")
-            speedap -= apcapabilities.power(A, "I")
-            if speed >= m1speed(A.altitudeband()):
-                speedap -= 1.0
+    if powersetting == "I":
+        A._logevent("idle power.")
+        speedap -= apcapabilities.power(A, "I")
+        if speed >= m1speed(A.altitudeband()):
+            speedap -= 1.0
 
     # See rule 6.6
 
