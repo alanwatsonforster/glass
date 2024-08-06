@@ -2460,52 +2460,20 @@ def dospeedbrakes(A, spbr):
     if maxspbr == None:
         raise RuntimeError("aircraft does not have speedbrakes.")
 
-    if apvariants.withvariant("use version 2.4 rules"):
+    maxspbr = apcapabilities.spbr(A)
 
-        maxspbr = apcapabilities.spbr(A)
+    if A.speed() >= apspeed.m1speed(A.altitudeband()):
+        maxspbr += 2.0
 
-        if A.speed() >= apspeed.m1speed(A.altitudeband()):
-            maxspbr += 2.0
-
-        if spbr > maxspbr:
-            raise RuntimeError(
-                plural(
-                    maxspbr,
-                    "speedbrake capability is only 1 DP.",
-                    "speedbrake capability is only %.1f DPs." % maxspbr,
-                )
+    if spbr > maxspbr:
+        raise RuntimeError(
+            plural(
+                maxspbr,
+                "speedbrake capability is only 1 DP.",
+                "speedbrake capability is only %.1f DPs." % maxspbr,
             )
-
-        A._spbrap = -spbr
-
-    else:
-
-        if A.speed() > apspeed.m1speed(A.altitudeband()):
-            maxspbr += 0.5
-
-        if spbr > maxspbr:
-            raise RuntimeError(
-                plural(
-                    maxspbr,
-                    "speedbrake capability is only 1 FP.",
-                    "speedbrake capability is only %.1f FPs." % maxspbr,
-                )
-            )
-
-        maxspbr = A._maxfp - A._hfp - A._vfp
-        if spbr >= maxspbr:
-            raise RuntimeError(
-                plural(
-                    maxspbr,
-                    "invalid use of speedbrakes when only 1 FP remains.",
-                    "invalid use of speedbrakes when only %s FPs remain." % maxspbr,
-                )
-            )
-
-        A._spbrfp = spbr
-        A._maxfp -= spbr
-
-        A._spbrap = -spbr / 0.5
+        )
+    A._spbrap = -spbr
 
 
 ########################################

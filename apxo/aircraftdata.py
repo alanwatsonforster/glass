@@ -97,10 +97,8 @@ class aircraftdata:
         raw = self._data["powertable"]["SPBR"][_configurationindex(configuration)]
         if raw == "-":
             return None
-        elif apvariants.withvariant("use version 2.4 rules"):
-            return raw * 2
         else:
-            return raw
+            return raw * 2
 
     def fuelrate(self, powersetting):
         _checkpowersetting(powersetting)

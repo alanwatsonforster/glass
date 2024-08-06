@@ -23,7 +23,7 @@ for path in pathlist:
 d = aircraftdata("F-104A")
 assert d.power("CL", "AB") == 3.5
 assert d.powerfade(6.0, 20) == None
-assert d.spbr("DT") == 1.0
+assert d.spbr("DT") == 2.0
 assert d.fuelrate("M") == 2.0
 assert d.engines() == 1
 assert d.lowspeedliftdevicelimit() == None
