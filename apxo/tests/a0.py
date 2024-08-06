@@ -37,8 +37,8 @@ assert d.maxspeed("DT", "EH") == None
 assert d.maxdivespeed("LO") == 9.0
 assert d.ceiling("1/2") == 52
 assert d.cruisespeed("CL") == 6.0
-assert d.cruisespeed("1/2") == 6.0
-assert d.cruisespeed("DT") == 6.0
+assert d.cruisespeed("1/2") == 5.5
+assert d.cruisespeed("DT") == 5.0
 
 assert d.climbspeed() == 4.5
 assert d.rollhfp() == 1.0
@@ -52,13 +52,6 @@ assert d.hasproperty("RAA") == True
 assert d.hasproperty("GSSM") == True
 assert d.hasproperty("RPR") == True
 assert d.hasproperty("HPR") == False
-
-# Check version 2.4 cruise speeds.
-apxo.variants.setvariants(["use version 2.4 rules"])
-assert d.cruisespeed("CL") == 6.0
-assert d.cruisespeed("1/2") == 5.5
-assert d.cruisespeed("DT") == 5.0
-apxo.variants.setvariants([])
 
 # Check slatted wings using the F-100A as a test case.
 

@@ -200,7 +200,7 @@ class aircraftdata:
 
     def cruisespeed(self, configuration):
         basecruisespeed = self._data["cruisespeed"]
-        if configuration == "CL" or not apvariants.withvariant("use version 2.4 rules"):
+        if configuration == "CL":
             return basecruisespeed
         elif configuration == "1/2":
             return basecruisespeed - 0.5

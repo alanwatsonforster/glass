@@ -126,7 +126,7 @@ endgameturn()
 
 startgameturn()
 A1.move("LVL", "N", "H/J(1+4),H,H,H")
-A1._assert("A1-2016       N    10", 4.0, expectedconfiguration="CL")
+A1._assert("A1-2016       N    10", 3.5, expectedconfiguration="CL")
 endgameturn()
 
 
