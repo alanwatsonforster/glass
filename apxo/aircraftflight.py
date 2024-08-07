@@ -270,7 +270,7 @@ def checknormalflight(A):
         # See rule 8.2.3 on VD recovery.
 
         if A._previousflighttype == "VD":
-            if apvariants.withvariant("use version 2.4 rules") and A.speed() <= 2.0:
+            if A.speed() <= 2.0:
                 pass
             elif not apcapabilities.hasproperty(A, "HPR"):
                 raise RuntimeError(
