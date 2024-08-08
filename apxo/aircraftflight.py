@@ -1470,13 +1470,7 @@ def endnormalflight(A):
         if A._flighttype == "ZC":
 
             # See rule 8.1.1.
-            if apvariants.withvariant("use version 2.4 rules"):
-                altitudeap = -1.0 * altitudechange
-            else:
-                if _isclimbingflight(A._previousflighttype):
-                    altitudeap = -1.5 * altitudechange
-                else:
-                    altitudeap = -1.0 * altitudechange
+            altitudeap = -1.0 * altitudechange
 
         elif A._flighttype == "SC":
 
