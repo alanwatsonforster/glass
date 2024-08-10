@@ -1721,16 +1721,12 @@ def dohorizontal(A, action):
             A._firstunloadedfp = A._hfp
         A._lastunloadedfp = A._hfp
 
-        if apvariants.withvariant("use version 2.4 rules"):
-            if math.floor(A._maxfp) == 1:
-                # Both half FPs and all FPs.
-                altitudechange = 2
-            elif A._unloadedhfp == math.floor(A._maxfp / 2):
-                altitudechange = 1
-            elif A._unloadedhfp == math.floor(A._maxfp):
-                altitudechange = 1
-                altitudechange = 1
-        else:
+        if math.floor(A._maxfp) == 1:
+            # Both half FPs and all FPs.
+            altitudechange = 2
+        elif A._unloadedhfp == math.floor(A._maxfp / 2):
+            altitudechange = 1
+        elif A._unloadedhfp == math.floor(A._maxfp):
             altitudechange = 1
 
     A._horizontal = True
