@@ -1767,8 +1767,6 @@ def doclimb(A, altitudechange):
                 if climbcapability <= 2.0:
                     raise RuntimeError("invalid altitude change in climb.")
             elif altitudechange == 3:
-                if not apvariants.withvariant("use version 2.4 rules"):
-                    raise RuntimeError("invalid altitude change in climb.")
                 if climbcapability < 6.0:
                     raise RuntimeError("invalid altitude change in climb.")
                 if A._usedsuperclimb:

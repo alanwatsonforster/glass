@@ -132,7 +132,9 @@ A1.move("ZC", "AB", "H,C2,H,H")
 A1._assert("A1-1812       N    3", 4.5)
 endgameturn()
 
-starttestsetup(variants=["use version 2.4 rules"])
+# Superclimbs
+
+starttestsetup()
 A1 = aircraft("A1", "AF", "F-104A", "A1-1815", "N", 1, 4.5, "CL")
 endtestsetup()
 
@@ -149,6 +151,7 @@ endgameturn()
 
 # Vertical Climbs
 
+starttestsetup()
 starttestsetup()
 A1 = aircraft("A1", "AF", "F-80C", "A1-1815", "N", 1, 5.5, "CL")
 A2 = aircraft("A2", "AF", "F-80C", "A1-2015", "N", 45, 4.0, "CL")
