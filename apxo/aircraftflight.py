@@ -1585,15 +1585,12 @@ def endnormalflight(A):
 
     def handleunloadeddiveflighttype():
 
-        if A._flighttype == "UD" and apvariants.withvariant("use version 2.4 rules"):
+        if A._flighttype == "UD":
             # See rule 8.2.2.
             altitudechange = A.altitude() - A._previousaltitude
             if altitudechange == -2:
                 A._logevent("UD ends as flight type SD.")
                 A._flighttype = "SD"
-            else:
-                A._logevent("UD ends as flight type LVL.")
-                A._flighttype = "LVL"
 
     ########################################
 
