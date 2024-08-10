@@ -2016,16 +2016,11 @@ def doturn(A, sense, facingchange, continuous):
 
     if apvariants.withvariant("use house rules"):
         pass
-    elif apvariants.withvariant("use version 2.4 rules"):
+    else:
         if apcapabilities.hasproperty(A, "LBR"):
             A._sustainedturnap -= sustainedfacingchanges * 0.5
         elif apcapabilities.hasproperty(A, "HBR"):
             A._sustainedturnap -= sustainedfacingchanges * 1.5
-        else:
-            A._sustainedturnap -= sustainedfacingchanges * 1.0
-    else:
-        if apcapabilities.hasproperty(A, "HBR"):
-            A._sustainedturnap -= sustainedfacingchanges * 2.0
         else:
             A._sustainedturnap -= sustainedfacingchanges * 1.0
 
