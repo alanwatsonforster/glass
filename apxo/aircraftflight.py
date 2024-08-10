@@ -2150,14 +2150,9 @@ def dodeclaredisplacementroll(A, sense):
     A._maneuverfp = 0
     A._maneuversupersonic = A.speed() >= apspeed.m1speed(A.altitudeband())
     # The requirement includes the FPs used to execute the roll.
-    if apvariants.withvariant("use version 2.4 rules"):
-        A._maneuverrequiredfp = (
-            apcapabilities.rollhfp(A)
-            + extrapreparatoryhfp(A)
-            + rounddown(A.speed() / 3)
-        )
-    else:
-        A._maneuverrequiredfp = apcapabilities.rollhfp(A) + extrapreparatoryhfp(A) + 1
+    A._maneuverrequiredfp = (
+        apcapabilities.rollhfp(A) + extrapreparatoryhfp(A) + rounddown(A.speed() / 3)
+    )
 
     # See rules 13.3.1 and 6.6.
     if apvariants.withvariant("use house rules"):
