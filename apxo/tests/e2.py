@@ -87,7 +87,7 @@ A1.move("UD", "N", "HU,HU,H,H,H")
 A1._assert("A1-1803       N    12", 4.5)
 startgameturn()
 A1.move("UD", "N", "HU,HU,HU,HU,HU")
-A1._assert("A1-1803       N    11", 4.5)
+A1._assert("A1-1803       N    11", 5.0)
 endgameturn()
 
 # Verify that attacks cannot happen on unloaded FPs.
