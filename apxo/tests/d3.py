@@ -4,7 +4,7 @@ startfile(__file__, "LBR/HBR aircraft")
 
 # Sustained turns with LBR aircraft.
 
-starttestsetup(variants=["use version 2.4 rules"])
+starttestsetup()
 A1 = aircraft("A1", "AF", "Sea Fury FB.11", "A1-2010", "N", 10, 4.5, "CL")
 endtestsetup()
 
@@ -35,7 +35,7 @@ endgameturn()
 
 # Sustained turns with HBR aircraft
 
-starttestsetup(variants=["use version 2.4 rules"])
+starttestsetup()
 A1 = aircraft("A1", "AF", "F7U-3", "A1-2010", "N", 10, 6.5, "CL")
 endtestsetup()
 

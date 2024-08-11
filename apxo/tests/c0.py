@@ -141,10 +141,10 @@ A3.move("LVL", "N", "H,H,H,H,H,H,H")
 A3._assert("B1-4409       S    28", 6.0)
 endgameturn()
 
-# Check version 2.4 rules for idle power.
+# Check rules for idle power.
 
 starttestsetup(
-    sheets=[["A1"], ["A2"], ["B1"], ["B2"]], variants=["use version 2.4 rules"]
+    sheets=[["A1"], ["A2"], ["B1"], ["B2"]]
 )
 A4 = aircraft("A4", "AF", "F-100A", "A1-2602", "S", 51, 5.5, "CL")
 endtestsetup()
@@ -186,7 +186,7 @@ endgameturn()
 
 # F-16A is LTD when CL.
 
-starttestsetup(sheets=[["A1"], ["A2"]], variants=["use version 2.4 rules"])
+starttestsetup(sheets=[["A1"], ["A2"]])
 A0 = aircraft("A0", "AF", "F-16A-1", "A1-2402", "S", 10, 6.5, "CL")
 A1 = aircraft("A1", "AF", "F-16A-1", "A1-2602", "S", 10, 6.5, "1/2")
 A2 = aircraft("A2", "AF", "F-16A-1", "A1-2802", "S", 10, 6.5, "DT")

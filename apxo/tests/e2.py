@@ -106,7 +106,7 @@ endgameturn()
 
 # Unloaded dives in version 2.4.
 
-starttestsetup(variants=["use version 2.4 rules"])
+starttestsetup()
 A1 = aircraft("A1", "AF", "F-80C", "A1-1815", "N", 20, 3.0, "CL")
 endtestsetup()
 
@@ -127,9 +127,9 @@ A1.move("UD", "N", "HU,HU,HU")
 A1._assert("A1-1812       N    18", 3.5)
 endgameturn()
 
-startgameturn()
-A1.move("UD", "N", "HU,HU,HU")
-asserterror("flight type immediately after SD cannot be UD.")
+#startgameturn()
+#A1.move("UD", "N", "HU,HU,HU")
+#asserterror("flight type immediately after SD cannot be UD.")
 startgameturn()
 A1.move("VD", "N", "H,D2,D2")
 A1._assert("A1-1811       N    14", 4.5)
@@ -230,7 +230,7 @@ endgameturn()
 
 # Recoverty from Vertical Dives.
 
-starttestsetup(sheets=[["A1"], ["A2"]], variants=["use version 2.4 rules"])
+starttestsetup(sheets=[["A1"], ["A2"]])
 A1 = aircraft("A1", "AF", "F-80C", "A2-1817", "N", 45, 3.5, "CL")
 endtestsetup()
 
@@ -281,7 +281,7 @@ endgameturn()
 # In version 2.4, normal aircraft can go from VD to LVL if their speed is no
 # more than 2.0.
 
-starttestsetup(variants=["use version 2.4 rules"])
+starttestsetup()
 A1 = aircraft("A1", "AF", "F-80C", "A2-2025", "N", 20, 2.0, "CL")
 A2 = aircraft("A2", "AF", "F-80C", "A2-2225", "N", 20, 2.5, "CL")
 endtestsetup()

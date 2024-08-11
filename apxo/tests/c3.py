@@ -57,7 +57,7 @@ endgameturn()
 
 # Check at supersonic speeds.
 
-starttestsetup(variants=["use version 2.4 rules"])
+starttestsetup()
 A1 = aircraft("A1", "AF", "F-104A", "A2-2025", "N", 10, 10.0, "CL")
 A2 = aircraft("A2", "AF", "F-104A", "A2-2025", "N", 10, 7.0, "CL")
 endtestsetup()

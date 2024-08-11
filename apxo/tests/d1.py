@@ -17,7 +17,7 @@ endgameturn()
 
 # Turns with selectable slats.
 
-starttestsetup(variants=["use version 2.4 rules"], verbose=False)
+starttestsetup(verbose=False)
 A1 = aircraft("A1", "AF", "F-5A", "A1-1110", "N", 10, 4.0, "CL")
 A2 = aircraft("A2", "AF", "F-5A", "A1-1310", "N", 10, 4.0, "CL")
 endtestsetup()

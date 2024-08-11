@@ -408,7 +408,7 @@ endgameturn()
 
 # Additional prepatory FPs in version 2.4.
 
-starttestsetup(variants=["use version 2.4 rules"], verbose=False)
+starttestsetup(verbose=False)
 A1 = aircraft("A1", "AF", "F-104A", "A2-2025", "N", 20, 4.0, "CL")
 A2 = aircraft("A2", "AF", "F-104A", "A2-2225", "N", 20, 5.0, "CL")
 A3 = aircraft("A3", "AF", "F-104A", "A2-2425", "N", 20, 6.0, "CL")
@@ -434,7 +434,7 @@ endgameturn()
 # In version 2.4, the preparatory FPs can be HFPs or VFPs, but the roll must
 # be executed on an HFP.
 
-starttestsetup(variants=["use version 2.4 rules"])
+starttestsetup()
 A1 = aircraft("A1", "AF", "F-104A", "A2-2025", "N", 20, 6.0, "CL")
 endtestsetup()
 
