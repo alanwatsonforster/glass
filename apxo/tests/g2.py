@@ -154,7 +154,7 @@ A1.move("LVL", 0.5, "H,H/L,H,H,H,H,H")
 A1._assert("A1-1803/1903 NNE 10", 7.0)
 endgameturn()
 
-# Check VFPs and unloaded HFPs are not counted as preparatory HFPs.
+# Check unloaded HFPs are not counted as preparatory HFPs.
 
 starttestsetup(verbose=False)
 A1 = aircraft("A1", "AF", "F-104A", "A1-1715", "N", 10, 7.0, "CL")
@@ -168,12 +168,18 @@ asserterror("attempt to roll without sufficient preparatory FPs.")
 startgameturn()
 A1.move("UD", "AB", "H,LRL/H,HU,HU,H,H/L")
 A1._assert("A1-1610 NNE 10", 7.0)
+
+# Check VFPs are counted as preparatory HFPs.
+
+starttestsetup(verbose=False)
+A1 = aircraft("A1", "AF", "F-104A", "A1-1715", "N", 10, 7.0, "CL")
+endtestsetup()
 startgameturn()
-A1.move("SD", "AB", "H,LRL/D,D,HL,H,H,H,H")
-asserterror("attempt to roll without sufficient preparatory FPs.")
+A1.move("SD", "AB", "H,LRL/D,D,HL,H,H,H")
+A1._assert("A1-1711/1812 NNE 8", 8.0)
 startgameturn()
-A1.move("SD", "AB", "H,LRL/H,D,H/L,H,H,H")
-asserterror("attempt to roll without sufficient preparatory FPs.")
+A1.move("SD", "AB", "H,LRL/H,D,H/L,H,H,D")
+A1._assert("A1-1711 NNE 8", 8.0)
 startgameturn()
 A1.move("SD", "AB", "H,LRL/H,H,D,H/L,D,D")
 A1._assert("A1-1612       NNE   7", 8.0)
@@ -189,8 +195,8 @@ A1._assert("A1-1612       NNE  13", 7.0)
 endgameturn()
 
 startgameturn()
-A1.move("ZC", "AB", "H,LRL/C,HL,H,H,H")
-asserterror("attempt to roll without sufficient preparatory FPs.")
+A1.move("ZC", "AB", "H,LRL/C,H,HL,H,H")
+A1._assert("A1-1908 ENE 14", 7.0)
 startgameturn()
 A1.move("LVL", "M", "H,H,H,H,H,H")
 A1._assert("A1-1907       NNE  13", 7.0)

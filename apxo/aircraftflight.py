@@ -1491,7 +1491,7 @@ def endnormalflight(A):
                 scaltitudechange = min(truealtitudechange, climbcapability)
                 zcaltitudechange = int(truealtitudechange - scaltitudechange + 0.5)
                 scaltitudechange = altitudechange - zcaltitudechange
-                
+
                 altitudeap = -0.5 * scaltitudechange + -1.0 * zcaltitudechange
 
                 A._scwithzccomponent = zcaltitudechange != 0

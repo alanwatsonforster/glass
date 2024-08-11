@@ -143,9 +143,7 @@ def dotask(E, task, actiondispatchlist, afterFP, aftertask):
                 E._maneuverfp += 1
             elif E._maneuvertype == "VR" and E._vertical:
                 E._maneuverfp += 1
-            elif apvariants.withvariant("use version 2.4 rules") and (
-                E._maneuvertype == "DR" or E._maneuvertype == "LR"
-            ):
+            elif E._maneuvertype == "DR" or E._maneuvertype == "LR":
                 E._maneuverfp += 1
             elif E._horizontal:
                 E._maneuverfp += 1
