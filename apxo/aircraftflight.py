@@ -636,22 +636,10 @@ def startnormalflight(A, tasks, note=False):
 
         elif A._flighttype == "UD":
 
-            if apvariants.withvariant("use version 2.4 rules"):
-
-                # See rules 8.2.2.
-                maxvfp = 0
-                minunloadedhfp = 1
-                maxunloadedhfp = maxfp
-
-            else:
-
-                # See rules 8.2.2 and 8.2.3.
-                maxvfp = 0
-                maxunloadedhfp = maxfp
-                if A._previousflighttype == "VD":
-                    minunloadedhfp = rounddown(maxfp / 2)
-                else:
-                    minunloadedhfp = 1
+            # See rules 8.2.2.
+            maxvfp = 0
+            minunloadedhfp = 1
+            maxunloadedhfp = maxfp
 
         minhfp = max(minhfp, mininitialhfp)
 
