@@ -322,10 +322,10 @@ endgameturn()
 
 startgameturn()
 A1.move("VC", "AB", "H,H,C2,C2,C2,C2,C2")
-A1._assert("A2-2020       N    12", 3.0)
+A1._assert("A2-2020       N    12", 4.5)
 startgameturn()
 A1.move("VC", "AB", "H,H,VRR/C2/R,VRL/C2/L,VRR/C2/R,VRL/C2/L,VRR/C2/R")
-A1._assert("A2-2020       NNE  12", 1.0)
+A1._assert("A2-2020       NNE  12", 2.0)
 endgameturn()
 
 # Check VRs with aircraft with the OVR property ("one vertical roll"), such as

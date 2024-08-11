@@ -1516,10 +1516,7 @@ def endnormalflight(A):
         elif A._flighttype == "VC":
 
             # See rule 8.1.3.
-            if apvariants.withvariant("use version 2.4 rules"):
-                altitudeap = -1.5 * altitudechange
-            else:
-                altitudeap = -2.0 * altitudechange
+            altitudeap = -1.5 * altitudechange
 
         elif A._flighttype == "SD":
 
