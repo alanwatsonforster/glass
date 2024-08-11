@@ -1524,13 +1524,7 @@ def endnormalflight(A):
         elif A._flighttype == "SD":
 
             # See rule 8.2.1.
-            if apvariants.withvariant("use version 2.4 rules"):
-                altitudeap = -1.0 * altitudechange
-            else:
-                if _isdivingflight(A._previousflighttype):
-                    altitudeap = -1.0 * altitudechange
-                else:
-                    altitudeap = -0.5 * altitudechange
+            altitudeap = -1.0 * altitudechange
 
         elif A._flighttype == "UD":
 

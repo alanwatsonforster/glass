@@ -80,7 +80,7 @@ A2._assert("A1-2009       N    10", 4.0)
 A3.move("ZC", "M", "H,H,C,H")
 A3._assert("A1-2209       N    10", 4.0)
 A4.move("SD", "N", "D,H,H,H")
-A4._assert("A1-2409       N     8", 4.0)
+A4._assert("A1-2409       N     8", 4.5)
 endgameturn()
 
 endfile(__file__)
