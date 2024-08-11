@@ -94,10 +94,9 @@ def minspeed(A):
 
     minspeed = rawminspeed(A)
 
-    if apvariants.withvariant("use version 2.4 rules"):
-        # See rule 7.6 in version 2.4.
-        if lowspeedliftdeviceselectable(A) and A._lowspeedliftdeviceextended:
-            minspeed -= 0.5
+    # See rule 7.6 in version 2.4.
+    if lowspeedliftdeviceselectable(A) and A._lowspeedliftdeviceextended:
+        minspeed -= 0.5
 
     return minspeed
 
