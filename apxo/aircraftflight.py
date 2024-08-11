@@ -68,7 +68,7 @@ def move(
 
     A._powerap = 0
     A._speedap = 0
-    A._spbrap = 0
+    A._speedbrakeap = 0
     A._turnrateap = 0
     A._sustainedturnap = 0
     A._altitudeap = 0

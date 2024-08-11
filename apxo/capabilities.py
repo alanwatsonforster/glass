@@ -7,8 +7,8 @@ def power(A, powersetting):
     return A._aircraftdata.power(A._configuration, powersetting)
 
 
-def spbr(A):
-    return A._aircraftdata.spbr(A._configuration)
+def speedbrake(A):
+    return A._aircraftdata.speedbrake(A._configuration)
 
 
 def fuelrate(A):

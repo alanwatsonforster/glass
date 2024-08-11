@@ -92,7 +92,7 @@ class aircraftdata:
                     fadealtitude = p[1]
         return fadespeed + fadealtitude
 
-    def spbr(self, configuration):
+    def speedbrake(self, configuration):
         _checkconfiguration(configuration)
         raw = self._data["powertable"]["SPBR"][_configurationindex(configuration)]
         if raw == "-":
@@ -479,7 +479,11 @@ class aircraftdata:
             )
             str(
                 "SPBR   %-4s  %-4s  %-4s"
-                % (f1(self.spbr("CL")), f1(self.spbr("1/2")), f1(self.spbr("DT")))
+                % (
+                    f1(self.speedbrake("CL")),
+                    f1(self.speedbrake("1/2")),
+                    f1(self.speedbrake("DT")),
+                )
             )
             str("")
 

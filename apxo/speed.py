@@ -479,7 +479,7 @@ def startmovespeed(A, power, flamedoutengines, lowspeedliftdeviceselected, speed
 
     if speedbrakes is not None:
 
-        maxspeedbrakes = apcapabilities.spbr(A)
+        maxspeedbrakes = apcapabilities.speedbrake(A)
         if maxspeedbrakes is None:
             raise RuntimeError("aircraft does not have speedbrakes.")
 
@@ -494,7 +494,7 @@ def startmovespeed(A, power, flamedoutengines, lowspeedliftdeviceselected, speed
                     "speedbrake capability is only %.1f DPs." % maxspeedbrakes,
                 )
             )
-        A._spbrap = -speedbrakes
+        A._speedbrakeap = -speedbrakes
         A._logevent(
             plural(
                 speedbrakes,
@@ -567,7 +567,7 @@ def endmovespeed(A):
     A._logevent("altitude        APs = %+.2f." % A._altitudeap)
     A._logevent("turns           APs = %+.2f." % A._turnsap)
     A._logevent("other maneuvers APs = %+.2f." % A._othermaneuversap)
-    A._logevent("speedbrakes     APs = %+.2f." % A._spbrap)
+    A._logevent("speedbrakes     APs = %+.2f." % A._speedbrakeap)
     A._logevent("carry           APs = %+.2f." % A._apcarry)
     ap = (
         A._powerap
@@ -575,7 +575,7 @@ def endmovespeed(A):
         + A._altitudeap
         + A._turnsap
         + A._othermaneuversap
-        + A._spbrap
+        + A._speedbrakeap
         + A._apcarry
     )
     A._logevent("total           APs = %+.2f." % ap)
