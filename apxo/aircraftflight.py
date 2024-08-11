@@ -1358,8 +1358,6 @@ def endnormalflight(A):
                 plural(A._vfp, "1 VFP", "%d VFPs" % A._vfp),
             )
         )
-        if A._spbrfp > 0:
-            A._logevent("lost %.1f FPs to speedbrakes." % A._spbrfp)
         A._logevent("will carry %.1f FPs." % A._fpcarry)
 
     ########################################

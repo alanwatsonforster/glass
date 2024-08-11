@@ -26,7 +26,6 @@ def dotasks(E, tasks, actiondispatchlist, start=False, afterFP=None, aftertask=N
         E._fp = 0
         E._hfp = 0
         E._vfp = 0
-        E._spbrfp = 0
 
         # The number of unloaded HFPs and the indices of the first and last
         # unloaded HFPs in an UD. They are then used to ensure that the
