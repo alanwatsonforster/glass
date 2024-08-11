@@ -56,7 +56,7 @@ def ltspeed(altitudeband):
 ################################################################################
 
 
-def startmovespeed(A, power, flamedoutengines, lowspeedliftdeviceselected):
+def startmovespeed(A, power, flamedoutengines, lowspeedliftdeviceselected, speedbrakes):
     """
     Carry out the rules to do with power, speed, and speed-induced drag at the
     start of a move.
@@ -471,6 +471,36 @@ def startmovespeed(A, power, flamedoutengines, lowspeedliftdeviceselected):
     if not A._fuel is None:
         A._fuelconsumption = min(
             A._fuel, apcapabilities.fuelrate(A) * (1 - flamedoutfraction)
+        )
+
+    ############################################################################
+
+    # Determine effects of speed brakes.
+
+    if speedbrakes is not None:
+
+        maxspeedbrakes = apcapabilities.spbr(A)
+        if maxspeedbrakes is None:
+            raise RuntimeError("aircraft does not have speedbrakes.")
+
+        if A.speed() >= m1speed(A.altitudeband()):
+            maxspeedbrakes += 2.0
+
+        if speedbrakes > maxspeedbrakes:
+            raise RuntimeError(
+                plural(
+                    maxspeedbrakes,
+                    "speedbrake capability is only 1 DP.",
+                    "speedbrake capability is only %.1f DPs." % maxspeedbrakes,
+                )
+            )
+        A._spbrap = -speedbrakes
+        A._logevent(
+            plural(
+                speedbrakes,
+                "using speedbrakes for 1 DP.",
+                "using speedbrakes for %.1f DPs." % speedbrakes,
+            )
         )
 
 

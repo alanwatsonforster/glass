@@ -669,9 +669,11 @@ class aircraft(apelement.element):
 
     ################################################################################
 
-    def _startmovespeed(self, power, flamedoutengines, lowspeedliftdeviceselected):
+    def _startmovespeed(
+        self, power, flamedoutengines, lowspeedliftdeviceselected, speedbrakes
+    ):
         apspeed.startmovespeed(
-            self, power, flamedoutengines, lowspeedliftdeviceselected
+            self, power, flamedoutengines, lowspeedliftdeviceselected, speedbrakes
         )
 
     def _endmovespeed(self):
