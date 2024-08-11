@@ -344,9 +344,7 @@ def startmovespeed(A, power, flamedoutengines, lowspeedliftdeviceselected):
 
     else:
 
-        if apvariants.withvariant(
-            "use version 2.4 rules"
-        ) and apcapabilities.lowspeedliftdeviceselectable(A):
+        if apcapabilities.lowspeedliftdeviceselectable(A):
 
             if lowspeedliftdeviceselected is not None:
                 A._lowspeedliftdeviceselected = lowspeedliftdeviceselected
