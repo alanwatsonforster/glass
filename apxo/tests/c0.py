@@ -143,9 +143,7 @@ endgameturn()
 
 # Check rules for idle power.
 
-starttestsetup(
-    sheets=[["A1"], ["A2"], ["B1"], ["B2"]]
-)
+starttestsetup(sheets=[["A1"], ["A2"], ["B1"], ["B2"]])
 A4 = aircraft("A4", "AF", "F-100A", "A1-2602", "S", 51, 5.5, "CL")
 endtestsetup()
 

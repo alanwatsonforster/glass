@@ -36,6 +36,7 @@ def move(
     flighttype,
     power,
     tasks="",
+    speedbrakes=None,
     flamedoutengines=0,
     lowspeedliftdeviceselected=None,
     note=False,
@@ -100,7 +101,9 @@ def move(
     if flighttype == "SP":
         A._setspeed(power)
     else:
-        A._startmovespeed(power, flamedoutengines, lowspeedliftdeviceselected)
+        A._startmovespeed(
+            power, flamedoutengines, lowspeedliftdeviceselected, speedbrakes
+        )
         A._logstart("configuration is %s." % A._configuration)
     A._logstart("altitude band is %s." % A.altitudeband())
     A._logstart("damage        is %s." % A.damage())
@@ -904,18 +907,6 @@ def continuenormalflight(A, tasks, start=False, note=False):
         ["BTR", "prolog", None, lambda A: dodeclaremaneuver(A, "BT", "R")],
         ["ETR", "prolog", None, lambda A: dodeclaremaneuver(A, "ET", "R")],
         ["SSGT", "prolog", argsregex(1), lambda A, m: dossgt(A, m)],
-        ["S1/2", "prolog", None, lambda A: dospeedbrakes(A, 1 / 2)],
-        ["S1", "prolog", None, lambda A: dospeedbrakes(A, 1)],
-        ["S3/2", "prolog", None, lambda A: dospeedbrakes(A, 3 / 2)],
-        ["S2", "prolog", None, lambda A: dospeedbrakes(A, 2)],
-        ["S5/2", "prolog", None, lambda A: dospeedbrakes(A, 5 / 2)],
-        ["S3", "prolog", None, lambda A: dospeedbrakes(A, 3)],
-        ["S7/2", "prolog", None, lambda A: dospeedbrakes(A, 7 / 2)],
-        ["S4", "prolog", None, lambda A: dospeedbrakes(A, 4)],
-        ["SSSS", "prolog", None, lambda A: dospeedbrakes(A, 4)],
-        ["SSS", "prolog", None, lambda A: dospeedbrakes(A, 3)],
-        ["SS", "prolog", None, lambda A: dospeedbrakes(A, 2)],
-        ["S", "prolog", None, lambda A: dospeedbrakes(A, 1)],
         ["BL", "epilog", None, lambda A: dobank(A, "L")],
         ["BR", "epilog", None, lambda A: dobank(A, "R")],
         ["WL", "epilog", None, lambda A: dobank(A, None)],
@@ -2379,39 +2370,6 @@ def domaneuver(A, sense, facingchange, shift, continuous):
     else:
         A._hasdeclaredamaneuver = False
         dodeclaremaneuver(A, A._maneuvertype, A._maneuversense)
-
-
-########################################
-
-
-def dospeedbrakes(A, spbr):
-    """
-    Use the speedbrakes.
-    """
-
-    # See rules 6.5 and 6.6.
-
-    if A._spbrap != 0:
-        raise RuntimeError("speedbrakes can only be used once per turn.")
-
-    maxspbr = apcapabilities.spbr(A)
-    if maxspbr == None:
-        raise RuntimeError("aircraft does not have speedbrakes.")
-
-    maxspbr = apcapabilities.spbr(A)
-
-    if A.speed() >= apspeed.m1speed(A.altitudeband()):
-        maxspbr += 2.0
-
-    if spbr > maxspbr:
-        raise RuntimeError(
-            plural(
-                maxspbr,
-                "speedbrake capability is only 1 DP.",
-                "speedbrake capability is only %.1f DPs." % maxspbr,
-            )
-        )
-    A._spbrap = -spbr
 
 
 ########################################
