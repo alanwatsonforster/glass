@@ -1503,14 +1503,9 @@ def endnormalflight(A):
                 scaltitudechange = min(truealtitudechange, climbcapability)
                 zcaltitudechange = int(truealtitudechange - scaltitudechange + 0.5)
                 scaltitudechange = altitudechange - zcaltitudechange
+                
+                altitudeap = -0.5 * scaltitudechange + -1.0 * zcaltitudechange
 
-                if apvariants.withvariant("use version 2.4 rules"):
-                    altitudeap = -0.5 * scaltitudechange + -1.0 * zcaltitudechange
-                else:
-                    if _isclimbingflight(A._previousflighttype):
-                        altitudeap = -0.5 * scaltitudechange + -1.5 * zcaltitudechange
-                    else:
-                        altitudeap = -0.5 * scaltitudechange + -1.0 * zcaltitudechange
                 A._scwithzccomponent = zcaltitudechange != 0
 
         elif A._flighttype == "VC":
