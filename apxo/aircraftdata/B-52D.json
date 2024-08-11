@@ -49,7 +49,7 @@
   "storeslimits": [ 40, 70, 60000 ],
   "gunarc": "30-",
   "gunammunition": 8.0,
-  "properties": [ "NRM", "LRR", "HTD" ],
+  "properties": [ "NRM", "LRR", "HTD", "SMP" ],
   "notes": [
   ]
 }
