@@ -98,7 +98,7 @@ class aircraftdata:
         if raw == "-":
             return None
         else:
-            return raw * 2
+            return raw
 
     def fuelrate(self, powersetting):
         _checkpowersetting(powersetting)

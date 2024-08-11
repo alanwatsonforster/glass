@@ -7,7 +7,7 @@
     "M"   : [ 2.0, 1.5, 1.0, 1.5 ],
     "N"   : [ 0.0, 0.0, 0.0, 1.0 ],
     "I"   : [ 0.5, 0.5, 1.0, 0.0 ],
-    "SPBR": [ 0.5, 1.0, 1.0 ]
+    "SPBR": [ 1.0, 2.0, 2.0 ]
   },
   "lowspeedliftdeviceselectable": true,
   "lowspeedliftdevicelimit": 2.5,
