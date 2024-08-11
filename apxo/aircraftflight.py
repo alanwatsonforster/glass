@@ -533,9 +533,9 @@ def startnormalflight(A, tasks, note=False):
 
         # See rule 5.4.
 
-        A._maxfp = A.speed() + A._fpcarry
-        A._logevent("has %.1f FPs (including %.1f carry)." % (A._maxfp, A._fpcarry))
-        A._fpcarry = 0
+        A._maxfp = int(A.speed() + A._fpcarry)
+        A._logevent("has %d FPs (including %.1f carry)." % (A._maxfp, A._fpcarry))
+        A._fpcarry = (A.speed() + A._fpcarry) - A._maxfp
 
     ########################################
 
@@ -568,12 +568,10 @@ def startnormalflight(A, tasks, note=False):
         else:
             mininitialhfp = 0
 
-        maxfp = int(A._maxfp)
-
         minhfp = 0
-        maxhfp = maxfp
+        maxhfp = A._maxfp
         minvfp = 0
-        maxvfp = maxfp
+        maxvfp = A._maxfp
         minunloadedhfp = 0
         maxunloadedhfp = 0
 
@@ -594,7 +592,7 @@ def startnormalflight(A, tasks, note=False):
             minvfp = 1
 
             # See rules 8.1.1.
-            minhfp = rounddown(onethirdfromtable(maxfp))
+            minhfp = rounddown(onethirdfromtable(A._maxfp))
 
         elif A._flighttype == "SC":
 
@@ -610,7 +608,7 @@ def startnormalflight(A, tasks, note=False):
             if climbcapability < 1:
                 maxvfp = 1
             else:
-                maxvfp = rounddown(twothirdsfromtable(maxfp))
+                maxvfp = rounddown(twothirdsfromtable(A._maxfp))
 
         elif A._flighttype == "VC" or A._flighttype == "VD":
 
@@ -619,10 +617,10 @@ def startnormalflight(A, tasks, note=False):
 
             # See rules 8.1.3 and 8.2.3.
             if A._previousflighttype != A._flighttype:
-                minhfp = rounddown(onethirdfromtable(maxfp))
+                minhfp = rounddown(onethirdfromtable(A._maxfp))
                 maxhfp = minhfp
             else:
-                maxhfp = rounddown(onethirdfromtable(maxfp))
+                maxhfp = rounddown(onethirdfromtable(A._maxfp))
 
         elif A._flighttype == "SD":
 
@@ -632,17 +630,17 @@ def startnormalflight(A, tasks, note=False):
             # See rules 8.2.1 and 8.2.3.
             if A._previousflighttype == "VD":
                 if apcapabilities.hasproperty(A, "HPR"):
-                    minvfp = rounddown(onethirdfromtable(maxfp))
+                    minvfp = rounddown(onethirdfromtable(A._maxfp))
                 else:
-                    minvfp = rounddown(maxfp / 2)
-            minhfp = rounddown(onethirdfromtable(maxfp))
+                    minvfp = rounddown(A._maxfp / 2)
+            minhfp = rounddown(onethirdfromtable(A._maxfp))
 
         elif A._flighttype == "UD":
 
             # See rules 8.2.2.
             maxvfp = 0
             minunloadedhfp = 1
-            maxunloadedhfp = maxfp
+            maxunloadedhfp = A._maxfp
 
         minhfp = max(minhfp, mininitialhfp)
 
@@ -665,7 +663,7 @@ def startnormalflight(A, tasks, note=False):
                         "exactly %d FPs must be HFPs." % minhfp,
                     )
                 )
-            elif minhfp > 0 and maxhfp < maxfp:
+            elif minhfp > 0 and maxhfp < A._maxfp:
                 A._logevent("between %d and %d FP must be HFPs." % (minhfp, maxhfp))
             elif minhfp > 0:
                 A._logevent(
@@ -692,7 +690,7 @@ def startnormalflight(A, tasks, note=False):
                         "exactly %d FPs must be VFPs." % minvfp,
                     )
                 )
-            elif minvfp > 0 and maxvfp < maxfp:
+            elif minvfp > 0 and maxvfp < A._maxfp:
                 A._logevent("between %d and %d FP must be VFPs." % (minvfp, maxvfp))
             elif minvfp > 0:
                 A._logevent(
@@ -1243,10 +1241,7 @@ def continuenormalflight(A, tasks, start=False, note=False):
 
         endmove(A)
 
-    elif A._fp + 1 > A._maxfp:
-
-        # See rule 5.4.
-        A._fpcarry = A._maxfp - A._fp
+    elif A._fp >= A._maxfp:
 
         endnormalflight(A)
 
