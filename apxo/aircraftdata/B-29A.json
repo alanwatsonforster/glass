@@ -134,7 +134,8 @@
       "UD, VD, ZC, and VC are forbidded.",
       "SC and SD may only use 1 VFP per turn.",
       "SD may only lose 1 altitude level per VFP.",
-      "Limited to power level N with H or C damage."
+      "Limited to power level N with H or C damage.",
+      "Gun attacks are modified only by target siza and a -1 modifier when firing into 60- arc."
   ]
 
 }
