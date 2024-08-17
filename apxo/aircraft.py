@@ -52,7 +52,7 @@ class aircraft(apelement.element):
         azimuth,
         altitude,
         speed,
-        configuration="CL",
+        configuration=None,
         fuel=None,
         bingofuel=None,
         gunammunition=None,
@@ -80,7 +80,6 @@ class aircraft(apelement.element):
 
             if not isinstance(aircrafttype, str):
                 raise RuntimeError("the aircrafttype argument must be a string.")
-                raise RuntimeError("the configuration argument is not valid.")
             if not apvisualsighting.isvalidpaintscheme(paintscheme):
                 raise RuntimeError("the paintscheme argument is not valid.")
 
@@ -187,6 +186,9 @@ class aircraft(apelement.element):
             # stores.
 
             if stores is None:
+
+                if configuration not in ["CL", "1/2", "DT"]:
+                    raise RuntimeError("the configuration argument is not valid.")
 
                 self._stores = stores
                 self._configuration = configuration
