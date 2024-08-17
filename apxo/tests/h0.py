@@ -120,12 +120,16 @@ A1._assert("A2-2024       N    10", 4.0, expectedconfiguration="DT")
 endtestsetup()
 
 startgameturn()
-A1.move("LVL", "N", "H/J(BB),H,H,H")
+A1.move("LVL", "N", "H")
+A1.jettison("BB")
+A1.continuemove("H,H,H")
 A1._assert("A2-2020       N    10", 4.0, expectedconfiguration="1/2")
 endgameturn()
 
 startgameturn()
-A1.move("LVL", "N", "H/J(1+4),H,H,H")
+A1.move("LVL", "N", "H")
+A1.jettison("1", "4")
+A1.continuemove("H,H,H")
 A1._assert("A1-2016       N    10", 3.5, expectedconfiguration="CL")
 endgameturn()
 

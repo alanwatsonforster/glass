@@ -941,7 +941,6 @@ def continuenormalflight(A, tasks, start=False, note=False):
         ["RR", "epilog", None, lambda A: domaneuver(A, "R", 60, True, False)],
         ["R", "epilog", None, lambda A: domaneuver(A, "R", None, True, False)],
         ["AA", "epilog", argsregex(3), lambda A, m: doataattack(A, m)],
-        ["J", "epilog", argsregex(1), lambda A, m: dojettison(A, m)],
         ["HC1", "FP", None, lambda A: invalidaction(A, "HC1")],
         ["HC2", "FP", None, lambda A: invalidaction(A, "HC2")],
         ["HCC", "FP", None, lambda A: invalidaction(A, "HCC")],
@@ -2363,30 +2362,6 @@ def domaneuver(A, sense, facingchange, shift, continuous):
     else:
         A._hasdeclaredamaneuver = False
         dodeclaremaneuver(A, A._maneuvertype, A._maneuversense)
-
-
-########################################
-
-
-def dojettison(A, m):
-
-    # See rule 4.4.
-    # We implement the delay of 1 FP by making this an other action.
-
-    previousconfiguration = A._configuration
-
-    for released in m[1].split("+"):
-        A._stores = apstores._release(
-            A._stores, released, printer=lambda s: A._logevent(s)
-        )
-
-    apconfiguration.update(A)
-
-    if A._configuration != previousconfiguration:
-        A._logevent(
-            "configuration changed from %s to %s."
-            % (previousconfiguration, A._configuration)
-        )
 
 
 ########################################

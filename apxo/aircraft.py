@@ -711,6 +711,25 @@ class aircraft(apelement.element):
 
     ################################################################################
 
+    def jettison(self, *args):
+
+        previousconfiguration = self._configuration
+
+        for released in args:
+            self._stores = apstores._release(
+                self._stores, released, printer=lambda s: self._logevent(s)
+            )
+
+        apconfiguration.update(self)
+
+        if self._configuration != previousconfiguration:
+            self._logevent(
+                "configuration changed from %s to %s."
+                % (previousconfiguration, self._configuration)
+            )
+
+    ################################################################################
+
     def takedamage(self, damage, note=False):
         aplog.clearerror()
         try:
