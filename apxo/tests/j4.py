@@ -1,6 +1,6 @@
 from apxo.tests.infrastructure import *
 
-startfile(__file__, "air-to-air attack actions")
+startfile(__file__, "air-to-air attacks")
 
 starttestsetup(verbose=False)
 A1 = aircraft("A1", "AF", "F-80C", "A2-2025", "N", 5, 4.0, "CL")
@@ -55,15 +55,21 @@ A7.move("LVL", "M", "H")
 A7.airtoairattack("GN/RR", A8, "-")
 asserterror("RE radar-ranging requires SSGT.")
 startgameturn()
-A7.move("LVL", "M", "SSGT(A8)/H")
+A7.move("LVL", "M")
+A7.ssgt(A8)
+A7.continuemove("H")
 A7.airtoairattack("GN/RR", A8, "-")
 assert A7._gunammunition == 3.0
 startgameturn()
-A7.move("LVL", "M", "SSGT(A8)/H")
+A7.move("LVL", "M")
+A7.ssgt(A8)
+A7.continuemove("H")
 A7.airtoairattack("GN/SS/RR", A8, "-")
 assert A7._gunammunition == 3.5
 startgameturn()
-A7.move("LVL", "M", "SSGT(A8)/H")
+A7.move("LVL", "M")
+A7.ssgt(A8)
+A7.continuemove("H")
 A7.airtoairattack("GN/SS/RR", A8, "-")
 assert A7._gunammunition == 3.5
 
@@ -139,14 +145,19 @@ A0.move("LVL", "M", "SSGT(A2)/H,H,H,H/AA(GN)(A2)(-)")
 
 startgameturn()
 A3.move("LVL", "M", "H,H,H,H")
-A0.move("LVL", "M", "SSGT(A3)/H,H,H,H/AA(GN)(A3)(-)")
+A0.move("LVL", "M")
+A0.ssgt(A3)
 asserterror("attempt to start SSGT while A0 is not in its 60- arc of A3.")
 
 startgameturn()
 A4.move("LVL", "M", "H,H,H,H")
-A0.move("LVL", "M", "SSGT(A4)/H,H,H,H/AA(GN)(A4)(-)")
+A0.move("LVL", "M")
+A0.ssgt(A4)
 asserterror("attempt to start SSGT while A4 is more than 6 hexes from A0.")
 
 startgameturn()
 A1.move("LVL", "M", "H,H,H,H")
-A0.move("LVL", "M", "SSGT(A1)/BTR/H/R,H/WL,BTL/H/L+,H/L/AA(GN)(A1)(-)")
+A0.move("LVL", "M")
+A0.ssgt(A1)
+A0.continuemove("BTR/H/R,H/WL,BTL/H/L+,H/L")
+A0.airtoairattack("GN", A1, "-")

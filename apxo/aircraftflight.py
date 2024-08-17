@@ -904,7 +904,6 @@ def continuenormalflight(A, tasks, start=False, note=False):
         ["HTR", "prolog", None, lambda A: dodeclaremaneuver(A, "HT", "R")],
         ["BTR", "prolog", None, lambda A: dodeclaremaneuver(A, "BT", "R")],
         ["ETR", "prolog", None, lambda A: dodeclaremaneuver(A, "ET", "R")],
-        ["SSGT", "prolog", argsregex(1), lambda A, m: dossgt(A, m)],
         ["BL", "epilog", None, lambda A: dobank(A, "L")],
         ["BR", "epilog", None, lambda A: dobank(A, "R")],
         ["WL", "epilog", None, lambda A: dobank(A, None)],
@@ -2361,42 +2360,6 @@ def domaneuver(A, sense, facingchange, shift, continuous):
     else:
         A._hasdeclaredamaneuver = False
         dodeclaremaneuver(A, A._maneuvertype, A._maneuversense)
-
-
-########################################
-
-
-def dossgt(A, m):
-    """
-    Start SSGT.
-    """
-
-    # See rule 9.4.
-
-    # The rules only explicitly prohibit SSGT during recovery from an
-    # ET. However, we assume that SSGT has the same restrictions as
-    # attacks.
-
-    if useofweaponsforbidden(A):
-        raise RuntimeError("attempt to start SSGT while %s" % useofweaponsforbidden(A))
-
-    # TODO: Check we can start SSGT on a specific target.
-
-    targetname = m[1]
-
-    target = apelement.fromname(targetname)
-    if target is None:
-        raise RuntimeError("unknown target %s." % targetname)
-    if not target.isaircraft():
-        raise RuntimeError("target %s is not an aircraft." % targetname)
-
-    if apairtoair.trackingforbidden(A, target):
-        raise RuntimeError(
-            "attempt to start SSGT while %s" % apairtoair.trackingforbidden(A, target)
-        )
-
-    A._logevent("started SSGT on %s." % targetname)
-    A._tracking = target
 
 
 ########################################

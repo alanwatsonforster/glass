@@ -725,7 +725,7 @@ class aircraft(apelement.element):
                 )
 
             if target is not None and not target.isaircraft():
-                raise RuntimeError("target %s is not an aircraft." % targetname)
+                raise RuntimeError("target %s is not an aircraft." % target.name())
 
             apairtoair.attack(self, attacktype, target, result)
 
@@ -734,22 +734,69 @@ class aircraft(apelement.element):
 
     ################################################################################
 
+    def ssgt(self, target=None):
+        """
+        Start SSGT.
+        """
+
+        # See rule 9.4.
+
+        # The rules only explicitly prohibit SSGT during recovery from an
+        # ET. However, we assume that SSGT has the same restrictions as
+        # attacks.
+
+        aplog.clearerror()
+        try:
+
+            if apaircraftflight.useofweaponsforbidden(self):
+                raise RuntimeError(
+                    "attempt to start SSGT while %s"
+                    % apaircraftflight.useofweaponsforbidden(self)
+                )
+
+            # TODO: Check we can start SSGT on a specific target.
+
+            if target is None:
+                raise RuntimeError("unknown target %s." % target.name())
+            if not target.isaircraft():
+                raise RuntimeError("target %s is not an aircraft." % target.name())
+
+            if apairtoair.trackingforbidden(self, target):
+                raise RuntimeError(
+                    "attempt to start SSGT while %s"
+                    % apairtoair.trackingforbidden(self, target)
+                )
+
+            self._logevent("started SSGT on %s." % target.name())
+            self._tracking = target
+
+        except RuntimeError as e:
+            aplog.logexception(e)
+
+    ################################################################################
+
     def jettison(self, *args):
 
-        previousconfiguration = self._configuration
+        aplog.clearerror()
+        try:
 
-        for released in args:
-            self._stores = apstores._release(
-                self._stores, released, printer=lambda s: self._logevent(s)
-            )
+            previousconfiguration = self._configuration
 
-        apconfiguration.update(self)
+            for released in args:
+                self._stores = apstores._release(
+                    self._stores, released, printer=lambda s: self._logevent(s)
+                )
 
-        if self._configuration != previousconfiguration:
-            self._logevent(
-                "configuration changed from %s to %s."
-                % (previousconfiguration, self._configuration)
-            )
+            apconfiguration.update(self)
+
+            if self._configuration != previousconfiguration:
+                self._logevent(
+                    "configuration changed from %s to %s."
+                    % (previousconfiguration, self._configuration)
+                )
+
+        except RuntimeError as e:
+            aplog.logexception(e)
 
     ################################################################################
 
