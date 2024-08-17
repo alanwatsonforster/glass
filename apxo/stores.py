@@ -121,14 +121,14 @@ def _fuelcapacity(storename):
 
 def totalweight(stores):
     totalweight = 0
-    for loadpoint, storename in stores.items():
+    for loadstation, storename in stores.items():
         totalweight += _weight(storename)
     return totalweight
 
 
 def totalload(stores, fuel=0):
     totalload = 0
-    for loadpoint, storename in stores.items():
+    for loadstation, storename in stores.items():
         totalload += _load(storename, fuel=fuel)
     # Round down. See 4.3.
     totalload = int(totalload)
@@ -137,7 +137,7 @@ def totalload(stores, fuel=0):
 
 def totalfuelcapacity(stores):
     totalfuelcapacity = 0
-    for loadpoint, storename in stores.items():
+    for loadstation, storename in stores.items():
         totalfuelcapacity += _fuelcapacity(storename)
     return totalfuelcapacity
 
@@ -148,11 +148,11 @@ def totalfuelcapacity(stores):
 def _showstores(stores, printer=print, fuel=0):
 
     printer("stores are:")
-    for loadpoint, name in sorted(stores.items()):
+    for loadstation, name in sorted(stores.items()):
         printer(
             "  %-2s: %-17s  %2s / %4d / %.1f%s"
             % (
-                loadpoint,
+                loadstation,
                 name,
                 _class(name),
                 _weight(name),
@@ -174,22 +174,39 @@ def _checkstores(stores):
 
     newstores = {}
 
-    for loadpoint, name in stores.items():
+    for loadstation, name in stores.items():
 
-        if isinstance(loadpoint, int):
-            loadpoint = "%d" % loadpoint
-        if not isinstance(loadpoint, str):
-            raise RuntimeError("invalid load-point %r." % loadpoint)
+        if isinstance(loadstation, int):
+            loadstation = "%d" % loadstation
+        if not isinstance(loadstation, str):
+            raise RuntimeError("invalid load station %r." % loadstation)
 
         if name not in _storedict:
             raise RuntimeError("invalid store %r." % name)
 
-        newstores[loadpoint] = name
+        newstores[loadstation] = name
 
     return newstores
 
 
 ################################################################################
+
+
+def _airtoairlaunch(stores, launched, printer=print):
+
+    newstores = stores.copy()
+
+    loadstation = launched
+
+    if loadstation not in stores:
+        raise RuntimeError("load station %s is not loaded." % loadstation)
+
+    missiletype = stores[loadstation]
+
+    printer("launching %s from load station %s." % (stores[loadstation], loadstation))
+    del newstores[loadstation]
+
+    return missiletype, newstores
 
 
 def _release(stores, released, printer=print):
@@ -216,20 +233,20 @@ def _release(stores, released, printer=print):
         "LP",
     ]:
 
-        for loadpoint, name in sorted(stores.items()):
+        for loadstation, name in sorted(stores.items()):
             if _class(name) == released:
-                printer("releasing %s: %s." % (loadpoint, name))
-                del newstores[loadpoint]
+                printer("releasing %s: %s." % (loadstation, name))
+                del newstores[loadstation]
 
     else:
 
-        loadpoint = released
+        loadstation = released
 
-        if loadpoint not in stores:
-            raise RuntimeError("load-point %s is not loaded." % loadpoint)
+        if loadstation not in stores:
+            raise RuntimeError("load station %s is not loaded." % loadstation)
 
-        printer("releasing %s: %s." % (loadpoint, stores[loadpoint]))
-        del newstores[loadpoint]
+        printer("releasing %s: %s." % (loadstation, stores[loadstation]))
+        del newstores[loadstation]
 
     return newstores
 

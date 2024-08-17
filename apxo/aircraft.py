@@ -13,6 +13,7 @@ import apxo.hex as aphex
 import apxo.hexcode as aphexcode
 import apxo.log as aplog
 import apxo.map as apmap
+import apxo.missile as apmissile
 import apxo.speed as apspeed
 import apxo.stores as apstores
 import apxo.turnrate as apturnrate
@@ -775,6 +776,49 @@ class aircraft(apelement.element):
 
     ################################################################################
 
+    def airtoairlaunch(
+        self,
+        name,
+        target,
+        loadstation,
+        failed=False,
+        failedbeforelaunch=False,
+    ):
+
+        M = None
+
+        aplog.clearerror()
+        try:
+
+            previousconfiguration = self._configuration
+
+            missiletype, newstores = apstores._airtoairlaunch(
+                self._stores, loadstation, printer=lambda s: self._logevent(s)
+            )
+
+            apconfiguration.update(self)
+
+            if failedbeforelaunch:
+                self._logevent("launch failed but missile not lost.")
+            elif failed:
+                self._logevent("launch failed and missile lost.")
+                self._stores = newstores
+            else:
+                self._logevent("launch succeeded.")
+                self._stores = newstores
+                M = apmissile.missile(name, missiletype, self, target)
+
+            if self._configuration != previousconfiguration:
+                self._logevent(
+                    "configuration changed from %s to %s."
+                    % (previousconfiguration, self._configuration)
+                )
+
+        except RuntimeError as e:
+            aplog.logexception(e)
+
+        return M
+
     def jettison(self, *args):
 
         aplog.clearerror()
@@ -782,9 +826,9 @@ class aircraft(apelement.element):
 
             previousconfiguration = self._configuration
 
-            for released in args:
-                self._stores = apstores._release(
-                    self._stores, released, printer=lambda s: self._logevent(s)
+            for launchd in args:
+                self._stores = apstores._launch(
+                    self._stores, launchd, printer=lambda s: self._logevent(s)
                 )
 
             apconfiguration.update(self)

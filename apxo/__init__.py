@@ -267,4 +267,3 @@ def drawmap(
 from apxo.aircraft import aircraft
 from apxo.groundunit import groundunit
 from apxo.marker import marker
-from apxo.missile import missile
