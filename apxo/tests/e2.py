@@ -98,7 +98,7 @@ endtestsetup()
 
 startgameturn()
 A1.move("UD", "M", "HU,HU,HU,HU")
-A1.airtoairattack("GN")
+A1.attackaircraft("GN")
 asserterror("attempt to use weapons while unloaded.")
 startgameturn()
 A1.move("UD", "M", "HU,HU,HU,HU")
