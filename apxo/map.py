@@ -59,6 +59,9 @@ waterourlinewidth = 2
 tunnelinnerwidth = roadwidth + 8
 tunnelouterwidth = tunnelinnerwidth + 6
 
+watermarkcolor = "red"
+watermarkalpha = 0.20
+
 blanksheets = ["", "-", "--"]
 firstgenerationsheets = [
     "A",
@@ -1058,7 +1061,15 @@ def startdrawmap(
                 break
 
     if watermark is not None:
-        apdraw.drawwatermark(watermark, canvasxmin, canvasymin, canvasxmax, canvasymax)
+        apdraw.drawwatermark(
+            watermark,
+            canvasxmin,
+            canvasymin,
+            canvasxmax,
+            canvasymax,
+            watermarkcolor,
+            watermarkalpha,
+        )
 
     if fullmap:
         apdraw.save()

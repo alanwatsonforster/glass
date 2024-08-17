@@ -751,16 +751,17 @@ def drawmissile(x, y, facing, color, name, altitude, speed):
         )
 
 
-def drawwatermark(s, xmin, ymin, xmax, ymax):
-    dx = 4
-    dy = 4
+def drawwatermark(s, xmin, ymin, xmax, ymax, color, alpha):
+    # The math below puts the text at the center of each megahex,
+    dx = 5
+    dy = 5
     for ix in range(int(xmin / dx), int(xmax / dx) + 1):
         for iy in range(int(ymin / dy), int(ymax / dy) + 1):
-            x = (ix + 0.5) * dx
-            y = (iy + 0.5) * dy
-            if ix % 2 == 0:
+            x = ix * dx
+            y = iy * dy
+            if ix % 2 == 1:
                 y += 0.5 * dy
-            drawtext(x, y, 120, s, color="black", size=24, alpha=0.1)
+            drawtext(x, y, 120, s, color=color, size=24, alpha=alpha)
 
 
 ################################################################################
@@ -1097,7 +1098,7 @@ def _drawgroundunitinphysical(x0, y0, symbols, color, name, stack):
         )
 
     def drawlightsymbol():
-        _drawtextinphysical(
+        _drawinphysical(
             x,
             y,
             90,
