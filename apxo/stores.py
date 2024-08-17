@@ -69,7 +69,7 @@ _storedict = {
     "IRM/AA-2": ["IRM", 160, 1.0],
     "IRM/AA-2A": ["IRM", 160, 1.0],
     "IRM/AA-2B": ["IRM", 180, 1.0],
-    "RHM/AA-2C": ["IRM", 200, 1.0],
+    "RHM/AA-2C": ["RHM", 200, 1.0],
     "IRM/AA-2D": ["IRM", 200, 1.0],
     "IRM/AA-8": ["IRM", 140, 1.0],
     "IRM/AA-8B": ["IRM", 140, 1.0],
