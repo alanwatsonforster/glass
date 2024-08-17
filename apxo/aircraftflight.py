@@ -39,6 +39,7 @@ def move(
     speedbrakes=None,
     flamedoutengines=0,
     lowspeedliftdeviceselected=None,
+    jettison=None,
     note=False,
 ):
     """
@@ -107,6 +108,9 @@ def move(
 
     if A._flighttype == "SP":
 
+        if jettison is not None:
+            raise RuntimeError("invalid jettison argument.")
+
         A._fpcarry = 0
         A._apcarry = 0
         A._turnsstalled = 0
@@ -115,13 +119,19 @@ def move(
 
     elif A._flighttype == "ST":
 
+        if tasks != "":
+            raise RuntimeError("invalid tasks argument.")
+
         A._fpcarry = 0
         A._setaltitudecarry(0)
-        apstalledflight.doflight(A, tasks, note=note)
+        apstalledflight.doflight(A, tasks, jettison=jettison, note=note)
         A._turnsstalled += 1
         endmove(A)
 
     elif A._flighttype == "DP":
+
+        if jettison is not None:
+            raise RuntimeError("invalid jettison argument.")
 
         A._fpcarry = 0
         A._apcarry = 0
@@ -131,6 +141,9 @@ def move(
         endmove(A)
 
     else:
+
+        if jettison is not None:
+            raise RuntimeError("invalid jettison argument.")
 
         # See rule 8.1.4 on altitude carry.
         if not A.isinclimbingflight():

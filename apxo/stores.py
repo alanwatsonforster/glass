@@ -245,7 +245,9 @@ def _jettison(stores, released, printer=print):
         if loadstation not in stores:
             raise RuntimeError("load station %s is not loaded." % loadstation)
 
-        printer("releasing %s: %s." % (loadstation, stores[loadstation]))
+        printer(
+            "jettisoning %s on load station %s." % (stores[loadstation], loadstation)
+        )
         del newstores[loadstation]
 
     return newstores

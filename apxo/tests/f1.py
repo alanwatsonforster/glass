@@ -35,7 +35,7 @@ endgameturn()
 
 # Check jettisoning.
 
-starttestsetup()
+starttestsetup(verbose=False)
 A1 = aircraft(
     "A1",
     "AF",
@@ -50,12 +50,12 @@ A1._assert("A2-2024       N    10", 1.0, expectedconfiguration="DT")
 endtestsetup()
 
 startgameturn()
-A1.move("ST", "N", "J(BB)")
+A1.move("ST", "N", "", jettison=["BB"])
 A1._assert("A2-2024       N     9", 1.0, expectedconfiguration="1/2")
 endgameturn()
 
 startgameturn()
-A1.move("ST", "N", "J(1+4)")
+A1.move("ST", "N", "", jettison=["1", "4"])
 A1._assert("A2-2024       N     7", 1.5, expectedconfiguration="CL")
 endgameturn()
 

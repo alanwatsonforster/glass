@@ -828,27 +828,28 @@ class aircraft(apelement.element):
 
         return M
 
-    def jettison(self, *args):
+    def _jettison(self, *args):
 
+        previousconfiguration = self._configuration
+
+        for load in args:
+            self._stores = apstores._jettison(
+                self._stores, load, printer=lambda s: self._logevent(s)
+            )
+
+        apconfiguration.update(self)
+
+        if self._configuration != previousconfiguration:
+            self._logevent(
+                "configuration changed from %s to %s."
+                % (previousconfiguration, self._configuration)
+            )
+
+    def jettison(self, *args):
         self._logbreak()
         aplog.clearerror()
         try:
-
-            previousconfiguration = self._configuration
-
-            for launchd in args:
-                self._stores = apstores._jettison(
-                    self._stores, launchd, printer=lambda s: self._logevent(s)
-                )
-
-            apconfiguration.update(self)
-
-            if self._configuration != previousconfiguration:
-                self._logevent(
-                    "configuration changed from %s to %s."
-                    % (previousconfiguration, self._configuration)
-                )
-
+            self._jettison(*args)
         except RuntimeError as e:
             aplog.logexception(e)
 
