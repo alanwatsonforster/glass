@@ -16,10 +16,9 @@ class missile(apelement.element):
 
     def __init__(self, name, missiletype, launcher, target, color="white"):
 
+        self._logbreak()
         aplog.clearerror()
         try:
-
-            self._logbreak()
 
             self._name = name
             self._logaction("", "creating missile %s." % name)
@@ -45,8 +44,9 @@ class missile(apelement.element):
             self._missiletype = missiletype
             self._maneuvertype = None
             self._maneuversense = None
-            
-            self._logaction("", "base speed    is %.1f." % self._basespeed())
+
+            self._setspeed(self._basespeed() + launcher.newspeed())
+            self._logaction("", "start speed   is %.1f." % self._speed)
 
         except RuntimeError as e:
             aplog.logexception(e)
@@ -66,8 +66,8 @@ class missile(apelement.element):
 
     #############################################################################
 
-    def _move(self, speed, actions, note=False):
-        apmissileflight.move(self, speed, actions, note=note)
+    def _move(self, actions, note=False):
+        apmissileflight.move(self, actions, note=note)
 
     #############################################################################
 
@@ -98,6 +98,6 @@ class missile(apelement.element):
             return ""
 
     #############################################################################
-    
+
     def _basespeed(self):
         return apmissiledata.basespeed(self._missiletype)

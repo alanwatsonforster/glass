@@ -7,7 +7,7 @@ import apxo.speed as apspeed
 ################################################################################
 
 
-def move(M, speed, actions, note=False):
+def move(M, actions, note=False):
     """
     Start a move and possibly carry out some actions.
     """
@@ -18,12 +18,17 @@ def move(M, speed, actions, note=False):
         M._endmove()
         return
 
-    M._setspeed(speed)
-    if speed < apspeed.m1speed(M.altitudeband()):
-        M._logstart("speed         is %.1f." % speed)
-    else:
-        M._logstart("speed         is %.1f (SS)." % speed)
+    M._logstart("start speed   is %.1f." % M.speed())
     M._logstart("altitude band is %s." % M.altitudeband())
+
+    M._maxfp = int(M.speed() * _attenuationfactor(M.altitudeband(), 0) + 0.5)
+    M._setspeed(M._maxfp)
+    if M.speed() < apspeed.m1speed(M.altitudeband()):
+        M._logstart("average speed is %.1f." % M.speed())
+    else:
+        M._logstart("average speed is %.1f (SS)." % M.speed())
+    M._logevent("has %d FPs." % M._maxfp)
+
     M._logposition("start")
 
     M._fp = 0
@@ -316,3 +321,19 @@ def _doaction(M, action):
             "altitude band changed from %s to %s."
             % (initialaltitudeband, M.altitudeband())
         )
+
+
+################################################################################
+
+
+def _attenuationfactor(altitudeband, gameturn):
+    table = {
+        "LO": [0.6, 0.6, 0.7, 0.8, 0.8, 0.8],
+        "ML": [0.7, 0.7, 0.7, 0.8, 0.8, 0.8],
+        "MH": [0.7, 0.7, 0.7, 0.8, 0.8, 0.9],
+        "HI": [0.8, 0.8, 0.8, 0.8, 0.8, 0.9],
+        "VH": [0.8, 0.8, 0.8, 0.8, 0.9, 0.9],
+        "EH": [0.9, 0.9, 0.9, 0.9, 0.9, 0.9],
+        "UH": [1.0, 0.9, 0.9, 0.9, 0.9, 0.9],
+    }
+    return table[altitudeband][min(gameturn, 5)]

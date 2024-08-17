@@ -311,6 +311,9 @@ class element:
     def speed(self):
         return self._speed
 
+    def newspeed(self):
+        return self._newspeed
+
     def maneuver(self):
         return ""
 
