@@ -206,6 +206,7 @@ def drawmap(
     drawL180arc=[],
     drawR180arc=[],
     watermark=None,
+    writefiles=True,
 ):
     """
     Draw the map, with aircraft and markers at their current positions.
@@ -259,7 +260,7 @@ def drawmap(
 
         apelement._drawmap()
 
-        apmap.enddrawmap(apgameturn.gameturn())
+        apmap.enddrawmap(apgameturn.gameturn(), writefiles=writefiles)
 
     except RuntimeError as e:
         aplog.logexception(e)

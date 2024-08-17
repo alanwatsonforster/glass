@@ -32,7 +32,7 @@ _xmax = None
 _ymin = None
 _ymax = None
 _dotsperhex = None
-_writefile = None
+_writefiletypes = None
 
 _saved = False
 
@@ -126,7 +126,7 @@ def setmap(
     drawterrain=True,
     drawlabels=True,
     dotsperhex=80,
-    writefile=[],
+    writefiletypes=[],
     style="original",
     wilderness=None,
     forest=None,
@@ -157,7 +157,7 @@ def setmap(
     global _xmax
     global _ymax
     global _dotsperhex
-    global _writefile
+    global _writefiletypes
 
     _usingfirstgenerationsheets = None
 
@@ -202,7 +202,7 @@ def setmap(
     _drawlabels = drawlabels
 
     _dotsperhex = dotsperhex
-    _writefile = writefile
+    _writefiletypes = writefiletypes
 
     _xmin = 0
     _xmax = _dxsheet * _nxsheetgrid
@@ -1065,9 +1065,10 @@ def startdrawmap(
         _saved = True
 
 
-def enddrawmap(turn):
-    for filetype in _writefile:
-        apdraw.writefile("turn-%02d.%s" % (turn, filetype))
+def enddrawmap(turn, writefiles=True):
+    if writefiles:
+        for filetype in _writefiletypes:
+            apdraw.writefile("turn-%02d.%s" % (turn, filetype))
     apdraw.show()
 
 
