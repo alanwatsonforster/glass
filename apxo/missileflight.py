@@ -198,7 +198,7 @@ def _doaction(M, action):
         """
 
         M._logaction("missile has been killed.")
-        M.kill()
+        M._kill()
 
     ########################################
 

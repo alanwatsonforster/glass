@@ -602,13 +602,14 @@ class aircraft(apelement.element):
 
     ##############################################################################
 
-    def hasbeenkilled(self):
+    def hasbeenkilled(self, note=False):
         self._logbreak()
         aplog.clearerror()
         try:
             apgameturn.checkingameturn()
-            self.kill()
             self._log("has been killed.")
+            self._lognote(note)
+            self._kill()
             self._color = None
         except RuntimeError as e:
             aplog.logexception(e)

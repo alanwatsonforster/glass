@@ -233,11 +233,33 @@ class element:
 
     ############################################################################
 
-    def kill(self):
+    def _kill(self):
         self._killed = True
 
-    def remove(self):
+    def kill(self, note=False):
+        self._logbreak()
+        aplog.clearerror()
+        try:
+            apgameturn.checkingameturn()
+            self._logevent("has been killed.")
+            self._lognote(note)
+            self._kill()
+        except RuntimeError as e:
+            aplog.logexception(e)
+
+    def _remove(self):
         self._removed = True
+
+    def remove(self, note=False):
+        self._logbreak()
+        aplog.clearerror()
+        try:
+            apgameturn.checkingameturn()
+            self._logevent("has been removed.")
+            self._lognote(note)
+            self._removed = True
+        except RuntimeError as e:
+            aplog.logexception(e)
 
     ############################################################################
 
@@ -422,7 +444,7 @@ class element:
                 "%s has collided with terrain at altitude %d."
                 % (self.name(), altitudeofterrain),
             )
-            self.kill()
+            self._kill()
 
     def _checkforleavingmap(self):
         """

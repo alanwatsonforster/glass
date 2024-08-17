@@ -72,7 +72,7 @@ def takedamage(A, damage):
         A._damageL = 0
         A._damageH = 0
         A._damageC = 0
-        A.kill()
+        A._kill()
 
     A._logaction(
         "", "%s damage changed from %s to %s." % (A._name, previousdamage, A.damage())
