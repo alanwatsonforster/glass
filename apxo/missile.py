@@ -19,7 +19,6 @@ class missile(apelement.element):
         try:
 
             self._logbreak()
-            self._logline()
 
             self._name = name
             self._logaction("", "creating missile %s." % name)
@@ -44,8 +43,6 @@ class missile(apelement.element):
 
             self._maneuvertype = None
             self._maneuversense = None
-
-            self._logline()
 
         except RuntimeError as e:
             aplog.logexception(e)

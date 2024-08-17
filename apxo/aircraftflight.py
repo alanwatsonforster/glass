@@ -46,9 +46,6 @@ def move(
     out some tasks.
     """
 
-    A._logbreak()
-    A._logline()
-
     if A.killed() or A.removed():
         endmove(A)
         return
@@ -143,8 +140,6 @@ def move(
         A._turnsdeparted = 0
         startnormalflight(A, tasks, note=note)
 
-    A._logline()
-
 
 ################################################################################
 
@@ -160,7 +155,6 @@ def continuemove(A, tasks="", note=False):
         continuespecialflight(A, tasks, note=note)
     else:
         continuenormalflight(A, tasks, note=note)
-    A._logline()
 
 
 ################################################################################

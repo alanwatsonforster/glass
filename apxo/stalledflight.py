@@ -38,7 +38,7 @@ def doflight(A, action, note=False):
         previousconfiguration = A._configuration
 
         for released in m[1].split("+"):
-            A._stores = apstores._release(
+            A._stores = apstores._jettison(
                 A._stores, released, printer=lambda s: A._logevent(s)
             )
 
@@ -91,5 +91,3 @@ def doflight(A, action, note=False):
             raise RuntimeError("invalid action %r for stalled flight." % fullaction)
         dojettison(m)
         action = action[len(m.group()) :]
-
-    A._logline()

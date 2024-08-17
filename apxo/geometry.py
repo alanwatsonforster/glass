@@ -13,7 +13,6 @@ def showgeometry(A, B, note=False):
     """
 
     A._logbreak()
-    A._logline()
 
     Aname = A._name
     Bname = B._name
@@ -38,7 +37,6 @@ def showgeometry(A, B, note=False):
         A._logevent("%s is not in the limited radar arc of %s." % (Bname, Aname))
 
     A._lognote(note)
-    A._logline()
 
 
 ##############################################################################

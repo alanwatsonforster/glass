@@ -209,7 +209,7 @@ def _airtoairlaunch(stores, launched, printer=print):
     return missiletype, newstores
 
 
-def _release(stores, released, printer=print):
+def _jettison(stores, released, printer=print):
 
     newstores = stores.copy()
 
@@ -235,7 +235,7 @@ def _release(stores, released, printer=print):
 
         for loadstation, name in sorted(stores.items()):
             if _class(name) == released:
-                printer("releasing %s: %s." % (loadstation, name))
+                printer("jettisoning %s on load station %s." % (name, loadstation))
                 del newstores[loadstation]
 
     else:

@@ -13,7 +13,6 @@ def move(M, speed, actions, note=False):
     """
 
     M._logbreak()
-    M._logline()
 
     if M.removed():
         M._endmove()
@@ -309,7 +308,6 @@ def _doaction(M, action):
 
     if M._fp == M.speed():
         M._logpositionandmaneuver("end")
-        M._logline()
     else:
         M._logpositionandmaneuver("")
 

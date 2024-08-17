@@ -318,6 +318,7 @@ class element:
         raise RuntimeError("%s cannot be moved." % self.name())
 
     def move(self, *args, **kwargs):
+        self._logbreak()
         aplog.clearerror()
         try:
             apgameturn.checkingameturn()
@@ -329,6 +330,7 @@ class element:
         raise RuntimeError("%s cannot be moved." % self.name())
 
     def continuemove(self, *args, **kwargs):
+        self._logbreak()
         aplog.clearerror()
         try:
             apgameturn.checkingameturn()
@@ -437,9 +439,6 @@ class element:
 
     def _log(self, s):
         aplog.log("%-4s : %s" % (self._name, s))
-
-    def _logline(self):
-        aplog.log("%-4s : %s :" % ("----", "-----"))
 
     def _log1(self, s, t):
         self._log("%-5s : %s" % (s, t))

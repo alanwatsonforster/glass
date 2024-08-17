@@ -63,7 +63,6 @@ def padlock(A, B, note=False):
     """
 
     A._logbreak()
-    A._logline()
 
     A._log("padlocks %s." % B.name())
 
@@ -85,7 +84,6 @@ def padlock(A, B, note=False):
         A._log("%s is sighted but not identified." % B.name())
 
     A._lognote(note)
-    A._logline()
 
 
 ################################################################################
@@ -97,7 +95,6 @@ def attempttosight(A, B, success=None, note=False):
     """
 
     A._logbreak()
-    A._logline()
 
     A._log("attempts to sight %s." % B.name())
     A._logevent("range is %d." % visualsightingrange(A, B))
@@ -171,8 +168,6 @@ def attempttosight(A, B, success=None, note=False):
             A._log("%s is sighted and identified." % B.name())
         else:
             A._log("%s is sighted but not identified." % B.name())
-
-    A._logline()
 
 
 ################################################################################
