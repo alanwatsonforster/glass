@@ -3,12 +3,9 @@ Stalled flight for aircraft.
 """
 
 import math
-import re
 
 import apxo.altitude as apaltitude
 import apxo.capabilities as apcapabilities
-import apxo.configuration as apconfiguration
-import apxo.stores as apstores
 
 
 def checkflight(A):
