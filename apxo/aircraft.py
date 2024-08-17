@@ -709,6 +709,29 @@ class aircraft(apelement.element):
     def continuemove(self, *args, **kwargs):
         apaircraftflight.continuemove(self, *args, **kwargs)
 
+    ########################################
+
+    def airtoairattack(self, attacktype, target=None, result=None):
+        """
+        Declare an air-to-air attack.
+        """
+
+        aplog.clearerror()
+        try:
+            if apaircraftflight.useofweaponsforbidden(self):
+                raise RuntimeError(
+                    "attempt to use weapons %s."
+                    % apaircraftflight.useofweaponsforbidden(self)
+                )
+
+            if target is not None and not target.isaircraft():
+                raise RuntimeError("target %s is not an aircraft." % targetname)
+
+            apairtoair.attack(self, attacktype, target, result)
+
+        except RuntimeError as e:
+            aplog.logexception(e)
+
     ################################################################################
 
     def jettison(self, *args):

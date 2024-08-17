@@ -940,7 +940,6 @@ def continuenormalflight(A, tasks, start=False, note=False):
         ["RRR", "epilog", None, lambda A: domaneuver(A, "R", 90, True, False)],
         ["RR", "epilog", None, lambda A: domaneuver(A, "R", 60, True, False)],
         ["R", "epilog", None, lambda A: domaneuver(A, "R", None, True, False)],
-        ["AA", "epilog", argsregex(3), lambda A, m: doataattack(A, m)],
         ["HC1", "FP", None, lambda A: invalidaction(A, "HC1")],
         ["HC2", "FP", None, lambda A: invalidaction(A, "HC2")],
         ["HCC", "FP", None, lambda A: invalidaction(A, "HCC")],
@@ -2362,33 +2361,6 @@ def domaneuver(A, sense, facingchange, shift, continuous):
     else:
         A._hasdeclaredamaneuver = False
         dodeclaremaneuver(A, A._maneuvertype, A._maneuversense)
-
-
-########################################
-
-
-def doataattack(A, m):
-    """
-    Declare an air-to-air attack.
-    """
-
-    if useofweaponsforbidden(A):
-        raise RuntimeError("attempt to use weapons %s." % useofweaponsforbidden(A))
-
-    attacktype = m[1]
-    targetname = m[2]
-    result = m[3]
-
-    if targetname == "":
-        target = None
-    else:
-        target = apelement.fromname(targetname)
-        if target is None:
-            raise RuntimeError("unknown target %s." % targetname)
-        if not target.isaircraft():
-            raise RuntimeError("target %s is not an aircraft." % targetname)
-
-    apairtoair.attack(A, attacktype, target, result)
 
 
 ########################################

@@ -493,7 +493,7 @@ def _attack(attacker, attacktype, target, result, allowRK=True, allowtracking=Tr
                 "target vulnerability is %+d." % apcapabilities.vulnerability(target)
             )
 
-    if result == "":
+    if result is None:
         attacker._logevent("unspecified result.")
         attacker._unspecifiedattackresult += 1
     elif result == "A":
