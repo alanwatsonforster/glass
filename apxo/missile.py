@@ -6,6 +6,7 @@ import apxo.gameturn as apgameturn
 import apxo.hexcode as aphexcode
 import apxo.log as aplog
 import apxo.map as apmap
+import apxo.missiledata as apmissiledata
 import apxo.missileflight as apmissileflight
 
 ##############################################################################
@@ -41,8 +42,11 @@ class missile(apelement.element):
             self._target = target
             self._logaction("", "target        is %s." % self._target.name())
 
+            self._missiletype = missiletype
             self._maneuvertype = None
             self._maneuversense = None
+            
+            self._logaction("", "base speed    is %.1f." % self._basespeed())
 
         except RuntimeError as e:
             aplog.logexception(e)
@@ -94,3 +98,6 @@ class missile(apelement.element):
             return ""
 
     #############################################################################
+    
+    def _basespeed(self):
+        return apmissiledata.basespeed(self._missiletype)
