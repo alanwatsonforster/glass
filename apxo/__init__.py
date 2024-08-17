@@ -205,6 +205,7 @@ def drawmap(
     draw30arc=[],
     drawL180arc=[],
     drawR180arc=[],
+    watermark=None,
 ):
     """
     Draw the map, with aircraft and markers at their current positions.
@@ -233,7 +234,9 @@ def drawmap(
             xmax += zoomborder
             ymax += zoomborder
 
-        apmap.startdrawmap(xmin=xmin, ymin=ymin, xmax=xmax, ymax=ymax)
+        apmap.startdrawmap(
+            xmin=xmin, ymin=ymin, xmax=xmax, ymax=ymax, watermark=watermark
+        )
 
         for A in drawlimitedarc:
             apdraw.drawarc(A.x(), A.y(), A.facing(), "limited")

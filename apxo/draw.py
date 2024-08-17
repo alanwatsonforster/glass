@@ -33,7 +33,7 @@ def setcanvas(xmin, ymin, xmax, ymax, dotsperhex=100):
     _ax.add_artist(
         patches.Polygon(
             [[xmin, ymin], [xmin, ymax], [xmax, ymax], [xmax, ymin]],
-            edgecolor=None,
+            edgecolor="None",
             facecolor="white",
             fill=True,
             linewidth=0,
@@ -325,7 +325,7 @@ def _drawtextinphysical(
         color=_mapcolor(color),
         alpha=alpha,
         horizontalalignment=alignment,
-        verticalalignment="center",
+        verticalalignment="center_baseline",
         rotation_mode="anchor",
         clip_on=True,
         zorder=zorder,
@@ -749,6 +749,18 @@ def drawmissile(x, y, facing, color, name, altitude, speed):
             alignment="right",
             zorder=zorder,
         )
+
+
+def drawwatermark(s, xmin, ymin, xmax, ymax):
+    dx = 4
+    dy = 4
+    for ix in range(int(xmin / dx), int(xmax / dx) + 1):
+        for iy in range(int(ymin / dy), int(ymax / dy) + 1):
+            x = (ix + 0.5) * dx
+            y = (iy + 0.5) * dy
+            if ix % 2 == 0:
+                y += 0.5 * dy
+            drawtext(x, y, 120, s, color="black", size=24, alpha=0.1)
 
 
 ################################################################################

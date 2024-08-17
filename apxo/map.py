@@ -450,7 +450,9 @@ def setmap(
         forestalpha += 0.20
 
 
-def startdrawmap(show=False, xmin=None, ymin=None, xmax=None, ymax=None):
+def startdrawmap(
+    show=False, xmin=None, ymin=None, xmax=None, ymax=None, watermark=None
+):
     """
     Draw the map.
     """
@@ -488,12 +490,14 @@ def startdrawmap(show=False, xmin=None, ymin=None, xmax=None, ymax=None):
     ymin = ymin if ymin is not None else 0
     ymax = ymax if ymax is not None else _dysheet * _nysheetgrid
 
-    xmin = max(_xmin, xmin)
-    xmax = min(_xmax, xmax)
-    ymin = max(_ymin, ymin)
-    ymax = min(_ymax, ymax)
+    canvasxmin = max(_xmin, xmin)
+    canvasxmax = min(_xmax, xmax)
+    canvasymin = max(_ymin, ymin)
+    canvasymax = min(_ymax, ymax)
 
-    apdraw.setcanvas(xmin, ymin, xmax, ymax, dotsperhex=_dotsperhex)
+    apdraw.setcanvas(
+        canvasxmin, canvasymin, canvasxmax, canvasymax, dotsperhex=_dotsperhex
+    )
 
     if _drawterrain:
 
@@ -1052,6 +1056,9 @@ def startdrawmap(show=False, xmin=None, ymin=None, xmax=None, ymax=None):
                     zorder=0,
                 )
                 break
+
+    if watermark is not None:
+        apdraw.drawwatermark(watermark, canvasxmin, canvasymin, canvasxmax, canvasymax)
 
     if fullmap:
         apdraw.save()
