@@ -210,25 +210,6 @@ def _doaction(M, action):
 
     ########################################
 
-    def doattack():
-        """
-        Declare an attack with the specified weapon.
-        """
-
-        M._logevent("attack.")
-
-    ########################################
-
-    def dokilled():
-        """
-        Declare that the missile has been killed.
-        """
-
-        M._logaction("missile has been killed.")
-        M._kill()
-
-    ########################################
-
     elementdispatchlist = [
         # This table is searched in order, so put longer elements before shorter
         # ones that are prefixes (e.g., put C2 before C).
@@ -282,8 +263,6 @@ def _doaction(M, action):
         ["DDD", lambda: dodive(3)],
         ["DD", lambda: dodive(2)],
         ["D", lambda: dodive(1)],
-        ["AA", lambda: doattack()],
-        ["K", lambda: dokilled()],
         ["/", lambda: None],
     ]
 
