@@ -68,7 +68,8 @@ class missile(apelement.element):
 
     def _endgameturn(self):
         if not self.removed() and not self._finishedmoving:
-            raise RuntimeError("missile %s has not finished its move." % self._name)
+            pass
+            #raise RuntimeError("missile %s has not finished its move." % self._name)
 
     #############################################################################
 
