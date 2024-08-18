@@ -112,9 +112,9 @@ def check(A):
                 "aircraft %s and %s cannot be in close formation as they do not have the same facings."
                 % (A._name, a._name)
             )
-        if A._newspeed != a._newspeed:
+        if A.speed() != a.speed():
             raise RuntimeError(
-                "aircraft %s and %s cannot be in close formation as they do not have the same new speeds."
+                "aircraft %s and %s cannot be in close formation as they do not have the same speeds."
                 % (A._name, a._name)
             )
 

@@ -89,6 +89,9 @@ class aircraft(apelement.element):
 
             self._logaction("", "creating aircraft %s." % name)
 
+            self._startedmoving = False
+            self._finishedmoving = False
+
             self._newspeed = None
             self._unspecifiedattackresult = 0
             self._damageL = 0
@@ -228,6 +231,7 @@ class aircraft(apelement.element):
     def _startgameturn(self):
         self._setspeed(self._newspeed)
         self._newspeed = None
+        self._startedmoving = False
         self._finishedmoving = False
         self._sightedonpreviousturn = self._sighted
         self._enginesmokingonpreviousturn = self._enginesmoking
