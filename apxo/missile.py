@@ -50,6 +50,9 @@ class missile(apelement.element):
             self._launchgameturn = apgameturn.gameturn()
 
             self._setspeed(self._basespeed() + launcher.newspeed())
+            if self.speed() > apmissileflight.maxspeed(self.altitudeband()):
+                self._logevent("reducing start speed to maximum for altitude band.")
+                self._setspeed(apmissileflight.maxspeed(self.altitudeband()))
             self._logaction("", "start speed   is %.1f." % self._speed)
 
         except RuntimeError as e:
@@ -69,7 +72,7 @@ class missile(apelement.element):
     def _endgameturn(self):
         if not self.removed() and not self._finishedmoving:
             pass
-            #raise RuntimeError("missile %s has not finished its move." % self._name)
+            # raise RuntimeError("missile %s has not finished its move." % self._name)
 
     #############################################################################
 

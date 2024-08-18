@@ -21,6 +21,11 @@ def move(M, actions, note=False):
     M._logstart("start speed   is %.1f." % M.speed())
     M._logstart("altitude band is %s." % M.altitudeband())
 
+    if M.speed() > maxspeed(M.altitudeband()):
+        M._logevent("reducing speed to maximum for altitude band.")
+        M.setspeed(_maxspeed(M.altitudeband()))
+    M._logstart("start speed   is %.1f." % M.speed())
+
     flightgameturn = apgameturn.gameturn() - M._launchgameturn
     M._logstart("flight game turn is %d." % flightgameturn)
 
@@ -342,3 +347,8 @@ def _attenuationfactor(altitudeband, flightgameturn):
         "UH": [1.0, 0.9, 0.9, 0.9, 0.9, 0.9],
     }
     return table[altitudeband][min(flightgameturn, 6) - 1]
+
+
+def maxspeed(altitudeband):
+    table = {"LO": 24, "ML": 26, "MH": 28, "HI": 30, "VH": 32, "EH": 34, "UH": 36}
+    return table[altitudeband]
