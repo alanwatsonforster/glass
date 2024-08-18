@@ -6,6 +6,7 @@ import apxo.gameturn as apgameturn
 import apxo.groundunit as apgroundunit
 import apxo.log as aplog
 import apxo.map as apmap
+import apxo.missile as apmissile
 import apxo.order as aporder
 import apxo.variants as apvariants
 import apxo.scenarios as apscenarios
@@ -238,6 +239,25 @@ def drawmap(
         apmap.startdrawmap(
             xmin=xmin, ymin=ymin, xmax=xmax, ymax=ymax, watermark=watermark
         )
+        
+        if drawlimitedarc is True:
+            drawlimitedarc = apaircraft.aslist() + apmissile.aslist()
+        if draw30arc is True:
+            draw30arc = apaircraft.aslist() + apmissile.aslist()
+        if draw60arc is True:
+            draw60arc = apaircraft.aslist() + apmissile.aslist()
+        if draw90arc is True:
+            draw90arc = apaircraft.aslist() + apmissile.aslist()
+        if draw120arc is True:
+            draw120arc = apaircraft.aslist() + apmissile.aslist()
+        if draw150arc is True:
+            draw150arc = apaircraft.aslist() + apmissile.aslist()
+        if draw180arc is True:
+            draw180arc = apaircraft.aslist() + apmissile.aslist()
+        if drawL180arc is True:
+            drawL180arc = apaircraft.aslist() + apmissile.aslist()
+        if drawR180arc is True:
+            drawR180arc = apaircraft.aslist() + apmissile.aslist()
 
         for A in drawlimitedarc:
             apdraw.drawarc(A.x(), A.y(), A.facing(), "limited")

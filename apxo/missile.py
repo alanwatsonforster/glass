@@ -11,6 +11,13 @@ import apxo.missileflight as apmissileflight
 
 ##############################################################################
 
+def aslist():
+    elementlist = apelement.aslist()
+    missilelist = filter(lambda E: E.ismissile(), elementlist)
+    return list(missilelist)
+
+
+#############################################################################
 
 class missile(apelement.element):
 
