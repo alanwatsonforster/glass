@@ -42,6 +42,9 @@ class missile(apelement.element):
             self._logaction("", "target        is %s." % self._target.name())
 
             self._missiletype = missiletype
+
+            self._startedmoving = False
+            self._finishedmoving = True
             self._maneuvertype = None
             self._maneuversense = None
 
@@ -59,10 +62,12 @@ class missile(apelement.element):
     #############################################################################
 
     def _startgameturn(self):
-        pass
+        self._startedmoving = False
+        self._finishedmoving = False
 
     def _endgameturn(self):
-        pass
+        if not self.removed() and not self._finishedmoving:
+            raise RuntimeError("missile %s has not finished its move." % self._name)
 
     #############################################################################
 
