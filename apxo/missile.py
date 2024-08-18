@@ -47,6 +47,7 @@ class missile(apelement.element):
             self._finishedmoving = True
             self._maneuvertype = None
             self._maneuversense = None
+            self._launchgameturn = apgameturn.gameturn()
 
             self._setspeed(self._basespeed() + launcher.newspeed())
             self._logaction("", "start speed   is %.1f." % self._speed)
