@@ -27,13 +27,16 @@ def move(M, actions, note=False):
         M._logstart("start speed   is %.1f." % M.speed())
 
     if M.speed() < minspeed(M.altitudeband()):
-        M._logevent("missile has stalled.")
+        M._logevent("has stalled.")
         if actions != "":
             raise RuntimeError("invalid actions %r for stalled missile." % actions)
         M._remove()
         M._logevent("has been removed.")
         M._finishedmoving = True
         return
+
+    if M.speed() < maneuverspeed(M.altitudeband()):
+        M._logevent("cannot maneuver.")
 
     flightgameturn = apgameturn.gameturn() - M._launchgameturn
     M._logstart("flight game turn is %d." % flightgameturn)
@@ -362,6 +365,12 @@ def maxspeed(altitudeband):
     table = {"LO": 24, "ML": 26, "MH": 28, "HI": 30, "VH": 32, "EH": 34, "UH": 36}
     return table[altitudeband]
 
+
 def minspeed(altitudeband):
     table = {"LO": 2, "ML": 3, "MH": 3, "HI": 4, "VH": 4, "EH": 5, "UH": 7}
+    return table[altitudeband]
+
+
+def maneuverspeed(altitudeband):
+    table = {"LO": 4, "ML": 5, "MH": 6, "HI": 7, "VH": 8, "EH": 10, "UH": 14}
     return table[altitudeband]

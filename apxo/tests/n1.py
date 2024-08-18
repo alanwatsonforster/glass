@@ -386,7 +386,7 @@ assert A1a.speed() == 24.0
 
 endgameturn()
 
-starttestsetup(verbose=True)
+starttestsetup(verbose=False)
 A1 = aircraft(
     "A1",
     "AF",
