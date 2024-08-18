@@ -59,8 +59,8 @@ waterourlinewidth = 2
 tunnelinnerwidth = roadwidth + 8
 tunnelouterwidth = tunnelinnerwidth + 6
 
-watermarkcolor = "red"
-watermarkalpha = 0.20
+watermarkcolor = (0.70, 0.70, 0.70)
+watermarkalpha = 1.00
 
 blanksheets = ["", "-", "--"]
 firstgenerationsheets = [
@@ -1066,9 +1066,7 @@ def startdrawmap(
             canvasxmin,
             canvasymin,
             canvasxmax,
-            canvasymax,
-            watermarkcolor,
-            watermarkalpha,
+            canvasymax
         )
 
     if fullmap:
