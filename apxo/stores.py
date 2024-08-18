@@ -201,6 +201,11 @@ def _airtoairlaunch(stores, launched, printer=print):
     if loadstation not in stores:
         raise RuntimeError("load station %s is not loaded." % loadstation)
 
+    if _class(stores[loadstation]) not in ["IRM", "BRM", "RHM", "AHM"]:
+        raise RuntimeError(
+            "load station %s is not loaded with an air-to-air missile." % loadstation
+        )
+
     missiletype = stores[loadstation]
 
     printer("launching %s from load station %s." % (stores[loadstation], loadstation))

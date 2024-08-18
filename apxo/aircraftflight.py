@@ -192,7 +192,7 @@ def endmove(A):
 
             A._endmovespeed()
 
-        A._finishedmove = True
+        A._finishedmoving = True
 
 
 ################################################################################

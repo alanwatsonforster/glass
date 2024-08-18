@@ -52,7 +52,7 @@ class aircraft(apelement.element):
         azimuth,
         altitude,
         speed,
-        configuration=None,
+        configuration="CL",
         fuel=None,
         bingofuel=None,
         gunammunition=None,
@@ -132,7 +132,7 @@ class aircraft(apelement.element):
             self._paintscheme = paintscheme
             self._turnsstalled = 0
             self._turnsdeparted = 0
-            self._finishedmove = True
+            self._finishedmoving = True
             self._counter = counter
             self._force = force
             self._enginesmoking = False
@@ -228,7 +228,7 @@ class aircraft(apelement.element):
     def _startgameturn(self):
         self._setspeed(self._newspeed)
         self._newspeed = None
-        self._finishedmove = False
+        self._finishedmoving = False
         self._sightedonpreviousturn = self._sighted
         self._enginesmokingonpreviousturn = self._enginesmoking
         self._sighted = False
@@ -238,7 +238,7 @@ class aircraft(apelement.element):
         apcloseformation.check(self)
 
     def _endgameturn(self):
-        if not self.killed() and not self.removed() and not self._finishedmove:
+        if not self.killed() and not self.removed() and not self._finishedmoving:
             raise RuntimeError("aircraft %s has not finished its move." % self._name)
         if self._unspecifiedattackresult > 0:
             raise RuntimeError(
@@ -801,6 +801,12 @@ class aircraft(apelement.element):
         self._logbreak()
         aplog.clearerror()
         try:
+
+            if not self._finishedmoving:
+                raise RuntimeError("launcher has not finished moving.")
+
+            if not target._finishedmoving:
+                raise RuntimeError("target has not finished moving.")
 
             previousconfiguration = self._configuration
 
