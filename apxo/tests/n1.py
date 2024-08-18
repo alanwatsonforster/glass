@@ -361,4 +361,67 @@ assert A1a.speed() == 30.0
 
 endgameturn()
 
+starttestsetup(verbose=False)
+A1 = aircraft(
+    "A1",
+    "AF",
+    "F-16A-10",
+    "A2-2015",
+    "N",
+    5,
+    8.0,
+    stores={"1": "IRM/AIM-9P", "9": "IRM/AIM-9P"},
+)
+A2 = aircraft("A2", "AF", "F-16A-10", "A2-2010", "N", 5, 8.0)
+endtestsetup()
+
+startgameturn()
+
+A1.move("LVL", "AB", "H,H,H,H,H,H,H,H")
+A2.move("LVL", "AB", "H,H,H,H,H,H,H,H")
+
+A1a = A1.airtoairlaunch("A1a", A2, "1")
+# Speed would be 26, but is limited by the maximum speed.
+assert A1a.speed() == 24.0
+
+endgameturn()
+
+starttestsetup(verbose=True)
+A1 = aircraft(
+    "A1",
+    "AF",
+    "F-16A-10",
+    "A2-2015",
+    "N",
+    5,
+    1.0,
+    stores={"1": "IRM/AIM-9B", "9": "IRM/AIM-9B"},
+)
+A2 = aircraft("A2", "AF", "F-16A-10", "A2-2010", "N", 5, 1.0)
+endtestsetup()
+
+startgameturn()
+A1.move("LVL", "N", "H")
+A2.move("LVL", "N", "H")
+A1a = A1.airtoairlaunch("A1a", A2, "1")
+assert A1a.speed() == 11.0
+endgameturn()
+
+startgameturn()
+# We have to fudge this.
+A1a._setspeed(1.0)
+assert A1a.speed() == 1.0
+A1a.move("H")
+asserterror("invalid actions 'H' for stalled missile.")
+
+startgameturn()
+# We have to fudge this.
+A1a._setspeed(1.0)
+assert A1a.speed() == 1.0
+A1a.move("")
+A1.move("LVL", "N", "H")
+A2.move("LVL", "N", "H")
+endgameturn()
+
+
 endfile(__file__)

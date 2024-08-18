@@ -24,7 +24,16 @@ def move(M, actions, note=False):
     if M.speed() > maxspeed(M.altitudeband()):
         M._logevent("reducing speed to maximum for altitude band.")
         M.setspeed(_maxspeed(M.altitudeband()))
-    M._logstart("start speed   is %.1f." % M.speed())
+        M._logstart("start speed   is %.1f." % M.speed())
+
+    if M.speed() < minspeed(M.altitudeband()):
+        M._logevent("missile has stalled.")
+        if actions != "":
+            raise RuntimeError("invalid actions %r for stalled missile." % actions)
+        M._remove()
+        M._logevent("has been removed.")
+        M._finishedmoving = True
+        return
 
     flightgameturn = apgameturn.gameturn() - M._launchgameturn
     M._logstart("flight game turn is %d." % flightgameturn)
@@ -351,4 +360,8 @@ def _attenuationfactor(altitudeband, flightgameturn):
 
 def maxspeed(altitudeband):
     table = {"LO": 24, "ML": 26, "MH": 28, "HI": 30, "VH": 32, "EH": 34, "UH": 36}
+    return table[altitudeband]
+
+def minspeed(altitudeband):
+    table = {"LO": 2, "ML": 3, "MH": 3, "HI": 4, "VH": 4, "EH": 5, "UH": 7}
     return table[altitudeband]
