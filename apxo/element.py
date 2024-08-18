@@ -362,6 +362,8 @@ class element:
         aplog.clearerror()
         try:
             apgameturn.checkingameturn()
+            if not self._startedmoving:
+                raise RuntimeError("%s has not started moving." % self.name())
             self._continuemove(*args, **kwargs)
         except RuntimeError as e:
             aplog.logexception(e)
