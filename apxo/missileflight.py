@@ -312,7 +312,7 @@ def _doaction(M, action):
 
     M._extendpath()
 
-    if M._fp == M.speed():
+    if M._fp == M._maxfp:
         M._logpositionandmaneuver("end")
     else:
         M._logpositionandmaneuver("")
