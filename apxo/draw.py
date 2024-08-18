@@ -519,13 +519,10 @@ def drawarc(x0, y0, facing, arc):
 
     drawdxdy(dxdy)
 
-    if arc[0] != "L" and arc[0] != "R":
-        drawdxdy([[dxdy[0], -dxdy[1]] for dxdy in dxdy])
-
-    if arc[-1] == "+":
+    if arc[0] == "L" or arc[0] == "R":
         drawdxdy([[0, 0], [+100, 0]])
-    elif arc[-1] == "-":
-        drawdxdy([[0, 0], [-100, 0]])
+    else:
+        drawdxdy([[dxdy[0], -dxdy[1]] for dxdy in dxdy])
 
 
 ################################################################################
