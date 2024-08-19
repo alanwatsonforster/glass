@@ -762,7 +762,7 @@ def drawwatermark(s, xmin, ymin, xmax, ymax):
             y = iy * dy
             if ix % 2 == 1:
                 y += 0.5 * dy
-            drawtext(x, y, 120, s, color=watercolor, size=24)
+            drawtext(x, y, 120, s, color=watermarkcolor, size=24)
 
 
 ################################################################################
