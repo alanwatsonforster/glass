@@ -105,14 +105,24 @@ def startgameturn(note=False):
 
         apelement._startgameturn()
 
-        aplog.logbreak()
-        aplog.log("initial positions, maneuvers, flight types, and speeds are:")
-        for a in apaircraft.aslist():
-            aplog.logaction(
-                a,
-                "%s  %-9s  %-3s  %4.1f"
-                % (a.position(), a.maneuver(), a.flighttype(), a.speed()),
-            )
+        if len(apaircraft.aslist()) != 0:
+            aplog.logbreak()
+            aplog.log("initial aircraft positions, speeds, maneuvers, and previous flight types:")
+            for A in apaircraft.aslist():
+                aplog.logaction(
+                    A,
+                    "%s  %4.1f  %-9s  %-3s"
+                    % (A.position(), A.speed(), A.maneuver(), A.flighttype()),
+                )
+        if len(apmissile.aslist()) != 0:
+            aplog.logbreak()
+            aplog.log("initial missile positions and speeds:")
+            for M in apmissile.aslist():
+                aplog.logaction(
+                    M,
+                    "%s  %4.1f"
+                    % (M.position(), M.speed()),
+                )
         aplog.lognote(None, note)
 
     except RuntimeError as e:
