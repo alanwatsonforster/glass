@@ -752,6 +752,7 @@ def drawmissile(x, y, facing, color, name, altitude, speed):
 
 watermarkcolor = (0.70, 0.70, 0.70)
 
+
 def drawwatermark(s, xmin, ymin, xmax, ymax):
     # The math below puts the text at the center of each megahex,
     dx = 5

@@ -1058,13 +1058,7 @@ def startdrawmap(
                 break
 
     if watermark is not None:
-        apdraw.drawwatermark(
-            watermark,
-            canvasxmin,
-            canvasymin,
-            canvasxmax,
-            canvasymax
-        )
+        apdraw.drawwatermark(watermark, canvasxmin, canvasymin, canvasxmax, canvasymax)
 
     if fullmap:
         apdraw.save()
