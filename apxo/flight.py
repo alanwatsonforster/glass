@@ -1,3 +1,5 @@
+import re
+
 import apxo.airtoair as apairtoair
 import apxo.altitude as apaltitude
 import apxo.capabilities as apcapabilities
@@ -54,7 +56,7 @@ def dotasks(E, tasks, actiondispatchlist, start=False, afterFP=None, aftertask=N
         E._slidefp = 0
 
     if tasks != "":
-        for task in tasks.split(","):
+        for task in re.split(r"[, ]", tasks):
             if not E.killed() and not E.removed():
                 dotask(E, task, actiondispatchlist, afterFP, aftertask)
 
@@ -201,7 +203,7 @@ def doactions(E, task, actiondispatchlist, selectedactiontype):
 
     while task != "":
 
-        actioncode = task.split("/")[0]
+        actioncode = task.split("/", maxsplit=1)[0]
 
         for action in actiondispatchlist:
 
