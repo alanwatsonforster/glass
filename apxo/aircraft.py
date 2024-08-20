@@ -321,7 +321,7 @@ class aircraft(apelement.element):
 
     #############################################################################
 
-    def react(self, action, note=None):
+    def react(self, attacktype, target, result, note=None):
         """
         Return fire, either with fixed guns or articulated guns.
         """
@@ -332,23 +332,6 @@ class aircraft(apelement.element):
 
             apgameturn.checkingameturn()
             self._logaction("react", action)
-
-            m = re.compile("AA" + 3 * r"\(([^)]*)\)").match(action)
-            if m is None:
-                raise RuntimeError("invalid action %r" % action)
-
-            attacktype = m[1]
-            targetname = m[2]
-            result = m[3]
-
-            if targetname == "":
-                target = None
-            else:
-                target = apelement.fromname(targetname)
-                if target is None:
-                    raise RuntimeError("unknown target %s." % targetname)
-                if not target.isaircraft():
-                    raise RuntimeError("target %s is not an aircraft." % targetname)
 
             apairtoair.react(self, attacktype, target, result)
 
@@ -725,7 +708,7 @@ class aircraft(apelement.element):
 
     ########################################
 
-    def attackaircraft(self, attacktype, target=None, result=None):
+    def attackaircraft(self, attacktype, target=None, result=None, returnfire=False):
         """
         Declare an air-to-air attack.
         """
@@ -733,7 +716,7 @@ class aircraft(apelement.element):
         self._logbreak()
         aplog.clearerror()
         try:
-            if apaircraftflight.useofweaponsforbidden(self):
+            if not returnfire and apaircraftflight.useofweaponsforbidden(self):
                 raise RuntimeError(
                     "attempt to use weapons %s."
                     % apaircraftflight.useofweaponsforbidden(self)
@@ -742,7 +725,7 @@ class aircraft(apelement.element):
             if target is not None and not target.isaircraft():
                 raise RuntimeError("target %s is not an aircraft." % target.name())
 
-            apairtoair.attack(self, attacktype, target, result)
+            apairtoair.attack(self, attacktype, target, result, returnfire=returnfire)
 
         except RuntimeError as e:
             aplog.logexception(e)

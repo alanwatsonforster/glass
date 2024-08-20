@@ -533,25 +533,17 @@ def _attack(attacker, attacktype, target, result, allowRK=True, allowtracking=Tr
 ##############################################################################
 
 
-def attack(attacker, attacktype, target, result):
+def attack(attacker, attacktype, target, result, returnfire=False):
     """
     Attack an aircraft, with fixed guns, articulated guns, or rockets.
     """
 
-    _attack(attacker, attacktype, target, result)
-
-
-##############################################################################
-
-
-def react(attacker, attacktype, target, result):
-    """
-    Return fire, with fixed guns or articulated guns.
-    """
-
-    return _attack(
-        attacker, attacktype, target, result, allowtracking=False, allowRK=False
-    )
+    if returnfire:
+        _attack(
+            attacker, attacktype, target, result, allowtracking=False, allowRK=False
+        )
+    else:
+        _attack(attacker, attacktype, target, result)
 
 
 ##############################################################################
