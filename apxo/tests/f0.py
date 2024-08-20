@@ -4,7 +4,7 @@ startfile(__file__, "departed flight")
 
 # Maneuvering Departures
 
-starttestsetup(verbose=False)
+starttestsetup()
 A1 = aircraft("A1", "AF", "F-80C", "A1-2010", "N", 10, 3.0, "CL")
 endtestsetup()
 
@@ -64,7 +64,7 @@ A1.move("SD", "M", "H,H,D,D")
 A1._assert("A2-2027       N    40", 4.5)
 A2.move("VD", "M", "H,H,D2,D2,D2,VRL/D2/L180")
 A2._assert("A2-2223       S    50", 8.5)
-A3.move("LVL", "M", "H,H,HR")
+A3.move("LVL", "M", "H,H,H/R")
 A3._assert("A2-2424       NNE  46", 3.0)
 endgameturn()
 

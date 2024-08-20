@@ -201,17 +201,14 @@ def doactions(E, task, actiondispatchlist, selectedactiontype):
 
     while task != "":
 
-        if task[0] == "/" or task[0] == " ":
-            task = task[1:]
-            continue
+        actioncode = task.split("/")[0]
 
         for action in actiondispatchlist:
 
-            actioncode = action[0]
             actiontype = action[1]
             actionprocedure = action[2]
 
-            if actioncode == task[: len(actioncode)]:
+            if actioncode == action[0]:
                 break
 
         if selectedactiontype == "prolog" and actiontype == "epilog":
@@ -225,7 +222,7 @@ def doactions(E, task, actiondispatchlist, selectedactiontype):
         if actionprocedure is None:
             break
 
-        task = task[len(actioncode) :]
+        task = "/".join(task.split("/")[1:])
 
         actionprocedure(E)
 

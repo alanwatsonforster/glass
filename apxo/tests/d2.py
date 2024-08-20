@@ -30,10 +30,10 @@ startgameturn()
 A1.move("LVL", "M", "H/BR,H/WL,H/BL,H/WL")
 A1._assert("A1-2011       N    10", 4.0)
 startgameturn()
-A1.move("LVL", "M", "H/BR,EZR/H,H,HR")
+A1.move("LVL", "M", "H/BR,EZR/H,H,H/R")
 A1._assert("A1-2011       NNE  10", 4.0)
 startgameturn()
-A1.move("LVL", "M", "H/BL,EZL/H,H,HL")
+A1.move("LVL", "M", "H/BL,EZL/H,H,H/L")
 A1._assert("A1-2011       NNW  10", 4.0)
 endgameturn()
 
@@ -64,14 +64,14 @@ startgameturn()
 A1.move("LVL", "M", "H/BR,H/WL,H/BL,H/WL")
 A1._assert("A1-2011       N    10", 4.0)
 startgameturn()
-A1.move("LVL", "M", "H/BR,EZR/H,H,HR")
+A1.move("LVL", "M", "H/BR,EZR/H,H,H/R")
 A1._assert("A1-2011       NNE  10", 4.0)
 startgameturn()
-A1.move("LVL", "M", "H/BL,EZL/H,H,HL")
+A1.move("LVL", "M", "H/BL,EZL/H,H,H/L")
 A1._assert("A1-2011       NNW  10", 4.0)
 endgameturn()
 
-# Turns and banking with HRR aircraft
+# Turns and banking with H/RR aircraft
 
 starttestsetup()
 A1 = aircraft("A1", "AF", "F-5A", "A1-2015", "N", 10, 4.0, "CL")
@@ -98,14 +98,14 @@ startgameturn()
 A1.move("LVL", "M", "H/BR,H/WL,H/BL,H/WL")
 A1._assert("A1-2011       N    10", 4.0)
 startgameturn()
-A1.move("LVL", "M", "H/BR,EZR/H,H,HR")
+A1.move("LVL", "M", "H/BR,EZR/H,H,H/R")
 A1._assert("A1-2011       NNE  10", 4.0)
 startgameturn()
-A1.move("LVL", "M", "H/BL,EZL/H,H,HL")
+A1.move("LVL", "M", "H/BL,EZL/H,H,H/L")
 A1._assert("A1-2011       NNW  10", 4.0)
 endgameturn()
 
-# Turns and banking with HRRCL aircraft
+# Turns and banking with H/RRCL aircraft
 
 starttestsetup(verbose=False)
 A1 = aircraft("A1", "AF", "Yak-9D", "A1-2010", "N", 10, 3.5, "CL")
