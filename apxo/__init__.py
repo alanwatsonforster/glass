@@ -107,7 +107,9 @@ def startgameturn(note=False):
 
         if len(apaircraft.aslist()) != 0:
             aplog.logbreak()
-            aplog.log("initial aircraft positions, speeds, maneuvers, and previous flight types:")
+            aplog.log(
+                "initial aircraft positions, speeds, maneuvers, and previous flight types:"
+            )
             for A in apaircraft.aslist():
                 aplog.logaction(
                     A,
@@ -120,8 +122,7 @@ def startgameturn(note=False):
             for M in apmissile.aslist():
                 aplog.logaction(
                     M,
-                    "%s  %4.1f"
-                    % (M.position(), M.speed()),
+                    "%s  %4.1f" % (M.position(), M.speed()),
                 )
         aplog.lognote(None, note)
 
@@ -249,7 +250,7 @@ def drawmap(
         apmap.startdrawmap(
             xmin=xmin, ymin=ymin, xmax=xmax, ymax=ymax, watermark=watermark
         )
-        
+
         if drawlimitedarc is True:
             drawlimitedarc = apaircraft.aslist() + apmissile.aslist()
         if draw30arc is True:
