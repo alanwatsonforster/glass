@@ -1272,15 +1272,6 @@ def continuespecialflight(A, tasks, start=False, note=None):
 
     ########################################
 
-    def doattack(A, weapon):
-        """
-        Declare an attack with the specified weapon.
-        """
-
-        A._logevent("attack using %s." % weapon)
-
-    ########################################
-
     taskdispatchlist = [
         # This table is searched in order, so put longer elements before shorter
         # ones that are prefixes (e.g., put C2 before C).
@@ -1302,8 +1293,6 @@ def continuespecialflight(A, tasks, start=False, note=None):
         ["RRR", "epilog", None, lambda A: doturn(A, "R", 90)],
         ["RR", "epilog", None, lambda A: doturn(A, "R", 60)],
         ["R", "epilog", None, lambda A: doturn(A, "R", 30)],
-        ["AAGN", "epilog", None, lambda A: doattack(A, "guns")],
-        ["AARK", "epilog", None, lambda A: doattack(A, "rockets")],
         ["S", "FP", None, lambda A: dostationary(A)],
         ["H", "FP", None, lambda A: dohorizontal(A, "H")],
         ["HD", "FP", None, lambda A: dohorizontal(A, "HD")],
