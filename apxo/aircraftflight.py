@@ -880,12 +880,6 @@ def continuenormalflight(A, tasks, start=False, note=None):
 
     ########################################
 
-    def argsregex(n):
-        """
-        Return a regex to match n arguments.
-        """
-        return r"\(([^)]*)\)" * n
-
     actiondispatchlist = [
         # This table is searched in order, so put longer actions before shorter
         # ones that are prefixes (e.g., put C2 before C and D3/4 before D3).
