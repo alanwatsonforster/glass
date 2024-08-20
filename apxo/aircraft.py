@@ -321,7 +321,7 @@ class aircraft(apelement.element):
 
     #############################################################################
 
-    def react(self, action, note=False):
+    def react(self, action, note=None):
         """
         Return fire, either with fixed guns or articulated guns.
         """
@@ -368,7 +368,7 @@ class aircraft(apelement.element):
 
     ##############################################################################
 
-    def padlock(self, other, note=False):
+    def padlock(self, other, note=None):
         """
         Padlock another aircraft.
         """
@@ -385,7 +385,7 @@ class aircraft(apelement.element):
 
     ##############################################################################
 
-    def attempttosight(self, other, success=None, note=False):
+    def attempttosight(self, other, success=None, note=None):
         """
         Attempt to sight another aircraft.
         """
@@ -394,7 +394,7 @@ class aircraft(apelement.element):
         aplog.clearerror()
         try:
             apgameturn.checkingameturn()
-            apvisualsighting.attempttosight(self, other, success=None, note=False)
+            apvisualsighting.attempttosight(self, other, success=None, note=None)
         except RuntimeError as e:
             aplog.logexception(e)
 
@@ -479,7 +479,7 @@ class aircraft(apelement.element):
 
     #############################################################################
 
-    def showstores(self, note=False):
+    def showstores(self, note=None):
         """
         Show the aircraft's stores to the log.
         """
@@ -506,7 +506,7 @@ class aircraft(apelement.element):
 
     #############################################################################
 
-    def showgeometry(self, other, note=False):
+    def showgeometry(self, other, note=None):
         """
         Show the geometry of the other aircraft with respect to the aircraft.
         """
@@ -515,7 +515,7 @@ class aircraft(apelement.element):
         aplog.clearerror()
         try:
             apgameturn.checkingameturn()
-            showgeometry(self, other, note=False)
+            showgeometry(self, other, note=None)
         except RuntimeError as e:
             aplog.logexception(e)
 
@@ -606,7 +606,7 @@ class aircraft(apelement.element):
 
     ##############################################################################
 
-    def hasbeenkilled(self, note=False):
+    def hasbeenkilled(self, note=None):
         self._logbreak()
         aplog.clearerror()
         try:
@@ -868,7 +868,7 @@ class aircraft(apelement.element):
 
     ################################################################################
 
-    def takedamage(self, damage, note=False):
+    def takedamage(self, damage, note=None):
         self._logbreak()
         aplog.clearerror()
         try:

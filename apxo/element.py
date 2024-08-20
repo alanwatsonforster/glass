@@ -236,7 +236,7 @@ class element:
     def _kill(self):
         self._killed = True
 
-    def kill(self, note=False):
+    def kill(self, note=None):
         self._logbreak()
         aplog.clearerror()
         try:
@@ -250,7 +250,7 @@ class element:
     def _remove(self):
         self._removed = True
 
-    def remove(self, note=False):
+    def remove(self, note=None):
         self._logbreak()
         aplog.clearerror()
         try:

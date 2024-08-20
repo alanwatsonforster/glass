@@ -18,7 +18,7 @@ def checkflight(A):
         raise RuntimeError("special-flight aircraft cannot perform departed flight.")
 
 
-def doflight(A, action, note=False):
+def doflight(A, action, note=None):
     """
     Carry out departed flight.
     """

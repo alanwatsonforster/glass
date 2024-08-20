@@ -65,7 +65,7 @@ def lognote(a, note):
         # Return the lines.
         return trimmed
 
-    if note is not False:
+    if note is not None:
         for line in splitandtrim(note):
             logcomment(a, "- %s" % line)
 

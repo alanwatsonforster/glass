@@ -7,7 +7,7 @@ import apxo.speed as apspeed
 ################################################################################
 
 
-def move(M, actions, note=False):
+def move(M, actions, note=None):
     """
     Start a move and possibly carry out some actions.
     """
@@ -60,7 +60,7 @@ def move(M, actions, note=False):
     continuemove(M, actions, note)
 
 
-def continuemove(M, actions, note=False):
+def continuemove(M, actions, note=None):
 
     startaltitude = M.altitude()
     starthfp = M._hfp

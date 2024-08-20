@@ -57,7 +57,7 @@ def endvisualsighting():
 ################################################################################
 
 
-def padlock(A, B, note=False):
+def padlock(A, B, note=None):
     """
     Carry out a padlock on aircraft B by aircraft A
     """
@@ -89,7 +89,7 @@ def padlock(A, B, note=False):
 ################################################################################
 
 
-def attempttosight(A, B, success=None, note=False):
+def attempttosight(A, B, success=None, note=None):
     """
     Carry out an attempt to sight on aircraft B by aircraft A.
     """

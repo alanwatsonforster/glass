@@ -7,7 +7,7 @@ import apxo.log as aplog
 ##############################################################################
 
 
-def showgeometry(A, B, note=False):
+def showgeometry(A, B, note=None):
     """
     Show the geometry of aircraft B with respect to the aircraft A.
     """

@@ -40,7 +40,7 @@ def move(
     flamedoutengines=0,
     lowspeedliftdeviceselected=None,
     jettison=None,
-    note=False,
+    note=None,
 ):
     """
     Start a move, declaring the flight type and power, and possible carrying
@@ -157,7 +157,7 @@ def move(
 ################################################################################
 
 
-def continuemove(A, tasks="", note=False):
+def continuemove(A, tasks="", note=None):
     """
     Continue a move that has been started, possible carrying out some tasks.
     """
@@ -426,7 +426,7 @@ def checkspecialflight(A):
 ################################################################################
 
 
-def startnormalflight(A, tasks, note=False):
+def startnormalflight(A, tasks, note=None):
     """
     Start to carry out normal flight.
     """
@@ -857,7 +857,7 @@ def startnormalflight(A, tasks, note=False):
 ########################################
 
 
-def startspecialflight(A, tasks, note=False):
+def startspecialflight(A, tasks, note=None):
 
     A._maxfp = A.speed()
     A._logevent("has %.1f FPs." % A._maxfp)
@@ -873,7 +873,7 @@ def startspecialflight(A, tasks, note=False):
 ################################################################################
 
 
-def continuenormalflight(A, tasks, start=False, note=False):
+def continuenormalflight(A, tasks, start=False, note=None):
     """
     Continue to carry out out normal flight.
     """
@@ -1253,7 +1253,7 @@ def continuenormalflight(A, tasks, start=False, note=False):
 ########################################
 
 
-def continuespecialflight(A, tasks, start=False, note=False):
+def continuespecialflight(A, tasks, start=False, note=None):
     """
     Continue to carry out out special flight.
     """

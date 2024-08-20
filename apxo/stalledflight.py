@@ -22,7 +22,7 @@ def checkflight(A):
     A._logstart("aircraft is stalled.")
 
 
-def doflight(A, action, jettison=None, note=False):
+def doflight(A, action, jettison=None, note=None):
     """
     Carry out stalled flight.
     """

@@ -91,7 +91,7 @@ def endgamesetup():
 ################################################################################
 
 
-def startgameturn(note=False):
+def startgameturn(note=None):
     """
     Start the next game turn.
     """
@@ -130,7 +130,7 @@ def startgameturn(note=False):
         aplog.logexception(e)
 
 
-def endgameturn(note=False):
+def endgameturn(note=None):
     """
     End the current turn.
     """
