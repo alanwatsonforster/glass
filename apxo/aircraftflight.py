@@ -884,8 +884,7 @@ def continuenormalflight(A, tasks, start=False, note=None):
         # ones that are prefixes (e.g., put C2 before C and D3/4 before D3).
         # [0] is the action code.
         # [1] is the action type.
-        # [2] is a possible regex to apply
-        # [3] is the action procedure.
+        # [2] is the action procedure.
         ["SLL", "prolog", lambda A: dodeclaremaneuver(A, "SL", "L")],
         ["SLR", "prolog", lambda A: dodeclaremaneuver(A, "SL", "R")],
         ["DRL", "prolog", lambda A: dodeclaremaneuver(A, "DR", "L")],
