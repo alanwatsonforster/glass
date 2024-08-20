@@ -7,8 +7,6 @@ import apxo.variants as apvariants
 
 from apxo.log import plural
 
-import re
-
 ################################################################################
 
 
@@ -211,8 +209,7 @@ def doactions(E, task, actiondispatchlist, selectedactiontype):
 
             actioncode = action[0]
             actiontype = action[1]
-            actionregex = action[2]
-            actionprocedure = action[3]
+            actionprocedure = action[2]
 
             if actioncode == task[: len(actioncode)]:
                 break
@@ -230,14 +227,7 @@ def doactions(E, task, actiondispatchlist, selectedactiontype):
 
         task = task[len(actioncode) :]
 
-        if actionregex == None:
-            actionprocedure(E)
-        else:
-            m = re.compile(actionregex).match(task)
-            if not m:
-                raise RuntimeError("invalid arguments to %s action." % actioncode)
-            task = task[len(m.group()) :]
-            actionprocedure(E, m)
+        actionprocedure(E)
 
     return task
 
