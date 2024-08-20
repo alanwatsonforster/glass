@@ -298,7 +298,7 @@ def startmovespeed(A, power, flamedoutengines, lowspeedliftdeviceselected, speed
 
     if A._flighttype == "DP" and (powersetting == "M" or powersetting == "AB"):
         A._logevent(
-            "check for flame-out as the aircaft is in departed flight and the power setting is %s."
+            "check for flame-out as the aircraft is in departed flight and the power setting is %s."
             % powersetting
         )
 
