@@ -5,6 +5,7 @@ import apxo.altitude as apaltitude
 import apxo.capabilities as apcapabilities
 import apxo.closeformation as apcloseformation
 import apxo.hex as aphex
+import apxo.speed as apspeed
 import apxo.variants as apvariants
 
 from apxo.log import plural
@@ -54,6 +55,9 @@ def dotasks(E, tasks, actiondispatchlist, start=False, afterFP=None, aftertask=N
 
         E._slides = 0
         E._slidefp = 0
+
+        # Whether flight is currently supersonic.
+        E._supersonic = E.speed() >= apspeed.m1speed(E.altitudeband())
 
     if tasks != "":
         for task in re.split(r"[, ]", tasks):
@@ -182,6 +186,13 @@ def dotask(E, task, actiondispatchlist, afterFP, aftertask):
             "altitude band changed from %s to %s."
             % (E._taskaltitudeband, E.altitudeband())
         )
+        E._logevent("speed of sound is %.1f." % apspeed.m1speed(E.altitudeband()))
+        previoussupersonic = E._supersonic
+        E._supersonic = E.speed() >= apspeed.m1speed(E.altitudeband())
+        if previoussupersonic and not E._supersonic:
+            E._logevent("speed is now subsonic.")
+        elif not previoussupersonic and E._supersonic:
+            E._logevent("speed is now supersonic.")
 
     if E.killed() or E.removed():
         return

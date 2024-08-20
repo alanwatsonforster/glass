@@ -63,14 +63,15 @@ def startmovespeed(A, power, flamedoutengines, lowspeedliftdeviceselected, speed
     """
 
     def reportspeed():
+        A._logstart("speed         is %.1f." % speed)
         if speed < ltspeed(A.altitudeband()):
-            A._logstart("speed         is %.1f." % speed)
+            A._logevent("speed is subsonic and below low transsonic.")
         elif speed == ltspeed(A.altitudeband()):
-            A._logstart("speed         is %.1f (LT)." % speed)
+            A._logevent("speed is low transonic.")
         elif speed == htspeed(A.altitudeband()):
-            A._logstart("speed         is %.1f (HT)." % speed)
+            A._logevent("speed is high transonic.")
         else:
-            A._logstart("speed         is %.1f (SS)." % speed)
+            A._logevent("speed is supersonic.")
 
     ############################################################################
 

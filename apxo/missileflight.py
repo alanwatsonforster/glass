@@ -18,8 +18,10 @@ def move(M, actions, note=None):
         M._endmove()
         return
 
-    M._logstart("start speed   is %.1f." % M.speed())
     M._logstart("altitude band is %s." % M.altitudeband())
+    M._logevent("speed of sound is %.1f." % apspeed.m1speed(M.altitudeband()))
+
+    M._logstart("start speed   is %.1f." % M.speed())
 
     if M.speed() > maxspeed(M.altitudeband()):
         M._logevent("reducing speed to maximum for altitude band.")
@@ -45,10 +47,13 @@ def move(M, actions, note=None):
         M.speed() * _attenuationfactor(M.altitudeband(), flightgameturn) + 0.5
     )
     M._setspeed(M._maxfp)
+
+    M._logstart("average speed is %.1f." % M.speed())
     if M.speed() < apspeed.m1speed(M.altitudeband()):
-        M._logstart("average speed is %.1f." % M.speed())
+        M._logevent("speed is subsonic.")
     else:
-        M._logstart("average speed is %.1f (SS)." % M.speed())
+        M._logevent("speed is supersonic.")
+
     M._logevent("has %d FPs." % M._maxfp)
 
     M._logposition("start")

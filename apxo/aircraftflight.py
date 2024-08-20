@@ -86,6 +86,9 @@ def move(
     A._flighttype = flighttype
     A._logstart("flight type   is %s." % A._flighttype)
 
+    A._logstart("altitude band is %s." % A.altitudeband())
+    A._logevent("speed of sound is %.1f." % apspeed.m1speed(A.altitudeband()))
+    
     if flighttype == "SP":
         checkspecialflight(A)
     elif flighttype == "ST":
@@ -102,7 +105,6 @@ def move(
             power, flamedoutengines, lowspeedliftdeviceselected, speedbrakes
         )
         A._logstart("configuration is %s." % A._configuration)
-    A._logstart("altitude band is %s." % A.altitudeband())
     A._logstart("damage        is %s." % A.damage())
 
     if A._flighttype == "SP":
