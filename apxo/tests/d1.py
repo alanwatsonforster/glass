@@ -23,7 +23,9 @@ A2 = aircraft("A2", "AF", "F-5A", "A1-1310", "N", 10, 4.0, "CL")
 endtestsetup()
 
 startgameturn()
-A1.move("LVL", "AB", "BTR/H/RR,BTR/H/RR,BTR/H/RR,BTR/H/R", lowspeedliftdeviceselected=True)
+A1.move(
+    "LVL", "AB", "BTR/H/RR,BTR/H/RR,BTR/H/RR,BTR/H/R", lowspeedliftdeviceselected=True
+)
 A1._assert("A1-1310       SSW  10", 2.5)
 A2.move("LVL", "AB", "BTR/H/RR,BTR/H/RR,BTR/H/RR,BTR/H/R")
 A2._assert("A1-1510       SSW  10", 3.0)
