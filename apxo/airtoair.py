@@ -409,7 +409,7 @@ def _attack(attacker, attacktype, target, result, allowRK=True, allowtracking=Tr
     if attacker._BTrecoveryfp > 0:
         attacker._logevent("applicable turn rate is BT.")
         turnratemodifier = apcapabilities.gunsightmodifier(attacker, "BT")
-    if attacker._rollrecoveryfp > 0:
+    elif attacker._rollrecoveryfp > 0:
         attacker._logevent("applicable turn rate is BT (for a roll).")
         turnratemodifier = apcapabilities.gunsightmodifier(attacker, "BT")
     elif attacker._HTrecoveryfp > 0:
