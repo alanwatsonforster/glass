@@ -7,18 +7,6 @@ import apxo.speed as apspeed
 ################################################################################
 
 
-def _startmove(M, **kwargs):
-    """
-    Start a move and possibly carry out some actions.
-    """
-
-    M._logposition("start")
-
-    M._fp = 0
-    M._hfp = 0
-    M._vfp = 0
-
-
 def _continuemove(M, actions, **kwargs):
 
     if M.speed() < minspeed(M.altitudeband()):

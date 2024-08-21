@@ -6,10 +6,12 @@ import apxo.airtoair as apairtoair
 import apxo.altitude as apaltitude
 import apxo.capabilities as apcapabilities
 import apxo.closeformation as apcloseformation
+import apxo.departedflight as apdepartedflight
 import apxo.gameturn as apgameturn
 import apxo.hex as aphex
 import apxo.missileflight as apmissileflight
 import apxo.speed as apspeed
+import apxo.stalledflight as apstalledflight
 import apxo.variants as apvariants
 
 from apxo.math import *
@@ -38,12 +40,12 @@ def _move(E, flighttype, power, actions, **kwargs):
     E._logevent("speed of sound is %.1f." % apspeed.m1speed(E.altitudeband()))
 
     _startspeed(E, power, **kwargs)
+    
+    _startmove(E, actions, **kwargs)
 
     if E._flighttype == "MS":
-        apmissileflight._startmove(E, **kwargs)
         apmissileflight._continuemove(E, actions)
     else:
-        apaircraftflight._startmove(E, E._flighttype, power, actions, **kwargs)
         apaircraftflight._continuemove(E, actions, True)
 
 
@@ -370,7 +372,7 @@ def _checkmissileflighttype(E):
 
 def _startspeed(E, power, **kwargs):
 
-    if E._flighttype == "MS":
+    if E.ismissile():
         _startspeedmissile(E)
     else:
         _startspeedaircraft(E, power, **kwargs)
@@ -890,6 +892,101 @@ def _startspeedmissile(M):
 
     M._logevent("has %d FPs." % M._maxfp)
 
+
+################################################################################
+
+def _startmove(E, actions, **kwargs):
+
+    if E.ismissile():
+        _startmovemissile(E)
+    else:
+        _startmoveaircraft(E, actions, **kwargs)
+
+    E._logposition("start")
+
+########################################
+
+def _startmovemissile(M, **kwargs):
+
+    M._fp = 0
+    M._hfp = 0
+    M._vfp = 0
+
+########################################
+
+def _startmoveaircraft(A, actions, **kwargs):
+
+    # This flags whether a maneuvering departure has occured.
+
+    A._maneuveringdeparture = False
+
+    A._logstart("configuration is %s." % A._configuration)
+    A._logstart("damage        is %s." % A.damage())
+
+    if A._flighttype == "ST":
+        _startmovestalledflight(A, actions, **kwargs)
+    elif A._flighttype == "DP":
+        _startmovedepartedflight(A, actions)
+    elif A._flighttype == "SP":
+        _startmovespecialflight(A, actions)
+    else:
+        _startmovenormalflight(A, actions)
+        
+
+########################################
+
+def _startmovestalledflight(A, actions, jettison=None, **kwargs):
+
+    if actions != "":
+         raise RuntimeError("invalid actions argument.")
+
+    A._fpcarry = 0
+    A._setaltitudecarry(0)
+    apstalledflight.doflight(A, actions, jettison=jettison)
+    A._turnsstalled += 1
+    apaircraftflight.endmove(A)
+
+########################################
+
+def _startmovedepartedflight(A, actions, jettison=None, **kwargs):
+
+        if jettison is not None:
+            raise RuntimeError("invalid jettison argument.")
+
+        A._fpcarry = 0
+        A._apcarry = 0
+        A._setaltitudecarry(0)
+        apdepartedflight.doflight(A, actions)
+        A._turnsdeparted += 1
+        apaircraftflight.endmove(A)
+        
+########################################
+
+def _startmovespecialflight(A, actions, jettison=None, **kwargs):
+
+        if jettison is not None:
+            raise RuntimeError("invalid jettison argument.")
+
+        A._fpcarry = 0
+        A._apcarry = 0
+        A._turnsstalled = 0
+        A._turnsdeparted = 0
+        apaircraftflight.startspecialflight(A, actions)
+        
+########################################
+
+def _startmovenormalflight(A, actions, jettison=None, **kwargs):
+
+        if jettison is not None:
+            raise RuntimeError("invalid jettison argument.")
+
+        # See rule 8.1.4 on altitude carry.
+        if not A.isinclimbingflight():
+            A._setaltitudecarry(0)
+
+        A._turnsstalled = 0
+        A._turnsdeparted = 0
+        apaircraftflight.startnormalflight(A, actions)
 
 ################################################################################
 
