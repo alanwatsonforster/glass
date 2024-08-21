@@ -709,7 +709,6 @@ class aircraft(apelement.element):
         speedbrakes=None,
         flamedoutengines=0,
         lowspeedliftdeviceselected=None,
-        jettison=None,
     ):
         apflight._move(
             self,
@@ -719,7 +718,6 @@ class aircraft(apelement.element):
             speedbrakes=speedbrakes,
             flamedoutengines=flamedoutengines,
             lowspeedliftdeviceselected=lowspeedliftdeviceselected,
-            jettison=jettison,
         )
 
     def _continuemove(self, actions=""):

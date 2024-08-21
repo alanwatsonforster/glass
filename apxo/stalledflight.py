@@ -8,19 +8,19 @@ import apxo.altitude as apaltitude
 import apxo.capabilities as apcapabilities
 
 
-def doflight(A, action, jettison=None):
+def doflight(A, action):
     """
     Carry out stalled flight.
     """
+    
+    if action != "ST":
+        raise RuntimeError("invalid action %r for stalled flight." % action)
 
     # See rule 6.4.
 
     A._logevent("is carrying %+.2f APs." % A._apcarry)
 
     A._logposition("start")
-
-    if jettison is not None:
-        A._jettison(*jettison)
 
     altitudechange = math.ceil(A.speed() + A._turnsstalled)
 

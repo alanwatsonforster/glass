@@ -43,7 +43,7 @@ def _move(E, flighttype, power, actions, **kwargs):
     
     _startmove(E, actions, **kwargs)
 
-    if E._flighttype == "MS" or E._flighttype == "DP":
+    if E._flighttype == "MS" or E._flighttype == "DP" or E._flighttype == "ST":
         _continuemove(E, actions)
     else:
         apaircraftflight._continuemove(E, actions, True)
@@ -55,10 +55,19 @@ def _continuemove(E, actions):
 
     if E._flighttype == "MS":
         apmissileflight._continuemove(E, actions)
+    elif E._flighttype == "ST":
+        _continuestalledflight(E, actions)
     elif E._flighttype == "DP":
         _continuedepartedflight(E, actions)
     else:
         apaircraftflight._continuemove(E, actions, False)
+
+########################################
+
+def _continuestalledflight(A, actions):
+    apstalledflight.doflight(A, actions)
+    A._turnsstalled += 1
+    apaircraftflight.endmove(A)
 
 ########################################
 
@@ -945,57 +954,42 @@ def _startmoveaircraft(A, actions, **kwargs):
 
 ########################################
 
-def _startmovestalledflight(A, actions, jettison=None, **kwargs):
-
-    if actions != "":
-         raise RuntimeError("invalid actions argument.")
+def _startmovestalledflight(A, actions, **kwargs):
 
     A._fpcarry = 0
     A._setaltitudecarry(0)
-    apstalledflight.doflight(A, actions, jettison=jettison)
-    A._turnsstalled += 1
-    apaircraftflight.endmove(A)
 
 ########################################
 
-def _startmovedepartedflight(A, actions, jettison=None, **kwargs):
+def _startmovedepartedflight(A, actions, **kwargs):
 
-        if jettison is not None:
-            raise RuntimeError("invalid jettison argument.")
+    A._fpcarry = 0
+    A._apcarry = 0
+    A._setaltitudecarry(0)
+        
+########################################
 
-        A._fpcarry = 0
-        A._apcarry = 0
+def _startmovespecialflight(A, actions, **kwargs):
+
+    A._fpcarry = 0
+    A._apcarry = 0
+    A._turnsstalled = 0
+    A._turnsdeparted = 0
+    apaircraftflight.startspecialflight(A, actions)
+        
+########################################
+
+def _startmovenormalflight(A, actions, **kwargs):
+
+    # See rule 8.1.4 on altitude carry.
+    if not A.isinclimbingflight():
         A._setaltitudecarry(0)
-        
-########################################
 
-def _startmovespecialflight(A, actions, jettison=None, **kwargs):
+    A._turnsstalled = 0
+    A._turnsdeparted = 0
+    apaircraftflight.startnormalflight(A, actions)
 
-        if jettison is not None:
-            raise RuntimeError("invalid jettison argument.")
-
-        A._fpcarry = 0
-        A._apcarry = 0
-        A._turnsstalled = 0
-        A._turnsdeparted = 0
-        apaircraftflight.startspecialflight(A, actions)
-        
-########################################
-
-def _startmovenormalflight(A, actions, jettison=None, **kwargs):
-
-        if jettison is not None:
-            raise RuntimeError("invalid jettison argument.")
-
-        # See rule 8.1.4 on altitude carry.
-        if not A.isinclimbingflight():
-            A._setaltitudecarry(0)
-
-        A._turnsstalled = 0
-        A._turnsdeparted = 0
-        apaircraftflight.startnormalflight(A, actions)
-
-################################################################################
+###############################################################################
 
 
 def dotasks(E, tasks, actiondispatchlist, start=False, afterFP=None, aftertask=None):
