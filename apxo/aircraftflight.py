@@ -41,13 +41,7 @@ def endmove(A):
 
     else:
 
-        if A._flighttype == "SP":
-
-            A._newspeed = A.speed()
-
-        else:
-
-            A._endmovespeed()
+        A._endmovespeed()
 
         A._finishedmoving = True
 

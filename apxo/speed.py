@@ -86,6 +86,7 @@ def endmovespeed(A):
 
     if A._flighttype == "SP":
         A.apcarry = 0
+        A._newspeed = A.speed()
         A._logevent("speed is unchanged at %.1f." % A.speed())
         return
 
