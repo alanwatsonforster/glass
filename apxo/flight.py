@@ -1,14 +1,45 @@
 import re
 
+import apxo.aircraftflight as apaircraftflight
 import apxo.airtoair as apairtoair
 import apxo.altitude as apaltitude
 import apxo.capabilities as apcapabilities
 import apxo.closeformation as apcloseformation
 import apxo.hex as aphex
+import apxo.missileflight as apmissileflight
 import apxo.speed as apspeed
 import apxo.variants as apvariants
 
 from apxo.log import plural
+
+################################################################################
+
+
+def _move(E, flighttype, power, actions, **kwargs):
+
+    # We save values of these variables at the end of the previous move.
+
+    E._previousflighttype = E._flighttype
+    E._previousaltitude = E.altitude()
+    E._previousaltitudecarry = E.altitudecarry()
+    E._previousspeed = E.speed()
+    if E.isaircraft():
+        E._previouspowersetting = E._powersetting
+
+    E._flighttype = flighttype
+
+    if E._flighttype == "MS":
+        apmissileflight._move(E, actions, *kwargs)
+    else:
+        apaircraftflight._move(E, E._flighttype, power, actions, **kwargs)
+
+
+def _continuemove(E, actions, **kwargs):
+    if E._flighttype == "MS":
+        apmissileflight._continuemove(E, actions, **kwargs)
+    else:
+        apaircraftflight._continuemove(E, actions, **kwargs)
+
 
 ################################################################################
 

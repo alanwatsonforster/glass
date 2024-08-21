@@ -30,7 +30,7 @@ from apxo.log import plural
 ##############################################################################
 
 
-def move(
+def _move(
     A,
     flighttype,
     power,
@@ -49,14 +49,6 @@ def move(
     if A.killed() or A.removed():
         endmove(A)
         return
-
-    # We save values of these variables at the end of the previous move.
-
-    A._previouspowersetting = A._powersetting
-    A._previousflighttype = A._flighttype
-    A._previousaltitude = A.altitude()
-    A._previousaltitudecarry = A.altitudecarry()
-    A._previousspeed = A.speed()
 
     # These account for the APs associated with power, speed, speed-brakes,
     # turns (split into the part for the maximum turn rate and the part for
@@ -88,7 +80,7 @@ def move(
 
     A._logstart("altitude band is %s." % A.altitudeband())
     A._logevent("speed of sound is %.1f." % apspeed.m1speed(A.altitudeband()))
-    
+
     if flighttype == "SP":
         checkspecialflight(A)
     elif flighttype == "ST":
@@ -158,7 +150,7 @@ def move(
 ################################################################################
 
 
-def continuemove(A, tasks="", note=None):
+def _continuemove(A, tasks="", note=None):
     """
     Continue a move that has been started, possible carrying out some tasks.
     """

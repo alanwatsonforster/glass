@@ -1,5 +1,6 @@
 import apxo as ap
 import apxo.aircraftdata as apaircraftdata
+import apxo.aircraftflight as apaircraftflight
 import apxo.altitude as apaltitude
 import apxo.azimuth as apazimuth
 import apxo.closeformation as apcloseformation
@@ -7,7 +8,7 @@ import apxo.configuration as apconfiguration
 import apxo.damage as apdamage
 import apxo.draw as apdraw
 import apxo.element as apelement
-import apxo.aircraftflight as apaircraftflight
+import apxo.flight as apflight
 import apxo.gameturn as apgameturn
 import apxo.hex as aphex
 import apxo.hexcode as aphexcode
@@ -700,11 +701,31 @@ class aircraft(apelement.element):
 
     ################################################################################
 
-    def _move(self, *args, **kwargs):
-        apaircraftflight.move(self, *args, **kwargs)
+    def _move(
+        self,
+        flighttype,
+        power,
+        actions="",
+        speedbrakes=None,
+        flamedoutengines=0,
+        lowspeedliftdeviceselected=None,
+        jettison=None,
+        note=None,
+    ):
+        apflight._move(
+            self,
+            flighttype,
+            power,
+            actions,
+            speedbrakes=speedbrakes,
+            flamedoutengines=flamedoutengines,
+            lowspeedliftdeviceselected=lowspeedliftdeviceselected,
+            jettison=jettison,
+            note=note,
+        )
 
-    def _continuemove(self, *args, **kwargs):
-        apaircraftflight.continuemove(self, *args, **kwargs)
+    def _continuemove(self, actions="", note=None):
+        apflight._continuemove(self, actions, note=note)
 
     ########################################
 

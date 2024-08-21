@@ -2,6 +2,7 @@ import apxo.altitude as apaltitude
 import apxo.azimuth as apazimuth
 import apxo.draw as apdraw
 import apxo.element as apelement
+import apxo.flight as apflight
 import apxo.gameturn as apgameturn
 import apxo.hexcode as aphexcode
 import apxo.log as aplog
@@ -52,6 +53,7 @@ class missile(apelement.element):
 
             self._missiletype = missiletype
 
+            self._flighttype = "MS"
             self._startedmoving = False
             self._finishedmoving = True
             self._maneuvertype = None
@@ -86,12 +88,10 @@ class missile(apelement.element):
     #############################################################################
 
     def _move(self, actions, note=None):
-        apmissileflight.move(self, actions, note=note)
-
-    #############################################################################
+        apflight._move(self, "MS", None, actions, note=note)
 
     def _continuemove(self, actions, note=None):
-        apmissileflight.continuemove(self, actions, note=note)
+        apflight._continuemove(self, actions, note=note)
 
     #############################################################################
 
