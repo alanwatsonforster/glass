@@ -98,3 +98,5 @@ def doflight(A, action):
     A._checkforterraincollision()
 
     A._newspeed = A.speed()
+
+    A._finishedmoving = True

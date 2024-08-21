@@ -39,3 +39,5 @@ def doflight(A, action):
     A._checkforterraincollision()
     if A.killed():
         return
+
+    A._finishedmoving = True

@@ -1455,11 +1455,14 @@ def _continuemove(E, actions):
     else:
         _continuenormalflight(E, actions)
 
+    if E._finishedmoving:
+        _endmove(E)
+
 
 ########################################
 
 
-def _continuemissileflight(M, actions):
+def _continuemissilemove(M, actions):
     apmissileflight._continuemove(M, actions)
 
 
@@ -1468,8 +1471,6 @@ def _continuemissileflight(M, actions):
 
 def _continuestalledflight(A, actions):
     apstalledflight.doflight(A, actions)
-    A._turnsstalled += 1
-    apaircraftflight.endmove(A)
 
 
 ########################################
@@ -1477,8 +1478,6 @@ def _continuestalledflight(A, actions):
 
 def _continuedepartedflight(A, actions):
     apdepartedflight.doflight(A, actions)
-    A._turnsdeparted += 1
-    apaircraftflight.endmove(A)
 
 
 ########################################
@@ -1493,6 +1492,59 @@ def _continuespecialflight(A, actions):
 
 def _continuenormalflight(A, actions):
     apaircraftflight.continuenormalflight(A, actions)
+
+
+###############################################################################
+
+
+def _endmove(E):
+
+    if E._flighttype == "MS":
+        _endmissileflight(E)
+    elif E._flighttype == "ST":
+        _endstalledflight(E)
+    elif E._flighttype == "DP":
+        _enddepartedflight(E)
+    elif E._flighttype == "SP":
+        _endspecialflight(E)
+    else:
+        _endnormalflight(E)
+
+
+########################################
+
+
+def _endmissileflight(M):
+    pass
+
+
+########################################
+
+
+def _endstalledflight(A):
+    A._turnsstalled += 1
+    apaircraftflight.endmove(A)
+
+
+########################################
+
+
+def _enddepartedflight(A):
+    A._turnsdeparted += 1
+    apaircraftflight.endmove(A)
+
+
+########################################
+
+
+def _endspecialflight(A):
+    pass
+
+########################################
+
+
+def _endnormalflight(A):
+    pass
 
 
 ###############################################################################
