@@ -35,15 +35,9 @@ def endmove(A):
     Process the end of a move.
     """
 
-    if A.killed():
+    A._endmovespeed()
 
-        A._logend("aircraft has been killed.")
-
-    else:
-
-        A._endmovespeed()
-
-        A._finishedmoving = True
+    A._finishedmoving = True
 
 
 ################################################################################

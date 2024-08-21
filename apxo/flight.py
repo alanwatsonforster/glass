@@ -1499,24 +1499,30 @@ def _continuenormalflight(A, actions):
 
 def _endmove(E):
 
-    if E._flighttype == "MS":
-        _endmissileflight(E)
-    elif E._flighttype == "ST":
-        _endstalledflight(E)
-    elif E._flighttype == "DP":
-        _enddepartedflight(E)
-    elif E._flighttype == "SP":
-        _endspecialflight(E)
+    if E.isaircraft():
+        _endaircraftmove(E)
     else:
-        _endnormalflight(E)
-
-
+        _endmissilemove(E)
+        
 ########################################
 
+def _endaircraftmove(A):
 
-def _endmissileflight(M):
-    pass
+    if A.killed():
+        A._logend("aircraft has been killed.")
+        return
 
+    if A._flighttype == "ST":
+        _endstalledflight(A)
+    elif A._flighttype == "DP":
+        _enddepartedflight(A)
+    elif A._flighttype == "SP":
+        _endspecialflight(A)
+    else:
+        _endnormalflight(A)
+
+    if A.removed():
+        A._logend("aircraft has been removed.")
 
 ########################################
 
@@ -1544,6 +1550,13 @@ def _endspecialflight(A):
 
 
 def _endnormalflight(A):
+    pass
+
+
+########################################
+
+
+def _endmissilemove(M):
     pass
 
 
