@@ -31,16 +31,16 @@ def _move(E, flighttype, power, actions, **kwargs):
     E._logstart("flight type    is %s." % E._flighttype)
     E._logstart("altitude band  is %s." % E.altitudeband())
     E._logevent("speed of sound is %.1f." % apspeed.m1speed(E.altitudeband()))
-
+    
     if E._flighttype == "MS":
         apmissileflight._startmove(E, **kwargs)
         apmissileflight._continuemove(E, actions)
     else:
-        apaircraftflight._move(E, E._flighttype, power, actions, **kwargs)
+        apaircraftflight._startmove(E, E._flighttype, power, actions, **kwargs)
         apaircraftflight._continuemove(E, actions, True)
 
 
-def _continuemove(E, actions, note=None):
+def _continuemove(E, actions):
 
     if E._flighttype == "MS":
         apmissileflight._continuemove(E, actions)
