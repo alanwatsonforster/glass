@@ -554,13 +554,7 @@ def _endaircraftspeed(A):
     Carry out the rules to do with speed, power, and drag at the end of a move.
     """
 
-    if A._flighttype == "SP":
-        A.apcarry = 0
-        A._newspeed = A.speed()
-        A._logevent("speed is unchanged at %.1f." % A.speed())
-        return
-
-    if A._flighttype == "DP":
+    if A._flighttype == "SP" or A._flighttype == "DP":
         A._newspeed = A.speed()
         A._logevent("speed is unchanged at %.1f." % A.speed())
         return
