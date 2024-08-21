@@ -40,8 +40,8 @@ def _move(E, flighttype, power, actions, **kwargs):
     E._logevent("speed of sound is %.1f." % apspeed.m1speed(E.altitudeband()))
 
     _startspeed(E, power, **kwargs)
-    
-    _startmove(E, actions, **kwargs)
+
+    _startmove(E)
 
     if E._flighttype == "MS" or E._flighttype == "DP" or E._flighttype == "ST":
         _continuemove(E, actions)
@@ -50,6 +50,7 @@ def _move(E, flighttype, power, actions, **kwargs):
 
 
 ################################################################################
+
 
 def _continuemove(E, actions):
 
@@ -62,19 +63,24 @@ def _continuemove(E, actions):
     else:
         apaircraftflight._continuemove(E, actions, False)
 
+
 ########################################
+
 
 def _continuestalledflight(A, actions):
     apstalledflight.doflight(A, actions)
     A._turnsstalled += 1
     apaircraftflight.endmove(A)
 
+
 ########################################
 
+
 def _continuedepartedflight(A, actions):
-     apdepartedflight.doflight(A, actions)
-     A._turnsdeparted += 1
-     apaircraftflight.endmove(A)
+    apdepartedflight.doflight(A, actions)
+    A._turnsdeparted += 1
+    apaircraftflight.endmove(A)
+
 
 ################################################################################
 
@@ -400,13 +406,19 @@ def _startspeed(E, power, **kwargs):
 ########################################
 
 
-def _startspeedaircraft(A, power, flamedoutengines=None, lowspeedliftdeviceselected=None, speedbrakes=None, **kwargs):
-
+def _startspeedaircraft(
+    A,
+    power,
+    flamedoutengines=None,
+    lowspeedliftdeviceselected=None,
+    speedbrakes=None,
+    **kwargs
+):
     """
     Carry out the rules to do with power, speed, and speed-induced drag at the
     start of a move.
     """
-        # These account for the APs associated with power, speed, speed-brakes,
+    # These account for the APs associated with power, speed, speed-brakes,
     # turns (split into the part for the maximum turn rate and the part for
     # sustained turns), altitude loss or gain, and special maneuvers. They
     # are used in normal flight and stalled flight, but not departed flight.
@@ -426,7 +438,6 @@ def _startspeedaircraft(A, power, flamedoutengines=None, lowspeedliftdeviceselec
 
     A._maxturnrate = None
     A._effectiveclimbcapability = None
-
 
     def reportspeed():
         A._logstart("speed         is %.1f." % speed)
@@ -796,7 +807,9 @@ def _startspeedaircraft(A, power, flamedoutengines=None, lowspeedliftdeviceselec
 
     # See rule 6.6
 
-    if apspeed.ltspeed(A.altitudeband()) <= speed and speed <= apspeed.m1speed(A.altitudeband()):
+    if apspeed.ltspeed(A.altitudeband()) <= speed and speed <= apspeed.m1speed(
+        A.altitudeband()
+    ):
         A._logevent("transonic drag.")
         if speed == apspeed.ltspeed(A.altitudeband()):
             speedap -= 0.5
@@ -866,8 +879,6 @@ def _startspeedaircraft(A, power, flamedoutengines=None, lowspeedliftdeviceselec
         )
 
 
-
-
 ########################################
 
 
@@ -914,16 +925,19 @@ def _startspeedmissile(M):
 
 ################################################################################
 
-def _startmove(E, actions, **kwargs):
+
+def _startmove(E, **kwargs):
 
     if E.ismissile():
         _startmovemissile(E)
     else:
-        _startmoveaircraft(E, actions, **kwargs)
+        _startmoveaircraft(E, **kwargs)
 
     E._logposition("start")
 
+
 ########################################
+
 
 def _startmovemissile(M, **kwargs):
 
@@ -931,9 +945,11 @@ def _startmovemissile(M, **kwargs):
     M._hfp = 0
     M._vfp = 0
 
+
 ########################################
 
-def _startmoveaircraft(A, actions, **kwargs):
+
+def _startmoveaircraft(A):
 
     # This flags whether a maneuvering departure has occured.
 
@@ -943,43 +959,50 @@ def _startmoveaircraft(A, actions, **kwargs):
     A._logstart("damage        is %s." % A.damage())
 
     if A._flighttype == "ST":
-        _startmovestalledflight(A, actions, **kwargs)
+        _startmovestalledflight(A)
     elif A._flighttype == "DP":
-        _startmovedepartedflight(A, actions)
+        _startmovedepartedflight(A)
     elif A._flighttype == "SP":
-        _startmovespecialflight(A, actions)
+        _startmovespecialflight(A)
     else:
-        _startmovenormalflight(A, actions)
-        
+        _startmovenormalflight(A)
+
 
 ########################################
 
-def _startmovestalledflight(A, actions, **kwargs):
+
+def _startmovestalledflight(A):
 
     A._fpcarry = 0
     A._setaltitudecarry(0)
 
+
 ########################################
 
-def _startmovedepartedflight(A, actions, **kwargs):
+
+def _startmovedepartedflight(A):
 
     A._fpcarry = 0
     A._apcarry = 0
     A._setaltitudecarry(0)
-        
+
+
 ########################################
 
-def _startmovespecialflight(A, actions, **kwargs):
+
+def _startmovespecialflight(A):
 
     A._fpcarry = 0
     A._apcarry = 0
     A._turnsstalled = 0
     A._turnsdeparted = 0
-    apaircraftflight.startspecialflight(A, actions)
-        
+    apaircraftflight.startspecialflight(A)
+
+
 ########################################
 
-def _startmovenormalflight(A, actions, **kwargs):
+
+def _startmovenormalflight(A):
 
     # See rule 8.1.4 on altitude carry.
     if not A.isinclimbingflight():
@@ -987,7 +1010,8 @@ def _startmovenormalflight(A, actions, **kwargs):
 
     A._turnsstalled = 0
     A._turnsdeparted = 0
-    apaircraftflight.startnormalflight(A, actions)
+    apaircraftflight.startnormalflight(A)
+
 
 ###############################################################################
 
@@ -1279,5 +1303,3 @@ def _islevelflight(flighttype):
 
 
 ################################################################################
-
-

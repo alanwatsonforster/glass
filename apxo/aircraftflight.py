@@ -71,7 +71,7 @@ def endmove(A):
 ################################################################################
 
 
-def startnormalflight(A, tasks):
+def startnormalflight(A):
     """
     Start to carry out normal flight.
     """
@@ -500,7 +500,7 @@ def startnormalflight(A, tasks):
 ########################################
 
 
-def startspecialflight(A, tasks):
+def startspecialflight(A):
 
     A._maxfp = A.speed()
     A._logevent("has %.1f FPs." % A._maxfp)

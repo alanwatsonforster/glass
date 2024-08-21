@@ -12,7 +12,7 @@ def doflight(A, action):
     """
     Carry out stalled flight.
     """
-    
+
     if action != "ST":
         raise RuntimeError("invalid action %r for stalled flight." % action)
 
