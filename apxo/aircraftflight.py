@@ -30,15 +30,15 @@ from apxo.log import plural
 ##############################################################################
 
 
-def _move(
+def _startmove(
     A,
     flighttype,
     power,
-    tasks="",
+     tasks="",
     speedbrakes=None,
     flamedoutengines=0,
     lowspeedliftdeviceselected=None,
-    jettison=None
+    jettison=None,
 ):
     """
     Start a move, declaring the flight type and power, and possible carrying

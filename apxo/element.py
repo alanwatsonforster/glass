@@ -246,7 +246,7 @@ class element:
             self._kill()
         except RuntimeError as e:
             aplog.logexception(e)
-            
+
     def _remove(self):
         self._removed = True
 

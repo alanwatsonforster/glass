@@ -709,7 +709,7 @@ class aircraft(apelement.element):
         speedbrakes=None,
         flamedoutengines=0,
         lowspeedliftdeviceselected=None,
-        jettison=None
+        jettison=None,
     ):
         apflight._move(
             self,
