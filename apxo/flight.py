@@ -51,41 +51,6 @@ def _move(E, flighttype, power, actions, **kwargs):
 ################################################################################
 
 
-def _continuemove(E, actions):
-
-    if E._flighttype == "MS":
-        apmissileflight._continuemove(E, actions)
-    elif E._flighttype == "ST":
-        _continuestalledflight(E, actions)
-    elif E._flighttype == "DP":
-        _continuedepartedflight(E, actions)
-    elif E._flighttype == "SP":
-        apaircraftflight.continuespecialflight(E, actions)
-    else:
-        apaircraftflight.continuenormalflight(E, actions)
-
-
-########################################
-
-
-def _continuestalledflight(A, actions):
-    apstalledflight.doflight(A, actions)
-    A._turnsstalled += 1
-    apaircraftflight.endmove(A)
-
-
-########################################
-
-
-def _continuedepartedflight(A, actions):
-    apdepartedflight.doflight(A, actions)
-    A._turnsdeparted += 1
-    apaircraftflight.endmove(A)
-
-
-################################################################################
-
-
 def _checkflighttype(E):
 
     if (
@@ -1472,6 +1437,62 @@ def _startmovenormalflight(A):
     determinemaxfp()
     determinefprequirements()
     determineeffectiveclimbcapability()
+
+
+###############################################################################
+
+
+def _continuemove(E, actions):
+
+    if E._flighttype == "MS":
+        _continuemissilemove(E, actions)
+    elif E._flighttype == "ST":
+        _continuestalledflight(E, actions)
+    elif E._flighttype == "DP":
+        _continuedepartedflight(E, actions)
+    elif E._flighttype == "SP":
+        _continuespecialflight(E, actions)
+    else:
+        _continuenormalflight(E, actions)
+
+
+########################################
+
+
+def _continuemissileflight(M, actions):
+    apmissileflight._continuemove(M, actions)
+
+
+########################################
+
+
+def _continuestalledflight(A, actions):
+    apstalledflight.doflight(A, actions)
+    A._turnsstalled += 1
+    apaircraftflight.endmove(A)
+
+
+########################################
+
+
+def _continuedepartedflight(A, actions):
+    apdepartedflight.doflight(A, actions)
+    A._turnsdeparted += 1
+    apaircraftflight.endmove(A)
+
+
+########################################
+
+
+def _continuespecialflight(A, actions):
+    apaircraftflight.continuespecialflight(A, actions)
+
+
+########################################
+
+
+def _continuenormalflight(A, actions):
+    apaircraftflight.continuenormalflight(A, actions)
 
 
 ###############################################################################
