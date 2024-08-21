@@ -28,10 +28,12 @@ def _move(E, flighttype, power, actions, **kwargs):
 
     E._flighttype = flighttype
 
+    _checkflighttype(E)
+
     E._logstart("flight type    is %s." % E._flighttype)
     E._logstart("altitude band  is %s." % E.altitudeband())
     E._logevent("speed of sound is %.1f." % apspeed.m1speed(E.altitudeband()))
-    
+
     if E._flighttype == "MS":
         apmissileflight._startmove(E, **kwargs)
         apmissileflight._continuemove(E, actions)
@@ -46,6 +48,32 @@ def _continuemove(E, actions):
         apmissileflight._continuemove(E, actions)
     else:
         apaircraftflight._continuemove(E, actions, False)
+
+
+################################################################################
+
+
+def _checkflighttype(E):
+
+    if E.ismissile():
+        assert E._flighttype == "MS"
+        return
+
+    if E._flighttype not in [
+        "LVL",
+        "ZC",
+        "SC",
+        "VC",
+        "SD",
+        "SD/HRD",
+        "UD",
+        "VD",
+        "VD/HRD",
+        "ST",
+        "DP",
+        "SP",
+    ]:
+        raise RuntimeError("invalid flight type %r." % E._flighttype)
 
 
 ################################################################################
