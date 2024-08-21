@@ -45,38 +45,11 @@ def _startmove(
     out some tasks.
     """
 
-    # These account for the APs associated with power, speed, speed-brakes,
-    # turns (split into the part for the maximum turn rate and the part for
-    # sustained turns), altitude loss or gain, and special maneuvers. They
-    # are used in normal flight and stalled flight, but not departed flight.
-
-    A._powerap = 0
-    A._speedap = 0
-    A._speedbrakeap = 0
-    A._turnrateap = 0
-    A._sustainedturnap = 0
-    A._altitudeap = 0
-    A._othermaneuversap = 0
-
-    # These keep track of the maximum turn rate used in the turn, the
-    # number of roll maneuvers, and the effective climb capability
-    # (the climb capability at the moment the first VFP is used).
-    # Again, they are used to calculate the final speed.
-
-    A._maxturnrate = None
-    A._effectiveclimbcapability = None
-
     # This flags whether a maneuvering departure has occured.
 
     A._maneuveringdeparture = False
 
-    if flighttype == "SP":
-        A._setspeed(power)
-    else:
-        A._startmovespeed(
-            power, flamedoutengines, lowspeedliftdeviceselected, speedbrakes
-        )
-        A._logstart("configuration is %s." % A._configuration)
+    A._logstart("configuration is %s." % A._configuration)
     A._logstart("damage        is %s." % A.damage())
 
     if A._flighttype == "SP":
