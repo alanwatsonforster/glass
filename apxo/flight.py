@@ -5,6 +5,7 @@ import apxo.airtoair as apairtoair
 import apxo.altitude as apaltitude
 import apxo.capabilities as apcapabilities
 import apxo.closeformation as apcloseformation
+import apxo.gameturn as apgameturn
 import apxo.hex as aphex
 import apxo.missileflight as apmissileflight
 import apxo.speed as apspeed
@@ -33,6 +34,8 @@ def _move(E, flighttype, power, actions, **kwargs):
     E._logstart("flight type    is %s." % E._flighttype)
     E._logstart("altitude band  is %s." % E.altitudeband())
     E._logevent("speed of sound is %.1f." % apspeed.m1speed(E.altitudeband()))
+
+    _startspeed(E)
 
     if E._flighttype == "MS":
         apmissileflight._startmove(E, **kwargs)
@@ -319,6 +322,66 @@ def _checkmissileflighttype(E):
 ################################################################################
 
 
+def _startspeed(E):
+
+    if E._flighttype == "MS":
+        _startspeedmissile(E)
+
+
+########################################
+
+
+def _startspeedaircraft(A):
+    pass
+
+
+########################################
+
+
+def _startspeedmissile(M):
+
+    def attenuationfactor(altitudeband, flightgameturn):
+        table = {
+            "LO": [0.6, 0.6, 0.7, 0.8, 0.8, 0.8],
+            "ML": [0.7, 0.7, 0.7, 0.8, 0.8, 0.8],
+            "MH": [0.7, 0.7, 0.7, 0.8, 0.8, 0.9],
+            "HI": [0.8, 0.8, 0.8, 0.8, 0.8, 0.9],
+            "VH": [0.8, 0.8, 0.8, 0.8, 0.9, 0.9],
+            "EH": [0.9, 0.9, 0.9, 0.9, 0.9, 0.9],
+            "UH": [1.0, 0.9, 0.9, 0.9, 0.9, 0.9],
+        }
+        return table[altitudeband][min(flightgameturn, 6) - 1]
+
+    M._logstart("start speed   is %.1f." % M.speed())
+
+    if M.speed() > apspeed.missilemaxspeed(M.altitudeband()):
+        M._logevent("reducing speed to maximum for altitude band.")
+        M.setspeed(_missilemaxspeed(M.altitudeband()))
+        M._logstart("start speed   is %.1f." % M.speed())
+
+    if M.speed() < apspeed.missilemaneuverspeed(M.altitudeband()):
+        M._logevent("cannot maneuver.")
+
+    flightgameturn = apgameturn.gameturn() - M._launchgameturn
+    M._logstart("flight game turn is %d." % flightgameturn)
+
+    M._maxfp = int(
+        M.speed() * attenuationfactor(M.altitudeband(), flightgameturn) + 0.5
+    )
+    M._setspeed(M._maxfp)
+
+    M._logstart("average speed is %.1f." % M.speed())
+    if M.speed() < apspeed.m1speed(M.altitudeband()):
+        M._logevent("speed is subsonic.")
+    else:
+        M._logevent("speed is supersonic.")
+
+    M._logevent("has %d FPs." % M._maxfp)
+
+
+################################################################################
+
+
 def dotasks(E, tasks, actiondispatchlist, start=False, afterFP=None, aftertask=None):
     """
     Carry out flight tasks.
@@ -404,6 +467,7 @@ def _checkdepartedflight(E):
 
 
 ########################################
+
 
 def _checkspecialflighttype(E):
 
@@ -649,3 +713,5 @@ def _islevelflight(flighttype):
 
 
 ################################################################################
+
+

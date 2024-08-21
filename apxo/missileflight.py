@@ -12,32 +12,6 @@ def _startmove(M, **kwargs):
     Start a move and possibly carry out some actions.
     """
 
-    M._logstart("start speed   is %.1f." % M.speed())
-
-    if M.speed() > maxspeed(M.altitudeband()):
-        M._logevent("reducing speed to maximum for altitude band.")
-        M.setspeed(_maxspeed(M.altitudeband()))
-        M._logstart("start speed   is %.1f." % M.speed())
-
-    if M.speed() < maneuverspeed(M.altitudeband()):
-        M._logevent("cannot maneuver.")
-
-    flightgameturn = apgameturn.gameturn() - M._launchgameturn
-    M._logstart("flight game turn is %d." % flightgameturn)
-
-    M._maxfp = int(
-        M.speed() * _attenuationfactor(M.altitudeband(), flightgameturn) + 0.5
-    )
-    M._setspeed(M._maxfp)
-
-    M._logstart("average speed is %.1f." % M.speed())
-    if M.speed() < apspeed.m1speed(M.altitudeband()):
-        M._logevent("speed is subsonic.")
-    else:
-        M._logevent("speed is supersonic.")
-
-    M._logevent("has %d FPs." % M._maxfp)
-
     M._logposition("start")
 
     M._fp = 0

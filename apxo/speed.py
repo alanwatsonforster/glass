@@ -56,6 +56,24 @@ def ltspeed(altitudeband):
 ################################################################################
 
 
+def missilemaxspeed(altitudeband):
+    table = {"LO": 24, "ML": 26, "MH": 28, "HI": 30, "VH": 32, "EH": 34, "UH": 36}
+    return table[altitudeband]
+
+
+def missileminspeed(altitudeband):
+    table = {"LO": 2, "ML": 3, "MH": 3, "HI": 4, "VH": 4, "EH": 5, "UH": 7}
+    return table[altitudeband]
+
+
+def missilemaneuverspeed(altitudeband):
+    table = {"LO": 4, "ML": 5, "MH": 6, "HI": 7, "VH": 8, "EH": 10, "UH": 14}
+    return table[altitudeband]
+
+
+################################################################################
+
+
 def startmovespeed(A, power, flamedoutengines, lowspeedliftdeviceselected, speedbrakes):
     """
     Carry out the rules to do with power, speed, and speed-induced drag at the
