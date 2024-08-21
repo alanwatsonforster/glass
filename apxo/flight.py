@@ -41,14 +41,8 @@ def _move(E, flighttype, power, actions, **kwargs):
     E._logevent("speed of sound is %.1f." % apspeed.m1speed(E.altitudeband()))
 
     _startspeed(E, power, **kwargs)
-
     _startmove(E)
-
-    if E._flighttype == "MS" or E._flighttype == "DP" or E._flighttype == "ST":
-        _continuemove(E, actions)
-    else:
-        apaircraftflight._continuemove(E, actions, True)
-
+    _continuemove(E, actions)
 
 ################################################################################
 
@@ -61,8 +55,10 @@ def _continuemove(E, actions):
         _continuestalledflight(E, actions)
     elif E._flighttype == "DP":
         _continuedepartedflight(E, actions)
+    elif E._flighttype == "SP":
+        apaircraftflight.continuespecialflight(E, actions)
     else:
-        apaircraftflight._continuemove(E, actions, False)
+        apaircraftflight.continuenormalflight(E, actions)
 
 
 ########################################
@@ -929,6 +925,45 @@ def _startspeedmissile(M):
 
 def _startmove(E, **kwargs):
 
+    # The number of FPs, HFPs, and VFPs used and the number of FPs lost to
+    # speedbrakes. They are used to ensure that the right mix of HFPs and
+    # VFPs are used and to determine when the turn ends.
+
+    E._fp = 0
+    E._hfp = 0
+    E._vfp = 0
+
+    # The number of unloaded HFPs and the indices of the first and last
+    # unloaded HFPs in an UD. They are then used to ensure that the
+    # unloaded HFPs are continuous.
+
+    E._unloadedhfp = 0
+    E._firstunloadedfp = None
+    E._lastunloadedfp = None
+
+    # Whether the aircraft has used a superclimb (C3).
+    E._usedsuperclimb = False
+
+    # The aircraft being tracked and the number of FPs expended
+    # while tracking.
+
+    E._tracking = None
+    E._trackingfp = 0
+
+    # This keeps track of the number of turns, rolls, and vertical rolls.
+
+    E._turnmaneuvers = 0
+    E._rollmaneuvers = 0
+    E._verticalrolls = 0
+
+    # The number of slides performed and the FP of the last one performed.
+
+    E._slides = 0
+    E._slidefp = 0
+
+    # Whether flight is currently supersonic.
+    E._supersonic = E.speed() >= apspeed.m1speed(E.altitudeband())
+
     if E.ismissile():
         _startmovemissile(E)
     else:
@@ -942,9 +977,7 @@ def _startmove(E, **kwargs):
 
 def _startmovemissile(M, **kwargs):
 
-    M._fp = 0
-    M._hfp = 0
-    M._vfp = 0
+    pass
 
 
 ########################################
@@ -1439,51 +1472,10 @@ def _startmovenormalflight(A):
 ###############################################################################
 
 
-def dotasks(E, tasks, actiondispatchlist, start=False, afterFP=None, aftertask=None):
+def dotasks(E, tasks, actiondispatchlist, afterFP=None, aftertask=None):
     """
     Carry out flight tasks.
     """
-
-    if start:
-
-        # The number of FPs, HFPs, and VFPs used and the number of FPs lost to
-        # speedbrakes. They are used to ensure that the right mix of HFPs and
-        # VFPs are used and to determine when the turn ends.
-
-        E._fp = 0
-        E._hfp = 0
-        E._vfp = 0
-
-        # The number of unloaded HFPs and the indices of the first and last
-        # unloaded HFPs in an UD. They are then used to ensure that the
-        # unloaded HFPs are continuous.
-
-        E._unloadedhfp = 0
-        E._firstunloadedfp = None
-        E._lastunloadedfp = None
-
-        # Whether the aircraft has used a superclimb (C3).
-        E._usedsuperclimb = False
-
-        # The aircraft being tracked and the number of FPs expended
-        # while tracking.
-
-        E._tracking = None
-        E._trackingfp = 0
-
-        # This keeps track of the number of turns, rolls, and vertical rolls.
-
-        E._turnmaneuvers = 0
-        E._rollmaneuvers = 0
-        E._verticalrolls = 0
-
-        # The number of slides performed and the FP of the last one performed.
-
-        E._slides = 0
-        E._slidefp = 0
-
-        # Whether flight is currently supersonic.
-        E._supersonic = E.speed() >= apspeed.m1speed(E.altitudeband())
 
     if tasks != "":
         for task in re.split(r"[, ]", tasks):

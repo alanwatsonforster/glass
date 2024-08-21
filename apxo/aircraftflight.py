@@ -30,22 +30,6 @@ from apxo.log import plural
 ################################################################################
 
 
-def _continuemove(A, tasks, start):
-    """
-    Continue a move that has been started, possible carrying out some tasks.
-    """
-
-    if A._flighttype == "ST" or A._flighttype == "DP":
-        pass
-    elif A._flighttype == "SP":
-        continuespecialflight(A, tasks, start)
-    else:
-        continuenormalflight(A, tasks, start)
-
-
-################################################################################
-
-
 def endmove(A):
     """
     Process the end of a move.
@@ -75,7 +59,7 @@ def endmove(A):
 ################################################################################
 
 
-def continuenormalflight(A, tasks, start):
+def continuenormalflight(A, tasks):
     """
     Continue to carry out out normal flight.
     """
@@ -406,7 +390,6 @@ def continuenormalflight(A, tasks, start):
         A,
         tasks,
         actiondispatchlist,
-        start=start,
         afterFP=afterFP,
         aftertask=aftertask,
     )
@@ -426,7 +409,7 @@ def continuenormalflight(A, tasks, start):
 ########################################
 
 
-def continuespecialflight(A, tasks, start):
+def continuespecialflight(A, tasks):
     """
     Continue to carry out out special flight.
     """
@@ -489,7 +472,7 @@ def continuespecialflight(A, tasks, start):
 
     ########################################
 
-    apflight.dotasks(A, tasks, taskdispatchlist, start=start)
+    apflight.dotasks(A, tasks, taskdispatchlist)
 
     if not A.killed() and not A.removed():
         if A._altitudecarry != 0:
