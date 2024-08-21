@@ -30,22 +30,6 @@ from apxo.log import plural
 ################################################################################
 
 
-def endmove(A):
-    """
-    Process the end of a move.
-    """
-
-    A._endmovespeed()
-
-    A._finishedmoving = True
-
-
-################################################################################
-
-
-################################################################################
-
-
 def continuenormalflight(A, tasks):
     """
     Continue to carry out out normal flight.
@@ -386,7 +370,7 @@ def continuenormalflight(A, tasks):
 
     if A.killed() or A.removed() or A._maneuveringdeparture:
 
-        endmove(A)
+        A._finishedmoving = True
 
     elif A._fp >= A._maxfp:
 
@@ -691,7 +675,7 @@ def endnormalflight(A):
         checkcloseformationlimits()
         handleunloadeddiveflighttype()
 
-    endmove(A)
+    A._finishedmoving = True
 
 
 ################################################################################

@@ -1509,7 +1509,7 @@ def _endmove(E):
 def _endaircraftmove(A):
 
     if A.killed():
-        A._logend("aircraft has been killed.")
+        A._logend("has been killed.")
         return
 
     if A._flighttype == "ST":
@@ -1521,15 +1521,16 @@ def _endaircraftmove(A):
     else:
         _endnormalflight(A)
 
+    apspeed._endmovespeed(A)
+
     if A.removed():
-        A._logend("aircraft has been removed.")
+        A._logend("has been removed.")
 
 ########################################
 
 
 def _endstalledflight(A):
     A._turnsstalled += 1
-    apaircraftflight.endmove(A)
 
 
 ########################################
@@ -1537,21 +1538,18 @@ def _endstalledflight(A):
 
 def _enddepartedflight(A):
     A._turnsdeparted += 1
-    apaircraftflight.endmove(A)
 
 
 ########################################
 
 
 def _endspecialflight(A):
-    apaircraftflight.endmove(A)
-
+    pass
 ########################################
 
 
 def _endnormalflight(A):
     pass
-
 
 ########################################
 

@@ -77,7 +77,7 @@ def missilemaneuverspeed(altitudeband):
 ################################################################################
 
 
-def endmovespeed(A):
+def _endmovespeed(A):
     """
     Carry out the rules to do with speed, power, and drag at the end of a move.
     """
