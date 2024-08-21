@@ -980,10 +980,54 @@ def _endmove(E):
         E._logend("has been removed.")
         return
 
-    if E.isaircraft():
-        apspeed._endaircraftspeed(E)
+    if E._flighttype == "MS":
+        _endmissileflight(E)
+    elif E._flighttype == "ST":
+        _endstalledflight(E)
+    elif E._flighttype == "DP":
+        _enddepartedflight(E)
+    elif E._flighttype == "SP":
+        _endspecialflight(E)
     else:
-        apspeed._endmissilespeed(E)
+        _endnormalflight(E)
+
+
+########################################
+
+
+def _endmissileflight(M):
+    apspeed._endmissilespeed(M)
+
+
+########################################
+
+
+def _endstalledflight(A):
+    A._turnsstalled += 1
+    apspeed._endaircraftspeed(A)
+
+
+########################################
+
+
+def _enddepartedflight(A):
+    A._turnsdeparted += 1
+    apspeed._endaircraftspeed(A)
+
+
+########################################
+
+
+def _endspecialflight(A):
+    apspeed._endaircraftspeed(A)
+
+
+########################################
+
+
+def _endnormalflight(A):
+    apaircraftflight.endnormalflight(A)
+    apspeed._endaircraftspeed(A)
 
 
 ###############################################################################

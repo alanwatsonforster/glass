@@ -97,5 +97,4 @@ def doflight(A, action):
         )
     A._checkforterraincollision()
 
-    A._turnsdeparted += 1
     A._finishedmoving = True

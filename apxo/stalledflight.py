@@ -40,5 +40,4 @@ def doflight(A, action):
     if A.killed():
         return
 
-    A._turnsstalled += 1
     A._finishedmoving = True
