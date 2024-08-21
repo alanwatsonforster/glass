@@ -55,25 +55,309 @@ def _continuemove(E, actions):
 
 def _checkflighttype(E):
 
-    if E.ismissile():
-        assert E._flighttype == "MS"
+    if E._flighttype == "MS":
+        _checkmissileflighttype(E)
+    elif E._flighttype == "SP":
+        _checkspecialflighttype(E)
+    elif E._flighttype == "ST":
+        _checkstalledflighttype(E)
+    elif E._flighttype == "DP":
         return
-
-    if E._flighttype not in [
-        "LVL",
-        "ZC",
-        "SC",
-        "VC",
-        "SD",
-        "SD/HRD",
-        "UD",
-        "VD",
-        "VD/HRD",
-        "ST",
-        "DP",
-        "SP",
-    ]:
+        _checkdepartedflighttype(E)
+    elif (
+        E._flighttype == "LVL"
+        or E._flighttype == "ZC"
+        or E._flighttype == "SC"
+        or E._flighttype == "VC"
+        or E._flighttype == "SD"
+        or E._flighttype == "SD/HRD"
+        or E._flighttype == "UD"
+        or E._flighttype == "VD"
+        or E._flighttype == "VD/HRD"
+    ):
+        _checknormalflight(E)
+    else:
         raise RuntimeError("invalid flight type %r." % E._flighttype)
+
+
+########################################
+
+
+def _checkmissileflighttype(E):
+
+    if E.isaircraft():
+        raise RuntimeError("aircraft cannot perform missile flight.")
+
+
+########################################
+
+
+def _checkspecialflighttype(E):
+
+    if E.ismissile():
+        raise RuntimeError("missiles cannot perform special flight.")
+
+    if not apcapabilities.hasproperty(E, "SPFL"):
+        raise RuntimeError("normal-flight aircraft cannot perform special flight.")
+
+
+########################################
+
+
+def _checkstalledflighttype(E):
+
+    if E.ismissile():
+        raise RuntimeError("missiles cannot perform stalled flight.")
+
+    if apcapabilities.hasproperty(E, "SPFL"):
+        raise RuntimeError("special-flight aircraft cannot perform stalled flight.")
+
+    # See rule 6.3.
+
+    if E.speed() >= apcapabilities.minspeed(E):
+        raise RuntimeError("flight type cannot be ST as aircraft is not stalled.")
+
+    E._logstart("speed is below the minimum of %.1f." % apcapabilities.minspeed(E))
+    E._logstart("aircraft is stalled.")
+
+
+########################################
+
+
+def _checkdepartedflight(E):
+
+    if E.ismissile():
+        raise RuntimeError("missiles cannot perform departed flight.")
+
+    if apcapabilities.hasproperty(E, "SPFL"):
+        raise RuntimeError("special-flight aircraft cannot perform departed flight.")
+
+
+########################################
+
+
+def _checknormalflight(E):
+
+    if E.ismissile():
+        raise RuntimeError("missiles cannot perform normal flight.")
+
+    if apcapabilities.hasproperty(E, "SPFL"):
+        raise RuntimeError("special-flight aircraft cannot perform normal flight.")
+
+    # See rule 13.3.5. A HRD is signalled by appending "/HRD" to the flight type.
+    if E._flighttype[-4:] == "/HRD":
+
+        if apcapabilities.hasproperty(E, "NRM"):
+            raise RuntimeError("aircraft cannot perform rolling maneuvers.")
+
+        hrd = True
+        E._flighttype = E._flighttype[:-4]
+        E._flighttype = E._flighttype
+
+        # See rule 7.7.
+        if E.altitude() > apcapabilities.ceiling(E):
+            E._logevent(
+                "check for a maneuvering departure as the aircraft is above its ceiling and attempted to roll."
+            )
+        elif E.altitudeband() == "EH" or E.altitudeband() == "UH":
+            E._logevent(
+                "check for a maneuvering departure as the aircraft is in the %s altitude band and attempted to roll."
+                % E.altitudeband()
+            )
+
+    else:
+
+        hrd = False
+
+    E._hrd = hrd
+
+    if E._flighttype not in ["LVL", "SC", "ZC", "VC", "SD", "UD", "VD"]:
+        raise RuntimeError("invalid flight type %r." % E._flighttype)
+
+    # See rule 13.3.5 for restrictions on HRDs.
+
+    if hrd:
+        if E._previousflighttype == "LVL" and E._flighttype == "VD":
+            pass
+        elif (
+            E._previousflighttype == "ZC" or E._previousflighttype == "SC"
+        ) and E._flighttype == "VD":
+            pass
+        elif E._previousflighttype == "VC" and E._flighttype == "SD":
+            pass
+        else:
+            raise RuntimeError(
+                "flight type immediately after %s cannot be %s with a HRD."
+                % (E._previousflighttype, E._flighttype)
+            )
+
+    if E._previousflighttype == "DP":
+
+        # See rule 6.4 on recovering from departed flight.
+
+        if _isclimbingflight(E._flighttype):
+            raise RuntimeError(
+                "flight type immediately after %s cannot be %s."
+                % (E._previousflighttype, E._flighttype)
+            )
+        elif E._flighttype == "LVL" and not apcapabilities.hasproperty(E, "HPR"):
+            raise RuntimeError(
+                "flight type immediately after %s cannot be %s."
+                % (E._previousflighttype, E._flighttype)
+            )
+
+    if E._previousflighttype == "ST":
+
+        # See rule 6.4 on recovering from stalled flight.
+
+        if _isclimbingflight(E._flighttype):
+            raise RuntimeError(
+                "flight type immediately after %s cannot be %s."
+                % (E._previousflighttype, E._flighttype)
+            )
+
+    if E._flighttype == "LVL":
+
+        # See rule 8.2.3 on VD recovery.
+
+        if E._previousflighttype == "VD":
+            if E.speed() <= 2.0:
+                pass
+            elif not apcapabilities.hasproperty(E, "HPR"):
+                raise RuntimeError(
+                    "flight type immediately after %s cannot be %s."
+                    % (E._previousflighttype, E._flighttype)
+                )
+            elif E.speed() >= 3.5:
+                raise RuntimeError(
+                    "flight type immediately after %s cannot be %s (for HPR aircraft at high speed)."
+                    % (E._previousflighttype, E._flighttype)
+                )
+
+    elif E._flighttype == "ZC":
+
+        # See rule 8.2.3 on VD recovery.
+
+        if E._previousflighttype == "VD":
+            raise RuntimeError(
+                "flight type immediately after %s cannot be %s."
+                % (E._previousflighttype, E._flighttype)
+            )
+
+    elif E._flighttype == "SC":
+
+        # See rule 8.1.2 on SC prerequsistes.
+
+        if E.speed() < apcapabilities.minspeed(E) + 1:
+            raise RuntimeError("insufficient speed for SC.")
+
+        # See rule 8.2.3 on VD recovery.
+
+        if E._previousflighttype == "VD":
+            raise RuntimeError(
+                "flight type immediately after %s cannot be %s."
+                % (E._previousflighttype, E._flighttype)
+            )
+
+    elif E._flighttype == "VC":
+
+        # See rule 8.1.3 on VC prerequisites.
+
+        if _isdivingflight(E._previousflighttype):
+            raise RuntimeError(
+                "flight type immediately after %s cannot be %s."
+                % (E._previousflighttype, E._flighttype)
+            )
+        if E._previousflighttype == "LVL":
+            if not apcapabilities.hasproperty(E, "HPR"):
+                raise RuntimeError(
+                    "flight type immediately after %s cannot be %s."
+                    % (E._previousflighttype, E._flighttype)
+                )
+            elif E.speed() >= 4.0:
+                raise RuntimeError(
+                    "flight type immediately after %s cannot be %s (for HPR aircraft at high speed)."
+                    % (E._previousflighttype, E._flighttype)
+                )
+
+        # See rule 8.2.3 on VD recovery.
+
+        if E._previousflighttype == "VD":
+            raise RuntimeError(
+                "flight type immediately after %s cannot be %s."
+                % (E._previousflighttype, E._flighttype)
+            )
+
+    elif E._flighttype == "SD":
+
+        # See rule 8.1.3 on VC restrictions.
+        # See rule 13.3.5 on HRD restrictions.
+
+        if E._previousflighttype == "VC" and not (
+            apcapabilities.hasproperty(E, "HPR") or hrd
+        ):
+            raise RuntimeError(
+                "flight type immediately after %s cannot be %s (without a HRD)."
+                % (E._previousflighttype, E._flighttype)
+            )
+
+    elif E._flighttype == "UD":
+
+        # See rule 8.2.2 on VC restrictions.
+
+        if apvariants.withvariant("use version 2.4 rules"):
+
+            # I interpret the text "start from level flight" to mean that the aircraft
+            # must have been in level flight on the previous turn.
+
+            if E._previousflighttype != "LVL":
+                raise RuntimeError(
+                    "flight type immediately after %s cannot be %s."
+                    % (E._previousflighttype, E._flighttype)
+                )
+
+        else:
+
+            # See rule 8.1.3 on VC restrictions.
+
+            if E._previousflighttype == "VC" and not apcapabilities.hasproperty(
+                E, "HPR"
+            ):
+                raise RuntimeError(
+                    "flight type immediately after %s cannot be %s."
+                    % (E._previousflighttype, E._flighttype)
+                )
+
+    elif E._flighttype == "VD":
+
+        # See rule 8.2.3 (with errata) on VD restrictions.
+        # See rule 13.3.5 on HRD restrictions.
+
+        if E._previousflighttype == "LVL":
+            if not hrd:
+                raise RuntimeError(
+                    "flight type immediately after %s cannot be %s (without a HRD)."
+                    % (E._previousflighttype, E._flighttype)
+                )
+        elif E._previousflighttype == "ZC" or E._previousflighttype == "SC":
+            if hrd and E.speed() > 4.0:
+                raise RuntimeError(
+                    "flight type immediately after %s cannot be %s (without a low-speed HRD)."
+                    % (E._previousflighttype, E._flighttype)
+                )
+        elif E._previousflighttype == "VC":
+            raise RuntimeError(
+                "flight type immediately after %s cannot be %s."
+                % (E._previousflighttype, E._flighttype)
+            )
+
+        # See rule 8.1.3 on VC restrictions. This duplicates the restriction above.
+
+        if E._previousflighttype == "VC":
+            raise RuntimeError(
+                "flight type immediately after %s cannot be %s."
+                % (E._previousflighttype, E._flighttype)
+            )
 
 
 ################################################################################
@@ -333,6 +617,36 @@ def _isslide(maneuvertype):
     """
 
     return maneuvertype == "SL"
+
+
+def _isdivingflight(flighttype, vertical=False):
+    """
+    Return True if the flight type is SD, UD, or VD. Otherwise return False.
+    """
+
+    if vertical:
+        return flighttype == "VD"
+    else:
+        return flighttype == "SD" or flighttype == "UD" or flighttype == "VD"
+
+
+def _isclimbingflight(flighttype, vertical=False):
+    """
+    Return True if the flight type is ZC, SC, or VC. Otherwise return False.
+    """
+
+    if vertical:
+        return flighttype == "VC"
+    else:
+        return flighttype == "ZC" or flighttype == "SC" or flighttype == "VC"
+
+
+def _islevelflight(flighttype):
+    """
+    Return True if the flight type is LVL. Otherwise return False.
+    """
+
+    return flighttype == "LVL"
 
 
 ################################################################################

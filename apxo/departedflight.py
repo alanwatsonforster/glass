@@ -9,15 +9,6 @@ import apxo.capabilities as apcapabilities
 import apxo.hex as aphex
 
 
-def checkflight(A):
-    """
-    Check departed flight is allowed.
-    """
-
-    if apcapabilities.hasproperty(A, "SPFL"):
-        raise RuntimeError("special-flight aircraft cannot perform departed flight.")
-
-
 def doflight(A, action):
     """
     Carry out departed flight.

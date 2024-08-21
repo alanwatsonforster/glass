@@ -8,20 +8,6 @@ import apxo.altitude as apaltitude
 import apxo.capabilities as apcapabilities
 
 
-def checkflight(A):
-
-    if apcapabilities.hasproperty(A, "SPFL"):
-        raise RuntimeError("special-flight aircraft cannot perform stalled flight.")
-
-    # See rule 6.3.
-
-    if A.speed() >= apcapabilities.minspeed(A):
-        raise RuntimeError("flight type cannot be ST as aircraft is not stalled.")
-
-    A._logstart("speed is below the minimum of %.1f." % apcapabilities.minspeed(A))
-    A._logstart("aircraft is stalled.")
-
-
 def doflight(A, action, jettison=None):
     """
     Carry out stalled flight.
