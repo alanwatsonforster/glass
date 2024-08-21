@@ -34,7 +34,7 @@ def _startmove(
     A,
     flighttype,
     power,
-     tasks="",
+    tasks="",
     speedbrakes=None,
     flamedoutengines=0,
     lowspeedliftdeviceselected=None,
