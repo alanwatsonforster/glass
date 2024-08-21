@@ -43,19 +43,29 @@ def _move(E, flighttype, power, actions, **kwargs):
     
     _startmove(E, actions, **kwargs)
 
-    if E._flighttype == "MS":
-        apmissileflight._continuemove(E, actions)
+    if E._flighttype == "MS" or E._flighttype == "DP":
+        _continuemove(E, actions)
     else:
         apaircraftflight._continuemove(E, actions, True)
 
+
+################################################################################
 
 def _continuemove(E, actions):
 
     if E._flighttype == "MS":
         apmissileflight._continuemove(E, actions)
+    elif E._flighttype == "DP":
+        _continuedepartedflight(E, actions)
     else:
         apaircraftflight._continuemove(E, actions, False)
 
+########################################
+
+def _continuedepartedflight(A, actions):
+     apdepartedflight.doflight(A, actions)
+     A._turnsdeparted += 1
+     apaircraftflight.endmove(A)
 
 ################################################################################
 
@@ -956,9 +966,6 @@ def _startmovedepartedflight(A, actions, jettison=None, **kwargs):
         A._fpcarry = 0
         A._apcarry = 0
         A._setaltitudecarry(0)
-        apdepartedflight.doflight(A, actions)
-        A._turnsdeparted += 1
-        apaircraftflight.endmove(A)
         
 ########################################
 
