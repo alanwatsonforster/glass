@@ -12,15 +12,6 @@ def _move(M, actions, note=None):
     Start a move and possibly carry out some actions.
     """
 
-    M._logbreak()
-
-    if M.removed():
-        M._endmove()
-        return
-
-    M._logstart("altitude band is %s." % M.altitudeband())
-    M._logevent("speed of sound is %.1f." % apspeed.m1speed(M.altitudeband()))
-
     M._logstart("start speed   is %.1f." % M.speed())
 
     if M.speed() > maxspeed(M.altitudeband()):

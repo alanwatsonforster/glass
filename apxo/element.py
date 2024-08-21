@@ -246,7 +246,7 @@ class element:
             self._kill()
         except RuntimeError as e:
             aplog.logexception(e)
-
+            
     def _remove(self):
         self._removed = True
 
@@ -339,6 +339,16 @@ class element:
 
     ############################################################################
 
+    def _checknotkilled(self):
+        if self.killed():
+            raise RuntimeError("%s has been killed." % self.name())
+
+    def _checknotremoved(self):
+        if self.removed():
+            raise RuntimeError("%s has been removed." % self.name())
+
+    ############################################################################
+
     def _move(self, *args, **kwargs):
         raise RuntimeError("%s cannot be moved." % self.name())
 
@@ -347,6 +357,8 @@ class element:
         aplog.clearerror()
         try:
             apgameturn.checkingameturn()
+            self._checknotkilled()
+            self._checknotremoved()
             if self._startedmoving:
                 raise RuntimeError("%s has already started moving." % self.name())
             self._startedmoving = True
@@ -362,6 +374,8 @@ class element:
         aplog.clearerror()
         try:
             apgameturn.checkingameturn()
+            self._checknotkilled()
+            self._checknotremoved()
             if not self._startedmoving:
                 raise RuntimeError("%s has not started moving." % self.name())
             self._continuemove(*args, **kwargs)

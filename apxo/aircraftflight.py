@@ -46,10 +46,6 @@ def _move(
     out some tasks.
     """
 
-    if A.killed() or A.removed():
-        endmove(A)
-        return
-
     # These account for the APs associated with power, speed, speed-brakes,
     # turns (split into the part for the maximum turn rate and the part for
     # sustained turns), altitude loss or gain, and special maneuvers. They
@@ -74,12 +70,6 @@ def _move(
     # This flags whether a maneuvering departure has occured.
 
     A._maneuveringdeparture = False
-
-    A._flighttype = flighttype
-    A._logstart("flight type   is %s." % A._flighttype)
-
-    A._logstart("altitude band is %s." % A.altitudeband())
-    A._logevent("speed of sound is %.1f." % apspeed.m1speed(A.altitudeband()))
 
     if flighttype == "SP":
         checkspecialflight(A)
@@ -155,7 +145,7 @@ def _continuemove(A, tasks="", note=None):
     Continue a move that has been started, possible carrying out some tasks.
     """
 
-    if A.killed() or A.removed() or A._flighttype == "ST" or A._flighttype == "DP":
+    if A._flighttype == "ST" or A._flighttype == "DP":
         A._lognote(note)
     elif A._flighttype == "SP":
         continuespecialflight(A, tasks, note=note)
