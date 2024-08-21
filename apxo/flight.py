@@ -1538,7 +1538,7 @@ def _enddepartedflight(A):
 
 
 def _endspecialflight(A):
-    pass
+    apaircraftflight.endmove(A)
 
 ########################################
 

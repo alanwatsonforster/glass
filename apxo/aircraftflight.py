@@ -481,7 +481,7 @@ def continuespecialflight(A, tasks):
 
     if A.killed() or A.removed() or A._fp + 1 > A._maxfp:
 
-        endmove(A)
+        A._finishedmoving = True
 
 
 ################################################################################
