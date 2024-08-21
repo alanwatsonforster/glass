@@ -315,6 +315,50 @@ def _checknormalflight(E):
 ########################################
 
 
+def _checkstalledflighttype(E):
+
+    if E.ismissile():
+        raise RuntimeError("missiles cannot perform stalled flight.")
+
+    if apcapabilities.hasproperty(E, "SPFL"):
+        raise RuntimeError("special-flight aircraft cannot perform stalled flight.")
+
+    # See rule 6.3.
+
+    if E.speed() >= apcapabilities.minspeed(E):
+        raise RuntimeError("flight type cannot be ST as aircraft is not stalled.")
+
+    E._logstart("speed is below the minimum of %.1f." % apcapabilities.minspeed(E))
+    E._logstart("aircraft is stalled.")
+
+
+########################################
+
+
+def _checkdepartedflight(E):
+
+    if E.ismissile():
+        raise RuntimeError("missiles cannot perform departed flight.")
+
+    if apcapabilities.hasproperty(E, "SPFL"):
+        raise RuntimeError("special-flight aircraft cannot perform departed flight.")
+
+
+########################################
+
+
+def _checkspecialflighttype(E):
+
+    if E.ismissile():
+        raise RuntimeError("missiles cannot perform special flight.")
+
+    if not apcapabilities.hasproperty(E, "SPFL"):
+        raise RuntimeError("normal-flight aircraft cannot perform special flight.")
+
+
+########################################
+
+
 def _checkmissileflighttype(E):
 
     if E.isaircraft():
@@ -900,50 +944,6 @@ def dotasks(E, tasks, actiondispatchlist, start=False, afterFP=None, aftertask=N
         for task in re.split(r"[, ]", tasks):
             if not E.killed() and not E.removed():
                 dotask(E, task, actiondispatchlist, afterFP, aftertask)
-
-
-########################################
-
-
-def _checkstalledflighttype(E):
-
-    if E.ismissile():
-        raise RuntimeError("missiles cannot perform stalled flight.")
-
-    if apcapabilities.hasproperty(E, "SPFL"):
-        raise RuntimeError("special-flight aircraft cannot perform stalled flight.")
-
-    # See rule 6.3.
-
-    if E.speed() >= apcapabilities.minspeed(E):
-        raise RuntimeError("flight type cannot be ST as aircraft is not stalled.")
-
-    E._logstart("speed is below the minimum of %.1f." % apcapabilities.minspeed(E))
-    E._logstart("aircraft is stalled.")
-
-
-########################################
-
-
-def _checkdepartedflight(E):
-
-    if E.ismissile():
-        raise RuntimeError("missiles cannot perform departed flight.")
-
-    if apcapabilities.hasproperty(E, "SPFL"):
-        raise RuntimeError("special-flight aircraft cannot perform departed flight.")
-
-
-########################################
-
-
-def _checkspecialflighttype(E):
-
-    if E.ismissile():
-        raise RuntimeError("missiles cannot perform special flight.")
-
-    if not apcapabilities.hasproperty(E, "SPFL"):
-        raise RuntimeError("normal-flight aircraft cannot perform special flight.")
 
 
 ################################################################################
