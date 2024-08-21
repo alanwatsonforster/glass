@@ -42,7 +42,9 @@ def _move(E, flighttype, power, actions, **kwargs):
 
     _startspeed(E, power, **kwargs)
     _startmove(E)
+
     E._logposition("start")
+
     _continuemove(E, actions)
 
 
