@@ -361,6 +361,7 @@ def _checkmissileflighttype(E):
     if E.isaircraft():
         raise RuntimeError("aircraft cannot perform missile flight.")
 
+
 ################################################################################
 
 
@@ -971,63 +972,18 @@ def _continuenormalflight(A, actions):
 
 def _endmove(E):
 
-    if E.isaircraft():
-        _endaircraftmove(E)
-    else:
-        _endmissilemove(E)
-        
-########################################
-
-def _endaircraftmove(A):
-
-    if A.killed():
-        A._logend("has been killed.")
+    if E.killed():
+        E._logend("has been killed.")
         return
 
-    if A._flighttype == "ST":
-        _endstalledflight(A)
-    elif A._flighttype == "DP":
-        _enddepartedflight(A)
-    elif A._flighttype == "SP":
-        _endspecialflight(A)
+    if E.removed():
+        E._logend("has been removed.")
+        return
+
+    if E.isaircraft():
+        apspeed._endaircraftspeed(E)
     else:
-        _endnormalflight(A)
-
-    apspeed._endaircraftspeed(A)
-
-    if A.removed():
-        A._logend("has been removed.")
-
-########################################
-
-
-def _endstalledflight(A):
-    A._turnsstalled += 1
-
-
-########################################
-
-
-def _enddepartedflight(A):
-    A._turnsdeparted += 1
-
-
-########################################
-
-
-def _endspecialflight(A):
-    pass
-########################################
-
-
-def _endnormalflight(A):
-    pass
-
-########################################
-
-
-def _endmissilemove(M):
-    pass
+        apspeed._endmissilespeed(E)
 
 
 ###############################################################################

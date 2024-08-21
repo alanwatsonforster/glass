@@ -99,4 +99,5 @@ def doflight(A, action):
 
     A._newspeed = A.speed()
 
+    A._turnsdeparted += 1
     A._finishedmoving = True

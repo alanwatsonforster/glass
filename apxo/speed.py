@@ -476,9 +476,7 @@ def _startaircraftspeed(
 
     # See rule 6.6
 
-    if ltspeed(A.altitudeband()) <= speed and speed <= m1speed(
-        A.altitudeband()
-    ):
+    if ltspeed(A.altitudeband()) <= speed and speed <= m1speed(A.altitudeband()):
         A._logevent("transonic drag.")
         if speed == ltspeed(A.altitudeband()):
             speedap -= 0.5
@@ -737,6 +735,7 @@ def _endaircraftspeed(A):
 
 ################################################################################
 
+
 def _startmissilespeed(M):
 
     def attenuationfactor(altitudeband, flightgameturn):
@@ -777,5 +776,12 @@ def _startmissilespeed(M):
 
     M._logevent("has %d FPs." % M._maxfp)
 
+
 ################################################################################
 
+
+def _endmissilespeed(M):
+    pass
+
+
+################################################################################
