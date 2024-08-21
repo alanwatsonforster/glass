@@ -16,12 +16,6 @@ def doflight(A, action):
     if action != "ST":
         raise RuntimeError("invalid action %r for stalled flight." % action)
 
-    # See rule 6.4.
-
-    A._logevent("is carrying %+.2f APs." % A._apcarry)
-
-    A._logposition("start")
-
     altitudechange = math.ceil(A.speed() + A._turnsstalled)
 
     initialaltitude = A.altitude()

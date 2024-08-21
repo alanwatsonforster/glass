@@ -42,7 +42,9 @@ def _move(E, flighttype, power, actions, **kwargs):
 
     _startspeed(E, power, **kwargs)
     _startmove(E)
+    E._logposition("start")
     _continuemove(E, actions)
+
 
 ################################################################################
 
@@ -969,8 +971,6 @@ def _startmove(E, **kwargs):
     else:
         _startmoveaircraft(E)
 
-    E._logposition("start")
-
 
 ########################################
 
@@ -1010,6 +1010,9 @@ def _startmovestalledflight(A):
     A._fpcarry = 0
     A._setaltitudecarry(0)
 
+    # See rule 6.4.
+    A._logevent("is carrying %+.2f APs." % A._apcarry)
+
 
 ########################################
 
@@ -1036,6 +1039,7 @@ def _startmovespecialflight(A):
 
     A._effectiveclimbcapability = apcapabilities.specialclimbcapability(A)
     A._logevent("effective climb capability is %.2f." % A._effectiveclimbcapability)
+
 
 ########################################
 
@@ -1466,7 +1470,6 @@ def _startmovenormalflight(A):
     determinemaxfp()
     determinefprequirements()
     determineeffectiveclimbcapability()
-
 
 
 ###############################################################################

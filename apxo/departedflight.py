@@ -14,8 +14,6 @@ def doflight(A, action):
     Carry out departed flight.
     """
 
-    A._logposition("start")
-
     # See rule 6.4 "Abnormal FLight (Stalls and Departures)" and rule 7.7
     # "Manuevering Departures".
 
