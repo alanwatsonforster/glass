@@ -352,7 +352,7 @@ class element:
     def _move(self, *args, **kwargs):
         raise RuntimeError("%s cannot be moved." % self.name())
 
-    def move(self, *args, **kwargs):
+    def move(self, *args, note=None, **kwargs):
         self._logbreak()
         aplog.clearerror()
         try:
@@ -363,13 +363,14 @@ class element:
                 raise RuntimeError("%s has already started moving." % self.name())
             self._startedmoving = True
             self._move(*args, **kwargs)
+            self._lognote(note)
         except RuntimeError as e:
             aplog.logexception(e)
 
     def _continuemove(self, *args, **kwargs):
         raise RuntimeError("%s cannot be moved." % self.name())
 
-    def continuemove(self, *args, **kwargs):
+    def continuemove(self, *args, note=None, **kwargs):
         self._logbreak()
         aplog.clearerror()
         try:
@@ -379,6 +380,7 @@ class element:
             if not self._startedmoving:
                 raise RuntimeError("%s has not started moving." % self.name())
             self._continuemove(*args, **kwargs)
+            self._lognote(note)
         except RuntimeError as e:
             aplog.logexception(e)
 

@@ -18,7 +18,7 @@ def checkflight(A):
         raise RuntimeError("special-flight aircraft cannot perform departed flight.")
 
 
-def doflight(A, action, note=None):
+def doflight(A, action):
     """
     Carry out departed flight.
     """
@@ -99,8 +99,6 @@ def doflight(A, action, note=None):
     initialaltitudeband = A.altitudeband()
     altitudechange = math.ceil(A.speed() + 2 * A._turnsdeparted)
     A._movedive(altitudechange)
-
-    A._lognote(note)
 
     A._logposition("end")
     if initialaltitudeband != A.altitudeband():

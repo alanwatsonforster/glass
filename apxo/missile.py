@@ -87,11 +87,11 @@ class missile(apelement.element):
 
     #############################################################################
 
-    def _move(self, actions, note=None):
-        apflight._move(self, "MS", None, actions, note=note)
+    def _move(self, actions):
+        apflight._move(self, "MS", None, actions)
 
     def _continuemove(self, actions, note=None):
-        apflight._continuemove(self, actions, note=note)
+        apflight._continuemove(self, actions)
 
     #############################################################################
 

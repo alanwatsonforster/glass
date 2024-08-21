@@ -7,7 +7,7 @@ import apxo.speed as apspeed
 ################################################################################
 
 
-def _move(M, actions, note=None):
+def _startmove(M, **kwargs):
     """
     Start a move and possibly carry out some actions.
     """
@@ -18,15 +18,6 @@ def _move(M, actions, note=None):
         M._logevent("reducing speed to maximum for altitude band.")
         M.setspeed(_maxspeed(M.altitudeband()))
         M._logstart("start speed   is %.1f." % M.speed())
-
-    if M.speed() < minspeed(M.altitudeband()):
-        M._logevent("has stalled.")
-        if actions != "":
-            raise RuntimeError("invalid actions %r for stalled missile." % actions)
-        M._remove()
-        M._logevent("has been removed.")
-        M._finishedmoving = True
-        return
 
     if M.speed() < maneuverspeed(M.altitudeband()):
         M._logevent("cannot maneuver.")
@@ -53,10 +44,17 @@ def _move(M, actions, note=None):
     M._hfp = 0
     M._vfp = 0
 
-    _continuemove(M, actions, note)
 
+def _continuemove(M, actions, **kwargs):
 
-def _continuemove(M, actions, note=None):
+    if M.speed() < minspeed(M.altitudeband()):
+        M._logevent("has stalled.")
+        if actions != "":
+            raise RuntimeError("invalid actions %r for stalled missile." % actions)
+        M._remove()
+        M._logevent("has been removed.")
+        M._finishedmoving = True
+        return
 
     startaltitude = M.altitude()
     starthfp = M._hfp
@@ -105,9 +103,6 @@ def _continuemove(M, actions, note=None):
         checknormallimit(+0.5, +7.0)
     else:
         pass
-
-    M._lognote(note)
-
 
 ################################################################################
 

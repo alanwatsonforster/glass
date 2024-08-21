@@ -38,8 +38,7 @@ def _move(
     speedbrakes=None,
     flamedoutengines=0,
     lowspeedliftdeviceselected=None,
-    jettison=None,
-    note=None,
+    jettison=None
 ):
     """
     Start a move, declaring the flight type and power, and possible carrying
@@ -98,7 +97,7 @@ def _move(
         A._apcarry = 0
         A._turnsstalled = 0
         A._turnsdeparted = 0
-        startspecialflight(A, tasks, note=note)
+        startspecialflight(A, tasks)
 
     elif A._flighttype == "ST":
 
@@ -107,7 +106,7 @@ def _move(
 
         A._fpcarry = 0
         A._setaltitudecarry(0)
-        apstalledflight.doflight(A, tasks, jettison=jettison, note=note)
+        apstalledflight.doflight(A, tasks, jettison=jettison)
         A._turnsstalled += 1
         endmove(A)
 
@@ -119,7 +118,7 @@ def _move(
         A._fpcarry = 0
         A._apcarry = 0
         A._setaltitudecarry(0)
-        apdepartedflight.doflight(A, tasks, note=note)
+        apdepartedflight.doflight(A, tasks)
         A._turnsdeparted += 1
         endmove(A)
 
@@ -134,23 +133,23 @@ def _move(
 
         A._turnsstalled = 0
         A._turnsdeparted = 0
-        startnormalflight(A, tasks, note=note)
+        startnormalflight(A, tasks)
 
 
 ################################################################################
 
 
-def _continuemove(A, tasks="", note=None):
+def _continuemove(A, tasks, start):
     """
     Continue a move that has been started, possible carrying out some tasks.
     """
 
     if A._flighttype == "ST" or A._flighttype == "DP":
-        A._lognote(note)
+        pass
     elif A._flighttype == "SP":
-        continuespecialflight(A, tasks, note=note)
+        continuespecialflight(A, tasks, start)
     else:
-        continuenormalflight(A, tasks, note=note)
+        continuenormalflight(A, tasks, start)
 
 
 ################################################################################
@@ -409,7 +408,7 @@ def checkspecialflight(A):
 ################################################################################
 
 
-def startnormalflight(A, tasks, note=None):
+def startnormalflight(A, tasks):
     """
     Start to carry out normal flight.
     """
@@ -834,13 +833,11 @@ def startnormalflight(A, tasks, note=None):
 
     A._logpositionandmaneuver("start")
 
-    continuenormalflight(A, tasks, start=True, note=note)
-
 
 ########################################
 
 
-def startspecialflight(A, tasks, note=None):
+def startspecialflight(A, tasks):
 
     A._maxfp = A.speed()
     A._logevent("has %.1f FPs." % A._maxfp)
@@ -850,13 +847,11 @@ def startspecialflight(A, tasks, note=None):
 
     A._logpositionandmaneuver("start")
 
-    continuespecialflight(A, tasks, start=True, note=note)
-
 
 ################################################################################
 
 
-def continuenormalflight(A, tasks, start=False, note=None):
+def continuenormalflight(A, tasks, start):
     """
     Continue to carry out out normal flight.
     """
@@ -1192,8 +1187,6 @@ def continuenormalflight(A, tasks, start=False, note=None):
         aftertask=aftertask,
     )
 
-    A._lognote(note)
-
     assert A._maneuveringdeparture or (A._fp == A._hfp + A._vfp)
     assert A._maneuveringdeparture or (A._fp <= A._maxfp)
 
@@ -1209,7 +1202,7 @@ def continuenormalflight(A, tasks, start=False, note=None):
 ########################################
 
 
-def continuespecialflight(A, tasks, start=False, note=None):
+def continuespecialflight(A, tasks, start):
     """
     Continue to carry out out special flight.
     """
@@ -1273,8 +1266,6 @@ def continuespecialflight(A, tasks, start=False, note=None):
     ########################################
 
     apflight.dotasks(A, tasks, taskdispatchlist, start=start)
-
-    A._lognote(note)
 
     if not A.killed() and not A.removed():
         if A._altitudecarry != 0:

@@ -22,7 +22,7 @@ def checkflight(A):
     A._logstart("aircraft is stalled.")
 
 
-def doflight(A, action, jettison=None, note=None):
+def doflight(A, action, jettison=None):
     """
     Carry out stalled flight.
     """
@@ -47,8 +47,6 @@ def doflight(A, action, jettison=None, note=None):
         A._altitudeap = 0.5 * altitudechange
     else:
         A._altitudeap = 1.0 * altitudechange
-
-    A._lognote(note)
 
     A._logposition("end")
 
