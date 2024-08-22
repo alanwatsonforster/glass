@@ -2522,27 +2522,29 @@ def dolagroll(E, sense):
 
 def dodeclareverticalroll(E, sense):
 
-    if apcapabilities.hasproperty(E, "NRM"):
-        raise RuntimeError("aircraft cannot perform rolling maneuvers.")
-    if E._verticalrolls == 1 and apcapabilities.hasproperty(E, "OVR"):
-        raise RuntimeError("aircraft can only perform one vertical roll per turn.")
+    if E.isaircraft():
 
-    # See rule 13.3.4.
-    if E._flighttype != "VC" and E._flighttype != "VD":
-        raise RuntimeError(
-            "attempt to declare a vertical roll while flight type is %s."
-            % E._flighttype
-        )
-    if E._previousflighttype == "LVL" and E._flighttype == "VC" and not E._lastfp:
-        raise RuntimeError(
-            "attempt to declare a vertical roll in VC following LVL flight other than on the last FP."
-        )
+        if apcapabilities.hasproperty(E, "NRM"):
+            raise RuntimeError("aircraft cannot perform rolling maneuvers.")
+        if E._verticalrolls == 1 and apcapabilities.hasproperty(E, "OVR"):
+            raise RuntimeError("aircraft can only perform one vertical roll per turn.")
 
-    # See rule 13.3.5.
-    if E._hrd and not E._lastfp:
-        raise RuntimeError(
-            "attempt to declare a vertical roll after HRD other than on the last FP."
-        )
+        # See rule 13.3.4.
+        if E._flighttype != "VC" and E._flighttype != "VD":
+            raise RuntimeError(
+                "attempt to declare a vertical roll while flight type is %s."
+                % E._flighttype
+            )
+        if E._previousflighttype == "LVL" and E._flighttype == "VC" and not E._lastfp:
+            raise RuntimeError(
+                "attempt to declare a vertical roll in VC following LVL flight other than on the last FP."
+            )
+    
+        # See rule 13.3.5.
+        if E._hrd and not E._lastfp:
+            raise RuntimeError(
+                "attempt to declare a vertical roll after HRD other than on the last FP."
+            )
 
     E._bank = None
     E._maneuvertype = "VR"
@@ -2552,14 +2554,16 @@ def dodeclareverticalroll(E, sense):
     E._maneuversupersonic = E.speed() >= apspeed.m1speed(E.altitudeband())
     E._maneuverrequiredfp = 1
 
-    # See rules 6.6 and 13.3.6
-    if apvariants.withvariant("use house rules"):
-        E._othermaneuversap -= apcapabilities.rolldrag(E, "VR")
-        if E._maneuversupersonic:
-            if apcapabilities.hasproperty(E, "PSSM"):
-                E._othermaneuversap -= 2.0
-            elif not apcapabilities.hasproperty(E, "GSSM"):
-                E._othermaneuversap -= 1.0
+    if E.isaircraft():
+
+        # See rules 6.6 and 13.3.6
+        if apvariants.withvariant("use house rules"):
+            E._othermaneuversap -= apcapabilities.rolldrag(E, "VR")
+            if E._maneuversupersonic:
+                if apcapabilities.hasproperty(E, "PSSM"):
+                    E._othermaneuversap -= 2.0
+                elif not apcapabilities.hasproperty(E, "GSSM"):
+                    E._othermaneuversap -= 1.0
 
 
 ########################################
@@ -2570,29 +2574,33 @@ def doverticalroll(E, sense, facingchange, shift):
     if E._maneuverfp < E._maneuverrequiredfp:
         raise RuntimeError("attempt to roll without sufficient preparatory HFPs.")
 
-    # See rule 13.3.4.
-    if apcapabilities.hasproperty(E, "LRR") and facingchange > 90:
-        raise RuntimeError(
-            "attempt to roll vertically by more than 90 degrees in LRR aircraft."
-        )
+    if E.isaircraft():
 
-    if not apvariants.withvariant("use house rules"):
-        E._othermaneuversap -= apcapabilities.rolldrag(E, "VR")
+        # See rule 13.3.4.
+        if apcapabilities.hasproperty(E, "LRR") and facingchange > 90:
+            raise RuntimeError(
+                "attempt to roll vertically by more than 90 degrees in LRR aircraft."
+            )
 
-    # See rule 13.3.6
-    if not apvariants.withvariant("use house rules"):
-        if E._rollmaneuvers > 0:
-            E._othermaneuversap -= 1
+        if not apvariants.withvariant("use house rules"):
+            E._othermaneuversap -= apcapabilities.rolldrag(E, "VR")
+
+        # See rule 13.3.6
+        if not apvariants.withvariant("use house rules"):
+            if E._rollmaneuvers > 0:
+                E._othermaneuversap -= 1
+
     E._rollmaneuvers += 1
     E._verticalrolls += 1
 
-    # See rule 6.6.
-    if not apvariants.withvariant("use house rules"):
-        if E._maneuversupersonic:
-            if apcapabilities.hasproperty(E, "PSSM"):
-                E._othermaneuversap -= 2.0
-            elif not apcapabilities.hasproperty(E, "GSSM"):
-                E._othermaneuversap -= 1.0
+    if E.isaircraft():
+        # See rule 6.6.
+        if not apvariants.withvariant("use house rules"):
+            if E._maneuversupersonic:
+                if apcapabilities.hasproperty(E, "PSSM"):
+                    E._othermaneuversap -= 2.0
+                elif not apcapabilities.hasproperty(E, "GSSM"):
+                    E._othermaneuversap -= 1.0
 
     # Move.
     E._moveverticalroll(sense, facingchange, shift)
