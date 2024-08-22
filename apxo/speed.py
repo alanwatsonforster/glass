@@ -87,6 +87,9 @@ def _startaircraftspeed(
     Carry out the rules to do with power, speed, and speed-induced drag at the
     start of a move.
     """
+
+    previouspowersetting = A._powersetting
+
     # These account for the APs associated with power, speed, speed-brakes,
     # turns (split into the part for the maximum turn rate and the part for
     # sustained turns), altitude loss or gain, and special maneuvers. They
@@ -130,7 +133,6 @@ def _startaircraftspeed(
 
     ############################################################################
 
-    lastpowersetting = A._previouspowersetting
     speed = A.speed()
 
     ############################################################################
@@ -324,7 +326,7 @@ def _startaircraftspeed(
     # See rules 6.1, 6.7, and 8.5.
 
     if (
-        lastpowersetting == "I"
+        previouspowersetting == "I"
         and powersetting == "AB"
         and not apcapabilities.hasproperty(A, "RPR")
     ):
@@ -639,7 +641,7 @@ def _endaircraftspeed(A):
     # The speed is limited to the maximum dive speed if the aircraft dived at least
     # two levels. See rules 6.3 and 8.2.
 
-    altitudeloss = A._previousaltitude - A.altitude()
+    altitudeloss = A.startaltitude() - A.altitude()
     usemaxdivespeed = (altitudeloss >= 2) and not A.damageatleast("H")
 
     # See rules 6.2, 6.3, and 8.2.
@@ -781,7 +783,7 @@ def _endmissilespeed(M):
     
     turningfp = -M._turnfacingchanges
     
-    altitudechange = M.altitude() - M._previousaltitude
+    altitudechange = M.altitude() - M.startaltitude()
     if altitudechange >= M._speed:
         altitudefp = -2
     elif altitudechange >= M._speed / 2:

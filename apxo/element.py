@@ -37,6 +37,10 @@ def _startgameturn():
     for E in _elementlist:
         E._startpath()
     for E in _elementlist:
+        E._startspeed = E.speed()
+        E._startaltitude = E.altitude()
+        E._startaltitudeband = E.altitudeband()
+        E._startaltitudecarry = E.altitudecarry()
         E._startgameturn()
 
 
@@ -293,12 +297,21 @@ class element:
             return apaltitude.terrainaltitude(self.x(), self.y())
         else:
             return self._altitude
+            
+    def startaltitude(self):
+        return self._startaltitude
 
     def altitudeband(self):
         return self._altitudeband
 
+    def startaltitudeband(self):
+        return self._startaltitudeband
+
     def altitudecarry(self):
         return self._altitudecarry
+
+    def startaltitudecarry(self):
+        return self._startaltitudecarry
 
     def position(self):
         hexcode = self.hexcode()
@@ -311,6 +324,9 @@ class element:
 
     def speed(self):
         return self._speed
+
+    def startspeed(self):
+        return self._startspeed
 
     def newspeed(self):
         return self._newspeed

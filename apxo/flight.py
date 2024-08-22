@@ -23,12 +23,6 @@ def _move(E, flighttype, power, moves, **kwargs):
     # We save values of these variables at the end of the previous move.
 
     E._previousflighttype = E._flighttype
-    E._previousaltitude = E.altitude()
-    E._previousaltitudecarry = E.altitudecarry()
-    E._previousspeed = E.speed()
-    if E.isaircraft():
-        E._previouspowersetting = E._powersetting
-
     E._flighttype = flighttype
 
     _checkflighttype(E)
@@ -1469,7 +1463,7 @@ def _endnormalflight(A):
         # See rule 8.2.4.
 
         if A._flighttype == "LVL":
-            altitudechange = A.altitude() - A._previousaltitude
+            altitudechange = A.altitude() - A.startaltitude()
             if altitudechange < -1:
                 raise RuntimeError("free descent cannot only be taken once per move.")
 
@@ -1515,7 +1509,7 @@ def _endnormalflight(A):
 
     def determinealtitudeap():
 
-        altitudechange = A.altitude() - A._previousaltitude
+        altitudechange = A.altitude() - A.startaltitude()
 
         if A._flighttype == "ZC":
 
@@ -1546,9 +1540,9 @@ def _endnormalflight(A):
                 # integral number of levels.
 
                 truealtitude = A.altitude() + A._altitudecarry
-                lasttruealtitude = A._previousaltitude + A._previousaltitudecarry
+                truestartaltitude = A.startaltitude() + A.startaltitudecarry()
 
-                truealtitudechange = truealtitude - lasttruealtitude
+                truealtitudechange = truealtitude - truestartaltitude
 
                 scaltitudechange = min(truealtitudechange, climbcapability)
                 zcaltitudechange = int(truealtitudechange - scaltitudechange + 0.5)
@@ -1598,7 +1592,7 @@ def _endnormalflight(A):
         # See rule 8.6. The other climbing and diving cases are handled at
         # the start of the move.
 
-        altitudeloss = A._previousaltitude - A.altitude()
+        altitudeloss = A.startaltitude() - A.altitude()
         if A._flighttype == "SD" and altitudeloss > 2:
             A._logevent(
                 "close formation breaks down as the aircraft lost %d levels in an SD."
@@ -1617,7 +1611,7 @@ def _endnormalflight(A):
 
         if A._flighttype == "UD":
             # See rule 8.2.2.
-            altitudechange = A.altitude() - A._previousaltitude
+            altitudechange = A.altitude() - A.startaltitude()
             if altitudechange == -2:
                 A._logevent("UD ends as flight type SD.")
                 A._flighttype = "SD"
