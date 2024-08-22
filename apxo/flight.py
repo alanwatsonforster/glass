@@ -1,7 +1,6 @@
 import math
 import re
 
-import apxo.aircraftflight as apaircraftflight
 import apxo.airtoair as apairtoair
 import apxo.altitude as apaltitude
 import apxo.capabilities as apcapabilities
