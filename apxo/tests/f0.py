@@ -9,6 +9,10 @@ A1 = aircraft("A1", "AF", "F-80C", "A1-2010", "N", 10, 3.0, "CL")
 endtestsetup()
 
 startgameturn()
+A1.move("LVL", "M", "MDR60/H")
+asserterror("'MDR60/H' is not a valid move.")
+
+startgameturn()
 A1.move("LVL", "M", "MDR60")
 A1._assert("A1-2109       ENE  10", 3.0)
 startgameturn()

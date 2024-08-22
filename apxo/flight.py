@@ -1251,7 +1251,7 @@ def domoves(E, moves, actiondispatchlist, afterFP=None, aftermove=None):
     """
     Carry out flight moves.
     """
-    
+
     if moves == "":
         return
 
@@ -1294,6 +1294,9 @@ def domove(E, move, actiondispatchlist, afterFP, aftermove):
             E, remainingmove, actiondispatchlist, "maneuvering departure"
         )
         if remainingmove != move:
+
+            if remainingmove != "":
+                raise RuntimeError("%r is not a valid move." % move)
 
             E._maneuveringdeparture = True
 
