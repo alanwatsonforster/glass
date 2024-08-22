@@ -133,6 +133,8 @@ class missile(apelement.element):
         horizontalrange = apgeometry.horizontalrange(self, self._target)
         self._logevent("horizontal range is %d." % horizontalrange)
 
+        self._logevent("missile altitude is %d." % self.altitude())
+        self._logevent("target altitude is %d." % self._target.altitude())
         altitudedifference = self._target.altitude() - self.altitude()
         self._logevent("altitude difference is %+d." % altitudedifference)
 
@@ -140,8 +142,14 @@ class missile(apelement.element):
             minaltitudedifference = int(minf * horizontalrange)
             maxaltitudedifference = int(maxf * horizontalrange)
             self._logevent(
-                "the allowed altitude difference range is [%+d,%+d]."
+                "the allowed target altitude difference range is %+d to %+d."
                 % (minaltitudedifference, maxaltitudedifference)
+            )
+            minaltitude = max(0, self.altitude() + minaltitudedifference)
+            maxaltitude = min(100, self.altitude() + maxaltitudedifference)
+            self._logevent(
+                "the allowed target altitude range is %d to %d."
+                % (minaltitude, maxaltitude)
             )
             if (
                 altitudedifference < minaltitudedifference
