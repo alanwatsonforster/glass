@@ -6,37 +6,46 @@ import apxo.gameturn as apgameturn
 
 _silent = False
 
+def _filename(nameforfile):
+   return "log-%s.txt" % nameforfile
 
-def log(s):
+
+def log(s, name=None, nameforfile=None):
     if _silent:
         return
     if apgameturn.gameturn() is None:
-        print(s)
+        line = s
     elif apgameturn.gameturn() == 0:
-        print("set-up: %s" % s)
+        line = "set-up      : %s" % s
     else:
-        print("game turn %d: %s" % (apgameturn.gameturn(), s))
+        line = "game turn %2d: %s" % (apgameturn.gameturn(), s)
+    print(line)
+    if nameforfile is not None:
+        with open(_filename(nameforfile), "a") as file:
+            print(line, file=file)
 
-
-def logmain(a, s):
-    log("%-4s : %s" % (a.name() if a is not None else "", s))
-
-
-def logcomment(a, s):
-    log("%-4s : %-5s : %-32s : %s" % (a.name() if a is not None else "", "", "", s))
-
-
-def logaction(a, s):
-    log("%-4s : %-5s : %s" % (a.name() if a is not None else "", "", s))
-
-
-def logbreak():
+def logbreak(name=None, nameforfile=None):
     if _silent:
         return
     print()
+    if name is not None:
+        with open(_filename(name), "a") as file:
+            print(file=file)
+
+def logmain(s, name=None, nameforfile=None):
+    log("%-4s : %s" % (name if name is not None else "", s), name=name, nameforfile=nameforfile)
 
 
-def lognote(a, note):
+def logcomment(s, name=None, nameforfile=None):
+    log(
+        "%-4s : %-5s : %-32s : %s" % (name if name is not None else "", "", "", s),
+        name=name,
+    )
+
+def logaction(s, name=None, nameforfile=None):
+    log("%-4s : %-5s : %s" % (name if name is not None else "", "", s), name=name, nameforfile=nameforfile)
+
+def lognote(note, name=None, nameforfile=None):
 
     # This is adapted from the public-domain code in PEP 257.
     def splitandtrim(s):
@@ -67,7 +76,7 @@ def lognote(a, note):
 
     if note is not None:
         for line in splitandtrim(note):
-            logcomment(a, "- %s" % line)
+            logcomment("- %s" % line, name=name, nameforfile=nameforfile)
 
 
 _error = None

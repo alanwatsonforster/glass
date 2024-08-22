@@ -87,7 +87,7 @@ def settraining(training):
     aplog.log("training.")
     for k, v in training.items():
         aplog.logcomment(
-            None, "training modifier is %+d (%s) for %s." % (_trainingmodifier[v], v, k)
+            "training modifier is %+d (%s) for %s." % (_trainingmodifier[v], v, k)
         )
 
 
@@ -110,19 +110,18 @@ def orderofflightdeterminationphase(rolls, firstkill=None, mostkills=None):
     aplog.log("start of order of flight determination phase.")
 
     for k, v in rolls.items():
-        aplog.logcomment(None, "roll is %2d for %s." % (v, k))
+        aplog.logcomment("roll is %2d for %s." % (v, k))
     for k, v in _training.items():
         aplog.logcomment(
-            None,
             "training   modifier is %+d (%s) for %s." % (_trainingmodifier[v], v, k),
         )
     if firstkill is not None:
-        aplog.logcomment(None, "first kill modifier is +1 for %s." % firstkill)
+        aplog.logcomment("first kill modifier is +1 for %s." % firstkill)
     if mostkills is not None:
-        aplog.logcomment(None, "most kills modifier is +1 for %s." % mostkills)
+        aplog.logcomment("most kills modifier is +1 for %s." % mostkills)
 
     for A in apaircraft.aslist():
-        aplog.logaction(A, "%s has A score of %d." % (A.name(), score(A)))
+        aplog.logaction("%s has a score of %d." % (A.name(), score(A)), name=A.name())
 
     unsightedlist = []
     advantagedlist = []
@@ -161,7 +160,7 @@ def orderofflightdeterminationphase(rolls, firstkill=None, mostkills=None):
                 nonadvantagedlist.append(A)
                 category = "nonadvantaged"
 
-        aplog.logaction(A, "%s is %s." % (A.name(), category))
+        aplog.logaction("%s is %s." % (A.name(), category), name=A.name())
 
     def showcategory(category, alist):
         adict = {}
@@ -170,11 +169,11 @@ def orderofflightdeterminationphase(rolls, firstkill=None, mostkills=None):
         for A in alist:
             adict[score(A)].append(A.name())
         for k, v in sorted(adict.items()):
-            aplog.logaction(None, "  %s" % " ".join(v))
+            aplog.logaction("  %s" % " ".join(v))
 
-    aplog.logaction(None, "")
-    aplog.logaction(None, "order of flight is:")
-    aplog.logaction(None, "")
+    aplog.logaction("")
+    aplog.logaction("order of flight is:")
+    aplog.logaction("")
     showcategory("disadvantaged", disadvantagedlist)
     showcategory("nonadvantaged", nonadvantagedlist)
     showcategory("advantaged", advantagedlist)

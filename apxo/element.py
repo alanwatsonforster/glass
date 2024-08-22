@@ -498,10 +498,10 @@ class element:
     ############################################################################
 
     def _logbreak(self):
-        aplog.logbreak()
+        aplog.logbreak(name=self.name(), nameforfile=self.name())
 
     def _log(self, s):
-        aplog.log("%-4s : %s" % (self._name, s))
+        aplog.logmain(s, name=self.name(), nameforfile=self.name())
 
     def _log1(self, s, t):
         self._log("%-5s : %s" % (s, t))
@@ -528,7 +528,7 @@ class element:
         self._log1("end", s)
 
     def _lognote(self, note):
-        aplog.lognote(self, note)
+        aplog.lognote(note, name=self.name(), nameforfile=self.name())
 
     ################################################################################
 

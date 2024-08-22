@@ -27,12 +27,12 @@ class missile(apelement.element):
 
     def __init__(self, name, missiletype, launcher, target, color="white"):
 
+        self._name = name
         self._logbreak()
+        self._logaction("", "creating missile %s." % name)
+
         aplog.clearerror()
         try:
-
-            self._name = name
-            self._logaction("", "creating missile %s." % name)
 
             self._type = missiletype
             self._logaction("", "type          is %s." % missiletype)

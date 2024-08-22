@@ -65,9 +65,13 @@ class aircraft(apelement.element):
 
         global _aircraftlist
 
+        self._name = name
         self._logbreak()
+        self._logaction("", "creating aircraft %s." % name)
+
         aplog.clearerror()
         try:
+
 
             super().__init__(
                 name,
@@ -86,8 +90,6 @@ class aircraft(apelement.element):
             # In addition to the specified position, azimuth, altitude, speed, and
             # configuration, aircraft initially have level flight, normal power, and
             # no carries.
-
-            self._logaction("", "creating aircraft %s." % name)
 
             self._startedmoving = False
             self._finishedmoving = False

@@ -112,17 +112,17 @@ def startgameturn(note=None):
             )
             for A in apaircraft.aslist():
                 aplog.logaction(
-                    A,
                     "%s  %4.1f  %-9s  %-3s"
                     % (A.position(), A.speed(), A.maneuver(), A.flighttype()),
+                    name=A.name()
                 )
         if len(apmissile.aslist()) != 0:
             aplog.logbreak()
             aplog.log("initial missile positions and speeds:")
             for M in apmissile.aslist():
                 aplog.logaction(
-                    M,
                     "%s  %4.1f" % (M.position(), M.speed()),
+                    name=M.name()
                 )
         aplog.lognote(None, note)
 
