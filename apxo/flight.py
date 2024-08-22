@@ -1144,6 +1144,11 @@ def _continuenormalflight(A, moves):
 def _continuemissileflight(M, moves):
 
     actiondispatchlist = [
+
+        ["H", "FP", lambda A: dohorizontal(A, "H")],
+        ["HD", "FP", lambda A: dohorizontal(A, "HD")],
+        ["HD1", "FP", lambda A: dohorizontal(A, "HD")],
+
         ["SLL", "prolog", lambda A: dodeclaremaneuver(A, "SL", "L")],
         ["SLR", "prolog", lambda A: dodeclaremaneuver(A, "SL", "R")],
         ["VRL", "prolog", lambda A: dodeclaremaneuver(A, "VR", "L")],
@@ -1182,9 +1187,6 @@ def _continuemissileflight(M, moves):
         ["RRR", "epilog", lambda A: domaneuver(A, "R", 90, True, False)],
         ["RR", "epilog", lambda A: domaneuver(A, "R", 60, True, False)],
         ["R", "epilog", lambda A: domaneuver(A, "R", None, True, False)],
-        ["HD1", "FP", lambda A: dohorizontal(A, "HD")],
-        ["HD", "FP", lambda A: dohorizontal(A, "HD")],
-        ["H", "FP", lambda A: dohorizontal(A, "H")],
         ["C1", "FP", lambda A: doclimb(A, 1)],
         ["C2", "FP", lambda A: doclimb(A, 2)],
         ["CCC", "FP", lambda A: doclimb(A, 3)],
@@ -1939,7 +1941,7 @@ def dohorizontal(E, action):
 
     if action == "HD":
 
-        if E._flighttype == "LVL" or E._flighttype == "SP":
+        if E._flighttype == "LVL" or E._flighttype == "SP" or E._flighttype == "MS":
             altitudechange = 1
         else:
             raise RuntimeError(
