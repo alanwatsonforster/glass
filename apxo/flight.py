@@ -1247,7 +1247,7 @@ def _endnormalflight(A):
 ###############################################################################
 
 
-def domoves(E, moves, actiondispatchlist, aftermove=None):
+def domoves(E, moves, actiondispatchlist):
     """
     Carry out flight moves.
     """
@@ -1257,13 +1257,13 @@ def domoves(E, moves, actiondispatchlist, aftermove=None):
 
     for move in re.split(r"[, ]", moves):
         if not E.killed() and not E.removed():
-            domove(E, move, actiondispatchlist, aftermove)
+            domove(E, move, actiondispatchlist)
 
 
 ################################################################################
 
 
-def domove(E, move, actiondispatchlist, aftermove):
+def domove(E, move, actiondispatchlist):
     """
     Carry out a flight move.
     """
@@ -1396,6 +1396,9 @@ def domove(E, move, actiondispatchlist, aftermove):
         if E.isaircraft():
             _checkrecovery(E)
             _checktracking(E)
+            _checkmaneuveringdeparture(E)
+            _checkgloc(E)
+            _checkcloseformation(E)
 
         remainingactions = doactions(E, remainingactions, "epilog")
 
@@ -1439,10 +1442,6 @@ def domove(E, move, actiondispatchlist, aftermove):
 
     E._checkforterraincollision()
     E._checkforleavingmap()
-
-    if aftermove is not None:
-        aftermove(E)
-
 
 ################################################################################
 
@@ -1531,6 +1530,64 @@ def _checktracking(A):
             A._trackingfp = 0
         else:
             A._trackingfp += 1
+
+def _checkmaneuveringdeparture(A):
+
+        # See rules 7.7 and 8.5.
+        if A._hasmaneuvered and A._hasrolled:
+            if A._movestartaltitude > apcapabilities.ceiling(A):
+                A._logevent(
+                    "check for a maneuvering departure as the aircraft is above its ceiling and attempted to roll."
+                )
+            elif A._movestartaltitudeband == "EH" or A._movestartaltitudeband == "UH":
+                A._logevent(
+                    "check for a maneuvering departure as the aircraft is in the %s altitude band and attempted to roll."
+                    % A._movestartaltitudeband
+                )
+
+        # See rules 7.7 and 8.5.
+        if A._hasmaneuvered and A._hasturned:
+            if (
+                A._movestartaltitude > apcapabilities.ceiling(A)
+                and A._movemaneuvertype != "EZ"
+            ):
+                A._logevent(
+                    "check for a maneuvering departure as the aircraft is above its ceiling and attempted to turn harder than EZ."
+                )
+
+def _checkgloc(A):
+
+        # See rules 7.5.
+        if A._hasmaneuvered and A._hasturned:
+
+            if A._movemaneuvertype == "ET" and A._movestartaltitude <= 25:
+                A._gloccheck += 1
+                A._logevent(
+                    "check for GLOC as turn rate is ET and altitude band is %s (check %d in cycle)."
+                    % (A._movestartaltitudeband, A._gloccheck)
+                )
+
+def _checkcloseformation(A):
+        # See rule 7.8.
+        if A._hasturned and apcloseformation.size(A) != 0:
+            if (
+                (apcloseformation.size(A) > 2 and A._movemaneuvertype == "HT")
+                or A._movemaneuvertype == "BT"
+                or A._movemaneuvertype == "ET"
+            ):
+                A._logevent(
+                    "close formation breaks down as the turn rate is %s."
+                    % A._movemaneuvertype
+                )
+                apcloseformation.breakdown(A)
+
+        # See rule 13.7, interpreted in the same sense as rule 7.8.
+        if A._hasrolled and apcloseformation.size(A) != 0:
+            A._logevent("close formation breaks down aircraft is rolling.")
+            apcloseformation.breakdown(A)
+
+################################################################################
+
 
 def useofweaponsforbidden(A):
 

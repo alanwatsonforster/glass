@@ -225,59 +225,10 @@ def continuenormalflight(A, moves):
 
     ################################################################################
 
-    def aftermove(A):
-
-        # See rules 7.7 and 8.5.
-        if A._hasmaneuvered and A._hasrolled:
-            if A._movestartaltitude > apcapabilities.ceiling(A):
-                A._logevent(
-                    "check for a maneuvering departure as the aircraft is above its ceiling and attempted to roll."
-                )
-            elif A._movestartaltitudeband == "EH" or A._movestartaltitudeband == "UH":
-                A._logevent(
-                    "check for a maneuvering departure as the aircraft is in the %s altitude band and attempted to roll."
-                    % A._movestartaltitudeband
-                )
-
-        # See rules 7.7 and 8.5.
-        if A._hasmaneuvered and A._hasturned:
-            if (
-                A._movestartaltitude > apcapabilities.ceiling(A)
-                and A._movemaneuvertype != "EZ"
-            ):
-                A._logevent(
-                    "check for a maneuvering departure as the aircraft is above its ceiling and attempted to turn harder than EZ."
-                )
-            if A._movemaneuvertype == "ET" and A._movestartaltitude <= 25:
-                A._gloccheck += 1
-                A._logevent(
-                    "check for GLOC as turn rate is ET and altitude band is %s (check %d in cycle)."
-                    % (A._movestartaltitudeband, A._gloccheck)
-                )
-
-        # See rule 7.8.
-        if A._hasturned and apcloseformation.size(A) != 0:
-            if (
-                (apcloseformation.size(A) > 2 and A._movemaneuvertype == "HT")
-                or A._movemaneuvertype == "BT"
-                or A._movemaneuvertype == "ET"
-            ):
-                A._logevent(
-                    "close formation breaks down as the turn rate is %s."
-                    % A._movemaneuvertype
-                )
-                apcloseformation.breakdown(A)
-
-        # See rule 13.7, interpreted in the same sense as rule 7.8.
-        if A._hasrolled and apcloseformation.size(A) != 0:
-            A._logevent("close formation breaks down aircraft is rolling.")
-            apcloseformation.breakdown(A)
-
     apflight.domoves(
         A,
         moves,
         actiondispatchlist,
-        aftermove=aftermove,
     )
 
     assert A._maneuveringdeparture or (A._fp == A._hfp + A._vfp)
