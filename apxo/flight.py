@@ -1199,15 +1199,6 @@ def _continuemissileflight(M, moves):
         ["", "", None],
     ]
 
-    if M.speed() < apspeed.missileminspeed(M.altitudeband()):
-        M._logevent("has stalled.")
-        if moves != "":
-            raise RuntimeError("invalid moves %r for stalled missile." % moves)
-        M._remove()
-        M._logevent("has been removed.")
-        M._finishedmoving = True
-        return
-
     _startslope(M)
     domoves(
         M,
@@ -1573,6 +1564,19 @@ def domove(E, move, actiondispatchlist):
 
     E._movestartaltitude = E.altitude()
     E._movestartaltitudeband = E.altitudeband()
+
+    # Check a missile has not stalled. We do this for each FP, since
+    # the stall speed depends on altitude and can change as the missile
+    # climbs or dives.
+
+    if E.ismissile() and E.speed() < apspeed.missileminspeed(E.altitudeband()):
+        E._logevent("has stalled.")
+        if move != "":
+            raise RuntimeError("invalid move %r for stalled missile." % move)
+        M._remove()
+        M._logevent("has been removed.")
+        M._finishedmoving = True
+        return
 
     try:
 
