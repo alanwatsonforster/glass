@@ -446,50 +446,48 @@ def _startaircraftspeed(
 
     if speed > apcapabilities.cruisespeed(A):
         if powersetting == "I" or powersetting == "N":
-            A._logevent(
-                "insufficient power above cruise speed (%.1f)."
-                % apcapabilities.cruisespeed(A)
-            )
-            speedap -= 1.0
+            dspeedap = -1.0
+            speedap += dspeedap
+            A._logevent("%s power above cruise speed (%+.1f AP)." % (powersetting, dspeedap))
 
     # See rules 6.1 and 6.6 in version 2.4.
 
     if powersetting == "I":
-        A._logevent("idle power.")
-        speedap -= apcapabilities.power(A, "I")
+        dspeedap = -apcapabilities.power(A, "I")
+        speedap += dspeedap
+        A._logevent("%s power (%+.1f AP)." % (powersetting, dspeedap))
         if speed >= m1speed(A.altitudeband()):
-            speedap -= 1.0
+            dspeedap = -1.0
+            speedap += dspeedap
+            A._logevent("%s power at supersonic speed (%+.1f AP)." % (powersetting, dspeedap))
 
     # See rule 6.6
 
     if speed >= m1speed(A.altitudeband()):
         if powersetting == "I" or powersetting == "N":
-            speedap -= 2.0 * (speed - htspeed(A.altitudeband())) / 0.5
-            A._logevent(
-                "insufficient power at supersonic speed (%.1f or more)."
-                % m1speed(A.altitudeband())
-            )
+            dspeedap = -2.0 * (speed - htspeed(A.altitudeband())) / 0.5
+            speedap += dspeedap
+            A._logevent("%s power at supersonic speed (%+.1f AP)." % (powersetting, dspeedap))
         elif powersetting == "M":
-            speedap -= 1.5 * (speed - htspeed(A.altitudeband())) / 0.5
-            A._logevent(
-                "insufficient power at supersonic speed (%.1f or more)."
-                % m1speed(A.altitudeband())
-            )
+            dspeedap = -1.5 * (speed - htspeed(A.altitudeband())) / 0.5
+            speedap += dspeedap
+            A._logevent("%s power at supersonic speed (%+.1f AP)." % (powersetting, dspeedap))
 
     # See rule 6.6
 
     if ltspeed(A.altitudeband()) <= speed and speed <= m1speed(A.altitudeband()):
-        A._logevent("transonic drag.")
         if speed == ltspeed(A.altitudeband()):
-            speedap -= 0.5
+            dspeedap = -0.5
         elif speed == htspeed(A.altitudeband()):
-            speedap -= 1.0
+            dspeedap = -1.0
         elif speed == m1speed(A.altitudeband()):
-            speedap -= 1.5
+            dspeedap = -1.5
         if apcapabilities.hasproperty(A, "LTD"):
-            speedap += 0.5
+            dspeedap += 0.5
         elif apcapabilities.hasproperty(A, "HTD"):
-            speedap -= 0.5
+            dspeedap -= 0.5
+        speedap += dspeedap
+        A._logevent("transonic drag (%+.1f AP)." % dspeedap)
 
     ############################################################################
 
@@ -539,13 +537,7 @@ def _startaircraftspeed(
                 )
             )
         A._speedbrakeap = -speedbrakes
-        A._logevent(
-            plural(
-                speedbrakes,
-                "using speedbrakes for 1 DP.",
-                "using speedbrakes for %.1f DPs." % speedbrakes,
-            )
-        )
+        A._logevent("speedbrakes (%+.1f AP)." % A._speedbrakeap)
 
 
 ################################################################################
@@ -780,9 +772,9 @@ def _startmissilespeed(M):
 
 
 def _endmissilespeed(M):
-    
+
     turningfp = -M._turnfacingchanges
-    
+
     altitudechange = M.altitude() - M.startaltitude()
     if altitudechange >= M._speed:
         altitudefp = -2
