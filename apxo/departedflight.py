@@ -96,5 +96,7 @@ def doflight(A, action):
             % (initialaltitudeband, A.altitudeband())
         )
     A._checkforterraincollision()
+    if A.killed():
+        return
 
     A._finishedmoving = True

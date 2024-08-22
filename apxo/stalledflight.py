@@ -29,13 +29,11 @@ def doflight(A, action):
         A._altitudeap = 1.0 * altitudechange
 
     A._logposition("end")
-
     if initialaltitudeband != A.altitudeband():
         A._logevent(
             "altitude band changed from %s to %s."
             % (initialaltitudeband, A.altitudeband())
         )
-
     A._checkforterraincollision()
     if A.killed():
         return
