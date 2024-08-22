@@ -1061,44 +1061,44 @@ def _continuedepartedflight(A, moves):
 def _continuespecialflight(A, moves):
 
     actiondispatchlist = [
-        ["L180", "prolog/epilog", lambda A: doturn(A, "L", 180, False)],
-        ["L150", "prolog/epilog", lambda A: doturn(A, "L", 150, False)],
-        ["L120", "prolog/epilog", lambda A: doturn(A, "L", 120, False)],
-        ["L90", "prolog/epilog", lambda A: doturn(A, "L", 90, False)],
-        ["L60", "prolog/epilog", lambda A: doturn(A, "L", 60, False)],
-        ["L30", "prolog/epilog", lambda A: doturn(A, "L", 30, False)],
-        ["LLL", "prolog/epilog", lambda A: doturn(A, "L", 90, False)],
-        ["LL", "prolog/epilog", lambda A: doturn(A, "L", 60, False)],
-        ["L", "prolog/epilog", lambda A: doturn(A, "L", 30, False)],
-        ["R180", "prolog/epilog", lambda A: doturn(A, "R", 180, False)],
-        ["R150", "prolog/epilog", lambda A: doturn(A, "R", 150, False)],
-        ["R120", "prolog/epilog", lambda A: doturn(A, "R", 120, False)],
-        ["R90", "prolog/epilog", lambda A: doturn(A, "R", 90, False)],
-        ["R60", "prolog/epilog", lambda A: doturn(A, "R", 60, False)],
-        ["R30", "prolog/epilog", lambda A: doturn(A, "R", 30, False)],
-        ["RRR", "prolog/epilog", lambda A: doturn(A, "R", 90, False)],
-        ["RR", "prolog/epilog", lambda A: doturn(A, "R", 60, False)],
-        ["R", "prolog/epilog", lambda A: doturn(A, "R", 30, False)],
-        ["HD1", "FP", lambda A: dohorizontal(A, "HD")],
-        ["HD", "FP", lambda A: dohorizontal(A, "HD")],
-        ["H", "FP", lambda A: dohorizontal(A, "H")],
-        ["C1", "FP", lambda A: doclimb(A, 1)],
-        ["C2", "FP", lambda A: doclimb(A, 2)],
-        ["C3", "FP", lambda A: doclimb(A, 3)],
-        ["CCC", "FP", lambda A: doclimb(A, 3)],
-        ["CC", "FP", lambda A: doclimb(A, 2)],
-        ["C", "FP", lambda A: doclimb(A, 1)],
-        ["D1", "FP", lambda A: dodive(A, 1)],
-        ["D2", "FP", lambda A: dodive(A, 2)],
-        ["D3", "FP", lambda A: dodive(A, 3)],
-        ["DDD", "FP", lambda A: dodive(A, 3)],
-        ["DD", "FP", lambda A: dodive(A, 2)],
-        ["D", "FP", lambda A: dodive(A, 1)],
-        ["S", "FP", lambda A: dostationary(A)],
+        ["L180", "prolog/epilog", lambda A: _doturn(A, "L", 180, False)],
+        ["L150", "prolog/epilog", lambda A: _doturn(A, "L", 150, False)],
+        ["L120", "prolog/epilog", lambda A: _doturn(A, "L", 120, False)],
+        ["L90", "prolog/epilog", lambda A: _doturn(A, "L", 90, False)],
+        ["L60", "prolog/epilog", lambda A: _doturn(A, "L", 60, False)],
+        ["L30", "prolog/epilog", lambda A: _doturn(A, "L", 30, False)],
+        ["LLL", "prolog/epilog", lambda A: _doturn(A, "L", 90, False)],
+        ["LL", "prolog/epilog", lambda A: _doturn(A, "L", 60, False)],
+        ["L", "prolog/epilog", lambda A: _doturn(A, "L", 30, False)],
+        ["R180", "prolog/epilog", lambda A: _doturn(A, "R", 180, False)],
+        ["R150", "prolog/epilog", lambda A: _doturn(A, "R", 150, False)],
+        ["R120", "prolog/epilog", lambda A: _doturn(A, "R", 120, False)],
+        ["R90", "prolog/epilog", lambda A: _doturn(A, "R", 90, False)],
+        ["R60", "prolog/epilog", lambda A: _doturn(A, "R", 60, False)],
+        ["R30", "prolog/epilog", lambda A: _doturn(A, "R", 30, False)],
+        ["RRR", "prolog/epilog", lambda A: _doturn(A, "R", 90, False)],
+        ["RR", "prolog/epilog", lambda A: _doturn(A, "R", 60, False)],
+        ["R", "prolog/epilog", lambda A: _doturn(A, "R", 30, False)],
+        ["HD1", "FP", lambda A: _dohorizontal(A, "HD")],
+        ["HD", "FP", lambda A: _dohorizontal(A, "HD")],
+        ["H", "FP", lambda A: _dohorizontal(A, "H")],
+        ["C1", "FP", lambda A: _doclimb(A, 1)],
+        ["C2", "FP", lambda A: _doclimb(A, 2)],
+        ["C3", "FP", lambda A: _doclimb(A, 3)],
+        ["CCC", "FP", lambda A: _doclimb(A, 3)],
+        ["CC", "FP", lambda A: _doclimb(A, 2)],
+        ["C", "FP", lambda A: _doclimb(A, 1)],
+        ["D1", "FP", lambda A: _dodive(A, 1)],
+        ["D2", "FP", lambda A: _dodive(A, 2)],
+        ["D3", "FP", lambda A: _dodive(A, 3)],
+        ["DDD", "FP", lambda A: _dodive(A, 3)],
+        ["DD", "FP", lambda A: _dodive(A, 2)],
+        ["D", "FP", lambda A: _dodive(A, 1)],
+        ["S", "FP", lambda A: _dostationary(A)],
         ["", "", None],
     ]
 
-    domoves(
+    _domoves(
         A,
         moves,
         actiondispatchlist,
@@ -1111,179 +1111,179 @@ def _continuespecialflight(A, moves):
 def _continuenormalflight(A, moves):
 
     actiondispatchlist = [
-        ["SLL", "prolog", lambda A: dodeclaremaneuver(A, "SL", "L")],
-        ["SLR", "prolog", lambda A: dodeclaremaneuver(A, "SL", "R")],
-        ["DRL", "prolog", lambda A: dodeclaremaneuver(A, "DR", "L")],
-        ["DRR", "prolog", lambda A: dodeclaremaneuver(A, "DR", "R")],
-        ["LRL", "prolog", lambda A: dodeclaremaneuver(A, "LR", "L")],
-        ["LRR", "prolog", lambda A: dodeclaremaneuver(A, "LR", "R")],
-        ["VRL", "prolog", lambda A: dodeclaremaneuver(A, "VR", "L")],
-        ["VRR", "prolog", lambda A: dodeclaremaneuver(A, "VR", "R")],
-        ["EZL", "prolog", lambda A: dodeclaremaneuver(A, "EZ", "L")],
-        ["TTL", "prolog", lambda A: dodeclaremaneuver(A, "TT", "L")],
-        ["HTL", "prolog", lambda A: dodeclaremaneuver(A, "HT", "L")],
-        ["BTL", "prolog", lambda A: dodeclaremaneuver(A, "BT", "L")],
-        ["ETL", "prolog", lambda A: dodeclaremaneuver(A, "ET", "L")],
-        ["EZR", "prolog", lambda A: dodeclaremaneuver(A, "EZ", "R")],
-        ["TTR", "prolog", lambda A: dodeclaremaneuver(A, "TT", "R")],
-        ["HTR", "prolog", lambda A: dodeclaremaneuver(A, "HT", "R")],
-        ["BTR", "prolog", lambda A: dodeclaremaneuver(A, "BT", "R")],
-        ["ETR", "prolog", lambda A: dodeclaremaneuver(A, "ET", "R")],
-        ["BL", "epilog", lambda A: dobank(A, "L")],
-        ["BR", "epilog", lambda A: dobank(A, "R")],
-        ["WL", "epilog", lambda A: dobank(A, None)],
-        ["L90+", "epilog", lambda A: domaneuver(A, "L", 90, True, True)],
-        ["L60+", "epilog", lambda A: domaneuver(A, "L", 60, True, True)],
-        ["L30+", "epilog", lambda A: domaneuver(A, "L", 30, True, True)],
-        ["LLL+", "epilog", lambda A: domaneuver(A, "L", 90, True, True)],
-        ["LL+", "epilog", lambda A: domaneuver(A, "L", 60, True, True)],
-        ["L+", "epilog", lambda A: domaneuver(A, "L", None, True, True)],
-        ["R90+", "epilog", lambda A: domaneuver(A, "R", 90, True, True)],
-        ["R60+", "epilog", lambda A: domaneuver(A, "R", 60, True, True)],
-        ["R30+", "epilog", lambda A: domaneuver(A, "R", 30, True, True)],
-        ["RRR+", "epilog", lambda A: domaneuver(A, "R", 90, True, True)],
-        ["RR+", "epilog", lambda A: domaneuver(A, "R", 60, True, True)],
-        ["R+", "epilog", lambda A: domaneuver(A, "R", None, True, True)],
-        ["LS180", "epilog", lambda A: domaneuver(A, "L", 180, True, False)],
-        ["L180", "epilog", lambda A: domaneuver(A, "L", 180, False, False)],
-        ["L150", "epilog", lambda A: domaneuver(A, "L", 150, True, False)],
-        ["L120", "epilog", lambda A: domaneuver(A, "L", 120, True, False)],
-        ["L90", "epilog", lambda A: domaneuver(A, "L", 90, True, False)],
-        ["L60", "epilog", lambda A: domaneuver(A, "L", 60, True, False)],
-        ["L30", "epilog", lambda A: domaneuver(A, "L", 30, True, False)],
-        ["LLL", "epilog", lambda A: domaneuver(A, "L", 90, True, False)],
-        ["LL", "epilog", lambda A: domaneuver(A, "L", 60, True, False)],
-        ["L", "epilog", lambda A: domaneuver(A, "L", None, True, False)],
-        ["RS180", "epilog", lambda A: domaneuver(A, "R", 180, True, False)],
-        ["R180", "epilog", lambda A: domaneuver(A, "R", 180, False, False)],
-        ["R150", "epilog", lambda A: domaneuver(A, "R", 150, True, False)],
-        ["R120", "epilog", lambda A: domaneuver(A, "R", 120, True, False)],
-        ["R90", "epilog", lambda A: domaneuver(A, "R", 90, True, False)],
-        ["R60", "epilog", lambda A: domaneuver(A, "R", 60, True, False)],
-        ["R30", "epilog", lambda A: domaneuver(A, "R", 30, True, False)],
-        ["RRR", "epilog", lambda A: domaneuver(A, "R", 90, True, False)],
-        ["RR", "epilog", lambda A: domaneuver(A, "R", 60, True, False)],
-        ["R", "epilog", lambda A: domaneuver(A, "R", None, True, False)],
-        ["HD1", "FP", lambda A: dohorizontal(A, "HD")],
-        ["HD", "FP", lambda A: dohorizontal(A, "HD")],
-        ["HU", "FP", lambda A: dohorizontal(A, "HU")],
-        ["H", "FP", lambda A: dohorizontal(A, "H")],
-        ["C1", "FP", lambda A: doclimb(A, 1)],
-        ["C2", "FP", lambda A: doclimb(A, 2)],
-        ["C3", "FP", lambda A: doclimb(A, 3)],
-        ["CCC", "FP", lambda A: doclimb(A, 3)],
-        ["CC", "FP", lambda A: doclimb(A, 2)],
-        ["C", "FP", lambda A: doclimb(A, 1)],
-        ["D1", "FP", lambda A: dodive(A, 1)],
-        ["D2", "FP", lambda A: dodive(A, 2)],
-        ["D3", "FP", lambda A: dodive(A, 3)],
-        ["DDD", "FP", lambda A: dodive(A, 3)],
-        ["DD", "FP", lambda A: dodive(A, 2)],
-        ["D", "FP", lambda A: dodive(A, 1)],
+        ["SLL", "prolog", lambda A: _dodeclaremaneuver(A, "SL", "L")],
+        ["SLR", "prolog", lambda A: _dodeclaremaneuver(A, "SL", "R")],
+        ["DRL", "prolog", lambda A: _dodeclaremaneuver(A, "DR", "L")],
+        ["DRR", "prolog", lambda A: _dodeclaremaneuver(A, "DR", "R")],
+        ["LRL", "prolog", lambda A: _dodeclaremaneuver(A, "LR", "L")],
+        ["LRR", "prolog", lambda A: _dodeclaremaneuver(A, "LR", "R")],
+        ["VRL", "prolog", lambda A: _dodeclaremaneuver(A, "VR", "L")],
+        ["VRR", "prolog", lambda A: _dodeclaremaneuver(A, "VR", "R")],
+        ["EZL", "prolog", lambda A: _dodeclaremaneuver(A, "EZ", "L")],
+        ["TTL", "prolog", lambda A: _dodeclaremaneuver(A, "TT", "L")],
+        ["HTL", "prolog", lambda A: _dodeclaremaneuver(A, "HT", "L")],
+        ["BTL", "prolog", lambda A: _dodeclaremaneuver(A, "BT", "L")],
+        ["ETL", "prolog", lambda A: _dodeclaremaneuver(A, "ET", "L")],
+        ["EZR", "prolog", lambda A: _dodeclaremaneuver(A, "EZ", "R")],
+        ["TTR", "prolog", lambda A: _dodeclaremaneuver(A, "TT", "R")],
+        ["HTR", "prolog", lambda A: _dodeclaremaneuver(A, "HT", "R")],
+        ["BTR", "prolog", lambda A: _dodeclaremaneuver(A, "BT", "R")],
+        ["ETR", "prolog", lambda A: _dodeclaremaneuver(A, "ET", "R")],
+        ["BL", "epilog", lambda A: _dobank(A, "L")],
+        ["BR", "epilog", lambda A: _dobank(A, "R")],
+        ["WL", "epilog", lambda A: _dobank(A, None)],
+        ["L90+", "epilog", lambda A: _domaneuver(A, "L", 90, True, True)],
+        ["L60+", "epilog", lambda A: _domaneuver(A, "L", 60, True, True)],
+        ["L30+", "epilog", lambda A: _domaneuver(A, "L", 30, True, True)],
+        ["LLL+", "epilog", lambda A: _domaneuver(A, "L", 90, True, True)],
+        ["LL+", "epilog", lambda A: _domaneuver(A, "L", 60, True, True)],
+        ["L+", "epilog", lambda A: _domaneuver(A, "L", None, True, True)],
+        ["R90+", "epilog", lambda A: _domaneuver(A, "R", 90, True, True)],
+        ["R60+", "epilog", lambda A: _domaneuver(A, "R", 60, True, True)],
+        ["R30+", "epilog", lambda A: _domaneuver(A, "R", 30, True, True)],
+        ["RRR+", "epilog", lambda A: _domaneuver(A, "R", 90, True, True)],
+        ["RR+", "epilog", lambda A: _domaneuver(A, "R", 60, True, True)],
+        ["R+", "epilog", lambda A: _domaneuver(A, "R", None, True, True)],
+        ["LS180", "epilog", lambda A: _domaneuver(A, "L", 180, True, False)],
+        ["L180", "epilog", lambda A: _domaneuver(A, "L", 180, False, False)],
+        ["L150", "epilog", lambda A: _domaneuver(A, "L", 150, True, False)],
+        ["L120", "epilog", lambda A: _domaneuver(A, "L", 120, True, False)],
+        ["L90", "epilog", lambda A: _domaneuver(A, "L", 90, True, False)],
+        ["L60", "epilog", lambda A: _domaneuver(A, "L", 60, True, False)],
+        ["L30", "epilog", lambda A: _domaneuver(A, "L", 30, True, False)],
+        ["LLL", "epilog", lambda A: _domaneuver(A, "L", 90, True, False)],
+        ["LL", "epilog", lambda A: _domaneuver(A, "L", 60, True, False)],
+        ["L", "epilog", lambda A: _domaneuver(A, "L", None, True, False)],
+        ["RS180", "epilog", lambda A: _domaneuver(A, "R", 180, True, False)],
+        ["R180", "epilog", lambda A: _domaneuver(A, "R", 180, False, False)],
+        ["R150", "epilog", lambda A: _domaneuver(A, "R", 150, True, False)],
+        ["R120", "epilog", lambda A: _domaneuver(A, "R", 120, True, False)],
+        ["R90", "epilog", lambda A: _domaneuver(A, "R", 90, True, False)],
+        ["R60", "epilog", lambda A: _domaneuver(A, "R", 60, True, False)],
+        ["R30", "epilog", lambda A: _domaneuver(A, "R", 30, True, False)],
+        ["RRR", "epilog", lambda A: _domaneuver(A, "R", 90, True, False)],
+        ["RR", "epilog", lambda A: _domaneuver(A, "R", 60, True, False)],
+        ["R", "epilog", lambda A: _domaneuver(A, "R", None, True, False)],
+        ["HD1", "FP", lambda A: _dohorizontal(A, "HD")],
+        ["HD", "FP", lambda A: _dohorizontal(A, "HD")],
+        ["HU", "FP", lambda A: _dohorizontal(A, "HU")],
+        ["H", "FP", lambda A: _dohorizontal(A, "H")],
+        ["C1", "FP", lambda A: _doclimb(A, 1)],
+        ["C2", "FP", lambda A: _doclimb(A, 2)],
+        ["C3", "FP", lambda A: _doclimb(A, 3)],
+        ["CCC", "FP", lambda A: _doclimb(A, 3)],
+        ["CC", "FP", lambda A: _doclimb(A, 2)],
+        ["C", "FP", lambda A: _doclimb(A, 1)],
+        ["D1", "FP", lambda A: _dodive(A, 1)],
+        ["D2", "FP", lambda A: _dodive(A, 2)],
+        ["D3", "FP", lambda A: _dodive(A, 3)],
+        ["DDD", "FP", lambda A: _dodive(A, 3)],
+        ["DD", "FP", lambda A: _dodive(A, 2)],
+        ["D", "FP", lambda A: _dodive(A, 1)],
         [
             "MDL300",
             "maneuvering departure",
-            lambda A: domaneuveringdeparture(A, "L", 300),
+            lambda A: _domaneuveringdeparture(A, "L", 300),
         ],
         [
             "MDL270",
             "maneuvering departure",
-            lambda A: domaneuveringdeparture(A, "L", 270),
+            lambda A: _domaneuveringdeparture(A, "L", 270),
         ],
         [
             "MDL240",
             "maneuvering departure",
-            lambda A: domaneuveringdeparture(A, "L", 240),
+            lambda A: _domaneuveringdeparture(A, "L", 240),
         ],
         [
             "MDL210",
             "maneuvering departure",
-            lambda A: domaneuveringdeparture(A, "L", 210),
+            lambda A: _domaneuveringdeparture(A, "L", 210),
         ],
         [
             "MDL180",
             "maneuvering departure",
-            lambda A: domaneuveringdeparture(A, "L", 180),
+            lambda A: _domaneuveringdeparture(A, "L", 180),
         ],
         [
             "MDL150",
             "maneuvering departure",
-            lambda A: domaneuveringdeparture(A, "L", 150),
+            lambda A: _domaneuveringdeparture(A, "L", 150),
         ],
         [
             "MDL120",
             "maneuvering departure",
-            lambda A: domaneuveringdeparture(A, "L", 120),
+            lambda A: _domaneuveringdeparture(A, "L", 120),
         ],
         [
             "MDL90",
             "maneuvering departure",
-            lambda A: domaneuveringdeparture(A, "L", 90),
+            lambda A: _domaneuveringdeparture(A, "L", 90),
         ],
         [
             "MDL60",
             "maneuvering departure",
-            lambda A: domaneuveringdeparture(A, "L", 60),
+            lambda A: _domaneuveringdeparture(A, "L", 60),
         ],
         [
             "MDL30",
             "maneuvering departure",
-            lambda A: domaneuveringdeparture(A, "L", 30),
+            lambda A: _domaneuveringdeparture(A, "L", 30),
         ],
         [
             "MDR300",
             "maneuvering departure",
-            lambda A: domaneuveringdeparture(A, "R", 300),
+            lambda A: _domaneuveringdeparture(A, "R", 300),
         ],
         [
             "MDR270",
             "maneuvering departure",
-            lambda A: domaneuveringdeparture(A, "R", 270),
+            lambda A: _domaneuveringdeparture(A, "R", 270),
         ],
         [
             "MDR240",
             "maneuvering departure",
-            lambda A: domaneuveringdeparture(A, "R", 240),
+            lambda A: _domaneuveringdeparture(A, "R", 240),
         ],
         [
             "MDR210",
             "maneuvering departure",
-            lambda A: domaneuveringdeparture(A, "R", 210),
+            lambda A: _domaneuveringdeparture(A, "R", 210),
         ],
         [
             "MDR180",
             "maneuvering departure",
-            lambda A: domaneuveringdeparture(A, "R", 180),
+            lambda A: _domaneuveringdeparture(A, "R", 180),
         ],
         [
             "MDR150",
             "maneuvering departure",
-            lambda A: domaneuveringdeparture(A, "R", 150),
+            lambda A: _domaneuveringdeparture(A, "R", 150),
         ],
         [
             "MDR120",
             "maneuvering departure",
-            lambda A: domaneuveringdeparture(A, "R", 120),
+            lambda A: _domaneuveringdeparture(A, "R", 120),
         ],
         [
             "MDR90",
             "maneuvering departure",
-            lambda A: domaneuveringdeparture(A, "R", 90),
+            lambda A: _domaneuveringdeparture(A, "R", 90),
         ],
         [
             "MDR60",
             "maneuvering departure",
-            lambda A: domaneuveringdeparture(A, "R", 60),
+            lambda A: _domaneuveringdeparture(A, "R", 60),
         ],
         [
             "MDR30",
             "maneuvering departure",
-            lambda A: domaneuveringdeparture(A, "R", 30),
+            lambda A: _domaneuveringdeparture(A, "R", 30),
         ],
         ["", "", None],
     ]
 
-    domoves(
+    _domoves(
         A,
         moves,
         actiondispatchlist,
@@ -1296,62 +1296,62 @@ def _continuenormalflight(A, moves):
 def _continuemissileflight(M, moves):
 
     actiondispatchlist = [
-        ["TL", "prolog", lambda A: dodeclaremaneuver(A, "T", "L")],
-        ["TR", "prolog", lambda A: dodeclaremaneuver(A, "T", "R")],
-        ["SLL", "prolog", lambda A: dodeclaremaneuver(A, "SL", "L")],
-        ["SLR", "prolog", lambda A: dodeclaremaneuver(A, "SL", "R")],
-        ["VRL", "prolog", lambda A: dodeclaremaneuver(A, "VR", "L")],
-        ["VRR", "prolog", lambda A: dodeclaremaneuver(A, "VR", "R")],
-        ["H", "FP", lambda A: dohorizontal(A, "H")],
-        ["HD", "FP", lambda A: dohorizontal(A, "HD")],
-        ["HD1", "FP", lambda A: dohorizontal(A, "HD")],
-        ["C", "FP", lambda A: doclimb(A, 1)],
-        ["C1", "FP", lambda A: doclimb(A, 1)],
-        ["CC", "FP", lambda A: doclimb(A, 2)],
-        ["C2", "FP", lambda A: doclimb(A, 2)],
-        ["D", "FP", lambda A: dodive(A, 1)],
-        ["D1", "FP", lambda A: dodive(A, 1)],
-        ["DD", "FP", lambda A: dodive(A, 2)],
-        ["D2", "FP", lambda A: dodive(A, 2)],
-        ["DDD", "FP", lambda A: dodive(A, 3)],
-        ["D3", "FP", lambda A: dodive(A, 3)],
-        ["L90+", "epilog", lambda A: domaneuver(A, "L", 90, True, True)],
-        ["L60+", "epilog", lambda A: domaneuver(A, "L", 60, True, True)],
-        ["L30+", "epilog", lambda A: domaneuver(A, "L", 30, True, True)],
-        ["LLL+", "epilog", lambda A: domaneuver(A, "L", 90, True, True)],
-        ["LL+", "epilog", lambda A: domaneuver(A, "L", 60, True, True)],
-        ["L+", "epilog", lambda A: domaneuver(A, "L", None, True, True)],
-        ["R90+", "epilog", lambda A: domaneuver(A, "R", 90, True, True)],
-        ["R60+", "epilog", lambda A: domaneuver(A, "R", 60, True, True)],
-        ["R30+", "epilog", lambda A: domaneuver(A, "R", 30, True, True)],
-        ["RRR+", "epilog", lambda A: domaneuver(A, "R", 90, True, True)],
-        ["RR+", "epilog", lambda A: domaneuver(A, "R", 60, True, True)],
-        ["R+", "epilog", lambda A: domaneuver(A, "R", None, True, True)],
-        ["LS180", "epilog", lambda A: domaneuver(A, "L", 180, True, False)],
-        ["L180", "epilog", lambda A: domaneuver(A, "L", 180, False, False)],
-        ["L150", "epilog", lambda A: domaneuver(A, "L", 150, True, False)],
-        ["L120", "epilog", lambda A: domaneuver(A, "L", 120, True, False)],
-        ["L90", "epilog", lambda A: domaneuver(A, "L", 90, True, False)],
-        ["L60", "epilog", lambda A: domaneuver(A, "L", 60, True, False)],
-        ["L30", "epilog", lambda A: domaneuver(A, "L", 30, True, False)],
-        ["LLL", "epilog", lambda A: domaneuver(A, "L", 90, True, False)],
-        ["LL", "epilog", lambda A: domaneuver(A, "L", 60, True, False)],
-        ["L", "epilog", lambda A: domaneuver(A, "L", None, True, False)],
-        ["RS180", "epilog", lambda A: domaneuver(A, "R", 180, True, False)],
-        ["R180", "epilog", lambda A: domaneuver(A, "R", 180, False, False)],
-        ["R150", "epilog", lambda A: domaneuver(A, "R", 150, True, False)],
-        ["R120", "epilog", lambda A: domaneuver(A, "R", 120, True, False)],
-        ["R90", "epilog", lambda A: domaneuver(A, "R", 90, True, False)],
-        ["R60", "epilog", lambda A: domaneuver(A, "R", 60, True, False)],
-        ["R30", "epilog", lambda A: domaneuver(A, "R", 30, True, False)],
-        ["RRR", "epilog", lambda A: domaneuver(A, "R", 90, True, False)],
-        ["RR", "epilog", lambda A: domaneuver(A, "R", 60, True, False)],
-        ["R", "epilog", lambda A: domaneuver(A, "R", None, True, False)],
+        ["TL", "prolog", lambda A: _dodeclaremaneuver(A, "T", "L")],
+        ["TR", "prolog", lambda A: _dodeclaremaneuver(A, "T", "R")],
+        ["SLL", "prolog", lambda A: _dodeclaremaneuver(A, "SL", "L")],
+        ["SLR", "prolog", lambda A: _dodeclaremaneuver(A, "SL", "R")],
+        ["VRL", "prolog", lambda A: _dodeclaremaneuver(A, "VR", "L")],
+        ["VRR", "prolog", lambda A: _dodeclaremaneuver(A, "VR", "R")],
+        ["H", "FP", lambda A: _dohorizontal(A, "H")],
+        ["HD", "FP", lambda A: _dohorizontal(A, "HD")],
+        ["HD1", "FP", lambda A: _dohorizontal(A, "HD")],
+        ["C", "FP", lambda A: _doclimb(A, 1)],
+        ["C1", "FP", lambda A: _doclimb(A, 1)],
+        ["CC", "FP", lambda A: _doclimb(A, 2)],
+        ["C2", "FP", lambda A: _doclimb(A, 2)],
+        ["D", "FP", lambda A: _dodive(A, 1)],
+        ["D1", "FP", lambda A: _dodive(A, 1)],
+        ["DD", "FP", lambda A: _dodive(A, 2)],
+        ["D2", "FP", lambda A: _dodive(A, 2)],
+        ["DDD", "FP", lambda A: _dodive(A, 3)],
+        ["D3", "FP", lambda A: _dodive(A, 3)],
+        ["L90+", "epilog", lambda A: _domaneuver(A, "L", 90, True, True)],
+        ["L60+", "epilog", lambda A: _domaneuver(A, "L", 60, True, True)],
+        ["L30+", "epilog", lambda A: _domaneuver(A, "L", 30, True, True)],
+        ["LLL+", "epilog", lambda A: _domaneuver(A, "L", 90, True, True)],
+        ["LL+", "epilog", lambda A: _domaneuver(A, "L", 60, True, True)],
+        ["L+", "epilog", lambda A: _domaneuver(A, "L", None, True, True)],
+        ["R90+", "epilog", lambda A: _domaneuver(A, "R", 90, True, True)],
+        ["R60+", "epilog", lambda A: _domaneuver(A, "R", 60, True, True)],
+        ["R30+", "epilog", lambda A: _domaneuver(A, "R", 30, True, True)],
+        ["RRR+", "epilog", lambda A: _domaneuver(A, "R", 90, True, True)],
+        ["RR+", "epilog", lambda A: _domaneuver(A, "R", 60, True, True)],
+        ["R+", "epilog", lambda A: _domaneuver(A, "R", None, True, True)],
+        ["LS180", "epilog", lambda A: _domaneuver(A, "L", 180, True, False)],
+        ["L180", "epilog", lambda A: _domaneuver(A, "L", 180, False, False)],
+        ["L150", "epilog", lambda A: _domaneuver(A, "L", 150, True, False)],
+        ["L120", "epilog", lambda A: _domaneuver(A, "L", 120, True, False)],
+        ["L90", "epilog", lambda A: _domaneuver(A, "L", 90, True, False)],
+        ["L60", "epilog", lambda A: _domaneuver(A, "L", 60, True, False)],
+        ["L30", "epilog", lambda A: _domaneuver(A, "L", 30, True, False)],
+        ["LLL", "epilog", lambda A: _domaneuver(A, "L", 90, True, False)],
+        ["LL", "epilog", lambda A: _domaneuver(A, "L", 60, True, False)],
+        ["L", "epilog", lambda A: _domaneuver(A, "L", None, True, False)],
+        ["RS180", "epilog", lambda A: _domaneuver(A, "R", 180, True, False)],
+        ["R180", "epilog", lambda A: _domaneuver(A, "R", 180, False, False)],
+        ["R150", "epilog", lambda A: _domaneuver(A, "R", 150, True, False)],
+        ["R120", "epilog", lambda A: _domaneuver(A, "R", 120, True, False)],
+        ["R90", "epilog", lambda A: _domaneuver(A, "R", 90, True, False)],
+        ["R60", "epilog", lambda A: _domaneuver(A, "R", 60, True, False)],
+        ["R30", "epilog", lambda A: _domaneuver(A, "R", 30, True, False)],
+        ["RRR", "epilog", lambda A: _domaneuver(A, "R", 90, True, False)],
+        ["RR", "epilog", lambda A: _domaneuver(A, "R", 60, True, False)],
+        ["R", "epilog", lambda A: _domaneuver(A, "R", None, True, False)],
         ["", "", None],
     ]
 
     _startslope(M)
-    domoves(
+    _domoves(
         M,
         moves,
         actiondispatchlist,
@@ -1635,7 +1635,7 @@ def _endnormalflight(A):
 ###############################################################################
 
 
-def domoves(E, moves, actiondispatchlist):
+def _domoves(E, moves, actiondispatchlist):
     """
     Carry out flight moves.
     """
@@ -1645,13 +1645,13 @@ def domoves(E, moves, actiondispatchlist):
 
     for move in re.split(r"[, ]", moves):
         if not E.killed():
-            domove(E, move, actiondispatchlist)
+            _domove(E, move, actiondispatchlist)
 
 
 ################################################################################
 
 
-def domove(E, move, actiondispatchlist):
+def _domove(E, move, actiondispatchlist):
     """
     Carry out a flight move.
     """
@@ -2081,7 +2081,7 @@ def _islevelflight(flighttype):
 ########################################
 
 
-def dohorizontal(E, action):
+def _dohorizontal(E, action):
     """
     Move horizontally.
     """
@@ -2134,7 +2134,7 @@ def dohorizontal(E, action):
 ########################################
 
 
-def doclimb(E, altitudechange):
+def _doclimb(E, altitudechange):
     """
     Climb.
     """
@@ -2204,7 +2204,7 @@ def doclimb(E, altitudechange):
 ########################################
 
 
-def dodive(E, altitudechange):
+def _dodive(E, altitudechange):
     """
     Dive.
     """
@@ -2275,7 +2275,7 @@ def dodive(E, altitudechange):
 ########################################
 
 
-def dostationary(E):
+def _dostationary(E):
 
     E._fp += 1
 
@@ -2283,7 +2283,7 @@ def dostationary(E):
 ########################################
 
 
-def dobank(E, sense):
+def _dobank(E, sense):
 
     if E._hasbanked:
         raise RuntimeError("attempt to bank twice.")
@@ -2309,7 +2309,7 @@ def dobank(E, sense):
 ########################################
 
 
-def dodeclareturn(E, turnrate, sense):
+def _dodeclareturn(E, turnrate, sense):
     """
     Declare the start of turn in the specified direction and rate.
     """
@@ -2411,7 +2411,7 @@ def dodeclareturn(E, turnrate, sense):
 ########################################
 
 
-def doturn(E, sense, facingchange, continuous):
+def _doturn(E, sense, facingchange, continuous):
     """
     Turn in the specified sense and amount.
     """
@@ -2454,7 +2454,7 @@ def doturn(E, sense, facingchange, continuous):
 ########################################
 
 
-def dodeclareslide(E, sense):
+def _dodeclareslide(E, sense):
 
     # See rule 8.1.3 and 8.2.3
     if E._flighttype == "VC" or E._flighttype == "VD":
@@ -2481,13 +2481,13 @@ def dodeclareslide(E, sense):
     E._maneuverfacingchange = None
     E._maneuverfp = 0
     E._maneuversupersonic = E.speed() >= apspeed.m1speed(E.altitudeband())
-    E._maneuverrequiredfp = 2 + extrapreparatoryhfp(E) + 1
+    E._maneuverrequiredfp = 2 + _extrapreparatoryhfp(E) + 1
 
 
 ########################################
 
 
-def extrapreparatoryhfp(E):
+def _extrapreparatoryhfp(E):
 
     # See rule 13.1.
 
@@ -2515,7 +2515,7 @@ def extrapreparatoryhfp(E):
 ########################################
 
 
-def doslide(E, sense):
+def _doslide(E, sense):
 
     # See rule 8.1.3 and 8.2.3
     if E._flighttype == "VC" or E._flighttype == "VD":
@@ -2545,7 +2545,7 @@ def doslide(E, sense):
 ########################################
 
 
-def dodeclaredisplacementroll(E, sense):
+def _dodeclaredisplacementroll(E, sense):
 
     # See rules 13.1 and 13.3.1.
 
@@ -2569,7 +2569,7 @@ def dodeclaredisplacementroll(E, sense):
     E._maneuversupersonic = E.speed() >= apspeed.m1speed(E.altitudeband())
     # The requirement includes the FPs used to execute the roll.
     E._maneuverrequiredfp = (
-        apcapabilities.rollhfp(E) + extrapreparatoryhfp(E) + rounddown(E.speed() / 3)
+        apcapabilities.rollhfp(E) + _extrapreparatoryhfp(E) + rounddown(E.speed() / 3)
     )
 
     # See rules 13.3.1 and 6.6.
@@ -2585,7 +2585,7 @@ def dodeclaredisplacementroll(E, sense):
 ########################################
 
 
-def dodisplacementroll(E, sense):
+def _dodisplacementroll(E, sense):
 
     # See rules 13.1 and 13.3.1.
 
@@ -2622,7 +2622,7 @@ def dodisplacementroll(E, sense):
 ########################################
 
 
-def dodeclarelagroll(E, sense):
+def _dodeclarelagroll(E, sense):
 
     # See rule 13.3.2.
 
@@ -2645,7 +2645,7 @@ def dodeclarelagroll(E, sense):
     E._maneuversupersonic = E.speed() >= apspeed.m1speed(E.altitudeband())
     # The requirement includes the FPs used to execute the roll.
     E._maneuverrequiredfp = (
-        apcapabilities.rollhfp(E) + extrapreparatoryhfp(E) + rounddown(E.speed() / 3)
+        apcapabilities.rollhfp(E) + _extrapreparatoryhfp(E) + rounddown(E.speed() / 3)
     )
 
     # See rules 13.3.1 and 6.6.
@@ -2661,7 +2661,7 @@ def dodeclarelagroll(E, sense):
 ########################################
 
 
-def dolagroll(E, sense):
+def _dolagroll(E, sense):
 
     # See rules 13.1 and 13.3.2.
 
@@ -2698,7 +2698,7 @@ def dolagroll(E, sense):
 ########################################
 
 
-def dodeclareverticalroll(E, sense):
+def _dodeclareverticalroll(E, sense):
 
     if E.isaircraft():
 
@@ -2747,7 +2747,7 @@ def dodeclareverticalroll(E, sense):
 ########################################
 
 
-def doverticalroll(E, sense, facingchange, shift):
+def _doverticalroll(E, sense, facingchange, shift):
 
     if E._maneuverfp < E._maneuverrequiredfp:
         raise RuntimeError("attempt to roll without sufficient preparatory HFPs.")
@@ -2787,21 +2787,21 @@ def doverticalroll(E, sense, facingchange, shift):
 ########################################
 
 
-def dodeclaremaneuver(E, maneuvertype, sense):
+def _dodeclaremaneuver(E, maneuvertype, sense):
 
     if E._hasdeclaredamaneuver:
         raise RuntimeError("attempt to declare a second maneuver.")
 
     if maneuvertype == "SL":
-        dodeclareslide(E, sense)
+        _dodeclareslide(E, sense)
     elif maneuvertype == "DR":
-        dodeclaredisplacementroll(E, sense)
+        _dodeclaredisplacementroll(E, sense)
     elif maneuvertype == "LR":
-        dodeclarelagroll(E, sense)
+        _dodeclarelagroll(E, sense)
     elif maneuvertype == "VR":
-        dodeclareverticalroll(E, sense)
+        _dodeclareverticalroll(E, sense)
     else:
-        dodeclareturn(E, maneuvertype, sense)
+        _dodeclareturn(E, maneuvertype, sense)
 
     E._logevent("declared %s." % E.maneuver())
     E._hasdeclaredamaneuver = True
@@ -2810,7 +2810,7 @@ def dodeclaremaneuver(E, maneuvertype, sense):
 ########################################
 
 
-def domaneuver(E, sense, facingchange, shift, continuous):
+def _domaneuver(E, sense, facingchange, shift, continuous):
 
     if E._maneuvertype == None:
         raise RuntimeError("attempt to maneuver without a declaration.")
@@ -2821,23 +2821,23 @@ def domaneuver(E, sense, facingchange, shift, continuous):
     if E._maneuvertype == "SL":
         if facingchange != None:
             raise RuntimeError("invalid action for a slide.")
-        doslide(E, sense)
+        _doslide(E, sense)
     elif E._maneuvertype == "DR":
         if facingchange != None:
             raise RuntimeError("invalid action for a displacement roll.")
-        dodisplacementroll(E, sense)
+        _dodisplacementroll(E, sense)
     elif E._maneuvertype == "LR":
         if facingchange != None:
             raise RuntimeError("invalid action for a lag roll.")
-        dolagroll(E, sense)
+        _dolagroll(E, sense)
     elif E._maneuvertype == "VR":
         if facingchange == None:
             facingchange = 30
-        doverticalroll(E, sense, facingchange, shift)
+        _doverticalroll(E, sense, facingchange, shift)
     else:
         if facingchange == None:
             facingchange = 30
-        doturn(E, sense, facingchange, continuous)
+        _doturn(E, sense, facingchange, continuous)
 
     E._hasmaneuvered = True
     E._maneuverfp = 0
@@ -2850,13 +2850,13 @@ def domaneuver(E, sense, facingchange, shift, continuous):
         E._maneuversupersonic = False
     else:
         E._hasdeclaredamaneuver = False
-        dodeclaremaneuver(E, E._maneuvertype, E._maneuversense)
+        _dodeclaremaneuver(E, E._maneuvertype, E._maneuversense)
 
 
 ########################################
 
 
-def domaneuveringdeparture(E, sense, facingchange):
+def _domaneuveringdeparture(E, sense, facingchange):
 
     # Do the first facing change.
     E._moveturn(sense, 30)
