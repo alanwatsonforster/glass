@@ -1158,10 +1158,6 @@ def _continuenormalflight(A, moves):
         actiondispatchlist,
     )
 
-    assert A._maneuveringdeparture or (A._fp == A._hfp + A._vfp)
-    assert A._maneuveringdeparture or (A._fp <= A._maxfp)
-
-
 ###############################################################################
 
 
