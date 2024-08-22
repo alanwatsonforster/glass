@@ -30,7 +30,7 @@ from apxo.log import plural
 ################################################################################
 
 
-def continuenormalflight(A, tasks):
+def continuenormalflight(A, moves):
     """
     Continue to carry out out normal flight.
     """
@@ -309,46 +309,46 @@ def continuenormalflight(A, tasks):
 
     ################################################################################
 
-    def aftertask(A):
+    def aftermove(A):
 
         # See rules 7.7 and 8.5.
         if A._hasmaneuvered and A._hasrolled:
-            if A._taskaltitude > apcapabilities.ceiling(A):
+            if A._movealtitude > apcapabilities.ceiling(A):
                 A._logevent(
                     "check for a maneuvering departure as the aircraft is above its ceiling and attempted to roll."
                 )
-            elif A._taskaltitudeband == "EH" or A._taskaltitudeband == "UH":
+            elif A._movealtitudeband == "EH" or A._movealtitudeband == "UH":
                 A._logevent(
                     "check for a maneuvering departure as the aircraft is in the %s altitude band and attempted to roll."
-                    % A._taskaltitudeband
+                    % A._movealtitudeband
                 )
 
         # See rules 7.7 and 8.5.
         if A._hasmaneuvered and A._hasturned:
             if (
-                A._taskaltitude > apcapabilities.ceiling(A)
-                and A._taskmaneuvertype != "EZ"
+                A._movealtitude > apcapabilities.ceiling(A)
+                and A._movemaneuvertype != "EZ"
             ):
                 A._logevent(
                     "check for a maneuvering departure as the aircraft is above its ceiling and attempted to turn harder than EZ."
                 )
-            if A._taskmaneuvertype == "ET" and A._taskaltitude <= 25:
+            if A._movemaneuvertype == "ET" and A._movealtitude <= 25:
                 A._gloccheck += 1
                 A._logevent(
                     "check for GLOC as turn rate is ET and altitude band is %s (check %d in cycle)."
-                    % (A._taskaltitudeband, A._gloccheck)
+                    % (A._movealtitudeband, A._gloccheck)
                 )
 
         # See rule 7.8.
         if A._hasturned and apcloseformation.size(A) != 0:
             if (
-                (apcloseformation.size(A) > 2 and A._taskmaneuvertype == "HT")
-                or A._taskmaneuvertype == "BT"
-                or A._taskmaneuvertype == "ET"
+                (apcloseformation.size(A) > 2 and A._movemaneuvertype == "HT")
+                or A._movemaneuvertype == "BT"
+                or A._movemaneuvertype == "ET"
             ):
                 A._logevent(
                     "close formation breaks down as the turn rate is %s."
-                    % A._taskmaneuvertype
+                    % A._movemaneuvertype
                 )
                 apcloseformation.breakdown(A)
 
@@ -357,12 +357,12 @@ def continuenormalflight(A, tasks):
             A._logevent("close formation breaks down aircraft is rolling.")
             apcloseformation.breakdown(A)
 
-    apflight.dotasks(
+    apflight.domoves(
         A,
-        tasks,
+        moves,
         actiondispatchlist,
         afterFP=afterFP,
-        aftertask=aftertask,
+        aftermove=aftermove,
     )
 
     assert A._maneuveringdeparture or (A._fp == A._hfp + A._vfp)
@@ -376,7 +376,7 @@ def continuenormalflight(A, tasks):
 ########################################
 
 
-def continuespecialflight(A, tasks):
+def continuespecialflight(A, moves):
     """
     Continue to carry out out special flight.
     """
@@ -401,7 +401,7 @@ def continuespecialflight(A, tasks):
 
     ########################################
 
-    taskdispatchlist = [
+    movedispatchlist = [
         # This table is searched in order, so put longer elements before shorter
         # ones that are prefixes (e.g., put C2 before C).
         ["L180", "epilog", lambda A: doturn(A, "L", 180)],
@@ -439,7 +439,7 @@ def continuespecialflight(A, tasks):
 
     ########################################
 
-    apflight.dotasks(A, tasks, taskdispatchlist)
+    apflight.domoves(A, moves, movedispatchlist)
 
     if not A.killed() and not A.removed():
         if A._altitudecarry != 0:

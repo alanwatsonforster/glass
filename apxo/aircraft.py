@@ -705,7 +705,7 @@ class aircraft(apelement.element):
         self,
         flighttype,
         power,
-        actions="",
+        moves="",
         speedbrakes=None,
         flamedoutengines=0,
         lowspeedliftdeviceselected=None,
@@ -714,14 +714,14 @@ class aircraft(apelement.element):
             self,
             flighttype,
             power,
-            actions,
+            moves,
             speedbrakes=speedbrakes,
             flamedoutengines=flamedoutengines,
             lowspeedliftdeviceselected=lowspeedliftdeviceselected,
         )
 
-    def _continuemove(self, actions=""):
-        apflight._continuemove(self, actions)
+    def _continuemove(self, moves=""):
+        apflight._continuemove(self, moves)
 
     ########################################
 

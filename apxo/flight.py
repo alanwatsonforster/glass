@@ -21,7 +21,7 @@ from apxo.log import plural
 ################################################################################
 
 
-def _move(E, flighttype, power, actions, **kwargs):
+def _move(E, flighttype, power, moves, **kwargs):
 
     # We save values of these variables at the end of the previous move.
 
@@ -49,7 +49,7 @@ def _move(E, flighttype, power, actions, **kwargs):
 
     E._logposition("start")
 
-    _continuemove(E, actions)
+    _continuemove(E, moves)
 
 
 ################################################################################
@@ -915,18 +915,18 @@ def _startmovenormalflight(A):
 ###############################################################################
 
 
-def _continuemove(E, actions):
+def _continuemove(E, moves):
 
     if E._flighttype == "MS":
-        _continuemissilemove(E, actions)
+        _continuemissilemove(E, moves)
     elif E._flighttype == "ST":
-        _continuestalledflight(E, actions)
+        _continuestalledflight(E, moves)
     elif E._flighttype == "DP":
-        _continuedepartedflight(E, actions)
+        _continuedepartedflight(E, moves)
     elif E._flighttype == "SP":
-        _continuespecialflight(E, actions)
+        _continuespecialflight(E, moves)
     else:
-        _continuenormalflight(E, actions)
+        _continuenormalflight(E, moves)
 
     if E._finishedmoving:
         _endmove(E)
@@ -935,36 +935,36 @@ def _continuemove(E, actions):
 ########################################
 
 
-def _continuemissilemove(M, actions):
-    apmissileflight._continuemove(M, actions)
+def _continuemissilemove(M, moves):
+    apmissileflight._continuemove(M, moves)
 
 
 ########################################
 
 
-def _continuestalledflight(A, actions):
-    apstalledflight.doflight(A, actions)
+def _continuestalledflight(A, moves):
+    apstalledflight.doflight(A, moves)
 
 
 ########################################
 
 
-def _continuedepartedflight(A, actions):
-    apdepartedflight.doflight(A, actions)
+def _continuedepartedflight(A, moves):
+    apdepartedflight.doflight(A, moves)
 
 
 ########################################
 
 
-def _continuespecialflight(A, actions):
-    apaircraftflight.continuespecialflight(A, actions)
+def _continuespecialflight(A, moves):
+    apaircraftflight.continuespecialflight(A, moves)
 
 
 ########################################
 
 
-def _continuenormalflight(A, actions):
-    apaircraftflight.continuenormalflight(A, actions)
+def _continuenormalflight(A, moves):
+    apaircraftflight.continuenormalflight(A, moves)
 
 
 ###############################################################################
@@ -1247,26 +1247,26 @@ def _endnormalflight(A):
 ###############################################################################
 
 
-def dotasks(E, tasks, actiondispatchlist, afterFP=None, aftertask=None):
+def domoves(E, moves, actiondispatchlist, afterFP=None, aftermove=None):
     """
-    Carry out flight tasks.
+    Carry out flight moves.
     """
 
-    if tasks != "":
-        for task in re.split(r"[, ]", tasks):
+    if moves != "":
+        for move in re.split(r"[, ]", moves):
             if not E.killed() and not E.removed():
-                dotask(E, task, actiondispatchlist, afterFP, aftertask)
+                domove(E, move, actiondispatchlist, afterFP, aftermove)
 
 
 ################################################################################
 
 
-def dotask(E, task, actiondispatchlist, afterFP, aftertask):
+def domove(E, move, actiondispatchlist, afterFP, aftermove):
     """
-    Carry out a flight task.
+    Carry out a flight move.
     """
 
-    E._log1("FP %d" % (E._fp + 1), task)
+    E._log1("FP %d" % (E._fp + 1), move)
 
     # Check we have at least one FP remaining.
     if E._fp + 1 > E._maxfp:
@@ -1281,17 +1281,17 @@ def dotask(E, task, actiondispatchlist, afterFP, aftertask):
     # Determine if this FP is the last FP of the move.
     E._lastfp = E._fp + 2 > E._maxfp
 
-    E._taskaltitude = E.altitude()
-    E._taskaltitudeband = E.altitudeband()
+    E._movealtitude = E.altitude()
+    E._movealtitudeband = E.altitudeband()
 
     try:
 
-        remainingtask = task
+        remainingmove = move
 
-        remainingtask = doactions(
-            E, remainingtask, actiondispatchlist, "maneuvering departure"
+        remainingmove = doactions(
+            E, remainingmove, actiondispatchlist, "maneuvering departure"
         )
-        if remainingtask != task:
+        if remainingmove != move:
 
             E._maneuveringdeparture = True
 
@@ -1311,24 +1311,24 @@ def dotask(E, task, actiondispatchlist, afterFP, aftertask):
         E._hasrolled = False
         E._hasbanked = False
 
-        remainingtask = doactions(E, remainingtask, actiondispatchlist, "prolog")
+        remainingmove = doactions(E, remainingmove, actiondispatchlist, "prolog")
 
         fp = E._fp
-        remainingtask = doactions(E, remainingtask, actiondispatchlist, "FP")
+        remainingmove = doactions(E, remainingmove, actiondispatchlist, "FP")
         if E._fp == fp:
             raise RuntimeError(
-                "%r is not a valid task as it does not expend an FP." % task
+                "%r is not a valid move as it does not expend an FP." % move
             )
         elif E._fp > fp + 1:
             raise RuntimeError(
-                "%r is not a valid task as it attempts to expend more than one FP."
-                % task
+                "%r is not a valid move as it attempts to expend more than one FP."
+                % move
             )
 
         # We save maneuvertype, as E._maneuvertype may be set to None of the
         # maneuver is completed below.
 
-        E._taskmaneuvertype = E._maneuvertype
+        E._movemaneuvertype = E._maneuvertype
         E._hasturned = _isturn(E._maneuvertype)
         E._hasrolled = _isroll(E._maneuvertype)
         E._hasslid = _isslide(E._maneuvertype)
@@ -1350,15 +1350,15 @@ def dotask(E, task, actiondispatchlist, afterFP, aftertask):
         if afterFP is not None:
             afterFP(E)
 
-        remainingtask = doactions(E, remainingtask, actiondispatchlist, "epilog")
+        remainingmove = doactions(E, remainingmove, actiondispatchlist, "epilog")
 
         if E._hasbanked and E._hasmaneuvered and not E._hasrolled:
             raise RuntimeError(
                 "attempt to bank immediately after a maneuver that is not a roll."
             )
 
-        if remainingtask != "":
-            raise RuntimeError("%r is not a valid task." % task)
+        if remainingmove != "":
+            raise RuntimeError("%r is not a valid move." % move)
 
         assert aphex.isvalid(E.x(), E.y(), facing=E.facing())
         assert apaltitude.isvalidaltitude(E.altitude())
@@ -1374,10 +1374,10 @@ def dotask(E, task, actiondispatchlist, afterFP, aftertask):
             E._logpositionandmaneuver("")
         E._extendpath()
 
-    if E._taskaltitudeband != E.altitudeband():
+    if E._movealtitudeband != E.altitudeband():
         E._logevent(
             "altitude band changed from %s to %s."
-            % (E._taskaltitudeband, E.altitudeband())
+            % (E._movealtitudeband, E.altitudeband())
         )
         E._logevent("speed of sound is %.1f." % apspeed.m1speed(E.altitudeband()))
         previoussupersonic = E._supersonic
@@ -1393,21 +1393,21 @@ def dotask(E, task, actiondispatchlist, afterFP, aftertask):
     E._checkforterraincollision()
     E._checkforleavingmap()
 
-    if aftertask is not None:
-        aftertask(E)
+    if aftermove is not None:
+        aftermove(E)
 
 
 ################################################################################
 
 
-def doactions(E, task, actiondispatchlist, selectedactiontype):
+def doactions(E, move, actiondispatchlist, selectedactiontype):
     """
-    Carry out the actions in an task that match the action type.
+    Carry out the actions in an move that match the action type.
     """
 
-    while task != "":
+    while move != "":
 
-        actioncode = task.split("/", maxsplit=1)[0]
+        actioncode = move.split("/", maxsplit=1)[0]
 
         for action in actiondispatchlist:
 
@@ -1418,9 +1418,9 @@ def doactions(E, task, actiondispatchlist, selectedactiontype):
                 break
 
         if selectedactiontype == "prolog" and actiontype == "epilog":
-            raise RuntimeError("unexpected %s action in task prolog." % actioncode)
+            raise RuntimeError("unexpected %s action in move prolog." % actioncode)
         if selectedactiontype == "epilog" and actiontype == "prolog":
-            raise RuntimeError("unexpected %s action in task epilog." % actioncode)
+            raise RuntimeError("unexpected %s action in move epilog." % actioncode)
 
         if selectedactiontype != actiontype:
             break
@@ -1428,11 +1428,11 @@ def doactions(E, task, actiondispatchlist, selectedactiontype):
         if actionprocedure is None:
             break
 
-        task = "/".join(task.split("/")[1:])
+        move = "/".join(move.split("/")[1:])
 
         actionprocedure(E)
 
-    return task
+    return move
 
 
 ################################################################################
