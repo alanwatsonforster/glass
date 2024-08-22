@@ -9,7 +9,7 @@ import apxo.hexcode as aphexcode
 import apxo.log as aplog
 import apxo.map as apmap
 import apxo.missiledata as apmissiledata
-import apxo.missileflight as apmissileflight
+import apxo.speed as apspeed
 
 ##############################################################################
 
@@ -67,9 +67,10 @@ class missile(apelement.element):
             self._launchgameturn = apgameturn.gameturn()
 
             self._setspeed(self.basespeed() + launcher.newspeed())
-            if self.speed() > apmissileflight.maxspeed(self.altitudeband()):
+            maxspeed = apspeed.missilemaxspeed(self.altitudeband())
+            if self.speed() > maxspeed:
                 self._logevent("reducing start speed to maximum for altitude band.")
-                self._setspeed(apmissileflight.maxspeed(self.altitudeband()))
+                self._setspeed(maxspeed)
             self._logaction("", "start speed   is %.1f." % self._speed)
             self._logaction("", "turn rate     is %s/%d." % self.turnrate())
 

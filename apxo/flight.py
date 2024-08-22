@@ -10,7 +10,6 @@ import apxo.departedflight as apdepartedflight
 import apxo.gameturn as apgameturn
 import apxo.hex as aphex
 import apxo.missiledata as apmissiledata
-import apxo.missileflight as apmissileflight
 import apxo.speed as apspeed
 import apxo.stalledflight as apstalledflight
 import apxo.turnrate as apturnrate
