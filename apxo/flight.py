@@ -1927,60 +1927,60 @@ def _islevelflight(flighttype):
 ########################################
 
 
-def dohorizontal(A, action):
+def dohorizontal(E, action):
     """
     Move horizontally.
     """
 
     altitudechange = 0
 
-    if A._maneuvertype == "VR":
+    if E._maneuvertype == "VR":
         raise RuntimeError("attempt to declare a vertical roll during an HFP.")
 
     if action == "HD":
 
-        if A._flighttype == "LVL" or A._flighttype == "SP":
+        if E._flighttype == "LVL" or E._flighttype == "SP":
             altitudechange = 1
         else:
             raise RuntimeError(
                 "%r is not a valid action when the flight type is %s."
-                % (action, A._flighttype)
+                % (action, E._flighttype)
             )
 
     elif action == "HU":
 
-        if A._flighttype != "UD":
+        if E._flighttype != "UD":
             raise RuntimeError(
                 "%r is not a valid action when the flight type is %s."
-                % (action, A._flighttype)
+                % (action, E._flighttype)
             )
 
-        A._hasunloaded = True
-        A._unloadedhfp += 1
-        if A._firstunloadedfp == None:
-            A._firstunloadedfp = A._hfp
-        A._lastunloadedfp = A._hfp
+        E._hasunloaded = True
+        E._unloadedhfp += 1
+        if E._firstunloadedfp == None:
+            E._firstunloadedfp = E._hfp
+        E._lastunloadedfp = E._hfp
 
-        if math.floor(A._maxfp) == 1:
+        if math.floor(E._maxfp) == 1:
             # Both half FPs and all FPs.
             altitudechange = 2
-        elif A._unloadedhfp == math.floor(A._maxfp / 2):
+        elif E._unloadedhfp == math.floor(E._maxfp / 2):
             altitudechange = 1
-        elif A._unloadedhfp == math.floor(A._maxfp):
+        elif E._unloadedhfp == math.floor(E._maxfp):
             altitudechange = 1
 
-    A._horizontal = True
-    A._fp += 1
-    A._hfp += 1
+    E._horizontal = True
+    E._fp += 1
+    E._hfp += 1
 
-    A._movedive(altitudechange)
-    A._moveforward()
+    E._movedive(altitudechange)
+    E._moveforward()
 
 
 ########################################
 
 
-def doclimb(A, altitudechange):
+def doclimb(E, altitudechange):
     """
     Climb.
     """
@@ -1989,14 +1989,14 @@ def doclimb(A, altitudechange):
 
         assert altitudechange == 1 or altitudechange == 2 or altitudechange == 3
 
-        climbcapability = A._effectiveclimbcapability
+        climbcapability = E._effectiveclimbcapability
 
-        if A._flighttype == "SP":
+        if E._flighttype == "SP":
 
             if altitudechange == 1:
                 altitudechange = climbcapability
 
-        elif A._flighttype == "ZC":
+        elif E._flighttype == "ZC":
 
             # See rule 8.1.1.
             if altitudechange == 2:
@@ -2005,20 +2005,20 @@ def doclimb(A, altitudechange):
             elif altitudechange == 3:
                 if climbcapability < 6.0:
                     raise RuntimeError("invalid altitude change in climb.")
-                if A._usedsuperclimb:
+                if E._usedsuperclimb:
                     raise RuntimeError("invalid altitude change in climb.")
-                A._usedsuperclimb = True
+                E._usedsuperclimb = True
 
-        elif A._flighttype == "SC":
+        elif E._flighttype == "SC":
 
             # See rule 8.1.2.
             if climbcapability < 2.0 and altitudechange == 2:
                 raise RuntimeError("invalid altitude change in climb.")
-            if A._vfp == 0 and climbcapability % 1 != 0:
+            if E._vfp == 0 and climbcapability % 1 != 0:
                 # First VFP with fractional climb capability.
                 altitudechange = climbcapability % 1
 
-        elif A._flighttype == "VC":
+        elif E._flighttype == "VC":
 
             # See rule 8.1.3.
             if altitudechange != 1 and altitudechange != 2:
@@ -2028,31 +2028,31 @@ def doclimb(A, altitudechange):
 
             # See rule 8.0.
             raise RuntimeError(
-                "attempt to climb while flight type is %s." % A._flighttype
+                "attempt to climb while flight type is %s." % E._flighttype
             )
 
         return altitudechange
 
-    if A._flighttype != "SP" and A._hfp < A._mininitialhfp:
+    if E._flighttype != "SP" and E._hfp < E._mininitialhfp:
         raise RuntimeError("insufficient initial HFPs.")
 
     altitudechange = determinealtitudechange(altitudechange)
 
-    A._vertical = True
-    A._fp += 1
-    A._vfp += 1
+    E._vertical = True
+    E._fp += 1
+    E._vfp += 1
 
-    A._moveclimb(altitudechange)
+    E._moveclimb(altitudechange)
 
     # See rule 8.5.
-    if A._flighttype == "SC" and A.altitude() > apcapabilities.ceiling(A):
+    if E._flighttype == "SC" and E.altitude() > apcapabilities.ceiling(E):
         raise RuntimeError("attempt to climb above ceiling in SC.")
 
 
 ########################################
 
 
-def dodive(A, altitudechange):
+def dodive(E, altitudechange):
     """
     Dive.
     """
@@ -2061,11 +2061,11 @@ def dodive(A, altitudechange):
 
         assert altitudechange == 1 or altitudechange == 2 or altitudechange == 3
 
-        if A._flighttype == "SP":
+        if E._flighttype == "SP":
 
             pass
 
-        elif A._flighttype == "SD":
+        elif E._flighttype == "SD":
 
             # See rule 8.2.1.
             if altitudechange != 1 and altitudechange != 2:
@@ -2074,7 +2074,7 @@ def dodive(A, altitudechange):
                     % altitudechange
                 )
 
-        elif A._flighttype == "UD":
+        elif E._flighttype == "UD":
 
             # See rule 8.2.2.
             if altitudechange != 1:
@@ -2083,7 +2083,7 @@ def dodive(A, altitudechange):
                     % altitudechange
                 )
 
-        elif A._flighttype == "VD":
+        elif E._flighttype == "VD":
 
             # See rule 8.2.3.
             if altitudechange != 2 and altitudechange != 3:
@@ -2092,7 +2092,7 @@ def dodive(A, altitudechange):
                     % plural(altitudechange, "1 level", "%d levels" % altitudechange)
                 )
 
-        elif A._flighttype == "LVL":
+        elif E._flighttype == "LVL":
 
             # See rule 8.2.4.
             if altitudechange != 1:
@@ -2105,145 +2105,145 @@ def dodive(A, altitudechange):
 
             # See rule 8.0.
             raise RuntimeError(
-                "attempt to dive while flight type is %s." % A._flighttype
+                "attempt to dive while flight type is %s." % E._flighttype
             )
 
     checkaltitudechange()
 
-    if A._flighttype != "SP" and A._hfp < A._mininitialhfp:
+    if E._flighttype != "SP" and E._hfp < E._mininitialhfp:
         raise RuntimeError("insufficient initial HFPs.")
 
-    A._vertical = True
-    A._fp += 1
-    A._vfp += 1
+    E._vertical = True
+    E._fp += 1
+    E._vfp += 1
 
-    A._movedive(altitudechange)
+    E._movedive(altitudechange)
 
 
 ########################################
 
 
-def dobank(A, sense):
+def dobank(E, sense):
 
-    if A._hasbanked:
+    if E._hasbanked:
         raise RuntimeError("attempt to bank twice.")
 
     # See rule 7.4.
-    if apcapabilities.hasproperty(A, "LRR"):
-        if (A._bank == "L" and sense == "R") or (A._bank == "R" and sense == "L"):
+    if apcapabilities.hasproperty(E, "LRR"):
+        if (E._bank == "L" and sense == "R") or (E._bank == "R" and sense == "L"):
             raise RuntimeError(
                 "attempt to bank to %s while banked to %s in a LRR aircraft."
-                % (sense, A._bank)
+                % (sense, E._bank)
             )
 
-    A._bank = sense
-    if _isturn(A._maneuvertype):
-        A._maneuvertype = None
-        A._maneuversense = None
-        A._maneuverfacingchange = None
-        A._maneuverfp = 0
+    E._bank = sense
+    if _isturn(E._maneuvertype):
+        E._maneuvertype = None
+        E._maneuversense = None
+        E._maneuverfacingchange = None
+        E._maneuverfp = 0
 
-    A._hasbanked = True
+    E._hasbanked = True
 
 
 ########################################
 
 
-def dodeclareturn(A, turnrate, sense):
+def dodeclareturn(E, turnrate, sense):
     """
     Declare the start of turn in the specified direction and rate.
     """
 
     # See rule 8.1.3 and 8.2.3
-    if A._flighttype == "VC" or A._flighttype == "VD":
+    if E._flighttype == "VC" or E._flighttype == "VD":
         raise RuntimeError(
-            "attempt to declare turn while flight type is %s." % A._flighttype
+            "attempt to declare turn while flight type is %s." % E._flighttype
         )
 
     # See rule 7.1.
 
     # Check the bank. See rule 7.4.
-    if apcapabilities.hasproperty(A, "LRR"):
-        if A._bank != sense:
+    if apcapabilities.hasproperty(E, "LRR"):
+        if E._bank != sense:
             raise RuntimeError(
                 "attempt to declare a turn to %s while not banked to %s in a LRR aircraft."
                 % (sense, sense)
             )
-    elif not apcapabilities.hasproperty(A, "HRR"):
-        if (A._bank == "L" and sense == "R") or (A._bank == "R" and sense == "L"):
+    elif not apcapabilities.hasproperty(E, "HRR"):
+        if (E._bank == "L" and sense == "R") or (E._bank == "R" and sense == "L"):
             raise RuntimeError(
-                "attempt to declare a turn to %s while banked to %s." % (sense, A._bank)
+                "attempt to declare a turn to %s while banked to %s." % (sense, E._bank)
             )
 
-    if A._allowedturnrates == []:
+    if E._allowedturnrates == []:
         raise RuntimeError("turns are forbidded.")
 
-    if turnrate not in A._allowedturnrates:
+    if turnrate not in E._allowedturnrates:
         raise RuntimeError(
             "attempt to declare a turn rate tighter than allowed by the damage, speed, or flight type."
         )
 
-    turnrateap = apcapabilities.turndrag(A, turnrate)
+    turnrateap = apcapabilities.turndrag(E, turnrate)
     if turnrateap == None:
         raise RuntimeError(
             "attempt to declare a turn rate tighter than allowed by the aircraft."
         )
 
     # Determine the maximum turn rate.
-    if A._maxturnrate == None:
-        A._maxturnrate = turnrate
+    if E._maxturnrate == None:
+        E._maxturnrate = turnrate
     else:
         turnrates = ["EZ", "TT", "HT", "BT", "ET"]
-        A._maxturnrate = turnrates[
-            max(turnrates.index(turnrate), turnrates.index(A._maxturnrate))
+        E._maxturnrate = turnrates[
+            max(turnrates.index(turnrate), turnrates.index(E._maxturnrate))
         ]
 
-    A._bank = sense
-    A._maneuvertype = turnrate
-    A._maneuversense = sense
-    A._maneuverfp = 0
-    A._maneuversupersonic = A.speed() >= apspeed.m1speed(A.altitudeband())
+    E._bank = sense
+    E._maneuvertype = turnrate
+    E._maneuversense = sense
+    E._maneuverfp = 0
+    E._maneuversupersonic = E.speed() >= apspeed.m1speed(E.altitudeband())
     turnrequirement = apturnrate.turnrequirement(
-        A.altitudeband(), A.speed(), A._maneuvertype
+        E.altitudeband(), E.speed(), E._maneuvertype
     )
     if turnrequirement == None:
         raise RuntimeError(
             "attempt to declare a turn rate tighter than allowed by the speed and altitude."
         )
     if turnrequirement >= 60:
-        A._maneuverrequiredfp = 1
-        A._maneuverfacingchange = turnrequirement
+        E._maneuverrequiredfp = 1
+        E._maneuverfacingchange = turnrequirement
     else:
-        A._maneuverrequiredfp = turnrequirement
-        A._maneuverfacingchange = 30
+        E._maneuverrequiredfp = turnrequirement
+        E._maneuverfacingchange = 30
 
     if apvariants.withvariant("use house rules"):
-        A._turnrateap -= turnrateap
-        if A._maneuversupersonic:
-            if apcapabilities.hasproperty(A, "PSSM"):
-                A._turnrateap -= 1.0
-            elif not apcapabilities.hasproperty(A, "GSSM"):
-                A._turnrateap -= 0.5
+        E._turnrateap -= turnrateap
+        if E._maneuversupersonic:
+            if apcapabilities.hasproperty(E, "PSSM"):
+                E._turnrateap -= 1.0
+            elif not apcapabilities.hasproperty(E, "GSSM"):
+                E._turnrateap -= 0.5
 
 
 ########################################
 
 
-def doturn(A, sense, facingchange, continuous):
+def doturn(E, sense, facingchange, continuous):
     """
     Turn in the specified sense and amount.
     """
 
     # See rule 8.1.3 and 8.2.3
-    if A._flighttype == "VC" or A._flighttype == "VD":
-        raise RuntimeError("attempt to turn while flight type is %s." % A._flighttype)
+    if E._flighttype == "VC" or E._flighttype == "VD":
+        raise RuntimeError("attempt to turn while flight type is %s." % E._flighttype)
 
     # See rule 7.1.
-    if A._maneuverfp < A._maneuverrequiredfp or facingchange > A._maneuverfacingchange:
+    if E._maneuverfp < E._maneuverrequiredfp or facingchange > E._maneuverfacingchange:
         raise RuntimeError("attempt to turn faster than the declared turn rate.")
 
     # See Hack's article in APJ 36
-    if A._turnmaneuvers == 0:
+    if E._turnmaneuvers == 0:
         sustainedfacingchanges = facingchange // 30 - 1
     else:
         sustainedfacingchanges = facingchange // 30
@@ -2251,54 +2251,54 @@ def doturn(A, sense, facingchange, continuous):
     if apvariants.withvariant("use house rules"):
         pass
     else:
-        if apcapabilities.hasproperty(A, "LBR"):
-            A._sustainedturnap -= sustainedfacingchanges * 0.5
-        elif apcapabilities.hasproperty(A, "HBR"):
-            A._sustainedturnap -= sustainedfacingchanges * 1.5
+        if apcapabilities.hasproperty(E, "LBR"):
+            E._sustainedturnap -= sustainedfacingchanges * 0.5
+        elif apcapabilities.hasproperty(E, "HBR"):
+            E._sustainedturnap -= sustainedfacingchanges * 1.5
         else:
-            A._sustainedturnap -= sustainedfacingchanges * 1.0
+            E._sustainedturnap -= sustainedfacingchanges * 1.0
 
-    A._turnmaneuvers += 1
+    E._turnmaneuvers += 1
 
-    A._moveturn(sense, facingchange)
+    E._moveturn(sense, facingchange)
 
 
 ########################################
 
 
-def dodeclareslide(A, sense):
+def dodeclareslide(E, sense):
 
     # See rule 8.1.3 and 8.2.3
-    if A._flighttype == "VC" or A._flighttype == "VD":
+    if E._flighttype == "VC" or E._flighttype == "VD":
         raise RuntimeError(
-            "attempt to declare slide while flight type is %s." % A._flighttype
+            "attempt to declare slide while flight type is %s." % E._flighttype
         )
 
     # See rules 13.1 and 13.2.
 
-    if A._slides == 1 and A.speed() <= 9.0:
+    if E._slides == 1 and E.speed() <= 9.0:
         raise RuntimeError("only one slide allowed per turn at low speed.")
-    if A._slides == 1 and A._fp - A._slidefp < 4:
+    if E._slides == 1 and E._fp - E._slidefp < 4:
         raise RuntimeError(
             "attempt to start a second slide without sufficient intermediate FPs."
         )
-    elif A._slides == 2:
+    elif E._slides == 2:
         raise RuntimeError("at most two slides allowed per turn.")
 
-    A._bank = None
-    A._maneuvertype = "SL"
-    A._maneuversense = sense
-    A._maneuverfacingchange = None
-    A._maneuverfp = 0
-    A._maneuversupersonic = A.speed() >= apspeed.m1speed(A.altitudeband())
+    E._bank = None
+    E._maneuvertype = "SL"
+    E._maneuversense = sense
+    E._maneuverfacingchange = None
+    E._maneuverfp = 0
+    E._maneuversupersonic = E.speed() >= apspeed.m1speed(E.altitudeband())
     # The requirement has +1 FP to account for the final H.
-    A._maneuverrequiredfp = 2 + extrapreparatoryhfp(A) + 1
+    E._maneuverrequiredfp = 2 + extrapreparatoryhfp(E) + 1
 
 
 ########################################
 
 
-def extrapreparatoryhfp(A):
+def extrapreparatoryhfp(E):
 
     # See rule 13.1.
 
@@ -2310,14 +2310,14 @@ def extrapreparatoryhfp(A):
         "VH": 2,
         "EH": 3,
         "UH": 4,
-    }[A.altitudeband()]
+    }[E.altitudeband()]
 
-    if A.speed() >= apspeed.m1speed(A.altitudeband()):
+    if E.speed() >= apspeed.m1speed(E.altitudeband()):
         extrapreparatoryfp += 1.0
 
     # See "Aircraft Damage Effects" in the Play Aids.
 
-    if A.damageatleast("2L"):
+    if E.damageatleast("2L"):
         extrapreparatoryfp += 1.0
 
     return extrapreparatoryfp
@@ -2326,360 +2326,360 @@ def extrapreparatoryhfp(A):
 ########################################
 
 
-def doslide(A, sense):
+def doslide(E, sense):
 
     # See rule 8.1.3 and 8.2.3
-    if A._flighttype == "VC" or A._flighttype == "VD":
-        raise RuntimeError("attempt to slide while flight type is %s." % A._flighttype)
+    if E._flighttype == "VC" or E._flighttype == "VD":
+        raise RuntimeError("attempt to slide while flight type is %s." % E._flighttype)
 
     # See rules 13.1 and 13.2.
 
-    if A._maneuverfp < A._maneuverrequiredfp:
+    if E._maneuverfp < E._maneuverrequiredfp:
         raise RuntimeError("attempt to slide without sufficient preparatory HFPs.")
 
     # Move.
-    A._moveslide(sense)
+    E._moveslide(sense)
 
     # See rule 13.2.
     if not apvariants.withvariant("use house rules"):
-        if A._slides >= 1:
-            A._othermaneuversap -= 1.0
+        if E._slides >= 1:
+            E._othermaneuversap -= 1.0
 
     # Keep track of the number of slides and the FP of the last slide.
-    A._slides += 1
-    A._slidefp = A._fp
+    E._slides += 1
+    E._slidefp = E._fp
 
     # Implicitly finish with wings level.
-    A._bank = None
+    E._bank = None
 
 
 ########################################
 
 
-def dodeclaredisplacementroll(A, sense):
+def dodeclaredisplacementroll(E, sense):
 
     # See rules 13.1 and 13.3.1.
 
-    if apcapabilities.hasproperty(A, "NRM"):
+    if apcapabilities.hasproperty(E, "NRM"):
         raise RuntimeError("aircraft cannot perform rolling maneuvers.")
-    if apcapabilities.rolldrag(A, "DR") == None:
+    if apcapabilities.rolldrag(E, "DR") == None:
         raise RuntimeError("aircraft cannot perform displacement rolls.")
 
     # See rules 8.1.2, 8.1.3, and 8.2.3.
-    if A._flighttype == "SC" or A._flighttype == "VC" or A._flighttype == "VD":
+    if E._flighttype == "SC" or E._flighttype == "VC" or E._flighttype == "VD":
         raise RuntimeError(
             "attempt to declare a displacement roll while flight type is %s."
-            % A._flighttype
+            % E._flighttype
         )
 
-    A._bank = None
-    A._maneuvertype = "DR"
-    A._maneuversense = sense
-    A._maneuverfacingchange = None
-    A._maneuverfp = 0
-    A._maneuversupersonic = A.speed() >= apspeed.m1speed(A.altitudeband())
+    E._bank = None
+    E._maneuvertype = "DR"
+    E._maneuversense = sense
+    E._maneuverfacingchange = None
+    E._maneuverfp = 0
+    E._maneuversupersonic = E.speed() >= apspeed.m1speed(E.altitudeband())
     # The requirement includes the FPs used to execute the roll.
-    A._maneuverrequiredfp = (
-        apcapabilities.rollhfp(A) + extrapreparatoryhfp(A) + rounddown(A.speed() / 3)
+    E._maneuverrequiredfp = (
+        apcapabilities.rollhfp(E) + extrapreparatoryhfp(E) + rounddown(E.speed() / 3)
     )
 
     # See rules 13.3.1 and 6.6.
     if apvariants.withvariant("use house rules"):
-        A._othermaneuversap -= apcapabilities.rolldrag(A, "DR")
-        if A._maneuversupersonic:
-            if apcapabilities.hasproperty(A, "PSSM"):
-                A._othermaneuversap -= 2.0
-            elif not apcapabilities.hasproperty(A, "GSSM"):
-                A._othermaneuversap -= 1.0
+        E._othermaneuversap -= apcapabilities.rolldrag(E, "DR")
+        if E._maneuversupersonic:
+            if apcapabilities.hasproperty(E, "PSSM"):
+                E._othermaneuversap -= 2.0
+            elif not apcapabilities.hasproperty(E, "GSSM"):
+                E._othermaneuversap -= 1.0
 
 
 ########################################
 
 
-def dodisplacementroll(A, sense):
+def dodisplacementroll(E, sense):
 
     # See rules 13.1 and 13.3.1.
 
-    if A._maneuverfp < A._maneuverrequiredfp:
+    if E._maneuverfp < E._maneuverrequiredfp:
         raise RuntimeError("attempt to roll without sufficient preparatory FPs.")
 
-    if not A._horizontal:
+    if not E._horizontal:
         raise RuntimeError("attempt to roll on a VFP.")
 
     # Move.
-    A._movedisplacementroll(sense)
+    E._movedisplacementroll(sense)
 
     # See rule 13.3.1.
     if not apvariants.withvariant("use house rules"):
-        A._othermaneuversap -= apcapabilities.rolldrag(A, "DR")
+        E._othermaneuversap -= apcapabilities.rolldrag(E, "DR")
 
     # See rule 6.6.
-    if A._maneuversupersonic:
-        if apcapabilities.hasproperty(A, "PSSM"):
-            A._othermaneuversap -= 2.0
-        elif not apcapabilities.hasproperty(A, "GSSM"):
-            A._othermaneuversap -= 1.0
+    if E._maneuversupersonic:
+        if apcapabilities.hasproperty(E, "PSSM"):
+            E._othermaneuversap -= 2.0
+        elif not apcapabilities.hasproperty(E, "GSSM"):
+            E._othermaneuversap -= 1.0
 
     # See rule 13.3.6.
     if not apvariants.withvariant("use house rules"):
-        if A._rollmaneuvers > 0:
-            A._othermaneuversap -= 1.0
-        A._rollmaneuvers += 1
+        if E._rollmaneuvers > 0:
+            E._othermaneuversap -= 1.0
+        E._rollmaneuvers += 1
 
     # Implicitly finish with wings level. This can be changed immediately by a bank.
-    A._bank = None
+    E._bank = None
 
 
 ########################################
 
 
-def dodeclarelagroll(A, sense):
+def dodeclarelagroll(E, sense):
 
     # See rule 13.3.2.
 
-    if apcapabilities.hasproperty(A, "NRM"):
+    if apcapabilities.hasproperty(E, "NRM"):
         raise RuntimeError("aircraft cannot perform rolling maneuvers.")
-    if apcapabilities.rolldrag(A, "LR") == None:
+    if apcapabilities.rolldrag(E, "LR") == None:
         raise RuntimeError("aircraft cannot perform lag rolls.")
 
     # See rules 8.1.2, 8.1.3, and 8.2.3.
-    if A._flighttype == "SC" or A._flighttype == "VC" or A._flighttype == "VD":
+    if E._flighttype == "SC" or E._flighttype == "VC" or E._flighttype == "VD":
         raise RuntimeError(
-            "attempt to declare a lag roll while flight type is %s." % A._flighttype
+            "attempt to declare a lag roll while flight type is %s." % E._flighttype
         )
 
-    A._bank = None
-    A._maneuvertype = "LR"
-    A._maneuversense = sense
-    A._maneuverfacingchange = None
-    A._maneuverfp = 0
-    A._maneuversupersonic = A.speed() >= apspeed.m1speed(A.altitudeband())
+    E._bank = None
+    E._maneuvertype = "LR"
+    E._maneuversense = sense
+    E._maneuverfacingchange = None
+    E._maneuverfp = 0
+    E._maneuversupersonic = E.speed() >= apspeed.m1speed(E.altitudeband())
     # The requirement includes the FPs used to execute the roll.
-    A._maneuverrequiredfp = (
-        apcapabilities.rollhfp(A) + extrapreparatoryhfp(A) + rounddown(A.speed() / 3)
+    E._maneuverrequiredfp = (
+        apcapabilities.rollhfp(E) + extrapreparatoryhfp(E) + rounddown(E.speed() / 3)
     )
 
     # See rules 13.3.1 and 6.6.
     if apvariants.withvariant("use house rules"):
-        A._othermaneuversap -= apcapabilities.rolldrag(A, "LR")
-        if A._maneuversupersonic:
-            if apcapabilities.hasproperty(A, "PSSM"):
-                A._othermaneuversap -= 2.0
-            elif not apcapabilities.hasproperty(A, "GSSM"):
-                A._othermaneuversap -= 1.0
+        E._othermaneuversap -= apcapabilities.rolldrag(E, "LR")
+        if E._maneuversupersonic:
+            if apcapabilities.hasproperty(E, "PSSM"):
+                E._othermaneuversap -= 2.0
+            elif not apcapabilities.hasproperty(E, "GSSM"):
+                E._othermaneuversap -= 1.0
 
 
 ########################################
 
 
-def dolagroll(A, sense):
+def dolagroll(E, sense):
 
     # See rules 13.1 and 13.3.2.
 
-    if A._maneuverfp < A._maneuverrequiredfp:
+    if E._maneuverfp < E._maneuverrequiredfp:
         raise RuntimeError("attempt to roll without sufficient preparatory FPs.")
 
-    if not A._horizontal:
+    if not E._horizontal:
         raise RuntimeError("attempt to roll on a VFP.")
 
     # Move.
-    A._movelagroll(sense)
+    E._movelagroll(sense)
 
     # See rule 13.3.1.
     if not apvariants.withvariant("use house rules"):
-        A._othermaneuversap -= apcapabilities.rolldrag(A, "LR")
+        E._othermaneuversap -= apcapabilities.rolldrag(E, "LR")
 
     # See rule 6.6.
-    if A._maneuversupersonic:
-        if apcapabilities.hasproperty(A, "PSSM"):
-            A._othermaneuversap -= 2.0
-        elif not apcapabilities.hasproperty(A, "GSSM"):
-            A._othermaneuversap -= 1.0
+    if E._maneuversupersonic:
+        if apcapabilities.hasproperty(E, "PSSM"):
+            E._othermaneuversap -= 2.0
+        elif not apcapabilities.hasproperty(E, "GSSM"):
+            E._othermaneuversap -= 1.0
 
     # See rule 13.3.6.
     if not apvariants.withvariant("use house rules"):
-        if A._rollmaneuvers > 0:
-            A._othermaneuversap -= 1.0
-        A._rollmaneuvers += 1
+        if E._rollmaneuvers > 0:
+            E._othermaneuversap -= 1.0
+        E._rollmaneuvers += 1
 
     # Implicitly finish with wings level. This can be changed immediately by a bank.
-    A._bank = None
+    E._bank = None
 
 
 ########################################
 
 
-def dodeclareverticalroll(A, sense):
+def dodeclareverticalroll(E, sense):
 
-    if apcapabilities.hasproperty(A, "NRM"):
+    if apcapabilities.hasproperty(E, "NRM"):
         raise RuntimeError("aircraft cannot perform rolling maneuvers.")
-    if A._verticalrolls == 1 and apcapabilities.hasproperty(A, "OVR"):
+    if E._verticalrolls == 1 and apcapabilities.hasproperty(E, "OVR"):
         raise RuntimeError("aircraft can only perform one vertical roll per turn.")
 
     # See rule 13.3.4.
-    if A._flighttype != "VC" and A._flighttype != "VD":
+    if E._flighttype != "VC" and E._flighttype != "VD":
         raise RuntimeError(
             "attempt to declare a vertical roll while flight type is %s."
-            % A._flighttype
+            % E._flighttype
         )
-    if A._previousflighttype == "LVL" and A._flighttype == "VC" and not A._lastfp:
+    if E._previousflighttype == "LVL" and E._flighttype == "VC" and not E._lastfp:
         raise RuntimeError(
             "attempt to declare a vertical roll in VC following LVL flight other than on the last FP."
         )
 
     # See rule 13.3.5.
-    if A._hrd and not A._lastfp:
+    if E._hrd and not E._lastfp:
         raise RuntimeError(
             "attempt to declare a vertical roll after HRD other than on the last FP."
         )
 
-    A._bank = None
-    A._maneuvertype = "VR"
-    A._maneuversense = sense
-    A._maneuverfacingchange = None
-    A._maneuverfp = 0
-    A._maneuversupersonic = A.speed() >= apspeed.m1speed(A.altitudeband())
-    A._maneuverrequiredfp = 1
+    E._bank = None
+    E._maneuvertype = "VR"
+    E._maneuversense = sense
+    E._maneuverfacingchange = None
+    E._maneuverfp = 0
+    E._maneuversupersonic = E.speed() >= apspeed.m1speed(E.altitudeband())
+    E._maneuverrequiredfp = 1
 
     # See rules 6.6 and 13.3.6
     if apvariants.withvariant("use house rules"):
-        A._othermaneuversap -= apcapabilities.rolldrag(A, "VR")
-        if A._maneuversupersonic:
-            if apcapabilities.hasproperty(A, "PSSM"):
-                A._othermaneuversap -= 2.0
-            elif not apcapabilities.hasproperty(A, "GSSM"):
-                A._othermaneuversap -= 1.0
+        E._othermaneuversap -= apcapabilities.rolldrag(E, "VR")
+        if E._maneuversupersonic:
+            if apcapabilities.hasproperty(E, "PSSM"):
+                E._othermaneuversap -= 2.0
+            elif not apcapabilities.hasproperty(E, "GSSM"):
+                E._othermaneuversap -= 1.0
 
 
 ########################################
 
 
-def doverticalroll(A, sense, facingchange, shift):
+def doverticalroll(E, sense, facingchange, shift):
 
-    if A._maneuverfp < A._maneuverrequiredfp:
+    if E._maneuverfp < E._maneuverrequiredfp:
         raise RuntimeError("attempt to roll without sufficient preparatory HFPs.")
 
     # See rule 13.3.4.
-    if apcapabilities.hasproperty(A, "LRR") and facingchange > 90:
+    if apcapabilities.hasproperty(E, "LRR") and facingchange > 90:
         raise RuntimeError(
             "attempt to roll vertically by more than 90 degrees in LRR aircraft."
         )
 
     if not apvariants.withvariant("use house rules"):
-        A._othermaneuversap -= apcapabilities.rolldrag(A, "VR")
+        E._othermaneuversap -= apcapabilities.rolldrag(E, "VR")
 
     # See rule 13.3.6
     if not apvariants.withvariant("use house rules"):
-        if A._rollmaneuvers > 0:
-            A._othermaneuversap -= 1
-    A._rollmaneuvers += 1
-    A._verticalrolls += 1
+        if E._rollmaneuvers > 0:
+            E._othermaneuversap -= 1
+    E._rollmaneuvers += 1
+    E._verticalrolls += 1
 
     # See rule 6.6.
     if not apvariants.withvariant("use house rules"):
-        if A._maneuversupersonic:
-            if apcapabilities.hasproperty(A, "PSSM"):
-                A._othermaneuversap -= 2.0
-            elif not apcapabilities.hasproperty(A, "GSSM"):
-                A._othermaneuversap -= 1.0
+        if E._maneuversupersonic:
+            if apcapabilities.hasproperty(E, "PSSM"):
+                E._othermaneuversap -= 2.0
+            elif not apcapabilities.hasproperty(E, "GSSM"):
+                E._othermaneuversap -= 1.0
 
     # Move.
-    A._moveverticalroll(sense, facingchange, shift)
+    E._moveverticalroll(sense, facingchange, shift)
 
 
 ########################################
 
 
-def dodeclaremaneuver(A, maneuvertype, sense):
+def dodeclaremaneuver(E, maneuvertype, sense):
 
-    if A._hasdeclaredamaneuver:
+    if E._hasdeclaredamaneuver:
         raise RuntimeError("attempt to declare a second maneuver.")
 
     if maneuvertype == "SL":
-        dodeclareslide(A, sense)
+        dodeclareslide(E, sense)
     elif maneuvertype == "DR":
-        dodeclaredisplacementroll(A, sense)
+        dodeclaredisplacementroll(E, sense)
     elif maneuvertype == "LR":
-        dodeclarelagroll(A, sense)
+        dodeclarelagroll(E, sense)
     elif maneuvertype == "VR":
-        dodeclareverticalroll(A, sense)
+        dodeclareverticalroll(E, sense)
     else:
-        dodeclareturn(A, maneuvertype, sense)
+        dodeclareturn(E, maneuvertype, sense)
 
-    A._logevent("declared %s." % A.maneuver())
-    A._hasdeclaredamaneuver = True
+    E._logevent("declared %s." % E.maneuver())
+    E._hasdeclaredamaneuver = True
 
 
 ########################################
 
 
-def domaneuver(A, sense, facingchange, shift, continuous):
+def domaneuver(E, sense, facingchange, shift, continuous):
 
-    if A._maneuvertype == None:
+    if E._maneuvertype == None:
         raise RuntimeError("attempt to maneuver without a declaration.")
 
-    if A._maneuversense != sense:
+    if E._maneuversense != sense:
         raise RuntimeError("attempt to maneuver against the sense of the declaration.")
 
-    if A._maneuvertype == "SL":
+    if E._maneuvertype == "SL":
         if facingchange != None:
             raise RuntimeError("invalid action for a slide.")
-        doslide(A, sense)
-    elif A._maneuvertype == "DR":
+        doslide(E, sense)
+    elif E._maneuvertype == "DR":
         if facingchange != None:
             raise RuntimeError("invalid action for a displacement roll.")
-        dodisplacementroll(A, sense)
-    elif A._maneuvertype == "LR":
+        dodisplacementroll(E, sense)
+    elif E._maneuvertype == "LR":
         if facingchange != None:
             raise RuntimeError("invalid action for a lag roll.")
-        dolagroll(A, sense)
-    elif A._maneuvertype == "VR":
+        dolagroll(E, sense)
+    elif E._maneuvertype == "VR":
         if facingchange == None:
             facingchange = 30
-        doverticalroll(A, sense, facingchange, shift)
+        doverticalroll(E, sense, facingchange, shift)
     else:
         if facingchange == None:
             facingchange = 30
-        doturn(A, sense, facingchange, continuous)
+        doturn(E, sense, facingchange, continuous)
 
-    A._hasmaneuvered = True
-    A._maneuverfp = 0
+    E._hasmaneuvered = True
+    E._maneuverfp = 0
 
     if not continuous:
-        A._maneuvertype = None
-        A._maneuversense = None
-        A._maneuverfacingchange = None
-        A._maneuverrequiredfp = 0
-        A._maneuversupersonic = False
+        E._maneuvertype = None
+        E._maneuversense = None
+        E._maneuverfacingchange = None
+        E._maneuverrequiredfp = 0
+        E._maneuversupersonic = False
     else:
-        A._hasdeclaredamaneuver = False
-        dodeclaremaneuver(A, A._maneuvertype, A._maneuversense)
+        E._hasdeclaredamaneuver = False
+        dodeclaremaneuver(E, E._maneuvertype, E._maneuversense)
 
 
 ########################################
 
 
-def domaneuveringdeparture(A, sense, facingchange):
+def domaneuveringdeparture(E, sense, facingchange):
 
     # Do the first facing change.
-    A._moveturn(sense, 30)
-    A._extendpath()
+    E._moveturn(sense, 30)
+    E._extendpath()
     facingchange -= 30
 
     # Shift.
 
-    shift = int((A._maxfp - A._fp) / 2)
+    shift = int((E._maxfp - E._fp) / 2)
     for i in range(0, shift):
-        A._moveforward()
-        A._extendpath()
-        A._checkforterraincollision()
-        A._checkforleavingmap()
-        if A.killed() or A.removed():
+        E._moveforward()
+        E._extendpath()
+        E._checkforterraincollision()
+        E._checkforleavingmap()
+        if E.killed() or E.removed():
             return
 
     # Do any remaining facing changes.
-    A._moveturn(sense, facingchange)
-    A._extendpath()
+    E._moveturn(sense, facingchange)
+    E._extendpath()
 
 
 ################################################################################
