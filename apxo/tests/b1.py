@@ -12,8 +12,8 @@ endtestsetup()
 
 startgameturn()
 A1.move("LVL", "M", "WL/H")
-asserterror("unexpected WL action in move prolog.")
+asserterror("unexpected WL action in prolog of 'WL/H'.")
 
 startgameturn()
 A1.move("LVL", "M", "H/TTR")
-asserterror("unexpected TTR action in move epilog.")
+asserterror("unexpected TTR action in epilog of 'H/TTR'.")

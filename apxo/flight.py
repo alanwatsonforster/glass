@@ -1267,6 +1267,44 @@ def domove(E, move, actiondispatchlist, afterFP, aftermove):
     """
     Carry out a flight move.
     """
+    
+    ####################
+
+    def doactions(E, actions, selectedactiontype):
+        """
+        Carry out the actions in an move that match the action type.
+        """
+    
+        while actions != []:
+    
+            actioncode = actions[0]
+    
+            for action in actiondispatchlist:
+    
+                actiontype = action[1]
+                actionprocedure = action[2]
+    
+                if actioncode == action[0]:
+                    break
+    
+            if selectedactiontype == "prolog" and actiontype == "epilog":
+                raise RuntimeError("unexpected %s action in prolog of %r." % (actioncode, move))
+            if selectedactiontype == "epilog" and actiontype == "prolog":
+                raise RuntimeError("unexpected %s action in epilog of %r." % (actioncode, move))
+    
+            if selectedactiontype != actiontype:
+                break
+    
+            if actionprocedure is None:
+                break
+    
+            actions = actions[1:]
+    
+            actionprocedure(E)
+    
+        return actions
+
+    ####################
 
     E._log1("FP %d" % (E._fp + 1), move)
 
@@ -1288,14 +1326,15 @@ def domove(E, move, actiondispatchlist, afterFP, aftermove):
 
     try:
 
-        remainingmove = move
+        actions = move.split("/")
+        remainingactions = actions
 
-        remainingmove = doactions(
-            E, remainingmove, actiondispatchlist, "maneuvering departure"
+        remainingactions = doactions(
+            E, remainingactions, "maneuvering departure"
         )
-        if remainingmove != move:
+        if remainingactions != actions:
 
-            if remainingmove != "":
+            if remainingactions != []:
                 raise RuntimeError("%r is not a valid move." % move)
 
             E._maneuveringdeparture = True
@@ -1316,10 +1355,10 @@ def domove(E, move, actiondispatchlist, afterFP, aftermove):
         E._hasrolled = False
         E._hasbanked = False
 
-        remainingmove = doactions(E, remainingmove, actiondispatchlist, "prolog")
+        remainingactions = doactions(E, remainingactions, "prolog")
 
         fp = E._fp
-        remainingmove = doactions(E, remainingmove, actiondispatchlist, "FP")
+        remainingactions = doactions(E, remainingactions, "FP")
         if E._fp == fp:
             raise RuntimeError(
                 "%r is not a valid move as it does not expend an FP." % move
@@ -1355,14 +1394,14 @@ def domove(E, move, actiondispatchlist, afterFP, aftermove):
         if afterFP is not None:
             afterFP(E)
 
-        remainingmove = doactions(E, remainingmove, actiondispatchlist, "epilog")
+        remainingactions = doactions(E, remainingactions, "epilog")
 
         if E._hasbanked and E._hasmaneuvered and not E._hasrolled:
             raise RuntimeError(
                 "attempt to bank immediately after a maneuver that is not a roll."
             )
 
-        if remainingmove != "":
+        if remainingactions != []:
             raise RuntimeError("%r is not a valid move." % move)
 
         assert aphex.isvalid(E.x(), E.y(), facing=E.facing())
@@ -1405,39 +1444,6 @@ def domove(E, move, actiondispatchlist, afterFP, aftermove):
 ################################################################################
 
 
-def doactions(E, move, actiondispatchlist, selectedactiontype):
-    """
-    Carry out the actions in an move that match the action type.
-    """
-
-    while move != "":
-
-        actioncode = move.split("/", maxsplit=1)[0]
-
-        for action in actiondispatchlist:
-
-            actiontype = action[1]
-            actionprocedure = action[2]
-
-            if actioncode == action[0]:
-                break
-
-        if selectedactiontype == "prolog" and actiontype == "epilog":
-            raise RuntimeError("unexpected %s action in move prolog." % actioncode)
-        if selectedactiontype == "epilog" and actiontype == "prolog":
-            raise RuntimeError("unexpected %s action in move epilog." % actioncode)
-
-        if selectedactiontype != actiontype:
-            break
-
-        if actionprocedure is None:
-            break
-
-        move = "/".join(move.split("/")[1:])
-
-        actionprocedure(E)
-
-    return move
 
 
 ################################################################################
