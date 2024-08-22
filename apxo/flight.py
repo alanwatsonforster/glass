@@ -1144,11 +1144,13 @@ def _continuenormalflight(A, moves):
 def _continuemissileflight(M, moves):
 
     actiondispatchlist = [
-
         ["H", "FP", lambda A: dohorizontal(A, "H")],
         ["HD", "FP", lambda A: dohorizontal(A, "HD")],
         ["HD1", "FP", lambda A: dohorizontal(A, "HD")],
-
+        ["C", "FP", lambda A: doclimb(A, 1)],
+        ["C1", "FP", lambda A: doclimb(A, 1)],
+        ["CC", "FP", lambda A: doclimb(A, 2)],
+        ["C2", "FP", lambda A: doclimb(A, 2)],
         ["SLL", "prolog", lambda A: dodeclaremaneuver(A, "SL", "L")],
         ["SLR", "prolog", lambda A: dodeclaremaneuver(A, "SL", "R")],
         ["VRL", "prolog", lambda A: dodeclaremaneuver(A, "VR", "L")],
@@ -1187,11 +1189,6 @@ def _continuemissileflight(M, moves):
         ["RRR", "epilog", lambda A: domaneuver(A, "R", 90, True, False)],
         ["RR", "epilog", lambda A: domaneuver(A, "R", 60, True, False)],
         ["R", "epilog", lambda A: domaneuver(A, "R", None, True, False)],
-        ["C1", "FP", lambda A: doclimb(A, 1)],
-        ["C2", "FP", lambda A: doclimb(A, 2)],
-        ["CCC", "FP", lambda A: doclimb(A, 3)],
-        ["CC", "FP", lambda A: doclimb(A, 2)],
-        ["C", "FP", lambda A: doclimb(A, 1)],
         ["D1", "FP", lambda A: dodive(A, 1)],
         ["D2", "FP", lambda A: dodive(A, 2)],
         ["D3", "FP", lambda A: dodive(A, 3)],
@@ -1989,8 +1986,6 @@ def doclimb(E, altitudechange):
 
     def determinealtitudechange(altitudechange):
 
-        assert altitudechange == 1 or altitudechange == 2 or altitudechange == 3
-
         climbcapability = E._effectiveclimbcapability
 
         if E._flighttype == "SP":
@@ -2026,7 +2021,7 @@ def doclimb(E, altitudechange):
             if altitudechange != 1 and altitudechange != 2:
                 raise RuntimeError("invalid altitude change in climb.")
 
-        else:
+        elif E._flighttype != "MS":
 
             # See rule 8.0.
             raise RuntimeError(
@@ -2035,10 +2030,10 @@ def doclimb(E, altitudechange):
 
         return altitudechange
 
-    if E._flighttype != "SP" and E._hfp < E._mininitialhfp:
-        raise RuntimeError("insufficient initial HFPs.")
-
-    altitudechange = determinealtitudechange(altitudechange)
+    if E.isaircraft():
+        if E._flighttype != "SP" and E._hfp < E._mininitialhfp:
+            raise RuntimeError("insufficient initial HFPs.")
+        altitudechange = determinealtitudechange(altitudechange)
 
     E._vertical = True
     E._fp += 1
