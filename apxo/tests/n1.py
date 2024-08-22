@@ -468,5 +468,4 @@ A1a.move("C,C,C,C,C,C,C,C,C,C,C,C,C,C")
 A1a._assert("A2-2024       N    24", 12.0)
 
 
-
 endfile(__file__)

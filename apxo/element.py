@@ -297,7 +297,7 @@ class element:
             return apaltitude.terrainaltitude(self.x(), self.y())
         else:
             return self._altitude
-            
+
     def startaltitude(self):
         return self._startaltitude
 
