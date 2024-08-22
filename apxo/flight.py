@@ -27,8 +27,8 @@ def _move(E, flighttype, power, moves, **kwargs):
 
     _checkflighttype(E)
 
-    E._logstart("flight type    is %s." % E._flighttype)
-    E._logstart("altitude band  is %s." % E.altitudeband())
+    E._logstart("flight type      is %s." % E._flighttype)
+    E._logstart("altitude band    is %s." % E.altitudeband())
     E._logevent("speed of sound is %.1f." % apspeed.m1speed(E.altitudeband()))
 
     if E.isaircraft():
@@ -421,9 +421,6 @@ def _startmoveaircraft(A):
     # This flags whether a maneuvering departure has occured.
 
     A._maneuveringdeparture = False
-
-    A._logstart("configuration is %s." % A._configuration)
-    A._logstart("damage        is %s." % A.damage())
 
     if A._flighttype == "ST":
         _startmovestalledflight(A)

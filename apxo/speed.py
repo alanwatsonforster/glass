@@ -88,6 +88,7 @@ def _startaircraftspeed(
     start of a move.
     """
 
+
     previouspowersetting = A._powersetting
 
     # These account for the APs associated with power, speed, speed-brakes,
@@ -111,30 +112,49 @@ def _startaircraftspeed(
     A._maxturnrate = None
     A._effectiveclimbcapability = None
 
-    def reportspeed():
-        A._logstart("speed         is %.1f." % speed)
-        if speed < ltspeed(A.altitudeband()):
-            A._logevent("speed is subsonic and below low transsonic.")
-        elif speed == ltspeed(A.altitudeband()):
-            A._logevent("speed is low transonic.")
-        elif speed == htspeed(A.altitudeband()):
-            A._logevent("speed is high transonic.")
-        else:
-            A._logevent("speed is supersonic.")
+    ############################################################################
+
+    # Determine the speed.
 
     if A._flighttype == "SP":
         speed = power
-        reportspeed()
         A._setspeed(speed)
+        reportspeed()
         A._powersetting = ""
         A._powerap = 0
         A._speedap = 0
-        return
-
-    ############################################################################
 
     speed = A.speed()
 
+    # See rule 6.4 on recovery from departed flight.
+
+    if A._previousflighttype == "DP" and A._flighttype != "DP" and speed < minspeed:
+        speed = minspeed
+        A._logevent(
+            "increasing speed to %.1f after recovering from departed flight." % minspeed
+        )
+
+    A._logstart("speed            is %.1f." % speed)
+    
+    if speed < ltspeed(A.altitudeband()):
+        A._logevent("speed is subsonic and below low transsonic.")
+    elif speed == ltspeed(A.altitudeband()):
+        A._logevent("speed is low transonic.")
+    elif speed == htspeed(A.altitudeband()):
+        A._logevent("speed is high transonic.")
+    else:
+        A._logevent("speed is supersonic.")
+
+    ############################################################################
+
+    A._logstart("configuration    is %s." % A._configuration)
+    A._logstart("damage           is %s." % A.damage())
+        
+    ############################################################################
+
+    if A._flighttype == "SP":
+        return
+    
     ############################################################################
 
     # See rule 29.1.
@@ -256,7 +276,7 @@ def _startaircraftspeed(
             % (plural(power, "1 AP", "%s APs" % power))
         )
 
-    A._logstart("power setting is %s." % powersetting)
+    A._logstart("power setting    is %s." % powersetting)
 
     # See rule 8.4. The reduction was done above, but we report it here.
     if (
@@ -317,10 +337,10 @@ def _startaircraftspeed(
         # 1/2 of APs, quantized in 1/4 units, rounding up.
         powerap = math.ceil(powerap / 2 * 4) / 4
 
-    A._logevent("%s power (%.2f AP)." % (powersetting, powerap))
+    A._logevent("%s power (%+.1f AP)." % (powersetting, powerap))
 
     ############################################################################
-
+    
     # Warn of the risk of flame-outs.
 
     # See rules 6.1, 6.7, and 8.5.
@@ -353,20 +373,6 @@ def _startaircraftspeed(
             "%s flame-out as the speed is supersonic and the power setting is %s."
             % (plural(apcapabilities.engines(A), "engine", "engines"), powersetting)
         )
-
-    ############################################################################
-
-    # Determine the speed.
-
-    # See rule 6.4 on recovery from departed flight.
-
-    if A._previousflighttype == "DP" and A._flighttype != "DP" and speed < minspeed:
-        speed = minspeed
-        A._logevent(
-            "increasing speed to %.1f after recovering from departed flight." % minspeed
-        )
-
-    reportspeed()
 
     ############################################################################
 
@@ -749,12 +755,12 @@ def _startmissilespeed(M):
         }
         return table[altitudeband][min(flightgameturn, 6) - 1]
 
-    M._logstart("start speed   is %.1f." % M.speed())
+    M._logstart("start speed      is %.1f." % M.speed())
 
     if M.speed() > missilemaxspeed(M.altitudeband()):
         M._logevent("reducing speed to maximum for altitude band.")
         M.setspeed(_missilemaxspeed(M.altitudeband()))
-        M._logstart("start speed   is %.1f." % M.speed())
+        M._logstart("start speed      is %.1f." % M.speed())
 
     if M.speed() < missilemaneuverspeed(M.altitudeband()):
         M._logevent("cannot maneuver.")
@@ -767,7 +773,7 @@ def _startmissilespeed(M):
     )
     M._setspeed(M._maxfp)
 
-    M._logstart("average speed is %.1f." % M.speed())
+    M._logstart("average speed    is %.1f." % M.speed())
     if M.speed() < m1speed(M.altitudeband()):
         M._logevent("speed is subsonic.")
     else:
