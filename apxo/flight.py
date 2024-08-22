@@ -38,7 +38,7 @@ def _move(E, flighttype, power, moves, **kwargs):
 
     _startmove(E)
 
-    E._logposition("start")
+    E._logpositionandmaneuver("start")
 
     _continuemove(E, moves)
 
