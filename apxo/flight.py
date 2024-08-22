@@ -936,6 +936,8 @@ def _continuemove(E, moves):
 
 def _continuestalledflight(A, moves):
 
+    A._logaction("", moves)
+
     if moves != "ST":
         raise RuntimeError("invalid moves %r for stalled flight." % moves)
 
@@ -978,6 +980,8 @@ def _continuedepartedflight(A, moves):
     # - "R30", "R60", "R90", ..., "R300"
     # - "R", "RR", and "RRR" which as usual mean "R30", "R60", and "R90"
     # - the "L" equivalents.
+
+    A._logaction("", moves)
 
     if moves[0:2] == "MD":
         maneuveringdeparture = True
