@@ -628,12 +628,12 @@ def _endaircraftspeed(A):
     if ap < 0:
         aprate = -2.0
     elif apcapabilities.hasproperty(A, "RA"):
-        if A.speed() >= m1speed(A.altitudeband()):
+        if A.speed() >= m1speed(A.startaltitudeband()):
             aprate = +2.0
         else:
             aprate = +1.5
     else:
-        if A.speed() >= m1speed(A.altitudeband()):
+        if A.speed() >= m1speed(A.startaltitudeband()):
             aprate = +3.0
         else:
             aprate = +2.0
