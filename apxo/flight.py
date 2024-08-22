@@ -976,10 +976,6 @@ def _endmove(E):
         E._logend("has been killed.")
         return
 
-    if E.removed():
-        E._logend("has been removed.")
-        return
-
     if E._flighttype == "MS":
         _endmissileflight(E)
     else:
@@ -1256,7 +1252,7 @@ def domoves(E, moves, actiondispatchlist):
         return
 
     for move in re.split(r"[, ]", moves):
-        if not E.killed() and not E.removed():
+        if not E.killed():
             domove(E, move, actiondispatchlist)
 
 
@@ -1437,10 +1433,10 @@ def domove(E, move, actiondispatchlist):
         elif not previoussupersonic and E._supersonic:
             E._logevent("speed is now supersonic.")
 
-    if E.killed() or E.removed():
+    E._checkforterraincollision()
+    if E.killed():
         return
 
-    E._checkforterraincollision()
     E._checkforleavingmap()
 
 ################################################################################
