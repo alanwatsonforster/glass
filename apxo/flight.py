@@ -2086,20 +2086,17 @@ def _dohorizontal(E, action):
     Move horizontally.
     """
 
-    altitudechange = 0
-
     if E._maneuvertype == "VR":
         raise RuntimeError("attempt to declare a vertical roll during an HFP.")
 
     if action == "HD":
 
-        if E._flighttype == "LVL" or E._flighttype == "SP" or E._flighttype == "MS":
-            altitudechange = 1
-        else:
+        if E._flighttype != "LVL" and E._flighttype != "SP" and E._flighttype != "MS":
             raise RuntimeError(
                 "%r is not a valid action when the flight type is %s."
                 % (action, E._flighttype)
             )
+        altitudechange = 1
 
     elif action == "HU":
 
@@ -2122,13 +2119,19 @@ def _dohorizontal(E, action):
             altitudechange = 1
         elif E._unloadedhfp == math.floor(E._maxfp):
             altitudechange = 1
+        else:
+            altitudechange = 0
+
+    else:
+
+        altitudechange = 0
+
+    E._movedive(altitudechange)
+    E._moveforward()
 
     E._horizontal = True
     E._fp += 1
     E._hfp += 1
-
-    E._movedive(altitudechange)
-    E._moveforward()
 
 
 ########################################
@@ -2139,23 +2142,36 @@ def _doclimb(E, altitudechange):
     Climb.
     """
 
-    def determinealtitudechange(altitudechange):
+    if E.isaircraft():
 
-        climbcapability = E._effectiveclimbcapability
+        if (
+            E._flighttype == "LVL"
+            or E._flighttype == "SD"
+            or E._flighttype == "UD"
+            or E._flighttype == "VD"
+        ):
 
-        if E._flighttype == "SP":
+            raise RuntimeError(
+                "attempt to climb while flight type is %s." % E._flighttype
+            )
+
+        elif E._flighttype == "SP":
 
             if altitudechange == 1:
-                altitudechange = climbcapability
+                altitudechange = E._effectiveclimbcapability
+
+        elif E._hfp < E._mininitialhfp:
+
+            raise RuntimeError("insufficient initial HFPs.")
 
         elif E._flighttype == "ZC":
 
             # See rule 8.1.1.
             if altitudechange == 2:
-                if climbcapability <= 2.0:
+                if E._effectiveclimbcapability <= 2.0:
                     raise RuntimeError("invalid altitude change in climb.")
             elif altitudechange == 3:
-                if climbcapability < 6.0:
+                if E._effectiveclimbcapability < 6.0:
                     raise RuntimeError("invalid altitude change in climb.")
                 if E._usedsuperclimb:
                     raise RuntimeError("invalid altitude change in climb.")
@@ -2164,11 +2180,11 @@ def _doclimb(E, altitudechange):
         elif E._flighttype == "SC":
 
             # See rule 8.1.2.
-            if climbcapability < 2.0 and altitudechange == 2:
+            if E._effectiveclimbcapability < 2.0 and altitudechange == 2:
                 raise RuntimeError("invalid altitude change in climb.")
-            if E._vfp == 0 and climbcapability % 1 != 0:
+            if E._vfp == 0 and E._effectiveclimbcapability % 1 != 0:
                 # First VFP with fractional climb capability.
-                altitudechange = climbcapability % 1
+                altitudechange = E._effectiveclimbcapability % 1
 
         elif E._flighttype == "VC":
 
@@ -2176,25 +2192,11 @@ def _doclimb(E, altitudechange):
             if altitudechange != 1 and altitudechange != 2:
                 raise RuntimeError("invalid altitude change in climb.")
 
-        elif E._flighttype != "MS":
-
-            # See rule 8.0.
-            raise RuntimeError(
-                "attempt to climb while flight type is %s." % E._flighttype
-            )
-
-        return altitudechange
-
-    if E.isaircraft():
-        if E._flighttype != "SP" and E._hfp < E._mininitialhfp:
-            raise RuntimeError("insufficient initial HFPs.")
-        altitudechange = determinealtitudechange(altitudechange)
+    E._moveclimb(altitudechange)
 
     E._vertical = True
     E._fp += 1
     E._vfp += 1
-
-    E._moveclimb(altitudechange)
 
     # See rule 8.5.
     if E._flighttype == "SC" and E.altitude() > apcapabilities.ceiling(E):
@@ -2297,13 +2299,12 @@ def _dobank(E, sense):
             )
 
     E._bank = sense
+    E._hasbanked = True
     if _isturn(E._maneuvertype):
         E._maneuvertype = None
         E._maneuversense = None
         E._maneuverfacingchange = None
         E._maneuverfp = 0
-
-    E._hasbanked = True
 
 
 ########################################
@@ -2361,25 +2362,35 @@ def _dodeclareturn(E, turnrate, sense):
                 max(turnrates.index(turnrate), turnrates.index(E._maxturnrate))
             ]
 
-        E._bank = sense
-        E._maneuvertype = turnrate
-        E._maneuversense = sense
-        E._maneuverfp = 0
-        E._maneuversupersonic = E.speed() >= apspeed.m1speed(E.altitudeband())
         turnrequirement = apturnrate.turnrequirement(
-            E.altitudeband(), E.speed(), E._maneuvertype
+            E.altitudeband(), E.speed(), turnrate
         )
-        if turnrequirement == None:
-            raise RuntimeError(
-                "attempt to declare a turn rate tighter than allowed by the speed and altitude."
-            )
-        if turnrequirement >= 60:
-            E._maneuverrequiredfp = 1
-            E._maneuverfacingchange = turnrequirement
-        else:
-            E._maneuverrequiredfp = turnrequirement
-            E._maneuverfacingchange = 30
 
+    else:
+
+        baseturnrate, divisor = E.turnrate()
+        turnrequirement = apturnrate.turnrequirement(
+            E.altitudeband(), E.speed(), baseturnrate, divisor=divisor
+        )
+
+    if turnrequirement == None:
+        raise RuntimeError(
+            "attempt to declare a turn rate tighter than allowed by the speed and altitude."
+        )
+
+    E._bank = sense
+    E._maneuvertype = turnrate
+    E._maneuversense = sense
+    E._maneuverfp = 0
+    E._maneuversupersonic = E.speed() >= apspeed.m1speed(E.altitudeband())
+    if turnrequirement >= 60:
+        E._maneuverrequiredfp = 1
+        E._maneuverfacingchange = turnrequirement
+    else:
+        E._maneuverrequiredfp = turnrequirement
+        E._maneuverfacingchange = 30
+
+    if E.isaircraft():
         if apvariants.withvariant("use house rules"):
             E._turnrateap -= turnrateap
             if E._maneuversupersonic:
@@ -2387,25 +2398,6 @@ def _dodeclareturn(E, turnrate, sense):
                     E._turnrateap -= 1.0
                 elif not apcapabilities.hasproperty(E, "GSSM"):
                     E._turnrateap -= 0.5
-
-    else:
-
-        E._maneuvertype = turnrate
-        E._maneuversense = sense
-
-        baseturnrate, divisor = E.turnrate()
-        turnrequirement = apturnrate.turnrequirement(
-            E.altitudeband(), E.speed(), baseturnrate, divisor=divisor
-        )
-        if turnrequirement == None:
-            raise RuntimeError(
-                "attempt to declare a turn rate tighter than allowed by the speed and altitude."
-            )
-
-        E._maneuverfp = 0
-        E._maneuversupersonic = E.speed() >= apspeed.m1speed(E.altitudeband())
-        E._maneuverrequiredfp = turnrequirement
-        E._maneuverfacingchange = 30
 
 
 ########################################
