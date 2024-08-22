@@ -1151,12 +1151,20 @@ def _continuemissileflight(M, moves):
         ["C1", "FP", lambda A: doclimb(A, 1)],
         ["CC", "FP", lambda A: doclimb(A, 2)],
         ["C2", "FP", lambda A: doclimb(A, 2)],
+        ["D", "FP", lambda A: dodive(A, 1)],
+        ["D1", "FP", lambda A: dodive(A, 1)],
+        ["DD", "FP", lambda A: dodive(A, 2)],
+        ["D2", "FP", lambda A: dodive(A, 2)],
+        ["DDD", "FP", lambda A: dodive(A, 3)],
+        ["D3", "FP", lambda A: dodive(A, 3)],
+
+        ["TL", "prolog", lambda A: dodeclaremaneuver(A, "T", "L")],
+        ["TR", "prolog", lambda A: dodeclaremaneuver(A, "T", "R")],
+
         ["SLL", "prolog", lambda A: dodeclaremaneuver(A, "SL", "L")],
         ["SLR", "prolog", lambda A: dodeclaremaneuver(A, "SL", "R")],
         ["VRL", "prolog", lambda A: dodeclaremaneuver(A, "VR", "L")],
         ["VRR", "prolog", lambda A: dodeclaremaneuver(A, "VR", "R")],
-        ["TL", "prolog", lambda A: dodeclaremaneuver(A, "MS", "L")],
-        ["TR", "prolog", lambda A: dodeclaremaneuver(A, "MS", "R")],
         ["L90+", "epilog", lambda A: domaneuver(A, "L", 90, True, True)],
         ["L60+", "epilog", lambda A: domaneuver(A, "L", 60, True, True)],
         ["L30+", "epilog", lambda A: domaneuver(A, "L", 30, True, True)],
@@ -1189,12 +1197,6 @@ def _continuemissileflight(M, moves):
         ["RRR", "epilog", lambda A: domaneuver(A, "R", 90, True, False)],
         ["RR", "epilog", lambda A: domaneuver(A, "R", 60, True, False)],
         ["R", "epilog", lambda A: domaneuver(A, "R", None, True, False)],
-        ["D1", "FP", lambda A: dodive(A, 1)],
-        ["D2", "FP", lambda A: dodive(A, 2)],
-        ["D3", "FP", lambda A: dodive(A, 3)],
-        ["DDD", "FP", lambda A: dodive(A, 3)],
-        ["DD", "FP", lambda A: dodive(A, 2)],
-        ["D", "FP", lambda A: dodive(A, 1)],
         ["", "", None],
     ]
 
@@ -1874,7 +1876,7 @@ def _isturn(maneuvertype):
     Return True if the maneuver type is a turn. Otherwise False.
     """
 
-    return maneuvertype in ["EZ", "TT", "HT", "BT", "ET"]
+    return maneuvertype in ["EZ", "TT", "HT", "BT", "ET", "T"]
 
 
 def _isroll(maneuvertype):
@@ -2150,77 +2152,88 @@ def dodeclareturn(E, turnrate, sense):
     """
     Declare the start of turn in the specified direction and rate.
     """
+    
+    if E.isaircraft():
 
-    # See rule 8.1.3 and 8.2.3
-    if E._flighttype == "VC" or E._flighttype == "VD":
-        raise RuntimeError(
-            "attempt to declare turn while flight type is %s." % E._flighttype
-        )
-
-    # See rule 7.1.
-
-    # Check the bank. See rule 7.4.
-    if apcapabilities.hasproperty(E, "LRR"):
-        if E._bank != sense:
+        # See rule 8.1.3 and 8.2.3
+        if E._flighttype == "VC" or E._flighttype == "VD":
             raise RuntimeError(
-                "attempt to declare a turn to %s while not banked to %s in a LRR aircraft."
-                % (sense, sense)
+                "attempt to declare turn while flight type is %s." % E._flighttype
             )
-    elif not apcapabilities.hasproperty(E, "HRR"):
-        if (E._bank == "L" and sense == "R") or (E._bank == "R" and sense == "L"):
+    
+        # See rule 7.1.
+    
+        # Check the bank. See rule 7.4.
+        if apcapabilities.hasproperty(E, "LRR"):
+            if E._bank != sense:
+                raise RuntimeError(
+                    "attempt to declare a turn to %s while not banked to %s in a LRR aircraft."
+                    % (sense, sense)
+                )
+        elif not apcapabilities.hasproperty(E, "HRR"):
+            if (E._bank == "L" and sense == "R") or (E._bank == "R" and sense == "L"):
+                raise RuntimeError(
+                    "attempt to declare a turn to %s while banked to %s." % (sense, E._bank)
+                )
+    
+        if E._allowedturnrates == []:
+            raise RuntimeError("turns are forbidded.")
+    
+        if turnrate not in E._allowedturnrates:
             raise RuntimeError(
-                "attempt to declare a turn to %s while banked to %s." % (sense, E._bank)
+                "attempt to declare a turn rate tighter than allowed by the damage, speed, or flight type."
             )
-
-    if E._allowedturnrates == []:
-        raise RuntimeError("turns are forbidded.")
-
-    if turnrate not in E._allowedturnrates:
-        raise RuntimeError(
-            "attempt to declare a turn rate tighter than allowed by the damage, speed, or flight type."
+    
+        turnrateap = apcapabilities.turndrag(E, turnrate)
+        if turnrateap == None:
+            raise RuntimeError(
+                "attempt to declare a turn rate tighter than allowed by the aircraft."
+            )
+    
+        # Determine the maximum turn rate.
+        if E._maxturnrate == None:
+            E._maxturnrate = turnrate
+        else:
+            turnrates = ["EZ", "TT", "HT", "BT", "ET"]
+            E._maxturnrate = turnrates[
+                max(turnrates.index(turnrate), turnrates.index(E._maxturnrate))
+            ]
+    
+        E._bank = sense
+        E._maneuvertype = turnrate
+        E._maneuversense = sense
+        E._maneuverfp = 0
+        E._maneuversupersonic = E.speed() >= apspeed.m1speed(E.altitudeband())
+        turnrequirement = apturnrate.turnrequirement(
+            E.altitudeband(), E.speed(), E._maneuvertype
         )
-
-    turnrateap = apcapabilities.turndrag(E, turnrate)
-    if turnrateap == None:
-        raise RuntimeError(
-            "attempt to declare a turn rate tighter than allowed by the aircraft."
-        )
-
-    # Determine the maximum turn rate.
-    if E._maxturnrate == None:
-        E._maxturnrate = turnrate
+        if turnrequirement == None:
+            raise RuntimeError(
+                "attempt to declare a turn rate tighter than allowed by the speed and altitude."
+            )
+        if turnrequirement >= 60:
+            E._maneuverrequiredfp = 1
+            E._maneuverfacingchange = turnrequirement
+        else:
+            E._maneuverrequiredfp = turnrequirement
+            E._maneuverfacingchange = 30
+    
+        if apvariants.withvariant("use house rules"):
+            E._turnrateap -= turnrateap
+            if E._maneuversupersonic:
+                if apcapabilities.hasproperty(E, "PSSM"):
+                    E._turnrateap -= 1.0
+                elif not apcapabilities.hasproperty(E, "GSSM"):
+                    E._turnrateap -= 0.5
+                    
     else:
-        turnrates = ["EZ", "TT", "HT", "BT", "ET"]
-        E._maxturnrate = turnrates[
-            max(turnrates.index(turnrate), turnrates.index(E._maxturnrate))
-        ]
-
-    E._bank = sense
-    E._maneuvertype = turnrate
-    E._maneuversense = sense
-    E._maneuverfp = 0
-    E._maneuversupersonic = E.speed() >= apspeed.m1speed(E.altitudeband())
-    turnrequirement = apturnrate.turnrequirement(
-        E.altitudeband(), E.speed(), E._maneuvertype
-    )
-    if turnrequirement == None:
-        raise RuntimeError(
-            "attempt to declare a turn rate tighter than allowed by the speed and altitude."
-        )
-    if turnrequirement >= 60:
+    
+        E._maneuvertype = turnrate
+        E._maneuversense = sense
+        E._maneuverfp = 0
+        E._maneuversupersonic = E.speed() >= apspeed.m1speed(E.altitudeband())
         E._maneuverrequiredfp = 1
-        E._maneuverfacingchange = turnrequirement
-    else:
-        E._maneuverrequiredfp = turnrequirement
-        E._maneuverfacingchange = 30
-
-    if apvariants.withvariant("use house rules"):
-        E._turnrateap -= turnrateap
-        if E._maneuversupersonic:
-            if apcapabilities.hasproperty(E, "PSSM"):
-                E._turnrateap -= 1.0
-            elif not apcapabilities.hasproperty(E, "GSSM"):
-                E._turnrateap -= 0.5
+        E._maneuverfacingchange = 1
 
 
 ########################################

@@ -60,6 +60,10 @@ class missile(apelement.element):
             self._maneuvertype = None
             self._maneuversense = None
             self._maneuverfp = 0
+            self._maneuverrequiredfp = 0
+            self._maneuverfacingchange = None
+            self._manueversupersonic = False
+
             self._launchgameturn = apgameturn.gameturn()
 
             self._setspeed(self._basespeed() + launcher.newspeed())
@@ -112,9 +116,22 @@ class missile(apelement.element):
     ########################################
 
     def maneuver(self):
-        """Return a string describing the current maneuver of the missile."""
-        if self._maneuvertype != None:
-            return "%s%s" % (self._maneuvertype, self._maneuversense)
+        """Return a string describing the current maneuver of the aircraft."""
+        if self._maneuverfacingchange == 60 or self._maneuverfacingchange == 90:
+            return "%s%s %d/%d %d" % (
+                self._maneuvertype,
+                self._maneuversense,
+                self._maneuverfp,
+                self._maneuverrequiredfp,
+                self._maneuverfacingchange,
+            )
+        elif self._maneuvertype != None:
+            return "%s%s %d/%d" % (
+                self._maneuvertype,
+                self._maneuversense,
+                self._maneuverfp,
+                self._maneuverrequiredfp,
+            )
         else:
             return ""
 
