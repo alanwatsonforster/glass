@@ -234,10 +234,6 @@ def continuenormalflight(A, moves):
     assert A._maneuveringdeparture or (A._fp == A._hfp + A._vfp)
     assert A._maneuveringdeparture or (A._fp <= A._maxfp)
 
-    if A.killed() or A.removed() or A._maneuveringdeparture or A._fp >= A._maxfp:
-
-        A._finishedmoving = True
-
 
 ########################################
 

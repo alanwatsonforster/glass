@@ -735,8 +735,7 @@ class aircraft(apelement.element):
         try:
             if not returnfire and apflight.useofweaponsforbidden(self):
                 raise RuntimeError(
-                    "attempt to use weapons %s."
-                    % apflight.useofweaponsforbidden(self)
+                    "attempt to use weapons %s." % apflight.useofweaponsforbidden(self)
                 )
 
             if target is not None and not target.isaircraft():
