@@ -952,24 +952,24 @@ def _continuedepartedflight(A, moves):
 def _continuespecialflight(A, moves):
 
     actiondispatchlist = [
-        ["L180", "epilog", lambda A: doturn(A, "L", 180, False)],
-        ["L150", "epilog", lambda A: doturn(A, "L", 150, False)],
-        ["L120", "epilog", lambda A: doturn(A, "L", 120, False)],
-        ["L90", "epilog", lambda A: doturn(A, "L", 90, False)],
-        ["L60", "epilog", lambda A: doturn(A, "L", 60, False)],
-        ["L30", "epilog", lambda A: doturn(A, "L", 30, False)],
-        ["LLL", "epilog", lambda A: doturn(A, "L", 90, False)],
-        ["LL", "epilog", lambda A: doturn(A, "L", 60, False)],
-        ["L", "epilog", lambda A: doturn(A, "L", 30, False)],
-        ["R180", "epilog", lambda A: doturn(A, "R", 180, False)],
-        ["R150", "epilog", lambda A: doturn(A, "R", 150, False)],
-        ["R120", "epilog", lambda A: doturn(A, "R", 120, False)],
-        ["R90", "epilog", lambda A: doturn(A, "R", 90, False)],
-        ["R60", "epilog", lambda A: doturn(A, "R", 60, False)],
-        ["R30", "epilog", lambda A: doturn(A, "R", 30, False)],
-        ["RRR", "epilog", lambda A: doturn(A, "R", 90, False)],
-        ["RR", "epilog", lambda A: doturn(A, "R", 60, False)],
-        ["R", "epilog", lambda A: doturn(A, "R", 30, False)],
+        ["L180", "prolog/epilog", lambda A: doturn(A, "L", 180, False)],
+        ["L150", "prolog/epilog", lambda A: doturn(A, "L", 150, False)],
+        ["L120", "prolog/epilog", lambda A: doturn(A, "L", 120, False)],
+        ["L90", "prolog/epilog", lambda A: doturn(A, "L", 90, False)],
+        ["L60", "prolog/epilog", lambda A: doturn(A, "L", 60, False)],
+        ["L30", "prolog/epilog", lambda A: doturn(A, "L", 30, False)],
+        ["LLL", "prolog/epilog", lambda A: doturn(A, "L", 90, False)],
+        ["LL", "prolog/epilog", lambda A: doturn(A, "L", 60, False)],
+        ["L", "prolog/epilog", lambda A: doturn(A, "L", 30, False)],
+        ["R180", "prolog/epilog", lambda A: doturn(A, "R", 180, False)],
+        ["R150", "prolog/epilog", lambda A: doturn(A, "R", 150, False)],
+        ["R120", "prolog/epilog", lambda A: doturn(A, "R", 120, False)],
+        ["R90", "prolog/epilog", lambda A: doturn(A, "R", 90, False)],
+        ["R60", "prolog/epilog", lambda A: doturn(A, "R", 60, False)],
+        ["R30", "prolog/epilog", lambda A: doturn(A, "R", 30, False)],
+        ["RRR", "prolog/epilog", lambda A: doturn(A, "R", 90, False)],
+        ["RR", "prolog/epilog", lambda A: doturn(A, "R", 60, False)],
+        ["R", "prolog/epilog", lambda A: doturn(A, "R", 30, False)],
         ["HD1", "FP", lambda A: dohorizontal(A, "HD")],
         ["HD", "FP", lambda A: dohorizontal(A, "HD")],
         ["H", "FP", lambda A: dohorizontal(A, "H")],
@@ -1651,6 +1651,7 @@ def domove(E, move, actiondispatchlist):
         E._hasbanked = False
 
         remainingactions = doactions(E, remainingactions, "prolog")
+        remainingactions = doactions(E, remainingactions, "prolog/epilog")
 
         fp = E._fp
         remainingactions = doactions(E, remainingactions, "FP")
@@ -1688,6 +1689,7 @@ def domove(E, move, actiondispatchlist):
             _checkcloseformation(E)
 
         remainingactions = doactions(E, remainingactions, "epilog")
+        remainingactions = doactions(E, remainingactions, "prolog/epilog")
 
         if E._hasbanked and E._hasmaneuvered and not E._hasrolled:
             raise RuntimeError(
