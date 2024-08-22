@@ -20,7 +20,6 @@ import apxo.flight as apflight
 import apxo.hex as aphex
 import apxo.log as aplog
 import apxo.speed as apspeed
-import apxo.stalledflight as apstalledflight
 import apxo.stores as apstores
 import apxo.turnrate as apturnrate
 import apxo.variants as apvariants

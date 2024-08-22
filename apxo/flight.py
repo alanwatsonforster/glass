@@ -11,7 +11,6 @@ import apxo.gameturn as apgameturn
 import apxo.hex as aphex
 import apxo.missiledata as apmissiledata
 import apxo.speed as apspeed
-import apxo.stalledflight as apstalledflight
 import apxo.turnrate as apturnrate
 import apxo.variants as apvariants
 
@@ -936,7 +935,33 @@ def _continuemove(E, moves):
 
 
 def _continuestalledflight(A, moves):
-    apstalledflight.doflight(A, moves)
+
+    if moves != "ST":
+        raise RuntimeError("invalid moves %r for stalled flight." % moves)
+
+    altitudechange = math.ceil(A.speed() + A._turnsstalled)
+
+    initialaltitude = A.altitude()
+    initialaltitudeband = A.altitudeband()
+    A._movedive(altitudechange)
+    altitudechange = initialaltitude - A.altitude()
+
+    if A._turnsstalled == 0:
+        A._altitudeap = 0.5 * altitudechange
+    else:
+        A._altitudeap = 1.0 * altitudechange
+
+    A._logposition("end")
+    if initialaltitudeband != A.altitudeband():
+        A._logevent(
+            "altitude band changed from %s to %s."
+            % (initialaltitudeband, A.altitudeband())
+        )
+    A._checkforterraincollision()
+    if A.killed():
+        return
+
+    A._finishedmoving = True
 
 
 ########################################
