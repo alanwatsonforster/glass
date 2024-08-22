@@ -4,6 +4,7 @@ import apxo.draw as apdraw
 import apxo.element as apelement
 import apxo.flight as apflight
 import apxo.gameturn as apgameturn
+import apxo.geometry as apgeometry
 import apxo.hexcode as aphexcode
 import apxo.log as aplog
 import apxo.map as apmap
@@ -15,7 +16,7 @@ import apxo.missileflight as apmissileflight
 
 def aslist():
     elementlist = apelement.aslist()
-    missilelist = filter(lambda E: E.ismissile(), elementlist)
+    missilelist = filter(lambda self: self.ismissile(), elementlist)
     return list(missilelist)
 
 
@@ -83,7 +84,7 @@ class missile(apelement.element):
     def _endgameturn(self):
         if not self.removed() and not self._finishedmoving:
             pass
-            # raise RuntimeError("missile %s has not finished its move." % self._name)
+            # raise Runtimeselfrror("missile %s has not finished its move." % self._name)
 
     #############################################################################
 
@@ -120,3 +121,48 @@ class missile(apelement.element):
 
     def _basespeed(self):
         return apmissiledata.basespeed(self._missiletype)
+        
+    #############################################################################
+
+    def _checktargettracking(self):
+
+        slopenumerator, slopedenominator = apflight._slope(self)
+        self._logevent("flight slope is %+d/%d." % (slopenumerator, slopedenominator))
+    
+        horizontalrange = apgeometry.horizontalrange(self, self._target)
+        self._logevent("horizontal range is %d." % horizontalrange)
+    
+        altitudedifference = self._target.altitude() - self.altitude()
+        self._logevent("altitude difference is %+d." % altitudedifference)
+    
+        def checknormallimit(minf, maxf):
+            minaltitudedifference = int(minf * horizontalrange)
+            maxaltitudedifference = int(maxf * horizontalrange)
+            self._logevent(
+                "the allowed altitude difference range is [%+d,%+d]."
+                % (minaltitudedifference, maxaltitudedifference)
+            )
+            if (
+                altitudedifference < minaltitudedifference
+                or altitudedifference > maxaltitudedifference
+            ):
+                self._logevent("the target is not within the seeker vertical limits.")
+            else:
+                self._logevent("the target is within the seeker vertical limits.")
+    
+        if slopenumerator < -3 * slopedenominator:
+            pass
+        elif slopenumerator < -1 * slopedenominator:
+            checknormallimit(-7.0, -0.5)
+        elif slopenumerator < 0:
+            checknormallimit(-2.0, +0.5)
+        elif slopenumerator == 0:
+            checknormallimit(-1.0, +1.0)
+        elif slopenumerator <= +1 * slopedenominator:
+            checknormallimit(-0.5, +2.0)
+        elif abs(slopenumerator) <= 3 * slopedenominator:
+            checknormallimit(+0.5, +7.0)
+        else:
+            pass
+    
+

@@ -18,53 +18,8 @@ def _continuemove(M, actions, **kwargs):
         M._finishedmoving = True
         return
 
-    startaltitude = M.altitude()
-    starthfp = M._hfp
 
     _doactions(M, actions)
-
-    endaltitude = M.altitude()
-    endhfp = M._hfp
-
-    slopenumerator = endaltitude - startaltitude
-    slopedenominator = endhfp - starthfp
-    M._logevent("flight slope is %+d/%d." % (slopenumerator, slopedenominator))
-
-    horizontalrange = apgeometry.horizontalrange(M, M._target)
-    M._logevent("horizontal range is %d." % horizontalrange)
-
-    altitudedifference = M._target.altitude() - M.altitude()
-    M._logevent("altitude difference is %+d." % altitudedifference)
-
-    def checknormallimit(minf, maxf):
-        minaltitudedifference = int(minf * horizontalrange)
-        maxaltitudedifference = int(maxf * horizontalrange)
-        M._logevent(
-            "the allowed altitude difference range is [%+d,%+d]."
-            % (minaltitudedifference, maxaltitudedifference)
-        )
-        if (
-            altitudedifference < minaltitudedifference
-            or altitudedifference > maxaltitudedifference
-        ):
-            M._logevent("the target is not within the seeker vertical limits.")
-        else:
-            M._logevent("the target is within the seeker vertical limits.")
-
-    if slopenumerator < -3 * slopedenominator:
-        pass
-    elif slopenumerator < -1 * slopedenominator:
-        checknormallimit(-7.0, -0.5)
-    elif slopenumerator < 0:
-        checknormallimit(-2.0, +0.5)
-    elif slopenumerator == 0:
-        checknormallimit(-1.0, +1.0)
-    elif slopenumerator <= +1 * slopedenominator:
-        checknormallimit(-0.5, +2.0)
-    elif abs(slopenumerator) <= 3 * slopedenominator:
-        checknormallimit(+0.5, +7.0)
-    else:
-        pass
 
 
 ################################################################################

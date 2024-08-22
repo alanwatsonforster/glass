@@ -936,8 +936,9 @@ def _continuemove(E, moves):
 
 
 def _continuemissilemove(M, moves):
+    _startslope(M)
     apmissileflight._continuemove(M, moves)
-
+    M._checktargettracking()
 
 ########################################
 
@@ -1873,10 +1874,13 @@ def _islevelflight(flighttype):
 
 ################################################################################
 
+
 def invalidaction(A, action):
     raise RuntimeError("%r is not a valid action." % action)
 
+
 ########################################
+
 
 def dohorizontal(A, action):
     """
@@ -2634,3 +2638,26 @@ def domaneuveringdeparture(A, sense, facingchange):
 
 
 ################################################################################
+
+
+def _startslope(E):
+
+    E._startslopealtitude = E.altitude()
+    E._startslopehp = E._hfp
+
+def _slope(E):
+
+    startaltitude = E._startslopealtitude
+    starthfp = E._startslopehp
+
+    endaltitude = E.altitude()
+    endhfp = E._hfp
+
+    slopenumerator = endaltitude - startaltitude
+    slopedenominator = endhfp - starthfp
+
+    return slopenumerator, slopedenominator
+
+################################################################################
+
+
