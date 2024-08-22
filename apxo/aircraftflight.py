@@ -313,30 +313,30 @@ def continuenormalflight(A, moves):
 
         # See rules 7.7 and 8.5.
         if A._hasmaneuvered and A._hasrolled:
-            if A._movealtitude > apcapabilities.ceiling(A):
+            if A._movestartaltitude > apcapabilities.ceiling(A):
                 A._logevent(
                     "check for a maneuvering departure as the aircraft is above its ceiling and attempted to roll."
                 )
-            elif A._movealtitudeband == "EH" or A._movealtitudeband == "UH":
+            elif A._movestartaltitudeband == "EH" or A._movestartaltitudeband == "UH":
                 A._logevent(
                     "check for a maneuvering departure as the aircraft is in the %s altitude band and attempted to roll."
-                    % A._movealtitudeband
+                    % A._movestartaltitudeband
                 )
 
         # See rules 7.7 and 8.5.
         if A._hasmaneuvered and A._hasturned:
             if (
-                A._movealtitude > apcapabilities.ceiling(A)
+                A._movestartaltitude > apcapabilities.ceiling(A)
                 and A._movemaneuvertype != "EZ"
             ):
                 A._logevent(
                     "check for a maneuvering departure as the aircraft is above its ceiling and attempted to turn harder than EZ."
                 )
-            if A._movemaneuvertype == "ET" and A._movealtitude <= 25:
+            if A._movemaneuvertype == "ET" and A._movestartaltitude <= 25:
                 A._gloccheck += 1
                 A._logevent(
                     "check for GLOC as turn rate is ET and altitude band is %s (check %d in cycle)."
-                    % (A._movealtitudeband, A._gloccheck)
+                    % (A._movestartaltitudeband, A._gloccheck)
                 )
 
         # See rule 7.8.

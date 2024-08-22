@@ -1251,11 +1251,13 @@ def domoves(E, moves, actiondispatchlist, afterFP=None, aftermove=None):
     """
     Carry out flight moves.
     """
+    
+    if moves == "":
+        return
 
-    if moves != "":
-        for move in re.split(r"[, ]", moves):
-            if not E.killed() and not E.removed():
-                domove(E, move, actiondispatchlist, afterFP, aftermove)
+    for move in re.split(r"[, ]", moves):
+        if not E.killed() and not E.removed():
+            domove(E, move, actiondispatchlist, afterFP, aftermove)
 
 
 ################################################################################
@@ -1281,8 +1283,8 @@ def domove(E, move, actiondispatchlist, afterFP, aftermove):
     # Determine if this FP is the last FP of the move.
     E._lastfp = E._fp + 2 > E._maxfp
 
-    E._movealtitude = E.altitude()
-    E._movealtitudeband = E.altitudeband()
+    E._movestartaltitude = E.altitude()
+    E._movestartaltitudeband = E.altitudeband()
 
     try:
 
@@ -1374,10 +1376,10 @@ def domove(E, move, actiondispatchlist, afterFP, aftermove):
             E._logpositionandmaneuver("")
         E._extendpath()
 
-    if E._movealtitudeband != E.altitudeband():
+    if E._movestartaltitudeband != E.altitudeband():
         E._logevent(
             "altitude band changed from %s to %s."
-            % (E._movealtitudeband, E.altitudeband())
+            % (E._movestartaltitudeband, E.altitudeband())
         )
         E._logevent("speed of sound is %.1f." % apspeed.m1speed(E.altitudeband()))
         previoussupersonic = E._supersonic
