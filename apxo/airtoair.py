@@ -354,6 +354,12 @@ def _attack(attacker, attacktype, target, result, allowRK=True, allowtracking=Tr
                     verticalmodifier = +1
                 else:
                     verticalmodifier = +0
+            elif apvariants.withvariant("use house rules") and attacker.isinlevelflight():
+                if target.isinclimbingflight():
+                    verticalmodifier = +1
+                elif target.isindivingflight():
+                    verticalmodifier = +1
+                    
 
         sizemodifier = apcapabilities.sizemodifier(target)
 
