@@ -1,4 +1,7 @@
-def turnrequirement(altitudeband, speed, rate):
+import math
+
+
+def turnrequirement(altitudeband, speed, rate, divisor=1):
     """
     Determine the turn requirement accoring to the Air Power Integrated Turn
     Charts.
@@ -389,4 +392,4 @@ def turnrequirement(altitudeband, speed, rate):
     if raw == 0:
         return None
     else:
-        return raw
+        return int(math.ceil(raw / divisor))

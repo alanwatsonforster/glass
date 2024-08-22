@@ -9,6 +9,7 @@ import apxo.closeformation as apcloseformation
 import apxo.departedflight as apdepartedflight
 import apxo.gameturn as apgameturn
 import apxo.hex as aphex
+import apxo.missiledata as apmissiledata
 import apxo.missileflight as apmissileflight
 import apxo.speed as apspeed
 import apxo.stalledflight as apstalledflight
@@ -1150,7 +1151,6 @@ def _continuemissileflight(M, moves):
         ["SLR", "prolog", lambda A: dodeclaremaneuver(A, "SL", "R")],
         ["VRL", "prolog", lambda A: dodeclaremaneuver(A, "VR", "L")],
         ["VRR", "prolog", lambda A: dodeclaremaneuver(A, "VR", "R")],
-        
         ["H", "FP", lambda A: dohorizontal(A, "H")],
         ["HD", "FP", lambda A: dohorizontal(A, "HD")],
         ["HD1", "FP", lambda A: dohorizontal(A, "HD")],
@@ -1164,7 +1164,6 @@ def _continuemissileflight(M, moves):
         ["D2", "FP", lambda A: dodive(A, 2)],
         ["DDD", "FP", lambda A: dodive(A, 3)],
         ["D3", "FP", lambda A: dodive(A, 3)],
-
         ["L90+", "epilog", lambda A: domaneuver(A, "L", 90, True, True)],
         ["L60+", "epilog", lambda A: domaneuver(A, "L", 60, True, True)],
         ["L30+", "epilog", lambda A: domaneuver(A, "L", 30, True, True)],
@@ -2152,7 +2151,7 @@ def dodeclareturn(E, turnrate, sense):
     """
     Declare the start of turn in the specified direction and rate.
     """
-    
+
     if E.isaircraft():
 
         # See rule 8.1.3 and 8.2.3
@@ -2160,9 +2159,9 @@ def dodeclareturn(E, turnrate, sense):
             raise RuntimeError(
                 "attempt to declare turn while flight type is %s." % E._flighttype
             )
-    
+
         # See rule 7.1.
-    
+
         # Check the bank. See rule 7.4.
         if apcapabilities.hasproperty(E, "LRR"):
             if E._bank != sense:
@@ -2173,23 +2172,24 @@ def dodeclareturn(E, turnrate, sense):
         elif not apcapabilities.hasproperty(E, "HRR"):
             if (E._bank == "L" and sense == "R") or (E._bank == "R" and sense == "L"):
                 raise RuntimeError(
-                    "attempt to declare a turn to %s while banked to %s." % (sense, E._bank)
+                    "attempt to declare a turn to %s while banked to %s."
+                    % (sense, E._bank)
                 )
-    
+
         if E._allowedturnrates == []:
             raise RuntimeError("turns are forbidded.")
-    
+
         if turnrate not in E._allowedturnrates:
             raise RuntimeError(
                 "attempt to declare a turn rate tighter than allowed by the damage, speed, or flight type."
             )
-    
+
         turnrateap = apcapabilities.turndrag(E, turnrate)
         if turnrateap == None:
             raise RuntimeError(
                 "attempt to declare a turn rate tighter than allowed by the aircraft."
             )
-    
+
         # Determine the maximum turn rate.
         if E._maxturnrate == None:
             E._maxturnrate = turnrate
@@ -2198,7 +2198,7 @@ def dodeclareturn(E, turnrate, sense):
             E._maxturnrate = turnrates[
                 max(turnrates.index(turnrate), turnrates.index(E._maxturnrate))
             ]
-    
+
         E._bank = sense
         E._maneuvertype = turnrate
         E._maneuversense = sense
@@ -2217,7 +2217,7 @@ def dodeclareturn(E, turnrate, sense):
         else:
             E._maneuverrequiredfp = turnrequirement
             E._maneuverfacingchange = 30
-    
+
         if apvariants.withvariant("use house rules"):
             E._turnrateap -= turnrateap
             if E._maneuversupersonic:
@@ -2225,14 +2225,24 @@ def dodeclareturn(E, turnrate, sense):
                     E._turnrateap -= 1.0
                 elif not apcapabilities.hasproperty(E, "GSSM"):
                     E._turnrateap -= 0.5
-                    
+
     else:
-    
+
         E._maneuvertype = turnrate
         E._maneuversense = sense
+
+        baseturnrate, divisor = E.turnrate()
+        turnrequirement = apturnrate.turnrequirement(
+            E.altitudeband(), E.speed(), baseturnrate, divisor=divisor
+        )
+        if turnrequirement == None:
+            raise RuntimeError(
+                "attempt to declare a turn rate tighter than allowed by the speed and altitude."
+            )
+
         E._maneuverfp = 0
         E._maneuversupersonic = E.speed() >= apspeed.m1speed(E.altitudeband())
-        E._maneuverrequiredfp = 1
+        E._maneuverrequiredfp = turnrequirement
         E._maneuverfacingchange = 30
 
 
@@ -2297,7 +2307,7 @@ def dodeclareslide(E, sense):
             )
         elif E._slides == 2:
             raise RuntimeError("at most two slides allowed per turn.")
-    
+
     E._bank = None
     E._maneuvertype = "SL"
     E._maneuversense = sense
@@ -2305,6 +2315,7 @@ def dodeclareslide(E, sense):
     E._maneuverfp = 0
     E._maneuversupersonic = E.speed() >= apspeed.m1speed(E.altitudeband())
     E._maneuverrequiredfp = 2 + extrapreparatoryhfp(E) + 1
+
 
 ########################################
 
@@ -2539,7 +2550,7 @@ def dodeclareverticalroll(E, sense):
             raise RuntimeError(
                 "attempt to declare a vertical roll in VC following LVL flight other than on the last FP."
             )
-    
+
         # See rule 13.3.5.
         if E._hrd and not E._lastfp:
             raise RuntimeError(

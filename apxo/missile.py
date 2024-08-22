@@ -66,11 +66,12 @@ class missile(apelement.element):
 
             self._launchgameturn = apgameturn.gameturn()
 
-            self._setspeed(self._basespeed() + launcher.newspeed())
+            self._setspeed(self.basespeed() + launcher.newspeed())
             if self.speed() > apmissileflight.maxspeed(self.altitudeband()):
                 self._logevent("reducing start speed to maximum for altitude band.")
                 self._setspeed(apmissileflight.maxspeed(self.altitudeband()))
             self._logaction("", "start speed   is %.1f." % self._speed)
+            self._logaction("", "turn rate     is %s/%d." % self.turnrate())
 
         except RuntimeError as e:
             aplog.logexception(e)
@@ -137,8 +138,11 @@ class missile(apelement.element):
 
     #############################################################################
 
-    def _basespeed(self):
+    def basespeed(self):
         return apmissiledata.basespeed(self._missiletype)
+        
+    def turnrate(self):
+        return apmissiledata.turnrate(self._missiletype)
 
     #############################################################################
 
