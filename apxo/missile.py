@@ -59,6 +59,7 @@ class missile(apelement.element):
             self._finishedmoving = True
             self._maneuvertype = None
             self._maneuversense = None
+            self._maneuverfp = 0
             self._launchgameturn = apgameturn.gameturn()
 
             self._setspeed(self._basespeed() + launcher.newspeed())
@@ -121,20 +122,20 @@ class missile(apelement.element):
 
     def _basespeed(self):
         return apmissiledata.basespeed(self._missiletype)
-        
+
     #############################################################################
 
     def _checktargettracking(self):
 
         slopenumerator, slopedenominator = apflight._slope(self)
         self._logevent("flight slope is %+d/%d." % (slopenumerator, slopedenominator))
-    
+
         horizontalrange = apgeometry.horizontalrange(self, self._target)
         self._logevent("horizontal range is %d." % horizontalrange)
-    
+
         altitudedifference = self._target.altitude() - self.altitude()
         self._logevent("altitude difference is %+d." % altitudedifference)
-    
+
         def checknormallimit(minf, maxf):
             minaltitudedifference = int(minf * horizontalrange)
             maxaltitudedifference = int(maxf * horizontalrange)
@@ -149,7 +150,7 @@ class missile(apelement.element):
                 self._logevent("the target is not within the seeker vertical limits.")
             else:
                 self._logevent("the target is within the seeker vertical limits.")
-    
+
         if slopenumerator < -3 * slopedenominator:
             pass
         elif slopenumerator < -1 * slopedenominator:
@@ -164,5 +165,3 @@ class missile(apelement.element):
             checknormallimit(+0.5, +7.0)
         else:
             pass
-    
-

@@ -18,7 +18,6 @@ def _continuemove(M, actions, **kwargs):
         M._finishedmoving = True
         return
 
-
     _doactions(M, actions)
 
 

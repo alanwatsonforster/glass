@@ -417,7 +417,7 @@ def _startmove(E, **kwargs):
 
 def _startmovemissile(M, **kwargs):
 
-    pass
+    M._maneuveringdeparture = False
 
 
 ########################################
@@ -918,7 +918,7 @@ def _startmovenormalflight(A):
 def _continuemove(E, moves):
 
     if E._flighttype == "MS":
-        _continuemissilemove(E, moves)
+        _continuemissileflight(E, moves)
     elif E._flighttype == "ST":
         _continuestalledflight(E, moves)
     elif E._flighttype == "DP":
@@ -931,14 +931,6 @@ def _continuemove(E, moves):
     if E._finishedmoving:
         _endmove(E)
 
-
-########################################
-
-
-def _continuemissilemove(M, moves):
-    _startslope(M)
-    apmissileflight._continuemove(M, moves)
-    M._checktargettracking()
 
 ########################################
 
@@ -967,11 +959,6 @@ def _continuespecialflight(A, moves):
 def _continuenormalflight(A, moves):
 
     actiondispatchlist = [
-        # This table is searched in order, so put longer actions before shorter
-        # ones that are prefixes (e.g., put C2 before C and D3/4 before D3).
-        # [0] is the action code.
-        # [1] is the action type.
-        # [2] is the action procedure.
         ["SLL", "prolog", lambda A: dodeclaremaneuver(A, "SL", "L")],
         ["SLR", "prolog", lambda A: dodeclaremaneuver(A, "SL", "R")],
         ["DRL", "prolog", lambda A: dodeclaremaneuver(A, "DR", "L")],
@@ -1157,6 +1144,77 @@ def _continuenormalflight(A, moves):
         moves,
         actiondispatchlist,
     )
+
+
+###############################################################################
+
+
+def _continuemissileflight(M, moves):
+
+    actiondispatchlist = [
+        ["SLL", "prolog", lambda A: dodeclaremaneuver(A, "SL", "L")],
+        ["SLR", "prolog", lambda A: dodeclaremaneuver(A, "SL", "R")],
+        ["VRL", "prolog", lambda A: dodeclaremaneuver(A, "VR", "L")],
+        ["VRR", "prolog", lambda A: dodeclaremaneuver(A, "VR", "R")],
+        ["TL", "prolog", lambda A: dodeclaremaneuver(A, "MS", "L")],
+        ["TR", "prolog", lambda A: dodeclaremaneuver(A, "MS", "R")],
+        ["L90+", "epilog", lambda A: domaneuver(A, "L", 90, True, True)],
+        ["L60+", "epilog", lambda A: domaneuver(A, "L", 60, True, True)],
+        ["L30+", "epilog", lambda A: domaneuver(A, "L", 30, True, True)],
+        ["LLL+", "epilog", lambda A: domaneuver(A, "L", 90, True, True)],
+        ["LL+", "epilog", lambda A: domaneuver(A, "L", 60, True, True)],
+        ["L+", "epilog", lambda A: domaneuver(A, "L", None, True, True)],
+        ["R90+", "epilog", lambda A: domaneuver(A, "R", 90, True, True)],
+        ["R60+", "epilog", lambda A: domaneuver(A, "R", 60, True, True)],
+        ["R30+", "epilog", lambda A: domaneuver(A, "R", 30, True, True)],
+        ["RRR+", "epilog", lambda A: domaneuver(A, "R", 90, True, True)],
+        ["RR+", "epilog", lambda A: domaneuver(A, "R", 60, True, True)],
+        ["R+", "epilog", lambda A: domaneuver(A, "R", None, True, True)],
+        ["LS180", "epilog", lambda A: domaneuver(A, "L", 180, True, False)],
+        ["L180", "epilog", lambda A: domaneuver(A, "L", 180, False, False)],
+        ["L150", "epilog", lambda A: domaneuver(A, "L", 150, True, False)],
+        ["L120", "epilog", lambda A: domaneuver(A, "L", 120, True, False)],
+        ["L90", "epilog", lambda A: domaneuver(A, "L", 90, True, False)],
+        ["L60", "epilog", lambda A: domaneuver(A, "L", 60, True, False)],
+        ["L30", "epilog", lambda A: domaneuver(A, "L", 30, True, False)],
+        ["LLL", "epilog", lambda A: domaneuver(A, "L", 90, True, False)],
+        ["LL", "epilog", lambda A: domaneuver(A, "L", 60, True, False)],
+        ["L", "epilog", lambda A: domaneuver(A, "L", None, True, False)],
+        ["RS180", "epilog", lambda A: domaneuver(A, "R", 180, True, False)],
+        ["R180", "epilog", lambda A: domaneuver(A, "R", 180, False, False)],
+        ["R150", "epilog", lambda A: domaneuver(A, "R", 150, True, False)],
+        ["R120", "epilog", lambda A: domaneuver(A, "R", 120, True, False)],
+        ["R90", "epilog", lambda A: domaneuver(A, "R", 90, True, False)],
+        ["R60", "epilog", lambda A: domaneuver(A, "R", 60, True, False)],
+        ["R30", "epilog", lambda A: domaneuver(A, "R", 30, True, False)],
+        ["RRR", "epilog", lambda A: domaneuver(A, "R", 90, True, False)],
+        ["RR", "epilog", lambda A: domaneuver(A, "R", 60, True, False)],
+        ["R", "epilog", lambda A: domaneuver(A, "R", None, True, False)],
+        ["HD1", "FP", lambda A: dohorizontal(A, "HD")],
+        ["HD", "FP", lambda A: dohorizontal(A, "HD")],
+        ["H", "FP", lambda A: dohorizontal(A, "H")],
+        ["C1", "FP", lambda A: doclimb(A, 1)],
+        ["C2", "FP", lambda A: doclimb(A, 2)],
+        ["CCC", "FP", lambda A: doclimb(A, 3)],
+        ["CC", "FP", lambda A: doclimb(A, 2)],
+        ["C", "FP", lambda A: doclimb(A, 1)],
+        ["D1", "FP", lambda A: dodive(A, 1)],
+        ["D2", "FP", lambda A: dodive(A, 2)],
+        ["D3", "FP", lambda A: dodive(A, 3)],
+        ["DDD", "FP", lambda A: dodive(A, 3)],
+        ["DD", "FP", lambda A: dodive(A, 2)],
+        ["D", "FP", lambda A: dodive(A, 1)],
+        ["", "", None],
+    ]
+
+    _startslope(M)
+    domoves(
+        M,
+        moves,
+        actiondispatchlist,
+    )
+    M._checktargettracking()
+
 
 ###############################################################################
 
@@ -2641,6 +2699,7 @@ def _startslope(E):
     E._startslopealtitude = E.altitude()
     E._startslopehp = E._hfp
 
+
 def _slope(E):
 
     startaltitude = E._startslopealtitude
@@ -2654,6 +2713,5 @@ def _slope(E):
 
     return slopenumerator, slopedenominator
 
+
 ################################################################################
-
-
