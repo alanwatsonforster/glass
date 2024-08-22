@@ -2105,10 +2105,10 @@ def dodive(E, altitudechange):
                 "attempt to dive while flight type is %s." % E._flighttype
             )
 
-    checkaltitudechange()
-
-    if E._flighttype != "SP" and E._hfp < E._mininitialhfp:
-        raise RuntimeError("insufficient initial HFPs.")
+    if E.isaircraft():
+        checkaltitudechange()
+        if E._flighttype != "SP" and E._hfp < E._mininitialhfp:
+            raise RuntimeError("insufficient initial HFPs.")
 
     E._vertical = True
     E._fp += 1
