@@ -2432,21 +2432,18 @@ def _doturn(E, sense, facingchange, continuous):
         else:
             sustainedfacingchanges = facingchange // 30
 
-        if E.isaircraft():
-            if apvariants.withvariant("use house rules"):
-                pass
-            else:
-                if apcapabilities.hasproperty(E, "LBR"):
-                    E._sustainedturnap -= sustainedfacingchanges * 0.5
-                elif apcapabilities.hasproperty(E, "HBR"):
-                    E._sustainedturnap -= sustainedfacingchanges * 1.5
-                else:
-                    E._sustainedturnap -= sustainedfacingchanges * 1.0
+    E._moveturn(sense, facingchange)
 
     E._turnmaneuvers += 1
 
-    E._moveturn(sense, facingchange)
-
+    if E.isaircraft() and E._flighttype != "SP":
+        if not apvariants.withvariant("use house rules"):
+            if apcapabilities.hasproperty(E, "LBR"):
+                E._sustainedturnap -= sustainedfacingchanges * 0.5
+            elif apcapabilities.hasproperty(E, "HBR"):
+                E._sustainedturnap -= sustainedfacingchanges * 1.5
+            else:
+                E._sustainedturnap -= sustainedfacingchanges * 1.0
 
 ########################################
 
@@ -2765,6 +2762,9 @@ def _doverticalroll(E, sense, facingchange, shift):
             if E._rollmaneuvers > 0:
                 E._othermaneuversap -= 1
 
+    # Move.
+    E._moveverticalroll(sense, facingchange, shift)
+
     E._rollmaneuvers += 1
     E._verticalrolls += 1
 
@@ -2777,8 +2777,6 @@ def _doverticalroll(E, sense, facingchange, shift):
                 elif not apcapabilities.hasproperty(E, "GSSM"):
                     E._othermaneuversap -= 1.0
 
-    # Move.
-    E._moveverticalroll(sense, facingchange, shift)
 
 
 ########################################
