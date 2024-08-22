@@ -6,7 +6,6 @@ import apxo.airtoair as apairtoair
 import apxo.altitude as apaltitude
 import apxo.capabilities as apcapabilities
 import apxo.closeformation as apcloseformation
-import apxo.departedflight as apdepartedflight
 import apxo.gameturn as apgameturn
 import apxo.hex as aphex
 import apxo.missiledata as apmissiledata
@@ -968,7 +967,93 @@ def _continuestalledflight(A, moves):
 
 
 def _continuedepartedflight(A, moves):
-    apdepartedflight.doflight(A, moves)
+
+    # See rule 6.4 "Abnormal FLight (Stalls and Departures)" and rule 7.7
+    # "Manuevering Departures".
+
+    # The action specifies a possible shift and the facing change. Valid values
+    # are:
+    #
+    # - "R30", "R60", "R90", ..., "R300"
+    # - "R", "RR", and "RRR" which as usual mean "R30", "R60", and "R90"
+    # - the "L" equivalents.
+
+    if moves[0:2] == "MD":
+        maneuveringdeparture = True
+        moves = moves[2:]
+    else:
+        maneuveringdeparture = False
+
+    if moves == "R":
+        moves = "R30"
+    elif moves == "RR":
+        moves = "R60"
+    elif moves == "RRR":
+        moves = "R90"
+    elif moves == "L":
+        moves = "L30"
+    elif moves == "LL":
+        moves = "L60"
+    elif moves == "LLL":
+        moves = "L90"
+
+    if (
+        len(moves) < 3
+        or (moves[0] != "R" and moves[0] != "L")
+        or not moves[1:].isdecimal()
+    ):
+        raise RuntimeError("invalid moves %r for departed flight." % moves)
+
+    sense = moves[0]
+    facingchange = int(moves[1:])
+    if facingchange % 30 != 0 or facingchange <= 0 or facingchange > 300:
+        raise RuntimeError("invalid moves %r for departed flight." % moves)
+
+    if maneuveringdeparture:
+
+        # Do the first facing change.
+
+        A._moveturn(sense, 30)
+        A._extendpath()
+        facingchange -= 30
+
+        # Shift.
+
+        # See rule 5.4.
+        A._maxfp = A.speed() + A._fpcarry
+        A._fpcarry = 0
+
+        shift = int((A._maxfp) / 2)
+        for i in range(0, shift):
+            A._moveforward()
+            A._extendpath()
+            A._checkforterraincollision()
+            A._checkforleavingmap()
+            if A.killed() or A.removed():
+                return
+
+    # Do the (remaining) facing change.
+
+    A._moveturn(sense, facingchange)
+    A._extendpath()
+
+    # Now lose altitude.
+
+    initialaltitudeband = A.altitudeband()
+    altitudechange = math.ceil(A.speed() + 2 * A._turnsdeparted)
+    A._movedive(altitudechange)
+
+    A._logposition("end")
+    if initialaltitudeband != A.altitudeband():
+        A._logevent(
+            "altitude band changed from %s to %s."
+            % (initialaltitudeband, A.altitudeband())
+        )
+    A._checkforterraincollision()
+    if A.killed():
+        return
+
+    A._finishedmoving = True
 
 
 ########################################
@@ -1019,7 +1104,6 @@ def _continuespecialflight(A, moves):
         moves,
         actiondispatchlist,
     )
-
 
 
 ########################################
@@ -2188,11 +2272,14 @@ def dodive(E, altitudechange):
 
     E._movedive(altitudechange)
 
+
 ########################################
 
+
 def dostationary(E):
-    
+
     E._fp += 1
+
 
 ########################################
 
@@ -2337,7 +2424,10 @@ def doturn(E, sense, facingchange, continuous):
     if E._flighttype != "SP":
 
         # See rule 7.1.
-        if E._maneuverfp < E._maneuverrequiredfp or facingchange > E._maneuverfacingchange:
+        if (
+            E._maneuverfp < E._maneuverrequiredfp
+            or facingchange > E._maneuverfacingchange
+        ):
             raise RuntimeError("attempt to turn faster than the declared turn rate.")
 
         # See Hack's article in APJ 36

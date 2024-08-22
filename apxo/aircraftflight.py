@@ -14,7 +14,6 @@ import apxo.aircraft as apxoaircraft
 import apxo.capabilities as apcapabilities
 import apxo.closeformation as apcloseformation
 import apxo.configuration as apconfiguration
-import apxo.departedflight as apdepartedflight
 import apxo.element as apelement
 import apxo.flight as apflight
 import apxo.hex as aphex

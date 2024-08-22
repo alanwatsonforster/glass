@@ -141,7 +141,7 @@ class missile(apelement.element):
 
     def basespeed(self):
         return apmissiledata.basespeed(self._missiletype)
-        
+
     def turnrate(self):
         return apmissiledata.turnrate(self._missiletype)
 
