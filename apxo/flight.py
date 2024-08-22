@@ -1199,6 +1199,15 @@ def _continuemissileflight(M, moves):
         ["", "", None],
     ]
 
+    if M.speed() < apspeed.missileminspeed(M.altitudeband()):
+        M._logevent("has stalled.")
+        if moves != "":
+            raise RuntimeError("invalid moves %r for stalled missile." % moves)
+        M._remove()
+        M._logevent("has been removed.")
+        M._finishedmoving = True
+        return
+
     _startslope(M)
     domoves(
         M,

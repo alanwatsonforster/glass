@@ -412,7 +412,7 @@ startgameturn()
 A1a._setspeed(1.0)
 assert A1a.speed() == 1.0
 A1a.move("H")
-asserterror("invalid actions 'H' for stalled missile.")
+asserterror("invalid moves 'H' for stalled missile.")
 
 startgameturn()
 # We have to fudge this.
