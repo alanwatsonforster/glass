@@ -603,48 +603,6 @@ class aircraft(apelement.element):
 
     ################################################################################
 
-    def _assert(self, expectedposition, expectedspeed, expectedconfiguration=None):
-        """
-        Verify the position and new speed of an aircraft.
-        """
-
-        if aplog._error != None:
-            print("== assertion failed ===")
-            print("== unexpected error: %r" % aplog._error)
-            assert aplog._error == None
-
-        expectedposition = re.sub(" +", " ", expectedposition)
-        actualposition = re.sub(" +", " ", self.position())
-
-        if expectedposition != None and expectedposition != actualposition:
-            print("== assertion failed ===")
-            print("== actual   position: %s" % actualposition)
-            print("== expected position: %s" % expectedposition)
-            assert expectedposition == actualposition
-        if expectedspeed is not None:
-            if self._newspeed is None:
-                if expectedspeed != self.speed():
-                    print("== assertion failed ===")
-                    print("== actual   speed: %.1f" % self.speed())
-                    print("== expected speed: %.1f" % expectedspeed)
-                    assert expectedspeed == self.speed()
-            else:
-                if expectedspeed != self._newspeed:
-                    print("== assertion failed ===")
-                    print("== actual   new speed: %.1f" % self._newspeed)
-                    print("== expected new speed: %.1f" % expectedspeed)
-                    assert expectedspeed == self._newspeed
-        if (
-            expectedconfiguration != None
-            and expectedconfiguration != self._configuration
-        ):
-            print("== assertion failed ===")
-            print("== actual   configuration: %s" % self._configuration)
-            print("== expected configuration: %s" % expectedconfiguration)
-            assert expectedconfiguration == self._configuration
-
-    ################################################################################
-
     def _draw(self):
         if self.killed():
             color = None
