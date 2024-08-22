@@ -2233,7 +2233,7 @@ def dodeclareturn(E, turnrate, sense):
         E._maneuverfp = 0
         E._maneuversupersonic = E.speed() >= apspeed.m1speed(E.altitudeband())
         E._maneuverrequiredfp = 1
-        E._maneuverfacingchange = 1
+        E._maneuverfacingchange = 30
 
 
 ########################################
@@ -2258,15 +2258,16 @@ def doturn(E, sense, facingchange, continuous):
     else:
         sustainedfacingchanges = facingchange // 30
 
-    if apvariants.withvariant("use house rules"):
-        pass
-    else:
-        if apcapabilities.hasproperty(E, "LBR"):
-            E._sustainedturnap -= sustainedfacingchanges * 0.5
-        elif apcapabilities.hasproperty(E, "HBR"):
-            E._sustainedturnap -= sustainedfacingchanges * 1.5
+    if E.isaircraft():
+        if apvariants.withvariant("use house rules"):
+            pass
         else:
-            E._sustainedturnap -= sustainedfacingchanges * 1.0
+            if apcapabilities.hasproperty(E, "LBR"):
+                E._sustainedturnap -= sustainedfacingchanges * 0.5
+            elif apcapabilities.hasproperty(E, "HBR"):
+                E._sustainedturnap -= sustainedfacingchanges * 1.5
+            else:
+                E._sustainedturnap -= sustainedfacingchanges * 1.0
 
     E._turnmaneuvers += 1
 
