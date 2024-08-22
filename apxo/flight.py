@@ -2367,6 +2367,11 @@ def _dodeclareturn(E, turnrate, sense):
         )
 
     else:
+    
+        if E.speed() < apspeed.missilemaneuverspeed(E.altitudeband()):
+            raise RuntimeError(
+                "attempt to maneuver when not allowed by the speed and altitude."
+            )
 
         baseturnrate, divisor = E.turnrate()
         turnrequirement = apturnrate.turnrequirement(

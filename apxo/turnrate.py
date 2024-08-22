@@ -391,5 +391,7 @@ def turnrequirement(altitudeband, speed, rate, divisor=1):
 
     if raw == 0:
         return None
+    elif raw == 60 or raw == 90:
+        return raw
     else:
         return int(math.ceil(raw / divisor))

@@ -4,7 +4,7 @@ startfile(__file__, "missile flight")
 
 # LO altitude band
 
-starttestsetup(verbose=False)
+starttestsetup()
 A1 = aircraft(
     "A1",
     "AF",
@@ -112,5 +112,22 @@ A1a._assert("A2-2123/2124 E 14", None)
 startgameturn()
 A1a.move("C2,VRL/C2/L90,H")
 A1a._assert("A2-1923/1924 W 14", None)
+
+startgameturn()
+A1a._speed = 6.0
+A1a.move("TR/H,H,H/R")
+asserterror("attempt to maneuver when not allowed by the speed and altitude.")
+startgameturn()
+A1a._speed = 7.0
+A1a.move("TR/H,H,H/R")
+A1a._assert("A2-2021       NNE  10", None)
+startgameturn()
+A1a._speed = 7.0
+A1a.move("TR/H,H,H/RR")
+A1a._assert("A2-2021       ENE  10", None)
+startgameturn()
+A1a._speed = 7.0
+A1a.move("TR/H,H,H/RRR")
+asserterror("attempt to turn faster than the declared turn rate.")
 
 endfile(__file__)
