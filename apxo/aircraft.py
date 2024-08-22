@@ -733,10 +733,10 @@ class aircraft(apelement.element):
         self._logbreak()
         aplog.clearerror()
         try:
-            if not returnfire and apaircraftflight.useofweaponsforbidden(self):
+            if not returnfire and apflight.useofweaponsforbidden(self):
                 raise RuntimeError(
                     "attempt to use weapons %s."
-                    % apaircraftflight.useofweaponsforbidden(self)
+                    % apflight.useofweaponsforbidden(self)
                 )
 
             if target is not None and not target.isaircraft():
@@ -764,10 +764,10 @@ class aircraft(apelement.element):
         aplog.clearerror()
         try:
 
-            if apaircraftflight.useofweaponsforbidden(self):
+            if apflight.useofweaponsforbidden(self):
                 raise RuntimeError(
                     "attempt to start SSGT while %s"
-                    % apaircraftflight.useofweaponsforbidden(self)
+                    % apflight.useofweaponsforbidden(self)
                 )
 
             # TODO: Check we can start SSGT on a specific target.

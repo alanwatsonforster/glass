@@ -1247,7 +1247,7 @@ def _endnormalflight(A):
 ###############################################################################
 
 
-def domoves(E, moves, actiondispatchlist, afterFP=None, aftermove=None):
+def domoves(E, moves, actiondispatchlist, aftermove=None):
     """
     Carry out flight moves.
     """
@@ -1257,51 +1257,55 @@ def domoves(E, moves, actiondispatchlist, afterFP=None, aftermove=None):
 
     for move in re.split(r"[, ]", moves):
         if not E.killed() and not E.removed():
-            domove(E, move, actiondispatchlist, afterFP, aftermove)
+            domove(E, move, actiondispatchlist, aftermove)
 
 
 ################################################################################
 
 
-def domove(E, move, actiondispatchlist, afterFP, aftermove):
+def domove(E, move, actiondispatchlist, aftermove):
     """
     Carry out a flight move.
     """
-    
+
     ####################
 
     def doactions(E, actions, selectedactiontype):
         """
         Carry out the actions in an move that match the action type.
         """
-    
+
         while actions != []:
-    
+
             actioncode = actions[0]
-    
+
             for action in actiondispatchlist:
-    
+
                 actiontype = action[1]
                 actionprocedure = action[2]
-    
+
                 if actioncode == action[0]:
                     break
-    
+
             if selectedactiontype == "prolog" and actiontype == "epilog":
-                raise RuntimeError("unexpected %s action in prolog of %r." % (actioncode, move))
+                raise RuntimeError(
+                    "unexpected %s action in prolog of %r." % (actioncode, move)
+                )
             if selectedactiontype == "epilog" and actiontype == "prolog":
-                raise RuntimeError("unexpected %s action in epilog of %r." % (actioncode, move))
-    
+                raise RuntimeError(
+                    "unexpected %s action in epilog of %r." % (actioncode, move)
+                )
+
             if selectedactiontype != actiontype:
                 break
-    
+
             if actionprocedure is None:
                 break
-    
+
             actions = actions[1:]
-    
+
             actionprocedure(E)
-    
+
         return actions
 
     ####################
@@ -1329,9 +1333,7 @@ def domove(E, move, actiondispatchlist, afterFP, aftermove):
         actions = move.split("/")
         remainingactions = actions
 
-        remainingactions = doactions(
-            E, remainingactions, "maneuvering departure"
-        )
+        remainingactions = doactions(E, remainingactions, "maneuvering departure")
         if remainingactions != actions:
 
             if remainingactions != []:
@@ -1391,8 +1393,9 @@ def domove(E, move, actiondispatchlist, afterFP, aftermove):
         if E._hasturned and E._maneuversupersonic:
             E._turningsupersonic = True
 
-        if afterFP is not None:
-            afterFP(E)
+        if E.isaircraft():
+            _checkrecovery(E)
+            _checktracking(E)
 
         remainingactions = doactions(E, remainingactions, "epilog")
 
@@ -1443,6 +1446,120 @@ def domove(E, move, actiondispatchlist, afterFP, aftermove):
 
 ################################################################################
 
+
+def _checkrecovery(A):
+
+    # Check recovery. See rules 9.1 and 13.3.6. The +1 is because the recovery period is
+    # this turn plus half of the speed, rounding down.
+
+    if A._hasunloaded:
+        A._unloadedrecoveryfp = int(A.speed() / 2) + 1
+        A._ETrecoveryfp -= 1
+        A._BTrecoveryfp = -1
+        A._rollrecoveryfp = -1
+        A._HTrecoveryfp = -1
+        A._TTrecoveryfp = -1
+    elif A._maneuvertype == "ET":
+        A._unloadedrecoveryfp = -1
+        A._ETrecoveryfp = int(A.speed() / 2) + 1
+        A._BTrecoveryfp = -1
+        A._rollrecoveryfp = -1
+        A._HTrecoveryfp = -1
+        A._TTrecoveryfp = -1
+    elif A._maneuvertype == "BT":
+        A._unloadedrecoveryfp -= 1
+        A._ETrecoveryfp -= 1
+        A._BTrecoveryfp = int(A.speed() / 2) + 1
+        A._rollrecoveryfp = -1
+        A._HTrecoveryfp = -1
+        A._TTrecoveryfp = -1
+    elif A._maneuvertype in ["VR", "LR", "DR"] or (A._hrd and A._fp == 1):
+        A._unloadedrecoveryfp -= 1
+        A._ETrecoveryfp -= 1
+        A._BTrecoveryfp = -1
+        A._rollrecoveryfp = int(A.speed() / 2) + 1
+        A._HTrecoveryfp = -1
+        A._TTrecoveryfp = -1
+    elif A._maneuvertype == "HT":
+        A._unloadedrecoveryfp -= 1
+        A._ETrecoveryfp -= 1
+        A._BTrecoveryfp -= 1
+        A._rollrecoveryfp -= 1
+        A._HTrecoveryfp = int(A.speed() / 2) + 1
+        A._TTrecoveryfp = -1
+    elif A._maneuvertype == "TT":
+        A._unloadedrecoveryfp -= 1
+        A._ETrecoveryfp -= 1
+        A._BTrecoveryfp -= 1
+        A._rollrecoveryfp -= 1
+        A._HTrecoveryfp -= 1
+        A._TTrecoveryfp = int(A.speed() / 2) + 1
+        A._unloadedrecoveryfp -= 1
+    else:
+        A._unloadedrecoveryfp -= 1
+        A._ETrecoveryfp -= 1
+        A._BTrecoveryfp -= 1
+        A._rollrecoveryfp -= 1
+        A._HTrecoveryfp -= 1
+        A._TTrecoveryfp -= 1
+
+    if A._ETrecoveryfp == 0:
+        A._logevent("recovered from ET.")
+    if A._BTrecoveryfp == 0:
+        A._logevent("recovered from BT.")
+    if A._rollrecoveryfp == 0:
+        A._logevent("recovered from roll.")
+    if A._HTrecoveryfp == 0:
+        A._logevent("recovered from HT.")
+    if A._TTrecoveryfp == 0:
+        A._logevent("recovered from TT.")
+
+
+def _checktracking(A):
+
+    # Check tracking. See rule 9.4.
+    if A._tracking:
+        if useofweaponsforbidden(A):
+            A._logevent("stopped SSGT.")
+            A._tracking = None
+            A._trackingfp = 0
+        elif apairtoair.trackingforbidden(A, A._tracking):
+            A._logevent(
+                "stopped SSGT as %s" % apairtoair.trackingforbidden(A, A._tracking)
+            )
+            A._tracking = None
+            A._trackingfp = 0
+        else:
+            A._trackingfp += 1
+
+def useofweaponsforbidden(A):
+
+    # See rule 8.2.2.
+    if A._unloadedhfp:
+        return "while unloaded"
+    if A._unloadedrecoveryfp > 0:
+        return "while recovering from being unloaded"
+
+    # See rule 10.1.
+    if A._maneuvertype == "ET":
+        return "while in an ET"
+
+    if A._ETrecoveryfp > 0:
+        return "while recovering from an ET"
+
+    # See rule 13.3.5.
+    if A._hrd:
+        return "after HRD"
+
+    # See rule 13.3.6.
+    if A._hasrolled and A._hasmaneuvered:
+        return "immediately after rolling"
+
+    # See rule 13.3.6.
+    if A._hasrolled:
+        return "while rolling"
+
+    return False
 
 
 
