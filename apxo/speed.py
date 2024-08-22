@@ -317,7 +317,7 @@ def _startaircraftspeed(
         # 1/2 of APs, quantized in 1/4 units, rounding up.
         powerap = math.ceil(powerap / 2 * 4) / 4
 
-    A._logevent("power is %.2f AP." % powerap)
+    A._logevent("%s power (%.2f AP)." % (powersetting, powerap))
 
     ############################################################################
 
@@ -448,7 +448,9 @@ def _startaircraftspeed(
         if powersetting == "I" or powersetting == "N":
             dspeedap = -1.0
             speedap += dspeedap
-            A._logevent("%s power above cruise speed (%+.1f AP)." % (powersetting, dspeedap))
+            A._logevent(
+                "%s power above cruise speed (%+.1f AP)." % (powersetting, dspeedap)
+            )
 
     # See rules 6.1 and 6.6 in version 2.4.
 
@@ -459,7 +461,9 @@ def _startaircraftspeed(
         if speed >= m1speed(A.altitudeband()):
             dspeedap = -1.0
             speedap += dspeedap
-            A._logevent("%s power at supersonic speed (%+.1f AP)." % (powersetting, dspeedap))
+            A._logevent(
+                "%s power at supersonic speed (%+.1f AP)." % (powersetting, dspeedap)
+            )
 
     # See rule 6.6
 
@@ -467,11 +471,15 @@ def _startaircraftspeed(
         if powersetting == "I" or powersetting == "N":
             dspeedap = -2.0 * (speed - htspeed(A.altitudeband())) / 0.5
             speedap += dspeedap
-            A._logevent("%s power at supersonic speed (%+.1f AP)." % (powersetting, dspeedap))
+            A._logevent(
+                "%s power at supersonic speed (%+.1f AP)." % (powersetting, dspeedap)
+            )
         elif powersetting == "M":
             dspeedap = -1.5 * (speed - htspeed(A.altitudeband())) / 0.5
             speedap += dspeedap
-            A._logevent("%s power at supersonic speed (%+.1f AP)." % (powersetting, dspeedap))
+            A._logevent(
+                "%s power at supersonic speed (%+.1f AP)." % (powersetting, dspeedap)
+            )
 
     # See rule 6.6
 

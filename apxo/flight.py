@@ -2789,6 +2789,9 @@ def _dodeclaremaneuver(E, maneuvertype, sense):
     if E._hasdeclaredamaneuver:
         raise RuntimeError("attempt to declare a second maneuver.")
 
+    if E.isaircraft() and apvariants.withvariant("use house rules"):
+        startap = E._turnrateap + E._othermaneuversap
+
     if maneuvertype == "SL":
         _dodeclareslide(E, sense)
     elif maneuvertype == "DR":
@@ -2800,7 +2803,17 @@ def _dodeclaremaneuver(E, maneuvertype, sense):
     else:
         _dodeclareturn(E, maneuvertype, sense)
 
-    E._logevent("declared %s." % E.maneuver())
+    if E.isaircraft() and apvariants.withvariant("use house rules"):
+        endap = E._turnrateap + E._othermaneuversap
+        ap = " (%+.1f AP)" % (endap - startap)
+    else:
+        ap = ""
+
+    if E._maneuversupersonic:
+        E._logevent("declared supersonic %s%s." % (E.maneuver(), ap))
+    else:
+        E._logevent("declared %s%s." % (E.maneuver(), ap))
+
     E._hasdeclaredamaneuver = True
 
 
