@@ -111,37 +111,3 @@ def continuespecialflight(A, moves):
 
 
 ################################################################################
-
-
-def _isdivingflight(flighttype, vertical=False):
-    """
-    Return True if the flight type is SD, UD, or VD. Otherwise return False.
-    """
-
-    if vertical:
-        return flighttype == "VD"
-    else:
-        return flighttype == "SD" or flighttype == "UD" or flighttype == "VD"
-
-
-def _isclimbingflight(flighttype, vertical=False):
-    """
-    Return True if the flight type is ZC, SC, or VC. Otherwise return False.
-    """
-
-    if vertical:
-        return flighttype == "VC"
-    else:
-        return flighttype == "ZC" or flighttype == "SC" or flighttype == "VC"
-
-
-def _islevelflight(flighttype):
-    """
-    Return True if the flight type is LVL. Otherwise return False.
-    """
-
-    return flighttype == "LVL"
-
-
-################################################################################
-

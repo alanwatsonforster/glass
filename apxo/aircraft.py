@@ -1,6 +1,5 @@
 import apxo as ap
 import apxo.aircraftdata as apaircraftdata
-import apxo.aircraftflight as apaircraftflight
 import apxo.altitude as apaltitude
 import apxo.azimuth as apazimuth
 import apxo.closeformation as apcloseformation
@@ -22,7 +21,7 @@ import apxo.geometry as apgeometry
 import apxo.airtoair as apairtoair
 import apxo.visualsighting as apvisualsighting
 
-from apxo.aircraftflight import _isclimbingflight, _isdivingflight, _islevelflight
+from apxo.flight import _isclimbingflight, _isdivingflight, _islevelflight
 
 import re
 
