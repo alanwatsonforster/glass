@@ -778,7 +778,30 @@ def _startmissilespeed(M):
 
 
 def _endmissilespeed(M):
-    pass
+    
+    turningfp = -M._turnfacingchanges
+    
+    altitudechange = M.altitude() - M._previousaltitude
+    if altitudechange >= M._speed:
+        altitudefp = -2
+    elif altitudechange >= M._speed / 2:
+        altitudefp = -1
+    elif altitudechange <= -M._speed:
+        altitudefp = +2
+    elif altitudechange <= -M._speed / 2:
+        altitudefp = +1
+    else:
+        altitudefp = 0
+
+    M._logevent("turning  FPs = %+.1f." % turningfp)
+    M._logevent("altitude FPs = %+.1f." % altitudefp)
+
+    M._newspeed = M._speed + turningfp + altitudefp
+
+    if M.speed() != M._newspeed:
+        M._logevent("speed will change from %.1f to %.1f." % (M.speed(), M._newspeed))
+    else:
+        M._logevent("speed will be unchanged at %.1f." % M._newspeed)
 
 
 ################################################################################

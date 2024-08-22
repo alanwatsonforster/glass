@@ -389,9 +389,11 @@ def _startmove(E, **kwargs):
     E._tracking = None
     E._trackingfp = 0
 
-    # This keeps track of the number of turns, rolls, and vertical rolls.
+    # This keeps track of the number of turns, turn facing changes,
+    # rolls, and vertical rolls.
 
     E._turnmaneuvers = 0
+    E._turnfacingchanges = 0
     E._rollmaneuvers = 0
     E._verticalrolls = 0
 
@@ -2367,7 +2369,7 @@ def _dodeclareturn(E, turnrate, sense):
         )
 
     else:
-    
+
         if E.speed() < apspeed.missilemaneuverspeed(E.altitudeband()):
             raise RuntimeError(
                 "attempt to maneuver when not allowed by the speed and altitude."
@@ -2426,17 +2428,16 @@ def _doturn(E, sense, facingchange, continuous):
         ):
             raise RuntimeError("attempt to turn faster than the declared turn rate.")
 
+    E._moveturn(sense, facingchange)
+
+    if E.isaircraft() and E._flighttype != "SP":
+
         # See Hack's article in APJ 36
         if E._turnmaneuvers == 0:
             sustainedfacingchanges = facingchange // 30 - 1
         else:
             sustainedfacingchanges = facingchange // 30
 
-    E._moveturn(sense, facingchange)
-
-    E._turnmaneuvers += 1
-
-    if E.isaircraft() and E._flighttype != "SP":
         if not apvariants.withvariant("use house rules"):
             if apcapabilities.hasproperty(E, "LBR"):
                 E._sustainedturnap -= sustainedfacingchanges * 0.5
@@ -2444,6 +2445,10 @@ def _doturn(E, sense, facingchange, continuous):
                 E._sustainedturnap -= sustainedfacingchanges * 1.5
             else:
                 E._sustainedturnap -= sustainedfacingchanges * 1.0
+
+    E._turnmaneuvers += 1
+    E._turnfacingchanges += facingchange // 30
+
 
 ########################################
 
@@ -2776,7 +2781,6 @@ def _doverticalroll(E, sense, facingchange, shift):
                     E._othermaneuversap -= 2.0
                 elif not apcapabilities.hasproperty(E, "GSSM"):
                     E._othermaneuversap -= 1.0
-
 
 
 ########################################

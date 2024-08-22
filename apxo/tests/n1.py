@@ -423,5 +423,50 @@ A1.move("LVL", "N", "H")
 A2.move("LVL", "N", "H")
 endgameturn()
 
+# Test speed loss from turning and altitude.
+
+starttestsetup()
+A1 = aircraft(
+    "A1",
+    "AF",
+    "F-16A-10",
+    "A2-2030",
+    "N",
+    10,
+    6.0,
+    stores={"1": "IRM/AIM-9L", "9": "IRM/AIM-9L"},
+)
+A2 = aircraft(
+    "A2",
+    "AF",
+    "F-16A-10",
+    "A2-2020",
+    "N",
+    10,
+    6.0,
+    stores={"1": "IRM/AIM-9L", "9": "IRM/AIM-9L"},
+)
+endtestsetup()
+
+startgameturn()
+A1.move("LVL", "N", "H,H,H,H,H,H")
+A2.move("LVL", "N", "H,H,H,H,H,H")
+A1a = A1.airtoairlaunch("A1a", A2, "1")
+endgameturn()
+
+startgameturn()
+A1a.move("H,H,H,H,H,H,H,H,H,H,H,H,H,H")
+A1a._assert("A1-2010       N    10", 14.0)
+
+startgameturn()
+A1a.move("TR/H,H/R,TR/H,H/R,TR/H,H/R,TR/H,H/R,TR/H,H/R,TR/H,H/R,TR/H,H/R")
+A1a._assert("A2-2824       SSW  10", 7.0)
+
+
+startgameturn()
+A1a.move("C,C,C,C,C,C,C,C,C,C,C,C,C,C")
+A1a._assert("A2-2024       N    24", 12.0)
+
+
 
 endfile(__file__)
