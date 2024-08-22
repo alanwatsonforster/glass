@@ -1144,6 +1144,13 @@ def _continuenormalflight(A, moves):
 def _continuemissileflight(M, moves):
 
     actiondispatchlist = [
+        ["TL", "prolog", lambda A: dodeclaremaneuver(A, "T", "L")],
+        ["TR", "prolog", lambda A: dodeclaremaneuver(A, "T", "R")],
+        ["SLL", "prolog", lambda A: dodeclaremaneuver(A, "SL", "L")],
+        ["SLR", "prolog", lambda A: dodeclaremaneuver(A, "SL", "R")],
+        ["VRL", "prolog", lambda A: dodeclaremaneuver(A, "VR", "L")],
+        ["VRR", "prolog", lambda A: dodeclaremaneuver(A, "VR", "R")],
+        
         ["H", "FP", lambda A: dohorizontal(A, "H")],
         ["HD", "FP", lambda A: dohorizontal(A, "HD")],
         ["HD1", "FP", lambda A: dohorizontal(A, "HD")],
@@ -1158,13 +1165,6 @@ def _continuemissileflight(M, moves):
         ["DDD", "FP", lambda A: dodive(A, 3)],
         ["D3", "FP", lambda A: dodive(A, 3)],
 
-        ["TL", "prolog", lambda A: dodeclaremaneuver(A, "T", "L")],
-        ["TR", "prolog", lambda A: dodeclaremaneuver(A, "T", "R")],
-
-        ["SLL", "prolog", lambda A: dodeclaremaneuver(A, "SL", "L")],
-        ["SLR", "prolog", lambda A: dodeclaremaneuver(A, "SL", "R")],
-        ["VRL", "prolog", lambda A: dodeclaremaneuver(A, "VR", "L")],
-        ["VRR", "prolog", lambda A: dodeclaremaneuver(A, "VR", "R")],
         ["L90+", "epilog", lambda A: domaneuver(A, "L", 90, True, True)],
         ["L60+", "epilog", lambda A: domaneuver(A, "L", 60, True, True)],
         ["L30+", "epilog", lambda A: domaneuver(A, "L", 30, True, True)],
@@ -2287,24 +2287,24 @@ def dodeclareslide(E, sense):
 
     # See rules 13.1 and 13.2.
 
-    if E._slides == 1 and E.speed() <= 9.0:
-        raise RuntimeError("only one slide allowed per turn at low speed.")
-    if E._slides == 1 and E._fp - E._slidefp < 4:
-        raise RuntimeError(
-            "attempt to start a second slide without sufficient intermediate FPs."
-        )
-    elif E._slides == 2:
-        raise RuntimeError("at most two slides allowed per turn.")
+    if E.isaircraft():
 
+        if E._slides == 1 and E.speed() <= 9.0:
+            raise RuntimeError("only one slide allowed per turn at low speed.")
+        if E._slides == 1 and E._fp - E._slidefp < 4:
+            raise RuntimeError(
+                "attempt to start a second slide without sufficient intermediate FPs."
+            )
+        elif E._slides == 2:
+            raise RuntimeError("at most two slides allowed per turn.")
+    
     E._bank = None
     E._maneuvertype = "SL"
     E._maneuversense = sense
     E._maneuverfacingchange = None
     E._maneuverfp = 0
     E._maneuversupersonic = E.speed() >= apspeed.m1speed(E.altitudeband())
-    # The requirement has +1 FP to account for the final H.
     E._maneuverrequiredfp = 2 + extrapreparatoryhfp(E) + 1
-
 
 ########################################
 
@@ -2328,7 +2328,7 @@ def extrapreparatoryhfp(E):
 
     # See "Aircraft Damage Effects" in the Play Aids.
 
-    if E.damageatleast("2L"):
+    if E.isaircraft() and E.damageatleast("2L"):
         extrapreparatoryfp += 1.0
 
     return extrapreparatoryfp
