@@ -1012,15 +1012,7 @@ def _continuenormalflight(A, moves):
         ["RRR", "epilog", lambda A: domaneuver(A, "R", 90, True, False)],
         ["RR", "epilog", lambda A: domaneuver(A, "R", 60, True, False)],
         ["R", "epilog", lambda A: domaneuver(A, "R", None, True, False)],
-        ["HC1", "FP", lambda A: invalidaction(A, "HC1")],
-        ["HC2", "FP", lambda A: invalidaction(A, "HC2")],
-        ["HCC", "FP", lambda A: invalidaction(A, "HCC")],
-        ["HC", "FP", lambda A: invalidaction(A, "HC")],
         ["HD1", "FP", lambda A: dohorizontal(A, "HD")],
-        ["HD2", "FP", lambda A: invalidaction(A, "HD2")],
-        ["HD3", "FP", lambda A: invalidaction(A, "HD3")],
-        ["HDDD", "FP", lambda A: invalidaction(A, "HDDD")],
-        ["HDD", "FP", lambda A: invalidaction(A, "HDD")],
         ["HD", "FP", lambda A: dohorizontal(A, "HD")],
         ["HU", "FP", lambda A: dohorizontal(A, "HU")],
         ["H", "FP", lambda A: dohorizontal(A, "H")],
@@ -1606,15 +1598,8 @@ def domove(E, move, actiondispatchlist):
 
         fp = E._fp
         remainingactions = doactions(E, remainingactions, "FP")
-        if E._fp == fp:
-            raise RuntimeError(
-                "%r is not a valid move as it does not expend an FP." % move
-            )
-        elif E._fp > fp + 1:
-            raise RuntimeError(
-                "%r is not a valid move as it attempts to expend more than one FP."
-                % move
-            )
+        if E._fp == fp or E._fp > fp + 1:
+            raise RuntimeError("%r is not a valid move." % move)
 
         # We save maneuvertype, as E._maneuvertype may be set to None of the
         # maneuver is completed below.
@@ -1924,13 +1909,6 @@ def _islevelflight(flighttype):
     """
 
     return flighttype == "LVL"
-
-
-################################################################################
-
-
-def invalidaction(A, action):
-    raise RuntimeError("%r is not a valid action." % action)
 
 
 ########################################
