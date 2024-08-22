@@ -950,7 +950,51 @@ def _continuedepartedflight(A, moves):
 
 
 def _continuespecialflight(A, moves):
-    apaircraftflight.continuespecialflight(A, moves)
+
+    actiondispatchlist = [
+        ["L180", "epilog", lambda A: doturn(A, "L", 180, False)],
+        ["L150", "epilog", lambda A: doturn(A, "L", 150, False)],
+        ["L120", "epilog", lambda A: doturn(A, "L", 120, False)],
+        ["L90", "epilog", lambda A: doturn(A, "L", 90, False)],
+        ["L60", "epilog", lambda A: doturn(A, "L", 60, False)],
+        ["L30", "epilog", lambda A: doturn(A, "L", 30, False)],
+        ["LLL", "epilog", lambda A: doturn(A, "L", 90, False)],
+        ["LL", "epilog", lambda A: doturn(A, "L", 60, False)],
+        ["L", "epilog", lambda A: doturn(A, "L", 30, False)],
+        ["R180", "epilog", lambda A: doturn(A, "R", 180, False)],
+        ["R150", "epilog", lambda A: doturn(A, "R", 150, False)],
+        ["R120", "epilog", lambda A: doturn(A, "R", 120, False)],
+        ["R90", "epilog", lambda A: doturn(A, "R", 90, False)],
+        ["R60", "epilog", lambda A: doturn(A, "R", 60, False)],
+        ["R30", "epilog", lambda A: doturn(A, "R", 30, False)],
+        ["RRR", "epilog", lambda A: doturn(A, "R", 90, False)],
+        ["RR", "epilog", lambda A: doturn(A, "R", 60, False)],
+        ["R", "epilog", lambda A: doturn(A, "R", 30, False)],
+        ["HD1", "FP", lambda A: dohorizontal(A, "HD")],
+        ["HD", "FP", lambda A: dohorizontal(A, "HD")],
+        ["H", "FP", lambda A: dohorizontal(A, "H")],
+        ["C1", "FP", lambda A: doclimb(A, 1)],
+        ["C2", "FP", lambda A: doclimb(A, 2)],
+        ["C3", "FP", lambda A: doclimb(A, 3)],
+        ["CCC", "FP", lambda A: doclimb(A, 3)],
+        ["CC", "FP", lambda A: doclimb(A, 2)],
+        ["C", "FP", lambda A: doclimb(A, 1)],
+        ["D1", "FP", lambda A: dodive(A, 1)],
+        ["D2", "FP", lambda A: dodive(A, 2)],
+        ["D3", "FP", lambda A: dodive(A, 3)],
+        ["DDD", "FP", lambda A: dodive(A, 3)],
+        ["DD", "FP", lambda A: dodive(A, 2)],
+        ["D", "FP", lambda A: dodive(A, 1)],
+        ["S", "FP", lambda A: dostationary(A)],
+        ["", "", None],
+    ]
+
+    domoves(
+        A,
+        moves,
+        actiondispatchlist,
+    )
+
 
 
 ########################################
@@ -1636,10 +1680,11 @@ def domove(E, move, actiondispatchlist):
             E._turningsupersonic = True
 
         if E.isaircraft():
-            _checkrecovery(E)
-            _checktracking(E)
-            _checkmaneuveringdeparture(E)
-            _checkgloc(E)
+            if E._flighttype != "SP":
+                _checkrecovery(E)
+                _checktracking(E)
+                _checkmaneuveringdeparture(E)
+                _checkgloc(E)
             _checkcloseformation(E)
 
         remainingactions = doactions(E, remainingactions, "epilog")
@@ -2116,6 +2161,11 @@ def dodive(E, altitudechange):
 
     E._movedive(altitudechange)
 
+########################################
+
+def dostationary(E):
+    
+    E._fp += 1
 
 ########################################
 
@@ -2257,26 +2307,28 @@ def doturn(E, sense, facingchange, continuous):
     if E._flighttype == "VC" or E._flighttype == "VD":
         raise RuntimeError("attempt to turn while flight type is %s." % E._flighttype)
 
-    # See rule 7.1.
-    if E._maneuverfp < E._maneuverrequiredfp or facingchange > E._maneuverfacingchange:
-        raise RuntimeError("attempt to turn faster than the declared turn rate.")
+    if E._flighttype != "SP":
 
-    # See Hack's article in APJ 36
-    if E._turnmaneuvers == 0:
-        sustainedfacingchanges = facingchange // 30 - 1
-    else:
-        sustainedfacingchanges = facingchange // 30
+        # See rule 7.1.
+        if E._maneuverfp < E._maneuverrequiredfp or facingchange > E._maneuverfacingchange:
+            raise RuntimeError("attempt to turn faster than the declared turn rate.")
 
-    if E.isaircraft():
-        if apvariants.withvariant("use house rules"):
-            pass
+        # See Hack's article in APJ 36
+        if E._turnmaneuvers == 0:
+            sustainedfacingchanges = facingchange // 30 - 1
         else:
-            if apcapabilities.hasproperty(E, "LBR"):
-                E._sustainedturnap -= sustainedfacingchanges * 0.5
-            elif apcapabilities.hasproperty(E, "HBR"):
-                E._sustainedturnap -= sustainedfacingchanges * 1.5
+            sustainedfacingchanges = facingchange // 30
+
+        if E.isaircraft():
+            if apvariants.withvariant("use house rules"):
+                pass
             else:
-                E._sustainedturnap -= sustainedfacingchanges * 1.0
+                if apcapabilities.hasproperty(E, "LBR"):
+                    E._sustainedturnap -= sustainedfacingchanges * 0.5
+                elif apcapabilities.hasproperty(E, "HBR"):
+                    E._sustainedturnap -= sustainedfacingchanges * 1.5
+                else:
+                    E._sustainedturnap -= sustainedfacingchanges * 1.0
 
     E._turnmaneuvers += 1
 
