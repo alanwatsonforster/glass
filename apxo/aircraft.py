@@ -224,7 +224,7 @@ class aircraft(apelement.element):
 
         except RuntimeError as e:
             aplog.logexception(e)
-        aplog.logbreak()
+        self.logbreak()
 
     #############################################################################
 
@@ -322,7 +322,7 @@ class aircraft(apelement.element):
     def note(self, s):
         """Write a note to the log."""
         self.lognote(s)
-        aplog.logbreak()
+        self.logbreak()
 
     #############################################################################
 
@@ -343,7 +343,7 @@ class aircraft(apelement.element):
 
         except RuntimeError as e:
             aplog.logexception(e)
-        aplog.logbreak()
+        self.logbreak()
 
     ##############################################################################
 
@@ -369,7 +369,7 @@ class aircraft(apelement.element):
             apvisualsighting.padlock(self, other, note=note)
         except RuntimeError as e:
             aplog.logexception(e)
-        aplog.logbreak()
+        self.logbreak()
 
     ##############################################################################
 
@@ -384,7 +384,7 @@ class aircraft(apelement.element):
             apvisualsighting.attempttosight(self, other, success=None, note=None)
         except RuntimeError as e:
             aplog.logexception(e)
-        aplog.logbreak()
+        self.logbreak()
 
     #############################################################################
 
@@ -485,7 +485,7 @@ class aircraft(apelement.element):
 
         except RuntimeError as e:
             aplog.logexception(e)
-        aplog.logbreak()
+        self.logbreak()
 
     #############################################################################
 
@@ -504,7 +504,7 @@ class aircraft(apelement.element):
             showgeometry(self, other, note=None)
         except RuntimeError as e:
             aplog.logexception(e)
-        aplog.logbreak()
+        self.logbreak()
 
     #############################################################################
 
@@ -603,7 +603,7 @@ class aircraft(apelement.element):
             self._color = None
         except RuntimeError as e:
             aplog.logexception(e)
-        aplog.logbreak()
+        self.logbreak()
 
     ################################################################################
 
@@ -644,7 +644,7 @@ class aircraft(apelement.element):
             apcloseformation.join(self, other)
         except RuntimeError as e:
             aplog.logexception(e)
-        aplog.logbreak()
+        self.logbreak()
 
     def leavecloseformation(self):
         aplog.clearerror()
@@ -652,7 +652,7 @@ class aircraft(apelement.element):
             apcloseformation.leave(self)
         except RuntimeError as e:
             aplog.logexception(e)
-        aplog.logbreak()
+        self.logbreak()
 
     def closeformationsize(self):
         return apcloseformation.size(self)
@@ -705,7 +705,7 @@ class aircraft(apelement.element):
 
         except RuntimeError as e:
             aplog.logexception(e)
-        aplog.logbreak()
+        self.logbreak()
 
     ################################################################################
 
@@ -747,7 +747,7 @@ class aircraft(apelement.element):
 
         except RuntimeError as e:
             aplog.logexception(e)
-        aplog.logbreak()
+        self.logbreak()
 
     ################################################################################
 
@@ -797,7 +797,7 @@ class aircraft(apelement.element):
 
         except RuntimeError as e:
             aplog.logexception(e)
-        aplog.logbreak()
+        self.logbreak()
 
         return M
 
@@ -824,7 +824,7 @@ class aircraft(apelement.element):
             self._jettison(*args)
         except RuntimeError as e:
             aplog.logexception(e)
-        aplog.logbreak()
+        self.logbreak()
 
     ################################################################################
 
@@ -835,7 +835,7 @@ class aircraft(apelement.element):
             self.lognote(note)
         except RuntimeError as e:
             aplog.logexception(e)
-        aplog.logbreak()
+        self.logbreak()
 
     def damage(self):
         return apdamage.damage(self)

@@ -75,7 +75,7 @@ class missile(apelement.element):
 
         except RuntimeError as e:
             aplog.logexception(e)
-        aplog.logbreak()
+        self.logbreak()
 
     #############################################################################
 

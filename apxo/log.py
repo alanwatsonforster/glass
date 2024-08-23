@@ -35,11 +35,20 @@ The log messages have one of these forms:
 """
 
 
+_filenames = []
+
+
 def _logline(line, who=None, writefile=True):
     if _print:
         print(line)
     if who is not None and _writefiles and writefile:
-        with open("log-%s.txt" % who, "a") as file:
+        filename = "log-%s.txt" % who
+        if filename not in _filenames:
+            _filenames.append(filename)
+            filemode = "w"
+        else:
+            filemode = "a"
+        with open(filename, filemode) as file:
             print(line, file=file)
 
 

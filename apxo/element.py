@@ -250,7 +250,7 @@ class element:
             self._kill()
         except RuntimeError as e:
             aplog.logexception(e)
-        aplog.logbreak()
+        self.logbreak()
 
     def _remove(self):
         self._removed = True
@@ -264,7 +264,7 @@ class element:
             self._removed = True
         except RuntimeError as e:
             aplog.logexception(e)
-        aplog.logbreak()
+        self.logbreak()
 
     ############################################################################
 
@@ -382,7 +382,7 @@ class element:
             self.lognote(note)
         except RuntimeError as e:
             aplog.logexception(e)
-        aplog.logbreak()
+        self.logbreak()
 
     def _continuemove(self, *args, **kwargs):
         raise RuntimeError("%s cannot be moved." % self.name())
@@ -399,7 +399,7 @@ class element:
             self.lognote(note)
         except RuntimeError as e:
             aplog.logexception(e)
-        aplog.logbreak()
+        self.logbreak()
 
     ############################################################################
 
@@ -513,6 +513,9 @@ class element:
     def lognote(self, note, writefile=True):
         aplog.lognote(note, who=self.name(), writefile=writefile)
 
+    def logbreak(self, writefile=True):
+        aplog.logbreak(who=self.name(), writefile=writefile)
+
     def logposition(self, when):
         self.logwhenwhat(when, self.position())
 
@@ -524,7 +527,7 @@ class element:
 
     def logend(self, what):
         self.logwhenwhat("end", what)
-
+        
     ################################################################################
 
     def _assert(self, expectedposition, expectedspeed, expectedconfiguration=None):
