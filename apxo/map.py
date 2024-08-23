@@ -10,6 +10,23 @@ import apxo.hexcode as aphexcode
 import os
 import ast
 
+################################################################################
+
+_writefiles = True
+
+def setwritefiles(value):
+    global _writefiles
+    _writefiles = value
+
+_writefiletypes = ["png"]
+
+def setwritefiletypes(value):
+    global _writefiletypes
+    _writefiletypes = value
+
+################################################################################
+
+
 _terrain = {}
 
 _drawterrain = True
@@ -32,7 +49,6 @@ _xmax = None
 _ymin = None
 _ymax = None
 _dotsperhex = None
-_writefiletypes = None
 
 _saved = False
 
@@ -126,7 +142,6 @@ def setmap(
     drawterrain=True,
     drawlabels=True,
     dotsperhex=80,
-    writefiletypes=[],
     style="original",
     wilderness=None,
     forest=None,
@@ -157,7 +172,6 @@ def setmap(
     global _xmax
     global _ymax
     global _dotsperhex
-    global _writefiletypes
 
     _usingfirstgenerationsheets = None
 
@@ -202,7 +216,6 @@ def setmap(
     _drawlabels = drawlabels
 
     _dotsperhex = dotsperhex
-    _writefiletypes = writefiletypes
 
     _xmin = 0
     _xmax = _dxsheet * _nxsheetgrid
@@ -1065,8 +1078,11 @@ def startdrawmap(
         _saved = True
 
 
-def enddrawmap(turn, writefiles=True):
-    if writefiles:
+def enddrawmap(turn, writefiles=None):
+    print("writefiles is %r" % writefiles)
+    print("_writefiles is %r" % _writefiles)
+    if writefiles or (writefiles is None and _writefiles):
+        print("writing files")
         for filetype in _writefiletypes:
             apdraw.writefile("map-%02d.%s" % (turn, filetype))
     apdraw.show()
