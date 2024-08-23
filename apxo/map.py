@@ -23,6 +23,13 @@ _writefiletypes = ["png"]
 def setwritefiletypes(value):
     global _writefiletypes
     _writefiletypes = value
+    
+_watermark = None
+
+def setwatermark(value):
+    global _watermark
+    _watermark = value
+
 
 ################################################################################
 
@@ -1070,7 +1077,9 @@ def startdrawmap(
                 )
                 break
 
-    if watermark is not None:
+    if _watermark is not None:
+        apdraw.drawwatermark(_watermark, canvasxmin, canvasymin, canvasxmax, canvasymax)
+    elif watermark is not None:
         apdraw.drawwatermark(watermark, canvasxmin, canvasymin, canvasxmax, canvasymax)
 
     if fullmap:
