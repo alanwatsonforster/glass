@@ -4,8 +4,18 @@ Logging.
 
 import apxo.gameturn as apgameturn
 
-_silent = False
+################################################################################
+
+_print = True
 _writetofiles = True
+
+def setprint(value):
+    _print = value
+    
+def setwritetofiles(value):
+    _writetofiles = value
+
+################################################################################
 
 """
 
@@ -23,7 +33,7 @@ The log messages have one of these forms:
 
 
 def _logline(line, who=None, writetofile=True):
-    if _silent:
+    if _print:
         return
     print(line)
     if _writetofiles and writetofile and who is not None:
@@ -123,10 +133,8 @@ def clearerror():
 def logexception(e):
     global _error
     _error = str(e.args[0])
-    if _silent:
-        return
     logbreak()
-    log("=== ERROR: %s ===" % _error)
+    _logline("=== ERROR: %s ===" % _error)
     logbreak()
 
 

@@ -5,16 +5,15 @@ from apxo import aircraft
 
 import os.path
 
-aplog._silent = True
-aplog._writefiles = False
-
-
 def startfile(file, description):
     print("running tests in file %s: %s." % (os.path.basename(file), description))
+    aplog.setprint(False)
+    aplog.setwritetofiles(False)
 
 
 def endfile(file):
-    aplog._silent = False
+    aplog.setprint(True)
+    aplog.setwritetofiles(True)
 
 
 def asserterror(error):
@@ -27,7 +26,7 @@ def asserterror(error):
 def starttestsetup(
     sheets=[["A1"], ["A2"]], north="up", variants=[], drawterrain=False, verbose=False
 ):
-    aplog._silent = not verbose
+    aplog.setprint(verbose)
     ap.startgamesetup(
         None, sheets=sheets, north=north, drawterrain=drawterrain, variants=variants
     )
