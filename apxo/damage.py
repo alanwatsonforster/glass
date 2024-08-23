@@ -47,10 +47,10 @@ def takedamage(A, damage):
     else:
         raise RuntimeError("invalid damage %r" % damage)
 
-    A._logwhenwhat("", "%s takes %s damage." % (A._name, damage))
+    A.logwhenwhat("", "%s takes %s damage." % (A._name, damage))
 
     if A.killed():
-        A._logwhenwhat("", "%s is already killed." % A._name)
+        A.logwhenwhat("", "%s is already killed." % A._name)
         return
 
     if A._damageL >= 3:
@@ -74,11 +74,11 @@ def takedamage(A, damage):
         A._damageC = 0
         A._kill()
 
-    A._logwhenwhat(
+    A.logwhenwhat(
         "", "%s damage changed from %s to %s." % (A._name, previousdamage, A.damage())
     )
     if A.killed():
-        A._logwhenwhat("", "%s is killed." % A._name)
+        A.logwhenwhat("", "%s is killed." % A._name)
 
 
 ##############################################################################

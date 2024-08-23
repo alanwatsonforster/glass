@@ -111,7 +111,7 @@ def startgameturn(note=None):
                 "initial aircraft positions, speeds, maneuvers, and previous flight types:"
             )
             for A in apaircraft.aslist():
-                A._logwhat(
+                A.logwhat(
                     "%s  %4.1f  %-9s  %-3s"
                     % (A.position(), A.speed(), A.maneuver(), A.flighttype()),
                     writetofile=False,
@@ -120,7 +120,7 @@ def startgameturn(note=None):
             aplog.logbreak()
             aplog.logwhat("initial missile positions and speeds:")
             for M in apmissile.aslist():
-                M._logwhat("%s  %4.1f" % (M.position(), M.speed()), writetofile=False)
+                M.logwhat("%s  %4.1f" % (M.position(), M.speed()), writetofile=False)
         aplog.lognote(None, note)
 
     except RuntimeError as e:

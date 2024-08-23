@@ -62,7 +62,7 @@ def padlock(A, B, note=None):
     Carry out a padlock on aircraft B by aircraft A
     """
 
-    A._logbreak()
+    A.logbreak()
 
     A._log("padlocks %s." % B.name())
 
@@ -83,7 +83,7 @@ def padlock(A, B, note=None):
     else:
         A._log("%s is sighted but not identified." % B.name())
 
-    A._lognote(note)
+    A.lognote(note)
 
 
 ################################################################################
@@ -94,7 +94,7 @@ def attempttosight(A, B, success=None, note=None):
     Carry out an attempt to sight on aircraft B by aircraft A.
     """
 
-    A._logbreak()
+    A.logbreak()
 
     A._log("attempts to sight %s." % B.name())
     A._logcomment("range is %d." % visualsightingrange(A, B))
@@ -157,7 +157,7 @@ def attempttosight(A, B, success=None, note=None):
     A._logcomment("total modifier        is %+d." % modifier)
     A._logcomment("target visibility is %d." % apcapabilities.visibility(B))
 
-    A._lognote(note)
+    A.lognote(note)
 
     if success is False:
         A._log("%s is unsighted." % B.name())

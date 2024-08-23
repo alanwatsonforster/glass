@@ -242,12 +242,12 @@ class element:
         self._killed = True
 
     def kill(self, note=None):
-        self._logbreak()
+        self.logbreak()
         aplog.clearerror()
         try:
             apgameturn.checkingameturn()
             self._logcomment("has been killed.")
-            self._lognote(note)
+            self.lognote(note)
             self._kill()
         except RuntimeError as e:
             aplog.logexception(e)
@@ -256,12 +256,12 @@ class element:
         self._removed = True
 
     def remove(self, note=None):
-        self._logbreak()
+        self.logbreak()
         aplog.clearerror()
         try:
             apgameturn.checkingameturn()
             self._logcomment("has been removed.")
-            self._lognote(note)
+            self.lognote(note)
             self._removed = True
         except RuntimeError as e:
             aplog.logexception(e)
@@ -370,7 +370,7 @@ class element:
         raise RuntimeError("%s cannot be moved." % self.name())
 
     def move(self, *args, note=None, **kwargs):
-        self._logbreak()
+        self.logbreak()
         aplog.clearerror()
         try:
             apgameturn.checkingameturn()
@@ -380,7 +380,7 @@ class element:
                 raise RuntimeError("%s has already started moving." % self.name())
             self._startedmoving = True
             self._move(*args, **kwargs)
-            self._lognote(note)
+            self.lognote(note)
         except RuntimeError as e:
             aplog.logexception(e)
 
@@ -388,7 +388,7 @@ class element:
         raise RuntimeError("%s cannot be moved." % self.name())
 
     def continuemove(self, *args, note=None, **kwargs):
-        self._logbreak()
+        self.logbreak()
         aplog.clearerror()
         try:
             apgameturn.checkingameturn()
@@ -397,7 +397,7 @@ class element:
             if not self._startedmoving:
                 raise RuntimeError("%s has not started moving." % self.name())
             self._continuemove(*args, **kwargs)
-            self._lognote(note)
+            self.lognote(note)
         except RuntimeError as e:
             aplog.logexception(e)
 
@@ -480,7 +480,7 @@ class element:
         if self.altitude() <= altitudeofterrain:
             self._setaltitude(altitudeofterrain)
             self._altitudecarry = 0
-            self._logwhenwhat(
+            self.logwhenwhat(
                 "",
                 "%s has collided with terrain at altitude %d."
                 % (self.name(), altitudeofterrain),
@@ -493,17 +493,17 @@ class element:
         """
 
         if not apmap.isonmap(self.x(), self.y()):
-            self._logwhenwhat("", "%s has left the map." % self.name())
+            self.logwhenwhat("", "%s has left the map." % self.name())
 
     ############################################################################
 
-    def _logbreak(self, writetofile=True):
+    def logbreak(self, writetofile=True):
         aplog.logbreak(who=self.name(), writetofile=writetofile)
 
-    def _logwhat(self, what, writetofile=True):
+    def logwhat(self, what, writetofile=True):
         aplog.logwhat(what, who=self.name(), writetofile=writetofile)
 
-    def _logwhenwhat(self, when, what, writetofile=True):
+    def logwhenwhat(self, when, what, writetofile=True):
         aplog.logwhenwhat(when, what, who=self.name(), writetofile=writetofile)
 
     def _logcomment(self, comment, writetofile=True):
@@ -513,20 +513,20 @@ class element:
             writetofile=writetofile,
         )
 
-    def _lognote(self, note, writetofile=True):
+    def lognote(self, note, writetofile=True):
         aplog.lognote(note, who=self.name(), writetofile=writetofile)
 
-    def _logposition(self, when):
-        self._logwhenwhat(when, self.position())
+    def logposition(self, when):
+        self.logwhenwhat(when, self.position())
 
-    def _logpositionandmaneuver(self, when):
-        self._logwhenwhat(when, "%s  %s" % (self.position(), self.maneuver()))
+    def logpositionandmaneuver(self, when):
+        self.logwhenwhat(when, "%s  %s" % (self.position(), self.maneuver()))
 
-    def _logstart(self, what):
-        self._logwhenwhat("start", what)
+    def logstart(self, what):
+        self.logwhenwhat("start", what)
 
-    def _logend(self, what):
-        self._logwhenwhat("end", what)
+    def logend(self, what):
+        self.logwhenwhat("end", what)
 
     ################################################################################
 

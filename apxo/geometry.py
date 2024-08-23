@@ -12,7 +12,7 @@ def showgeometry(A, B, note=None):
     Show the geometry of aircraft B with respect to the aircraft A.
     """
 
-    A._logbreak()
+    A.logbreak()
 
     Aname = A._name
     Bname = B._name
@@ -36,7 +36,7 @@ def showgeometry(A, B, note=None):
     else:
         A._logcomment("%s is not in the limited radar arc of %s." % (Bname, Aname))
 
-    A._lognote(note)
+    A.lognote(note)
 
 
 ##############################################################################

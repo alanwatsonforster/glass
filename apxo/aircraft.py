@@ -67,8 +67,8 @@ class aircraft(apelement.element):
         global _aircraftlist
 
         self._name = name
-        self._logbreak()
-        self._logwhenwhat("", "creating aircraft %s." % name)
+        self.logbreak()
+        self.logwhenwhat("", "creating aircraft %s." % name)
 
         aplog.clearerror()
         try:
@@ -144,16 +144,16 @@ class aircraft(apelement.element):
 
             self._startaltitude = self.altitude()
 
-            self._logwhenwhat("", "force         is %s." % force)
-            self._logwhenwhat("", "type          is %s." % aircrafttype)
-            self._logwhenwhat("", "position      is %s." % self.position())
-            self._logwhenwhat("", "speed         is %.1f." % self.speed())
+            self.logwhenwhat("", "force         is %s." % force)
+            self.logwhenwhat("", "type          is %s." % aircrafttype)
+            self.logwhenwhat("", "position      is %s." % self.position())
+            self.logwhenwhat("", "speed         is %.1f." % self.speed())
 
             # Determine the fuel and bingo levels.
 
             if isinstance(fuel, str) and fuel[-1] == "%" and fuel[:-1].isdecimal():
                 fuel = float(fuel[:-1]) / 100
-                self._logwhenwhat(
+                self.logwhenwhat(
                     "", "fuel          is %3.0f%% of internal capacity." % (fuel * 100)
                 )
                 fuel *= self.internalfuelcapacity()
@@ -167,7 +167,7 @@ class aircraft(apelement.element):
                 and bingofuel[:-1].isdecimal()
             ):
                 bingofuel = float(bingofuel[:-1]) / 100
-                self._logwhenwhat(
+                self.logwhenwhat(
                     "",
                     "bingo fuel    is %3.0f%% of internal capacity."
                     % (bingofuel * 100),
@@ -179,9 +179,9 @@ class aircraft(apelement.element):
 
             if not self._fuel is None:
                 if self._bingofuel is None:
-                    self._logwhenwhat("", "fuel          is %.1f." % self._fuel)
+                    self.logwhenwhat("", "fuel          is %.1f." % self._fuel)
                 else:
-                    self._logwhenwhat(
+                    self.logwhenwhat(
                         "",
                         "fuel          is %.1f and bingo fuel is %.1f."
                         % (self._fuel, self._bingofuel),
@@ -204,7 +204,7 @@ class aircraft(apelement.element):
                 if len(self._stores) != 0:
                     apstores._showstores(
                         stores,
-                        printer=lambda s: self._logwhenwhat("", s),
+                        printer=lambda s: self.logwhenwhat("", s),
                         fuel=self.externalfuel(),
                     )
 
@@ -218,7 +218,7 @@ class aircraft(apelement.element):
                     )
 
             apconfiguration.update(self)
-            self._logwhenwhat("", "configuration is %s." % self._configuration)
+            self.logwhenwhat("", "configuration is %s." % self._configuration)
 
             self._lowspeedliftdeviceextended = False
             self._minspeed = apcapabilities.minspeed(self)
@@ -321,8 +321,8 @@ class aircraft(apelement.element):
 
     def note(self, s):
         """Write a note to the log."""
-        self._logbreak()
-        self._lognote(s)
+        self.logbreak()
+        self.lognote(s)
 
     #############################################################################
 
@@ -331,16 +331,16 @@ class aircraft(apelement.element):
         Return fire, either with fixed guns or articulated guns.
         """
 
-        self._logbreak()
+        self.logbreak()
         aplog.clearerror()
         try:
 
             apgameturn.checkingameturn()
-            self._logwhenwhat("react", action)
+            self.logwhenwhat("react", action)
 
             apairtoair.react(self, attacktype, target, result)
 
-            self._lognote(note)
+            self.lognote(note)
 
         except RuntimeError as e:
             aplog.logexception(e)
@@ -363,7 +363,7 @@ class aircraft(apelement.element):
 
         # TODO: Check we are in the visual sighting phase.
 
-        self._logbreak()
+        self.logbreak()
         aplog.clearerror()
         try:
             apgameturn.checkingameturn()
@@ -378,7 +378,7 @@ class aircraft(apelement.element):
         Attempt to sight another aircraft.
         """
 
-        self._logbreak()
+        self.logbreak()
         aplog.clearerror()
         try:
             apgameturn.checkingameturn()
@@ -472,18 +472,18 @@ class aircraft(apelement.element):
         Show the aircraft's stores to the log.
         """
 
-        self._logbreak()
+        self.logbreak()
         aplog.clearerror()
         try:
 
             apgameturn.checkingamesetuporgameturn()
-            self._logbreak()
+            self.logbreak()
 
             apstores._showstores(
                 self._stores, printer=lambda s: self._log(s), fuel=self.externalfuel()
             )
 
-            self._lognote(note)
+            self.lognote(note)
 
         except RuntimeError as e:
             aplog.logexception(e)
@@ -499,7 +499,7 @@ class aircraft(apelement.element):
         Show the geometry of the other aircraft with respect to the aircraft.
         """
 
-        self._logbreak()
+        self.logbreak()
         aplog.clearerror()
         try:
             apgameturn.checkingameturn()
@@ -595,12 +595,12 @@ class aircraft(apelement.element):
     ##############################################################################
 
     def hasbeenkilled(self, note=None):
-        self._logbreak()
+        self.logbreak()
         aplog.clearerror()
         try:
             apgameturn.checkingameturn()
             self._log("has been killed.")
-            self._lognote(note)
+            self.lognote(note)
             self._kill()
             self._color = None
         except RuntimeError as e:
@@ -640,7 +640,7 @@ class aircraft(apelement.element):
     ################################################################################
 
     def joincloseformation(self, other):
-        self._logbreak()
+        self.logbreak()
         aplog.clearerror()
         try:
             apcloseformation.join(self, other)
@@ -648,7 +648,7 @@ class aircraft(apelement.element):
             aplog.logexception(e)
 
     def leavecloseformation(self):
-        self._logbreak()
+        self.logbreak()
         aplog.clearerror()
         try:
             apcloseformation.leave(self)
@@ -692,7 +692,7 @@ class aircraft(apelement.element):
         Declare an air-to-air attack.
         """
 
-        self._logbreak()
+        self.logbreak()
         aplog.clearerror()
         try:
             if not returnfire and apflight.useofweaponsforbidden(self):
@@ -721,7 +721,7 @@ class aircraft(apelement.element):
         # ET. However, we assume that SSGT has the same restrictions as
         # attacks.
 
-        self._logbreak()
+        self.logbreak()
         aplog.clearerror()
         try:
 
@@ -763,7 +763,7 @@ class aircraft(apelement.element):
 
         M = None
 
-        self._logbreak()
+        self.logbreak()
         aplog.clearerror()
         try:
 
@@ -820,7 +820,7 @@ class aircraft(apelement.element):
             )
 
     def jettison(self, *args):
-        self._logbreak()
+        self.logbreak()
         aplog.clearerror()
         try:
             self._jettison(*args)
@@ -830,11 +830,11 @@ class aircraft(apelement.element):
     ################################################################################
 
     def takedamage(self, damage, note=None):
-        self._logbreak()
+        self.logbreak()
         aplog.clearerror()
         try:
             apdamage.takedamage(self, damage)
-            self._lognote(note)
+            self.lognote(note)
         except RuntimeError as e:
             aplog.logexception(e)
 

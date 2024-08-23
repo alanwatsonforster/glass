@@ -132,7 +132,7 @@ def _startaircraftspeed(
             "increasing speed to %.1f after recovering from departed flight." % minspeed
         )
 
-    A._logstart("speed            is %.1f." % speed)
+    A.logstart("speed            is %.1f." % speed)
 
     if speed < ltspeed(A.altitudeband()):
         A._logcomment("speed is subsonic and below low transsonic.")
@@ -145,8 +145,8 @@ def _startaircraftspeed(
 
     ############################################################################
 
-    A._logstart("configuration    is %s." % A._configuration)
-    A._logstart("damage           is %s." % A.damage())
+    A.logstart("configuration    is %s." % A._configuration)
+    A.logstart("damage           is %s." % A.damage())
 
     ############################################################################
 
@@ -161,7 +161,7 @@ def _startaircraftspeed(
             if apcapabilities.engines(A) == 1:
                 A._logcomment("the engine is flamed-out from a lack of fuel.")
             else:
-                A._logstart("all engines are flamed-out from a lack of fuel.")
+                A.logstart("all engines are flamed-out from a lack of fuel.")
             flamedoutengines = apcapabilities.engines(A)
 
     ############################################################################
@@ -274,7 +274,7 @@ def _startaircraftspeed(
             % (plural(power, "1 AP", "%s APs" % power))
         )
 
-    A._logstart("power setting    is %s." % powersetting)
+    A.logstart("power setting    is %s." % powersetting)
 
     # See rule 8.4. The reduction was done above, but we report it here.
     if (
@@ -585,7 +585,7 @@ def _endaircraftspeed(A):
                 A._logcomment("fuel is below bingo fuel.")
 
         if A.internalfuel() == 0:
-            A._logend("fuel is exhausted.")
+            A.logend("fuel is exhausted.")
 
         if previousexternalfuel > 0 and A.externalfuel() == 0:
             A._logcomment("external fuel is exhausted.")
@@ -753,25 +753,25 @@ def _startmissilespeed(M):
         }
         return table[altitudeband][min(flightgameturn, 6) - 1]
 
-    M._logstart("start speed      is %.1f." % M.speed())
+    M.logstart("start speed      is %.1f." % M.speed())
 
     if M.speed() > missilemaxspeed(M.altitudeband()):
         M._logcomment("reducing speed to maximum for altitude band.")
         M.setspeed(_missilemaxspeed(M.altitudeband()))
-        M._logstart("start speed      is %.1f." % M.speed())
+        M.logstart("start speed      is %.1f." % M.speed())
 
     if M.speed() < missilemaneuverspeed(M.altitudeband()):
         M._logcomment("cannot maneuver.")
 
     flightgameturn = apgameturn.gameturn() - M._launchgameturn
-    M._logstart("flight game turn is %d." % flightgameturn)
+    M.logstart("flight game turn is %d." % flightgameturn)
 
     M._maxfp = int(
         M.speed() * attenuationfactor(M.altitudeband(), flightgameturn) + 0.5
     )
     M._setspeed(M._maxfp)
 
-    M._logstart("average speed    is %.1f." % M.speed())
+    M.logstart("average speed    is %.1f." % M.speed())
     if M.speed() < m1speed(M.altitudeband()):
         M._logcomment("speed is subsonic.")
     else:

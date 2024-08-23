@@ -28,14 +28,14 @@ class missile(apelement.element):
     def __init__(self, name, missiletype, launcher, target, color="white"):
 
         self._name = name
-        self._logbreak()
-        self._logwhenwhat("", "creating missile %s." % name)
+        self.logbreak()
+        self.logwhenwhat("", "creating missile %s." % name)
 
         aplog.clearerror()
         try:
 
             self._type = missiletype
-            self._logwhenwhat("", "type          is %s." % missiletype)
+            self.logwhenwhat("", "type          is %s." % missiletype)
 
             super().__init__(
                 name,
@@ -47,10 +47,10 @@ class missile(apelement.element):
                 color=color,
             )
 
-            self._logwhenwhat("", "position      is %s." % self.position())
+            self.logwhenwhat("", "position      is %s." % self.position())
 
             self._target = target
-            self._logwhenwhat("", "target        is %s." % self._target.name())
+            self.logwhenwhat("", "target        is %s." % self._target.name())
 
             self._missiletype = missiletype
 
@@ -71,8 +71,8 @@ class missile(apelement.element):
             if self.speed() > maxspeed:
                 self._logcomment("reducing start speed to maximum for altitude band.")
                 self._setspeed(maxspeed)
-            self._logwhenwhat("", "start speed   is %.1f." % self._speed)
-            self._logwhenwhat("", "turn rate     is %s/%d." % self.turnrate())
+            self.logwhenwhat("", "start speed   is %.1f." % self._speed)
+            self.logwhenwhat("", "turn rate     is %s/%d." % self.turnrate())
 
         except RuntimeError as e:
             aplog.logexception(e)

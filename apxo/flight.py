@@ -27,8 +27,8 @@ def _move(E, flighttype, power, moves, **kwargs):
 
     _checkflighttype(E)
 
-    E._logstart("flight type      is %s." % E._flighttype)
-    E._logstart("altitude band    is %s." % E.altitudeband())
+    E.logstart("flight type      is %s." % E._flighttype)
+    E.logstart("altitude band    is %s." % E.altitudeband())
     E._logcomment("speed of sound is %.1f." % apspeed.m1speed(E.altitudeband()))
 
     if E.isaircraft():
@@ -38,7 +38,7 @@ def _move(E, flighttype, power, moves, **kwargs):
 
     _startmove(E)
 
-    E._logpositionandmaneuver("start")
+    E.logpositionandmaneuver("start")
 
     _continuemove(E, moves)
 
@@ -316,8 +316,8 @@ def _checkstalledflighttype(E):
     if E.speed() >= apcapabilities.minspeed(E):
         raise RuntimeError("flight type cannot be ST as aircraft is not stalled.")
 
-    E._logstart("speed is below the minimum of %.1f." % apcapabilities.minspeed(E))
-    E._logstart("aircraft is stalled.")
+    E.logstart("speed is below the minimum of %.1f." % apcapabilities.minspeed(E))
+    E.logstart("aircraft is stalled.")
 
 
 ########################################
@@ -928,7 +928,7 @@ def _continuemove(E, moves):
 
 def _continuestalledflight(A, moves):
 
-    A._logwhenwhat("", moves)
+    A.logwhenwhat("", moves)
 
     if moves != "ST":
         raise RuntimeError("invalid moves %r for stalled flight." % moves)
@@ -945,7 +945,7 @@ def _continuestalledflight(A, moves):
     else:
         A._altitudeap = 1.0 * altitudechange
 
-    A._logposition("end")
+    A.logposition("end")
     if initialaltitudeband != A.altitudeband():
         A._logcomment(
             "altitude band changed from %s to %s."
@@ -973,7 +973,7 @@ def _continuedepartedflight(A, moves):
     # - "R", "RR", and "RRR" which as usual mean "R30", "R60", and "R90"
     # - the "L" equivalents.
 
-    A._logwhenwhat("", moves)
+    A.logwhenwhat("", moves)
 
     if moves[0:2] == "MD":
         maneuveringdeparture = True
@@ -1040,7 +1040,7 @@ def _continuedepartedflight(A, moves):
     altitudechange = math.ceil(A.speed() + 2 * A._turnsdeparted)
     A._movedive(altitudechange)
 
-    A._logposition("end")
+    A.logposition("end")
     if initialaltitudeband != A.altitudeband():
         A._logcomment(
             "altitude band changed from %s to %s."
@@ -1363,7 +1363,7 @@ def _continuemissileflight(M, moves):
 def _endmove(E):
 
     if E.killed():
-        E._logend("has been killed.")
+        E.logend("has been killed.")
         return
 
     if E._flighttype == "MS":
@@ -1727,7 +1727,7 @@ def _domove(E, move, actiondispatchlist):
 
     checkminspeed()
 
-    E._logwhenwhat("FP %d" % (E._fp + 1), move)
+    E.logwhenwhat("FP %d" % (E._fp + 1), move)
 
     # Check we have at least one FP remaining.
     if E._fp + 1 > E._maxfp:
@@ -1775,7 +1775,7 @@ def _domove(E, move, actiondispatchlist):
             assert aphex.isvalid(E.x(), E.y(), facing=E.facing())
             assert apaltitude.isvalidaltitude(E.altitude())
 
-            E._logposition("end")
+            E.logposition("end")
 
             return
 
@@ -1846,9 +1846,9 @@ def _domove(E, move, actiondispatchlist):
 
     finally:
         if E._lastfp:
-            E._logpositionandmaneuver("end")
+            E.logpositionandmaneuver("end")
         else:
-            E._logpositionandmaneuver("")
+            E.logpositionandmaneuver("")
         E._extendpath()
 
     if E._movestartaltitudeband != E.altitudeband():
