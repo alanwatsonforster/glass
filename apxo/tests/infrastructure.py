@@ -6,6 +6,7 @@ from apxo import aircraft
 import os.path
 
 aplog._silent = True
+aplog._writefiles = False
 
 
 def startfile(file, description):

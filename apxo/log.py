@@ -5,6 +5,7 @@ Logging.
 import apxo.gameturn as apgameturn
 
 _silent = False
+_writefiles = True
 
 def _filename(nameforfile):
    return "log-%s.txt" % nameforfile
@@ -20,9 +21,10 @@ def log(s, name=None, nameforfile=None):
     else:
         line = "game turn %2d: %s" % (apgameturn.gameturn(), s)
     print(line)
-    if nameforfile is not None:
-        with open(_filename(nameforfile), "a") as file:
-            print(line, file=file)
+    if _writefiles:
+        if nameforfile is not None:
+            with open(_filename(nameforfile), "a") as file:
+                print(line, file=file)
 
 def logbreak(name=None, nameforfile=None):
     if _silent:
