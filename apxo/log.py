@@ -7,13 +7,15 @@ import apxo.gameturn as apgameturn
 ################################################################################
 
 _print = True
-_writetofiles = True
+_writefiles = True
 
 def setprint(value):
+    global _print
     _print = value
     
-def setwritetofiles(value):
-    _writetofiles = value
+def setwritefiles(value):
+    global _writefiles
+    _writefiles = value
 
 ################################################################################
 
@@ -32,25 +34,25 @@ The log messages have one of these forms:
 """
 
 
-def _logline(line, who=None, writetofile=True):
+def _logline(line, who=None, writefile=None):
     if _print:
         print(line)
-    if _writetofiles and writetofile and who is not None:
+    if who is not None and (writefile or (writefile is None and _writefiles)):
         with open("log-%s.txt" % who, "a") as file:
             print(line, file=file)
 
 
-def _logtext(text, who=None, writetofile=True):
+def _logtext(text, who=None, writefile=None):
     if apgameturn.gameturn() is None:
         line = "            : %s" % text
     elif apgameturn.gameturn() == 0:
         line = "set-up      : %s" % text
     else:
         line = "game turn %2d: %s" % (apgameturn.gameturn(), text)
-    _logline(line, who=who, writetofile=writetofile)
+    _logline(line, who=who, writefile=writefile)
 
 
-def logwhat(what, who=None, writetofile=True):
+def logwhat(what, who=None, writefile=None):
     if who is None:
         line = what
     else:
@@ -58,20 +60,20 @@ def logwhat(what, who=None, writetofile=True):
     _logtext(
         line,
         who=who,
-        writetofile=writetofile,
+        writefile=writefile,
     )
 
 
-def logwhenwhat(when, what, who=None, writetofile=True):
+def logwhenwhat(when, what, who=None, writefile=None):
     assert who is not None
     _logtext(
         "%-5s : %-5s : %s" % (who, when, what),
         who=who,
-        writetofile=writetofile,
+        writefile=writefile,
     )
 
 
-def logcomment(comment, who=None, writetofile=True):
+def logcomment(comment, who=None, writefile=None):
     if who is None:
         line = "%-5s   %-5s   %-32s : %s" % ("", "", "", comment)
     else:
@@ -79,15 +81,15 @@ def logcomment(comment, who=None, writetofile=True):
     _logtext(
         line,
         who=who,
-        writetofile=writetofile,
+        writefile=writefile,
     )
 
 
-def logbreak(who=None, writetofile=True):
-    _logline("", who=who, writetofile=writetofile)
+def logbreak(who=None, writefile=None):
+    _logline("", who=who, writefile=writefile)
 
 
-def lognote(note, who=None, writetofile=True):
+def lognote(note, who=None, writefile=None):
 
     # This is adapted from the public-domain code in PEP 257.
     def splitandtrim(s):
@@ -118,7 +120,7 @@ def lognote(note, who=None, writetofile=True):
 
     if note is not None:
         for line in splitandtrim(note):
-            logcomment("- %s" % line, who=who, writetofile=writetofile)
+            logcomment("- %s" % line, who=who, writefile=writefile)
 
 
 _error = None
