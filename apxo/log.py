@@ -34,8 +34,7 @@ The log messages have one of these forms:
 
 def _logline(line, who=None, writetofile=True):
     if _print:
-        return
-    print(line)
+        print(line)
     if _writetofiles and writetofile and who is not None:
         with open("log-%s.txt" % who, "a") as file:
             print(line, file=file)
