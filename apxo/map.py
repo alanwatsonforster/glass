@@ -1078,10 +1078,8 @@ def startdrawmap(
         _saved = True
 
 
-def enddrawmap(turn, writefiles=None):
-    print("writefiles is %r" % writefiles)
-    print("_writefiles is %r" % _writefiles)
-    if writefiles or (writefiles is None and _writefiles):
+def enddrawmap(turn, writefiles=True):
+    if _writefiles and writefiles:
         print("writing files")
         for filetype in _writefiletypes:
             apdraw.writefile("map-%02d.%s" % (turn, filetype))
