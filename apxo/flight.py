@@ -547,6 +547,12 @@ def _startmovenormalflight(A):
             A._logcomment("VC disallows all turns.")
             turnrates = []
 
+        # See rule 8.2.3.
+
+        if A._flighttype == "VD":
+            A._logcomment("VD disallows all turns.")
+            turnrates = []
+
         A._allowedturnrates = turnrates
 
     ########################################
