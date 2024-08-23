@@ -476,7 +476,7 @@ class aircraft(apelement.element):
         try:
 
             apgameturn.checkingamesetuporgameturn()
-            
+
             apstores._showstores(
                 self._stores, printer=lambda s: self._log(s), fuel=self.externalfuel()
             )

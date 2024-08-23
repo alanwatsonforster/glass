@@ -8,15 +8,19 @@ import apxo.gameturn as apgameturn
 
 _print = True
 
+
 def setprint(value):
     global _print
     _print = value
-    
+
+
 _writefiles = True
+
 
 def setwritefiles(value):
     global _writefiles
     _writefiles = value
+
 
 ################################################################################
 

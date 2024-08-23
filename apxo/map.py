@@ -14,17 +14,22 @@ import ast
 
 _writefiles = True
 
+
 def setwritefiles(value):
     global _writefiles
     _writefiles = value
 
+
 _writefiletypes = ["png"]
+
 
 def setwritefiletypes(value):
     global _writefiletypes
     _writefiletypes = value
-    
+
+
 _watermark = None
+
 
 def setwatermark(value):
     global _watermark

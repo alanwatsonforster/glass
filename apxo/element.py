@@ -520,14 +520,16 @@ class element:
         self.logwhenwhat(when, self.position(), writefile=writefile)
 
     def logpositionandmaneuver(self, when, writefile=True):
-        self.logwhenwhat(when, "%s  %s" % (self.position(), self.maneuver()), writefile=writefile)
+        self.logwhenwhat(
+            when, "%s  %s" % (self.position(), self.maneuver()), writefile=writefile
+        )
 
     def logstart(self, what, writefile=True):
         self.logwhenwhat("start", what, writefile=writefile)
 
     def logend(self, what, writefile=True):
         self.logwhenwhat("end", what, writefile=writefile)
-        
+
     ################################################################################
 
     def _assert(self, expectedposition, expectedspeed, expectedconfiguration=None):
