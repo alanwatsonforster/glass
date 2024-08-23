@@ -28,7 +28,6 @@ class missile(apelement.element):
     def __init__(self, name, missiletype, launcher, target, color="white"):
 
         self._name = name
-        self.logbreak()
         self.logwhenwhat("", "creating missile %s." % name)
 
         aplog.clearerror()
@@ -76,6 +75,7 @@ class missile(apelement.element):
 
         except RuntimeError as e:
             aplog.logexception(e)
+        aplog.logbreak()
 
     #############################################################################
 

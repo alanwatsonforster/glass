@@ -83,7 +83,6 @@ def settraining(training):
     global _training
     _training = training
 
-    aplog.logbreak()
     aplog.logwhat("training.")
     for k, v in training.items():
         aplog.logcomment(
@@ -106,7 +105,6 @@ def orderofflightdeterminationphase(rolls, firstkill=None, mostkills=None):
             i += 1
         return i
 
-    aplog.logbreak()
     aplog.logwhat("start of order of flight determination phase.")
 
     for k, v in rolls.items():

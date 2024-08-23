@@ -242,7 +242,6 @@ class element:
         self._killed = True
 
     def kill(self, note=None):
-        self.logbreak()
         aplog.clearerror()
         try:
             apgameturn.checkingameturn()
@@ -251,12 +250,12 @@ class element:
             self._kill()
         except RuntimeError as e:
             aplog.logexception(e)
+        aplog.logbreak()
 
     def _remove(self):
         self._removed = True
 
     def remove(self, note=None):
-        self.logbreak()
         aplog.clearerror()
         try:
             apgameturn.checkingameturn()
@@ -265,6 +264,7 @@ class element:
             self._removed = True
         except RuntimeError as e:
             aplog.logexception(e)
+        aplog.logbreak()
 
     ############################################################################
 
@@ -370,7 +370,6 @@ class element:
         raise RuntimeError("%s cannot be moved." % self.name())
 
     def move(self, *args, note=None, **kwargs):
-        self.logbreak()
         aplog.clearerror()
         try:
             apgameturn.checkingameturn()
@@ -383,12 +382,12 @@ class element:
             self.lognote(note)
         except RuntimeError as e:
             aplog.logexception(e)
+        aplog.logbreak()
 
     def _continuemove(self, *args, **kwargs):
         raise RuntimeError("%s cannot be moved." % self.name())
 
     def continuemove(self, *args, note=None, **kwargs):
-        self.logbreak()
         aplog.clearerror()
         try:
             apgameturn.checkingameturn()
@@ -400,6 +399,7 @@ class element:
             self.lognote(note)
         except RuntimeError as e:
             aplog.logexception(e)
+        aplog.logbreak()
 
     ############################################################################
 
@@ -496,9 +496,6 @@ class element:
             self.logwhenwhat("", "%s has left the map." % self.name())
 
     ############################################################################
-
-    def logbreak(self, writetofile=True):
-        aplog.logbreak(who=self.name(), writetofile=writetofile)
 
     def logwhat(self, what, writetofile=True):
         aplog.logwhat(what, who=self.name(), writetofile=writetofile)

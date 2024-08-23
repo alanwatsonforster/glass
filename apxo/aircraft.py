@@ -67,7 +67,6 @@ class aircraft(apelement.element):
         global _aircraftlist
 
         self._name = name
-        self.logbreak()
         self.logwhenwhat("", "creating aircraft %s." % name)
 
         aplog.clearerror()
@@ -225,6 +224,7 @@ class aircraft(apelement.element):
 
         except RuntimeError as e:
             aplog.logexception(e)
+        aplog.logbreak()
 
     #############################################################################
 
@@ -321,8 +321,8 @@ class aircraft(apelement.element):
 
     def note(self, s):
         """Write a note to the log."""
-        self.logbreak()
         self.lognote(s)
+        aplog.logbreak()
 
     #############################################################################
 
@@ -331,7 +331,6 @@ class aircraft(apelement.element):
         Return fire, either with fixed guns or articulated guns.
         """
 
-        self.logbreak()
         aplog.clearerror()
         try:
 
@@ -344,6 +343,7 @@ class aircraft(apelement.element):
 
         except RuntimeError as e:
             aplog.logexception(e)
+        aplog.logbreak()
 
     ##############################################################################
 
@@ -363,13 +363,13 @@ class aircraft(apelement.element):
 
         # TODO: Check we are in the visual sighting phase.
 
-        self.logbreak()
         aplog.clearerror()
         try:
             apgameturn.checkingameturn()
             apvisualsighting.padlock(self, other, note=note)
         except RuntimeError as e:
             aplog.logexception(e)
+        aplog.logbreak()
 
     ##############################################################################
 
@@ -378,13 +378,13 @@ class aircraft(apelement.element):
         Attempt to sight another aircraft.
         """
 
-        self.logbreak()
         aplog.clearerror()
         try:
             apgameturn.checkingameturn()
             apvisualsighting.attempttosight(self, other, success=None, note=None)
         except RuntimeError as e:
             aplog.logexception(e)
+        aplog.logbreak()
 
     #############################################################################
 
@@ -472,13 +472,11 @@ class aircraft(apelement.element):
         Show the aircraft's stores to the log.
         """
 
-        self.logbreak()
         aplog.clearerror()
         try:
 
             apgameturn.checkingamesetuporgameturn()
-            self.logbreak()
-
+            
             apstores._showstores(
                 self._stores, printer=lambda s: self._log(s), fuel=self.externalfuel()
             )
@@ -487,6 +485,7 @@ class aircraft(apelement.element):
 
         except RuntimeError as e:
             aplog.logexception(e)
+        aplog.logbreak()
 
     #############################################################################
 
@@ -499,13 +498,13 @@ class aircraft(apelement.element):
         Show the geometry of the other aircraft with respect to the aircraft.
         """
 
-        self.logbreak()
         aplog.clearerror()
         try:
             apgameturn.checkingameturn()
             showgeometry(self, other, note=None)
         except RuntimeError as e:
             aplog.logexception(e)
+        aplog.logbreak()
 
     #############################################################################
 
@@ -595,7 +594,6 @@ class aircraft(apelement.element):
     ##############################################################################
 
     def hasbeenkilled(self, note=None):
-        self.logbreak()
         aplog.clearerror()
         try:
             apgameturn.checkingameturn()
@@ -605,6 +603,7 @@ class aircraft(apelement.element):
             self._color = None
         except RuntimeError as e:
             aplog.logexception(e)
+        aplog.logbreak()
 
     ################################################################################
 
@@ -640,20 +639,20 @@ class aircraft(apelement.element):
     ################################################################################
 
     def joincloseformation(self, other):
-        self.logbreak()
         aplog.clearerror()
         try:
             apcloseformation.join(self, other)
         except RuntimeError as e:
             aplog.logexception(e)
+        aplog.logbreak()
 
     def leavecloseformation(self):
-        self.logbreak()
         aplog.clearerror()
         try:
             apcloseformation.leave(self)
         except RuntimeError as e:
             aplog.logexception(e)
+        aplog.logbreak()
 
     def closeformationsize(self):
         return apcloseformation.size(self)
@@ -692,7 +691,6 @@ class aircraft(apelement.element):
         Declare an air-to-air attack.
         """
 
-        self.logbreak()
         aplog.clearerror()
         try:
             if not returnfire and apflight.useofweaponsforbidden(self):
@@ -707,6 +705,7 @@ class aircraft(apelement.element):
 
         except RuntimeError as e:
             aplog.logexception(e)
+        aplog.logbreak()
 
     ################################################################################
 
@@ -721,7 +720,6 @@ class aircraft(apelement.element):
         # ET. However, we assume that SSGT has the same restrictions as
         # attacks.
 
-        self.logbreak()
         aplog.clearerror()
         try:
 
@@ -749,6 +747,7 @@ class aircraft(apelement.element):
 
         except RuntimeError as e:
             aplog.logexception(e)
+        aplog.logbreak()
 
     ################################################################################
 
@@ -763,7 +762,6 @@ class aircraft(apelement.element):
 
         M = None
 
-        self.logbreak()
         aplog.clearerror()
         try:
 
@@ -799,6 +797,7 @@ class aircraft(apelement.element):
 
         except RuntimeError as e:
             aplog.logexception(e)
+        aplog.logbreak()
 
         return M
 
@@ -820,23 +819,23 @@ class aircraft(apelement.element):
             )
 
     def jettison(self, *args):
-        self.logbreak()
         aplog.clearerror()
         try:
             self._jettison(*args)
         except RuntimeError as e:
             aplog.logexception(e)
+        aplog.logbreak()
 
     ################################################################################
 
     def takedamage(self, damage, note=None):
-        self.logbreak()
         aplog.clearerror()
         try:
             apdamage.takedamage(self, damage)
             self.lognote(note)
         except RuntimeError as e:
             aplog.logexception(e)
+        aplog.logbreak()
 
     def damage(self):
         return apdamage.damage(self)

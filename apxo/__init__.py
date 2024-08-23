@@ -42,7 +42,6 @@ def startgamesetup(scenario, sheets=None, north="up", variants=[], **kwargs):
         apgameturn.startgamesetup()
 
         aplog.logwhat("start of game set-up.")
-        aplog.logbreak()
 
         apvariants.setvariants(variants)
 
@@ -67,6 +66,7 @@ def startgamesetup(scenario, sheets=None, north="up", variants=[], **kwargs):
 
     except RuntimeError as e:
         aplog.logexception(e)
+    aplog.logbreak()
 
 
 def endgamesetup():
@@ -79,13 +79,13 @@ def endgamesetup():
 
         apelement._endgamesetup()
 
-        aplog.logbreak()
         aplog.logwhat("end of game set-up.")
 
         apgameturn.endgamesetup()
 
     except RuntimeError as e:
         aplog.logexception(e)
+    aplog.logbreak()
 
 
 ################################################################################
@@ -106,7 +106,6 @@ def startgameturn(note=None):
         apelement._startgameturn()
 
         if len(apaircraft.aslist()) != 0:
-            aplog.logbreak()
             aplog.logwhat(
                 "initial aircraft positions, speeds, maneuvers, and previous flight types:"
             )
@@ -117,7 +116,6 @@ def startgameturn(note=None):
                     writetofile=False,
                 )
         if len(apmissile.aslist()) != 0:
-            aplog.logbreak()
             aplog.logwhat("initial missile positions and speeds:")
             for M in apmissile.aslist():
                 M.logwhat("%s  %4.1f" % (M.position(), M.speed()), writetofile=False)
@@ -125,6 +123,7 @@ def startgameturn(note=None):
 
     except RuntimeError as e:
         aplog.logexception(e)
+    aplog.logbreak()
 
 
 def endgameturn(note=None):
@@ -137,7 +136,6 @@ def endgameturn(note=None):
 
         apelement._endgameturn()
 
-        aplog.logbreak()
         aplog.logwhat("end of game turn.")
         aplog.lognote(None, note)
 
@@ -145,6 +143,7 @@ def endgameturn(note=None):
 
     except RuntimeError as e:
         aplog.logexception(e)
+    aplog.logbreak()
 
 
 ################################################################################
@@ -157,6 +156,7 @@ def startvisualsighting():
         apvisualsighting.startvisualsighting(),
     except RuntimeError as e:
         aplog.logexception(e)
+    aplog.logbreak()
 
 
 def endvisualsighting():
@@ -166,6 +166,7 @@ def endvisualsighting():
         apvisualsighting.endvisualsighting(),
     except RuntimeError as e:
         aplog.logexception(e)
+    aplog.logbreak()
 
 
 ################################################################################
@@ -178,6 +179,7 @@ def settraining(training):
         aporder.settraining(training)
     except RuntimeError as e:
         aplog.logexception(e)
+    aplog.logbreak()
 
 
 ################################################################################
@@ -192,6 +194,7 @@ def orderofflightdeterminationphase(rolls, firstkill=None, mostkills=None):
         )
     except RuntimeError as e:
         aplog.logexception(e)
+    aplog.logbreak()
 
 
 ################################################################################

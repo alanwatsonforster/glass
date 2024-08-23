@@ -14,7 +14,6 @@ def startvisualsighting():
     """
 
     for target in apaircraft.aslist():
-        aplog.logbreak()
         if target._sightedonpreviousturn:
             aplog.logwhat("%-4s : was sighted on previous turn." % target.name())
         else:
@@ -44,7 +43,6 @@ def endvisualsighting():
     Report sighting status at the end of the visual sighting phase.
     """
 
-    aplog.logbreak()
     for target in apaircraft.aslist():
         if target._sighted and target._identified:
             aplog.logwhat("%-4s : is sighted and identified." % target.name())
