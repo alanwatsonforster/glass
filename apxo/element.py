@@ -516,17 +516,17 @@ class element:
     def logbreak(self, writefile=True):
         aplog.logbreak(who=self.name(), writefile=writefile)
 
-    def logposition(self, when):
-        self.logwhenwhat(when, self.position())
+    def logposition(self, when, writefile=True):
+        self.logwhenwhat(when, self.position(), writefile=writefile)
 
-    def logpositionandmaneuver(self, when):
-        self.logwhenwhat(when, "%s  %s" % (self.position(), self.maneuver()))
+    def logpositionandmaneuver(self, when, writefile=True):
+        self.logwhenwhat(when, "%s  %s" % (self.position(), self.maneuver()), writefile=writefile)
 
-    def logstart(self, what):
-        self.logwhenwhat("start", what)
+    def logstart(self, what, writefile=True):
+        self.logwhenwhat("start", what, writefile=writefile)
 
-    def logend(self, what):
-        self.logwhenwhat("end", what)
+    def logend(self, what, writefile=True):
+        self.logwhenwhat("end", what, writefile=writefile)
         
     ################################################################################
 
