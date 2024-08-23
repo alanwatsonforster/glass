@@ -1711,7 +1711,22 @@ def _domove(E, move, actiondispatchlist):
             previousminspeed = E._minspeed
             E._minspeed = apcapabilities.minspeed(E)
             if E._minspeed != previousminspeed:
+
                 E._logcomment("minimum speed is now %.1f." % E._minspeed)
+                
+                # See rule 7.5.
+
+                if E.speed() == E._minspeed:
+                    E._logcomment("speed limits the turn rate to EZ.")
+                elif E.speed() == E._minspeed + 0.5:
+                    E._logcomment("speed limits the turn rate to TT.")
+                elif E.speed() == E._minspeed + 1.0:
+                    E._logcomment("speed limits the turn rate to HT.")
+                elif E.speed() == E._minspeed + 1.5:
+                    E._logcomment("speed limits the turn rate to BT.")
+                else:
+                    E._logcomment("speed does not limit the turn rate.")
+                
 
     def checkm1speed():
 
@@ -1862,8 +1877,9 @@ def _domove(E, move, actiondispatchlist):
             "altitude band changed from %s to %s."
             % (E._movestartaltitudeband, E.altitudeband())
         )
-        checkm1speed()
-    checkminspeed()
+        if not E._lastfp:
+          checkm1speed()
+          checkminspeed()
 
     E._checkforterraincollision()
     E._checkforleavingmap()
