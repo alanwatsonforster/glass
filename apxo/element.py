@@ -246,7 +246,7 @@ class element:
         aplog.clearerror()
         try:
             apgameturn.checkingameturn()
-            self._logevent("has been killed.")
+            self._logcomment("has been killed.")
             self._lognote(note)
             self._kill()
         except RuntimeError as e:
@@ -260,7 +260,7 @@ class element:
         aplog.clearerror()
         try:
             apgameturn.checkingameturn()
-            self._logevent("has been removed.")
+            self._logcomment("has been removed.")
             self._lognote(note)
             self._removed = True
         except RuntimeError as e:
@@ -480,7 +480,7 @@ class element:
         if self.altitude() <= altitudeofterrain:
             self._setaltitude(altitudeofterrain)
             self._altitudecarry = 0
-            self._logaction(
+            self._logwhenwhat(
                 "",
                 "%s has collided with terrain at altitude %d."
                 % (self.name(), altitudeofterrain),
@@ -493,42 +493,40 @@ class element:
         """
 
         if not apmap.isonmap(self.x(), self.y()):
-            self._logaction("", "%s has left the map." % self.name())
+            self._logwhenwhat("", "%s has left the map." % self.name())
 
     ############################################################################
 
-    def _logbreak(self):
-        aplog.logbreak(name=self.name(), nameforfile=self.name())
+    def _logbreak(self, writetofile=True):
+        aplog.logbreak(who=self.name(), writetofile=writetofile)
 
-    def _log(self, s):
-        aplog.logmain(s, name=self.name(), nameforfile=self.name())
+    def _logwhat(self, what, writetofile=True):
+        aplog.logwhat(what, who=self.name(), writetofile=writetofile)
 
-    def _log1(self, s, t):
-        self._log("%-5s : %s" % (s, t))
+    def _logwhenwhat(self, when, what, writetofile=True):
+        aplog.logwhenwhat(when, what, who=self.name(), writetofile=writetofile)
 
-    def _log2(self, s, t):
-        self._log("%-5s : %-32s : %s" % (s, "", t))
+    def _logcomment(self, comment, writetofile=True):
+        aplog.logcomment(
+            comment,
+            who=self.name(),
+            writetofile=writetofile,
+        )
 
-    def _logposition(self, s):
-        self._log1(s, self.position())
+    def _lognote(self, note, writetofile=True):
+        aplog.lognote(note, who=self.name(), writetofile=writetofile)
 
-    def _logpositionandmaneuver(self, s):
-        self._log1(s, "%s  %s" % (self.position(), self.maneuver()))
+    def _logposition(self, when):
+        self._logwhenwhat(when, self.position())
 
-    def _logaction(self, s, t):
-        self._log1(s, t)
+    def _logpositionandmaneuver(self, when):
+        self._logwhenwhat(when, "%s  %s" % (self.position(), self.maneuver()))
 
-    def _logevent(self, s):
-        self._log2("", s)
+    def _logstart(self, what):
+        self._logwhenwhat("start", what)
 
-    def _logstart(self, s):
-        self._log1("start", s)
-
-    def _logend(self, s):
-        self._log1("end", s)
-
-    def _lognote(self, note):
-        aplog.lognote(note, name=self.name(), nameforfile=self.name())
+    def _logend(self, what):
+        self._logwhenwhat("end", what)
 
     ################################################################################
 

@@ -41,23 +41,23 @@ def startgamesetup(scenario, sheets=None, north="up", variants=[], **kwargs):
 
         apgameturn.startgamesetup()
 
-        aplog.log("start of game set-up.")
+        aplog.logwhat("start of game set-up.")
         aplog.logbreak()
 
         apvariants.setvariants(variants)
 
         if scenario != None:
-            aplog.log("scenario is %s." % scenario)
+            aplog.logwhat("scenario is %s." % scenario)
             sheets = apscenarios.sheets(scenario)
             north = apscenarios.north(scenario)
             allforest = apscenarios.allforest(scenario)
         else:
-            aplog.log("no scenario specified.")
-            aplog.log("sheets are %r." % sheets)
-            aplog.log("north is %s." % north)
+            aplog.logwhat("no scenario specified.")
+            aplog.logwhat("sheets are %r." % sheets)
+            aplog.logwhat("north is %s." % north)
 
         for key in kwargs.keys():
-            aplog.log("map option %s is %r." % (key, kwargs[key]))
+            aplog.logwhat("map option %s is %r." % (key, kwargs[key]))
 
         apmap.setmap(sheets, **kwargs)
 
@@ -80,7 +80,7 @@ def endgamesetup():
         apelement._endgamesetup()
 
         aplog.logbreak()
-        aplog.log("end of game set-up.")
+        aplog.logwhat("end of game set-up.")
 
         apgameturn.endgamesetup()
 
@@ -101,29 +101,26 @@ def startgameturn(note=None):
 
         apgameturn.startgameturn()
 
-        aplog.log("start of game turn.")
+        aplog.logwhat("start of game turn.")
 
         apelement._startgameturn()
 
         if len(apaircraft.aslist()) != 0:
             aplog.logbreak()
-            aplog.log(
+            aplog.logwhat(
                 "initial aircraft positions, speeds, maneuvers, and previous flight types:"
             )
             for A in apaircraft.aslist():
-                aplog.logaction(
+                A._logwhat(
                     "%s  %4.1f  %-9s  %-3s"
                     % (A.position(), A.speed(), A.maneuver(), A.flighttype()),
-                    name=A.name()
+                    writetofile=False,
                 )
         if len(apmissile.aslist()) != 0:
             aplog.logbreak()
-            aplog.log("initial missile positions and speeds:")
+            aplog.logwhat("initial missile positions and speeds:")
             for M in apmissile.aslist():
-                aplog.logaction(
-                    "%s  %4.1f" % (M.position(), M.speed()),
-                    name=M.name()
-                )
+                M._logwhat("%s  %4.1f" % (M.position(), M.speed()), writetofile=False)
         aplog.lognote(None, note)
 
     except RuntimeError as e:
@@ -141,7 +138,7 @@ def endgameturn(note=None):
         apelement._endgameturn()
 
         aplog.logbreak()
-        aplog.log("end of game turn.")
+        aplog.logwhat("end of game turn.")
         aplog.lognote(None, note)
 
         apgameturn.endgameturn()

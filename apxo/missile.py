@@ -29,13 +29,13 @@ class missile(apelement.element):
 
         self._name = name
         self._logbreak()
-        self._logaction("", "creating missile %s." % name)
+        self._logwhenwhat("", "creating missile %s." % name)
 
         aplog.clearerror()
         try:
 
             self._type = missiletype
-            self._logaction("", "type          is %s." % missiletype)
+            self._logwhenwhat("", "type          is %s." % missiletype)
 
             super().__init__(
                 name,
@@ -47,10 +47,10 @@ class missile(apelement.element):
                 color=color,
             )
 
-            self._logaction("", "position      is %s." % self.position())
+            self._logwhenwhat("", "position      is %s." % self.position())
 
             self._target = target
-            self._logaction("", "target        is %s." % self._target.name())
+            self._logwhenwhat("", "target        is %s." % self._target.name())
 
             self._missiletype = missiletype
 
@@ -69,10 +69,10 @@ class missile(apelement.element):
             self._setspeed(self.basespeed() + launcher.newspeed())
             maxspeed = apspeed.missilemaxspeed(self.altitudeband())
             if self.speed() > maxspeed:
-                self._logevent("reducing start speed to maximum for altitude band.")
+                self._logcomment("reducing start speed to maximum for altitude band.")
                 self._setspeed(maxspeed)
-            self._logaction("", "start speed   is %.1f." % self._speed)
-            self._logaction("", "turn rate     is %s/%d." % self.turnrate())
+            self._logwhenwhat("", "start speed   is %.1f." % self._speed)
+            self._logwhenwhat("", "turn rate     is %s/%d." % self.turnrate())
 
         except RuntimeError as e:
             aplog.logexception(e)
@@ -150,26 +150,26 @@ class missile(apelement.element):
     def _checktargettracking(self):
 
         slopenumerator, slopedenominator = apflight._slope(self)
-        self._logevent("flight slope is %+d/%d." % (slopenumerator, slopedenominator))
+        self._logcomment("flight slope is %+d/%d." % (slopenumerator, slopedenominator))
 
         horizontalrange = apgeometry.horizontalrange(self, self._target)
-        self._logevent("horizontal range is %d." % horizontalrange)
+        self._logcomment("horizontal range is %d." % horizontalrange)
 
-        self._logevent("missile altitude is %d." % self.altitude())
-        self._logevent("target altitude is %d." % self._target.altitude())
+        self._logcomment("missile altitude is %d." % self.altitude())
+        self._logcomment("target altitude is %d." % self._target.altitude())
         altitudedifference = self._target.altitude() - self.altitude()
-        self._logevent("altitude difference is %+d." % altitudedifference)
+        self._logcomment("altitude difference is %+d." % altitudedifference)
 
         def checknormallimit(minf, maxf):
             minaltitudedifference = int(minf * horizontalrange)
             maxaltitudedifference = int(maxf * horizontalrange)
-            self._logevent(
+            self._logcomment(
                 "the allowed target altitude difference range is %+d to %+d."
                 % (minaltitudedifference, maxaltitudedifference)
             )
             minaltitude = max(0, self.altitude() + minaltitudedifference)
             maxaltitude = min(100, self.altitude() + maxaltitudedifference)
-            self._logevent(
+            self._logcomment(
                 "the allowed target altitude range is %d to %d."
                 % (minaltitude, maxaltitude)
             )
@@ -177,9 +177,9 @@ class missile(apelement.element):
                 altitudedifference < minaltitudedifference
                 or altitudedifference > maxaltitudedifference
             ):
-                self._logevent("the target is not within the seeker vertical limits.")
+                self._logcomment("the target is not within the seeker vertical limits.")
             else:
-                self._logevent("the target is within the seeker vertical limits.")
+                self._logcomment("the target is within the seeker vertical limits.")
 
         if slopenumerator < -3 * slopedenominator:
             pass

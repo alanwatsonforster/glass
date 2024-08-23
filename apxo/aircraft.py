@@ -68,11 +68,10 @@ class aircraft(apelement.element):
 
         self._name = name
         self._logbreak()
-        self._logaction("", "creating aircraft %s." % name)
+        self._logwhenwhat("", "creating aircraft %s." % name)
 
         aplog.clearerror()
         try:
-
 
             super().__init__(
                 name,
@@ -145,16 +144,16 @@ class aircraft(apelement.element):
 
             self._startaltitude = self.altitude()
 
-            self._logaction("", "force         is %s." % force)
-            self._logaction("", "type          is %s." % aircrafttype)
-            self._logaction("", "position      is %s." % self.position())
-            self._logaction("", "speed         is %.1f." % self.speed())
+            self._logwhenwhat("", "force         is %s." % force)
+            self._logwhenwhat("", "type          is %s." % aircrafttype)
+            self._logwhenwhat("", "position      is %s." % self.position())
+            self._logwhenwhat("", "speed         is %.1f." % self.speed())
 
             # Determine the fuel and bingo levels.
 
             if isinstance(fuel, str) and fuel[-1] == "%" and fuel[:-1].isdecimal():
                 fuel = float(fuel[:-1]) / 100
-                self._logaction(
+                self._logwhenwhat(
                     "", "fuel          is %3.0f%% of internal capacity." % (fuel * 100)
                 )
                 fuel *= self.internalfuelcapacity()
@@ -168,7 +167,7 @@ class aircraft(apelement.element):
                 and bingofuel[:-1].isdecimal()
             ):
                 bingofuel = float(bingofuel[:-1]) / 100
-                self._logaction(
+                self._logwhenwhat(
                     "",
                     "bingo fuel    is %3.0f%% of internal capacity."
                     % (bingofuel * 100),
@@ -180,9 +179,9 @@ class aircraft(apelement.element):
 
             if not self._fuel is None:
                 if self._bingofuel is None:
-                    self._logaction("", "fuel          is %.1f." % self._fuel)
+                    self._logwhenwhat("", "fuel          is %.1f." % self._fuel)
                 else:
-                    self._logaction(
+                    self._logwhenwhat(
                         "",
                         "fuel          is %.1f and bingo fuel is %.1f."
                         % (self._fuel, self._bingofuel),
@@ -205,7 +204,7 @@ class aircraft(apelement.element):
                 if len(self._stores) != 0:
                     apstores._showstores(
                         stores,
-                        printer=lambda s: self._logaction("", s),
+                        printer=lambda s: self._logwhenwhat("", s),
                         fuel=self.externalfuel(),
                     )
 
@@ -219,7 +218,7 @@ class aircraft(apelement.element):
                     )
 
             apconfiguration.update(self)
-            self._logaction("", "configuration is %s." % self._configuration)
+            self._logwhenwhat("", "configuration is %s." % self._configuration)
 
             self._lowspeedliftdeviceextended = False
             self._minspeed = apcapabilities.minspeed(self)
@@ -337,7 +336,7 @@ class aircraft(apelement.element):
         try:
 
             apgameturn.checkingameturn()
-            self._logaction("react", action)
+            self._logwhenwhat("react", action)
 
             apairtoair.react(self, attacktype, target, result)
 
@@ -745,7 +744,7 @@ class aircraft(apelement.element):
                     % apairtoair.trackingforbidden(self, target)
                 )
 
-            self._logevent("started SSGT on %s." % target.name())
+            self._logcomment("started SSGT on %s." % target.name())
             self._tracking = target
 
         except RuntimeError as e:
@@ -777,23 +776,23 @@ class aircraft(apelement.element):
             previousconfiguration = self._configuration
 
             missiletype, newstores = apstores._airtoairlaunch(
-                self._stores, loadstation, printer=lambda s: self._logevent(s)
+                self._stores, loadstation, printer=lambda s: self._logcomment(s)
             )
 
             apconfiguration.update(self)
 
             if failedbeforelaunch:
-                self._logevent("launch failed but missile not lost.")
+                self._logcomment("launch failed but missile not lost.")
             elif failed:
-                self._logevent("launch failed and missile lost.")
+                self._logcomment("launch failed and missile lost.")
                 self._stores = newstores
             else:
-                self._logevent("launch succeeded.")
+                self._logcomment("launch succeeded.")
                 self._stores = newstores
                 M = apmissile.missile(name, missiletype, self, target)
 
             if self._configuration != previousconfiguration:
-                self._logevent(
+                self._logcomment(
                     "configuration changed from %s to %s."
                     % (previousconfiguration, self._configuration)
                 )
@@ -809,13 +808,13 @@ class aircraft(apelement.element):
 
         for load in args:
             self._stores = apstores._jettison(
-                self._stores, load, printer=lambda s: self._logevent(s)
+                self._stores, load, printer=lambda s: self._logcomment(s)
             )
 
         apconfiguration.update(self)
 
         if self._configuration != previousconfiguration:
-            self._logevent(
+            self._logcomment(
                 "configuration changed from %s to %s."
                 % (previousconfiguration, self._configuration)
             )

@@ -21,20 +21,20 @@ def showgeometry(A, B, note=None):
 
     angleofftail = A.angleofftail(B)
     if angleofftail == "0 line" or angleofftail == "180 line":
-        A._logevent("%s has %s on its %s." % (Bname, Aname, angleofftail))
+        A._logcomment("%s has %s on its %s." % (Bname, Aname, angleofftail))
     else:
-        A._logevent("%s has %s in its %s." % (Bname, Aname, angleofftail))
+        A._logcomment("%s has %s in its %s." % (Bname, Aname, angleofftail))
 
     angleofftail = B.angleofftail(A)
     if angleofftail == "0 line" or angleofftail == "180 line":
-        A._logevent("%s is on the %s of %s." % (Bname, angleofftail, Aname))
+        A._logcomment("%s is on the %s of %s." % (Bname, angleofftail, Aname))
     else:
-        A._logevent("%s is in the %s of %s." % (Bname, angleofftail, Aname))
+        A._logcomment("%s is in the %s of %s." % (Bname, angleofftail, Aname))
 
     if A._inlimitedradararc(B):
-        A._logevent("%s is in the limited radar arc of %s." % (Bname, Aname))
+        A._logcomment("%s is in the limited radar arc of %s." % (Bname, Aname))
     else:
-        A._logevent("%s is not in the limited radar arc of %s." % (Bname, Aname))
+        A._logcomment("%s is not in the limited radar arc of %s." % (Bname, Aname))
 
     A._lognote(note)
 
