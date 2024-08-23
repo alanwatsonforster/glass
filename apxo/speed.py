@@ -119,7 +119,6 @@ def _startaircraftspeed(
     if A._flighttype == "SP":
         speed = power
         A._setspeed(speed)
-        reportspeed()
         A._powersetting = ""
         A._powerap = 0
         A._speedap = 0

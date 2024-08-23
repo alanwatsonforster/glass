@@ -397,7 +397,8 @@ def _startmove(E, **kwargs):
     E._slidefp = 0
 
     # Whether flight is currently supersonic.
-    E._supersonic = E.speed() >= apspeed.m1speed(E.altitudeband())
+    E._m1speed = apspeed.m1speed(E.altitudeband())
+    E._supersonic = E._m1speed
 
     if E.ismissile():
         _startmovemissile(E)
@@ -1695,6 +1696,37 @@ def _domove(E, move, actiondispatchlist):
 
     ####################
 
+    def checkminspeed():
+    
+        # The minimum speed can change during a move if the altitude or
+        # configuration changes.
+    
+        if E.isaircraft():
+            previousminspeed = E._minspeed
+            E._minspeed = apcapabilities.minspeed(E)
+            if E._minspeed != previousminspeed:
+                E._logevent("minimum speed is now %.1f." % E._minspeed)
+                
+    def checkm1speed():
+
+        # The m1 speed can change during a move if the altitude changes.
+
+        previousm1speed = E._m1speed
+        E._m1speed = apspeed.m1speed(E.altitudeband())
+        if E._m1speed != previousm1speed:
+            E._logevent("speed of sound is now %.1f." % E._m1speed)
+
+        previoussupersonic = E._supersonic
+        E._supersonic = E.speed() >= E._m1speed
+        if previoussupersonic and not E._supersonic:
+            E._logevent("speed is now subsonic.")
+        elif not previoussupersonic and E._supersonic:
+            E._logevent("speed is now supersonic.")
+
+    ####################
+
+    checkminspeed()
+
     E._log1("FP %d" % (E._fp + 1), move)
 
     # Check we have at least one FP remaining.
@@ -1712,6 +1744,7 @@ def _domove(E, move, actiondispatchlist):
 
     E._movestartaltitude = E.altitude()
     E._movestartaltitudeband = E.altitudeband()
+    E._movestartm1speed = apspeed.m1speed(E.altitudeband())
 
     # Check a missile has not stalled. We do this for each FP, since
     # the stall speed depends on altitude and can change as the missile
@@ -1823,13 +1856,8 @@ def _domove(E, move, actiondispatchlist):
             "altitude band changed from %s to %s."
             % (E._movestartaltitudeband, E.altitudeband())
         )
-        E._logevent("speed of sound is %.1f." % apspeed.m1speed(E.altitudeband()))
-        previoussupersonic = E._supersonic
-        E._supersonic = E.speed() >= apspeed.m1speed(E.altitudeband())
-        if previoussupersonic and not E._supersonic:
-            E._logevent("speed is now subsonic.")
-        elif not previoussupersonic and E._supersonic:
-            E._logevent("speed is now supersonic.")
+        checkm1speed()
+    checkminspeed()
 
     E._checkforterraincollision()
     E._checkforleavingmap()

@@ -92,6 +92,9 @@ def rawminspeed(A):
 
 def minspeed(A):
 
+    if A._aircraftdata.hasproperty("SPFL"):
+        return 0.0
+
     minspeed = rawminspeed(A)
 
     # See rule 7.6 in version 2.4.

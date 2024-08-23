@@ -2,6 +2,7 @@ import apxo as ap
 import apxo.aircraftdata as apaircraftdata
 import apxo.altitude as apaltitude
 import apxo.azimuth as apazimuth
+import apxo.capabilities as apcapabilities
 import apxo.closeformation as apcloseformation
 import apxo.configuration as apconfiguration
 import apxo.damage as apdamage
@@ -219,6 +220,9 @@ class aircraft(apelement.element):
 
             apconfiguration.update(self)
             self._logaction("", "configuration is %s." % self._configuration)
+
+            self._lowspeedliftdeviceextended = False
+            self._minspeed = apcapabilities.minspeed(self)
 
         except RuntimeError as e:
             aplog.logexception(e)
