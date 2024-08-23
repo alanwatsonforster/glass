@@ -497,21 +497,21 @@ class element:
 
     ############################################################################
 
-    def logwhat(self, what, writetofile=True):
-        aplog.logwhat(what, who=self.name(), writetofile=writetofile)
+    def logwhat(self, what, writefile=True):
+        aplog.logwhat(what, who=self.name(), writefile=writefile)
 
-    def logwhenwhat(self, when, what, writetofile=True):
-        aplog.logwhenwhat(when, what, who=self.name(), writetofile=writetofile)
+    def logwhenwhat(self, when, what, writefile=True):
+        aplog.logwhenwhat(when, what, who=self.name(), writefile=writefile)
 
-    def _logcomment(self, comment, writetofile=True):
+    def _logcomment(self, comment, writefile=True):
         aplog.logcomment(
             comment,
             who=self.name(),
-            writetofile=writetofile,
+            writefile=writefile,
         )
 
-    def lognote(self, note, writetofile=True):
-        aplog.lognote(note, who=self.name(), writetofile=writetofile)
+    def lognote(self, note, writefile=True):
+        aplog.lognote(note, who=self.name(), writefile=writefile)
 
     def logposition(self, when):
         self.logwhenwhat(when, self.position())

@@ -8,12 +8,12 @@ import os.path
 def startfile(file, description):
     print("running tests in file %s: %s." % (os.path.basename(file), description))
     aplog.setprint(False)
-    aplog.setwritetofiles(False)
+    aplog.setwritefiles(False)
 
 
 def endfile(file):
     aplog.setprint(True)
-    aplog.setwritetofiles(True)
+    aplog.setwritefiles(True)
 
 
 def asserterror(error):
