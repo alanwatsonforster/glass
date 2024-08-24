@@ -53,7 +53,11 @@ def restore():
 
 
 def show():
-    _fig.show()
+    # Avoid "UserWarning: FigureCanvasAgg is non-interactive, and thus
+    # cannot be shown". Ommiting the _fig.show() works in a Jupyter
+    # notebook since it is implicit at the end of each cell.
+    #_fig.show()
+    pass
 
 
 def writefile(name):
