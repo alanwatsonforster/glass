@@ -1094,7 +1094,6 @@ def startdrawmap(
 
 def enddrawmap(turn, writefiles=True):
     if _writefiles and writefiles:
-        print("writing files")
         for filetype in _writefiletypes:
             apdraw.writefile("map-%02d.%s" % (turn, filetype))
     apdraw.show()
