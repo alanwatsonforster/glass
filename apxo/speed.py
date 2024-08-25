@@ -231,7 +231,7 @@ def _startaircraftspeed(
     if power == "I":
         powersetting = "I"
         powerap = 0
-    elif power == "N" or power == 0:
+    elif power == "N":
         powersetting = "N"
         powerap = 0
     elif power == "M" and powerapM == None:
