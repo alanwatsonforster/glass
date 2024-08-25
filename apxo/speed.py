@@ -716,12 +716,11 @@ def _endaircraftspeed(A):
             A._logcomment("speed will be faded back from %.1f." % A._newspeed)
             A._newspeed = max(A._newspeed - 1, maxspeed)
 
-    if A.speed() != A._newspeed:
-        A._logcomment("speed will change from %.1f to %.1f." % (A.speed(), A._newspeed))
+    A.logend("speed will be %.1f." % A._newspeed)
+    if A._newspeed < m1speed(A.altitudeband()):
+        A._logcomment("speed will be subsonic.")
     else:
-        A._logcomment("speed will be unchanged at %.1f." % A._newspeed)
-
-    A._logcomment("will carry %+.2f APs." % A._apcarry)
+        A._logcomment("speed will be supersonic.")
 
     # See rule 6.4.
 
@@ -734,6 +733,8 @@ def _endaircraftspeed(A):
         A._logcomment("aircraft will still stalled.")
     elif A._newspeed < minspeed:
         A._logcomment("aircraft will have stalled.")
+
+    A.logend("will carry %+.2f APs." % A._apcarry)
 
 
 ################################################################################
@@ -808,6 +809,10 @@ def _endmissilespeed(M):
         M._logcomment("speed will change from %.1f to %.1f." % (M.speed(), M._newspeed))
     else:
         M._logcomment("speed will be unchanged at %.1f." % M._newspeed)
+    if M._newspeed < m1speed(M.altitudeband()):
+        M._logcomment("speed will be subsonic.")
+    else:
+        M._logcomment("speed will be supersonic.")
 
 
 ################################################################################
