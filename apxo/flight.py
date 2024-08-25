@@ -1646,7 +1646,7 @@ def _domoves(E, moves, actiondispatchlist):
     if moves == "":
         return
 
-    for move in re.split(r"[, ]", moves):
+    for move in re.split(r" *[, ] *", moves):
         if not E.killed():
             _domove(E, move, actiondispatchlist)
 
