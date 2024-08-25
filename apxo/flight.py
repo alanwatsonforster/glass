@@ -1383,8 +1383,8 @@ def _endmove(E):
             _endspecialflight(E)
         else:
             _endnormalflight(E)
-        apspeed._endaircraftspeed(E)
         E.logend("will carry %.1f FPs." % E._fpcarry)
+        apspeed._endaircraftspeed(E)
 
 
 ########################################
