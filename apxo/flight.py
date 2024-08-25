@@ -1384,7 +1384,7 @@ def _endmove(E):
         else:
             _endnormalflight(E)
         apspeed._endaircraftspeed(E)
-        E._logcomment("will carry %.1f FPs." % E._fpcarry)
+        E.logend("will carry %.1f FPs." % E._fpcarry)
 
 
 ########################################
@@ -1712,7 +1712,10 @@ def _domove(E, move, actiondispatchlist):
             E._minspeed = apcapabilities.minspeed(E)
             if E._minspeed != previousminspeed:
                 E._logcomment("minimum speed is now %.1f." % E._minspeed)
-                if E.speed() <= previousminspeed + 2.0 or E.speed() <= E._minspeed + 2.0:
+                if (
+                    E.speed() <= previousminspeed + 2.0
+                    or E.speed() <= E._minspeed + 2.0
+                ):
                     # See rule 7.5.
                     if E.speed() == E._minspeed:
                         E._logcomment("speed now limits the turn rate to EZ.")
