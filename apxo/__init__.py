@@ -218,7 +218,7 @@ def drawmap(
     drawL180arc=[],
     drawR180arc=[],
     watermark=None,
-    writefiles=None,
+    writefiles=True,
 ):
     """
     Draw the map, with aircraft and markers at their current positions.
