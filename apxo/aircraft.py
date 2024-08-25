@@ -742,7 +742,7 @@ class aircraft(apelement.element):
                     % apairtoair.trackingforbidden(self, target)
                 )
 
-            self._logcomment("started SSGT on %s." % target.name())
+            self.logcomment("started SSGT on %s." % target.name())
             self._tracking = target
 
         except RuntimeError as e:
@@ -774,23 +774,23 @@ class aircraft(apelement.element):
             previousconfiguration = self._configuration
 
             missiletype, newstores = apstores._airtoairlaunch(
-                self._stores, loadstation, printer=lambda s: self._logcomment(s)
+                self._stores, loadstation, printer=lambda s: self.logcomment(s)
             )
 
             apconfiguration.update(self)
 
             if failedbeforelaunch:
-                self._logcomment("launch failed but missile not lost.")
+                self.logcomment("launch failed but missile not lost.")
             elif failed:
-                self._logcomment("launch failed and missile lost.")
+                self.logcomment("launch failed and missile lost.")
                 self._stores = newstores
             else:
-                self._logcomment("launch succeeded.")
+                self.logcomment("launch succeeded.")
                 self._stores = newstores
                 M = apmissile.missile(name, missiletype, self, target)
 
             if self._configuration != previousconfiguration:
-                self._logcomment(
+                self.logcomment(
                     "configuration changed from %s to %s."
                     % (previousconfiguration, self._configuration)
                 )
@@ -807,13 +807,13 @@ class aircraft(apelement.element):
 
         for load in args:
             self._stores = apstores._jettison(
-                self._stores, load, printer=lambda s: self._logcomment(s)
+                self._stores, load, printer=lambda s: self.logcomment(s)
             )
 
         apconfiguration.update(self)
 
         if self._configuration != previousconfiguration:
-            self._logcomment(
+            self.logcomment(
                 "configuration changed from %s to %s."
                 % (previousconfiguration, self._configuration)
             )

@@ -245,7 +245,7 @@ class element:
         aplog.clearerror()
         try:
             apgameturn.checkingameturn()
-            self._logcomment("has been killed.")
+            self.logcomment("has been killed.")
             self.lognote(note)
             self._kill()
         except RuntimeError as e:
@@ -259,7 +259,7 @@ class element:
         aplog.clearerror()
         try:
             apgameturn.checkingameturn()
-            self._logcomment("has been removed.")
+            self.logcomment("has been removed.")
             self.lognote(note)
             self._removed = True
         except RuntimeError as e:
@@ -503,7 +503,7 @@ class element:
     def logwhenwhat(self, when, what, writefile=True):
         aplog.logwhenwhat(when, what, who=self.name(), writefile=writefile)
 
-    def _logcomment(self, comment, writefile=True):
+    def logcomment(self, comment, writefile=True):
         aplog.logcomment(
             comment,
             who=self.name(),

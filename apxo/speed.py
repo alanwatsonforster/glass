@@ -128,20 +128,20 @@ def _startaircraftspeed(
 
     if A._previousflighttype == "DP" and A._flighttype != "DP" and speed < minspeed:
         speed = minspeed
-        A._logcomment(
+        A.logcomment(
             "increasing speed to %.1f after recovering from departed flight." % minspeed
         )
 
     A.logstart("speed            is %.1f." % speed)
 
     if speed < ltspeed(A.altitudeband()):
-        A._logcomment("speed is subsonic and below low transsonic.")
+        A.logcomment("speed is subsonic and below low transsonic.")
     elif speed == ltspeed(A.altitudeband()):
-        A._logcomment("speed is low transonic.")
+        A.logcomment("speed is low transonic.")
     elif speed == htspeed(A.altitudeband()):
-        A._logcomment("speed is high transonic.")
+        A.logcomment("speed is high transonic.")
     else:
-        A._logcomment("speed is supersonic.")
+        A.logcomment("speed is supersonic.")
 
     ############################################################################
 
@@ -159,7 +159,7 @@ def _startaircraftspeed(
     if not A._fuel is None:
         if A._fuel == 0:
             if apcapabilities.engines(A) == 1:
-                A._logcomment("the engine is flamed-out from a lack of fuel.")
+                A.logcomment("the engine is flamed-out from a lack of fuel.")
             else:
                 A.logstart("all engines are flamed-out from a lack of fuel.")
             flamedoutengines = apcapabilities.engines(A)
@@ -286,20 +286,20 @@ def _startaircraftspeed(
             or A.altitudeband() == "UH"
         )
     ):
-        A._logcomment("power is reduced in the %s altitude band." % A.altitudeband())
+        A.logcomment("power is reduced in the %s altitude band." % A.altitudeband())
 
     # Again, the reduction was done above, but we report it here.
     if apcapabilities.powerfade(A) != None and apcapabilities.powerfade(A) > 0.0:
-        A._logcomment("power is reduced as the speed is %.1f." % speed)
+        A.logcomment("power is reduced as the speed is %.1f." % speed)
 
     # Again, the reduction was done above, but we report it here.
     if A.damageatleast("H"):
-        A._logcomment("power is reduced as damage is %s." % A.damage())
+        A.logcomment("power is reduced as damage is %s." % A.damage())
 
     # Is the engine smoking?
     A._enginesmoking = apcapabilities.hasproperty(A, "SMP") and powersetting == "M"
     if A._enginesmoking:
-        A._logcomment("engine is smoking.")
+        A.logcomment("engine is smoking.")
 
     # See rule 6.7
 
@@ -308,9 +308,9 @@ def _startaircraftspeed(
     if flamedoutfraction == 1:
 
         if apcapabilities.engines(A) == 1:
-            A._logcomment("power setting is treated as I as the engine is flamed-out.")
+            A.logcomment("power setting is treated as I as the engine is flamed-out.")
         else:
-            A._logcomment(
+            A.logcomment(
                 "power setting is treated as I as all %d engines are flamed-out."
                 % apcapabilities.engines(A)
             )
@@ -319,7 +319,7 @@ def _startaircraftspeed(
 
     elif flamedoutfraction > 0.5:
 
-        A._logcomment(
+        A.logcomment(
             "maximum power is reduced by one third as %d of the %d engines are flamed-out."
             % (flamedoutengines, apcapabilities.engines(A))
         )
@@ -328,14 +328,14 @@ def _startaircraftspeed(
 
     elif flamedoutfraction > 0:
 
-        A._logcomment(
+        A.logcomment(
             "maximum power is reduced by one half as %d of the %d engines are flamed-out."
             % (flamedoutengines, apcapabilities.engines(A))
         )
         # 1/2 of APs, quantized in 1/4 units, rounding up.
         powerap = math.ceil(powerap / 2 * 4) / 4
 
-    A._logcomment("%s power (%+.1f AP)." % (powersetting, powerap))
+    A.logcomment("%s power (%+.1f AP)." % (powersetting, powerap))
 
     ############################################################################
 
@@ -348,18 +348,18 @@ def _startaircraftspeed(
         and powersetting == "AB"
         and not apcapabilities.hasproperty(A, "RPR")
     ):
-        A._logcomment(
+        A.logcomment(
             "check for flame-out as the power setting has increased from I to AB."
         )
 
     if powersetting != "I" and A.altitude() > apcapabilities.ceiling(A):
-        A._logcomment(
+        A.logcomment(
             "check for flame-out as the aircraft is above its ceiling and the power setting is %s."
             % powersetting
         )
 
     if A._flighttype == "DP" and (powersetting == "M" or powersetting == "AB"):
-        A._logcomment(
+        A.logcomment(
             "check for flame-out as the aircraft is in departed flight and the power setting is %s."
             % powersetting
         )
@@ -367,7 +367,7 @@ def _startaircraftspeed(
     if speed >= m1speed(A.altitudeband()) and (
         powersetting == "I" or powersetting == "N"
     ):
-        A._logcomment(
+        A.logcomment(
             "%s flame-out as the speed is supersonic and the power setting is %s."
             % (plural(apcapabilities.engines(A), "engine", "engines"), powersetting)
         )
@@ -377,7 +377,7 @@ def _startaircraftspeed(
     # See the "Aircraft Damage Effects" in the Play Aids.
 
     if speed >= m1speed(A.altitudeband()) and A.damageatleast("H"):
-        A._logcomment(
+        A.logcomment(
             "check for progressive damage as damage is %s at supersonic speed."
             % A.damage()
         )
@@ -398,9 +398,9 @@ def _startaircraftspeed(
                 A._lowspeedliftdeviceselected = lowspeedliftdeviceselected
 
             if A._lowspeedliftdeviceselected:
-                A._logcomment("%s selected." % apcapabilities.lowspeedliftdevicename(A))
+                A.logcomment("%s selected." % apcapabilities.lowspeedliftdevicename(A))
             else:
-                A._logcomment(
+                A.logcomment(
                     "%s not selected." % apcapabilities.lowspeedliftdevicename(A)
                 )
 
@@ -415,11 +415,11 @@ def _startaircraftspeed(
             )
 
         if A._lowspeedliftdeviceextended:
-            A._logcomment("%s extended." % apcapabilities.lowspeedliftdevicename(A))
+            A.logcomment("%s extended." % apcapabilities.lowspeedliftdevicename(A))
         else:
-            A._logcomment("%s retracted." % apcapabilities.lowspeedliftdevicename(A))
+            A.logcomment("%s retracted." % apcapabilities.lowspeedliftdevicename(A))
 
-    A._logcomment("minumum speed is %.1f." % apcapabilities.minspeed(A))
+    A.logcomment("minumum speed is %.1f." % apcapabilities.minspeed(A))
 
     ############################################################################
 
@@ -427,8 +427,8 @@ def _startaircraftspeed(
 
     minspeed = apcapabilities.minspeed(A)
     if speed < minspeed:
-        A._logcomment("speed is below the minimum of %.1f." % minspeed)
-        A._logcomment("aircraft is stalled.")
+        A.logcomment("speed is below the minimum of %.1f." % minspeed)
+        A.logcomment("aircraft is stalled.")
         if A._flighttype != "ST" and A._flighttype != "DP":
             raise RuntimeError("flight type must be ST or DP.")
 
@@ -452,7 +452,7 @@ def _startaircraftspeed(
         if powersetting == "I" or powersetting == "N":
             dspeedap = -1.0
             speedap += dspeedap
-            A._logcomment(
+            A.logcomment(
                 "%s power above cruise speed (%+.1f AP)." % (powersetting, dspeedap)
             )
 
@@ -461,11 +461,11 @@ def _startaircraftspeed(
     if powersetting == "I":
         dspeedap = -apcapabilities.power(A, "I")
         speedap += dspeedap
-        A._logcomment("%s power (%+.1f AP)." % (powersetting, dspeedap))
+        A.logcomment("%s power (%+.1f AP)." % (powersetting, dspeedap))
         if speed >= m1speed(A.altitudeband()):
             dspeedap = -1.0
             speedap += dspeedap
-            A._logcomment(
+            A.logcomment(
                 "%s power at supersonic speed (%+.1f AP)." % (powersetting, dspeedap)
             )
 
@@ -475,13 +475,13 @@ def _startaircraftspeed(
         if powersetting == "I" or powersetting == "N":
             dspeedap = -2.0 * (speed - htspeed(A.altitudeband())) / 0.5
             speedap += dspeedap
-            A._logcomment(
+            A.logcomment(
                 "%s power at supersonic speed (%+.1f AP)." % (powersetting, dspeedap)
             )
         elif powersetting == "M":
             dspeedap = -1.5 * (speed - htspeed(A.altitudeband())) / 0.5
             speedap += dspeedap
-            A._logcomment(
+            A.logcomment(
                 "%s power at supersonic speed (%+.1f AP)." % (powersetting, dspeedap)
             )
 
@@ -499,7 +499,7 @@ def _startaircraftspeed(
         elif apcapabilities.hasproperty(A, "HTD"):
             dspeedap -= 0.5
         speedap += dspeedap
-        A._logcomment("transonic drag (%+.1f AP)." % dspeedap)
+        A.logcomment("transonic drag (%+.1f AP)." % dspeedap)
 
     ############################################################################
 
@@ -514,9 +514,9 @@ def _startaircraftspeed(
 
     if not A._fuel is None:
         if A._bingofuel is None:
-            A._logcomment("fuel is %.1f." % A._fuel)
+            A.logcomment("fuel is %.1f." % A._fuel)
         else:
-            A._logcomment(
+            A.logcomment(
                 "fuel is %.1f and bingo fuel is %.1f." % (A._fuel, A._bingofuel)
             )
 
@@ -549,7 +549,7 @@ def _startaircraftspeed(
                 )
             )
         A._speedbrakeap = -speedbrakes
-        A._logcomment("speedbrakes (%+.1f AP)." % A._speedbrakeap)
+        A.logcomment("speedbrakes (%+.1f AP)." % A._speedbrakeap)
 
 
 ################################################################################
@@ -562,7 +562,7 @@ def _endaircraftspeed(A):
 
     if A._flighttype == "SP" or A._flighttype == "DP":
         A._newspeed = A.speed()
-        A._logcomment("speed is unchanged at %.1f." % A.speed())
+        A.logcomment("speed is unchanged at %.1f." % A.speed())
         return
 
     # Report fuel.
@@ -572,27 +572,27 @@ def _endaircraftspeed(A):
         previousexternalfuel = A.externalfuel()
         previousinternalfuel = A.internalfuel()
 
-        A._logcomment("fuel consumption was %.1f." % A._fuelconsumption)
+        A.logcomment("fuel consumption was %.1f." % A._fuelconsumption)
         A._fuel -= A._fuelconsumption
 
         if A._bingofuel is None:
-            A._logcomment("fuel is %.1f." % A._fuel)
+            A.logcomment("fuel is %.1f." % A._fuel)
         else:
-            A._logcomment(
+            A.logcomment(
                 "fuel is %.1f and bingo fuel is %.1f." % (A._fuel, A._bingofuel)
             )
             if A._fuel < A._bingofuel:
-                A._logcomment("fuel is below bingo fuel.")
+                A.logcomment("fuel is below bingo fuel.")
 
         if A.internalfuel() == 0:
             A.logend("fuel is exhausted.")
 
         if previousexternalfuel > 0 and A.externalfuel() == 0:
-            A._logcomment("external fuel is exhausted.")
+            A.logcomment("external fuel is exhausted.")
             previousconfiguration = A._configuration
             apconfiguration.update(A)
             if A._configuration != previousconfiguration:
-                A._logcomment(
+                A.logcomment(
                     "changed configuration from %s to %s."
                     % (previousconfiguration, A._configuration)
                 )
@@ -601,20 +601,20 @@ def _endaircraftspeed(A):
 
     if A._flighttype == "DP" or A._maneuveringdeparture:
         A.apcarry = 0
-        A._logcomment("speed is unchanged at %.1f." % A.speed())
+        A.logcomment("speed is unchanged at %.1f." % A.speed())
         return
 
     # See the "Speed Gain" and "Speed Loss" sections of rule 6.2.
 
     A._turnsap = A._turnrateap + A._sustainedturnap
 
-    A._logcomment("power           APs = %+.2f." % A._powerap)
-    A._logcomment("speed           APs = %+.2f." % A._speedap)
-    A._logcomment("altitude        APs = %+.2f." % A._altitudeap)
-    A._logcomment("turns           APs = %+.2f." % A._turnsap)
-    A._logcomment("other maneuvers APs = %+.2f." % A._othermaneuversap)
-    A._logcomment("speedbrakes     APs = %+.2f." % A._speedbrakeap)
-    A._logcomment("carry           APs = %+.2f." % A._apcarry)
+    A.logcomment("power           APs = %+.2f." % A._powerap)
+    A.logcomment("speed           APs = %+.2f." % A._speedap)
+    A.logcomment("altitude        APs = %+.2f." % A._altitudeap)
+    A.logcomment("turns           APs = %+.2f." % A._turnsap)
+    A.logcomment("other maneuvers APs = %+.2f." % A._othermaneuversap)
+    A.logcomment("speedbrakes     APs = %+.2f." % A._speedbrakeap)
+    A.logcomment("carry           APs = %+.2f." % A._apcarry)
     ap = (
         A._powerap
         + A._speedap
@@ -624,7 +624,7 @@ def _endaircraftspeed(A):
         + A._speedbrakeap
         + A._apcarry
     )
-    A._logcomment("total           APs = %+.2f." % ap)
+    A.logcomment("total           APs = %+.2f." % ap)
 
     # See the "Speed Gain", "Speed Loss", and "Rapid Accel Aircraft" sections
     # of rule 6.2 and the "Supersonic Speeds" section of rule 6.6.
@@ -663,7 +663,7 @@ def _endaircraftspeed(A):
     # maximum level speed and maximum dive speed are limited to HT speed.
 
     if maxspeed >= m1speed(A.altitudeband()) and A.damageatleast("H"):
-        A._logcomment("maximum speed limited to HT speed by damage.")
+        A.logcomment("maximum speed limited to HT speed by damage.")
         usedivespeed = False
         maxspeed = htspeed(A.altitudeband())
         maxspeedname = "HT speed"
@@ -689,14 +689,14 @@ def _endaircraftspeed(A):
     elif ap > 0:
 
         if A.speed() >= maxspeed and ap >= aprate:
-            A._logcomment(
+            A.logcomment(
                 "acceleration is limited by %s of %.1f." % (maxspeedname, maxspeed)
             )
             A._apcarry = aprate - 0.5
         elif A.speed() >= maxspeed:
             A._apcarry = ap
         elif A.speed() + 0.5 * (ap // aprate) > maxspeed:
-            A._logcomment(
+            A.logcomment(
                 "acceleration is limited by %s of %.1f." % (maxspeedname, maxspeed)
             )
             A._newspeed = maxspeed
@@ -707,32 +707,32 @@ def _endaircraftspeed(A):
 
     if usemaxdivespeed:
         if A._newspeed > maxspeed:
-            A._logcomment(
+            A.logcomment(
                 "speed will be reduced to maximum dive speed of %.1f." % maxspeed
             )
             A._newspeed = maxspeed
     else:
         if A._newspeed > maxspeed:
-            A._logcomment("speed will be faded back from %.1f." % A._newspeed)
+            A.logcomment("speed will be faded back from %.1f." % A._newspeed)
             A._newspeed = max(A._newspeed - 1, maxspeed)
 
     A.logend("speed will be %.1f." % A._newspeed)
     if A._newspeed < m1speed(A.altitudeband()):
-        A._logcomment("speed will be subsonic.")
+        A.logcomment("speed will be subsonic.")
     else:
-        A._logcomment("speed will be supersonic.")
+        A.logcomment("speed will be supersonic.")
 
     # See rule 6.4.
 
     minspeed = apcapabilities.minspeed(A)
     if A._newspeed < minspeed:
-        A._logcomment("speed will be below the minimum of %.1f." % minspeed)
+        A.logcomment("speed will be below the minimum of %.1f." % minspeed)
     if A._newspeed >= minspeed and A._flighttype == "ST":
-        A._logcomment("aircraft will no longer be stalled.")
+        A.logcomment("aircraft will no longer be stalled.")
     elif A._newspeed < minspeed and A._flighttype == "ST":
-        A._logcomment("aircraft will still stalled.")
+        A.logcomment("aircraft will still stalled.")
     elif A._newspeed < minspeed:
-        A._logcomment("aircraft will have stalled.")
+        A.logcomment("aircraft will have stalled.")
 
     A.logend("will carry %+.2f APs." % A._apcarry)
 
@@ -757,12 +757,12 @@ def _startmissilespeed(M):
     M.logstart("start speed      is %.1f." % M.speed())
 
     if M.speed() > missilemaxspeed(M.altitudeband()):
-        M._logcomment("reducing speed to maximum for altitude band.")
+        M.logcomment("reducing speed to maximum for altitude band.")
         M.setspeed(_missilemaxspeed(M.altitudeband()))
         M.logstart("start speed      is %.1f." % M.speed())
 
     if M.speed() < missilemaneuverspeed(M.altitudeband()):
-        M._logcomment("cannot maneuver.")
+        M.logcomment("cannot maneuver.")
 
     flightgameturn = apgameturn.gameturn() - M._launchgameturn
     M.logstart("flight game turn is %d." % flightgameturn)
@@ -774,11 +774,11 @@ def _startmissilespeed(M):
 
     M.logstart("average speed    is %.1f." % M.speed())
     if M.speed() < m1speed(M.altitudeband()):
-        M._logcomment("speed is subsonic.")
+        M.logcomment("speed is subsonic.")
     else:
-        M._logcomment("speed is supersonic.")
+        M.logcomment("speed is supersonic.")
 
-    M._logcomment("has %d FPs." % M._maxfp)
+    M.logcomment("has %d FPs." % M._maxfp)
 
 
 ################################################################################
@@ -800,19 +800,19 @@ def _endmissilespeed(M):
     else:
         altitudefp = 0
 
-    M._logcomment("turning  FPs = %+.1f." % turningfp)
-    M._logcomment("altitude FPs = %+.1f." % altitudefp)
+    M.logcomment("turning  FPs = %+.1f." % turningfp)
+    M.logcomment("altitude FPs = %+.1f." % altitudefp)
 
     M._newspeed = M._speed + turningfp + altitudefp
 
     if M.speed() != M._newspeed:
-        M._logcomment("speed will change from %.1f to %.1f." % (M.speed(), M._newspeed))
+        M.logcomment("speed will change from %.1f to %.1f." % (M.speed(), M._newspeed))
     else:
-        M._logcomment("speed will be unchanged at %.1f." % M._newspeed)
+        M.logcomment("speed will be unchanged at %.1f." % M._newspeed)
     if M._newspeed < m1speed(M.altitudeband()):
-        M._logcomment("speed will be subsonic.")
+        M.logcomment("speed will be subsonic.")
     else:
-        M._logcomment("speed will be supersonic.")
+        M.logcomment("speed will be supersonic.")
 
 
 ################################################################################

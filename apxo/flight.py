@@ -29,7 +29,7 @@ def _move(E, flighttype, power, moves, **kwargs):
 
     E.logstart("flight type      is %s." % E._flighttype)
     E.logstart("altitude band    is %s." % E.altitudeband())
-    E._logcomment("speed of sound is %.1f." % apspeed.m1speed(E.altitudeband()))
+    E.logcomment("speed of sound is %.1f." % apspeed.m1speed(E.altitudeband()))
 
     if E.isaircraft():
         apspeed._startaircraftspeed(E, power, **kwargs)
@@ -96,11 +96,11 @@ def _checknormalflight(E):
 
         # See rule 7.7.
         if E.altitude() > apcapabilities.ceiling(E):
-            E._logcomment(
+            E.logcomment(
                 "check for a maneuvering departure as the aircraft is above its ceiling and attempted to roll."
             )
         elif E.altitudeband() == "EH" or E.altitudeband() == "UH":
-            E._logcomment(
+            E.logcomment(
                 "check for a maneuvering departure as the aircraft is in the %s altitude band and attempted to roll."
                 % E.altitudeband()
             )
@@ -442,7 +442,7 @@ def _startmovestalledflight(A):
     A._setaltitudecarry(0)
 
     # See rule 6.4.
-    A._logcomment("is carrying %+.2f APs." % A._apcarry)
+    A.logcomment("is carrying %+.2f APs." % A._apcarry)
 
 
 ########################################
@@ -466,10 +466,10 @@ def _startmovespecialflight(A):
     A._turnsdeparted = 0
 
     A._maxfp = A.speed()
-    A._logcomment("has %.1f FPs." % A._maxfp)
+    A.logcomment("has %.1f FPs." % A._maxfp)
 
     A._effectiveclimbcapability = apcapabilities.specialclimbcapability(A)
-    A._logcomment("effective climb capability is %.2f." % A._effectiveclimbcapability)
+    A.logcomment("effective climb capability is %.2f." % A._effectiveclimbcapability)
 
 
 ########################################
@@ -480,13 +480,13 @@ def _startmovenormalflight(A):
     ########################################
 
     def reportapcarry():
-        A._logcomment("is carrying %+.2f APs." % A._apcarry)
+        A.logcomment("is carrying %+.2f APs." % A._apcarry)
 
     ########################################
 
     def reportaltitudecarry():
         if A._altitudecarry != 0:
-            A._logcomment("is carrying %.2f altitude levels." % A._altitudecarry)
+            A.logcomment("is carrying %.2f altitude levels." % A._altitudecarry)
 
     ########################################
 
@@ -502,55 +502,55 @@ def _startmovenormalflight(A):
         # See "Aircraft Damage Effects" in Play Aids.
 
         if A.damageatleast("C"):
-            A._logcomment("damage limits the turn rate to TT.")
+            A.logcomment("damage limits the turn rate to TT.")
             turnrates = turnrates[:2]
         elif A.damageatleast("2L"):
-            A._logcomment("damage limits the turn rate to HT.")
+            A.logcomment("damage limits the turn rate to HT.")
             turnrates = turnrates[:3]
         elif A.damageatleast("L"):
-            A._logcomment("damage limits the turn rate to BT.")
+            A.logcomment("damage limits the turn rate to BT.")
             turnrates = turnrates[:4]
 
         # See rule 7.5.
 
         minspeed = apcapabilities.minspeed(A)
         if A.speed() == minspeed:
-            A._logcomment("speed limits the turn rate to EZ.")
+            A.logcomment("speed limits the turn rate to EZ.")
             turnrates = turnrates[:1]
         elif A.speed() == minspeed + 0.5:
-            A._logcomment("speed limits the turn rate to TT.")
+            A.logcomment("speed limits the turn rate to TT.")
             turnrates = turnrates[:2]
         elif A.speed() == minspeed + 1.0:
-            A._logcomment("speed limits the turn rate to HT.")
+            A.logcomment("speed limits the turn rate to HT.")
             turnrates = turnrates[:3]
         elif A.speed() == minspeed + 1.5:
-            A._logcomment("speed limits the turn rate to BT.")
+            A.logcomment("speed limits the turn rate to BT.")
             turnrates = turnrates[:4]
         else:
-            A._logcomment("speed does not limit the turn rate.")
+            A.logcomment("speed does not limit the turn rate.")
 
         # See rule 8.1.1.
 
         if A._flighttype == "ZC":
-            A._logcomment("ZC limits the turn rate to BT.")
+            A.logcomment("ZC limits the turn rate to BT.")
             turnrates = turnrates[:4]
 
         # See rule 8.1.1.
 
         if A._flighttype == "SC":
-            A._logcomment("SC limits the turn rate to EZ.")
+            A.logcomment("SC limits the turn rate to EZ.")
             turnrates = turnrates[:1]
 
         # See rule 8.1.3.
 
         if A._flighttype == "VC":
-            A._logcomment("VC disallows all turns.")
+            A.logcomment("VC disallows all turns.")
             turnrates = []
 
         # See rule 8.2.3.
 
         if A._flighttype == "VD":
-            A._logcomment("VD disallows all turns.")
+            A.logcomment("VD disallows all turns.")
             turnrates = []
 
         A._allowedturnrates = turnrates
@@ -564,7 +564,7 @@ def _startmovenormalflight(A):
 
         # See rule 13.7, interpreted in the same sense as rule 7.8.
         if A._hrd:
-            A._logcomment("close formation breaks down upon a HRD.")
+            A.logcomment("close formation breaks down upon a HRD.")
             apcloseformation.breakdown(A)
 
         # See rule 8.6.
@@ -575,7 +575,7 @@ def _startmovenormalflight(A):
             or A._flighttype == "UD"
             or A._flighttype == "VD"
         ):
-            A._logcomment(
+            A.logcomment(
                 "close formation breaks down as the flight type is %s." % A._flighttype
             )
             apcloseformation.breakdown(A)
@@ -593,7 +593,7 @@ def _startmovenormalflight(A):
         # See rule 5.4.
 
         A._maxfp = int(A.speed() + A._fpcarry)
-        A._logcomment("has %d FPs (including %.1f carry)." % (A._maxfp, A._fpcarry))
+        A.logcomment("has %d FPs (including %.1f carry)." % (A._maxfp, A._fpcarry))
         A._fpcarry = (A.speed() + A._fpcarry) - A._maxfp
 
     ########################################
@@ -705,17 +705,17 @@ def _startmovenormalflight(A):
 
         if maxvfp == 0:
 
-            A._logcomment("all FPs must be HFPs.")
+            A.logcomment("all FPs must be HFPs.")
 
         else:
 
             if mininitialhfp == 1:
-                A._logcomment("the first FP must be an HFP.")
+                A.logcomment("the first FP must be an HFP.")
             elif mininitialhfp > 1:
-                A._logcomment("the first %d FPs must be HFPs." % mininitialhfp)
+                A.logcomment("the first %d FPs must be HFPs." % mininitialhfp)
 
             if minhfp == maxhfp:
-                A._logcomment(
+                A.logcomment(
                     plural(
                         minhfp,
                         "exactly 1 FP must be an HFP.",
@@ -723,9 +723,9 @@ def _startmovenormalflight(A):
                     )
                 )
             elif minhfp > 0 and maxhfp < A._maxfp:
-                A._logcomment("between %d and %d FP must be HFPs." % (minhfp, maxhfp))
+                A.logcomment("between %d and %d FP must be HFPs." % (minhfp, maxhfp))
             elif minhfp > 0:
-                A._logcomment(
+                A.logcomment(
                     plural(
                         minhfp,
                         "at least 1 FP must be an HFP.",
@@ -733,7 +733,7 @@ def _startmovenormalflight(A):
                     )
                 )
             else:
-                A._logcomment(
+                A.logcomment(
                     plural(
                         maxhfp,
                         "at most 1 FP may be an HFP.",
@@ -742,7 +742,7 @@ def _startmovenormalflight(A):
                 )
 
             if minvfp == maxvfp:
-                A._logcomment(
+                A.logcomment(
                     plural(
                         minvfp,
                         "exactly 1 FP must be a VFP.",
@@ -750,9 +750,9 @@ def _startmovenormalflight(A):
                     )
                 )
             elif minvfp > 0 and maxvfp < A._maxfp:
-                A._logcomment("between %d and %d FP must be VFPs." % (minvfp, maxvfp))
+                A.logcomment("between %d and %d FP must be VFPs." % (minvfp, maxvfp))
             elif minvfp > 0:
-                A._logcomment(
+                A.logcomment(
                     plural(
                         minvfp,
                         "at least 1 FP must be a VFP.",
@@ -760,7 +760,7 @@ def _startmovenormalflight(A):
                     )
                 )
             else:
-                A._logcomment(
+                A.logcomment(
                     plural(
                         maxvfp,
                         "at most 1 FP may be a VFP.",
@@ -774,7 +774,7 @@ def _startmovenormalflight(A):
             raise RuntimeError("flight type not permitted by VFP requirements.")
 
         if minunloadedhfp > 0:
-            A._logcomment(
+            A.logcomment(
                 plural(
                     minunloadedhfp,
                     "at least 1 FP must be an unloaded HFP.",
@@ -809,7 +809,7 @@ def _startmovenormalflight(A):
                 A.altitudeband(), A.speed(), A._maneuvertype
             )
             if not A._maneuvertype in A._allowedturnrates or turnrequirement == None:
-                A._logcomment(
+                A.logcomment(
                     "carried turn rate is tighter than the maximum allowed turn rate."
                 )
                 raise RuntimeError(
@@ -837,12 +837,12 @@ def _startmovenormalflight(A):
                 or A._maneuverfacingchange != previous_maneuverfacingchange
             ):
                 if A._maneuverfacingchange > 30:
-                    A._logcomment(
+                    A.logcomment(
                         "turn requirement changed to %d in 1 FP."
                         % A._maneuverfacingchange
                     )
                 else:
-                    A._logcomment(
+                    A.logcomment(
                         "turn requirement changed to %s."
                         % plural(
                             A._maneuverrequiredfp,
@@ -869,20 +869,20 @@ def _startmovenormalflight(A):
 
             # See rule 4.3 and 8.1.2.
             if A._flighttype == "SC" and A.speed() < apcapabilities.climbspeed(A):
-                A._logcomment("climb capability reduced in SC below climb speed.")
+                A.logcomment("climb capability reduced in SC below climb speed.")
                 A._effectiveclimbcapability *= 0.5
 
             # See the Aircraft Damage Effects Table in the charts.
             if A.damageatleast("H"):
-                A._logcomment("climb capability reduced by damage.")
+                A.logcomment("climb capability reduced by damage.")
                 A._effectiveclimbcapability *= 0.5
 
             # See rule 6.6 and rule 8.1.4.
             if A.speed() >= apspeed.m1speed(A.altitudeband()):
-                A._logcomment("climb capability reduced at supersonic speed.")
+                A.logcomment("climb capability reduced at supersonic speed.")
                 A._effectiveclimbcapability *= 2 / 3
 
-            A._logcomment(
+            A.logcomment(
                 "effective climb capability is %.2f." % A._effectiveclimbcapability
             )
 
@@ -953,7 +953,7 @@ def _continuestalledflight(A, moves):
 
     A.logposition("end")
     if initialaltitudeband != A.altitudeband():
-        A._logcomment(
+        A.logcomment(
             "altitude band changed from %s to %s."
             % (initialaltitudeband, A.altitudeband())
         )
@@ -1048,7 +1048,7 @@ def _continuedepartedflight(A, moves):
 
     A.logposition("end")
     if initialaltitudeband != A.altitudeband():
-        A._logcomment(
+        A.logcomment(
             "altitude band changed from %s to %s."
             % (initialaltitudeband, A.altitudeband())
         )
@@ -1423,7 +1423,7 @@ def _endnormalflight(A):
     ########################################
 
     def reportfp():
-        A._logcomment(
+        A.logcomment(
             "used %s and %s."
             % (
                 plural(A._hfp, "1 HFP", "%d HFPs" % A._hfp),
@@ -1477,7 +1477,7 @@ def _endnormalflight(A):
 
         # See rule 7.6.
         if A._gloccheck > 0 and A._maxturnrate != "ET" and A._maxturnrate != "BT":
-            A._logcomment("GLOC cycle ended.")
+            A.logcomment("GLOC cycle ended.")
             A._gloccheck = 0
 
     ########################################
@@ -1485,7 +1485,7 @@ def _endnormalflight(A):
     def reportcarry():
 
         if A._altitudecarry != 0:
-            A._logcomment("is carrying %.2f altitude levels." % A._altitudecarry)
+            A.logcomment("is carrying %.2f altitude levels." % A._altitudecarry)
 
     ########################################
 
@@ -1598,13 +1598,13 @@ def _endnormalflight(A):
 
         altitudeloss = A.startaltitude() - A.altitude()
         if A._flighttype == "SD" and altitudeloss > 2:
-            A._logcomment(
+            A.logcomment(
                 "close formation breaks down as the aircraft lost %d levels in an SD."
                 % altitudeloss
             )
             apcloseformation.breakdown(A)
         elif A._flighttype == "SC" and A._scwithzccomponent:
-            A._logcomment(
+            A.logcomment(
                 "close formation breaks down as the aircraft climbed faster than the sustained climb rate."
             )
             apcloseformation.breakdown(A)
@@ -1617,7 +1617,7 @@ def _endnormalflight(A):
             # See rule 8.2.2.
             altitudechange = A.altitude() - A.startaltitude()
             if altitudechange == -2:
-                A._logcomment("UD ends as flight type SD.")
+                A.logcomment("UD ends as flight type SD.")
                 A._flighttype = "SD"
 
     ########################################
@@ -1711,22 +1711,22 @@ def _domove(E, move, actiondispatchlist):
             previousminspeed = E._minspeed
             E._minspeed = apcapabilities.minspeed(E)
             if E._minspeed != previousminspeed:
-                E._logcomment("minimum speed is now %.1f." % E._minspeed)
+                E.logcomment("minimum speed is now %.1f." % E._minspeed)
                 if (
                     E.speed() <= previousminspeed + 2.0
                     or E.speed() <= E._minspeed + 2.0
                 ):
                     # See rule 7.5.
                     if E.speed() == E._minspeed:
-                        E._logcomment("speed now limits the turn rate to EZ.")
+                        E.logcomment("speed now limits the turn rate to EZ.")
                     elif E.speed() == E._minspeed + 0.5:
-                        E._logcomment("speed now limits the turn rate to TT.")
+                        E.logcomment("speed now limits the turn rate to TT.")
                     elif E.speed() == E._minspeed + 1.0:
-                        E._logcomment("speed now limits the turn rate to HT.")
+                        E.logcomment("speed now limits the turn rate to HT.")
                     elif E.speed() == E._minspeed + 1.5:
-                        E._logcomment("speed now limits the turn rate to BT.")
+                        E.logcomment("speed now limits the turn rate to BT.")
                     else:
-                        E._logcomment("speed no longer limits the turn rate.")
+                        E.logcomment("speed no longer limits the turn rate.")
 
     def checkm1speed():
 
@@ -1735,14 +1735,14 @@ def _domove(E, move, actiondispatchlist):
         previousm1speed = E._m1speed
         E._m1speed = apspeed.m1speed(E.altitudeband())
         if E._m1speed != previousm1speed:
-            E._logcomment("speed of sound is now %.1f." % E._m1speed)
+            E.logcomment("speed of sound is now %.1f." % E._m1speed)
 
         previoussupersonic = E._supersonic
         E._supersonic = E.speed() >= E._m1speed
         if previoussupersonic and not E._supersonic:
-            E._logcomment("speed is now subsonic.")
+            E.logcomment("speed is now subsonic.")
         elif not previoussupersonic and E._supersonic:
-            E._logcomment("speed is now supersonic.")
+            E.logcomment("speed is now supersonic.")
 
     ####################
 
@@ -1772,11 +1772,11 @@ def _domove(E, move, actiondispatchlist):
     # climbs or dives.
 
     if E.ismissile() and E.speed() < apspeed.missileminspeed(E.altitudeband()):
-        E._logcomment("has stalled.")
+        E.logcomment("has stalled.")
         if move != "":
             raise RuntimeError("invalid move %r for stalled missile." % move)
         M._remove()
-        M._logcomment("has been removed.")
+        M.logcomment("has been removed.")
         M._finishedmoving = True
         return
 
@@ -1873,7 +1873,7 @@ def _domove(E, move, actiondispatchlist):
         E._extendpath()
 
     if E._movestartaltitudeband != E.altitudeband():
-        E._logcomment(
+        E.logcomment(
             "altitude band changed from %s to %s."
             % (E._movestartaltitudeband, E.altitudeband())
         )
@@ -1948,15 +1948,15 @@ def _checkrecovery(A):
         A._TTrecoveryfp -= 1
 
     if A._ETrecoveryfp == 0:
-        A._logcomment("recovered from ET.")
+        A.logcomment("recovered from ET.")
     if A._BTrecoveryfp == 0:
-        A._logcomment("recovered from BT.")
+        A.logcomment("recovered from BT.")
     if A._rollrecoveryfp == 0:
-        A._logcomment("recovered from roll.")
+        A.logcomment("recovered from roll.")
     if A._HTrecoveryfp == 0:
-        A._logcomment("recovered from HT.")
+        A.logcomment("recovered from HT.")
     if A._TTrecoveryfp == 0:
-        A._logcomment("recovered from TT.")
+        A.logcomment("recovered from TT.")
 
 
 def _checktracking(A):
@@ -1964,11 +1964,11 @@ def _checktracking(A):
     # Check tracking. See rule 9.4.
     if A._tracking:
         if useofweaponsforbidden(A):
-            A._logcomment("stopped SSGT.")
+            A.logcomment("stopped SSGT.")
             A._tracking = None
             A._trackingfp = 0
         elif apairtoair.trackingforbidden(A, A._tracking):
-            A._logcomment(
+            A.logcomment(
                 "stopped SSGT as %s" % apairtoair.trackingforbidden(A, A._tracking)
             )
             A._tracking = None
@@ -1982,11 +1982,11 @@ def _checkmaneuveringdeparture(A):
     # See rules 7.7 and 8.5.
     if A._hasmaneuvered and A._hasrolled:
         if A._movestartaltitude > apcapabilities.ceiling(A):
-            A._logcomment(
+            A.logcomment(
                 "check for a maneuvering departure as the aircraft is above its ceiling and attempted to roll."
             )
         elif A._movestartaltitudeband == "EH" or A._movestartaltitudeband == "UH":
-            A._logcomment(
+            A.logcomment(
                 "check for a maneuvering departure as the aircraft is in the %s altitude band and attempted to roll."
                 % A._movestartaltitudeband
             )
@@ -1997,7 +1997,7 @@ def _checkmaneuveringdeparture(A):
             A._movestartaltitude > apcapabilities.ceiling(A)
             and A._movemaneuvertype != "EZ"
         ):
-            A._logcomment(
+            A.logcomment(
                 "check for a maneuvering departure as the aircraft is above its ceiling and attempted to turn harder than EZ."
             )
 
@@ -2009,7 +2009,7 @@ def _checkgloc(A):
 
         if A._movemaneuvertype == "ET" and A._movestartaltitude <= 25:
             A._gloccheck += 1
-            A._logcomment(
+            A.logcomment(
                 "check for GLOC as turn rate is ET and altitude band is %s (check %d in cycle)."
                 % (A._movestartaltitudeband, A._gloccheck)
             )
@@ -2023,7 +2023,7 @@ def _checkcloseformation(A):
             or A._movemaneuvertype == "BT"
             or A._movemaneuvertype == "ET"
         ):
-            A._logcomment(
+            A.logcomment(
                 "close formation breaks down as the turn rate is %s."
                 % A._movemaneuvertype
             )
@@ -2031,7 +2031,7 @@ def _checkcloseformation(A):
 
     # See rule 13.7, interpreted in the same sense as rule 7.8.
     if A._hasrolled and apcloseformation.size(A) != 0:
-        A._logcomment("close formation breaks down aircraft is rolling.")
+        A.logcomment("close formation breaks down aircraft is rolling.")
         apcloseformation.breakdown(A)
 
 
@@ -2857,9 +2857,9 @@ def _dodeclaremaneuver(E, maneuvertype, sense):
         ap = ""
 
     if E._maneuversupersonic:
-        E._logcomment("declared supersonic %s%s." % (E.maneuver(), ap))
+        E.logcomment("declared supersonic %s%s." % (E.maneuver(), ap))
     else:
-        E._logcomment("declared %s%s." % (E.maneuver(), ap))
+        E.logcomment("declared %s%s." % (E.maneuver(), ap))
 
     E._hasdeclaredamaneuver = True
 

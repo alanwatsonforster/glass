@@ -254,7 +254,7 @@ def _attack(attacker, attacktype, target, result, allowRK=True, allowtracking=Tr
     if weapon == "GN":
 
         if snapshot:
-            attacker._logcomment(
+            attacker.logcomment(
                 "snap-shot gun air-to-air attack%s." % targetdescription
             )
             if attacker._gunammunition < 0.5:
@@ -262,7 +262,7 @@ def _attack(attacker, attacktype, target, result, allowRK=True, allowtracking=Tr
                     "available gun ammunition is %.1f." % attacker._gunammunition
                 )
         else:
-            attacker._logcomment("gun air-to-air attack%s." % targetdescription)
+            attacker.logcomment("gun air-to-air attack%s." % targetdescription)
             if attacker._gunammunition < 1.0:
                 raise RuntimeError(
                     "available gun ammunition is %.1f." % attacker._gunammunition
@@ -272,7 +272,7 @@ def _attack(attacker, attacktype, target, result, allowRK=True, allowtracking=Tr
 
         if rocketfactors is None:
             raise RuntimeError("number of rocket factors not specified.")
-        attacker._logcomment(
+        attacker.logcomment(
             "rocket air-to-air attack with %d factors%s."
             % (rocketfactors, targetdescription)
         )
@@ -301,7 +301,7 @@ def _attack(attacker, attacktype, target, result, allowRK=True, allowtracking=Tr
 
         if weapon == "GN":
             if apcapabilities.gunarc(attacker) != None:
-                attacker._logcomment(
+                attacker.logcomment(
                     "gunnery arc is %s." % apcapabilities.gunarc(attacker)
                 )
             r = gunattackrange(attacker, target, arc=apcapabilities.gunarc(attacker))
@@ -309,10 +309,10 @@ def _attack(attacker, attacktype, target, result, allowRK=True, allowtracking=Tr
             r = rocketattackrange(attacker, target)
         if isinstance(r, str):
             raise RuntimeError(r)
-        attacker._logcomment("range is %d." % r)
+        attacker.logcomment("range is %d." % r)
 
         angleofftail = apgeometry.angleofftail(attacker, target)
-        attacker._logcomment("angle-off-tail is %s." % angleofftail)
+        attacker.logcomment("angle-off-tail is %s." % angleofftail)
         if angleofftail == "0 line":
             angleofftailmodifier = -2
         elif angleofftail == "30 arc":
@@ -367,7 +367,7 @@ def _attack(attacker, attacktype, target, result, allowRK=True, allowtracking=Tr
         sizemodifier = apcapabilities.sizemodifier(target)
 
     if allowtracking:
-        attacker._logcomment(
+        attacker.logcomment(
             "SSGT for %d %s."
             % (attacker._trackingfp, aplog.plural(attacker._trackingfp, "FP", "FPs"))
         )
@@ -382,25 +382,25 @@ def _attack(attacker, attacktype, target, result, allowRK=True, allowtracking=Tr
         else:
             trackingmodifier = -0
     else:
-        attacker._logcomment("SSGT not allowed.")
+        attacker.logcomment("SSGT not allowed.")
         trackingmodifier = None
 
     radarrangingtype = apcapabilities.ataradarrangingtype(attacker)
     if radarrangingtype is None:
-        attacker._logcomment("attacker does not have radar ranging.")
+        attacker.logcomment("attacker does not have radar ranging.")
         if radarranging:
             raise RuntimeError("attacker does not have radar ranging.")
     elif radarrangingtype == "RE" and attacker._trackingfp == 0:
-        attacker._logcomment("RE radar-ranging requires SSGT.")
+        attacker.logcomment("RE radar-ranging requires SSGT.")
         if radarranging:
             raise RuntimeError("RE radar-ranging requires SSGT.")
     else:
-        attacker._logcomment(
+        attacker.logcomment(
             "%s radar-ranging lock-on roll is %d."
             % (radarrangingtype, apcapabilities.atalockon(attacker))
         )
     if radarranging:
-        attacker._logcomment("%s radar-ranging succeeded." % radarrangingtype)
+        attacker.logcomment("%s radar-ranging succeeded." % radarrangingtype)
         if radarrangingtype == "RE":
             radarrangingmodifier = -1
         elif radarrangingtype == "CA":
@@ -412,23 +412,23 @@ def _attack(attacker, attacktype, target, result, allowRK=True, allowtracking=Tr
 
     collisioncoursemodifier = None
     if collisioncourse:
-        attacker._logcomment("collision-course attack.")
+        attacker.logcomment("collision-course attack.")
         collisioncoursemodifier = -2
 
     if attacker._BTrecoveryfp > 0:
-        attacker._logcomment("applicable turn rate is BT.")
+        attacker.logcomment("applicable turn rate is BT.")
         turnratemodifier = apcapabilities.gunsightmodifier(attacker, "BT")
     elif attacker._rollrecoveryfp > 0:
-        attacker._logcomment("applicable turn rate is BT (for a roll).")
+        attacker.logcomment("applicable turn rate is BT (for a roll).")
         turnratemodifier = apcapabilities.gunsightmodifier(attacker, "BT")
     elif attacker._HTrecoveryfp > 0:
-        attacker._logcomment("applicable turn rate is HT.")
+        attacker.logcomment("applicable turn rate is HT.")
         turnratemodifier = apcapabilities.gunsightmodifier(attacker, "HT")
     elif attacker._TTrecoveryfp > 0:
-        attacker._logcomment("applicable turn rate is TT.")
+        attacker.logcomment("applicable turn rate is TT.")
         turnratemodifier = apcapabilities.gunsightmodifier(attacker, "TT")
     else:
-        attacker._logcomment("no applicable turn rate.")
+        attacker.logcomment("no applicable turn rate.")
         turnratemodifier = None
 
     if weapon == "RK":
@@ -445,56 +445,56 @@ def _attack(attacker, attacktype, target, result, allowRK=True, allowtracking=Tr
 
     tohitmodifier = 0
     if snapshotmodifier is not None:
-        attacker._logcomment("snap-shot          modifier is %+d." % snapshotmodifier)
+        attacker.logcomment("snap-shot          modifier is %+d." % snapshotmodifier)
         tohitmodifier += snapshotmodifier
     if sizemodifier is not None:
-        attacker._logcomment("target size        modifier is %+d." % sizemodifier)
+        attacker.logcomment("target size        modifier is %+d." % sizemodifier)
         tohitmodifier += sizemodifier
     if verticalmodifier is not None:
-        attacker._logcomment("same-hex vertical  modifier is %+d." % verticalmodifier)
+        attacker.logcomment("same-hex vertical  modifier is %+d." % verticalmodifier)
         tohitmodifier += verticalmodifier
     if angleofftailmodifier is not None:
-        attacker._logcomment(
+        attacker.logcomment(
             "angle-off-tail     modifier is %+d." % angleofftailmodifier
         )
         tohitmodifier += angleofftailmodifier
     if trackingmodifier is not None:
-        attacker._logcomment("SSGT               modifier is %+d." % trackingmodifier)
+        attacker.logcomment("SSGT               modifier is %+d." % trackingmodifier)
         tohitmodifier += trackingmodifier
     if radarrangingmodifier is not None:
-        attacker._logcomment(
+        attacker.logcomment(
             "radar-ranging      modifier is %+d." % radarrangingmodifier
         )
         tohitmodifier += radarrangingmodifier
     if collisioncoursemodifier is not None:
-        attacker._logcomment(
+        attacker.logcomment(
             "collision-course   modifier is %+d." % collisioncoursemodifier
         )
         tohitmodifier += collisioncoursemodifier
     if turnratemodifier is not None:
-        attacker._logcomment("attacker turn-rate modifier is %+d." % turnratemodifier)
+        attacker.logcomment("attacker turn-rate modifier is %+d." % turnratemodifier)
         tohitmodifier += turnratemodifier
     if damagemodifier is not None:
-        attacker._logcomment("attacker damage    modifier is %+d." % damagemodifier)
+        attacker.logcomment("attacker damage    modifier is %+d." % damagemodifier)
         tohitmodifier += damagemodifier
-    attacker._logcomment("total to-hit       modifier is %+d." % tohitmodifier)
+    attacker.logcomment("total to-hit       modifier is %+d." % tohitmodifier)
 
     if r is not None:
         if weapon == "GN":
             tohitroll = apcapabilities.gunatatohitroll(attacker, r)
-            attacker._logcomment("to-hit roll is %d." % tohitroll)
+            attacker.logcomment("to-hit roll is %d." % tohitroll)
 
     if (result != "A") and (result != "M") and (target is not None):
         if weapon == "GN":
             damagerating = apcapabilities.gunatadamagerating(attacker)
             damageratingmodifier = 0
             if snapshot:
-                attacker._logcomment("snap-shot damage modifier is -1.")
+                attacker.logcomment("snap-shot damage modifier is -1.")
                 damageratingmodifier -= 1
             if apdamage.damageatleast(target, "L"):
-                attacker._logcomment("target    damage modifier is -1.")
+                attacker.logcomment("target    damage modifier is -1.")
                 damageratingmodifier += 1
-            attacker._logcomment(
+            attacker.logcomment(
                 "damage rating is %d + %+d = %d."
                 % (
                     damagerating,
@@ -502,21 +502,21 @@ def _attack(attacker, attacktype, target, result, allowRK=True, allowtracking=Tr
                     damagerating + damageratingmodifier,
                 )
             )
-            attacker._logcomment(
+            attacker.logcomment(
                 "target vulnerability is %+d." % apcapabilities.vulnerability(target)
             )
 
     if result is None:
-        attacker._logcomment("unspecified result.")
+        attacker.logcomment("unspecified result.")
         attacker._unspecifiedattackresult += 1
     elif result == "A":
-        attacker._logcomment("aborted.")
+        attacker.logcomment("aborted.")
     elif result == "M":
-        attacker._logcomment("missed.")
+        attacker.logcomment("missed.")
     elif result == "-":
-        attacker._logcomment("hit but inflicted no damage.")
+        attacker.logcomment("hit but inflicted no damage.")
     else:
-        attacker._logcomment("hit and inflicted %s damage." % result)
+        attacker.logcomment("hit and inflicted %s damage." % result)
         if target != None:
             apdamage.takedamage(target, result)
 
@@ -530,9 +530,9 @@ def _attack(attacker, attacktype, target, result, allowRK=True, allowtracking=Tr
             attacker._rocketfactors -= rocketfactors
 
     if weapon == "GN":
-        attacker._logcomment("%.1f gun ammunition remain." % attacker._gunammunition)
+        attacker.logcomment("%.1f gun ammunition remain." % attacker._gunammunition)
     else:
-        attacker._logcomment(
+        attacker.logcomment(
             "%d rocket %s."
             % (
                 attacker._rocketfactors,

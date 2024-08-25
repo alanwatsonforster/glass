@@ -142,10 +142,10 @@ def orderofflightdeterminationphase(rolls, firstkill=None, mostkills=None):
             for B in apaircraft.aslist():
                 if A.force() != B.force():
                     if advantaged(A, B):
-                        A._logcomment("is advantaged over %s." % B.name())
+                        A.logcomment("is advantaged over %s." % B.name())
                         isadvantaged = True
                     elif disadvantaged(A, B):
-                        A._logcomment("is disadvantaged by %s." % B.name())
+                        A.logcomment("is disadvantaged by %s." % B.name())
                         isdisadvantaged = True
 
             if isadvantaged and not isdisadvantaged:

@@ -67,8 +67,8 @@ def padlock(A, B, note=None):
     if not B._sightedonpreviousturn:
         raise RuntimeError("%s was not sighted on previous turn." % (B.name()))
 
-    A._logcomment("range is %d." % visualsightingrange(A, B))
-    A._logcomment("%s." % visualsightingcondition(A, B)[0])
+    A.logcomment("range is %d." % visualsightingrange(A, B))
+    A.logcomment("%s." % visualsightingcondition(A, B)[0])
 
     condition, cansight, canpadlock, restricted = visualsightingcondition(A, B)
     if not canpadlock:
@@ -95,8 +95,8 @@ def attempttosight(A, B, success=None, note=None):
     A.logbreak()
 
     A._log("attempts to sight %s." % B.name())
-    A._logcomment("range is %d." % visualsightingrange(A, B))
-    A._logcomment("%s." % visualsightingcondition(A, B)[0])
+    A.logcomment("range is %d." % visualsightingrange(A, B))
+    A.logcomment("%s." % visualsightingcondition(A, B)[0])
 
     condition, cansight, canpadlock, restricted = visualsightingcondition(A, B)
     if not cansight:
@@ -110,14 +110,14 @@ def attempttosight(A, B, success=None, note=None):
             condition, cansight, canpadlock, restricted = visualsightingcondition(
                 searcher, B
             )
-            A._logcomment("additional searcher %s: %s." % (searcher.name(), condition))
+            A.logcomment("additional searcher %s: %s." % (searcher.name(), condition))
             if cansight:
                 additionalsearchers += 1
                 allrestricted = allrestricted and restricted
     if additionalsearchers == 0:
-        A._logcomment("no additional searchers.")
+        A.logcomment("no additional searchers.")
     else:
-        A._logcomment(
+        A.logcomment(
             "%d additional %s."
             % (
                 additionalsearchers,
@@ -128,32 +128,32 @@ def attempttosight(A, B, success=None, note=None):
     modifier = 0
 
     dmodifier = visualsightingrangemodifier(A, B)
-    A._logcomment("range modifier        is %+d." % dmodifier)
+    A.logcomment("range modifier        is %+d." % dmodifier)
     modifier += dmodifier
 
     dmodifier = visualsightingallrestrictedmodifier(allrestricted)
-    A._logcomment("restricted modifier   is %+d." % dmodifier)
+    A.logcomment("restricted modifier   is %+d." % dmodifier)
     modifier += dmodifier
 
     dmodifier = visualsightingsearchersmodifier(additionalsearchers + 1)
-    A._logcomment("searchers modifier    is %+d." % dmodifier)
+    A.logcomment("searchers modifier    is %+d." % dmodifier)
     modifier += dmodifier
 
     dmodifier = visualsightingpaintschememodifier(A, B)
-    A._logcomment("paint-scheme modifier is %+d." % dmodifier)
+    A.logcomment("paint-scheme modifier is %+d." % dmodifier)
     modifier += dmodifier
 
     dmodifier = visualsightingcrewmodifier(A)
     if dmodifier != 0:
-        A._logcomment("crew modifier         is %+d." % dmodifier)
+        A.logcomment("crew modifier         is %+d." % dmodifier)
 
     dmodifier = visualsightingsmokingmodifier(A, B)
     if dmodifier != 0:
-        A._logcomment("smoking modifier      is %+d." % dmodifier)
+        A.logcomment("smoking modifier      is %+d." % dmodifier)
     modifier += dmodifier
 
-    A._logcomment("total modifier        is %+d." % modifier)
-    A._logcomment("target visibility is %d." % apcapabilities.visibility(B))
+    A.logcomment("total modifier        is %+d." % modifier)
+    A.logcomment("target visibility is %d." % apcapabilities.visibility(B))
 
     A.lognote(note)
 

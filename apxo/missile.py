@@ -68,7 +68,7 @@ class missile(apelement.element):
             self._setspeed(self.basespeed() + launcher.newspeed())
             maxspeed = apspeed.missilemaxspeed(self.altitudeband())
             if self.speed() > maxspeed:
-                self._logcomment("reducing start speed to maximum for altitude band.")
+                self.logcomment("reducing start speed to maximum for altitude band.")
                 self._setspeed(maxspeed)
             self.logwhenwhat("", "start speed   is %.1f." % self._speed)
             self.logwhenwhat("", "turn rate     is %s/%d." % self.turnrate())
@@ -150,26 +150,26 @@ class missile(apelement.element):
     def _checktargettracking(self):
 
         slopenumerator, slopedenominator = apflight._slope(self)
-        self._logcomment("flight slope is %+d/%d." % (slopenumerator, slopedenominator))
+        self.logcomment("flight slope is %+d/%d." % (slopenumerator, slopedenominator))
 
         horizontalrange = apgeometry.horizontalrange(self, self._target)
-        self._logcomment("horizontal range is %d." % horizontalrange)
+        self.logcomment("horizontal range is %d." % horizontalrange)
 
-        self._logcomment("missile altitude is %d." % self.altitude())
-        self._logcomment("target altitude is %d." % self._target.altitude())
+        self.logcomment("missile altitude is %d." % self.altitude())
+        self.logcomment("target altitude is %d." % self._target.altitude())
         altitudedifference = self._target.altitude() - self.altitude()
-        self._logcomment("altitude difference is %+d." % altitudedifference)
+        self.logcomment("altitude difference is %+d." % altitudedifference)
 
         def checknormallimit(minf, maxf):
             minaltitudedifference = int(minf * horizontalrange)
             maxaltitudedifference = int(maxf * horizontalrange)
-            self._logcomment(
+            self.logcomment(
                 "the allowed target altitude difference range is %+d to %+d."
                 % (minaltitudedifference, maxaltitudedifference)
             )
             minaltitude = max(0, self.altitude() + minaltitudedifference)
             maxaltitude = min(100, self.altitude() + maxaltitudedifference)
-            self._logcomment(
+            self.logcomment(
                 "the allowed target altitude range is %d to %d."
                 % (minaltitude, maxaltitude)
             )
@@ -177,9 +177,9 @@ class missile(apelement.element):
                 altitudedifference < minaltitudedifference
                 or altitudedifference > maxaltitudedifference
             ):
-                self._logcomment("the target is not within the seeker vertical limits.")
+                self.logcomment("the target is not within the seeker vertical limits.")
             else:
-                self._logcomment("the target is within the seeker vertical limits.")
+                self.logcomment("the target is within the seeker vertical limits.")
 
         if slopenumerator < -3 * slopedenominator:
             pass
