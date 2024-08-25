@@ -56,7 +56,7 @@ def show():
     # Avoid "UserWarning: FigureCanvasAgg is non-interactive, and thus
     # cannot be shown". Ommiting the _fig.show() works in a Jupyter
     # notebook since it is implicit at the end of each cell.
-    #_fig.show()
+    # _fig.show()
     pass
 
 
