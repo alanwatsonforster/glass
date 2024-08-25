@@ -358,9 +358,8 @@ def _checkmissileflighttype(E):
 
 def _startmove(E, **kwargs):
 
-    # The number of FPs, HFPs, and VFPs used and the number of FPs lost to
-    # speedbrakes. They are used to ensure that the right mix of HFPs and
-    # VFPs are used and to determine when the turn ends.
+    # The number of FPs, HFPs, and VFPs used. They are used to ensure that the
+    # right mix of HFPs and VFPs are used and to determine when the turn ends.
 
     E._fp = 0
     E._hfp = 0
