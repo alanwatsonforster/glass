@@ -492,13 +492,16 @@ def startdrawmap(
 
     def drawhexes(sheet, labels, **kwargs):
         for label in labels:
-            apdraw.drawhex(
-                *aphexcode.toxy("%s-%04d" % (sheet, label)), zorder=0, **kwargs
-            )
+            x, y = aphexcode.toxy("%s-%04d" % (sheet, label))
+            if isnearcanvas(x, y):
+                apdraw.drawhex(x, y, zorder=0, **kwargs)
 
     def drawpaths(sheet, paths, **kwargs):
         for path in paths:
             xy = [toxy(sheet, *hxy) for hxy in path]
+            # Do not use the naive isnearcanvas optimization used above in
+            # drawhexes, as paths can cross the canvas without their endpoints
+            # being near to it.
             x = [xy[0] for xy in xy]
             y = [xy[1] for xy in xy]
             apdraw.drawlines(x, y, zorder=0, **kwargs)
@@ -519,6 +522,17 @@ def startdrawmap(
     canvasxmax = min(_xmax, xmax)
     canvasymin = max(_ymin, ymin)
     canvasymax = min(_ymax, ymax)
+
+    def isnearcanvas(x, y):
+        """
+        Return True is (x, y) is on the canvas or within 1 unit of it.
+        """
+        return (
+            canvasxmin - 1 <= x
+            and x <= canvasxmax + 1
+            and canvasymin - 1 <= y
+            and y <= canvasymax + 1
+        )
 
     apdraw.setcanvas(
         canvasxmin, canvasymin, canvasxmax, canvasymax, dotsperhex=_dotsperhex
@@ -1008,10 +1022,13 @@ def startdrawmap(
                 if ix % 2 == 1:
                     y -= 0.5
                     # aphexode.yoffsetforoddx()
-                # Draw the hex if it is on the map and either its center or the center
-                # of its upper left edge are on this sheet.
-                if isonmap(x, y) and (
-                    isonsheet(sheet, x, y) or isonsheet(sheet, x - 0.5, y + 0.25)
+                # Draw the hex if it is on the map, is near the canvas, and
+                # either its center or the center of its upper left edge are on
+                # this sheet.
+                if (
+                    isonmap(x, y)
+                    and isnearcanvas(x, y)
+                    and (isonsheet(sheet, x, y) or isonsheet(sheet, x - 0.5, y + 0.25))
                 ):
                     apdraw.drawhex(
                         x,
