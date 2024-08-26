@@ -5,7 +5,7 @@ import apxo.configuration as apconfiguration
 import apxo.gameturn as apgameturn
 import apxo.variants as apvariants
 
-from apxo.math import *
+from apxo.rounding import *
 from apxo.log import plural
 
 ################################################################################

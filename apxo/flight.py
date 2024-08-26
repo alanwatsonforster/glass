@@ -12,7 +12,7 @@ import apxo.speed as apspeed
 import apxo.turnrate as apturnrate
 import apxo.variants as apvariants
 
-from apxo.math import *
+from apxo.rounding import *
 from apxo.log import plural
 
 ################################################################################

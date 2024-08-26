@@ -4,7 +4,7 @@ import apxo.damage as apdamage
 import apxo.geometry as apgeometry
 import apxo.hex as aphex
 import apxo.log as aplog
-import apxo.math as apmath
+import apxo.rounding as apmath
 import apxo.variants as apvariants
 
 ##############################################################################

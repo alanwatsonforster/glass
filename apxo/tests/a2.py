@@ -2,9 +2,9 @@ from apxo.tests.infrastructure import *
 
 startfile(__file__, "math")
 
-# Checks on apxo.math.
+# Checks on apxo.rounding.
 
-from apxo.math import onethirdfromtable, twothirdsfromtable
+from apxo.rounding import onethirdfromtable, twothirdsfromtable
 
 # This table is from the play aids.
 

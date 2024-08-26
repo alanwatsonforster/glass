@@ -244,10 +244,10 @@ def drawmap(
             ymin = apelement._yminforzoom(withkilled=zoomincludeskilled)
             ymax = apelement._ymaxforzoom(withkilled=zoomincludeskilled)
 
-            xmin = int(xmin) - zoomborder
-            ymin = int(ymin) - zoomborder
-            xmax = int(xmax + 0.75) + zoomborder
-            ymax = int(ymax + 0.75) + zoomborder
+            xmin = math.floor(xmin) - zoomborder
+            ymin = math.floor(ymin) - zoomborder
+            xmax = math.ceil(xmax) + zoomborder
+            ymax = math.ceil(ymax) + zoomborder
 
         apmap.startdrawmap(
             xmin=xmin, ymin=ymin, xmax=xmax, ymax=ymax, watermark=watermark
