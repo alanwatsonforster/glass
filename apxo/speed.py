@@ -539,7 +539,7 @@ def _startaircraftspeed(
 
         if A.speed() >= m1speed(A.altitudeband()):
             maxspeedbrakes += 2.0
-            
+
         if speedbrakes is True:
             speedbrakes = maxspeedbrakes
 
