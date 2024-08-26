@@ -1082,22 +1082,17 @@ def startdrawmap(
                     zorder=0,
                 )
 
-        # Draw the compass rose in the bottom sheet in the leftmost column.
-        for iy in range(0, _nysheetgrid):
-            sheet = _sheetgrid[iy][0]
-            if sheet not in blanksheets:
-                xmin, ymin, xmax, ymax = sheetlimits(sheet)
-                dx = 1.0
-                dy = 1.5
-                apdraw.drawcompass(
-                    xmin + dx,
-                    ymin + dy,
-                    apazimuth.tofacing("N"),
-                    color=labelcolor,
-                    alpha=1,
-                    zorder=0,
-                )
-                break
+        # Draw the compass rose in the lower left corner of the canvas.
+        dx = 1.0
+        dy = 1.5
+        apdraw.drawcompass(
+            canvasxmin + dx,
+            canvasymin + dy,
+            apazimuth.tofacing("N"),
+            color=labelcolor,
+            alpha=1,
+            zorder=0,
+        )
 
     if _watermark is not None:
         apdraw.drawwatermark(_watermark, canvasxmin, canvasymin, canvasxmax, canvasymax)

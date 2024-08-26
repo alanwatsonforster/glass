@@ -1,3 +1,5 @@
+import math
+
 import apxo.azimuth as apazimuth
 import apxo.aircraft as apaircraft
 import apxo.draw as apdraw
@@ -242,10 +244,10 @@ def drawmap(
             ymin = apelement._yminforzoom(withkilled=zoomincludeskilled)
             ymax = apelement._ymaxforzoom(withkilled=zoomincludeskilled)
 
-            xmin -= zoomborder
-            ymin -= zoomborder
-            xmax += zoomborder
-            ymax += zoomborder
+            xmin = int(xmin) - zoomborder
+            ymin = int(ymin) - zoomborder
+            xmax = int(xmax + 0.75) + zoomborder
+            ymax = int(ymax + 0.75) + zoomborder
 
         apmap.startdrawmap(
             xmin=xmin, ymin=ymin, xmax=xmax, ymax=ymax, watermark=watermark
