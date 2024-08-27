@@ -525,32 +525,48 @@ def startdrawmap(
 
     def isnearcanvas(x, y):
         """
-        Return True is (x, y) is on the canvas or within 1 unit of it.
+        Return True is (x, y) is on the canvas or within 0.5 unit of it.
         """
         return (
-            canvasxmin - 1 <= x
-            and x <= canvasxmax + 1
-            and canvasymin - 1 <= y
-            and y <= canvasymax + 1
+            x >= canvasxmin - 0.5
+            and x <= canvasxmax + 0.5
+            and y >= canvasymin - 0.5
+            and y <= canvasymax + 0.5
         )
+
+    def issheetnearcanvas(sheet):
+        """
+        Return True is any part of the sheet is on the canvas or within 0.5 unit of it.
+        """
+        sheetxmin, sheetymin, sheetxmax, sheetymax = sheetlimits(sheet)
+        return (
+            sheetxmax >= canvasxmin - 0.5
+            and sheetxmin <= canvasxmax + 0.5
+            and sheetymax >= canvasymin - 0.5
+            and sheetymin <= canvasymax + 0.5
+        )
+
+    def sheetsnearcanvas():
+        return filter(lambda sheet: issheetnearcanvas(sheet), sheets())
 
     apdraw.setcanvas(
         canvasxmin, canvasymin, canvasxmax, canvasymax, dotsperhex=_dotsperhex
     )
+    #apdraw.setcanvas(_xmin, _ymin, _xmax, _ymax, dotsperhex=_dotsperhex)
 
     if _drawterrain:
 
         if _allwater:
 
             # Draw the sheets and level 0.
-            for sheet in sheets():
+            for sheet in sheetsnearcanvas():
                 xmin, ymin, xmax, ymax = sheetlimits(sheet)
                 apdraw.drawrectangle(
                     xmin, ymin, xmax, ymax, linewidth=0, fillcolor=watercolor, zorder=0
                 )
 
             # Draw the megahexes.
-            for sheet in sheets():
+            for sheet in sheetsnearcanvas():
                 xmin, ymin, xmax, ymax = sheetlimits(sheet)
                 for ix in range(0, _dxsheet):
                     for iy in range(0, _dysheet):
@@ -573,7 +589,7 @@ def startdrawmap(
         else:
 
             # Draw the sheets and level 0.
-            for sheet in sheets():
+            for sheet in sheetsnearcanvas():
                 xmin, ymin, xmax, ymax = sheetlimits(sheet)
                 base = _terrain[sheet]["base"]
                 if base == "water":
@@ -610,7 +626,7 @@ def startdrawmap(
                             zorder=0,
                         )
 
-            for sheet in sheets():
+            for sheet in sheetsnearcanvas():
 
                 # Draw levels 0, 1, and 2.
                 drawhexes(
@@ -750,7 +766,7 @@ def startdrawmap(
 
             if _freshwater:
                 # Draw water and rivers.
-                for sheet in sheets():
+                for sheet in sheetsnearcanvas():
                     drawhexes(
                         sheet,
                         _terrain[sheet]["lakehexes"],
@@ -772,7 +788,7 @@ def startdrawmap(
                         linewidth=wideriverwidth + waterourlinewidth,
                         capstyle="projecting",
                     )
-                for sheet in sheets():
+                for sheet in sheetsnearcanvas():
                     drawhexes(
                         sheet,
                         _terrain[sheet]["lakehexes"],
@@ -794,7 +810,7 @@ def startdrawmap(
                         capstyle="projecting",
                     )
 
-            for sheet in sheets():
+            for sheet in sheetsnearcanvas():
                 # Do not outline sea hexes.
                 drawpaths(
                     sheet,
@@ -810,7 +826,7 @@ def startdrawmap(
                     linewidth=wideriverwidth + waterourlinewidth,
                     capstyle="projecting",
                 )
-            for sheet in sheets():
+            for sheet in sheetsnearcanvas():
                 drawhexes(
                     sheet,
                     _terrain[sheet]["seahexes"],
@@ -832,7 +848,7 @@ def startdrawmap(
                     capstyle="projecting",
                 )
 
-            for sheet in sheets():
+            for sheet in sheetsnearcanvas():
                 # Draw the megahexes.
                 xmin, ymin, xmax, ymax = sheetlimits(sheet)
                 for ix in range(0, _dxsheet):
@@ -859,7 +875,7 @@ def startdrawmap(
                 if _freshwater:
 
                     # Draw the bridges.
-                    for sheet in sheets():
+                    for sheet in sheetsnearcanvas():
                         drawpaths(
                             sheet,
                             _terrain[sheet]["smallbridgepaths"],
@@ -904,7 +920,7 @@ def startdrawmap(
                         )
 
                     # Draw the trails. We assume they are at level 0.
-                    for sheet in sheets():
+                    for sheet in sheetsnearcanvas():
                         drawpaths(
                             sheet,
                             _terrain[sheet]["trailpaths"],
@@ -913,7 +929,7 @@ def startdrawmap(
                             capstyle="projecting",
                             linestyle=(0, (1, 1)),
                         )
-                    for sheet in sheets():
+                    for sheet in sheetsnearcanvas():
                         drawpaths(
                             sheet,
                             _terrain[sheet]["trailpaths"],
@@ -923,7 +939,7 @@ def startdrawmap(
                         )
 
                     # Draw the roads.
-                    for sheet in sheets():
+                    for sheet in sheetsnearcanvas():
                         drawpaths(
                             sheet,
                             _terrain[sheet]["roadpaths"],
@@ -931,7 +947,7 @@ def startdrawmap(
                             linewidth=roadwidth + roadoutlinewidth,
                             capstyle="projecting",
                         )
-                    for sheet in sheets():
+                    for sheet in sheetsnearcanvas():
                         drawpaths(
                             sheet,
                             _terrain[sheet]["roadpaths"],
@@ -941,7 +957,7 @@ def startdrawmap(
                         )
 
                     # Draw the docks.
-                    for sheet in sheets():
+                    for sheet in sheetsnearcanvas():
                         drawpaths(
                             sheet,
                             _terrain[sheet]["dockpaths"],
@@ -949,7 +965,7 @@ def startdrawmap(
                             linewidth=dockwidth + dockoutlinewidth,
                             capstyle="projecting",
                         )
-                    for sheet in sheets():
+                    for sheet in sheetsnearcanvas():
                         drawpaths(
                             sheet,
                             _terrain[sheet]["dockpaths"],
@@ -961,7 +977,7 @@ def startdrawmap(
                 if not _allforest:
 
                     # Draw the runways and taxiways.
-                    for sheet in sheets():
+                    for sheet in sheetsnearcanvas():
                         drawpaths(
                             sheet,
                             _terrain[sheet]["runwaypaths"],
@@ -996,7 +1012,7 @@ def startdrawmap(
                 if _freshwater:
 
                     # Draw the dams.
-                    for sheet in sheets():
+                    for sheet in sheetsnearcanvas():
                         drawpaths(
                             sheet,
                             _terrain[sheet]["dampaths"],
@@ -1013,7 +1029,7 @@ def startdrawmap(
                         )
 
     # Draw and label the hexes.
-    for sheet in sheets():
+    for sheet in sheetsnearcanvas():
         xmin, ymin, xmax, ymax = sheetlimits(sheet)
         for ix in range(0, _dxsheet + 1):
             for iy in range(0, _dysheet + 1):
@@ -1065,7 +1081,7 @@ def startdrawmap(
     if _drawlabels:
 
         # Label the sheets.
-        for sheet in sheets():
+        for sheet in sheetsnearcanvas():
             xmin, ymin, xmax, ymax = sheetlimits(sheet)
             dx = 1.0
             dy = 0.5
@@ -1098,6 +1114,15 @@ def startdrawmap(
         apdraw.drawwatermark(_watermark, canvasxmin, canvasymin, canvasxmax, canvasymax)
     elif watermark is not None:
         apdraw.drawwatermark(watermark, canvasxmin, canvasymin, canvasxmax, canvasymax)
+
+    apdraw.drawrectangle(
+                    canvasxmin,
+                    canvasymin,
+                    canvasxmax,
+                    canvasymax,
+                    linecolor="black",
+                    zorder=0,
+                )
 
     if fullmap:
         apdraw.save()

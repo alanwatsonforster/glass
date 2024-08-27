@@ -1,0 +1,21 @@
+set-up      : A1    :       : creating aircraft A1.
+set-up      : A1    :       : force         is AF.
+set-up      : A1    :       : type          is F-16A-10.
+set-up      : A1    :       : position      is A-1015        N    17.
+set-up      : A1    :       : speed         is 7.5.
+set-up      : A1    :       : configuration is CL.
+
+set-up      : A1    :       : creating aircraft A1.
+set-up      : A1    :       : force         is AF.
+set-up      : A1    :       : type          is F-16A-10.
+set-up      : A1    :       : position      is E-1015        N    17.
+set-up      : A1    :       : speed         is 7.5.
+set-up      : A1    :       : configuration is CL.
+
+set-up      : A1    :       : creating aircraft A1.
+set-up      : A1    :       : force         is AF.
+set-up      : A1    :       : type          is F-16A-10.
+set-up      : A1    :       : position      is E-1015        N    17.
+set-up      : A1    :       : speed         is 7.5.
+set-up      : A1    :       : configuration is CL.
+
