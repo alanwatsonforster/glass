@@ -7,8 +7,9 @@ import apxo.draw as apdraw
 import apxo.hex as aphex
 import apxo.hexcode as aphexcode
 
-import os
 import ast
+import math
+import os
 
 ################################################################################
 
@@ -552,7 +553,6 @@ def startdrawmap(
     apdraw.setcanvas(
         canvasxmin, canvasymin, canvasxmax, canvasymax, dotsperhex=_dotsperhex
     )
-    #apdraw.setcanvas(_xmin, _ymin, _xmax, _ymax, dotsperhex=_dotsperhex)
 
     if _drawterrain:
 
@@ -1099,11 +1099,13 @@ def startdrawmap(
                 )
 
         # Draw the compass rose in the lower left corner of the canvas.
-        dx = 1.0
-        dy = 1.5
+        compassx = math.ceil(canvasxmin + 1)
+        compassy = math.ceil(canvasymin + 1)
+        if compassx % 2 == 1:
+            compassy += 0.5
         apdraw.drawcompass(
-            canvasxmin + dx,
-            canvasymin + dy,
+            compassx,
+            compassy,
             apazimuth.tofacing("N"),
             color=labelcolor,
             alpha=1,
@@ -1116,13 +1118,13 @@ def startdrawmap(
         apdraw.drawwatermark(watermark, canvasxmin, canvasymin, canvasxmax, canvasymax)
 
     apdraw.drawrectangle(
-                    canvasxmin,
-                    canvasymin,
-                    canvasxmax,
-                    canvasymax,
-                    linecolor="black",
-                    zorder=0,
-                )
+        canvasxmin,
+        canvasymin,
+        canvasxmax,
+        canvasymax,
+        linecolor="black",
+        zorder=0,
+    )
 
     if fullmap:
         apdraw.save()
