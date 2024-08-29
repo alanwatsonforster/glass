@@ -552,7 +552,6 @@ def startdrawmap(
     apdraw.setcanvas(
         canvasxmin, canvasymin, canvasxmax, canvasymax, dotsperhex=_dotsperhex
     )
-    #apdraw.setcanvas(_xmin, _ymin, _xmax, _ymax, dotsperhex=_dotsperhex)
 
     if _drawterrain:
 
@@ -1116,13 +1115,13 @@ def startdrawmap(
         apdraw.drawwatermark(watermark, canvasxmin, canvasymin, canvasxmax, canvasymax)
 
     apdraw.drawrectangle(
-                    canvasxmin,
-                    canvasymin,
-                    canvasxmax,
-                    canvasymax,
-                    linecolor="black",
-                    zorder=0,
-                )
+        canvasxmin,
+        canvasymin,
+        canvasxmax,
+        canvasymax,
+        linecolor="black",
+        zorder=0,
+    )
 
     if fullmap:
         apdraw.save()
