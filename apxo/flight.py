@@ -422,6 +422,31 @@ def _startmoveaircraft(A):
 
     A._maneuveringdeparture = False
 
+    startmaneuvertype = A._maneuvertype
+    if A._flighttype == "VC" or A._flighttype == "VD":
+        if (
+            A._maneuvertype == "EZ"
+            or A._maneuvertype == "TT"
+            or A._maneuvertype == "HT"
+            or A._maneuvertype == "BT"
+            or A._maneuvertype == "ET"
+        ):
+            A._maneuvertype = None
+    elif A._flighttype == "ZC":
+        if A._maneuvertype == "ET":
+            A.maneuvertype = None
+    elif A._flighttype == "SC":
+        if (
+            A._maneuvertype == "TT"
+            or A._maneuvertype == "HT"
+            or A._maneuvertype == "BT"
+            or A._maneuvertype == "ET"
+        ):
+            A._maneuvertype = None
+
+    if startmaneuvertype != A._maneuvertype:
+        A.logcomment("%s implicityly aborts %s." % (A._flighttype, startmaneuvertype))
+
     if A._flighttype == "ST":
         _startmovestalledflight(A)
     elif A._flighttype == "DP":
