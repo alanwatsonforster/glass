@@ -445,7 +445,7 @@ def _startmoveaircraft(A):
             A._maneuvertype = None
 
     if startmaneuvertype != A._maneuvertype:
-        A.logcomment("%s implicityly aborts %s." % (A._flighttype, startmaneuvertype))
+        A.logcomment("%s implicitly aborts %s." % (A._flighttype, startmaneuvertype))
 
     if A._flighttype == "ST":
         _startmovestalledflight(A)
