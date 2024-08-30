@@ -291,9 +291,9 @@ A2 = aircraft("A2", "AF", "F-80C", "A2-2225", "N", 20, 2.5, "CL")
 endtestsetup()
 
 startgameturn()
-A1.move("VD/HRD", "I", "H,D2", speedbrakes=1)
+A1.move("HRD/VD", "I", "H,D2", speedbrakes=1)
 A1._assert("A2-2024       N    18", 2.0)
-A2.move("VD/HRD", "I", "H,D2", speedbrakes=1)
+A2.move("HRD/VD", "I", "H,D2", speedbrakes=1)
 A2._assert("A2-2224       N    18", 2.5)
 endgameturn()
 

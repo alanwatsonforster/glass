@@ -336,7 +336,7 @@ A1 = aircraft("A1", "AF", "B-66B", "A1-2030", "N", 30, 5.0, "CL")
 endtestsetup()
 
 startgameturn()
-A1.move("VD/HRD", "M", "H,H,D2,D2,VRL/D2/L180")
+A1.move("HRD/VD", "M", "H,H,D2,D2,VRL/D2/L180")
 A1._assert("A2-2028       S    24", 6.5)
 endgameturn()
 
@@ -363,11 +363,11 @@ A3 = aircraft("A3", "AF", "F-102A", "A1-1615", "N", 30, 7.5, "CL")  # PSSM
 endtestsetup()
 
 startgameturn()
-A1.move("VD/HRD", "AB", "H,H,D3,D3,D2,D2,VRR/D2/R180")
+A1.move("HRD/VD", "AB", "H,H,D3,D3,D2,D2,VRR/D2/R180")
 A1._assert("A1-1213       S    18", 10.0)
-A2.move("VD/HRD", "AB", "H,H,D3,D3,D2,D2,VRR/D2/R180")
+A2.move("HRD/VD", "AB", "H,H,D3,D3,D2,D2,VRR/D2/R180")
 A2._assert("A1-1413       S    18", 9.0)
-A3.move("VD/HRD", "AB", "H,H,D3,D2,D2,D2,VRR/D2/R180")
+A3.move("HRD/VD", "AB", "H,H,D3,D2,D2,D2,VRR/D2/R180")
 A3._assert("A1-1613       S    19", 9.0)
 endgameturn()
 

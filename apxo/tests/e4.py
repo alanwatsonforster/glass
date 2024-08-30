@@ -26,9 +26,9 @@ asserterror(
 startgameturn()
 A1.move("VC", "AB", "H,C2,C2")
 A1._assert("A1-2014       N    14", 2.5)
-A2.move("VD/HRD", "AB", "H,D2,D2,D2")
+A2.move("HRD/VD", "AB", "H,D2,D2,D2")
 A2._assert("A1-2214       N     4", 5.5)
-A3.move("VD/HRD", "N", "H,D2")
+A3.move("HRD/VD", "N", "H,D2")
 A3._assert("A1-2414       N     8", 2.5)
 endgameturn()
 
