@@ -244,6 +244,10 @@ class aircraft(apelement.element):
         self._identifiedonpreviousturn = self._identified
         self._identified = False
         self._unspecifiedattackresult = 0
+        self._startx = self.x()
+        self._starty = self.y()
+        self._startfacing = self.facing()
+        self._startaltitude = self.altitude()
         apcloseformation.check(self)
 
     def _endgameturn(self):
@@ -612,7 +616,14 @@ class aircraft(apelement.element):
             color = None
         else:
             color = self._color
-        self._drawpath(color)
+        if self._startedmoving:
+            self._drawpath(color, annotate=True)
+        if self._finishedmoving:
+            speed = self.newspeed()
+        elif self._startedmoving:
+            speed = None
+        else:
+            speed = self.speed()
         apdraw.drawaircraft(
             self.x(),
             self.y(),
@@ -620,7 +631,7 @@ class aircraft(apelement.element):
             color,
             self.name(),
             self.altitude(),
-            self.speed(),
+            speed,
             self._flighttype,
         )
 

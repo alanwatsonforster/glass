@@ -160,7 +160,7 @@ class element:
 
         self._speed = speed
 
-        self._path = appath.path(x, y, facing, altitude)
+        self._path = appath.path(x, y, facing, altitude, speed)
 
         self._color = color
 
@@ -450,7 +450,9 @@ class element:
     ############################################################################
 
     def _startpath(self):
-        self._path.start(self.x(), self.y(), self.facing(), self.altitude())
+        self._path.start(
+            self.x(), self.y(), self.facing(), self.altitude(), self.speed()
+        )
 
     def _extendpath(self):
         self._path.extend(self.x(), self.y(), self.facing(), self.altitude())
