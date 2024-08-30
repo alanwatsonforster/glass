@@ -9,7 +9,7 @@ A1 = aircraft("A1", "AF", "B-26B", "A1-2015", "N", 24, 3.0, "CL")
 endtestsetup()
 
 startgameturn()
-A1.move("VD/HRD", "FT", "H,D2,D2,D2")
+A1.move("HRD/VD", "FT", "H,D2,D2,D2")
 asserterror("aircraft cannot perform rolling maneuvers.")
 startgameturn()
 A1.move("SD", "FT", "H,H,D")

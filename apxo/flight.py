@@ -54,10 +54,10 @@ def _checkflighttype(E):
         or E._flighttype == "SC"
         or E._flighttype == "VC"
         or E._flighttype == "SD"
-        or E._flighttype == "SD/HRD"
+        or E._flighttype == "HRD/SD"
         or E._flighttype == "UD"
         or E._flighttype == "VD"
-        or E._flighttype == "VD/HRD"
+        or E._flighttype == "HRD/VD"
     ):
         _checknormalflight(E)
     elif E._flighttype == "ST":
@@ -84,14 +84,14 @@ def _checknormalflight(E):
     if apcapabilities.hasproperty(E, "SPFL"):
         raise RuntimeError("special-flight aircraft cannot perform normal flight.")
 
-    # See rule 13.3.5. A HRD is signalled by appending "/HRD" to the flight type.
-    if E._flighttype[-4:] == "/HRD":
+    # See rule 13.3.5. A HRD is signalled with a "HRD/" prefix to the flight type.
+    if E._flighttype[:4] == "HRD/":
 
         if apcapabilities.hasproperty(E, "NRM"):
             raise RuntimeError("aircraft cannot perform rolling maneuvers.")
 
         hrd = True
-        E._flighttype = E._flighttype[:-4]
+        E._flighttype = E._flighttype[4:]
         E._flighttype = E._flighttype
 
         # See rule 7.7.
