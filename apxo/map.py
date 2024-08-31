@@ -477,7 +477,7 @@ def setmap(
 
 
 def startdrawmap(
-    show=False, xmin=None, ymin=None, xmax=None, ymax=None, watermark=None
+    show=False, xmin=None, ymin=None, xmax=None, ymax=None, sheets=None, watermark=None
 ):
     """
     Draw the map.
@@ -507,22 +507,44 @@ def startdrawmap(
             y = [xy[1] for xy in xy]
             apdraw.drawlines(x, y, zorder=0, **kwargs)
 
-    fullmap = (xmin is None) and (xmax is None) and (ymin is None) and (ymax is None)
+    if xmin is not None and xmax is not None and ymin is not None and ymax is not None:
+
+        canvasxmin = max(_xmin, xmin)
+        canvasxmax = min(_xmax, xmax)
+        canvasymin = max(_ymin, ymin)
+        canvasymax = min(_ymax, ymax)
+
+    elif sheets is not None:
+
+        canvasxmin = _xmax
+        canvasymin = _ymax
+        canvasxmax = _xmin
+        canvasymax = _ymin
+        for sheet in sheets:
+            sheetxmin, sheetymin, sheetxmax, sheetymax = sheetlimits(sheet)
+            canvasxmin = min(canvasxmin, sheetxmin)
+            canvasymin = min(canvasymin, sheetymin)
+            canvasxmax = max(canvasxmax, sheetxmax)
+            canvasymax = max(canvasymax, sheetymax)
+
+    else:
+
+        canvasxmin = _xmin
+        canvasymin = _ymin
+        canvasxmax = _xmax
+        canvasymax = _ymax
+
+    fullmap = (
+        canvasxmin == _xmin
+        and canvasymin == _ymin
+        and canvasxmax == _xmax
+        and canvasymax == _ymax
+    )
 
     global _saved
     if fullmap and _saved:
         apdraw.restore()
         return
-
-    xmin = xmin if xmin is not None else 0
-    xmax = xmax if xmax is not None else _dxsheet * _nxsheetgrid
-    ymin = ymin if ymin is not None else 0
-    ymax = ymax if ymax is not None else _dysheet * _nysheetgrid
-
-    canvasxmin = max(_xmin, xmin)
-    canvasxmax = min(_xmax, xmax)
-    canvasymin = max(_ymin, ymin)
-    canvasymax = min(_ymax, ymax)
 
     def isnearcanvas(x, y):
         """
@@ -548,7 +570,7 @@ def startdrawmap(
         )
 
     def sheetsnearcanvas():
-        return filter(lambda sheet: issheetnearcanvas(sheet), sheets())
+        return filter(lambda sheet: issheetnearcanvas(sheet), _sheetlist)
 
     apdraw.setcanvas(
         canvasxmin, canvasymin, canvasxmax, canvasymax, dotsperhex=_dotsperhex
