@@ -1851,7 +1851,7 @@ def _domove(E, move, actiondispatchlist):
         E._hasslid = _isslide(E._maneuvertype)
 
         # See rule 8.2.2 and 13.1.
-        if E._maneuvertype == "SL":
+        if apvariants.withvariant("use house rules") and E._maneuvertype == "SL":
             E._maneuverfp += 1
         elif not E._hasunloaded:
             if E._hasturned:
