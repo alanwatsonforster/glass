@@ -250,7 +250,7 @@ def _checknormalflight(E):
             # I interpret the text "start from level flight" to mean that the aircraft
             # must have been in level flight on the previous turn.
 
-            if E._previousflighttype != "LVL":
+            if False and E._previousflighttype != "LVL":
                 raise RuntimeError(
                     "flight type immediately after %s cannot be %s."
                     % (E._previousflighttype, E._flighttype)
@@ -616,8 +616,9 @@ def _startmovenormalflight(A):
 
         # See rule 5.4.
 
+        A.logstart("is carrying %.1f FPs." % A._fpcarry)
         A._maxfp = int(A.speed() + A._fpcarry)
-        A.logcomment("has %d FPs (including %.1f carry)." % (A._maxfp, A._fpcarry))
+        A.logstart("has %d FPs." % A._maxfp)
         A._fpcarry = (A.speed() + A._fpcarry) - A._maxfp
 
     ########################################
@@ -1640,9 +1641,9 @@ def _endnormalflight(A):
         if A._flighttype == "UD":
             # See rule 8.2.2.
             altitudechange = A.altitude() - A.startaltitude()
-            if altitudechange == -2:
-                A.logcomment("UD ends as flight type SD.")
-                A._flighttype = "SD"
+            # if altitudechange == -2:
+            #    A.logcomment("UD ends as flight type SD.")
+            #    A._flighttype = "SD"
 
     ########################################
 
@@ -1850,7 +1851,9 @@ def _domove(E, move, actiondispatchlist):
         E._hasslid = _isslide(E._maneuvertype)
 
         # See rule 8.2.2 and 13.1.
-        if not E._hasunloaded:
+        if E._maneuvertype == "SL":
+            E._maneuverfp += 1
+        elif not E._hasunloaded:
             if E._hasturned:
                 E._maneuverfp += 1
             elif E._maneuvertype == "VR" and E._vertical:
