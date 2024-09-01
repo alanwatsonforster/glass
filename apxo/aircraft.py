@@ -635,7 +635,7 @@ class aircraft(apelement.element):
             self.altitude(),
             speed,
             self._flighttype,
-            zorder=zorder
+            zorder=zorder,
         )
 
     ################################################################################
