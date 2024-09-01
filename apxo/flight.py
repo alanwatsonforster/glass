@@ -728,6 +728,13 @@ def _startmovenormalflight(A):
 
         minhfp = max(minhfp, mininitialhfp)
 
+        if minhfp == maxhfp:
+            minvfp = A._maxfp - minhfp
+            maxvfp = minvfp
+        elif minvfp == maxvfp:
+            minhfp = A._maxfp - minvfp
+            maxhfp = minhfp
+
         if maxvfp == 0:
 
             A.logcomment("all FPs must be HFPs.")
