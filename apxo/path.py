@@ -3,14 +3,15 @@ import apxo.draw as apdraw
 
 class path:
 
-    def __init__(self, x, y, facing, altitude):
-        self.start(x, y, facing, altitude)
+    def __init__(self, x, y, facing, altitude, speed):
+        self.start(x, y, facing, altitude, speed)
 
-    def start(self, x, y, facing, altitude):
+    def start(self, x, y, facing, altitude, speed):
         self._x = [x]
         self._y = [y]
         self._facing = [facing]
         self._altitude = [altitude]
+        self._speed = speed
 
     def extend(self, x, y, facing, altitude):
         self._x.append(x)
@@ -24,6 +25,7 @@ class path:
             self._y,
             self._facing,
             self._altitude,
+            self._speed,
             color,
             annotate=annotate,
         )
