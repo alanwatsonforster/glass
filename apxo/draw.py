@@ -185,8 +185,9 @@ def _drawdotinphysical(
         patches.Circle(
             [x, y],
             radius=0.5 * size,
-            facecolor=_mapcolor(fillcolor),
             edgecolor=_mapcolor(linecolor),
+            facecolor=_mapcolor(fillcolor),
+            fill=(fillcolor != None),
             linewidth=linewidth,
             alpha=alpha,
             zorder=zorder,
@@ -249,6 +250,7 @@ def _drawarrowinphysical(
             length_includes_head=True,
             edgecolor=_mapcolor(linecolor),
             facecolor=_mapcolor(linecolor),
+            fill=(fillcolor != None),
             linewidth=linewidth,
             alpha=alpha,
             zorder=zorder,
@@ -293,6 +295,7 @@ def _drawdartinphysical(
             length_includes_head=True,
             edgecolor=_mapcolor(linecolor),
             facecolor=_mapcolor(fillcolor),
+            fill=(fillcolor != None),
             linewidth=linewidth,
             alpha=alpha,
             zorder=zorder,
@@ -540,7 +543,7 @@ pathlinestyle = "dotted"
 pathdotsize = 0.1
 aircrafttextsize = 10
 aircraftcounterlinewidth = 2
-aircraftkilledfillcolor = (0.50, 0.50, 0.50)
+aircraftkilledfillcolor = None
 aircraftkilledlinecolor = (0.50, 0.50, 0.50)
 aircraftlinecolor = (0.00, 0.00, 0.00)
 aircraftlinewidth = 1
@@ -615,8 +618,7 @@ def drawpath(x, y, facing, altitude, speed, color, annotate=True):
                 )
 
 
-def drawaircraft(x, y, facing, color, name, altitude, speed, flighttype):
-    zorder = altitude + 1
+def drawaircraft(x, y, facing, color, name, altitude, speed, flighttype, zorder):
     if color is None:
         fillcolor = aircraftkilledfillcolor
         linecolor = aircraftkilledlinecolor
