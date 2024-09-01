@@ -210,6 +210,7 @@ def drawmap(
     ymin=None,
     xmax=None,
     ymax=None,
+    sheets=None,
     drawlimitedarc=[],
     draw180arc=[],
     draw150arc=[],
@@ -250,7 +251,12 @@ def drawmap(
             ymax = math.ceil(ymax) + zoomborder
 
         apmap.startdrawmap(
-            xmin=xmin, ymin=ymin, xmax=xmax, ymax=ymax, watermark=watermark
+            xmin=xmin,
+            ymin=ymin,
+            xmax=xmax,
+            ymax=ymax,
+            sheets=sheets,
+            watermark=watermark,
         )
 
         if drawlimitedarc is True:
