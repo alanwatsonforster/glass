@@ -1879,6 +1879,7 @@ def _domove(E, move, actiondispatchlist):
                 _checktracking(E)
                 _checkmaneuveringdeparture(E)
                 _checkgloc(E)
+                _checkmaxfps(E)
             _checkcloseformation(E)
 
         remainingactions = doactions(E, remainingactions, "epilog")
@@ -2047,6 +2048,14 @@ def _checkgloc(A):
                 "check for GLOC as turn rate is ET and altitude band is %s (check %d in cycle)."
                 % (A._movestartaltitudeband, A._gloccheck)
             )
+
+
+def _checkmaxfps(A):
+
+    if A._hfp > A._maxhfp:
+        raise RuntimeError("too many HFPs.")
+    if A._vfp > A._maxvfp:
+        raise RuntimeError("too many VFPs.")
 
 
 def _checkcloseformation(A):

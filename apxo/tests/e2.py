@@ -152,7 +152,7 @@ endgameturn()
 
 startgameturn()
 A1.move("VD", "M", "H,D3,D3,D3,D3")
-asserterror("too few HFPs.")
+asserterror("too many VFPs.")
 startgameturn()
 A1.move("VD", "M", "H,H,H,D3,D3")
 asserterror("too many HFPs.")
