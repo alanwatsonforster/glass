@@ -18,9 +18,7 @@ A1.takedamage("L")
 endtestsetup()
 startgameturn()
 A1.move("LVL", "M", "H/BR,ETR/H,H,H,H")
-asserterror(
-    "attempt to declare a turn rate tighter than allowed by the damage, speed, or flight type."
-)
+asserterror("damage limits the turn rate to BT.")
 startgameturn()
 A1.move("LVL", "M", "H/BR,BTR/H,H,H,H")
 A1._assert("A2-2020       N     5", 5.0)
@@ -32,9 +30,7 @@ A1.takedamage("2L")
 endtestsetup()
 startgameturn()
 A1.move("LVL", "M", "H/BR,BTR/H,H,H,H")
-asserterror(
-    "attempt to declare a turn rate tighter than allowed by the damage, speed, or flight type."
-)
+asserterror("damage limits the turn rate to HT.")
 startgameturn()
 A1.move("LVL", "M", "H/BR,HTR/H,H,H,H")
 A1._assert("A2-2020       N     5", 5.0)
@@ -46,9 +42,7 @@ A1.takedamage("H")
 endtestsetup()
 startgameturn()
 A1.move("LVL", "M", "H/BR,BTR/H,H,H,H")
-asserterror(
-    "attempt to declare a turn rate tighter than allowed by the damage, speed, or flight type."
-)
+asserterror("damage limits the turn rate to HT.")
 startgameturn()
 A1.move("LVL", "M", "H/BR,HTR/H,H,H,H")
 A1._assert("A2-2020       N     5", 5.0)
@@ -60,9 +54,7 @@ A1.takedamage("C")
 endtestsetup()
 startgameturn()
 A1.move("LVL", "M", "H/BR,HTR/H,H,H,H")
-asserterror(
-    "attempt to declare a turn rate tighter than allowed by the damage, speed, or flight type."
-)
+asserterror("damage limits the turn rate to TT.")
 startgameturn()
 A1.move("LVL", "M", "H/BR,TTR/H,H,H,H")
 A1._assert("A2-2020       N     5", 5.0)

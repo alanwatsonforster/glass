@@ -514,73 +514,6 @@ def _startmovenormalflight(A):
 
     ########################################
 
-    def determineallowedturnrates():
-        """
-        Determine the allowed turn rates according to the flight type and
-        speed. The aircraft type and configuration may impose additional
-        restrictions.
-        """
-
-        turnrates = ["EZ", "TT", "HT", "BT", "ET"]
-
-        # See "Aircraft Damage Effects" in Play Aids.
-
-        if A.damageatleast("C"):
-            A.logcomment("damage limits the turn rate to TT.")
-            turnrates = turnrates[:2]
-        elif A.damageatleast("2L"):
-            A.logcomment("damage limits the turn rate to HT.")
-            turnrates = turnrates[:3]
-        elif A.damageatleast("L"):
-            A.logcomment("damage limits the turn rate to BT.")
-            turnrates = turnrates[:4]
-
-        # See rule 7.5.
-
-        minspeed = apcapabilities.minspeed(A)
-        if A.speed() == minspeed:
-            A.logcomment("speed limits the turn rate to EZ.")
-            turnrates = turnrates[:1]
-        elif A.speed() == minspeed + 0.5:
-            A.logcomment("speed limits the turn rate to TT.")
-            turnrates = turnrates[:2]
-        elif A.speed() == minspeed + 1.0:
-            A.logcomment("speed limits the turn rate to HT.")
-            turnrates = turnrates[:3]
-        elif A.speed() == minspeed + 1.5:
-            A.logcomment("speed limits the turn rate to BT.")
-            turnrates = turnrates[:4]
-        else:
-            A.logcomment("speed does not limit the turn rate.")
-
-        # See rule 8.1.1.
-
-        if A._flighttype == "ZC":
-            A.logcomment("ZC limits the turn rate to BT.")
-            turnrates = turnrates[:4]
-
-        # See rule 8.1.1.
-
-        if A._flighttype == "SC":
-            A.logcomment("SC limits the turn rate to EZ.")
-            turnrates = turnrates[:1]
-
-        # See rule 8.1.3.
-
-        if A._flighttype == "VC":
-            A.logcomment("VC disallows all turns.")
-            turnrates = []
-
-        # See rule 8.2.3.
-
-        if A._flighttype == "VD":
-            A.logcomment("VD disallows all turns.")
-            turnrates = []
-
-        A._allowedturnrates = turnrates
-
-    ########################################
-
     def checkcloseformationlimits():
 
         if A.closeformationsize() == 0:
@@ -837,13 +770,9 @@ def _startmovenormalflight(A):
             # requirements of ZC, SC, and VC flight are not clear, but for the
             # moment we assume they result in a maneuvering departure.
 
-            turnrequirement = apturnrate.turnrequirement(
-                A.altitudeband(), A.speed(), A._maneuvertype
-            )
-            if not A._maneuvertype in A._allowedturnrates or turnrequirement == None:
-                A.logcomment(
-                    "carried turn rate is tighter than the maximum allowed turn rate."
-                )
+            s = _checkturnrate(A, A._maneuvertype)
+            if s is not None:
+                A.logcomment("carried turn rate is %s but %s" % (A._maneuvertype, s))
                 raise RuntimeError(
                     "aircraft has entered departed flight while maneuvering."
                 )
@@ -933,7 +862,7 @@ def _startmovenormalflight(A):
 
     reportapcarry()
     reportaltitudecarry()
-    determineallowedturnrates()
+    _reportallowedturnrates(A)
     handlecarriedturn()
     checkcloseformationlimits()
     determinemaxfp()
@@ -1915,6 +1844,8 @@ def _domove(E, move, actiondispatchlist):
         if not E._lastfp:
             checkm1speed()
             checkminspeed()
+            if E.isaircraft():
+                _reportallowedturnrates(E)
 
     E._checkforterraincollision()
     E._checkforleavingmap()
@@ -2400,20 +2331,82 @@ def _dobank(E, sense):
 ########################################
 
 
+def _reportallowedturnrates(A):
+    """
+    Determine the allowed turn rates according to the flight type and
+    speed. The aircraft type and configuration may impose additional
+    restrictions.
+    """
+
+    if _checkturnrate(A, "ET") is None:
+        A.logcomment("turn rate is not limited.")
+    elif _checkturnrate(A, "BT") is None:
+        A.logcomment("turn rate is limited to BT.")
+    elif _checkturnrate(A, "HT") is None:
+        A.logcomment("turn rate is limited to HT.")
+    elif _checkturnrate(A, "TT") is None:
+        A.logcomment("turn rate is limited to TT.")
+    elif _checkturnrate(A, "EZ") is None:
+        A.logcomment("turn rate is limited to EZ.")
+    else:
+        A.logcomment("no turns are allowed.")
+
+
+def _checkturnrate(A, turnrate):
+
+    # See rule 8.1.3s and 8.2.3.
+    if A._flighttype == "VC" or A._flighttype == "VD":
+        return "%s disallows all turns." % A._flighttype
+
+    # See rule 8.1.1.
+
+    if turnrate == "ET" and A._flighttype == "ZC":
+        return "ZC limits the turn rate to BT."
+
+    # See rule 8.1.1.
+
+    if turnrate != "EZ" and A._flighttype == "SC":
+        return "SC limits the turn rate to EZ."
+
+    # See "Aircraft Damage Effects" in Play Aids.
+
+    if A.damageatleast("C") and turnrate not in ["EZ", "TT"]:
+        return "damage limits the turn rate to TT."
+    elif A.damageatleast("2L") and turnrate not in ["EZ", "TT", "HT"]:
+        return "damage limits the turn rate to HT."
+    elif A.damageatleast("L") and turnrate not in ["EZ", "TT", "HT", "BT"]:
+        return "damage limits the turn rate to BT."
+
+    # See rule 7.5.
+
+    minspeed = apcapabilities.minspeed(A)
+    if A.speed() == minspeed and turnrate not in ["EZ"]:
+        return "speed limits the turn rate to EZ."
+    elif A.speed() == minspeed + 0.5 and turnrate not in ["EZ", "TT"]:
+        return "speed limits the turn rate to TT."
+    elif A.speed() == minspeed + 1.0 and turnrate not in ["EZ", "TT", "HT"]:
+        return "speed limits the turn rate to HT."
+    elif A.speed() == minspeed + 1.5 and turnrate not in ["EZ", "TT", "HT", "BT"]:
+        return "speed limits the turn rate to BT."
+
+    # See rule 7.1.
+    turnrateap = apcapabilities.turndrag(A, turnrate)
+    if turnrateap == None:
+        return "aircraft does not allow a turn rate of %s." % turnrate
+
+    turnrequirement = apturnrate.turnrequirement(A.altitudeband(), A.speed(), turnrate)
+    if turnrequirement == None:
+        return "speed and altitude do not allow a turn rate of %s." % turnrate
+
+    return None
+
+
 def _dodeclareturn(E, turnrate, sense):
     """
     Declare the start of turn in the specified direction and rate.
     """
 
     if E.isaircraft():
-
-        # See rule 8.1.3 and 8.2.3
-        if E._flighttype == "VC" or E._flighttype == "VD":
-            raise RuntimeError(
-                "attempt to declare turn while flight type is %s." % E._flighttype
-            )
-
-        # See rule 7.1.
 
         # Check the bank. See rule 7.4.
         if apcapabilities.hasproperty(E, "LRR"):
@@ -2429,19 +2422,9 @@ def _dodeclareturn(E, turnrate, sense):
                     % (sense, E._bank)
                 )
 
-        if E._allowedturnrates == []:
-            raise RuntimeError("turns are forbidded.")
-
-        if turnrate not in E._allowedturnrates:
-            raise RuntimeError(
-                "attempt to declare a turn rate tighter than allowed by the damage, speed, or flight type."
-            )
-
-        turnrateap = apcapabilities.turndrag(E, turnrate)
-        if turnrateap == None:
-            raise RuntimeError(
-                "attempt to declare a turn rate tighter than allowed by the aircraft."
-            )
+        s = _checkturnrate(E, turnrate)
+        if s is not None:
+            raise RuntimeError(s)
 
         # Determine the maximum turn rate.
         if E._maxturnrate == None:
@@ -2456,6 +2439,8 @@ def _dodeclareturn(E, turnrate, sense):
             E.altitudeband(), E.speed(), turnrate
         )
 
+        turnrateap = apcapabilities.turndrag(E, turnrate)
+
     else:
 
         if E.speed() < apspeed.missilemaneuverspeed(E.altitudeband()):
@@ -2468,10 +2453,10 @@ def _dodeclareturn(E, turnrate, sense):
             E.altitudeband(), E.speed(), baseturnrate, divisor=divisor
         )
 
-    if turnrequirement == None:
-        raise RuntimeError(
-            "attempt to declare a turn rate tighter than allowed by the speed and altitude."
-        )
+        if turnrequirement == None:
+            raise RuntimeError(
+                "attempt to declare a turn rate tighter than allowed by the speed and altitude."
+            )
 
     E._bank = sense
     E._maneuvertype = turnrate
