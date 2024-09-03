@@ -62,6 +62,7 @@ class aircraft(apelement.element):
         paintscheme="unpainted",
         color="unpainted",
         counter=False,
+        delay=0,
     ):
 
         global _aircraftlist
@@ -79,6 +80,7 @@ class aircraft(apelement.element):
                 altitude=altitude,
                 speed=speed,
                 color=color,
+                delay=delay,
             )
 
             if not isinstance(aircrafttype, str):

@@ -117,6 +117,7 @@ class element:
         altitude=None,
         speed=None,
         color=None,
+        delay=0,
     ):
 
         global _elementlist
@@ -144,6 +145,12 @@ class element:
 
         if altitude is not None and not apaltitude.isvalidaltitude(altitude):
             raise RuntimeError("the altitude argument is not valid.")
+
+        if delay < 0:
+            raise RuntimeError("the delay argument is not valid.")       
+        while delay != 0:
+            x, y = aphex.backward(x, y, facing)
+            delay -= 1
 
         self._x = x
         self._y = y
