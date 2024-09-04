@@ -2670,22 +2670,24 @@ def _dodisplacementroll(E, sense):
     # Move.
     E._movedisplacementroll(sense)
 
-    # See rule 13.3.1.
     if not apvariants.withvariant("use house rules"):
+
+        # See rule 13.3.1.
+
         E._othermaneuversap -= apcapabilities.rolldrag(E, "DR")
 
-    # See rule 6.6.
-    if E._maneuversupersonic:
-        if apcapabilities.hasproperty(E, "PSSM"):
-            E._othermaneuversap -= 2.0
-        elif not apcapabilities.hasproperty(E, "GSSM"):
-            E._othermaneuversap -= 1.0
+        # See rule 6.6.
+        if E._maneuversupersonic:
+            if apcapabilities.hasproperty(E, "PSSM"):
+                E._othermaneuversap -= 2.0
+            elif not apcapabilities.hasproperty(E, "GSSM"):
+                E._othermaneuversap -= 1.0
 
-    # See rule 13.3.6.
-    if not apvariants.withvariant("use house rules"):
+        # See rule 13.3.6.
         if E._rollmaneuvers > 0:
             E._othermaneuversap -= 1.0
-        E._rollmaneuvers += 1
+
+    E._rollmaneuvers += 1
 
     # Implicitly finish with wings level. This can be changed immediately by a bank.
     E._bank = None
@@ -2746,22 +2748,23 @@ def _dolagroll(E, sense):
     # Move.
     E._movelagroll(sense)
 
-    # See rule 13.3.1.
     if not apvariants.withvariant("use house rules"):
+
+        # See rule 13.3.1.
         E._othermaneuversap -= apcapabilities.rolldrag(E, "LR")
 
-    # See rule 6.6.
-    if E._maneuversupersonic:
-        if apcapabilities.hasproperty(E, "PSSM"):
-            E._othermaneuversap -= 2.0
-        elif not apcapabilities.hasproperty(E, "GSSM"):
-            E._othermaneuversap -= 1.0
+        # See rule 6.6.
+        if E._maneuversupersonic:
+            if apcapabilities.hasproperty(E, "PSSM"):
+                E._othermaneuversap -= 2.0
+            elif not apcapabilities.hasproperty(E, "GSSM"):
+                E._othermaneuversap -= 1.0
 
-    # See rule 13.3.6.
-    if not apvariants.withvariant("use house rules"):
+        # See rule 13.3.6.
         if E._rollmaneuvers > 0:
             E._othermaneuversap -= 1.0
-        E._rollmaneuvers += 1
+
+    E._rollmaneuvers += 1
 
     # Implicitly finish with wings level. This can be changed immediately by a bank.
     E._bank = None
@@ -2833,27 +2836,26 @@ def _doverticalroll(E, sense, facingchange, shift):
             )
 
         if not apvariants.withvariant("use house rules"):
+
+            # See rule 6.6.
+            if not apvariants.withvariant("use house rules"):
+                if E._maneuversupersonic:
+                    if apcapabilities.hasproperty(E, "PSSM"):
+                        E._othermaneuversap -= 2.0
+                    elif not apcapabilities.hasproperty(E, "GSSM"):
+                        E._othermaneuversap -= 1.0
+
             E._othermaneuversap -= apcapabilities.rolldrag(E, "VR")
 
-        # See rule 13.3.6
-        if not apvariants.withvariant("use house rules"):
+            # See rule 13.3.6
             if E._rollmaneuvers > 0:
-                E._othermaneuversap -= 1
+                E._othermaneuversap -= 1.0
 
     # Move.
     E._moveverticalroll(sense, facingchange, shift)
 
     E._rollmaneuvers += 1
     E._verticalrolls += 1
-
-    if E.isaircraft():
-        # See rule 6.6.
-        if not apvariants.withvariant("use house rules"):
-            if E._maneuversupersonic:
-                if apcapabilities.hasproperty(E, "PSSM"):
-                    E._othermaneuversap -= 2.0
-                elif not apcapabilities.hasproperty(E, "GSSM"):
-                    E._othermaneuversap -= 1.0
 
 
 ########################################
