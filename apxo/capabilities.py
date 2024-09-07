@@ -46,8 +46,6 @@ def lowspeedliftdeviceselectable(A):
 def turndrag(A, turnrate):
 
     def rawturndrag(turnrate):
-        if turnrate == "EZ":
-            return 0.0
         lowspeedliftdevicelimit = A._aircraftdata.lowspeedliftdevicelimit()
         if lowspeedliftdevicelimit == None:
             return A._aircraftdata.turndrag(A._configuration, turnrate)
@@ -67,7 +65,9 @@ def turndrag(A, turnrate):
         if turnrate == "BT" and rawturndrag("ET") == None:
             return None
 
-    if rawturndrag(turnrate) == None:
+    if turnrate == "EZ":
+        return 0.0
+    elif rawturndrag(turnrate) == None:
         return None
     elif apvariants.withvariant("use house rules"):
         return (rawturndrag(turnrate) + 1.0) / 2.0
