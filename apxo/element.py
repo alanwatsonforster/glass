@@ -35,13 +35,13 @@ def _startgameturn():
     for E in _elementlist:
         E._restore()
     for E in _elementlist:
-        E._startpath()
-    for E in _elementlist:
         E._startspeed = E.speed()
         E._startaltitude = E.altitude()
         E._startaltitudeband = E.altitudeband()
         E._startaltitudecarry = E.altitudecarry()
         E._startgameturn()
+    for E in _elementlist:
+        E._startpath()
 
 
 def _endgameturn():
