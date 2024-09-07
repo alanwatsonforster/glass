@@ -196,12 +196,12 @@ def _startaircraftspeed(
     # See rule 8.4.
 
     if A.altitudeband() == "VH":
-        if jet and not apcapabilities.hasproperty(A, "HAE"):
+        if jet and not A.hasproperty("HAE"):
             powerapM = max(0.5, twothirdsfromtable(powerapM))
             if powerapAB != None:
                 powerapAB = max(0.5, twothirdsfromtable(powerapAB))
     elif A.altitudeband() == "EH" or A.altitudeband() == "UH":
-        if jet and not apcapabilities.hasproperty(A, "HAE"):
+        if jet and not A.hasproperty("HAE"):
             powerapM = max(0.5, onethirdfromtable(powerapM))
             if powerapAB != None:
                 powerapAB = max(0.5, onethirdfromtable(powerapAB))
@@ -279,7 +279,7 @@ def _startaircraftspeed(
     # See rule 8.4. The reduction was done above, but we report it here.
     if (
         jet
-        and not apcapabilities.hasproperty(A, "HAE")
+        and not A.hasproperty("HAE")
         and (
             A.altitudeband() == "VH"
             or A.altitudeband() == "EH"
@@ -297,7 +297,7 @@ def _startaircraftspeed(
         A.logcomment("power is reduced as damage is %s." % A.damage())
 
     # Is the engine smoking?
-    A._enginesmoking = apcapabilities.hasproperty(A, "SMP") and powersetting == "M"
+    A._enginesmoking = A.hasproperty("SMP") and powersetting == "M"
     if A._enginesmoking:
         A.logcomment("engine is smoking.")
 
@@ -346,7 +346,7 @@ def _startaircraftspeed(
     if (
         previouspowersetting == "I"
         and powersetting == "AB"
-        and not apcapabilities.hasproperty(A, "RPR")
+        and not A.hasproperty("RPR")
     ):
         A.logcomment(
             "check for flame-out as the power setting has increased from I to AB."
@@ -494,9 +494,9 @@ def _startaircraftspeed(
             dspeedap = -1.0
         elif speed == m1speed(A.altitudeband()):
             dspeedap = -1.5
-        if apcapabilities.hasproperty(A, "LTD"):
+        if A.hasproperty("LTD"):
             dspeedap += 0.5
-        elif apcapabilities.hasproperty(A, "HTD"):
+        elif A.hasproperty("HTD"):
             dspeedap -= 0.5
         speedap += dspeedap
         A.logcomment("transonic drag (%+.1f AP)." % dspeedap)
@@ -634,7 +634,7 @@ def _endaircraftspeed(A):
 
     if ap < 0:
         aprate = -2.0
-    elif apcapabilities.hasproperty(A, "RA"):
+    elif A.hasproperty("RA"):
         if A.speed() >= m1speed(A.startaltitudeband()):
             aprate = +2.0
         else:

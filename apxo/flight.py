@@ -81,13 +81,13 @@ def _checknormalflight(E):
     if E.ismissile():
         raise RuntimeError("missiles cannot perform normal flight.")
 
-    if apcapabilities.hasproperty(E, "SPFL"):
+    if E.hasproperty("SPFL"):
         raise RuntimeError("special-flight aircraft cannot perform normal flight.")
 
     # See rule 13.3.5. A HRD is signalled with a "HRD/" prefix to the flight type.
     if E._flighttype[:4] == "HRD/":
 
-        if apcapabilities.hasproperty(E, "NRM"):
+        if E.hasproperty("NRM"):
             raise RuntimeError("aircraft cannot perform rolling maneuvers.")
 
         hrd = True
@@ -140,7 +140,7 @@ def _checknormalflight(E):
                 "flight type immediately after %s cannot be %s."
                 % (E._previousflighttype, E._flighttype)
             )
-        elif E._flighttype == "LVL" and not apcapabilities.hasproperty(E, "HPR"):
+        elif E._flighttype == "LVL" and not E.hasproperty("HPR"):
             raise RuntimeError(
                 "flight type immediately after %s cannot be %s."
                 % (E._previousflighttype, E._flighttype)
@@ -163,7 +163,7 @@ def _checknormalflight(E):
         if E._previousflighttype == "VD":
             if E.speed() <= 2.0:
                 pass
-            elif not apcapabilities.hasproperty(E, "HPR"):
+            elif not E.hasproperty("HPR"):
                 raise RuntimeError(
                     "flight type immediately after %s cannot be %s."
                     % (E._previousflighttype, E._flighttype)
@@ -209,7 +209,7 @@ def _checknormalflight(E):
                 % (E._previousflighttype, E._flighttype)
             )
         if E._previousflighttype == "LVL":
-            if not apcapabilities.hasproperty(E, "HPR"):
+            if not E.hasproperty("HPR"):
                 raise RuntimeError(
                     "flight type immediately after %s cannot be %s."
                     % (E._previousflighttype, E._flighttype)
@@ -233,9 +233,7 @@ def _checknormalflight(E):
         # See rule 8.1.3 on VC restrictions.
         # See rule 13.3.5 on HRD restrictions.
 
-        if E._previousflighttype == "VC" and not (
-            apcapabilities.hasproperty(E, "HPR") or hrd
-        ):
+        if E._previousflighttype == "VC" and not (E.hasproperty("HPR") or hrd):
             raise RuntimeError(
                 "flight type immediately after %s cannot be %s (without a HRD)."
                 % (E._previousflighttype, E._flighttype)
@@ -260,9 +258,7 @@ def _checknormalflight(E):
 
             # See rule 8.1.3 on VC restrictions.
 
-            if E._previousflighttype == "VC" and not apcapabilities.hasproperty(
-                E, "HPR"
-            ):
+            if E._previousflighttype == "VC" and not E.hasproperty("HPR"):
                 raise RuntimeError(
                     "flight type immediately after %s cannot be %s."
                     % (E._previousflighttype, E._flighttype)
@@ -308,7 +304,7 @@ def _checkstalledflighttype(E):
     if E.ismissile():
         raise RuntimeError("missiles cannot perform stalled flight.")
 
-    if apcapabilities.hasproperty(E, "SPFL"):
+    if E.hasproperty("SPFL"):
         raise RuntimeError("special-flight aircraft cannot perform stalled flight.")
 
     # See rule 6.3.
@@ -328,7 +324,7 @@ def _checkdepartedflight(E):
     if E.ismissile():
         raise RuntimeError("missiles cannot perform departed flight.")
 
-    if apcapabilities.hasproperty(E, "SPFL"):
+    if E.hasproperty("SPFL"):
         raise RuntimeError("special-flight aircraft cannot perform departed flight.")
 
 
@@ -340,7 +336,7 @@ def _checkspecialflighttype(E):
     if E.ismissile():
         raise RuntimeError("missiles cannot perform special flight.")
 
-    if not apcapabilities.hasproperty(E, "SPFL"):
+    if not E.hasproperty("SPFL"):
         raise RuntimeError("normal-flight aircraft cannot perform special flight.")
 
 
@@ -578,7 +574,7 @@ def _startmovenormalflight(A):
         ) or (
             _isdivingflight(A._previousflighttype) and _isclimbingflight(A._flighttype)
         ):
-            if apcapabilities.hasproperty(A, "HPR"):
+            if A.hasproperty("HPR"):
                 mininitialhfp = A.speed() // 3
             else:
                 mininitialhfp = A.speed() // 2
@@ -646,7 +642,7 @@ def _startmovenormalflight(A):
 
             # See rules 8.2.1 and 8.2.3.
             if A._previousflighttype == "VD":
-                if apcapabilities.hasproperty(A, "HPR"):
+                if A.hasproperty("HPR"):
                     minvfp = rounddown(onethirdfromtable(A._maxfp))
                 else:
                     minvfp = rounddown(A._maxfp / 2)
@@ -1465,9 +1461,9 @@ def _endnormalflight(A):
                 A._turnrateap = 0
 
             if A._turningsupersonic:
-                if apcapabilities.hasproperty(A, "PSSM"):
+                if A.hasproperty("PSSM"):
                     A._turnrateap -= 2.0
-                elif not apcapabilities.hasproperty(A, "GSSM"):
+                elif not A.hasproperty("GSSM"):
                     A._turnrateap -= 1.0
 
     ########################################
@@ -2312,7 +2308,7 @@ def _dobank(E, sense):
         raise RuntimeError("attempt to bank twice.")
 
     # See rule 7.4.
-    if apcapabilities.hasproperty(E, "LRR"):
+    if E.hasproperty("LRR"):
         if (E._bank == "L" and sense == "R") or (E._bank == "R" and sense == "L"):
             raise RuntimeError(
                 "attempt to bank to %s while banked to %s in a LRR aircraft."
@@ -2409,13 +2405,13 @@ def _dodeclareturn(E, turnrate, sense):
     if E.isaircraft():
 
         # Check the bank. See rule 7.4.
-        if apcapabilities.hasproperty(E, "LRR"):
+        if E.hasproperty("LRR"):
             if E._bank != sense:
                 raise RuntimeError(
                     "attempt to declare a turn to %s while not banked to %s in a LRR aircraft."
                     % (sense, sense)
                 )
-        elif not apcapabilities.hasproperty(E, "HRR"):
+        elif not E.hasproperty("HRR"):
             if (E._bank == "L" and sense == "R") or (E._bank == "R" and sense == "L"):
                 raise RuntimeError(
                     "attempt to declare a turn to %s while banked to %s."
@@ -2474,9 +2470,9 @@ def _dodeclareturn(E, turnrate, sense):
         if apvariants.withvariant("use house rules"):
             E._turnrateap -= turnrateap
             if E._maneuversupersonic:
-                if apcapabilities.hasproperty(E, "PSSM"):
+                if E.hasproperty("PSSM"):
                     E._turnrateap -= 1.0
-                elif not apcapabilities.hasproperty(E, "GSSM"):
+                elif not E.hasproperty("GSSM"):
                     E._turnrateap -= 0.5
 
 
@@ -2512,9 +2508,9 @@ def _doturn(E, sense, facingchange, continuous):
             sustainedfacingchanges = facingchange // 30
 
         if not apvariants.withvariant("use house rules"):
-            if apcapabilities.hasproperty(E, "LBR"):
+            if E.hasproperty("LBR"):
                 E._sustainedturnap -= sustainedfacingchanges * 0.5
-            elif apcapabilities.hasproperty(E, "HBR"):
+            elif E.hasproperty("HBR"):
                 E._sustainedturnap -= sustainedfacingchanges * 1.5
             else:
                 E._sustainedturnap -= sustainedfacingchanges * 1.0
@@ -2621,7 +2617,7 @@ def _dodeclaredisplacementroll(E, sense):
 
     # See rules 13.1 and 13.3.1.
 
-    if apcapabilities.hasproperty(E, "NRM"):
+    if E.hasproperty("NRM"):
         raise RuntimeError("aircraft cannot perform rolling maneuvers.")
     if apcapabilities.rolldrag(E, "DR") == None:
         raise RuntimeError("aircraft cannot perform displacement rolls.")
@@ -2648,9 +2644,9 @@ def _dodeclaredisplacementroll(E, sense):
     if apvariants.withvariant("use house rules"):
         E._othermaneuversap -= apcapabilities.rolldrag(E, "DR")
         if E._maneuversupersonic:
-            if apcapabilities.hasproperty(E, "PSSM"):
+            if E.hasproperty("PSSM"):
                 E._othermaneuversap -= 2.0
-            elif not apcapabilities.hasproperty(E, "GSSM"):
+            elif not E.hasproperty("GSSM"):
                 E._othermaneuversap -= 1.0
 
 
@@ -2678,9 +2674,9 @@ def _dodisplacementroll(E, sense):
 
         # See rule 6.6.
         if E._maneuversupersonic:
-            if apcapabilities.hasproperty(E, "PSSM"):
+            if E.hasproperty("PSSM"):
                 E._othermaneuversap -= 2.0
-            elif not apcapabilities.hasproperty(E, "GSSM"):
+            elif not E.hasproperty("GSSM"):
                 E._othermaneuversap -= 1.0
 
         # See rule 13.3.6.
@@ -2700,7 +2696,7 @@ def _dodeclarelagroll(E, sense):
 
     # See rule 13.3.2.
 
-    if apcapabilities.hasproperty(E, "NRM"):
+    if E.hasproperty("NRM"):
         raise RuntimeError("aircraft cannot perform rolling maneuvers.")
     if apcapabilities.rolldrag(E, "LR") == None:
         raise RuntimeError("aircraft cannot perform lag rolls.")
@@ -2726,9 +2722,9 @@ def _dodeclarelagroll(E, sense):
     if apvariants.withvariant("use house rules"):
         E._othermaneuversap -= apcapabilities.rolldrag(E, "LR")
         if E._maneuversupersonic:
-            if apcapabilities.hasproperty(E, "PSSM"):
+            if E.hasproperty("PSSM"):
                 E._othermaneuversap -= 2.0
-            elif not apcapabilities.hasproperty(E, "GSSM"):
+            elif not E.hasproperty("GSSM"):
                 E._othermaneuversap -= 1.0
 
 
@@ -2755,9 +2751,9 @@ def _dolagroll(E, sense):
 
         # See rule 6.6.
         if E._maneuversupersonic:
-            if apcapabilities.hasproperty(E, "PSSM"):
+            if E.hasproperty("PSSM"):
                 E._othermaneuversap -= 2.0
-            elif not apcapabilities.hasproperty(E, "GSSM"):
+            elif not E.hasproperty("GSSM"):
                 E._othermaneuversap -= 1.0
 
         # See rule 13.3.6.
@@ -2777,9 +2773,9 @@ def _dodeclareverticalroll(E, sense):
 
     if E.isaircraft():
 
-        if apcapabilities.hasproperty(E, "NRM"):
+        if E.hasproperty("NRM"):
             raise RuntimeError("aircraft cannot perform rolling maneuvers.")
-        if E._verticalrolls == 1 and apcapabilities.hasproperty(E, "OVR"):
+        if E._verticalrolls == 1 and E.hasproperty("OVR"):
             raise RuntimeError("aircraft can only perform one vertical roll per turn.")
 
         # See rule 13.3.4.
@@ -2813,9 +2809,9 @@ def _dodeclareverticalroll(E, sense):
         if apvariants.withvariant("use house rules"):
             E._othermaneuversap -= apcapabilities.rolldrag(E, "VR")
             if E._maneuversupersonic:
-                if apcapabilities.hasproperty(E, "PSSM"):
+                if E.hasproperty("PSSM"):
                     E._othermaneuversap -= 2.0
-                elif not apcapabilities.hasproperty(E, "GSSM"):
+                elif not E.hasproperty("GSSM"):
                     E._othermaneuversap -= 1.0
 
 
@@ -2830,7 +2826,7 @@ def _doverticalroll(E, sense, facingchange, shift):
     if E.isaircraft():
 
         # See rule 13.3.4.
-        if apcapabilities.hasproperty(E, "LRR") and facingchange > 90:
+        if E.hasproperty("LRR") and facingchange > 90:
             raise RuntimeError(
                 "attempt to roll vertically by more than 90 degrees in LRR aircraft."
             )
@@ -2840,9 +2836,9 @@ def _doverticalroll(E, sense, facingchange, shift):
             # See rule 6.6.
             if not apvariants.withvariant("use house rules"):
                 if E._maneuversupersonic:
-                    if apcapabilities.hasproperty(E, "PSSM"):
+                    if E.hasproperty("PSSM"):
                         E._othermaneuversap -= 2.0
-                    elif not apcapabilities.hasproperty(E, "GSSM"):
+                    elif not E.hasproperty("GSSM"):
                         E._othermaneuversap -= 1.0
 
             E._othermaneuversap -= apcapabilities.rolldrag(E, "VR")

@@ -73,6 +73,13 @@ class aircraft(apelement.element):
         aplog.clearerror()
         try:
 
+            if not isinstance(aircrafttype, str):
+                raise RuntimeError("the aircrafttype argument must be a string.")
+            aircraftdata = apaircraftdata.aircraftdata(aircrafttype)
+
+            if not apvisualsighting.isvalidpaintscheme(paintscheme):
+                raise RuntimeError("the paintscheme argument is not valid.")
+
             super().__init__(
                 name,
                 hexcode=hexcode,
@@ -81,12 +88,8 @@ class aircraft(apelement.element):
                 speed=speed,
                 color=color,
                 delay=delay,
+                properties=aircraftdata.properties(),
             )
-
-            if not isinstance(aircrafttype, str):
-                raise RuntimeError("the aircrafttype argument must be a string.")
-            if not apvisualsighting.isvalidpaintscheme(paintscheme):
-                raise RuntimeError("the paintscheme argument is not valid.")
 
             # In addition to the specified position, azimuth, altitude, speed, and
             # configuration, aircraft initially have level flight, normal power, and
@@ -123,7 +126,7 @@ class aircraft(apelement.element):
             self._climbslope = 0
             self._lowspeedliftdeviceselected = False
             self._closeformation = []
-            self._aircraftdata = apaircraftdata.aircraftdata(aircrafttype)
+            self._aircraftdata = aircraftdata
             if gunammunition is None:
                 self._gunammunition = self._aircraftdata.gunammunition()
             else:
@@ -350,6 +353,19 @@ class aircraft(apelement.element):
         except RuntimeError as e:
             aplog.logexception(e)
         self.logbreak()
+
+    ##############################################################################
+
+    def hasproperty(self, p):
+
+        if p == "LTD" and super().hasproperty("LTDCL"):
+            return self._configuration == "CL"
+        if p == "HRR" and super().hasproperty("HRRCL"):
+            return self._configuration == "CL"
+        if p == "LRR" and super().hasproperty("LRRHS"):
+            return self.speed() >= self._aircraftdata["LRRHSlimit"]
+
+        return super().hasproperty(p)
 
     ##############################################################################
 

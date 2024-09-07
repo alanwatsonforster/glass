@@ -118,6 +118,7 @@ class element:
         speed=None,
         color=None,
         delay=0,
+        properties={},
     ):
 
         global _elementlist
@@ -170,6 +171,8 @@ class element:
         self._path = appath.path(x, y, facing, altitude, speed)
 
         self._color = color
+
+        self._properties = properties
 
         _elementlist.append(self)
 
@@ -503,6 +506,17 @@ class element:
 
         if not apmap.isonmap(self.x(), self.y()):
             self.logwhenwhat("", "%s has left the map." % self.name())
+
+    ############################################################################
+
+    def hasproperty(self, p):
+        return p in self._properties
+
+    def gainproperty(self, p):
+        self._properties.add(p)
+
+    def loseproperty(self, p):
+        self._properties.discard(p)
 
     ############################################################################
 

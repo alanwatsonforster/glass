@@ -57,7 +57,7 @@ def turndrag(A, turnrate):
             return A._aircraftdata.turndrag(A._configuration, turnrate)
 
     # See rule 6.6
-    if hasproperty(A, "PSSM") and A.speed() >= apspeed.m1speed(A.altitudeband()):
+    if A.hasproperty("PSSM") and A.speed() >= apspeed.m1speed(A.altitudeband()):
         # The aircraft has its maximum the turn rate reduced by one level, but not
         # to less than HT.
         if turnrate == "ET":
@@ -92,7 +92,7 @@ def rawminspeed(A):
 
 def minspeed(A):
 
-    if A._aircraftdata.hasproperty("SPFL"):
+    if A.hasproperty("SPFL"):
         return 0.0
 
     minspeed = rawminspeed(A)
@@ -116,7 +116,7 @@ def maxspeed(A):
             if maxspeed != None:
                 break
 
-    if hasproperty(A, "ABSF"):
+    if A.hasproperty("ABSF"):
         if A._powersetting != "AB":
             maxspeed -= A._aircraftdata._data["ABSFamount"]
 
@@ -170,7 +170,7 @@ def ceiling(A):
 def rollhfp(A):
     # See rule 7.4.
     fp = A._aircraftdata.rollhfp()
-    if hasproperty(A, "LRR"):
+    if A.hasproperty("LRR"):
         fp += 1
     return fp
 
@@ -193,31 +193,6 @@ def climbcapability(A):
             if climbcapability != None:
                 break
     return climbcapability
-
-
-def hasproperty(A, p):
-
-    # See "Aircraft Damage Effects" in the Play Aids.
-    if p == "HPR" and A.damageatleast("L"):
-        return False
-    if p == "HRR" and A.damageatleast("L"):
-        return False
-    if p == "LRR" and A.damageatleast("L"):
-        return True
-    if p == "NRM" and A.damageatleast("H"):
-        return True
-
-    if A._aircraftdata.hasproperty(p):
-        return True
-
-    if p == "LTD" and A._aircraftdata.hasproperty("LTDCL"):
-        return A._configuration == "CL"
-    if p == "HRR" and A._aircraftdata.hasproperty("HRRCL"):
-        return A._configuration == "CL"
-    if p == "LRR" and A._aircraftdata.hasproperty("LRRHS"):
-        return A.speed() >= A._aircraftdata["LRRHSlimit"]
-
-    return False
 
 
 def specialclimbcapability(A):
