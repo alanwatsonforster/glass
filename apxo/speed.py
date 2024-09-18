@@ -719,6 +719,10 @@ def _endaircraftspeed(A):
             A.logcomment("speed will be faded back from %.1f." % A._newspeed)
             A._newspeed = max(A._newspeed - 1, maxspeed)
 
+    if apvariants.withvariant("use house rules"):
+        if A._newspeed >= maxspeed:
+            A._apcarry = 0
+
     A.logend("speed will be %.1f." % A._newspeed)
     if A._newspeed < m1speed(A.altitudeband()):
         A.logcomment("speed will be subsonic.")
