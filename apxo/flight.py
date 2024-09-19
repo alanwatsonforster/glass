@@ -750,6 +750,7 @@ def _startmovenormalflight(A):
         A._maxvfp = maxvfp
         A._minunloadedhfp = minunloadedhfp
         A._maxunloadedhfp = maxunloadedhfp
+        _startflightslope(A)
 
     ########################################
 
@@ -1311,7 +1312,7 @@ def _continuemissileflight(M, moves):
         ["", "", None],
     ]
 
-    _startslope(M)
+    _startflightslope(M)
     _domoves(
         M,
         moves,
@@ -1579,10 +1580,17 @@ def _endnormalflight(A):
 
     ########################################
 
+    def reportflightslope():
+
+        A.logcomment("flight slope is %+d/%d." % _flightslope(A))
+
+    ########################################
+
     if not A._maneuveringdeparture:
         reportfp()
         checkfp()
         checkfreedescent()
+        reportflightslope()
         reportcarry()
         reportgloccycle()
         determinemaxturnrateap()
@@ -2965,16 +2973,16 @@ def _domaneuveringdeparture(E, sense, facingchange):
 ################################################################################
 
 
-def _startslope(E):
+def _startflightslope(E):
 
-    E._startslopealtitude = E.altitude()
-    E._startslopehp = E._hfp
+    E._startflightslopealtitude = E.altitude()
+    E._startflightslopehp = E._hfp
 
 
-def _slope(E):
+def _flightslope(E):
 
-    startaltitude = E._startslopealtitude
-    starthfp = E._startslopehp
+    startaltitude = E._startflightslopealtitude
+    starthfp = E._startflightslopehp
 
     endaltitude = E.altitude()
     endhfp = E._hfp

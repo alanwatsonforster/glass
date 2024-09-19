@@ -123,7 +123,6 @@ class aircraft(apelement.element):
             self._TTrecoveryfp = -1
             self._rollrecoveryfp = -1
             self._trackingfp = 0
-            self._climbslope = 0
             self._lowspeedliftdeviceselected = False
             self._closeformation = []
             self._aircraftdata = aircraftdata

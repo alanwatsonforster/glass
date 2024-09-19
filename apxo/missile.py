@@ -149,7 +149,7 @@ class missile(apelement.element):
 
     def _checktargettracking(self):
 
-        slopenumerator, slopedenominator = apflight._slope(self)
+        slopenumerator, slopedenominator = apflight._flightslope(self)
         self.logcomment("flight slope is %+d/%d." % (slopenumerator, slopedenominator))
 
         horizontalrange = apgeometry.horizontalrange(self, self._target)
