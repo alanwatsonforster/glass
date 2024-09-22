@@ -2656,9 +2656,9 @@ def _dodeclaredisplacementroll(E, sense):
         E._othermaneuversap -= apcapabilities.rolldrag(E, "DR")
         if E._maneuversupersonic:
             if E.hasproperty("PSSM"):
-                E._othermaneuversap -= 2.0
-            elif not E.hasproperty("GSSM"):
                 E._othermaneuversap -= 1.0
+            elif not E.hasproperty("GSSM"):
+                E._othermaneuversap -= 0.5
 
 
 ########################################
@@ -2734,9 +2734,9 @@ def _dodeclarelagroll(E, sense):
         E._othermaneuversap -= apcapabilities.rolldrag(E, "LR")
         if E._maneuversupersonic:
             if E.hasproperty("PSSM"):
-                E._othermaneuversap -= 2.0
-            elif not E.hasproperty("GSSM"):
                 E._othermaneuversap -= 1.0
+            elif not E.hasproperty("GSSM"):
+                E._othermaneuversap -= 0.5
 
 
 ########################################
@@ -2821,9 +2821,9 @@ def _dodeclareverticalroll(E, sense):
             E._othermaneuversap -= apcapabilities.rolldrag(E, "VR")
             if E._maneuversupersonic:
                 if E.hasproperty("PSSM"):
-                    E._othermaneuversap -= 2.0
-                elif not E.hasproperty("GSSM"):
                     E._othermaneuversap -= 1.0
+                elif not E.hasproperty("GSSM"):
+                    E._othermaneuversap -= 0.5
 
 
 ########################################
