@@ -1318,6 +1318,8 @@ def _continuemissileflight(M, moves):
         moves,
         actiondispatchlist,
     )
+    numerator, denominator = _endflightslope(M)
+    M.logcomment("flight slope is %+d/%d = %+.2f." % (numerator, denominator, M.flightslope()))
     M._checktargettracking()
 
 
@@ -1582,7 +1584,8 @@ def _endnormalflight(A):
 
     def reportflightslope():
 
-        A.logcomment("flight slope is %+d/%d." % _flightslope(A))
+        numerator, denominator = _endflightslope(A)
+        A.logcomment("flight slope is %+d/%d = %+.2f." % (numerator, denominator, A.flightslope()))
 
     ########################################
 
@@ -2977,9 +2980,10 @@ def _startflightslope(E):
 
     E._startflightslopealtitude = E.altitude()
     E._startflightslopehp = E._hfp
+    E._setflightslope(None)
 
 
-def _flightslope(E):
+def _endflightslope(E):
 
     startaltitude = E._startflightslopealtitude
     starthfp = E._startflightslopehp
@@ -2989,6 +2993,8 @@ def _flightslope(E):
 
     slopenumerator = endaltitude - startaltitude
     slopedenominator = endhfp - starthfp
+
+    E._setflightslope(slopenumerator / slopedenominator)
 
     return slopenumerator, slopedenominator
 

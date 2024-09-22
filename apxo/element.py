@@ -159,6 +159,7 @@ class element:
         self._altitude = altitude
         self._altitudeband = apaltitude.altitudeband(self.altitude())
         self._altitudecarry = 0
+        self._flightslope = None
 
         self._killed = False
         self._removed = False
@@ -245,6 +246,9 @@ class element:
         if not apspeed.isvalidspeed(speed):
             raise RuntimeError("the speed argument is not valid.")
         self._speed = speed
+
+    def _setflightslope(self, flightslope):
+        self._flightslope = flightslope
 
     ############################################################################
 
@@ -343,6 +347,9 @@ class element:
 
     def maneuver(self):
         return ""
+        
+    def flightslope(self):
+        return self._flightslope
 
     def color(self):
         return self._color
