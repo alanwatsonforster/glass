@@ -1,0 +1,312 @@
+%!TEX program = xelatex
+
+\documentclass{article}
+
+\usepackage[
+  paper=letterpaper,
+  nofoot,nomarginpar,nohead,
+  margin=1cm,
+  tmargin=1.2cm
+]{geometry}
+
+\pagestyle{empty}
+
+\usepackage{unicode-math}
+\setmainfont[
+	BoldFont = texgyreschola-bold.otf,
+	BoldItalicFont = texgyreschola-bolditalic.otf,
+	ItalicFont = texgyreschola-italic.otf
+]{texgyreschola-regular.otf}
+\setmathfont{texgyreschola-math.otf}
+
+\usepackage{tabularx}
+
+\newcolumntype{P}{X}%
+\newcolumntype{L}{>{\raggedright\arraybackslash}X}%
+\newcolumntype{R}{>{\raggedleft\arraybackslash}X}%
+\newcolumntype{C}{>{\centering\arraybackslash}X}%
+\newcolumntype{q}[1]{>{\centering\arraybackslash\hspace{0pt}}p{#1}}
+
+\usepackage{multirow}
+
+\setlength{\extrarowheight}{2pt}
+
+\newlength{\digitwidth}
+\settowidth{\digitwidth}{0}
+\newcommand{\aligninteger}[2]{\makebox[#1\digitwidth][r]{#2}}
+
+\newlength{\wboxwidth}
+\newcommand{\wbox}[3][r]{%
+  \settowidth{\wboxwidth}{#2}%
+  \makebox[\wboxwidth][#1]{#3}%
+}
+
+\newlength{\cellwidth}
+\newcommand{\multicell}[5]{\multicolumn{#2}{#1@{}l@{}#3}{\parbox[b][#4][t]{#2\cellwidth}{#5}}}
+
+\newlength{\blockABCheight}
+\setlength{\blockABCheight}{20em}
+
+\newcommand{\blockAcells}{5}
+\newcommand{\blockBcells}{6}
+\newcommand{\blockCcells}{5}
+\newcommand{\blockDcells}{10}
+\newcommand{\blockEcells}{6}
+
+\newcommand{\blockA}{%
+\typeout{\Aa}%
+\typeout{Block A}%
+\parbox[b][\blockABCheight][t]{\blockAcells\cellwidth}{%
+\begin{tabularx}{\blockAcells\cellwidth}{lCCCc}
+\multicolumn{5}{c}{\Large\bfseries\itshape\parbox[c][3em]{4\cellwidth}{\centering \Aa}}\\
+\multicolumn{5}{l}{\parbox[b][2em][b]{4.5\cellwidth}{{\bfseries Crew:} \Ab}}\\[0.2ex]
+\hline
+\\[-2.85ex]
+\multicolumn{3}{l}{\bfseries Power APs/DPs}&\multicolumn{2}{r}{$\Ac$}\\[0.2ex]
+&CL&1/2&DT&Fuel\\
+\Ada&\Adb&\Adc&\Add&\wbox{00}{\Ade}\\
+\Aea&\Aeb&\Aec&\Aed&\wbox{00}{\Aee}\\
+N&0.0&0.0&0.0&\wbox{00}{\Af}\\
+I&\Aga&\Agb&\Agc&\wbox{00}{0}\\
+SPBR&\Aha&\Ahb&\Ahc&---\\[0.2ex]
+\hline
+\\[-2.85ex]
+\multicolumn{5}{p{4.5\cellwidth}}{
+\footnotesize\raggedright\Ai
+}
+\end{tabularx}}}
+
+\newcommand{\Aa}{F-4D\\Phantom II} % Name
+\newcommand{\Ab}{Pilot \& Radar Officer} % Crew
+\newcommand{\Ac}{\circ\circ} % Engines
+\newcommand{\Ada}{AB} % AB or FT
+\newcommand{\Adb}{3.5} % AB/FT power CL
+\newcommand{\Adc}{2.5} % AB/FT power 1/2
+\newcommand{\Add}{2.0} % AB/FT power DT
+\newcommand{\Ade}{12} % AB/FT fuel
+\newcommand{\Aea}{M} % M or HT
+\newcommand{\Aeb}{2.0} % M/HT power CL
+\newcommand{\Aec}{1.5} % M/HT power 1/2
+\newcommand{\Aed}{1.0} % M/HT power DT
+\newcommand{\Aee}{4} % M/HT fuel
+\newcommand{\Af}{2} % N fuel
+\newcommand{\Aga}{1.0} % I drag CL
+\newcommand{\Agb}{2.0} % I drag 1/2
+\newcommand{\Agc}{2.0} % I drag DT
+\newcommand{\Aha}{1.0} % SPBR drag CL
+\newcommand{\Ahb}{2.0} % SPBR drag 1/2
+\newcommand{\Ahc}{2.0} % SPBR drag DT
+\newcommand{\Ai}{Smoker at military power} % Power comment
+
+\newcommand{\blockB}{%
+\typeout{Block B}%
+\parbox[b][\blockABCheight][t]{\blockBcells\cellwidth}{%
+\vfill
+\begin{tabularx}{\blockBcells\cellwidth}{L@{ }rL@{ }l}
+\multicolumn{4}{c}{\parbox[c][10em]{4\cellwidth}{}}\\
+\hline
+\\[-2.85ex]
+Cruise Speed&\Bb&Restr.\ Arcs&\Bg\\
+Climb Speed&\Bc&Blind Arcs&\Bh\\
+Visibility&\Bd&Internal Fuel&\Bi\\
+Size Modifier&$\Be$&AtA Refuel&\Bj\\
+Vulnerability&$\Bf$&Ejection Seat&\wbox[l]{Early}{\Bk}\\
+\end{tabularx}}}
+
+\newcommand{\Ba}{} % Placeholder for image
+\newcommand{\Bb}{5.5} % Cruise speed
+\newcommand{\Bc}{4.5} % Climb speed
+\newcommand{\Bd}{7} % Visibility
+\newcommand{\Be}{+0} % Size modifier
+\newcommand{\Bf}{+0} % Vulnerability
+\newcommand{\Bg}{---} % Restricted arcs
+\newcommand{\Bh}{30L} % Blind arcs
+\newcommand{\Bi}{640} % Internal fuel
+\newcommand{\Bj}{Yes} % AtA Refueling
+\newcommand{\Bk}{Std} % Ejection seat
+
+\newcommand{\blockC}{%
+\typeout{Block C}%
+\parbox[b][\blockABCheight][t]{5\cellwidth}{%
+\begin{tabularx}{\blockCcells\cellwidth}{lCCC}
+\multicolumn{4}{c}{\Large\bfseries\itshape\parbox[c][2em]{4\cellwidth}{\centering Air Power}}\\
+\hline
+\\[-2.85ex]
+\multicolumn{3}{l}{\bfseries Maneuver DPs}&\\[0.2ex]
+\multicolumn{3}{l}{LR/DR}&\Ca\\
+\multicolumn{3}{l}{VR}&\Cb\\[0.2ex]
+\hline
+\\[-2.85ex]
+\bfseries Turn DPs&CL&1/2&DT\\[0.2ex]
+TT&\Cca&\Ccb&\Ccc\\
+HT&\Cda&\Cdb&\Cdc\\
+BT&\Cea&\Ceb&\Cec\\
+ET&\Cfa&\Cfb&\Cfc\\[0.2ex]
+\hline
+\\[-2.85ex]
+\multicolumn{4}{l}{
+\begin{minipage}{4\cellwidth}
+\vspace{0.2ex}
+\Ce
+\end{minipage}}
+\end{tabularx}}}
+
+\newcommand{\Ca}{1.0} % LR/VR drag
+\newcommand{\Cb}{0.0} % VR drag
+\newcommand{\Cca}{1.0} % TT drag CL
+\newcommand{\Ccb}{1.0} % TT drag 1/2
+\newcommand{\Ccc}{2.0} % TT drag DT
+\newcommand{\Cda}{2.0} % HT drag CL
+\newcommand{\Cdb}{3.0} % HT drag 1/2
+\newcommand{\Cdc}{3.0} % HT drag DT
+\newcommand{\Cea}{4.0} % BT drag CL
+\newcommand{\Ceb}{4.0} % BT drag 1/2
+\newcommand{\Cec}{4.0} % BT drag DT
+\newcommand{\Cfa}{5.0} % ET drag CL
+\newcommand{\Cfb}{---} % ET drag 1/2
+\newcommand{\Cfc}{---} % ET drag DT
+\newcommand{\Ce}{} % Maneuver or turn comment
+
+\newcommand{\blockD}{%
+\typeout{Block D}%
+\begin{tabularx}{\blockDcells\cellwidth}{lc|C|C|C|c}
+\\[-2.85ex]
+\multicolumn{6}{c}{\bfseries Speeds and Ceilings}\\[0.2ex]
+\hline
+\\[-2.85ex]
+\multicolumn{1}{c}{Alt.}&Conf.&\multicolumn{1}{c|}{CL}&\multicolumn{1}{c|}{1/2}&\multicolumn{1}{c|}{DT}&Dive\\
+Band&Ceil.&\multicolumn{1}{c|}{\Daa}&\multicolumn{1}{c|}{\Dab}&\multicolumn{1}{c|}{\Dac}&Speed\\[0.2ex]
+\hline
+\\[-2.85ex]
+~EH+&\multicolumn{1}{l|}{46+}&\Dca&\Dcb&\Dcc&\wbox{\Db}{\Dcd}\\
+~VH&\phantom{}36--45\phantom{}&\Dda&\Ddb&\Ddc&\wbox{\Db}{\Ddd}\\
+~HI&\phantom{}26--35\phantom{}&\Dea&\Deb&\Dec&\wbox{\Db}{\Ded}\\
+~MH&\phantom{}17--25\phantom{}&\Dfa&\Dfb&\Dfc&\wbox{\Db}{\Dfd}\\
+~ML&\phantom{0}8--16\phantom{}&\Dga&\Dgb&\Dgc&\wbox{\Db}{\Dgd}\\
+~LO&\phantom{0}0--7\phantom{0}&\Dha&\Dhb&\Dhc&\wbox{\Db}{\Dhd}\\
+\hline
+\end{tabularx}}
+
+\newcommand{\blockDminmax}[2]{\wbox{\Db}{#1} -- \wbox{\Db}{#2}}
+
+\newcommand{\Daa}{62} % Ceiling CL
+\newcommand{\Dab}{52} % Ceiling 1/2
+\newcommand{\Dac}{40} % Ceiling DT
+\newcommand{\Db}{00.0} % Speed width template
+\newcommand{\Dca}{\blockDminmax{4.5}{13.0}} % EH speeds CL
+\newcommand{\Dcb}{\blockDminmax{5.0}{10.5}} % EH speeds 1/2
+\newcommand{\Dcc}{---} % EH speeds DT
+\newcommand{\Dcd}{14.0} % EH dive speed
+\newcommand{\Dda}{\blockDminmax{3.5}{13.5}} % VH speeds CL
+\newcommand{\Ddb}{\blockDminmax{4.0}{11.0}} % VH speeds 1/2
+\newcommand{\Ddc}{\blockDminmax{4.5}{ 8.5}} % VH speeds DT
+\newcommand{\Ddd}{14.0} % VH dive speed
+\newcommand{\Dea}{\blockDminmax{3.0}{12.0}} % HI speeds CL
+\newcommand{\Deb}{\blockDminmax{3.0}{10.0}} % HI speeds 1/2
+\newcommand{\Dec}{\blockDminmax{3.5}{ 8.0}} % HI speeds DT
+\newcommand{\Ded}{13.0} % HI dive speed
+\newcommand{\Dfa}{\blockDminmax{2.5}{10.0}} % MH speeds CL
+\newcommand{\Dfb}{\blockDminmax{3.0}{ 9.0}} % MH speeds 1/2
+\newcommand{\Dfc}{\blockDminmax{3.5}{ 7.0}} % MH speeds DT
+\newcommand{\Dfd}{12.0} % MH dive speed
+\newcommand{\Dga}{\blockDminmax{2.0}{ 9.0}} % ML speeds CL
+\newcommand{\Dgb}{\blockDminmax{2.5}{ 8.0}} % ML speeds 1/2
+\newcommand{\Dgc}{\blockDminmax{3.0}{ 6.5}} % ML speeds DT
+\newcommand{\Dgd}{10.0} % ML dive speed
+\newcommand{\Dha}{\blockDminmax{2.0}{ 8.0}} % LO speeds CL
+\newcommand{\Dhb}{\blockDminmax{2.0}{ 7.0}} % LO speeds 1/2
+\newcommand{\Dhc}{\blockDminmax{3.0}{ 6.0}} % LO speeds DT
+\newcommand{\Dhd}{ 8.5} % LO dive speed
+
+\newcommand{\blockE}{%
+\typeout{Block E}%
+\begin{tabularx}{\blockEcells\cellwidth}{C@{ }C|C@{ }C|C@{ }C|l}
+\\[-2.85ex]
+\multicolumn{7}{c}{\bfseries Climb Capabilities}\\[0.2ex]
+\hline
+\\[-2.85ex]
+\multicolumn{2}{c|}{CL}&\multicolumn{2}{c|}{1/2}&\multicolumn{2}{c|}{DT}&\multicolumn{1}{c}{Alt.}\\
+AB&Oth&AB&Oth&AB&Oth&\multicolumn{1}{c}{Band}\\[0.2ex]
+\hline
+\\[-2.85ex]
+\Eaa&\Eab&\Eac&\Ead&\Eae&\Eaf&~EH+\\
+\Eba&\Ebb&\Ebc&\Ebd&\Ebe&\Ebf&~VH\\
+\Eca&\Ecb&\Ecc&\Ecd&\Ece&\Ecf&~HI\\
+\Eda&\Edb&\Edc&\Edd&\Ede&\Edf&~MH\\
+\Eea&\Eeb&\Eec&\Eed&\Eee&\Eef&~ML\\
+\Efa&\Efb&\Efc&\Efd&\Efe&\Eff&~LO\\[0.2ex]
+\hline
+\end{tabularx}}
+
+
+\newcommand{\Eaa}{1.0}
+\newcommand{\Eab}{0.5}
+\newcommand{\Eac}{1.0}
+\newcommand{\Ead}{0.5}
+\newcommand{\Eae}{---}
+\newcommand{\Eaf}{---}
+\newcommand{\Eba}{2.0}
+\newcommand{\Ebb}{1.0}
+\newcommand{\Ebc}{1.0}
+\newcommand{\Ebd}{0.5}
+\newcommand{\Ebe}{1.0}
+\newcommand{\Ebf}{0.5}
+\newcommand{\Eca}{3.0}
+\newcommand{\Ecb}{1.0}
+\newcommand{\Ecc}{2.0}
+\newcommand{\Ecd}{1.0}
+\newcommand{\Ece}{1.0}
+\newcommand{\Ecf}{0.5}
+\newcommand{\Eda}{4.0}
+\newcommand{\Edb}{1.5}
+\newcommand{\Edc}{3.0}
+\newcommand{\Edd}{1.0}
+\newcommand{\Ede}{1.0}
+\newcommand{\Edf}{0.5}
+\newcommand{\Eea}{5.0}
+\newcommand{\Eeb}{2.0}
+\newcommand{\Eec}{3.0}
+\newcommand{\Eed}{1.0}
+\newcommand{\Eee}{2.0}
+\newcommand{\Eef}{1.0}
+\newcommand{\Efa}{6.0}
+\newcommand{\Efb}{2.0}
+\newcommand{\Efc}{4.0}
+\newcommand{\Efd}{1.0}
+\newcommand{\Efe}{2.0}
+\newcommand{\Eff}{1.0}
+
+\newcommand{\blockABCDE}{%
+\centering
+\begin{tabular}{*{16}{@{}p{\cellwidth}}@{}}
+\hline
+%
+\multicolumn{\blockAcells}{|@{}c@{}|}{\blockA}&
+\multicolumn{\blockBcells}{@{}c@{}|}{\blockB}&
+\multicolumn{\blockCcells}{@{}c@{}|}{\blockC}\\
+\hline
+\multicolumn{\blockDcells}{|@{}c@{}|}{\blockD}&
+\multicolumn{\blockEcells}{@{}c@{}|}{\blockE}\\
+&&&&&&&&&&&&&&&\\
+%\multicolumn{1}{|c}{1}&\multicolumn{1}{|c}{2}&\multicolumn{1}{|c}{3}&\multicolumn{1}{|c}{4}&
+%\multicolumn{1}{|c}{5}&\multicolumn{1}{|c}{6}&\multicolumn{1}{|c}{7}&\multicolumn{1}{|c}{8}&
+%\multicolumn{1}{|c}{9}&\multicolumn{1}{|c}{10}&\multicolumn{1}{|c}{11}&\multicolumn{1}{|c}{12}&
+%\multicolumn{1}{|c}{13}&\multicolumn{1}{|c}{14}&\multicolumn{1}{|c}{15}&\multicolumn{1}{|c|}{16}\\
+\end{tabular}}
+
+\newcommand{\adc}{
+  \blockABCDE
+  \newpage
+}
+
+\begin{document}
+
+\setlength{\cellwidth}{0.06\linewidth}
+
+\centering
+
+\blockABCDE
+
+\include{generated.tex}
+
+\end{document}
