@@ -1,0 +1,53 @@
+{
+  // The TSOH ADC states that this it is for a Mig-21F. However, it
+  // appears to be for the F-13 version, as it only has one gun, had
+  // provision for the AA-2, and has the NATO reporting name Fishbed-C.
+  "name": "MiG-21F-13",
+  "origin": "TSOH",
+  "base": "MiG-21MF",
+  "powertable": {
+    "AB"  : [ 3.0, 3.0, 2.5, 5.0 ],
+    "M"   : [ 2.0, 2.0, 1.5, 2.0 ],
+    "N"   : [ 0.0, 0.0, 0.0, 1.0 ],
+    "I"   : [ 0.5, 0.5, 0.5, 0.0 ],
+    "SPBR": [ 0.5, 0.5, 1.0 ]
+  },
+  "internalfuel": 200,
+  "turndragtable": {
+    "TT": [ 1.0, 1.0, 1.0 ],
+    "HT": [ 2.0, 2.0, 2.0 ],
+    "BT": [ 3.0, 4.0, 4.0 ],
+    "ET": [ 4.0, "-", "-" ]
+  },
+  "ceilingtable": [ 58, 56, 54 ],
+  "speedtable": {
+    "EH": [ [ 3.5, 11.0 ], [ 3.5, 10.0 ], [ 4.0,  9.0 ], 12.0 ],
+    "VH": [ [ 3.0, 12.0 ], [ 3.0, 11.0 ], [ 3.5, 10.0 ], 12.0 ],
+    "HI": [ [ 2.5, 10.0 ], [ 3.0,  9.0 ], [ 3.0,  8.0 ], 11.0 ],
+    "MH": [ [ 2.0,  9.0 ], [ 2.5,  8.0 ], [ 2.5,  7.5 ], 10.0 ],
+    "ML": [ [ 2.0,  7.5 ], [ 2.0,  7.5 ], [ 2.5,  7.0 ],  8.0 ],
+    "LO": [ [ 1.5,  6.5 ], [ 2.0,  6.5 ], [ 2.0,  6.5 ],  7.0 ]
+  },
+  "climbcapabilitytable": {
+    "EH": [ [ 1.0, 0.5 ], [ 1.0, 0.5 ], [ 1.0, 0.5 ] ],
+    "VH": [ [ 1.0, 0.5 ], [ 1.0, 0.5 ], [ 1.0, 0.5 ] ],
+    "HI": [ [ 2.0, 1.0 ], [ 2.0, 0.5 ], [ 1.5, 0.5 ] ],
+    "MH": [ [ 2.0, 1.0 ], [ 2.0, 1.0 ], [ 1.5, 0.5 ] ],
+    "ML": [ [ 3.0, 1.5 ], [ 3.0, 1.0 ], [ 2.0, 1.0 ] ],
+    "LO": [ [ 4.0, 2.0 ], [ 3.0, 1.0 ], [ 2.0, 1.0 ] ]
+  },
+  "storeslimits": [ 2, 4, 2200 ],
+  "gun": "One 30 mm NR-30",
+  "gunatatohitrolls": [ 3, 2, 1 ],
+  "gunatadamagerating": 3,
+  "gunammunition": 2.0,
+  "gunsightmodifiers": { "TT": 0, "HT": 2, "BT": 3 },
+  "ataradarranging": "RE",
+  "atalockon": 5,
+  "properties": [ ],
+  "notes": [
+    "NATO reporting name is Fishbed-C.",
+    "Thick front canopy: +1 to sighting rolls for targets in the 180+ arcs.",
+    "May use AA-2 IRMs."
+  ]
+}
