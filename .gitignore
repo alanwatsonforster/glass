@@ -163,3 +163,7 @@ cython_debug/
 *.worksheet
 apxo.pickle
 Sandbox.ipynb
+aircraftdatacards/generated.aux
+aircraftdatacards/generated.tex
+aircraftdatacards/main.aux
+aircraftdatacards/main.pdf
