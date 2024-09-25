@@ -53,6 +53,10 @@ class aircraftdata:
             basedata.update(data)
             data = basedata
         self._data = data
+        
+        
+    def name(self):
+        return self._data["name"]
 
     def crew(self):
         return self._data["crew"]
