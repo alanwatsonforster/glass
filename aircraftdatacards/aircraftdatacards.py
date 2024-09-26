@@ -197,6 +197,80 @@ def blockC(data):
         )
     )
 
+def blockD(data):
+
+    def speeds(configuration, altitudeband):
+      if data.minspeed(configuration, altitudeband) is None:
+        return "---"
+      else:
+        return r"\blockDminmax{%.1f}{%.1f}" % (
+            data.minspeed(configuration, altitudeband),
+            data.maxspeed(configuration, altitudeband),
+        )
+        
+    def divespeed(altitudeband):
+      if data.maxdivespeed(altitudeband) is None:
+        return "---"
+      else:
+        return r"%.1f" % data.maxdivespeed(altitudeband)
+
+    writelatex(
+        r"\renewcommand{\Daa}{%d}\renewcommand{\Dab}{%d}\renewcommand{\Dac}{%d}"
+        % (
+            data.ceiling("CL"),
+            data.ceiling("1/2"),
+            data.ceiling("DT"),
+        )
+    )
+    writelatex(
+        r"\renewcommand{\Dca}{%s}\renewcommand{\Dcb}{%s}\renewcommand{\Dcc}{%s}\renewcommand{\Dcd}{%s}" % (
+            speeds("CL", "EH"),
+            speeds("1/2", "EH"),
+            speeds("DT", "EH"),
+            divespeed("EH"),
+        )
+    )
+    writelatex(
+        r"\renewcommand{\Dda}{%s}\renewcommand{\Ddb}{%s}\renewcommand{\Ddc}{%s}\renewcommand{\Ddd}{%s}" % (
+            speeds("CL", "VH"),
+            speeds("1/2", "VH"),
+            speeds("DT", "VH"),
+            divespeed("VH"),
+        )
+    )
+    writelatex(
+        r"\renewcommand{\Dea}{%s}\renewcommand{\Deb}{%s}\renewcommand{\Dec}{%s}\renewcommand{\Ded}{%s}" % (
+            speeds("CL", "HI"),
+            speeds("1/2", "HI"),
+            speeds("DT", "HI"),
+            divespeed("HI"),
+        )
+    )
+    writelatex(
+        r"\renewcommand{\Dfa}{%s}\renewcommand{\Dfb}{%s}\renewcommand{\Dfc}{%s}\renewcommand{\Dfd}{%s}" % (
+            speeds("CL", "MH"),
+            speeds("1/2", "MH"),
+            speeds("DT", "MH"),
+            divespeed("MH"),
+        )
+    )
+    writelatex(
+        r"\renewcommand{\Dga}{%s}\renewcommand{\Dgb}{%s}\renewcommand{\Dgc}{%s}\renewcommand{\Dgd}{%s}" % (
+            speeds("CL", "ML"),
+            speeds("1/2", "ML"),
+            speeds("DT", "ML"),
+            divespeed("ML"),
+        )
+    )
+    writelatex(
+        r"\renewcommand{\Dha}{%s}\renewcommand{\Dhb}{%s}\renewcommand{\Dhc}{%s}\renewcommand{\Dhd}{%s}" % (
+            speeds("CL", "LO"),
+            speeds("1/2", "LO"),
+            speeds("DT", "LO"),
+            divespeed("LO"),
+        )
+    )
+    
 
 def makeadc(name):
 
@@ -208,6 +282,7 @@ def makeadc(name):
     blockA(data)
     blockB(data)
     blockC(data)
+    blockD(data)
 
     writelatex(r"\adc")
 
