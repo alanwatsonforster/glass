@@ -37,7 +37,7 @@ def blockA(data):
     writelatex(r"\renewcommand{\Aa}{%s}" % name)
 
     if len(data.crew()) > 6:
-        writelatex(r"\renewcommand{\Aba}{\scriptsize}")
+        writelatex(r"\renewcommand{\Aba}{\tiny}")
     else:
         writelatex(r"\renewcommand{\Aba}{\small}")
     writelatex(r"\renewcommand{\Abb}{%s}" % crew())
