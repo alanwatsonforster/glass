@@ -1,5 +1,5 @@
 {
-  "name": "F7U-3M",
+  "name": "F7U-3M Cutlass",
   "base": "F7U-3",
   "storeslimits": [ 2, 8, 5500 ]
 }

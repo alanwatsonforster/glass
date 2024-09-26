@@ -1,5 +1,5 @@
 {
-  "name": "B-52G",
+  "name": "B-52G Stratofortress",
   "base": "B-52D",
   "blindarcs": "90-",
   "storeslimits": [ 40, 70, 64000 ]

@@ -1,5 +1,5 @@
 {
-  "name": "MiG-17PF",
+  "name": "MiG-17PF Fresco-D",
   "base": "MiG-17F",
   "gun": "Three 23 mm",
   "gunatatohitrolls": [ 5, 3, 2 ],
