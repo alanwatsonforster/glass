@@ -231,6 +231,11 @@ def blockC(data):
             s += r" use higher drag and reduce minimum speeds by 0.5."
         else:
             s += r" use higher drag."
+    if data.hasproperty("NRM"):
+        s += "No rolling maneuvers allowed."
+    if data.hasproperty("OVR"):
+        s += "Only one vertical roll allowed per game turn."
+
     writelatex(
         r"\renewcommand{\Cg}{%s}" % s
     )
