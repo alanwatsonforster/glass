@@ -1,5 +1,6 @@
 #!/bin/env python3
 
+import re
 import sys
 
 sys.path.append("..")
@@ -27,12 +28,20 @@ def blockA(data):
         else:
             return ", ".join(data.crew()[0:-1]) + r", \& " + data.crew()[-1]
 
-    writelatex(r"\renewcommand{\Aa}{%s}" % data.name())
+    name = data.name()
+    name = re.sub(
+        r"\s+([A-Z][a-z]+([-\s][A-Z][a-z]*)?(\s+II)?(\s\(([A-Z][a-z]+)([\s-][A-Z][a-z]+)*\))?)$",
+        r"\\\\\1",
+        name,
+    )
+
+    writelatex(r"\renewcommand{\Aa}{%s}" % name)
+    print("%r" % name)
 
     if len(data.crew()) > 6:
         writelatex(r"\renewcommand{\Aba}{\scriptsize}")
     else:
-        writelatex(r"\renewcommand{\Aba}{\small}")        
+        writelatex(r"\renewcommand{\Aba}{\small}")
     writelatex(r"\renewcommand{\Abb}{%s}" % crew())
 
     if data.power("CL", "M") is None:
@@ -108,18 +117,30 @@ def blockA(data):
     s = ""
     if data.hasproperty("SMP"):
         s += "Smoker in military power. "
-    if data.powerfade(100, 100) is not None:
+    if data.powerfade(100, 0) is not None:
         lastpowerfade = 0.0
         speed = 0.0
         while speed < 100:
             powerfade = data.powerfade(speed, 0)
             if powerfade != lastpowerfade:
-                s += r"Power reduced by %.1f when speed $\ge$ %.1f.\\" % (
-                    powerfade,
+                s += r"If speed $\ge$ %.1f, reduce power by %.1f\\" % (
                     speed,
+                    powerfade,
                 )
             lastpowerfade = powerfade
             speed += 0.5
+    if data.powerfade(0, 100) is not None:
+        lastpowerfade = 0.0
+        altitude = 0
+        while altitude < 100:
+            powerfade = data.powerfade(0, altitude)
+            if powerfade != lastpowerfade:
+                s += r"If altitude $\ge$ %d, reduce power by %.1f.\\" % (
+                    altitude,
+                    powerfade,
+                )
+            lastpowerfade = powerfade
+            altitude += 1
     writelatex(
         r"\renewcommand{\Ai}{%s}" % s,
     )
@@ -178,7 +199,9 @@ def blockC(data):
         if data.lowspeedliftdevicename() is None:
             return "%.1f" % drag
         else:
-            lowspeedliftdevicedrag = data.turndrag(configuration, turnrate, lowspeedliftdevice=True)
+            lowspeedliftdevicedrag = data.turndrag(
+                configuration, turnrate, lowspeedliftdevice=True
+            )
             return "%.1f/%.1f" % (drag, lowspeedliftdevicedrag)
 
     writelatex(r"\renewcommand{\Ca}{%s}" % maneuverdrag("DR"))
@@ -216,17 +239,20 @@ def blockC(data):
             turndrag("DT", "ET"),
         )
     )
-    
+
     s = ""
     if data.lowspeedliftdevicename() is not None:
         if data.lowspeedliftdeviceselectable():
-            s += r"Selectable %s. When selected and speed $\le$ " % data.lowspeedliftdevicename()
+            s += (
+                r"Selectable %s. When selected and speed $\le$ "
+                % data.lowspeedliftdevicename()
+            )
         else:
             s += r"Automatic %s. When speed $\le$  " % data.lowspeedliftdevicename()
         if data.lowspeedliftdevicelimittype() == "absolute":
-            s += r"%.1f," % data.lowspeedliftdevicelimit() 
+            s += r"%.1f," % data.lowspeedliftdevicelimit()
         else:
-            s += r"minimum + %.1f," % data.lowspeedliftdevicelimit() 
+            s += r"minimum + %.1f," % data.lowspeedliftdevicelimit()
         if data.lowspeedliftdeviceselectable():
             s += r" use higher drag and reduce minimum speeds by 0.5."
         else:
@@ -236,10 +262,7 @@ def blockC(data):
     if data.hasproperty("OVR"):
         s += "Only one vertical roll allowed per game turn."
 
-    writelatex(
-        r"\renewcommand{\Cg}{%s}" % s
-    )
-        
+    writelatex(r"\renewcommand{\Cg}{%s}" % s)
 
 
 def blockD(data):
@@ -352,9 +375,7 @@ def blockD(data):
 def blockE(data):
 
     def climbcapability(configuration, altitudeband, powersetting):
-        value = data.climbcapability(
-            configuration, altitudeband, powersetting
-        )
+        value = data.climbcapability(configuration, altitudeband, powersetting)
         if value is None:
             return "---"
         else:
