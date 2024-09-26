@@ -132,7 +132,7 @@ Vulnerability&$\Bf$&Ejection Seat&\wbox[l]{Early}{\Bk}\\
 \newcommand{\blockC}{%
 \typeout{Block C}%
 \parbox[b][\blockABCheight][t]{5\cellwidth}{%
-\begin{tabularx}{\blockCcells\cellwidth}{lCCC}
+\begin{tabularx}{\blockCcells\cellwidth}{LCCC}
 \multicolumn{4}{c}{\Large\bfseries\itshape\parbox[c][2em]{4\cellwidth}{\centering Air Power}}\\
 \hline
 \\[-2.85ex]
@@ -141,18 +141,17 @@ Vulnerability&$\Bf$&Ejection Seat&\wbox[l]{Early}{\Bk}\\
 \multicolumn{3}{l}{VR}&\Cb\\[0.2ex]
 \hline
 \\[-2.85ex]
-\bfseries Turn DPs&CL&1/2&DT\\[0.2ex]
+\multicolumn{3}{l}{\bfseries Turn DPs}&\\[0.2ex]
+&CL&1/2&DT\\[0.2ex]
 TT&\Cca&\Ccb&\Ccc\\
 HT&\Cda&\Cdb&\Cdc\\
 BT&\Cea&\Ceb&\Cec\\
 ET&\Cfa&\Cfb&\Cfc\\[0.2ex]
 \hline
 \\[-2.85ex]
-\multicolumn{4}{l}{
-\begin{minipage}{4\cellwidth}
-\vspace{0.2ex}
-\Ce
-\end{minipage}}
+\multicolumn{4}{p{4.5\cellwidth}}{
+\footnotesize\raggedright\Cg
+}
 \end{tabularx}}}
 
 \newcommand{\Ca}{1.0} % LR/VR drag
@@ -169,7 +168,7 @@ ET&\Cfa&\Cfb&\Cfc\\[0.2ex]
 \newcommand{\Cfa}{5.0} % ET drag CL
 \newcommand{\Cfb}{---} % ET drag 1/2
 \newcommand{\Cfc}{---} % ET drag DT
-\newcommand{\Ce}{} % Maneuver or turn comment
+\newcommand{\Cg}{} % Maneuver or turn comment
 
 \newcommand{\blockD}{%
 \typeout{Block D}%

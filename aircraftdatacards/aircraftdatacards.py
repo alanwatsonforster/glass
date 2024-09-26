@@ -164,47 +164,77 @@ def blockB(data):
 
 def blockC(data):
 
-    def drag(drag):
-        if drag is None:
+    def maneuverdrag(maneuvertype):
+        drag = data.rolldrag(maneuvertype)
+        if drag == None:
             return "---"
         else:
             return "%.1f" % drag
 
-    writelatex(r"\renewcommand{\Ca}{%s}" % drag(data.rolldrag("DR")))
-    writelatex(r"\renewcommand{\Cb}{%s}" % drag(data.rolldrag("VR")))
+    def turndrag(configuration, turnrate):
+        drag = data.turndrag(configuration, turnrate)
+        if drag is None:
+            return "---"
+        if data.lowspeedliftdevicename() is None:
+            return "%.1f" % drag
+        else:
+            lowspeedliftdevicedrag = data.turndrag(configuration, turnrate, lowspeedliftdevice=True)
+            return "%.1f/%.1f" % (drag, lowspeedliftdevicedrag)
+
+    writelatex(r"\renewcommand{\Ca}{%s}" % maneuverdrag("DR"))
+    writelatex(r"\renewcommand{\Cb}{%s}" % maneuverdrag("VR"))
 
     writelatex(
         r"\renewcommand{\Cca}{%s}\renewcommand{\Ccb}{%s}\renewcommand{\Ccc}{%s}"
         % (
-            drag(data.turndrag("CL", "TT")),
-            drag(data.turndrag("1/2", "TT")),
-            drag(data.turndrag("DT", "TT")),
+            turndrag("CL", "TT"),
+            turndrag("1/2", "TT"),
+            turndrag("DT", "TT"),
         )
     )
     writelatex(
         r"\renewcommand{\Cda}{%s}\renewcommand{\Cdb}{%s}\renewcommand{\Cdc}{%s}"
         % (
-            drag(data.turndrag("CL", "HT")),
-            drag(data.turndrag("1/2", "HT")),
-            drag(data.turndrag("DT", "HT")),
+            turndrag("CL", "HT"),
+            turndrag("1/2", "HT"),
+            turndrag("DT", "HT"),
         )
     )
     writelatex(
         r"\renewcommand{\Cea}{%s}\renewcommand{\Ceb}{%s}\renewcommand{\Cec}{%s}"
         % (
-            drag(data.turndrag("CL", "BT")),
-            drag(data.turndrag("1/2", "BT")),
-            drag(data.turndrag("DT", "BT")),
+            turndrag("CL", "BT"),
+            turndrag("1/2", "BT"),
+            turndrag("DT", "BT"),
         )
     )
     writelatex(
         r"\renewcommand{\Cfa}{%s}\renewcommand{\Cfb}{%s}\renewcommand{\Cfc}{%s}"
         % (
-            drag(data.turndrag("CL", "ET")),
-            drag(data.turndrag("1/2", "ET")),
-            drag(data.turndrag("DT", "ET")),
+            turndrag("CL", "ET"),
+            turndrag("1/2", "ET"),
+            turndrag("DT", "ET"),
         )
     )
+    
+    s = ""
+    if data.lowspeedliftdevicename() is not None:
+        if data.lowspeedliftdeviceselectable():
+            s += r"Selectable %s. When selected and speed $\le$ " % data.lowspeedliftdevicename()
+        else:
+            s += r"Automatic %s. When speed $\le$  " % data.lowspeedliftdevicename()
+        if data.lowspeedliftdevicelimittype() == "absolute":
+            s += r"%.1f," % data.lowspeedliftdevicelimit() 
+        else:
+            s += r"minimum + %.1f," % data.lowspeedliftdevicelimit() 
+        if data.lowspeedliftdeviceselectable():
+            s += r" use higher drag and reduce minimum speeds by 0.5."
+        else:
+            s += r" use higher drag."
+    writelatex(
+        r"\renewcommand{\Cg}{%s}" % s
+    )
+        
 
 
 def blockD(data):
