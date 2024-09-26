@@ -41,7 +41,7 @@ def blockA(data):
         if data.fuelrate(setting) is None:
             return "---"
         else:
-            return "%.0f" % data.fuelrate(setting)
+            return "%.1f" % data.fuelrate(setting)
 
     def speedbrake(setting):
         if data.speedbrake(setting) is None:
@@ -165,7 +165,7 @@ def blockC(data):
     writelatex(r"\renewcommand{\Cb}{%s}" % drag(data.rolldrag("VR")))
 
     writelatex(
-        r"\renewcommand{\Cca}{%s}\renewcommand{\Ccb}{%s}\renewcommand{\Cca}{%s}"
+        r"\renewcommand{\Cca}{%s}\renewcommand{\Ccb}{%s}\renewcommand{\Ccc}{%s}"
         % (
             drag(data.turndrag("CL", "TT")),
             drag(data.turndrag("1/2", "TT")),
@@ -173,7 +173,7 @@ def blockC(data):
         )
     )
     writelatex(
-        r"\renewcommand{\Cda}{%s}\renewcommand{\Cdb}{%s}\renewcommand{\Cda}{%s}"
+        r"\renewcommand{\Cda}{%s}\renewcommand{\Cdb}{%s}\renewcommand{\Cdc}{%s}"
         % (
             drag(data.turndrag("CL", "HT")),
             drag(data.turndrag("1/2", "HT")),
@@ -181,7 +181,7 @@ def blockC(data):
         )
     )
     writelatex(
-        r"\renewcommand{\Cea}{%s}\renewcommand{\Ceb}{%s}\renewcommand{\Cea}{%s}"
+        r"\renewcommand{\Cea}{%s}\renewcommand{\Ceb}{%s}\renewcommand{\Cec}{%s}"
         % (
             drag(data.turndrag("CL", "BT")),
             drag(data.turndrag("1/2", "BT")),
@@ -189,7 +189,7 @@ def blockC(data):
         )
     )
     writelatex(
-        r"\renewcommand{\Cfa}{%s}\renewcommand{\Cfb}{%s}\renewcommand{\Cfa}{%s}"
+        r"\renewcommand{\Cfa}{%s}\renewcommand{\Cfb}{%s}\renewcommand{\Cfc}{%s}"
         % (
             drag(data.turndrag("CL", "ET")),
             drag(data.turndrag("1/2", "ET")),
