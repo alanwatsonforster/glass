@@ -34,9 +34,7 @@ def blockA(data):
         r"\\\\\1",
         name,
     )
-
     writelatex(r"\renewcommand{\Aa}{%s}" % name)
-    print("%r" % name)
 
     if len(data.crew()) > 6:
         writelatex(r"\renewcommand{\Aba}{\scriptsize}")
@@ -123,7 +121,7 @@ def blockA(data):
         while speed < 100:
             powerfade = data.powerfade(speed, 0)
             if powerfade != lastpowerfade:
-                s += r"If speed $\ge$ %.1f, reduce power by %.1f\\" % (
+                s += r"If speed $\ge$ %.1f, reduce power by %.1f.\\" % (
                     speed,
                     powerfade,
                 )
@@ -244,11 +242,11 @@ def blockC(data):
     if data.lowspeedliftdevicename() is not None:
         if data.lowspeedliftdeviceselectable():
             s += (
-                r"Selectable %s. When selected and speed $\le$ "
+                r"Selectable %s. If selected and speed $\le$ "
                 % data.lowspeedliftdevicename()
             )
         else:
-            s += r"Automatic %s. When speed $\le$  " % data.lowspeedliftdevicename()
+            s += r"Automatic %s. If speed $\le$  " % data.lowspeedliftdevicename()
         if data.lowspeedliftdevicelimittype() == "absolute":
             s += r"%.1f," % data.lowspeedliftdevicelimit()
         else:
