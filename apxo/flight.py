@@ -1319,7 +1319,9 @@ def _continuemissileflight(M, moves):
         actiondispatchlist,
     )
     numerator, denominator = _endflightslope(M)
-    M.logcomment("flight slope is %+d/%d = %+.2f." % (numerator, denominator, M.flightslope()))
+    M.logcomment(
+        "flight slope is %+d/%d = %+.2f." % (numerator, denominator, M.flightslope())
+    )
     M._checktargettracking()
 
 
@@ -1585,7 +1587,10 @@ def _endnormalflight(A):
     def reportflightslope():
 
         numerator, denominator = _endflightslope(A)
-        A.logcomment("flight slope is %+d/%d = %+.2f." % (numerator, denominator, A.flightslope()))
+        A.logcomment(
+            "flight slope is %+d/%d = %+.2f."
+            % (numerator, denominator, A.flightslope())
+        )
 
     ########################################
 

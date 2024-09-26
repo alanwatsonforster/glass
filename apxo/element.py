@@ -347,7 +347,7 @@ class element:
 
     def maneuver(self):
         return ""
-        
+
     def flightslope(self):
         return self._flightslope
 
