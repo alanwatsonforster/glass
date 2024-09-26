@@ -3,6 +3,7 @@ _knownvariants = [
     "disallow ENE/ESE/WSW/WNW",
     "prefer NE/SE/SW/NW",
     "disallow HT/FT",
+    "use first-edition ADCs",
     "use version 2.4 rules",
     "draw counters",
     "require limited radar arc for SSGT",

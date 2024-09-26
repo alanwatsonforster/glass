@@ -53,8 +53,7 @@ class aircraftdata:
             basedata.update(data)
             data = basedata
         self._data = data
-        
-        
+
     def name(self):
         return self._data["name"]
 
@@ -67,12 +66,17 @@ class aircraftdata:
         if not powersetting in self._data["powertable"]:
             return None
         elif powersetting == "I":
-            return (
-                self._data["powertable"][powersetting][
+            if apvariants.withvariant("use first-edition ADCs"):
+                return self._data["powertable"][powersetting][
                     _configurationindex(configuration)
                 ]
-                * 2
-            )
+            else:
+                return (
+                    self._data["powertable"][powersetting][
+                        _configurationindex(configuration)
+                    ]
+                    * 2
+                )
         else:
             return self._data["powertable"][powersetting][
                 _configurationindex(configuration)
@@ -101,8 +105,10 @@ class aircraftdata:
         raw = self._data["powertable"]["SPBR"][_configurationindex(configuration)]
         if raw == "-":
             return None
-        else:
+        elif apvariants.withvariant("use first-edition ADCs"):
             return raw
+        else:
+            return raw * 2.0
 
     def fuelrate(self, powersetting):
         _checkpowersetting(powersetting)
