@@ -190,13 +190,14 @@ Band&Ceil.&\multicolumn{1}{c|}{\Daa}&\multicolumn{1}{c|}{\Dab}&\multicolumn{1}{c
 \hline
 \end{tabularx}}
 
-\newcommand{\blockDminmaxspeed}[2]{\wbox{\Db}{#1} -- \wbox{\Db}{#2}}
-\newcommand{\blockDdivespeed}[1]{\wbox{\Db}{#1}}
+\newcommand{\blockDminmaxspeed}[2]{\wbox{\Dba}{#1} -- \wbox{\Dba}{#2}}
+\newcommand{\blockDdivespeed}[1]{\wbox{\Dbb}{#1}}
 
 \newcommand{\Daa}{62} % Ceiling CL
 \newcommand{\Dab}{52} % Ceiling 1/2
 \newcommand{\Dac}{40} % Ceiling DT
-\newcommand{\Db}{00.0} % Speed width template
+\newcommand{\Dba}{00.0} % Max speed width template
+\newcommand{\Dbb}{00.0} % Dive speed width template
 \newcommand{\Dca}{\blockDminmaxspeed{4.5}{13.0}} % EH speeds CL
 \newcommand{\Dcb}{\blockDminmaxspeed{5.0}{10.5}} % EH speeds 1/2
 \newcommand{\Dcc}{---} % EH speeds DT

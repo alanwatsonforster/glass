@@ -287,17 +287,30 @@ def blockD(data):
     )
     
     if data.maxspeed("CL", "EH") is not None:
-        writelatex(r"\renewcommand{\Db}{%.1f}" % data.maxspeed("CL", "EH"))
+        writelatex(r"\renewcommand{\Dba}{%.1f}" % data.maxspeed("CL", "EH"))
     elif data.maxspeed("CL", "VH") is not None:
-        writelatex(r"\renewcommand{\Db}{%.1f}" % data.maxspeed("CL", "VH"))
+        writelatex(r"\renewcommand{\Dba}{%.1f}" % data.maxspeed("CL", "VH"))
     elif data.maxspeed("CL", "HI") is not None:
-        writelatex(r"\renewcommand{\Db}{%.1f}" % data.maxspeed("CL", "HI"))
+        writelatex(r"\renewcommand{\Dba}{%.1f}" % data.maxspeed("CL", "HI"))
     elif data.maxspeed("CL", "MH") is not None:
-        writelatex(r"\renewcommand{\Db}{%.1f}" % data.maxspeed("CL", "MH"))
+        writelatex(r"\renewcommand{\Dba}{%.1f}" % data.maxspeed("CL", "MH"))
     elif data.maxspeed("CL", "ML") is not None:
-        writelatex(r"\renewcommand{\Db}{%.1f}" % data.maxspeed("CL", "ML"))
+        writelatex(r"\renewcommand{\Dba}{%.1f}" % data.maxspeed("CL", "ML"))
     else:
-        writelatex(r"\renewcommand{\Db}{%.1f}" % data.maxspeed("CL", "LO"))
+        writelatex(r"\renewcommand{\Dba}{%.1f}" % data.maxspeed("CL", "LO"))
+
+    if data.maxdivespeed("EH") is not None:
+        writelatex(r"\renewcommand{\Dbb}{%.1f}" % data.maxdivespeed("EH"))
+    elif data.maxdivespeed("VH") is not None:
+        writelatex(r"\renewcommand{\Dbb}{%.1f}" % data.maxdivespeed("VH"))
+    elif data.maxdivespeed("HI") is not None:
+        writelatex(r"\renewcommand{\Dbb}{%.1f}" % data.maxdivespeed("HI"))
+    elif data.maxdivespeed("MH") is not None:
+        writelatex(r"\renewcommand{\Dbb}{%.1f}" % data.maxdivespeed("MH"))
+    elif data.maxdivespeed("ML") is not None:
+        writelatex(r"\renewcommand{\Dbb}{%.1f}" % data.maxdivespeed("ML"))
+    else:
+        writelatex(r"\renewcommand{\Dbb}{%.1f}" % data.maxdivespeed("LO"))
 
 def makeadc(name):
 
