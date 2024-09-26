@@ -53,6 +53,10 @@ class aircraftdata:
             basedata.update(data)
             data = basedata
         self._data = data
+        
+        
+    def name(self):
+        return self._data["name"]
 
     def crew(self):
         return self._data["crew"]
@@ -255,9 +259,11 @@ class aircraftdata:
         else:
             return raw
 
+    def properties(self):
+        return set(self._data["properties"])
+
     def hasproperty(self, p):
-        # TODO: MiG-15bis and Mig-17 are LRR at high speed.
-        return p in self._data["properties"]
+        return p in self.properties()
 
     def climbcapability(self, configuration, altitudeband, powersetting):
         _checkaltitudeband(altitudeband)

@@ -81,13 +81,13 @@ def _checknormalflight(E):
     if E.ismissile():
         raise RuntimeError("missiles cannot perform normal flight.")
 
-    if apcapabilities.hasproperty(E, "SPFL"):
+    if E.hasproperty("SPFL"):
         raise RuntimeError("special-flight aircraft cannot perform normal flight.")
 
     # See rule 13.3.5. A HRD is signalled with a "HRD/" prefix to the flight type.
     if E._flighttype[:4] == "HRD/":
 
-        if apcapabilities.hasproperty(E, "NRM"):
+        if E.hasproperty("NRM"):
             raise RuntimeError("aircraft cannot perform rolling maneuvers.")
 
         hrd = True
@@ -140,7 +140,7 @@ def _checknormalflight(E):
                 "flight type immediately after %s cannot be %s."
                 % (E._previousflighttype, E._flighttype)
             )
-        elif E._flighttype == "LVL" and not apcapabilities.hasproperty(E, "HPR"):
+        elif E._flighttype == "LVL" and not E.hasproperty("HPR"):
             raise RuntimeError(
                 "flight type immediately after %s cannot be %s."
                 % (E._previousflighttype, E._flighttype)
@@ -163,7 +163,7 @@ def _checknormalflight(E):
         if E._previousflighttype == "VD":
             if E.speed() <= 2.0:
                 pass
-            elif not apcapabilities.hasproperty(E, "HPR"):
+            elif not E.hasproperty("HPR"):
                 raise RuntimeError(
                     "flight type immediately after %s cannot be %s."
                     % (E._previousflighttype, E._flighttype)
@@ -209,7 +209,7 @@ def _checknormalflight(E):
                 % (E._previousflighttype, E._flighttype)
             )
         if E._previousflighttype == "LVL":
-            if not apcapabilities.hasproperty(E, "HPR"):
+            if not E.hasproperty("HPR"):
                 raise RuntimeError(
                     "flight type immediately after %s cannot be %s."
                     % (E._previousflighttype, E._flighttype)
@@ -233,9 +233,7 @@ def _checknormalflight(E):
         # See rule 8.1.3 on VC restrictions.
         # See rule 13.3.5 on HRD restrictions.
 
-        if E._previousflighttype == "VC" and not (
-            apcapabilities.hasproperty(E, "HPR") or hrd
-        ):
+        if E._previousflighttype == "VC" and not (E.hasproperty("HPR") or hrd):
             raise RuntimeError(
                 "flight type immediately after %s cannot be %s (without a HRD)."
                 % (E._previousflighttype, E._flighttype)
@@ -250,7 +248,7 @@ def _checknormalflight(E):
             # I interpret the text "start from level flight" to mean that the aircraft
             # must have been in level flight on the previous turn.
 
-            if E._previousflighttype != "LVL":
+            if False and E._previousflighttype != "LVL":
                 raise RuntimeError(
                     "flight type immediately after %s cannot be %s."
                     % (E._previousflighttype, E._flighttype)
@@ -260,9 +258,7 @@ def _checknormalflight(E):
 
             # See rule 8.1.3 on VC restrictions.
 
-            if E._previousflighttype == "VC" and not apcapabilities.hasproperty(
-                E, "HPR"
-            ):
+            if E._previousflighttype == "VC" and not E.hasproperty("HPR"):
                 raise RuntimeError(
                     "flight type immediately after %s cannot be %s."
                     % (E._previousflighttype, E._flighttype)
@@ -308,7 +304,7 @@ def _checkstalledflighttype(E):
     if E.ismissile():
         raise RuntimeError("missiles cannot perform stalled flight.")
 
-    if apcapabilities.hasproperty(E, "SPFL"):
+    if E.hasproperty("SPFL"):
         raise RuntimeError("special-flight aircraft cannot perform stalled flight.")
 
     # See rule 6.3.
@@ -328,7 +324,7 @@ def _checkdepartedflight(E):
     if E.ismissile():
         raise RuntimeError("missiles cannot perform departed flight.")
 
-    if apcapabilities.hasproperty(E, "SPFL"):
+    if E.hasproperty("SPFL"):
         raise RuntimeError("special-flight aircraft cannot perform departed flight.")
 
 
@@ -340,7 +336,7 @@ def _checkspecialflighttype(E):
     if E.ismissile():
         raise RuntimeError("missiles cannot perform special flight.")
 
-    if not apcapabilities.hasproperty(E, "SPFL"):
+    if not E.hasproperty("SPFL"):
         raise RuntimeError("normal-flight aircraft cannot perform special flight.")
 
 
@@ -514,73 +510,6 @@ def _startmovenormalflight(A):
 
     ########################################
 
-    def determineallowedturnrates():
-        """
-        Determine the allowed turn rates according to the flight type and
-        speed. The aircraft type and configuration may impose additional
-        restrictions.
-        """
-
-        turnrates = ["EZ", "TT", "HT", "BT", "ET"]
-
-        # See "Aircraft Damage Effects" in Play Aids.
-
-        if A.damageatleast("C"):
-            A.logcomment("damage limits the turn rate to TT.")
-            turnrates = turnrates[:2]
-        elif A.damageatleast("2L"):
-            A.logcomment("damage limits the turn rate to HT.")
-            turnrates = turnrates[:3]
-        elif A.damageatleast("L"):
-            A.logcomment("damage limits the turn rate to BT.")
-            turnrates = turnrates[:4]
-
-        # See rule 7.5.
-
-        minspeed = apcapabilities.minspeed(A)
-        if A.speed() == minspeed:
-            A.logcomment("speed limits the turn rate to EZ.")
-            turnrates = turnrates[:1]
-        elif A.speed() == minspeed + 0.5:
-            A.logcomment("speed limits the turn rate to TT.")
-            turnrates = turnrates[:2]
-        elif A.speed() == minspeed + 1.0:
-            A.logcomment("speed limits the turn rate to HT.")
-            turnrates = turnrates[:3]
-        elif A.speed() == minspeed + 1.5:
-            A.logcomment("speed limits the turn rate to BT.")
-            turnrates = turnrates[:4]
-        else:
-            A.logcomment("speed does not limit the turn rate.")
-
-        # See rule 8.1.1.
-
-        if A._flighttype == "ZC":
-            A.logcomment("ZC limits the turn rate to BT.")
-            turnrates = turnrates[:4]
-
-        # See rule 8.1.1.
-
-        if A._flighttype == "SC":
-            A.logcomment("SC limits the turn rate to EZ.")
-            turnrates = turnrates[:1]
-
-        # See rule 8.1.3.
-
-        if A._flighttype == "VC":
-            A.logcomment("VC disallows all turns.")
-            turnrates = []
-
-        # See rule 8.2.3.
-
-        if A._flighttype == "VD":
-            A.logcomment("VD disallows all turns.")
-            turnrates = []
-
-        A._allowedturnrates = turnrates
-
-    ########################################
-
     def checkcloseformationlimits():
 
         if A.closeformationsize() == 0:
@@ -616,8 +545,9 @@ def _startmovenormalflight(A):
 
         # See rule 5.4.
 
+        A.logstart("is carrying %.1f FPs." % A._fpcarry)
         A._maxfp = int(A.speed() + A._fpcarry)
-        A.logcomment("has %d FPs (including %.1f carry)." % (A._maxfp, A._fpcarry))
+        A.logstart("has %d FPs." % A._maxfp)
         A._fpcarry = (A.speed() + A._fpcarry) - A._maxfp
 
     ########################################
@@ -644,7 +574,7 @@ def _startmovenormalflight(A):
         ) or (
             _isdivingflight(A._previousflighttype) and _isclimbingflight(A._flighttype)
         ):
-            if apcapabilities.hasproperty(A, "HPR"):
+            if A.hasproperty("HPR"):
                 mininitialhfp = A.speed() // 3
             else:
                 mininitialhfp = A.speed() // 2
@@ -712,7 +642,7 @@ def _startmovenormalflight(A):
 
             # See rules 8.2.1 and 8.2.3.
             if A._previousflighttype == "VD":
-                if apcapabilities.hasproperty(A, "HPR"):
+                if A.hasproperty("HPR"):
                     minvfp = rounddown(onethirdfromtable(A._maxfp))
                 else:
                     minvfp = rounddown(A._maxfp / 2)
@@ -726,6 +656,13 @@ def _startmovenormalflight(A):
             maxunloadedhfp = A._maxfp
 
         minhfp = max(minhfp, mininitialhfp)
+
+        if minhfp == maxhfp:
+            minvfp = A._maxfp - minhfp
+            maxvfp = minvfp
+        elif minvfp == maxvfp:
+            minhfp = A._maxfp - minvfp
+            maxhfp = minhfp
 
         if maxvfp == 0:
 
@@ -813,6 +750,7 @@ def _startmovenormalflight(A):
         A._maxvfp = maxvfp
         A._minunloadedhfp = minunloadedhfp
         A._maxunloadedhfp = maxunloadedhfp
+        _startflightslope(A)
 
     ########################################
 
@@ -829,13 +767,9 @@ def _startmovenormalflight(A):
             # requirements of ZC, SC, and VC flight are not clear, but for the
             # moment we assume they result in a maneuvering departure.
 
-            turnrequirement = apturnrate.turnrequirement(
-                A.altitudeband(), A.speed(), A._maneuvertype
-            )
-            if not A._maneuvertype in A._allowedturnrates or turnrequirement == None:
-                A.logcomment(
-                    "carried turn rate is tighter than the maximum allowed turn rate."
-                )
+            s = _checkturnrate(A, A._maneuvertype)
+            if s is not None:
+                A.logcomment("carried turn rate is %s but %s" % (A._maneuvertype, s))
                 raise RuntimeError(
                     "aircraft has entered departed flight while maneuvering."
                 )
@@ -925,7 +859,7 @@ def _startmovenormalflight(A):
 
     reportapcarry()
     reportaltitudecarry()
-    determineallowedturnrates()
+    _reportallowedturnrates(A)
     handlecarriedturn()
     checkcloseformationlimits()
     determinemaxfp()
@@ -1378,12 +1312,14 @@ def _continuemissileflight(M, moves):
         ["", "", None],
     ]
 
-    _startslope(M)
+    _startflightslope(M)
     _domoves(
         M,
         moves,
         actiondispatchlist,
     )
+    numerator, denominator = _endflightslope(M)
+    M.logcomment("flight slope is %+d/%d = %+.2f." % (numerator, denominator, M.flightslope()))
     M._checktargettracking()
 
 
@@ -1528,9 +1464,9 @@ def _endnormalflight(A):
                 A._turnrateap = 0
 
             if A._turningsupersonic:
-                if apcapabilities.hasproperty(A, "PSSM"):
+                if A.hasproperty("PSSM"):
                     A._turnrateap -= 2.0
-                elif not apcapabilities.hasproperty(A, "GSSM"):
+                elif not A.hasproperty("GSSM"):
                     A._turnrateap -= 1.0
 
     ########################################
@@ -1640,9 +1576,16 @@ def _endnormalflight(A):
         if A._flighttype == "UD":
             # See rule 8.2.2.
             altitudechange = A.altitude() - A.startaltitude()
-            if altitudechange == -2:
-                A.logcomment("UD ends as flight type SD.")
-                A._flighttype = "SD"
+            # if altitudechange == -2:
+            #    A.logcomment("UD ends as flight type SD.")
+            #    A._flighttype = "SD"
+
+    ########################################
+
+    def reportflightslope():
+
+        numerator, denominator = _endflightslope(A)
+        A.logcomment("flight slope is %+d/%d = %+.2f." % (numerator, denominator, A.flightslope()))
 
     ########################################
 
@@ -1650,6 +1593,7 @@ def _endnormalflight(A):
         reportfp()
         checkfp()
         checkfreedescent()
+        reportflightslope()
         reportcarry()
         reportgloccycle()
         determinemaxturnrateap()
@@ -1850,7 +1794,9 @@ def _domove(E, move, actiondispatchlist):
         E._hasslid = _isslide(E._maneuvertype)
 
         # See rule 8.2.2 and 13.1.
-        if not E._hasunloaded:
+        if apvariants.withvariant("use house rules") and E._maneuvertype == "SL":
+            E._maneuverfp += 1
+        elif not E._hasunloaded:
             if E._hasturned:
                 E._maneuverfp += 1
             elif E._maneuvertype == "VR" and E._vertical:
@@ -1869,6 +1815,7 @@ def _domove(E, move, actiondispatchlist):
                 _checktracking(E)
                 _checkmaneuveringdeparture(E)
                 _checkgloc(E)
+                _checkmaxfps(E)
             _checkcloseformation(E)
 
         remainingactions = doactions(E, remainingactions, "epilog")
@@ -1904,6 +1851,8 @@ def _domove(E, move, actiondispatchlist):
         if not E._lastfp:
             checkm1speed()
             checkminspeed()
+            if E.isaircraft():
+                _reportallowedturnrates(E)
 
     E._checkforterraincollision()
     E._checkforleavingmap()
@@ -2037,6 +1986,14 @@ def _checkgloc(A):
                 "check for GLOC as turn rate is ET and altitude band is %s (check %d in cycle)."
                 % (A._movestartaltitudeband, A._gloccheck)
             )
+
+
+def _checkmaxfps(A):
+
+    if A._hfp > A._maxhfp:
+        raise RuntimeError("too many HFPs.")
+    if A._vfp > A._maxvfp:
+        raise RuntimeError("too many VFPs.")
 
 
 def _checkcloseformation(A):
@@ -2362,7 +2319,7 @@ def _dobank(E, sense):
         raise RuntimeError("attempt to bank twice.")
 
     # See rule 7.4.
-    if apcapabilities.hasproperty(E, "LRR"):
+    if E.hasproperty("LRR"):
         if (E._bank == "L" and sense == "R") or (E._bank == "R" and sense == "L"):
             raise RuntimeError(
                 "attempt to bank to %s while banked to %s in a LRR aircraft."
@@ -2381,6 +2338,76 @@ def _dobank(E, sense):
 ########################################
 
 
+def _reportallowedturnrates(A):
+    """
+    Determine the allowed turn rates according to the flight type and
+    speed. The aircraft type and configuration may impose additional
+    restrictions.
+    """
+
+    if _checkturnrate(A, "ET") is None:
+        A.logcomment("turn rate is not limited.")
+    elif _checkturnrate(A, "BT") is None:
+        A.logcomment("turn rate is limited to BT.")
+    elif _checkturnrate(A, "HT") is None:
+        A.logcomment("turn rate is limited to HT.")
+    elif _checkturnrate(A, "TT") is None:
+        A.logcomment("turn rate is limited to TT.")
+    elif _checkturnrate(A, "EZ") is None:
+        A.logcomment("turn rate is limited to EZ.")
+    else:
+        A.logcomment("no turns are allowed.")
+
+
+def _checkturnrate(A, turnrate):
+
+    # See rule 8.1.3s and 8.2.3.
+    if A._flighttype == "VC" or A._flighttype == "VD":
+        return "%s disallows all turns." % A._flighttype
+
+    # See rule 8.1.1.
+
+    if turnrate == "ET" and A._flighttype == "ZC":
+        return "ZC limits the turn rate to BT."
+
+    # See rule 8.1.1.
+
+    if turnrate != "EZ" and A._flighttype == "SC":
+        return "SC limits the turn rate to EZ."
+
+    # See "Aircraft Damage Effects" in Play Aids.
+
+    if A.damageatleast("C") and turnrate not in ["EZ", "TT"]:
+        return "damage limits the turn rate to TT."
+    elif A.damageatleast("2L") and turnrate not in ["EZ", "TT", "HT"]:
+        return "damage limits the turn rate to HT."
+    elif A.damageatleast("L") and turnrate not in ["EZ", "TT", "HT", "BT"]:
+        return "damage limits the turn rate to BT."
+
+    # See rule 7.5.
+
+    minspeed = apcapabilities.minspeed(A)
+    if A.speed() == minspeed and turnrate not in ["EZ"]:
+        return "speed limits the turn rate to EZ."
+    elif A.speed() == minspeed + 0.5 and turnrate not in ["EZ", "TT"]:
+        return "speed limits the turn rate to TT."
+    elif A.speed() == minspeed + 1.0 and turnrate not in ["EZ", "TT", "HT"]:
+        return "speed limits the turn rate to HT."
+    elif A.speed() == minspeed + 1.5 and turnrate not in ["EZ", "TT", "HT", "BT"]:
+        return "speed limits the turn rate to BT."
+
+    # See rule 7.1.
+    turnrateap = apcapabilities.turndrag(A, turnrate)
+    if turnrateap == None:
+        return "aircraft does not allow a turn rate of %s." % turnrate
+
+    turnrequirement = apturnrate.turnrequirement(A.altitudeband(), A.speed(), turnrate)
+    if turnrequirement == None:
+        return "speed and altitude do not allow a turn rate of %s." % turnrate
+
+    return None
+
+
 def _dodeclareturn(E, turnrate, sense):
     """
     Declare the start of turn in the specified direction and rate.
@@ -2388,41 +2415,23 @@ def _dodeclareturn(E, turnrate, sense):
 
     if E.isaircraft():
 
-        # See rule 8.1.3 and 8.2.3
-        if E._flighttype == "VC" or E._flighttype == "VD":
-            raise RuntimeError(
-                "attempt to declare turn while flight type is %s." % E._flighttype
-            )
-
-        # See rule 7.1.
-
         # Check the bank. See rule 7.4.
-        if apcapabilities.hasproperty(E, "LRR"):
+        if E.hasproperty("LRR"):
             if E._bank != sense:
                 raise RuntimeError(
                     "attempt to declare a turn to %s while not banked to %s in a LRR aircraft."
                     % (sense, sense)
                 )
-        elif not apcapabilities.hasproperty(E, "HRR"):
+        elif not E.hasproperty("HRR"):
             if (E._bank == "L" and sense == "R") or (E._bank == "R" and sense == "L"):
                 raise RuntimeError(
                     "attempt to declare a turn to %s while banked to %s."
                     % (sense, E._bank)
                 )
 
-        if E._allowedturnrates == []:
-            raise RuntimeError("turns are forbidded.")
-
-        if turnrate not in E._allowedturnrates:
-            raise RuntimeError(
-                "attempt to declare a turn rate tighter than allowed by the damage, speed, or flight type."
-            )
-
-        turnrateap = apcapabilities.turndrag(E, turnrate)
-        if turnrateap == None:
-            raise RuntimeError(
-                "attempt to declare a turn rate tighter than allowed by the aircraft."
-            )
+        s = _checkturnrate(E, turnrate)
+        if s is not None:
+            raise RuntimeError(s)
 
         # Determine the maximum turn rate.
         if E._maxturnrate == None:
@@ -2437,6 +2446,8 @@ def _dodeclareturn(E, turnrate, sense):
             E.altitudeband(), E.speed(), turnrate
         )
 
+        turnrateap = apcapabilities.turndrag(E, turnrate)
+
     else:
 
         if E.speed() < apspeed.missilemaneuverspeed(E.altitudeband()):
@@ -2449,10 +2460,10 @@ def _dodeclareturn(E, turnrate, sense):
             E.altitudeband(), E.speed(), baseturnrate, divisor=divisor
         )
 
-    if turnrequirement == None:
-        raise RuntimeError(
-            "attempt to declare a turn rate tighter than allowed by the speed and altitude."
-        )
+        if turnrequirement == None:
+            raise RuntimeError(
+                "attempt to declare a turn rate tighter than allowed by the speed and altitude."
+            )
 
     E._bank = sense
     E._maneuvertype = turnrate
@@ -2470,9 +2481,9 @@ def _dodeclareturn(E, turnrate, sense):
         if apvariants.withvariant("use house rules"):
             E._turnrateap -= turnrateap
             if E._maneuversupersonic:
-                if apcapabilities.hasproperty(E, "PSSM"):
+                if E.hasproperty("PSSM"):
                     E._turnrateap -= 1.0
-                elif not apcapabilities.hasproperty(E, "GSSM"):
+                elif not E.hasproperty("GSSM"):
                     E._turnrateap -= 0.5
 
 
@@ -2508,9 +2519,9 @@ def _doturn(E, sense, facingchange, continuous):
             sustainedfacingchanges = facingchange // 30
 
         if not apvariants.withvariant("use house rules"):
-            if apcapabilities.hasproperty(E, "LBR"):
+            if E.hasproperty("LBR"):
                 E._sustainedturnap -= sustainedfacingchanges * 0.5
-            elif apcapabilities.hasproperty(E, "HBR"):
+            elif E.hasproperty("HBR"):
                 E._sustainedturnap -= sustainedfacingchanges * 1.5
             else:
                 E._sustainedturnap -= sustainedfacingchanges * 1.0
@@ -2617,7 +2628,7 @@ def _dodeclaredisplacementroll(E, sense):
 
     # See rules 13.1 and 13.3.1.
 
-    if apcapabilities.hasproperty(E, "NRM"):
+    if E.hasproperty("NRM"):
         raise RuntimeError("aircraft cannot perform rolling maneuvers.")
     if apcapabilities.rolldrag(E, "DR") == None:
         raise RuntimeError("aircraft cannot perform displacement rolls.")
@@ -2644,10 +2655,10 @@ def _dodeclaredisplacementroll(E, sense):
     if apvariants.withvariant("use house rules"):
         E._othermaneuversap -= apcapabilities.rolldrag(E, "DR")
         if E._maneuversupersonic:
-            if apcapabilities.hasproperty(E, "PSSM"):
-                E._othermaneuversap -= 2.0
-            elif not apcapabilities.hasproperty(E, "GSSM"):
+            if E.hasproperty("PSSM"):
                 E._othermaneuversap -= 1.0
+            elif not E.hasproperty("GSSM"):
+                E._othermaneuversap -= 0.5
 
 
 ########################################
@@ -2666,22 +2677,24 @@ def _dodisplacementroll(E, sense):
     # Move.
     E._movedisplacementroll(sense)
 
-    # See rule 13.3.1.
     if not apvariants.withvariant("use house rules"):
+
+        # See rule 13.3.1.
+
         E._othermaneuversap -= apcapabilities.rolldrag(E, "DR")
 
-    # See rule 6.6.
-    if E._maneuversupersonic:
-        if apcapabilities.hasproperty(E, "PSSM"):
-            E._othermaneuversap -= 2.0
-        elif not apcapabilities.hasproperty(E, "GSSM"):
-            E._othermaneuversap -= 1.0
+        # See rule 6.6.
+        if E._maneuversupersonic:
+            if E.hasproperty("PSSM"):
+                E._othermaneuversap -= 2.0
+            elif not E.hasproperty("GSSM"):
+                E._othermaneuversap -= 1.0
 
-    # See rule 13.3.6.
-    if not apvariants.withvariant("use house rules"):
+        # See rule 13.3.6.
         if E._rollmaneuvers > 0:
             E._othermaneuversap -= 1.0
-        E._rollmaneuvers += 1
+
+    E._rollmaneuvers += 1
 
     # Implicitly finish with wings level. This can be changed immediately by a bank.
     E._bank = None
@@ -2694,7 +2707,7 @@ def _dodeclarelagroll(E, sense):
 
     # See rule 13.3.2.
 
-    if apcapabilities.hasproperty(E, "NRM"):
+    if E.hasproperty("NRM"):
         raise RuntimeError("aircraft cannot perform rolling maneuvers.")
     if apcapabilities.rolldrag(E, "LR") == None:
         raise RuntimeError("aircraft cannot perform lag rolls.")
@@ -2720,10 +2733,10 @@ def _dodeclarelagroll(E, sense):
     if apvariants.withvariant("use house rules"):
         E._othermaneuversap -= apcapabilities.rolldrag(E, "LR")
         if E._maneuversupersonic:
-            if apcapabilities.hasproperty(E, "PSSM"):
-                E._othermaneuversap -= 2.0
-            elif not apcapabilities.hasproperty(E, "GSSM"):
+            if E.hasproperty("PSSM"):
                 E._othermaneuversap -= 1.0
+            elif not E.hasproperty("GSSM"):
+                E._othermaneuversap -= 0.5
 
 
 ########################################
@@ -2742,22 +2755,23 @@ def _dolagroll(E, sense):
     # Move.
     E._movelagroll(sense)
 
-    # See rule 13.3.1.
     if not apvariants.withvariant("use house rules"):
+
+        # See rule 13.3.1.
         E._othermaneuversap -= apcapabilities.rolldrag(E, "LR")
 
-    # See rule 6.6.
-    if E._maneuversupersonic:
-        if apcapabilities.hasproperty(E, "PSSM"):
-            E._othermaneuversap -= 2.0
-        elif not apcapabilities.hasproperty(E, "GSSM"):
-            E._othermaneuversap -= 1.0
+        # See rule 6.6.
+        if E._maneuversupersonic:
+            if E.hasproperty("PSSM"):
+                E._othermaneuversap -= 2.0
+            elif not E.hasproperty("GSSM"):
+                E._othermaneuversap -= 1.0
 
-    # See rule 13.3.6.
-    if not apvariants.withvariant("use house rules"):
+        # See rule 13.3.6.
         if E._rollmaneuvers > 0:
             E._othermaneuversap -= 1.0
-        E._rollmaneuvers += 1
+
+    E._rollmaneuvers += 1
 
     # Implicitly finish with wings level. This can be changed immediately by a bank.
     E._bank = None
@@ -2770,9 +2784,9 @@ def _dodeclareverticalroll(E, sense):
 
     if E.isaircraft():
 
-        if apcapabilities.hasproperty(E, "NRM"):
+        if E.hasproperty("NRM"):
             raise RuntimeError("aircraft cannot perform rolling maneuvers.")
-        if E._verticalrolls == 1 and apcapabilities.hasproperty(E, "OVR"):
+        if E._verticalrolls == 1 and E.hasproperty("OVR"):
             raise RuntimeError("aircraft can only perform one vertical roll per turn.")
 
         # See rule 13.3.4.
@@ -2806,10 +2820,10 @@ def _dodeclareverticalroll(E, sense):
         if apvariants.withvariant("use house rules"):
             E._othermaneuversap -= apcapabilities.rolldrag(E, "VR")
             if E._maneuversupersonic:
-                if apcapabilities.hasproperty(E, "PSSM"):
-                    E._othermaneuversap -= 2.0
-                elif not apcapabilities.hasproperty(E, "GSSM"):
+                if E.hasproperty("PSSM"):
                     E._othermaneuversap -= 1.0
+                elif not E.hasproperty("GSSM"):
+                    E._othermaneuversap -= 0.5
 
 
 ########################################
@@ -2823,33 +2837,32 @@ def _doverticalroll(E, sense, facingchange, shift):
     if E.isaircraft():
 
         # See rule 13.3.4.
-        if apcapabilities.hasproperty(E, "LRR") and facingchange > 90:
+        if E.hasproperty("LRR") and facingchange > 90:
             raise RuntimeError(
                 "attempt to roll vertically by more than 90 degrees in LRR aircraft."
             )
 
         if not apvariants.withvariant("use house rules"):
+
+            # See rule 6.6.
+            if not apvariants.withvariant("use house rules"):
+                if E._maneuversupersonic:
+                    if E.hasproperty("PSSM"):
+                        E._othermaneuversap -= 2.0
+                    elif not E.hasproperty("GSSM"):
+                        E._othermaneuversap -= 1.0
+
             E._othermaneuversap -= apcapabilities.rolldrag(E, "VR")
 
-        # See rule 13.3.6
-        if not apvariants.withvariant("use house rules"):
+            # See rule 13.3.6
             if E._rollmaneuvers > 0:
-                E._othermaneuversap -= 1
+                E._othermaneuversap -= 1.0
 
     # Move.
     E._moveverticalroll(sense, facingchange, shift)
 
     E._rollmaneuvers += 1
     E._verticalrolls += 1
-
-    if E.isaircraft():
-        # See rule 6.6.
-        if not apvariants.withvariant("use house rules"):
-            if E._maneuversupersonic:
-                if apcapabilities.hasproperty(E, "PSSM"):
-                    E._othermaneuversap -= 2.0
-                elif not apcapabilities.hasproperty(E, "GSSM"):
-                    E._othermaneuversap -= 1.0
 
 
 ########################################
@@ -2963,22 +2976,25 @@ def _domaneuveringdeparture(E, sense, facingchange):
 ################################################################################
 
 
-def _startslope(E):
+def _startflightslope(E):
 
-    E._startslopealtitude = E.altitude()
-    E._startslopehp = E._hfp
+    E._startflightslopealtitude = E.altitude()
+    E._startflightslopehp = E._hfp
+    E._setflightslope(None)
 
 
-def _slope(E):
+def _endflightslope(E):
 
-    startaltitude = E._startslopealtitude
-    starthfp = E._startslopehp
+    startaltitude = E._startflightslopealtitude
+    starthfp = E._startflightslopehp
 
     endaltitude = E.altitude()
     endhfp = E._hfp
 
     slopenumerator = endaltitude - startaltitude
     slopedenominator = endhfp - starthfp
+
+    E._setflightslope(slopenumerator / slopedenominator)
 
     return slopenumerator, slopedenominator
 

@@ -121,6 +121,33 @@ def forward(x, y, facing):
     return x + dx, y + dy
 
 
+def backward(x, y, facing):
+    """
+    Return the coordinates of the next valid position backward from the point (x, y) with
+    respect to the facing.
+    """
+
+    assert isvalid(x, y, facing=facing)
+
+    def dxdy(
+        facing,
+    ):
+        if facing >= 180:
+            dx, dy = dxdy(facing - 180)
+            return -dx, -dy
+
+        if facing > 90:
+            dx, dy = dxdy(180 - facing)
+            return -dx, +dy
+
+        i = facing // 30
+        return [+1.00, +1.00, +0.50, +0.00][i], [+0.00, +0.50, +0.75, +1.00][i]
+
+    dx, dy = dxdy(facing)
+
+    return x - dx, y - dy
+
+
 def slide(x, y, facing, sense):
     """
     Return the coordinates after performing a slide from the point (x, y) with

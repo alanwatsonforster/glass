@@ -23,8 +23,11 @@ def setcanvas(xmin, ymin, xmax, ymax, dotsperhex=100):
     xmin, ymin = aphex.tophysical(xmin, ymin)
     xmax, ymax = aphex.tophysical(xmax, ymax)
     _fig = plt.figure(
-        figsize=[(xmax - xmin), (ymax - ymin)], frameon=False, dpi=dotsperhex
+        figsize=[(xmax - xmin), (ymax - ymin)],
+        frameon=False,
+        dpi=dotsperhex,
     )
+
     plt.axis("off")
     plt.xlim(xmin, xmax)
     plt.ylim(ymin, ymax)
@@ -182,8 +185,9 @@ def _drawdotinphysical(
         patches.Circle(
             [x, y],
             radius=0.5 * size,
-            facecolor=_mapcolor(fillcolor),
             edgecolor=_mapcolor(linecolor),
+            facecolor=_mapcolor(fillcolor),
+            fill=(fillcolor != None),
             linewidth=linewidth,
             alpha=alpha,
             zorder=zorder,
@@ -246,6 +250,7 @@ def _drawarrowinphysical(
             length_includes_head=True,
             edgecolor=_mapcolor(linecolor),
             facecolor=_mapcolor(linecolor),
+            fill=(fillcolor != None),
             linewidth=linewidth,
             alpha=alpha,
             zorder=zorder,
@@ -290,6 +295,7 @@ def _drawdartinphysical(
             length_includes_head=True,
             edgecolor=_mapcolor(linecolor),
             facecolor=_mapcolor(fillcolor),
+            fill=(fillcolor != None),
             linewidth=linewidth,
             alpha=alpha,
             zorder=zorder,
@@ -537,7 +543,7 @@ pathlinestyle = "dotted"
 pathdotsize = 0.1
 aircrafttextsize = 10
 aircraftcounterlinewidth = 2
-aircraftkilledfillcolor = (0.50, 0.50, 0.50)
+aircraftkilledfillcolor = None
 aircraftkilledlinecolor = (0.50, 0.50, 0.50)
 aircraftlinecolor = (0.00, 0.00, 0.00)
 aircraftlinewidth = 1
@@ -599,7 +605,7 @@ def drawpath(x, y, facing, altitude, speed, color, annotate=True):
         )
         if annotate:
             _drawannotation(
-                x[0], y[0], facing[0], "cl", "%02d" % altitude[0], zorder=zorder
+                x[0], y[0], facing[0], "cl", "%d" % altitude[0], zorder=zorder
             )
             if speed is not None:
                 _drawannotation(
@@ -612,8 +618,7 @@ def drawpath(x, y, facing, altitude, speed, color, annotate=True):
                 )
 
 
-def drawaircraft(x, y, facing, color, name, altitude, speed, flighttype):
-    zorder = altitude + 1
+def drawaircraft(x, y, facing, color, name, altitude, speed, flighttype, zorder):
     if color is None:
         fillcolor = aircraftkilledfillcolor
         linecolor = aircraftkilledlinecolor
@@ -626,10 +631,10 @@ def drawaircraft(x, y, facing, color, name, altitude, speed, flighttype):
         linecolor = aircraftlinecolor
         nametext = name
         altitudetext = "%2d" % altitude
-        if speed is not None:
-            speedtext = "%.1f" % speed
-        else:
+        if speed is None:
             speedtext = ""
+        else:
+            speedtext = "%.1f" % speed
         flighttypetext = flighttype[:2]
     if apvariants.withvariant("draw counters"):
         drawsquare(
@@ -653,8 +658,6 @@ def drawaircraft(x, y, facing, color, name, altitude, speed, flighttype):
             zorder=zorder,
         )
     else:
-        textdx = 0.08
-        textdy = 0.15
         drawdart(
             x,
             y,
@@ -731,7 +734,6 @@ def drawmissile(x, y, facing, color, name, altitude, speed):
             zorder=zorder,
         )
     else:
-        textdx = 0.08
         drawdart(
             x,
             y,
@@ -742,28 +744,28 @@ def drawmissile(x, y, facing, color, name, altitude, speed):
             linecolor=linecolor,
             zorder=zorder,
         )
-        drawtext(
+        _drawannotation(
             x,
             y,
             facing,
+            "cr",
             name,
-            dx=+textdx,
-            dy=0,
-            size=aircrafttextsize,
-            color=textcolor,
-            alignment="left",
             zorder=zorder,
         )
-        drawtext(
+        _drawannotation(
             x,
             y,
             facing,
+            "cl",
             altitudetext,
-            dx=-textdx,
-            dy=0,
-            size=aircrafttextsize,
-            color=textcolor,
-            alignment="right",
+            zorder=zorder,
+        )
+        _drawannotation(
+            x,
+            y,
+            facing,
+            "lr",
+            "%.0f" % speed,
             zorder=zorder,
         )
 

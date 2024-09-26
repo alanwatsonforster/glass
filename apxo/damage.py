@@ -77,8 +77,27 @@ def takedamage(A, damage):
     A.logwhenwhat(
         "", "%s damage changed from %s to %s." % (A._name, previousdamage, A.damage())
     )
+
     if A.killed():
         A.logwhenwhat("", "%s is killed." % A._name)
+        return
+
+    def gain(p):
+        if not A.hasproperty(p):
+            A.logwhenwhat("", "gains %s property." % p)
+            A.gainproperty(p)
+
+    def lose(p):
+        if A.hasproperty(p):
+            A.logwhenwhat("", "loses %s property." % p)
+            A.loseproperty(p)
+
+    if damageatleast(A, "L"):
+        lose("HPR")
+        lose("HRR")
+        gain("LRR")
+    if damageatleast(A, "H"):
+        gain("NRM")
 
 
 ##############################################################################

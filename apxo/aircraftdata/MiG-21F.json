@@ -1,0 +1,17 @@
+{
+  // This ADC for the F variant is based on that of the F-13, modified with
+  // information from https://en.wikipedia.org/wiki/List_of_Mikoyan-Gurevich_MiG-21_variants.
+  "name": "MiG-21F",
+  "origin": "AMW",
+  "base": "MiG-21F-13",
+  "storeslimits": [ 2, 4, 2200 ],
+  "gun": "Two 30 mm NR-30",
+  // The damage rating is the 3 for the single NR-30 of the F-13 plus one 
+  // according to the multiple guns rule.
+  "gunatadamagerating": 4,
+  "notes": [
+    "NATO reporting name is Fishbed-B.",
+    "Thick front canopy: +1 to sighting rolls for targets in the 180+ arcs.",
+    "May not use AAMs."
+  ]
+}

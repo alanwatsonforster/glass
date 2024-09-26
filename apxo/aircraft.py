@@ -62,6 +62,7 @@ class aircraft(apelement.element):
         paintscheme="unpainted",
         color="unpainted",
         counter=False,
+        delay=0,
     ):
 
         global _aircraftlist
@@ -72,6 +73,13 @@ class aircraft(apelement.element):
         aplog.clearerror()
         try:
 
+            if not isinstance(aircrafttype, str):
+                raise RuntimeError("the aircrafttype argument must be a string.")
+            aircraftdata = apaircraftdata.aircraftdata(aircrafttype)
+
+            if not apvisualsighting.isvalidpaintscheme(paintscheme):
+                raise RuntimeError("the paintscheme argument is not valid.")
+
             super().__init__(
                 name,
                 hexcode=hexcode,
@@ -79,12 +87,9 @@ class aircraft(apelement.element):
                 altitude=altitude,
                 speed=speed,
                 color=color,
+                delay=delay,
+                properties=aircraftdata.properties(),
             )
-
-            if not isinstance(aircrafttype, str):
-                raise RuntimeError("the aircrafttype argument must be a string.")
-            if not apvisualsighting.isvalidpaintscheme(paintscheme):
-                raise RuntimeError("the paintscheme argument is not valid.")
 
             # In addition to the specified position, azimuth, altitude, speed, and
             # configuration, aircraft initially have level flight, normal power, and
@@ -118,10 +123,9 @@ class aircraft(apelement.element):
             self._TTrecoveryfp = -1
             self._rollrecoveryfp = -1
             self._trackingfp = 0
-            self._climbslope = 0
             self._lowspeedliftdeviceselected = False
             self._closeformation = []
-            self._aircraftdata = apaircraftdata.aircraftdata(aircrafttype)
+            self._aircraftdata = aircraftdata
             if gunammunition is None:
                 self._gunammunition = self._aircraftdata.gunammunition()
             else:
@@ -348,6 +352,19 @@ class aircraft(apelement.element):
         except RuntimeError as e:
             aplog.logexception(e)
         self.logbreak()
+
+    ##############################################################################
+
+    def hasproperty(self, p):
+
+        if p == "LTD" and super().hasproperty("LTDCL"):
+            return self._configuration == "CL"
+        if p == "HRR" and super().hasproperty("HRRCL"):
+            return self._configuration == "CL"
+        if p == "LRR" and super().hasproperty("LRRHS"):
+            return self.speed() >= self._aircraftdata["LRRHSlimit"]
+
+        return super().hasproperty(p)
 
     ##############################################################################
 
@@ -614,8 +631,10 @@ class aircraft(apelement.element):
     def _draw(self):
         if self.killed():
             color = None
+            zorder = 0
         else:
             color = self._color
+            zorder = self.altitude() + 1
         if self._startedmoving:
             self._drawpath(color, annotate=True)
         if self._finishedmoving:
@@ -633,6 +652,7 @@ class aircraft(apelement.element):
             self.altitude(),
             speed,
             self._flighttype,
+            zorder=zorder,
         )
 
     ################################################################################

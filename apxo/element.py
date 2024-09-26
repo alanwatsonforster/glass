@@ -35,13 +35,13 @@ def _startgameturn():
     for E in _elementlist:
         E._restore()
     for E in _elementlist:
-        E._startpath()
-    for E in _elementlist:
         E._startspeed = E.speed()
         E._startaltitude = E.altitude()
         E._startaltitudeband = E.altitudeband()
         E._startaltitudecarry = E.altitudecarry()
         E._startgameturn()
+    for E in _elementlist:
+        E._startpath()
 
 
 def _endgameturn():
@@ -117,6 +117,8 @@ class element:
         altitude=None,
         speed=None,
         color=None,
+        delay=0,
+        properties={},
     ):
 
         global _elementlist
@@ -145,12 +147,19 @@ class element:
         if altitude is not None and not apaltitude.isvalidaltitude(altitude):
             raise RuntimeError("the altitude argument is not valid.")
 
+        if delay < 0:
+            raise RuntimeError("the delay argument is not valid.")
+        while delay != 0:
+            x, y = aphex.backward(x, y, facing)
+            delay -= 1
+
         self._x = x
         self._y = y
         self._facing = facing
         self._altitude = altitude
         self._altitudeband = apaltitude.altitudeband(self.altitude())
         self._altitudecarry = 0
+        self._flightslope = None
 
         self._killed = False
         self._removed = False
@@ -163,6 +172,8 @@ class element:
         self._path = appath.path(x, y, facing, altitude, speed)
 
         self._color = color
+
+        self._properties = properties
 
         _elementlist.append(self)
 
@@ -235,6 +246,9 @@ class element:
         if not apspeed.isvalidspeed(speed):
             raise RuntimeError("the speed argument is not valid.")
         self._speed = speed
+
+    def _setflightslope(self, flightslope):
+        self._flightslope = flightslope
 
     ############################################################################
 
@@ -333,6 +347,9 @@ class element:
 
     def maneuver(self):
         return ""
+        
+    def flightslope(self):
+        return self._flightslope
 
     def color(self):
         return self._color
@@ -496,6 +513,17 @@ class element:
 
         if not apmap.isonmap(self.x(), self.y()):
             self.logwhenwhat("", "%s has left the map." % self.name())
+
+    ############################################################################
+
+    def hasproperty(self, p):
+        return p in self._properties
+
+    def gainproperty(self, p):
+        self._properties.add(p)
+
+    def loseproperty(self, p):
+        self._properties.discard(p)
 
     ############################################################################
 
