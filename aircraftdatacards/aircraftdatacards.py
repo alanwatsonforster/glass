@@ -29,7 +29,11 @@ def blockA(data):
 
     writelatex(r"\renewcommand{\Aa}{%s}" % data.name())
 
-    writelatex(r"\renewcommand{\Ab}{%s}" % crew())
+    if len(data.crew()) > 6:
+        writelatex(r"\renewcommand{\Aba}{\scriptsize}")
+    else:
+        writelatex(r"\renewcommand{\Aba}{\small}")        
+    writelatex(r"\renewcommand{\Abb}{%s}" % crew())
 
     if data.power("CL", "M") is None:
         writelatex(r"\renewcommand{\Ac}{%s}" % (data.engines() * r"\propellerengine"))
@@ -110,9 +114,9 @@ def blockA(data):
         while speed < 100:
             powerfade = data.powerfade(speed, 0)
             if powerfade != lastpowerfade:
-                s += "Power reduced by %.1f when speed is greater than %.1f. " % (
+                s += r"Power reduced by %.1f when speed $\ge$ %.1f.\\" % (
                     powerfade,
-                    speed - 0.5,
+                    speed,
                 )
             lastpowerfade = powerfade
             speed += 0.5
