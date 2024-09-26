@@ -1,6 +1,7 @@
 #!/bin/env python3
 
 import sys
+
 sys.path.append("..")
 from apxo import aircraftdata
 import apxo.variants
@@ -26,22 +27,14 @@ def blockA(data):
         else:
             return ", ".join(data.crew()[0:-1]) + r", \& " + data.crew()[-1]
 
-    writelatex(
-        r"\renewcommand{\Aa}{%s}" % data.name()
-    )
+    writelatex(r"\renewcommand{\Aa}{%s}" % data.name())
 
-    writelatex(
-        r"\renewcommand{\Ab}{%s}" % crew()
-    )
+    writelatex(r"\renewcommand{\Ab}{%s}" % crew())
 
     if data.power("CL", "M") is None:
-        writelatex(
-            r"\renewcommand{\Ac}{%s}" % (data.engines() * r"\propellerengine")
-        )
+        writelatex(r"\renewcommand{\Ac}{%s}" % (data.engines() * r"\propellerengine"))
     else:
-        writelatex(
-            r"\renewcommand{\Ac}{%s}" % (data.engines() * r"\jetengine")
-        )
+        writelatex(r"\renewcommand{\Ac}{%s}" % (data.engines() * r"\jetengine"))
 
     def power(configuration, setting):
         if data.power(configuration, setting) is None:
@@ -209,25 +202,23 @@ def blockC(data):
         )
     )
 
+
 def blockD(data):
 
-
-    
-
     def speeds(configuration, altitudeband):
-      if data.minspeed(configuration, altitudeband) is None:
-        return "---"
-      else:
-        return r"\blockDminmaxspeed{%.1f}{%.1f}" % (
-            data.minspeed(configuration, altitudeband),
-            data.maxspeed(configuration, altitudeband),
-        )
-        
+        if data.minspeed(configuration, altitudeband) is None:
+            return "---"
+        else:
+            return r"\blockDminmaxspeed{%.1f}{%.1f}" % (
+                data.minspeed(configuration, altitudeband),
+                data.maxspeed(configuration, altitudeband),
+            )
+
     def divespeed(altitudeband):
-      if data.maxdivespeed(altitudeband) is None:
-        return "---"
-      else:
-        return r"\blockDdivespeed{%.1f}" % data.maxdivespeed(altitudeband)
+        if data.maxdivespeed(altitudeband) is None:
+            return "---"
+        else:
+            return r"\blockDdivespeed{%.1f}" % data.maxdivespeed(altitudeband)
 
     writelatex(
         r"\renewcommand{\Daa}{%d}\renewcommand{\Dab}{%d}\renewcommand{\Dac}{%d}"
@@ -238,7 +229,8 @@ def blockD(data):
         )
     )
     writelatex(
-        r"\renewcommand{\Dca}{%s}\renewcommand{\Dcb}{%s}\renewcommand{\Dcc}{%s}\renewcommand{\Dcd}{%s}" % (
+        r"\renewcommand{\Dca}{%s}\renewcommand{\Dcb}{%s}\renewcommand{\Dcc}{%s}\renewcommand{\Dcd}{%s}"
+        % (
             speeds("CL", "EH"),
             speeds("1/2", "EH"),
             speeds("DT", "EH"),
@@ -246,7 +238,8 @@ def blockD(data):
         )
     )
     writelatex(
-        r"\renewcommand{\Dda}{%s}\renewcommand{\Ddb}{%s}\renewcommand{\Ddc}{%s}\renewcommand{\Ddd}{%s}" % (
+        r"\renewcommand{\Dda}{%s}\renewcommand{\Ddb}{%s}\renewcommand{\Ddc}{%s}\renewcommand{\Ddd}{%s}"
+        % (
             speeds("CL", "VH"),
             speeds("1/2", "VH"),
             speeds("DT", "VH"),
@@ -254,7 +247,8 @@ def blockD(data):
         )
     )
     writelatex(
-        r"\renewcommand{\Dea}{%s}\renewcommand{\Deb}{%s}\renewcommand{\Dec}{%s}\renewcommand{\Ded}{%s}" % (
+        r"\renewcommand{\Dea}{%s}\renewcommand{\Deb}{%s}\renewcommand{\Dec}{%s}\renewcommand{\Ded}{%s}"
+        % (
             speeds("CL", "HI"),
             speeds("1/2", "HI"),
             speeds("DT", "HI"),
@@ -262,7 +256,8 @@ def blockD(data):
         )
     )
     writelatex(
-        r"\renewcommand{\Dfa}{%s}\renewcommand{\Dfb}{%s}\renewcommand{\Dfc}{%s}\renewcommand{\Dfd}{%s}" % (
+        r"\renewcommand{\Dfa}{%s}\renewcommand{\Dfb}{%s}\renewcommand{\Dfc}{%s}\renewcommand{\Dfd}{%s}"
+        % (
             speeds("CL", "MH"),
             speeds("1/2", "MH"),
             speeds("DT", "MH"),
@@ -270,7 +265,8 @@ def blockD(data):
         )
     )
     writelatex(
-        r"\renewcommand{\Dga}{%s}\renewcommand{\Dgb}{%s}\renewcommand{\Dgc}{%s}\renewcommand{\Dgd}{%s}" % (
+        r"\renewcommand{\Dga}{%s}\renewcommand{\Dgb}{%s}\renewcommand{\Dgc}{%s}\renewcommand{\Dgd}{%s}"
+        % (
             speeds("CL", "ML"),
             speeds("1/2", "ML"),
             speeds("DT", "ML"),
@@ -278,14 +274,15 @@ def blockD(data):
         )
     )
     writelatex(
-        r"\renewcommand{\Dha}{%s}\renewcommand{\Dhb}{%s}\renewcommand{\Dhc}{%s}\renewcommand{\Dhd}{%s}" % (
+        r"\renewcommand{\Dha}{%s}\renewcommand{\Dhb}{%s}\renewcommand{\Dhc}{%s}\renewcommand{\Dhd}{%s}"
+        % (
             speeds("CL", "LO"),
             speeds("1/2", "LO"),
             speeds("DT", "LO"),
             divespeed("LO"),
         )
     )
-    
+
     if data.maxspeed("CL", "EH") is not None:
         writelatex(r"\renewcommand{\Dba}{%.1f}" % data.maxspeed("CL", "EH"))
     elif data.maxspeed("CL", "VH") is not None:
@@ -312,6 +309,86 @@ def blockD(data):
     else:
         writelatex(r"\renewcommand{\Dbb}{%.1f}" % data.maxdivespeed("LO"))
 
+
+def blockE(data):
+
+    def climbcapability(configuration, altitudeband, powersetting):
+        value = data.climbcapability(
+            configuration, altitudeband, powersetting
+        )
+        if value is None:
+            return "---"
+        else:
+            return r"%.1f" % value
+
+    writelatex(
+        r"\renewcommand{\Eaa}{%s}\renewcommand{\Eab}{%s}\renewcommand{\Eac}{%s}\renewcommand{\Ead}{%s}\renewcommand{\Eae}{%s}\renewcommand{\Eaf}{%s}"
+        % (
+            climbcapability("CL", "EH", "AB"),
+            climbcapability("CL", "EH", "M"),
+            climbcapability("1/2", "EH", "AB"),
+            climbcapability("1/2", "EH", "M"),
+            climbcapability("DT", "EH", "AB"),
+            climbcapability("DT", "EH", "M"),
+        )
+    )
+    writelatex(
+        r"\renewcommand{\Eba}{%s}\renewcommand{\Ebb}{%s}\renewcommand{\Ebc}{%s}\renewcommand{\Ebd}{%s}\renewcommand{\Ebe}{%s}\renewcommand{\Ebf}{%s}"
+        % (
+            climbcapability("CL", "VH", "AB"),
+            climbcapability("CL", "VH", "M"),
+            climbcapability("1/2", "VH", "AB"),
+            climbcapability("1/2", "VH", "M"),
+            climbcapability("DT", "VH", "AB"),
+            climbcapability("DT", "VH", "M"),
+        )
+    )
+    writelatex(
+        r"\renewcommand{\Eca}{%s}\renewcommand{\Ecb}{%s}\renewcommand{\Ecc}{%s}\renewcommand{\Ecd}{%s}\renewcommand{\Ece}{%s}\renewcommand{\Ecf}{%s}"
+        % (
+            climbcapability("CL", "HI", "AB"),
+            climbcapability("CL", "HI", "M"),
+            climbcapability("1/2", "HI", "AB"),
+            climbcapability("1/2", "HI", "M"),
+            climbcapability("DT", "HI", "AB"),
+            climbcapability("DT", "HI", "M"),
+        )
+    )
+    writelatex(
+        r"\renewcommand{\Eda}{%s}\renewcommand{\Edb}{%s}\renewcommand{\Edc}{%s}\renewcommand{\Edd}{%s}\renewcommand{\Ede}{%s}\renewcommand{\Edf}{%s}"
+        % (
+            climbcapability("CL", "MH", "AB"),
+            climbcapability("CL", "MH", "M"),
+            climbcapability("1/2", "MH", "AB"),
+            climbcapability("1/2", "MH", "M"),
+            climbcapability("DT", "MH", "AB"),
+            climbcapability("DT", "MH", "M"),
+        )
+    )
+    writelatex(
+        r"\renewcommand{\Eea}{%s}\renewcommand{\Eeb}{%s}\renewcommand{\Eec}{%s}\renewcommand{\Eed}{%s}\renewcommand{\Eee}{%s}\renewcommand{\Eef}{%s}"
+        % (
+            climbcapability("CL", "ML", "AB"),
+            climbcapability("CL", "ML", "M"),
+            climbcapability("1/2", "ML", "AB"),
+            climbcapability("1/2", "ML", "M"),
+            climbcapability("DT", "ML", "AB"),
+            climbcapability("DT", "ML", "M"),
+        )
+    )
+    writelatex(
+        r"\renewcommand{\Efa}{%s}\renewcommand{\Efb}{%s}\renewcommand{\Efc}{%s}\renewcommand{\Efd}{%s}\renewcommand{\Efe}{%s}\renewcommand{\Eff}{%s}"
+        % (
+            climbcapability("CL", "LO", "AB"),
+            climbcapability("CL", "LO", "M"),
+            climbcapability("1/2", "LO", "AB"),
+            climbcapability("1/2", "LO", "M"),
+            climbcapability("DT", "LO", "AB"),
+            climbcapability("DT", "LO", "M"),
+        )
+    )
+
+
 def makeadc(name):
 
     log("making LaTeX ADC for %s." % name)
@@ -323,6 +400,7 @@ def makeadc(name):
     blockB(data)
     blockC(data)
     blockD(data)
+    blockE(data)
 
     writelatex(r"\adc")
 
