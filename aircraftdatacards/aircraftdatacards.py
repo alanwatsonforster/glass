@@ -1,4 +1,11 @@
+#!/bin/env python3
+
+import sys
+sys.path.append("..")
 from apxo import aircraftdata
+import apxo.variants
+
+apxo.variants.setvariants(["use first-edition ADCs"])
 
 
 def log(s):
@@ -205,7 +212,7 @@ def makeadc(name):
     writelatex(r"\adc")
 
 
-latexfilename = "aircraftdatacards/generated.tex"
+latexfilename = "generated.tex"
 latexfile = open(latexfilename, "w")
 
 makeadc("A-1E")
