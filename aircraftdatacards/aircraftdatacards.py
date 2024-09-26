@@ -199,11 +199,14 @@ def blockC(data):
 
 def blockD(data):
 
+
+    
+
     def speeds(configuration, altitudeband):
       if data.minspeed(configuration, altitudeband) is None:
         return "---"
       else:
-        return r"\blockDminmax{%.1f}{%.1f}" % (
+        return r"\blockDminmaxspeed{%.1f}{%.1f}" % (
             data.minspeed(configuration, altitudeband),
             data.maxspeed(configuration, altitudeband),
         )
@@ -212,7 +215,7 @@ def blockD(data):
       if data.maxdivespeed(altitudeband) is None:
         return "---"
       else:
-        return r"%.1f" % data.maxdivespeed(altitudeband)
+        return r"\blockDdivespeed{%.1f}" % data.maxdivespeed(altitudeband)
 
     writelatex(
         r"\renewcommand{\Daa}{%d}\renewcommand{\Dab}{%d}\renewcommand{\Dac}{%d}"
@@ -271,6 +274,18 @@ def blockD(data):
         )
     )
     
+    if data.maxspeed("CL", "EH") is not None:
+        writelatex(r"\renewcommand{\Db}{%.1f}" % data.maxspeed("CL", "EH"))
+    elif data.maxspeed("CL", "VH") is not None:
+        writelatex(r"\renewcommand{\Db}{%.1f}" % data.maxspeed("CL", "VH"))
+    elif data.maxspeed("CL", "HI") is not None:
+        writelatex(r"\renewcommand{\Db}{%.1f}" % data.maxspeed("CL", "HI"))
+    elif data.maxspeed("CL", "MH") is not None:
+        writelatex(r"\renewcommand{\Db}{%.1f}" % data.maxspeed("CL", "MH"))
+    elif data.maxspeed("CL", "ML") is not None:
+        writelatex(r"\renewcommand{\Db}{%.1f}" % data.maxspeed("CL", "ML"))
+    else:
+        writelatex(r"\renewcommand{\Db}{%.1f}" % data.maxspeed("CL", "LO"))
 
 def makeadc(name):
 

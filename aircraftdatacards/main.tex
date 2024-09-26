@@ -178,44 +178,45 @@ ET&\Cfa&\Cfb&\Cfc\\[0.2ex]
 Band&Ceil.&\multicolumn{1}{c|}{\Daa}&\multicolumn{1}{c|}{\Dab}&\multicolumn{1}{c|}{\Dac}&Speed\\[0.2ex]
 \hline
 \\[-2.85ex]
-~EH+&\multicolumn{1}{l|}{46+}&\Dca&\Dcb&\Dcc&\wbox{\Db}{\Dcd}\\
-~VH&\phantom{}36--45\phantom{}&\Dda&\Ddb&\Ddc&\wbox{\Db}{\Ddd}\\
-~HI&\phantom{}26--35\phantom{}&\Dea&\Deb&\Dec&\wbox{\Db}{\Ded}\\
-~MH&\phantom{}17--25\phantom{}&\Dfa&\Dfb&\Dfc&\wbox{\Db}{\Dfd}\\
-~ML&\phantom{0}8--16\phantom{}&\Dga&\Dgb&\Dgc&\wbox{\Db}{\Dgd}\\
-~LO&\phantom{0}0--7\phantom{0}&\Dha&\Dhb&\Dhc&\wbox{\Db}{\Dhd}\\
+~EH+&\multicolumn{1}{l|}{46+}&\Dca&\Dcb&\Dcc&\Dcd\\
+~VH&\phantom{}36--45\phantom{}&\Dda&\Ddb&\Ddc&\Ddd\\
+~HI&\phantom{}26--35\phantom{}&\Dea&\Deb&\Dec&\Ded\\
+~MH&\phantom{}17--25\phantom{}&\Dfa&\Dfb&\Dfc&\Dfd\\
+~ML&\phantom{0}8--16\phantom{}&\Dga&\Dgb&\Dgc&\Dgd\\
+~LO&\phantom{0}0--7\phantom{0}&\Dha&\Dhb&\Dhc&\Dhd\\
 \hline
 \end{tabularx}}
 
-\newcommand{\blockDminmax}[2]{\wbox{\Db}{#1} -- \wbox{\Db}{#2}}
+\newcommand{\blockDminmaxspeed}[2]{\wbox{\Db}{#1} -- \wbox{\Db}{#2}}
+\newcommand{\blockDdivespeed}[1]{\wbox{\Db}{#1}}
 
 \newcommand{\Daa}{62} % Ceiling CL
 \newcommand{\Dab}{52} % Ceiling 1/2
 \newcommand{\Dac}{40} % Ceiling DT
 \newcommand{\Db}{00.0} % Speed width template
-\newcommand{\Dca}{\blockDminmax{4.5}{13.0}} % EH speeds CL
-\newcommand{\Dcb}{\blockDminmax{5.0}{10.5}} % EH speeds 1/2
+\newcommand{\Dca}{\blockDminmaxspeed{4.5}{13.0}} % EH speeds CL
+\newcommand{\Dcb}{\blockDminmaxspeed{5.0}{10.5}} % EH speeds 1/2
 \newcommand{\Dcc}{---} % EH speeds DT
 \newcommand{\Dcd}{14.0} % EH dive speed
-\newcommand{\Dda}{\blockDminmax{3.5}{13.5}} % VH speeds CL
-\newcommand{\Ddb}{\blockDminmax{4.0}{11.0}} % VH speeds 1/2
-\newcommand{\Ddc}{\blockDminmax{4.5}{ 8.5}} % VH speeds DT
+\newcommand{\Dda}{\blockDminmaxspeed{3.5}{13.5}} % VH speeds CL
+\newcommand{\Ddb}{\blockDminmaxspeed{4.0}{11.0}} % VH speeds 1/2
+\newcommand{\Ddc}{\blockDminmaxspeed{4.5}{ 8.5}} % VH speeds DT
 \newcommand{\Ddd}{14.0} % VH dive speed
-\newcommand{\Dea}{\blockDminmax{3.0}{12.0}} % HI speeds CL
-\newcommand{\Deb}{\blockDminmax{3.0}{10.0}} % HI speeds 1/2
-\newcommand{\Dec}{\blockDminmax{3.5}{ 8.0}} % HI speeds DT
+\newcommand{\Dea}{\blockDminmaxspeed{3.0}{12.0}} % HI speeds CL
+\newcommand{\Deb}{\blockDminmaxspeed{3.0}{10.0}} % HI speeds 1/2
+\newcommand{\Dec}{\blockDminmaxspeed{3.5}{ 8.0}} % HI speeds DT
 \newcommand{\Ded}{13.0} % HI dive speed
-\newcommand{\Dfa}{\blockDminmax{2.5}{10.0}} % MH speeds CL
-\newcommand{\Dfb}{\blockDminmax{3.0}{ 9.0}} % MH speeds 1/2
-\newcommand{\Dfc}{\blockDminmax{3.5}{ 7.0}} % MH speeds DT
+\newcommand{\Dfa}{\blockDminmaxspeed{2.5}{10.0}} % MH speeds CL
+\newcommand{\Dfb}{\blockDminmaxspeed{3.0}{ 9.0}} % MH speeds 1/2
+\newcommand{\Dfc}{\blockDminmaxspeed{3.5}{ 7.0}} % MH speeds DT
 \newcommand{\Dfd}{12.0} % MH dive speed
-\newcommand{\Dga}{\blockDminmax{2.0}{ 9.0}} % ML speeds CL
-\newcommand{\Dgb}{\blockDminmax{2.5}{ 8.0}} % ML speeds 1/2
-\newcommand{\Dgc}{\blockDminmax{3.0}{ 6.5}} % ML speeds DT
+\newcommand{\Dga}{\blockDminmaxspeed{2.0}{ 9.0}} % ML speeds CL
+\newcommand{\Dgb}{\blockDminmaxspeed{2.5}{ 8.0}} % ML speeds 1/2
+\newcommand{\Dgc}{\blockDminmaxspeed{3.0}{ 6.5}} % ML speeds DT
 \newcommand{\Dgd}{10.0} % ML dive speed
-\newcommand{\Dha}{\blockDminmax{2.0}{ 8.0}} % LO speeds CL
-\newcommand{\Dhb}{\blockDminmax{2.0}{ 7.0}} % LO speeds 1/2
-\newcommand{\Dhc}{\blockDminmax{3.0}{ 6.0}} % LO speeds DT
+\newcommand{\Dha}{\blockDminmaxspeed{2.0}{ 8.0}} % LO speeds CL
+\newcommand{\Dhb}{\blockDminmaxspeed{2.0}{ 7.0}} % LO speeds 1/2
+\newcommand{\Dhc}{\blockDminmaxspeed{3.0}{ 6.0}} % LO speeds DT
 \newcommand{\Dhd}{ 8.5} % LO dive speed
 
 \newcommand{\blockE}{%
