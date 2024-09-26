@@ -27,9 +27,21 @@ def blockA(data):
             return ", ".join(data.crew()[0:-1]) + r", \& " + data.crew()[-1]
 
     writelatex(
-        r"\renewcommand{\Aa}{%s}\renewcommand{\Ab}{%s}\renewcommand{\Ac}{%s}"
-        % (data.name(), crew(), data.engines() * r"\circ"),
+        r"\renewcommand{\Aa}{%s}" % data.name()
     )
+
+    writelatex(
+        r"\renewcommand{\Ab}{%s}" % crew()
+    )
+
+    if data.power("CL", "M") is None:
+        writelatex(
+            r"\renewcommand{\Ac}{%s}" % (data.engines() * r"\propellerengine")
+        )
+    else:
+        writelatex(
+            r"\renewcommand{\Ac}{%s}" % (data.engines() * r"\jetengine")
+        )
 
     def power(configuration, setting):
         if data.power(configuration, setting) is None:
