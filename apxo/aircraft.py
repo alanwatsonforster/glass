@@ -629,14 +629,8 @@ class aircraft(apelement.element):
     ################################################################################
 
     def _draw(self):
-        if self.killed():
-            color = None
-            zorder = 0
-        else:
-            color = self._color
-            zorder = self.altitude() + 1
         if self._startedmoving:
-            self._drawpath(color, annotate=True)
+            self._drawpath(self._color, killed=self.killed())
         if self._finishedmoving:
             speed = self.newspeed()
         elif self._startedmoving:
@@ -647,12 +641,12 @@ class aircraft(apelement.element):
             self.x(),
             self.y(),
             self.facing(),
-            color,
+            self._color,
             self.name(),
             self.altitude(),
             speed,
             self._flighttype,
-            zorder=zorder,
+            killed=self.killed()
         )
 
     ################################################################################

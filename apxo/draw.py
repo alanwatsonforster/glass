@@ -543,8 +543,8 @@ pathlinestyle = "dotted"
 pathdotsize = 0.1
 aircrafttextsize = 10
 aircraftcounterlinewidth = 2
-aircraftkilledfillcolor = None
-aircraftkilledlinecolor = (0.50, 0.50, 0.50)
+aircraftkilledfillcolor = (0.60, 0.60, 0.60)
+aircraftkilledlinecolor = (0.60, 0.60, 0.60)
 aircraftlinecolor = (0.00, 0.00, 0.00)
 aircraftlinewidth = 1
 textcolor = (0.00, 0.00, 0.00)
@@ -579,16 +579,18 @@ def _drawannotation(x, y, facing, position, text, zorder):
     )
 
 
-def drawpath(x, y, facing, altitude, speed, color, annotate=True):
-    if color is None:
+def drawpath(x, y, facing, altitude, speed, color, killed):
+    if killed:
         fillcolor = aircraftkilledfillcolor
+        linecolor = aircraftkilledlinecolor
     else:
         fillcolor = color
+        linecolor = pathcolor
     if len(x) > 1:
         drawlines(
             x,
             y,
-            color=pathcolor,
+            color=linecolor,
             linewidth=pathlinewidth,
             linestyle=pathlinestyle,
             zorder=0,
@@ -598,12 +600,12 @@ def drawpath(x, y, facing, altitude, speed, color, annotate=True):
             x[0],
             y[0],
             fillcolor=fillcolor,
-            linecolor=pathcolor,
+            linecolor=linecolor,
             linewidth=aircraftlinewidth,
             size=pathdotsize,
             zorder=zorder,
         )
-        if annotate:
+        if not killed:
             _drawannotation(
                 x[0], y[0], facing[0], "cl", "%d" % altitude[0], zorder=zorder
             )
@@ -618,24 +620,14 @@ def drawpath(x, y, facing, altitude, speed, color, annotate=True):
                 )
 
 
-def drawaircraft(x, y, facing, color, name, altitude, speed, flighttype, zorder):
-    if color is None:
+def drawaircraft(x, y, facing, color, name, altitude, speed, flighttype, killed):
+    if killed:
         fillcolor = aircraftkilledfillcolor
         linecolor = aircraftkilledlinecolor
-        nametext = ""
-        altitudetext = ""
-        speedtext = ""
-        flighttypetext = ""
     else:
         fillcolor = color
         linecolor = aircraftlinecolor
-        nametext = name
-        altitudetext = "%2d" % altitude
-        if speed is None:
-            speedtext = ""
-        else:
-            speedtext = "%.1f" % speed
-        flighttypetext = flighttype[:2]
+    zorder = altitude + 1
     if apvariants.withvariant("draw counters"):
         drawsquare(
             x,
@@ -668,38 +660,39 @@ def drawaircraft(x, y, facing, color, name, altitude, speed, flighttype, zorder)
             linecolor=linecolor,
             zorder=zorder,
         )
-        _drawannotation(
-            x,
-            y,
-            facing,
-            "cr",
-            nametext,
-            zorder=zorder,
-        )
-        _drawannotation(
-            x,
-            y,
-            facing,
-            "ul",
-            flighttypetext,
-            zorder=zorder,
-        )
-        _drawannotation(
-            x,
-            y,
-            facing,
-            "cl",
-            altitudetext,
-            zorder=zorder,
-        )
-        _drawannotation(
-            x,
-            y,
-            facing,
-            "ll",
-            speedtext,
-            zorder=zorder,
-        )
+        if not killed:
+            _drawannotation(
+                x,
+                y,
+                facing,
+                "cr",
+                name,
+                zorder=zorder,
+            )
+            _drawannotation(
+                x,
+                y,
+                facing,
+                "ul",
+                flighttype[:2],
+                zorder=zorder,
+            )
+            _drawannotation(
+                x,
+                y,
+                facing,
+                "cl",
+                "%2d" % altitude,
+                zorder=zorder,
+            )
+            _drawannotation(
+                x,
+                y,
+                facing,
+                "ll",
+                ("%.1f" % speed) if speed is not None else "",
+                zorder=zorder,
+            )
 
 
 def drawmissile(x, y, facing, color, name, altitude, speed):

@@ -104,7 +104,7 @@ class missile(apelement.element):
     #############################################################################
 
     def _draw(self):
-        self._drawpath(self._color, annotate=False)
+        self._drawpath(self._color)
         apdraw.drawmissile(
             self.x(),
             self.y(),
