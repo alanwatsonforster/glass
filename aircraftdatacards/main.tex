@@ -281,6 +281,59 @@ AB&Oth&AB&Oth&AB&Oth&\multicolumn{1}{c}{Band}\\[0.2ex]
 \newcommand{\Efe}{2.0}
 \newcommand{\Eff}{1.0}
 
+\newcommand{\blockFcells}{9}
+\newcommand{\blockGcells}{7}
+
+\newcommand{\blockF}{%
+\typeout{Block F}%
+\begin{tabularx}{9\cellwidth}{@{}p{5\cellwidth}@{}p{4\cellwidth}@{}}
+\parbox[b][20em][t]{5\cellwidth}{%
+\begin{tabularx}{5\cellwidth}{lC|}
+\bfseries Radar&---\\
+ECCM&---\\
+Arcs&---\\
+Search&---\\
+Track&---\\
+Lock-On&---\\[0.2em]
+\hline
+\\[-2.85ex]
+\bfseries Guns&---\\
+To Hit&---\\
+Ammunition&---\\
+Gunsight Mods&---\\
+Radar Ranging&---\\
+AtA/AtG Damage&---\\
+\bfseries Bomb System&---\\[0.2em]
+\hline
+\end{tabularx}}&
+\parbox[b][20em][t]{4\cellwidth}{%
+\begin{tabularx}{4\cellwidth}{lC}
+\bfseries ECM&\\
+IFF&---\\
+RWR&---\\
+DDS&---\\
+DJM&---\\
+AJM&---\\[0.2em]
+\hline
+\\[-2.85ex]
+\multicolumn{2}{p{3.5\cellwidth}}{
+\multirow[t]{7}*{%
+\raggedright {\bfseries Technology:}
+}}\\
+\\
+\\
+\\
+\\
+\\
+\\[0.2em]
+\hline
+\end{tabularx}}\\[-2.85ex]
+\multicolumn{2}{p{8.5\cellwidth}}{
+\parbox[t][17em][t]{8.5\cellwidth}{%
+\raggedright {\bfseries Notes:}
+}}\\[0.2em]
+\end{tabularx}}
+
 \newcommand{\blockABCDE}{%
 \centering
 \begin{tabular}{*{16}{@{}p{\cellwidth}}@{}}
@@ -293,6 +346,11 @@ AB&Oth&AB&Oth&AB&Oth&\multicolumn{1}{c}{Band}\\[0.2ex]
 \multicolumn{\blockDcells}{|@{}c@{}|}{\blockD}&
 \multicolumn{\blockEcells}{@{}c@{}|}{\blockE}\\
 &&&&&&&&&&&&&&&\\
+\hline
+\multicolumn{9}{|@{}c@{}|}{\blockF}&
+\multicolumn{7}{@{}c@{}|}{}\\
+\hline
+
 %\multicolumn{1}{|c}{1}&\multicolumn{1}{|c}{2}&\multicolumn{1}{|c}{3}&\multicolumn{1}{|c}{4}&
 %\multicolumn{1}{|c}{5}&\multicolumn{1}{|c}{6}&\multicolumn{1}{|c}{7}&\multicolumn{1}{|c}{8}&
 %\multicolumn{1}{|c}{9}&\multicolumn{1}{|c}{10}&\multicolumn{1}{|c}{11}&\multicolumn{1}{|c}{12}&
