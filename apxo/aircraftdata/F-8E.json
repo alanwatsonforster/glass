@@ -48,7 +48,7 @@
     "LO": [ [ 3.0, 1.5 ], [ 3.0, 1.0 ], [ 2.0, 1.0 ] ]
   },
   "storeslimits": [ 2, 6, 5500 ],
-  "gun": "Four 20 mm Mk. 12",
+  "gun": "Four 20 mm Mk 12",
   "gunatatohitrolls": [ 6, 4, 3 ],
   "gunatadamagerating": 5,
   "gunammunition": 4.0,
