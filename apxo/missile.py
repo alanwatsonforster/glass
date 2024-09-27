@@ -65,7 +65,7 @@ class missile(apelement.element):
 
             self._launchgameturn = apgameturn.gameturn()
 
-            self._setspeed(self.basespeed() + launcher.newspeed())
+            self._setspeed(self.basespeed() + launcher.speed())
             maxspeed = apspeed.missilemaxspeed(self.altitudeband())
             if self.speed() > maxspeed:
                 self.logcomment("reducing start speed to maximum for altitude band.")
@@ -149,7 +149,7 @@ class missile(apelement.element):
 
     def _checktargettracking(self):
 
-        slopenumerator, slopedenominator = apflight._flightslope(self)
+        slopenumerator, slopedenominator = apflight._endflightslope(self)
 
         horizontalrange = apgeometry.horizontalrange(self, self._target)
         self.logcomment("horizontal range is %d." % horizontalrange)
