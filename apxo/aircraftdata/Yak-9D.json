@@ -47,7 +47,7 @@
     "ML": [ [ "-", 1.0  ], [ "-", 0.5  ], [ "-", 0.5  ] ],
     "LO": [ [ "-", 1.0  ], [ "-", 1.0  ], [ "-", 0.5  ] ]
   },
-  "gun": "One 20 mm and onr 12.7 mm",
+  "gun": "One 20 mm and one 12.7 mm",
   "gunatatohitrolls": [ 5, 3, 0 ],
   "gunatadamagerating": 2,
   "gunammunition": 6.0,
