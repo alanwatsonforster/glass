@@ -3,7 +3,6 @@
   "origin": "TSOH",
   "base": "B-57B",
   "gun": "",
-  "gun": "",
   "storeslimits": [ 8, 15, 12000 ],
   "properties": [ "HTD", "LRR", "OVR" ],
   "notes": [
