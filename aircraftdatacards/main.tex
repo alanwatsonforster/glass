@@ -288,7 +288,7 @@ AB&Oth&AB&Oth&AB&Oth&\multicolumn{1}{c}{Band}\\[0.2ex]
 \typeout{Block F}%
 \begin{tabularx}{9\cellwidth}{@{}p{5\cellwidth}@{}p{4\cellwidth}@{}}
 \parbox[b][20em][t]{5\cellwidth}{%
-\begin{tabularx}{5\cellwidth}{lC|}
+\begin{tabularx}{5\cellwidth}{l@{ }R|}
 \bfseries Radar&---\\
 ECCM&---\\
 Arcs&---\\
@@ -296,13 +296,16 @@ Search&---\\
 Track&---\\
 Lock-On&---\\[0.2em]
 \hline
-\\[-2.85ex]
-\bfseries Guns&---\\
-To Hit&---\\
-Ammunition&---\\
-Gunsight Mods&---\\
-Radar Ranging&---\\
-AtA/AtG Damage&---\\
+%\\[-2.85ex]
+\multicolumn{2}{@{}l@{}|}{%
+\begin{tabularx}{5\cellwidth}{l@{ }R}
+\bfseries Guns&\Fg\\
+\end{tabularx}}\\
+To Hit&\Fh\\
+Ammunition&\Fi\\
+Gunsight&\Fj\\
+Radar Ranging&\Fk\\
+AtA/AtG&\Fl\\
 \bfseries Bomb System&---\\[0.2em]
 \hline
 \end{tabularx}}&
@@ -334,6 +337,13 @@ AJM&---\\[0.2em]
 }}\\[0.2em]
 \end{tabularx}}
 
+\newcommand{\Fg}{20mm Vulcan}
+\newcommand{\Fh}{7/6/4}
+\newcommand{\Fi}{3.0}
+\newcommand{\Fj}{BT+2}
+\newcommand{\Fk}{RE}
+\newcommand{\Fl}{6/8$^*$}
+
 \newcommand{\blockABCDE}{%
 \centering
 \begin{tabular}{*{16}{@{}p{\cellwidth}}@{}}
@@ -350,11 +360,6 @@ AJM&---\\[0.2em]
 \multicolumn{9}{|@{}c@{}|}{\blockF}&
 \multicolumn{7}{@{}c@{}|}{}\\
 \hline
-
-%\multicolumn{1}{|c}{1}&\multicolumn{1}{|c}{2}&\multicolumn{1}{|c}{3}&\multicolumn{1}{|c}{4}&
-%\multicolumn{1}{|c}{5}&\multicolumn{1}{|c}{6}&\multicolumn{1}{|c}{7}&\multicolumn{1}{|c}{8}&
-%\multicolumn{1}{|c}{9}&\multicolumn{1}{|c}{10}&\multicolumn{1}{|c}{11}&\multicolumn{1}{|c}{12}&
-%\multicolumn{1}{|c}{13}&\multicolumn{1}{|c}{14}&\multicolumn{1}{|c}{15}&\multicolumn{1}{|c|}{16}\\
 \end{tabular}}
 
 \newcommand{\adc}{

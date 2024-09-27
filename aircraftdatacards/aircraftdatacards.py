@@ -445,6 +445,43 @@ def blockE(data):
             climbcapability("DT", "LO", "M"),
         )
     )
+    
+def blockF(data):
+
+    if data.gun() is None:
+        writelatex(r"\renewcommand{\Fg}{---}")
+        writelatex(r"\renewcommand{\Fh}{---}")
+        writelatex(r"\renewcommand{\Fi}{---}")
+        writelatex(r"\renewcommand{\Fl}{---}")
+    else:
+        s = data.gun()
+        s = re.sub(r" and ", r" \& ", s)
+        s = re.sub(r"\. ", r".~", s)
+        if len(s) > 25:
+            s = r"\scriptsize " + s
+        elif len(s) > 20:
+            s = r"\footnotesize " + s
+        writelatex(r"\renewcommand{\Fg}{%s}" % s)
+        if data.gunatatohitroll(2) is None:
+            writelatex(r"\renewcommand{\Fh}{%d/%d/--}" % (data.gunatatohitroll(0), data.gunatatohitroll(1)))
+        else:
+            writelatex(r"\renewcommand{\Fh}{%d/%d/%d}" % (data.gunatatohitroll(0), data.gunatatohitroll(1), data.gunatatohitroll(2)))
+        writelatex(r"\renewcommand{\Fi}{%.1f}" % (data.gunammunition()))
+        writelatex(r"\renewcommand{\Fl}{%d/\wbox{0}{}}" % data.gunatadamagerating())
+
+    s = ""
+    for turnrate in ["TT", "HT", "BT"]:
+         if data.gunsightmodifier(turnrate) is not None:
+            s += "/%s%+d" % (turnrate, data.gunsightmodifier(turnrate))
+    s = s[1:]
+    if s == "":
+        s = "---"
+    writelatex(r"\renewcommand{\Fj}{%s}" % s)
+
+    if data.ataradarrangingtype() is None:
+        writelatex(r"\renewcommand{\Fk}{---}")
+    else:
+        writelatex(r"\renewcommand{\Fk}{%s}" % data.ataradarrangingtype())
 
 
 def makeadc(name):
@@ -459,6 +496,7 @@ def makeadc(name):
     blockC(data)
     blockD(data)
     blockE(data)
+    blockF(data)
 
     writelatex(r"\adc")
 
