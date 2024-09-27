@@ -1,7 +1,7 @@
 {
   "name": "F2H-2P Banshee",
   "base": "F2H-2",
-  "gunammunition": 0,
+  "gun": "",
   "notes": [
     "Oblique and overhead cameras."
   ]
