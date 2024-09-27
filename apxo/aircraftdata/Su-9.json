@@ -48,7 +48,7 @@
   },
   "storeslimits": [ 2, 6, 3000 ],
   "gun": "",
-  "gunammunition": 0,
+  "gun": "",
   "properties": [ "SMP" ],
   "notes": [
     "NATO reporting name is Fishpot-B."

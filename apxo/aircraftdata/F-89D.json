@@ -47,7 +47,7 @@
     "ML": [ [ 1.0, 0.5  ], [ 1.0, 0.5  ], [ 1.0, 0.5  ] ],
     "LO": [ [ 1.0, 0.5  ], [ 1.0, 0.5  ], [ 1.0, 0.5  ] ]
   },
-  "gunammunition": 0.0,
+  "gun": "",
   "gunsightmodifiers": { "TT": 0, "HT": 1, "BT": 2 },
   "ataradarranging": "RE",
   "atalockon": 7,

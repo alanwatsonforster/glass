@@ -1,8 +1,8 @@
 {
   "name": "MiG-19PM Farmer-E",
   "base": "MiG-19PF",
-  "guns": "",
-  "gunammunition": 0,
+  "gun": "",
+  "gun": "",
   "notes": [
     "NATO reporting name is Farmer-E."
   ]

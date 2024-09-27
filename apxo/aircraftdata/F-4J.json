@@ -3,6 +3,6 @@
   "base": "F-4E",
   "internalfuel": 610,
   "ceilingtable": [ 62, 48, 40 ],
-  "gunammunition": 0,
+  "gun": "",
   "gunsightmodifiers": { "TT": 1, "HT": 2, "BT": 3 }
 }

@@ -2,6 +2,6 @@
   "name": "F-104B Starfighter",
   "base": "F-104A",
   "crew": [ "Pilot", "Observer" ],
-  "gunammunition": 0,
+  "gun": "",
   "internalfuel": 230
 }

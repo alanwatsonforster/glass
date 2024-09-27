@@ -47,7 +47,7 @@
     "ML": [ [ 3.0, 1.0 ], [ 2.0, 1.0 ], [ 2.0, 1.0 ] ],
     "LO": [ [ 3.0, 1.0 ], [ 2.0, 1.0 ], [ 2.0, 1.0 ] ]
   },
-  "gunammunition": 0.0,
+  "gun": "",
   "rocketfactors": 2,
   "atalockon": 7,
   "storeslimits": [ 3, 6, 4000 ],
