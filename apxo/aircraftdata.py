@@ -361,6 +361,18 @@ class aircraftdata:
         else:
             return None
 
+    def NDRHSlimit(self):
+        if "NDRHS" in self.properties():
+            return self._data["NDRHSlimit"]
+        else:
+            return None
+
+    def NLRHSlimit(self):
+        if "NLRHS" in self.properties():
+            return self._data["NLRHSlimit"]
+        else:
+            return None
+
     def rocketfactors(self):
         if "rocketfactors" in self._data:
             return self._data["rocketfactors"]

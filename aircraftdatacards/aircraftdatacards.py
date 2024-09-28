@@ -259,9 +259,16 @@ def blockC(data):
         else:
             s += r" use higher drag."
     if data.hasproperty("NRM"):
-        s += "No rolling maneuvers allowed."
+        s += r"No rolling maneuvers allowed."
     if data.hasproperty("OVR"):
-        s += "Only one vertical roll allowed per game turn."
+        s += r"Only one vertical roll allowed per game turn."
+    if data.hasproperty("NDRHS") and data.hasproperty("NDRHS") and data.NDRHSlimit() == data.NDRHSlimit():
+        s += r"No lag or displacement rolls if speed $\ge$ %.1f. " % data.NDRHSlimit()
+    else:
+        if data.hasproperty("NDRHS"):
+            s += r"No displacement rolls if speed $\ge$ %.1f. " % data.NDRHSlimit()
+        if data.hasproperty("NLRHS"):
+            s += r"No lag rolls if speed $\ge$ %.1f. " % data.NLRHSlimit()
 
     writelatex(r"\renewcommand{\Cg}{%s}" % s)
 
@@ -501,8 +508,11 @@ def blockF(data):
     n = 1
     if len(data.properties()) != 0:
         for property in sorted(data.properties()):
-            if property == "ABSF":
+            if property == "ABSF" or  property == "SMP":
                 # Noted in power section.
+                pass
+            elif property == "OVR" or property == "NRM" or property == "NDRHS" or property == "NLRHS":
+                # Noted in maneuver section.
                 pass
             else:
                 s += "%d. " % n
@@ -531,14 +541,6 @@ def blockF(data):
                     s += r"Low transonic drag (LTD). "
                 elif property == "LTDCL":
                     s += r"Low transonic drag (LTD) if CL. "
-                elif property == "NDRHS":
-                    s += r"No displacement rolls (NDR) if speed $\ge$ %.1f. " % data._data["NDRHSlimit"]
-                elif property == "NLRHS":
-                    s += r"No lag rolls (NLR) if speed $\ge$ %.1f. " % data._data["NLRHSlimit"]
-                elif property == "NRM":
-                    s += r"No rolling maneuvers (NRM). "
-                elif property == "OVR":
-                    s += r"Only one vertical roll per game turn (OVR). "
                 elif property == "PSSM":
                     s += r"Poor supersonic maneuverability (PSSM). "
                 elif property == "RA":
@@ -547,8 +549,6 @@ def blockF(data):
                     s += r"Rapid acceleration (RA) if CL. "
                 elif property == "RPR":
                     s += r"Rapid power response (RPR). "
-                elif property == "SMP":
-                    s += r"Smoker in military power (SMP). "
                 else:
                     log("unknown property: %s" % property)
                     s += "%s. " % property
