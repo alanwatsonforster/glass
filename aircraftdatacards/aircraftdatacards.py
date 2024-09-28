@@ -553,6 +553,10 @@ def blockF(data):
                     log("unknown property: %s" % property)
                     s += "%s. " % property
                 s += "\n\n"
+
+    for note in data.notes():
+        s += "%d. %s\n\n" % (n, note)
+        n += 1    
     
     writelatex(r"\renewcommand{\Ft}{%s}" % s)
 

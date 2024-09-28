@@ -402,6 +402,12 @@ class aircraftdata:
         elif configuration == "DT":
             return self._data["storeslimits"][2]
 
+    def notes(self):
+        if "notes" in self._data:
+            return self._data["notes"]
+        else:
+            return []
+
     ##############################################################################
 
     def __str__(self):
