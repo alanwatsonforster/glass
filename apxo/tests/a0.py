@@ -48,7 +48,7 @@ assert d.rolldrag("VR") == 0.0
 assert d.climbcapability("CL", "ML", "AB") == 7.0
 assert d.climbcapability("DT", "EH", "M") == None
 assert d.hasproperty("LTD") == True
-assert d.hasproperty("RAA") == True
+assert d.hasproperty("RA") == True
 assert d.hasproperty("GSSM") == True
 assert d.hasproperty("RPR") == True
 assert d.hasproperty("HPR") == False

@@ -55,7 +55,7 @@
   "ataradarranging": "RE",
   "atalockon": 6,
   "storeslimits": [ 2.0, 5.0, 7800 ],
-  "properties": [ "SMP", "LTD", "RAA", "RPR", "GSSM" ],
+  "properties": [ "SMP", "LTD", "RA", "RPR", "GSSM" ],
   "notes": [
     "Before 1958, F-104As has downward ejecting seats. No ejections allowed unless aircraft is at least 2 levels above terrain."
   ]
