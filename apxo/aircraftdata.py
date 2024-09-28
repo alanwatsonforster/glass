@@ -354,6 +354,12 @@ class aircraftdata:
             
     def properties(self):
         return self._data["properties"]
+        
+    def ABSFamount(self):
+        if "ABSF" in self.properties():
+            return self._data["ABSFamount"]
+        else:
+            return None
 
     def rocketfactors(self):
         if "rocketfactors" in self._data:

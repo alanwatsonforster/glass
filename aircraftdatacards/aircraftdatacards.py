@@ -139,6 +139,9 @@ def blockA(data):
                 )
             lastpowerfade = powerfade
             altitude += 1
+    if data.hasproperty("ABSF"):
+        s += "If not in AB power, reduce maximum speeds by %.1f." % data.ABSFamount()
+            
     writelatex(
         r"\renewcommand{\Ai}{%s}" % s,
     )
@@ -498,57 +501,58 @@ def blockF(data):
     n = 1
     if len(data.properties()) != 0:
         for property in sorted(data.properties()):
-            s += "%d. " % n
-            n += 1
             if property == "ABSF":
                 # Noted in power section.
                 pass
-            elif property == "GSSM":
-                s += r"Good supersonic maneuverability (GSSM). "
-            elif property == "HAE":
-                s += r"High altitude engines (HAE). "
-            elif property == "HBR":
-                s += r"High bleed rate (HBR). "
-            elif property == "HPR":
-                s += r"High pitch rate (HPR). "
-            elif property == "HRR":
-                s += r"High roll rate (HRR). "
-            elif property == "HRRCL":
-                s += r"High roll rate (HRR) if CL. "
-            elif property == "HTD":
-                s += r"High transonic drag (HTD). "
-            elif property == "LBR":
-                s += r"Low bleed rate (LBR). "
-            elif property == "LRR":
-                s += r"Low roll rate (LRR). "
-            elif property == "LRRHS":
-                s += r"Low roll rate (LRR) if speed $\ge$ %.1f. " % data._data["LRRHSlimit"]
-            elif property == "LTD":
-                s += r"Low transonic drag (LTD). "
-            elif property == "LTDCL":
-                s += r"Low transonic drag (LTD) if CL. "
-            elif property == "NDRHS":
-                s += r"No displacement rolls (NDR) if speed $\ge$ %.1f. " % data._data["NDRHSlimit"]
-            elif property == "NLRHS":
-                s += r"No lag rolls (NLR) if speed $\ge$ %.1f. " % data._data["NLRHSlimit"]
-            elif property == "NRM":
-                s += r"No rolling maneuvers (NRM). "
-            elif property == "OVR":
-                s += r"Only one vertical roll per game turn (OVR). "
-            elif property == "PSSM":
-                s += r"Poor supersonic maneuverability (PSSM). "
-            elif property == "RA":
-                s += r"Rapid acceleration (RA). "
-            elif property == "RACL":
-                s += r"Rapid acceleration (RA) if CL. "
-            elif property == "RPR":
-                s += r"Rapid power response (RPR). "
-            elif property == "SMP":
-                s += r"Smoker in military power (SMP). "
             else:
-                log("unknown property: %s" % property)
-                s += "%s. " % property
-            s += "\n\n"
+                s += "%d. " % n
+                n += 1
+                if property == "GSSM":
+                    s += r"Good supersonic maneuverability (GSSM). "
+                elif property == "HAE":
+                    s += r"High altitude engines (HAE). "
+                elif property == "HBR":
+                    s += r"High bleed rate (HBR). "
+                elif property == "HPR":
+                    s += r"High pitch rate (HPR). "
+                elif property == "HRR":
+                    s += r"High roll rate (HRR). "
+                elif property == "HRRCL":
+                    s += r"High roll rate (HRR) if CL. "
+                elif property == "HTD":
+                    s += r"High transonic drag (HTD). "
+                elif property == "LBR":
+                    s += r"Low bleed rate (LBR). "
+                elif property == "LRR":
+                    s += r"Low roll rate (LRR). "
+                elif property == "LRRHS":
+                    s += r"Low roll rate (LRR) if speed $\ge$ %.1f. " % data._data["LRRHSlimit"]
+                elif property == "LTD":
+                    s += r"Low transonic drag (LTD). "
+                elif property == "LTDCL":
+                    s += r"Low transonic drag (LTD) if CL. "
+                elif property == "NDRHS":
+                    s += r"No displacement rolls (NDR) if speed $\ge$ %.1f. " % data._data["NDRHSlimit"]
+                elif property == "NLRHS":
+                    s += r"No lag rolls (NLR) if speed $\ge$ %.1f. " % data._data["NLRHSlimit"]
+                elif property == "NRM":
+                    s += r"No rolling maneuvers (NRM). "
+                elif property == "OVR":
+                    s += r"Only one vertical roll per game turn (OVR). "
+                elif property == "PSSM":
+                    s += r"Poor supersonic maneuverability (PSSM). "
+                elif property == "RA":
+                    s += r"Rapid acceleration (RA). "
+                elif property == "RACL":
+                    s += r"Rapid acceleration (RA) if CL. "
+                elif property == "RPR":
+                    s += r"Rapid power response (RPR). "
+                elif property == "SMP":
+                    s += r"Smoker in military power (SMP). "
+                else:
+                    log("unknown property: %s" % property)
+                    s += "%s. " % property
+                s += "\n\n"
     
     writelatex(r"\renewcommand{\Ft}{%s}" % s)
 
