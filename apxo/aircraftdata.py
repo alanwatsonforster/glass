@@ -351,6 +351,9 @@ class aircraftdata:
             return None
         else:
             return self._data["atalockon"]
+            
+    def properties(self):
+        return self._data["properties"]
 
     def rocketfactors(self):
         if "rocketfactors" in self._data:
