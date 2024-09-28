@@ -579,7 +579,7 @@ def _drawannotation(x, y, facing, position, text, zorder):
     )
 
 
-def drawpath(x, y, facing, altitude, speed, color, killed):
+def drawpath(x, y, facing, altitude, speed, color, killed, annotate):
     if killed:
         fillcolor = aircraftkilledfillcolor
         linecolor = aircraftkilledlinecolor
@@ -605,7 +605,7 @@ def drawpath(x, y, facing, altitude, speed, color, killed):
             size=pathdotsize,
             zorder=zorder,
         )
-        if not killed:
+        if annotate:
             _drawannotation(
                 x[0], y[0], facing[0], "cl", "%d" % altitude[0], zorder=zorder
             )
@@ -695,16 +695,10 @@ def drawaircraft(x, y, facing, color, name, altitude, speed, flighttype, killed)
             )
 
 
-def drawmissile(x, y, facing, color, name, altitude, speed):
+def drawmissile(x, y, facing, color, name, altitude, speed, annotate):
+    fillcolor = color
+    linecolor = aircraftlinecolor
     zorder = altitude + 1
-    if color is None:
-        fillcolor = aircraftkilledfillcolor
-        linecolor = aircraftkilledlinecolor
-        altitudetext = ""
-    else:
-        fillcolor = color
-        linecolor = aircraftlinecolor
-        altitudetext = "%2d" % altitude
     if apvariants.withvariant("draw counters"):
         drawsquare(
             x,
@@ -737,6 +731,7 @@ def drawmissile(x, y, facing, color, name, altitude, speed):
             linecolor=linecolor,
             zorder=zorder,
         )
+    if annotate:
         _drawannotation(
             x,
             y,
@@ -750,14 +745,14 @@ def drawmissile(x, y, facing, color, name, altitude, speed):
             y,
             facing,
             "cl",
-            altitudetext,
+            "%d" % altitude,
             zorder=zorder,
         )
         _drawannotation(
             x,
             y,
             facing,
-            "lr",
+            "ll",
             "%.0f" % speed,
             zorder=zorder,
         )

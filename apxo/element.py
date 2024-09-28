@@ -474,8 +474,8 @@ class element:
     def _extendpath(self):
         self._path.extend(self.x(), self.y(), self.facing(), self.altitude())
 
-    def _drawpath(self, color, killed=False):
-        self._path.draw(color, killed=killed)
+    def _drawpath(self, color, annotate=True, killed=False):
+        self._path.draw(color, annotate=annotate, killed=killed)
 
     ############################################################################
 

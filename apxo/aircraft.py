@@ -630,7 +630,7 @@ class aircraft(apelement.element):
 
     def _draw(self):
         if self._startedmoving:
-            self._drawpath(self._color, killed=self.killed())
+            self._drawpath(self._color, killed=self.killed(), annotate=not self.killed())
         if self._finishedmoving:
             speed = self.newspeed()
         elif self._startedmoving:

@@ -19,9 +19,9 @@ class path:
         self._facing.append(facing)
         self._altitude.append(altitude)
 
-    def draw(self, color, killed=False):
+    def draw(self, color, annotate=True, killed=False):
         apdraw.drawpath(
-            self._x, self._y, self._facing, self._altitude, self._speed, color, killed
+            self._x, self._y, self._facing, self._altitude, self._speed, color, killed, annotate
         )
 
     def xmin(self):
