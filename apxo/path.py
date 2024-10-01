@@ -21,7 +21,14 @@ class path:
 
     def draw(self, color, annotate=True, killed=False):
         apdraw.drawpath(
-            self._x, self._y, self._facing, self._altitude, self._speed, color, killed, annotate
+            self._x,
+            self._y,
+            self._facing,
+            self._altitude,
+            self._speed,
+            color,
+            killed,
+            annotate,
         )
 
     def xmin(self):

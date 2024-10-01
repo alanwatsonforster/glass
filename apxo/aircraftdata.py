@@ -351,7 +351,7 @@ class aircraftdata:
             return None
         else:
             return self._data["atalockon"]
-            
+
     def ABSFamount(self):
         if "ABSF" in self.properties():
             return self._data["ABSFamount"]

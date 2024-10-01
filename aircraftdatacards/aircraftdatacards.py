@@ -141,7 +141,7 @@ def blockA(data):
             altitude += 1
     if data.hasproperty("ABSF"):
         s += "If not in AB power, reduce maximum speeds by %.1f." % data.ABSFamount()
-            
+
     writelatex(
         r"\renewcommand{\Ai}{%s}" % s,
     )
@@ -262,7 +262,11 @@ def blockC(data):
         s += r"No rolling maneuvers allowed."
     if data.hasproperty("OVR"):
         s += r"Only one vertical roll allowed per game turn."
-    if data.hasproperty("NDRHS") and data.hasproperty("NDRHS") and data.NDRHSlimit() == data.NDRHSlimit():
+    if (
+        data.hasproperty("NDRHS")
+        and data.hasproperty("NDRHS")
+        and data.NDRHSlimit() == data.NDRHSlimit()
+    ):
         s += r"No lag or displacement rolls if speed $\ge$ %.1f. " % data.NDRHSlimit()
     else:
         if data.hasproperty("NDRHS"):
@@ -508,10 +512,15 @@ def blockF(data):
     n = 1
     if len(data.properties()) != 0:
         for property in sorted(data.properties()):
-            if property == "ABSF" or  property == "SMP":
+            if property == "ABSF" or property == "SMP":
                 # Noted in power section.
                 pass
-            elif property == "OVR" or property == "NRM" or property == "NDRHS" or property == "NLRHS":
+            elif (
+                property == "OVR"
+                or property == "NRM"
+                or property == "NDRHS"
+                or property == "NLRHS"
+            ):
                 # Noted in maneuver section.
                 pass
             else:
@@ -536,7 +545,10 @@ def blockF(data):
                 elif property == "LRR":
                     s += r"Low roll rate (LRR). "
                 elif property == "LRRHS":
-                    s += r"Low roll rate (LRR) if speed $\ge$ %.1f. " % data._data["LRRHSlimit"]
+                    s += (
+                        r"Low roll rate (LRR) if speed $\ge$ %.1f. "
+                        % data._data["LRRHSlimit"]
+                    )
                 elif property == "LTD":
                     s += r"Low transonic drag (LTD). "
                 elif property == "LTDCL":
@@ -556,8 +568,8 @@ def blockF(data):
 
     for note in data.notes():
         s += "%d. %s\n\n" % (n, note)
-        n += 1    
-    
+        n += 1
+
     writelatex(r"\renewcommand{\Ft}{%s}" % s)
 
 

@@ -109,7 +109,9 @@ class missile(apelement.element):
     #############################################################################
 
     def _draw(self):
-        self._drawpath(self._color, annotate=apgameturn.gameturn() > self._launchgameturn + 1)
+        self._drawpath(
+            self._color, annotate=apgameturn.gameturn() > self._launchgameturn + 1
+        )
         apdraw.drawmissile(
             self.x(),
             self.y(),
@@ -118,7 +120,7 @@ class missile(apelement.element):
             self._name,
             self.altitude(),
             self.speed(),
-            annotate=self._startedmoving
+            annotate=self._startedmoving,
         )
 
     ########################################
