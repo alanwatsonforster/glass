@@ -1,3 +1,5 @@
+import math
+
 import apxo.altitude as apaltitude
 import apxo.azimuth as apazimuth
 import apxo.draw as apdraw
@@ -161,8 +163,8 @@ class missile(apelement.element):
         self.logcomment("altitude difference is %+d." % altitudedifference)
 
         def checknormallimit(minf, maxf):
-            minaltitudedifference = int(minf * horizontalrange)
-            maxaltitudedifference = int(maxf * horizontalrange)
+            minaltitudedifference = int(math.ceil(minf * horizontalrange))
+            maxaltitudedifference = int(math.floor(maxf * horizontalrange))
             self.logcomment(
                 "the allowed target altitude difference range is %+d to %+d."
                 % (minaltitudedifference, maxaltitudedifference)
