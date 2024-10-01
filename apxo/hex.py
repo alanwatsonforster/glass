@@ -300,30 +300,29 @@ def distance(x0, y0, x1, y1):
     # or more aircraft are on hexsides, count only the full hexes between
     # them. Take the shortest number of hexes."
 
-    # Our algorithm is as follows. While points 0 and 1 are separated by 1
-    # unit or more in x or y in the hex grid (i.e., at least one hex),
-    # generate six positions around point 0 each offset by 1 hex and move
+    # Our algorithm is as follows. While points 0 and 1 not at the same location,
+    # generate six positions around point 0 each offset by half a hex hex and move
     # point 0 to the one closest to point 1. Each time point 0 is moved,
-    # the distance increases by 1.
+    # the distance increases by one half. Return the integer part of the distance.
 
     def physicaldistance(x0, y0, x1, y1):
         x0, y0 = tophysical(x0, y0)
         x1, y1 = tophysical(x1, y1)
         return math.hypot(x1 - x0, y1 - y0)
 
-    d = 0
-    while abs(x1 - x0) >= 1 or abs(y1 - y0) >= 1:
+    d = 0.0
+    while x0 != x1 or y0 != y1:
         p = [
-            (x0 + 0.0, y0 + 1.0),
-            (x0 + 1.0, y0 + 0.5),
-            (x0 + 1.0, y0 - 0.5),
-            (x0 + 0.0, y0 - 1.0),
-            (x0 - 1.0, y0 - 0.5),
-            (x0 - 1.0, y0 + 0.5),
+            (x0 + 0.00, y0 + 0.50),
+            (x0 + 0.50, y0 + 0.25),
+            (x0 + 0.50, y0 - 0.25),
+            (x0 + 0.00, y0 - 0.50),
+            (x0 - 0.50, y0 - 0.25),
+            (x0 - 0.50, y0 + 0.25),
         ]
         for x, y in p:
             if physicaldistance(x, y, x1, y1) < physicaldistance(x0, y0, x1, y1):
                 x0, y0 = x, y
-        d += 1
+        d += 0.5
 
-    return d
+    return int(d)
