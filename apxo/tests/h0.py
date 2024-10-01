@@ -100,7 +100,7 @@ endtestsetup()
 
 startgameturn()
 A1.move("LVL", "AB", "H,H,H,H")
-A1._assert("A2-2020       N    10", 4.5, expectedconfiguration="CL")
+A1._assert("A2-2020       N    10", 5.0, expectedconfiguration="CL")
 endgameturn()
 
 # Check jettisoning.

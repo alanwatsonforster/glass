@@ -364,7 +364,7 @@ endtestsetup()
 
 startgameturn()
 A1.move("HRD/VD", "AB", "H,H,D3,D3,D2,D2,VRR/D2/R180")
-A1._assert("A1-1213       S    18", 10.0)
+A1._assert("A1-1213       S    18", 11.0)
 A2.move("HRD/VD", "AB", "H,H,D3,D3,D2,D2,VRR/D2/R180")
 A2._assert("A1-1413       S    18", 9.0)
 A3.move("HRD/VD", "AB", "H,H,D3,D2,D2,D2,VRR/D2/R180")

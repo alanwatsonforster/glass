@@ -45,7 +45,7 @@ A4.move("SC", "M", "H,H,H,H,C")
 A4._assert("A1-2611       N    20", 5.0)
 
 A5.move("HRD/VD", "AB", "H,H,D2,D2,D2,D2,D2")
-A5._assert("A1-2813       N    10", 9.0)
+A5._assert("A1-2813       N    10", 10.0)
 
 endgameturn()
 
@@ -83,9 +83,8 @@ A3.move("VC", "M", "H,H,C,C,C")
 A3._assert("A1-2409       N    24", 4.5)
 A4.move("VC", "M", "H,H,C,C,C")
 A4._assert("A1-2609       N    23", 4.5)
-A5.move("SD", "AB", "H,H,H,H,H,D,D,D,D")
-A5._assert("A1-2808       N     6", 9.0)
-
+A5.move("SD", "AB", "H,H,H,H,H,D,D,D,D,D")
+A5._assert("A1-2808       N     5", 9.0)
 endgameturn()
 
 startgameturn()
@@ -98,7 +97,7 @@ A3._assert("A1-2407       N    22", 4.5)
 A4.move("HRD/SD", "M", "H,H,D,D")
 A4._assert("A1-2607       N    21", 5.0)
 A5.move("ZC", "AB", "H,H,H,H,C2,C2,C2,C2,C2")
-A5._assert("A1-2804       N    16", 8.0)
+A5._assert("A1-2804       N    15", 8.0)
 
 endgameturn()
 

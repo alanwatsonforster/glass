@@ -129,7 +129,7 @@ A1.move("ZC", "M", "H,C3,H,H")
 asserterror("invalid altitude change in climb.")
 startgameturn()
 A1.move("ZC", "AB", "H,C2,H,H")
-A1._assert("A1-1812       N    3", 4.5)
+A1._assert("A1-1812       N    3", 5.0)
 endgameturn()
 
 # Superclimbs
