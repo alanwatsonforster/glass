@@ -67,6 +67,7 @@ class missile(apelement.element):
 
             self._launchgameturn = apgameturn.gameturn()
 
+            self._newspeed = None
             self._setspeed(self.basespeed() + launcher.speed())
             maxspeed = apspeed.missilemaxspeed(self.altitudeband())
             if self.speed() > maxspeed:
@@ -87,6 +88,8 @@ class missile(apelement.element):
     #############################################################################
 
     def _startgameturn(self):
+        self._setspeed(self._newspeed)
+        self._newspeed = None
         self._startedmoving = False
         self._finishedmoving = False
 
