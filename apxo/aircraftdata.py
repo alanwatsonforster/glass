@@ -352,9 +352,6 @@ class aircraftdata:
         else:
             return self._data["atalockon"]
             
-    def properties(self):
-        return self._data["properties"]
-        
     def ABSFamount(self):
         if "ABSF" in self.properties():
             return self._data["ABSFamount"]
