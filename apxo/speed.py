@@ -690,23 +690,33 @@ def _endaircraftspeed(A):
                 A._apcarry = 0
 
     elif ap > 0:
+    
+        if apvariants.withvariant("use house rules"):
+            maxapcarrybeyondmaxspeed = 0.0
+        else:
+            maxapcarrybeyondmaxspeed = aprate - 0.5
 
-        if A.speed() >= maxspeed and ap >= aprate:
-            A.logcomment(
-                "acceleration is limited by %s of %.1f." % (maxspeedname, maxspeed)
-            )
-            A._apcarry = aprate - 0.5
-        elif A.speed() >= maxspeed:
+        if A.speed() >= maxspeed:
             A._apcarry = ap
+            if A._apcarry > maxapcarrybeyondmaxspeed:
+                A.logcomment(
+                    "acceleration is limited by %s of %.1f." % (maxspeedname, maxspeed)
+                )
+                A._apcarry = maxapcarrybeyondmaxspeed
         elif A.speed() + 0.5 * (ap // aprate) > maxspeed:
             A.logcomment(
                 "acceleration is limited by %s of %.1f." % (maxspeedname, maxspeed)
             )
             A._newspeed = maxspeed
-            A._apcarry = aprate - 0.5
+            A._apcarry = maxapcarrybeyondmaxspeed
         else:
             A._newspeed += 0.5 * (ap // aprate)
             A._apcarry = ap % aprate
+            if A._newspeed >= maxspeed and A._apcarry > maxapcarrybeyondmaxspeed:
+                A.logcomment(
+                    "acceleration is limited by %s of %.1f." % (maxspeedname, maxspeed)
+                )
+                A._apcarry = maxapcarrybeyondmaxspeed
 
     if usemaxdivespeed:
         if A._newspeed > maxspeed:
@@ -718,10 +728,6 @@ def _endaircraftspeed(A):
         if A._newspeed > maxspeed:
             A.logcomment("speed will be faded back from %.1f." % A._newspeed)
             A._newspeed = max(A._newspeed - 1, maxspeed)
-
-    if apvariants.withvariant("use house rules"):
-        if A._newspeed >= maxspeed:
-            A._apcarry = 0
 
     A.logend("speed will be %.1f." % A._newspeed)
     if A._newspeed < m1speed(A.altitudeband()):
