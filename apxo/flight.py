@@ -2999,7 +2999,14 @@ def _endflightslope(E):
     slopenumerator = endaltitude - startaltitude
     slopedenominator = endhfp - starthfp
 
-    E._setflightslope(slopenumerator / slopedenominator)
+    if slopedenominator != 0:
+        E._setflightslope(slopenumerator / slopedenominator)
+    elif slopenumerator > 0:
+        E._setflightslope(+math.inf)
+    elif slopenumerator < 0:
+        E._setflightslope(-math.inf)
+    else:
+        raise RuntimeError("attempt to calculate the flight slope without having moved.")
 
     return slopenumerator, slopedenominator
 
