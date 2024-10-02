@@ -753,7 +753,7 @@ def drawmissile(x, y, facing, color, name, altitude, speed, annotate):
             y,
             facing,
             "ll",
-            "%.0f" % speed,
+            "%.1f" % speed,
             zorder=zorder,
         )
 
