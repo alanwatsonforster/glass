@@ -30,7 +30,7 @@ def blockA(data):
 
     name = data.name()
     name = re.sub(
-        r"\s+([A-Z][a-z]+([-\s][A-Z][a-z]*)?(\s+II)?(\s\(([A-Z][a-z]+)([\s-][A-Z][a-z]+)*\))?)$",
+        r"\s+(([A-Z][a-z]+([-\s][A-Z][a-z]*)?(\s+II)?(\s\(([A-Z][a-z]+)([\s-][A-Z][a-z]+)*\))?)|([A-Z]+\.[0-9]+))$",
         r"\\\\\1",
         name,
     )
