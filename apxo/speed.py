@@ -690,7 +690,7 @@ def _endaircraftspeed(A):
                 A._apcarry = 0
 
     elif ap > 0:
-    
+
         if apvariants.withvariant("use house rules"):
             maxapcarrybeyondmaxspeed = 0.0
         else:
