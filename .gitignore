@@ -163,13 +163,12 @@ cython_debug/
 *.worksheet
 apxo.pickle
 Sandbox.ipynb
-aircraftdatacards/generated.aux
+
+# TeX files.
 aircraftdatacards/generated.tex
-aircraftdatacards/main.aux
-aircraftdatacards/main.pdf
-aircraftdatacards/main.synctex.gz
-aircraftdatacards/main.fls
-aircraftdatacards/main.out
-aircraftdatacards/main.toc
+*.aux
+*.pdf
+*.synctex.gz
+*.fls
 *.out
 *.toc
