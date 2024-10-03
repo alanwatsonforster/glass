@@ -29,12 +29,13 @@ def blockA(data):
             return ", ".join(data.crew()[0:-1]) + r", \& " + data.crew()[-1]
 
     name = data.name()
-    name = re.sub(
+    splitname = re.sub(
         r"\s+(([A-Z][a-z]+([-\s][A-Z][a-z]*)?(\s+II)?(\s\(([A-Z][a-z]+)([\s-][A-Z][a-z]+)*\))?)|([A-Z]+\.[0-9]+))$",
         r"\\\\\1",
         name,
     )
-    writelatex(r"\renewcommand{\Aa}{%s}" % name)
+    writelatex(r"\renewcommand{\Aaa}{%s}" % name)
+    writelatex(r"\renewcommand{\Aab}{%s}" % splitname)
 
     if len(data.crew()) > 6:
         writelatex(r"\renewcommand{\Aba}{\tiny}")

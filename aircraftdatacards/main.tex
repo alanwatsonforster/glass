@@ -1,6 +1,6 @@
 %!TEX program = xelatex
 
-\documentclass{article}
+\documentclass[twocolumn]{article}
 
 \usepackage[
   paper=letterpaper,
@@ -8,6 +8,14 @@
   margin=1cm,
   tmargin=1.2cm
 ]{geometry}
+
+\usepackage[bookmarks,bookmarksdepth=2,hypertexnames=false]{hyperref}
+
+\makeatletter
+\renewcommand\tableofcontents{%
+  \@starttoc{toc}%
+}
+\makeatother
 
 \pagestyle{empty}
 
@@ -54,11 +62,13 @@
 \newcommand{\blockEcells}{6}
 
 \newcommand{\blockA}{%
-\typeout{\Aa}%
+\typeout{\Aaa}%
 \typeout{Block A}%
+\phantomsection%
+\addcontentsline{toc}{subsection}{\Aaa}%
 \parbox[b][\blockABCheight][t]{\blockAcells\cellwidth}{%
 \begin{tabularx}{\blockAcells\cellwidth}{lCCCc}
-\multicolumn{5}{c}{\Large\bfseries\itshape\parbox[c][4em]{4\cellwidth}{\centering \Aa}}\\
+\multicolumn{5}{c}{\Large\bfseries\itshape\parbox[c][4em]{4\cellwidth}{\centering \Aab}}\\
 \multicolumn{5}{l}{\parbox[b][1.6em][b]{4.5\cellwidth}{\Aba{\bfseries Crew:} \raggedright \Abb}}\\[0.2ex]
 \hline
 \\[-2.85ex]
@@ -79,7 +89,8 @@ SPBR&\Aha&\Ahb&\Ahc&---\\[0.2ex]
 \newcommand{\jetengine}{$\bigcirc$}
 \newcommand{\propellerengine}{$\odot$}
 
-\newcommand{\Aa}{F-4D\\Phantom II} % Name
+\newcommand{\Aaa}{F-4D Phantom II} % Name
+\newcommand{\Aab}{F-4D\\Phantom II} % Split name
 \newcommand{\Aba}{\footnotesize} % Crew text size
 \newcommand{\Abb}{Pilot \& Radar Officer} % Crew
 \newcommand{\Ac}{\jetengine\jetengine} % Engines
@@ -384,6 +395,10 @@ AJM&---\\[0.2em]
 }
 
 \begin{document}
+
+\tableofcontents
+\onecolumn
+\newpage
 
 \setlength{\cellwidth}{0.06\linewidth}
 
