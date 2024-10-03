@@ -171,3 +171,5 @@ aircraftdatacards/main.synctex.gz
 aircraftdatacards/main.fls
 aircraftdatacards/main.out
 aircraftdatacards/main.toc
+*.out
+*.toc
