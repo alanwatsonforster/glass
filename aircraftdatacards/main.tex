@@ -9,6 +9,10 @@
   tmargin=1.2cm
 ]{geometry}
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Table of Contents
+
 \usepackage[bookmarks,bookmarksdepth=2,hypertexnames=false]{hyperref}
 
 \makeatletter
@@ -16,6 +20,17 @@
   \@starttoc{toc}%
 }
 \makeatother
+
+\newcommand{\addtoctype}[1]{%
+  \phantomsection%
+  \addcontentsline{toc}{section}{#1}%
+}
+\newcommand{\addtocadc}[1]{
+  \phantomsection%
+  \addcontentsline{toc}{subsection}{#1}%
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \pagestyle{empty}
 
@@ -64,8 +79,7 @@
 \newcommand{\blockA}{%
 \typeout{\Aaa}%
 \typeout{Block A}%
-\phantomsection%
-\addcontentsline{toc}{subsection}{\Aaa}%
+\addtocadc{\Aaa}%
 \parbox[b][\blockABCheight][t]{\blockAcells\cellwidth}{%
 \begin{tabularx}{\blockAcells\cellwidth}{lCCCc}
 \multicolumn{5}{c}{\Large\bfseries\itshape\parbox[c][4em]{4\cellwidth}{\centering \Aab}}\\
@@ -403,8 +417,6 @@ AJM&---\\[0.2em]
 \setlength{\cellwidth}{0.06\linewidth}
 
 \centering
-
-\blockABCDE
 
 \include{generated.tex}
 
