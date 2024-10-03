@@ -3006,7 +3006,9 @@ def _endflightslope(E):
     elif slopenumerator < 0:
         E._setflightslope(-math.inf)
     else:
-        raise RuntimeError("attempt to calculate the flight slope without having moved.")
+        raise RuntimeError(
+            "attempt to calculate the flight slope without having moved."
+        )
 
     return slopenumerator, slopedenominator
 
