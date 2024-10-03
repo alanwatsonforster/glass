@@ -8,6 +8,9 @@
     "I"   : [ 0.5, 0.5, 0.5, 0 ],
     "SPBR": [ 0.5, 0.5, 1.0 ]
   },
+  "variantnotes": [
+    "The FRS.2 was later redesignated as the FA.2."
+  ]
   "notes": [
     "May use AIM-9 IRMs, AIM-7 and Skyflash RHMs, and AIM-120 AHMs.",
     "The maximum vertical take-off weight with full internal fuel and without guns is 2400. Each 25 points less of fuel increases this by 500.",

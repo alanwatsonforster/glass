@@ -511,6 +511,11 @@ def blockF(data):
 
     s = ""
     n = 1
+
+    for note in data.variantnotes():
+        s += "%d. %s\n\n" % (n, note)
+        n += 1
+
     if len(data.properties()) != 0:
         for property in sorted(data.properties()):
             if property == "ABSF" or property == "SMP":

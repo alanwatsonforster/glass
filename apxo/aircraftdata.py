@@ -399,6 +399,12 @@ class aircraftdata:
         elif configuration == "DT":
             return self._data["storeslimits"][2]
 
+    def variantnotes(self):
+        if "variantnotes" in self._data:
+            return self._data["variantnotes"]
+        else:
+            return []
+
     def notes(self):
         if "notes" in self._data:
             return self._data["notes"]
@@ -721,6 +727,10 @@ class aircraftdata:
                 "- Maximum speed is reduced by %.1f unless AB is used."
                 % self._data["ABSFamount"]
             )
+
+        if "variantnotes" in self._data:
+            for note in self._data["variantnotes"]:
+                str("- %s" % note)
 
         if "notes" in self._data:
             for note in self._data["notes"]:

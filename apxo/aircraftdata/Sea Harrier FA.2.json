@@ -1,4 +1,7 @@
 {
   "name": "Sea Harrier FA.2",
-  "base": "Sea Harrier FRS.2"
+  "base": "Sea Harrier FRS.2",
+  "variantnotes": [
+    "The FA.2 is a redesignation of the FRS.2."
+  ]
 }
