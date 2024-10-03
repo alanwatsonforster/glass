@@ -1,6 +1,6 @@
 %!TEX program = xelatex
 
-\documentclass[twocolumn]{article}
+\documentclass[twocolumn]{report}
 
 \usepackage[
   paper=letterpaper,
@@ -21,6 +21,10 @@
 }
 \makeatother
 
+\newcommand{\addtoccountry}[1]{%
+  \phantomsection%
+  \addcontentsline{toc}{chapter}{#1}%
+}
 \newcommand{\addtoctype}[1]{%
   \phantomsection%
   \addcontentsline{toc}{section}{#1}%

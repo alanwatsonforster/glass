@@ -574,6 +574,14 @@ def blockF(data):
     writelatex(r"\renewcommand{\Ft}{%s}" % s)
 
 
+def writecountry(name):
+    writelatex(r"\addtoccountry{%s}" % name)
+
+
+def writetype(name):
+    writelatex(r"\addtoctype{%s}" % name)
+
+
 def writeadc(name):
 
     log("making LaTeX ADC for %s." % name)
@@ -591,80 +599,101 @@ def writeadc(name):
     writelatex(r"\adc")
 
 
+# We assign aircraft to counties according to the country of their
+# original design. Hence, CAC and Avon Sabres and the Tu-4 are
+# considered to be US aircraft and the B-57 is considered to be a
+# British aircraft.
+
+# We order aircraft types within country by date of delivery.
+
 latexfilename = "generated.tex"
 latexfile = open(latexfilename, "w")
 
-def writetype(name):
-    writelatex(r"\addtoctype{%s}" % name)
+writecountry("US Aircraft")
 
-writetype("AD/A-1 Skyraider")
-writeadc("AD-4")
-writeadc("AD-5")
-writeadc("AD-6")
-writeadc("AD-7")
-writeadc("A-1E")
-writeadc("A-1H")
-writeadc("A-1J")
+writetype("F4U/AU Corsair")  # 1942
+writeadc("F4U-5")
+writeadc("AU-1")
 
-writetype("B-26/A-26 Invader")
+writetype("B-26/A-26 Invader")  # 1943
 writeadc("B-26B")
 writeadc("B-26C")
 writeadc("B-26K")
 writeadc("A-26A")
 
-writetype("A-27 Dragonfly")
-writeadc("A-37B")
+writetype("B-29 Superfortress")  # 1944
+writeadc("B-29A")
+writeadc("RB-29A")
+writeadc("Tu-4")
 
-writetype("A3D/A-3 Skywarrior")
+writetype("P-80/F-80/AT-33 Shooting Star")  # 1945
+writeadc("F-80C")
+writeadc("RF-80C")
+writeadc("AT-33A")
+
+
+writetype("AD/A-1 Skyraider")  # 1946
+writeadc("AD-4")
+writeadc("AD-5")
+writeadc("A-1E")
+writeadc("AD-6")
+writeadc("A-1H")
+writeadc("AD-7")
+writeadc("A-1J")
+
+writetype("B-52 Stratofortress")  # 1954
+writeadc("B-52D")
+writeadc("B-52G")
+
+writetype("A3D/A-3 Skywarrior")  # 1956
 writeadc("A3D-2")
 writeadc("A-3B")
 writeadc("A3D-2Q")
 writeadc("EA-3B")
 
-writetype("T-33 Shooting Star")
-writeadc("AT-33A")
+writetype("F4H/F-4A Phantom II")  # 1959
+writeadc("F-4B")
+writeadc("RF-4B")
+writeadc("F-4C")
+writeadc("RF-4C")
+writeadc("F-4E")
+writeadc("F-4J")
 
-writetype("F4U/AU Corsair")
-writeadc("AU-1")
+writetype("F-5 Freedom Fighter \& Tiger II")  # 1964
+writeadc("F-5A")
+writeadc("RF-5A")
+writeadc("F-5C")
 
-writetype("F-86 Sabre")
-writeadc("Avon Sabre Mk.31")
-writeadc("Avon Sabre Mk.32")
+writecountry("British Aircraft")
 
-writeadc("B-29A")
-writeadc("B-52D")
-writeadc("B-52G")
+writetype("Canberra")  # 1954
 writeadc("B-57B-early")
 writeadc("B-57B")
 writeadc("B-57G")
-writeadc("B-66B")
-writeadc("EB-66C")
-writeadc("F-100A")
-writeadc("F-100C")
-writeadc("F-100D")
-writeadc("F-100F")
-writeadc("F-102A")
-writeadc("F-104A+")
-writeadc("F-104A")
-writeadc("F-104B")
-writeadc("F-104C")
-writeadc("F-104D")
-writeadc("F-105B")
-writeadc("F-105D")
-writeadc("F-16A-1")
-writeadc("F-16A-10")
-writeadc("F-16A-15")
-writeadc("F-16A-5")
-writeadc("F-4B")
-writeadc("F-4C")
-writeadc("F-4E")
-writeadc("F-4J")
-writeadc("F-51D")
-writeadc("F-5A")
-writeadc("F-5C")
-writeadc("F-80C")
-writeadc("F-84E")
-writeadc("F-84G")
+
+writetype("Harrier \& Sea Harrier")  # 1969
+writeadc("Sea Harrier FRS.1")
+writeadc("Sea Harrier FRS.2")
+writeadc("Sea Harrier FA.2")
+
+
+writecountry("Soviet Union Aircraft")
+
+writetype("MiG-21")  # 1959
+writeadc("MiG-21F-13")
+writeadc("MiG-21F")
+writeadc("MiG-21M")
+writeadc("MiG-21MF")
+writeadc("MiG-21PFMA")
+
+writecountry("Unsorted Aircraft")
+
+writetype("A-27 Dragonfly")
+writeadc("A-37B")
+writeadc("OA-37B")
+writeadc("T-37C")
+
+writetype("F-86 Sabre")
 writeadc("F-86A")
 writeadc("F-86D")
 writeadc("F-86E")
@@ -677,68 +706,123 @@ writeadc("F-86H Late")
 writeadc("F-86K Early")
 writeadc("F-86K Late")
 writeadc("F-86L")
+writeadc("Sabre 5")
+writeadc("Sabre 6")
+writeadc("Avon Sabre Mk.31")
+writeadc("Avon Sabre Mk.32")
+
+
+writetype("B-66 Destroyer")
+writeadc("B-66B")
+writeadc("EB-66C")
+writeadc("RB-66C")
+
+writetype("F-100 Super Sabre")
+writeadc("F-100A")
+writeadc("F-100C")
+writeadc("F-100D")
+writeadc("F-100F")
+
+writetype("F-102 Delta Dart")
+writeadc("F-102A")
+
+writetype("F-104 Star Fighter")
+writeadc("F-104A+")
+writeadc("F-104A")
+writeadc("F-104B")
+writeadc("F-104C")
+writeadc("F-104D")
+
+writetype("F-105 Thunderchief")
+writeadc("F-105B")
+writeadc("F-105D")
+
+writetype("F-16 Fighting Falcon \& Viper")
+writeadc("F-16A-1")
+writeadc("F-16A-10")
+writeadc("F-16A-15")
+writeadc("F-16A-5")
+
+writetype("P-51/F-51 Mustang")
+writeadc("F-51D")
+writeadc("RF-51D")
+
+writetype("F-84 Thundejet")
+writeadc("F-84E")
+writeadc("F-84G")
+
+writetype("F-89 Scorpion")
 writeadc("F-89D")
 writeadc("F-89H")
 writeadc("F-89J Long-Range")
 writeadc("F-89J")
+
+writetype("F8U/F-8 Crusader")
 writeadc("F-8E")
 writeadc("F-8J")
+
+writetype("F-94 Starfire")
 writeadc("F-94A")
 writeadc("F-94B")
+
+writetype("F2H Banshee")
 writeadc("F2H-2")
 writeadc("F2H-2B")
 writeadc("F2H-2P")
 writeadc("F2H-3")
 writeadc("F2H-4")
-writeadc("F4U-5")
+
+writetye("F7U Cutlass")
 writeadc("F7U-3")
 writeadc("F7U-3M")
+
+writetype("F9F Panther")
 writeadc("F9F-2")
 writeadc("F9F-2P")
 writeadc("F9F-5")
 writeadc("F9F-5P")
-# writeadc("HH-53C")
+
+
+writetype("Il-28 Beagle")
 writeadc("Il-28")
+
+writetype("Meteor")
 writeadc("Meteor F.8")
 writeadc("Meteor FR.9")
+
+writetype("MiG-15 Fagot")
 writeadc("MiG-15ISh")
 writeadc("MiG-15P")
 writeadc("MiG-15bis")
+
+writetype("MiG-17 Fresco")
 writeadc("MiG-17F")
 writeadc("MiG-17PF")
 writeadc("MiG-17PFU")
+
+writetype("MiG-19 Farmer")
 writeadc("MiG-19PF")
 writeadc("MiG-19PM")
 writeadc("MiG-19SF-CS")
 writeadc("MiG-19SF")
-writeadc("MiG-21F-13")
-writeadc("MiG-21F")
-writeadc("MiG-21M")
-writeadc("MiG-21MF")
-writeadc("MiG-21PFMA")
+
+# writeadc("HH-53C")
 # writeadc("O-1E")
 # writeadc("O-2A")
-writeadc("OA-37B")
-writeadc("RB-29A")
-writeadc("RB-66C")
-writeadc("RF-4B")
-writeadc("RF-4C")
-writeadc("RF-51D")
-writeadc("RF-5A")
-writeadc("RF-80C")
-writeadc("Sabre 5")
-writeadc("Sabre 6")
+
+writetype("Sea Fury")
 writeadc("Sea Fury FB.11")
-writeadc("Sea Harrier FA.2")
-writeadc("Sea Harrier FRS.1")
-writeadc("Sea Harrier FRS.2")
-writeadc("Su-11")
+
+writetype("Su-9/11 Fishpot")
 writeadc("Su-9")
-writeadc("T-37C")
+writeadc("Su-11")
+
+writetype("TU-16 Badger")
 writeadc("Tu-16A")
 writeadc("Tu-16K")
 writeadc("Tu-16KS")
-writeadc("Tu-4")
+
+writetype("Yak-9 Frank")
 writeadc("Yak-9D")
 
 latexfile.close()
