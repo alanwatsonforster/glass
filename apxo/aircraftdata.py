@@ -399,6 +399,12 @@ class aircraftdata:
         elif configuration == "DT":
             return self._data["storeslimits"][2]
 
+    def wikiurl(self):
+        if "wikiurl" in self._data:
+            return self._data["wikiurl"]
+        else:
+            return None
+
     def variantnotes(self):
         if "variantnotes" in self._data:
             return self._data["variantnotes"]
