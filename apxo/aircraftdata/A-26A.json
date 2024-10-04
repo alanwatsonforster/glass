@@ -1,4 +1,7 @@
 {
-  "name": "A-26A Invader",
-  "base": "B-26K"
+  "name": "A-26A Counter-Invader",
+  "base": "B-26K",
+  "variantnotes": [
+    "Gun-nose version. Upgraded B-26B/TB-26B/B-26C aircraft. Previously designated B-26K."
+  ]
 }

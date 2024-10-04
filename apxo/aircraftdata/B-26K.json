@@ -56,7 +56,12 @@
   "storeslimits": [ 6, 13, 8000 ],
   "properties": [ "LRR", "NRM" ],
   "powerfadespeedtable": [ [2.5, 0.5] ],
+  "variantnotes": [
+    "Gun-nose version. Upgraded B-26B/TB-26B/B-26C aircraft. Later designated A-26A."
+  ],
   "notes": [
-    "Fixed wing-tip tanks add 50 fuel points and reduce vulnerability to +0 until empty."
-  ]
+    "Fixed wing-tip tanks add 50 fuel points and reduce vulnerability to +0 until empty.",
+    "Bomb system is ballistic ($-1$) if doing level bombing from four or more altitude levels above the target."
+  ],
+  "wikiurl": "https://bit.ly/4gPErhi" 
 }
