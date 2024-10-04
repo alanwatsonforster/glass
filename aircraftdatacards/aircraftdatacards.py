@@ -636,7 +636,7 @@ def blockF(data):
         n += 1
 
     if data.wikiurl() is not None:
-        s += "%d. \\href{\detokenize{%s}}{ADC page on GitHub}.\n\n" % (n, data.wikiurl())
+        s += "%d. \\href{\\detokenize{%s}}{ADC page on GitHub}.\n\n" % (n, data.wikiurl())
         n += 1
 
     writelatex(r"\renewcommand{\Ft}{%s}" % s)
@@ -685,6 +685,7 @@ writeadc("AU-1")
 
 writetype("B-26/A-26 Invader")  # 1943
 writeadc("B-26B")
+writeadc("B-26B (Korea)")
 writeadc("B-26C")
 writeadc("B-26K")
 writeadc("A-26A")
@@ -734,16 +735,17 @@ if False:
     writeadc("F-5C")
 
     writecountry("British Aircraft")
+    
+    writetype("Harrier \\& Sea Harrier")  # 1969
+    writeadc("Sea Harrier FRS.1")
+    writeadc("Sea Harrier FRS.2")
+    writeadc("Sea Harrier FA.2")
 
     writetype("Canberra")  # 1954
     writeadc("B-57B-early")
     writeadc("B-57B")
     writeadc("B-57G")
 
-    writetype("Harrier \\& Sea Harrier")  # 1969
-    writeadc("Sea Harrier FRS.1")
-    writeadc("Sea Harrier FRS.2")
-    writeadc("Sea Harrier FA.2")
 
     writecountry("Soviet Union Aircraft")
 
