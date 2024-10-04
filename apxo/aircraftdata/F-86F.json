@@ -11,7 +11,7 @@
     "LO": [ [ "-", 1.5 ], [ "-", 1.0 ], [ "-", 1.0 ] ]
   },
   "ataradarranging": "RE",
-  "atalockon": 6,
+  "lockon": 6,
   "notes": [
     "F-1 to F-15 models."
   ]

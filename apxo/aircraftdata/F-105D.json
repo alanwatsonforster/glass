@@ -53,7 +53,7 @@
   "gunammunition": 5.0,
   "gunsightmodifiers": { "TT": 0, "HT": 1, "BT": 2 },
   "ataradarranging": "RE",
-  "atalockon": 6,
+  "lockon": 6,
   "properties": [ "SMP", "RACL", "LTD" ],
   "notes": [
   ]

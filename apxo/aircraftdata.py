@@ -294,6 +294,14 @@ class aircraftdata:
         else:
             return 1
 
+    def radar(self, what=None):
+        if "radar" not in self._data or self._data["radar"] is False:
+            return None
+        elif what is None:
+            return True
+        else:
+            return self._data["radar"][what]
+
     def gun(self):
         if "gun" in self._data and self._data["gun"] != "":
             return self._data["gun"]
@@ -329,12 +337,6 @@ class aircraftdata:
         else:
             return None
 
-    def gunatadamagerating(self):
-        if "gunatadamagerating" in self._data:
-            return self._data["gunatadamagerating"]
-        else:
-            return None
-
     def ataradarrangingtype(self):
         if "ataradarranging" not in self._data:
             return None
@@ -344,13 +346,49 @@ class aircraftdata:
             assert self._data["ataradarranging"] in ["RE", "CA", "IG"]
             return self._data["ataradarranging"]
 
-    def atalockon(self):
-        if "atalockon" not in self._data:
+    def gunatadamagerating(self):
+        if "gundamagerating" in self._data:
+            return int(self._data["gundamagerating"][0])
+        else:
             return None
-        elif self._data["atalockon"] == "-":
+
+    def gunatgdamagerating(self):
+        if "gundamagerating" in self._data:
+            return self._data["gundamagerating"][1]
+        else:
+            return None
+
+    def lockon(self):
+        if "lockon" not in self._data:
+            return None
+        elif self._data["lockon"] == "-":
             return None
         else:
-            return self._data["atalockon"]
+            return self._data["lockon"]
+
+    def bombsystem(self):
+        if "bombsystem" in self._data:
+            return self._data["bombsystem"]
+        else:
+            return "Manual"
+
+    def ecm(self, what):
+        if "ecm" not in self._data or self._data["ecm"] is False:
+            return None
+        elif what not in self._data["ecm"]:
+            return None
+        else:
+            return self._data["ecm"][what]
+
+    def technology(self):
+        if (
+            "technology" not in self._data
+            or self._data["technology"] is False
+            or len(self._data["technology"]) == 0
+        ):
+            return None
+        else:
+            return self._data["technology"]
 
     def ABSFamount(self):
         if "ABSF" in self.properties():
@@ -707,8 +745,8 @@ class aircraftdata:
                     str("  %s %+d" % (turnrate, self.gunsightmodifier(turnrate)))
         if self.ataradarrangingtype() is not None:
             str("ATA Radar-ranging: %s" % self.ataradarrangingtype())
-        if self.atalockon() is not None:
-            str("ATA Lock-On: %d" % self.atalockon())
+        if self.lockon() is not None:
+            str("ATA Lock-On: %d" % self.lockon())
 
         str("")
 

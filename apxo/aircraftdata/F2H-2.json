@@ -12,7 +12,7 @@
     "LO": [ [ "-", 1.0 ], [ "-", 1.0 ], [ "-", 1.0 ] ]
   },
   "ataradarranging": "-",
-  "atalockon": "-",
+  "lockon": "-",
   "storeslimits": [ 4, 8, 1000 ],
   "notes": []
 }

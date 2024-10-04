@@ -49,7 +49,7 @@
   },
   "gun": "",
   "rocketfactors": 2,
-  "atalockon": 7,
+  "lockon": 7,
   "storeslimits": [ 3, 6, 4000 ],
   "properties": [ "SMP", "LTD", "PSSM", "HBR" ],
   "notes": [

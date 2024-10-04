@@ -3,7 +3,7 @@
   "base": "MiG-17F",
   "gun": "",
   "ataradarranging": "RE",
-  "atalockon": 6,
+  "lockon": 6,
   "notes": [
     "NATO reporting name is Fresco-E."
   ]

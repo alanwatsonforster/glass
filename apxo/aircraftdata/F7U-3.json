@@ -53,7 +53,7 @@
   "gunammunition": 4.0,
   "gunsightmodifiers": { "TT": 0, "HT": 1, "BT": 2 },
   "ataradarranging": "RE",
-  "atalockon": 6,
+  "lockon": 6,
   "storeslimits": [ 2, 8, 4500 ],
   "properties": [ "HBR", "HPR" ]
 }

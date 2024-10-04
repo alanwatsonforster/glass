@@ -2,5 +2,5 @@
   "name": "B-26C Invader",
   "base": "B-26B",
   "gun": "Six .50 cal",
-  "gunatadamagerating": 4
+  "gundamagerating": [ "4", "4**"]
 }

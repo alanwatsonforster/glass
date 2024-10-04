@@ -219,5 +219,5 @@ def ataradarrangingtype(A):
     return A._aircraftdata.ataradarrangingtype()
 
 
-def atalockon(A):
-    return A._aircraftdata.atalockon()
+def lockon(A):
+    return A._aircraftdata.lockon()

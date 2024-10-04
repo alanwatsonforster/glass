@@ -57,7 +57,7 @@
   "gun": "",
   "gunsightmodifiers": { "TT": 0, "HT": 1, "BT": 2 },
   "ataradarranging": "RE",
-  "atalockon": 6,
+  "lockon": 6,
   "rocketfactors": 2,
   "storeslimits": [ 2, 6, 4000 ],  
   "properties": [ "HTD" ]

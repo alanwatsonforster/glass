@@ -315,15 +315,15 @@ AB&Oth&AB&Oth&AB&Oth&\multicolumn{1}{c}{Band}\\[0.2ex]
 
 \newcommand{\blockF}{%
 \typeout{Block F}%
-\begin{tabularx}{9\cellwidth}{@{}p{5\cellwidth}@{}p{4\cellwidth}@{}}
+\begin{tabularx}{9\cellwidth}{@{}p{5\cellwidth}@{}p{4\cellwidth}@{}}%
 \parbox[b][20em][t]{5\cellwidth}{%
 \begin{tabularx}{5\cellwidth}{l@{ }R|}
-\bfseries Radar&---\\
-ECCM&---\\
-Arcs&---\\
-Search&---\\
-Track&---\\
-Lock-On&---\\[0.2em]
+\bfseries Radar&\makebox[2.4\cellwidth][c]{\Fa}\\
+ECCM&\makebox[2.4\cellwidth][c]{\Fb}\\
+Arcs&\makebox[2.4\cellwidth][c]{\Fc}\\
+Search&\makebox[2.4\cellwidth][c]{\Fd}\\
+Track&\makebox[2.4\cellwidth][c]{\Fe}\\
+Lock-On&\makebox[2.4\cellwidth][c]{\Ff}\\[0.2em]
 \hline
 %\\[-2.85ex]
 \multicolumn{2}{@{}l@{}|}{%
@@ -335,23 +335,27 @@ Ammunition&\Fi\\
 Gunsight&\small \Fj\\
 Radar Ranging&\Fk\\
 AtA/AtG&\Fl\\
-\bfseries Bomb System&---\\[0.2em]
+\bfseries Bomb System&\Fm\\[0.2em]
 \hline
 \end{tabularx}}&
 \parbox[b][20em][t]{4\cellwidth}{%
 \begin{tabularx}{4\cellwidth}{lC}
 \bfseries ECM&\\
-IFF&---\\
-RWR&---\\
-DDS&---\\
-DJM&---\\
-AJM&---\\[0.2em]
+IFF&\makebox[2\cellwidth][c]{\Fn}\\
+RWR&\makebox[2\cellwidth][c]{\Fo}\\
+DDS&\makebox[2\cellwidth][c]{\Fp}\\
+DJM&\makebox[2\cellwidth][c]{\Fq}\\
+AJM&\makebox[2\cellwidth][c]{\Fr}\\[0.2em]
 \hline
 \\[-2.85ex]
 \multicolumn{2}{p{3.5\cellwidth}}{
 \multirow[t]{7}*{%
+\parbox[t][7em][t]{3.5\cellwidth}{%
+\setlength{\parskip}{0.2em}%
 \raggedright {\bfseries Technology:}
-}}\\
+\par
+\small \Fs
+}}}\\
 \\
 \\
 \\
@@ -369,25 +373,29 @@ AJM&---\\[0.2em]
 }}\\[0.2em]
 \end{tabularx}}
 
-\newcommand{\Fg}{20mm Vulcan} % Gun
-\newcommand{\Fh}{7/6/4} % Gun hit rolls
-\newcommand{\Fi}{3.0} % Gun ammuniation
-\newcommand{\Fj}{BT+2} % Gunsight mods
-\newcommand{\Fk}{RE} % Radar ranging
-\newcommand{\Fl}{6/8$^*$} % Damage
-\newcommand{\Fm}{Ballistic (-1)} % Bomb system
-\newcommand{\Fn}{Yes} % IFF
-\newcommand{\Fo}{Yes} % RWR
-\newcommand{\Fp}{---} % DDS
-\newcommand{\Fq}{---} % DJM
-\newcommand{\Fr}{---} % AJM
-\newcommand{\Fs}{---} % Technology
-\newcommand{\Ft}{%
+\newcommand{\Fa}{} % Radar name
+\newcommand{\Fb}{} % ECCM
+\newcommand{\Fc}{} % Arcs
+\newcommand{\Fd}{} % Search
+\newcommand{\Fe}{} % Tracking
+\newcommand{\Ff}{} % Lock-On
 
-1. Rapid Power Response (RPR). 
+\newcommand{\Fg}{} % Gun
+\newcommand{\Fh}{} % Gun hit rolls
+\newcommand{\Fi}{} % Gun ammuniation
+\newcommand{\Fj}{} % Gunsight mods
+\newcommand{\Fk}{} % Radar ranging
+\newcommand{\Fl}{} % Damage
 
-2. May use AIM-9 and AIM-7 missiles.
-}
+\newcommand{\Fm}{} % Bomb system
+
+\newcommand{\Fn}{} % IFF
+\newcommand{\Fo}{} % RWR
+\newcommand{\Fp}{} % DDS
+\newcommand{\Fq}{} % DJM
+\newcommand{\Fr}{} % AJM
+\newcommand{\Fs}{} % Technology
+\newcommand{\Ft}{} % Notes
 
 \newcommand{\blockABCDE}{%
 \centering

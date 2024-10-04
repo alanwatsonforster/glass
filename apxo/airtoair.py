@@ -397,7 +397,7 @@ def _attack(attacker, attacktype, target, result, allowRK=True, allowtracking=Tr
     else:
         attacker.logcomment(
             "%s radar-ranging lock-on roll is %d."
-            % (radarrangingtype, apcapabilities.atalockon(attacker))
+            % (radarrangingtype, apcapabilities.lockon(attacker))
         )
     if radarranging:
         attacker.logcomment("%s radar-ranging succeeded." % radarrangingtype)
