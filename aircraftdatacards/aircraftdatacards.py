@@ -685,7 +685,8 @@ writeadc("AU-1")
 
 writetype("B-26/A-26 Invader")  # 1943
 writeadc("B-26B")
-writeadc("B-26B (Korea)")
+writeadc("B-26B (1950s)")
+writeadc("B-26B (1960s)")
 writeadc("B-26C")
 writeadc("B-26K")
 writeadc("A-26A")
