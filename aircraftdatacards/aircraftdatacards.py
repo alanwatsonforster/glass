@@ -636,7 +636,7 @@ def blockF(data):
         n += 1
 
     if data.wikiurl() is not None:
-        s += "%d. \\href{%s}{ADC page on GitHub}.\n\n" % (n, data.wikiurl())
+        s += "%d. \\href{\detokenize{%s}}{ADC page on GitHub}.\n\n" % (n, data.wikiurl())
         n += 1
 
     writelatex(r"\renewcommand{\Ft}{%s}" % s)
