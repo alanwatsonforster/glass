@@ -172,3 +172,5 @@ aircraftdatacards/generated.tex
 *.fls
 *.out
 *.toc
+aircraftdatacards/main.out
+aircraftdatacards/main.toc
