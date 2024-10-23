@@ -7,8 +7,14 @@ sys.path.append("..")
 from apxo import aircraftdata
 import apxo.variants
 
-apxo.variants.setvariants(["use first-edition ADCs"])
+version = 1
 
+if version == 1:
+    apxo.variants.setvariants(["use first-edition ADCs"])
+elif version == 2:
+    pass
+elif version == 3:
+    apxo.variants.setvariants(["use house rules"])
 
 def log(s):
     print("adc: %s" % s)
@@ -641,6 +647,8 @@ def blockF(data):
 
     writelatex(r"\renewcommand{\Ft}{%s}" % s)
 
+def writeversion()
+    writelatex(r"\renewcommand{\V}{%d}" % version)
 
 def writecountry(name):
     writelatex(r"\addtoccountry{%s}" % name)
@@ -676,6 +684,7 @@ def writeadc(name):
 
 latexfilename = "generated.tex"
 latexfile = open(latexfilename, "w")
+writeversion()
 
 writecountry("US Aircraft")
 
