@@ -36,10 +36,19 @@ def blockA(data):
 
     name = data.name()
     splitname = re.sub(
-        r"\s+(([A-Z][a-z]+([-\s][A-Z][a-z]*)?(\s+II)?(\s\(([A-Z][a-z]+)([\s-][A-Z][a-z]+)*\))?)|([A-Z]+\.[0-9]+))$",
+        r"\s+(([A-Z][a-z]+([-\s][A-Z][a-z]*)?(\s+II)?)|([A-Z]+\.[0-9]+))(\s\([^)]*\))?$",
         r"\\\\\1",
         name,
     )
+    print(splitname)
+    variant = re.sub(
+        r"([^(]*)(\([^)]*\))?$",
+        r"\2",
+        name,
+    )
+    print(variant)
+    if variant != "":
+        splitname = splitname + r"\\" + variant
     writelatex(r"\renewcommand{\Aaa}{%s}" % name)
     writelatex(r"\renewcommand{\Aab}{%s}" % splitname)
 
@@ -647,7 +656,7 @@ def blockF(data):
 
     writelatex(r"\renewcommand{\Ft}{%s}" % s)
 
-def writeversion()
+def writeversion():
     writelatex(r"\renewcommand{\V}{%d}" % version)
 
 def writecountry(name):
@@ -693,10 +702,12 @@ writeadc("F4U-5")
 writeadc("AU-1")
 
 writetype("B-26/A-26 Invader")  # 1943
-writeadc("B-26B")
-writeadc("B-26B (1950s)")
-writeadc("B-26B (1960s)")
-writeadc("B-26C")
+writeadc("B-26B (Two Turrets)")
+writeadc("B-26B (One Turret)")
+writeadc("B-26B (No Turrets)")
+writeadc("B-26C (Two Turrets)")
+writeadc("B-26C (One Turret)")
+writeadc("B-26C (No Turrets)")
 writeadc("B-26K")
 writeadc("A-26A")
 
