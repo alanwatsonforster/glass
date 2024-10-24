@@ -4,6 +4,7 @@
   "gun": "Two .50 cal",
   "gunatatohitrolls": "4/2/-",
   "gundamagerating": "1/2**",
+  "ecm": { "iff": false },
   "notes": [
   ]
 }
