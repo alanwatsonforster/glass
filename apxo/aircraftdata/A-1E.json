@@ -3,7 +3,7 @@
   "base": "AD-4",
   "crew": [ "Pilot", "Copilot" ],
   "vulnerability": 2,
-  "ejectionseat": "rocket extraction device",
+  "ejectionseat": "none",
   "powertable": {
     "FT"  : [ 1.5, 1.0, 1.0, 0.5 ],
     "HT"  : [ 0.5, 0.5, 0.5, 0.2 ],
