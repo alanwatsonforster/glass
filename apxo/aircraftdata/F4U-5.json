@@ -51,7 +51,7 @@
   "radar": false,
   "gun": "Four 20 mm M3",
   "gunatatohitrolls": [ 6, 3, 2 ],
-  "gundamagerating": [ "5", "6*" ],
+  "gundamagerating": "5/6*",
   "gunammunition": 7.0,
   "gunsightmodifiers": { "TT": 0, "HT": 1, "BT": 2 },
   "bombsystem": "Manual",
