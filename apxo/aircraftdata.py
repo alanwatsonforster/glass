@@ -333,6 +333,8 @@ class aircraftdata:
             tohitroll = self._data["gunatatohitrolls"].split("/")[range]
             if tohitroll == "-":
                 tohitroll = None
+            else:
+                tohitroll = int(tohitroll)
             return tohitroll
         else:
             return None
