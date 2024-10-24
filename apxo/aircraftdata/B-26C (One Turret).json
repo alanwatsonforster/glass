@@ -1,11 +1,11 @@
 {
-  "name": "B-26C Invader",
-  "base": "B-26B",
+  "name": "B-26C Invader (One Turret)",
+  "base": "B-26B (One Turret)",
+  "internalfuel": 620,
   "gun": "Six .50 cal",
   "gundamagerating": [ "4", "4**"],
-  "bombsystem": "Manual/Balistic",
   "variantnotes": [
-    "Glass-nosed version without nose guns.",
+    "Glass-nose variant with wing guns, without the lower turret, and with extra fuel (40 fuel points).",
     "Bomb system is ballistic ($-1$) if doing level bombing from four or more altitude levels above the target."
   ]
 }
