@@ -49,7 +49,7 @@
   },
   "storeslimits": [ 2, 4, 2500 ],
   "gun": "Two 23 mm NR-23 and one 37 mm N-37",
-  "gunatatohitrolls": [ 4, 2, 1 ],
+  "gunatatohitrolls": "4/2/1",
   "gunatadamagerating": 5,
   "gunammunition": 3.0,
   "gunsightmodifiers": { "TT": 0, "HT": 2, "BT": 3 },

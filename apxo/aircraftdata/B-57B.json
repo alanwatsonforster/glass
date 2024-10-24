@@ -47,7 +47,7 @@
     "LO": [ [ "-", 1.0 ], [ "-", 1.0 ], [ "-", 1.0 ] ]
   },
   "gun": "Four 20 mm M39",
-  "gunatatohitrolls": [ 4, 2, 1 ],
+  "gunatatohitrolls": "4/2/1",
   "gunatadamagerating": 5,
   "gunammunition": 8.0,
   "gunsightmodifiers": { "TT": 1, "HT": 2, "BT": 3 },

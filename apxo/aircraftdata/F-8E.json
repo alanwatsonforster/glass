@@ -49,7 +49,7 @@
   },
   "storeslimits": [ 2, 6, 5500 ],
   "gun": "Four 20 mm Mk 12",
-  "gunatatohitrolls": [ 6, 4, 3 ],
+  "gunatatohitrolls": "6/4/3",
   "gunatadamagerating": 5,
   "gunammunition": 4.0,
   "gunsightmodifiers": { "TT": 0, "HT": 1, "BT": 2 },

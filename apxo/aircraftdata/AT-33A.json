@@ -2,7 +2,7 @@
   "name": "AT-33A Shooting Star",
   "base": "F-80C",
   "gun": "Two .50 cal",
-  "gunatatohitrolls": [ 4, 2, "-" ],
+  "gunatatohitrolls": "4/2/-",
   "gundamagerating": "1/2**",
   "notes": [
   ]

@@ -58,7 +58,7 @@
     "LO": [ [ 8.0, 3.0 ], [ 5.0, 2.0 ], [ 3.0, 1.0 ] ]
   },
   "gun": "20 mm M61 Vulcan",
-  "gunatatohitrolls": [ 7, 5, 3 ],
+  "gunatatohitrolls": "7/5/3",
   "gunatadamagerating": 6,
   "gunammunition": 2.5,
   "gunsightmodifiers": { "TT": 0, "HT": 0, "BT": 1 },

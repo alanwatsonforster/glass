@@ -46,7 +46,7 @@
   },
   "storeslimits": [ 4, 8, 6600 ],
   "gun": "Two 23 mm",
-  "gunatatohitrolls": [ 3, 2, 1 ],
+  "gunatatohitrolls": "3/2/1",
   "gunatadamagerating": 4,
   "gunarc": "60-",
   "gunammunition": 6.0,

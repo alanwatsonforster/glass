@@ -38,7 +38,7 @@
   },
   "storeslimits": [ 2, 4, 2200 ],
   "gun": "One 30 mm NR-30",
-  "gunatatohitrolls": [ 3, 2, 1 ],
+  "gunatatohitrolls": "3/2/1",
   "gunatadamagerating": 3,
   "gunammunition": 2.0,
   "gunsightmodifiers": { "TT": 0, "HT": 2, "BT": 3 },

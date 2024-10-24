@@ -47,7 +47,7 @@
     "LO": [ [ "-", 1.5 ], [ "-", 1.0 ], [ "-", 0.5 ] ]
   },
   "gun": "Six .50 cal",
-  "gunatatohitrolls": [ 6, 3, 0 ],
+  "gunatatohitrolls": "6/3/0",
   "gunatadamagerating": 4,
   "gunammunition": 8.0,
   "gunsightmodifiers": { "TT": 0, "HT": 1, "BT": 2 },

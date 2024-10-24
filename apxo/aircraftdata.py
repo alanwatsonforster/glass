@@ -330,7 +330,7 @@ class aircraftdata:
 
     def gunatatohitroll(self, range):
         if "gunatatohitrolls" in self._data:
-            tohitroll = self._data["gunatatohitrolls"][range]
+            tohitroll = self._data["gunatatohitrolls"].split("/")[range]
             if tohitroll == "-":
                 tohitroll = None
             return tohitroll

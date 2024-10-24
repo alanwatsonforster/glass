@@ -59,7 +59,7 @@
     "LO": [ [ 3.0, 2.0 ], [ 2.0, 1.0 ], [ 2.0, 1.0 ] ]
   },
   "gun": "Two 20 mm M39",
-  "gunatatohitrolls": [ 5, 3, 1 ],
+  "gunatatohitrolls": "5/3/1",
   "gunatadamagerating": 4,
   "gunammunition": 5.5,
   "gunsightmodifiers": { "TT": 1, "HT": 2, "BT": 3 },

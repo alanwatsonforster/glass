@@ -47,7 +47,7 @@
   },
   "storeslimits": [ 4, 10, 8000 ],
   "gun": "Two 30mm ADEN",
-  "gunatatohitrolls": [ 6, 3, 2 ],
+  "gunatatohitrolls": "6/3/2",
   "gunatadamagerating": 6,
   "gunammunition": 3.0,
   "gunsightmodifiers": { "BT": 2 },
