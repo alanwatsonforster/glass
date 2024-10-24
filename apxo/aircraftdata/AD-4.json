@@ -48,11 +48,13 @@
   },
   "gun": "Four 20 mm Mk 12",
   "gunatatohitrolls": "5/4/3",
-  "gunatadamagerating": 5,
+  "gundamagerating": "5/6*",
   "gunammunition": 6.0,
   "gunsightmodifiers": { "TT": 0, "HT": 1, "BT": 2 },
+  "ecm": { "iff": true },
   "storeslimits": [ 6, 12, 8000 ],
   "properties": [],
   "notes": [
-  ]
+  ],
+  "wikiurl": "https://bit.ly/40hgz09"
 }

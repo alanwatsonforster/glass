@@ -16,6 +16,6 @@
     "The maximum vertical take-off weight with full internal fuel and without guns is 2400. Each 25 points less of fuel increases this by 500.",
     "Guns are not normally carried. If carried, they contribute 800 to the load and 2 load points and occupy stations 6 and 7.",
     "One gun may be replaced by a DJM-B3 pod. A single gun has hit rolls of 4/2/1 and damage ratings of 3/3.",
-    "Increased IRM susceptibility: Apply a $-1$ modifier to hit rolls when attacked by IRMs ($-2$ if VIFFing). Treat the vulnerability as $-1$ for damage by IRMs."
+    "Increased IRM susceptibility: Apply a -1 modifier to hit rolls when attacked by IRMs (-2 if VIFFing). Treat the vulnerability as -1 for damage by IRMs."
   ]
 }

@@ -22,6 +22,12 @@ def log(s):
 
 def writelatex(s):
     print(s, file=latexfile)
+    
+    
+def latexify(s):
+    s = re.sub(r"([ (])([-+][0-9]+)([. )])", r"\1$\2$\3", s)
+    s = re.sub(r"([ (])([0-9]+[-+])([. )])", r"\1$\2$\3", s)
+    return s
 
 
 def blockA(data):
@@ -585,7 +591,7 @@ def blockF(data):
     n = 1
 
     for note in data.variantnotes():
-        s += "%d. %s\n\n" % (n, note)
+        s += "%d. %s\n\n" % (n, latexify(note))
         n += 1
 
     if len(data.properties()) != 0:
@@ -645,7 +651,7 @@ def blockF(data):
                 s += "\n\n"
 
     for note in data.notes():
-        s += "%d. %s\n\n" % (n, note)
+        s += "%d. %s\n\n" % (n, latexify(note))
         n += 1
 
     if data.wikiurl() is not None:
@@ -720,16 +726,17 @@ writeadc("F-80C")
 writeadc("RF-80C")
 writeadc("AT-33A")
 
-if False:
+writetype("AD/A-1 Skyraider")  # 1946
+writeadc("AD-4")
+writeadc("AD-5")
+writeadc("A-1E")
+writeadc("AD-6")
+writeadc("A-1H")
+writeadc("AD-7")
+writeadc("A-1J")
 
-    writetype("AD/A-1 Skyraider")  # 1946
-    writeadc("AD-4")
-    writeadc("AD-5")
-    writeadc("A-1E")
-    writeadc("AD-6")
-    writeadc("A-1H")
-    writeadc("AD-7")
-    writeadc("A-1J")
+
+if False:
 
     writetype("B-52 Stratofortress")  # 1954
     writeadc("B-52D")
