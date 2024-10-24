@@ -1,7 +1,7 @@
 {
   "name": "B-26K Counter-Invader",
   "origin": "APJ 51",
-  "crew": [ "Pilot", "Copilot", "Navigator" ],
+  "crew": [ "Pilot", "Navigator", "Observer" ],
   "powertable": {
     "FT"  : [ 1.5, 1.0, 1.0, 1.0 ],
     "HT"  : [ 0.5, 0.5, 0.5, 0.5 ],
@@ -60,7 +60,7 @@
     "Gun-nose variant without wing guns. Upgraded B-26B/TB-26B/B-26C aircraft. Later designated A-26A."
   ],
   "notes": [
-    "Fixed wing-tip tanks add 50 fuel points and reduce vulnerability to +0 until empty.",
+    "Fixed wing-tip tanks add 50 fuel points each and reduce vulnerability to +0 until empty.",
     "Bomb system is ballistic (-1) if doing level bombing from four or more altitude levels above the target."
   ],
   "wikiurl": "https://bit.ly/4gPErhi" 
