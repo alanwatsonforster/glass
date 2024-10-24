@@ -40,13 +40,11 @@ def blockA(data):
         r"\\\\\1",
         name,
     )
-    print(splitname)
     variant = re.sub(
         r"([^(]*)(\([^)]*\))?$",
         r"\2",
         name,
     )
-    print(variant)
     if variant != "":
         splitname = splitname + r"\\" + variant
     writelatex(r"\renewcommand{\Aaa}{%s}" % name)
@@ -717,12 +715,12 @@ writeadc("RB-29A")
 writeadc("Tu-4")
 
 
-if False:
+writetype("P-80/F-80/AT-33 Shooting Star")  # 1945
+writeadc("F-80C")
+writeadc("RF-80C")
+writeadc("AT-33A")
 
-    writetype("P-80/F-80/AT-33 Shooting Star")  # 1945
-    writeadc("F-80C")
-    writeadc("RF-80C")
-    writeadc("AT-33A")
+if False:
 
     writetype("AD/A-1 Skyraider")  # 1946
     writeadc("AD-4")

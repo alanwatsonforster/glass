@@ -348,13 +348,13 @@ class aircraftdata:
 
     def gunatadamagerating(self):
         if "gundamagerating" in self._data:
-            return int(self._data["gundamagerating"][0])
+            return int(self._data["gundamagerating"].split("/")[0])
         else:
             return None
 
     def gunatgdamagerating(self):
         if "gundamagerating" in self._data:
-            return self._data["gundamagerating"][1]
+            return self._data["gundamagerating"].split("/")[1]
         else:
             return None
 
