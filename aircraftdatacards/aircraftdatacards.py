@@ -711,12 +711,13 @@ writeadc("B-26C (No Turrets)")
 writeadc("B-26K")
 writeadc("A-26A")
 
-if False:
+writetype("B-29 Superfortress")  # 1944
+writeadc("B-29A")
+writeadc("RB-29A")
+writeadc("Tu-4")
 
-    writetype("B-29 Superfortress")  # 1944
-    writeadc("B-29A")
-    writeadc("RB-29A")
-    writeadc("Tu-4")
+
+if False:
 
     writetype("P-80/F-80/AT-33 Shooting Star")  # 1945
     writeadc("F-80C")
