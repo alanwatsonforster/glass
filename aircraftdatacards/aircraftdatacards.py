@@ -616,7 +616,9 @@ def blockF(data):
         s = data.gun()
         s = re.sub(r" and ", r" \& ", s)
         s = re.sub(r"\. ", r".~", s)
-        if len(s) > 30:
+        if len(s) > 35:
+            s = r"\tiny " + s
+        elif len(s) > 30:
             s = r"\notsotiny " + s
         elif len(s) > 25:
             s = r"\scriptsize " + s
@@ -849,6 +851,9 @@ writecountry("Soviet Union Aircraft")
 
 writetype("Yak-9 Frank") # 1942
 writeadc("Yak-9D")
+
+writetype("Il-10 Beast") # 1944
+writeadc("Il-10")
 
 writetype("Tu-4 Bull") # 1947
 writeadc("Tu-4")
