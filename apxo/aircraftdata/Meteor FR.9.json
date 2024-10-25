@@ -1,9 +1,7 @@
 {
   "name": "Meteor FR.9",
   "base": "Meteor F.8",
-  "notes": [
-    "The Meteor FR.9 appears as a variant on the ADC for the Meteor F.8.",
-    "Overhead and oblique cameras in the nose.",
-    "The centerline conformal FT restricts the maximum speed to 4.0 until jettisoned."
+  "variantnotes": [
+    "Overhead and oblique cameras in the nose."
   ]
 }

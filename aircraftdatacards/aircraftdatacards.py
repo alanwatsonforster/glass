@@ -737,7 +737,12 @@ writeadc("A-1J")
 
 writecountry("British Aircraft")
 
+writetype("Sea Fury")
 writeadc("Sea Fury FB.11") # 1948
+
+writetype("Meteor")
+writeadc("Meteor F.8")
+writeadc("Meteor FR.9")
 
 
 if False:
@@ -883,10 +888,6 @@ if False:
 
     writetype("Il-28 Beagle")
     writeadc("Il-28")
-
-    writetype("Meteor")
-    writeadc("Meteor F.8")
-    writeadc("Meteor FR.9")
 
     writetype("MiG-15 Fagot")
     writeadc("MiG-15ISh")
