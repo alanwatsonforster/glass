@@ -7,7 +7,7 @@ sys.path.append("..")
 from apxo import aircraftdata
 import apxo.variants
 
-version = 3
+version = 1
 
 if version == 1:
     apxo.variants.setvariants(["use first-edition ADCs"])
@@ -616,7 +616,9 @@ def blockF(data):
         s = data.gun()
         s = re.sub(r" and ", r" \& ", s)
         s = re.sub(r"\. ", r".~", s)
-        if len(s) > 25:
+        if len(s) > 30:
+            s = r"\notsotiny " + s
+        elif len(s) > 25:
             s = r"\scriptsize " + s
         elif len(s) > 20:
             s = r"\footnotesize " + s
@@ -844,6 +846,9 @@ writetype("Sea Fury") # 1948
 writeadc("Sea Fury FB.11") 
 
 writecountry("Soviet Union Aircraft")
+
+writetype("Yak-9 Frank") # 1942
+writeadc("Yak-9D")
 
 writetype("Tu-4 Bull") # 1947
 writeadc("Tu-4")
