@@ -791,9 +791,8 @@ def writeadc(name):
 
 
 # We assign aircraft to counties according to the country of their
-# original design. Hence, CAC and Avon Sabres and the Tu-4 are
-# considered to be US aircraft and the B-57 is considered to be a
-# British aircraft.
+# original manufacture. Hence, CAC and Avon Sabres are considered to be
+# Australian and Canadian aircraft.
 
 # We order aircraft types within country by date of delivery.
 
@@ -803,11 +802,11 @@ writeversion()
 
 writecountry("US Aircraft")
 
-writetype("F4U/AU Corsair")  # 1942
+writetype("F4U/AU Corsair") # 1942
 writeadc("F4U-5")
 writeadc("AU-1")
 
-writetype("B-26/A-26 Invader")  # 1943
+writetype("B-26/A-26 Invader") # 1943
 writeadc("B-26B (Two Turrets)")
 writeadc("B-26B (One Turret)")
 writeadc("B-26B (No Turrets)")
@@ -820,15 +819,13 @@ writeadc("A-26A")
 writetype("B-29 Superfortress")  # 1944
 writeadc("B-29A")
 writeadc("RB-29A")
-writeadc("Tu-4")
 
-
-writetype("P-80/F-80/AT-33 Shooting Star")  # 1945
+writetype("P-80/F-80/AT-33 Shooting Star") # 1945
 writeadc("F-80C")
 writeadc("RF-80C")
 writeadc("AT-33A")
 
-writetype("AD/A-1 Skyraider")  # 1946
+writetype("AD/A-1 Skyraider") # 1946
 writeadc("AD-4")
 writeadc("AD-5")
 writeadc("A-1E")
@@ -839,12 +836,17 @@ writeadc("A-1J")
 
 writecountry("British Aircraft")
 
-writetype("Sea Fury")
-writeadc("Sea Fury FB.11")  # 1948
-
-writetype("Meteor")
+writetype("Meteor") # 1944
 writeadc("Meteor F.8")
 writeadc("Meteor FR.9")
+
+writetype("Sea Fury") # 1948
+writeadc("Sea Fury FB.11") 
+
+writecountry("Soviet Union Aircraft")
+
+writetype("Tu-4 Bull") # 1947
+writeadc("Tu-4")
 
 
 if False:
@@ -882,7 +884,6 @@ if False:
     writeadc("B-57B")
     writeadc("B-57G")
 
-    writecountry("Soviet Union Aircraft")
 
     writetype("MiG-21")  # 1959
     writeadc("MiG-21F-13")
