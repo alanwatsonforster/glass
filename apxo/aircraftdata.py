@@ -163,6 +163,13 @@ class aircraftdata:
         raw = self._data[table][turnrate][_configurationindex(configuration)]
         if raw == "-":
             return None
+        elif apvariants.withvariant("use house rules"):
+            if self.hasproperty("LBR"):
+                return raw / 2.0 + 0.25
+            elif self.hasproperty("HBR"):
+                return raw / 2.0 + 0.75
+            else:
+                return raw / 2.0 + 0.5
         else:
             return raw
 

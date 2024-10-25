@@ -69,8 +69,6 @@ def turndrag(A, turnrate):
         return 0.0
     elif rawturndrag(turnrate) == None:
         return None
-    elif apvariants.withvariant("use house rules"):
-        return (rawturndrag(turnrate) + 1.0) / 2.0
     else:
         return rawturndrag(turnrate)
 
