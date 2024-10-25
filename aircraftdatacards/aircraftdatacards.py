@@ -735,6 +735,10 @@ writeadc("A-1H")
 writeadc("AD-7")
 writeadc("A-1J")
 
+writecountry("British Aircraft")
+
+writeadc("Sea Fury FB.11") # 1948
+
 
 if False:
 
@@ -761,7 +765,6 @@ if False:
     writeadc("RF-5A")
     writeadc("F-5C")
 
-    writecountry("British Aircraft")
     
     writetype("Harrier \\& Sea Harrier")  # 1969
     writeadc("Sea Harrier FRS.1")
