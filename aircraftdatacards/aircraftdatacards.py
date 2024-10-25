@@ -7,7 +7,7 @@ sys.path.append("..")
 from apxo import aircraftdata
 import apxo.variants
 
-version = 1
+version = 3
 
 if version == 1:
     apxo.variants.setvariants(["use first-edition ADCs"])
@@ -16,14 +16,15 @@ elif version == 2:
 elif version == 3:
     apxo.variants.setvariants(["use house rules"])
 
+
 def log(s):
     print("adc: %s" % s)
 
 
 def writelatex(s):
     print(s, file=latexfile)
-    
-    
+
+
 def latexify(s):
     s = re.sub(r"([ (])([-+][0-9]+)([. )])", r"\1$\2$\3", s)
     s = re.sub(r"([ (])([0-9]+[-+])([. )])", r"\1$\2$\3", s)
@@ -207,26 +208,73 @@ def blockB(data):
 def blockC(data):
 
     def maneuverdrag(maneuvertype):
-        drag = data.rolldrag(maneuvertype)
-        if drag == None:
+        value = data.rolldrag(maneuvertype)
+        if value == None:
             return "---"
+        elif value % 0.5 == 0:
+            return r"%.1f" % value
         else:
-            return "%.1f" % drag
+            return r"%.2f" % value
 
     def turndrag(configuration, turnrate):
+
+        def formatdrag(value):
+            if precision == 1:
+                return "%.1f" % value
+            else:
+                return "%.2f" % value
+
         drag = data.turndrag(configuration, turnrate)
         if drag is None:
             return "---"
         if data.lowspeedliftdevicename() is None:
-            return "%.1f" % drag
+            return formatdrag(drag)
         else:
             lowspeedliftdevicedrag = data.turndrag(
                 configuration, turnrate, lowspeedliftdevice=True
             )
-            return "%.1f/%.1f" % (drag, lowspeedliftdevicedrag)
+            return "%s/%s" % (formatdrag(drag), formatdrag(lowspeedliftdevicedrag))
 
     writelatex(r"\renewcommand{\Ca}{%s}" % maneuverdrag("DR"))
     writelatex(r"\renewcommand{\Cb}{%s}" % maneuverdrag("VR"))
+
+    precision = 0
+    values = [
+        data.turndrag("CL", "TT"),
+        data.turndrag("1/2", "TT"),
+        data.turndrag("DT", "TT"),
+        data.turndrag("CL", "HT"),
+        data.turndrag("1/2", "HT"),
+        data.turndrag("DT", "HT"),
+        data.turndrag("CL", "BT"),
+        data.turndrag("1/2", "BT"),
+        data.turndrag("DT", "BT"),
+        data.turndrag("CL", "ET"),
+        data.turndrag("1/2", "ET"),
+        data.turndrag("DT", "ET"),
+    ]
+    if data.lowspeedliftdevicename():
+        values += [
+            data.turndrag("CL", "TT", lowspeedliftdevice=True),
+            data.turndrag("1/2", "TT", lowspeedliftdevice=True),
+            data.turndrag("DT", "TT", lowspeedliftdevice=True),
+            data.turndrag("CL", "HT", lowspeedliftdevice=True),
+            data.turndrag("1/2", "HT", lowspeedliftdevice=True),
+            data.turndrag("DT", "HT", lowspeedliftdevice=True),
+            data.turndrag("CL", "BT", lowspeedliftdevice=True),
+            data.turndrag("1/2", "BT", lowspeedliftdevice=True),
+            data.turndrag("DT", "BT", lowspeedliftdevice=True),
+            data.turndrag("CL", "ET", lowspeedliftdevice=True),
+            data.turndrag("1/2", "ET", lowspeedliftdevice=True),
+            data.turndrag("DT", "ET", lowspeedliftdevice=True),
+        ]
+    for value in values:
+        if value is None:
+            pass
+        elif value % 0.5 == 0:
+            precision = max(precision, 1)
+        else:
+            precision = max(precision, 2)
 
     writelatex(
         r"\renewcommand{\Cca}{%s}\renewcommand{\Ccb}{%s}\renewcommand{\Ccc}{%s}"
@@ -410,8 +458,57 @@ def blockE(data):
         value = data.climbcapability(configuration, altitudeband, powersetting)
         if value is None:
             return "---"
-        else:
+        elif precision == 1:
             return r"%.1f" % value
+        else:
+            return r"%.2f" % value
+
+    precision = 0
+    values = [
+        data.climbcapability("CL", "EH", "AB"),
+        data.climbcapability("CL", "EH", "M"),
+        data.climbcapability("1/2", "EH", "AB"),
+        data.climbcapability("1/2", "EH", "M"),
+        data.climbcapability("DT", "EH", "AB"),
+        data.climbcapability("DT", "EH", "M"),
+        data.climbcapability("CL", "VH", "AB"),
+        data.climbcapability("CL", "VH", "M"),
+        data.climbcapability("1/2", "VH", "AB"),
+        data.climbcapability("1/2", "VH", "M"),
+        data.climbcapability("DT", "VH", "AB"),
+        data.climbcapability("DT", "VH", "M"),
+        data.climbcapability("CL", "HI", "AB"),
+        data.climbcapability("CL", "HI", "M"),
+        data.climbcapability("1/2", "HI", "AB"),
+        data.climbcapability("1/2", "HI", "M"),
+        data.climbcapability("DT", "HI", "AB"),
+        data.climbcapability("DT", "HI", "M"),
+        data.climbcapability("CL", "MH", "AB"),
+        data.climbcapability("CL", "MH", "M"),
+        data.climbcapability("1/2", "MH", "AB"),
+        data.climbcapability("1/2", "MH", "M"),
+        data.climbcapability("DT", "MH", "AB"),
+        data.climbcapability("DT", "MH", "M"),
+        data.climbcapability("CL", "ML", "AB"),
+        data.climbcapability("CL", "ML", "M"),
+        data.climbcapability("1/2", "ML", "AB"),
+        data.climbcapability("1/2", "ML", "M"),
+        data.climbcapability("DT", "ML", "AB"),
+        data.climbcapability("DT", "ML", "M"),
+        data.climbcapability("CL", "LO", "AB"),
+        data.climbcapability("CL", "LO", "M"),
+        data.climbcapability("1/2", "LO", "AB"),
+        data.climbcapability("1/2", "LO", "M"),
+        data.climbcapability("DT", "LO", "AB"),
+        data.climbcapability("DT", "LO", "M"),
+    ]
+    for value in values:
+        if value is None:
+            pass
+        elif value % 0.5 == 0:
+            precision = max(precision, 1)
+        else:
+            precision = max(precision, 2)
 
     writelatex(
         r"\renewcommand{\Eaa}{%s}\renewcommand{\Eab}{%s}\renewcommand{\Eac}{%s}\renewcommand{\Ead}{%s}\renewcommand{\Eae}{%s}\renewcommand{\Eaf}{%s}"
@@ -655,13 +752,18 @@ def blockF(data):
         n += 1
 
     if data.wikiurl() is not None:
-        s += "%d. \\href{\\detokenize{%s}}{ADC page on GitHub}.\n\n" % (n, data.wikiurl())
+        s += "%d. \\href{\\detokenize{%s}}{ADC page on GitHub}.\n\n" % (
+            n,
+            data.wikiurl(),
+        )
         n += 1
 
     writelatex(r"\renewcommand{\Ft}{%s}" % s)
 
+
 def writeversion():
     writelatex(r"\renewcommand{\V}{%d}" % version)
+
 
 def writecountry(name):
     writelatex(r"\addtoccountry{%s}" % name)
@@ -738,7 +840,7 @@ writeadc("A-1J")
 writecountry("British Aircraft")
 
 writetype("Sea Fury")
-writeadc("Sea Fury FB.11") # 1948
+writeadc("Sea Fury FB.11")  # 1948
 
 writetype("Meteor")
 writeadc("Meteor F.8")
@@ -770,7 +872,6 @@ if False:
     writeadc("RF-5A")
     writeadc("F-5C")
 
-    
     writetype("Harrier \\& Sea Harrier")  # 1969
     writeadc("Sea Harrier FRS.1")
     writeadc("Sea Harrier FRS.2")
@@ -780,7 +881,6 @@ if False:
     writeadc("B-57B-early")
     writeadc("B-57B")
     writeadc("B-57G")
-
 
     writecountry("Soviet Union Aircraft")
 
