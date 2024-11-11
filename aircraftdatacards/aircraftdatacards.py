@@ -810,6 +810,31 @@ latexfilename = "generated.tex"
 latexfile = open(latexfilename, "w")
 writeversion()
 
+writecountry("Australian Aircraft")
+
+writeadc("Avon Sabre Mk.31")
+writeadc("Avon Sabre Mk.32")
+
+writecountry("British Aircraft")
+
+writetype("Meteor") # 1944
+writeadc("Meteor F.8")
+writeadc("Meteor FR.9")
+
+writetype("Sea Fury") # 1948
+writeadc("Sea Fury FB.11") 
+
+writecountry("Soviet Union Aircraft")
+
+writetype("Yak-9 Frank") # 1942
+writeadc("Yak-9D")
+
+writetype("Il-10 Beast") # 1944
+writeadc("Il-10")
+
+writetype("Tu-4 Bull") # 1947
+writeadc("Tu-4")
+
 writecountry("US Aircraft")
 
 writetype("F4U/AU Corsair") # 1942
@@ -863,28 +888,28 @@ writeadc("F9F-2P")
 writeadc("F9F-5")
 writeadc("F9F-5P")
 
-writecountry("British Aircraft")
-
-writetype("Meteor") # 1944
-writeadc("Meteor F.8")
-writeadc("Meteor FR.9")
-
-writetype("Sea Fury") # 1948
-writeadc("Sea Fury FB.11") 
-
-writecountry("Soviet Union Aircraft")
-
-writetype("Yak-9 Frank") # 1942
-writeadc("Yak-9D")
-
-writetype("Il-10 Beast") # 1944
-writeadc("Il-10")
-
-writetype("Tu-4 Bull") # 1947
-writeadc("Tu-4")
-
 
 if False:
+
+    writecountry("Canadian Aircraft")
+    
+    writeadc("Sabre 5")
+    writeadc("Sabre 6")
+
+    writetype("F-86 Sabre")
+    writeadc("F-86A")
+    writeadc("F-86D")
+    writeadc("F-86E")
+    writeadc("F-86F-25")
+    writeadc("F-86F-35")
+    writeadc("F-86F-40")
+    writeadc("F-86F")
+    writeadc("F-86H Early")
+    writeadc("F-86H Late")
+    writeadc("F-86K Early")
+    writeadc("F-86K Late")
+    writeadc("F-86L")
+
 
     writetype("B-52 Stratofortress")  # 1954
     writeadc("B-52D")
@@ -934,23 +959,6 @@ if False:
     writeadc("OA-37B")
     writeadc("T-37C")
 
-    writetype("F-86 Sabre")
-    writeadc("F-86A")
-    writeadc("F-86D")
-    writeadc("F-86E")
-    writeadc("F-86F-25")
-    writeadc("F-86F-35")
-    writeadc("F-86F-40")
-    writeadc("F-86F")
-    writeadc("F-86H Early")
-    writeadc("F-86H Late")
-    writeadc("F-86K Early")
-    writeadc("F-86K Late")
-    writeadc("F-86L")
-    writeadc("Sabre 5")
-    writeadc("Sabre 6")
-    writeadc("Avon Sabre Mk.31")
-    writeadc("Avon Sabre Mk.32")
 
     writetype("B-66 Destroyer")
     writeadc("B-66B")

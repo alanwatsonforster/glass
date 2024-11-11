@@ -1,5 +1,6 @@
 {
   "name": "Avon Sabre Mk.31",
   "base": "Avon Sabre Mk.32",
-  "storeslimits": [ 2, 6, 2000 ]
+  "storeslimits": [ 2, 6, 2000 ],
+  "variantnotes": [ "Stations 2 and 3 available from 1960."]
 }

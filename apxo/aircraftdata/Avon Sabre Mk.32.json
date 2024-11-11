@@ -6,7 +6,7 @@
     "M"   : [ 1.5, 1.5, 1.0, 1.0 ],
     "N"   : [ 0.0, 0.0, 0.0, 0.5 ],
     "I"   : [ 0.5, 0.5, 1.0, 0.0 ],
-    "SPBR": [ 1.0, 1.0, 2.0 ]
+    "SPBR": [ 0.5, 0.5, 1.0 ]
   },
   "engines": 1,
   "cruisespeed": 5.5,
@@ -16,7 +16,7 @@
   "vulnerability": 0,
   "restrictedarcs": "",
   "blindarcs": "30-",
-  "internalfuel": 120,
+  "internalfuel": 160,
   "atarefuel": false,
   "ejectionseat": "standard",
   "maneuvertable": {
@@ -46,13 +46,23 @@
     "LO": [ [ "-", 2.0 ], [ "-", 2.0 ], [ "-", 1.5 ] ]
   },
   "gun": "Two 30 mm Aden",
-  "gunatatohitrolls": "6/3/3",
-  "gunatadamagerating": 2,
-  "gunammunition": 7.0,
+  "gunatatohitrolls": "6/3/2",
+  "gundamagerating": "6/6",
+  "gunammunition": 4.0,
   "gunsightmodifiers": { "TT": 0, "HT": 1, "BT": 2 },
   "ataradarranging": "RE",
+  "radar": {
+    "name": "APG-56",
+    "eccm": 0,
+    "arc": "Limited",
+    "searchrange": null,
+    "searchstrength": null,
+    "trackingrange": 12,
+    "trackingstrength": 6
+  },
   "lockon": 6,
+  "ecm": { "iff": true },
   "storeslimits": [ 2, 6, 4000 ],
   // Note: Not HTD.
-  "properties": []
+  "properties": [ "May use AIM-9B IRMs from 1960." ]
 }
