@@ -1,4 +1,4 @@
-#!/bin/env python3
+#!/usr/bin/env python3
 
 import re
 import sys
@@ -586,6 +586,12 @@ def blockF(data):
         writelatex(r"\renewcommand{\Fc}{---}")
         writelatex(r"\renewcommand{\Fd}{---}")
         writelatex(r"\renewcommand{\Fe}{---}")
+    elif data.radar("name") == "gunsight":
+        writelatex(r"\renewcommand{\Fa}{Gunsight}")
+        writelatex(r"\renewcommand{\Fb}{---}")
+        writelatex(r"\renewcommand{\Fc}{---}")
+        writelatex(r"\renewcommand{\Fd}{---}")
+        writelatex(r"\renewcommand{\Fe}{---}")
     else:
         writelatex(r"\renewcommand{\Fa}{%s}" % data.radar("name"))
         writelatex(r"\renewcommand{\Fb}{%d}" % data.radar("eccm"))
@@ -838,6 +844,11 @@ writeadc("A-1H")
 writeadc("AD-7")
 writeadc("A-1J")
 
+writetype("F-84 Thundejet") # 1947
+writeadc("F-84E")
+writeadc("F-84G")
+
+
 writecountry("British Aircraft")
 
 writetype("Meteor") # 1944
@@ -961,10 +972,6 @@ if False:
     writetype("P-51/F-51 Mustang")
     writeadc("F-51D")
     writeadc("RF-51D")
-
-    writetype("F-84 Thundejet")
-    writeadc("F-84E")
-    writeadc("F-84G")
 
     writetype("F-89 Scorpion")
     writeadc("F-89D")
