@@ -1,0 +1,8 @@
+{
+  "name": "F2H-4 Banshee (ATA Refueling)",
+  "base": "F2H-4",
+  "atarefuel": true,
+  "gun": "Three 20 mm Mk 12",
+  "gundamagerating": "4/5*",
+  "variantnotes": [ "ATA refueling probe fitted as needed in place of the upper port cannon."]
+}

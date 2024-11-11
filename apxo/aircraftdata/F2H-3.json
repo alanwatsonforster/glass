@@ -6,7 +6,7 @@
     "M"   : [ 1.0, 1.0, 1.0, 2.0 ],
     "N"   : [ 0.0, 0.0, 0.0, 1.0 ],
     "I"   : [ 0.5, 0.5, 0.5, 0.0 ],
-    "SPBR": [ 1.0, 1.0, 2.0 ]
+    "SPBR": [ 0.5, 0.5, 1.0 ]
   },
   "engines": 2,
   "cruisespeed": 4.5,
@@ -17,7 +17,7 @@
   "restrictedarcs": "180L",
   "blindarcs": "30-",
   "internalfuel": 470,
-  "atarefuel": false,
+  "atarefuel": true,
   "ejectionseat": "early",
   "maneuvertable": {
     "LR/DR": [ 1.0, 1.5 ],
@@ -48,13 +48,23 @@
   "storeslimits": [ 4, 8, 2000 ],
   "gun": "Four 20 mm Mk 12",
   "gunatatohitrolls": "6/4/3",
-  "gunatadamagerating": 5,
+  "gundamagerating": "5/6*",
   "gunammunition": 6.0,
   "gunsightmodifiers": { "TT": 0, "HT": 1, "BT": 2 },
   "ataradarranging": "RE",
+  "radar": {
+    "name": "APQ-41",
+    "eccm": 0,
+    "arc": "180+",
+    "searchrange": 32,
+    "searchstrength": 8,
+    "trackingrange": 24,
+    "trackingstrength": 6
+  },
   "lockon": 5,
+  "ecm": { "iff": true },
   "properties": [ "SMP", "HTD" ],
   "notes": [
-    "ATA refueling added in 1954."
+    "May use AIM-9B IRM from 1957."
   ]
 }

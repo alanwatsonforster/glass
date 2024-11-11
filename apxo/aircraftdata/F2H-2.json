@@ -2,6 +2,7 @@
   "name": "F2H-2 Banshee",
   "base": "F2H-3",
   "internalfuel": 410,
+  "atarefuel": false,
   "ceilingtable": [ 44, 40, 36 ],
   "climbcapabilitytable": {
     "EH": [ [ "-", 0.5 ], [ "-", "-" ], [ "-", "-" ] ],
@@ -11,7 +12,9 @@
     "ML": [ [ "-", 1.0 ], [ "-", 1.0 ], [ "-", 1.0 ] ],
     "LO": [ [ "-", 1.0 ], [ "-", 1.0 ], [ "-", 1.0 ] ]
   },
+  "gun": "Four 20 mm M3",
   "ataradarranging": "-",
+  "radar": false,
   "lockon": "-",
   "storeslimits": [ 4, 8, 1000 ],
   "notes": []

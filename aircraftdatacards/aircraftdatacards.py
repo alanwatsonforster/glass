@@ -595,7 +595,7 @@ def blockF(data):
     else:
         writelatex(r"\renewcommand{\Fa}{%s}" % data.radar("name"))
         writelatex(r"\renewcommand{\Fb}{%d}" % data.radar("eccm"))
-        writelatex(r"\renewcommand{\Fd}{%s}" % data.radar("arc"))
+        writelatex(r"\renewcommand{\Fc}{$\mathrm{%s}$}" % data.radar("arc"))
         if data.radar("searchstrength") is None:
             writelatex(r"\renewcommand{\Fd}{---}")
         else:
@@ -603,10 +603,10 @@ def blockF(data):
                 r"\renewcommand{\Fd}{%d--%d}"
                 % (data.radar("searchrange"), data.radar("searchstrength"))
             )
-            writelatex(
-                r"\renewcommand{\Fd}{%d--%d}"
-                % (data.radar("trackingrange"), data.radar("trackingstrength"))
-            )
+        writelatex(
+            r"\renewcommand{\Fe}{%d--%d}"
+            % (data.radar("trackingrange"), data.radar("trackingstrength"))
+        )
 
     if data.lockon() is None:
         writelatex(r"\renewcommand{\Ff}{---}")
@@ -848,6 +848,14 @@ writetype("F-84 Thundejet") # 1947
 writeadc("F-84E")
 writeadc("F-84G")
 
+writetype("F2H Banshee") # 1948
+writeadc("F2H-2")
+writeadc("F2H-2B")
+writeadc("F2H-2P")
+writeadc("F2H-3")
+writeadc("F2H-3 (ATA Refueling)")
+writeadc("F2H-4")
+writeadc("F2H-4 (ATA Refueling)")
 
 writecountry("British Aircraft")
 
