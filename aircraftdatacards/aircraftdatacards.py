@@ -857,6 +857,12 @@ writeadc("F2H-3 (ATA Refueling)")
 writeadc("F2H-4")
 writeadc("F2H-4 (ATA Refueling)")
 
+writetype("F9F Panther") # 1947
+writeadc("F9F-2")
+writeadc("F9F-2P")
+writeadc("F9F-5")
+writeadc("F9F-5P")
+
 writecountry("British Aircraft")
 
 writetype("Meteor") # 1944
@@ -998,12 +1004,6 @@ if False:
     writetye("F7U Cutlass")
     writeadc("F7U-3")
     writeadc("F7U-3M")
-
-    writetype("F9F Panther")
-    writeadc("F9F-2")
-    writeadc("F9F-2P")
-    writeadc("F9F-5")
-    writeadc("F9F-5P")
 
     writetype("Il-28 Beagle")
     writeadc("Il-28")
