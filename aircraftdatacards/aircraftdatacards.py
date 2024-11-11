@@ -995,13 +995,6 @@ if False:
     writeadc("F-94A")
     writeadc("F-94B")
 
-    writetype("F2H Banshee")
-    writeadc("F2H-2")
-    writeadc("F2H-2B")
-    writeadc("F2H-2P")
-    writeadc("F2H-3")
-    writeadc("F2H-4")
-
     writetye("F7U Cutlass")
     writeadc("F7U-3")
     writeadc("F7U-3M")
