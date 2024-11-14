@@ -1,7 +1,7 @@
 {
   "name": "B-26C Invader (No Turrets)",
   "base": "B-26B (No Turrets)",
-  "gun": "Six .50 cal",
+  "gun": "Six .50 cal M2",
   "gundamagerating": "4/4**",
   "variantnotes": [
     "Glass-nose variant with wing guns, no turrets, and with extra fuel (40 fuel points).",

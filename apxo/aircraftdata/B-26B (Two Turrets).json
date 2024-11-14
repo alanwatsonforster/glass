@@ -46,7 +46,7 @@
     "ML": [ [ "-", 0.5 ], [ "-", 0.5  ], [ "-", 0.25 ] ],
     "LO": [ [ "-", 0.5 ], [ "-", 0.5  ], [ "-", 0.5  ] ]
   },
-  "gun": "Fourteen .50 cal",
+  "gun": "Fourteen .50 cal M2",
   "gunatatohitrolls": "4/2/1",
   "gundamagerating": "7/9**",
   "gunammunition": 10,
@@ -60,7 +60,7 @@
     "Gun-nose variant with nose and wing guns and with upper and lower turrets."
   ],
   "notes": [
-    "Gun Turrets. This variant of the B-26 is equipped with two remote twin .50 cal gun turrets, one lower and one upper, that can fire in any direction. They may return fire twice per game turn in response to a gun attacks or conduct a single attack. As there is only one gunner, they may fire on only one aircraft per game turn. Roll to hit is 2/1/1 and AtA rating is 2."
+    "Gun Turrets. This variant of the B-26 is equipped with two remote twin .50 cal M2 turrets, one lower and one upper, that can fire in any direction. They may return fire twice per game turn in response to a gun attacks or conduct a single attack. As there is only one gunner, they may fire on only one aircraft per game turn. Roll to hit is 2/1/1 and AtA rating is 2."
   ],
   "wikiurl": "https://bit.ly/4gPErhi"
 }

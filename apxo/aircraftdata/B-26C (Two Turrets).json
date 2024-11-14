@@ -1,7 +1,7 @@
 {
   "name": "B-26C Invader (Two Turrets)",
   "base": "B-26B (Two Turrets)",
-  "gun": "Six .50 cal",
+  "gun": "Six .50 cal M2",
   "gundamagerating": "4/4**",
   "bombsystem": "Manual/Balistic",
   "variantnotes": [
