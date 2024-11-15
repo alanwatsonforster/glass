@@ -73,10 +73,7 @@
   ],
 
   "notes": [
-      "UD, VD, ZC, and VC are forbidded.",
-      "SC and SD may only use 1 VFP per turn.",
-      "SD may only lose 1 altitude level per VFP.",
-      "Limited to power setting N with H or C damage."
+      "Flight Restrictions. UD, VD, ZC, and VC are forbidded. SC and SD may only use 1 VFP per turn. SD may only lose 1 altitude level per VFP. Limited to power setting N with H or C damage."
   ],
   
   "wikiurl": "https://bit.ly/3UjPqWF"

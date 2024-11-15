@@ -697,10 +697,9 @@ def blockF(data):
     if data.variant() is None:
         writelatex(r"\renewcommand{\Ft}{}")
     else:
-        writelatex(r"\renewcommand{\Ft}{\Fta{%s. %s}}" % (data.name(), data.variant()))
+        writelatex(r"\renewcommand{\Ft}{\Fta{%s\par %s}}" % (data.name(), data.variant()))
 
     s = ""
-    n = 1
 
     if len(data.properties()) != 0:
         for property in sorted(data.properties()):
@@ -716,8 +715,7 @@ def blockF(data):
                 # Noted in maneuver section.
                 pass
             else:
-                s += "%d. " % n
-                n += 1
+                s += "\\item "
                 if property == "GSSM":
                     s += r"Good supersonic maneuverability (GSSM). "
                 elif property == "HAE":
@@ -759,19 +757,15 @@ def blockF(data):
                 s += "\n\n"
 
     for note in data.notes():
-        s += "%d. %s\n\n" % (n, latexify(note))
-        n += 1
+        s += "\\item %s\n\n" % (latexify(note))
 
     for note in data.variantnotes():
-        s += "%d. %s\n\n" % (n, latexify(note))
-        n += 1
+        s += "\\item %s\n\n" % (latexify(note))
 
     if data.wikiurl() is not None:
-        s += "%d. \\href{\\detokenize{%s}}{ADC page on GitHub}.\n\n" % (
-            n,
+        s += "\\item \\href{\\detokenize{%s}}{ADC page on GitHub}.\n\n" % (
             data.wikiurl(),
         )
-        n += 1
 
     writelatex(r"\renewcommand{\Fu}{%s}" % s)
 
