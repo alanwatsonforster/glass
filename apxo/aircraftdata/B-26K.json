@@ -17,7 +17,7 @@
   "vulnerability": 1,
   "restrictedarcs": "30-",
   "blindarcs": "30L",
-  "internalfuel": 620,
+  "internalfuel": 720,
   "atarefuel": false,
   "ejectionseat": "none",
   "maneuvertable": {
@@ -61,7 +61,7 @@
     "Later designated as A-26A."
   ],
   "notes": [
-    "Fixed wing-tip tanks add 50 fuel points each and reduce vulnerability to +0 until empty.",
+    "When the internal fuel is more than 620 fuel points, the fixed wing-tip tanks are in use and the vulnerability is +0.",
     "Bomb system is ballistic (-1) if doing level bombing from four or more altitude levels above the target."
   ],
   "wikiurl": "https://bit.ly/4gPErhi" 
