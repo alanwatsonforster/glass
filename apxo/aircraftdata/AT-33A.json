@@ -2,7 +2,7 @@
   "name": "AT-33A Shooting Star",
   "base": "F-80C",
   "crew": [ "Pilot", "Copilot" ],
-  "gun": "Two .50 cal",
+  "gun": "Two .50 cal M3",
   "gunatatohitrolls": "4/2/-",
   "gundamagerating": "1/2**",
   "ecm": { "iff": false },
