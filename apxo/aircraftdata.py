@@ -304,12 +304,12 @@ class aircraftdata:
     def radar(self, what=None):
         if "radar" not in self._data or self._data["radar"] is False:
             return None
-        elif self._data["radar"] == "gunsight":
-            return "gunsight"
         elif what is None:
             return True
-        else:
+        elif what in self._data["radar"]:
             return self._data["radar"][what]
+        else:
+            return None
 
     def gun(self):
         if "gun" in self._data and self._data["gun"] != "":

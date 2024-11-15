@@ -581,7 +581,7 @@ def blockE(data):
 def blockF(data):
 
     if data.radar() is None:
-        writelatex(r"\renewcommand{\Fa}{None}")
+        writelatex(r"\renewcommand{\Fa}{---}")
         writelatex(r"\renewcommand{\Fb}{---}")
         writelatex(r"\renewcommand{\Fc}{---}")
         writelatex(r"\renewcommand{\Fd}{---}")
@@ -594,18 +594,27 @@ def blockF(data):
         writelatex(r"\renewcommand{\Fe}{---}")
     else:
         writelatex(r"\renewcommand{\Fa}{%s}" % data.radar("name"))
-        writelatex(r"\renewcommand{\Fb}{%d}" % data.radar("eccm"))
-        writelatex(r"\renewcommand{\Fc}{$\mathrm{%s}$}" % data.radar("arc"))
-        if data.radar("searchstrength") is None:
+        if data.radar("eccm") is None:
+            writelatex(r"\renewcommand{\Fb}{---}")
+        else:
+            writelatex(r"\renewcommand{\Fb}{%d}" % data.radar("eccm"))
+        if data.radar("arc") is None:
+            writelatex(r"\renewcommand{\Fc}{---}")
+        else:
+            writelatex(r"\renewcommand{\Fc}{$\mathrm{%s}$}" % data.radar("arc"))
+        if data.radar("searchrange") is None:
             writelatex(r"\renewcommand{\Fd}{---}")
         else:
             writelatex(
                 r"\renewcommand{\Fd}{%d--%d}"
                 % (data.radar("searchrange"), data.radar("searchstrength"))
             )
-        writelatex(
-            r"\renewcommand{\Fe}{%d--%d}"
-            % (data.radar("trackingrange"), data.radar("trackingstrength"))
+        if data.radar("trackingrange") is None:
+            writelatex(r"\renewcommand{\Fe}{---}")
+        else:
+            writelatex(
+                r"\renewcommand{\Fe}{%d--%d}"
+                % (data.radar("trackingrange"), data.radar("trackingstrength"))
         )
 
     if data.lockon() is None:
