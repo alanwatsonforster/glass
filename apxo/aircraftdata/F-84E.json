@@ -47,7 +47,7 @@
     "LO": [ [ "-", 1.5 ], [ "-", 1.0 ], [ "-", 0.5 ] ]
   },
   "radar": "gunsight",
-  "gun": "Six .50 cal",
+  "gun": "Six .50 cal M3",
   "gunatatohitrolls": "6/3/0",
   "gundamagerating": "4/4**",
   "gunammunition": 8.0,
