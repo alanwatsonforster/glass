@@ -837,7 +837,12 @@ writeadc("Tu-4")
 
 writecountry("US Aircraft")
 
-writetype("F4U/AU Corsair") # 1942
+writetype("P-51/F-51 Mustang") # Jan 1942 with RAF
+writeadc("F-51D")
+writeadc("RF-51D")
+
+
+writetype("F4U/AU Corsair") # December 1942 with USCMC
 writeadc("F4U-5")
 writeadc("AU-1")
 
@@ -990,10 +995,6 @@ if False:
     writeadc("F-16A-10")
     writeadc("F-16A-15")
     writeadc("F-16A-5")
-
-    writetype("P-51/F-51 Mustang")
-    writeadc("F-51D")
-    writeadc("RF-51D")
 
     writetype("F-89 Scorpion")
     writeadc("F-89D")
