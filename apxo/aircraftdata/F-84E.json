@@ -56,5 +56,6 @@
   "lockon": 6,
   "ecm": { "iff": true },
   "storeslimits": [ 4, 12, 4500 ],
-  "properties": [ "SMP", "HTD" ]
+  "properties": [ "SMP", "HTD" ],
+  "wikiurl": "https://bit.ly/3OavBh1"
 }
