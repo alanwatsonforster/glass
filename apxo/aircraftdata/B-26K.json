@@ -56,10 +56,8 @@
   "storeslimits": [ 6, 13, 8000 ],
   "properties": [ "LRR", "NRM" ],
   "powerfadespeedtable": [ [2.5, 0.5] ],
-  "variantnotes": [
-    "Upgraded B-26B/TB-26B/B-26C aircraft with gun-nose but without wing guns.",
-    "Later designated as A-26A."
-  ],
+  "variant": 
+    "Upgraded B-26B/TB-26B/B-26C aircraft with gun-nose but without wing guns. Later designated as A-26A.",
   "notes": [
     "When the internal fuel is more than 620 fuel points, the fixed wing-tip tanks are in use and the vulnerability is +0.",
     "Bomb system is ballistic (-1) if doing level bombing from four or more altitude levels above the target."

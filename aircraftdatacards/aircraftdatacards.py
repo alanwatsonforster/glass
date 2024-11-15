@@ -706,7 +706,7 @@ def blockF(data):
     if data.variant() is None:
         writelatex(r"\renewcommand{\Ft}{}")
     else:
-        writelatex(r"\renewcommand{\Ft}{\Fta{%s\par %s}}" % (data.name(), data.variant()))
+        writelatex(r"\renewcommand{\Ft}{\Fta{%s}{%s}}" % (data.name(), data.variant()))
 
     s = ""
 
