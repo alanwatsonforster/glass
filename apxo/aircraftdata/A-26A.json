@@ -2,6 +2,7 @@
   "name": "A-26A Counter-Invader",
   "base": "B-26K",
   "variantnotes": [
-    "Gun-nose variant without wing guns. Upgraded B-26B/TB-26B/B-26C aircraft. Previously designated B-26K."
+    "Upgraded B-26B/TB-26B/B-26C aircraft with gun-nose but without wing guns.",
+    "Previously designated B-26K."
   ]
 }

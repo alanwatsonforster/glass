@@ -57,7 +57,8 @@
   "properties": [ "LRR", "NRM" ],
   "powerfadespeedtable": [ [2.5, 0.5] ],
   "variantnotes": [
-    "Gun-nose variant without wing guns. Upgraded B-26B/TB-26B/B-26C aircraft. Later designated A-26A."
+    "Upgraded B-26B/TB-26B/B-26C aircraft with gun-nose but without wing guns.",
+    "Later designated A-26A."
   ],
   "notes": [
     "Fixed wing-tip tanks add 50 fuel points each and reduce vulnerability to +0 until empty.",

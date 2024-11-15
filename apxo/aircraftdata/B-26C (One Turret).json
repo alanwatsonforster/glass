@@ -4,8 +4,8 @@
   "internalfuel": 620,
   "gun": "Six .50 cal M2",
   "gundamagerating": "4/4**",
+  "variant": "Glass-nose variant with wing guns, without the lower turret, and with extra fuel (40 fuel points).",
   "variantnotes": [
-    "Glass-nose variant with wing guns, without the lower turret, and with extra fuel (40 fuel points).",
     "Bomb system is ballistic (-1) if doing level bombing from four or more altitude levels above the target."
   ]
 }

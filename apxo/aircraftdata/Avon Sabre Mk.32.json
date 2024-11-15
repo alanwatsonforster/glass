@@ -64,5 +64,6 @@
   "ecm": { "iff": true },
   "storeslimits": [ 2, 6, 4000 ],
   // Note: Not HTD.
-  "properties": [ "May use AIM-9B IRMs from 1960." ]
+  "properties": [],
+  "notes": [ "May use AIM-9B IRMs from 1960." ]
 }

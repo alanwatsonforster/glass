@@ -454,6 +454,12 @@ class aircraftdata:
         else:
             return None
 
+    def variant(self):
+        if "variant" in self._data:
+            return self._data["variant"]
+        else:
+            return None
+
     def variantnotes(self):
         if "variantnotes" in self._data:
             return self._data["variantnotes"]

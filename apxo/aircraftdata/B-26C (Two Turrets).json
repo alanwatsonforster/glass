@@ -4,8 +4,8 @@
   "gun": "Six .50 cal M2",
   "gundamagerating": "4/4**",
   "bombsystem": "Manual/Balistic",
+  "variant": "Glass-nose variant with wing guns and upper and lower turrets.",
   "variantnotes": [
-    "Glass-nose variant with wing guns and upper and lower turrets.",
     "Bomb system is ballistic (-1) if doing level bombing from four or more altitude levels above the target."
   ]
 }

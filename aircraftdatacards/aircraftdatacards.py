@@ -52,8 +52,8 @@ def blockA(data):
         r"\2",
         name,
     )
-    if variant != "":
-        splitname = splitname + r"\\" + variant
+    #if variant != "":
+    #    splitname = splitname + r"\\" + variant
     writelatex(r"\renewcommand{\Aaa}{%s}" % name)
     writelatex(r"\renewcommand{\Aab}{%s}" % splitname)
 
@@ -694,12 +694,13 @@ def blockF(data):
         s = " ".join(data.technology())
         writelatex(r"\renewcommand{\Fk}{%s}" % s)
 
+    if data.variant() is None:
+        writelatex(r"\renewcommand{\Ft}{}")
+    else:
+        writelatex(r"\renewcommand{\Ft}{\Fta{%s. %s}}" % (data.name(), data.variant()))
+
     s = ""
     n = 1
-
-    for note in data.variantnotes():
-        s += "%d. %s\n\n" % (n, latexify(note))
-        n += 1
 
     if len(data.properties()) != 0:
         for property in sorted(data.properties()):
@@ -761,6 +762,10 @@ def blockF(data):
         s += "%d. %s\n\n" % (n, latexify(note))
         n += 1
 
+    for note in data.variantnotes():
+        s += "%d. %s\n\n" % (n, latexify(note))
+        n += 1
+
     if data.wikiurl() is not None:
         s += "%d. \\href{\\detokenize{%s}}{ADC page on GitHub}.\n\n" % (
             n,
@@ -768,7 +773,7 @@ def blockF(data):
         )
         n += 1
 
-    writelatex(r"\renewcommand{\Ft}{%s}" % s)
+    writelatex(r"\renewcommand{\Fu}{%s}" % s)
 
 
 def writeversion():
