@@ -3,8 +3,8 @@
   "base": "AD-4",
   "vulnerability": 2,
   "ejectionseat": "none",
-  "notes": [
-    "Earlier designation was AD-7.",
+  "variantnotes": [
+    "Previously designated as AD-7.",
     "Rocket extraction device (from 1967) gives -1 modifier when bailing out."
   ]
 }

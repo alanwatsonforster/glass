@@ -11,8 +11,8 @@
     "I"   : [ 0.5, 0.5, 0.5, 0.0 ],
     "SPBR": [ 0.5, 1.0, 1.0 ]
   },
-  "notes": [
-    "Earlier designation was AD-5.",
+  "variantnotes": [
+    "Previously designated as AD-5.",
     "Rocket extraction device (from 1967) gives -1 modifier when bailing out."
   ]
 }

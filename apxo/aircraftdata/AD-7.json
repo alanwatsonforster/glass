@@ -1,6 +1,7 @@
 {
   "name": "AD-7 Skyraider",
   "base": "A-1J",
-  "note": [
+  "variantnotes": [
+    "Later designated as A-1J"
   ]
 }
