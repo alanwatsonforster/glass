@@ -46,7 +46,7 @@
     "ML": [ [ "-", 1.0 ], [ "-", 0.5 ], [ "-", 0.5 ] ],
     "LO": [ [ "-", 1.0 ], [ "-", 1.0 ], [ "-", 0.5 ] ]
   },
-  "gun": "Four 20 mm Mk 12",
+  "gun": "Four 20 mm M3",
   "gunatatohitrolls": "5/4/3",
   "gundamagerating": "5/6*",
   "gunammunition": 6.0,
