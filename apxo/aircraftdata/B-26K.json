@@ -46,7 +46,6 @@
     "ML": [ [ "-", 0.5  ], [ "-", 0.5 ], [ "-", 0.5 ] ],
     "LO": [ [ "-", 0.5  ], [ "-", 0.5 ], [ "-", 0.5 ] ]
   },
-  "radar": false,
   "gun": "Eight .50 cal M2",
   "gunatatohitrolls": "4/2/1",
   "gundamagerating": "5/6**",

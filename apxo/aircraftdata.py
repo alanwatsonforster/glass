@@ -302,7 +302,7 @@ class aircraftdata:
             return 1
 
     def radar(self, what=None):
-        if "radar" not in self._data or self._data["radar"] is False:
+        if "radar" not in self._data or self._data["radar"] is None:
             return None
         elif what is None:
             return True
@@ -372,7 +372,7 @@ class aircraftdata:
     def lockon(self):
         if "lockon" not in self._data:
             return None
-        elif self._data["lockon"] == "-":
+        elif self._data["lockon"] is None:
             return None
         else:
             return self._data["lockon"]
