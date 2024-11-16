@@ -69,7 +69,7 @@
     [ "grouppair", [ 5, 8, 9, 12 ],  280, [ "RK" ] ]
   ],
   "loadnotes": [
-    "Stations 2 and 3 may carry AIM-9B IRMs after 1960.",
+    "From 1960, stations 2 and 3 may carry AIM-9B IRMs.",
     "Stations 5 to 12 can each carry three RK."
   ],
   "VPs": [ 12, 8, 4, 2 ],
