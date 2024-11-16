@@ -47,6 +47,17 @@
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+% Define typographic struts, as suggested by Claudio Beccari
+%   in an article in TeX and TUG News, Vol. 2, 1993.
+\newcommand\spaceabove{\rule{0pt}{2.6ex}}          % = `top' strut
+\newcommand\spacebelow{\rule[-1.0ex]{0pt}{0pt}}   % = `bottom' strut
+
+%\renewcommand\spaceabove{\relax}
+%\renewcommand\spacebelow{\relax}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
 \usepackage{unicode-math}
 \setmainfont[
 	BoldFont = texgyreschola-bold.otf,
@@ -96,20 +107,18 @@
 \parbox[b][\blockABCheight][t]{\blockAcells\cellwidth}{%
 \begin{tabularx}{\blockAcells\cellwidth}{lCCCc}
 \multicolumn{5}{c}{\Large\bfseries\itshape\parbox[c][4em]{4\cellwidth}{\centering \Aab}}\\
-\multicolumn{5}{l}{\parbox[b][1.6em][b]{4.5\cellwidth}{\Aba{\bfseries Crew:} \raggedright \Abb}}\\[0.2ex]
+\multicolumn{5}{l}{\parbox[b][1.6em][b]{4.5\cellwidth}{\Aba{\bfseries Crew:} \raggedright \Abb}}\spacebelow\\
 \hline
-\\[-2.85ex]
-\multicolumn{5}{l}{{\bfseries Power APs/DPs} \hfill \Ac}\\[0.2ex]
+\multicolumn{5}{l}{{\bfseries Power APs/DPs} \hfill \Ac}\spaceabove\spacebelow\\
 &CL&1/2&DT&Fuel\\
 \Ada&\Adb&\Adc&\Add&\wbox{00}{\Ade}\\
 \Aea&\Aeb&\Aec&\Aed&\wbox{00}{\Aee}\\
 N&0.0&0.0&0.0&\wbox{00}{\Af}\\
 I&\Aga&\Agb&\Agc&\wbox{00}{0.0}\\
-SPBR&\Aha&\Ahb&\Ahc&---\\[0.2ex]
+SPBR&\Aha&\Ahb&\Ahc&---\spacebelow\\
 \hline
-\\[-2.85ex]
 \multicolumn{5}{p{4.5\cellwidth}}{
-\footnotesize\raggedright\Ai
+\spaceabove\footnotesize\raggedright\Ai
 }
 \end{tabularx}}}
 
@@ -149,11 +158,12 @@ SPBR&\Aha&\Ahb&\Ahc&---\\[0.2ex]
 \begin{tabularx}{\blockBcells\cellwidth}{L@{ }rL@{ }l}
 \multicolumn{4}{c}{\parbox[c][10em]{4\cellwidth}{}}\\
 \hline
-\\[-2.85ex]
+\spaceabove
 Cruise Speed&\Bb&Restr.\ Arcs&\Bg\\
 Climb Speed&\Bc&Blind Arcs&\Bh\\
 Visibility&\Bd&Internal Fuel&\Bi\\
 Size Modifier&$\Be$&AtA Refuel&\Bj\\
+\spacebelow
 Vulnerability&$\Bf$&Ejection Seat&\wbox[l]{Early}{\Bk}\\
 \end{tabularx}}}
 
@@ -175,22 +185,19 @@ Vulnerability&$\Bf$&Ejection Seat&\wbox[l]{Early}{\Bk}\\
 \begin{tabularx}{\blockCcells\cellwidth}{L@{ }C@{ }C@{ }C}
 &\multicolumn{2}{c}{\large\bfseries\itshape\parbox[c][2em]{2\cellwidth}{\centering Air Power}}&\multicolumn{1}{r}{\footnotesize v\V}\\
 \hline
-\\[-2.85ex]
-\multicolumn{3}{l}{\bfseries Maneuver DPs}&\\[0.2ex]
+\multicolumn{3}{l}{\bfseries Maneuver DPs\spaceabove\spacebelow}\\
 \multicolumn{3}{l}{LR/DR}&\Ca\\
-\multicolumn{3}{l}{VR}&\Cb\\[0.2ex]
+\multicolumn{3}{l}{VR}&\Cb\spacebelow\\
 \hline
-\\[-2.85ex]
-\multicolumn{3}{l}{\bfseries Turn DPs}&\\[0.2ex]
-&CL&1/2&DT\\[0.2ex]
+\multicolumn{3}{l}{\bfseries Turn DPs\spaceabove\spacebelow}\\
+&CL&1/2&DT\spacebelow\\
 TT&\Cca&\Ccb&\Ccc\\
 HT&\Cda&\Cdb&\Cdc\\
 BT&\Cea&\Ceb&\Cec\\
-ET&\Cfa&\Cfb&\Cfc\\[0.2ex]
+ET&\Cfa&\Cfb&\Cfc\spacebelow\\
 \hline
-\\[-2.85ex]
 \multicolumn{4}{p{4.5\cellwidth}}{
-\footnotesize\raggedright\Cg
+\spaceabove\footnotesize\raggedright\Cg
 }
 \end{tabularx}}}
 
@@ -213,20 +220,17 @@ ET&\Cfa&\Cfb&\Cfc\\[0.2ex]
 \newcommand{\blockD}{%
 \typeout{Block D}%
 \begin{tabularx}{\blockDcells\cellwidth}{lc|C|C|C|c}
-\\[-2.85ex]
-\multicolumn{6}{c}{\bfseries Speeds and Ceilings}\\[0.2ex]
+\multicolumn{6}{c}{\bfseries Speeds and Ceilings\spaceabove\spacebelow}\\
 \hline
-\\[-2.85ex]
-\multicolumn{1}{c}{Alt.}&Conf.&\multicolumn{1}{c|}{CL}&\multicolumn{1}{c|}{1/2}&\multicolumn{1}{c|}{DT}&Dive\\
-Band&Ceil.&\multicolumn{1}{c|}{\Daa}&\multicolumn{1}{c|}{\Dab}&\multicolumn{1}{c|}{\Dac}&Speed\\[0.2ex]
+\multicolumn{1}{c}{\spaceabove Alt.}&Conf.&\multicolumn{1}{c|}{CL}&\multicolumn{1}{c|}{1/2}&\multicolumn{1}{c|}{DT}&Dive\\
+\spacebelow Band&Ceil.&\multicolumn{1}{c|}{\Daa}&\multicolumn{1}{c|}{\Dab}&\multicolumn{1}{c|}{\Dac}&Speed\\
 \hline
-\\[-2.85ex]
-~EH+&\multicolumn{1}{l|}{46+}&\Dca&\Dcb&\Dcc&\Dcd\\
+\spaceabove~EH+&\multicolumn{1}{l|}{46+}&\Dca&\Dcb&\Dcc&\Dcd\\
 ~VH&\phantom{}36--45\phantom{}&\Dda&\Ddb&\Ddc&\Ddd\\
 ~HI&\phantom{}26--35\phantom{}&\Dea&\Deb&\Dec&\Ded\\
 ~MH&\phantom{}17--25\phantom{}&\Dfa&\Dfb&\Dfc&\Dfd\\
 ~ML&\phantom{0}8--16\phantom{}&\Dga&\Dgb&\Dgc&\Dgd\\
-~LO&\phantom{0}0--7\phantom{0}&\Dha&\Dhb&\Dhc&\Dhd\\[0.2ex]
+\spacebelow~LO&\phantom{0}0--7\phantom{0}&\Dha&\Dhb&\Dhc&\Dhd\\
 \hline
 \end{tabularx}}
 
@@ -266,20 +270,17 @@ Band&Ceil.&\multicolumn{1}{c|}{\Daa}&\multicolumn{1}{c|}{\Dab}&\multicolumn{1}{c
 \newcommand{\blockE}{%
 \typeout{Block E}%
 \begin{tabularx}{\blockEcells\cellwidth}{C@{ }C|C@{ }C|C@{ }C|l}
-\\[-2.85ex]
-\multicolumn{7}{c}{\bfseries Climb Capabilities}\\[0.2ex]
+\multicolumn{7}{c}{\bfseries Climb Capabilities\spaceabove\spacebelow}\\
 \hline
-\\[-2.85ex]
-\multicolumn{2}{c|}{CL}&\multicolumn{2}{c|}{1/2}&\multicolumn{2}{c|}{DT}&\multicolumn{1}{c}{Alt.}\\
-AB&Oth&AB&Oth&AB&Oth&\multicolumn{1}{c}{Band}\\[0.2ex]
+\multicolumn{2}{c|}{CL}&\multicolumn{2}{c|}{1/2}&\multicolumn{2}{c|}{DT}&\multicolumn{1}{c}{Alt.\spaceabove}\\
+AB&Oth&AB&Oth&AB&Oth&\multicolumn{1}{c}{Band\spacebelow}\\
 \hline
-\\[-2.85ex]
-\Eaa&\Eab&\Eac&\Ead&\Eae&\Eaf&~EH+\\
+\Eaa&\Eab&\Eac&\Ead&\Eae&\Eaf&~EH+\spaceabove\\
 \Eba&\Ebb&\Ebc&\Ebd&\Ebe&\Ebf&~VH\\
 \Eca&\Ecb&\Ecc&\Ecd&\Ece&\Ecf&~HI\\
 \Eda&\Edb&\Edc&\Edd&\Ede&\Edf&~MH\\
 \Eea&\Eeb&\Eec&\Eed&\Eee&\Eef&~ML\\
-\Efa&\Efb&\Efc&\Efd&\Efe&\Eff&~LO\\[0.2ex]
+\Efa&\Efb&\Efc&\Efd&\Efe&\Eff&~LO\spacebelow\\
 \hline
 \end{tabularx}}
 
@@ -331,44 +332,42 @@ AB&Oth&AB&Oth&AB&Oth&\multicolumn{1}{c}{Band}\\[0.2ex]
 \typeout{Block F}%
 \parbox[b][\blockFGheight][t]{9\cellwidth}{%
 \begin{tabularx}{9\cellwidth}{@{}p{5\cellwidth}@{}p{4\cellwidth}@{}}%
-\parbox[b][18.5em][t]{5\cellwidth}{%
+\parbox[b][18.75em][t]{5\cellwidth}{%
 \begin{tabularx}{5\cellwidth}{l@{ }R}
-\\[-2.85ex]
+\spaceabove
 \bfseries Radar&\makebox[2.4\cellwidth][c]{\Fa}\\
 ECCM&\makebox[2.4\cellwidth][c]{\Fb}\\
 Arcs&\makebox[2.4\cellwidth][c]{\Fc}\\
 Search&\makebox[2.4\cellwidth][c]{\Fd}\\
 Track&\makebox[2.4\cellwidth][c]{\Fe}\\
-Lock-On&\makebox[2.4\cellwidth][c]{\Ff}\\[0.2ex]
+Lock-On&\makebox[2.4\cellwidth][c]{\Ff}\spacebelow\\
 \hline
-\\[-2.85ex]
 \multicolumn{2}{@{}l@{}|}{%
 \begin{tabularx}{5\cellwidth}{l@{ }R}
+\spaceabove
 \bfseries Guns&\Fg\\
 \end{tabularx}}\\
 To Hit&\Fh\\
 Ammunition&\Fi\\
 Gunsight&\small \Fj\\
 Radar Ranging&\Fk\\
-AtA/AtG&\Fl\\[0.2ex]
+AtA/AtG&\Fl\spacebelow\\
 \hline
-\\[-2.85ex]
-\bfseries Bomb System&\Fm\\[0.2ex]
+\spaceabove\spacebelow\bfseries Bomb System&\Fm\\
 %\hline
 \end{tabularx}}&
-\parbox[b][18.5em][t]{4\cellwidth}{%
+\parbox[b][18.75em][t]{4\cellwidth}{%
 \begin{tabularx}{4\cellwidth}{|lC}
-\\[-2.85ex]
+\spaceabove
 \bfseries ECM&\\
 IFF&\makebox[2\cellwidth][c]{\Fn}\\
 RWR&\makebox[2\cellwidth][c]{\Fo}\\
 DDS&\makebox[2\cellwidth][c]{\Fp}\\
 DJM&\makebox[2\cellwidth][c]{\Fq}\\
-AJM&\makebox[2\cellwidth][c]{\Fr}\\[0.2ex]
+AJM&\makebox[2\cellwidth][c]{\Fr}\spacebelow\\
 \hline
-\\[-2.85ex]
 \multicolumn{2}{p{3.5\cellwidth}}{
-\multirow[t]{7}*{%
+\spaceabove\multirow[t]{7}*{%
 \parbox[t][7em][t]{3.5\cellwidth}{%
 \setlength{\parskip}{0.2em}%
 \raggedright {\bfseries Technology:}
@@ -379,19 +378,20 @@ AJM&\makebox[2\cellwidth][c]{\Fr}\\[0.2ex]
 \\
 \\
 \\
-\\
-\\[0.7ex]
+\spacebelow\\
+%\hline
+\spaceabove\spacebelow\\
+%\hline
 \end{tabularx}}\\
 \hline
-\\[-2.85ex]
 \multicolumn{2}{p{8.5\cellwidth}}{
 \parbox[t][17em][t]{8.5\cellwidth}{%
 \setlength{\parskip}{0.2em}%
-\raggedright\footnotesize\Ft\Fu{\bfseries Notes:} 
+\spaceabove\raggedright\footnotesize\Ft\Fu{\bfseries Notes:} 
 \begin{enumerate}[left=0pt,nosep]
 \Fv
 \end{enumerate}
-}}\\[0.2ex]
+}}\spacebelow\\
 \end{tabularx}}}
 
 \newcommand{\Fa}{} % Radar name
@@ -433,30 +433,29 @@ AJM&\makebox[2\cellwidth][c]{\Fr}\\[0.2ex]
 \parbox[b][\blockFGheight][t]{7\cellwidth}{%
 \begin{tabularx}{7\cellwidth}{@{}p{7\cellwidth}@{}}%
 {\begin{tabularx}{7\cellwidth}{lC}
-\\[-2.85ex]
+\spaceabove
 \bfseries Weapon Stations Diagram\\
 \\
 \\
 \\
 \\
-\\[0.2ex]
+\spacebelow\\
 \end{tabularx}}\\
 \hline
-\\[-2.85ex]
 {\begin{tabularx}{7\cellwidth}{Lr}
-\bfseries Configuration Points Limits:&\wbox[l]{DT}{CL}: \wbox{$>00.0$}{$\Gba$}\\
+\spaceabove\bfseries Configuration Points Limits&\wbox[l]{DT}{CL}: \wbox{$>00.0$}{$\Gba$}\\
 &\wbox[l]{DT}{1/2}: \wbox{$>00.0$}{$\Gbb$}\\
-{\bfseries Load Limit:} \Gbd&\wbox[l]{DT}{DT}: \wbox{$>00.0$}{$\Gbc$}\\
-\end{tabularx}}\\[0.2ex]
+{\spacebelow\bfseries Load Limit} \Gbd&\wbox[l]{DT}{DT}: \wbox{$>00.0$}{$\Gbc$}\\
+\end{tabularx}}\spacebelow\\
 \hline
-\parbox[t][21.7em][t]{7\cellwidth}{%
+\parbox[t][21.45em][t]{7\cellwidth}{%
 {\begin{tabularx}{7\cellwidth}{lC}
-Weapon Stations Table\\
+\spaceabove Weapon Stations Table\\
 \end{tabularx}}}\\
 \hline
-\\[-2.85ex]
 {\begin{tabularx}{7\cellwidth}{lC}
-{\bfseries VPs:} \Gda\\[0.2ex]
+{\spaceabove\spacebelow\bfseries VPs:} \Gda\\
+%\hline
 \end{tabularx}}\\
 \end{tabularx}}}
 
