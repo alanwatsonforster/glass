@@ -1,7 +1,8 @@
 {
   "name": "Meteor FR.9",
   "base": "Meteor F.8",
-  "variant": "Tactical reconnaissance adaptation of the F.8. Used by Ecuador, Israel, Syria, and UK.",
+  "variant": "Tactical reconnaissance adaptation of the F.8.",
+  "service": "From 1951. Operated by Ecuador, Israel, Syria, and UK.",
   "variantnotes": [
     "Overhead and oblique cameras in the nose."
   ]

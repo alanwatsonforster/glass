@@ -56,6 +56,8 @@
   "storeslimits": [ 2, 4, 2000 ],  
   "properties": [ "LBR", "HTD" ],
   "powerfadespeedtable": [ [3.0, 0.5] ],
+  "variant": "Main WW2 version.",
+  "service": "Operated by Canada, Costa Rica, Domincan Republic, El Salvador, Guatamala, Haiti, Indonesia, Israel, Italy, Netherlands, New Zealand, Nicaragua, Philippines, Somalia, South Africa, South Korea, Sweden, Switzerland, USA, and Uruguay. Saw combat in the Korean War with the USAF, ROKAF, RAAF, and SAAF.",
   "notes": [
   ],
   "wikiurl": "https://bit.ly/4foW868"

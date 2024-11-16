@@ -57,7 +57,8 @@
   "storeslimits": [ 2, 4, 3400 ],
   "properties": [ "LBR", "HTD" ],
   "powerfadespeedtable": [ [3.0, 0.5], [4.0, 1.0] ],
-  "variant": "Most widely produced Sea Fury. Operated by Australia, Burma, Canada, Cuba, Egypt, West Germany, Iraq, Netherlands, Pakistan, and UK. Saw combat in Korea with RN and RAN and in the Bay of Pigs invasion with the Cuban FAR.",
+//  "variant": "Most numerous Sea Fury variant.",
+  "service": "From 1947. Operated by Australia, Burma, Canada, Cuba, Egypt, West Germany, Iraq, Netherlands, Pakistan, and UK. Saw combat in Korea with RN and RAN and in the Bay of Pigs invasion with the Cuban FAR.",
   "notes": [
   ],
   "wikiurl": "https://bit.ly/48kjeYU"

@@ -53,7 +53,8 @@
   "ecm": { "iff": true },
   "storeslimits": [ 2, 5, 3600 ],
   "properties": [ "HTD", "LRR" ],
-  "variant": "Improved post-war version of the Meteor. Operated by Australia, Belgium, Brazil, Denmark, Egypt, Israel, Netherlands, Syria, and UK. Saw combat in the Korean War with the RAAF and in the Suez Crisis with Egypt, Israel, and Syria.",
+  "variant": "Improved version of the Meteor.",
+  "service": "From 1950. Operated by Australia, Belgium, Brazil, Denmark, Ecuador, Egypt, Israel, Netherlands, Syria, and UK. Saw combat in the Korean War with the RAAF and in the Suez Crisis with Egypt, Israel, and Syria.",
   "notes": [
     "The centerline 175 gal conformal fuel tank (weight 1600, 3.0/2.0 load points, and 70 fuel points) restricts the maximum speed to 4.0 until jettisoned."
   ],
