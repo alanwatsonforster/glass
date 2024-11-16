@@ -351,7 +351,7 @@ class aircraftdata:
     def ataradarrangingtype(self):
         if "ataradarranging" not in self._data:
             return None
-        elif self._data["ataradarranging"] == "-":
+        elif self._data["ataradarranging"] is None:
             return None
         else:
             assert self._data["ataradarranging"] in ["RE", "CA", "IG"]

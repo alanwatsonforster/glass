@@ -13,7 +13,7 @@
     "LO": [ [ "-", 1.0 ], [ "-", 1.0 ], [ "-", 1.0 ] ]
   },
   "gun": "Four 20 mm M3",
-  "ataradarranging": "-",
+  "ataradarranging": null,
   "radar": null,
   "lockon": null,
   "storeslimits": [ 4, 8, 1000 ],
