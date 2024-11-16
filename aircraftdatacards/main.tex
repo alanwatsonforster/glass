@@ -387,10 +387,7 @@ AJM&\makebox[2\cellwidth][c]{\Fr}\spacebelow\\
 \multicolumn{2}{p{8.5\cellwidth}}{
 \parbox[t][17em][t]{8.5\cellwidth}{%
 \setlength{\parskip}{0.2em}%
-\spaceabove\raggedright\footnotesize\Ft\Fu{\bfseries Notes:} 
-\begin{enumerate}[left=0pt,nosep]
-\Fv
-\end{enumerate}
+\spaceabove\raggedright\footnotesize\Ft\Fu\Fv
 }}\spacebelow\\
 \end{tabularx}}}
 
@@ -421,6 +418,12 @@ AJM&\makebox[2\cellwidth][c]{\Fr}\spacebelow\\
 \newcommand{\Fu}{} % Service text
 \newcommand{\Fua}[1]{{\bfseries Service:} #1 \par} %
 \newcommand{\Fv}{} % Notes
+\newcommand{\Fva}[1]{%
+  {\bfseries Notes:} 
+  \begin{enumerate}[left=0pt,nosep]
+  #1
+  \end{enumerate}
+}
 
 \newcommand{\Gba}{} % CL limit
 \newcommand{\Gbb}{} % 1/2 limit

@@ -780,8 +780,11 @@ def blockF(data):
         s += "\\item \\href{\\detokenize{%s}}{ADC page on GitHub}.\n\n" % (
             data.wikiurl(),
         )
-
-    writelatex(r"\renewcommand{\Fv}{%s}" % s)
+        
+    if s == "":
+        writelatex(r"\renewcommand{\Fv}{}")
+    else:
+        writelatex(r"\renewcommand{\Fv}{\Fva{%s}}" % s)
 
 
 def blockG(data):
