@@ -48,7 +48,11 @@ def blockA(data):
         name,
     )
 
-    writelatex(r"\renewcommand{\Aaa}{%s}" % name)
+    if data.variantname() is None:
+        writelatex(r"\renewcommand{\Aaa}{%s}" % name)
+    else:
+        writelatex(r"\renewcommand{\Aaa}{%s (%s)}" % (name, data.variantname()))
+
     writelatex(r"\renewcommand{\Aab}{%s}" % splitname)
 
     if len(data.crew()) > 6:
