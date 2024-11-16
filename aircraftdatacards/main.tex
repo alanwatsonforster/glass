@@ -324,19 +324,24 @@ AB&Oth&AB&Oth&AB&Oth&\multicolumn{1}{c}{Band}\\[0.2ex]
 \newcommand{\blockFcells}{9}
 \newcommand{\blockGcells}{7}
 
+\newlength{\blockFGheight}
+\setlength{\blockFGheight}{36em}
+
 \newcommand{\blockF}{%
 \typeout{Block F}%
+\parbox[b][\blockFGheight][t]{9\cellwidth}{%
 \begin{tabularx}{9\cellwidth}{@{}p{5\cellwidth}@{}p{4\cellwidth}@{}}%
-\parbox[b][20em][t]{5\cellwidth}{%
-\begin{tabularx}{5\cellwidth}{l@{ }R|}
+\parbox[b][18.5em][t]{5\cellwidth}{%
+\begin{tabularx}{5\cellwidth}{l@{ }R}
+\\[-2.85ex]
 \bfseries Radar&\makebox[2.4\cellwidth][c]{\Fa}\\
 ECCM&\makebox[2.4\cellwidth][c]{\Fb}\\
 Arcs&\makebox[2.4\cellwidth][c]{\Fc}\\
 Search&\makebox[2.4\cellwidth][c]{\Fd}\\
 Track&\makebox[2.4\cellwidth][c]{\Fe}\\
-Lock-On&\makebox[2.4\cellwidth][c]{\Ff}\\[0.2em]
+Lock-On&\makebox[2.4\cellwidth][c]{\Ff}\\[0.2ex]
 \hline
-%\\[-2.85ex]
+\\[-2.85ex]
 \multicolumn{2}{@{}l@{}|}{%
 \begin{tabularx}{5\cellwidth}{l@{ }R}
 \bfseries Guns&\Fg\\
@@ -345,18 +350,21 @@ To Hit&\Fh\\
 Ammunition&\Fi\\
 Gunsight&\small \Fj\\
 Radar Ranging&\Fk\\
-AtA/AtG&\Fl\\
-\bfseries Bomb System&\Fm\\[0.2em]
+AtA/AtG&\Fl\\[0.2ex]
 \hline
+\\[-2.85ex]
+\bfseries Bomb System&\Fm\\[0.2ex]
+%\hline
 \end{tabularx}}&
-\parbox[b][20em][t]{4\cellwidth}{%
-\begin{tabularx}{4\cellwidth}{lC}
+\parbox[b][18.5em][t]{4\cellwidth}{%
+\begin{tabularx}{4\cellwidth}{|lC}
+\\[-2.85ex]
 \bfseries ECM&\\
 IFF&\makebox[2\cellwidth][c]{\Fn}\\
 RWR&\makebox[2\cellwidth][c]{\Fo}\\
 DDS&\makebox[2\cellwidth][c]{\Fp}\\
 DJM&\makebox[2\cellwidth][c]{\Fq}\\
-AJM&\makebox[2\cellwidth][c]{\Fr}\\[0.2em]
+AJM&\makebox[2\cellwidth][c]{\Fr}\\[0.2ex]
 \hline
 \\[-2.85ex]
 \multicolumn{2}{p{3.5\cellwidth}}{
@@ -372,9 +380,10 @@ AJM&\makebox[2\cellwidth][c]{\Fr}\\[0.2em]
 \\
 \\
 \\
-\\[0.2em]
+\\[0.7ex]
+\end{tabularx}}\\
 \hline
-\end{tabularx}}\\[-2.85ex]
+\\[-2.85ex]
 \multicolumn{2}{p{8.5\cellwidth}}{
 \parbox[t][17em][t]{8.5\cellwidth}{%
 \setlength{\parskip}{0.2em}%
@@ -382,8 +391,8 @@ AJM&\makebox[2\cellwidth][c]{\Fr}\\[0.2em]
 \begin{enumerate}[left=0pt,nosep]
 \Fv
 \end{enumerate}
-}}\\[0.2em]
-\end{tabularx}}
+}}\\[0.2ex]
+\end{tabularx}}}
 
 \newcommand{\Fa}{} % Radar name
 \newcommand{\Fb}{} % ECCM
@@ -421,25 +430,35 @@ AJM&\makebox[2\cellwidth][c]{\Fr}\\[0.2em]
 
 \newcommand{\blockG}{%
 \typeout{Block G}%
+\parbox[b][\blockFGheight][t]{7\cellwidth}{%
 \begin{tabularx}{7\cellwidth}{@{}p{7\cellwidth}@{}}%
 {\begin{tabularx}{7\cellwidth}{lC}
-Weapon Stations Diagram\\
+\\[-2.85ex]
+\bfseries Weapon Stations Diagram\\
+\\
+\\
+\\
+\\
+\\[0.2ex]
 \end{tabularx}}\\
 \hline
+\\[-2.85ex]
 {\begin{tabularx}{7\cellwidth}{Lr}
-Configuration Points Limits:&\wbox[l]{DT}{CL}: \wbox{$>00.0$}{$\Gba$}\\
+\bfseries Configuration Points Limits:&\wbox[l]{DT}{CL}: \wbox{$>00.0$}{$\Gba$}\\
 &\wbox[l]{DT}{1/2}: \wbox{$>00.0$}{$\Gbb$}\\
-Load Limit: \Gbd&\wbox[l]{DT}{DT}: \wbox{$>00.0$}{$\Gbc$}\\
-\end{tabularx}}\\
+{\bfseries Load Limit:} \Gbd&\wbox[l]{DT}{DT}: \wbox{$>00.0$}{$\Gbc$}\\
+\end{tabularx}}\\[0.2ex]
 \hline
+\parbox[t][21.7em][t]{7\cellwidth}{%
 {\begin{tabularx}{7\cellwidth}{lC}
 Weapon Stations Table\\
-\end{tabularx}}\\
+\end{tabularx}}}\\
 \hline
+\\[-2.85ex]
 {\begin{tabularx}{7\cellwidth}{lC}
-VPs: \Gda\\
+{\bfseries VPs:} \Gda\\[0.2ex]
 \end{tabularx}}\\
-\end{tabularx}}
+\end{tabularx}}}
 
 \newcommand{\blockABCDEFG}{%
 \centering
@@ -452,7 +471,7 @@ VPs: \Gda\\
 \hline
 \multicolumn{\blockDcells}{|@{}c@{}|}{\blockD}&
 \multicolumn{\blockEcells}{@{}c@{}|}{\blockE}\\
-&&&&&&&&&&&&&&&\\
+\\
 \hline
 \multicolumn{9}{|@{}c@{}|}{\blockF}&
 \multicolumn{7}{@{}c@{}|}{\blockG}\\
