@@ -631,11 +631,7 @@ def blockF(data):
         s = data.gun()
         s = re.sub(r" and ", r" \& ", s)
         s = re.sub(r"\. ", r".~", s)
-        if len(s) > 35:
-            s = r"\tiny " + s
-        elif len(s) > 30:
-            s = r"\notsotiny " + s
-        elif len(s) > 25:
+        if len(s) > 25:
             s = r"\scriptsize " + s
         elif len(s) > 20:
             s = r"\footnotesize " + s

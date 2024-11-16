@@ -332,7 +332,7 @@ AB&Oth&AB&Oth&AB&Oth&\multicolumn{1}{c}{Band\spacebelow}\\
 \typeout{Block F}%
 \parbox[b][\blockFGheight][t]{9\cellwidth}{%
 \begin{tabularx}{9\cellwidth}{@{}p{5\cellwidth}@{}p{4\cellwidth}@{}}%
-\parbox[b][18.75em][t]{5\cellwidth}{%
+\parbox[b][18.9em][t]{5\cellwidth}{%
 \begin{tabularx}{5\cellwidth}{l@{ }R}
 \spaceabove
 \bfseries Radar&\makebox[2.4\cellwidth][c]{\Fa}\\
@@ -344,8 +344,8 @@ Lock-On&\makebox[2.4\cellwidth][c]{\Ff}\spacebelow\\
 \hline
 \multicolumn{2}{@{}l@{}|}{%
 \begin{tabularx}{5\cellwidth}{l@{ }R}
-\spaceabove
-\bfseries Guns&\Fg\\
+\spaceabove\spacebelow
+\bfseries Guns&\parbox{\linewidth}{\raggedleft \Fg}\\
 \end{tabularx}}\\
 To Hit&\Fh\\
 Ammunition&\Fi\\
@@ -356,9 +356,9 @@ AtA/AtG&\Fl\spacebelow\\
 \spaceabove\spacebelow\bfseries Bomb System&\Fm\\
 %\hline
 \end{tabularx}}&
-\parbox[b][18.75em][t]{4\cellwidth}{%
+\parbox[b][18.9em][t]{4\cellwidth}{%
 \begin{tabularx}{4\cellwidth}{|lC}
-\spaceabove
+\spaceabove\spacebelow
 \bfseries ECM&\\
 IFF&\makebox[2\cellwidth][c]{\Fn}\\
 RWR&\makebox[2\cellwidth][c]{\Fo}\\
