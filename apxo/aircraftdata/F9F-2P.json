@@ -2,6 +2,8 @@
   "name": "F9F-2P Panther",
   "base": "F9F-2",
   "gun": "",
+  "radar": null,
+  "lockon": null,
   "VPs": [ 7, 4, 2, 1 ],
   "notes": [
     "Oblique and overhead cameras."

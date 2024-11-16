@@ -50,6 +50,8 @@
   "gundamagerating": "5/6*",
   "gunammunition": 6.0,
   "gunsightmodifiers": { "TT": 0, "HT": 1, "BT": 2 },
+  "radar": { "name": "APG-30" },
+  "lockon": 6,
   "ecm": { "iff": true },
   "storeslimits": [ 2, 6, 2000 ],
   "VPs": [ 7, 4, 2, 1 ],
