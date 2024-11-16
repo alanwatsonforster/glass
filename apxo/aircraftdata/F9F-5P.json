@@ -4,6 +4,7 @@
   "gun": "",
   "radar": null,
   "lockon": null,
+  "ataradarranging": null,
   "VPs": [ 8, 5, 3, 1 ],
   "notes": [
     "Oblique and overhead cameras."
