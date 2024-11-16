@@ -1,6 +1,7 @@
 {
   "name": "A-26A Counter-Invader",
   "base": "B-26K",
-  "variant": "Upgraded B-26B/TB-26B/B-26C aircraft with gun-nose but without wing guns. Later designated as A-26A."
-
+  "variantnotes": [
+    "Previously designated as A-26A."
+  ]
 }

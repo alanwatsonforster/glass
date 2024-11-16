@@ -1,10 +1,11 @@
 {
-  "name": "B-26C Invader (One Turret)",
+  "name": "B-26C Invader",
+  "variantname": "One Turret",
+  "variantdescription": "This is a variant with the glass nose, wing guns, only the dorsal turret, and extra fuel (40 fuel points). It was originally built for WW2 service in the Pacific.", 
   "base": "B-26B (One Turret)",
   "internalfuel": 620,
   "gun": "Six .50 cal M2",
   "gundamagerating": "4/4**",
-  "variant": "Glass-nose variant with wing guns, without the lower turret, and with extra fuel (40 fuel points).",
   "variantnotes": [
     "Bomb system is ballistic (-1) if doing level bombing from four or more altitude levels above the target."
   ]

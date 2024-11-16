@@ -43,17 +43,11 @@ def blockA(data):
 
     name = data.name()
     splitname = re.sub(
-        r"\s+(([A-Z][a-z]+([-\s][A-Z][a-z]*)?(\s+II)?)|([A-Z]+\.[0-9]+))(\s\([^)]*\))?$",
+        r"\s+(([A-Z][a-z]+([-\s][A-Z][a-z]*)?(\s+II)?)|([A-Z]+\.[0-9]+))$",
         r"\\\\\1",
         name,
     )
-    variant = re.sub(
-        r"([^(]*)(\([^)]*\))?$",
-        r"\2",
-        name,
-    )
-    # if variant != "":
-    #    splitname = splitname + r"\\" + variant
+
     writelatex(r"\renewcommand{\Aaa}{%s}" % name)
     writelatex(r"\renewcommand{\Aab}{%s}" % splitname)
 
@@ -703,10 +697,10 @@ def blockF(data):
         s = " ".join(data.technology())
         writelatex(r"\renewcommand{\Fk}{%s}" % s)
 
-    if data.variant() is None:
+    if data.variantname() is None:
         writelatex(r"\renewcommand{\Ft}{}")
     else:
-        writelatex(r"\renewcommand{\Ft}{\Fta{%s}{%s}}" % (data.name(), data.variant()))
+        writelatex(r"\renewcommand{\Ft}{\Fta{%s}{%s}}" % (data.variantname(), data.variantdescription()))
 
     if data.service() is None:
         writelatex(r"\renewcommand{\Fu}{}")
