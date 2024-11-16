@@ -629,13 +629,17 @@ def blockF(data):
         writelatex(r"\renewcommand{\Fl}{---}")
     else:
         s = data.gun()
-        s = re.sub(r" and ", r" \& ", s)
+        if " and " in s:
+            font = r"\scriptsize"
+            s = re.sub(r"and one", r"\\\\One", s)
+            s = re.sub(r"and two", r"\\\\Two", s)
+            s = re.sub(r"and three", r"\\\\Three", s)
+            s = re.sub(r"and four", r"\\\\Four", s)
+        else:
+            font = ""
         s = re.sub(r"\. ", r".~", s)
-        if len(s) > 25:
-            s = r"\scriptsize " + s
-        elif len(s) > 20:
-            s = r"\footnotesize " + s
-        writelatex(r"\renewcommand{\Fg}{%s}" % s)
+        s = re.sub(r" mm", r"~mm", s)
+        writelatex(r"\renewcommand{\Fg}{%s %s}" % (font, s))
         if data.gunatatohitroll(2) is None:
             writelatex(
                 r"\renewcommand{\Fh}{%d/%d/--}"
