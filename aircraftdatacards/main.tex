@@ -378,9 +378,9 @@ AJM&\makebox[2\cellwidth][c]{\Fr}\\[0.2em]
 \multicolumn{2}{p{8.5\cellwidth}}{
 \parbox[t][17em][t]{8.5\cellwidth}{%
 \setlength{\parskip}{0.2em}%
-\raggedright\footnotesize\Ft{\bfseries Notes:} 
+\raggedright\footnotesize\Ft\Fu{\bfseries Notes:} 
 \begin{enumerate}[left=0pt,nosep]
-\Fu
+\Fv
 \end{enumerate}
 }}\\[0.2em]
 \end{tabularx}}
@@ -408,10 +408,39 @@ AJM&\makebox[2\cellwidth][c]{\Fr}\\[0.2em]
 \newcommand{\Fr}{} % AJM
 \newcommand{\Fs}{} % Technology
 \newcommand{\Ft}{} % Variant text
-\newcommand{\Fta}[2]{{\bfseries Variant:} #1. #2\par} %
-\newcommand{\Fu}{} % Notes
+\newcommand{\Fta}[2]{{\bfseries Variant:} #1. #2 \par} %
+\newcommand{\Fu}{} % Service text
+\newcommand{\Fua}[1]{{\bfseries Service:} #1 \par} %
+\newcommand{\Fv}{} % Notes
 
-\newcommand{\blockABCDE}{%
+\newcommand{\Gaa}{} % CL limit
+\newcommand{\Gab}{} % 1/2 limit
+\newcommand{\Gac}{} % DT limit
+\newcommand{\Gad}{} % Load limit
+
+\newcommand{\blockG}{%
+\typeout{Block G}%
+\begin{tabularx}{7\cellwidth}{@{}p{7\cellwidth}@{}}%
+{\begin{tabularx}{7\cellwidth}{lC}
+Weapon Stations Diagram\\
+\end{tabularx}}\\
+\hline
+{\begin{tabularx}{7\cellwidth}{Lr}
+Configuration Points Limits&\wbox[l]{DT}{CL}: \wbox{$\Gab$}{$\Gaa$}\\
+&\wbox[l]{DT}{1/2}: \wbox{$\Gab$}{$\Gab$}\\
+Load Limit: \Gad&\wbox[l]{DT}{DT}: \wbox{$\Gab$}{$\Gac$}\\
+\end{tabularx}}\\
+\hline
+{\begin{tabularx}{7\cellwidth}{lC}
+Weapon Stations Table\\
+\end{tabularx}}\\
+\hline
+{\begin{tabularx}{7\cellwidth}{lC}
+VPs\\
+\end{tabularx}}\\
+\end{tabularx}}
+
+\newcommand{\blockABCDEFG}{%
 \centering
 \begin{tabular}{*{16}{@{}p{\cellwidth}}@{}}
 \hline
@@ -425,12 +454,12 @@ AJM&\makebox[2\cellwidth][c]{\Fr}\\[0.2em]
 &&&&&&&&&&&&&&&\\
 \hline
 \multicolumn{9}{|@{}c@{}|}{\blockF}&
-\multicolumn{7}{@{}c@{}|}{}\\
+\multicolumn{7}{@{}c@{}|}{\blockG}\\
 \hline
 \end{tabular}}
 
 \newcommand{\adc}{
-  \blockABCDE
+  \blockABCDEFG
   \newpage
 }
 

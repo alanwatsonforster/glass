@@ -708,6 +708,11 @@ def blockF(data):
     else:
         writelatex(r"\renewcommand{\Ft}{\Fta{%s}{%s}}" % (data.name(), data.variant()))
 
+    if data.service() is None:
+        writelatex(r"\renewcommand{\Fu}{}")
+    else:
+        writelatex(r"\renewcommand{\Fu}{\Fua{%s}}" % data.service())
+
     s = ""
 
     if len(data.properties()) != 0:
@@ -776,8 +781,20 @@ def blockF(data):
             data.wikiurl(),
         )
 
-    writelatex(r"\renewcommand{\Fu}{%s}" % s)
+    writelatex(r"\renewcommand{\Fv}{%s}" % s)
+    
+def blockG(data):
 
+    if data.hasstoreslimits():
+        writelatex(r"\renewcommand{\Gaa}{\le %.1f}" % data.storeslimit("CL"))
+        writelatex(r"\renewcommand{\Gab}{\le %.1f}" % data.storeslimit("1/2"))
+        writelatex(r"\renewcommand{\Gac}{> %.1f}" % data.storeslimit("1/2"))
+        writelatex(r"\renewcommand{\Gad}{%s}" % ('{:,}'.format(data.storeslimit("DT"))))
+    else:
+        writelatex(r"\renewcommand{\Gaa}{}")
+        writelatex(r"\renewcommand{\Gab}{}")
+        writelatex(r"\renewcommand{\Gac}{}")
+        writelatex(r"\renewcommand{\Gad}{}")
 
 def writeversion():
     writelatex(r"\renewcommand{\V}{%d}" % version)
@@ -804,6 +821,7 @@ def writeadc(name):
     blockD(data)
     blockE(data)
     blockF(data)
+    blockG(data)
 
     writelatex(r"\adc")
 

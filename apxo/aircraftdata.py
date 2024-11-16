@@ -466,6 +466,12 @@ class aircraftdata:
         else:
             return []
 
+    def service(self):
+        if "service" in self._data:
+            return self._data["service"]
+        else:
+            return None
+
     def notes(self):
         if "notes" in self._data:
             return self._data["notes"]
