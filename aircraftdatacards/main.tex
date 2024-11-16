@@ -426,6 +426,14 @@ AJM&\makebox[2\cellwidth][c]{\Fr}\spacebelow\\
 \newcommand{\Gbb}{} % 1/2 limit
 \newcommand{\Gbc}{} % DT limit
 \newcommand{\Gbd}{} % Load limit
+\newcommand{\Gca}{} % Stations table
+\newcommand{\Gcb}{} % Load notes
+\newcommand{\Gcc}[1]{%
+  \spaceabove\raggedright\footnotesize{\bfseries Load Notes:} 
+  \begin{enumerate}[left=0pt,nosep]
+  #1
+  \end{enumerate}
+}
 \newcommand{\Gda}{} % VPs
 
 \newcommand{\blockG}{%
@@ -448,10 +456,18 @@ AJM&\makebox[2\cellwidth][c]{\Fr}\spacebelow\\
 {\spacebelow\bfseries Load Limit}&\Gbd&\wbox[l]{DT}{DT}: \wbox{$>00.0$}{$\Gbc$}\\
 \end{tabularx}}\spacebelow\\
 \hline
-\parbox[t][21.45em][t]{7\cellwidth}{%
-{\begin{tabularx}{7\cellwidth}{lC}
-\spaceabove Weapon Stations Table\\
-\end{tabularx}}}\\
+{\begin{tabularx}{\linewidth}{L}%
+\parbox[t][21.45em][t]{\linewidth}{%
+\begin{tabularx}{\linewidth}{@{}lrL@{}}
+\spaceabove\spacebelow \bfseries Station&\bfseries Load&\bfseries Allowed Loads\\
+%%%
+\Gca
+%%%
+\end{tabularx}
+%%%
+\setlength{\parskip}{0.2em}%
+\Gcb
+}\end{tabularx}}\\
 \hline
 {\begin{tabularx}{7\cellwidth}{lC}
 {\spaceabove\spacebelow\bfseries VPs:} \Gda\\

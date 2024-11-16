@@ -447,6 +447,24 @@ class aircraftdata:
             return self._data["storeslimits"][1]
         elif configuration == "DT":
             return self._data["storeslimits"][2]
+            
+    def stations(self):
+        """
+        Return the stations list.
+        """
+        if "stations" in self._data:
+            return self._data["stations"]
+        else:
+            return []
+
+    def loadnotes(self):
+        """
+        Return the load notes list.
+        """
+        if "loadnotes" in self._data:
+            return self._data["loadnotes"]
+        else:
+            return []
 
     def hasVPs(self):
         """

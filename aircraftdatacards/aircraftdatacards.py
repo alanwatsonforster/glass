@@ -796,7 +796,36 @@ def blockG(data):
         writelatex(r"\renewcommand{\Gbb}{}")
         writelatex(r"\renewcommand{\Gbc}{}")
         writelatex(r"\renewcommand{\Gbd}{}")
-
+        
+    s = ""
+    for station in data.stations():
+        stationtype = station[0]
+        stationidentifiers = station[1]
+        stationlimit = station[2]
+        stationloads = station[3]
+        print(stationtype, stationidentifiers, stationlimit, stationloads)
+        if stationtype == "single":
+          s += "%d" % stationidentifiers[0]
+        elif stationtype == "pair":
+          s += "%d and %d" % tuple(stationidentifiers)
+        elif stationtype == "group":
+          s += "%d--%d" % tuple(stationidentifiers)
+        elif stationtype == "grouppair":
+          s += "%d--%d and %d--%d" % tuple(stationidentifiers)
+        s += "&%s&%s\\\\\n" % (
+          "{:,}".format(stationlimit), 
+          "/".join(stationloads)
+        )
+    writelatex(r"\renewcommand{\Gca}{%s}" % s)
+    
+    s = ""
+    for note in data.loadnotes():
+        s += "\\item %s\n\n" % (latexify(note))
+    if s == "":
+        writelatex(r"\renewcommand{\Gcb}{%s}" % s)
+    else:
+        writelatex(r"\renewcommand{\Gcb}{\Gcc{%s}}" % s)
+        
     if data.hasVPs():
         writelatex(
             r"\renewcommand{\Gda}{%d/%d/%d/%d}"
