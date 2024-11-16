@@ -878,6 +878,7 @@ writeversion()
 writecountry("Australian Aircraft")
 
 writeadc("Avon Sabre Mk.31")
+writeadc("Avon Sabre Mk.31 (Late)")
 writeadc("Avon Sabre Mk.32")
 
 writecountry("British Aircraft")

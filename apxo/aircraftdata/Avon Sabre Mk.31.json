@@ -1,7 +1,11 @@
 {
   "name": "Avon Sabre Mk.31",
   "base": "Avon Sabre Mk.32",
+  "variant": "Early variant without stations for IRMs.",
   "storeslimits": [ 2, 6, 2000 ],
-  "VPs": [ 11, 8, 4, 2 ],
-  "variantnotes": [ "Stations 2 and 3 available from 1960."]
+  "stations": [
+    [ "pair"     , [ 1, 2 ]       , 1000, [ "BB", "FT" ] ]
+  ],
+  "loadnotes": [],
+  "VPs": [ 11, 8, 4, 2 ]
 }

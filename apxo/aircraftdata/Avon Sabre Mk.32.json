@@ -63,8 +63,17 @@
   "lockon": 6,
   "ecm": { "iff": true },
   "storeslimits": [ 2, 6, 4000 ],
+  "stations": [
+    [ "pair"     , [ 1, 4 ]       , 1000, [ "BB", "FT" ] ],
+    [ "pair"     , [ 2, 3 ]       , 1000, [ "BB", "FT", "IRM" ] ],
+    [ "grouppair", [ 5, 8, 9, 12 ],  280, [ "RK" ] ]
+  ],
+  "loadnotes": [
+    "Stations 2 and 3 may carry AIM-9B IRMs after 1960.",
+    "Stations 5 to 12 can each carry three RK."
+  ],
   "VPs": [ 12, 8, 4, 2 ],
   // Note: Not HTD.
   "properties": [],
-  "notes": [ "May use AIM-9B IRMs from 1960." ]
+  "notes": []
 }

@@ -1,0 +1,14 @@
+{
+  "name": "Avon Sabre Mk.31 (Late)",
+  "base": "Avon Sabre Mk.31",
+  "storeslimits": [ 2, 6, 2000 ],
+  "stations": [
+    [ "pair"     , [ 1, 4 ]       , 1000, [ "BB", "FT" ] ],
+    [ "pair"     , [ 2, 3 ]       , 1000, [ "BB", "FT", "IRM" ] ]
+  ],
+  "loadnotes": [
+    "Stations 2 and 3 may carry AIM-9B IRMs."
+  ],
+  "VPs": [ 11, 8, 4, 2 ],
+  "variant": "Later variant with additional stations for IRMs added in 1960."
+}
