@@ -43,7 +43,7 @@ def blockA(data):
 
     name = data.name()
     splitname = re.sub(
-        r"\s+(([A-Z][a-z]+([-\s][A-Z][a-z]*)?(\s+II)?)|([A-Z]+\.[0-9]+))$",
+        r"\s+(([A-Z][a-z]+([-\s][A-Z][a-z]*)?(\s+II)?)|([A-Za-z]+\.[0-9]+))$",
         r"\\\\\1",
         name,
     )
