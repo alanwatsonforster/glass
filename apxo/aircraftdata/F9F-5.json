@@ -7,5 +7,6 @@
     "BT": [ 2.0, 2.0, 2.0 ]
   },
   "internalfuel": 320,
-  "storeslimits": [ 2, 6, 3000 ]
+  "storeslimits": [ 2, 6, 3000 ],
+  "VPs": [ 8, 5, 3, 1 ]
 }

@@ -2,6 +2,7 @@
   "name": "F2H-2P Banshee",
   "base": "F2H-2",
   "gun": "",
+  "VPs": [ 8, 5, 3, 1 ],
   "notes": [
     "Oblique and overhead cameras."
   ]

@@ -3,6 +3,7 @@
   "base": "Meteor F.8",
   "variant": "Tactical reconnaissance adaptation of the F.8.",
   "service": "From 1951. Operated by Ecuador, Israel, Syria, and UK.",
+  "VPs": [ 8, 5, 3, 1 ],
   "variantnotes": [
     "Overhead and oblique cameras in the nose."
   ]

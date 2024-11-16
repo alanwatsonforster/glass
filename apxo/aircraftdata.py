@@ -427,7 +427,7 @@ class aircraftdata:
 
     def hasstoreslimits(self):
         """
-        Return True if the aircraft data has a stores limit configured.
+        Return True if the aircraft data has a stores limit specified.
         """
         return "storeslimits" in self._data
 
@@ -447,6 +447,29 @@ class aircraftdata:
             return self._data["storeslimits"][1]
         elif configuration == "DT":
             return self._data["storeslimits"][2]
+
+    def hasVPs(self):
+        """
+        Return True if the aircraft data has VPs specified.
+        """
+        return "VPs" in self._data
+
+    def VPs(self, damage):
+        """
+        Return the VPs.
+        """
+
+        assert damage in ["K", "C", "H", "L"]
+        assert self.hasVPs()
+
+        if damage == "K":
+            return self._data["VPs"][0]
+        elif damage == "C":
+            return self._data["VPs"][1]
+        elif damage == "H":
+            return self._data["VPs"][2]
+        elif damage == "L":
+            return self._data["VPs"][3]
 
     def wikiurl(self):
         if "wikiurl" in self._data:

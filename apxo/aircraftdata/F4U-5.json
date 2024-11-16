@@ -58,6 +58,7 @@
   "ecm": { "iff": true },
   "technology": [],
   "storeslimits": [ 4, 8, 5000 ],  
+  "VPs": [ 6, 4, 2, 1 ],
   "properties": [ "LBR", "HTD" ],
   "powerfadespeedtable": [ [3.0, 0.5], [4.0, 1.0] ],
   "notes": [

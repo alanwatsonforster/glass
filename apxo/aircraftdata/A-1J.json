@@ -2,7 +2,7 @@
   "name": "A-1J Skyraider",
   "base": "AD-4",
   "vulnerability": 2,
-  "ejectionseat": "none",
+  "VPs": [ 8, 6, 4, 2 ],
   "variantnotes": [
     "Previously designated as AD-7.",
     "Rocket extraction device (from 1967) gives -1 modifier when bailing out."

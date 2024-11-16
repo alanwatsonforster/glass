@@ -52,7 +52,7 @@ def blockA(data):
         r"\2",
         name,
     )
-    #if variant != "":
+    # if variant != "":
     #    splitname = splitname + r"\\" + variant
     writelatex(r"\renewcommand{\Aaa}{%s}" % name)
     writelatex(r"\renewcommand{\Aab}{%s}" % splitname)
@@ -615,7 +615,7 @@ def blockF(data):
             writelatex(
                 r"\renewcommand{\Fe}{%d--%d}"
                 % (data.radar("trackingrange"), data.radar("trackingstrength"))
-        )
+            )
 
     if data.lockon() is None:
         writelatex(r"\renewcommand{\Ff}{---}")
@@ -782,19 +782,29 @@ def blockF(data):
         )
 
     writelatex(r"\renewcommand{\Fv}{%s}" % s)
-    
+
+
 def blockG(data):
 
     if data.hasstoreslimits():
-        writelatex(r"\renewcommand{\Gaa}{\le %.1f}" % data.storeslimit("CL"))
-        writelatex(r"\renewcommand{\Gab}{\le %.1f}" % data.storeslimit("1/2"))
-        writelatex(r"\renewcommand{\Gac}{> %.1f}" % data.storeslimit("1/2"))
-        writelatex(r"\renewcommand{\Gad}{%s}" % ('{:,}'.format(data.storeslimit("DT"))))
+        writelatex(r"\renewcommand{\Gba}{\le %.1f}" % data.storeslimit("CL"))
+        writelatex(r"\renewcommand{\Gbb}{\le %.1f}" % data.storeslimit("1/2"))
+        writelatex(r"\renewcommand{\Gbc}{> %.1f}" % data.storeslimit("1/2"))
+        writelatex(r"\renewcommand{\Gbd}{%s}" % ("{:,}".format(data.storeslimit("DT"))))
     else:
-        writelatex(r"\renewcommand{\Gaa}{}")
-        writelatex(r"\renewcommand{\Gab}{}")
-        writelatex(r"\renewcommand{\Gac}{}")
-        writelatex(r"\renewcommand{\Gad}{}")
+        writelatex(r"\renewcommand{\Gba}{}")
+        writelatex(r"\renewcommand{\Gbb}{}")
+        writelatex(r"\renewcommand{\Gbc}{}")
+        writelatex(r"\renewcommand{\Gbd}{}")
+
+    if data.hasVPs():
+        writelatex(
+            r"\renewcommand{\Gda}{%d/%d/%d/%d}"
+            % (data.VPs("K"), data.VPs("C"), data.VPs("H"), data.VPs("L"))
+        )
+    else:
+        writelatex(r"\renewcommand{\Gda}{}")
+
 
 def writeversion():
     writelatex(r"\renewcommand{\V}{%d}" % version)
@@ -843,36 +853,36 @@ writeadc("Avon Sabre Mk.32")
 
 writecountry("British Aircraft")
 
-writetype("Meteor") # 1944
+writetype("Meteor")  # 1944
 writeadc("Meteor F.8")
 writeadc("Meteor FR.9")
 
-writetype("Sea Fury") # 1948
-writeadc("Sea Fury FB.11") 
+writetype("Sea Fury")  # 1948
+writeadc("Sea Fury FB.11")
 
 writecountry("Soviet Union Aircraft")
 
-writetype("Yak-9 Frank") # 1942
+writetype("Yak-9 Frank")  # 1942
 writeadc("Yak-9D")
 
-writetype("Il-10 Beast") # 1944
+writetype("Il-10 Beast")  # 1944
 writeadc("Il-10")
 
-writetype("Tu-4 Bull") # 1947
+writetype("Tu-4 Bull")  # 1947
 writeadc("Tu-4")
 
 writecountry("US Aircraft")
 
-writetype("P-51/F-51 Mustang") # Jan 1942 with RAF
+writetype("P-51/F-51 Mustang")  # Jan 1942 with RAF
 writeadc("F-51D")
 writeadc("RF-51D")
 
 
-writetype("F4U/AU Corsair") # December 1942 with USCMC
+writetype("F4U/AU Corsair")  # December 1942 with USCMC
 writeadc("F4U-5")
 writeadc("AU-1")
 
-writetype("B-26/A-26 Invader") # 1943
+writetype("B-26/A-26 Invader")  # 1943
 writeadc("B-26B (Two Turrets)")
 writeadc("B-26B (One Turret)")
 writeadc("B-26B (No Turrets)")
@@ -886,12 +896,12 @@ writetype("B-29 Superfortress")  # 1944
 writeadc("B-29A")
 writeadc("RB-29A")
 
-writetype("P-80/F-80/AT-33 Shooting Star") # 1945
+writetype("P-80/F-80/AT-33 Shooting Star")  # 1945
 writeadc("F-80C")
 writeadc("RF-80C")
 writeadc("AT-33A")
 
-writetype("AD/A-1 Skyraider") # 1946
+writetype("AD/A-1 Skyraider")  # 1946
 writeadc("AD-4")
 writeadc("AD-5")
 writeadc("A-1E")
@@ -900,11 +910,11 @@ writeadc("A-1H")
 writeadc("AD-7")
 writeadc("A-1J")
 
-writetype("F-84 Thundejet") # 1947
+writetype("F-84 Thundejet")  # 1947
 writeadc("F-84E")
 writeadc("F-84G")
 
-writetype("F2H Banshee") # 1948
+writetype("F2H Banshee")  # 1948
 writeadc("F2H-2")
 writeadc("F2H-2B")
 writeadc("F2H-2P")
@@ -913,7 +923,7 @@ writeadc("F2H-3 (ATA Refueling)")
 writeadc("F2H-4")
 writeadc("F2H-4 (ATA Refueling)")
 
-writetype("F9F Panther") # 1947
+writetype("F9F Panther")  # 1947
 writeadc("F9F-2")
 writeadc("F9F-2P")
 writeadc("F9F-5")
@@ -923,7 +933,7 @@ writeadc("F9F-5P")
 if False:
 
     writecountry("Canadian Aircraft")
-    
+
     writeadc("Sabre 5")
     writeadc("Sabre 6")
 
@@ -940,7 +950,6 @@ if False:
     writeadc("F-86K Early")
     writeadc("F-86K Late")
     writeadc("F-86L")
-
 
     writetype("B-52 Stratofortress")  # 1954
     writeadc("B-52D")
@@ -975,7 +984,6 @@ if False:
     writeadc("B-57B")
     writeadc("B-57G")
 
-
     writetype("MiG-21")  # 1959
     writeadc("MiG-21F-13")
     writeadc("MiG-21F")
@@ -989,7 +997,6 @@ if False:
     writeadc("A-37B")
     writeadc("OA-37B")
     writeadc("T-37C")
-
 
     writetype("B-66 Destroyer")
     writeadc("B-66B")

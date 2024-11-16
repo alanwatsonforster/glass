@@ -1,5 +1,6 @@
 {
   "name": "F2H-2B Banshee",
   "base": "F2H-2",
+  "VPs": [ 9, 5, 3, 1 ],
   "storeslimits": [ 4, 8, 2000 ]
 }

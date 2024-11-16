@@ -17,5 +17,6 @@
   "radar": false,
   "lockon": "-",
   "storeslimits": [ 4, 8, 1000 ],
+  "VPs": [ 8, 5, 3, 1 ],
   "notes": []
 }

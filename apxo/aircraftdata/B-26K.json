@@ -54,6 +54,7 @@
   "gunsightmodifiers": { "TT": 1, "HT": 2 },
   "bombsystem": "Manual/Balistic",
   "storeslimits": [ 6, 13, 8000 ],
+  "VPs": [ 14, 9, 5, 3 ],
   "properties": [ "LRR", "NRM" ],
   "powerfadespeedtable": [ [2.5, 0.5] ],
   "variant": 

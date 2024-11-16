@@ -6,6 +6,7 @@
   "gunatatohitrolls": "4/2/-",
   "gundamagerating": "1/2**",
   "ecm": { "iff": false },
+  "VPs": [ 5, 3, 2, 1 ],
   "notes": [
   ]
 }

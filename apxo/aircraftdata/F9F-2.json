@@ -45,13 +45,14 @@
     "ML": [ [ "-", 1.0 ], [ "-", 1.0 ], [ "-", 0.5 ] ],
     "LO": [ [ "-", 1.0 ], [ "-", 1.0 ], [ "-", 1.0 ] ]
   },
-  "storeslimits": [ 2, 6, 2000 ],
   "gun": "Four 20 mm M3",
   "gunatatohitrolls": "6/4/3",
   "gundamagerating": "5/6*",
   "gunammunition": 6.0,
   "gunsightmodifiers": { "TT": 0, "HT": 1, "BT": 2 },
   "ecm": { "iff": true },
+  "storeslimits": [ 2, 6, 2000 ],
+  "VPs": [ 7, 4, 2, 1 ],
   "properties": [ "HTD" ],
   "notes": [
   ],

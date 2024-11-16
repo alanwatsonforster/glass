@@ -53,6 +53,7 @@
   "gunsightmodifiers": { "TT": 0, "HT": 1, "BT": 2 },
   "ecm": { "iff": true },
   "storeslimits": [ 3, 6, 4200 ],
+  "VPs": [ 7, 4, 2, 1 ],
   "properties": [ "HTD" ],
   "notes": [],
   "wikiurl": "https://bit.ly/4e5GECt"

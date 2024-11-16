@@ -63,6 +63,7 @@
   "lockon": 6,
   "ecm": { "iff": true },
   "storeslimits": [ 2, 6, 4000 ],
+  "VPs": [ 12, 8, 4, 2 ],
   // Note: Not HTD.
   "properties": [],
   "notes": [ "May use AIM-9B IRMs from 1960." ]
