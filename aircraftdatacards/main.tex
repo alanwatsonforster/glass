@@ -93,7 +93,16 @@
 \newcommand{\multicell}[5]{\multicolumn{#2}{#1@{}l@{}#3}{\parbox[b][#4][t]{#2\cellwidth}{#5}}}
 
 \newlength{\blockABCheight}
-\setlength{\blockABCheight}{21em}
+\setlength{\blockABCheight}{21.5em}
+
+\newlength{\blockFGheight}
+\setlength{\blockFGheight}{35.5em}
+
+\newlength{\blockFGtopheight}
+\setlength{\blockFGtopheight}{18.9em}
+
+\newlength{\stationsheight}
+\setlength{\stationsheight}{20.9em}
 
 \newcommand{\blockAcells}{5}
 \newcommand{\blockBcells}{6}
@@ -326,14 +335,11 @@ AB&Oth&AB&Oth&AB&Oth&\multicolumn{1}{c}{Band\spacebelow}\\
 \newcommand{\blockFcells}{9}
 \newcommand{\blockGcells}{7}
 
-\newlength{\blockFGheight}
-\setlength{\blockFGheight}{36em}
-
 \newcommand{\blockF}{%
 \typeout{Block F}%
 \parbox[b][\blockFGheight][t]{9\cellwidth}{%
 \begin{tabularx}{9\cellwidth}{@{}p{5\cellwidth}@{}p{4\cellwidth}@{}}%
-\parbox[b][18.9em][t]{5\cellwidth}{%
+\parbox[b][\blockFGtopheight][t]{5\cellwidth}{%
 \begin{tabularx}{5\cellwidth}{l@{ }R}
 \spaceabove\spacebelow
 \bfseries Radar&\makebox[2.4\cellwidth][c]{\Fa}\\
@@ -357,7 +363,7 @@ AtA/AtG&\Fl\spacebelow\\
 \spaceabove\spacebelow\bfseries Bomb System&\Fm\\
 %\hline
 \end{tabularx}}&
-\parbox[b][18.9em][t]{4\cellwidth}{%
+\parbox[b][\blockFGtopheight][t]{4\cellwidth}{%
 \begin{tabularx}{4\cellwidth}{|lC}
 \spaceabove\spacebelow
 \bfseries ECM&\\
@@ -467,7 +473,7 @@ AJM&\makebox[2\cellwidth][c]{\Fr}\spacebelow\\
 \end{tabularx}}\spacebelow\\
 \hline
 {\begin{tabularx}{\linewidth}{L}%
-\parbox[t][21.45em][t]{\linewidth}{%
+\parbox[t][\stationsheight][t]{\linewidth}{%
 \begin{tabularx}{\linewidth}{@{}lrL@{}}
 \spaceabove\spacebelow \bfseries \wbox[l]{00--00 and 00--00}{Station}&\bfseries Load&\bfseries Allowed Loads\\
 %%%
