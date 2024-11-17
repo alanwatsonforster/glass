@@ -1,5 +1,7 @@
 {
-  "versionname": "F-84E Thunderjet",
+  "versionname": "F-84E",
+  "popularname": "Thunderjet",
+  "variantdescription": "Republic F-84E base variant. Operated by the USAF in the Korean War.",
   "origin": "TSOH",
   "crew": [ "Pilot" ],
   "powertable": {
