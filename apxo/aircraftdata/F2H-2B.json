@@ -1,5 +1,7 @@
 {
-  "versionname": "F2H-2B Banshee",
+  "versionname": "F2H-2B",
+  "variantname": null,
+  "variantdescription": "McDonnell F2H-2B base variant. Version of F2H-2 adapted for nuclear attack.",
   "base": "F2H-2",
   "storeslimits": [ 8, 12, 4600 ],
   "stations": [

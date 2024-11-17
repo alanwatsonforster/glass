@@ -1,6 +1,7 @@
 {
-  "versionname": "F2H-2 Banshee",
+  "versionname": "F2H-2",
   "base": "F2H-3",
+  "variantdescription": "McDonnell F2H-2 base variant. Operated by the USN in the Korean War.",
   "internalfuel": 290,
   "atarefuel": false,
   "ceilingtable": [ 44, 40, 36 ],

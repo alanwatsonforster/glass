@@ -1,7 +1,7 @@
 {
-  "versionname": "F2H-4 Banshee",
+  "versionname": "F2H-4",
   "variantname": "ATA Refueling",
-  "variantdescription": "F2H-4 with an ATA refueling probe fitted in place of the upper port cannon.",
+  "variantdescription": "McDonnell F2H-4 variant with an ATA refueling probe fitted in place of the upper port cannon.",
   "base": "F2H-4",
   "atarefuel": true,
   "gun": "Three 20 mm Mk 16",
