@@ -1,5 +1,6 @@
 {
   "name": "Sabre 6",
+  "base": "Sabre 5",
   "origin": "APJ 25",
   "crew": [ "Pilot" ],
   "powertable": {
@@ -7,21 +8,6 @@
     "N"   : [ 0.0, 0.0, 0.0, 0.5 ],
     "I"   : [ 0.5, 0.5, 1.0, 0.0 ],
     "SPBR": [ 1.0, 1.0, 2.0 ]
-  },
-  "engines": 1,
-  "cruisespeed": 5.0,
-  "climbspeed" : 3.5,
-  "visibility": 5,
-  "sizemodifier": 0,
-  "vulnerability": 0,
-  "restrictedarcs": "",
-  "blindarcs": "30-",
-  "internalfuel": 145,
-  "atarefuel": false,
-  "ejectionseat": "standard",
-  "maneuvertable": {
-    "LR/DR": [ 1.0, 1.0 ],
-    "VR":    [ 0.0, 0.0 ]
   },
   "lowspeedliftdevicelimit": 3.5,
   "lowspeedliftdevicelimittype": "absolute",
@@ -53,14 +39,5 @@
     "ML": [ [ "-", 1.5 ], [ "-", 1.5 ], [ "-", 1.0 ] ],
     "LO": [ [ "-", 2.0 ], [ "-", 2.0 ], [ "-", 1.5 ] ]
   },
-  "gun": "Six .50 cal",
-  "gunatatohitrolls": "6/3/0",
-  "gunatadamagerating": 4,
-  "gunammunition": 7.0,
-  "gunsightmodifiers": { "TT": 0, "HT": 1, "BT": 2 },
-  "storeslimits": [ 2, 6, 4000 ],  
-  // Note: Not HTD.
-  "properties": [],
-  "notes": [
-  ]
+  "VPs": [ 11, 8, 4, 2 ]
 }
