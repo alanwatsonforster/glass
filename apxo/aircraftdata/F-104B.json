@@ -1,5 +1,5 @@
 {
-  "typename": "F-104B Starfighter",
+  "versionname": "F-104B Starfighter",
   "base": "F-104A",
   "crew": [ "Pilot", "Observer" ],
   "gun": "",

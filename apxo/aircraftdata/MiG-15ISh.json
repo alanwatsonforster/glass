@@ -1,5 +1,5 @@
 {
-  "typename": "MiG-15ISh",
+  "versionname": "MiG-15ISh",
   "variantdescription": "Mikoyan-Gurevich MiG-15ISh base version. Prototype attack aircraft with two additional tandem wing stations.",
   "base": "MiG-15bis",
   "stations": [

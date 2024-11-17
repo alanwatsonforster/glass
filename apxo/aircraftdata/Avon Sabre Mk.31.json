@@ -1,5 +1,5 @@
 {
-  "typename": "Avon Sabre Mk.31",
+  "versionname": "Avon Sabre Mk.31",
   "base": "Avon Sabre Mk.32",
   "variantdescription": "CAC Avon Sabre Mk.31 base variant, with only two stations and without IRMs.",
   "storeslimits": [ 2, 6, 2000 ],

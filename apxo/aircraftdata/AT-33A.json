@@ -1,5 +1,5 @@
 {
-  "typename": "AT-33A",
+  "versionname": "AT-33A",
   "variantdescription": "Lockheed AT-33A base variant. T-33A converted for close support.",
   "base": "F-80C",
   "crew": [ "Pilot", "Copilot" ],

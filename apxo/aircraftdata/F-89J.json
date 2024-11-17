@@ -1,5 +1,5 @@
 {
-  "typename": "F-89J Scorpion",
+  "versionname": "F-89J Scorpion",
   "base": "F-89D",
   // The J differs from the D in radar and armament.
   "rocketfactors": 9,

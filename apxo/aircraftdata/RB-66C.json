@@ -1,5 +1,5 @@
 {
-  "typename": "RB-66 Destroyer",
+  "versionname": "RB-66 Destroyer",
   "base": "B-66B",
   "crew": [ "Pilot", "Navigator", "EW Officer", "EW Officer", "EW Officer"],
   "gun": ""

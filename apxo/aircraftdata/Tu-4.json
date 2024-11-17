@@ -1,5 +1,5 @@
 {
-  "typename": "Tu-4",
+  "versionname": "Tu-4",
   "variantdescription": "Tupolev Tu-4 base variant. Reverse-engineered from the B-29A. NATO reporting name is Bull.",
   "base": "B-29A",
   "variantnotes": [

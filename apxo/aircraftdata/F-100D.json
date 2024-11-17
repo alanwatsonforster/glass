@@ -1,5 +1,5 @@
 {
-  "typename": "F-100D Super Sabre",
+  "versionname": "F-100D Super Sabre",
   "base": "F-100C",
   "storeslimits": [ 4, 10, 7500 ]
 }

@@ -1,5 +1,5 @@
 {
-  "typename": "F9F-5 Panther",
+  "versionname": "F9F-5 Panther",
   "base": "F9F-2 (Late)",
   "turndragtable": {
     "TT": [ 0.0, 1.0, 1.0 ],

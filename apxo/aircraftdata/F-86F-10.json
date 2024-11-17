@@ -1,5 +1,5 @@
 {
-  "typename": "F-86F-10 Sabre",
+  "versionname": "F-86F-10 Sabre",
   "base": "F-86A",
   "ceilingtable": [ 48, 45, 42 ],
   "climbcapabilitytable": {

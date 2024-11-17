@@ -1,5 +1,5 @@
 {
-  "typename": "RF-80C",
+  "versionname": "RF-80C",
   "variantdescription": "Lockheed RF-80C base variant, which saw service with the USAF in the Korean War.",
   "base": "F-80C",
   "gun": "",

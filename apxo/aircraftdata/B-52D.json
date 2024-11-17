@@ -1,5 +1,5 @@
 {
-  "typename": "B-52D Stratofortress",
+  "versionname": "B-52D Stratofortress",
   "origin": "TSOH",
   "crew": [ "Pilot", "Copilot", "EW Officer", "EW Officer", "Navigator", "Gunner" ],
   "powertable": {

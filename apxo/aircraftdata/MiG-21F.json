@@ -1,7 +1,7 @@
 {
   // This ADC for the F variant is based on that of the F-13, modified with
   // information from https://en.wikipedia.org/wiki/List_of_Mikoyan-Gurevich_MiG-21_variants.
-  "typename": "MiG-21F Fishbed-B",
+  "versionname": "MiG-21F Fishbed-B",
   "origin": "AMW",
   "base": "MiG-21F-13",
   "storeslimits": [ 2, 4, 2200 ],

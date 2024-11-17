@@ -1,5 +1,5 @@
 {
-  "typename": "F-100A Super Sabre",
+  "versionname": "F-100A Super Sabre",
   "base": "F-100C",
   "ceilingtable": [ 51, 47, 41 ]
 }

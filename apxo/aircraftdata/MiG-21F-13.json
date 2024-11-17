@@ -2,7 +2,7 @@
   // The TSOH ADC states that this it is for a Mig-21F. However, it
   // appears to be for the F-13 version, as it only has one gun, had
   // provision for the AA-2, and has the NATO reporting name Fishbed-C.
-  "typename": "MiG-21F-13 Fishbed-C",
+  "versionname": "MiG-21F-13 Fishbed-C",
   "origin": "TSOH",
   "base": "MiG-21MF",
   "powertable": {

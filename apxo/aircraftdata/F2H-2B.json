@@ -1,5 +1,5 @@
 {
-  "typename": "F2H-2B Banshee",
+  "versionname": "F2H-2B Banshee",
   "base": "F2H-2",
   "storeslimits": [ 8, 12, 4600 ],
   "stations": [
