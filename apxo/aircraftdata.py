@@ -54,20 +54,32 @@ class aircraftdata:
             data = basedata
         self._data = data
 
-    def fullname(self):
-        if self.variantname() is None:
-            return "%s" % self._data["typename"]
-        else:
-            return "%s (%s)" % (self._data["typename"], self._data["variantname"])
-
     def typename(self):
         return self._data["typename"]
+
+    def popularname(self):
+       if "popularname" in self._data:
+           return self._data["popularname"]
+       else:
+           return None
 
     def variantname(self):
         if "variantname" in self._data:
             return self._data["variantname"]
         else:
             return None
+
+    def fullname(self):
+        if self.popularname() is None:
+            return "%s" % self.typename()
+        else:
+            return "%s %s" % (self.typename(), self.popularname())
+
+    def fullvariantname(self):
+        if self.variantname() is None:
+            return "%s" % self.typename()
+        else:
+            return "%s (%s)" % (self.typename(), self.variantname())
 
     def variantdescription(self):
         if "variantdescription" in self._data:
