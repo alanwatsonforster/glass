@@ -1,5 +1,5 @@
 {
-  "name": "F-16A-1 Fighting Falcon",
+  "typename": "F-16A-1 Fighting Falcon",
   "origin": "Carl Smeaton",
   "crew": [ "Pilot" ],
   "powertable": {

@@ -1,5 +1,5 @@
 {
-  "name": "Il-28 Beagle",
+  "typename": "Il-28 Beagle",
   "origin": "TSOH",
   "crew": [ "Pilot", "Bombardier", "Gunner" ],
   "powertable": {

@@ -1,5 +1,5 @@
 {
-  "name": "F-86L Sabre-Dog",
+  "typename": "F-86L Sabre-Dog",
   "base": "F-86D",
   "origin": "APJ 25",
   "lowspeedliftdevicename": null,

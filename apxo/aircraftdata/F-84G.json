@@ -1,5 +1,5 @@
 {
-  "name": "F-84G Thunderjet",
+  "typename": "F-84G Thunderjet",
   "origin": "TSOH",
   "base": "F-84E",
   "atarefuel": true,

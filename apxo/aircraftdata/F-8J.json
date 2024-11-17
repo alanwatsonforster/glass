@@ -1,5 +1,5 @@
 {
-  "name": "F-8J Crusader",
+  "typename": "F-8J Crusader",
   "base": "F-8E",
   "gunammunition": 2.5
 }

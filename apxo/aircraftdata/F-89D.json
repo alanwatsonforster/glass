@@ -1,5 +1,5 @@
 {
-  "name": "F-89D Scorpion",
+  "typename": "F-89D Scorpion",
   "origin": "TSOH",
   "crew": [ "Pilot", "Radar Officer" ],
   "powertable": {

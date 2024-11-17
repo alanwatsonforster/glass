@@ -1,5 +1,5 @@
 {
-  "name": "F-8E Crusader",
+  "typename": "F-8E Crusader",
   "origin": "TSOH",
   "crew": [ "Pilot" ],
   "powertable": {

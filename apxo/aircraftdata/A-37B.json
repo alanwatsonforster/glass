@@ -1,5 +1,5 @@
 {
-  "name": "A-37B Dragonfly",
+  "typename": "A-37B Dragonfly",
   "origin": "TSOH",
   "crew": [ "Pilot", "Observer" ],
   "powertable": {

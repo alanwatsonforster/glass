@@ -1,5 +1,5 @@
 {
-  "name": "F-104A+ Starfighter",
+  "typename": "F-104A+ Starfighter",
   "base": "F-104A",
   "powertable": {
     "AB"  : [ 4.0, 3.5, 3.5, 6.0 ],

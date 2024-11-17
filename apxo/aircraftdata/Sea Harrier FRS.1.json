@@ -1,5 +1,5 @@
 {
-  "name": "Sea Harrier FRS.1",
+  "typename": "Sea Harrier FRS.1",
   "origin": "TSOH 2nd Edition ADCs",
   "crew": ["Pilot"],
   "powertable": {

@@ -41,19 +41,14 @@ def blockA(data):
         else:
             return ", ".join(data.crew()[0:-1]) + r", \& " + data.crew()[-1]
 
-    name = data.name()
-    splitname = re.sub(
+    writelatex(r"\renewcommand{\Aaa}{%s}" % data.fullname())
+    typename = data.typename()
+    splittypename = re.sub(
         r"\s+(([A-Z][a-z]+([-\s][A-Z][a-z]*)?(\s+II)?)|([A-Za-z]+\.[0-9]+))$",
         r"\\\\\1",
-        name,
+        typename,
     )
-
-    if data.variantname() is None:
-        writelatex(r"\renewcommand{\Aaa}{%s}" % name)
-    else:
-        writelatex(r"\renewcommand{\Aaa}{%s (%s)}" % (name, data.variantname()))
-
-    writelatex(r"\renewcommand{\Aab}{%s}" % splitname)
+    writelatex(r"\renewcommand{\Aab}{%s}" % splittypename)
 
     if len(data.crew()) > 6:
         writelatex(r"\renewcommand{\Aba}{\tiny}")
@@ -701,10 +696,11 @@ def blockF(data):
         s = " ".join(data.technology())
         writelatex(r"\renewcommand{\Fs}{%s}" % s)
 
-    if data.variantname() is None:
-        writelatex(r"\renewcommand{\Ft}{}")
+    writelatex(r"\renewcommand{\Fta}{%s}" % data.fullname())
+    if data.variantdescription() is None:
+        writelatex(r"\renewcommand{\Ftb}{}")
     else:
-        writelatex(r"\renewcommand{\Ft}{\Fta{%s}{%s}}" % (data.variantname(), data.variantdescription()))
+        writelatex(r"\renewcommand{\Ftb}{%s}" % data.variantdescription())
 
     #if data.service() is None:
     #    writelatex(r"\renewcommand{\Fu}{}")

@@ -1,5 +1,5 @@
 {
-  "name": "O-2A Skymaster",
+  "typename": "O-2A Skymaster",
   "origin": "TSOH",
   "crew": [ "Pilot", "Observer" ],
   "visibility": 4,

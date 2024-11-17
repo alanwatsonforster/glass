@@ -1,5 +1,5 @@
 {
-  "name": "F-86K Sabre-Dog",
+  "typename": "F-86K Sabre-Dog",
   "variantname": "Late",
   "variantdescription": "Late F-86K with unslatted 6-3 wing.",
   "base": "F-86K (Early)",

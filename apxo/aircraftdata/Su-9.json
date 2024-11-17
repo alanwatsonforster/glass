@@ -1,5 +1,5 @@
 {
-  "name": "Su-9 Fishpot-B",
+  "typename": "Su-9 Fishpot-B",
   "origin": "TSOH",
   "crew": [ "Pilot" ],
   "powertable": {

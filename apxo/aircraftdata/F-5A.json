@@ -1,5 +1,5 @@
 {
-  "name": "F-5A Freedom Fighter",
+  "typename": "F-5A Freedom Fighter",
   "origin": "TSOH",
   "crew": [ "Pilot" ],
   "powertable": {

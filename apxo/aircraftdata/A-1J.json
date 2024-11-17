@@ -1,5 +1,5 @@
 {
-  "name": "A-1J Skyraider",
+  "typename": "A-1J Skyraider",
   "base": "A-1H",
   "VPs": [ 8, 6, 4, 2 ],
   "variantnotes": [

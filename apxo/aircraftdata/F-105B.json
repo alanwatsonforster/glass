@@ -1,5 +1,5 @@
 {
-  "name": "F-105B Thunderchief",
+  "typename": "F-105B Thunderchief",
   "base": "F-105D",
   "powertable": {
     "AB"  : [ 2.0, 2.0, 1.5, 9.0 ],

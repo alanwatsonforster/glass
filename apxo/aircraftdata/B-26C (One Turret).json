@@ -1,5 +1,5 @@
 {
-  "name": "B-26C Invader",
+  "typename": "B-26C Invader",
   "variantname": "One Turret",
   "variantdescription": "B-26C with a glass nose, wing guns, only the dorsal turret, and extra fuel (40 fuel points). Originally built for WW2 service in the Pacific, but also served in the Korean War.", 
   "base": "B-26B (One Turret)",

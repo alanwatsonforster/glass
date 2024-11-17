@@ -1,5 +1,5 @@
 {
-  "name": "AU-1 Corsair",
+  "typename": "AU-1 Corsair",
   "base": "F4U-5",
   "ceilingtable": [ 41, 31, 20 ],
   "vulnerability": 2,

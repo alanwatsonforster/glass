@@ -1,5 +1,5 @@
 {
-  "name": "MiG-15ISh Fagot",
+  "typename": "MiG-15ISh Fagot",
   "base": "MiG-15bis",
   "stations": [
     [ "pair", [ 1, 4 ], 550, [ "BB", "RK", "RP", "FT" ] ],

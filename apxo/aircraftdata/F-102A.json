@@ -1,5 +1,5 @@
 {
-  "name": "F-102A Delta Dagger",
+  "typename": "F-102A Delta Dagger",
   "origin": "TSOH",
   "crew": [ "Pilot" ],
   "powertable": {

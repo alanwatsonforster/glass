@@ -1,5 +1,5 @@
 {
-  "name": "F-86D Sabre-Dog",
+  "typename": "F-86D Sabre-Dog",
   "origin": "APJ 25",
   "crew": [ "Pilot" ],
   "powertable": {
@@ -55,7 +55,7 @@
     "LO": [ [ 2.0, 1.0 ], [ 1.5, 1.0 ], [ 1.5, 1.0 ] ]
   },
   "radar": {
-    "name": "APG-36",
+    "typename": "APG-36",
     "eccm": 0,
     "arc": "180+",
     "searchrange": 70,

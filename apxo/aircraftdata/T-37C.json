@@ -1,5 +1,5 @@
 {
-  "name": "T-37C Tweet",
+  "typename": "T-37C Tweet",
   "base": "A-37B",
   "powertable": {
     "M"   : [ 1.0, 1.0, 0.5, 1.0 ],

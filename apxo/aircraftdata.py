@@ -54,8 +54,26 @@ class aircraftdata:
             data = basedata
         self._data = data
 
-    def name(self):
-        return self._data["name"]
+    def fullname(self):
+        if self.variantname() is None:
+            return "%s" % self._data["typename"]
+        else:
+            return "%s (%s)" % (self._data["typename"], self._data["variantname"])
+
+    def typename(self):
+        return self._data["typename"]
+
+    def variantname(self):
+        if "variantname" in self._data:
+            return self._data["variantname"]
+        else:
+            return None
+
+    def variantdescription(self):
+        if "variantdescription" in self._data:
+            return self._data["variantdescription"]
+        else:
+            return None
 
     def crew(self):
         return self._data["crew"]
@@ -492,18 +510,6 @@ class aircraftdata:
     def wikiurl(self):
         if "wikiurl" in self._data:
             return self._data["wikiurl"]
-        else:
-            return None
-
-    def variantname(self):
-        if "variantname" in self._data:
-            return self._data["variantname"]
-        else:
-            return None
-
-    def variantdescription(self):
-        if "variantdescription" in self._data:
-            return self._data["variantdescription"]
         else:
             return None
 

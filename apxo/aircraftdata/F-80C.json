@@ -1,5 +1,5 @@
 {
-  "name": "F-80C Shooting Star",
+  "typename": "F-80C Shooting Star",
   "origin": "TSOH",
   "crew": [ "Pilot" ],
   "powertable": {

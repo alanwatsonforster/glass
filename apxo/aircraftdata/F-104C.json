@@ -1,5 +1,5 @@
 {
-  "name": "F-104C Starfighter",
+  "typename": "F-104C Starfighter",
   "base": "F-104A",
   "atarefuel": true,
   "speedtable": {

@@ -1,5 +1,5 @@
 {
-  "name": "F-104A Starfighter",
+  "typename": "F-104A Starfighter",
   "origin": "TSOH",
   "crew": [ "Pilot" ],
   "powertable": {

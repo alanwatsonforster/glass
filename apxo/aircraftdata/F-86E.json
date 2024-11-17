@@ -1,5 +1,5 @@
 {
-  "name": "F-86E Sabre",
+  "typename": "F-86E Sabre",
   "base": "F-86A",
   "notes": []
 }

@@ -1,5 +1,5 @@
 {
-  "name": "F-4E Phantom II",
+  "typename": "F-4E Phantom II",
   "origin": "TSOH",
   "crew": [ "Pilot", "Radar Officer"],
   "powertable": {

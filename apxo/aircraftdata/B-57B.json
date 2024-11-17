@@ -1,5 +1,5 @@
 {
-  "name": "B-57B Canberra",
+  "typename": "B-57B Canberra",
   "origin": "TSOH",
   "crew": [ "Pilot", "Weapons Officer" ],
   "powertable": {

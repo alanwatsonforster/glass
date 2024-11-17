@@ -1,5 +1,5 @@
 {
-  "name": "AD-4 Skyraider",
+  "typename": "AD-4 Skyraider",
   "origin": "TSOH",
   "crew": [ "Pilot" ],
   "powertable": {

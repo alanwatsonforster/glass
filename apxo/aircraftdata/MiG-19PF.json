@@ -1,5 +1,5 @@
 {
-  "name": "MiG-19PF Farmer-D",
+  "typename": "MiG-19PF Farmer-D",
   "base": "MiG-19SF",
   "gun": "Two 23 mm NR-30",
   "gunatatohitrolls": "5/3/1",

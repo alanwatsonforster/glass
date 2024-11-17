@@ -1,5 +1,5 @@
 {
-  "name": "RF-51D Mustang",
+  "typename": "RF-51D Mustang",
   "base": "F-51D",
   "stations": [
     [ "pair"     , [ 1, 2 ]      , 1000, [ "BB", "FT" ] ]

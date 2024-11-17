@@ -1,8 +1,8 @@
 {
-  "name": "MiG-15P Fagot",
+  "typename": "MiG-15P Fagot",
   "base": "MiG-15bis",
   "radar": { 
-    "name": "Scan Fix", 
+    "typename": "Scan Fix", 
     "eccm": 0, 
     "arc": "Limited", 
     "searchrange": 10,

@@ -6,7 +6,8 @@
   paper=letterpaper,
   nofoot,nomarginpar,nohead,
   margin=1cm,
-  tmargin=1.2cm
+  tmargin=1.2cm,
+  bmargin=1.3cm
 ]{geometry}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -386,8 +387,14 @@ AJM&\makebox[2\cellwidth][c]{\Fr}\spacebelow\\
 \hline
 \multicolumn{2}{p{8.5\cellwidth}}{
 \parbox[t][17em][t]{8.5\cellwidth}{%
+\spaceabove\raggedright
 \setlength{\parskip}{0.2em}%
-\spaceabove\raggedright\footnotesize\Ft\Fu\Fv
+\footnotesize
+{\bfseries Variant:} \Fta
+
+\Ftb
+
+\Fv
 }}\spacebelow\\
 \end{tabularx}}}
 
@@ -413,8 +420,8 @@ AJM&\makebox[2\cellwidth][c]{\Fr}\spacebelow\\
 \newcommand{\Fq}{} % DJM
 \newcommand{\Fr}{} % AJM
 \newcommand{\Fs}{} % Technology
-\newcommand{\Ft}{} % Variant text
-\newcommand{\Fta}[2]{{\bfseries Variant: #1}\par #2 \par} %
+\newcommand{\Fta}{} % Full name
+\newcommand{\Ftb}{} % Variant description.
 \newcommand{\Fu}{} % Service text
 \newcommand{\Fua}[1]{{\bfseries Service:} #1 \par} %
 \newcommand{\Fv}{} % Notes

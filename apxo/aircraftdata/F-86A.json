@@ -1,5 +1,5 @@
 {
-  "name": "F-86A Sabre",
+  "typename": "F-86A Sabre",
   "origin": "APJ 25",
   "crew": [ "Pilot" ],
   "powertable": {

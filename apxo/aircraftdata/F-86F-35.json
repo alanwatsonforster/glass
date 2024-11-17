@@ -1,5 +1,5 @@
 {
-  "name": "F-86F-35 Sabre",
+  "typename": "F-86F-35 Sabre",
   "base": "F-86F-25",
   "loadnotes": [
     "Either stations 1 to 4 or stations 5 to 12 can be used.",

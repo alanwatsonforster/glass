@@ -1,5 +1,5 @@
 {
-  "name": "A-1H Skyraider",
+  "typename": "A-1H Skyraider",
   "base": "AD-4",
   "vulnerability": 2,
   "stations": [

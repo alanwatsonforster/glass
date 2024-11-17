@@ -1,5 +1,5 @@
 {
-  "name": "F2H-3 Banshee",
+  "typename": "F2H-3 Banshee",
   "variantname": "RCN",
   "variantdescription": "F2H-3 in service with the RCN. AIM-9B IRMs can be carried on the outer stations 2 and 9, wing-tip FTs are rarely used, and AtA refueling is not available.",
   "base": "F2H-3",

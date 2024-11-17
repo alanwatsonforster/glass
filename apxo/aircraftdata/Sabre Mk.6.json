@@ -1,5 +1,5 @@
 {
-  "name": "Sabre Mk.6",
+  "typename": "Sabre Mk.6",
   "base": "Sabre Mk.5",
   "origin": "APJ 25",
   "crew": [ "Pilot" ],

@@ -1,5 +1,5 @@
 {
-  "name": "Il-10 Beast",
+  "typename": "Il-10 Beast",
   "origin": "APJ 50",
   "crew": [ "Pilot", "Gunner" ],
   "powertable": {

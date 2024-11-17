@@ -1,5 +1,5 @@
 {
-  "name": "B-26C Invader",
+  "typename": "B-26C Invader",
   "variantname": "Two Turrets",
   "variantdescription": "B-26C with a glass nose, wing guns, and both dorsal and ventral turrets. Originally built in WW2 for service in Europe, but also served in the Korean War.",
   "base": "B-26B (Two Turrets)",

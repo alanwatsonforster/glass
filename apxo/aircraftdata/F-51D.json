@@ -1,5 +1,5 @@
 {
-  "name": "F-51D Mustang",
+  "typename": "F-51D Mustang",
   "origin": "APJ 32",
   "crew": [ "Pilot" ],
   "powertable": {

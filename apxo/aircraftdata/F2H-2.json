@@ -1,5 +1,5 @@
 {
-  "name": "F2H-2 Banshee",
+  "typename": "F2H-2 Banshee",
   "base": "F2H-3",
   "internalfuel": 290,
   "atarefuel": false,
@@ -14,7 +14,7 @@
   },
   "gun": "Four 20 mm M3",
   "ataradarranging": "RE",
-  "radar": { "name": "APG-30" },
+  "radar": { "typename": "APG-30" },
   "lockon": 6,
   "storeslimits": [ 8, 12, 3600 ],
   "stations": [

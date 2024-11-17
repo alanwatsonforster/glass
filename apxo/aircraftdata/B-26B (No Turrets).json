@@ -1,5 +1,5 @@
 {
-  "name": "B-26B Invader",
+  "typename": "B-26B Invader",
   "variantname": "No Turrets",
   "variantdescription": "B-26B with a gun nose, nose and wing guns, no turrets, and with extra fuel (40 fuel points). Typical of the B-26B in the 1960s.",
   "base": "B-26B (One Turret)",

@@ -1,5 +1,5 @@
 {
-  "name": "F-86F-40 Sabre",
+  "typename": "F-86F-40 Sabre",
   "base": "F-86F-25",
   "origin": "APJ 25",
   "crew": [ "Pilot" ],
@@ -33,7 +33,7 @@
     "ML": [ [ "-", 1.5 ], [ "-", 1.0 ], [ "-", 1.0 ] ],
     "LO": [ [ "-", 1.5 ], [ "-", 1.5 ], [ "-", 1.0 ] ]
   },
-  "radar": { "name": "APG-30" },
+  "radar": { "typename": "APG-30" },
   "lockon": 7,
   // Note: Not HTD.
   "properties": [],

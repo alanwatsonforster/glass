@@ -1,5 +1,5 @@
 {
-  "name": "MiG-19SF Farmer-C",
+  "typename": "MiG-19SF Farmer-C",
   "origin": "TSOH",
   "crew": [ "Pilot" ],
   "powertable": {

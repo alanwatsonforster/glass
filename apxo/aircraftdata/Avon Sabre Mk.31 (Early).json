@@ -1,5 +1,5 @@
 {
-  "name": "Avon Sabre Mk.31",
+  "typename": "Avon Sabre Mk.31",
   "base": "Avon Sabre Mk.32",
   "variantname": "Early",
   "variantdescription": "Early Avon Sabre Mk.31, before 1960, with only two stations and without IRMs.",

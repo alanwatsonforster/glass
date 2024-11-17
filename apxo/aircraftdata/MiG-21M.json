@@ -1,5 +1,5 @@
 {
-  "name": "MiG-21M Fishbed",
+  "typename": "MiG-21M Fishbed",
   "origin": "Carl Smeaton",
   "base": "MiG-21MF",
   "powertable": {

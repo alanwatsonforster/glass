@@ -1,5 +1,5 @@
 {
-  "name": "A-1E Skyraider",
+  "typename": "A-1E Skyraider",
   "base": "A-1H",
   "crew": [ "Pilot", "Copilot" ],
   "powertable": {

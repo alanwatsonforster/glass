@@ -1,5 +1,5 @@
 {
-  "name": "MiG-17F Fresco-C",
+  "typename": "MiG-17F Fresco-C",
   "origin": "TSOH",
   "crew": [ "Pilot" ],
   "powertable": {

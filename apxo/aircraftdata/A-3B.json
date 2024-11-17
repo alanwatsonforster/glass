@@ -1,5 +1,5 @@
 {
-  "name": "A-3B Skywarrior",
+  "typename": "A-3B Skywarrior",
   "origin": "TSOH",
   "crew": [ "Pilot", "Navigator", "EW Officer" ],
   "powertable": {

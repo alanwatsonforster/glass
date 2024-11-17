@@ -1,5 +1,5 @@
 {
-  "name": "Su-11 Fishpot-C",
+  "typename": "Su-11 Fishpot-C",
   "base": "Su-9",
   "turndragtable": {
     "TT": [ 2.0, 2.0, 2.0 ],
