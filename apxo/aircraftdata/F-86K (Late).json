@@ -1,35 +1,15 @@
 {
-  "name": "F-86K Sabre-Dog (Late)",
+  "name": "F-86K Sabre-Dog",
+  "variantname": "Late",
+  "variantdescription": "Late F-86K with unslatted 6-3 wing.",
+  "base": "F-86K (Early)",
   "origin": "APJ 25",
-  "crew": [ "Pilot" ],
-  "powertable": {
-    "AB"  : [ 1.5, 1.0, 1.0, 3.0 ],
-    "M"   : [ 1.0, 1.0, 1.0, 1.0 ],
-    "N"   : [ 0.0, 0.0, 0.0, 0.5 ],
-    "I"   : [ 0.5, 0.5, 1.0, 0.0 ],
-    "SPBR": [ 1.0, 1.0, 2.0 ]
-  },
-  "engines": 1,
-  "cruisespeed": 5.5,
-  "climbspeed" : 3.5,
-  "visibility": 5,
-  "sizemodifier": 0,
-  "vulnerability": 0,
-  "restrictedarcs": "",
-  "blindarcs": "30-",
-  "internalfuel": 205,
-  "atarefuel": false,
-  "ejectionseat": "standard",
-  "maneuvertable": {
-    "LR/DR": [ 1.0, 1.0 ],
-    "VR":    [ 0.0, 0.0 ]
-  },
+  "lowspeedliftdevicename": null,
   "turndragtable": {
     "TT": [ 1.0, 1.0, 1.0 ],
     "HT": [ 1.0, 1.0, 1.0 ],
     "BT": [ 2.0, 2.0, 2.0 ]
   },
-  "ceilingtable": [ 50, 47, 44 ],
   "speedtable": {
     "EH": [ [  2.5,  6.0 ], [  2.5,  5.5 ], [  "-",  "-" ],  6.5 ],
     "VH": [ [  2.5,  6.0 ], [  2.5,  5.5 ], [  2.5,  5.0 ],  6.5 ],
@@ -54,8 +34,14 @@
   "ataradarranging": "RE",
   "lockon": 7,
   "storeslimits": [ 2, 6, 4000 ],  
-  "properties": [ "HTD" ],
-  "notes": [
-    "Late model with 6-3 wing."
-  ]
+  "properties": [ "SMP" ],
+  "notes": [],
+  "stations": [
+    [ "pair"  , [ 1, 4 ] , 1000, [ "BB", "FT" ] ],
+    [ "pair"  , [ 2, 3 ] , 1000, [ "BB", "FT", "IRM" ] ]
+  ],
+  "loadnotes": [
+    "From 1958, may use AIM-9B IRMs."
+  ],
+  "VPs": [ 12, 9, 4, 2 ]
 }
