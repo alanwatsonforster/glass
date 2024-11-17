@@ -681,7 +681,7 @@ class aircraftdata:
 
             str("Turn Drag:")
             str("")
-            if self.lowspeedliftdevicelimit() != None:
+            if self.lowspeedliftdevicelimit() is not None:
                 str(
                     "Low-speed lift device           : %s"
                     % self.lowspeedliftdevicename()
