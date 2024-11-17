@@ -1,17 +1,18 @@
 {
   "name": "F2H-3 Banshee",
   "variantname": "RCN",
-  "variantdescription": "F2H-3 in service with the RCN. AIM-9B IRMs can be carried on the outer stations 1 and 8, no wing-tip FTs are used, and AtA refueling is not available.",
+  "variantdescription": "F2H-3 in service with the RCN. AIM-9B IRMs can be carried on the outer stations 2 and 9, wing-tip FTs are rarely used, and AtA refueling is not available.",
   "base": "F2H-3",
-  "internalfuel": 360,
   "stations": [
-    [ "pair", [ 1, 8 ], 250, [ "BB", "RK", "IRM" ]],
-    [ "pair", [ 2, 7 ], 250, [ "BB", "RK" ]],
-    [ "pair", [ 3, 6 ], 250, [ "BB" ] ],
-    [ "pair", [ 4, 5 ], 500, [ "BB" ] ]
+    [ "pair", [ 1, 10 ], 1100, [ "FT" ] ],
+    [ "pair", [ 2, 9 ] ,  250, [ "BB", "RK", "IRM" ]],
+    [ "pair", [ 3, 8 ] ,  250, [ "BB", "RK" ]],
+    [ "pair", [ 4, 7 ] ,  250, [ "BB" ] ],
+    [ "pair", [ 5, 6 ] ,  500, [ "BB" ] ]
   ],
   "loadnotes": [
-    "Stations 3 and 4 and stations 5 and 6 are closely spaced. If a 500 lb bomb is carried on station 4 or 5, the adjacent station cannot be used.",
+    "The wing-tip stations 1 and 10 can carry 170 gal (600L) FTs, but these are rarely used. They cannot be jettisoned in flight.",
+    "Stations 4 and 5 and stations 6 and 7 are closely spaced. If a 500 lb bomb is carried on station 5 or 6, the adjacent station cannot be used.",
     "May use AIM-9B IRMs."
   ]
 }
