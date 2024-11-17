@@ -2,7 +2,7 @@
   "name": "Avon Sabre Mk.31",
   "base": "Avon Sabre Mk.32",
   "variantname": "Early",
-  "variantdescription": "This is an early variant, prior to 1960, without stations for IRMs.",
+  "variantdescription": "This is an early Avon Sabre Mk.31, before 1960, without stations for IRMs.",
   "storeslimits": [ 2, 6, 2000 ],
   "stations": [
     [ "pair"     , [ 1, 2 ]       , 1000, [ "BB", "FT" ] ]

@@ -1,7 +1,7 @@
 {
   "name": "B-26B Invader",
   "variantname": "No Turrets",
-  "variantdescription": "This is a variant with the gun nose, nose and wing guns, no turrets, and with extra fuel (40 fuel points). It is typical of aircraft in the 1960s.",
+  "variantdescription": "This is a B-26B with a gun nose, nose and wing guns, no turrets, and with extra fuel (40 fuel points). This variant is typical of the B-26B in the 1960s.",
   "base": "B-26B (One Turret)",
   "crew": [ "Pilot", "Navigator", "Observer" ]
 }
