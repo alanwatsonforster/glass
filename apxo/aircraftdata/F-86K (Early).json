@@ -30,10 +30,8 @@
   "notes": [],
   "stations": [
     [ "pair"  , [ 1, 4 ] , 1000, [ "BB", "FT" ] ],
-    [ "pair"  , [ 2, 3 ] , 1000, [ "BB", "FT", "IRM" ] ]
+    [ "pair"  , [ 2, 3 ] , 1000, [ "BB", "FT" ] ]
   ],
-  "loadnotes": [
-    "From 1958, may use AIM-9B IRMs."
-  ],
+  "loadnotes": [],
   "VPs": [ 11, 8, 3, 1 ]
 }
