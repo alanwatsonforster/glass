@@ -3,6 +3,7 @@
   "popularname": "Counter-Invader",
   "variantdescription": "Douglas B-26B/TB-26B/B-26C upgraded by On Mark Engineering with gun-nose and eight nose guns, but without wing guns. Served with USAF in the Vietnam War. Later designated A-26A.",
   "origin": "APJ 51",
+  "base": "B-26B (No Turrets)",
   "crew": [ "Pilot", "Navigator", "Observer" ],
   "powertable": {
     "FT"  : [ 1.5, 1.0, 1.0, 1.0 ],
@@ -11,26 +12,8 @@
     "I"   : [ 0.5, 0.5, 0.5, 0.0 ],
     "SPBR": [ "-", "-", "-" ]
   },
-  "engines": 2,
-  "cruisespeed": 2.5,
-  "climbspeed" : 2.0,
-  "visibility": 8,
-  "sizemodifier": -1,
-  "vulnerability": 1,
-  "restrictedarcs": "30-",
   "blindarcs": "30L",
   "internalfuel": 720,
-  "atarefuel": false,
-  "ejectionseat": "none",
-  "maneuvertable": {
-    "LR/DR": [ "-", "-" ],
-    "VR":    [ "-", "-" ]
-  },
-  "turndragtable": {
-    "TT": [ 0.0, 0.0, 0.5 ],
-    "HT": [ 1.0, 1.0, 1.0 ],
-    "BT": [ 2.0, "-", "-" ]
-  },
   "ceilingtable": [ 30, 24, 17 ],
   "speedtable": {
     "EH": [ [  "-",  "-" ], [  "-",  "-" ], [  "-",  "-" ],  "-" ],
@@ -52,7 +35,6 @@
   "gunatatohitrolls": "4/2/1",
   "gundamagerating": "5/6**",
   "gunammunition": 10,
-  "gunsightmodifiers": { "TT": 1, "HT": 2 },
   "bombsystem": "Manual/Balistic",
   "storeslimits": [ 6, 13, 8000 ],
   "stations": [
@@ -65,14 +47,11 @@
     "Station 5 is the internal bomb bay. Only low-drag bombs can be carried. Load options are: (a) two 2,000 lb bombs, (b) four 1,000 lb bombs, (c) eight 500 or 250 lb bombs, and (d) sixteen 100 lb bombs."
   ],
   "VPs": [ 14, 9, 5, 3 ],
-  "properties": [ "LRR", "NRM" ],
-  "powerfadespeedtable": [ [2.5, 0.5] ],
   "variantnotes": [
      "Later designated as A-26A."
   ],
   "notes": [
     "When the internal fuel is more than 620 fuel points, the fixed wing-tip tanks are in use and the vulnerability is +0.",
     "Bomb system is ballistic (-1) if doing level bombing from four or more altitude levels above the target."
-  ],
-  "wikiurl": "https://bit.ly/4gPErhi" 
+  ]
 }

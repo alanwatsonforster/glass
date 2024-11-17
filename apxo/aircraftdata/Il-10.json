@@ -1,6 +1,8 @@
 {
   "versionname": "Il-10",
-  "variantdescription": "Ilyushin Il-10 base variant. NATO reporting name is Beast.",
+  "manufacturername": "Ilyushin",
+  "variantdescription": "Ilyushin Il-10 base variant.",
+  "natoreportingname": "Beast",
   "origin": "APJ 50",
   "crew": [ "Pilot", "Gunner" ],
   "powertable": {

@@ -1,35 +1,14 @@
 {
   "versionname": "F-86F-25",
   "popularname": "Sabre",
+  "base": "F-86F-10",
   "origin": "APJ 25",
-  "crew": [ "Pilot" ],
-  "powertable": {
-    "M"   : [ 1.0, 1.0, 1.0, 1.0 ],
-    "N"   : [ 0.0, 0.0, 0.0, 0.5 ],
-    "I"   : [ 0.5, 0.5, 1.0, 0.0 ],
-    "SPBR": [ 0.5, 0.5, 1.0 ]
-  },
-  "engines": 1,
-  "cruisespeed": 5.0,
-  "climbspeed" : 3.5,
-  "visibility": 5,
-  "sizemodifier": 0,
-  "vulnerability": 0,
-  "restrictedarcs": "",
-  "blindarcs": "30-",
-  "internalfuel": 145,
-  "atarefuel": false,
-  "ejectionseat": "early",
-  "maneuvertable": {
-    "LR/DR": [ 1.0, 1.0 ],
-    "VR":    [ 0.0, 0.0 ]
-  },
+  "lowspeedliftdevicename": null,
   "turndragtable": {
     "TT": [ 0.0, 1.0, 1.0 ],
     "HT": [ 1.0, 1.0, 1.0 ],
     "BT": [ 2.0, 3.0, 3.0 ]
   },
-  "ceilingtable": [ 48, 45, 42 ],
   "speedtable": {
     "EH": [ [  2.5,  5.5 ], [  "-",  "-" ], [  "-",  "-" ],  6.5 ],
     "VH": [ [  2.5,  6.0 ], [  2.5,  5.0 ], [  3.0,  5.0 ],  6.5 ],
@@ -38,23 +17,6 @@
     "ML": [ [  2.0,  6.5 ], [  2.0,  6.0 ], [  2.5,  5.5 ],  7.5 ],
     "LO": [ [  1.5,  6.5 ], [  1.5,  6.0 ], [  2.0,  5.5 ],  7.5 ]
   },
-  "climbcapabilitytable": {
-    "EH": [ [ "-", 0.5 ], [ "-", "-" ], [ "-", "-" ] ],
-    "VH": [ [ "-", 0.5 ], [ "-", 0.5 ], [ "-", 0.5 ] ],
-    "HI": [ [ "-", 1.0 ], [ "-", 0.5 ], [ "-", 0.5 ] ],
-    "MH": [ [ "-", 1.0 ], [ "-", 1.0 ], [ "-", 0.5 ] ],
-    "ML": [ [ "-", 1.5 ], [ "-", 1.0 ], [ "-", 1.0 ] ],
-    "LO": [ [ "-", 1.5 ], [ "-", 1.5 ], [ "-", 1.0 ] ]
-  },
-  "radar": { "name": "APG-30" },
-  "lockon": 6,
-  "gun": "Six .50 cal M3",
-  "gunatatohitrolls": "6/3/0",
-  "gundamagerating": "4/4**",
-  "gunammunition": 7.0,
-  "gunsightmodifiers": { "TT": 0, "HT": 1, "BT": 2 },
-  "ataradarranging": "RE",
-  "ecm": { "iff": true },
   // Note: Not HTD.
   "properties": [],
   "storeslimits": [ 2, 6, 4000 ],  

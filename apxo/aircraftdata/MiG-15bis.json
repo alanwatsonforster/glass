@@ -1,6 +1,8 @@
 {
   "versionname": "MiG-15bis",
-  "variantdescription": "Mikoyan-Gurevich MiG-15bis base version. NATO reporting name is Fagot-B.",
+  "manufacturername": "Mikoyan-Gurevich",
+  "variantdescription": "Mikoyan-Gurevich MiG-15bis base version.",
+  "natoreportingname": "Fagot-B",
   "origin": "TSOH",
   "crew": [ "Pilot" ],
   "powertable": {

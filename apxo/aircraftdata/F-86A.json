@@ -1,6 +1,7 @@
 {
   "versionname": "F-86A",
   "popularname": "Sabre",
+  "manufacturername": "North American",
   "origin": "APJ 25",
   "crew": [ "Pilot" ],
   "powertable": {

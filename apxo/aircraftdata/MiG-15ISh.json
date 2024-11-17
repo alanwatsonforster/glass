@@ -2,6 +2,7 @@
   "versionname": "MiG-15ISh",
   "variantdescription": "Mikoyan-Gurevich MiG-15ISh base version. Prototype attack aircraft with two additional tandem wing stations.",
   "base": "MiG-15bis",
+  "natoreportingname": null,
   "stations": [
     [ "pair", [ 1, 4 ], 550, [ "BB", "RK", "RP", "FT" ] ],
     [ "pair", [ 2, 3 ], 550, [ "BB", "RK", "RP" ] ]

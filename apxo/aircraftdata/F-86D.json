@@ -1,6 +1,7 @@
 {
   "versionname": "F-86D",
   "popularname": "Sabre-Dog",
+  "base": "F-86A",
   "origin": "APJ 25",
   "crew": [ "Pilot" ],
   "powertable": {
@@ -10,21 +11,8 @@
     "I"   : [ 0.5, 0.5, 1.0, 0.0 ],
     "SPBR": [ 0.5, 0.5, 1.0 ]
   },
-  "engines": 1,
   "cruisespeed": 5.5,
-  "climbspeed" : 3.5,
-  "visibility": 5,
-  "sizemodifier": 0,
-  "vulnerability": 0,
-  "restrictedarcs": "",
-  "blindarcs": "30-",
   "internalfuel": 205,
-  "atarefuel": false,
-  "ejectionseat": "early",
-  "maneuvertable": {
-    "LR/DR": [ 1.0, 1.0 ],
-    "VR":    [ 0.0, 0.0 ]
-  },
   "lowspeedliftdevicelimit": 3.5,
   "lowspeedliftdevicelimittype": "absolute",
   "lowspeedliftdevicename": "leading-edge slats",
@@ -71,6 +59,7 @@
   "ecm": { "iff": true },
   "technology": [ "CC Rocket Attack" ],
   "properties": [ "SMP", "HTD" ],
+  "notes": [],
   "rocketfactors": 2,
   "storeslimits": [ 2, 6, 4000 ],  
   "stations": [

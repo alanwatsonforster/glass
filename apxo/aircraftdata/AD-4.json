@@ -1,6 +1,7 @@
 {
   "versionname": "AD-4",
   "popularname": "Skyraider",
+  "manufacturername": "Douglas",
   "variantdescription": "Douglas AD-4 base variant. Saw service with USN and USMC in the Korean War.",
   "origin": "TSOH",
   "crew": [ "Pilot" ],

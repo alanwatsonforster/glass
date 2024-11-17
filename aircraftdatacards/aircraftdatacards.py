@@ -696,11 +696,12 @@ def blockF(data):
         s = " ".join(data.technology())
         writelatex(r"\renewcommand{\Fs}{%s}" % s)
 
-    writelatex(r"\renewcommand{\Fta}{%s}" % data.fullvariantname())
+    writelatex(r"\renewcommand{\Fta}{%s}" % data.manufacturername())
+    writelatex(r"\renewcommand{\Ftb}{%s}" % data.fullvariantname())
     if data.variantdescription() is None:
-        writelatex(r"\renewcommand{\Ftb}{}")
+        writelatex(r"\renewcommand{\Ftc}{}")
     else:
-        writelatex(r"\renewcommand{\Ftb}{%s}" % data.variantdescription())
+        writelatex(r"\renewcommand{\Ftc}{%s}" % data.variantdescription())
 
     #if data.service() is None:
     #    writelatex(r"\renewcommand{\Fu}{}")
@@ -769,6 +770,16 @@ def blockF(data):
 
     for note in data.variantnotes():
         s += "\\item %s\n\n" % (latexify(note))
+        
+    if data.originallydesignated() is not None:
+        s += "\\item Originally designated %s.\n\n" % (latexify(data.originallydesignated()))
+    if data.previouslydesignated() is not None:
+        s += "\\item Previously designated %s.\n\n" % (latexify(data.previouslydesignated()))
+    if data.subsequentlydesignated() is not None:
+        s += "\\item Subsequently designated %s.\n\n" % (latexify(data.subsequentlydesignated()))
+    if data.natoreportingname() is not None:
+        s += "\\item NATO reporting name is %s.\n\n" % (latexify(data.natoreportingname()))
+    
 
     if data.wikiurl() is not None:
         s += "\\item \\href{\\detokenize{%s}}{ADC page on GitHub}.\n\n" % (

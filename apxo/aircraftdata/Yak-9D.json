@@ -1,6 +1,8 @@
 {
   "versionname": "Yak-9D",
-  "variantdescription": "Yakovlev Yak-9 base variant. NATO reporting name is Frank.",
+  "manufacturername": "Yakovlev",
+  "variantdescription": "Yakovlev Yak-9 base variant.",
+  "natoreportingname": "Frank",
   "origin": "APJ 50",
   "crew": [ "Pilot" ],
   "powertable": {

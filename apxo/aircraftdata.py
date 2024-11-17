@@ -54,6 +54,12 @@ class aircraftdata:
             data = basedata
         self._data = data
 
+    def manufacturername(self):
+       if "manufacturername" in self._data:
+           return self._data["manufacturername"]
+       else:
+           return None
+
     def versionname(self):
         return self._data["versionname"]
 
@@ -86,6 +92,30 @@ class aircraftdata:
             return self._data["variantdescription"]
         else:
             return "%s base variant." % self.versionname()
+
+    def originallydesignated(self):
+        if "originallydesignated" in self._data:
+            return self._data["originallydesignated"]
+        else:
+            return None
+
+    def previouslydesignated(self):
+        if "previouslydesignated" in self._data:
+            return self._data["previouslydesignated"]
+        else:
+            return None
+
+    def subsequentlydesignated(self):
+        if "subsequentlydesignated" in self._data:
+            return self._data["subsequentlydesignated"]
+        else:
+            return None
+
+    def natoreportingname(self):
+        if "natoreportingname" in self._data:
+            return self._data["natoreportingname"]
+        else:
+            return None
 
     def crew(self):
         return self._data["crew"]
