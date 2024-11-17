@@ -17,7 +17,7 @@
   "restrictedarcs": "180L",
   "blindarcs": "30-",
   "internalfuel": 470,
-  "atarefuel": true,
+  "atarefuel": false,
   "ejectionseat": "early",
   "maneuvertable": {
     "LR/DR": [ 1.0, 1.5 ],
