@@ -1,5 +1,6 @@
 {
-  "typename": "RF-51D Mustang",
+  "typename": "RF-51D",
+  "variantdescription": "North American RF-51D base version. Main WW2 version which also saw service with the USAF in the Korean War. Originally designated F-6D.",
   "base": "F-51D",
   "stations": [
     [ "pair"     , [ 1, 2 ]      , 1000, [ "BB", "FT" ] ]

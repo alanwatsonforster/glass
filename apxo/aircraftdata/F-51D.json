@@ -1,5 +1,7 @@
 {
-  "typename": "F-51D Mustang",
+  "typename": "F-51D",
+  "popularname": "Mustang",
+  "variantdescription": "North American F-51D base version. Main WW2 version which also saw service with the USAF, ROKAF, RAAF, and SAAF in the Korean War. Originally designated P-51D.",
   "origin": "APJ 32",
   "crew": [ "Pilot" ],
   "powertable": {
@@ -63,7 +65,6 @@
   "VPs": [ 5, 3, 2, 1 ],
   "properties": [ "LBR", "HTD" ],
   "powerfadespeedtable": [ [3.0, 0.5] ],
-  "service": "Operated by Canada, Costa Rica, Domincan Republic, El Salvador, Guatamala, Haiti, Indonesia, Israel, Italy, Netherlands, New Zealand, Nicaragua, Philippines, Somalia, South Africa, South Korea, Sweden, Switzerland, USA, and Uruguay. Saw combat in the Korean War with the USAF, ROKAF, RAAF, and SAAF.",
   "notes": [
   ],
   "wikiurl": "https://bit.ly/4foW868"
