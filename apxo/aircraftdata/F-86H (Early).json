@@ -15,6 +15,7 @@
   "climbspeed" : 3.5,
   "internalfuel": 180,
   "ejectionseat": "standard",
+  "lowspeedliftdevicename": null,
   "turndragtable": {
     "TT": [ 1.0, 1.0, 1.0 ],
     "HT": [ 1.0, 1.0, 1.0 ],

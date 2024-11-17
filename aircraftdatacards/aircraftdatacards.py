@@ -251,7 +251,7 @@ def blockC(data):
         data.turndrag("1/2", "ET"),
         data.turndrag("DT", "ET"),
     ]
-    if data.lowspeedliftdevicename():
+    if data.lowspeedliftdevicename() is not None:
         values += [
             data.turndrag("CL", "TT", lowspeedliftdevice=True),
             data.turndrag("1/2", "TT", lowspeedliftdevice=True),
@@ -974,6 +974,7 @@ writeadc("F-86F-25")
 writeadc("F-86F-35")
 writeadc("F-86F-40")
 writeadc("F-86H (Early)")
+writeadc("F-86H (Late)")
 
 if False:
 
@@ -983,7 +984,6 @@ if False:
     writeadc("Sabre 6")
 
     writeadc("F-86D")
-    writeadc("F-86H Late")
     writeadc("F-86K Early")
     writeadc("F-86K Late")
     writeadc("F-86L")
