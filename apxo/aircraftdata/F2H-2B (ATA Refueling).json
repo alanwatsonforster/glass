@@ -1,7 +1,7 @@
 {
   "name": "F2H-2B Banshee",
   "variantname": "ATA Refueling",
-  "variantdescription": "This variant has an ATA refueling probe fitted in place of the upper starboard cannon.",
+  "variantdescription": "F2H-2B with an ATA refueling probe fitted in place of the upper starboard cannon.",
   "base": "F2H-2B",
   "atarefuel": true,
   "gun": "Three 20 mm Mk 3",
