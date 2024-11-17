@@ -1,6 +1,9 @@
 {
   "name": "RF-51D Mustang",
   "base": "F-51D",
+  "stations": [
+    [ "pair"     , [ 1, 2 ]      , 1000, [ "BB", "FT" ] ]
+  ],
   "VPs": [ 6, 4, 2, 1 ],
   "variantnotes": [
     "Equipped with two K24 (7-inch) cameras, one oblique facing left and one vertical."

@@ -57,6 +57,14 @@
   "ecm": { "iff": true },
   "technology": [],
   "storeslimits": [ 4, 8, 5000 ],  
+  "stations": [
+    [ "grouppair", [ 1, 4, 7, 11 ],  280, [ "BB", "RK" ] ],
+    [ "pair"     , [ 5, 7 ]       , 1000, [ "BB", "RK", "FT" ] ],
+    [ "single"   , [ 6 ]          , 1200, [ "BB", "FT" ] ]
+  ],
+  "loadnotes": [
+    "Stations 1 to 4 and 7 to 11 can each carry two RK, one 100 lb bomb, or one 250 lb bomb. They are closely spaced. If a 250 lb bomb is carried, the adjacent stations cannot be used."
+  ],
   "VPs": [ 6, 4, 2, 1 ],
   "properties": [ "LBR", "HTD" ],
   "powerfadespeedtable": [ [3.0, 0.5], [4.0, 1.0] ],

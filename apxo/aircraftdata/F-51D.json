@@ -54,6 +54,12 @@
   "gunsightmodifiers": { "TT": 0, "HT": 1, "BT": 2 },
   "ecm": { "iff": true },
   "storeslimits": [ 2, 4, 2000 ],  
+  "stations": [
+    [ "grouppair", [ 1, 3, 6, 8 ],  150, [ "RK" ] ],
+    [ "pair"     , [ 4, 5 ]      , 1000, [ "BB", "FT" ] ]
+  ],
+  "loadnotes": [
+  ],
   "VPs": [ 5, 3, 2, 1 ],
   "properties": [ "LBR", "HTD" ],
   "powerfadespeedtable": [ [3.0, 0.5] ],

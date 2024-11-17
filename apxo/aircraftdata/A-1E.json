@@ -1,8 +1,7 @@
 {
   "name": "A-1E Skyraider",
-  "base": "AD-4",
+  "base": "A-1H",
   "crew": [ "Pilot", "Copilot" ],
-  "vulnerability": 2,
   "powertable": {
     "FT"  : [ 1.5, 1.0, 1.0, 0.5 ],
     "HT"  : [ 0.5, 0.5, 0.5, 0.2 ],

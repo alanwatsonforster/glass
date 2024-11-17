@@ -17,6 +17,13 @@
   "radar": { "name": "APG-30" },
   "lockon": 6,
   "storeslimits": [ 4, 8, 1000 ],
+  "stations": [
+    [ "pair", [1, 4], 250, [ "BB" ] ],
+    [ "pair", [2, 3], 500, [ "BB" ] ]
+  ],
+  "loadnotes": [
+    "Stations 1 and 2 and stations 3 and 4 are closely spaced. If a 500 lb bomb is carried on station 2 or 3, the adjacent station cannot be used."
+  ],
   "VPs": [ 8, 5, 3, 1 ],
   "notes": []
 }

@@ -1,6 +1,15 @@
 {
   "name": "F2H-2B Banshee",
   "base": "F2H-2",
+  "stations": [
+    [ "grouppair", [ 1, 2, 7, 8 ], 250, [ "BB", "RK", "IRM" ]],
+    [ "pair"     , [ 3, 6 ]      , 250, [ "BB" ] ],
+    [ "pair"     , [ 4, 5 ]      , 500, [ "BB" ] ]
+  ],
+  "loadnotes": [
+    "Stations 3 and 4 and stations 5 and 6 are closely spaced. If a 500 lb bomb is carried on station 4 or 5, the adjacent station cannot be used.",
+    "From 1957, may use AIM-9B IRMs."
+  ],
   "VPs": [ 9, 5, 3, 1 ],
   "storeslimits": [ 4, 8, 2000 ]
 }

@@ -55,6 +55,18 @@
   "gunsightmodifiers": { "TT": 1, "HT": 2 },
   "ecm": { "iff": true },
   "storeslimits": [ 6, 10, 6000 ],
+  "stations": [
+    [ "pair"     , [ 1, 5 ]         ,  500, [ "BB" ] ],
+    [ "pair"     , [ 2, 4 ]         ,  500, [ "BB", "FT" ] ],
+    [ "single"   , [ 5 ]            , 4000, [ "BB" ] ],
+    [ "grouppair", [ 6, 9, 16, 19 ] ,  150, [ "RK" ] ],
+    [ "grouppair", [ 10, 12, 13, 15],  150, [ "RK" ] ]
+  ],
+  "loadnotes": [
+    "Either stations 1 and 5 or stations 6 to 9 and 16 to 19 can be used.",
+    "Either stations 2 and 4 or stations 10 to 15 can be used.",
+    "Station 5 is the internal bomb bay. Only low-drag bombs can be carried. Load options are: (a) two 2,000 lb bombs, (b) four 1,000 lb bombs, (c) eight 500 or 250 lb bombs, and (d) sixteen 100 lb bombs."
+  ],
   "properties": [ "LRR", "NRM" ],
   "powerfadespeedtable": [ [2.5, 0.5] ],
   "gunarc": "180-",

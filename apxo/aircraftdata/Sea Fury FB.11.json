@@ -55,6 +55,16 @@
   "gunsightmodifiers": { "TT": 0, "HT": 1, "BT": 2 },
   "ecm": { "iff": true },
   "storeslimits": [ 2, 4, 3400 ],
+  "stations": [
+    [ "pair"     , [ 1, 4 ]       , 1000, [ "BB" ] ],
+    [ "pair"     , [ 2, 3 ]       ,  700, [ "FT" ] ],
+    [ "grouppair", [ 5, 7, 8, 10 ],  200, [ "RK" ] ]
+  ],
+  "loadnotes": [
+    "Either stations 1 and 4 or stations 5 to 10 can be used.",
+    "Stations 2 and 3 can each carry a 90 gal (400L) FT.",
+    "Stations 5 to 10 can each carry two RP-3 RK."
+  ],
   "VPs": [ 7, 5, 3, 1 ],
   "properties": [ "LBR", "HTD" ],
   "powerfadespeedtable": [ [3.0, 0.5], [4.0, 1.0] ],

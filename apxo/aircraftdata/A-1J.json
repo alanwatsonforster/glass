@@ -1,7 +1,6 @@
 {
   "name": "A-1J Skyraider",
-  "base": "AD-4",
-  "vulnerability": 2,
+  "base": "A-1H",
   "VPs": [ 8, 6, 4, 2 ],
   "variantnotes": [
     "Previously designated as AD-7.",

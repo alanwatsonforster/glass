@@ -53,6 +53,14 @@
   "gunammunition": 8.0,
   "gunsightmodifiers": { "TT": 0, "HT": 1, "BT": 2 },
   "storeslimits": [ 1, 3, 1550 ],
+  "stations": [
+    [ "pair"     , [ 1, 4 ]       , 550, [ "BB", "RK" ] ],
+    [ "pair"     , [ 2, 3 ]       , 225, [ "BB" ] ]
+  ],
+  "loadnotes": [
+    "Stations 1 and 4 could each be fitted with rails for four RS-82 rockets, but these were not used in the Korean war.",
+    "Stations 2 and 3 are internal bays in each wing root."
+  ],
   "VPs": [ 6, 4, 2, 1 ],
   "properties": [ "LBR", "HTD" ],
   "powerfadespeedtable": [ [2.0, 0.5] ],

@@ -53,6 +53,11 @@
   "gunammunition": 6.0,
   "gunsightmodifiers": { "TT": 0, "HT": 1, "BT": 2 },
   "storeslimits": [ 0, 2, 450 ],
+  "stations": [
+    [ "pair"     , [ 1, 2 ]       , 225, [ "BB" ] ]
+  ],
+  "loadnotes": [
+  ],
   "VPs": [ 4, 3, 2, 1 ],
   "properties": [ "LBR", "HTD", "HRRCL" ],
   "powerfadespeedtable": [ [3.0, 0.5] ],

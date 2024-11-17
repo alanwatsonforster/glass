@@ -53,6 +53,14 @@
   "gunsightmodifiers": { "TT": 0, "HT": 1, "BT": 2 },
   "ecm": { "iff": true },
   "storeslimits": [ 6, 12, 8000 ],
+  "stations": [
+    [ "grouppair", [ 1, 6, 10, 15 ], 500, [ "BB", "RK" ] ],
+    [ "pair"     , [ 7, 9 ]       , 2200, [ "BB", "RK" ] ],
+    [ "single"   , [ 8 ]          , 2200, [ "BB" ] ]
+  ],
+  "loadnotes": [
+    "Stations 1 to 6 and 10 to 15 are closely spaced. If a load of 500 lb or more is carried, the adjacent stations cannot be used."
+  ],
   "VPs": [ 7, 5, 3, 2 ],
   "properties": [],
   "variantnotes": [
