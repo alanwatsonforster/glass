@@ -699,7 +699,7 @@ def blockF(data):
         writelatex(r"\renewcommand{\Fs}{None}")
     else:
         s = " ".join(data.technology())
-        writelatex(r"\renewcommand{\Fk}{%s}" % s)
+        writelatex(r"\renewcommand{\Fs}{%s}" % s)
 
     if data.variantname() is None:
         writelatex(r"\renewcommand{\Ft}{}")
@@ -968,6 +968,7 @@ writeadc("F9F-5P")
 
 writetype("F-86 Sabre")  # 1949
 writeadc("F-86A")
+writeadc("F-86D")
 writeadc("F-86E")
 writeadc("F-86F-10")
 writeadc("F-86F-25")
@@ -983,7 +984,6 @@ if False:
     writeadc("Sabre 5")
     writeadc("Sabre 6")
 
-    writeadc("F-86D")
     writeadc("F-86K Early")
     writeadc("F-86K Late")
     writeadc("F-86L")

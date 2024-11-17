@@ -7,7 +7,7 @@
     "M"   : [ 1.0, 1.0, 1.0, 1.0 ],
     "N"   : [ 0.0, 0.0, 0.0, 0.5 ],
     "I"   : [ 0.5, 0.5, 1.0, 0.0 ],
-    "SPBR": [ 1.0, 1.0, 2.0 ]
+    "SPBR": [ 0.5, 0.5, 1.0 ]
   },
   "engines": 1,
   "cruisespeed": 5.5,
@@ -54,11 +54,32 @@
     "ML": [ [ 2.0, 1.0 ], [ 1.5, 1.0 ], [ 1.5, 1.0 ] ],
     "LO": [ [ 2.0, 1.0 ], [ 1.5, 1.0 ], [ 1.5, 1.0 ] ]
   },
+  "radar": {
+    "name": "APG-36",
+    "eccm": 0,
+    "arc": "180+",
+    "searchrange": 70,
+    "searchstrength": 10,
+    "trackingrange": 40,
+    "trackingstrength": 8
+  },
+  "lockon": 6,
   "gun": "",
   "gunsightmodifiers": { "TT": 0, "HT": 1, "BT": 2 },
   "ataradarranging": "RE",
-  "lockon": 6,
+  "ecm": { "iff": true },
+  "technology": [ "CC Rocket Attack" ],
+  "properties": [ "SMP", "HTD" ],
   "rocketfactors": 2,
   "storeslimits": [ 2, 6, 4000 ],  
-  "properties": [ "HTD" ]
+  "stations": [
+    [ "pair"  , [ 1, 5 ] , 1000, [ "BB", "FT" ] ],
+    [ "pair"  , [ 2, 4 ] , 1000, [ "BB", "FT", "IRM" ] ],
+    [ "single", [ 3    ] ,    0, [ "" ] ]
+  ],
+  "loadnotes": [
+    "Station 3 is an internal rocket tray with 2 factors of air-to-air rockets.",
+    "From 1957, may use AIM-9B IRMs."
+  ],
+  "VPs": [ 11, 8, 3, 1 ]
 }
