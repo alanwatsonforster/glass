@@ -1,5 +1,5 @@
 {
-  "name": "Sabre 5",
+  "name": "Sabre Mk.5",
   "origin": "APJ 25",
   "crew": [ "Pilot" ],
   "powertable": {
@@ -57,6 +57,7 @@
   // Note: Not HTD.
   "properties": [],
   "notes": [],
+  "wikiurl": "https://bit.ly/4fBd1ec",
   "storeslimits": [ 2, 6, 4000 ],  
   "stations": [
     [ "pair"     , [ 1, 4 ]        , 1000, [ "BB", "FT" ] ],

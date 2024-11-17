@@ -892,8 +892,8 @@ writeadc("Sea Fury FB.11")
 
 writecountry("Canadian Aircraft")
 
-writeadc("Sabre 5")
-writeadc("Sabre 6")
+writeadc("Sabre Mk.5")
+writeadc("Sabre Mk.6")
 
 writecountry("Soviet Union Aircraft")
 

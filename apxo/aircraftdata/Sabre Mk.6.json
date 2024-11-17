@@ -1,6 +1,6 @@
 {
-  "name": "Sabre 6",
-  "base": "Sabre 5",
+  "name": "Sabre Mk.6",
+  "base": "Sabre Mk.5",
   "origin": "APJ 25",
   "crew": [ "Pilot" ],
   "powertable": {
