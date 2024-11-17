@@ -1,5 +1,7 @@
 {
-  "typename": "AD-4 Skyraider",
+  "typename": "AD-4",
+  "popularname": "Skyraider",
+  "variantdescription": "Douglas AD-4 base variant. Saw service with USN and USMC in the Korean War.",
   "origin": "TSOH",
   "crew": [ "Pilot" ],
   "powertable": {
@@ -63,7 +65,6 @@
   ],
   "VPs": [ 7, 5, 3, 2 ],
   "properties": [],
-  "variantnotes": [
-  ],
+  "notes": [],
   "wikiurl": "https://bit.ly/40hgz09"
 }

@@ -1,5 +1,6 @@
 {
-  "typename": "AT-33A Shooting Star",
+  "typename": "AT-33A",
+  "variantdescription": "Lockheed AT-33A base variant. T-33A converted for close support.",
   "base": "F-80C",
   "crew": [ "Pilot", "Copilot" ],
   "gun": "Two .50 cal M3",
@@ -11,6 +12,5 @@
     "Stations 5 to 8 can each carry two RK."
   ],
   "VPs": [ 5, 3, 2, 1 ],
-  "notes": [
-  ]
+  "notes": []
 }

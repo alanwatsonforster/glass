@@ -1,6 +1,7 @@
 {
-  "typename": "A-1H Skyraider",
+  "typename": "A-1H",
   "base": "AD-4",
+  "variantdescription": "Douglas A-1H base variant. Saw service with USAF, USN, USMC, and RVNAF in the Vietnam War. Originally designated AD-6.",
   "vulnerability": 2,
   "stations": [
     [ "grouppair", [ 1, 6, 10, 15 ], 500, [ "BB", "RK", "RP" ] ],
@@ -11,8 +12,7 @@
     "Stations 1 to 6 and 10 to 15 are closely spaced. If a load of 500 lb or more is carried, the adjacent stations cannot be used."
   ],
   "VPs": [ 8, 6, 4, 2 ],
-  "variantnotes": [
-    "Previously designated as AD-6.",
-    "Rocket extraction device (from 1967) gives -1 modifier when bailing out."
+  "notes": [
+    "From 1967, rocket extraction device gives -1 modifier when bailing out."
   ]
 }

@@ -1,4 +1,5 @@
 {
-  "typename": "RB-29A Superfortress",
+  "typename": "RB-29A",
+  "variantdescription": "Boeing RB-29A base version. Reconnaissance version of B-29A retaining full combat capability. WW2 type which also saw service in the Korean War.",
   "base": "B-29A"
 }

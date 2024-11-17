@@ -1,5 +1,7 @@
 {
-  "typename": "F-80C Shooting Star",
+  "typename": "F-80C",
+  "popularname": "Shooting Star",
+  "variantdescription": "Lockheed F-80C base variant, which saw service with the USAF in the Korean War. Originally designated P-80C.",
   "origin": "TSOH",
   "crew": [ "Pilot" ],
   "powertable": {

@@ -1,7 +1,6 @@
 {
-  "typename": "AD-6 Skyraider",
+  "typename": "AD-6",
+  "variantdescription": "Douglas AD-6 base variant. Later designated A-1H.",
   "base": "A-1H",
-  "variantnotes": [
-    "Later designated as A-1H"
-  ]
+  "notes": []
 }

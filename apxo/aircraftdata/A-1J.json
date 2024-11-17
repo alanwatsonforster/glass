@@ -1,9 +1,6 @@
 {
-  "typename": "A-1J Skyraider",
+  "typename": "A-1J",
+  "variantdescription": "Douglas A-1J base variant. Saw service with USAF, USN, USMC, and RVNAF in the Vietnam War. Originally designated AD-7.",
   "base": "A-1H",
-  "VPs": [ 8, 6, 4, 2 ],
-  "variantnotes": [
-    "Previously designated as AD-7.",
-    "Rocket extraction device (from 1967) gives -1 modifier when bailing out."
-  ]
+  "VPs": [ 8, 6, 4, 2 ]
 }
