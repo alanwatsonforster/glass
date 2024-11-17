@@ -950,6 +950,7 @@ writeadc("F2H-2B")
 writeadc("F2H-2P")
 writeadc("F2H-3")
 writeadc("F2H-3 (ATA Refueling)")
+writeadc("F2H-3 (RCN)")
 writeadc("F2H-4")
 writeadc("F2H-4 (ATA Refueling)")
 

@@ -1,0 +1,17 @@
+{
+  "name": "F2H-3 Banshee",
+  "variantname": "RCN",
+  "variantdescription": "F2H-3 in service with the RCN. AIM-9B IRMs can be carried on the outer stations 1 and 8, no wing-tip FTs are used, and AtA refueling is not available.",
+  "base": "F2H-3",
+  "internalfuel": 360,
+  "stations": [
+    [ "pair", [ 1, 8 ], 250, [ "BB", "RK", "IRM" ]],
+    [ "pair", [ 2, 7 ], 250, [ "BB", "RK" ]],
+    [ "pair", [ 3, 6 ], 250, [ "BB" ] ],
+    [ "pair", [ 4, 5 ], 500, [ "BB" ] ]
+  ],
+  "loadnotes": [
+    "Stations 3 and 4 and stations 5 and 6 are closely spaced. If a 500 lb bomb is carried on station 4 or 5, the adjacent station cannot be used.",
+    "May use AIM-9B IRMs."
+  ]
+}
