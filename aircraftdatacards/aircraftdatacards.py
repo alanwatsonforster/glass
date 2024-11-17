@@ -804,7 +804,6 @@ def blockG(data):
         stationidentifiers = station[1]
         stationlimit = station[2]
         stationloads = station[3]
-        print(stationtype, stationidentifiers, stationlimit, stationloads)
         if stationtype == "single":
           s += "%d" % stationidentifiers[0]
         elif stationtype == "pair":
