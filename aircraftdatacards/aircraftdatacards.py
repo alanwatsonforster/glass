@@ -973,6 +973,7 @@ writeadc("F-86F-10")
 writeadc("F-86F-25")
 writeadc("F-86F-35")
 writeadc("F-86F-40")
+writeadc("F-86H (Early)")
 
 if False:
 
@@ -982,7 +983,6 @@ if False:
     writeadc("Sabre 6")
 
     writeadc("F-86D")
-    writeadc("F-86H Early")
     writeadc("F-86H Late")
     writeadc("F-86K Early")
     writeadc("F-86K Late")

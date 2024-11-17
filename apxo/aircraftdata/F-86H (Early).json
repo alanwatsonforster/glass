@@ -1,5 +1,8 @@
 {
-  "name": "F-86H Sabre (Early)",
+  "name": "F-86H Sabre",
+  "variantname": "Early",
+  "variantdescription": "Early F-86H with unslatted 6-3 wing.",
+  "base": "F-86F-40",
   "origin": "APJ 25",
   "crew": [ "Pilot" ],
   "powertable": {
@@ -8,21 +11,10 @@
     "I"   : [ 0.5, 0.5, 1.0, 0.0 ],
     "SPBR": [ 1.0, 1.0, 2.0 ]
   },
-  "engines": 1,
   "cruisespeed": 5.5,
   "climbspeed" : 3.5,
-  "visibility": 5,
-  "sizemodifier": 0,
-  "vulnerability": 0,
-  "restrictedarcs": "",
-  "blindarcs": "30-",
   "internalfuel": 180,
-  "atarefuel": false,
   "ejectionseat": "standard",
-  "maneuvertable": {
-    "LR/DR": [ 1.0, 1.0 ],
-    "VR":    [ 0.0, 0.0 ]
-  },
   "turndragtable": {
     "TT": [ 1.0, 1.0, 1.0 ],
     "HT": [ 1.0, 1.0, 1.0 ],
@@ -47,12 +39,16 @@
   },
   "gun": "Four 20 mm M39",
   "gunatatohitrolls": "6/4/3",
-  "gunatadamagerating": 5,
+  "gundamagerating": "5/7*",
   "gunammunition": 3.5,
   "gunsightmodifiers": { "TT": 0, "HT": 1, "BT": 2 },
-  "ataradarranging": "RE",
-  "lockon": 7,
-  "storeslimits": [ 2, 6, 4400 ],  
   // Note: Not HTD.
-  "properties": []
+  "properties": [],
+  "storeslimits": [ 2, 6, 4400 ],  
+  "loadnotes": [
+    "Either stations 1 to 4 or stations 5 to 12 can be used.",
+    "Stations 5 to 12 can each carry two RKs.",
+    "From 1957, may use AIM-9B IRMs."
+  ],
+  "VPs": [ 12, 9, 4, 2 ]
 }
