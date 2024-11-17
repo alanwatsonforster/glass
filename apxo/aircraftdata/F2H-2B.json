@@ -11,7 +11,7 @@
   "loadnotes": [
     "The wing-tip stations 1 and 10 usually carry 200 gal (700L) FTs. They cannot be jettisoned in flight.",
     "Stations 4 and 5 and stations 6 and 7 are closely spaced. If a 500 lb bomb is carried on station 5 or 6, the adjacent station cannot be used.",
-    "As an exception to the normal loading rules, station 5 can also carry a Mk 7 (weight 1700 and load 3.5) or Mk 8 (weight 3300 and load 5.0) nuclear bomb."
+    "As an exception to the normal loading rules, a Mk 7 (weight 1700 and load 3.5) or Mk 8 (weight 3300 and load 5.0) nuclear bomb can be carried on station 5."
   ],
   "VPs": [ 9, 5, 3, 1 ]
 }
