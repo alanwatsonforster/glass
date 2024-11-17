@@ -903,6 +903,7 @@ writeadc("Tu-4")
 
 writetype("MiG-15 Fagot")  # 1949
 writeadc("MiG-15bis")
+writeadc("MiG-15P")
 
 writecountry("US Aircraft")
 

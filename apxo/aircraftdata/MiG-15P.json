@@ -1,8 +1,18 @@
 {
   "name": "MiG-15P Fagot",
   "base": "MiG-15bis",
+  "radar": { 
+    "name": "Scan Fix", 
+    "eccm": 0, 
+    "arc": "Limited", 
+    "searchrange": 10,
+    "searchstrength": 6,
+    "trackingrange": 6,
+    "trackingstrength": 6
+  },
+  "lockon": 5,
   "gun": "Two 23 mm",
-  "gunatadamagerating": 4,
+  "gundamagerating": "4/3*",
   "ataradarranging": "RE",
-  "lockon": 5
+  "VPs": [ 9, 6, 3, 1]
 }
