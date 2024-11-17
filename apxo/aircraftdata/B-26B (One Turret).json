@@ -3,7 +3,7 @@
   "base": "B-26B (Two Turrets)",
   "internalfuel": 620,
   "variantname": "One Turret",
-  "variantdescription": "This is a B-26B with a gun nose, nose and wing guns, only the dorsal turret, and extra fuel (40 fuel points). This variant was originally built for WW2 service in the Pacific, but also served in the Korean War.", 
+  "variantdescription": "B-26B with a gun nose, nose and wing guns, only the dorsal turret, and extra fuel (40 fuel points). Originally built for WW2 service in the Pacific, but also served in the Korean War.", 
   "notes": [
     "Gun Turret. This variant of the B-26 is equipped with a dorsal turret with two .50 cal M2 guns. The turret can fire in any direction at targets that are at the same altitude or higher. It may return fire twice per game turn in response to a gun attacks or conduct a single attack. As there is only one gunner, it may fire on only one aircraft per game turn. Roll to hit is 2/1/1 and AtA rating is 2."
   ]

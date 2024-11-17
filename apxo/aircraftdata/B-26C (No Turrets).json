@@ -1,7 +1,7 @@
 {
   "name": "B-26C Invader",
   "variantname": "No Turrets",
-  "variantdescription": "This is a B-26C with a glass nose, wing guns, no turrets, and with extra fuel (40 fuel points). This variant is typical of the B-26C in the 1960s.",
+  "variantdescription": "B-26C with a glass nose, wing guns, no turrets, and with extra fuel (40 fuel points). Typical of the B-26C in the 1960s.",
   "base": "B-26B (No Turrets)",
   "gun": "Six .50 cal M2",
   "gundamagerating": "4/4**",
