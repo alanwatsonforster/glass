@@ -890,6 +890,11 @@ writeadc("Meteor FR.9")
 writetype("Sea Fury")  # 1948
 writeadc("Sea Fury FB.11")
 
+writecountry("Canadian Aircraft")
+
+writeadc("Sabre 5")
+#writeadc("Sabre 6")
+
 writecountry("Soviet Union Aircraft")
 
 writetype("Yak-9 Frank")  # 1942
@@ -981,11 +986,6 @@ writeadc("F-86K (Late)")
 writeadc("F-86L")
 
 if False:
-
-    writecountry("Canadian Aircraft")
-
-    writeadc("Sabre 5")
-    writeadc("Sabre 6")
 
 
     writetype("B-52 Stratofortress")  # 1954
