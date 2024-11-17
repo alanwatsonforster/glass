@@ -969,7 +969,7 @@ writeadc("F9F-5P")
 writetype("F-86 Sabre")  # 1949
 writeadc("F-86A")
 writeadc("F-86E")
-writeadc("F-86F-15")
+writeadc("F-86F-10")
 writeadc("F-86F-25")
 
 if False:
