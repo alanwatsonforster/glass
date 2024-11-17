@@ -976,6 +976,7 @@ writeadc("F-86F-35")
 writeadc("F-86F-40")
 writeadc("F-86H (Early)")
 writeadc("F-86H (Late)")
+writeadc("F-86L")
 
 if False:
 
@@ -986,7 +987,6 @@ if False:
 
     writeadc("F-86K Early")
     writeadc("F-86K Late")
-    writeadc("F-86L")
 
     writetype("B-52 Stratofortress")  # 1954
     writeadc("B-52D")
