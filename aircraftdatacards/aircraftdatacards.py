@@ -945,7 +945,7 @@ writeadc("A-1H")
 writeadc("AD-7")
 writeadc("A-1J")
 
-writetype("F-84 Thundejet")  # 1947
+writetype("F-84 Thunderjet")  # 1947
 writeadc("F-84E")
 writeadc("F-84G")
 
