@@ -948,6 +948,7 @@ writetype("F2H Banshee")  # 1948
 writeadc("F2H-2")
 writeadc("F2H-2P")
 writeadc("F2H-2B")
+writeadc("F2H-2B (ATA Refueling)")
 writeadc("F2H-3")
 writeadc("F2H-3 (ATA Refueling)")
 writeadc("F2H-3 (RCN)")
