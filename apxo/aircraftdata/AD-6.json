@@ -1,6 +1,8 @@
 {
   "versionname": "AD-6",
-  "variantdescription": "Douglas AD-6 base variant. Later designated A-1H.",
+  "variantdescription": "Douglas AD-6 base variant.",
+  "subsequentlydesignated": "A-1H",
+  "originallydesignated": null,
   "base": "A-1H",
   "notes": []
 }

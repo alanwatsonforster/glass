@@ -709,6 +709,12 @@ def blockF(data):
     #    writelatex(r"\renewcommand{\Fu}{\Fua{%s}}" % data.service())
 
     s = ""
+    
+    if data.variantname() is not None:
+        s += "\item Variant: %s. %s." % (
+            data.fullvariantname(),
+            latexify(data.variantdescription())
+        )
 
     if len(data.properties()) != 0:
         for property in sorted(data.properties()):

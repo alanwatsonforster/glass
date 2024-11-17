@@ -1,6 +1,7 @@
 {
   "versionname": "A-1J",
-  "variantdescription": "Douglas A-1J base variant. Saw service with USAF, USN, USMC, and RVNAF in the Vietnam War. Originally designated AD-7.",
+  "variantdescription": "Douglas A-1J base variant. Saw service with USAF, USN, USMC, and RVNAF in the Vietnam War.",
+  "originallydesignated": "AD-7",
   "base": "A-1H",
   "VPs": [ 8, 6, 4, 2 ]
 }

@@ -2,7 +2,8 @@
   "versionname": "F-80C",
   "popularname": "Shooting Star",
   "manufacturername": "Lockheed",
-  "variantdescription": "Lockheed F-80C base variant, which saw service with the USAF in the Korean War. Originally designated P-80C.",
+  "variantdescription": "Lockheed F-80C base variant, which saw service with the USAF in the Korean War.",
+  "originallydesignated": "P-80C",
   "origin": "TSOH",
   "crew": [ "Pilot" ],
   "powertable": {

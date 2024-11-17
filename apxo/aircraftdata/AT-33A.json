@@ -1,6 +1,7 @@
 {
   "versionname": "AT-33A",
   "variantdescription": "Lockheed AT-33A base variant. T-33A converted for close support.",
+  "originallydesignated": null,
   "base": "F-80C",
   "crew": [ "Pilot", "Copilot" ],
   "gun": "Two .50 cal M3",

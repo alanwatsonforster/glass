@@ -1,6 +1,7 @@
 {
   "versionname": "A-1E",
-  "variantdescription": "Douglas A-1E base variant. Saw service with USAF, USN, USMC, and RVNAF in the Vietnam War. Originally designated AD-5.",
+  "variantdescription": "Douglas A-1E base variant. Saw service with USAF, USN, USMC, and RVNAF in the Vietnam War.",
+  "originallydesignated": "AD-5",
   "base": "A-1H",
   "crew": [ "Pilot", "Copilot" ],
   "powertable": {

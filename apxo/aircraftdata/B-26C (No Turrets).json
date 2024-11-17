@@ -1,7 +1,8 @@
 {
   "versionname": "B-26C",
   "variantname": "No Turrets",
-  "variantdescription": "Douglas B-26C with a glass nose, wing guns, no turrets, and with extra fuel (40 fuel points). Served with the USAF in the Vietnam War. Originally designated A-26C.",
+  "variantdescription": "Douglas B-26C with a glass nose, wing guns, no turrets, and with extra fuel (40 fuel points). Served with the USAF in the Vietnam War.",
+  "originallydesignated": "A-26C",
   "base": "B-26B (No Turrets)",
   "gun": "Six .50 cal M2",
   "gundamagerating": "4/4**",
