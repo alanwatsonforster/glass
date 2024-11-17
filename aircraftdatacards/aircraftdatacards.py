@@ -912,7 +912,6 @@ writetype("P-51/F-51 Mustang")  # Jan 1942 with RAF
 writeadc("F-51D")
 writeadc("RF-51D")
 
-
 writetype("F4U/AU Corsair")  # December 1942 with USCMC
 writeadc("F4U-5")
 writeadc("AU-1")
@@ -967,6 +966,8 @@ writeadc("F9F-2P")
 writeadc("F9F-5")
 writeadc("F9F-5P")
 
+writetype("F-86 Sabre")  # 1949
+writeadc("F-86A")
 
 if False:
 

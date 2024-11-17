@@ -6,7 +6,7 @@
     "M"   : [ 1.0, 1.0, 1.0, 1.0 ],
     "N"   : [ 0.0, 0.0, 0.0, 0.5 ],
     "I"   : [ 0.5, 0.5, 1.0, 0.0 ],
-    "SPBR": [ 1.0, 1.0, 2.0 ]
+    "SPBR": [ 0.5, 0.5, 1.0 ]
   },
   "engines": 1,
   "cruisespeed": 5.0,
@@ -53,11 +53,19 @@
     "ML": [ [ "-", 1.0 ], [ "-", 1.0 ], [ "-", 1.0 ] ],
     "LO": [ [ "-", 1.0 ], [ "-", 1.0 ], [ "-", 1.0 ] ]
   },
-  "gun": "Six .50 cal",
+  "gun": "Six .50 cal M3",
   "gunatatohitrolls": "6/3/0",
-  "gunatadamagerating": 4,
+  "gundamagerating": "4/4**",
   "gunammunition": 7.0,
   "gunsightmodifiers": { "TT": 0, "HT": 1, "BT": 2 },
+  "properties": [ "HTD" ],
+  "notes": [
+     "Gun attacks at high transonic speed or greater in HI or higher altitude bands have a +1 modifier to the hit roll due to instability."
+  ],
   "storeslimits": [ 2, 6, 2000 ],  
-  "properties": [ "HTD" ]
+  "stations": [
+    [ "pair", [ 1, 2 ], 1000, [ "BB", "FT" ]]
+  ],
+  "VPs": [ 8, 5, 3, 1 ],
+  "wikiurl": "https://bit.ly/3Oac9B5"
 }
