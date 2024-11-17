@@ -1,5 +1,6 @@
 {
-  "typename": "Il-10 Beast",
+  "typename": "Il-10",
+  "variantdescription": "Ilyushin Il-10 base variant. NATO reporting name is Beast.",
   "origin": "APJ 50",
   "crew": [ "Pilot", "Gunner" ],
   "powertable": {
@@ -65,7 +66,6 @@
   "properties": [ "LBR", "HTD" ],
   "powerfadespeedtable": [ [2.0, 0.5] ],
   "notes": [
-    "NATO reporting name is Beast.",
     "Defensive Gun. Equipped with one ventral 12.7 mm UBT gun able to fire into the 60- arc. It may return fire twice per game turn in response to a gun attacks or conduct a single attack. The roll to hit is 2/1/1 and the AtA rating is 1. Gun attacks are modified only by the target size. Ammunition is 5.0."
     
   ],

@@ -14,7 +14,7 @@
   },
   "gun": "Four 20 mm M3",
   "ataradarranging": "RE",
-  "radar": { "typename": "APG-30" },
+  "radar": { "name": "APG-30" },
   "lockon": 6,
   "storeslimits": [ 8, 12, 3600 ],
   "stations": [

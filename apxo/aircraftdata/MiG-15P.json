@@ -1,8 +1,9 @@
 {
-  "typename": "MiG-15P Fagot",
+  "typename": "MiG-15P",
+  "variantdescription": "Mikoyan-Gurevich MiG-15P base version. Prototype all-weather interceptor with the RP-1 Izumrud radar. NATO reporting name Scan Fix for radar.",
   "base": "MiG-15bis",
   "radar": { 
-    "typename": "Scan Fix", 
+    "name": "RP-1 Izumrud", 
     "eccm": 0, 
     "arc": "Limited", 
     "searchrange": 10,
@@ -11,7 +12,7 @@
     "trackingstrength": 6
   },
   "lockon": 5,
-  "gun": "Two 23 mm",
+  "gun": "Two 23 mm NR-23",
   "gundamagerating": "4/3*",
   "ataradarranging": "RE",
   "VPs": [ 9, 6, 3, 1]

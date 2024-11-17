@@ -55,7 +55,7 @@
     "LO": [ [ 2.0, 1.0 ], [ 1.5, 1.0 ], [ 1.5, 1.0 ] ]
   },
   "radar": {
-    "typename": "APG-36",
+    "name": "APG-36",
     "eccm": 0,
     "arc": "180+",
     "searchrange": 70,

@@ -893,7 +893,7 @@ writeadc("Sabre Mk.6")
 
 writecountry("Soviet Union Aircraft")
 
-writetype("Yak-9 Frank")  # 1942
+writetype("Yak-9")  # 1942
 writeadc("Yak-9D")
 
 writetype("Il-10 Beast")  # 1944

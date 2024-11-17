@@ -1,5 +1,6 @@
 {
-  "typename": "MiG-15bis Fagot-B",
+  "typename": "MiG-15bis",
+  "variantdescription": "Mikoyan-Gurevich MiG-15bis base version. NATO reporting name is Fagot-B.",
   "origin": "TSOH",
   "crew": [ "Pilot" ],
   "powertable": {
@@ -59,7 +60,6 @@
   "properties": [ "HTD", "LRRHS" ],
   "LRRHSlimit": 5.0,
   "notes": [
-     "NATO reporting name is Fagot-B.",
      "Gun attacks at high transonic speed or greater have a +1 modifier to the hit roll due to instability."
   ],
   "wikiurl": "https://bit.ly/4fx3FzO"

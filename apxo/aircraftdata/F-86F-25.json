@@ -45,7 +45,7 @@
     "ML": [ [ "-", 1.5 ], [ "-", 1.0 ], [ "-", 1.0 ] ],
     "LO": [ [ "-", 1.5 ], [ "-", 1.5 ], [ "-", 1.0 ] ]
   },
-  "radar": { "typename": "APG-30" },
+  "radar": { "name": "APG-30" },
   "lockon": 6,
   "gun": "Six .50 cal M3",
   "gunatatohitrolls": "6/3/0",

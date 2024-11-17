@@ -73,7 +73,7 @@ class aircraftdata:
         if "variantdescription" in self._data:
             return self._data["variantdescription"]
         else:
-            return None
+            return "%s base variant." % self.typename()
 
     def crew(self):
         return self._data["crew"]

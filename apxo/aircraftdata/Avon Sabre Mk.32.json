@@ -1,5 +1,6 @@
 {
   "typename": "Avon Sabre Mk.32",
+  "variantdescription": "CAC Avon Sabre Mk.32 base variant.",
   "origin": "APJ 25",
   "crew": [ "Pilot" ],
   "powertable": {
@@ -52,7 +53,7 @@
   "gunsightmodifiers": { "TT": 0, "HT": 1, "BT": 2 },
   "ataradarranging": "RE",
   "radar": {
-    "typename": "APG-56",
+    "name": "APG-56",
     "eccm": 0,
     "arc": "Limited",
     "searchrange": null,

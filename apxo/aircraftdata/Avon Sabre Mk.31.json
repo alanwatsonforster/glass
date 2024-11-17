@@ -1,7 +1,7 @@
 {
   "typename": "Avon Sabre Mk.31",
   "base": "Avon Sabre Mk.32",
-  "variantdescription": "Avon Sabre Mk.31 base variant with only two stations and without IRMs.",
+  "variantdescription": "CAC Avon Sabre Mk.31 base variant, with only two stations and without IRMs.",
   "storeslimits": [ 2, 6, 2000 ],
   "stations": [
     [ "pair"     , [ 1, 2 ]       , 1000, [ "BB", "FT" ] ]

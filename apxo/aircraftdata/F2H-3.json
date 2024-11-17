@@ -52,7 +52,7 @@
   "gunsightmodifiers": { "TT": 0, "HT": 1, "BT": 2 },
   "ataradarranging": "RE",
   "radar": {
-    "typename": "APQ-41",
+    "name": "APQ-41",
     "eccm": 0,
     "arc": "180+",
     "searchrange": 32,
