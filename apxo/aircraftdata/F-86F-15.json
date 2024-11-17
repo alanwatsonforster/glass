@@ -14,5 +14,6 @@
   "lockon": 6,
   "ataradarranging": "RE",
   "ecm": { "iff": true },
-  "notes": []
+  "notes": [],
+  "VPs": [ 9, 6, 3, 1]
 }
