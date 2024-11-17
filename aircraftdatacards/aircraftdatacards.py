@@ -968,6 +968,7 @@ writeadc("F9F-5P")
 
 writetype("F-86 Sabre")  # 1949
 writeadc("F-86A")
+writeadc("F-86E")
 
 if False:
 
@@ -976,10 +977,7 @@ if False:
     writeadc("Sabre 5")
     writeadc("Sabre 6")
 
-    writetype("F-86 Sabre")
-    writeadc("F-86A")
     writeadc("F-86D")
-    writeadc("F-86E")
     writeadc("F-86F-25")
     writeadc("F-86F-35")
     writeadc("F-86F-40")
