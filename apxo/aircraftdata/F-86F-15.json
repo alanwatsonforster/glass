@@ -1,5 +1,5 @@
 {
-  "name": "F-86F Sabre",
+  "name": "F-86F-15 Sabre",
   "base": "F-86A",
   "ceilingtable": [ 48, 45, 42 ],
   "climbcapabilitytable": {
@@ -8,11 +8,11 @@
     "HI": [ [ "-", 1.0 ], [ "-", 0.5 ], [ "-", 0.5 ] ],
     "MH": [ [ "-", 1.0 ], [ "-", 1.0 ], [ "-", 0.5 ] ],
     "ML": [ [ "-", 1.5 ], [ "-", 1.0 ], [ "-", 1.0 ] ],
-    "LO": [ [ "-", 1.5 ], [ "-", 1.0 ], [ "-", 1.0 ] ]
+    "LO": [ [ "-", 1.5 ], [ "-", 1.5 ], [ "-", 1.0 ] ]
   },
-  "ataradarranging": "RE",
+  "radar": { "name": "APG-30" },
   "lockon": 6,
-  "notes": [
-    "F-1 to F-15 models."
-  ]
+  "ataradarranging": "RE",
+  "ecm": { "iff": true },
+  "notes": []
 }
