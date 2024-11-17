@@ -49,7 +49,7 @@
   "lockon": 6,
   "gun": "Six .50 cal M3",
   "gunatatohitrolls": "6/3/0",
-  "gundamagerating": "4/4",
+  "gundamagerating": "4/4**",
   "gunammunition": 7.0,
   "gunsightmodifiers": { "TT": 0, "HT": 1, "BT": 2 },
   "ataradarranging": "RE",
