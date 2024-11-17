@@ -1,7 +1,5 @@
 {
-  "typename": "A-26A Counter-Invader",
+  "typename": "A-26A",
   "base": "B-26K",
-  "variantnotes": [
-    "Previously designated as A-26A."
-  ]
+  "variantdescription": "Upgraded B-26B/TB-26B/B-26C aircraft with gun-nose and eight nose guns, but without wing guns. Served with USAF in the Vietnam War. Originally designated B-26K."
 }

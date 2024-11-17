@@ -1,5 +1,7 @@
 {
-  "typename": "B-26K Counter-Invader",
+  "typename": "B-26K",
+  "popularname": "Counter-Invader",
+  "variantdescription": "Upgraded B-26B/TB-26B/B-26C aircraft with gun-nose and eight nose guns, but without wing guns. Served with USAF in the Vietnam War. Later designated A-26A.",
   "origin": "APJ 51",
   "crew": [ "Pilot", "Navigator", "Observer" ],
   "powertable": {
@@ -69,7 +71,6 @@
      "Later designated as A-26A."
   ],
   "notes": [
-    "Upgraded B-26B/TB-26B/B-26C aircraft with gun-nose and eight nose guns, but without wing guns.",
     "When the internal fuel is more than 620 fuel points, the fixed wing-tip tanks are in use and the vulnerability is +0.",
     "Bomb system is ballistic (-1) if doing level bombing from four or more altitude levels above the target."
   ],
