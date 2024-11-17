@@ -1,5 +1,6 @@
 {
-  "typename": "AU-1 Corsair",
+  "typename": "AU-1",
+  "variantdescription": "Vought AU-1 base version. Attack aircraft which saw service with the USMC in the Korean War. Similar to F4U-5 but with armor, oil coolers relocated to reduce vulnerability, simplified superchargers, and two additional weapon racks.",
   "base": "F4U-5",
   "ceilingtable": [ 41, 31, 20 ],
   "vulnerability": 2,
@@ -22,8 +23,5 @@
   "loadnotes": [
     "Stations 1 to 5 and 9 to 13 can each carry two RK, one 100 lb bomb, or one 250 lb bomb. As the stations are closely spaced, if 250 lb bombs are carried, the adjacent stations may not be used."
   ],
-  "VPs": [ 7, 5, 3, 1 ],
-  "variantnotes": [
-    "Attack variant for USMC, with armor, oil coolers relocated to reduce vulnerability, simplified superchargers, and two additional weapon racks."
-   ]
+  "VPs": [ 7, 5, 3, 1 ]
 }

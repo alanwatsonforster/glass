@@ -1,5 +1,7 @@
 {
-  "typename": "F4U-5 Corsair",
+  "typename": "F4U-5",
+  "popularname": "Corsair",
+  "variantdescription": "Vought F4U-5 base variant. Post-WW2 type which saw service with the USN and USMC in the Korean War.",
   "origin": "APJ 32",
   "crew": [ "Pilot" ],
   "powertable": {
