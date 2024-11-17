@@ -901,6 +901,9 @@ writeadc("Il-10")
 writetype("Tu-4 Bull")  # 1947
 writeadc("Tu-4")
 
+writetype("MiG-15 Fagot")  # 1949
+writeadc("MiG-15bis")
+
 writecountry("US Aircraft")
 
 writetype("P-51/F-51 Mustang")  # Jan 1942 with RAF
