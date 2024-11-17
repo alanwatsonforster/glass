@@ -1,8 +1,8 @@
 {
   "name": "Avon Sabre Mk.31",
   "variantname": "Late",
-  "variantdescription": "This is a late Avon Sabre Mk.31, from 1960, with additional stations for IRMs.",
-  "base": "Avon Sabre Mk.31",
+  "variantdescription": "Late Avon Sabre Mk.31, from 1960, with four stations and IRMs.",
+  "base": "Avon Sabre Mk.31 (Early)",
   "storeslimits": [ 2, 6, 2000 ],
   "stations": [
     [ "pair"     , [ 1, 4 ]       , 1000, [ "BB", "FT" ] ],
