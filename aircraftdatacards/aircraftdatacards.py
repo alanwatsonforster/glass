@@ -696,13 +696,6 @@ def blockF(data):
         s = " ".join(data.technology())
         writelatex(r"\renewcommand{\Fs}{%s}" % s)
 
-    writelatex(r"\renewcommand{\Fta}{%s}" % data.manufacturername())
-    writelatex(r"\renewcommand{\Ftb}{%s}" % data.fullvariantname())
-    if data.variantdescription() is None:
-        writelatex(r"\renewcommand{\Ftc}{}")
-    else:
-        writelatex(r"\renewcommand{\Ftc}{%s}" % data.variantdescription())
-
     s = ""
     
     if data.versiondescription() is not None or data.variantdescription() is not None:
@@ -792,9 +785,9 @@ def blockF(data):
         )
         
     if s == "":
-        writelatex(r"\renewcommand{\Fv}{}")
+        writelatex(r"\renewcommand{\Ft}{}")
     else:
-        writelatex(r"\renewcommand{\Fv}{\Fva{%s}}" % s)
+        writelatex(r"\renewcommand{\Ft}{\Fta{%s}}" % s)
 
 
 def blockG(data):
