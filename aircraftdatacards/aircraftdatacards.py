@@ -698,24 +698,25 @@ def blockF(data):
 
     s = ""
     
-    if data.versiondescription() is not None or data.variantdescription() is not None:
-        s += r"\item"
-        if data.versiondescription() is not None:
-            s+= r" %s" % latexify(data.versiondescription())
-        if data.variantdescription() is not None:
-            s += r" %s variant %s" % (
+    descriptiontext = ""
+    if data.versiondescription() is not None:
+        descriptiontext += r" %s" % latexify(data.versiondescription())
+    if data.variantdescription() is not None:
+        descriptiontext += r" %s variant %s" % (
                 data.fullvariantname(),
                 latexify(data.variantdescription())
             )
-
     if data.originallydesignated() is not None:
-        s += "\\item Originally designated %s.\n\n" % (latexify(data.originallydesignated()))
+        descriptiontext += " Originally designated %s." % (latexify(data.originallydesignated()))
     if data.previouslydesignated() is not None:
-        s += "\\item Previously designated %s.\n\n" % (latexify(data.previouslydesignated()))
+        descriptiontext += " Previously designated %s." % (latexify(data.previouslydesignated()))
     if data.subsequentlydesignated() is not None:
-        s += "\\item Subsequently designated %s.\n\n" % (latexify(data.subsequentlydesignated()))
+        descriptiontext += " Subsequently designated %s." % (latexify(data.subsequentlydesignated()))
     if data.natoreportingname() is not None:
-        s += "\\item NATO reporting name is %s.\n\n" % (latexify(data.natoreportingname()))
+        descriptiontext += " NATO reporting name is %s." % (latexify(data.natoreportingname()))
+        
+    if descriptiontext != "":
+        s += "\\item %s\n\n" % descriptiontext
 
     if len(data.properties()) != 0:
         for property in sorted(data.properties()):
