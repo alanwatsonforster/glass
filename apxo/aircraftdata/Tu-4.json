@@ -1,5 +1,7 @@
 {
   "versionname": "Tu-4",
+  "versiondescription": "Conventional bomber version. Reverse engineered from interned B-29s.",
+  "popularname": null,
   "manufacturername": "Tupolev",
   "natoreportingname": "Bull",
   "base": "B-29A",
