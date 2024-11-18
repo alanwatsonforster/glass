@@ -62,9 +62,9 @@
     "searchrange": 32,
     "searchstrength": 8,
     "trackingrange": 24,
-    "trackingstrength": 6
+    "trackingstrength": 6,
+    "lockon": 5
   },
-  "lockon": 5,
   "ecm": { "iff": true },
   "storeslimits": [ 8, 12, 4200 ],
   "stations": [

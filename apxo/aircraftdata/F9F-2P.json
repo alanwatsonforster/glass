@@ -4,7 +4,6 @@
   "base": "F9F-2",
   "gun": "",
   "radar": null,
-  "lockon": null,
   "ataradarranging": null,
   "VPs": [ 7, 4, 2, 1 ]
 }

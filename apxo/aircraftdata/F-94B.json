@@ -55,7 +55,8 @@
     "searchrange": 60,
     "searchstrength": 10,
     "trackingrange": 30,
-    "trackingstrength": 8
+    "trackingstrength": 8,
+    "lockon": 7
   },
   "gun": "Four .50 cal M3",
   "gunatatohitrolls": "6/3/0",
@@ -63,7 +64,6 @@
   "gunammunition": 8.0,
   "gunsightmodifiers": { "TT": 0, "HT": 1, "BT": 2 },
   "ataradarranging": "RE",
-  "lockon": 7,
   "ecm": { "iff": true },
   "properties": [ "HTD", "SMP" ],
   "notes": [

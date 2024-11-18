@@ -49,14 +49,16 @@
     "ML": [ [ "-", 1.0 ], [ "-", 1.0 ], [ "-", 0.5 ] ],
     "LO": [ [ "-", 1.5 ], [ "-", 1.0 ], [ "-", 0.5 ] ]
   },
-  "radar": { "name": "APG-30" },
+  "radar": { 
+    "name": "APG-30",
+    "lockon": 6
+   },
   "gun": "Six .50 cal M3",
   "gunatatohitrolls": "6/3/0",
   "gundamagerating": "4/4**",
   "gunammunition": 8.0,
   "gunsightmodifiers": { "TT": 0, "HT": 1, "BT": 2 },
   "ataradarranging": "RE",
-  "lockon": 6,
   "ecm": { "iff": true },
   "storeslimits": [ 4, 12, 4500 ],
   "stations": [

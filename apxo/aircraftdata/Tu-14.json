@@ -51,9 +51,9 @@
     "eccm": 0,
     "arc": "180+",
     "searchrange": 90,
-    "trackingrange": 45
+    "trackingrange": 45,
+    "lockon": 6
   },
-  "lockon": 6,
   "gun": "Two 23 mm NR-23",
   "gunatatohitrolls": "3/2/1",
   "gundamagerating": "4/3",

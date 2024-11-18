@@ -218,4 +218,4 @@ def ataradarrangingtype(A):
 
 
 def lockon(A):
-    return A._aircraftdata.lockon()
+    return A._aircraftdata.radar("lockon")

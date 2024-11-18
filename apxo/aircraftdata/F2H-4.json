@@ -18,8 +18,8 @@
     "searchrange": 70,
     "searchstrength": 10,
     "trackingrange": 40,
-    "trackingstrength": 8
+    "trackingstrength": 8,
+    "lockon": 6
   },
-  "lockon": 6,
   "VPs": [ 12, 8, 4, 2 ]
 }

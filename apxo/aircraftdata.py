@@ -436,12 +436,7 @@ class aircraftdata:
             return None
 
     def lockon(self):
-        if "lockon" not in self._data:
-            return None
-        elif self._data["lockon"] is None:
-            return None
-        else:
-            return self._data["lockon"]
+        return self.radar("lockon")
 
     def bombsystem(self):
         if "bombsystem" in self._data:
@@ -863,8 +858,8 @@ class aircraftdata:
                     str("  %s %+d" % (turnrate, self.gunsightmodifier(turnrate)))
         if self.ataradarrangingtype() is not None:
             str("ATA Radar-ranging: %s" % self.ataradarrangingtype())
-        if self.lockon() is not None:
-            str("ATA Lock-On: %d" % self.lockon())
+        if self.radar("lockon") is not None:
+            str("ATA Lock-On: %d" % self.radar("lockon"))
 
         str("")
 

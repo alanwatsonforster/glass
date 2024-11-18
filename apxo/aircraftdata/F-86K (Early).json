@@ -19,14 +19,22 @@
     "HT": [ 1.0, 1.0, 1.0 ],
     "BT": [ 2.0, 2.0, 2.0 ]
   },
-  "lockon": 7,
+  "radar": {
+    "name": "APG-36",
+    "eccm": 0,
+    "arc": "180+",
+    "searchrange": 70,
+    "searchstrength": 10,
+    "trackingrange": 40,
+    "trackingstrength": 8,
+    "lockon": 7
+  },
   "gun": "Four 20 mm M24",
   "gunatatohitrolls": "6/4/3",
   "gundamagerating": "5/7*",
   "gunammunition": 3.0,
   "gunsightmodifiers": { "TT": 0, "HT": 1, "BT": 2 },
   "ataradarranging": "RE",
-  "lockon": 7,
   "technology": [],
   "notes": [],
   "stations": [

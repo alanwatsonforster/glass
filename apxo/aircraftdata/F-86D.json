@@ -51,9 +51,9 @@
     "searchrange": 70,
     "searchstrength": 10,
     "trackingrange": 40,
-    "trackingstrength": 8
+    "trackingstrength": 8,
+    "lockon": 6
   },
-  "lockon": 6,
   "gun": "",
   "gunsightmodifiers": { "TT": 0, "HT": 1, "BT": 2 },
   "ataradarranging": "RE",

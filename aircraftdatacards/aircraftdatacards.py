@@ -588,7 +588,7 @@ def blockF(data):
         writelatex(r"\renewcommand{\Fc}{---}")
         writelatex(r"\renewcommand{\Fd}{---}")
         writelatex(r"\renewcommand{\Fe}{---}")
-        writelatex(r"\renewcommand{\Ff}{%d}" % data.lockon())
+        writelatex(r"\renewcommand{\Ff}{%d}" % data.radar("lockon"))
     elif data.radar("trackingstrength") is None:
         # air-to-ground radar
         writelatex(r"\renewcommand{\Fa}{%s}" % data.radar("name"))
@@ -602,7 +602,7 @@ def blockF(data):
             r"\renewcommand{\Fe}{Gr.~Attack~ (%d)}"
             % data.radar("trackingrange")
         )
-        writelatex(r"\renewcommand{\Ff}{\phantom{*}%d*}" % data.lockon())
+        writelatex(r"\renewcommand{\Ff}{\phantom{*}%d*}" % data.radar("lockon"))
     elif data.radar("searchstrength") is None:
         # air-to-air radar without normal search capability
         writelatex(r"\renewcommand{\Fa}{%s}" % data.radar("name"))
@@ -613,7 +613,7 @@ def blockF(data):
             r"\renewcommand{\Fe}{%d--%d}"
             % (data.radar("trackingrange"), data.radar("trackingstrength"))
         )
-        writelatex(r"\renewcommand{\Ff}{%d}" % data.lockon())
+        writelatex(r"\renewcommand{\Ff}{%d}" % data.radar("lockon"))
     else:
         # air-to-air radar with normal search capability
         writelatex(r"\renewcommand{\Fa}{%s}" % data.radar("name"))
@@ -627,7 +627,7 @@ def blockF(data):
             r"\renewcommand{\Fe}{%d--%d}"
             % (data.radar("trackingrange"), data.radar("trackingstrength"))
         )
-        writelatex(r"\renewcommand{\Ff}{%d}" % data.lockon())
+        writelatex(r"\renewcommand{\Ff}{%d}" % data.radar("lockon"))
 
     if data.gun() is None:
         writelatex(r"\renewcommand{\Fg}{---}")
