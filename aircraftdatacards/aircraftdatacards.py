@@ -708,6 +708,15 @@ def blockF(data):
                 latexify(data.variantdescription())
             )
 
+    if data.originallydesignated() is not None:
+        s += "\\item Originally designated %s.\n\n" % (latexify(data.originallydesignated()))
+    if data.previouslydesignated() is not None:
+        s += "\\item Previously designated %s.\n\n" % (latexify(data.previouslydesignated()))
+    if data.subsequentlydesignated() is not None:
+        s += "\\item Subsequently designated %s.\n\n" % (latexify(data.subsequentlydesignated()))
+    if data.natoreportingname() is not None:
+        s += "\\item NATO reporting name is %s.\n\n" % (latexify(data.natoreportingname()))
+
     if len(data.properties()) != 0:
         for property in sorted(data.properties()):
             if property == "ABSF" or property == "SMP":
@@ -767,17 +776,7 @@ def blockF(data):
         s += "\\item %s\n\n" % (latexify(note))
 
     for note in data.variantnotes():
-        s += "\\item %s\n\n" % (latexify(note))
-        
-    if data.originallydesignated() is not None:
-        s += "\\item Originally designated %s.\n\n" % (latexify(data.originallydesignated()))
-    if data.previouslydesignated() is not None:
-        s += "\\item Previously designated %s.\n\n" % (latexify(data.previouslydesignated()))
-    if data.subsequentlydesignated() is not None:
-        s += "\\item Subsequently designated %s.\n\n" % (latexify(data.subsequentlydesignated()))
-    if data.natoreportingname() is not None:
-        s += "\\item NATO reporting name is %s.\n\n" % (latexify(data.natoreportingname()))
-    
+        s += "\\item %s\n\n" % (latexify(note))    
 
     if data.wikiurl() is not None:
         s += "\\item \\href{\\detokenize{%s}}{ADC page on GitHub}.\n\n" % (
