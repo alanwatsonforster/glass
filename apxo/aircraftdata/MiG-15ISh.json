@@ -1,6 +1,6 @@
 {
   "versionname": "MiG-15ISh",
-  "versiondescription": "Prototype attack version, developed from the MiG-15bis and with two additional tandem wing stations.",
+  "versiondescription": "Prototype close air support version, developed from the MiG-15bis and with two additional tandem wing stations.",
   "base": "MiG-15bis",
   "natoreportingname": null,
   "stations": [
