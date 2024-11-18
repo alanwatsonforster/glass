@@ -1,4 +1,8 @@
 {
-  "versionname": "F-94A Starfire",
-  "base": "F-94B"
+  "versionname": "F-94A",
+  "base": "F-94B",
+  "loadnotes": [
+    "The wing-tip stations 1 and 4 usually carry 165 gal (600L) FTs, each with a weight of 1100, 3.0/2.0 load points, and 50 fuel points.",
+    "If bombs are carried on stations 2 and 3 in addition to FTs, the fuel carried must be reduced to meet the maximum take-off weight requirements. Each 20 lb of bombs requires a reduction in the fuel carried of 1 fuel point."
+  ]
 }

@@ -994,6 +994,10 @@ writeadc("F-86K (Early)")
 writeadc("F-86K (Late)")
 writeadc("F-86L")
 
+writetype("F-94 Starfire")  # May 1950
+writeadc("F-94A")
+writeadc("F-94B")
+
 if False:
 
 
