@@ -1,13 +1,11 @@
 {
   "versionname": "F2H-2P",
+  "versiondescription": "Reconnaissance version of the F2H-2, with oblique and overhead cameras.",
   "variantname": null,
   "base": "F2H-2",
   "gun": "",
   "radar": null,
   "lockon": null,
   "ataradarranging": null,
-  "VPs": [ 8, 5, 3, 1 ],
-  "notes": [
-    "Oblique and overhead cameras."
-  ]
+  "VPs": [ 8, 5, 3, 1 ]
 }

@@ -710,11 +710,15 @@ def blockF(data):
 
     s = ""
     
-    if data.variantname() is not None:
-        s += "\item %s variant %s" % (
-            data.fullvariantname(),
-            latexify(data.variantdescription())
-        )
+    if data.versiondescription() is not None or data.variantdescription() is not None:
+        s += r"\item"
+        if data.versiondescription() is not None:
+            s+= r" %s" % latexify(data.versiondescription())
+        if data.variantdescription() is not None:
+            s += r" %s variant %s" % (
+                data.fullvariantname(),
+                latexify(data.variantdescription())
+            )
 
     if len(data.properties()) != 0:
         for property in sorted(data.properties()):
@@ -730,7 +734,7 @@ def blockF(data):
                 # Noted in maneuver section.
                 pass
             else:
-                s += "\\item "
+                s += r"\item "
                 if property == "GSSM":
                     s += r"Good supersonic maneuverability (GSSM). "
                 elif property == "HAE":

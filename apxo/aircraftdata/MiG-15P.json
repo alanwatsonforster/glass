@@ -1,5 +1,6 @@
 {
   "versionname": "MiG-15P",
+  "versiondescription": "Prototype all-weather interceptor version, developed from the MiG-15bis and with the RP-1 Izumrud (Scan Fix) radar.",
   "base": "MiG-15bis",
   "natoreportingname": null,
   "radar": { 

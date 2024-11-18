@@ -1,9 +1,11 @@
 {
   "versionname": "B-26K",
+  "versiondescription": "B-26B/TB-26B/B-26C upgraded by On Mark Engineering with gun-nose and eight nose guns, but without wing guns.",
   "popularname": "Counter-Invader",
   "subsequentlydesignated": "A-26A",
   "originallydesignated": null,
   "origin": "APJ 51",
+  "variantdescription": null,
   "base": "B-26B (No Turrets)",
   "crew": [ "Pilot", "Navigator", "Observer" ],
   "powertable": {

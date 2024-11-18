@@ -1,6 +1,6 @@
 {
   "versionname": "F9F-5P",
-  "variantname": null,
+  "versiondescription": "Reconnaissance version of F9F-5, with oblique and overhead cameras.",
   "base": "F9F-5",
   "gun": "",
   "radar": null,

@@ -1,5 +1,6 @@
 {
   "versionname": "F-86L",
+  "versiondescription": "All-weather intercepter version with slatted 6-3 wing.",
   "base": "F-86D",
   "origin": "APJ 25",
   "lowspeedliftdevicename": null,

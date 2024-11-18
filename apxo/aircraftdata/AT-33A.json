@@ -1,5 +1,6 @@
 {
   "versionname": "AT-33A",
+  "versiondescription": "Close air support version of the T-33A.",
   "originallydesignated": null,
   "base": "F-80C",
   "crew": [ "Pilot", "Copilot" ],

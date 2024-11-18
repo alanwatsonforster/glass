@@ -1,6 +1,7 @@
 {
   "versionname": "F-86K",
   "variantname": "Early",
+  "versiondescription": "All-weather intercepter version.",
   "variantdescription": "with original slatted wing.",
   "base": "F-86D",
   "origin": "APJ 25",

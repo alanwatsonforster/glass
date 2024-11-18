@@ -1,5 +1,6 @@
 {
   "versionname": "RF-80C",
+  "versiondescription": "Reconnaisance version of F-80C.",
   "originallydesignated": null,
   "base": "F-80C",
   "gun": "",

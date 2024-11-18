@@ -1,5 +1,6 @@
 {
   "versionname": "F-86H",
+  "versiondescription": "Fighter-bomber and nuclear strike version.",
   "variantname": "Early",
   "variantdescription": "with unslatted 6-3 wing.",
   "base": "F-86F-40",

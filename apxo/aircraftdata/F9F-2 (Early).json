@@ -3,7 +3,7 @@
   "popularname": "Panther",
   "manufacturername": "Grumman",
   "variantname": "Early",
-  "variantdescription": "only with rails for six HVARs.",
+  "variantdescription": "with outer-wing stations capable of carrying only six HVARs.",
   "origin": "TSOH",
   "crew": [ "Pilot" ],
   "powertable": {

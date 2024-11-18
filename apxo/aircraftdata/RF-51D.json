@@ -1,12 +1,10 @@
 {
   "versionname": "RF-51D",
+  "versiondescription": "Reconnaissance version of the F-51D with two K-24 cameras, one oblique facing left and one overhead.",
   "originallydesignated": "F-6D",
   "base": "F-51D",
   "stations": [
     [ "pair"     , [ 1, 2 ]      , 1000, [ "BB", "FT" ] ]
   ],
-  "VPs": [ 6, 4, 2, 1 ],
-  "variantnotes": [
-    "Equipped with two K-24 cameras, one oblique facing left and one vertical."
-  ]
+  "VPs": [ 6, 4, 2, 1 ]
 }

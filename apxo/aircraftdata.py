@@ -87,11 +87,17 @@ class aircraftdata:
         else:
             return "%s (%s)" % (self.versionname(), self.variantname())
 
+    def versiondescription(self):
+        if "versiondescription" in self._data:
+            return self._data["versiondescription"]
+        else:
+            return None
+
     def variantdescription(self):
         if "variantdescription" in self._data:
             return self._data["variantdescription"]
         else:
-            return "%s base variant." % self.versionname()
+            return None
 
     def originallydesignated(self):
         if "originallydesignated" in self._data:

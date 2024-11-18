@@ -1,5 +1,6 @@
 {
   "versionname": "F2H-2B",
+  "versiondescription": "Improved version of the F2H-2, with additional stations and the ability to carry a nuclear bomb.",
   "variantname": null,
   "base": "F2H-2",
   "storeslimits": [ 8, 12, 4600 ],

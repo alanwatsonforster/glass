@@ -1,6 +1,7 @@
 {
   "versionname": "F-86D",
   "popularname": "Sabre-Dog",
+  "versiondescription": "All-weather intercepter version with original slatted wing and all-flying tail.",
   "base": "F-86A",
   "origin": "APJ 25",
   "crew": [ "Pilot" ],

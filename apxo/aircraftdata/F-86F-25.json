@@ -1,6 +1,6 @@
 {
   "versionname": "F-86F-25",
-  "popularname": "Sabre",
+  "versiondescription": "Fighter-bomber version with the unslatted 6-3 wing.",
   "base": "F-86F-10",
   "origin": "APJ 25",
   "lowspeedliftdevicename": null,

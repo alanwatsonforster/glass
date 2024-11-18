@@ -1,5 +1,6 @@
 {
   "versionname": "F-86F-40",
+  "versiondescription": "Fighter-bomber version with the slatted 6-3 wing.",
   "base": "F-86F-25",
   "origin": "APJ 25",
   "crew": [ "Pilot" ],
