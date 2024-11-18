@@ -1,5 +1,6 @@
 {
   "versionname": "Meteor F.8",
+  "versiondescription": "Post-war fighter-bomber version.",
   "manufacturername": "Gloster",
   "origin": "APJ 50",
   "crew": [ "Pilot" ],
@@ -61,13 +62,11 @@
   "loadnotes": [
     "Either stations and 3 or stations 4 to 11 can be used.",
     "Stations 1 and 3 can each carry a 100 gal (450L) FT.",
-    "Station 2 can only be used for a ventral conformal 175 gal (800L) FT with a weight of 1,600, 3.0/2.0 load points, and 70 fuel points. The tank may be jettisoned.",
+    "Ventral station 2 can only be used to carry a jettisonable conformal 175 gal (800L) FT with a weight of 1,600, 3.0/2.0 load points, and 70 fuel points. While carried, the FT restricts the maximum speed to 4.0.",
     "Stations 4 to 11 can each carry two RP-3 RK."
   ],
   "VPs": [ 6, 4, 2, 1 ],
   "properties": [ "HTD", "LRR" ],
-  "notes": [
-    "The ventral conformal FT restricts the maximum speed to 4.0 until jettisoned."
-  ],
+  "notes": [],
   "wikiurl": "https://bit.ly/3Cx2lOY"
 }

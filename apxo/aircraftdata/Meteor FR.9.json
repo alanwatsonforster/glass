@@ -1,5 +1,6 @@
 {
   "versionname": "Meteor FR.9",
+  "versiondescription": "Reconaissance version of the F.8, with overhead and oblique cameras in the nose.",
   "base": "Meteor F.8",
   "stations": [
     [ "pair"     , [ 1, 3 ]       , 1000, [ "BB", "FT" ] ],
@@ -7,10 +8,7 @@
   ],
   "loadnotes": [
     "Stations 1 and 3 can each carry a 100 gal (450L) FT.",
-    "Station 2 can only be used for a ventral conformal 175 gal (800L) FT with a weight of 1,600, 3.0/2.0 load points, and 70 fuel points. The tank may be jettisoned."
+    "Ventral station 2 can only be used to carry a jettisonable conformal 175 gal (800L) FT with a weight of 1,600, 3.0/2.0 load points, and 70 fuel points. While carried, the FT restricts the maximum speed to 4.0."
   ],
-  "VPs": [ 8, 5, 3, 1 ],
-  "variantnotes": [
-    "Overhead and oblique cameras in the nose."
-  ]
+  "VPs": [ 8, 5, 3, 1 ]
 }
