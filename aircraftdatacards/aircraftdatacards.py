@@ -918,6 +918,7 @@ writeadc("MiG-15ISh")
 
 writetype("Il-28") # 1952
 writeadc("Il-28")
+writeadc("Il-28N")
 
 writetype("Tu-14") # 1952
 writeadc("Tu-14")
