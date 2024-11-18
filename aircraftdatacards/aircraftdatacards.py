@@ -916,6 +916,10 @@ writeadc("MiG-15bis")
 writeadc("MiG-15P")
 writeadc("MiG-15ISh")
 
+writetype("Tu-14") # 1952
+writeadc("Tu-14")
+writeadc("Tu-14T")
+
 writecountry("US Aircraft")
 
 writetype("P-51/F-51 Mustang")  # Jan 1942 with RAF
