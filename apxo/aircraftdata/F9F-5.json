@@ -1,8 +1,6 @@
 {
   "versionname": "F9F-5",
-  "versiondescription": "Improved version, with more powerful engines, blown flaps, larger fuselage, and more internal fuel.",
-  "variantname": null,
-  "variantdescription": null,
+  "versiondescription": "Fighter-bomber version, with more powerful engines, blown flaps, larger fuselage, and more internal fuel.",
   "base": "F9F-2 (Early)",
   "turndragtable": {
     "TT": [ 0.0, 1.0, 1.0 ],

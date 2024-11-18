@@ -970,9 +970,9 @@ writeadc("F2H-4")
 writeadc("F2H-4 (ATA Refueling)")
 
 writetype("F9F Panther")  # 1947
-writeadc("F9F-2 (Early)")
-writeadc("F9F-2 (Late)")
+writeadc("F9F-2")
 writeadc("F9F-2P")
+writeadc("F9F-2B")
 writeadc("F9F-5")
 writeadc("F9F-5P")
 

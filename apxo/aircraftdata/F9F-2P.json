@@ -1,9 +1,7 @@
 {
   "versionname": "F9F-2P",
   "versiondescription": "Reconnaissance version of F9F-2, with oblique and overhead cameras.",
-  "variantname": null,
-  "variantdescription": null,
-  "base": "F9F-2 (Early)",
+  "base": "F9F-2",
   "gun": "",
   "radar": null,
   "lockon": null,

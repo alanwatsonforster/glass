@@ -1,9 +1,8 @@
 {
   "versionname": "F9F-2",
   "popularname": "Panther",
+  "versiondescription": "Fighter version, with outer-wing stations capable of carrying only six HVARs. All subsequently converted to the F9F-2B standard.",
   "manufacturername": "Grumman",
-  "variantname": "Early",
-  "variantdescription": "with outer-wing stations capable of carrying only six HVARs.",
   "origin": "TSOH",
   "crew": [ "Pilot" ],
   "powertable": {
