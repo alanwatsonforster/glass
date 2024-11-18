@@ -1,7 +1,7 @@
 {
   "versionname": "F2H-2B",
   "variantname": "ATA Refueling",
-  "variantdescription": "McDonnell F2H-2B variant with an ATA refueling probe fitted in place of the upper starboard cannon.",
+  "variantdescription": "with an ATA refueling probe fitted in place of the upper starboard cannon.",
   "base": "F2H-2B",
   "atarefuel": true,
   "gun": "Three 20 mm Mk 3",

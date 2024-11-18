@@ -1,7 +1,7 @@
 {
   "versionname": "F-86K",
   "variantname": "Early",
-  "variantdescription": "Early F-86K with original slatted wing.",
+  "variantdescription": "with original slatted wing.",
   "base": "F-86D",
   "origin": "APJ 25",
   "ejectionseat": "standard",

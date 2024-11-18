@@ -1,7 +1,6 @@
 {
   "versionname": "F9F-5P",
   "variantname": null,
-  "variantdescription": "Grumman F9F-5P base variant. Reconnaissance version of the F9F-5. Operated by the USN and USMC in the Korean War.",
   "base": "F9F-5",
   "gun": "",
   "radar": null,

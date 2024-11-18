@@ -3,7 +3,7 @@
   "popularname": "Panther",
   "manufacturername": "Grumman",
   "variantname": "Early",
-  "variantdescription": "Grumman F9F-2 early variant, equipped only with rails for six HVARs. Operated by the USN and USMC in the Korean War.",
+  "variantdescription": "only with rails for six HVARs.",
   "origin": "TSOH",
   "crew": [ "Pilot" ],
   "powertable": {

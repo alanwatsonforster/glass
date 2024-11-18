@@ -1,7 +1,7 @@
 {
   "versionname": "F9F-2",
   "variantname": "Late",
-  "variantdescription": "Grumman F9F-2 late variant, equipped with additional stations on the wing root and able to carry both bombs and HVARs. Operated by the USN and USMC in the Korean War.",
+  "variantdescription": "with additional stations on the wing root and able to carry both bombs and HVARs.",
   "base": "F9F-2 (Early)",
   "stations": [
     [ "grouppair", [ 1, 3, 6, 8],  500, [ "BB", "RK" ] ],

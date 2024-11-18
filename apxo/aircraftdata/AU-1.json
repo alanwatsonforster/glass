@@ -1,6 +1,5 @@
 {
   "versionname": "AU-1",
-  "variantdescription": "Vought AU-1 base version. Attack aircraft which saw service with the USMC in the Korean War. Similar to F4U-5 but with armor, oil coolers relocated to reduce vulnerability, simplified superchargers, and two additional weapon racks.",
   "base": "F4U-5",
   "ceilingtable": [ 41, 31, 20 ],
   "vulnerability": 2,

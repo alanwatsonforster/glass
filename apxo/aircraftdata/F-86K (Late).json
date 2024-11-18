@@ -1,7 +1,7 @@
 {
   "versionname": "F-86K",
   "variantname": "Late",
-  "variantdescription": "Late F-86K with unslatted 6-3 wing.",
+  "variantdescription": "with unslatted 6-3 wing.",
   "base": "F-86K (Early)",
   "origin": "APJ 25",
   "lowspeedliftdevicename": null,

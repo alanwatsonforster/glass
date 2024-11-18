@@ -1,7 +1,6 @@
 {
   "versionname": "A-1H",
   "base": "AD-4",
-  "variantdescription": "Douglas A-1H base variant. Saw service with USAF, USN, USMC, and RVNAF in the Vietnam War.",
   "originallydesignated": "AD-6",
   "vulnerability": 2,
   "stations": [

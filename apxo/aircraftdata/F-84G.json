@@ -1,6 +1,5 @@
 {
   "versionname": "F-84G",
-  "variantdescription": "Republic F-84G base variant. Operated by the USAF in the Korean War.",
   "origin": "TSOH",
   "base": "F-84E",
   "atarefuel": true,

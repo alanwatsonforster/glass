@@ -1,7 +1,6 @@
 {
   "versionname": "Sabre Mk.5",
   "manufacturername": "Canadair",
-  "variantdescription": "Canadair Sabre Mk.5 base variant.",
   "origin": "APJ 25",
   "crew": [ "Pilot" ],
   "powertable": {

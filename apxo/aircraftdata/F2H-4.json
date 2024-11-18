@@ -1,7 +1,6 @@
 {
   "versionname": "F2H-4",
   "variantname": null,
-  "variantdescription": "McDonnell F2H-4 base variant.",
   "base": "F2H-3",
   "speedtable": {
     "EH": [ [ 3.0, 5.0 ], [ "-", "-" ], [ "-", "-" ], 6.0 ],

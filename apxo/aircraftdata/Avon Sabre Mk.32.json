@@ -1,7 +1,6 @@
 {
   "versionname": "Avon Sabre Mk.32",
   "manufacturername": "CAC",
-  "variantdescription": "CAC Avon Sabre Mk.32 base variant.",
   "origin": "APJ 25",
   "crew": [ "Pilot" ],
   "powertable": {

@@ -1,6 +1,5 @@
 {
   "versionname": "Sabre Mk.6",
-  "variantdescription": "Canadair Sabre Mk.6 base variant.",
   "base": "Sabre Mk.5",
   "origin": "APJ 25",
   "powertable": {

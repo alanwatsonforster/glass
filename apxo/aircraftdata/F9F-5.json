@@ -1,7 +1,6 @@
 {
   "versionname": "F9F-5",
   "variantname": null,
-  "variantdescription": "Grumman F9F-5 base variant. Improved version of the F9F-2. Operated by the USN and USMC in the Korean War.",
   "base": "F9F-2 (Early)",
   "turndragtable": {
     "TT": [ 0.0, 1.0, 1.0 ],

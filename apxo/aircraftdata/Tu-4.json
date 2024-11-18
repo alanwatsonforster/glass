@@ -1,7 +1,6 @@
 {
   "versionname": "Tu-4",
   "manufacturername": "Tupolev",
-  "variantdescription": "Tupolev Tu-4 base variant. Reverse-engineered from the B-29A.",
   "natoreportingname": "Bull",
   "base": "B-29A",
   "variantnotes": [

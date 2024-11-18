@@ -1,7 +1,7 @@
 {
   "versionname": "F2H-3",
   "variantname": "ATA Refueling",
-  "variantdescription": "McDonnell F2H-3 variant with an ATA refueling probe fitted in place of the upper port cannon.",
+  "variantdescription": "with an ATA refueling probe fitted in place of the upper port cannon.",
   "base": "F2H-3",
   "atarefuel": true,
   "gun": "Three 20 mm Mk 16",

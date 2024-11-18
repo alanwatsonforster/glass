@@ -1,7 +1,7 @@
 {
   "versionname": "F-86H",
   "variantname": "Early",
-  "variantdescription": "Early F-86H with unslatted 6-3 wing.",
+  "variantdescription": "with unslatted 6-3 wing.",
   "base": "F-86F-40",
   "origin": "APJ 25",
   "crew": [ "Pilot" ],

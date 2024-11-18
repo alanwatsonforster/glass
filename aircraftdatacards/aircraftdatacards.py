@@ -711,7 +711,7 @@ def blockF(data):
     s = ""
     
     if data.variantname() is not None:
-        s += "\item Variant: %s. %s." % (
+        s += "\item %s variant %s" % (
             data.fullvariantname(),
             latexify(data.variantdescription())
         )
@@ -890,7 +890,7 @@ writeversion()
 
 writecountry("Australian Aircraft")
 
-writeadc("Avon Sabre Mk.31")
+writeadc("Avon Sabre Mk.31 (Early)")
 writeadc("Avon Sabre Mk.31 (Late)")
 writeadc("Avon Sabre Mk.32")
 

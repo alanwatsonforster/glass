@@ -1,8 +1,8 @@
 {
   "versionname": "Avon Sabre Mk.31",
   "variantname": "Late",
-  "variantdescription": "CAC Avon Sabre Mk.31 late variant, from 1960, with four stations and IRMs.",
-  "base": "Avon Sabre Mk.31",
+  "variantdescription": "with IRMs and two additional stations (from 1960 onwards).",
+  "base": "Avon Sabre Mk.31 (Early)",
   "storeslimits": [ 2, 6, 2000 ],
   "stations": [
     [ "pair"     , [ 1, 4 ]       , 1000, [ "BB", "FT" ] ],

@@ -1,7 +1,7 @@
 {
   "versionname": "B-26B",
   "variantname": "No Turrets",
-  "variantdescription": "Douglas B-26B with a gun nose, nose and wing guns, no turrets, and with extra fuel (40 fuel points). Served with the USAF in the Vietnam War.",
+  "variantdescription": "with a gun nose, nose and wing guns, no turrets, and with extra fuel (40 fuel points).",
   "originallydesignated": "A-26B",
   "base": "B-26B (One Turret)",
   "crew": [ "Pilot", "Navigator", "Observer" ]

@@ -1,6 +1,5 @@
 {
   "versionname": "MiG-15P",
-  "variantdescription": "Mikoyan-Gurevich MiG-15P base version. Prototype all-weather interceptor with the RP-1 Izumrud radar. NATO reporting name Scan Fix for radar.",
   "base": "MiG-15bis",
   "natoreportingname": null,
   "radar": { 

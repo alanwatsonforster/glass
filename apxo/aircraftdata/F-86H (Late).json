@@ -1,7 +1,7 @@
 {
   "versionname": "F-86H",
   "variantname": "Late",
-  "variantdescription": "Late F-86H with slatted 6-3 wing.",
+  "variantdescription": "with slatted 6-3 wing.",
   "base": "F-86H (Early)",
   "origin": "APJ 25",
   "lowspeedliftdevicelimit": 3.5,
