@@ -1,6 +1,6 @@
 {
   "versionname": "AU-1",
-  "versiondescription": "Close air support version for USMC, developed from the F4U-5 and with additional armor, oil coolers relocated to reduce vulnerability, simplified superchargers, and two additional weapon racks.",
+  "versiondescription": "Close air support version for USMC, developed from the F4U-5 and with additional armor, oil coolers relocated to reduce vulnerability, simplified superchargers, and two additional weapon stations.",
   "base": "F4U-5",
   "ceilingtable": [ 41, 31, 20 ],
   "vulnerability": 2,

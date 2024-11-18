@@ -1,6 +1,6 @@
 {
   "versionname": "F2H-4",
-  "versiondescription": "Improved version of F2H-3 with APG-37 search radar and more powerful engines.",
+  "versiondescription": "All-weather interceptor, fighter-bomber, and nuclear strike version, with APG-37 search radar and more powerful engines.",
   "variantname": null,
   "base": "F2H-3",
   "speedtable": {

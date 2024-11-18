@@ -1,5 +1,6 @@
 {
   "versionname": "F-84G",
+  "versiondescription": "Fighter-bomber and nuclear strike version.",
   "origin": "TSOH",
   "base": "F-84E",
   "atarefuel": true,
