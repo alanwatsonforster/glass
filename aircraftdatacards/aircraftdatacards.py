@@ -992,6 +992,9 @@ writeadc("F2H-3 (RCN)")
 writeadc("F2H-4")
 writeadc("F2H-4 (ATA Refueling)")
 
+writetype("B-50 Superfortress") # 1948
+writeadc("B-50D")
+
 writetype("F9F Panther")  # 1947
 writeadc("F9F-2")
 writeadc("F9F-2P")
