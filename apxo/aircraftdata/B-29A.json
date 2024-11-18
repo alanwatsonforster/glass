@@ -76,7 +76,7 @@
     [ "single", [ 1 ], 20000, [ "BB" ] ]
   ],
   "loadnotes": [
-    "Station 1 is the internal bomb bay. Only low-drag bombs can be carried. Load options are: (a) four 4,000 lb bombs, (b) eight 2,000 lb bombs, (c) twelve 1,000 lb bombs, (d) forty 500 lb bombs."
+    "Station 1 is the internal bomb bay. Load options are: (a) four 4,000 lb bombs, (b) eight 2,000 lb bombs, (c) twelve 1,000 lb bombs, (d) forty 500 lb bombs. Only low-drag bombs can be carried."
   ],
 
   "variantnotes": [

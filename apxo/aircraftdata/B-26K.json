@@ -47,7 +47,7 @@
   ],
   "loadnotes": [
     "Each wing can carry a maximum load of 2,000 lb.",
-    "Station 5 is the internal bomb bay. Only low-drag bombs can be carried. Load options are: (a) two 2,000 lb bombs, (b) four 1,000 lb bombs, (c) eight 500 or 250 lb bombs, and (d) sixteen 100 lb bombs."
+    "Station 5 is the internal bomb bay. Load options are: (a) two 2,000 lb bombs, (b) four 1,000 lb bombs, (c) eight 500 or 250 lb bombs, and (d) sixteen 100 lb bombs. Only low-drag bombs can be carried."
   ],
   "VPs": [ 14, 9, 5, 3 ],
   "notes": [
