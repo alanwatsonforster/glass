@@ -574,45 +574,59 @@ def blockE(data):
 def blockF(data):
 
     if data.radar() is None:
+        # no radar
         writelatex(r"\renewcommand{\Fa}{---}")
         writelatex(r"\renewcommand{\Fb}{---}")
         writelatex(r"\renewcommand{\Fc}{---}")
         writelatex(r"\renewcommand{\Fd}{---}")
         writelatex(r"\renewcommand{\Fe}{---}")
-    elif data.radar("name") == "gunsight":
-        writelatex(r"\renewcommand{\Fa}{Gunsight}")
+        writelatex(r"\renewcommand{\Ff}{---}")
+    elif data.radar("arc") is None:
+        # ranging only radar
+        writelatex(r"\renewcommand{\Fa}{%s}" % data.radar("name"))
         writelatex(r"\renewcommand{\Fb}{---}")
         writelatex(r"\renewcommand{\Fc}{---}")
         writelatex(r"\renewcommand{\Fd}{---}")
         writelatex(r"\renewcommand{\Fe}{---}")
-    else:
+        writelatex(r"\renewcommand{\Ff}{%d}" % data.lockon())
+    elif data.radar("trackingstrength") is None:
+        # air-to-ground radar
         writelatex(r"\renewcommand{\Fa}{%s}" % data.radar("name"))
-        if data.radar("eccm") is None:
-            writelatex(r"\renewcommand{\Fb}{---}")
-        else:
-            writelatex(r"\renewcommand{\Fb}{%d}" % data.radar("eccm"))
-        if data.radar("arc") is None:
-            writelatex(r"\renewcommand{\Fc}{---}")
-        else:
-            writelatex(r"\renewcommand{\Fc}{$\mathrm{%s}$}" % data.radar("arc"))
-        if data.radar("searchrange") is None:
-            writelatex(r"\renewcommand{\Fd}{---}")
-        else:
-            writelatex(
-                r"\renewcommand{\Fd}{%d--%d}"
-                % (data.radar("searchrange"), data.radar("searchstrength"))
-            )
-        if data.radar("trackingrange") is None:
-            writelatex(r"\renewcommand{\Fe}{---}")
-        else:
-            writelatex(
-                r"\renewcommand{\Fe}{%d--%d}"
-                % (data.radar("trackingrange"), data.radar("trackingstrength"))
-            )
-
-    if data.lockon() is None:
-        writelatex(r"\renewcommand{\Ff}{---}")
+        writelatex(r"\renewcommand{\Fb}{%d}" % data.radar("eccm"))
+        writelatex(r"\renewcommand{\Fc}{$\mathrm{%s}$}" % data.radar("arc"))
+        writelatex(
+            r"\renewcommand{\Fd}{Gr.~Nav.~(%d)}"
+            % data.radar("searchrange")
+        )
+        writelatex(
+            r"\renewcommand{\Fe}{Gr.~Attack~ (%d)}"
+            % data.radar("trackingrange")
+        )
+        writelatex(r"\renewcommand{\Ff}{\phantom{*}%d*}" % data.lockon())
+    elif data.radar("searchstrength") is None:
+        # air-to-air radar without normal search capability
+        writelatex(r"\renewcommand{\Fa}{%s}" % data.radar("name"))
+        writelatex(r"\renewcommand{\Fb}{%d}" % data.radar("eccm"))
+        writelatex(r"\renewcommand{\Fc}{$\mathrm{%s}$}" % data.radar("arc"))
+        writelatex(r"\renewcommand{\Fd}{---}")
+        writelatex(
+            r"\renewcommand{\Fe}{%d--%d}"
+            % (data.radar("trackingrange"), data.radar("trackingstrength"))
+        )
+        writelatex(r"\renewcommand{\Ff}{%d}" % data.lockon())
     else:
+        # air-to-air radar with normal search capability
+        writelatex(r"\renewcommand{\Fa}{%s}" % data.radar("name"))
+        writelatex(r"\renewcommand{\Fb}{%d}" % data.radar("eccm"))
+        writelatex(r"\renewcommand{\Fc}{$\mathrm{%s}$}" % data.radar("arc"))
+        writelatex(
+            r"\renewcommand{\Fd}{%d--%d}"
+            % (data.radar("searchrange"), data.radar("searchstrength"))
+        )
+        writelatex(
+            r"\renewcommand{\Fe}{%d--%d}"
+            % (data.radar("trackingrange"), data.radar("trackingstrength"))
+        )
         writelatex(r"\renewcommand{\Ff}{%d}" % data.lockon())
 
     if data.gun() is None:
@@ -916,7 +930,7 @@ writeadc("MiG-15bis")
 writeadc("MiG-15P")
 writeadc("MiG-15ISh")
 
-writetype("Il-28") # 1952
+writetype("Il-28") # 1950
 writeadc("Il-28")
 writeadc("Il-28R")
 writeadc("Il-28N")

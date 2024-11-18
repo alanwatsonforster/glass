@@ -46,7 +46,14 @@
     "ML": [ [ "-", 0.5 ], [ "-", 0.5 ], [ "-", 0.5 ] ],
     "LO": [ [ "-", 1.0 ], [ "-", 1.0 ], [ "-", 0.5 ] ]
   },
-  // PSB-N Nav/Attack Radar
+  "radar": {
+    "name": "PSB-N",
+    "eccm": 0,
+    "arc": "180+",
+    "searchrange": 90,
+    "trackingrange": 45
+  },
+  "lockon": 6,
   "storeslimits": [ 4, 8, 6600 ],
   "gun": "Two 23 mm NR-23",
   "gunatatohitrolls": "3/2/1",
