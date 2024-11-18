@@ -1,5 +1,6 @@
 {
   "versionname": "Avon Sabre Mk.31",
+  "versiondescription": "CAC day-fighter version with the unslatted 6-3 wing and Avon 20 engine.",
   "variantname": "Early",
   "variantdescription": "without IRMs and with only two stations (from before 1960).",
   "base": "Avon Sabre Mk.32",

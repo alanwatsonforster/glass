@@ -1,5 +1,6 @@
 {
   "versionname": "Avon Sabre Mk.32",
+  "versiondescription": "CAC fighter-bomber version with the unslatted 6-3 wing, Avon 26 engine, and additional stations.",
   "manufacturername": "CAC",
   "origin": "APJ 25",
   "crew": [ "Pilot" ],
@@ -70,7 +71,7 @@
     [ "grouppair", [ 5, 8, 9, 12 ],  280, [ "RK" ] ]
   ],
   "loadnotes": [
-    "Either stations 1 to 4 or stations 5 to 15 can be used.",
+    "Either stations 1 to 4 or stations 5 to 12 can be used.",
     "From 1960, may use AIM-9B IRMs.",
     "Stations 5 to 12 can each carry three RK."
   ],

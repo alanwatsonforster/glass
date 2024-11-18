@@ -1,7 +1,7 @@
 {
   "versionname": "Avon Sabre Mk.31",
   "variantname": "Late",
-  "variantdescription": "with IRMs and two additional stations (from 1960 onwards).",
+  "variantdescription": "retrofitted with two additional stations for IRMs (from 1960 onwards).",
   "base": "Avon Sabre Mk.31 (Early)",
   "storeslimits": [ 2, 6, 2000 ],
   "stations": [
