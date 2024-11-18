@@ -703,11 +703,6 @@ def blockF(data):
     else:
         writelatex(r"\renewcommand{\Ftc}{%s}" % data.variantdescription())
 
-    #if data.service() is None:
-    #    writelatex(r"\renewcommand{\Fu}{}")
-    #else:
-    #    writelatex(r"\renewcommand{\Fu}{\Fua{%s}}" % data.service())
-
     s = ""
     
     if data.versiondescription() is not None or data.variantdescription() is not None:
