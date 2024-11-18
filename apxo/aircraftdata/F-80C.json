@@ -64,7 +64,7 @@
   ],
   "loadnotes": [
     "Either stations 2 and 3 or stations 5 to 8 can be used.",
-    "Stations 1 and 4 may be overloaded to 1500, but the maximum turn rate is reduced to HT until the load is dropped.",
+    "Stations 1 and 4 were designed to each carry a 165 gal (600L) FT with a load of 1100 when full. As an exception to the normal loading rules, they may each carry a 265 gal (1000L) FT with a load of 1800 when full, but the maximum turn rate is reduced to HT until the FTs are jettisoned. Such “Misawa” tanks were used in 1950 when operating over Korea from bases in Japan.",
     "Stations 5 to 8 can each carry two RK."
   ],
   "VPs": [ 7, 4, 2, 1 ],
