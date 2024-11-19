@@ -2,6 +2,7 @@
 
 import re
 import sys
+import os
 
 sys.path.append("..")
 from apxo import aircraftdata
@@ -19,6 +20,7 @@ elif version == 3:
 
 def log(s):
     print("adc: %s" % s)
+    sys.stdout.flush()
 
 
 def writelatex(s):
@@ -1166,3 +1168,7 @@ if False:
     writeadc("Yak-9D")
 
 latexfile.close()
+
+log("producing PDF file.")
+os.system("xelatex main.tex")
+log("finished producing PDF file.")
