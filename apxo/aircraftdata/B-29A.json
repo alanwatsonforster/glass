@@ -45,6 +45,7 @@
   },
 
   "turndragtable": {
+    "TT": [ 1.0, "-", "-" ]
   },
 
   "ceilingtable": [ 31, 31, 31 ],
