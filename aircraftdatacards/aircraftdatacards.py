@@ -866,8 +866,8 @@ def writeversion():
     writelatex(r"\renewcommand{\V}{%d}" % version)
 
 
-def writecountry(name):
-    writelatex(r"\addtoccountry{%s}" % name)
+def writechapter(name):
+    writelatex(r"\addtocchapter{%s}" % name)
 
 
 def writetype(name):
@@ -934,7 +934,7 @@ def writelatexfile(latexfilename, directives):
             for variant in directive[2:]:
                 writeadc(variant)
         elif directive[0] == "chapter":
-            writecountry(directive[1])
+            writechapter(directive[1])
         else:
             raise RuntimeError("invalid directive %r." % directive)
     writelatexepilog()
