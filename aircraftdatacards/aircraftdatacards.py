@@ -7,7 +7,7 @@ sys.path.append("..")
 from apxo import aircraftdata
 import apxo.variants
 
-version = 1
+version = 3
 
 if version == 1:
     apxo.variants.setvariants(["use first-edition ADCs"])
@@ -806,16 +806,21 @@ def blockF(data):
 
 def blockG(data):
 
-    if data.hasstoreslimits():
-        writelatex(r"\renewcommand{\Gba}{\le %.1f}" % data.storeslimit("CL"))
-        writelatex(r"\renewcommand{\Gbb}{\le %.1f}" % data.storeslimit("1/2"))
-        writelatex(r"\renewcommand{\Gbc}{> %.1f}" % data.storeslimit("1/2"))
-        writelatex(r"\renewcommand{\Gbd}{%s}" % ("{:,}".format(data.storeslimit("DT"))))
-    else:
+    if not data.hasstoreslimits():
         writelatex(r"\renewcommand{\Gba}{}")
         writelatex(r"\renewcommand{\Gbb}{}")
         writelatex(r"\renewcommand{\Gbc}{}")
         writelatex(r"\renewcommand{\Gbd}{}")
+    elif version != 3:
+        writelatex(r"\renewcommand{\Gba}{0--%d}" % data.storeslimit("CL"))
+        writelatex(r"\renewcommand{\Gbb}{%d--%d}" % (data.storeslimit("CL") + 1, data.storeslimit("1/2")))
+        writelatex(r"\renewcommand{\Gbc}{%d+}" % (data.storeslimit("1/2") + 1))
+        writelatex(r"\renewcommand{\Gbd}{%s}" % ("{:,}".format(data.storeslimit("DT"))))
+    else:
+        writelatex(r"\renewcommand{\Gba}{$<%d$}" % (data.storeslimit("CL") + 1))
+        writelatex(r"\renewcommand{\Gbb}{$<%d$}" % (data.storeslimit("1/2") + 1))
+        writelatex(r"\renewcommand{\Gbc}{$\ge%d$}" % (data.storeslimit("1/2") + 1))
+        writelatex(r"\renewcommand{\Gbd}{%s}" % ("{:,}".format(data.storeslimit("DT"))))
         
     s = ""
     for station in data.stations():
@@ -992,7 +997,7 @@ writeadc("F2H-3 (RCN)")
 writeadc("F2H-4")
 writeadc("F2H-4 (ATA Refueling)")
 
-writetype("B-36 Superfortress") # June 1948
+writetype("B-36 Peacemaker") # June 1948
 writeadc("B-36D")
 
 writetype("B-50 Superfortress") # June 1948
