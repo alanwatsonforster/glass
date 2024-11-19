@@ -896,7 +896,7 @@ def writelatexprolog():
     writelatex(
     r"""
     \documentclass[twocolumn]{report}
-    \input main.tex
+    \input aircraftdatacards.tex
     \renewcommand{\V}{%d}
     \begin{document}
     \tableofcontents
