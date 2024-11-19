@@ -77,9 +77,8 @@
     [ "single", [ 1 ], 20000, [ "BB" ] ]
   ],
   "loadnotes": [
-    "Station 1 is the internal bomb bay. Load options are: (a) four 4,000 lb bombs, (b) eight 2,000 lb bombs, (c) twelve 1,000 lb bombs, or (d) forty 500 lb bombs. Any bombs carried must be low-drag.",
-    "Bombs carried in the bomb bay contribute 1 load point per 1,000 lb.",
-    "Exceptionally, fuel also contributes 1 load point per 50 fuel points. A return mission will typically require leaving the target with at least 750 fuel points (15 load points)."
+    "Station 1 is the internal bomb bay. Load options are: (a) four 4,000 lb bombs, (b) eight 2,000 lb bombs, (c) twelve 1,000 lb bombs, or (d) forty 500 lb bombs. Any bombs carried must be low-drag and contribute 1 load point per 1,000 lb.",
+    "Exceptionally, internal fuel also contributes 1 load point per 50 fuel points. A return mission will typically require leaving the target with at least 750 fuel points (15 load points)."
   ],
 
   "notes": [
