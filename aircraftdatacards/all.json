@@ -1,0 +1,59 @@
+#!/usr/bin/env python3 aircraftdatacards.py
+
+[
+
+    [ "chapter", "Australian Aircraft" ],
+    [ "type", "Avon Sabre Mk.31 (Early)", "Avon Sabre Mk.31 (Late)", "Avon Sabre Mk.32" ],
+
+    [ "chapter", "British Aircraft" ],
+    //  1944
+    [ "type", "Meteor", "Meteor F.8", "Meteor FR.9" ],
+    //  1948
+    [ "type", "Sea Fury", "Sea Fury FB.11" ],
+
+    [ "chapter", "Canadian Aircraft" ],
+    [ "type", "Sabre", "Sabre Mk.5", "Sabre Mk.6" ],
+
+    [ "chapter", "Soviet Union Aircraft" ],
+    //  1942
+    [ "type", "Yak-9", "Yak-9D" ],
+    //  1944
+    [ "type", "Il-10", "Il-10" ],
+    //  1947
+    [ "type", "Tu-4", "Tu-4" ],
+    //  1949
+    [ "type", "MiG-15", "MiG-15bis", "MiG-15P", "MiG-15ISh" ],
+    //  1950
+    [ "type", "Il-28", "Il-28", "Il-28R", "Il-28N" ],
+    //  1952
+    [ "type", "Tu-14", "Tu-14", "Tu-14T" ],
+
+    [ "chapter", "US Aircraft" ],
+    //  Jan 1942 with RAF
+    [ "type", "P-51/F-51 Mustang", "F-51D", "RF-51D" ],
+    //  December 1942 with USCMC
+    [ "type", "F4U/AU Corsair", "F4U-5", "AU-1" ],
+    //  1943
+    [ "type", "B-26/A-26 Invader", "B-26B (Two Turrets)", "B-26B (One Turret)", "B-26B (No Turrets)", "B-26C (Two Turrets)", "B-26C (One Turret)", "B-26C (No Turrets)", "B-26K", "A-26A" ],
+    //  1944
+    [ "type", "B-29 Superfortress", "B-29A", "RB-29A" ],
+    //  1945
+    [ "type", "P-80/F-80/AT-33 Shooting Star", "F-80C", "RF-80C", "AT-33A" ],
+    //  1946
+    [ "type", "AD/A-1 Skyraider", "AD-4", "AD-5", "A-1E", "AD-6", "A-1H", "AD-7", "A-1J" ],
+    //  1947
+    [ "type", "F-84 Thunderjet", "F-84E", "F-84G" ],
+    //  1948
+    [ "type", "F2H Banshee", "F2H-2", "F2H-2P", "F2H-2B", "F2H-2B (ATA Refueling)", "F2H-3", "F2H-3 (ATA Refueling)", "F2H-3 (RCN)", "F2H-4", "F2H-4 (ATA Refueling)" ],
+    //  June 1948
+    [ "type", "B-36 Peacemaker", "B-36D" ],
+    //  June 1948
+    [ "type", "B-50 Superfortress", "B-50D" ],
+    //  May 1949
+    [ "type", "F9F Panther", "F9F-2", "F9F-2P", "F9F-2B", "F9F-5", "F9F-5P" ],
+    //  1949
+    [ "type", "F-86 Sabre", "F-86A", "F-86D", "F-86E", "F-86F-10", "F-86F-25", "F-86F-35", "F-86F-40", "F-86H (Early)", "F-86H (Late)", "F-86K (Early)", "F-86K (Late)", "F-86L" ],
+    //  May 1950
+    [ "type", "F-94 Starfire", "F-94A", "F-94B" ]
+
+]

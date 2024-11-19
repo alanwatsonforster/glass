@@ -1,0 +1,49 @@
+#!/usr/bin/env python3 aircraftdatacards.py
+
+[
+    [ 
+        "type", 
+        "Tu-4", 
+        "Tu-4"
+    ],
+    [ 
+        "type", 
+        "Il-28", 
+        "Il-28",
+        "Il-28R",
+        "Il-28N"
+    ],
+    [ 
+        "type", 
+        "Tu-14", 
+        "Tu-14T"
+    ],
+    [
+       "type", 
+       "B-26 Invader and Counter-Invader", 
+       "B-26B (Two Turrets)", 
+       "B-26B (One Turret)", 
+       "B-26B (No Turrets)", 
+       "B-26C (Two Turrets)", 
+       "B-26C (One Turret)", 
+       "B-26C (No Turrets)",
+       "B-26K",
+       "A-26A"
+    ],
+    [ 
+        "type", 
+        "B-29 Superfortress", 
+        "B-29A", 
+        "RB-29A" 
+    ],
+    [ 
+        "type", 
+        "B-36 Peacemaker", 
+        "B-36D"
+    ],
+    [ 
+        "type", 
+        "B-50 Superfortress", 
+        "B-50D"
+    ]
+]
