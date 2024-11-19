@@ -556,15 +556,27 @@ class aircraftdata:
         else:
             return None
 
-    def variantnotes(self):
-        if "variantnotes" in self._data:
-            return self._data["variantnotes"]
-        else:
-            return []
-
     def notes(self):
         if "notes" in self._data:
             return self._data["notes"]
+        else:
+            return []
+
+    def typenotes(self):
+        if "typenotes" in self._data:
+            return self._data["typenotes"]
+        else:
+            return []
+
+    def versionnotes(self):
+        if "versiontnotes" in self._data:
+            return self._data["versiontnotes"]
+        else:
+            return []
+
+    def variantnotes(self):
+        if "variantnotes" in self._data:
+            return self._data["variantnotes"]
         else:
             return []
 

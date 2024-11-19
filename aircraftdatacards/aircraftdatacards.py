@@ -793,6 +793,12 @@ def blockF(data):
     for note in data.notes():
         s += "\\item %s\n\n" % (latexify(note))
 
+    for note in data.typenotes():
+        s += "\\item %s\n\n" % (latexify(note))    
+
+    for note in data.versionnotes():
+        s += "\\item %s\n\n" % (latexify(note))    
+
     for note in data.variantnotes():
         s += "\\item %s\n\n" % (latexify(note))    
 
