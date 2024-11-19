@@ -95,7 +95,7 @@
   "loadnotes": [
     "Station 2 is the internal bomb bay. Load options are: (a) four 4,000 lb bombs, (b) eight 2,000 lb bombs, (c) twelve 1,000 lb bombs, (d) forty 500 lb bombs, or (e) a Mark 4 (weight 11,000), Mark 5 (weight 3,000), or Mark 6 (weight 8,000) nuclear bomb. Any bombs carried in the bomb bay must be low-drag and contribute 1 load point per 1,000 lb.",
     "Stations 1 and 3 may carry a 700 gal (2600L) FT (weight 4500, load 10.0/6.0, and 230 fuel points) or other ordnance.",
-    "Exceptionally, fuel also contributes 1 load point per 50 fuel points. A return mission will typically require leaving the target with at least 1250 fuel points (25 load points)."
+    "Exceptionally, internal fuel also contributes 1 load point per 50 fuel points. A return mission will typically require leaving the target with at least 1250 fuel points (25 load points)."
   ],
 
   "notes": [
