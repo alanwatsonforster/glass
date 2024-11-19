@@ -6,15 +6,14 @@
   "origin": "Thomas Russ",
   "crew": [
    "Pilot", 
-   "Co-pilot",
+   "Copilot",
    "Bombardier",
-   "Flight Engineer",
    "Navigator",
+   "Flight Engineer",
    "Radio Operator",
-   "Radio Operator",
+   "Top Gunner", 
    "Right Gunner", 
    "Left Gunner", 
-   "Fire Control Officer", 
    "Tail Gunner"
    ],
   
