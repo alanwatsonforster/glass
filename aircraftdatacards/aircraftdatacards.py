@@ -812,14 +812,14 @@ def blockG(data):
         writelatex(r"\renewcommand{\Gbc}{}")
         writelatex(r"\renewcommand{\Gbd}{}")
     elif version != 3:
-        writelatex(r"\renewcommand{\Gba}{0--%d}" % data.storeslimit("CL"))
-        writelatex(r"\renewcommand{\Gbb}{%d--%d}" % (data.storeslimit("CL") + 1, data.storeslimit("1/2")))
-        writelatex(r"\renewcommand{\Gbc}{%d+}" % (data.storeslimit("1/2") + 1))
+        writelatex(r"\renewcommand{\Gba}{\wbox[r]{00}{0}--%d}" % data.storeslimit("CL"))
+        writelatex(r"\renewcommand{\Gbb}{\wbox[r]{00}{%d}--%d}" % (data.storeslimit("CL") + 1, data.storeslimit("1/2")))
+        writelatex(r"\renewcommand{\Gbc}{\wbox[r]{00}{%d}+}" % (data.storeslimit("1/2") + 1))
         writelatex(r"\renewcommand{\Gbd}{%s}" % ("{:,}".format(data.storeslimit("DT"))))
     else:
-        writelatex(r"\renewcommand{\Gba}{$<%d$}" % (data.storeslimit("CL") + 1))
-        writelatex(r"\renewcommand{\Gbb}{$<%d$}" % (data.storeslimit("1/2") + 1))
-        writelatex(r"\renewcommand{\Gbc}{$\ge%d$}" % (data.storeslimit("1/2") + 1))
+        writelatex(r"\renewcommand{\Gba}{$<\wbox[r]{00}{%d}$}" % (data.storeslimit("CL") + 1))
+        writelatex(r"\renewcommand{\Gbb}{$<\wbox[r]{00}{%d}$}" % (data.storeslimit("1/2") + 1))
+        writelatex(r"\renewcommand{\Gbc}{$\ge\wbox[r]{00}{%d}$}" % (data.storeslimit("1/2") + 1))
         writelatex(r"\renewcommand{\Gbd}{%s}" % ("{:,}".format(data.storeslimit("DT"))))
         
     s = ""
@@ -1003,7 +1003,7 @@ writeadc("B-36D")
 writetype("B-50 Superfortress") # June 1948
 writeadc("B-50D")
 
-writetype("F9F Panther")  # 1947
+writetype("F9F Panther")  # May 1949
 writeadc("F9F-2")
 writeadc("F9F-2P")
 writeadc("F9F-2B")
