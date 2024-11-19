@@ -902,8 +902,6 @@ def writelatexprolog():
     \tableofcontents
     \onecolumn
     \newpage
-    \setlength{\cellwidth}{0.06\linewidth}
-    \centering
     """ % version)
 
 def writelatexepilog():

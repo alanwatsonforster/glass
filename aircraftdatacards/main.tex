@@ -484,7 +484,7 @@ AJM&\makebox[2\cellwidth][c]{\Fr}\spacebelow\\
 \end{tabularx}}}
 
 \newcommand{\blockABCDEFG}{%
-\centering
+\setlength{\cellwidth}{0.06\linewidth}
 \begin{tabular}{*{16}{@{}p{\cellwidth}}@{}}
 \hline
 %
@@ -502,6 +502,7 @@ AJM&\makebox[2\cellwidth][c]{\Fr}\spacebelow\\
 \end{tabular}}
 
 \newcommand{\adc}{
+  \centering
   \blockABCDEFG
   \newpage
 }
