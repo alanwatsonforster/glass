@@ -20,7 +20,7 @@ elif version == 3:
 
 
 def log(s):
-    print("adc: %s" % s)
+    print("aircraftdatacards: %s: %s" % (os.path.basename(jsonfilename), s))
     sys.stdout.flush()
 
 
@@ -862,21 +862,19 @@ def blockG(data):
         writelatex(r"\renewcommand{\Gda}{}")
 
 
-def writeversion():
-    writelatex(r"\renewcommand{\V}{%d}" % version)
-
-
 def writechapter(name):
+    log("writing chapter %s." % name)
     writelatex(r"\addtocchapter{%s}" % name)
 
 
 def writetype(name):
+    log("writing type %s." % name)
     writelatex(r"\addtoctype{%s}" % name)
 
 
 def writeadc(name):
 
-    log("making LaTeX ADC for %s." % name)
+    log("writing variant %s." % name)
     data = aircraftdata.aircraftdata(name)
 
     writelatex("%% %s" % name)
@@ -911,6 +909,7 @@ def writelatexepilog():
     """)
     
 def readjsonfile(jsonfilename):
+    log("reading %s." % os.path.basename(jsonfilename))
     with open(jsonfilename, "r", encoding="utf-8") as f:
         s = f.read(-1)
         # Strip initial #! line.
@@ -920,9 +919,12 @@ def readjsonfile(jsonfilename):
         # Strip whole-line // comments.
         r = re.compile("^[ \t]*//.*$", re.MULTILINE)
         s = re.sub(r, "", s)
-        return json.loads(s)
+        directives = json.loads(s)
+    log("finished reading %s." % os.path.basename(jsonfilename))
+    return directives
             
 def writelatexfile(latexfilename, directives):
+    log("writing %s." % os.path.basename(latexfilename))
     global latexfile
     latexfile = open(latexfilename, "w")
     writelatexprolog()
@@ -937,11 +939,12 @@ def writelatexfile(latexfilename, directives):
             raise RuntimeError("invalid directive %r." % directive)
     writelatexepilog()
     latexfile.close()        
+    log("finished writing %s." % os.path.basename(latexfilename))
 
-def makepdffile(latexfilename):
-    log("producing PDF file.")
+def makepdffile(latexfilename, pdffilename):
+    log("making %s." % pdffilename)
     os.system("xelatex " + latexfilename)
-    log("finished producing PDF file.")
+    log("finished making %s." % pdffilename)
 
 
 for jsonfilename in sys.argv[1:]:
@@ -952,6 +955,6 @@ for jsonfilename in sys.argv[1:]:
 
     directives = readjsonfile(jsonfilename)
     writelatexfile(latexfilename, directives)
-    makepdffile(latexfilename)
+    makepdffile(latexfilename, pdffilename)
 
 sys.exit(0)
