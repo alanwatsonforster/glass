@@ -84,7 +84,7 @@
 
   "bombsystem": "Ballistic",
   
-  "properties": [ "LBR", "HTD", "NRM" ],
+  "properties": [ "NRM" ],
   
     
   "storeslimits": [ 15, 31, 28000 ],
