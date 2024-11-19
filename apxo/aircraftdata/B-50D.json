@@ -89,11 +89,11 @@
     
   "storeslimits": [ 15, 31, 28000 ],
   "stations": [
-    [ "pair"  , [ 1, 3 ], 10000, [ "BB", "DR", "TR", "WR", "FT" ] ],
-    [ "single", [ 1 ]   , 28000, [ "BB", "FT" ] ]
+    [ "pair"  , [ 1, 3 ],  4000, [ "BB", "DR", "TR", "WR", "FT" ] ],
+    [ "single", [ 1 ]   , 20000, [ "BB", "FT" ] ]
   ],
   "loadnotes": [
-    "Station 2 is the internal bomb bay. Load options are: (a) eight 3,000 lb bombs, (b) ten 2,000 lb bombs, (c) eighteen 1,000 lb bombs, or (d) twenty four 500 lb bombs. Any bombs carried must be low-drag.",
+    "Station 2 is the internal bomb bay. Load options are: (a) four 4,000 lb bombs, (b) eight 2,000 lb bombs, (c) twelve 1,000 lb bombs, or (d) forty 500 lb bombs. Any bombs carried must be low-drag.",
     "Bombs carried in the bomb bay contribute 1 load point per 1,000 lb.",
     "Exceptionally, fuel also contributes 1 load point per 50 fuel points. A return mission will typically require leaving the target with at least 1250 fuel points (25 load points)."
   ],
