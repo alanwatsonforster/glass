@@ -943,7 +943,7 @@ def writelatexfile(latexfilename, directives):
 
 def makepdffile(latexfilename, pdffilename):
     log("making %s." % pdffilename)
-    os.system("xelatex " + latexfilename)
+    os.system("xelatex " + latexfilename + " >aircraftdatacard.log 2>&1 || cat aircraftdatacard.log")
     log("finished making %s." % pdffilename)
 
 
