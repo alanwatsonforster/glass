@@ -1,7 +1,7 @@
 {
-  "variantname": "Silverplate",
+  "variantname": "SILVERPLATE",
   "versiondescription": "Strategic nuclear bomber version.",
-  "variantdescription": "modified under the Silverplate program.",
+  "variantdescription": "converted from the conventional bomber version under the SILVERPLATE program.",
   "base": "B-29A",
   "crew": [
    "Pilot", "Copilot", "Flight Engineer", "Navigator", "Bombardier", "Weaponeer", "Radio Operator", "Radar Operator", "Countermeasures Operator", "Tail Gunner"
@@ -21,3 +21,6 @@
     "As an exception to the normal rules for load points, internal loads contribute 1 load point for each 1,000 of weight and internal fuel contributes 1 load point for each 50 fuel points. A return mission will typically require leaving the target with at least 750 fuel points (15 load points)."
   ]
 }
+
+
+

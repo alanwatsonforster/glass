@@ -1,0 +1,7 @@
+{
+  "variantname": "RURALIST",
+  "versiondescription": "Strategic nuclear bomber version.",
+  "variantdescription": "with ATA refueling and winterized electronics, converted from SADDLETREE variants under the RURALIST program.",
+  "atarefuel": true,
+  "base": "B-29A (SADDLETREE)"
+}
