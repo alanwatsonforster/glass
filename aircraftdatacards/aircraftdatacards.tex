@@ -364,22 +364,23 @@ AtA/AtG&\Fl\spacebelow\\
 %\hline
 \end{tabularx}}&
 \parbox[b][\blockFGtopheight][t]{4\cellwidth}{%
-\begin{tabularx}{4\cellwidth}{|lC}
+\begin{tabularx}{4\cellwidth}{|llC}
 \spaceabove\spacebelow
-\bfseries ECM&\\
-IFF&\makebox[2\cellwidth][c]{\Fn}\\
-RWR&\makebox[2\cellwidth][c]{\Fo}\\
-DDS&\makebox[2\cellwidth][c]{\Fp}\\
-DJM&\makebox[2\cellwidth][c]{\Fq}\\
-AJM&\makebox[2\cellwidth][c]{\Fr}\spacebelow\\
+\bfseries ECM
+&IFF&\Fn\\
+&RWR&\Fo\\
+&DDS&\Fp\\
+&DJM&\Fq\\
+&AJM&\Fr\\
+&BJM&\Fs\spacebelow\\
 \hline
-\multicolumn{2}{p{3.5\cellwidth}}{
+\multicolumn{3}{p{3.5\cellwidth}}{
 \spaceabove\multirow[t]{7}*{%
 \parbox[t][7em][t]{3.5\cellwidth}{%
 \setlength{\parskip}{0.2em}%
 \raggedright {\bfseries Technology:}
 \par
-\small \Fs
+\small \Ft
 }}}\\
 \\
 \\
@@ -396,7 +397,7 @@ AJM&\makebox[2\cellwidth][c]{\Fr}\spacebelow\\
 \spaceabove\raggedright
 \setlength{\parskip}{0.2em}%
 \footnotesize
-\Ft
+\Fu
 }}\spacebelow\\
 \end{tabularx}}}
 
@@ -421,9 +422,10 @@ AJM&\makebox[2\cellwidth][c]{\Fr}\spacebelow\\
 \newcommand{\Fp}{} % DDS
 \newcommand{\Fq}{} % DJM
 \newcommand{\Fr}{} % AJM
-\newcommand{\Fs}{} % Technology
-\newcommand{\Ft}{} % Notes
-\newcommand{\Fta}[1]{%
+\newcommand{\Fs}{} % BJM
+\newcommand{\Ft}{} % Technology
+\newcommand{\Fu}{} % Notes
+\newcommand{\Fua}[1]{%
   {\bfseries Notes:} 
   \begin{enumerate}[left=0pt,nosep]
   #1

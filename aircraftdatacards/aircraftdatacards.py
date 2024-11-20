@@ -695,23 +695,27 @@ def blockF(data):
     else:
         writelatex(r"\renewcommand{\Fo}{---}")
     if data.ecm("dds") is not None:
-        writelatex(r"\renewcommand{\Fp}{%s}" % data.ecm("rwr"))
+        writelatex(r"\renewcommand{\Fp}{%s}" % data.ecm("dds"))
     else:
         writelatex(r"\renewcommand{\Fp}{---}")
     if data.ecm("djm") is not None:
-        writelatex(r"\renewcommand{\Fq}{%s}" % data.ecm("rwr"))
+        writelatex(r"\renewcommand{\Fq}{%s}" % data.ecm("djm"))
     else:
         writelatex(r"\renewcommand{\Fq}{---}")
     if data.ecm("ajm") is not None:
-        writelatex(r"\renewcommand{\Fr}{%s}" % data.ecm("rwr"))
+        writelatex(r"\renewcommand{\Fr}{%s}" % data.ecm("ajm"))
     else:
         writelatex(r"\renewcommand{\Fr}{---}")
+    if data.ecm("bjm") is not None:
+        writelatex(r"\renewcommand{\Fs}{%s}" % data.ecm("bjm"))
+    else:
+        writelatex(r"\renewcommand{\Fs}{---}")
 
     if data.technology() is None:
-        writelatex(r"\renewcommand{\Fs}{None}")
+        writelatex(r"\renewcommand{\Ft}{None}")
     else:
         s = " ".join(data.technology())
-        writelatex(r"\renewcommand{\Fs}{%s}" % s)
+        writelatex(r"\renewcommand{\Ft}{%s}" % s)
 
     s = ""
     
@@ -808,9 +812,9 @@ def blockF(data):
         )
         
     if s == "":
-        writelatex(r"\renewcommand{\Ft}{}")
+        writelatex(r"\renewcommand{\Fu}{}")
     else:
-        writelatex(r"\renewcommand{\Ft}{\Fta{%s}}" % s)
+        writelatex(r"\renewcommand{\Fu}{\Fua{%s}}" % s)
 
 
 def blockG(data):
