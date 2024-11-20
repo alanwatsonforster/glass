@@ -1,5 +1,6 @@
 {
   "versionname": "RB-29A",
   "versiondescription": "Reconnaissance version of B-29A retaining full combat capability.",
-  "base": "B-29A"
+  "base": "B-29A",
+  "originallydesignated": "F-13A"
 }
