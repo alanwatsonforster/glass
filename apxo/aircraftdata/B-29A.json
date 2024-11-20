@@ -79,7 +79,7 @@
     "lockon": 6
   },
 
-  "ecm": { "iff": true },
+  "ecm": { "iff": true, "rwr": "A", "bjm": "A2" },
   
   "storeslimits": [ 11, 23, 20000 ],
   "stations": [
