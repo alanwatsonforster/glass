@@ -69,6 +69,15 @@
   },
   
   "properties": [ "LRR", "NRM" ],
+  
+  "radar": {
+    "name": "APQ-13",
+    "eccm": 0,
+    "arc": "0+",
+    "searchrange": 120,
+    "trackingrange": 60,
+    "lockon": 6
+  },
 
   "ecm": { "iff": true },
   
