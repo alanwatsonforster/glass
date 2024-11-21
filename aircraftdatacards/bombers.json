@@ -49,5 +49,11 @@
         "type", 
         "B-50 Superfortress", 
         "B-50D"
+    ],
+    [ 
+        "type", 
+        "B-52 Stratofortress", 
+        "B-52D",
+        "B-52G"
     ]
 ]
