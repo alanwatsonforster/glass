@@ -9,7 +9,7 @@ sys.path.append("..")
 from apxo import aircraftdata
 import apxo.variants
 
-version = 3
+version = 1
 
 if version == 1:
     apxo.variants.setvariants(["use first-edition ADCs"])
@@ -844,16 +844,16 @@ def blockG(data):
         stationlimit = station[2]
         stationloads = station[3]
         if stationtype == "single":
-          s += "%d" % stationidentifiers[0]
+            s += "%d" % stationidentifiers[0]
         elif stationtype == "pair":
-          s += "%d and %d" % tuple(stationidentifiers)
+            s += "%d and %d" % tuple(stationidentifiers)
         elif stationtype == "group":
-          s += "%d--%d" % tuple(stationidentifiers)
+            s += "%d--%d" % tuple(stationidentifiers)
         elif stationtype == "grouppair":
-          s += "%d--%d and %d--%d" % tuple(stationidentifiers)
+            s += "%d--%d and %d--%d" % tuple(stationidentifiers)
         s += "&%s&%s\\\\\n" % (
           "{:,}".format(stationlimit), 
-          "/".join(stationloads)
+          " ".join(stationloads)
         )
     writelatex(r"\renewcommand{\Gca}{%s}" % s)
     
