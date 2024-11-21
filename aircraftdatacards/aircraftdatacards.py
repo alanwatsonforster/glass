@@ -597,13 +597,9 @@ def blockF(data):
         writelatex(r"\renewcommand{\Fa}{%s}" % data.radar("name"))
         writelatex(r"\renewcommand{\Fb}{%d}" % data.radar("eccm"))
         writelatex(r"\renewcommand{\Fc}{$\mathrm{%s}$}" % data.radar("arc"))
+        writelatex(r"\renewcommand{\Fd}{Gr.~Nav.~(%d)}" % data.radar("searchrange"))
         writelatex(
-            r"\renewcommand{\Fd}{Gr.~Nav.~(%d)}"
-            % data.radar("searchrange")
-        )
-        writelatex(
-            r"\renewcommand{\Fe}{Gr.~Attack~ (%d)}"
-            % data.radar("trackingrange")
+            r"\renewcommand{\Fe}{Gr.~Attack~ (%d)}" % data.radar("trackingrange")
         )
         writelatex(r"\renewcommand{\Ff}{\phantom{*}%d*}" % data.radar("lockon"))
     elif data.radar("searchstrength") is None:
@@ -720,24 +716,32 @@ def blockF(data):
         writelatex(r"\renewcommand{\Ft}{%s}" % s)
 
     s = ""
-    
+
     descriptiontext = ""
     if data.versiondescription() is not None:
         descriptiontext += r" %s" % latexify(data.versiondescription())
     if data.variantdescription() is not None:
         descriptiontext += r" %s variant %s" % (
-                data.fullvariantname(),
-                latexify(data.variantdescription())
-            )
+            data.fullvariantname(),
+            latexify(data.variantdescription()),
+        )
     if data.originallydesignated() is not None:
-        descriptiontext += " Originally designated %s." % (latexify(data.originallydesignated()))
+        descriptiontext += " Originally designated %s." % (
+            latexify(data.originallydesignated())
+        )
     if data.previouslydesignated() is not None:
-        descriptiontext += " Previously designated %s." % (latexify(data.previouslydesignated()))
+        descriptiontext += " Previously designated %s." % (
+            latexify(data.previouslydesignated())
+        )
     if data.subsequentlydesignated() is not None:
-        descriptiontext += " Subsequently designated %s." % (latexify(data.subsequentlydesignated()))
+        descriptiontext += " Subsequently designated %s." % (
+            latexify(data.subsequentlydesignated())
+        )
     if data.natoreportingname() is not None:
-        descriptiontext += " NATO reporting name is %s." % (latexify(data.natoreportingname()))
-        
+        descriptiontext += " NATO reporting name is %s." % (
+            latexify(data.natoreportingname())
+        )
+
     if descriptiontext != "":
         s += "\\item %s\n\n" % descriptiontext
 
@@ -800,19 +804,19 @@ def blockF(data):
         s += "\\item %s\n\n" % (latexify(note))
 
     for note in data.typenotes():
-        s += "\\item %s\n\n" % (latexify(note))    
+        s += "\\item %s\n\n" % (latexify(note))
 
     for note in data.versionnotes():
-        s += "\\item %s\n\n" % (latexify(note))    
+        s += "\\item %s\n\n" % (latexify(note))
 
     for note in data.variantnotes():
-        s += "\\item %s\n\n" % (latexify(note))    
+        s += "\\item %s\n\n" % (latexify(note))
 
     if data.wikiurl() is not None:
         s += "\\item \\href{\\detokenize{%s}}{ADC page on GitHub}.\n\n" % (
             data.wikiurl(),
         )
-        
+
     if s == "":
         writelatex(r"\renewcommand{\Fu}{}")
     else:
@@ -828,15 +832,27 @@ def blockG(data):
         writelatex(r"\renewcommand{\Gbd}{}")
     elif version != 3:
         writelatex(r"\renewcommand{\Gba}{\wbox[r]{00}{0}--%d}" % data.storeslimit("CL"))
-        writelatex(r"\renewcommand{\Gbb}{\wbox[r]{00}{%d}--%d}" % (data.storeslimit("CL") + 1, data.storeslimit("1/2")))
-        writelatex(r"\renewcommand{\Gbc}{\wbox[r]{00}{%d}+}" % (data.storeslimit("1/2") + 1))
+        writelatex(
+            r"\renewcommand{\Gbb}{\wbox[r]{00}{%d}--%d}"
+            % (data.storeslimit("CL") + 1, data.storeslimit("1/2"))
+        )
+        writelatex(
+            r"\renewcommand{\Gbc}{\wbox[r]{00}{%d}+}" % (data.storeslimit("1/2") + 1)
+        )
         writelatex(r"\renewcommand{\Gbd}{%s}" % ("{:,}".format(data.storeslimit("DT"))))
     else:
-        writelatex(r"\renewcommand{\Gba}{$<\wbox[r]{00}{%d}$}" % (data.storeslimit("CL") + 1))
-        writelatex(r"\renewcommand{\Gbb}{$<\wbox[r]{00}{%d}$}" % (data.storeslimit("1/2") + 1))
-        writelatex(r"\renewcommand{\Gbc}{$\ge\wbox[r]{00}{%d}$}" % (data.storeslimit("1/2") + 1))
+        writelatex(
+            r"\renewcommand{\Gba}{$<\wbox[r]{00}{%d}$}" % (data.storeslimit("CL") + 1)
+        )
+        writelatex(
+            r"\renewcommand{\Gbb}{$<\wbox[r]{00}{%d}$}" % (data.storeslimit("1/2") + 1)
+        )
+        writelatex(
+            r"\renewcommand{\Gbc}{$\ge\wbox[r]{00}{%d}$}"
+            % (data.storeslimit("1/2") + 1)
+        )
         writelatex(r"\renewcommand{\Gbd}{%s}" % ("{:,}".format(data.storeslimit("DT"))))
-        
+
     s = ""
     for station in data.stations():
         stationtype = station[0]
@@ -851,12 +867,9 @@ def blockG(data):
             s += "%d--%d" % tuple(stationidentifiers)
         elif stationtype == "grouppair":
             s += "%d--%d and %d--%d" % tuple(stationidentifiers)
-        s += "&%s&%s\\\\\n" % (
-          "{:,}".format(stationlimit), 
-          " ".join(stationloads)
-        )
+        s += "&%s&%s\\\\\n" % ("{:,}".format(stationlimit), " ".join(stationloads))
     writelatex(r"\renewcommand{\Gca}{%s}" % s)
-    
+
     s = ""
     for note in data.loadnotes():
         s += "\\item %s\n\n" % (latexify(note))
@@ -864,7 +877,7 @@ def blockG(data):
         writelatex(r"\renewcommand{\Gcb}{%s}" % s)
     else:
         writelatex(r"\renewcommand{\Gcb}{\Gcc{%s}}" % s)
-        
+
     if data.hasVPs():
         writelatex(
             r"\renewcommand{\Gda}{%d/%d/%d/%d}"
@@ -904,7 +917,7 @@ def writeadc(name):
 
 def writelatexprolog():
     writelatex(
-    r"""
+        r"""
     \documentclass[twocolumn]{report}
     \input aircraftdatacards.tex
     \renewcommand{\V}{%d}
@@ -912,14 +925,19 @@ def writelatexprolog():
     \tableofcontents
     \onecolumn
     \newpage
-    """ % version)
+    """
+        % version
+    )
+
 
 def writelatexepilog():
     writelatex(
-    r"""
+        r"""
     \end{document}
-    """)
-    
+    """
+    )
+
+
 def readjsonfile(jsonfilename):
     log("reading %s." % os.path.basename(jsonfilename))
     with open(jsonfilename, "r", encoding="utf-8") as f:
@@ -934,7 +952,8 @@ def readjsonfile(jsonfilename):
         directives = json.loads(s)
     log("finished reading %s." % os.path.basename(jsonfilename))
     return directives
-            
+
+
 def writelatexfile(latexfilename, directives):
     log("writing %s." % os.path.basename(latexfilename))
     global latexfile
@@ -950,12 +969,17 @@ def writelatexfile(latexfilename, directives):
         else:
             raise RuntimeError("invalid directive %r." % directive)
     writelatexepilog()
-    latexfile.close()        
+    latexfile.close()
     log("finished writing %s." % os.path.basename(latexfilename))
+
 
 def makepdffile(latexfilename, pdffilename):
     log("making %s." % pdffilename)
-    os.system("xelatex " + latexfilename + " >aircraftdatacard.log 2>&1 || cat aircraftdatacard.log")
+    os.system(
+        "xelatex "
+        + latexfilename
+        + " >aircraftdatacard.log 2>&1 || cat aircraftdatacard.log"
+    )
     log("finished making %s." % pdffilename)
     log("opening %s." % pdffilename)
     os.system("open %s" % pdffilename)
@@ -972,6 +996,6 @@ for jsonfilename in sys.argv[1:]:
     makepdffile(latexfilename, pdffilename)
 
     log("finished.")
-    
+
 
 sys.exit(0)

@@ -55,19 +55,19 @@ class aircraftdata:
         self._data = data
 
     def manufacturername(self):
-       if "manufacturername" in self._data:
-           return self._data["manufacturername"]
-       else:
-           return None
+        if "manufacturername" in self._data:
+            return self._data["manufacturername"]
+        else:
+            return None
 
     def versionname(self):
         return self._data["versionname"]
 
     def popularname(self):
-       if "popularname" in self._data:
-           return self._data["popularname"]
-       else:
-           return None
+        if "popularname" in self._data:
+            return self._data["popularname"]
+        else:
+            return None
 
     def variantname(self):
         if "variantname" in self._data:
@@ -508,7 +508,7 @@ class aircraftdata:
             return self._data["storeslimits"][1]
         elif configuration == "DT":
             return self._data["storeslimits"][2]
-            
+
     def stations(self):
         """
         Return the stations list.
