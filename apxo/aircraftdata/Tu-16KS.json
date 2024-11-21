@@ -1,7 +1,22 @@
 {
-  "versionname": "Tu-16KS Badger-B",
+  "versionname": "Tu-16KS",
+  "versiondescription": "Maritime strike version.",
+  "natoreportingname": "Badger-B",
   "base": "Tu-16A",
-  "notes": [
-    "NATO reporting name is Badger-B."
-  ]  
+  "ecm": { "iff": true, "rwr": "B", "dds": "A", "ajm": "A4" },
+  "radar": {
+    "name": "PRS-1AG Argo",
+    "eccm": 1,
+    "arc": "180+",
+    "searchrange": 345,
+    "trackingrange": 345,
+    "lockon": 7
+  },
+  "stations": [
+    [ "pair", [ 1, 2 ], 10000, [ "BB", "WR", "FT", "ASM" ]]
+  ], 
+  "loadnotes": [
+    "Stations 1 and 2 may each carry one AS-1 Kennel ASM."
+  ],
+  "VPs": [ 34, 24, 16, 8 ]
 }

@@ -1,12 +1,14 @@
 {
-  "versionname": "Tu-16A Badger-A",
+  "versionname": "Tu-16A",
+  "natoreportingname": "Badger-A",
+  "versiondescription": "Strategic conventional bomber",
   "origin": "TSOH",
   "crew": [ "Pilot", "Copilot", "Weapons Officer", "Gunner", "Gunner" ],
   "powertable": {
     "M"   : [ 1.0, 1.0, 0.5, 10.0 ],
     "N"   : [ 0.0, 0.0, 0.0,  4.0 ],
     "I"   : [ 0.5, 0.5, 1.0,  1.0 ],
-    "SPBR": [ 1.0, 1.0, 1.0 ]
+    "SPBR": [ 0.5, 0.5, 0.5 ]
   },
   "engines": 2,
   "cruisespeed": 5.0,
@@ -44,11 +46,28 @@
     "ML": [ [ "-", 0.5  ], [ "-", 0.5  ], [ "-", 0.5  ] ],
     "LO": [ [ "-", 1.0  ], [ "-", 1.0  ], [ "-", 0.5  ] ]
   },
-  "storeslimits": [ 10, 18, 20000 ],
-  "gunarc": "180-",
-  "gunammunition": 12.0,
+  "radar": {
+    "name": "PRS-1AG Argo",
+    "eccm": 1,
+    "arc": "180+",
+    "searchrange": 120,
+    "trackingrange": 90,
+    "lockon": 6
+  },
+  "bombsystem": "Ballistic",
+  "ecm": { "iff": true, "rwr": "A", "dds": "A", "ajm": "A4" },
   "properties": [ "NRM" ],
   "notes": [
-    "NATO reporting name is Badger-A."
-  ]
+    "DDS capacity is 60 CG and 20 FL or 80 CH.",
+    "Defensive Guns. Equipped with six 23 mm guns, two in the forward dorsal twin turret, two in the rear ventral twin turret turrets, and two in the tail mount. They can fire in any direction. They may return fire twice per game turn in response to a gun attacks. The roll to hit is 2/1/1 and the AtA rating is 4. Gun attacks are modified only by the target size and possible RE radar ranging. Ammunition is 12.0.",
+    "Tail Radar. The tail radar covers the 30- arc and allows an attempt at radar ranging when firing at targets in the arc. The lock-on roll is 7-."
+  ],
+  "storeslimits": [ 10, 18, 20000 ],
+  "stations": [
+    [ "single" , [ 1 ], 19800, [ "BB" ] ]
+  ], 
+  "loadnotes": [
+    "Station 1 is the internal bomb bay. It can carry up to (a) nine 2,200 lb BB, (b) eighteen 1,100 lb BB, or (c) twenty four 550 lb bombs. All bombs must be the same type and low-drag."
+  ],
+  "VPs": [ 30, 20, 10, 6 ]
 }

@@ -19,6 +19,13 @@
         "Tu-14", 
         "Tu-14T"
     ],
+    [ 
+        "type", 
+        "Tu-16", 
+        "Tu-16A",
+        "Tu-16KS",
+        "Tu-16K"
+    ],
     [
        "type", 
        "B-26 Invader and Counter-Invader", 
