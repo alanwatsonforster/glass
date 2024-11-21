@@ -9,7 +9,7 @@ sys.path.append("..")
 from apxo import aircraftdata
 import apxo.variants
 
-version = 3
+version = 1
 
 if version == 1:
     apxo.variants.setvariants(["use first-edition ADCs"])
@@ -121,8 +121,8 @@ def blockA(data):
         r"\renewcommand{\Af}{%s}" % (fuelrate("N")),
     )
     writelatex(
-        r"\renewcommand{\Aga}{%s}\renewcommand{\Agb}{%s}\renewcommand{\Agc}{%s}"
-        % (power("CL", "I"), power("1/2", "I"), power("DT", "I")),
+        r"\renewcommand{\Aga}{%s}\renewcommand{\Agb}{%s}\renewcommand{\Agc}{%s}\renewcommand{\Agd}{%s}"
+        % (power("CL", "I"), power("1/2", "I"), power("DT", "I"), fuelrate("I")),
     )
     writelatex(
         r"\renewcommand{\Aha}{%s}\renewcommand{\Ahb}{%s}\renewcommand{\Ahc}{%s}"
