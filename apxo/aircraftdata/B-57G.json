@@ -4,6 +4,7 @@
   "origin": "TSOH",
   "base": "B-57B",
   "gun": "",
+  "bombsystem": "Computed",
   "ecm": { "iff": true, "rwr": "A", "dds": "A" },
   "technology": [ "TV/IR Optics", "Laser Designator -- A" ],
   "stations": [
