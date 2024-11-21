@@ -9,7 +9,7 @@ sys.path.append("..")
 from apxo import aircraftdata
 import apxo.variants
 
-version = 1
+version = 3
 
 if version == 1:
     apxo.variants.setvariants(["use first-edition ADCs"])
@@ -640,16 +640,18 @@ def blockF(data):
     else:
         s = data.gun()
         if " and " in s:
-            font = r"\scriptsize"
+            prefix = r"\parbox{\linewidth}{\centering\scriptsize "
+            suffix = r"}"
             s = re.sub(r"and one", r"\\\\One", s)
             s = re.sub(r"and two", r"\\\\Two", s)
             s = re.sub(r"and three", r"\\\\Three", s)
             s = re.sub(r"and four", r"\\\\Four", s)
         else:
-            font = ""
+            prefix = ""
+            suffix = ""
         s = re.sub(r"\. ", r".~", s)
         s = re.sub(r" mm", r"~mm", s)
-        writelatex(r"\renewcommand{\Fg}{%s %s}" % (font, s))
+        writelatex(r"\renewcommand{\Fg}{%s%s%s}" % (prefix, s, suffix))
         if data.gunatatohitroll(2) is None:
             writelatex(
                 r"\renewcommand{\Fh}{%d/%d/--}"

@@ -44,6 +44,22 @@
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+\usepackage{graphicx}
+\usepackage{calc}
+
+\newlength{\fitwidthlength}
+
+\newcommand\fitwidth[2]{%   
+    \settowidth{\fitwidthlength}{#2}%
+    \resizebox{\minof{\fitwidthlength}{#1}}{!}{#2}%
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\usepackage{graphicx} % For \resizebox
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 \usepackage{enumitem}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -99,7 +115,7 @@
 \setlength{\blockFGheight}{35.5em}
 
 \newlength{\blockFGtopheight}
-\setlength{\blockFGtopheight}{18.9em}
+\setlength{\blockFGtopheight}{19.0em}
 
 \newlength{\stationsheight}
 \setlength{\stationsheight}{20.9em}
@@ -339,33 +355,30 @@ AB&Oth&AB&Oth&AB&Oth&\multicolumn{1}{c}{Band\spacebelow}\\
 \newcommand{\blockF}{%
 \typeout{Block F}%
 \parbox[b][\blockFGheight][t]{9\cellwidth}{%
-\begin{tabularx}{9\cellwidth}{@{}p{5\cellwidth}@{}p{4\cellwidth}@{}}%
-\parbox[b][\blockFGtopheight][t]{5\cellwidth}{%
-\begin{tabularx}{5\cellwidth}{l@{ }R}
+\begin{tabularx}{\linewidth}{@{}p{5\cellwidth}@{}p{4\cellwidth}@{}}%
+\parbox[b][\blockFGtopheight][t]{\linewidth}{%
+\begin{tabularx}{\linewidth}{l@{ }C|}
 \spaceabove\spacebelow
-\bfseries Radar&\makebox[2.4\cellwidth][c]{\Fa}\\
-ECCM&\makebox[2.4\cellwidth][c]{\Fb}\\
-Arcs&\makebox[2.4\cellwidth][c]{\Fc}\\
-Search&\makebox[2.4\cellwidth][c]{\Fd}\\
-Track&\makebox[2.4\cellwidth][c]{\Fe}\\
-Lock-On&\makebox[2.4\cellwidth][c]{\Ff}\spacebelow\\
+\bfseries Radar&\Fa\\
+ECCM&\Fb\\
+Arcs&\Fc\\
+Search&\Fd\\
+Track&\Fe\\
+Lock-On&\Ff\spacebelow\\
 \hline
-\multicolumn{2}{@{}l@{}|}{%
-\begin{tabularx}{5\cellwidth}{l@{ }R}
 \spaceabove\spacebelow
-\bfseries Guns&\parbox{\linewidth}{\raggedleft \Fg}\\
-\end{tabularx}}\\
+\bfseries Guns&\fitwidth{\linewidth}{\Fg}\\
 To Hit&\Fh\\
 Ammunition&\Fi\\
 Gunsight&\small \Fj\\
-Radar Ranging&\Fk\\
+Ranging&\Fk\\
 AtA/AtG&\Fl\spacebelow\\
 \hline
-\spaceabove\spacebelow\bfseries Bomb System&\Fm\\
+\spaceabove\spacebelow\makebox[0pt][l]{\bfseries Bomb System}&\Fm\\
 %\hline
 \end{tabularx}}&
 \parbox[b][\blockFGtopheight][t]{4\cellwidth}{%
-\begin{tabularx}{4\cellwidth}{|llC}
+\begin{tabularx}{4\cellwidth}{llC}
 \spaceabove\spacebelow
 \bfseries ECM
 &IFF&\Fn\\
@@ -377,7 +390,7 @@ AtA/AtG&\Fl\spacebelow\\
 \hline
 \multicolumn{3}{p{3.5\cellwidth}}{
 \spaceabove\multirow[t]{7}*{%
-\parbox[t][7em][t]{3.5\cellwidth}{%
+\parbox[t][8em][t]{3.5\cellwidth}{%
 \setlength{\parskip}{0.2em}%
 \raggedright {\bfseries Technology:}
 \par
