@@ -65,7 +65,7 @@
   "ecm": { "iff": true },
   "properties": [ "HTD", "LRR", "OVR" ],
   "notes": [
-    "Tail Warning Radar. ECCM is 0, arc is $30-$, and search capability is 30--10. The radar has no tracking capability."
+    "Tail Warning Radar. APS-54 with ECCM of 0, arc of $30-$, and search capability of 30--10. The radar has no tracking capability."
   ],
   "storeslimits": [ 8, 15, 12000 ],
   "stations": [
