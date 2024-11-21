@@ -77,5 +77,6 @@
   "loadnotes": [
     "Station 6 is the internal bomb bay. It can carry six illumination flares and either (a) six 1,000 lb BB, (b) eight 750 lb BB, (c) nine 500 lb BB, or (d) twelve 250 lb BB. All BB must be HE type.",
     "Stations 2 to 5 and 7 to 10 can each carry two RKs."
-  ]
+  ],
+  "VPs": [ 16, 10, 6, 3 ]
 }
