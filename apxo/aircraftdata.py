@@ -28,15 +28,17 @@ def _configurationindex(configuration):
 class aircraftdata:
 
     def __init__(self, name):
-
+    
+        def filename(name):
+            return os.path.join(
+                os.path.dirname(__file__), "aircraftdata", name + ".json"
+            )
+    
         def loadfile(name):
 
             # TODO: Handle errors.
 
-            filename = os.path.join(
-                os.path.dirname(__file__), "aircraftdata", name + ".json"
-            )
-            with open(filename, "r", encoding="utf-8") as f:
+            with open(filename(name), "r", encoding="utf-8") as f:
                 s = f.read(-1)
                 # Strip whole-line // comments.
                 r = re.compile("^[ \t]*//.*$", re.MULTILINE)
@@ -44,7 +46,7 @@ class aircraftdata:
                 return json.loads(s)
 
         self._name = name
-
+        
         data = loadfile(name)
         while "base" in data:
             base = data["base"]
@@ -53,6 +55,13 @@ class aircraftdata:
             basedata.update(data)
             data = basedata
         self._data = data
+        
+        process = os.popen("TZ=UTC git log -n 1 --pretty=format:\"%h %ci\" -- " + filename(name))
+        tag = process.read()
+        process.close()
+        self._tag = tag
+        print(self._tag)
+      
 
     def manufacturername(self):
         if "manufacturername" in self._data:

@@ -951,6 +951,7 @@ def readjsonfile(jsonfilename):
         s = re.sub(r, "", s)
         directives = json.loads(s)
     log("finished reading %s." % os.path.basename(jsonfilename))
+        
     return directives
 
 
