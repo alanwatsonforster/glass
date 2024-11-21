@@ -923,13 +923,16 @@ def writelatexprolog():
         r"""
     \documentclass[twocolumn]{report}
     \input aircraftdatacards.tex
-    \renewcommand{\V}{%d}
+    \newif\ifversionone\versiononefalse
+    \newif\ifversiontwo\versiontwofalse
+    \newif\ifversionthree\versionthreefalse
+    \version%strue
     \begin{document}
     \tableofcontents
     \onecolumn
     \newpage
     """
-        % version
+        % ["one", "two", "three"][version - 1]
     )
 
 

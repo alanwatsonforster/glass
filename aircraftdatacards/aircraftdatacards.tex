@@ -135,7 +135,13 @@
 \multicolumn{5}{c}{\Large\bfseries\itshape\parbox[c][4em]{4\cellwidth}{\centering \Aab}}\\
 \multicolumn{5}{l}{\parbox[b][1.6em][b]{4.5\cellwidth}{\Aba{\bfseries Crew} \raggedright \Abb}}\spacebelow\\
 \hline
-\multicolumn{5}{l}{{\bfseries Power APs/DPs} \hfill \Ac}\spaceabove\spacebelow\\
+\multicolumn{5}{l}{%
+\ifversionone
+{\bfseries Power APs/DPs/FPs} 
+\else
+{\bfseries Power APs/DPs} 
+\fi
+\hfill \Ac}\spaceabove\spacebelow\\
 &CL&1/2&DT&Fuel\\
 \Ada&\Adb&\Adc&\Add&\wbox{00}{\Ade}\\
 \Aea&\Aeb&\Aec&\Aed&\wbox{00}{\Aee}\\
@@ -150,8 +156,6 @@ SPBR&\Aha&\Ahb&\Ahc&---\spacebelow\\
 
 \newcommand{\jetengine}{$\bigcirc$}
 \newcommand{\propellerengine}{$\odot$}
-
-\newcommand{\V}{1} % ADC version
 
 \newcommand{\Aaa}{F-4D Phantom II} % Name
 \newcommand{\Aab}{F-4D\\Phantom II} % Split name
@@ -210,7 +214,8 @@ Vulnerability&$\Bf$&Ejection Seat&\wbox[l]{Early}{\Bk}\\
 \typeout{Block C}%
 \parbox[b][\blockABCheight][t]{5\cellwidth}{%
 \begin{tabularx}{\blockCcells\cellwidth}{L@{ }C@{ }C@{ }C}
-&\multicolumn{2}{c}{\large\bfseries\itshape\parbox[c][2em]{2\cellwidth}{\centering Air Power}}&\multicolumn{1}{r}{\footnotesize v\V}\\
+&\multicolumn{2}{c}{\large\bfseries\itshape\parbox[c][2em]{2\cellwidth}{\centering Air Power}}
+&\multicolumn{1}{r}{\footnotesize v\ifversionone 1\fi\ifversiontwo 2\fi\ifversionthree 3\fi}\\
 \hline
 \multicolumn{3}{l}{\bfseries Maneuver DPs\spaceabove\spacebelow}\\
 \multicolumn{3}{l}{LR/DR}&\Ca\\
