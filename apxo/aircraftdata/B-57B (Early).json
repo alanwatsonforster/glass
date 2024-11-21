@@ -1,0 +1,10 @@
+{
+  "variantname": "Early",
+  "variantdescription": "with .50 cal machine guns rather than 20 mm M24 cannon.",
+  "origin": "AMW",
+  "base": "B-57B",
+  "gun": "Eight .50 cal",
+  "gunatatohitrolls": "4/2/1",
+  "gunatadamagerating": "5/6**",
+  "gunammunition": 7.0
+}
