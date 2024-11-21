@@ -56,7 +56,8 @@
     //  May 1950
     [ "type", "F-94 Starfire", "F-94A", "F-94B" ],
     // February 1955
-    [ "type", "B-52 Stratofortress", "B-52D", "B-52G" ]
-
+    [ "type", "B-52 Stratofortress", "B-52D", "B-52G" ],
+    // August 1953
+    [ "type", "B-57 Canberra", "B-57B", "B-57G" ]
 
 ]

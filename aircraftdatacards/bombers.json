@@ -55,5 +55,11 @@
         "B-52 Stratofortress", 
         "B-52D",
         "B-52G"
+    ],
+    [ 
+        "type", 
+        "B-57 Canberra", 
+        "B-57B",
+        "B-57G"
     ]
 ]
