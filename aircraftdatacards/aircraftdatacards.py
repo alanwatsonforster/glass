@@ -885,6 +885,9 @@ def blockG(data):
         )
     else:
         writelatex(r"\renewcommand{\Gda}{}")
+        
+    writelatex(r"\renewcommand{\Gea}{%s}" % data.commitabbreviatedhash())
+    writelatex(r"\renewcommand{\Geb}{%s}" % data.commitdatetime())
 
 
 def writechapter(name):

@@ -56,12 +56,25 @@ class aircraftdata:
             data = basedata
         self._data = data
         
-        process = os.popen("TZ=UTC git log -n 1 --pretty=format:\"%h %ci\" -- " + filename(name))
-        tag = process.read()
+        process = os.popen("env TZ=UTC git log -n 1 --date=local --date=format-local:\"%%Y-%%m-%%d %%H:%%M.%%SZ\" --pretty=format:\"%%cd %%h %%H\" \"%s\"" % filename(name))
+        gitlogoutput = process.read()
         process.close()
-        self._tag = tag
-        print(self._tag)
+        self._gitlogoutput = gitlogoutput
+        
+    def commitdate(self):
+        return self._gitlogoutput.split()[0]
       
+    def committime(self):
+        return self._gitlogoutput.split()[1]
+        
+    def commitdatetime(self):
+        return "%sT%s" % (self.commitdate(), self.committime())
+
+    def commitabbreviatedhash(self):
+        return self._gitlogoutput.split()[2]
+
+    def commithash(self):
+        return self._gitlogoutput.split()[3]
 
     def manufacturername(self):
         if "manufacturername" in self._data:

@@ -118,7 +118,7 @@
 \setlength{\blockFGtopheight}{19.0em}
 
 \newlength{\stationsheight}
-\setlength{\stationsheight}{20.9em}
+\setlength{\stationsheight}{20.8em}
 
 \newcommand{\blockAcells}{5}
 \newcommand{\blockBcells}{6}
@@ -458,6 +458,8 @@ AtA/AtG&\Fl\spacebelow\\
   \end{enumerate}
 }
 \newcommand{\Gda}{} % VPs
+\newcommand{\Gea}{} % Commit abbreviated hash
+\newcommand{\Geb}{} % Commit date and time
 
 \newcommand{\blockG}{%
 \typeout{Block G}%
@@ -492,8 +494,9 @@ AtA/AtG&\Fl\spacebelow\\
 \Gcb
 }\end{tabularx}}\\
 \hline
-{\begin{tabularx}{7\cellwidth}{lC}
-{\spaceabove\spacebelow\bfseries VPs} \Gda\\
+{\begin{tabularx}{7\cellwidth}{lC|r}
+\spaceabove\spacebelow
+{\bfseries VPs} \Gda &&\tiny\wbox{0000-00-00T00:00:00Z}{\parbox[b]{\linewidth}{\raggedleft \Gea\\\Geb}}\\
 %\hline
 \end{tabularx}}\\
 \end{tabularx}}}
