@@ -1,6 +1,6 @@
 {
   "variantname": "Early",
-  "variantdescription": "with .50 cal machine guns rather than 20 mm M24 cannon.",
+  "variantdescription": "with .50 cal machine guns rather than 20 mm M39 cannon.",
   "origin": "AMW",
   "base": "B-57B",
   "gun": "Eight .50 cal M3",
