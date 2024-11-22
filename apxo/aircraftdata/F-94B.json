@@ -69,6 +69,7 @@
   "notes": [
     "The E1 all-weather fire-control system allows the guns to be fired on targets that are unsighted but tracked by radar if the radar-ranging attempt succeeds."
   ],
+  "wikiurl": "https://bit.ly/3B1GFtK",
   "storeslimits": [ 4, 7, 3600 ],
   "stations": [
     [ "pair", [ 1, 2 ], 1800, [ "FT" ] ]

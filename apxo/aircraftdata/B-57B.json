@@ -67,6 +67,7 @@
   "notes": [
     "Tail Warning Radar. APS-54 with ECCM of 0, arc of $30-$, and search capability of 30--10. The radar has no tracking capability."
   ],
+  "wikiurl": "https://bit.ly/40Xb0nW",
   "storeslimits": [ 8, 15, 12000 ],
   "stations": [
     [ "pair"     , [ 1, 11 ]      , 2200, [ "FT" ] ],

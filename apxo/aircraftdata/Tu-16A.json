@@ -62,6 +62,7 @@
     "Defensive Guns. Equipped with six 23 mm guns, two in the forward dorsal twin turret, two in the rear ventral twin turret turrets, and two in the tail mount. They can fire in any direction. They may return fire twice per game turn in response to a gun attacks. The roll to hit is 2/1/1 and the AtA rating is 4. Gun attacks are modified only by the target size and possible RE radar ranging. Ammunition is 12.0.",
     "Tail Radar. The tail radar covers the 30- arc and allows an attempt at radar ranging when firing at targets in the arc. The lock-on roll is 7-."
   ],
+  "wikiurl": "https://bit.ly/4g1KSN9",
   "storeslimits": [ 10, 18, 20000 ],
   "stations": [
     [ "single" , [ 1 ], 19800, [ "BB" ] ]
