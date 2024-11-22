@@ -9,7 +9,7 @@ sys.path.append("..")
 from apxo import aircraftdata
 import apxo.variants
 
-version = 1
+version = 3
 
 if version == 1:
     apxo.variants.setvariants(["use first-edition ADCs"])
@@ -203,6 +203,13 @@ def blockB(data):
 
 def blockC(data):
 
+    def rollhfp():
+        value = data.rollhfp()
+        if value == None:
+            return "---"
+        else:
+            return r"%.1f" % value
+
     def maneuverdrag(maneuvertype):
         value = data.rolldrag(maneuvertype)
         if value == None:
@@ -231,7 +238,11 @@ def blockC(data):
             )
             return "%s/%s" % (formatdrag(drag), formatdrag(lowspeedliftdevicedrag))
 
-    writelatex(r"\renewcommand{\Ca}{%s}" % maneuverdrag("DR"))
+    if version == 3:
+        writelatex(r"\renewcommand{\Caa}{}")
+    else:
+        writelatex(r"\renewcommand{\Caa}{%s}" % rollhfp())
+    writelatex(r"\renewcommand{\Cab}{%s}" % maneuverdrag("DR"))
     writelatex(r"\renewcommand{\Cb}{%s}" % maneuverdrag("VR"))
 
     precision = 0

@@ -221,11 +221,11 @@ Vulnerability:&$\Bf$&Ejection Seat:&\wbox[l]{Early}{\Bk}\\
 \ifversionthree
 {\bfseries Maneuver DPs:} 
 \else
-{\bfseries Maneuver FPs/DPs:} 
+{\bfseries Maneuver HFPs/DPs:} 
 \fi
 }\\
-\multicolumn{3}{l}{LR/DR}&\Ca\\
-\multicolumn{3}{l}{VR}&\Cb\spacebelow\\
+\multicolumn{2}{l}{LR/DR}&\Caa&\Cab\\
+\multicolumn{2}{l}{VR}&&\Cb\spacebelow\\
 \hline
 \multicolumn{3}{l}{\bfseries Turn DPs:\spaceabove\spacebelow}\\
 &CL&1/2&DT\spacebelow\\
@@ -239,7 +239,8 @@ ET&\Cfa&\Cfb&\Cfc\spacebelow\\
 }
 \end{tabularx}}}
 
-\newcommand{\Ca}{1.0} % LR/VR drag
+\newcommand{\Caa}{1.0} % LR/VR HFP
+\newcommand{\Cab}{1.0} % LR/VR drag
 \newcommand{\Cb}{0.0} % VR drag
 \newcommand{\Cca}{1.0} % TT drag CL
 \newcommand{\Ccb}{1.0} % TT drag 1/2
