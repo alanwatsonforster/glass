@@ -1,12 +1,14 @@
 {
-  "versionname": "A-3B Skywarrior",
+  "versionname": "A-3B",
+  "versiondescription": "Conventional and nuclear bomber version.",
+  "popularname": "Skywarrior",
   "origin": "TSOH",
   "crew": [ "Pilot", "Navigator", "EW Officer" ],
   "powertable": {
     "M"   : [ 1.0, 1.0, 0.5, 4.0 ],
     "N"   : [ 0.0, 0.0, 0.0, 2.0 ],
     "I"   : [ 0.5, 0.5, 1.0, 0.0 ],
-    "SPBR": [ 1.0, 2.0, 2.0 ]
+    "SPBR": [ 0.5, 0.5, 1.0 ]
   },
   "jetengines": 2,
   "cruisespeed": 5.0,
@@ -44,11 +46,29 @@
     "ML": [ [ "-", 1.0 ], [ "-", 1.0 ], [ "-", 0.5  ] ],
     "LO": [ [ "-", 1.0 ], [ "-", 1.0 ], [ "-", 1.0  ] ]
   },
-  "storeslimits": [ 6, 9, 15000 ],
-  "gunarc": "60-",
-  "gunammunition": 6.0,
-  "properties": [ "HTD", "OVR" ],
+  "radar": {
+    "name": "ASB-7",
+    "eccm": 1,
+    "arc": "180+",
+    "searchrange": 150,
+    "trackingrange": 90,
+    "lockon": 7
+  },
+  "bombsystem": "Ballistic",
+  "ecm": { "iff": true, "rwr": "A", "ajm": "A3" },
+  "properties": [ "SMP", "HTD", "OVR" ],
   "notes": [
-    "Tail turret equipped with two 20 mm M3 guns."
-  ]
+    "Tail Radar. Equipped with a tail radar with an ECCM of 1, arc of 60-, search of 30--10, tracking of 15--10, and lock-on of 7.",
+    "Defensive Guns. Equipped with a tail turret with two 20 mm M3L guns. They may return fire twice per game turn in response to a gun attacks in the 60- arc, but only at a locked-on attacker. No modifiers apply. The roll to hit is 3/2/1 and the AtA rating is 4. Ammunition is 6.0."
+  ],
+  "wikiurl": "https://bit.ly/3COXM2p",
+  "storeslimits": [ 6, 9, 15000 ],
+  "stations": [
+    [ "pair"  , [ 1, 3], 3000, [ "BB", "FT", "EP" ]],
+    [ "single", [ 2 ]  , 9000, [ "BB" ]]
+  ],
+  "loadnotes": [
+    "Station 2 is the internal bomb bay. Load options are (a) four 2,000 lb BB, (b) six 1,000 lb BB, (c) twelve 500 lb BB, or (d) two nuclear bombs."
+  ],
+  "VPs": [ 24, 16, 8, 4 ]
 }
