@@ -32,7 +32,8 @@
   },
   //"powerfadespeedtable": [ [2.5, 0.25] ],
 
-  "engines": 10,
+  "propellerengines": 6,
+  "jetengines": 4,
   "cruisespeed": 2.0,
   "climbspeed" : 2.0,  
   "visibility": 13,

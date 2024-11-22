@@ -9,7 +9,7 @@ sys.path.append("..")
 from apxo import aircraftdata
 import apxo.variants
 
-version = 3
+version = 1
 
 if version == 1:
     apxo.variants.setvariants(["use first-edition ADCs"])
@@ -59,10 +59,31 @@ def blockA(data):
         writelatex(r"\renewcommand{\Aba}{\small}")
     writelatex(r"\renewcommand{\Abb}{%s}" % crew())
 
-    if data.power("CL", "M") is None:
-        writelatex(r"\renewcommand{\Ac}{%s}" % (data.engines() * r"\propellerengine"))
+    if data.propellerengines() == 0 and data.jetengines() <= 4:
+        writelatex(
+            r"\renewcommand{\Ac}{\Acone{%s}}" % (data.jetengines() * r"\jetengine")
+        )
+    elif data.propellerengines() == 0:
+        writelatex(
+            r"\renewcommand{\Ac}{\Actwo{%s}{%s}}"
+            % (
+                ((data.jetengines() // 2) * r"\jetengine"),
+                ((data.jetengines() // 2) * r"\jetengine"),
+            )
+        )
+    elif data.jetengines() == 0:
+        writelatex(
+            r"\renewcommand{\Ac}{\Acone{%s}}"
+            % (data.propellerengines() * r"\propellerengine")
+        )
     else:
-        writelatex(r"\renewcommand{\Ac}{%s}" % (data.engines() * r"\jetengine"))
+        writelatex(
+            r"\renewcommand{\Ac}{\Actwo{%s}{%s}}"
+            % (
+                (data.jetengines() * r"\jetengine"),
+                (data.propellerengines() * r"\propellerengine"),
+            )
+        )
 
     def power(configuration, setting):
         if data.power(configuration, setting) is None:
@@ -896,7 +917,7 @@ def blockG(data):
         )
     else:
         writelatex(r"\renewcommand{\Gda}{}")
-        
+
     writelatex(r"\renewcommand{\Gea}{%s}" % data.commitabbreviatedhash())
     writelatex(r"\renewcommand{\Geb}{%s}" % data.commitdatetime())
 
@@ -968,7 +989,7 @@ def readjsonfile(jsonfilename):
         s = re.sub(r, "", s)
         directives = json.loads(s)
     log("finished reading %s." % os.path.basename(jsonfilename))
-        
+
     return directives
 
 

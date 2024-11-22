@@ -28,12 +28,12 @@ def _configurationindex(configuration):
 class aircraftdata:
 
     def __init__(self, name):
-    
+
         def filename(name):
             return os.path.join(
                 os.path.dirname(__file__), "aircraftdata", name + ".json"
             )
-    
+
         def loadfile(name):
 
             # TODO: Handle errors.
@@ -46,7 +46,7 @@ class aircraftdata:
                 return json.loads(s)
 
         self._name = name
-        
+
         data = loadfile(name)
         while "base" in data:
             base = data["base"]
@@ -55,18 +55,21 @@ class aircraftdata:
             basedata.update(data)
             data = basedata
         self._data = data
-        
-        process = os.popen("env TZ=UTC git log -n 1 --date=local --date=format-local:\"%%Y-%%m-%%d %%H:%%M.%%SZ\" --pretty=format:\"%%cd %%h %%H\" \"%s\"" % filename(name))
+
+        process = os.popen(
+            'env TZ=UTC git log -n 1 --date=local --date=format-local:"%%Y-%%m-%%d %%H:%%M.%%SZ" --pretty=format:"%%cd %%h %%H" "%s"'
+            % filename(name)
+        )
         gitlogoutput = process.read()
         process.close()
         self._gitlogoutput = gitlogoutput
-        
+
     def commitdate(self):
         return self._gitlogoutput.split()[0]
-      
+
     def committime(self):
         return self._gitlogoutput.split()[1]
-        
+
     def commitdatetime(self):
         return "%sT%s" % (self.commitdate(), self.committime())
 
@@ -213,7 +216,19 @@ class aircraftdata:
         return self._data["internalfuel"]
 
     def engines(self):
-        return self._data["engines"]
+        return self.jetengines() + self.propellerengines()
+
+    def jetengines(self):
+        if "jetengines" in self._data:
+            return self._data["jetengines"]
+        else:
+            return 0
+
+    def propellerengines(self):
+        if "propellerengines" in self._data:
+            return self._data["propellerengines"]
+        else:
+            return 0
 
     def lowspeedliftdeviceselectable(self):
         if "lowspeedliftdeviceselectable" in self._data:

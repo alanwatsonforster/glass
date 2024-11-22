@@ -141,7 +141,7 @@
 \else
 {\bfseries Power APs/DPs:} 
 \fi
-\hfill \Ac}\spaceabove\spacebelow\\
+\hfill \parbox{4em}{\raggedleft\Ac}}\spaceabove\spacebelow\\
 &CL&1/2&DT&Fuel\\
 \Ada&\Adb&\Adc&\Add&\wbox{00}{\Ade}\\
 \Aea&\Aeb&\Aec&\Aed&\wbox{00}{\Aee}\\
@@ -181,6 +181,14 @@ SPBR&\Aha&\Ahb&\Ahc&---\spacebelow\\
 \newcommand{\Ahb}{2.0} % SPBR drag 1/2
 \newcommand{\Ahc}{2.0} % SPBR drag DT
 \newcommand{\Ai}{Smoker at military power} % Power comment
+
+\newcommand{\Actwo}[1]{%
+#1}
+
+\newcommand{\Actwo}[2]{%
+\footnotesize
+\raisebox{+0.0em}[0.5em]{#1}\break
+\raisebox{+0.2em}[0.5em]{#2}}
 
 \newcommand{\blockB}{%
 \typeout{Block B}%

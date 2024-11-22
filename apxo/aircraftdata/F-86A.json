@@ -11,7 +11,7 @@
     "I"   : [ 0.5, 0.5, 1.0, 0.0 ],
     "SPBR": [ 0.5, 0.5, 1.0 ]
   },
-  "engines": 1,
+  "jetengines": 1,
   "cruisespeed": 5.0,
   "climbspeed" : 3.5,
   "visibility": 5,
