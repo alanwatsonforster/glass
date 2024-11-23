@@ -62,6 +62,9 @@
     // February 1955
     [ "type", "B-52 Stratofortress", "B-52D", "B-52G" ],
     // March 1956
-    [ "type", "A3D/A-3 Skywarrior", "A-3B" ]
+    [ 
+        "type", "A3D/A-3 Skywarrior", "A3D-2 (Early)", "A-3B (Early)", "A3D-2 (Late)", "A-3B (Late)", "A3D-2Q", "EA-3B" ],
+    // 1956
+    [   "type", "B-66 Destroyer", "B-66B (Early)", "B-66B (Late)", "RB-66C", "EB-66C" ]
 
 ]

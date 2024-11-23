@@ -1,4 +1,6 @@
 {
-  "versionname": "A3D-2Q Skywarrior",
-  "base": "EA-3B"
+  "versionname": "A3D-2Q",
+  "base": "EA-3B",
+  "subsequentlydesignated": "EA-3B",
+  "originallydesignated": null
 }

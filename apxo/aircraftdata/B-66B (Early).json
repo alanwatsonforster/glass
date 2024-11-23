@@ -1,0 +1,17 @@
+{
+  "versionname": "B-66B",
+  "popularname": "Destroyer",
+  "base": "A-3B (Early)",
+  "ejectionseat": "standard",
+  "radar": {
+    "name": "APS-63",
+    "eccm": 1,
+    "arc": "180+",
+    "searchrange": 180,
+    "trackingrange": 120,
+    "lockon": 7
+  },
+  "ecm": { "iff": true, "dds": "A", "rwr": "A", "ajm": "A3" },
+  "originallydesignated": null,
+  "wikiurl": "https://bit.ly/417Gyr8"
+}

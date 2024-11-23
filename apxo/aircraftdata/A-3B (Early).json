@@ -1,9 +1,12 @@
 {
   "versionname": "A-3B",
   "versiondescription": "Conventional and nuclear bomber version.",
+  "variantname": "Early",
+  "variantdescription": "with tail guns.",
+  "originallydesignated": "A3D-2",
   "popularname": "Skywarrior",
   "origin": "TSOH",
-  "crew": [ "Pilot", "Navigator", "EW Officer" ],
+  "crew": [ "Pilot", "Bombardier-Navigator", "Gunner" ],
   "powertable": {
     "M"   : [ 1.0, 1.0, 0.5, 4.0 ],
     "N"   : [ 0.0, 0.0, 0.0, 2.0 ],
