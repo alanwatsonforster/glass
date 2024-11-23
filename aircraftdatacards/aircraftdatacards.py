@@ -180,7 +180,7 @@ def blockA(data):
             lastpowerfade = powerfade
             altitude += 1
     if data.hasproperty("ABSF"):
-        s += "If not in AB power, reduce maximum speeds by %.1f." % data.ABSFamount()
+        s += "If not using AB, reduce maximum speeds by %.1f." % data.ABSFamount()
 
     writelatex(
         r"\renewcommand{\Ai}{%s}" % s,
@@ -746,7 +746,7 @@ def blockF(data):
     if data.technology() is None:
         writelatex(r"\renewcommand{\Ft}{None}")
     else:
-        s = " ".join(data.technology())
+        s = r"\mbox{" + r"} \mbox{".join(data.technology()) + r"}"
         writelatex(r"\renewcommand{\Ft}{%s}" % s)
 
     s = ""
@@ -901,7 +901,10 @@ def blockG(data):
             s += "%d--%d" % tuple(stationidentifiers)
         elif stationtype == "grouppair":
             s += "%d--%d and %d--%d" % tuple(stationidentifiers)
-        s += "&%s&%s\\\\\n" % ("{:,}".format(stationlimit), " ".join(stationloads))
+        s += "&%s&%s\\\\\n" % (
+          "{:,}".format(stationlimit), 
+          r"\mbox{" + r"} \mbox{".join(stationloads) + r"}"
+        )
     writelatex(r"\renewcommand{\Gca}{%s}" % s)
 
     s = ""

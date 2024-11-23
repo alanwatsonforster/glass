@@ -1,6 +1,25 @@
 {
-  "versionname": "F-89H Scorpion",
+  "versionname": "F-89H",
   "base": "F-89D",
-  "rocketfactors": 4
-  // The H differs from the D in radar and armament.
+  "radar": {
+    "name": "E-9",
+    "eccm": 1,
+    "arc": "180+",
+    "searchrange": 120,
+    "searchstrength": 20,
+    "trackingrange": 60,
+    "trackingstrength": 10,
+    "lockon": 7
+  },
+  "storeslimits": [ 4, 8, 4400 ],
+  "stations": [
+    [ "pair", [1, 4],  390, [ "IRM", "RHM" ] ],
+    [ "pair", [2, 4], 1600, [ "BB", "FT" ] ]
+  ],
+  "loadnotes": [
+    "Stations 1 and 4 are fixed wing-tip pods for rockets, missiles, and fuel. Each can carry 2 factors of air-to-air rockets, giving a total of 4 factors for with pods. Each can also carry three AIM-4 IRM/RHM. The pod fuel is included in the internal fuel."
+  ],
+  "rocketfactors": 4,
+  "VPs": [ 14, 10, 5, 2 ]
+
 }

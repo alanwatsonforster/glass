@@ -1,0 +1,29 @@
+{
+  "versionname": "F-89J",
+  "variantname": "Rocket-and-Fuel Pods",
+  "variantdescription": "with rocket-and-fuel wing-tip pods from the F-89D.",
+  "base": "F-89D",
+  "radar": {
+    "name": "E-9",
+    "eccm": 1,
+    "arc": "180+",
+    "searchrange": 120,
+    "searchstrength": 20,
+    "trackingrange": 60,
+    "trackingstrength": 10,
+    "lockon": 7
+  },
+  "rocketfactors": 9,
+  "stations": [
+    [ "pair"     , [ 1, 8 ]      ,    0, [ ] ],
+    [ "pair"     , [ 2, 7 ]      , 1600, [ "BB", "FT", "Nuclear RK" ] ],
+    [ "grouppair", [ 3, 4, 5, 6 ],  150, [ "IRM", "RHM" ] ]
+    
+  ],
+  "loadnotes": [
+    "Stations 1 and 8 are fixed wing-tip pods for rockets and fuel. Each can carry 4.5 factors of air-to-air rockets, giving a total of 9 factors with both pods. The pod fuel is included in the internal fuel.",
+    "May use AIM-4 IRM and RHMs.",
+    "May use AIR-2A nuclear RK."
+  ],
+  "VPs": [ 15, 10, 5, 3 ]
+}

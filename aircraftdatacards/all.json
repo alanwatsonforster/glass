@@ -57,6 +57,8 @@
     [ "type", "F-86 Sabre", "F-86A", "F-86D", "F-86E", "F-86F-10", "F-86F-25", "F-86F-35", "F-86F-40", "F-86H (Early)", "F-86H (Late)", "F-86K (Early)", "F-86K (Late)", "F-86L" ],
     //  May 1950
     [ "type", "F-94 Starfire", "F-94A", "F-94B" ],
+    // September 1950
+    [ "type", "F-89 Scorpion", "F-89D", "F-89H", "F-89J (Rocket-and-Fuel Pods)", "F-89J (Fuel-Only Pods)" ],
     // August 1953
     [ "type", "B-57 Canberra", "B-57B (Early)", "B-57B", "B-57B (PAF)", "B-57G" ],
     // February 1955
