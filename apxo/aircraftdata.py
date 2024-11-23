@@ -61,6 +61,8 @@ class aircraftdata:
             % filename(name)
         )
         gitlogoutput = process.read()
+        if gitlogoutput == "":
+            gitlogoutput = "0000-00-00 00:00:00 %s %s" % (7 * "0", 40 * "0")
         process.close()
         self._gitlogoutput = gitlogoutput
 
