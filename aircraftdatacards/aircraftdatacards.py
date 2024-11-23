@@ -53,7 +53,7 @@ def blockA(data):
     )
     writelatex(r"\renewcommand{\Aab}{%s}" % splitfullname)
 
-    if len(data.crew()) >=75:
+    if len(data.crew()) >= 7:
         writelatex(r"\renewcommand{\Aba}{\tiny}")
     elif len(data.crew()) >= 5:
         writelatex(r"\renewcommand{\Aba}{\footnotesize}")
