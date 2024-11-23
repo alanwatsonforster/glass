@@ -17,7 +17,8 @@
     [ "pair", [2, 4], 1600, [ "BB", "FT" ] ]
   ],
   "loadnotes": [
-    "Stations 1 and 4 are fixed wing-tip pods for rockets, missiles, and fuel. Each can carry 2 factors of air-to-air rockets, giving a total of 4 factors for with pods. Each can also carry three AIM-4 IRM/RHM. The pod fuel is included in the internal fuel."
+    "Stations 1 and 4 are fixed wing-tip pods for rockets, missiles, and fuel. Each can carry 2 factors of air-to-air rockets, giving a total of 4 factors for with pods. Each can also carry three RHM/IRM. The pod fuel is included in the internal fuel.",
+    "May use GAR-1/-1D RHMs and GAR-2/-2A IRMs. Typically carries three RHMs in one pod and three IRMs in the other."
   ],
   "rocketfactors": 4,
   "VPs": [ 14, 10, 5, 2 ]
