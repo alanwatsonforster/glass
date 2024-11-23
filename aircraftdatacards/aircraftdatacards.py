@@ -40,9 +40,9 @@ def blockA(data):
         if len(data.crew()) == 1:
             return data.crew()[0]
         elif len(data.crew()) == 2:
-            return data.crew()[0] + r" \& " + data.crew()[1]
+            return data.crew()[0] + r" and " + data.crew()[1]
         else:
-            return ", ".join(data.crew()[0:-1]) + r", \& " + data.crew()[-1]
+            return ", ".join(data.crew()[0:-1]) + r", and " + data.crew()[-1]
 
     writelatex(r"\renewcommand{\Aaa}{%s}" % data.fullvariantname())
 
@@ -53,8 +53,10 @@ def blockA(data):
     )
     writelatex(r"\renewcommand{\Aab}{%s}" % splitfullname)
 
-    if len(data.crew()) > 6:
+    if len(data.crew()) >=75:
         writelatex(r"\renewcommand{\Aba}{\tiny}")
+    elif len(data.crew()) >= 5:
+        writelatex(r"\renewcommand{\Aba}{\footnotesize}")
     else:
         writelatex(r"\renewcommand{\Aba}{\small}")
     writelatex(r"\renewcommand{\Abb}{%s}" % crew())
