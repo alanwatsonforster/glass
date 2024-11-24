@@ -1,9 +1,12 @@
 {
   "versionname": "F9F-5P",
-  "versiondescription": "Reconnaissance version of F9F-5, with oblique and overhead cameras.",
+  "versiondescription": "Reconnaissance version of F9F-5.",
   "base": "F9F-5",
   "gun": "",
   "radar": null,
   "ataradarranging": null,
+  "notes": [
+    "Oblique and overhead cameras in the nose."
+  ],
   "VPs": [ 8, 5, 3, 1 ]
 }
