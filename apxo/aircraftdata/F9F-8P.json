@@ -1,0 +1,12 @@
+{
+  "versionname": "F9F-8P",
+  "versiondescription": "Reconnaissance version of F9F-8.",
+  "base": "F9F-8",
+  "gun": "",
+  "radar": null,
+  "ataradarranging": null,
+  "notes": [
+    "Oblique and overhead cameras in the nose."
+  ],
+  "VPs": [ 9, 6, 3, 1 ]
+}

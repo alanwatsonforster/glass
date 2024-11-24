@@ -59,6 +59,8 @@
     [ "type", "F-94 Starfire", "F-94A", "F-94B" ],
     // September 1950
     [ "type", "F-89 Scorpion", "F-89D", "F-89H", "F-89J (Rocket-and-Fuel Pods)", "F-89J (Fuel-Only Pods)" ],
+    // December 1952
+    [ "type", "F9F Cougar", "F9F-6", "F9F-6P", "F9F-8", "F9F-8P" ]
     // August 1953
     [ "type", "B-57 Canberra", "B-57B (Early)", "B-57B", "B-57B (PAF)", "B-57G" ],
     // February 1955

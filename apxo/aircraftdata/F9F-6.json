@@ -1,0 +1,72 @@
+{
+  "versionname": "F9F-6",
+  "popularname": "Cougar",
+  "versiondescription": "Fighter-bomber version.",
+  "manufacturername": "Grumman",
+  "origin": "TSOH",
+  "crew": [ "Pilot" ],
+  "powertable": {
+    "M"   : [ 1.5, 1.0, 1.0, 1.0 ],
+    "N"   : [ 0.0, 0.0, 0.0, 0.5 ],
+    "I"   : [ 0.5, 0.5, 0.5, 0.0 ],
+    "SPBR": [ 0.5, 0.5, 1.0 ]
+  },
+  "jetengines": 1,
+  "cruisespeed": 5.0,
+  "climbspeed" : 3.5,
+  "visibility": 5,
+  "sizemodifier": 0,
+  "vulnerability": 0,
+  "restrictedarcs": "",
+  "blindarcs": "30-",
+  "internalfuel": 345,
+  "atarefuel": false,
+  "ejectionseat": "early",
+  "maneuvertable": {
+    "LR/DR": [ 1.0, 1.0 ],
+    "VR":    [ 0.0, 0.0 ]
+  },
+  "turndragtable": {
+    "TT": [ 1.0, 1.0, 1.0 ],
+    "HT": [ 1.0, 1.0, 2.0 ],
+    "BT": [ 3.0, 3.0, 3.0 ]
+  },
+  "ceilingtable": [ 44, 40, 38 ],
+  "speedtable": {
+    "EH": [ [ "-", "-" ], [ "-", "-" ], [ "-", "-" ], "-" ],
+    "VH": [ [ 3.0, 5.5 ], [ 3.5, 5.5 ], [ "-", "-" ], 6.5 ],
+    "HI": [ [ 2.5, 6.0 ], [ 3.0, 5.5 ], [ 3.5, 5.0 ], 7.0 ],
+    "MH": [ [ 2.0, 6.5 ], [ 2.5, 6.0 ], [ 2.5, 5.5 ], 7.0 ],
+    "ML": [ [ 1.5, 6.5 ], [ 2.0, 6.0 ], [ 2.0, 5.5 ], 7.5 ],
+    "LO": [ [ 1.5, 6.5 ], [ 1.5, 6.5 ], [ 2.0, 6.0 ], 7.5 ]
+  },
+  "climbcapabilitytable": {
+    "EH": [ [ "-", "-" ], [ "-", "-" ], [ "-", "-" ] ],
+    "VH": [ [ "-", 0.5 ], [ "-", 0.5 ], [ "-", "-" ] ],
+    "HI": [ [ "-", 0.5 ], [ "-", 0.5 ], [ "-", 0.5 ] ],
+    "MH": [ [ "-", 1.0 ], [ "-", 1.0 ], [ "-", 0.5 ] ],
+    "ML": [ [ "-", 1.0 ], [ "-", 1.0 ], [ "-", 0.5 ] ],
+    "LO": [ [ "-", 1.0 ], [ "-", 1.0 ], [ "-", 1.0 ] ]
+  },
+  "gun": "Four 20 mm Mk. 12",
+  "gunatatohitrolls": "6/4/3",
+  "gundamagerating": "5/6*",
+  "gunammunition": 6.0,
+  "gunsightmodifiers": { "TT": 0, "HT": 1, "BT": 2 },
+  "ataradarranging": "RE",
+  "radar": {
+    "name": "APG-30A",
+    "lockon": 6
+   },
+  "ecm": { "iff": true },
+  "properties": [ "HTD" ],
+  "notes": [
+  ],
+  "storeslimits": [ 4, 8, 2000 ],
+  "stations": [
+    [ "pair", [ 1, 2], 1000, [ "BB", "FT" ] ]
+  ],
+  "loadnotes": [],
+  "VPs": [ 9, 6, 3, 1 ],
+  "wikiurl": "https://bit.ly/4g3PCS7"
+}
