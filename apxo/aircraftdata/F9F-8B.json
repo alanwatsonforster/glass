@@ -1,0 +1,13 @@
+{
+  "versionname": "F9F-8B",
+  "versiondescription": "Tactical nuclear bomber version.",
+  "base": "F9F-8",
+  "stations": [
+    [ "pair"     , [ 1, 2]       , 1200, [ "FT", "Nuclear BB" ] ]
+  ],
+  "loadnotes": [
+    "Station 1 may carry a Mk 12 nuclear bomb (weight 1200 and load 3.0).",
+    "Station 2 may carry a 150 gal FT (600L, weight 1100, load 3.0/2.0, and 50 fuel points)."
+  ],
+  "wikiurl": "https://bit.ly/4g3PCS7"
+}
