@@ -50,13 +50,7 @@
     "LO": [ [ 2.0, 1.0 ], [ 1.5, 1.0 ], [ 1.0, 0.5 ] ]
   },
   "radar": {
-    "name": "APQ-51",
-    "eccm": 0,
-    "arc": "Limited",
-    "searchrange": 40,
-    "searchstrength": 10,
-    "trackingrange": 24,
-    "trackingstrength": 8,
+    "name": "APG-30",
     "lockon": 6
   },
   "gun": "Four 20 mm Mk 12",

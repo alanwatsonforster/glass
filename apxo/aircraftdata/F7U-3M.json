@@ -2,6 +2,16 @@
   "versionname": "F7U-3M Cutlass",
   "base": "F7U-3",
   "internalfuel": 430,
+  "radar": {
+    "name": "APQ-51",
+    "eccm": 0,
+    "arc": "Limited",
+    "searchrange": 40,
+    "searchstrength": 10,
+    "trackingrange": 24,
+    "trackingstrength": 8,
+    "lockon": 6
+  },
   "storeslimits": [ 2, 8, 5500 ],
   "stations": [
     [ "pair"  , [ 1, 5 ], 1000, [ "BB", "RP", "BRM", "IRM" ] ],
