@@ -3,7 +3,7 @@
   "versiondescription": "Tactical nuclear bomber version.",
   "base": "F9F-8",
   "stations": [
-    [ "pair"     , [ 1, 2]       , 1200, [ "FT", "Nuclear BB" ] ]
+    [ "pair"     , [ 1, 2]       , 1200, [ "Nuclear BB", "FT" ] ]
   ],
   "loadnotes": [
     "Station 1 may carry a Mk 12 nuclear bomb (weight 1200 and load 3.0).",
