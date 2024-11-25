@@ -1,12 +1,20 @@
 {
-  "versionname": "MiG-19PF Farmer-D",
+  "versionname": "MiG-19PF",
+  "natoreportingnames": "NATO reporting name for the aircraft is Farmer-D and for the radar is Scan Odd.",
   "base": "MiG-19SF",
+  "radar": {
+    "name": "Scan Odd",
+    "eccm": 0,
+    "arc": "Limited",
+    "searchrange": 18,
+    "searchstrength": 6,
+    "trackingrange": 6,
+    "trackingstrength": 6,
+    "lockon": 7
+  },
   "gun": "Two 23 mm NR-30",
   "gunatatohitrolls": "5/3/1",
-  "gunatadamagerating": 5,
+  "gundamagerating": "5/6",
   "ataradarranging": "RE",
-  "lockon": 7,
-  "notes": [
-    "NATO reporting name is Farmer-D."
-  ]
+  "lockon": 7
 }

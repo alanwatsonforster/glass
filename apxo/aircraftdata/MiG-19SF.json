@@ -1,5 +1,7 @@
 {
-  "versionname": "MiG-19SF Farmer-C",
+  "versionname": "MiG-19SF",
+  "versiondescription": "Day fighter version.",
+  "natoreportingnames": "NATO reporting name for the aircraft is Farmer-C.",
   "origin": "TSOH",
   "crew": [ "Pilot" ],
   "powertable": {
@@ -7,7 +9,7 @@
     "M"   : [ 2.5, 2.0, 2.0, 2.0 ],
     "N"   : [ 0.0, 0.0, 0.0, 1.0 ],
     "I"   : [ 0.5, 0.5, 0.5, 0.0 ],
-    "SPBR": [ 1.0, 2.0, 2.0 ]
+    "SPBR": [ 0.5, 1.0, 1.0 ]
   },
   "jetengines": 2,
   "cruisespeed": 5.5,
@@ -47,15 +49,25 @@
     "ML": [ [ 4.0, 2.0 ], [ 3.0, 1.0 ], [ 2.0, 1.0 ] ],
     "LO": [ [ 5.0, 2.0 ], [ 4.0, 1.0 ], [ 3.0, 1.0 ] ]
   },
-  "storeslimits": [ 2, 6, 3700 ],
   "gun": "Three 30 mm NR-30",
   "gunatatohitrolls": "6/4/1",
-  "gunatadamagerating": 6,
+  "gundamagerating": "6/8",
   "gunammunition": 2.5,
   "gunsightmodifiers": { "TT": 0, "HT": 2, "BT": 3 },
+  "ecm": { "iff": true, "rwr": "A" },
   "properties": [],
   "notes": [
-    "NATO reporting name is Farmer-C.",
     "If a BT or ET is performed in the HI+ altitude bands, roll one die for each facing change after the first. On a 1 the aircraft suffers a maneuvering departure."
-  ]
+  ],
+  "wikiurl": "https://bit.ly/3Z3mS5k",
+  "storeslimits": [ 2, 6, 3700 ],
+  "stations": [
+    [ "pair", [1, 4], 1300, [ "BB", "RP", "RK", "FT", "IRM" ] ],
+    [ "pair", [2, 3],  550, [ "BB", "RP", "RK", "DR" ] ]
+  ],
+  "loadnotes": [
+    "May use AA-2 IRMs."
+  ],
+  "VPs": [ 16, 19, 6, 3 ]
+  
 }

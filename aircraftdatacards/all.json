@@ -31,6 +31,8 @@
     [ "type", "MiG-17", "MiG-17F", "MiG-17P", "MiG-17PF", "MiG-17PFU" ],
     // 1954
     [ "type", "Tu-16", "Tu-16A", "Tu-16KS", "Tu-16K" ],
+    // March 1955
+    [ "type", "MiG-19", "MiG-19SF", "MiG-19PF", "MiG-19PM"],
 
     [ "chapter", "US Aircraft" ],
     //  Jan 1942 with RAF
