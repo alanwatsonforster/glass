@@ -28,7 +28,7 @@
     //  1952
     [ "type", "Tu-14", "Tu-14", "Tu-14T" ],
     // October 1952
-    [ "type", "MiG-17", "MiG-17F", "MiG-17PF", "MiG-17PFU" ],
+    [ "type", "MiG-17", "MiG-17F", "MiG-17P", "MiG-17PF", "MiG-17PFU" ],
     // 1954
     [ "type", "Tu-16", "Tu-16A", "Tu-16KS", "Tu-16K" ],
 
