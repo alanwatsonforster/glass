@@ -3,7 +3,8 @@
   "natoreportingname": "Fresco-D",
   "base": "MiG-17F",
   "radar": {
-    "name": "Scan Odd",
+    "name": "RP-1 Izumrud",
+    "natoreportingname": "Scan Odd",
     "eccm": 0,
     "arc": "Limited",
     "searchrange": 18,

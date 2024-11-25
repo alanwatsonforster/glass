@@ -776,13 +776,21 @@ def blockF(data):
         descriptiontext += " Subsequently designated %s." % (
             latexify(data.subsequentlydesignated())
         )
-    if data.natoreportingname() is not None:
-        descriptiontext += " NATO reporting name is %s." % (
-            latexify(data.natoreportingname())
-        )
 
     if descriptiontext != "":
         s += "\\item %s\n\n" % descriptiontext
+
+    natoreportingnametext = ""
+    if data.natoreportingname() is not None:
+        natoreportingnametext += " NATO reporting name for aircraft is %s." % (
+            latexify(data.natoreportingname())
+        )
+    if data.radar("natoreportingname") is not None:
+        natoreportingnametext += " NATO reporting name for radar is %s." % (
+            latexify(data.radar("natoreportingname"))
+        )
+    if natoreportingnametext != "":
+        s += "\\item %s\n\n" % natoreportingnametext
 
     if len(data.properties()) != 0:
         for property in sorted(data.properties()):
