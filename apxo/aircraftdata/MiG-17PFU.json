@@ -1,7 +1,7 @@
 {
   "versionname": "MiG-17PFU",
   "base": "MiG-17PF",
-  "natoreportingnames": "NATO reporting name for aircraft is Fresco-E.",
+  "natoreportingnames": "NATO reporting name for aircraft is Fresco-E and for radar is Scan Odd.",
   "ceilingtable": [ 52, 48, 45 ],
   "speedtable": {
     "EH": [ [  3.0, 5.5  ], [  3.0, 5.5  ], [  3.5, 5.0  ], 6.5 ],
