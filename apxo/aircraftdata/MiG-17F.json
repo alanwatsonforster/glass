@@ -1,13 +1,15 @@
 {
-  "versionname": "MiG-17F Fresco-C",
+  "versionname": "MiG-17F",
+  "versiondescription": "Day fighter version.",
+  "natoreportingname": "Fresco-C",
   "origin": "TSOH",
   "crew": [ "Pilot" ],
   "powertable": {
     "AB"  : [ 2.5, 2.0, 2.0, 3.0 ],
-    "M"   : [ 1.5, 1.5, 1.5, 1.0 ],
+    "M"   : [ 1.5, 1.5, 1.0, 1.0 ],
     "N"   : [ 0.0, 0.0, 0.0, 0.5 ],
     "I"   : [ 0.5, 0.5, 1.0, 0.0 ],
-    "SPBR": [ 1.0, 1.0, 2.0 ]
+    "SPBR": [ 0.5, 0.5, 1.0 ]
   },
   "jetengines": 1,
   "cruisespeed": 4.5,
@@ -47,17 +49,25 @@
     "ML": [ [ 2.0, 1.0 ], [ 1.5, 1.0 ], [ 1.5, 0.5 ] ],
     "LO": [ [ 2.0, 1.0 ], [ 2.0, 1.0 ], [ 1.5, 1.0 ] ]
   },
-  "storeslimits": [ 2, 4, 2500 ],
   "gun": "Two 23 mm NR-23 and one 37 mm N-37",
   "gunatatohitrolls": "4/2/1",
-  "gunatadamagerating": 5,
+  "gundamagerating": "5/4",
   "gunammunition": 3.0,
   "gunsightmodifiers": { "TT": 0, "HT": 2, "BT": 3 },
+  "ecm": { "iff": true },
   "properties": [ "HTD", "LRRHS", "NLRHS", "NDRHS" ],
   "LRRHSlimit": 4.0,
   "NLRHSlimit": 5.0,
   "NDRHSlimit": 5.0,
   "notes": [
-    "NATO reporting name is Fresco-C."
-  ]
+  ],
+  "wikiurl": "https://bit.ly/3ZhE3kR",
+  "storeslimits": [ 2, 4, 2500 ],
+  "stations": [
+    [ "pair", [1, 2], 700, [ "BB", "RK", "RP", "FT", "IRM" ] ]
+  ],
+  "loadnotes": [
+    "May use AA-2 IRMs on a roll of 4-."
+  ],
+  "VPs": [ 11, 7, 3, 1 ]
 }

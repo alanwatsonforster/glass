@@ -3,7 +3,7 @@
 [
 
     [ "chapter", "Australian Aircraft" ],
-    [ "type", "Avon Sabre Mk.31 (Early)", "Avon Sabre Mk.31 (Late)", "Avon Sabre Mk.32" ],
+    [ "type", "Avon Sabre", "Avon Sabre Mk.31 (Early)", "Avon Sabre Mk.31 (Late)", "Avon Sabre Mk.32" ],
 
     [ "chapter", "British Aircraft" ],
     //  1944
@@ -27,6 +27,8 @@
     [ "type", "Il-28", "Il-28", "Il-28R", "Il-28N" ],
     //  1952
     [ "type", "Tu-14", "Tu-14", "Tu-14T" ],
+    // October 1952
+    [ "type", "MiG-17", "MiG-17F", "MiG-17PF", "MiG-17PFU" ],
     // 1954
     [ "type", "Tu-16", "Tu-16A", "Tu-16KS", "Tu-16K" ],
 

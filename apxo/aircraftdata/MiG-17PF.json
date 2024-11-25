@@ -1,12 +1,22 @@
 {
-  "versionname": "MiG-17PF Fresco-D",
+  "versionname": "MiG-17PF",
+  "natoreportingname": "Fresco-D",
   "base": "MiG-17F",
-  "gun": "Three 23 mm",
+  "radar": {
+    "name": "Scan Odd",
+    "eccm": 0,
+    "arc": "Limited",
+    "searchrange": 18,
+    "searchstrength": 6,
+    "trackingrange": 6,
+    "trackingstrength": 6,
+    "lockon": 6
+  },
+  "gun": "Three 23 mm NR",
   "gunatatohitrolls": "5/3/2",
-  "gunatadamagerating": 5,
+  "gundamagerating": "5/5",
   "ataradarranging": "RE",
-  "lockon": 6,
   "notes": [
-    "NATO reporting name is Fresco-D."
-  ]
+  ],
+  "VPs": [ 12, 8, 4, 2 ]
 }
