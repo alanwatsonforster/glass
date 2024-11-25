@@ -1,10 +1,9 @@
 {
   "versionname": "MiG-17PF",
-  "natoreportingname": "Fresco-D",
+  "natoreportingnames": "NATO reporting name for aircraft is Fresco-D and for radar is Scan Odd.",
   "base": "MiG-17F",
   "radar": {
     "name": "RP-1 Izumrud",
-    "natoreportingname": "Scan Odd",
     "eccm": 0,
     "arc": "Limited",
     "searchrange": 18,

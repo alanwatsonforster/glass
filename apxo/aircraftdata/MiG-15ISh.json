@@ -2,7 +2,7 @@
   "versionname": "MiG-15ISh",
   "versiondescription": "Prototype close air support version, developed from the MiG-15bis and with two additional tandem wing stations.",
   "base": "MiG-15bis",
-  "natoreportingname": "Fagot",
+  "natoreportingnames": "NATO reporting name for aircraft is Fagot.",
   "stations": [
     [ "pair", [ 1, 4 ], 550, [ "BB", "RK", "RP", "FT" ] ],
     [ "pair", [ 2, 3 ], 550, [ "BB", "RK", "RP" ] ]

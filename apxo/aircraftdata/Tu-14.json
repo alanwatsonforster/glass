@@ -1,7 +1,7 @@
 {
   "versionname": "Tu-14",
   "versiondescription": "Bomber version.",
-  "natoreportingname": "Bosun",
+  "natoreportingnames": "NATO reporting name for aircraft is Bosuns",
   "origin": "TSOH",
   "crew": [ "Pilot", "Weapons Officer", "Gunner" ],
   "powertable": {

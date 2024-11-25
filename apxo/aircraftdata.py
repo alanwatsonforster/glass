@@ -144,9 +144,9 @@ class aircraftdata:
         else:
             return None
 
-    def natoreportingname(self):
-        if "natoreportingname" in self._data:
-            return self._data["natoreportingname"]
+    def natoreportingnames(self):
+        if "natoreportingnames" in self._data:
+            return self._data["natoreportingnames"]
         else:
             return None
 

@@ -2,7 +2,7 @@
   "versionname": "Il-10",
   "versiondescription": "Close air support version.",
   "manufacturername": "Ilyushin",
-  "natoreportingname": "Beast",
+  "natoreportingnames": "NATO reporting name for aircraft is Beast.",
   "origin": "APJ 50",
   "crew": [ "Pilot", "Gunner" ],
   "powertable": {

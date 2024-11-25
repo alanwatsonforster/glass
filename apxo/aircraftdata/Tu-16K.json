@@ -1,6 +1,6 @@
 {
   "versionname": "Tu-16K",
-  "natoreportingname": "Badger-G",
+  "natoreportingnames": "NATO reporting name for aircraft is Badger-G and for the tail radar is Bee Hind.",
   "base": "Tu-16KS",
   "stations": [
     [ "pair", [ 1, 2 ], 10000, [ "BB", "WR", "FT", "ARM", "ASM" ]]

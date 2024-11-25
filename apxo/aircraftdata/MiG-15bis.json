@@ -2,7 +2,7 @@
   "versionname": "MiG-15bis",
   "versiondescription": "Day-fighter version.",
   "manufacturername": "Mikoyan-Gurevich",
-  "natoreportingname": "Fagot-B",
+  "natoreportingnames": "NATO reporting name for aircraft is Fagot-B.",
   "origin": "TSOH",
   "crew": [ "Pilot" ],
   "powertable": {

@@ -1,7 +1,7 @@
 {
   "versionname": "Il-28",
   "versiondescription": "Medium bomber version.",
-  "natoreportingname": "Beagle",
+  "natoreportingnames": "NATO reporting name for aircraft is Beagle.",
   "origin": "TSOH",
   "crew": [ "Pilot", "Bombardier", "Gunner" ],
   "powertable": {

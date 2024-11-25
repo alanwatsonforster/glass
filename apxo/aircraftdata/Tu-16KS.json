@@ -1,11 +1,11 @@
 {
   "versionname": "Tu-16KS",
   "versiondescription": "Maritime strike version.",
-  "natoreportingname": "Badger-B",
+  "natoreportingnames": "NATO reporting name for aircraft is Badger-B and for the tail radar is Bee Hind.",
   "base": "Tu-16A",
   "ecm": { "iff": true, "rwr": "B", "dds": "A", "ajm": "A4" },
   "radar": {
-    "name": "PRS-1AG Argo",
+    "name": "",
     "eccm": 1,
     "arc": "180+",
     "searchrange": 345,
