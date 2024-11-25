@@ -398,22 +398,21 @@ AtA/AtG:&\Fl\spacebelow\\
 %\hline
 \end{tabularx}}&
 \parbox[b][\blockFGtopheight][t]{4\cellwidth}{%
-\begin{tabularx}{4\cellwidth}{llC}
+\begin{tabularx}{4\cellwidth}{lC}
 \spaceabove\spacebelow
-\bfseries ECM
-&IFF:&\Fn\\
-&RWR:&\Fo\\
-&DDS:&\Fp\\
-&DJM:&\Fq\\
-&AJM:&\Fr\\
-&BJM:&\Fs\spacebelow\\
+\bfseries ECM:&\\
+RWR:&\Fn\\
+DDS:&\Fo\\
+DJM:&\Fp\\
+AJM:&\Fq\\
+BJM:&\Fr\spacebelow\\
 \hline
-\multicolumn{3}{p{3.5\cellwidth}}{
-\spaceabove\multirow[t]{7}*{%
+\multicolumn{2}{l}{\spaceabove\spacebelow\bfseries Technology:}\\
+\multicolumn{2}{p{3.5\cellwidth}}{
+\multirow[t]{6}*{%
 \parbox[t][8em][t]{3.5\cellwidth}{%
-\setlength{\parskip}{0.2em}%
-\spacebelow\raggedright {\bfseries Technology:}\\
-\small \Ft
+\raggedright\setlength{\parskip}{0.2em}%
+\Fs
 }}}\\
 \\
 \\
@@ -422,7 +421,6 @@ AtA/AtG:&\Fl\spacebelow\\
 \spacebelow\\
 %\hline
 \spaceabove\spacebelow\\
-%\hline
 \end{tabularx}}\\
 \hline
 \multicolumn{2}{p{8.5\cellwidth}}{
@@ -430,7 +428,7 @@ AtA/AtG:&\Fl\spacebelow\\
 \spaceabove\raggedright
 \setlength{\parskip}{0.2em}%
 \footnotesize
-\Fu
+\Ft
 }}\spacebelow\\
 \end{tabularx}}}
 
@@ -450,15 +448,14 @@ AtA/AtG:&\Fl\spacebelow\\
 
 \newcommand{\Fm}{} % Bomb system
 
-\newcommand{\Fn}{} % IFF
-\newcommand{\Fo}{} % RWR
-\newcommand{\Fp}{} % DDS
-\newcommand{\Fq}{} % DJM
-\newcommand{\Fr}{} % AJM
-\newcommand{\Fs}{} % BJM
-\newcommand{\Ft}{} % Technology
-\newcommand{\Fu}{} % Notes
-\newcommand{\Fua}[1]{%
+\newcommand{\Fn}{} % RWR
+\newcommand{\Fo}{} % DDS
+\newcommand{\Fp}{} % DJM
+\newcommand{\Fq}{} % AJM
+\newcommand{\Fr}{} % BJM
+\newcommand{\Fs}{} % Technology
+\newcommand{\Ft}{} % Notes
+\newcommand{\Fta}[1]{%
   {\bfseries Notes:} 
   \begin{enumerate}[left=0pt,nosep]
   #1

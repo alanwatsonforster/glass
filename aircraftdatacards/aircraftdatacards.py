@@ -718,36 +718,41 @@ def blockF(data):
     else:
         writelatex(r"\renewcommand{\Fk}{%s}" % data.ataradarrangingtype())
 
-    if data.ecm("iff") is True:
-        writelatex(r"\renewcommand{\Fn}{Yes}")
-    else:
-        writelatex(r"\renewcommand{\Fn}{No}")
     if data.ecm("rwr") is not None:
-        writelatex(r"\renewcommand{\Fo}{%s}" % data.ecm("rwr"))
+        writelatex(r"\renewcommand{\Fn}{%s}" % data.ecm("rwr"))
+    else:
+        writelatex(r"\renewcommand{\Fn}{---}")
+    if data.ecm("dds") is not None:
+        writelatex(r"\renewcommand{\Fo}{%s}" % data.ecm("dds"))
     else:
         writelatex(r"\renewcommand{\Fo}{---}")
-    if data.ecm("dds") is not None:
-        writelatex(r"\renewcommand{\Fp}{%s}" % data.ecm("dds"))
+    if data.ecm("djm") is not None:
+        writelatex(r"\renewcommand{\Fp}{%s}" % data.ecm("djm"))
     else:
         writelatex(r"\renewcommand{\Fp}{---}")
-    if data.ecm("djm") is not None:
-        writelatex(r"\renewcommand{\Fq}{%s}" % data.ecm("djm"))
+    if data.ecm("ajm") is not None:
+        writelatex(r"\renewcommand{\Fq}{%s}" % data.ecm("ajm"))
     else:
         writelatex(r"\renewcommand{\Fq}{---}")
-    if data.ecm("ajm") is not None:
-        writelatex(r"\renewcommand{\Fr}{%s}" % data.ecm("ajm"))
+    if data.ecm("bjm") is not None:
+        writelatex(r"\renewcommand{\Fr}{%s}" % data.ecm("bjm"))
     else:
         writelatex(r"\renewcommand{\Fr}{---}")
-    if data.ecm("bjm") is not None:
-        writelatex(r"\renewcommand{\Fs}{%s}" % data.ecm("bjm"))
-    else:
-        writelatex(r"\renewcommand{\Fs}{---}")
 
-    if data.technology() is None:
-        writelatex(r"\renewcommand{\Ft}{None}")
+    technologylist = []
+    if data.ecm("iff") is True:
+        technologylist += ["IFF"]
+    if data.technology() is not None:
+        technologylist += data.technology()
+    if len(technologylist) == 0:
+        s = "None"
+    elif len(technologylist) == 1:
+        s = technologylist[0]
+    elif len(technologylist) == 2:
+        s = " and ".join(technologylist)
     else:
-        s = r"\mbox{" + r"} \mbox{".join(data.technology()) + r"}"
-        writelatex(r"\renewcommand{\Ft}{%s}" % s)
+        s = ", ".join(technologylist[:-1]) + ", and " + technologylist[-1]
+    writelatex(r"\renewcommand{\Fs}{%s}" % s)
 
     s = ""
 
@@ -852,9 +857,9 @@ def blockF(data):
         )
 
     if s == "":
-        writelatex(r"\renewcommand{\Fu}{}")
+        writelatex(r"\renewcommand{\Ft}{}")
     else:
-        writelatex(r"\renewcommand{\Fu}{\Fua{%s}}" % s)
+        writelatex(r"\renewcommand{\Ft}{\Fta{%s}}" % s)
 
 
 def blockG(data):
