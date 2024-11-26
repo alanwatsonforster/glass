@@ -3,7 +3,8 @@
   // appears to be for the F-13 version, as it only has one gun, had
   // provision for the AA-2, and has the NATO reporting name Fishbed-C.
   "versionname": "MiG-21F-13",
-  "natoreportingnames": "The NATO reporting name of the aircraft is Fishbed-C.",
+  "versiondescription": "Day fighter version.",
+  "natoreportingnames": "NATO reporting name of the aircraft is Fishbed-C.",
   "origin": "TSOH",
   "origin": "TSOH",
   "crew": [ "Pilot" ],
