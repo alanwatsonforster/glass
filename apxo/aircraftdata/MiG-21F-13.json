@@ -53,7 +53,7 @@
     "LO": [ [ 4.0, 2.0 ], [ 3.0, 1.0 ], [ 2.0, 1.0 ] ]
   },
   "radar": {
-    "name": "SRD-5M",
+    "name": "SRD-5ND Kvant",
     "eccm": 0,
     "arc": "Limited",
     "trackingrange": 10,
