@@ -1,5 +1,5 @@
 {
-  "versionname": "MiG-21PFMA Fishbed",
+  "versionname": "MiG-21PFMA",
   "base": "MiG-21MF",
   "powertable": {
     "AB"  : [ 3.0, 2.5, 2.0, 5.0 ],
@@ -8,5 +8,14 @@
     "I"   : [ 0.5, 0.5, 1.0, 0.0 ],
     "SPBR": [ 1.0, 2.0, 2.0 ]
   },
-  "gun": ""
+  "gun": "",
+  "stations": [
+    [ "pair"  , [ 1, 5 ],  550, [ "BB", "RP", "RK", "EP", "FT", "IRM", "RHM" ] ],
+    [ "pair"  , [ 2, 3 ], 1100, [ "BB", "RP", "RK", "FT", "DR", "IRM" ] ],
+    [ "single", [ 3 ]   , 1100, [ "EP", "PP", "FT", "GP" ] ]
+  ],
+  "loadnotes": [
+    "May use AA-2 IRMs and AA-2C RHMs.",
+    "Station 3 may carry a GP-9 gun pod."
+  ]
 }
