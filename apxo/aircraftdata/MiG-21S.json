@@ -17,5 +17,6 @@
   "loadnotes": [
     "May use AA-2 IRMs and AA-2C RHMs.",
     "Station 3 may carry a GP-9 gun pod."
-  ]
+  ],
+  "VPs": [ 22, 15, 7, 4 ]
 }
