@@ -1,0 +1,14 @@
+{
+  "versionname": "MiG-21MF",
+  "versiondescription": "All-weather interceptor.",
+  "base": "MiG-21SM",
+  "stations": [
+    [ "pair"  , [ 1, 5 ],  550, [ "BB", "RP", "RK", "EP", "FT", "MDR", "IRM", "RHM" ] ],
+    [ "pair"  , [ 2, 3 ], 1100, [ "BB", "RP", "RK", "FT", "DR", "MDR", "IRM" ] ],
+    [ "single", [ 3 ]   , 1100, [ "EP", "PP", "FT" ] ]
+  ],
+  "loadnotes": [
+    "May use AA-2 and AA-8 IRMs and AA-2C RHMs. MDRs may only carry two AA-8 IRMs."
+  ],
+  "VPs": [ 24, 16, 8, 4 ]
+}
