@@ -1,6 +1,6 @@
 {
   "versionname": "MiG-21MF",
-  "versiondescription": "All-weather interceptor, export version.",
+  "versiondescription": "Interceptor, export version of the MiG-21SM.",
   "base": "MiG-21SM",
   "stations": [
     [ "pair"  , [ 1, 5 ],  550, [ "BB", "RP", "RK", "EP", "FT", "MDR", "IRM" ] ],
