@@ -7,7 +7,7 @@
   "base": "MiG-21F-13",
   "radar": {
     "name": "SRD-5",
-    "lockon": 6
+    "lockon": 5
   },
   "storeslimits": [ 2, 4, 2200 ],
   "gun": "Two 30 mm NR-30",
