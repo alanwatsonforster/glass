@@ -4,7 +4,7 @@
   // provision for the AA-2, and has the NATO reporting name Fishbed-C.
   "versionname": "MiG-21F-13",
   "versiondescription": "Day fighter version.",
-  "natoreportingnames": "NATO reporting name of the aircraft is Fishbed-C.",
+  "natoreportingnames": "NATO reporting name for the aircraft is Fishbed-C and for the radar is High Fix.",
   "origin": "TSOH",
   "origin": "TSOH",
   "crew": [ "Pilot" ],
@@ -54,7 +54,7 @@
     "LO": [ [ 4.0, 2.0 ], [ 3.0, 1.0 ], [ 2.0, 1.0 ] ]
   },
   "radar": {
-    "name": "High Fix",
+    "name": "SRD-5M",
     "eccm": 0,
     "arc": "Limited",
     "trackingrange": 10,
@@ -74,6 +74,7 @@
   "notes": [
     "The thick front canopy gives a +1 modifier to sighting rolls for targets in the 180+ arc."
   ],
+  "wikiurl": "https://bit.ly/3CJSRA1",
   "storeslimits": [ 2, 4, 2200 ],
   "stations": [
     [ "pair"  , [ 1, 3 ],  550, [ "BB", "RP", "RK", "DR", "IRM" ] ],

@@ -5,6 +5,10 @@
   "natoreportingnames": "NATO reporting name for the aircraft is Fishbed-B.",
   "origin": "AMW",
   "base": "MiG-21F-13",
+  "radar": {
+    "name": "SRD-5",
+    "lockon": 6
+  },
   "storeslimits": [ 2, 4, 2200 ],
   "gun": "Two 30 mm NR-30",
   // The damage rating is the 3 for the single NR-30 of the F-13 plus one 
