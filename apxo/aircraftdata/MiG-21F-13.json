@@ -2,9 +2,11 @@
   // The TSOH ADC states that this it is for a Mig-21F. However, it
   // appears to be for the F-13 version, as it only has one gun, had
   // provision for the AA-2, and has the NATO reporting name Fishbed-C.
-  "versionname": "MiG-21F-13 Fishbed-C",
+  "versionname": "MiG-21F-13",
+  "natoreportingnames": "The NATO reporting name of the aircraft is Fishbed-C.",
   "origin": "TSOH",
-  "base": "MiG-21MF",
+  "origin": "TSOH",
+  "crew": [ "Pilot" ],
   "powertable": {
     "AB"  : [ 3.0, 3.0, 2.5, 5.0 ],
     "M"   : [ 2.0, 2.0, 1.5, 2.0 ],
@@ -12,7 +14,21 @@
     "I"   : [ 0.5, 0.5, 0.5, 0.0 ],
     "SPBR": [ 0.5, 0.5, 1.0 ]
   },
+  "jetengines": 1,
+  "cruisespeed": 6.0,
+  "climbspeed" : 4.5,
+  "visibility": 5,
+  "sizemodifier": 0,
+  "vulnerability": -2,
+  "restrictedarcs": "180L/60-",
+  "blindarcs": "30-",
   "internalfuel": 200,
+  "atarefuel": false,
+  "ejectionseat": "standard",
+  "maneuvertable": {
+    "LR/DR": [ 1.0, 1.0 ],
+    "VR":    [ 0.0, 0.0 ]
+  },
   "turndragtable": {
     "TT": [ 1.0, 1.0, 1.0 ],
     "HT": [ 2.0, 2.0, 2.0 ],
@@ -36,18 +52,34 @@
     "ML": [ [ 3.0, 1.5 ], [ 3.0, 1.0 ], [ 2.0, 1.0 ] ],
     "LO": [ [ 4.0, 2.0 ], [ 3.0, 1.0 ], [ 2.0, 1.0 ] ]
   },
-  "storeslimits": [ 2, 4, 2200 ],
+  "radar": {
+    "name": "High Fix",
+    "eccm": 0,
+    "arc": "Limited",
+    "trackingrange": 10,
+    "trackingstrength": 6,
+    "lockon": 5
+  },
   "gun": "One 30 mm NR-30",
   "gunatatohitrolls": "3/2/1",
-  "gunatadamagerating": 3,
+  "gundamagerating": "3/2",
   "gunammunition": 2.0,
   "gunsightmodifiers": { "TT": 0, "HT": 2, "BT": 3 },
   "ataradarranging": "RE",
-  "lockon": 5,
+  "ecm": {
+    "iff": true
+  },
   "properties": [ ],
   "notes": [
-    "NATO reporting name is Fishbed-C.",
-    "Thick front canopy: +1 to sighting rolls for targets in the 180+ arcs.",
+    "The thick front canopy gives a +1 modifier to sighting rolls for targets in the 180+ arc."
+  ],
+  "storeslimits": [ 2, 4, 2200 ],
+  "stations": [
+    [ "pair"  , [ 1, 3 ],  550, [ "BB", "RP", "RK", "DR", "IRM" ] ],
+    [ "single", [ 2 ]   , 1100, [ "FT" ] ]
+  ],
+  "loadnotes": [
     "May use AA-2 IRMs."
-  ]
+  ],
+  "VPs": [ 16, 10, 5, 2 ]
 }
