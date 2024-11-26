@@ -1,5 +1,5 @@
 {
-  "versionname": "MiG-21MF",
+  "versionname": "MiG-21SM",
   "versiondescription": "All-weather interceptor.",
   "base": "MiG-21PF",
   "natoreportingnames": "NATO reporting name for aircraft is Fishbed-J and for radar is Jaybird.",
@@ -46,7 +46,7 @@
     "LO": [ [ 4.0, 2.0 ], [ 3.0, 1.0 ], [ 2.0, 1.0 ] ]
   },
   "radar": {
-    "name": "RP-22",
+    "name": "RP-22 Saphir-21",
     "eccm": 0,
     "arc": "180+",
     "searchrange": 48,
@@ -70,7 +70,7 @@
     [ "single", [ 3 ]   , 1100, [ "EP", "PP", "FT" ] ]
   ],
   "loadnotes": [
-    "May use AA-2 and AA-8 IRMs and AA-2C RHMs. MDRs may only carry two AA-8 IRMs."
+    "May use AA-2 IRMs and AA-2C RHMs. MDRs may only carry two AA-8 IRMs."
   ],
   "VPs": [ 24, 16, 8, 4 ]
 }
