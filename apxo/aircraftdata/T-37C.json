@@ -1,5 +1,6 @@
 {
   "versionname": "T-37C Tweet",
+  "versiondescription": "Trainer and light attack aircraft.",
   "base": "A-37B",
   "powertable": {
     "M"   : [ 1.0, 1.0, 0.5, 1.0 ],
@@ -16,6 +17,13 @@
     "ML": [ [ 1.0, 4.5 ], [ 1.5, 4.0 ], [ 1.5, 3.5 ], 5.5 ],
     "LO": [ [ 1.0, 4.5 ], [ 1.0, 4.0 ], [ 1.5, 3.5 ], 5.5 ]
   },
+  "gun": null,
   "storeslimits": [ 2, 4, 1000 ],
-  "gun": ""
+  "stations": [
+    [ "pair"     , [ 1, 2 ]      , 500, [ "BB", "RK", "RP", "MDR", "IRM" ] ]
+  ],
+  "loadnotes": [
+    "May only use the AIM-9B IRM."
+  ],
+  "VPs": [ 8, 5, 3, 1 ]
 }

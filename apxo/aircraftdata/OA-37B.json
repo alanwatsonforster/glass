@@ -1,4 +1,6 @@
 {
   "versionname": "OA-37B Dragonfly",
-  "base": "A-37B"
+  "versiondescription": "FAC version of the A-37B, with improved communications and ECM equipment.",
+  "base": "A-37B",
+  "ecm": { "iff": true, "RWR": "B", "DDS": "B" }
 }
