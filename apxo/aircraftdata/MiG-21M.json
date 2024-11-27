@@ -1,47 +1,31 @@
 {
-  "versionname": "MiG-21M Fishbed",
-  "origin": "Carl Smeaton",
-  "base": "MiG-21MF",
-  "powertable": {
-    "AB"  : [ 3.5, 3.0, 2.5, 6.0 ],
-    "M"   : [ 2.0, 1.5, 1.0, 1.5 ],
-    "N"   : [ 0.0, 0.0, 0.0, 1.0 ],
-    "I"   : [ 0.5, 0.5, 1.0, 0.0 ],
-    "SPBR": [ 1.0, 2.0, 2.0 ]
+  "versionname": "MiG-21M",
+  "versiondescription": "Interceptor version for export.",
+  "natoreportingnames": "NATO reporting name for the aircraft is Fishbed-J and for the radar is Spin Scan-B.",
+  "base": "MiG-21S",
+  "radar": {
+    "name": "RP-21MA Sapfir",
+    "eccm": 0,
+    "arc": "180+",
+    "searchrange": 30,
+    "searchstrength": 6,
+    "trackingrange": 18,
+    "trackingstrength": 6,
+    "lockon": 7
   },
-  "lowspeedliftdeviceselectable": true,
-  "lowspeedliftdevicelimit": 2.5,
-  "lowspeedliftdevicelimittype": "relative",
-  "lowspeedliftdevicename": "combat flaps",
-  "turndragtable": {
-    "TT": [ 1.0, 1.0, 1.0 ],
-    "HT": [ 2.0, 2.0, 3.0 ],
-    "BT": [ 4.0, 4.0, 5.0 ],
-    "ET": [ 4.0, 5.0, "-" ]
-  },
-  "lowspeedliftdeviceturndragtable": {
-    "TT": [ 2.0, 2.0, 2.0 ],
-    "HT": [ 3.0, 3.0, 4.0 ],
-    "BT": [ 5.0, 5.0, 6.0 ],
-    "ET": [ 5.0, 6.0, "-" ]
-  },
-  "ceilingtable": [ 57, 52, 47 ],
-  "speedtable": {
-    "EH": [ [ 4.0, 12.0 ], [ 4.5, 10.5 ], [ 5.0, 8.5 ], 13.0 ],
-    "VH": [ [ 3.5, 12.5 ], [ 4.0, 12.0 ], [ 4.5, 9.0 ], 13.0 ],
-    "HI": [ [ 3.0, 11.0 ], [ 3.5,  9.5 ], [ 4.0, 8.0 ], 12.0 ],
-    "MH": [ [ 2.5,  9.5 ], [ 3.0,  8.5 ], [ 3.0, 7.0 ], 10.0 ],
-    "ML": [ [ 2.0,  8.5 ], [ 2.0,  7.5 ], [ 2.5, 7.0 ],  9.0 ],
-    "LO": [ [ 2.0,  8.0 ], [ 2.0,  7.0 ], [ 2.5, 6.5 ],  8.5 ]
-  },
-  "climbcapabilitytable": {
-    "EH": [ [ 1.0, 0.5 ], [ 1.0, "-" ], [ 0.5, "-" ] ],
-    "VH": [ [ 1.0, 0.5 ], [ 1.0, 0.5 ], [ 1.0, 0.5 ] ],
-    "HI": [ [ 2.0, 0.5 ], [ 1.0, 0.5 ], [ 1.0, 0.5 ] ],
-    "MH": [ [ 3.0, 1.0 ], [ 2.0, 1.0 ], [ 1.5, 0.5 ] ],
-    "ML": [ [ 4.0, 1.0 ], [ 3.0, 1.0 ], [ 2.0, 1.0 ] ],
-    "LO": [ [ 5.0, 2.0 ], [ 4.0, 1.0 ], [ 3.0, 1.0 ] ]
-  },
-  "gunsightmodifiers": { "TT": 0, "HT": 1, "BT": 2 },
-  "properties": [ "LTD" ]
+  "gun": "23 mm GSh-23",
+  "gunatatohitrolls": "7/4/2",
+  "gunammunition": 2.0,
+  "gunsightmodifiers": { "TT": 0, "HT": 2, "BT": 3 },
+  "ataradarranging": "RE",
+  "gundamagerating": "5/5",
+  "stations": [
+    [ "pair"  , [ 1, 5 ],  550, [ "BB", "RP", "RK", "EP", "FT", "IRM" ] ],
+    [ "pair"  , [ 2, 3 ], 1100, [ "BB", "RP", "RK", "FT", "DR", "IRM" ] ],
+    [ "single", [ 3 ]   , 1100, [ "EP", "PP", "FT" ] ]
+  ],
+  "loadnotes": [
+    "May use AA-2 IRMs."
+  ],
+  "VPs": [ 22, 14, 7, 4 ]
 }
