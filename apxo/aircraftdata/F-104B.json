@@ -1,7 +1,10 @@
 {
-  "versionname": "F-104B Starfighter",
+  "versionname": "F-104B",
   "base": "F-104A",
   "crew": [ "Pilot", "Observer" ],
   "gun": "",
-  "internalfuel": 230
+  "internalfuel": 230,
+  "technology": [],
+  "notes": [],
+  "VPs": [ 16, 10, 6, 2 ]
 }

@@ -1,5 +1,7 @@
 {
-  "versionname": "F-104A Starfighter",
+  "versionname": "F-104A",
+  "versiondescription": "Original day fighter version.",
+  "popularname": "Starfighter",
   "origin": "TSOH",
   "crew": [ "Pilot" ],
   "powertable": {
@@ -7,7 +9,7 @@
     "M"   : [ 2.0, 2.0, 1.5, 2.0 ],
     "N"   : [ 0.0, 0.0, 0.0, 1.0 ],
     "I"   : [ 0.5, 0.5, 0.5, 0.0 ],
-    "SPBR": [ 1.0, 1.0, 2.0 ]
+    "SPBR": [ 0.5, 0.5, 1.0 ]
   },
   "jetengines": 1,
   "cruisespeed": 6.0,
@@ -42,21 +44,43 @@
   "climbcapabilitytable": {
     "EH": [ [ 3.0, 1.0 ], [ 1.0, 0.5 ], [ "-", "-" ] ],
     "VH": [ [ 4.0, 1.0 ], [ 2.0, 0.5 ], [ 1.0, 0.5 ] ],
-    "HI": [ [ 5.0, 2.0 ], [ 3.0, 1.5 ], [ 2.0, 0.5 ] ],
+    "HI": [ [ 5.0, 2.0 ], [ 3.0, 1.0 ], [ 2.0, 0.5 ] ],
     "MH": [ [ 6.0, 2.0 ], [ 4.0, 1.0 ], [ 2.0, 1.0 ] ],
     "ML": [ [ 7.0, 2.0 ], [ 5.0, 2.0 ], [ 3.0, 1.0 ] ],
     "LO": [ [ 7.0, 3.0 ], [ 5.0, 2.0 ], [ 3.0, 1.0 ] ]
   },
+  "radar": {
+    "name": "ASG-14",
+    "eccm": 0,
+    "arc": "180+",
+    "searchrange": 60,
+    "searchstrength": 12,
+    "trackingrange": 30,
+    "trackingstrength": 10,
+    "lockon": 6
+  },
   "gun": "20 mm M61 Vulcan",
   "gunatatohitrolls": "7/5/3",
-  "gunatadamagerating": 6,
+  "gundamagerating": "6/8*",
   "gunammunition": 3.5,
   "gunsightmodifiers": { "TT": 0, "HT": 1, "BT": 2 },
   "ataradarranging": "RE",
-  "lockon": 6,
-  "storeslimits": [ 2.0, 5.0, 7800 ],
+  "ecm": { "iff": true },
+  "technology": [ "IRSTS-A" ],
   "properties": [ "SMP", "LTD", "RA", "RPR", "GSSM" ],
   "notes": [
     "Before 1958, F-104As has downward ejecting seats. No ejections allowed unless aircraft is at least 2 levels above terrain."
-  ]
+  ],
+  "wikiurl": "https://bit.ly/3ZsO9PO",
+  "storeslimits": [ 2.0, 5.0, 7800 ],
+  "stations": [
+    [ "pair"  , [ 1, 5 ], 1300, [ "IRM", "FT" ] ],
+    [ "pair"  , [ 2, 4 ], 1500, [ "BB", "RP", "FT" ] ],
+    [ "single", [ 3 ]   , 2200, [ "BB", "Nuc. BB", "MDR", "FT"] ]
+  ],
+  "loadnotes": [
+    "Station 3 may carry an MDR for two AIM-9 IRMs.",
+    "May only use AIM-9B through AIM-9P IRMs"
+  ],
+  "VPs": [ 15, 10, 5, 2 ]
 }

@@ -83,6 +83,8 @@
     [ "type", "F-102", "F-102A", "F-102A (Late)" ],
     // 1957
     [   "type", "T-37", "T-37C" ],
+    // Feburary 1958
+    [ "type", "F-104", "F-104A", "F-104A (Late)", "F-104B", "F-104C", "F-104C (ATA Refueling)", "F-104D", "F-104D (ATA Refueling)" ],
     // 1967
     [   "type", "A-37", "A-37B", "OA-37B" ]
 
