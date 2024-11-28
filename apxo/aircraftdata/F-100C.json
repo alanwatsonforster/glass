@@ -1,5 +1,7 @@
 {
-  "versionname": "F-100C Super Sabre",
+  "versionname": "F-100C",
+  "popularname": "Super Sabre",
+  "versiondescription": "Original fighter-bomber and tactical nuclear striker version.",
   "origin": "TSOH",
   "crew": [ "Pilot" ],
   "powertable": {
@@ -7,7 +9,7 @@
     "M"   : [ 1.0, 1.0, 1.0, 2.0 ],
     "N"   : [ 0.0, 0.0, 0.0, 1.0 ],
     "I"   : [ 0.5, 0.5, 0.5, 0.0 ],
-    "SPBR": [ 1.0, 2.0, 2.0 ]
+    "SPBR": [ 0.5, 1.0, 1.0 ]
   },
   "jetengines": 1,
   "cruisespeed": 5.5,
@@ -56,15 +58,29 @@
     "ML": [ [ 3.0, 1.0 ], [ 2.0, 1.0 ], [ 1.0, 0.5 ] ],
     "LO": [ [ 3.0, 1.0 ], [ 2.0, 1.0 ], [ 2.0, 1.0 ] ]
   },
+  "radar": {
+    "lockon": 6
+  },
   "gun": "Four 20 mm M39",
   "gunatatohitrolls": "6/4/3",
-  "gunatadamagerating": 5,
   "gunammunition": 4.0,
   "gunsightmodifiers": { "TT": 0, "HT": 1, "BT": 2 },
   "ataradarranging": "RE",
-  "lockon": 6,
-  "storeslimits": [ 4, 10, 6000 ],
+  "gundamagerating": "5/7*",
+  "ecm": { "iff": true },
   "properties": [ "SMP" ],
   "notes": [
-  ]
+  ],
+  "wikiurl": "https://bit.ly/4g8QZze",
+  "storeslimits": [ 4, 10, 6000 ],
+  "stations": [
+    [ "pair"  , [ 1, 7 ],  750, [ "BB", "RP" ] ],
+    [ "pair"  , [ 2, 6 ], 2700, [ "BB", "RP", "DR", "TR", "FT", "IRM" ] ],
+    [ "pair"  , [ 3, 5 ], 1500, [ "BB", "RP", "DR", "TR", "FT", "IRM" ] ],
+    [ "single", [ 4 ]   , 2000, [ "BB", "WR" ] ]
+  ],
+  "loadnotes": [
+    "May only use AIM-9 IRMs."
+  ],
+  "VPs": [ 15, 10, 5, 2 ]
 }

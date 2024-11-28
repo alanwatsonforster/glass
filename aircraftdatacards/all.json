@@ -71,6 +71,8 @@
     [ "type", "F7U Cutlass", "F7U-3", "F7U-3M" ],
     // August 1953
     [ "type", "B-57 Canberra", "B-57B (Early)", "B-57B", "B-57B (PAF)", "B-57G" ],
+    // September 1054
+    [ "type", "F-100", "F-100A", "F-100C", "F-100D", "F-100D (Late)", "F-100F", "F-100F (Wild Weasel I)", "F-100F (Wild Weasel II)" ],
     // February 1955
     [ "type", "B-52 Stratofortress", "B-52D", "B-52G" ],
     // March 1956

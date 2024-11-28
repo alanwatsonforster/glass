@@ -1,0 +1,10 @@
+{
+  "versionname": "F-100F",
+  "versiondescription": null,
+  "variantname": "Wild Weasel I",
+  "variantdescription": "equipped for defense suppresion.",
+  "base": "F-100F",
+  "crew": [ "Pilot", "EW Officer" ],
+  "ecm": { "iff": true, "rwr": "B" },
+  "VPs": [ 18, 12, 6, 3 ]
+}
