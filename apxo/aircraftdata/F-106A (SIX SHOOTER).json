@@ -1,0 +1,21 @@
+{
+  "base": "F-106A",
+  "variantname": "Six Shooter",
+  "gun": "20 mm M61A1 Vulcan",
+  "gunatatohitrolls": "7/5/3",
+  "gundamagerating": "6/8*",
+  "gunammunition": 3.0,
+  "gunsightmodifiers": { "TT": 0, "HT": 1, "BT": 2 },
+  "ataradarranging": "RE",
+
+  "stations": [
+    [ "pair"  , [ 1, 3 ], 2700, [ "FT" ] ],
+    [ "single", [ 2 ]   , 1600, [ "IRM", "RHM" ] ]
+  ],
+  "loadnotes": [
+    "Station 2 is the internal weapons bay. It can carry four RHMs or IRMs and the M61A1 gun.",
+    "May only use GAR-3/-3A (AIM-4E/-4F) RHMs and GAR-4/-4A (AIM-4H) IRMs.",
+    "Typical load is two IRMs and two RHMs."
+  ],
+  "VPs": [ 25, 19, 12, 6 ]
+}
