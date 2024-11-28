@@ -71,7 +71,7 @@
     [ "type", "F7U Cutlass", "F7U-3", "F7U-3M" ],
     // August 1953
     [ "type", "B-57 Canberra", "B-57B (Early)", "B-57B", "B-57B (PAF)", "B-57G" ],
-    // September 1054
+    // September 1954
     [ "type", "F-100", "F-100A", "F-100C", "F-100D", "F-100D (Late)", "F-100F", "F-100F (Wild Weasel I)", "F-100F (Wild Weasel II)" ],
     // February 1955
     [ "type", "B-52 Stratofortress", "B-52D", "B-52G" ],
@@ -79,7 +79,9 @@
     [ "type", "A3D/A-3 Skywarrior", "A3D-2 (Early)", "A-3B (Early)", "A3D-2 (Late)", "A-3B (Late)", "A3D-2Q", "EA-3B" ],
     // 1956
     [   "type", "B-66 Destroyer", "B-66B (Early)", "B-66B (Late)", "RB-66C", "EB-66C" ],
-    //  1957
+    // April 1956
+    [ "type", "F-102", "F-102A", "F-102A (Late)" ]
+    // 1957
     [   "type", "T-37", "T-37C" ],
     // 1967
     [   "type", "A-37", "A-37B", "OA-37B" ]

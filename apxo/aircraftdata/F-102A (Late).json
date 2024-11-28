@@ -1,0 +1,6 @@
+{
+  "base": "F-102A",
+  "variantname": "Late",
+  "variantdescription": "with IRST from 1963 and later.",
+  "technology": [ "CC Rocket Attack", "IRST-A" ]
+}
