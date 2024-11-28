@@ -64,7 +64,6 @@
   "ecm": { "iff": true },
   "technology": [ "CC Rocket Attack" ],
   "rocketfactors": 2,
-  "lockon": 7,
   "properties": [ "SMP", "LTD", "PSSM", "HBR" ],
   "notes": [
   ],
@@ -76,7 +75,7 @@
   ],
   "loadnotes": [
     "Station 2 corresponds to the internal weapons bays. They can carry six AIM-4 IRMs and RHMs and two factors of air-to-air rocket.",
-    "May only use GAR-2/-2A/-2B (AIM-4B/-4C/-4D) IRMs and GAR-1/1D (AIM-4/-4A) RHMs."
+    "May only use GAR-1/1D (AIM-4/-4A) RHMs and GAR-2/-2A/-2B (AIM-4B/-4C/-4D) IRMs."
   ],
   "VPs": [ 20, 14, 6, 2 ]
 }
