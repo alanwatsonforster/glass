@@ -2,5 +2,9 @@
   "base": "F-102A",
   "variantname": "Late",
   "variantdescription": "with IRST from 1963 and later.",
-  "technology": [ "CC Rocket Attack", "IRST-A" ]
+  "technology": [ "CC Rocket Attack", "IRST-A" ],
+  "loadnotes": [
+    "Station 2 corresponds to the internal weapons bays. They can carry four AIM-4 IRMs or RHMs and two AIM-26 RHMs.",
+    "May only use AIM-4C/-4D IRMs and AIM-4A and AIM-26A/-26B RHMs."
+  ]
 }

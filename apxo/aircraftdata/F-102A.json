@@ -72,10 +72,11 @@
   "storeslimits": [ 3, 6, 4000 ],
   "stations": [
     [ "pair"  , [ 1, 3 ], 1500, [ "FT" ] ],
-    [ "single", [ 2 ]   , 1000, [ "IRM", "RHM", "Nuc. RK" ] ]
+    [ "single", [ 2 ]   , 1000, [ "IRM", "RHM" ] ]
   ],
   "loadnotes": [
-    "Station 2 is the internal weapons bay. Load options are (a) six AIM-4 IRMs and RHMs and two factors of air-to-air rockets; (b) three AIM-4 IRMs and RHMs, one AIM-26 RHM, and one factor of air-to-air rockets; and (c) two AIM-26 RHM and one factor of air-to-air rockets."
+    "Station 2 corresponds to the internal weapons bays. They can carry six AIM-4 IRMs and RHMs and two factors of air-to-air rocket.",
+    "May only use GAR-2/-2A/-2B (AIM-4B/-4C/-4D) IRMs and GAR-1/1D (AIM-4/-4A) RHMs."
   ],
   "VPs": [ 20, 14, 6, 2 ]
 }
