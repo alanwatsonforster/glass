@@ -1,6 +1,7 @@
 {
   "base": "F-106A",
-  "variantname": "Six Shooter",
+  "variantname": "SIX SHOOTER",
+  "variantdescription": "with M61A1 gun in the weapons bay in place of the AIR-2A Genie, from 1972 and after.",
   "gun": "20 mm M61A1 Vulcan",
   "gunatatohitrolls": "7/5/3",
   "gundamagerating": "6/8*",
