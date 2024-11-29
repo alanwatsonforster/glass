@@ -81,6 +81,8 @@
     [   "type", "B-66 Destroyer", "B-66B (Early)", "B-66B (Late)", "RB-66C", "EB-66C" ],
     // April 1956
     [ "type", "F-102", "F-102A", "F-102A (Late)" ],
+    // May 1957
+    [ "type", "F-101", "F-101B", "F-101C", "RF-101C", "RF-101C (Late)" ],
     // 1957
     [   "type", "T-37", "T-37C" ],
     // Feburary 1958
