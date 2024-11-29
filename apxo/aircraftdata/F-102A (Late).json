@@ -1,10 +1,16 @@
 {
   "base": "F-102A",
   "variantname": "Late",
-  "variantdescription": "with IRST from 1963 and later.",
+  "variantdescription": "with IRSTS and AIM-26 capability from 1963 and later.",
   "technology": [ "CC Rocket Attack", "IRST-A" ],
+  "storeslimits": [ 3, 6, 4080 ],
+  "stations": [
+    [ "pair"  , [ 1, 5 ], 1500, [ "FT" ] ],
+    [ "pair"  , [ 2, 4 ], 280, [ "IRM", "RHM" ] ],
+    [ "single", [ 3 ]   , 520, [ "IRM", "RHM" ] ]
+  ],
   "loadnotes": [
-    "Station 2 corresponds to the internal weapons bays. They can carry four AIM-4 IRMs or RHMs and two AIM-26 RHMs.",
-    "May only use AIM-4C/-4D IRMs and AIM-4A and AIM-26A/-26B RHMs."
+    "Stations 2 to 4 corresponds to the internal weapons bays. They can each carry two RHMs and IRMs.",
+    "The side bays 2 and 4 may carry only AIM-4B/-4C/-4D (GAR-2/-2A/-2B) IRMs and AIM-4/-4A (GAR-1/1D). The central bay 3 may also carry AIM-26A/-26B RHMs."
   ]
 }

@@ -70,11 +70,12 @@
   "wikiurl": "https://bit.ly/415RHJa",
   "storeslimits": [ 3, 6, 4000 ],
   "stations": [
-    [ "pair"  , [ 1, 3 ], 1500, [ "FT" ] ],
-    [ "single", [ 2 ]   , 1000, [ "IRM", "RHM" ] ]
+    [ "pair"  , [ 1, 5 ], 1500, [ "FT" ] ],
+    [ "pair"  , [ 2, 4 ], 280, [ "IRM", "RHM" ] ],
+    [ "single", [ 3 ]   , 280, [ "IRM", "RHM" ] ]
   ],
   "loadnotes": [
-    "Station 2 corresponds to the internal weapons bays. They can carry six AIM-4 IRMs and RHMs and two factors of air-to-air rocket.",
+    "Stations 2 to 4 corresponds to the internal weapons bays. They can each carry two RHMs and IRMs. The central bay 3 also has two factors of air-to-air rocket.",
     "May only use GAR-1/1D (AIM-4/-4A) RHMs and GAR-2/-2A/-2B (AIM-4B/-4C/-4D) IRMs."
   ],
   "VPs": [ 20, 14, 6, 2 ]
