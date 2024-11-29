@@ -4,6 +4,7 @@
   "manufacturername": "Canadair",
   "origin": "APJ 25",
   "base": "F-86F-25",
+  "popularname": null,
   "powertable": {
     "M"   : [ 1.0, 1.0, 1.0, 1.0 ],
     "N"   : [ 0.0, 0.0, 0.0, 0.5 ],
