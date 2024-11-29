@@ -1,0 +1,9 @@
+{
+  "base": "F-105F (Late Wild Weasel)",
+  "origin": "TSOH",
+  "versionname": "F-105G",
+  "variantname": "Early Wild Weasel",
+  "variantdescription": "equipped for air-defense suppression, from 1968.",
+  "bombsystem": "Ballistic",
+  "ecm": { "iff": true, "rwr": "B", "dds": "B", "djm": "A3", "ajm": "A3" }
+}

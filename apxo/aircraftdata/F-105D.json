@@ -1,60 +1,26 @@
 {
-  "versionname": "F-105D Thunderchief",
+  "versionname": "F-105D",
   "origin": "TSOH",
-  "crew": [ "Pilot" ],
+  "base": "F-105B",
   "powertable": {
     "AB"  : [ 2.5, 2.0, 2.0, 9.0 ],
     "M"   : [ 1.0, 1.0, 1.0, 2.0 ],
     "N"   : [ 0.0, 0.0, 0.0, 1.0 ],
     "I"   : [ 0.5, 0.5, 0.5, 0.0 ],
-    "SPBR": [ 1.0, 2.0, 2.0 ]
+    "SPBR": [ 0.5, 0.5, 1.0 ]
   },
-  "jetengines": 1,
-  "cruisespeed": 5.5,
-  "climbspeed" : 4.5,
-  "visibility": 7,
-  "sizemodifier": 0,
-  "vulnerability": 1,
-  "restrictedarcs": "-",
-  "blindarcs": "60-",
-  "internalfuel": 375,
-  "atarefuel": true,
-  "ejectionseat": "standard",
-  "maneuvertable": {
-    "LR/DR": [ 1.0, 1.0 ],
-    "VR":    [ 0.0, 0.0 ]
+  "radar": {
+    "name": "R-14A",
+    "eccm": 0,
+    "arc": "180+",
+    "searchrange": 60,
+    "searchstrength": 15,
+    "trackingrange": 40,
+    "trackingstrength": 10,
+    "lockon": 6
   },
-  "turndragtable": {
-    "TT": [ 2.0, 2.0, 2.0 ],
-    "HT": [ 3.0, 4.0, 4.0 ],
-    "BT": [ 4.0, 5.0, 5.0 ]
-  },
-  "ceilingtable": [ 48, 38, 32 ],
-  "speedtable": {
-    "EH": [ [ 5.0, 13.0 ], [ "-" , "-" ], [ "-", "-" ], 14.0 ],
-    "VH": [ [ 4.0, 13.5 ], [ 4.0, 11.0 ], [ "-", "-" ], 14.0 ],
-    "HI": [ [ 3.0, 12.0 ], [ 3.5, 10.0 ], [ 4.0, 9.0 ], 14.0 ],
-    "MH": [ [ 2.5, 11.0 ], [ 3.0,  9.0 ], [ 3.5, 8.0 ], 13.0 ],
-    "ML": [ [ 2.5, 10.0 ], [ 3.0,  8.0 ], [ 3.0, 7.0 ], 11.0 ],
-    "LO": [ [ 2.0,  8.5 ], [ 2.5,  7.5 ], [ 2.5, 6.0 ],  9.5 ]
-  },
-  "climbcapabilitytable": {
-    "EH": [ [ 1.0, 0.5 ], [ "-", "-" ], [ "-", "-" ] ],
-    "VH": [ [ 2.0, 0.5 ], [ 1.0, 0.5 ], [ "-", "-" ] ],
-    "HI": [ [ 3.0, 1.0 ], [ 2.0, 0.5 ], [ 1.0, 0.5 ] ],
-    "MH": [ [ 4.0, 1.0 ], [ 3.0, 1.0 ], [ 1.0, 0.5 ] ],
-    "ML": [ [ 4.0, 1.0 ], [ 3.0, 1.0 ], [ 1.5, 0.5 ] ],
-    "LO": [ [ 5.0, 2.0 ], [ 3.0, 1.0 ], [ 2.0, 1.0 ] ]
-  },
-  "storeslimits": [ 4, 12, 14000 ],
-  "gun": "20 mm M61 Vulcan",
-  "gunatatohitrolls": "7/5/3",
-  "gunatadamagerating": 6,
-  "gunammunition": 5.0,
-  "gunsightmodifiers": { "TT": 0, "HT": 1, "BT": 2 },
-  "ataradarranging": "RE",
-  "lockon": 6,
-  "properties": [ "SMP", "RACL", "LTD" ],
   "notes": [
-  ]
+    "Radar in air-to-ground mode has: Gr.\\ Nav.\\ (180) and Gr.\\ Attack (90)."
+  ],
+  "VPs": [ 24, 18, 9, 4 ]
 }
