@@ -95,9 +95,10 @@
     [ "type", "F-104", "F-104A", "F-104A (Late)", "F-104B", "F-104B (Late)", "F-104C", "F-104C (ATA Refueling)", "F-104D", "F-104D (ATA Refueling)" ],
     // May 1958
     [ "type", "F-105", "F-105B", "F-105D", "F-105D (Thunderstick II)", "F-105F (Early Wild Weasel)", "F-105F (Late Wild Weasel)", "F-105G (Early Wild Weasel)", "F-105G (Late Wild Weasel)" ],
-
     // June 1959
     [ "type", "F-106", "F-106A", "F-106A (SIX SHOOTER)" ],
+    // December 1960
+    [ "type", "F-4", "F-4B", "F-4B (1966 Upgrade)", "F-4B (1967 Upgrade)", "F-4B (1971 Upgrade)", "F-4B (1975 Upgrade)", "RF-4B", "RF-4B (1966 Upgrade)", "RF-4B (1967 Upgrade)", "RF-4B (1971 Upgrade)", "RF-4B (1975 Upgrade)", "F-4C", "F-4C (1966 Upgrade)", "F-4C (1971 Upgrade)", "F-4C (1975 Upgrade)", "RF-4C", "RF-4C (1966 Upgrade)", "RF-4C (1971 Upgrade)", "RF-4C (1975 Upgrade)", "F-4E", "F-4E (1971 Upgrade)", "F-4E (1975 Upgrade)", "F-4J", "F-4J (1971 Upgrade)", "F-4J (1975 Upgrade)" ],
     // 1967
     [   "type", "A-37", "A-37B", "OA-37B" ]
 
