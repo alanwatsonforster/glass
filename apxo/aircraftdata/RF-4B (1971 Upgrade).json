@@ -1,0 +1,6 @@
+{
+  "base": "RF-4B (1967 Upgrade)",
+  "variantname": "1971 Upgrade",
+  "variantdescription": "with RWR-B and DDS-A, from 1971.",
+  "ecm": { "iff": true, "rwr": "B", "dds": "A", "djm": "A3" }
+}

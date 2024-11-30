@@ -1,5 +1,7 @@
 {
-  "versionname": "F-4B Phantom II",
+  "versionname": "F-4B",
+  "popularname": "Phantom II",
+  "versiondescription": "Interceptor and fighter-bomber.",
   "origin": "TSOH",
   "crew": [ "Pilot", "Radar Officer"],
   "powertable": {
@@ -7,7 +9,7 @@
     "M"   : [ 1.5, 1.0, 1.0,  3.0 ],
     "N"   : [ 0.0, 0.0, 0.0,  2.0 ],
     "I"   : [ 0.5, 1.0, 1.0,  0.0 ],
-    "SPBR": [ 1.0, 2.0, 2.0 ]
+    "SPBR": [ 0.5, 1.0, 1.0 ]
   },
   "jetengines": 2,
   "cruisespeed": 5.5,
@@ -41,16 +43,42 @@
   },
   "climbcapabilitytable": {
     "EH": [ [ 1.0, 0.5 ], [ 1.0, 0.5 ], [ "-", "-" ] ],
-    "VH": [ [ 2.0, 1.0 ], [ 1.5, 0.5 ], [ 1.0, 0.5 ] ],
+    "VH": [ [ 2.0, 1.0 ], [ 1.0, 0.5 ], [ 1.0, 0.5 ] ],
     "HI": [ [ 3.0, 1.0 ], [ 2.0, 1.0 ], [ 1.0, 0.5 ] ],
     "MH": [ [ 4.0, 1.5 ], [ 3.0, 1.0 ], [ 1.0, 0.5 ] ],
     "ML": [ [ 5.0, 2.0 ], [ 3.0, 1.0 ], [ 2.0, 1.0 ] ],
     "LO": [ [ 6.0, 2.0 ], [ 4.0, 1.0 ], [ 2.0, 1.0 ] ]
   },
-  "storeslimits": [ 8, 14, 16000 ],
+  "radar": {
+    "name": "APQ-72",
+    "eccm": 1,
+    "arc": "180+",
+    "searchrange": 70,
+    "searchstrength": 10,
+    "trackingrange": 60,
+    "trackingstrength": 10,
+    "lockon": 7
+  },
   "gun": "",
   "gunsightmodifiers": { "TT": 0, "HT": 1, "BT": 2 },
+  "ecm": { "iff": true, "djm": "A3" },
+  "technology": [ "IRSTS-A" ],
   "properties": [ "SMP", "RPR" ],
   "notes": [
-  ]
+  ],
+  "wikiurl": "https://bit.ly/3CQfO4t",
+  "storeslimits": [ 8, 14, 16000 ],
+  "stations": [
+    [ "pair"  , [ 1, 9 ], 2700, [ "BB", "RP", "WR", "EP", "FT" ] ],
+    [ "pair"  , [ 2, 8 ], 3000, [ "BB", "RP", "RG", "GP", "EP", "WR", "IRM", "RHM" ] ],
+    [ "pair"  , [ 3, 7 ],  500, [ "RHM", "EP" ] ],
+    [ "pair"  , [ 4, 6 ],  500, [ "RHM" ] ],
+    [ "single", [ 5 ]   , 4500, [ "BB", "RP", "WR", "GP", "FT" ] ]
+  ],
+  "loadnotes": [
+    "Stations 2 and 8 may each carry two AIM-9 IRMs in addition to other non-missile stores.",
+    "Stations 3, 4, 6, and 7 are the recessed fuselage stations. Stations 3 and 7 are the forward ones and stations 4 and 6 are the rear ones.",
+    "May only use AIM-7 RHMs, AIM-9 IRMs, and AGM-12 RGs."
+  ],
+  "VPs": [ 25, 18, 9, 4 ]
 }

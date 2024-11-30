@@ -1,0 +1,6 @@
+{
+  "base": "RF-4B",
+  "variantname": "1966 Upgrade",
+  "variantdescription": "with RWR-A, from 1966.",
+  "ecm": { "iff": true, "rwr": "A", "djm": "A3" }
+}

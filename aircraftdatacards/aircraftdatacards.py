@@ -626,6 +626,14 @@ def blockF(data):
         writelatex(r"\renewcommand{\Fd}{---}")
         writelatex(r"\renewcommand{\Fe}{---}")
         writelatex(r"\renewcommand{\Ff}{%d}" % data.radar("lockon"))
+    elif data.radar("lockon") is None:
+        # air-to-ground radar
+        writelatex(r"\renewcommand{\Fa}{%s}" % data.radar("name"))
+        writelatex(r"\renewcommand{\Fb}{%d}" % data.radar("eccm"))
+        writelatex(r"\renewcommand{\Fc}{$\mathrm{%s}$}" % data.radar("arc"))
+        writelatex(r"\renewcommand{\Fd}{Gr.~Nav.~(%d)}" % data.radar("searchrange"))
+        writelatex(r"\renewcommand{\Fe}{}")
+        writelatex(r"\renewcommand{\Ff}{}")
     elif data.radar("trackingstrength") is None:
         # air-to-ground radar
         writelatex(r"\renewcommand{\Fa}{%s}" % data.radar("name"))
