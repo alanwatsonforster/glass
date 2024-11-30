@@ -1,7 +1,7 @@
 {
   "versionname": "MiG-19PF",
   "natoreportingnames": "NATO reporting name for the aircraft is Farmer-D and for the radar is Scan Odd.",
-  "base": "MiG-19SF",
+  "base": "MiG-19S",
   "radar": {
     "name": "Scan Odd",
     "eccm": 0,

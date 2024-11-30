@@ -1,5 +1,5 @@
 {
-  "versionname": "MiG-19SF",
+  "versionname": "MiG-19S",
   "versiondescription": "Day fighter version.",
   "natoreportingnames": "NATO reporting name for the aircraft is Farmer-C.",
   "origin": "TSOH",
@@ -69,5 +69,4 @@
     "May use AA-2 IRMs."
   ],
   "VPs": [ 16, 19, 6, 3 ]
-  
 }
