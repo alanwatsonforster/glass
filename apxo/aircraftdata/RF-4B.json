@@ -1,6 +1,8 @@
 {
   "versionname": "RF-4B",
   "versiondescription": "Reconnaissance version.",
+  "originallydesignated": "F4H-1P",
+  "subsequentlydesignated": null,
   "base": "F-4B",
   "speedtable": {
     "EH": [ [ 4.5, 13.5 ], [ 5.0, 11.0 ], [ "-", "-" ], 14.0 ],

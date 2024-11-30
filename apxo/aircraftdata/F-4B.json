@@ -2,6 +2,8 @@
   "versionname": "F-4B",
   "popularname": "Phantom II",
   "versiondescription": "Interceptor and fighter-bomber.",
+  "originallydesignated": "F4H-1",
+  "subsequentlydesignated": null,
   "origin": "TSOH",
   "crew": [ "Pilot", "Radar Officer"],
   "powertable": {

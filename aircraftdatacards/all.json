@@ -98,7 +98,7 @@
     // June 1959
     [ "type", "F-106", "F-106A", "F-106A (SIX SHOOTER)" ],
     // December 1960
-    [ "type", "F-4", "F-4B", "F-4B (1966 Upgrade)", "F-4B (1967 Upgrade)", "F-4B (1971 Upgrade)", "F-4B (1975 Upgrade)", "RF-4B", "RF-4B (1966 Upgrade)", "RF-4B (1967 Upgrade)", "RF-4B (1971 Upgrade)", "RF-4B (1975 Upgrade)", "F-4C", "F-4C (1966 Upgrade)", "F-4C (1971 Upgrade)", "F-4C (1975 Upgrade)", "RF-4C", "RF-4C (1966 Upgrade)", "RF-4C (1971 Upgrade)", "RF-4C (1975 Upgrade)", "F-4E", "F-4E (1971 Upgrade)", "F-4E (1975 Upgrade)", "F-4J", "F-4J (1971 Upgrade)", "F-4J (1975 Upgrade)" ],
+    [ "type", "F-4", "F4H-1", "F-4B", "F-4B (1966 Upgrade)", "F-4B (1967 Upgrade)", "F-4B (1971 Upgrade)", "F-4B (1975 Upgrade)", "F4H-1P", "RF-4B", "RF-4B (1966 Upgrade)", "RF-4B (1967 Upgrade)", "RF-4B (1971 Upgrade)", "RF-4B (1975 Upgrade)", "F-4C", "F-4C (1966 Upgrade)", "F-4C (1971 Upgrade)", "F-4C (1975 Upgrade)", "RF-4C", "RF-4C (1966 Upgrade)", "RF-4C (1971 Upgrade)", "RF-4C (1975 Upgrade)", "F-4E", "F-4E (1971 Upgrade)", "F-4E (1975 Upgrade)", "F-4J", "F-4J (1971 Upgrade)", "F-4J (1975 Upgrade)" ],
     // 1967
     [   "type", "A-37", "A-37B", "OA-37B" ]
 

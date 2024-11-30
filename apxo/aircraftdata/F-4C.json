@@ -1,6 +1,7 @@
 {
   "versionname": "F-4C",
   "base": "F-4B",
+  "originallydesignated": null,
   "radar": {
     "name": "APQ-100",
     "eccm": 1,
