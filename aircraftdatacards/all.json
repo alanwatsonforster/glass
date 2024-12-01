@@ -41,6 +41,8 @@
     [ "type", "MiG-19", "MiG-19S", "MiG-19PF", "MiG-19PM"],
     // 1959
     [ "type", "MiG-21", "MiG-21F", "MiG-21F-13", "MiG-21PF", "MiG-21PFM", "MiG-21FL", "MiG-21S", "MiG-21M", "MiG-21SM", "MiG-21MF", "MiG-21bis" ],
+    // 1959
+    [ "type", "Su-9", "Su-9" ],
     
     [ "chapter", "US Aircraft" ],
     //  Jan 1942 with RAF
