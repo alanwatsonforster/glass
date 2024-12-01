@@ -1,0 +1,14 @@
+{
+  "base": "A-7E",
+  "variantname": "1980 Upgrade",
+  "variantdescription": "with automatic maneuver flaps, from 1980.",
+  "lowspeedliftdevicelimit": 3.5,
+  "lowspeedliftdevicelimittype": "absolute",
+  "lowspeedliftdevicename": "maneuvering flaps",
+  "lowspeedliftdeviceturndragtable": {
+    "TT": [ 1.0, 1.0, 2.0 ],
+    "HT": [ 2.0, 2.0, 3.0 ],
+    "BT": [ 4.0, 4.0, 5.0 ],
+    "ET": [ "-", "-", "-" ]
+  }
+}

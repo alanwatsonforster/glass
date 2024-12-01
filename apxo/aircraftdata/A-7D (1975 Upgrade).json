@@ -1,0 +1,15 @@
+{
+  "base": "A-7D",
+  "variantname": "1975 Upgrade",
+  "variantdescription": "with automatic maneuvering flaps, from 1975.",
+  "lowspeedliftdevicelimit": 3.5,
+  "lowspeedliftdevicelimittype": "absolute",
+  "lowspeedliftdevicename": "maneuvering flaps",
+  "lowspeedliftdeviceturndragtable": {
+    "TT": [ 1.0, 1.0, 2.0 ],
+    "HT": [ 2.0, 2.0, 3.0 ],
+    "BT": [ 4.0, 4.0, 5.0 ],
+    "ET": [ "-", "-", "-" ]
+  },
+  "technology": [ "Terrain Following - A", "Laser Spot Tracker" ]
+}

@@ -1,0 +1,14 @@
+{
+  "versionname": "A-7D",
+  "base": "A-7E",
+  "ecm": { "iff": true, "rwr": "B", "dds": "B" },
+  "stations": [
+    [ "pair"     , [ 1, 8 ], 3500, [ "BB", "BG", "RP", "RG", "WR", "EP", "DP", "IRM", "FT" ] ],
+    [ "pair"     , [ 2, 7 ], 3500, [ "BB", "BG", "BS", "RP", "RG", "RS", "WR", "EP", "DP", "PP", "GP" ] ],
+    [ "pair"     , [ 3, 6 ], 2500, [ "BB", "BG", "BS", "RP", "RG", "RS", "WR", "EP", "DP", "PP", "OP", "FT" ] ],
+    [ "pair"     , [ 4, 5 ],  250, [ "IRM" ] ]
+  ],
+  "loadnotes": [
+    "May only used AIM-9 IRMs, AGM-12 RGs, and AGM-45 ARMs."
+  ]
+}
