@@ -1,0 +1,26 @@
+{
+  "versionname": "F-8D",
+  "base": "F-8C",
+  "previouslydesignated": "F8U-2N",
+  "origin": "TSOH",
+  "internalfuel": 480,
+  "radar": {
+    "name": "APQ-83",
+    "eccm": 0,
+    "arc": "180+",
+    "searchrange": 80,
+    "searchstrength": 10,
+    "trackingrange": 40,
+    "trackingstrength": 10,
+    "lockon": 6
+  },
+  "technology": [ "IRSTS-A" ],
+  "stations": [
+    [ "pair"  , [ 1, 2 ], 700, [ "IRM", "RHM", "RP" ] ]
+  ],
+  "loadnotes": [
+    "May only use AIM-9 IRMs and AIM-9C RHMs.",
+    "May only use LAU-33 RPs."
+  ],
+  "VPs": [ 22, 15, 7, 3 ]
+}

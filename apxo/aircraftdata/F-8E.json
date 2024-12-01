@@ -1,29 +1,16 @@
 {
-  "versionname": "F-8E Crusader",
+  "versionname": "F-8E",
+  "base": "F-8D",
+  "previouslydesignated": "F8U-2NE",
   "origin": "TSOH",
-  "crew": [ "Pilot" ],
   "powertable": {
     "AB"  : [ 2.5, 2.0, 2.0, 8.0 ],
     "M"   : [ 1.0, 1.0, 1.0, 2.0 ],
     "N"   : [ 0.0, 0.0, 0.0, 1.0 ],
     "I"   : [ 0.5, 0.5, 0.5, 0.0 ],
-    "SPBR": [ 1.0, 1.0, 2.0 ]
+    "SPBR": [ 0.5, 0.5, 1.0 ]
   },
-  "jetengines": 1,
-  "cruisespeed": 5.5,
-  "climbspeed" : 4.5,
-  "visibility": 6,
-  "sizemodifier": 0,
-  "vulnerability": 0,
-  "restrictedarcs": "60-",
-  "blindarcs": "30-",
   "internalfuel": 435,
-  "atarefuel": true,
-  "ejectionseat": "standard",
-  "maneuvertable": {
-    "LR/DR": [ 1.0, 1.0 ],
-    "VR":    [ 0.0, 0.0 ]
-  },
   "turndragtable": {
     "TT": [ 1.0, 1.0, 1.0 ],
     "HT": [ 2.0, 2.0, 2.0 ],
@@ -47,15 +34,26 @@
     "ML": [ [ 3.0, 1.5 ], [ 2.0, 1.0 ], [ 2.0, 1.0 ] ],
     "LO": [ [ 3.0, 1.5 ], [ 3.0, 1.0 ], [ 2.0, 1.0 ] ]
   },
+  "radar": {
+    "name": "APQ-94",
+    "eccm": 0,
+    "arc": "180+",
+    "searchrange": 120,
+    "searchstrength": 20,
+    "trackingrange": 90,
+    "trackingstrength": 15,
+    "lockon": 6
+  },
+  "ecm": { "iff": true },
   "storeslimits": [ 2, 6, 5500 ],
-  "gun": "Four 20 mm Mk 12",
-  "gunatatohitrolls": "6/4/3",
-  "gunatadamagerating": 5,
-  "gunammunition": 4.0,
-  "gunsightmodifiers": { "TT": 0, "HT": 1, "BT": 2 },
-  "ataradarranging": "RE",
-  "lockon": 6,
-  "properties": [ "RA" ],
-  "notes": [
-  ]
+  "stations": [
+    [ "pair"  , [ 1, 4 ], 2700, [ "BB", "RP", "RG", "WR" ] ],
+    [ "pair"  , [ 2, 3 ],  700, [ "IRM", "RHM", "RP", "MDR", "DR" ] ]
+  ],
+  "loadnotes": [
+    "May only use AIM-9 IRMs and RHMs.",
+    "May only use LAU-33 RPs on stations 2 and 3.",
+    "May only use AGM-12 RGs."
+  ],
+  "VPs": [ 24, 16, 8, 4 ]
 }

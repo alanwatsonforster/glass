@@ -78,7 +78,7 @@
     // August 1953
     [ "type", "B-57 Canberra", "B-57B (Early)", "B-57B", "B-57B (PAF)", "B-57G" ],
     // September 1954
-    [ "type", "F-100", "F-100A", "F-100C", "F-100D", "F-100D (Late)", "F-100F", "F-100F (Wild Weasel I)", "F-100F (Wild Weasel II)" ],
+    [ "type", "F-100 Super Sabre", "F-100A", "F-100C", "F-100D", "F-100D (Late)", "F-100F", "F-100F (Wild Weasel I)", "F-100F (Wild Weasel II)" ],
     // February 1955
     [ "type", "B-52 Stratofortress", "B-52D", "B-52G" ],
     // March 1956
@@ -86,20 +86,22 @@
     // 1956
     [   "type", "B-66 Destroyer", "B-66B (Early)", "B-66B (Late)", "RB-66C", "EB-66C" ],
     // April 1956
-    [ "type", "F-102", "F-102A", "F-102A (Late)" ],
+    [ "type", "F-102 Delta Dagger", "F-102A", "F-102A (Late)" ],
+    // March 1957
+    [ "type", "F8U/F-8 Crusader", "F8U-1P", "RF-8A", "F8U-2", "F-8C", "F-8C (1966 Upgrade)", "F-8C (1969 Upgrade)", "F8U-2N", "F-8D", "F-8D (1966 Upgrade)", "F-8D (1969 Upgrade)", "F8U-2NE", "F-8E", "F-8E (1966 Upgrade)", "F-8E (1969 Upgrade)", "F-8E (FN)", "F-8J" ],
     // May 1957
-    [ "type", "F-101", "F-101B", "F-101C", "RF-101C", "RF-101C (Late)" ],
+    [ "type", "F-101 Voodoo", "F-101B", "F-101C", "RF-101C", "RF-101C (Late)" ],
     // 1957
-    [   "type", "T-37", "T-37C" ],
+    [   "type", "T-37 Tweet", "T-37C" ],
     // Feburary 1958
-    [ "type", "F-104", "F-104A", "F-104A (Late)", "F-104B", "F-104B (Late)", "F-104C", "F-104C (ATA Refueling)", "F-104D", "F-104D (ATA Refueling)" ],
+    [ "type", "F-104 Starfighter", "F-104A", "F-104A (Late)", "F-104B", "F-104B (Late)", "F-104C", "F-104C (ATA Refueling)", "F-104D", "F-104D (ATA Refueling)" ],
     // May 1958
-    [ "type", "F-105", "F-105B", "F-105D", "F-105D (Thunderstick II)", "F-105F (Early Wild Weasel)", "F-105F (Late Wild Weasel)", "F-105G (Early Wild Weasel)", "F-105G (Late Wild Weasel)" ],
+    [ "type", "F-105 Thunderchief", "F-105B", "F-105D", "F-105D (Thunderstick II)", "F-105F (Early Wild Weasel)", "F-105F (Late Wild Weasel)", "F-105G (Early Wild Weasel)", "F-105G (Late Wild Weasel)" ],
     // June 1959
-    [ "type", "F-106", "F-106A", "F-106A (SIX SHOOTER)" ],
+    [ "type", "F-106 Delta Dart", "F-106A", "F-106A (SIX SHOOTER)" ],
     // December 1960
-    [ "type", "F-4", "F4H-1", "F-4B", "F-4B (1966 Upgrade)", "F-4B (1967 Upgrade)", "F-4B (1971 Upgrade)", "F-4B (1975 Upgrade)", "F4H-1P", "RF-4B", "RF-4B (1966 Upgrade)", "RF-4B (1967 Upgrade)", "RF-4B (1971 Upgrade)", "RF-4B (1975 Upgrade)", "F-4C", "F-4C (1966 Upgrade)", "F-4C (1971 Upgrade)", "F-4C (1975 Upgrade)", "RF-4C", "RF-4C (1966 Upgrade)", "RF-4C (1971 Upgrade)", "RF-4C (1975 Upgrade)", "F-4E", "F-4E (1971 Upgrade)", "F-4E (1975 Upgrade)", "F-4J", "F-4J (1971 Upgrade)", "F-4J (1975 Upgrade)" ],
+    [ "type", "F-4 Phantom II", "F4H-1", "F-4B", "F-4B (1966 Upgrade)", "F-4B (1967 Upgrade)", "F-4B (1971 Upgrade)", "F-4B (1975 Upgrade)", "F4H-1P", "RF-4B", "RF-4B (1966 Upgrade)", "RF-4B (1967 Upgrade)", "RF-4B (1971 Upgrade)", "RF-4B (1975 Upgrade)", "F-4C", "F-4C (1966 Upgrade)", "F-4C (1971 Upgrade)", "F-4C (1975 Upgrade)", "RF-4C", "RF-4C (1966 Upgrade)", "RF-4C (1971 Upgrade)", "RF-4C (1975 Upgrade)", "F-4E", "F-4E (1971 Upgrade)", "F-4E (1975 Upgrade)", "F-4J", "F-4J (1971 Upgrade)", "F-4J (1975 Upgrade)" ],
     // 1967
-    [   "type", "A-37", "A-37B", "OA-37B" ]
+    [   "type", "A-37 Dragonfly", "A-37B", "OA-37B" ]
 
 ]
