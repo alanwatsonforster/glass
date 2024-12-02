@@ -20,7 +20,7 @@
   "vulnerability": 0,
   "restrictedarcs": "90-",
   "blindarcs": "60-",
-  "internalfuel": 1025,
+  "internalfuel": 720,
   "atarefuel": false,
   "ejectionseat": "standard",
   "maneuvertable": {
@@ -73,7 +73,7 @@
     [ "single", [ 2 ]   , 0, ["Nuc BB", "FT" ] ]
   ],
   "loadnotes": [
-    "Station 2 is the internal weapons tube. It can carry one nuclear BB and two FTs or three FTs.",
+    "Station 2 is the internal weapons tube. It can carry one nuclear BB and two FTs or three FTs. The FTs have a capacity of 295 gal (1100L, weight 2000, fuel 95).",
     "May only use AGM-12 RGs."
   ],
   "VPs": [ 32, 22, 12, 6 ]
