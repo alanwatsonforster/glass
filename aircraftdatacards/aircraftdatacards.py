@@ -710,7 +710,15 @@ def blockF(data):
             % (data.gunatadamagerating(), data.gunatgdamagerating())
         )
 
-    writelatex(r"\renewcommand{\Fm}{%s}" % data.bombsystem())
+    s = data.bombsystem()
+    if "/" in s:
+        prefix = r"\parbox{\linewidth}{\centering\scriptsize "
+        suffix = r"}"
+        s = re.sub(r"/", r"\\\\", s)
+    else:
+        prefix = ""
+        suffix = ""
+    writelatex(r"\renewcommand{\Fm}{%s%s%s}" % (prefix, s, suffix))
 
     s = ""
     for turnrate in ["TT", "HT", "BT"]:
