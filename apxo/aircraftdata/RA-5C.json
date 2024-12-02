@@ -5,7 +5,8 @@
   "previouslydesignated": "A3J-3P",
   "ecm": { "iff": true, "rwr": "A", "dds": "A", "djm": "A3" },
   "notes": [
-    "Reconnaissance options include an oblique camera, overhead cameras, IR camera, side-looking radar, and electronic emissions recording equipment."
+    "Reconnaissance options include an oblique camera, overhead cameras, IR camera, side-looking radar, and electronic emissions recording equipment.",
+    "Bomb system is computed for level or radar bombing and ballistic otherwise."
   ],
   "stations": [
     [ "pair"  , [ 1, 5 ], 3200, [ "BB", "RP", "RG", "WR", "FT" ] ],
