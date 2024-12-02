@@ -111,6 +111,8 @@
     [ "type", "A3J/A-5 Vigilante", "A3J-1", "A-5A", "A3J-2", "A-5B", "A3J-3P", "RA-5C", "RA-5C (1967 Upgrade)", "RA-5C (1971 Upgrade)" ],
     // February 1963
   [ "type", "A-6 Intruder", "A-6A", "A-6A (1965 Upgrade)", "A-6B", "A-6E", "A-6E (1978 TRAM Upgrade)" ],
+    // April 1964
+    [ "type", "F-5 Freedom Fighter", "F-5A", "RF-5A", "F-5C" ],
     // February 1967
     [ "type", "A-7 Corsair II", "A-7A", "A-7B", "A-7C", "A-7D", "A-7D (1975 Upgrade)", "A-7D (1981 Upgrade)", "A-7E", "A-7E (1980 Upgrade)", "A-7E (1985 Upgrade)", "A-7P" ],
     // 1967

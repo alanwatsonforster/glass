@@ -1,5 +1,7 @@
 {
-  "versionname": "F-5A Freedom Fighter",
+  "versionname": "F-5A",
+  "versiondescription": "Light day and ground-attack fighter.",
+  "popularname": "Freedom Fighter",
   "origin": "TSOH",
   "crew": [ "Pilot" ],
   "powertable": {
@@ -7,7 +9,7 @@
     "M"   : [ 1.0, 1.0, 1.0, 1.0 ],
     "N"   : [ 0.0, 0.0, 0.0, 0.5 ],
     "I"   : [ 0.5, 0.5, 1.0, 0.0 ],
-    "SPBR": [ 1.0, 1.0, 2.0 ]
+    "SPBR": [ 0.5, 0.5, 1.0 ]
   },
   "jetengines": 2,
   "cruisespeed": 5.5,
@@ -24,21 +26,10 @@
     "LR/DR": [ 1.0, 1.0 ],
     "VR":    [ 0.0, 0.0 ]
   },
-  // Leading-edge slats from the ADC supplied by Carl Smeaton.
-  "lowspeedliftdevicename": "leading-edge slats",
-  "lowspeedliftdeviceselectable": true,
-  "lowspeedliftdevicelimit": 4.0,
-  "lowspeedliftdevicelimittype": "absolute",
-  "lowspeedliftdeviceturndragtable": {
+  "turndragtable": {
     "TT": [ 1.0, 1.0, 2.0 ],
     "HT": [ 2.0, 2.0, 3.0 ],
     "BT": [ 3.0, 4.0, 4.0 ],
-    "ET": [ "-", "-", "-" ]
-  },
-  "turndragtable": {
-    "TT": [ 1.0, 1.0, 2.0 ],
-    "HT": [ 1.0, 2.0, 3.0 ],
-    "BT": [ 2.0, 3.0, 3.0 ],
     "ET": [ "-", "-", "-" ]
   },
   "ceilingtable": [ 48, 42, 34 ],
@@ -60,9 +51,22 @@
   },
   "gun": "Two 20 mm M39",
   "gunatatohitrolls": "5/3/1",
-  "gunatadamagerating": 4,
+  "gundamagerating": "4/4*",
   "gunammunition": 5.5,
   "gunsightmodifiers": { "TT": 1, "HT": 2, "BT": 3 },
+  "ecm": { "iff": true },
+  "properties": [ "HRR", "RPR", "LTD" ],
+  "notes": [],
+  "wikiurl": "https://bit.ly/3AYsbLr",
   "storeslimits": [ 5, 9, 6200 ],
-  "properties": [ "HRR", "RPR", "LTD" ]
+  "stations": [
+    [ "pair"  , [ 1, 7 ],  350, [ "IRM", "FT" ] ],
+    [ "pair"  , [ 2, 6 ],  750, [ "BB", "BG", "RP", "RG", "EP" ] ],
+    [ "pair"  , [ 3, 5 ], 1100, [ "BB", "BG", "RP", "RG", "EP", "WR", "GP", "FT" ]],
+    [ "single", [ 4 ]   , 2200, [ "BB", "BG", "RP", "WR", "GP", "EP", "PP", "FT"] ]
+  ],
+  "loadnotes": [
+    "May only use AIM-9 IRMs and AGM-12 RGs.",
+    "Stations 1 and 7 are the wing-tip stations. They may carry IRMs or special supersonic 50 US gal FTs (190L, weight 350, load1.0/0.5, and fuel 15)."
+  ]
 }
