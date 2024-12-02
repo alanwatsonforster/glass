@@ -1,0 +1,34 @@
+{
+  "versionname": "A-6E",
+  "versiondescription": "The A-6E was upgrade of the A-6A with improved navigation and attack systems.",
+  "base": "A-6A",
+  "powertable": {
+    "M"   : [ 1.5, 1.0, 1.0,  3.0 ],
+    "N"   : [ 0.0, 0.0, 0.0,  1.0 ],
+    "I"   : [ 0.5, 1.0, 1.0,  0.0 ],
+    "SPBR": [ 0.5, 1.0, 1.0 ]
+  },
+  "ceilingtable": [ 45, 40, 35 ],
+  "radar": {
+    "name": "APQ-148",
+    "eccm": 0,
+    "arc": "180+",
+    "searchrange": 180,
+    "trackingrange": 150,
+    "lockon": 8
+  },
+  "bombsystem": "Computed",
+  "ecm": { "iff": true, "rwr": "B", "dds": "B", "djm": "B4" },
+  "technology": [ "Terrain Following-B" ],
+  "storeslimits": [ 6, 14, 17200 ],
+  "stations": [
+    [ "pair"  , [ 1, 5 ], 3600, [ "BB", "BG", "BS", "RP", "RG", "WR", "GP", "EP", "FT", "ARM", "DP", "IRM" ] ],
+    [ "pair"  , [ 2, 4 ], 3600, [ "BB", "BG", "BS", "RP", "RG", "WR", "GP", "EP", "FT", "ARM", "DP" ] ],
+    [ "single", [ 3 ]   , 3600, [ "BB", "BG", "RP", "WR", "EP", "FT", "DP" ] ]
+  ],
+  "loadnotes": [
+    "May only use AIM-9B IRMs.",
+    "May only use AGM-45 ARMs."
+  ],
+  "VPs": [ 28, 18, 9, 5 ]
+}
