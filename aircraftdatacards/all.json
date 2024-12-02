@@ -107,11 +107,12 @@
     [ "type", "F-106 Delta Dart", "F-106A", "F-106A (SIX SHOOTER)" ],
     // December 1960
     [ "type", "F-4 Phantom II", "F4H-1", "F-4B", "F-4B (1966 Upgrade)", "F-4B (1967 Upgrade)", "F-4B (1971 Upgrade)", "F-4B (1975 Upgrade)", "F4H-1P", "RF-4B", "RF-4B (1966 Upgrade)", "RF-4B (1967 Upgrade)", "RF-4B (1971 Upgrade)", "RF-4B (1975 Upgrade)", "F-4C", "F-4C (1966 Upgrade)", "F-4C (1971 Upgrade)", "F-4C (1975 Upgrade)", "RF-4C", "RF-4C (1966 Upgrade)", "RF-4C (1971 Upgrade)", "RF-4C (1975 Upgrade)", "F-4E", "F-4E (1971 Upgrade)", "F-4E (1975 Upgrade)", "F-4J", "F-4J (1971 Upgrade)", "F-4J (1975 Upgrade)" ],
+    // June 1961
+    [ "type", "A3J/A-5 Vigilante", "A3J-1", "A-5A", "A3J-2", "A-5B", "A3J-3P", "RA-5C", "RA-5C (1967 Upgrade)", "RA-5C (1971 Upgrade)" ],
     // February 1963
   [ "type", "A-6 Intruder", "A-6A", "A-6A (1965 Upgrade)", "A-6B", "A-6E", "A-6E (1978 TRAM Upgrade)" ],
     // February 1967
     [ "type", "A-7 Corsair II", "A-7A", "A-7B", "A-7C", "A-7D", "A-7D (1975 Upgrade)", "A-7D (1981 Upgrade)", "A-7E", "A-7E (1980 Upgrade)", "A-7E (1985 Upgrade)", "A-7P" ],
-
     // 1967
     [   "type", "A-37 Dragonfly", "A-37B", "OA-37B" ]
 

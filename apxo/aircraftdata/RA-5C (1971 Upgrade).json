@@ -1,0 +1,6 @@
+{
+  "base": "RA-5C (1967 Upgrade)",
+  "variantname": "1971 Upgrade",
+  "variantdescription": "with DJM-B4, from 1971.",
+  "ecm": { "iff": true, "rwr": "B", "dds": "A", "djm": "B4" }
+}

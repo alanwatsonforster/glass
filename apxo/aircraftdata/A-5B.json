@@ -1,0 +1,16 @@
+{
+  "versionname": "A-5B",
+  "versiondescription": "The A-5B is an improved version of the A-5A, with additional fuel, two extra pylons, blow flaps. It did not see service as a bomber, but instead was used as a trainer for the RA-5C.",
+  "base": "A-5A",
+  "previouslydesignated": "A3J-2",
+  "internalfuel": 1170,
+  "stations": [
+    [ "pair"  , [ 1, 5 ], 3200, [ "BB", "RP", "RG", "WR", "FT" ] ],
+    [ "pair"  , [ 2, 3 ], 3200, [ "BB", "RP", "RG", "WR", "FT" ] ],
+    [ "single", [ 3 ]   , 0, ["Nuc BB", "FT" ] ]
+  ],
+  "loadnotes": [
+    "Station 3 is the internal weapons tube. It can carry one nuclear BB and two FTs or three FTs.",
+    "May only use AGM-12 RGs."
+  ]  
+}
