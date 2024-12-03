@@ -547,7 +547,7 @@ def _startaircraftspeed(
             raise RuntimeError(
                 plural(
                     maxspeedbrakes,
-                    "speedbrake capability is only 1 DP.",
+                    "speedbrake capability is only 1.0 DP.",
                     "speedbrake capability is only %.1f DPs." % maxspeedbrakes,
                 )
             )
