@@ -393,7 +393,7 @@ class aircraftdata:
 
     def properties(self, geometry):
         if geometry is None:
-            return set()
+            return set(self._data["properties"])
         else:
             return set(self._data["geometries"][geometry]["properties"] + self._data["properties"])
 
