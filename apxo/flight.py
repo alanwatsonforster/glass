@@ -29,9 +29,11 @@ def _move(E, flighttype, power, moves, **kwargs):
 
     E.logstart("flight type      is %s." % E._flighttype)
     E.logstart("altitude band    is %s." % E.altitudeband())
-    E.logcomment("speed of sound is %.1f." % apspeed.m1speed(E.altitudeband()))
+    E.logcomment("speed of sound is %.1f." % apspeed.m1speed(E.altitudeband()))  
 
     if E.isaircraft():
+        if E.geometry() is not None:
+            E.logstart("geometry         is %s." % E.geometry())
         apspeed._startaircraftspeed(E, power, **kwargs)
     else:
         apspeed._startmissilespeed(E)
@@ -2894,7 +2896,7 @@ def _dodeclaremaneuver(E, maneuvertype, sense):
 
     if E.isaircraft() and apvariants.withvariant("use house rules"):
         endap = E._turnrateap + E._othermaneuversap
-        ap = " (%+.1f AP)" % (endap - startap)
+        ap = " (%+.2f AP)" % (endap - startap)
     else:
         ap = ""
 

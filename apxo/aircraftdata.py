@@ -255,8 +255,14 @@ class aircraftdata:
             return self._data["lowspeedliftdevicename"]
         else:
             return None
+            
+    def geometries(self):
+        if "geometries" in self._data:
+            return self._data["geometries"].keys()
+        else:
+            return [ None ]
 
-    def turndrag(self, configuration, turnrate, lowspeedliftdevice=False):
+    def turndrag(self, configuration, geometry, turnrate, lowspeedliftdevice=False):
         _checkconfiguration(configuration)
         _checkturnrate(turnrate)
         if lowspeedliftdevice:
@@ -265,40 +271,48 @@ class aircraftdata:
             table = "turndragtable"
         if not turnrate in self._data[table]:
             return None
-        raw = self._data[table][turnrate][_configurationindex(configuration)]
+        if geometry is None:
+            turndragtable = self._data[table]
+        else:
+            turndragtable = self._data["geometries"][geometry][table]
+        raw = turndragtable[turnrate][_configurationindex(configuration)]
         if raw == "-":
             return None
         elif apvariants.withvariant("use house rules"):
-            if self.hasproperty("LBR"):
+            if self.hasproperty("LBR", geometry):
                 return raw / 2.0 + 0.25
-            elif self.hasproperty("HBR"):
+            elif self.hasproperty("HBR", geometry):
                 return raw / 2.0 + 0.75
             else:
                 return raw / 2.0 + 0.5
         else:
             return raw
 
-    def minspeed(self, configuration, altitudeband):
+    def minspeed(self, configuration, geometry, altitudeband):
         _checkconfiguration(configuration)
         _checkaltitudeband(altitudeband)
         if altitudeband == "UH":
             altitudeband = "EH"
-        raw = self._data["speedtable"][altitudeband][
-            _configurationindex(configuration)
-        ][0]
+        if geometry is None:
+            speedtable = self._data["speedtable"]
+        else:
+            speedtable = self._data["geometries"][geometry]["speedtable"]
+        raw = speedtable[altitudeband][_configurationindex(configuration)][0]
         if raw == "-":
             return None
         else:
             return raw
 
-    def maxspeed(self, configuration, altitudeband):
+    def maxspeed(self, configuration, geometry, altitudeband):
         _checkconfiguration(configuration)
         _checkaltitudeband(altitudeband)
         if altitudeband == "UH":
             altitudeband = "EH"
-        raw = self._data["speedtable"][altitudeband][
-            _configurationindex(configuration)
-        ][1]
+        if geometry is None:
+            speedtable = self._data["speedtable"]
+        else:
+            speedtable = self._data["geometries"][geometry]["speedtable"]
+        raw = speedtable[altitudeband][_configurationindex(configuration)][1]
         if raw == "-":
             return None
         else:
@@ -377,11 +391,14 @@ class aircraftdata:
         else:
             return raw
 
-    def properties(self):
-        return set(self._data["properties"])
+    def properties(self, geometry):
+        if geometry is None:
+            return set(self._data["properties"])
+        else:
+            return set(self._data["geometries"][geometry]["properties"])
 
-    def hasproperty(self, p):
-        return p in self.properties()
+    def hasproperty(self, p, geometry):
+        return p in self.properties(geometry)
 
     def climbcapability(self, configuration, altitudeband, powersetting):
         _checkaltitudeband(altitudeband)

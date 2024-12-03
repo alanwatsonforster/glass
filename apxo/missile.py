@@ -87,6 +87,11 @@ class missile(apelement.element):
 
     #############################################################################
 
+    def _properties(self):
+        return []
+
+    #############################################################################
+
     def _startgameturn(self):
         self._setspeed(self._newspeed)
         self._newspeed = None
