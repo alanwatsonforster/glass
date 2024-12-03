@@ -110,7 +110,7 @@ def maxspeed(A):
         # The aircraft is temporarily above its ceiling, so take the speed from the
         # highest band in the table.
         for altitudeband in ["UH", "EH", "VH", "HI", "MH", "ML", "LO"]:
-            maxspeed = A._aircraftdata.maxspeed(A._configuration, altitudeband)
+            maxspeed = A._aircraftdata.maxspeed(A._configuration, A._geometry, altitudeband)
             if maxspeed != None:
                 break
 
