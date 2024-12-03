@@ -116,7 +116,7 @@ def maxspeed(A):
 
     if A.hasproperty("ABSF"):
         if A._powersetting != "AB":
-            maxspeed -= A._aircraftdata.ABSFamount()
+            maxspeed -= A._aircraftdata.ABSFamount(A._geometry)
 
     return maxspeed
 

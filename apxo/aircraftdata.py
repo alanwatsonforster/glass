@@ -258,7 +258,7 @@ class aircraftdata:
             
     def geometries(self):
         if "geometries" in self._data:
-            return self._data["geometries"].keys()
+            return list(self._data["geometries"].keys())
         else:
             return [ None ]
 
@@ -393,9 +393,9 @@ class aircraftdata:
 
     def properties(self, geometry):
         if geometry is None:
-            return set(self._data["properties"])
+            return set()
         else:
-            return set(self._data["geometries"][geometry]["properties"])
+            return set(self._data["geometries"][geometry]["properties"] + self._data["properties"])
 
     def hasproperty(self, p, geometry):
         return p in self.properties(geometry)
@@ -518,20 +518,20 @@ class aircraftdata:
         else:
             return self._data["technology"]
 
-    def ABSFamount(self):
-        if "ABSF" in self.properties():
+    def ABSFamount(self, geometry):
+        if "ABSF" in self.properties(geometry):
             return self._data["ABSFamount"]
         else:
             return None
 
-    def NDRHSlimit(self):
-        if "NDRHS" in self.properties():
+    def NDRHSlimit(self, geometry):
+        if "NDRHS" in self.properties(geometry):
             return self._data["NDRHSlimit"]
         else:
             return None
 
-    def NLRHSlimit(self):
-        if "NLRHS" in self.properties():
+    def NLRHSlimit(self, geometry):
+        if "NLRHS" in self.properties(geometry):
             return self._data["NLRHSlimit"]
         else:
             return None

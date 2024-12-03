@@ -34,7 +34,7 @@ def latexify(s):
     return s
 
 
-def blockA(data):
+def blockA(data, geometry=None):
 
     def crew():
         if len(data.crew()) == 1:
@@ -44,7 +44,10 @@ def blockA(data):
         else:
             return ", ".join(data.crew()[0:-1]) + r", and " + data.crew()[-1]
 
-    writelatex(r"\renewcommand{\Aaa}{%s}" % data.fullvariantname())
+    if geometry is None:
+        writelatex(r"\renewcommand{\Aaa}{%s}" % data.fullvariantname())
+    else:
+        writelatex(r"\renewcommand{\Aaa}{%s --- %s geometry}" % (data.fullvariantname(), geometry))
 
     splitfullname = re.sub(
         r"\s+(([A-Z][a-z]+([-\s][A-Z][a-z]*)?(\s+II)?)|([A-Za-z]+\.[0-9]+))$",
@@ -153,7 +156,7 @@ def blockA(data):
     )
 
     s = ""
-    if data.hasproperty("SMP"):
+    if data.hasproperty("SMP", geometry):
         s += "Smoker in military power. "
     if data.powerfade(100, 0) is not None:
         lastpowerfade = 0.0
@@ -179,15 +182,15 @@ def blockA(data):
                 )
             lastpowerfade = powerfade
             altitude += 1
-    if data.hasproperty("ABSF"):
-        s += "If not using AB, reduce maximum speeds by %.1f." % data.ABSFamount()
+    if data.hasproperty("ABSF", geometry):
+        s += "If not using AB, reduce maximum speeds by %.1f." % data.ABSFamount(geometry)
 
     writelatex(
         r"\renewcommand{\Ai}{%s}" % s,
     )
 
 
-def blockB(data):
+def blockB(data, geometry=None):
 
     def arcs(arcs):
         if len(arcs) == 0:
@@ -224,7 +227,7 @@ def blockB(data):
         raise RuntimeError("unknown ejection seat type %r" % data.ejectionseat())
 
 
-def blockC(data):
+def blockC(data, geometry=None):
 
     def rollhfp():
         value = data.rollhfp()
@@ -250,14 +253,14 @@ def blockC(data):
             else:
                 return "%.2f" % value
 
-        drag = data.turndrag(configuration, turnrate)
+        drag = data.turndrag(configuration, geometry, turnrate)
         if drag is None:
             return "---"
         if data.lowspeedliftdevicename() is None:
             return formatdrag(drag)
         else:
             lowspeedliftdevicedrag = data.turndrag(
-                configuration, turnrate, lowspeedliftdevice=True
+                configuration, geometry, turnrate, lowspeedliftdevice=True
             )
             return "%s/%s" % (formatdrag(drag), formatdrag(lowspeedliftdevicedrag))
 
@@ -270,33 +273,33 @@ def blockC(data):
 
     precision = 0
     values = [
-        data.turndrag("CL", "TT"),
-        data.turndrag("1/2", "TT"),
-        data.turndrag("DT", "TT"),
-        data.turndrag("CL", "HT"),
-        data.turndrag("1/2", "HT"),
-        data.turndrag("DT", "HT"),
-        data.turndrag("CL", "BT"),
-        data.turndrag("1/2", "BT"),
-        data.turndrag("DT", "BT"),
-        data.turndrag("CL", "ET"),
-        data.turndrag("1/2", "ET"),
-        data.turndrag("DT", "ET"),
+        data.turndrag("CL", geometry, "TT"),
+        data.turndrag("1/2", geometry, "TT"),
+        data.turndrag("DT", geometry, "TT"),
+        data.turndrag("CL", geometry, "HT"),
+        data.turndrag("1/2", geometry, "HT"),
+        data.turndrag("DT", geometry, "HT"),
+        data.turndrag("CL", geometry, "BT"),
+        data.turndrag("1/2", geometry, "BT"),
+        data.turndrag("DT", geometry, "BT"),
+        data.turndrag("CL", geometry, "ET"),
+        data.turndrag("1/2", geometry, "ET"),
+        data.turndrag("DT", geometry, "ET"),
     ]
     if data.lowspeedliftdevicename() is not None:
         values += [
-            data.turndrag("CL", "TT", lowspeedliftdevice=True),
-            data.turndrag("1/2", "TT", lowspeedliftdevice=True),
-            data.turndrag("DT", "TT", lowspeedliftdevice=True),
-            data.turndrag("CL", "HT", lowspeedliftdevice=True),
-            data.turndrag("1/2", "HT", lowspeedliftdevice=True),
-            data.turndrag("DT", "HT", lowspeedliftdevice=True),
-            data.turndrag("CL", "BT", lowspeedliftdevice=True),
-            data.turndrag("1/2", "BT", lowspeedliftdevice=True),
-            data.turndrag("DT", "BT", lowspeedliftdevice=True),
-            data.turndrag("CL", "ET", lowspeedliftdevice=True),
-            data.turndrag("1/2", "ET", lowspeedliftdevice=True),
-            data.turndrag("DT", "ET", lowspeedliftdevice=True),
+            data.turndrag("CL", geometry, "TT", lowspeedliftdevice=True),
+            data.turndrag("1/2", geometry, "TT", lowspeedliftdevice=True),
+            data.turndrag("DT", geometry, "TT", lowspeedliftdevice=True),
+            data.turndrag("CL", geometry, "HT", lowspeedliftdevice=True),
+            data.turndrag("1/2", geometry, "HT", lowspeedliftdevice=True),
+            data.turndrag("DT", geometry, "HT", lowspeedliftdevice=True),
+            data.turndrag("CL", geometry, "BT", lowspeedliftdevice=True),
+            data.turndrag("1/2", geometry, "BT", lowspeedliftdevice=True),
+            data.turndrag("DT", geometry, "BT", lowspeedliftdevice=True),
+            data.turndrag("CL", geometry, "ET", lowspeedliftdevice=True),
+            data.turndrag("1/2", geometry, "ET", lowspeedliftdevice=True),
+            data.turndrag("DT", geometry, "ET", lowspeedliftdevice=True),
         ]
     for value in values:
         if value is None:
@@ -356,34 +359,34 @@ def blockC(data):
             s += r" use higher drag and reduce minimum speeds by 0.5."
         else:
             s += r" use higher drag."
-    if data.hasproperty("NRM"):
+    if data.hasproperty("NRM", geometry):
         s += r"No rolling maneuvers allowed."
-    if data.hasproperty("OVR"):
+    if data.hasproperty("OVR", geometry):
         s += r"Only one vertical roll allowed per game turn."
     if (
-        data.hasproperty("NDRHS")
-        and data.hasproperty("NDRHS")
-        and data.NDRHSlimit() == data.NDRHSlimit()
+        data.hasproperty("NDRHS", geometry)
+        and data.hasproperty("NDRHS", geometry)
+        and data.NDRHSlimit(geometry) == data.NDRHSlimit(geometry)
     ):
-        s += r"No lag or displacement rolls if speed $\ge$ %.1f. " % data.NDRHSlimit()
+        s += r"No lag or displacement rolls if speed $\ge$ %.1f. " % data.NDRHSlimit(geometry)
     else:
-        if data.hasproperty("NDRHS"):
-            s += r"No displacement rolls if speed $\ge$ %.1f. " % data.NDRHSlimit()
-        if data.hasproperty("NLRHS"):
-            s += r"No lag rolls if speed $\ge$ %.1f. " % data.NLRHSlimit()
+        if data.hasproperty("NDRHS", geometry):
+            s += r"No displacement rolls if speed $\ge$ %.1f. " % data.NDRHSlimit(geometry)
+        if data.hasproperty("NLRHS", geometry):
+            s += r"No lag rolls if speed $\ge$ %.1f. " % data.NLRHSlimit(geometry)
 
     writelatex(r"\renewcommand{\Cg}{%s}" % s)
 
 
-def blockD(data):
+def blockD(data, geometry=None):
 
     def speeds(configuration, altitudeband):
-        if data.minspeed(configuration, altitudeband) is None:
+        if data.minspeed(configuration, geometry, altitudeband) is None:
             return "---"
         else:
             return r"\blockDminmaxspeed{%.1f}{%.1f}" % (
-                data.minspeed(configuration, altitudeband),
-                data.maxspeed(configuration, altitudeband),
+                data.minspeed(configuration, geometry, altitudeband),
+                data.maxspeed(configuration, geometry, altitudeband),
             )
 
     def divespeed(altitudeband):
@@ -455,18 +458,18 @@ def blockD(data):
         )
     )
 
-    if data.maxspeed("CL", "EH") is not None:
-        writelatex(r"\renewcommand{\Dba}{%.1f}" % data.maxspeed("CL", "EH"))
-    elif data.maxspeed("CL", "VH") is not None:
-        writelatex(r"\renewcommand{\Dba}{%.1f}" % data.maxspeed("CL", "VH"))
-    elif data.maxspeed("CL", "HI") is not None:
-        writelatex(r"\renewcommand{\Dba}{%.1f}" % data.maxspeed("CL", "HI"))
-    elif data.maxspeed("CL", "MH") is not None:
-        writelatex(r"\renewcommand{\Dba}{%.1f}" % data.maxspeed("CL", "MH"))
-    elif data.maxspeed("CL", "ML") is not None:
-        writelatex(r"\renewcommand{\Dba}{%.1f}" % data.maxspeed("CL", "ML"))
+    if data.maxspeed("CL", geometry, "EH") is not None:
+        writelatex(r"\renewcommand{\Dba}{%.1f}" % data.maxspeed("CL", geometry, "EH"))
+    elif data.maxspeed("CL", geometry, "VH") is not None:
+        writelatex(r"\renewcommand{\Dba}{%.1f}" % data.maxspeed("CL", geometry, "VH"))
+    elif data.maxspeed("CL", geometry, "HI") is not None:
+        writelatex(r"\renewcommand{\Dba}{%.1f}" % data.maxspeed("CL", geometry, "HI"))
+    elif data.maxspeed("CL", geometry, "MH") is not None:
+        writelatex(r"\renewcommand{\Dba}{%.1f}" % data.maxspeed("CL", geometry, "MH"))
+    elif data.maxspeed("CL", geometry, "ML") is not None:
+        writelatex(r"\renewcommand{\Dba}{%.1f}" % data.maxspeed("CL", geometry, "ML"))
     else:
-        writelatex(r"\renewcommand{\Dba}{%.1f}" % data.maxspeed("CL", "LO"))
+        writelatex(r"\renewcommand{\Dba}{%.1f}" % data.maxspeed("CL", geometry, "LO"))
 
     if data.maxdivespeed("EH") is not None:
         writelatex(r"\renewcommand{\Dbb}{%.1f}" % data.maxdivespeed("EH"))
@@ -482,7 +485,7 @@ def blockD(data):
         writelatex(r"\renewcommand{\Dbb}{%.1f}" % data.maxdivespeed("LO"))
 
 
-def blockE(data):
+def blockE(data, geometry=None):
 
     def climbcapability(configuration, altitudeband, powersetting):
         value = data.climbcapability(configuration, altitudeband, powersetting)
@@ -608,7 +611,7 @@ def blockE(data):
     )
 
 
-def blockF(data):
+def blockF(data, geometry=None):
 
     if data.radar() is None:
         # no radar
@@ -798,9 +801,22 @@ def blockF(data):
 
     if data.natoreportingnames() is not None:
         s += "\\item %s\n\n" % data.natoreportingnames()
+        
+    if data.hasproperty("EVG", geometry):
+        s += "\\item Variable-geometry aircraft with allowed geometries of "
+        geometries = data.geometries()
+        if len(geometries) == 2:
+            s += geometries[0] + " and " + geometries[1]
+        else:
+            s += ", ".join(geometries[:-1])
+            s += ", and " + geometries[-1]
+        s += "."
+        if data.hasproperty("EVG1", geometry):
+            s += " Geometry may be changed by one step at the end of each turn."
+        s += " Data for %s geometry are shown here." % geometry
 
-    if len(data.properties()) != 0:
-        for property in sorted(data.properties()):
+    if len(data.properties(geometry)) != 0:
+        for property in sorted(data.properties(geometry)):
             if property == "ABSF" or property == "SMP":
                 # Noted in power section.
                 pass
@@ -811,6 +827,12 @@ def blockF(data):
                 or property == "NLRHS"
             ):
                 # Noted in maneuver section.
+                pass
+            elif (
+                property == "EVG"
+                or property == "EVG1"
+            ):
+                # Noted immediately above.
                 pass
             else:
                 s += r"\item "
@@ -877,7 +899,7 @@ def blockF(data):
         writelatex(r"\renewcommand{\Ft}{\Fta{%s}}" % s)
 
 
-def blockG(data):
+def blockG(data, geometry=None):
 
     if not data.hasstoreslimits():
         writelatex(r"\renewcommand{\Gba}{}")
@@ -960,19 +982,19 @@ def writetype(name):
 def writeadc(name):
 
     log("writing variant %s." % name)
-    data = aircraftdata.aircraftdata(name)
-
     writelatex("%% %s" % name)
 
-    blockA(data)
-    blockB(data)
-    blockC(data)
-    blockD(data)
-    blockE(data)
-    blockF(data)
-    blockG(data)
-
-    writelatex(r"\adc")
+    data = aircraftdata.aircraftdata(name)
+    
+    for geometry in data.geometries():
+        blockA(data, geometry=geometry)
+        blockB(data, geometry=geometry)
+        blockC(data, geometry=geometry)
+        blockD(data, geometry=geometry)
+        blockE(data, geometry=geometry)
+        blockF(data, geometry=geometry)
+        blockG(data, geometry=geometry)
+        writelatex(r"\adc")
 
 
 def writelatexprolog():
