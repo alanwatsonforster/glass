@@ -23,17 +23,17 @@ for path in pathlist:
 d = aircraftdata("F-104A")
 assert d.power("CL", "AB") == 3.5
 assert d.powerfade(6.0, 20) == None
-assert d.speedbrake("DT") == 4.0
+assert d.speedbrake("DT") == 2.0
 assert d.fuelrate("M") == 2.0
 assert d.engines() == 1
 assert d.lowspeedliftdevicelimit() == None
-assert d.turndrag("CL", "BT") == 4.0
-assert d.turndrag("CL", "ET") == None
-assert d.turndrag("DT", "BT") == None
-assert d.minspeed("1/2", "VH") == 4.5
-assert d.maxspeed("1/2", "VH") == 11.0
-assert d.minspeed("DT", "EH") == None
-assert d.maxspeed("DT", "EH") == None
+assert d.turndrag("CL", None, "BT") == 4.0
+assert d.turndrag("CL", None, "ET") == None
+assert d.turndrag("DT", None, "BT") == None
+assert d.minspeed("1/2", None, "VH") == 4.5
+assert d.maxspeed("1/2", None, "VH") == 11.0
+assert d.minspeed("DT", None, "EH") == None
+assert d.maxspeed("DT", None, "EH") == None
 assert d.maxdivespeed("LO") == 9.0
 assert d.ceiling("1/2") == 52
 assert d.cruisespeed("CL") == 6.0
@@ -47,17 +47,17 @@ assert d.rolldrag("DR") == 1.0
 assert d.rolldrag("VR") == 0.0
 assert d.climbcapability("CL", "ML", "AB") == 7.0
 assert d.climbcapability("DT", "EH", "M") == None
-assert d.hasproperty("LTD") == True
-assert d.hasproperty("RA") == True
-assert d.hasproperty("GSSM") == True
-assert d.hasproperty("RPR") == True
-assert d.hasproperty("HPR") == False
+assert d.hasproperty("LTD", None) == True
+assert d.hasproperty("RA", None) == True
+assert d.hasproperty("GSSM", None) == True
+assert d.hasproperty("RPR", None) == True
+assert d.hasproperty("HPR", None) == False
 
 # Check slatted wings using the F-100A as a test case.
 
 d = aircraftdata("F-100A")
-assert d.turndrag("CL", "BT", lowspeedliftdevice=True) == 3.0
-assert d.turndrag("CL", "BT") == 2.0
+assert d.turndrag("CL", None, "BT", lowspeedliftdevice=True) == 3.0
+assert d.turndrag("CL", None, "BT") == 2.0
 assert d.lowspeedliftdevicelimit() == 3.5
 
 # Check power fade with speed using the Sea Fury as an test case.

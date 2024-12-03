@@ -2,15 +2,15 @@ from apxo.tests.infrastructure import *
 
 startfile(__file__, "air-to-air attacks")
 
-starttestsetup(verbose=False)
-A1 = aircraft("A1", "AF", "F-80C", "A2-2025", "N", 5, 4.0, "CL")
-A2 = aircraft("A2", "AF", "Tu-4", "A2-2023", "E", 5, 4.0, "CL")
-A3 = aircraft("A3", "AF", "F-80C", "A2-2025", "N", 5, 4.0, "CL", gunammunition=3.5)
-A4 = aircraft("A4", "AF", "Tu-4", "A2-2023", "E", 5, 4.0, "CL", gunammunition=11.0)
-A5 = aircraft("A5", "AF", "F-89D", "A2-2023", "E", 5, 4.0, "CL")
-A6 = aircraft("A6", "AF", "F-102A", "A2-2023", "E", 5, 4.0, "CL", rocketfactors=0)
-A7 = aircraft("A7", "AF", "F-100C", "A2-2025", "N", 5, 6.0, "CL")
-A8 = aircraft("A8", "AF", "Tu-4", "A2-2023", "N", 5, 4.0, "CL")
+starttestsetup(verbose=True)
+A1 = aircraft("A1", "AF", "F-80C", "A2-2025", "N", 20, 4.0, "CL")
+A2 = aircraft("A2", "AF", "Tu-4", "A2-2023", "E", 20, 4.0, "CL")
+A3 = aircraft("A3", "AF", "F-80C", "A2-2025", "N", 20, 4.0, "CL", gunammunition=3.5)
+A4 = aircraft("A4", "AF", "Tu-4", "A2-2023", "E", 20, 4.0, "CL", gunammunition=11.0)
+A5 = aircraft("A5", "AF", "F-89D", "A2-2023", "E", 20, 4.0, "CL")
+A6 = aircraft("A6", "AF", "F-102A", "A2-2023", "E", 20, 4.0, "CL", rocketfactors=0)
+A7 = aircraft("A7", "AF", "F-100C", "A2-2025", "N", 20, 6.0, "CL")
+A8 = aircraft("A8", "AF", "Tu-4", "A2-2023", "N", 20, 4.0, "CL")
 endtestsetup()
 
 startgameturn()
@@ -23,8 +23,8 @@ A1.attackaircraft("GN/SS", A2, "M")
 A2.attackaircraft("GN/SS", A1, "L", returnfire=True)
 A1.continuemove("H,H")
 A2.move("LVL", "N", "H,H,H,H")
-A1._assert("A2-2021       N     5", 4.0)
-A2._assert("A2-2423       E     5", 3.5)
+A1._assert("A2-2021       N    20", 4.0)
+A2._assert("A2-2423       E    20", 3.5)
 assert A1._gunammunition == 6.5
 assert A2._gunammunition == 18.5
 

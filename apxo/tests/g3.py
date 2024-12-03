@@ -332,7 +332,7 @@ endgameturn()
 # the B-66B. These can perform only one vertical roll per game turn.
 
 starttestsetup(verbose=False)
-A1 = aircraft("A1", "AF", "B-66B", "A1-2030", "N", 30, 5.0, "CL")
+A1 = aircraft("A1", "AF", "B-66B (Early)", "A1-2030", "N", 30, 5.0, "CL")
 endtestsetup()
 
 startgameturn()

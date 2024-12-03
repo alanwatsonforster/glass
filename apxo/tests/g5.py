@@ -5,7 +5,7 @@ startfile(__file__, "NRM aircraft")
 # Rolls and NRM aircraft
 
 starttestsetup()
-A1 = aircraft("A1", "AF", "B-26B", "A1-2015", "N", 24, 3.0, "CL")
+A1 = aircraft("A1", "AF", "B-26B (Two Turrets)", "A1-2015", "N", 24, 3.0, "CL")
 endtestsetup()
 
 startgameturn()

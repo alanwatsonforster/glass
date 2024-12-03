@@ -63,10 +63,10 @@ A2 = aircraft("A2", "AF", "F-104A", "A2-2025", "N", 10, 7.0, "CL")
 endtestsetup()
 
 startgameturn()
-A1.move("LVL", "I", "H", speedbrakes=5)
-asserterror("speedbrake capability is only 4.0 DPs.")
+A1.move("LVL", "I", "H", speedbrakes=4)
+asserterror("speedbrake capability is only 3.0 DPs.")
 A2.move("LVL", "I", "H", speedbrakes=3)
-asserterror("speedbrake capability is only 2.0 DPs.")
+asserterror("speedbrake capability is only 1.0 DP.")
 
 startgameturn()
 A1.move("LVL", "I", "H,H,H,H,H,H,H,H,H,H", speedbrakes=True)
