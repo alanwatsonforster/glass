@@ -115,6 +115,8 @@
     [ "type", "F-5 Freedom Fighter", "F-5A", "RF-5A", "F-5C" ],
     // February 1967
     [ "type", "A-7 Corsair II", "A-7A", "A-7B", "A-7C", "A-7D", "A-7D (1975 Upgrade)", "A-7D (1981 Upgrade)", "A-7E", "A-7E (1980 Upgrade)", "A-7E (1985 Upgrade)", "A-7P" ],
+    // July 1967
+    [ "type", "F-111 Aardvark", "F-111A", "F-111E" ],
     // 1967
     [   "type", "A-37 Dragonfly", "A-37B", "OA-37B" ]
 
