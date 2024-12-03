@@ -117,9 +117,7 @@ class element:
         altitude=None,
         speed=None,
         color=None,
-        delay=0,
-        gainedproperties={},
-        lostproperties={}
+        delay=0
     ):
 
         global _elementlist
@@ -174,8 +172,8 @@ class element:
 
         self._color = color
 
-        self._gainedproperties = gainedproperties
-        self._lostproperties = lostproperties
+        self._gainedproperties = set([])
+        self._lostproperties = set([])
 
         _elementlist.append(self)
 
