@@ -35,7 +35,7 @@
   "restrictedarcs": "",
   "blindarcs": "",
   "atarefuel": true,
-  "internalfuel": 4000,
+  "internalfuel": 2160,
   "ejectionseat": "none",
 
   "maneuvertable": {

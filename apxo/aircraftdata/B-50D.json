@@ -1,4 +1,5 @@
 {
   "versionname": "B-50D",
-  "base": "B-50A"
+  "base": "B-50A",
+  "internalfuel": 2400
 }
