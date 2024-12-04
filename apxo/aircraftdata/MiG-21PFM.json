@@ -6,6 +6,7 @@
   "internalfuel": 220,
   "lowspeedliftdeviceselectable": true,
   "lowspeedliftdevicelimit": 4.5,
+  "lowspeedliftdeviceminspeedchange": 0.5,
   "lowspeedliftdevicelimittype": "absolute",
   "lowspeedliftdevicename": "combat flaps",
   "turndragtable": {

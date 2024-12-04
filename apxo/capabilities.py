@@ -96,8 +96,8 @@ def minspeed(A):
     minspeed = rawminspeed(A)
 
     # See rule 7.6 in version 2.4.
-    if lowspeedliftdeviceselectable(A) and A._lowspeedliftdeviceextended:
-        minspeed -= 0.5
+    if A._lowspeedliftdeviceextended and A._aircraftdata.lowspeedliftdeviceminspeedchange() is not None:
+        minspeed -= A._aircraftdata.lowspeedliftdeviceminspeedchange()
 
     return minspeed
 

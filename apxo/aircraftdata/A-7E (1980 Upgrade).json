@@ -3,6 +3,7 @@
   "variantname": "1980 Upgrade",
   "variantdescription": "with automatic maneuver flaps, from 1980.",
   "lowspeedliftdevicelimit": 3.5,
+  "lowspeedliftdeviceminspeedchange": 0.5,
   "lowspeedliftdevicelimittype": "absolute",
   "lowspeedliftdevicename": "maneuvering flaps",
   "lowspeedliftdeviceturndragtable": {

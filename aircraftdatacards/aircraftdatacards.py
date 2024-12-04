@@ -355,10 +355,10 @@ def blockC(data, geometry=None):
             s += r"%.1f," % data.lowspeedliftdevicelimit()
         else:
             s += r"minimum + %.1f," % data.lowspeedliftdevicelimit()
-        if data.lowspeedliftdeviceselectable():
-            s += r" use higher drag and reduce minimum speeds by 0.5."
-        else:
+        if data.lowspeedliftdeviceminspeedchange() is None:
             s += r" use higher drag."
+        else:
+            s += r" use higher drag and reduce minimum speeds by %.1f." % data.lowspeedliftdeviceminspeedchange()
     if data.hasproperty("NRM", geometry):
         s += r"No rolling maneuvers allowed."
     if data.hasproperty("OVR", geometry):

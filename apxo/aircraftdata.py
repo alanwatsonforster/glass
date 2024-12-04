@@ -56,14 +56,17 @@ class aircraftdata:
             data = basedata
         self._data = data
 
-        process = os.popen(
-            'env TZ=UTC git log -n 1 --date=local --date=format-local:"%%Y-%%m-%%d %%H:%%M.%%SZ" --pretty=format:"%%cd %%h %%H" "%s"'
-            % filename(name)
-        )
-        gitlogoutput = process.read()
+        if False:
+            process = os.popen(
+                'env TZ=UTC git log -n 1 --date=local --date=format-local:"%%Y-%%m-%%d %%H:%%M.%%SZ" --pretty=format:"%%cd %%h %%H" "%s"'
+                % filename(name)
+            )
+            gitlogoutput = process.read()
+            process.close()
+        else:
+             gitlogoutput = ""
         if gitlogoutput == "":
             gitlogoutput = "0000-00-00 00:00:00 %s %s" % (7 * "0", 40 * "0")
-        process.close()
         self._gitlogoutput = gitlogoutput
 
     def commitdate(self):
@@ -253,6 +256,12 @@ class aircraftdata:
     def lowspeedliftdevicename(self):
         if "lowspeedliftdevicename" in self._data:
             return self._data["lowspeedliftdevicename"]
+        else:
+            return None
+            
+    def lowspeedliftdeviceminspeedchange(self):
+        if "lowspeedliftdeviceminspeedchange" in self._data:
+            return self._data["lowspeedliftdeviceminspeedchange"]
         else:
             return None
             

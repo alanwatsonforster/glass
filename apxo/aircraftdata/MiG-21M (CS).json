@@ -12,6 +12,7 @@
   },
   "lowspeedliftdeviceselectable": true,
   "lowspeedliftdevicelimit": 2.5,
+  "lowspeedliftdeviceminspeedchange": 0.5,
   "lowspeedliftdevicelimittype": "relative",
   "lowspeedliftdevicename": "combat flaps",
   "turndragtable": {
