@@ -1,0 +1,7 @@
+{
+  "variantname": "Saddletree",
+  "versiondescription": null,
+  "variantdescription": "is a strategic nuclear bomber converted from the conventional B-29A under the Saddletree program, with provision for nuclear weapons, all armor and turrets removed, ATA refueling, additional fuel tanks, and winterized electronics. It served with the USAF from 1948 to 1953.",
+  "atarefuel": true,
+  "base": "B-29A (Silverplate)"
+}
