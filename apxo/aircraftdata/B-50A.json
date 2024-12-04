@@ -86,7 +86,7 @@
   "properties": [ "NRM" ],
   
     
-  "storeslimits": [ 15, 31, 28000 ],
+  "storeslimits": [ 15, 31, 33000 ],
   "stations": [
     [ "pair", [ 1, 4 ],  4500, [ "BB", "DR", "TR", "WR", "FT" ] ],
     [ "pair", [ 2, 3 ], 10000, [ "BB", "FT" ] ]
