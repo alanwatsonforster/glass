@@ -1,6 +1,6 @@
 {
   "versionname": "B-29A",
-  "versiondescription": "The B-29A is a strategic bomber. It served with the USAF in the Pacific in WW2 and in the Korean War.",
+  "description": "The B-29A is a strategic bomber. The base variant described here is a conventional bomber.",
   "popularname": "Superfortress",
   "manufacturername": "Boeing",
   "origin": "Watson",
@@ -95,7 +95,7 @@
   ],
   
   "typenotes": [
-     "Gun Turrets. Equipped with eleven .50 cal M2 guns, eight in four twin turrets and three in the tail mount. They can fire in any direction. They may return fire twice per game turn in response to a gun attacks or conduct a single attack. The roll to hit is 2/1/1 and the AtA rating is 2. Gun attacks are modified only by the target size and have a -1 modifier when firing into the 60- arc. Ammunition is unlimited."
+     "Defensive Guns. Equipped with eleven .50 cal M2 guns, eight in four twin turrets and three in the tail mount. They can fire in any direction. They may return fire twice per game turn in response to a gun attacks or conduct a single attack. The roll to hit is 2/1/1 and the AtA rating is 2. Gun attacks are modified only by the target size and have a -1 modifier when firing into the 60- arc. Ammunition is unlimited."
   ],
   
   "wikiurl": "https://bit.ly/3UjPqWF"

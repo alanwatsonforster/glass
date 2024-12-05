@@ -1,5 +1,24 @@
 {
   "versionname": "B-50D",
+  "description": "The B-50D is a strategic bomber. The base variant described here is a conventional bomber. It has an increased fuel capacity and reduced crew compared to the B-50A/B.",
   "base": "B-50A",
-  "internalfuel": 2400
+  "internalfuel": 2400,
+  "crew": [
+   "Pilot", 
+   "Copilot",
+   "Bombardier",
+   "Navigator",
+   "Flight Engineer",
+   "Radio Operator",
+   "Radar Operator",
+   "Top Gunner", 
+   "Right Gunner", 
+   "Left Gunner", 
+   "Tail Gunner"
+   ],
+  "loadnotes": [
+    "Stations 2 and 3 are the forward and rear internal bomb bays. Each can carry up to (a) two 4,000 lb bombs, (b) four 2,000 lb bombs, (c) six 1,000 lb bombs, (d) twenty 500 lb bombs. All bombs must be the same type and low-drag. Station 3 may alternatively carry a 2200 gal FT (8300L, weight 14,000, and fuel 715)",
+    "Stations 1 and 4 may each carry a 700 gal (2600L) FT (weight 4,500, load 10.0/6.0, and 230 fuel points).",
+    "As an exception to the normal rules, internal loads contribute 1 load point for each 1,000 of weight and internal fuel contributes 1 load point for each 50 fuel points. A return mission will typically require leaving the target with at least 1250 fuel points (25 load points)."
+  ]
 }

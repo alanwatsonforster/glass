@@ -1,6 +1,5 @@
 {
   "versionname": "RB-29A",
-  "versiondescription": "Reconnaissance version of B-29A retaining full combat capability.",
-  "base": "B-29A",
-  "originallydesignated": "F-13A"
+  "description": "The RB-29A is a strategic reconnaisance aircraft. It is a development of the B-29A and retains full combat capability. It was originally designated F-13A.",
+  "base": "B-29A"
 }
