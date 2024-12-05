@@ -12,6 +12,7 @@
    "Flight Engineer",
    "Radio Operator",
    "Radar Operator",
+   "Countermeasures Operator",
    "Top Gunner", 
    "Right Gunner", 
    "Left Gunner", 
@@ -80,7 +81,7 @@
     "lockon": 0
   },
   
-  "ecm": { "iff": true },
+  "ecm": { "iff": true, "rwr": "A", "bjm": "A2" },
 
   "bombsystem": "Ballistic",
   
