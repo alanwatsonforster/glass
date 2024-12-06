@@ -1,7 +1,7 @@
 {
   "versionname": "Avon Sabre Mk.30",
   "description": "The CAC Avon Sabre Mk.30 is a day fighter derived from the F-86F Sabre with the original slatted wing and an Avon 20 engine.",
-  "base": "Avon Sabre Mk.31 (Early)",
+  "base": "Avon Sabre Mk.31",
   "lowspeedliftdevicelimit": 3.5,
   "lowspeedliftdevicelimittype": "absolute",
   "lowspeedliftdevicename": "leading-edge slats",
