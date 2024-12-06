@@ -64,9 +64,9 @@
     "lockon": 6
   },
   "ecm": { "iff": true },
-  "storeslimits": [ 2, 6, 4000 ],
+  "storeslimits": [ 2, 6, 5000 ],
   "stations": [
-    [ "pair"     , [ 1, 4 ]       , 1000, [ "BB", "FT" ] ],
+    [ "pair"     , [ 1, 4 ]       , 1500, [ "BB", "FT" ] ],
     [ "pair"     , [ 2, 3 ]       , 1000, [ "BB", "FT", "IRM" ] ],
     [ "grouppair", [ 5, 8, 9, 12 ],  280, [ "RK" ] ]
   ],
