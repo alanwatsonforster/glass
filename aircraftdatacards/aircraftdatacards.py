@@ -977,9 +977,12 @@ def blockG(data, geometry=None):
     writelatex(r"\renewcommand{\Geb}{%s}" % data.commitdatetime())
 
 
-def writechapter(name):
+def writechapter(name, file=None):
     log("writing chapter %s." % name)
-    writelatex(r"\addtocchapter{%s}" % name)
+    writelatex(r"\twocolumn\chapter{%s}" % name)
+    if file is not None:
+        writelatex(r"\input %s" % file)
+    writelatex(r"\onecolumn")
 
 
 def writetype(name):
@@ -1059,7 +1062,10 @@ def writelatexfile(latexfilename, directives):
             for variant in directive[2:]:
                 writeadc(variant)
         elif directive[0] == "chapter":
-            writechapter(directive[1])
+            if len(directive) == 2:
+                writechapter(directive[1])
+            else:
+                writechapter(directive[1], directive[2])
         else:
             raise RuntimeError("invalid directive %r." % directive)
     writelatexepilog()
