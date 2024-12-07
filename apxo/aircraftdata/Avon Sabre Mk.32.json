@@ -72,8 +72,9 @@
   ],
   "loadnotes": [
     "Either stations 1 to 4 or stations 5 to 12 can be used.",
+    "May use 400L and 700L FTs.",
     "From 1960, may use AIM-9B IRMs.",
-    "From 1962, stations 5 to 12 can each carry three SURA 80R RK."
+    "From 1962, stations 5 to 12 may each carry three SURA 80R RKs."
   ],
   "VPs": [ 12, 8, 4, 2 ],
   // Note: Not HTD.

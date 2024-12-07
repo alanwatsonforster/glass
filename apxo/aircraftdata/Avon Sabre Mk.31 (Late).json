@@ -9,6 +9,7 @@
     [ "pair"     , [ 2, 3 ]       , 1000, [ "BB", "FT", "IRM" ] ]
   ],
   "loadnotes": [
+    "May use 400L and 700L FTs.",
     "May use AIM-9B IRMs."
   ],
   "VPs": [ 11, 8, 4, 2 ]

@@ -7,6 +7,8 @@
   "stations": [
     [ "pair"     , [ 1, 2 ]       , 1500, [ "BB", "FT" ] ]
   ],
-  "loadnotes": [],
+  "loadnotes": [
+    "May use 700L FTs."
+  ],
   "VPs": [ 11, 8, 4, 2 ]
 }
