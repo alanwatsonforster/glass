@@ -65,12 +65,12 @@
   "loadnotes": [
     "Either stations 1 and 4 or stations 5 to 10 can be used.",
     "Stations 2 and 3 can each carry a 90 gal (400L) FT.",
-    "Stations 5 to 10 can each carry two RP-3 RK."
+    "Stations 5 to 10 can each carry two RP-3 RKs."
   ],
   "VPs": [ 7, 5, 3, 1 ],
   "properties": [ "LBR", "HTD" ],
   "powerfadespeedtable": [ [3.0, 0.5], [4.0, 1.0] ],
-  "service": "From 1947. Operated by Australia, Burma, Canada, Cuba, Egypt, West Germany, Iraq, Netherlands, Pakistan, and UK. Saw combat in Korea with RN and RAN and in the Bay of Pigs invasion with the Cuban FAR.",
+  "service": "From 1947. Operated by Australia, Burma, Canada, Cuba, Iraq, Netherlands, Pakistan, and UK. Saw combat in Korea with RN and RAN and in the Bay of Pigs invasion with the Cuban FAR.",
   "notes": [
   ],
   "wikiurl": "https://bit.ly/48kjeYU"
