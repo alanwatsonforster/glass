@@ -5,14 +5,14 @@
     [ "chapter", "Australian Aircraft", "australian.tex"],
     [ "type", "Avon Sabre", "Avon Sabre Mk.30", "Avon Sabre Mk.31", "Avon Sabre Mk.31 (Late)", "Avon Sabre Mk.32" ],
 
-    [ "chapter", "British Aircraft" ],
+    [ "chapter", "British Aircraft", "british.tex" ],
     //  1944
     [ "type", "Meteor", "Meteor F.8", "Meteor FR.9" ],
     //  1948
     [ "type", "Sea Fury", "Sea Fury FB.11" ],
 
     [ "chapter", "Canadian Aircraft" ],
-    [ "type", "Sabre", "Sabre Mk.5", "Sabre Mk.6" ],
+    [ "type", "Sabre", "Sabre Mk.2", "Sabre Mk.5", "Sabre Mk.6" ],
 
     [ "chapter", "Chinese Aircraft" ],
     // 1957
