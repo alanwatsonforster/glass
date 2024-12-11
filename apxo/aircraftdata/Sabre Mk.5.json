@@ -37,5 +37,9 @@
   "lockon": 7,
   "notes": [],
   "wikiurl": "https://bit.ly/3ZgyCTo",
+  "loadnotes": [
+    "Either stations 1 to 4 or stations 5 to 12 can be used.",
+    "Stations 5 to 12 can each carry two RKs."
+  ],
   "VPs": [ 10, 7, 3, 1 ]
 }

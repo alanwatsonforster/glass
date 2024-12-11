@@ -31,5 +31,10 @@
     "ML": [ [ "-", 1.5 ], [ "-", 1.5 ], [ "-", 1.0 ] ],
     "LO": [ [ "-", 2.0 ], [ "-", 2.0 ], [ "-", 1.5 ] ]
   },
+  "loadnotes": [
+    "Either stations 1 to 4 or stations 5 to 12 can be used.",
+    "Stations 5 to 12 can each carry two RKs.",
+    "From 1960 may use AIM-9B IRMs."
+  ],
   "VPs": [ 11, 8, 4, 2 ]
 }
