@@ -1,0 +1,69 @@
+{
+  "versionname": "F-5A Freedom Fighter",
+  "origin": "TSOH",
+  "crew": [ "Pilot" ],
+  "powertable": {
+    "AB"  : [ 2.5, 2.0, 1.5, 3.0 ],
+    "M"   : [ 1.0, 1.0, 1.0, 1.0 ],
+    "N"   : [ 0.0, 0.0, 0.0, 0.5 ],
+    "I"   : [ 0.5, 0.5, 1.0, 0.0 ],
+    "SPBR": [ 0.5, 0.5, 1.0 ]
+  },
+  "jetengines": 2,
+  "cruisespeed": 5.5,
+  "climbspeed" : 4.5,
+  "visibility": 4,
+  "sizemodifier": 1,
+  "vulnerability": -1,
+  "restrictedarcs": "60-",
+  "blindarcs": "30-",
+  "internalfuel": 185,
+  "atarefuel": false,
+  "ejectionseat": "standard",
+  "maneuvertable": {
+    "LR/DR": [ 1.0, 1.0 ],
+    "VR":    [ 0.0, 0.0 ]
+  },
+  // Leading-edge slats from the ADC supplied by Carl Smeaton.
+  "lowspeedliftdevicename": "leading-edge slats",
+  "lowspeedliftdeviceselectable": true,
+  "lowspeedliftdevicelimit": 4.0,
+  "lowspeedliftdeviceminspeedchange": 0.5,
+  "lowspeedliftdevicelimittype": "absolute",
+  "lowspeedliftdeviceturndragtable": {
+    "TT": [ 1.0, 1.0, 2.0 ],
+    "HT": [ 2.0, 2.0, 3.0 ],
+    "BT": [ 3.0, 4.0, 4.0 ],
+    "ET": [ "-", "-", "-" ]
+  },
+  "turndragtable": {
+    "TT": [ 1.0, 1.0, 2.0 ],
+    "HT": [ 1.0, 2.0, 3.0 ],
+    "BT": [ 2.0, 3.0, 3.0 ],
+    "ET": [ "-", "-", "-" ]
+  },
+  "ceilingtable": [ 48, 42, 34 ],
+  "speedtable": {
+    "EH": [ [  4.0,  9.0 ], [  "-",  "-" ], [  "-",  "-" ], 10.0 ],
+    "VH": [ [  3.5,  9.0 ], [  4.0,  8.0 ], [  "-",  "-" ], 10.0 ],
+    "HI": [ [  3.0,  8.5 ], [  3.5,  7.5 ], [  4.0,  6.5 ], 10.0 ],
+    "MH": [ [  2.5,  8.0 ], [  3.0,  7.0 ], [  3.0,  6.0 ],  9.0 ],
+    "ML": [ [  2.0,  7.5 ], [  2.5,  7.0 ], [  2.5,  6.0 ],  8.5 ],
+    "LO": [ [  1.5,  7.0 ], [  2.0,  6.5 ], [  2.5,  6.0 ],  7.5 ]
+  },
+  "climbcapabilitytable": {
+    "EH": [ [ 1.0, 0.5 ], [ "-", "-" ], [ "-", "-" ] ],
+    "VH": [ [ 1.0, 0.5 ], [ 1.0, 0.5 ], [ "-", "-" ] ],
+    "HI": [ [ 2.0, 1.0 ], [ 1.0, 0.5 ], [ 1.0, 0.5 ] ],
+    "MH": [ [ 2.0, 1.0 ], [ 1.5, 1.0 ], [ 1.0, 0.5 ] ],
+    "ML": [ [ 3.0, 1.0 ], [ 2.0, 1.0 ], [ 1.5, 0.5 ] ],
+    "LO": [ [ 3.0, 2.0 ], [ 2.0, 1.0 ], [ 2.0, 1.0 ] ]
+  },
+  "gun": "Two 20 mm M39",
+  "gunatatohitrolls": "5/3/1",
+  "gundamagerating": "4/4*",
+  "gunammunition": 5.5,
+  "gunsightmodifiers": { "TT": 1, "HT": 2, "BT": 3 },
+  "storeslimits": [ 5, 9, 6200 ],
+  "properties": [ "HRR", "RPR", "LTD" ]
+}
