@@ -1,0 +1,27 @@
+{
+  "versionname": "MiG-21FL",
+  "versiondescription": "All-weather interceptor version, for export.",
+  "natoreportingnames": "NATO reporting name for the aircraft is Fishbed-D.",
+  "origin": "TSOH",
+  "base": "MiG-21PF",
+  "internalfuel": 220,
+  "radar": {
+    "name": "R1L",
+    "eccm": 0,
+    "arc": "180+",
+    "searchrange": 30,
+    "searchstrength": 6,
+    "trackingrange": 18,
+    "trackingstrength": 6,
+    "lockon": 7
+  },
+  "stations": [
+    [ "pair"  , [ 1, 3 ],  550, [ "BB", "RP", "RK", "DR", "FT", "IRM" ] ],
+    [ "single", [ 2 ]   , 1100, [ "FT", "GP" ] ]
+  ],
+  "loadnotes": [
+    "May use AA-2 IRMs.",
+    "Station 2 may carry a GP-9 gunpod."
+  ],
+  "VPs": [ 18, 12, 6, 3 ]
+}

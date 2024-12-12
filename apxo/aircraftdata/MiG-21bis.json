@@ -1,0 +1,84 @@
+{
+  "versionname": "MiG-21bis",
+  "versiondescription": "Interceptor version.",
+  "natoreportingnames": "NATO reporting name for aircraft is Fishbed-L/N and for radar is Jay Bird.",
+  "base": "MiG-21SM",
+  "origin": "APJ 43",
+  "powertable": {
+    "AB"  : [ 3.0, 2.5, 2.5, 5.5 ],
+    "M"   : [ 1.5, 1.0, 1.0, 1.5 ],
+    "N"   : [ 0.0, 0.0, 0.0, 1.0 ],
+    "I"   : [ 0.5, 0.5, 1.0, 0.0 ],
+    "SPBR": [ 1.0, 1.0, 1.0 ]
+  },
+  "climbspeed": 5.0,
+  "internalfuel": 264,
+  "lowspeedliftdeviceselectable": true,
+  "lowspeedliftdevicelimit": 2.5,
+  "lowspeedliftdeviceminspeedchange": 0.5,
+  "lowspeedliftdevicelimittype": "relative",
+  "lowspeedliftdevicename": "combat flaps",
+  "turndragtable": {
+    "TT": [ 1.0, 1.0, 2.0 ],
+    "HT": [ 2.0, 2.0, 3.0 ],
+    "BT": [ 4.0, 4.0, "-" ],
+    "ET": [ 4.0, "-", "-" ]
+  },
+  "lowspeedliftdeviceturndragtable": {
+    "TT": [ 2.0, 2.0, 3.0 ],
+    "HT": [ 3.0, 3.0, 4.0 ],
+    "BT": [ 5.0, 5.0, "-" ],
+    "ET": [ 5.0, "-", "-" ]
+  },
+  "ceilingtable": [ 56, 48, 44 ],
+  "speedtable": {
+    "EH": [ [ 4.5, 13.5 ], [ 5.0, 10.5 ], [ "-", "-" ], 13.5 ],
+    "VH": [ [ 3.5, 13.0 ], [ 4.0, 11.0 ], [ 4.0, 6.5 ], 13.5 ],
+    "HI": [ [ 3.0, 13.0 ], [ 3.0, 11.5 ], [ 3.5, 6.5 ], 13.5 ],
+    "MH": [ [ 2.5, 11.5 ], [ 3.0, 11.0 ], [ 3.0, 6.5 ], 11.0 ],
+    "ML": [ [ 2.5,  9.5 ], [ 2.5,  9.5 ], [ 2.5, 7.0 ],  9.5 ],
+    "LO": [ [ 2.0,  8.5 ], [ 2.0,  8.0 ], [ 2.5, 7.5 ],  8.5 ]
+  },
+  "climbcapabilitytable": {
+    "EH": [ [ 2.0, 1.0 ], [ 1.0, 0.5 ], [ "-", "-" ] ],
+    "VH": [ [ 3.0, 1.0 ], [ 2.0, 1.0 ], [ 1.0, "-" ] ],
+    "HI": [ [ 5.0, 1.5 ], [ 4.0, 1.0 ], [ 1.5, 0.5 ] ],
+    "MH": [ [ 6.0, 2.0 ], [ 5.0, 2.0 ], [ 2.0, 1.0 ] ],
+    "ML": [ [ 6.0, 2.0 ], [ 6.0, 2.0 ], [ 3.0, 1.0 ] ],
+    "LO": [ [ 7.0, 3.0 ], [ 6.0, 3.0 ], [ 4.0, 1.5 ] ]
+  },
+  "radar": {
+    "name": "RP-22 Saphir-21",
+    "eccm": 0,
+    "arc": "180+",
+    "searchrange": 54,
+    "searchstrength": 12,
+    "trackingrange": 36,
+    "trackingstrength": 8,
+    "lockon": 7
+  },
+  "gun": "23 mm GSh-23",
+  "gunatatohitrolls": "6/3/1",
+  "gunammunition": 2.0,
+  "gunsightmodifiers": { "TT": 0, "HT": 1, "BT": 2 },
+  "ataradarranging": "RE",
+  "gundamagerating": "5/5",
+  "ecm": { "iff": true, "rwr": "B" },
+  "properties": [ "LTD" ],
+  "notes": [
+     "The Izdeliye 75A Fishbed-L had a GCI data link and the Izdeliye 75B Fishbed-N had ILS, but the two were otherwise identical.",
+    "The thick front canopy gives a +1 modifier to sighting rolls for targets in the 180+ arc.",
+    "Emergency AB (ChR AB) may be used if speed is at least high transonic and altitude is 13 or less. When used, the AB power is 5.0/4.5/4.0 and the fuel use is 7.5. Emergency AB cannot be used for more than two consecutive game turns or more than eight game turns in total."
+  ],
+  "storeslimits": [ 2, 4, 3930 ],
+  "stations": [
+    [ "pair"  , [ 1, 5 ], 1100, [ "BB", "RP", "RK", "MDR", "IRM", "RHM", "FT" ] ],
+    [ "pair"  , [ 2, 3 ],  550, [ "BB", "RP", "RK", "MDR", "IRM", "RHM" ] ],
+    [ "single", [ 3 ]   , 1100, [ "GP", "FT" ] ]
+  ],
+  "loadnotes": [
+    "May use R-3, R-13, and R-60 IRMs (AA-2 and AA-8). May use R-3R RHM (AA-2C). MDRs are for R-60s only.",
+    "Station 3 may carry a 490L FT (weight 1065, load 2.5/1.5, and fuel 45). It may also be overloaded with an 800L FT (weight 1725, load 3.5/3.0, fuel 73), which requires the aircraft not exceed transonic speed."
+  ],
+  "VPs": [ 24, 16, 8, 4 ]
+}

@@ -1,7 +1,9 @@
 {
-  "name": "F2H-2 Banshee",
+  "versionname": "F2H-2",
+  "versiondescription": "Fighter-bomber version.",
   "base": "F2H-3",
-  "internalfuel": 410,
+  "internalfuel": 290,
+  "atarefuel": false,
   "ceilingtable": [ 44, 40, 36 ],
   "climbcapabilitytable": {
     "EH": [ [ "-", 0.5 ], [ "-", "-" ], [ "-", "-" ] ],
@@ -11,8 +13,22 @@
     "ML": [ [ "-", 1.0 ], [ "-", 1.0 ], [ "-", 1.0 ] ],
     "LO": [ [ "-", 1.0 ], [ "-", 1.0 ], [ "-", 1.0 ] ]
   },
-  "ataradarranging": "-",
-  "lockon": "-",
-  "storeslimits": [ 4, 8, 1000 ],
+  "gun": "Four 20 mm M3",
+  "ataradarranging": "RE",
+  "radar": {
+    "name": "APG-30",
+    "lockon": 6
+   },
+  "storeslimits": [ 8, 12, 3600 ],
+  "stations": [
+    [ "pair", [1, 6], 1300, [ "FT" ] ],
+    [ "pair", [2, 5],  250, [ "BB" ] ],
+    [ "pair", [3, 4],  500, [ "BB" ] ]
+  ],
+  "loadnotes": [
+    "The wing-tip stations 1 and 6 usually carry 200 gal (700L) FTs. They cannot be jettisoned in flight.",
+    "Stations 2 and 3 and stations 4 and 5 are closely spaced. If a 500 lb bomb is carried on station 4 or 5, the adjacent station cannot be used."
+  ],
+  "VPs": [ 8, 5, 3, 1 ],
   "notes": []
 }

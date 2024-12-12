@@ -1,0 +1,96 @@
+#!/usr/bin/env python3 aircraftdatacards.py
+
+[
+    [ 
+        "type", 
+        "Tu-4", 
+        "Tu-4",
+        "Tu-4A"
+    ],
+    [ 
+        "type", 
+        "Il-28", 
+        "Il-28",
+        "Il-28R",
+        "Il-28N"
+    ],
+    [ 
+        "type", 
+        "Tu-14", 
+        "Tu-14T"
+    ],
+    [ 
+        "type", 
+        "Tu-16", 
+        "Tu-16A",
+        "Tu-16KS",
+        "Tu-16K"
+    ],
+    [
+       "type", 
+       "B-26 Invader and Counter-Invader", 
+       "B-26B (Two Turrets)", 
+       "B-26B (One Turret)", 
+       "B-26B (No Turrets)", 
+       "B-26C (Two Turrets)", 
+       "B-26C (One Turret)", 
+       "B-26C (No Turrets)",
+       "B-26K",
+       "A-26A"
+    ],
+    [ 
+        "type", 
+        "B-29 Superfortress", 
+        "B-29A", 
+        "B-29A (SILVERPLATE)", 
+        "B-29A (SADDLETREE)", 
+        "B-29A (RURALIST)", 
+        "RB-29A" 
+    ],
+    [ 
+        "type", 
+        "B-36 Peacemaker", 
+        "B-36D"
+    ],
+    [ 
+        "type", 
+        "B-50 Superfortress", 
+        "B-50D"
+    ],
+    [ 
+        "type", 
+        "B-52 Stratofortress", 
+        "B-52D",
+        "B-52G"
+    ],
+    [ 
+        "type", 
+        "B-57 Canberra", 
+        "B-57B (Early)",
+        "B-57B",
+        "B-57B (PAF)",
+        "B-57G"
+    ],
+    [ 
+        "type", 
+        "A-3 Skywarrier", 
+        "A-3B"
+    [ 
+        "type", 
+        "A3D/A-3", 
+        "A3D-2 (Early)",
+        "A-3B (Early)",
+        "A3D-2 (Late)",
+        "A-3B (Late)",
+        "A3D-2Q",
+        "EA-3B"
+    ],
+    [
+        "type,"
+        "B-66 Destroyer",
+        "B-66B (Early)",
+        "B-66B (Late)",
+        "RB-66C",
+        "EB-66C"
+    ]
+]

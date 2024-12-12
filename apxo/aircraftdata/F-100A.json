@@ -1,5 +1,14 @@
 {
-  "name": "F-100A Super Sabre",
+  "versionname": "F-100A",
+  "versiondescription": "Original day fighter version.",
   "base": "F-100C",
-  "ceilingtable": [ 51, 47, 41 ]
+  "internalfuel": 240,
+  "atarefuel": false,
+  "ceilingtable": [ 51, 47, 41 ],
+  "stations": [
+    [ "pair"  , [ 1, 2 ], 2700, [ "BB", "FT" ] ]
+  ],
+  "loadnotes": [
+  ],
+  "VPs": [ 12, 8, 4, 2 ] 
 }

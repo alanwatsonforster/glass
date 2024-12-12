@@ -29,14 +29,16 @@ class aircraftdata:
 
     def __init__(self, name):
 
+        def filename(name):
+            return os.path.join(
+                os.path.dirname(__file__), "aircraftdata", name + ".json"
+            )
+
         def loadfile(name):
 
             # TODO: Handle errors.
 
-            filename = os.path.join(
-                os.path.dirname(__file__), "aircraftdata", name + ".json"
-            )
-            with open(filename, "r", encoding="utf-8") as f:
+            with open(filename(name), "r", encoding="utf-8") as f:
                 s = f.read(-1)
                 # Strip whole-line // comments.
                 r = re.compile("^[ \t]*//.*$", re.MULTILINE)
@@ -54,8 +56,108 @@ class aircraftdata:
             data = basedata
         self._data = data
 
-    def name(self):
-        return self._data["name"]
+        if False:
+            process = os.popen(
+                'env TZ=UTC git log -n 1 --date=local --date=format-local:"%%Y-%%m-%%d %%H:%%M.%%SZ" --pretty=format:"%%cd %%h %%H" "%s"'
+                % filename(name)
+            )
+            gitlogoutput = process.read()
+            process.close()
+        else:
+             gitlogoutput = ""
+        if gitlogoutput == "":
+            gitlogoutput = "0000-00-00 00:00:00 %s %s" % (7 * "0", 40 * "0")
+        self._gitlogoutput = gitlogoutput
+
+    def commitdate(self):
+        return self._gitlogoutput.split()[0]
+
+    def committime(self):
+        return self._gitlogoutput.split()[1]
+
+    def commitdatetime(self):
+        return "%sT%s" % (self.commitdate(), self.committime())
+
+    def commitabbreviatedhash(self):
+        return self._gitlogoutput.split()[2]
+
+    def commithash(self):
+        return self._gitlogoutput.split()[3]
+
+    def manufacturername(self):
+        if "manufacturername" in self._data:
+            return self._data["manufacturername"]
+        else:
+            return None
+
+    def versionname(self):
+        return self._data["versionname"]
+
+    def popularname(self):
+        if "popularname" in self._data:
+            return self._data["popularname"]
+        else:
+            return None
+
+    def variantname(self):
+        if "variantname" in self._data:
+            return self._data["variantname"]
+        else:
+            return None
+
+    def fullname(self):
+        if self.popularname() is None:
+            return "%s" % self.versionname()
+        else:
+            return "%s %s" % (self.versionname(), self.popularname())
+
+    def fullvariantname(self):
+        if self.variantname() is None:
+            return "%s" % self.versionname()
+        else:
+            return "%s (%s)" % (self.versionname(), self.variantname())
+
+    def description(self):
+        if "description" in self._data:
+            return self._data["description"]
+        else:
+            return None
+
+    def versiondescription(self):
+        if "versiondescription" in self._data:
+            return self._data["versiondescription"]
+        else:
+            return None
+
+    def variantdescription(self):
+        if "variantdescription" in self._data:
+            return self._data["variantdescription"]
+        else:
+            return None
+
+    def originallydesignated(self):
+        if "originallydesignated" in self._data:
+            return self._data["originallydesignated"]
+        else:
+            return None
+
+    def previouslydesignated(self):
+        if "previouslydesignated" in self._data:
+            return self._data["previouslydesignated"]
+        else:
+            return None
+
+    def subsequentlydesignated(self):
+        if "subsequentlydesignated" in self._data:
+            return self._data["subsequentlydesignated"]
+        else:
+            return None
+
+    def natoreportingnames(self):
+        if "natoreportingnames" in self._data:
+            return self._data["natoreportingnames"]
+        else:
+            return None
 
     def crew(self):
         return self._data["crew"]
@@ -125,7 +227,19 @@ class aircraftdata:
         return self._data["internalfuel"]
 
     def engines(self):
-        return self._data["engines"]
+        return self.jetengines() + self.propellerengines()
+
+    def jetengines(self):
+        if "jetengines" in self._data:
+            return self._data["jetengines"]
+        else:
+            return 0
+
+    def propellerengines(self):
+        if "propellerengines" in self._data:
+            return self._data["propellerengines"]
+        else:
+            return 0
 
     def lowspeedliftdeviceselectable(self):
         if "lowspeedliftdeviceselectable" in self._data:
@@ -150,8 +264,20 @@ class aircraftdata:
             return self._data["lowspeedliftdevicename"]
         else:
             return None
+            
+    def lowspeedliftdeviceminspeedchange(self):
+        if "lowspeedliftdeviceminspeedchange" in self._data:
+            return self._data["lowspeedliftdeviceminspeedchange"]
+        else:
+            return None
+            
+    def geometries(self):
+        if "geometries" in self._data:
+            return list(self._data["geometries"].keys())
+        else:
+            return [ None ]
 
-    def turndrag(self, configuration, turnrate, lowspeedliftdevice=False):
+    def turndrag(self, configuration, geometry, turnrate, lowspeedliftdevice=False):
         _checkconfiguration(configuration)
         _checkturnrate(turnrate)
         if lowspeedliftdevice:
@@ -160,40 +286,48 @@ class aircraftdata:
             table = "turndragtable"
         if not turnrate in self._data[table]:
             return None
-        raw = self._data[table][turnrate][_configurationindex(configuration)]
+        if geometry is None:
+            turndragtable = self._data[table]
+        else:
+            turndragtable = self._data["geometries"][geometry][table]
+        raw = turndragtable[turnrate][_configurationindex(configuration)]
         if raw == "-":
             return None
         elif apvariants.withvariant("use house rules"):
-            if self.hasproperty("LBR"):
+            if self.hasproperty("LBR", geometry):
                 return raw / 2.0 + 0.25
-            elif self.hasproperty("HBR"):
+            elif self.hasproperty("HBR", geometry):
                 return raw / 2.0 + 0.75
             else:
                 return raw / 2.0 + 0.5
         else:
             return raw
 
-    def minspeed(self, configuration, altitudeband):
+    def minspeed(self, configuration, geometry, altitudeband):
         _checkconfiguration(configuration)
         _checkaltitudeband(altitudeband)
         if altitudeband == "UH":
             altitudeband = "EH"
-        raw = self._data["speedtable"][altitudeband][
-            _configurationindex(configuration)
-        ][0]
+        if geometry is None:
+            speedtable = self._data["speedtable"]
+        else:
+            speedtable = self._data["geometries"][geometry]["speedtable"]
+        raw = speedtable[altitudeband][_configurationindex(configuration)][0]
         if raw == "-":
             return None
         else:
             return raw
 
-    def maxspeed(self, configuration, altitudeband):
+    def maxspeed(self, configuration, geometry, altitudeband):
         _checkconfiguration(configuration)
         _checkaltitudeband(altitudeband)
         if altitudeband == "UH":
             altitudeband = "EH"
-        raw = self._data["speedtable"][altitudeband][
-            _configurationindex(configuration)
-        ][1]
+        if geometry is None:
+            speedtable = self._data["speedtable"]
+        else:
+            speedtable = self._data["geometries"][geometry]["speedtable"]
+        raw = speedtable[altitudeband][_configurationindex(configuration)][1]
         if raw == "-":
             return None
         else:
@@ -272,11 +406,14 @@ class aircraftdata:
         else:
             return raw
 
-    def properties(self):
-        return set(self._data["properties"])
+    def properties(self, geometry):
+        if geometry is None:
+            return set(self._data["properties"])
+        else:
+            return set(self._data["geometries"][geometry]["properties"] + self._data["properties"])
 
-    def hasproperty(self, p):
-        return p in self.properties()
+    def hasproperty(self, p, geometry):
+        return p in self.properties(geometry)
 
     def climbcapability(self, configuration, altitudeband, powersetting):
         _checkaltitudeband(altitudeband)
@@ -302,12 +439,14 @@ class aircraftdata:
             return 1
 
     def radar(self, what=None):
-        if "radar" not in self._data or self._data["radar"] is False:
+        if "radar" not in self._data or self._data["radar"] is None:
             return None
         elif what is None:
             return True
-        else:
+        elif what in self._data["radar"]:
             return self._data["radar"][what]
+        else:
+            return None
 
     def gun(self):
         if "gun" in self._data and self._data["gun"] != "":
@@ -349,7 +488,7 @@ class aircraftdata:
     def ataradarrangingtype(self):
         if "ataradarranging" not in self._data:
             return None
-        elif self._data["ataradarranging"] == "-":
+        elif self._data["ataradarranging"] is None:
             return None
         else:
             assert self._data["ataradarranging"] in ["RE", "CA", "IG"]
@@ -368,12 +507,7 @@ class aircraftdata:
             return None
 
     def lockon(self):
-        if "lockon" not in self._data:
-            return None
-        elif self._data["lockon"] == "-":
-            return None
-        else:
-            return self._data["lockon"]
+        return self.radar("lockon")
 
     def bombsystem(self):
         if "bombsystem" in self._data:
@@ -399,20 +533,20 @@ class aircraftdata:
         else:
             return self._data["technology"]
 
-    def ABSFamount(self):
-        if "ABSF" in self.properties():
+    def ABSFamount(self, geometry):
+        if "ABSF" in self.properties(geometry):
             return self._data["ABSFamount"]
         else:
             return None
 
-    def NDRHSlimit(self):
-        if "NDRHS" in self.properties():
+    def NDRHSlimit(self, geometry):
+        if "NDRHS" in self.properties(geometry):
             return self._data["NDRHSlimit"]
         else:
             return None
 
-    def NLRHSlimit(self):
-        if "NLRHS" in self.properties():
+    def NLRHSlimit(self, geometry):
+        if "NLRHS" in self.properties(geometry):
             return self._data["NLRHSlimit"]
         else:
             return None
@@ -425,7 +559,7 @@ class aircraftdata:
 
     def hasstoreslimits(self):
         """
-        Return True if the aircraft data has a stores limit configured.
+        Return True if the aircraft data has a stores limit specified.
         """
         return "storeslimits" in self._data
 
@@ -446,17 +580,52 @@ class aircraftdata:
         elif configuration == "DT":
             return self._data["storeslimits"][2]
 
+    def stations(self):
+        """
+        Return the stations list.
+        """
+        if "stations" in self._data:
+            return self._data["stations"]
+        else:
+            return []
+
+    def loadnotes(self):
+        """
+        Return the load notes list.
+        """
+        if "loadnotes" in self._data:
+            return self._data["loadnotes"]
+        else:
+            return []
+
+    def hasVPs(self):
+        """
+        Return True if the aircraft data has VPs specified.
+        """
+        return "VPs" in self._data
+
+    def VPs(self, damage):
+        """
+        Return the VPs.
+        """
+
+        assert damage in ["K", "C", "H", "L"]
+        assert self.hasVPs()
+
+        if damage == "K":
+            return self._data["VPs"][0]
+        elif damage == "C":
+            return self._data["VPs"][1]
+        elif damage == "H":
+            return self._data["VPs"][2]
+        elif damage == "L":
+            return self._data["VPs"][3]
+
     def wikiurl(self):
         if "wikiurl" in self._data:
             return self._data["wikiurl"]
         else:
             return None
-
-    def variantnotes(self):
-        if "variantnotes" in self._data:
-            return self._data["variantnotes"]
-        else:
-            return []
 
     def notes(self):
         if "notes" in self._data:
@@ -464,332 +633,22 @@ class aircraftdata:
         else:
             return []
 
-    ##############################################################################
+    def typenotes(self):
+        if "typenotes" in self._data:
+            return self._data["typenotes"]
+        else:
+            return []
 
-    def __str__(self):
-        """
-        Return a string representation of an aircraft data object. The format
-        follows that of the Aircraft Data Cards in TSOH.
-        """
+    def versionnotes(self):
+        if "versiontnotes" in self._data:
+            return self._data["versiontnotes"]
+        else:
+            return []
 
-        global _result
-        _result = ""
-
-        def str(s):
-            global _result
-            _result += s + "\n"
-
-        def f1(x):
-            if x == None:
-                return "---"
-            else:
-                return "%.1f" % x
-
-        def f2(x):
-            if x == None:
-                return "----"
-            else:
-                return "%.2f" % x
-
-        def f1z(x):
-            if x == 0:
-                return "---"
-            else:
-                return "%.1f" % x
-
-        def f0(x):
-            if x == None:
-                return "--"
-            else:
-                return "%2.0f" % x
-
-        str("Type: %s" % self._name)
-        str("")
-
-        str("Crew           : %d %s" % (len(self.crew()), ", ".join(self.crew())))
-        str("Ejection Seat  : %s" % self.ejectionseat())
-
-        if not self.hasproperty("SPFL"):
-
-            str("Power:")
-            str("")
-            str("       CL    1/2   DT    Fuel")
-            if self.power("CL", "M") != None:
-                str(
-                    "AB     %-4s  %-4s  %-4s  %-4s"
-                    % (
-                        f1(self.power("CL", "AB")),
-                        f1(self.power("1/2", "AB")),
-                        f1(self.power("DT", "AB")),
-                        f1(self.fuelrate("AB")),
-                    )
-                )
-            if self.power("CL", "M") != None:
-                str(
-                    "M      %-4s  %-4s  %-4s  %-4s"
-                    % (
-                        f1(self.power("CL", "M")),
-                        f1(self.power("1/2", "M")),
-                        f1(self.power("DT", "M")),
-                        f1(self.fuelrate("M")),
-                    )
-                )
-            if self.power("CL", "FT") != None:
-                str(
-                    "FT     %-4s  %-4s  %-4s  %-4s"
-                    % (
-                        f2(self.power("CL", "FT")),
-                        f2(self.power("1/2", "FT")),
-                        f2(self.power("DT", "FT")),
-                        f1(self.fuelrate("FT")),
-                    )
-                )
-            if self.power("CL", "HT") != None:
-                str(
-                    "HT     %-4s  %-4s  %-4s  %-4s"
-                    % (
-                        f2(self.power("CL", "HT")),
-                        f2(self.power("1/2", "HT")),
-                        f2(self.power("DT", "HT")),
-                        f1(self.fuelrate("HT")),
-                    )
-                )
-            str(
-                "N      %-4s  %-4s  %-4s  %-4s"
-                % (
-                    f1(self.power("CL", "N")),
-                    f1(self.power("1/2", "N")),
-                    f1(self.power("DT", "N")),
-                    f1(self.fuelrate("N")),
-                )
-            )
-            str(
-                "I      %-4s  %-4s  %-4s  %-4s"
-                % (
-                    f1(self.power("CL", "I")),
-                    f1(self.power("1/2", "I")),
-                    f1(self.power("DT", "I")),
-                    f1(self.fuelrate("I")),
-                )
-            )
-            str(
-                "SPBR   %-4s  %-4s  %-4s"
-                % (
-                    f1(self.speedbrake("CL")),
-                    f1(self.speedbrake("1/2")),
-                    f1(self.speedbrake("DT")),
-                )
-            )
-            str("")
-
-            if (
-                "powerfadespeedtable" in self._data
-                or "poweraltitudefadetable" in self._data
-            ):
-                if "powerfadespeedtable" in self._data:
-                    for p in self._data["powerfadespeedtable"]:
-                        str(
-                            "- If the speed is more than %.1f, the power is reduced by %s."
-                            % (p[0], p[1])
-                        )
-                if "poweraltitudefadetable" in self._data:
-                    for p in self._data["poweraltitudefadetable"]:
-                        str(
-                            "- If the altitude is more than %d, the power is reduced by %s."
-                            % (p[0], p[1])
-                        )
-                str("")
-
-            str("Engines        : %d" % self.engines())
-            str("Cruise Speed   : %.1f" % self.cruisespeed("CL"))
-            str("Climb  Speed   : %.1f" % self.climbspeed())
-            str("Visibility     : %d" % self.visibility())
-            str("Size Modifier  : %+d" % self.sizemodifier())
-            str("Vulnerability  : %+d" % self.vulnerability())
-            str("Restricted arcs: %s" % (" ".join(self.restrictedarcs())))
-            str("Blind arcs     : %s" % (" ".join(self.blindarcs())))
-            str("Internal Fuel  : %.1f" % self.internalfuelcapacity())
-            str("ATA Refuel     : %s" % self.atarefuel())
-            str("")
-
-            str("Roll Costs:")
-            str("")
-            str("LR/DR  %s  %s" % (f1(self.rollhfp()), f1(self.rolldrag("LR"))))
-            str("VR     %s  %s" % (f1(None), f1(self.rolldrag("VR"))))
-            str("")
-
-            str("Turn Drag:")
-            str("")
-            if self.lowspeedliftdevicelimit() != None:
-                str(
-                    "Low-speed lift device           : %s"
-                    % self.lowspeedliftdevicename()
-                )
-                str(
-                    "Low-speed lift device limit     : %.1f"
-                    % self.lowspeedliftdevicelimit()
-                )
-                str(
-                    "Low-speed lift device selectable: %r"
-                    % self.lowspeedliftdeviceselectable()
-                )
-                str("")
-                if self.lowspeedliftdeviceselectable():
-                    str(
-                        "For speed <= %.1f and selected."
-                        % self.lowspeedliftdevicelimit()
-                    )
-                else:
-                    str("For speed <= %.1f." % self.lowspeedliftdevicelimit())
-                str("       CL   1/2  DT")
-                for turnrate in ["TT", "HT", "BT", "ET"]:
-                    str(
-                        "%s     %s  %s  %s"
-                        % (
-                            turnrate,
-                            f1(self.turndrag("CL", turnrate, lowspeedliftdevice=True)),
-                            f1(self.turndrag("1/2", turnrate, lowspeedliftdevice=True)),
-                            f1(self.turndrag("DT", turnrate, lowspeedliftdevice=True)),
-                        )
-                    )
-                str("")
-                if self.lowspeedliftdeviceselectable():
-                    str(
-                        "For speed > %.1f or not selected."
-                        % self.lowspeedliftdevicelimit()
-                    )
-                else:
-                    str("For speed > %.1f." % self.lowspeedliftdevicelimit())
-                str("       CL   1/2  DT")
-                for turnrate in ["TT", "HT", "BT", "ET"]:
-                    str(
-                        "%s     %s  %s  %s"
-                        % (
-                            turnrate,
-                            f1(self.turndrag("CL", turnrate)),
-                            f1(self.turndrag("1/2", turnrate)),
-                            f1(self.turndrag("DT", turnrate)),
-                        )
-                    )
-            else:
-                str("       CL   1/2  DT")
-                for turnrate in ["TT", "HT", "BT", "ET"]:
-                    str(
-                        "%s     %s  %s  %s"
-                        % (
-                            turnrate,
-                            f1(self.turndrag("CL", turnrate)),
-                            f1(self.turndrag("1/2", turnrate)),
-                            f1(self.turndrag("DT", turnrate)),
-                        )
-                    )
-            str("")
-
-            str("Speed and Ceiling:")
-            str("")
-            str("      CL       1/2      DT")
-            str(
-                "      %s       %s       %s"
-                % (
-                    f0(self.ceiling("CL")),
-                    f0(self.ceiling("1/2")),
-                    f0(self.ceiling("DT")),
-                )
-            )
-            for band in ["EH", "VH", "HI", "MH", "ML", "LO"]:
-                str(
-                    "%s    %s-%s  %s-%s  %s-%s  %s"
-                    % (
-                        band,
-                        f1(self.minspeed("CL", band)),
-                        f1(self.maxspeed("CL", band)),
-                        f1(self.minspeed("1/2", band)),
-                        f1(self.maxspeed("1/2", band)),
-                        f1(self.minspeed("DT", band)),
-                        f1(self.maxspeed("DT", band)),
-                        f1(self.maxdivespeed(band)),
-                    )
-                )
-            str("")
-
-            str("Climb Capability:")
-            str("")
-            str("      CL         1/2        DT")
-            for band in ["EH", "VH", "HI", "MH", "ML", "LO"]:
-                str(
-                    "%s    %s %s  %s %s  %s %s"
-                    % (
-                        band,
-                        f2(self.climbcapability("CL", band, "AB")),
-                        f2(self.climbcapability("CL", band, "M")),
-                        f2(self.climbcapability("1/2", band, "AB")),
-                        f2(self.climbcapability("1/2", band, "M")),
-                        f2(self.climbcapability("DT", band, "AB")),
-                        f2(self.climbcapability("DT", band, "M")),
-                    )
-                )
-            str("")
-
-        if self.gun() != None:
-            str("Gun: %s" % self.gun())
-            str("Gun ammunition: %.1f" % self._data["gunammunition"])
-            str(
-                "ATA To-Hit: %d %d %r"
-                % (
-                    self.gunatatohitroll(0),
-                    self.gunatatohitroll(1),
-                    self.gunatatohitroll(2),
-                )
-            )
-            if "gunarc" in self._data:
-                str("Gun arc: %s" % self._data["gunarc"])
-
-        if "rocketfactors" in self._data:
-            str("Rocket factors: %.0f" % self._data["rocketfactors"])
-
-        if "gunammunition" in self._data or "rocketfactors" in self._data:
-            str("Gunsight modifiers: ")
-            for turnrate in ["TT", "HT", "BT"]:
-                if self.gunsightmodifier(turnrate) is not None:
-                    str("  %s %+d" % (turnrate, self.gunsightmodifier(turnrate)))
-        if self.ataradarrangingtype() is not None:
-            str("ATA Radar-ranging: %s" % self.ataradarrangingtype())
-        if self.lockon() is not None:
-            str("ATA Lock-On: %d" % self.lockon())
-
-        str("")
-
-        s = ""
-        for p in self._data["properties"]:
-            s += " %s" % p
-        str("Properties:%s" % s)
-        str("")
-        str("Origin: %s" % self._data["origin"])
-        str("")
-        str("Notes:")
-        str("")
-
-        if self.hasproperty("LRRHS"):
-            str("- LRRHS: LRR if speed is %.1f or more." % self._data["LRRHSlimit"])
-
-        if self.hasproperty("HRRCL"):
-            str("- HRRCL: HRR when CL.")
-
-        if self.hasproperty("ABSF"):
-            str(
-                "- Maximum speed is reduced by %.1f unless AB is used."
-                % self._data["ABSFamount"]
-            )
-
+    def variantnotes(self):
         if "variantnotes" in self._data:
-            for note in self._data["variantnotes"]:
-                str("- %s" % note)
+            return self._data["variantnotes"]
+        else:
+            return []
 
-        if "notes" in self._data:
-            for note in self._data["notes"]:
-                str("- %s" % note)
-
-        return _result
-
-
-##############################################################################
+    ##############################################################################

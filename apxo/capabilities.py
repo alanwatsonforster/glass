@@ -48,13 +48,13 @@ def turndrag(A, turnrate):
     def rawturndrag(turnrate):
         lowspeedliftdevicelimit = A._aircraftdata.lowspeedliftdevicelimit()
         if lowspeedliftdevicelimit == None:
-            return A._aircraftdata.turndrag(A._configuration, turnrate)
+            return A._aircraftdata.turndrag(A._configuration, A._geometry, turnrate)
         elif A._lowspeedliftdeviceextended:
             return A._aircraftdata.turndrag(
-                A._configuration, turnrate, lowspeedliftdevice=True
+                A._configuration, A._geometry, turnrate, lowspeedliftdevice=True
             )
         else:
-            return A._aircraftdata.turndrag(A._configuration, turnrate)
+            return A._aircraftdata.turndrag(A._configuration, A._geometry, turnrate)
 
     # See rule 6.6
     if A.hasproperty("PSSM") and A.speed() >= apspeed.m1speed(A.altitudeband()):
@@ -75,13 +75,13 @@ def turndrag(A, turnrate):
 
 def rawminspeed(A):
 
-    minspeed = A._aircraftdata.minspeed(A._configuration, A.altitudeband())
+    minspeed = A._aircraftdata.minspeed(A._configuration, A._geometry, A.altitudeband())
 
     if minspeed == None:
         # The aircraft is temporarily above its ceiling, so take the speed from the
         # highest band in the table.
         for altitudeband in ["UH", "EH", "VH", "HI", "MH", "ML", "LO"]:
-            minspeed = A._aircraftdata.minspeed(A._configuration, altitudeband)
+            minspeed = A._aircraftdata.minspeed(A._configuration, A._geometry, altitudeband)
             if minspeed != None:
                 break
 
@@ -96,27 +96,27 @@ def minspeed(A):
     minspeed = rawminspeed(A)
 
     # See rule 7.6 in version 2.4.
-    if lowspeedliftdeviceselectable(A) and A._lowspeedliftdeviceextended:
-        minspeed -= 0.5
+    if A._lowspeedliftdeviceextended and A._aircraftdata.lowspeedliftdeviceminspeedchange() is not None:
+        minspeed -= A._aircraftdata.lowspeedliftdeviceminspeedchange()
 
     return minspeed
 
 
 def maxspeed(A):
 
-    maxspeed = A._aircraftdata.maxspeed(A._configuration, A.altitudeband())
+    maxspeed = A._aircraftdata.maxspeed(A._configuration, A._geometry, A.altitudeband())
 
     if maxspeed == None:
         # The aircraft is temporarily above its ceiling, so take the speed from the
         # highest band in the table.
         for altitudeband in ["UH", "EH", "VH", "HI", "MH", "ML", "LO"]:
-            maxspeed = A._aircraftdata.maxspeed(A._configuration, altitudeband)
+            maxspeed = A._aircraftdata.maxspeed(A._configuration, A._geometry, altitudeband)
             if maxspeed != None:
                 break
 
     if A.hasproperty("ABSF"):
         if A._powersetting != "AB":
-            maxspeed -= A._aircraftdata.ABSFamount()
+            maxspeed -= A._aircraftdata.ABSFamount(A._geometry)
 
     return maxspeed
 
@@ -218,4 +218,11 @@ def ataradarrangingtype(A):
 
 
 def lockon(A):
-    return A._aircraftdata.lockon()
+    return A._aircraftdata.radar("lockon")
+
+def geometries(A):
+    return A._aircraftdata.geometries()
+    
+def properties(A):
+    return A._aircraftdata.properties(A._geometry)
+    

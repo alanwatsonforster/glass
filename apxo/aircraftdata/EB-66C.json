@@ -1,4 +1,6 @@
 {
-  "name": "EB-66C Destroyer",
-  "base": "RB-66C"
+  "versionname": "EB-66C",
+  "base": "RB-66C",
+  "originallydesignated": "RB-66C",
+  "subsequentlydesignated": null
 }

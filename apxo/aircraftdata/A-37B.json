@@ -1,14 +1,15 @@
 {
-  "name": "A-37B Dragonfly",
+  "versionname": "A-37B Dragonfly",
+  "versiondescription": "Light attack aircraft developed from the T-37.",
   "origin": "TSOH",
   "crew": [ "Pilot", "Observer" ],
   "powertable": {
     "M"   : [ 2.0, 1.5, 1.0, 1.0 ],
     "N"   : [ 0.0, 0.0, 0.0, 0.5 ],
     "I"   : [ 0.5, 0.5, 0.5, 0.0 ],
-    "SPBR": [ 1.0, 1.0, 2.0 ]
+    "SPBR": [ 0.5, 0.5, 1.0 ]
   },
-  "engines": 2,
+  "jetengines": 2,
   "cruisespeed": 4.0,
   "climbspeed" : 3.0,
   "visibility": 4,
@@ -45,13 +46,21 @@
     "ML": [ [ "-", 1.0 ], [ "-", 1.0 ], [ "-", 0.5 ] ],
     "LO": [ [ "-", 1.0 ], [ "-", 1.0 ], [ "-", 1.0 ] ]
   },
-  "storeslimits": [ 4, 7, 5700 ],
   "gun": "7.62 mm GAU-2B",
   "gunatatohitrolls": "5/1/-",
-  "gunatadamagerating": 2,
+  "gundamagerating": "2/2**",
   "gunammunition": 8.0,
   "gunsightmodifiers": { "TT": 1, "HT": 2, "BT": 3 },
+  "ecm": { "iff": true },
   "properties": [ "HTD" ],
   "notes": [
-  ]
+  ],
+  "wikiurl": "https://bit.ly/4eVS9gm",
+  "storeslimits": [ 4, 7, 5700 ],
+  "stations": [
+    [ "pair"     , [ 1, 8 ]      , 500, [ "BB", "RP", "GP" ] ],
+    [ "pair"     , [ 2, 7 ]      , 600, [ "BB", "RP", "GP" ] ],
+    [ "grouppair", [ 3, 4, 5, 6 ], 870, [ "BB", "BG", "RP", "GP", "FT" ] ]
+  ],
+  "VPs": [ 10, 6, 3, 1 ]
 }

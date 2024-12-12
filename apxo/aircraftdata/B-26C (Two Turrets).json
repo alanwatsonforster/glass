@@ -1,11 +1,13 @@
 {
-  "name": "B-26C Invader (Two Turrets)",
+  "versionname": "B-26C",
+  "variantname": "Two Turrets",
+  "variantdescription": "with a glass nose, wing guns, and both dorsal and ventral turrets.",
+  "originallydesignated": "A-26C",
   "base": "B-26B (Two Turrets)",
-  "gun": "Six .50 cal",
+  "gun": "Six .50 cal M2",
   "gundamagerating": "4/4**",
   "bombsystem": "Manual/Balistic",
   "variantnotes": [
-    "Glass-nose variant with wing guns and upper and lower turrets.",
     "Bomb system is ballistic (-1) if doing level bombing from four or more altitude levels above the target."
   ]
 }

@@ -1,8 +1,10 @@
 {
-  "name": "F2H-2P Banshee",
+  "versionname": "F2H-2P",
+  "versiondescription": "Reconnaissance version of the F2H-2, with oblique and overhead cameras.",
+  "variantname": null,
   "base": "F2H-2",
   "gun": "",
-  "notes": [
-    "Oblique and overhead cameras."
-  ]
+  "radar": null,
+  "ataradarranging": null,
+  "VPs": [ 8, 5, 3, 1 ]
 }

@@ -1,0 +1,56 @@
+{
+  "versionname": "F-86H",
+  "versiondescription": "Fighter-bomber and nuclear strike version.",
+  "variantname": "Early",
+  "variantdescription": "with unslatted 6-3 wing.",
+  "base": "F-86F-40",
+  "origin": "APJ 25",
+  "crew": [ "Pilot" ],
+  "powertable": {
+    "M"   : [ 1.5, 1.5, 1.0, 1.0 ],
+    "N"   : [ 0.0, 0.0, 0.0, 0.5 ],
+    "I"   : [ 0.5, 0.5, 1.0, 0.0 ],
+    "SPBR": [ 1.0, 1.0, 2.0 ]
+  },
+  "cruisespeed": 5.5,
+  "climbspeed" : 3.5,
+  "internalfuel": 180,
+  "ejectionseat": "standard",
+  "lowspeedliftdevicename": null,
+  "turndragtable": {
+    "TT": [ 1.0, 1.0, 1.0 ],
+    "HT": [ 1.0, 1.0, 1.0 ],
+    "BT": [ 2.0, 2.0, 2.0 ]
+  },
+  "ceilingtable": [ 51, 46, 42 ],
+  "speedtable": {
+    "EH": [ [  2.5,  5.5 ], [  3.0,  5.0 ], [  "-",  "-" ],  6.5 ],
+    "VH": [ [  2.5,  5.5 ], [  2.5,  5.0 ], [  3.0,  5.0 ],  6.5 ],
+    "HI": [ [  2.0,  6.0 ], [  2.5,  5.5 ], [  2.5,  5.0 ],  7.0 ],
+    "MH": [ [  2.0,  6.5 ], [  2.5,  5.5 ], [  2.5,  5.5 ],  7.0 ],
+    "ML": [ [  2.0,  6.5 ], [  2.0,  6.0 ], [  2.5,  5.5 ],  7.5 ],
+    "LO": [ [  1.5,  7.0 ], [  2.0,  6.5 ], [  2.5,  6.0 ],  7.5 ]
+  },
+  "climbcapabilitytable": {
+    "EH": [ [ "-", 0.5 ], [ "-", 0.5 ], [ "-", "-" ] ],
+    "VH": [ [ "-", 1.0 ], [ "-", 1.0 ], [ "-", 0.5 ] ],
+    "HI": [ [ "-", 1.5 ], [ "-", 1.0 ], [ "-", 0.5 ] ],
+    "MH": [ [ "-", 1.5 ], [ "-", 1.5 ], [ "-", 1.0 ] ],
+    "ML": [ [ "-", 2.0 ], [ "-", 1.5 ], [ "-", 1.0 ] ],
+    "LO": [ [ "-", 2.5 ], [ "-", 2.0 ], [ "-", 1.5 ] ]
+  },
+  "gun": "Four 20 mm M39",
+  "gunatatohitrolls": "6/4/3",
+  "gundamagerating": "5/7*",
+  "gunammunition": 3.5,
+  "gunsightmodifiers": { "TT": 0, "HT": 1, "BT": 2 },
+  // Note: Not HTD.
+  "properties": [],
+  "storeslimits": [ 2, 6, 4400 ],  
+  "loadnotes": [
+    "Either stations 1 to 4 or stations 5 to 12 can be used.",
+    "Stations 5 to 12 can each carry two RKs.",
+    "From 1957, may use AIM-9B IRMs."
+  ],
+  "VPs": [ 12, 9, 4, 2 ]
+}

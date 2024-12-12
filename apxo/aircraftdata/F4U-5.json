@@ -1,5 +1,8 @@
 {
-  "name": "F4U-5 Corsair",
+  "versionname": "F4U-5",
+  "popularname": "Corsair",
+  "versiondescription": "Fighter-bomber version.",
+  "manufacturername": "Vought",
   "origin": "APJ 32",
   "crew": [ "Pilot" ],
   "powertable": {
@@ -9,7 +12,7 @@
     "I"   : [ 0.5, 0.5, 0.5, 0.0 ],
     "SPBR": [ "-", "-", "-" ]
   },
-  "engines": 1,
+  "propellerengines": 1,
   "cruisespeed": 2.5,
   "climbspeed" : 1.5,
   "visibility": 6,
@@ -48,7 +51,6 @@
     "ML": [ [ "-", 1.0 ], [ "-", 0.5 ], [ "-", 0.5 ] ],
     "LO": [ [ "-", 1.0 ], [ "-", 1.0 ], [ "-", 0.5 ] ]
   },
-  "radar": false,
   "gun": "Four 20 mm M3",
   "gunatatohitrolls": "6/3/2",
   "gundamagerating": "5/6*",
@@ -58,6 +60,15 @@
   "ecm": { "iff": true },
   "technology": [],
   "storeslimits": [ 4, 8, 5000 ],  
+  "stations": [
+    [ "grouppair", [ 1, 4, 7, 11 ],  280, [ "BB", "RK" ] ],
+    [ "pair"     , [ 5, 7 ]       , 1000, [ "BB", "RK", "FT" ] ],
+    [ "single"   , [ 6 ]          , 1200, [ "BB", "FT" ] ]
+  ],
+  "loadnotes": [
+    "Stations 1 to 4 and 7 to 11 can each carry two RK, one 100 lb bomb, or one 250 lb bomb. They are closely spaced. If a 250 lb bomb is carried, the adjacent stations cannot be used."
+  ],
+  "VPs": [ 6, 4, 2, 1 ],
   "properties": [ "LBR", "HTD" ],
   "powerfadespeedtable": [ [3.0, 0.5], [4.0, 1.0] ],
   "notes": [

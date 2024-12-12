@@ -1,10 +1,8 @@
 {
-  "name": "B-26B Invader (No Turrets)",
+  "versionname": "B-26B",
+  "variantname": "No Turrets",
+  "variantdescription": "with a gun nose, nose and wing guns, no turrets, and with extra fuel (40 fuel points).",
+  "originallydesignated": "A-26B",
   "base": "B-26B (One Turret)",
-  "crew": [ "Pilot", "Navigator", "Observer" ],
-  "variantnotes": [
-    "Gun-nose variant with nose and wing guns, no turrets, and with extra fuel (40 fuel points)."
-  ],
-  "notes": [
-  ]
+  "crew": [ "Pilot", "Navigator", "Observer" ]
 }

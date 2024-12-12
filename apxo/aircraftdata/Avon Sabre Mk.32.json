@@ -1,14 +1,16 @@
 {
-  "name": "Avon Sabre Mk.32",
+  "versionname": "Avon Sabre Mk.32",
+  "description": "The CAC Avon Sabre Mk.32 is a day fighter and fighter-bomber derived from the F-86F Sabre with the unslatted 6-3 wing and an Avon 26 engine.",
+  "manufacturername": "CAC",
   "origin": "APJ 25",
   "crew": [ "Pilot" ],
   "powertable": {
     "M"   : [ 1.5, 1.5, 1.0, 1.0 ],
     "N"   : [ 0.0, 0.0, 0.0, 0.5 ],
     "I"   : [ 0.5, 0.5, 1.0, 0.0 ],
-    "SPBR": [ 1.0, 1.0, 2.0 ]
+    "SPBR": [ 0.5, 0.5, 1.0 ]
   },
-  "engines": 1,
+  "jetengines": 1,
   "cruisespeed": 5.5,
   "climbspeed" : 3.5,
   "visibility": 5,
@@ -16,7 +18,7 @@
   "vulnerability": 0,
   "restrictedarcs": "",
   "blindarcs": "30-",
-  "internalfuel": 120,
+  "internalfuel": 160,
   "atarefuel": false,
   "ejectionseat": "standard",
   "maneuvertable": {
@@ -46,13 +48,37 @@
     "LO": [ [ "-", 2.0 ], [ "-", 2.0 ], [ "-", 1.5 ] ]
   },
   "gun": "Two 30 mm Aden",
-  "gunatatohitrolls": "6/3/3",
-  "gunatadamagerating": 2,
-  "gunammunition": 7.0,
+  "gunatatohitrolls": "6/3/2",
+  "gundamagerating": "6/6",
+  "gunammunition": 4.0,
   "gunsightmodifiers": { "TT": 0, "HT": 1, "BT": 2 },
   "ataradarranging": "RE",
-  "lockon": 6,
-  "storeslimits": [ 2, 6, 4000 ],
+  "radar": {
+    "name": "APG-56",
+    "eccm": 0,
+    "arc": "Limited",
+    "searchrange": null,
+    "searchstrength": null,
+    "trackingrange": 12,
+    "trackingstrength": 6,
+    "lockon": 6
+  },
+  "ecm": { "iff": true },
+  "storeslimits": [ 2, 6, 5000 ],
+  "stations": [
+    [ "pair"     , [ 1, 4 ]       , 1500, [ "BB", "FT" ] ],
+    [ "pair"     , [ 2, 3 ]       , 1000, [ "BB", "FT", "IRM" ] ],
+    [ "grouppair", [ 5, 8, 9, 12 ],  280, [ "RK" ] ]
+  ],
+  "loadnotes": [
+    "Either stations 1 to 4 or stations 5 to 12 can be used.",
+    "May use 400L and 700L FTs.",
+    "From 1960, may use AIM-9B IRMs.",
+    "From 1962, stations 5 to 12 may each carry three SURA 80R RKs."
+  ],
+  "VPs": [ 12, 8, 4, 2 ],
   // Note: Not HTD.
-  "properties": []
+  "properties": [],
+  "notes": [],
+  "wikiurl": "https://bit.ly/3Z9ypRG"
 }

@@ -1,0 +1,7 @@
+{
+  "base": "F-105D",
+  "origin": "TSOH",
+  "variantname": "Thunderstick II",
+  "variantdescription": "with AN/ARN-92 LORAN system for bombing at night or in bad weather.",
+  "bombsystem": "Ballistic"
+}

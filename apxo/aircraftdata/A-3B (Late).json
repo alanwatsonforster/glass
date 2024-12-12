@@ -1,0 +1,11 @@
+{
+  "versionname": "A-3B",
+  "variantname": "Late",
+  "variantdescription": "with ECM tail.",
+  "base": "A-3B (Early)",
+  "crew": [ "Pilot", "Bombardier-Navigator", "EW Officer" ],
+  "ecm": { "iff": true, "dds": "A", "rwr": "A", "djm": "B3", "ajm": "A3" },
+  "notes": [
+    "The DDS has 120 CH or 90 CH and 30 FL."
+  ]
+}

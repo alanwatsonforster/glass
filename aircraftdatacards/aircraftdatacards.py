@@ -1,7 +1,9 @@
-#!/bin/env python3
+#!/usr/bin/env python3
 
 import re
 import sys
+import os
+import json
 
 sys.path.append("..")
 from apxo import aircraftdata
@@ -18,7 +20,8 @@ elif version == 3:
 
 
 def log(s):
-    print("adc: %s" % s)
+    print("aircraftdatacards: %s: %s" % (os.path.basename(jsonfilename), s))
+    sys.stdout.flush()
 
 
 def writelatex(s):
@@ -31,42 +34,61 @@ def latexify(s):
     return s
 
 
-def blockA(data):
+def blockA(data, geometry=None):
 
     def crew():
         if len(data.crew()) == 1:
             return data.crew()[0]
         elif len(data.crew()) == 2:
-            return data.crew()[0] + r" \& " + data.crew()[1]
+            return data.crew()[0] + r" and " + data.crew()[1]
         else:
-            return ", ".join(data.crew()[0:-1]) + r", \& " + data.crew()[-1]
+            return ", ".join(data.crew()[0:-1]) + r", and " + data.crew()[-1]
 
-    name = data.name()
-    splitname = re.sub(
-        r"\s+(([A-Z][a-z]+([-\s][A-Z][a-z]*)?(\s+II)?)|([A-Z]+\.[0-9]+))(\s\([^)]*\))?$",
+    if geometry is None:
+        writelatex(r"\renewcommand{\Aaa}{%s}" % data.fullvariantname())
+    else:
+        writelatex(r"\renewcommand{\Aaa}{%s --- %s geometry}" % (data.fullvariantname(), geometry))
+
+    splitfullname = re.sub(
+        r"\s+(([A-Z][a-z]+([-\s][A-Z][a-z]*)?(\s+II)?)|([A-Za-z]+\.[0-9]+))$",
         r"\\\\\1",
-        name,
+        data.fullname(),
     )
-    variant = re.sub(
-        r"([^(]*)(\([^)]*\))?$",
-        r"\2",
-        name,
-    )
-    if variant != "":
-        splitname = splitname + r"\\" + variant
-    writelatex(r"\renewcommand{\Aaa}{%s}" % name)
-    writelatex(r"\renewcommand{\Aab}{%s}" % splitname)
+    writelatex(r"\renewcommand{\Aab}{%s}" % splitfullname)
 
-    if len(data.crew()) > 6:
+    if len(data.crew()) >= 7:
         writelatex(r"\renewcommand{\Aba}{\tiny}")
+    elif len(data.crew()) >= 5:
+        writelatex(r"\renewcommand{\Aba}{\footnotesize}")
     else:
         writelatex(r"\renewcommand{\Aba}{\small}")
     writelatex(r"\renewcommand{\Abb}{%s}" % crew())
 
-    if data.power("CL", "M") is None:
-        writelatex(r"\renewcommand{\Ac}{%s}" % (data.engines() * r"\propellerengine"))
+    if data.propellerengines() == 0 and data.jetengines() <= 4:
+        writelatex(
+            r"\renewcommand{\Ac}{\Acone{%s}}" % (data.jetengines() * r"\jetengine")
+        )
+    elif data.propellerengines() == 0:
+        writelatex(
+            r"\renewcommand{\Ac}{\Actwo{%s}{%s}}"
+            % (
+                ((data.jetengines() // 2) * r"\jetengine"),
+                ((data.jetengines() // 2) * r"\jetengine"),
+            )
+        )
+    elif data.jetengines() == 0:
+        writelatex(
+            r"\renewcommand{\Ac}{\Acone{%s}}"
+            % (data.propellerengines() * r"\propellerengine")
+        )
     else:
-        writelatex(r"\renewcommand{\Ac}{%s}" % (data.engines() * r"\jetengine"))
+        writelatex(
+            r"\renewcommand{\Ac}{\Actwo{%s}{%s}}"
+            % (
+                (data.jetengines() * r"\jetengine"),
+                (data.propellerengines() * r"\propellerengine"),
+            )
+        )
 
     def power(configuration, setting):
         if data.power(configuration, setting) is None:
@@ -125,8 +147,8 @@ def blockA(data):
         r"\renewcommand{\Af}{%s}" % (fuelrate("N")),
     )
     writelatex(
-        r"\renewcommand{\Aga}{%s}\renewcommand{\Agb}{%s}\renewcommand{\Agc}{%s}"
-        % (power("CL", "I"), power("1/2", "I"), power("DT", "I")),
+        r"\renewcommand{\Aga}{%s}\renewcommand{\Agb}{%s}\renewcommand{\Agc}{%s}\renewcommand{\Agd}{%s}"
+        % (power("CL", "I"), power("1/2", "I"), power("DT", "I"), fuelrate("I")),
     )
     writelatex(
         r"\renewcommand{\Aha}{%s}\renewcommand{\Ahb}{%s}\renewcommand{\Ahc}{%s}"
@@ -134,7 +156,7 @@ def blockA(data):
     )
 
     s = ""
-    if data.hasproperty("SMP"):
+    if data.hasproperty("SMP", geometry):
         s += "Smoker in military power. "
     if data.powerfade(100, 0) is not None:
         lastpowerfade = 0.0
@@ -160,15 +182,15 @@ def blockA(data):
                 )
             lastpowerfade = powerfade
             altitude += 1
-    if data.hasproperty("ABSF"):
-        s += "If not in AB power, reduce maximum speeds by %.1f." % data.ABSFamount()
+    if data.hasproperty("ABSF", geometry):
+        s += "If not using AB, reduce maximum speeds by %.1f." % data.ABSFamount(geometry)
 
     writelatex(
         r"\renewcommand{\Ai}{%s}" % s,
     )
 
 
-def blockB(data):
+def blockB(data, geometry=None):
 
     def arcs(arcs):
         if len(arcs) == 0:
@@ -205,7 +227,14 @@ def blockB(data):
         raise RuntimeError("unknown ejection seat type %r" % data.ejectionseat())
 
 
-def blockC(data):
+def blockC(data, geometry=None):
+
+    def rollhfp():
+        value = data.rollhfp()
+        if value == None:
+            return "---"
+        else:
+            return r"%.1f" % value
 
     def maneuverdrag(maneuvertype):
         value = data.rolldrag(maneuvertype)
@@ -224,49 +253,53 @@ def blockC(data):
             else:
                 return "%.2f" % value
 
-        drag = data.turndrag(configuration, turnrate)
+        drag = data.turndrag(configuration, geometry, turnrate)
         if drag is None:
             return "---"
         if data.lowspeedliftdevicename() is None:
             return formatdrag(drag)
         else:
             lowspeedliftdevicedrag = data.turndrag(
-                configuration, turnrate, lowspeedliftdevice=True
+                configuration, geometry, turnrate, lowspeedliftdevice=True
             )
             return "%s/%s" % (formatdrag(drag), formatdrag(lowspeedliftdevicedrag))
 
-    writelatex(r"\renewcommand{\Ca}{%s}" % maneuverdrag("DR"))
+    if version == 3:
+        writelatex(r"\renewcommand{\Caa}{}")
+    else:
+        writelatex(r"\renewcommand{\Caa}{%s}" % rollhfp())
+    writelatex(r"\renewcommand{\Cab}{%s}" % maneuverdrag("DR"))
     writelatex(r"\renewcommand{\Cb}{%s}" % maneuverdrag("VR"))
 
     precision = 0
     values = [
-        data.turndrag("CL", "TT"),
-        data.turndrag("1/2", "TT"),
-        data.turndrag("DT", "TT"),
-        data.turndrag("CL", "HT"),
-        data.turndrag("1/2", "HT"),
-        data.turndrag("DT", "HT"),
-        data.turndrag("CL", "BT"),
-        data.turndrag("1/2", "BT"),
-        data.turndrag("DT", "BT"),
-        data.turndrag("CL", "ET"),
-        data.turndrag("1/2", "ET"),
-        data.turndrag("DT", "ET"),
+        data.turndrag("CL", geometry, "TT"),
+        data.turndrag("1/2", geometry, "TT"),
+        data.turndrag("DT", geometry, "TT"),
+        data.turndrag("CL", geometry, "HT"),
+        data.turndrag("1/2", geometry, "HT"),
+        data.turndrag("DT", geometry, "HT"),
+        data.turndrag("CL", geometry, "BT"),
+        data.turndrag("1/2", geometry, "BT"),
+        data.turndrag("DT", geometry, "BT"),
+        data.turndrag("CL", geometry, "ET"),
+        data.turndrag("1/2", geometry, "ET"),
+        data.turndrag("DT", geometry, "ET"),
     ]
-    if data.lowspeedliftdevicename():
+    if data.lowspeedliftdevicename() is not None:
         values += [
-            data.turndrag("CL", "TT", lowspeedliftdevice=True),
-            data.turndrag("1/2", "TT", lowspeedliftdevice=True),
-            data.turndrag("DT", "TT", lowspeedliftdevice=True),
-            data.turndrag("CL", "HT", lowspeedliftdevice=True),
-            data.turndrag("1/2", "HT", lowspeedliftdevice=True),
-            data.turndrag("DT", "HT", lowspeedliftdevice=True),
-            data.turndrag("CL", "BT", lowspeedliftdevice=True),
-            data.turndrag("1/2", "BT", lowspeedliftdevice=True),
-            data.turndrag("DT", "BT", lowspeedliftdevice=True),
-            data.turndrag("CL", "ET", lowspeedliftdevice=True),
-            data.turndrag("1/2", "ET", lowspeedliftdevice=True),
-            data.turndrag("DT", "ET", lowspeedliftdevice=True),
+            data.turndrag("CL", geometry, "TT", lowspeedliftdevice=True),
+            data.turndrag("1/2", geometry, "TT", lowspeedliftdevice=True),
+            data.turndrag("DT", geometry, "TT", lowspeedliftdevice=True),
+            data.turndrag("CL", geometry, "HT", lowspeedliftdevice=True),
+            data.turndrag("1/2", geometry, "HT", lowspeedliftdevice=True),
+            data.turndrag("DT", geometry, "HT", lowspeedliftdevice=True),
+            data.turndrag("CL", geometry, "BT", lowspeedliftdevice=True),
+            data.turndrag("1/2", geometry, "BT", lowspeedliftdevice=True),
+            data.turndrag("DT", geometry, "BT", lowspeedliftdevice=True),
+            data.turndrag("CL", geometry, "ET", lowspeedliftdevice=True),
+            data.turndrag("1/2", geometry, "ET", lowspeedliftdevice=True),
+            data.turndrag("DT", geometry, "ET", lowspeedliftdevice=True),
         ]
     for value in values:
         if value is None:
@@ -322,38 +355,38 @@ def blockC(data):
             s += r"%.1f," % data.lowspeedliftdevicelimit()
         else:
             s += r"minimum + %.1f," % data.lowspeedliftdevicelimit()
-        if data.lowspeedliftdeviceselectable():
-            s += r" use higher drag and reduce minimum speeds by 0.5."
-        else:
+        if data.lowspeedliftdeviceminspeedchange() is None:
             s += r" use higher drag."
-    if data.hasproperty("NRM"):
+        else:
+            s += r" use higher drag and reduce minimum speeds by %.1f." % data.lowspeedliftdeviceminspeedchange()
+    if data.hasproperty("NRM", geometry):
         s += r"No rolling maneuvers allowed."
-    if data.hasproperty("OVR"):
+    if data.hasproperty("OVR", geometry):
         s += r"Only one vertical roll allowed per game turn."
     if (
-        data.hasproperty("NDRHS")
-        and data.hasproperty("NDRHS")
-        and data.NDRHSlimit() == data.NDRHSlimit()
+        data.hasproperty("NDRHS", geometry)
+        and data.hasproperty("NDRHS", geometry)
+        and data.NDRHSlimit(geometry) == data.NDRHSlimit(geometry)
     ):
-        s += r"No lag or displacement rolls if speed $\ge$ %.1f. " % data.NDRHSlimit()
+        s += r"No lag or displacement rolls if speed $\ge$ %.1f. " % data.NDRHSlimit(geometry)
     else:
-        if data.hasproperty("NDRHS"):
-            s += r"No displacement rolls if speed $\ge$ %.1f. " % data.NDRHSlimit()
-        if data.hasproperty("NLRHS"):
-            s += r"No lag rolls if speed $\ge$ %.1f. " % data.NLRHSlimit()
+        if data.hasproperty("NDRHS", geometry):
+            s += r"No displacement rolls if speed $\ge$ %.1f. " % data.NDRHSlimit(geometry)
+        if data.hasproperty("NLRHS", geometry):
+            s += r"No lag rolls if speed $\ge$ %.1f. " % data.NLRHSlimit(geometry)
 
     writelatex(r"\renewcommand{\Cg}{%s}" % s)
 
 
-def blockD(data):
+def blockD(data, geometry=None):
 
     def speeds(configuration, altitudeband):
-        if data.minspeed(configuration, altitudeband) is None:
+        if data.minspeed(configuration, geometry, altitudeband) is None:
             return "---"
         else:
             return r"\blockDminmaxspeed{%.1f}{%.1f}" % (
-                data.minspeed(configuration, altitudeband),
-                data.maxspeed(configuration, altitudeband),
+                data.minspeed(configuration, geometry, altitudeband),
+                data.maxspeed(configuration, geometry, altitudeband),
             )
 
     def divespeed(altitudeband):
@@ -425,18 +458,18 @@ def blockD(data):
         )
     )
 
-    if data.maxspeed("CL", "EH") is not None:
-        writelatex(r"\renewcommand{\Dba}{%.1f}" % data.maxspeed("CL", "EH"))
-    elif data.maxspeed("CL", "VH") is not None:
-        writelatex(r"\renewcommand{\Dba}{%.1f}" % data.maxspeed("CL", "VH"))
-    elif data.maxspeed("CL", "HI") is not None:
-        writelatex(r"\renewcommand{\Dba}{%.1f}" % data.maxspeed("CL", "HI"))
-    elif data.maxspeed("CL", "MH") is not None:
-        writelatex(r"\renewcommand{\Dba}{%.1f}" % data.maxspeed("CL", "MH"))
-    elif data.maxspeed("CL", "ML") is not None:
-        writelatex(r"\renewcommand{\Dba}{%.1f}" % data.maxspeed("CL", "ML"))
+    if data.maxspeed("CL", geometry, "EH") is not None:
+        writelatex(r"\renewcommand{\Dba}{%.1f}" % data.maxspeed("CL", geometry, "EH"))
+    elif data.maxspeed("CL", geometry, "VH") is not None:
+        writelatex(r"\renewcommand{\Dba}{%.1f}" % data.maxspeed("CL", geometry, "VH"))
+    elif data.maxspeed("CL", geometry, "HI") is not None:
+        writelatex(r"\renewcommand{\Dba}{%.1f}" % data.maxspeed("CL", geometry, "HI"))
+    elif data.maxspeed("CL", geometry, "MH") is not None:
+        writelatex(r"\renewcommand{\Dba}{%.1f}" % data.maxspeed("CL", geometry, "MH"))
+    elif data.maxspeed("CL", geometry, "ML") is not None:
+        writelatex(r"\renewcommand{\Dba}{%.1f}" % data.maxspeed("CL", geometry, "ML"))
     else:
-        writelatex(r"\renewcommand{\Dba}{%.1f}" % data.maxspeed("CL", "LO"))
+        writelatex(r"\renewcommand{\Dba}{%.1f}" % data.maxspeed("CL", geometry, "LO"))
 
     if data.maxdivespeed("EH") is not None:
         writelatex(r"\renewcommand{\Dbb}{%.1f}" % data.maxdivespeed("EH"))
@@ -452,7 +485,7 @@ def blockD(data):
         writelatex(r"\renewcommand{\Dbb}{%.1f}" % data.maxdivespeed("LO"))
 
 
-def blockE(data):
+def blockE(data, geometry=None):
 
     def climbcapability(configuration, altitudeband, powersetting):
         value = data.climbcapability(configuration, altitudeband, powersetting)
@@ -578,34 +611,67 @@ def blockE(data):
     )
 
 
-def blockF(data):
+def blockF(data, geometry=None):
 
     if data.radar() is None:
-        writelatex(r"\renewcommand{\Fa}{None}")
+        # no radar
+        writelatex(r"\renewcommand{\Fa}{---}")
         writelatex(r"\renewcommand{\Fb}{---}")
         writelatex(r"\renewcommand{\Fc}{---}")
         writelatex(r"\renewcommand{\Fd}{---}")
         writelatex(r"\renewcommand{\Fe}{---}")
-    else:
+        writelatex(r"\renewcommand{\Ff}{---}")
+    elif data.radar("arc") is None:
+        # ranging only radar
+        writelatex(r"\renewcommand{\Fa}{%s}" % data.radar("name"))
+        writelatex(r"\renewcommand{\Fb}{---}")
+        writelatex(r"\renewcommand{\Fc}{---}")
+        writelatex(r"\renewcommand{\Fd}{---}")
+        writelatex(r"\renewcommand{\Fe}{---}")
+        writelatex(r"\renewcommand{\Ff}{%d}" % data.radar("lockon"))
+    elif data.radar("lockon") is None:
+        # air-to-ground radar
         writelatex(r"\renewcommand{\Fa}{%s}" % data.radar("name"))
         writelatex(r"\renewcommand{\Fb}{%d}" % data.radar("eccm"))
-        writelatex(r"\renewcommand{\Fd}{%s}" % data.radar("arc"))
-        if data.radar("searchstrength") is None:
-            writelatex(r"\renewcommand{\Fd}{---}")
-        else:
-            writelatex(
-                r"\renewcommand{\Fd}{%d--%d}"
-                % (data.radar("searchrange"), data.radar("searchstrength"))
-            )
-            writelatex(
-                r"\renewcommand{\Fd}{%d--%d}"
-                % (data.radar("trackingrange"), data.radar("trackingstrength"))
-            )
-
-    if data.lockon() is None:
-        writelatex(r"\renewcommand{\Ff}{---}")
+        writelatex(r"\renewcommand{\Fc}{$\mathrm{%s}$}" % data.radar("arc"))
+        writelatex(r"\renewcommand{\Fd}{Gr.~Nav.~(%d)}" % data.radar("searchrange"))
+        writelatex(r"\renewcommand{\Fe}{}")
+        writelatex(r"\renewcommand{\Ff}{}")
+    elif data.radar("trackingstrength") is None:
+        # air-to-ground radar
+        writelatex(r"\renewcommand{\Fa}{%s}" % data.radar("name"))
+        writelatex(r"\renewcommand{\Fb}{%d}" % data.radar("eccm"))
+        writelatex(r"\renewcommand{\Fc}{$\mathrm{%s}$}" % data.radar("arc"))
+        writelatex(r"\renewcommand{\Fd}{Gr.~Nav.~(%d)}" % data.radar("searchrange"))
+        writelatex(
+            r"\renewcommand{\Fe}{Gr.~Attack~ (%d)}" % data.radar("trackingrange")
+        )
+        writelatex(r"\renewcommand{\Ff}{\phantom{*}%d*}" % data.radar("lockon"))
+    elif data.radar("searchstrength") is None:
+        # air-to-air radar without normal search capability
+        writelatex(r"\renewcommand{\Fa}{%s}" % data.radar("name"))
+        writelatex(r"\renewcommand{\Fb}{%d}" % data.radar("eccm"))
+        writelatex(r"\renewcommand{\Fc}{$\mathrm{%s}$}" % data.radar("arc"))
+        writelatex(r"\renewcommand{\Fd}{---}")
+        writelatex(
+            r"\renewcommand{\Fe}{%d--%d}"
+            % (data.radar("trackingrange"), data.radar("trackingstrength"))
+        )
+        writelatex(r"\renewcommand{\Ff}{%d}" % data.radar("lockon"))
     else:
-        writelatex(r"\renewcommand{\Ff}{%d}" % data.lockon())
+        # air-to-air radar with normal search capability
+        writelatex(r"\renewcommand{\Fa}{%s}" % data.radar("name"))
+        writelatex(r"\renewcommand{\Fb}{%d}" % data.radar("eccm"))
+        writelatex(r"\renewcommand{\Fc}{$\mathrm{%s}$}" % data.radar("arc"))
+        writelatex(
+            r"\renewcommand{\Fd}{%d--%d}"
+            % (data.radar("searchrange"), data.radar("searchstrength"))
+        )
+        writelatex(
+            r"\renewcommand{\Fe}{%d--%d}"
+            % (data.radar("trackingrange"), data.radar("trackingstrength"))
+        )
+        writelatex(r"\renewcommand{\Ff}{%d}" % data.radar("lockon"))
 
     if data.gun() is None:
         writelatex(r"\renewcommand{\Fg}{---}")
@@ -614,17 +680,19 @@ def blockF(data):
         writelatex(r"\renewcommand{\Fl}{---}")
     else:
         s = data.gun()
-        s = re.sub(r" and ", r" \& ", s)
+        if " and " in s:
+            prefix = r"\parbox{\linewidth}{\centering\scriptsize "
+            suffix = r"}"
+            s = re.sub(r"and one", r"\\\\One", s)
+            s = re.sub(r"and two", r"\\\\Two", s)
+            s = re.sub(r"and three", r"\\\\Three", s)
+            s = re.sub(r"and four", r"\\\\Four", s)
+        else:
+            prefix = ""
+            suffix = ""
         s = re.sub(r"\. ", r".~", s)
-        if len(s) > 35:
-            s = r"\tiny " + s
-        elif len(s) > 30:
-            s = r"\notsotiny " + s
-        elif len(s) > 25:
-            s = r"\scriptsize " + s
-        elif len(s) > 20:
-            s = r"\footnotesize " + s
-        writelatex(r"\renewcommand{\Fg}{%s}" % s)
+        s = re.sub(r" mm", r"~mm", s)
+        writelatex(r"\renewcommand{\Fg}{%s%s%s}" % (prefix, s, suffix))
         if data.gunatatohitroll(2) is None:
             writelatex(
                 r"\renewcommand{\Fh}{%d/%d/--}"
@@ -645,7 +713,15 @@ def blockF(data):
             % (data.gunatadamagerating(), data.gunatgdamagerating())
         )
 
-    writelatex(r"\renewcommand{\Fm}{%s}" % data.bombsystem())
+    s = data.bombsystem()
+    if "/" in s:
+        prefix = r"\parbox{\linewidth}{\centering\scriptsize "
+        suffix = r"}"
+        s = re.sub(r"/", r"\\\\", s)
+    else:
+        prefix = ""
+        suffix = ""
+    writelatex(r"\renewcommand{\Fm}{%s%s%s}" % (prefix, s, suffix))
 
     s = ""
     for turnrate in ["TT", "HT", "BT"]:
@@ -661,42 +737,94 @@ def blockF(data):
     else:
         writelatex(r"\renewcommand{\Fk}{%s}" % data.ataradarrangingtype())
 
-    if data.ecm("iff") is True:
-        writelatex(r"\renewcommand{\Fn}{Yes}")
-    else:
-        writelatex(r"\renewcommand{\Fn}{No}")
     if data.ecm("rwr") is not None:
-        writelatex(r"\renewcommand{\Fo}{%s}" % data.ecm("rwr"))
+        writelatex(r"\renewcommand{\Fn}{%s}" % data.ecm("rwr"))
+    else:
+        writelatex(r"\renewcommand{\Fn}{---}")
+    if data.ecm("dds") is not None:
+        writelatex(r"\renewcommand{\Fo}{%s}" % data.ecm("dds"))
     else:
         writelatex(r"\renewcommand{\Fo}{---}")
-    if data.ecm("dds") is not None:
-        writelatex(r"\renewcommand{\Fp}{%s}" % data.ecm("rwr"))
+    if data.ecm("djm") is not None:
+        writelatex(r"\renewcommand{\Fp}{%s}" % data.ecm("djm"))
     else:
         writelatex(r"\renewcommand{\Fp}{---}")
-    if data.ecm("djm") is not None:
-        writelatex(r"\renewcommand{\Fq}{%s}" % data.ecm("rwr"))
+    if data.ecm("ajm") is not None:
+        writelatex(r"\renewcommand{\Fq}{%s}" % data.ecm("ajm"))
     else:
         writelatex(r"\renewcommand{\Fq}{---}")
-    if data.ecm("ajm") is not None:
-        writelatex(r"\renewcommand{\Fr}{%s}" % data.ecm("rwr"))
+    if data.ecm("bjm") is not None:
+        writelatex(r"\renewcommand{\Fr}{%s}" % data.ecm("bjm"))
     else:
         writelatex(r"\renewcommand{\Fr}{---}")
 
-    if data.technology() is None:
-        writelatex(r"\renewcommand{\Fs}{None}")
+    technologylist = []
+    if data.ecm("iff") is True:
+        technologylist += ["IFF"]
+    if data.technology() is not None:
+        technologylist += data.technology()
+    if len(technologylist) == 0:
+        s = "None"
+    elif len(technologylist) == 1:
+        s = technologylist[0]
+    elif len(technologylist) == 2:
+        s = " and ".join(technologylist)
     else:
-        s = " ".join(data.technology())
-        writelatex(r"\renewcommand{\Fk}{%s}" % s)
+        s = ", ".join(technologylist[:-1]) + ", and " + technologylist[-1]
+    writelatex(r"\renewcommand{\Fs}{%s}" % s)
 
     s = ""
-    n = 1
 
-    for note in data.variantnotes():
-        s += "%d. %s\n\n" % (n, latexify(note))
-        n += 1
+    descriptiontext = ""
+    if data.description() is None:
+        if data.variantdescription() is None:
+            descriptiontext += r"This ADC describes the %s." % latexify(data.versionname())
+        else:
+            descriptiontext += r"This ADC describes the %s (%s) variant." % (latexify(data.versionname()), latexify(data.variantname()))
+    
+        if data.versiondescription() is not None:
+            descriptiontext += r" %s" % latexify(data.versiondescription())
+        if data.variantdescription() is not None:
+            descriptiontext += r" %s variant %s" % (
+                data.fullvariantname(),
+                latexify(data.variantdescription()),
+            )
+        if data.originallydesignated() is not None:
+            descriptiontext += " Originally designated %s." % (
+                latexify(data.originallydesignated())
+            )
+        if data.previouslydesignated() is not None:
+            descriptiontext += " Previously designated %s." % (
+                latexify(data.previouslydesignated())
+            )
+        if data.subsequentlydesignated() is not None:
+            descriptiontext += " Subsequently designated %s." % (
+                latexify(data.subsequentlydesignated())
+            )
+    else:
+        descriptiontext = data.description() 
 
-    if len(data.properties()) != 0:
-        for property in sorted(data.properties()):
+    if descriptiontext != "":
+        s += "\\item %s\n\n" % descriptiontext
+
+    if data.natoreportingnames() is not None:
+        s += "\\item %s\n\n" % data.natoreportingnames()
+        
+    if data.hasproperty("EVG", geometry):
+        s += "\\item Variable-geometry aircraft with allowed geometries of "
+        geometries = data.geometries()
+        if len(geometries) == 2:
+            s += geometries[0] + " and " + geometries[1]
+        else:
+            s += ", ".join(geometries[:-1])
+            s += ", and " + geometries[-1]
+        s += "."
+        if data.hasproperty("EVG1", geometry):
+            s += " Geometry may be changed by one step at the end of each turn."
+        s += " Data for %s geometry are shown here." % geometry
+
+    if len(data.properties(geometry)) != 0:
+        for property in sorted(data.properties(geometry)):
             if property == "ABSF" or property == "SMP":
                 # Noted in power section.
                 pass
@@ -708,9 +836,14 @@ def blockF(data):
             ):
                 # Noted in maneuver section.
                 pass
+            elif (
+                property == "EVG"
+                or property == "EVG1"
+            ):
+                # Noted immediately above.
+                pass
             else:
-                s += "%d. " % n
-                n += 1
+                s += r"\item "
                 if property == "GSSM":
                     s += r"Good supersonic maneuverability (GSSM). "
                 elif property == "HAE":
@@ -752,287 +885,217 @@ def blockF(data):
                 s += "\n\n"
 
     for note in data.notes():
-        s += "%d. %s\n\n" % (n, latexify(note))
-        n += 1
+        s += "\\item %s\n\n" % (latexify(note))
+
+    for note in data.typenotes():
+        s += "\\item %s\n\n" % (latexify(note))
+
+    for note in data.versionnotes():
+        s += "\\item %s\n\n" % (latexify(note))
+
+    for note in data.variantnotes():
+        s += "\\item %s\n\n" % (latexify(note))
 
     if data.wikiurl() is not None:
-        s += "%d. \\href{\\detokenize{%s}}{ADC page on GitHub}.\n\n" % (
-            n,
+        s += "\\item \\href{\\detokenize{%s}}{ADC page on GitHub}.\n\n" % (
             data.wikiurl(),
         )
-        n += 1
 
-    writelatex(r"\renewcommand{\Ft}{%s}" % s)
-
-
-def writeversion():
-    writelatex(r"\renewcommand{\V}{%d}" % version)
+    if s == "":
+        writelatex(r"\renewcommand{\Ft}{}")
+    else:
+        writelatex(r"\renewcommand{\Ft}{\Fta{%s}}" % s)
 
 
-def writecountry(name):
-    writelatex(r"\addtoccountry{%s}" % name)
+def blockG(data, geometry=None):
+
+    if not data.hasstoreslimits():
+        writelatex(r"\renewcommand{\Gba}{}")
+        writelatex(r"\renewcommand{\Gbb}{}")
+        writelatex(r"\renewcommand{\Gbc}{}")
+        writelatex(r"\renewcommand{\Gbd}{}")
+    elif version != 3:
+        writelatex(r"\renewcommand{\Gba}{\wbox[r]{00}{0}--%d}" % data.storeslimit("CL"))
+        writelatex(
+            r"\renewcommand{\Gbb}{\wbox[r]{00}{%d}--%d}"
+            % (data.storeslimit("CL") + 1, data.storeslimit("1/2"))
+        )
+        writelatex(
+            r"\renewcommand{\Gbc}{\wbox[r]{00}{%d}+}" % (data.storeslimit("1/2") + 1)
+        )
+        writelatex(r"\renewcommand{\Gbd}{%s}" % ("{:,}".format(data.storeslimit("DT"))))
+    else:
+        writelatex(
+            r"\renewcommand{\Gba}{$<\wbox[r]{00}{%d}$}" % (data.storeslimit("CL") + 1)
+        )
+        writelatex(
+            r"\renewcommand{\Gbb}{$<\wbox[r]{00}{%d}$}" % (data.storeslimit("1/2") + 1)
+        )
+        writelatex(
+            r"\renewcommand{\Gbc}{$\ge\wbox[r]{00}{%d}$}"
+            % (data.storeslimit("1/2") + 1)
+        )
+        writelatex(r"\renewcommand{\Gbd}{%s}" % ("{:,}".format(data.storeslimit("DT"))))
+
+    s = ""
+    for station in data.stations():
+        stationtype = station[0]
+        stationidentifiers = station[1]
+        stationlimit = station[2]
+        stationloads = station[3]
+        if stationtype == "single":
+            s += "%d" % stationidentifiers[0]
+        elif stationtype == "pair":
+            s += "%d and %d" % tuple(stationidentifiers)
+        elif stationtype == "group":
+            s += "%d--%d" % tuple(stationidentifiers)
+        elif stationtype == "grouppair":
+            s += "%d--%d and %d--%d" % tuple(stationidentifiers)
+        s += "&%s&%s\\\\\n" % (
+          "{:,}".format(stationlimit), 
+          r"\mbox{" + r"} \mbox{".join(stationloads) + r"}"
+        )
+    writelatex(r"\renewcommand{\Gca}{%s}" % s)
+
+    s = ""
+    for note in data.loadnotes():
+        s += "\\item %s\n\n" % (latexify(note))
+    if s == "":
+        writelatex(r"\renewcommand{\Gcb}{%s}" % s)
+    else:
+        writelatex(r"\renewcommand{\Gcb}{\Gcc{%s}}" % s)
+
+    if data.hasVPs():
+        writelatex(
+            r"\renewcommand{\Gda}{%d/%d/%d/%d}"
+            % (data.VPs("K"), data.VPs("C"), data.VPs("H"), data.VPs("L"))
+        )
+    else:
+        writelatex(r"\renewcommand{\Gda}{}")
+
+    writelatex(r"\renewcommand{\Gea}{%s}" % data.commitabbreviatedhash())
+    writelatex(r"\renewcommand{\Geb}{%s}" % data.commitdatetime())
+
+
+def writechapter(name, file=None):
+    log("writing chapter %s." % name)
+    writelatex(r"\twocolumn\chapter{%s}" % name)
+    if file is not None:
+        writelatex(r"\input %s" % file)
+    writelatex(r"\onecolumn")
 
 
 def writetype(name):
+    log("writing type %s." % name)
     writelatex(r"\addtoctype{%s}" % name)
 
 
 def writeadc(name):
 
-    log("making LaTeX ADC for %s." % name)
-    data = aircraftdata.aircraftdata(name)
-
+    log("writing variant %s." % name)
     writelatex("%% %s" % name)
 
-    blockA(data)
-    blockB(data)
-    blockC(data)
-    blockD(data)
-    blockE(data)
-    blockF(data)
-
-    writelatex(r"\adc")
-
-
-# We assign aircraft to counties according to the country of their
-# original manufacture. Hence, CAC and Avon Sabres are considered to be
-# Australian and Canadian aircraft.
-
-# We order aircraft types within country by date of delivery.
-
-latexfilename = "generated.tex"
-latexfile = open(latexfilename, "w")
-writeversion()
-
-writecountry("US Aircraft")
-
-writetype("F4U/AU Corsair") # 1942
-writeadc("F4U-5")
-writeadc("AU-1")
-
-writetype("B-26/A-26 Invader") # 1943
-writeadc("B-26B (Two Turrets)")
-writeadc("B-26B (One Turret)")
-writeadc("B-26B (No Turrets)")
-writeadc("B-26C (Two Turrets)")
-writeadc("B-26C (One Turret)")
-writeadc("B-26C (No Turrets)")
-writeadc("B-26K")
-writeadc("A-26A")
-
-writetype("B-29 Superfortress")  # 1944
-writeadc("B-29A")
-writeadc("RB-29A")
-
-writetype("P-80/F-80/AT-33 Shooting Star") # 1945
-writeadc("F-80C")
-writeadc("RF-80C")
-writeadc("AT-33A")
-
-writetype("AD/A-1 Skyraider") # 1946
-writeadc("AD-4")
-writeadc("AD-5")
-writeadc("A-1E")
-writeadc("AD-6")
-writeadc("A-1H")
-writeadc("AD-7")
-writeadc("A-1J")
-
-writecountry("British Aircraft")
-
-writetype("Meteor") # 1944
-writeadc("Meteor F.8")
-writeadc("Meteor FR.9")
-
-writetype("Sea Fury") # 1948
-writeadc("Sea Fury FB.11") 
-
-writecountry("Soviet Union Aircraft")
-
-writetype("Yak-9 Frank") # 1942
-writeadc("Yak-9D")
-
-writetype("Il-10 Beast") # 1944
-writeadc("Il-10")
-
-writetype("Tu-4 Bull") # 1947
-writeadc("Tu-4")
+    data = aircraftdata.aircraftdata(name)
+    
+    for geometry in data.geometries():
+        blockA(data, geometry=geometry)
+        blockB(data, geometry=geometry)
+        blockC(data, geometry=geometry)
+        blockD(data, geometry=geometry)
+        blockE(data, geometry=geometry)
+        blockF(data, geometry=geometry)
+        blockG(data, geometry=geometry)
+        writelatex(r"\adc")
 
 
-if False:
-
-    writetype("B-52 Stratofortress")  # 1954
-    writeadc("B-52D")
-    writeadc("B-52G")
-
-    writetype("A3D/A-3 Skywarrior")  # 1956
-    writeadc("A3D-2")
-    writeadc("A-3B")
-    writeadc("A3D-2Q")
-    writeadc("EA-3B")
-
-    writetype("F4H/F-4A Phantom II")  # 1959
-    writeadc("F-4B")
-    writeadc("RF-4B")
-    writeadc("F-4C")
-    writeadc("RF-4C")
-    writeadc("F-4E")
-    writeadc("F-4J")
-
-    writetype("F-5 Freedom Fighter \\& Tiger II")  # 1964
-    writeadc("F-5A")
-    writeadc("RF-5A")
-    writeadc("F-5C")
-
-    writetype("Harrier \\& Sea Harrier")  # 1969
-    writeadc("Sea Harrier FRS.1")
-    writeadc("Sea Harrier FRS.2")
-    writeadc("Sea Harrier FA.2")
-
-    writetype("Canberra")  # 1954
-    writeadc("B-57B-early")
-    writeadc("B-57B")
-    writeadc("B-57G")
+def writelatexprolog():
+    writelatex(
+        r"""
+    \documentclass[twocolumn]{report}
+    \input aircraftdatacards.tex
+    \newif\ifversionone\versiononefalse
+    \newif\ifversiontwo\versiontwofalse
+    \newif\ifversionthree\versionthreefalse
+    \version%strue
+    \begin{document}
+    \tableofcontents
+    \onecolumn
+    \newpage
+    """
+        % ["one", "two", "three"][version - 1]
+    )
 
 
-    writetype("MiG-21")  # 1959
-    writeadc("MiG-21F-13")
-    writeadc("MiG-21F")
-    writeadc("MiG-21M")
-    writeadc("MiG-21MF")
-    writeadc("MiG-21PFMA")
+def writelatexepilog():
+    writelatex(
+        r"""
+    \end{document}
+    """
+    )
 
-    writecountry("Unsorted Aircraft")
 
-    writetype("A-27 Dragonfly")
-    writeadc("A-37B")
-    writeadc("OA-37B")
-    writeadc("T-37C")
+def readjsonfile(jsonfilename):
+    log("reading %s." % os.path.basename(jsonfilename))
+    with open(jsonfilename, "r", encoding="utf-8") as f:
+        s = f.read(-1)
+        # Strip initial #! line.
+        if s[:2] == "#!":
+            r = re.compile("^#.*$", re.MULTILINE)
+            s = re.sub(r, "", s)
+        # Strip whole-line // comments.
+        r = re.compile("^[ \t]*//.*$", re.MULTILINE)
+        s = re.sub(r, "", s)
+        directives = json.loads(s)
+    log("finished reading %s." % os.path.basename(jsonfilename))
 
-    writetype("F-86 Sabre")
-    writeadc("F-86A")
-    writeadc("F-86D")
-    writeadc("F-86E")
-    writeadc("F-86F-25")
-    writeadc("F-86F-35")
-    writeadc("F-86F-40")
-    writeadc("F-86F")
-    writeadc("F-86H Early")
-    writeadc("F-86H Late")
-    writeadc("F-86K Early")
-    writeadc("F-86K Late")
-    writeadc("F-86L")
-    writeadc("Sabre 5")
-    writeadc("Sabre 6")
-    writeadc("Avon Sabre Mk.31")
-    writeadc("Avon Sabre Mk.32")
+    return directives
 
-    writetype("B-66 Destroyer")
-    writeadc("B-66B")
-    writeadc("EB-66C")
-    writeadc("RB-66C")
 
-    writetype("F-100 Super Sabre")
-    writeadc("F-100A")
-    writeadc("F-100C")
-    writeadc("F-100D")
-    writeadc("F-100F")
+def writelatexfile(latexfilename, directives):
+    log("writing %s." % os.path.basename(latexfilename))
+    global latexfile
+    latexfile = open(latexfilename, "w")
+    writelatexprolog()
+    for directive in directives:
+        if directive[0] == "type":
+            writetype(directive[1])
+            for variant in directive[2:]:
+                writeadc(variant)
+        elif directive[0] == "chapter":
+            if len(directive) == 2:
+                writechapter(directive[1])
+            else:
+                writechapter(directive[1], directive[2])
+        else:
+            raise RuntimeError("invalid directive %r." % directive)
+    writelatexepilog()
+    latexfile.close()
+    log("finished writing %s." % os.path.basename(latexfilename))
 
-    writetype("F-102 Delta Dart")
-    writeadc("F-102A")
 
-    writetype("F-104 Star Fighter")
-    writeadc("F-104A+")
-    writeadc("F-104A")
-    writeadc("F-104B")
-    writeadc("F-104C")
-    writeadc("F-104D")
+def makepdffile(latexfilename, pdffilename):
+    log("making %s." % pdffilename)
+    os.system(
+        "xelatex "
+        + latexfilename
+        + " >aircraftdatacard.log 2>&1 || cat aircraftdatacard.log"
+    )
+    log("finished making %s." % pdffilename)
+    log("opening %s." % pdffilename)
+    os.system("open %s" % pdffilename)
 
-    writetype("F-105 Thunderchief")
-    writeadc("F-105B")
-    writeadc("F-105D")
 
-    writetype("F-16 Fighting Falcon \\& Viper")
-    writeadc("F-16A-1")
-    writeadc("F-16A-10")
-    writeadc("F-16A-15")
-    writeadc("F-16A-5")
+for jsonfilename in sys.argv[1:]:
 
-    writetype("P-51/F-51 Mustang")
-    writeadc("F-51D")
-    writeadc("RF-51D")
+    r = re.compile(r"\.json$")
+    latexfilename = re.sub(r, ".tex", jsonfilename)
+    pdffilename = re.sub(r, ".pdf", jsonfilename)
 
-    writetype("F-84 Thundejet")
-    writeadc("F-84E")
-    writeadc("F-84G")
+    directives = readjsonfile(jsonfilename)
+    writelatexfile(latexfilename, directives)
+    makepdffile(latexfilename, pdffilename)
 
-    writetype("F-89 Scorpion")
-    writeadc("F-89D")
-    writeadc("F-89H")
-    writeadc("F-89J Long-Range")
-    writeadc("F-89J")
+    log("finished.")
 
-    writetype("F8U/F-8 Crusader")
-    writeadc("F-8E")
-    writeadc("F-8J")
 
-    writetype("F-94 Starfire")
-    writeadc("F-94A")
-    writeadc("F-94B")
-
-    writetype("F2H Banshee")
-    writeadc("F2H-2")
-    writeadc("F2H-2B")
-    writeadc("F2H-2P")
-    writeadc("F2H-3")
-    writeadc("F2H-4")
-
-    writetye("F7U Cutlass")
-    writeadc("F7U-3")
-    writeadc("F7U-3M")
-
-    writetype("F9F Panther")
-    writeadc("F9F-2")
-    writeadc("F9F-2P")
-    writeadc("F9F-5")
-    writeadc("F9F-5P")
-
-    writetype("Il-28 Beagle")
-    writeadc("Il-28")
-
-    writetype("MiG-15 Fagot")
-    writeadc("MiG-15ISh")
-    writeadc("MiG-15P")
-    writeadc("MiG-15bis")
-
-    writetype("MiG-17 Fresco")
-    writeadc("MiG-17F")
-    writeadc("MiG-17PF")
-    writeadc("MiG-17PFU")
-
-    writetype("MiG-19 Farmer")
-    writeadc("MiG-19PF")
-    writeadc("MiG-19PM")
-    writeadc("MiG-19SF-CS")
-    writeadc("MiG-19SF")
-
-    # writeadc("HH-53C")
-    # writeadc("O-1E")
-    # writeadc("O-2A")
-
-    writetype("Sea Fury")
-    writeadc("Sea Fury FB.11")
-
-    writetype("Su-9/11 Fishpot")
-    writeadc("Su-9")
-    writeadc("Su-11")
-
-    writetype("TU-16 Badger")
-    writeadc("Tu-16A")
-    writeadc("Tu-16K")
-    writeadc("Tu-16KS")
-
-    writetype("Yak-9 Frank")
-    writeadc("Yak-9D")
-
-latexfile.close()
+sys.exit(0)

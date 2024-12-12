@@ -1,0 +1,13 @@
+{
+  "versionname": "Il-28N",
+  "versiondescription": "Nuclear strike version.",
+  "base": "Il-28",
+  "storeslimits": [ 4, 8, 6600 ],
+  "stations": [
+    [ "pair"  , [ 1, 3 ], 1800, [ "FT" ] ],
+    [ "single", [ 2 ]   , 4400, [ ] ]
+  ],
+  "loadnotes": [
+    "Station 2 is the internal bomb bay. It may only carry one RDS-4 nuclear bomb (weight 2650 and load 4.5)."
+  ]
+}

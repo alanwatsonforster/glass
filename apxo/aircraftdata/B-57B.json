@@ -1,14 +1,16 @@
 {
-  "name": "B-57B Canberra",
+  "versionname": "B-57B",
+  "versiondescription": "Tactical bomber version.",
+  "popularname": "Canberra",
   "origin": "TSOH",
   "crew": [ "Pilot", "Weapons Officer" ],
   "powertable": {
     "M"   : [ 1.0, 1.0, 0.5, 3.0 ],
     "N"   : [ 0.0, 0.0, 0.0, 1.0 ],
-    "I"   : [ 0.5, 0.5, 0.5, 2.0 ],
-    "SPBR": [ 1.0, 1.0, 2.0 ]
+    "I"   : [ 0.5, 0.5, 1.0, 0.0 ],
+    "SPBR": [ 0.5, 0.5, 1.0 ]
   },
-  "engines": 2,
+  "jetengines": 2,
   "cruisespeed": 4.5,
   "climbspeed" : 3.5,
   "visibility": 8,
@@ -35,7 +37,7 @@
     "VH": [ [ 2.5, 5.5 ], [ 3.0, 5.0 ], [ "-", "-" ], 6.0 ],
     "HI": [ [ 2.5, 5.5 ], [ 2.5, 5.5 ], [ 3.0, 5.0 ], 6.5 ],
     "MH": [ [ 2.0, 5.0 ], [ 2.5, 5.0 ], [ 2.5, 5.0 ], 6.5 ],
-    "ML": [ [ 2.0, 5.0 ], [ 2.5, 5.0 ], [ 2.5, 4.5 ], 6.5 ],
+    "ML": [ [ 2.0, 5.0 ], [ 2.0, 5.0 ], [ 2.5, 4.5 ], 6.5 ],
     "LO": [ [ 1.5, 5.0 ], [ 2.0, 5.0 ], [ 2.0, 4.5 ], 6.5 ]
   },
   "climbcapabilitytable": {
@@ -46,13 +48,36 @@
     "ML": [ [ "-", 1.0 ], [ "-", 1.0 ], [ "-", 0.5 ] ],
     "LO": [ [ "-", 1.0 ], [ "-", 1.0 ], [ "-", 1.0 ] ]
   },
+  "radar": {
+    "name": "APW-11",
+    "eccm": 0,
+    "arc": "180+",
+    "searchrange": 90,
+    "trackingrange": 30,
+    "lockon": 7
+  },
   "gun": "Four 20 mm M39",
   "gunatatohitrolls": "4/2/1",
-  "gunatadamagerating": 5,
+  "gundamagerating": "5/7*",
   "gunammunition": 8.0,
   "gunsightmodifiers": { "TT": 1, "HT": 2, "BT": 3 },
-  "storeslimits": [ 8, 15, 12000 ],
+  "bombingsystem": "Ballistic",
+  "ecm": { "iff": true },
   "properties": [ "HTD", "LRR", "OVR" ],
   "notes": [
-  ]
+    "Tail Warning Radar. APS-54 with ECCM of 0, arc of $30-$, and search capability of 30--10. The radar has no tracking capability."
+  ],
+  "wikiurl": "https://bit.ly/40Xb0nW",
+  "storeslimits": [ 8, 15, 12000 ],
+  "stations": [
+    [ "pair"     , [ 1, 11 ]      , 2200, [ "FT" ] ],
+    [ "grouppair", [ 2, 3, 9, 10 ],  250, [ "BB", "RP", "RK" ] ],
+    [ "grouppair", [ 4, 5, 7, 8 ] ,  750, [ "BB", "RP", "RK" ] ],
+    [ "single"   , [ 6 ]          , 6000, [ "BB" ] ]
+  ],
+  "loadnotes": [
+    "Station 6 is the internal bomb bay. It can carry six illumination flares and either (a) six 1,000 lb BB, (b) eight 750 lb BB, (c) nine 500 lb BB, or (d) twelve 250 lb BB. All BB must be HE type.",
+    "Stations 2 to 5 and 7 to 10 can each carry two RKs."
+  ],
+  "VPs": [ 16, 10, 6, 3 ]
 }

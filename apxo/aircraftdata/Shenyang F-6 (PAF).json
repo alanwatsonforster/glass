@@ -1,0 +1,13 @@
+{
+  "base": "Shenyang J-6",
+  "variantname": "PAF",
+  "variantdescription": "used by PAF and equipped with two additional stations for AIM-9 IRMs.",
+  "stations": [
+    [ "pair", [1, 6],  200, [ "IRM" ] ],
+    [ "pair", [2, 5], 1300, [ "BB", "RP", "RK", "FT", "IRM" ] ],
+    [ "pair", [3, 4],  550, [ "BB", "RP", "RK", "DR" ] ]
+  ],
+  "loadnotes": [
+    "May use AIM-9 IRMs on stations 1 and 6 and AA-2 IRMs on stations 2 and 5."
+  ]
+}

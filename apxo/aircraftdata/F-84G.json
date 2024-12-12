@@ -1,5 +1,6 @@
 {
-  "name": "F-84G Thunderjet",
+  "versionname": "F-84G",
+  "versiondescription": "Fighter-bomber and nuclear strike version.",
   "origin": "TSOH",
   "base": "F-84E",
   "atarefuel": true,
@@ -16,5 +17,13 @@
     "MH": [ [ "-", 1.0 ], [ "-", 1.0 ], [ "-", 0.5 ] ],
     "ML": [ [ "-", 1.5 ], [ "-", 1.5 ], [ "-", 1.0 ] ],
     "LO": [ [ "-", 1.5 ], [ "-", 1.5 ], [ "-", 1.0 ] ]
-  }
+  },
+  "loadnotes": [
+    "Stations 1 and 8 normally carry 226 gal (850L) wing-tip FTs.",
+    "Stations 1 and 8 can each carry six RK.",
+    "Stations 4 and 5 can each carry four RK.",
+    "Stations 2, 3, 6, and 7 can each carry three RK.",
+    "A Mk 7 (weight 1700 and load 3.5) nuclear bomb can be carried on either station 4 or 5."
+  ],
+  "VPs": [ 9, 6, 3, 1 ]
 }

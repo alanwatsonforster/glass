@@ -1,5 +1,16 @@
 {
-  "name": "F-100D Super Sabre",
+  "versionname": "F-100D",
+  "versiondescription": "Improved fighter-bomber and tactical nuclear striker version.",
   "base": "F-100C",
-  "storeslimits": [ 4, 10, 7500 ]
+  "storeslimits": [ 4, 10, 7500 ],
+  "stations": [
+    [ "pair"  , [ 1, 7 ], 1000, [ "BB", "RP", "EP" ] ],
+    [ "pair"  , [ 2, 6 ], 3000, [ "BB", "RP", "RG", "DR", "TR", "FT", "IRM" ] ],
+    [ "pair"  , [ 3, 5 ], 1500, [ "BB", "RP", "DR", "TR", "EP", "FT", "IRM" ] ],
+    [ "single", [ 4 ]   , 2000, [ "BB", "WR" ] ]
+  ],
+  "loadnotes": [
+    "May only use AIM-9 IRMs."
+  ],
+  "VPs": [ 16, 10, 5, 2 ]
 }

@@ -1,15 +1,17 @@
 {
-  "name": "F7U-3 Cutlass",
+  "versionname": "F7U-3",
+  "versiondescription": "Fighter version.",
+  "popularname": "Cutlass",
   "origin": "TSOH",
   "crew": [ "Pilot" ],
   "powertable": {
     "AB"  : [ 1.5, 1.5, 1.0, 4.0 ],
-    "M"   : [ 1.0, 1.0, 1.0, 1.0 ],
+    "M"   : [ 1.0, 1.0, 1.0, 2.0 ],
     "N"   : [ 0.0, 0.0, 0.0, 1.0 ],
     "I"   : [ 0.5, 0.5, 0.5, 0.0 ],
-    "SPBR": [ 1.0, 1.0, 1.0 ]
+    "SPBR": [ 0.5, 0.5, 0.5 ]
   },
-  "engines": 2,
+  "jetengines": 2,
   "cruisespeed": 5.0,
   "climbspeed" : 4.0,
   "visibility": 6,
@@ -47,13 +49,27 @@
     "ML": [ [ 2.0, 1.0 ], [ 1.5, 0.5 ], [ 1.0, 0.5 ] ],
     "LO": [ [ 2.0, 1.0 ], [ 1.5, 1.0 ], [ 1.0, 0.5 ] ]
   },
+  "radar": {
+    "name": "APG-30",
+    "lockon": 6
+  },
   "gun": "Four 20 mm Mk 12",
   "gunatatohitrolls": "6/4/3",
-  "gunatadamagerating": 5,
+  "gundamagerating": "5/6*",
   "gunammunition": 4.0,
   "gunsightmodifiers": { "TT": 0, "HT": 1, "BT": 2 },
   "ataradarranging": "RE",
-  "lockon": 6,
+  "ecm": { "iff": true },
+  "technology": [ "CC Rocket Attack" ],
+  "properties": [ "HBR", "HPR", "SMP" ],
+  "wikiurl": "https://bit.ly/3V4vc3z",
   "storeslimits": [ 2, 8, 4500 ],
-  "properties": [ "HBR", "HPR" ]
+  "stations": [
+    [ "pair"  , [ 1, 3 ], 1500, [ "BB", "RP", "FT" ] ],
+    [ "single", [ 2 ]   , 1500, [ "Ventral pod" ] ]
+  ],
+  "loadnotes": [
+    "Station 2 may carry a conformal ventral pod with 3 factors of air-to-air rockets (weight 800 and 2.0/1.0 load points), or 220 gal of fuel (800L, weight 1500, 3.0/2.0 load points, and 70 fuel points)."
+  ],
+  "VPs": [ 12, 8, 4, 2 ]
 }

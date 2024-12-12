@@ -1,0 +1,22 @@
+{
+  "variantname": "Silverplate",
+  "description": "The B-29A is a strategic bomber. The “Silverplate” variant described here is a nuclear bomber converted from the conventional base variant under the 1943 to 1947 Silverplate program, with provision for nuclear weapons, all armor and turrets removed, ATA refueling, additional fuel tanks, and winterized electronics.",
+  "base": "B-29A",
+  "crew": [
+   "Pilot", "Copilot", "Flight Engineer", "Navigator", "Bombardier", "Weaponeer", "Radio Operator", "Radar Operator", "Countermeasures Operator", "Tail Gunner"
+  ],
+  "vulnerability": 1,
+  "typenotes": [
+     "Defensive Tail Guns. Equipped with three .50 cal M2 guns in a tail mount. They can fire at targets in the 60- arc. They may return fire twice per game turn in response to a gun attacks or conduct a single attack. The roll to hit is 3/2/2 and the AtA rating is 2. Ammunition is 25.0."
+  ],
+  "storeslimits": [ 17, 29, 20000 ],
+  "stations": [
+    [ "single", [ 1 ], 11000, [ "BB" ] ],
+    [ "single", [ 2 ], 10000, [ "FT" ] ]
+  ],
+  "loadnotes": [
+    "Stations 1 is the forward internal bomb bay and can carry a Mark 3 (weight 10,000), Mark 4 (weight 11,000) or Mark 6 (weight 8,000) nuclear bomb.",
+    "Stations 2 is the rear internal bomb bay and can carry two 640 gal FTs (each 2400L, weight 4,000, and 200 fuel points).",
+    "As an exception to the normal rules for load points, internal loads contribute 1 load point for each 1,000 of weight and internal fuel contributes 1 load point for each 50 fuel points. A return mission will typically require leaving the target with at least 750 fuel points (15 load points)."
+  ]
+}

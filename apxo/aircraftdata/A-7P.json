@@ -1,0 +1,17 @@
+{
+  "versionname": "A-7P",
+  "versiondescription": "Attack version for Portuguese Air Force.",
+  "base": "A-7B",
+  "radar": {
+    "name": "APQ-126",
+    "eccm": 0,
+    "arc": "180+",
+    "searchrange": 120,
+    "trackingrange": 30,
+    "lockon": 7
+  },
+  "bombsystem": "Computed",
+  "ecm": { "iff": true, "rwr": "B" },
+  "technology": [ "Terrain Following - A" ],
+  "VPs": [ 20, 14, 7, 4 ]
+}

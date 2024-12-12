@@ -117,8 +117,7 @@ class element:
         altitude=None,
         speed=None,
         color=None,
-        delay=0,
-        properties={},
+        delay=0
     ):
 
         global _elementlist
@@ -173,7 +172,8 @@ class element:
 
         self._color = color
 
-        self._properties = properties
+        self._gainedproperties = set([])
+        self._lostproperties = set([])
 
         _elementlist.append(self)
 
@@ -517,13 +517,13 @@ class element:
     ############################################################################
 
     def hasproperty(self, p):
-        return p in self._properties
+        return p not in self._lostproperties and (p in self._gainedproperties or p in self._properties())
 
     def gainproperty(self, p):
-        self._properties.add(p)
+        self._gainedproperties.add(p)
 
     def loseproperty(self, p):
-        self._properties.discard(p)
+        self._lostproperties.add(p)
 
     ############################################################################
 

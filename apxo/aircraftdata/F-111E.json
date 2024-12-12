@@ -1,0 +1,10 @@
+{
+  "versionname": "F-111E",
+  "versiondescription": "The F-111E is improved version of the F-111A with improved weapon and defensive systems.",
+  "base": "F-111A",
+  "origin": "TSOH",
+  "bombsystem": "Computed",
+  "ecm": { "iff": true, "rwr": "B", "dds": "A", "djm": "B4" },
+  "wikiurl": "https://bit.ly/49hKYhq",
+  "VPs": [ 32, 22, 12, 6 ]
+}

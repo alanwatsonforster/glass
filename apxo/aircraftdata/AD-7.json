@@ -1,6 +1,7 @@
 {
-  "name": "AD-7 Skyraider",
+  "versionname": "AD-7",
+  "subsequentlydesignated": "A-1J",
+  "originallydesignated": null,
   "base": "A-1J",
-  "note": [
-  ]
+  "notes": []
 }

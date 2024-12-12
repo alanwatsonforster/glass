@@ -1,5 +1,6 @@
 {
-  "name": "F-4E Phantom II",
+  "versionname": "F-4E",
+  "base": "F-4C",
   "origin": "TSOH",
   "crew": [ "Pilot", "Radar Officer"],
   "powertable": {
@@ -7,23 +8,9 @@
     "M"   : [ 1.5, 1.0, 1.0,  4.0 ],
     "N"   : [ 0.0, 0.0, 0.0,  2.0 ],
     "I"   : [ 0.5, 1.0, 1.0,  0.0 ],
-    "SPBR": [ 1.0, 2.0, 2.0 ]
+    "SPBR": [ 0.5, 1.0, 1.0 ]
   },
-  "engines": 2,
-  "cruisespeed": 5.5,
-  "climbspeed" : 4.5,
-  "visibility": 7,
-  "sizemodifier": 0,
-  "vulnerability": 0,
-  "restrictedarcs": "60-",
-  "blindarcs": "30-",
   "internalfuel": 600,
-  "atarefuel": true,
-  "ejectionseat": "standard",
-  "maneuvertable": {
-    "LR/DR": [ 1.0, 1.0 ],
-    "VR":    [ 0.0, 0.0 ]
-  },
   "turndragtable": {
     "TT": [ 1.0, 2.0, 2.0 ],
     "HT": [ 2.0, 3.0, 4.0 ],
@@ -47,15 +34,38 @@
     "ML": [ [ 5.0, 2.0 ], [ 3.0, 1.0 ], [ 2.0, 1.0 ] ],
     "LO": [ [ 6.0, 2.0 ], [ 4.0, 1.5 ], [ 2.0, 1.0 ] ]
   },
-  "storeslimits": [ 8, 14, 16000 ],
+  "radar": {
+    "name": "APQ-120",
+    "eccm": 2,
+    "arc": "180+",
+    "searchrange": 100,
+    "searchstrength": 20,
+    "trackingrange": 80,
+    "trackingstrength": 20,
+    "lockon": 7
+  },
   "gun": "20 mm M61 Vulcan",
   "gunatatohitrolls": "7/5/3",
-  "gunatadamagerating": 7,
+  "gundamagerating": "6/8*",
   "gunammunition": 3.0,
   "gunsightmodifiers": { "TT": 0, "HT": 1, "BT": 2 },
   "ataradarranging": "RE",
-  "lockon": 7,
+  "bombsystem": "Ballistic",
+  "ecm": { "iff": true, "rwr": "A" },
   "properties": [ "SMP", "RPR" ],
   "notes": [
-  ]
+  ],
+  "stations": [
+    [ "pair"  , [ 1, 9 ], 2700, [ "BB", "BG", "RP", "WR", "EP", "DP", "FT" ] ],
+    [ "pair"  , [ 2, 8 ], 3000, [ "BB", "BG", "BS", "RP", "RG", "LP", "GP", "EP", "WR", "DP", "IRM", "RHM" ] ],
+    [ "pair"  , [ 3, 7 ],  500, [ "RHM", "EP", "LP" ] ],
+    [ "pair"  , [ 4, 6 ],  500, [ "RHM" ] ],
+    [ "single", [ 5 ]   , 4500, [ "BB", "BG", "RP", "WR", "GP", "FT" ] ]
+  ],
+  "loadnotes": [
+    "Stations 2 and 8 may each carry two AIM-9 IRMs in addition to other non-missile stores.",
+    "Stations 3, 4, 6, and 7 are the recessed fuselage stations. Stations 3 and 7 are the forward ones and stations 4 and 6 are the rear ones.",
+    "May only use AIM-7 RHMs and AIM-9 IRMs."
+  ],
+  "VPs": [ 30, 20, 10, 5 ]
 }

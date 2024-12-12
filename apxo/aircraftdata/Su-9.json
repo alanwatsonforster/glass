@@ -1,15 +1,17 @@
 {
-  "name": "Su-9 Fishpot-B",
+  "versionname": "Su-9",
+  "versiondescription": "Interceptor.",
+  "natoreportingname": "NATO reporting name for aircraft is Fishpot-B and or radar is Spin Scan.",
   "origin": "TSOH",
   "crew": [ "Pilot" ],
   "powertable": {
     "AB"  : [ 3.5, 3.0, 3.0, 10.0 ],
     "M"   : [ 1.5, 1.5, 1.5,  3.0 ],
     "N"   : [ 0.0, 0.0, 0.0,  1.0 ],
-    "I"   : [ 0.5, 0.5, 1.0,  0.0 ],
-    "SPBR": [ 1.0, 1.0, 1.0 ]
+    "I"   : [ 0.5, 0.5, 0.5,  0.0 ],
+    "SPBR": [ 0.5, 0.5, 0.5 ]
   },
-  "engines": 1,
+  "jetengines": 1,
   "cruisespeed": 5.5,
   "climbspeed" : 4.5,
   "visibility": 6,
@@ -31,7 +33,7 @@
   },
   "ceilingtable": [ 60, 56, 54 ],
   "speedtable": {
-    "EH": [ [ 4.0, 11.0 ], [ 4.5,  9.0 ], [ 4.5, 9.0 ], 13.0 ],
+    "EH": [ [ 4.0, 11.0 ], [ 4.5,  9.0 ], [ 4.5, 8.5 ], 13.0 ],
     "VH": [ [ 3.5, 12.0 ], [ 3.5, 10.0 ], [ 3.5, 8.5 ], 13.0 ],
     "HI": [ [ 3.0, 10.5 ], [ 3.0,  9.0 ], [ 3.0, 8.0 ], 12.0 ],
     "MH": [ [ 2.5,  9.0 ], [ 2.5,  8.5 ], [ 3.0, 7.5 ], 11.0 ],
@@ -46,10 +48,29 @@
     "ML": [ [ 4.0, 2.0 ], [ 3.0, 2.0 ], [ 2.0, 1.0 ] ],
     "LO": [ [ 5.0, 2.0 ], [ 4.0, 2.0 ], [ 3.0, 1.0 ] ]
   },
-  "storeslimits": [ 2, 6, 3000 ],
+  "radar": {
+    "name": "Spin Scan",
+    "eccm": 0,
+    "arc": "180+",
+    "searchrange": 30,
+    "searchstrength": 6,
+    "trackingrange": 18,
+    "trackingstrength": 6,
+    "lockon": 7
+  },
   "gun": "",
+  "ecm": { "iff": true },
   "properties": [ "SMP" ],
   "notes": [
-    "NATO reporting name is Fishpot-B."
-  ]
+  ],
+  "wikiurl": "https://bit.ly/3VitqvQ",
+  "storeslimits": [ 2, 6, 3000 ],
+  "stations": [
+    [ "grouppair", [ 1, 2, 5, 6 ],  200, [ "BRM", "RHM" ] ],
+    [ "pair"     , [ 3, 4 ]      , 1100, [ "FT" ] ]
+  ],
+  "loadnotes": [
+    "May only used AA-1 BRMs and RHMs."
+  ],
+  "VPs": [ 16, 10, 6, 3 ]
 }

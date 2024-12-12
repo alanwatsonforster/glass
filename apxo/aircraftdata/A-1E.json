@@ -1,9 +1,8 @@
 {
-  "name": "A-1E Skyraider",
-  "base": "AD-4",
+  "versionname": "A-1E",
+  "originallydesignated": "AD-5",
+  "base": "A-1H",
   "crew": [ "Pilot", "Copilot" ],
-  "vulnerability": 2,
-  "ejectionseat": "none",
   "powertable": {
     "FT"  : [ 1.5, 1.0, 1.0, 0.5 ],
     "HT"  : [ 0.5, 0.5, 0.5, 0.2 ],
@@ -11,8 +10,5 @@
     "I"   : [ 0.5, 0.5, 0.5, 0.0 ],
     "SPBR": [ 0.5, 1.0, 1.0 ]
   },
-  "notes": [
-    "Earlier designation was AD-5.",
-    "Rocket extraction device (from 1967) gives -1 modifier when bailing out."
-  ]
+  "VPs": [ 8, 6, 4, 2 ]
 }

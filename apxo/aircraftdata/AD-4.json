@@ -1,5 +1,8 @@
 {
-  "name": "AD-4 Skyraider",
+  "versionname": "AD-4",
+  "versiondescription": "Attack version.",
+  "popularname": "Skyraider",
+  "manufacturername": "Douglas",
   "origin": "TSOH",
   "crew": [ "Pilot" ],
   "powertable": {
@@ -9,7 +12,7 @@
     "I"   : [ 0.5, 0.5, 0.5, 0.0 ],
     "SPBR": [ 1.0, 2.0, 2.0 ]
   },
-  "engines": 1,
+  "propellerengines": 1,
   "cruisespeed": 2.0,
   "climbspeed" : 1.5,
   "visibility": 6,
@@ -46,15 +49,23 @@
     "ML": [ [ "-", 1.0 ], [ "-", 0.5 ], [ "-", 0.5 ] ],
     "LO": [ [ "-", 1.0 ], [ "-", 1.0 ], [ "-", 0.5 ] ]
   },
-  "gun": "Four 20 mm Mk 12",
+  "gun": "Four 20 mm M3",
   "gunatatohitrolls": "5/4/3",
   "gundamagerating": "5/6*",
   "gunammunition": 6.0,
   "gunsightmodifiers": { "TT": 0, "HT": 1, "BT": 2 },
   "ecm": { "iff": true },
   "storeslimits": [ 6, 12, 8000 ],
-  "properties": [],
-  "notes": [
+  "stations": [
+    [ "grouppair", [ 1, 6, 10, 15 ], 500, [ "BB", "RK" ] ],
+    [ "pair"     , [ 7, 9 ]       , 2200, [ "BB", "RK" ] ],
+    [ "single"   , [ 8 ]          , 2200, [ "BB" ] ]
   ],
+  "loadnotes": [
+    "Stations 1 to 6 and 10 to 15 are closely spaced. If a load of 500 lb or more is carried, the adjacent stations cannot be used."
+  ],
+  "VPs": [ 7, 5, 3, 2 ],
+  "properties": [],
+  "notes": [],
   "wikiurl": "https://bit.ly/40hgz09"
 }

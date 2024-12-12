@@ -1,23 +1,26 @@
 {
-  "name": "F-84E Thunderjet",
+  "versionname": "F-84E",
+  "versiondescription": "Fighter-bomber version.",
+  "popularname": "Thunderjet",
+  "manufacturername": "Republic",
   "origin": "TSOH",
   "crew": [ "Pilot" ],
   "powertable": {
     "M"   : [ 1.0, 0.5, 0.5, 1.0 ],
     "N"   : [ 0.0, 0.0, 0.0, 0.5 ],
     "I"   : [ 0.5, 0.5, 0.5, 0.0 ],
-    "SPBR": [ 1.0, 1.0, 2.0 ]
+    "SPBR": [ 0.5, 0.5, 1.0 ]
   },
-  "engines": 1,
-  "cruisespeed": 4.0,
-  "climbspeed" : 3.0,
+  "jetengines": 1,
+  "cruisespeed": 4.5,
+  "climbspeed" : 3.5,
   "visibility": 5,
   "sizemodifier": 0,
   "vulnerability": 0,
   "restrictedarcs": "60-",
   "blindarcs": "30-",
   // ADC has 295, but this includes the wing-tip FTs.
-  "internalfuel": 145,
+  "internalfuel": 150,
   "atarefuel": false,
   "ejectionseat": "early",
   "maneuvertable": {
@@ -46,13 +49,30 @@
     "ML": [ [ "-", 1.0 ], [ "-", 1.0 ], [ "-", 0.5 ] ],
     "LO": [ [ "-", 1.5 ], [ "-", 1.0 ], [ "-", 0.5 ] ]
   },
-  "gun": "Six .50 cal",
+  "radar": { 
+    "name": "APG-30",
+    "lockon": 6
+   },
+  "gun": "Six .50 cal M3",
   "gunatatohitrolls": "6/3/0",
-  "gunatadamagerating": 4,
+  "gundamagerating": "4/4**",
   "gunammunition": 8.0,
   "gunsightmodifiers": { "TT": 0, "HT": 1, "BT": 2 },
   "ataradarranging": "RE",
-  "lockon": 6,
+  "ecm": { "iff": true },
   "storeslimits": [ 4, 12, 4500 ],
-  "properties": [ "HTD" ]
+  "stations": [
+    [ "pair"     , [ 1, 8 ]      , 1700, [ "FT", "RK" ] ],
+    [ "grouppair", [ 2, 3, 6, 7 ],  420, [ "RK" ] ],
+    [ "pair"     , [ 4, 5 ]      , 1700, [ "BB", "FT", "RK" ] ]
+  ],
+  "loadnotes": [
+    "Stations 1 and 8 normally carry 226 gal (850L) wing-tip FTs.",
+    "Stations 1 and 8 can each carry six RK.",
+    "Stations 4 and 5 can each carry four RK.",
+    "Stations 2, 3, 6, and 7 can each carry three RK."
+  ],
+  "VPs": [ 8, 5, 3, 1 ],
+  "properties": [ "SMP", "HTD" ],
+  "wikiurl": "https://bit.ly/4i8UcR2"
 }

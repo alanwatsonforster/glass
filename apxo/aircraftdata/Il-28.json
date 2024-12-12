@@ -1,14 +1,16 @@
 {
-  "name": "Il-28 Beagle",
+  "versionname": "Il-28",
+  "versiondescription": "Medium bomber version.",
+  "natoreportingnames": "NATO reporting name for aircraft is Beagle.",
   "origin": "TSOH",
   "crew": [ "Pilot", "Bombardier", "Gunner" ],
   "powertable": {
     "M"   : [ 1.0, 1.0, 0.5, 2.0 ],
     "N"   : [ 0.0, 0.0, 0.0, 1.0 ],
     "I"   : [ 0.5, 0.5, 0.5, 0.0 ],
-    "SPBR": [ 1.0, 1.0, 1.0 ]
+    "SPBR": [ 0.5, 0.5, 0.5 ]
   },
-  "engines": 2,
+  "jetengines": 2,
   "cruisespeed": 4.5,
   "climbspeed" : 3.5,
   "visibility": 8,
@@ -44,16 +46,37 @@
     "ML": [ [ "-", 0.5 ], [ "-", 0.5 ], [ "-", 0.5 ] ],
     "LO": [ [ "-", 1.0 ], [ "-", 1.0 ], [ "-", 0.5 ] ]
   },
+  "radar": {
+    "name": "PSB-N",
+    "eccm": 0,
+    "arc": "180+",
+    "searchrange": 90,
+    "trackingrange": 45,
+    "lockon": 6
+  },
   "storeslimits": [ 4, 8, 6600 ],
-  "gun": "Two 23 mm",
+  "gun": "Two 23 mm NR-23",
   "gunatatohitrolls": "3/2/1",
-  "gunatadamagerating": 4,
-  "gunarc": "60-",
   "gunammunition": 6.0,
   "gunsightmodifiers": { "TT": 1, "HT": 2 },
+  "gundamagerating": "4/3",
+  "gunarc": "60-",
+  "ecm": { "iff": true, "rwr": "A" },
   "properties": [ "HTD", "LRR", "NRM" ],
   "notes": [
-    "NATO reporting name is Beagle.",
-    "Tail gunner has no ejection seat."
-  ]
+    "Bomb system is ballistic (-1) if doing level bombing from four or more altitude levels above the target.",
+    "Tail Guns. In addition to its fixed guns, there aircraft has a tail mount with two 23 mm NR-23 guns. It can fire into the 60- arc. It may return fire twice per game turn in response to a gun attacks or conduct a single attack. Roll to hit is 3/2/1 and no modifiers apply except target size. The AtA rating is 4. The ammunition is 6.0.",
+    "Tail gunner has no ejection seat and can only bail out.",
+    "RWR from 1960."
+  ],
+  "wikiurl": "https://bit.ly/4fQBN9Q",
+  "storeslimits": [ 4, 8, 6600 ],
+  "stations": [
+    [ "pair"  , [ 1, 3 ], 1800, [ "BB", "RP", "FT" ] ],
+    [ "single", [ 2 ]   , 4400, [ "BB" ] ]
+  ],
+  "loadnotes": [
+    "Station 2 is the internal bomb bay. Load options are: (a) one 2,200 lb bomb, (b) four 1,100 lb bombs, (c) eight 550 lb bombs, or (d) twelve 250 lb bombs. Any bombs carried must be low-drag."
+  ],
+  "VPs": [ 12, 8, 4, 2 ]
 }

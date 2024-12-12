@@ -174,3 +174,9 @@ aircraftdatacards/generated.tex
 *.toc
 aircraftdatacards/main.out
 aircraftdatacards/main.toc
+aircraftdatacards/bombers.tex
+aircraftdatacards/all.tex
+aircraftdatacards/sandbox.tex
+aircraftdatacards/sandbox.json
+aircraftdatacards/sandbox.json
+*.synctex(busy)

@@ -1,7 +1,14 @@
 {
-  "name": "MiG-15ISh Fagot",
+  "versionname": "MiG-15ISh",
+  "versiondescription": "Prototype close air support version, developed from the MiG-15bis and with two additional tandem wing stations.",
   "base": "MiG-15bis",
-  "notes": [
-    "The MiG-15ISh appears as a variant on the TSOH ADC for the MiG-15bis."
-  ]
+  "natoreportingnames": "NATO reporting name for aircraft is Fagot.",
+  "stations": [
+    [ "pair", [ 1, 4 ], 550, [ "BB", "RK", "RP", "FT" ] ],
+    [ "pair", [ 2, 3 ], 550, [ "BB", "RK", "RP" ] ]
+  ],
+  "loadnotes": [
+    "Stations 2 and 3 can carry two BB each."
+  ],
+  "VPs": [ 9, 6, 3, 1]
 }

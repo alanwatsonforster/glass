@@ -1,0 +1,10 @@
+{
+  "versionname": "F9F-8T",
+  "versiondescription": "Trainer and fast FAC version.",
+  "base": "F9F-8",
+  "subsequentlydesignated": "TF-9J",
+  "crew": [ "Pilot", "Observer" ],
+  "gun": "Two 20 mm M3",
+  "gunammunition": 5.5,
+  "gundamagerating": "3/4*"
+}

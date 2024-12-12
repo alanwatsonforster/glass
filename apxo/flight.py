@@ -29,9 +29,11 @@ def _move(E, flighttype, power, moves, **kwargs):
 
     E.logstart("flight type      is %s." % E._flighttype)
     E.logstart("altitude band    is %s." % E.altitudeband())
-    E.logcomment("speed of sound is %.1f." % apspeed.m1speed(E.altitudeband()))
+    E.logcomment("speed of sound is %.1f." % apspeed.m1speed(E.altitudeband()))  
 
     if E.isaircraft():
+        if E.geometry() is not None:
+            E.logstart("geometry         is %s." % E.geometry())
         apspeed._startaircraftspeed(E, power, **kwargs)
     else:
         apspeed._startmissilespeed(E)
@@ -2513,27 +2515,43 @@ def _doturn(E, sense, facingchange, continuous):
         ):
             raise RuntimeError("attempt to turn faster than the declared turn rate.")
 
-    E._moveturn(sense, facingchange)
+    if not apvariants.withvariant("use house rules"):
 
-    if E.isaircraft() and E._flighttype != "SP":
+        E._moveturn(sense, facingchange)
 
-        # See Hack's article in APJ 36
-        if E._turnmaneuvers == 0:
-            sustainedfacingchanges = facingchange // 30 - 1
-        else:
-            sustainedfacingchanges = facingchange // 30
-
-        if not apvariants.withvariant("use house rules"):
-            if E.hasproperty("LBR"):
-                E._sustainedturnap -= sustainedfacingchanges * 0.5
-            elif E.hasproperty("HBR"):
-                E._sustainedturnap -= sustainedfacingchanges * 1.5
+        if E.isaircraft() and E._flighttype != "SP":
+    
+            # See Hack's article in APJ 36
+            if E._turnmaneuvers == 0:
+                sustainedfacingchanges = facingchange // 30 - 1
             else:
-                E._sustainedturnap -= sustainedfacingchanges * 1.0
+                sustainedfacingchanges = facingchange // 30
+    
+            if not apvariants.withvariant("use house rules"):
+                if E.hasproperty("LBR"):
+                    E._sustainedturnap -= sustainedfacingchanges * 0.5
+                elif E.hasproperty("HBR"):
+                    E._sustainedturnap -= sustainedfacingchanges * 1.5
+                else:
+                    E._sustainedturnap -= sustainedfacingchanges * 1.0
 
-    E._turnmaneuvers += 1
-    E._turnfacingchanges += facingchange // 30
+        E._turnmaneuvers += 1
+        E._turnfacingchanges += facingchange // 30
 
+    else:
+        
+        E._moveturn(sense, 30)
+        facingchange -= 30
+        E._turnmaneuvers += 1
+        E._turnfacingchanges += 1
+
+        while facingchange != 0:
+            _dodeclaremaneuver(E, E._maneuvertype, sense, continuedturn=True)
+            E._moveturn(sense, 30)
+            facingchange -= 30
+            E._turnmaneuvers += 1
+            E._turnfacingchanges += 1
+            
 
 ########################################
 
@@ -2873,9 +2891,9 @@ def _doverticalroll(E, sense, facingchange, shift):
 ########################################
 
 
-def _dodeclaremaneuver(E, maneuvertype, sense):
+def _dodeclaremaneuver(E, maneuvertype, sense, continuedturn=False):
 
-    if E._hasdeclaredamaneuver:
+    if E._hasdeclaredamaneuver and not continuedturn:
         raise RuntimeError("attempt to declare a second maneuver.")
 
     if E.isaircraft() and apvariants.withvariant("use house rules"):
@@ -2894,7 +2912,7 @@ def _dodeclaremaneuver(E, maneuvertype, sense):
 
     if E.isaircraft() and apvariants.withvariant("use house rules"):
         endap = E._turnrateap + E._othermaneuversap
-        ap = " (%+.1f AP)" % (endap - startap)
+        ap = " (%+.2f AP)" % (endap - startap)
     else:
         ap = ""
 

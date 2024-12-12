@@ -1,6 +1,19 @@
 {
-  "name": "RB-66 Destroyer",
-  "base": "B-66B",
+  "versionname": "RB-66C",
+  "versiondescription": "Electronic warfare version.",
+  "variantname": null,
+  "variantdescription": null,
+  "base": "B-66B (Late)",
+  "subsequentlydesignated": "EB-66C",
   "crew": [ "Pilot", "Navigator", "EW Officer", "EW Officer", "EW Officer"],
-  "gun": ""
+  "ecm": { "iff": true, "dds": "A", "rwr": "C", "djm": "B4", "ajm": "B4", "bjm": "Two B3" },
+  "notes": [
+    "The DDS has 120 CH or 90 CH and 30 FL."
+  ],
+  "stations": [
+    [ "pair"  , [ 1, 2], 3000, [ "BB", "FT", "EP" ]]
+  ],
+  "loadnotes": [
+  ],
+  "VPs": [ 34, 22, 12, 4 ]
 }

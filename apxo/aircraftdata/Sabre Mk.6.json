@@ -1,0 +1,40 @@
+{
+  "versionname": "Sabre Mk.6",
+  "versiondescription": "Canadair fighter-bomber version with Orenda 14 engine and slatted 6-3 wing.",
+  "base": "Sabre Mk.5",
+  "origin": "APJ 25",
+  "powertable": {
+    "M"   : [ 1.5, 1.0, 1.0, 1.0 ],
+    "N"   : [ 0.0, 0.0, 0.0, 0.5 ],
+    "I"   : [ 0.5, 0.5, 1.0, 0.0 ],
+    "SPBR": [ 1.0, 1.0, 2.0 ]
+  },
+  "lowspeedliftdevicelimit": 3.5,
+  "lowspeedliftdevicelimittype": "absolute",
+  "lowspeedliftdevicename": "leading-edge slats",
+  "lowspeedliftdeviceturndragtable": {
+    "TT": [ 0.0, 0.0, 1.0 ],
+    "HT": [ 1.0, 1.0, 1.0 ],
+    "BT": [ 2.0, 2.0, 3.0 ]
+  },
+  "turndragtable": {
+    "TT": [ 0.0, 0.0, 1.0 ],
+    "HT": [ 1.0, 1.0, 1.0 ],
+    "BT": [ 1.0, 1.0, 2.0 ]
+  },
+  "ceilingtable": [ 54, 51, 48 ],
+  "climbcapabilitytable": {
+    "EH": [ [ "-", 1.0 ], [ "-", 0.5 ], [ "-", 0.5 ] ],
+    "VH": [ [ "-", 1.0 ], [ "-", 1.0 ], [ "-", 0.5 ] ],
+    "HI": [ [ "-", 1.5 ], [ "-", 1.0 ], [ "-", 1.0 ] ],
+    "MH": [ [ "-", 1.5 ], [ "-", 1.5 ], [ "-", 1.0 ] ],
+    "ML": [ [ "-", 1.5 ], [ "-", 1.5 ], [ "-", 1.0 ] ],
+    "LO": [ [ "-", 2.0 ], [ "-", 2.0 ], [ "-", 1.5 ] ]
+  },
+  "loadnotes": [
+    "Either stations 1 to 4 or stations 5 to 12 can be used.",
+    "Stations 5 to 12 can each carry two RKs.",
+    "From 1960 may use AIM-9B IRMs."
+  ],
+  "VPs": [ 11, 8, 4, 2 ]
+}

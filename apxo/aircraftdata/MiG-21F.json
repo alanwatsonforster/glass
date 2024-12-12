@@ -1,17 +1,28 @@
 {
   // This ADC for the F variant is based on that of the F-13, modified with
   // information from https://en.wikipedia.org/wiki/List_of_Mikoyan-Gurevich_MiG-21_variants.
-  "name": "MiG-21F Fishbed-B",
+  "versionname": "MiG-21F",
+  "natoreportingnames": "NATO reporting name for the aircraft is Fishbed-B and for the radar is High Fix.",
   "origin": "AMW",
   "base": "MiG-21F-13",
+  "radar": {
+    "name": "SRD-5MN Baza-6",
+    "eccm": 0,
+    "arc": "Limited",
+    "trackingrange": 10,
+    "trackingstrength": 6,
+    "lockon": 5
+  },
   "storeslimits": [ 2, 4, 2200 ],
   "gun": "Two 30 mm NR-30",
   // The damage rating is the 3 for the single NR-30 of the F-13 plus one 
   // according to the multiple guns rule.
-  "gunatadamagerating": 4,
-  "notes": [
-    "NATO reporting name is Fishbed-B.",
-    "Thick front canopy: +1 to sighting rolls for targets in the 180+ arcs.",
-    "May not use AAMs."
-  ]
+  "gundamagerating": "4/3",
+  "stations": [
+    [ "pair"  , [ 1, 3 ],  550, [ "BB", "RP", "RK", "DR" ] ],
+    [ "single", [ 2 ]   , 1100, [ "FT" ] ]
+  ],
+  "loadnotes": [
+  ],
+  "VPs": [ 14, 8, 4, 1 ]
 }

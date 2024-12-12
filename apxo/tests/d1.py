@@ -5,44 +5,42 @@ startfile(__file__, "slatted wings")
 # Turns with slatted wings.
 
 starttestsetup()
-A1 = aircraft("A1", "AF", "F-100A", "A1-1110", "N", 10, 4.0, "CL")
-A2 = aircraft("A2", "AF", "F-100A", "A1-1310", "N", 10, 4.5, "CL")
+A1 = aircraft("A1", "AF", "F-100A", "A1-1110", "N", 10, 3.5, "CL")
+A2 = aircraft("A2", "AF", "F-100A", "A1-1310", "N", 10, 4.0, "CL")
 endtestsetup()
 startgameturn()
-A1.move("LVL", "AB", "BTR/H/RR,BTR/H/RR,BTR/H/RR,BTR/H/R")
-A1._assert("A1-1310       SSW  10", 2.5)
-A2.move("LVL", "AB", "BTR/H/RR,BTR/H/RR,BTR/H/RR,BTR/H/R")
-A2._assert("A1-1510       SSW  10", 3.0)
+A1.move("LVL", "AB", "BTR/H/RR,BTR/H/RR,BTR/H/RR")
+A1._assert("A1-1309       S    10", 2.0)
+A2.move("LVL", "AB", "BTR/H/RR,BTR/H/RR,BTR/H/RR,H")
+A2._assert("A1-1510       S  10", 3.0)
 endgameturn()
 
 # Turns with selectable slats.
 
-starttestsetup(verbose=False)
-A1 = aircraft("A1", "AF", "F-5A", "A1-1110", "N", 10, 4.0, "CL")
-A2 = aircraft("A2", "AF", "F-5A", "A1-1310", "N", 10, 4.0, "CL")
+starttestsetup(verbose=True)
+A1 = aircraft("A1", "AF", "MiG-21bis", "A1-1110", "N", 10, 2.5, "CL")
+A2 = aircraft("A2", "AF", "MiG-21bis", "A1-1310", "N", 10, 2.5, "CL")
 endtestsetup()
 
 startgameturn()
 A1.move(
-    "LVL", "AB", "BTR/H/RR,BTR/H/RR,BTR/H/RR,BTR/H/R", lowspeedliftdeviceselected=True
+    "LVL", "AB", "TTR/H/RR,TTR/H/RR", lowspeedliftdeviceselected=True
 )
-A1._assert("A1-1310       SSW  10", 2.5)
-A2.move("LVL", "AB", "BTR/H/RR,BTR/H/RR,BTR/H/RR,BTR/H/R")
-A2._assert("A1-1510       SSW  10", 3.0)
-endgameturn()
+A1._assert("A1-1209       ESE  10", 2.0)
+A2.move("LVL", "AB", "TTR/H/RR,TTR/H/RR")
+asserterror("speed limits the turn rate to EZ.")
+
+# A-7D/E automatic maneuvering flaps, which are automatic but also change min speed.
+
+starttestsetup(verbose=True)
+A1 = aircraft("A1", "AF", "A-7E (1980 Upgrade)", "A1-1110", "N", 40, 4.0, "CL")
+A2 = aircraft("A2", "AF", "A-7E (1980 Upgrade)", "A1-1112", "N", 40, 3.5, "CL")
+endtestsetup()
 
 startgameturn()
-A1.move("LVL", "AB", "HTR/H/RRR,HTR/H/RRR")
-A1._assert("A1-1110       NNE  10", 1.5)
-A2.move("LVL", "AB", "HTR/H/RR,HTR/H/RR,HTR/H/RR")
-A2._assert("A1-1309       NNE  10", 2.0)
-endgameturn()
-
-startgameturn()
-A1.move("LVL", "AB", "H,H")
-A1._assert("A1-1209       NNE  10", 1.5)
-A2.move("LVL", "AB", "H,H")
-A2._assert("A1-1408       NNE  10", 2.0)
-endgameturn()
+A1.move("LVL", "N", "HTR/H/R,H,H,H")
+asserterror("speed limits the turn rate to TT.")
+A2.move("LVL", "N", "HTR/H/R,H,H")
+asserterror("speed limits the turn rate to TT.")
 
 endfile(__file__)

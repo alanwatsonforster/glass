@@ -1,64 +1,14 @@
 {
-  "name": "MiG-21MF Fishbed-J",
-  "origin": "TSOH",
-  "crew": [ "Pilot" ],
-  "powertable": {
-    "AB"  : [ 3.5, 2.5, 2.5, 6.0 ],
-    "M"   : [ 1.5, 1.0, 1.0, 2.0 ],
-    "N"   : [ 0.0, 0.0, 0.0, 1.0 ],
-    "I"   : [ 0.5, 0.5, 1.0, 0.0 ],
-    "SPBR": [ 1.0, 2.0, 2.0 ]
-  },
-  "engines": 1,
-  "cruisespeed": 6.0,
-  "climbspeed" : 4.5,
-  "visibility": 5,
-  "sizemodifier": 0,
-  "vulnerability": -2,
-  "restrictedarcs": "180L/60-",
-  "blindarcs": "30-",
-  "internalfuel": 220,
-  "atarefuel": false,
-  "ejectionseat": "standard",
-  "maneuvertable": {
-    "LR/DR": [ 1.0, 1.0 ],
-    "VR":    [ 0.0, 0.0 ]
-  },
-  "turndragtable": {
-    "TT": [ 1.0, 1.0, 1.0 ],
-    "HT": [ 2.0, 2.0, 3.0 ],
-    "BT": [ 4.0, 4.0, 4.0 ],
-    "ET": [ 4.0, 5.0, "-" ]
-  },
-  "ceilingtable": [ 56, 50, 44 ],
-  "speedtable": {
-    "EH": [ [ 4.0, 11.0 ], [ 4.5, 10.0 ], [ "-", "-" ], 12.0 ],
-    "VH": [ [ 3.5, 12.0 ], [ 4.0, 11.0 ], [ 5.0, 9.0 ], 12.0 ],
-    "HI": [ [ 3.0, 10.5 ], [ 3.5,  9.0 ], [ 4.0, 8.0 ], 12.0 ],
-    "MH": [ [ 3.0,  9.0 ], [ 3.0,  8.0 ], [ 3.0, 7.0 ], 10.0 ],
-    "ML": [ [ 2.5,  8.5 ], [ 2.5,  7.5 ], [ 2.5, 6.5 ],  9.0 ],
-    "LO": [ [ 2.0,  8.0 ], [ 2.0,  7.0 ], [ 2.0, 6.0 ],  8.5 ]
-  },
-  "climbcapabilitytable": {
-    "EH": [ [ 1.0, 0.5 ], [ 1.0, 0.5 ], [ "-", "-" ] ],
-    "VH": [ [ 1.0, 0.5 ], [ 1.0, 0.5 ], [ 1.0, 0.5 ] ],
-    "HI": [ [ 2.0, 0.5 ], [ 1.0, 0.5 ], [ 1.0, 0.5 ] ],
-    "MH": [ [ 3.0, 1.0 ], [ 2.0, 1.0 ], [ 1.5, 0.5 ] ],
-    "ML": [ [ 4.0, 1.0 ], [ 3.0, 1.0 ], [ 1.5, 0.5 ] ],
-    "LO": [ [ 4.0, 2.0 ], [ 3.0, 1.0 ], [ 2.0, 1.0 ] ]
-  },
-  "storeslimits": [ 4, 6, 4400 ],
-  "gun": "23 mm GSh-23",
-  "gunatatohitrolls": "7/4/2",
-  "gunatadamagerating": 5,
-  "gunammunition": 2.0,
-  "gunsightmodifiers": { "TT": 0, "HT": 2, "BT": 3 },
-  "ataradarranging": "RE",
-  "lockon": 7,
-  "properties": [ ],
-  "notes": [
-    "NATO reporting name is Fishbed-J.",
-    "Combat flaps: when selected, minimum speeds are reduced by 0.5 but turn DP is increased by 1.0 at speeds of less than 5.0.",
-    "Thick front canopy: +1 to sighting rolls for targets in the 180+ arcs."
-  ]
+  "versionname": "MiG-21MF",
+  "versiondescription": "Interceptor, export version of the MiG-21SM.",
+  "base": "MiG-21SM",
+  "stations": [
+    [ "pair"  , [ 1, 5 ],  550, [ "BB", "RP", "RK", "EP", "FT", "MDR", "IRM" ] ],
+    [ "pair"  , [ 2, 3 ], 1100, [ "BB", "RP", "RK", "FT", "DR", "MDR", "IRM" ] ],
+    [ "single", [ 3 ]   , 1100, [ "EP", "PP", "FT" ] ]
+  ],
+  "loadnotes": [
+    "May use AA-2 and AA-8 IRMs. MDRs may only carry two AA-8 IRMs."
+  ],
+  "VPs": [ 24, 16, 8, 4 ]
 }

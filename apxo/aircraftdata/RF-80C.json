@@ -1,7 +1,10 @@
 {
-  "name": "RF-80C Shooting Star",
+  "versionname": "RF-80C",
+  "versiondescription": "Reconnaisance version of F-80C.",
+  "originallydesignated": null,
   "base": "F-80C",
   "gun": "",
+  "VPs": [ 7, 4, 2, 1 ],
   "notes": [
   ]
 }

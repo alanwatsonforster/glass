@@ -1,0 +1,144 @@
+{
+  "versionname": "F-111A",
+  "popularname": "Aardvark",
+  "versiondescription": "The F-111A is an all-weather attack aircraft.",
+  "origin": "TSOH",
+  "crew": [ "Pilot", "Weapons Officer" ],
+  "powertable": {
+    "AB"  : [ 2.0, 1.5, 1.0, 16.0 ],
+    "M"   : [ 1.0, 1.0, 0.5,  4.0 ],
+    "N"   : [ 0.0, 0.0, 0.0,  2.0 ],
+    "I"   : [ 0.5, 0.5, 1.0,  0.0 ],
+    "SPBR": [ 0.5, 1.0, 1.0 ]
+  },
+  "jetengines": 2,
+  "cruisespeed": 5.5,
+  "climbspeed" : 4.5,
+  "visibility": 8,
+  "sizemodifier": -1,
+  "vulnerability": 0,
+  "restrictedarcs": "",
+  "blindarcs": "60-",
+  "internalfuel": 1600,
+  "atarefuel": true,
+  "ejectionseat": "standard",
+  "maneuvertable": {
+    "LR/DR": [ 1.0, 2.0 ],
+    "VR":    [ 0.0, 1.0 ]
+  },
+  "ceilingtable": [ 51, 36, 24 ],
+
+      "turndragtable": {
+        "TT": [ 2.0, 2.0, 2.0 ],
+        "HT": [ 4.0, 4.0, 4.0 ],
+        "BT": [ 6.0, 6.0, 6.0 ],
+        "ET": [ "-", "-", "-" ]
+      },
+      "speedtable": {
+        "EH": [ [  4.0, 8.0 ], [  "-", "-" ], [  "-", "-" ], 8.0 ],
+        "VH": [ [  3.5, 8.0 ], [  3.5, 8.0 ], [  "-", "-" ], 8.0 ],
+        "HI": [ [  2.5, 8.0 ], [  3.5, 8.0 ], [  "-", "-" ], 8.0 ],
+        "MH": [ [  2.5, 8.0 ], [  3.0, 8.0 ], [  3.0, 7.5 ], 8.0 ],
+        "ML": [ [  2.0, 8.0 ], [  2.5, 8.0 ], [  2.5, 7.0 ], 8.0 ],
+        "LO": [ [  2.0, 8.0 ], [  3.0, 7.5 ], [  3.0, 6.5 ], 8.0 ]
+      },
+
+  "geometries": {
+    "forward": {
+      "turndragtable": {
+        "TT": [ 2.0, 2.0, 2.0 ],
+        "HT": [ 4.0, 4.0, 4.0 ],
+        "BT": [ "-", "-", "-" ],
+        "ET": [ "-", "-", "-" ]
+      },
+      "speedtable": {
+        "EH": [ [  4.0, 3.5 ], [  "-", "-" ], [  "-", "-" ], 3.5 ],
+        "VH": [ [  3.5, 3.5 ], [  3.5, 3.5 ], [  "-", "-" ], 3.5 ],
+        "HI": [ [  2.5, 3.5 ], [  3.5, 3.5 ], [  "-", "-" ], 3.5 ],
+        "MH": [ [  2.5, 3.5 ], [  3.0, 3.5 ], [  3.0, 3.5 ], 3.5 ],
+        "ML": [ [  2.0, 3.5 ], [  2.5, 3.5 ], [  2.5, 3.5 ], 3.5 ],
+        "LO": [ [  1.5, 3.5 ], [  2.5, 3.5 ], [  2.5, 3.5 ], 3.5 ]
+      },
+      "properties": []
+    },
+    "mid": {
+      "turndragtable": {
+        "TT": [ 2.0, 2.0, 2.0 ],
+        "HT": [ 4.0, 4.0, 4.0 ],
+        "BT": [ 6.0, 6.0, 6.0 ],
+        "ET": [ "-", "-", "-" ]
+      },
+      "speedtable": {
+        "EH": [ [  4.0, 8.0 ], [  "-", "-" ], [  "-", "-" ], 8.0 ],
+        "VH": [ [  3.5, 8.0 ], [  3.5, 8.0 ], [  "-", "-" ], 8.0 ],
+        "HI": [ [  2.5, 8.0 ], [  3.5, 8.0 ], [  "-", "-" ], 8.0 ],
+        "MH": [ [  2.5, 8.0 ], [  3.0, 8.0 ], [  3.0, 7.5 ], 8.0 ],
+        "ML": [ [  2.0, 8.0 ], [  2.5, 8.0 ], [  2.5, 7.0 ], 8.0 ],
+        "LO": [ [  2.0, 8.0 ], [  3.0, 7.5 ], [  3.0, 6.5 ], 8.0 ]
+      },
+      "properties": []
+     },
+    "aft": {
+      "turndragtable": {
+        "TT": [ 3.0, 3.0, 3.0 ],
+        "HT": [ 5.0, 5.0, 5.0 ],
+        "BT": [ 6.0, 6.0, 6.0 ],
+        "ET": [ "-", "-", "-" ]
+      },
+      "speedtable": {
+        "EH": [ [  4.5, 13.0 ], [  "-",  "-" ], [  "-", "-" ], 15.0 ],
+        "VH": [ [  4.0, 14.0 ], [  4.0, 11.0 ], [  "-", "-" ], 14.0 ],
+        "HI": [ [  3.0, 12.0 ], [  4.0, 10.0 ], [  "-", "-" ], 13.0 ],
+        "MH": [ [  3.0, 10.0 ], [  3.5,  9.0 ], [  3.5, 7.5 ], 12.0 ],
+        "ML": [ [  2.5,  9.5 ], [  3.0,  8.5 ], [  3.0, 7.0 ], 10.0 ],
+        "LO": [ [  2.0,  8.5 ], [  3.0,  7.5 ], [  3.0, 6.5 ],  9.0 ]
+      },
+      "properties": [ "HBR" ]
+    }
+  },
+  "climbcapabilitytable": {
+    "EH": [ [ 1.0, 0.5 ], [ "-", "-" ], [ "-", "-" ] ],
+    "VH": [ [ 1.0, 0.5 ], [ 1.0, 0.5 ], [ "-", "-" ] ],
+    "HI": [ [ 2.0, 1.0 ], [ 1.0, 0.5 ], [ "-", "-" ] ],
+    "MH": [ [ 2.0, 1.0 ], [ 1.0, 0.5 ], [ 1.0, 0.5 ] ],
+    "ML": [ [ 3.0, 1.0 ], [ 2.0, 1.0 ], [ 1.0, 0.5 ] ],
+    "LO": [ [ 3.0, 1.0 ], [ 2.0, 1.0 ], [ 1.5, 0.5 ] ]
+  },
+  "radar": {
+    "name": "APQ-110/113",
+    "eccm": 1,
+    "arc": "180+",
+    "searchrange": 420,
+    "trackingrange": 120,
+    "lockon": 8
+  },
+  "gun": "One 20 mm M61A1 gun pack",
+  "gunatatohitrolls": "5/3/2",
+  "gunammunition": 10.0,
+  "gunsightmodifiers": { "TT": 0, "HT": 2, "BT": 3 },
+  "gunradarranging": "RE",
+  "gundamagerating": "6/8*",
+  "bombsystem": "Ballistic/Computed",
+  "ecm": { "iff": true, "rwr": "A", "dds": "A", "djm": "A3" },
+  "technology": [ "Terrain Following-B" ],
+  "notes": [
+  ],
+  "properties": [ "SMP", "LTD", "PSSM", "EVG", "EVG1" ],
+  "wikiurl": "https://bit.ly/41bVODE",
+  "storeslimits": [ 8, 18, 34000 ],
+  "stations": [
+    [ "pair"     , [ 1, 11 ]      , 2500, [ "BB", "WR" ] ],
+    [ "pair"     , [ 2, 10 ]      , 5000, [ "BB", "WR", "FT" ] ],
+    [ "grouppair", [ 3, 4, 8, 9 ], 5000, [ "BB", "BG", "WR", "FT", "IRM" ] ],
+    [ "single"   , [ 5 ]         , 4000, [ "Nuc BB", "GP" ] ],
+    [ "pair"     , [ 6, 7 ]      ,  600, [ "EP" ]]
+  ],
+  "loadnotes": [
+    "The wings (stations 1 to 4 and 8 to 11) may only carry a total weight of 30,000.",
+    "Stations 1, 2, 10, and 11 do not swivel. If used, wings must remain forward until all stores are carried on them are expended or jettisoned.",
+    "Stations 1 and 11 were never used operationally.",
+    "Stations 3 to 6 may carry one AIM-9 IRM in addition to other non-missile stores.",
+    "Station 5 is the internal weapon bay. It may carry a 20 mm M61A1 gun pack (weight 2000 and load 1) and a nuclear BB or two nuclear BBs."
+  ],
+  "VPs": [ 32, 20, 10, 5 ]
+}

@@ -1,0 +1,22 @@
+{
+  "versionname": "RA-5C",
+  "versiondescription": "The RA-5C is an reconnaisance version of the A-5B. It saw extensive service in the Vietnam War.",
+  "base": "A-5B",
+  "previouslydesignated": "A3J-3P",
+  "ecm": { "iff": true, "rwr": "A", "dds": "A", "djm": "A3" },
+  "notes": [
+    "Reconnaissance options include an oblique camera, overhead cameras, IR camera, side-looking radar, and electronic emissions recording equipment.",
+    "Bomb system is computed for level or radar bombing and ballistic otherwise."
+  ],
+  "stations": [
+    [ "pair"  , [ 1, 5 ], 3200, [ "BB", "RP", "RG", "WR", "FT" ] ],
+    [ "pair"  , [ 2, 3 ], 3200, [ "BB", "RP", "RG", "WR", "FT" ] ],
+    [ "single", [ 3 ]   , 0, ["Nuc BB", "FT" ] ]
+  ],
+  "loadnotes": [
+    "Station 3 is the internal weapons tube. It can carry one nuclear BB and two FTs or three FTs. The FTs have a capacity of 295 gal (1100L, weight 2000, fuel 95).",
+    "May only use AGM-12 RGs.",
+    "Although capable of carrying weapons internally and externally, in practice only three internal FTs and no external weapons or FTs were carried. The total fuel in this configuration is 1165."
+  ],
+  "VPs": [ 40, 30, 20, 10 ]
+}

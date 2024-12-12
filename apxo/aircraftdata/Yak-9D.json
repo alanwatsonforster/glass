@@ -1,5 +1,8 @@
 {
-  "name": "Yak-9D Frank",
+  "versionname": "Yak-9D",
+  "versiondescription": "Day-fighter version.",
+  "manufacturername": "Yakovlev",
+  "natoreportingnames": "NATO reporting name for aircraft is Frank.",
   "origin": "APJ 50",
   "crew": [ "Pilot" ],
   "powertable": {
@@ -9,7 +12,7 @@
     "I"   : [ 0.5, 0.5, 0.5, 0.0 ],
     "SPBR": [ "-", "-", "-" ]
   },
-  "engines": 1,
+  "propellerengines": 1,
   "cruisespeed": 3.0,
   "climbspeed" : 1.5,
   "visibility": 5,
@@ -53,12 +56,17 @@
   "gunammunition": 6.0,
   "gunsightmodifiers": { "TT": 0, "HT": 1, "BT": 2 },
   "storeslimits": [ 0, 2, 450 ],
+  "stations": [
+    [ "pair"     , [ 1, 2 ]       , 225, [ "BB" ] ]
+  ],
+  "loadnotes": [
+  ],
+  "VPs": [ 4, 3, 2, 1 ],
   "properties": [ "LBR", "HTD", "HRRCL" ],
   "powerfadespeedtable": [ [3.0, 0.5] ],
   "notes": [
-    "NATO reporting name is Frank.",
     "The normal fuel load is 35 fuel points. It may be overloaded to 55 fuel points, but doing so reduces power by 0.5 and increases vulnerability to +2 until the fuel drops to 35 fuel points."
     
   ],
-  "wikiurl": "https://bit.ly/3YAgXWe"
+  "wikiurl": "https://bit.ly/4eJoU0n"
 }

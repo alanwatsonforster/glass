@@ -1,5 +1,7 @@
 {
-  "name": "F-89D Scorpion",
+  "versionname": "F-89D",
+  "versiondescription": "All-weather interceptor version.",
+  "popularname": "Scorpion",
   "origin": "TSOH",
   "crew": [ "Pilot", "Radar Officer" ],
   "powertable": {
@@ -7,12 +9,12 @@
     "M"   : [ 1.0, 1.0, 0.5, 3.0 ],
     "N"   : [ 0.0, 0.0, 0.0, 1.0 ],
     "I"   : [ 0.5, 0.5, 1.0, 0.0 ],
-    "SPBR": [ 1.0, 2.0, 2.0 ]
+    "SPBR": [ 0.5, 1.0, 1.0 ]
   },
-  "engines": 2,
+  "jetengines": 2,
   "cruisespeed": 4.5,
   "climbspeed" : 3.5,
-  "visibility": 5,
+  "visibility": 7,
   "sizemodifier": 0,
   "vulnerability": 0,
   "restrictedarcs": "",
@@ -47,12 +49,32 @@
     "ML": [ [ 1.0, 0.5  ], [ 1.0, 0.5  ], [ 1.0, 0.5  ] ],
     "LO": [ [ 1.0, 0.5  ], [ 1.0, 0.5  ], [ 1.0, 0.5  ] ]
   },
+  "radar": {
+    "name": "E-6",
+    "eccm": 0,
+    "arc": "180+",
+    "searchrange": 100,
+    "searchstrength": 20,
+    "trackingrange": 40,
+    "trackingstrength": 8,
+    "lockon": 7
+  },
   "gun": "",
   "gunsightmodifiers": { "TT": 0, "HT": 1, "BT": 2 },
   "ataradarranging": "RE",
-  "lockon": 7,
+  "ecm": { "iff": true },
+  "technology": [ "CC Rocket Attack" ],
   "rocketfactors": 9,
-  "storeslimits": [ 4, 8, 4400 ],  
   "properties": [ "HTD", "ABSF" ],
-  "ABSFamount": 0.5
+  "ABSFamount": 0.5,
+  "wikiurl": "https://bit.ly/3CLeSyt",
+  "storeslimits": [ 4, 8, 4400 ],
+  "stations": [
+    [ "pair", [1, 4],    0, [ ] ],
+    [ "pair", [2, 3], 1600, [ "BB", "FT" ] ]
+  ],
+  "loadnotes": [
+    "Stations 1 and 8 are fixed wing-tip pods for rockets and fuel. Each can carry 4.5 factors of air-to-air rockets, giving a total of 9 factors with both pods. The pod fuel is included in the internal fuel."
+  ],
+  "VPs": [ 12, 8, 4, 2 ]
 }

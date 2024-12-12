@@ -1,0 +1,119 @@
+{
+  "versionname": "B-36D",
+  "versiondescription": "Stategic nuclear bomber version.",
+  "popularname": "Peacemaker",
+  "manufacturername": "Convair",
+  "origin": "Thomas Russ",
+  "crew": [
+   "Commander",
+   "Pilot", 
+   "Pilot",
+   "Flight Engineer",
+   "Flight Engineer",
+   "Navigator",
+   "Bombardier",
+   "Radio Operator",
+   "Radio Operator",
+   "Right Gunner", 
+   "Observer",
+   "Gunner", 
+   "Gunner", 
+   "Gunner", 
+   "Gunner", 
+   "Gunner"
+   ],
+  
+  "powertable": {
+    "FT"  : [ 1.0, 1.0, 0.5, 10.0 ],
+    "HT"  : [ 0.5, 0.5, 0.5,  4.0 ],
+    "N"   : [ 0.0, 0.0, 0.0,  1.0 ],
+    "I"   : [ 0.5, 0.5, 1.0,  0.0 ],
+    "SPBR": [ "-", "-", "-" ]
+  },
+  //"powerfadespeedtable": [ [2.5, 0.25] ],
+
+  "propellerengines": 6,
+  "jetengines": 4,
+  "cruisespeed": 2.0,
+  "climbspeed" : 2.0,  
+  "visibility": 13,
+  "sizemodifier": -2,
+  "vulnerability": 2,
+  "restrictedarcs": "",
+  "blindarcs": "",
+  "atarefuel": false,
+  "internalfuel": 1760,
+  "ejectionseat": "none",
+
+  "maneuvertable": {
+    "LR/DR": [ "-", "-" ],
+    "VR":    [ "-", "-" ]
+  },
+
+  "turndragtable": {
+    "TT": [ 1.0, 2.0, 2.0 ],
+    "HT": [ 2.0, 3.0, 3.0 ],
+    "BT": [ "-", "-", "-" ],
+    "ET": [ "-", "-", "-" ]    
+  },
+
+  "ceilingtable": [ 46, 40, 32 ],
+
+  "speedtable": {
+    "EH": [ [  2.0,  4.0 ], [  "-",  "-" ], [  "-",  "-" ],  4.0 ],
+    "VH": [ [  1.5,  4.5 ], [  2.0,  4.0 ], [  "-",  "-" ],  4.5 ],
+    "HI": [ [  1.5,  4.5 ], [  1.5,  4.0 ], [  2.0,  4.0 ],  5.0 ],
+    "MH": [ [  1.5,  4.0 ], [  1.5,  4.0 ], [  1.5,  3.5 ],  4.5 ],
+    "ML": [ [  1.0,  3.5 ], [  1.5,  3.5 ], [  1.5,  3.0 ],  4.5 ],
+    "LO": [ [  1.0,  3.0 ], [  1.0,  3.0 ], [  1.5,  2.5 ],  4.0 ]
+  },
+
+  "climbcapabilitytable": {
+    "EH": [ [ 0.20, "-"  ], [ "-" , "-"  ], [ "-" , "-"  ] ],
+    "VH": [ [ 0.25, 0.20 ], [ 0.20, "-"  ], [ "-" , "-"  ] ],
+    "HI": [ [ 0.50, 0.20 ], [ 0.25, 0.20 ], [ 0.20, "-"  ] ],
+    "MH": [ [ 0.50, 0.25 ], [ 0.50, 0.20 ], [ 0.25, 0.20 ] ],
+    "ML": [ [ 1.00, 0.50 ], [ 0.50, 0.25 ], [ 0.50, 0.20 ] ],
+    "LO": [ [ 1.00, 0.50 ], [ 1.00, 0.50 ], [ 0.50, 0.25 ] ]
+  },
+  
+  "radar": {
+    "name": "APS-23",
+    "eccm": 1,
+    "arc": "180-",
+    "searchrange": 200,
+    "trackingrange": 100,
+    "lockon": 0
+  },
+  
+  "ecm": {
+    "iff": true,
+    "rwr": "A",
+    "ajm": "A3"
+  },
+
+  "bombsystem": "Ballistic",
+  
+  "properties": [ "HTD", "NRM" ],
+  
+    
+  "storeslimits": [ 40, 70, 86000 ],
+  "stations": [
+    [ "group" , [ 1, 4 ], 21500, [ "BB", "FT" ] ]
+  ],
+  "loadnotes": [
+    "Stations 1 to 4 are the internal bomb bays. Stations 1 and 2 and stations 3 and 4 may be combined.",
+    "The load option for an individual bay are: (a) FT with 1075 fuel points, (b) six 3,000 lb bombs, (c) eight 2,000 lb bombs, (d) sixteen 1,000 lb bombs, (e) thirty three 500 lb bombs, or (f) photographic cameras. Any bombs carried must be low-drag.",
+    "The load options for a combined pair are: (a) one 43,000 lb bomb, (b) two 22,000 lb bombs, (c) four 12,000 lb bombds, or (d) four 10,000 lb bombs."
+  ],
+
+  "variantnotes": [
+      "Gun Turrets. Equipped with eleven .50 cal M2 guns, eight in four twin turrets and three in the tail mount. They can fire in any direction. They may return fire twice per game turn in response to a gun attacks or conduct a single attack. The roll to hit is 2/1/0 and the AtA rating is 2. Gun attacks are modified only by the target size and have a -1 modifier when firing into the 60- arc. Ammunition is 18.0.",
+      "Tail Gun Radar. ECCM = 1, arcs = 60-, search = 30--10, Track = 15/10, and Lock-on = 7."
+  ],
+  
+  "VPs": [ 42, 28, 21, 9 ],
+
+  "wikiurl": "https://bit.ly/3OdyOMD"
+
+}

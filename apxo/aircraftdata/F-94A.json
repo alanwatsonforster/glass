@@ -1,4 +1,11 @@
 {
-  "name": "F-94A Starfire",
-  "base": "F-94B"
+  "versionname": "F-94A",
+  "base": "F-94B",
+  "storeslimits": [ 4, 7, 2200 ],
+  "stations": [
+    [ "pair", [ 1, 2 ], 1100, [ "FT" ] ]
+  ],
+  "loadnotes": [
+    "The wing-tip stations 1 and 2 usually carry 165 gal (600L) FTs, each with a weight of 1100, 3.0/2.0 load points, and 50 fuel points."
+  ]
 }

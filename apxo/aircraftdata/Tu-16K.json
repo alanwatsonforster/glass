@@ -1,7 +1,11 @@
 {
-  "name": "Tu-16K Badger-G",
-  "base": "Tu-16A",
-  "notes": [
-    "NATO reporting name is Badger-G."
+  "versionname": "Tu-16K",
+  "natoreportingnames": "NATO reporting name for aircraft is Badger-G and for the tail radar is Bee Hind.",
+  "base": "Tu-16KS",
+  "stations": [
+    [ "pair", [ 1, 2 ], 10000, [ "BB", "WR", "FT", "ARM", "ASM" ]]
+  ], 
+  "loadnotes": [
+    "Stations 1 and 2 may each carry one AS-5 Kelt ASM or ARM."
   ]
 }

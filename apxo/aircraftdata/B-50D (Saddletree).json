@@ -1,0 +1,7 @@
+{
+  "versionname": "B-50D",
+  "variantname": "Saddletree",
+  "description": "The B-50D is a strategic bomber. The “Saddletree” variant described here is a nuclear bomber converted from the conventional base variant under the 1947 to 1949 Saddletree program, with provision for nuclear weapons, all armor and turrets removed, ATA refueling, additional fuel tanks, and winterized electronics.",
+  "base": "B-50A (Saddletree)",
+  "internalfuel": 2400
+}

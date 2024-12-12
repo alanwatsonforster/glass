@@ -1,8 +1,9 @@
 {
-  "name": "RF-5A Freedom Fighter",
+  "versionname": "RF-5A",
+  "versiondescription": "Reconnaissance version of the F-5A, retaining full combat capability.",
   "base": "F-5A",
   "notes": [
-    "The RF-5A appears as a variant on the ADC for the F-5A/C.",
-    "Overhead and oblique cameras in the nose."
-  ]
+    "Overhead and oblique cameras in extended nose."
+  ],
+  "VPs": [ 18, 12, 6, 3 ]
 }

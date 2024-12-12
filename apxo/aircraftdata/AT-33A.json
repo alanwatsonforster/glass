@@ -1,11 +1,17 @@
 {
-  "name": "AT-33A Shooting Star",
+  "versionname": "AT-33A",
+  "versiondescription": "Close air support version of the T-33A.",
+  "originallydesignated": null,
   "base": "F-80C",
   "crew": [ "Pilot", "Copilot" ],
-  "gun": "Two .50 cal",
+  "gun": "Two .50 cal M3",
   "gunatatohitrolls": "4/2/-",
   "gundamagerating": "1/2**",
   "ecm": { "iff": false },
-  "notes": [
-  ]
+  "loadnotes": [
+    "Either stations 2 and 3 or stations 5 to 8 can be used.",
+    "Stations 5 to 8 can each carry two RK."
+  ],
+  "VPs": [ 5, 3, 2, 1 ],
+  "notes": []
 }

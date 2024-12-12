@@ -1,5 +1,7 @@
 {
-  "name": "Meteor F.8",
+  "versionname": "Meteor F.8",
+  "versiondescription": "Post-war fighter-bomber version.",
+  "manufacturername": "Gloster",
   "origin": "APJ 50",
   "crew": [ "Pilot" ],
   "powertable": {
@@ -8,7 +10,7 @@
     "I"   : [ 1.0, 1.0, 1.0, 0.0 ],
     "SPBR": [ 1.0, 1.0, 1.0 ]
   },
-  "engines": 2,
+  "jetengines": 2,
   "cruisespeed": 4.0,
   "climbspeed" : 2.5,
   "visibility": 5,
@@ -52,9 +54,19 @@
   "gunsightmodifiers": { "TT": 0, "HT": 1, "BT": 2 },
   "ecm": { "iff": true },
   "storeslimits": [ 2, 5, 3600 ],
-  "properties": [ "HTD", "LRR" ],
-  "notes": [
-    "The centerline 175 gal conformal fuel tank restricts the maximum speed to 4.0 until jettisoned."
+  "stations": [
+    [ "pair"     , [ 1, 3 ]       , 1000, [ "BB", "FT" ] ],
+    [ "single"   , [ 2 ]          , 1600, [ "FT" ] ],
+    [ "grouppair", [ 4, 7, 8, 11 ],  200, [ "RK" ] ]
   ],
-  "wikiurl": "https://bit.ly/3BXiwol"
+  "loadnotes": [
+    "Either stations 1 and 3 or stations 4 to 11 can be used.",
+    "Stations 1 and 3 can each carry a 100 gal (450L) FT.",
+    "Ventral station 2 can only be used to carry a jettisonable conformal 175 gal FT (800L, weight 1,600, load 3.0/2.0, and fuel 70). While carried, the FT restricts the maximum speed to 4.0.",
+    "Stations 4 to 11 can each carry two RP-3 RKs or one HVAR RK."
+  ],
+  "VPs": [ 6, 4, 2, 1 ],
+  "properties": [ "HTD", "LRR" ],
+  "notes": [],
+  "wikiurl": "https://bit.ly/3Cx2lOY"
 }

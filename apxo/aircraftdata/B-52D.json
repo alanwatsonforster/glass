@@ -1,14 +1,16 @@
 {
-  "name": "B-52D Stratofortress",
+  "versionname": "B-52D",
+  "popularname": "Stratofortress",
+  "versiondescription": "Strategic nuclear and conventional bomber.",
   "origin": "TSOH",
   "crew": [ "Pilot", "Copilot", "EW Officer", "EW Officer", "Navigator", "Gunner" ],
   "powertable": {
     "M"   : [ 1.5, 1.0, 1.0, 16.0 ],
     "N"   : [ 0.0, 0.0, 0.0,  8.0 ],
-    "I"   : [ 0.5, 0.5, 0.5,  2.0 ],
+    "I"   : [ 0.5, 0.5, 1.0,  2.0 ],
     "SPBR": [ 1.0, 1.0, 1.0 ]
   },
-  "engines": 8,
+  "jetengines": 8,
   "cruisespeed": 5.0,
   "climbspeed" : 3.5,
   "visibility": 12,
@@ -35,7 +37,7 @@
     "VH": [ [  3.0, 5.5  ], [  3.5, 5.5  ], [  3.5, 5.0  ], 6.0 ],
     "HI": [ [  3.0, 6.0  ], [  3.0, 5.5  ], [  3.5, 5.0  ], 6.5 ],
     "MH": [ [  2.5, 6.0  ], [  2.5, 5.5  ], [  3.0, 5.0  ], 6.5 ],
-    "ML": [ [  2.0, 5.5  ], [  2.5, 4.5  ], [  3.0, 4.5  ], 6.5 ],
+    "ML": [ [  2.0, 5.5  ], [  2.5, 5.0  ], [  3.0, 4.5  ], 6.5 ],
     "LO": [ [  2.0, 4.5  ], [  2.0, 4.5  ], [  2.5, 4.0  ], 6.5 ]
   },
   "climbcapabilitytable": {
@@ -46,10 +48,33 @@
     "ML": [ [ "-", 1.0 ], [ "-", 1.0  ], [ "-", 1.0  ] ],
     "LO": [ [ "-", 1.0 ], [ "-", 1.0  ], [ "-", 1.0  ] ]
   },
-  "storeslimits": [ 40, 70, 60000 ],
-  "gunarc": "30-",
-  "gunammunition": 8.0,
+  "radar": {
+    "name": "Nav",
+    "eccm": 3,
+    "arc": "150+",
+    "searchrange": 300,
+    "trackingrange": 180,
+    "lockon": 8
+  },
+  "bombsystem": "Ballistic",
+  "ecm": { "iff": true, "rwr": "B", "dds": "A", "djm": "B3", "ajm": "B3", "bjm": "B3" },
   "properties": [ "NRM", "LRR", "HTD", "SMP" ],
   "notes": [
-  ]
+    "DDS load is 240 CH and 60 FL.",
+     "Tail Guns. Equipped with four .50 cal M3 guns in a tail mount. They can fire at targets in the 30- arc. They may return fire twice per game turn in response to a gun attacks or fire once on any moving target in its 30- to which it has a tail radar lock-on. If it fires with a lock-on, the RE ranging modifier applies. Ranging may also be attempted if firing without a lock on.The roll to hit is 5/3/1, ammunition is 8.0, and the AtA damage rating is 4.",  
+    "Tail Warning Radar. ECCM = 2, Arcs = $60-$, Search = 40--8, Track = 18--6, and Lock-On = 8. As usual, searchs and tracking attempts are done in the Air Radar Phase."
+  ],
+  "wikiurl": "https://bit.ly/3ZhBqzx",
+  "storeslimits": [ 40, 70, 60000 ],
+  "stations": [
+    [ "pair"  , [ 1, 5 ], 20000, [ "FT" ] ],
+    [ "pair"  , [ 2, 4 ], 10000, [ "BB", "ASM", "Decoys" ] ],
+    [ "single", [ 3]    , 49500, [ "BB", "ASM", "Decoys" ] ]
+  ],
+  "loadnotes": [
+    "Stations 1 and 5 may carry 750 gal (2800L, weight 6,000, load 10.0, 240 fuel points) or 3000 gal (11,000L, weight 20,000, load 20.0, 975 fuel points) FTs.",
+    "Stations 2 and 3 may each carry (a) twelve BB, (b) two ADM-120 Quail decoys, or (c) one AGM-28 Hound Dog ASM.",
+    "Station 3 is the internal bomb bay. It may carry (a) eight nuclear BB and two ADM-120 Qual decoys, (b) sixty six 750 lb BB, or (c) eighty four 500 lb BB."
+  ],
+  "VPs": [ 60, 40, 20, 10 ]
 }

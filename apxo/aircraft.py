@@ -54,6 +54,7 @@ class aircraft(apelement.element):
         altitude,
         speed,
         configuration="CL",
+        geometry=None,
         fuel=None,
         bingofuel=None,
         gunammunition=None,
@@ -78,7 +79,7 @@ class aircraft(apelement.element):
             aircraftdata = apaircraftdata.aircraftdata(aircrafttype)
 
             if not apvisualsighting.isvalidpaintscheme(paintscheme):
-                raise RuntimeError("the paintscheme argument is not valid.")
+                raise RuntimeError("the paintscheme argument is not valid.")            
 
             super().__init__(
                 name,
@@ -87,8 +88,7 @@ class aircraft(apelement.element):
                 altitude=altitude,
                 speed=speed,
                 color=color,
-                delay=delay,
-                properties=aircraftdata.properties(),
+                delay=delay
             )
 
             # In addition to the specified position, azimuth, altitude, speed, and
@@ -151,6 +151,10 @@ class aircraft(apelement.element):
             self.logwhenwhat("", "type          is %s." % aircrafttype)
             self.logwhenwhat("", "position      is %s." % self.position())
             self.logwhenwhat("", "speed         is %.1f." % self.speed())
+
+            self._setgeometry(geometry)
+            if self.geometry() is not None:
+                self.logwhenwhat("", "geometry      is %s." % self.geometry())
 
             # Determine the fuel and bingo levels.
 
@@ -327,6 +331,18 @@ class aircraft(apelement.element):
 
     #############################################################################
 
+    def _setgeometry(self, geometry):
+        """Set the geometry of the aircraft."""
+        if geometry not in apcapabilities.geometries(self):
+            raise RuntimeError("the geometry argument %r is not valid." % geometry)
+        self._geometry = geometry
+
+    def geometry(self):
+        """Return the geometry of the aircraft."""
+        return self._geometry
+
+    #############################################################################
+
     def note(self, s):
         """Write a note to the log."""
         self.lognote(s)
@@ -367,6 +383,9 @@ class aircraft(apelement.element):
             return self.speed() >= self._aircraftdata["LRRHSlimit"]
 
         return super().hasproperty(p)
+        
+    def _properties(self):
+        return apcapabilities.properties(self)
 
     ##############################################################################
 
@@ -656,10 +675,10 @@ class aircraft(apelement.element):
     ################################################################################
 
     def _startmovespeed(
-        self, power, flamedoutengines, lowspeedliftdeviceselected, speedbrakes
+        self, power, flamedoutengines, lowspeedliftdeviceselected, speedbrakes, geometry
     ):
         apspeed.startmovespeed(
-            self, power, flamedoutengines, lowspeedliftdeviceselected, speedbrakes
+            self, power, flamedoutengines, lowspeedliftdeviceselected, speedbrakes, geometry
         )
 
     def _endmovespeed(self):
@@ -699,7 +718,9 @@ class aircraft(apelement.element):
         speedbrakes=None,
         flamedoutengines=0,
         lowspeedliftdeviceselected=None,
+        geometry=None
     ):
+        self._setgeometry(geometry)
         apflight._move(
             self,
             flighttype,
@@ -707,7 +728,7 @@ class aircraft(apelement.element):
             moves,
             speedbrakes=speedbrakes,
             flamedoutengines=flamedoutengines,
-            lowspeedliftdeviceselected=lowspeedliftdeviceselected,
+            lowspeedliftdeviceselected=lowspeedliftdeviceselected
         )
 
     def _continuemove(self, moves=""):

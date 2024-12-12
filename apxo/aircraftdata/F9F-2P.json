@@ -1,8 +1,12 @@
 {
-  "name": "F9F-2P Panther",
+  "versionname": "F9F-2P",
+  "versiondescription": "Reconnaissance version of F9F-2.",
   "base": "F9F-2",
   "gun": "",
+  "radar": null,
+  "ataradarranging": null,
   "notes": [
-    "Oblique and overhead cameras."
-  ]
+    "Oblique and overhead cameras in the nose."
+  ],
+  "VPs": [ 7, 4, 2, 1 ]
 }

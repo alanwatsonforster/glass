@@ -1,10 +1,25 @@
 {
-  "name": "MiG-17PFU Fresco-E",
-  "base": "MiG-17F",
-  "gun": "",
-  "ataradarranging": "RE",
-  "lockon": 6,
+  "versionname": "MiG-17PFU",
+  "base": "MiG-17PF",
+  "natoreportingnames": "NATO reporting name for aircraft is Fresco-E and for radar is Scan Odd.",
+  "ceilingtable": [ 52, 48, 45 ],
+  "speedtable": {
+    "EH": [ [  3.0, 5.5  ], [  3.0, 5.5  ], [  3.5, 5.0  ], 6.5 ],
+    "VH": [ [  2.5, 5.5  ], [  3.0, 5.5  ], [  3.0, 5.0  ], 6.5 ],
+    "HI": [ [  2.0, 5.5  ], [  2.5, 6.0  ], [  2.5, 5.5  ], 7.0 ],
+    "MH": [ [  1.5, 6.0  ], [  2.0, 6.0  ], [  2.0, 5.5  ], 7.0 ],
+    "ML": [ [  1.0, 6.5  ], [  1.5, 6.5  ], [  1.5, 5.5  ], 7.5 ],
+    "LO": [ [  1.0, 6.0  ], [  1.5, 6.0  ], [  1.5, 5.5  ], 7.5 ]
+  },
+  "gun": null,
+  "ataradarranging": null,
   "notes": [
-    "NATO reporting name is Fresco-E."
+  ],
+  "stations": [
+    [ "pair", [1, 7], 700, [ "BB", "RK", "RP", "FT" ] ],
+    [ "grouppair", [3, 4, 5, 6], 200, [ "BRM", "RHM" ] ]
+  ],
+  "loadnotes": [
+    "May use AA-1 BRMs and RHMs."
   ]
 }

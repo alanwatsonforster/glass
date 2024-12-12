@@ -1,5 +1,5 @@
 {
-  "name": "MiG-19SF Farmer-C",
+  "versionname": "MiG-19SF Farmer-C",
   "origin": "Carl Smeaton",
   // This is different to the TSOH ADC in the SPBR rating for 1/2 and the CC
   // for CL without AB. Alan suspects these are typos. Carl thinks they are 
@@ -12,7 +12,7 @@
     "I"   : [ 0.5, 0.5, 0.5, 0.0 ],
     "SPBR": [ 1.0, 1.0, 2.0 ]
   },
-  "engines": 2,
+  "jetengines": 2,
   "cruisespeed": 5.5,
   "climbspeed" : 4.5,
   "visibility": 5,

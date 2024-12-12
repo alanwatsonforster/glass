@@ -1,4 +1,6 @@
 {
-  "name": "F-86E Sabre",
-  "base": "F-86A"
+  "versionname": "F-86E",
+  "versiondescription": "Day flighter version with the original slatted wing and an all-flying tail.",
+  "base": "F-86A",
+  "notes": []
 }

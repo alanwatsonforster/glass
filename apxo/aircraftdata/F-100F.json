@@ -1,5 +1,13 @@
 {
-  "name": "F-100F Super Sabre",
-  "base": "F-100C",
-  "crew": [ "Pilot", "Observer" ]
+  "versionname": "F-100F",
+  "versiondescription": "Two-seat trainer with combat capability. Also used as fast FAC.",
+  "base": "F-100D",
+  "crew": [ "Pilot", "Observer" ],
+  "ceilingtable": [ 45, 40, 36 ],
+  "gun": "Two 20 mm M39",
+  "gunatatohitrolls": "5/3/2",
+  "gunammunition": 4.0,
+  "gunsightmodifiers": { "TT": 0, "HT": 1, "BT": 2 },
+  "ataradarranging": "RE",
+  "gundamagerating": "4/4*"
 }

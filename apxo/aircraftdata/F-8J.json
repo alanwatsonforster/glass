@@ -1,5 +1,22 @@
 {
-  "name": "F-8J Crusader",
+  "versionname": "F-8J",
+  "origin": "TSOH",
   "base": "F-8E",
-  "gunammunition": 2.5
+  "previouslydesignated": null,
+  "radar": {
+    "name": "APQ-124",
+    "eccm": 0,
+    "arc": "180+",
+    "searchrange": 150,
+    "searchstrength": 30,
+    "trackingrange": 90,
+    "trackingstrength": 30,
+    "lockon": 6
+  },
+  "gunammunition": 2.5,
+  "ecm": { "iff": true, "rwr": "A", "djm": "A3" },
+  "stations": [
+    [ "pair"  , [ 1, 4 ], 2700, [ "BB", "RP", "RG", "WR", "FT" ] ],
+    [ "pair"  , [ 2, 3 ],  700, [ "IRM", "RHM", "RP", "MDR", "DR" ] ]
+  ]
 }

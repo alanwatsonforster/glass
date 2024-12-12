@@ -1,13 +1,34 @@
 {
-  "name": "Su-11 Fishpot-C",
+  "versionname": "Su-11",
   "base": "Su-9",
+  "natoreportingname": "NATO reporting name for aircraft is Fishpot-C and or radar is Skip Spin.",
   "turndragtable": {
     "TT": [ 2.0, 2.0, 2.0 ],
     "HT": [ 3.0, 3.0, 4.0 ],
     "BT": [ 5.0, 5.0, 6.0 ]
   },
-  "storeslimits": [ 2, 6, 3800 ],
+  "radar": {
+    "name": "Skip Spin",
+    "eccm": 0,
+    "arc": "180+",
+    "searchrange": 54,
+    "searchstrength": 12,
+    "trackingrange": 48,
+    "trackingstrength": 10,
+    "lockon": 7
+  },
+  "ecm": { "iff": true, "rwr": "A" },
   "notes": [
-    "NATO reporting name is Fishpot-C."
-  ]
+  ],
+  "wikiurl": "https://bit.ly/4eSFrip",
+  "storeslimits": [ 2, 6, 3800 ],
+  "stations": [
+    [ "pair", [ 1, 4 ],  600, [ "IRM", "RHM" ] ],
+    [ "pair", [ 2, 3 ], 1100, [ "IRM", "FT" ] ]
+  ],
+  "loadnotes": [
+    "May only use AA-2 or AA-3 IRMs and AA-3 RHMs on stations 1 and 4.",
+    "May only use AA-2 IRMs on stations 2 and 3."
+  ],
+  "VPs": [ 18, 12, 8, 4 ]
 }

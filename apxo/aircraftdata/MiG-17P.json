@@ -1,0 +1,27 @@
+{
+  "versionname": "MiG-17P",
+  "versiondescription": "Interceptor version with non-afterburning VK-1A engine.",
+  "natoreportingnames": "NATO reporting name for aircraft is Fresco-B.",
+  "base": "MiG-17PF",
+  "powertable": {
+    "M"   : [ 1.5, 1.5, 1.0, 1.0 ],
+    "N"   : [ 0.0, 0.0, 0.0, 0.5 ],
+    "I"   : [ 0.5, 0.5, 1.0, 0.0 ],
+    "SPBR": [ 0.5, 0.5, 1.0 ]
+  },
+  "climbcapabilitytable": {
+    "EH": [ [ "-", 0.5 ], [ "-", 0.5 ], [ "-", 0.5 ] ],
+    "VH": [ [ "-", 0.5 ], [ "-", 0.5 ], [ "-", 0.5 ] ],
+    "HI": [ [ "-", 0.5 ], [ "-", 0.5 ], [ "-", 0.5 ] ],
+    "MH": [ [ "-", 1.0 ], [ "-", 0.5 ], [ "-", 0.5 ] ],
+    "ML": [ [ "-", 1.0 ], [ "-", 1.0 ], [ "-", 0.5 ] ],
+    "LO": [ [ "-", 1.0 ], [ "-", 1.0 ], [ "-", 1.0 ] ]
+  },
+  "gun": "Two 23 mm NR-23 and one 37 mm N-37",
+  "gunatatohitrolls": "4/2/1",
+  "gundamagerating": "5/4",
+  "gunammunition": 3.0,
+  "gunsightmodifiers": { "TT": 0, "HT": 2, "BT": 3 },
+  "notes": [
+  ]
+}

@@ -1,0 +1,10 @@
+{
+  "base": "F-105F (Early Wild Weasel)",
+  "origin": "TSOH",
+  "variantname": "Late Wild Weasel",
+  "variantdescription": "equipped for air-defense suppression, from 1968.",
+  "ecm": { "iff": true, "rwr": "B", "dds": "A" },
+  "loadnotes": [
+    "May only use AIM-9 IRMs, AGM-45 and AGM-78 ARMs, and AGM-12 RGs."
+  ]
+}

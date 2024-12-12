@@ -1148,7 +1148,7 @@ def startdrawmap(
         zorder=0,
     )
 
-    if fullmap:
+    if fullmap and _writefiles:
         apdraw.save()
         _saved = True
 

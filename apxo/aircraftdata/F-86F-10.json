@@ -1,0 +1,22 @@
+{
+  "versionname": "F-86F-10",
+  "versiondescription": "Day flighter version with the original slatted wing and radar ranging.",
+  "base": "F-86E",
+  "ceilingtable": [ 48, 45, 42 ],
+  "climbcapabilitytable": {
+    "EH": [ [ "-", 0.5 ], [ "-", "-" ], [ "-", "-" ] ],
+    "VH": [ [ "-", 0.5 ], [ "-", 0.5 ], [ "-", 0.5 ] ],
+    "HI": [ [ "-", 1.0 ], [ "-", 0.5 ], [ "-", 0.5 ] ],
+    "MH": [ [ "-", 1.0 ], [ "-", 1.0 ], [ "-", 0.5 ] ],
+    "ML": [ [ "-", 1.5 ], [ "-", 1.0 ], [ "-", 1.0 ] ],
+    "LO": [ [ "-", 1.5 ], [ "-", 1.5 ], [ "-", 1.0 ] ]
+  },
+  "radar": {
+    "name": "APG-30",
+    "lockon": 6
+  },
+  "ataradarranging": "RE",
+  "ecm": { "iff": true },
+  "notes": [],
+  "VPs": [ 9, 6, 3, 1]
+}

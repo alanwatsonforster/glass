@@ -1,5 +1,8 @@
 {
-  "name": "F-86D Sabre-Dog",
+  "versionname": "F-86D",
+  "popularname": "Sabre-Dog",
+  "versiondescription": "All-weather intercepter version with original slatted wing and all-flying tail.",
+  "base": "F-86A",
   "origin": "APJ 25",
   "crew": [ "Pilot" ],
   "powertable": {
@@ -7,23 +10,10 @@
     "M"   : [ 1.0, 1.0, 1.0, 1.0 ],
     "N"   : [ 0.0, 0.0, 0.0, 0.5 ],
     "I"   : [ 0.5, 0.5, 1.0, 0.0 ],
-    "SPBR": [ 1.0, 1.0, 2.0 ]
+    "SPBR": [ 0.5, 0.5, 1.0 ]
   },
-  "engines": 1,
   "cruisespeed": 5.5,
-  "climbspeed" : 3.5,
-  "visibility": 5,
-  "sizemodifier": 0,
-  "vulnerability": 0,
-  "restrictedarcs": "",
-  "blindarcs": "30-",
   "internalfuel": 205,
-  "atarefuel": false,
-  "ejectionseat": "early",
-  "maneuvertable": {
-    "LR/DR": [ 1.0, 1.0 ],
-    "VR":    [ 0.0, 0.0 ]
-  },
   "lowspeedliftdevicelimit": 3.5,
   "lowspeedliftdevicelimittype": "absolute",
   "lowspeedliftdevicename": "leading-edge slats",
@@ -54,11 +44,33 @@
     "ML": [ [ 2.0, 1.0 ], [ 1.5, 1.0 ], [ 1.5, 1.0 ] ],
     "LO": [ [ 2.0, 1.0 ], [ 1.5, 1.0 ], [ 1.5, 1.0 ] ]
   },
+  "radar": {
+    "name": "APG-36",
+    "eccm": 0,
+    "arc": "180+",
+    "searchrange": 70,
+    "searchstrength": 10,
+    "trackingrange": 40,
+    "trackingstrength": 8,
+    "lockon": 6
+  },
   "gun": "",
   "gunsightmodifiers": { "TT": 0, "HT": 1, "BT": 2 },
   "ataradarranging": "RE",
-  "lockon": 6,
+  "ecm": { "iff": true },
+  "technology": [ "CC Rocket Attack" ],
+  "properties": [ "SMP", "HTD" ],
+  "notes": [],
   "rocketfactors": 2,
   "storeslimits": [ 2, 6, 4000 ],  
-  "properties": [ "HTD" ]
+  "stations": [
+    [ "pair"  , [ 1, 5 ] , 1000, [ "BB", "FT" ] ],
+    [ "pair"  , [ 2, 4 ] , 1000, [ "BB", "FT", "IRM" ] ],
+    [ "single", [ 3    ] ,    0, [ "" ] ]
+  ],
+  "loadnotes": [
+    "Station 3 is an internal rocket tray with 2 factors of air-to-air rockets.",
+    "From 1957, may use AIM-9B IRMs."
+  ],
+  "VPs": [ 11, 8, 3, 1 ]
 }

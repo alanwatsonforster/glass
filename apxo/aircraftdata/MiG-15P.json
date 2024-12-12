@@ -1,8 +1,20 @@
 {
-  "name": "MiG-15P Fagot",
+  "versionname": "MiG-15P",
+  "versiondescription": "Prototype all-weather interceptor version, developed from the MiG-15bis and with the RP-1 Izumrud radar.",
   "base": "MiG-15bis",
-  "gun": "Two 23 mm",
-  "gunatadamagerating": 4,
+  "natoreportingnames": "NATO reporting name for aircraft is Fagot and for radar is Scan Fix.",
+  "radar": { 
+    "name": "RP-1 Izumrud", 
+    "eccm": 0, 
+    "arc": "Limited", 
+    "searchrange": 10,
+    "searchstrength": 6,
+    "trackingrange": 6,
+    "trackingstrength": 6,
+    "lockon": 5
+  },
+  "gun": "Two 23 mm NR-23",
+  "gundamagerating": "4/3*",
   "ataradarranging": "RE",
-  "lockon": 5
+  "VPs": [ 9, 6, 3, 1]
 }

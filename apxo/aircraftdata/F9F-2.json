@@ -1,14 +1,17 @@
 {
-  "name": "F9F-2 Panther",
+  "versionname": "F9F-2",
+  "popularname": "Panther",
+  "versiondescription": "Fighter version, with outer-wing stations capable of carrying only six HVARs. All subsequently converted to the F9F-2B standard.",
+  "manufacturername": "Grumman",
   "origin": "TSOH",
   "crew": [ "Pilot" ],
   "powertable": {
     "M"   : [ 1.0, 1.0, 1.0, 1.0 ],
     "N"   : [ 0.0, 0.0, 0.0, 0.5 ],
     "I"   : [ 0.5, 0.5, 0.5, 0.0 ],
-    "SPBR": [ 1.0, 1.0, 1.0 ]
+    "SPBR": [ 0.5, 0.5, 0.5 ]
   },
-  "engines": 1,
+  "jetengines": 1,
   "cruisespeed": 4.5,
   "climbspeed" : 3.5,
   "visibility": 5,
@@ -45,13 +48,25 @@
     "ML": [ [ "-", 1.0 ], [ "-", 1.0 ], [ "-", 0.5 ] ],
     "LO": [ [ "-", 1.0 ], [ "-", 1.0 ], [ "-", 1.0 ] ]
   },
-  "storeslimits": [ 2, 6, 2000 ],
-  "gun": "Four 20 mm Mk 12",
+  "gun": "Four 20 mm M3",
   "gunatatohitrolls": "6/4/3",
-  "gunatadamagerating": 5,
+  "gundamagerating": "5/6*",
   "gunammunition": 6.0,
   "gunsightmodifiers": { "TT": 0, "HT": 1, "BT": 2 },
+  "ataradarranging": "RE",
+  "radar": {
+    "name": "APG-30",
+    "lockon": 6
+   },
+  "ecm": { "iff": true },
+  "storeslimits": [ 2, 6, 2000 ],
+  "stations": [
+    [ "grouppair", [ 1, 3, 4, 6], 250, [ "RK" ] ]
+  ],
+  "loadnotes": [],
+  "VPs": [ 7, 4, 2, 1 ],
   "properties": [ "HTD" ],
   "notes": [
-  ]
+  ],
+  "wikiurl": "https://bit.ly/40Ccq7g"
 }
