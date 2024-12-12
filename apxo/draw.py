@@ -1110,7 +1110,7 @@ def _drawgroundunitinphysical(x0, y0, symbols, color, name, stack):
         )
 
     def drawlightsymbol():
-        _drawinphysical(
+        _drawtextinphysical(
             x,
             y,
             90,
