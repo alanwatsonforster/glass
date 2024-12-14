@@ -1,6 +1,11 @@
 {
   "versionname": "F-86E",
-  "versiondescription": "Day flighter version with the original slatted wing and an all-flying tail.",
+  "versiondescription": "Day flighter version with the original slatted wing, an all-flying tail, and radar ranging.",
   "base": "F-86A",
+  "radar": {
+    "name": "APG-30",
+    "lockon": 6
+  },
+  "ataradarranging": "RE",
   "notes": []
 }
