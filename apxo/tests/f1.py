@@ -33,7 +33,7 @@ A1.move("LVL", "M", "H,H")
 A1._assert("A1-1912       N     7", 2.0)
 endgameturn()
 
-# Check jettisoning.
+# Check releaseing.
 
 starttestsetup(verbose=False)
 A1 = aircraft(
@@ -51,14 +51,14 @@ endtestsetup()
 
 startgameturn()
 A1.move("ST", "N")
-A1.jettison("BB")
+A1.release("BB")
 A1.continuemove("ST")
 A1._assert("A2-2024       N     9", 1.0, expectedconfiguration="1/2")
 endgameturn()
 
 startgameturn()
 A1.move("ST", "N")
-A1.jettison("1", "4")
+A1.release("1", "4")
 A1.continuemove("ST")
 A1._assert("A2-2024       N     7", 1.5, expectedconfiguration="CL")
 endgameturn()

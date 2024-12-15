@@ -17,7 +17,7 @@ endgameturn()
 
 # Turns with selectable slats.
 
-starttestsetup(verbose=True)
+starttestsetup()
 A1 = aircraft("A1", "AF", "MiG-21bis", "A1-1110", "N", 10, 2.5, "CL")
 A2 = aircraft("A2", "AF", "MiG-21bis", "A1-1310", "N", 10, 2.5, "CL")
 endtestsetup()
@@ -32,7 +32,7 @@ asserterror("speed limits the turn rate to EZ.")
 
 # A-7D/E automatic maneuvering flaps, which are automatic but also change min speed.
 
-starttestsetup(verbose=True)
+starttestsetup()
 A1 = aircraft("A1", "AF", "A-7E (1980 Upgrade)", "A1-1110", "N", 40, 4.0, "CL")
 A2 = aircraft("A2", "AF", "A-7E (1980 Upgrade)", "A1-1112", "N", 40, 3.5, "CL")
 endtestsetup()

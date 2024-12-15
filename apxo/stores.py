@@ -235,7 +235,7 @@ def _airtoairlaunch(stores, launched, printer=print):
     return missiletype, newstores
 
 
-def _jettison(stores, released, printer=print):
+def _release(stores, released, printer=print):
 
     newstores = stores.copy()
 
@@ -261,7 +261,7 @@ def _jettison(stores, released, printer=print):
 
         for loadstation, name in sorted(stores.items()):
             if _class(name) == released:
-                printer("jettisoning %s on load station %s." % (name, loadstation))
+                printer("releaseing %s on load station %s." % (name, loadstation))
                 del newstores[loadstation]
 
     else:
@@ -272,7 +272,7 @@ def _jettison(stores, released, printer=print):
             raise RuntimeError("load station %s is not loaded." % loadstation)
 
         printer(
-            "jettisoning %s on load station %s." % (stores[loadstation], loadstation)
+            "releaseing %s on load station %s." % (stores[loadstation], loadstation)
         )
         del newstores[loadstation]
 

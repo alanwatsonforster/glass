@@ -851,12 +851,12 @@ class aircraft(apelement.element):
 
         return M
 
-    def _jettison(self, *args):
+    def _release(self, *args):
 
         previousconfiguration = self._configuration
 
         for load in args:
-            self._stores = apstores._jettison(
+            self._stores = apstores._release(
                 self._stores, load, printer=lambda s: self.logcomment(s)
             )
 
@@ -868,10 +868,10 @@ class aircraft(apelement.element):
                 % (previousconfiguration, self._configuration)
             )
 
-    def jettison(self, *args):
+    def release(self, *args):
         aplog.clearerror()
         try:
-            self._jettison(*args)
+            self._release(*args)
         except RuntimeError as e:
             aplog.logexception(e)
         self.logbreak()
