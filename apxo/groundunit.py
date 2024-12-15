@@ -53,5 +53,5 @@ class groundunit(apelement.element):
 
     def _draw(self):
         apdraw.drawgroundunit(
-            *self.xy(), self._symbols, self.color(), self.name(), self._stack
+            *self.xy(), self._symbols, self.color(), self.name(), self._stack, self._killed
         )
