@@ -198,7 +198,7 @@ def _checkstores(stores):
     for loadstation, name in stores.items():
 
         if isinstance(loadstation, int):
-            loadstation = "%d" % loadstation
+            loadstation = str(loadstation)
         if not isinstance(loadstation, str):
             raise RuntimeError("invalid load station %r." % loadstation)
 
@@ -217,7 +217,7 @@ def _airtoairlaunch(stores, launched, printer=print):
 
     newstores = stores.copy()
 
-    loadstation = launched
+    loadstation = str(launched)
 
     if loadstation not in stores:
         raise RuntimeError("load station %s is not loaded." % loadstation)
@@ -266,7 +266,7 @@ def _release(stores, released, printer=print):
 
     else:
 
-        loadstation = released
+        loadstation = str(released)
 
         if loadstation not in stores:
             raise RuntimeError("load station %s is not loaded." % loadstation)
