@@ -29,7 +29,7 @@ def _move(E, flighttype, power, moves, **kwargs):
 
     E.logstart("flight type      is %s." % E._flighttype)
     E.logstart("altitude band    is %s." % E.altitudeband())
-    E.logcomment("speed of sound is %.1f." % apspeed.m1speed(E.altitudeband()))  
+    E.logcomment("speed of sound is %.1f." % apspeed.m1speed(E.altitudeband()))
 
     if E.isaircraft():
         if E.geometry() is not None:
@@ -2520,13 +2520,13 @@ def _doturn(E, sense, facingchange, continuous):
         E._moveturn(sense, facingchange)
 
         if E.isaircraft() and E._flighttype != "SP":
-    
+
             # See Hack's article in APJ 36
             if E._turnmaneuvers == 0:
                 sustainedfacingchanges = facingchange // 30 - 1
             else:
                 sustainedfacingchanges = facingchange // 30
-    
+
             if not apvariants.withvariant("use house rules"):
                 if E.hasproperty("LBR"):
                     E._sustainedturnap -= sustainedfacingchanges * 0.5
@@ -2539,7 +2539,7 @@ def _doturn(E, sense, facingchange, continuous):
         E._turnfacingchanges += facingchange // 30
 
     else:
-        
+
         E._moveturn(sense, 30)
         facingchange -= 30
         E._turnmaneuvers += 1
@@ -2551,7 +2551,7 @@ def _doturn(E, sense, facingchange, continuous):
             facingchange -= 30
             E._turnmaneuvers += 1
             E._turnfacingchanges += 1
-            
+
 
 ########################################
 
