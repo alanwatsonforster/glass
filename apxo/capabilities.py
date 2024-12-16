@@ -81,7 +81,9 @@ def rawminspeed(A):
         # The aircraft is temporarily above its ceiling, so take the speed from the
         # highest band in the table.
         for altitudeband in ["UH", "EH", "VH", "HI", "MH", "ML", "LO"]:
-            minspeed = A._aircraftdata.minspeed(A._configuration, A._geometry, altitudeband)
+            minspeed = A._aircraftdata.minspeed(
+                A._configuration, A._geometry, altitudeband
+            )
             if minspeed != None:
                 break
 
@@ -96,7 +98,10 @@ def minspeed(A):
     minspeed = rawminspeed(A)
 
     # See rule 7.6 in version 2.4.
-    if A._lowspeedliftdeviceextended and A._aircraftdata.lowspeedliftdeviceminspeedchange() is not None:
+    if (
+        A._lowspeedliftdeviceextended
+        and A._aircraftdata.lowspeedliftdeviceminspeedchange() is not None
+    ):
         minspeed -= A._aircraftdata.lowspeedliftdeviceminspeedchange()
 
     return minspeed
@@ -110,7 +115,9 @@ def maxspeed(A):
         # The aircraft is temporarily above its ceiling, so take the speed from the
         # highest band in the table.
         for altitudeband in ["UH", "EH", "VH", "HI", "MH", "ML", "LO"]:
-            maxspeed = A._aircraftdata.maxspeed(A._configuration, A._geometry, altitudeband)
+            maxspeed = A._aircraftdata.maxspeed(
+                A._configuration, A._geometry, altitudeband
+            )
             if maxspeed != None:
                 break
 
@@ -220,9 +227,10 @@ def ataradarrangingtype(A):
 def lockon(A):
     return A._aircraftdata.radar("lockon")
 
+
 def geometries(A):
     return A._aircraftdata.geometries()
-    
+
+
 def properties(A):
     return A._aircraftdata.properties(A._geometry)
-    
