@@ -47,7 +47,10 @@ def blockA(data, geometry=None):
     if geometry is None:
         writelatex(r"\renewcommand{\Aaa}{%s}" % data.fullvariantname())
     else:
-        writelatex(r"\renewcommand{\Aaa}{%s --- %s geometry}" % (data.fullvariantname(), geometry))
+        writelatex(
+            r"\renewcommand{\Aaa}{%s --- %s geometry}"
+            % (data.fullvariantname(), geometry)
+        )
 
     splitfullname = re.sub(
         r"\s+(([A-Z][a-z]+([-\s][A-Z][a-z]*)?(\s+II)?)|([A-Za-z]+\.[0-9]+))$",
@@ -183,7 +186,9 @@ def blockA(data, geometry=None):
             lastpowerfade = powerfade
             altitude += 1
     if data.hasproperty("ABSF", geometry):
-        s += "If not using AB, reduce maximum speeds by %.1f." % data.ABSFamount(geometry)
+        s += "If not using AB, reduce maximum speeds by %.1f." % data.ABSFamount(
+            geometry
+        )
 
     writelatex(
         r"\renewcommand{\Ai}{%s}" % s,
@@ -358,7 +363,10 @@ def blockC(data, geometry=None):
         if data.lowspeedliftdeviceminspeedchange() is None:
             s += r" use higher drag."
         else:
-            s += r" use higher drag and reduce minimum speeds by %.1f." % data.lowspeedliftdeviceminspeedchange()
+            s += (
+                r" use higher drag and reduce minimum speeds by %.1f."
+                % data.lowspeedliftdeviceminspeedchange()
+            )
     if data.hasproperty("NRM", geometry):
         s += r"No rolling maneuvers allowed."
     if data.hasproperty("OVR", geometry):
@@ -368,10 +376,14 @@ def blockC(data, geometry=None):
         and data.hasproperty("NDRHS", geometry)
         and data.NDRHSlimit(geometry) == data.NDRHSlimit(geometry)
     ):
-        s += r"No lag or displacement rolls if speed $\ge$ %.1f. " % data.NDRHSlimit(geometry)
+        s += r"No lag or displacement rolls if speed $\ge$ %.1f. " % data.NDRHSlimit(
+            geometry
+        )
     else:
         if data.hasproperty("NDRHS", geometry):
-            s += r"No displacement rolls if speed $\ge$ %.1f. " % data.NDRHSlimit(geometry)
+            s += r"No displacement rolls if speed $\ge$ %.1f. " % data.NDRHSlimit(
+                geometry
+            )
         if data.hasproperty("NLRHS", geometry):
             s += r"No lag rolls if speed $\ge$ %.1f. " % data.NLRHSlimit(geometry)
 
@@ -778,10 +790,15 @@ def blockF(data, geometry=None):
     descriptiontext = ""
     if data.description() is None:
         if data.variantdescription() is None:
-            descriptiontext += r"This ADC describes the %s." % latexify(data.versionname())
+            descriptiontext += r"This ADC describes the %s." % latexify(
+                data.versionname()
+            )
         else:
-            descriptiontext += r"This ADC describes the %s (%s) variant." % (latexify(data.versionname()), latexify(data.variantname()))
-    
+            descriptiontext += r"This ADC describes the %s (%s) variant." % (
+                latexify(data.versionname()),
+                latexify(data.variantname()),
+            )
+
         if data.versiondescription() is not None:
             descriptiontext += r" %s" % latexify(data.versiondescription())
         if data.variantdescription() is not None:
@@ -802,14 +819,14 @@ def blockF(data, geometry=None):
                 latexify(data.subsequentlydesignated())
             )
     else:
-        descriptiontext = data.description() 
+        descriptiontext = data.description()
 
     if descriptiontext != "":
         s += "\\item %s\n\n" % descriptiontext
 
     if data.natoreportingnames() is not None:
         s += "\\item %s\n\n" % data.natoreportingnames()
-        
+
     if data.hasproperty("EVG", geometry):
         s += "\\item Variable-geometry aircraft with allowed geometries of "
         geometries = data.geometries()
@@ -836,10 +853,7 @@ def blockF(data, geometry=None):
             ):
                 # Noted in maneuver section.
                 pass
-            elif (
-                property == "EVG"
-                or property == "EVG1"
-            ):
+            elif property == "EVG" or property == "EVG1":
                 # Noted immediately above.
                 pass
             else:
@@ -952,8 +966,8 @@ def blockG(data, geometry=None):
         elif stationtype == "grouppair":
             s += "%d--%d and %d--%d" % tuple(stationidentifiers)
         s += "&%s&%s\\\\\n" % (
-          "{:,}".format(stationlimit), 
-          r"\mbox{" + r"} \mbox{".join(stationloads) + r"}"
+            "{:,}".format(stationlimit),
+            r"\mbox{" + r"} \mbox{".join(stationloads) + r"}",
         )
     writelatex(r"\renewcommand{\Gca}{%s}" % s)
 
@@ -996,7 +1010,7 @@ def writeadc(name):
     writelatex("%% %s" % name)
 
     data = aircraftdata.aircraftdata(name)
-    
+
     for geometry in data.geometries():
         blockA(data, geometry=geometry)
         blockB(data, geometry=geometry)
