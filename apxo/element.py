@@ -385,8 +385,8 @@ class element:
 
     ############################################################################
 
-    def _move(self, hexcode):
-        self._setposition(hexcode=hexcode)
+    def _move(self, s):
+        self._continuemove(s)
 
     def move(self, *args, note=None, **kwargs):
         aplog.clearerror()
@@ -403,8 +403,12 @@ class element:
             aplog.logexception(e)
         self.logbreak()
 
-    def _continuemove(self, hexcode):
-        self._setposition(hexcode=hexcode)
+    def _continuemove(self, s):
+        if apazimuth.isvalidazimuth(s):
+            x, y = aphex.forward(self._x, self._y, apazimuth.tofacing(s))
+            self._setposition(x=x, y=y)
+        else:
+            self._setposition(hexcode=s)
 
     def continuemove(self, *args, note=None, **kwargs):
         aplog.clearerror()
