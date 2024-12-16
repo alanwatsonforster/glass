@@ -79,7 +79,7 @@ class aircraft(apelement.element):
             aircraftdata = apaircraftdata.aircraftdata(aircrafttype)
 
             if not apvisualsighting.isvalidpaintscheme(paintscheme):
-                raise RuntimeError("the paintscheme argument is not valid.")            
+                raise RuntimeError("the paintscheme argument is not valid.")
 
             super().__init__(
                 name,
@@ -88,7 +88,7 @@ class aircraft(apelement.element):
                 altitude=altitude,
                 speed=speed,
                 color=color,
-                delay=delay
+                delay=delay,
             )
 
             # In addition to the specified position, azimuth, altitude, speed, and
@@ -383,7 +383,7 @@ class aircraft(apelement.element):
             return self.speed() >= self._aircraftdata["LRRHSlimit"]
 
         return super().hasproperty(p)
-        
+
     def _properties(self):
         return apcapabilities.properties(self)
 
@@ -678,7 +678,12 @@ class aircraft(apelement.element):
         self, power, flamedoutengines, lowspeedliftdeviceselected, speedbrakes, geometry
     ):
         apspeed.startmovespeed(
-            self, power, flamedoutengines, lowspeedliftdeviceselected, speedbrakes, geometry
+            self,
+            power,
+            flamedoutengines,
+            lowspeedliftdeviceselected,
+            speedbrakes,
+            geometry,
         )
 
     def _endmovespeed(self):
@@ -718,7 +723,7 @@ class aircraft(apelement.element):
         speedbrakes=None,
         flamedoutengines=0,
         lowspeedliftdeviceselected=None,
-        geometry=None
+        geometry=None,
     ):
         self._setgeometry(geometry)
         apflight._move(
@@ -728,7 +733,7 @@ class aircraft(apelement.element):
             moves,
             speedbrakes=speedbrakes,
             flamedoutengines=flamedoutengines,
-            lowspeedliftdeviceselected=lowspeedliftdeviceselected
+            lowspeedliftdeviceselected=lowspeedliftdeviceselected,
         )
 
     def _continuemove(self, moves=""):
