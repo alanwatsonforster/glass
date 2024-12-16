@@ -543,8 +543,8 @@ pathlinestyle = "dotted"
 pathdotsize = 0.1
 aircrafttextsize = 10
 aircraftcounterlinewidth = 2
-aircraftkilledfillcolor = (0.60, 0.60, 0.60)
-aircraftkilledlinecolor = (0.60, 0.60, 0.60)
+killedfillcolor = None
+killedlinecolor = (0.60, 0.60, 0.60)
 aircraftlinecolor = (0.00, 0.00, 0.00)
 aircraftlinewidth = 1
 textcolor = (0.00, 0.00, 0.00)
@@ -581,8 +581,8 @@ def _drawannotation(x, y, facing, position, text, zorder):
 
 def drawpath(x, y, facing, altitude, speed, color, killed, annotate):
     if killed:
-        fillcolor = aircraftkilledfillcolor
-        linecolor = aircraftkilledlinecolor
+        fillcolor = killedfillcolor
+        linecolor = killedlinecolor
     else:
         fillcolor = color
         linecolor = pathcolor
@@ -622,8 +622,8 @@ def drawpath(x, y, facing, altitude, speed, color, killed, annotate):
 
 def drawaircraft(x, y, facing, color, name, altitude, speed, flighttype, killed):
     if killed:
-        fillcolor = aircraftkilledfillcolor
-        linecolor = aircraftkilledlinecolor
+        fillcolor = killedfillcolor
+        linecolor = killedlinecolor
     else:
         fillcolor = color
         linecolor = aircraftlinecolor
@@ -794,8 +794,8 @@ def _drawgroundunitinphysical(x0, y0, symbols, color, name, stack, killed):
     zorder = 0
 
     if killed:
-        fillcolor = aircraftkilledfillcolor
-        linecolor = aircraftkilledlinecolor
+        fillcolor = killedfillcolor
+        linecolor = killedlinecolor
         nametext = ""
     else:
         fillcolor = color
