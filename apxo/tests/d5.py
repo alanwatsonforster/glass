@@ -65,5 +65,3 @@ A3.move("LVL", "M", "TTR/H/R H", geometry="aft")
 asserterror("speed limits the turn rate to EZ.")
 
 endfile(__file__)
-
-

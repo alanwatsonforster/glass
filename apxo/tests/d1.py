@@ -23,9 +23,7 @@ A2 = aircraft("A2", "AF", "MiG-21bis", "A1-1310", "N", 10, 2.5, "CL")
 endtestsetup()
 
 startgameturn()
-A1.move(
-    "LVL", "AB", "TTR/H/RR,TTR/H/RR", lowspeedliftdeviceselected=True
-)
+A1.move("LVL", "AB", "TTR/H/RR,TTR/H/RR", lowspeedliftdeviceselected=True)
 A1._assert("A1-1209       ESE  10", 2.0)
 A2.move("LVL", "AB", "TTR/H/RR,TTR/H/RR")
 asserterror("speed limits the turn rate to EZ.")
