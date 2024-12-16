@@ -56,7 +56,6 @@ class missile(apelement.element):
             self._missiletype = missiletype
 
             self._flighttype = "MS"
-            self._startedmoving = False
             self._finishedmoving = True
             self._maneuvertype = None
             self._maneuversense = None
@@ -95,7 +94,6 @@ class missile(apelement.element):
     def _startgameturn(self):
         self._setspeed(self._newspeed)
         self._newspeed = None
-        self._startedmoving = False
         self._finishedmoving = False
 
     def _endgameturn(self):

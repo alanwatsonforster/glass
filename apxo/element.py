@@ -39,6 +39,7 @@ def _startgameturn():
         E._startaltitude = E.altitude()
         E._startaltitudeband = E.altitudeband()
         E._startaltitudecarry = E.altitudecarry()
+        E._startedmoving = False
         E._startgameturn()
     for E in _elementlist:
         E._startpath()
@@ -117,7 +118,7 @@ class element:
         altitude=None,
         speed=None,
         color=None,
-        delay=0
+        delay=0,
     ):
 
         global _elementlist
@@ -159,6 +160,7 @@ class element:
         self._altitudeband = apaltitude.altitudeband(self.altitude())
         self._altitudecarry = 0
         self._flightslope = None
+        self._startedmoving = False
 
         self._killed = False
         self._removed = False
@@ -383,8 +385,8 @@ class element:
 
     ############################################################################
 
-    def _move(self, *args, **kwargs):
-        raise RuntimeError("%s cannot be moved." % self.name())
+    def _move(self, hexcode):
+        self._setposition(hexcode=hexcode)
 
     def move(self, *args, note=None, **kwargs):
         aplog.clearerror()
@@ -401,8 +403,8 @@ class element:
             aplog.logexception(e)
         self.logbreak()
 
-    def _continuemove(self, *args, **kwargs):
-        raise RuntimeError("%s cannot be moved." % self.name())
+    def _continuemove(self, hexcode):
+        self._setposition(hexcode=hexcode)
 
     def continuemove(self, *args, note=None, **kwargs):
         aplog.clearerror()
@@ -517,7 +519,9 @@ class element:
     ############################################################################
 
     def hasproperty(self, p):
-        return p not in self._lostproperties and (p in self._gainedproperties or p in self._properties())
+        return p not in self._lostproperties and (
+            p in self._gainedproperties or p in self._properties()
+        )
 
     def gainproperty(self, p):
         self._gainedproperties.add(p)
