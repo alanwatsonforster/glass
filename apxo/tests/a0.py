@@ -15,8 +15,22 @@ import os.path
 pathlist = sorted(list(glob.glob("apxo/aircraftdata/*.json")))
 for path in pathlist:
     aircrafttype = os.path.basename(path)[:-5]
-    if aircrafttype != "_TEMPLATE":
+    if aircrafttype[0] != "_":
         str(aircraftdata(aircrafttype))
+
+# Check handling of invalid aircraft types.
+try:
+    aircraftdata("_MISSING")
+    raise AssertionError("no exception from invalid aircraft type.")
+except RuntimeError:
+    pass
+
+# Check handling of invalid aircraft data file.
+try:
+    aircraftdata("_INVALID")
+    raise AssertionError("no exception from invalid aircraft data file.")
+except RuntimeError:
+    pass
 
 # Check the basic functionallity using the F-104A as a test case.
 

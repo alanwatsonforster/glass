@@ -35,15 +35,22 @@ class aircraftdata:
             )
 
         def loadfile(name):
-
-            # TODO: Handle errors.
-
-            with open(filename(name), "r", encoding="utf-8") as f:
-                s = f.read(-1)
-                # Strip whole-line // comments.
-                r = re.compile("^[ \t]*//.*$", re.MULTILINE)
-                s = re.sub(r, "", s)
-                return json.loads(s)
+            try:
+                with open(filename(name), "r", encoding="utf-8") as f:
+                    s = f.read(-1)
+                    # Strip whole-line // comments.
+                    r = re.compile("^[ \t]*//.*$", re.MULTILINE)
+                    s = re.sub(r, "", s)
+                    return json.loads(s)
+            except FileNotFoundError:
+                raise RuntimeError(
+                    'unable to find aircraft data file for aircraft type "%s".' % name
+                )
+            except json.JSONDecodeError as e:
+                raise RuntimeError(
+                    'unable to read aircraft data file for aircraft type "%s": line %d: %s.'
+                    % (name, e.lineno, e.msg.lower())
+                )
 
         self._name = name
 
@@ -64,7 +71,7 @@ class aircraftdata:
             gitlogoutput = process.read()
             process.close()
         else:
-             gitlogoutput = ""
+            gitlogoutput = ""
         if gitlogoutput == "":
             gitlogoutput = "0000-00-00 00:00:00 %s %s" % (7 * "0", 40 * "0")
         self._gitlogoutput = gitlogoutput
@@ -264,18 +271,18 @@ class aircraftdata:
             return self._data["lowspeedliftdevicename"]
         else:
             return None
-            
+
     def lowspeedliftdeviceminspeedchange(self):
         if "lowspeedliftdeviceminspeedchange" in self._data:
             return self._data["lowspeedliftdeviceminspeedchange"]
         else:
             return None
-            
+
     def geometries(self):
         if "geometries" in self._data:
             return list(self._data["geometries"].keys())
         else:
-            return [ None ]
+            return [None]
 
     def turndrag(self, configuration, geometry, turnrate, lowspeedliftdevice=False):
         _checkconfiguration(configuration)
@@ -410,7 +417,10 @@ class aircraftdata:
         if geometry is None:
             return set(self._data["properties"])
         else:
-            return set(self._data["geometries"][geometry]["properties"] + self._data["properties"])
+            return set(
+                self._data["geometries"][geometry]["properties"]
+                + self._data["properties"]
+            )
 
     def hasproperty(self, p, geometry):
         return p in self.properties(geometry)
