@@ -849,17 +849,6 @@ def _drawgroundunitinphysical(x0, y0, symbols, color, name, stack, killed):
         y = y0
         zorder = 0.0
 
-    _drawrectangleinphysical(
-        x - groundunitdx / 2,
-        y - groundunitdy / 2,
-        x + groundunitdx / 2,
-        y + groundunitdy / 2,
-        linewidth=groundunitlinewidth,
-        fillcolor=fillcolor,
-        linecolor=linecolor,
-        zorder=zorder,
-    )
-
     def drawinfantrysymbol():
         _drawlinesinphysical(
             [x - groundunitdx / 2, x + groundunitdx / 2],
@@ -931,15 +920,21 @@ def _drawgroundunitinphysical(x0, y0, symbols, color, name, stack, killed):
         def airdefencey(theta):
             return y - groundunitdy / 2 + fy * groundunitdy * sind(theta)
 
-        _drawpolygoninphysical(
-            list(
-                zip(
-                    list([airdefencex(theta) for theta in theta]),
-                    list([airdefencey(theta) for theta in theta]),
-                )
-            ),
-            linecolor=linecolor,
+        _drawrectangleinphysical(
+            x + groundunitdx * (-0.5),
+            y + groundunitdy * (-0.5),
+            x + groundunitdx * (+0.5),
+            y + groundunitdy * (-0.5 + fy),
+            linecolor=None,
             fillcolor=fillcolor,
+            linewidth=groundunitlinewidth,
+            zorder=zorder,
+        )
+
+        _drawlinesinphysical(
+            list([airdefencex(theta) for theta in theta]),
+            list([airdefencey(theta) for theta in theta]),
+            color=linecolor,
             linewidth=groundunitlinewidth,
             zorder=zorder,
         )
@@ -1391,6 +1386,17 @@ def _drawgroundunitinphysical(x0, y0, symbols, color, name, stack, killed):
             zorder=zorder,
         )
 
+    _drawrectangleinphysical(
+        x - groundunitdx / 2,
+        y - groundunitdy / 2,
+        x + groundunitdx / 2,
+        y + groundunitdy / 2,
+        linewidth=groundunitlinewidth,
+        fillcolor=fillcolor,
+        linecolor=None,
+        zorder=zorder,
+    )
+
     # Draw missile and air defences first, since air defense missile is
     # different to surface-to-surface missile.
     if "missile" in symbols:
@@ -1447,6 +1453,17 @@ def _drawgroundunitinphysical(x0, y0, symbols, color, name, stack, killed):
         drawmediumsymbol()
     if "heavy" in symbols:
         drawheavysymbol()
+
+    _drawrectangleinphysical(
+        x - groundunitdx / 2,
+        y - groundunitdy / 2,
+        x + groundunitdx / 2,
+        y + groundunitdy / 2,
+        linewidth=groundunitlinewidth,
+        fillcolor=None,
+        linecolor=linecolor,
+        zorder=zorder,
+    )
 
     if not killed:
         if x >= x0:
