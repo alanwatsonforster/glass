@@ -784,7 +784,9 @@ groundunitdy = 0.4
 
 
 def drawgroundunit(x, y, symbols, color, name, stack, killed):
-    _drawgroundunitinphysical(*aphex.tophysical(x, y), symbols, color, name, stack, killed)
+    _drawgroundunitinphysical(
+        *aphex.tophysical(x, y), symbols, color, name, stack, killed
+    )
 
 
 def _drawgroundunitinphysical(x0, y0, symbols, color, name, stack, killed):
@@ -862,14 +864,14 @@ def _drawgroundunitinphysical(x0, y0, symbols, color, name, stack, killed):
         _drawlinesinphysical(
             [x - groundunitdx / 2, x + groundunitdx / 2],
             [y - groundunitdy / 2, y + groundunitdy / 2],
-            color="black",
+            color=linecolor,
             linewidth=groundunitlinewidth,
             zorder=zorder,
         )
         _drawlinesinphysical(
             [x - groundunitdx / 2, x + groundunitdx / 2],
             [y + groundunitdy / 2, y - groundunitdy / 2],
-            color="black",
+            color=linecolor,
             linewidth=groundunitlinewidth,
             zorder=zorder,
         )
@@ -959,7 +961,7 @@ def _drawgroundunitinphysical(x0, y0, symbols, color, name, stack, killed):
         _drawlinesinphysical(
             list([x + dx(theta) for theta in theta]),
             list([y0 + dy(theta) for theta in theta]),
-            color="black",
+            color=linecolor,
             linewidth=groundunitlinewidth,
             zorder=zorder,
         )
@@ -1445,7 +1447,7 @@ def _drawgroundunitinphysical(x0, y0, symbols, color, name, stack, killed):
         drawmediumsymbol()
     if "heavy" in symbols:
         drawheavysymbol()
-        
+
     if not killed:
         if x >= x0:
             _drawtextinphysical(
