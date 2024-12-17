@@ -24,7 +24,37 @@ class groundunit(apelement.element):
 
             if isinstance(symbols, str):
                 symbols = symbols.split("/")
+            for symbol in symbols:
+                if symbol not in [
+                    "infantry",
+                    "armor",
+                    "artillery",
+                    "reconnaissance",
+                    "airdefense",
+                    "supply",
+                    "transportation",
+                    "ammunition",
+                    "fuel",
+                    "ordnance",
+                    "headquarter",
+                    "light",
+                    "medium",
+                    "heavy",
+                    "missile",
+                    "gun",
+                    "multiplerocket",
+                    "radar",
+                    "motorized",
+                    "wheeled",
+                    "limitedwheeled",
+                    "locomotive",
+                    "railcar",
+                    "barge",
+                    "truck",
+                ]:
+                    raise RuntimeError("invalid ground unit symbol \"%s\"." % symbol)
             self._symbols = symbols
+
             self._stack = stack
 
         except RuntimeError as e:
