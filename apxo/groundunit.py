@@ -5,6 +5,15 @@ import apxo.log as aplog
 ##############################################################################
 
 
+def aslist(withkilled=False):
+    elementlist = apelement.aslist()
+    groundunitlist = filter(lambda E: E.isgroundunit(), elementlist)
+    if not withkilled:
+        groundunitlist = filter(lambda x: not x.killed(), groundunitlist)
+    return list(groundunitlist)
+
+##############################################################################
+
 class groundunit(apelement.element):
 
     ############################################################################
@@ -60,8 +69,9 @@ class groundunit(apelement.element):
                 ]:
                     raise RuntimeError('invalid ground unit symbol "%s".' % symbol)
             self._symbols = symbols
-
             self._stack = stack
+
+            self._damagelevel = 0
 
         except RuntimeError as e:
             aplog.logexception(e)
@@ -72,6 +82,33 @@ class groundunit(apelement.element):
     def isgroundunit(self):
         return True
 
+    #############################################################################
+    
+    def _damage(self):
+        if self._damagelevel == 0:
+            return "none"
+        elif self._damagelevel == 1:
+            return "D"
+        elif self._damagelevel == 2:
+            return "2D"
+        else:
+            return "K"
+            
+    def _takedamage(self, damage):
+        if damage == "S":
+            pass
+        elif damage == "D":
+            self._damagelevel += 1
+        elif damage == "2D":
+            self._damagelevel += 2
+        elif damage == "K":
+            self._damagelevel += 3
+        else:
+            raise RuntimeError("invalid damage %r" % damage)
+
+    def _takedamageconsequences(self):
+        pass
+    
     #############################################################################
 
     def _properties(self):

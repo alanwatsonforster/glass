@@ -32,8 +32,6 @@ def damage(A):
 
 def takedamage(A, damage):
 
-    previousdamage = A.damage()
-
     if damage == "L":
         A._damageL += 1
     elif damage == "2L":
@@ -46,12 +44,6 @@ def takedamage(A, damage):
         A._damageK += 1
     else:
         raise RuntimeError("invalid damage %r" % damage)
-
-    A.logwhenwhat("", "%s takes %s damage." % (A._name, damage))
-
-    if A.killed():
-        A.logwhenwhat("", "%s is already killed." % A._name)
-        return
 
     if A._damageL >= 3:
         A._damageL -= 3
@@ -74,13 +66,7 @@ def takedamage(A, damage):
         A._damageC = 0
         A._kill()
 
-    A.logwhenwhat(
-        "", "%s damage changed from %s to %s." % (A._name, previousdamage, A.damage())
-    )
-
-    if A.killed():
-        A.logwhenwhat("", "%s is killed." % A._name)
-        return
+def takedamageconsequences(A):
 
     def gain(p):
         if not A.hasproperty(p):

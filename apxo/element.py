@@ -343,7 +343,7 @@ class element:
         azimuth = self.azimuth()
         if azimuth is None:
             azimuth = "---"
-        return "%-12s  %2d  %-3s" % (hexcode, self.altitude(), azimuth)
+        return "%-12s  %-3s  %2d" % (hexcode, azimuth, self.altitude())
 
     def speed(self):
         return self._speed
@@ -543,6 +543,38 @@ class element:
     def loseproperty(self, p):
         self._lostproperties.add(p)
 
+    ############################################################################
+    
+    def damage(self):
+        return self._damage()
+
+    def takedamage(self, damage, note=None):
+        aplog.clearerror()
+        try:
+            self.logwhenwhat("", "%s takes %s damage." % (self.name(), damage))
+            if self.killed():
+                self.logwhenwhat("", "%s is already killed." % self.name())
+                return
+            previousdamage = self.damage()
+            self._takedamage(damage)        
+            if previousdamage == self.damage():
+                self.logwhenwhat(
+                    "", "%s damage is unchanged at %s." % (self.name(), previousdamage)
+                )
+            else:
+                self.logwhenwhat(
+                    "", "%s damage changes from %s to %s." % (self.name(), previousdamage, self.damage())
+                )
+                if self.damage() == "K":
+                    self._kill()
+                    self.logwhenwhat("", "%s is killed." % self.name())
+                else:
+                    self._takedamageconsequences()
+            self.lognote(note)
+        except RuntimeError as e:
+            aplog.logexception(e)
+        self.logbreak()
+            
     ############################################################################
 
     def logwhat(self, what, writefile=True):

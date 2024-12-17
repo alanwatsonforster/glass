@@ -122,9 +122,9 @@ def startgameturn(note=None):
             for M in apmissile.aslist():
                 M.logwhat("%s  %4.1f" % (M.position(), M.speed()), writefile=False)
         if len(apgroundunit.aslist()) != 0:
-            aplog.logwhat("initial ground element positions:")
+            aplog.logwhat("initial ground element positions and damage:")
             for G in apgroundunit.aslist():
-                G.logwhat("%s" % G.position(), writefile=False)
+                G.logwhat("%s  %4s  %s" % (G.position(), "", G.damage()), writefile=False)
         aplog.lognote(None, note)
 
     except RuntimeError as e:

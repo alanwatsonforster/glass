@@ -884,15 +884,12 @@ class aircraft(apelement.element):
 
     ################################################################################
 
-    def takedamage(self, damage, note=None):
-        aplog.clearerror()
-        try:
-            apdamage.takedamage(self, damage)
-            self.lognote(note)
-        except RuntimeError as e:
-            aplog.logexception(e)
-        self.logbreak()
-
+    def _takedamage(self, damage):
+        apdamage.takedamage(self, damage)
+        
+    def _takedamageconsequences(self):
+        apdamage.takedamageconsequences(self)
+        
     def damage(self):
         return apdamage.damage(self)
 
