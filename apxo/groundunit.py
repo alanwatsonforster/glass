@@ -86,15 +86,25 @@ class groundunit(apelement.element):
     
     def _damage(self):
         if self._damagelevel == 0:
-            return "none"
+            if self.issuppressed():
+                return "S"
+            else:
+                return "none" 
         elif self._damagelevel == 1:
-            return "D"
+            if self.issuppressed():
+                return "D+S"
+            else:
+                return "D"
         elif self._damagelevel == 2:
-            return "2D"
+            if self.issuppressed():
+                return "2D+S"
+            else:
+                return "2D"
         else:
             return "K"
             
     def _takedamage(self, damage):
+        self._suppressionlevel = 2
         if damage == "S":
             pass
         elif damage == "D":
@@ -120,7 +130,7 @@ class groundunit(apelement.element):
         pass
 
     def _endgameturn(self):
-        pass
+        self._suppressionlevel -= 1
 
     ############################################################################
 

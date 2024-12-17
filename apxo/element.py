@@ -168,6 +168,7 @@ class element:
 
         self._killed = False
         self._removed = False
+        self._suppressionlevel = 0
 
         if not apspeed.isvalidspeed(speed):
             raise RuntimeError("the speed argument is not valid.")
@@ -574,6 +575,9 @@ class element:
         except RuntimeError as e:
             aplog.logexception(e)
         self.logbreak()
+        
+    def issuppressed(self):
+        return self._suppressionlevel > 0
             
     ############################################################################
 
