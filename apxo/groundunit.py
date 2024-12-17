@@ -11,8 +11,14 @@ class groundunit(apelement.element):
 
     def __init__(self, name, hexcode, symbols="", color="white", stack=None):
 
+        self._name = ""
+
         aplog.clearerror()
         try:
+
+            if not isinstance(name, str):
+                raise RuntimeError("the name argument must be a string.")
+            self.logwhenwhat("", "creating ground unit %s." % name)
 
             super().__init__(
                 name,

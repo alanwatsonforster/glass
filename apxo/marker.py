@@ -10,11 +10,20 @@ class marker(apelement.element):
     ############################################################################
 
     def __init__(
-        self, type, hexcode, azimuth=0, speed=0, altitude=0, name="", color="black"
+        self, type, hexcode, azimuth=0, speed=0, altitude=0, name=None, color="black"
     ):
+    
+        self._name = ""
 
         aplog.clearerror()
         try:
+
+            if not isinstance(name, str) and name is not None:
+                raise RuntimeError("the name argument must be a string or None.")
+            if name is None:
+                self.logwhenwhat("", "creating marker.")
+            else:
+                self.logwhenwhat("", "creating marker %s." % name)
 
             if not type in ["dot", "circle", "square"]:
                 raise RuntimeError("invalid marker type.")
@@ -61,13 +70,14 @@ class marker(apelement.element):
             apdraw.drawcircle(
                 *self.xy(), size=0.65, linecolor=self.color(), linewidth=2
             )
-            apdraw.drawtext(
-                *self.xy(),
-                self.facing(),
-                self.name(),
-                color=self.color(),
-                zorder=zorder
-            )
+            if self.name() is not None:
+                apdraw.drawtext(
+                    *self.xy(),
+                    self.facing(),
+                    self.name(),
+                    color=self.color(),
+                    zorder=zorder
+                )
 
         elif self._type == "square":
 
@@ -79,4 +89,7 @@ class marker(apelement.element):
                 facing=self.facing(),
                 zorder=zorder
             )
-            apdraw.drawtext(*self.xy(), self.facing(), self.name(), color=self.color())
+            if self.name() is not None:
+                apdraw.drawtext(
+                    *self.xy(), self.facing(), self.name(), color=self.color()
+                )

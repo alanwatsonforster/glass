@@ -49,6 +49,9 @@ asserterror("load station 9 is not loaded.")
 A1b = A1.airtoairlaunch("A1b", A2, "5")
 asserterror("load station 5 is not loaded with an air-to-air missile.")
 
+A1a = A1.airtoairlaunch(1, A2, "8")
+asserterror("the name argument must be a string.")
+
 A1a = A1.airtoairlaunch("A1a", A2, "2")
 asserterror("the name argument must be unique.")
 

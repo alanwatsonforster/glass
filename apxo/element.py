@@ -67,6 +67,9 @@ def fromname(name):
     no matching element is found.
     """
 
+    if not isinstance(name, str):
+        raise RuntimeError("name must be a string.")
+
     for E in _elementlist:
         if E.name() == name:
             return E
@@ -123,11 +126,12 @@ class element:
 
         global _elementlist
 
-        if not isinstance(name, str):
-            raise RuntimeError("the name argument must be a string.")
-        for E in _elementlist:
-            if name == E._name:
-                raise RuntimeError("the name argument must be unique.")
+        if not isinstance(name, str) and name is not None:
+            raise RuntimeError("the name argument must be a string or None.")
+        if name is not None:
+            for E in _elementlist:
+                if name == E._name:
+                    raise RuntimeError("the name argument must be unique.")
 
         self._name = name
 

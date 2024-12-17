@@ -91,6 +91,13 @@ for c in [
 groundunit("invalid", "A1-2110", "foo")
 asserterror('invalid ground unit symbol "foo".')
 
+groundunit(1, "A1-2110", "infantry")
+asserterror('the name argument must be a string.')
+
+groundunit("A", "A1-2110", "infantry")
+groundunit("A", "A1-2110", "infantry")
+asserterror('the name argument must be unique.')
+
 endtestsetup()
 
 endfile(__file__)

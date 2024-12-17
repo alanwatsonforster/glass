@@ -65,14 +65,17 @@ class aircraft(apelement.element):
         counter=False,
         delay=0,
     ):
-
+    
         global _aircraftlist
 
-        self._name = name
-        self.logwhenwhat("", "creating aircraft %s." % name)
-
+        self._name = ""
+        
         aplog.clearerror()
         try:
+
+            if not isinstance(name, str):
+                raise RuntimeError("the name argument must be a string.")
+            self.logwhenwhat("", "creating aircraft %s." % name)
 
             if not isinstance(aircrafttype, str):
                 raise RuntimeError("the aircrafttype argument must be a string.")

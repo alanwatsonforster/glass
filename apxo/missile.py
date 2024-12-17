@@ -29,11 +29,14 @@ class missile(apelement.element):
 
     def __init__(self, name, missiletype, launcher, target, color="white"):
 
-        self._name = name
-        self.logwhenwhat("", "creating missile %s." % name)
+        self._name = ""
 
         aplog.clearerror()
         try:
+
+            if not isinstance(name, str):
+                raise RuntimeError("the name argument must be a string.")
+            self.logwhenwhat("", "creating missile %s." % name)
 
             self._type = missiletype
             self.logwhenwhat("", "type          is %s." % missiletype)
