@@ -121,6 +121,10 @@ def startgameturn(note=None):
             aplog.logwhat("initial missile positions and speeds:")
             for M in apmissile.aslist():
                 M.logwhat("%s  %4.1f" % (M.position(), M.speed()), writefile=False)
+        if len(apgroundunit.aslist()) != 0:
+            aplog.logwhat("initial ground element positions:")
+            for G in apgroundunit.aslist():
+                G.logwhat("%s" % G.position(), writefile=False)
         aplog.lognote(None, note)
 
     except RuntimeError as e:

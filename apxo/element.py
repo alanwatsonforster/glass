@@ -310,7 +310,10 @@ class element:
         return self._facing
 
     def azimuth(self):
-        return apazimuth.fromfacing(self.facing())
+        if self.facing() is None:
+            return None
+        else:
+            return apazimuth.fromfacing(self.facing())
 
     def altitude(self):
         if self._altitude is None:
@@ -340,7 +343,7 @@ class element:
         azimuth = self.azimuth()
         if azimuth is None:
             azimuth = "---"
-        return "%-12s  %-3s  %2d" % (hexcode, azimuth, self.altitude())
+        return "%-12s  %2d  %-3s" % (hexcode, self.altitude(), azimuth)
 
     def speed(self):
         return self._speed
@@ -372,6 +375,9 @@ class element:
         return False
 
     def ismissile(self):
+        return False
+
+    def isgroundunit(self):
         return False
 
     def ismarker(self):
