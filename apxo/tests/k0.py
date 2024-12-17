@@ -6,7 +6,7 @@ starttestsetup()
 
 A1 = aircraft("A1", "AF", "F-80C", "A2-2025", "W", 5, 4.0, "CL")
 
-assert A1.damage() == "none"
+assert A1.damage() == ""
 assert not A1.damageatleast("L")
 assert not A1.damageatleast("2L")
 assert not A1.damageatleast("H")
@@ -106,7 +106,7 @@ starttestsetup()
 
 A1 = aircraft("A1", "AF", "F-80C", "A2-2025", "W", 5, 4.0, "CL")
 
-assert A1.damage() == "none"
+assert A1.damage() == ""
 A1.takedamage("L")
 assert A1.damage() == "L"
 A1.takedamage("H")
@@ -120,7 +120,7 @@ starttestsetup()
 
 A1 = aircraft("A1", "AF", "F-80C", "A2-2025", "W", 5, 4.0, "CL")
 
-assert A1.damage() == "none"
+assert A1.damage() == ""
 A1.takedamage("H")
 assert A1.damage() == "H"
 A1.takedamage("H")
