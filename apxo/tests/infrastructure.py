@@ -1,7 +1,7 @@
 import apxo as ap
 import apxo.log as aplog
 
-from apxo import aircraft
+from apxo import aircraft, groundunit
 
 import os.path
 
