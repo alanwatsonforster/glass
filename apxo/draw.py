@@ -206,7 +206,7 @@ def _drawdotinphysical(
 def _drawlinesinphysical(
     x,
     y,
-    color="black",
+    linecolor="black",
     linewidth=0.5,
     linestyle="solid",
     joinstyle="miter",
@@ -214,14 +214,14 @@ def _drawlinesinphysical(
     alpha=1.0,
     zorder=1,
 ):
-    if color is None:
+    if linecolor is None:
         linewidth = 0
     plt.plot(
         x,
         y,
         linewidth=linewidth,
         linestyle=linestyle,
-        color=_mapcolor(color),
+        color=_mapcolor(linecolor),
         solid_joinstyle=joinstyle,
         solid_capstyle=capstyle,
         alpha=alpha,
@@ -503,7 +503,7 @@ def drawarc(x0, y0, facing, arc):
         _drawlinesinphysical(
             x,
             y,
-            color=arccolor,
+            linecolor=arccolor,
             linewidth=arclinewidth,
             linestyle=arclinestyle,
             zorder=0,
@@ -606,7 +606,7 @@ def drawpath(x, y, facing, altitude, speed, color, killed, annotate):
         drawlines(
             x,
             y,
-            color=linecolor,
+            linecolor=linecolor,
             linewidth=pathlinewidth,
             linestyle=pathlinestyle,
             zorder=0.9,
@@ -867,14 +867,14 @@ def _drawgroundunitinphysical(x0, y0, symbols, color, name, stack, killed):
         _drawlinesinphysical(
             [x - groundunitdx / 2, x + groundunitdx / 2],
             [y - groundunitdy / 2, y + groundunitdy / 2],
-            color=linecolor,
+            linecolor=linecolor,
             linewidth=groundunitlinewidth,
             zorder=zorder,
         )
         _drawlinesinphysical(
             [x - groundunitdx / 2, x + groundunitdx / 2],
             [y + groundunitdy / 2, y - groundunitdy / 2],
-            color=linecolor,
+            linecolor=linecolor,
             linewidth=groundunitlinewidth,
             zorder=zorder,
         )
@@ -883,7 +883,7 @@ def _drawgroundunitinphysical(x0, y0, symbols, color, name, stack, killed):
         _drawlinesinphysical(
             [x - groundunitdx / 2, x + groundunitdx / 2],
             [y - groundunitdy / 2, y + groundunitdy / 2],
-            color=linecolor,
+            linecolor=linecolor,
             linewidth=groundunitlinewidth,
             zorder=zorder,
         )
@@ -907,7 +907,7 @@ def _drawgroundunitinphysical(x0, y0, symbols, color, name, stack, killed):
         _drawlinesinphysical(
             list([x + dx(theta) for theta in theta]),
             list([y + dy(theta) for theta in theta]),
-            color=linecolor,
+            linecolor=linecolor,
             linewidth=groundunitlinewidth,
             zorder=zorder,
         )
@@ -948,7 +948,7 @@ def _drawgroundunitinphysical(x0, y0, symbols, color, name, stack, killed):
         _drawlinesinphysical(
             list([airdefencex(theta) for theta in theta]),
             list([airdefencey(theta) for theta in theta]),
-            color=linecolor,
+            linecolor=linecolor,
             linewidth=groundunitlinewidth,
             zorder=zorder,
         )
@@ -970,7 +970,7 @@ def _drawgroundunitinphysical(x0, y0, symbols, color, name, stack, killed):
         _drawlinesinphysical(
             list([x + dx(theta) for theta in theta]),
             list([y0 + dy(theta) for theta in theta]),
-            color=linecolor,
+            linecolor=linecolor,
             linewidth=groundunitlinewidth,
             zorder=zorder,
         )
@@ -984,7 +984,7 @@ def _drawgroundunitinphysical(x0, y0, symbols, color, name, stack, killed):
                 y0 - fy1 * groundunitdy,
                 y0 - fy1 * groundunitdy + dy,
             ],
-            color=linecolor,
+            linecolor=linecolor,
             linewidth=groundunitlinewidth,
             zorder=zorder,
         )
@@ -994,7 +994,7 @@ def _drawgroundunitinphysical(x0, y0, symbols, color, name, stack, killed):
         _drawlinesinphysical(
             [x + (fx - 0.5) * groundunitdx, x + (fx - 0.5) * groundunitdx],
             [y - 0.5 * groundunitdy, y + 0.5 * groundunitdy],
-            color=linecolor,
+            linecolor=linecolor,
             linewidth=groundunitlinewidth,
             zorder=zorder,
         )
@@ -1012,7 +1012,7 @@ def _drawgroundunitinphysical(x0, y0, symbols, color, name, stack, killed):
                     y + (fy0 + i * fy1 + fy2) * groundunitdy,
                     y + (fy0 + i * fy1) * groundunitdy,
                 ],
-                color=linecolor,
+                linecolor=linecolor,
                 linewidth=groundunitlinewidth,
                 zorder=zorder,
             )
@@ -1035,7 +1035,7 @@ def _drawgroundunitinphysical(x0, y0, symbols, color, name, stack, killed):
         _drawlinesinphysical(
             list([x + dx(theta) for theta in theta]),
             list([y + dy(theta) for theta in theta]),
-            color=linecolor,
+            linecolor=linecolor,
             linewidth=groundunitlinewidth,
             zorder=zorder,
         )
@@ -1045,7 +1045,7 @@ def _drawgroundunitinphysical(x0, y0, symbols, color, name, stack, killed):
                 y + fy0 * groundunitdy,
                 y + fy1 * groundunitdy,
             ],
-            color=linecolor,
+            linecolor=linecolor,
             linewidth=groundunitlinewidth,
             zorder=zorder,
         )
@@ -1068,14 +1068,14 @@ def _drawgroundunitinphysical(x0, y0, symbols, color, name, stack, killed):
         _drawlinesinphysical(
             list([x + dx(theta) for theta in theta]),
             list([y + dy(theta) for theta in theta]),
-            color=linecolor,
+            linecolor=linecolor,
             linewidth=groundunitlinewidth,
             zorder=zorder,
         )
         _drawlinesinphysical(
             [x - fx1 * groundunitdx, x + fx1 * groundunitdx],
             [y - fy0 * groundunitdy, y - fy0 * groundunitdy],
-            color=linecolor,
+            linecolor=linecolor,
             linewidth=groundunitlinewidth,
             zorder=zorder,
         )
@@ -1092,7 +1092,7 @@ def _drawgroundunitinphysical(x0, y0, symbols, color, name, stack, killed):
                 y + fy0 * groundunitdy,
                 y + fy0 * groundunitdy - fx * groundunitdx * cosd(30),
             ],
-            color=linecolor,
+            linecolor=linecolor,
             linewidth=groundunitlinewidth,
             zorder=zorder,
         )
@@ -1106,7 +1106,7 @@ def _drawgroundunitinphysical(x0, y0, symbols, color, name, stack, killed):
             _drawlinesinphysical(
                 [x - dx, x + dx],
                 [y - dy, y + dy],
-                color=linecolor,
+                linecolor=linecolor,
                 linewidth=groundunitlinewidth,
                 zorder=zorder,
             )
@@ -1167,7 +1167,7 @@ def _drawgroundunitinphysical(x0, y0, symbols, color, name, stack, killed):
         _drawlinesinphysical(
             [x, x],
             [y - 0.5 * groundunitdy, y + 0.5 * groundunitdy],
-            color=linecolor,
+            linecolor=linecolor,
             linewidth=groundunitlinewidth,
             zorder=zorder,
         )
@@ -1227,7 +1227,7 @@ def _drawgroundunitinphysical(x0, y0, symbols, color, name, stack, killed):
         _drawlinesinphysical(
             [x - 0.5 * groundunitdx, x + 0.5 * groundunitdx],
             [y + (fy - 0.5) * groundunitdy, y + (fy - 0.5) * groundunitdy],
-            color=linecolor,
+            linecolor=linecolor,
             linewidth=groundunitlinewidth,
             zorder=zorder,
         )
@@ -1237,7 +1237,7 @@ def _drawgroundunitinphysical(x0, y0, symbols, color, name, stack, killed):
         _drawlinesinphysical(
             [x - 0.5 * groundunitdx, x + 0.5 * groundunitdx],
             [y + fy * groundunitdy, y + fy * groundunitdy],
-            color=linecolor,
+            linecolor=linecolor,
             linewidth=groundunitlinewidth,
             zorder=zorder,
         )
@@ -1259,7 +1259,7 @@ def _drawgroundunitinphysical(x0, y0, symbols, color, name, stack, killed):
             _drawlinesinphysical(
                 [x - dx, x + dx],
                 [y + fy * groundunitdy - dy, y + fy * groundunitdy + dy],
-                color=linecolor,
+                linecolor=linecolor,
                 linewidth=groundunitlinewidth,
                 zorder=zorder,
             )
@@ -1299,7 +1299,7 @@ def _drawgroundunitinphysical(x0, y0, symbols, color, name, stack, killed):
         _drawlinesinphysical(
             list([x + dx(theta) for theta in theta]),
             list([y + dy(theta) for theta in theta]),
-            color=linecolor,
+            linecolor=linecolor,
             linewidth=groundunitlinewidth,
             zorder=zorder,
         )
@@ -1316,7 +1316,7 @@ def _drawgroundunitinphysical(x0, y0, symbols, color, name, stack, killed):
                 y - fy0 * groundunitdy,
                 y + fy0 * groundunitdy,
             ],
-            color=linecolor,
+            linecolor=linecolor,
             linewidth=groundunitlinewidth,
             zorder=zorder,
         )
@@ -1382,7 +1382,7 @@ def _drawgroundunitinphysical(x0, y0, symbols, color, name, stack, killed):
         _drawlinesinphysical(
             list([x + dx(theta) for theta in theta]),
             list([y + dy(theta) for theta in theta]),
-            color=linecolor,
+            linecolor=linecolor,
             linewidth=groundunitlinewidth,
             zorder=zorder,
         )
@@ -1395,7 +1395,7 @@ def _drawgroundunitinphysical(x0, y0, symbols, color, name, stack, killed):
                 y + fy0 * groundunitdy,
                 y + fy0 * groundunitdy,
             ],
-            color=linecolor,
+            linecolor=linecolor,
             linewidth=groundunitlinewidth,
             zorder=zorder,
         )

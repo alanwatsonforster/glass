@@ -674,14 +674,14 @@ def startdrawmap(
                     drawpaths(
                         sheet,
                         _terrain[sheet]["tunnelpaths"],
-                        color=roadoutlinecolor,
+                        linecolor=roadoutlinecolor,
                         linewidth=tunnelouterwidth,
                         linestyle=(0, (0.3, 0.3)),
                     )
                     drawpaths(
                         sheet,
                         _terrain[sheet]["tunnelpaths"],
-                        color=level1color,
+                        linecolor=level1color,
                         linewidth=tunnelinnerwidth,
                     )
 
@@ -689,19 +689,19 @@ def startdrawmap(
                 drawpaths(
                     sheet,
                     _terrain[sheet]["level0ridges"],
-                    color=level0ridgecolor,
+                    linecolor=level0ridgecolor,
                     linewidth=ridgewidth,
                 )
                 drawpaths(
                     sheet,
                     _terrain[sheet]["level1ridges"],
-                    color=level1ridgecolor,
+                    linecolor=level1ridgecolor,
                     linewidth=ridgewidth,
                 )
                 drawpaths(
                     sheet,
                     _terrain[sheet]["level2ridges"],
-                    color=level2ridgecolor,
+                    linecolor=level2ridgecolor,
                     linewidth=ridgewidth,
                 )
 
@@ -750,7 +750,7 @@ def startdrawmap(
                     drawpaths(
                         sheet,
                         _terrain[sheet]["clearingpaths"],
-                        color=level0color,
+                        linecolor=level0color,
                         linewidth=clearingwidth,
                     )
 
@@ -799,14 +799,14 @@ def startdrawmap(
                     drawpaths(
                         sheet,
                         _terrain[sheet]["riverpaths"],
-                        color=wateroutlinecolor,
+                        linecolor=wateroutlinecolor,
                         linewidth=riverwidth + waterourlinewidth,
                         capstyle="projecting",
                     )
                     drawpaths(
                         sheet,
                         _terrain[sheet]["wideriverpaths"],
-                        color=wateroutlinecolor,
+                        linecolor=wateroutlinecolor,
                         linewidth=wideriverwidth + waterourlinewidth,
                         capstyle="projecting",
                     )
@@ -820,14 +820,14 @@ def startdrawmap(
                     drawpaths(
                         sheet,
                         _terrain[sheet]["riverpaths"],
-                        color=watercolor,
+                        linecolor=watercolor,
                         linewidth=riverwidth,
                         capstyle="projecting",
                     )
                     drawpaths(
                         sheet,
                         _terrain[sheet]["wideriverpaths"],
-                        color=watercolor,
+                        linecolor=watercolor,
                         linewidth=wideriverwidth,
                         capstyle="projecting",
                     )
@@ -837,14 +837,14 @@ def startdrawmap(
                 drawpaths(
                     sheet,
                     _terrain[sheet]["seapaths"],
-                    color=wateroutlinecolor,
+                    linecolor=wateroutlinecolor,
                     linewidth=riverwidth + waterourlinewidth,
                     capstyle="projecting",
                 )
                 drawpaths(
                     sheet,
                     _terrain[sheet]["wideseapaths"],
-                    color=wateroutlinecolor,
+                    linecolor=wateroutlinecolor,
                     linewidth=wideriverwidth + waterourlinewidth,
                     capstyle="projecting",
                 )
@@ -858,14 +858,14 @@ def startdrawmap(
                 drawpaths(
                     sheet,
                     _terrain[sheet]["seapaths"],
-                    color=watercolor,
+                    linecolor=watercolor,
                     linewidth=riverwidth,
                     capstyle="projecting",
                 )
                 drawpaths(
                     sheet,
                     _terrain[sheet]["wideseapaths"],
-                    color=watercolor,
+                    linecolor=watercolor,
                     linewidth=wideriverwidth,
                     capstyle="projecting",
                 )
@@ -901,42 +901,42 @@ def startdrawmap(
                         drawpaths(
                             sheet,
                             _terrain[sheet]["smallbridgepaths"],
-                            color=urbanoutlinecolor,
+                            linecolor=urbanoutlinecolor,
                             linewidth=bridgeouterwidth,
                             capstyle="butt",
                         )
                         drawpaths(
                             sheet,
                             _terrain[sheet]["smallbridgepaths"],
-                            color=urbancolor,
+                            linecolor=urbancolor,
                             linewidth=bridgeinnerwidth,
                             capstyle="butt",
                         )
                         drawpaths(
                             sheet,
                             _terrain[sheet]["smallbridgepaths"],
-                            color=roadcolor,
+                            linecolor=roadcolor,
                             linewidth=roadwidth,
                             capstyle="projecting",
                         )
                         drawpaths(
                             sheet,
                             _terrain[sheet]["largebridgepaths"],
-                            color=urbanoutlinecolor,
+                            linecolor=urbanoutlinecolor,
                             linewidth=bridgeouterwidth,
                             capstyle="butt",
                         )
                         drawpaths(
                             sheet,
                             _terrain[sheet]["largebridgepaths"],
-                            color=urbancolor,
+                            linecolor=urbancolor,
                             linewidth=bridgeinnerwidth,
                             capstyle="butt",
                         )
                         drawpaths(
                             sheet,
                             _terrain[sheet]["largebridgepaths"],
-                            color=roadcolor,
+                            linecolor=roadcolor,
                             linewidth=roadwidth,
                             capstyle="projecting",
                         )
@@ -946,7 +946,7 @@ def startdrawmap(
                         drawpaths(
                             sheet,
                             _terrain[sheet]["trailpaths"],
-                            color=roadoutlinecolor,
+                            linecolor=roadoutlinecolor,
                             linewidth=roadwidth + roadoutlinewidth,
                             capstyle="projecting",
                             linestyle=(0, (1, 1)),
@@ -955,7 +955,7 @@ def startdrawmap(
                         drawpaths(
                             sheet,
                             _terrain[sheet]["trailpaths"],
-                            color=level0color,
+                            linecolor=level0color,
                             linewidth=roadwidth,
                             capstyle="projecting",
                         )
@@ -965,7 +965,7 @@ def startdrawmap(
                         drawpaths(
                             sheet,
                             _terrain[sheet]["roadpaths"],
-                            color=roadoutlinecolor,
+                            linecolor=roadoutlinecolor,
                             linewidth=roadwidth + roadoutlinewidth,
                             capstyle="projecting",
                         )
@@ -973,7 +973,7 @@ def startdrawmap(
                         drawpaths(
                             sheet,
                             _terrain[sheet]["roadpaths"],
-                            color=roadcolor,
+                            linecolor=roadcolor,
                             linewidth=roadwidth,
                             capstyle="projecting",
                         )
@@ -983,7 +983,7 @@ def startdrawmap(
                         drawpaths(
                             sheet,
                             _terrain[sheet]["dockpaths"],
-                            color=dockoutlinecolor,
+                            linecolor=dockoutlinecolor,
                             linewidth=dockwidth + dockoutlinewidth,
                             capstyle="projecting",
                         )
@@ -991,7 +991,7 @@ def startdrawmap(
                         drawpaths(
                             sheet,
                             _terrain[sheet]["dockpaths"],
-                            color=dockcolor,
+                            linecolor=dockcolor,
                             linewidth=dockwidth,
                             capstyle="projecting",
                         )
@@ -1003,14 +1003,14 @@ def startdrawmap(
                         drawpaths(
                             sheet,
                             _terrain[sheet]["runwaypaths"],
-                            color=roadoutlinecolor,
+                            linecolor=roadoutlinecolor,
                             linewidth=runwaywidth + roadoutlinewidth,
                             capstyle="projecting",
                         )
                         drawpaths(
                             sheet,
                             _terrain[sheet]["taxiwaypaths"],
-                            color=roadoutlinecolor,
+                            linecolor=roadoutlinecolor,
                             linewidth=taxiwaywidth + roadoutlinewidth,
                             joinstyle="miter",
                             capstyle="projecting",
@@ -1018,14 +1018,14 @@ def startdrawmap(
                         drawpaths(
                             sheet,
                             _terrain[sheet]["runwaypaths"],
-                            color=roadcolor,
+                            linecolor=roadcolor,
                             linewidth=runwaywidth,
                             capstyle="projecting",
                         )
                         drawpaths(
                             sheet,
                             _terrain[sheet]["taxiwaypaths"],
-                            color=roadcolor,
+                            linecolor=roadcolor,
                             linewidth=taxiwaywidth,
                             joinstyle="miter",
                             capstyle="projecting",
@@ -1038,14 +1038,14 @@ def startdrawmap(
                         drawpaths(
                             sheet,
                             _terrain[sheet]["dampaths"],
-                            color=roadoutlinecolor,
+                            linecolor=roadoutlinecolor,
                             linewidth=damwidth + roadoutlinewidth,
                             capstyle="projecting",
                         )
                         drawpaths(
                             sheet,
                             _terrain[sheet]["dampaths"],
-                            color=roadcolor,
+                            linecolor=roadcolor,
                             linewidth=damwidth,
                             capstyle="projecting",
                         )
