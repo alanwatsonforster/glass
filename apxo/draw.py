@@ -92,6 +92,8 @@ def _drawhexinphysical(
     alpha=1.0,
     zorder=1,
 ):
+    if linecolor is None:
+        linewidth = 0
     # size is inscribed diameter
     _ax.add_artist(
         patches.RegularPolygon(
@@ -121,6 +123,8 @@ def _drawcircleinphysical(
     alpha=1.0,
     zorder=1,
 ):
+    if linecolor is None:
+        linewidth = 0
     _ax.add_artist(
         patches.Circle(
             [x, y],
@@ -149,6 +153,8 @@ def _drawsquareinphysical(
     zorder=1,
 ):
     # size is circumscribed diameter
+    if linecolor is None:
+        linewidth = 0
     _ax.add_artist(
         patches.RegularPolygon(
             [x, y],
@@ -179,6 +185,8 @@ def _drawdotinphysical(
     alpha=1.0,
     zorder=1,
 ):
+    if linecolor is None:
+        linewidth = 0
     x = x + dx * sind(facing) + dy * cosd(facing)
     y = y - dx * cosd(facing) + dy * sind(facing)
     _ax.add_artist(
@@ -206,6 +214,8 @@ def _drawlinesinphysical(
     alpha=1.0,
     zorder=1,
 ):
+    if color is None:
+        linewidth = 0
     plt.plot(
         x,
         y,
@@ -233,6 +243,8 @@ def _drawarrowinphysical(
     zorder=1,
 ):
     # size is length
+    if linecolor is None:
+        linewidth = 0
     x = x + dx * sind(facing) + dy * cosd(facing)
     y = y - dx * cosd(facing) + dy * sind(facing)
     dx = size * cosd(facing)
@@ -277,6 +289,8 @@ def _drawdartinphysical(
     zorder=1,
 ):
     # size is length
+    if linecolor is None:
+        linewidth = 0
     x = x + dx * sind(facing) + dy * cosd(facing)
     y = y - dx * cosd(facing) + dy * sind(facing)
     dx = size * cosd(facing)
@@ -351,6 +365,8 @@ def _drawpolygoninphysical(
     alpha=1.0,
     zorder=1,
 ):
+    if linecolor is None:
+        linewidth = 0
     _ax.add_artist(
         patches.Polygon(
             xy,
