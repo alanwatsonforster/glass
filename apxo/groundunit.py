@@ -89,7 +89,7 @@ class groundunit(apelement.element):
             if self.issuppressed():
                 return "S"
             else:
-                return "none" 
+                return "" 
         elif self._damagelevel == 1:
             if self.issuppressed():
                 return "D+S"

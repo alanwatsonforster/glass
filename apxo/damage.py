@@ -21,10 +21,7 @@ def damage(A):
     if A._damageC == 1:
         damage = "%sC" % ("" if damage == "" else damage + "+")
 
-    if damage == "":
-        return "none"
-    else:
-        return damage
+    return damage
 
 
 ##############################################################################
