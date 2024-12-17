@@ -593,9 +593,9 @@ def drawpath(x, y, facing, altitude, speed, color, killed, annotate):
             color=linecolor,
             linewidth=pathlinewidth,
             linestyle=pathlinestyle,
-            zorder=0,
+            zorder=0.9,
         )
-        zorder = altitude[0]
+        zorder = altitude[0] + 1
         drawdot(
             x[0],
             y[0],
@@ -791,8 +791,6 @@ def drawgroundunit(x, y, symbols, color, name, stack, killed):
 
 def _drawgroundunitinphysical(x0, y0, symbols, color, name, stack, killed):
 
-    zorder = 0
-
     if killed:
         fillcolor = killedfillcolor
         linecolor = killedlinecolor
@@ -811,43 +809,43 @@ def _drawgroundunitinphysical(x0, y0, symbols, color, name, stack, killed):
     if stack == "1/2":
         x = x0 + 1.0 * stackdx
         y = y0 + 1.5 * stackdy
-        zorder = 0.0
+        zorder = 0.1
     elif stack == "2/2":
         x = x0 - 1.0 * stackdx
         y = y0 - 1.5 * stackdy
-        zorder = 0.1
+        zorder = 0.2
     elif stack == "1/3":
         x = x0 + 1.0 * stackdx
         y = y0 + 1.5 * stackdy
-        zorder = 0.0
+        zorder = 0.1
     elif stack == "2/3":
         x = x0 - 1.0 * stackdx
         y = y0
-        zorder = 0.1
+        zorder = 0.2
     elif stack == "3/3":
         x = x0 + 1.0 * stackdx
         y = y0 - 1.5 * stackdy
-        zorder = 0.2
+        zorder = 0.3
     elif stack == "1/4":
         x = x0 + 1.0 * stackdx
         y = y0 + 1.5 * stackdy
-        zorder = 0.0
+        zorder = 0.1
     elif stack == "2/4":
         x = x0 - 1.0 * stackdx
         y = y0 + 0.5 * stackdy
-        zorder = 0.1
+        zorder = 0.2
     elif stack == "3/4":
         x = x0 + 1.0 * stackdx
         y = y0 - 0.5 * stackdy
-        zorder = 0.2
+        zorder = 0.3
     elif stack == "4/4":
         x = x0 - 1.0 * stackdx
         y = y0 - 1.5 * stackdy
-        zorder = 0.3
+        zorder = 0.4
     else:
         x = x0
         y = y0
-        zorder = 0.0
+        zorder = 0.1
 
     def drawinfantrysymbol():
         _drawlinesinphysical(
