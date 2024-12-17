@@ -52,7 +52,7 @@ class groundunit(apelement.element):
                     "barge",
                     "truck",
                 ]:
-                    raise RuntimeError("invalid ground unit symbol \"%s\"." % symbol)
+                    raise RuntimeError('invalid ground unit symbol "%s".' % symbol)
             self._symbols = symbols
 
             self._stack = stack
