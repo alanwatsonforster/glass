@@ -169,7 +169,7 @@ def totalfuelcapacity(stores):
 def _showstores(stores, printer=print, fuel=0):
 
     printer("stores are:")
-    for loadstation, name in sorted(stores.items()):
+    for loadstation, name in stores.items():
         printer(
             "  %-2s: %-17s  %2s / %4d / %.1f%s"
             % (
@@ -236,44 +236,37 @@ def _airtoairlaunch(stores, launched, printer=print):
 
 
 def _release(stores, released, printer=print):
-
-    newstores = stores.copy()
-
-    if released in [
-        "FT",
-        "IRM",
-        "BRM",
-        "RHM",
-        "AHM",
-        "ARM",
-        "BB",
-        "BS",
-        "BG",
-        "RK",
-        "RP",
-        "RG",
-        "WR",
-        "GP",
-        "EP",
-        "DP",
-        "LP",
-    ]:
-
-        for loadstation, name in sorted(stores.items()):
-            if _class(name) == released:
-                printer("releasing %s on load station %s." % (name, loadstation))
-                del newstores[loadstation]
-
+   
+    if isinstance(released, int) or isinstance(released, str):
+        releasedlist = [released]
     else:
+        releasedlist = released
+   
+    for releaseditem in releasedlist:
 
-        loadstation = str(released)
+        newstores = stores.copy()
 
-        if loadstation not in stores:
-            raise RuntimeError("load station %s is not loaded." % loadstation)
+        def _releaseloadstation(loadstation):
+            if loadstation not in newstores:
+                raise RuntimeError("load station %s is not loaded." % loadstation)
+            printer("releasing %s on load station %s." % (stores[loadstation], loadstation))
+            del newstores[loadstation]
 
-        printer("releasing %s on load station %s." % (stores[loadstation], loadstation))
-        del newstores[loadstation]
-
+        if isinstance(releaseditem, int):
+            _releaseloadstation(str(releaseditem))
+        elif releaseditem[0] in "0123456789":
+            _releaseloadstation(releaseditem)
+        else:
+            found = False
+            for loadstation, name in stores.items():
+                if name.startswith(releaseditem):
+                    _releaseloadstation(loadstation)
+                    found = True
+            if not found:
+                raise RuntimeError("no load stations loaded with %s." % releaseditem)
+        
+        stores = newstores
+                    
     return newstores
 
 
