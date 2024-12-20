@@ -549,6 +549,26 @@ class element:
         self._lostproperties.add(p)
 
     ############################################################################
+    
+    def attack(self, target, *args):
+        aplog.clearerror()
+        try:
+            if isinstance(target, str):
+                aphexcode.checkisvalidhexcodeforcenter(target)
+                self._attackterrain(target, *args)
+            elif not isinstance(target, element):
+                raise RuntimeError("invalid target.")
+            elif target.isaircraft():
+                self._attackaircraft(target, *args)
+            elif target.isgroundunit():
+                self._attackgroundunit(target, *args)
+            else:
+                raise RuntimeError("invalid target.")        
+        except RuntimeError as e:
+            aplog.logexception(e)
+        self.logbreak()
+    
+    ############################################################################
 
     def damage(self):
         return self._damage()

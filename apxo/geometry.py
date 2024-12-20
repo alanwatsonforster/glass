@@ -78,6 +78,25 @@ def horizontalrange(A0, A1, x1=None, y1=None):
 
     return aphex.distance(A0.x(), A0.y(), x1, y1)
 
+def verticalrange(A0, A1, x1=None, y1=None):
+    """
+    Return the vertical range in hexes from aircraft A0 to A1.
+    """
+
+    if A1 is not None:
+        altitude1 = A1.altitude()
+    else:
+        altitude1 = apmap.altitude(x, y)
+
+    return int(abs(A0.altitude() - altitude1) / 2)
+
+def range(A0, A1, x1=None, y1=None):
+    """
+    Return the range in hexes from aircraft A0 to A1.
+    """
+
+    return horizontalrange(A0, A1, x1=x1, y1=y1) + verticalrange(A0, A1, x1=x1, y1=y1)
+
 
 ##############################################################################
 
