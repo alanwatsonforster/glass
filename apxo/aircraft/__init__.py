@@ -5,7 +5,6 @@ import apxo.azimuth as apazimuth
 import apxo.capabilities as apcapabilities
 import apxo.closeformation as apcloseformation
 import apxo.configuration as apconfiguration
-import apxo.damage as apdamage
 import apxo.draw as apdraw
 import apxo.element as apelement
 import apxo.flight as apflight
@@ -884,19 +883,4 @@ class aircraft(apelement.element):
 
     ################################################################################
 
-    def _takedamage(self, damage):
-        apdamage.takedamage(self, damage)
-
-    def _takedamageconsequences(self):
-        apdamage.takedamageconsequences(self)
-
-    def damage(self):
-        return apdamage.damage(self)
-
-    def damageatleast(self, damage):
-        return apdamage.damageatleast(self, damage)
-
-    def damageatmost(self, damage):
-        return apdamageatmost(self, damage)
-
-    ################################################################################
+    from apxo.aircraft.damage import damage, damageatleast, damageatmost, _takedamage, _takedamageconsequences
