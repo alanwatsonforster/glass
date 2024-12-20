@@ -101,10 +101,6 @@ class aircraft(apelement.element):
 
             self._newspeed = None
             self._unspecifiedattackresult = 0
-            self._damageL = 0
-            self._damageH = 0
-            self._damageC = 0
-            self._damageK = 0
             self._flighttype = "LVL"
             self._powersetting = "N"
             self._bank = None
@@ -883,4 +879,4 @@ class aircraft(apelement.element):
 
     ################################################################################
 
-    from apxo.aircraft.damage import _damage, _damageatleast, _damageatmost, _takedamage, _takedamageconsequences
+    from apxo.aircraft.damage import _initdamage, _damage, _damageatleast, _damageatmost, _takedamage, _takedamageconsequences

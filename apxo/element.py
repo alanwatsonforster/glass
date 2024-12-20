@@ -181,6 +181,8 @@ class element:
 
         self._gainedproperties = set([])
         self._lostproperties = set([])
+        
+        self._initdamage()
 
         _elementlist.append(self)
 
@@ -569,6 +571,9 @@ class element:
         self.logbreak()
 
     ############################################################################
+    
+    def _initdamage(self):
+        pass
     
     def _damage(self):
         raise RuntimeError("%s cannot take damage." % self.name())
