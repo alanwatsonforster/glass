@@ -5,7 +5,6 @@ import apxo.azimuth as apazimuth
 import apxo.capabilities as apcapabilities
 import apxo.closeformation as apcloseformation
 import apxo.configuration as apconfiguration
-import apxo.draw as apdraw
 import apxo.element as apelement
 import apxo.flight as apflight
 import apxo.gameturn as apgameturn
@@ -645,31 +644,6 @@ class aircraft(apelement.element):
 
     ################################################################################
 
-    def _draw(self):
-        if self._startedmoving:
-            self._drawpath(
-                self._color, killed=self.killed(), annotate=not self.killed()
-            )
-        if self._finishedmoving:
-            speed = self.newspeed()
-        elif self._startedmoving:
-            speed = None
-        else:
-            speed = self.speed()
-        apdraw.drawaircraft(
-            self.x(),
-            self.y(),
-            self.facing(),
-            self._color,
-            self.name(),
-            self.altitude(),
-            speed,
-            self._flighttype,
-            killed=self.killed(),
-        )
-
-    ################################################################################
-
     def _startmovespeed(
         self, power, flamedoutengines, lowspeedliftdeviceselected, speedbrakes, geometry
     ):
@@ -877,6 +851,10 @@ class aircraft(apelement.element):
             aplog.logexception(e)
         self.logbreak()
 
-    ################################################################################
+    ############################################################################
 
     from apxo.aircraft.damage import _initdamage, _damage, _damageatleast, _damageatmost, _takedamage, _takedamageconsequences
+    
+    from apxo.aircraft.draw import _draw
+
+    ############################################################################

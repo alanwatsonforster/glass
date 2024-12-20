@@ -1,4 +1,3 @@
-import apxo.draw as apdraw
 import apxo.element as apelement
 import apxo.gameturn as apgameturn
 import apxo.log as aplog
@@ -113,18 +112,6 @@ class groundunit(apelement.element):
 
     ############################################################################
 
-    def _draw(self):
-        apdraw.drawgroundunit(
-            *self.xy(),
-            self._symbols,
-            self.color(),
-            self.name(),
-            self._stack,
-            self._killed
-        )
-
-    ############################################################################
-
     def isusingbarragefire(self):
         "Return true if the ground unit it using barrage fire otherwise return false."
         return self._barragefiremarker is not None
@@ -171,3 +158,7 @@ class groundunit(apelement.element):
     from apxo.groundunit.attack import _attackaircraft
     
     from apxo.groundunit.damage import _initdamage, _damage, _damageatleast, _damageatmost, _takedamage, _takedamageconsequences
+
+    from apxo.groundunit.draw import _draw
+
+    ############################################################################

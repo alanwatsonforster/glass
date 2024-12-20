@@ -2,7 +2,6 @@ import math
 
 import apxo.altitude as apaltitude
 import apxo.azimuth as apazimuth
-import apxo.draw as apdraw
 import apxo.element as apelement
 import apxo.flight as apflight
 import apxo.gameturn as apgameturn
@@ -112,22 +111,6 @@ class missile(apelement.element):
     def _continuemove(self, moves, note=None):
         apflight._continuemove(self, moves)
 
-    #############################################################################
-
-    def _draw(self):
-        self._drawpath(
-            self._color, annotate=apgameturn.gameturn() > self._launchgameturn + 1
-        )
-        apdraw.drawmissile(
-            self.x(),
-            self.y(),
-            self.facing(),
-            self._color,
-            self._name,
-            self.altitude(),
-            self.speed(),
-            annotate=self._startedmoving,
-        )
 
     ########################################
 
@@ -208,3 +191,9 @@ class missile(apelement.element):
             checknormallimit(+0.5, +7.0)
         else:
             pass
+
+    ############################################################################
+
+    from apxo.missile.draw import _draw
+
+    ############################################################################
