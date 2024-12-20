@@ -1,6 +1,8 @@
 import apxo.draw as apdraw
 import apxo.element as apelement
+import apxo.gameturn as apgameturn
 import apxo.log as aplog
+import apxo.marker as apmarker
 
 ##############################################################################
 
@@ -18,7 +20,7 @@ class groundunit(apelement.element):
 
     ############################################################################
 
-    def __init__(self, name, hexcode, symbols="", color="white", stack=None):
+    def __init__(self, name, hexcode, symbols="", color="white", barragefirealtitude=None, stack=None):
 
         self._name = ""
 
@@ -73,6 +75,9 @@ class groundunit(apelement.element):
 
             self._damagelevel = 0
 
+            self._barragefiremarker = None
+            self._barragefirealtitude = barragefirealtitude
+
         except RuntimeError as e:
             aplog.logexception(e)
         self.logbreak()
@@ -117,7 +122,10 @@ class groundunit(apelement.element):
             raise RuntimeError("invalid damage %r" % damage)
 
     def _takedamageconsequences(self):
-        pass
+        if self._barragefiremarker is not None:
+            self.logwhenwhat("", "%s ceases barrage fire." % self.name())
+            self._barragefiremarker._remove()
+            self._barragefiremarker = None
     
     #############################################################################
 
@@ -131,6 +139,9 @@ class groundunit(apelement.element):
 
     def _endgameturn(self):
         self._suppressionlevel -= 1
+        if self._barragefiremarker is not None:
+            self._barragefiremarker._remove()
+            self._barragefiremarker = None
 
     ############################################################################
 
@@ -143,3 +154,23 @@ class groundunit(apelement.element):
             self._stack,
             self._killed
         )
+
+    ############################################################################
+
+    def usebarragefire(self, note=None):
+        aplog.clearerror()
+        try:
+            apgameturn.checkingameturn()
+            self._checknotkilled()
+            self._checknotremoved()
+            self._checknotsuppressed()
+            if self._barragefirealtitude is None:
+                raise RuntimeError("%s is not capable of barrage fire." % self.name())
+            maximumaltitude = self.altitude() + self._barragefirealtitude
+            self.logwhenwhat("", "using barrage fire to altitude %d." % maximumaltitude)
+            self._barragefiremarker = apmarker.marker("barragefire", self.hexcode(), altitude=maximumaltitude, silent=True)
+            self.lognote(note)
+        except RuntimeError as e:
+            aplog.logexception(e)
+        self.logbreak()
+    

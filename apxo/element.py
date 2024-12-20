@@ -394,6 +394,10 @@ class element:
         if self.removed():
             raise RuntimeError("%s has been removed." % self.name())
 
+    def _checknotsuppressed(self):
+        if self.issuppressed():
+            raise RuntimeError("%s is suppressed." % self.name())
+
     ############################################################################
 
     def _move(self, s):
