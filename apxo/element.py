@@ -570,6 +570,18 @@ class element:
 
     ############################################################################
     
+    def _damage(self):
+        raise RuntimeError("%s cannot take damage." % self.name())
+    
+    def _damageatleast(self):
+        raise RuntimeError("%s cannot take damage." % self.name())
+    
+    def _damageatmost(self):
+        raise RuntimeError("%s cannot take damage." % self.name())
+    
+    def _takedamage(self):
+        raise RuntimeError("%s cannot take damage." % self.name())
+    
     def damage(self):
         return self._damage()
 
