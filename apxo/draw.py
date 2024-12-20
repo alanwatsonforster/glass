@@ -778,22 +778,22 @@ def drawmissile(x, y, facing, color, name, altitude, speed, annotate):
 
 def drawbarragefire(x, y, altitude):
 
-    def drawbarragefirehex(x, y):
+    def drawone(x, y):
         zorder = altitude + 1
         drawhex(
             x,
             y,
-            linecolor="black",
+            linecolor=None,
             linewidth=0,
             fillcolor=None,
-            hatch=".",
+            hatch="..",
             alpha=0.2,
             zorder=zorder
         )
 
-    drawbarragefirehex(x, y)
+    drawone(x, y)
     for azimuth in [ 30, 90, 150, 210, 270, 330]:
-        drawbarragefirehex(*aphex.forward(x, y, azimuth))
+        drawone(*aphex.forward(x, y, azimuth))
     
 def drawblastzone(x, y, altitude):
 
@@ -801,10 +801,10 @@ def drawblastzone(x, y, altitude):
     drawhex(
         x,
         y,
-        linecolor="black",
+        linecolor=None,
         linewidth=0,
         fillcolor=None,
-        hatch=".",
+        hatch="...",
         alpha=0.2,
         zorder=zorder
     )
