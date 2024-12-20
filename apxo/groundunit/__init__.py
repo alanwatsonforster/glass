@@ -170,4 +170,4 @@ class groundunit(apelement.element):
 
     from apxo.groundunit.attack import _attackaircraft
     
-    from apxo.groundunit.damage import _damage, _takedamage, _takedamageconsequences
+    from apxo.groundunit.damage import _damage, _damageatleast, _damageatmost, _takedamage, _takedamageconsequences

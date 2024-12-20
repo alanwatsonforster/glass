@@ -1,6 +1,5 @@
 import apxo.aircraft as apaircraft
 import apxo.capabilities as apcapabilities
-import apxo.damage as apdamage
 import apxo.geometry as apgeometry
 import apxo.hex as aphex
 import apxo.log as aplog
@@ -434,11 +433,11 @@ def _attack(attacker, attacktype, target, result, allowRK=True, allowtracking=Tr
     if weapon == "RK":
         # See rule 9.3; attacker damage does not modify rocket attacks.
         damagemodifier = None
-    elif apdamage.damageatleast(attacker, "C"):
+    elif attacker.damageatleast("C"):
         damagemodifier = +3
-    elif apdamage.damageatleast(attacker, "H"):
+    elif attacker.damageatleast("H"):
         damagemodifier = +2
-    elif apdamage.damageatleast(attacker, "L"):
+    elif attacker.damageatleast("L"):
         damagemodifier = +1
     else:
         damagemodifier = None
@@ -491,7 +490,7 @@ def _attack(attacker, attacktype, target, result, allowRK=True, allowtracking=Tr
             if snapshot:
                 attacker.logcomment("snap-shot damage modifier is -1.")
                 damageratingmodifier -= 1
-            if apdamage.damageatleast(target, "L"):
+            if target.damageatleast("L"):
                 attacker.logcomment("target    damage modifier is -1.")
                 damageratingmodifier += 1
             attacker.logcomment(
@@ -518,7 +517,7 @@ def _attack(attacker, attacktype, target, result, allowRK=True, allowtracking=Tr
     else:
         attacker.logcomment("hit and inflicted %s damage." % result)
         if target != None:
-            apdamage.takedamage(target, result)
+            target.takedamage(result)
 
     if result != "A":
         if weapon == "GN":

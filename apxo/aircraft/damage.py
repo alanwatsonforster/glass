@@ -1,5 +1,3 @@
-import apxo.damage as apdamage
-
 ################################################################################
 
 def _damage(self):
@@ -19,7 +17,9 @@ def _damage(self):
 
     return damage
 
-def damageatleast(self, damage):
+################################################################################
+
+def _damageatleast(self, damage):
     assert damage in ["none", "L", "2L", "H", "C", "K"]
     if damage == "none":
         return True
@@ -35,10 +35,7 @@ def damageatleast(self, damage):
         return self._damageK >= 1
 
 
-##############################################################################
-
-
-def damageatmost(self, damage):
+def _damageatmost(self, damage):
     assert damage in ["none", "L", "2L", "H", "C", "K"]
     if damage == "none":
         return not self.damageatleast("L")
@@ -54,7 +51,7 @@ def damageatmost(self, damage):
         return True
 
 
-##############################################################################
+################################################################################
 
 def _takedamage(self, damage):
 
@@ -105,22 +102,11 @@ def _takedamageconsequences(self):
             self.logwhenwhat("", "loses %s property." % p)
             self.loseproperty(p)
 
-    if damageatleast(self, "L"):
+    if self.damageatleast("L"):
         lose("HPR")
         lose("HRR")
         gain("LRR")
-    if damageatleast(self, "H"):
+    if self.damageatleast("H"):
         gain("NRM")
-
-
-
-
-
-
-def damageatleast(self, damage):
-    return apdamage.damageatleast(self, damage)
-
-def damageatmost(self, damage):
-    return apdamageatmost(self, damage)
 
 ################################################################################

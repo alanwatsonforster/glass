@@ -19,6 +19,34 @@ def _damage(self):
     else:
         return "K"
 
+################################################################################
+
+def _damageatleast(self, damage):
+    assert damage in ["none", "D", "2D", "K"]
+    if damage == "none":
+        return True
+    elif damage == "D":
+        return self._damagelevel >= 1
+    elif damage == "2D":
+        return self._damagelevel >= 2
+    elif damage == "K":
+        return self._damagelevel >= 3
+
+
+def _damageatmost(self, damage):
+    assert damage in ["none", "D", "2D", "K"]
+    if damage == "none":
+        return self._damagelevel == 0
+    elif damage == "D":
+        return self._damagelevel <= 1
+    elif damage == "2D":
+        return self._damagelevel <= 2
+    elif damage == "K":
+        return True
+
+
+################################################################################
+
 def _takedamage(self, damage):
     self._suppressionlevel = 2
     if damage == "S":

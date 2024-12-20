@@ -883,4 +883,4 @@ class aircraft(apelement.element):
 
     ################################################################################
 
-    from apxo.aircraft.damage import _damage, damageatleast, damageatmost, _takedamage, _takedamageconsequences
+    from apxo.aircraft.damage import _damage, _damageatleast, _damageatmost, _takedamage, _takedamageconsequences

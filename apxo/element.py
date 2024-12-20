@@ -569,9 +569,15 @@ class element:
         self.logbreak()
 
     ############################################################################
-
+    
     def damage(self):
         return self._damage()
+
+    def damageatleast(self, damage):
+        return self._damageatleast(damage)
+
+    def damageatmost(self, damage):
+        return self._damageatmost(damage)
 
     def takedamage(self, damage, note=None):
         aplog.clearerror()
