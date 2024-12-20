@@ -20,10 +20,10 @@ A5._assert("A1-1915       WNW  50", 6.0, expectedconfiguration="DT")
 
 starttestsetup()
 A1 = aircraft(1, "AF", "F-80C", "A1-1115", "N", 10, 4.0, "CL")
-asserterror('the name argument must be a string.')
+asserterror("the name argument must be a string.")
 A2 = aircraft("A2", "AF", "F-84E", "A1-1315", "NNE", 20, 4.5, "CL")
 A3 = aircraft("A2", "AF", "F-84G", "A1-1515", "ENE", 30, 5.0, "1/2")
-asserterror('the name argument must be unique.')
+asserterror("the name argument must be unique.")
 
 endtestsetup()
 

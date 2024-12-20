@@ -776,6 +776,7 @@ def drawmissile(x, y, facing, color, name, altitude, speed, annotate):
 
 ################################################################################
 
+
 def drawbarragefire(x, y, altitude):
 
     def drawone(x, y):
@@ -788,13 +789,14 @@ def drawbarragefire(x, y, altitude):
             fillcolor=None,
             hatch="..",
             alpha=0.2,
-            zorder=zorder
+            zorder=zorder,
         )
 
     drawone(x, y)
-    for azimuth in [ 30, 90, 150, 210, 270, 330]:
+    for azimuth in [30, 90, 150, 210, 270, 330]:
         drawone(*aphex.forward(x, y, azimuth))
-    
+
+
 def drawblastzone(x, y, altitude):
 
     zorder = altitude + 1.5
@@ -806,9 +808,8 @@ def drawblastzone(x, y, altitude):
         fillcolor=None,
         hatch="...",
         alpha=0.2,
-        zorder=zorder
+        zorder=zorder,
     )
- 
 
 
 ################################################################################

@@ -134,19 +134,29 @@ A1._assert("A1-2016       N    10", 3.5, expectedconfiguration="CL")
 endgameturn()
 
 starttestsetup()
-A1 = aircraft("A1", "AF", "A-1H", "A2-2024", "N"  , 10, 2.5, color="green", stores={
-    1: "BB/M64",
-    3: "BB/M64",
-    5: "BB/M64",
-    6: "RP/LAU-10",
-    7: "BB/BLU-1",
-    8: "BB/BLU-1",
-    9: "BB/BLU-1",
-    10: "RP/LAU-10",
-    11: "BB/M64",
-    13: "BB/M64",
-    15: "BB/M64"
-})
+A1 = aircraft(
+    "A1",
+    "AF",
+    "A-1H",
+    "A2-2024",
+    "N",
+    10,
+    2.5,
+    color="green",
+    stores={
+        1: "BB/M64",
+        3: "BB/M64",
+        5: "BB/M64",
+        6: "RP/LAU-10",
+        7: "BB/BLU-1",
+        8: "BB/BLU-1",
+        9: "BB/BLU-1",
+        10: "RP/LAU-10",
+        11: "BB/M64",
+        13: "BB/M64",
+        15: "BB/M64",
+    },
+)
 endtestsetup()
 startgameturn()
 A1._assert("A2-2024       N    10", 2.5, expectedconfiguration="DT")

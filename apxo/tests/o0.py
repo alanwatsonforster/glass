@@ -96,11 +96,11 @@ groundunit("invalid", "A1-2110", "foo")
 asserterror('invalid ground unit symbol "foo".')
 
 groundunit(1, "A1-2110", "infantry")
-asserterror('the name argument must be a string.')
+asserterror("the name argument must be a string.")
 
 groundunit("A", "A1-2110", "infantry")
 groundunit("A", "A1-2110", "infantry")
-asserterror('the name argument must be unique.')
+asserterror("the name argument must be unique.")
 
 
 endtestsetup()
@@ -139,9 +139,9 @@ endtestsetup()
 
 starttestsetup()
 
-A0 = groundunit("A0", "A1-2110", "infantry" , barragefirealtitude=2)
-A1 = groundunit("A1", "A1-2110", "infantry" , barragefirealtitude=2)
-A2 = groundunit("A2", "A1-2110", "armor"    , barragefirealtitude=3)
+A0 = groundunit("A0", "A1-2110", "infantry", barragefirealtitude=2)
+A1 = groundunit("A1", "A1-2110", "infantry", barragefirealtitude=2)
+A2 = groundunit("A2", "A1-2110", "armor", barragefirealtitude=3)
 A3 = groundunit("A3", "A1-2110", "artillery")
 
 endtestsetup()

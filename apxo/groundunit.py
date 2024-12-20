@@ -14,13 +14,23 @@ def aslist(withkilled=False):
         groundunitlist = filter(lambda x: not x.killed(), groundunitlist)
     return list(groundunitlist)
 
+
 ##############################################################################
+
 
 class groundunit(apelement.element):
 
     ############################################################################
 
-    def __init__(self, name, hexcode, symbols="", color="white", barragefirealtitude=None, stack=None):
+    def __init__(
+        self,
+        name,
+        hexcode,
+        symbols="",
+        color="white",
+        barragefirealtitude=None,
+        stack=None,
+    ):
 
         self._name = ""
 
@@ -88,13 +98,13 @@ class groundunit(apelement.element):
         return True
 
     #############################################################################
-    
+
     def _damage(self):
         if self._damagelevel == 0:
             if self.issuppressed():
                 return "S"
             else:
-                return "" 
+                return ""
         elif self._damagelevel == 1:
             if self.issuppressed():
                 return "D+S"
@@ -107,7 +117,7 @@ class groundunit(apelement.element):
                 return "2D"
         else:
             return "K"
-            
+
     def _takedamage(self, damage):
         self._suppressionlevel = 2
         if damage == "S":
@@ -126,7 +136,7 @@ class groundunit(apelement.element):
             self.logwhenwhat("", "%s ceases barrage fire." % self.name())
             self._barragefiremarker._remove()
             self._barragefiremarker = None
-    
+
     #############################################################################
 
     def _properties(self):
@@ -168,9 +178,10 @@ class groundunit(apelement.element):
                 raise RuntimeError("%s is not capable of barrage fire." % self.name())
             maximumaltitude = self.altitude() + self._barragefirealtitude
             self.logwhenwhat("", "using barrage fire to altitude %d." % maximumaltitude)
-            self._barragefiremarker = apmarker.marker("barragefire", self.hexcode(), altitude=maximumaltitude, silent=True)
+            self._barragefiremarker = apmarker.marker(
+                "barragefire", self.hexcode(), altitude=maximumaltitude, silent=True
+            )
             self.lognote(note)
         except RuntimeError as e:
             aplog.logexception(e)
         self.logbreak()
-    

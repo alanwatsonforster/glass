@@ -124,7 +124,9 @@ def startgameturn(note=None):
         if len(apgroundunit.aslist()) != 0:
             aplog.logwhat("initial ground element positions and damage:")
             for G in apgroundunit.aslist():
-                G.logwhat("%s  %4s  %s" % (G.position(), "", G.damage()), writefile=False)
+                G.logwhat(
+                    "%s  %4s  %s" % (G.position(), "", G.damage()), writefile=False
+                )
         aplog.lognote(None, note)
 
     except RuntimeError as e:

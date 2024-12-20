@@ -236,12 +236,12 @@ def _airtoairlaunch(stores, launched, printer=print):
 
 
 def _release(stores, released, printer=print):
-   
+
     if isinstance(released, int) or isinstance(released, str):
         releasedlist = [released]
     else:
         releasedlist = released
-   
+
     for releaseditem in releasedlist:
 
         newstores = stores.copy()
@@ -249,7 +249,9 @@ def _release(stores, released, printer=print):
         def _releaseloadstation(loadstation):
             if loadstation not in newstores:
                 raise RuntimeError("load station %s is not loaded." % loadstation)
-            printer("releasing %s on load station %s." % (stores[loadstation], loadstation))
+            printer(
+                "releasing %s on load station %s." % (stores[loadstation], loadstation)
+            )
             del newstores[loadstation]
 
         if isinstance(releaseditem, int):
@@ -264,9 +266,9 @@ def _release(stores, released, printer=print):
                     found = True
             if not found:
                 raise RuntimeError("no load stations loaded with %s." % releaseditem)
-        
+
         stores = newstores
-                    
+
     return newstores
 
 

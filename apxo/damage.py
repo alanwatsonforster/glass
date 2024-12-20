@@ -63,6 +63,7 @@ def takedamage(A, damage):
         A._damageC = 0
         A._kill()
 
+
 def takedamageconsequences(A):
 
     def gain(p):

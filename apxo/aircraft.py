@@ -65,11 +65,11 @@ class aircraft(apelement.element):
         counter=False,
         delay=0,
     ):
-    
+
         global _aircraftlist
 
         self._name = ""
-        
+
         aplog.clearerror()
         try:
 
@@ -886,10 +886,10 @@ class aircraft(apelement.element):
 
     def _takedamage(self, damage):
         apdamage.takedamage(self, damage)
-        
+
     def _takedamageconsequences(self):
         apdamage.takedamageconsequences(self)
-        
+
     def damage(self):
         return apdamage.damage(self)
 

@@ -10,10 +10,17 @@ class marker(apelement.element):
     ############################################################################
 
     def __init__(
-        self, type, hexcode, azimuth=0, speed=0, altitude=0, name=None, color="black",
-        silent=False
+        self,
+        type,
+        hexcode,
+        azimuth=0,
+        speed=0,
+        altitude=0,
+        name=None,
+        color="black",
+        silent=False,
     ):
-    
+
         self._name = ""
 
         aplog.clearerror()
@@ -100,14 +107,8 @@ class marker(apelement.element):
 
         elif self._type == "blastzone":
 
-            apdraw.drawblastzone(
-                *self.xy(),
-                self.altitude()
-            )
+            apdraw.drawblastzone(*self.xy(), self.altitude())
 
         elif self._type == "barragefire":
 
-            apdraw.drawbarragefire(
-                *self.xy(),
-                self.altitude()
-            )
+            apdraw.drawbarragefire(*self.xy(), self.altitude())
