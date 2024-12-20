@@ -549,7 +549,7 @@ class element:
         self._lostproperties.add(p)
 
     ############################################################################
-    
+
     def attack(self, target, *args):
         aplog.clearerror()
         try:
@@ -563,11 +563,11 @@ class element:
             elif target.isgroundunit():
                 self._attackgroundunit(target, *args)
             else:
-                raise RuntimeError("invalid target.")        
+                raise RuntimeError("invalid target.")
         except RuntimeError as e:
             aplog.logexception(e)
         self.logbreak()
-    
+
     ############################################################################
 
     def damage(self):

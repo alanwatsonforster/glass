@@ -99,7 +99,7 @@ class groundunit(apelement.element):
         return True
 
     #############################################################################
-    
+
     def _attackaircraft(self, target):
 
         if self.isusingbarragefire():
@@ -108,16 +108,24 @@ class groundunit(apelement.element):
                 raise RuntimeError("target is out of range of barrage fire.")
             if target.altitude() > self._barragefiremaximumaltitude():
                 raise RuntimeError("target is above barrage fire.")
-            self.logwhenwhat("", "%s attacks %s with barrage fire." % (self.name(), target.name()))
-            
+            self.logwhenwhat(
+                "", "%s attacks %s with barrage fire." % (self.name(), target.name())
+            )
+
         else:
-        
-            self.logwhenwhat("", "%s attacks %s with aimed fire." % (self.name(), target.name()))
-            self.logwhenwhat("", "range to target is %d." % apgeometry.range(self, target))
-            self.logwhenwhat("", "altitude to target is %d." % (target.altitude() - self.altitude()))
-        
+
+            self.logwhenwhat(
+                "", "%s attacks %s with aimed fire." % (self.name(), target.name())
+            )
+            self.logwhenwhat(
+                "", "range to target is %d." % apgeometry.range(self, target)
+            )
+            self.logwhenwhat(
+                "", "altitude to target is %d." % (target.altitude() - self.altitude())
+            )
+
         # TODO: plotted fire
-            
+
     #############################################################################
 
     def _damage(self):
@@ -185,7 +193,7 @@ class groundunit(apelement.element):
         )
 
     ############################################################################
-    
+
     def isusingbarragefire(self):
         "Return true if the ground unit it using barrage fire otherwise return false."
         return self._barragefiremarker is not None
@@ -195,7 +203,7 @@ class groundunit(apelement.element):
         if self.isusingbarragefire():
             self._barragefiremarker._remove()
             self._barragefiremarker = None
-    
+
     def usebarragefire(self, note=None):
         "Use barrage fire."
         aplog.clearerror()
@@ -207,9 +215,16 @@ class groundunit(apelement.element):
             if self._barragefirealtitude is None:
                 raise RuntimeError("%s is not capable of barrage fire." % self.name())
             maximumaltitude = self.altitude() + self._barragefirealtitude
-            self.logwhenwhat("", "using barrage fire to altitude %d." % self._barragefiremaximumaltitude())
+            self.logwhenwhat(
+                "",
+                "using barrage fire to altitude %d."
+                % self._barragefiremaximumaltitude(),
+            )
             self._barragefiremarker = apmarker.marker(
-                "barragefire", self.hexcode(), altitude=self._barragefiremaximumaltitude(), silent=True
+                "barragefire",
+                self.hexcode(),
+                altitude=self._barragefiremaximumaltitude(),
+                silent=True,
             )
             self.lognote(note)
         except RuntimeError as e:
