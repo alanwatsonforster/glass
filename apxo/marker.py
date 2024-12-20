@@ -25,7 +25,7 @@ class marker(apelement.element):
             else:
                 self.logwhenwhat("", "creating marker %s." % name)
 
-            if not type in ["dot", "circle", "square"]:
+            if not type in ["dot", "circle", "square", "blastzone", "barragefire"]:
                 raise RuntimeError("invalid marker type.")
 
             super().__init__(
@@ -93,3 +93,17 @@ class marker(apelement.element):
                 apdraw.drawtext(
                     *self.xy(), self.facing(), self.name(), color=self.color()
                 )
+
+        elif self._type == "blastzone":
+
+            apdraw.drawblastzone(
+                *self.xy(),
+                self.altitude()
+            )
+
+        elif self._type == "barragefire":
+
+            apdraw.drawbarragefire(
+                *self.xy(),
+                self.altitude()
+            )
