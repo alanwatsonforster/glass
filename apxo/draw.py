@@ -779,7 +779,7 @@ def drawmissile(x, y, facing, color, name, altitude, speed, annotate):
 def drawbarragefire(x, y, altitude):
 
     def drawone(x, y):
-        zorder = altitude + 1
+        zorder = altitude + 1.5
         drawhex(
             x,
             y,
@@ -797,7 +797,7 @@ def drawbarragefire(x, y, altitude):
     
 def drawblastzone(x, y, altitude):
 
-    zorder = altitude + 1
+    zorder = altitude + 1.5
     drawhex(
         x,
         y,
