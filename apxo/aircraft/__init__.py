@@ -827,6 +827,8 @@ class aircraft(apelement.element):
 
     ############################################################################
 
+    from apxo.aircraft.attack import _attackgroundunit
+
     from apxo.aircraft.damage import (
         _initdamage,
         _damage,
@@ -837,7 +839,7 @@ class aircraft(apelement.element):
     )
 
     from apxo.aircraft.draw import _draw
-    
+
     from apxo.aircraft.move import _move, _continuemove
 
     ############################################################################

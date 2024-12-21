@@ -4,6 +4,7 @@ import apxo.flight as apflight
 
 ################################################################################
 
+
 def _move(
     self,
     flighttype,
@@ -25,7 +26,9 @@ def _move(
         lowspeedliftdeviceselected=lowspeedliftdeviceselected,
     )
 
+
 def _continuemove(self, moves=""):
     apflight._continuemove(self, moves)
+
 
 ################################################################################
