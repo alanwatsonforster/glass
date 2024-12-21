@@ -3,6 +3,7 @@
 def _initdamage(self):
 
     self._damagelevel = 0
+    self._suppressionlevel = 0
 
 ################################################################################
 
@@ -71,5 +72,10 @@ def _takedamageconsequences(self):
         self.logwhenwhat("", "%s ceases barrage fire." % self.name())
         self._barragefiremarker._remove()
         self._barragefiremarker = None
+
+################################################################################
+
+def _issuppressed(self):
+    return self._suppressionlevel > 0
 
 ################################################################################

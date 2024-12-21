@@ -1,5 +1,9 @@
 ################################################################################
 
+import apxo.log as aplog
+
+################################################################################
+
 # These procedures can be implemented in subclasses that take damage.
 
 def _initdamage(self):
@@ -13,12 +17,15 @@ def _damageatleast(self):
 
 def _damageatmost(self):
     raise RuntimeError("%s cannot take damage." % self.name())
-
+    
 def _takedamage(self):
     raise RuntimeError("%s cannot take damage." % self.name())
 
 def _takedamageconsequences(self):
     pass
+
+def _isssupressed(self):
+    raise RuntimeError("%s cannot be suppresed." % self.name())
 
 ################################################################################
 
@@ -61,6 +68,6 @@ def takedamage(self, damage, note=None):
     self.logbreak()
 
 def issuppressed(self):
-    return self._suppressionlevel > 0
+    return self._issuppressed()
 
 ################################################################################
