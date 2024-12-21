@@ -1,0 +1,66 @@
+################################################################################
+
+# These procedures can be implemented in subclasses that take damage.
+
+def _initdamage(self):
+    pass
+
+def _damage(self):
+    raise RuntimeError("%s cannot take damage." % self.name())
+
+def _damageatleast(self):
+    raise RuntimeError("%s cannot take damage." % self.name())
+
+def _damageatmost(self):
+    raise RuntimeError("%s cannot take damage." % self.name())
+
+def _takedamage(self):
+    raise RuntimeError("%s cannot take damage." % self.name())
+
+def _takedamageconsequences(self):
+    pass
+
+################################################################################
+
+def damage(self):
+    return self._damage()
+
+def damageatleast(self, damage):
+    return self._damageatleast(damage)
+
+def damageatmost(self, damage):
+    return self._damageatmost(damage)
+
+def takedamage(self, damage, note=None):
+    aplog.clearerror()
+    try:
+        self.logwhenwhat("", "%s takes %s damage." % (self.name(), damage))
+        if self.killed():
+            self.logwhenwhat("", "%s is already killed." % self.name())
+            return
+        previousdamage = self.damage()
+        self._takedamage(damage)
+        if previousdamage == self.damage():
+            self.logwhenwhat(
+                "", "%s damage is unchanged at %s." % (self.name(), previousdamage)
+            )
+        else:
+            self.logwhenwhat(
+                "",
+                "%s damage changes from %s to %s."
+                % (self.name(), previousdamage, self.damage()),
+            )
+            if self.damage() == "K":
+                self._kill()
+                self.logwhenwhat("", "%s is killed." % self.name())
+            else:
+                self._takedamageconsequences()
+        self.lognote(note)
+    except RuntimeError as e:
+        aplog.logexception(e)
+    self.logbreak()
+
+def issuppressed(self):
+    return self._suppressionlevel > 0
+
+################################################################################
