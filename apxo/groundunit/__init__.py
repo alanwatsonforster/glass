@@ -156,8 +156,16 @@ class groundunit(apelement.element):
     ############################################################################
 
     from apxo.groundunit.attack import _attackaircraft
-    
-    from apxo.groundunit.damage import _initdamage, _damage, _damageatleast, _damageatmost, _takedamage, _takedamageconsequences, _issuppressed
+
+    from apxo.groundunit.damage import (
+        _initdamage,
+        _damage,
+        _damageatleast,
+        _damageatmost,
+        _takedamage,
+        _takedamageconsequences,
+        _issuppressed,
+    )
 
     from apxo.groundunit.draw import _draw
 

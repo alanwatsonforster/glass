@@ -2,6 +2,7 @@ import apxo.geometry as apgeometry
 
 #############################################################################
 
+
 def _attackaircraft(self, target):
 
     if self.isusingbarragefire():
@@ -19,13 +20,12 @@ def _attackaircraft(self, target):
         self.logwhenwhat(
             "", "%s attacks %s with aimed fire." % (self.name(), target.name())
         )
-        self.logwhenwhat(
-            "", "range to target is %d." % apgeometry.range(self, target)
-        )
+        self.logwhenwhat("", "range to target is %d." % apgeometry.range(self, target))
         self.logwhenwhat(
             "", "altitude to target is %d." % (target.altitude() - self.altitude())
         )
 
     # TODO: plotted fire
+
 
 #############################################################################

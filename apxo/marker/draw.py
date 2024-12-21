@@ -4,6 +4,7 @@ import apxo.draw as apdraw
 
 ################################################################################
 
+
 def _draw(self):
 
     zorder = self.altitude() + 1
@@ -13,9 +14,7 @@ def _draw(self):
 
     elif self._type == "circle":
 
-        apdraw.drawcircle(
-            *self.xy(), size=0.65, linecolor=self.color(), linewidth=2
-        )
+        apdraw.drawcircle(*self.xy(), size=0.65, linecolor=self.color(), linewidth=2)
         if self.name() is not None:
             apdraw.drawtext(
                 *self.xy(),
@@ -36,9 +35,7 @@ def _draw(self):
             zorder=zorder
         )
         if self.name() is not None:
-            apdraw.drawtext(
-                *self.xy(), self.facing(), self.name(), color=self.color()
-            )
+            apdraw.drawtext(*self.xy(), self.facing(), self.name(), color=self.color())
 
     elif self._type == "blastzone":
 
@@ -47,5 +44,6 @@ def _draw(self):
     elif self._type == "barragefire":
 
         apdraw.drawbarragefire(*self.xy(), self.altitude())
+
 
 ################################################################################

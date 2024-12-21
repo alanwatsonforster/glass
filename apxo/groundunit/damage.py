@@ -1,11 +1,14 @@
 ################################################################################
 
+
 def _initdamage(self):
 
     self._damagelevel = 0
     self._suppressionlevel = 0
 
+
 ################################################################################
+
 
 def _damage(self):
     if self._damagelevel == 0:
@@ -26,7 +29,9 @@ def _damage(self):
     else:
         return "K"
 
+
 ################################################################################
+
 
 def _damageatleast(self, damage):
     assert damage in ["none", "D", "2D", "K"]
@@ -54,6 +59,7 @@ def _damageatmost(self, damage):
 
 ################################################################################
 
+
 def _takedamage(self, damage):
     self._suppressionlevel = 2
     if damage == "S":
@@ -67,15 +73,19 @@ def _takedamage(self, damage):
     else:
         raise RuntimeError("invalid damage %r" % damage)
 
+
 def _takedamageconsequences(self):
     if self.isusingbarragefire():
         self.logwhenwhat("", "%s ceases barrage fire." % self.name())
         self._barragefiremarker._remove()
         self._barragefiremarker = None
 
+
 ################################################################################
+
 
 def _issuppressed(self):
     return self._suppressionlevel > 0
+
 
 ################################################################################

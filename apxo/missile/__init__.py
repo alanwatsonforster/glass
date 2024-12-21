@@ -111,7 +111,6 @@ class missile(apelement.element):
     def _continuemove(self, moves, note=None):
         apflight._continuemove(self, moves)
 
-
     ########################################
 
     def maneuver(self):

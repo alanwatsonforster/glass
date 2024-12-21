@@ -1,5 +1,6 @@
 ################################################################################
 
+
 def _initdamage(self):
 
     self._damageL = 0
@@ -7,7 +8,9 @@ def _initdamage(self):
     self._damageC = 0
     self._damageK = 0
 
+
 ################################################################################
+
 
 def _damage(self):
 
@@ -26,7 +29,9 @@ def _damage(self):
 
     return damage
 
+
 ################################################################################
+
 
 def _damageatleast(self, damage):
     assert damage in ["none", "L", "2L", "H", "C", "K"]
@@ -61,6 +66,7 @@ def _damageatmost(self, damage):
 
 
 ################################################################################
+
 
 def _takedamage(self, damage):
 
@@ -117,5 +123,6 @@ def _takedamageconsequences(self):
         gain("LRR")
     if self.damageatleast("H"):
         gain("NRM")
+
 
 ################################################################################

@@ -180,7 +180,7 @@ class element:
 
         self._gainedproperties = set([])
         self._lostproperties = set([])
-        
+
         self._initdamage()
 
         _elementlist.append(self)
@@ -647,5 +647,17 @@ class element:
             assert expectedconfiguration == self._configuration
 
     ############################################################################
-    
-    from apxo.element.damage import _initdamage, _damage, _damageatleast, _damageatmost, _takedamage, _takedamageconsequences, damage, damageatleast, damageatmost, takedamage, issuppressed
+
+    from apxo.element.damage import (
+        _initdamage,
+        _damage,
+        _damageatleast,
+        _damageatmost,
+        _takedamage,
+        _takedamageconsequences,
+        damage,
+        damageatleast,
+        damageatmost,
+        takedamage,
+        issuppressed,
+    )

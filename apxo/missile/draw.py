@@ -5,6 +5,7 @@ import apxo.gameturn as apgameturn
 
 ################################################################################
 
+
 def _draw(self):
     self._drawpath(
         self._color, annotate=apgameturn.gameturn() > self._launchgameturn + 1
@@ -19,5 +20,6 @@ def _draw(self):
         self.speed(),
         annotate=self._startedmoving,
     )
+
 
 ################################################################################

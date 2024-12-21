@@ -6,37 +6,49 @@ import apxo.log as aplog
 
 # These procedures can be implemented in subclasses that take damage.
 
+
 def _initdamage(self):
     pass
+
 
 def _damage(self):
     raise RuntimeError("%s cannot take damage." % self.name())
 
+
 def _damageatleast(self):
     raise RuntimeError("%s cannot take damage." % self.name())
 
+
 def _damageatmost(self):
     raise RuntimeError("%s cannot take damage." % self.name())
-    
+
+
 def _takedamage(self):
     raise RuntimeError("%s cannot take damage." % self.name())
+
 
 def _takedamageconsequences(self):
     pass
 
+
 def _isssupressed(self):
     raise RuntimeError("%s cannot be suppresed." % self.name())
 
+
 ################################################################################
+
 
 def damage(self):
     return self._damage()
 
+
 def damageatleast(self, damage):
     return self._damageatleast(damage)
 
+
 def damageatmost(self, damage):
     return self._damageatmost(damage)
+
 
 def takedamage(self, damage, note=None):
     aplog.clearerror()
@@ -67,7 +79,9 @@ def takedamage(self, damage, note=None):
         aplog.logexception(e)
     self.logbreak()
 
+
 def issuppressed(self):
     return self._issuppressed()
+
 
 ################################################################################

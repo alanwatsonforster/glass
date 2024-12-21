@@ -853,8 +853,15 @@ class aircraft(apelement.element):
 
     ############################################################################
 
-    from apxo.aircraft.damage import _initdamage, _damage, _damageatleast, _damageatmost, _takedamage, _takedamageconsequences
-    
+    from apxo.aircraft.damage import (
+        _initdamage,
+        _damage,
+        _damageatleast,
+        _damageatmost,
+        _takedamage,
+        _takedamageconsequences,
+    )
+
     from apxo.aircraft.draw import _draw
 
     ############################################################################
