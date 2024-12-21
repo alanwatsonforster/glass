@@ -685,7 +685,7 @@ class aircraft(apelement.element):
 
     ########################################
 
-    def attackaircraft(self, attacktype, target=None, result=None, returnfire=False):
+    def attackaircraft(self, target, attacktype, result=None, returnfire=False):
         """
         Declare an air-to-air attack.
         """
