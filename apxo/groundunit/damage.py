@@ -34,8 +34,8 @@ def _damage(self):
 
 
 def _damageatleast(self, damage):
-    assert damage in ["none", "D", "2D", "K"]
-    if damage == "none":
+    assert damage in ["", "D", "2D", "K"]
+    if damage == "":
         return True
     elif damage == "D":
         return self._damagelevel >= 1
@@ -46,8 +46,8 @@ def _damageatleast(self, damage):
 
 
 def _damageatmost(self, damage):
-    assert damage in ["none", "D", "2D", "K"]
-    if damage == "none":
+    assert damage in ["", "D", "2D", "K"]
+    if damage == "":
         return self._damagelevel == 0
     elif damage == "D":
         return self._damagelevel <= 1

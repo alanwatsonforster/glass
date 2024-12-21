@@ -21,12 +21,12 @@ assert A0.damage() == "D+S"
 assert A1.damage() == "2D+S"
 assert A2.damage() == "K"
 
-assert A0.damageatleast("none")
+assert A0.damageatleast("")
 assert A0.damageatleast("D")
 assert not A0.damageatleast("2D")
 assert not A0.damageatleast("K")
 
-assert not A0.damageatmost("none")
+assert not A0.damageatmost("")
 assert A0.damageatmost("D")
 assert A0.damageatmost("2D")
 assert A0.damageatmost("K")
@@ -39,12 +39,12 @@ assert A0.damage() == "2D+S"
 assert A1.damage() == "K"
 assert A2.damage() == "K"
 
-assert A0.damageatleast("none")
+assert A0.damageatleast("")
 assert A0.damageatleast("D")
 assert A0.damageatleast("2D")
 assert not A0.damageatleast("K")
 
-assert not A0.damageatmost("none")
+assert not A0.damageatmost("")
 assert not A0.damageatmost("D")
 assert A0.damageatmost("2D")
 assert A0.damageatmost("K")
@@ -57,12 +57,12 @@ assert A0.damage() == "K"
 assert A1.damage() == "K"
 assert A2.damage() == "K"
 
-assert A0.damageatleast("none")
+assert A0.damageatleast("")
 assert A0.damageatleast("D")
 assert A0.damageatleast("2D")
 assert A0.damageatleast("K")
 
-assert not A0.damageatmost("none")
+assert not A0.damageatmost("")
 assert not A0.damageatmost("D")
 assert not A0.damageatmost("2D")
 assert A0.damageatmost("K")

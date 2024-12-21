@@ -34,8 +34,8 @@ def _damage(self):
 
 
 def _damageatleast(self, damage):
-    assert damage in ["none", "L", "2L", "H", "C", "K"]
-    if damage == "none":
+    assert damage in ["", "L", "2L", "H", "C", "K"]
+    if damage == "":
         return True
     elif damage == "L":
         return self._damageL >= 1 or self.damageatleast("2L")
@@ -50,8 +50,8 @@ def _damageatleast(self, damage):
 
 
 def _damageatmost(self, damage):
-    assert damage in ["none", "L", "2L", "H", "C", "K"]
-    if damage == "none":
+    assert damage in ["", "L", "2L", "H", "C", "K"]
+    if damage == "":
         return not self.damageatleast("L")
     elif damage == "L":
         return not self.damageatleast("2L")
