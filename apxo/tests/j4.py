@@ -120,7 +120,7 @@ A2.move("LVL", "FT", "H,H,H")
 A1.move("LVL", "M", "H,H,H,H")
 A1.attack(A2, "GN")
 endgameturn()
-asserterror("aircraft A1 has 1 unspecified attack result.")
+asserterror("A1 has 1 unspecified attack result.")
 
 startgameturn()
 A2.move("LVL", "FT", "H,H,H")
@@ -129,7 +129,7 @@ A1.attack(A2, "GN")
 A1.continuemove("H")
 A1.attack(A2, "GN")
 endgameturn()
-asserterror("aircraft A1 has 2 unspecified attack results.")
+asserterror("A1 has 2 unspecified attack results.")
 
 # Check SSGT
 
