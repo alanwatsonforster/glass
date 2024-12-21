@@ -685,31 +685,6 @@ class aircraft(apelement.element):
 
     ########################################
 
-    def attackaircraft(self, target, attacktype, result=None, returnfire=False):
-        """
-        Declare an air-to-air attack.
-        """
-        
-        assert target is not None
-
-        aplog.clearerror()
-        try:
-            if not returnfire and apflight.useofweaponsforbidden(self):
-                raise RuntimeError(
-                    "attempt to use weapons %s." % apflight.useofweaponsforbidden(self)
-                )
-
-            if target is not None and not target.isaircraft():
-                raise RuntimeError("target %s is not an aircraft." % target.name())
-
-            apairtoair.attack(self, attacktype, target, result, returnfire=returnfire)
-
-        except RuntimeError as e:
-            aplog.logexception(e)
-        self.logbreak()
-
-    ################################################################################
-
     def ssgt(self, target=None):
         """
         Start SSGT.
@@ -829,7 +804,7 @@ class aircraft(apelement.element):
 
     ############################################################################
 
-    from apxo.aircraft.attack import _attackgroundunit
+    from apxo.aircraft.attack import _attackaircraft, _attackgroundunit
 
     from apxo.aircraft.damage import (
         _initdamage,

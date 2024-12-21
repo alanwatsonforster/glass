@@ -1,6 +1,22 @@
+################################################################################
+
+import apxo.airtoair as apairtoair
+import apxo.flight as apflight
 import apxo.geometry as apgeometry
 
-#############################################################################
+################################################################################
+
+def _attackaircraft(self, target, attacktype, result=None, returnfire=False):
+
+    if not returnfire and apflight.useofweaponsforbidden(self):
+        raise RuntimeError(
+            "attempt to use weapons %s." % apflight.useofweaponsforbidden(self)
+        )
+
+    apairtoair.attack(self, attacktype, target, result, returnfire=returnfire)
+
+
+################################################################################
 
 
 def _attackgroundunit(self, target, attacktype):
@@ -39,4 +55,4 @@ def _attackgroundunit(self, target, attacktype):
         
 
 
-#############################################################################
+################################################################################

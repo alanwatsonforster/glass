@@ -17,11 +17,11 @@ endtestsetup()
 startgameturn()
 
 A1.move("LVL", "M", "TTR/H")
-A1.attackaircraft(A2, "GN", "L")
-A2.attackaircraft(A1, "GN", "L", returnfire=True)
+A1.attack(A2, "GN", "L")
+A2.attack(A1, "GN", "L", returnfire=True)
 A1.continuemove("H")
-A1.attackaircraft(A2, "GN/SS", "M")
-A2.attackaircraft(A1, "GN/SS", "L", returnfire=True)
+A1.attack(A2, "GN/SS", "M")
+A2.attack(A1, "GN/SS", "L", returnfire=True)
 A1.continuemove("H,H")
 A2.move("LVL", "N", "H,H,H,H")
 A1._assert("A2-2021       N    20", 4.0)
@@ -31,20 +31,20 @@ assert A1._gunammunition == 6.5
 
 assert A3._gunammunition == 3.5
 A3.move("LVL", "M", "H")
-A3.attackaircraft(A4, "GN", "A")
+A3.attack(A4, "GN", "A")
 assert A3._gunammunition == 3.5
 A3.continuemove("H")
-A3.attackaircraft(A4, "GN", "-")
+A3.attack(A4, "GN", "-")
 assert A3._gunammunition == 2.5
 
 assert A4._gunammunition == 11.0
 
 assert A5._rocketfactors == 9
 A5.move("LVL", "M", "H")
-A5.attackaircraft(A2, "RK/3", "A")
+A5.attack(A2, "RK/3", "A")
 assert A5._rocketfactors == 9
 A5.continuemove("H")
-A5.attackaircraft(A2, "RK/3", "-")
+A5.attack(A2, "RK/3", "-")
 assert A5._rocketfactors == 6
 
 assert A6._rocketfactors == 0
@@ -53,32 +53,32 @@ assert A6._rocketfactors == 0
 
 startgameturn()
 A7.move("LVL", "M", "H")
-A7.attackaircraft(A9, "GN/RR", "-")
+A7.attack(A9, "GN/RR", "-")
 asserterror("RE radar-ranging requires SSGT.")
 startgameturn()
 A7.move("LVL", "M")
 A7.ssgt(A9)
 A7.continuemove("H")
-A7.attackaircraft(A9, "GN/RR", "-")
+A7.attack(A9, "GN/RR", "-")
 assert A7._gunammunition == 3.0
 startgameturn()
 A7.move("LVL", "M")
 A7.ssgt(A9)
 A7.continuemove("H")
-A7.attackaircraft(A9, "GN/SS/RR", "-")
+A7.attack(A9, "GN/SS/RR", "-")
 assert A7._gunammunition == 3.5
 startgameturn()
 A7.move("LVL", "M")
 A7.ssgt(A9)
 A7.continuemove("H")
-A7.attackaircraft(A9, "GN/SS/RR", "-")
+A7.attack(A9, "GN/SS/RR", "-")
 assert A7._gunammunition == 3.5
 
 # Check CC
 startgameturn()
 A2.move("LVL", "N", "H,H,H,H")
 A5.move("LVL", "M", "H")
-A5.attackaircraft(A2, "RK/3/CC", "-")
+A5.attack(A2, "RK/3/CC", "-")
 assert A5._rocketfactors == 6
 
 # Check recovery after ET.
@@ -86,27 +86,27 @@ assert A5._rocketfactors == 6
 startgameturn()
 A8.move("LVL", "M", "ETR/H")
 A7.move("LVL", "M", "ETR/H")
-A7.attackaircraft(A8, "GN")
+A7.attack(A8, "GN")
 asserterror("attempt to use weapons while in an ET.")
 startgameturn()
 A8.move("LVL", "M", "ETR/H/R,H")
 A7.move("LVL", "M", "ETR/H/R,H")
-A7.attackaircraft(A8, "GN")
+A7.attack(A8, "GN")
 asserterror("attempt to use weapons while recovering from an ET.")
 startgameturn()
 A8.move("LVL", "M", "ETR/H/R,H,H")
 A7.move("LVL", "M", "ETR/H/R,H,H")
-A7.attackaircraft(A8, "GN")
+A7.attack(A8, "GN")
 asserterror("attempt to use weapons while recovering from an ET.")
 startgameturn()
 A8.move("LVL", "M", "ETR/H/R,H,H,H")
 A7.move("LVL", "M", "ETR/H/R,H,H,H")
-A7.attackaircraft(A8, "GN")
+A7.attack(A8, "GN")
 asserterror("attempt to use weapons while recovering from an ET.")
 startgameturn()
 A8.move("LVL", "M", "ETR/H/R,H,H,H,H")
 A7.move("LVL", "M", "ETR/H/R,H,H,H,H")
-A7.attackaircraft(A8, "GN")
+A7.attack(A8, "GN")
 A7._assert("A2-2221       NNE  20", 6.0)
 
 # Check error if attack results are not specified at end of turn.
@@ -118,16 +118,16 @@ endtestsetup()
 startgameturn()
 A2.move("LVL", "FT", "H,H,H")
 A1.move("LVL", "M", "H,H,H,H")
-A1.attackaircraft(A2, "GN")
+A1.attack(A2, "GN")
 endgameturn()
 asserterror("aircraft A1 has 1 unspecified attack result.")
 
 startgameturn()
 A2.move("LVL", "FT", "H,H,H")
 A1.move("LVL", "M", "H,H,H")
-A1.attackaircraft(A2, "GN")
+A1.attack(A2, "GN")
 A1.continuemove("H")
-A1.attackaircraft(A2, "GN")
+A1.attack(A2, "GN")
 endgameturn()
 asserterror("aircraft A1 has 2 unspecified attack results.")
 
@@ -166,4 +166,4 @@ A1.move("LVL", "M", "H,H,H,H")
 A0.move("LVL", "M")
 A0.ssgt(A1)
 A0.continuemove("BTR/H/R,H/WL,BTL/H/L+,H/L")
-A0.attackaircraft(A1, "GN", "-")
+A0.attack(A1, "GN", "-")
