@@ -551,26 +551,6 @@ class element:
 
     ############################################################################
 
-    def attack(self, target, *args):
-        aplog.clearerror()
-        try:
-            if isinstance(target, str):
-                aphexcode.checkisvalidhexcodeforcenter(target)
-                self._attackterrain(target, *args)
-            elif not isinstance(target, element):
-                raise RuntimeError("invalid target.")
-            elif target.isaircraft():
-                self._attackaircraft(target, *args)
-            elif target.isgroundunit():
-                self._attackgroundunit(target, *args)
-            else:
-                raise RuntimeError("invalid target.")
-        except RuntimeError as e:
-            aplog.logexception(e)
-        self.logbreak()
-
-    ############################################################################
-
     def logwhat(self, what, writefile=True):
         aplog.logwhat(what, who=self.name(), writefile=writefile)
 
@@ -647,6 +627,13 @@ class element:
             assert expectedconfiguration == self._configuration
 
     ############################################################################
+
+    from apxo.element.attack import (
+        _attackterrain,
+        _attackgroundunit,
+        _attackaircraft,
+        attack,
+    )
 
     from apxo.element.damage import (
         _initdamage,
