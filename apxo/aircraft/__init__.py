@@ -246,7 +246,6 @@ class aircraft(apelement.element):
         self._sighted = False
         self._identifiedonpreviousturn = self._identified
         self._identified = False
-        self._unspecifiedattackresult = 0
         self._startx = self.x()
         self._starty = self.y()
         self._startfacing = self.facing()
@@ -256,15 +255,6 @@ class aircraft(apelement.element):
     def _endgameturn(self):
         if not self.killed() and not self.removed() and not self._finishedmoving:
             raise RuntimeError("aircraft %s has not finished its move." % self._name)
-        if self._unspecifiedattackresult > 0:
-            raise RuntimeError(
-                "aircraft %s has %d unspecified attack %s."
-                % (
-                    self._name,
-                    self._unspecifiedattackresult,
-                    aplog.plural(self._unspecifiedattackresult, "result", "results"),
-                )
-            )
         if self.killed() or self.removed():
             apcloseformation.leaveany(self)
         else:

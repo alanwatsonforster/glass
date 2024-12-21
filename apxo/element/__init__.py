@@ -40,6 +40,7 @@ def _startgameturn():
         E._startaltitudeband = E.altitudeband()
         E._startaltitudecarry = E.altitudecarry()
         E._startedmoving = False
+        E._attackstartgameturn()
         E._startgameturn()
     for E in _elementlist:
         E._startpath()
@@ -47,6 +48,7 @@ def _startgameturn():
 
 def _endgameturn():
     for E in _elementlist:
+        E._attackendgameturn()
         E._endgameturn()
     for E in _elementlist:
         E._save()
@@ -168,6 +170,7 @@ class element:
 
         self._killed = False
         self._removed = False
+        self._unspecifiedattackresult = 0
 
         if not apspeed.isvalidspeed(speed):
             raise RuntimeError("the speed argument is not valid.")
@@ -542,6 +545,8 @@ class element:
     ############################################################################
 
     from apxo.element.attack import (
+        _attackstartgameturn,
+        _attackendgameturn,
         _attackterrain,
         _attackgroundunit,
         _attackaircraft,

@@ -3,7 +3,7 @@ import apxo.geometry as apgeometry
 #############################################################################
 
 
-def _attackaircraft(self, target):
+def _attackaircraft(self, target, result=None):
 
     if self.isusingbarragefire():
 
@@ -25,7 +25,17 @@ def _attackaircraft(self, target):
             "", "altitude to target is %d." % (target.altitude() - self.altitude())
         )
 
-    # TODO: plotted fire
+    if result is None:
+        self.logcomment("unspecified result.")
+        self._unspecifiedattackresult += 1
+    elif result == "M":
+        self.logcomment("missed.")
+    elif result == "-":
+        self.logcomment("hit but inflicted no damage.")
+    else:
+        self.logcomment("hit and inflicted %s damage." % result)
+        if target != None:
+            target.takedamage(result)
 
 
 #############################################################################

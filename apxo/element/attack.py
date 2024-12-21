@@ -4,6 +4,22 @@ import apxo.log as aplog
 
 ################################################################################
 
+def _attackstartgameturn(self):
+    self._unspecifiedattackresult = 0
+        
+def _attackendgameturn(self):
+    if self._unspecifiedattackresult > 0:
+        raise RuntimeError(
+            "%s has %d unspecified attack %s."
+            % (
+                self._name,
+                self._unspecifiedattackresult,
+                aplog.plural(self._unspecifiedattackresult, "result", "results"),
+            )
+        )
+
+################################################################################
+
 
 def _attackterrain(self, target, *args, **kwargs):
     raise RuntimeError("%s cannot attack ground targets." % self.name())
