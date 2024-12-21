@@ -683,32 +683,6 @@ class aircraft(apelement.element):
     def closeformationnames(self):
         return apcloseformation.names(self)
 
-    ################################################################################
-
-    def _move(
-        self,
-        flighttype,
-        power,
-        moves="",
-        speedbrakes=None,
-        flamedoutengines=0,
-        lowspeedliftdeviceselected=None,
-        geometry=None,
-    ):
-        self._setgeometry(geometry)
-        apflight._move(
-            self,
-            flighttype,
-            power,
-            moves,
-            speedbrakes=speedbrakes,
-            flamedoutengines=flamedoutengines,
-            lowspeedliftdeviceselected=lowspeedliftdeviceselected,
-        )
-
-    def _continuemove(self, moves=""):
-        apflight._continuemove(self, moves)
-
     ########################################
 
     def attackaircraft(self, attacktype, target=None, result=None, returnfire=False):
@@ -863,5 +837,7 @@ class aircraft(apelement.element):
     )
 
     from apxo.aircraft.draw import _draw
+    
+    from apxo.aircraft.move import _move, _continuemove
 
     ############################################################################
