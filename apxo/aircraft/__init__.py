@@ -689,6 +689,8 @@ class aircraft(apelement.element):
         """
         Declare an air-to-air attack.
         """
+        
+        assert target is not None
 
         aplog.clearerror()
         try:
