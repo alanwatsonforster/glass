@@ -27,7 +27,7 @@ A2.move("LVL", "N", "H,H,H,H")
 A1._assert("A2-2021       N    20", 4.0)
 A2._assert("A2-2423       E    20", 3.5)
 assert A1._gunammunition == 6.5
-#assert A2._gunammunition == 18.5
+# assert A2._gunammunition == 18.5
 
 assert A3._gunammunition == 3.5
 A3.move("LVL", "M", "H")
