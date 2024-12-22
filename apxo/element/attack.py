@@ -4,9 +4,11 @@ import apxo.log as aplog
 
 ################################################################################
 
+
 def _attackstartgameturn(self):
     self._unspecifiedattackresult = 0
-        
+
+
 def _attackendgameturn(self):
     if self._unspecifiedattackresult > 0:
         raise RuntimeError(
@@ -17,6 +19,7 @@ def _attackendgameturn(self):
                 aplog.plural(self._unspecifiedattackresult, "result", "results"),
             )
         )
+
 
 ################################################################################
 
@@ -59,6 +62,7 @@ def attack(self, target, *args, **kwargs):
     except RuntimeError as e:
         aplog.logexception(e)
     self.logbreak()
+
 
 def secondaryattack(self, target, *args, **kwargs):
     aplog.clearerror()

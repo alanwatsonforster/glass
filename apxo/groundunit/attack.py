@@ -27,4 +27,5 @@ def _attackaircraft(self, target, result=None):
 
     target._takeattackdamage(self, result)
 
+
 #############################################################################

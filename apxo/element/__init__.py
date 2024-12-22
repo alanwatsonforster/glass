@@ -553,7 +553,7 @@ class element:
         _secondaryattackterrain,
         _secondaryattackgroundunit,
         attack,
-        secondaryattack
+        secondaryattack,
     )
 
     from apxo.element.damage import (

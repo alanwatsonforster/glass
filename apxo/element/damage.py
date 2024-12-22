@@ -79,12 +79,13 @@ def takedamage(self, damage, note=None):
         aplog.logexception(e)
     self.logbreak()
 
+
 def issuppressed(self):
     return self._issuppressed()
 
 
-
 ################################################################################
+
 
 def _takeattackdamage(self, attacker, result):
     """

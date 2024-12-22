@@ -6,6 +6,7 @@ import apxo.geometry as apgeometry
 
 ################################################################################
 
+
 def _attackaircraft(self, target, attacktype, result=None, returnfire=False):
 
     if not returnfire and apflight.useofweaponsforbidden(self):
@@ -26,7 +27,7 @@ def _attackgroundunit(self, target, attacktype, result=None):
     weapon = attacktype[0]
     if weapon not in ["GN", "RK", "RP"]:
         raise RuntimeError("invalid weapon.")
-    
+
     if weapon == "GN":
         for s in attacktype[1:]:
             if s not in ["SS"]:
@@ -41,21 +42,21 @@ def _attackgroundunit(self, target, attacktype, result=None):
             self._gunammunition -= 1.0
 
     self.logwhenwhat(
-         "", "%s attacks %s with %s." % (self.name(), target.name(), weapon)
+        "", "%s attacks %s with %s." % (self.name(), target.name(), weapon)
     )
     self.logwhenwhat("", "range to target is %d." % apgeometry.range(self, target))
     self.logwhenwhat(
         "", "altitude to target is %d." % (target.altitude() - self.altitude())
     )
-    
+
     if weapon == "GN":
-        self.logwhenwhat(
-             "", "gun ammunition is now %.1f." % self._gunammunition
-        )
-        
+        self.logwhenwhat("", "gun ammunition is now %.1f." % self._gunammunition)
+
     target._takeattackdamage(self, result)
 
+
 ################################################################################
+
 
 def _secondaryattackgroundunit(self, target, attacktype, result=None):
 
@@ -64,11 +65,12 @@ def _secondaryattackgroundunit(self, target, attacktype, result=None):
     weapon = attacktype[0]
     if weapon not in ["GN", "RK", "RP"]:
         raise RuntimeError("invalid weapon.")
-    
+
     self.logwhenwhat(
-         "", "%s attacks %s with %s (secondary)." % (self.name(), target.name(), weapon)
+        "", "%s attacks %s with %s (secondary)." % (self.name(), target.name(), weapon)
     )
-        
+
     target._takeattackdamage(self, result)
+
 
 ################################################################################
