@@ -25,17 +25,6 @@ def _attackaircraft(self, target, result=None):
             "", "altitude to target is %d." % (target.altitude() - self.altitude())
         )
 
-    if result is None:
-        self.logcomment("unspecified result.")
-        self._unspecifiedattackresult += 1
-    elif result == "M":
-        self.logcomment("missed.")
-    elif result == "-":
-        self.logcomment("hit but inflicted no damage.")
-    else:
-        self.logcomment("hit and inflicted %s damage." % result)
-        if target != None:
-            target.takedamage(result)
-
+    target._takeattackdamage(self, result)
 
 #############################################################################

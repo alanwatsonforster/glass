@@ -79,9 +79,51 @@ def takedamage(self, damage, note=None):
         aplog.logexception(e)
     self.logbreak()
 
-
 def issuppressed(self):
     return self._issuppressed()
+
+
+
+################################################################################
+
+def _takeattackdamage(self, attacker, result):
+    """
+    Take damage from an attack.
+    """
+    if result is None:
+        attacker.logcomment("unspecified result.")
+        attacker._unspecifiedattackresult += 1
+    elif result == "A":
+        attacker.logcomment("aborts.")
+    elif result == "M":
+        attacker.logcomment("misses.")
+    elif result == "-":
+        attacker.logcomment("hits but inflicts no damage.")
+    else:
+        attacker.logcomment("hits and inflicts %s damage." % result)
+        self.logwhenwhat("", "%s takes %s damage." % (self.name(), result))
+        if self.killed():
+            self.logwhenwhat("", "%s is already killed." % self.name())
+            return
+        previousdamage = self.damage()
+        if previousdamage == "":
+            previousdamage = "none"
+        self._takedamage(result)
+        if previousdamage == self.damage():
+            self.logwhenwhat(
+                "", "%s damage is unchanged at %s." % (self.name(), previousdamage)
+            )
+        else:
+            self.logwhenwhat(
+                "",
+                "%s damage changes from %s to %s."
+                % (self.name(), previousdamage, self.damage()),
+            )
+            if self.damage() == "K":
+                self._kill()
+                self.logwhenwhat("", "%s is killed." % self.name())
+            else:
+                self._takedamageconsequences()
 
 
 ################################################################################

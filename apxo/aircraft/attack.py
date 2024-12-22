@@ -19,7 +19,7 @@ def _attackaircraft(self, target, attacktype, result=None, returnfire=False):
 ################################################################################
 
 
-def _attackgroundunit(self, target, attacktype):
+def _attackgroundunit(self, target, attacktype, result=None):
 
     attacktype = attacktype.split("/")
 
@@ -53,6 +53,6 @@ def _attackgroundunit(self, target, attacktype):
              "", "gun ammunition is now %.1f." % self._gunammunition
         )
         
-
+    target._takeattackdamage(self, result)
 
 ################################################################################

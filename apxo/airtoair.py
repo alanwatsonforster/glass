@@ -505,19 +505,7 @@ def _attack(attacker, attacktype, target, result, allowRK=True, allowtracking=Tr
                 "target vulnerability is %+d." % apcapabilities.vulnerability(target)
             )
 
-    if result is None:
-        attacker.logcomment("unspecified result.")
-        attacker._unspecifiedattackresult += 1
-    elif result == "A":
-        attacker.logcomment("aborted.")
-    elif result == "M":
-        attacker.logcomment("missed.")
-    elif result == "-":
-        attacker.logcomment("hit but inflicted no damage.")
-    else:
-        attacker.logcomment("hit and inflicted %s damage." % result)
-        if target != None:
-            target.takedamage(result)
+    target._takeattackdamage(attacker, result)
 
     if result != "A":
         if weapon == "GN":

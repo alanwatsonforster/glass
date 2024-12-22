@@ -564,6 +564,7 @@ class element:
         damageatleast,
         damageatmost,
         takedamage,
+        _takeattackdamage,
         issuppressed,
     )
 

@@ -39,6 +39,7 @@ def _attackaircraft(self, target, *args, **kwargs):
 def attack(self, target, *args, **kwargs):
     aplog.clearerror()
     try:
+        print(args, kwargs)
         if isinstance(target, str):
             aphexcode.checkisvalidhexcodeforcenter(target)
             self._attackterrain(target, *args, **kwargs)
