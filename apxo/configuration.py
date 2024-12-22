@@ -1,4 +1,4 @@
-import apxo.stores as apstores
+import apxo.aircraft.stores as apstores
 import apxo.aircraftdata as apaircraftdata
 
 

@@ -14,7 +14,7 @@ import apxo.log as aplog
 import apxo.map as apmap
 import apxo.missile as apmissile
 import apxo.speed as apspeed
-import apxo.stores as apstores
+import apxo.aircraft.stores as apstores
 import apxo.turnrate as apturnrate
 import apxo.geometry as apgeometry
 import apxo.airtoair as apairtoair
