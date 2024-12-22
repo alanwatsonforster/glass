@@ -794,7 +794,7 @@ class aircraft(apelement.element):
 
     ############################################################################
 
-    from apxo.aircraft.attack import _attackaircraft, _attackgroundunit
+    from apxo.aircraft.attack import _attackaircraft, _attackgroundunit, _secondaryattackgroundunit
 
     from apxo.aircraft.damage import (
         _initdamage,

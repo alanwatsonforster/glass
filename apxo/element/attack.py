@@ -33,13 +33,20 @@ def _attackaircraft(self, target, *args, **kwargs):
     raise RuntimeError("%s cannot attack aircraft." % self.name())
 
 
+def _secondaryattackterrain(self, target, *args, **kwargs):
+    raise RuntimeError("%s cannot attack ground targets." % self.name())
+
+
+def _secondaryattackgroundunit(self, target, *args, **kwargs):
+    raise RuntimeError("%s cannot attack ground targets." % self.name())
+
+
 ################################################################################
 
 
 def attack(self, target, *args, **kwargs):
     aplog.clearerror()
     try:
-        print(args, kwargs)
         if isinstance(target, str):
             aphexcode.checkisvalidhexcodeforcenter(target)
             self._attackterrain(target, *args, **kwargs)
@@ -47,6 +54,20 @@ def attack(self, target, *args, **kwargs):
             self._attackaircraft(target, *args, **kwargs)
         elif target.isgroundunit():
             self._attackgroundunit(target, *args, **kwargs)
+        else:
+            raise RuntimeError("invalid target.")
+    except RuntimeError as e:
+        aplog.logexception(e)
+    self.logbreak()
+
+def secondaryattack(self, target, *args, **kwargs):
+    aplog.clearerror()
+    try:
+        if isinstance(target, str):
+            aphexcode.checkisvalidhexcodeforcenter(target)
+            self._secondaryattackterrain(target, *args, **kwargs)
+        elif target.isgroundunit():
+            self._secondaryattackgroundunit(target, *args, **kwargs)
         else:
             raise RuntimeError("invalid target.")
     except RuntimeError as e:

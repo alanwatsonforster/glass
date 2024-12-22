@@ -56,3 +56,19 @@ def _attackgroundunit(self, target, attacktype, result=None):
     target._takeattackdamage(self, result)
 
 ################################################################################
+
+def _secondaryattackgroundunit(self, target, attacktype, result=None):
+
+    attacktype = attacktype.split("/")
+
+    weapon = attacktype[0]
+    if weapon not in ["GN", "RK", "RP"]:
+        raise RuntimeError("invalid weapon.")
+    
+    self.logwhenwhat(
+         "", "%s attacks %s with %s (secondary)." % (self.name(), target.name(), weapon)
+    )
+        
+    target._takeattackdamage(self, result)
+
+################################################################################
