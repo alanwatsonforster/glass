@@ -128,7 +128,7 @@ endgameturn()
 
 startgameturn()
 A1.move("LVL", "N", "H")
-A1.release("1", "4")
+A1.release(["1", "4"])
 A1.continuemove("H,H,H")
 A1._assert("A1-2016       N    10", 3.5, expectedconfiguration="CL")
 endgameturn()

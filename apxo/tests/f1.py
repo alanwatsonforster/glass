@@ -58,7 +58,7 @@ endgameturn()
 
 startgameturn()
 A1.move("ST", "N")
-A1.release("1", "4")
+A1.release([1, 4])
 A1.continuemove("ST")
 A1._assert("A2-2024       N     7", 1.5, expectedconfiguration="CL")
 endgameturn()

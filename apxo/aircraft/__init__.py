@@ -205,8 +205,7 @@ class aircraft(apelement.element):
 
                 self._stores = apstores._checkstores(stores)
                 if len(self._stores) != 0:
-                    apstores._showstores(
-                        stores,
+                    self._showstores(
                         printer=lambda s: self.logwhenwhat("", s),
                         fuel=self.externalfuel(),
                     )
@@ -486,7 +485,7 @@ class aircraft(apelement.element):
 
     def externalfuelcapacity(self):
         """Return the external fuel capacity."""
-        return apstores.totalfuelcapacity(self._stores)
+        return self._storesfuelcapacity()
 
     #############################################################################
 
@@ -504,9 +503,7 @@ class aircraft(apelement.element):
 
             apgameturn.checkingamesetuporgameturn()
 
-            apstores._showstores(
-                self._stores, printer=lambda s: self._log(s), fuel=self.externalfuel()
-            )
+            self._showstores(printer=lambda s: self._log(s), fuel=self.externalfuel())
 
             self.lognote(note)
 
@@ -767,34 +764,13 @@ class aircraft(apelement.element):
 
         return M
 
-    def _release(self, *args):
-
-        previousconfiguration = self._configuration
-
-        for load in args:
-            self._stores = apstores._release(
-                self._stores, load, printer=lambda s: self.logcomment(s)
-            )
-
-        apconfiguration.update(self)
-
-        if self._configuration != previousconfiguration:
-            self.logcomment(
-                "configuration changed from %s to %s."
-                % (previousconfiguration, self._configuration)
-            )
-
-    def release(self, *args):
-        aplog.clearerror()
-        try:
-            self._release(*args)
-        except RuntimeError as e:
-            aplog.logexception(e)
-        self.logbreak()
-
     ############################################################################
 
-    from apxo.aircraft.attack import _attackaircraft, _attackgroundunit, _secondaryattackgroundunit
+    from apxo.aircraft.attack import (
+        _attackaircraft,
+        _attackgroundunit,
+        _secondaryattackgroundunit,
+    )
 
     from apxo.aircraft.damage import (
         _initdamage,
@@ -808,5 +784,7 @@ class aircraft(apelement.element):
     from apxo.aircraft.draw import _draw
 
     from apxo.aircraft.move import _move, _continuemove
+
+    from apxo.aircraft.stores import _storesfuelcapacity, _showstores, _release, release
 
     ############################################################################

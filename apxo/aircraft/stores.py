@@ -1,3 +1,10 @@
+################################################################################
+
+import apxo.log as aplog
+import apxo.configuration as apconfiguration
+
+################################################################################
+
 _storedict = {
     # In the value, [0] is the class, [1] is the weight, and [2] is the
     # load. For FTs, [3] is the empty load and [4] is the fuel capacity.
@@ -156,9 +163,9 @@ def totalload(stores, fuel=0):
     return totalload
 
 
-def totalfuelcapacity(stores):
+def _storesfuelcapacity(self):
     totalfuelcapacity = 0
-    for loadstation, storename in stores.items():
+    for loadstation, storename in self._stores.items():
         totalfuelcapacity += _fuelcapacity(storename)
     return totalfuelcapacity
 
@@ -166,10 +173,10 @@ def totalfuelcapacity(stores):
 ################################################################################
 
 
-def _showstores(stores, printer=print, fuel=0):
+def _showstores(self, printer=print, fuel=0):
 
     printer("stores are:")
-    for loadstation, name in stores.items():
+    for loadstation, name in self._stores.items():
         printer(
             "  %-2s: %-17s  %2s / %4d / %.1f%s"
             % (
@@ -181,9 +188,9 @@ def _showstores(stores, printer=print, fuel=0):
                 " / %d" % _fuelcapacity(name) if _class(name) == "FT" else "",
             )
         )
-    printer("stores total weight        is %d." % totalweight(stores))
-    printer("stores total load          is %d." % totalload(stores, fuel=fuel))
-    printer("stores total fuel capacity is %d." % totalfuelcapacity(stores))
+    printer("stores total weight        is %d." % totalweight(self._stores))
+    printer("stores total load          is %d." % totalload(self._stores, fuel=fuel))
+    printer("stores total fuel capacity is %d." % self._storesfuelcapacity())
     if fuel is not None:
         printer("stores total fuel          is %.1f." % fuel)
 
@@ -235,21 +242,27 @@ def _airtoairlaunch(stores, launched, printer=print):
     return missiletype, newstores
 
 
-def _release(stores, released, printer=print):
+################################################################################
+
+
+def _release(self, released):
+
+    previousconfiguration = self._configuration
 
     if isinstance(released, int) or isinstance(released, str):
         releasedlist = [released]
     else:
         releasedlist = released
 
+    stores = self._stores
+    newstores = stores.copy()
+
     for releaseditem in releasedlist:
 
-        newstores = stores.copy()
-
         def _releaseloadstation(loadstation):
-            if loadstation not in newstores:
+            if loadstation not in stores:
                 raise RuntimeError("load station %s is not loaded." % loadstation)
-            printer(
+            self.logwhenwhat("", 
                 "releasing %s on load station %s." % (stores[loadstation], loadstation)
             )
             del newstores[loadstation]
@@ -267,9 +280,24 @@ def _release(stores, released, printer=print):
             if not found:
                 raise RuntimeError("no load stations loaded with %s." % releaseditem)
 
-        stores = newstores
+    self._stores = newstores
 
-    return newstores
+    apconfiguration.update(self)
 
+    if self._configuration != previousconfiguration:
+       self.logwhenwhat("", 
+            "configuration changed from %s to %s."
+            % (previousconfiguration, self._configuration)
+        )
+
+################################################################################
+
+def release(self, *args):
+    aplog.clearerror()
+    try:
+        self._release(*args)
+    except RuntimeError as e:
+        aplog.logexception(e)
+    self.logbreak()
 
 ################################################################################
