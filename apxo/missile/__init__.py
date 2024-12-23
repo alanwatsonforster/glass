@@ -103,14 +103,6 @@ class missile(apelement.element):
             pass
             # raise Runtimeselfrror("missile %s has not finished its move." % self._name)
 
-    #############################################################################
-
-    def _move(self, moves):
-        apflight._move(self, "MS", None, moves)
-
-    def _continuemove(self, moves, note=None):
-        apflight._continuemove(self, moves)
-
     ########################################
 
     def maneuver(self):
@@ -194,5 +186,6 @@ class missile(apelement.element):
     ############################################################################
 
     from apxo.missile.draw import _draw
+    from apxo.missile.move import _move, _continuemove
 
     ############################################################################
