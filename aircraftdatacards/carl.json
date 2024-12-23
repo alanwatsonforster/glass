@@ -1,0 +1,14 @@
+#!/usr/bin/env python3 aircraftdatacards.py
+
+[
+    [ 
+        "type", 
+        "F-16", 
+        "F-16A-10"
+    ],
+    [ 
+        "type", 
+        "MiG-21", 
+        "MiG-21MF (CS)"
+    ]
+]

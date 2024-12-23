@@ -1,0 +1,50 @@
+{
+  "versionname": "MiG-21MF",
+  "variantname": "CS",
+  "variantdescription": "as supplied by Carl Smeaton",
+  "origin": "Carl Smeaton",
+  "base": "MiG-21MF",
+  "powertable": {
+    "AB"  : [ 3.5, 3.0, 2.5, 6.0 ],
+    "M"   : [ 2.0, 1.5, 1.0, 1.5 ],
+    "N"   : [ 0.0, 0.0, 0.0, 1.0 ],
+    "I"   : [ 0.5, 0.5, 1.0, 0.0 ],
+    "SPBR": [ 0.5, 1.0, 1.0 ]
+  },
+  "lowspeedliftdeviceselectable": true,
+  "lowspeedliftdevicelimit": 2.5,
+  "lowspeedliftdeviceminspeedchange": 0.5,
+  "lowspeedliftdevicelimittype": "relative",
+  "lowspeedliftdevicename": "combat flaps",
+  "turndragtable": {
+    "TT": [ 1.0, 1.0, 1.0 ],
+    "HT": [ 2.0, 2.0, 3.0 ],
+    "BT": [ 4.0, 4.0, 5.0 ],
+    "ET": [ 4.0, 5.0, "-" ]
+  },
+  "lowspeedliftdeviceturndragtable": {
+    "TT": [ 2.0, 2.0, 2.0 ],
+    "HT": [ 3.0, 3.0, 4.0 ],
+    "BT": [ 5.0, 5.0, 6.0 ],
+    "ET": [ 5.0, 6.0, "-" ]
+  },
+  "ceilingtable": [ 57, 52, 47 ],
+  "speedtable": {
+    "EH": [ [ 4.0, 12.0 ], [ 4.5, 10.5 ], [ 5.0, 8.5 ], 13.0 ],
+    "VH": [ [ 3.5, 12.5 ], [ 4.0, 12.0 ], [ 4.5, 9.0 ], 13.0 ],
+    "HI": [ [ 3.0, 11.0 ], [ 3.5,  9.5 ], [ 4.0, 8.0 ], 12.0 ],
+    "MH": [ [ 2.5,  9.5 ], [ 3.0,  8.5 ], [ 3.0, 7.0 ], 10.0 ],
+    "ML": [ [ 2.0,  8.5 ], [ 2.0,  7.5 ], [ 2.5, 7.0 ],  9.0 ],
+    "LO": [ [ 2.0,  8.0 ], [ 2.0,  7.0 ], [ 2.5, 6.5 ],  8.5 ]
+  },
+  "climbcapabilitytable": {
+    "EH": [ [ 1.0, 0.5 ], [ 1.0, "-" ], [ 0.5, "-" ] ],
+    "VH": [ [ 1.0, 0.5 ], [ 1.0, 0.5 ], [ 1.0, 0.5 ] ],
+    "HI": [ [ 2.0, 0.5 ], [ 1.0, 0.5 ], [ 1.0, 0.5 ] ],
+    "MH": [ [ 3.0, 1.0 ], [ 2.0, 1.0 ], [ 1.5, 0.5 ] ],
+    "ML": [ [ 4.0, 1.0 ], [ 3.0, 1.0 ], [ 2.0, 1.0 ] ],
+    "LO": [ [ 5.0, 2.0 ], [ 4.0, 1.0 ], [ 3.0, 1.0 ] ]
+  },
+  "gunsightmodifiers": { "TT": 0, "HT": 1, "BT": 2 },
+  "properties": [ "LTD" ]
+}
