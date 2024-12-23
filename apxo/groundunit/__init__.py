@@ -84,7 +84,7 @@ class groundunit(apelement.element):
 
             self._damagelevel = 0
 
-            self._barragefiremarker = None
+            self._barragefire = None
             self._barragefirealtitude = barragefirealtitude
 
         except RuntimeError as e:
@@ -103,9 +103,6 @@ class groundunit(apelement.element):
 
     #############################################################################
 
-    def _startgameturn(self):
-        pass
-
     def _endgameturn(self):
         self._suppressionlevel -= 1
         self.stopusingbarragefire()
@@ -114,13 +111,13 @@ class groundunit(apelement.element):
 
     def isusingbarragefire(self):
         "Return true if the ground unit it using barrage fire otherwise return false."
-        return self._barragefiremarker is not None
+        return self._barragefire is not None
 
     def stopusingbarragefire(self):
         "Stop using barrage fire."
         if self.isusingbarragefire():
-            self._barragefiremarker._remove()
-            self._barragefiremarker = None
+            self._barragefire._remove()
+            self._barragefire = None
 
     def usebarragefire(self, note=None):
         "Use barrage fire."

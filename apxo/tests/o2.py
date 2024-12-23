@@ -13,39 +13,37 @@ endtestsetup()
 
 startgameturn()
 
-assert A0._barragefiremarker is None
-assert A1._barragefiremarker is None
-assert A2._barragefiremarker is None
-assert A3._barragefiremarker is None
+assert A0._barragefire is None
+assert A1._barragefire is None
+assert A2._barragefire is None
+assert A3._barragefire is None
 
 A0.usebarragefire()
-assert A0._barragefiremarker is not None
+assert A0._barragefire is not None
 
 A0.takedamage("S")
-assert A0._barragefiremarker is None
+assert A0._barragefire is None
 
 A1.takedamage("S")
 A1.usebarragefire()
 asserterror("A1 is suppressed.")
 
 A2.usebarragefire()
-assert A2._barragefiremarker is not None
+assert A2._barragefire is not None
 
 A3.usebarragefire()
 asserterror("A3 is not capable of barrage fire.")
 
-assert A0._barragefiremarker is None
-assert A1._barragefiremarker is None
-assert A2._barragefiremarker is not None
-assert A3._barragefiremarker is None
-
+assert A0._barragefire is None
+assert A1._barragefire is None
+assert A2._barragefire is not None
+assert A3._barragefire is None
 
 endgameturn()
 
-assert A0._barragefiremarker is None
-assert A1._barragefiremarker is None
-assert A2._barragefiremarker is None
-assert A3._barragefiremarker is None
-
+assert A0._barragefire is None
+assert A1._barragefire is None
+assert A2._barragefire is None
+assert A3._barragefire is None
 
 endfile(__file__)
