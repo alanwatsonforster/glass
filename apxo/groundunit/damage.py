@@ -10,6 +10,14 @@ def _initdamage(self):
 ################################################################################
 
 
+def _endgameturndamage(self):
+    if self._suppressionlevel > 0:
+        self._suppressionlevel -= 1
+
+
+################################################################################
+
+
 def _damage(self):
     if self._damagelevel == 0:
         if self.issuppressed():

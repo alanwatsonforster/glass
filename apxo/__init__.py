@@ -79,12 +79,12 @@ def endgamesetup():
 
     try:
 
+        if aplog.error() is not None:
+            raise RuntimeError("unresolved error at end of game setup: %s" % aplog.error())
+
         apelement._endgamesetup()
 
         aplog.logwhat("end of game set-up.")
-
-        if aplog.error() is not None:
-            raise RuntimeError("unresolved error at end of game setup: %s" % aplog.error())
 
         apgameturn.endgamesetup()
 
@@ -144,13 +144,13 @@ def endgameturn(note=None):
 
     try:
 
+        if aplog.error() is not None:
+            raise RuntimeError("unresolved error at end of game turn: %s" % aplog.error())
+
         apelement._endgameturn()
 
         aplog.logwhat("end of game turn.")
         aplog.lognote(None, note)
-
-        if aplog.error() is not None:
-            raise RuntimeError("unresolved error at end of game turn: %s" % aplog.error())
 
         apgameturn.endgameturn()
 

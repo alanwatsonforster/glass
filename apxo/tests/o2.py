@@ -112,6 +112,20 @@ G5.attack(A4, "L")
 asserterror("target is outside the barrage fire zone.")
 assert A4.damage() == ""
 
+startgameturn()
+
+G1.usebarragefire()
+assert G1.isusingbarragefire()
+
+G2.usebarragefire()
+assert G2.isusingbarragefire()
+
+G4.usebarragefire()
+assert G4.isusingbarragefire()
+
+G5.usebarragefire()
+assert G5.isusingbarragefire()
+
 # Kill the aircraft to avoid having to move them.
 A0.takedamage("K")
 A1.takedamage("K")
@@ -128,5 +142,39 @@ assert not G3.isusingbarragefire()
 assert not G4.isusingbarragefire()
 assert not G5.isusingbarragefire()
 assert not G6.isusingbarragefire()
+
+startgameturn()
+
+G2.usebarragefire()
+assert G2.isusingbarragefire()
+
+G4.usebarragefire()
+asserterror("G4 is out of ammunition.")
+
+G5.usebarragefire()
+asserterror("G5 is out of ammunition.")
+
+startgameturn()
+
+G2.usebarragefire()
+assert G2.isusingbarragefire()
+
+G4.resupplyammunition()
+G5.resupplyammunition()
+
+endgameturn()
+
+startgameturn()
+
+G2.usebarragefire()
+assert G2.isusingbarragefire()
+
+G4.usebarragefire()
+assert G4.isusingbarragefire()
+
+G5.usebarragefire()
+assert G5.isusingbarragefire()
+
+endgameturn()
 
 endfile(__file__)

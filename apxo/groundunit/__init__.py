@@ -107,13 +107,14 @@ class groundunit(apelement.element):
     #############################################################################
 
     def _endgameturn(self):
-        self._suppressionlevel -= 1
-        self.stopusingbarragefire()
+        self._endgameturndamage()
+        self._endgameturnattack()
 
     ############################################################################
 
     from apxo.groundunit.attack import (
         _initattack,
+        _endgameturnattack,
         _attackaircraft,
         usebarragefire,
         stopusingbarragefire,
@@ -121,10 +122,12 @@ class groundunit(apelement.element):
         useplottedfire,
         stopusingplottedfire,
         isusingplottedfire,
+        resupplyammunition
     )
 
     from apxo.groundunit.damage import (
         _initdamage,
+        _endgameturndamage,
         _damage,
         _damageatleast,
         _damageatmost,
