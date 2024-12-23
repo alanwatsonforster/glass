@@ -26,7 +26,8 @@ class groundunit(apelement.element):
         hexcode,
         symbols="",
         color="white",
-        barragefirealtitude=None,
+        maximumaltitude=None,
+        aaaclass=None,
         canuseplottedfire=False,
         stack=None,
     ):
@@ -82,13 +83,12 @@ class groundunit(apelement.element):
             self._symbols = symbols
             self._stack = stack
 
-            self._damagelevel = 0
-
-            self._barragefire = None
-            self._barragefirealtitude = barragefirealtitude
-            self._plottedfire = None
-            self._canuseplottedfire = canuseplottedfire
+            self._maximumaltitude = maximumaltitude
+            if aaaclass not in [None, "B", "L", "M", "H"]:
+                raise RuntimeError('invalid aaaclass %r.' % aaaclass)
+            self._aaaclass = aaaclass
             
+            self._initattack()
             self._inittracking()
 
         except RuntimeError as e:
@@ -114,15 +114,14 @@ class groundunit(apelement.element):
     ############################################################################
 
     from apxo.groundunit.attack import (
+        _initattack,
         _attackaircraft,
         usebarragefire,
         stopusingbarragefire,
         isusingbarragefire,
-        _barragefiremaximumaltitude,
         useplottedfire,
         stopusingplottedfire,
         isusingplottedfire,
-        _plottedfiremaximumaltitude,
     )
 
     from apxo.groundunit.damage import (
