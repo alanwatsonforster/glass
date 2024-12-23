@@ -19,19 +19,24 @@ import apxo.speed as apspeed
 ##############################################################################
 
 _elementlist = []
-
+_savedelementlist = []
 
 def _startgamesetup():
-    global _elementlist
+    global _elementlist, _savedelementlist
     _elementlist = []
+    _savedelementlist = _elementlist.copy()
 
 
 def _endgamesetup():
+    global _savedelementlist
     for E in _elementlist:
         E._save()
+    _savedelementlist = _elementlist.copy()
 
 
 def _startgameturn():
+    global _elementlist
+    _elementlist = _savedelementlist.copy()
     for E in _elementlist:
         E._restore()
     for E in _elementlist:
@@ -47,11 +52,13 @@ def _startgameturn():
 
 
 def _endgameturn():
+    global _savedelementlist
     for E in _elementlist:
         E._attackendgameturn()
         E._endgameturn()
     for E in _elementlist:
         E._save()
+    _savedelementlist = _elementlist.copy()
 
 
 def _drawmap():
