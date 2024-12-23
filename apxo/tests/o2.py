@@ -4,46 +4,129 @@ startfile(__file__, "ground unit barrage fire")
 
 starttestsetup()
 
-A0 = groundunit("A0", "A1-2110", "infantry", barragefirealtitude=2)
-A1 = groundunit("A1", "A1-2110", "infantry", barragefirealtitude=2)
-A2 = groundunit("A2", "A1-2110", "armor", barragefirealtitude=3)
-A3 = groundunit("A3", "A1-2110", "artillery")
+G0 = groundunit("G0", "A1-2110", "infantry", aaaclass="B", maximumaltitude=2)
+G1 = groundunit("G1", "A1-2110", "infantry", aaaclass="B", maximumaltitude=2)
+G2 = groundunit("G2", "A1-2110", "armor", aaaclass="B", maximumaltitude=3)
+G3 = groundunit("G3", "A1-2110", "artillery")
+G4 = groundunit("G4", "A1-2110", "airdefense/gun", aaaclass="L", maximumaltitude=9)
+G5 = groundunit("G5", "A1-2110", "airdefense/gun", aaaclass="M", maximumaltitude=18)
+G6 = groundunit("G6", "A1-2110", "airdefense/gun", aaaclass="H", maximumaltitude=27)
+
+A0 = aircraft("A0", "USAF", "F-100A", "A1-2110", "E"  , 2, 3)
+A1 = aircraft("A1", "USAF", "F-100A", "A1-2110", "E"  , 3, 3)
+A2 = aircraft("A2", "USAF", "F-100A", "A1-2110", "E"  , 4, 3)
+A3 = aircraft("A3", "USAF", "F-100A", "A1-2111", "E"  , 2, 3)
+A4 = aircraft("A4", "USAF", "F-100A", "A1-2112", "E"  , 2, 3)
 
 endtestsetup()
 
 startgameturn()
 
-assert A0._barragefire is None
-assert A1._barragefire is None
-assert A2._barragefire is None
-assert A3._barragefire is None
+assert not G0.isusingbarragefire()
+assert not G1.isusingbarragefire()
+assert not G2.isusingbarragefire()
+assert not G3.isusingbarragefire()
+assert not G4.isusingbarragefire()
+assert not G5.isusingbarragefire()
+assert not G6.isusingbarragefire()
 
-A0.usebarragefire()
-assert A0._barragefire is not None
+G0.takedamage("S")
+G0.usebarragefire()
+asserterror("G0 is suppressed.")
 
-A0.takedamage("S")
-assert A0._barragefire is None
+G1.usebarragefire()
+assert G1.isusingbarragefire()
 
-A1.takedamage("S")
-A1.usebarragefire()
-asserterror("A1 is suppressed.")
+G2.usebarragefire()
+assert G2.isusingbarragefire()
 
-A2.usebarragefire()
-assert A2._barragefire is not None
+G3.usebarragefire()
+asserterror("G3 is not capable of barrage fire.")
 
-A3.usebarragefire()
-asserterror("A3 is not capable of barrage fire.")
+G4.usebarragefire()
+assert G4.isusingbarragefire()
 
-assert A0._barragefire is None
-assert A1._barragefire is None
-assert A2._barragefire is not None
-assert A3._barragefire is None
+G5.usebarragefire()
+assert G5.isusingbarragefire()
+
+G6.usebarragefire()
+asserterror("G6 is not capable of barrage fire.")
+
+assert not G0.isusingbarragefire()
+assert G1.isusingbarragefire()
+assert G2.isusingbarragefire()
+assert not G3.isusingbarragefire()
+assert G4.isusingbarragefire()
+assert G5.isusingbarragefire()
+assert not G6.isusingbarragefire()
+
+G1.attack(A0, "L")
+assert A0.damage() == "L"
+G2.attack(A0, "L")
+assert A0.damage() == "2L"
+G4.attack(A0, "L")
+assert A0.damage() == "H"
+G5.attack(A0, "L")
+assert A0.damage() == "L+H"
+
+G1.attack(A1, "L")
+asserterror("target is above the barrage fire.")
+assert A1.damage() == ""
+G2.attack(A1, "L")
+assert A1.damage() == "L"
+G4.attack(A1, "L")
+assert A1.damage() == "2L"
+G5.attack(A1, "L")
+assert A1.damage() == "H"
+
+G1.attack(A2, "L")
+asserterror("target is above the barrage fire.")
+assert A2.damage() == ""
+G2.attack(A2, "L")
+asserterror("target is above the barrage fire.")
+assert A2.damage() == ""
+G4.attack(A2, "L")
+assert A2.damage() == "L"
+G5.attack(A2, "L")
+assert A2.damage() == "2L"
+
+G1.attack(A3, "L")
+assert A3.damage() == "L"
+G2.attack(A3, "L")
+assert A3.damage() == "2L"
+G4.attack(A3, "L")
+assert A3.damage() == "H"
+G5.attack(A3, "L")
+assert A3.damage() == "L+H"
+
+G1.attack(A4, "L")
+asserterror("target is outside the barrage fire zone.")
+assert A4.damage() == ""
+G2.attack(A4, "L")
+asserterror("target is outside the barrage fire zone.")
+assert A4.damage() == ""
+G4.attack(A4, "L")
+asserterror("target is outside the barrage fire zone.")
+assert A4.damage() == ""
+G5.attack(A4, "L")
+asserterror("target is outside the barrage fire zone.")
+assert A4.damage() == ""
+
+# Kill the aircraft to avoid having to move them.
+A0.takedamage("K")
+A1.takedamage("K")
+A2.takedamage("K")
+A3.takedamage("K")
+A4.takedamage("K")
 
 endgameturn()
 
-assert A0._barragefire is None
-assert A1._barragefire is None
-assert A2._barragefire is None
-assert A3._barragefire is None
+assert not G0.isusingbarragefire()
+assert not G1.isusingbarragefire()
+assert not G2.isusingbarragefire()
+assert not G3.isusingbarragefire()
+assert not G4.isusingbarragefire()
+assert not G5.isusingbarragefire()
+assert not G6.isusingbarragefire()
 
 endfile(__file__)
