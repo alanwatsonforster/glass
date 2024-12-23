@@ -894,11 +894,14 @@ def _continuemove(E, moves):
 
 def _continuestalledflight(A, moves):
 
+    if moves == "":
+        return
+
     A.logwhenwhat("", moves)
 
     if moves != "ST":
         raise RuntimeError("invalid moves %r for stalled flight." % moves)
-
+        
     altitudechange = math.ceil(A.speed() + A._turnsstalled)
 
     initialaltitude = A.altitude()
@@ -938,6 +941,9 @@ def _continuedepartedflight(A, moves):
     # - "R30", "R60", "R90", ..., "R300"
     # - "R", "RR", and "RRR" which as usual mean "R30", "R60", and "R90"
     # - the "L" equivalents.
+
+    if moves == "":
+        return
 
     A.logwhenwhat("", moves)
 
