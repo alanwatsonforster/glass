@@ -118,12 +118,12 @@ def _weight(storename):
     return _storedict[storename][1]
 
 
-def _load(storename, fuel=0):
+def _load(storename, storesfuel=0):
 
-    # We make the crude assumption that if there is any external fuel,
+    # We make the crude assumption that if there is any stores fuel,
     # then none of the FTs are empty.
 
-    empty = fuel is None or fuel == 0
+    empty = storesfuel is None or storesfuel == 0
 
     if not storename in _storedict:
         raise RuntimeError("unknown store %r." % storename)
@@ -156,7 +156,7 @@ def _storestotalweight(self):
 def _storestotalload(self):
     totalload = 0
     for loadstation, storename in self._stores.items():
-        totalload += _load(storename, fuel=self.externalfuel())
+        totalload += _load(storename, storesfuel=self.storesfuel())
     # Round down. See 4.3.
     totalload = int(totalload)
     return totalload
@@ -229,7 +229,7 @@ def _showstores(self):
                     name,
                     _class(name),
                     _weight(name),
-                    _load(name, fuel=self.externalfuel()),
+                    _load(name, storesfuel=self.storesfuel()),
                     " / %d" % _fuelcapacity(name) if _class(name) == "FT" else "",
                 )
             )
@@ -237,8 +237,8 @@ def _showstores(self):
         self.logwhenwhat("", "stores total weight        is %d." % self._storestotalweight())
         self.logwhenwhat("", "stores total load          is %d." % self._storestotalload())
         self.logwhenwhat("", "stores total fuel capacity is %d." % self._storestotalfuelcapacity())
-        if self.externalfuel() is not None:
-            self.logwhenwhat("", "stores total fuel          is %.1f." % self.externalfuel())
+        if self.storesfuel() is not None:
+            self.logwhenwhat("", "stores total fuel          is %.1f." % self.storesfuel())
 
 
 ################################################################################

@@ -208,10 +208,10 @@ class aircraft(apelement.element):
                 if (
                     self.fuel() is not None
                     and self.fuel()
-                    > self.internalfuelcapacity() + self.externalfuelcapacity()
+                    > self.internalfuelcapacity() + self.storesfuelcapacity()
                 ):
                     raise RuntimeError(
-                        "total fuel exceeds the internal and external capacity."
+                        "total fuel exceeds the internal and stores capacity."
                     )
 
             self.logwhenwhat("", "configuration is %s." % self._configuration)
@@ -466,8 +466,8 @@ class aircraft(apelement.element):
         else:
             return min(self.fuel(), self.internalfuelcapacity())
 
-    def externalfuel(self):
-        """Return the current external fuel points."""
+    def storesfuel(self):
+        """Return the current stores fuel points."""
         if self.fuel() is None:
             return None
         else:
@@ -477,8 +477,8 @@ class aircraft(apelement.element):
         """Return the internal fuel capacity."""
         return self._aircraftdata.internalfuelcapacity()
 
-    def externalfuelcapacity(self):
-        """Return the external fuel capacity."""
+    def storesfuelcapacity(self):
+        """Return the stores fuel capacity."""
         return self._storestotalfuelcapacity()
 
     #############################################################################

@@ -571,7 +571,7 @@ def _endaircraftspeed(A):
 
     if not A._fuel is None:
 
-        previousexternalfuel = A.externalfuel()
+        previousstoresfuel = A.storesfuel()
         previousinternalfuel = A.internalfuel()
 
         A.logcomment("fuel consumption was %.1f." % A._fuelconsumption)
@@ -589,8 +589,8 @@ def _endaircraftspeed(A):
         if A.internalfuel() == 0:
             A.logend("fuel is exhausted.")
 
-        if previousexternalfuel > 0 and A.externalfuel() == 0:
-            A.logcomment("external fuel is exhausted.")
+        if previousstoresfuel > 0 and A.storesfuel() == 0:
+            A.logcomment("stores fuel is exhausted.")
             previousconfiguration = A._configuration
             A._updateconfiguration()
             if A._configuration != previousconfiguration:
