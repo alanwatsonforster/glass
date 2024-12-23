@@ -391,6 +391,12 @@ class element:
     def isbomb(self):
         return False
 
+    def isblastzone(self):
+        return False
+
+    def isbarragefire(self):
+        return False
+
     ############################################################################
 
     def _checknotkilled(self):

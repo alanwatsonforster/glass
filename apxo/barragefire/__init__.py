@@ -5,36 +5,32 @@ import apxo.log as aplog
 ##############################################################################
 
 
-class blastzone(apelement.element):
+class barragefire(apelement.element):
 
     ############################################################################
 
     def __init__(
         self,
-        name,
-        x, y
+        x, y, altitude
     ):
     
         self._name = ""
     
-        if not isinstance(name, str):
-            raise RuntimeError("the name argument must be a string.")
-
-        self.logwhenwhat("", "creating blast zone %s." % name)
+        self.logwhenwhat("", "creating barrage fire zone.")
 
         super().__init__(
-            name,
+            None,
             x=x, y=y,
             azimuth=None,
-            altitude=apaltitude.terrainaltitude(x, y),
+            altitude=altitude,
             speed=0,
         )
         
-        self.logwhenwhat("", "blast zone in %s extends to altitude %d." % (self.hexcode(), self.altitude() + 2))
+        self.logwhat("", "barrage fire zone centered on %s extends to altitude %d." % (self.hexcode(), self.altitude()))
 
     #############################################################################
 
-    def isblastzone(self):
+    def isbarragefire(self):
         return True
 
     #############################################################################
@@ -47,7 +43,6 @@ class blastzone(apelement.element):
 
     ############################################################################
 
-    from apxo.blastzone.attack import _attackaircraft
-    from apxo.blastzone.draw import _draw
+    from apxo.barragefire.draw import _draw
 
     ############################################################################

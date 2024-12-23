@@ -37,9 +37,5 @@ def _draw(self):
         if self.name() is not None:
             apdraw.drawtext(*self.xy(), self.facing(), self.name(), color=self.color())
 
-    elif self._type == "barragefire":
-
-        apdraw.drawbarragefire(*self.xy(), self.altitude())
-
 
 ################################################################################

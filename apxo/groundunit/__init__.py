@@ -1,7 +1,7 @@
 import apxo.element as apelement
 import apxo.gameturn as apgameturn
 import apxo.log as aplog
-import apxo.marker as apmarker
+import apxo.barragefire as apbarragefire
 
 ##############################################################################
 
@@ -132,17 +132,14 @@ class groundunit(apelement.element):
             self._checknotsuppressed()
             if self._barragefirealtitude is None:
                 raise RuntimeError("%s is not capable of barrage fire." % self.name())
-            maximumaltitude = self.altitude() + self._barragefirealtitude
             self.logwhenwhat(
                 "",
                 "using barrage fire to altitude %d."
                 % self._barragefiremaximumaltitude(),
             )
-            self._barragefiremarker = apmarker.marker(
-                "barragefire",
-                self.hexcode(),
-                altitude=self._barragefiremaximumaltitude(),
-                silent=True,
+            self._barragefire = apbarragefire.barragefire(
+                *self.xy(),
+                altitude=self._barragefiremaximumaltitude()
             )
             self.lognote(note)
         except RuntimeError as e:
