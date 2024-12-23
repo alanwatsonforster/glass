@@ -33,7 +33,7 @@ A1.move("LVL", "M", "H,H")
 A1._assert("A1-1912       N     7", 2.0)
 endgameturn()
 
-# Check releaseing.
+# Check releasing.
 
 starttestsetup()
 A1 = aircraft(
