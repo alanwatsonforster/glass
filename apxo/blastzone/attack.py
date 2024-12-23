@@ -13,6 +13,6 @@ def _attackaircraft(self, target, result=None, note=None):
 
     target._takeattackdamage(self, result)
 
-    aplognote(note)
+    aplog.lognote(note)
 
 #############################################################################

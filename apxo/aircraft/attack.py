@@ -65,7 +65,7 @@ def _attackgroundunit(self, target, attacktype, result=None, stores=None, note=N
 
     target._takeattackdamage(self, result)
 
-    aplognote(note)
+    aplog.lognote(note)
 
 
 ################################################################################
@@ -85,7 +85,7 @@ def _secondaryattackgroundunit(self, target, attacktype, result=None, note=None)
 
     target._takeattackdamage(self, result)
 
-    aplognote(note)
+    aplog.lognote(note)
 
 ################################################################################
 
