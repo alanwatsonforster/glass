@@ -12,11 +12,11 @@ G4 = groundunit("G4", "A1-2110", "airdefense/gun", aaaclass="L", maximumaltitude
 G5 = groundunit("G5", "A1-2110", "airdefense/gun", aaaclass="M", maximumaltitude=18)
 G6 = groundunit("G6", "A1-2110", "airdefense/gun", aaaclass="H", maximumaltitude=27)
 
-A0 = aircraft("A0", "USAF", "F-100A", "A1-2110", "E"  , 2, 3)
-A1 = aircraft("A1", "USAF", "F-100A", "A1-2110", "E"  , 3, 3)
-A2 = aircraft("A2", "USAF", "F-100A", "A1-2110", "E"  , 4, 3)
-A3 = aircraft("A3", "USAF", "F-100A", "A1-2111", "E"  , 2, 3)
-A4 = aircraft("A4", "USAF", "F-100A", "A1-2112", "E"  , 2, 3)
+A0 = aircraft("A0", "USAF", "F-100A", "A1-2110", "E", 2, 3)
+A1 = aircraft("A1", "USAF", "F-100A", "A1-2110", "E", 3, 3)
+A2 = aircraft("A2", "USAF", "F-100A", "A1-2110", "E", 4, 3)
+A3 = aircraft("A3", "USAF", "F-100A", "A1-2111", "E", 2, 3)
+A4 = aircraft("A4", "USAF", "F-100A", "A1-2112", "E", 2, 3)
 
 endtestsetup()
 

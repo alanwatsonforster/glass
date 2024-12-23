@@ -6,9 +6,11 @@ import apxo.geometry as apgeometry
 import apxo.log as aplog
 import apxo.plottedfire as applottedfire
 
+
 def _initattack(self):
     self._barragefire = None
     self._plottedfire = None
+
 
 ################################################################################
 
@@ -54,9 +56,11 @@ def _attackaircraft(self, target, result=None):
 
 ################################################################################
 
+
 def isusingbarragefire(self):
     "Return true if the ground unit it using barrage fire otherwise return false."
     return self._barragefire is not None
+
 
 def usebarragefire(self, note=None):
     "Use barrage fire."
@@ -77,17 +81,21 @@ def usebarragefire(self, note=None):
         aplog.logexception(e)
     self.logbreak()
 
+
 def stopusingbarragefire(self):
     "Stop using barrage fire."
     if self.isusingbarragefire():
         self._barragefire._remove()
         self._barragefire = None
 
+
 ################################################################################
+
 
 def isusingplottedfire(self):
     "Return true if the ground unit it using plotted fire otherwise return false."
     return self._plottedfire is not None
+
 
 def useplottedfire(self, hexcode, altitude, note=None):
     "Use plotted fire."
@@ -100,18 +108,18 @@ def useplottedfire(self, hexcode, altitude, note=None):
         if self._aaaclass not in ["M", "H"]:
             raise RuntimeError("%s is not capable of plotted fire." % self.name())
         self.logwhenwhat("", "using plotted fire.")
-        self._plottedfire = applottedfire.plottedfire(
-            hexcode, altitude
-        )
+        self._plottedfire = applottedfire.plottedfire(hexcode, altitude)
         self.lognote(note)
     except RuntimeError as e:
         aplog.logexception(e)
     self.logbreak()
+
 
 def stopusingplottedfire(self):
     "Stop using plotted fire."
     if self.isusingplottedfire():
         self._plottedfire._remove()
         self._plottedfire = None
+
 
 ################################################################################

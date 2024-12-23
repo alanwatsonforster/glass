@@ -605,5 +605,5 @@ class element:
         _movelagroll,
         _moveverticalroll,
     )
-    
+
     from apxo.element.track import _inittracking, track, stoptracking

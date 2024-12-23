@@ -26,7 +26,7 @@ class plottedfire(apelement.element):
         self.logwhenwhat(
             "",
             "plotted fire zone centered on %s extending from altitude %d to %d."
-            % (self.hexcode(), min(0, self.altitude() - 2), self.altitude() + 2)
+            % (self.hexcode(), min(0, self.altitude() - 2), self.altitude() + 2),
         )
 
     ############################################################################

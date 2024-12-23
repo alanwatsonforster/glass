@@ -5,8 +5,10 @@ import apxo.log as aplog
 
 #############################################################################
 
+
 def _inittracking(self):
     self._tracking = None
+
 
 ################################################################################
 
@@ -33,7 +35,9 @@ def track(self, target, *args, **kwargs):
         aplog.logexception(e)
     self.logbreak()
 
+
 ################################################################################
+
 
 def stoptracking(self):
     aplog.clearerror()

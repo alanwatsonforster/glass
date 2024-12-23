@@ -85,9 +85,9 @@ class groundunit(apelement.element):
 
             self._maximumaltitude = maximumaltitude
             if aaaclass not in [None, "B", "L", "M", "H"]:
-                raise RuntimeError('invalid aaaclass %r.' % aaaclass)
+                raise RuntimeError("invalid aaaclass %r." % aaaclass)
             self._aaaclass = aaaclass
-            
+
             self._initattack()
             self._inittracking()
 
