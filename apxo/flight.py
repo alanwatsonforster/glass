@@ -901,7 +901,7 @@ def _continuestalledflight(A, moves):
 
     if moves != "ST":
         raise RuntimeError("invalid moves %r for stalled flight." % moves)
-        
+
     altitudechange = math.ceil(A.speed() + A._turnsstalled)
 
     initialaltitude = A.altitude()
@@ -1322,7 +1322,7 @@ def _continuemissileflight(M, moves):
         ["R", "epilog", lambda A: _domaneuver(A, "R", None, True, False)],
         ["", "", None],
     ]
-    
+
     if moves == "":
         return
 

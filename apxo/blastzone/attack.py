@@ -15,4 +15,5 @@ def _attackaircraft(self, target, result=None, note=None):
 
     aplog.lognote(note)
 
+
 #############################################################################

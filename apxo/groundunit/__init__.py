@@ -2,7 +2,7 @@ import apxo.element as apelement
 import apxo.gameturn as apgameturn
 import apxo.log as aplog
 
-##############################################################################
+################################################################################
 
 
 def aslist(withkilled=False):
@@ -13,7 +13,7 @@ def aslist(withkilled=False):
     return list(groundunitlist)
 
 
-##############################################################################
+################################################################################
 
 
 class groundunit(apelement.element):
@@ -122,7 +122,7 @@ class groundunit(apelement.element):
         useplottedfire,
         stopusingplottedfire,
         isusingplottedfire,
-        resupplyammunition
+        resupplyammunition,
     )
 
     from apxo.groundunit.damage import (

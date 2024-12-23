@@ -21,6 +21,7 @@ def _initattack(self):
 def _endgameturnattack(self):
     self.stopusingbarragefire()
 
+
 ################################################################################
 
 
@@ -49,7 +50,7 @@ def _attackaircraft(self, target, result=None, note=None):
             raise RuntimeError("target is above the plotted fire.")
 
     else:
-    
+
         self.logwhenwhat(
             "", "%s attacks %s with aimed fire." % (self.name(), target.name())
         )
@@ -65,6 +66,7 @@ def _attackaircraft(self, target, result=None, note=None):
     target._takeattackdamage(self, result)
 
     aplog.lognote(note)
+
 
 ################################################################################
 
@@ -103,7 +105,6 @@ def stopusingbarragefire(self):
     if self.isusingbarragefire():
         self._barragefire._remove()
         self._barragefire = None
-            
 
 
 ################################################################################
@@ -141,6 +142,7 @@ def stopusingplottedfire(self):
 
 
 ################################################################################
+
 
 def resupplyammunition(self, note=None):
     "Resupply ammunition."

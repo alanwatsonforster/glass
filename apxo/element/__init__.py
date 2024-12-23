@@ -21,6 +21,7 @@ import apxo.speed as apspeed
 _elementlist = []
 _savedelementlist = []
 
+
 def _startgamesetup():
     global _elementlist, _savedelementlist
     _elementlist = []

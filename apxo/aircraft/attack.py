@@ -87,6 +87,7 @@ def _secondaryattackgroundunit(self, target, attacktype, result=None, note=None)
 
     aplog.lognote(note)
 
+
 ################################################################################
 
 
