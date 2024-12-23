@@ -185,6 +185,7 @@ class missile(apelement.element):
 
     ############################################################################
 
+    from apxo.missile.attack import _attackaircraft
     from apxo.missile.draw import _draw
     from apxo.missile.move import _move, _continuemove
 
