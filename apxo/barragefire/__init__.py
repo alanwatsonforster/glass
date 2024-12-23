@@ -35,9 +35,6 @@ class barragefire(apelement.element):
 
     #############################################################################
 
-    def _startgameturn(self):
-        pass
-
     def _endgameturn(self):
         self._remove()
 

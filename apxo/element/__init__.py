@@ -239,6 +239,15 @@ class element:
 
     ############################################################################
 
+
+    def _startgameturn(self):
+        pass
+
+    def _endgameturn(self):
+        pass
+
+    ############################################################################
+
     def _setxy(self, x=None, y=None):
         self._setposition(x=x, y=y)
 
