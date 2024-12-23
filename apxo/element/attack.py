@@ -59,7 +59,7 @@ def attack(self, target, *args, **kwargs):
         elif target.isgroundunit():
             self._attackgroundunit(target, *args, **kwargs)
         else:
-            raise RuntimeError("invalid target.")
+            raise RuntimeError("invalid target for attack.")
     except RuntimeError as e:
         aplog.logexception(e)
     self.logbreak()

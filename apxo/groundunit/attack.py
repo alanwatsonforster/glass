@@ -20,6 +20,8 @@ def _attackaircraft(self, target, result=None):
         self.logwhenwhat(
             "", "%s attacks %s with aimed fire." % (self.name(), target.name())
         )
+        if self._tracking is not target:
+            raise RuntimeError("%s is not tracking %s." % (self.name(), target.name()))
         self.logwhenwhat("", "range to target is %d." % apgeometry.range(self, target))
         self.logwhenwhat(
             "", "altitude to target is %d." % (target.altitude() - self.altitude())

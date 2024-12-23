@@ -187,6 +187,7 @@ class element:
         self._lostproperties = set([])
 
         self._initdamage()
+        self._inittracking()
 
         _elementlist.append(self)
 
@@ -604,3 +605,5 @@ class element:
         _movelagroll,
         _moveverticalroll,
     )
+    
+    from apxo.element.track import _inittracking, track, stoptracking

@@ -90,6 +90,8 @@ class groundunit(apelement.element):
             self._barragefirealtitude = barragefirealtitude
             self._plottedfire = None
             self._canuseplottedfire = canuseplottedfire
+            
+            self._inittracking()
 
         except RuntimeError as e:
             aplog.logexception(e)
@@ -196,5 +198,6 @@ class groundunit(apelement.element):
     )
 
     from apxo.groundunit.draw import _draw
+    from apxo.groundunit.track import _track, _stoptracking
 
     ############################################################################

@@ -4,7 +4,7 @@ startfile(__file__, "missile attacks")
 
 # LO altitude band
 
-starttestsetup(verbose=True)
+starttestsetup()
 A1 = aircraft(
     "A1",
     "AF",
