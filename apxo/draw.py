@@ -817,6 +817,7 @@ def drawblastzone(x, y, altitude):
 bombcolor = "black"
 bomblinecolor = "black"
 
+
 def drawbomb(x, y, altitude, facing):
     fillcolor = bombcolor
     linecolor = bomblinecolor
@@ -831,6 +832,7 @@ def drawbomb(x, y, altitude, facing):
         linecolor=linecolor,
         zorder=zorder,
     )
+
 
 ################################################################################
 

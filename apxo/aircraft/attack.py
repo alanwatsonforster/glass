@@ -84,19 +84,16 @@ def _secondaryattackgroundunit(self, target, attacktype, result=None):
 
 ################################################################################
 
+
 def bomb(self, name, target, stores=None, note=None):
 
     aplog.clearerror()
     try:
         if isinstance(target, str):
             aphexcode.checkisvalidhexcodeforcenter(target)
-            self.logwhenwhat(
-                "", "%s bombs hex %s." % (self.name(), target)
-            )
+            self.logwhenwhat("", "%s bombs hex %s." % (self.name(), target))
         elif target.isgroundunit():
-            self.logwhenwhat(
-                "", "%s bombs %s." % (self.name(), target.name())
-            )
+            self.logwhenwhat("", "%s bombs %s." % (self.name(), target.name()))
         else:
             raise RuntimeError("invalid target.")
         self._release(stores)
@@ -105,5 +102,6 @@ def bomb(self, name, target, stores=None, note=None):
         aplog.logexception(e)
     self.logbreak()
     return newbomb
+
 
 ################################################################################

@@ -9,14 +9,7 @@ class bomb(apelement.element):
 
     ############################################################################
 
-    def __init__(
-        self,
-        name,
-        hexcode,
-        facing,
-        altitude,
-        stores=None
-    ):
+    def __init__(self, name, hexcode, facing, altitude, stores=None):
 
         self._name = ""
 
@@ -33,11 +26,11 @@ class bomb(apelement.element):
                 hexcode=hexcode,
                 azimuth=apazimuth.fromfacing(facing),
                 altitude=altitude,
-                speed=0
+                speed=0,
             )
 
             self.logposition("")
-            
+
         except RuntimeError as e:
             aplog.logexception(e)
 
