@@ -1,5 +1,9 @@
 ################################################################################
 
+import apxo.variants as apvariants
+
+################################################################################
+
 
 def _initdamage(self):
 
@@ -117,12 +121,13 @@ def _takedamageconsequences(self):
             self.logwhenwhat("", "loses %s property." % p)
             self.loseproperty(p)
 
-    if self.damageatleast("L"):
-        lose("HPR")
-        lose("HRR")
-        gain("LRR")
-    if self.damageatleast("H"):
-        gain("NRM")
+    if not apvariants.withvariant("use house rules"):
+        if self.damageatleast("L"):
+            lose("HPR")
+            lose("HRR")
+            gain("LRR")
+        if self.damageatleast("H"):
+            gain("NRM")
 
 
 ################################################################################
