@@ -12,7 +12,7 @@ import apxo.map as apmap
 import apxo.speed as apspeed
 
 # Elements are anything that can be placed on a map: aircraft, missiles,
-# ground units, and markers. This class gathers together their common
+# ground units, markers, and bombs. This class gathers together their common
 # properties.
 
 
@@ -386,6 +386,9 @@ class element:
         return False
 
     def ismarker(self):
+        return False
+
+    def isbomb(self):
         return False
 
     ############################################################################

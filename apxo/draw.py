@@ -814,6 +814,26 @@ def drawblastzone(x, y, altitude):
 
 ################################################################################
 
+bombcolor = "black"
+bomblinecolor = "black"
+
+def drawbomb(x, y, altitude, facing):
+    fillcolor = bombcolor
+    linecolor = bomblinecolor
+    zorder = altitude + 1.5
+    drawdart(
+        x,
+        y,
+        facing,
+        size=0.2,
+        fillcolor=fillcolor,
+        linewidth=aircraftlinewidth,
+        linecolor=linecolor,
+        zorder=zorder,
+    )
+
+################################################################################
+
 watermarkcolor = (0.70, 0.70, 0.70)
 
 

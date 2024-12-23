@@ -1,8 +1,10 @@
 ################################################################################
 
 import apxo.airtoair as apairtoair
+import apxo.bomb as apbomb
 import apxo.flight as apflight
 import apxo.geometry as apgeometry
+import apxo.log as aplog
 
 ################################################################################
 
@@ -79,5 +81,29 @@ def _secondaryattackgroundunit(self, target, attacktype, result=None):
 
     target._takeattackdamage(self, result)
 
+
+################################################################################
+
+def bomb(self, name, target, stores=None, note=None):
+
+    aplog.clearerror()
+    try:
+        if isinstance(target, str):
+            aphexcode.checkisvalidhexcodeforcenter(target)
+            self.logwhenwhat(
+                "", "%s bombs hex %s." % (self.name(), target)
+            )
+        elif target.isgroundunit():
+            self.logwhenwhat(
+                "", "%s bombs %s." % (self.name(), target.name())
+            )
+        else:
+            raise RuntimeError("invalid target.")
+        self._release(stores)
+        newbomb = apbomb.bomb(name, self.hexcode(), self.facing(), self.altitude())
+    except RuntimeError as e:
+        aplog.logexception(e)
+    self.logbreak()
+    return newbomb
 
 ################################################################################

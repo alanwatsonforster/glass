@@ -25,6 +25,7 @@ __all__ = [
     "orderofflightdeterminationphase",
     "drawmap",
     "aircraft",
+    "bomb",
     "groundunit",
     "marker",
     "missile",

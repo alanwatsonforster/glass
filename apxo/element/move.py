@@ -43,8 +43,8 @@ def continuemove(self, *args, note=None, **kwargs):
 ################################################################################
 
 
-def _move(self, s):
-    self._continuemove(s)
+def _move(self, *args):
+    self._continuemove(*args)
 
 
 def _continuemove(self, s):
