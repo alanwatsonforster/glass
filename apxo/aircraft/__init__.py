@@ -202,13 +202,9 @@ class aircraft(apelement.element):
                 self._configuration = configuration
 
             else:
+            
+                self._initstores(stores)
 
-                self._stores = apstores._checkstores(stores)
-                if len(self._stores) != 0:
-                    self._showstores(
-                        printer=lambda s: self.logwhenwhat("", s),
-                        fuel=self.externalfuel(),
-                    )
 
                 if (
                     self.fuel() is not None
@@ -489,30 +485,6 @@ class aircraft(apelement.element):
 
     #############################################################################
 
-    # Stores
-
-    #############################################################################
-
-    def showstores(self, note=None):
-        """
-        Show the aircraft's stores to the log.
-        """
-
-        aplog.clearerror()
-        try:
-
-            apgameturn.checkingamesetuporgameturn()
-
-            self._showstores(printer=lambda s: self._log(s), fuel=self.externalfuel())
-
-            self.lognote(note)
-
-        except RuntimeError as e:
-            aplog.logexception(e)
-        self.logbreak()
-
-    #############################################################################
-
     # Geometry
 
     #############################################################################
@@ -785,6 +757,6 @@ class aircraft(apelement.element):
 
     from apxo.aircraft.move import _move, _continuemove
 
-    from apxo.aircraft.stores import _storesfuelcapacity, _showstores, _release, release
+    from apxo.aircraft.stores import _initstores, _storesfuelcapacity, _showstores, showstores, _release, release
 
     ############################################################################

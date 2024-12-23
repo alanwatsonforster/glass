@@ -172,33 +172,7 @@ def _storesfuelcapacity(self):
 
 ################################################################################
 
-
-def _showstores(self, printer=print, fuel=0):
-
-    printer("stores are:")
-    for loadstation, name in self._stores.items():
-        printer(
-            "  %-2s: %-17s  %2s / %4d / %.1f%s"
-            % (
-                loadstation,
-                name,
-                _class(name),
-                _weight(name),
-                _load(name, fuel=fuel),
-                " / %d" % _fuelcapacity(name) if _class(name) == "FT" else "",
-            )
-        )
-    printer("stores total weight        is %d." % totalweight(self._stores))
-    printer("stores total load          is %d." % totalload(self._stores, fuel=fuel))
-    printer("stores total fuel capacity is %d." % self._storesfuelcapacity())
-    if fuel is not None:
-        printer("stores total fuel          is %.1f." % fuel)
-
-
-################################################################################
-
-
-def _checkstores(stores):
+def _initstores(self, stores):
 
     newstores = {}
 
@@ -214,8 +188,47 @@ def _checkstores(stores):
 
         newstores[loadstation] = name
 
-    return newstores
+    self._stores = newstores
+    
+################################################################################
 
+def _showstores(self):
+
+    if len(self._stores) != 0:
+        self.logwhenwhat("", "stores are:")
+        for loadstation, name in self._stores.items():
+            self.logwhenwhat("",
+                "  %-2s: %-17s  %2s / %4d / %.1f%s"
+                % (
+                    loadstation,
+                    name,
+                    _class(name),
+                    _weight(name),
+                    _load(name, fuel=self.externalfuel()),
+                    " / %d" % _fuelcapacity(name) if _class(name) == "FT" else "",
+                )
+            )
+    
+        self.logwhenwhat("", "stores total weight        is %d." % totalweight(self._stores))
+        self.logwhenwhat("", "stores total load          is %d." % totalload(self._stores, fuel=self.externalfuel()))
+        self.logwhenwhat("", "stores total fuel capacity is %d." % self._storesfuelcapacity())
+        if self.externalfuel() is not None:
+            self.logwhenwhat("", "stores total fuel          is %.1f." % self.externalfuel())
+
+
+################################################################################
+
+def showstores(self, note=None):
+    """
+    Show the aircraft's stores to the log.
+    """
+    aplog.clearerror()
+    try:
+        self._showstores()
+        self.lognote(note)
+    except RuntimeError as e:
+        aplog.logexception(e)
+    self.logbreak()
 
 ################################################################################
 
