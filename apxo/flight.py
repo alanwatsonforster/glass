@@ -1253,6 +1253,9 @@ def _continuenormalflight(A, moves):
         ["", "", None],
     ]
 
+    if moves == "":
+        return
+
     _domoves(
         A,
         moves,
@@ -1319,6 +1322,9 @@ def _continuemissileflight(M, moves):
         ["R", "epilog", lambda A: _domaneuver(A, "R", None, True, False)],
         ["", "", None],
     ]
+    
+    if moves == "":
+        return
 
     _startflightslope(M)
     _domoves(
