@@ -128,12 +128,14 @@ class element:
 
         global _elementlist
 
-        if not isinstance(name, str) and name is not None:
-            raise RuntimeError("the name argument must be a string or None.")
-        if name is not None:
+        if  isinstance(name, str):
             for E in _elementlist:
                 if name == E._name:
                     raise RuntimeError("the name argument must be unique.")
+        elif name is None:
+            name = ""
+        else:
+            raise RuntimeError("the name argument must be a string or None.")
 
         self._name = name
 

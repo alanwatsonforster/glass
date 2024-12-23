@@ -131,8 +131,7 @@ class groundunit(apelement.element):
                 raise RuntimeError("%s is not capable of barrage fire." % self.name())
             self.logwhenwhat(
                 "",
-                "using barrage fire to altitude %d."
-                % self._barragefiremaximumaltitude(),
+                "using barrage fire."
             )
             self._barragefire = apbarragefire.barragefire(
                 *self.xy(),

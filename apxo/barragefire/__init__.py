@@ -26,7 +26,7 @@ class barragefire(apelement.element):
             speed=0,
         )
         
-        self.logwhat("", "barrage fire zone centered on %s extends to altitude %d." % (self.hexcode(), self.altitude()))
+        self.logwhenwhat("", "barrage fire zone centered on %s extends to altitude %d." % (self.hexcode(), self.altitude()))
 
     #############################################################################
 
