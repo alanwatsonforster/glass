@@ -189,6 +189,9 @@ def _initstores(self, stores):
         newstores[loadstation] = name
 
     self._stores = newstores
+    apconfiguration.update(self)
+    
+    self._showstores()
     
 ################################################################################
 

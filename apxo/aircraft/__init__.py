@@ -215,7 +215,6 @@ class aircraft(apelement.element):
                         "total fuel exceeds the internal and external capacity."
                     )
 
-            apconfiguration.update(self)
             self.logwhenwhat("", "configuration is %s." % self._configuration)
 
             self._lowspeedliftdeviceextended = False
