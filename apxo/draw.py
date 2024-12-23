@@ -88,6 +88,8 @@ def _drawhexinphysical(
     linecolor="black",
     linewidth=0.5,
     fillcolor=None,
+    linestyle="solid",
+    rotation=0,
     hatch=None,
     alpha=1.0,
     zorder=1,
@@ -100,10 +102,11 @@ def _drawhexinphysical(
             [x, y],
             6,
             radius=size * 0.5 * math.sqrt(4 / 3),
-            orientation=math.pi / 6,
+            orientation=math.pi / 6 + math.radians(rotation),
             edgecolor=_mapcolor(linecolor),
             facecolor=_mapcolor(fillcolor),
             fill=(fillcolor != None),
+            linestyle=linestyle,
             hatch=hatch,
             linewidth=linewidth,
             alpha=alpha,
@@ -776,38 +779,42 @@ def drawmissile(x, y, facing, color, name, altitude, speed, annotate):
 
 ################################################################################
 
+barragefirelinecolor = ( 0.5, 0.5, 0.5 )
+barragefirelinewidth = 2.0
+barragefirelinestyle = "dotted"
 
 def drawbarragefire(x, y, altitude):
-
-    def drawone(x, y):
-        zorder = altitude + 1.5
-        drawhex(
-            x,
-            y,
-            linecolor=None,
-            linewidth=0,
-            fillcolor=None,
-            hatch="..",
-            alpha=0.2,
-            zorder=zorder,
-        )
-
-    drawone(x, y)
-    for azimuth in [30, 90, 150, 210, 270, 330]:
-        drawone(*aphex.forward(x, y, azimuth))
-
-
-def drawblastzone(x, y, altitude):
-
     zorder = altitude + 1.5
     drawhex(
         x,
         y,
-        linecolor=None,
-        linewidth=0,
+        size=2.0 + math.sqrt(3/4),
+        rotation=30,
+        linecolor=barragefirelinecolor,
         fillcolor=None,
-        hatch="...",
-        alpha=0.2,
+        linestyle=barragefirelinestyle,
+        linewidth=barragefirelinewidth,
+        zorder=zorder,
+    )
+    
+
+
+################################################################################
+
+blastzonelinecolor = ( 0.5, 0.5, 0.5 )
+blastzonelinewidth = 2.0
+blastzonelinestyle = "dotted"
+
+def drawblastzone(x, y, altitude):
+    zorder = altitude + 1.5
+    drawhex(
+        x,
+        y,
+        size=1.15,
+        linecolor=blastzonelinecolor,
+        fillcolor=None,
+        linestyle=blastzonelinestyle,
+        linewidth=blastzonelinewidth,
         zorder=zorder,
     )
 
