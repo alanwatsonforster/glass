@@ -128,7 +128,7 @@ class element:
 
         global _elementlist
 
-        if  isinstance(name, str):
+        if isinstance(name, str):
             for E in _elementlist:
                 if name == E._name:
                     raise RuntimeError("the name argument must be unique.")
@@ -240,7 +240,6 @@ class element:
         self._altitudecarry = altitudecarry
 
     ############################################################################
-
 
     def _startgameturn(self):
         pass

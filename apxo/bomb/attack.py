@@ -30,6 +30,7 @@ def _secondaryattackgroundunit(self, target, result=None):
 
 ################################################################################
 
+
 def blastzone(self, name, note=None):
 
     aplog.clearerror()
@@ -40,5 +41,6 @@ def blastzone(self, name, note=None):
         aplog.logexception(e)
     self.logbreak()
     return blastzone
+
 
 ################################################################################

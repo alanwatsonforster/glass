@@ -129,13 +129,9 @@ class groundunit(apelement.element):
             self._checknotsuppressed()
             if self._barragefirealtitude is None:
                 raise RuntimeError("%s is not capable of barrage fire." % self.name())
-            self.logwhenwhat(
-                "",
-                "using barrage fire."
-            )
+            self.logwhenwhat("", "using barrage fire.")
             self._barragefire = apbarragefire.barragefire(
-                *self.xy(),
-                altitude=self._barragefiremaximumaltitude()
+                *self.xy(), altitude=self._barragefiremaximumaltitude()
             )
             self.lognote(note)
         except RuntimeError as e:

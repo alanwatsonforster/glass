@@ -779,16 +779,17 @@ def drawmissile(x, y, facing, color, name, altitude, speed, annotate):
 
 ################################################################################
 
-barragefirelinecolor = ( 0.5, 0.5, 0.5 )
+barragefirelinecolor = (0.5, 0.5, 0.5)
 barragefirelinewidth = 2.0
 barragefirelinestyle = "dotted"
+
 
 def drawbarragefire(x, y, altitude):
     zorder = altitude + 1.5
     drawhex(
         x,
         y,
-        size=2.0 + math.sqrt(3/4),
+        size=2.0 + math.sqrt(3 / 4),
         rotation=30,
         linecolor=barragefirelinecolor,
         fillcolor=None,
@@ -796,14 +797,14 @@ def drawbarragefire(x, y, altitude):
         linewidth=barragefirelinewidth,
         zorder=zorder,
     )
-    
 
 
 ################################################################################
 
-blastzonelinecolor = ( 0.5, 0.5, 0.5 )
+blastzonelinecolor = (0.5, 0.5, 0.5)
 blastzonelinewidth = 2.0
 blastzonelinestyle = "dotted"
+
 
 def drawblastzone(x, y, altitude):
     zorder = altitude + 1.5

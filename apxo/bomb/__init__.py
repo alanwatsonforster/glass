@@ -51,7 +51,7 @@ class bomb(apelement.element):
     from apxo.bomb.attack import (
         _attackgroundunit,
         _secondaryattackgroundunit,
-        blastzone
+        blastzone,
     )
     from apxo.bomb.draw import _draw
     from apxo.bomb.move import _move, _continuemove

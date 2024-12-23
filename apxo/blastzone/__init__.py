@@ -9,14 +9,10 @@ class blastzone(apelement.element):
 
     ############################################################################
 
-    def __init__(
-        self,
-        name,
-        x, y
-    ):
-    
+    def __init__(self, name, x, y):
+
         self._name = ""
-    
+
         if not isinstance(name, str):
             raise RuntimeError("the name argument must be a string.")
 
@@ -24,13 +20,18 @@ class blastzone(apelement.element):
 
         super().__init__(
             name,
-            x=x, y=y,
+            x=x,
+            y=y,
             azimuth=None,
             altitude=apaltitude.terrainaltitude(x, y) + 2,
             speed=0,
         )
-        
-        self.logwhenwhat("", "blast zone in %s extends to altitude %d." % (self.hexcode(), self.altitude()))
+
+        self.logwhenwhat(
+            "",
+            "blast zone in %s extends to altitude %d."
+            % (self.hexcode(), self.altitude()),
+        )
 
     #############################################################################
 

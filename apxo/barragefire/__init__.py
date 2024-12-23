@@ -9,24 +9,26 @@ class barragefire(apelement.element):
 
     ############################################################################
 
-    def __init__(
-        self,
-        x, y, altitude
-    ):
-    
+    def __init__(self, x, y, altitude):
+
         self._name = ""
-    
+
         self.logwhenwhat("", "creating barrage fire zone.")
 
         super().__init__(
             None,
-            x=x, y=y,
+            x=x,
+            y=y,
             azimuth=None,
             altitude=altitude,
             speed=0,
         )
-        
-        self.logwhenwhat("", "barrage fire zone centered on %s extends to altitude %d." % (self.hexcode(), self.altitude()))
+
+        self.logwhenwhat(
+            "",
+            "barrage fire zone centered on %s extends to altitude %d."
+            % (self.hexcode(), self.altitude()),
+        )
 
     #############################################################################
 
