@@ -9,7 +9,7 @@ import apxo.log as aplog
 ################################################################################
 
 
-def _attackaircraft(self, target, attacktype, result=None, returnfire=False):
+def _attackaircraft(self, target, attacktype, result=None, returnfire=False, note=None):
 
     if not returnfire and apflight.useofweaponsforbidden(self):
         raise RuntimeError(
@@ -18,11 +18,13 @@ def _attackaircraft(self, target, attacktype, result=None, returnfire=False):
 
     apairtoair.attack(self, attacktype, target, result, returnfire=returnfire)
 
+    aplog.lognote(note)
+
 
 ################################################################################
 
 
-def _attackgroundunit(self, target, attacktype, result=None, stores=None):
+def _attackgroundunit(self, target, attacktype, result=None, stores=None, note=None):
 
     attacktype = attacktype.split("/")
 
@@ -63,11 +65,13 @@ def _attackgroundunit(self, target, attacktype, result=None, stores=None):
 
     target._takeattackdamage(self, result)
 
+    aplognote(note)
+
 
 ################################################################################
 
 
-def _secondaryattackgroundunit(self, target, attacktype, result=None):
+def _secondaryattackgroundunit(self, target, attacktype, result=None, note=None):
 
     attacktype = attacktype.split("/")
 
@@ -81,13 +85,13 @@ def _secondaryattackgroundunit(self, target, attacktype, result=None):
 
     target._takeattackdamage(self, result)
 
+    aplognote(note)
 
 ################################################################################
 
 
 def bomb(self, name, target, stores=None, note=None):
 
-    aplog.clearerror()
     try:
         if isinstance(target, str):
             aphexcode.checkisvalidhexcodeforcenter(target)

@@ -67,7 +67,6 @@ class aircraft(apelement.element):
 
         self._name = ""
 
-        aplog.clearerror()
         try:
 
             if not isinstance(name, str):
@@ -332,7 +331,6 @@ class aircraft(apelement.element):
         Return fire, either with fixed guns or articulated guns.
         """
 
-        aplog.clearerror()
         try:
 
             apgameturn.checkingameturn()
@@ -382,7 +380,6 @@ class aircraft(apelement.element):
 
         # TODO: Check we are in the visual sighting phase.
 
-        aplog.clearerror()
         try:
             apgameturn.checkingameturn()
             apvisualsighting.padlock(self, other, note=note)
@@ -397,7 +394,6 @@ class aircraft(apelement.element):
         Attempt to sight another aircraft.
         """
 
-        aplog.clearerror()
         try:
             apgameturn.checkingameturn()
             apvisualsighting.attempttosight(self, other, success=None, note=None)
@@ -491,7 +487,6 @@ class aircraft(apelement.element):
         Show the geometry of the other aircraft with respect to the aircraft.
         """
 
-        aplog.clearerror()
         try:
             apgameturn.checkingameturn()
             showgeometry(self, other, note=None)
@@ -587,7 +582,6 @@ class aircraft(apelement.element):
     ##############################################################################
 
     def hasbeenkilled(self, note=None):
-        aplog.clearerror()
         try:
             apgameturn.checkingameturn()
             self._log("has been killed.")
@@ -618,7 +612,6 @@ class aircraft(apelement.element):
     ################################################################################
 
     def joincloseformation(self, other):
-        aplog.clearerror()
         try:
             apcloseformation.join(self, other)
         except RuntimeError as e:
@@ -626,7 +619,6 @@ class aircraft(apelement.element):
         self.logbreak()
 
     def leavecloseformation(self):
-        aplog.clearerror()
         try:
             apcloseformation.leave(self)
         except RuntimeError as e:
@@ -652,7 +644,6 @@ class aircraft(apelement.element):
         # ET. However, we assume that SSGT has the same restrictions as
         # attacks.
 
-        aplog.clearerror()
         try:
 
             if apflight.useofweaponsforbidden(self):
@@ -694,7 +685,6 @@ class aircraft(apelement.element):
 
         M = None
 
-        aplog.clearerror()
         try:
 
             if not self._finishedmoving:

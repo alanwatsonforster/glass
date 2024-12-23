@@ -5,6 +5,7 @@ startfile(__file__, "missile speed")
 # LO altitude band
 
 starttestsetup()
+starttestsetup()
 A1 = aircraft(
     "A1",
     "AF",

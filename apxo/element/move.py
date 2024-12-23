@@ -10,7 +10,6 @@ import apxo.log as aplog
 
 
 def move(self, *args, note=None, **kwargs):
-    aplog.clearerror()
     try:
         apgameturn.checkingameturn()
         self._checknotkilled()
@@ -26,7 +25,6 @@ def move(self, *args, note=None, **kwargs):
 
 
 def continuemove(self, *args, note=None, **kwargs):
-    aplog.clearerror()
     try:
         apgameturn.checkingameturn()
         self._checknotkilled()

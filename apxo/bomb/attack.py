@@ -33,7 +33,6 @@ def _secondaryattackgroundunit(self, target, result=None):
 
 def blastzone(self, name, note=None):
 
-    aplog.clearerror()
     try:
         blastzone = apblastzone.blastzone(name, *self.xy())
         aplog.lognote(note)

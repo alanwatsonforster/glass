@@ -25,7 +25,6 @@ def _stoptracking(self, target, *args, **kwargs):
 
 
 def track(self, target, *args, **kwargs):
-    aplog.clearerror()
     try:
         if not target.isaircraft():
             raise RuntimeError("invalid target for tracking.")
@@ -40,7 +39,6 @@ def track(self, target, *args, **kwargs):
 
 
 def stoptracking(self):
-    aplog.clearerror()
     try:
         if self._tracking is None:
             raise RuntimeError("%s is not tracking" % self.name())

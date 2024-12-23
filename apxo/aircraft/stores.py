@@ -262,7 +262,6 @@ def showstores(self, note=None):
     """
     Show the aircraft's stores to the log.
     """
-    aplog.clearerror()
     try:
         self._showstores()
         self.lognote(note)
@@ -352,7 +351,6 @@ def _release(self, released):
 
 
 def release(self, *args):
-    aplog.clearerror()
     try:
         self._release(*args)
     except RuntimeError as e:

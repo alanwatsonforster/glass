@@ -51,7 +51,6 @@ def damageatmost(self, damage):
 
 
 def takedamage(self, damage, note=None):
-    aplog.clearerror()
     try:
         self.logwhenwhat("", "%s takes %s damage." % (self.name(), damage))
         if self.killed():

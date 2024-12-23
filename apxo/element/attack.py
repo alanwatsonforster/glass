@@ -49,7 +49,6 @@ def _secondaryattackgroundunit(self, target, *args, **kwargs):
 
 
 def attack(self, target, *args, **kwargs):
-    aplog.clearerror()
     try:
         if isinstance(target, str):
             aphexcode.checkisvalidhexcodeforcenter(target)
@@ -66,7 +65,6 @@ def attack(self, target, *args, **kwargs):
 
 
 def secondaryattack(self, target, *args, **kwargs):
-    aplog.clearerror()
     try:
         if isinstance(target, str):
             aphexcode.checkisvalidhexcodeforcenter(target)

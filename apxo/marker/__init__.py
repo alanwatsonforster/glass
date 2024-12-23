@@ -24,7 +24,6 @@ class marker(apelement.element):
 
         self._name = ""
 
-        aplog.clearerror()
         try:
 
             if not isinstance(name, str) and name is not None:

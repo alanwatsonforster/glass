@@ -145,6 +145,10 @@ def clearerror():
     _error = None
 
 
+def error():
+    return _error
+
+
 def logexception(e):
     global _error
     _error = str(e.args[0])

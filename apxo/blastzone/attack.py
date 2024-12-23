@@ -3,7 +3,7 @@ import apxo.geometry as apgeometry
 #############################################################################
 
 
-def _attackaircraft(self, target, result=None):
+def _attackaircraft(self, target, result=None, note=None):
 
     if not apgeometry.samehorizontalposition(self, target):
         raise RuntimeError("target not at the position of the blast zone.")
@@ -13,5 +13,6 @@ def _attackaircraft(self, target, result=None):
 
     target._takeattackdamage(self, result)
 
+    aplognote(note)
 
 #############################################################################

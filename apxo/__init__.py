@@ -77,12 +77,14 @@ def endgamesetup():
     End the game set-up.
     """
 
-    aplog.clearerror()
     try:
 
         apelement._endgamesetup()
 
         aplog.logwhat("end of game set-up.")
+
+        if aplog.error() is not None:
+            raise RuntimeError("unresolved error at end of game setup: %s" % aplog.error())
 
         apgameturn.endgamesetup()
 
@@ -140,7 +142,6 @@ def endgameturn(note=None):
     End the current turn.
     """
 
-    aplog.clearerror()
     try:
 
         apelement._endgameturn()
@@ -148,10 +149,14 @@ def endgameturn(note=None):
         aplog.logwhat("end of game turn.")
         aplog.lognote(None, note)
 
+        if aplog.error() is not None:
+            raise RuntimeError("unresolved error at end of game turn: %s" % aplog.error())
+
         apgameturn.endgameturn()
 
     except RuntimeError as e:
         aplog.logexception(e)
+            
     aplog.logbreak()
 
 
@@ -159,7 +164,6 @@ def endgameturn(note=None):
 
 
 def startvisualsighting():
-    aplog.clearerror()
     try:
         apgameturn.checkinturn()
         apvisualsighting.startvisualsighting(),
@@ -169,7 +173,6 @@ def startvisualsighting():
 
 
 def endvisualsighting():
-    aplog.clearerror()
     try:
         apgameturn.checkinturn()
         apvisualsighting.endvisualsighting(),
@@ -182,7 +185,6 @@ def endvisualsighting():
 
 
 def settraining(training):
-    aplog.clearerror()
     try:
         apgameturn.checkinsetup()
         aporder.settraining(training)
@@ -195,7 +197,6 @@ def settraining(training):
 
 
 def orderofflightdeterminationphase(rolls, firstkill=None, mostkills=None):
-    aplog.clearerror()
     try:
         apgameturn.checkinturn()
         aporder.orderofflightdeterminationphase(
@@ -242,7 +243,6 @@ def drawmap(
     use their value.
     """
 
-    aplog.clearerror()
     try:
 
         if zoom:

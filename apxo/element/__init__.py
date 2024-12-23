@@ -278,7 +278,6 @@ class element:
         self._killed = True
 
     def kill(self, note=None):
-        aplog.clearerror()
         try:
             apgameturn.checkingameturn()
             self.logcomment("has been killed.")
@@ -292,7 +291,6 @@ class element:
         self._removed = True
 
     def remove(self, note=None):
-        aplog.clearerror()
         try:
             apgameturn.checkingameturn()
             self.logcomment("has been removed.")

@@ -15,7 +15,7 @@ def _initattack(self):
 ################################################################################
 
 
-def _attackaircraft(self, target, result=None):
+def _attackaircraft(self, target, result=None, note=None):
 
     if self.isusingbarragefire():
 
@@ -53,6 +53,7 @@ def _attackaircraft(self, target, result=None):
 
     target._takeattackdamage(self, result)
 
+    aplognote(note)
 
 ################################################################################
 
@@ -64,7 +65,6 @@ def isusingbarragefire(self):
 
 def usebarragefire(self, note=None):
     "Use barrage fire."
-    aplog.clearerror()
     try:
         apgameturn.checkingameturn()
         self._checknotkilled()
@@ -99,7 +99,6 @@ def isusingplottedfire(self):
 
 def useplottedfire(self, hexcode, altitude, note=None):
     "Use plotted fire."
-    aplog.clearerror()
     try:
         apgameturn.checkingameturn()
         self._checknotkilled()
