@@ -37,6 +37,17 @@ class bomb(apelement.element):
 
     ############################################################################
 
+    def position(self):
+        hexcode = self.hexcode()
+        if hexcode is None:
+            hexcode = "-------"
+        azimuth = self.azimuth()
+        if azimuth is None:
+            azimuth = "---"
+        return "%-12s  %-3s" % (hexcode, azimuth)
+
+    ############################################################################
+
     from apxo.bomb.attack import (
         _attackgroundunit,
         _secondaryattackgroundunit,
