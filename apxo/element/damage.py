@@ -58,6 +58,8 @@ def takedamage(self, damage, note=None):
             self.logwhenwhat("", "%s is already killed." % self.name())
             return
         previousdamage = self.damage()
+        if previousdamage == "":
+            previousdamage = "none"
         self._takedamage(damage)
         if previousdamage == self.damage():
             self.logwhenwhat(
