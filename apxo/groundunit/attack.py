@@ -8,11 +8,23 @@ def _attackaircraft(self, target, result=None):
     if self.isusingbarragefire():
 
         if apgeometry.horizontalrange(self, target) > 1:
-            raise RuntimeError("target is out of range of barrage fire.")
+            raise RuntimeError("target is out of range of the barrage fire.")
         if target.altitude() > self._barragefiremaximumaltitude():
-            raise RuntimeError("target is above barrage fire.")
+            raise RuntimeError("target is above the barrage fire.")
         self.logwhenwhat(
             "", "%s attacks %s with barrage fire." % (self.name(), target.name())
+        )
+
+    elif self.isusingplottedfire():
+
+        if apgeometry.horizontalrange(self._plottedfire, target) > 1:
+            raise RuntimeError("target is out of range of the plotted fire.")
+        if target.altitude() < self._plottedfire.altitude() - 2:
+            raise RuntimeError("target is below the plotted fire.")
+        if target.altitude() > self._plottedfire.altitude() + 2:
+            raise RuntimeError("target is above the plotted fire.")
+        self.logwhenwhat(
+            "", "%s attacks %s with plotted fire." % (self.name(), target.name())
         )
 
     else:
