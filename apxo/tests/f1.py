@@ -4,7 +4,7 @@ startfile(__file__, "stalled flight")
 
 # Stalled flight
 
-starttestsetup(verbose=False)
+starttestsetup()
 A1 = aircraft("A1", "AF", "F-80C", "A1-1914", "N", 10, 1.0, configuration="DT")
 A2 = aircraft("A2", "AF", "F-80C", "A1-2114", "N", 3, 1.0, configuration="DT")
 A3 = aircraft("A3", "AF", "F-80C", "A1-2314", "N", 2, 1.0, configuration="DT")
@@ -35,7 +35,7 @@ endgameturn()
 
 # Check releaseing.
 
-starttestsetup(verbose=False)
+starttestsetup()
 A1 = aircraft(
     "A1",
     "AF",
