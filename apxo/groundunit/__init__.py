@@ -15,6 +15,36 @@ def aslist(withkilled=False):
 
 ################################################################################
 
+keywordsdict = {
+    "infantry": { 
+        "symbols": "infantry", 
+        "aaaclass": "B", 
+        "maximumaltitude": 2 
+    },
+    "ZPU-1": {
+        "symbols": "airdefense/gun/light", 
+        "aaaclass": "L", 
+        "maximumaltitude": 6
+    },
+    "ZPU-4": {
+        "symbols": "airdefense/gun/light", 
+        "aaaclass": "L", 
+        "maximumaltitude": 6
+    },
+    "ZU-23": {
+        "symbols": "airdefense/gun/light", 
+        "aaaclass": "L", 
+        "maximumaltitude": 9
+    },
+    "S-60": {
+        "symbols": "airdefense/gun/medium", 
+        "aaaclass": "M", 
+        "maximumaltitude": 18
+    },
+}
+    
+################################################################################
+
 
 class groundunit(apelement.element):
 
@@ -24,12 +54,12 @@ class groundunit(apelement.element):
         self,
         name,
         hexcode,
-        symbols="",
-        color="white",
+        typename=None,
+        symbols=None,
         maximumaltitude=None,
         aaaclass=None,
-        canuseplottedfire=False,
         stack=None,
+        color="white",
     ):
 
         self._name = ""
@@ -39,6 +69,18 @@ class groundunit(apelement.element):
             if not isinstance(name, str):
                 raise RuntimeError("the name argument must be a string.")
             self.logwhenwhat("", "creating ground unit %s." % name)
+            
+            if typename is not None:
+                self.logwhenwhat("", "type is %s." % typename)
+                if typename not in keywordsdict:
+                    raise RuntimeError("invalid ground unit type \"%s\"." % typename)
+                keywords = keywordsdict[typename]
+                if symbols is None and "symbols" in keywords:
+                    symbols = keywords["symbols"]
+                if aaaclass is None and "aaaclass" in keywords:
+                    aaaclass = keywords["aaaclass"]
+                if maximumaltitude is None and "maximumaltitude" in keywords:
+                    maximumaltitude = keywords["maximumaltitude"]
 
             super().__init__(
                 name,

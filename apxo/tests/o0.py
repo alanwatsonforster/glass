@@ -92,17 +92,24 @@ endtestsetup()
 
 starttestsetup()
 
-groundunit("invalid", "A1-2110", "foo")
+groundunit("invalid", "A1-2110", symbols="foo")
 asserterror('invalid ground unit symbol "foo".')
 
-groundunit(1, "A1-2110", "infantry")
+groundunit(1, "A1-2110", symbols="infantry")
 asserterror("the name argument must be a string.")
 
-groundunit("A", "A1-2110", "infantry")
-groundunit("A", "A1-2110", "infantry")
+groundunit("A", "A1-2110", symbols="infantry")
+groundunit("A", "A1-2110", symbols="infantry")
 asserterror("the name argument must be unique.")
 
+starttestsetup()
 
-endtestsetup()
+G0 = groundunit("G0", "A1-2110", "infantry")
+assert G0.isgroundunit()
+G1 = groundunit("G1", "A1-2110", "ZPU-1")
+assert G1.isgroundunit()
+
+groundunit("invalid", "A1-2110", "foo")
+asserterror('invalid ground unit type "foo".')
 
 endfile(__file__)
