@@ -26,11 +26,11 @@ class blastzone(apelement.element):
             name,
             x=x, y=y,
             azimuth=None,
-            altitude=apaltitude.terrainaltitude(x, y),
+            altitude=apaltitude.terrainaltitude(x, y) + 2,
             speed=0,
         )
         
-        self.logwhenwhat("", "blast zone in %s extends to altitude %d." % (self.hexcode(), self.altitude() + 2))
+        self.logwhenwhat("", "blast zone in %s extends to altitude %d." % (self.hexcode(), self.altitude()))
 
     #############################################################################
 
