@@ -171,6 +171,7 @@ def _storestotalfuelcapacity(self):
 
 ################################################################################
 
+
 def _initstores(self, stores):
 
     newstores = {}
@@ -186,8 +187,10 @@ def _initstores(self, stores):
 
     self._showstores()
     self._updateconfiguration()
-    
+
+
 ################################################################################
+
 
 def _updateconfiguration(self):
     """
@@ -215,14 +218,17 @@ def _updateconfiguration(self):
     else:
         self._configuration = "DT"
 
+
 ################################################################################
+
 
 def _showstores(self):
 
     if len(self._stores) != 0:
         self.logwhenwhat("", "stores are:")
         for loadstation, name in self._stores.items():
-            self.logwhenwhat("",
+            self.logwhenwhat(
+                "",
                 "  %-2s: %-17s  %2s / %4d / %.1f%s"
                 % (
                     loadstation,
@@ -231,17 +237,26 @@ def _showstores(self):
                     _weight(name),
                     _load(name, storesfuel=self.storesfuel()),
                     " / %d" % _fuelcapacity(name) if _class(name) == "FT" else "",
-                )
+                ),
             )
-    
-        self.logwhenwhat("", "stores total weight        is %d." % self._storestotalweight())
-        self.logwhenwhat("", "stores total load          is %d." % self._storestotalload())
-        self.logwhenwhat("", "stores total fuel capacity is %d." % self._storestotalfuelcapacity())
+
+        self.logwhenwhat(
+            "", "stores total weight        is %d." % self._storestotalweight()
+        )
+        self.logwhenwhat(
+            "", "stores total load          is %d." % self._storestotalload()
+        )
+        self.logwhenwhat(
+            "", "stores total fuel capacity is %d." % self._storestotalfuelcapacity()
+        )
         if self.storesfuel() is not None:
-            self.logwhenwhat("", "stores total fuel          is %.1f." % self.storesfuel())
+            self.logwhenwhat(
+                "", "stores total fuel          is %.1f." % self.storesfuel()
+            )
 
 
 ################################################################################
+
 
 def showstores(self, note=None):
     """
@@ -254,6 +269,7 @@ def showstores(self, note=None):
     except RuntimeError as e:
         aplog.logexception(e)
     self.logbreak()
+
 
 ################################################################################
 
@@ -296,32 +312,44 @@ def _release(self, released):
     stores = self._stores
 
     for releaseditem in releasedlist:
-    
+
         if releaseditem[0] in "0123456789":
             loadstation = releaseditem
             if loadstation not in stores.keys():
                 raise RuntimeError("load station %s is not loaded." % loadstation)
             loadstationlist = [loadstation]
         else:
-            loadstationlist = list(filter(lambda loadstation: stores[loadstation].startswith(releaseditem), stores.keys()))
+            loadstationlist = list(
+                filter(
+                    lambda loadstation: stores[loadstation].startswith(releaseditem),
+                    stores.keys(),
+                )
+            )
             if len(loadstationlist) == 0:
-                raise RuntimeError("no load stations are loaded with %s." % releaseditem)
+                raise RuntimeError(
+                    "no load stations are loaded with %s." % releaseditem
+                )
 
         for loadstation in loadstationlist:
-            self.logwhenwhat("", 
-                "%s releases %s on load station %s." % (self.name(), stores[loadstation], loadstation)
+            self.logwhenwhat(
+                "",
+                "%s releases %s on load station %s."
+                % (self.name(), stores[loadstation], loadstation),
             )
             del stores[loadstation]
-            
+
     self._updateconfiguration()
 
     if self._configuration != previousconfiguration:
-       self.logwhenwhat("", 
+        self.logwhenwhat(
+            "",
             "configuration changes from %s to %s."
-            % (previousconfiguration, self._configuration)
+            % (previousconfiguration, self._configuration),
         )
 
+
 ################################################################################
+
 
 def release(self, *args):
     aplog.clearerror()
@@ -330,5 +358,6 @@ def release(self, *args):
     except RuntimeError as e:
         aplog.logexception(e)
     self.logbreak()
+
 
 ################################################################################

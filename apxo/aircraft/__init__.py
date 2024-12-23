@@ -201,9 +201,8 @@ class aircraft(apelement.element):
                 self._configuration = configuration
 
             else:
-            
-                self._initstores(stores)
 
+                self._initstores(stores)
 
                 if (
                     self.fuel() is not None
@@ -755,6 +754,16 @@ class aircraft(apelement.element):
 
     from apxo.aircraft.move import _move, _continuemove
 
-    from apxo.aircraft.stores import _initstores, _updateconfiguration, _storestotalweight, _storestotalload, _storestotalfuelcapacity, _showstores, showstores, _release, release
+    from apxo.aircraft.stores import (
+        _initstores,
+        _updateconfiguration,
+        _storestotalweight,
+        _storestotalload,
+        _storestotalfuelcapacity,
+        _showstores,
+        showstores,
+        _release,
+        release,
+    )
 
     ############################################################################
