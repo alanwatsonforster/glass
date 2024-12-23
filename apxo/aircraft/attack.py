@@ -20,7 +20,7 @@ def _attackaircraft(self, target, attacktype, result=None, returnfire=False):
 ################################################################################
 
 
-def _attackgroundunit(self, target, attacktype, result=None):
+def _attackgroundunit(self, target, attacktype, result=None, stores=None):
 
     attacktype = attacktype.split("/")
 
@@ -29,6 +29,8 @@ def _attackgroundunit(self, target, attacktype, result=None):
         raise RuntimeError("invalid weapon.")
 
     if weapon == "GN":
+        if stores is not None:
+            raise RuntimeError("stores cannot be specified for GN attacks.")
         for s in attacktype[1:]:
             if s not in ["SS"]:
                 raise RuntimeError("invalid attack type.")
@@ -40,6 +42,9 @@ def _attackgroundunit(self, target, attacktype, result=None):
             if self._gunammunition < 1.0:
                 raise RuntimeError("insuffient gun ammunition.")
             self._gunammunition -= 1.0
+    else:
+        if stores is None:
+            raise RuntimeError("stores must be specified for %s attacks." % weapon)
 
     self.logwhenwhat(
         "", "%s attacks %s with %s." % (self.name(), target.name(), weapon)
@@ -51,6 +56,8 @@ def _attackgroundunit(self, target, attacktype, result=None):
 
     if weapon == "GN":
         self.logwhenwhat("", "gun ammunition is now %.1f." % self._gunammunition)
+    else:
+        self._release(stores)
 
     target._takeattackdamage(self, result)
 
