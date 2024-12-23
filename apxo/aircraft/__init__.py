@@ -4,7 +4,6 @@ import apxo.altitude as apaltitude
 import apxo.azimuth as apazimuth
 import apxo.capabilities as apcapabilities
 import apxo.closeformation as apcloseformation
-import apxo.configuration as apconfiguration
 import apxo.element as apelement
 import apxo.flight as apflight
 import apxo.gameturn as apgameturn
@@ -480,7 +479,7 @@ class aircraft(apelement.element):
 
     def externalfuelcapacity(self):
         """Return the external fuel capacity."""
-        return self._storesfuelcapacity()
+        return self._storestotalfuelcapacity()
 
     #############################################################################
 
@@ -711,7 +710,7 @@ class aircraft(apelement.element):
                 self._stores, loadstation, printer=lambda s: self.logcomment(s)
             )
 
-            apconfiguration.update(self)
+            self._updateconfiguration()
 
             if failedbeforelaunch:
                 self.logcomment("launch failed but missile not lost.")
@@ -756,6 +755,6 @@ class aircraft(apelement.element):
 
     from apxo.aircraft.move import _move, _continuemove
 
-    from apxo.aircraft.stores import _initstores, _storesfuelcapacity, _showstores, showstores, _release, release
+    from apxo.aircraft.stores import _initstores, _updateconfiguration, _storestotalweight, _storestotalload, _storestotalfuelcapacity, _showstores, showstores, _release, release
 
     ############################################################################

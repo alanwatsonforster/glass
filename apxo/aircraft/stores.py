@@ -1,7 +1,6 @@
 ################################################################################
 
 import apxo.log as aplog
-import apxo.configuration as apconfiguration
 
 ################################################################################
 
@@ -147,23 +146,23 @@ def _fuelcapacity(storename):
 ################################################################################
 
 
-def totalweight(stores):
+def _storestotalweight(self):
     totalweight = 0
-    for loadstation, storename in stores.items():
+    for loadstation, storename in self._stores.items():
         totalweight += _weight(storename)
     return totalweight
 
 
-def totalload(stores, fuel=0):
+def _storestotalload(self):
     totalload = 0
-    for loadstation, storename in stores.items():
-        totalload += _load(storename, fuel=fuel)
+    for loadstation, storename in self._stores.items():
+        totalload += _load(storename, fuel=self.externalfuel())
     # Round down. See 4.3.
     totalload = int(totalload)
     return totalload
 
 
-def _storesfuelcapacity(self):
+def _storestotalfuelcapacity(self):
     totalfuelcapacity = 0
     for loadstation, storename in self._stores.items():
         totalfuelcapacity += _fuelcapacity(storename)
@@ -175,24 +174,47 @@ def _storesfuelcapacity(self):
 def _initstores(self, stores):
 
     newstores = {}
-
     for loadstation, name in stores.items():
-
         if isinstance(loadstation, int):
             loadstation = str(loadstation)
         if not isinstance(loadstation, str):
             raise RuntimeError("invalid load station %r." % loadstation)
-
         if name not in _storedict:
             raise RuntimeError("invalid store %r." % name)
-
         newstores[loadstation] = name
-
     self._stores = newstores
-    apconfiguration.update(self)
-    
+
     self._showstores()
+    self._updateconfiguration()
     
+################################################################################
+
+def _updateconfiguration(self):
+    """
+    Updated the configuration based on the current stores.
+    """
+
+    # If no stores are specified, do nothing.
+    if self._stores == None:
+        return
+
+    assert self._aircraftdata.hasstoreslimits()
+
+    # See rule 4.2 and 4.3.
+
+    totalweight = self._storestotalweight()
+    totalload = self._storestotalload()
+
+    if totalweight > self._aircraftdata.storeslimit("DT"):
+        raise RuntimeError("total stores weight exceeds the aircraft capacity.")
+
+    if totalload <= self._aircraftdata.storeslimit("CL"):
+        self._configuration = "CL"
+    elif totalload <= self._aircraftdata.storeslimit("1/2"):
+        self._configuration = "1/2"
+    else:
+        self._configuration = "DT"
+
 ################################################################################
 
 def _showstores(self):
@@ -212,9 +234,9 @@ def _showstores(self):
                 )
             )
     
-        self.logwhenwhat("", "stores total weight        is %d." % totalweight(self._stores))
-        self.logwhenwhat("", "stores total load          is %d." % totalload(self._stores, fuel=self.externalfuel()))
-        self.logwhenwhat("", "stores total fuel capacity is %d." % self._storesfuelcapacity())
+        self.logwhenwhat("", "stores total weight        is %d." % self._storestotalweight())
+        self.logwhenwhat("", "stores total load          is %d." % self._storestotalload())
+        self.logwhenwhat("", "stores total fuel capacity is %d." % self._storestotalfuelcapacity())
         if self.externalfuel() is not None:
             self.logwhenwhat("", "stores total fuel          is %.1f." % self.externalfuel())
 
@@ -291,7 +313,7 @@ def _release(self, released):
             )
             del stores[loadstation]
             
-    apconfiguration.update(self)
+    self._updateconfiguration()
 
     if self._configuration != previousconfiguration:
        self.logwhenwhat("", 

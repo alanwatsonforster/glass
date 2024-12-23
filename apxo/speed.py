@@ -1,7 +1,6 @@
 import math
 
 import apxo.capabilities as apcapabilities
-import apxo.configuration as apconfiguration
 import apxo.gameturn as apgameturn
 import apxo.variants as apvariants
 
@@ -593,7 +592,7 @@ def _endaircraftspeed(A):
         if previousexternalfuel > 0 and A.externalfuel() == 0:
             A.logcomment("external fuel is exhausted.")
             previousconfiguration = A._configuration
-            apconfiguration.update(A)
+            A._updateconfiguration()
             if A._configuration != previousconfiguration:
                 A.logcomment(
                     "changed configuration from %s to %s."
