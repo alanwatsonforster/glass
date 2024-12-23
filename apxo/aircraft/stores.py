@@ -253,40 +253,33 @@ def _release(self, released):
         releasedlist = [released]
     else:
         releasedlist = released
+    releasedlist = list(str(releaseditem) for releaseditem in releasedlist)
 
     stores = self._stores
-    newstores = stores.copy()
 
     for releaseditem in releasedlist:
-
-        def _releaseloadstation(loadstation):
-            if loadstation not in stores:
+    
+        if releaseditem[0] in "0123456789":
+            loadstation = releaseditem
+            if loadstation not in stores.keys():
                 raise RuntimeError("load station %s is not loaded." % loadstation)
-            self.logwhenwhat("", 
-                "releasing %s on load station %s." % (stores[loadstation], loadstation)
-            )
-            del newstores[loadstation]
-
-        if isinstance(releaseditem, int):
-            _releaseloadstation(str(releaseditem))
-        elif releaseditem[0] in "0123456789":
-            _releaseloadstation(releaseditem)
+            loadstationlist = [loadstation]
         else:
-            found = False
-            for loadstation, name in stores.items():
-                if name.startswith(releaseditem):
-                    _releaseloadstation(loadstation)
-                    found = True
-            if not found:
-                raise RuntimeError("no load stations loaded with %s." % releaseditem)
+            loadstationlist = list(filter(lambda loadstation: stores[loadstation].startswith(releaseditem), stores.keys()))
+            if len(loadstationlist) == 0:
+                raise RuntimeError("no load stations are loaded with %s." % releaseditem)
 
-    self._stores = newstores
-
+        for loadstation in loadstationlist:
+            self.logwhenwhat("", 
+                "%s releases %s on load station %s." % (self.name(), stores[loadstation], loadstation)
+            )
+            del stores[loadstation]
+            
     apconfiguration.update(self)
 
     if self._configuration != previousconfiguration:
        self.logwhenwhat("", 
-            "configuration changed from %s to %s."
+            "configuration changes from %s to %s."
             % (previousconfiguration, self._configuration)
         )
 
