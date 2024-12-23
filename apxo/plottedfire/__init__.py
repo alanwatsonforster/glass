@@ -5,7 +5,7 @@ import apxo.log as aplog
 ##############################################################################
 
 
-class barragefire(apelement.element):
+class plottedfire(apelement.element):
 
     ############################################################################
 
@@ -13,7 +13,7 @@ class barragefire(apelement.element):
 
         self._name = ""
 
-        self.logwhenwhat("", "creating barrage fire zone.")
+        self.logwhenwhat("", "creating plotted fire zone.")
 
         super().__init__(
             None,
@@ -25,22 +25,12 @@ class barragefire(apelement.element):
 
         self.logwhenwhat(
             "",
-            "barrage fire zone centered on %s extends to altitude %d."
-            % (self.hexcode(), self.altitude()),
+            "plotted fire zone centered on %s extending from altitude %d to %d."
+            % (self.hexcode(), min(0, self.altitude() - 2), self.altitude() + 2)
         )
-
-    #############################################################################
-
-    def isbarragefire(self):
-        return True
-
-    #############################################################################
-
-    def _endgameturn(self):
-        self._remove()
 
     ############################################################################
 
-    from apxo.barragefire.draw import _draw
+    from apxo.plottedfire.draw import _draw
 
     ############################################################################

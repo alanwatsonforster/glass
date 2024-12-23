@@ -2,6 +2,7 @@ import apxo.element as apelement
 import apxo.gameturn as apgameturn
 import apxo.log as aplog
 import apxo.barragefire as apbarragefire
+import apxo.plottedfire as applottedfire
 
 ##############################################################################
 
@@ -28,6 +29,7 @@ class groundunit(apelement.element):
         symbols="",
         color="white",
         barragefirealtitude=None,
+        canuseplottedfire=False,
         stack=None,
     ):
 
@@ -86,6 +88,8 @@ class groundunit(apelement.element):
 
             self._barragefire = None
             self._barragefirealtitude = barragefirealtitude
+            self._plottedfire = None
+            self._canuseplottedfire = canuseplottedfire
 
         except RuntimeError as e:
             aplog.logexception(e)
@@ -131,7 +135,7 @@ class groundunit(apelement.element):
                 raise RuntimeError("%s is not capable of barrage fire." % self.name())
             self.logwhenwhat("", "using barrage fire.")
             self._barragefire = apbarragefire.barragefire(
-                *self.xy(), altitude=self._barragefiremaximumaltitude()
+                self.hexcode(), altitude=self._barragefiremaximumaltitude()
             )
             self.lognote(note)
         except RuntimeError as e:
@@ -141,6 +145,41 @@ class groundunit(apelement.element):
     def _barragefiremaximumaltitude(self):
         "Return the maximum altitude of barrage fire."
         return self.altitude() + self._barragefirealtitude
+
+    ############################################################################
+
+    def isusingplottedfire(self):
+        "Return true if the ground unit it using plotted fire otherwise return false."
+        return self._plottedfire is not None
+
+    def stopusingplottedfire(self):
+        "Stop using plotted fire."
+        if self.isusingplottedfire():
+            self._plottedfire._remove()
+            self._plottedfire = None
+
+    def useplottedfire(self, hexcode, altitude, note=None):
+        "Use plotted fire."
+        aplog.clearerror()
+        try:
+            apgameturn.checkingameturn()
+            self._checknotkilled()
+            self._checknotremoved()
+            self._checknotsuppressed()
+            if not self._canuseplottedfire:
+                raise RuntimeError("%s is not capable of plotted fire." % self.name())
+            self.logwhenwhat("", "using plotted fire.")
+            self._plottedfire = applottedfire.plottedfire(
+                hexcode, altitude
+            )
+            self.lognote(note)
+        except RuntimeError as e:
+            aplog.logexception(e)
+        self.logbreak()
+
+    def _plottedfiremaximumaltitude(self):
+        "Return the maximum altitude of plotted fire."
+        return self.altitude() + self._plottedfirealtitude
 
     ############################################################################
 

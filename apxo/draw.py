@@ -801,6 +801,28 @@ def drawbarragefire(x, y, altitude):
 
 ################################################################################
 
+plottedfirelinecolor = (0.5, 0.5, 0.5)
+plottedfirelinewidth = 2.0
+plottedfirelinestyle = "dashed"
+
+
+def drawplottedfire(x, y, altitude):
+    zorder = altitude + 3.5
+    drawhex(
+        x,
+        y,
+        size=2.0 + math.sqrt(3 / 4),
+        rotation=30,
+        linecolor=plottedfirelinecolor,
+        fillcolor=None,
+        linestyle=plottedfirelinestyle,
+        linewidth=plottedfirelinewidth,
+        zorder=zorder,
+    )
+
+
+################################################################################
+
 blastzonelinecolor = (0.5, 0.5, 0.5)
 blastzonelinewidth = 2.0
 blastzonelinestyle = "dotted"
