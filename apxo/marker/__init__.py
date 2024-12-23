@@ -28,7 +28,7 @@ class marker(apelement.element):
             if not isinstance(name, str) and name is not None:
                 raise RuntimeError("the name argument must be a string or None.")
 
-            if not type in ["dot", "circle", "square", "blastzone", "barragefire"]:
+            if not type in ["dot", "circle", "square", "barragefire"]:
                 raise RuntimeError("invalid marker type.")
 
             if not silent:

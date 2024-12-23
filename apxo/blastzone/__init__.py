@@ -1,36 +1,40 @@
-import apxo.azimuth as apazimuth
+import apxo.altitude as apaltitude
 import apxo.element as apelement
 import apxo.log as aplog
 
 ##############################################################################
 
 
-class bomb(apelement.element):
+class blastzone(apelement.element):
 
     ############################################################################
 
-    def __init__(self, name, hexcode, facing, altitude, stores=None):
-
+    def __init__(
+        self,
+        name,
+        x, y
+    ):
+    
         self._name = ""
-
+    
         if not isinstance(name, str):
             raise RuntimeError("the name argument must be a string.")
 
-        self.logwhenwhat("", "creating bomb %s." % name)
+        self.logwhenwhat("", "creating blast zone %s." % name)
 
         super().__init__(
             name,
-            hexcode=hexcode,
-            azimuth=apazimuth.fromfacing(facing),
-            altitude=altitude,
+            x=x, y=y,
+            azimuth=None,
+            altitude=apaltitude.terrainaltitude(x, y),
             speed=0,
         )
-
-        self.logposition("")
+        
+        self.logwhenwhat("", "blast zone in %s extends to altitude %d." % (self.hexcode(), self.altitude() + 2))
 
     #############################################################################
 
-    def isbomb(self):
+    def ismarker(self):
         return True
 
     #############################################################################
@@ -39,16 +43,11 @@ class bomb(apelement.element):
         pass
 
     def _endgameturn(self):
-        pass
+        self._remove()
 
     ############################################################################
 
-    from apxo.bomb.attack import (
-        _attackgroundunit,
-        _secondaryattackgroundunit,
-        blastzone
-    )
-    from apxo.bomb.draw import _draw
-    from apxo.bomb.move import _move, _continuemove
+    from apxo.blastzone.attack import _attackaircraft
+    from apxo.blastzone.draw import _draw
 
     ############################################################################

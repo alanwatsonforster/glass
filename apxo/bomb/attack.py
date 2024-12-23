@@ -1,5 +1,6 @@
 ################################################################################
 
+import apxo.blastzone as apblastzone
 import apxo.geometry as apgeometry
 import apxo.log as aplog
 
@@ -26,5 +27,18 @@ def _secondaryattackgroundunit(self, target, result=None):
 
     target._takeattackdamage(self, result)
 
+
+################################################################################
+
+def blastzone(self, name, note=None):
+
+    aplog.clearerror()
+    try:
+        blastzone = apblastzone.blastzone(name, *self.xy())
+        aplog.lognote(note)
+    except RuntimeError as e:
+        aplog.logexception(e)
+    self.logbreak()
+    return blastzone
 
 ################################################################################

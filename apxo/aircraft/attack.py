@@ -97,11 +97,12 @@ def bomb(self, name, target, stores=None, note=None):
         else:
             raise RuntimeError("invalid target.")
         self._release(stores)
-        newbomb = apbomb.bomb(name, self.hexcode(), self.facing(), self.altitude())
+        bomb = apbomb.bomb(name, self.hexcode(), self.facing(), self.altitude())
+        aplog.lognote(note)
     except RuntimeError as e:
         aplog.logexception(e)
     self.logbreak()
-    return newbomb
+    return bomb
 
 
 ################################################################################
