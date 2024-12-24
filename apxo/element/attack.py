@@ -25,20 +25,12 @@ def _attackendgameturn(self):
 ################################################################################
 
 
-def _attackterrain(self, target, *args, **kwargs):
-    raise RuntimeError("%s cannot attack ground targets." % self.name())
-
-
 def _attackgroundunit(self, target, *args, **kwargs):
     raise RuntimeError("%s cannot attack ground targets." % self.name())
 
 
 def _attackaircraft(self, target, *args, **kwargs):
     raise RuntimeError("%s cannot attack aircraft." % self.name())
-
-
-def _secondaryattackterrain(self, target, *args, **kwargs):
-    raise RuntimeError("%s cannot attack ground targets." % self.name())
 
 
 def _secondaryattackgroundunit(self, target, *args, **kwargs):
@@ -50,10 +42,7 @@ def _secondaryattackgroundunit(self, target, *args, **kwargs):
 
 def attack(self, target, *args, **kwargs):
     try:
-        if isinstance(target, str):
-            aphexcode.checkisvalidhexcodeforcenter(target)
-            self._attackterrain(target, *args, **kwargs)
-        elif target.isaircraft():
+        if target.isaircraft():
             self._attackaircraft(target, *args, **kwargs)
         elif target.isgroundunit():
             self._attackgroundunit(target, *args, **kwargs)
@@ -66,10 +55,7 @@ def attack(self, target, *args, **kwargs):
 
 def secondaryattack(self, target, *args, **kwargs):
     try:
-        if isinstance(target, str):
-            aphexcode.checkisvalidhexcodeforcenter(target)
-            self._secondaryattackterrain(target, *args, **kwargs)
-        elif target.isgroundunit():
+        if target.isgroundunit():
             self._secondaryattackgroundunit(target, *args, **kwargs)
         else:
             raise RuntimeError("invalid target.")

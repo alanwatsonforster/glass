@@ -573,10 +573,8 @@ class element:
     from apxo.element.attack import (
         _attackstartgameturn,
         _attackendgameturn,
-        _attackterrain,
         _attackgroundunit,
         _attackaircraft,
-        _secondaryattackterrain,
         _secondaryattackgroundunit,
         attack,
         secondaryattack,

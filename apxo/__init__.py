@@ -27,6 +27,7 @@ __all__ = [
     "aircraft",
     "bomb",
     "groundunit",
+    "hexgroundunit",
     "marker",
     "missile",
 ]
@@ -320,4 +321,5 @@ def drawmap(
 
 from apxo.aircraft import aircraft
 from apxo.groundunit import groundunit
+from apxo.groundunit import hexgroundunit
 from apxo.marker import marker

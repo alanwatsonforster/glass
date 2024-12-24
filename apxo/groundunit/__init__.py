@@ -19,7 +19,6 @@ from apxo.groundunit.data import _loaddata
 
 ################################################################################
 
-
 class groundunit(apelement.element):
 
     ############################################################################
@@ -92,6 +91,7 @@ class groundunit(apelement.element):
                     "railcar",
                     "barge",
                     "truck",
+                    "hex",
                 ]:
                     raise RuntimeError('invalid ground unit symbol "%s".' % symbol)
 
@@ -174,4 +174,10 @@ class groundunit(apelement.element):
         _stoptracking,
     )
 
-    ############################################################################
+################################################################################
+
+def hexgroundunit(hexcode):
+    return groundunit(hexcode, hexcode, symbols="hex")
+
+################################################################################
+

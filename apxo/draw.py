@@ -1489,17 +1489,18 @@ def _drawgroundunitinphysical(x0, y0, symbols, color, name, stack, killed):
             linewidth=groundunitlinewidth,
             zorder=zorder,
         )
-
-    _drawrectangleinphysical(
-        x - groundunitdx / 2,
-        y - groundunitdy / 2,
-        x + groundunitdx / 2,
-        y + groundunitdy / 2,
-        linewidth=groundunitlinewidth,
-        fillcolor=fillcolor,
-        linecolor=None,
-        zorder=zorder,
-    )
+        
+    if "hex" not in symbols:
+        _drawrectangleinphysical(
+            x - groundunitdx / 2,
+            y - groundunitdy / 2,
+            x + groundunitdx / 2,
+            y + groundunitdy / 2,
+            linewidth=groundunitlinewidth,
+            fillcolor=fillcolor,
+            linecolor=None,
+            zorder=zorder,
+        )
 
     # Draw missile and air defences first, since air defense missile is
     # different to surface-to-surface missile.
@@ -1558,44 +1559,58 @@ def _drawgroundunitinphysical(x0, y0, symbols, color, name, stack, killed):
     if "heavy" in symbols:
         drawheavysymbol()
 
-    _drawrectangleinphysical(
-        x - groundunitdx / 2,
-        y - groundunitdy / 2,
-        x + groundunitdx / 2,
-        y + groundunitdy / 2,
-        linewidth=groundunitlinewidth,
-        fillcolor=None,
-        linecolor=linecolor,
-        zorder=zorder,
-    )
+    if "hex" not in symbols:
 
-    if not killed:
-        if x >= x0:
-            _drawtextinphysical(
-                x,
-                y,
-                90,
-                name,
-                dx=groundunitdx / 2 - 0.05,
-                dy=-0.01,
-                size=aircrafttextsize,
-                color=textcolor,
-                alignment="left",
-                zorder=zorder,
-            )
-        else:
-            _drawtextinphysical(
-                x,
-                y,
-                90,
-                name,
-                dx=-groundunitdx / 2 + 0.05,
-                dy=-0.01,
-                size=aircrafttextsize,
-                color=textcolor,
-                alignment="right",
-                zorder=zorder,
-            )
+        _drawrectangleinphysical(
+            x - groundunitdx / 2,
+            y - groundunitdy / 2,
+            x + groundunitdx / 2,
+            y + groundunitdy / 2,
+            linewidth=groundunitlinewidth,
+            fillcolor=None,
+            linecolor=linecolor,
+            zorder=zorder,
+        )
+    
+        if not killed:
+            if x >= x0:
+                _drawtextinphysical(
+                    x,
+                    y,
+                    90,
+                    name,
+                    dx=groundunitdx / 2 - 0.05,
+                    dy=-0.01,
+                    size=aircrafttextsize,
+                    color=textcolor,
+                    alignment="left",
+                    zorder=zorder,
+                )
+            else:
+                _drawtextinphysical(
+                    x,
+                    y,
+                    90,
+                    name,
+                    dx=-groundunitdx / 2 + 0.05,
+                    dy=-0.01,
+                    size=aircrafttextsize,
+                    color=textcolor,
+                    alignment="right",
+                    zorder=zorder,
+                )
+
+    else:
+
+        _drawhexinphysical(
+            x,
+            y,
+            size=0.9,
+            linewidth=groundunitlinewidth,
+            fillcolor=None,
+            linecolor=linecolor,
+            zorder=zorder,
+        )
 
 
 ################################################################################
