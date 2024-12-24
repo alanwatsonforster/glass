@@ -1,0 +1,19 @@
+// From TSOH
+{
+    "name": "M-38",
+    "description": "M-38 37 mm air defense battery",
+    "symbols": "airdefense/gun/medium",
+    "aaaclass": "M",
+    "aaarange": [
+        4,
+        8,
+        11
+    ],
+    "aaahitroll": [
+        3,
+        2,
+        1
+    ],
+    "aaadamagerating": 4,
+    "aaamaximumrelativealtitude": 12
+}

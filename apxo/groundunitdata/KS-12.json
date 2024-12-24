@@ -1,0 +1,19 @@
+// From TSOH
+{
+    "name": "KS-12",
+    "description": "KS-12 85 mm air defense battery",
+    "symbols": "airdefense/gun/heavy",
+    "aaaclass": "H",
+    "aaarange": [
+        6,
+        12,
+        18
+    ],
+    "aaahitroll": [
+        2,
+        1,
+        0
+    ],
+    "aaadamagerating": 6,
+    "aaamaximumrelativealtitude": 27
+}
