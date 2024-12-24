@@ -1,8 +1,19 @@
+// From TSOH
 {
     "name": "ZU-23",
     "description": "ZU-23 twin 23 mm air defense battery",
-    "symbols": "airdefense/gun/light", 
-    "aaaclass": "L", 
+    "symbols": "airdefense/gun/light",
+    "aaaclass": "L",
+    "aaarange": [
+        2,
+        5,
+        8
+    ],
+    "aaahitroll": [
+        4,
+        3,
+        3
+    ],
+    "aaadamagerating": 2,
     "maximumaltitude": 9
 }
-

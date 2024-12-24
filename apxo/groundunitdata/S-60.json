@@ -1,7 +1,19 @@
+// From TSOH
 {
     "name": "S-60",
     "description": "S-60 57 mm air defense battery",
     "symbols": "airdefense/gun/medium",
-    "aaaclass": "M", 
+    "aaaclass": "M",
+    "aaarange": [
+        5,
+        10,
+        15
+    ],
+    "aaahitroll": [
+        2,
+        2,
+        1
+    ],
+    "aaadamagerating": 5,
     "maximumaltitude": 18
 }

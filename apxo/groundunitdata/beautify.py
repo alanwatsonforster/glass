@@ -35,6 +35,3 @@ for path in pathlist:
             if commenttext != "":
                 print(commenttext, file=outputfile)
             print(jsontext, file=outputfile)
-    
-        
-            

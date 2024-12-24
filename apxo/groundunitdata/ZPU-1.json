@@ -1,7 +1,19 @@
+// From TSOH
 {
     "name": "ZPU-1",
     "description": "ZPU-1 14.5 mm air defense battery",
-    "symbols": "airdefense/gun/light", 
-    "aaaclass": "L", 
+    "symbols": "airdefense/gun/light",
+    "aaaclass": "L",
+    "aaarange": [
+        2,
+        3,
+        5
+    ],
+    "aaahitroll": [
+        3,
+        2,
+        1
+    ],
+    "aaadamagerating": 1,
     "maximumaltitude": 6
 }

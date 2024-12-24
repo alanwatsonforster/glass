@@ -1,8 +1,19 @@
+// From TSOH
 {
     "name": "ZPU-4",
     "description": "ZPU-4 quad 14.5 mm defense gun battery",
-    "symbols": "airdefense/gun/light", 
-    "aaaclass": "L", 
-    "maximumaltitude": 26
+    "symbols": "airdefense/gun/light",
+    "aaaclass": "L",
+    "aaarange": [
+        2,
+        3,
+        5
+    ],
+    "aaahitroll": [
+        4,
+        3,
+        2
+    ],
+    "aaadamagerating": 2,
+    "maximumaltitude": 6
 }
-

@@ -1,7 +1,7 @@
-{ 
+{
     "name": "infantry",
     "description": "infantry platoon",
-    "symbols": "infantry", 
-    "aaaclass": "B", 
-    "maximumaltitude": 2 
+    "symbols": "infantry",
+    "aaaclass": "B",
+    "maximumaltitude": 2
 }
