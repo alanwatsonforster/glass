@@ -61,14 +61,11 @@ def takedamage(self, damage, note=None):
             previousdamage = "none"
         self._takedamage(damage)
         if previousdamage == self.damage():
-            self.logwhenwhat(
-                "", "damage is unchanged at %s." % previousdamage
-            )
+            self.logwhenwhat("", "damage is unchanged at %s." % previousdamage)
         else:
             self.logwhenwhat(
                 "",
-                "damage changes from %s to %s."
-                % (previousdamage, self.damage()),
+                "damage changes from %s to %s." % (previousdamage, self.damage()),
             )
             if self.damage() == "K":
                 self._kill()
@@ -118,14 +115,11 @@ def _takeattackdamage(self, attacker, result):
             previousdamage = "none"
         self._takedamage(result)
         if previousdamage == self.damage():
-            self.logwhenwhat(
-                "", "damage is unchanged at %s." % previousdamage
-            )
+            self.logwhenwhat("", "damage is unchanged at %s." % previousdamage)
         else:
             self.logwhenwhat(
                 "",
-                "damage changes from %s to %s."
-                % (previousdamage, self.damage()),
+                "damage changes from %s to %s." % (previousdamage, self.damage()),
             )
             if self.damage() == "K":
                 self._kill()

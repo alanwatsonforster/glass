@@ -50,16 +50,12 @@ def _attackgroundunit(self, target, attacktype, result=None, stores=None, note=N
         if stores is None:
             raise RuntimeError("stores must be specified for %s attacks." % weapon)
 
-    self.logwhenwhat(
-        "", "attacks %s with %s." % (target.name(), weapon)
-    )
+    self.logwhenwhat("", "attacks %s with %s." % (target.name(), weapon))
     if target is not self._aimingtarget:
         raise RuntimeError("%s is not aiming at %s." % (self.name(), target.name()))
 
     self.logcomment("range to target is %d." % apgeometry.range(self, target))
-    self.logcomment(
-        "altitude to target is %d." % (target.altitude() - self.altitude())
-    )
+    self.logcomment("altitude to target is %d." % (target.altitude() - self.altitude()))
 
     if weapon == "GN":
         self.logwhenwhat("", "gun ammunition is now %.1f." % self._gunammunition)
@@ -83,9 +79,7 @@ def _secondaryattackgroundunit(self, target, attacktype, result=None, note=None)
     if weapon not in ["GN", "RK", "RP"]:
         raise RuntimeError("invalid weapon.")
 
-    self.logwhenwhat(
-        "", "attacks %s with %s (secondary)." % (target.name(), weapon)
-    )
+    self.logwhenwhat("", "attacks %s with %s (secondary)." % (target.name(), weapon))
 
     target._takeattackdamage(self, result)
 

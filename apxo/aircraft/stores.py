@@ -332,8 +332,7 @@ def _release(self, released):
         for loadstation in loadstationlist:
             self.logwhenwhat(
                 "",
-                "releases %s on load station %s."
-                % (stores[loadstation], loadstation),
+                "releases %s on load station %s." % (stores[loadstation], loadstation),
             )
             del stores[loadstation]
 

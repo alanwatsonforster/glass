@@ -59,9 +59,7 @@ def _attackaircraft(self, target, result=None, note=None):
 
     if self.isusingbarragefire():
 
-        self.logwhenwhat(
-            "", "attacks %s with barrage fire." % target.name()
-        )
+        self.logwhenwhat("", "attacks %s with barrage fire." % target.name())
         if apgeometry.horizontalrange(self, target) > 1:
             raise RuntimeError("target is outside the barrage fire zone.")
         if target.altitude() > self._aaamaximumaltitude():
@@ -69,9 +67,7 @@ def _attackaircraft(self, target, result=None, note=None):
 
     elif self.isusingplottedfire():
 
-        self.logwhenwhat(
-            "", "attacks %s with plotted fire." % target.name()
-        )
+        self.logwhenwhat("", "attacks %s with plotted fire." % target.name())
         if apgeometry.horizontalrange(self._plottedfire, target) > 1:
             raise RuntimeError("target is outside the plotted fire zone.")
         if target.altitude() < self._plottedfire.altitude() - 2:
@@ -81,9 +77,7 @@ def _attackaircraft(self, target, result=None, note=None):
 
     else:
 
-        self.logwhenwhat(
-            "", "attacks %s with aimed fire." % target.name()
-        )
+        self.logwhenwhat("", "attacks %s with aimed fire." % target.name())
         if self._aaarange is None:
             raise RuntimeError("%s is not an air-defense gun unit." % self.name())
         if self._outofammunition:

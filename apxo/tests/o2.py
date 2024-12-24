@@ -4,18 +4,36 @@ startfile(__file__, "ground unit barrage fire")
 
 starttestsetup()
 
-G0 = groundunit("G0", "A1-2110", symbols="infantry", aaaclass="B", aaamaximumrelativealtitude=2)
-G1 = groundunit("G1", "A1-2110", symbols="infantry", aaaclass="B", aaamaximumrelativealtitude=2)
-G2 = groundunit("G2", "A1-2110", symbols="armor", aaaclass="B", aaamaximumrelativealtitude=3)
+G0 = groundunit(
+    "G0", "A1-2110", symbols="infantry", aaaclass="B", aaamaximumrelativealtitude=2
+)
+G1 = groundunit(
+    "G1", "A1-2110", symbols="infantry", aaaclass="B", aaamaximumrelativealtitude=2
+)
+G2 = groundunit(
+    "G2", "A1-2110", symbols="armor", aaaclass="B", aaamaximumrelativealtitude=3
+)
 G3 = groundunit("G3", "A1-2110", symbols="artillery")
 G4 = groundunit(
-    "G4", "A1-2110", symbols="airdefense/gun", aaaclass="L", aaamaximumrelativealtitude=9
+    "G4",
+    "A1-2110",
+    symbols="airdefense/gun",
+    aaaclass="L",
+    aaamaximumrelativealtitude=9,
 )
 G5 = groundunit(
-    "G5", "A1-2110", symbols="airdefense/gun", aaaclass="M", aaamaximumrelativealtitude=18
+    "G5",
+    "A1-2110",
+    symbols="airdefense/gun",
+    aaaclass="M",
+    aaamaximumrelativealtitude=18,
 )
 G6 = groundunit(
-    "G6", "A1-2110", symbols="airdefense/gun", aaaclass="H", aaamaximumrelativealtitude=27
+    "G6",
+    "A1-2110",
+    symbols="airdefense/gun",
+    aaaclass="H",
+    aaamaximumrelativealtitude=27,
 )
 
 A0 = aircraft("A0", "USAF", "F-100A", "A1-2110", "E", 2, 3)
