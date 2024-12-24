@@ -163,6 +163,6 @@ class groundunit(apelement.element):
     )
 
     from apxo.groundunit.draw import _draw
-    from apxo.groundunit.track import _track, _stoptracking
+    from apxo.groundunit.track import _maximumtrackingrange, _track, _stoptracking
 
     ############################################################################

@@ -47,7 +47,7 @@ def _aaamaximumaltitude(self):
     if self._aaamaximumrelativealtitude is None:
         return None
     else:
-        return self.altitude() + self._aaamaximumrelativealtitude
+        return self.altitude() + self._aaamaximumrelativealtitude    
 
 ################################################################################
 
@@ -92,13 +92,13 @@ def _attackaircraft(self, target, result=None, note=None):
         rangeclass = self._aaarangeclass(range)
         if rangeclass is None:
             self.logcomment("range to target is %d." % range)
-            raise RuntimeError("%s is beyond maximum range of %d." % (target.name(), self._aaamaximumrange()))
+            raise RuntimeError("%s is beyond the maximum range of %d." % (target.name(), self._aaamaximumrange()))
         self.logcomment("range to target is %d (%s)." % (range, rangeclass))
         self.logcomment(
             "altitude to target is %d." % (target.altitude() - self.altitude())
         )
         if target.altitude() > self._aaamaximumaltitude():
-            raise RuntimeError("%s is above maximum altitude of %d." % (target.name(), self._aaamaximumaltitude()))
+            raise RuntimeError("%s is above the maximum altitude of %d." % (target.name(), self._aaamaximumaltitude()))
             
 
     target._takeattackdamage(self, result)
