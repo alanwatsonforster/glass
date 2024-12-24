@@ -1,0 +1,7 @@
+{
+    "name": "S-60",
+    "description": "S-60 57 mm air defense battery",
+    "symbols": "airdefense/gun/medium",
+    "aaaclass": "M", 
+    "maximumaltitude": 18
+}

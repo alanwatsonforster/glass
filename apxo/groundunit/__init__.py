@@ -15,36 +15,9 @@ def aslist(withkilled=False):
 
 ################################################################################
 
-keywordsdict = {
-    "infantry": { 
-        "symbols": "infantry", 
-        "aaaclass": "B", 
-        "maximumaltitude": 2 
-    },
-    "ZPU-1": {
-        "symbols": "airdefense/gun/light", 
-        "aaaclass": "L", 
-        "maximumaltitude": 6
-    },
-    "ZPU-4": {
-        "symbols": "airdefense/gun/light", 
-        "aaaclass": "L", 
-        "maximumaltitude": 6
-    },
-    "ZU-23": {
-        "symbols": "airdefense/gun/light", 
-        "aaaclass": "L", 
-        "maximumaltitude": 9
-    },
-    "S-60": {
-        "symbols": "airdefense/gun/medium", 
-        "aaaclass": "M", 
-        "maximumaltitude": 18
-    },
-}
-    
-################################################################################
+from apxo.groundunit.data import _loaddata
 
+################################################################################
 
 class groundunit(apelement.element):
 
@@ -54,7 +27,7 @@ class groundunit(apelement.element):
         self,
         name,
         hexcode,
-        typename=None,
+        type=None,
         symbols=None,
         maximumaltitude=None,
         aaaclass=None,
@@ -70,25 +43,15 @@ class groundunit(apelement.element):
                 raise RuntimeError("the name argument must be a string.")
             self.logwhenwhat("", "creating ground unit %s." % name)
             
-            if typename is not None:
-                self.logwhenwhat("", "type is %s." % typename)
-                if typename not in keywordsdict:
-                    raise RuntimeError("invalid ground unit type \"%s\"." % typename)
-                keywords = keywordsdict[typename]
-                if symbols is None and "symbols" in keywords:
-                    symbols = keywords["symbols"]
-                if aaaclass is None and "aaaclass" in keywords:
-                    aaaclass = keywords["aaaclass"]
-                if maximumaltitude is None and "maximumaltitude" in keywords:
-                    maximumaltitude = keywords["maximumaltitude"]
-
-            super().__init__(
-                name,
-                hexcode=hexcode,
-                altitude=None,
-                speed=0,
-                color=color,
-            )
+            if type is not None:
+                self.logwhenwhat("", "type is %s." % type)
+                data = _loaddata(type)
+                if symbols is None and "symbols" in data:
+                    symbols = data["symbols"]
+                if aaaclass is None and "aaaclass" in data:
+                    aaaclass = data["aaaclass"]
+                if maximumaltitude is None and "maximumaltitude" in data:
+                    maximumaltitude = data["maximumaltitude"]
 
             if isinstance(symbols, str):
                 symbols = symbols.split("/")
@@ -121,12 +84,22 @@ class groundunit(apelement.element):
                     "truck",
                 ]:
                     raise RuntimeError('invalid ground unit symbol "%s".' % symbol)
+
+            if aaaclass not in [None, "B", "L", "M", "H"]:
+                raise RuntimeError("invalid aaaclass %r." % aaaclass)
+
+            super().__init__(
+                name,
+                hexcode=hexcode,
+                altitude=None,
+                speed=0,
+                color=color,
+            )
+
             self._symbols = symbols
             self._stack = stack
 
             self._maximumaltitude = maximumaltitude
-            if aaaclass not in [None, "B", "L", "M", "H"]:
-                raise RuntimeError("invalid aaaclass %r." % aaaclass)
             self._aaaclass = aaaclass
 
             self._initattack()

@@ -1,0 +1,8 @@
+{
+    "name": "ZU-23",
+    "description": "ZU-23 twin 23 mm air defense battery",
+    "symbols": "airdefense/gun/light", 
+    "aaaclass": "L", 
+    "maximumaltitude": 9
+}
+

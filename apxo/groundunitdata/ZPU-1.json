@@ -1,0 +1,7 @@
+{
+    "name": "ZPU-1",
+    "description": "ZPU-1 14.5 mm air defense battery",
+    "symbols": "airdefense/gun/light", 
+    "aaaclass": "L", 
+    "maximumaltitude": 6
+}

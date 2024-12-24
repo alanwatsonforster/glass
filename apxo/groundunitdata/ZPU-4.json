@@ -1,0 +1,8 @@
+{
+    "name": "ZPU-4",
+    "description": "ZPU-4 quad 14.5 mm defense gun battery",
+    "symbols": "airdefense/gun/light", 
+    "aaaclass": "L", 
+    "maximumaltitude": 26
+}
+
