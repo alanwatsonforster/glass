@@ -61,7 +61,9 @@ class groundunit(apelement.element):
                     and "aaamaximumrelativealtitude" in data
                 ):
                     aaamaximumrelativealtitude = data["aaamaximumrelativealtitude"]
-
+                    
+            if symbols is None:
+                raise RuntimeError("invalid symbols argument.")
             if isinstance(symbols, str):
                 symbols = symbols.split("/")
             for symbol in symbols:
