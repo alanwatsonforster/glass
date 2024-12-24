@@ -216,6 +216,8 @@ class aircraft(apelement.element):
 
             self._lowspeedliftdeviceextended = False
             self._minspeed = apcapabilities.minspeed(self)
+            
+            self._initaim
 
         except RuntimeError as e:
             aplog.logexception(e)
@@ -724,6 +726,8 @@ class aircraft(apelement.element):
         return M
 
     ############################################################################
+
+    from apxo.aircraft.aim import _initaim, aim, stopaiming
 
     from apxo.aircraft.attack import (
         _attackaircraft,
