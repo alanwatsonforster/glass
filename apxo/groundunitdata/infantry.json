@@ -3,5 +3,5 @@
     "description": "infantry platoon",
     "symbols": "infantry",
     "aaaclass": "B",
-    "maximumaltitude": 2
+    "aaamaximumrelativealtitude": 2
 }

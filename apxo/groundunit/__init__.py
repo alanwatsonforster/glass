@@ -29,8 +29,10 @@ class groundunit(apelement.element):
         hexcode,
         type=None,
         symbols=None,
-        maximumaltitude=None,
         aaaclass=None,
+        aaarange=None,
+        aaadamagerating=None,
+        aaamaximumrelativealtitude=None,
         stack=None,
         color="white",
     ):
@@ -50,8 +52,12 @@ class groundunit(apelement.element):
                     symbols = data["symbols"]
                 if aaaclass is None and "aaaclass" in data:
                     aaaclass = data["aaaclass"]
-                if maximumaltitude is None and "maximumaltitude" in data:
-                    maximumaltitude = data["maximumaltitude"]
+                if aaarange is None and "aaarange" in data:
+                    aaarange = data["aaarange"]
+                if aaadamagerating is None and "aaadamagerating" in data:
+                    aaadamagerating = data["aaadamagerating"]
+                if aaamaximumrelativealtitude is None and "aaamaximumrelativealtitude" in data:
+                    aaamaximumrelativealtitude = data["aaamaximumrelativealtitude"]
 
             if isinstance(symbols, str):
                 symbols = symbols.split("/")
@@ -99,8 +105,10 @@ class groundunit(apelement.element):
             self._symbols = symbols
             self._stack = stack
 
-            self._maximumaltitude = maximumaltitude
             self._aaaclass = aaaclass
+            self._aaarange= aaarange
+            self._aaamaximumrelativealtitude = aaamaximumrelativealtitude
+            self._aaadamagerating = aaadamagerating
 
             self._initattack()
             self._inittracking()
@@ -130,6 +138,9 @@ class groundunit(apelement.element):
     from apxo.groundunit.attack import (
         _initattack,
         _endgameturnattack,
+        _aaarangeclass,
+        _aaamaximumrange,
+        _aaamaximumaltitude,
         _attackaircraft,
         usebarragefire,
         stopusingbarragefire,
