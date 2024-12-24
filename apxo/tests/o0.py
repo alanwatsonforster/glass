@@ -19,7 +19,7 @@ for s in [
     "ammunition",
     "fuel",
     "ordnance",
-    "headquarter",
+    "headquarters",
     "light",
     "medium",
     "heavy",
@@ -61,7 +61,7 @@ for s in [
     "airdefense/gun/armor/medium",
     "airdefense/missile/wheeled",
     "airdefense/missile/armor",
-    "airdefense/headquarter",
+    "airdefense/headquarters",
 ]:
     hexcode = "A1-%02d%02d" % (x, y)
     groundunit(s, hexcode, s, color="lightgreen")

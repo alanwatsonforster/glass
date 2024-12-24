@@ -78,7 +78,7 @@ class groundunit(apelement.element):
                     "ammunition",
                     "fuel",
                     "ordnance",
-                    "headquarter",
+                    "headquarters",
                     "light",
                     "medium",
                     "heavy",

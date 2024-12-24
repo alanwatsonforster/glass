@@ -913,41 +913,41 @@ def _drawgroundunitinphysical(x0, y0, symbols, color, name, stack, killed):
     stackdy = 0.07
 
     if stack == "1/2":
-        x = x0 + 1.0 * stackdx
-        y = y0 + 1.5 * stackdy
-        zorder = 0.1
-    elif stack == "2/2":
         x = x0 - 1.0 * stackdx
         y = y0 - 1.5 * stackdy
         zorder = 0.2
-    elif stack == "1/3":
+    elif stack == "2/2":
         x = x0 + 1.0 * stackdx
         y = y0 + 1.5 * stackdy
         zorder = 0.1
+    elif stack == "1/3":
+        x = x0 + 1.0 * stackdx
+        y = y0 - 1.5 * stackdy
+        zorder = 0.3
     elif stack == "2/3":
         x = x0 - 1.0 * stackdx
         y = y0
         zorder = 0.2
     elif stack == "3/3":
         x = x0 + 1.0 * stackdx
-        y = y0 - 1.5 * stackdy
-        zorder = 0.3
-    elif stack == "1/4":
-        x = x0 + 1.0 * stackdx
         y = y0 + 1.5 * stackdy
         zorder = 0.1
-    elif stack == "2/4":
-        x = x0 - 1.0 * stackdx
-        y = y0 + 0.5 * stackdy
-        zorder = 0.2
-    elif stack == "3/4":
-        x = x0 + 1.0 * stackdx
-        y = y0 - 0.5 * stackdy
-        zorder = 0.3
-    elif stack == "4/4":
+    elif stack == "1/4":
         x = x0 - 1.0 * stackdx
         y = y0 - 1.5 * stackdy
         zorder = 0.4
+    elif stack == "2/4":
+        x = x0 + 1.0 * stackdx
+        y = y0 - 0.5 * stackdy
+        zorder = 0.3
+    elif stack == "3/4":
+        x = x0 - 1.0 * stackdx
+        y = y0 + 0.5 * stackdy
+        zorder = 0.2
+    elif stack == "4/4":
+        x = x0 + 1.0 * stackdx
+        y = y0 + 1.5 * stackdy
+        zorder = 0.1
     else:
         x = x0
         y = y0
@@ -1312,7 +1312,7 @@ def _drawgroundunitinphysical(x0, y0, symbols, color, name, stack, killed):
             zorder=zorder,
         )
 
-    def drawheadquartersymbol():
+    def drawheadquarterssymbol():
         fy = 0.25
         _drawlinesinphysical(
             [x - 0.5 * groundunitdx, x + 0.5 * groundunitdx],
@@ -1509,8 +1509,8 @@ def _drawgroundunitinphysical(x0, y0, symbols, color, name, stack, killed):
         drawreconnaissancesymbol()
     if "supply" in symbols:
         drawsupplysymbol()
-    if "headquarter" in symbols:
-        drawheadquartersymbol()
+    if "headquarters" in symbols:
+        drawheadquarterssymbol()
     if "transportation" in symbols:
         drawtransportationsymbol()
     if "radar" in symbols:
