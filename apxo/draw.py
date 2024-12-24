@@ -1108,7 +1108,7 @@ def _drawgroundunitinphysical(x0, y0, symbols, color, name, stack, killed):
             )
 
     def drawmissilesymbol():
-        fx = 0.1
+        fx = 0.07
         fy0 = -0.5
         fy1 = 0.3
         theta = range(0, 181)
@@ -1125,16 +1125,6 @@ def _drawgroundunitinphysical(x0, y0, symbols, color, name, stack, killed):
         _drawlinesinphysical(
             list([x + dx(theta) for theta in theta]),
             list([y + dy(theta) for theta in theta]),
-            linecolor=linecolor,
-            linewidth=groundunitlinewidth,
-            zorder=zorder,
-        )
-        _drawlinesinphysical(
-            [x, x],
-            [
-                y + fy0 * groundunitdy,
-                y + fy1 * groundunitdy,
-            ],
             linecolor=linecolor,
             linewidth=groundunitlinewidth,
             zorder=zorder,
