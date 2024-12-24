@@ -98,19 +98,31 @@ def aslist(withkilled=False):
 
 
 def _xminforzoom(withkilled=False):
-    return min([min(E.x(), E._path.xmin()) for E in aslist(withkilled=withkilled)])
+    if len(aslist(withkilled=withkilled)) == 0:
+        return None
+    else:
+        return min([min(E.x(), E._path.xmin()) for E in aslist(withkilled=withkilled)])
 
 
 def _xmaxforzoom(withkilled=False):
-    return max([max(E.x(), E._path.xmax()) for E in aslist(withkilled=withkilled)])
+    if len(aslist(withkilled=withkilled)) == 0:
+        return None
+    else:
+        return max([max(E.x(), E._path.xmax()) for E in aslist(withkilled=withkilled)])
 
 
 def _yminforzoom(withkilled=False):
-    return min([min(E._y, E._path.ymin()) for E in aslist(withkilled=withkilled)])
+    if len(aslist(withkilled=withkilled)) == 0:
+        return None
+    else:
+        return min([min(E._y, E._path.ymin()) for E in aslist(withkilled=withkilled)])
 
 
 def _ymaxforzoom(withkilled=False):
-    return max([max(E._y, E._path.ymax()) for E in aslist(withkilled=withkilled)])
+    if len(aslist(withkilled=withkilled)) == 0:
+        return None
+    else:
+        return max([max(E._y, E._path.ymax()) for E in aslist(withkilled=withkilled)])
 
 
 ##############################################################################

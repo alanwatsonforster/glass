@@ -256,11 +256,15 @@ def drawmap(
             xmax = apelement._xmaxforzoom(withkilled=zoomincludeskilled)
             ymin = apelement._yminforzoom(withkilled=zoomincludeskilled)
             ymax = apelement._ymaxforzoom(withkilled=zoomincludeskilled)
-
-            xmin = math.floor(xmin) - zoomborder
-            ymin = math.floor(ymin) - zoomborder
-            xmax = math.ceil(xmax) + zoomborder
-            ymax = math.ceil(ymax) + zoomborder
+            
+            if xmin is not None:
+                xmin = math.floor(xmin) - zoomborder
+            if ymin is not None:
+                ymin = math.floor(ymin) - zoomborder
+            if xmax is not None:
+                xmax = math.ceil(xmax) + zoomborder
+            if ymax is not None:
+                ymax = math.ceil(ymax) + zoomborder
 
         apmap.startdrawmap(
             xmin=xmin,
