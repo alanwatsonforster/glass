@@ -55,7 +55,7 @@ def _attackgroundunit(self, target, attacktype, result=None, stores=None, note=N
     )
     if target is not self._aimingtarget:
         raise RuntimeError("%s is not aiming at %s." % (self.name(), target.name()))
-        
+
     self.logwhenwhat("", "range to target is %d." % apgeometry.range(self, target))
     self.logwhenwhat(
         "", "altitude to target is %d." % (target.altitude() - self.altitude())

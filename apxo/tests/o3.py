@@ -8,9 +8,15 @@ G0 = groundunit("G0", "A1-2120", symbols="infantry", aaaclass="B", maximumaltitu
 G1 = groundunit("G1", "A1-2120", symbols="infantry", aaaclass="B", maximumaltitude=2)
 G2 = groundunit("G2", "A1-2120", symbols="armor", aaaclass="B", maximumaltitude=3)
 G3 = groundunit("G3", "A1-2120", symbols="artillery")
-G4 = groundunit("G4", "A1-2120", symbols="airdefense/gun", aaaclass="L", maximumaltitude=9)
-G5 = groundunit("G5", "A1-2120", symbols="airdefense/gun", aaaclass="M", maximumaltitude=18)
-G6 = groundunit("G6", "A1-2120", symbols="airdefense/gun", aaaclass="H", maximumaltitude=27)
+G4 = groundunit(
+    "G4", "A1-2120", symbols="airdefense/gun", aaaclass="L", maximumaltitude=9
+)
+G5 = groundunit(
+    "G5", "A1-2120", symbols="airdefense/gun", aaaclass="M", maximumaltitude=18
+)
+G6 = groundunit(
+    "G6", "A1-2120", symbols="airdefense/gun", aaaclass="H", maximumaltitude=27
+)
 
 A0 = aircraft("A0", "USAF", "F-100A", "A1-2110", "E", 2, 3)
 A1 = aircraft("A1", "USAF", "F-100A", "A1-2110", "E", 6, 3)

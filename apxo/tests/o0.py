@@ -9,10 +9,32 @@ starttestsetup()
 x = 3
 y = 3
 for s in [
-    "infantry", "armor", "artillery", "reconnaissance", "airdefense", "supply", "transportation", "ammunition", "fuel", "ordnance",
-    "headquarter", "light", "medium", "heavy", "missile", "gun", "multiplerocket", "radar", "motorized", "wheeled", "limitedwheeled",
-    "locomotive", "railcar", "barge", "truck"
-    ]:
+    "infantry",
+    "armor",
+    "artillery",
+    "reconnaissance",
+    "airdefense",
+    "supply",
+    "transportation",
+    "ammunition",
+    "fuel",
+    "ordnance",
+    "headquarter",
+    "light",
+    "medium",
+    "heavy",
+    "missile",
+    "gun",
+    "multiplerocket",
+    "radar",
+    "motorized",
+    "wheeled",
+    "limitedwheeled",
+    "locomotive",
+    "railcar",
+    "barge",
+    "truck",
+]:
     hexcode = "A1-%02d%02d" % (x, y)
     groundunit(s, hexcode, s, color="lightgreen")
     y += 1
@@ -24,10 +46,23 @@ for s in [
 
 x = 10
 y = 3
-for s in [ 
-    "infantry/armor", "infantry/armor/gun", "infantry/armor/wheeled", "infantry/light", "armor/medium/gun", "artillery/gun", "artillery/armor/gun", "artillery/multiplerocket/limitedwheeled", 
-    "airdefense/gun/light", "airdefense/missile", "airdefense/radar", "airdefense/gun/armor/medium", "airdefense/missile/wheeled", "airdefense/missile/armor", "airdefense/headquarter"
-    ]:
+for s in [
+    "infantry/armor",
+    "infantry/armor/gun",
+    "infantry/armor/wheeled",
+    "infantry/light",
+    "armor/medium/gun",
+    "artillery/gun",
+    "artillery/armor/gun",
+    "artillery/multiplerocket/limitedwheeled",
+    "airdefense/gun/light",
+    "airdefense/missile",
+    "airdefense/radar",
+    "airdefense/gun/armor/medium",
+    "airdefense/missile/wheeled",
+    "airdefense/missile/armor",
+    "airdefense/headquarter",
+]:
     hexcode = "A1-%02d%02d" % (x, y)
     groundunit(s, hexcode, s, color="lightgreen")
     y += 1
@@ -40,7 +75,18 @@ for s in [
 
 x = 7
 y = 3
-for c in [ "white", "natoblue", "natored", "natogreen", "natoyellow", "green", "lightgreen", "tan", "darktan", "sand" ]:
+for c in [
+    "white",
+    "natoblue",
+    "natored",
+    "natogreen",
+    "natoyellow",
+    "green",
+    "lightgreen",
+    "tan",
+    "darktan",
+    "sand",
+]:
     hexcode = "A1-%02d%02d" % (x, y)
     groundunit(c, hexcode, "infantry", color=c)
     y += 1
@@ -100,7 +146,9 @@ groundunit("missing", "A1-2110", "_MISSING")
 asserterror('unable to find ground unit data file for "_MISSING".')
 
 groundunit("invalid", "A1-2110", "_INVALID")
-asserterror('unable to read ground unit data file for "_INVALID": line 2: expecting property name enclosed in double quotes.')
+asserterror(
+    'unable to read ground unit data file for "_INVALID": line 2: expecting property name enclosed in double quotes.'
+)
 
 # Make sure all of the ground unit data files are readable.
 

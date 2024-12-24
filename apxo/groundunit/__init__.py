@@ -19,6 +19,7 @@ from apxo.groundunit.data import _loaddata
 
 ################################################################################
 
+
 class groundunit(apelement.element):
 
     ############################################################################
@@ -44,7 +45,7 @@ class groundunit(apelement.element):
             if not isinstance(name, str):
                 raise RuntimeError("the name argument must be a string.")
             self.logwhenwhat("", "creating ground unit %s." % name)
-            
+
             if type is not None:
                 self.logwhenwhat("", "type is %s." % type)
                 data = _loaddata(type)
@@ -56,7 +57,10 @@ class groundunit(apelement.element):
                     aaarange = data["aaarange"]
                 if aaadamagerating is None and "aaadamagerating" in data:
                     aaadamagerating = data["aaadamagerating"]
-                if aaamaximumrelativealtitude is None and "aaamaximumrelativealtitude" in data:
+                if (
+                    aaamaximumrelativealtitude is None
+                    and "aaamaximumrelativealtitude" in data
+                ):
                     aaamaximumrelativealtitude = data["aaamaximumrelativealtitude"]
 
             if isinstance(symbols, str):
@@ -106,7 +110,7 @@ class groundunit(apelement.element):
             self._stack = stack
 
             self._aaaclass = aaaclass
-            self._aaarange= aaarange
+            self._aaarange = aaarange
             self._aaamaximumrelativealtitude = aaamaximumrelativealtitude
             self._aaadamagerating = aaadamagerating
 
@@ -163,6 +167,11 @@ class groundunit(apelement.element):
     )
 
     from apxo.groundunit.draw import _draw
-    from apxo.groundunit.track import _maximumtrackingrange, _trackingrequirement, _track, _stoptracking
+    from apxo.groundunit.track import (
+        _maximumtrackingrange,
+        _trackingrequirement,
+        _track,
+        _stoptracking,
+    )
 
     ############################################################################

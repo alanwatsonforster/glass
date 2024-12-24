@@ -6,6 +6,7 @@ import re
 
 ################################################################################
 
+
 def _loaddata(name):
 
     def filename(name):
@@ -22,9 +23,7 @@ def _loaddata(name):
                 s = re.sub(r, "", s)
                 return json.loads(s)
         except FileNotFoundError:
-            raise RuntimeError(
-                'unable to find ground unit data file for "%s".' % name
-            )
+            raise RuntimeError('unable to find ground unit data file for "%s".' % name)
         except json.JSONDecodeError as e:
             raise RuntimeError(
                 'unable to read ground unit data file for "%s": line %d: %s.'
@@ -39,5 +38,6 @@ def _loaddata(name):
         basedata.update(data)
         data = basedata
     return data
+
 
 ################################################################################

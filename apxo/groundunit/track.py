@@ -4,22 +4,26 @@ import apxo.rounding as aprounding
 
 ################################################################################
 
+
 def _maximumtrackingrange(self):
     if self._aaamaximumrange() is None:
         return None
     else:
         return aprounding.rounddown(self._aaamaximumrange() * 1.5)
-        
+
+
 def _trackingrequirement(self, target, radar=False):
     if self._aaaclass == "H":
-        factor = 2/3
+        factor = 2 / 3
     elif not radar:
-        factor = 1/2
+        factor = 1 / 2
     else:
-        factor = 1/3
+        factor = 1 / 3
     return aprounding.roundup(target.speed() * factor)
 
+
 ################################################################################
+
 
 def _track(self, target):
 
@@ -31,12 +35,15 @@ def _track(self, target):
     range = apgeometry.range(self, target)
     self.logcomment("range to target is %d." % range)
     if range > maximumtrackingrange:
-        raise RuntimeError("%s is beyond the maximum tracking range of %d." % (target.name(), maximumtrackingrange))
+        raise RuntimeError(
+            "%s is beyond the maximum tracking range of %d."
+            % (target.name(), maximumtrackingrange)
+        )
     trackingrequirement = self._trackingrequirement(target)
-    self.logcomment("tracking requirement is %d %s." % (
-        trackingrequirement,
-        aplog.plural(trackingrequirement, "FP", "FPs")
-    ))
+    self.logcomment(
+        "tracking requirement is %d %s."
+        % (trackingrequirement, aplog.plural(trackingrequirement, "FP", "FPs"))
+    )
     self._tracking = target
 
 

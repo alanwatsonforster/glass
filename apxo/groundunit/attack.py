@@ -37,17 +37,20 @@ def _aaarangeclass(self, range):
     else:
         return None
 
+
 def _aaamaximumrange(self):
     if self._aaarange is None:
         return None
     else:
         return self._aaarange[2]
 
+
 def _aaamaximumaltitude(self):
     if self._aaamaximumrelativealtitude is None:
         return None
     else:
-        return self.altitude() + self._aaamaximumrelativealtitude    
+        return self.altitude() + self._aaamaximumrelativealtitude
+
 
 ################################################################################
 
@@ -82,24 +85,29 @@ def _attackaircraft(self, target, result=None, note=None):
             "", "%s attacks %s with aimed fire." % (self.name(), target.name())
         )
         if self._aaarange is None:
-            raise RuntimeError("%s is not an air-defense gun unit." % self.name())        
+            raise RuntimeError("%s is not an air-defense gun unit." % self.name())
         if self._outofammunition:
             raise RuntimeError("%s is out of ammunition." % self.name())
         if self._tracking is not target:
             raise RuntimeError("%s is not tracking %s." % (self.name(), target.name()))
-        
+
         range = apgeometry.range(self, target)
         rangeclass = self._aaarangeclass(range)
         if rangeclass is None:
             self.logcomment("range to target is %d." % range)
-            raise RuntimeError("%s is beyond the maximum range of %d." % (target.name(), self._aaamaximumrange()))
+            raise RuntimeError(
+                "%s is beyond the maximum range of %d."
+                % (target.name(), self._aaamaximumrange())
+            )
         self.logcomment("range to target is %d (%s)." % (range, rangeclass))
         self.logcomment(
             "altitude to target is %d." % (target.altitude() - self.altitude())
         )
         if target.altitude() > self._aaamaximumaltitude():
-            raise RuntimeError("%s is above the maximum altitude of %d." % (target.name(), self._aaamaximumaltitude()))
-            
+            raise RuntimeError(
+                "%s is above the maximum altitude of %d."
+                % (target.name(), self._aaamaximumaltitude())
+            )
 
     target._takeattackdamage(self, result)
 

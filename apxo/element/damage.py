@@ -103,7 +103,7 @@ def _takeattackdamage(self, attacker, result):
         if self.isaircraft():
             attacker.logwhenwhat("", "hits but inflicts no damage.")
         else:
-            attacker.logwhenwhat("", "inflicts no damage.")            
+            attacker.logwhenwhat("", "inflicts no damage.")
     else:
         if self.isaircraft():
             attacker.logwhenwhat("", "hits and inflicts %s damage." % result)
