@@ -84,7 +84,7 @@ def _takedamage(self, damage):
 
 def _takedamageconsequences(self):
     if self.isusingbarragefire():
-        self.logwhenwhat("", "%s ceases barrage fire." % self.name())
+        self.logwhenwhat("", "ceases barrage fire.")
         self._barragefire._remove()
         self._barragefire = None
 

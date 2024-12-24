@@ -52,9 +52,9 @@ def damageatmost(self, damage):
 
 def takedamage(self, damage, note=None):
     try:
-        self.logwhenwhat("", "%s takes %s damage." % (self.name(), damage))
+        self.logwhenwhat("", "takes %s damage." % damage)
         if self.killed():
-            self.logwhenwhat("", "%s is already killed." % self.name())
+            self.logwhenwhat("", "is already killed.")
             return
         previousdamage = self.damage()
         if previousdamage == "":
@@ -62,17 +62,17 @@ def takedamage(self, damage, note=None):
         self._takedamage(damage)
         if previousdamage == self.damage():
             self.logwhenwhat(
-                "", "%s damage is unchanged at %s." % (self.name(), previousdamage)
+                "", "damage is unchanged at %s." % previousdamage
             )
         else:
             self.logwhenwhat(
                 "",
-                "%s damage changes from %s to %s."
-                % (self.name(), previousdamage, self.damage()),
+                "damage changes from %s to %s."
+                % (previousdamage, self.damage()),
             )
             if self.damage() == "K":
                 self._kill()
-                self.logwhenwhat("", "%s is killed." % self.name())
+                self.logwhenwhat("", "is killed.")
             else:
                 self._takedamageconsequences()
         self.lognote(note)
@@ -109,7 +109,7 @@ def _takeattackdamage(self, attacker, result):
             attacker.logwhenwhat("", "hits and inflicts %s damage." % result)
         else:
             attacker.logwhenwhat("", "inflicts %s damage." % result)
-        self.logwhenwhat("", "%s takes %s damage." % (self.name(), result))
+        self.logwhenwhat("", "takes %s damage." % result)
         if self.killed():
             self.logwhenwhat("", "%s is already killed." % self.name())
             return
@@ -119,17 +119,17 @@ def _takeattackdamage(self, attacker, result):
         self._takedamage(result)
         if previousdamage == self.damage():
             self.logwhenwhat(
-                "", "%s damage is unchanged at %s." % (self.name(), previousdamage)
+                "", "damage is unchanged at %s." % previousdamage
             )
         else:
             self.logwhenwhat(
                 "",
-                "%s damage changes from %s to %s."
-                % (self.name(), previousdamage, self.damage()),
+                "damage changes from %s to %s."
+                % (previousdamage, self.damage()),
             )
             if self.damage() == "K":
                 self._kill()
-                self.logwhenwhat("", "%s is killed." % self.name())
+                self.logwhenwhat("", "is killed.")
             else:
                 self._takedamageconsequences()
 

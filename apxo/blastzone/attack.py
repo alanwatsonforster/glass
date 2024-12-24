@@ -9,7 +9,7 @@ def _attackaircraft(self, target, result=None, note=None):
         raise RuntimeError("target not at the position of the blast zone.")
     if target.altitude() > self.altitude() + 2:
         raise RuntimeError("target is above blast zone.")
-    self.logwhenwhat("", "%s attacks %s with blast." % (self.name(), target.name()))
+    self.logwhenwhat("", "attacks %s with blast." % target.name())
 
     target._takeattackdamage(self, result)
 

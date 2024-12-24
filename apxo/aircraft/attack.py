@@ -51,14 +51,14 @@ def _attackgroundunit(self, target, attacktype, result=None, stores=None, note=N
             raise RuntimeError("stores must be specified for %s attacks." % weapon)
 
     self.logwhenwhat(
-        "", "%s attacks %s with %s." % (self.name(), target.name(), weapon)
+        "", "attacks %s with %s." % (target.name(), weapon)
     )
     if target is not self._aimingtarget:
         raise RuntimeError("%s is not aiming at %s." % (self.name(), target.name()))
 
-    self.logwhenwhat("", "range to target is %d." % apgeometry.range(self, target))
-    self.logwhenwhat(
-        "", "altitude to target is %d." % (target.altitude() - self.altitude())
+    self.logcomment("range to target is %d." % apgeometry.range(self, target))
+    self.logcomment(
+        "altitude to target is %d." % (target.altitude() - self.altitude())
     )
 
     if weapon == "GN":
@@ -84,7 +84,7 @@ def _secondaryattackgroundunit(self, target, attacktype, result=None, note=None)
         raise RuntimeError("invalid weapon.")
 
     self.logwhenwhat(
-        "", "%s attacks %s with %s (secondary)." % (self.name(), target.name(), weapon)
+        "", "attacks %s with %s (secondary)." % (target.name(), weapon)
     )
 
     target._takeattackdamage(self, result)
@@ -100,9 +100,9 @@ def bomb(self, name, target, stores=None, note=None):
     try:
         if isinstance(target, str):
             aphexcode.checkisvalidhexcodeforcenter(target)
-            self.logwhenwhat("", "%s bombs hex %s." % (self.name(), target))
+            self.logwhenwhat("", "bombs hex %s." % target)
         elif target.isgroundunit():
-            self.logwhenwhat("", "%s bombs %s." % (self.name(), target.name()))
+            self.logwhenwhat("", "bombs %s." % target.name())
         else:
             raise RuntimeError("invalid target.")
         if target is not self._aimingtarget:

@@ -8,7 +8,7 @@ import apxo.log as aplog
 
 def _attackaircraft(self, target, result=None, note=None):
 
-    self.logwhenwhat("", "%s attacks %s." % (self.name(), target.name()))
+    self.logwhenwhat("", "attacks %s." % target.name())
 
     target._takeattackdamage(self, result)
 

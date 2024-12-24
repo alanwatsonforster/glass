@@ -476,7 +476,7 @@ class element:
         """
 
         if not apmap.isonmap(self.x(), self.y()):
-            self.logwhenwhat("", "%s has left the map." % self.name())
+            self.logwhenwhat("", "has left the map.")
 
     ############################################################################
 

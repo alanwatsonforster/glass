@@ -27,7 +27,7 @@ def _trackingrequirement(self, target, radar=False):
 
 def _track(self, target):
 
-    self.logwhenwhat("", "%s starts tracking %s." % (self.name(), target.name()))
+    self.logwhenwhat("", "starts tracking %s." % target.name())
 
     maximumtrackingrange = self._maximumtrackingrange()
     if maximumtrackingrange is None:
@@ -52,7 +52,7 @@ def _track(self, target):
 
 def _stoptracking(self):
 
-    self.logwhenwhat("", "%s stops tracking %s." % (self.name(), self._tracking.name()))
+    self.logwhenwhat("", "stops tracking %s." % self._tracking.name())
     self._tracking = None
 
 
