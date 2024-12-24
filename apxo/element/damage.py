@@ -96,13 +96,19 @@ def _takeattackdamage(self, attacker, result):
         attacker.logcomment("unspecified result.")
         attacker._unspecifiedattackresult += 1
     elif result == "A":
-        attacker.logcomment("aborts.")
+        attacker.logwhenwhat("", "aborts.")
     elif result == "M":
-        attacker.logcomment("misses.")
+        attacker.logwhenwhat("", "misses.")
     elif result == "-":
-        attacker.logcomment("hits but inflicts no damage.")
+        if self.isaircraft():
+            attacker.logwhenwhat("", "hits but inflicts no damage.")
+        else:
+            attacker.logwhenwhat("", "inflicts no damage.")            
     else:
-        attacker.logcomment("hits and inflicts %s damage." % result)
+        if self.isaircraft():
+            attacker.logwhenwhat("", "hits and inflicts %s damage." % result)
+        else:
+            attacker.logwhenwhat("", "inflicts %s damage." % result)
         self.logwhenwhat("", "%s takes %s damage." % (self.name(), result))
         if self.killed():
             self.logwhenwhat("", "%s is already killed." % self.name())
