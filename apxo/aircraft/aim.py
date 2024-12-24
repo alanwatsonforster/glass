@@ -35,10 +35,10 @@ def stopaiming(self):
     try:
         if self._aimingtarget is None:
             raise RuntimeError("%s is not aiming." % self.name())
-        if isinstance(target, str):
-            self.logwhenwhat("", "stops aiming at hex %s." % target)
+        if isinstance(self._aimingtarget, str):
+            self.logwhenwhat("", "stops aiming at hex %s." % self._aimingtarget)
         else:
-            self.logwhenwhat("", "stops aiming at %s." % target.name())
+            self.logwhenwhat("", "stops aiming at %s." % self._aimingtarget.name())
         self._aimingtarget = None
     except RuntimeError as e:
         aplog.logexception(e)

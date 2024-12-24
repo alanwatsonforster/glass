@@ -65,6 +65,7 @@ def _attackgroundunit(self, target, attacktype, result=None, stores=None, note=N
         self.logwhenwhat("", "gun ammunition is now %.1f." % self._gunammunition)
     else:
         self._release(stores)
+        self.stopaiming()
 
     target._takeattackdamage(self, result)
 
@@ -108,6 +109,7 @@ def bomb(self, name, target, stores=None, note=None):
             raise RuntimeError("%s is not aiming at %s." % (self.name(), target.name()))
         self._release(stores)
         bomb = apbomb.bomb(name, self.hexcode(), self.facing(), self.altitude())
+        self.stopaiming()
         aplog.lognote(note)
         return bomb
     except RuntimeError as e:
