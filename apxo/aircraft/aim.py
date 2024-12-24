@@ -6,7 +6,7 @@ import apxo.log as aplog
 ################################################################################
 
 def _initaim(self):
-    self._aiming = None
+    self._aimingtarget = None
 
 ################################################################################
 
@@ -14,13 +14,13 @@ def _initaim(self):
 def aim(self, target, *args, **kwargs):
     try:
         if isinstance(target, str):
-            self.logwhenwhat("", "starts aiming at hex %s" % target)
+            self.logwhenwhat("", "starts aiming at hex %s." % target)
             aphexcode.checkisvalidhexcodeforcenter(target)
         elif not target.isgroundunit():
             raise RuntimeError("invalid target for aiming.")
         else:
-            self.logwhenwhat("", "starts aiming at %s" % target.name())
-        self._aiming = target
+            self.logwhenwhat("", "starts aiming at %s." % target.name())
+        self._aimingtarget = target
     except RuntimeError as e:
         aplog.logexception(e)
     self.logbreak()
@@ -31,13 +31,13 @@ def aim(self, target, *args, **kwargs):
 
 def stopaiming(self):
     try:
-        if self._aiming is None:
-            raise RuntimeError("%s is not aiming" % self.name())
+        if self._aimingtarget is None:
+            raise RuntimeError("%s is not aiming." % self.name())
         if isinstance(target, str):
-            self.logwhenwhat("", "stops aiming at hex %s" % target)
+            self.logwhenwhat("", "stops aiming at hex %s." % target)
         else:
-            self.logwhenwhat("", "stops aiming at %s" % target.name())
-        self._aiming = None
+            self.logwhenwhat("", "stops aiming at %s." % target.name())
+        self._aimingtarget = None
     except RuntimeError as e:
         aplog.logexception(e)
     self.logbreak()

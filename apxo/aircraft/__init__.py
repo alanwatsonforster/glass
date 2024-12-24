@@ -217,7 +217,7 @@ class aircraft(apelement.element):
             self._lowspeedliftdeviceextended = False
             self._minspeed = apcapabilities.minspeed(self)
             
-            self._initaim
+            self._initaim()
 
         except RuntimeError as e:
             aplog.logexception(e)

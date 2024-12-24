@@ -53,6 +53,9 @@ def _attackgroundunit(self, target, attacktype, result=None, stores=None, note=N
     self.logwhenwhat(
         "", "%s attacks %s with %s." % (self.name(), target.name(), weapon)
     )
+    if target is not self._aimingtarget:
+        raise RuntimeError("%s is not aiming at %s." % (self.name(), target.name()))
+        
     self.logwhenwhat("", "range to target is %d." % apgeometry.range(self, target))
     self.logwhenwhat(
         "", "altitude to target is %d." % (target.altitude() - self.altitude())
@@ -101,13 +104,15 @@ def bomb(self, name, target, stores=None, note=None):
             self.logwhenwhat("", "%s bombs %s." % (self.name(), target.name()))
         else:
             raise RuntimeError("invalid target.")
+        if target is not self._aimingtarget:
+            raise RuntimeError("%s is not aiming at %s." % (self.name(), target.name()))
         self._release(stores)
         bomb = apbomb.bomb(name, self.hexcode(), self.facing(), self.altitude())
         aplog.lognote(note)
+        return bomb
     except RuntimeError as e:
         aplog.logexception(e)
     self.logbreak()
-    return bomb
 
 
 ################################################################################
