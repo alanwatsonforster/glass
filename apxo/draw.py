@@ -973,6 +973,22 @@ def _drawgroundunitinphysical(x0, y0, symbols, color, name, stack, killed):
             zorder=zorder,
         )
 
+    def drawantiarmorsymbol():
+        _drawlinesinphysical(
+            [x - groundunitdx / 2, x],
+            [y - groundunitdy / 2, y + groundunitdy / 2],
+            linecolor=linecolor,
+            linewidth=groundunitlinewidth,
+            zorder=zorder,
+        )
+        _drawlinesinphysical(
+            [x + groundunitdx / 2, x],
+            [y - groundunitdy / 2, y + groundunitdy / 2],
+            linecolor=linecolor,
+            linewidth=groundunitlinewidth,
+            zorder=zorder,
+        )
+
     def drawreconnaissancesymbol():
         _drawlinesinphysical(
             [x - groundunitdx / 2, x + groundunitdx / 2],
@@ -1596,6 +1612,8 @@ def _drawgroundunitinphysical(x0, y0, symbols, color, name, stack, killed):
         drawartillerysymbol()
     if "reconnaissance" in symbols:
         drawreconnaissancesymbol()
+    if "antiarmor" in symbols:
+        drawantiarmorsymbol()
     if "supply" in symbols:
         drawsupplysymbol()
     if "headquarters" in symbols:

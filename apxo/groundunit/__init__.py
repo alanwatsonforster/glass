@@ -76,6 +76,7 @@ class groundunit(apelement.element):
                     "artillery",
                     "reconnaissance",
                     "airdefense",
+                    "antiarmor",
                     "supply",
                     "transportation",
                     "ammunition",
