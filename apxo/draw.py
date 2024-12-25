@@ -1520,8 +1520,6 @@ def _drawgroundunitinphysical(x0, y0, symbols, color, name, stack, killed):
         fy2 = 0.0
         fy3 = 0.3
         fy4 = 0.2
-        theta = range(0, 181)
-
         drawbargesymbol()
         _drawlinesinphysical(
             [
@@ -1554,6 +1552,105 @@ def _drawgroundunitinphysical(x0, y0, symbols, color, name, stack, killed):
             zorder=zorder,
         )
         
+    def drawbuildingsymbol():
+        fx0 = 0.2
+        fy0 = -0.2
+        fy1 = 0.25
+        fy2 = 0.15
+        _drawpolygoninphysical(
+            [ 
+                x - fx0 * groundunitdx,
+                x - fx0 * groundunitdx,
+                x + fx0 * groundunitdx,
+                x + fx0 * groundunitdx,
+            ],
+            [
+                y + fy0 * groundunitdy,
+                y + fy1 * groundunitdy,
+                y + fy2 * groundunitdy,
+                y + fy0 * groundunitdy,
+            ],
+            linecolor=linecolor,
+            linewidth=groundunitlinewidth,
+            zorder=zorder,
+        )
+
+    def drawtowersymbol():
+        fx0 = 0.125
+        fx1 = 0.075
+        fy0 = -0.2
+        fy1 = 0.15
+        fy2 = 0.30
+        _drawlinesinphysical(
+            [
+                x - fx0 * groundunitdx,
+                x - fx1 * groundunitdx,
+                x - fx1 * groundunitdx,
+                x + fx1 * groundunitdx,
+                x + fx1 * groundunitdx,
+                x + fx0 * groundunitdx,
+                
+            ],
+            [
+                y + fy0 * groundunitdy,
+                y + fy1 * groundunitdy,
+                y + fy2 * groundunitdy,
+                y + fy2 * groundunitdy,
+                y + fy1 * groundunitdy,
+                y + fy0 * groundunitdy,
+            ],
+            linecolor=linecolor,
+            linewidth=groundunitlinewidth,
+            zorder=zorder,
+        )
+        _drawlinesinphysical(
+            [
+                x - fx1 * groundunitdx,
+                x + fx1 * groundunitdx,
+                
+            ],
+            [
+                y + fy1 * groundunitdy,
+                y + fy1 * groundunitdy,
+            ],
+            linecolor=linecolor,
+            linewidth=groundunitlinewidth,
+            zorder=zorder,
+        )
+        
+    def drawhangarsymbol():
+        fx0 = 0.25
+        fy0 = -0.2
+        fy1 = 0.3
+        theta = range(0, 181)
+
+        def dx(theta):
+            return fx0 * groundunitdx * cosd(theta)
+
+        def dy(theta):
+            return fy0 * groundunitdy + fy1 * groundunitdy * sind(theta)
+
+        _drawlinesinphysical(
+            list([x + dx(theta) for theta in theta]),
+            list([y + dy(theta) for theta in theta]),
+            linecolor=linecolor,
+            linewidth=groundunitlinewidth,
+            zorder=zorder,
+        )
+        _drawlinesinphysical(
+            [
+                x - fx0 * groundunitdx,
+                x + fx0 * groundunitdx,
+            ],
+            [
+                y + fy0 * groundunitdy,
+                y + fy0 * groundunitdy,
+            ],
+            linecolor=linecolor,
+            linewidth=groundunitlinewidth,
+            zorder=zorder,
+        )
+
     def drawfixedwingsymbol():
         fx = 0.15
         fy = 0.1
@@ -1690,12 +1787,18 @@ def _drawgroundunitinphysical(x0, y0, symbols, color, name, stack, killed):
         drawlocomotivesymbol()
     if "railcar" in symbols:
         drawrailcarsymbol()
+    if "truck" in symbols:
+        drawtrucksymbol()
     if "barge" in symbols:
         drawbargesymbol()
     if "junk" in symbols:
         drawjunksymbol()
-    if "truck" in symbols:
-        drawtrucksymbol()
+    if "building" in symbols:
+        drawbuildingsymbol()
+    if "tower" in symbols:
+        drawtowersymbol()
+    if "hangar" in symbols:
+        drawhangarsymbol()
 
     if "light" in symbols:
         drawlightsymbol()
