@@ -257,7 +257,7 @@ def drawmap(
             xmax = apelement._xmaxforzoom(withkilled=zoomincludeskilled)
             ymin = apelement._yminforzoom(withkilled=zoomincludeskilled)
             ymax = apelement._ymaxforzoom(withkilled=zoomincludeskilled)
-            
+
             if xmin is not None:
                 xmin = math.floor(xmin) - zoomborder
             if ymin is not None:
@@ -274,7 +274,7 @@ def drawmap(
             ymax=ymax,
             sheets=sheets,
             watermark=watermark,
-            compactstacks=compactstacks
+            compactstacks=compactstacks,
         )
 
         if drawlimitedarc is True:

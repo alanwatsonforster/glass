@@ -386,11 +386,7 @@ def _drawpolygoninphysical(
 
 
 def _drawrectangleinphysical(xmin, ymin, xmax, ymax, **kwargs):
-    _drawpolygoninphysical(
-        [xmin, xmin, xmax, xmax],
-        [ymin, ymax, ymax, ymin], 
-        **kwargs
-    )
+    _drawpolygoninphysical([xmin, xmin, xmax, xmax], [ymin, ymax, ymax, ymin], **kwargs)
 
 
 def _drawcompassinphysical(x, y, facing, color="black", alpha=1.0, zorder=1):
@@ -477,7 +473,7 @@ def drawtext(x, y, facing, s, **kwargs):
     _drawtextinphysical(*aphex.tophysical(x, y), facing, s, **kwargs)
 
 
-def drawpolygon(x,y, **kwargs):
+def drawpolygon(x, y, **kwargs):
     x, y = (aphex.tophysical(*xy) for xy in zip(x, y))
     _drawpolygoninphysical(x, y, **kwargs)
 
@@ -890,9 +886,11 @@ def drawwatermark(s, xmin, ymin, xmax, ymax):
 
 compactstacks = True
 
+
 def setcompactstacks(value):
     global compactstacks
     compactstacks = value
+
 
 ################################################################################
 
@@ -903,11 +901,20 @@ groundunitdy = 0.4
 
 def drawgroundunit(x, y, symbols, uppertext, lowertext, color, name, stack, killed):
     _drawgroundunitinphysical(
-        *aphex.tophysical(x, y), symbols, uppertext, lowertext, color, name, stack, killed
+        *aphex.tophysical(x, y),
+        symbols,
+        uppertext,
+        lowertext,
+        color,
+        name,
+        stack,
+        killed
     )
 
 
-def _drawgroundunitinphysical(x0, y0, symbols, uppertext, lowertext, color, name, stack, killed):
+def _drawgroundunitinphysical(
+    x0, y0, symbols, uppertext, lowertext, color, name, stack, killed
+):
 
     if killed:
         fillcolor = killedfillcolor
@@ -1382,8 +1389,8 @@ def _drawgroundunitinphysical(x0, y0, symbols, uppertext, lowertext, color, name
             [
                 x - dx,
                 x - dx,
-                x, 
-                x, 
+                x,
+                x,
                 x + dx,
                 x + dx,
             ],
@@ -1520,7 +1527,7 @@ def _drawgroundunitinphysical(x0, y0, symbols, uppertext, lowertext, color, name
             linewidth=groundunitlinewidth,
             zorder=zorder,
         )
-        
+
     def drawjunksymbol():
         fx0 = 0.25
         fx1 = 0.12
@@ -1532,19 +1539,19 @@ def _drawgroundunitinphysical(x0, y0, symbols, uppertext, lowertext, color, name
         drawbargesymbol()
         _drawlinesinphysical(
             [
-                x, 
+                x,
                 x,
             ],
             [
-                y + fy0 * groundunitdy, 
-                y + 0.5 * (fy3 + fy4) * groundunitdy, 
+                y + fy0 * groundunitdy,
+                y + 0.5 * (fy3 + fy4) * groundunitdy,
             ],
             linecolor=linecolor,
             linewidth=groundunitlinewidth,
             zorder=zorder,
         )
         _drawpolygoninphysical(
-            [ 
+            [
                 x - fx1 * groundunitdx,
                 x - fx1 * groundunitdx,
                 x + fx1 * groundunitdx,
@@ -1560,14 +1567,14 @@ def _drawgroundunitinphysical(x0, y0, symbols, uppertext, lowertext, color, name
             linewidth=groundunitlinewidth,
             zorder=zorder,
         )
-        
+
     def drawbuildingsymbol():
         fx0 = 0.2
         fy0 = -0.2
         fy1 = 0.25
         fy2 = 0.15
         _drawpolygoninphysical(
-            [ 
+            [
                 x - fx0 * groundunitdx,
                 x - fx0 * groundunitdx,
                 x + fx0 * groundunitdx,
@@ -1598,7 +1605,6 @@ def _drawgroundunitinphysical(x0, y0, symbols, uppertext, lowertext, color, name
                 x + fx1 * groundunitdx,
                 x + fx1 * groundunitdx,
                 x + fx0 * groundunitdx,
-                
             ],
             [
                 y + fy0 * groundunitdy,
@@ -1616,7 +1622,6 @@ def _drawgroundunitinphysical(x0, y0, symbols, uppertext, lowertext, color, name
             [
                 x - fx1 * groundunitdx,
                 x + fx1 * groundunitdx,
-                
             ],
             [
                 y + fy1 * groundunitdy,
@@ -1626,7 +1631,7 @@ def _drawgroundunitinphysical(x0, y0, symbols, uppertext, lowertext, color, name
             linewidth=groundunitlinewidth,
             zorder=zorder,
         )
-        
+
     def drawhangarsymbol():
         fx0 = 0.25
         fy0 = -0.2
@@ -1680,7 +1685,6 @@ def _drawgroundunitinphysical(x0, y0, symbols, uppertext, lowertext, color, name
                 return 0
             else:
                 return -fy * groundunitdy * sind(theta)
-                
 
         _drawpolygoninphysical(
             list([x + dx(theta) for theta in theta]),
@@ -1711,7 +1715,6 @@ def _drawgroundunitinphysical(x0, y0, symbols, uppertext, lowertext, color, name
                 return 0
             else:
                 return -fy * groundunitdy * sind(theta)
-                
 
         _drawpolygoninphysical(
             list([x + dx(theta) for theta in theta]),
@@ -1721,7 +1724,7 @@ def _drawgroundunitinphysical(x0, y0, symbols, uppertext, lowertext, color, name
             linewidth=groundunitlinewidth,
             zorder=zorder,
         )
-        
+
     def drawaircraftsymbol(text):
         drawuppertext(text)
 
@@ -1738,7 +1741,7 @@ def _drawgroundunitinphysical(x0, y0, symbols, uppertext, lowertext, color, name
             alignment="center",
             zorder=zorder,
         )
-    
+
     def drawlowertext(text):
         _drawtextinphysical(
             x,
@@ -1752,7 +1755,7 @@ def _drawgroundunitinphysical(x0, y0, symbols, uppertext, lowertext, color, name
             alignment="center",
             zorder=zorder,
         )
-    
+
     if "hex" not in symbols:
         _drawrectangleinphysical(
             x - groundunitdx / 2,
@@ -1847,7 +1850,7 @@ def _drawgroundunitinphysical(x0, y0, symbols, uppertext, lowertext, color, name
             linecolor=linecolor,
             zorder=zorder,
         )
-    
+
         if not killed:
             if x >= x0:
                 _drawtextinphysical(

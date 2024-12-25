@@ -211,7 +211,7 @@ def setmap(
                 _usingfirstgenerationsheets = False
             else:
                 raise RuntimeError("invalid sheet %s." % sheet)
-                
+
     if leveloffset not in [0, -1, -2, -3]:
         raise RuntimeError("invalid leveloffset %r." % leveloffset)
 
@@ -310,7 +310,7 @@ def setmap(
     townhatch = "xx"
     cityhatch = "xx"
     foresthatch = ".o"
-    
+
     _leveloffset = leveloffset
 
     if not _drawterrain:
@@ -484,7 +484,14 @@ def setmap(
 
 
 def startdrawmap(
-    show=False, xmin=None, ymin=None, xmax=None, ymax=None, sheets=None, watermark=None, compactstacks=True,
+    show=False,
+    xmin=None,
+    ymin=None,
+    xmax=None,
+    ymax=None,
+    sheets=None,
+    watermark=None,
+    compactstacks=True,
 ):
     """
     Draw the map.
@@ -1183,7 +1190,7 @@ def startdrawmap(
         linecolor="black",
         zorder=0,
     )
-    
+
     apdraw.setcompactstacks(compactstacks)
 
     if fullmap and _writefiles:
