@@ -93,6 +93,15 @@ class groundunit(apelement.element):
                     "railcar",
                     "barge",
                     "truck",
+                    "fixedwing",
+                    "rotarywing",
+                    "attack",
+                    "bomber",
+                    "cargo",
+                    "fighter",
+                    "fighterbomber",
+                    "patrol",
+                    "utility",
                     "hex",
                 ]:
                     raise RuntimeError('invalid ground unit symbol "%s".' % symbol)

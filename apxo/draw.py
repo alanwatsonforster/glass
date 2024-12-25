@@ -360,7 +360,8 @@ def _drawtextinphysical(
 
 
 def _drawpolygoninphysical(
-    xy,
+    x,
+    y,
     linecolor="black",
     fillcolor=None,
     linewidth=0.5,
@@ -372,7 +373,7 @@ def _drawpolygoninphysical(
         linewidth = 0
     _ax.add_artist(
         patches.Polygon(
-            xy,
+            list(zip(x, y)),
             edgecolor=_mapcolor(linecolor),
             facecolor=_mapcolor(fillcolor),
             fill=(fillcolor != None),
@@ -386,7 +387,9 @@ def _drawpolygoninphysical(
 
 def _drawrectangleinphysical(xmin, ymin, xmax, ymax, **kwargs):
     _drawpolygoninphysical(
-        [[xmin, ymin], [xmin, ymax], [xmax, ymax], [xmax, ymin]], **kwargs
+        [xmin, xmin, xmax, xmax],
+        [ymin, ymax, ymax, ymin], 
+        **kwargs
     )
 
 
@@ -474,8 +477,9 @@ def drawtext(x, y, facing, s, **kwargs):
     _drawtextinphysical(*aphex.tophysical(x, y), facing, s, **kwargs)
 
 
-def drawpolygon(xy, **kwargs):
-    _drawpolygoninphysical([aphex.tophysical(*xy) for xy in xy], **kwargs)
+def drawpolygon(x,y, **kwargs):
+    x, y = (aphex.tophysical(*xy) for xy in zip(x, y))
+    _drawpolygoninphysical(x, y, **kwargs)
 
 
 def drawrectangle(xmin, ymin, xmax, ymax, **kwargs):
@@ -1351,12 +1355,20 @@ def _drawgroundunitinphysical(x0, y0, symbols, color, name, stack, killed):
         dy = fy * groundunitdy
         _drawpolygoninphysical(
             [
-                [x - dx, y - dy],
-                [x - dx, y + dy],
-                [x, y + dy],
-                [x, y],
-                [x + dx, y],
-                [x + dx, y - dy],
+                x - dx,
+                x - dx,
+                x, 
+                x, 
+                x + dx,
+                x + dx,
+            ],
+            [
+                y - dy,
+                y + dy,
+                y + dy,
+                y,
+                y,
+                y - dy,
             ],
             linecolor=linecolor,
             linewidth=groundunitlinewidth,
@@ -1480,6 +1492,83 @@ def _drawgroundunitinphysical(x0, y0, symbols, color, name, stack, killed):
             zorder=zorder,
         )
         
+    def drawfixedwingsymbol():
+        fx = 0.15
+        fy = 0.1
+        theta = range(0, 361)
+
+        def dx(theta):
+            if theta < 90 or theta > 270:
+                return +fx * groundunitdx + fy * groundunitdy * cosd(theta)
+            elif theta == 90 or theta == 270:
+                return 0
+            else:
+                return -fx * groundunitdx + fy * groundunitdy * cosd(theta)
+
+        def dy(theta):
+            if theta < 90 or theta > 270:
+                return +fy * groundunitdy * sind(theta)
+            elif theta == 90 or theta == 270:
+                return 0
+            else:
+                return -fy * groundunitdy * sind(theta)
+                
+
+        _drawpolygoninphysical(
+            list([x + dx(theta) for theta in theta]),
+            list([y + dy(theta) for theta in theta]),
+            fillcolor=linecolor,
+            linecolor=linecolor,
+            linewidth=groundunitlinewidth,
+            zorder=zorder,
+        )
+
+    def drawrotarywingsymbol():
+        fx = 0.15
+        fy = 0.1
+        theta = range(0, 361)
+
+        def dx(theta):
+            if theta < 90 or theta > 270:
+                return +fx * groundunitdx
+            elif theta == 90 or theta == 270:
+                return 0
+            else:
+                return -fx * groundunitdx
+
+        def dy(theta):
+            if theta < 90 or theta > 270:
+                return +fy * groundunitdy * sind(theta)
+            elif theta == 90 or theta == 270:
+                return 0
+            else:
+                return -fy * groundunitdy * sind(theta)
+                
+
+        _drawpolygoninphysical(
+            list([x + dx(theta) for theta in theta]),
+            list([y + dy(theta) for theta in theta]),
+            fillcolor=linecolor,
+            linecolor=linecolor,
+            linewidth=groundunitlinewidth,
+            zorder=zorder,
+        )
+        
+    def drawaircraftsymbol(text):
+        _drawtextinphysical(
+            x,
+            y,
+            90,
+            text,
+            dx=0,
+            dy=+groundunitdy * 0.32,
+            size=7,
+            color=linecolor,
+            alignment="center",
+            zorder=zorder,
+        )
+    
+        
     if "hex" not in symbols:
         _drawrectangleinphysical(
             x - groundunitdx / 2,
@@ -1548,6 +1637,26 @@ def _drawgroundunitinphysical(x0, y0, symbols, color, name, stack, killed):
         drawmediumsymbol()
     if "heavy" in symbols:
         drawheavysymbol()
+        
+    if "fixedwing" in symbols:
+        drawfixedwingsymbol()
+    if "rotarywing" in symbols:
+        drawrotarywingsymbol()
+
+    if "attack" in symbols:
+        drawaircraftsymbol("A")
+    if "bomber" in symbols:
+        drawaircraftsymbol("B")
+    if "cargo" in symbols:
+        drawaircraftsymbol("C")
+    if "fighter" in symbols:
+        drawaircraftsymbol("F")
+    if "fighterbomber" in symbols:
+        drawaircraftsymbol("F/B")
+    if "patrol" in symbols:
+        drawaircraftsymbol("P")
+    if "utility" in symbols:
+        drawaircraftsymbol("U")
 
     if "hex" not in symbols:
 
