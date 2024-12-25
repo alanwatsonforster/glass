@@ -711,39 +711,39 @@ def startdrawmap(
                 if _leveloffset == 0:
                     drawpaths(
                         sheet,
-                        _terrain[sheet]["level0ridges"],
+                        _terrain[sheet]["level0ridgepaths"],
                         linecolor=level0ridgecolor,
                         linewidth=ridgewidth,
                     )
                     drawpaths(
                         sheet,
-                        _terrain[sheet]["level1ridges"],
+                        _terrain[sheet]["level1ridgepaths"],
                         linecolor=level1ridgecolor,
                         linewidth=ridgewidth,
                     )
                     drawpaths(
                         sheet,
-                        _terrain[sheet]["level2ridges"],
+                        _terrain[sheet]["level2ridgepaths"],
                         linecolor=level2ridgecolor,
                         linewidth=ridgewidth,
                     )
                 elif _leveloffset == -1:
                     drawpaths(
                         sheet,
-                        _terrain[sheet]["level1ridges"],
+                        _terrain[sheet]["level1ridgepaths"],
                         linecolor=level0ridgecolor,
                         linewidth=ridgewidth,
                     )
                     drawpaths(
                         sheet,
-                        _terrain[sheet]["level2ridges"],
+                        _terrain[sheet]["level2ridgepaths"],
                         linecolor=level1ridgecolor,
                         linewidth=ridgewidth,
                     )
                 elif _leveloffset == -2:
                     drawpaths(
                         sheet,
-                        _terrain[sheet]["level2ridges"],
+                        _terrain[sheet]["level2ridgepaths"],
                         linecolor=level0ridgecolor,
                         linewidth=ridgewidth,
                     )

@@ -18,9 +18,9 @@
         3708,
     ],
     "level2hexes": [],
-    "level0ridges": [],
-    "level1ridges": [],
-    "level2ridges": [],
+    "level0ridgepaths": [],
+    "level1ridgepaths": [],
+    "level2ridgepaths": [],
     "foresthexes": [
         3103,
         3104,

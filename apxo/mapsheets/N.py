@@ -4,7 +4,7 @@
     "level0hexes": [],
     "level1hexes": [],
     "level2hexes": [],
-    "level0ridges": [
+    "level0ridgepaths": [
         [
             [0.60, 5.50],
             [1.00, 7.00],
@@ -46,8 +46,8 @@
             [11.33, 3.25],
         ],
     ],
-    "level1ridges": [],
-    "level2ridges": [],
+    "level1ridgepaths": [],
+    "level2ridgepaths": [],
     "foresthexes": [],
     "town1hexes": [
         802,

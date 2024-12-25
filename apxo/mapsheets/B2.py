@@ -89,8 +89,8 @@
         4625,
         4722,
     ],
-    "level0ridges": [],
-    "level1ridges": [
+    "level0ridgepaths": [],
+    "level1ridgepaths": [
         [
             [45.00, 25.50],
             [45.00, 27.00],
@@ -98,7 +98,7 @@
             [43.33, 28.50],
         ],
     ],
-    "level2ridges": [
+    "level2ridgepaths": [
         [
             [44.33, 21.50],
             [45.00, 22.00],

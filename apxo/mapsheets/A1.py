@@ -4,9 +4,9 @@
     "level0hexes": [],
     "level1hexes": [],
     "level2hexes": [],
-    "level0ridges": [],
-    "level1ridges": [],
-    "level2ridges": [],
+    "level0ridgepaths": [],
+    "level1ridgepaths": [],
+    "level2ridgepaths": [],
     "foresthexes": [
         1111,
         1112,
@@ -137,8 +137,7 @@
             [11.50, 0.75],
         ],
     ],
-    "wideriverpaths": [
-    ],
+    "wideriverpaths": [],
     "seapaths": [],
     "wideseapaths": [],
     "clearingpaths": [
