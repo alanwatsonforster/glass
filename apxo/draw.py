@@ -1064,9 +1064,9 @@ def _drawgroundunitinphysical(x0, y0, symbols, uppertext, lowertext, color, name
         )
 
     def drawradarsymbol():
-        fy0 = 0.15
-        fy1 = 0.05
-        ry = 0.22
+        fy0 = 0.05
+        fy1 = 0.04
+        ry = 0.18
         y0 = y + fy0 * groundunitdy
         theta0 = 45
         theta = range(90 + theta0, 270 + theta0)
@@ -1089,10 +1089,10 @@ def _drawgroundunitinphysical(x0, y0, symbols, uppertext, lowertext, color, name
         _drawlinesinphysical(
             [x - dx, x, x, x + dx],
             [
-                y0 + fy1 * groundunitdy - dy,
+                y0 - dy,
                 y0 + fy1 * groundunitdy,
                 y0 - fy1 * groundunitdy,
-                y0 - fy1 * groundunitdy + dy,
+                y0 + dy,
             ],
             linecolor=linecolor,
             linewidth=groundunitlinewidth,
