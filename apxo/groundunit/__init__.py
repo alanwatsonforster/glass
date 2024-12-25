@@ -65,7 +65,10 @@ class groundunit(apelement.element):
             if symbols is None:
                 raise RuntimeError("invalid symbols argument.")
             if isinstance(symbols, str):
-                symbols = symbols.split("/")
+                if symbols == "":
+                    symbols = []
+                else:
+                    symbols = symbols.split("/")
             for symbol in symbols:
                 if symbol not in [
                     "infantry",
