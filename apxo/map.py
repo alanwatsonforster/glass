@@ -477,7 +477,7 @@ def setmap(
 
 
 def startdrawmap(
-    show=False, xmin=None, ymin=None, xmax=None, ymax=None, sheets=None, watermark=None
+    show=False, xmin=None, ymin=None, xmax=None, ymax=None, sheets=None, watermark=None, compactstacks=True,
 ):
     """
     Draw the map.
@@ -1147,6 +1147,8 @@ def startdrawmap(
         linecolor="black",
         zorder=0,
     )
+    
+    apdraw.setcompactstacks(compactstacks)
 
     if fullmap and _writefiles:
         apdraw.save()

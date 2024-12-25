@@ -888,6 +888,14 @@ def drawwatermark(s, xmin, ymin, xmax, ymax):
 
 ################################################################################
 
+compactstacks = True
+
+def setcompactstacks(value):
+    global compactstacks
+    compactstacks = value
+
+################################################################################
+
 groundunitlinewidth = 1
 groundunitdx = 0.6
 groundunitdy = 0.4
@@ -913,49 +921,92 @@ def _drawgroundunitinphysical(x0, y0, symbols, uppertext, lowertext, color, name
     textdx = 0
     textdy = 0.3
 
-    stackdx = 0.09
-    stackdy = 0.07
-
-    if stack == "1/2":
-        x = x0 - 1.0 * stackdx
-        y = y0 - 1.5 * stackdy
-        zorder = 0.2
-    elif stack == "2/2":
-        x = x0 + 1.0 * stackdx
-        y = y0 + 1.5 * stackdy
-        zorder = 0.1
-    elif stack == "1/3":
-        x = x0 + 1.0 * stackdx
-        y = y0 - 1.5 * stackdy
-        zorder = 0.3
-    elif stack == "2/3":
-        x = x0 - 1.0 * stackdx
-        y = y0
-        zorder = 0.2
-    elif stack == "3/3":
-        x = x0 + 1.0 * stackdx
-        y = y0 + 1.5 * stackdy
-        zorder = 0.1
-    elif stack == "1/4":
-        x = x0 - 1.0 * stackdx
-        y = y0 - 1.5 * stackdy
-        zorder = 0.4
-    elif stack == "2/4":
-        x = x0 + 1.0 * stackdx
-        y = y0 - 0.5 * stackdy
-        zorder = 0.3
-    elif stack == "3/4":
-        x = x0 - 1.0 * stackdx
-        y = y0 + 0.5 * stackdy
-        zorder = 0.2
-    elif stack == "4/4":
-        x = x0 + 1.0 * stackdx
-        y = y0 + 1.5 * stackdy
-        zorder = 0.1
+    if compactstacks:
+        stackdx = 0.09
+        stackdy = 0.07
+        if stack == "1/2":
+            x = x0 - 1.0 * stackdx
+            y = y0 - 1.5 * stackdy
+            zorder = 0.2
+        elif stack == "2/2":
+            x = x0 + 1.0 * stackdx
+            y = y0 + 1.5 * stackdy
+            zorder = 0.1
+        elif stack == "1/3":
+            x = x0 + 1.0 * stackdx
+            y = y0 - 1.5 * stackdy
+            zorder = 0.3
+        elif stack == "2/3":
+            x = x0 - 1.0 * stackdx
+            y = y0
+            zorder = 0.2
+        elif stack == "3/3":
+            x = x0 + 1.0 * stackdx
+            y = y0 + 1.5 * stackdy
+            zorder = 0.1
+        elif stack == "1/4":
+            x = x0 - 1.0 * stackdx
+            y = y0 - 1.5 * stackdy
+            zorder = 0.4
+        elif stack == "2/4":
+            x = x0 + 1.0 * stackdx
+            y = y0 - 0.5 * stackdy
+            zorder = 0.3
+        elif stack == "3/4":
+            x = x0 - 1.0 * stackdx
+            y = y0 + 0.5 * stackdy
+            zorder = 0.2
+        elif stack == "4/4":
+            x = x0 + 1.0 * stackdx
+            y = y0 + 1.5 * stackdy
+            zorder = 0.1
+        else:
+            x = x0
+            y = y0
+            zorder = 0.1
     else:
-        x = x0
-        y = y0
-        zorder = 0.1
+        stackdx = 0.5 * groundunitdx + 0.03 * groundunitdx
+        stackdy = 0.5 * groundunitdy + 0.03 * groundunitdx
+        if stack == "1/2":
+            x = x0 - 0.0 * stackdx
+            y = y0 - 1.0 * stackdy
+            zorder = 0.2
+        elif stack == "2/2":
+            x = x0 + 0.0 * stackdx
+            y = y0 + 1.0 * stackdy
+            zorder = 0.1
+        elif stack == "1/3":
+            x = x0 + 1.0 * stackdx
+            y = y0 - 1.0 * stackdy
+            zorder = 0.3
+        elif stack == "2/3":
+            x = x0 - 1.0 * stackdx
+            y = y0
+            zorder = 0.2
+        elif stack == "3/3":
+            x = x0 + 1.0 * stackdx
+            y = y0 + 1.0 * stackdy
+            zorder = 0.1
+        elif stack == "1/4":
+            x = x0 - 1.0 * stackdx
+            y = y0 - 1.0 * stackdy
+            zorder = 0.4
+        elif stack == "2/4":
+            x = x0 + 1.0 * stackdx
+            y = y0 - 1.0 * stackdy
+            zorder = 0.3
+        elif stack == "3/4":
+            x = x0 - 1.0 * stackdx
+            y = y0 + 1.0 * stackdy
+            zorder = 0.2
+        elif stack == "4/4":
+            x = x0 + 1.0 * stackdx
+            y = y0 + 1.0 * stackdy
+            zorder = 0.1
+        else:
+            x = x0
+            y = y0
+            zorder = 0.1
 
     def drawinfantrysymbol():
         _drawlinesinphysical(

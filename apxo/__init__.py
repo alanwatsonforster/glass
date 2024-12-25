@@ -224,6 +224,7 @@ def drawmap(
     xmax=None,
     ymax=None,
     sheets=None,
+    compactstacks=True,
     drawlimitedarc=[],
     draw180arc=[],
     draw150arc=[],
@@ -273,6 +274,7 @@ def drawmap(
             ymax=ymax,
             sheets=sheets,
             watermark=watermark,
+            compactstacks=compactstacks
         )
 
         if drawlimitedarc is True:
