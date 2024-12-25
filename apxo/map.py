@@ -161,6 +161,7 @@ def setmap(
     freshwater=None,
     allforest=None,
     maxurbansize=None,
+    leveloffset=0,
 ):
     """
     Set the arrangement of the sheets that form the map and the position of the
@@ -210,6 +211,9 @@ def setmap(
                 _usingfirstgenerationsheets = False
             else:
                 raise RuntimeError("invalid sheet %s." % sheet)
+                
+    if leveloffset not in [0, -1, -2, -3]:
+        raise RuntimeError("invalid leveloffset %r." % leveloffset)
 
     if _usingfirstgenerationsheets:
         _dxsheet = 20
@@ -265,7 +269,7 @@ def setmap(
     global _saved
     _saved = False
 
-    global _allwater, _forest, _allforest, _freshwater, _wilderness, _maxurbansize
+    global _allwater, _forest, _allforest, _freshwater, _wilderness, _maxurbansize, _leveloffset
 
     global level0color, level1color, level2color, level3color
     global level0ridgecolor, level1ridgecolor, level2ridgecolor
@@ -298,6 +302,7 @@ def setmap(
     _freshwater = True
     _frozen = False
     _wilderness = False
+    _leveloffset = 0
 
     riverwidth = 14
     wideriverwidth = 35
@@ -305,6 +310,8 @@ def setmap(
     townhatch = "xx"
     cityhatch = "xx"
     foresthatch = ".o"
+    
+    _leveloffset = leveloffset
 
     if not _drawterrain:
 
@@ -657,18 +664,26 @@ def startdrawmap(
                     linewidth=0,
                     fillcolor=level0color,
                 )
-                drawhexes(
-                    sheet,
-                    _terrain[sheet]["level1hexes"],
-                    linewidth=0,
-                    fillcolor=level1color,
-                )
-                drawhexes(
-                    sheet,
-                    _terrain[sheet]["level2hexes"],
-                    linewidth=0,
-                    fillcolor=level2color,
-                )
+                if _leveloffset == 0:
+                    drawhexes(
+                        sheet,
+                        _terrain[sheet]["level1hexes"],
+                        linewidth=0,
+                        fillcolor=level1color,
+                    )
+                    drawhexes(
+                        sheet,
+                        _terrain[sheet]["level2hexes"],
+                        linewidth=0,
+                        fillcolor=level2color,
+                    )
+                elif _leveloffset == -1:
+                    drawhexes(
+                        sheet,
+                        _terrain[sheet]["level2hexes"],
+                        linewidth=0,
+                        fillcolor=level1color,
+                    )
 
                 if not _wilderness:
                     drawpaths(
@@ -686,24 +701,45 @@ def startdrawmap(
                     )
 
                 # Draw the ridges.
-                drawpaths(
-                    sheet,
-                    _terrain[sheet]["level0ridges"],
-                    linecolor=level0ridgecolor,
-                    linewidth=ridgewidth,
-                )
-                drawpaths(
-                    sheet,
-                    _terrain[sheet]["level1ridges"],
-                    linecolor=level1ridgecolor,
-                    linewidth=ridgewidth,
-                )
-                drawpaths(
-                    sheet,
-                    _terrain[sheet]["level2ridges"],
-                    linecolor=level2ridgecolor,
-                    linewidth=ridgewidth,
-                )
+                if _leveloffset == 0:
+                    drawpaths(
+                        sheet,
+                        _terrain[sheet]["level0ridges"],
+                        linecolor=level0ridgecolor,
+                        linewidth=ridgewidth,
+                    )
+                    drawpaths(
+                        sheet,
+                        _terrain[sheet]["level1ridges"],
+                        linecolor=level1ridgecolor,
+                        linewidth=ridgewidth,
+                    )
+                    drawpaths(
+                        sheet,
+                        _terrain[sheet]["level2ridges"],
+                        linecolor=level2ridgecolor,
+                        linewidth=ridgewidth,
+                    )
+                elif _leveloffset == -1:
+                    drawpaths(
+                        sheet,
+                        _terrain[sheet]["level1ridges"],
+                        linecolor=level0ridgecolor,
+                        linewidth=ridgewidth,
+                    )
+                    drawpaths(
+                        sheet,
+                        _terrain[sheet]["level2ridges"],
+                        linecolor=level1ridgecolor,
+                        linewidth=ridgewidth,
+                    )
+                elif _leveloffset == -2:
+                    drawpaths(
+                        sheet,
+                        _terrain[sheet]["level2ridges"],
+                        linecolor=level0ridgecolor,
+                        linewidth=ridgewidth,
+                    )
 
                 if _allforest:
 
@@ -1264,9 +1300,9 @@ def altitude(x, y, sheet=None):
             sheet = tosheet(x, y)
         label = int(aphexcode.tolabel(aphexcode.fromxy(x, y, sheet=sheet)))
         if label in _terrain[sheet]["level2hexes"]:
-            return 2
+            return max(0, 2 + _leveloffset)
         elif label in _terrain[sheet]["level1hexes"]:
-            return 1
+            return max(0, 1 + _leveloffset)
         else:
             return 0
 
