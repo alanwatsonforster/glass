@@ -1708,7 +1708,7 @@ def _drawgroundunitinphysical(x0, y0, symbols, color, name, stack, killed):
             linewidth=groundunitlinewidth,
             fillcolor=None,
             linecolor=linecolor,
-            zorder=zorder,
+            zorder=0,
         )
 
 
