@@ -96,6 +96,7 @@ class groundunit(apelement.element):
                     "locomotive",
                     "railcar",
                     "barge",
+                    "junk",
                     "truck",
                     "fixedwing",
                     "rotarywing",

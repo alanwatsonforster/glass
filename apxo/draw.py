@@ -1477,8 +1477,12 @@ def _drawgroundunitinphysical(x0, y0, symbols, color, name, stack, killed):
 
     def drawbargesymbol():
         fx0 = 0.25
-        fy0 = 0.0
-        fy1 = 0.2
+        fx1 = 0.12
+        fy0 = -0.1
+        fy1 = 0.1
+        fy2 = 0.0
+        fy3 = 0.3
+        fy4 = 0.2
         theta = range(0, 181)
 
         def dx(theta):
@@ -1502,6 +1506,48 @@ def _drawgroundunitinphysical(x0, y0, symbols, color, name, stack, killed):
             [
                 y + fy0 * groundunitdy,
                 y + fy0 * groundunitdy,
+            ],
+            linecolor=linecolor,
+            linewidth=groundunitlinewidth,
+            zorder=zorder,
+        )
+        
+    def drawjunksymbol():
+        fx0 = 0.25
+        fx1 = 0.12
+        fy0 = -0.1
+        fy1 = 0.1
+        fy2 = 0.0
+        fy3 = 0.3
+        fy4 = 0.2
+        theta = range(0, 181)
+
+        drawbargesymbol()
+        _drawlinesinphysical(
+            [
+                x, 
+                x,
+            ],
+            [
+                y + fy0 * groundunitdy, 
+                y + 0.5 * (fy3 + fy4) * groundunitdy, 
+            ],
+            linecolor=linecolor,
+            linewidth=groundunitlinewidth,
+            zorder=zorder,
+        )
+        _drawpolygoninphysical(
+            [ 
+                x - fx1 * groundunitdx,
+                x - fx1 * groundunitdx,
+                x + fx1 * groundunitdx,
+                x + fx1 * groundunitdx,
+            ],
+            [
+                y + fy2 * groundunitdy,
+                y + fy3 * groundunitdy,
+                y + fy4 * groundunitdy,
+                y + fy2 * groundunitdy,
             ],
             linecolor=linecolor,
             linewidth=groundunitlinewidth,
@@ -1646,6 +1692,8 @@ def _drawgroundunitinphysical(x0, y0, symbols, color, name, stack, killed):
         drawrailcarsymbol()
     if "barge" in symbols:
         drawbargesymbol()
+    if "junk" in symbols:
+        drawjunksymbol()
     if "truck" in symbols:
         drawtrucksymbol()
 
