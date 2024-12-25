@@ -51,10 +51,14 @@ for oldsheet, newsheet in [
     def inverthex(oldhex):
         oldx = oldhex // 100
         oldy = oldhex % 100
+        if int(oldx) % 2 == 1:
+            oldy += 0.5
         dx = oldx - oldxcenter
         dy = oldy - oldycenter
         newx = newxcenter - dx
         newy = newycenter - dy
+        if int(newx) % 2 == 1:
+            newy -= 0.5
         newhex = newx * 100 + newy
         return int(newhex)
 
