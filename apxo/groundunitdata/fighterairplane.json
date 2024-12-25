@@ -1,5 +1,6 @@
 {
     "name": "fighterairplane",
     "description": "fighter airplane",
-    "symbols": "fixedwing/fighter"
+    "symbols": "fixedwing",
+    "uppertext": "F"
 }

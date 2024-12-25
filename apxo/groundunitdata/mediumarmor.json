@@ -1,7 +1,8 @@
 {
     "name": "mediumtank",
     "description": "medium tank platoon",
-    "symbols": "armor/gun/medium",
+    "symbols": "armor/gun",
+    "lowertext": "M",
     "aaaclass": "B",
     "aaamaximumrelativealtitude": 3
 }

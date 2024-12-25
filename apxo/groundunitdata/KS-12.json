@@ -2,7 +2,9 @@
 {
     "name": "KS-12",
     "description": "KS-12 85 mm air defense battery",
-    "symbols": "airdefense/gun/heavy",
+    "symbols": "airdefense/gun",
+    "lowertext": "H",    
+    "uppertext": "85",
     "aaaclass": "H",
     "aaarange": [
         6,

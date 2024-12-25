@@ -2,7 +2,9 @@
 {
     "name": "M-38",
     "description": "M-38 37 mm air defense battery",
-    "symbols": "airdefense/gun/medium",
+    "symbols": "airdefense/gun",
+    "lowertext": "M",    
+    "uppertext": "37",
     "aaaclass": "M",
     "aaarange": [
         4,

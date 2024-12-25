@@ -2,5 +2,7 @@
 {
     "name": "EWR-A",
     "description": "early-warning control radar (type A)",
-    "symbols": "airdefense/radar"
+    "symbols": "airdefense/radar",
+    "lowertext": "A",
+    "uppertext": "EWR"
 }

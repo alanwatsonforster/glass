@@ -2,5 +2,6 @@
 {
     "name": "SA-2F",
     "description": "SA-2F air defense battery",
-    "symbols": "airdefense/missile/heavy"
+    "symbols": "airdefense/missile",
+    "uppertext": "SA-2F"
 }

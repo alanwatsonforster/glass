@@ -29,6 +29,8 @@ class groundunit(apelement.element):
         hexcode,
         type=None,
         symbols=None,
+        uppertext=None,
+        lowertext=None,
         aaaclass=None,
         aaarange=None,
         aaadamagerating=None,
@@ -50,6 +52,10 @@ class groundunit(apelement.element):
                 data = _loaddata(type)
                 if symbols is None and "symbols" in data:
                     symbols = data["symbols"]
+                if uppertext is None and "uppertext" in data:
+                    uppertext = data["uppertext"]
+                if lowertext is None and "lowertext" in data:
+                    lowertext = data["lowertext"]
                 if aaaclass is None and "aaaclass" in data:
                     aaaclass = data["aaaclass"]
                 if aaarange is None and "aaarange" in data:
@@ -83,9 +89,6 @@ class groundunit(apelement.element):
                     "fuel",
                     "ordnance",
                     "headquarters",
-                    "light",
-                    "medium",
-                    "heavy",
                     "missile",
                     "gun",
                     "multiplerocket",
@@ -103,13 +106,6 @@ class groundunit(apelement.element):
                     "hangar",
                     "fixedwing",
                     "rotarywing",
-                    "attack",
-                    "bomber",
-                    "cargo",
-                    "fighter",
-                    "fighterbomber",
-                    "patrol",
-                    "utility",
                     "hex",
                 ]:
                     raise RuntimeError('invalid ground unit symbol "%s".' % symbol)
@@ -126,6 +122,8 @@ class groundunit(apelement.element):
             )
 
             self._symbols = symbols
+            self._uppertext = uppertext
+            self._lowertext = lowertext
             self._stack = stack
 
             self._aaaclass = aaaclass

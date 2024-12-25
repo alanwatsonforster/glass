@@ -893,13 +893,13 @@ groundunitdx = 0.6
 groundunitdy = 0.4
 
 
-def drawgroundunit(x, y, symbols, color, name, stack, killed):
+def drawgroundunit(x, y, symbols, uppertext, lowertext, color, name, stack, killed):
     _drawgroundunitinphysical(
-        *aphex.tophysical(x, y), symbols, color, name, stack, killed
+        *aphex.tophysical(x, y), symbols, uppertext, lowertext, color, name, stack, killed
     )
 
 
-def _drawgroundunitinphysical(x0, y0, symbols, color, name, stack, killed):
+def _drawgroundunitinphysical(x0, y0, symbols, uppertext, lowertext, color, name, stack, killed):
 
     if killed:
         fillcolor = killedfillcolor
@@ -1130,7 +1130,7 @@ def _drawgroundunitinphysical(x0, y0, symbols, color, name, stack, killed):
     def drawmissilesymbol():
         fx = 0.07
         fy0 = -0.5
-        fy1 = 0.3
+        fy1 = 0.15
         theta = range(0, 181)
 
         def dx(theta):
@@ -1217,48 +1217,6 @@ def _drawgroundunitinphysical(x0, y0, symbols, color, name, stack, killed):
             linecolor=linecolor,
             linewidth=groundunitlinewidth,
             fillcolor=linecolor,
-            zorder=zorder,
-        )
-
-    def drawlightsymbol():
-        _drawtextinphysical(
-            x,
-            y,
-            90,
-            "L",
-            dx=0,
-            dy=-groundunitdy * 0.36,
-            size=7,
-            color=linecolor,
-            alignment="center",
-            zorder=zorder,
-        )
-
-    def drawmediumsymbol():
-        _drawtextinphysical(
-            x,
-            y,
-            90,
-            "M",
-            dx=0,
-            dy=-groundunitdy * 0.36,
-            size=7,
-            color=linecolor,
-            alignment="center",
-            zorder=zorder,
-        )
-
-    def drawheavysymbol():
-        _drawtextinphysical(
-            x,
-            y,
-            90,
-            "H",
-            dx=0,
-            dy=-groundunitdy * 0.36,
-            size=7,
-            color=linecolor,
-            alignment="center",
             zorder=zorder,
         )
 
@@ -1714,6 +1672,9 @@ def _drawgroundunitinphysical(x0, y0, symbols, color, name, stack, killed):
         )
         
     def drawaircraftsymbol(text):
+        drawuppertext(text)
+
+    def drawuppertext(text):
         _drawtextinphysical(
             x,
             y,
@@ -1727,7 +1688,20 @@ def _drawgroundunitinphysical(x0, y0, symbols, color, name, stack, killed):
             zorder=zorder,
         )
     
-        
+    def drawlowertext(text):
+        _drawtextinphysical(
+            x,
+            y,
+            90,
+            text,
+            dx=0,
+            dy=-groundunitdy * 0.36,
+            size=7,
+            color=linecolor,
+            alignment="center",
+            zorder=zorder,
+        )
+    
     if "hex" not in symbols:
         _drawrectangleinphysical(
             x - groundunitdx / 2,
@@ -1800,32 +1774,15 @@ def _drawgroundunitinphysical(x0, y0, symbols, color, name, stack, killed):
     if "hangar" in symbols:
         drawhangarsymbol()
 
-    if "light" in symbols:
-        drawlightsymbol()
-    if "medium" in symbols:
-        drawmediumsymbol()
-    if "heavy" in symbols:
-        drawheavysymbol()
-        
     if "fixedwing" in symbols:
         drawfixedwingsymbol()
     if "rotarywing" in symbols:
         drawrotarywingsymbol()
 
-    if "attack" in symbols:
-        drawaircraftsymbol("A")
-    if "bomber" in symbols:
-        drawaircraftsymbol("B")
-    if "cargo" in symbols:
-        drawaircraftsymbol("C")
-    if "fighter" in symbols:
-        drawaircraftsymbol("F")
-    if "fighterbomber" in symbols:
-        drawaircraftsymbol("F/B")
-    if "patrol" in symbols:
-        drawaircraftsymbol("P")
-    if "utility" in symbols:
-        drawaircraftsymbol("U")
+    if uppertext is not None:
+        drawuppertext(uppertext)
+    if lowertext is not None:
+        drawlowertext(lowertext)
 
     if "hex" not in symbols:
 

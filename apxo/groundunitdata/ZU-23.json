@@ -2,7 +2,9 @@
 {
     "name": "ZU-23",
     "description": "ZU-23 twin 23 mm air defense battery",
-    "symbols": "airdefense/gun/light",
+    "symbols": "airdefense/gun",
+    "lowertext": "L",    
+    "uppertext": "23×2",
     "aaaclass": "L",
     "aaarange": [
         2,

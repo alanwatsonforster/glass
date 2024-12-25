@@ -2,7 +2,9 @@
 {
     "name": "S-60",
     "description": "S-60 57 mm air defense battery",
-    "symbols": "airdefense/gun/medium",
+    "symbols": "airdefense/gun",
+    "lowertext": "M",    
+    "uppertext": "57",
     "aaaclass": "M",
     "aaarange": [
         5,
