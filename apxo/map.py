@@ -1091,24 +1091,6 @@ def startdrawmap(
                             capstyle="projecting",
                         )
 
-    # Draw missing sheets.
-    for iy in range(0, _nysheetgrid):
-        for ix in range(0, _nxsheetgrid):
-            if _sheetgrid[iy][ix] in blanksheets:
-                xmin = ix * _dxsheet
-                xmax = xmin + _dxsheet
-                ymin = iy * _dysheet
-                ymax = ymin + _dysheet
-                apdraw.drawrectangle(
-                    xmin - 0.5,
-                    ymin,
-                    xmax + 0.5,
-                    ymax,
-                    linecolor=None,
-                    fillcolor=level0color,
-                    zorder=0,
-                )
-
     # Draw the border.
     apdraw.drawrectangle(_xmin, -0.33, _xmax, 0, fillcolor=level0color, linecolor=None, zorder=0)
     apdraw.drawrectangle(_xmin, _ymax-0.32, _xmax, _ymax, fillcolor=level0color, linecolor=None, zorder=0)
@@ -1180,6 +1162,24 @@ def startdrawmap(
             alpha=1,
             zorder=0,
         )
+
+    # Draw missing sheets.
+    for iy in range(0, _nysheetgrid):
+        for ix in range(0, _nxsheetgrid):
+            if _sheetgrid[iy][ix] in blanksheets:
+                xmin = ix * _dxsheet
+                xmax = xmin + _dxsheet
+                ymin = iy * _dysheet
+                ymax = ymin + _dysheet
+                apdraw.drawrectangle(
+                    xmin - 0.33,
+                    ymin,
+                    xmax + 0.33,
+                    ymax,
+                    linecolor=None,
+                    fillcolor=level0color,
+                    zorder=0,
+                )
 
     if _watermark is not None:
         apdraw.drawwatermark(_watermark, canvasxmin, canvasymin, canvasxmax, canvasymax)
