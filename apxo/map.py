@@ -67,8 +67,6 @@ _saved = False
 
 _allwater = False
 
-missingcolor = [1.00, 1.00, 1.00]
-
 ridgewidth = 14
 roadwidth = 5
 dockwidth = 5
@@ -237,8 +235,8 @@ def setmap(
 
     _xmin = 0
     _xmax = _dxsheet * _nxsheetgrid
-    _ymin = 0
-    _ymax = _dysheet * _nysheetgrid
+    _ymin = -0.33
+    _ymax = _dysheet * _nysheetgrid + 0.33
 
     def sheettoright(iy, ix):
         if ix < _nxsheetgrid - 1:
@@ -594,6 +592,8 @@ def startdrawmap(
     )
 
     if _drawterrain:
+
+        apdraw.drawrectangle(canvasxmin, canvasymin, canvasxmax, canvasymax, fillcolor=level0color, linecolor=None, zorder=0)
 
         if _allwater:
 
@@ -1096,6 +1096,30 @@ def startdrawmap(
                             capstyle="projecting",
                         )
 
+    # Draw missing sheets.
+    for iy in range(0, _nysheetgrid):
+        for ix in range(0, _nxsheetgrid):
+            if _sheetgrid[iy][ix] in blanksheets:
+                xmin = ix * _dxsheet
+                xmax = xmin + _dxsheet
+                ymin = iy * _dysheet
+                ymax = ymin + _dysheet
+                apdraw.drawrectangle(
+                    xmin,
+                    ymin,
+                    xmax,
+                    ymax,
+                    linecolor=None,
+                    fillcolor=level0color,
+                    zorder=0,
+                )
+
+    # Draw the border
+    apdraw.drawrectangle(_xmin, -0.33, _xmax, -0.01, fillcolor=level0color, linecolor=None, zorder=0)
+    apdraw.drawrectangle(_xmin, _ymax-0.32, _xmax, _ymax, fillcolor=level0color, linecolor=None, zorder=0)
+    apdraw.drawrectangle(_xmin, _ymin, _xmin + 0.32, _ymax, fillcolor=level0color, linecolor=None, zorder=0)
+    apdraw.drawrectangle(_xmax - 0.32, _ymin, _xmax, _ymax, fillcolor=level0color, linecolor=None, zorder=0)
+
     # Draw and label the hexes.
     for sheet in sheetsnearcanvas():
         xmin, ymin, xmax, ymax = sheetlimits(sheet)
@@ -1127,24 +1151,6 @@ def startdrawmap(
                         apdraw.drawhexlabel(
                             x, y, label, color=hexcolor, alpha=hexalpha, zorder=0
                         )
-
-    # Draw missing sheets.
-    for iy in range(0, _nysheetgrid):
-        for ix in range(0, _nxsheetgrid):
-            if _sheetgrid[iy][ix] in blanksheets:
-                xmin = ix * _dxsheet
-                xmax = xmin + _dxsheet
-                ymin = iy * _dysheet
-                ymax = ymin + _dysheet
-                apdraw.drawrectangle(
-                    xmin,
-                    ymin,
-                    xmax,
-                    ymax,
-                    linecolor=None,
-                    fillcolor=missingcolor,
-                    zorder=0,
-                )
 
     if _drawlabels:
 
@@ -1184,7 +1190,7 @@ def startdrawmap(
         apdraw.drawwatermark(_watermark, canvasxmin, canvasymin, canvasxmax, canvasymax)
     elif watermark is not None:
         apdraw.drawwatermark(watermark, canvasxmin, canvasymin, canvasxmax, canvasymax)
-
+        
     apdraw.drawrectangle(
         canvasxmin,
         canvasymin,
