@@ -38,6 +38,7 @@ class groundunit(apelement.element):
         aaamaximumrelativealtitude=None,
         stack=None,
         color="white",
+        facing=None,
     ):
 
         self._name = ""
@@ -120,6 +121,7 @@ class groundunit(apelement.element):
                 altitude=None,
                 speed=0,
                 color=color,
+                facing=facing,
             )
 
             self._symbols = symbols
