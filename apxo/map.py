@@ -437,7 +437,7 @@ def setmap(
             level1color = [0.82, 0.75, 0.65]
             level2color = [0.77, 0.65, 0.55]
             level3color = [0.62, 0.52, 0.44]
-            # However, we take the level0 ridge color from the scheme of 
+            # However, we take the level0 ridge color from the scheme of
             # increasingly darker shades.
             level0ridgecolor = lighten(basecolor, 4 / 6)
             level1ridgecolor = level2color
