@@ -388,6 +388,7 @@ def setmap(
             or style == "tropicalforest"
             or style == "summerborealforest"
             or style == "temperate"
+            or style == "temperateforest"
             or style == "summertundra"
             or style == "original"
         ):
@@ -395,15 +396,15 @@ def setmap(
             basecolor = [0.50, 0.70, 0.45]
             if style == "tropical" or style == "tropicalforest":
                 dilution = [4 / 6, 5 / 6, 6 / 6, 7 / 6]
+                forestcolor = darken(forestcolor, 0.6)
             else:
                 dilution = [3 / 6, 4 / 6, 5 / 6, 6 / 6]
-
-            forestcolor = darken(forestcolor, 0.8)
+                forestcolor = darken(forestcolor, 0.8)
 
             megahexcolor = [1.00, 1.00, 1.00]
             megahexalpha = 0.08
 
-            if style == "tropicalforest":
+            if style == "tropicalforest" or style == "temperateforest":
                 _allforest = True
                 _wilderness = False
                 _maxurbansize = 4
