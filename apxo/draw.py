@@ -1927,7 +1927,7 @@ _colors = {
     "lightolivedrab": "#9fb670",
     "tan": "css:tan",
     "darktan": "#937e62",
-    "sand": "css:blanchedalmond",
+    "sand": "#f0ead6",
     "darkgray": "css:slategray",
     "darkgrey": "darkgray",
     "lightgray": "css:silver",
