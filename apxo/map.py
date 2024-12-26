@@ -916,27 +916,22 @@ def startdrawmap(
                     capstyle="projecting",
                 )
 
-            for sheet in sheetsnearcanvas():
-                # Draw the megahexes.
-                xmin, ymin, xmax, ymax = sheetlimits(sheet)
-                for ix in range(0, _dxsheet):
-                    for iy in range(0, _dysheet):
-                        x = xmin + ix
-                        y = ymin + iy
-                        if ix % 2 == 1:
-                            y -= 0.5
-                        if (x % 10 == 0 and y % 5 == 0) or (
-                            x % 10 == 5 and y % 5 == 2.5
-                        ):
-                            apdraw.drawhex(
-                                x,
-                                y,
-                                size=5,
-                                linecolor=megahexcolor,
-                                linewidth=megahexwidth,
-                                alpha=megahexalpha,
-                                zorder=0,
-                            )
+            for x in range(0, _nxsheetgrid * _dxsheet + 5):
+                for y in range(0, _nysheetgrid * _dysheet + 5):
+                    if x % 2 == 1:
+                        y -= 0.5
+                    if (x % 10 == 0 and y % 5 == 0) or (
+                        x % 10 == 5 and y % 5 == 2.5
+                    ):
+                        apdraw.drawhex(
+                            x,
+                            y,
+                            size=5,
+                            linecolor=megahexcolor,
+                            linewidth=megahexwidth,
+                            alpha=megahexalpha,
+                            zorder=0,
+                        )
 
             if not _wilderness:
 
@@ -1105,20 +1100,20 @@ def startdrawmap(
                 ymin = iy * _dysheet
                 ymax = ymin + _dysheet
                 apdraw.drawrectangle(
-                    xmin,
+                    xmin - 0.5,
                     ymin,
-                    xmax,
+                    xmax + 0.5,
                     ymax,
                     linecolor=None,
                     fillcolor=level0color,
                     zorder=0,
                 )
 
-    # Draw the border
-    apdraw.drawrectangle(_xmin, -0.33, _xmax, -0.01, fillcolor=level0color, linecolor=None, zorder=0)
+    # Draw the border.
+    apdraw.drawrectangle(_xmin, -0.33, _xmax, 0, fillcolor=level0color, linecolor=None, zorder=0)
     apdraw.drawrectangle(_xmin, _ymax-0.32, _xmax, _ymax, fillcolor=level0color, linecolor=None, zorder=0)
-    apdraw.drawrectangle(_xmin, _ymin, _xmin + 0.32, _ymax, fillcolor=level0color, linecolor=None, zorder=0)
-    apdraw.drawrectangle(_xmax - 0.32, _ymin, _xmax, _ymax, fillcolor=level0color, linecolor=None, zorder=0)
+    apdraw.drawrectangle(_xmin, _ymin, _xmin + 0.33, _ymax, fillcolor=level0color, linecolor=None, zorder=0)
+    apdraw.drawrectangle(_xmax - 0.33, _ymin, _xmax, _ymax, fillcolor=level0color, linecolor=None, zorder=0)
 
     # Draw and label the hexes.
     for sheet in sheetsnearcanvas():
