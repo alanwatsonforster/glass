@@ -383,27 +383,20 @@ def setmap(
                 _freshwater = False
                 _maxurbansize = 0
 
-        elif style == "temperate" or style == "summertundra" or style == "original":
-
-            basecolor = [0.50, 0.70, 0.45]
-            dilution = [2 / 6, 3 / 6, 4 / 6, 5 / 6]
-
-            megahexcolor = [1.00, 1.00, 1.00]
-            megahexalpha = 0.12
-
-            if style == "summertundra":
-                _forest = False
-                _wilderness = True
-                _maxurbansize = 0
-
         elif (
             style == "tropical"
             or style == "tropicalforest"
             or style == "summerborealforest"
+            or style == "temperate"
+            or style == "summertundra"
+            or style == "original"
         ):
 
             basecolor = [0.50, 0.70, 0.45]
-            dilution = [3 / 6, 4 / 6, 5 / 6, 6 / 6]
+            if style == "tropical" or style == "tropicalforest":
+                dilution = [4 / 6, 5 / 6, 6 / 6, 7 / 6]
+            else:
+                dilution = [3 / 6, 4 / 6, 5 / 6, 6 / 6]
 
             forestcolor = darken(forestcolor, 0.8)
 
@@ -416,6 +409,10 @@ def setmap(
                 _maxurbansize = 4
             elif style == "summerborealforest":
                 _allforest = True
+                _wilderness = True
+                _maxurbansize = 0
+            elif style == "summertundra":
+                _forest = False
                 _wilderness = True
                 _maxurbansize = 0
 
@@ -435,10 +432,13 @@ def setmap(
         if style == "original":
             # The original colors don't fit into the scheme of increasingly darker
             # shades of the same color, so are hard wired.
-            level1color = [0.87, 0.85, 0.78]
-            level2color = [0.82, 0.75, 0.65]
-            level3color = [0.77, 0.65, 0.55]
-            level0ridgecolor = lighten(basecolor, 1 / 2)
+            level0color = [0.75, 0.85, 0.725]
+            level1color = [0.82, 0.75, 0.65]
+            level2color = [0.77, 0.65, 0.55]
+            level3color = [0.62, 0.52, 0.44]
+            # However, we take the level0 ridge color from the scheme of 
+            # increasingly darker shades.
+            level0ridgecolor = lighten(basecolor, 4 / 6)
             level1ridgecolor = level2color
             level2ridgecolor = level3color
 
