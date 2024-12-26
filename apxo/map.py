@@ -273,7 +273,7 @@ def setmap(
     _levelincrement = levelincrement
 
     global _allwater, _forest, _allforest, _freshwater, _wilderness, _maxurbansize
-    
+
     global level0color, level1color, level2color, level3color
     global level0ridgecolor, level1ridgecolor, level2ridgecolor
     global forestcolor, forestalpha, foresthatch
@@ -593,7 +593,15 @@ def startdrawmap(
 
     if _drawterrain:
 
-        apdraw.drawrectangle(canvasxmin, canvasymin, canvasxmax, canvasymax, fillcolor=level0color, linecolor=None, zorder=0)
+        apdraw.drawrectangle(
+            canvasxmin,
+            canvasymin,
+            canvasxmax,
+            canvasymax,
+            fillcolor=level0color,
+            linecolor=None,
+            zorder=0,
+        )
 
         if _allwater:
 
@@ -920,9 +928,7 @@ def startdrawmap(
                 for y in range(0, _nysheetgrid * _dysheet + 5):
                     if x % 2 == 1:
                         y -= 0.5
-                    if (x % 10 == 0 and y % 5 == 0) or (
-                        x % 10 == 5 and y % 5 == 2.5
-                    ):
+                    if (x % 10 == 0 and y % 5 == 0) or (x % 10 == 5 and y % 5 == 2.5):
                         apdraw.drawhex(
                             x,
                             y,
@@ -1092,10 +1098,36 @@ def startdrawmap(
                         )
 
     # Draw the border.
-    apdraw.drawrectangle(_xmin, -0.33, _xmax, 0, fillcolor=level0color, linecolor=None, zorder=0)
-    apdraw.drawrectangle(_xmin, _ymax-0.32, _xmax, _ymax, fillcolor=level0color, linecolor=None, zorder=0)
-    apdraw.drawrectangle(_xmin, _ymin, _xmin + 0.33, _ymax, fillcolor=level0color, linecolor=None, zorder=0)
-    apdraw.drawrectangle(_xmax - 0.33, _ymin, _xmax, _ymax, fillcolor=level0color, linecolor=None, zorder=0)
+    apdraw.drawrectangle(
+        _xmin, -0.33, _xmax, 0, fillcolor=level0color, linecolor=None, zorder=0
+    )
+    apdraw.drawrectangle(
+        _xmin,
+        _ymax - 0.32,
+        _xmax,
+        _ymax,
+        fillcolor=level0color,
+        linecolor=None,
+        zorder=0,
+    )
+    apdraw.drawrectangle(
+        _xmin,
+        _ymin,
+        _xmin + 0.33,
+        _ymax,
+        fillcolor=level0color,
+        linecolor=None,
+        zorder=0,
+    )
+    apdraw.drawrectangle(
+        _xmax - 0.33,
+        _ymin,
+        _xmax,
+        _ymax,
+        fillcolor=level0color,
+        linecolor=None,
+        zorder=0,
+    )
 
     # Draw and label the hexes.
     for sheet in sheetsnearcanvas():
@@ -1185,7 +1217,7 @@ def startdrawmap(
         apdraw.drawwatermark(_watermark, canvasxmin, canvasymin, canvasxmax, canvasymax)
     elif watermark is not None:
         apdraw.drawwatermark(watermark, canvasxmin, canvasymin, canvasxmax, canvasymax)
-        
+
     apdraw.drawrectangle(
         canvasxmin,
         canvasymin,
