@@ -25,11 +25,12 @@ def asserterror(error):
 
 
 def starttestsetup(
-    sheets=[["A1"], ["A2"]], north="up", variants=[], drawterrain=False, verbose=False
+    sheets=[["A1"], ["A2"]], north="up", variants=[], drawterrain=False, verbose=False,
+    **kwargs
 ):
     aplog.setprint(verbose)
     ap.startgamesetup(
-        None, sheets=sheets, north=north, drawterrain=drawterrain, variants=variants
+        None, sheets=sheets, north=north, drawterrain=drawterrain, variants=variants, **kwargs
     )
 
 

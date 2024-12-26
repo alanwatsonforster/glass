@@ -162,6 +162,7 @@ def setmap(
     allforest=None,
     maxurbansize=None,
     leveloffset=0,
+    levelincrement=1,
 ):
     """
     Set the arrangement of the sheets that form the map and the position of the
@@ -269,8 +270,12 @@ def setmap(
     global _saved
     _saved = False
 
-    global _allwater, _forest, _allforest, _freshwater, _wilderness, _maxurbansize, _leveloffset
+    global _leveloffset, _levelincrement
+    _leveloffset = leveloffset
+    _levelincrement = levelincrement
 
+    global _allwater, _forest, _allforest, _freshwater, _wilderness, _maxurbansize
+    
     global level0color, level1color, level2color, level3color
     global level0ridgecolor, level1ridgecolor, level2ridgecolor
     global forestcolor, forestalpha, foresthatch
@@ -302,7 +307,6 @@ def setmap(
     _freshwater = True
     _frozen = False
     _wilderness = False
-    _leveloffset = 0
 
     riverwidth = 14
     wideriverwidth = 35
@@ -310,8 +314,6 @@ def setmap(
     townhatch = "xx"
     cityhatch = "xx"
     foresthatch = ".o"
-
-    _leveloffset = leveloffset
 
     if not _drawterrain:
 
@@ -1308,9 +1310,9 @@ def altitude(x, y, sheet=None):
             sheet = tosheet(x, y)
         label = int(aphexcode.tolabel(aphexcode.fromxy(x, y, sheet=sheet)))
         if label in _terrain[sheet]["level2hexes"]:
-            return max(0, 2 + _leveloffset)
+            return max(0, (2 + _leveloffset) * _levelincrement)
         elif label in _terrain[sheet]["level1hexes"]:
-            return max(0, 1 + _leveloffset)
+            return max(0, (1 + _leveloffset) * _levelincrement)
         else:
             return 0
 
