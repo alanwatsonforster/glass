@@ -38,7 +38,7 @@ class groundunit(apelement.element):
         aaamaximumrelativealtitude=None,
         stack=None,
         color="white",
-        facing=None,
+        azimuth=None,
     ):
 
         self._name = ""
@@ -114,6 +114,11 @@ class groundunit(apelement.element):
 
             if aaaclass not in [None, "B", "L", "M", "H"]:
                 raise RuntimeError("invalid aaaclass %r." % aaaclass)
+                
+            if aaaclass == "H" and azimuth is None:
+                raise RuntimeError("heavy AAA ground units must have an azimuth.")
+            if aaaclass != "H" and azimuth is not None:
+                raise RuntimeError("only heavy AAA ground units may have an azimuth.")
 
             super().__init__(
                 name,
@@ -121,7 +126,7 @@ class groundunit(apelement.element):
                 altitude=None,
                 speed=0,
                 color=color,
-                facing=facing,
+                azimuth=azimuth,
             )
 
             self._symbols = symbols
@@ -141,17 +146,17 @@ class groundunit(apelement.element):
             aplog.logexception(e)
         self.logbreak()
 
-    #############################################################################
+    ############################################################################
 
     def isgroundunit(self):
         return True
 
-    #############################################################################
+    ############################################################################
 
     def _properties(self):
         return []
 
-    #############################################################################
+    ############################################################################
 
     def _endgameturn(self):
         self._endgameturndamage()
@@ -174,7 +179,6 @@ class groundunit(apelement.element):
         isusingplottedfire,
         resupplyammunition,
     )
-
     from apxo.groundunit.damage import (
         _initdamage,
         _endgameturndamage,
@@ -185,8 +189,8 @@ class groundunit(apelement.element):
         _takedamageconsequences,
         _issuppressed,
     )
-
     from apxo.groundunit.draw import _draw
+    from apxo.groundunit.move import _move, _continuemove
     from apxo.groundunit.track import (
         _maximumtrackingrange,
         _trackingrequirement,

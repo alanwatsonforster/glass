@@ -150,6 +150,24 @@ asserterror(
     'unable to read ground unit data file for "_INVALID": line 2: expecting property name enclosed in double quotes.'
 )
 
+# Check azimuths
+
+starttestsetup()
+G0 = groundunit("G0", "A1-2110", symbols="", aaaclass="H", azimuth="N")
+G0._assert("A1-2110 N 0", None)
+
+starttestsetup()
+G0 = groundunit("G0", "A1-2110", symbols="", azimuth="N")
+asserterror(
+    'only heavy AAA ground units may have an azimuth.'
+)
+
+starttestsetup()
+G0 = groundunit("G0", "A1-2110", symbols="", aaaclass="H")
+asserterror(
+    'heavy AAA ground units must have an azimuth.'
+)
+
 # Make sure all of the ground unit data files are readable.
 
 import glob
@@ -162,7 +180,10 @@ i = 0
 for path in pathlist:
     groundunittype = os.path.basename(path)[:-5]
     if groundunittype[0] != "_":
-        groundunit("G%d" % i, "A1-2110", groundunittype)
+        if groundunittype == "KS-12":
+            groundunit("G%d" % i, "A1-2110", groundunittype, azimuth="N")
+        else:
+            groundunit("G%d" % i, "A1-2110", groundunittype)
         asserterror(None)
         i += 1
 

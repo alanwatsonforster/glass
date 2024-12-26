@@ -899,12 +899,15 @@ groundunitdx = 0.6
 groundunitdy = 0.4
 
 
-def drawgroundunit(x, y, symbols, uppertext, lowertext, color, name, stack, killed):
+def drawgroundunit(
+    x, y, symbols, uppertext, lowertext, facing, color, name, stack, killed
+):
     _drawgroundunitinphysical(
         *aphex.tophysical(x, y),
         symbols,
         uppertext,
         lowertext,
+        facing,
         color,
         name,
         stack,
@@ -913,7 +916,7 @@ def drawgroundunit(x, y, symbols, uppertext, lowertext, color, name, stack, kill
 
 
 def _drawgroundunitinphysical(
-    x0, y0, symbols, uppertext, lowertext, color, name, stack, killed
+    x0, y0, symbols, uppertext, lowertext, facing, color, name, stack, killed
 ):
 
     if killed:
@@ -1754,6 +1757,18 @@ def _drawgroundunitinphysical(
             color=linecolor,
             alignment="center",
             zorder=zorder,
+        )
+
+    if facing is not None:
+        _drawarrowinphysical(
+            x0,
+            y0,
+            facing,
+            0.7,
+            dy=0.35,
+            linewidth=1,
+            linecolor=linecolor,
+            zorder=0,
         )
 
     if "hex" not in symbols:

@@ -11,6 +11,7 @@ def _draw(self):
         self._symbols,
         self._uppertext,
         self._lowertext,
+        self._facing,
         self.color(),
         self.name(),
         self._stack,

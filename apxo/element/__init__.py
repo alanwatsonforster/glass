@@ -247,7 +247,7 @@ class element:
 
         if altitude is None:
             altitude = self._altitude
-        if not apaltitude.isvalidaltitude(altitude):
+        elif not apaltitude.isvalidaltitude(altitude):
             raise RuntimeError("the altitude argument is not valid.")
 
         if altitudecarry is None:
@@ -257,7 +257,7 @@ class element:
         self._y = y
         self._facing = facing
         self._altitude = altitude
-        self._altitudeband = apaltitude.altitudeband(self._altitude)
+        self._altitudeband = apaltitude.altitudeband(self.altitude())
         self._altitudecarry = altitudecarry
 
     ############################################################################
