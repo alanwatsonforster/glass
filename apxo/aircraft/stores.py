@@ -70,6 +70,7 @@ _storedict = {
     "BB/Mk84": ["BB", 2000, 3.0],
     "BB/HD/BLU-10": ["BB", 250, 1.0],
     "BB/HD/BLU-11": ["BB", 500, 1.5],
+    "BB/HD/BLU-27": ["BB", 750, 2.5], # Same properties as BLU-1.
     "BB/HD/Mk77": ["BB", 750, 2.0],
     "BB/HD/Mk79": ["BB", 1000, 2.5],
     "BB/CBU-20": ["BB", 500, 1.5],
