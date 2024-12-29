@@ -151,7 +151,7 @@ def _secondaryattackgroundunit(self, target, attacktype, result=None, note=None)
 ################################################################################
 
 
-def bomb(self, name, target, stores=None, lowdrag=False, note=None):
+def bomb(self, name, target, stores=None, highdrag=False, note=None):
 
     try:
 
@@ -164,15 +164,15 @@ def bomb(self, name, target, stores=None, lowdrag=False, note=None):
 
 
         if self.isinlevelflight():            
-            if lowdrag:
-                self.logcomment("level bombing with low-drag bombs.")
-            else:
+            if highdrag:
                 self.logcomment("level bombing with high-drag bombs.")
-        elif self.isindivingflight():
-            if lowdrag:
-                self.logcomment("dive bombing with low-drag bombs.")
             else:
+                self.logcomment("level bombing with low-drag bombs.")
+        elif self.isindivingflight():
+            if highdrag:
                 self.logcomment("dive bombing with high-drag bombs.")
+            else:
+                self.logcomment("dive bombing with low-drag bombs.")
         else:
             raise RuntimeError("bomber is in climbing flight.")
 
@@ -184,26 +184,26 @@ def bomb(self, name, target, stores=None, lowdrag=False, note=None):
             % (horizontalrange, relativealtitude)
         )
         if self.isinlevelflight():            
-            if lowdrag:
-                if horizontalrange == 0 or horizontalrange > 12:
-                    raise RuntimeError("invalid release point.")        
-                minrelativealtitude = [None, 1, 3, 5, 7,  9, 11, 11, 16, 16, 26, 26, 26]
-                maxrelativealtitude = [None, 2, 4, 6, 8, 10, 15, 15, 25, 25, 40, 40, 40]
-            else:
+            if highdrag:
                 if horizontalrange > 9:
                     raise RuntimeError("invalid release point.")        
                 minrelativealtitude = [0, 3,  7, 11, 15, 19, 25, 25, 33, 33]
                 maxrelativealtitude = [2, 6, 10, 14, 18, 24, 32, 32, 40, 40]
-        else:
-            if lowdrag:
-                minrelativealtitude = [1, 4,  7, 11, 13, 16]
-                maxrelativealtitude = [3, 6, 10, 12, 15, 20]
-                if horizontalrange > 5:
-                    raise RuntimeError("invalid release point.")        
             else:
+                if horizontalrange == 0 or horizontalrange > 12:
+                    raise RuntimeError("invalid release point.")        
+                minrelativealtitude = [None, 1, 3, 5, 7,  9, 11, 11, 16, 16, 26, 26, 26]
+                maxrelativealtitude = [None, 2, 4, 6, 8, 10, 15, 15, 25, 25, 40, 40, 40]
+        else:
+            if highdrag:
                 minrelativealtitude = [1, 4,  9, 14]
                 maxrelativealtitude = [3, 8, 14, 20]
                 if horizontalrange > 3:
+                    raise RuntimeError("invalid release point.")        
+            else:
+                minrelativealtitude = [1, 4,  7, 11, 13, 16]
+                maxrelativealtitude = [3, 6, 10, 12, 15, 20]
+                if horizontalrange > 5:
                     raise RuntimeError("invalid release point.")        
         if (
             relativealtitude < minrelativealtitude[horizontalrange]
