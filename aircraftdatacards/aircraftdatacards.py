@@ -725,7 +725,7 @@ def blockF(data, geometry=None):
             % (data.gunatadamagerating(), data.gunatgdamagerating())
         )
 
-    s = data.bombsystem()
+    s = data.bombsystem().capitalize()
     if "/" in s:
         prefix = r"\parbox{\linewidth}{\centering\scriptsize "
         suffix = r"}"

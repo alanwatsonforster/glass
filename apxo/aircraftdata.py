@@ -521,9 +521,9 @@ class aircraftdata:
 
     def bombsystem(self):
         if "bombsystem" in self._data:
-            return self._data["bombsystem"]
+            return self._data["bombsystem"].lower()
         else:
-            return "Manual"
+            return "manual"
 
     def ecm(self, what):
         if "ecm" not in self._data or self._data["ecm"] is False:

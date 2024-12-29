@@ -228,6 +228,10 @@ def lockon(A):
     return A._aircraftdata.radar("lockon")
 
 
+def bombsystem(A):
+    return A._aircraftdata.bombsystem()
+
+
 def geometries(A):
     return A._aircraftdata.geometries()
 

@@ -478,7 +478,17 @@ class aircraft(apelement.element):
         """Return the stores fuel capacity."""
         return self._storestotalfuelcapacity()
 
-    #############################################################################
+    ############################################################################
+
+    # Bomb System
+
+    ############################################################################
+
+    def bombsystem(self):
+        """Return the bomb system."""
+        return self._aircraftdata.bombsystem()
+
+    ############################################################################
 
     # Geometry
 
