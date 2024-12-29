@@ -170,7 +170,7 @@ def endgameturn(note=None):
 
 def startvisualsighting():
     try:
-        apgameturn.checkinturn()
+        apgameturn.checkingameturn()
         apvisualsighting.startvisualsighting(),
     except RuntimeError as e:
         aplog.logexception(e)
@@ -179,7 +179,7 @@ def startvisualsighting():
 
 def endvisualsighting():
     try:
-        apgameturn.checkinturn()
+        apgameturn.checkingameturn()
         apvisualsighting.endvisualsighting(),
     except RuntimeError as e:
         aplog.logexception(e)
@@ -203,7 +203,7 @@ def settraining(training):
 
 def orderofflightdeterminationphase(rolls, firstkill=None, mostkills=None):
     try:
-        apgameturn.checkinturn()
+        apgameturn.checkingameturn()
         aporder.orderofflightdeterminationphase(
             rolls, firstkill=firstkill, mostkills=mostkills
         )
