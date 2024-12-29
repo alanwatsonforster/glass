@@ -123,7 +123,7 @@ def _attackgroundunit(self, target, attacktype, result=None, stores=None, note=N
         self.logwhenwhat("", "gun ammunition is now %.1f." % self._gunammunition)
     else:
         self._release(stores)
-        self.stopaiming()
+        self._stopaiming()
 
     target._takeattackdamage(self, result)
 
@@ -214,7 +214,7 @@ def bomb(self, name, target, stores=None, highdrag=False, note=None):
 
         self._release(stores)
         bomb = apbomb.bomb(name, self.hexcode(), self.facing(), self.altitude())
-        self.stopaiming()
+        self._stopaiming()
         self.lognote(note)
         return bomb
 

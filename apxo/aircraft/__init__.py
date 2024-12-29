@@ -727,7 +727,7 @@ class aircraft(apelement.element):
 
     ############################################################################
 
-    from apxo.aircraft.aim import _initaim, aim, stopaiming
+    from apxo.aircraft.aim import _initaim, aim, _stopaiming, stopaiming
 
     from apxo.aircraft.attack import (
         _attackaircraft,

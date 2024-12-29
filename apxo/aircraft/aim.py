@@ -31,15 +31,21 @@ def aim(self, target, *args, **kwargs):
 ################################################################################
 
 
+def _stopaiming(self):
+    if self._aimingtarget is None:
+        raise RuntimeError("%s is not aiming." % self.name())
+    if isinstance(self._aimingtarget, str):
+        self.logwhenwhat("", "stops aiming at hex %s." % self._aimingtarget)
+    else:
+        self.logwhenwhat("", "stops aiming at %s." % self._aimingtarget.name())
+    self._aimingtarget = None
+
+
+################################################################################
+
 def stopaiming(self):
     try:
-        if self._aimingtarget is None:
-            raise RuntimeError("%s is not aiming." % self.name())
-        if isinstance(self._aimingtarget, str):
-            self.logwhenwhat("", "stops aiming at hex %s." % self._aimingtarget)
-        else:
-            self.logwhenwhat("", "stops aiming at %s." % self._aimingtarget.name())
-        self._aimingtarget = None
+        self._stopaiming()
     except RuntimeError as e:
         aplog.logexception(e)
     self.logbreak()
