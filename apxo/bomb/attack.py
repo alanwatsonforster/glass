@@ -46,7 +46,7 @@ def blastzone(self, name, note=None):
 
     try:
         blastzone = apblastzone.blastzone(name, *self.xy())
-        aplog.lognote(note)
+        self.lognote(note)
     except RuntimeError as e:
         aplog.logexception(e)
     self.logbreak()

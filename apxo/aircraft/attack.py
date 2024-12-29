@@ -18,7 +18,7 @@ def _attackaircraft(self, target, attacktype, result=None, returnfire=False, not
 
     apairtoair.attack(self, attacktype, target, result, returnfire=returnfire)
 
-    aplog.lognote(note)
+    self.lognote(note)
 
 
 ################################################################################
@@ -127,7 +127,7 @@ def _attackgroundunit(self, target, attacktype, result=None, stores=None, note=N
 
     target._takeattackdamage(self, result)
 
-    aplog.lognote(note)
+    self.lognote(note)
 
 
 ################################################################################
@@ -145,7 +145,7 @@ def _secondaryattackgroundunit(self, target, attacktype, result=None, note=None)
 
     target._takeattackdamage(self, result)
 
-    aplog.lognote(note)
+    self.lognote(note)
 
 
 ################################################################################
