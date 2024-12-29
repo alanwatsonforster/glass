@@ -124,8 +124,7 @@ def _takeattackdamage(self, attacker, result):
             if self.damage() == "K":
                 self._kill()
                 self.logwhenwhat("", "is killed.")
-            else:
-                self._takedamageconsequences()
+            self._takedamageconsequences()
 
 
 ################################################################################
