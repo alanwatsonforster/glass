@@ -29,7 +29,7 @@ def _attackgroundunit(self, target, attacktype, result=None, stores=None, note=N
     attacktype = attacktype.split("/")
 
     weapon = attacktype[0]
-    if weapon not in ["GN", "RK", "RP"]:
+    if weapon not in ["GN", "RK", "RP", "BB"]:
         raise RuntimeError("invalid weapon.")
 
     if weapon == "GN":
