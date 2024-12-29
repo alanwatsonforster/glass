@@ -36,11 +36,9 @@ def _attackgroundunit(self, target, attacktype, result=None, stores=None, note=N
                 raise RuntimeError("attacker too high.")
             if relativealtitude < 0:
                 raise RuntimeError("attacker too low.")
-        elif self.isindivingflight():
+        else:
             if relativealtitude < 0:
                 raise RuntimeError("attacker too low.")
-        else:
-            raise RuntimeError("attacker is in climbing flight.")
 
         self.logcomment("range is %d." % range)
         if range > 4:
@@ -57,13 +55,11 @@ def _attackgroundunit(self, target, attacktype, result=None, stores=None, note=N
                 raise RuntimeError("invalid release point.")
             minrelativealtitude = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
             maxrelativealtitude = [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
-        elif self.isindivingflight():
+        else:
             if horizontalrange == 0 or horizontalrange > 8:
                 raise RuntimeError("invalid release point.")
             minrelativealtitude = [None, 0, 1, 2, 2, 3, 4, 4, 4]
             maxrelativealtitude = [None, 4, 8, 12, 10, 10, 9, 7, 5]
-        else:
-            raise RuntimeError("attacker is in climbing flight.")
         if (
             relativealtitude < minrelativealtitude[horizontalrange]
             or relativealtitude > maxrelativealtitude[horizontalrange]
@@ -107,6 +103,13 @@ def _attackgroundunit(self, target, attacktype, result=None, stores=None, note=N
         raise RuntimeError("invalid target.")
     if target is not self._aimingtarget:
         raise RuntimeError("%s is not aiming at %s." % (self.name(), target.name()))
+
+    if self.isinlevelflight():            
+        self.logcomment("level attack.")
+    elif self.isindivingflight():
+        self.logcomment("diving attack.")
+    else:
+        raise RuntimeError("attack in climbing flight.")
 
     range = apgeometry.range(self, target)
     horizontalrange = apgeometry.horizontalrange(self, target)
