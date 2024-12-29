@@ -1,6 +1,6 @@
 import apxo.geometry as apgeometry
 import apxo.log as aplog
-import apxo.rounding as aprounding
+from apxo.rounding import onethirdfromtable, twothirdsfromtable, roundup, rounddown
 
 ################################################################################
 
@@ -9,17 +9,17 @@ def _maximumtrackingrange(self):
     if self._aaamaximumrange() is None:
         return None
     else:
-        return aprounding.rounddown(self._aaamaximumrange() * 1.5)
+        return rounddown(self._aaamaximumrange() * 1.5)
 
 
 def _trackingrequirement(self, target, radar=False):
     if self._aaaclass == "H":
+        return max(1, roundup(twothirdsfromtable(target.speed())))
         factor = 2 / 3
     elif not radar:
-        factor = 1 / 2
+        return max(1, roundup(self.speed() / 2))
     else:
-        factor = 1 / 3
-    return aprounding.roundup(target.speed() * factor)
+        return max(1, roundup(onethirdfromtable(target.speed())))
 
 
 ################################################################################
