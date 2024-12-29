@@ -145,7 +145,7 @@ def _startaircraftspeed(
     ############################################################################
 
     A.logstart("configuration    is %s." % A._configuration)
-    A.logstart("damage           is %s." % A.damage())
+    A.logstart("damage           is %s." % (A.damage() if A.damage() != "" else "none"))
 
     ############################################################################
 
