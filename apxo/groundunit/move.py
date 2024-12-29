@@ -6,6 +6,7 @@ import apxo.hexcode as aphexcode
 
 ################################################################################
 
+
 def _move(self, s):
     self.logposition("start")
     self._continuemove(s)
@@ -27,10 +28,10 @@ def _continuemove(self, s):
     elif apazimuth.isvalidazimuth(s):
         newx, newy = aphex.forward(self._x, self._y, apazimuth.tofacing(s))
         if not aphex.iscenter(newx, newy):
-            raise RuntimeError("invalid azimuth \"%s\" for move." % s)
+            raise RuntimeError('invalid azimuth "%s" for move.' % s)
         self._setposition(x=newx, y=newy)
     else:
-        raise RuntimeError("invalid move \"%s\"." % s)
+        raise RuntimeError('invalid move "%s".' % s)
     self.logposition("")
 
 

@@ -158,15 +158,11 @@ G0._assert("A1-2110 N 0", None)
 
 starttestsetup()
 G0 = groundunit("G0", "A1-2110", symbols="", azimuth="N")
-asserterror(
-    'only heavy AAA ground units may have an azimuth.'
-)
+asserterror("only heavy AAA ground units may have an azimuth.")
 
 starttestsetup()
 G0 = groundunit("G0", "A1-2110", symbols="", aaaclass="H")
-asserterror(
-    'heavy AAA ground units must have an azimuth.'
-)
+asserterror("heavy AAA ground units must have an azimuth.")
 
 # Make sure all of the ground unit data files are readable.
 

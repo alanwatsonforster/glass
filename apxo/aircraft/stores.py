@@ -42,7 +42,7 @@ _storedict = {
     "RP/LAU-68": ["RP", 250, 2.0],
     "RP/LAU-3A": ["RP", 450, 3.0],
     "RP/LAU-10": ["RP", 550, 3.0],
-    "RP/LAU-33": ["RP", 200, 2.9], # From errata.
+    "RP/LAU-33": ["RP", 200, 2.9],  # From errata.
     "RP/LAU-37": ["RP", 850, 3.5],
     # Soviet
     "RP/UV-8-57": ["RP", 175, 2.0],
@@ -57,7 +57,7 @@ _storedict = {
     "BB/M66": ["BB", 2000, 4.0],
     "BB/M74": ["BB", 100, 0.5],
     "BB/M76": ["BB", 500, 1.5],
-    "BB/HD/BLU-1": ["BB", 750, 2.5], # HD only from errata.
+    "BB/HD/BLU-1": ["BB", 750, 2.5],  # HD only from errata.
     "BB/M117": ["BB", 750, 2.0],
     "BB/HD/M117": ["BB", 750, 2.0],
     "BB/M118": ["BB", 3000, 5.0],
@@ -70,7 +70,7 @@ _storedict = {
     "BB/Mk84": ["BB", 2000, 3.0],
     "BB/HD/BLU-10": ["BB", 250, 1.0],
     "BB/HD/BLU-11": ["BB", 500, 1.5],
-    "BB/HD/BLU-27": ["BB", 750, 2.5], # Same properties as BLU-1.
+    "BB/HD/BLU-27": ["BB", 750, 2.5],  # Same properties as BLU-1.
     "BB/HD/Mk77": ["BB", 750, 2.0],
     "BB/HD/Mk79": ["BB", 1000, 2.5],
     "BB/CBU-20": ["BB", 500, 1.5],

@@ -114,7 +114,7 @@ class groundunit(apelement.element):
 
             if aaaclass not in [None, "B", "L", "M", "H"]:
                 raise RuntimeError("invalid aaaclass %r." % aaaclass)
-                
+
             if aaaclass == "H" and azimuth is None:
                 raise RuntimeError("heavy AAA ground units must have an azimuth.")
             if aaaclass != "H" and azimuth is not None:

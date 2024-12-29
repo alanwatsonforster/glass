@@ -4,11 +4,8 @@ startfile(__file__, "ground unit movement")
 
 starttestsetup()
 
-G0 = groundunit(
-    "G0", "A1-2120", symbols="infantry")
-G1 = groundunit(
-    "G1", "A1-2120", symbols="airdefense/gun", aaaclass="H", azimuth="N"
-)
+G0 = groundunit("G0", "A1-2120", symbols="infantry")
+G1 = groundunit("G1", "A1-2120", symbols="airdefense/gun", aaaclass="H", azimuth="N")
 endtestsetup()
 
 startgameturn()
@@ -29,11 +26,11 @@ asserterror("G0 has already started moving.")
 
 startgameturn()
 G0.move("NNW")
-asserterror("invalid azimuth \"NNW\" for move.")
+asserterror('invalid azimuth "NNW" for move.')
 
 startgameturn()
 G0.move("R")
-asserterror("invalid move \"R\".")
+asserterror('invalid move "R".')
 
 startgameturn()
 G1._assert("A2-2120 N   0", None)

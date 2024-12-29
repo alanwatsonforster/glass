@@ -34,7 +34,7 @@ G6 = groundunit(
     symbols="airdefense/gun",
     aaaclass="H",
     aaamaximumrelativealtitude=27,
-    azimuth="N"
+    azimuth="N",
 )
 
 A0 = aircraft("A0", "USAF", "F-100A", "A1-2110", "E", 2, 3)
