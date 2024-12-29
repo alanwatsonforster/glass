@@ -16,13 +16,9 @@ def _initaim(self):
 
 def aim(self, target, *args, **kwargs):
     try:
-        if isinstance(target, str):
-            self.logwhenwhat("", "starts aiming at hex %s." % target)
-            aphexcode.checkisvalidhexcodeforcenter(target)
-        elif not target.isgroundunit():
+        if not target.isgroundunit():
             raise RuntimeError("invalid target for aiming.")
-        else:
-            self.logwhenwhat("", "starts aiming at %s." % target.name())
+        self.logwhenwhat("", "starts aiming at %s." % target.name())
         if self.bombsystem() == "manual":
             requirement = max(1, roundup(twothirdsfromtable(self.speed())))
         elif self.bombsystem() == "ballistic":
@@ -50,10 +46,7 @@ def aim(self, target, *args, **kwargs):
 def _stopaiming(self):
     if self._aimingtarget is None:
         raise RuntimeError("%s is not aiming." % self.name())
-    if isinstance(self._aimingtarget, str):
-        self.logwhenwhat("", "stops aiming at hex %s." % self._aimingtarget)
-    else:
-        self.logwhenwhat("", "stops aiming at %s." % self._aimingtarget.name())
+    self.logwhenwhat("", "stops aiming at %s." % self._aimingtarget.name())
     self._aimingtarget = None
 
 
