@@ -148,9 +148,9 @@ A1 = aircraft(
         3: "BB/M64",
         5: "BB/M64",
         6: "RP/LAU-10",
-        7: "BB/BLU-1",
-        8: "BB/BLU-1",
-        9: "BB/BLU-1",
+        7: "BB/HD/BLU-1",
+        8: "BB/HD/BLU-1",
+        9: "BB/HD/BLU-1",
         10: "RP/LAU-10",
         11: "BB/M64",
         13: "BB/M64",
@@ -160,7 +160,7 @@ A1 = aircraft(
 endtestsetup()
 startgameturn()
 A1._assert("A2-2024       N    10", 2.5, expectedconfiguration="DT")
-A1.release([1, 3, 5, "11", "13", "15", "BB/BLU-1"])
+A1.release([1, 3, 5, "11", "13", "15", "BB/HD/BLU-1"])
 A1._assert("A2-2024       N    10", 2.5, expectedconfiguration="CL")
 
 endfile(__file__)
