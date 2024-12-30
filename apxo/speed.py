@@ -650,7 +650,7 @@ def _endaircraftspeed(A):
     # two levels. See rules 6.3 and 8.2.
 
     altitudeloss = A.startaltitude() - A.altitude()
-    usemaxdivespeed = (altitudeloss >= 2) and not A.damageatleast("H")
+    usemaxdivespeed = (altitudeloss >= 2)
 
     # See rules 6.2, 6.3, and 8.2.
 
