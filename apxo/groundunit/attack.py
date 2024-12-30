@@ -75,11 +75,9 @@ def _attackaircraft(self, target, result=None, note=None):
         if target.altitude() > self._plottedfire.altitude() + 2:
             raise RuntimeError("target is above the plotted fire.")
 
-    else:
+    elif self._aaarange is not None:
 
         self.logwhenwhat("", "attacks %s with aimed fire." % target.name())
-        if self._aaarange is None:
-            raise RuntimeError("%s is not an air-defense gun unit." % self.name())
         if self._outofammunition:
             raise RuntimeError("%s is out of ammunition." % self.name())
         if self._tracking is not target:
@@ -102,11 +100,17 @@ def _attackaircraft(self, target, result=None, note=None):
                 "%s is above the maximum altitude of %d."
                 % (target.name(), self._aaamaximumaltitude())
             )
+    else:
+        raise RuntimeError("%s cannot attack aircraft." % self.name())
+    
 
     if self.issuppressed():
        raise RuntimeError("%s is suppressed" % self.name())
 
     target._takeattackdamage(self, result)
+    
+    if not self.isusingbarragefire() and not self.isusingplottedfire():
+        self._stoptracking()
 
     self.lognote(note)
 
