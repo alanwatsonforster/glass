@@ -103,6 +103,9 @@ def _attackaircraft(self, target, result=None, note=None):
                 % (target.name(), self._aaamaximumaltitude())
             )
 
+    if self.issuppressed():
+       raise RuntimeError("%s is suppressed" % self.name())
+
     target._takeattackdamage(self, result)
 
     self.lognote(note)
