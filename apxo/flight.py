@@ -833,7 +833,7 @@ def _startmovenormalflight(A):
                 A._effectiveclimbcapability *= 0.5
 
             # See the Aircraft Damage Effects Table in the charts.
-            if A.damageatleast("H"):
+            if not apvariants.withvariant("use optional damage table") and A.damageatleast("H"):
                 A.logcomment("climb capability reduced by damage.")
                 A._effectiveclimbcapability *= 0.5
 
@@ -2396,12 +2396,13 @@ def _checkturnrate(A, turnrate):
 
     # See "Aircraft Damage Effects" in Play Aids.
 
-    if A.damageatleast("C") and turnrate not in ["EZ", "TT"]:
-        return "damage limits the turn rate to TT."
-    elif A.damageatleast("2L") and turnrate not in ["EZ", "TT", "HT"]:
-        return "damage limits the turn rate to HT."
-    elif A.damageatleast("L") and turnrate not in ["EZ", "TT", "HT", "BT"]:
-        return "damage limits the turn rate to BT."
+    if not apvariants.withvariant("use optional damage table"):
+        if A.damageatleast("C") and turnrate not in ["EZ", "TT"]:
+            return "damage limits the turn rate to TT."
+        elif A.damageatleast("2L") and turnrate not in ["EZ", "TT", "HT"]:
+            return "damage limits the turn rate to HT."
+        elif A.damageatleast("L") and turnrate not in ["EZ", "TT", "HT", "BT"]:
+            return "damage limits the turn rate to BT."
 
     # See rule 7.5.
 
@@ -2620,8 +2621,9 @@ def _extrapreparatoryhfp(E):
 
     # See "Aircraft Damage Effects" in the Play Aids.
 
-    if E.isaircraft() and E.damageatleast("2L"):
-        extrapreparatoryfp += 1.0
+    if not apvariants.withvariant("use optional damage table"):
+        if E.isaircraft() and E.damageatleast("2L"):
+            extrapreparatoryfp += 1.0
 
     return extrapreparatoryfp
 

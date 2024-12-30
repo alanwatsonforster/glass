@@ -8,6 +8,7 @@ _knownvariants = [
     "draw counters",
     "require limited radar arc for SSGT",
     "use house rules",
+    "use optional damage table",
 ]
 
 variants = []

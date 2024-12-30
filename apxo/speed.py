@@ -211,19 +211,20 @@ def _startaircraftspeed(
         powerapFT = max(0.0, powerapFT - apcapabilities.powerfade(A))
 
     # See "Aircraft Damage Effects" in the Play Aids.
-    if A.damageatleast("H"):
-        if jet:
-            powerapM /= 2
-            if powerapAB != None:
-                powerapAB /= 2
-        else:
-            powerapHT /= 2
-            powerapFT /= 2
-    if A.damageatleast("C"):
-        if jet:
-            powerapAB = None
-        else:
-            powerapFT = None
+    if not apvariants.withvariant("use optional damage table"):
+        if A.damageatleast("H"):
+            if jet:
+                powerapM /= 2
+                if powerapAB != None:
+                    powerapAB /= 2
+            else:
+                powerapHT /= 2
+                powerapFT /= 2
+        if A.damageatleast("C"):
+            if jet:
+                powerapAB = None
+            else:
+                powerapFT = None
 
     # See rule 6.1.
 
@@ -292,8 +293,9 @@ def _startaircraftspeed(
         A.logcomment("power is reduced as the speed is %.1f." % speed)
 
     # Again, the reduction was done above, but we report it here.
-    if A.damageatleast("H"):
-        A.logcomment("power is reduced as damage is %s." % A.damage())
+    if not apvariants.withvariant("use optional damage table"):
+        if A.damageatleast("H"):
+            A.logcomment("power is reduced as damage is %s." % A.damage())
 
     # Is the engine smoking?
     A._enginesmoking = A.hasproperty("SMP") and powersetting == "M"
