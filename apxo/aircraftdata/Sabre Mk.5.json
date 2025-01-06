@@ -1,6 +1,6 @@
 {
   "versionname": "Sabre Mk.5",
-  "versiondescription": "Canadair fighter-bomber version with Orenda 10 engine and unslatted 6-3 wing.",
+  "description": "The Canadair Sabre Mk.5 is a modified version of Mk.4 with an Orenda 10 engine and the unslatted 6-3 wing.",
   "manufacturername": "Canadair",
   "origin": "APJ 25",
   "base": "F-86F-25",

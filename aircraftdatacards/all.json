@@ -11,8 +11,8 @@
     //  1948
     [ "type", "Sea Fury", "Sea Fury FB.11" ],
 
-    [ "chapter", "Canadian Aircraft" ],
-    [ "type", "Sabre", "Sabre Mk.2", "Sabre Mk.5", "Sabre Mk.6" ],
+    [ "chapter", "Canadian Aircraft", "canadian.tex"],
+    [ "type", "Sabre", "Sabre Mk.2", "Sabre Mk.4", "Sabre Mk.4 (6-3 Wing)", "Sabre Mk.5", "Sabre Mk.6" ],
 
     [ "chapter", "Chinese Aircraft" ],
     // 1957
