@@ -2,7 +2,7 @@
 
 [
 
-    [ "chapter", "Australian Aircraft", "australian.tex"],
+    [ "chapter", "Australian Aircraft", "australian.tex" ],
     [ "type", "Avon Sabre", "Avon Sabre Mk.30", "Avon Sabre Mk.31", "Avon Sabre Mk.31 (Late)", "Avon Sabre Mk.32" ],
 
     [ "chapter", "British Aircraft", "british.tex" ],
@@ -11,7 +11,7 @@
     //  1948
     [ "type", "Sea Fury", "Sea Fury FB.11" ],
 
-    [ "chapter", "Canadian Aircraft", "canadian.tex"],
+    [ "chapter", "Canadian Aircraft", "canadian.tex" ],
     [ "type", "Sabre", "Sabre Mk.2", "Sabre Mk.4", "Sabre Mk.4 (6-3 Wing)", "Sabre Mk.5", "Sabre Mk.6" ],
 
     [ "chapter", "Chinese Aircraft" ],
@@ -46,7 +46,7 @@
     // 1964
     [ "type", "Su-11", "Su-11" ],
 
-    [ "chapter", "US Aircraft" ],
+    [ "chapter", "US Aircraft", "us.tex" ],
     //  Jan 1942 with RAF
     [ "type", "P-51/F-51 Mustang", "F-51D", "RF-51D" ],
     //  December 1942 with USCMC
