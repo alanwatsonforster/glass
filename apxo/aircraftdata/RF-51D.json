@@ -1,6 +1,6 @@
 {
   "versionname": "RF-51D",
-  "versiondescription": "Reconnaissance version of the F-51D with two K-24 cameras, one oblique facing left and one overhead.",
+  "description": "The RF-51D Mustang is reconnaissance version of the F-51D. It was originally designated F-6D.",
   "originallydesignated": "F-6D",
   "base": "F-51D",
   "stations": [
