@@ -66,7 +66,7 @@
     [ "single"   , [ 6 ]          , 1200, [ "BB", "FT" ] ]
   ],
   "loadnotes": [
-    "Stations 1 to 4 and 7 to 11 can each carry two RK, one 100 lb bomb, or one 250 lb bomb. They are closely spaced. If a 250 lb bomb is carried, the adjacent stations cannot be used."
+    "Stations 1 to 4 and 7 to 11 can each carry two RK, one 100 lb bomb, or one 250 lb bomb. They are closely spaced and have restrictions: two 250 lb bombs may not be placed on adjacent stations and station between two 250 lb bombs cannot be used."
   ],
   "VPs": [ 6, 4, 2, 1 ],
   "properties": [ "LBR", "HTD" ],

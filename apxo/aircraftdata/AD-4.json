@@ -62,7 +62,7 @@
     [ "single"   , [ 8 ]          , 2200, [ "BB" ] ]
   ],
   "loadnotes": [
-    "Stations 1 to 6 and 10 to 15 are closely spaced and have restrictions on stores of more than 250 lb. A station adjacent to one other loaded with a store of more than 250 lb may only carry a store of 250 lb or less. A station adjacent to two others loaded with stores of more than 250 lb may not be used."
+    "Stations 1 to 6 and 10 to 15 are closely spaced and have restrictions: a station adjacent to one other loaded with a store of more than 250 lb may only carry a store of 250 lb or less and a station between two others loaded with stores of more than 250 lb may not be used."
   ],
   "VPs": [ 7, 5, 3, 2 ],
   "properties": [],
