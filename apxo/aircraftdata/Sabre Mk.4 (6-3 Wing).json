@@ -1,7 +1,7 @@
 {
   "versionname": "Sabre Mk.4",
   "variantname": "6-3 Wing",
-  "description": "The Canadair Sabre Mk.4 is a licensed version of the F-86E Sabre. The “6-3 Wing” variant is refitted with the unslatted 6-3 wing after service in the RAF.",
+  "description": "The Canadair Sabre Mk.4 is a licensed version of the F-86E Sabre. The “6-3 Wing” variant is refitted with the unslatted 6-3 wing.",
   "base": "Sabre Mk.4",
   "lowspeedliftdevicename": null,
   "turndragtable": {

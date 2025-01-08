@@ -1,7 +1,7 @@
 {
   "versionname": "F4U-5",
   "popularname": "Corsair",
-  "versiondescription": "Fighter-bomber version.",
+  "description": "The Vought F4U-5 is a carrier-capable fighter-bomber.",
   "manufacturername": "Vought",
   "origin": "APJ 32",
   "crew": [ "Pilot" ],

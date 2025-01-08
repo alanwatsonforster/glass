@@ -1,6 +1,6 @@
 {
   "versionname": "Meteor F.8",
-  "versiondescription": "Post-war fighter-bomber version.",
+  "description": "The Gloster Meteor F.8 is a post-war fighter.",
   "manufacturername": "Gloster",
   "origin": "APJ 50",
   "crew": [ "Pilot" ],

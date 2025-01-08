@@ -1,6 +1,6 @@
 {
   "versionname": "RF-51D",
-  "description": "The RF-51D Mustang is reconnaissance version of the F-51D. It was originally designated F-6D.",
+  "description": "The North American RF-51D Mustang is reconnaissance version of the F-51D. It was originally designated F-6D.",
   "originallydesignated": "F-6D",
   "base": "F-51D",
   "stations": [

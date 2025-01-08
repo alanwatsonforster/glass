@@ -788,41 +788,18 @@ def blockF(data, geometry=None):
     s = ""
 
     descriptiontext = ""
-    if data.description() is None:
-        if data.variantdescription() is None:
-            descriptiontext += r"This ADC describes the %s." % latexify(
-                data.versionname()
-            )
-        else:
-            descriptiontext += r"This ADC describes the %s (%s) variant." % (
-                latexify(data.versionname()),
-                latexify(data.variantname()),
-            )
-
-        if data.versiondescription() is not None:
-            descriptiontext += r" %s" % latexify(data.versiondescription())
-        if data.variantdescription() is not None:
-            descriptiontext += r" %s variant %s" % (
-                data.fullvariantname(),
-                latexify(data.variantdescription()),
-            )
-        if data.originallydesignated() is not None:
-            descriptiontext += " Originally designated %s." % (
-                latexify(data.originallydesignated())
-            )
-        if data.previouslydesignated() is not None:
-            descriptiontext += " Previously designated %s." % (
-                latexify(data.previouslydesignated())
-            )
-        if data.subsequentlydesignated() is not None:
-            descriptiontext += " Subsequently designated %s." % (
-                latexify(data.subsequentlydesignated())
-            )
+    if data.variantname() is None:
+        descriptiontext += r"This ADC is for the “%s”. " % latexify(
+            data.versionname()
+        )
     else:
-        descriptiontext = data.description()
-
-    if descriptiontext != "":
-        s += "\\item %s\n\n" % descriptiontext
+        descriptiontext += r"This ADC is for the “%s (%s)”. " % (
+            latexify(data.versionname()),
+            latexify(data.variantname()),
+        )
+    if data.description() is not None:
+        descriptiontext += latexify(data.description())
+    s += "\\item %s\n\n" % descriptiontext
 
     if data.natoreportingnames() is not None:
         s += "\\item %s\n\n" % data.natoreportingnames()
