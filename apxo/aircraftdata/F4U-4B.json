@@ -1,0 +1,5 @@
+{
+  "versionname": "F4U-4B",
+  "description": "The Vought F4U-4B is a carrier-capable fighter-bomber. It it is developed from the F4U-4 and has four 20 mm M3 cannon in place of the six .50 cal machine guns.",
+  "base": "F4U-5",
+}
