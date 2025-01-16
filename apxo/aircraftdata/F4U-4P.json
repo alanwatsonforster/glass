@@ -3,6 +3,7 @@
   "description": "The Vought F4U-4P Corsair is a carrier-capable photographic reconnaissance aircraft and fighter-bomber.",
   "base": "F4U-4",
   "notes" : [
+    "At speeds above 4.0, speedbrakes can only be used if they were used on the previous turn.",
     "Overhead or oblique camera."
   ]
 }

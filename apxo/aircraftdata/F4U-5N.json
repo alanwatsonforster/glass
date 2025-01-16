@@ -12,8 +12,6 @@
     "trackingstrength": 8,
     "lockon": 5
   },
-  "notes" : [
-  ],
   "stations": [
     [ "grouppair", [ 1, 4, 8, 11 ],  500, [ "BB", "RK", "IP" ] ],
     [ "pair"     , [ 5, 7 ]       , 1600, [ "BB", "RK", "FT" ] ],
