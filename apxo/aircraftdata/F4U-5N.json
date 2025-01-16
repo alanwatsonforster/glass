@@ -1,0 +1,22 @@
+{
+  "versionname": "F4U-5N",
+  "description": "The Vought F4U-5N Corsair is a carrier-capable night fighter and night attack aircraft.",
+  "base": "F4U-5",
+  "radar": {
+    "name": "APS-19",
+    "eccm": 0,
+    "arc": "180+",
+    "searchrange": 70,
+    "searchstrength": 10,
+    "trackingrange": 20,
+    "trackingstrength": 8,
+    "lockon": 5
+  },
+  "notes" : [
+  ],
+  "stations": [
+    [ "grouppair", [ 1, 4, 8, 11 ],  500, [ "BB", "RK", "IP" ] ],
+    [ "pair"     , [ 5, 7 ]       , 1600, [ "BB", "RK", "FT" ] ],
+    [ "single"   , [ 6 ]          , 2000, [ "BB", "FT" ] ]
+  ]
+}
