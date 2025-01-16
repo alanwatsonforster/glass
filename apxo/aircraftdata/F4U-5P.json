@@ -1,0 +1,8 @@
+{
+  "versionname": "F4U-5P",
+  "description": "The Vought F4U-5P Corsair is a carrier-capable photographic reconnaissance aircraft and fighter-bomber.",
+  "base": "F4U-5",
+  "notes" : [
+    "Overhead or oblique camera."
+  ]
+}
