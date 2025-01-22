@@ -1,7 +1,7 @@
 {
   "versionname": "F4U-5",
   "popularname": "Corsair",
-  "description": "The Vought F4U-5 is a carrier-capable fighter-bomber.",
+  "description": "The Vought F4U-5 Corsair is a carrier-capable fighter-bomber.",
   "manufacturername": "Vought",
   "origin": "APJ 32",
   "crew": [ "Pilot" ],
@@ -10,7 +10,7 @@
     "HT"  : [ 0.5, 0.5, 0.5, 0.2 ],
     "N"   : [ 0.0, 0.0, 0.0, 0.1 ],
     "I"   : [ 0.5, 0.5, 0.5, 0.0 ],
-    "SPBR": [ "-", "-", "-" ]
+    "SPBR": [ 0.5, 0.5, 0.5 ]
   },
   "propellerengines": 1,
   "cruisespeed": 2.5,
@@ -59,19 +59,22 @@
   "bombsystem": "Manual",
   "ecm": { "iff": true },
   "technology": [],
-  "storeslimits": [ 4, 8, 5000 ],  
+  "storeslimits": [ 4, 8, 5200 ],  
   "stations": [
-    [ "grouppair", [ 1, 4, 7, 11 ],  280, [ "BB", "RK" ] ],
-    [ "pair"     , [ 5, 7 ]       , 1000, [ "BB", "RK", "FT" ] ],
-    [ "single"   , [ 6 ]          , 1200, [ "BB", "FT" ] ]
+    [ "grouppair", [ 1, 4, 8, 11 ],  500, [ "BB", "RK" ] ],
+    [ "pair"     , [ 5, 7 ]       , 1600, [ "BB", "RK", "FT" ] ],
+    [ "single"   , [ 6 ]          , 2000, [ "BB", "FT" ] ]
   ],
   "loadnotes": [
-    "Stations 1 to 4 and 7 to 11 can each carry two RK, one 100 lb bomb, or one 250 lb bomb. They are closely spaced and have restrictions: two 250 lb bombs may not be placed on adjacent stations and a station between two 250 lb bombs cannot be used."
+    "Stations 1 to 4 and 7 to 11 are closely spaced and have restrictions: a station adjacent to one other loaded with a store of more than 250 lb may only carry a store of 250 lb or less and a station between two others loaded with stores of more than 250 lb may not be used.",
+    "Stations 5, 6, and 7 may carry 150 US gal (550L) FTs.",
+    "Stations 5 and 7 may carry Tiny Tim RKs."
   ],
   "VPs": [ 6, 4, 2, 1 ],
   "properties": [ "LBR", "HTD" ],
   "powerfadespeedtable": [ [3.0, 0.5], [4.0, 1.0] ],
   "notes": [
+    "At speeds above 4.0, speedbrakes can only be used if they were used on the previous turn."
   ],
   "wikiurl": "https://bit.ly/3Nd8d1W"
 }
