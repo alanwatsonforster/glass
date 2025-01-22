@@ -20,7 +20,7 @@
     // April 1962 
     [ "type", "J-6/F-6", "Shenyang J-6", "Shenyang F-6", "Shenyang F-6 (PAF)", "Shenyang J-6A", "Shenyang F-6A", "Shenyang J-6B" ],
     
-    [ "chapter", "Soviet Union Aircraft" ],
+    [ "chapter", "Soviet Union Aircraft", "soviet-union.tex" ],
     //  1942
     [ "type", "Yak-9", "Yak-9D", "Yak-9U", "Yak-9P" ],
     //  1944
