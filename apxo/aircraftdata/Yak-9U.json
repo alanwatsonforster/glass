@@ -1,0 +1,9 @@
+{
+  "versionname": "Yak-9U",
+  "description": "The Yakovlev Yak-9U is a day-fighter. The NATO reporting name for aircraft is Frank.",
+  "base": "Yak-9D",
+  "gun": "One 20 mm ShVAK and two 12.7 mm UBS"
+  "gundamagerating": "3/3*",
+  "notes": [    
+  ]
+}

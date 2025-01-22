@@ -22,7 +22,7 @@
     
     [ "chapter", "Soviet Union Aircraft" ],
     //  1942
-    [ "type", "Yak-9", "Yak-9D" ],
+    [ "type", "Yak-9", "Yak-9D", "Yak-9U" ],
     //  1944
     [ "type", "Il-10", "Il-10" ],
     //  1947
