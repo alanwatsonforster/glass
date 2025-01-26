@@ -86,6 +86,8 @@ waterourlinewidth = 2
 tunnelinnerwidth = roadwidth + 8
 tunnelouterwidth = tunnelinnerwidth + 6
 
+borderwidth = 0.02
+
 blanksheets = ["", "-", "--"]
 firstgenerationsheets = [
     "A",
@@ -233,10 +235,10 @@ def setmap(
 
     _dotsperhex = dotsperhex
 
-    _xmin = 0
-    _xmax = _dxsheet * _nxsheetgrid
-    _ymin = -0.33
-    _ymax = _dysheet * _nysheetgrid + 0.33
+    _xmin = +0.33 - borderwidth
+    _xmax = _dxsheet * _nxsheetgrid - 0.33 + borderwidth
+    _ymin = -borderwidth
+    _ymax = _dysheet * _nysheetgrid + borderwidth
 
     def sheettoright(iy, ix):
         if ix < _nxsheetgrid - 1:
@@ -593,12 +595,19 @@ def startdrawmap(
 
     if _drawterrain:
 
+        if _allwater or all(_terrain[sheet]["base"] == "water" for sheet in _sheetlist):
+            bordercolor = watercolor
+        elif all(_terrain[sheet]["base"] == "land" for sheet in _sheetlist):
+            bordercolor = level0color
+        else:
+            bordercolor = hexcolor
+
         apdraw.drawrectangle(
             canvasxmin,
             canvasymin,
             canvasxmax,
             canvasymax,
-            fillcolor=level0color,
+            fillcolor=bordercolor,
             linecolor=None,
             zorder=0,
         )
@@ -1097,37 +1106,38 @@ def startdrawmap(
                             capstyle="projecting",
                         )
 
-    # Draw the border.
-    apdraw.drawrectangle(
-        _xmin, -0.33, _xmax, 0, fillcolor=level0color, linecolor=None, zorder=0
-    )
-    apdraw.drawrectangle(
-        _xmin,
-        _ymax - 0.32,
-        _xmax,
-        _ymax,
-        fillcolor=level0color,
-        linecolor=None,
-        zorder=0,
-    )
-    apdraw.drawrectangle(
-        _xmin,
-        _ymin,
-        _xmin + 0.33,
-        _ymax,
-        fillcolor=level0color,
-        linecolor=None,
-        zorder=0,
-    )
-    apdraw.drawrectangle(
-        _xmax - 0.33,
-        _ymin,
-        _xmax,
-        _ymax,
-        fillcolor=level0color,
-        linecolor=None,
-        zorder=0,
-    )
+        # Draw the border.
+        
+        apdraw.drawrectangle(
+            _xmin, _ymin, _xmax, _ymin + borderwidth, fillcolor=bordercolor, linecolor=None, zorder=0
+        )
+        apdraw.drawrectangle(
+            _xmin,
+            _ymax - borderwidth,
+            _xmax,
+            _ymax,
+            fillcolor=bordercolor,
+            linecolor=None,
+            zorder=0,
+        )
+        apdraw.drawrectangle(
+            _xmin,
+            _ymin,
+            _xmin + borderwidth,
+            _ymax,
+            fillcolor=bordercolor,
+            linecolor=None,
+            zorder=0,
+        )
+        apdraw.drawrectangle(
+            _xmax - borderwidth,
+            _ymin,
+            _xmax,
+            _ymax,
+            fillcolor=bordercolor,
+            linecolor=None,
+            zorder=0,
+        )
 
     # Draw and label the hexes.
     for sheet in sheetsnearcanvas():
