@@ -203,7 +203,7 @@ SPBR&\Aha&\Ahb&\Ahc&---\spacebelow\\
 \multicolumn{4}{c}{\parbox[c][10em]{4\cellwidth}{}}\\
 \hline
 \spaceabove
-Cruise Speed:&\Bb&Restr.\ Arcs:&\Bg\\
+\ifversionone Cruise Speed:\fi&\ifversionone\Bb\fi&Restr.\ Arcs:&\Bg\\
 Climb Speed:&\Bc&Blind Arcs:&\Bh\\
 Visibility:&\Bd&Internal Fuel:&\Bi\\
 Size:&$\Be$&AtA Refuel:&\Bj\\
@@ -274,24 +274,37 @@ ET&\Cfa&\Cfb&\Cfc\spacebelow\\
 \begin{tabularx}{\blockDcells\cellwidth}{lc|C|C|C|c}
 \multicolumn{6}{c}{\bfseries Speeds and Ceilings\spaceabove\spacebelow}\\
 \hline
+\ifversionone
 \multicolumn{1}{c}{\spaceabove Alt.}&Conf.&\multicolumn{1}{c|}{CL}&\multicolumn{1}{c|}{1/2}&\multicolumn{1}{c|}{DT}&Dive\\
 \spacebelow Band&Ceil.&\multicolumn{1}{c|}{\Daa}&\multicolumn{1}{c|}{\Dab}&\multicolumn{1}{c|}{\Dac}&Speed\\
+\else
+\multicolumn{1}{c}{\spaceabove }&&\multicolumn{1}{c|}{CL}&\multicolumn{1}{c|}{1/2}&\multicolumn{1}{c|}{DT}&\\
+\multicolumn{1}{c}{\spacebelow Ceil.\@}&Cruise&\multicolumn{1}{c|}{\Daa}&\multicolumn{1}{c|}{\Dab}&\multicolumn{1}{c|}{\Dac}&Dive\\
+\fi
 \hline
-\spaceabove~EH+&\multicolumn{1}{l|}{46+}&\Dca&\Dcb&\Dcc&\Dcd\\
+\spaceabove~EH+&\wbox[l]{00--00}{46+}&\Dca&\Dcb&\Dcc&\Dcd\\
 ~VH&\phantom{}36--45\phantom{}&\Dda&\Ddb&\Ddc&\Ddd\\
 ~HI&\phantom{}26--35\phantom{}&\Dea&\Deb&\Dec&\Ded\\
 ~MH&\phantom{}17--25\phantom{}&\Dfa&\Dfb&\Dfc&\Dfd\\
 ~ML&\phantom{0}8--16\phantom{}&\Dga&\Dgb&\Dgc&\Dgd\\
 \spacebelow~LO&\phantom{0}0--7\phantom{0}&\Dha&\Dhb&\Dhc&\Dhd\\
 \hline
-\end{tabularx}}
+\end{tabularx}
+}
 
-\newcommand{\blockDminmaxspeed}[2]{\wbox{\Dba}{#1} -- \wbox{\Dba}{#2}}
+\newcommand{\blockDminmaxspeed}[2]{\wbox[r]{\Dba}{#1} -- \wbox[r]{\Dba}{#2}}
 \newcommand{\blockDdivespeed}[1]{\wbox{\Dbb}{#1}}
+\newcommand{\blockDceilingandcruisespeed}[2]{%
+  \ifversionone
+  #1
+  \else
+  \wbox[r]{\Dba}{#1}\phantom{ -- }\wbox[r]{\Dba}{#2}
+  \fi
+}
 
-\newcommand{\Daa}{62} % Ceiling CL
-\newcommand{\Dab}{52} % Ceiling 1/2
-\newcommand{\Dac}{40} % Ceiling DT
+\newcommand{\Daa}{\blockDceilingandcruisespeed{62}{6.0}} % Ceiling and cruise speed CL
+\newcommand{\Dab}{\blockDceilingandcruisespeed{52}{5.5}} % Ceiling and cruise speed 1/2
+\newcommand{\Dac}{\blockDceilingandcruisespeed{40}{4.5}} % Ceiling and cruise speed DT
 \newcommand{\Dba}{00.0} % Max speed width template
 \newcommand{\Dbb}{00.0} % Dive speed width template
 \newcommand{\Dca}{\blockDminmaxspeed{4.5}{13.0}} % EH speeds CL
@@ -324,8 +337,8 @@ ET&\Cfa&\Cfb&\Cfc\spacebelow\\
 \begin{tabularx}{\blockEcells\cellwidth}{C@{ }C|C@{ }C|C@{ }C|l}
 \multicolumn{7}{c}{\bfseries Climb Capabilities\spaceabove\spacebelow}\\
 \hline
-\multicolumn{2}{c|}{CL}&\multicolumn{2}{c|}{1/2}&\multicolumn{2}{c|}{DT}&\multicolumn{1}{c}{Alt.\spaceabove}\\
-AB&Oth&AB&Oth&AB&Oth&\multicolumn{1}{c}{Band\spacebelow}\\
+\multicolumn{2}{c|}{CL}&\multicolumn{2}{c|}{1/2}&\multicolumn{2}{c|}{DT}&\multicolumn{1}{c}{\ifversionone Alt.\fi\spaceabove}\\
+AB&Oth&AB&Oth&AB&Oth&\multicolumn{1}{c}{\ifversionone Band\fi\spacebelow}\\
 \hline
 \Eaa&\Eab&\Eac&\Ead&\Eae&\Eaf&~EH+\spaceabove\\
 \Eba&\Ebb&\Ebc&\Ebd&\Ebe&\Ebf&~VH\\

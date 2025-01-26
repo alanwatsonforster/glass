@@ -9,7 +9,7 @@ sys.path.append("..")
 from apxo import aircraftdata
 import apxo.variants
 
-version = 1
+version = 2
 
 if version == 1:
     apxo.variants.setvariants(["use first-edition ADCs"])
@@ -408,11 +408,14 @@ def blockD(data, geometry=None):
             return r"\blockDdivespeed{%.1f}" % data.maxdivespeed(altitudeband)
 
     writelatex(
-        r"\renewcommand{\Daa}{%d}\renewcommand{\Dab}{%d}\renewcommand{\Dac}{%d}"
+        r"\renewcommand{\Daa}{\blockDceilingandcruisespeed{%d}{%.1f}}\renewcommand{\Dab}{\blockDceilingandcruisespeed{%d}{%.1f}}\renewcommand{\Dac}{\blockDceilingandcruisespeed{%d}{%.1f}}"
         % (
             data.ceiling("CL"),
+            data.cruisespeed("CL"),
             data.ceiling("1/2"),
+            data.cruisespeed("1/2"),
             data.ceiling("DT"),
+            data.cruisespeed("DT")
         )
     )
     writelatex(
