@@ -9,7 +9,7 @@ sys.path.append("..")
 from apxo import aircraftdata
 import apxo.variants
 
-version = 2
+version = 3
 
 if version == 1:
     apxo.variants.setvariants(["use first-edition ADCs"])
@@ -752,30 +752,32 @@ def blockF(data, geometry=None):
     else:
         writelatex(r"\renewcommand{\Fk}{%s}" % data.ataradarrangingtype())
 
-    if data.ecm("rwr") is not None:
-        writelatex(r"\renewcommand{\Fn}{%s}" % data.ecm("rwr"))
+    if data.ecm("iff") is True:
+        writelatex(r"\renewcommand{\Fn}{IFF}")
     else:
-        writelatex(r"\renewcommand{\Fn}{---}")
-    if data.ecm("dds") is not None:
-        writelatex(r"\renewcommand{\Fo}{%s}" % data.ecm("dds"))
+        writelatex(r"\renewcommand{\Fn}{}")
+    if data.ecm("rwr") is not None:
+        writelatex(r"\renewcommand{\Fo}{%s}" % data.ecm("rwr"))
     else:
         writelatex(r"\renewcommand{\Fo}{---}")
-    if data.ecm("djm") is not None:
-        writelatex(r"\renewcommand{\Fp}{%s}" % data.ecm("djm"))
+    if data.ecm("dds") is not None:
+        writelatex(r"\renewcommand{\Fp}{%s}" % data.ecm("dds"))
     else:
         writelatex(r"\renewcommand{\Fp}{---}")
-    if data.ecm("ajm") is not None:
-        writelatex(r"\renewcommand{\Fq}{%s}" % data.ecm("ajm"))
+    if data.ecm("djm") is not None:
+        writelatex(r"\renewcommand{\Fq}{%s}" % data.ecm("djm"))
     else:
         writelatex(r"\renewcommand{\Fq}{---}")
-    if data.ecm("bjm") is not None:
-        writelatex(r"\renewcommand{\Fr}{%s}" % data.ecm("bjm"))
+    if data.ecm("ajm") is not None:
+        writelatex(r"\renewcommand{\Fr}{%s}" % data.ecm("ajm"))
     else:
         writelatex(r"\renewcommand{\Fr}{---}")
+    if data.ecm("bjm") is not None:
+        writelatex(r"\renewcommand{\Fs}{%s}" % data.ecm("bjm"))
+    else:
+        writelatex(r"\renewcommand{\Fs}{---}")
 
     technologylist = []
-    if data.ecm("iff") is True:
-        technologylist += ["IFF"]
     if data.technology() is not None:
         technologylist += data.technology()
     if len(technologylist) == 0:
@@ -786,7 +788,7 @@ def blockF(data, geometry=None):
         s = " and ".join(technologylist)
     else:
         s = ", ".join(technologylist[:-1]) + ", and " + technologylist[-1]
-    writelatex(r"\renewcommand{\Fs}{%s}" % s)
+    writelatex(r"\renewcommand{\Ft}{%s}" % s)
 
     s = ""
 
@@ -896,9 +898,9 @@ def blockF(data, geometry=None):
         )
 
     if s == "":
-        writelatex(r"\renewcommand{\Ft}{}")
+        writelatex(r"\renewcommand{\Fu}{}")
     else:
-        writelatex(r"\renewcommand{\Ft}{\Fta{%s}}" % s)
+        writelatex(r"\renewcommand{\Fu}{\Fua{%s}}" % s)
 
 
 def blockG(data, geometry=None):

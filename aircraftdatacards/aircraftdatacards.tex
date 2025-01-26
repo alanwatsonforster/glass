@@ -418,19 +418,19 @@ AtA/AtG:&\Fl\spacebelow\\
 \parbox[b][\blockFGtopheight][t]{4\cellwidth}{%
 \begin{tabularx}{4\cellwidth}{lC}
 \spaceabove\spacebelow
-\bfseries ECM:&\\
-RWR:&\Fn\\
-DDS:&\Fo\\
-DJM:&\Fp\\
-AJM:&\Fq\\
-BJM:&\Fr\spacebelow\\
+\bfseries ECM:&\Fn\\
+RWR:&\Fo\\
+DDS:&\Fp\\
+DJM:&\Fq\\
+AJM:&\Fr\\
+BJM:&\Fs\spacebelow\\
 \hline
 \multicolumn{2}{l}{\spaceabove\spacebelow\bfseries Technology:}\\
 \multicolumn{2}{p{3.5\cellwidth}}{
 \multirow[t]{6}*{%
 \parbox[t][8em][t]{3.5\cellwidth}{%
 \raggedright\setlength{\parskip}{0.2em}%
-\Fs
+\Ft
 }}}\\
 \\
 \\
@@ -446,7 +446,7 @@ BJM:&\Fr\spacebelow\\
 \spaceabove\raggedright
 \setlength{\parskip}{0.2em}%
 \footnotesize
-\Ft
+\Fu
 }}\spacebelow\\
 \end{tabularx}}}
 
@@ -466,14 +466,15 @@ BJM:&\Fr\spacebelow\\
 
 \newcommand{\Fm}{} % Bomb system
 
-\newcommand{\Fn}{} % RWR
-\newcommand{\Fo}{} % DDS
-\newcommand{\Fp}{} % DJM
-\newcommand{\Fq}{} % AJM
-\newcommand{\Fr}{} % BJM
-\newcommand{\Fs}{} % Technology
-\newcommand{\Ft}{} % Notes
-\newcommand{\Fta}[1]{%
+\newcommand{\Fn}{} % IFF
+\newcommand{\Fo}{} % RWR
+\newcommand{\Fp}{} % DDS
+\newcommand{\Fq}{} % DJM
+\newcommand{\Fr}{} % AJM
+\newcommand{\Fs}{} % BJM
+\newcommand{\Ft}{} % Technology
+\newcommand{\Fu}{} % Notes
+\newcommand{\Fua}[1]{%
   {\bfseries Notes:} 
   \begin{enumerate}[left=0pt,nosep]
   #1
