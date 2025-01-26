@@ -3,6 +3,7 @@
 import re
 import sys
 import os
+import os.path
 import json
 
 sys.path.append("..")
@@ -973,17 +974,18 @@ def blockG(data, geometry=None):
     writelatex(r"\renewcommand{\Geb}{%s}" % data.commitdatetime())
 
 
-def writechapter(name, file=None):
+def writechapter(name):
     log("writing chapter %s." % name)
     writelatex(r"\twocolumn\chapter{%s}" % name)
-    if file is not None:
-        writelatex(r"\input %s" % file)
-    writelatex(r"\onecolumn")
 
 
 def writetype(name):
     log("writing type %s." % name)
+    writelatex(r"\twocolumn")
     writelatex(r"\addtoctype{%s}" % name)
+    file = "types/" + name.replace("/", ":") + ".tex"
+    if os.path.exists(file):
+        writelatex(r"\input{%s}" % file)
 
 
 def writeadc(name):
@@ -1058,10 +1060,7 @@ def writelatexfile(latexfilename, directives):
             for variant in directive[2:]:
                 writeadc(variant)
         elif directive[0] == "chapter":
-            if len(directive) == 2:
-                writechapter(directive[1])
-            else:
-                writechapter(directive[1], directive[2])
+            writechapter(directive[1])
         else:
             raise RuntimeError("invalid directive %r." % directive)
     writelatexepilog()

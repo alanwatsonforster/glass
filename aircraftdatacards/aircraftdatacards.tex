@@ -4,10 +4,11 @@
 
 \usepackage[
   paper=letterpaper,
-  nofoot,nomarginpar,nohead,
-  margin=1cm,
-  tmargin=1.2cm,
-  bmargin=1.3cm
+%  nofoot,nomarginpar,nohead,
+  lmargin=1.5cm,
+  rmargin=1.5cm,
+  tmargin=1.5cm,
+  bmargin=2.4cm
 ]{geometry}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -45,7 +46,6 @@
 \makeatletter
 \newcommand\notsotiny{\@setfontsize\notsotiny{6.5}{8}}
 \makeatother
-\pagestyle{empty}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -556,11 +556,20 @@ BJM:&\Fs\spacebelow\\
 \end{tabular}}
 
 \newcommand{\adc}{
+  \newgeometry{
+    paper=letterpaper,
+    nofoot,nomarginpar,nohead,
+    margin=1cm,
+    tmargin=1.2cm,
+    bmargin=1.3cm
+  }
   \onecolumn
+  \thispagestyle{empty}
   \begin{center}
   \blockABCDEFG
   \end{center}
   \newpage
+  \restoregeometry
 }
 
 

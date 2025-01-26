@@ -44,7 +44,6 @@
         "B-29A", 
         "B-29A (SILVERPLATE)", 
         "B-29A (SADDLETREE)", 
-        "B-29A (RURALIST)", 
         "RB-29A" 
     ],
     [ 
@@ -71,22 +70,9 @@
         "B-57B (PAF)",
         "B-57G"
     ],
-    [ 
-        "type", 
-        "A-3 Skywarrier", 
-        "A-3B"
-    [ 
-        "type", 
-        "A3D/A-3", 
-        "A3D-2 (Early)",
-        "A-3B (Early)",
-        "A3D-2 (Late)",
-        "A-3B (Late)",
-        "A3D-2Q",
-        "EA-3B"
-    ],
+    [ "type", "A3D/A-3 Skywarrior", "A3D-2 (Early)", "A-3B (Early)", "A3D-2 (Late)", "A-3B (Late)", "A3D-2Q", "EA-3B" ],
     [
-        "type,"
+        "type",
         "B-66 Destroyer",
         "B-66B (Early)",
         "B-66B (Late)",
