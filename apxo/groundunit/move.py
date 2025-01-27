@@ -13,6 +13,7 @@ def _move(self, s):
 
 
 def _continuemove(self, s):
+    self._setlastposition()
     self.logwhenwhat("", s)
     if self._facing is not None:
         if s == "R" or s == "R30":

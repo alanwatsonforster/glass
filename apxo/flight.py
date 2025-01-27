@@ -1762,6 +1762,8 @@ def _domove(E, move, actiondispatchlist):
             )
         )
 
+    E._setlastposition()
+
     # Determine if this FP is the last FP of the move.
     E._lastfp = E._fp + 2 > E._maxfp
 

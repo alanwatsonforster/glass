@@ -126,6 +126,18 @@ A1.enterterrainfollowingflight()
 A1.continuemove("ETR/H/R,H,H,H")
 asserterror("terrain-following flight limits the turn rate to BT.")
 
+# Check TFF across ridge line
+
+starttestsetup(sheets=[["C2"]])
+A1 = aircraft("A1", "AF", "F-100C", "C2-6625", "WNW", 1, 4.0, "CL")
+endtestsetup()
+
+startgameturn()
+A1.move("LVL", "M")
+A1.enterterrainfollowingflight()
+A1.continuemove("H,HC,H,H")
+A1._assert("C2-6323 WNW 1", 4.0)
+
 # Check TTF in city hexes.
 
 starttestsetup(sheets=[["A2"]])

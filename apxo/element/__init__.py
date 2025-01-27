@@ -293,6 +293,10 @@ class element:
     def _setflightslope(self, flightslope):
         self._flightslope = flightslope
 
+    def _setlastposition(self):
+        self._lastx = self.x()
+        self._lasty = self.y()
+
     ############################################################################
 
     def _kill(self):
@@ -410,6 +414,15 @@ class element:
     def isinterrainfollowingflight(self):
         return self._isinterrainfollowingflight
 
+    def lastx(self):
+        return self._lastx
+
+    def lasty(self):
+        return self._lasty
+
+    def lastxy(self):
+        return self._lastx, self._lasty
+
     ############################################################################
 
     def isaircraft(self):
@@ -478,20 +491,26 @@ class element:
         Check if the element has collided with terrain.
         """
 
+        killed = False
+
         terrainaltitude = self.terrainaltitude()
-        if not self.isinterrainfollowingflight():
-            requiredaltitude = terrainaltitude + 1
-        elif apmap.iscity(*self.xy()):
-            requiredaltitude = terrainaltitude + 1
-        else:
-            requiredaltitude = terrainaltitude
-        if self.altitude() < requiredaltitude:
+
+        if self.isinterrainfollowingflight():
+            if apmap.iscity(*self.xy()):
+                killed = "entered city while in terrain-following flight"
+            elif apmap.crossesridgeline(*self.lastxy(), *self.xy()):
+                killed = "crossed ridge line while in terrain-following flight"
+            elif self.altitude() < self.terrainaltitude():
+                killed = "collided with terrain"
+        elif self.altitude() <= self.terrainaltitude():
+            killed = "collided with terrain"
+
+        if killed is not False:
             self._setaltitude(terrainaltitude)
             self._altitudecarry = 0
             self.logwhenwhat(
                 "",
-                "%s has collided with terrain at altitude %d."
-                % (self.name(), terrainaltitude),
+                "%s at altitude %d." % (killed, terrainaltitude),
             )
             self._kill()
 

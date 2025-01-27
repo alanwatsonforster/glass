@@ -28,7 +28,7 @@ def starttestsetup(
     sheets=[["A1"], ["A2"]],
     north="up",
     variants=[],
-    drawterrain=False,
+    drawterrain=True,
     verbose=False,
     **kwargs
 ):

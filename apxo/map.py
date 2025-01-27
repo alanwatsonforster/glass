@@ -500,14 +500,6 @@ def startdrawmap(
     Draw the map.
     """
 
-    def toxy(sheet, x, y):
-        XX = int(x)
-        YY = int(y)
-        dx = x - XX
-        dy = y - YY
-        x0, y0 = aphexcode.toxy("%s-%02d%02d" % (sheet, XX, YY))
-        return x0 + dx, y0 - dy
-
     def drawhexes(sheet, labels, **kwargs):
         for label in labels:
             x, y = aphexcode.toxy("%s-%04d" % (sheet, label))
@@ -1333,6 +1325,15 @@ def isonmap(x, y):
     )
 
 
+def toxy(sheet, x, y):
+    XX = int(x)
+    YY = int(y)
+    dx = x - XX
+    dy = y - YY
+    x0, y0 = aphexcode.toxy("%s-%02d%02d" % (sheet, XX, YY))
+    return x0 + dx, y0 - dy
+
+
 def altitude(x, y, sheet=None):
     """
     Returns the altitude of the hex at the position (x, y), which must refer to a
@@ -1397,6 +1398,100 @@ def iscity(x, y, sheet=None):
         if sheet1 == None:
             sheet1 = sheet0
         return iscity(x0, y0, sheet=sheet0) or iscity(x1, y1, sheet=sheet1)
+
+
+def crossesridgeline(x0, y0, x1, y1):
+
+    # See https://www.geeksforgeeks.org/check-if-two-given-line-segments-intersect/
+
+    class point:
+        def __init__(self, x, y):
+            self.x = x
+            self.y = y
+
+    def onsegment(p, q, r):
+        """
+        Return true if q lines on the line segment pr, assuming p, q, and r are colinear.
+        """
+
+        return (
+            (q.x <= max(p.x, r.x))
+            and (q.x >= min(p.x, r.x))
+            and (q.y <= max(p.y, r.y))
+            and (q.y >= min(p.y, r.y))
+        )
+
+    def orientation(p, q, r):
+        """
+        Return the orientation of an ordered triplet of points (p, q, r),
+        where 0 means colinear, 1 means clockwise, and -1 means anticlockwise.
+        """
+        v = (float(q.y - p.y) * (r.x - q.x)) - (float(q.x - p.x) * (r.y - q.y))
+        if v > 0:
+            return +1
+        elif v < 0:
+            return -1
+        else:
+            return 0
+
+    def intersect(p1, q1, p2, q2):
+        """
+        Return whether the line segment (p1, q1) intersects with the line segment (p2, q2).
+        """
+
+        # Find the 4 orientations required for
+        # the general and special cases
+        o1 = orientation(p1, q1, p2)
+        o2 = orientation(p1, q1, q2)
+        o3 = orientation(p2, q2, p1)
+        o4 = orientation(p2, q2, q1)
+
+        # General case
+        if (o1 != o2) and (o3 != o4):
+            return True
+
+        # Special Cases
+
+        # p1 , q1 and p2 are colinear and p2 lies on segment p1q1
+        if (o1 == 0) and onsegment(p1, p2, q1):
+            return True
+
+        # p1 , q1 and q2 are colinear and q2 lies on segment p1q1
+        if (o2 == 0) and onsegment(p1, q2, q1):
+            return True
+
+        # p2 , q2 and p1 are colinear and p1 lies on segment p2q2
+        if (o3 == 0) and onsegment(p2, p1, q2):
+            return True
+
+        # p2 , q2 and q1 are colinear and q1 lies on segment p2q2
+        if (o4 == 0) and onsegment(p2, q1, q2):
+            return True
+
+        # If none of the cases
+        return False
+
+    def crossesridgepath(p, q, sheet, ridgepath):
+        i = 0
+        while i < len(ridgepath) - 1:
+            r = point(*toxy(sheet, *ridgepath[i + 0]))
+            s = point(*toxy(sheet, *ridgepath[i + 1]))
+            if intersect(p, q, r, s):
+                return True
+            i += 1
+        return False
+
+    p = point(x0, y0)
+    q = point(x1, y1)
+    for sheet in _sheetlist:
+        for ridgepath in (
+            _terrain[sheet]["level0ridgepaths"]
+            + _terrain[sheet]["level1ridgepaths"]
+            + _terrain[sheet]["level2ridgepaths"]
+        ):
+            if crossesridgepath(p, q, sheet, ridgepath):
+                return True
+    return False
 
 
 ################################################################################
