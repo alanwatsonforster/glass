@@ -1,0 +1,8 @@
+{
+    "name": "lighttank",
+    "description": "light tank platoon",
+    "symbols": "armor/gun",
+    "lowertext": "L",
+    "aaaclass": "B",
+    "aaamaximumrelativealtitude": 3
+}
