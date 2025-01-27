@@ -479,9 +479,13 @@ class element:
         """
 
         terrainaltitude = self.terrainaltitude()
-        if self.altitude() < terrainaltitude or (
-            self.altitude() == terrainaltitude and not self.isinterrainfollowingflight()
-        ):
+        if not self.isinterrainfollowingflight():
+            requiredaltitude = terrainaltitude + 1
+        elif apmap.iscity(*self.xy()):
+            requiredaltitude = terrainaltitude + 1
+        else:
+            requiredaltitude = terrainaltitude
+        if self.altitude() < requiredaltitude:
             self._setaltitude(terrainaltitude)
             self._altitudecarry = 0
             self.logwhenwhat(

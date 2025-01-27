@@ -109,6 +109,8 @@ A4._assert("C2-6521/6622 NNE 0", 4.0)
 
 endgameturn()
 
+# Check limits on ETs.
+
 starttestsetup(sheets=[["C2"]])
 A1 = aircraft("A1", "AF", "F-100C", "C2-6625", "WSW", 1, 4.0, "CL")
 endtestsetup()
@@ -123,5 +125,31 @@ A1.move("LVL", "M")
 A1.enterterrainfollowingflight()
 A1.continuemove("ETR/H/R,H,H,H")
 asserterror("terrain-following flight limits the turn rate to BT.")
+
+# Check TTF in city hexes.
+
+starttestsetup(sheets=[["A2"]])
+A1 = aircraft("A1", "AF", "F-100C", "A2-2224", "N", 1, 4.0, "CL")
+endtestsetup()
+
+startgameturn()
+A1.move("LVL", "M")
+A1.enterterrainfollowingflight()
+A1.continuemove("H,H,H,H")
+A1._assert("A2-2222 N 0", 4.0)
+
+startgameturn()
+A1.move("LVL", "M")
+A1.enterterrainfollowingflight()
+A1.continuemove("BTR/H/R,H,H,H")
+A1._assert("A2-2222/2322 NNE 0", 4.0)
+
+startgameturn()
+A1.move("LVL", "M")
+A1.enterterrainfollowingflight()
+A1.continuemove("H")
+A1.leaveterrainfollowingflight()
+A1.continuemove("H,H,H")
+A1._assert("A2-2220 N 1", 4.0)
 
 endfile(__file__)

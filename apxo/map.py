@@ -1369,4 +1369,34 @@ def altitude(x, y, sheet=None):
         return max(altitude(x0, y0, sheet=sheet0), altitude(x1, y1, sheet=sheet1))
 
 
+def iscity(x, y, sheet=None):
+    """
+    Returns whether the position is a city hex or a hex side of a city hex.
+    """
+
+    assert aphex.isvalid(x, y)
+
+    if aphex.iscenter(x, y):
+
+        if _allwater:
+            return False
+
+        if sheet is None:
+            sheet = tosheet(x, y)
+        label = int(aphexcode.tolabel(aphexcode.fromxy(x, y, sheet=sheet)))
+        return label in _terrain[sheet]["cityhexes"]
+
+    else:
+
+        x0, y0, x1, y1 = aphex.sidetocenters(x, y)
+        sheet0 = tosheet(x0, y0)
+        sheet1 = tosheet(x1, y1)
+        assert sheet0 != None or sheet1 != None
+        if sheet0 == None:
+            sheet0 = sheet1
+        if sheet1 == None:
+            sheet1 = sheet0
+        return iscity(x0, y0, sheet=sheet0) or iscity(x1, y1, sheet=sheet1)
+
+
 ################################################################################
