@@ -371,13 +371,16 @@ class aircraft(apelement.element):
     ##############################################################################
 
     def enterterrainfollowingflight(self):
-
         """
         Enter terrain-following flight.
         """
-        
+
         try:
 
+            if self._maneuvertype == "ET":
+                raise RuntimeError(
+                    "attempt to enter terrain-following flight while using a turn rate of ET."
+                )
             if self.isinterrainfollowingflight():
                 raise RuntimeError(
                     "attempt to enter terrain-following flight while already in terrain-following flight."
@@ -403,11 +406,10 @@ class aircraft(apelement.element):
         self.logbreak()
 
     def leaveterrainfollowingflight(self):
-
         """
         Leave terrain-following flight.
         """
-        
+
         try:
 
             if not self.isinterrainfollowingflight():
@@ -418,7 +420,7 @@ class aircraft(apelement.element):
             self._setaltitude(self.terrainaltitude() + 1)
             self._leftterrainfollowingflightthisgameturn = True
             self.logwhenwhat("", "leaves terrain-following flight.")
-            
+
         except RuntimeError as e:
             aplog.logexception(e)
         self.logbreak()

@@ -19,13 +19,17 @@ asserterror("attempt to enter terrain-following flight while not in level flight
 startgameturn()
 A1.move("LVL", "M")
 A1.leaveterrainfollowingflight()
-asserterror("attempt to leave terrain-following flight while not in terrain-following flight.")
+asserterror(
+    "attempt to leave terrain-following flight while not in terrain-following flight."
+)
 
 startgameturn()
 A1.move("LVL", "M")
 A1.enterterrainfollowingflight()
 A1.enterterrainfollowingflight()
-asserterror("attempt to enter terrain-following flight while already in terrain-following flight.")
+asserterror(
+    "attempt to enter terrain-following flight while already in terrain-following flight."
+)
 
 startgameturn()
 A4.move("LVL", "M")
@@ -37,7 +41,9 @@ asserterror("attempt to enter terrain-following flight after leaving it.")
 startgameturn()
 A3.move("LVL", "M")
 A3.enterterrainfollowingflight()
-asserterror("attempt to enter terrain-following flight while not exactly one altitude level above terrain.")
+asserterror(
+    "attempt to enter terrain-following flight while not exactly one altitude level above terrain."
+)
 
 startgameturn()
 A4.move("LVL", "M")
@@ -102,5 +108,20 @@ A4.continuemove("BTR/H/RR,H,HD,H")
 A4._assert("C2-6521/6622 NNE 0", 4.0)
 
 endgameturn()
+
+starttestsetup(sheets=[["C2"]])
+A1 = aircraft("A1", "AF", "F-100C", "C2-6625", "WSW", 1, 4.0, "CL")
+endtestsetup()
+
+startgameturn()
+A1.move("LVL", "M", "ETR/H")
+A1.enterterrainfollowingflight()
+asserterror("attempt to enter terrain-following flight while using a turn rate of ET.")
+
+startgameturn()
+A1.move("LVL", "M")
+A1.enterterrainfollowingflight()
+A1.continuemove("ETR/H/R,H,H,H")
+asserterror("terrain-following flight limits the turn rate to BT.")
 
 endfile(__file__)

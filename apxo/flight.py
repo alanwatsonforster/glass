@@ -396,9 +396,9 @@ def _startmove(E, **kwargs):
     # APs accrued in TFF.
 
     E._isinterrainfollowingflightap = 0
-    
+
     # Whether the element has left terrain-following flight this game turn.
-    
+
     E._leftterrainfollowingflightthisgameturn = False
 
     # Whether flight is currently supersonic.
@@ -2446,6 +2446,11 @@ def _checkturnrate(A, turnrate):
 
     if turnrate == "ET" and A._flighttype == "ZC":
         return "ZC limits the turn rate to BT."
+
+    # See rule 20.
+
+    if turnrate == "ET" and A.isinterrainfollowingflight():
+        return "terrain-following flight limits the turn rate to BT."
 
     # See rule 8.1.1.
 
