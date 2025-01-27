@@ -393,7 +393,16 @@ def _startmove(E, **kwargs):
     E._slides = 0
     E._slidefp = 0
 
+    # APs accrued in TFF.
+
+    E._isinterrainfollowingflightap = 0
+    
+    # Whether the element has left terrain-following flight this game turn.
+    
+    E._leftterrainfollowingflightthisgameturn = False
+
     # Whether flight is currently supersonic.
+
     E._m1speed = apspeed.m1speed(E.altitudeband())
     E._supersonic = E._speed >= E._m1speed
 
@@ -833,7 +842,9 @@ def _startmovenormalflight(A):
                 A._effectiveclimbcapability *= 0.5
 
             # See the Aircraft Damage Effects Table in the charts.
-            if not apvariants.withvariant("use optional damage table") and A.damageatleast("H"):
+            if not apvariants.withvariant(
+                "use optional damage table"
+            ) and A.damageatleast("H"):
                 A.logcomment("climb capability reduced by damage.")
                 A._effectiveclimbcapability *= 0.5
 
@@ -1049,6 +1060,8 @@ def _continuespecialflight(A, moves):
         ["RRR", "prolog/epilog", lambda A: _doturn(A, "R", 90, False)],
         ["RR", "prolog/epilog", lambda A: _doturn(A, "R", 60, False)],
         ["R", "prolog/epilog", lambda A: _doturn(A, "R", 30, False)],
+        ["HC1", "FP", lambda A: _dohorizontal(A, "HC")],
+        ["HC", "FP", lambda A: _dohorizontal(A, "HC")],
         ["HD1", "FP", lambda A: _dohorizontal(A, "HD")],
         ["HD", "FP", lambda A: _dohorizontal(A, "HD")],
         ["H", "FP", lambda A: _dohorizontal(A, "H")],
@@ -1134,6 +1147,8 @@ def _continuenormalflight(A, moves):
         ["RRR", "epilog", lambda A: _domaneuver(A, "R", 90, True, False)],
         ["RR", "epilog", lambda A: _domaneuver(A, "R", 60, True, False)],
         ["R", "epilog", lambda A: _domaneuver(A, "R", None, True, False)],
+        ["HC1", "FP", lambda A: _dohorizontal(A, "HC")],
+        ["HC", "FP", lambda A: _dohorizontal(A, "HC")],
         ["HD1", "FP", lambda A: _dohorizontal(A, "HD")],
         ["HD", "FP", lambda A: _dohorizontal(A, "HD")],
         ["HU", "FP", lambda A: _dohorizontal(A, "HU")],
@@ -1442,7 +1457,7 @@ def _endnormalflight(A):
 
         # See rule 8.2.4.
 
-        if A._flighttype == "LVL":
+        if A._flighttype == "LVL" and not A.isinterrainfollowingflight():
             altitudechange = A.altitude() - A.startaltitude()
             if altitudechange < -1:
                 raise RuntimeError("free descent cannot only be taken once per move.")
@@ -1554,8 +1569,8 @@ def _endnormalflight(A):
 
         elif A._flighttype == "LVL":
 
-            # See rule 8.2.4.
-            altitudeap = 0
+            # See rule 8.2.4 and 20.
+            altitudeap = A._isinterrainfollowingflightap
 
         # Round to nearest quarter. See rule 6.2.
         altitudeap = roundtoquarter(altitudeap)
@@ -1874,6 +1889,10 @@ def _domove(E, move, actiondispatchlist):
                 _reportallowedturnrates(E)
 
     E._checkforterraincollision()
+    if E.isinterrainfollowingflight() and (E.altitude() != E.terrainaltitude()):
+        raise RuntimeError(
+            "did not maintain correct altitude for terrain-following flight."
+        )
     E._checkforleavingmap()
 
     if E.killed() or E._maneuveringdeparture or E._fp >= E._maxfp:
@@ -2138,12 +2157,48 @@ def _dohorizontal(E, action):
 
     if action == "HD":
 
-        if E._flighttype != "LVL" and E._flighttype != "SP" and E._flighttype != "MS":
+        if E.isinterrainfollowingflight():
+            if E._isinterrainfollowingflightap < 0:
+                raise RuntimeError(
+                    "aircraft cannot both climb and dive while in terrain-following flight."
+                )
+            E._isinterrainfollowingflightap += 0.5
+        elif E._flighttype == "LVL":
+            pass
+        elif E._flighttype == "SP":
+            pass
+        elif E._flighttype == "MS":
+            pass
+        else:
             raise RuntimeError(
                 "%r is not a valid action when the flight type is %s."
                 % (action, E._flighttype)
             )
-        altitudechange = 1
+
+        altitudechange = -1
+
+    elif action == "HC":
+
+        if E.isinterrainfollowingflight():
+            if E._isinterrainfollowingflightap > 0:
+                raise RuntimeError(
+                    "aircraft cannot both climb and dive while in terrain-following flight."
+                )
+            E._isinterrainfollowingflightap -= 1.0
+        elif E._flighttype == "LVL":
+            if not E.terrainfollowinflight():
+                raise RuntimeError(
+                    "%r is not a valid action when the flight type is %s except in terrain-following flight."
+                    % (action, E._flighttype)
+                )
+        elif E._flighttype == "SP":
+            pass
+        else:
+            raise RuntimeError(
+                "%r is not a valid action when the flight type is %s."
+                % (action, E._flighttype)
+            )
+        altitudechange = +1
 
     elif action == "HU":
 
@@ -2161,11 +2216,11 @@ def _dohorizontal(E, action):
 
         if math.floor(E._maxfp) == 1:
             # Both half FPs and all FPs.
-            altitudechange = 2
+            altitudechange = -2
         elif E._unloadedhfp == math.floor(E._maxfp / 2):
-            altitudechange = 1
+            altitudechange = -1
         elif E._unloadedhfp == math.floor(E._maxfp):
-            altitudechange = 1
+            altitudechange = -1
         else:
             altitudechange = 0
 
@@ -2173,7 +2228,10 @@ def _dohorizontal(E, action):
 
         altitudechange = 0
 
-    E._movedive(altitudechange)
+    if altitudechange < 0:
+        E._movedive(-altitudechange)
+    elif altitudechange > 0:
+        E._moveclimb(+altitudechange)
     E._moveforward()
 
     E._horizontal = True

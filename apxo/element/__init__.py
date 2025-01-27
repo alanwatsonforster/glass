@@ -189,6 +189,7 @@ class element:
         self._altitudecarry = 0
         self._flightslope = None
         self._startedmoving = False
+        self._isinterrainfollowingflight = False
 
         self._killed = False
         self._removed = False
@@ -351,9 +352,12 @@ class element:
 
     def altitude(self):
         if self._altitude is None:
-            return apaltitude.terrainaltitude(self.x(), self.y())
+            return self.terrainaltitude()
         else:
             return self._altitude
+
+    def terrainaltitude(self):
+        return apaltitude.terrainaltitude(self.x(), self.y())
 
     def startaltitude(self):
         return self._startaltitude
@@ -402,6 +406,9 @@ class element:
 
     def removed(self):
         return self._removed
+
+    def isinterrainfollowingflight(self):
+        return self._isinterrainfollowingflight
 
     ############################################################################
 
@@ -471,14 +478,16 @@ class element:
         Check if the element has collided with terrain.
         """
 
-        altitudeofterrain = apaltitude.terrainaltitude(self.x(), self.y())
-        if self.altitude() <= altitudeofterrain:
-            self._setaltitude(altitudeofterrain)
+        terrainaltitude = self.terrainaltitude()
+        if self.altitude() < terrainaltitude or (
+            self.altitude() == terrainaltitude and not self.isinterrainfollowingflight()
+        ):
+            self._setaltitude(terrainaltitude)
             self._altitudecarry = 0
             self.logwhenwhat(
                 "",
                 "%s has collided with terrain at altitude %d."
-                % (self.name(), altitudeofterrain),
+                % (self.name(), terrainaltitude),
             )
             self._kill()
 

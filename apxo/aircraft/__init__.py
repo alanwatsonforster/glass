@@ -366,6 +366,65 @@ class aircraft(apelement.element):
 
     ##############################################################################
 
+    # Terrain-following Flight
+
+    ##############################################################################
+
+    def enterterrainfollowingflight(self):
+
+        """
+        Enter terrain-following flight.
+        """
+        
+        try:
+
+            if self.isinterrainfollowingflight():
+                raise RuntimeError(
+                    "attempt to enter terrain-following flight while already in terrain-following flight."
+                )
+            if self.altitude() != self.terrainaltitude() + 1:
+                raise RuntimeError(
+                    "attempt to enter terrain-following flight while not exactly one altitude level above terrain."
+                )
+            if not self.isinlevelflight():
+                raise RuntimeError(
+                    "attempt to enter terrain-following flight while not in level flight."
+                )
+            if self._leftterrainfollowingflightthisgameturn:
+                raise RuntimeError(
+                    "attempt to enter terrain-following flight after leaving it."
+                )
+            self._isinterrainfollowingflight = True
+            self._setaltitude(self.terrainaltitude())
+            self.logwhenwhat("", "enters terrain-following flight.")
+
+        except RuntimeError as e:
+            aplog.logexception(e)
+        self.logbreak()
+
+    def leaveterrainfollowingflight(self):
+
+        """
+        Leave terrain-following flight.
+        """
+        
+        try:
+
+            if not self.isinterrainfollowingflight():
+                raise RuntimeError(
+                    "attempt to leave terrain-following flight while not in terrain-following flight."
+                )
+            self._isinterrainfollowingflight = False
+            self._setaltitude(self.terrainaltitude() + 1)
+            self._leftterrainfollowingflightthisgameturn = True
+            self.logwhenwhat("", "leaves terrain-following flight.")
+            
+        except RuntimeError as e:
+            aplog.logexception(e)
+        self.logbreak()
+
+    ##############################################################################
+
     # Visual Sighting
 
     ##############################################################################

@@ -1228,15 +1228,6 @@ def startdrawmap(
     elif watermark is not None:
         apdraw.drawwatermark(watermark, canvasxmin, canvasymin, canvasxmax, canvasymax)
 
-    apdraw.drawrectangle(
-        canvasxmin,
-        canvasymin,
-        canvasxmax,
-        canvasymax,
-        linecolor="black",
-        zorder=0,
-    )
-
     apdraw.setcompactstacks(compactstacks)
 
     if fullmap and _writefiles:
