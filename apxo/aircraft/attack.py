@@ -64,7 +64,7 @@ def _attackgroundunit(self, target, attacktype, result=None, stores=None, note=N
             relativealtitude < minrelativealtitude[horizontalrange]
             or relativealtitude > maxrelativealtitude[horizontalrange]
         ):
-            raise RuntimeError("invalid release point.")        
+            raise RuntimeError("invalid release point.")
 
         self.logcomment("range is %d." % range)
         if range > 10:
@@ -72,7 +72,6 @@ def _attackgroundunit(self, target, attacktype, result=None, stores=None, note=N
 
     def checkRPattack():
         checkRKattack()
-
 
     attacktype = attacktype.split("/")
 
@@ -104,7 +103,7 @@ def _attackgroundunit(self, target, attacktype, result=None, stores=None, note=N
     if target is not self._aimingtarget:
         raise RuntimeError("%s is not aiming at %s." % (self.name(), target.name()))
 
-    if self.isinlevelflight():            
+    if self.isinlevelflight():
         self.logcomment("level attack.")
     elif self.isindivingflight():
         self.logcomment("diving attack.")
@@ -165,8 +164,7 @@ def bomb(self, name, target, stores=None, highdrag=False, note=None):
         if target is not self._aimingtarget:
             raise RuntimeError("%s is not aiming at %s." % (self.name(), target.name()))
 
-
-        if self.isinlevelflight():            
+        if self.isinlevelflight():
             if highdrag:
                 self.logcomment("level bombing with high-drag bombs.")
             else:
@@ -186,33 +184,33 @@ def bomb(self, name, target, stores=None, highdrag=False, note=None):
             "release point is %d hexes and %+d levels."
             % (horizontalrange, relativealtitude)
         )
-        if self.isinlevelflight():            
+        if self.isinlevelflight():
             if highdrag:
                 if horizontalrange > 9:
-                    raise RuntimeError("invalid release point.")        
-                minrelativealtitude = [0, 3,  7, 11, 15, 19, 25, 25, 33, 33]
+                    raise RuntimeError("invalid release point.")
+                minrelativealtitude = [0, 3, 7, 11, 15, 19, 25, 25, 33, 33]
                 maxrelativealtitude = [2, 6, 10, 14, 18, 24, 32, 32, 40, 40]
             else:
                 if horizontalrange == 0 or horizontalrange > 12:
-                    raise RuntimeError("invalid release point.")        
-                minrelativealtitude = [None, 1, 3, 5, 7,  9, 11, 11, 16, 16, 26, 26, 26]
+                    raise RuntimeError("invalid release point.")
+                minrelativealtitude = [None, 1, 3, 5, 7, 9, 11, 11, 16, 16, 26, 26, 26]
                 maxrelativealtitude = [None, 2, 4, 6, 8, 10, 15, 15, 25, 25, 40, 40, 40]
         else:
             if highdrag:
-                minrelativealtitude = [1, 4,  9, 14]
+                minrelativealtitude = [1, 4, 9, 14]
                 maxrelativealtitude = [3, 8, 14, 20]
                 if horizontalrange > 3:
-                    raise RuntimeError("invalid release point.")        
+                    raise RuntimeError("invalid release point.")
             else:
-                minrelativealtitude = [1, 4,  7, 11, 13, 16]
+                minrelativealtitude = [1, 4, 7, 11, 13, 16]
                 maxrelativealtitude = [3, 6, 10, 12, 15, 20]
                 if horizontalrange > 5:
-                    raise RuntimeError("invalid release point.")        
+                    raise RuntimeError("invalid release point.")
         if (
             relativealtitude < minrelativealtitude[horizontalrange]
             or relativealtitude > maxrelativealtitude[horizontalrange]
         ):
-            raise RuntimeError("invalid release point.")        
+            raise RuntimeError("invalid release point.")
         self.logcomment("release point is valid.")
 
         self._release(stores)

@@ -416,7 +416,7 @@ def blockD(data, geometry=None):
             data.ceiling("1/2"),
             data.cruisespeed("1/2"),
             data.ceiling("DT"),
-            data.cruisespeed("DT")
+            data.cruisespeed("DT"),
         )
     )
     writelatex(
@@ -795,9 +795,7 @@ def blockF(data, geometry=None):
 
     descriptiontext = ""
     if data.variantname() is None:
-        descriptiontext += r"This ADC is for the “%s”. " % latexify(
-            data.versionname()
-        )
+        descriptiontext += r"This ADC is for the “%s”. " % latexify(data.versionname())
     else:
         descriptiontext += r"This ADC is for the “%s (%s)”. " % (
             latexify(data.versionname()),

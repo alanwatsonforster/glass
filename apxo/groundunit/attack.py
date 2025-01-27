@@ -102,13 +102,12 @@ def _attackaircraft(self, target, result=None, note=None):
             )
     else:
         raise RuntimeError("%s cannot attack aircraft." % self.name())
-    
 
     if self.issuppressed():
-       raise RuntimeError("%s is suppressed" % self.name())
+        raise RuntimeError("%s is suppressed" % self.name())
 
     target._takeattackdamage(self, result)
-    
+
     if not self.isusingbarragefire() and not self.isusingplottedfire():
         self._stoptracking()
 
