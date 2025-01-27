@@ -1107,9 +1107,15 @@ def startdrawmap(
                         )
 
         # Draw the border.
-        
+
         apdraw.drawrectangle(
-            _xmin, _ymin, _xmax, _ymin + borderwidth, fillcolor=bordercolor, linecolor=None, zorder=0
+            _xmin,
+            _ymin,
+            _xmax,
+            _ymin + borderwidth,
+            fillcolor=bordercolor,
+            linecolor=None,
+            zorder=0,
         )
         apdraw.drawrectangle(
             _xmin,
