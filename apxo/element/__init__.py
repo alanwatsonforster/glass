@@ -486,7 +486,7 @@ class element:
 
     #############################################################################
 
-    def _checkforterraincollision(self):
+    def _checkaltitude(self):
         """
         Check if the element has collided with terrain.
         """
@@ -513,6 +513,11 @@ class element:
                 "%s at altitude %d." % (killed, terrainaltitude),
             )
             self._kill()
+
+        if self.isinterrainfollowingflight() and (self.altitude() != terrainaltitude):
+            raise RuntimeError(
+            "did not maintain correct altitude for terrain-following flight."
+        )
 
     def _checkforleavingmap(self):
         """

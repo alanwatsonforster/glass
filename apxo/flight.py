@@ -395,7 +395,7 @@ def _startmove(E, **kwargs):
 
     # APs accrued in TFF.
 
-    E._isinterrainfollowingflightap = 0
+    E._terrainfollowingflightap = 0
 
     # Whether the element has left terrain-following flight this game turn.
 
@@ -471,6 +471,7 @@ def _startmovestalledflight(A):
 
     A._fpcarry = 0
     A._setaltitudecarry(0)
+    A._isinterrainfollowingflight = False
 
     # See rule 6.4.
     A.logcomment("is carrying %+.2f APs." % A._apcarry)
@@ -484,6 +485,7 @@ def _startmovedepartedflight(A):
     A._fpcarry = 0
     A._apcarry = 0
     A._setaltitudecarry(0)
+    A._isinterrainfollowingflight = False
 
 
 ########################################
@@ -931,7 +933,7 @@ def _continuestalledflight(A, moves):
             "altitude band changed from %s to %s."
             % (initialaltitudeband, A.altitudeband())
         )
-    A._checkforterraincollision()
+    A._checkaltitude()
     if A.killed():
         return
 
@@ -1007,7 +1009,7 @@ def _continuedepartedflight(A, moves):
         for i in range(0, shift):
             A._moveforward()
             A._extendpath()
-            A._checkforterraincollision()
+            A._checkaltitude()
             A._checkforleavingmap()
             if A.killed() or A.removed():
                 return
@@ -1029,7 +1031,7 @@ def _continuedepartedflight(A, moves):
             "altitude band changed from %s to %s."
             % (initialaltitudeband, A.altitudeband())
         )
-    A._checkforterraincollision()
+    A._checkaltitude()
     if A.killed():
         return
 
@@ -1570,7 +1572,7 @@ def _endnormalflight(A):
         elif A._flighttype == "LVL":
 
             # See rule 8.2.4 and 20.
-            altitudeap = A._isinterrainfollowingflightap
+            altitudeap = A._terrainfollowingflightap
 
         # Round to nearest quarter. See rule 6.2.
         altitudeap = roundtoquarter(altitudeap)
@@ -1890,11 +1892,7 @@ def _domove(E, move, actiondispatchlist):
             if E.isaircraft():
                 _reportallowedturnrates(E)
 
-    E._checkforterraincollision()
-    if E.isinterrainfollowingflight() and (E.altitude() != E.terrainaltitude()):
-        raise RuntimeError(
-            "did not maintain correct altitude for terrain-following flight."
-        )
+    E._checkaltitude()
     E._checkforleavingmap()
 
     if E.killed() or E._maneuveringdeparture or E._fp >= E._maxfp:
@@ -2160,11 +2158,11 @@ def _dohorizontal(E, action):
     if action == "HD":
 
         if E.isinterrainfollowingflight():
-            if E._isinterrainfollowingflightap < 0:
+            if E._terrainfollowingflightap < 0:
                 raise RuntimeError(
                     "aircraft cannot both climb and dive while in terrain-following flight."
                 )
-            E._isinterrainfollowingflightap += 0.5
+            E._terrainfollowingflightap += 0.5
         elif E._flighttype == "LVL":
             pass
         elif E._flighttype == "SP":
@@ -2182,11 +2180,11 @@ def _dohorizontal(E, action):
     elif action == "HC":
 
         if E.isinterrainfollowingflight():
-            if E._isinterrainfollowingflightap > 0:
+            if E._terrainfollowingflightap > 0:
                 raise RuntimeError(
                     "aircraft cannot both climb and dive while in terrain-following flight."
                 )
-            E._isinterrainfollowingflightap -= 1.0
+            E._terrainfollowingflightap -= 1.0
         elif E._flighttype == "LVL":
             if not E.terrainfollowinflight():
                 raise RuntimeError(
@@ -3065,7 +3063,7 @@ def _domaneuveringdeparture(E, sense, facingchange):
     for i in range(0, shift):
         E._moveforward()
         E._extendpath()
-        E._checkforterraincollision()
+        E._checkaltitude()
         E._checkforleavingmap()
         if E.killed() or E.removed():
             return
