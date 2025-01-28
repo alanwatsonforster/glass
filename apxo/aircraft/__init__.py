@@ -321,13 +321,6 @@ class aircraft(apelement.element):
 
     #############################################################################
 
-    def note(self, s):
-        """Write a note to the log."""
-        self.lognote(s)
-        self.logbreak()
-
-    #############################################################################
-
     def react(self, attacktype, target, result, note=None):
         """
         Return fire, either with fixed guns or articulated guns.

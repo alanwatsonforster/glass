@@ -446,6 +446,13 @@ class element:
     def isbarragefire(self):
         return False
 
+    #############################################################################
+
+    def note(self, s):
+        """Write a note to the log."""
+        self.lognote(s)
+        self.logbreak()
+
     ############################################################################
 
     def _checknotkilled(self):
