@@ -234,6 +234,7 @@ def drawmap(
     draw30arc=[],
     drawL180arc=[],
     drawR180arc=[],
+    drawlos=[],
     watermark=None,
     writefiles=True,
 ):
@@ -316,6 +317,9 @@ def drawmap(
             apdraw.drawarc(A.x(), A.y(), A.facing(), "R180+")
 
         apelement._drawmap()
+
+        for E in drawlos[1:]:
+            apdraw.drawlos(drawlos[0].x(), drawlos[0].y(), E.x(), E.y())
 
         apmap.enddrawmap(apgameturn.gameturn(), writefiles=writefiles)
 

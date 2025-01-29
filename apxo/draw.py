@@ -556,6 +556,46 @@ def drawarc(x0, y0, facing, arc):
 
 ################################################################################
 
+loscolor = (0.00, 0.00, 0.00)
+loslinewidth = 1.0
+loslinestyle = "solid"
+losdotsize = 0.05
+
+
+def drawlos(x0, y0, x1, y1):
+
+    zorder = 100
+
+    drawdot(
+        x0,
+        y0,
+        fillcolor=loscolor,
+        linecolor=loscolor,
+        linewidth=loslinewidth,
+        size=losdotsize,
+        zorder=zorder,
+    )
+    drawdot(
+        x1,
+        y1,
+        fillcolor=loscolor,
+        linecolor=loscolor,
+        linewidth=loslinewidth,
+        size=losdotsize,
+        zorder=zorder,
+    )
+    drawlines(
+        [x0, x1],
+        [y0, y1],
+        linecolor=loscolor,
+        linewidth=loslinewidth,
+        linestyle=loslinestyle,
+        zorder=zorder,
+    )
+
+
+################################################################################
+
 pathcolor = (0.00, 0.00, 0.00)
 pathlinewidth = 2.0
 pathlinestyle = "dotted"
