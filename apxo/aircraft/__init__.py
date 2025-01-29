@@ -363,7 +363,7 @@ class aircraft(apelement.element):
 
     ##############################################################################
 
-    def enterterrainfollowingflight(self):
+    def enterterrainfollowingflight(self, note=None):
         """
         Enter terrain-following flight.
         """
@@ -393,12 +393,13 @@ class aircraft(apelement.element):
             self._isinterrainfollowingflight = True
             self._setaltitude(self.terrainaltitude())
             self.logwhenwhat("", "enters terrain-following flight.")
+            self.lognote(note)
 
         except RuntimeError as e:
             aplog.logexception(e)
         self.logbreak()
 
-    def leaveterrainfollowingflight(self):
+    def leaveterrainfollowingflight(self, note=None):
         """
         Leave terrain-following flight.
         """
@@ -413,6 +414,7 @@ class aircraft(apelement.element):
             self._setaltitude(self.terrainaltitude() + 1)
             self._leftterrainfollowingflightthisgameturn = True
             self.logwhenwhat("", "leaves terrain-following flight.")
+            self.lognote(note)
 
         except RuntimeError as e:
             aplog.logexception(e)
