@@ -523,8 +523,8 @@ class element:
 
         if self.isinterrainfollowingflight() and (self.altitude() != terrainaltitude):
             raise RuntimeError(
-            "did not maintain correct altitude for terrain-following flight."
-        )
+                "did not maintain correct altitude for terrain-following flight."
+            )
 
     def _checkforleavingmap(self):
         """
