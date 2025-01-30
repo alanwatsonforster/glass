@@ -17,7 +17,7 @@ def _trackingrequirement(self, target, radar=False):
         return max(1, roundup(twothirdsfromtable(target.speed())))
         factor = 2 / 3
     elif not radar:
-        return max(1, roundup(self.speed() / 2))
+        return max(1, roundup(target.speed() / 2))
     else:
         return max(1, roundup(onethirdfromtable(target.speed())))
 
