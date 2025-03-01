@@ -874,6 +874,8 @@ def blockF(data, geometry=None):
                     s += r"Rapid acceleration (RA) if CL. "
                 elif property == "RPR":
                     s += r"Rapid power response (RPR). "
+                elif property == "FBW":
+                    s += r"Fly-by-wire (FBW). "
                 else:
                     log("unknown property: %s" % property)
                     s += "%s. " % property
