@@ -1,7 +1,7 @@
 {
-  "base": "Shenyang J-6",
+  "base": "Shenyang F-6",
   "variantname": "PAF",
-  "variantdescription": "used by PAF and equipped with two additional stations for AIM-9 IRMs.",
+  "description": "The Shenyang F-6 is a day fighter. It is the export version of the Shenyang J-6 and a licensed version of the MiG-19S. The “PAF” version described here is modified with two additional stations for AIM-9 IRMs. The NATO reporting name is Farmer-C.",
   "stations": [
     [ "pair", [1, 6],  200, [ "IRM" ] ],
     [ "pair", [2, 5], 1300, [ "BB", "RP", "RK", "FT", "IRM" ] ],

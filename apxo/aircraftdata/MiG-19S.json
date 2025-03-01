@@ -1,7 +1,6 @@
 {
   "versionname": "MiG-19S",
-  "versiondescription": "Day fighter version.",
-  "natoreportingnames": "NATO reporting name for the aircraft is Farmer-C.",
+  "versiondescription": "Day fighter version. The NATO reporting name is Farmer-C.",
   "origin": "TSOH",
   "crew": [ "Pilot" ],
   "powertable": {
