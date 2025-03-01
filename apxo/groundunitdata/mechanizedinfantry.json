@@ -1,0 +1,8 @@
+{
+    "name": "mechanized infantry",
+    "description": "mechnized infantry platoon",
+    "symbols": "armor/infantry",
+    "lowertext": "L",
+    "aaaclass": "B",
+    "aaamaximumrelativealtitude": 3
+}
