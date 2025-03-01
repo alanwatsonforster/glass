@@ -805,9 +805,6 @@ def blockF(data, geometry=None):
         descriptiontext += latexify(data.description())
     s += "\\item %s\n\n" % descriptiontext
 
-    if data.natoreportingnames() is not None:
-        s += "\\item %s\n\n" % data.natoreportingnames()
-
     if data.hasproperty("EVG", geometry):
         s += "\\item Variable-geometry aircraft with allowed geometries of "
         geometries = data.geometries()
