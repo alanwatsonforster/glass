@@ -118,8 +118,10 @@
     // July 1967
     [ "type", "F-111 Aardvark", "F-111A", "F-111E" ],
     // 1967
-    [   "type", "A-37 Dragonfly", "A-37B", "OA-37B" ],
+    [ "type", "A-37 Dragonfly", "A-37B", "OA-37B" ],
     // 1976
-    [   "type", "A-10 Thunderbolt II", "A-10A" ]
+    [ "type", "A-10 Thunderbolt II", "A-10A" ],
+    // 1983
+    [ "type", "F/A-18", "FA-18A" ]
 
 ]

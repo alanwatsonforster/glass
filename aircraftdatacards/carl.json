@@ -1,6 +1,11 @@
 #!/usr/bin/env python3 aircraftdatacards.py
 
 [
+    [
+        "type",
+        "F/A-18",
+        "FA-18A"
+    ],
     [ 
         "type", 
         "F-16", 
