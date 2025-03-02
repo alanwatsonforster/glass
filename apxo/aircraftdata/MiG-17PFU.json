@@ -1,7 +1,7 @@
 {
   "versionname": "MiG-17PFU",
   "base": "MiG-17PF",
-  "description": "The Mikoyan-Gurevich MiG-17PFU is an interceptor. It is a development of the MiG-17PF with carry AA-1 BRMs replacing the cannons. The NATO reporting name for the aircraft is Fresco-E and for the radar is Scan Odd.",
+  "description": "The Mikoyan-Gurevich MiG-17PFU is an interceptor. It is a development of the MiG-17PF with AA-1 missiles replacing the cannons. The NATO reporting name for the aircraft is Fresco-E and for the radar is Scan Odd.",
   "ceilingtable": [ 52, 48, 45 ],
   "speedtable": {
     "EH": [ [  3.0, 5.5  ], [  3.0, 5.5  ], [  3.5, 5.0  ], 6.5 ],
