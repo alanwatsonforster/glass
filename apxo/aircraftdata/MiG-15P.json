@@ -1,8 +1,7 @@
 {
   "versionname": "MiG-15P",
-  "versiondescription": "Prototype all-weather interceptor version, developed from the MiG-15bis and with the RP-1 Izumrud radar.",
+  "description": "The Mikoyan-Gurevich MiG-15P is a prototype all-weather interceptor. It was developed from the MiG-15bis and was equipped with the RP-1 Izumrud radar. The NATO reporting name for the aircraft is Fagot and for the radar is Scan Fix.",
   "base": "MiG-15bis",
-  "natoreportingnames": "NATO reporting name for aircraft is Fagot and for radar is Scan Fix.",
   "radar": { 
     "name": "RP-1 Izumrud", 
     "eccm": 0, 

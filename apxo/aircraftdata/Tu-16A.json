@@ -1,7 +1,6 @@
 {
   "versionname": "Tu-16A",
-  "natoreportingnames": "NATO reporting name for aircraft is Badger-A and for the tail radar is Bee Hind.",
-  "versiondescription": "Strategic conventional bomber",
+  "description": "The Tupolev Tu-16A is a strategic conventional bomber. The NATO reporting name for the aircraft is Badger-A, and for the tail radar is Bee Hind.",
   "origin": "TSOH",
   "crew": [ "Pilot", "Copilot", "Weapons Officer", "Gunner", "Gunner" ],
   "powertable": {
@@ -58,7 +57,7 @@
   "ecm": { "iff": true, "rwr": "A", "dds": "A", "ajm": "A4" },
   "properties": [ "NRM" ],
   "notes": [
-    "DDS capacity is 60 CG and 20 FL or 80 CH.",
+    "DDS capacity is 60 CH and 20 FL or 80 CH.",
     "Defensive Guns. Equipped with six 23 mm guns, two in the forward dorsal twin turret, two in the rear ventral twin turret turrets, and two in the tail mount. They can fire in any direction. They may return fire twice per game turn in response to a gun attacks. The roll to hit is 2/1/1 and the AtA rating is 4. Gun attacks are modified only by the target size and possible RE radar ranging. Ammunition is 12.0.",
     "Tail Radar. The PRS-1 Argon tail radar covers the 30- arc and allows an attempt at radar ranging when firing at targets in the arc. The lock-on roll is 7-."
   ],

@@ -1,7 +1,6 @@
 {
   "versionname": "MiG-17F",
-  "versiondescription": "Day fighter version.",
-  "natoreportingnames": "NATO reporting name for aircraft is Fresco-C.",
+  "description": "The Mikoyan-Gurevich MiG-17F is a day fighter. The NATO reporting name is Fresco-C.",
   "origin": "TSOH",
   "crew": [ "Pilot" ],
   "powertable": {

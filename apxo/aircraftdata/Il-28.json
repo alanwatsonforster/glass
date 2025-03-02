@@ -1,7 +1,6 @@
 {
   "versionname": "Il-28",
-  "versiondescription": "Medium bomber version.",
-  "natoreportingnames": "NATO reporting name for aircraft is Beagle.",
+  "description": "The Ilyushin Il-28 is a medium bomber. The NATO reporting name is Beagle.",
   "origin": "TSOH",
   "crew": [ "Pilot", "Bombardier", "Gunner" ],
   "powertable": {

@@ -1,6 +1,6 @@
 {
   "versionname": "Tu-14T",
-  "versiondescription": "Torpedo bomber version.",
+  "description": "The Tupolev Tu-4T is a torpedo bomber. The NATO reporting name is Bosun.",
   "base": "Tu-14",
   "ejectionseat": "early",
   "loadnotes": [

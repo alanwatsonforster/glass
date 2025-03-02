@@ -1,6 +1,6 @@
 {
   "versionname": "MiG-17PF",
-  "natoreportingnames": "NATO reporting name for aircraft is Fresco-D and for radar is Scan Odd.",
+  "description": "The Mikoyan-Gurevich MiG-17PF is an interceptor. It is a development from the MiG-17P with an afterburning VK-1F engine. The NATO reporting name for the aircraft is Fresco-D and for the radar is Scan Odd.",
   "base": "MiG-17F",
   "radar": {
     "name": "RP-1 Izumrud",

@@ -1,6 +1,6 @@
 {
   "versionname": "Il-28N",
-  "versiondescription": "Nuclear strike version.",
+  "description": "The Ilyushin Il-28N is a tactical nuclear bomber. The NATO reporting name is Beagle.",
   "base": "Il-28",
   "storeslimits": [ 4, 8, 6600 ],
   "stations": [
