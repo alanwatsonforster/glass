@@ -13,6 +13,7 @@
 
     [ "chapter", "Canadian Aircraft" ],
     [ "type", "Sabre", "Sabre Mk.2", "Sabre Mk.4", "Sabre Mk.4 (6-3 Wing)", "Sabre Mk.5", "Sabre Mk.6" ],
+    // 1953
     [ "type", "CF-100", "CF-100 Mk 4B", "CF-100 Mk 5" ],
 
     [ "chapter", "Chinese Aircraft" ],
