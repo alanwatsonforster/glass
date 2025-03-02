@@ -1,6 +1,6 @@
 {
-  "versionname": "MiG-19PF",
-  "natoreportingnames": "NATO reporting name for the aircraft is Farmer-D and for the radar is Scan Odd.",
+  "versionname": "MiG-19P",
+  "description": "The MiG-19F is an intercepter. The NATO reporting name for the aircraft is Farmer-B and for the radar is Scan Odd.",
   "base": "MiG-19S",
   "radar": {
     "name": "RP-1 Izumrud",
