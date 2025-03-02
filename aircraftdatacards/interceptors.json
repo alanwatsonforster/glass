@@ -1,0 +1,8 @@
+#!/usr/bin/env python3 aircraftdatacards.py
+
+[
+    [ "type", "CF-100", "CF-100 Mk 4B", "CF-100 Mk 5" ],
+    [ "type", "F-86 Sabre", "F-86F-10", "F-86K (Early)", "F-86K (Late)", "F-86L" ],
+    [ "type", "F-94 Starfire", "F-94A", "F-94B" ],
+    [ "type", "F-89 Scorpion", "F-89D", "F-89H", "F-89J (Rocket-and-Fuel Pods)", "F-89J (Fuel-Only Pods)" ]
+]
