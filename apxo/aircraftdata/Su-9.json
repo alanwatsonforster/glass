@@ -1,7 +1,6 @@
 {
   "versionname": "Su-9",
-  "versiondescription": "Interceptor.",
-  "natoreportingname": "NATO reporting name for aircraft is Fishpot-B and or radar is Spin Scan.",
+  "description": "The Sukhoi Su-9 is an all-weather interceptor. The NATO reporting name for the aircraft is Fishpot-B and for the radar is Spin Scan.",
   "origin": "TSOH",
   "crew": [ "Pilot" ],
   "powertable": {
