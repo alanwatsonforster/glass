@@ -1,5 +1,6 @@
 {
   "versionname": "MiG-19PM",
+  "variantname": null,
   "description": "The MiG-19PM is an interceptor. It is a development of the MiG-19P with AA-1 missiles replacing the cannons. The NATO reporting name for the aircraft is Farmer-E and for the radar is Scan Odd.",
   "base": "MiG-19P (Late)",
   "gun": "",
