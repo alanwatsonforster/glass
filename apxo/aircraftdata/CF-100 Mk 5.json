@@ -43,7 +43,7 @@
     [ "pair", [ 1, 2 ], 2200, [ "FT", "RP" ] ]
   ],
   "loadnotes": [
-    "Stations 1 and 2 are the wing-tip pods. They may carry RPs (each weight 500, load 3.0, and with 4.5 factors of air-to-air rockets) or 1200L FTs for ferry missions. The RPs and FTs may be jettisoned."
+    "Stations 1 and 2 are the wing-tip pods. They may carry RPs (each weight 500, load 3.0, and with 3.0 factors of air-to-air rockets) or 1200L FTs for ferry missions. The RPs and FTs may be jettisoned."
   ],
   "VPs": [ 13, 9, 4, 2 ]
 }

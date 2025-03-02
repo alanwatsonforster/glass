@@ -79,7 +79,7 @@
     [ "single", [ 2 ], 0, [ "GP", "RP"]]
   ],
   "loadnotes": [
-    "Stations 1 and 3 are the wing-tip pods. They may carry RPs (each weight 500, load 3.0, and with 2 factors of air-to-air rockets) or 1200L FTs for ferry missions. The RPs and FTs may be jettisoned.",
+    "Stations 1 and 3 are the wing-tip pods. They may carry RPs (each weight 500, load 3.0, and with 3.0 factors of air-to-air rockets) or 1200L FTs for ferry missions. The RPs and FTs may be jettisoned.",
     "Station 2 is the internal weapons bay. It may be equipped either with a gun pack with eight .50 cal machine guns or a rocket pack. If the rocket pack is used, remove the guns and add 4 factors of air-to-air rockets. The rocket pack was tested but did not enter service."
   ],
   "VPs": [ 12, 8, 4, 2 ]
