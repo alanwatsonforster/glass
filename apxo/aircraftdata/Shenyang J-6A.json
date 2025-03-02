@@ -1,6 +1,6 @@
 {
   "versionname": "Shenyang J-6A",
-  "base": "MiG-19PF",
-  "description": "The Shenyang J-6A is an interceptor. It is derived from the MiG-19PF. The NATO reporting name for the aircraft is Farmer-D and for the radar is Scan Odd.",
+  "base": "MiG-19P",
+  "description": "The Shenyang J-6A is an interceptor. It is derived from the MiG-19P. The NATO reporting name for the aircraft is Farmer-D and for the radar is Scan Odd.",
   "wikiurl": "https://bit.ly/419L88o"
 }

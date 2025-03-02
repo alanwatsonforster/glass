@@ -1,6 +1,6 @@
 {
   "versionname": "MiG-19S",
-  "versiondescription": "Day fighter version. The NATO reporting name is Farmer-C.",
+  "description": "The Mikoyan-Gurevich MiG-19S is a day fighter. It is an improved version of the original MiG-19 with an all-moving tail and three 30 mm NR-30 cannons. The NATO reporting name is Farmer-C.",
   "origin": "TSOH",
   "crew": [ "Pilot" ],
   "powertable": {
