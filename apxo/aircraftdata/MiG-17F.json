@@ -1,6 +1,6 @@
 {
   "versionname": "MiG-17F",
-  "description": "The Mikoyan-Gurevich MiG-17F is a day fighter. The NATO reporting name is Fresco-C.",
+  "description": "The Mikoyan-Gurevich MiG-17F is a day fighter. It is a development from the MiG-17 and uses the afterburning VK-1F engine. The NATO reporting name is Fresco-C.",
   "origin": "TSOH",
   "crew": [ "Pilot" ],
   "powertable": {
