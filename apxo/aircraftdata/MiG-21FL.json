@@ -1,7 +1,6 @@
 {
   "versionname": "MiG-21FL",
-  "versiondescription": "All-weather interceptor version, for export.",
-  "natoreportingnames": "NATO reporting name for the aircraft is Fishbed-D.",
+  "description": "The Mikoyan-Gurevich MiG-21FL is an all-weather interceptor. This is an export version developed from the MiG-21PF, but with the less powerful engine from the MiG-21F, no capability to use the AA-1 missile, and a downgraded version of the RP21 designated R1L. NATO reporting name for the aircraft is Fishbed-D.",
   "origin": "TSOH",
   "base": "MiG-21PF",
   "internalfuel": 220,

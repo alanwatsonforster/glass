@@ -1,7 +1,6 @@
 {
   "versionname": "MiG-21M",
-  "versiondescription": "Interceptor version for export.",
-  "natoreportingnames": "NATO reporting name for the aircraft is Fishbed-J and for the radar is Spin Scan-B.",
+  "description": "The Mikoyan-Gurevich MiG-21M is an all-weather interceptor. It is an export version of the MiG-21S, with the RP-21MA radar instead of the RP-22 and armed with an internal GSh-23L gun and AA-2 IRMs. The NATO reporting name for the aircraft is Fishbed-J and for the radar is Spin Scan-B.",
   "base": "MiG-21S",
   "radar": {
     "name": "RP-21MA Sapfir",

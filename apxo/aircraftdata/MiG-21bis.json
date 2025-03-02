@@ -1,7 +1,6 @@
 {
   "versionname": "MiG-21bis",
-  "versiondescription": "Interceptor version.",
-  "natoreportingnames": "NATO reporting name for aircraft is Fishbed-L/N and for radar is Jay Bird.",
+  "description": "The Mikoyan-Gurevich MiG-21bis is an all-weather interceptor. It is a development of the MiG-21SM with an improved engine. The NATO reporting name for the aircraft is Fishbed-L/N and for the radar is Jay Bird.",
   "base": "MiG-21SM",
   "origin": "APJ 43",
   "powertable": {

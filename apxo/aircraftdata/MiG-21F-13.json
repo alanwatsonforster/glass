@@ -3,8 +3,7 @@
   // appears to be for the F-13 version, as it only has one gun, had
   // provision for the AA-2, and has the NATO reporting name Fishbed-C.
   "versionname": "MiG-21F-13",
-  "versiondescription": "Day fighter version.",
-  "natoreportingnames": "NATO reporting name for the aircraft is Fishbed-C and for the radar is High Fix.",
+  "description": "The Mikoyan-Gurevich MiG-21F-13 is a day fighter. This is an improved version of the MiG-21F, with provision for AA-2 IRMs, but with only one NR-30 gun and still without a search radar. The NATO reporting name for the aircraft is Fishbed-C and for the radar is High Fix.",
   "origin": "TSOH",
   "crew": [ "Pilot" ],
   "powertable": {

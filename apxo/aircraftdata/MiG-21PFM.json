@@ -1,7 +1,6 @@
 {
   "versionname": "MiG-21PFM",
-  "versiondescription": "All-weather interceptor.",
-  "natoreportingnames": "NATO reporting name for the aircraft is Fishbed-E and for the radar is Spin Scan-A.",
+  "description": "The Mikoyan-Gurevich MiG-21PFM is an all-weather interceptor. It is a development of the MiG-21PF with blown flaps, improved RP-21M radar, the capability to carry the GP-9 gun pod, and from 1966 the capability to carry the Kh-66 ASM. The NATO reporting name for the aircraft is Fishbed-F and for the radar is Spin Scan-A.",
   "base": "MiG-21PF",
   "internalfuel": 220,
   "lowspeedliftdeviceselectable": true,
