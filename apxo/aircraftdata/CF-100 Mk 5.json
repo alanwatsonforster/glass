@@ -1,0 +1,49 @@
+{
+  "versionname": "CF-100 Mk 5",
+  "popularname": "Canuck",
+  "description": "The Avro Canada CF-100 Mk 5 Canuck is an all-weather intercepter. The Mk 5 version is a development of the Mk 4B with longer wings but without the 0.50 cal machine guns.",
+  "base": "CF-100 Mk 4B",
+  "origin": "APJ 14",
+  "powertable": {
+    "M"   : [ 1.5, 1.5, 1.0, 2.0 ],
+    "N"   : [ 0.0, 0.0, 0.0, 1.0 ],
+    "I"   : [ 0.5, 0.5, 1.0, 0.0 ],
+    "SPBR": [ 0.5, 0.5, 1.0 ]
+  },
+  "visibility": 8,
+  "size": -1,
+  "turndragtable": {
+    "TT": [ 0.0, 0.0, 0.0 ],
+    "HT": [ 1.0, 1.0, 1.0 ],
+    "BT": [ 1.0, 1.0, 2.0 ],
+    "ET": [ "-", "-", "-" ]
+  },
+  "ceilingtable": [ 45, 43, 40 ],
+  "speedtable": {
+    "EH": [ [  "-",  "-" ], [  "-",  "-" ], [  "-",  "-" ],  "-" ],
+    "VH": [ [  3.0,  5.5 ], [  3.0,  5.5 ], [  3.0,  5.0 ],  6.0 ],
+    "HI": [ [  2.5,  5.5 ], [  2.5,  5.5 ], [  3.0,  5.0 ],  6.5 ],
+    "MH": [ [  2.0,  6.0 ], [  2.0,  6.0 ], [  2.5,  5.5 ],  6.5 ],
+    "ML": [ [  2.0,  6.0 ], [  2.0,  6.0 ], [  2.0,  5.5 ],  7.0 ],
+    "LO": [ [  1.5,  6.0 ], [  2.0,  5.5 ], [  2.0,  5.5 ],  7.0 ]
+  },
+  "climbcapabilitytable": {
+    "EH": [ [ "-", "-" ], [ "-", "-" ], [ "-", "-" ] ],
+    "VH": [ [ "-", 0.5 ], [ "-", 0.5 ], [ "-", 0.5 ] ],
+    "HI": [ [ "-", 1.0 ], [ "-", 1.0 ], [ "-", 0.5 ] ],
+    "MH": [ [ "-", 1.0 ], [ "-", 1.0 ], [ "-", 1.0 ] ],
+    "ML": [ [ "-", 1.5 ], [ "-", 1.0 ], [ "-", 1.0 ] ],
+    "LO": [ [ "-", 1.5 ], [ "-", 1.5 ], [ "-", 1.0 ] ]
+  },
+  "gun": "",
+  "notes": [
+    "The configuration is considered to be CL with the wing-tip FTs or RPs if the internal fuel is 260 fuel points or less."
+  ],
+  "stations": [
+    [ "pair", [ 1, 2 ], 2200, [ "FT", "RP" ] ]
+  ],
+  "loadnotes": [
+    "Stations 1 and 2 are the wing-tip pods. They may carry RPs (each weight 500, load 3.0, and with 4.5 factors of air-to-air rockets) or 1200L FTs for ferry missions. The RPs and FTs may be jettisoned."
+  ],
+  "VPs": [ 13, 9, 4, 2 ]
+}
