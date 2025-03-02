@@ -50,7 +50,7 @@
     "LO": [ [ 1.0, 0.5  ], [ 1.0, 0.5  ], [ 1.0, 0.5  ] ]
   },
   "radar": {
-    "name": "E-6",
+    "name": "APG-40",
     "eccm": 0,
     "arc": "180+",
     "searchrange": 100,
@@ -64,6 +64,9 @@
   "ataradarranging": "RE",
   "ecm": { "iff": true },
   "technology": [ "CC Rocket Attack" ],
+  "notes": [
+    "The E-6 fire-control system provides CC Rocket Attack technology."
+  ],
   "rocketfactors": 9,
   "properties": [ "HTD", "ABSF" ],
   "ABSFamount": 0.5,
