@@ -1,5 +1,6 @@
 {
   "versionname": "A-1E",
+  "description": "The Douglas A-1E Skyraider is a propeller-driven, carrier-capable attack aircraft. It was developed from the AD-4 and added a widened fuselage and cockpit with a copilot next to the pilot, additional armor, and omitted the lateral dive brakes. Prior 1962, it was designated AD-5.",
   "originallydesignated": "AD-5",
   "base": "A-1H",
   "crew": [ "Pilot", "Copilot" ],

@@ -1,5 +1,6 @@
 {
   "versionname": "AD-7",
+  "description": "The Douglas AD-7 Skyraider is a propeller-driven, carrier-capable attack aircraft. It was developed from the AD-6. In 1962, it was redesignated A-1J.",
   "subsequentlydesignated": "A-1J",
   "originallydesignated": null,
   "base": "A-1J",
