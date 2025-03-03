@@ -1,6 +1,7 @@
 {
   "versionname": "B-26C",
   "variantname": "Two Turrets",
+  "description": "The Douglas B-26C Invader is a WWII propeller-driven attack aircraft. The “Two Turrets” variant described here has a glazed nose, wing guns, and both dorsal and ventral turrets. Prior to 1948, it was designated A-26C.",
   "variantdescription": "with a glass nose, wing guns, and both dorsal and ventral turrets.",
   "originallydesignated": "A-26C",
   "base": "B-26B (Two Turrets)",
