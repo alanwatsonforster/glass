@@ -1,6 +1,6 @@
 {
   "versionname": "F-84G",
-  "versiondescription": "Fighter-bomber and nuclear strike version.",
+  "versiondescription": "The Republic F-84G Thunderjet is a day fighter-bomber and tactical nuclear strike aircraft. It is a development of the F-84E and has a more powerful engine, in-flight refueling, and the provision for nuclear bombs.",
   "origin": "TSOH",
   "base": "F-84E",
   "atarefuel": true,
