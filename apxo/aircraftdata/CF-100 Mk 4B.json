@@ -1,7 +1,7 @@
 {
   "versionname": "CF-100 Mk 4B",
   "popularname": "Canuck",
-  "description": "The Avro Canada CF-100 Mk 4B Canuck is an all-weather intercepter. The Mk 4B version is powered by two Orenda 11 engines and armed with eight 0.50 cal M3 machine guns and two pods of FFARs.",
+  "description": "The Avro Canada CF-100 Mk 4B Canuck is an all-weather intercepter. The Mk 4B version is powered by two Orenda 11 engines and equipped with eight 0.50 cal M3 machine guns, two pods of FFARs, and a Hughes MG-2 fire-control system.",
   "origin": "APJ 14",
   "crew": [ "Pilot", "Radar Officer" ],
   "powertable": {
