@@ -1,6 +1,6 @@
 {
   "versionname": "AD-6",
-  "description": "The Douglas AD-6 Skyraider is a propeller-driven, carrier-capable attack aircraft. It was developed from the AD-5, but returned to the fuselage single-pilot cockpit configuration of the AD-4. In 1962, it was redesignated A-1H.",
+  "description": "The Douglas AD-6 Skyraider is an attack aircraft, It is propeller-driven, has a single engine, and is carrier-capable. It was developed from the AD-5, but returned to the fuselage single-pilot cockpit configuration of the AD-4. In 1962, it was redesignated A-1H.",
   "subsequentlydesignated": "A-1H",
   "originallydesignated": null,
   "base": "A-1H",

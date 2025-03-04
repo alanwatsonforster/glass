@@ -1,6 +1,6 @@
 {
   "versionname": "A-1J",
-  "description": "The Douglas A-1J Skyraider is a propeller-driven, carrier-capable attack aircraft. It was developed from the AD-6. Prior to 1962, it was designated AD-7.",
+  "description": "The Douglas A-1J Skyraider is an attack aircraft, It is propeller-driven, has a single engine, and is carrier-capable. It was developed from the AD-6. Prior to 1962, it was designated AD-7.",
   "originallydesignated": "AD-7",
   "base": "A-1H",
   "VPs": [ 8, 6, 4, 2 ]
