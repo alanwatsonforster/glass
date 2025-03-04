@@ -54,7 +54,10 @@
     [ 
         "type", 
         "B-50 Superfortress", 
-        "B-50D"
+        "B-50A",
+        "B-50A (Saddletree)",
+        "B-50D",
+        "B-50D (Saddletree)"
     ],
     [ 
         "type", 

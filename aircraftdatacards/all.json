@@ -62,13 +62,13 @@
     //  1946
     [ "type", "AD/A-1 Skyraider", "AD-4", "AD-5", "A-1E", "AD-6", "A-1H", "AD-7", "A-1J" ],
     //  1947
-    [ "type", "F-84 Thunderjet", "F-84E", "F-84G" ],
+    [ "type", "F-84 Thunderjet",    "F-84E", "F-84G" ],
     //  1948
     [ "type", "F2H Banshee", "F2H-2", "F2H-2P", "F2H-2B", "F2H-2B (ATA Refueling)", "F2H-3", "F2H-3 (ATA Refueling)", "F2H-3 (RCN)", "F2H-4", "F2H-4 (ATA Refueling)" ],
     //  June 1948
     [ "type", "B-36 Peacemaker", "B-36D" ],
     //  June 1948
-    [ "type", "B-50 Superfortress", "B-50D" ],
+    [ "type", "B-50 Superfortress", "B-50A", "B-50A (Saddletree)", "B-50D", "B-50D (Saddletree)" ],
     //  May 1949
     [ "type", "F9F Panther", "F9F-2", "F9F-2P", "F9F-2B", "F9F-5", "F9F-5P" ],
     //  1949
