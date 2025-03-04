@@ -1,6 +1,6 @@
 {
   "versionname": "F2H-2P",
-  "versiondescription": "Reconnaissance version of the F2H-2, with oblique and overhead cameras.",
+  "description": "The McDonnell F2H-2P Banshee is a photoreconnaissance aircraft. It has two engines, straight wings, and is carrier-capable. It is adapted from the F2H-2 and features a new nose with oblique and overhead cameras instead of guns.",
   "variantname": null,
   "base": "F2H-2",
   "gun": "",

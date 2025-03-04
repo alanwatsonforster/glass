@@ -1,6 +1,6 @@
 {
   "versionname": "F2H-2B",
-  "versiondescription": "Fighter-bomber and nuclear strike version.",
+  "description": "The McDonnell F2H-2B Banshee is a fighter-bomber and tactical nuclear bomber. It has two engines, straight wings, and is carrier-capable. It is a development of the F2H-2 with provision for a nuclear bomb on its port inner-wing weapon station.",
   "variantname": null,
   "base": "F2H-2",
   "storeslimits": [ 8, 12, 4600 ],

@@ -1,6 +1,6 @@
 {
   "versionname": "F2H-4",
-  "versiondescription": "All-weather interceptor, fighter-bomber, and nuclear strike version, with APG-37 search radar and more powerful engines.",
+  "description": "The McDonnell F2H-3 Banshee is an all-weather interceptor, fighter-bomber, and tactical nuclear bomber. It has two engines, straight wings, and is carrier-capable. It is a development of the F2H-3 with the APG-37 search radar and more powerful engines.",
   "variantname": null,
   "base": "F2H-3",
   "speedtable": {

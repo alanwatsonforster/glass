@@ -1,7 +1,7 @@
 {
   "versionname": "F2H-3",
   "variantname": "RCN",
-  "variantdescription": "in service with the RCN. AIM-9B IRMs can be carried on the outer stations 2 and 9, wing-tip FTs are rarely used, and neither AtA refueling nor nuclear weapons are available.",
+  "description": "The McDonnell F2H-3 Banshee is an all-weather interceptor, fighter-bomber, and tactical nuclear bomber. It has two engines, straight wings, and is carrier-capable. It is a major development of the F2H-2 with a lengthened fuselage, increased fuel capacity, additional weapon stations, and the APQ-41 search radar. The “RCN” variant described here is modified for service in the RCN. In particular, AIM-9B IRMs can be carried on the outer stations 2 and 9, wing-tip FTs are rarely used, and neither air-to-air refueling nor nuclear weapons are available.",
   "base": "F2H-3",
   "stations": [
     [ "pair", [ 1, 10 ], 1100, [ "FT" ] ],

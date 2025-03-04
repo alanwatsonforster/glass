@@ -1,6 +1,6 @@
 {
   "versionname": "F2H-2",
-  "versiondescription": "Fighter-bomber version.",
+  "description": "The McDonnell F2H-2 Banshee is a fighter-bomber. It has two engines, straight wings, and is carrier-capable.",
   "base": "F2H-3",
   "internalfuel": 290,
   "atarefuel": false,
