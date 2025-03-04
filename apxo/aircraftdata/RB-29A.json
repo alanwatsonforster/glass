@@ -1,5 +1,5 @@
 {
   "versionname": "RB-29A",
-  "description": "The RB-29A is a propeller-driven, strategic reconnaisance aircraft. It is a development of the B-29A and retains full combat capability. Prior to 1948 , it was designated F-13A.",
+  "description": "The RB-29A is a propeller-driven strategic reconnaisance aircraft. It is a development of the B-29A and retains full combat capability. Prior to 1948 , it was designated F-13A.",
   "base": "B-29A"
 }
