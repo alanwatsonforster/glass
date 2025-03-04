@@ -1,6 +1,6 @@
 {
   "versionname": "F4U-4",
-  "description": "The Vought F4U-4 Corsair is a carrier-capable, propeller-driven, day fighter and fighter-bomber.",
+  "description": "The Vought F4U-4 Corsair is a carrier-capable, propeller-driven day fighter and fighter-bomber.",
   "base": "F4U-4B",
   "gun": "Six .50 cal M2",
   "gunatatohitrolls": "6/3/0",

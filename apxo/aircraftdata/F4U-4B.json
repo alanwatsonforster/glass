@@ -1,6 +1,6 @@
 {
   "versionname": "F4U-4B",
-  "description": "The Vought F4U-4B Corsair is a carrier-capable, propeller-driven, day fighter and fighter-bomber. It it is developed from the F4U-4 and has four 20 mm M3 cannon in place of the six .50 cal machine guns.",
+  "description": "The Vought F4U-4B Corsair is a carrier-capable, propeller-driven day fighter and fighter-bomber. It it is developed from the F4U-4 and has four 20 mm M3 cannon in place of the six .50 cal machine guns.",
   "base": "F4U-5",
   "storeslimits": [ 4, 8, 4000 ],  
   "stations": [
