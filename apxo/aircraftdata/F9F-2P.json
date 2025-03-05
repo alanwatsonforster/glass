@@ -1,6 +1,6 @@
 {
   "versionname": "F9F-2P",
-  "versiondescription": "Reconnaissance version of F9F-2.",
+  "description": "The Grumman F9F-2P Panther is a photoreconnaissance aircraft. It has a single engine, unswept wings, and is carrier-capable. It is derived from the F9F-2 fighter version and has a nose equipped with cameras rather than guns.",
   "base": "F9F-2",
   "gun": "",
   "radar": null,

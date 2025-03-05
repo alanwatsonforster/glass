@@ -1,7 +1,7 @@
 {
   "versionname": "F9F-2",
   "popularname": "Panther",
-  "versiondescription": "Fighter version, with outer-wing stations capable of carrying only six HVARs. All subsequently converted to the F9F-2B standard.",
+  "description": "The Grumman F9F-2 Panther is a day fighter. It has a single engine, unswept wings, and is carrier-capable. This version has outer-wing stations capable of carrying only six HVARs. All F9F-2 versions were subsequently converted to F9F-2B versions.",
   "manufacturername": "Grumman",
   "origin": "TSOH",
   "crew": [ "Pilot" ],

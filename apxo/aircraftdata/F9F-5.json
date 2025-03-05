@@ -1,6 +1,6 @@
 {
   "versionname": "F9F-5",
-  "versiondescription": "Fighter-bomber version, with more powerful engines, blown flaps, larger fuselage, and more internal fuel.",
+  "description": "The Grumman F9F-5 Panther is a day fighter and fighter-bomber. It has a single engine, unswept wings, and is carrier-capable. This version is a development of the F9F-2B version and has more powerful engines, blown flaps, a larger fuselage, and more internal fuel.",
   "base": "F9F-2",
   "turndragtable": {
     "TT": [ 0.0, 1.0, 1.0 ],
