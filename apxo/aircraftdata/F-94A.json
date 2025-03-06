@@ -1,5 +1,6 @@
 {
   "versionname": "F-94A",
+  "description": "The Lockheed F-94A is a single-engined, unswept-wing all-weather interceptor. It is derived from the T-33A trainer, but adds the APG-33 radar and the Hughes E-1 fire-control system. It is armed with four .50-cal machine guns, and the fire-control system allows them to be fired under radar control.",
   "base": "F-94B",
   "storeslimits": [ 4, 7, 2200 ],
   "stations": [

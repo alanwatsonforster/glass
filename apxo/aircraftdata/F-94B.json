@@ -1,6 +1,6 @@
 {
   "versionname": "F-94B",
-  "versiondescription": "All-weather interceptor version.",
+  "description": "The Lockheed F-94B is a single-engined, unswept-wing all-weather interceptor. It is a development of the F-94A and features a more reliable enginer and modifications to the cockpit. It retains the APG-33 radar and the Hughes E-1 fire-control system. It is armed with four .50 cal machine guns, and the fire-control system allows them to be fired under radar control.",
   "origin": "APJ 50",
   "crew": [ "Pilot", "Radar Officer" ],
   "powertable": {
