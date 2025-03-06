@@ -1,6 +1,6 @@
 {
   "versionname": "F-86F-40",
-  "versiondescription": "Fighter-bomber version with the slatted 6-3 wing.",
+  "description": "The North American F-86F-40 Sabre is a single-engined, swept-wing, fighter-bomber. The F-86F-40 version is derived from the F-86F-25 version and has the slatted 6-3 wing.",
   "base": "F-86F-25",
   "origin": "APJ 25",
   "crew": [ "Pilot" ],

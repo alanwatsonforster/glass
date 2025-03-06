@@ -1,8 +1,7 @@
 {
   "versionname": "F-86H",
-  "versiondescription": "Fighter-bomber and nuclear strike version.",
+  "description": "The North American F-86F-40 Sabre is a single-engined, swept-wing, fighter-bomber. The F-86H version is derived from the F-86F-40 version. The “F-86H (Early)” variant has the unslatted 6-3 wing.",
   "variantname": "Early",
-  "variantdescription": "with unslatted 6-3 wing.",
   "base": "F-86F-40",
   "origin": "APJ 25",
   "crew": [ "Pilot" ],
