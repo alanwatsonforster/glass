@@ -1,6 +1,6 @@
 {
   "versionname": "F-86L",
-  "description": "The North American F-86L Sabre-Dog is a single-engined, swept-wing, all-weather interceptor. The F-86L version is a derivative of the F-86D and has the slatted 6-3 wing and a SAGE data-link.",
+  "description": "The North American F-86L Sabre-Dog is a single-engined, swept-wing, all-weather interceptor. It is armed with 24 FFARs in a ventral tray. The APG-36 radar and Hughes E-4 fire-control system allow collision-course rocket attacks. The F-86L version is a derivative of the F-86D and has the slatted 6-3 wing and a SAGE data-link.",
   "base": "F-86D",
   "origin": "APJ 25",
   "lowspeedliftdevicename": null,
