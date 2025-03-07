@@ -11,6 +11,7 @@ import apxo.log as aplog
 import apxo.map as apmap
 import apxo.missiledata as apmissiledata
 import apxo.speed as apspeed
+import apxo.variants as apvariants
 
 ##############################################################################
 
@@ -68,7 +69,10 @@ class missile(apelement.element):
             self._launchgameturn = apgameturn.gameturn()
 
             self._newspeed = None
-            self._setspeed(self.basespeed() + launcher.speed())
+            if apvariants.withvariant("use house rules"):
+                self._setspeed(self.basespeed() + launcher.newspeed())
+            else:
+                self._setspeed(self.basespeed() + launcher.speed())
             maxspeed = apspeed.missilemaxspeed(self.altitudeband())
             if self.speed() > maxspeed:
                 self.logcomment("reducing start speed to maximum for altitude band.")
