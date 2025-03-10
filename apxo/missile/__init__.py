@@ -150,7 +150,7 @@ class missile(apelement.element):
         altitudedifference = self._target.altitude() - self.altitude()
         self.logcomment("altitude difference is %+d." % altitudedifference)
 
-        def checknormallimit(minf, maxf):
+        def checkmixedonly(minf, maxf):
             minaltitudedifference = int(math.ceil(minf * horizontalrange))
             maxaltitudedifference = int(math.floor(maxf * horizontalrange))
             self.logcomment(
@@ -171,20 +171,159 @@ class missile(apelement.element):
             else:
                 self.logcomment("the target is within the seeker vertical limits.")
 
+        def checkpixedandpure(mixedf, puref):
+
+            mixedaltitudedifference = int(math.floor(mixedf * horizontalrange))
+            purealtitudedifference = int(math.floor(puref * horizontalrange))
+            if mixedf > 0:
+                self.logcomment(
+                    "the allowed target altitude difference for the mixed arc is %+d or more."
+                    % (mixedaltitudedifference)
+                )
+                self.logcomment(
+                    "the allowed target altitude difference for the pure arc is %+d or more."
+                    % (purealtitudedifference)
+                )
+                mixedaltitude = self.altitude() + mixedaltitudedifference
+                npurealtitude = self.altitude() + purealtitudedifference
+                if mixedaltitude <= 100:
+                    self.logcomment(
+                        "the allowed target altitude range for the mixed arc is at or above %d."
+                        % (mixedaltitude)
+                    )
+                else:
+                    self.logcomment(
+                        "there is no valid allowed target altitude range for the mixed arc."
+                    )
+                if purealtitude <= 100:
+                    self.logcomment(
+                        "the allowed target altitude range for the pure arc is at or above %d."
+                        % (purealtitude)
+                    )
+                else:
+                    self.logcomment(
+                        "there is no valid allowed target altitude range for the pure arc."
+                    )
+                if altitudedifference >= purealtitudedifference:
+                    self.logcomment(
+                        "the target is within the seeker vertical limits for the pure arc."
+                    )
+                elif altitudedifference >= mixedaltitudedifference:
+                    self.logcomment(
+                        "the target is within the seeker vertical limits for the mixed arc."
+                    )
+                else:
+                    self.logcomment(
+                        "the target is not within the seeker vertical limits."
+                    )
+            else:
+                self.logcomment(
+                    "the allowed target altitude difference for the mixed arc is %+d or less."
+                    % (mixedaltitudedifference)
+                )
+                self.logcomment(
+                    "the allowed target altitude difference for the pure arc is %+d or less."
+                    % (purealtitudedifference)
+                )
+                mixedaltitude = self.altitude() + mixedaltitudedifference
+                purealtitude = self.altitude() + purealtitudedifference
+                if mixedaltitude >= 0:
+                    self.logcomment(
+                        "the allowed target altitude range for the mixed arc is at or below %d."
+                        % (mixedaltitude)
+                    )
+                else:
+                    self.logcomment(
+                        "there is no valid allowed target altitude range for the mixed arc."
+                    )
+                if purealtitude >= 0:
+                    self.logcomment(
+                        "the allowed target altitude range for the pure arc is at or below %d."
+                        % (purealtitude)
+                    )
+                else:
+                    self.logcomment(
+                        "there is no valid allowed target altitude range for the pure arc."
+                    )
+                if altitudedifference <= purealtitudedifference:
+                    self.logcomment(
+                        "the target is within the seeker vertical limits for the pure arc."
+                    )
+                elif altitudedifference <= mixedaltitudedifference:
+                    self.logcomment(
+                        "the target is within the seeker vertical limits for the mixed arc."
+                    )
+                else:
+                    self.logcomment(
+                        "the target is not within the seeker vertical limits."
+                    )
+
+        def checkpureonly(puref):
+
+            purealtitudedifference = int(math.floor(puref * horizontalrange))
+            if puref > 0:
+                self.logcomment(
+                    "the allowed target altitude difference for the pure arc is %+d or more."
+                    % (purealtitudedifference)
+                )
+                purealtitude = self.altitude() + purealtitudedifference
+                if purealtitude <= 100:
+                    self.logcomment(
+                        "the allowed target altitude range for the pure arc is at or above %d."
+                        % (purealtitude)
+                    )
+                else:
+                    self.logcomment(
+                        "there is no valid allowed target altitude range for the pure arc."
+                    )
+                if altitudedifference >= purealtitudedifference:
+                    self.logcomment(
+                        "the target is within the seeker vertical limits for the pure arc."
+                    )
+                else:
+                    self.logcomment(
+                        "the target is not within the seeker vertical limits."
+                    )
+            else:
+                self.logcomment(
+                    "the allowed target altitude difference for the pure arc is %+d or less."
+                    % (purealtitudedifference)
+                )
+                purealtitude = self.altitude() + purealtitudedifference
+                if purealtitude >= 0:
+                    self.logcomment(
+                        "the allowed target altitude range for the pure arc is at or below %d."
+                        % (purealtitude)
+                    )
+                else:
+                    self.logcomment(
+                        "there is no valid allowed target altitude range for the pure arc."
+                    )
+                if altitudedifference <= purealtitudedifference:
+                    self.logcomment(
+                        "the target is within the seeker vertical limits for the pure arc."
+                    )
+                else:
+                    self.logcomment(
+                        "the target is not within the seeker vertical limits."
+                    )
+
+        if slopedenominator == 0 and slopenumerator < 0:
+            checkpureonly(-3.0)
         if slopenumerator < -3 * slopedenominator:
-            pass
+            checkpixedandpure(-2.0, -7.0)
         elif slopenumerator < -1 * slopedenominator:
-            checknormallimit(-7.0, -0.5)
+            checkmixedonly(-7.0, -0.5)
         elif slopenumerator < 0:
-            checknormallimit(-2.0, +0.5)
+            checkmixedonly(-2.0, +0.5)
         elif slopenumerator == 0:
-            checknormallimit(-1.0, +1.0)
+            checkmixedonly(-1.0, +1.0)
         elif slopenumerator <= +1 * slopedenominator:
-            checknormallimit(-0.5, +2.0)
+            checkmixedonly(-0.5, +2.0)
         elif abs(slopenumerator) <= 3 * slopedenominator:
-            checknormallimit(+0.5, +7.0)
+            checkmixedonly(+0.5, +7.0)
         else:
-            pass
+            checkpureonly(+3.0)
 
     ############################################################################
 
