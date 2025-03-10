@@ -749,6 +749,7 @@ class aircraft(apelement.element):
         loadstation,
         failed=False,
         failedbeforelaunch=False,
+        note=None,
     ):
 
         M = None
@@ -769,6 +770,7 @@ class aircraft(apelement.element):
 
             self._updateconfiguration()
 
+            self.lognote(note)
             if failedbeforelaunch:
                 self.logcomment("launch failed but missile not lost.")
             elif failed:
@@ -784,6 +786,7 @@ class aircraft(apelement.element):
                     "configuration changed from %s to %s."
                     % (previousconfiguration, self._configuration)
                 )
+
 
         except RuntimeError as e:
             aplog.logexception(e)
