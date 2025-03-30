@@ -13,7 +13,7 @@
             "pair",
             [
                 1,
-                4
+                8
             ],
             1500,
             [
@@ -25,31 +25,30 @@
             "pair",
             [
                 2,
-                3
+                7
             ],
             1100,
             [
-                "BB"
+                "BB", "RK"
             ]
         ],
         [
             "grouppair",
             [
+                3,
+                4,
                 5,
-                6,
-                7,
-                8
+                6
             ],
             280,
             [
-                "RK"
+                "BB", "RK"
             ]
         ]
     ],
     "loadnotes": [
         "May use 850L FTs.",
-        "Either stations 2 and 3 or stations 5 to 8 can be used.",
-        "Stations 5 to 8 can each carry two RK."
+        "Stations 2 to 7 can each carry two HVAR RKs."
     ],
     "VPs": [
         5,
