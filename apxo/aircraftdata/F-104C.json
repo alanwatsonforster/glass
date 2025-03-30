@@ -1,18 +1,57 @@
 {
-  "versionname": "F-104C",
-  "versiondescription": "Fighter-bomber version.",
-  "base": "F-104A",
-  "notes": [],
-  "stations": [
-    [ "pair"  , [ 1, 5 ], 1300, [ "IRM", "FT" ] ],
-    [ "pair"  , [ 2, 4 ], 1500, [ "BB", "RP", "FT" ] ],
-    [ "single", [ 3 ]   , 2200, [ "BB", "Nuc. BB", "MDR" ] ]
-  ],
-  "loadnotes": [
-    "Stations 1 and 4 may only carry IRMs or 165 gal FTs (600L, weight 1100, load 3.0/2.0, and fuel 50).",
-    "Stations 2 and 3 may carry 200 gal FTs (700L, weight 1300, load 3.0/2.0, and fuel 60), BBs, or RPs.",
-    "Station 3 may carry a BB, Mark 28 nuclear bomb (weight 2100 and load 3.0), or an MDR with two IRMs.",
-    "May only use AIM-9B through AIM-9P IRMs."
-  ],
-  "VPs": [ 16, 10, 6, 2 ]
+    "versionname": "F-104C",
+    "versiondescription": "Fighter-bomber version.",
+    "base": "F-104A",
+    "notes": [],
+    "stations": [
+        [
+            "pair",
+            [
+                1,
+                5
+            ],
+            1300,
+            [
+                "IRM",
+                "FT"
+            ]
+        ],
+        [
+            "pair",
+            [
+                2,
+                4
+            ],
+            1500,
+            [
+                "BB",
+                "RP",
+                "FT"
+            ]
+        ],
+        [
+            "single",
+            [
+                3
+            ],
+            2200,
+            [
+                "BB",
+                "Nuc. BB",
+                "MDR"
+            ]
+        ]
+    ],
+    "loadnotes": [
+        "Stations 1 and 4 may only carry IRMs or 165 gal FTs (600L, weight 1100, load 3.0/2.0, and fuel 50).",
+        "Stations 2 and 3 may carry 200 gal FTs (700L, weight 1300, load 3.0/2.0, and fuel 60), BBs, or RPs.",
+        "Station 3 may carry a BB, Mark 28 nuclear bomb (weight 2100 and load 3.0), or an MDR with two IRMs.",
+        "May only use AIM-9B through AIM-9P IRMs."
+    ],
+    "VPs": [
+        16,
+        10,
+        6,
+        2
+    ]
 }

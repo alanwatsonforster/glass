@@ -1,19 +1,51 @@
 {
-  "versionname": "F-89J",
-  "variantname": "Fuel-Only Pods",
-  "variantdescription": "with fuel-only wing-tip pods.",
-  "base": "F-89J (Rocket-and-Fuel Pods)",
-  "internalfuel": 770,
-  "rocketfactors": 0,
-  "stations": [
-    [ "pair"     , [ 1, 8 ]      ,    0, [ ] ],
-    [ "pair"     , [ 2, 7 ]      , 1600, [ "BB", "FT", "Nuclear RK" ] ],
-    [ "grouppair", [ 3, 4, 5, 6 ],  150, [ "IRM", "RHM" ] ]
-    
-  ],
-  "loadnotes": [
-    "Stations 1 and 8 are fixed wing-tip pods for fuel only. The pod fuel is included in the internal fuel.",
-    "May use AIM-4 IRM and RHMs.",
-    "May use AIR-2A nuclear RK."
-  ]
+    "versionname": "F-89J",
+    "variantname": "Fuel-Only Pods",
+    "variantdescription": "with fuel-only wing-tip pods.",
+    "base": "F-89J (Rocket-and-Fuel Pods)",
+    "internalfuel": 770,
+    "rocketfactors": 0,
+    "stations": [
+        [
+            "pair",
+            [
+                1,
+                8
+            ],
+            0,
+            []
+        ],
+        [
+            "pair",
+            [
+                2,
+                7
+            ],
+            1600,
+            [
+                "BB",
+                "FT",
+                "Nuclear RK"
+            ]
+        ],
+        [
+            "grouppair",
+            [
+                3,
+                4,
+                5,
+                6
+            ],
+            150,
+            [
+                "IRM",
+                "RHM"
+            ]
+        ]
+    ],
+    "loadnotes": [
+        "Stations 1 and 8 are fixed wing-tip pods for fuel only. The pod fuel is included in the internal fuel.",
+        "May use AIM-4 IRM and RHMs.",
+        "May use AIR-2A nuclear RK."
+    ]
 }

@@ -1,23 +1,79 @@
 {
-  "versionname": "Sabre Mk.4",
-  "variantname": "6-3 Wing",
-  "description": "The Canadair Sabre Mk.4 is a licensed version of the F-86E Sabre. The “6-3 Wing” variant is refitted with the unslatted 6-3 wing.",
-  "base": "Sabre Mk.4",
-  "lowspeedliftdevicename": null,
-  "turndragtable": {
-    "TT": [ 0.0, 1.0, 1.0 ],
-    "HT": [ 1.0, 1.0, 1.0 ],
-    "BT": [ 2.0, 3.0, 3.0 ]
-  },
-  "storeslimits": [ 2, 6, 4000 ],  
-  "stations": [
-    [ "pair"     , [ 1, 4 ]        , 1000, [ "BB", "FT" ] ],
-    [ "pair"     , [ 2, 3 ]        , 1000, [ "BB", "FT", "IRM" ] ],
-    [ "grouppair", [ 5, 8, 9, 12 ] ,  280, [ "RK" ] ]
-  ],
-  "loadnotes": [
-    "Either stations 1 to 4 or stations 5 to 12 can be used.",
-    "Stations 5 to 12 can each carry two RKs."
-  ],
-  "VPs": [ 9, 6, 3, 1 ]
+    "versionname": "Sabre Mk.4",
+    "variantname": "6-3 Wing",
+    "description": "The Canadair Sabre Mk.4 is a licensed version of the F-86E Sabre. The \u201c6-3 Wing\u201d variant is refitted with the unslatted 6-3 wing.",
+    "base": "Sabre Mk.4",
+    "lowspeedliftdevicename": null,
+    "turndragtable": {
+        "TT": [
+            0.0,
+            1.0,
+            1.0
+        ],
+        "HT": [
+            1.0,
+            1.0,
+            1.0
+        ],
+        "BT": [
+            2.0,
+            3.0,
+            3.0
+        ]
+    },
+    "storeslimits": [
+        2,
+        6,
+        4000
+    ],
+    "stations": [
+        [
+            "pair",
+            [
+                1,
+                4
+            ],
+            1000,
+            [
+                "BB",
+                "FT"
+            ]
+        ],
+        [
+            "pair",
+            [
+                2,
+                3
+            ],
+            1000,
+            [
+                "BB",
+                "FT",
+                "IRM"
+            ]
+        ],
+        [
+            "grouppair",
+            [
+                5,
+                8,
+                9,
+                12
+            ],
+            280,
+            [
+                "RK"
+            ]
+        ]
+    ],
+    "loadnotes": [
+        "Either stations 1 to 4 or stations 5 to 12 can be used.",
+        "Stations 5 to 12 can each carry two RKs."
+    ],
+    "VPs": [
+        9,
+        6,
+        3,
+        1
+    ]
 }

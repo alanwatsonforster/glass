@@ -1,20 +1,68 @@
 {
-  "variantname": "PAF",
-  "variantdescription": "in service with the PAF.",
-  "origin": "TSOH",
-  "base": "B-57B",
-  "radar": {
-    "name": "RB-1A",
-    "eccm": 0,
-    "arc": "180+",
-    "searchrange": 180,
-    "trackingrange": 60,
-    "lockon": 7
-  },
-  "stations": [
-    [ "pair"     , [ 1, 11 ]      , 2200, [ "FT" ] ],
-    [ "grouppair", [ 2, 3, 9, 10 ],  250, [ "BB", "RP", "RK" ] ],
-    [ "grouppair", [ 4, 5, 7, 8 ] ,  750, [ "BB", "RP", "RK", "FT" ] ],
-    [ "single"   , [ 6 ]          , 6000, [ "BB" ] ]
-  ]
+    "variantname": "PAF",
+    "variantdescription": "in service with the PAF.",
+    "origin": "TSOH",
+    "base": "B-57B",
+    "radar": {
+        "name": "RB-1A",
+        "eccm": 0,
+        "arc": "180+",
+        "searchrange": 180,
+        "trackingrange": 60,
+        "lockon": 7
+    },
+    "stations": [
+        [
+            "pair",
+            [
+                1,
+                11
+            ],
+            2200,
+            [
+                "FT"
+            ]
+        ],
+        [
+            "grouppair",
+            [
+                2,
+                3,
+                9,
+                10
+            ],
+            250,
+            [
+                "BB",
+                "RP",
+                "RK"
+            ]
+        ],
+        [
+            "grouppair",
+            [
+                4,
+                5,
+                7,
+                8
+            ],
+            750,
+            [
+                "BB",
+                "RP",
+                "RK",
+                "FT"
+            ]
+        ],
+        [
+            "single",
+            [
+                6
+            ],
+            6000,
+            [
+                "BB"
+            ]
+        ]
+    ]
 }

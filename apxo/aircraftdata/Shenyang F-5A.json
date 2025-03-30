@@ -1,5 +1,5 @@
 {
-  "versionname": "Shenyang F-5A",
-  "description": "The Shenyang F-5A is an intercepter. It is the export version of the Shenyang J-5A and a licensed version of the MiG-17PF. The NATO reporting name for the aircraft is Fresco-D and for the radar is Scan Off.",
-  "base": "Shenyang J-5A"
+    "versionname": "Shenyang F-5A",
+    "description": "The Shenyang F-5A is an intercepter. It is the export version of the Shenyang J-5A and a licensed version of the MiG-17PF. The NATO reporting name for the aircraft is Fresco-D and for the radar is Scan Off.",
+    "base": "Shenyang J-5A"
 }

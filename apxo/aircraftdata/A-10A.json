@@ -1,77 +1,388 @@
 {
-  "versionname": "A-10A",
-  "popularname": "Thunderbolt II",
-  "description": "The Fairchild Republic A-10A Thunderbolt II is a close-air-support aircraft. It is commonly referred to as the “Warthog” or “Hog.”",
-  "origin": "Puma and Chris Perlberg",
-  "crew": [ "Pilot" ],
-  "powertable": {
-    "M"   : [ 2.0, 1.5, 1.0,  3.0 ],
-    "N"   : [ 0.0, 0.0, 0.0,  1.0 ],
-    "I"   : [ 0.5, 1.0, 1.0,  0.0 ],
-    "SPBR": [ 1.0, 1.0, 1.5 ]
-  },
-  "jetengines": 2,
-  "cruisespeed": 3.5,
-  "climbspeed" : 3.0,
-  "visibility": 7,
-  "sizemodifier": 0,
-  "vulnerability": 3,
-  "restrictedarcs": "",
-  "blindarcs": "30L",
-  "internalfuel": 550,
-  "atarefuel": true,
-  "ejectionseat": "advanced",
-  "maneuvertable": {
-    "LR/DR": [ 1.5, 1.5 ],
-    "VR":    [ 0.0, 0.5 ]
-  },
-  "turndragtable": {
-    "TT": [ 0.0, 1.0, 1.0 ],
-    "HT": [ 1.0, 2.0, 2.0 ],
-    "BT": [ 2.0, 2.0, 3.0 ]
-  },
-  "ceilingtable": [ 35, 28, 20 ],
-  "speedtable": {
-    "EH": [ [ "-", "-" ], [ "-", "-" ], [ "-", "-" ], "-" ],
-    "VH": [ [ "-", "-" ], [ "-", "-" ], [ "-", "-" ], "-" ],
-    "HI": [ [ 1.5, 5.0 ], [ 2.0, 5.0 ], [ "-", "-" ], 6.0 ],
-    "MH": [ [ 1.5, 4.5 ], [ 1.5, 4.5 ], [ 2.0, 4.0 ], 5.5 ],
-    "ML": [ [ 1.0, 4.5 ], [ 1.0, 4.5 ], [ 1.5, 4.0 ], 5.0 ],
-    "LO": [ [ 1.0, 4.5 ], [ 1.0, 4.5 ], [ 1.0, 4.0 ], 5.0 ]
-  },
-  "climbcapabilitytable": {
-    "EH": [ [ "-", "-" ], [ "-", "-" ], [ "-", "-" ] ],
-    "VH": [ [ "-", "-" ], [ "-", "-" ], [ "-", "-" ] ],
-    "HI": [ [ "-", 0.5 ], [ "-", 0.5 ], [ "-", "-" ] ],
-    "MH": [ [ "-", 1.0 ], [ "-", 0.5 ], [ "-", 0.5 ] ],
-    "ML": [ [ "-", 1.0 ], [ "-", 1.0 ], [ "-", 0.5 ] ],
-    "LO": [ [ "-", 1.0 ], [ "-", 1.0 ], [ "-", 1.0 ] ]
-  },
-  "gun": "One 30 mm GAU-8",
-  "gunatatohitrolls": "5/3/2",
-  "gunammunition": 9.0,
-  "gunsightmodifiers": { "TT": 0, "HT": 2, "BT": 3 },
-  "gundamagerating": "7/12",
-  "bombsystem": "Ballistic",
-  "ecm": { "iff": true, "rwr": "B", "dds": "B" },
-  "technology": [ "Laser-spot tracker" ],
-  "properties": [ "HTD" ],
-  "notes": [
-  ],
-  "wikiurl": "https://bit.ly/3Wzp5oI",
-  "storeslimits": [ 8, 16, 16000 ],
-  "stations": [
-    [ "grouppair", [ 1, 2, 10, 11 ], 1000, [ "BB", "BG", "RP", "EP", "ARM", "DR", "IRM", "MDR" ] ],
-    [ "pair"     , [ 3, 9         ], 2500, [ "BB", "BG", "BS", "RP", "RG", "RS", "WR", "WP" ] ],
-    [ "pair"     , [ 4, 8         ], 3500, [ "BB", "BG", "BS", "RP", "RG", "WR", "FT", "OP", "LP", "GP" ] ],
-    [ "pair"     , [ 5, 7         ], 3500, [ "BB", "BG", "BS", "RP", "RG", "WR", "OP", "LP" ] ],
-    [ "single"   , [ 6            ], 5000, [ "BB", "BG", "RP", "RG", "WR", "FT" ] ]
-  ],
-  "loadnotes": [
-    "The load limit with full internal fuel is 14,300. Reducing internal fuel allows stores to be carried beyond this limit, at the rate of 1 fuel point for an increase of 20 in load, up to the limit of 16,000.",
-    "May use AIM-9 IRMs and ARMs.",
-    "May not use GPS-guided BS.",
-    "May use the AAQ-29 Litening OP."
-  ],
-  "VPs": [ 22, 15, 7, 4 ]
+    "versionname": "A-10A",
+    "popularname": "Thunderbolt II",
+    "description": "The Fairchild Republic A-10A Thunderbolt II is a close-air-support aircraft. It is commonly referred to as the \u201cWarthog\u201d or \u201cHog.\u201d",
+    "origin": "Puma and Chris Perlberg",
+    "crew": [
+        "Pilot"
+    ],
+    "powertable": {
+        "M": [
+            2.0,
+            1.5,
+            1.0,
+            3.0
+        ],
+        "N": [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+        ],
+        "I": [
+            0.5,
+            1.0,
+            1.0,
+            0.0
+        ],
+        "SPBR": [
+            1.0,
+            1.0,
+            1.5
+        ]
+    },
+    "jetengines": 2,
+    "cruisespeed": 3.5,
+    "climbspeed": 3.0,
+    "visibility": 7,
+    "sizemodifier": 0,
+    "vulnerability": 3,
+    "restrictedarcs": "",
+    "blindarcs": "30L",
+    "internalfuel": 550,
+    "atarefuel": true,
+    "ejectionseat": "advanced",
+    "maneuvertable": {
+        "LR/DR": [
+            1.5,
+            1.5
+        ],
+        "VR": [
+            0.0,
+            0.5
+        ]
+    },
+    "turndragtable": {
+        "TT": [
+            0.0,
+            1.0,
+            1.0
+        ],
+        "HT": [
+            1.0,
+            2.0,
+            2.0
+        ],
+        "BT": [
+            2.0,
+            2.0,
+            3.0
+        ]
+    },
+    "ceilingtable": [
+        35,
+        28,
+        20
+    ],
+    "speedtable": {
+        "EH": [
+            [
+                "-",
+                "-"
+            ],
+            [
+                "-",
+                "-"
+            ],
+            [
+                "-",
+                "-"
+            ],
+            "-"
+        ],
+        "VH": [
+            [
+                "-",
+                "-"
+            ],
+            [
+                "-",
+                "-"
+            ],
+            [
+                "-",
+                "-"
+            ],
+            "-"
+        ],
+        "HI": [
+            [
+                1.5,
+                5.0
+            ],
+            [
+                2.0,
+                5.0
+            ],
+            [
+                "-",
+                "-"
+            ],
+            6.0
+        ],
+        "MH": [
+            [
+                1.5,
+                4.5
+            ],
+            [
+                1.5,
+                4.5
+            ],
+            [
+                2.0,
+                4.0
+            ],
+            5.5
+        ],
+        "ML": [
+            [
+                1.0,
+                4.5
+            ],
+            [
+                1.0,
+                4.5
+            ],
+            [
+                1.5,
+                4.0
+            ],
+            5.0
+        ],
+        "LO": [
+            [
+                1.0,
+                4.5
+            ],
+            [
+                1.0,
+                4.5
+            ],
+            [
+                1.0,
+                4.0
+            ],
+            5.0
+        ]
+    },
+    "climbcapabilitytable": {
+        "EH": [
+            [
+                "-",
+                "-"
+            ],
+            [
+                "-",
+                "-"
+            ],
+            [
+                "-",
+                "-"
+            ]
+        ],
+        "VH": [
+            [
+                "-",
+                "-"
+            ],
+            [
+                "-",
+                "-"
+            ],
+            [
+                "-",
+                "-"
+            ]
+        ],
+        "HI": [
+            [
+                "-",
+                0.5
+            ],
+            [
+                "-",
+                0.5
+            ],
+            [
+                "-",
+                "-"
+            ]
+        ],
+        "MH": [
+            [
+                "-",
+                1.0
+            ],
+            [
+                "-",
+                0.5
+            ],
+            [
+                "-",
+                0.5
+            ]
+        ],
+        "ML": [
+            [
+                "-",
+                1.0
+            ],
+            [
+                "-",
+                1.0
+            ],
+            [
+                "-",
+                0.5
+            ]
+        ],
+        "LO": [
+            [
+                "-",
+                1.0
+            ],
+            [
+                "-",
+                1.0
+            ],
+            [
+                "-",
+                1.0
+            ]
+        ]
+    },
+    "gun": "One 30 mm GAU-8",
+    "gunatatohitrolls": "5/3/2",
+    "gunammunition": 9.0,
+    "gunsightmodifiers": {
+        "TT": 0,
+        "HT": 2,
+        "BT": 3
+    },
+    "gundamagerating": "7/12",
+    "bombsystem": "Ballistic",
+    "ecm": {
+        "iff": true,
+        "rwr": "B",
+        "dds": "B"
+    },
+    "technology": [
+        "Laser-spot tracker"
+    ],
+    "properties": [
+        "HTD"
+    ],
+    "notes": [],
+    "wikiurl": "https://bit.ly/3Wzp5oI",
+    "storeslimits": [
+        8,
+        16,
+        16000
+    ],
+    "stations": [
+        [
+            "grouppair",
+            [
+                1,
+                2,
+                10,
+                11
+            ],
+            1000,
+            [
+                "BB",
+                "BG",
+                "RP",
+                "EP",
+                "ARM",
+                "DR",
+                "IRM",
+                "MDR"
+            ]
+        ],
+        [
+            "pair",
+            [
+                3,
+                9
+            ],
+            2500,
+            [
+                "BB",
+                "BG",
+                "BS",
+                "RP",
+                "RG",
+                "RS",
+                "WR",
+                "WP"
+            ]
+        ],
+        [
+            "pair",
+            [
+                4,
+                8
+            ],
+            3500,
+            [
+                "BB",
+                "BG",
+                "BS",
+                "RP",
+                "RG",
+                "WR",
+                "FT",
+                "OP",
+                "LP",
+                "GP"
+            ]
+        ],
+        [
+            "pair",
+            [
+                5,
+                7
+            ],
+            3500,
+            [
+                "BB",
+                "BG",
+                "BS",
+                "RP",
+                "RG",
+                "WR",
+                "OP",
+                "LP"
+            ]
+        ],
+        [
+            "single",
+            [
+                6
+            ],
+            5000,
+            [
+                "BB",
+                "BG",
+                "RP",
+                "RG",
+                "WR",
+                "FT"
+            ]
+        ]
+    ],
+    "loadnotes": [
+        "The load limit with full internal fuel is 14,300. Reducing internal fuel allows stores to be carried beyond this limit, at the rate of 1 fuel point for an increase of 20 in load, up to the limit of 16,000.",
+        "May use AIM-9 IRMs and ARMs.",
+        "May not use GPS-guided BS.",
+        "May use the AAQ-29 Litening OP."
+    ],
+    "VPs": [
+        22,
+        15,
+        7,
+        4
+    ]
 }

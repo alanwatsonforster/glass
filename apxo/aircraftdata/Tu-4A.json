@@ -1,9 +1,9 @@
 {
-  "versionname": "Tu-4A",
-  "description": "The Tupolev Tu-4 is a strategic nuclear bomber. It is a reverse-engineered version of the Boeing B-29A. The NATO reporting name is Bull.",
-  "base": "Tu-4",
-  "loadnotes": [
-    "Station 1 is the internal bomb bay. It can carry an RDS-3 nuclear bomb (load 8000 and 8.0 load points).",
-    "Exceptionally, internal fuel also contributes 1 load point per 50 fuel points. A return mission will typically require leaving the target with at least 750 fuel points (15 load points)."
-  ]
+    "versionname": "Tu-4A",
+    "description": "The Tupolev Tu-4 is a strategic nuclear bomber. It is a reverse-engineered version of the Boeing B-29A. The NATO reporting name is Bull.",
+    "base": "Tu-4",
+    "loadnotes": [
+        "Station 1 is the internal bomb bay. It can carry an RDS-3 nuclear bomb (load 8000 and 8.0 load points).",
+        "Exceptionally, internal fuel also contributes 1 load point per 50 fuel points. A return mission will typically require leaving the target with at least 750 fuel points (15 load points)."
+    ]
 }

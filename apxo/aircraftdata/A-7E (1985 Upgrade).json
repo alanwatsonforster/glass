@@ -1,9 +1,14 @@
 {
-  "base": "A-7E (1980 Upgrade)",
-  "variantname": "1985 Upgrade",
-  "variantdescription": "with RWR-C, DJM-C4, and AGM-88 ARM capability, from 1985.",
-  "ecm": { "iff": true, "rwr": "C", "dds": "B", "djm": "C4" },
-  "loadnotes": [
-    "May only used AIM-9 IRMs, AGM-12 RGs, and AGM-45 and AGM-88 ARMs."
-  ]
+    "base": "A-7E (1980 Upgrade)",
+    "variantname": "1985 Upgrade",
+    "variantdescription": "with RWR-C, DJM-C4, and AGM-88 ARM capability, from 1985.",
+    "ecm": {
+        "iff": true,
+        "rwr": "C",
+        "dds": "B",
+        "djm": "C4"
+    },
+    "loadnotes": [
+        "May only used AIM-9 IRMs, AGM-12 RGs, and AGM-45 and AGM-88 ARMs."
+    ]
 }

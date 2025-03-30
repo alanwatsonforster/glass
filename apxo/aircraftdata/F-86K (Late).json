@@ -1,46 +1,258 @@
 {
-  "versionname": "F-86K",
-  "variantname": "Late",
-  "description": "The North American F-86K Sabre-Dog is a single-engined, swept-wing, all-weather interceptor. The F-86K version is a derivative of the F-86D and has four 20 mm Mk24 cannons in place of the rocket armament of the earlier version and the simpler MG-4 fire-control system. The “F-86K (Late)” variant has the slatted 6-3 wing.",
-  "base": "F-86K (Early)",
-  "origin": "APJ 25",
-  "lowspeedliftdevicename": null,
-  "turndragtable": {
-    "TT": [ 1.0, 1.0, 1.0 ],
-    "HT": [ 1.0, 1.0, 1.0 ],
-    "BT": [ 2.0, 2.0, 2.0 ]
-  },
-  "speedtable": {
-    "EH": [ [  2.5,  6.0 ], [  2.5,  5.5 ], [  "-",  "-" ],  6.5 ],
-    "VH": [ [  2.5,  6.0 ], [  2.5,  5.5 ], [  2.5,  5.0 ],  6.5 ],
-    "HI": [ [  2.0,  6.0 ], [  2.5,  6.0 ], [  2.5,  5.5 ],  7.0 ],
-    "MH": [ [  2.0,  6.5 ], [  2.5,  6.0 ], [  2.5,  6.0 ],  7.0 ],
-    "ML": [ [  1.5,  6.5 ], [  2.0,  6.5 ], [  2.5,  6.0 ],  7.5 ],
-    "LO": [ [  1.5,  7.0 ], [  2.0,  6.5 ], [  2.0,  6.0 ],  7.5 ]
-  },
-  "climbcapabilitytable": {
-    "EH": [ [ 1.0, 0.5 ], [ 1.0, 0.5 ], [ "-", "-" ] ],
-    "VH": [ [ 1.0, 0.5 ], [ 1.0, 0.5 ], [ 1.0, 0.5 ] ],
-    "HI": [ [ 1.5, 0.5 ], [ 1.0, 0.5 ], [ 1.0, 0.5 ] ],
-    "MH": [ [ 1.5, 1.0 ], [ 1.0, 0.5 ], [ 1.0, 0.5 ] ],
-    "ML": [ [ 2.0, 1.0 ], [ 1.5, 1.0 ], [ 1.5, 1.0 ] ],
-    "LO": [ [ 2.0, 1.0 ], [ 1.5, 1.0 ], [ 1.5, 1.0 ] ]
-  },
-  "gun": "Four 20 mm M24",
-  "gunatatohitrolls": "6/4/3",
-  "gunatadamagerating": 5,
-  "gunammunition": 3.0,
-  "gunsightmodifiers": { "TT": 0, "HT": 1, "BT": 2 },
-  "ataradarranging": "RE",
-  "storeslimits": [ 2, 6, 4000 ],  
-  "properties": [ "SMP" ],
-  "notes": [],
-  "stations": [
-    [ "pair"  , [ 1, 4 ] , 1000, [ "BB", "FT" ] ],
-    [ "pair"  , [ 2, 3 ] , 1000, [ "BB", "FT", "IRM" ] ]
-  ],
-  "loadnotes": [
-    "From 1958, may use AIM-9B IRMs."
-  ],
-  "VPs": [ 12, 9, 4, 2 ]
+    "versionname": "F-86K",
+    "variantname": "Late",
+    "description": "The North American F-86K Sabre-Dog is a single-engined, swept-wing, all-weather interceptor. The F-86K version is a derivative of the F-86D and has four 20 mm Mk24 cannons in place of the rocket armament of the earlier version and the simpler MG-4 fire-control system. The \u201cF-86K (Late)\u201d variant has the slatted 6-3 wing.",
+    "base": "F-86K (Early)",
+    "origin": "APJ 25",
+    "lowspeedliftdevicename": null,
+    "turndragtable": {
+        "TT": [
+            1.0,
+            1.0,
+            1.0
+        ],
+        "HT": [
+            1.0,
+            1.0,
+            1.0
+        ],
+        "BT": [
+            2.0,
+            2.0,
+            2.0
+        ]
+    },
+    "speedtable": {
+        "EH": [
+            [
+                2.5,
+                6.0
+            ],
+            [
+                2.5,
+                5.5
+            ],
+            [
+                "-",
+                "-"
+            ],
+            6.5
+        ],
+        "VH": [
+            [
+                2.5,
+                6.0
+            ],
+            [
+                2.5,
+                5.5
+            ],
+            [
+                2.5,
+                5.0
+            ],
+            6.5
+        ],
+        "HI": [
+            [
+                2.0,
+                6.0
+            ],
+            [
+                2.5,
+                6.0
+            ],
+            [
+                2.5,
+                5.5
+            ],
+            7.0
+        ],
+        "MH": [
+            [
+                2.0,
+                6.5
+            ],
+            [
+                2.5,
+                6.0
+            ],
+            [
+                2.5,
+                6.0
+            ],
+            7.0
+        ],
+        "ML": [
+            [
+                1.5,
+                6.5
+            ],
+            [
+                2.0,
+                6.5
+            ],
+            [
+                2.5,
+                6.0
+            ],
+            7.5
+        ],
+        "LO": [
+            [
+                1.5,
+                7.0
+            ],
+            [
+                2.0,
+                6.5
+            ],
+            [
+                2.0,
+                6.0
+            ],
+            7.5
+        ]
+    },
+    "climbcapabilitytable": {
+        "EH": [
+            [
+                1.0,
+                0.5
+            ],
+            [
+                1.0,
+                0.5
+            ],
+            [
+                "-",
+                "-"
+            ]
+        ],
+        "VH": [
+            [
+                1.0,
+                0.5
+            ],
+            [
+                1.0,
+                0.5
+            ],
+            [
+                1.0,
+                0.5
+            ]
+        ],
+        "HI": [
+            [
+                1.5,
+                0.5
+            ],
+            [
+                1.0,
+                0.5
+            ],
+            [
+                1.0,
+                0.5
+            ]
+        ],
+        "MH": [
+            [
+                1.5,
+                1.0
+            ],
+            [
+                1.0,
+                0.5
+            ],
+            [
+                1.0,
+                0.5
+            ]
+        ],
+        "ML": [
+            [
+                2.0,
+                1.0
+            ],
+            [
+                1.5,
+                1.0
+            ],
+            [
+                1.5,
+                1.0
+            ]
+        ],
+        "LO": [
+            [
+                2.0,
+                1.0
+            ],
+            [
+                1.5,
+                1.0
+            ],
+            [
+                1.5,
+                1.0
+            ]
+        ]
+    },
+    "gun": "Four 20 mm M24",
+    "gunatatohitrolls": "6/4/3",
+    "gunatadamagerating": 5,
+    "gunammunition": 3.0,
+    "gunsightmodifiers": {
+        "TT": 0,
+        "HT": 1,
+        "BT": 2
+    },
+    "ataradarranging": "RE",
+    "storeslimits": [
+        2,
+        6,
+        4000
+    ],
+    "properties": [
+        "SMP"
+    ],
+    "notes": [],
+    "stations": [
+        [
+            "pair",
+            [
+                1,
+                4
+            ],
+            1000,
+            [
+                "BB",
+                "FT"
+            ]
+        ],
+        [
+            "pair",
+            [
+                2,
+                3
+            ],
+            1000,
+            [
+                "BB",
+                "FT",
+                "IRM"
+            ]
+        ]
+    ],
+    "loadnotes": [
+        "From 1958, may use AIM-9B IRMs."
+    ],
+    "VPs": [
+        12,
+        9,
+        4,
+        2
+    ]
 }

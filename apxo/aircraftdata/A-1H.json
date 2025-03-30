@@ -1,16 +1,58 @@
 {
-  "versionname": "A-1H",
-  "description": "The Douglas A-1H Skyraider is an attack aircraft, It is propeller-driven, has a single engine, and is carrier-capable. It was developed from the AD-5, but returned to the fuselage and single-pilot cockpit configuration of the AD-4. Prior to 1962, it was designated AD-6.",
-  "base": "AD-4",
-  "originallydesignated": "AD-6",
-  "vulnerability": 2,
-  "stations": [
-    [ "grouppair", [ 1, 6, 10, 15 ], 500, [ "BB", "RK", "RP" ] ],
-    [ "pair"     , [ 7, 9 ]       , 2200, [ "BB", "RK", "RP", "FT" ] ],
-    [ "single"   , [ 8 ]          , 2200, [ "BB", "FT" ] ]
-  ],
-  "VPs": [ 8, 6, 4, 2 ],
-  "notes": [
-    "From 1967, rocket extraction device gives -1 modifier when bailing out."
-  ]
+    "versionname": "A-1H",
+    "description": "The Douglas A-1H Skyraider is an attack aircraft, It is propeller-driven, has a single engine, and is carrier-capable. It was developed from the AD-5, but returned to the fuselage and single-pilot cockpit configuration of the AD-4. Prior to 1962, it was designated AD-6.",
+    "base": "AD-4",
+    "originallydesignated": "AD-6",
+    "vulnerability": 2,
+    "stations": [
+        [
+            "grouppair",
+            [
+                1,
+                6,
+                10,
+                15
+            ],
+            500,
+            [
+                "BB",
+                "RK",
+                "RP"
+            ]
+        ],
+        [
+            "pair",
+            [
+                7,
+                9
+            ],
+            2200,
+            [
+                "BB",
+                "RK",
+                "RP",
+                "FT"
+            ]
+        ],
+        [
+            "single",
+            [
+                8
+            ],
+            2200,
+            [
+                "BB",
+                "FT"
+            ]
+        ]
+    ],
+    "VPs": [
+        8,
+        6,
+        4,
+        2
+    ],
+    "notes": [
+        "From 1967, rocket extraction device gives -1 modifier when bailing out."
+    ]
 }

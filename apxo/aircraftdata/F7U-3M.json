@@ -1,26 +1,71 @@
 {
-  "versionname": "F7U-3M",
-  "base": "F7U-3",
-  "internalfuel": 430,
-  "radar": {
-    "name": "APQ-51",
-    "eccm": 0,
-    "arc": "Limited",
-    "searchrange": 40,
-    "searchstrength": 10,
-    "trackingrange": 24,
-    "trackingstrength": 8,
-    "lockon": 6
-  },
-  "storeslimits": [ 2, 8, 5500 ],
-  "stations": [
-    [ "pair"  , [ 1, 5 ], 1000, [ "BB", "RP", "BRM", "IRM" ] ],
-    [ "pair"  , [ 2, 4 ], 1500, [ "BB", "RP", "BRM", "IRM", "FT" ] ],
-    [ "single", [ 3 ]   , 1500, [ "Ventral pod" ] ]
-  ],
-  "loadnotes": [
-    "May use Sparrow-I BRMs and AIM-9B IRMs.",
-    "Station 3 may carry a conformal ventral pod with 3 factors of air-to-air rockets (weight 800 and 2.0/1.0 load points), or 220 gal of fuel (800L, weight 1500, 3.0/2.0 load points, and 70 fuel points)."
-  ],
-  "VPs": [ 14, 9, 5, 2 ]
+    "versionname": "F7U-3M",
+    "base": "F7U-3",
+    "internalfuel": 430,
+    "radar": {
+        "name": "APQ-51",
+        "eccm": 0,
+        "arc": "Limited",
+        "searchrange": 40,
+        "searchstrength": 10,
+        "trackingrange": 24,
+        "trackingstrength": 8,
+        "lockon": 6
+    },
+    "storeslimits": [
+        2,
+        8,
+        5500
+    ],
+    "stations": [
+        [
+            "pair",
+            [
+                1,
+                5
+            ],
+            1000,
+            [
+                "BB",
+                "RP",
+                "BRM",
+                "IRM"
+            ]
+        ],
+        [
+            "pair",
+            [
+                2,
+                4
+            ],
+            1500,
+            [
+                "BB",
+                "RP",
+                "BRM",
+                "IRM",
+                "FT"
+            ]
+        ],
+        [
+            "single",
+            [
+                3
+            ],
+            1500,
+            [
+                "Ventral pod"
+            ]
+        ]
+    ],
+    "loadnotes": [
+        "May use Sparrow-I BRMs and AIM-9B IRMs.",
+        "Station 3 may carry a conformal ventral pod with 3 factors of air-to-air rockets (weight 800 and 2.0/1.0 load points), or 220 gal of fuel (800L, weight 1500, 3.0/2.0 load points, and 70 fuel points)."
+    ],
+    "VPs": [
+        14,
+        9,
+        5,
+        2
+    ]
 }

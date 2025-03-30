@@ -1,11 +1,11 @@
 {
-  "versionname": "B-26B",
-  "base": "B-26B (Two Turrets)",
-  "internalfuel": 620,
-  "variantname": "One Turret",
-  "description": "The Douglas B-26B Invader is a propeller-driven attack aircraft. The “Two Turrets” variant described here has a solid nose, nose and wing guns, and only the dorsal turret. In place of the ventral turret, it has an extra fuel tank. Prior to 1948, it was designated A-26B.",
-  "originallydesignated": "A-26B", 
-  "notes": [
-    "Gun Turret. This variant of the B-26 is equipped with a dorsal turret with two .50 cal M2 guns. The turret can fire in any direction at targets that are at the same altitude or higher. It may return fire twice per game turn in response to a gun attacks or conduct a single attack. As there is only one gunner, it may fire on only one aircraft per game turn. Roll to hit is 2/1/1 and AtA rating is 2."
-  ]
+    "versionname": "B-26B",
+    "base": "B-26B (Two Turrets)",
+    "internalfuel": 620,
+    "variantname": "One Turret",
+    "description": "The Douglas B-26B Invader is a propeller-driven attack aircraft. The \u201cTwo Turrets\u201d variant described here has a solid nose, nose and wing guns, and only the dorsal turret. In place of the ventral turret, it has an extra fuel tank. Prior to 1948, it was designated A-26B.",
+    "originallydesignated": "A-26B",
+    "notes": [
+        "Gun Turret. This variant of the B-26 is equipped with a dorsal turret with two .50 cal M2 guns. The turret can fire in any direction at targets that are at the same altitude or higher. It may return fire twice per game turn in response to a gun attacks or conduct a single attack. As there is only one gunner, it may fire on only one aircraft per game turn. Roll to hit is 2/1/1 and AtA rating is 2."
+    ]
 }

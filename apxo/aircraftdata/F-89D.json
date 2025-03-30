@@ -1,83 +1,337 @@
 {
-  "versionname": "F-89D",
-  "versiondescription": "All-weather interceptor version.",
-  "popularname": "Scorpion",
-  "origin": "TSOH",
-  "crew": [ "Pilot", "Radar Officer" ],
-  "powertable": {
-    "AB"  : [ 1.0, 1.0, 1.0, 6.0 ],
-    "M"   : [ 1.0, 1.0, 0.5, 3.0 ],
-    "N"   : [ 0.0, 0.0, 0.0, 1.0 ],
-    "I"   : [ 0.5, 0.5, 1.0, 0.0 ],
-    "SPBR": [ 0.5, 1.0, 1.0 ]
-  },
-  "jetengines": 2,
-  "cruisespeed": 4.5,
-  "climbspeed" : 3.5,
-  "visibility": 7,
-  "sizemodifier": 0,
-  "vulnerability": 0,
-  "restrictedarcs": "",
-  "blindarcs": "30-",
-  "internalfuel": 575,
-  "atarefuel": false,
-  "ejectionseat": "standard",
-  "maneuvertable": {
-    "LR/DR": [ 1.0, 1.5 ],
-    "VR":    [ 0.0, 1.0 ]
-  },
-  "turndragtable": {
-    "TT": [ 0.0, 0.0, 1.0 ],
-    "HT": [ 1.0, 1.0, 2.0 ],
-    "BT": [ 2.0, 2.0, 2.0 ],
-    "ET": [ "-", "-", "-" ]
-  },
-  "ceilingtable": [ 49, 45, 40 ],
-  "speedtable": {
-    "EH": [ [  3.0,  5.0 ], [  "-",  "-" ], [  "-",  "-" ],  6.0 ],
-    "VH": [ [  3.0,  5.5 ], [  3.0,  5.0 ], [  3.0,  4.5 ],  6.0 ],
-    "HI": [ [  2.5,  6.0 ], [  2.5,  5.5 ], [  3.0,  5.0 ],  6.5 ],
-    "MH": [ [  2.5,  6.0 ], [  2.5,  5.5 ], [  2.5,  5.0 ],  6.5 ],
-    "ML": [ [  2.0,  6.5 ], [  2.0,  6.0 ], [  2.0,  5.5 ],  7.0 ],
-    "LO": [ [  1.5,  6.5 ], [  1.5,  6.0 ], [  2.0,  5.5 ],  7.0 ]
-  },
-  "climbcapabilitytable": {
-    "EH": [ [ 0.5, 0.25 ], [ "-", "-"  ], [ "-", "-"  ] ],
-    "VH": [ [ 0.5, 0.25 ], [ 0.5, 0.25 ], [ 0.5, 0.25 ] ],
-    "HI": [ [ 0.5, 0.25 ], [ 0.5, 0.25 ], [ 0.5, 0.25 ] ],
-    "MH": [ [ 1.0, 0.5  ], [ 1.0, 0.5  ], [ 1.0, 0.5  ] ],
-    "ML": [ [ 1.0, 0.5  ], [ 1.0, 0.5  ], [ 1.0, 0.5  ] ],
-    "LO": [ [ 1.0, 0.5  ], [ 1.0, 0.5  ], [ 1.0, 0.5  ] ]
-  },
-  "radar": {
-    "name": "APG-40",
-    "eccm": 0,
-    "arc": "180+",
-    "searchrange": 100,
-    "searchstrength": 20,
-    "trackingrange": 40,
-    "trackingstrength": 8,
-    "lockon": 7
-  },
-  "gun": "",
-  "gunsightmodifiers": { "TT": 0, "HT": 1, "BT": 2 },
-  "ataradarranging": "RE",
-  "ecm": { "iff": true },
-  "technology": [ "CC Rocket Attack" ],
-  "notes": [
-    "The E-6 fire-control system provides CC Rocket Attack technology."
-  ],
-  "rocketfactors": 9,
-  "properties": [ "HTD", "ABSF" ],
-  "ABSFamount": 0.5,
-  "wikiurl": "https://bit.ly/3CLeSyt",
-  "storeslimits": [ 4, 8, 4400 ],
-  "stations": [
-    [ "pair", [1, 4],    0, [ ] ],
-    [ "pair", [2, 3], 1600, [ "BB", "FT" ] ]
-  ],
-  "loadnotes": [
-    "Stations 1 and 8 are fixed wing-tip pods for rockets and fuel. Each can carry 4.5 factors of air-to-air rockets, giving a total of 9 factors with both pods. The pod fuel is included in the internal fuel."
-  ],
-  "VPs": [ 12, 8, 4, 2 ]
+    "versionname": "F-89D",
+    "versiondescription": "All-weather interceptor version.",
+    "popularname": "Scorpion",
+    "origin": "TSOH",
+    "crew": [
+        "Pilot",
+        "Radar Officer"
+    ],
+    "powertable": {
+        "AB": [
+            1.0,
+            1.0,
+            1.0,
+            6.0
+        ],
+        "M": [
+            1.0,
+            1.0,
+            0.5,
+            3.0
+        ],
+        "N": [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+        ],
+        "I": [
+            0.5,
+            0.5,
+            1.0,
+            0.0
+        ],
+        "SPBR": [
+            0.5,
+            1.0,
+            1.0
+        ]
+    },
+    "jetengines": 2,
+    "cruisespeed": 4.5,
+    "climbspeed": 3.5,
+    "visibility": 7,
+    "sizemodifier": 0,
+    "vulnerability": 0,
+    "restrictedarcs": "",
+    "blindarcs": "30-",
+    "internalfuel": 575,
+    "atarefuel": false,
+    "ejectionseat": "standard",
+    "maneuvertable": {
+        "LR/DR": [
+            1.0,
+            1.5
+        ],
+        "VR": [
+            0.0,
+            1.0
+        ]
+    },
+    "turndragtable": {
+        "TT": [
+            0.0,
+            0.0,
+            1.0
+        ],
+        "HT": [
+            1.0,
+            1.0,
+            2.0
+        ],
+        "BT": [
+            2.0,
+            2.0,
+            2.0
+        ],
+        "ET": [
+            "-",
+            "-",
+            "-"
+        ]
+    },
+    "ceilingtable": [
+        49,
+        45,
+        40
+    ],
+    "speedtable": {
+        "EH": [
+            [
+                3.0,
+                5.0
+            ],
+            [
+                "-",
+                "-"
+            ],
+            [
+                "-",
+                "-"
+            ],
+            6.0
+        ],
+        "VH": [
+            [
+                3.0,
+                5.5
+            ],
+            [
+                3.0,
+                5.0
+            ],
+            [
+                3.0,
+                4.5
+            ],
+            6.0
+        ],
+        "HI": [
+            [
+                2.5,
+                6.0
+            ],
+            [
+                2.5,
+                5.5
+            ],
+            [
+                3.0,
+                5.0
+            ],
+            6.5
+        ],
+        "MH": [
+            [
+                2.5,
+                6.0
+            ],
+            [
+                2.5,
+                5.5
+            ],
+            [
+                2.5,
+                5.0
+            ],
+            6.5
+        ],
+        "ML": [
+            [
+                2.0,
+                6.5
+            ],
+            [
+                2.0,
+                6.0
+            ],
+            [
+                2.0,
+                5.5
+            ],
+            7.0
+        ],
+        "LO": [
+            [
+                1.5,
+                6.5
+            ],
+            [
+                1.5,
+                6.0
+            ],
+            [
+                2.0,
+                5.5
+            ],
+            7.0
+        ]
+    },
+    "climbcapabilitytable": {
+        "EH": [
+            [
+                0.5,
+                0.25
+            ],
+            [
+                "-",
+                "-"
+            ],
+            [
+                "-",
+                "-"
+            ]
+        ],
+        "VH": [
+            [
+                0.5,
+                0.25
+            ],
+            [
+                0.5,
+                0.25
+            ],
+            [
+                0.5,
+                0.25
+            ]
+        ],
+        "HI": [
+            [
+                0.5,
+                0.25
+            ],
+            [
+                0.5,
+                0.25
+            ],
+            [
+                0.5,
+                0.25
+            ]
+        ],
+        "MH": [
+            [
+                1.0,
+                0.5
+            ],
+            [
+                1.0,
+                0.5
+            ],
+            [
+                1.0,
+                0.5
+            ]
+        ],
+        "ML": [
+            [
+                1.0,
+                0.5
+            ],
+            [
+                1.0,
+                0.5
+            ],
+            [
+                1.0,
+                0.5
+            ]
+        ],
+        "LO": [
+            [
+                1.0,
+                0.5
+            ],
+            [
+                1.0,
+                0.5
+            ],
+            [
+                1.0,
+                0.5
+            ]
+        ]
+    },
+    "radar": {
+        "name": "APG-40",
+        "eccm": 0,
+        "arc": "180+",
+        "searchrange": 100,
+        "searchstrength": 20,
+        "trackingrange": 40,
+        "trackingstrength": 8,
+        "lockon": 7
+    },
+    "gun": "",
+    "gunsightmodifiers": {
+        "TT": 0,
+        "HT": 1,
+        "BT": 2
+    },
+    "ataradarranging": "RE",
+    "ecm": {
+        "iff": true
+    },
+    "technology": [
+        "CC Rocket Attack"
+    ],
+    "notes": [
+        "The E-6 fire-control system provides CC Rocket Attack technology."
+    ],
+    "rocketfactors": 9,
+    "properties": [
+        "HTD",
+        "ABSF"
+    ],
+    "ABSFamount": 0.5,
+    "wikiurl": "https://bit.ly/3CLeSyt",
+    "storeslimits": [
+        4,
+        8,
+        4400
+    ],
+    "stations": [
+        [
+            "pair",
+            [
+                1,
+                4
+            ],
+            0,
+            []
+        ],
+        [
+            "pair",
+            [
+                2,
+                3
+            ],
+            1600,
+            [
+                "BB",
+                "FT"
+            ]
+        ]
+    ],
+    "loadnotes": [
+        "Stations 1 and 8 are fixed wing-tip pods for rockets and fuel. Each can carry 4.5 factors of air-to-air rockets, giving a total of 9 factors with both pods. The pod fuel is included in the internal fuel."
+    ],
+    "VPs": [
+        12,
+        8,
+        4,
+        2
+    ]
 }

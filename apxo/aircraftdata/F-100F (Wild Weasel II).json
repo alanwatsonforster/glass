@@ -1,17 +1,72 @@
 {
-  "versionname": "F-100F",
-  "versiondescription": null,
-  "variantname": "Wild Weasel II",
-  "variantdescription": "equipped for defense suppresion.",
-  "base": "F-100F (Wild Weasel I)",
-  "stations": [
-    [ "pair"  , [ 1, 7 ], 1000, [ "BB", "RP", "EP" ] ],
-    [ "pair"  , [ 2, 6 ], 3000, [ "BB", "RP", "RG", "DR", "TR", "FT", "IRM" ] ],
-    [ "pair"  , [ 3, 5 ], 1500, [ "BB", "RP", "DR", "TR", "EP", "FT", "IRM", "ARM" ] ],
-    [ "single", [ 4 ]   , 2000, [ "BB", "WR" ] ]
-  ],
-  "loadnotes": [
-    "May only use AIM-9 IRMs.",
-    "May only use AGM-45 ARMs."
-  ]
+    "versionname": "F-100F",
+    "versiondescription": null,
+    "variantname": "Wild Weasel II",
+    "variantdescription": "equipped for defense suppresion.",
+    "base": "F-100F (Wild Weasel I)",
+    "stations": [
+        [
+            "pair",
+            [
+                1,
+                7
+            ],
+            1000,
+            [
+                "BB",
+                "RP",
+                "EP"
+            ]
+        ],
+        [
+            "pair",
+            [
+                2,
+                6
+            ],
+            3000,
+            [
+                "BB",
+                "RP",
+                "RG",
+                "DR",
+                "TR",
+                "FT",
+                "IRM"
+            ]
+        ],
+        [
+            "pair",
+            [
+                3,
+                5
+            ],
+            1500,
+            [
+                "BB",
+                "RP",
+                "DR",
+                "TR",
+                "EP",
+                "FT",
+                "IRM",
+                "ARM"
+            ]
+        ],
+        [
+            "single",
+            [
+                4
+            ],
+            2000,
+            [
+                "BB",
+                "WR"
+            ]
+        ]
+    ],
+    "loadnotes": [
+        "May only use AIM-9 IRMs.",
+        "May only use AGM-45 ARMs."
+    ]
 }

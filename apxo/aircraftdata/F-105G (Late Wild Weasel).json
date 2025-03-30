@@ -1,7 +1,13 @@
 {
-  "base": "F-105G (Early Wild Weasel)",
-  "origin": "TSOH",
-  "variantname": "Late Wild Weasel",
-  "variantdescription": "equipped for air-defense suppression, post Vietnam war.",
-  "ecm": { "iff": true, "rwr": "C", "dds": "B", "djm": "A3", "ajm": "B4" }
+    "base": "F-105G (Early Wild Weasel)",
+    "origin": "TSOH",
+    "variantname": "Late Wild Weasel",
+    "variantdescription": "equipped for air-defense suppression, post Vietnam war.",
+    "ecm": {
+        "iff": true,
+        "rwr": "C",
+        "dds": "B",
+        "djm": "A3",
+        "ajm": "B4"
+    }
 }

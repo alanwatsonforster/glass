@@ -1,11 +1,11 @@
 {
-  "versionname": "F-86E",
-  "description": "The North American F-86E Sabre is single-engined, swept-wing, fighter. The F-86E version is derived from the F-86-A version and has the original slatted wing, but an all-flying tail and radar ranging (both of which appear on all subsequent derived versions).",
-  "base": "F-86A",
-  "radar": {
-    "name": "APG-30",
-    "lockon": 6
-  },
-  "ataradarranging": "RE",
-  "notes": []
+    "versionname": "F-86E",
+    "description": "The North American F-86E Sabre is single-engined, swept-wing, fighter. The F-86E version is derived from the F-86-A version and has the original slatted wing, but an all-flying tail and radar ranging (both of which appear on all subsequent derived versions).",
+    "base": "F-86A",
+    "radar": {
+        "name": "APG-30",
+        "lockon": 6
+    },
+    "ataradarranging": "RE",
+    "notes": []
 }

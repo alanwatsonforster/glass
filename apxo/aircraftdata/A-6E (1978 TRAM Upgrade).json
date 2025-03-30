@@ -1,17 +1,84 @@
 {
-  "base": "A-6E",
-  "variantname": "1978 TRAM Upgrade",
-  "variantdescription": "with TRAM sensor and attack systems upgrades, from 1978.",
-  "technology": [ "Terrain Following-B", "Laser Designator-C", "TV/IR Optics" ],
-  "stations": [
-    [ "pair"  , [ 1, 5 ], 3600, [ "BB", "BG", "BS", "RP", "RG", "WR", "GP", "EP", "FT", "ARM", "DP", "ASM", "IRM" ] ],
-    [ "pair"  , [ 2, 4 ], 3600, [ "BB", "BG", "BS", "RP", "RG", "WR", "GP", "EP", "FT", "ARM", "DP", "ASM" ] ],
-    [ "single", [ 3 ]   , 3600, [ "BB", "BG", "RP", "WR", "EP", "FT", "DP" ] ]
-  ],
-  "loadnotes": [
-    "May only use AIM-9B IRMs.",
-    "May only use AGM-45, AGM-78, and AGM-88 ARMs.",
-    "May only use AGM-84 ASMs."
-  ],
-  "VPs": [ 30, 20, 10, 5 ]
+    "base": "A-6E",
+    "variantname": "1978 TRAM Upgrade",
+    "variantdescription": "with TRAM sensor and attack systems upgrades, from 1978.",
+    "technology": [
+        "Terrain Following-B",
+        "Laser Designator-C",
+        "TV/IR Optics"
+    ],
+    "stations": [
+        [
+            "pair",
+            [
+                1,
+                5
+            ],
+            3600,
+            [
+                "BB",
+                "BG",
+                "BS",
+                "RP",
+                "RG",
+                "WR",
+                "GP",
+                "EP",
+                "FT",
+                "ARM",
+                "DP",
+                "ASM",
+                "IRM"
+            ]
+        ],
+        [
+            "pair",
+            [
+                2,
+                4
+            ],
+            3600,
+            [
+                "BB",
+                "BG",
+                "BS",
+                "RP",
+                "RG",
+                "WR",
+                "GP",
+                "EP",
+                "FT",
+                "ARM",
+                "DP",
+                "ASM"
+            ]
+        ],
+        [
+            "single",
+            [
+                3
+            ],
+            3600,
+            [
+                "BB",
+                "BG",
+                "RP",
+                "WR",
+                "EP",
+                "FT",
+                "DP"
+            ]
+        ]
+    ],
+    "loadnotes": [
+        "May only use AIM-9B IRMs.",
+        "May only use AGM-45, AGM-78, and AGM-88 ARMs.",
+        "May only use AGM-84 ASMs."
+    ],
+    "VPs": [
+        30,
+        20,
+        10,
+        5
+    ]
 }

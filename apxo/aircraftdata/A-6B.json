@@ -1,16 +1,74 @@
 {
-  "versionname": "A-6B",
-  "versiondescription": "The A-6B was a conversion of the A-6A with systems and weapons specialized for Iron Hand missions (suppression of air defenses).",
-  "base": "A-6A",
-  "ecm": { "iff": true, "rwr": "B", "dds": "A", "djm": "A3" },
-  "stations": [
-    [ "pair"  , [ 1, 5 ], 3600, [ "BB", "RP", "RG", "WR", "GP", "EP", "FT", "ARM", "IRM" ] ],
-    [ "pair"  , [ 2, 4 ], 3600, [ "BB", "RP", "RG", "WR", "GP", "EP", "FT", "ARM" ] ],
-    [ "single", [ 3 ]   , 3600, [ "BB", "RP", "WR", "EP", "FT" ] ]
-  ],
-  "loadnotes": [
-    "May only use AIM-9B IRMs.",
-    "May only use AGM-45 and AGM-78 ARMs."
-  ],
-  "VPs": [ 26, 17, 9, 4 ]
+    "versionname": "A-6B",
+    "versiondescription": "The A-6B was a conversion of the A-6A with systems and weapons specialized for Iron Hand missions (suppression of air defenses).",
+    "base": "A-6A",
+    "ecm": {
+        "iff": true,
+        "rwr": "B",
+        "dds": "A",
+        "djm": "A3"
+    },
+    "stations": [
+        [
+            "pair",
+            [
+                1,
+                5
+            ],
+            3600,
+            [
+                "BB",
+                "RP",
+                "RG",
+                "WR",
+                "GP",
+                "EP",
+                "FT",
+                "ARM",
+                "IRM"
+            ]
+        ],
+        [
+            "pair",
+            [
+                2,
+                4
+            ],
+            3600,
+            [
+                "BB",
+                "RP",
+                "RG",
+                "WR",
+                "GP",
+                "EP",
+                "FT",
+                "ARM"
+            ]
+        ],
+        [
+            "single",
+            [
+                3
+            ],
+            3600,
+            [
+                "BB",
+                "RP",
+                "WR",
+                "EP",
+                "FT"
+            ]
+        ]
+    ],
+    "loadnotes": [
+        "May only use AIM-9B IRMs.",
+        "May only use AGM-45 and AGM-78 ARMs."
+    ],
+    "VPs": [
+        26,
+        17,
+        9,
+        4
+    ]
 }

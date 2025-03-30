@@ -1,71 +1,328 @@
 {
-  "versionname": "MiG-19S",
-  "description": "The Mikoyan-Gurevich MiG-19S is a day fighter. It is an improved version of the original MiG-19 with an all-moving tail and three 30 mm NR-30 cannons. The NATO reporting name is Farmer-C.",
-  "origin": "TSOH",
-  "crew": [ "Pilot" ],
-  "powertable": {
-    "AB"  : [ 3.5, 3.0, 2.5, 5.0 ],
-    "M"   : [ 2.5, 2.0, 2.0, 2.0 ],
-    "N"   : [ 0.0, 0.0, 0.0, 1.0 ],
-    "I"   : [ 0.5, 0.5, 0.5, 0.0 ],
-    "SPBR": [ 0.5, 1.0, 1.0 ]
-  },
-  "jetengines": 2,
-  "cruisespeed": 5.5,
-  "climbspeed" : 4.5,
-  "visibility": 5,
-  "sizemodifier": 0,
-  "vulnerability": 1,
-  "restrictedarcs": "60-",
-  "blindarcs": "30-",
-  "internalfuel": 180,
-  "atarefuel": false,
-  "ejectionseat": "early",
-  "maneuvertable": {
-    "LR/DR": [ 1.0, 1.0 ],
-    "VR":    [ 0.0, 0.5 ]
-  },
-  "turndragtable": {
-    "TT": [ 1.0, 1.0, 1.0 ],
-    "HT": [ 2.0, 2.0, 2.0 ],
-    "BT": [ 3.0, 3.0, 3.0 ],
-    "ET": [ 3.0, 4.0, "-" ]
-  },
-  "ceilingtable": [ 58, 53, 48 ],
-  "speedtable": {
-    "EH": [ [  3.5, 8.0  ], [  4.0, 7.5  ], [  4.5, 7.0  ], 10.0 ],
-    "VH": [ [  3.0, 8.5  ], [  3.5, 8.0  ], [  4.0, 7.0  ], 10.0 ],
-    "HI": [ [  3.0, 9.0  ], [  3.0, 8.0  ], [  3.0, 7.5  ], 10.0 ],
-    "MH": [ [  2.5, 8.5  ], [  3.0, 8.0  ], [  3.0, 7.0  ],  9.0 ],
-    "ML": [ [  2.5, 7.5  ], [  2.5, 7.0  ], [  2.5, 6.5  ],  8.5 ],
-    "LO": [ [  2.0, 7.0  ], [  2.5, 6.5  ], [  2.5, 6.0  ],  8.0 ]
-  },
-  "climbcapabilitytable": {
-    "EH": [ [ 1.0, 0.5 ], [ 1.0, 0.5 ], [ 1.0, 0.5 ] ],
-    "VH": [ [ 1.0, 0.5 ], [ 1.0, 0.5 ], [ 1.0, 0.5 ] ],
-    "HI": [ [ 2.0, 0.5 ], [ 1.0, 0.5 ], [ 1.0, 0.5 ] ],
-    "MH": [ [ 3.0, 1.0 ], [ 2.0, 1.0 ], [ 1.0, 0.5 ] ],
-    "ML": [ [ 4.0, 2.0 ], [ 3.0, 1.0 ], [ 2.0, 1.0 ] ],
-    "LO": [ [ 5.0, 2.0 ], [ 4.0, 1.0 ], [ 3.0, 1.0 ] ]
-  },
-  "gun": "Three 30 mm NR-30",
-  "gunatatohitrolls": "6/4/1",
-  "gundamagerating": "6/8",
-  "gunammunition": 2.5,
-  "gunsightmodifiers": { "TT": 0, "HT": 2, "BT": 3 },
-  "ecm": { "iff": true, "rwr": "A" },
-  "properties": [],
-  "notes": [
-    "If a BT or ET is performed in the HI+ altitude bands, roll one die for each facing change after the first. On a 1 the aircraft suffers a maneuvering departure."
-  ],
-  "wikiurl": "https://bit.ly/3Z3mS5k",
-  "storeslimits": [ 2, 6, 3700 ],
-  "stations": [
-    [ "pair", [1, 4], 1300, [ "BB", "RP", "RK", "FT", "IRM" ] ],
-    [ "pair", [2, 3],  550, [ "BB", "RP", "RK", "DR" ] ]
-  ],
-  "loadnotes": [
-    "May use AA-2 IRMs."
-  ],
-  "VPs": [ 16, 19, 6, 3 ]
+    "versionname": "MiG-19S",
+    "description": "The Mikoyan-Gurevich MiG-19S is a day fighter. It is an improved version of the original MiG-19 with an all-moving tail and three 30 mm NR-30 cannons. The NATO reporting name is Farmer-C.",
+    "origin": "TSOH",
+    "crew": [
+        "Pilot"
+    ],
+    "powertable": {
+        "AB": [
+            3.5,
+            3.0,
+            2.5,
+            5.0
+        ],
+        "M": [
+            2.5,
+            2.0,
+            2.0,
+            2.0
+        ],
+        "N": [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+        ],
+        "I": [
+            0.5,
+            0.5,
+            0.5,
+            0.0
+        ],
+        "SPBR": [
+            0.5,
+            1.0,
+            1.0
+        ]
+    },
+    "jetengines": 2,
+    "cruisespeed": 5.5,
+    "climbspeed": 4.5,
+    "visibility": 5,
+    "sizemodifier": 0,
+    "vulnerability": 1,
+    "restrictedarcs": "60-",
+    "blindarcs": "30-",
+    "internalfuel": 180,
+    "atarefuel": false,
+    "ejectionseat": "early",
+    "maneuvertable": {
+        "LR/DR": [
+            1.0,
+            1.0
+        ],
+        "VR": [
+            0.0,
+            0.5
+        ]
+    },
+    "turndragtable": {
+        "TT": [
+            1.0,
+            1.0,
+            1.0
+        ],
+        "HT": [
+            2.0,
+            2.0,
+            2.0
+        ],
+        "BT": [
+            3.0,
+            3.0,
+            3.0
+        ],
+        "ET": [
+            3.0,
+            4.0,
+            "-"
+        ]
+    },
+    "ceilingtable": [
+        58,
+        53,
+        48
+    ],
+    "speedtable": {
+        "EH": [
+            [
+                3.5,
+                8.0
+            ],
+            [
+                4.0,
+                7.5
+            ],
+            [
+                4.5,
+                7.0
+            ],
+            10.0
+        ],
+        "VH": [
+            [
+                3.0,
+                8.5
+            ],
+            [
+                3.5,
+                8.0
+            ],
+            [
+                4.0,
+                7.0
+            ],
+            10.0
+        ],
+        "HI": [
+            [
+                3.0,
+                9.0
+            ],
+            [
+                3.0,
+                8.0
+            ],
+            [
+                3.0,
+                7.5
+            ],
+            10.0
+        ],
+        "MH": [
+            [
+                2.5,
+                8.5
+            ],
+            [
+                3.0,
+                8.0
+            ],
+            [
+                3.0,
+                7.0
+            ],
+            9.0
+        ],
+        "ML": [
+            [
+                2.5,
+                7.5
+            ],
+            [
+                2.5,
+                7.0
+            ],
+            [
+                2.5,
+                6.5
+            ],
+            8.5
+        ],
+        "LO": [
+            [
+                2.0,
+                7.0
+            ],
+            [
+                2.5,
+                6.5
+            ],
+            [
+                2.5,
+                6.0
+            ],
+            8.0
+        ]
+    },
+    "climbcapabilitytable": {
+        "EH": [
+            [
+                1.0,
+                0.5
+            ],
+            [
+                1.0,
+                0.5
+            ],
+            [
+                1.0,
+                0.5
+            ]
+        ],
+        "VH": [
+            [
+                1.0,
+                0.5
+            ],
+            [
+                1.0,
+                0.5
+            ],
+            [
+                1.0,
+                0.5
+            ]
+        ],
+        "HI": [
+            [
+                2.0,
+                0.5
+            ],
+            [
+                1.0,
+                0.5
+            ],
+            [
+                1.0,
+                0.5
+            ]
+        ],
+        "MH": [
+            [
+                3.0,
+                1.0
+            ],
+            [
+                2.0,
+                1.0
+            ],
+            [
+                1.0,
+                0.5
+            ]
+        ],
+        "ML": [
+            [
+                4.0,
+                2.0
+            ],
+            [
+                3.0,
+                1.0
+            ],
+            [
+                2.0,
+                1.0
+            ]
+        ],
+        "LO": [
+            [
+                5.0,
+                2.0
+            ],
+            [
+                4.0,
+                1.0
+            ],
+            [
+                3.0,
+                1.0
+            ]
+        ]
+    },
+    "gun": "Three 30 mm NR-30",
+    "gunatatohitrolls": "6/4/1",
+    "gundamagerating": "6/8",
+    "gunammunition": 2.5,
+    "gunsightmodifiers": {
+        "TT": 0,
+        "HT": 2,
+        "BT": 3
+    },
+    "ecm": {
+        "iff": true,
+        "rwr": "A"
+    },
+    "properties": [],
+    "notes": [
+        "If a BT or ET is performed in the HI+ altitude bands, roll one die for each facing change after the first. On a 1 the aircraft suffers a maneuvering departure."
+    ],
+    "wikiurl": "https://bit.ly/3Z3mS5k",
+    "storeslimits": [
+        2,
+        6,
+        3700
+    ],
+    "stations": [
+        [
+            "pair",
+            [
+                1,
+                4
+            ],
+            1300,
+            [
+                "BB",
+                "RP",
+                "RK",
+                "FT",
+                "IRM"
+            ]
+        ],
+        [
+            "pair",
+            [
+                2,
+                3
+            ],
+            550,
+            [
+                "BB",
+                "RP",
+                "RK",
+                "DR"
+            ]
+        ]
+    ],
+    "loadnotes": [
+        "May use AA-2 IRMs."
+    ],
+    "VPs": [
+        16,
+        19,
+        6,
+        3
+    ]
 }

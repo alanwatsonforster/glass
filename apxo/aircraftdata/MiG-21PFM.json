@@ -1,31 +1,88 @@
 {
-  "versionname": "MiG-21PFM",
-  "description": "The Mikoyan-Gurevich MiG-21PFM is an all-weather interceptor. It is a development of the MiG-21PF with blown flaps, improved RP-21M radar, the capability to carry the GP-9 gun pod, and from 1966 the capability to carry the Kh-66 ASM. The NATO reporting name for the aircraft is Fishbed-F and for the radar is Spin Scan-A.",
-  "base": "MiG-21PF",
-  "internalfuel": 220,
-  "lowspeedliftdeviceselectable": true,
-  "lowspeedliftdevicelimit": 4.5,
-  "lowspeedliftdeviceminspeedchange": 0.5,
-  "lowspeedliftdevicelimittype": "absolute",
-  "lowspeedliftdevicename": "combat flaps",
-  "turndragtable": {
-    "TT": [ 1.0, 1.0, 1.0 ],
-    "HT": [ 2.0, 2.0, 3.0 ],
-    "BT": [ 3.0, 4.0, 4.0 ],
-    "ET": [ 4.0, "-", "-" ]
-  },
-  "lowspeedliftdeviceturndragtable": {
-    "TT": [ 2.0, 2.0, 2.0 ],
-    "HT": [ 3.0, 3.0, 4.0 ],
-    "BT": [ 4.0, 5.0, 5.0 ],
-    "ET": [ 5.0, "-", "-" ]
-  },
-  "stations": [
-    [ "pair"  , [ 1, 3 ],  550, [ "BB", "RP", "RK", "DR", "BRM", "IRM" ] ],
-    [ "single", [ 2 ]   , 1100, [ "FT", "GP" ] ]
-  ],
-  "loadnotes": [
-    "May use AA-1 BRMs and AA-2 IRMs.",
-    "Station 2 may carry a GP-9 gunpod."
-  ]
-}  
+    "versionname": "MiG-21PFM",
+    "description": "The Mikoyan-Gurevich MiG-21PFM is an all-weather interceptor. It is a development of the MiG-21PF with blown flaps, improved RP-21M radar, the capability to carry the GP-9 gun pod, and from 1966 the capability to carry the Kh-66 ASM. The NATO reporting name for the aircraft is Fishbed-F and for the radar is Spin Scan-A.",
+    "base": "MiG-21PF",
+    "internalfuel": 220,
+    "lowspeedliftdeviceselectable": true,
+    "lowspeedliftdevicelimit": 4.5,
+    "lowspeedliftdeviceminspeedchange": 0.5,
+    "lowspeedliftdevicelimittype": "absolute",
+    "lowspeedliftdevicename": "combat flaps",
+    "turndragtable": {
+        "TT": [
+            1.0,
+            1.0,
+            1.0
+        ],
+        "HT": [
+            2.0,
+            2.0,
+            3.0
+        ],
+        "BT": [
+            3.0,
+            4.0,
+            4.0
+        ],
+        "ET": [
+            4.0,
+            "-",
+            "-"
+        ]
+    },
+    "lowspeedliftdeviceturndragtable": {
+        "TT": [
+            2.0,
+            2.0,
+            2.0
+        ],
+        "HT": [
+            3.0,
+            3.0,
+            4.0
+        ],
+        "BT": [
+            4.0,
+            5.0,
+            5.0
+        ],
+        "ET": [
+            5.0,
+            "-",
+            "-"
+        ]
+    },
+    "stations": [
+        [
+            "pair",
+            [
+                1,
+                3
+            ],
+            550,
+            [
+                "BB",
+                "RP",
+                "RK",
+                "DR",
+                "BRM",
+                "IRM"
+            ]
+        ],
+        [
+            "single",
+            [
+                2
+            ],
+            1100,
+            [
+                "FT",
+                "GP"
+            ]
+        ]
+    ],
+    "loadnotes": [
+        "May use AA-1 BRMs and AA-2 IRMs.",
+        "Station 2 may carry a GP-9 gunpod."
+    ]
+}

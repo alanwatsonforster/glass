@@ -1,6 +1,11 @@
 {
-  "base": "A-4C",
-  "variantname": "1966 Upgrade",
-  "variantdescription": "with DDS-A and DJM-A3, from 1966.",
-  "ecm": { "iff": true, "rwr": "A", "dds": "A", "djm": "A3" }
+    "base": "A-4C",
+    "variantname": "1966 Upgrade",
+    "variantdescription": "with DDS-A and DJM-A3, from 1966.",
+    "ecm": {
+        "iff": true,
+        "rwr": "A",
+        "dds": "A",
+        "djm": "A3"
+    }
 }

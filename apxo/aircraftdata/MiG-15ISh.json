@@ -1,13 +1,43 @@
 {
-  "versionname": "MiG-15ISh",
-  "description": "The Mikoyan-Gurevich MiG-15ISh is a prototype close-air-support aircraft. It is a development of the MiG-15bis  with two additional tandem wing stations. The NATO reporting name for the aircraft is Fagot.",
-  "base": "MiG-15bis",
-  "stations": [
-    [ "pair", [ 1, 4 ], 550, [ "BB", "RK", "RP", "FT" ] ],
-    [ "pair", [ 2, 3 ], 550, [ "BB", "RK", "RP" ] ]
-  ],
-  "loadnotes": [
-    "Stations 2 and 3 can carry two BB each."
-  ],
-  "VPs": [ 9, 6, 3, 1]
+    "versionname": "MiG-15ISh",
+    "description": "The Mikoyan-Gurevich MiG-15ISh is a prototype close-air-support aircraft. It is a development of the MiG-15bis  with two additional tandem wing stations. The NATO reporting name for the aircraft is Fagot.",
+    "base": "MiG-15bis",
+    "stations": [
+        [
+            "pair",
+            [
+                1,
+                4
+            ],
+            550,
+            [
+                "BB",
+                "RK",
+                "RP",
+                "FT"
+            ]
+        ],
+        [
+            "pair",
+            [
+                2,
+                3
+            ],
+            550,
+            [
+                "BB",
+                "RK",
+                "RP"
+            ]
+        ]
+    ],
+    "loadnotes": [
+        "Stations 2 and 3 can carry two BB each."
+    ],
+    "VPs": [
+        9,
+        6,
+        3,
+        1
+    ]
 }

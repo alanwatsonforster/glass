@@ -1,12 +1,12 @@
 {
-  "variantname": "FN",
-  "variantdescription": "for French Navy.",
-  "base": "F-8E",
-  "previouslydesignated": null,
-  "origin": "TSOH",
-  "loadnotes": [
-    "May only use Matra 550 IRMs and Matra 530 RHMs.",
-    "May only use LAU-33 RPs on stations 2 and 3.",
-    "May only use AS-30 RGs."
-  ]
+    "variantname": "FN",
+    "variantdescription": "for French Navy.",
+    "base": "F-8E",
+    "previouslydesignated": null,
+    "origin": "TSOH",
+    "loadnotes": [
+        "May only use Matra 550 IRMs and Matra 530 RHMs.",
+        "May only use LAU-33 RPs on stations 2 and 3.",
+        "May only use AS-30 RGs."
+    ]
 }

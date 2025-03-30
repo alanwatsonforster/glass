@@ -1,12 +1,17 @@
 {
-  "versionname": "F9F-5P",
-  "description": "The Grumman F9F-5P Panther is a photoreconnaissance aircraft. It has a single engine, unswept wings, and is carrier-capable. It is derived from the F9F-5 fighter version and has a nose equipped with cameras rather than guns.",
-  "base": "F9F-5",
-  "gun": "",
-  "radar": null,
-  "ataradarranging": null,
-  "notes": [
-    "Oblique and overhead cameras in the nose."
-  ],
-  "VPs": [ 8, 5, 3, 1 ]
+    "versionname": "F9F-5P",
+    "description": "The Grumman F9F-5P Panther is a photoreconnaissance aircraft. It has a single engine, unswept wings, and is carrier-capable. It is derived from the F9F-5 fighter version and has a nose equipped with cameras rather than guns.",
+    "base": "F9F-5",
+    "gun": "",
+    "radar": null,
+    "ataradarranging": null,
+    "notes": [
+        "Oblique and overhead cameras in the nose."
+    ],
+    "VPs": [
+        8,
+        5,
+        3,
+        1
+    ]
 }

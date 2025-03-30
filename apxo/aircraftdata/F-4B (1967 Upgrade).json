@@ -1,6 +1,11 @@
 {
-  "base": "F-4B",
-  "variantname": "1967 Upgrade",
-  "variantdescription": "with RWR-A and DDS-A, from 1967.",
-  "ecm": { "iff": true, "rwr": "A", "dds": "A", "djm": "A3" }
+    "base": "F-4B",
+    "variantname": "1967 Upgrade",
+    "variantdescription": "with RWR-A and DDS-A, from 1967.",
+    "ecm": {
+        "iff": true,
+        "rwr": "A",
+        "dds": "A",
+        "djm": "A3"
+    }
 }

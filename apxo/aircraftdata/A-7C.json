@@ -1,21 +1,36 @@
 {
-  "versionname": "A-7C",
-  "base": "A-7B",
-  "radar": {
-    "name": "APQ-126",
-    "eccm": 0,
-    "arc": "180+",
-    "searchrange": 120,
-    "trackingrange": 30,
-    "lockon": 7
-  },
-  "gun": "20 mm M61A1 Vulcan",
-  "gunatatohitrolls": "6/3/1",
-  "gunammunition": 5.0,
-  "gunsightmodifiers": { "HT": 2, "BT": 3 },
-  "gundamagerating": "6/8*",
-  "bombsystem": "Computed",
-  "ecm": { "iff": true, "rwr": "B", "dds": "B", "djm": "B4" },
-  "technology": [ "Terrain Following - A" ],
-  "VPs": [ 20, 14, 7, 4 ]
+    "versionname": "A-7C",
+    "base": "A-7B",
+    "radar": {
+        "name": "APQ-126",
+        "eccm": 0,
+        "arc": "180+",
+        "searchrange": 120,
+        "trackingrange": 30,
+        "lockon": 7
+    },
+    "gun": "20 mm M61A1 Vulcan",
+    "gunatatohitrolls": "6/3/1",
+    "gunammunition": 5.0,
+    "gunsightmodifiers": {
+        "HT": 2,
+        "BT": 3
+    },
+    "gundamagerating": "6/8*",
+    "bombsystem": "Computed",
+    "ecm": {
+        "iff": true,
+        "rwr": "B",
+        "dds": "B",
+        "djm": "B4"
+    },
+    "technology": [
+        "Terrain Following - A"
+    ],
+    "VPs": [
+        20,
+        14,
+        7,
+        4
+    ]
 }

@@ -1,6 +1,10 @@
 {
-  "base": "F-4C",
-  "variantname": "1971 Upgrade",
-  "variantdescription": "with RWR-B and DDS-A, from 1971.",
-  "ecm": { "iff": true, "rwr": "B", "dds": "A" }
+    "base": "F-4C",
+    "variantname": "1971 Upgrade",
+    "variantdescription": "with RWR-B and DDS-A, from 1971.",
+    "ecm": {
+        "iff": true,
+        "rwr": "B",
+        "dds": "A"
+    }
 }

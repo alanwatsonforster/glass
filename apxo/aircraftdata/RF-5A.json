@@ -1,9 +1,14 @@
 {
-  "versionname": "RF-5A",
-  "versiondescription": "Reconnaissance version of the F-5A, retaining full combat capability.",
-  "base": "F-5A",
-  "notes": [
-    "Overhead and oblique cameras in extended nose."
-  ],
-  "VPs": [ 18, 12, 6, 3 ]
+    "versionname": "RF-5A",
+    "versiondescription": "Reconnaissance version of the F-5A, retaining full combat capability.",
+    "base": "F-5A",
+    "notes": [
+        "Overhead and oblique cameras in extended nose."
+    ],
+    "VPs": [
+        18,
+        12,
+        6,
+        3
+    ]
 }

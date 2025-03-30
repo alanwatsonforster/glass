@@ -1,72 +1,305 @@
 {
-  "versionname": "F9F-2",
-  "popularname": "Panther",
-  "description": "The Grumman F9F-2 Panther is a day fighter. It has a single engine, unswept wings, and is carrier-capable. This version has outer-wing stations capable of carrying only six HVARs. All F9F-2 versions were subsequently converted to F9F-2B versions.",
-  "manufacturername": "Grumman",
-  "origin": "TSOH",
-  "crew": [ "Pilot" ],
-  "powertable": {
-    "M"   : [ 1.0, 1.0, 1.0, 1.0 ],
-    "N"   : [ 0.0, 0.0, 0.0, 0.5 ],
-    "I"   : [ 0.5, 0.5, 0.5, 0.0 ],
-    "SPBR": [ 0.5, 0.5, 0.5 ]
-  },
-  "jetengines": 1,
-  "cruisespeed": 4.5,
-  "climbspeed" : 3.5,
-  "visibility": 5,
-  "sizemodifier": 0,
-  "vulnerability": 1,
-  "restrictedarcs": "",
-  "blindarcs": "30-",
-  "internalfuel": 300,
-  "atarefuel": false,
-  "ejectionseat": "early",
-  "maneuvertable": {
-    "LR/DR": [ 1.0, 1.5 ],
-    "VR":    [ 0.0, 0.5 ]
-  },
-  "turndragtable": {
-    "TT": [ 0.0, 0.0, 0.0 ],
-    "HT": [ 1.0, 1.0, 1.0 ],
-    "BT": [ 1.0, 2.0, 2.0 ]
-  },
-  "ceilingtable": [ 44, 40, 35 ],
-  "speedtable": {
-    "EH": [ [ "-", "-" ], [ "-", "-" ], [ "-", "-" ], "-" ],
-    "VH": [ [ 2.0, 5.0 ], [ 2.5, 5.0 ], [ "-", "-" ], 6.0 ],
-    "HI": [ [ 2.0, 5.0 ], [ 2.0, 5.0 ], [ 2.5, 4.5 ], 6.5 ],
-    "MH": [ [ 1.5, 5.5 ], [ 1.5, 5.0 ], [ 2.0, 4.5 ], 6.5 ],
-    "ML": [ [ 1.0, 5.5 ], [ 1.5, 5.5 ], [ 2.0, 5.0 ], 6.5 ],
-    "LO": [ [ 1.0, 6.0 ], [ 1.5, 5.5 ], [ 1.5, 5.0 ], 6.5 ]
-  },
-  "climbcapabilitytable": {
-    "EH": [ [ "-", "-" ], [ "-", "-" ], [ "-", "-" ] ],
-    "VH": [ [ "-", 0.5 ], [ "-", 0.5 ], [ "-", "-" ] ],
-    "HI": [ [ "-", 0.5 ], [ "-", 0.5 ], [ "-", 0.5 ] ],
-    "MH": [ [ "-", 1.0 ], [ "-", 0.5 ], [ "-", 0.5 ] ],
-    "ML": [ [ "-", 1.0 ], [ "-", 1.0 ], [ "-", 0.5 ] ],
-    "LO": [ [ "-", 1.0 ], [ "-", 1.0 ], [ "-", 1.0 ] ]
-  },
-  "gun": "Four 20 mm M3",
-  "gunatatohitrolls": "6/4/3",
-  "gundamagerating": "5/6*",
-  "gunammunition": 6.0,
-  "gunsightmodifiers": { "TT": 0, "HT": 1, "BT": 2 },
-  "ataradarranging": "RE",
-  "radar": {
-    "name": "APG-30",
-    "lockon": 6
-   },
-  "ecm": { "iff": true },
-  "storeslimits": [ 2, 6, 2000 ],
-  "stations": [
-    [ "grouppair", [ 1, 3, 4, 6], 250, [ "RK" ] ]
-  ],
-  "loadnotes": [],
-  "VPs": [ 7, 4, 2, 1 ],
-  "properties": [ "HTD" ],
-  "notes": [
-  ],
-  "wikiurl": "https://bit.ly/40Ccq7g"
+    "versionname": "F9F-2",
+    "popularname": "Panther",
+    "description": "The Grumman F9F-2 Panther is a day fighter. It has a single engine, unswept wings, and is carrier-capable. This version has outer-wing stations capable of carrying only six HVARs. All F9F-2 versions were subsequently converted to F9F-2B versions.",
+    "manufacturername": "Grumman",
+    "origin": "TSOH",
+    "crew": [
+        "Pilot"
+    ],
+    "powertable": {
+        "M": [
+            1.0,
+            1.0,
+            1.0,
+            1.0
+        ],
+        "N": [
+            0.0,
+            0.0,
+            0.0,
+            0.5
+        ],
+        "I": [
+            0.5,
+            0.5,
+            0.5,
+            0.0
+        ],
+        "SPBR": [
+            0.5,
+            0.5,
+            0.5
+        ]
+    },
+    "jetengines": 1,
+    "cruisespeed": 4.5,
+    "climbspeed": 3.5,
+    "visibility": 5,
+    "sizemodifier": 0,
+    "vulnerability": 1,
+    "restrictedarcs": "",
+    "blindarcs": "30-",
+    "internalfuel": 300,
+    "atarefuel": false,
+    "ejectionseat": "early",
+    "maneuvertable": {
+        "LR/DR": [
+            1.0,
+            1.5
+        ],
+        "VR": [
+            0.0,
+            0.5
+        ]
+    },
+    "turndragtable": {
+        "TT": [
+            0.0,
+            0.0,
+            0.0
+        ],
+        "HT": [
+            1.0,
+            1.0,
+            1.0
+        ],
+        "BT": [
+            1.0,
+            2.0,
+            2.0
+        ]
+    },
+    "ceilingtable": [
+        44,
+        40,
+        35
+    ],
+    "speedtable": {
+        "EH": [
+            [
+                "-",
+                "-"
+            ],
+            [
+                "-",
+                "-"
+            ],
+            [
+                "-",
+                "-"
+            ],
+            "-"
+        ],
+        "VH": [
+            [
+                2.0,
+                5.0
+            ],
+            [
+                2.5,
+                5.0
+            ],
+            [
+                "-",
+                "-"
+            ],
+            6.0
+        ],
+        "HI": [
+            [
+                2.0,
+                5.0
+            ],
+            [
+                2.0,
+                5.0
+            ],
+            [
+                2.5,
+                4.5
+            ],
+            6.5
+        ],
+        "MH": [
+            [
+                1.5,
+                5.5
+            ],
+            [
+                1.5,
+                5.0
+            ],
+            [
+                2.0,
+                4.5
+            ],
+            6.5
+        ],
+        "ML": [
+            [
+                1.0,
+                5.5
+            ],
+            [
+                1.5,
+                5.5
+            ],
+            [
+                2.0,
+                5.0
+            ],
+            6.5
+        ],
+        "LO": [
+            [
+                1.0,
+                6.0
+            ],
+            [
+                1.5,
+                5.5
+            ],
+            [
+                1.5,
+                5.0
+            ],
+            6.5
+        ]
+    },
+    "climbcapabilitytable": {
+        "EH": [
+            [
+                "-",
+                "-"
+            ],
+            [
+                "-",
+                "-"
+            ],
+            [
+                "-",
+                "-"
+            ]
+        ],
+        "VH": [
+            [
+                "-",
+                0.5
+            ],
+            [
+                "-",
+                0.5
+            ],
+            [
+                "-",
+                "-"
+            ]
+        ],
+        "HI": [
+            [
+                "-",
+                0.5
+            ],
+            [
+                "-",
+                0.5
+            ],
+            [
+                "-",
+                0.5
+            ]
+        ],
+        "MH": [
+            [
+                "-",
+                1.0
+            ],
+            [
+                "-",
+                0.5
+            ],
+            [
+                "-",
+                0.5
+            ]
+        ],
+        "ML": [
+            [
+                "-",
+                1.0
+            ],
+            [
+                "-",
+                1.0
+            ],
+            [
+                "-",
+                0.5
+            ]
+        ],
+        "LO": [
+            [
+                "-",
+                1.0
+            ],
+            [
+                "-",
+                1.0
+            ],
+            [
+                "-",
+                1.0
+            ]
+        ]
+    },
+    "gun": "Four 20 mm M3",
+    "gunatatohitrolls": "6/4/3",
+    "gundamagerating": "5/6*",
+    "gunammunition": 6.0,
+    "gunsightmodifiers": {
+        "TT": 0,
+        "HT": 1,
+        "BT": 2
+    },
+    "ataradarranging": "RE",
+    "radar": {
+        "name": "APG-30",
+        "lockon": 6
+    },
+    "ecm": {
+        "iff": true
+    },
+    "storeslimits": [
+        2,
+        6,
+        2000
+    ],
+    "stations": [
+        [
+            "grouppair",
+            [
+                1,
+                3,
+                4,
+                6
+            ],
+            250,
+            [
+                "RK"
+            ]
+        ]
+    ],
+    "loadnotes": [],
+    "VPs": [
+        7,
+        4,
+        2,
+        1
+    ],
+    "properties": [
+        "HTD"
+    ],
+    "notes": [],
+    "wikiurl": "https://bit.ly/40Ccq7g"
 }

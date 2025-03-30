@@ -1,15 +1,44 @@
 {
-  "versionname": "F4U-4B",
-  "description": "The Vought F4U-4B Corsair is a carrier-capable, propeller-driven day fighter and fighter-bomber. It it is developed from the F4U-4 and has four 20 mm M3 cannon in place of the six .50 cal machine guns.",
-  "base": "F4U-5",
-  "storeslimits": [ 4, 8, 4000 ],  
-  "stations": [
-    [ "grouppair", [ 1, 4, 7, 10 ],  500, [ "BB", "RK" ] ],
-    [ "pair"     , [ 5, 6 ]       , 1000, [ "BB", "RK", "FT" ] ]
-  ],
-  "loadnotes": [
-    "Stations 1 to 4 and 7 to 10 are closely spaced and have restrictions: a station adjacent to one other loaded with a store of more than 250 lb may only carry a store of 250 lb or less and a station between two others loaded with stores of more than 250 lb may not be used. In the first months of the Korean War, they could only carry HVAR RKs. Later, they could also carry ATAR RKs and BBs. Only one RK can be carried per station.",
-    "Stations 5 and 6 may carry 150 US gal (550L) FTs.",
-    "Stations 5 and 6 may carry Tiny Tim RKs."
-  ]
+    "versionname": "F4U-4B",
+    "description": "The Vought F4U-4B Corsair is a carrier-capable, propeller-driven day fighter and fighter-bomber. It it is developed from the F4U-4 and has four 20 mm M3 cannon in place of the six .50 cal machine guns.",
+    "base": "F4U-5",
+    "storeslimits": [
+        4,
+        8,
+        4000
+    ],
+    "stations": [
+        [
+            "grouppair",
+            [
+                1,
+                4,
+                7,
+                10
+            ],
+            500,
+            [
+                "BB",
+                "RK"
+            ]
+        ],
+        [
+            "pair",
+            [
+                5,
+                6
+            ],
+            1000,
+            [
+                "BB",
+                "RK",
+                "FT"
+            ]
+        ]
+    ],
+    "loadnotes": [
+        "Stations 1 to 4 and 7 to 10 are closely spaced and have restrictions: a station adjacent to one other loaded with a store of more than 250 lb may only carry a store of 250 lb or less and a station between two others loaded with stores of more than 250 lb may not be used. In the first months of the Korean War, they could only carry HVAR RKs. Later, they could also carry ATAR RKs and BBs. Only one RK can be carried per station.",
+        "Stations 5 and 6 may carry 150 US gal (550L) FTs.",
+        "Stations 5 and 6 may carry Tiny Tim RKs."
+    ]
 }

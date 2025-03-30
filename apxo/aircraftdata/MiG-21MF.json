@@ -1,14 +1,62 @@
 {
-  "versionname": "MiG-21MF",
-  "description": "The Mikoyan-Gurevich MiG-21MF is an all-weather interceptor. It is an export version of the MiG-21SM. The NATO reporting name for the aircraft is Fishbed-J and for the radar is Jay Bird.",
-  "base": "MiG-21SM",
-  "stations": [
-    [ "pair"  , [ 1, 5 ],  550, [ "BB", "RP", "RK", "EP", "FT", "MDR", "IRM" ] ],
-    [ "pair"  , [ 2, 3 ], 1100, [ "BB", "RP", "RK", "FT", "DR", "MDR", "IRM" ] ],
-    [ "single", [ 3 ]   , 1100, [ "EP", "PP", "FT" ] ]
-  ],
-  "loadnotes": [
-    "May use AA-2 and AA-8 IRMs. MDRs may only carry two AA-8 IRMs."
-  ],
-  "VPs": [ 24, 16, 8, 4 ]
+    "versionname": "MiG-21MF",
+    "description": "The Mikoyan-Gurevich MiG-21MF is an all-weather interceptor. It is an export version of the MiG-21SM. The NATO reporting name for the aircraft is Fishbed-J and for the radar is Jay Bird.",
+    "base": "MiG-21SM",
+    "stations": [
+        [
+            "pair",
+            [
+                1,
+                5
+            ],
+            550,
+            [
+                "BB",
+                "RP",
+                "RK",
+                "EP",
+                "FT",
+                "MDR",
+                "IRM"
+            ]
+        ],
+        [
+            "pair",
+            [
+                2,
+                3
+            ],
+            1100,
+            [
+                "BB",
+                "RP",
+                "RK",
+                "FT",
+                "DR",
+                "MDR",
+                "IRM"
+            ]
+        ],
+        [
+            "single",
+            [
+                3
+            ],
+            1100,
+            [
+                "EP",
+                "PP",
+                "FT"
+            ]
+        ]
+    ],
+    "loadnotes": [
+        "May use AA-2 and AA-8 IRMs. MDRs may only carry two AA-8 IRMs."
+    ],
+    "VPs": [
+        24,
+        16,
+        8,
+        4
+    ]
 }

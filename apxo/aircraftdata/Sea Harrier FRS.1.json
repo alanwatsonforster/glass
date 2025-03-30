@@ -1,63 +1,277 @@
 {
-  "versionname": "Sea Harrier FRS.1",
-  "origin": "TSOH 2nd Edition ADCs",
-  "crew": ["Pilot"],
-  "powertable": {
-    "M"   : [ 4.5, 3.5, 3.0, 3 ],
-    "N"   : [ 0, 0, 0, 1 ],
-    "I"   : [ 0.5, 0.5, 0.5, 0 ],
-    "SPBR": [ 0.5, 0.5, 1.0 ]
-  },
-  "jetengines": 1,
-  "cruisespeed": 5.5,
-  "climbspeed" : 4.5,
-  "visibility": 4,
-  "sizemodifier": 1,
-  "vulnerability": 0,
-  "restrictedarcs": "",
-  "blindarcs": "30-",
-  "internalfuel": 275,
-  "atarefuel": true,
-  "ejectionseat": "advanced",
-  "maneuvertable": {
-    "LR/DR": [ 1, 1 ],
-    "VR":    [ 0, 0 ]
-  },
-  "turndragtable": {
-    "TT": [ 1, 1, 2 ],
-    "HT": [ 2, 2, 3 ],
-    "BT": [ 4, 4, 4 ]
-  },
-  "ceilingtable": [ 50, 45, 40 ],
-  "speedtable": {
-    "EH": [ [ 4.0 , 6.0  ], [ "-" , "-"  ], [ "-" , "-"  ], 8.0 ],
-    "VH": [ [ 3.0 , 6.0  ], [ 3.5 , 5.5  ], [ 3.5 , 5.0  ], 8.0 ],
-    "HI": [ [ 2.5 , 6.5  ], [ 3.0 , 6.0  ], [ 3.0 , 5.0  ], 7.5 ],
-    "MH": [ [ 2.5 , 7.0  ], [ 2.5 , 6.0  ], [ 3.0 , 5.5  ], 7.5 ],
-    "ML": [ [ 2.0 , 7.0  ], [ 2.5 , 6.5  ], [ 2.5 , 5.5  ], 7.5 ],
-    "LO": [ [ 2.0 , 7.0  ], [ 2.0 , 6.5  ], [ 2.5 , 5.5  ], 7.5 ]
-  },
-  "climbcapabilitytable": {
-    "EH": [ [ "-", 1.0 ], [ "-", "-" ], [ "-", "-" ] ],
-    "VH": [ [ "-", 1.0 ], [ "-", 1.0 ], [ "-", 0.5 ] ],
-    "HI": [ [ "-", 2.0 ], [ "-", 1.0 ], [ "-", 1.0 ] ],
-    "MH": [ [ "-", 3.0 ], [ "-", 2.0 ], [ "-", 1.0 ] ],
-    "ML": [ [ "-", 4.0 ], [ "-", 3.0 ], [ "-", 1.0 ] ],
-    "LO": [ [ "-", 5.0 ], [ "-", 4.0 ], [ "-", 2.0 ] ]
-  },
-  "storeslimits": [ 4, 10, 8000 ],
-  "gun": "Two 30mm ADEN",
-  "gunatatohitrolls": "6/3/2",
-  "gunatadamagerating": 6,
-  "gunammunition": 3.0,
-  "gunsightmodifiers": { "BT": 2 },
-  "ataradarranging": "RE",
-  "properties": [ "HTD", "VIFF" ],
-  "notes": [
-    "May use AIM-9 IRMs.",
-    "The maximum vertical take-off weight with full internal fuel and with guns is 1600. Each 25 points less of fuel increases this by 500. Dismounting the guns increases this by 800.",
-    "ECM upgrades: After 1982 add DDS-A. After 1983, one gun may be replaced by a DJM-B3 pod. A single gun has hit rolls of 4/2/1 and damage ratings of 3/3.",
-    "The refueling probe is not normally fitted in combat. If fitted, reduce all maximum speeds by 1.0.",
-    "Increased IRM susceptibility: Apply a -1 modifier to hit rolls when attacked by IRMs (-2 if VIFFing). Treat the vulnerability as -1 for damage by IRMs."
-  ]
+    "versionname": "Sea Harrier FRS.1",
+    "origin": "TSOH 2nd Edition ADCs",
+    "crew": [
+        "Pilot"
+    ],
+    "powertable": {
+        "M": [
+            4.5,
+            3.5,
+            3.0,
+            3
+        ],
+        "N": [
+            0,
+            0,
+            0,
+            1
+        ],
+        "I": [
+            0.5,
+            0.5,
+            0.5,
+            0
+        ],
+        "SPBR": [
+            0.5,
+            0.5,
+            1.0
+        ]
+    },
+    "jetengines": 1,
+    "cruisespeed": 5.5,
+    "climbspeed": 4.5,
+    "visibility": 4,
+    "sizemodifier": 1,
+    "vulnerability": 0,
+    "restrictedarcs": "",
+    "blindarcs": "30-",
+    "internalfuel": 275,
+    "atarefuel": true,
+    "ejectionseat": "advanced",
+    "maneuvertable": {
+        "LR/DR": [
+            1,
+            1
+        ],
+        "VR": [
+            0,
+            0
+        ]
+    },
+    "turndragtable": {
+        "TT": [
+            1,
+            1,
+            2
+        ],
+        "HT": [
+            2,
+            2,
+            3
+        ],
+        "BT": [
+            4,
+            4,
+            4
+        ]
+    },
+    "ceilingtable": [
+        50,
+        45,
+        40
+    ],
+    "speedtable": {
+        "EH": [
+            [
+                4.0,
+                6.0
+            ],
+            [
+                "-",
+                "-"
+            ],
+            [
+                "-",
+                "-"
+            ],
+            8.0
+        ],
+        "VH": [
+            [
+                3.0,
+                6.0
+            ],
+            [
+                3.5,
+                5.5
+            ],
+            [
+                3.5,
+                5.0
+            ],
+            8.0
+        ],
+        "HI": [
+            [
+                2.5,
+                6.5
+            ],
+            [
+                3.0,
+                6.0
+            ],
+            [
+                3.0,
+                5.0
+            ],
+            7.5
+        ],
+        "MH": [
+            [
+                2.5,
+                7.0
+            ],
+            [
+                2.5,
+                6.0
+            ],
+            [
+                3.0,
+                5.5
+            ],
+            7.5
+        ],
+        "ML": [
+            [
+                2.0,
+                7.0
+            ],
+            [
+                2.5,
+                6.5
+            ],
+            [
+                2.5,
+                5.5
+            ],
+            7.5
+        ],
+        "LO": [
+            [
+                2.0,
+                7.0
+            ],
+            [
+                2.0,
+                6.5
+            ],
+            [
+                2.5,
+                5.5
+            ],
+            7.5
+        ]
+    },
+    "climbcapabilitytable": {
+        "EH": [
+            [
+                "-",
+                1.0
+            ],
+            [
+                "-",
+                "-"
+            ],
+            [
+                "-",
+                "-"
+            ]
+        ],
+        "VH": [
+            [
+                "-",
+                1.0
+            ],
+            [
+                "-",
+                1.0
+            ],
+            [
+                "-",
+                0.5
+            ]
+        ],
+        "HI": [
+            [
+                "-",
+                2.0
+            ],
+            [
+                "-",
+                1.0
+            ],
+            [
+                "-",
+                1.0
+            ]
+        ],
+        "MH": [
+            [
+                "-",
+                3.0
+            ],
+            [
+                "-",
+                2.0
+            ],
+            [
+                "-",
+                1.0
+            ]
+        ],
+        "ML": [
+            [
+                "-",
+                4.0
+            ],
+            [
+                "-",
+                3.0
+            ],
+            [
+                "-",
+                1.0
+            ]
+        ],
+        "LO": [
+            [
+                "-",
+                5.0
+            ],
+            [
+                "-",
+                4.0
+            ],
+            [
+                "-",
+                2.0
+            ]
+        ]
+    },
+    "storeslimits": [
+        4,
+        10,
+        8000
+    ],
+    "gun": "Two 30mm ADEN",
+    "gunatatohitrolls": "6/3/2",
+    "gunatadamagerating": 6,
+    "gunammunition": 3.0,
+    "gunsightmodifiers": {
+        "BT": 2
+    },
+    "ataradarranging": "RE",
+    "properties": [
+        "HTD",
+        "VIFF"
+    ],
+    "notes": [
+        "May use AIM-9 IRMs.",
+        "The maximum vertical take-off weight with full internal fuel and with guns is 1600. Each 25 points less of fuel increases this by 500. Dismounting the guns increases this by 800.",
+        "ECM upgrades: After 1982 add DDS-A. After 1983, one gun may be replaced by a DJM-B3 pod. A single gun has hit rolls of 4/2/1 and damage ratings of 3/3.",
+        "The refueling probe is not normally fitted in combat. If fitted, reduce all maximum speeds by 1.0.",
+        "Increased IRM susceptibility: Apply a -1 modifier to hit rolls when attacked by IRMs (-2 if VIFFing). Treat the vulnerability as -1 for damage by IRMs."
+    ]
 }

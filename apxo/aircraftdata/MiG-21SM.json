@@ -1,76 +1,356 @@
 {
-  "versionname": "MiG-21SM",
-  "base": "MiG-21PF",
-  "description": "The Mikoyan-Gurevich MiG-21SM is an all-weather interceptor. It is an improved version of the MiG-21S, with a new engine and an internal GSh-21L cannon. NATO reporting name for the aircraft is Fishbed-J and for the radar is Jay Bird.",
-  "origin": "TSOH",
-  "powertable": {
-    "AB"  : [ 3.5, 2.5, 2.5, 6.0 ],
-    "M"   : [ 1.5, 1.0, 1.0, 2.0 ],
-    "N"   : [ 0.0, 0.0, 0.0, 1.0 ],
-    "I"   : [ 0.5, 0.5, 1.0, 0.0 ],
-    "SPBR": [ 0.5, 1.0, 1.0 ]
-  },
-  "internalfuel": 220,
-  "lowspeedliftdeviceselectable": true,
-  "lowspeedliftdevicelimit": 4.5,
-  "lowspeedliftdeviceminspeedchange": 0.5,
-  "lowspeedliftdevicelimittype": "absolute",
-  "lowspeedliftdevicename": "combat flaps",
-  "turndragtable": {
-    "TT": [ 1.0, 1.0, 1.0 ],
-    "HT": [ 2.0, 2.0, 3.0 ],
-    "BT": [ 4.0, 4.0, 4.0 ],
-    "ET": [ 4.0, 5.0, "-" ]
-  },
-  "lowspeedliftdeviceturndragtable": {
-    "TT": [ 2.0, 2.0, 2.0 ],
-    "HT": [ 3.0, 3.0, 4.0 ],
-    "BT": [ 5.0, 5.0, 5.0 ],
-    "ET": [ 5.0, 6.0, "-" ]
-  },
-  "ceilingtable": [ 56, 50, 44 ],
-  "speedtable": {
-    "EH": [ [ 4.0, 11.0 ], [ 4.5, 10.0 ], [ "-", "-" ], 12.0 ],
-    "VH": [ [ 3.5, 12.0 ], [ 4.0, 11.0 ], [ 5.0, 9.0 ], 12.0 ],
-    "HI": [ [ 3.0, 10.5 ], [ 3.5,  9.0 ], [ 4.0, 8.0 ], 12.0 ],
-    "MH": [ [ 2.5,  9.0 ], [ 3.0,  8.0 ], [ 3.0, 7.0 ], 10.0 ],
-    "ML": [ [ 2.0,  8.5 ], [ 2.5,  7.5 ], [ 2.5, 6.5 ],  9.0 ],
-    "LO": [ [ 2.0,  8.0 ], [ 2.0,  7.0 ], [ 2.5, 6.0 ],  8.5 ]
-  },
-  "climbcapabilitytable": {
-    "EH": [ [ 1.0, 0.5 ], [ 1.0, 0.5 ], [ "-", "-" ] ],
-    "VH": [ [ 1.0, 0.5 ], [ 1.0, 0.5 ], [ 1.0, 0.5 ] ],
-    "HI": [ [ 2.0, 0.5 ], [ 1.0, 0.5 ], [ 1.0, 0.5 ] ],
-    "MH": [ [ 3.0, 1.0 ], [ 2.0, 1.0 ], [ 1.5, 0.5 ] ],
-    "ML": [ [ 4.0, 1.0 ], [ 3.0, 1.0 ], [ 1.5, 0.5 ] ],
-    "LO": [ [ 4.0, 2.0 ], [ 3.0, 1.0 ], [ 2.0, 1.0 ] ]
-  },
-  "radar": {
-    "name": "RP-22 Saphir-21",
-    "eccm": 0,
-    "arc": "180+",
-    "searchrange": 48,
-    "searchstrength": 12,
-    "trackingrange": 30,
-    "trackingstrength": 8,
-    "lockon": 7
-  },
-  "gun": "23 mm GSh-23",
-  "gunatatohitrolls": "7/4/2",
-  "gunammunition": 2.0,
-  "gunsightmodifiers": { "TT": 0, "HT": 2, "BT": 3 },
-  "ataradarranging": "RE",
-  "gundamagerating": "5/5",
-  "ecm": { "iff": true, "rwr": "A" },
-  "properties": [ ],
-  "storeslimits": [ 4, 6, 4400 ],
-  "stations": [
-    [ "pair"  , [ 1, 5 ],  550, [ "BB", "RP", "RK", "EP", "FT", "IRM", "RHM" ] ],
-    [ "pair"  , [ 2, 3 ], 1100, [ "BB", "RP", "RK", "FT", "DR", "IRM" ] ],
-    [ "single", [ 3 ]   , 1100, [ "EP", "PP", "FT" ] ]
-  ],
-  "loadnotes": [
-    "May use AA-2 IRMs and AA-2C RHMs."
-  ],
-  "VPs": [ 24, 16, 8, 4 ]
+    "versionname": "MiG-21SM",
+    "base": "MiG-21PF",
+    "description": "The Mikoyan-Gurevich MiG-21SM is an all-weather interceptor. It is an improved version of the MiG-21S, with a new engine and an internal GSh-21L cannon. NATO reporting name for the aircraft is Fishbed-J and for the radar is Jay Bird.",
+    "origin": "TSOH",
+    "powertable": {
+        "AB": [
+            3.5,
+            2.5,
+            2.5,
+            6.0
+        ],
+        "M": [
+            1.5,
+            1.0,
+            1.0,
+            2.0
+        ],
+        "N": [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+        ],
+        "I": [
+            0.5,
+            0.5,
+            1.0,
+            0.0
+        ],
+        "SPBR": [
+            0.5,
+            1.0,
+            1.0
+        ]
+    },
+    "internalfuel": 220,
+    "lowspeedliftdeviceselectable": true,
+    "lowspeedliftdevicelimit": 4.5,
+    "lowspeedliftdeviceminspeedchange": 0.5,
+    "lowspeedliftdevicelimittype": "absolute",
+    "lowspeedliftdevicename": "combat flaps",
+    "turndragtable": {
+        "TT": [
+            1.0,
+            1.0,
+            1.0
+        ],
+        "HT": [
+            2.0,
+            2.0,
+            3.0
+        ],
+        "BT": [
+            4.0,
+            4.0,
+            4.0
+        ],
+        "ET": [
+            4.0,
+            5.0,
+            "-"
+        ]
+    },
+    "lowspeedliftdeviceturndragtable": {
+        "TT": [
+            2.0,
+            2.0,
+            2.0
+        ],
+        "HT": [
+            3.0,
+            3.0,
+            4.0
+        ],
+        "BT": [
+            5.0,
+            5.0,
+            5.0
+        ],
+        "ET": [
+            5.0,
+            6.0,
+            "-"
+        ]
+    },
+    "ceilingtable": [
+        56,
+        50,
+        44
+    ],
+    "speedtable": {
+        "EH": [
+            [
+                4.0,
+                11.0
+            ],
+            [
+                4.5,
+                10.0
+            ],
+            [
+                "-",
+                "-"
+            ],
+            12.0
+        ],
+        "VH": [
+            [
+                3.5,
+                12.0
+            ],
+            [
+                4.0,
+                11.0
+            ],
+            [
+                5.0,
+                9.0
+            ],
+            12.0
+        ],
+        "HI": [
+            [
+                3.0,
+                10.5
+            ],
+            [
+                3.5,
+                9.0
+            ],
+            [
+                4.0,
+                8.0
+            ],
+            12.0
+        ],
+        "MH": [
+            [
+                2.5,
+                9.0
+            ],
+            [
+                3.0,
+                8.0
+            ],
+            [
+                3.0,
+                7.0
+            ],
+            10.0
+        ],
+        "ML": [
+            [
+                2.0,
+                8.5
+            ],
+            [
+                2.5,
+                7.5
+            ],
+            [
+                2.5,
+                6.5
+            ],
+            9.0
+        ],
+        "LO": [
+            [
+                2.0,
+                8.0
+            ],
+            [
+                2.0,
+                7.0
+            ],
+            [
+                2.5,
+                6.0
+            ],
+            8.5
+        ]
+    },
+    "climbcapabilitytable": {
+        "EH": [
+            [
+                1.0,
+                0.5
+            ],
+            [
+                1.0,
+                0.5
+            ],
+            [
+                "-",
+                "-"
+            ]
+        ],
+        "VH": [
+            [
+                1.0,
+                0.5
+            ],
+            [
+                1.0,
+                0.5
+            ],
+            [
+                1.0,
+                0.5
+            ]
+        ],
+        "HI": [
+            [
+                2.0,
+                0.5
+            ],
+            [
+                1.0,
+                0.5
+            ],
+            [
+                1.0,
+                0.5
+            ]
+        ],
+        "MH": [
+            [
+                3.0,
+                1.0
+            ],
+            [
+                2.0,
+                1.0
+            ],
+            [
+                1.5,
+                0.5
+            ]
+        ],
+        "ML": [
+            [
+                4.0,
+                1.0
+            ],
+            [
+                3.0,
+                1.0
+            ],
+            [
+                1.5,
+                0.5
+            ]
+        ],
+        "LO": [
+            [
+                4.0,
+                2.0
+            ],
+            [
+                3.0,
+                1.0
+            ],
+            [
+                2.0,
+                1.0
+            ]
+        ]
+    },
+    "radar": {
+        "name": "RP-22 Saphir-21",
+        "eccm": 0,
+        "arc": "180+",
+        "searchrange": 48,
+        "searchstrength": 12,
+        "trackingrange": 30,
+        "trackingstrength": 8,
+        "lockon": 7
+    },
+    "gun": "23 mm GSh-23",
+    "gunatatohitrolls": "7/4/2",
+    "gunammunition": 2.0,
+    "gunsightmodifiers": {
+        "TT": 0,
+        "HT": 2,
+        "BT": 3
+    },
+    "ataradarranging": "RE",
+    "gundamagerating": "5/5",
+    "ecm": {
+        "iff": true,
+        "rwr": "A"
+    },
+    "properties": [],
+    "storeslimits": [
+        4,
+        6,
+        4400
+    ],
+    "stations": [
+        [
+            "pair",
+            [
+                1,
+                5
+            ],
+            550,
+            [
+                "BB",
+                "RP",
+                "RK",
+                "EP",
+                "FT",
+                "IRM",
+                "RHM"
+            ]
+        ],
+        [
+            "pair",
+            [
+                2,
+                3
+            ],
+            1100,
+            [
+                "BB",
+                "RP",
+                "RK",
+                "FT",
+                "DR",
+                "IRM"
+            ]
+        ],
+        [
+            "single",
+            [
+                3
+            ],
+            1100,
+            [
+                "EP",
+                "PP",
+                "FT"
+            ]
+        ]
+    ],
+    "loadnotes": [
+        "May use AA-2 IRMs and AA-2C RHMs."
+    ],
+    "VPs": [
+        24,
+        16,
+        8,
+        4
+    ]
 }

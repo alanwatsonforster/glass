@@ -1,26 +1,55 @@
 {
-  "versionname": "F-105D",
-  "origin": "TSOH",
-  "base": "F-105B",
-  "powertable": {
-    "AB"  : [ 2.5, 2.0, 2.0, 9.0 ],
-    "M"   : [ 1.0, 1.0, 1.0, 2.0 ],
-    "N"   : [ 0.0, 0.0, 0.0, 1.0 ],
-    "I"   : [ 0.5, 0.5, 0.5, 0.0 ],
-    "SPBR": [ 0.5, 0.5, 1.0 ]
-  },
-  "radar": {
-    "name": "R-14A",
-    "eccm": 0,
-    "arc": "180+",
-    "searchrange": 60,
-    "searchstrength": 15,
-    "trackingrange": 40,
-    "trackingstrength": 10,
-    "lockon": 6
-  },
-  "notes": [
-    "Radar in air-to-ground mode has: Gr.\\ Nav.\\ (180) and Gr.\\ Attack (90)."
-  ],
-  "VPs": [ 24, 18, 9, 4 ]
+    "versionname": "F-105D",
+    "origin": "TSOH",
+    "base": "F-105B",
+    "powertable": {
+        "AB": [
+            2.5,
+            2.0,
+            2.0,
+            9.0
+        ],
+        "M": [
+            1.0,
+            1.0,
+            1.0,
+            2.0
+        ],
+        "N": [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+        ],
+        "I": [
+            0.5,
+            0.5,
+            0.5,
+            0.0
+        ],
+        "SPBR": [
+            0.5,
+            0.5,
+            1.0
+        ]
+    },
+    "radar": {
+        "name": "R-14A",
+        "eccm": 0,
+        "arc": "180+",
+        "searchrange": 60,
+        "searchstrength": 15,
+        "trackingrange": 40,
+        "trackingstrength": 10,
+        "lockon": 6
+    },
+    "notes": [
+        "Radar in air-to-ground mode has: Gr.\\ Nav.\\ (180) and Gr.\\ Attack (90)."
+    ],
+    "VPs": [
+        24,
+        18,
+        9,
+        4
+    ]
 }

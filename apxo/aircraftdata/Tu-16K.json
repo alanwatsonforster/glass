@@ -1,11 +1,25 @@
 {
-  "versionname": "Tu-16K",
-  "description": "The Tupolev Tu-16K is a maritime strike aircraft. The NATO reporting name for the aircraft is Badger-G, and for the tail radar is Bee Hind.",
-  "base": "Tu-16KS",
-  "stations": [
-    [ "pair", [ 1, 2 ], 10000, [ "BB", "WR", "FT", "ARM", "ASM" ]]
-  ], 
-  "loadnotes": [
-    "Stations 1 and 2 may each carry one AS-5 Kelt ASM or ARM."
-  ]
+    "versionname": "Tu-16K",
+    "description": "The Tupolev Tu-16K is a maritime strike aircraft. The NATO reporting name for the aircraft is Badger-G, and for the tail radar is Bee Hind.",
+    "base": "Tu-16KS",
+    "stations": [
+        [
+            "pair",
+            [
+                1,
+                2
+            ],
+            10000,
+            [
+                "BB",
+                "WR",
+                "FT",
+                "ARM",
+                "ASM"
+            ]
+        ]
+    ],
+    "loadnotes": [
+        "Stations 1 and 2 may each carry one AS-5 Kelt ASM or ARM."
+    ]
 }

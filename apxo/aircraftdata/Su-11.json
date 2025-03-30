@@ -1,34 +1,79 @@
 {
-  "versionname": "Su-11",
-  "base": "Su-9",
-  "description": "The Sukhoi Su-11 is an all-weather interceptor. It is an improved version of the Su-9. The NATO reporting name for the aircraft is Fishpot-C and for the radar is Skip Spin.",
-  "turndragtable": {
-    "TT": [ 2.0, 2.0, 2.0 ],
-    "HT": [ 3.0, 3.0, 4.0 ],
-    "BT": [ 5.0, 5.0, 6.0 ]
-  },
-  "radar": {
-    "name": "Skip Spin",
-    "eccm": 0,
-    "arc": "180+",
-    "searchrange": 54,
-    "searchstrength": 12,
-    "trackingrange": 48,
-    "trackingstrength": 10,
-    "lockon": 7
-  },
-  "ecm": { "iff": true, "rwr": "A" },
-  "notes": [
-  ],
-  "wikiurl": "https://bit.ly/4eSFrip",
-  "storeslimits": [ 2, 6, 3800 ],
-  "stations": [
-    [ "pair", [ 1, 4 ],  600, [ "IRM", "RHM" ] ],
-    [ "pair", [ 2, 3 ], 1100, [ "IRM", "FT" ] ]
-  ],
-  "loadnotes": [
-    "May only use AA-2 or AA-3 IRMs and AA-3 RHMs on stations 1 and 4.",
-    "May only use AA-2 IRMs on stations 2 and 3."
-  ],
-  "VPs": [ 18, 12, 8, 4 ]
+    "versionname": "Su-11",
+    "base": "Su-9",
+    "description": "The Sukhoi Su-11 is an all-weather interceptor. It is an improved version of the Su-9. The NATO reporting name for the aircraft is Fishpot-C and for the radar is Skip Spin.",
+    "turndragtable": {
+        "TT": [
+            2.0,
+            2.0,
+            2.0
+        ],
+        "HT": [
+            3.0,
+            3.0,
+            4.0
+        ],
+        "BT": [
+            5.0,
+            5.0,
+            6.0
+        ]
+    },
+    "radar": {
+        "name": "Skip Spin",
+        "eccm": 0,
+        "arc": "180+",
+        "searchrange": 54,
+        "searchstrength": 12,
+        "trackingrange": 48,
+        "trackingstrength": 10,
+        "lockon": 7
+    },
+    "ecm": {
+        "iff": true,
+        "rwr": "A"
+    },
+    "notes": [],
+    "wikiurl": "https://bit.ly/4eSFrip",
+    "storeslimits": [
+        2,
+        6,
+        3800
+    ],
+    "stations": [
+        [
+            "pair",
+            [
+                1,
+                4
+            ],
+            600,
+            [
+                "IRM",
+                "RHM"
+            ]
+        ],
+        [
+            "pair",
+            [
+                2,
+                3
+            ],
+            1100,
+            [
+                "IRM",
+                "FT"
+            ]
+        ]
+    ],
+    "loadnotes": [
+        "May only use AA-2 or AA-3 IRMs and AA-3 RHMs on stations 1 and 4.",
+        "May only use AA-2 IRMs on stations 2 and 3."
+    ],
+    "VPs": [
+        18,
+        12,
+        8,
+        4
+    ]
 }

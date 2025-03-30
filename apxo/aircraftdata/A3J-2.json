@@ -1,7 +1,7 @@
 {
-  "versionname": "A3J-2",
-  "versiondescription": "The A3J-2 is an improved version of the A3J-1, with additional fuel, two extra pylons, blow flaps. It did not see service as a bomber, but instead was used as a trainer for the RA-5C.",
-  "base": "A-5B",
-  "previouslydesignated": null,
-  "subsequentlydesignated": "A-5B"
+    "versionname": "A3J-2",
+    "versiondescription": "The A3J-2 is an improved version of the A3J-1, with additional fuel, two extra pylons, blow flaps. It did not see service as a bomber, but instead was used as a trainer for the RA-5C.",
+    "base": "A-5B",
+    "previouslydesignated": null,
+    "subsequentlydesignated": "A-5B"
 }

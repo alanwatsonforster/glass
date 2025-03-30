@@ -1,5 +1,5 @@
 {
-  "versionname": "Shenyang F-5",
-  "description": "The Shenyang F-5 is a day fighter. It is the export version of the Shenyang J-5 and is a licensed version of the MiG-17F. The NATO reporting name is Fresco-C.",
-  "base": "Shenyang J-5"
+    "versionname": "Shenyang F-5",
+    "description": "The Shenyang F-5 is a day fighter. It is the export version of the Shenyang J-5 and is a licensed version of the MiG-17F. The NATO reporting name is Fresco-C.",
+    "base": "Shenyang J-5"
 }

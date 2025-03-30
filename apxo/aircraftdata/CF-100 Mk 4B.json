@@ -1,86 +1,334 @@
 {
-  "versionname": "CF-100 Mk 4B",
-  "popularname": "Canuck",
-  "description": "The Avro Canada CF-100 Mk 4B Canuck is an all-weather intercepter. The Mk 4B version is powered by two Orenda 11 engines and equipped with eight 0.50 cal M3 machine guns, two pods of FFARs, and a Hughes MG-2 fire-control system.",
-  "origin": "APJ 14",
-  "crew": [ "Pilot", "Radar Officer" ],
-  "powertable": {
-    "M"   : [ 1.0, 1.0, 1.0, 2.0 ],
-    "N"   : [ 0.0, 0.0, 0.0, 1.0 ],
-    "I"   : [ 0.5, 0.5, 1.0, 0.0 ],
-    "SPBR": [ 0.5, 0.5, 1.0 ]
-  },
-  "jetengines": 2,
-  "cruisespeed": 4.5,
-  "climbspeed" : 3.0,
-  "visibility": 7,
-  "sizemodifier": 0,
-  "vulnerability": -1,
-  "restrictedarcs": "",
-  "blindarcs": "30-",
-  "internalfuel": 525,
-  "atarefuel": false,
-  "ejectionseat": "early",
-  "maneuvertable": {
-    "LR/DR": [ 1.0, 1.5 ],
-    "VR":    [ 0.0, 1.0 ]
-  },
-  "turndragtable": {
-    "TT": [ 1.0, 1.0, 1.0 ],
-    "HT": [ 2.0, 2.0, 2.0 ],
-    "BT": [ 2.0, 2.0, 2.0 ],
-    "ET": [ "-", "-", "-" ]
-  },
-  "ceilingtable": [ 42, 41, 40 ],
-  "speedtable": {
-    "EH": [ [  "-",  "-" ], [  "-",  "-" ], [  "-",  "-" ],  "-" ],
-    "VH": [ [  3.0,  5.5 ], [  3.0,  5.5 ], [  3.0,  5.0 ],  6.5 ],
-    "HI": [ [  2.5,  5.5 ], [  2.5,  5.5 ], [  3.0,  5.0 ],  6.5 ],
-    "MH": [ [  2.0,  6.0 ], [  2.0,  6.0 ], [  2.5,  5.5 ],  7.0 ],
-    "ML": [ [  2.0,  6.0 ], [  2.0,  6.0 ], [  2.0,  5.5 ],  7.0 ],
-    "LO": [ [  1.5,  6.5 ], [  2.0,  6.0 ], [  2.0,  6.0 ],  7.0 ]
-  },
-  "climbcapabilitytable": {
-    "EH": [ [ "-", "-" ], [ "-", "-" ], [ "-", "-" ] ],
-    "VH": [ [ "-", 0.5 ], [ "-", 0.5 ], [ "-", 0.5 ] ],
-    "HI": [ [ "-", 1.0 ], [ "-", 1.0 ], [ "-", 0.5 ] ],
-    "MH": [ [ "-", 1.0 ], [ "-", 1.0 ], [ "-", 1.0 ] ],
-    "ML": [ [ "-", 1.0 ], [ "-", 1.0 ], [ "-", 1.0 ] ],
-    "LO": [ [ "-", 1.5 ], [ "-", 1.0 ], [ "-", 1.0 ] ]
-  },
-  "radar": {
-    "name": "APG-40",
-    "eccm": 1,
-    "arc": "180+",
-    "searchrange": 80,
-    "searchstrength": 10,
-    "trackingrange": 40,
-    "trackingstrength": 8,
-    "lockon": 8
-  },
-  "gun": "Eight .50 cal M3",
-  "gunatatohitrolls": "6/4/1",
-  "gundamagerating": "5/6**",
-  "gunammunition": 5.5,
-  "gunsightmodifiers": { "TT": 0, "HT": 1, "BT": 2 },
-  "ataradarranging": "RE",
-  "ecm": { "iff": true },
-  "technology": [
-    "CC Rocket Attack"
-  ],
-  "properties": [ "HTD" ],
-  "notes": [
-    "The configuration is considered to be CL with the wing-tip FTs or RPs if the internal fuel is 260 fuel points or less."
-  ],
-  "wikiurl": "https://tinyurl.com/3efwrbck",
-  "storeslimits": [ 4, 6, 4400 ],
-  "stations": [
-    [ "pair", [ 1, 3 ], 2200, [ "FT", "RP" ] ],
-    [ "single", [ 2 ], 0, [ "GP", "RP"]]
-  ],
-  "loadnotes": [
-    "Stations 1 and 3 are the wing-tip pods. They may carry RPs (each weight 500, load 3.0, and with 3.0 factors of air-to-air rockets) or 1200L FTs for ferry missions. The RPs and FTs may be jettisoned.",
-    "Station 2 is the internal weapons bay. It may be equipped either with a gun pack with eight .50 cal machine guns or a rocket pack. If the rocket pack is used, remove the guns and add 4 factors of air-to-air rockets. The rocket pack was tested but did not enter service."
-  ],
-  "VPs": [ 12, 8, 4, 2 ]
+    "versionname": "CF-100 Mk 4B",
+    "popularname": "Canuck",
+    "description": "The Avro Canada CF-100 Mk 4B Canuck is an all-weather intercepter. The Mk 4B version is powered by two Orenda 11 engines and equipped with eight 0.50 cal M3 machine guns, two pods of FFARs, and a Hughes MG-2 fire-control system.",
+    "origin": "APJ 14",
+    "crew": [
+        "Pilot",
+        "Radar Officer"
+    ],
+    "powertable": {
+        "M": [
+            1.0,
+            1.0,
+            1.0,
+            2.0
+        ],
+        "N": [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+        ],
+        "I": [
+            0.5,
+            0.5,
+            1.0,
+            0.0
+        ],
+        "SPBR": [
+            0.5,
+            0.5,
+            1.0
+        ]
+    },
+    "jetengines": 2,
+    "cruisespeed": 4.5,
+    "climbspeed": 3.0,
+    "visibility": 7,
+    "sizemodifier": 0,
+    "vulnerability": -1,
+    "restrictedarcs": "",
+    "blindarcs": "30-",
+    "internalfuel": 525,
+    "atarefuel": false,
+    "ejectionseat": "early",
+    "maneuvertable": {
+        "LR/DR": [
+            1.0,
+            1.5
+        ],
+        "VR": [
+            0.0,
+            1.0
+        ]
+    },
+    "turndragtable": {
+        "TT": [
+            1.0,
+            1.0,
+            1.0
+        ],
+        "HT": [
+            2.0,
+            2.0,
+            2.0
+        ],
+        "BT": [
+            2.0,
+            2.0,
+            2.0
+        ],
+        "ET": [
+            "-",
+            "-",
+            "-"
+        ]
+    },
+    "ceilingtable": [
+        42,
+        41,
+        40
+    ],
+    "speedtable": {
+        "EH": [
+            [
+                "-",
+                "-"
+            ],
+            [
+                "-",
+                "-"
+            ],
+            [
+                "-",
+                "-"
+            ],
+            "-"
+        ],
+        "VH": [
+            [
+                3.0,
+                5.5
+            ],
+            [
+                3.0,
+                5.5
+            ],
+            [
+                3.0,
+                5.0
+            ],
+            6.5
+        ],
+        "HI": [
+            [
+                2.5,
+                5.5
+            ],
+            [
+                2.5,
+                5.5
+            ],
+            [
+                3.0,
+                5.0
+            ],
+            6.5
+        ],
+        "MH": [
+            [
+                2.0,
+                6.0
+            ],
+            [
+                2.0,
+                6.0
+            ],
+            [
+                2.5,
+                5.5
+            ],
+            7.0
+        ],
+        "ML": [
+            [
+                2.0,
+                6.0
+            ],
+            [
+                2.0,
+                6.0
+            ],
+            [
+                2.0,
+                5.5
+            ],
+            7.0
+        ],
+        "LO": [
+            [
+                1.5,
+                6.5
+            ],
+            [
+                2.0,
+                6.0
+            ],
+            [
+                2.0,
+                6.0
+            ],
+            7.0
+        ]
+    },
+    "climbcapabilitytable": {
+        "EH": [
+            [
+                "-",
+                "-"
+            ],
+            [
+                "-",
+                "-"
+            ],
+            [
+                "-",
+                "-"
+            ]
+        ],
+        "VH": [
+            [
+                "-",
+                0.5
+            ],
+            [
+                "-",
+                0.5
+            ],
+            [
+                "-",
+                0.5
+            ]
+        ],
+        "HI": [
+            [
+                "-",
+                1.0
+            ],
+            [
+                "-",
+                1.0
+            ],
+            [
+                "-",
+                0.5
+            ]
+        ],
+        "MH": [
+            [
+                "-",
+                1.0
+            ],
+            [
+                "-",
+                1.0
+            ],
+            [
+                "-",
+                1.0
+            ]
+        ],
+        "ML": [
+            [
+                "-",
+                1.0
+            ],
+            [
+                "-",
+                1.0
+            ],
+            [
+                "-",
+                1.0
+            ]
+        ],
+        "LO": [
+            [
+                "-",
+                1.5
+            ],
+            [
+                "-",
+                1.0
+            ],
+            [
+                "-",
+                1.0
+            ]
+        ]
+    },
+    "radar": {
+        "name": "APG-40",
+        "eccm": 1,
+        "arc": "180+",
+        "searchrange": 80,
+        "searchstrength": 10,
+        "trackingrange": 40,
+        "trackingstrength": 8,
+        "lockon": 8
+    },
+    "gun": "Eight .50 cal M3",
+    "gunatatohitrolls": "6/4/1",
+    "gundamagerating": "5/6**",
+    "gunammunition": 5.5,
+    "gunsightmodifiers": {
+        "TT": 0,
+        "HT": 1,
+        "BT": 2
+    },
+    "ataradarranging": "RE",
+    "ecm": {
+        "iff": true
+    },
+    "technology": [
+        "CC Rocket Attack"
+    ],
+    "properties": [
+        "HTD"
+    ],
+    "notes": [
+        "The configuration is considered to be CL with the wing-tip FTs or RPs if the internal fuel is 260 fuel points or less."
+    ],
+    "wikiurl": "https://tinyurl.com/3efwrbck",
+    "storeslimits": [
+        4,
+        6,
+        4400
+    ],
+    "stations": [
+        [
+            "pair",
+            [
+                1,
+                3
+            ],
+            2200,
+            [
+                "FT",
+                "RP"
+            ]
+        ],
+        [
+            "single",
+            [
+                2
+            ],
+            0,
+            [
+                "GP",
+                "RP"
+            ]
+        ]
+    ],
+    "loadnotes": [
+        "Stations 1 and 3 are the wing-tip pods. They may carry RPs (each weight 500, load 3.0, and with 3.0 factors of air-to-air rockets) or 1200L FTs for ferry missions. The RPs and FTs may be jettisoned.",
+        "Station 2 is the internal weapons bay. It may be equipped either with a gun pack with eight .50 cal machine guns or a rocket pack. If the rocket pack is used, remove the guns and add 4 factors of air-to-air rockets. The rocket pack was tested but did not enter service."
+    ],
+    "VPs": [
+        12,
+        8,
+        4,
+        2
+    ]
 }

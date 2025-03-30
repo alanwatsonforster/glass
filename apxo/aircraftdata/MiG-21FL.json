@@ -1,26 +1,56 @@
 {
-  "versionname": "MiG-21FL",
-  "description": "The Mikoyan-Gurevich MiG-21FL is an all-weather interceptor. This is an export version developed from the MiG-21PF, but with the less powerful engine from the MiG-21F, no capability to use the AA-1 missile, and a downgraded version of the RP21 designated R1L. NATO reporting name for the aircraft is Fishbed-D.",
-  "origin": "TSOH",
-  "base": "MiG-21PF",
-  "internalfuel": 220,
-  "radar": {
-    "name": "R1L",
-    "eccm": 0,
-    "arc": "180+",
-    "searchrange": 30,
-    "searchstrength": 6,
-    "trackingrange": 18,
-    "trackingstrength": 6,
-    "lockon": 7
-  },
-  "stations": [
-    [ "pair"  , [ 1, 3 ],  550, [ "BB", "RP", "RK", "DR", "FT", "IRM" ] ],
-    [ "single", [ 2 ]   , 1100, [ "FT", "GP" ] ]
-  ],
-  "loadnotes": [
-    "May use AA-2 IRMs.",
-    "Station 2 may carry a GP-9 gunpod."
-  ],
-  "VPs": [ 18, 12, 6, 3 ]
+    "versionname": "MiG-21FL",
+    "description": "The Mikoyan-Gurevich MiG-21FL is an all-weather interceptor. This is an export version developed from the MiG-21PF, but with the less powerful engine from the MiG-21F, no capability to use the AA-1 missile, and a downgraded version of the RP21 designated R1L. NATO reporting name for the aircraft is Fishbed-D.",
+    "origin": "TSOH",
+    "base": "MiG-21PF",
+    "internalfuel": 220,
+    "radar": {
+        "name": "R1L",
+        "eccm": 0,
+        "arc": "180+",
+        "searchrange": 30,
+        "searchstrength": 6,
+        "trackingrange": 18,
+        "trackingstrength": 6,
+        "lockon": 7
+    },
+    "stations": [
+        [
+            "pair",
+            [
+                1,
+                3
+            ],
+            550,
+            [
+                "BB",
+                "RP",
+                "RK",
+                "DR",
+                "FT",
+                "IRM"
+            ]
+        ],
+        [
+            "single",
+            [
+                2
+            ],
+            1100,
+            [
+                "FT",
+                "GP"
+            ]
+        ]
+    ],
+    "loadnotes": [
+        "May use AA-2 IRMs.",
+        "Station 2 may carry a GP-9 gunpod."
+    ],
+    "VPs": [
+        18,
+        12,
+        6,
+        3
+    ]
 }

@@ -1,16 +1,57 @@
 {
-  "versionname": "F9F-8",
-  "base": "F9F-6",
-  "atarefuel": true,
-  "ceilingtable": [ 42, 38, 34 ],
-  "storeslimits": [ 4, 8, 4000 ],
-  "stations": [
-    [ "pair"     , [ 1, 6]       , 1000, [ "BB", "RK", "RG", "FT" ] ],
-    [ "grouppair", [ 2, 3, 4, 5 ],  500, [ "BB", "RK", "RP", "IRM" ] ]
-  ],
-  "loadnotes": [
-    "May use AIM-9B IRMs and AGM-12 RGs from 1958."
-  ],
-  "VPs": [ 12, 8, 4, 2 ],
-  "wikiurl": "https://bit.ly/4g3PCS7"
+    "versionname": "F9F-8",
+    "base": "F9F-6",
+    "atarefuel": true,
+    "ceilingtable": [
+        42,
+        38,
+        34
+    ],
+    "storeslimits": [
+        4,
+        8,
+        4000
+    ],
+    "stations": [
+        [
+            "pair",
+            [
+                1,
+                6
+            ],
+            1000,
+            [
+                "BB",
+                "RK",
+                "RG",
+                "FT"
+            ]
+        ],
+        [
+            "grouppair",
+            [
+                2,
+                3,
+                4,
+                5
+            ],
+            500,
+            [
+                "BB",
+                "RK",
+                "RP",
+                "IRM"
+            ]
+        ]
+    ],
+    "loadnotes": [
+        "May use AIM-9B IRMs and AGM-12 RGs from 1958."
+    ],
+    "VPs": [
+        12,
+        8,
+        4,
+        2
+    ],
+    "wikiurl": "https://bit.ly/4g3PCS7"
 }

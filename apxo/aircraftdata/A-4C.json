@@ -1,89 +1,361 @@
 {
-  "versionname": "A-4C",
-  "popularname": "Skyhawk",
-  "versiondescription": "The A-4C is an upgrade of the A-4B with radar for all-weather operations.",
-  "previouslydesignated": "A4D-2N",
-  "subsequentlydesignated": null,
-  "origin": "TSOH",
-  "crew": [ "Pilot" ],
-  "powertable": {
-    "M"   : [ 2.0, 1.5, 1.0,  1.5 ],
-    "N"   : [ 0.0, 0.0, 0.0,  1.0 ],
-    "I"   : [ 0.5, 0.5, 1.0,  0.0 ],
-    "SPBR": [ 0.5, 1.0, 1.0 ]
-  },
-  "jetengines": 1,
-  "cruisespeed": 4.5,
-  "climbspeed" : 3.5,
-  "visibility": 5,
-  "sizemodifier": 0,
-  "vulnerability": 0,
-  "restrictedarcs": "60-",
-  "blindarcs": "30-",
-  "internalfuel": 260,
-  "atarefuel": true,
-  "ejectionseat": "standard",
-  "maneuvertable": {
-    "LR/DR": [ 1.0, 1.0 ],
-    "VR":    [ 0.0, 0.0 ]
-  },
-  "lowspeedliftdevicelimit": 3.0,
-  "lowspeedliftdevicelimittype": "absolute",
-  "lowspeedliftdevicename": "slats",
-  "lowspeedliftdeviceturndragtable": {
-    "TT": [ 0.0, 1.0, 1.0 ],
-    "HT": [ 1.0, 2.0, 2.0 ],
-    "BT": [ 3.0, 4.0, 4.0 ],
-    "ET": [ "-", "-", "-" ]
-  },
-  "turndragtable": {
-    "TT": [ 0.0, 1.0, 1.0 ],
-    "HT": [ 1.0, 2.0, 2.0 ],
-    "BT": [ 2.0, 3.0, 3.0 ]
-  },
-  "ceilingtable": [ 48, 42, 35 ],
-  "speedtable": {
-    "EH": [ [ 3.5, 5.0 ], [ "-", "-" ], [ "-", "-" ], 6.0 ],
-    "VH": [ [ 3.0, 5.5 ], [ 3.5, 5.0 ], [ "-", "-" ], 6.0 ],
-    "HI": [ [ 2.5, 5.5 ], [ 3.0, 5.0 ], [ 3.0, 4.5 ], 6.5 ],
-    "MH": [ [ 2.0, 6.0 ], [ 2.0, 5.5 ], [ 2.5, 5.0 ], 6.5 ],
-    "ML": [ [ 1.5, 6.0 ], [ 2.0, 5.5 ], [ 2.0, 5.0 ], 7.0 ],
-    "LO": [ [ 1.5, 6.5 ], [ 1.5, 5.5 ], [ 2.0, 5.0 ], 7.0 ]
-  },
-  "climbcapabilitytable": {
-    "EH": [ [ "-", 0.5 ], [ "-", "-" ], [ "-", "-" ] ],
-    "VH": [ [ "-", 0.5 ], [ "-", 0.5 ], [ "-", "-" ] ],
-    "HI": [ [ "-", 0.5 ], [ "-", 0.5 ], [ "-", 0.5 ] ],
-    "MH": [ [ "-", 1.0 ], [ "-", 0.5 ], [ "-", 0.5 ] ],
-    "ML": [ [ "-", 1.0 ], [ "-", 1.0 ], [ "-", 0.5 ] ],
-    "LO": [ [ "-", 1.5 ], [ "-", 1.0 ], [ "-", 1.0 ] ]
-  },
-  "radar": {
-    "name": "APG-53",
-    "eccm": 0,
-    "arc": "180+",
-    "searchrange": 60
-  },
-  "gun": "Two 20 mm Mk 12",
-  "gunatatohitrolls": "5/3/1",
-  "gunammunition": 3.0,
-  "gunsightmodifiers": { "TT": 1, "HT": 2, "BT": 3 },
-  "gundamagerating": "4/4*",
-  "bombsystem": "Manual",
-  "ecm": { "iff": true },
-  "properties": [ "SMP", "HTD", "HRR" ],
-  "notes": [
-  ],
-  "wikiurl": "https://bit.ly/4fS9dFo",
-  "storeslimits": [ 6, 12, 7400 ],
-  "stations": [
-    [ "pair"  , [ 1, 3 ], 2200, [ "BB", "RP", "RG", "IP", "ARM", "WR", "GP", "IRM", "FT" ] ],
-    [ "single", [ 2 ]   , 3100, [ "BB", "RP", "RG", "IP", "WR", "GP", "FT" ] ]
-  ],
-  "loadnotes": [
-    "May only used AGM-12 RGs.",
-    "May only use AGM-45 ARMs on a roll of 4-.",
-    "May only use AIM-9B IRMs on a roll of 4-."
-  ],
-  "VPs": [ 11, 7, 4, 1 ]
+    "versionname": "A-4C",
+    "popularname": "Skyhawk",
+    "versiondescription": "The A-4C is an upgrade of the A-4B with radar for all-weather operations.",
+    "previouslydesignated": "A4D-2N",
+    "subsequentlydesignated": null,
+    "origin": "TSOH",
+    "crew": [
+        "Pilot"
+    ],
+    "powertable": {
+        "M": [
+            2.0,
+            1.5,
+            1.0,
+            1.5
+        ],
+        "N": [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+        ],
+        "I": [
+            0.5,
+            0.5,
+            1.0,
+            0.0
+        ],
+        "SPBR": [
+            0.5,
+            1.0,
+            1.0
+        ]
+    },
+    "jetengines": 1,
+    "cruisespeed": 4.5,
+    "climbspeed": 3.5,
+    "visibility": 5,
+    "sizemodifier": 0,
+    "vulnerability": 0,
+    "restrictedarcs": "60-",
+    "blindarcs": "30-",
+    "internalfuel": 260,
+    "atarefuel": true,
+    "ejectionseat": "standard",
+    "maneuvertable": {
+        "LR/DR": [
+            1.0,
+            1.0
+        ],
+        "VR": [
+            0.0,
+            0.0
+        ]
+    },
+    "lowspeedliftdevicelimit": 3.0,
+    "lowspeedliftdevicelimittype": "absolute",
+    "lowspeedliftdevicename": "slats",
+    "lowspeedliftdeviceturndragtable": {
+        "TT": [
+            0.0,
+            1.0,
+            1.0
+        ],
+        "HT": [
+            1.0,
+            2.0,
+            2.0
+        ],
+        "BT": [
+            3.0,
+            4.0,
+            4.0
+        ],
+        "ET": [
+            "-",
+            "-",
+            "-"
+        ]
+    },
+    "turndragtable": {
+        "TT": [
+            0.0,
+            1.0,
+            1.0
+        ],
+        "HT": [
+            1.0,
+            2.0,
+            2.0
+        ],
+        "BT": [
+            2.0,
+            3.0,
+            3.0
+        ]
+    },
+    "ceilingtable": [
+        48,
+        42,
+        35
+    ],
+    "speedtable": {
+        "EH": [
+            [
+                3.5,
+                5.0
+            ],
+            [
+                "-",
+                "-"
+            ],
+            [
+                "-",
+                "-"
+            ],
+            6.0
+        ],
+        "VH": [
+            [
+                3.0,
+                5.5
+            ],
+            [
+                3.5,
+                5.0
+            ],
+            [
+                "-",
+                "-"
+            ],
+            6.0
+        ],
+        "HI": [
+            [
+                2.5,
+                5.5
+            ],
+            [
+                3.0,
+                5.0
+            ],
+            [
+                3.0,
+                4.5
+            ],
+            6.5
+        ],
+        "MH": [
+            [
+                2.0,
+                6.0
+            ],
+            [
+                2.0,
+                5.5
+            ],
+            [
+                2.5,
+                5.0
+            ],
+            6.5
+        ],
+        "ML": [
+            [
+                1.5,
+                6.0
+            ],
+            [
+                2.0,
+                5.5
+            ],
+            [
+                2.0,
+                5.0
+            ],
+            7.0
+        ],
+        "LO": [
+            [
+                1.5,
+                6.5
+            ],
+            [
+                1.5,
+                5.5
+            ],
+            [
+                2.0,
+                5.0
+            ],
+            7.0
+        ]
+    },
+    "climbcapabilitytable": {
+        "EH": [
+            [
+                "-",
+                0.5
+            ],
+            [
+                "-",
+                "-"
+            ],
+            [
+                "-",
+                "-"
+            ]
+        ],
+        "VH": [
+            [
+                "-",
+                0.5
+            ],
+            [
+                "-",
+                0.5
+            ],
+            [
+                "-",
+                "-"
+            ]
+        ],
+        "HI": [
+            [
+                "-",
+                0.5
+            ],
+            [
+                "-",
+                0.5
+            ],
+            [
+                "-",
+                0.5
+            ]
+        ],
+        "MH": [
+            [
+                "-",
+                1.0
+            ],
+            [
+                "-",
+                0.5
+            ],
+            [
+                "-",
+                0.5
+            ]
+        ],
+        "ML": [
+            [
+                "-",
+                1.0
+            ],
+            [
+                "-",
+                1.0
+            ],
+            [
+                "-",
+                0.5
+            ]
+        ],
+        "LO": [
+            [
+                "-",
+                1.5
+            ],
+            [
+                "-",
+                1.0
+            ],
+            [
+                "-",
+                1.0
+            ]
+        ]
+    },
+    "radar": {
+        "name": "APG-53",
+        "eccm": 0,
+        "arc": "180+",
+        "searchrange": 60
+    },
+    "gun": "Two 20 mm Mk 12",
+    "gunatatohitrolls": "5/3/1",
+    "gunammunition": 3.0,
+    "gunsightmodifiers": {
+        "TT": 1,
+        "HT": 2,
+        "BT": 3
+    },
+    "gundamagerating": "4/4*",
+    "bombsystem": "Manual",
+    "ecm": {
+        "iff": true
+    },
+    "properties": [
+        "SMP",
+        "HTD",
+        "HRR"
+    ],
+    "notes": [],
+    "wikiurl": "https://bit.ly/4fS9dFo",
+    "storeslimits": [
+        6,
+        12,
+        7400
+    ],
+    "stations": [
+        [
+            "pair",
+            [
+                1,
+                3
+            ],
+            2200,
+            [
+                "BB",
+                "RP",
+                "RG",
+                "IP",
+                "ARM",
+                "WR",
+                "GP",
+                "IRM",
+                "FT"
+            ]
+        ],
+        [
+            "single",
+            [
+                2
+            ],
+            3100,
+            [
+                "BB",
+                "RP",
+                "RG",
+                "IP",
+                "WR",
+                "GP",
+                "FT"
+            ]
+        ]
+    ],
+    "loadnotes": [
+        "May only used AGM-12 RGs.",
+        "May only use AGM-45 ARMs on a roll of 4-.",
+        "May only use AIM-9B IRMs on a roll of 4-."
+    ],
+    "VPs": [
+        11,
+        7,
+        4,
+        1
+    ]
 }

@@ -1,10 +1,14 @@
 {
-  "versionname": "RF-80C",
-  "versiondescription": "The Lockheed RF-80C is a reconnaisance aircraft. It has a single engine and unswept wings. It is derived from the F-80C and has a nose containing cameras rather than guns.",
-  "originallydesignated": null,
-  "base": "F-80C",
-  "gun": "",
-  "VPs": [ 7, 4, 2, 1 ],
-  "notes": [
-  ]
+    "versionname": "RF-80C",
+    "versiondescription": "The Lockheed RF-80C is a reconnaisance aircraft. It has a single engine and unswept wings. It is derived from the F-80C and has a nose containing cameras rather than guns.",
+    "originallydesignated": null,
+    "base": "F-80C",
+    "gun": "",
+    "VPs": [
+        7,
+        4,
+        2,
+        1
+    ],
+    "notes": []
 }

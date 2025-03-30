@@ -1,7 +1,12 @@
 {
-  "base": "RA-5C",
-  "variantname": "1967 Upgrade",
-  "variantdescription": "with RWR-B and DJM-B3, from 1967.",
-  "ecm": { "iff": true, "rwr": "B", "dds": "A", "djm": "B3" },
-  "previouslydesignated": null
+    "base": "RA-5C",
+    "variantname": "1967 Upgrade",
+    "variantdescription": "with RWR-B and DJM-B3, from 1967.",
+    "ecm": {
+        "iff": true,
+        "rwr": "B",
+        "dds": "A",
+        "djm": "B3"
+    },
+    "previouslydesignated": null
 }

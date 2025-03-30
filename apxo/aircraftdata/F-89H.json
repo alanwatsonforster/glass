@@ -1,29 +1,59 @@
 {
-  "versionname": "F-89H",
-  "base": "F-89D",
-  "radar": {
-    "name": "APG-40",
-    "eccm": 1,
-    "arc": "180+",
-    "searchrange": 120,
-    "searchstrength": 20,
-    "trackingrange": 60,
-    "trackingstrength": 10,
-    "lockon": 7
-  },
-  "storeslimits": [ 4, 8, 4400 ],
-  "stations": [
-    [ "pair", [1, 4],  390, [ "IRM", "RHM" ] ],
-    [ "pair", [2, 4], 1600, [ "BB", "FT" ] ]
-  ],
-  "notes": [
-    "The E-9 fire-control system provides CC Rocket Attack technology."
-  ],
-  "loadnotes": [
-    "Stations 1 and 4 are fixed wing-tip pods for rockets, missiles, and fuel. Each can carry 2 factors of air-to-air rockets, giving a total of 4 factors for with pods. Each can also carry three RHM/IRM. The pod fuel is included in the internal fuel.",
-    "May use GAR-1/-1D RHMs and GAR-2/-2A IRMs. Typically carries three RHMs in one pod and three IRMs in the other."
-  ],
-  "rocketfactors": 4,
-  "VPs": [ 14, 10, 5, 2 ]
-
+    "versionname": "F-89H",
+    "base": "F-89D",
+    "radar": {
+        "name": "APG-40",
+        "eccm": 1,
+        "arc": "180+",
+        "searchrange": 120,
+        "searchstrength": 20,
+        "trackingrange": 60,
+        "trackingstrength": 10,
+        "lockon": 7
+    },
+    "storeslimits": [
+        4,
+        8,
+        4400
+    ],
+    "stations": [
+        [
+            "pair",
+            [
+                1,
+                4
+            ],
+            390,
+            [
+                "IRM",
+                "RHM"
+            ]
+        ],
+        [
+            "pair",
+            [
+                2,
+                4
+            ],
+            1600,
+            [
+                "BB",
+                "FT"
+            ]
+        ]
+    ],
+    "notes": [
+        "The E-9 fire-control system provides CC Rocket Attack technology."
+    ],
+    "loadnotes": [
+        "Stations 1 and 4 are fixed wing-tip pods for rockets, missiles, and fuel. Each can carry 2 factors of air-to-air rockets, giving a total of 4 factors for with pods. Each can also carry three RHM/IRM. The pod fuel is included in the internal fuel.",
+        "May use GAR-1/-1D RHMs and GAR-2/-2A IRMs. Typically carries three RHMs in one pod and three IRMs in the other."
+    ],
+    "rocketfactors": 4,
+    "VPs": [
+        14,
+        10,
+        5,
+        2
+    ]
 }

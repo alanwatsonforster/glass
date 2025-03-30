@@ -1,70 +1,314 @@
 {
-  "versionname": "Yak-9D",
-  "description": "The Yakovlev Yak-9D is a WWII long-range day-fighter. The NATO reporting name for aircraft is Frank.",
-  "origin": "APJ 50",
-  "crew": [ "Pilot" ],
-  "powertable": {
-    "FT"  : [ 2.0, 1.5, 1.5, 0.5 ],
-    "HT"  : [ 0.5, 0.5, 0.5, 0.2 ],
-    "N"   : [ 0.0, 0.0, 0.0, 0.1 ],
-    "I"   : [ 0.5, 0.5, 0.5, 0.0 ],
-    "SPBR": [ "-", "-", "-" ]
-  },
-  "propellerengines": 1,
-  "cruisespeed": 3.0,
-  "climbspeed" : 1.5,
-  "visibility": 5,
-  "sizemodifier": -1,
-  "vulnerability": -1,
-  "restrictedarcs": "",
-  "blindarcs": "30-",
-  "internalfuel": 35,
-  "atarefuel": false,
-  "ejectionseat": "none",
-  "maneuvertable": {
-    "LR/DR": [ 1.0, 1.0 ],
-    "VR":    [ 0.0, 1.0 ]
-  },
-  "turndragtable": {
-    "TT": [ 0.0, 0.0, 0.0 ],
-    "HT": [ 0.0, 0.0, 1.0 ],
-    "BT": [ 1.0, 1.0, "-" ],
-    "ET": [ 1.5, "-", "-" ]
-  },
-  "ceilingtable": [ 33, 27, 19 ],
-  "speedtable": {
-    "EH": [ [  "-",  "-" ], [  "-",  "-" ], [  "-",  "-" ],  "-" ],
-    "VH": [ [  "-",  "-" ], [  "-",  "-" ], [  "-",  "-" ],  "-" ],
-    "HI": [ [  1.5,  3.0 ], [  1.5,  3.0 ], [  "-",  "-" ],  5.0 ],
-    "MH": [ [  1.0,  3.5 ], [  1.5,  3.0 ], [  1.5,  3.0 ],  5.0 ],
-    "ML": [ [  1.0,  3.5 ], [  1.5,  3.5 ], [  1.5,  3.0 ],  5.0 ],
-    "LO": [ [  1.0,  3.5 ], [  1.0,  3.5 ], [  1.5,  3.0 ],  5.0 ]
-  },
-  "climbcapabilitytable": {
-    "EH": [ [ "-", "-"  ], [ "-", "-"  ], [ "-", "-"  ] ],
-    "VH": [ [ "-", "-"  ], [ "-", "-"  ], [ "-", "-"  ] ],
-    "HI": [ [ "-", 0.25 ], [ "-", 0.25 ], [ "-", "-"  ] ],
-    "MH": [ [ "-", 0.5  ], [ "-", 0.25 ], [ "-", 0.25 ] ],
-    "ML": [ [ "-", 1.0  ], [ "-", 0.5  ], [ "-", 0.5  ] ],
-    "LO": [ [ "-", 1.0  ], [ "-", 1.0  ], [ "-", 0.5  ] ]
-  },
-  "gun": "One 20 mm ShVAK and one 12.7 mm UBS",
-  "gunatatohitrolls": "5/3/0",
-  "gundamagerating": "2/2*",
-  "gunammunition": 6.0,
-  "gunsightmodifiers": { "TT": 0, "HT": 1, "BT": 2 },
-  "storeslimits": [ 0, 2, 450 ],
-  "stations": [
-    [ "pair"     , [ 1, 2 ]       , 225, [ "BB" ] ]
-  ],
-  "loadnotes": [
-  ],
-  "VPs": [ 4, 3, 2, 1 ],
-  "properties": [ "LBR", "HTD", "HRRCL" ],
-  "powerfadespeedtable": [ [3.0, 0.5] ],
-  "notes": [
-    "The normal fuel load is 35 fuel points. It may be overloaded to 55 fuel points, but doing so reduces power by 0.5 and increases vulnerability to -2 until the fuel drops to 35 fuel points."
-    
-  ],
-  "wikiurl": "https://bit.ly/4eJoU0n"
+    "versionname": "Yak-9D",
+    "description": "The Yakovlev Yak-9D is a WWII long-range day-fighter. The NATO reporting name for aircraft is Frank.",
+    "origin": "APJ 50",
+    "crew": [
+        "Pilot"
+    ],
+    "powertable": {
+        "FT": [
+            2.0,
+            1.5,
+            1.5,
+            0.5
+        ],
+        "HT": [
+            0.5,
+            0.5,
+            0.5,
+            0.2
+        ],
+        "N": [
+            0.0,
+            0.0,
+            0.0,
+            0.1
+        ],
+        "I": [
+            0.5,
+            0.5,
+            0.5,
+            0.0
+        ],
+        "SPBR": [
+            "-",
+            "-",
+            "-"
+        ]
+    },
+    "propellerengines": 1,
+    "cruisespeed": 3.0,
+    "climbspeed": 1.5,
+    "visibility": 5,
+    "sizemodifier": -1,
+    "vulnerability": -1,
+    "restrictedarcs": "",
+    "blindarcs": "30-",
+    "internalfuel": 35,
+    "atarefuel": false,
+    "ejectionseat": "none",
+    "maneuvertable": {
+        "LR/DR": [
+            1.0,
+            1.0
+        ],
+        "VR": [
+            0.0,
+            1.0
+        ]
+    },
+    "turndragtable": {
+        "TT": [
+            0.0,
+            0.0,
+            0.0
+        ],
+        "HT": [
+            0.0,
+            0.0,
+            1.0
+        ],
+        "BT": [
+            1.0,
+            1.0,
+            "-"
+        ],
+        "ET": [
+            1.5,
+            "-",
+            "-"
+        ]
+    },
+    "ceilingtable": [
+        33,
+        27,
+        19
+    ],
+    "speedtable": {
+        "EH": [
+            [
+                "-",
+                "-"
+            ],
+            [
+                "-",
+                "-"
+            ],
+            [
+                "-",
+                "-"
+            ],
+            "-"
+        ],
+        "VH": [
+            [
+                "-",
+                "-"
+            ],
+            [
+                "-",
+                "-"
+            ],
+            [
+                "-",
+                "-"
+            ],
+            "-"
+        ],
+        "HI": [
+            [
+                1.5,
+                3.0
+            ],
+            [
+                1.5,
+                3.0
+            ],
+            [
+                "-",
+                "-"
+            ],
+            5.0
+        ],
+        "MH": [
+            [
+                1.0,
+                3.5
+            ],
+            [
+                1.5,
+                3.0
+            ],
+            [
+                1.5,
+                3.0
+            ],
+            5.0
+        ],
+        "ML": [
+            [
+                1.0,
+                3.5
+            ],
+            [
+                1.5,
+                3.5
+            ],
+            [
+                1.5,
+                3.0
+            ],
+            5.0
+        ],
+        "LO": [
+            [
+                1.0,
+                3.5
+            ],
+            [
+                1.0,
+                3.5
+            ],
+            [
+                1.5,
+                3.0
+            ],
+            5.0
+        ]
+    },
+    "climbcapabilitytable": {
+        "EH": [
+            [
+                "-",
+                "-"
+            ],
+            [
+                "-",
+                "-"
+            ],
+            [
+                "-",
+                "-"
+            ]
+        ],
+        "VH": [
+            [
+                "-",
+                "-"
+            ],
+            [
+                "-",
+                "-"
+            ],
+            [
+                "-",
+                "-"
+            ]
+        ],
+        "HI": [
+            [
+                "-",
+                0.25
+            ],
+            [
+                "-",
+                0.25
+            ],
+            [
+                "-",
+                "-"
+            ]
+        ],
+        "MH": [
+            [
+                "-",
+                0.5
+            ],
+            [
+                "-",
+                0.25
+            ],
+            [
+                "-",
+                0.25
+            ]
+        ],
+        "ML": [
+            [
+                "-",
+                1.0
+            ],
+            [
+                "-",
+                0.5
+            ],
+            [
+                "-",
+                0.5
+            ]
+        ],
+        "LO": [
+            [
+                "-",
+                1.0
+            ],
+            [
+                "-",
+                1.0
+            ],
+            [
+                "-",
+                0.5
+            ]
+        ]
+    },
+    "gun": "One 20 mm ShVAK and one 12.7 mm UBS",
+    "gunatatohitrolls": "5/3/0",
+    "gundamagerating": "2/2*",
+    "gunammunition": 6.0,
+    "gunsightmodifiers": {
+        "TT": 0,
+        "HT": 1,
+        "BT": 2
+    },
+    "storeslimits": [
+        0,
+        2,
+        450
+    ],
+    "stations": [
+        [
+            "pair",
+            [
+                1,
+                2
+            ],
+            225,
+            [
+                "BB"
+            ]
+        ]
+    ],
+    "loadnotes": [],
+    "VPs": [
+        4,
+        3,
+        2,
+        1
+    ],
+    "properties": [
+        "LBR",
+        "HTD",
+        "HRRCL"
+    ],
+    "powerfadespeedtable": [
+        [
+            3.0,
+            0.5
+        ]
+    ],
+    "notes": [
+        "The normal fuel load is 35 fuel points. It may be overloaded to 55 fuel points, but doing so reduces power by 0.5 and increases vulnerability to -2 until the fuel drops to 35 fuel points."
+    ],
+    "wikiurl": "https://bit.ly/4eJoU0n"
 }

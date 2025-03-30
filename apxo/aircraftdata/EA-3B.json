@@ -1,16 +1,45 @@
 {
-  "versionname": "EA-3B",
-  "versiondescription": "Electronic warfare version.",
-  "variantname": null,
-  "variantdescription": null,
-  "base": "A-3B (Late)",
-  "originallydesignated": "A3D-2Q",
-  "crew": [ "Pilot", "Bombardier-Navigator", "EW Officer", "EW Officer", "EW Officer" ],
-  "ecm": { "iff": true, "dds": "A", "rwr": "C", "djm": "B4", "ajm": "B4", "bjm": "Two B3" },
-  "stations": [
-    [ "pair"  , [ 1, 2], 3000, [ "BB", "FT", "EP" ]]
-  ],
-  "loadnotes": [
-  ],
-  "VPs": [ 34, 22, 12, 4 ]
+    "versionname": "EA-3B",
+    "versiondescription": "Electronic warfare version.",
+    "variantname": null,
+    "variantdescription": null,
+    "base": "A-3B (Late)",
+    "originallydesignated": "A3D-2Q",
+    "crew": [
+        "Pilot",
+        "Bombardier-Navigator",
+        "EW Officer",
+        "EW Officer",
+        "EW Officer"
+    ],
+    "ecm": {
+        "iff": true,
+        "dds": "A",
+        "rwr": "C",
+        "djm": "B4",
+        "ajm": "B4",
+        "bjm": "Two B3"
+    },
+    "stations": [
+        [
+            "pair",
+            [
+                1,
+                2
+            ],
+            3000,
+            [
+                "BB",
+                "FT",
+                "EP"
+            ]
+        ]
+    ],
+    "loadnotes": [],
+    "VPs": [
+        34,
+        22,
+        12,
+        4
+    ]
 }

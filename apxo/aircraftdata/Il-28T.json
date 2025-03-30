@@ -1,17 +1,34 @@
 {
-  "versionname": "Il-28T",
-  "description": "The Ilyushin Il-28T is a torpedo bomber. The NATO reporting name is Beagle.",
-  "base": "Il-28",
-  "notes": [
-    "Tail Guns. In addition to its fixed guns, there aircraft has a tail mount with two 23 mm NR-23 guns. It can fire into the 60- arc. It may return fire twice per game turn in response to a gun attacks or conduct a single attack. Roll to hit is 3/2/1 and no modifiers apply except target size. The AtA rating is 4. The ammunition is 6.0.",
-    "Tail gunner has no ejection seat and can only bail out.",
-    "RWR from 1960."
-  ],
-  "stations": [
-    [ "pair"  , [ 1, 3 ], 1800, [ "FT" ] ],
-    [ "single", [ 2 ]   , 4400, [ ] ]
-  ],
-  "loadnotes": [
-    "Station 2 is the internal bomb bay. It may only carry twelve parachute illumination flares."
-  ]
+    "versionname": "Il-28T",
+    "description": "The Ilyushin Il-28T is a torpedo bomber. The NATO reporting name is Beagle.",
+    "base": "Il-28",
+    "notes": [
+        "Tail Guns. In addition to its fixed guns, there aircraft has a tail mount with two 23 mm NR-23 guns. It can fire into the 60- arc. It may return fire twice per game turn in response to a gun attacks or conduct a single attack. Roll to hit is 3/2/1 and no modifiers apply except target size. The AtA rating is 4. The ammunition is 6.0.",
+        "Tail gunner has no ejection seat and can only bail out.",
+        "RWR from 1960."
+    ],
+    "stations": [
+        [
+            "pair",
+            [
+                1,
+                3
+            ],
+            1800,
+            [
+                "FT"
+            ]
+        ],
+        [
+            "single",
+            [
+                2
+            ],
+            4400,
+            []
+        ]
+    ],
+    "loadnotes": [
+        "Station 2 is the internal bomb bay. It may only carry twelve parachute illumination flares."
+    ]
 }

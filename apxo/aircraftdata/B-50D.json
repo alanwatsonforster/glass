@@ -1,6 +1,6 @@
 {
-  "versionname": "B-50D",
-  "description": "The Boeing B-50D Superfortress is a propeller-driven strategic bomber. The version described here is a conventional bomber. It a development of the B-50A/B and has increased fuel capacity.",
-  "base": "B-50A",
-  "internalfuel": 2400
+    "versionname": "B-50D",
+    "description": "The Boeing B-50D Superfortress is a propeller-driven strategic bomber. The version described here is a conventional bomber. It a development of the B-50A/B and has increased fuel capacity.",
+    "base": "B-50A",
+    "internalfuel": 2400
 }

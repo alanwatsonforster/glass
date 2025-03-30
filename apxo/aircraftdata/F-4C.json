@@ -1,16 +1,18 @@
 {
-  "versionname": "F-4C",
-  "base": "F-4B",
-  "originallydesignated": null,
-  "radar": {
-    "name": "APQ-100",
-    "eccm": 1,
-    "arc": "180+",
-    "searchrange": 80,
-    "searchstrength": 10,
-    "trackingrange": 60,
-    "trackingstrength": 10,
-    "lockon": 7
-  },
-  "ecm": { "iff": true }
+    "versionname": "F-4C",
+    "base": "F-4B",
+    "originallydesignated": null,
+    "radar": {
+        "name": "APQ-100",
+        "eccm": 1,
+        "arc": "180+",
+        "searchrange": 80,
+        "searchstrength": 10,
+        "trackingrange": 60,
+        "trackingstrength": 10,
+        "lockon": 7
+    },
+    "ecm": {
+        "iff": true
+    }
 }

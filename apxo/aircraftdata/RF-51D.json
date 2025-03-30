@@ -1,10 +1,26 @@
 {
-  "versionname": "RF-51D",
-  "description": "The North American RF-51D Mustang is photoreconnaissance aircraft. It is a version of the F-51D. Prior to 1948, it was designated F-6D.",
-  "originallydesignated": "F-6D",
-  "base": "F-51D",
-  "stations": [
-    [ "pair"     , [ 1, 2 ]      , 1000, [ "BB", "FT" ] ]
-  ],
-  "VPs": [ 6, 4, 2, 1 ]
+    "versionname": "RF-51D",
+    "description": "The North American RF-51D Mustang is photoreconnaissance aircraft. It is a version of the F-51D. Prior to 1948, it was designated F-6D.",
+    "originallydesignated": "F-6D",
+    "base": "F-51D",
+    "stations": [
+        [
+            "pair",
+            [
+                1,
+                2
+            ],
+            1000,
+            [
+                "BB",
+                "FT"
+            ]
+        ]
+    ],
+    "VPs": [
+        6,
+        4,
+        2,
+        1
+    ]
 }

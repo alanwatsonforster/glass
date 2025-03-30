@@ -1,8 +1,8 @@
 {
-  "versionname": "AD-5",
-  "description": "The Douglas AD-4 Skyraider is an attack aircraft, It is propeller-driven, has a single engine, and is carrier-capable. It was developed from the AD-4 and added a widened fuselage and cockpit with a copilot next to the pilot, additional armor, and omitted the lateral dive brakes. In 1962, it was redesignated A-1E.",
-  "subsequentlydesignated": "A-1E",
-  "originallydesignated": null,
-  "base": "A-1E",
-  "notes": []
+    "versionname": "AD-5",
+    "description": "The Douglas AD-4 Skyraider is an attack aircraft, It is propeller-driven, has a single engine, and is carrier-capable. It was developed from the AD-4 and added a widened fuselage and cockpit with a copilot next to the pilot, additional armor, and omitted the lateral dive brakes. In 1962, it was redesignated A-1E.",
+    "subsequentlydesignated": "A-1E",
+    "originallydesignated": null,
+    "base": "A-1E",
+    "notes": []
 }

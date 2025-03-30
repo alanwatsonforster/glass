@@ -1,72 +1,329 @@
 {
-  "versionname": "Il-10",
-  "description": "The Ilyushin Il-10 is a propeller-driven close support aircraft. The NATO reporting name for aircraft is Beast.",
-  "origin": "APJ 50",
-  "crew": [ "Pilot", "Gunner" ],
-  "powertable": {
-    "FT"  : [ 1.0, 1.0, 1.0, 0.5 ],
-    "HT"  : [ 0.5, 0.5, 0.5, 0.2 ],
-    "N"   : [ 0.0, 0.0, 0.0, 0.1 ],
-    "I"   : [ 0.5, 0.5, 0.5, 0.0 ],
-    "SPBR": [ "-", "-", "-" ]
-  },
-  "propellerengines": 1,
-  "cruisespeed": 2.0,
-  "climbspeed" : 1.5,
-  "visibility": 6,
-  "sizemodifier": 0,
-  "vulnerability": 2,
-  "restrictedarcs": "",
-  "blindarcs": "0L",
-  "internalfuel": 58,
-  "atarefuel": false,
-  "ejectionseat": "none",
-  "maneuvertable": {
-    "LR/DR": [ 1.0, 2.0 ],
-    "VR":    [ 0.0, 1.0 ]
-  },
-  "turndragtable": {
-    "TT": [ 0.0, 0.0, 0.0 ],
-    "HT": [ 0.0, 1.0, 1.5 ],
-    "BT": [ 1.0, 1.5, "-" ],
-    "ET": [ "-", "-", "-" ]
-  },
-  "ceilingtable": [ 24, 19, 14 ],
-  "speedtable": {
-    "EH": [ [  "-",  "-" ], [  "-",  "-" ], [  "-",  "-" ],  "-" ],
-    "VH": [ [  "-",  "-" ], [  "-",  "-" ], [  "-",  "-" ],  "-" ],
-    "HI": [ [  "-",  "-" ], [  "-",  "-" ], [  "-",  "-" ],  "-" ],
-    "MH": [ [  1.0,  2.5 ], [  1.5,  2.0 ], [  "-",  "-" ],  4.0 ],
-    "ML": [ [  1.0,  3.0 ], [  1.5,  2.5 ], [  1.5,  2.0 ],  4.0 ],
-    "LO": [ [  1.0,  3.0 ], [  1.5,  3.0 ], [  1.5,  2.5 ],  4.0 ]
-  },
-  "climbcapabilitytable": {
-    "EH": [ [ "-", "-"  ], [ "-", "-"  ], [ "-", "-"  ] ],
-    "VH": [ [ "-", "-"  ], [ "-", "-"  ], [ "-", "-"  ] ],
-    "HI": [ [ "-", "-"  ], [ "-", "-"  ], [ "-", "-"  ] ],
-    "MH": [ [ "-", 0.25 ], [ "-", 0.25 ], [ "-", "-"  ] ],
-    "ML": [ [ "-", 0.25 ], [ "-", 0.25 ], [ "-", 0.25 ] ],
-    "LO": [ [ "-", 0.50 ], [ "-", 0.50 ], [ "-", 0.25 ] ]
-  },
-  "gun": "Two 23 mm VYa-23 and two 7.62 mm ShKAS",
-  "gunatatohitrolls": "4/2/0",
-  "gundamagerating": "5/4",
-  "gunammunition": 8.0,
-  "gunsightmodifiers": { "TT": 0, "HT": 1, "BT": 2 },
-  "storeslimits": [ 1, 3, 1550 ],
-  "stations": [
-    [ "pair"     , [ 1, 4 ]       , 550, [ "BB", "RK" ] ],
-    [ "pair"     , [ 2, 3 ]       , 225, [ "BB" ] ]
-  ],
-  "loadnotes": [
-    "Stations 1 and 4 could each be fitted with rails for four RS-82 or two RS-132 rockets, but these were not used in the Korean war.",
-    "Stations 2 and 3 are internal bays in each wing root."
-  ],
-  "VPs": [ 6, 4, 2, 1 ],
-  "properties": [ "LBR", "HTD" ],
-  "powerfadespeedtable": [ [2.0, 0.5] ],
-  "notes": [
-    "Defensive Gun. Equipped with one ventral 12.7 mm UBT gun able to fire into the 60- arc. It may return fire twice per game turn in response to a gun attacks or conduct a single attack. The roll to hit is 2/1/1 and the AtA rating is 1. Gun attacks are modified only by the target size. Ammunition is 5.0."
-  ],
-  "wikiurl": "https://bit.ly/41ew8pI"
+    "versionname": "Il-10",
+    "description": "The Ilyushin Il-10 is a propeller-driven close support aircraft. The NATO reporting name for aircraft is Beast.",
+    "origin": "APJ 50",
+    "crew": [
+        "Pilot",
+        "Gunner"
+    ],
+    "powertable": {
+        "FT": [
+            1.0,
+            1.0,
+            1.0,
+            0.5
+        ],
+        "HT": [
+            0.5,
+            0.5,
+            0.5,
+            0.2
+        ],
+        "N": [
+            0.0,
+            0.0,
+            0.0,
+            0.1
+        ],
+        "I": [
+            0.5,
+            0.5,
+            0.5,
+            0.0
+        ],
+        "SPBR": [
+            "-",
+            "-",
+            "-"
+        ]
+    },
+    "propellerengines": 1,
+    "cruisespeed": 2.0,
+    "climbspeed": 1.5,
+    "visibility": 6,
+    "sizemodifier": 0,
+    "vulnerability": 2,
+    "restrictedarcs": "",
+    "blindarcs": "0L",
+    "internalfuel": 58,
+    "atarefuel": false,
+    "ejectionseat": "none",
+    "maneuvertable": {
+        "LR/DR": [
+            1.0,
+            2.0
+        ],
+        "VR": [
+            0.0,
+            1.0
+        ]
+    },
+    "turndragtable": {
+        "TT": [
+            0.0,
+            0.0,
+            0.0
+        ],
+        "HT": [
+            0.0,
+            1.0,
+            1.5
+        ],
+        "BT": [
+            1.0,
+            1.5,
+            "-"
+        ],
+        "ET": [
+            "-",
+            "-",
+            "-"
+        ]
+    },
+    "ceilingtable": [
+        24,
+        19,
+        14
+    ],
+    "speedtable": {
+        "EH": [
+            [
+                "-",
+                "-"
+            ],
+            [
+                "-",
+                "-"
+            ],
+            [
+                "-",
+                "-"
+            ],
+            "-"
+        ],
+        "VH": [
+            [
+                "-",
+                "-"
+            ],
+            [
+                "-",
+                "-"
+            ],
+            [
+                "-",
+                "-"
+            ],
+            "-"
+        ],
+        "HI": [
+            [
+                "-",
+                "-"
+            ],
+            [
+                "-",
+                "-"
+            ],
+            [
+                "-",
+                "-"
+            ],
+            "-"
+        ],
+        "MH": [
+            [
+                1.0,
+                2.5
+            ],
+            [
+                1.5,
+                2.0
+            ],
+            [
+                "-",
+                "-"
+            ],
+            4.0
+        ],
+        "ML": [
+            [
+                1.0,
+                3.0
+            ],
+            [
+                1.5,
+                2.5
+            ],
+            [
+                1.5,
+                2.0
+            ],
+            4.0
+        ],
+        "LO": [
+            [
+                1.0,
+                3.0
+            ],
+            [
+                1.5,
+                3.0
+            ],
+            [
+                1.5,
+                2.5
+            ],
+            4.0
+        ]
+    },
+    "climbcapabilitytable": {
+        "EH": [
+            [
+                "-",
+                "-"
+            ],
+            [
+                "-",
+                "-"
+            ],
+            [
+                "-",
+                "-"
+            ]
+        ],
+        "VH": [
+            [
+                "-",
+                "-"
+            ],
+            [
+                "-",
+                "-"
+            ],
+            [
+                "-",
+                "-"
+            ]
+        ],
+        "HI": [
+            [
+                "-",
+                "-"
+            ],
+            [
+                "-",
+                "-"
+            ],
+            [
+                "-",
+                "-"
+            ]
+        ],
+        "MH": [
+            [
+                "-",
+                0.25
+            ],
+            [
+                "-",
+                0.25
+            ],
+            [
+                "-",
+                "-"
+            ]
+        ],
+        "ML": [
+            [
+                "-",
+                0.25
+            ],
+            [
+                "-",
+                0.25
+            ],
+            [
+                "-",
+                0.25
+            ]
+        ],
+        "LO": [
+            [
+                "-",
+                0.5
+            ],
+            [
+                "-",
+                0.5
+            ],
+            [
+                "-",
+                0.25
+            ]
+        ]
+    },
+    "gun": "Two 23 mm VYa-23 and two 7.62 mm ShKAS",
+    "gunatatohitrolls": "4/2/0",
+    "gundamagerating": "5/4",
+    "gunammunition": 8.0,
+    "gunsightmodifiers": {
+        "TT": 0,
+        "HT": 1,
+        "BT": 2
+    },
+    "storeslimits": [
+        1,
+        3,
+        1550
+    ],
+    "stations": [
+        [
+            "pair",
+            [
+                1,
+                4
+            ],
+            550,
+            [
+                "BB",
+                "RK"
+            ]
+        ],
+        [
+            "pair",
+            [
+                2,
+                3
+            ],
+            225,
+            [
+                "BB"
+            ]
+        ]
+    ],
+    "loadnotes": [
+        "Stations 1 and 4 could each be fitted with rails for four RS-82 or two RS-132 rockets, but these were not used in the Korean war.",
+        "Stations 2 and 3 are internal bays in each wing root."
+    ],
+    "VPs": [
+        6,
+        4,
+        2,
+        1
+    ],
+    "properties": [
+        "LBR",
+        "HTD"
+    ],
+    "powerfadespeedtable": [
+        [
+            2.0,
+            0.5
+        ]
+    ],
+    "notes": [
+        "Defensive Gun. Equipped with one ventral 12.7 mm UBT gun able to fire into the 60- arc. It may return fire twice per game turn in response to a gun attacks or conduct a single attack. The roll to hit is 2/1/1 and the AtA rating is 1. Gun attacks are modified only by the target size. Ammunition is 5.0."
+    ],
+    "wikiurl": "https://bit.ly/41ew8pI"
 }

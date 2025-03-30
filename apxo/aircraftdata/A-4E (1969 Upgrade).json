@@ -1,6 +1,11 @@
 {
-  "base": "A-4E",
-  "variantname": "1969 Upgrade",
-  "variantdescription": "with RWR-B, DDS-B and DJM-B3, from 1969.",
-  "ecm": { "iff": true, "rwr": "B", "dds": "B", "djm": "B3" }
+    "base": "A-4E",
+    "variantname": "1969 Upgrade",
+    "variantdescription": "with RWR-B, DDS-B and DJM-B3, from 1969.",
+    "ecm": {
+        "iff": true,
+        "rwr": "B",
+        "dds": "B",
+        "djm": "B3"
+    }
 }

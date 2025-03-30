@@ -1,12 +1,17 @@
 {
-  "versionname": "F-86F-35",
-  "description": "The North American F-86F-35 Sabre is a single-engined, swept-wing, fighter-bomber, and tactical nuclear bomber. The F-86F-35 version is similar to the F-86F-25 version but can carry a nuclear bomb.",
-  "base": "F-86F-25",
-  "loadnotes": [
-    "Either stations 1 to 4 or stations 5 to 12 can be used.",
-    "Stations 5 to 12 can each carry two RKs.",
-    "As an exception to the normal loading rules, a Mk 12 nuclear bomb (weight 1200 and load 3.0) can be carried on station 3.",
-    "From 1958, may use AIM-9B IRMs."
-  ],
-  "VPs": [ 10, 7, 3, 1 ]
+    "versionname": "F-86F-35",
+    "description": "The North American F-86F-35 Sabre is a single-engined, swept-wing, fighter-bomber, and tactical nuclear bomber. The F-86F-35 version is similar to the F-86F-25 version but can carry a nuclear bomb.",
+    "base": "F-86F-25",
+    "loadnotes": [
+        "Either stations 1 to 4 or stations 5 to 12 can be used.",
+        "Stations 5 to 12 can each carry two RKs.",
+        "As an exception to the normal loading rules, a Mk 12 nuclear bomb (weight 1200 and load 3.0) can be carried on station 3.",
+        "From 1958, may use AIM-9B IRMs."
+    ],
+    "VPs": [
+        10,
+        7,
+        3,
+        1
+    ]
 }

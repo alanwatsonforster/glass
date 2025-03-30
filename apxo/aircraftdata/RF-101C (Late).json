@@ -1,14 +1,47 @@
 {
-  "variantname": "Late",
-  "variantdescription": "with ECM upgrades, from 1965 (EP) and 1966 (RWR) and after.",
-  "base": "RF-101C",
-  "ecm": { "iff": true, "rwr": "A" },
-  "notes": [
-    "Camera-filled nose, with oblique and overhead cameras."
-  ],
-  "stations": [
-    [ "pair"  , [ 1, 5 ],  500, [ "EP" ] ],
-    [ "pair"  , [ 2, 4 ], 3000, [ "FT" ] ],
-    [ "single", [ 3 ]   , 2000, [ "BB", "FT" ] ]
-  ]
+    "variantname": "Late",
+    "variantdescription": "with ECM upgrades, from 1965 (EP) and 1966 (RWR) and after.",
+    "base": "RF-101C",
+    "ecm": {
+        "iff": true,
+        "rwr": "A"
+    },
+    "notes": [
+        "Camera-filled nose, with oblique and overhead cameras."
+    ],
+    "stations": [
+        [
+            "pair",
+            [
+                1,
+                5
+            ],
+            500,
+            [
+                "EP"
+            ]
+        ],
+        [
+            "pair",
+            [
+                2,
+                4
+            ],
+            3000,
+            [
+                "FT"
+            ]
+        ],
+        [
+            "single",
+            [
+                3
+            ],
+            2000,
+            [
+                "BB",
+                "FT"
+            ]
+        ]
+    ]
 }

@@ -1,5 +1,9 @@
 {
-  "versionname": "A-7B",
-  "base": "A-7A",
-  "storeslimits": [ 6, 12, 15000 ]
+    "versionname": "A-7B",
+    "base": "A-7A",
+    "storeslimits": [
+        6,
+        12,
+        15000
+    ]
 }

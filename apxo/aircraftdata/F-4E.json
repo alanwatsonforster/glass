@@ -1,71 +1,367 @@
 {
-  "versionname": "F-4E",
-  "base": "F-4C",
-  "origin": "TSOH",
-  "crew": [ "Pilot", "Radar Officer"],
-  "powertable": {
-    "AB"  : [ 3.0, 2.5, 2.0, 12.0 ],
-    "M"   : [ 1.5, 1.0, 1.0,  4.0 ],
-    "N"   : [ 0.0, 0.0, 0.0,  2.0 ],
-    "I"   : [ 0.5, 1.0, 1.0,  0.0 ],
-    "SPBR": [ 0.5, 1.0, 1.0 ]
-  },
-  "internalfuel": 600,
-  "turndragtable": {
-    "TT": [ 1.0, 2.0, 2.0 ],
-    "HT": [ 2.0, 3.0, 4.0 ],
-    "BT": [ 4.0, 5.0, 6.0 ],
-    "ET": [ 5.0, "-", "-" ]
-  },
-  "ceilingtable": [ 60, 50, 40 ],
-  "speedtable": {
-    "EH": [ [ 4.5, 13.0 ], [ 5.0, 11.0 ], [ "-", "-" ], 14.0 ],
-    "VH": [ [ 3.5, 14.0 ], [ 4.0, 12.0 ], [ 4.5, 9.0 ], 15.0 ],
-    "HI": [ [ 3.0, 12.0 ], [ 3.0, 10.0 ], [ 3.5, 8.0 ], 14.0 ],
-    "MH": [ [ 2.5, 10.0 ], [ 3.0,  9.0 ], [ 3.0, 7.5 ], 12.0 ],
-    "ML": [ [ 2.0,  9.0 ], [ 2.5,  8.0 ], [ 3.0, 7.0 ], 10.0 ],
-    "LO": [ [ 2.0,  8.5 ], [ 2.0,  7.5 ], [ 2.5, 6.5 ],  9.0 ]
-  },
-  "climbcapabilitytable": {
-    "EH": [ [ 1.0, 0.5 ], [ 1.0, 0.5 ], [ "-", "-" ] ],
-    "VH": [ [ 2.0, 1.0 ], [ 1.5, 0.5 ], [ 1.0, 0.5 ] ],
-    "HI": [ [ 4.0, 1.0 ], [ 3.0, 1.0 ], [ 1.0, 0.5 ] ],
-    "MH": [ [ 4.0, 1.5 ], [ 3.0, 1.0 ], [ 2.0, 0.5 ] ],
-    "ML": [ [ 5.0, 2.0 ], [ 3.0, 1.0 ], [ 2.0, 1.0 ] ],
-    "LO": [ [ 6.0, 2.0 ], [ 4.0, 1.5 ], [ 2.0, 1.0 ] ]
-  },
-  "radar": {
-    "name": "APQ-120",
-    "eccm": 2,
-    "arc": "180+",
-    "searchrange": 100,
-    "searchstrength": 20,
-    "trackingrange": 80,
-    "trackingstrength": 20,
-    "lockon": 7
-  },
-  "gun": "20 mm M61 Vulcan",
-  "gunatatohitrolls": "7/5/3",
-  "gundamagerating": "6/8*",
-  "gunammunition": 3.0,
-  "gunsightmodifiers": { "TT": 0, "HT": 1, "BT": 2 },
-  "ataradarranging": "RE",
-  "bombsystem": "Ballistic",
-  "ecm": { "iff": true, "rwr": "A" },
-  "properties": [ "SMP", "RPR" ],
-  "notes": [
-  ],
-  "stations": [
-    [ "pair"  , [ 1, 9 ], 2700, [ "BB", "BG", "RP", "WR", "EP", "DP", "FT" ] ],
-    [ "pair"  , [ 2, 8 ], 3000, [ "BB", "BG", "BS", "RP", "RG", "LP", "GP", "EP", "WR", "DP", "IRM", "RHM" ] ],
-    [ "pair"  , [ 3, 7 ],  500, [ "RHM", "EP", "LP" ] ],
-    [ "pair"  , [ 4, 6 ],  500, [ "RHM" ] ],
-    [ "single", [ 5 ]   , 4500, [ "BB", "BG", "RP", "WR", "GP", "FT" ] ]
-  ],
-  "loadnotes": [
-    "Stations 2 and 8 may each carry two AIM-9 IRMs in addition to other non-missile stores.",
-    "Stations 3, 4, 6, and 7 are the recessed fuselage stations. Stations 3 and 7 are the forward ones and stations 4 and 6 are the rear ones.",
-    "May only use AIM-7 RHMs and AIM-9 IRMs."
-  ],
-  "VPs": [ 30, 20, 10, 5 ]
+    "versionname": "F-4E",
+    "base": "F-4C",
+    "origin": "TSOH",
+    "crew": [
+        "Pilot",
+        "Radar Officer"
+    ],
+    "powertable": {
+        "AB": [
+            3.0,
+            2.5,
+            2.0,
+            12.0
+        ],
+        "M": [
+            1.5,
+            1.0,
+            1.0,
+            4.0
+        ],
+        "N": [
+            0.0,
+            0.0,
+            0.0,
+            2.0
+        ],
+        "I": [
+            0.5,
+            1.0,
+            1.0,
+            0.0
+        ],
+        "SPBR": [
+            0.5,
+            1.0,
+            1.0
+        ]
+    },
+    "internalfuel": 600,
+    "turndragtable": {
+        "TT": [
+            1.0,
+            2.0,
+            2.0
+        ],
+        "HT": [
+            2.0,
+            3.0,
+            4.0
+        ],
+        "BT": [
+            4.0,
+            5.0,
+            6.0
+        ],
+        "ET": [
+            5.0,
+            "-",
+            "-"
+        ]
+    },
+    "ceilingtable": [
+        60,
+        50,
+        40
+    ],
+    "speedtable": {
+        "EH": [
+            [
+                4.5,
+                13.0
+            ],
+            [
+                5.0,
+                11.0
+            ],
+            [
+                "-",
+                "-"
+            ],
+            14.0
+        ],
+        "VH": [
+            [
+                3.5,
+                14.0
+            ],
+            [
+                4.0,
+                12.0
+            ],
+            [
+                4.5,
+                9.0
+            ],
+            15.0
+        ],
+        "HI": [
+            [
+                3.0,
+                12.0
+            ],
+            [
+                3.0,
+                10.0
+            ],
+            [
+                3.5,
+                8.0
+            ],
+            14.0
+        ],
+        "MH": [
+            [
+                2.5,
+                10.0
+            ],
+            [
+                3.0,
+                9.0
+            ],
+            [
+                3.0,
+                7.5
+            ],
+            12.0
+        ],
+        "ML": [
+            [
+                2.0,
+                9.0
+            ],
+            [
+                2.5,
+                8.0
+            ],
+            [
+                3.0,
+                7.0
+            ],
+            10.0
+        ],
+        "LO": [
+            [
+                2.0,
+                8.5
+            ],
+            [
+                2.0,
+                7.5
+            ],
+            [
+                2.5,
+                6.5
+            ],
+            9.0
+        ]
+    },
+    "climbcapabilitytable": {
+        "EH": [
+            [
+                1.0,
+                0.5
+            ],
+            [
+                1.0,
+                0.5
+            ],
+            [
+                "-",
+                "-"
+            ]
+        ],
+        "VH": [
+            [
+                2.0,
+                1.0
+            ],
+            [
+                1.5,
+                0.5
+            ],
+            [
+                1.0,
+                0.5
+            ]
+        ],
+        "HI": [
+            [
+                4.0,
+                1.0
+            ],
+            [
+                3.0,
+                1.0
+            ],
+            [
+                1.0,
+                0.5
+            ]
+        ],
+        "MH": [
+            [
+                4.0,
+                1.5
+            ],
+            [
+                3.0,
+                1.0
+            ],
+            [
+                2.0,
+                0.5
+            ]
+        ],
+        "ML": [
+            [
+                5.0,
+                2.0
+            ],
+            [
+                3.0,
+                1.0
+            ],
+            [
+                2.0,
+                1.0
+            ]
+        ],
+        "LO": [
+            [
+                6.0,
+                2.0
+            ],
+            [
+                4.0,
+                1.5
+            ],
+            [
+                2.0,
+                1.0
+            ]
+        ]
+    },
+    "radar": {
+        "name": "APQ-120",
+        "eccm": 2,
+        "arc": "180+",
+        "searchrange": 100,
+        "searchstrength": 20,
+        "trackingrange": 80,
+        "trackingstrength": 20,
+        "lockon": 7
+    },
+    "gun": "20 mm M61 Vulcan",
+    "gunatatohitrolls": "7/5/3",
+    "gundamagerating": "6/8*",
+    "gunammunition": 3.0,
+    "gunsightmodifiers": {
+        "TT": 0,
+        "HT": 1,
+        "BT": 2
+    },
+    "ataradarranging": "RE",
+    "bombsystem": "Ballistic",
+    "ecm": {
+        "iff": true,
+        "rwr": "A"
+    },
+    "properties": [
+        "SMP",
+        "RPR"
+    ],
+    "notes": [],
+    "stations": [
+        [
+            "pair",
+            [
+                1,
+                9
+            ],
+            2700,
+            [
+                "BB",
+                "BG",
+                "RP",
+                "WR",
+                "EP",
+                "DP",
+                "FT"
+            ]
+        ],
+        [
+            "pair",
+            [
+                2,
+                8
+            ],
+            3000,
+            [
+                "BB",
+                "BG",
+                "BS",
+                "RP",
+                "RG",
+                "LP",
+                "GP",
+                "EP",
+                "WR",
+                "DP",
+                "IRM",
+                "RHM"
+            ]
+        ],
+        [
+            "pair",
+            [
+                3,
+                7
+            ],
+            500,
+            [
+                "RHM",
+                "EP",
+                "LP"
+            ]
+        ],
+        [
+            "pair",
+            [
+                4,
+                6
+            ],
+            500,
+            [
+                "RHM"
+            ]
+        ],
+        [
+            "single",
+            [
+                5
+            ],
+            4500,
+            [
+                "BB",
+                "BG",
+                "RP",
+                "WR",
+                "GP",
+                "FT"
+            ]
+        ]
+    ],
+    "loadnotes": [
+        "Stations 2 and 8 may each carry two AIM-9 IRMs in addition to other non-missile stores.",
+        "Stations 3, 4, 6, and 7 are the recessed fuselage stations. Stations 3 and 7 are the forward ones and stations 4 and 6 are the rear ones.",
+        "May only use AIM-7 RHMs and AIM-9 IRMs."
+    ],
+    "VPs": [
+        30,
+        20,
+        10,
+        5
+    ]
 }

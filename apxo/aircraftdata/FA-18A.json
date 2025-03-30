@@ -1,102 +1,447 @@
 {
-  "versionname": "F/A-18A Hornet",
-  "origin": "Malcom Pipe's UnitedStates ADCs file in the airpower group files",
-  "description": "The McDonnell Douglas F/A-18A Hortnet is a carrier-capable all-weather fighter and attack aircraft. The version described here is the initial one that entered service in 1983, equipped with the APG-65 radar and ALQ-126B DJM.",
-  "crew": ["Pilot"],
-  "powertable": {
-    "AB"  : [ 4.0, 3.0, 2.5, 12 ],
-    "M"   : [ 2.0, 1.5, 1.0,  4 ],
-    "N"   : [ 0.0, 0.0, 0.0,  2 ],
-    "I"   : [ 0.5, 0.5, 1.0,  0 ],
-    "SPBR": [ 1.0, 1.0, 1.0 ]
-  },
-  "jetengines": 2,
-  "cruisespeed": 5.5,
-  "climbspeed" : 4.5,
-  "visibility": 7,
-  "sizemodifier": 0,
-  "vulnerability": 1,
-  "restrictedarcs": "-",
-  "blindarcs": "30L",
-  "internalfuel": 540,
-  "atarefuel": true,
-  "ejectionseat": "advanced",
-  "maneuvertable": {
-    "LR/DR": [ 1.0, 1.0 ],
-    "VR":    [ 0.0, 0.0 ]
-  },
-  "turndragtable": {
-    "TT": [ 1.0, 1.0, 1.0 ],
-    "HT": [ 1.0, 1.0, 2.0 ],
-    "BT": [ 2.0, 3.0, 3.0 ],
-    "ET": [ 3.0, 4.0, "-" ]
-  },
-  "lowspeedliftdevicename": "maneuvering flaps",
-  "lowspeedliftdevicelimittype": "absolute",
-  "lowspeedliftdevicelimit": 3.5,
-  "lowspeedliftdeviceturndragtable": {
-    "TT": [ 1.0, 1.0, 1.0 ],
-    "HT": [ 2.0, 2.0, 3.0 ],
-    "BT": [ 3.0, 4.0, 4.0 ],
-    "ET": [ 4.0, 5.0, "-" ]
-  },
-  "ceilingtable": [ 60, 56, 49 ],
-  "speedtable": {
-    "EH": [ [ 3.0, 12.0 ], [ 3.5, 11.0 ], [ 4.0, 9.5 ], 14.0 ],
-    "VH": [ [ 2.5, 12.0 ], [ 3.0, 11.0 ], [ 3.5, 9.0 ], 14.0 ],
-    "HI": [ [ 2.0, 11.5 ], [ 2.0, 10.5 ], [ 2.5, 9.0 ], 13.0 ],
-    "MH": [ [ 1.5, 11.0 ], [ 1.5, 10.0 ], [ 2.0, 8.0 ], 12.0 ],
-    "ML": [ [ 1.5, 10.0 ], [ 1.5,  9.0 ], [ 2.0, 8.0 ], 12.0 ],
-    "LO": [ [ 1.0,  9.0 ], [ 1.5,  8.0 ], [ 2.0, 7.0 ], 11.0 ]
-  },
-  "climbcapabilitytable": {
-    "EH": [ [ 2.0, 1.0 ], [ 1.0, 0.5 ], [ 1.0, 0.0 ] ],
-    "VH": [ [ 3.0, 1.0 ], [ 2.0, 0.5 ], [ 1.0, 0.5 ] ],
-    "HI": [ [ 4.0, 1.0 ], [ 3.0, 1.0 ], [ 1.0, 0.5 ] ],
-    "MH": [ [ 6.0, 2.0 ], [ 4.0, 1.0 ], [ 2.0, 1.0 ] ],
-    "ML": [ [ 6.0, 2.0 ], [ 6.0, 1.0 ], [ 2.0, 1.0 ] ],
-    "LO": [ [ 8.0, 3.0 ], [ 8.0, 2.0 ], [ 3.0, 1.0 ] ]
-  },
-  "radar": {
-    "name": "APG-65",
-    "eccm": 3,
-    "arc": "150+",
-    "searchrange": 180,
-    "searchstrength": 40,
-    "trackingrange": 120,
-    "trackingstrength": 40,
-    "lockon": 8
-  },
-  "gun": "20 mm M61 Vulcan",
-  "gunatatohitrolls": "7/5/3",
-  "gunammunition": 3.0,
-  "gunsightmodifiers": { "TT": 0, "HT": 0, "BT": 1 },
-  "ataradarranging": "IG",  
-  "gundamagerating": "6/8*",
-  "bombsystem": "Advanced",
-  "ecm": { "iff": true, "rwr": "B", "dds": "B", "djm": "B4" },
-  "technology": [ "Look-Down Radar", "Auto-Track Radar", "Track-While-Scan Radar (10)", "Target-ID Radar", "HUD Interface", "IR Uncage" ],
-  "gunarc": "",
-  "properties": [ "RPR", "HPR", "HRR", "GSSM", "FBW" ],
-  "notes": [
-    "Maneuvering flaps at speed ≤ 3.5."
-  ],
-  "storeslimits": [ 6, 12, 17000 ],
-  "stations": [
-    [ "pair"  , [ 1, 9 ],  250, [ "IRM" ] ],
-    [ "pair"  , [ 2, 8 ], 2500, [ "BB", "BG", "BS", "RP", "RG", "RS", "WR", "ARM", "ASM", "IRM", "RHM", "EP", "DP", "LP" ] ],
-    [ "pair"  , [ 3, 7 ], 3000, [ "BB", "BG", "BS", "RP", "RG", "RS", "GP", "FT", "WR", "ARM", "ASM", "EP", "DP", "LP" ] ],
-    [ "pair"  , [ 4, 6 ],  500, [ "RHM", "OP", "LP" ] ],
-    [ "single", [ 5 ]   , 3000, [ "BB", "BG", "BS", "DR", "TR", "GP", "WP", "DP", "FT" ] ]
-  ],
-  "loadnotes": [
-    "Weight limit for catapult take-off is 13,400.",
-    "Stations 2 and 8 may each carry two IRMs in addition to other non-missile stores.",
-    "May use AIM-9 IRMs and AIM-7 RHMs.",
-    "May use AGM-88 and AGM-122 ARMs.",
-    "May use 330 US gal (1250L) FTs. May use 480 US gal (1800L) FTs for ferry flights."
-
-  ],
-  "VPs": [ 36, 24, 12, 6 ],
-  "wikiurl": "https://tinyurl.com/4edxm65p"
+    "versionname": "F/A-18A Hornet",
+    "origin": "Malcom Pipe's UnitedStates ADCs file in the airpower group files",
+    "description": "The McDonnell Douglas F/A-18A Hortnet is a carrier-capable all-weather fighter and attack aircraft. The version described here is the initial one that entered service in 1983, equipped with the APG-65 radar and ALQ-126B DJM.",
+    "crew": [
+        "Pilot"
+    ],
+    "powertable": {
+        "AB": [
+            4.0,
+            3.0,
+            2.5,
+            12
+        ],
+        "M": [
+            2.0,
+            1.5,
+            1.0,
+            4
+        ],
+        "N": [
+            0.0,
+            0.0,
+            0.0,
+            2
+        ],
+        "I": [
+            0.5,
+            0.5,
+            1.0,
+            0
+        ],
+        "SPBR": [
+            1.0,
+            1.0,
+            1.0
+        ]
+    },
+    "jetengines": 2,
+    "cruisespeed": 5.5,
+    "climbspeed": 4.5,
+    "visibility": 7,
+    "sizemodifier": 0,
+    "vulnerability": 1,
+    "restrictedarcs": "-",
+    "blindarcs": "30L",
+    "internalfuel": 540,
+    "atarefuel": true,
+    "ejectionseat": "advanced",
+    "maneuvertable": {
+        "LR/DR": [
+            1.0,
+            1.0
+        ],
+        "VR": [
+            0.0,
+            0.0
+        ]
+    },
+    "turndragtable": {
+        "TT": [
+            1.0,
+            1.0,
+            1.0
+        ],
+        "HT": [
+            1.0,
+            1.0,
+            2.0
+        ],
+        "BT": [
+            2.0,
+            3.0,
+            3.0
+        ],
+        "ET": [
+            3.0,
+            4.0,
+            "-"
+        ]
+    },
+    "lowspeedliftdevicename": "maneuvering flaps",
+    "lowspeedliftdevicelimittype": "absolute",
+    "lowspeedliftdevicelimit": 3.5,
+    "lowspeedliftdeviceturndragtable": {
+        "TT": [
+            1.0,
+            1.0,
+            1.0
+        ],
+        "HT": [
+            2.0,
+            2.0,
+            3.0
+        ],
+        "BT": [
+            3.0,
+            4.0,
+            4.0
+        ],
+        "ET": [
+            4.0,
+            5.0,
+            "-"
+        ]
+    },
+    "ceilingtable": [
+        60,
+        56,
+        49
+    ],
+    "speedtable": {
+        "EH": [
+            [
+                3.0,
+                12.0
+            ],
+            [
+                3.5,
+                11.0
+            ],
+            [
+                4.0,
+                9.5
+            ],
+            14.0
+        ],
+        "VH": [
+            [
+                2.5,
+                12.0
+            ],
+            [
+                3.0,
+                11.0
+            ],
+            [
+                3.5,
+                9.0
+            ],
+            14.0
+        ],
+        "HI": [
+            [
+                2.0,
+                11.5
+            ],
+            [
+                2.0,
+                10.5
+            ],
+            [
+                2.5,
+                9.0
+            ],
+            13.0
+        ],
+        "MH": [
+            [
+                1.5,
+                11.0
+            ],
+            [
+                1.5,
+                10.0
+            ],
+            [
+                2.0,
+                8.0
+            ],
+            12.0
+        ],
+        "ML": [
+            [
+                1.5,
+                10.0
+            ],
+            [
+                1.5,
+                9.0
+            ],
+            [
+                2.0,
+                8.0
+            ],
+            12.0
+        ],
+        "LO": [
+            [
+                1.0,
+                9.0
+            ],
+            [
+                1.5,
+                8.0
+            ],
+            [
+                2.0,
+                7.0
+            ],
+            11.0
+        ]
+    },
+    "climbcapabilitytable": {
+        "EH": [
+            [
+                2.0,
+                1.0
+            ],
+            [
+                1.0,
+                0.5
+            ],
+            [
+                1.0,
+                0.0
+            ]
+        ],
+        "VH": [
+            [
+                3.0,
+                1.0
+            ],
+            [
+                2.0,
+                0.5
+            ],
+            [
+                1.0,
+                0.5
+            ]
+        ],
+        "HI": [
+            [
+                4.0,
+                1.0
+            ],
+            [
+                3.0,
+                1.0
+            ],
+            [
+                1.0,
+                0.5
+            ]
+        ],
+        "MH": [
+            [
+                6.0,
+                2.0
+            ],
+            [
+                4.0,
+                1.0
+            ],
+            [
+                2.0,
+                1.0
+            ]
+        ],
+        "ML": [
+            [
+                6.0,
+                2.0
+            ],
+            [
+                6.0,
+                1.0
+            ],
+            [
+                2.0,
+                1.0
+            ]
+        ],
+        "LO": [
+            [
+                8.0,
+                3.0
+            ],
+            [
+                8.0,
+                2.0
+            ],
+            [
+                3.0,
+                1.0
+            ]
+        ]
+    },
+    "radar": {
+        "name": "APG-65",
+        "eccm": 3,
+        "arc": "150+",
+        "searchrange": 180,
+        "searchstrength": 40,
+        "trackingrange": 120,
+        "trackingstrength": 40,
+        "lockon": 8
+    },
+    "gun": "20 mm M61 Vulcan",
+    "gunatatohitrolls": "7/5/3",
+    "gunammunition": 3.0,
+    "gunsightmodifiers": {
+        "TT": 0,
+        "HT": 0,
+        "BT": 1
+    },
+    "ataradarranging": "IG",
+    "gundamagerating": "6/8*",
+    "bombsystem": "Advanced",
+    "ecm": {
+        "iff": true,
+        "rwr": "B",
+        "dds": "B",
+        "djm": "B4"
+    },
+    "technology": [
+        "Look-Down Radar",
+        "Auto-Track Radar",
+        "Track-While-Scan Radar (10)",
+        "Target-ID Radar",
+        "HUD Interface",
+        "IR Uncage"
+    ],
+    "gunarc": "",
+    "properties": [
+        "RPR",
+        "HPR",
+        "HRR",
+        "GSSM",
+        "FBW"
+    ],
+    "notes": [
+        "Maneuvering flaps at speed \u2264 3.5."
+    ],
+    "storeslimits": [
+        6,
+        12,
+        17000
+    ],
+    "stations": [
+        [
+            "pair",
+            [
+                1,
+                9
+            ],
+            250,
+            [
+                "IRM"
+            ]
+        ],
+        [
+            "pair",
+            [
+                2,
+                8
+            ],
+            2500,
+            [
+                "BB",
+                "BG",
+                "BS",
+                "RP",
+                "RG",
+                "RS",
+                "WR",
+                "ARM",
+                "ASM",
+                "IRM",
+                "RHM",
+                "EP",
+                "DP",
+                "LP"
+            ]
+        ],
+        [
+            "pair",
+            [
+                3,
+                7
+            ],
+            3000,
+            [
+                "BB",
+                "BG",
+                "BS",
+                "RP",
+                "RG",
+                "RS",
+                "GP",
+                "FT",
+                "WR",
+                "ARM",
+                "ASM",
+                "EP",
+                "DP",
+                "LP"
+            ]
+        ],
+        [
+            "pair",
+            [
+                4,
+                6
+            ],
+            500,
+            [
+                "RHM",
+                "OP",
+                "LP"
+            ]
+        ],
+        [
+            "single",
+            [
+                5
+            ],
+            3000,
+            [
+                "BB",
+                "BG",
+                "BS",
+                "DR",
+                "TR",
+                "GP",
+                "WP",
+                "DP",
+                "FT"
+            ]
+        ]
+    ],
+    "loadnotes": [
+        "Weight limit for catapult take-off is 13,400.",
+        "Stations 2 and 8 may each carry two IRMs in addition to other non-missile stores.",
+        "May use AIM-9 IRMs and AIM-7 RHMs.",
+        "May use AGM-88 and AGM-122 ARMs.",
+        "May use 330 US gal (1250L) FTs. May use 480 US gal (1800L) FTs for ferry flights."
+    ],
+    "VPs": [
+        36,
+        24,
+        12,
+        6
+    ],
+    "wikiurl": "https://tinyurl.com/4edxm65p"
 }

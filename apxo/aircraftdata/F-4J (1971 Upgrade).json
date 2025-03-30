@@ -1,8 +1,11 @@
 {
-  "base": "F-4J",
-  "variantname": "1971 Upgrade",
-  "variantdescription": "with RWR-B, from 1971.",
-  "ecm": { "iff": true, "rwr": "B", "dds": "A", "djm": "A3" }
+    "base": "F-4J",
+    "variantname": "1971 Upgrade",
+    "variantdescription": "with RWR-B, from 1971.",
+    "ecm": {
+        "iff": true,
+        "rwr": "B",
+        "dds": "A",
+        "djm": "A3"
+    }
 }
-
-

@@ -1,28 +1,161 @@
 {
-  "versionname": "AU-1",
-  "description": "The Vought AU-1 Corsair is a propeller-driven, carrier-capable close-air-support aircraf, developed for the USMC from the F4U-5. It has additional armor, oil coolers relocated to reduce vulnerability, simplified superchargers, and two additional weapon stations.",
-  "base": "F4U-5",
-  "ceilingtable": [ 41, 31, 20 ],
-  "vulnerability": 2,
-  "speedtable:comment": "The ADC says reduce all max speeds if in the MH+ bands by 0.5. I've done this for the max speed, but not the dive speed.",
-  "speedtable": {
-    "EH": [ [  "-",  "-" ], [  "-",  "-" ], [  "-",  "-" ],  "-" ],
-    "VH": [ [  2.0,  3.5 ], [  "-",  "-" ], [  "-",  "-" ],  5.0 ],
-    "HI": [ [  1.5,  4.0 ], [  2.0,  3.5 ], [  "-",  "-" ],  5.0 ],
-    "MH": [ [  1.5,  4.0 ], [  1.5,  3.5 ], [  1.5,  3.0 ],  5.5 ],
-    "ML": [ [  1.0,  4.0 ], [  1.5,  3.5 ], [  1.5,  3.0 ],  5.5 ],
-    "LO": [ [  1.0,  4.0 ], [  1.0,  3.5 ], [  1.5,  3.0 ],  5.0 ]
-  },
-  "poweraltitudefadetable": [[16, 0.5]],
-  "stations": [
-    [ "grouppair", [ 1, 5, 9, 13 ],  280, [ "BB", "RK" ] ],
-    [ "pair"     , [ 6, 8 ]       , 1000, [ "BB", "RK", "FT" ] ],
-    [ "single"   , [ 7 ]          , 1200, [ "BB", "FT" ] ]
-  ],
-  "loadnotes": [
-    "Stations 1 to 5 and 9 to 13 are closely spaced and have restrictions: a station adjacent to one other loaded with a store of more than 250 lb may only carry a store of 250 lb or less and a station between two others loaded with stores of more than 250 lb may not be used. They make carry HVAR and ATAR RKs. Only one RK can be carried per station.",
-    "Stations 6, 7, and 8 may carry 150 US gal (550L) FTs.",
-    "Stations 6 and 8 may carry Tiny Tim RKs."
-  ],
-  "VPs": [ 7, 5, 3, 1 ]
+    "versionname": "AU-1",
+    "description": "The Vought AU-1 Corsair is a propeller-driven, carrier-capable close-air-support aircraf, developed for the USMC from the F4U-5. It has additional armor, oil coolers relocated to reduce vulnerability, simplified superchargers, and two additional weapon stations.",
+    "base": "F4U-5",
+    "ceilingtable": [
+        41,
+        31,
+        20
+    ],
+    "vulnerability": 2,
+    "speedtable:comment": "The ADC says reduce all max speeds if in the MH+ bands by 0.5. I've done this for the max speed, but not the dive speed.",
+    "speedtable": {
+        "EH": [
+            [
+                "-",
+                "-"
+            ],
+            [
+                "-",
+                "-"
+            ],
+            [
+                "-",
+                "-"
+            ],
+            "-"
+        ],
+        "VH": [
+            [
+                2.0,
+                3.5
+            ],
+            [
+                "-",
+                "-"
+            ],
+            [
+                "-",
+                "-"
+            ],
+            5.0
+        ],
+        "HI": [
+            [
+                1.5,
+                4.0
+            ],
+            [
+                2.0,
+                3.5
+            ],
+            [
+                "-",
+                "-"
+            ],
+            5.0
+        ],
+        "MH": [
+            [
+                1.5,
+                4.0
+            ],
+            [
+                1.5,
+                3.5
+            ],
+            [
+                1.5,
+                3.0
+            ],
+            5.5
+        ],
+        "ML": [
+            [
+                1.0,
+                4.0
+            ],
+            [
+                1.5,
+                3.5
+            ],
+            [
+                1.5,
+                3.0
+            ],
+            5.5
+        ],
+        "LO": [
+            [
+                1.0,
+                4.0
+            ],
+            [
+                1.0,
+                3.5
+            ],
+            [
+                1.5,
+                3.0
+            ],
+            5.0
+        ]
+    },
+    "poweraltitudefadetable": [
+        [
+            16,
+            0.5
+        ]
+    ],
+    "stations": [
+        [
+            "grouppair",
+            [
+                1,
+                5,
+                9,
+                13
+            ],
+            280,
+            [
+                "BB",
+                "RK"
+            ]
+        ],
+        [
+            "pair",
+            [
+                6,
+                8
+            ],
+            1000,
+            [
+                "BB",
+                "RK",
+                "FT"
+            ]
+        ],
+        [
+            "single",
+            [
+                7
+            ],
+            1200,
+            [
+                "BB",
+                "FT"
+            ]
+        ]
+    ],
+    "loadnotes": [
+        "Stations 1 to 5 and 9 to 13 are closely spaced and have restrictions: a station adjacent to one other loaded with a store of more than 250 lb may only carry a store of 250 lb or less and a station between two others loaded with stores of more than 250 lb may not be used. They make carry HVAR and ATAR RKs. Only one RK can be carried per station.",
+        "Stations 6, 7, and 8 may carry 150 US gal (550L) FTs.",
+        "Stations 6 and 8 may carry Tiny Tim RKs."
+    ],
+    "VPs": [
+        7,
+        5,
+        3,
+        1
+    ]
 }

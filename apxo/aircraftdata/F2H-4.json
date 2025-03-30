@@ -1,25 +1,114 @@
 {
-  "versionname": "F2H-4",
-  "description": "The McDonnell F2H-3 Banshee is an all-weather interceptor, fighter-bomber, and tactical nuclear bomber. It has two engines, straight wings, and is carrier-capable. It is a development of the F2H-3 with the APG-37 search radar and more powerful engines.",
-  "variantname": null,
-  "base": "F2H-3",
-  "speedtable": {
-    "EH": [ [ 3.0, 5.0 ], [ "-", "-" ], [ "-", "-" ], 6.0 ],
-    "VH": [ [ 2.5, 5.5 ], [ 3.0, 5.0 ], [ 3.0, 5.0 ], 6.0 ],
-    "HI": [ [ 2.0, 5.5 ], [ 2.5, 5.5 ], [ 2.5, 5.0 ], 6.5 ],
-    "MH": [ [ 2.0, 6.0 ], [ 2.0, 5.5 ], [ 2.5, 5.5 ], 6.5 ],
-    "ML": [ [ 1.5, 6.0 ], [ 2.0, 5.5 ], [ 2.0, 5.5 ], 7.0 ],
-    "LO": [ [ 1.5, 6.0 ], [ 1.5, 5.5 ], [ 2.0, 5.5 ], 7.0 ]
-  },
-  "radar": {
-    "name": "APG-37",
-    "eccm": 0,
-    "arc": "180+",
-    "searchrange": 70,
-    "searchstrength": 10,
-    "trackingrange": 40,
-    "trackingstrength": 8,
-    "lockon": 6
-  },
-  "VPs": [ 12, 8, 4, 2 ]
+    "versionname": "F2H-4",
+    "description": "The McDonnell F2H-3 Banshee is an all-weather interceptor, fighter-bomber, and tactical nuclear bomber. It has two engines, straight wings, and is carrier-capable. It is a development of the F2H-3 with the APG-37 search radar and more powerful engines.",
+    "variantname": null,
+    "base": "F2H-3",
+    "speedtable": {
+        "EH": [
+            [
+                3.0,
+                5.0
+            ],
+            [
+                "-",
+                "-"
+            ],
+            [
+                "-",
+                "-"
+            ],
+            6.0
+        ],
+        "VH": [
+            [
+                2.5,
+                5.5
+            ],
+            [
+                3.0,
+                5.0
+            ],
+            [
+                3.0,
+                5.0
+            ],
+            6.0
+        ],
+        "HI": [
+            [
+                2.0,
+                5.5
+            ],
+            [
+                2.5,
+                5.5
+            ],
+            [
+                2.5,
+                5.0
+            ],
+            6.5
+        ],
+        "MH": [
+            [
+                2.0,
+                6.0
+            ],
+            [
+                2.0,
+                5.5
+            ],
+            [
+                2.5,
+                5.5
+            ],
+            6.5
+        ],
+        "ML": [
+            [
+                1.5,
+                6.0
+            ],
+            [
+                2.0,
+                5.5
+            ],
+            [
+                2.0,
+                5.5
+            ],
+            7.0
+        ],
+        "LO": [
+            [
+                1.5,
+                6.0
+            ],
+            [
+                1.5,
+                5.5
+            ],
+            [
+                2.0,
+                5.5
+            ],
+            7.0
+        ]
+    },
+    "radar": {
+        "name": "APG-37",
+        "eccm": 0,
+        "arc": "180+",
+        "searchrange": 70,
+        "searchstrength": 10,
+        "trackingrange": 40,
+        "trackingstrength": 8,
+        "lockon": 6
+    },
+    "VPs": [
+        12,
+        8,
+        4,
+        2
+    ]
 }

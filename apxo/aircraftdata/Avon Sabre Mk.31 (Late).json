@@ -1,16 +1,48 @@
 {
-  "versionname": "Avon Sabre Mk.31",
-  "variantname": "Late",
-  "description": "The CAC Avon Sabre Mk.31 is a day fighter derived from the F-86F with the unslatted 6-3 wing and an Avon 20 engine. The “Late” variant described here is from 1960 and after, and is fitted with two additional weapon stations for IRMs or, when used as a fighter-bomber, bombs.",
-  "base": "Avon Sabre Mk.31",
-  "storeslimits": [ 2, 6, 5300 ],
-  "stations": [
-    [ "pair"     , [ 1, 4 ]       , 1500, [ "BB", "FT" ] ],
-    [ "pair"     , [ 2, 3 ]       , 1000, [ "BB", "FT", "IRM" ] ]
-  ],
-  "loadnotes": [
-    "May use 400L and 700L FTs.",
-    "May use AIM-9B IRMs."
-  ],
-  "VPs": [ 11, 8, 4, 2 ]
+    "versionname": "Avon Sabre Mk.31",
+    "variantname": "Late",
+    "description": "The CAC Avon Sabre Mk.31 is a day fighter derived from the F-86F with the unslatted 6-3 wing and an Avon 20 engine. The \u201cLate\u201d variant described here is from 1960 and after, and is fitted with two additional weapon stations for IRMs or, when used as a fighter-bomber, bombs.",
+    "base": "Avon Sabre Mk.31",
+    "storeslimits": [
+        2,
+        6,
+        5300
+    ],
+    "stations": [
+        [
+            "pair",
+            [
+                1,
+                4
+            ],
+            1500,
+            [
+                "BB",
+                "FT"
+            ]
+        ],
+        [
+            "pair",
+            [
+                2,
+                3
+            ],
+            1000,
+            [
+                "BB",
+                "FT",
+                "IRM"
+            ]
+        ]
+    ],
+    "loadnotes": [
+        "May use 400L and 700L FTs.",
+        "May use AIM-9B IRMs."
+    ],
+    "VPs": [
+        11,
+        8,
+        4,
+        2
+    ]
 }

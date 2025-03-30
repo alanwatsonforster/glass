@@ -1,23 +1,126 @@
 {
-  "versionname": "F-86L",
-  "description": "The North American F-86L Sabre-Dog is a single-engined, swept-wing, all-weather interceptor. It is armed with 24 FFARs in a ventral tray. The APG-36 radar and Hughes E-4 fire-control system allow collision-course rocket attacks. The F-86L version is a derivative of the F-86D and has the slatted 6-3 wing and a SAGE data-link.",
-  "base": "F-86D",
-  "origin": "APJ 25",
-  "lowspeedliftdevicename": null,
-  "turndragtable": {
-    "TT": [ 1.0, 1.0, 1.0 ],
-    "HT": [ 1.0, 1.0, 1.0 ],
-    "BT": [ 2.0, 2.0, 2.0 ]
-  },
-  "speedtable": {
-    "EH": [ [  2.5,  6.0 ], [  2.5,  5.5 ], [  "-",  "-" ],  6.5 ],
-    "VH": [ [  2.5,  6.0 ], [  2.5,  5.5 ], [  2.5,  5.0 ],  6.5 ],
-    "HI": [ [  2.0,  6.0 ], [  2.5,  6.0 ], [  2.5,  5.5 ],  7.0 ],
-    "MH": [ [  2.0,  6.5 ], [  2.5,  6.0 ], [  2.5,  6.0 ],  7.0 ],
-    "ML": [ [  1.5,  6.5 ], [  2.0,  6.5 ], [  2.5,  6.0 ],  7.5 ],
-    "LO": [ [  1.5,  7.0 ], [  2.0,  6.5 ], [  2.0,  6.0 ],  7.5 ]
-  },
-  "properties:comment": "Not HTD.",
-  "properties": [ "SMP" ],
-  "VPs": [ 13, 9, 3, 1 ]
+    "versionname": "F-86L",
+    "description": "The North American F-86L Sabre-Dog is a single-engined, swept-wing, all-weather interceptor. It is armed with 24 FFARs in a ventral tray. The APG-36 radar and Hughes E-4 fire-control system allow collision-course rocket attacks. The F-86L version is a derivative of the F-86D and has the slatted 6-3 wing and a SAGE data-link.",
+    "base": "F-86D",
+    "origin": "APJ 25",
+    "lowspeedliftdevicename": null,
+    "turndragtable": {
+        "TT": [
+            1.0,
+            1.0,
+            1.0
+        ],
+        "HT": [
+            1.0,
+            1.0,
+            1.0
+        ],
+        "BT": [
+            2.0,
+            2.0,
+            2.0
+        ]
+    },
+    "speedtable": {
+        "EH": [
+            [
+                2.5,
+                6.0
+            ],
+            [
+                2.5,
+                5.5
+            ],
+            [
+                "-",
+                "-"
+            ],
+            6.5
+        ],
+        "VH": [
+            [
+                2.5,
+                6.0
+            ],
+            [
+                2.5,
+                5.5
+            ],
+            [
+                2.5,
+                5.0
+            ],
+            6.5
+        ],
+        "HI": [
+            [
+                2.0,
+                6.0
+            ],
+            [
+                2.5,
+                6.0
+            ],
+            [
+                2.5,
+                5.5
+            ],
+            7.0
+        ],
+        "MH": [
+            [
+                2.0,
+                6.5
+            ],
+            [
+                2.5,
+                6.0
+            ],
+            [
+                2.5,
+                6.0
+            ],
+            7.0
+        ],
+        "ML": [
+            [
+                1.5,
+                6.5
+            ],
+            [
+                2.0,
+                6.5
+            ],
+            [
+                2.5,
+                6.0
+            ],
+            7.5
+        ],
+        "LO": [
+            [
+                1.5,
+                7.0
+            ],
+            [
+                2.0,
+                6.5
+            ],
+            [
+                2.0,
+                6.0
+            ],
+            7.5
+        ]
+    },
+    "properties:comment": "Not HTD.",
+    "properties": [
+        "SMP"
+    ],
+    "VPs": [
+        13,
+        9,
+        3,
+        1
+    ]
 }

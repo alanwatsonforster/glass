@@ -1,103 +1,315 @@
 {
-  "versionname": "B-29A",
-  "description": "The B-29A is a propeller-driven strategic bomber. The base variant described here is a conventional bomber.",
-  "popularname": "Superfortress",
-  "manufacturername": "Boeing",
-  "origin": "Watson",
-  "crew": [
-   "Pilot", 
-   "Co-pilot",
-   "Bombardier",
-   "Flight Engineer",
-   "Navigator",
-   "Radio Operator",
-   "Radar Observer",
-   "Right Gunner", 
-   "Left Gunner", 
-   "Fire Control Officer", 
-   "Tail Gunner"
-   ],
-  
-  "powertable": {
-    "FT"  : [ 0.5 , 0.5 , 0.5 , 2.0 ],
-    "HT"  : [ 0.25, 0.25, 0.25, 1.0 ],
-    "N"   : [ 0.0 , 0.0 , 0.0 , 0.4 ],
-    "I"   : [ 0.5 , 0.5 , 0.5 , 0.0 ],
-    "SPBR": [ "-", "-", "-" ]
-  },
-  "powerfadespeedtable": [ [2.5, 0.25] ],
-
-  "propellerengines": 4,
-  "cruisespeed": 2.0,
-  "climbspeed" : 2.0,  
-  "visibility": 10,
-  "sizemodifier": -2,
-  "vulnerability": 2,
-  "restrictedarcs": "",
-  "blindarcs": "",
-  "atarefuel": false,
-  "internalfuel": 2900,
-  "ejectionseat": "none",
-
-  "maneuvertable": {
-    "LR/DR": [ "-", "-" ],
-    "VR":    [ "-", "-" ]
-  },
-
-  "turndragtable": {
-    "TT": [ 1.0, "-", "-" ]
-  },
-
-  "ceilingtable": [ 40, 37, 32 ],
-
-  "speedtable": {
-    "EH": [ [  "-",  "-" ], [  "-",  "-" ], [  "-",  "-" ],  "-" ],
-    "VH": [ [  1.5,  3.5 ], [  1.5,  3.5 ], [  "-",  "-" ],  4.5 ],
-    "HI": [ [  1.0,  4.0 ], [  1.5,  4.0 ], [  1.5,  3.5 ],  4.5 ],
-    "MH": [ [  1.0,  3.5 ], [  1.0,  3.5 ], [  1.0,  3.5 ],  4.5 ],
-    "ML": [ [  1.0,  3.5 ], [  1.0,  3.5 ], [  1.0,  3.0 ],  4.0 ],
-    "LO": [ [  1.0,  3.0 ], [  1.0,  3.0 ], [  1.0,  3.0 ],  3.5 ]
-  },
-
-  "climbcapabilitytable": {
-    "EH": [ [ "-", "-"  ], [ "-", "-"  ], [ "-", "-"   ] ],
-    "VH": [ [ "-", 0.25 ], [ "-", 0.10 ], [ "-", "-"   ] ],
-    "HI": [ [ "-", 0.50 ], [ "-", 0.25 ], [ "-", 0.10  ] ],
-    "MH": [ [ "-", 0.50 ], [ "-", 0.25 ], [ "-", 0.25  ] ],
-    "ML": [ [ "-", 0.50 ], [ "-", 0.25 ], [ "-", 0.25  ] ],
-    "LO": [ [ "-", 0.50 ], [ "-", 0.25 ], [ "-", 0.25  ] ]
-  },
-  
-  "properties": [ "LRR", "NRM" ],
-  
-  "radar": {
-    "name": "APQ-13",
-    "eccm": 0,
-    "arc": "0+",
-    "searchrange": 120,
-    "trackingrange": 60,
-    "lockon": 6
-  },
-
-  "ecm": { "iff": true, "rwr": "A", "bjm": "A2" },
-  
-  "storeslimits": [ 11, 23, 20000 ],
-  "stations": [
-    [ "pair", [ 1, 2 ], 10000, [ "BB", "FT" ] ]
-  ],
-  "loadnotes": [
-    "Stations 1 and 2 are the forward and rear internal bomb bays. Each can carry up to (a) two 4,000 lb bombs, (b) four 2,000 lb bombs, (c) six 1,000 lb bombs, (d) twenty 500 lb bombs, or (e) two 640 gal FTs (each 2400L, weight 4,000, and 200 fuel points). All bombs must be the same type and low-drag.",
-    "As an exception to the normal rules for load points, internal loads contribute 1 load point for each 1,000 of weight and internal fuel contributes 1 load point for each 50 fuel points. A return mission will typically require leaving the target with at least 750 fuel points (15 load points)."
-  ],
-
-  "notes": [
-      "Flight Restrictions. UD, VD, ZC, and VC are forbidden. SC and SD may only use 1 VFP per turn. SD may only lose 1 altitude level per VFP."
-  ],
-  
-  "typenotes": [
-     "Defensive Guns. Equipped with eleven .50 cal M2 guns, eight in four twin turrets and three in the tail mount. They can fire in any direction. They may return fire twice per game turn in response to a gun attacks or conduct a single attack. The roll to hit is 2/1/1 and the AtA rating is 2. Gun attacks are modified only by the target size and have a -1 modifier when firing into the 60- arc. Ammunition is unlimited."
-  ],
-  
-  "wikiurl": "https://bit.ly/3UjPqWF"
-
+    "versionname": "B-29A",
+    "description": "The B-29A is a propeller-driven strategic bomber. The base variant described here is a conventional bomber.",
+    "popularname": "Superfortress",
+    "manufacturername": "Boeing",
+    "origin": "Watson",
+    "crew": [
+        "Pilot",
+        "Co-pilot",
+        "Bombardier",
+        "Flight Engineer",
+        "Navigator",
+        "Radio Operator",
+        "Radar Observer",
+        "Right Gunner",
+        "Left Gunner",
+        "Fire Control Officer",
+        "Tail Gunner"
+    ],
+    "powertable": {
+        "FT": [
+            0.5,
+            0.5,
+            0.5,
+            2.0
+        ],
+        "HT": [
+            0.25,
+            0.25,
+            0.25,
+            1.0
+        ],
+        "N": [
+            0.0,
+            0.0,
+            0.0,
+            0.4
+        ],
+        "I": [
+            0.5,
+            0.5,
+            0.5,
+            0.0
+        ],
+        "SPBR": [
+            "-",
+            "-",
+            "-"
+        ]
+    },
+    "powerfadespeedtable": [
+        [
+            2.5,
+            0.25
+        ]
+    ],
+    "propellerengines": 4,
+    "cruisespeed": 2.0,
+    "climbspeed": 2.0,
+    "visibility": 10,
+    "sizemodifier": -2,
+    "vulnerability": 2,
+    "restrictedarcs": "",
+    "blindarcs": "",
+    "atarefuel": false,
+    "internalfuel": 2900,
+    "ejectionseat": "none",
+    "maneuvertable": {
+        "LR/DR": [
+            "-",
+            "-"
+        ],
+        "VR": [
+            "-",
+            "-"
+        ]
+    },
+    "turndragtable": {
+        "TT": [
+            1.0,
+            "-",
+            "-"
+        ]
+    },
+    "ceilingtable": [
+        40,
+        37,
+        32
+    ],
+    "speedtable": {
+        "EH": [
+            [
+                "-",
+                "-"
+            ],
+            [
+                "-",
+                "-"
+            ],
+            [
+                "-",
+                "-"
+            ],
+            "-"
+        ],
+        "VH": [
+            [
+                1.5,
+                3.5
+            ],
+            [
+                1.5,
+                3.5
+            ],
+            [
+                "-",
+                "-"
+            ],
+            4.5
+        ],
+        "HI": [
+            [
+                1.0,
+                4.0
+            ],
+            [
+                1.5,
+                4.0
+            ],
+            [
+                1.5,
+                3.5
+            ],
+            4.5
+        ],
+        "MH": [
+            [
+                1.0,
+                3.5
+            ],
+            [
+                1.0,
+                3.5
+            ],
+            [
+                1.0,
+                3.5
+            ],
+            4.5
+        ],
+        "ML": [
+            [
+                1.0,
+                3.5
+            ],
+            [
+                1.0,
+                3.5
+            ],
+            [
+                1.0,
+                3.0
+            ],
+            4.0
+        ],
+        "LO": [
+            [
+                1.0,
+                3.0
+            ],
+            [
+                1.0,
+                3.0
+            ],
+            [
+                1.0,
+                3.0
+            ],
+            3.5
+        ]
+    },
+    "climbcapabilitytable": {
+        "EH": [
+            [
+                "-",
+                "-"
+            ],
+            [
+                "-",
+                "-"
+            ],
+            [
+                "-",
+                "-"
+            ]
+        ],
+        "VH": [
+            [
+                "-",
+                0.25
+            ],
+            [
+                "-",
+                0.1
+            ],
+            [
+                "-",
+                "-"
+            ]
+        ],
+        "HI": [
+            [
+                "-",
+                0.5
+            ],
+            [
+                "-",
+                0.25
+            ],
+            [
+                "-",
+                0.1
+            ]
+        ],
+        "MH": [
+            [
+                "-",
+                0.5
+            ],
+            [
+                "-",
+                0.25
+            ],
+            [
+                "-",
+                0.25
+            ]
+        ],
+        "ML": [
+            [
+                "-",
+                0.5
+            ],
+            [
+                "-",
+                0.25
+            ],
+            [
+                "-",
+                0.25
+            ]
+        ],
+        "LO": [
+            [
+                "-",
+                0.5
+            ],
+            [
+                "-",
+                0.25
+            ],
+            [
+                "-",
+                0.25
+            ]
+        ]
+    },
+    "properties": [
+        "LRR",
+        "NRM"
+    ],
+    "radar": {
+        "name": "APQ-13",
+        "eccm": 0,
+        "arc": "0+",
+        "searchrange": 120,
+        "trackingrange": 60,
+        "lockon": 6
+    },
+    "ecm": {
+        "iff": true,
+        "rwr": "A",
+        "bjm": "A2"
+    },
+    "storeslimits": [
+        11,
+        23,
+        20000
+    ],
+    "stations": [
+        [
+            "pair",
+            [
+                1,
+                2
+            ],
+            10000,
+            [
+                "BB",
+                "FT"
+            ]
+        ]
+    ],
+    "loadnotes": [
+        "Stations 1 and 2 are the forward and rear internal bomb bays. Each can carry up to (a) two 4,000 lb bombs, (b) four 2,000 lb bombs, (c) six 1,000 lb bombs, (d) twenty 500 lb bombs, or (e) two 640 gal FTs (each 2400L, weight 4,000, and 200 fuel points). All bombs must be the same type and low-drag.",
+        "As an exception to the normal rules for load points, internal loads contribute 1 load point for each 1,000 of weight and internal fuel contributes 1 load point for each 50 fuel points. A return mission will typically require leaving the target with at least 750 fuel points (15 load points)."
+    ],
+    "notes": [
+        "Flight Restrictions. UD, VD, ZC, and VC are forbidden. SC and SD may only use 1 VFP per turn. SD may only lose 1 altitude level per VFP."
+    ],
+    "typenotes": [
+        "Defensive Guns. Equipped with eleven .50 cal M2 guns, eight in four twin turrets and three in the tail mount. They can fire in any direction. They may return fire twice per game turn in response to a gun attacks or conduct a single attack. The roll to hit is 2/1/1 and the AtA rating is 2. Gun attacks are modified only by the target size and have a -1 modifier when firing into the 60- arc. Ammunition is unlimited."
+    ],
+    "wikiurl": "https://bit.ly/3UjPqWF"
 }

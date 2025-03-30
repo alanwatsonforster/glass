@@ -1,81 +1,324 @@
 {
-  "versionname": "F-94B",
-  "description": "The Lockheed F-94B is a single-engined, unswept-wing all-weather interceptor. It is a development of the F-94A and features a more reliable enginer and modifications to the cockpit. It retains the APG-33 radar and the Hughes E-1 fire-control system. It is armed with four .50 cal machine guns, and the fire-control system allows them to be fired under radar control.",
-  "origin": "APJ 50",
-  "crew": [ "Pilot", "Radar Officer" ],
-  "powertable": {
-    "AB"  : [ 1.0, 1.0, 1.0, 2.0 ],
-    "M"   : [ 1.0, 0.5, 0.5, 1.0 ],
-    "N"   : [ 0.0, 0.0, 0.0, 0.5 ],
-    "I"   : [ 0.5, 0.5, 0.5, 0.0 ],
-    "SPBR": [ 1.0, 1.0, 1.0 ]
-  },
-  "jetengines": 1,
-  "cruisespeed": 4.5,
-  "climbspeed" : 3.0,
-  "visibility": 5,
-  "sizemodifier": 0,
-  "vulnerability": 1,
-  "restrictedarcs": "",
-  "blindarcs": "30-",
-  "internalfuel": 103,
-  "atarefuel": false,
-  "ejectionseat": "early",
-  "maneuvertable": {
-    "LR/DR": [ 1.0, 1.5 ],
-    "VR":    [ 0.0, 0.5 ]
-  },
-  "turndragtable": {
-    "TT": [ 0.0, 0.0, 1.0 ],
-    "HT": [ 1.0, 1.0, 2.0 ],
-    "BT": [ 2.0, 2.0, 3.0 ],
-    "ET": [ "-", "-", "-" ]
-  },
-  "ceilingtable": [ 47, 42, 37 ],
-  "speedtable": {
-    "EH": [ [  2.5,  4.5 ], [  "-",  "-" ], [  "-",  "-" ],  6.5 ],
-    "VH": [ [  2.5,  5.0 ], [  2.5,  5.0 ], [  2.5,  4.5 ],  7.0 ],
-    "HI": [ [  2.5,  5.5 ], [  2.5,  5.0 ], [  2.5,  4.0 ],  7.0 ],
-    "MH": [ [  2.0,  5.5 ], [  2.0,  5.5 ], [  2.5,  4.5 ],  7.0 ],
-    "ML": [ [  2.0,  6.0 ], [  2.0,  5.5 ], [  2.0,  5.0 ],  7.5 ],
-    "LO": [ [  1.5,  6.0 ], [  2.0,  5.5 ], [  2.0,  5.0 ],  7.5 ]
-  },
-  "climbcapabilitytable": {
-    "EH": [ [ 0.5, "-"  ], [ "-", "-"  ], [ "-", "-"  ] ],
-    "VH": [ [ 0.5, 0.25 ], [ 0.5, "-"  ], [ 0.5, "-"  ] ],
-    "HI": [ [ 1.0, 0.5  ], [ 0.5, 0.25 ], [ 0.5, 0.25 ] ],
-    "MH": [ [ 1.0, 0.5  ], [ 1.0, 0.5  ], [ 0.5, 0.25 ] ],
-    "ML": [ [ 1.0, 0.5  ], [ 1.0, 0.5  ], [ 1.0, 0.5  ] ],
-    "LO": [ [ 1.5, 1.0  ], [ 1.5, 1.0  ], [ 1.0, 0.5  ] ]
-  },
-  "radar": {
-    "name": "APG-33",
-    "eccm": 0,
-    "arc": "180+",
-    "searchrange": 60,
-    "searchstrength": 10,
-    "trackingrange": 30,
-    "trackingstrength": 8,
-    "lockon": 7
-  },
-  "gun": "Four .50 cal M3",
-  "gunatatohitrolls": "6/3/0",
-  "gundamagerating": "3/3**",
-  "gunammunition": 8.0,
-  "gunsightmodifiers": { "TT": 0, "HT": 1, "BT": 2 },
-  "ataradarranging": "RE",
-  "ecm": { "iff": true },
-  "properties": [ "HTD", "SMP" ],
-  "notes": [
-    "The E1 all-weather fire-control system allows the guns to be fired on targets that are unsighted but tracked by radar if the radar-ranging attempt succeeds."
-  ],
-  "wikiurl": "https://bit.ly/3B1GFtK",
-  "storeslimits": [ 4, 7, 3600 ],
-  "stations": [
-    [ "pair", [ 1, 2 ], 1800, [ "FT" ] ]
-  ],
-  "loadnotes": [
-    "The wing-tip stations 1 and 2 usually carry 230 gal (850L) FTs, each with a weight of 1800, 3.5/2.5 load points, and 75 fuel points."
-  ],
-  "VPs": [ 10, 6, 4, 2 ]
+    "versionname": "F-94B",
+    "description": "The Lockheed F-94B is a single-engined, unswept-wing all-weather interceptor. It is a development of the F-94A and features a more reliable enginer and modifications to the cockpit. It retains the APG-33 radar and the Hughes E-1 fire-control system. It is armed with four .50 cal machine guns, and the fire-control system allows them to be fired under radar control.",
+    "origin": "APJ 50",
+    "crew": [
+        "Pilot",
+        "Radar Officer"
+    ],
+    "powertable": {
+        "AB": [
+            1.0,
+            1.0,
+            1.0,
+            2.0
+        ],
+        "M": [
+            1.0,
+            0.5,
+            0.5,
+            1.0
+        ],
+        "N": [
+            0.0,
+            0.0,
+            0.0,
+            0.5
+        ],
+        "I": [
+            0.5,
+            0.5,
+            0.5,
+            0.0
+        ],
+        "SPBR": [
+            1.0,
+            1.0,
+            1.0
+        ]
+    },
+    "jetengines": 1,
+    "cruisespeed": 4.5,
+    "climbspeed": 3.0,
+    "visibility": 5,
+    "sizemodifier": 0,
+    "vulnerability": 1,
+    "restrictedarcs": "",
+    "blindarcs": "30-",
+    "internalfuel": 103,
+    "atarefuel": false,
+    "ejectionseat": "early",
+    "maneuvertable": {
+        "LR/DR": [
+            1.0,
+            1.5
+        ],
+        "VR": [
+            0.0,
+            0.5
+        ]
+    },
+    "turndragtable": {
+        "TT": [
+            0.0,
+            0.0,
+            1.0
+        ],
+        "HT": [
+            1.0,
+            1.0,
+            2.0
+        ],
+        "BT": [
+            2.0,
+            2.0,
+            3.0
+        ],
+        "ET": [
+            "-",
+            "-",
+            "-"
+        ]
+    },
+    "ceilingtable": [
+        47,
+        42,
+        37
+    ],
+    "speedtable": {
+        "EH": [
+            [
+                2.5,
+                4.5
+            ],
+            [
+                "-",
+                "-"
+            ],
+            [
+                "-",
+                "-"
+            ],
+            6.5
+        ],
+        "VH": [
+            [
+                2.5,
+                5.0
+            ],
+            [
+                2.5,
+                5.0
+            ],
+            [
+                2.5,
+                4.5
+            ],
+            7.0
+        ],
+        "HI": [
+            [
+                2.5,
+                5.5
+            ],
+            [
+                2.5,
+                5.0
+            ],
+            [
+                2.5,
+                4.0
+            ],
+            7.0
+        ],
+        "MH": [
+            [
+                2.0,
+                5.5
+            ],
+            [
+                2.0,
+                5.5
+            ],
+            [
+                2.5,
+                4.5
+            ],
+            7.0
+        ],
+        "ML": [
+            [
+                2.0,
+                6.0
+            ],
+            [
+                2.0,
+                5.5
+            ],
+            [
+                2.0,
+                5.0
+            ],
+            7.5
+        ],
+        "LO": [
+            [
+                1.5,
+                6.0
+            ],
+            [
+                2.0,
+                5.5
+            ],
+            [
+                2.0,
+                5.0
+            ],
+            7.5
+        ]
+    },
+    "climbcapabilitytable": {
+        "EH": [
+            [
+                0.5,
+                "-"
+            ],
+            [
+                "-",
+                "-"
+            ],
+            [
+                "-",
+                "-"
+            ]
+        ],
+        "VH": [
+            [
+                0.5,
+                0.25
+            ],
+            [
+                0.5,
+                "-"
+            ],
+            [
+                0.5,
+                "-"
+            ]
+        ],
+        "HI": [
+            [
+                1.0,
+                0.5
+            ],
+            [
+                0.5,
+                0.25
+            ],
+            [
+                0.5,
+                0.25
+            ]
+        ],
+        "MH": [
+            [
+                1.0,
+                0.5
+            ],
+            [
+                1.0,
+                0.5
+            ],
+            [
+                0.5,
+                0.25
+            ]
+        ],
+        "ML": [
+            [
+                1.0,
+                0.5
+            ],
+            [
+                1.0,
+                0.5
+            ],
+            [
+                1.0,
+                0.5
+            ]
+        ],
+        "LO": [
+            [
+                1.5,
+                1.0
+            ],
+            [
+                1.5,
+                1.0
+            ],
+            [
+                1.0,
+                0.5
+            ]
+        ]
+    },
+    "radar": {
+        "name": "APG-33",
+        "eccm": 0,
+        "arc": "180+",
+        "searchrange": 60,
+        "searchstrength": 10,
+        "trackingrange": 30,
+        "trackingstrength": 8,
+        "lockon": 7
+    },
+    "gun": "Four .50 cal M3",
+    "gunatatohitrolls": "6/3/0",
+    "gundamagerating": "3/3**",
+    "gunammunition": 8.0,
+    "gunsightmodifiers": {
+        "TT": 0,
+        "HT": 1,
+        "BT": 2
+    },
+    "ataradarranging": "RE",
+    "ecm": {
+        "iff": true
+    },
+    "properties": [
+        "HTD",
+        "SMP"
+    ],
+    "notes": [
+        "The E1 all-weather fire-control system allows the guns to be fired on targets that are unsighted but tracked by radar if the radar-ranging attempt succeeds."
+    ],
+    "wikiurl": "https://bit.ly/3B1GFtK",
+    "storeslimits": [
+        4,
+        7,
+        3600
+    ],
+    "stations": [
+        [
+            "pair",
+            [
+                1,
+                2
+            ],
+            1800,
+            [
+                "FT"
+            ]
+        ]
+    ],
+    "loadnotes": [
+        "The wing-tip stations 1 and 2 usually carry 230 gal (850L) FTs, each with a weight of 1800, 3.5/2.5 load points, and 75 fuel points."
+    ],
+    "VPs": [
+        10,
+        6,
+        4,
+        2
+    ]
 }

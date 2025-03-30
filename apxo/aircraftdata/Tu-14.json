@@ -1,77 +1,307 @@
 {
-  "versionname": "Tu-14",
-  "description": "The Tupolev Tu-4 is a medium bomber. The NATO reporting name is Bosun.",
-  "origin": "TSOH",
-  "crew": [ "Pilot", "Weapons Officer", "Gunner" ],
-  "powertable": {
-    "M"   : [ 0.5, 0.5, 0.5, 2.0 ],
-    "N"   : [ 0.0, 0.0, 0.0, 1.0 ],
-    "I"   : [ 0.5, 0.5, 0.5, 0.0 ],
-    "SPBR": [ 0.5, 0.5, 0.5 ]
-  },
-  "jetengines": 2,
-  "cruisespeed": 4.5,
-  "climbspeed" : 3.5,
-  "visibility": 8,
-  "sizemodifier": -1,
-  "vulnerability": -2,
-  "restrictedarcs": "-",
-  "blindarcs": "-",
-  "internalfuel": 750,
-  "atarefuel": false,
-  "ejectionseat": "none",
-  "maneuvertable": {
-    "LR/DR": [ "-", "-" ],
-    "VR":    [ "-", "-" ]
-  },
-  "turndragtable": {
-    "TT": [ 0.0, 0.0, 1.0 ],
-    "HT": [ 1.0, 1.0, "-" ]
-  },
-  "ceilingtable": [ 38, 32, 24 ],
-  "speedtable": {
-    "EH": [ [ "-", "-" ], [ "-", "-" ], [ "-", "-" ], "-" ],
-    "VH": [ [ 3.0, 5.0 ], [ 3.0, 4.5 ], [ "-", "-" ], 6.0 ],
-    "HI": [ [ 2.5, 5.0 ], [ 3.0, 4.5 ], [ "-", "-" ], 6.0 ],
-    "MH": [ [ 2.5, 5.0 ], [ 2.5, 5.0 ], [ 3.0, 5.0 ], 6.0 ],
-    "ML": [ [ 2.0, 5.5 ], [ 2.5, 5.0 ], [ 2.5, 5.0 ], 6.5 ],
-    "LO": [ [ 2.0, 5.0 ], [ 2.0, 5.0 ], [ 2.0, 4.5 ], 6.5 ]
-  },
-  "climbcapabilitytable": {
-    "EH": [ [ "-", "-" ], [ "-", "-" ], [ "-", "-" ] ],
-    "VH": [ [ "-", 0.5 ], [ "-", 0.5 ], [ "-", "-" ] ],
-    "HI": [ [ "-", 0.5 ], [ "-", 0.5 ], [ "-", "-" ] ],
-    "MH": [ [ "-", 0.5 ], [ "-", 0.5 ], [ "-", 0.5 ] ],
-    "ML": [ [ "-", 0.5 ], [ "-", 0.5 ], [ "-", 0.5 ] ],
-    "LO": [ [ "-", 1.0 ], [ "-", 0.5 ], [ "-", 0.5 ] ]
-  },
-  "radar": {
-    "name": "PSB-N",
-    "eccm": 0,
-    "arc": "180+",
-    "searchrange": 90,
-    "trackingrange": 45,
-    "lockon": 6
-  },
-  "gun": "Two 23 mm NR-23",
-  "gunatatohitrolls": "3/2/1",
-  "gundamagerating": "4/3",
-  "gunammunition": 6.0,
-  "gunsightmodifiers": { "TT": 1, "HT": 3 },
-  "ecm": { "iff": true },
-  "gunarc": "180-",
-  "properties": [ "NRM", "HTD", "SMP" ],
-  "notes": [
-    "Bomb system is ballistic (-1) if doing level bombing from four or more altitude levels above the target.",
-    "Tail Guns. In addition to its fixed guns, there aircraft has a tail mount with two 23 mm NR-23 guns. It can fire into the 60- arc. It may return fire twice per game turn in response to a gun attacks or conduct a single attack. Roll to hit is 3/2/1 and no modifiers apply except target size. The AtA rating is 4. The ammunition is 6.0."
-  ],
-  "wikiurl": "https://bit.ly/3YTY1Rt",
-  "storeslimits": [ 4, 8, 6600 ],
-  "stations": [
-    [ "single", [ 1 ], 6600, [ "BB" ] ]
-  ],
-  "loadnotes": [
-    "Station 1 is the internal bomb bay. Load options are: (a) two 2,200 lb bombs, (b) four 1,100 lb bombs, (c) six 550 lb bombs, or (d) sixteen 250 lb bombs. Any bombs carried must be low-drag."
-  ],
-  "VPs": [ 13, 9, 4, 2 ]
+    "versionname": "Tu-14",
+    "description": "The Tupolev Tu-4 is a medium bomber. The NATO reporting name is Bosun.",
+    "origin": "TSOH",
+    "crew": [
+        "Pilot",
+        "Weapons Officer",
+        "Gunner"
+    ],
+    "powertable": {
+        "M": [
+            0.5,
+            0.5,
+            0.5,
+            2.0
+        ],
+        "N": [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+        ],
+        "I": [
+            0.5,
+            0.5,
+            0.5,
+            0.0
+        ],
+        "SPBR": [
+            0.5,
+            0.5,
+            0.5
+        ]
+    },
+    "jetengines": 2,
+    "cruisespeed": 4.5,
+    "climbspeed": 3.5,
+    "visibility": 8,
+    "sizemodifier": -1,
+    "vulnerability": -2,
+    "restrictedarcs": "-",
+    "blindarcs": "-",
+    "internalfuel": 750,
+    "atarefuel": false,
+    "ejectionseat": "none",
+    "maneuvertable": {
+        "LR/DR": [
+            "-",
+            "-"
+        ],
+        "VR": [
+            "-",
+            "-"
+        ]
+    },
+    "turndragtable": {
+        "TT": [
+            0.0,
+            0.0,
+            1.0
+        ],
+        "HT": [
+            1.0,
+            1.0,
+            "-"
+        ]
+    },
+    "ceilingtable": [
+        38,
+        32,
+        24
+    ],
+    "speedtable": {
+        "EH": [
+            [
+                "-",
+                "-"
+            ],
+            [
+                "-",
+                "-"
+            ],
+            [
+                "-",
+                "-"
+            ],
+            "-"
+        ],
+        "VH": [
+            [
+                3.0,
+                5.0
+            ],
+            [
+                3.0,
+                4.5
+            ],
+            [
+                "-",
+                "-"
+            ],
+            6.0
+        ],
+        "HI": [
+            [
+                2.5,
+                5.0
+            ],
+            [
+                3.0,
+                4.5
+            ],
+            [
+                "-",
+                "-"
+            ],
+            6.0
+        ],
+        "MH": [
+            [
+                2.5,
+                5.0
+            ],
+            [
+                2.5,
+                5.0
+            ],
+            [
+                3.0,
+                5.0
+            ],
+            6.0
+        ],
+        "ML": [
+            [
+                2.0,
+                5.5
+            ],
+            [
+                2.5,
+                5.0
+            ],
+            [
+                2.5,
+                5.0
+            ],
+            6.5
+        ],
+        "LO": [
+            [
+                2.0,
+                5.0
+            ],
+            [
+                2.0,
+                5.0
+            ],
+            [
+                2.0,
+                4.5
+            ],
+            6.5
+        ]
+    },
+    "climbcapabilitytable": {
+        "EH": [
+            [
+                "-",
+                "-"
+            ],
+            [
+                "-",
+                "-"
+            ],
+            [
+                "-",
+                "-"
+            ]
+        ],
+        "VH": [
+            [
+                "-",
+                0.5
+            ],
+            [
+                "-",
+                0.5
+            ],
+            [
+                "-",
+                "-"
+            ]
+        ],
+        "HI": [
+            [
+                "-",
+                0.5
+            ],
+            [
+                "-",
+                0.5
+            ],
+            [
+                "-",
+                "-"
+            ]
+        ],
+        "MH": [
+            [
+                "-",
+                0.5
+            ],
+            [
+                "-",
+                0.5
+            ],
+            [
+                "-",
+                0.5
+            ]
+        ],
+        "ML": [
+            [
+                "-",
+                0.5
+            ],
+            [
+                "-",
+                0.5
+            ],
+            [
+                "-",
+                0.5
+            ]
+        ],
+        "LO": [
+            [
+                "-",
+                1.0
+            ],
+            [
+                "-",
+                0.5
+            ],
+            [
+                "-",
+                0.5
+            ]
+        ]
+    },
+    "radar": {
+        "name": "PSB-N",
+        "eccm": 0,
+        "arc": "180+",
+        "searchrange": 90,
+        "trackingrange": 45,
+        "lockon": 6
+    },
+    "gun": "Two 23 mm NR-23",
+    "gunatatohitrolls": "3/2/1",
+    "gundamagerating": "4/3",
+    "gunammunition": 6.0,
+    "gunsightmodifiers": {
+        "TT": 1,
+        "HT": 3
+    },
+    "ecm": {
+        "iff": true
+    },
+    "gunarc": "180-",
+    "properties": [
+        "NRM",
+        "HTD",
+        "SMP"
+    ],
+    "notes": [
+        "Bomb system is ballistic (-1) if doing level bombing from four or more altitude levels above the target.",
+        "Tail Guns. In addition to its fixed guns, there aircraft has a tail mount with two 23 mm NR-23 guns. It can fire into the 60- arc. It may return fire twice per game turn in response to a gun attacks or conduct a single attack. Roll to hit is 3/2/1 and no modifiers apply except target size. The AtA rating is 4. The ammunition is 6.0."
+    ],
+    "wikiurl": "https://bit.ly/3YTY1Rt",
+    "storeslimits": [
+        4,
+        8,
+        6600
+    ],
+    "stations": [
+        [
+            "single",
+            [
+                1
+            ],
+            6600,
+            [
+                "BB"
+            ]
+        ]
+    ],
+    "loadnotes": [
+        "Station 1 is the internal bomb bay. Load options are: (a) two 2,200 lb bombs, (b) four 1,100 lb bombs, (c) six 550 lb bombs, or (d) sixteen 250 lb bombs. Any bombs carried must be low-drag."
+    ],
+    "VPs": [
+        13,
+        9,
+        4,
+        2
+    ]
 }

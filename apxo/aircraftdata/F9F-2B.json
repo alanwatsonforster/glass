@@ -1,12 +1,36 @@
 {
-  "versionname": "F9F-2B",
-  "description": "The Grumman F9F-2B Panther is a day fighter and fighter-bomber. It has a single engine, unswept wings, and is carrier-capable. This version is a development of the F9F-2 version and has additional stations on the wing root and can carry both bombs and HVARs. All F9F-2 aircraft were converted to this standard, and subsequently commonly referred to as the F9F-2 rather than the F9F-2B.",
-  "base": "F9F-2",
-  "stations": [
-    [ "grouppair", [ 1, 3, 6, 8],  500, [ "BB", "RK" ] ],
-    [ "pair"     , [ 4, 5]      , 1000, [ "BB", "RK" ] ]
-  ],
-  "loadnotes": [
-    "The load weight limit is 1200 when launched from a carrier."
-  ]
+    "versionname": "F9F-2B",
+    "description": "The Grumman F9F-2B Panther is a day fighter and fighter-bomber. It has a single engine, unswept wings, and is carrier-capable. This version is a development of the F9F-2 version and has additional stations on the wing root and can carry both bombs and HVARs. All F9F-2 aircraft were converted to this standard, and subsequently commonly referred to as the F9F-2 rather than the F9F-2B.",
+    "base": "F9F-2",
+    "stations": [
+        [
+            "grouppair",
+            [
+                1,
+                3,
+                6,
+                8
+            ],
+            500,
+            [
+                "BB",
+                "RK"
+            ]
+        ],
+        [
+            "pair",
+            [
+                4,
+                5
+            ],
+            1000,
+            [
+                "BB",
+                "RK"
+            ]
+        ]
+    ],
+    "loadnotes": [
+        "The load weight limit is 1200 when launched from a carrier."
+    ]
 }

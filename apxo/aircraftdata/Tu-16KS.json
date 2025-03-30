@@ -1,21 +1,44 @@
 {
-  "versionname": "Tu-16KS",
-  "description": "The Tupolev Tu-16KS is a maritime strike aircraft. The NATO reporting name for the aircraft is Badger-B, and for the tail radar is Bee Hind.",
-  "base": "Tu-16A",
-  "ecm": { "iff": true, "rwr": "B", "dds": "A", "ajm": "A4" },
-  "radar": {
-    "name": "",
-    "eccm": 1,
-    "arc": "180+",
-    "searchrange": 345,
-    "trackingrange": 345,
-    "lockon": 7
-  },
-  "stations": [
-    [ "pair", [ 1, 2 ], 10000, [ "BB", "WR", "FT", "ASM" ]]
-  ], 
-  "loadnotes": [
-    "Stations 1 and 2 may each carry one AS-1 Kennel ASM."
-  ],
-  "VPs": [ 34, 24, 16, 8 ]
+    "versionname": "Tu-16KS",
+    "description": "The Tupolev Tu-16KS is a maritime strike aircraft. The NATO reporting name for the aircraft is Badger-B, and for the tail radar is Bee Hind.",
+    "base": "Tu-16A",
+    "ecm": {
+        "iff": true,
+        "rwr": "B",
+        "dds": "A",
+        "ajm": "A4"
+    },
+    "radar": {
+        "name": "",
+        "eccm": 1,
+        "arc": "180+",
+        "searchrange": 345,
+        "trackingrange": 345,
+        "lockon": 7
+    },
+    "stations": [
+        [
+            "pair",
+            [
+                1,
+                2
+            ],
+            10000,
+            [
+                "BB",
+                "WR",
+                "FT",
+                "ASM"
+            ]
+        ]
+    ],
+    "loadnotes": [
+        "Stations 1 and 2 may each carry one AS-1 Kennel ASM."
+    ],
+    "VPs": [
+        34,
+        24,
+        16,
+        8
+    ]
 }

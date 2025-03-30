@@ -1,5 +1,5 @@
 {
-  "versionname": "Yak-9P",
-  "description": "The Yakovlev Yak-9P is a day-fighter. The NATO reporting name for aircraft is Frank.",
-  "base": "Yak-9U"
+    "versionname": "Yak-9P",
+    "description": "The Yakovlev Yak-9P is a day-fighter. The NATO reporting name for aircraft is Frank.",
+    "base": "Yak-9U"
 }

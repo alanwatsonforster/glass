@@ -1,78 +1,336 @@
 {
-  "versionname": "F-84E",
-  "description": "The Republic F-84E Thunderjet is a day fighter-bomber. It has a single engine and unswept wings.",
-  "popularname": "Thunderjet",
-  "manufacturername": "Republic",
-  "origin": "TSOH",
-  "crew": [ "Pilot" ],
-  "powertable": {
-    "M"   : [ 1.0, 0.5, 0.5, 1.0 ],
-    "N"   : [ 0.0, 0.0, 0.0, 0.5 ],
-    "I"   : [ 0.5, 0.5, 0.5, 0.0 ],
-    "SPBR": [ 0.5, 0.5, 1.0 ]
-  },
-  "jetengines": 1,
-  "cruisespeed": 4.5,
-  "climbspeed" : 3.5,
-  "visibility": 5,
-  "sizemodifier": 0,
-  "vulnerability": 0,
-  "restrictedarcs": "60-",
-  "blindarcs": "30-",
-  "internalfuel:comment" : "ADC has fuel = 295, but this includes the wing-tip FTs.",
-  "internalfuel": 150,
-  "atarefuel": false,
-  "ejectionseat": "early",
-  "maneuvertable": {
-    "LR/DR": [ 1.0, 1.5 ],
-    "VR":    [ 0.0, 0.5 ]
-  },
-  "turndragtable": {
-    "TT": [ 0.0, 1.0, 1.0 ],
-    "HT": [ 1.0, 2.0, 2.0 ],
-    "BT": [ 2.0, 2.0, 2.0 ]
-  },
-  "ceilingtable": [ 41, 36, 30 ],
-  "speedtable": {
-    "EH": [ [  "-",  "-" ], [  "-",  "-" ], [  "-",  "-" ],  "-" ],
-    "VH": [ [  2.5,  5.0 ], [  2.5,  5.0 ], [  "-",  "-" ],  6.0 ],
-    "HI": [ [  2.0,  5.5 ], [  2.5,  5.5 ], [  "-",  "-" ],  6.5 ],
-    "MH": [ [  2.0,  5.5 ], [  2.0,  5.5 ], [  2.5,  5.0 ],  6.5 ],
-    "ML": [ [  1.5,  6.0 ], [  2.0,  5.5 ], [  2.0,  5.0 ],  7.0 ],
-    "LO": [ [  1.5,  6.0 ], [  1.5,  5.5 ], [  2.0,  5.5 ],  7.0 ]
-  },
-  "climbcapabilitytable": {
-    "EH": [ [ "-", "-" ], [ "-", "-" ], [ "-", "-" ] ],
-    "VH": [ [ "-", 0.5 ], [ "-", 0.5 ], [ "-", "-" ] ],
-    "HI": [ [ "-", 0.5 ], [ "-", 0.5 ], [ "-", 0.5 ] ],
-    "MH": [ [ "-", 1.0 ], [ "-", 0.5 ], [ "-", 0.5 ] ],
-    "ML": [ [ "-", 1.0 ], [ "-", 1.0 ], [ "-", 0.5 ] ],
-    "LO": [ [ "-", 1.5 ], [ "-", 1.0 ], [ "-", 0.5 ] ]
-  },
-  "radar": { 
-    "name": "APG-30",
-    "lockon": 6
-   },
-  "gun": "Six .50 cal M3",
-  "gunatatohitrolls": "6/3/0",
-  "gundamagerating": "4/4**",
-  "gunammunition": 8.0,
-  "gunsightmodifiers": { "TT": 0, "HT": 1, "BT": 2 },
-  "ataradarranging": "RE",
-  "ecm": { "iff": true },
-  "storeslimits": [ 4, 12, 4500 ],
-  "stations": [
-    [ "pair"     , [ 1, 8 ]      , 1700, [ "FT", "RK" ] ],
-    [ "grouppair", [ 2, 3, 6, 7 ],  420, [ "RK" ] ],
-    [ "pair"     , [ 4, 5 ]      , 1700, [ "BB", "FT", "RK" ] ]
-  ],
-  "loadnotes": [
-    "Stations 1 and 8 normally carry 226 gal (850L) wing-tip FTs.",
-    "Stations 1 and 8 can each carry six RK.",
-    "Stations 4 and 5 can each carry four RK.",
-    "Stations 2, 3, 6, and 7 can each carry three RK."
-  ],
-  "VPs": [ 8, 5, 3, 1 ],
-  "properties": [ "SMP", "HTD" ],
-  "wikiurl": "https://bit.ly/4i8UcR2"
+    "versionname": "F-84E",
+    "description": "The Republic F-84E Thunderjet is a day fighter-bomber. It has a single engine and unswept wings.",
+    "popularname": "Thunderjet",
+    "manufacturername": "Republic",
+    "origin": "TSOH",
+    "crew": [
+        "Pilot"
+    ],
+    "powertable": {
+        "M": [
+            1.0,
+            0.5,
+            0.5,
+            1.0
+        ],
+        "N": [
+            0.0,
+            0.0,
+            0.0,
+            0.5
+        ],
+        "I": [
+            0.5,
+            0.5,
+            0.5,
+            0.0
+        ],
+        "SPBR": [
+            0.5,
+            0.5,
+            1.0
+        ]
+    },
+    "jetengines": 1,
+    "cruisespeed": 4.5,
+    "climbspeed": 3.5,
+    "visibility": 5,
+    "sizemodifier": 0,
+    "vulnerability": 0,
+    "restrictedarcs": "60-",
+    "blindarcs": "30-",
+    "internalfuel:comment": "ADC has fuel = 295, but this includes the wing-tip FTs.",
+    "internalfuel": 150,
+    "atarefuel": false,
+    "ejectionseat": "early",
+    "maneuvertable": {
+        "LR/DR": [
+            1.0,
+            1.5
+        ],
+        "VR": [
+            0.0,
+            0.5
+        ]
+    },
+    "turndragtable": {
+        "TT": [
+            0.0,
+            1.0,
+            1.0
+        ],
+        "HT": [
+            1.0,
+            2.0,
+            2.0
+        ],
+        "BT": [
+            2.0,
+            2.0,
+            2.0
+        ]
+    },
+    "ceilingtable": [
+        41,
+        36,
+        30
+    ],
+    "speedtable": {
+        "EH": [
+            [
+                "-",
+                "-"
+            ],
+            [
+                "-",
+                "-"
+            ],
+            [
+                "-",
+                "-"
+            ],
+            "-"
+        ],
+        "VH": [
+            [
+                2.5,
+                5.0
+            ],
+            [
+                2.5,
+                5.0
+            ],
+            [
+                "-",
+                "-"
+            ],
+            6.0
+        ],
+        "HI": [
+            [
+                2.0,
+                5.5
+            ],
+            [
+                2.5,
+                5.5
+            ],
+            [
+                "-",
+                "-"
+            ],
+            6.5
+        ],
+        "MH": [
+            [
+                2.0,
+                5.5
+            ],
+            [
+                2.0,
+                5.5
+            ],
+            [
+                2.5,
+                5.0
+            ],
+            6.5
+        ],
+        "ML": [
+            [
+                1.5,
+                6.0
+            ],
+            [
+                2.0,
+                5.5
+            ],
+            [
+                2.0,
+                5.0
+            ],
+            7.0
+        ],
+        "LO": [
+            [
+                1.5,
+                6.0
+            ],
+            [
+                1.5,
+                5.5
+            ],
+            [
+                2.0,
+                5.5
+            ],
+            7.0
+        ]
+    },
+    "climbcapabilitytable": {
+        "EH": [
+            [
+                "-",
+                "-"
+            ],
+            [
+                "-",
+                "-"
+            ],
+            [
+                "-",
+                "-"
+            ]
+        ],
+        "VH": [
+            [
+                "-",
+                0.5
+            ],
+            [
+                "-",
+                0.5
+            ],
+            [
+                "-",
+                "-"
+            ]
+        ],
+        "HI": [
+            [
+                "-",
+                0.5
+            ],
+            [
+                "-",
+                0.5
+            ],
+            [
+                "-",
+                0.5
+            ]
+        ],
+        "MH": [
+            [
+                "-",
+                1.0
+            ],
+            [
+                "-",
+                0.5
+            ],
+            [
+                "-",
+                0.5
+            ]
+        ],
+        "ML": [
+            [
+                "-",
+                1.0
+            ],
+            [
+                "-",
+                1.0
+            ],
+            [
+                "-",
+                0.5
+            ]
+        ],
+        "LO": [
+            [
+                "-",
+                1.5
+            ],
+            [
+                "-",
+                1.0
+            ],
+            [
+                "-",
+                0.5
+            ]
+        ]
+    },
+    "radar": {
+        "name": "APG-30",
+        "lockon": 6
+    },
+    "gun": "Six .50 cal M3",
+    "gunatatohitrolls": "6/3/0",
+    "gundamagerating": "4/4**",
+    "gunammunition": 8.0,
+    "gunsightmodifiers": {
+        "TT": 0,
+        "HT": 1,
+        "BT": 2
+    },
+    "ataradarranging": "RE",
+    "ecm": {
+        "iff": true
+    },
+    "storeslimits": [
+        4,
+        12,
+        4500
+    ],
+    "stations": [
+        [
+            "pair",
+            [
+                1,
+                8
+            ],
+            1700,
+            [
+                "FT",
+                "RK"
+            ]
+        ],
+        [
+            "grouppair",
+            [
+                2,
+                3,
+                6,
+                7
+            ],
+            420,
+            [
+                "RK"
+            ]
+        ],
+        [
+            "pair",
+            [
+                4,
+                5
+            ],
+            1700,
+            [
+                "BB",
+                "FT",
+                "RK"
+            ]
+        ]
+    ],
+    "loadnotes": [
+        "Stations 1 and 8 normally carry 226 gal (850L) wing-tip FTs.",
+        "Stations 1 and 8 can each carry six RK.",
+        "Stations 4 and 5 can each carry four RK.",
+        "Stations 2, 3, 6, and 7 can each carry three RK."
+    ],
+    "VPs": [
+        8,
+        5,
+        3,
+        1
+    ],
+    "properties": [
+        "SMP",
+        "HTD"
+    ],
+    "wikiurl": "https://bit.ly/4i8UcR2"
 }

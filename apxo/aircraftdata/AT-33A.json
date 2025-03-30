@@ -1,17 +1,27 @@
 {
-  "versionname": "AT-33A",
-  "description": "The Lockheed AT-33A Shooting Star is a close-air-support version of the T-33A trainer. It has a single engine and unswept wings.",
-  "originallydesignated": null,
-  "base": "F-80C",
-  "crew": [ "Pilot", "Copilot" ],
-  "gun": "Two .50 cal M3",
-  "gunatatohitrolls": "4/2/-",
-  "gundamagerating": "1/2**",
-  "ecm": { "iff": false },
-  "loadnotes": [
-    "Either stations 2 and 3 or stations 5 to 8 can be used.",
-    "Stations 5 to 8 can each carry two RK."
-  ],
-  "VPs": [ 5, 3, 2, 1 ],
-  "notes": []
+    "versionname": "AT-33A",
+    "description": "The Lockheed AT-33A Shooting Star is a close-air-support version of the T-33A trainer. It has a single engine and unswept wings.",
+    "originallydesignated": null,
+    "base": "F-80C",
+    "crew": [
+        "Pilot",
+        "Copilot"
+    ],
+    "gun": "Two .50 cal M3",
+    "gunatatohitrolls": "4/2/-",
+    "gundamagerating": "1/2**",
+    "ecm": {
+        "iff": false
+    },
+    "loadnotes": [
+        "Either stations 2 and 3 or stations 5 to 8 can be used.",
+        "Stations 5 to 8 can each carry two RK."
+    ],
+    "VPs": [
+        5,
+        3,
+        2,
+        1
+    ],
+    "notes": []
 }

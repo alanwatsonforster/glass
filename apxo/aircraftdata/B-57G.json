@@ -1,17 +1,77 @@
 {
-  "versionname": "B-57G",
-  "versiondescription": "Night interdictor version.",
-  "origin": "TSOH",
-  "base": "B-57B",
-  "gun": "",
-  "bombsystem": "Computed",
-  "ecm": { "iff": true, "rwr": "A", "dds": "A" },
-  "technology": [ "TV/IR Optics", "Laser Designator -- A" ],
-  "stations": [
-    [ "pair"     , [ 1, 11 ]      , 2200, [ "FT" ] ],
-    [ "grouppair", [ 2, 3, 9, 10 ],  250, [ "BB", "RP", "RK" ] ],
-    [ "grouppair", [ 4, 5, 7, 8 ] ,  750, [ "BB", "RP", "RK", "BG" ] ],
-    [ "single"   , [ 6 ]          , 6000, [ "BB" ] ]
-  ],
-  "VPs": [ 20, 14, 8, 4 ]
+    "versionname": "B-57G",
+    "versiondescription": "Night interdictor version.",
+    "origin": "TSOH",
+    "base": "B-57B",
+    "gun": "",
+    "bombsystem": "Computed",
+    "ecm": {
+        "iff": true,
+        "rwr": "A",
+        "dds": "A"
+    },
+    "technology": [
+        "TV/IR Optics",
+        "Laser Designator -- A"
+    ],
+    "stations": [
+        [
+            "pair",
+            [
+                1,
+                11
+            ],
+            2200,
+            [
+                "FT"
+            ]
+        ],
+        [
+            "grouppair",
+            [
+                2,
+                3,
+                9,
+                10
+            ],
+            250,
+            [
+                "BB",
+                "RP",
+                "RK"
+            ]
+        ],
+        [
+            "grouppair",
+            [
+                4,
+                5,
+                7,
+                8
+            ],
+            750,
+            [
+                "BB",
+                "RP",
+                "RK",
+                "BG"
+            ]
+        ],
+        [
+            "single",
+            [
+                6
+            ],
+            6000,
+            [
+                "BB"
+            ]
+        ]
+    ],
+    "VPs": [
+        20,
+        14,
+        8,
+        4
+    ]
 }

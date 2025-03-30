@@ -1,27 +1,59 @@
 {
-  "versionname": "MiG-21PF",
-  "description": "The Mikoyan-Gurevich MiG-21PF is an all-weather interceptor. It is equipped with the RP-21 radar, a more powerful engine than the MiG-21F versions, and the ability to use AA-1 BRMs and AA-2 IRMs. The NATO reporting name for the aircraft is Fishbed-D and the radar is Spin Scan-A.",
-  "origin": "TSOH",
-  "base": "MiG-21F-13",
-  "internalfuel": 225,
-  "radar": {
-    "name": "RP-21 Sapfir",
-    "eccm": 0,
-    "arc": "180+",
-    "searchrange": 30,
-    "searchstrength": 6,
-    "trackingrange": 18,
-    "trackingstrength": 6,
-    "lockon": 7
-  },
-  "gun": null,
-  "ecm": { "iff": true, "rwr": "A" },
-  "stations": [
-    [ "pair"  , [ 1, 3 ],  550, [ "BB", "RP", "RK", "DR", "BRM", "IRM" ] ],
-    [ "single", [ 2 ]   , 1100, [ "FT" ] ]
-  ],
-  "loadnotes": [
-    "May use AA-1 BRMs and AA-2 IRMs."
-  ],
-  "VPs": [ 18, 12, 6, 3 ]
+    "versionname": "MiG-21PF",
+    "description": "The Mikoyan-Gurevich MiG-21PF is an all-weather interceptor. It is equipped with the RP-21 radar, a more powerful engine than the MiG-21F versions, and the ability to use AA-1 BRMs and AA-2 IRMs. The NATO reporting name for the aircraft is Fishbed-D and the radar is Spin Scan-A.",
+    "origin": "TSOH",
+    "base": "MiG-21F-13",
+    "internalfuel": 225,
+    "radar": {
+        "name": "RP-21 Sapfir",
+        "eccm": 0,
+        "arc": "180+",
+        "searchrange": 30,
+        "searchstrength": 6,
+        "trackingrange": 18,
+        "trackingstrength": 6,
+        "lockon": 7
+    },
+    "gun": null,
+    "ecm": {
+        "iff": true,
+        "rwr": "A"
+    },
+    "stations": [
+        [
+            "pair",
+            [
+                1,
+                3
+            ],
+            550,
+            [
+                "BB",
+                "RP",
+                "RK",
+                "DR",
+                "BRM",
+                "IRM"
+            ]
+        ],
+        [
+            "single",
+            [
+                2
+            ],
+            1100,
+            [
+                "FT"
+            ]
+        ]
+    ],
+    "loadnotes": [
+        "May use AA-1 BRMs and AA-2 IRMs."
+    ],
+    "VPs": [
+        18,
+        12,
+        6,
+        3
+    ]
 }

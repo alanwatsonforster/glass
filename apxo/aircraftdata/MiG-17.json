@@ -1,19 +1,116 @@
 {
-  "versionname": "MiG-17",
-  "description": "The Mikoyan-Gurevich MiG-17 is an day fighter. It is a development of the MiG-15bis, with new wings and tail surfaces and a modified fuselage. It uses the non-afterburning VK-1A engine. The NATO reporting name for the aircraft is Fresco-A.",
-  "base": "MiG-17F",
-  "powertable": {
-    "M"   : [ 1.5, 1.5, 1.0, 1.0 ],
-    "N"   : [ 0.0, 0.0, 0.0, 0.5 ],
-    "I"   : [ 0.5, 0.5, 1.0, 0.0 ],
-    "SPBR": [ 0.5, 0.5, 1.0 ]
-  },
-  "climbcapabilitytable": {
-    "EH": [ [ "-", 0.5 ], [ "-", 0.5 ], [ "-", 0.5 ] ],
-    "VH": [ [ "-", 0.5 ], [ "-", 0.5 ], [ "-", 0.5 ] ],
-    "HI": [ [ "-", 0.5 ], [ "-", 0.5 ], [ "-", 0.5 ] ],
-    "MH": [ [ "-", 1.0 ], [ "-", 0.5 ], [ "-", 0.5 ] ],
-    "ML": [ [ "-", 1.0 ], [ "-", 1.0 ], [ "-", 0.5 ] ],
-    "LO": [ [ "-", 1.0 ], [ "-", 1.0 ], [ "-", 1.0 ] ]
-  }
+    "versionname": "MiG-17",
+    "description": "The Mikoyan-Gurevich MiG-17 is an day fighter. It is a development of the MiG-15bis, with new wings and tail surfaces and a modified fuselage. It uses the non-afterburning VK-1A engine. The NATO reporting name for the aircraft is Fresco-A.",
+    "base": "MiG-17F",
+    "powertable": {
+        "M": [
+            1.5,
+            1.5,
+            1.0,
+            1.0
+        ],
+        "N": [
+            0.0,
+            0.0,
+            0.0,
+            0.5
+        ],
+        "I": [
+            0.5,
+            0.5,
+            1.0,
+            0.0
+        ],
+        "SPBR": [
+            0.5,
+            0.5,
+            1.0
+        ]
+    },
+    "climbcapabilitytable": {
+        "EH": [
+            [
+                "-",
+                0.5
+            ],
+            [
+                "-",
+                0.5
+            ],
+            [
+                "-",
+                0.5
+            ]
+        ],
+        "VH": [
+            [
+                "-",
+                0.5
+            ],
+            [
+                "-",
+                0.5
+            ],
+            [
+                "-",
+                0.5
+            ]
+        ],
+        "HI": [
+            [
+                "-",
+                0.5
+            ],
+            [
+                "-",
+                0.5
+            ],
+            [
+                "-",
+                0.5
+            ]
+        ],
+        "MH": [
+            [
+                "-",
+                1.0
+            ],
+            [
+                "-",
+                0.5
+            ],
+            [
+                "-",
+                0.5
+            ]
+        ],
+        "ML": [
+            [
+                "-",
+                1.0
+            ],
+            [
+                "-",
+                1.0
+            ],
+            [
+                "-",
+                0.5
+            ]
+        ],
+        "LO": [
+            [
+                "-",
+                1.0
+            ],
+            [
+                "-",
+                1.0
+            ],
+            [
+                "-",
+                1.0
+            ]
+        ]
+    }
 }

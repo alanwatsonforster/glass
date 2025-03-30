@@ -1,6 +1,9 @@
 {
-  "base": "A-4C",
-  "variantname": "1965 Upgrade",
-  "variantdescription": "with RWR-A, from 1965.",
-  "ecm": { "iff": true, "rwr": "A" }
+    "base": "A-4C",
+    "variantname": "1965 Upgrade",
+    "variantdescription": "with RWR-A, from 1965.",
+    "ecm": {
+        "iff": true,
+        "rwr": "A"
+    }
 }

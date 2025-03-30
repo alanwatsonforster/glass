@@ -1,6 +1,11 @@
 {
-  "base": "A-6A",
-  "variantname": "1965 Upgrade",
-  "variantdescription": "with RWR-A, DDS-A and DJM-A3, from 1965.",
-  "ecm": { "iff": true, "rwr": "A", "dds": "A", "djm": "A3" }
+    "base": "A-6A",
+    "variantname": "1965 Upgrade",
+    "variantdescription": "with RWR-A, DDS-A and DJM-A3, from 1965.",
+    "ecm": {
+        "iff": true,
+        "rwr": "A",
+        "dds": "A",
+        "djm": "A3"
+    }
 }

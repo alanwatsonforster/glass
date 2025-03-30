@@ -1,8 +1,13 @@
 {
-  "versionname": "F-5C",
-  "versiondescription": "Light day and ground attack fighter. Modified for combat evaluation in Vietnam by the USAF, receiving  refueling probes and additional armor.",
-  "base": "F-5A",
-  "atarefuel": true,
-  "vulnerability": 0,
-  "VPs": [ 18, 12, 6, 3 ]
+    "versionname": "F-5C",
+    "versiondescription": "Light day and ground attack fighter. Modified for combat evaluation in Vietnam by the USAF, receiving  refueling probes and additional armor.",
+    "base": "F-5A",
+    "atarefuel": true,
+    "vulnerability": 0,
+    "VPs": [
+        18,
+        12,
+        6,
+        3
+    ]
 }

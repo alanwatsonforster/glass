@@ -1,86 +1,344 @@
 {
-  "versionname": "F-104A",
-  "versiondescription": "Original day fighter version.",
-  "popularname": "Starfighter",
-  "origin": "TSOH",
-  "crew": [ "Pilot" ],
-  "powertable": {
-    "AB"  : [ 3.5, 3.5, 3.0, 5.0 ],
-    "M"   : [ 2.0, 2.0, 1.5, 2.0 ],
-    "N"   : [ 0.0, 0.0, 0.0, 1.0 ],
-    "I"   : [ 0.5, 0.5, 0.5, 0.0 ],
-    "SPBR": [ 0.5, 0.5, 1.0 ]
-  },
-  "jetengines": 1,
-  "cruisespeed": 6.0,
-  "climbspeed" : 4.5,
-  "visibility": 5,
-  "sizemodifier": 0,
-  "vulnerability": 0,
-  "restrictedarcs": "",
-  "blindarcs": "30-",
-  "internalfuel": 290,
-  "atarefuel": false,
-  "ejectionseat": "standard",
-  "maneuvertable": {
-    "LR/DR": [ 1.0, 1.0 ],
-    "VR":    [ 0.0, 0.0 ]
-  },
-  "turndragtable": {
-    "TT": [ 2.0, 2.0, 2.0 ],
-    "HT": [ 3.0, 3.0, 3.0 ],
-    "BT": [ 4.0, "-", "-" ],
-    "ET": [ "-", "-", "-" ]
-  },
-  "ceilingtable": [ 59, 52, 44 ],
-  "speedtable": {
-    "EH": [ [  6.0, 13.5 ], [  6.0, 11.0 ], [  "-",  "-" ], 13.5 ],
-    "VH": [ [  4.5, 13.5 ], [  4.5, 11.0 ], [  4.5, 10.0 ], 13.5 ],
-    "HI": [ [  3.5, 13.0 ], [  4.0, 11.5 ], [  4.0, 10.0 ], 13.5 ],
-    "MH": [ [  3.0, 12.0 ], [  3.5,  9.5 ], [  3.5,  9.0 ], 12.0 ],
-    "ML": [ [  2.5, 10.5 ], [  2.5,  8.5 ], [  3.0,  8.0 ], 10.5 ],
-    "LO": [ [  2.5,  9.0 ], [  2.5,  7.5 ], [  2.5,  7.0 ],  9.0 ]
-  },
-  "climbcapabilitytable": {
-    "EH": [ [ 3.0, 1.0 ], [ 1.0, 0.5 ], [ "-", "-" ] ],
-    "VH": [ [ 4.0, 1.0 ], [ 2.0, 0.5 ], [ 1.0, 0.5 ] ],
-    "HI": [ [ 5.0, 2.0 ], [ 3.0, 1.0 ], [ 2.0, 0.5 ] ],
-    "MH": [ [ 6.0, 2.0 ], [ 4.0, 1.0 ], [ 2.0, 1.0 ] ],
-    "ML": [ [ 7.0, 2.0 ], [ 5.0, 2.0 ], [ 3.0, 1.0 ] ],
-    "LO": [ [ 7.0, 3.0 ], [ 5.0, 2.0 ], [ 3.0, 1.0 ] ]
-  },
-  "radar": {
-    "name": "ASG-14",
-    "eccm": 0,
-    "arc": "180+",
-    "searchrange": 60,
-    "searchstrength": 12,
-    "trackingrange": 30,
-    "trackingstrength": 10,
-    "lockon": 6
-  },
-  "gun": "20 mm M61A1 Vulcan",
-  "gunatatohitrolls": "7/5/3",
-  "gundamagerating": "6/8*",
-  "gunammunition": 3.5,
-  "gunsightmodifiers": { "TT": 0, "HT": 1, "BT": 2 },
-  "ataradarranging": "RE",
-  "ecm": { "iff": true },
-  "technology": [ "IRSTS-A" ],
-  "properties": [ "SMP", "LTD", "RA", "RPR", "GSSM" ],
-  "notes": [
-    "Before 1958, F-104As has downward ejecting seats. No ejections allowed unless aircraft is at least 2 levels above terrain."
-  ],
-  "wikiurl": "https://bit.ly/3Zd3F10",
-  "storeslimits": [ 2.0, 5.0, 7800 ],
-  "stations": [
-    [ "pair"  , [ 1, 4 ], 1300, [ "IRM", "FT" ] ],
-    [ "pair"  , [ 2, 3 ], 1500, [ "FT" ] ]
-  ],
-  "loadnotes": [
-    "Stations 1 and 4 may only carry IRMs or 165 gal FTs (600L, weight 1100, load 3.0/2.0, and fuel 50).",
-    "Stations 2 and 3 may only carry 200 gal FTs (700L, weight 1300, load 3.0/2.0, and fuel 60).",
-    "May only use AIM-9B through AIM-9P IRMs."
-  ],
-  "VPs": [ 15, 10, 5, 2 ]
+    "versionname": "F-104A",
+    "versiondescription": "Original day fighter version.",
+    "popularname": "Starfighter",
+    "origin": "TSOH",
+    "crew": [
+        "Pilot"
+    ],
+    "powertable": {
+        "AB": [
+            3.5,
+            3.5,
+            3.0,
+            5.0
+        ],
+        "M": [
+            2.0,
+            2.0,
+            1.5,
+            2.0
+        ],
+        "N": [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+        ],
+        "I": [
+            0.5,
+            0.5,
+            0.5,
+            0.0
+        ],
+        "SPBR": [
+            0.5,
+            0.5,
+            1.0
+        ]
+    },
+    "jetengines": 1,
+    "cruisespeed": 6.0,
+    "climbspeed": 4.5,
+    "visibility": 5,
+    "sizemodifier": 0,
+    "vulnerability": 0,
+    "restrictedarcs": "",
+    "blindarcs": "30-",
+    "internalfuel": 290,
+    "atarefuel": false,
+    "ejectionseat": "standard",
+    "maneuvertable": {
+        "LR/DR": [
+            1.0,
+            1.0
+        ],
+        "VR": [
+            0.0,
+            0.0
+        ]
+    },
+    "turndragtable": {
+        "TT": [
+            2.0,
+            2.0,
+            2.0
+        ],
+        "HT": [
+            3.0,
+            3.0,
+            3.0
+        ],
+        "BT": [
+            4.0,
+            "-",
+            "-"
+        ],
+        "ET": [
+            "-",
+            "-",
+            "-"
+        ]
+    },
+    "ceilingtable": [
+        59,
+        52,
+        44
+    ],
+    "speedtable": {
+        "EH": [
+            [
+                6.0,
+                13.5
+            ],
+            [
+                6.0,
+                11.0
+            ],
+            [
+                "-",
+                "-"
+            ],
+            13.5
+        ],
+        "VH": [
+            [
+                4.5,
+                13.5
+            ],
+            [
+                4.5,
+                11.0
+            ],
+            [
+                4.5,
+                10.0
+            ],
+            13.5
+        ],
+        "HI": [
+            [
+                3.5,
+                13.0
+            ],
+            [
+                4.0,
+                11.5
+            ],
+            [
+                4.0,
+                10.0
+            ],
+            13.5
+        ],
+        "MH": [
+            [
+                3.0,
+                12.0
+            ],
+            [
+                3.5,
+                9.5
+            ],
+            [
+                3.5,
+                9.0
+            ],
+            12.0
+        ],
+        "ML": [
+            [
+                2.5,
+                10.5
+            ],
+            [
+                2.5,
+                8.5
+            ],
+            [
+                3.0,
+                8.0
+            ],
+            10.5
+        ],
+        "LO": [
+            [
+                2.5,
+                9.0
+            ],
+            [
+                2.5,
+                7.5
+            ],
+            [
+                2.5,
+                7.0
+            ],
+            9.0
+        ]
+    },
+    "climbcapabilitytable": {
+        "EH": [
+            [
+                3.0,
+                1.0
+            ],
+            [
+                1.0,
+                0.5
+            ],
+            [
+                "-",
+                "-"
+            ]
+        ],
+        "VH": [
+            [
+                4.0,
+                1.0
+            ],
+            [
+                2.0,
+                0.5
+            ],
+            [
+                1.0,
+                0.5
+            ]
+        ],
+        "HI": [
+            [
+                5.0,
+                2.0
+            ],
+            [
+                3.0,
+                1.0
+            ],
+            [
+                2.0,
+                0.5
+            ]
+        ],
+        "MH": [
+            [
+                6.0,
+                2.0
+            ],
+            [
+                4.0,
+                1.0
+            ],
+            [
+                2.0,
+                1.0
+            ]
+        ],
+        "ML": [
+            [
+                7.0,
+                2.0
+            ],
+            [
+                5.0,
+                2.0
+            ],
+            [
+                3.0,
+                1.0
+            ]
+        ],
+        "LO": [
+            [
+                7.0,
+                3.0
+            ],
+            [
+                5.0,
+                2.0
+            ],
+            [
+                3.0,
+                1.0
+            ]
+        ]
+    },
+    "radar": {
+        "name": "ASG-14",
+        "eccm": 0,
+        "arc": "180+",
+        "searchrange": 60,
+        "searchstrength": 12,
+        "trackingrange": 30,
+        "trackingstrength": 10,
+        "lockon": 6
+    },
+    "gun": "20 mm M61A1 Vulcan",
+    "gunatatohitrolls": "7/5/3",
+    "gundamagerating": "6/8*",
+    "gunammunition": 3.5,
+    "gunsightmodifiers": {
+        "TT": 0,
+        "HT": 1,
+        "BT": 2
+    },
+    "ataradarranging": "RE",
+    "ecm": {
+        "iff": true
+    },
+    "technology": [
+        "IRSTS-A"
+    ],
+    "properties": [
+        "SMP",
+        "LTD",
+        "RA",
+        "RPR",
+        "GSSM"
+    ],
+    "notes": [
+        "Before 1958, F-104As has downward ejecting seats. No ejections allowed unless aircraft is at least 2 levels above terrain."
+    ],
+    "wikiurl": "https://bit.ly/3Zd3F10",
+    "storeslimits": [
+        2.0,
+        5.0,
+        7800
+    ],
+    "stations": [
+        [
+            "pair",
+            [
+                1,
+                4
+            ],
+            1300,
+            [
+                "IRM",
+                "FT"
+            ]
+        ],
+        [
+            "pair",
+            [
+                2,
+                3
+            ],
+            1500,
+            [
+                "FT"
+            ]
+        ]
+    ],
+    "loadnotes": [
+        "Stations 1 and 4 may only carry IRMs or 165 gal FTs (600L, weight 1100, load 3.0/2.0, and fuel 50).",
+        "Stations 2 and 3 may only carry 200 gal FTs (700L, weight 1300, load 3.0/2.0, and fuel 60).",
+        "May only use AIM-9B through AIM-9P IRMs."
+    ],
+    "VPs": [
+        15,
+        10,
+        5,
+        2
+    ]
 }

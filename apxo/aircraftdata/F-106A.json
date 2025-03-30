@@ -1,81 +1,333 @@
 {
-  "versionname": "F-106A",
-  "popularname": "Delta Dart",
-  "versiondescription": "All-weather interceptor.",
-  "origin": "TSOH",
-  "crew": [ "Pilot" ],
-  "powertable": {
-    "AB"  : [ 2.5, 2.5, 2.0, 9.0 ],
-    "M"   : [ 1.5, 1.5, 1.0, 3.0 ],
-    "N"   : [ 0.0, 0.0, 0.0, 1.0 ],
-    "I"   : [ 0.5, 0.5, 0.5, 0.0 ],
-    "SPBR": [ 0.5, 0.5, 0.5 ]
-  },
-  "jetengines": 1,
-  "cruisespeed": 6.0,
-  "climbspeed" : 4.0,
-  "visibility": 7,
-  "sizemodifier": 0,
-  "vulnerability": -1,
-  "restrictedarcs": "",
-  "blindarcs": "60-",
-  "internalfuel": 465,
-  "atarefuel": true,
-  "ejectionseat": "standard",
-  "maneuvertable": {
-    "LR/DR": [ 1.0, 1.5 ],
-    "VR":    [ 0.0, 0.5 ]
-  },
-  "turndragtable": {
-    "TT": [ 1.0, 2.0, 2.0 ],
-    "HT": [ 2.0, 3.0, 3.0 ],
-    "BT": [ 3.0, 4.0, 4.0 ],
-    "ET": [ 4.0, "-", "-" ]
-  },
-  "ceilingtable": [ 57, 52, 48 ],
-  "speedtable": {
-    "EH": [ [  4.0, 13.0 ], [  4.0, 11.0 ], [  4.5, 10.0 ], 15.0 ],
-    "VH": [ [  3.5, 14.0 ], [  3.5, 12.0 ], [  4.0, 10.5 ], 15.0 ],
-    "HI": [ [  3.0, 12.5 ], [  3.5, 12.0 ], [  4.0, 10.5 ], 14.0 ],
-    "MH": [ [  2.5, 12.0 ], [  3.0, 11.0 ], [  3.0, 10.0 ], 12.0 ],
-    "ML": [ [  2.5, 10.0 ], [  2.5,  9.0 ], [  2.5,  8.0 ], 10.0 ],
-    "LO": [ [  2.0,  8.0 ], [  2.0,  8.0 ], [  2.5,  7.5 ],  9.0 ]
-  },
-  "climbcapabilitytable": {
-    "EH": [ [ 2.0, 1.0 ], [ 2.0, 0.5 ], [ 1.0, 0.5 ] ],
-    "VH": [ [ 2.0, 1.0 ], [ 2.0, 1.0 ], [ 1.0, 0.5 ] ],
-    "HI": [ [ 3.0, 1.0 ], [ 3.0, 1.0 ], [ 2.0, 1.0 ] ],
-    "MH": [ [ 4.0, 2.0 ], [ 3.0, 1.0 ], [ 2.0, 1.0 ] ],
-    "ML": [ [ 5.0, 2.0 ], [ 3.0, 1.0 ], [ 2.0, 1.0 ] ],
-    "LO": [ [ 5.0, 2.0 ], [ 4.0, 2.0 ], [ 3.0, 1.0 ] ]
-  },
-  "radar": {
-    "name": "Hughes MA-1",
-    "eccm": 2,
-    "arc": "180+",
-    "searchrange": 180,
-    "searchstrength": 30,
-    "trackingrange": 60,
-    "trackingstrength": 30,
-    "lockon": 7
-  },
-  "gun": "",
-  "bombsystem": "None",
-  "ecm": { "iff": true },
-  "technology": [ "IRSTS-A" ],
-  "properties": [ "SMP", "LTD", "PSSM", "HBR" ],
-  "notes": [
-  ],
-  "wikiurl": "https://bit.ly/49aueZs",
-  "storeslimits": [ 5, 8, 7000 ],
-  "stations": [
-    [ "pair"  , [ 1, 3 ], 2700, [ "FT" ] ],
-    [ "single", [ 2 ]   , 1600, [ "IRM", "RHM", "Nuc RK" ] ]
-  ],
-  "loadnotes": [
-    "Station 2 is the internal weapons bay. It can carry four RHMs or IRMs and one MB-1 (AIR-2A) Genie nuclear rocket.",
-    "May only use GAR-3/-3A (AIM-4E/-4F) RHMs and GAR-4/-4A (AIM-4H) IRMs.",
-    "Typical load is two IRMs and two RHMs plus the Genie."
-  ],
-  "VPs": [ 25, 19, 12, 6 ]
+    "versionname": "F-106A",
+    "popularname": "Delta Dart",
+    "versiondescription": "All-weather interceptor.",
+    "origin": "TSOH",
+    "crew": [
+        "Pilot"
+    ],
+    "powertable": {
+        "AB": [
+            2.5,
+            2.5,
+            2.0,
+            9.0
+        ],
+        "M": [
+            1.5,
+            1.5,
+            1.0,
+            3.0
+        ],
+        "N": [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+        ],
+        "I": [
+            0.5,
+            0.5,
+            0.5,
+            0.0
+        ],
+        "SPBR": [
+            0.5,
+            0.5,
+            0.5
+        ]
+    },
+    "jetengines": 1,
+    "cruisespeed": 6.0,
+    "climbspeed": 4.0,
+    "visibility": 7,
+    "sizemodifier": 0,
+    "vulnerability": -1,
+    "restrictedarcs": "",
+    "blindarcs": "60-",
+    "internalfuel": 465,
+    "atarefuel": true,
+    "ejectionseat": "standard",
+    "maneuvertable": {
+        "LR/DR": [
+            1.0,
+            1.5
+        ],
+        "VR": [
+            0.0,
+            0.5
+        ]
+    },
+    "turndragtable": {
+        "TT": [
+            1.0,
+            2.0,
+            2.0
+        ],
+        "HT": [
+            2.0,
+            3.0,
+            3.0
+        ],
+        "BT": [
+            3.0,
+            4.0,
+            4.0
+        ],
+        "ET": [
+            4.0,
+            "-",
+            "-"
+        ]
+    },
+    "ceilingtable": [
+        57,
+        52,
+        48
+    ],
+    "speedtable": {
+        "EH": [
+            [
+                4.0,
+                13.0
+            ],
+            [
+                4.0,
+                11.0
+            ],
+            [
+                4.5,
+                10.0
+            ],
+            15.0
+        ],
+        "VH": [
+            [
+                3.5,
+                14.0
+            ],
+            [
+                3.5,
+                12.0
+            ],
+            [
+                4.0,
+                10.5
+            ],
+            15.0
+        ],
+        "HI": [
+            [
+                3.0,
+                12.5
+            ],
+            [
+                3.5,
+                12.0
+            ],
+            [
+                4.0,
+                10.5
+            ],
+            14.0
+        ],
+        "MH": [
+            [
+                2.5,
+                12.0
+            ],
+            [
+                3.0,
+                11.0
+            ],
+            [
+                3.0,
+                10.0
+            ],
+            12.0
+        ],
+        "ML": [
+            [
+                2.5,
+                10.0
+            ],
+            [
+                2.5,
+                9.0
+            ],
+            [
+                2.5,
+                8.0
+            ],
+            10.0
+        ],
+        "LO": [
+            [
+                2.0,
+                8.0
+            ],
+            [
+                2.0,
+                8.0
+            ],
+            [
+                2.5,
+                7.5
+            ],
+            9.0
+        ]
+    },
+    "climbcapabilitytable": {
+        "EH": [
+            [
+                2.0,
+                1.0
+            ],
+            [
+                2.0,
+                0.5
+            ],
+            [
+                1.0,
+                0.5
+            ]
+        ],
+        "VH": [
+            [
+                2.0,
+                1.0
+            ],
+            [
+                2.0,
+                1.0
+            ],
+            [
+                1.0,
+                0.5
+            ]
+        ],
+        "HI": [
+            [
+                3.0,
+                1.0
+            ],
+            [
+                3.0,
+                1.0
+            ],
+            [
+                2.0,
+                1.0
+            ]
+        ],
+        "MH": [
+            [
+                4.0,
+                2.0
+            ],
+            [
+                3.0,
+                1.0
+            ],
+            [
+                2.0,
+                1.0
+            ]
+        ],
+        "ML": [
+            [
+                5.0,
+                2.0
+            ],
+            [
+                3.0,
+                1.0
+            ],
+            [
+                2.0,
+                1.0
+            ]
+        ],
+        "LO": [
+            [
+                5.0,
+                2.0
+            ],
+            [
+                4.0,
+                2.0
+            ],
+            [
+                3.0,
+                1.0
+            ]
+        ]
+    },
+    "radar": {
+        "name": "Hughes MA-1",
+        "eccm": 2,
+        "arc": "180+",
+        "searchrange": 180,
+        "searchstrength": 30,
+        "trackingrange": 60,
+        "trackingstrength": 30,
+        "lockon": 7
+    },
+    "gun": "",
+    "bombsystem": "None",
+    "ecm": {
+        "iff": true
+    },
+    "technology": [
+        "IRSTS-A"
+    ],
+    "properties": [
+        "SMP",
+        "LTD",
+        "PSSM",
+        "HBR"
+    ],
+    "notes": [],
+    "wikiurl": "https://bit.ly/49aueZs",
+    "storeslimits": [
+        5,
+        8,
+        7000
+    ],
+    "stations": [
+        [
+            "pair",
+            [
+                1,
+                3
+            ],
+            2700,
+            [
+                "FT"
+            ]
+        ],
+        [
+            "single",
+            [
+                2
+            ],
+            1600,
+            [
+                "IRM",
+                "RHM",
+                "Nuc RK"
+            ]
+        ]
+    ],
+    "loadnotes": [
+        "Station 2 is the internal weapons bay. It can carry four RHMs or IRMs and one MB-1 (AIR-2A) Genie nuclear rocket.",
+        "May only use GAR-3/-3A (AIM-4E/-4F) RHMs and GAR-4/-4A (AIM-4H) IRMs.",
+        "Typical load is two IRMs and two RHMs plus the Genie."
+    ],
+    "VPs": [
+        25,
+        19,
+        12,
+        6
+    ]
 }

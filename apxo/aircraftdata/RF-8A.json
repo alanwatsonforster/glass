@@ -1,18 +1,23 @@
 {
-  "versionname": "RF-8A",
-  "versiondescription": "Tactical reconnaissance version.",
-  "base": "F-8C",
-  "previouslydesignated": "F8U-1P",
-  "origin": "TSOH",
-  "internalfuel": 480,
-  "gun": null,
-  "technology": [ "IRSTS-A" ],
-  "notes": [
-    "Equipped with oblique camera and overhead day-and-night camera."
-  ],
-  "stations": [
-  ],
-  "loadnotes": [
-  ],
-  "VPs": [ 20, 14, 6, 2 ]
+    "versionname": "RF-8A",
+    "versiondescription": "Tactical reconnaissance version.",
+    "base": "F-8C",
+    "previouslydesignated": "F8U-1P",
+    "origin": "TSOH",
+    "internalfuel": 480,
+    "gun": null,
+    "technology": [
+        "IRSTS-A"
+    ],
+    "notes": [
+        "Equipped with oblique camera and overhead day-and-night camera."
+    ],
+    "stations": [],
+    "loadnotes": [],
+    "VPs": [
+        20,
+        14,
+        6,
+        2
+    ]
 }

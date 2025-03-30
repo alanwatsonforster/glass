@@ -1,6 +1,10 @@
 {
-  "base": "A-7D",
-  "variantname": "1981 Upgrade",
-  "variantdescription": "with RWR-C, from 1981.",
-  "ecm": { "iff": true, "rwr": "C", "dds": "B" }
+    "base": "A-7D",
+    "variantname": "1981 Upgrade",
+    "variantdescription": "with RWR-C, from 1981.",
+    "ecm": {
+        "iff": true,
+        "rwr": "C",
+        "dds": "B"
+    }
 }

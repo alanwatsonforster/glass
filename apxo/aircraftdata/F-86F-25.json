@@ -1,34 +1,174 @@
 {
-  "versionname": "F-86F-25",
-  "description": "The North American F-86F-25 Sabre is a single-engined, swept-wing, fighter-bomber. The F-86F-25 version is derived from the F-86F-10 version and has the unslatted 6-3 wing.",
-  "base": "F-86F-10",
-  "origin": "APJ 25",
-  "lowspeedliftdevicename": null,
-  "turndragtable": {
-    "TT": [ 0.0, 1.0, 1.0 ],
-    "HT": [ 1.0, 1.0, 1.0 ],
-    "BT": [ 2.0, 3.0, 3.0 ]
-  },
-  "speedtable": {
-    "EH": [ [  2.5,  5.5 ], [  "-",  "-" ], [  "-",  "-" ],  6.5 ],
-    "VH": [ [  2.5,  6.0 ], [  2.5,  5.0 ], [  3.0,  5.0 ],  6.5 ],
-    "HI": [ [  2.0,  6.0 ], [  2.5,  5.5 ], [  2.5,  5.0 ],  7.0 ],
-    "MH": [ [  2.0,  6.5 ], [  2.5,  5.5 ], [  2.5,  5.0 ],  7.0 ],
-    "ML": [ [  2.0,  6.5 ], [  2.0,  6.0 ], [  2.5,  5.5 ],  7.5 ],
-    "LO": [ [  1.5,  6.5 ], [  1.5,  6.0 ], [  2.0,  5.5 ],  7.5 ]
-  },
-  "properties:comment": "Not HTD.",
-  "properties": [],
-  "storeslimits": [ 2, 6, 4000 ],  
-  "stations": [
-    [ "pair"     , [ 1, 4 ]        , 1000, [ "BB", "FT" ] ],
-    [ "pair"     , [ 2, 3 ]        , 1000, [ "BB", "FT", "IRM" ] ],
-    [ "grouppair", [ 5, 8, 9, 12 ] ,  280, [ "RK" ] ]
-  ],
-  "loadnotes": [
-    "Either stations 1 to 4 or stations 5 to 12 can be used.",
-    "Stations 5 to 12 can each carry two RKs.",
-    "From 1958, may use AIM-9B IRMs."
-  ],
-  "VPs": [ 9, 6, 3, 1 ]
+    "versionname": "F-86F-25",
+    "description": "The North American F-86F-25 Sabre is a single-engined, swept-wing, fighter-bomber. The F-86F-25 version is derived from the F-86F-10 version and has the unslatted 6-3 wing.",
+    "base": "F-86F-10",
+    "origin": "APJ 25",
+    "lowspeedliftdevicename": null,
+    "turndragtable": {
+        "TT": [
+            0.0,
+            1.0,
+            1.0
+        ],
+        "HT": [
+            1.0,
+            1.0,
+            1.0
+        ],
+        "BT": [
+            2.0,
+            3.0,
+            3.0
+        ]
+    },
+    "speedtable": {
+        "EH": [
+            [
+                2.5,
+                5.5
+            ],
+            [
+                "-",
+                "-"
+            ],
+            [
+                "-",
+                "-"
+            ],
+            6.5
+        ],
+        "VH": [
+            [
+                2.5,
+                6.0
+            ],
+            [
+                2.5,
+                5.0
+            ],
+            [
+                3.0,
+                5.0
+            ],
+            6.5
+        ],
+        "HI": [
+            [
+                2.0,
+                6.0
+            ],
+            [
+                2.5,
+                5.5
+            ],
+            [
+                2.5,
+                5.0
+            ],
+            7.0
+        ],
+        "MH": [
+            [
+                2.0,
+                6.5
+            ],
+            [
+                2.5,
+                5.5
+            ],
+            [
+                2.5,
+                5.0
+            ],
+            7.0
+        ],
+        "ML": [
+            [
+                2.0,
+                6.5
+            ],
+            [
+                2.0,
+                6.0
+            ],
+            [
+                2.5,
+                5.5
+            ],
+            7.5
+        ],
+        "LO": [
+            [
+                1.5,
+                6.5
+            ],
+            [
+                1.5,
+                6.0
+            ],
+            [
+                2.0,
+                5.5
+            ],
+            7.5
+        ]
+    },
+    "properties:comment": "Not HTD.",
+    "properties": [],
+    "storeslimits": [
+        2,
+        6,
+        4000
+    ],
+    "stations": [
+        [
+            "pair",
+            [
+                1,
+                4
+            ],
+            1000,
+            [
+                "BB",
+                "FT"
+            ]
+        ],
+        [
+            "pair",
+            [
+                2,
+                3
+            ],
+            1000,
+            [
+                "BB",
+                "FT",
+                "IRM"
+            ]
+        ],
+        [
+            "grouppair",
+            [
+                5,
+                8,
+                9,
+                12
+            ],
+            280,
+            [
+                "RK"
+            ]
+        ]
+    ],
+    "loadnotes": [
+        "Either stations 1 to 4 or stations 5 to 12 can be used.",
+        "Stations 5 to 12 can each carry two RKs.",
+        "From 1958, may use AIM-9B IRMs."
+    ],
+    "VPs": [
+        9,
+        6,
+        3,
+        1
+    ]
 }

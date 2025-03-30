@@ -1,19 +1,71 @@
 {
-  "versionname": "F2H-2B",
-  "description": "The McDonnell F2H-2B Banshee is a fighter-bomber and tactical nuclear bomber. It has two engines, straight wings, and is carrier-capable. It is a development of the F2H-2 with provision for a nuclear bomb on its port inner-wing weapon station.",
-  "variantname": null,
-  "base": "F2H-2",
-  "storeslimits": [ 8, 12, 4600 ],
-  "stations": [
-    [ "pair"     , [ 1, 10 ]     , 1300, [ "FT" ]],
-    [ "grouppair", [ 2, 3, 8, 9 ],  250, [ "BB", "RK" ]],
-    [ "pair"     , [ 4, 7 ]      ,  250, [ "BB" ] ],
-    [ "pair"     , [ 5, 6 ]      ,  500, [ "BB" ] ]
-  ],
-  "loadnotes": [
-    "The wing-tip stations 1 and 10 usually carry 200 gal (700L) FTs. They cannot be jettisoned in flight.",
-    "Stations 4 and 5 and stations 6 and 7 are closely spaced. If a 500 lb bomb is carried on station 5 or 6, the adjacent station cannot be used.",
-    "As an exception to the normal loading rules, a Mk 7 (weight 1700 and load 3.5) or Mk 8 (weight 3300 and load 5.0) nuclear bomb can be carried on station 5."
-  ],
-  "VPs": [ 9, 5, 3, 1 ]
+    "versionname": "F2H-2B",
+    "description": "The McDonnell F2H-2B Banshee is a fighter-bomber and tactical nuclear bomber. It has two engines, straight wings, and is carrier-capable. It is a development of the F2H-2 with provision for a nuclear bomb on its port inner-wing weapon station.",
+    "variantname": null,
+    "base": "F2H-2",
+    "storeslimits": [
+        8,
+        12,
+        4600
+    ],
+    "stations": [
+        [
+            "pair",
+            [
+                1,
+                10
+            ],
+            1300,
+            [
+                "FT"
+            ]
+        ],
+        [
+            "grouppair",
+            [
+                2,
+                3,
+                8,
+                9
+            ],
+            250,
+            [
+                "BB",
+                "RK"
+            ]
+        ],
+        [
+            "pair",
+            [
+                4,
+                7
+            ],
+            250,
+            [
+                "BB"
+            ]
+        ],
+        [
+            "pair",
+            [
+                5,
+                6
+            ],
+            500,
+            [
+                "BB"
+            ]
+        ]
+    ],
+    "loadnotes": [
+        "The wing-tip stations 1 and 10 usually carry 200 gal (700L) FTs. They cannot be jettisoned in flight.",
+        "Stations 4 and 5 and stations 6 and 7 are closely spaced. If a 500 lb bomb is carried on station 5 or 6, the adjacent station cannot be used.",
+        "As an exception to the normal loading rules, a Mk 7 (weight 1700 and load 3.5) or Mk 8 (weight 3300 and load 5.0) nuclear bomb can be carried on station 5."
+    ],
+    "VPs": [
+        9,
+        5,
+        3,
+        1
+    ]
 }

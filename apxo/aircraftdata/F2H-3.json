@@ -1,85 +1,352 @@
 {
-  "versionname": "F2H-3",
-  "description": "The McDonnell F2H-3 Banshee is an all-weather interceptor, fighter-bomber, and tactical nuclear bomber. It has two engines, straight wings, and is carrier-capable. It is a major development of the F2H-2 with a lengthened fuselage, increased fuel capacity, additional weapon stations, and the APQ-41 search radar.",
-  "manufacturername": "McDonnell",
-  "variantname": null,
-  "popularname": "Banshee",
-  "origin": "TSOH",
-  "crew": [ "Pilot" ],
-  "powertable": {
-    "M"   : [ 1.0, 1.0, 1.0, 2.0 ],
-    "N"   : [ 0.0, 0.0, 0.0, 1.0 ],
-    "I"   : [ 0.5, 0.5, 0.5, 0.0 ],
-    "SPBR": [ 0.5, 0.5, 1.0 ]
-  },
-  "jetengines": 2,
-  "cruisespeed": 4.5,
-  "climbspeed" : 3.0,
-  "visibility": 6,
-  "sizemodifier": 0,
-  "vulnerability": 0,
-  "restrictedarcs": "180L",
-  "blindarcs": "30-",
-  "internalfuel": 370,
-  "atarefuel": false,
-  "ejectionseat": "early",
-  "maneuvertable": {
-    "LR/DR": [ 1.0, 1.5 ],
-    "VR":    [ 0.0, 0.5 ]
-  },
-  "turndragtable": {
-    "TT": [ 1.0, 1.0, 1.0 ],
-    "HT": [ 2.0, 2.0, 2.0 ],
-    "BT": [ 2.0, 2.0, 3.0 ]
-  },
-  "ceilingtable": [ 46, 42, 38 ],
-  "speedtable": {
-    "EH": [ [ 3.0, 4.5 ], [ "-", "-" ], [ "-", "-" ], 6.0 ],
-    "VH": [ [ 2.5, 5.0 ], [ 3.0, 4.5 ], [ 3.0, 4.5 ], 6.0 ],
-    "HI": [ [ 2.0, 5.0 ], [ 2.5, 5.0 ], [ 2.5, 4.5 ], 6.5 ],
-    "MH": [ [ 2.0, 5.5 ], [ 2.0, 5.0 ], [ 2.5, 5.0 ], 6.5 ],
-    "ML": [ [ 1.5, 5.5 ], [ 2.0, 5.0 ], [ 2.0, 5.0 ], 7.0 ],
-    "LO": [ [ 1.5, 5.5 ], [ 1.5, 5.0 ], [ 2.0, 5.0 ], 7.0 ]
-  },
-  "climbcapabilitytable": {
-    "EH": [ [ "-", 0.5 ], [ "-", "-" ], [ "-", "-" ] ],
-    "VH": [ [ "-", 0.5 ], [ "-", 0.5 ], [ "-", 0.5 ] ],
-    "HI": [ [ "-", 0.5 ], [ "-", 0.5 ], [ "-", 0.5 ] ],
-    "MH": [ [ "-", 1.0 ], [ "-", 1.0 ], [ "-", 0.5 ] ],
-    "ML": [ [ "-", 1.0 ], [ "-", 1.0 ], [ "-", 1.0 ] ],
-    "LO": [ [ "-", 1.5 ], [ "-", 1.0 ], [ "-", 1.0 ] ]
-  },
-  "gun": "Four 20 mm Mk 16",
-  "gunatatohitrolls": "6/4/3",
-  "gundamagerating": "5/6*",
-  "gunammunition": 6.0,
-  "gunsightmodifiers": { "TT": 0, "HT": 1, "BT": 2 },
-  "ataradarranging": "RE",
-  "radar": {
-    "name": "APQ-41",
-    "eccm": 0,
-    "arc": "180+",
-    "searchrange": 32,
-    "searchstrength": 8,
-    "trackingrange": 24,
-    "trackingstrength": 6,
-    "lockon": 5
-  },
-  "ecm": { "iff": true },
-  "storeslimits": [ 8, 12, 4200 ],
-  "stations": [
-    [ "pair"     , [ 1, 10 ]     , 1100, [ "FT" ] ],
-    [ "grouppair", [ 2, 3, 8, 9 ],  250, [ "BB", "RK" ]],
-    [ "pair"     , [ 4, 7 ]      ,  250, [ "BB" ] ],
-    [ "pair"     , [ 5, 6 ]      ,  500, [ "BB", "IRM" ] ]
-  ],
-  "loadnotes": [
-    "The wing-tip stations 1 and 10 usually carry 170 gal (600L) FTs. They cannot be jettisoned in flight.",
-    "Stations 4 and 5 and stations 6 and 7 are closely spaced. If a 500 lb bomb is carried on station 5 or 6, the adjacent station cannot be used.",
-    "As an exception to the normal loading rules, a Mk 7 (weight 1700 and load 3.5) or Mk 8 (weight 3300 and load 5.0) nuclear bomb can be carried on station 6.",
-    "From 1958, may use AIM-9B IRMs."
-  ],
-  "VPs": [ 11, 7, 4, 2 ],
-  "properties": [ "SMP", "HTD" ],
-  "wikiurl": "https://bit.ly/4fmPRbc"
+    "versionname": "F2H-3",
+    "description": "The McDonnell F2H-3 Banshee is an all-weather interceptor, fighter-bomber, and tactical nuclear bomber. It has two engines, straight wings, and is carrier-capable. It is a major development of the F2H-2 with a lengthened fuselage, increased fuel capacity, additional weapon stations, and the APQ-41 search radar.",
+    "manufacturername": "McDonnell",
+    "variantname": null,
+    "popularname": "Banshee",
+    "origin": "TSOH",
+    "crew": [
+        "Pilot"
+    ],
+    "powertable": {
+        "M": [
+            1.0,
+            1.0,
+            1.0,
+            2.0
+        ],
+        "N": [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+        ],
+        "I": [
+            0.5,
+            0.5,
+            0.5,
+            0.0
+        ],
+        "SPBR": [
+            0.5,
+            0.5,
+            1.0
+        ]
+    },
+    "jetengines": 2,
+    "cruisespeed": 4.5,
+    "climbspeed": 3.0,
+    "visibility": 6,
+    "sizemodifier": 0,
+    "vulnerability": 0,
+    "restrictedarcs": "180L",
+    "blindarcs": "30-",
+    "internalfuel": 370,
+    "atarefuel": false,
+    "ejectionseat": "early",
+    "maneuvertable": {
+        "LR/DR": [
+            1.0,
+            1.5
+        ],
+        "VR": [
+            0.0,
+            0.5
+        ]
+    },
+    "turndragtable": {
+        "TT": [
+            1.0,
+            1.0,
+            1.0
+        ],
+        "HT": [
+            2.0,
+            2.0,
+            2.0
+        ],
+        "BT": [
+            2.0,
+            2.0,
+            3.0
+        ]
+    },
+    "ceilingtable": [
+        46,
+        42,
+        38
+    ],
+    "speedtable": {
+        "EH": [
+            [
+                3.0,
+                4.5
+            ],
+            [
+                "-",
+                "-"
+            ],
+            [
+                "-",
+                "-"
+            ],
+            6.0
+        ],
+        "VH": [
+            [
+                2.5,
+                5.0
+            ],
+            [
+                3.0,
+                4.5
+            ],
+            [
+                3.0,
+                4.5
+            ],
+            6.0
+        ],
+        "HI": [
+            [
+                2.0,
+                5.0
+            ],
+            [
+                2.5,
+                5.0
+            ],
+            [
+                2.5,
+                4.5
+            ],
+            6.5
+        ],
+        "MH": [
+            [
+                2.0,
+                5.5
+            ],
+            [
+                2.0,
+                5.0
+            ],
+            [
+                2.5,
+                5.0
+            ],
+            6.5
+        ],
+        "ML": [
+            [
+                1.5,
+                5.5
+            ],
+            [
+                2.0,
+                5.0
+            ],
+            [
+                2.0,
+                5.0
+            ],
+            7.0
+        ],
+        "LO": [
+            [
+                1.5,
+                5.5
+            ],
+            [
+                1.5,
+                5.0
+            ],
+            [
+                2.0,
+                5.0
+            ],
+            7.0
+        ]
+    },
+    "climbcapabilitytable": {
+        "EH": [
+            [
+                "-",
+                0.5
+            ],
+            [
+                "-",
+                "-"
+            ],
+            [
+                "-",
+                "-"
+            ]
+        ],
+        "VH": [
+            [
+                "-",
+                0.5
+            ],
+            [
+                "-",
+                0.5
+            ],
+            [
+                "-",
+                0.5
+            ]
+        ],
+        "HI": [
+            [
+                "-",
+                0.5
+            ],
+            [
+                "-",
+                0.5
+            ],
+            [
+                "-",
+                0.5
+            ]
+        ],
+        "MH": [
+            [
+                "-",
+                1.0
+            ],
+            [
+                "-",
+                1.0
+            ],
+            [
+                "-",
+                0.5
+            ]
+        ],
+        "ML": [
+            [
+                "-",
+                1.0
+            ],
+            [
+                "-",
+                1.0
+            ],
+            [
+                "-",
+                1.0
+            ]
+        ],
+        "LO": [
+            [
+                "-",
+                1.5
+            ],
+            [
+                "-",
+                1.0
+            ],
+            [
+                "-",
+                1.0
+            ]
+        ]
+    },
+    "gun": "Four 20 mm Mk 16",
+    "gunatatohitrolls": "6/4/3",
+    "gundamagerating": "5/6*",
+    "gunammunition": 6.0,
+    "gunsightmodifiers": {
+        "TT": 0,
+        "HT": 1,
+        "BT": 2
+    },
+    "ataradarranging": "RE",
+    "radar": {
+        "name": "APQ-41",
+        "eccm": 0,
+        "arc": "180+",
+        "searchrange": 32,
+        "searchstrength": 8,
+        "trackingrange": 24,
+        "trackingstrength": 6,
+        "lockon": 5
+    },
+    "ecm": {
+        "iff": true
+    },
+    "storeslimits": [
+        8,
+        12,
+        4200
+    ],
+    "stations": [
+        [
+            "pair",
+            [
+                1,
+                10
+            ],
+            1100,
+            [
+                "FT"
+            ]
+        ],
+        [
+            "grouppair",
+            [
+                2,
+                3,
+                8,
+                9
+            ],
+            250,
+            [
+                "BB",
+                "RK"
+            ]
+        ],
+        [
+            "pair",
+            [
+                4,
+                7
+            ],
+            250,
+            [
+                "BB"
+            ]
+        ],
+        [
+            "pair",
+            [
+                5,
+                6
+            ],
+            500,
+            [
+                "BB",
+                "IRM"
+            ]
+        ]
+    ],
+    "loadnotes": [
+        "The wing-tip stations 1 and 10 usually carry 170 gal (600L) FTs. They cannot be jettisoned in flight.",
+        "Stations 4 and 5 and stations 6 and 7 are closely spaced. If a 500 lb bomb is carried on station 5 or 6, the adjacent station cannot be used.",
+        "As an exception to the normal loading rules, a Mk 7 (weight 1700 and load 3.5) or Mk 8 (weight 3300 and load 5.0) nuclear bomb can be carried on station 6.",
+        "From 1958, may use AIM-9B IRMs."
+    ],
+    "VPs": [
+        11,
+        7,
+        4,
+        2
+    ],
+    "properties": [
+        "SMP",
+        "HTD"
+    ],
+    "wikiurl": "https://bit.ly/4fmPRbc"
 }

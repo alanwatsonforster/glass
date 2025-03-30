@@ -1,6 +1,6 @@
 {
-  "versionname": "Shenyang J-5A",
-  "description": "The Shenyang J-5A is an interceptor. It is a licensed version of the MiG-17PF. The NATO reporting name for the aircraft is Fresco-D and for the radar is Scan Odd.",
-  "base": "MiG-17PF",
-  "wikiurl": "https://bit.ly/4eTGwGA"
+    "versionname": "Shenyang J-5A",
+    "description": "The Shenyang J-5A is an interceptor. It is a licensed version of the MiG-17PF. The NATO reporting name for the aircraft is Fresco-D and for the radar is Scan Odd.",
+    "base": "MiG-17PF",
+    "wikiurl": "https://bit.ly/4eTGwGA"
 }

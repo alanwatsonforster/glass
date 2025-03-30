@@ -1,17 +1,75 @@
 {
-  "versionname": "A-4E",
-  "versiondescription": "The A-4E is a development of the A-4C, with two additional pylons and improved avionics.",
-  "previouslydesignated": "A4D-5",
-  "subsequentlydesignated": null,
-  "base": "A-4C",
-  "ecm": { "iff": true, "rwr": "A", "dds": "A", "djm": "A3" },
-  "storeslimits": [ 6, 12, 8200 ],
-  "stations": [
-    [ "pair"  , [ 1, 5 ],  600, [ "BB", "RP", "RG", "TR", "IP", "ARM" ] ],
-    [ "pair"  , [ 2, 4 ], 2200, [ "BB", "BS", "RP", "RG", "IP", "ARM", "WR", "GP", "FT" ] ],
-    [ "single", [ 3 ]   , 3100, [ "BB", "BS", "RP", "RG", "IP", "WR", "GP", "FT" ] ]
-  ],
-  "loadnotes": [
-    "May only used AGM-12 RGs, AGM-45 ARMs. and AGM-62 BSs."
-  ]
+    "versionname": "A-4E",
+    "versiondescription": "The A-4E is a development of the A-4C, with two additional pylons and improved avionics.",
+    "previouslydesignated": "A4D-5",
+    "subsequentlydesignated": null,
+    "base": "A-4C",
+    "ecm": {
+        "iff": true,
+        "rwr": "A",
+        "dds": "A",
+        "djm": "A3"
+    },
+    "storeslimits": [
+        6,
+        12,
+        8200
+    ],
+    "stations": [
+        [
+            "pair",
+            [
+                1,
+                5
+            ],
+            600,
+            [
+                "BB",
+                "RP",
+                "RG",
+                "TR",
+                "IP",
+                "ARM"
+            ]
+        ],
+        [
+            "pair",
+            [
+                2,
+                4
+            ],
+            2200,
+            [
+                "BB",
+                "BS",
+                "RP",
+                "RG",
+                "IP",
+                "ARM",
+                "WR",
+                "GP",
+                "FT"
+            ]
+        ],
+        [
+            "single",
+            [
+                3
+            ],
+            3100,
+            [
+                "BB",
+                "BS",
+                "RP",
+                "RG",
+                "IP",
+                "WR",
+                "GP",
+                "FT"
+            ]
+        ]
+    ],
+    "loadnotes": [
+        "May only used AGM-12 RGs, AGM-45 ARMs. and AGM-62 BSs."
+    ]
 }

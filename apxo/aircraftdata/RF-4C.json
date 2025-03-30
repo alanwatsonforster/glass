@@ -1,35 +1,185 @@
 {
-  "versionname": "RF-4C",
-  "versiondescription": "Reconnaissance version.",
-  "base": "F-4C",
-  "speedtable": {
-    "EH": [ [ 4.5, 13.5 ], [ 5.0, 11.0 ], [ "-", "-" ], 14.0 ],
-    "VH": [ [ 3.5, 14.0 ], [ 4.0, 11.5 ], [ 4.5, 9.0 ], 14.0 ],
-    "HI": [ [ 3.0, 12.5 ], [ 3.0, 10.5 ], [ 3.5, 8.5 ], 13.0 ],
-    "MH": [ [ 2.5, 10.5 ], [ 3.0,  9.5 ], [ 3.5, 7.5 ], 12.0 ],
-    "ML": [ [ 2.0,  9.5 ], [ 2.5,  8.5 ], [ 3.0, 6.5 ], 10.0 ],
-    "LO": [ [ 2.0,  8.5 ], [ 2.0,  7.5 ], [ 3.0, 6.5 ],  8.5 ]
-  },
-  "radar": {
-    "name": "APQ-99",
-    "eccm": 1,
-    "arc": "180+",
-    "searchrange": 150
-  },
-  "notes": [
-    "Oblique, overhead, and infrared cameras. Side-looking radar."
-  ],
-  "stations": [
-    [ "pair"  , [ 1, 9 ], 2700, [ "BB", "RP", "WR", "EP", "FT" ] ],
-    [ "pair"  , [ 2, 8 ], 3000, [ "BB", "RP", "RG", "GP", "EP", "WR", "IRM" ] ],
-    [ "pair"  , [ 3, 7 ],  500, [ "EP" ] ],
-    [ "pair"  , [ 4, 6 ],  500, [ ] ],
-    [ "single", [ 5 ]   , 4500, [ "BB", "RP", "WR", "GP", "FT" ] ]
-  ],
-  "loadnotes": [
-    "Stations 2 and 8 may each carry two AIM-9 IRMs in addition to other non-missile stores.",
-    "Stations 3, 4, 6, and 7 are the recessed fuselage stations. Stations 3 and 7 are the forward ones and stations 4 and 6 are the rear ones.",
-    "May only use AIM-7 IRMs and AGM-12 RGs."
-  ],
-  "VPs": [ 26, 18, 10, 4 ]
+    "versionname": "RF-4C",
+    "versiondescription": "Reconnaissance version.",
+    "base": "F-4C",
+    "speedtable": {
+        "EH": [
+            [
+                4.5,
+                13.5
+            ],
+            [
+                5.0,
+                11.0
+            ],
+            [
+                "-",
+                "-"
+            ],
+            14.0
+        ],
+        "VH": [
+            [
+                3.5,
+                14.0
+            ],
+            [
+                4.0,
+                11.5
+            ],
+            [
+                4.5,
+                9.0
+            ],
+            14.0
+        ],
+        "HI": [
+            [
+                3.0,
+                12.5
+            ],
+            [
+                3.0,
+                10.5
+            ],
+            [
+                3.5,
+                8.5
+            ],
+            13.0
+        ],
+        "MH": [
+            [
+                2.5,
+                10.5
+            ],
+            [
+                3.0,
+                9.5
+            ],
+            [
+                3.5,
+                7.5
+            ],
+            12.0
+        ],
+        "ML": [
+            [
+                2.0,
+                9.5
+            ],
+            [
+                2.5,
+                8.5
+            ],
+            [
+                3.0,
+                6.5
+            ],
+            10.0
+        ],
+        "LO": [
+            [
+                2.0,
+                8.5
+            ],
+            [
+                2.0,
+                7.5
+            ],
+            [
+                3.0,
+                6.5
+            ],
+            8.5
+        ]
+    },
+    "radar": {
+        "name": "APQ-99",
+        "eccm": 1,
+        "arc": "180+",
+        "searchrange": 150
+    },
+    "notes": [
+        "Oblique, overhead, and infrared cameras. Side-looking radar."
+    ],
+    "stations": [
+        [
+            "pair",
+            [
+                1,
+                9
+            ],
+            2700,
+            [
+                "BB",
+                "RP",
+                "WR",
+                "EP",
+                "FT"
+            ]
+        ],
+        [
+            "pair",
+            [
+                2,
+                8
+            ],
+            3000,
+            [
+                "BB",
+                "RP",
+                "RG",
+                "GP",
+                "EP",
+                "WR",
+                "IRM"
+            ]
+        ],
+        [
+            "pair",
+            [
+                3,
+                7
+            ],
+            500,
+            [
+                "EP"
+            ]
+        ],
+        [
+            "pair",
+            [
+                4,
+                6
+            ],
+            500,
+            []
+        ],
+        [
+            "single",
+            [
+                5
+            ],
+            4500,
+            [
+                "BB",
+                "RP",
+                "WR",
+                "GP",
+                "FT"
+            ]
+        ]
+    ],
+    "loadnotes": [
+        "Stations 2 and 8 may each carry two AIM-9 IRMs in addition to other non-missile stores.",
+        "Stations 3, 4, 6, and 7 are the recessed fuselage stations. Stations 3 and 7 are the forward ones and stations 4 and 6 are the rear ones.",
+        "May only use AIM-7 IRMs and AGM-12 RGs."
+    ],
+    "VPs": [
+        26,
+        18,
+        10,
+        4
+    ]
 }

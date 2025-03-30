@@ -1,57 +1,298 @@
 {
-  "versionname": "B-26K",
-  "description": "The Douglas B-26K Counter-Invader is a propeller-driven attack aircraft. It is an upgrade of the B-26B/TB-26B/B-26C by On Mark Engineering, with strengthened wings, wing-tip fuel tanks, a solid nose, and nose guns, but without wing guns. It was subsequently redesignated A-26A.",
-  "popularname": "Counter-Invader",
-  "subsequentlydesignated": "A-26A",
-  "originallydesignated": null,
-  "origin": "APJ 51",
-  "variantdescription": null,
-  "base": "B-26B (No Turrets)",
-  "crew": [ "Pilot", "Navigator", "Observer" ],
-  "powertable": {
-    "FT"  : [ 1.5, 1.0, 1.0, 1.0 ],
-    "HT"  : [ 0.5, 0.5, 0.5, 0.5 ],
-    "N"   : [ 0.0, 0.0, 0.0, 0.2 ],
-    "I"   : [ 0.5, 0.5, 0.5, 0.0 ],
-    "SPBR": [ "-", "-", "-" ]
-  },
-  "blindarcs": "30L",
-  "internalfuel": 720,
-  "ceilingtable": [ 30, 24, 17 ],
-  "speedtable": {
-    "EH": [ [  "-",  "-" ], [  "-",  "-" ], [  "-",  "-" ],  "-" ],
-    "VH": [ [  "-",  "-" ], [  "-",  "-" ], [  "-",  "-" ],  "-" ],
-    "HI": [ [  2.0,  3.0 ], [  "-",  "-" ], [  "-",  "-" ],  5.0 ],
-    "MH": [ [  1.5,  3.0 ], [  2.0,  3.0 ], [  2.0,  3.0 ],  4.5 ],
-    "ML": [ [  1.5,  3.0 ], [  1.5,  3.0 ], [  2.0,  3.0 ],  4.0 ],
-    "LO": [ [  1.5,  3.0 ], [  1.5,  3.0 ], [  2.0,  3.0 ],  4.0 ]
-  },
-  "climbcapabilitytable": {
-    "EH": [ [ "-", "-"  ], [ "-", "-" ], [ "-", "-" ] ],
-    "VH": [ [ "-", "-"  ], [ "-", "-" ], [ "-", "-" ] ],
-    "HI": [ [ "-", 0.25 ], [ "-", "-" ], [ "-", "-" ] ],
-    "MH": [ [ "-", 0.5  ], [ "-", 0.5 ], [ "-", 0.5 ] ],
-    "ML": [ [ "-", 0.5  ], [ "-", 0.5 ], [ "-", 0.5 ] ],
-    "LO": [ [ "-", 0.5  ], [ "-", 0.5 ], [ "-", 0.5 ] ]
-  },
-  "gun": "Eight .50 cal M2",
-  "gunatatohitrolls": "4/2/1",
-  "gundamagerating": "5/6**",
-  "gunammunition": 10,
-  "bombsystem": "Manual/Balistic",
-  "storeslimits": [ 6, 13, 8000 ],
-  "stations": [
-    [ "grouppair", [ 1, 2, 8, 9 ] ,  750, [ "BB", "RP", "GP" ] ],
-    [ "grouppair", [ 3, 4, 6, 7 ] ,  750, [ "BB", "RP", "GP", "FT" ] ],
-    [ "single"   , [ 5 ]          , 4000, [ "BB" ] ]
-  ],
-  "loadnotes": [
-    "Each wing can carry a maximum load of 2,000 lb.",
-    "Station 5 is the internal bomb bay. Load options are: (a) two 2,000 lb bombs, (b) four 1,000 lb bombs, (c) eight 500 or 250 lb bombs, or (d) sixteen 100 lb bombs. Any bombs carried must be low-drag."
-  ],
-  "VPs": [ 14, 9, 5, 3 ],
-  "notes": [
-    "When the internal fuel is more than 620 fuel points, the fixed wing-tip tanks are in use and the vulnerability is +0.",
-    "Bomb system is ballistic (-1) if doing level bombing from four or more altitude levels above the target."
-  ]
+    "versionname": "B-26K",
+    "description": "The Douglas B-26K Counter-Invader is a propeller-driven attack aircraft. It is an upgrade of the B-26B/TB-26B/B-26C by On Mark Engineering, with strengthened wings, wing-tip fuel tanks, a solid nose, and nose guns, but without wing guns. It was subsequently redesignated A-26A.",
+    "popularname": "Counter-Invader",
+    "subsequentlydesignated": "A-26A",
+    "originallydesignated": null,
+    "origin": "APJ 51",
+    "variantdescription": null,
+    "base": "B-26B (No Turrets)",
+    "crew": [
+        "Pilot",
+        "Navigator",
+        "Observer"
+    ],
+    "powertable": {
+        "FT": [
+            1.5,
+            1.0,
+            1.0,
+            1.0
+        ],
+        "HT": [
+            0.5,
+            0.5,
+            0.5,
+            0.5
+        ],
+        "N": [
+            0.0,
+            0.0,
+            0.0,
+            0.2
+        ],
+        "I": [
+            0.5,
+            0.5,
+            0.5,
+            0.0
+        ],
+        "SPBR": [
+            "-",
+            "-",
+            "-"
+        ]
+    },
+    "blindarcs": "30L",
+    "internalfuel": 720,
+    "ceilingtable": [
+        30,
+        24,
+        17
+    ],
+    "speedtable": {
+        "EH": [
+            [
+                "-",
+                "-"
+            ],
+            [
+                "-",
+                "-"
+            ],
+            [
+                "-",
+                "-"
+            ],
+            "-"
+        ],
+        "VH": [
+            [
+                "-",
+                "-"
+            ],
+            [
+                "-",
+                "-"
+            ],
+            [
+                "-",
+                "-"
+            ],
+            "-"
+        ],
+        "HI": [
+            [
+                2.0,
+                3.0
+            ],
+            [
+                "-",
+                "-"
+            ],
+            [
+                "-",
+                "-"
+            ],
+            5.0
+        ],
+        "MH": [
+            [
+                1.5,
+                3.0
+            ],
+            [
+                2.0,
+                3.0
+            ],
+            [
+                2.0,
+                3.0
+            ],
+            4.5
+        ],
+        "ML": [
+            [
+                1.5,
+                3.0
+            ],
+            [
+                1.5,
+                3.0
+            ],
+            [
+                2.0,
+                3.0
+            ],
+            4.0
+        ],
+        "LO": [
+            [
+                1.5,
+                3.0
+            ],
+            [
+                1.5,
+                3.0
+            ],
+            [
+                2.0,
+                3.0
+            ],
+            4.0
+        ]
+    },
+    "climbcapabilitytable": {
+        "EH": [
+            [
+                "-",
+                "-"
+            ],
+            [
+                "-",
+                "-"
+            ],
+            [
+                "-",
+                "-"
+            ]
+        ],
+        "VH": [
+            [
+                "-",
+                "-"
+            ],
+            [
+                "-",
+                "-"
+            ],
+            [
+                "-",
+                "-"
+            ]
+        ],
+        "HI": [
+            [
+                "-",
+                0.25
+            ],
+            [
+                "-",
+                "-"
+            ],
+            [
+                "-",
+                "-"
+            ]
+        ],
+        "MH": [
+            [
+                "-",
+                0.5
+            ],
+            [
+                "-",
+                0.5
+            ],
+            [
+                "-",
+                0.5
+            ]
+        ],
+        "ML": [
+            [
+                "-",
+                0.5
+            ],
+            [
+                "-",
+                0.5
+            ],
+            [
+                "-",
+                0.5
+            ]
+        ],
+        "LO": [
+            [
+                "-",
+                0.5
+            ],
+            [
+                "-",
+                0.5
+            ],
+            [
+                "-",
+                0.5
+            ]
+        ]
+    },
+    "gun": "Eight .50 cal M2",
+    "gunatatohitrolls": "4/2/1",
+    "gundamagerating": "5/6**",
+    "gunammunition": 10,
+    "bombsystem": "Manual/Balistic",
+    "storeslimits": [
+        6,
+        13,
+        8000
+    ],
+    "stations": [
+        [
+            "grouppair",
+            [
+                1,
+                2,
+                8,
+                9
+            ],
+            750,
+            [
+                "BB",
+                "RP",
+                "GP"
+            ]
+        ],
+        [
+            "grouppair",
+            [
+                3,
+                4,
+                6,
+                7
+            ],
+            750,
+            [
+                "BB",
+                "RP",
+                "GP",
+                "FT"
+            ]
+        ],
+        [
+            "single",
+            [
+                5
+            ],
+            4000,
+            [
+                "BB"
+            ]
+        ]
+    ],
+    "loadnotes": [
+        "Each wing can carry a maximum load of 2,000 lb.",
+        "Station 5 is the internal bomb bay. Load options are: (a) two 2,000 lb bombs, (b) four 1,000 lb bombs, (c) eight 500 or 250 lb bombs, or (d) sixteen 100 lb bombs. Any bombs carried must be low-drag."
+    ],
+    "VPs": [
+        14,
+        9,
+        5,
+        3
+    ],
+    "notes": [
+        "When the internal fuel is more than 620 fuel points, the fixed wing-tip tanks are in use and the vulnerability is +0.",
+        "Bomb system is ballistic (-1) if doing level bombing from four or more altitude levels above the target."
+    ]
 }

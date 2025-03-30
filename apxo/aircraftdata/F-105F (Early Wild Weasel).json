@@ -1,23 +1,78 @@
 {
-  "base": "F-105D",
-  "origin": "TSOH",
-  "versionname": "F-105F",
-  "versiondescription": "Two-seater combat-capable trainer.",
-  "variantname": "Early Wild Weasel",
-  "variantdescription": "equipped for air-defense suppression, from 1966 to 1968.",
-  "internalfuel": 500,
-  "ecm": { "iff": true, "rwr": "A", "dds": "A" },
-  "notes": [
-    "Radar in air-to-ground mode has: Gr.\\ Nav.\\ (180) and Gr.\\ Attack (90).",
-    "Internal fuel includes 350 gal fuel tank in bomb bay."
-  ],
-  "storeslimits": [ 4, 10, 12500 ],
-  "stations": [
-    [ "pair"  , [ 1, 5 ], 1000, [ "BB", "RP", "RG", "WR", "EP", "MDR", "IRM", "ARM" ] ],
-    [ "pair"  , [ 2, 4 ], 3500, [ "BB", "RP", "RG", "WR", "EP", "ADR", "ARM", "FT" ] ],
-    [ "single", [ 3 ]   , 5000, [ "BB", "RP", "WR", "EP", "FT" ] ]
-  ],
-  "loadnotes": [
-    "May only use AIM-9 IRMs, AGM-45 ARMs, and AGM-12 RGs."
-  ]
+    "base": "F-105D",
+    "origin": "TSOH",
+    "versionname": "F-105F",
+    "versiondescription": "Two-seater combat-capable trainer.",
+    "variantname": "Early Wild Weasel",
+    "variantdescription": "equipped for air-defense suppression, from 1966 to 1968.",
+    "internalfuel": 500,
+    "ecm": {
+        "iff": true,
+        "rwr": "A",
+        "dds": "A"
+    },
+    "notes": [
+        "Radar in air-to-ground mode has: Gr.\\ Nav.\\ (180) and Gr.\\ Attack (90).",
+        "Internal fuel includes 350 gal fuel tank in bomb bay."
+    ],
+    "storeslimits": [
+        4,
+        10,
+        12500
+    ],
+    "stations": [
+        [
+            "pair",
+            [
+                1,
+                5
+            ],
+            1000,
+            [
+                "BB",
+                "RP",
+                "RG",
+                "WR",
+                "EP",
+                "MDR",
+                "IRM",
+                "ARM"
+            ]
+        ],
+        [
+            "pair",
+            [
+                2,
+                4
+            ],
+            3500,
+            [
+                "BB",
+                "RP",
+                "RG",
+                "WR",
+                "EP",
+                "ADR",
+                "ARM",
+                "FT"
+            ]
+        ],
+        [
+            "single",
+            [
+                3
+            ],
+            5000,
+            [
+                "BB",
+                "RP",
+                "WR",
+                "EP",
+                "FT"
+            ]
+        ]
+    ],
+    "loadnotes": [
+        "May only use AIM-9 IRMs, AGM-45 ARMs, and AGM-12 RGs."
+    ]
 }

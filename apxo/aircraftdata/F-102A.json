@@ -1,82 +1,344 @@
 {
-  "versionname": "F-102A",
-  "popularname": "Delta Dagger",
-  "versiondescription": "All-weather interceptor.",
-  "origin": "TSOH",
-  "crew": [ "Pilot" ],
-  "powertable": {
-    "AB"  : [ 2.5, 2.0, 2.0, 7.0 ],
-    "M"   : [ 1.0, 1.0, 1.0, 2.0 ],
-    "N"   : [ 0.0, 0.0, 0.0, 1.0 ],
-    "I"   : [ 0.5, 0.5, 0.5, 0.0 ],
-    "SPBR": [ 0.5, 0.5, 1.0 ]
-  },
-  "jetengines": 1,
-  "cruisespeed": 5.5,
-  "climbspeed" : 4.5,
-  "visibility": 7,
-  "sizemodifier": 0,
-  "vulnerability": -1,
-  "restrictedarcs": "",
-  "blindarcs": "60-",
-  "internalfuel": 340,
-  "atarefuel": false,
-  "ejectionseat": "standard",
-  "maneuvertable": {
-    "LR/DR": [ 1.0, 1.5 ],
-    "VR":    [ 0.0, 0.5 ]
-  },
-  "turndragtable": {
-    "TT": [ 0.0, 0.0, 1.0 ],
-    "HT": [ 1.0, 1.0, 2.0 ],
-    "BT": [ 2.0, 2.0, 3.0 ],
-    "ET": [ 3.0, "-", "-" ]
-  },
-  "ceilingtable": [ 55, 53, 50 ],
-  "speedtable": {
-    "EH": [ [  3.0,  7.5 ], [  3.5,  6.0 ], [  3.5,  6.0 ], 10.0 ],
-    "VH": [ [  3.5,  8.0 ], [  3.0,  6.5 ], [  3.5,  6.0 ], 10.0 ],
-    "HI": [ [  2.5,  8.0 ], [  3.0,  6.5 ], [  3.0,  6.0 ],  9.5 ],
-    "MH": [ [  2.5,  8.0 ], [  2.5,  6.5 ], [  2.5,  6.0 ],  9.0 ],
-    "ML": [ [  2.0,  7.5 ], [  2.5,  7.0 ], [  2.5,  6.5 ],  8.0 ],
-    "LO": [ [  1.5,  7.0 ], [  2.0,  7.0 ], [  2.0,  6.5 ],  7.5 ]
-  },
-  "climbcapabilitytable": {
-    "EH": [ [ 1.0, 0.5 ], [ 1.0, 0.5 ], [ 1.0, 0.5 ] ],
-    "VH": [ [ 2.0, 0.5 ], [ 1.0, 0.5 ], [ 1.0, 0.5 ] ],
-    "HI": [ [ 2.0, 0.5 ], [ 1.0, 0.5 ], [ 1.0, 0.5 ] ],
-    "MH": [ [ 2.0, 1.0 ], [ 2.0, 1.0 ], [ 1.0, 0.5 ] ],
-    "ML": [ [ 3.0, 1.0 ], [ 2.0, 1.0 ], [ 2.0, 1.0 ] ],
-    "LO": [ [ 3.0, 1.0 ], [ 2.0, 1.0 ], [ 2.0, 1.0 ] ]
-  },
-  "radar": {
-    "name": "Hughes MG-3",
-    "eccm": 0,
-    "arc": "180+",
-    "searchrange": 90,
-    "searchstrength": 10,
-    "trackingrange": 40,
-    "trackingstrength": 8,
-    "lockon": 7
-  },
-  "gun": "",
-  "bombsystem": "None",
-  "ecm": { "iff": true },
-  "technology": [ "CC Rocket Attack" ],
-  "rocketfactors": 2,
-  "properties": [ "SMP", "LTD", "PSSM", "HBR" ],
-  "notes": [
-  ],
-  "wikiurl": "https://bit.ly/415RHJa",
-  "storeslimits": [ 3, 6, 4000 ],
-  "stations": [
-    [ "pair"  , [ 1, 5 ], 1500, [ "FT" ] ],
-    [ "pair"  , [ 2, 4 ], 280, [ "IRM", "RHM" ] ],
-    [ "single", [ 3 ]   , 280, [ "IRM", "RHM" ] ]
-  ],
-  "loadnotes": [
-    "Stations 2 to 4 corresponds to the internal weapons bays. They can each carry two RHMs and IRMs. The central bay 3 also has two factors of air-to-air rocket.",
-    "May only use GAR-1/1D (AIM-4/-4A) RHMs and GAR-2/-2A/-2B (AIM-4B/-4C/-4D) IRMs."
-  ],
-  "VPs": [ 20, 14, 6, 2 ]
+    "versionname": "F-102A",
+    "popularname": "Delta Dagger",
+    "versiondescription": "All-weather interceptor.",
+    "origin": "TSOH",
+    "crew": [
+        "Pilot"
+    ],
+    "powertable": {
+        "AB": [
+            2.5,
+            2.0,
+            2.0,
+            7.0
+        ],
+        "M": [
+            1.0,
+            1.0,
+            1.0,
+            2.0
+        ],
+        "N": [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+        ],
+        "I": [
+            0.5,
+            0.5,
+            0.5,
+            0.0
+        ],
+        "SPBR": [
+            0.5,
+            0.5,
+            1.0
+        ]
+    },
+    "jetengines": 1,
+    "cruisespeed": 5.5,
+    "climbspeed": 4.5,
+    "visibility": 7,
+    "sizemodifier": 0,
+    "vulnerability": -1,
+    "restrictedarcs": "",
+    "blindarcs": "60-",
+    "internalfuel": 340,
+    "atarefuel": false,
+    "ejectionseat": "standard",
+    "maneuvertable": {
+        "LR/DR": [
+            1.0,
+            1.5
+        ],
+        "VR": [
+            0.0,
+            0.5
+        ]
+    },
+    "turndragtable": {
+        "TT": [
+            0.0,
+            0.0,
+            1.0
+        ],
+        "HT": [
+            1.0,
+            1.0,
+            2.0
+        ],
+        "BT": [
+            2.0,
+            2.0,
+            3.0
+        ],
+        "ET": [
+            3.0,
+            "-",
+            "-"
+        ]
+    },
+    "ceilingtable": [
+        55,
+        53,
+        50
+    ],
+    "speedtable": {
+        "EH": [
+            [
+                3.0,
+                7.5
+            ],
+            [
+                3.5,
+                6.0
+            ],
+            [
+                3.5,
+                6.0
+            ],
+            10.0
+        ],
+        "VH": [
+            [
+                3.5,
+                8.0
+            ],
+            [
+                3.0,
+                6.5
+            ],
+            [
+                3.5,
+                6.0
+            ],
+            10.0
+        ],
+        "HI": [
+            [
+                2.5,
+                8.0
+            ],
+            [
+                3.0,
+                6.5
+            ],
+            [
+                3.0,
+                6.0
+            ],
+            9.5
+        ],
+        "MH": [
+            [
+                2.5,
+                8.0
+            ],
+            [
+                2.5,
+                6.5
+            ],
+            [
+                2.5,
+                6.0
+            ],
+            9.0
+        ],
+        "ML": [
+            [
+                2.0,
+                7.5
+            ],
+            [
+                2.5,
+                7.0
+            ],
+            [
+                2.5,
+                6.5
+            ],
+            8.0
+        ],
+        "LO": [
+            [
+                1.5,
+                7.0
+            ],
+            [
+                2.0,
+                7.0
+            ],
+            [
+                2.0,
+                6.5
+            ],
+            7.5
+        ]
+    },
+    "climbcapabilitytable": {
+        "EH": [
+            [
+                1.0,
+                0.5
+            ],
+            [
+                1.0,
+                0.5
+            ],
+            [
+                1.0,
+                0.5
+            ]
+        ],
+        "VH": [
+            [
+                2.0,
+                0.5
+            ],
+            [
+                1.0,
+                0.5
+            ],
+            [
+                1.0,
+                0.5
+            ]
+        ],
+        "HI": [
+            [
+                2.0,
+                0.5
+            ],
+            [
+                1.0,
+                0.5
+            ],
+            [
+                1.0,
+                0.5
+            ]
+        ],
+        "MH": [
+            [
+                2.0,
+                1.0
+            ],
+            [
+                2.0,
+                1.0
+            ],
+            [
+                1.0,
+                0.5
+            ]
+        ],
+        "ML": [
+            [
+                3.0,
+                1.0
+            ],
+            [
+                2.0,
+                1.0
+            ],
+            [
+                2.0,
+                1.0
+            ]
+        ],
+        "LO": [
+            [
+                3.0,
+                1.0
+            ],
+            [
+                2.0,
+                1.0
+            ],
+            [
+                2.0,
+                1.0
+            ]
+        ]
+    },
+    "radar": {
+        "name": "Hughes MG-3",
+        "eccm": 0,
+        "arc": "180+",
+        "searchrange": 90,
+        "searchstrength": 10,
+        "trackingrange": 40,
+        "trackingstrength": 8,
+        "lockon": 7
+    },
+    "gun": "",
+    "bombsystem": "None",
+    "ecm": {
+        "iff": true
+    },
+    "technology": [
+        "CC Rocket Attack"
+    ],
+    "rocketfactors": 2,
+    "properties": [
+        "SMP",
+        "LTD",
+        "PSSM",
+        "HBR"
+    ],
+    "notes": [],
+    "wikiurl": "https://bit.ly/415RHJa",
+    "storeslimits": [
+        3,
+        6,
+        4000
+    ],
+    "stations": [
+        [
+            "pair",
+            [
+                1,
+                5
+            ],
+            1500,
+            [
+                "FT"
+            ]
+        ],
+        [
+            "pair",
+            [
+                2,
+                4
+            ],
+            280,
+            [
+                "IRM",
+                "RHM"
+            ]
+        ],
+        [
+            "single",
+            [
+                3
+            ],
+            280,
+            [
+                "IRM",
+                "RHM"
+            ]
+        ]
+    ],
+    "loadnotes": [
+        "Stations 2 to 4 corresponds to the internal weapons bays. They can each carry two RHMs and IRMs. The central bay 3 also has two factors of air-to-air rocket.",
+        "May only use GAR-1/1D (AIM-4/-4A) RHMs and GAR-2/-2A/-2B (AIM-4B/-4C/-4D) IRMs."
+    ],
+    "VPs": [
+        20,
+        14,
+        6,
+        2
+    ]
 }

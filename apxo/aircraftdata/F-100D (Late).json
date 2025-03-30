@@ -1,7 +1,10 @@
 {
-  "versionname": "F-100D",
-  "base": "F-100D",
-  "variantname": "Late",
-  "variantdescription": "with RWR from 1968 and after.",
-  "ecm": { "iff": true, "rwr": "A" }
+    "versionname": "F-100D",
+    "base": "F-100D",
+    "variantname": "Late",
+    "variantdescription": "with RWR from 1968 and after.",
+    "ecm": {
+        "iff": true,
+        "rwr": "A"
+    }
 }

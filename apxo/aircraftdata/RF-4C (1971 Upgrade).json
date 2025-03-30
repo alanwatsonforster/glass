@@ -1,6 +1,10 @@
 {
-  "base": "RF-4C (1966 Upgrade)",
-  "variantname": "1971 Upgrade",
-  "variantdescription": "with RWR-B and DDS-A, from 1971.",
-  "ecm": { "iff": true, "rwr": "B", "dds": "A" }
+    "base": "RF-4C (1966 Upgrade)",
+    "variantname": "1971 Upgrade",
+    "variantdescription": "with RWR-B and DDS-A, from 1971.",
+    "ecm": {
+        "iff": true,
+        "rwr": "B",
+        "dds": "A"
+    }
 }
