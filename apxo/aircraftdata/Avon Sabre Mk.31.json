@@ -1,6 +1,6 @@
 {
     "versionname": "Avon Sabre Mk.31",
-    "description": "The CAC Avon Sabre Mk.31 is a day fighter and fighter-bomber derived from the F-86F Sabre. It has the unslatted 6-3 wing and the Avon 20 engine. The base variant described here is from before 1960, lacks IRMs, and has only two weapon stations.",
+    "description": "The CAC Avon Sabre Mk.31 is a day fighter and fighter-bomber derived from the F-86F Sabre. It a development of the Mk.30 and has the original slatted wing replaced by the unslatted 6-3 wing, but retains the Avon 20 engine. The base variant described here is from before 1960, lacks IRMs, and has only two weapon stations.",
     "base": "Avon Sabre Mk.32",
     "storeslimits": [
         2,
@@ -22,7 +22,7 @@
         ]
     ],
     "loadnotes": [
-        "May use 700L FTs."
+        "May use 750L FTs."
     ],
     "VPs": [
         11,
