@@ -1073,9 +1073,6 @@ def makepdffile(latexfilename, pdffilename):
         + " >aircraftdatacard.log 2>&1 || cat aircraftdatacard.log"
     )
     log("finished making %s." % pdffilename)
-    log("opening %s." % pdffilename)
-    os.system("open %s" % pdffilename)
-
 
 for jsonfilename in sys.argv[1:]:
 
