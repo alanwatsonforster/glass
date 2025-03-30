@@ -7,6 +7,8 @@ all			:	all.pdf
 
 all.pdf		:	.FORCE
 
+working.pdf	:	.FORCE
+
 format		:
 	python3 format.py
 
