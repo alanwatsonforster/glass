@@ -1,12 +1,13 @@
 {
     "versionname": "T-33A",
-    "description": "The Lockheed T-33A Shooting Star is a trainer developed from the F-80. It has a single engine and unswept wings. The variant shown here is armed with two .50 cal machine guns, although most were unarmed.",
+    "description": "The Lockheed T-33A Shooting Star is a trainer developed from the F-80. It has a single engine and unswept wings. The variant shown here is armed with two .50 cal machine guns, although most were unarmed. Prior to 1948, it was designated TP-80C.",
     "originallydesignated": null,
     "base": "F-80C",
     "crew": [
         "Pilot",
         "Copilot"
     ],
+    "internalfuel": 112,
     "gun": "Two .50 cal M3",
     "gunatatohitrolls": "4/2/-",
     "gundamagerating": "1/2**",
