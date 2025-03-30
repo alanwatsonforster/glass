@@ -18,7 +18,7 @@
   "visibility": 6,
   "sizemodifier": 0,
   "vulnerability": 1,
-  // Given as 180- in the ADC, but I think this is an error.
+  "restrictedarcs:comment": "The restricted arc is given as 180- in the ADC, but I think this is an error.",
   "restrictedarcs": "180L",
   "blindarcs": "30-",
   "internalfuel": 70,

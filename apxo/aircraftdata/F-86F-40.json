@@ -38,7 +38,7 @@
     "name": "APG-30",
     "lockon": 7
   },
-  // Note: Not HTD.
+  "properties:comment": "Not HTD.",
   "properties": [],
   "VPs": [ 10, 7, 3, 1 ]
 }

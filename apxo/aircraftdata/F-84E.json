@@ -19,7 +19,7 @@
   "vulnerability": 0,
   "restrictedarcs": "60-",
   "blindarcs": "30-",
-  // ADC has 295, but this includes the wing-tip FTs.
+  "internalfuel:comment" : "ADC has fuel = 295, but this includes the wing-tip FTs.",
   "internalfuel": 150,
   "atarefuel": false,
   "ejectionseat": "early",

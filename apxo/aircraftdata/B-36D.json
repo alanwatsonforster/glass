@@ -30,7 +30,7 @@
     "I"   : [ 0.5, 0.5, 1.0,  0.0 ],
     "SPBR": [ "-", "-", "-" ]
   },
-  //"powerfadespeedtable": [ [2.5, 0.25] ],
+  "powerfadespeedtable:comment": [ [2.5, 0.25] ],
 
   "propellerengines": 6,
   "jetengines": 4,

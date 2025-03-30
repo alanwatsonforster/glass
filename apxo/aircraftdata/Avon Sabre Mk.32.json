@@ -77,7 +77,7 @@
     "From 1962, stations 5 to 12 may each carry three SURA 80R RKs."
   ],
   "VPs": [ 12, 8, 4, 2 ],
-  // Note: Not HTD.
+  "properties:comment":  "Not HTD.",
   "properties": [],
   "notes": [],
   "wikiurl": "https://bit.ly/3Z9ypRG"

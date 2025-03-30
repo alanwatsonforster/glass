@@ -81,7 +81,7 @@
     "Maneuvering flaps at speed ≤ 3.5.",
     "Canted seat."
   ],
-  // Stores and station limits for ET turns.
+  "storeslimits:comment": "Stores and station limits for ET turns.",
   "storeslimits": [ 6, 14, 12000 ],
   "stations": [
     [ "pair"  , [ 1, 9 ],  425, [ "DP", "IRM", "AHM" ] ],
