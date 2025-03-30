@@ -2,17 +2,50 @@
     "versionname": "AT-33A",
     "description": "The Lockheed AT-33A Shooting Star is a close-air-support version of the T-33A trainer. It has a single engine and unswept wings. It is armed with two .50 cal machine guns and has provision for under-wing stores.",
     "originallydesignated": null,
-    "base": "F-80C",
-    "crew": [
-        "Pilot",
-        "Copilot"
+    "base": "T-33A",
+    "storeslimits": [
+        3,
+        6,
+        4200
     ],
-    "gun": "Two .50 cal M3",
-    "gunatatohitrolls": "4/2/-",
-    "gundamagerating": "1/2**",
-    "ecm": {
-        "iff": false
-    },
+    "stations": [
+        [
+            "pair",
+            [
+                1,
+                4
+            ],
+            1100,
+            [
+                "BB",
+                "FT"
+            ]
+        ],
+        [
+            "pair",
+            [
+                2,
+                3
+            ],
+            1100,
+            [
+                "BB"
+            ]
+        ],
+        [
+            "grouppair",
+            [
+                5,
+                6,
+                7,
+                8
+            ],
+            280,
+            [
+                "RK"
+            ]
+        ]
+    ],
     "loadnotes": [
         "May use 600L FTs.",
         "Either stations 2 and 3 or stations 5 to 8 can be used.",
