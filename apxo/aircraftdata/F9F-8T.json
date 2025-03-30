@@ -9,5 +9,6 @@
     ],
     "gun": "Two 20 mm M3",
     "gunammunition": 5.5,
-    "gundamagerating": "3/4*"
+    "gundamagerating": "3/4*",
+    "description": ""
 }

@@ -354,5 +354,6 @@
     "loadnotes": [
         "May only use AIM-9 IRMs and AGM-12 RGs.",
         "Stations 1 and 7 are the wing-tip stations. They may carry IRMs or special supersonic 50 US gal FTs (190L, weight 350, load1.0/0.5, and fuel 15)."
-    ]
+    ],
+    "description": ""
 }

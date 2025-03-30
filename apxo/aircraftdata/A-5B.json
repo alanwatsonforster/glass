@@ -50,5 +50,6 @@
     "loadnotes": [
         "Station 3 is the internal weapons tube. It can carry one nuclear BB and two FTs or three FTs. The FTs have a capacity of 295 gal (1100L, weight 2000, fuel 95).",
         "May only use AGM-12 RGs."
-    ]
+    ],
+    "description": ""
 }

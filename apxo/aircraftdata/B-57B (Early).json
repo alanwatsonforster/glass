@@ -6,5 +6,6 @@
     "gun": "Eight .50 cal M3",
     "gunatatohitrolls": "4/2/1",
     "gunatadamagerating": "5/6**",
-    "gunammunition": 7.0
+    "gunammunition": 7.0,
+    "description": ""
 }

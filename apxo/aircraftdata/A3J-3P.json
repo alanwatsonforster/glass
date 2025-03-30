@@ -3,5 +3,6 @@
     "versiondescription": "The A3J-3P is an reconnaisance version of the A3J-2. As the RA-5C, it saw extensive service in the Vietnam War.",
     "base": "RA-5C",
     "previouslydesignated": null,
-    "subsequentlydesignated": "RA-5C"
+    "subsequentlydesignated": "RA-5C",
+    "description": ""
 }

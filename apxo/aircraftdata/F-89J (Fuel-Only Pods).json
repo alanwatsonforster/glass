@@ -47,5 +47,6 @@
         "Stations 1 and 8 are fixed wing-tip pods for fuel only. The pod fuel is included in the internal fuel.",
         "May use AIM-4 IRM and RHMs.",
         "May use AIR-2A nuclear RK."
-    ]
+    ],
+    "description": ""
 }
