@@ -327,7 +327,7 @@
     ],
     "notes": [
         "Fly-by-wire.",
-        "Maneuvering flaps at speed \u2264 3.5.",
+        "Maneuvering flaps at speed ≤ 3.5.",
         "Canted seat."
     ],
     "storeslimits:comment": "Stores and station limits for ET turns.",

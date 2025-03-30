@@ -1,7 +1,7 @@
 {
     "versionname": "B-26C",
     "variantname": "No Turrets",
-    "description": "The Douglas B-26C Invader is a propeller-driven attack aircraft. The \u201cTwo Turrets\u201d variant described here has a glazed nose, wing guns, and no turrets. In place of the ventral turret, it has an extra fuel tank. Prior to 1948, it was designated A-26C.",
+    "description": "The Douglas B-26C Invader is a propeller-driven attack aircraft. The “Two Turrets” variant described here has a glazed nose, wing guns, and no turrets. In place of the ventral turret, it has an extra fuel tank. Prior to 1948, it was designated A-26C.",
     "originallydesignated": "A-26C",
     "base": "B-26B (No Turrets)",
     "gun": "Six .50 cal M2",

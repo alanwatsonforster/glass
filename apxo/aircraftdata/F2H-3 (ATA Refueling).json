@@ -1,7 +1,7 @@
 {
     "versionname": "F2H-3",
     "variantname": "ATA Refueling",
-    "description": "The McDonnell F2H-3 Banshee is an all-weather interceptor, fighter-bomber, and tactical nuclear bomber. It has two engines, straight wings, and is carrier-capable. It is a major development of the F2H-2 with a lengthened fuselage, increased fuel capacity, additional weapon stations, and the APQ-41 search radar. The \u201cATA Refueling\u201d variant described here has an air-to-air refueling probe fitted in place of the upper port cannon.",
+    "description": "The McDonnell F2H-3 Banshee is an all-weather interceptor, fighter-bomber, and tactical nuclear bomber. It has two engines, straight wings, and is carrier-capable. It is a major development of the F2H-2 with a lengthened fuselage, increased fuel capacity, additional weapon stations, and the APQ-41 search radar. The “ATA Refueling” variant described here has an air-to-air refueling probe fitted in place of the upper port cannon.",
     "base": "F2H-3",
     "atarefuel": true,
     "gun": "Three 20 mm Mk 16",

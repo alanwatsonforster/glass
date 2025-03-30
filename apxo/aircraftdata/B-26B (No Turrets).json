@@ -1,7 +1,7 @@
 {
     "versionname": "B-26B",
     "variantname": "No Turrets",
-    "description": "The Douglas B-26B Invader is a propeller-driven attack aircraft. The \u201cNo Turrets\u201d variant described here has a solid nose, nose and wing guns, and no turrets. In place of the ventral turret, it has an extra fuel tank. Prior to 1948, it was designated A-26B.",
+    "description": "The Douglas B-26B Invader is a propeller-driven attack aircraft. The “No Turrets” variant described here has a solid nose, nose and wing guns, and no turrets. In place of the ventral turret, it has an extra fuel tank. Prior to 1948, it was designated A-26B.",
     "originallydesignated": "A-26B",
     "base": "B-26B (One Turret)",
     "crew": [

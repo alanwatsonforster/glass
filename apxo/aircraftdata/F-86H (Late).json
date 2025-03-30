@@ -1,7 +1,7 @@
 {
     "versionname": "F-86H",
     "variantname": "Late",
-    "description": "The North American F-86F-40 Sabre is a single-engined, swept-wing, fighter-bomber. The F-86H version is derived from the F-86F-40 version. The \u201cF-86H (Late)\u201d variant has the slatted 6-3 wing.",
+    "description": "The North American F-86F-40 Sabre is a single-engined, swept-wing, fighter-bomber. The F-86H version is derived from the F-86F-40 version. The “F-86H (Late)” variant has the slatted 6-3 wing.",
     "base": "F-86H (Early)",
     "origin": "APJ 25",
     "lowspeedliftdevicelimit": 3.5,
