@@ -54,7 +54,7 @@
     //  1943
     [ "type", "B-26/A-26 Invader and Counter-Invader", "B-26B (Two Turrets)", "B-26B (One Turret)", "B-26B (No Turrets)", "B-26C (Two Turrets)", "B-26C (One Turret)", "B-26C (No Turrets)", "B-26K", "A-26A" ],
     //  1944
-    [ "type", "B-29 Superfortress", "B-29A", "B-29A (Silverplate)", "B-29A (Saddletree)", "RB-29A" ],
+    [ "type", "B-29 Superfortress", "B-29A", "RB-29A", "B-29A (Silverplate)", "B-29A (Saddletree)" ],
     //  1945
     [ "type", "F-80/T-33 Shooting Star", "F-80C", "RF-80C", "T-33A", "RT-33A", "AT-33A" ],
     //  1946
