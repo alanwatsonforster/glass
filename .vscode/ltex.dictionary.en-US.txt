@@ -1,3 +1,7 @@
 HVAR
 Skyraider
 RVAF
+unswept
+jettisonable
+Misawa
+HVARs
