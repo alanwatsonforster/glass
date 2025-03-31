@@ -56,7 +56,7 @@
     //  1944
     [ "type", "B-29 Superfortress", "B-29A", "B-29A (Silverplate)", "B-29A (Saddletree)", "RB-29A" ],
     //  1945
-    [ "type", "F-80/T-33 Shooting Star", "F-80C", "RF-80C", "T-33A", "AT-33A" ],
+    [ "type", "F-80/T-33 Shooting Star", "F-80C", "RF-80C", "T-33A", "RT-33A", "AT-33A" ],
     //  1946
     [ "type", "AD/A-1 Skyraider", "AD-4", "AD-5", "A-1E", "AD-6", "A-1H", "AD-7", "A-1J" ],
     //  1947

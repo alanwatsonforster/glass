@@ -1,0 +1,17 @@
+{
+    "versionname": "RT-33A",
+    "description": "The Lockheed RT-33A Shooting Star is a reconnaissance version of the T-33A trainer. It has a single engine and unswept wings. It is unarmed and equipped with oblique and vertical cameras in the nose. The rear cockpit is used for equipment relocated from the nose of the T-33A and for 165 gal of additional fuel.",
+    "base": "T-33A",
+    "crew": [
+        "Pilot"
+    ],
+    "internalfuel": 165,
+    "gun": "",
+    "VPs": [
+        7,
+        4,
+        2,
+        1
+    ],
+    "notes": []
+}
