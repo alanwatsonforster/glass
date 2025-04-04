@@ -47,7 +47,7 @@
     ],
     "loadnotes": [
         "Station 1 is the forward internal bomb bay and can carry a Mark 3 (weight 10,000), Mark 4 (weight 11,000) or Mark 6 (weight 8,000) nuclear bomb.",
-        "Station 2 is the rear internal bomb bay and can carry two 640 gal FTs (each 2400L, weight 4,000, and 200 fuel points).",
+        "Station 2 is the rear internal bomb bay and can carry two 640 gal FTs (each 2400L, weight 5,000, and 220 fuel points).",
         "As an exception to the normal rules for load points, internal loads contribute 1 load point for each 1,000 of weight and internal fuel contributes 1 load point for each 50 fuel points. A return mission will typically require leaving the target with at least 750 fuel points (15 load points)."
     ]
 }

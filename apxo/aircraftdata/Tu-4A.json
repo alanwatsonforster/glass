@@ -20,7 +20,7 @@
     ],
     "loadnotes": [
         "Station 1 is the internal bomb bay. It can carry either (a) one RDS-1 nuclear bomb (weight 10,000), (b) one RDS-3 nuclear bomb (weight 8000, or (c) one RDS-5 nuclear bomb (weight unknown).",
-        "Station 2 is the rear internal bomb bay and can carry two 640 gal FTs (each 2400L, weight 4,000, and 200 fuel points).",
+        "Station 2 is the rear internal bomb bay and can carry two 640 gal FTs (each 2400L, weight 5,000, and 220 fuel points).",
         "Exceptionally, internal fuel also contributes 1 load point per 50 fuel points. A return mission will typically require leaving the target with at least 750 fuel points (15 load points)."
     ]
 }
