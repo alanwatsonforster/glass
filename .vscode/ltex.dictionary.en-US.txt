@@ -13,3 +13,8 @@ transonic
 Mikoyan-Gurevich
 Klimov
 Nene
+Izumrud
+PVO
+PLAAF
+KPAF
+RoCAF
