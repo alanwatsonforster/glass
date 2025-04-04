@@ -9,3 +9,7 @@ Superfortress
 Silverplate
 Saddletree
 Nudelman
+transonic
+Mikoyan-Gurevich
+Klimov
+Nene
