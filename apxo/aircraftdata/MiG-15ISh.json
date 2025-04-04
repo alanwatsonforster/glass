@@ -32,7 +32,7 @@
         ]
     ],
     "loadnotes": [
-        "Can use 250L, 300L, 400L, or 600L FTs. The larger tanks can be carried as an exception to the normal rules for load limits, but the turn rate is limited to HT if 300L or 400L tanks are used and the turn rate is limited to TT if 600L tanks are used.",
+        "Can use 250L, 300L, 400L, or 600L FTs. The larger tanks can be carried as an exception to the normal rules for load limits, but the turn rate is limited to HT if 300L or 400L tanks are used and to TT if 600L tanks are used.",
         "Stations 2 and 3 can carry two BB each."
     ],
     "VPs": [
