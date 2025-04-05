@@ -335,7 +335,7 @@
         ]
     ],
     "loadnotes": [
-        "Stations 1 and 5 may carry 750 gal (2800L, weight 6,000, load 10.0, 240 fuel points) or 3000 gal (11,000L, weight 20,000, load 20.0, 975 fuel points) FTs.",
+        "Stations 1 and 5 may carry 750 gal (2800L, weight 6,000, load 10.0/6.5, 240 fuel points) or 3000 gal (11,000L, weight 20,000, load 20.0/12.5, 975 fuel points) FTs.",
         "Stations 2 and 3 may each carry (a) twelve BB, (b) two ADM-120 Quail decoys, or (c) one AGM-28 Hound Dog ASM.",
         "Station 3 is the internal bomb bay. It may carry (a) eight nuclear BB and two ADM-120 Qual decoys, (b) sixty six 750 lb BB, or (c) eighty four 500 lb BB."
     ],
