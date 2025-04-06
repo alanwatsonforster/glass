@@ -980,7 +980,7 @@ def writetype(name):
     log("writing type %s." % name)
     writelatex(r"\twocolumn")
     writelatex(r"\addtoctype{%s}" % name)
-    file = "types/" + name.replace("/", ":") + ".tex"
+    file = "../apxo/aircraftdata/" + name.replace("/", ":") + ".tex"
     if os.path.exists(file):
         writelatex(r"\input{%s}" % file)
 
