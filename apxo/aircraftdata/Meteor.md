@@ -15,6 +15,10 @@ ADCs for the F.8 and FR-9 appear in APJ 50.
 
 The blind arc might better be 30L rather than 30-.
 
+### Guns
+
+Four 20 mm Hispano Mk V (Wikipedia).
+
 ### Typical Loads
 
 - Centerline conformal 175 gal (800L) fuel tank (weight 1600, load 3.0 full and 2.0 empty, and 70 fuel points).
