@@ -15,10 +15,6 @@ ADCs for the F.8 and FR-9 appear in APJ 50.
 
 The blind arc might better be 30L rather than 30-.
 
-### Service with RAAF
-
-Used by No. 77 Squadron RAAF in Korea from July 1951 (Wikipedia).
-
 ### Typical Loads
 
 - Centerline conformal 175 gal (800L) fuel tank (weight 1600, load 3.0 full and 2.0 empty, and 70 fuel points).
@@ -52,6 +48,10 @@ Photo on page 33 of “Swift to Destroy” shows an RAAF Meteor with the ventral
 - NF.14: 
   - NF.11 with different canopy and longer nose.
   - What says APS-57 radar. Gobel says AN/APS-21 radar, but this seems to be a confusion with the Mk.21 radar.
+
+## Operational History
+
+Used by No. 77 Squadron RAAF in Korea from July 1951 (Wikipedia).
 
 ## Bibliography
 
