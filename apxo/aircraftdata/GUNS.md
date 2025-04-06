@@ -71,6 +71,10 @@ These damage ratings seem to be more appropriate for M3 guns. Also, it seems odd
 - B-26K (eight): hit rolls of 4/2/0 and damage ratings of 4/4** (equal to F-80C with six M3)
 - B-26B (fourteen): hit rolls of 4/2/0 and damage ratings of 5/6** (equal to CF-100 Mk4 with eight M3)
 
+These suggestions were applied in 
+[e615570](https://github.com/alanwatsonforster/apxo/commit/e61557086cfc61119e920453d1bded66bac57bd3).
+
+
 #### Aircraft
 
 - [B-26](B-26:A-26.md) (turrets with two or four each and tail position with two or three)

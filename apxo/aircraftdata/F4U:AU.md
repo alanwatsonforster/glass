@@ -63,6 +63,9 @@ The -4 has six .50 cals with 390 rounds per gun, or more precisely 400 each for 
 
 F4U-2s has only five .50 cals and reduced the ammunition load to 250 rounds per gun (Tilman, ch. 1).
 
+Gun effectiveness of those armed with .50 cal M2s reduced for lower rate of fire of the M2 in 
+[e615570](https://github.com/alanwatsonforster/apxo/commit/e61557086cfc61119e920453d1bded66bac57bd3).
+
 The -4B, -5, and AU-1 have four 20 mm M3 with 231 rounds per gun (SACs).
 
 ADCs based on the above were created in [18c8bcb](https://github.com/alanwatsonforster/apxo/commit/18c8bcbcba1c6b2a2de8be5b6dea1b2ea28ff5d6).
