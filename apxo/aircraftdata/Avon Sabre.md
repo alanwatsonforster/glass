@@ -2,10 +2,10 @@
 
 ## ADCs
 
-- [Avon Sabre Mk.30](https://github.com/alanwatsonforster/apxo/blob/main/apxo/aircraftdata/Avon%20Sabre%20Mk.30.json)
--  [Avon Sabre Mk.31](https://github.com/alanwatsonforster/apxo/blob/main/apxo/aircraftdata/Avon%20Sabre%20Mk.31.json)
-- [Avon Sabre Mk.31 (Late)](https://github.com/alanwatsonforster/apxo/blob/main/apxo/aircraftdata/Avon%20Sabre%20Mk.31%20(Late).json)
-- [Avon Sabre Mk.32](https://github.com/alanwatsonforster/apxo/blob/main/apxo/aircraftdata/Avon%20Sabre%20Mk.32.json)
+- [Avon Sabre Mk.30](Avon%20Sabre%20Mk.30.json)
+-  [Avon Sabre Mk.31](Avon%20Sabre%20Mk.31.json)
+- [Avon Sabre Mk.31 (Late)](Avon%20Sabre%20Mk.31%20(Late).json)
+- [Avon Sabre Mk.32](Avon%20Sabre%20Mk.32.json)
 
 ## Notes and Changes
 
