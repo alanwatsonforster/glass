@@ -46,12 +46,9 @@ The ammunition of the B-29 is given as 500 rounds or about 150 lb per gun. The w
 
 ### Radar
 
-I doubt the Tu-4 had radar. Removed in [faab60](https://github.com/alanwatsonforster/apxo/commit/2faab6011d7566f6ca941e21c1f7b522ff94bf32).
-
-The Tu-4 may have been equipped with a navigation radar (Guerrero):
-
-> The Radar RPB RPB Kobal’t or Kobal’t-M was used for navigation over the ground and target recognition. This was a copy of the US AN/APQ-13 re-engineered by NII-17.
-
+The Tu-4 has the RPB RPB Kobal’t or Kobal’t-M rada, a copy of the APQ-13 re-engineered by NII-17 (Guerrero). Added in [
+e772cc7](https://github.com/alanwatsonforster/apxo/commit/e772cc7f6fb69cf92f2bb66bc33c5481edd0d720).
+ 
 ### Bomb Load
 
 Wikipedia (quoting Gordon) states that the bomb load was six 1,000 kg (2,200 lb) bombs = 13,200 lb total. I don't think the M46 series had a 1,000 kg variant, but the M54 series does. 
