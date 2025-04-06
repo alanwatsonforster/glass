@@ -66,7 +66,7 @@
     [ "chapter", "US Aircraft" ],
 
     [ "comment", "Jan 1942 with RAF" ],
-    [ "type", "F-51/RF-51 Mustang", "F-51D", "RF-51D" ],
+    [ "type", "F-51 Mustang", "F-51D", "RF-51D" ],
 
     [ "comment", "December 1942 with USCMC" ],
     [ "type", "F4U/AU Corsair", "F4U-4", "F4U-4B", "F4U-4P", "F4U-5", "F4U-5", "F4U-5P", "F4U-5N", "F4U-5NL", "AU-1" ],
