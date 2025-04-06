@@ -229,8 +229,8 @@
         ]
     },
     "gun": "Eight .50 cal M2",
-    "gunatatohitrolls": "4/2/1",
-    "gundamagerating": "5/6**",
+    "gunatatohitrolls": "4/2/0",
+    "gundamagerating": "4/4**",
     "gunammunition": 10,
     "bombsystem": "Manual/Balistic",
     "storeslimits": [

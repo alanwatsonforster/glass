@@ -6,7 +6,7 @@
     "base": "B-26B (One Turret)",
     "internalfuel": 620,
     "gun": "Six .50 cal M2",
-    "gundamagerating": "4/4**",
+    "gundamagerating": "3/3**",
     "variantnotes": [
         "Bomb system is ballistic (-1) if doing level bombing from four or more altitude levels above the target."
     ]

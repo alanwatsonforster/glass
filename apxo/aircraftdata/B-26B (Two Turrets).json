@@ -265,8 +265,8 @@
         ]
     },
     "gun": "Fourteen .50 cal M2",
-    "gunatatohitrolls": "4/2/1",
-    "gundamagerating": "7/9**",
+    "gunatatohitrolls": "4/2/0",
+    "gundamagerating": "5/6**",
     "gunammunition": 10,
     "gunsightmodifiers": {
         "TT": 1,

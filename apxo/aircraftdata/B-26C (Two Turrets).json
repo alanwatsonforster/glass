@@ -6,7 +6,7 @@
     "originallydesignated": "A-26C",
     "base": "B-26B (Two Turrets)",
     "gun": "Six .50 cal M2",
-    "gundamagerating": "4/4**",
+    "gundamagerating": "3/3**",
     "bombsystem": "Manual/Balistic",
     "variantnotes": [
         "Bomb system is ballistic (-1) if doing level bombing from four or more altitude levels above the target."
