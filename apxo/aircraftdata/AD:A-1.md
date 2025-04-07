@@ -42,12 +42,21 @@ Four 20 mm M3 each with 200 rounds (SAC). Guns changed from Mk 12 (from the orig
 
 [Jayne](https://www.airuniversity.af.edu/Portals/10/ASPJ/journals/Volume-31_Issue-2/V-Jayne.pdf) states that the Stanley extraction system was retrofitted in 1967. Added to ADCs in [3d3f674](https://github.com/alanwatsonforster/apxo/commit/3d3f674dcca86a640f4df7996111a4826d654c24).
 
+### Loads
+
+Jackson:
+- p. 17: a photo of an AD-4 with one 1000? lb bomb on the centerline, two FTs, and four 250? lb bombs on the first four outer-wing stations on each wing.
+- p. 42: a photo of an AD with three bombs, perhaps 1000? lb on centerline and 2000? on wing stations.
+- p. 49: a photo of an AD with four 250? lb bombs on the four outer outer-wing stations on each wing.
+
+
 ## Other Possible Versions
 
 - AD-5N/A-1G. FLown by RVNAF
 
 ## Bibliography
 
+- Jackson, Robert, “Air War Korea 1950-1953,” Motorbooks
 - [Goebel](https://www.airvectors.net/ava1spad.html)
 - [SAC for AD-4](https://www.aahs-online.org/images/Navy_SAC/AD-4.pdf)
 - [SAC for AD-5](https://www.aahs-online.org/images/Navy_SAC/AD-5.pdf)
