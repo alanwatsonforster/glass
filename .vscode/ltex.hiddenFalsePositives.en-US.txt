@@ -1,0 +1,2 @@
+{"rule":"MORFOLOGIK_RULE_EN_US","sentence":"^\\QThe Republic F-84 Thunderjet is an early escort fighter, fighter-bomber, and tactical nuclear bomber.\\E$"}
+{"rule":"MORFOLOGIK_RULE_EN_US","sentence":"^\\QRepublic F-84 Thunderjet.\\E$"}
