@@ -115,12 +115,57 @@
             ]
         ]
     },
-    "loadnotes": [
-        "Stations 1 and 8 normally carry 226~gal (850L) wing-tip FTs. Stations 4 and 5 may also carry 230~gal (850L) FTs.",
-        "Stations 1 and 8 can each carry six RK.",
-        "Stations 4 and 5 can each carry four RK.",
-        "Stations 2, 3, 6, and 7 can each carry three RK.",
-        "A Mk 7 (weight 1700 and load 3.5) nuclear bomb can be carried on either station 4 or 5."
+
+    "storeslimits": [
+        4,
+        12,
+        6200
+    ],
+    "stations": [
+        [
+            "pair",
+            [
+                1,
+                8
+            ],
+            1500,
+            [
+                "FT",
+                "RK"
+            ]
+        ],
+        [
+            "grouppair",
+            [
+                2,
+                3,
+                6,
+                7
+            ],
+            420,
+            [
+                "RK"
+            ]
+        ],
+        [
+            "pair",
+            [
+                4,
+                5
+            ],
+            1700,
+            [
+                "BB",
+                "FT",
+                "RK"
+            ]
+        ]
+    ],
+     "loadnotes": [
+        "Stations 1 and 8 normally carry 230~gal (850L) wing-tip FTs. They can instead each carry four or six HVAR RKs.",
+        "Stations 4 and 5 can each carry one 230~gal (850L) FT, one 1000~lb M65 BB, one 500~lb M64 BB, one 250~lb M57 BB, one 100~lb M30 BB, or four HVAR RKs.",
+        "Stations 2, 3, 6, and 7 can each carry one, two, or three HVAR RKs.",
+        "A single Mk 7 (weight 1700 and load 3.5) nuclear bomb can also be carried on either station 4 or 5."
     ],
     "VPs": [
         9,
