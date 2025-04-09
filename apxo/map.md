@@ -69,10 +69,27 @@ Any number of first-generation sheets can be used at once. When arranged in an a
 
 I have implemented twenty-four second-generate sheets labeled *XY*, in which *X* is one of the letters from A to D and *Y* is one of the numbers from 1 to 6:
 
-- A1, A2, B1, B2, C1, and C2: These are adaptations of the original sheets from The Speed of Heat. 
+- A1, A2, B1, B2, C1, and C2: These are adaptations of the original sheets from *The Speed of Heat*. 
 
-- A3 to A6, B3 to B6, C3 to C6, and D1 to D6: These are new sheets, currently all land at level 0 with no other terrain features.  They are for future expansion.
+- A3 to A6, B3 to B6, and C3 to C6: These are rotated and simplified copies of maps A1, B2, C1, and C2. The rotated maps are rotated by 180 degrees. The simplified maps have runways, taxiways, dams, lakes, towns that cover 5 or more hexes, and city removed. The table shows the original map and whether the copy is rotated, simplified, or both.
+
+  |MapSheet|Original Map Sheet|Rotated?|Simplified?|
+  |-|-|-|-|
+  |A3|A1|Yes|Yes|
+  |A4|A1|Yes|Yes|
+  |A5|A1|No |Yes|
+  |A6|A1|Yes|Yes|
+  |B3|B2|Yes|Yes|
+  |B4|B2|Yes|No |
+  |B5|B2|No |Yes|
+  |B6|B2|Yes|Yes|
+  |C3|C1|Yes|No |
+  |C4|C2|Yes|No |
+  |C5|C1|No |Yes|
+  |C6|C2|Yes|Yes|
+
+- D1 to D6: These are six new sheets, currently all land at level 0 with no other terrain features. They are for future expansion.
 
 Any number of the second-generation maps can be used at once. When arranged in an approximately square grid, the twenty-four are 80 hexes wide by 90 hexes high (about 27 by 30 miles). 
 
-Adding additional first- or second-generation sheets to the implementation would be quite easy.
+Adding additional first-generation sheets to the implementation would be quite easy. Adding additional second-generation maps would be more difficult, as there is a mapping from hex codes *XXYY* to map sheet.
