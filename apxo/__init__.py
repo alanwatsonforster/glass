@@ -226,14 +226,16 @@ def drawmap(
     sheets=None,
     compactstacks=True,
     drawlimitedarc=[],
+    draw180line=[],
     draw180arc=[],
+    drawL180arc=[],
+    drawR180arc=[],
     draw150arc=[],
     draw120arc=[],
     draw90arc=[],
     draw60arc=[],
     draw30arc=[],
-    drawL180arc=[],
-    drawR180arc=[],
+    draw0line=[],
     drawlos=[],
     watermark=None,
     writefiles=True,
@@ -280,6 +282,8 @@ def drawmap(
 
         if drawlimitedarc is True:
             drawlimitedarc = apaircraft.aslist() + apmissile.aslist()
+        if draw0line is True:
+            draw0line = apaircraft.aslist() + apmissile.aslist()
         if draw30arc is True:
             draw30arc = apaircraft.aslist() + apmissile.aslist()
         if draw60arc is True:
@@ -296,9 +300,13 @@ def drawmap(
             drawL180arc = apaircraft.aslist() + apmissile.aslist()
         if drawR180arc is True:
             drawR180arc = apaircraft.aslist() + apmissile.aslist()
+        if draw180line is True:
+            draw180line = apaircraft.aslist() + apmissile.aslist()
 
         for A in drawlimitedarc:
             apdraw.drawarc(A.x(), A.y(), A.facing(), "limited")
+        for A in draw0line:
+            apdraw.drawarc(A.x(), A.y(), A.facing(), "0")
         for A in draw30arc:
             apdraw.drawarc(A.x(), A.y(), A.facing(), "30-")
         for A in draw60arc:
@@ -315,6 +323,8 @@ def drawmap(
             apdraw.drawarc(A.x(), A.y(), A.facing(), "L180+")
         for A in drawR180arc:
             apdraw.drawarc(A.x(), A.y(), A.facing(), "R180+")
+        for A in draw180line:
+            apdraw.drawarc(A.x(), A.y(), A.facing(), "180")
 
         apelement._drawmap()
 

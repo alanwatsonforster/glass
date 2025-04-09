@@ -512,46 +512,56 @@ def drawarc(x0, y0, facing, arc):
             zorder=0,
         )
 
-    if arc == "limited":
-
-        dxdy = [
-            [0.333, +0.0],
-            [1.5, +0.625],
-            [5.0, +0.625],
-            [6.0, +1.125],
-            [10.0, +1.125],
-            [11.0, +1.625],
-            [100.0, +1.625],
-        ]
-        dxdy = [aphex.tophysical(dxdy[0], dxdy[1]) for dxdy in dxdy]
-
-    else:
-
-        if arc == "180+" or arc == "L180+":
-            halfangle = 30
-        elif arc == "R180+":
-            halfangle = -30
-        elif arc == "150+":
-            halfangle = 60
-        elif arc == "120+" or arc == "90-":
-            halfangle = 90
-        elif arc == "60-":
-            halfangle = 120
-        elif arc == "30-":
-            halfangle = 150
-        else:
-            raise RuntimeError("invalid arc %s." % arc)
-
-        dxdy = [[0, 0], [100 * cosd(halfangle), 100 * sind(halfangle)]]
-
     x0, y0 = aphex.tophysical(x0, y0)
 
-    drawdxdy(dxdy)
+    if arc == "0":
 
-    if arc[0] == "L" or arc[0] == "R":
+        drawdxdy([[0, 0], [-100, 0]])
+
+    elif arc == "180":
+
         drawdxdy([[0, 0], [+100, 0]])
+
     else:
-        drawdxdy([[dxdy[0], -dxdy[1]] for dxdy in dxdy])
+
+        if arc == "limited":
+
+            dxdy = [
+                [0.333, +0.0],
+                [1.5, +0.625],
+                [5.0, +0.625],
+                [6.0, +1.125],
+                [10.0, +1.125],
+                [11.0, +1.625],
+                [100.0, +1.625],
+            ]
+            dxdy = [aphex.tophysical(dxdy[0], dxdy[1]) for dxdy in dxdy]
+
+        else:
+
+            if arc == "180+" or arc == "L180+":
+                halfangle = 30
+            elif arc == "R180+":
+                halfangle = -30
+            elif arc == "150+":
+                halfangle = 60
+            elif arc == "120+" or arc == "90-":
+                halfangle = 90
+            elif arc == "60-":
+                halfangle = 120
+            elif arc == "30-":
+                halfangle = 150
+            else:
+                raise RuntimeError("invalid arc %s." % arc)
+
+            dxdy = [[0, 0], [100 * cosd(halfangle), 100 * sind(halfangle)]]
+
+        drawdxdy(dxdy)
+
+        if arc[0] == "L" or arc[0] == "R":
+            drawdxdy([[0, 0], [+100, 0]])
+        else:
+            drawdxdy([[dxdy[0], -dxdy[1]] for dxdy in dxdy])
 
 
 ################################################################################
