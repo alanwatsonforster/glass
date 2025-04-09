@@ -67,6 +67,8 @@ _saved = False
 
 _allwater = False
 
+_rotation = 0
+
 ridgewidth = 14
 roadwidth = 5
 dockwidth = 5
@@ -163,6 +165,7 @@ def setmap(
     maxurbansize=None,
     leveloffset=0,
     levelincrement=1,
+    rotation=0,
 ):
     """
     Set the arrangement of the sheets that form the map and the position of the
@@ -187,6 +190,7 @@ def setmap(
     global _xmax
     global _ymax
     global _dotsperhex
+    global _rotation
 
     _usingfirstgenerationsheets = None
 
@@ -484,6 +488,8 @@ def setmap(
         hexcolor = darken(hexcolor, 0.7)
     if _frozen:
         forestalpha += 0.20
+
+    _rotation = rotation
 
 
 def startdrawmap(
@@ -1236,7 +1242,7 @@ def startdrawmap(
 def enddrawmap(turn, writefiles=True):
     if _writefiles and writefiles:
         for filetype in _writefiletypes:
-            apdraw.writefile("map-%02d.%s" % (turn, filetype))
+            apdraw.writefile("map-%02d.%s" % (turn, filetype), rotation=_rotation)
     apdraw.show()
 
 

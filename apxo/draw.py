@@ -8,6 +8,8 @@ import pickle
 import matplotlib.pyplot as plt
 import matplotlib.patches as patches
 
+from PIL import Image
+
 ################################################################################
 
 plt.rcParams.update({"figure.max_open_warning": 0})
@@ -63,8 +65,15 @@ def show():
     pass
 
 
-def writefile(name):
+def writefile(name, rotation=0):
     _fig.savefig(name)
+    if rotation != 0:
+        # Attempt to rotate the file. This works for pixelated formats supported by PIL,
+        # but not for vector format, so we catch failures.
+        try:
+            Image.open(name).rotate(rotation, expand=True).save(name)
+        except:
+            pass
 
 
 ################################################################################
