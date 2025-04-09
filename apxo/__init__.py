@@ -35,10 +35,13 @@ __all__ = [
 ################################################################################
 
 
-def startgamesetup(scenario, sheets=None, north="up", variants=[], **kwargs):
+def startgamesetup(scenario, sheets=None, north="up", variants=[], writelogfiles=True, writemapfiles=True, **kwargs):
     """
     Start the game set-up for the specified scenario (or for the specified map layout).
     """
+
+    aplog.setwritefiles(writelogfiles)
+    apmap.setwritefiles(writemapfiles)
 
     aplog.clearerror()
     try:
