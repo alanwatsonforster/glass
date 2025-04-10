@@ -202,6 +202,8 @@ def setmap(
         if len(row) != len(sheetgrid[0]):
             raise RuntimeError("the sheet grid is not rectangular.")
         for sheet in row:
+            if sheet[-2:] == "/i":
+                sheet = sheet[:-2]
             if sheet in blanksheets:
                 pass
             elif (
@@ -260,16 +262,22 @@ def setmap(
     for iy in range(0, _nysheetgrid):
         for ix in range(0, _nxsheetgrid):
             sheet = _sheetgrid[iy][ix]
+            if sheet[-2:] == "/i":
+                sheet = sheet[:-2]
+                inverted = True
+            else:
+                inverted = False
+            _sheetgrid[iy][ix] = sheet
             if sheet not in blanksheets:
                 _sheetlist.append(sheet)
                 _loweredgeonmap.update({sheet: sheetbelow(iy, ix) != ""})
                 _rightedgeonmap.update({sheet: sheettoright(iy, ix) != ""})
-
-    for sheet in _sheetlist:
-        filename = os.path.join(os.path.dirname(__file__), "mapsheets", sheet + ".py")
-        with open(filename, "r", encoding="utf-8") as f:
-            s = f.read(-1)
-            _terrain[sheet] = ast.literal_eval(s)
+                filename = os.path.join(os.path.dirname(__file__), "mapsheets", sheet + ".py")
+                with open(filename, "r", encoding="utf-8") as f:
+                    s = f.read(-1)
+                    _terrain[sheet] = ast.literal_eval(s)
+                    if inverted:
+                        _terrain[sheet] = _invertterrain(_terrain[sheet])
 
     global _saved
     _saved = False
@@ -1499,5 +1507,68 @@ def crossesridgeline(x0, y0, x1, y1):
                 return True
     return False
 
+
+################################################################################
+
+def _invertterrain(oldterrain):
+
+    xcenter = oldterrain["center"][0]
+    ycenter = oldterrain["center"][1]
+    generation = oldterrain["generation"]
+
+    def duplicatehexes(oldhexes):
+        return list(duplicatehex(oldhex) for oldhex in oldhexes)
+
+    def duplicatehex(oldhex):
+        oldx = oldhex // 100
+        oldy = oldhex % 100
+        if int(oldx) % 2 == 1:
+            if generation == 1:
+                oldy -= 0.5
+            else:
+                oldy += 0.5
+        newx = xcenter - (oldx - xcenter)
+        newy = ycenter - (oldy - ycenter)
+        if int(newx) % 2 == 1:
+            if generation == 1:
+                newy += 0.5
+            else:
+                newy -= 0.5
+        newhex = newx * 100 + newy
+        return int(newhex)
+
+    def duplicatepaths(oldpaths):
+        return list(duplicatepath(oldpath) for oldpath in oldpaths)
+
+    def duplicatepath(oldpath):
+        return list(duplicatexy(oldxy) for oldxy in oldpath)
+
+    def duplicatexy(oldxy):
+        oldx = oldxy[0]
+        oldy = oldxy[1]
+        if int(oldx) % 2 == 1:
+            if generation == 1:
+                oldy -= 0.5
+            else:
+                oldy += 0.5
+        newx = xcenter - (oldx - xcenter)
+        newy = ycenter - (oldy - ycenter)
+        if int(newx) % 2 == 1:
+            if generation == 1:
+                newy += 0.5
+            else:
+                newy -= 0.5
+        newxy = [newx, newy]
+        return newxy
+
+    newterrain = {}
+    for key in oldterrain.keys():
+        if key[-5:] == "hexes":
+            newterrain[key] = duplicatehexes(oldterrain[key])
+        elif key[-5:] == "paths":
+            newterrain[key] = duplicatepaths(oldterrain[key])
+        else:
+            newterrain[key] = oldterrain[key]
+    return newterrain
 
 ################################################################################

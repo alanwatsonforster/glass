@@ -1,4 +1,6 @@
 {
+    "generation": 2,
+    "center": [ 20.0, 23.5],
     "base": "land",
     "seahexes": [],
     "level0hexes": [],

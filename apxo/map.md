@@ -67,29 +67,62 @@ I have implemented twenty-six first-generation sheets labeled A to Z:
 
 Any number of first-generation sheets can be used at once. When arranged in an approximately square grid, twelve are 80 hexes wide by 75 hexes high (about 27 miles by 25 miles).
 
-I have implemented twenty-four second-generate sheets labeled *XY*, in which *X* is one of the letters from A to D and *Y* is one of the numbers from 1 to 6:
+I have implemented twelve-four second-generate sheets labeled *XY*, in which *X* is one of the letters from A to D and *Y* is one of the numbers from 1 to 6:
 
 - A1, A2, B1, B2, C1, and C2: These are adaptations of the original sheets from *The Speed of Heat*. 
 
-- A3 to A6, B3 to B6, and C3 to C6: These are rotated and simplified copies of maps A1, B2, C1, and C2. The rotated maps are rotated by 180 degrees. The simplified maps have runways, taxiways, dams, lakes, towns that cover 5 or more hexes, and city removed. The table shows the original map and whether the copy is rotated, simplified, or both.
+- A3, B3, and C3: These are duplicates of A1, B1, and C1.
 
-  |MapSheet|Original Map Sheet|Rotated?|Simplified?|
-  |-|-|-|-|
-  |A3|A1|Yes|Yes|
-  |A4|A1|Yes|Yes|
-  |A5|A1|No |Yes|
-  |A6|A1|Yes|Yes|
-  |B3|B2|Yes|Yes|
-  |B4|B2|Yes|No |
-  |B5|B2|No |Yes|
-  |B6|B2|Yes|Yes|
-  |C3|C1|Yes|No |
-  |C4|C2|Yes|No |
-  |C5|C1|No |Yes|
-  |C6|C2|Yes|Yes|
-
-- D1 to D6: These are six new sheets, currently all land at level 0 with no other terrain features. They are for future expansion.
+- A4 to A6, B4 to B6, and C4 to C6, D1 to D6: These are twelve new sheets, currently all land at level 0 with no other terrain features. They are for future expansion.
 
 Any number of the second-generation maps can be used at once. When arranged in an approximately square grid, the twenty-four are 80 hexes wide by 90 hexes high (about 27 by 30 miles). 
 
 Adding additional first-generation sheets to the implementation would be quite easy. Adding additional second-generation maps would be more difficult, as there is a mapping from hex codes *XXYY* to map sheet.
+
+### Inverted Map Sheets
+
+APXO allow any map sheet to be inverted by simply appending `"/i"` to the map sheet name. For example, the map argument for scenario V-11 of *The Speed of Heat* could be:
+
+    [["A1"],["B2/i"],["B1"]]
+
+Inverted map sheets are used in these scenarios:
+
+- *Air Superiority*
+  - None
+- *Air Strike*
+  - No information
+- *Desert Falcons*
+  - No information
+- *Eagles of the Gulf*
+  - EOG-11
+  - EOG-16
+  - EOG-18
+  - EOG-19
+  - EOG-21
+  - EOG-23
+- *The Speed of Heat*
+  - V-11: B2
+  - V-22: C1 and C2
+
+Note that the inversion process inverts the terrain but *does not invert the hex grid*. One consequence of this is that care needs to be taken when an aircraft or ground units that are set up on an inverted sheet; the original hex code cannot be used directly.
+
+### Oblique Map Sheets
+
+APXO does not allow map sheets to be used at an oblique angle; they must be either in the normal orientation or inverted.
+
+Oblique map sheets are used in these scenarios:
+
+- *Air Superiority*
+  - H-13
+  - H-14
+- *Air Strike*
+  - No information
+- *Desert Falcons*
+  - No information
+- *Eagles of the Gulf*
+  - EOG-4
+  - EOG-7
+  - EOG-8
+  - EOG-20
+- *The Speed of Heat*
+  - None
