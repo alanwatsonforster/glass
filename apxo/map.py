@@ -7,7 +7,7 @@ import apxo.draw as apdraw
 import apxo.hex as aphex
 import apxo.hexcode as aphexcode
 
-import ast
+import json
 import math
 import os
 
@@ -272,12 +272,11 @@ def setmap(
                 _sheetlist.append(sheet)
                 _loweredgeonmap.update({sheet: sheetbelow(iy, ix) != ""})
                 _rightedgeonmap.update({sheet: sheettoright(iy, ix) != ""})
-                filename = os.path.join(os.path.dirname(__file__), "mapsheets", sheet + ".py")
+                filename = os.path.join(os.path.dirname(__file__), "mapsheetdata", sheet + ".json")
                 with open(filename, "r", encoding="utf-8") as f:
-                    s = f.read(-1)
-                    _terrain[sheet] = ast.literal_eval(s)
-                    if inverted:
-                        _terrain[sheet] = _invertterrain(_terrain[sheet])
+                    _terrain[sheet] = json.load(f)
+                if inverted:
+                    _terrain[sheet] = _invertterrain(_terrain[sheet])
 
     global _saved
     _saved = False
