@@ -272,7 +272,9 @@ def setmap(
                 _sheetlist.append(sheet)
                 _loweredgeonmap.update({sheet: sheetbelow(iy, ix) != ""})
                 _rightedgeonmap.update({sheet: sheettoright(iy, ix) != ""})
-                filename = os.path.join(os.path.dirname(__file__), "mapsheetdata", sheet + ".json")
+                filename = os.path.join(
+                    os.path.dirname(__file__), "mapsheetdata", sheet + ".json"
+                )
                 with open(filename, "r", encoding="utf-8") as f:
                     _terrain[sheet] = json.load(f)
                 if inverted:
@@ -835,6 +837,29 @@ def startdrawmap(
                         townhexes += _terrain[sheet]["town4hexes"]
                     if _maxurbansize >= 5:
                         townhexes += _terrain[sheet]["town5hexes"]
+                    if _allforest:
+                        for townhex in townhexes:
+                            if townhex in _terrain[sheet]["level2hexes"]:
+                                drawhexes(
+                                    sheet,
+                                    [townhex],
+                                    linewidth=0,
+                                    fillcolor=level2color,
+                                )
+                            elif townhex in _terrain[sheet]["level1hexes"]:
+                                drawhexes(
+                                    sheet,
+                                    [townhex],
+                                    linewidth=0,
+                                    fillcolor=level1color,
+                                )
+                            else:
+                                drawhexes(
+                                    sheet,
+                                    [townhex],
+                                    linewidth=0,
+                                    fillcolor=level0color,
+                                )
                     drawhexes(
                         sheet,
                         townhexes,
@@ -1509,6 +1534,7 @@ def crossesridgeline(x0, y0, x1, y1):
 
 ################################################################################
 
+
 def _invertterrain(oldterrain):
 
     xcenter = oldterrain["center"][0]
@@ -1569,5 +1595,6 @@ def _invertterrain(oldterrain):
         else:
             newterrain[key] = oldterrain[key]
     return newterrain
+
 
 ################################################################################
