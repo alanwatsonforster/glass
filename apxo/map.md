@@ -65,6 +65,8 @@ APXO implements twenty-six first-generation sheets labeled A to Z:
 
 Any number of first-generation sheets can be used at once. When arranged in an approximately square grid, twelve are 80 hexes wide by 75 hexes high (about 27 miles by 25 miles). Adding additional first-generation sheets to the implementation would be quite easy.
 
+The following are thumbnail images of the first-generation map sheets; click on them to see higher-resolution versions.
+
 <img src="../maps/map-sheet-A.png" width="20%"/>&nbsp;<img src="../maps/map-sheet-B.png" width="20%"/>&nbsp;<img src="../maps/map-sheet-C.png" width="20%"/>&nbsp;<img src="../maps/map-sheet-D.png" width="20%"/>
 
 <img src="../maps/map-sheet-E.png" width="20%"/>&nbsp;<img src="../maps/map-sheet-F.png" width="20%"/>&nbsp;<img src="../maps/map-sheet-G.png" width="20%"/>&nbsp;<img src="../maps/map-sheet-H.png" width="20%"/>
@@ -90,6 +92,8 @@ APXO implements twelve second-generation sheets labeled *XY*, in which *X* is on
 - A4 to A6, B4 to B6, and C4 to C6, D1 to D6: These are twelve new sheets, currently all land at level 0 with no other terrain features. They are for future expansion.
 
 Any number of the second-generation sheets can be used at once. When arranged in an approximately square grid, the twenty-four are 80 hexes wide by 90 hexes high (about 27 by 30 miles). Adding additional second-generation maps would be difficult, as there is a mapping from hex codes *XXYY* to map sheet.
+
+The following are thumbnail images of the second-generation map sheets; click on them to see higher-resolution versions.
 
 <img src="../maps/map-sheet-A1.png" width="20%"/>&nbsp;<img src="../maps/map-sheet-B1.png" width="20%"/>&nbsp;<img src="../maps/map-sheet-C1.png" width="20%"/>&nbsp;<img src="../maps/map-sheet-D1.png" width="20%"/>
 
