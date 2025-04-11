@@ -333,7 +333,7 @@ def setmap(
         hexalpha = 1.0
         labelcolor = hexcolor
 
-    elif style == "openwater":
+    elif style == "airsuperiority" or style == "openwater":
 
         _allwater = True
         watercolor = [0.77, 0.89, 0.95]

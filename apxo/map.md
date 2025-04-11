@@ -61,13 +61,11 @@ I have implemented twenty-six first-generation sheets labeled A to Z:
 
 - K to N: These are adaptations of the original four sheets from *Eagles of the Gulf*, but sheet M currently does not have terrain features. Also, I have adjusted some of the roads in sheet N to match the other sheets. 
 
-- O to R: These are four new sheets, currently all land at level 0 with no other terrain features. They are for future expansion.
-
-- T to Z: These are eight sheets are duplicates of the original sheets A to D from *Air Superiority*.
+- O to Z: These are twelve new sheets, currently all land at level 0 with no other terrain features. They are for future expansion.
 
 Any number of first-generation sheets can be used at once. When arranged in an approximately square grid, twelve are 80 hexes wide by 75 hexes high (about 27 miles by 25 miles).
 
-I have implemented twelve-four second-generate sheets labeled *XY*, in which *X* is one of the letters from A to D and *Y* is one of the numbers from 1 to 6:
+I have implemented twelve second-generation sheets labeled *XY*, in which *X* is one of the letters from A to D and *Y* is one of the numbers from 1 to 6:
 
 - A1, A2, B1, B2, C1, and C2: These are adaptations of the original sheets from *The Speed of Heat*. 
 

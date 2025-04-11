@@ -1,7 +1,7 @@
 {
     "generation": 1,
     "center": [ 10.0, 12.5 ],
-    "base": "water",
+    "base": "land",
     "seahexes": [],
     "level0hexes": [],
     "level1hexes": [],
