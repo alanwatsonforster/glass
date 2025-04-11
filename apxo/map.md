@@ -232,9 +232,15 @@ The options for excluding or expanding elements are:
 
 ### Terrain Styles
 
-This section describes and illustrates the thirteen map styles. Sheets A2, B1, and B2 are shown, with aircraft in map sheet B2 to illustrate their colors and the contrast with the map.
+This section describes and illustrates the fourteen map styles. Sheets A2, B1, and B2 are shown, with aircraft in map sheet B2 to illustrate their colors and the contrast with the map.
 
-The first four map styles — original, temperate, tropical, and arid — have all the map elements present on the original maps, but differ only in their color schemes. They can be used for any of the scenarios that make reference to map features. The next two map styles — open water and sea ice — are distinguished by having no terrain features. The final size map styles — summer tundra, winter tundra, summer boreal forest, winter boreal forest, tropical forest, and desert — adapt the map sheets by removing or extending certain map elements. The air superiority style can be used to convert any map sheet into a terrainless one matching maps A to D from *Air Superiority*.
+The first four map styles — original, temperate, tropical, and arid — have all the map elements present on the original maps, but differ only in their color schemes. They can be used for any of the scenarios that make reference to map features. 
+
+The next seven map styles — desert, temperate forest, tropical forest, summer tundra, winter tundra, summer boreal forest, and winter boreal forest — adapt the map sheets by removing or extending certain map elements. 
+
+The next two map styles — open water and sea ice — are distinguished by having no terrain features. 
+
+The final air superiority style can be used to convert any map sheet into a terrainless one matching maps A to D from *Air Superiority*.
 
 Beyond the comments above on the colors of higher terrain and rivers, there is much to criticize about these representations. For example, the representation of summer tundra lacks lakes. Nevertheless, this range of map styles is intended to shorten the leap of imagination between the game and reality. 
 
@@ -267,6 +273,12 @@ This is intended to represent more arid terrain. The terrain colors are three sh
 This uses the same colors as the arid style, but is drawn as a wilderness with no urban hexes and no rivers. 
 
 <img src="../maps/map-sheets-A2B1B2-desert.png" width="100%"/>
+
+#### Temperate Forest Style
+
+This is intended to represent a temperate forest. It has reduced urban areas, but is not wilderness. The colors are the same greens as the temperate style. It is drawn with urban areas with up to 4 hexes in size and all forest. 
+
+<img src="../maps/map-sheets-A2B1B2-temperateforest.png" width="100%"/>
 
 #### Tropical Forest Style
 
