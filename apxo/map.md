@@ -1,8 +1,8 @@
 # Maps
 
-Here I discuss the origin, design choices, and implementation of the map in APXO.
+This document discusses the origin, design choices, and implementation of the map in APXO.
 
-I use “map sheet” or just “sheet” to refer to the individual map sheets and “map” to refer to the whole space defined by the particular selection and arrangement of map sheets.
+The terms “map sheet” or just “sheet” are used to refer to the individual map sheets and “map” to refer to the whole space defined by the particular selection and arrangement of map sheets.
 
 ## Original Map Sheets
 
@@ -27,7 +27,7 @@ Desert Falcons did not provide any new map sheets but used the existing ones fro
 
 ### *Eagles of the Gulf*
 
-*Eagles of the Gulf* appeared in issue 9 of *Battleplan* magazine and volumes 11 and 12 of *Air Power Journal*. It introduced four new sheets, labeled K, L, M, and N. Sheets K and L were published in *Battleplan*. Sheet N was published in volume 11 of *Air Power Journal*. Sheet M seems to have never been published and is only referenced in scenario EOG-23. I do not know for sure who designed these sheets, but the credits in *Battleplan* give “special thanks to Tony Valle for help on the maps”.
+*Eagles of the Gulf* appeared in issue 9 of *Battleplan* magazine and volumes 11 and 12 of *Air Power Journal*. It introduced four new sheets, labeled K, L, M, and N. Sheets K and L were published in *Battleplan*. Sheet N was published in volume 11 of *Air Power Journal*. Sheet M seems to have never been published and is only referenced in scenario EOG-23. It is not clear who designed these sheets, but the credits in *Battleplan* give “special thanks to Tony Valle for help on the maps”.
 
 These sheets are printed in black and white. Sheets K and L represent desert terrain. Sheet N represents a stretch of the Suez Canal. 
 
@@ -49,37 +49,55 @@ Again, as long as the sheets are arranged so that long edges abut other long edg
 
 ### Generations
 
-Putting aside the question of the graphical representation of terrain features, first- and second-generation map sheets differ in their size, the geographic features along their edges, and in hex labeling. For these reasons, I allow games to be played on maps using sheets either from the first or the second generation, but not a mixture of generations.
+Putting aside the question of the graphical representation of terrain features, first- and second-generation map sheets differ in their size, the geographic features along their edges, and in hex labeling. For these reasons, APXO allows games to be played on maps using sheets either from the first or the second generation, but not a mixture of generations.
 
 ### Sheets
 
-I have implemented twenty-six first-generation sheets labeled A to Z:
+APXO implements twenty-six first-generation sheets labeled A to Z:
 
 - A to D: These are adaptations of the original four sheets from *Air Superiority*.
 
 - E to J: These are adaptations of the original six sheets from *Air Strike*. 
 
-- K to N: These are adaptations of the original four sheets from *Eagles of the Gulf*, but sheet M currently does not have terrain features. Also, I have adjusted some of the roads in sheet N to match the other sheets. 
+- K to N: These are adaptations of the original four sheets from *Eagles of the Gulf*, but sheet M currently does not have terrain features. Also, some of the roads in sheet N have been adjusted to match the other sheets. 
 
 - O to Z: These are twelve new sheets, currently all land at level 0 with no other terrain features. They are for future expansion.
 
 Any number of first-generation sheets can be used at once. When arranged in an approximately square grid, twelve are 80 hexes wide by 75 hexes high (about 27 miles by 25 miles).
 
-I have implemented twelve second-generation sheets labeled *XY*, in which *X* is one of the letters from A to D and *Y* is one of the numbers from 1 to 6:
+APXO implements twelve second-generation sheets labeled *XY*, in which *X* is one of the letters from A to D and *Y* is one of the numbers from 1 to 6:
 
 - A1, A2, B1, B2, C1, and C2: These are adaptations of the original sheets from *The Speed of Heat*. 
 
-- A3, B3, and C3: These are duplicates of A1, B1, and C1.
+- A3, B3, and C3: These are duplicates of A1, B1, and C1. Scenario V-25 in *The Speed of Heat* requires two copies of sheet C1; use sheets C1 and C3 instead.
 
 - A4 to A6, B4 to B6, and C4 to C6, D1 to D6: These are twelve new sheets, currently all land at level 0 with no other terrain features. They are for future expansion.
 
-Any number of the second-generation maps can be used at once. When arranged in an approximately square grid, the twenty-four are 80 hexes wide by 90 hexes high (about 27 by 30 miles). 
+Any number of the second-generation sheets can be used at once. When arranged in an approximately square grid, the twenty-four are 80 hexes wide by 90 hexes high (about 27 by 30 miles). 
 
 Adding additional first-generation sheets to the implementation would be quite easy. Adding additional second-generation maps would be more difficult, as there is a mapping from hex codes *XXYY* to map sheet.
 
+### Map Sheet Arrangement
+
+The arrangement of map sheets into a map is specifiediven as by a two-dimensional Python array containing strings specifying the sheets. The elements of the array form the rows and columns of a grid. For example, the map for scenario K-5 in *The Speed of Heat* has B1 in the upper left, C1 in the upper right, A1 in the lower left, and B2 in the lower right, and is specified as:
+
+    [
+      [ "B1", "C1" ],
+      [ "A1", "B2" ],
+    ]
+
+The rows of the grid must have the same number of sheets. Missing or blank sheets can be specified as `""`, `"-"`, or `"--"`. For example, the map for scenario V-13 in *The Speed of Heat* is specified as:
+
+    [
+      [ "C1", "--" ],
+      [ "B1", "C2" ],
+      [ "A2", "B2" ],
+      [ "A1", "--" ],
+    ]
+
 ### Inverted Map Sheets
 
-APXO allow any map sheet to be inverted by simply appending `"/i"` to the map sheet name. For example, the map argument for scenario V-11 of *The Speed of Heat* could be:
+APXO allow any map sheet to be inverted by simply appending `"/i"` to the map sheet name. For example, the map for scenario V-11 of *The Speed of Heat* is specified as:
 
     [["A1"],["B2/i"],["B1"]]
 
