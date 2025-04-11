@@ -65,7 +65,7 @@ APXO implements twenty-six first-generation sheets labeled A to Z:
 
 Any number of first-generation sheets can be used at once. When arranged in an approximately square grid, twelve are 80 hexes wide by 75 hexes high (about 27 miles by 25 miles). Adding additional first-generation sheets to the implementation would be quite easy.
 
-<img src="../maps/map-sheet-A.png" width="20%"/><img src="../maps/map-sheet-B.png" width="20%"/><img src="../maps/map-sheet-C.png" width="20%"/><img src="../maps/map-sheet-D.png" width="20%"/>
+<img src="../maps/map-sheet-A.png" width="20%"/>&nbsp;<img src="../maps/map-sheet-B.png" width="20%"/>&nbsp;<img src="../maps/map-sheet-C.png" width="20%"/>&nbsp;<img src="../maps/map-sheet-D.png" width="20%"/>
 
 <img src="../maps/map-sheet-E.png" width="20%"/>
 <img src="../maps/map-sheet-F.png" width="20%"/>
