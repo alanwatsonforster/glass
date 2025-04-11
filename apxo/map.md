@@ -89,7 +89,7 @@ APXO implements twelve second-generation sheets labeled *XY*, in which *X* is on
 
 - A3, B3, and C3: These are duplicates of A1, B1, and C1. Scenario V-25 in *The Speed of Heat* requires two copies of sheet C1; use sheets C1 and C3 instead.
 
-- A4 to A6, B4 to B6, and C4 to C6, D1 to D6: These are twelve new sheets, currently all land at level 0 with no other terrain features. They are for future expansion.
+- A4 to A6, B4 to B6, and C4 to C6, D1 to D6: These are fifteen new sheets, currently all land at level 0 with no other terrain features. They are for future expansion.
 
 Any number of the second-generation sheets can be used at once. When arranged in an approximately square grid, the twenty-four are 80 hexes wide by 90 hexes high (about 27 by 30 miles). Adding additional second-generation maps would be difficult, as there is a mapping from hex codes *XXYY* to map sheet.
 
