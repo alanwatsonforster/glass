@@ -35,11 +35,12 @@ __all__ = [
 ################################################################################
 
 
-def startgamesetup(scenario, sheets=None, north="up", variants=[], writelogfiles=True, writemapfiles=True, **kwargs):
+def startgamesetup(scenario, sheets=None, north="up", variants=[], printlog=True, writelogfiles=True, writemapfiles=True, **kwargs):
     """
     Start the game set-up for the specified scenario (or for the specified map layout).
     """
 
+    aplog.setprint(printlog)
     aplog.setwritefiles(writelogfiles)
     apmap.setwritefiles(writemapfiles)
 
