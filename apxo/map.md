@@ -212,76 +212,76 @@ Beyond the comments above on the colors of higher terrain and rivers, there is m
 
 This is an adaptation of the original *Air Strike* map design. The terrain colors are light green, light brown, and medium brown. All terrain elements are included.
 
-<img src="../maps/map-sheets-A2B1B2-original.png" width="50%"/>
+<img src="../maps/map-sheets-A2B1B2-original.png" width="100%"/>
 
 #### Temperate Style
 
 This is intended to represent terrain in temperate zones. The terrain colors are three shades of light to medium green. All terrain elements are included. This color palette is intended to be more evocative and less distracting than that of the original style. 
 
-<img src="../maps/map-sheets-A2B1B2-temperate.png" width="50%"/>
+<img src="../maps/map-sheets-A2B1B2-temperate.png" width="100%"/>
 
 #### Tropical Style
 
 This is intended to represent more verdant terrain in tropical zones. The terrain colors are three shades of medium green, and is darker than the temperate style. All terrain elements are included. This scheme is designed for the Vietnam scenarios in *The Speed of Heat*. 
 
-<img src="../maps/map-sheets-A2B1B2-tropical.png" width="50%"/>
+<img src="../maps/map-sheets-A2B1B2-tropical.png" width="100%"/>
 
 #### Arid Style
 
 This is intended to represent more arid terrain. The terrain colors are three shades of brown. All terrain elements are included. This scheme is designed for the scenarios in *Eagles of the Gulf*. 
 
-<img src="../maps/map-sheets-A2B1B2-arid.png" width="50%"/>
+<img src="../maps/map-sheets-A2B1B2-arid.png" width="100%"/>
 
 #### Desert Style
 
 This uses the same colors as the arid style, but is drawn as a wilderness with no urban hexes and no rivers. 
 
-<img src="../maps/map-sheets-A2B1B2-desert.png" width="50%"/>
+<img src="../maps/map-sheets-A2B1B2-desert.png" width="100%"/>
 
 #### Tropical Forest Style
 
 This is intended to represent a tropical forest. It has reduced urban areas, but is not wilderness. The colors are the same greens as the tropical style. It is drawn with urban areas with up to 4 hexes in size and all forest. 
 
-<img src="../maps/map-sheets-A2B1B2-tropicalforest.png" width="50%"/>
+<img src="../maps/map-sheets-A2B1B2-tropicalforest.png" width="100%"/>
 
 #### Summer Tundra Style
 
 This is intended to represent the treeless tundra of northern North America, Europe, and Asia in summer. The colors are the same greens as temperate. It is drawn as a wilderness with no urban hexes. 
 
-<img src="../maps/map-sheets-A2B1B2-summertundra.png" width="50%"/>
+<img src="../maps/map-sheets-A2B1B2-summertundra.png" width="100%"/>
 
 #### Winter Tundra Style
 
 This is the counterpart of summer tundra, but now in winter. The terrain colors are shades of gray, from almost white to a light gray. The lightest is the same color as used in “sea ice”. Again, it is drawn as a wilderness with no urban hexes. 
 
-<img src="../maps/map-sheets-A2B1B2-wintertundra.png" width="50%"/>
+<img src="../maps/map-sheets-A2B1B2-wintertundra.png" width="100%"/>
 
 #### Summer Boreal Forest Style
 
 This style is intended to represent boreal forest or taiga of northern North America, Europe, and Asia in summer. The terrain colors are the same greens as the tropical style. It is drawn as a wilderness with no urban hexes and all forest.  
 
-<img src="../maps/map-sheets-A2B1B2-summerborealforest.png" width="50%"/>
+<img src="../maps/map-sheets-A2B1B2-summerborealforest.png" width="100%"/>
 
 #### Winter Boreal Forest Style
 
 This is the counterpart of summer boreal forest, but now in winter. The terrain colors are the same grays as winter tundra. It is drawn as a wilderness with no urban hexes, all forest, and frozen water.
 
-<img src="../maps/map-sheets-A2B1B2-winterborealforest.png" width="50%"/>
+<img src="../maps/map-sheets-A2B1B2-winterborealforest.png" width="100%"/>
 
 #### Open Water Style
 
 This map style is intended to represent the ocean or sea. It is all water at level 0. The color is blue. 
 
-<img src="../maps/map-sheets-A2B1B2-openwater.png" width="50%"/>
+<img src="../maps/map-sheets-A2B1B2-openwater.png" width="100%"/>
 
 #### Sea Ice Style
 
 This map style is intended to represent Arctic sea ice. It is all ice at level 0. The color is white. 
 
-<img src="../maps/map-sheets-A2B1B2-seaice.png" width="50%"/>
+<img src="../maps/map-sheets-A2B1B2-seaice.png" width="100%"/>
 
 #### Air Superiority Style
 
 This style can be used to convert any of the other sheets into one that matches the *Air Superiority* maps A to D by eliminating all terrain and coloring the sheet with the same blue color. (It is implemented as an alias of the open water style.)
 
-<img src="../maps/map-sheets-A2B1B2-airsuperiority.png" width="50%"/>
+<img src="../maps/map-sheets-A2B1B2-airsuperiority.png" width="100%"/>
