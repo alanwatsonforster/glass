@@ -28,17 +28,16 @@ def starttestsetup(
     sheets=[["A1"], ["A2"]],
     north="up",
     variants=[],
-    drawterrain=True,
     verbose=False,
     **kwargs
 ):
-    aplog.setprint(verbose)
     ap.startgamesetup(
         None,
         sheets=sheets,
         north=north,
-        drawterrain=drawterrain,
         variants=variants,
+        writelogfiles=False,
+        printlog=verbose,
         **kwargs
     )
 
