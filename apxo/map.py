@@ -62,8 +62,6 @@ _dotsperhex = None
 
 _saved = False
 
-_allwater = False
-
 _rotation = 0
 
 ridgewidth = 14
@@ -235,7 +233,7 @@ def setmap(
     global _saved
     _saved = False
 
-    global _allwater, _forest, _allforest, _freshwater, _wilderness, _maxurbansize
+    global _forest, _allforest, _freshwater, _wilderness, _maxurbansize
 
     global level0color, level1color, level2color, level3color
     global level0ridgecolor, level1ridgecolor, level2ridgecolor
@@ -261,7 +259,6 @@ def setmap(
 
     # Defaults
 
-    _allwater = False
     _allforest = False
     _forest = True
     _maxurbansize = 5
@@ -294,7 +291,7 @@ def setmap(
 
     if style == "airsuperiority" or style == "openwater":
 
-        _allwater = True
+        allwater = True
         watercolor = [0.77, 0.89, 0.95]
 
         megahexcolor = [1.00, 1.00, 1.00]
@@ -306,7 +303,7 @@ def setmap(
 
     elif style == "seaice":
 
-        _allwater = True
+        allwater = True
         # This is the same color as level 0 of winter tundra below.
         watercolor = lighten([0.85, 0.85, 0.85], 1 / 20)
 
@@ -319,7 +316,7 @@ def setmap(
 
     else:
 
-        _allwater = False
+        allwater = False
         forestalpha = 0.5
         forestcolor = [0.50, 0.65, 0.50]
 
@@ -489,7 +486,7 @@ def setmap(
                 _sheetlist.append(sheet)
                 _loweredgeonmap.update({sheet: sheetbelow(iy, ix) != ""})
                 _rightedgeonmap.update({sheet: sheettoright(iy, ix) != ""})
-                _terrain[sheet] = _getterrain(sheet, inverted, _wilderness, leveloffset, _freshwater, _allwater, _allforest, _forest)
+                _terrain[sheet] = _getterrain(sheet, inverted, _wilderness, leveloffset, _freshwater, allwater, _allforest, _forest)
 
 
 ################################################################################
@@ -758,7 +755,7 @@ def startdrawmap(
         canvasxmin, canvasymin, canvasxmax, canvasymax, dotsperhex=_dotsperhex
     )
 
-    if _allwater or all(_terrain[sheet]["base"] == "water" for sheet in _sheetlist):
+    if all(_terrain[sheet]["base"] == "water" for sheet in _sheetlist):
         bordercolor = watercolor
     elif all(_terrain[sheet]["base"] == "land" for sheet in _sheetlist):
         bordercolor = level0color
@@ -774,29 +771,25 @@ def startdrawmap(
         linecolor=None,
     )
 
-    # Draw the sheets and level 0.
+    # Draw the sheets, base, and levels 0 to 2.
 
     for sheet in sheetsnearcanvas():
         xmin, ymin, xmax, ymax = sheetlimits(sheet)
-        base = _terrain[sheet]["base"]
-        if base == "water":
-            drawrectangle(
-                xmin,
-                ymin,
-                xmax,
-                ymax,
-                linewidth=0,
-                fillcolor=watercolor,
-            )
+
+        # Draw base.
+
+        if _terrain[sheet]["base"] == "water":
+            basecolor = watercolor
         else:
-            drawrectangle(
-                xmin,
-                ymin,
-                xmax,
-                ymax,
-                linewidth=0,
-                fillcolor=level0color,
-            )
+            basecolor = level0color
+        drawrectangle(
+            xmin,
+            ymin,
+            xmax,
+            ymax,
+            linewidth=0,
+            fillcolor=basecolor,
+        )
 
         # Draw levels 0, 1, and 2.
 
@@ -1121,6 +1114,7 @@ def startdrawmap(
         )
 
     # Draw the docks.
+
     for sheet in sheetsnearcanvas():
         drawpaths(
             sheet,
@@ -1226,6 +1220,7 @@ def startdrawmap(
     )
 
     # Draw and label the hexes.
+
     for sheet in sheetsnearcanvas():
         xmin, ymin, xmax, ymax = sheetlimits(sheet)
         for ix in range(0, _dxsheet + 1):
@@ -1256,6 +1251,7 @@ def startdrawmap(
                     )
 
     # Label the sheets.
+
     for sheet in sheetsnearcanvas():
         xmin, ymin, xmax, ymax = sheetlimits(sheet)
         dx = 1.0
@@ -1273,6 +1269,7 @@ def startdrawmap(
             )
 
     # Draw the compass rose in the lower left corner of the canvas.
+
     compassx = math.ceil(canvasxmin + 1)
     compassy = math.ceil(canvasymin + 1)
     if compassx % 2 == 1:
@@ -1286,6 +1283,7 @@ def startdrawmap(
     )
 
     # Draw missing sheets.
+
     for iy in range(0, _nysheetgrid):
         for ix in range(0, _nxsheetgrid):
             if _sheetgrid[iy][ix] in blanksheets:
@@ -1301,6 +1299,9 @@ def startdrawmap(
                     linecolor=None,
                     fillcolor=level0color,
                 )
+
+
+    # Draw watermarks.
 
     if _watermark is not None:
         drawwatermark(_watermark, canvasxmin, canvasymin, canvasxmax, canvasymax)
@@ -1425,9 +1426,6 @@ def altitude(x, y, sheet=None):
 
     if aphex.iscenter(x, y):
 
-        if _allwater:
-            return 0
-
         if sheet is None:
             sheet = tosheet(x, y)
         label = int(aphexcode.tolabel(aphexcode.fromxy(x, y, sheet=sheet)))
@@ -1459,9 +1457,6 @@ def iscity(x, y, sheet=None):
     assert aphex.isvalid(x, y)
 
     if aphex.iscenter(x, y):
-
-        if _allwater:
-            return False
 
         if sheet is None:
             sheet = tosheet(x, y)
