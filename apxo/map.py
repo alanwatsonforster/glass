@@ -151,10 +151,6 @@ def setmap(
     sheetgrid,
     dotsperhex=80,
     style="original",
-    wilderness=None,
-    forest=None,
-    freshwater=None,
-    maxurbansize=None,
     leveloffset=0,
     levelincrement=1,
     rotation=0,
@@ -232,8 +228,6 @@ def setmap(
     global _saved
     _saved = False
 
-    global _forest, _freshwater, _wilderness, _maxurbansize
-
     global level0color, level1color, level2color, level3color
     global level0ridgecolor, level1ridgecolor, level2ridgecolor
     global forestcolor, forestalpha, foresthatch
@@ -259,11 +253,11 @@ def setmap(
     # Defaults
 
     allforest = False
-    _forest = True
-    _maxurbansize = 5
-    _freshwater = True
-    _frozen = False
-    _wilderness = False
+    forest = True
+    maxurbansize = 5
+    freshwater = True
+    frozen = False
+    wilderness = False
 
     riverwidth = 14
     wideriverwidth = 35
@@ -327,10 +321,10 @@ def setmap(
             megahexcolor = [0.00, 0.00, 0.00]
             megahexalpha = 0.015
 
-            _forest = False
-            _wilderness = True
-            _maxurbansize = 0
-            _frozen = True
+            forest = False
+            wilderness = True
+            maxurbansize = 0
+            frozen = True
             if style == "winterborealforest":
                 allforest = True
                 megahexcolor = forestcolor
@@ -347,10 +341,10 @@ def setmap(
             riverwidth = 9
 
             if style == "desert":
-                _wilderness = True
-                _forest = False
-                _freshwater = False
-                _maxurbansize = 0
+                wilderness = True
+                forest = False
+                freshwater = False
+                maxurbansize = 0
 
         elif (
             style == "tropical"
@@ -375,16 +369,16 @@ def setmap(
 
             if style == "tropicalforest" or style == "temperateforest":
                 allforest = True
-                _wilderness = False
-                _maxurbansize = 4
+                wilderness = False
+                maxurbansize = 4
             elif style == "summerborealforest":
                 allforest = True
-                _wilderness = True
-                _maxurbansize = 0
+                wilderness = True
+                maxurbansize = 0
             elif style == "summertundra":
-                _forest = False
-                _wilderness = True
-                _maxurbansize = 0
+                forest = False
+                wilderness = True
+                maxurbansize = 0
 
         else:
 
@@ -412,7 +406,7 @@ def setmap(
             level1ridgecolor = level2color
             level2ridgecolor = level3color
 
-        if _frozen:
+        if frozen:
             watercolor = lighten([0.85, 0.85, 0.85], 1 / 20)
             wateroutlinecolor = watercolor
         else:
@@ -436,18 +430,9 @@ def setmap(
 
         labelcolor = urbanoutlinecolor
 
-    if forest != None:
-        _forest = forest
-    if wilderness != None:
-        _wilderness = wilderness
-    if freshwater != None:
-        _freshwater = freshwater
-    if maxurbansize != None:
-        _maxurbansize = maxurbansize
-
     if allforest:
         hexcolor = darken(hexcolor, 0.7)
-    if _frozen:
+    if frozen:
         forestalpha += 0.20
 
     _rotation = rotation
@@ -483,13 +468,13 @@ def setmap(
                 _sheetlist.append(sheet)
                 _loweredgeonmap.update({sheet: sheetbelow(iy, ix) != ""})
                 _rightedgeonmap.update({sheet: sheettoright(iy, ix) != ""})
-                _terrain[sheet] = _getterrain(sheet, inverted, _wilderness, leveloffset, _freshwater, allwater, allforest, _forest)
+                _terrain[sheet] = _getterrain(sheet, inverted, maxurbansize, wilderness, leveloffset, freshwater, allwater, allforest, forest)
 
 
 ################################################################################
 
 
-def _getterrain(sheet, inverted, wilderness, leveloffset, freshwater, allwater, allforest, forest):
+def _getterrain(sheet, inverted, maxurbansize, wilderness, leveloffset, freshwater, allwater, allforest, forest):
 
     filename = os.path.join(os.path.dirname(__file__), "mapsheetdata", sheet + ".json")
     with open(filename, "r", encoding="utf-8") as f:
@@ -523,15 +508,15 @@ def _getterrain(sheet, inverted, wilderness, leveloffset, freshwater, allwater, 
         terrain["level2ridgepaths"] = []
 
     terrain["townhexes"] = []
-    if _maxurbansize >= 1:
+    if maxurbansize >= 1:
         terrain["townhexes"] += terrain["town1hexes"]
-    if _maxurbansize >= 2:
+    if maxurbansize >= 2:
         terrain["townhexes"] += terrain["town2hexes"]
-    if _maxurbansize >= 3:
+    if maxurbansize >= 3:
         terrain["townhexes"] += terrain["town3hexes"]
-    if _maxurbansize >= 4:
+    if maxurbansize >= 4:
         terrain["townhexes"] += terrain["town4hexes"]
-    if _maxurbansize >= 5:
+    if maxurbansize >= 5:
         terrain["townhexes"] += terrain["town5hexes"]
     else:
         terrain["cityhexes"] = []
