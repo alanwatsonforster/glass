@@ -928,7 +928,7 @@ def drawbomb(x, y, altitude, facing):
 watermarkcolor = (0.70, 0.70, 0.70)
 
 
-def drawwatermark(s, xmin, ymin, xmax, ymax):
+def drawwatermark(s, xmin, ymin, xmax, ymax, **kwargs):
     # The math below puts the text at the center of each megahex,
     dx = 5
     dy = 5
@@ -938,7 +938,7 @@ def drawwatermark(s, xmin, ymin, xmax, ymax):
             y = iy * dy
             if ix % 2 == 1:
                 y += 0.5 * dy
-            drawtext(x, y, 120, s, color=watermarkcolor, size=24)
+            drawtext(x, y, 120, s, color=watermarkcolor, size=24, **kwargs)
 
 
 ################################################################################

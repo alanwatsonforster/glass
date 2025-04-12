@@ -673,6 +673,14 @@ def startdrawmap(
     def drawrectangle(xmin, ymin, xmax, ymax, **kwargs):
         apdraw.drawrectangle(xmin, ymin, xmax, ymax, zorder=0, **kwargs)
 
+    def drawtext(x, y, angle, text, **kwargs):
+        apdraw.drawtext(x, y, angle, text, zorder=0, **kwargs)
+
+    def drawcompass(x, y, facing, **kwargs):
+        apdraw.drawcompass(x, y, facing, zorder=0, **kwargs)
+    def drawwatermark(text, xmin, ymin, xmax, ymax, **kwargs):
+        apdraw.drawwatermark(text, xmin, ymin, xmax, ymax, zorder=0, **kwargs)
+
 
     if xmin is not None and xmax is not None and ymin is not None and ymax is not None:
 
@@ -1283,7 +1291,7 @@ def startdrawmap(
             dx = 1.0
             dy = 0.5
             if isonmap(xmin + dx, ymin + dy):
-                apdraw.drawtext(
+                drawtext(
                     xmin + dx,
                     ymin + dy,
                     90,
@@ -1292,7 +1300,6 @@ def startdrawmap(
                     size=24,
                     color=labelcolor,
                     alpha=1,
-                    zorder=0,
                 )
 
         # Draw the compass rose in the lower left corner of the canvas.
@@ -1300,13 +1307,12 @@ def startdrawmap(
         compassy = math.ceil(canvasymin + 1)
         if compassx % 2 == 1:
             compassy += 0.5
-        apdraw.drawcompass(
+        drawcompass(
             compassx,
             compassy,
             apazimuth.tofacing("N"),
             color=labelcolor,
             alpha=1,
-            zorder=0,
         )
 
     # Draw missing sheets.
@@ -1327,9 +1333,9 @@ def startdrawmap(
                 )
 
     if _watermark is not None:
-        apdraw.drawwatermark(_watermark, canvasxmin, canvasymin, canvasxmax, canvasymax)
+        drawwatermark(_watermark, canvasxmin, canvasymin, canvasxmax, canvasymax)
     elif watermark is not None:
-        apdraw.drawwatermark(watermark, canvasxmin, canvasymin, canvasxmax, canvasymax)
+        drawwatermark(watermark, canvasxmin, canvasymin, canvasxmax, canvasymax)
 
     apdraw.setcompactstacks(compactstacks)
 
