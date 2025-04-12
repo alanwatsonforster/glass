@@ -42,9 +42,6 @@ def setwatermark(value):
 
 _terrain = {}
 
-_drawterrain = True
-_drawlabels = True
-
 _usingfirstgenerationsheets = False
 
 _dxsheet = 20
@@ -154,8 +151,6 @@ def usingfirstgenerationsheets():
 
 def setmap(
     sheetgrid,
-    drawterrain=True,
-    drawlabels=True,
     dotsperhex=80,
     style="original",
     wilderness=None,
@@ -175,9 +170,6 @@ def setmap(
     global _usingfirstgenerationsheets
     global _dxsheet
     global _dysheet
-
-    global _drawterrain
-    global _drawlabels
 
     global _sheetgrid
     global _sheetlist
@@ -233,9 +225,6 @@ def setmap(
     _nysheetgrid = len(_sheetgrid)
     _nxsheetgrid = len(_sheetgrid[0])
 
-    _drawterrain = drawterrain
-    _drawlabels = drawlabels
-
     _dotsperhex = dotsperhex
 
     _xmin = +0.33 - borderwidth
@@ -287,13 +276,7 @@ def setmap(
     cityhatch = "xx"
     foresthatch = ".o"
 
-    if not _drawterrain:
-
-        hexcolor = [0.50, 0.50, 0.50]
-        hexalpha = 1.0
-        labelcolor = hexcolor
-
-    elif style == "airsuperiority" or style == "openwater":
+    if style == "airsuperiority" or style == "openwater":
 
         _allwater = True
         watercolor = [0.77, 0.89, 0.95]
@@ -751,307 +734,45 @@ def startdrawmap(
         canvasxmin, canvasymin, canvasxmax, canvasymax, dotsperhex=_dotsperhex
     )
 
-    if _drawterrain:
+    if _allwater or all(_terrain[sheet]["base"] == "water" for sheet in _sheetlist):
+        bordercolor = watercolor
+    elif all(_terrain[sheet]["base"] == "land" for sheet in _sheetlist):
+        bordercolor = level0color
+    else:
+        bordercolor = hexcolor
 
-        if _allwater or all(_terrain[sheet]["base"] == "water" for sheet in _sheetlist):
-            bordercolor = watercolor
-        elif all(_terrain[sheet]["base"] == "land" for sheet in _sheetlist):
-            bordercolor = level0color
-        else:
-            bordercolor = hexcolor
+    drawrectangle(
+        canvasxmin,
+        canvasymin,
+        canvasxmax,
+        canvasymax,
+        fillcolor=bordercolor,
+        linecolor=None,
+    )
 
-        drawrectangle(
-            canvasxmin,
-            canvasymin,
-            canvasxmax,
-            canvasymax,
-            fillcolor=bordercolor,
-            linecolor=None,
-        )
+    if _allwater:
 
-        if _allwater:
+        # Draw the sheets and level 0.
 
-            # Draw the sheets and level 0.
+        for sheet in sheetsnearcanvas():
+            xmin, ymin, xmax, ymax = sheetlimits(sheet)
+            drawrectangle(
+                xmin, ymin, xmax, ymax, linewidth=0, fillcolor=watercolor
+            )
 
-            for sheet in sheetsnearcanvas():
-                xmin, ymin, xmax, ymax = sheetlimits(sheet)
-                drawrectangle(
-                    xmin, ymin, xmax, ymax, linewidth=0, fillcolor=watercolor
-                )
+        # Draw the megahexes.
 
-            # Draw the megahexes.
-
-            for sheet in sheetsnearcanvas():
-                xmin, ymin, xmax, ymax = sheetlimits(sheet)
-                for ix in range(0, _dxsheet):
-                    for iy in range(0, _dysheet):
-                        x = xmin + ix
-                        y = ymin + iy
-                        if ix % 2 == 1:
-                            y -= 0.5
-                        if (x % 10 == 0 and y % 5 == 0) or (
-                            x % 10 == 5 and y % 5 == 2.5
-                        ):
-                            drawhex(
-                                x,
-                                y,
-                                size=5,
-                                linecolor=megahexcolor,
-                                linewidth=megahexwidth,
-                                alpha=megahexalpha,
-                            )
-
-        else:
-
-            # Draw the sheets and level 0.
-
-            for sheet in sheetsnearcanvas():
-                xmin, ymin, xmax, ymax = sheetlimits(sheet)
-                base = _terrain[sheet]["base"]
-                if base == "water":
-                    drawrectangle(
-                        xmin,
-                        ymin,
-                        xmax,
-                        ymax,
-                        linewidth=0,
-                        fillcolor=watercolor,
-                    )
-                else:
-                    drawrectangle(
-                        xmin,
-                        ymin,
-                        xmax,
-                        ymax,
-                        linewidth=0,
-                        fillcolor=level0color,
-                    )
-
-                # Draw levels 0, 1, and 2.
-
-                drawhexes(
-                    sheet,
-                    _terrain[sheet]["level0hexes"],
-                    linewidth=0,
-                    fillcolor=level0color,
-                )
-                drawhexes(
-                    sheet,
-                    _terrain[sheet]["level1hexes"],
-                    linewidth=0,
-                    fillcolor=level1color,
-                )
-                drawhexes(
-                    sheet,
-                    _terrain[sheet]["level2hexes"],
-                    linewidth=0,
-                    fillcolor=level2color,
-                )
-
-                drawpaths(
-                    sheet,
-                    _terrain[sheet]["tunnelpaths"],
-                    linecolor=roadoutlinecolor,
-                    linewidth=tunnelouterwidth,
-                    linestyle=(0, (0.3, 0.3)),
-                )
-                drawpaths(
-                    sheet,
-                    _terrain[sheet]["tunnelpaths"],
-                    linecolor=level1color,
-                    linewidth=tunnelinnerwidth,
-                )
-
-                # Draw the ridges.
-
-                drawpaths(
-                    sheet,
-                    _terrain[sheet]["level0ridgepaths"],
-                    linecolor=level0ridgecolor,
-                    linewidth=ridgewidth,
-                )
-                drawpaths(
-                    sheet,
-                    _terrain[sheet]["level1ridgepaths"],
-                    linecolor=level1ridgecolor,
-                    linewidth=ridgewidth,
-                )
-                drawpaths(
-                    sheet,
-                    _terrain[sheet]["level2ridgepaths"],
-                    linecolor=level2ridgecolor,
-                    linewidth=ridgewidth,
-                )
-
-                # Draw the forest areas.
-
-                if _allforest:
-
-                    drawrectangle(
-                        xmin,
-                        ymin,
-                        xmax,
-                        ymax,
-                        hatch=foresthatch,
-                        linecolor=forestcolor,
-                        alpha=forestalpha,
-                        linewidth=0,
-                        fillcolor=None,
-                    )
-                        
-                else:
-
-                    drawhexes(
-                        sheet,
-                        _terrain[sheet]["foresthexes"],
-                        hatch=foresthatch,
-                        linecolor=forestcolor,
-                        alpha=forestalpha,
-                        linewidth=0,
-                        fillcolor=None,
-                    )
-
-                # Draw the road clearings.
-
-                drawpaths(
-                    sheet,
-                    _terrain[sheet]["clearingpaths"],
-                    linecolor=level0color,
-                    linewidth=clearingwidth,
-                )
-
-                # Draw the urban areas.
-
-                if _allforest:
-                    for townhex in _terrain[sheet]["townhexes"]:
-                        if townhex in _terrain[sheet]["level2hexes"]:
-                            drawhexes(
-                                sheet,
-                                [townhex],
-                                linewidth=0,
-                                fillcolor=level2color,
-                            )
-                        elif townhex in _terrain[sheet]["level1hexes"]:
-                            drawhexes(
-                                sheet,
-                                [townhex],
-                                linewidth=0,
-                                fillcolor=level1color,
-                            )
-                        else:
-                            drawhexes(
-                                sheet,
-                                [townhex],
-                                linewidth=0,
-                                fillcolor=level0color,
-                            )
-                drawhexes(
-                    sheet,
-                    _terrain[sheet]["townhexes"],
-                    linewidth=0,
-                    fillcolor=None,
-                    linecolor=urbanoutlinecolor,
-                    hatch=townhatch,
-                )
-
-                drawhexes(
-                    sheet,
-                    _terrain[sheet]["cityhexes"],
-                    linewidth=0,
-                    fillcolor=urbancolor,
-                    linecolor=urbanoutlinecolor,
-                    hatch=cityhatch,
-                )
-
-            # Draw water and rivers.
-
-            for sheet in sheetsnearcanvas():
-                drawhexes(
-                    sheet,
-                    _terrain[sheet]["lakehexes"],
-                    fillcolor=watercolor,
-                    linecolor=wateroutlinecolor,
-                    linewidth=waterourlinewidth,
-                )
-                drawpaths(
-                    sheet,
-                    _terrain[sheet]["riverpaths"],
-                    linecolor=wateroutlinecolor,
-                    linewidth=riverwidth + waterourlinewidth,
-                    capstyle="projecting",
-                )
-                drawpaths(
-                    sheet,
-                    _terrain[sheet]["wideriverpaths"],
-                    linecolor=wateroutlinecolor,
-                    linewidth=wideriverwidth + waterourlinewidth,
-                    capstyle="projecting",
-                )
-            for sheet in sheetsnearcanvas():
-                drawhexes(
-                    sheet,
-                    _terrain[sheet]["lakehexes"],
-                    fillcolor=watercolor,
-                    linewidth=0,
-                )
-                drawpaths(
-                    sheet,
-                    _terrain[sheet]["riverpaths"],
-                    linecolor=watercolor,
-                    linewidth=riverwidth,
-                    capstyle="projecting",
-                )
-                drawpaths(
-                    sheet,
-                    _terrain[sheet]["wideriverpaths"],
-                    linecolor=watercolor,
-                    linewidth=wideriverwidth,
-                    capstyle="projecting",
-                )
-
-            for sheet in sheetsnearcanvas():
-                # Do not outline sea hexes.
-                drawpaths(
-                    sheet,
-                    _terrain[sheet]["seapaths"],
-                    linecolor=wateroutlinecolor,
-                    linewidth=riverwidth + waterourlinewidth,
-                    capstyle="projecting",
-                )
-                drawpaths(
-                    sheet,
-                    _terrain[sheet]["wideseapaths"],
-                    linecolor=wateroutlinecolor,
-                    linewidth=wideriverwidth + waterourlinewidth,
-                    capstyle="projecting",
-                )
-            for sheet in sheetsnearcanvas():
-                drawhexes(
-                    sheet,
-                    _terrain[sheet]["seahexes"],
-                    linewidth=0,
-                    fillcolor=watercolor,
-                )
-                drawpaths(
-                    sheet,
-                    _terrain[sheet]["seapaths"],
-                    linecolor=watercolor,
-                    linewidth=riverwidth,
-                    capstyle="projecting",
-                )
-                drawpaths(
-                    sheet,
-                    _terrain[sheet]["wideseapaths"],
-                    linecolor=watercolor,
-                    linewidth=wideriverwidth,
-                    capstyle="projecting",
-                )
-
-            for x in range(0, _nxsheetgrid * _dxsheet + 5):
-                for y in range(0, _nysheetgrid * _dysheet + 5):
-                    if x % 2 == 1:
+        for sheet in sheetsnearcanvas():
+            xmin, ymin, xmax, ymax = sheetlimits(sheet)
+            for ix in range(0, _dxsheet):
+                for iy in range(0, _dysheet):
+                    x = xmin + ix
+                    y = ymin + iy
+                    if ix % 2 == 1:
                         y -= 0.5
-                    if (x % 10 == 0 and y % 5 == 0) or (x % 10 == 5 and y % 5 == 2.5):
+                    if (x % 10 == 0 and y % 5 == 0) or (
+                        x % 10 == 5 and y % 5 == 2.5
+                    ):
                         drawhex(
                             x,
                             y,
@@ -1061,196 +782,456 @@ def startdrawmap(
                             alpha=megahexalpha,
                         )
 
+    else:
 
-            # Draw the bridges.
-            for sheet in sheetsnearcanvas():
-                drawpaths(
-                    sheet,
-                    _terrain[sheet]["smallbridgepaths"],
-                    linecolor=urbanoutlinecolor,
-                    linewidth=bridgeouterwidth,
-                    capstyle="butt",
+        # Draw the sheets and level 0.
+
+        for sheet in sheetsnearcanvas():
+            xmin, ymin, xmax, ymax = sheetlimits(sheet)
+            base = _terrain[sheet]["base"]
+            if base == "water":
+                drawrectangle(
+                    xmin,
+                    ymin,
+                    xmax,
+                    ymax,
+                    linewidth=0,
+                    fillcolor=watercolor,
                 )
-                drawpaths(
-                    sheet,
-                    _terrain[sheet]["smallbridgepaths"],
-                    linecolor=urbancolor,
-                    linewidth=bridgeinnerwidth,
-                    capstyle="butt",
-                )
-                drawpaths(
-                    sheet,
-                    _terrain[sheet]["smallbridgepaths"],
-                    linecolor=roadcolor,
-                    linewidth=roadwidth,
-                    capstyle="projecting",
-                )
-                drawpaths(
-                    sheet,
-                    _terrain[sheet]["largebridgepaths"],
-                    linecolor=urbanoutlinecolor,
-                    linewidth=bridgeouterwidth,
-                    capstyle="butt",
-                )
-                drawpaths(
-                    sheet,
-                    _terrain[sheet]["largebridgepaths"],
-                    linecolor=urbancolor,
-                    linewidth=bridgeinnerwidth,
-                    capstyle="butt",
-                )
-                drawpaths(
-                    sheet,
-                    _terrain[sheet]["largebridgepaths"],
-                    linecolor=roadcolor,
-                    linewidth=roadwidth,
-                    capstyle="projecting",
+            else:
+                drawrectangle(
+                    xmin,
+                    ymin,
+                    xmax,
+                    ymax,
+                    linewidth=0,
+                    fillcolor=level0color,
                 )
 
+            # Draw levels 0, 1, and 2.
 
-            # Draw the trails. We assume they are at level 0.
+            drawhexes(
+                sheet,
+                _terrain[sheet]["level0hexes"],
+                linewidth=0,
+                fillcolor=level0color,
+            )
+            drawhexes(
+                sheet,
+                _terrain[sheet]["level1hexes"],
+                linewidth=0,
+                fillcolor=level1color,
+            )
+            drawhexes(
+                sheet,
+                _terrain[sheet]["level2hexes"],
+                linewidth=0,
+                fillcolor=level2color,
+            )
 
-            for sheet in sheetsnearcanvas():
-                drawpaths(
-                    sheet,
-                    _terrain[sheet]["trailpaths"],
-                    linecolor=roadoutlinecolor,
-                    linewidth=roadwidth + roadoutlinewidth,
-                    capstyle="projecting",
-                    linestyle=(0, (1, 1)),
+            drawpaths(
+                sheet,
+                _terrain[sheet]["tunnelpaths"],
+                linecolor=roadoutlinecolor,
+                linewidth=tunnelouterwidth,
+                linestyle=(0, (0.3, 0.3)),
+            )
+            drawpaths(
+                sheet,
+                _terrain[sheet]["tunnelpaths"],
+                linecolor=level1color,
+                linewidth=tunnelinnerwidth,
+            )
+
+            # Draw the ridges.
+
+            drawpaths(
+                sheet,
+                _terrain[sheet]["level0ridgepaths"],
+                linecolor=level0ridgecolor,
+                linewidth=ridgewidth,
+            )
+            drawpaths(
+                sheet,
+                _terrain[sheet]["level1ridgepaths"],
+                linecolor=level1ridgecolor,
+                linewidth=ridgewidth,
+            )
+            drawpaths(
+                sheet,
+                _terrain[sheet]["level2ridgepaths"],
+                linecolor=level2ridgecolor,
+                linewidth=ridgewidth,
+            )
+
+            # Draw the forest areas.
+
+            if _allforest:
+
+                drawrectangle(
+                    xmin,
+                    ymin,
+                    xmax,
+                    ymax,
+                    hatch=foresthatch,
+                    linecolor=forestcolor,
+                    alpha=forestalpha,
+                    linewidth=0,
+                    fillcolor=None,
                 )
-            for sheet in sheetsnearcanvas():
-                drawpaths(
+                    
+            else:
+
+                drawhexes(
                     sheet,
-                    _terrain[sheet]["trailpaths"],
-                    linecolor=level0color,
-                    linewidth=roadwidth,
-                    capstyle="projecting",
+                    _terrain[sheet]["foresthexes"],
+                    hatch=foresthatch,
+                    linecolor=forestcolor,
+                    alpha=forestalpha,
+                    linewidth=0,
+                    fillcolor=None,
                 )
 
-            # Draw the roads.
+            # Draw the road clearings.
 
-            for sheet in sheetsnearcanvas():
-                drawpaths(
-                    sheet,
-                    _terrain[sheet]["roadpaths"],
-                    linecolor=roadoutlinecolor,
-                    linewidth=roadwidth + roadoutlinewidth,
-                    capstyle="projecting",
-                )
-            for sheet in sheetsnearcanvas():
-                drawpaths(
-                    sheet,
-                    _terrain[sheet]["roadpaths"],
-                    linecolor=roadcolor,
-                    linewidth=roadwidth,
-                    capstyle="projecting",
-                )
+            drawpaths(
+                sheet,
+                _terrain[sheet]["clearingpaths"],
+                linecolor=level0color,
+                linewidth=clearingwidth,
+            )
 
-            # Draw the docks.
-            for sheet in sheetsnearcanvas():
-                drawpaths(
-                    sheet,
-                    _terrain[sheet]["dockpaths"],
-                    linecolor=dockoutlinecolor,
-                    linewidth=dockwidth + dockoutlinewidth,
-                    capstyle="projecting",
-                )
-            for sheet in sheetsnearcanvas():
-                drawpaths(
-                    sheet,
-                    _terrain[sheet]["dockpaths"],
-                    linecolor=dockcolor,
-                    linewidth=dockwidth,
-                    capstyle="projecting",
-                )
+            # Draw the urban areas.
 
-        # Draw the runways and taxiways.
+            if _allforest:
+                for townhex in _terrain[sheet]["townhexes"]:
+                    if townhex in _terrain[sheet]["level2hexes"]:
+                        drawhexes(
+                            sheet,
+                            [townhex],
+                            linewidth=0,
+                            fillcolor=level2color,
+                        )
+                    elif townhex in _terrain[sheet]["level1hexes"]:
+                        drawhexes(
+                            sheet,
+                            [townhex],
+                            linewidth=0,
+                            fillcolor=level1color,
+                        )
+                    else:
+                        drawhexes(
+                            sheet,
+                            [townhex],
+                            linewidth=0,
+                            fillcolor=level0color,
+                        )
+            drawhexes(
+                sheet,
+                _terrain[sheet]["townhexes"],
+                linewidth=0,
+                fillcolor=None,
+                linecolor=urbanoutlinecolor,
+                hatch=townhatch,
+            )
+
+            drawhexes(
+                sheet,
+                _terrain[sheet]["cityhexes"],
+                linewidth=0,
+                fillcolor=urbancolor,
+                linecolor=urbanoutlinecolor,
+                hatch=cityhatch,
+            )
+
+        # Draw water and rivers.
+
+        for sheet in sheetsnearcanvas():
+            drawhexes(
+                sheet,
+                _terrain[sheet]["lakehexes"],
+                fillcolor=watercolor,
+                linecolor=wateroutlinecolor,
+                linewidth=waterourlinewidth,
+            )
+            drawpaths(
+                sheet,
+                _terrain[sheet]["riverpaths"],
+                linecolor=wateroutlinecolor,
+                linewidth=riverwidth + waterourlinewidth,
+                capstyle="projecting",
+            )
+            drawpaths(
+                sheet,
+                _terrain[sheet]["wideriverpaths"],
+                linecolor=wateroutlinecolor,
+                linewidth=wideriverwidth + waterourlinewidth,
+                capstyle="projecting",
+            )
+        for sheet in sheetsnearcanvas():
+            drawhexes(
+                sheet,
+                _terrain[sheet]["lakehexes"],
+                fillcolor=watercolor,
+                linewidth=0,
+            )
+            drawpaths(
+                sheet,
+                _terrain[sheet]["riverpaths"],
+                linecolor=watercolor,
+                linewidth=riverwidth,
+                capstyle="projecting",
+            )
+            drawpaths(
+                sheet,
+                _terrain[sheet]["wideriverpaths"],
+                linecolor=watercolor,
+                linewidth=wideriverwidth,
+                capstyle="projecting",
+            )
+
+        for sheet in sheetsnearcanvas():
+            # Do not outline sea hexes.
+            drawpaths(
+                sheet,
+                _terrain[sheet]["seapaths"],
+                linecolor=wateroutlinecolor,
+                linewidth=riverwidth + waterourlinewidth,
+                capstyle="projecting",
+            )
+            drawpaths(
+                sheet,
+                _terrain[sheet]["wideseapaths"],
+                linecolor=wateroutlinecolor,
+                linewidth=wideriverwidth + waterourlinewidth,
+                capstyle="projecting",
+            )
+        for sheet in sheetsnearcanvas():
+            drawhexes(
+                sheet,
+                _terrain[sheet]["seahexes"],
+                linewidth=0,
+                fillcolor=watercolor,
+            )
+            drawpaths(
+                sheet,
+                _terrain[sheet]["seapaths"],
+                linecolor=watercolor,
+                linewidth=riverwidth,
+                capstyle="projecting",
+            )
+            drawpaths(
+                sheet,
+                _terrain[sheet]["wideseapaths"],
+                linecolor=watercolor,
+                linewidth=wideriverwidth,
+                capstyle="projecting",
+            )
+
+        for x in range(0, _nxsheetgrid * _dxsheet + 5):
+            for y in range(0, _nysheetgrid * _dysheet + 5):
+                if x % 2 == 1:
+                    y -= 0.5
+                if (x % 10 == 0 and y % 5 == 0) or (x % 10 == 5 and y % 5 == 2.5):
+                    drawhex(
+                        x,
+                        y,
+                        size=5,
+                        linecolor=megahexcolor,
+                        linewidth=megahexwidth,
+                        alpha=megahexalpha,
+                    )
+
+
+        # Draw the bridges.
+        for sheet in sheetsnearcanvas():
+            drawpaths(
+                sheet,
+                _terrain[sheet]["smallbridgepaths"],
+                linecolor=urbanoutlinecolor,
+                linewidth=bridgeouterwidth,
+                capstyle="butt",
+            )
+            drawpaths(
+                sheet,
+                _terrain[sheet]["smallbridgepaths"],
+                linecolor=urbancolor,
+                linewidth=bridgeinnerwidth,
+                capstyle="butt",
+            )
+            drawpaths(
+                sheet,
+                _terrain[sheet]["smallbridgepaths"],
+                linecolor=roadcolor,
+                linewidth=roadwidth,
+                capstyle="projecting",
+            )
+            drawpaths(
+                sheet,
+                _terrain[sheet]["largebridgepaths"],
+                linecolor=urbanoutlinecolor,
+                linewidth=bridgeouterwidth,
+                capstyle="butt",
+            )
+            drawpaths(
+                sheet,
+                _terrain[sheet]["largebridgepaths"],
+                linecolor=urbancolor,
+                linewidth=bridgeinnerwidth,
+                capstyle="butt",
+            )
+            drawpaths(
+                sheet,
+                _terrain[sheet]["largebridgepaths"],
+                linecolor=roadcolor,
+                linewidth=roadwidth,
+                capstyle="projecting",
+            )
+
+
+        # Draw the trails. We assume they are at level 0.
 
         for sheet in sheetsnearcanvas():
             drawpaths(
                 sheet,
-                _terrain[sheet]["runwaypaths"],
+                _terrain[sheet]["trailpaths"],
                 linecolor=roadoutlinecolor,
-                linewidth=runwaywidth + roadoutlinewidth,
+                linewidth=roadwidth + roadoutlinewidth,
                 capstyle="projecting",
+                linestyle=(0, (1, 1)),
             )
+        for sheet in sheetsnearcanvas():
             drawpaths(
                 sheet,
-                _terrain[sheet]["taxiwaypaths"],
-                linecolor=roadoutlinecolor,
-                linewidth=taxiwaywidth + roadoutlinewidth,
-                joinstyle="miter",
-                capstyle="projecting",
-            )
-            drawpaths(
-                sheet,
-                _terrain[sheet]["runwaypaths"],
-                linecolor=roadcolor,
-                linewidth=runwaywidth,
-                capstyle="projecting",
-            )
-            drawpaths(
-                sheet,
-                _terrain[sheet]["taxiwaypaths"],
-                linecolor=roadcolor,
-                linewidth=taxiwaywidth,
-                joinstyle="miter",
+                _terrain[sheet]["trailpaths"],
+                linecolor=level0color,
+                linewidth=roadwidth,
                 capstyle="projecting",
             )
 
-        # Draw the dams.
+        # Draw the roads.
 
         for sheet in sheetsnearcanvas():
             drawpaths(
                 sheet,
-                _terrain[sheet]["dampaths"],
+                _terrain[sheet]["roadpaths"],
                 linecolor=roadoutlinecolor,
-                linewidth=damwidth + roadoutlinewidth,
+                linewidth=roadwidth + roadoutlinewidth,
                 capstyle="projecting",
             )
+        for sheet in sheetsnearcanvas():
             drawpaths(
                 sheet,
-                _terrain[sheet]["dampaths"],
+                _terrain[sheet]["roadpaths"],
                 linecolor=roadcolor,
-                linewidth=damwidth,
+                linewidth=roadwidth,
                 capstyle="projecting",
             )
 
-        # Draw the border.
+        # Draw the docks.
+        for sheet in sheetsnearcanvas():
+            drawpaths(
+                sheet,
+                _terrain[sheet]["dockpaths"],
+                linecolor=dockoutlinecolor,
+                linewidth=dockwidth + dockoutlinewidth,
+                capstyle="projecting",
+            )
+        for sheet in sheetsnearcanvas():
+            drawpaths(
+                sheet,
+                _terrain[sheet]["dockpaths"],
+                linecolor=dockcolor,
+                linewidth=dockwidth,
+                capstyle="projecting",
+            )
 
-        drawrectangle(
-            _xmin,
-            _ymin,
-            _xmax,
-            _ymin + borderwidth,
-            fillcolor=bordercolor,
-            linecolor=None,
+    # Draw the runways and taxiways.
+
+    for sheet in sheetsnearcanvas():
+        drawpaths(
+            sheet,
+            _terrain[sheet]["runwaypaths"],
+            linecolor=roadoutlinecolor,
+            linewidth=runwaywidth + roadoutlinewidth,
+            capstyle="projecting",
         )
-        drawrectangle(
-            _xmin,
-            _ymax - borderwidth,
-            _xmax,
-            _ymax,
-            fillcolor=bordercolor,
-            linecolor=None,
+        drawpaths(
+            sheet,
+            _terrain[sheet]["taxiwaypaths"],
+            linecolor=roadoutlinecolor,
+            linewidth=taxiwaywidth + roadoutlinewidth,
+            joinstyle="miter",
+            capstyle="projecting",
         )
-        drawrectangle(
-            _xmin,
-            _ymin,
-            _xmin + borderwidth,
-            _ymax,
-            fillcolor=bordercolor,
-            linecolor=None,
+        drawpaths(
+            sheet,
+            _terrain[sheet]["runwaypaths"],
+            linecolor=roadcolor,
+            linewidth=runwaywidth,
+            capstyle="projecting",
         )
-        drawrectangle(
-            _xmax - borderwidth,
-            _ymin,
-            _xmax,
-            _ymax,
-            fillcolor=bordercolor,
-            linecolor=None,
+        drawpaths(
+            sheet,
+            _terrain[sheet]["taxiwaypaths"],
+            linecolor=roadcolor,
+            linewidth=taxiwaywidth,
+            joinstyle="miter",
+            capstyle="projecting",
         )
+
+    # Draw the dams.
+
+    for sheet in sheetsnearcanvas():
+        drawpaths(
+            sheet,
+            _terrain[sheet]["dampaths"],
+            linecolor=roadoutlinecolor,
+            linewidth=damwidth + roadoutlinewidth,
+            capstyle="projecting",
+        )
+        drawpaths(
+            sheet,
+            _terrain[sheet]["dampaths"],
+            linecolor=roadcolor,
+            linewidth=damwidth,
+            capstyle="projecting",
+        )
+
+    # Draw the border.
+
+    drawrectangle(
+        _xmin,
+        _ymin,
+        _xmax,
+        _ymin + borderwidth,
+        fillcolor=bordercolor,
+        linecolor=None,
+    )
+    drawrectangle(
+        _xmin,
+        _ymax - borderwidth,
+        _xmax,
+        _ymax,
+        fillcolor=bordercolor,
+        linecolor=None,
+    )
+    drawrectangle(
+        _xmin,
+        _ymin,
+        _xmin + borderwidth,
+        _ymax,
+        fillcolor=bordercolor,
+        linecolor=None,
+    )
+    drawrectangle(
+        _xmax - borderwidth,
+        _ymin,
+        _xmax,
+        _ymax,
+        fillcolor=bordercolor,
+        linecolor=None,
+    )
 
     # Draw and label the hexes.
     for sheet in sheetsnearcanvas():
@@ -1277,43 +1258,40 @@ def startdrawmap(
                         alpha=hexalpha,
                         linewidth=hexwidth,
                     )
-                    if _drawlabels:
-                        label = aphexcode.tolabel(aphexcode.fromxy(x, y))
-                        drawhexlabel(
-                            x, y, label, color=hexcolor, alpha=hexalpha
-                        )
+                    label = aphexcode.tolabel(aphexcode.fromxy(x, y))
+                    drawhexlabel(
+                        x, y, label, color=hexcolor, alpha=hexalpha
+                    )
 
-    if _drawlabels:
+    # Label the sheets.
+    for sheet in sheetsnearcanvas():
+        xmin, ymin, xmax, ymax = sheetlimits(sheet)
+        dx = 1.0
+        dy = 0.5
+        if isonmap(xmin + dx, ymin + dy):
+            drawtext(
+                xmin + dx,
+                ymin + dy,
+                90,
+                sheet,
+                dy=-0.05,
+                size=24,
+                color=labelcolor,
+                alpha=1,
+            )
 
-        # Label the sheets.
-        for sheet in sheetsnearcanvas():
-            xmin, ymin, xmax, ymax = sheetlimits(sheet)
-            dx = 1.0
-            dy = 0.5
-            if isonmap(xmin + dx, ymin + dy):
-                drawtext(
-                    xmin + dx,
-                    ymin + dy,
-                    90,
-                    sheet,
-                    dy=-0.05,
-                    size=24,
-                    color=labelcolor,
-                    alpha=1,
-                )
-
-        # Draw the compass rose in the lower left corner of the canvas.
-        compassx = math.ceil(canvasxmin + 1)
-        compassy = math.ceil(canvasymin + 1)
-        if compassx % 2 == 1:
-            compassy += 0.5
-        drawcompass(
-            compassx,
-            compassy,
-            apazimuth.tofacing("N"),
-            color=labelcolor,
-            alpha=1,
-        )
+    # Draw the compass rose in the lower left corner of the canvas.
+    compassx = math.ceil(canvasxmin + 1)
+    compassy = math.ceil(canvasymin + 1)
+    if compassx % 2 == 1:
+        compassy += 0.5
+    drawcompass(
+        compassx,
+        compassy,
+        apazimuth.tofacing("N"),
+        color=labelcolor,
+        alpha=1,
+    )
 
     # Draw missing sheets.
     for iy in range(0, _nysheetgrid):
