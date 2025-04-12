@@ -809,21 +809,6 @@ def startdrawmap(
                         fillcolor=level0color,
                         zorder=0,
                     )
-                    if _allforest:
-                        apdraw.drawrectangle(
-                            xmin,
-                            ymin,
-                            xmax,
-                            ymax,
-                            hatch=foresthatch,
-                            linecolor=forestcolor,
-                            alpha=forestalpha,
-                            linewidth=0,
-                            fillcolor=None,
-                            zorder=0,
-                        )
-
-            for sheet in sheetsnearcanvas():
 
                 # Draw levels 0, 1, and 2.
 
@@ -881,42 +866,34 @@ def startdrawmap(
                     linewidth=ridgewidth,
                 )
 
+                # Draw the forest areas.
+
                 if _allforest:
 
-                    drawhexes(
-                        sheet,
-                        _terrain[sheet]["level0hexes"],
-                        linewidth=0,
-                        linecolor=forestcolor,
+                    apdraw.drawrectangle(
+                        xmin,
+                        ymin,
+                        xmax,
+                        ymax,
                         hatch=foresthatch,
-                        alpha=forestalpha,
-                    )
-                    drawhexes(
-                        sheet,
-                        _terrain[sheet]["level1hexes"],
-                        linewidth=0,
                         linecolor=forestcolor,
-                        hatch=foresthatch,
                         alpha=forestalpha,
-                    )
-                    drawhexes(
-                        sheet,
-                        _terrain[sheet]["level2hexes"],
                         linewidth=0,
-                        linecolor=forestcolor,
-                        hatch=foresthatch,
-                        alpha=forestalpha,
+                        fillcolor=None,
+                        zorder=0,
                     )
+                        
+                else:
 
-                # Draw the forest areas.
-                drawhexes(
-                    sheet,
-                    _terrain[sheet]["foresthexes"],
-                    linewidth=0,
-                    linecolor=forestcolor,
-                    hatch=foresthatch,
-                    alpha=forestalpha,
-                )
+                    drawhexes(
+                        sheet,
+                        _terrain[sheet]["foresthexes"],
+                        hatch=foresthatch,
+                        linecolor=forestcolor,
+                        alpha=forestalpha,
+                        linewidth=0,
+                        fillcolor=None,
+                    )
 
                 # Draw the road clearings.
 
