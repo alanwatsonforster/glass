@@ -154,7 +154,6 @@ def setmap(
     wilderness=None,
     forest=None,
     freshwater=None,
-    allforest=None,
     maxurbansize=None,
     leveloffset=0,
     levelincrement=1,
@@ -233,7 +232,7 @@ def setmap(
     global _saved
     _saved = False
 
-    global _forest, _allforest, _freshwater, _wilderness, _maxurbansize
+    global _forest, _freshwater, _wilderness, _maxurbansize
 
     global level0color, level1color, level2color, level3color
     global level0ridgecolor, level1ridgecolor, level2ridgecolor
@@ -259,7 +258,7 @@ def setmap(
 
     # Defaults
 
-    _allforest = False
+    allforest = False
     _forest = True
     _maxurbansize = 5
     _freshwater = True
@@ -333,7 +332,7 @@ def setmap(
             _maxurbansize = 0
             _frozen = True
             if style == "winterborealforest":
-                _allforest = True
+                allforest = True
                 megahexcolor = forestcolor
                 megahexalpha = 0.07
 
@@ -375,11 +374,11 @@ def setmap(
             megahexalpha = 0.08
 
             if style == "tropicalforest" or style == "temperateforest":
-                _allforest = True
+                allforest = True
                 _wilderness = False
                 _maxurbansize = 4
             elif style == "summerborealforest":
-                _allforest = True
+                allforest = True
                 _wilderness = True
                 _maxurbansize = 0
             elif style == "summertundra":
@@ -437,8 +436,6 @@ def setmap(
 
         labelcolor = urbanoutlinecolor
 
-    if allforest != None:
-        _allforest = allforest
     if forest != None:
         _forest = forest
     if wilderness != None:
@@ -448,7 +445,7 @@ def setmap(
     if maxurbansize != None:
         _maxurbansize = maxurbansize
 
-    if _allforest:
+    if allforest:
         hexcolor = darken(hexcolor, 0.7)
     if _frozen:
         forestalpha += 0.20
@@ -486,7 +483,7 @@ def setmap(
                 _sheetlist.append(sheet)
                 _loweredgeonmap.update({sheet: sheetbelow(iy, ix) != ""})
                 _rightedgeonmap.update({sheet: sheettoright(iy, ix) != ""})
-                _terrain[sheet] = _getterrain(sheet, inverted, _wilderness, leveloffset, _freshwater, allwater, _allforest, _forest)
+                _terrain[sheet] = _getterrain(sheet, inverted, _wilderness, leveloffset, _freshwater, allwater, allforest, _forest)
 
 
 ################################################################################
@@ -565,7 +562,9 @@ def _getterrain(sheet, inverted, wilderness, leveloffset, freshwater, allwater, 
         terrain["runwaypaths"] = []
         terrain["taxiwaypaths"] = []
 
-    if not forest or allforest or allwater:
+    if allforest:
+        terrain["foresthexes"] = "all"        
+    elif not forest or allwater:
         terrain["foresthexes"] = []
 
     return terrain
@@ -849,8 +848,7 @@ def startdrawmap(
 
         # Draw the forest areas.
 
-        if _allforest:
-
+        if _terrain[sheet]["foresthexes"] == "all":
             drawrectangle(
                 xmin,
                 ymin,
@@ -862,31 +860,6 @@ def startdrawmap(
                 linewidth=0,
                 fillcolor=None,
             )
-                
-        else:
-
-            drawhexes(
-                sheet,
-                _terrain[sheet]["foresthexes"],
-                hatch=foresthatch,
-                linecolor=forestcolor,
-                alpha=forestalpha,
-                linewidth=0,
-                fillcolor=None,
-            )
-
-        # Draw the road clearings.
-
-        drawpaths(
-            sheet,
-            _terrain[sheet]["clearingpaths"],
-            linecolor=level0color,
-            linewidth=clearingwidth,
-        )
-
-        # Draw the urban areas.
-
-        if _allforest:
             for townhex in _terrain[sheet]["townhexes"]:
                 if townhex in _terrain[sheet]["level2hexes"]:
                     drawhexes(
@@ -909,6 +882,28 @@ def startdrawmap(
                         linewidth=0,
                         fillcolor=level0color,
                     )
+        else:
+            drawhexes(
+                sheet,
+                _terrain[sheet]["foresthexes"],
+                hatch=foresthatch,
+                linecolor=forestcolor,
+                alpha=forestalpha,
+                linewidth=0,
+                fillcolor=None,
+            )
+
+        # Draw the road clearings.
+
+        drawpaths(
+            sheet,
+            _terrain[sheet]["clearingpaths"],
+            linecolor=level0color,
+            linewidth=clearingwidth,
+        )
+
+        # Draw the urban areas.
+
         drawhexes(
             sheet,
             _terrain[sheet]["townhexes"],
