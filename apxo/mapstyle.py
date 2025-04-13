@@ -310,9 +310,9 @@ _setforest(_thisstyle, False)
 
 ################################################################################
 
-_thisstyle = _style["openwater"] = _basestyle.copy()
+_thisstyle = _style["airsuperiority"] = _style["airstrike"].copy()
 _setwater(_thisstyle, "all")
-watercolor = [0.77, 0.89, 0.95]
+watercolor = _thisstyle["watercolor"]
 _thisstyle.update(
     {
         "watercolor": watercolor,
@@ -325,7 +325,7 @@ _setwhitemegahexcolors(_thisstyle, 0.12)
 
 ################################################################################
 
-_style["airsuperiority"] = _style["openwater"].copy()
+_style["openwater"] = _style["airsuperiority"].copy()
 
 ################################################################################
 
