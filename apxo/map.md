@@ -234,7 +234,7 @@ The options for excluding or expanding elements are:
 
 This section describes and illustrates the fourteen map styles. Sheets A2, B1, and B2 are shown, with aircraft in map sheet B2 to illustrate their colors and the contrast with the map.
 
-The first four map styles — original, temperate, tropical, and arid — have all the map elements present on the original maps, but differ only in their color schemes. They can be used for any of the scenarios that make reference to map features. 
+The first four map styles — airstrike, temperate, tropical, and arid — have all the map elements present on the original maps, but differ only in their color schemes. They can be used for any of the scenarios that make reference to map features. 
 
 The next seven map styles — desert, temperate forest, tropical forest, summer tundra, winter tundra, summer boreal forest, and winter boreal forest — adapt the map sheets by removing or extending certain map elements. 
 
@@ -244,11 +244,11 @@ The final air superiority style can be used to convert any map sheet into a terr
 
 Beyond the comments above on the colors of higher terrain and rivers, there is much to criticize about these representations. For example, the representation of summer tundra lacks lakes. Nevertheless, this range of map styles is intended to shorten the leap of imagination between the game and reality. 
 
-#### Original Style
+#### Air Strike Style
 
 This is an adaptation of the original *Air Strike* map design. The terrain colors are light green, light brown, and medium brown. All terrain elements are included.
 
-<img src="../maps/map-sheets-A2B1B2-original.png" width="100%"/>
+<img src="../maps/map-sheets-A2B1B2-airstrike.png" width="100%"/>
 
 #### Temperate Style
 
@@ -258,7 +258,7 @@ This is intended to represent terrain in temperate zones. The terrain colors are
 
 #### Tropical Style
 
-This is intended to represent more verdant terrain in tropical zones. The terrain colors are three shades of medium green, and is darker than the temperate style. All terrain elements are included. This scheme is designed for the Vietnam scenarios in *The Speed of Heat*. 
+This is intended to represent more verdant terrain in tropical zones. The terrain colors are three shades of medium green, and are darker than the temperate style. All terrain elements are included. This scheme is designed for the Vietnam scenarios in *The Speed of Heat*. 
 
 <img src="../maps/map-sheets-A2B1B2-tropical.png" width="100%"/>
 

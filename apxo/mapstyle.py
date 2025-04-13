@@ -203,9 +203,9 @@ def _setmaxurbansize(style, value):
 
 ################################################################################
 
-_thisstyle = _style["original"] = _basestyle.copy()
+_thisstyle = _style["airstrike"] = _basestyle.copy()
 
-# The original colors don't fit into the scheme of increasingly darker
+# The Air Strike colors don't fit into the scheme of increasingly darker
 # shades of the same color, so are hard-wired.
 _thisstyle.update(
     {

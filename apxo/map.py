@@ -158,7 +158,7 @@ def usingfirstgenerationsheets():
 def setmap(
     sheetgrid,
     dotsperhex=80,
-    style="original",
+    style="airstrike",
     leveloffset=0,
     levelincrement=1,
     rotation=0,
