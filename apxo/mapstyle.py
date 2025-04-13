@@ -309,7 +309,7 @@ _setmaxurbansize(_thisstyle, 4)
 ################################################################################
 
 _thisstyle = _style["arid"] = _style["temperate"].copy()
-_setlandcolors(_thisstyle, [0.78, 0.76, 0.67], [1 / 3, 2 / 3, 3 / 3, 4 / 3])
+_setlandcolors(_thisstyle, [0.80, 0.76, 0.64], [1 / 3, 2 / 3, 3 / 3, 4 / 3])
 _setforestcolors(_thisstyle, 1.0)
 _setwatercolors(_thisstyle)
 _setgraybuiltcolors(_thisstyle)
