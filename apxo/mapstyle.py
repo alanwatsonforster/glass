@@ -1,15 +1,4 @@
-def lighten(color, f):
-    return list((1 - f) + f * x for x in color)
-
-
-def darken(color, f):
-    return list(min(1, f * x) for x in color)
-
-
-def equivalentgray(color):
-    x = 0.30 * color[0] + 0.59 * color[1] + 0.11 * color[2]
-    return [x, x, x]
-
+################################################################################
 
 _style = {}
 
@@ -55,6 +44,23 @@ _basestyle = {
     "forestalpha": 1,
 }
 
+
+################################################################################
+
+
+def lighten(color, f):
+    return list((1 - f) + f * x for x in color)
+
+
+def darken(color, f):
+    return list(min(1, f * x) for x in color)
+
+
+def equivalentgray(color):
+    x = 0.30 * color[0] + 0.59 * color[1] + 0.11 * color[2]
+    return [x, x, x]
+
+
 ################################################################################
 
 
@@ -96,12 +102,13 @@ def _setwatercolors(style):
     )
 
 
-def _setfrozenwatercolors(style):
-    level0color = style["level0color"]
+def _setforestcolors(style, factor, alpha=0.5):
+    forestcolor = darken([0.50, 0.65, 0.50], factor)
+    forestalpha = alpha
     style.update(
         {
-            "watercolor": level0color,
-            "wateroutlinecolor": level0color,
+            "forestcolor": forestcolor,
+            "forestalpha": forestalpha,
         }
     )
 
@@ -139,17 +146,6 @@ def _setgrayhexcolors(style, allforest=False):
     )
 
 
-def _setforestcolors(style, factor, alpha=0.5):
-    forestcolor = darken([0.50, 0.65, 0.50], factor)
-    forestalpha = alpha
-    style.update(
-        {
-            "forestcolor": forestcolor,
-            "forestalpha": forestalpha,
-        }
-    )
-
-
 def _setwhitemegahexcolors(style, alpha):
     megahexcolor = [1.00, 1.00, 1.00]
     megahexalpha = alpha
@@ -172,22 +168,11 @@ def _setgraymegahexcolors(style, alpha):
     )
 
 
-def _setforestmegahexcolors(style, alpha):
-    megahexcolor = [0.50, 0.65, 0.50]
-    megahexalpha = alpha
-    style.update(
-        {
-            "megahexcolor": megahexcolor,
-            "megahexalpha": megahexalpha,
-        }
-    )
-
-
 def _setforest(style, value=True):
     style.update({"forest": value})
     if value == "all":
         _setgrayhexcolors(style, allforest=True)
-        _setwhitemegahexcolors(_thisstyle, 0.12)
+
 
 def _setwilderness(style, value=True):
     style.update({"wilderness": value})
@@ -196,18 +181,29 @@ def _setwilderness(style, value=True):
 def _setwater(style, value=True):
     style.update({"water": value})
 
+
 def _setmaxurbansize(style, value):
     style.update({"maxurbansize": value})
 
+
 def _setsnowycolors(style):
     _setlandcolors(style, [0.85, 0.85, 0.85], [1 / 20, 1 / 2, 2 / 2, 3 / 2])
-    #_setgrayhexcolors(_thisstyle)
     if style["forest"] == "all":
         _setforestcolors(style, 1.0, 0.7)
-        _setforestmegahexcolors(style, 0.07)
-        _setgraymegahexcolors(_thisstyle, 0.04)
+        _setgraymegahexcolors(style, 0.04)
     else:
-        _setgraymegahexcolors(_thisstyle, 0.02)
+        _setgraymegahexcolors(style, 0.02)
+
+
+def _setfrozencolors(style):
+    level0color = style["level0color"]
+    style.update(
+        {
+            "watercolor": level0color,
+            "wateroutlinecolor": level0color,
+        }
+    )
+
 
 ################################################################################
 
@@ -231,12 +227,26 @@ _thisstyle.update(
     }
 )
 
-_setwhitemegahexcolors(_thisstyle, 0.08)
 _setforestcolors(_thisstyle, 0.8)
 _setwatercolors(_thisstyle)
 _setgraybuiltcolors(_thisstyle)
 _setgrayhexcolors(_thisstyle)
-_setwhitemegahexcolors(_thisstyle, 0.08)
+_setwhitemegahexcolors(_thisstyle, 0.10)
+
+################################################################################
+
+_thisstyle = _style["airsuperiority"] = _style["airstrike"].copy()
+_setwater(_thisstyle, "all")
+watercolor = _thisstyle["watercolor"]
+_thisstyle.update(
+    {
+        "watercolor": watercolor,
+        "hexcolor": darken(watercolor, 0.7),
+        "hexalpha": 1.0,
+        "labelcolor": darken(watercolor, 0.7),
+    }
+)
+_setwhitemegahexcolors(_thisstyle, 0.10)
 
 ################################################################################
 
@@ -247,7 +257,7 @@ _setforestcolors(_thisstyle, 0.8)
 _setwatercolors(_thisstyle)
 _setgraybuiltcolors(_thisstyle)
 _setgrayhexcolors(_thisstyle)
-_setwhitemegahexcolors(_thisstyle, 0.08)
+_setwhitemegahexcolors(_thisstyle, 0.10)
 
 ################################################################################
 
@@ -258,54 +268,27 @@ _setmaxurbansize(_thisstyle, 4)
 ################################################################################
 
 _thisstyle = _style["tundra"] = _style["temperate"].copy()
-_setwilderness(_thisstyle)
 _setforest(_thisstyle, False)
+_setwilderness(_thisstyle)
 
 ################################################################################
 
 _thisstyle = _style["borealforest"] = _style["temperate"].copy()
-_setwilderness(_thisstyle)
 _setforest(_thisstyle, "all")
+_setwilderness(_thisstyle)
 
 ################################################################################
 
-_thisstyle = _style["snowytemperate"] = _style["temperate"].copy()
-_setsnowycolors(_thisstyle)
+_thisstyle = _style["water"] = _style["temperate"].copy()
+_setwater(_thisstyle, "all")
 
 ################################################################################
 
-_thisstyle = _style["snowytemperateforest"] = _style["temperateforest"].copy()
-_setsnowycolors(_thisstyle)
-
-################################################################################
-
-_thisstyle = _style["snowytundra"] = _style["tundra"].copy()
-_setsnowycolors(_thisstyle)
-
-################################################################################
-
-_thisstyle = _style["snowyborealforest"] = _style["borealforest"].copy()
-_setsnowycolors(_thisstyle)
-
-################################################################################
-
-_thisstyle = _style["frozentemperate"] = _style["snowytemperate"].copy()
-_setfrozenwatercolors(_thisstyle)
-
-################################################################################
-
-_thisstyle = _style["frozentemperateforest"] = _style["snowytemperateforest"].copy()
-_setfrozenwatercolors(_thisstyle)
-
-################################################################################
-
-_thisstyle = _style["frozentundra"] = _style["snowytundra"].copy()
-_setfrozenwatercolors(_thisstyle)
-
-################################################################################
-
-_thisstyle = _style["frozenborealforest"] = _style["snowyborealforest"].copy()
-_setfrozenwatercolors(_thisstyle)
+for style in ["temperate", "temperateforest", "tundra", "borealforest", "water"]:
+    _thisstyle = _style["snowy" + style] = _style[style].copy()
+    _setsnowycolors(_thisstyle)
+    _thisstyle = _style["frozen" + style] = _style["snowy" + style].copy()
+    _setfrozencolors(_thisstyle)
 
 ################################################################################
 
@@ -315,6 +298,7 @@ _setforestcolors(_thisstyle, 0.6)
 _setwatercolors(_thisstyle)
 _setgraybuiltcolors(_thisstyle)
 _setgrayhexcolors(_thisstyle)
+_setwhitemegahexcolors(_thisstyle, 0.08)
 
 ################################################################################
 
@@ -339,34 +323,5 @@ _thisstyle = _style["desert"] = _style["arid"].copy()
 _setwilderness(_thisstyle)
 _setwater(_thisstyle, "desert")
 _setforest(_thisstyle, False)
-
-################################################################################
-
-_thisstyle = _style["airsuperiority"] = _style["airstrike"].copy()
-_setwater(_thisstyle, "all")
-watercolor = _thisstyle["watercolor"]
-_thisstyle.update(
-    {
-        "watercolor": watercolor,
-        "hexcolor": darken(watercolor, 0.7),
-        "hexalpha": 1.0,
-        "labelcolor": darken(watercolor, 0.7),
-    }
-)
-_setwhitemegahexcolors(_thisstyle, 0.12)
-
-################################################################################
-
-_style["openwater"] = _style["airsuperiority"].copy()
-
-################################################################################
-
-_thisstyle = _style["seaice"] = _style["openwater"].copy()
-_thisstyle["watercolor"] = _style["frozentundra"]["level0color"]
-_thisstyle["hexcolor"] = [0.70, 0.80, 0.90]
-_thisstyle["hexalpha"] = 1.0
-_thisstyle["megahexcolor"] = _thisstyle["hexcolor"]
-_thisstyle["megahexalpha"] = 0.025
-_thisstyle["labelcolor"] = _thisstyle["hexcolor"]
 
 ################################################################################
