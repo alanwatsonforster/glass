@@ -6,6 +6,7 @@ import apxo.azimuth as apazimuth
 import apxo.draw as apdraw
 import apxo.hex as aphex
 import apxo.hexcode as aphexcode
+import apxo.mapstyle as apmapstyle
 
 import json
 import math
@@ -82,6 +83,13 @@ waterourlinewidth = 2
 
 tunnelinnerwidth = roadwidth + 8
 tunnelouterwidth = tunnelinnerwidth + 6
+
+riverwidth = 14
+wideriverwidth = 35
+
+townhatch = "xx"
+cityhatch = "xx"
+foresthatch = ".o"
 
 borderwidth = 0.02
 
@@ -228,18 +236,6 @@ def setmap(
     global _saved
     _saved = False
 
-    global level0color, level1color, level2color, level3color
-    global level0ridgecolor, level1ridgecolor, level2ridgecolor
-    global forestcolor, forestalpha, foresthatch
-    global urbancolor, urbanalpha, urbanoutlinecolor, townhatch, cityhatch
-    global megahexcolor, megahexalpha
-    global roadcolor, roadoutlinecolor
-    global dockcolor, dockoutlinecolor
-    global watercolor, wateroutlinecolor
-    global riverwidth, wideriverwidth
-    global hexcolor, hexalpha
-    global labelcolor
-
     def lighten(color, f):
         return list((1 - f) + f * x for x in color)
 
@@ -252,188 +248,10 @@ def setmap(
 
     # Defaults
 
-    allforest = False
-    forest = True
-    maxurbansize = 5
-    freshwater = True
-    frozen = False
-    wilderness = False
-
-    riverwidth = 14
-    wideriverwidth = 35
-
-    townhatch = "xx"
-    cityhatch = "xx"
-    foresthatch = ".o"
-
-    level0color = None
-    level1color = None
-    level2color = None
-    level0ridgecolor = None
-    level1ridgecolor = None
-    level2ridgecolor = None
-    roadcolor = None
-    roadoutlinecolor = None
-    forestcolor = None
-    forestalpha = None
-    urbancolor = None
-    urbanoutlinecolor = None
-    wateroutlinecolor = None
-    dockcolor = None
-    dockoutlinecolor = None
-
-    if style == "airsuperiority" or style == "openwater":
-
-        allwater = True
-        watercolor = [0.77, 0.89, 0.95]
-
-        megahexcolor = [1.00, 1.00, 1.00]
-        megahexalpha = 0.12
-
-        hexcolor = darken(watercolor, 0.7)
-        hexalpha = 1.0
-        labelcolor = hexcolor
-
-    elif style == "seaice":
-
-        allwater = True
-        # This is the same color as level 0 of winter tundra below.
-        watercolor = lighten([0.85, 0.85, 0.85], 1 / 20)
-
-        hexcolor = [0.7, 0.80, 0.90]
-        hexalpha = 1.0
-        labelcolor = hexcolor
-
-        megahexcolor = hexcolor
-        megahexalpha = 0.025
-
-    else:
-
-        allwater = False
-        forestalpha = 0.5
-        forestcolor = [0.50, 0.65, 0.50]
-
-        if style == "wintertundra" or style == "winterborealforest":
-
-            basecolor = [0.85, 0.85, 0.85]
-            dilution = [1 / 20, 1 / 2, 2 / 2, 3 / 2]
-
-            megahexcolor = [0.00, 0.00, 0.00]
-            megahexalpha = 0.015
-
-            forest = False
-            wilderness = True
-            maxurbansize = 0
-            frozen = True
-            if style == "winterborealforest":
-                allforest = True
-                megahexcolor = forestcolor
-                megahexalpha = 0.07
-
-        elif style == "arid" or style == "desert":
-
-            basecolor = [0.78, 0.76, 0.67]
-            dilution = [1 / 3, 2 / 3, 3 / 3, 4 / 3]
-
-            megahexcolor = [1.00, 1.00, 1.00]
-            megahexalpha = 0.22
-
-            riverwidth = 9
-
-            if style == "desert":
-                wilderness = True
-                forest = False
-                freshwater = False
-                maxurbansize = 0
-
-        elif (
-            style == "tropical"
-            or style == "tropicalforest"
-            or style == "summerborealforest"
-            or style == "temperate"
-            or style == "temperateforest"
-            or style == "summertundra"
-            or style == "original"
-        ):
-
-            basecolor = [0.50, 0.70, 0.45]
-            if style == "tropical" or style == "tropicalforest":
-                dilution = [4 / 6, 5 / 6, 6 / 6, 7 / 6]
-                forestcolor = darken(forestcolor, 0.6)
-            else:
-                dilution = [3 / 6, 4 / 6, 5 / 6, 6 / 6]
-                forestcolor = darken(forestcolor, 0.8)
-
-            megahexcolor = [1.00, 1.00, 1.00]
-            megahexalpha = 0.08
-
-            if style == "tropicalforest" or style == "temperateforest":
-                allforest = True
-                wilderness = False
-                maxurbansize = 4
-            elif style == "summerborealforest":
-                allforest = True
-                wilderness = True
-                maxurbansize = 0
-            elif style == "summertundra":
-                forest = False
-                wilderness = True
-                maxurbansize = 0
-
-        else:
-
-            raise RuntimeError("invalid map style %r." % style)
-
-        level0color = lighten(basecolor, dilution[0])
-        level1color = lighten(basecolor, dilution[1])
-        level2color = lighten(basecolor, dilution[2])
-        level3color = lighten(basecolor, dilution[3])
-
-        level0ridgecolor = level1color
-        level1ridgecolor = level2color
-        level2ridgecolor = level3color
-
-        if style == "original":
-            # The original colors don't fit into the scheme of increasingly darker
-            # shades of the same color, so are hard wired.
-            level0color = [0.75, 0.85, 0.725]
-            level1color = [0.82, 0.75, 0.65]
-            level2color = [0.77, 0.65, 0.55]
-            level3color = [0.62, 0.52, 0.44]
-            # However, we take the level0 ridge color from the scheme of
-            # increasingly darker shades.
-            level0ridgecolor = lighten(basecolor, 4 / 6)
-            level1ridgecolor = level2color
-            level2ridgecolor = level3color
-
-        if frozen:
-            watercolor = lighten([0.85, 0.85, 0.85], 1 / 20)
-            wateroutlinecolor = watercolor
-        else:
-            watercolor = [0.77, 0.89, 0.95]
-            # Darken the water to 100% of the grey value of level 0. Do not lighten it.
-            watergrayvalue = equivalentgray(watercolor)[0]
-            targetgrayvalue = 1.00 * equivalentgray(level0color)[0]
-            if watergrayvalue > targetgrayvalue:
-                watercolor = darken(watercolor, targetgrayvalue / watergrayvalue)
-            wateroutlinecolor = darken(watercolor, 0.80)
-
-        urbancolor = equivalentgray(level0color)
-        urbanoutlinecolor = darken(urbancolor, 0.7)
-        roadcolor = urbancolor
-        roadoutlinecolor = urbanoutlinecolor
-        dockcolor = urbancolor
-        dockoutlinecolor = urbanoutlinecolor
-
-        hexcolor = urbanoutlinecolor
-        hexalpha = 1.0
-
-        labelcolor = urbanoutlinecolor
-
-    if allforest:
-        hexcolor = darken(hexcolor, 0.7)
-    if frozen:
-        forestalpha += 0.20
+    global _style
+    _style = apmapstyle.getstyle(style)
+    if _style == None:
+        raise RuntimeError("invalid style %r." % style)
 
     _rotation = rotation
 
@@ -468,13 +286,13 @@ def setmap(
                 _sheetlist.append(sheet)
                 _loweredgeonmap.update({sheet: sheetbelow(iy, ix) != ""})
                 _rightedgeonmap.update({sheet: sheettoright(iy, ix) != ""})
-                _terrain[sheet] = _getterrain(sheet, inverted, maxurbansize, wilderness, leveloffset, freshwater, allwater, allforest, forest)
+                _terrain[sheet] = _getterrain(sheet, inverted, leveloffset)
 
 
 ################################################################################
 
 
-def _getterrain(sheet, inverted, maxurbansize, wilderness, leveloffset, freshwater, allwater, allforest, forest):
+def _getterrain(sheet, inverted, leveloffset):
 
     filename = os.path.join(os.path.dirname(__file__), "mapsheetdata", sheet + ".json")
     with open(filename, "r", encoding="utf-8") as f:
@@ -482,7 +300,15 @@ def _getterrain(sheet, inverted, maxurbansize, wilderness, leveloffset, freshwat
         if inverted:
             terrain = _invertterrain(terrain)
 
-    if allwater:
+    wilderness = _style["wilderness"]
+    water = _style["water"]
+    forest = _style["forest"]
+    maxurbansize = _style["maxurbansize"]
+
+    if water == "all":
+        terrain["base"] = "water"
+        
+    if water == "all":
         terrain["level0hexes"] = []
         terrain["level0ridgepaths"] = []
         terrain["level1hexes"] = []
@@ -507,49 +333,56 @@ def _getterrain(sheet, inverted, maxurbansize, wilderness, leveloffset, freshwat
         terrain["level1ridgepaths"] = []
         terrain["level2ridgepaths"] = []
 
-    terrain["townhexes"] = []
-    if maxurbansize >= 1:
-        terrain["townhexes"] += terrain["town1hexes"]
-    if maxurbansize >= 2:
-        terrain["townhexes"] += terrain["town2hexes"]
-    if maxurbansize >= 3:
-        terrain["townhexes"] += terrain["town3hexes"]
-    if maxurbansize >= 4:
-        terrain["townhexes"] += terrain["town4hexes"]
-    if maxurbansize >= 5:
-        terrain["townhexes"] += terrain["town5hexes"]
-    else:
-        terrain["cityhexes"] = []
-
-    if allwater:
+    if wilderness or water == "all":
         terrain["townhexes"] = []
-        terrain["cityhexes"] = []
-        terrain["base"] = "water"
+    else:
+        terrain["townhexes"] = []
+        if maxurbansize >= 1:
+            terrain["townhexes"] += terrain["town1hexes"]
+        if maxurbansize >= 2:
+            terrain["townhexes"] += terrain["town2hexes"]
+        if maxurbansize >= 3:
+            terrain["townhexes"] += terrain["town3hexes"]
+        if maxurbansize >= 4:
+            terrain["townhexes"] += terrain["town4hexes"]
+        if maxurbansize >= 5:
+            terrain["townhexes"] += terrain["town5hexes"]
 
-    if wilderness or not freshwater or allwater:
+    if wilderness or water == "all" or maxurbansize < 5:
+        terrain["cityhexes"] = []
+
+    if wilderness or water == "desert" or water == "all":
         terrain["smallbridgepaths"] = []
         terrain["largebridgepaths"] = []
 
-    if not freshwater or allwater:
+    if water == "all" or wilderness:
         terrain["dampaths"] = []
+
+    global riverwidth
+    if water == "arid":
+        riverwidth = 9
+    else:
+        riverwidth = 14
+
+    if water == "desert" or water == "all":
         terrain["lakehexes"] = []
         terrain["riverpaths"] = []
         terrain["wideriverpaths"] = []
 
-    if wilderness or allwater:
+    if wilderness or water == "all":
         terrain["roadpaths"] = []
         terrain["trailpaths"] = []
         terrain["dockpaths"] = []
         terrain["tunnelpaths"] = []
         terrain["clearingpaths"] = []
 
-    if wilderness or allforest or allwater:
+    if wilderness or water == "all" or forest == "all":
         terrain["runwaypaths"] = []
         terrain["taxiwaypaths"] = []
 
-    if allforest:
+    if forest == "all":
         terrain["foresthexes"] = "all"        
-    elif not forest or allwater:
+    elif forest is False or water == "all":
         terrain["foresthexes"] = []
 
     return terrain
@@ -634,7 +467,29 @@ def startdrawmap(
     Draw the map.
     """
 
-    def drawhex(x, y, label=False, **kwargs):
+    level0color = _style["level0color"]
+    level1color = _style["level1color"]
+    level2color = _style["level2color"]
+    level0ridgecolor = _style["level0ridgecolor"]
+    level1ridgecolor = _style["level1ridgecolor"]
+    level2ridgecolor = _style["level2ridgecolor"]
+    forestcolor = _style["forestcolor"]
+    forestalpha = _style["forestalpha"]
+    urbancolor = _style["urbancolor"]
+    urbanoutlinecolor = _style["urbanoutlinecolor"]
+    megahexcolor = _style["megahexcolor"]
+    megahexalpha = _style["megahexalpha"]
+    roadcolor = _style["roadcolor"]
+    roadoutlinecolor = _style["roadoutlinecolor"]
+    dockcolor = _style["dockcolor"]
+    dockoutlinecolor = _style["dockoutlinecolor"]
+    watercolor = _style["watercolor"]
+    wateroutlinecolor = _style["wateroutlinecolor"]
+    hexcolor = _style["hexcolor"]
+    hexalpha = _style["hexalpha"]
+    labelcolor = _style["labelcolor"]   
+
+    def drawhex(x, y, label=False, **kwargs):  
         apdraw.drawhex(x, y, zorder=0, **kwargs)
 
     def drawhexlabel(x, y, label, **kwargs):
