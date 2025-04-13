@@ -200,6 +200,8 @@ def _setwater(style, value=True):
 def _setmaxurbansize(style, value):
     style.update({"maxurbansize": value})
 
+def _setwintercolors(style):
+    _setlandcolors(style, [0.85, 0.85, 0.85], [1 / 20, 1 / 2, 2 / 2, 3 / 2])
 
 ################################################################################
 
@@ -243,9 +245,19 @@ _setwhitemegahexcolors(_thisstyle, 0.08)
 
 ################################################################################
 
+_thisstyle = _style["wintertemperate"] = _style["temperate"].copy()
+_setwintercolors(_thisstyle)
+
+################################################################################
+
 _thisstyle = _style["temperateforest"] = _style["temperate"].copy()
 _setforest(_thisstyle, "all")
 _setmaxurbansize(_thisstyle, 4)
+
+################################################################################
+
+_thisstyle = _style["wintertemperateforest"] = _style["temperateforest"].copy()
+_setwintercolors(_thisstyle)
 
 ################################################################################
 
@@ -286,7 +298,7 @@ _setgraymegahexcolors(_thisstyle, 0.015)
 
 _thisstyle = _style["winterborealforest"] = _style["wintertundra"].copy()
 _setforest(_thisstyle, "all")
-_setlandcolors(_thisstyle, [0.85, 0.85, 0.85], [1 / 20, 1 / 2, 2 / 2, 3 / 2])
+_setwintercolors(_thisstyle)
 _setforestcolors(_thisstyle, 1.0, 0.7)
 _setforestmegahexcolors(_thisstyle, 0.07)
 
