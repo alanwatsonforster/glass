@@ -187,7 +187,7 @@ def _setforest(style, value=True):
     style.update({"forest": value})
     if value == "all":
         _setgrayhexcolors(style, allforest=True)
-
+        _setwhitemegahexcolors(_thisstyle, 0.12)
 
 def _setwilderness(style, value=True):
     style.update({"wilderness": value})
@@ -196,12 +196,18 @@ def _setwilderness(style, value=True):
 def _setwater(style, value=True):
     style.update({"water": value})
 
-
 def _setmaxurbansize(style, value):
     style.update({"maxurbansize": value})
 
 def _setsnowycolors(style):
     _setlandcolors(style, [0.85, 0.85, 0.85], [1 / 20, 1 / 2, 2 / 2, 3 / 2])
+    #_setgrayhexcolors(_thisstyle)
+    if style["forest"] == "all":
+        _setforestcolors(style, 1.0, 0.7)
+        _setforestmegahexcolors(style, 0.07)
+        _setgraymegahexcolors(_thisstyle, 0.04)
+    else:
+        _setgraymegahexcolors(_thisstyle, 0.02)
 
 ################################################################################
 
@@ -245,19 +251,9 @@ _setwhitemegahexcolors(_thisstyle, 0.08)
 
 ################################################################################
 
-_thisstyle = _style["snowytemperate"] = _style["temperate"].copy()
-_setsnowycolors(_thisstyle)
-
-################################################################################
-
 _thisstyle = _style["temperateforest"] = _style["temperate"].copy()
 _setforest(_thisstyle, "all")
 _setmaxurbansize(_thisstyle, 4)
-
-################################################################################
-
-_thisstyle = _style["snowytemperateforest"] = _style["temperateforest"].copy()
-_setsnowycolors(_thisstyle)
 
 ################################################################################
 
@@ -273,6 +269,46 @@ _setforest(_thisstyle, "all")
 
 ################################################################################
 
+_thisstyle = _style["snowytemperate"] = _style["temperate"].copy()
+_setsnowycolors(_thisstyle)
+
+################################################################################
+
+_thisstyle = _style["snowytemperateforest"] = _style["temperateforest"].copy()
+_setsnowycolors(_thisstyle)
+
+################################################################################
+
+_thisstyle = _style["snowytundra"] = _style["tundra"].copy()
+_setsnowycolors(_thisstyle)
+
+################################################################################
+
+_thisstyle = _style["snowyborealforest"] = _style["borealforest"].copy()
+_setsnowycolors(_thisstyle)
+
+################################################################################
+
+_thisstyle = _style["frozentemperate"] = _style["snowytemperate"].copy()
+_setfrozenwatercolors(_thisstyle)
+
+################################################################################
+
+_thisstyle = _style["frozentemperateforest"] = _style["snowytemperateforest"].copy()
+_setfrozenwatercolors(_thisstyle)
+
+################################################################################
+
+_thisstyle = _style["frozentundra"] = _style["snowytundra"].copy()
+_setfrozenwatercolors(_thisstyle)
+
+################################################################################
+
+_thisstyle = _style["frozenborealforest"] = _style["snowyborealforest"].copy()
+_setfrozenwatercolors(_thisstyle)
+
+################################################################################
+
 _thisstyle = _style["tropical"] = _style["temperate"].copy()
 _setlandcolors(_thisstyle, [0.50, 0.70, 0.45], [4 / 6, 5 / 6, 6 / 6, 7 / 6])
 _setforestcolors(_thisstyle, 0.6)
@@ -285,22 +321,6 @@ _setgrayhexcolors(_thisstyle)
 _thisstyle = _style["tropicalforest"] = _style["tropical"].copy()
 _setforest(_thisstyle, "all")
 _setmaxurbansize(_thisstyle, 4)
-
-################################################################################
-
-_thisstyle = _style["frozentundra"] = _style["tundra"].copy()
-_setlandcolors(_thisstyle, [0.85, 0.85, 0.85], [1 / 20, 1 / 2, 2 / 2, 3 / 2])
-_setfrozenwatercolors(_thisstyle)
-_setgrayhexcolors(_thisstyle)
-_setgraymegahexcolors(_thisstyle, 0.015)
-
-################################################################################
-
-_thisstyle = _style["frozenborealforest"] = _style["frozentundra"].copy()
-_setforest(_thisstyle, "all")
-_setsnowycolors(_thisstyle)
-_setforestcolors(_thisstyle, 1.0, 0.7)
-_setforestmegahexcolors(_thisstyle, 0.07)
 
 ################################################################################
 
