@@ -17,6 +17,7 @@ def getstyle(style):
 
 _basestyle = {
     "base": "land",
+    "leveloffset": 0,
     "wilderness": False,
     "water": "fresh",
     "forest": True,
@@ -205,6 +206,14 @@ def _setfrozencolors(style):
     )
 
 
+def _setleveloffset(style, leveloffset):
+    style.update(
+        {
+            "leveloffset": leveloffset,
+        }
+    )
+
+
 ################################################################################
 
 _thisstyle = _style["airstrike"] = _basestyle.copy()
@@ -323,5 +332,14 @@ _thisstyle = _style["desert"] = _style["arid"].copy()
 _setwilderness(_thisstyle)
 _setwater(_thisstyle, "desert")
 _setforest(_thisstyle, False)
+
+################################################################################
+
+for style in list(_style.keys()):
+    if _style[style]["water"] != "all":
+        _thisstyle = _style[style + "hills"] = _style[style].copy()
+        _setleveloffset(_thisstyle, -1)
+        _thisstyle = _style[style + "plain"] = _style[style].copy()
+        _setleveloffset(_thisstyle, -3)
 
 ################################################################################

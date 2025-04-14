@@ -159,7 +159,6 @@ def setmap(
     sheetgrid,
     dotsperhex=80,
     style="airstrike",
-    leveloffset=0,
     levelincrement=1,
     rotation=0,
 ):
@@ -256,8 +255,6 @@ def setmap(
     _rotation = rotation
 
     global _levelincrement
-    if leveloffset not in [0, -1, -2, -3]:
-        raise RuntimeError("invalid leveloffset %r." % leveloffset)
     _levelincrement = levelincrement
 
     def sheettoright(iy, ix):
@@ -286,13 +283,13 @@ def setmap(
                 _sheetlist.append(sheet)
                 _loweredgeonmap.update({sheet: sheetbelow(iy, ix) != ""})
                 _rightedgeonmap.update({sheet: sheettoright(iy, ix) != ""})
-                _terrain[sheet] = _getterrain(sheet, inverted, leveloffset)
+                _terrain[sheet] = _getterrain(sheet, inverted)
 
 
 ################################################################################
 
 
-def _getterrain(sheet, inverted, leveloffset):
+def _getterrain(sheet, inverted):
 
     filename = os.path.join(os.path.dirname(__file__), "mapsheetdata", sheet + ".json")
     with open(filename, "r", encoding="utf-8") as f:
@@ -304,6 +301,7 @@ def _getterrain(sheet, inverted, leveloffset):
     water = _style["water"]
     forest = _style["forest"]
     maxurbansize = _style["maxurbansize"]
+    leveloffset = _style["leveloffset"]
 
     if water == "all":
         terrain["base"] = "water"
@@ -373,8 +371,13 @@ def _getterrain(sheet, inverted, leveloffset):
         terrain["roadpaths"] = []
         terrain["trailpaths"] = []
         terrain["dockpaths"] = []
-        terrain["tunnelpaths"] = []
         terrain["clearingpaths"] = []
+
+    if wilderness or water == "all":
+        terrain["tunnelpaths"] = []
+    elif leveloffset != 0:
+        terrain["roadpaths"] += terrain["tunnelpaths"]
+        terrain["tunnelpaths"] = []
 
     if wilderness or water == "all" or forest == "all":
         terrain["runwaypaths"] = []
