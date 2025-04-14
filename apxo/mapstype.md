@@ -137,7 +137,7 @@ The `deserthills` style could represent desert, but with low relief.
 
 <img src="../maps/map-sheets-A2B1B2-deserthills.png" width="100%"/>
 
-The `tropicalplain` style could represent the area around Hanoi and other parts of the Red River Valley in scenarios V-12, V-13, V-14, V-15, V-19, V-21, V-24, and V-25 in *The Speed of Heat*.
+The `tropicalplain` style could represent the area around Hanoi and other parts of the Red River Valley in scenarios V-5, V-6, V-12, V-13, V-14, V-15, V-19, V-21, V-24, and V-25 in *The Speed of Heat*.
 
 <img src="../maps/map-sheets-A2B1B2-tropicalplain.png" width="100%"/>
 
