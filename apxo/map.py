@@ -319,19 +319,23 @@ def setmap(
                 _sheetlist.append(sheet)
                 _loweredgeonmap.update({sheet: sheetbelow(iy, ix) != ""})
                 _rightedgeonmap.update({sheet: sheettoright(iy, ix) != ""})
-                _terrain[sheet] = _getterrain(sheet, inverted)
+                terrain = _loadterrain(sheet)
+                if inverted:
+                    terrain = _invertterrain(terrain)
+                terrain = _styleterrain(terrain)
+                _terrain[sheet] = terrain
 
 
 ################################################################################
 
 
-def _getterrain(sheet, inverted):
-
+def _loadterrain(sheet):
     filename = os.path.join(os.path.dirname(__file__), "mapsheetdata", sheet + ".json")
     with open(filename, "r", encoding="utf-8") as f:
         terrain = json.load(f)
-        if inverted:
-            terrain = _invertterrain(terrain)
+    return terrain
+
+def _styleterrain(terrain):
 
     wilderness = _style["wilderness"]
     water = _style["water"]
