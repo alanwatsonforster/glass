@@ -189,6 +189,12 @@ def _setmaxurbansize(style, value):
 
 def _setsnowycolors(style):
     _setlandcolors(style, [0.85, 0.85, 0.85], [1 / 20, 1 / 2, 2 / 2, 3 / 2])
+    watercolor = (0.83, 0.89, 0.95)
+    style.update(
+        {
+            "watercolor": watercolor,
+        }
+    )
     if style["forest"] == "all":
         _setforestcolors(style, 1.0, 0.7)
         _setgraymegahexcolors(style, 0.04)
