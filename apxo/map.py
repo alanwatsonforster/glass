@@ -18,6 +18,11 @@ _writefiles = True
 
 
 def setwritefiles(value):
+    """
+    Set the flag for writing map files.
+
+    If the value argument is false, do not write map files. Otherwise, write the map files.
+    """
     global _writefiles
     _writefiles = value
 
@@ -26,6 +31,12 @@ _writefiletypes = ["png"]
 
 
 def setwritefiletypes(value):
+    """
+    Set the types of the map files.
+
+    The value argument must be a list of strings of the suffixes of supported map file types. 
+    Supported suffixes include "png and "pdf".
+    """
     global _writefiletypes
     _writefiletypes = value
 
@@ -34,6 +45,11 @@ _watermark = None
 
 
 def setwatermark(value):
+    """
+    Set the watermark  for maps.
+
+    The value argument must be a string.
+    """
     global _watermark
     _watermark = value
 
@@ -152,6 +168,9 @@ secondgenerationsheets = [
 
 
 def usingfirstgenerationsheets():
+    """
+    Return true if the map is using first-generation map sheets, otherwise return false.
+    """
     return _usingfirstgenerationsheets
 
 
@@ -163,8 +182,37 @@ def setmap(
     rotation=0,
 ):
     """
-    Set the arrangement of the sheets that form the map and the position of the
-    compass rose.
+    Set up the map.
+
+    The sheetgrid argument must be a 2D array of sheet specificiers. The sheets
+    are ordered top-to-bottom and left-to-right. All of the rows must be the
+    same length. Each sheet specifier must be a string consisting of a sheet
+    name optionally followed by "/i" if the sheet is inverted. No sheet name can
+    be used more than once and all sheets must be from the same generation.
+
+    The first-generation sheet names are: "A", "B", "C", ..., "Z".
+
+    The second-generation sheet names are: "A1", "A2, "A3, ..., "A6", "B1", ...,
+    "B6", "C1", ..., "C6", "D1", ..., "D6.
+
+    The dotsperhex argument must be an integer. It specifies the resolution of
+    pixelated output files in dots per hex (or more precisely dots between hex
+    centers).
+
+    The style argument must be a string corresponding to a style. It can be
+    "airstrike", "airsuperiority", or one of the following optionally prefixed
+    by "snowy" or "frozen" and optionally suffixed by "hills", "plain", or
+    "islands:  "water", "temperate", "temperateforest", "tundra",
+    "borealforest", "tropical", "tropicalforest", "arid", and "desert".
+
+    The levelincrement argument gives the number of altitude levels
+    corresponding to one terrain level. It must be a positive integer. For
+    example, if levelincrement is 1, then terrain levels 0, 1, and 2 correspond
+    to altitude levels 0, 1, and 2, but if levelincrement is 2, then they
+    correspond to altitude levels 0, 2, and 4.
+
+    The rotation parameter determines the rotation of the map with respect to
+    the normal orientation.
     """
 
     global _usingfirstgenerationsheets
@@ -504,7 +552,7 @@ def startdrawmap(
     compactstacks=True,
 ):
     """
-    Draw the map.
+    Start to draw the map.
     """
 
     level0color = _style["level0color"]
