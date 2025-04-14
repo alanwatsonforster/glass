@@ -301,14 +301,6 @@ _setwater(_thisstyle, "all")
 
 ################################################################################
 
-for style in ["temperate", "temperateforest", "tundra", "borealforest", "water"]:
-    _thisstyle = _style["snowy" + style] = _style[style].copy()
-    _setsnowycolors(_thisstyle)
-    _thisstyle = _style["frozen" + style] = _style["snowy" + style].copy()
-    _setfrozencolors(_thisstyle)
-
-################################################################################
-
 _thisstyle = _style["tropical"] = _style["temperate"].copy()
 _setlandcolors(_thisstyle, [0.50, 0.70, 0.45], [4 / 6, 5 / 6, 6 / 6, 7 / 6])
 _setforestcolors(_thisstyle, 0.6)
@@ -344,7 +336,16 @@ _setforest(_thisstyle, False)
 ################################################################################
 
 for style in list(_style.keys()):
-    if _style[style]["water"] != "all":
+    if style != "airsuperiority" and style != "airstrike":
+        _thisstyle = _style["snowy" + style] = _style[style].copy()
+        _setsnowycolors(_thisstyle)
+        _thisstyle = _style["frozen" + style] = _style["snowy" + style].copy()
+        _setfrozencolors(_thisstyle)
+
+################################################################################
+
+for style in list(_style.keys()):
+    if style != "airsuperiority" and style != "airstrike":
         _thisstyle = _style[style + "hills"] = _style[style].copy()
         _setleveloffset(_thisstyle, -1)
         _thisstyle = _style[style + "plain"] = _style[style].copy()
