@@ -235,18 +235,6 @@ def setmap(
     global _saved
     _saved = False
 
-    def lighten(color, f):
-        return list((1 - f) + f * x for x in color)
-
-    def darken(color, f):
-        return list(min(1, f * x) for x in color)
-
-    def equivalentgray(color):
-        x = 0.30 * color[0] + 0.59 * color[1] + 0.11 * color[2]
-        return [x, x, x]
-
-    # Defaults
-
     global _style
     _style = apmapstyle.getstyle(style)
     if _style == None:
