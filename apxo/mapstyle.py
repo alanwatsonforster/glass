@@ -214,6 +214,14 @@ def _setleveloffset(style, leveloffset):
     )
 
 
+def _setislands(style):
+    style.update(
+        {
+            "water": "islands",
+        }
+    )
+
+
 ################################################################################
 
 _thisstyle = _style["airstrike"] = _basestyle.copy()
@@ -341,5 +349,7 @@ for style in list(_style.keys()):
         _setleveloffset(_thisstyle, -1)
         _thisstyle = _style[style + "plain"] = _style[style].copy()
         _setleveloffset(_thisstyle, -3)
+        _thisstyle = _style[style + "islands"] = _style[style].copy()
+        _setislands(_thisstyle)
 
 ################################################################################

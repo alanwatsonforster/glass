@@ -303,7 +303,7 @@ def _getterrain(sheet, inverted):
     maxurbansize = _style["maxurbansize"]
     leveloffset = _style["leveloffset"]
 
-    if water == "all":
+    if water == "all" or water == "islands":
         terrain["base"] = "water"
         
     if water == "all":
@@ -312,6 +312,13 @@ def _getterrain(sheet, inverted):
         terrain["level1hexes"] = []
         terrain["level2hexes"] = []
         terrain["level1ridgepaths"] = []
+        terrain["level2ridgepaths"] = []
+    elif water == "islands":
+        terrain["level0hexes"] = terrain["level1hexes"]
+        terrain["level1hexes"] = terrain["level2hexes"]
+        terrain["level2hexes"] = []
+        terrain["level0ridgepaths"] = terrain["level1ridgepaths"]
+        terrain["level1ridgepaths"] = terrain["level2ridgepaths"]
         terrain["level2ridgepaths"] = []
     elif leveloffset == -1:
         terrain["level1hexes"] = terrain["level2hexes"]
@@ -345,15 +352,21 @@ def _getterrain(sheet, inverted):
             terrain["townhexes"] += terrain["town4hexes"]
         if maxurbansize >= 5:
             terrain["townhexes"] += terrain["town5hexes"]
-
-    if wilderness or water == "all" or maxurbansize < 5:
+    if water == "islands":
+        newtownhexes = []
+        for townhex in terrain["townhexes"]:
+            if townhex in terrain["level0hexes"] + terrain["level1hexes"] + terrain["level2hexes"]:
+                newtownhexes.append(townhex)
+        terrain["townhexes"] = newtownhexes   
+    
+    if wilderness or water == "all" or water == "islands" or maxurbansize < 5:
         terrain["cityhexes"] = []
 
-    if wilderness or water == "desert" or water == "all":
+    if wilderness or water == "desert" or water == "all" or water == "islands":
         terrain["smallbridgepaths"] = []
         terrain["largebridgepaths"] = []
 
-    if water == "all" or wilderness:
+    if water == "all" or water == "islands" or wilderness:
         terrain["dampaths"] = []
 
     global riverwidth
@@ -362,31 +375,41 @@ def _getterrain(sheet, inverted):
     else:
         riverwidth = 14
 
-    if water == "desert" or water == "all":
+    if water == "desert" or water == "all" or water == "islands":
         terrain["lakehexes"] = []
         terrain["riverpaths"] = []
         terrain["wideriverpaths"] = []
 
-    if wilderness or water == "all":
+    if wilderness or water == "all" or water == "islands":
         terrain["roadpaths"] = []
         terrain["trailpaths"] = []
         terrain["dockpaths"] = []
         terrain["clearingpaths"] = []
 
-    if wilderness or water == "all":
+    if wilderness or water == "all" or water == "islands":
         terrain["tunnelpaths"] = []
     elif leveloffset != 0:
         terrain["roadpaths"] += terrain["tunnelpaths"]
         terrain["tunnelpaths"] = []
 
-    if wilderness or water == "all" or forest == "all":
+    if wilderness or water == "all" or water == "islands" or forest == "all":
         terrain["runwaypaths"] = []
         terrain["taxiwaypaths"] = []
 
-    if forest == "all":
-        terrain["foresthexes"] = "all"        
-    elif forest is False or water == "all":
+    if forest is False or water == "all":
         terrain["foresthexes"] = []
+    elif water == "islands":
+        if forest == "all":
+            terrain["foresthexes"] = terrain["level0hexes"] + terrain["level1hexes"] + terrain["level2hexes"]
+        else:
+            newforesthexes = []
+            for foresthex in terrain["foresthexes"]:
+                if foresthex in terrain["level0hexes"] + terrain["level1hexes"] + terrain["level2hexes"]:
+                    newforesthexes.append(foresthex)
+            terrain["foresthexes"] = newforesthexes   
+        terrain["forest"] = True
+    elif forest == "all":
+        terrain["foresthexes"] = "all"        
 
     return terrain
 
