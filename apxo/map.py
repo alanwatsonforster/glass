@@ -184,7 +184,7 @@ def setmap(
     """
     Set up the map.
 
-    The sheetgrid argument must be a 2D array of sheet specificiers. The sheets
+    :param: sheetgrid: The sheetgrid argument must be a 2D array of sheet specificiers. The sheets
     are ordered top-to-bottom and left-to-right. All of the rows must be the
     same length. Each sheet specifier must be a string consisting of a sheet
     name optionally followed by "/i" if the sheet is inverted. No sheet name can

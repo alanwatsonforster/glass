@@ -3,9 +3,21 @@
 _style = {}
 
 
-def getstyle(style):
-    if style in _style:
-        return _style[style]
+def getstyle(stylename):
+    """
+    Return the style object associated with the stylename argument.
+
+    :param stylename: The stylename argument must be a string corresponding to a
+        style. It can be "airstrike", "airsuperiority", or one of the following
+        optionally prefixed by "snowy" or "frozen" and optionally suffixed by
+        "hills", "plain", or "islands:  "water", "temperate", "temperateforest",
+        "tundra", "borealforest", "tropical", "tropicalforest", "arid", and
+        "desert".
+
+    :return: The corresponding style object.
+    """
+    if stylename in _style:
+        return _style[stylename]
     else:
         return None
 
@@ -50,22 +62,54 @@ _basestyle = {
 
 
 def lighten(color, f):
+    """
+    Return a lightened color.
+
+    :param color: The color parameter is the original color. It must be a tuple
+        or list of three floats.
+
+    :param f: The f parameter is the mixing factor with white. 
+    
+    :return: The lightened color that is (1-f) times white mixed with f times
+        the original color.
+    """
     return list((1 - f) + f * x for x in color)
 
 
 def darken(color, f):
+    """
+    Return a darkened color.
+
+    :param color: The color parameter is the original color. It must be a tuple
+        or list of three floats.
+
+    :param f: The f parameter is the mixing factor with black. 
+    
+    :return: The darkened color that is (1-f) times black mixed with f times the
+        original color.
+    """    
     return list(min(1, f * x) for x in color)
 
 
 def equivalentgray(color):
-    x = 0.30 * color[0] + 0.59 * color[1] + 0.11 * color[2]
-    return [x, x, x]
+    """
+    Return the equivalent gray of a color.
+
+    :param color: The color parameter is the original color. It must be a tuple
+        or list of three floats.
+
+    :return: The equivalent gray with the same luma as the original color, according to
+    CCIR 601. See https://en.wikipedia.org/wiki/Luma_(video)
+    """
+    luma = 0.30 * color[0] + 0.59 * color[1] + 0.11 * color[2]
+    return [luma, luma, luma]
 
 
 ################################################################################
 
 
-def _setlandcolors(style, basecolor, dilution):
+def _setlandcolors(style, basecolor, f):
+
     level0color = lighten(basecolor, dilution[0])
     level1color = lighten(basecolor, dilution[1])
     level2color = lighten(basecolor, dilution[2])
@@ -86,6 +130,7 @@ def _setlandcolors(style, basecolor, dilution):
     )
 
 
+_setlandcolors(0, 1, 2)
 def _setwatercolors(style):
     watercolor = [0.77, 0.89, 0.95]
     # Darken the water to 100% of the grey value of level 0. Do not lighten it.
