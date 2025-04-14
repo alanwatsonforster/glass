@@ -293,7 +293,7 @@ def _getterrain(sheet, inverted):
 
     if water == "all" or water == "islands":
         terrain["base"] = "water"
-        
+
     if water == "all":
         terrain["level0hexes"] = []
         terrain["level0ridgepaths"] = []
@@ -343,10 +343,29 @@ def _getterrain(sheet, inverted):
     if water == "islands":
         newtownhexes = []
         for townhex in terrain["townhexes"]:
-            if townhex in terrain["level0hexes"] + terrain["level1hexes"] + terrain["level2hexes"]:
+            if (
+                townhex
+                in terrain["level0hexes"]
+                + terrain["level1hexes"]
+                + terrain["level2hexes"]
+            ):
                 newtownhexes.append(townhex)
-        terrain["townhexes"] = newtownhexes   
-    
+        terrain["townhexes"] = newtownhexes
+
+    level0townhexes = []
+    level1townhexes = []
+    level2townhexes = []
+    for townhex in terrain["townhexes"]:
+        if townhex in terrain["level2hexes"]:
+            level2townhexes.append(townhex)
+        elif townhex in terrain["level1hexes"]:
+            level1townhexes.append(townhex)
+        else:
+            level0townhexes.append(townhex)
+    terrain["level0townhexes"] = level0townhexes
+    terrain["level1townhexes"] = level1townhexes
+    terrain["level2townhexes"] = level2townhexes
+
     if wilderness or water == "all" or water == "islands" or maxurbansize < 5:
         terrain["cityhexes"] = []
 
@@ -388,16 +407,23 @@ def _getterrain(sheet, inverted):
         terrain["foresthexes"] = []
     elif water == "islands":
         if forest == "all":
-            terrain["foresthexes"] = terrain["level0hexes"] + terrain["level1hexes"] + terrain["level2hexes"]
+            terrain["foresthexes"] = (
+                terrain["level0hexes"] + terrain["level1hexes"] + terrain["level2hexes"]
+            )
         else:
             newforesthexes = []
             for foresthex in terrain["foresthexes"]:
-                if foresthex in terrain["level0hexes"] + terrain["level1hexes"] + terrain["level2hexes"]:
+                if (
+                    foresthex
+                    in terrain["level0hexes"]
+                    + terrain["level1hexes"]
+                    + terrain["level2hexes"]
+                ):
                     newforesthexes.append(foresthex)
-            terrain["foresthexes"] = newforesthexes   
+            terrain["foresthexes"] = newforesthexes
         terrain["forest"] = True
     elif forest == "all":
-        terrain["foresthexes"] = "all"        
+        terrain["foresthexes"] = "all"
 
     return terrain
 
@@ -501,15 +527,13 @@ def startdrawmap(
     wateroutlinecolor = _style["wateroutlinecolor"]
     hexcolor = _style["hexcolor"]
     hexalpha = _style["hexalpha"]
-    labelcolor = _style["labelcolor"]   
+    labelcolor = _style["labelcolor"]
 
-    def drawhex(x, y, label=False, **kwargs):  
+    def drawhex(x, y, label=False, **kwargs):
         apdraw.drawhex(x, y, zorder=0, **kwargs)
 
     def drawhexlabel(x, y, label, **kwargs):
-        apdraw.drawhexlabel(
-            x, y, label, zorder=0, **kwargs
-        )            
+        apdraw.drawhexlabel(x, y, label, zorder=0, **kwargs)
 
     def drawhexes(sheet, labels, **kwargs):
         for label in labels:
@@ -535,9 +559,9 @@ def startdrawmap(
 
     def drawcompass(x, y, facing, **kwargs):
         apdraw.drawcompass(x, y, facing, zorder=0, **kwargs)
+
     def drawwatermark(text, xmin, ymin, xmax, ymax, **kwargs):
         apdraw.drawwatermark(text, xmin, ymin, xmax, ymax, zorder=0, **kwargs)
-
 
     if xmin is not None and xmax is not None and ymin is not None and ymax is not None:
 
@@ -714,28 +738,24 @@ def startdrawmap(
                 linewidth=0,
                 fillcolor=None,
             )
-            for townhex in _terrain[sheet]["townhexes"]:
-                if townhex in _terrain[sheet]["level2hexes"]:
-                    drawhexes(
-                        sheet,
-                        [townhex],
-                        linewidth=0,
-                        fillcolor=level2color,
-                    )
-                elif townhex in _terrain[sheet]["level1hexes"]:
-                    drawhexes(
-                        sheet,
-                        [townhex],
-                        linewidth=0,
-                        fillcolor=level1color,
-                    )
-                else:
-                    drawhexes(
-                        sheet,
-                        [townhex],
-                        linewidth=0,
-                        fillcolor=level0color,
-                    )
+            drawhexes(
+                sheet,
+                _terrain[sheet]["level0townhexes"],
+                linewidth=0,
+                fillcolor=level0color,
+            )
+            drawhexes(
+                sheet,
+                _terrain[sheet]["level1townhexes"],
+                linewidth=0,
+                fillcolor=level1color,
+            )
+            drawhexes(
+                sheet,
+                _terrain[sheet]["level2townhexes"],
+                linewidth=0,
+                fillcolor=level2color,
+            )
         else:
             drawhexes(
                 sheet,
@@ -876,7 +896,6 @@ def startdrawmap(
                     alpha=megahexalpha,
                 )
 
-
     # Draw the bridges.
     for sheet in sheetsnearcanvas():
         drawpaths(
@@ -921,7 +940,6 @@ def startdrawmap(
             linewidth=roadwidth,
             capstyle="projecting",
         )
-
 
     # Draw the trails. We assume they are at level 0.
 
@@ -1095,9 +1113,7 @@ def startdrawmap(
                         linewidth=hexwidth,
                     )
                     label = aphexcode.tolabel(aphexcode.fromxy(x, y))
-                    drawhexlabel(
-                        x, y, label, color=hexcolor, alpha=hexalpha
-                    )
+                    drawhexlabel(x, y, label, color=hexcolor, alpha=hexalpha)
 
     # Label the sheets.
 
@@ -1148,7 +1164,6 @@ def startdrawmap(
                     linecolor=None,
                     fillcolor=level0color,
                 )
-
 
     # Draw watermarks.
 
