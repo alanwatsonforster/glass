@@ -5,7 +5,7 @@ import apxo.log as aplog
 ##############################################################################
 
 
-class blastzone(apelement.element):
+class Blastzone(apelement.Element):
 
     ############################################################################
 

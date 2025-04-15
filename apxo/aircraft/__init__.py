@@ -37,7 +37,7 @@ def aslist(withkilled=False):
 #############################################################################
 
 
-class aircraft(apelement.element):
+class Aircraft(apelement.Element):
 
     #############################################################################
 
@@ -779,7 +779,7 @@ class aircraft(apelement.element):
             else:
                 self.logcomment("launch succeeded.")
                 self._stores = newstores
-                M = apmissile.missile(name, missiletype, self, target)
+                M = apmissile.Missile(name, missiletype, self, target)
 
             if self._configuration != previousconfiguration:
                 self.logcomment(

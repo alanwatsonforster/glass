@@ -5,7 +5,7 @@ import apxo.log as aplog
 ##############################################################################
 
 
-class plottedfire(apelement.element):
+class PlottedFire(apelement.Element):
 
     ############################################################################
 

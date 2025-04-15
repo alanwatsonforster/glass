@@ -5,7 +5,7 @@ import apxo.log as aplog
 ##############################################################################
 
 
-class barragefire(apelement.element):
+class BarrageFire(apelement.Element):
 
     ############################################################################
 

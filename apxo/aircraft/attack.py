@@ -214,7 +214,7 @@ def bomb(self, name, target, stores=None, highdrag=False, note=None):
         self.logcomment("release point is valid.")
 
         self._release(stores)
-        bomb = apbomb.bomb(name, self.hexcode(), self.facing(), self.altitude())
+        bomb = apbomb.Bomb(name, self.hexcode(), self.facing(), self.altitude())
         self._stopaiming()
         self.lognote(note)
         return bomb

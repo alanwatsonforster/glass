@@ -45,7 +45,7 @@ def _secondaryattackgroundunit(self, target, result=None, note=None):
 def blastzone(self, name, note=None):
 
     try:
-        blastzone = apblastzone.blastzone(name, *self.xy())
+        blastzone = apblastzone.BlastZone(name, *self.xy())
         self.lognote(note)
     except RuntimeError as e:
         aplog.logexception(e)

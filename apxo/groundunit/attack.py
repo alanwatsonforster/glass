@@ -137,7 +137,7 @@ def usebarragefire(self, note=None):
         if self._aaaclass in ["L", "M"]:
             self.logwhenwhat("", "will be out of ammunition.")
             self._outofammunition = True
-        self._barragefire = apbarragefire.barragefire(
+        self._barragefire = apbarragefire.BarrageFire(
             self.hexcode(), altitude=self.altitude() + self._aaamaximumrelativealtitude
         )
         self.lognote(note)
@@ -173,7 +173,7 @@ def useplottedfire(self, hexcode, altitude, note=None):
             raise RuntimeError("%s is not capable of plotted fire." % self.name())
         if self._outofammunition:
             raise RuntimeError("%s is out of ammunition." % self.name())
-        self._plottedfire = applottedfire.plottedfire(hexcode, altitude)
+        self._plottedfire = applottedfire.PlottedFire(hexcode, altitude)
         self.lognote(note)
     except RuntimeError as e:
         aplog.logexception(e)

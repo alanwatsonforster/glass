@@ -20,7 +20,7 @@ from apxo.groundunit.data import _loaddata
 ################################################################################
 
 
-class groundunit(apelement.element):
+class GroundUnit(apelement.Element):
 
     ############################################################################
 
@@ -202,8 +202,8 @@ class groundunit(apelement.element):
 ################################################################################
 
 
-def hexgroundunit(hexcode):
-    return groundunit(hexcode, hexcode, symbols="hex")
+def HexGroundUnit(hexcode):
+    return GroundUnit(hexcode, hexcode, symbols="hex")
 
 
 ################################################################################

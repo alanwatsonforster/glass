@@ -25,7 +25,7 @@ def aslist():
 #############################################################################
 
 
-class missile(apelement.element):
+class Missile(apelement.Element):
 
     def __init__(self, name, missiletype, launcher, target, color="white"):
 

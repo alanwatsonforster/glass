@@ -343,7 +343,7 @@ def drawmap(
 
 ################################################################################
 
-from apxo.aircraft import aircraft
-from apxo.groundunit import groundunit
-from apxo.groundunit import hexgroundunit
-from apxo.marker import marker
+from apxo.aircraft import Aircraft as aircraft
+from apxo.groundunit import GroundUnit as groundunit
+from apxo.groundunit import HexGroundUnit as hexgroundunit
+from apxo.marker import Marker as marker
