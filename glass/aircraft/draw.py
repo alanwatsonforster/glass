@@ -1,6 +1,6 @@
 ################################################################################
 
-import apxo.draw
+import glass.draw
 
 ################################################################################
 
@@ -14,7 +14,7 @@ def _draw(self):
         speed = None
     else:
         speed = self.speed()
-    apxo.draw.drawaircraft(
+    glass.draw.drawaircraft(
         self.x(),
         self.y(),
         self.facing(),

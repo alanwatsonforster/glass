@@ -1,4 +1,4 @@
-from apxo.tests.infrastructure import *
+from glass.tests.infrastructure import *
 
 startfile(__file__, "NRM aircraft")
 

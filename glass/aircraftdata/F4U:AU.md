@@ -41,7 +41,7 @@ F4U-7 and AU-1 according to Wikipedia.
 
 The SAC of the F4U-4 and F4U-5 show quite similar performance. It looks like the additional power of the -5 is balanced by its heavier weight.
 
-ADCs based on the above were created in [18c8bcb](https://github.com/alanwatsonforster/apxo/commit/18c8bcbcba1c6b2a2de8be5b6dea1b2ea28ff5d6).
+ADCs based on the above were created in [18c8bcb](https://github.com/alanwatsonforster/glass/commit/18c8bcbcba1c6b2a2de8be5b6dea1b2ea28ff5d6).
 
 ### F4U-4P and F4U-5P
 
@@ -51,7 +51,7 @@ Overhead: 5000 ft AGL and 220 kt (Tilman, Warbirds, p. 54)
 
 Oblique: 400 ft AGL and 280 kk (Tillman, Warbirds, p. 57)
 
-Added in [cd0ec03](https://github.com/alanwatsonforster/apxo/commit/cd0ec039f32a7bff25ab7fd357ca7af10f9a981f).
+Added in [cd0ec03](https://github.com/alanwatsonforster/glass/commit/cd0ec039f32a7bff25ab7fd357ca7af10f9a981f).
 
 ### AU-1
 
@@ -64,11 +64,11 @@ The -4 has six .50 cals with 390 rounds per gun, or more precisely 400 each for 
 F4U-2s has only five .50 cals and reduced the ammunition load to 250 rounds per gun (Tilman, ch. 1).
 
 Gun effectiveness of those armed with .50 cal M2s reduced for lower rate of fire of the M2 in 
-[e615570](https://github.com/alanwatsonforster/apxo/commit/e61557086cfc61119e920453d1bded66bac57bd3).
+[e615570](https://github.com/alanwatsonforster/glass/commit/e61557086cfc61119e920453d1bded66bac57bd3).
 
 The -4B, -5, and AU-1 have four 20 mm M3 with 231 rounds per gun (SACs).
 
-ADCs based on the above were created in [18c8bcb](https://github.com/alanwatsonforster/apxo/commit/18c8bcbcba1c6b2a2de8be5b6dea1b2ea28ff5d6).
+ADCs based on the above were created in [18c8bcb](https://github.com/alanwatsonforster/glass/commit/18c8bcbcba1c6b2a2de8be5b6dea1b2ea28ff5d6).
 
 ### Stores
 
@@ -84,13 +84,13 @@ At least some F4U-5Ns in Kora used Mk 55 bomb racks and could carry 260 lb frag 
 
 I will simply note that early war F4Us were limited to HVARs and in some cases 100/200 lb BBs, but from 1951 they could also used 250/500 lb BBs.
 
-Stores updated in [606b10b](https://github.com/alanwatsonforster/apxo/commit/606b10b401b1a90c493f17d3fea7f058634c8ef8).
+Stores updated in [606b10b](https://github.com/alanwatsonforster/glass/commit/606b10b401b1a90c493f17d3fea7f058634c8ef8).
 
 ### FTs
 
 Early tanks were 174 gal on the centerline pylon and 154 or 178 gal tanks on the two wing pylons (Dial). The F4U-4, -4B, and -5 used 150 gal tanks (SAC).
 
-Fuel tanks updated in [606b10b](https://github.com/alanwatsonforster/apxo/commit/606b10b401b1a90c493f17d3fea7f058634c8ef8).
+Fuel tanks updated in [606b10b](https://github.com/alanwatsonforster/glass/commit/606b10b401b1a90c493f17d3fea7f058634c8ef8).
 
 ### F4U-2
 
@@ -114,11 +114,11 @@ Perhaps give is 70-10 and 180+ like the APG-36. I'm deliberately ignoring the st
 
 When used as a ground nav radar, the 80 nm range would be 280 hexes. This makes is much more powerful than other ground mapping radars. I'll leave this for the time being.
 
-Added in [8622611](https://github.com/alanwatsonforster/apxo/commit/8622611a1603e29ffe88f50dfdbceb001c6ce439).
+Added in [8622611](https://github.com/alanwatsonforster/glass/commit/8622611a1603e29ffe88f50dfdbceb001c6ce439).
 
 ### Dive Brakes
 
-The undercarriage could be lowered or trailed to act as a dive break. They could be selected up to 380 kn = 440 mph, but once selected (and locked in place) could be used at higher speeds. I have added this as a 0.5 FP drag. Added in [227c0eb](https://github.com/alanwatsonforster/apxo/commit/227c0eb0a607e956d59c478a7613d46fffab34c2).
+The undercarriage could be lowered or trailed to act as a dive break. They could be selected up to 380 kn = 440 mph, but once selected (and locked in place) could be used at higher speeds. I have added this as a 0.5 FP drag. Added in [227c0eb](https://github.com/alanwatsonforster/glass/commit/227c0eb0a607e956d59c478a7613d46fffab34c2).
 
 ## Bibliography
 

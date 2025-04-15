@@ -1,8 +1,8 @@
-from apxo.tests.infrastructure import *
+from glass.tests.infrastructure import *
 
 startfile(__file__, "special flight")
 
-from apxo.tests.infrastructure import *
+from glass.tests.infrastructure import *
 
 starttestsetup()
 A1 = setupaircraft("A1", "AF", "O-1E", "A2-2030", "N", 5, 0, "CL", color="green")

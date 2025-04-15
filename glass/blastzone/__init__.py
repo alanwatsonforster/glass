@@ -1,11 +1,11 @@
-import apxo.altitude
-import apxo.element
-import apxo.log
+import glass.altitude
+import glass.element
+import glass.log
 
 ##############################################################################
 
 
-class Blastzone(apxo.element.Element):
+class Blastzone(glass.element.Element):
 
     ############################################################################
 
@@ -23,7 +23,7 @@ class Blastzone(apxo.element.Element):
             x=x,
             y=y,
             azimuth=None,
-            altitude=apxo.altitude.terrainaltitude(x, y) + 2,
+            altitude=glass.altitude.terrainaltitude(x, y) + 2,
             speed=0,
         )
 
@@ -45,7 +45,7 @@ class Blastzone(apxo.element.Element):
 
     ############################################################################
 
-    from apxo.blastzone.attack import _attackaircraft
-    from apxo.blastzone.draw import _draw
+    from glass.blastzone.attack import _attackaircraft
+    from glass.blastzone.draw import _draw
 
     ############################################################################

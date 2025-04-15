@@ -1,24 +1,24 @@
-import apxo.aircraftdata
-import apxo.altitude
-import apxo.azimuth
-import apxo.capabilities
-import apxo.closeformation
-import apxo.element
-import apxo.flight
-import apxo.gameturn
-import apxo.hex
-import apxo.hexcode
-import apxo.log
-import apxo.map
-import apxo.missile
-import apxo.speed
-import apxo.aircraft.stores
-import apxo.turnrate
-import apxo.geometry
-import apxo.airtoair
-import apxo.visualsighting
+import glass.aircraftdata
+import glass.altitude
+import glass.azimuth
+import glass.capabilities
+import glass.closeformation
+import glass.element
+import glass.flight
+import glass.gameturn
+import glass.hex
+import glass.hexcode
+import glass.log
+import glass.map
+import glass.missile
+import glass.speed
+import glass.aircraft.stores
+import glass.turnrate
+import glass.geometry
+import glass.airtoair
+import glass.visualsighting
 
-from apxo.flight import _isclimbingflight, _isdivingflight, _islevelflight
+from glass.flight import _isclimbingflight, _isdivingflight, _islevelflight
 
 import re
 
@@ -26,7 +26,7 @@ import re
 
 
 def aslist(withkilled=False):
-    elementlist = apxo.element.aslist()
+    elementlist = glass.element.aslist()
     aircraftlist = filter(lambda E: E.isaircraft(), elementlist)
     if not withkilled:
         aircraftlist = filter(lambda x: not x.killed(), aircraftlist)
@@ -36,7 +36,7 @@ def aslist(withkilled=False):
 #############################################################################
 
 
-class Aircraft(apxo.element.Element):
+class Aircraft(glass.element.Element):
 
     #############################################################################
 
@@ -74,9 +74,9 @@ class Aircraft(apxo.element.Element):
 
             if not isinstance(aircrafttype, str):
                 raise RuntimeError("the aircrafttype argument must be a string.")
-            aircraftdata = apxo.aircraftdata.aircraftdata(aircrafttype)
+            aircraftdata = glass.aircraftdata.aircraftdata(aircrafttype)
 
-            if not apxo.visualsighting.isvalidpaintscheme(paintscheme):
+            if not glass.visualsighting.isvalidpaintscheme(paintscheme):
                 raise RuntimeError("the paintscheme argument is not valid.")
 
             super().__init__(
@@ -214,12 +214,12 @@ class Aircraft(apxo.element.Element):
             self.logwhenwhat("", "configuration is %s." % self._configuration)
 
             self._lowspeedliftdeviceextended = False
-            self._minspeed = apxo.capabilities.minspeed(self)
+            self._minspeed = glass.capabilities.minspeed(self)
 
             self._initaim()
 
         except RuntimeError as e:
-            apxo.log.logexception(e)
+            glass.log.logexception(e)
         self.logbreak()
 
     #############################################################################
@@ -242,15 +242,15 @@ class Aircraft(apxo.element.Element):
         self._starty = self.y()
         self._startfacing = self.facing()
         self._startaltitude = self.altitude()
-        apxo.closeformation.check(self)
+        glass.closeformation.check(self)
 
     def _endgameturn(self):
         if not self.killed() and not self.removed() and not self._finishedmoving:
             raise RuntimeError("aircraft %s has not finished its move." % self._name)
         if self.killed() or self.removed():
-            apxo.closeformation.leaveany(self)
+            glass.closeformation.leaveany(self)
         else:
-            apxo.closeformation.check(self)
+            glass.closeformation.check(self)
 
     #############################################################################
 
@@ -310,7 +310,7 @@ class Aircraft(apxo.element.Element):
 
     def _setgeometry(self, geometry):
         """Set the geometry of the aircraft."""
-        if geometry not in apxo.capabilities.geometries(self):
+        if geometry not in glass.capabilities.geometries(self):
             raise RuntimeError("the geometry argument %r is not valid." % geometry)
         self._geometry = geometry
 
@@ -327,15 +327,15 @@ class Aircraft(apxo.element.Element):
 
         try:
 
-            apxo.gameturn.checkingameturn()
+            glass.gameturn.checkingameturn()
             self.logwhenwhat("react", action)
 
-            apxo.airtoair.react(self, attacktype, target, result)
+            glass.airtoair.react(self, attacktype, target, result)
 
             self.lognote(note)
 
         except RuntimeError as e:
-            apxo.log.logexception(e)
+            glass.log.logexception(e)
         self.logbreak()
 
     ##############################################################################
@@ -354,7 +354,7 @@ class Aircraft(apxo.element.Element):
         return super().hasproperty(p)
 
     def _properties(self):
-        return apxo.capabilities.properties(self)
+        return glass.capabilities.properties(self)
 
     ##############################################################################
 
@@ -395,7 +395,7 @@ class Aircraft(apxo.element.Element):
             self.lognote(note)
 
         except RuntimeError as e:
-            apxo.log.logexception(e)
+            glass.log.logexception(e)
         self.logbreak()
 
     def leaveterrainfollowingflight(self, note=None):
@@ -416,7 +416,7 @@ class Aircraft(apxo.element.Element):
             self.lognote(note)
 
         except RuntimeError as e:
-            apxo.log.logexception(e)
+            glass.log.logexception(e)
         self.logbreak()
 
     ##############################################################################
@@ -426,7 +426,7 @@ class Aircraft(apxo.element.Element):
     ##############################################################################
 
     def issighted(self):
-        return apxo.visualsighting.issighted(self)
+        return glass.visualsighting.issighted(self)
 
     ##############################################################################
 
@@ -438,10 +438,10 @@ class Aircraft(apxo.element.Element):
         # TODO: Check we are in the visual sighting phase.
 
         try:
-            apxo.gameturn.checkingameturn()
-            apxo.visualsighting.padlock(self, other, note=note)
+            glass.gameturn.checkingameturn()
+            glass.visualsighting.padlock(self, other, note=note)
         except RuntimeError as e:
-            apxo.log.logexception(e)
+            glass.log.logexception(e)
         self.logbreak()
 
     ##############################################################################
@@ -452,23 +452,23 @@ class Aircraft(apxo.element.Element):
         """
 
         try:
-            apxo.gameturn.checkingameturn()
-            apxo.visualsighting.attempttosight(self, other, success=None, note=None)
+            glass.gameturn.checkingameturn()
+            glass.visualsighting.attempttosight(self, other, success=None, note=None)
         except RuntimeError as e:
-            apxo.log.logexception(e)
+            glass.log.logexception(e)
         self.logbreak()
 
     #############################################################################
 
     def setsighted(self):
         """Set the aircraft to be sighted regardless."""
-        apxo.visualsighting.setsighted(self)
+        glass.visualsighting.setsighted(self)
 
     #############################################################################
 
     def setunsighted(self):
         """Set the aircraft to be unsighted regardless."""
-        apxo.visualsighting.unsetsighted(self)
+        glass.visualsighting.unsetsighted(self)
 
     #############################################################################
 
@@ -477,7 +477,7 @@ class Aircraft(apxo.element.Element):
         Return the maximum visual sighting range of the aircraft.
         """
 
-        return apxo.visualsighting.maxvisualsightingrange(self)
+        return glass.visualsighting.maxvisualsightingrange(self)
 
     #############################################################################
 
@@ -487,7 +487,7 @@ class Aircraft(apxo.element.Element):
         aircraft on the target.
         """
 
-        return apxo.visualsighting.visualsightingrange(self, target)
+        return glass.visualsighting.visualsightingrange(self, target)
 
     #############################################################################
 
@@ -499,7 +499,7 @@ class Aircraft(apxo.element.Element):
         padlocking is possible.
         """
 
-        return apxo.visualsighting.visualsightingcondition(self, target)
+        return glass.visualsighting.visualsightingcondition(self, target)
 
     #############################################################################
 
@@ -555,10 +555,10 @@ class Aircraft(apxo.element.Element):
         """
 
         try:
-            apxo.gameturn.checkingameturn()
+            glass.gameturn.checkingameturn()
             showgeometry(self, other, note=None)
         except RuntimeError as e:
-            apxo.log.logexception(e)
+            glass.log.logexception(e)
         self.logbreak()
 
     #############################################################################
@@ -568,7 +568,7 @@ class Aircraft(apxo.element.Element):
         Return the angle of the aircraft off the tail of the other aircraft.
         """
 
-        return apxo.geometry.angleofftail(self, other, **kwargs)
+        return glass.geometry.angleofftail(self, other, **kwargs)
 
     #############################################################################
 
@@ -578,7 +578,7 @@ class Aircraft(apxo.element.Element):
         Otherwise, return False.
         """
 
-        return apxo.geometry.inarc(self, other, arc)
+        return glass.geometry.inarc(self, other, arc)
 
     #############################################################################
 
@@ -588,7 +588,7 @@ class Aircraft(apxo.element.Element):
         aircraft. Otherwise, return False.
         """
 
-        return apxo.geometry.inradararc(self, other, arc)
+        return glass.geometry.inradararc(self, other, arc)
 
     #############################################################################
 
@@ -598,7 +598,7 @@ class Aircraft(apxo.element.Element):
         or a string explaining why it cannot be attacked.
         """
 
-        return apxo.airtoair.gunattackrange(self, other, arc=arc)
+        return glass.airtoair.gunattackrange(self, other, arc=arc)
 
     #############################################################################
 
@@ -608,7 +608,7 @@ class Aircraft(apxo.element.Element):
         or a string explaining why it cannot be attacked.
         """
 
-        return apxo.airtoair.rocketattackrange(self, other)
+        return glass.airtoair.rocketattackrange(self, other)
 
     #############################################################################
 
@@ -617,7 +617,7 @@ class Aircraft(apxo.element.Element):
         Return True if the other aircraft is in the limited radar arc of the aircraft.
         """
 
-        return apxo.geometry.inradararc(self, other, "limited")
+        return glass.geometry.inradararc(self, other, "limited")
 
     #############################################################################
 
@@ -650,13 +650,13 @@ class Aircraft(apxo.element.Element):
 
     def hasbeenkilled(self, note=None):
         try:
-            apxo.gameturn.checkingameturn()
+            glass.gameturn.checkingameturn()
             self._log("has been killed.")
             self.lognote(note)
             self._kill()
             self._color = None
         except RuntimeError as e:
-            apxo.log.logexception(e)
+            glass.log.logexception(e)
         self.logbreak()
 
     ################################################################################
@@ -664,7 +664,7 @@ class Aircraft(apxo.element.Element):
     def _startmovespeed(
         self, power, flamedoutengines, lowspeedliftdeviceselected, speedbrakes, geometry
     ):
-        apxo.speed.startmovespeed(
+        glass.speed.startmovespeed(
             self,
             power,
             flamedoutengines,
@@ -674,29 +674,29 @@ class Aircraft(apxo.element.Element):
         )
 
     def _endmovespeed(self):
-        apxo.speed.endmovespeed(self)
+        glass.speed.endmovespeed(self)
 
     ################################################################################
 
     def joincloseformation(self, other):
         try:
-            apxo.closeformation.join(self, other)
+            glass.closeformation.join(self, other)
         except RuntimeError as e:
-            apxo.log.logexception(e)
+            glass.log.logexception(e)
         self.logbreak()
 
     def leavecloseformation(self):
         try:
-            apxo.closeformation.leave(self)
+            glass.closeformation.leave(self)
         except RuntimeError as e:
-            apxo.log.logexception(e)
+            glass.log.logexception(e)
         self.logbreak()
 
     def closeformationsize(self):
-        return apxo.closeformation.size(self)
+        return glass.closeformation.size(self)
 
     def closeformationnames(self):
-        return apxo.closeformation.names(self)
+        return glass.closeformation.names(self)
 
     ########################################
 
@@ -713,10 +713,10 @@ class Aircraft(apxo.element.Element):
 
         try:
 
-            if apxo.flight.useofweaponsforbidden(self):
+            if glass.flight.useofweaponsforbidden(self):
                 raise RuntimeError(
                     "attempt to start SSGT while %s"
-                    % apxo.flight.useofweaponsforbidden(self)
+                    % glass.flight.useofweaponsforbidden(self)
                 )
 
             # TODO: Check we can start SSGT on a specific target.
@@ -726,17 +726,17 @@ class Aircraft(apxo.element.Element):
             if not target.isaircraft():
                 raise RuntimeError("target %s is not an aircraft." % target.name())
 
-            if apxo.airtoair.trackingforbidden(self, target):
+            if glass.airtoair.trackingforbidden(self, target):
                 raise RuntimeError(
                     "attempt to start SSGT while %s"
-                    % apxo.airtoair.trackingforbidden(self, target)
+                    % glass.airtoair.trackingforbidden(self, target)
                 )
 
             self.logcomment("started SSGT on %s." % target.name())
             self._tracking = target
 
         except RuntimeError as e:
-            apxo.log.logexception(e)
+            glass.log.logexception(e)
         self.logbreak()
 
     ################################################################################
@@ -763,7 +763,7 @@ class Aircraft(apxo.element.Element):
 
             previousconfiguration = self._configuration
 
-            missiletype, newstores = apxo.aircraft.stores._airtoairlaunch(
+            missiletype, newstores = glass.aircraft.stores._airtoairlaunch(
                 self._stores, loadstation, printer=lambda s: self.logcomment(s)
             )
 
@@ -778,7 +778,7 @@ class Aircraft(apxo.element.Element):
             else:
                 self.logcomment("launch succeeded.")
                 self._stores = newstores
-                M = apxo.missile.Missile(name, missiletype, self, target)
+                M = glass.missile.Missile(name, missiletype, self, target)
 
             if self._configuration != previousconfiguration:
                 self.logcomment(
@@ -788,23 +788,23 @@ class Aircraft(apxo.element.Element):
 
 
         except RuntimeError as e:
-            apxo.log.logexception(e)
+            glass.log.logexception(e)
         self.logbreak()
 
         return M
 
     ############################################################################
 
-    from apxo.aircraft.aim import _initaim, aim, _stopaiming, stopaiming
+    from glass.aircraft.aim import _initaim, aim, _stopaiming, stopaiming
 
-    from apxo.aircraft.attack import (
+    from glass.aircraft.attack import (
         _attackaircraft,
         _attackgroundunit,
         _secondaryattackgroundunit,
         bomb,
     )
 
-    from apxo.aircraft.damage import (
+    from glass.aircraft.damage import (
         _initdamage,
         _damage,
         _damageatleast,
@@ -813,11 +813,11 @@ class Aircraft(apxo.element.Element):
         _takedamageconsequences,
     )
 
-    from apxo.aircraft.draw import _draw
+    from glass.aircraft.draw import _draw
 
-    from apxo.aircraft.move import _move, _continuemove
+    from glass.aircraft.move import _move, _continuemove
 
-    from apxo.aircraft.stores import (
+    from glass.aircraft.stores import (
         _initstores,
         _updateconfiguration,
         _storestotalweight,

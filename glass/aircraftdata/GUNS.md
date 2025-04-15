@@ -72,7 +72,7 @@ These damage ratings seem to be more appropriate for M3 guns. Also, it seems odd
 - B-26B (fourteen): hit rolls of 4/2/0 and damage ratings of 5/6** (equal to CF-100 Mk4 with eight M3)
 
 These suggestions were applied in 
-[e615570](https://github.com/alanwatsonforster/apxo/commit/e61557086cfc61119e920453d1bded66bac57bd3).
+[e615570](https://github.com/alanwatsonforster/glass/commit/e61557086cfc61119e920453d1bded66bac57bd3).
 
 
 #### Aircraft
@@ -147,7 +147,7 @@ The SAC for the F2H-3/4 states that it is armed with four "20mm (Mk.16)" guns. C
 
 Do not confuse this with the "Mark 16," which was M3/M24 cannon adapted for small-craft in Vietnam.
 
-Used by: [F2H-3/4](https://github.com/alanwatsonforster/apxo/wiki/ADCs-—-F2H-Banshee).
+Used by: [F2H-3/4](https://github.com/alanwatsonforster/glass/wiki/ADCs-—-F2H-Banshee).
 
 - [SAC for F2H-3/4](https://www.ibiblio.org/hyperwar/USN/SAC/F2H-3+4_BansheeSAC-510501.pdf)
 - Burgess, F2H Banshee Units, Osprey
@@ -190,4 +190,4 @@ F-104 flight manual says 4000 RPM.
 
 Used on:
 
-- [F-104](https://github.com/alanwatsonforster/apxo/wiki/ADCs-—-F%E2%80%90104): 725 rounds. Hit: 7/5/3. Ammo: 3.5. Damage: 6/8*.
+- [F-104](https://github.com/alanwatsonforster/glass/wiki/ADCs-—-F%E2%80%90104): 725 rounds. Hit: 7/5/3. Ammo: 3.5. Damage: 6/8*.

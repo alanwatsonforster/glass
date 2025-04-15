@@ -7,17 +7,17 @@ import os.path
 import json
 
 sys.path.append("..")
-from apxo import aircraftdata
-import apxo.variants
+from glass import aircraftdata
+import glass.variants
 
 version = 3
 
 if version == 1:
-    apxo..variants.setvariants(["use first-edition ADCs"])
+    glass..variants.setvariants(["use first-edition ADCs"])
 elif version == 2:
     pass
 elif version == 3:
-    apxo..variants.setvariants(["use house rules"])
+    glass..variants.setvariants(["use house rules"])
 
 
 def log(s):
@@ -980,7 +980,7 @@ def writetype(name):
     log("writing type %s." % name)
     writelatex(r"\twocolumn")
     writelatex(r"\addtoctype{%s}" % name)
-    file = "../apxo/aircraftdata/" + name.replace("/", ":") + ".tex"
+    file = "../glass/aircraftdata/" + name.replace("/", ":") + ".tex"
     if os.path.exists(file):
         writelatex(r"\input{%s}" % file)
 

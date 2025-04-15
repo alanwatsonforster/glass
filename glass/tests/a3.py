@@ -1,8 +1,8 @@
-from apxo.tests.infrastructure import *
+from glass.tests.infrastructure import *
 
 startfile(__file__, "azimuths")
 
-# Checks on apxo..azimuth.
+# Checks on glass..azimuth.
 
 # Conversion of numeric azimuths to symbolic directions.
 

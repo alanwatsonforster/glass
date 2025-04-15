@@ -1,6 +1,6 @@
 # Maps
 
-This document discusses the origin, design choices, and implementation of the map in APXO.
+This document discusses the origin, design choices, and implementation of the map in Glass.
 
 The terms “map sheet” or just “sheet” are used to refer to the individual map sheets and “map” to refer to the whole space defined by the particular selection and arrangement of map sheets.
 
@@ -45,15 +45,15 @@ All the sheets show terrain. As befitting its subject, the urban area and river 
 
 Again, as long as the sheets are arranged so that long edges abut other long edges and short edges abut other short edges, the terrain features flow from one sheet to the other. However, they do not match the first-generation sheets.
 
-## APXO Maps
+## Glass Maps
 
 ### Generations
 
-Putting aside the question of the graphical representation of terrain features, first- and second-generation map sheets differ in their size, the geographic features along their edges, and in hex labeling. For these reasons, APXO allows games to be played on maps using sheets either from the first or the second generation, but not a mixture of generations.
+Putting aside the question of the graphical representation of terrain features, first- and second-generation map sheets differ in their size, the geographic features along their edges, and in hex labeling. For these reasons, Glass allows games to be played on maps using sheets either from the first or the second generation, but not a mixture of generations.
 
 ### First-Generation Sheets
 
-APXO implements twenty-six first-generation sheets labeled A to Z:
+Glass implements twenty-six first-generation sheets labeled A to Z:
 
 - A to D: These are adaptations of the original four sheets from *Air Superiority*.
 
@@ -83,7 +83,7 @@ The following are thumbnail images of the first-generation map sheets; click on 
 
 ### Second-Generation Sheets
 
-APXO implements twelve second-generation sheets labeled *XY*, in which *X* is one of the letters from A to D and *Y* is one of the numbers from 1 to 6:
+Glass implements twelve second-generation sheets labeled *XY*, in which *X* is one of the letters from A to D and *Y* is one of the numbers from 1 to 6:
 
 - A1, A2, B1, B2, C1, and C2: These are adaptations of the original sheets from *The Speed of Heat*. 
 
@@ -127,7 +127,7 @@ The rows of the grid must have the same number of sheets. Missing or blank sheet
 
 ### Inverted Map Sheets
 
-APXO allow any map sheet to be inverted by simply appending `"/i"` to the map sheet name. For example, the map for scenario V-11 of *The Speed of Heat* is specified as:
+Glass allow any map sheet to be inverted by simply appending `"/i"` to the map sheet name. For example, the map for scenario V-11 of *The Speed of Heat* is specified as:
 
     [["A1"],["B2/i"],["B1"]]
 
@@ -154,7 +154,7 @@ Note that the inversion process inverts the terrain but *does not invert the hex
 
 ### Oblique Map Sheets
 
-APXO does not allow map sheets to be used at an oblique angle; they must be either in the normal orientation or inverted.
+Glass does not allow map sheets to be used at an oblique angle; they must be either in the normal orientation or inverted.
 
 Oblique map sheets are used in these scenarios:
 

@@ -1,6 +1,6 @@
 ################################################################################
 
-import apxo.log
+import glass.log
 
 ################################################################################
 
@@ -74,7 +74,7 @@ def takedamage(self, damage, note=None):
                 self._takedamageconsequences()
         self.lognote(note)
     except RuntimeError as e:
-        apxo.log.logexception(e)
+        glass.log.logexception(e)
     self.logbreak()
 
 

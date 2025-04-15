@@ -1,8 +1,8 @@
 ##############################################################################
 import math
-import apxo as ap
-import apxo.hex
-import apxo.log
+import glass as ap
+import glass.hex
+import glass.log
 
 ##############################################################################
 
@@ -17,7 +17,7 @@ def showgeometry(A, B, note=None):
     Aname = A._name
     Bname = B._name
 
-    apxo.gameturn.checkingamesetuporgameturn()
+    glass.gameturn.checkingamesetuporgameturn()
 
     angleofftail = A.angleofftail(B)
     if angleofftail == "0 line" or angleofftail == "180 line":
@@ -76,7 +76,7 @@ def horizontalrange(A0, A1, x1=None, y1=None):
         x1 = A1.x()
         y1 = A1.y()
 
-    return apxo.hex.distance(A0.x(), A0.y(), x1, y1)
+    return glass.hex.distance(A0.x(), A0.y(), x1, y1)
 
 
 def verticalrange(A0, A1, x1=None, y1=None):
@@ -87,7 +87,7 @@ def verticalrange(A0, A1, x1=None, y1=None):
     if A1 is not None:
         altitude1 = A1.altitude()
     else:
-        altitude1 = apxo.map.altitude(x, y)
+        altitude1 = glass.map.altitude(x, y)
 
     return int(abs(A0.altitude() - altitude1) / 2)
 
@@ -109,7 +109,7 @@ def relativepositions(x0, y0, facing0, x1, y1, facing1):
 
     dx = x1 - x0
     dy = y1 - y0
-    dx, dy = apxo.hex.tophysical(dx, dy)
+    dx, dy = glass.hex.tophysical(dx, dy)
 
     # Determine the range.
 
@@ -324,7 +324,7 @@ def inradarverticallimits(A0, A1, arc):
 def inarc(A0, A1, arc, resolveborderline="likegunnery"):
     """
     Return True is A1 is in the specified arc of A0. Vertical limits do not
-    apxo.ply. The arc may be: 180+, 150+, 120+, 90-, 60-, or 30-.
+    glass.ply. The arc may be: 180+, 150+, 120+, 90-, 60-, or 30-.
     """
 
     assert arc in [

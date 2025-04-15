@@ -1,17 +1,17 @@
 ################################################################################
 
-import apxo.altitude
-import apxo.azimuth
-import apxo.hex
-import apxo.gameturn
-import apxo.log
+import glass.altitude
+import glass.azimuth
+import glass.hex
+import glass.gameturn
+import glass.log
 
 ################################################################################
 
 
 def move(self, *args, note=None, **kwargs):
     try:
-        apxo.gameturn.checkingameturn()
+        glass.gameturn.checkingameturn()
         self._checknotkilled()
         self._checknotremoved()
         if self._startedmoving:
@@ -20,13 +20,13 @@ def move(self, *args, note=None, **kwargs):
         self._move(*args, **kwargs)
         self.lognote(note)
     except RuntimeError as e:
-        apxo.log.logexception(e)
+        glass.log.logexception(e)
     self.logbreak()
 
 
 def continuemove(self, *args, note=None, **kwargs):
     try:
-        apxo.gameturn.checkingameturn()
+        glass.gameturn.checkingameturn()
         self._checknotkilled()
         self._checknotremoved()
         if not self._startedmoving:
@@ -34,7 +34,7 @@ def continuemove(self, *args, note=None, **kwargs):
         self._continuemove(*args, **kwargs)
         self.lognote(note)
     except RuntimeError as e:
-        apxo.log.logexception(e)
+        glass.log.logexception(e)
     self.logbreak()
 
 
@@ -46,8 +46,8 @@ def _move(self, *args):
 
 
 def _continuemove(self, s):
-    if apxo.azimuth.isvalidazimuth(s):
-        x, y = apxo.hex.forward(self._x, self._y, apxo.azimuth.tofacing(s))
+    if glass.azimuth.isvalidazimuth(s):
+        x, y = glass.hex.forward(self._x, self._y, glass.azimuth.tofacing(s))
         self._setposition(x=x, y=y)
     else:
         self._setposition(hexcode=s)
@@ -57,26 +57,26 @@ def _continuemove(self, s):
 
 
 def _moveforward(self):
-    self._setxy(*apxo.hex.forward(self.x(), self.y(), self.facing()))
+    self._setxy(*glass.hex.forward(self.x(), self.y(), self.facing()))
 
 
 def _moveclimb(self, altitudechange):
-    altitude, altitudecarry = apxo.altitude.adjustaltitude(
+    altitude, altitudecarry = glass.altitude.adjustaltitude(
         self.altitude(), self.altitudecarry(), +altitudechange
     )
     self._setposition(altitude=altitude, altitudecarry=altitudecarry)
 
 
 def _movedive(self, altitudechange):
-    altitude, altitudecarry = apxo.altitude.adjustaltitude(
+    altitude, altitudecarry = glass.altitude.adjustaltitude(
         self.altitude(), self.altitudecarry(), -altitudechange
     )
     self._setposition(altitude=altitude, altitudecarry=altitudecarry)
 
 
 def _moveturn(self, sense, facingchange):
-    if apxo.hex.isside(self.x(), self.y()):
-        self._setxy(*apxo.hex.sidetocenter(self.x(), self.y(), self.facing(), sense))
+    if glass.hex.isside(self.x(), self.y()):
+        self._setxy(*glass.hex.sidetocenter(self.x(), self.y(), self.facing(), sense))
     if sense == "L":
         self._setfacing((self.facing() + facingchange) % 360)
     else:
@@ -84,15 +84,15 @@ def _moveturn(self, sense, facingchange):
 
 
 def _moveslide(self, sense):
-    self._setxy(*apxo.hex.slide(self.x(), self.y(), self.facing(), sense))
+    self._setxy(*glass.hex.slide(self.x(), self.y(), self.facing(), sense))
 
 
 def _movedisplacementroll(self, sense):
-    self._setxy(*apxo.hex.displacementroll(self.x(), self.y(), self.facing(), sense))
+    self._setxy(*glass.hex.displacementroll(self.x(), self.y(), self.facing(), sense))
 
 
 def _movelagroll(self, sense):
-    self._setxy(*apxo.hex.lagroll(self.x(), self.y(), self.facing(), sense))
+    self._setxy(*glass.hex.lagroll(self.x(), self.y(), self.facing(), sense))
     if sense == "R":
         self._setfacing((self.facing() + 30) % 360)
     else:
@@ -100,8 +100,8 @@ def _movelagroll(self, sense):
 
 
 def _moveverticalroll(self, sense, facingchange, shift):
-    if apxo.hex.isside(self.x(), self.y()) and shift:
-        self._setxy(*apxo.hex.sidetocenter(self.x(), self.y(), self.facing(), sense))
+    if glass.hex.isside(self.x(), self.y()) and shift:
+        self._setxy(*glass.hex.sidetocenter(self.x(), self.y(), self.facing(), sense))
     if sense == "L":
         self._setfacing((self.facing() + facingchange) % 360)
     else:

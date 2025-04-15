@@ -1,11 +1,11 @@
 import math
 
-import apxo.capabilities
-import apxo.gameturn
-import apxo.variants
+import glass.capabilities
+import glass.gameturn
+import glass.variants
 
-from apxo.rounding import *
-from apxo.log import plural
+from glass.rounding import *
+from glass.log import plural
 
 ################################################################################
 
@@ -157,11 +157,11 @@ def _startaircraftspeed(
     # See rule 29.1.
     if not A._fuel is None:
         if A._fuel == 0:
-            if apxo.capabilities.engines(A) == 1:
+            if glass.capabilities.engines(A) == 1:
                 A.logcomment("the engine is flamed-out from a lack of fuel.")
             else:
                 A.logstart("all engines are flamed-out from a lack of fuel.")
-            flamedoutengines = apxo.capabilities.engines(A)
+            flamedoutengines = glass.capabilities.engines(A)
 
     ############################################################################
 
@@ -181,14 +181,14 @@ def _startaircraftspeed(
     # not required for jet-powered aircraft, I have implemented that HT
     # is sufficient.
 
-    powerapM = apxo.capabilities.power(A, "M")
-    powerapAB = apxo.capabilities.power(A, "AB")
-    if apxo.variants.withvariant("disallow HT/FT"):
+    powerapM = glass.capabilities.power(A, "M")
+    powerapAB = glass.capabilities.power(A, "AB")
+    if glass.variants.withvariant("disallow HT/FT"):
         powerapHT = None
         powerapFT = None
     else:
-        powerapHT = apxo.capabilities.power(A, "HT")
-        powerapFT = apxo.capabilities.power(A, "FT")
+        powerapHT = glass.capabilities.power(A, "HT")
+        powerapFT = glass.capabilities.power(A, "FT")
 
     jet = powerapM != None
 
@@ -206,12 +206,12 @@ def _startaircraftspeed(
                 powerapAB = max(0.5, onethirdfromtable(powerapAB))
 
     # Some propeller aircraft lose power at high speed.
-    if apxo.capabilities.powerfade(A) != None:
-        powerapHT = max(0.0, powerapHT - apxo.capabilities.powerfade(A))
-        powerapFT = max(0.0, powerapFT - apxo.capabilities.powerfade(A))
+    if glass.capabilities.powerfade(A) != None:
+        powerapHT = max(0.0, powerapHT - glass.capabilities.powerfade(A))
+        powerapFT = max(0.0, powerapFT - glass.capabilities.powerfade(A))
 
     # See "Aircraft Damage Effects" in the Play Aids.
-    if not apxo.variants.withvariant("use optional damage table"):
+    if not glass.variants.withvariant("use optional damage table"):
         if A.damageatleast("H"):
             if jet:
                 powerapM /= 2
@@ -289,11 +289,11 @@ def _startaircraftspeed(
         A.logcomment("power is reduced in the %s altitude band." % A.altitudeband())
 
     # Again, the reduction was done above, but we report it here.
-    if apxo.capabilities.powerfade(A) != None and apxo.capabilities.powerfade(A) > 0.0:
+    if glass.capabilities.powerfade(A) != None and glass.capabilities.powerfade(A) > 0.0:
         A.logcomment("power is reduced as the speed is %.1f." % speed)
 
     # Again, the reduction was done above, but we report it here.
-    if not apxo.variants.withvariant("use optional damage table"):
+    if not glass.variants.withvariant("use optional damage table"):
         if A.damageatleast("H"):
             A.logcomment("power is reduced as damage is %s." % A.damage())
 
@@ -304,16 +304,16 @@ def _startaircraftspeed(
 
     # See rule 6.7
 
-    flamedoutfraction = flamedoutengines / apxo.capabilities.engines(A)
+    flamedoutfraction = flamedoutengines / glass.capabilities.engines(A)
 
     if flamedoutfraction == 1:
 
-        if apxo.capabilities.engines(A) == 1:
+        if glass.capabilities.engines(A) == 1:
             A.logcomment("power setting is treated as I as the engine is flamed-out.")
         else:
             A.logcomment(
                 "power setting is treated as I as all %d engines are flamed-out."
-                % apxo.capabilities.engines(A)
+                % glass.capabilities.engines(A)
             )
         powersetting = "I"
         powerap = 0
@@ -322,7 +322,7 @@ def _startaircraftspeed(
 
         A.logcomment(
             "maximum power is reduced by one third as %d of the %d engines are flamed-out."
-            % (flamedoutengines, apxo.capabilities.engines(A))
+            % (flamedoutengines, glass.capabilities.engines(A))
         )
         # 1/3 of APs, quantized in 1/4 units, rounding down.
         powerap = math.floor(powerap / 3 * 4) / 4
@@ -331,7 +331,7 @@ def _startaircraftspeed(
 
         A.logcomment(
             "maximum power is reduced by one half as %d of the %d engines are flamed-out."
-            % (flamedoutengines, apxo.capabilities.engines(A))
+            % (flamedoutengines, glass.capabilities.engines(A))
         )
         # 1/2 of APs, quantized in 1/4 units, rounding up.
         powerap = math.ceil(powerap / 2 * 4) / 4
@@ -353,7 +353,7 @@ def _startaircraftspeed(
             "check for flame-out as the power setting has increased from I to AB."
         )
 
-    if powersetting != "I" and A.altitude() > apxo.capabilities.ceiling(A):
+    if powersetting != "I" and A.altitude() > glass.capabilities.ceiling(A):
         A.logcomment(
             "check for flame-out as the aircraft is above its ceiling and the power setting is %s."
             % powersetting
@@ -370,7 +370,7 @@ def _startaircraftspeed(
     ):
         A.logcomment(
             "%s flame-out as the speed is supersonic and the power setting is %s."
-            % (plural(apxo.capabilities.engines(A), "engine", "engines"), powersetting)
+            % (plural(glass.capabilities.engines(A), "engine", "engines"), powersetting)
         )
 
     ############################################################################
@@ -387,46 +387,46 @@ def _startaircraftspeed(
 
     # Low-speed lift devices (e.g., slats or flaps).
 
-    if apxo.capabilities.lowspeedliftdevicelimit(A) is None:
+    if glass.capabilities.lowspeedliftdevicelimit(A) is None:
 
         A._lowspeedliftdeviceextended = False
 
     else:
 
-        if apxo.capabilities.lowspeedliftdeviceselectable(A):
+        if glass.capabilities.lowspeedliftdeviceselectable(A):
 
             if lowspeedliftdeviceselected is not None:
                 A._lowspeedliftdeviceselected = lowspeedliftdeviceselected
 
             if A._lowspeedliftdeviceselected:
-                A.logcomment("%s selected." % apxo.capabilities.lowspeedliftdevicename(A))
+                A.logcomment("%s selected." % glass.capabilities.lowspeedliftdevicename(A))
             else:
                 A.logcomment(
-                    "%s not selected." % apxo.capabilities.lowspeedliftdevicename(A)
+                    "%s not selected." % glass.capabilities.lowspeedliftdevicename(A)
                 )
 
             A._lowspeedliftdeviceextended = A._lowspeedliftdeviceselected and (
-                speed <= apxo.capabilities.lowspeedliftdevicelimit(A)
+                speed <= glass.capabilities.lowspeedliftdevicelimit(A)
             )
 
         else:
 
             A._lowspeedliftdeviceextended = (
-                speed <= apxo.capabilities.lowspeedliftdevicelimit(A)
+                speed <= glass.capabilities.lowspeedliftdevicelimit(A)
             )
 
         if A._lowspeedliftdeviceextended:
-            A.logcomment("%s extended." % apxo.capabilities.lowspeedliftdevicename(A))
+            A.logcomment("%s extended." % glass.capabilities.lowspeedliftdevicename(A))
         else:
-            A.logcomment("%s retracted." % apxo.capabilities.lowspeedliftdevicename(A))
+            A.logcomment("%s retracted." % glass.capabilities.lowspeedliftdevicename(A))
 
-    A.logcomment("minumum speed is %.1f." % apxo.capabilities.minspeed(A))
+    A.logcomment("minumum speed is %.1f." % glass.capabilities.minspeed(A))
 
     ############################################################################
 
     # See rule 6.3 on entering a stall.
 
-    minspeed = apxo.capabilities.minspeed(A)
+    minspeed = glass.capabilities.minspeed(A)
     if speed < minspeed:
         A.logcomment("speed is below the minimum of %.1f." % minspeed)
         A.logcomment("aircraft is stalled.")
@@ -449,7 +449,7 @@ def _startaircraftspeed(
 
     # See rule 6.1.
 
-    if speed > apxo.capabilities.cruisespeed(A):
+    if speed > glass.capabilities.cruisespeed(A):
         if powersetting == "I" or powersetting == "N":
             dspeedap = -1.0
             speedap += dspeedap
@@ -460,7 +460,7 @@ def _startaircraftspeed(
     # See rules 6.1 and 6.6 in version 2.4.
 
     if powersetting == "I":
-        dspeedap = -apxo.capabilities.power(A, "I")
+        dspeedap = -glass.capabilities.power(A, "I")
         speedap += dspeedap
         A.logcomment("%s power (%+.1f AP)." % (powersetting, dspeedap))
         if speed >= m1speed(A.altitudeband()):
@@ -525,7 +525,7 @@ def _startaircraftspeed(
 
     if not A._fuel is None:
         A._fuelconsumption = min(
-            A._fuel, apxo.capabilities.fuelrate(A) * (1 - flamedoutfraction)
+            A._fuel, glass.capabilities.fuelrate(A) * (1 - flamedoutfraction)
         )
 
     ############################################################################
@@ -534,7 +534,7 @@ def _startaircraftspeed(
 
     if speedbrakes is not None:
 
-        maxspeedbrakes = apxo.capabilities.speedbrake(A)
+        maxspeedbrakes = glass.capabilities.speedbrake(A)
         if maxspeedbrakes is None:
             raise RuntimeError("aircraft does not have speedbrakes.")
 
@@ -655,10 +655,10 @@ def _endaircraftspeed(A):
     # See rules 6.2, 6.3, and 8.2.
 
     if usemaxdivespeed:
-        maxspeed = apxo.capabilities.maxdivespeed(A)
+        maxspeed = glass.capabilities.maxdivespeed(A)
         maxspeedname = "maximum dive speed"
     else:
-        maxspeed = apxo.capabilities.maxspeed(A)
+        maxspeed = glass.capabilities.maxspeed(A)
         maxspeedname = "maximum speed"
 
     # See the Aircraft Damage Effects Table. We interpret its prohibition
@@ -692,7 +692,7 @@ def _endaircraftspeed(A):
 
     elif ap > 0:
 
-        if apxo.variants.withvariant("use house rules"):
+        if glass.variants.withvariant("use house rules"):
             maxapcarrybeyondmaxspeed = 0.0
         else:
             maxapcarrybeyondmaxspeed = aprate - 0.5
@@ -738,7 +738,7 @@ def _endaircraftspeed(A):
 
     # See rule 6.4.
 
-    minspeed = apxo.capabilities.minspeed(A)
+    minspeed = glass.capabilities.minspeed(A)
     if A._newspeed < minspeed:
         A.logcomment("speed will be below the minimum of %.1f." % minspeed)
     if A._newspeed >= minspeed and A._flighttype == "ST":
@@ -778,7 +778,7 @@ def _startmissilespeed(M):
     if M.speed() < missilemaneuverspeed(M.altitudeband()):
         M.logcomment("cannot maneuver.")
 
-    flightgameturn = apxo.gameturn.gameturn() - M._launchgameturn
+    flightgameturn = glass.gameturn.gameturn() - M._launchgameturn
     M.logstart("flight game turn is %d." % flightgameturn)
 
     M._maxfp = int(

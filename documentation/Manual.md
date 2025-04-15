@@ -1,6 +1,6 @@
 # Manual
 
-This manual is written to help players use the apxo package to automate the flight part of JD Webster's "Air Power" rules, published in the game "The Speed of Heat". Most of the other parts of the game, including combat, still need to handled manually.
+This manual is written to help players use the glass package to automate the flight part of JD Webster's "Air Power" rules, published in the game "The Speed of Heat". Most of the other parts of the game, including combat, still need to handled manually.
 
 The package is designed to run in a Google Colab notebook. You basically have to type commands that specify the flight type, power setting, and action for each aircraft. You do not have to understand programming to use it.
 
@@ -32,11 +32,11 @@ For further information on Colab notebooks, see Google’s “[Welcome to Colab]
 
 Copy these commands into the first code cell in the Colab notebook:
 
-    !test -d apxo || git clone --depth=1 https://github.com/alanwatsonforster/apxo.git -q
-    !cd apxo; git pull -q
+    !test -d glass || git clone --depth=1 https://github.com/alanwatsonforster/glass.git -q
+    !cd glass; git pull -q
     import sys
-    sys.path.append('apxo')
-    from apxo import *
+    sys.path.append('glass')
+    from glass import *
 
 Then run the cell by typing Ctrl-Enter. After a short delay while the notebook connects to the cloud, the commands will download the code and make it available for use in the notebook.
 

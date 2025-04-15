@@ -47,28 +47,28 @@ The ammunition of the B-29 is given as 500 rounds or about 150 lb per gun. The w
 ### Radar
 
 The Tu-4 has the RPB RPB Kobal’t or Kobal’t-M rada, a copy of the APQ-13 re-engineered by NII-17 (Guerrero). Added in [
-e772cc7](https://github.com/alanwatsonforster/apxo/commit/e772cc7f6fb69cf92f2bb66bc33c5481edd0d720).
+e772cc7](https://github.com/alanwatsonforster/glass/commit/e772cc7f6fb69cf92f2bb66bc33c5481edd0d720).
  
 ### Bomb Load
 
 Wikipedia (quoting Gordon) states that the bomb load was six 1,000 kg (2,200 lb) bombs = 13,200 lb total. I don't think the M46 series had a 1,000 kg variant, but the M54 series does. 
 
-I am assuming the M46 series was carried. Comparing it to the B-29A, a reasonable guess is two 1500 kg, six 500 kg, or twelve 250 kg bombs per bay. Added in [e55d0dd](https://github.com/alanwatsonforster/apxo/commit/e55d0dd8a505ec074af6063614089593241af6fa).
+I am assuming the M46 series was carried. Comparing it to the B-29A, a reasonable guess is two 1500 kg, six 500 kg, or twelve 250 kg bombs per bay. Added in [e55d0dd](https://github.com/alanwatsonforster/glass/commit/e55d0dd8a505ec074af6063614089593241af6fa).
 
 ### FTs
 
-I presume the Soviets deployed internal FTs like those in the B-29. Added in [2d81218](https://github.com/alanwatsonforster/apxo/commit/2d81218ee0aaa166e1c80f16eeb6519176d520df) and [a253f9d](https://github.com/alanwatsonforster/apxo/commit/a253f9d40113dbfbc4b4e4eb193fd6e4c28d14c6).
+I presume the Soviets deployed internal FTs like those in the B-29. Added in [2d81218](https://github.com/alanwatsonforster/glass/commit/2d81218ee0aaa166e1c80f16eeb6519176d520df) and [a253f9d](https://github.com/alanwatsonforster/glass/commit/a253f9d40113dbfbc4b4e4eb193fd6e4c28d14c6).
 
 ### Nuclear Weapons
 
-Added to Tu-4A in [624b2d5](https://github.com/alanwatsonforster/apxo/commit/624b2d578a4ff93d2fd2c8f36ee3104ac4641200).
+Added to Tu-4A in [624b2d5](https://github.com/alanwatsonforster/glass/commit/624b2d578a4ff93d2fd2c8f36ee3104ac4641200).
 
 - [RDS-3](https://en.wikipedia.org/wiki/RDS-3) [Three times](https://en.wikipedia.org/wiki/RDS-2_Linage) weight of RDS-4, so 3600 kg = 8000 lb
 - [RDS-4](https://en.wikipedia.org/wiki/RDS-4) 1200 kg = 2600 lb (tested, but this is a tactical weapon so probably not deployed on the Tu4).
 
 ### Tu-4A
 
-I presume the Tu-4A was stripped, like the Silverplate/Saddletree B-29s. Added in [cfd5e7b](https://github.com/alanwatsonforster/apxo/commit/cfd5e7b42f714086cc7ff712895a3fdbaba31d4b) and [c4f6ef1](https://github.com/alanwatsonforster/apxo/commit/c4f6ef185207aa902909689a25cbad6d601c028a).
+I presume the Tu-4A was stripped, like the Silverplate/Saddletree B-29s. Added in [cfd5e7b](https://github.com/alanwatsonforster/glass/commit/cfd5e7b42f714086cc7ff712895a3fdbaba31d4b) and [c4f6ef1](https://github.com/alanwatsonforster/glass/commit/c4f6ef185207aa902909689a25cbad6d601c028a).
 
 ## Other Possible Versions
 

@@ -1,10 +1,10 @@
-from apxo.tests.infrastructure import *
+from glass.tests.infrastructure import *
 
 startfile(__file__, "math")
 
-# Checks on apxo..rounding.
+# Checks on glass..rounding.
 
-from apxo.rounding import onethirdfromtable, twothirdsfromtable
+from glass.rounding import onethirdfromtable, twothirdsfromtable
 
 # This table is from the play aids.
 

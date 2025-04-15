@@ -1,18 +1,18 @@
-from apxo.tests.infrastructure import *
+from glass.tests.infrastructure import *
 
 startfile(__file__, "aircraft data")
 
-# Checks on apxo..aircraftdata.
+# Checks on glass..aircraftdata.
 
-from apxo.aircraftdata import aircraftdata
-import apxo.variants
+from glass.aircraftdata import aircraftdata
+import glass.variants
 
 # Make sure all of the aircraft data files are readable.
 
 import glob
 import os.path
 
-pathlist = sorted(list(glob.glob("apxo/aircraftdata/*.json")))
+pathlist = sorted(list(glob.glob("glass/aircraftdata/*.json")))
 for path in pathlist:
     aircrafttype = os.path.basename(path)[:-5]
     if aircrafttype[0] != "_":

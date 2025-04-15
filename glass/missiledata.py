@@ -1,4 +1,4 @@
-import apxo.variants
+import glass.variants
 
 
 _missiledict = {

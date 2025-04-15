@@ -1,6 +1,6 @@
 # Map Styles
 
-In APXO, a *map style* does two things: it determines how a map is rendered graphically and also can modify the terrain elements. The map style is specified when the game is started.
+In Glass, a *map style* does two things: it determines how a map is rendered graphically and also can modify the terrain elements. The map style is specified when the game is started.
 
 ## Considerations
 
@@ -12,7 +12,7 @@ The new opportunity lies in the extensibility and flexibility of digital maps. T
 
 However, a key challenge arises from the need to ensure that aircraft and other markers remain visually distinct from the map. In physical maps, counters naturally stand out from the map due to their texture and relief. In digital maps, this distinction can be achieved by using low contrast and saturation for the map itself and higher contrast, higher saturation, and black outlining for aircraft and other markers.
 
-With these considerations in mind, the implementation of the digital maps in APXO has the following features:
+With these considerations in mind, the implementation of the digital maps in Glass has the following features:
 
 * The hex grid, hex labeling, and mega-hex grid are taken almost directly from the physical maps in the original games. 
     

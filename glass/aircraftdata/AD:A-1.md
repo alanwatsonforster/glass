@@ -16,31 +16,31 @@ TSOH has ADCs for the AD-4, AD-6/A-1H, and AD-7/A-1J.
 
 ### AD-4
 
-Four 20 mm M3 each with 200 rounds (Wikipedia). Guns changed from Mk 12 (from the original TSOH ADC) to M3 in [1e051cb](https://github.com/alanwatsonforster/apxo/commit/1e051cbb5e75da017d8c016e9726645657c6d3ff).
+Four 20 mm M3 each with 200 rounds (Wikipedia). Guns changed from Mk 12 (from the original TSOH ADC) to M3 in [1e051cb](https://github.com/alanwatsonforster/glass/commit/1e051cbb5e75da017d8c016e9726645657c6d3ff).
 
 ### AD-5/A-1E
 
-ADC adapted by AWF from A-1H. Added in [f9d795f](https://github.com/alanwatsonforster/apxo/commit/f9d795ffd56c21ee5bb0e962e8952c32de47ff89).
+ADC adapted by AWF from A-1H. Added in [f9d795f](https://github.com/alanwatsonforster/glass/commit/f9d795ffd56c21ee5bb0e962e8952c32de47ff89).
 
 This had side-by-side seating for a pilot and copilot. The 602nd Air Commando Squadron used the A-1E in Farm Gate with a USAF pilot and Vietnamese copilot, but in later USAF and USN action it flew with only a pilot (see the shoot-downs of Sather and Goss and the rescue by Fisher).
 
-The A-1E omits the lateral dive brakes and retains only the ventral dive brakes, so its speed brake DP capability is less than that of the other A-1s. Added in [c7fc1dc](https://github.com/alanwatsonforster/apxo/commit/c7fc1dca91757dd5eec766faee8ae8cef6d66429).
+The A-1E omits the lateral dive brakes and retains only the ventral dive brakes, so its speed brake DP capability is less than that of the other A-1s. Added in [c7fc1dc](https://github.com/alanwatsonforster/glass/commit/c7fc1dca91757dd5eec766faee8ae8cef6d66429).
 
 Wikipedia mentions it being flown by the USN, USMC, USAF, and RVNAF.
 
-Four 20 mm M3 each with 200 rounds (SAC). Guns changed from Mk 12 (from the original TSOH ADC) to M3 in [1e051cb](https://github.com/alanwatsonforster/apxo/commit/1e051cbb5e75da017d8c016e9726645657c6d3ff).
+Four 20 mm M3 each with 200 rounds (SAC). Guns changed from Mk 12 (from the original TSOH ADC) to M3 in [1e051cb](https://github.com/alanwatsonforster/glass/commit/1e051cbb5e75da017d8c016e9726645657c6d3ff).
 
 ### AD-6/A-1H
 
-Four 20 mm M3 each with 200 rounds (SAC). Guns changed from Mk 12 (from the original TSOH ADC) to M3 in [1e051cb](https://github.com/alanwatsonforster/apxo/commit/1e051cbb5e75da017d8c016e9726645657c6d3ff).
+Four 20 mm M3 each with 200 rounds (SAC). Guns changed from Mk 12 (from the original TSOH ADC) to M3 in [1e051cb](https://github.com/alanwatsonforster/glass/commit/1e051cbb5e75da017d8c016e9726645657c6d3ff).
 
 ### AD-7/A-1J
 
-Four 20 mm M3 each with 200 rounds (SAC). Guns changed from Mk 12 (from the original TSOH ADC) to M3 in [1e051cb](https://github.com/alanwatsonforster/apxo/commit/1e051cbb5e75da017d8c016e9726645657c6d3ff).
+Four 20 mm M3 each with 200 rounds (SAC). Guns changed from Mk 12 (from the original TSOH ADC) to M3 in [1e051cb](https://github.com/alanwatsonforster/glass/commit/1e051cbb5e75da017d8c016e9726645657c6d3ff).
 
 ### Stanley Yankee Extraction System
 
-[Jayne](https://www.airuniversity.af.edu/Portals/10/ASPJ/journals/Volume-31_Issue-2/V-Jayne.pdf) states that the Stanley extraction system was retrofitted in 1967. Added to ADCs in [3d3f674](https://github.com/alanwatsonforster/apxo/commit/3d3f674dcca86a640f4df7996111a4826d654c24).
+[Jayne](https://www.airuniversity.af.edu/Portals/10/ASPJ/journals/Volume-31_Issue-2/V-Jayne.pdf) states that the Stanley extraction system was retrofitted in 1967. Added to ADCs in [3d3f674](https://github.com/alanwatsonforster/glass/commit/3d3f674dcca86a640f4df7996111a4826d654c24).
 
 ### Loads
 

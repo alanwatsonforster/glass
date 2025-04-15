@@ -1,8 +1,8 @@
-from apxo.tests.infrastructure import *
+from glass.tests.infrastructure import *
 
 startfile(__file__, "ABSF aircraft")
 
-from apxo.tests.infrastructure import *
+from glass.tests.infrastructure import *
 
 # The F-89D has a different max speed with AB and M power.
 

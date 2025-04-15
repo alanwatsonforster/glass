@@ -1,7 +1,7 @@
 ################################################################################
 
-import apxo.hexcode
-import apxo.log
+import glass.hexcode
+import glass.log
 
 ################################################################################
 
@@ -31,7 +31,7 @@ def track(self, target, *args, **kwargs):
         self._track(target, *args, **kwargs)
         self._tracking = target
     except RuntimeError as e:
-        apxo.log.logexception(e)
+        glass.log.logexception(e)
     self.logbreak()
 
 
@@ -44,7 +44,7 @@ def stoptracking(self):
             raise RuntimeError("%s is not tracking" % self.name())
         self._stoptracking()
     except RuntimeError as e:
-        apxo.log.logexception(e)
+        glass.log.logexception(e)
     self.logbreak()
 
 

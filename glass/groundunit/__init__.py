@@ -1,12 +1,12 @@
-import apxo.element
-import apxo.gameturn
-import apxo.log
+import glass.element
+import glass.gameturn
+import glass.log
 
 ################################################################################
 
 
 def aslist(withkilled=False):
-    elementlist = apxo.element.aslist()
+    elementlist = glass.element.aslist()
     groundunitlist = filter(lambda E: E.isgroundunit(), elementlist)
     if not withkilled:
         groundunitlist = filter(lambda x: not x.killed(), groundunitlist)
@@ -15,12 +15,12 @@ def aslist(withkilled=False):
 
 ################################################################################
 
-from apxo.groundunit.data import _loaddata
+from glass.groundunit.data import _loaddata
 
 ################################################################################
 
 
-class GroundUnit(apxo.element.Element):
+class GroundUnit(glass.element.Element):
 
     ############################################################################
 
@@ -143,7 +143,7 @@ class GroundUnit(apxo.element.Element):
             self._inittracking()
 
         except RuntimeError as e:
-            apxo.log.logexception(e)
+            glass.log.logexception(e)
         self.logbreak()
 
     ############################################################################
@@ -164,7 +164,7 @@ class GroundUnit(apxo.element.Element):
 
     ############################################################################
 
-    from apxo.groundunit.attack import (
+    from glass.groundunit.attack import (
         _initattack,
         _endgameturnattack,
         _aaarangeclass,
@@ -179,7 +179,7 @@ class GroundUnit(apxo.element.Element):
         isusingplottedfire,
         resupplyammunition,
     )
-    from apxo.groundunit.damage import (
+    from glass.groundunit.damage import (
         _initdamage,
         _endgameturndamage,
         _damage,
@@ -189,9 +189,9 @@ class GroundUnit(apxo.element.Element):
         _takedamageconsequences,
         _issuppressed,
     )
-    from apxo.groundunit.draw import _draw
-    from apxo.groundunit.move import _move, _continuemove
-    from apxo.groundunit.track import (
+    from glass.groundunit.draw import _draw
+    from glass.groundunit.move import _move, _continuemove
+    from glass.groundunit.track import (
         _maximumtrackingrange,
         _trackingrequirement,
         _track,

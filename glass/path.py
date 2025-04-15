@@ -1,4 +1,4 @@
-import apxo.draw
+import glass.draw
 
 
 class path:
@@ -20,7 +20,7 @@ class path:
         self._altitude.append(altitude)
 
     def draw(self, color, annotate=True, killed=False):
-        apxo.draw.drawpath(
+        glass.draw.drawpath(
             self._x,
             self._y,
             self._facing,

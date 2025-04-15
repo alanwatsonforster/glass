@@ -12,7 +12,7 @@ An ADC for the FB.11 appears in APJ 32.
 
 ### Restricted Arc
 
-Restricted arc changed to 180L in [3a1bd42](https://github.com/alanwatsonforster/apxo/commit/3a1bd42f22d1a9c44ca8afdfb01578f9580949f4).
+Restricted arc changed to 180L in [3a1bd42](https://github.com/alanwatsonforster/glass/commit/3a1bd42f22d1a9c44ca8afdfb01578f9580949f4).
 
 ### Loads
 

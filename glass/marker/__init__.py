@@ -1,12 +1,12 @@
 ################################################################################
 
-import apxo.element
-import apxo.log
+import glass.element
+import glass.log
 
 ################################################################################
 
 
-class Marker(apxo.element.Element):
+class Marker(glass.element.Element):
 
     ############################################################################
 
@@ -50,7 +50,7 @@ class Marker(apxo.element.Element):
             self._type = type
 
         except RuntimeError as e:
-            apxo.log.logexception(e)
+            glass.log.logexception(e)
         if not silent:
             self.logbreak()
 
@@ -61,6 +61,6 @@ class Marker(apxo.element.Element):
 
     ############################################################################
 
-    from apxo.marker.draw import _draw
+    from glass.marker.draw import _draw
 
     ############################################################################

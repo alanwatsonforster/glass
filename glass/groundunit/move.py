@@ -1,8 +1,8 @@
 ################################################################################
 
-import apxo.azimuth
-import apxo.hex
-import apxo.hexcode
+import glass.azimuth
+import glass.hex
+import glass.hexcode
 
 ################################################################################
 
@@ -24,11 +24,11 @@ def _continuemove(self, s):
             self._moveturn("L", 30)
         elif s == "LL" or s == "L60":
             self._moveturn("L", 60)
-    elif apxo.hexcode.isvalidhexcodeforcenter(s):
+    elif glass.hexcode.isvalidhexcodeforcenter(s):
         self._setposition(hexcode=s)
-    elif apxo.azimuth.isvalidazimuth(s):
-        newx, newy = apxo.hex.forward(self._x, self._y, apxo.azimuth.tofacing(s))
-        if not apxo.hex.iscenter(newx, newy):
+    elif glass.azimuth.isvalidazimuth(s):
+        newx, newy = glass.hex.forward(self._x, self._y, glass.azimuth.tofacing(s))
+        if not glass.hex.iscenter(newx, newy):
             raise RuntimeError('invalid azimuth "%s" for move.' % s)
         self._setposition(x=newx, y=newy)
     else:

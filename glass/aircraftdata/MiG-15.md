@@ -14,7 +14,7 @@ The ADCs for the -15bis, -15P, and -15ISh are originally from TSOH.
 
 ### FTs
 
-Goebel states it could use 250L, 300L, 400L, or 600L FTs. These are 550, 650, 700, and 1100 lb each, but the standard pylon is only for 550 lb. I have added a restriction that the heavier tanks can be carried but turns are limited to HT with the 300/400L and TT with the 600L. Added in [07c3bd0](https://github.com/alanwatsonforster/apxo/commit/07c3bd00f04050fffff80aca8ff9cbdee6edf7ce).
+Goebel states it could use 250L, 300L, 400L, or 600L FTs. These are 550, 650, 700, and 1100 lb each, but the standard pylon is only for 550 lb. I have added a restriction that the heavier tanks can be carried but turns are limited to HT with the 300/400L and TT with the 600L. Added in [07c3bd0](https://github.com/alanwatsonforster/glass/commit/07c3bd00f04050fffff80aca8ff9cbdee6edf7ce).
 
 ## Bibliography
 

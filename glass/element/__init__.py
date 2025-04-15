@@ -1,15 +1,15 @@
 import copy
 import re
 
-import apxo.altitude
-import apxo.azimuth
-import apxo.path
-import apxo.hex
-import apxo.hexcode
-import apxo.gameturn
-import apxo.log
-import apxo.map
-import apxo.speed
+import glass.altitude
+import glass.azimuth
+import glass.path
+import glass.hex
+import glass.hexcode
+import glass.gameturn
+import glass.log
+import glass.map
+import glass.speed
 
 # Elements are anything that can be placed on a map: aircraft, missiles,
 # ground units, markers, and bombs. This class gathers together their common
@@ -160,32 +160,32 @@ class Element:
         self._name = name
 
         if azimuth is not None:
-            if not apxo.azimuth.isvalidazimuth(azimuth):
+            if not glass.azimuth.isvalidazimuth(azimuth):
                 raise RuntimeError("the azimuth argument is not valid.")
-            facing = apxo.azimuth.tofacing(azimuth)
+            facing = glass.azimuth.tofacing(azimuth)
 
         if hexcode is not None:
-            if not apxo.hexcode.isvalidhexcode(hexcode):
+            if not glass.hexcode.isvalidhexcode(hexcode):
                 raise RuntimeError("the hexcode argument is not valid.")
-            x, y = apxo.hexcode.toxy(hexcode)
+            x, y = glass.hexcode.toxy(hexcode)
 
-        if not apxo.hex.isvalid(x, y, facing):
+        if not glass.hex.isvalid(x, y, facing):
             raise RuntimeError("the combination of hexcode and facing are not valid.")
 
-        if altitude is not None and not apxo.altitude.isvalidaltitude(altitude):
+        if altitude is not None and not glass.altitude.isvalidaltitude(altitude):
             raise RuntimeError("the altitude argument is not valid.")
 
         if delay < 0:
             raise RuntimeError("the delay argument is not valid.")
         while delay != 0:
-            x, y = apxo.hex.backward(x, y, facing)
+            x, y = glass.hex.backward(x, y, facing)
             delay -= 1
 
         self._x = x
         self._y = y
         self._facing = facing
         self._altitude = altitude
-        self._altitudeband = apxo.altitude.altitudeband(self.altitude())
+        self._altitudeband = glass.altitude.altitudeband(self.altitude())
         self._altitudecarry = 0
         self._flightslope = None
         self._startedmoving = False
@@ -195,12 +195,12 @@ class Element:
         self._removed = False
         self._unspecifiedattackresult = 0
 
-        if not apxo.speed.isvalidspeed(speed):
+        if not glass.speed.isvalidspeed(speed):
             raise RuntimeError("the speed argument is not valid.")
 
         self._speed = speed
 
-        self._path = apxo.path.path(x, y, facing, altitude, speed)
+        self._path = glass.path.path(x, y, facing, altitude, speed)
 
         self._color = color
 
@@ -226,9 +226,9 @@ class Element:
     ):
 
         if hexcode is not None:
-            if not apxo.hexcode.isvalidhexcode(hexcode):
+            if not glass.hexcode.isvalidhexcode(hexcode):
                 raise RuntimeError("the hexcode argument is not valid.")
-            x, y = apxo.hexcode.toxy(hexcode)
+            x, y = glass.hexcode.toxy(hexcode)
 
         if x is None:
             x = self._x
@@ -236,19 +236,19 @@ class Element:
             y = self._y
 
         if azimuth is not None:
-            if not apxo.azimuth.isvalidazimuth(azimuth):
+            if not glass.azimuth.isvalidazimuth(azimuth):
                 raise RuntimeError("the azimuth argument is not valid.")
-            facing = apxo.azimuth.tofacing(azimuth)
+            facing = glass.azimuth.tofacing(azimuth)
 
         if facing is None:
             facing = self._facing
 
-        if not apxo.hex.isvalid(x, y, facing):
+        if not glass.hex.isvalid(x, y, facing):
             raise RuntimeError("the combination of hexcode and facing are not valid.")
 
         if altitude is None:
             altitude = self._altitude
-        elif not apxo.altitude.isvalidaltitude(altitude):
+        elif not glass.altitude.isvalidaltitude(altitude):
             raise RuntimeError("the altitude argument is not valid.")
 
         if altitudecarry is None:
@@ -258,7 +258,7 @@ class Element:
         self._y = y
         self._facing = facing
         self._altitude = altitude
-        self._altitudeband = apxo.altitude.altitudeband(self.altitude())
+        self._altitudeband = glass.altitude.altitudeband(self.altitude())
         self._altitudecarry = altitudecarry
 
     ############################################################################
@@ -286,7 +286,7 @@ class Element:
     def _setspeed(self, speed=None):
         if speed is None:
             speed = self.speed()
-        if not apxo.speed.isvalidspeed(speed):
+        if not glass.speed.isvalidspeed(speed):
             raise RuntimeError("the speed argument is not valid.")
         self._speed = speed
 
@@ -304,12 +304,12 @@ class Element:
 
     def kill(self, note=None):
         try:
-            apxo.gameturn.checkingameturn()
+            glass.gameturn.checkingameturn()
             self.logcomment("has been killed.")
             self.lognote(note)
             self._kill()
         except RuntimeError as e:
-            apxo.log.logexception(e)
+            glass.log.logexception(e)
         self.logbreak()
 
     def _remove(self):
@@ -317,12 +317,12 @@ class Element:
 
     def remove(self, note=None):
         try:
-            apxo.gameturn.checkingameturn()
+            glass.gameturn.checkingameturn()
             self.logcomment("has been removed.")
             self.lognote(note)
             self._removed = True
         except RuntimeError as e:
-            apxo.log.logexception(e)
+            glass.log.logexception(e)
         self.logbreak()
 
     ############################################################################
@@ -340,8 +340,8 @@ class Element:
         return self._x, self._y
 
     def hexcode(self):
-        if apxo.map.isonmap(self.x(), self.y()):
-            return apxo.hexcode.fromxy(self.x(), self.y())
+        if glass.map.isonmap(self.x(), self.y()):
+            return glass.hexcode.fromxy(self.x(), self.y())
         else:
             return None
 
@@ -352,7 +352,7 @@ class Element:
         if self.facing() is None:
             return None
         else:
-            return apxo.azimuth.fromfacing(self.facing())
+            return glass.azimuth.fromfacing(self.facing())
 
     def altitude(self):
         if self._altitude is None:
@@ -361,7 +361,7 @@ class Element:
             return self._altitude
 
     def terrainaltitude(self):
-        return apxo.altitude.terrainaltitude(self.x(), self.y())
+        return glass.altitude.terrainaltitude(self.x(), self.y())
 
     def startaltitude(self):
         return self._startaltitude
@@ -503,9 +503,9 @@ class Element:
         terrainaltitude = self.terrainaltitude()
 
         if self.isinterrainfollowingflight():
-            if apxo.map.iscity(*self.xy()):
+            if glass.map.iscity(*self.xy()):
                 killed = "entered city while in terrain-following flight"
-            elif apxo.map.crossesridgeline(*self.lastxy(), *self.xy()):
+            elif glass.map.crossesridgeline(*self.lastxy(), *self.xy()):
                 killed = "crossed ridge line while in terrain-following flight"
             elif self.altitude() < self.terrainaltitude():
                 killed = "collided with terrain"
@@ -531,7 +531,7 @@ class Element:
         Check if the element has left the map.
         """
 
-        if not apxo.map.isonmap(self.x(), self.y()):
+        if not glass.map.isonmap(self.x(), self.y()):
             self.logwhenwhat("", "has left the map.")
 
     ############################################################################
@@ -550,23 +550,23 @@ class Element:
     ############################################################################
 
     def logwhat(self, what, writefile=True):
-        apxo.log.logwhat(what, who=self.name(), writefile=writefile)
+        glass.log.logwhat(what, who=self.name(), writefile=writefile)
 
     def logwhenwhat(self, when, what, writefile=True):
-        apxo.log.logwhenwhat(when, what, who=self.name(), writefile=writefile)
+        glass.log.logwhenwhat(when, what, who=self.name(), writefile=writefile)
 
     def logcomment(self, comment, writefile=True):
-        apxo.log.logcomment(
+        glass.log.logcomment(
             comment,
             who=self.name(),
             writefile=writefile,
         )
 
     def lognote(self, note, writefile=True):
-        apxo.log.lognote(note, who=self.name(), writefile=writefile)
+        glass.log.lognote(note, who=self.name(), writefile=writefile)
 
     def logbreak(self, writefile=True):
-        apxo.log.logbreak(who=self.name(), writefile=writefile)
+        glass.log.logbreak(who=self.name(), writefile=writefile)
 
     def logposition(self, when, writefile=True):
         self.logwhenwhat(when, self.position(), writefile=writefile)
@@ -589,10 +589,10 @@ class Element:
         Verify the position and new speed of an element.
         """
 
-        if apxo.log._error != None:
+        if glass.log._error != None:
             print("== assertion failed ===")
-            print("== unexpected error: %r" % apxo.log._error)
-            assert apxo.log._error == None
+            print("== unexpected error: %r" % glass.log._error)
+            assert glass.log._error == None
 
         expectedposition = re.sub(" +", " ", expectedposition)
         actualposition = re.sub(" +", " ", self.position())
@@ -626,7 +626,7 @@ class Element:
 
     ############################################################################
 
-    from apxo.element.attack import (
+    from glass.element.attack import (
         _attackstartgameturn,
         _attackendgameturn,
         _attackgroundunit,
@@ -636,7 +636,7 @@ class Element:
         secondaryattack,
     )
 
-    from apxo.element.damage import (
+    from glass.element.damage import (
         _initdamage,
         _damage,
         _damageatleast,
@@ -651,7 +651,7 @@ class Element:
         issuppressed,
     )
 
-    from apxo.element.move import (
+    from glass.element.move import (
         move,
         continuemove,
         _move,
@@ -666,4 +666,4 @@ class Element:
         _moveverticalroll,
     )
 
-    from apxo.element.track import _inittracking, track, stoptracking
+    from glass.element.track import _inittracking, track, stoptracking

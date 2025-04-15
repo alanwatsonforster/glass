@@ -1,8 +1,8 @@
-from apxo.tests.infrastructure import *
+from glass.tests.infrastructure import *
 
 startfile(__file__, "terrain-following flight")
 
-from apxo.tests.infrastructure import *
+from glass.tests.infrastructure import *
 
 starttestsetup(sheets=[["C2"]])
 A1 = setupaircraft("A1", "AF", "F-80C", "C2-6625", "WSW", 1, 4.0, "CL")

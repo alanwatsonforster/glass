@@ -1,22 +1,22 @@
 ################################################################################
 
-import apxo.airtoair
-import apxo.bomb
-import apxo.flight
-import apxo.geometry
-import apxo.log
+import glass.airtoair
+import glass.bomb
+import glass.flight
+import glass.geometry
+import glass.log
 
 ################################################################################
 
 
 def _attackaircraft(self, target, attacktype, result=None, returnfire=False, note=None):
 
-    if not returnfire and apxo.flight.useofweaponsforbidden(self):
+    if not returnfire and glass.flight.useofweaponsforbidden(self):
         raise RuntimeError(
-            "attempt to use weapons %s." % apxo.flight.useofweaponsforbidden(self)
+            "attempt to use weapons %s." % glass.flight.useofweaponsforbidden(self)
         )
 
-    apxo.airtoair.attack(self, attacktype, target, result, returnfire=returnfire)
+    glass.airtoair.attack(self, attacktype, target, result, returnfire=returnfire)
 
     self.lognote(note)
 
@@ -110,8 +110,8 @@ def _attackgroundunit(self, target, attacktype, result=None, stores=None, note=N
     else:
         raise RuntimeError("attack in climbing flight.")
 
-    range = apxo.geometry.range(self, target)
-    horizontalrange = apxo.geometry.horizontalrange(self, target)
+    range = glass.geometry.range(self, target)
+    horizontalrange = glass.geometry.horizontalrange(self, target)
     relativealtitude = self.altitude() - target.altitude()
 
     if weapon == "GN":
@@ -177,8 +177,8 @@ def bomb(self, name, target, stores=None, highdrag=False, note=None):
         else:
             raise RuntimeError("bomber is in climbing flight.")
 
-        range = apxo.geometry.range(self, target)
-        horizontalrange = apxo.geometry.horizontalrange(self, target)
+        range = glass.geometry.range(self, target)
+        horizontalrange = glass.geometry.horizontalrange(self, target)
         relativealtitude = self.altitude() - target.altitude()
         self.logcomment(
             "release point is %d hexes and %+d levels."
@@ -214,13 +214,13 @@ def bomb(self, name, target, stores=None, highdrag=False, note=None):
         self.logcomment("release point is valid.")
 
         self._release(stores)
-        bomb = apxo.bomb.Bomb(name, self.hexcode(), self.facing(), self.altitude())
+        bomb = glass.bomb.Bomb(name, self.hexcode(), self.facing(), self.altitude())
         self._stopaiming()
         self.lognote(note)
         return bomb
 
     except RuntimeError as e:
-        apxo.log.logexception(e)
+        glass.log.logexception(e)
     self.logbreak()
 
 

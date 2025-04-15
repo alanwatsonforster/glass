@@ -1,4 +1,4 @@
-from apxo.tests.infrastructure import *
+from glass.tests.infrastructure import *
 
 startfile(__file__, "flamed-out engines")
 
@@ -66,7 +66,7 @@ endgameturn()
 
 # Flame-Out Warnings
 
-# We don't automatically check that the warnings are issued, but if the code is run with verbose=True they should apxo.pear.
+# We don't automatically check that the warnings are issued, but if the code is run with verbose=True they should glass.pear.
 
 starttestsetup(sheets=[["A1"], ["A2"]])
 A1 = setupaircraft("A1", "AF", "F-80C", "A2-1330", "N", 45, 4.0, "CL")

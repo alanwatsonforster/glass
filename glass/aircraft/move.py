@@ -1,6 +1,6 @@
 ################################################################################
 
-import apxo.flight
+import glass.flight
 
 ################################################################################
 
@@ -16,7 +16,7 @@ def _move(
     geometry=None,
 ):
     self._setgeometry(geometry)
-    apxo.flight._move(
+    glass.flight._move(
         self,
         flighttype,
         power,
@@ -28,7 +28,7 @@ def _move(
 
 
 def _continuemove(self, moves=""):
-    apxo.flight._continuemove(self, moves)
+    glass.flight._continuemove(self, moves)
 
 
 ################################################################################

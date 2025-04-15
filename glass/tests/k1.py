@@ -1,4 +1,4 @@
-from apxo.tests.infrastructure import *
+from glass.tests.infrastructure import *
 
 startfile(__file__, "damage effects")
 
@@ -62,7 +62,7 @@ endgameturn()
 
 # HPR
 
-import apxo.capabilities
+import glass.capabilities
 
 starttestsetup()
 A1 = setupaircraft("A1", "AF", "F7U-3", "A2-2025", "N", 5, 5.0, "CL")

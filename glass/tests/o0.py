@@ -1,4 +1,4 @@
-from apxo.tests.infrastructure import *
+from glass.tests.infrastructure import *
 
 startfile(__file__, "ground unit creation")
 
@@ -171,7 +171,7 @@ import os.path
 
 starttestsetup()
 
-pathlist = sorted(list(glob.glob("apxo/groundunitdata/*.json")))
+pathlist = sorted(list(glob.glob("glass/groundunitdata/*.json")))
 i = 0
 for path in pathlist:
     groundunittype = os.path.basename(path)[:-5]

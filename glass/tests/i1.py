@@ -1,4 +1,4 @@
-from apxo.tests.infrastructure import *
+from glass.tests.infrastructure import *
 
 startfile(__file__, "close formation flying limits")
 
@@ -6,7 +6,7 @@ startfile(__file__, "close formation flying limits")
 
 # Climbing and Diving
 
-from apxo.tests.infrastructure import *
+from glass.tests.infrastructure import *
 
 starttestsetup()
 A1 = setupaircraft("A1", "AF", "F-104A", "A2-1530", "N", 10, 5.0, "CL")
@@ -174,7 +174,7 @@ endgameturn()
 assert A1.closeformationnames() == []
 assert A2.closeformationnames() == []
 
-from apxo.tests.infrastructure import *
+from glass.tests.infrastructure import *
 
 # Turns with 4 aircraft formations
 

@@ -1,13 +1,13 @@
 ################################################################################
 
-import apxo.azimuth
-import apxo.element
-import apxo.log
+import glass.azimuth
+import glass.element
+import glass.log
 
 ################################################################################
 
 
-class Bomb(apxo.element.Element):
+class Bomb(glass.element.Element):
 
     ############################################################################
 
@@ -23,7 +23,7 @@ class Bomb(apxo.element.Element):
         super().__init__(
             name,
             hexcode=hexcode,
-            azimuth=apxo.azimuth.fromfacing(facing),
+            azimuth=glass.azimuth.fromfacing(facing),
             altitude=altitude,
             speed=0,
         )
@@ -48,12 +48,12 @@ class Bomb(apxo.element.Element):
 
     ############################################################################
 
-    from apxo.bomb.attack import (
+    from glass.bomb.attack import (
         _attackgroundunit,
         _secondaryattackgroundunit,
         blastzone,
     )
-    from apxo.bomb.draw import _draw
-    from apxo.bomb.move import _move, _continuemove
+    from glass.bomb.draw import _draw
+    from glass.bomb.move import _move, _continuemove
 
     ############################################################################

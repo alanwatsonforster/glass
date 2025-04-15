@@ -1,6 +1,6 @@
 ################################################################################
 
-import apxo.draw
+import glass.draw
 
 ################################################################################
 
@@ -10,13 +10,13 @@ def _draw(self):
     zorder = self.altitude() + 1
     if self._type == "dot":
 
-        apxo.draw.drawdot(*self.xy(), size=0.1, fillcolor=self.color(), zorder=zorder)
+        glass.draw.drawdot(*self.xy(), size=0.1, fillcolor=self.color(), zorder=zorder)
 
     elif self._type == "circle":
 
-        apxo.draw.drawcircle(*self.xy(), size=0.65, linecolor=self.color(), linewidth=2)
+        glass.draw.drawcircle(*self.xy(), size=0.65, linecolor=self.color(), linewidth=2)
         if self.name() is not None:
-            apxo.draw.drawtext(
+            glass.draw.drawtext(
                 *self.xy(),
                 self.facing(),
                 self.name(),
@@ -26,7 +26,7 @@ def _draw(self):
 
     elif self._type == "square":
 
-        apxo.draw.drawsquare(
+        glass.draw.drawsquare(
             *self.xy(),
             size=0.65,
             linecolor=self.color(),
@@ -35,7 +35,7 @@ def _draw(self):
             zorder=zorder
         )
         if self.name() is not None:
-            apxo.draw.drawtext(*self.xy(), self.facing(), self.name(), color=self.color())
+            glass.draw.drawtext(*self.xy(), self.facing(), self.name(), color=self.color())
 
 
 ################################################################################

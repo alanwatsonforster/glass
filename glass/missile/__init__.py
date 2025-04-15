@@ -1,23 +1,23 @@
 import math
 
-import apxo.altitude
-import apxo.azimuth
-import apxo.element
-import apxo.flight
-import apxo.gameturn
-import apxo.geometry
-import apxo.hexcode
-import apxo.log
-import apxo.map
-import apxo.missiledata
-import apxo.speed
-import apxo.variants
+import glass.altitude
+import glass.azimuth
+import glass.element
+import glass.flight
+import glass.gameturn
+import glass.geometry
+import glass.hexcode
+import glass.log
+import glass.map
+import glass.missiledata
+import glass.speed
+import glass.variants
 
 ##############################################################################
 
 
 def aslist():
-    elementlist = apxo.element.aslist()
+    elementlist = glass.element.aslist()
     missilelist = filter(lambda self: self.ismissile(), elementlist)
     return list(missilelist)
 
@@ -25,7 +25,7 @@ def aslist():
 #############################################################################
 
 
-class Missile(apxo.element.Element):
+class Missile(glass.element.Element):
 
     def __init__(self, name, missiletype, launcher, target, color="white"):
 
@@ -66,14 +66,14 @@ class Missile(apxo.element.Element):
             self._maneuverfacingchange = None
             self._manueversupersonic = False
 
-            self._launchgameturn = apxo.gameturn.gameturn()
+            self._launchgameturn = glass.gameturn.gameturn()
 
             self._newspeed = None
-            if apxo.variants.withvariant("use house rules"):
+            if glass.variants.withvariant("use house rules"):
                 self._setspeed(self.basespeed() + launcher.newspeed())
             else:
                 self._setspeed(self.basespeed() + launcher.speed())
-            maxspeed = apxo.speed.missilemaxspeed(self.altitudeband())
+            maxspeed = glass.speed.missilemaxspeed(self.altitudeband())
             if self.speed() > maxspeed:
                 self.logcomment("reducing start speed to maximum for altitude band.")
                 self._setspeed(maxspeed)
@@ -81,7 +81,7 @@ class Missile(apxo.element.Element):
             self.logwhenwhat("", "turn rate     is %s/%d." % self.turnrate())
 
         except RuntimeError as e:
-            apxo.log.logexception(e)
+            glass.log.logexception(e)
         self.logbreak()
 
     #############################################################################
@@ -131,18 +131,18 @@ class Missile(apxo.element.Element):
     #############################################################################
 
     def basespeed(self):
-        return apxo.missiledata.basespeed(self._missiletype)
+        return glass.missiledata.basespeed(self._missiletype)
 
     def turnrate(self):
-        return apxo.missiledata.turnrate(self._missiletype)
+        return glass.missiledata.turnrate(self._missiletype)
 
     #############################################################################
 
     def _checktargettracking(self):
 
-        slopenumerator, slopedenominator = apxo.flight._endflightslope(self)
+        slopenumerator, slopedenominator = glass.flight._endflightslope(self)
 
-        horizontalrange = apxo.geometry.horizontalrange(self, self._target)
+        horizontalrange = glass.geometry.horizontalrange(self, self._target)
         self.logcomment("horizontal range is %d." % horizontalrange)
 
         self.logcomment("missile altitude is %d." % self.altitude())
@@ -327,8 +327,8 @@ class Missile(apxo.element.Element):
 
     ############################################################################
 
-    from apxo.missile.attack import _attackaircraft
-    from apxo.missile.draw import _draw
-    from apxo.missile.move import _move, _continuemove
+    from glass.missile.attack import _attackaircraft
+    from glass.missile.draw import _draw
+    from glass.missile.move import _move, _continuemove
 
     ############################################################################

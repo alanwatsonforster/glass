@@ -1,11 +1,11 @@
-import apxo.altitude
-import apxo.element
-import apxo.log
+import glass.altitude
+import glass.element
+import glass.log
 
 ##############################################################################
 
 
-class BarrageFire(apxo.element.Element):
+class BarrageFire(glass.element.Element):
 
     ############################################################################
 
@@ -41,6 +41,6 @@ class BarrageFire(apxo.element.Element):
 
     ############################################################################
 
-    from apxo.barragefire.draw import _draw
+    from glass.barragefire.draw import _draw
 
     ############################################################################

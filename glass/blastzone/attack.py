@@ -1,11 +1,11 @@
-import apxo.geometry
+import glass.geometry
 
 #############################################################################
 
 
 def _attackaircraft(self, target, result=None, note=None):
 
-    if not apxo.geometry.samehorizontalposition(self, target):
+    if not glass.geometry.samehorizontalposition(self, target):
         raise RuntimeError("target not at the position of the blast zone.")
     if target.altitude() > self.altitude() + 2:
         raise RuntimeError("target is above blast zone.")

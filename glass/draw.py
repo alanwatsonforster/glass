@@ -1,7 +1,7 @@
 import math
 
-import apxo.hex
-import apxo.variants
+import glass.hex
+import glass.variants
 
 import pickle
 
@@ -22,8 +22,8 @@ _ax = None
 
 def setcanvas(xmin, ymin, xmax, ymax, dotsperhex=100):
     global _fig, _ax
-    xmin, ymin = apxo.hex.tophysical(xmin, ymin)
-    xmax, ymax = apxo.hex.tophysical(xmax, ymax)
+    xmin, ymin = glass.hex.tophysical(xmin, ymin)
+    xmax, ymax = glass.hex.tophysical(xmax, ymax)
     _fig = plt.figure(
         figsize=[(xmax - xmin), (ymax - ymin)],
         frameon=False,
@@ -48,12 +48,12 @@ def setcanvas(xmin, ymin, xmax, ymax, dotsperhex=100):
 
 
 def save():
-    pickle.dump(_fig, open("apxo..pickle", "wb"))
+    pickle.dump(_fig, open("glass..pickle", "wb"))
 
 
 def restore():
     global _fig, _ax
-    _fig = pickle.load(open("apxo..pickle", "rb"))
+    _fig = pickle.load(open("glass..pickle", "rb"))
     _ax = plt.gca()
 
 
@@ -440,15 +440,15 @@ def _drawcompassinphysical(x, y, facing, color="black", alpha=1.0, zorder=1):
 
 
 def drawhex(x, y, **kwargs):
-    _drawhexinphysical(*apxo.hex.tophysical(x, y), **kwargs)
+    _drawhexinphysical(*glass.hex.tophysical(x, y), **kwargs)
 
 
 def drawcircle(x, y, **kwargs):
-    _drawcircleinphysical(*apxo.hex.tophysical(x, y), **kwargs)
+    _drawcircleinphysical(*glass.hex.tophysical(x, y), **kwargs)
 
 
 def drawsquare(x, y, **kwargs):
-    _drawsquareinphysical(*apxo.hex.tophysical(x, y), **kwargs)
+    _drawsquareinphysical(*glass.hex.tophysical(x, y), **kwargs)
 
 
 def drawhexlabel(x, y, label, dy=0.35, size=9, color="lightgrey", **kwargs):
@@ -456,45 +456,45 @@ def drawhexlabel(x, y, label, dy=0.35, size=9, color="lightgrey", **kwargs):
 
 
 def drawdot(x, y, **kwargs):
-    _drawdotinphysical(*apxo.hex.tophysical(x, y), **kwargs)
+    _drawdotinphysical(*glass.hex.tophysical(x, y), **kwargs)
 
 
 def drawlines(x, y, **kwargs):
-    xy = [apxo.hex.tophysical(xy[0], xy[1]) for xy in zip(x, y)]
+    xy = [glass.hex.tophysical(xy[0], xy[1]) for xy in zip(x, y)]
     x = [xy[0] for xy in xy]
     y = [xy[1] for xy in xy]
     _drawlinesinphysical(x, y, **kwargs)
 
 
 def drawarrow(x, y, facing, **kwargs):
-    _drawarrowinphysical(*apxo.hex.tophysical(x, y), facing, **kwargs)
+    _drawarrowinphysical(*glass.hex.tophysical(x, y), facing, **kwargs)
 
 
 def drawdoublearrow(x, y, facing, **kwargs):
-    _drawdoublearrowinphysical(*apxo.hex.tophysical(x, y), facing, **kwargs)
+    _drawdoublearrowinphysical(*glass.hex.tophysical(x, y), facing, **kwargs)
 
 
 def drawdart(x, y, facing, **kwargs):
-    _drawdartinphysical(*apxo.hex.tophysical(x, y), facing, **kwargs)
+    _drawdartinphysical(*glass.hex.tophysical(x, y), facing, **kwargs)
 
 
 def drawtext(x, y, facing, s, **kwargs):
-    _drawtextinphysical(*apxo.hex.tophysical(x, y), facing, s, **kwargs)
+    _drawtextinphysical(*glass.hex.tophysical(x, y), facing, s, **kwargs)
 
 
 def drawpolygon(x, y, **kwargs):
-    x, y = (apxo.hex.tophysical(*xy) for xy in zip(x, y))
+    x, y = (glass.hex.tophysical(*xy) for xy in zip(x, y))
     _drawpolygoninphysical(x, y, **kwargs)
 
 
 def drawrectangle(xmin, ymin, xmax, ymax, **kwargs):
-    xmin, ymin = apxo.hex.tophysical(xmin, ymin)
-    xmax, ymax = apxo.hex.tophysical(xmax, ymax)
+    xmin, ymin = glass.hex.tophysical(xmin, ymin)
+    xmax, ymax = glass.hex.tophysical(xmax, ymax)
     _drawrectangleinphysical(xmin, ymin, xmax, ymax, **kwargs)
 
 
 def drawcompass(x, y, facing, **kwargs):
-    _drawcompassinphysical(*apxo.hex.tophysical(x, y), facing, **kwargs)
+    _drawcompassinphysical(*glass.hex.tophysical(x, y), facing, **kwargs)
 
 
 ################################################################################
@@ -508,7 +508,7 @@ def drawarc(x0, y0, facing, arc):
 
     def drawdxdy(dxdy, reflect=False):
 
-        # dxdy = [apxo.hex.tophysical(dxdy[0], dxdy[1]) for dxdy in dxdy]
+        # dxdy = [glass.hex.tophysical(dxdy[0], dxdy[1]) for dxdy in dxdy]
 
         x = [x0 + dxdy[0] * cosd(facing) - dxdy[1] * sind(facing) for dxdy in dxdy]
         y = [y0 + dxdy[0] * sind(facing) + dxdy[1] * cosd(facing) for dxdy in dxdy]
@@ -521,7 +521,7 @@ def drawarc(x0, y0, facing, arc):
             zorder=0,
         )
 
-    x0, y0 = apxo.hex.tophysical(x0, y0)
+    x0, y0 = glass.hex.tophysical(x0, y0)
 
     if arc == "0":
 
@@ -544,7 +544,7 @@ def drawarc(x0, y0, facing, arc):
                 [11.0, +1.625],
                 [100.0, +1.625],
             ]
-            dxdy = [apxo.hex.tophysical(dxdy[0], dxdy[1]) for dxdy in dxdy]
+            dxdy = [glass.hex.tophysical(dxdy[0], dxdy[1]) for dxdy in dxdy]
 
         else:
 
@@ -706,7 +706,7 @@ def drawaircraft(x, y, facing, color, name, altitude, speed, flighttype, killed)
         fillcolor = color
         linecolor = aircraftlinecolor
     zorder = altitude + 1
-    if apxo.variants.withvariant("draw counters"):
+    if glass.variants.withvariant("draw counters"):
         drawsquare(
             x,
             y,
@@ -777,7 +777,7 @@ def drawmissile(x, y, facing, color, name, altitude, speed, annotate):
     fillcolor = color
     linecolor = aircraftlinecolor
     zorder = altitude + 1
-    if apxo.variants.withvariant("draw counters"):
+    if glass.variants.withvariant("draw counters"):
         drawsquare(
             x,
             y,
@@ -962,7 +962,7 @@ def drawgroundunit(
     x, y, symbols, uppertext, lowertext, facing, color, name, stack, killed
 ):
     _drawgroundunitinphysical(
-        *apxo.hex.tophysical(x, y),
+        *glass.hex.tophysical(x, y),
         symbols,
         uppertext,
         lowertext,

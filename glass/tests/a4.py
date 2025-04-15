@@ -1,11 +1,11 @@
-from apxo.tests.infrastructure import *
+from glass.tests.infrastructure import *
 
 startfile(__file__, "distances")
 
 starttestsetup()
 
-from apxo.hex import distance
-from apxo.hexcode import toxy
+from glass.hex import distance
+from glass.hexcode import toxy
 
 # Distances from 2329.
 

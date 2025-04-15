@@ -1,6 +1,6 @@
 ################################################################################
 
-import apxo.log
+import glass.log
 
 ################################################################################
 
@@ -293,7 +293,7 @@ def showstores(self, note=None):
         self._showstores()
         self.lognote(note)
     except RuntimeError as e:
-        apxo.log.logexception(e)
+        glass.log.logexception(e)
     self.logbreak()
 
 
@@ -380,7 +380,7 @@ def release(self, *args):
     try:
         self._release(*args)
     except RuntimeError as e:
-        apxo.log.logexception(e)
+        glass.log.logexception(e)
     self.logbreak()
 
 

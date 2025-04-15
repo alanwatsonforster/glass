@@ -1,13 +1,13 @@
 ################################################################################
 
-import apxo.draw
+import glass.draw
 
 ################################################################################
 
 
 def _draw(self):
 
-    apxo.draw.drawbomb(*self.xy(), self.altitude(), self.facing())
+    glass.draw.drawbomb(*self.xy(), self.altitude(), self.facing())
 
 
 ################################################################################

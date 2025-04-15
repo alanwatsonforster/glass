@@ -1,5 +1,5 @@
-import apxo.map
-import apxo.hex
+import glass.map
+import glass.hex
 
 
 def isvalidaltitude(x):
@@ -105,9 +105,9 @@ def terrainaltitude(x, y):
     Return the altitude of the terrain.
     """
 
-    assert apxo.hex.isvalid(x, y)
+    assert glass.hex.isvalid(x, y)
 
-    if apxo.map.isonmap(x, y):
-        return apxo.map.altitude(x, y)
+    if glass.map.isonmap(x, y):
+        return glass.map.altitude(x, y)
     else:
         return 0

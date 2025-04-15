@@ -1,6 +1,6 @@
 ################################################################################
 
-import apxo.variants
+import glass.variants
 
 ################################################################################
 
@@ -121,7 +121,7 @@ def _takedamageconsequences(self):
             self.logwhenwhat("", "loses %s property." % p)
             self.loseproperty(p)
 
-    if not apxo.variants.withvariant("use house rules"):
+    if not glass.variants.withvariant("use house rules"):
         if self.damageatleast("L"):
             lose("HPR")
             lose("HRR")

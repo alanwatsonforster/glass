@@ -1,11 +1,11 @@
-import apxo.altitude
-import apxo.element
-import apxo.log
+import glass.altitude
+import glass.element
+import glass.log
 
 ##############################################################################
 
 
-class PlottedFire(apxo.element.Element):
+class PlottedFire(glass.element.Element):
 
     ############################################################################
 
@@ -31,6 +31,6 @@ class PlottedFire(apxo.element.Element):
 
     ############################################################################
 
-    from apxo.plottedfire.draw import _draw
+    from glass.plottedfire.draw import _draw
 
     ############################################################################

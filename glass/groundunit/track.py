@@ -1,6 +1,6 @@
-import apxo.geometry
-import apxo.log
-from apxo.rounding import onethirdfromtable, twothirdsfromtable, roundup, rounddown
+import glass.geometry
+import glass.log
+from glass.rounding import onethirdfromtable, twothirdsfromtable, roundup, rounddown
 
 ################################################################################
 
@@ -32,7 +32,7 @@ def _track(self, target):
     maximumtrackingrange = self._maximumtrackingrange()
     if maximumtrackingrange is None:
         raise RuntimeError("%s cannot track." % self.name())
-    range = apxo.geometry.range(self, target)
+    range = glass.geometry.range(self, target)
     self.logcomment("range to target is %d." % range)
     if range > maximumtrackingrange:
         raise RuntimeError(
@@ -42,7 +42,7 @@ def _track(self, target):
     trackingrequirement = self._trackingrequirement(target)
     self.logcomment(
         "tracking requirement is %d %s."
-        % (trackingrequirement, apxo.log.plural(trackingrequirement, "FP", "FPs"))
+        % (trackingrequirement, glass.log.plural(trackingrequirement, "FP", "FPs"))
     )
     self._tracking = target
 

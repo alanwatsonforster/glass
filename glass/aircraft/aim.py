@@ -1,8 +1,8 @@
 ################################################################################
 
-import apxo.hexcode
-import apxo.log
-from apxo.rounding import onethirdfromtable, twothirdsfromtable, roundup
+import glass.hexcode
+import glass.log
+from glass.rounding import onethirdfromtable, twothirdsfromtable, roundup
 
 ################################################################################
 
@@ -27,16 +27,16 @@ def aim(self, target, *args, **kwargs):
             requirement = max(1, roundup(onethirdfromtable(self.speed())))
         self.logcomment(
             "aiming requirement is %d %s."
-            % (requirement, apxo.log.plural(requirement, "FP", "FPs"))
+            % (requirement, glass.log.plural(requirement, "FP", "FPs"))
         )
         modifierrequirement = max(1, roundup(onethirdfromtable(self.speed())))
         self.logcomment(
             "aiming modifier requirement is %d %s."
-            % (modifierrequirement, apxo.log.plural(modifierrequirement, "FP", "FPs"))
+            % (modifierrequirement, glass.log.plural(modifierrequirement, "FP", "FPs"))
         )
         self._aimingtarget = target
     except RuntimeError as e:
-        apxo.log.logexception(e)
+        glass.log.logexception(e)
     self.logbreak()
 
 
@@ -57,7 +57,7 @@ def stopaiming(self):
     try:
         self._stopaiming()
     except RuntimeError as e:
-        apxo.log.logexception(e)
+        glass.log.logexception(e)
     self.logbreak()
 
 

@@ -1,7 +1,7 @@
 ################################################################################
 
-import apxo.hexcode
-import apxo.log
+import glass.hexcode
+import glass.log
 
 ################################################################################
 
@@ -17,7 +17,7 @@ def _attackendgameturn(self):
             % (
                 self._name,
                 self._unspecifiedattackresult,
-                apxo.log.plural(self._unspecifiedattackresult, "result", "results"),
+                glass.log.plural(self._unspecifiedattackresult, "result", "results"),
             )
         )
 
@@ -49,7 +49,7 @@ def attack(self, target, *args, **kwargs):
         else:
             raise RuntimeError("invalid target for attack.")
     except RuntimeError as e:
-        apxo.log.logexception(e)
+        glass.log.logexception(e)
     self.logbreak()
 
 
@@ -60,7 +60,7 @@ def secondaryattack(self, target, *args, **kwargs):
         else:
             raise RuntimeError("invalid target.")
     except RuntimeError as e:
-        apxo.log.logexception(e)
+        glass.log.logexception(e)
     self.logbreak()
 
 

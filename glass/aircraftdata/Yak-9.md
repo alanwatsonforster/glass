@@ -15,7 +15,7 @@ APJ 50 has an ADC for the -9D.
 
 ### Vulnerability
 
-The vulnerability with extra fuel should be -2, not +2 (fixed in [0d47a6e](https://github.com/alanwatsonforster/apxo/commit/0d47a6e3a58299644825bf1d6405d230743c1a48)).
+The vulnerability with extra fuel should be -2, not +2 (fixed in [0d47a6e](https://github.com/alanwatsonforster/glass/commit/0d47a6e3a58299644825bf1d6405d230743c1a48)).
 
 ### Yak-9T
 
@@ -27,13 +27,13 @@ There seems to have been two Yak-9Us: one prototype with the VK-105PF engine and
 
 The performance was slightly better to previous versions; the records reported in some places were set by a lightened and specially prepared aircraft (Airpages.ru). Speed at sea level was 360 mph and at 16,000 ft was again 360 mph (slightly faster than the -D) and the ceiling was 35,000 ft (somewhat more than the 30,000 ft of the -D) (Airpages.ru). 
 
-I added a -9U in [c705135](https://github.com/alanwatsonforster/apxo/commit/c7051355df7d7c981cb48046d6883e7ba459aa24). It is based in the -9D, but with an extra machine gun (that increase the damage from 2/2* to 3/3*, perhaps somewhat generously) and without the note on fuel.
+I added a -9U in [c705135](https://github.com/alanwatsonforster/glass/commit/c7051355df7d7c981cb48046d6883e7ba459aa24). It is based in the -9D, but with an extra machine gun (that increase the damage from 2/2* to 3/3*, perhaps somewhat generously) and without the note on fuel.
 
 ### Yak-9P
 
 The -9P seems to have been a -9U with all-metal wings (Wikipedia).
 
-I added a -9U in [94843bc](https://github.com/alanwatsonforster/apxo/commit/94843bc0c4b4e70d8a669ec2de628d24c948e3e5).
+I added a -9U in [94843bc](https://github.com/alanwatsonforster/glass/commit/94843bc0c4b4e70d8a669ec2de628d24c948e3e5).
 
 ### Versions used by KPAAF
 

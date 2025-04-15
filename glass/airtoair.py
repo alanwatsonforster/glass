@@ -1,10 +1,10 @@
-import apxo.aircraft
-import apxo.capabilities
-import apxo.geometry
-import apxo.hex
-import apxo.log
-import apxo.rounding
-import apxo.variants
+import glass.aircraft
+import glass.capabilities
+import glass.geometry
+import glass.hex
+import glass.log
+import glass.rounding
+import glass.variants
 
 ##############################################################################
 
@@ -19,7 +19,7 @@ def gunattackrange(attacker, target, arc=False):
 
     def horizontalrange(x0, y0, facing0, x1, y1, facing1):
 
-        angleofftail, angleoffnose, r, dx, dy = apxo.geometry.relativepositions(
+        angleofftail, angleoffnose, r, dx, dy = glass.geometry.relativepositions(
             x0, y0, facing0, x1, y1, facing1
         )
 
@@ -72,7 +72,7 @@ def gunattackrange(attacker, target, arc=False):
         if r is False:
             return "the target is not in the weapon range or arc."
 
-        angleoff = apxo.geometry.angleofftail(target, attacker)
+        angleoff = glass.geometry.angleofftail(target, attacker)
         if arc == "30-":
             allowedangleoff = ["0 line", "30 arc"]
         elif arc == "60-":
@@ -189,10 +189,10 @@ def rocketattackrange(attacker, target):
         ):
             return "aircraft in level flight cannot fire at range 0 on aircraft at a different altitude."
 
-    if not apxo.geometry.inradararc(attacker, target, "limited"):
+    if not glass.geometry.inradararc(attacker, target, "limited"):
         return "the target is not in the arc or range of the weapon."
 
-    r = apxo.geometry.horizontalrange(attacker, target)
+    r = glass.geometry.horizontalrange(attacker, target)
 
     r += verticalrange()
     if r == 0 or r > 4:
@@ -299,18 +299,18 @@ def _attack(attacker, attacktype, target, result, allowRK=True, allowtracking=Tr
     else:
 
         if weapon == "GN":
-            if apxo.capabilities.gunarc(attacker) != None:
+            if glass.capabilities.gunarc(attacker) != None:
                 attacker.logcomment(
-                    "gunnery arc is %s." % apxo.capabilities.gunarc(attacker)
+                    "gunnery arc is %s." % glass.capabilities.gunarc(attacker)
                 )
-            r = gunattackrange(attacker, target, arc=apxo.capabilities.gunarc(attacker))
+            r = gunattackrange(attacker, target, arc=glass.capabilities.gunarc(attacker))
         else:
             r = rocketattackrange(attacker, target)
         if isinstance(r, str):
             raise RuntimeError(r)
         attacker.logcomment("range is %d." % r)
 
-        angleofftail = apxo.geometry.angleofftail(attacker, target)
+        angleofftail = glass.geometry.angleofftail(attacker, target)
         attacker.logcomment("angle-off-tail is %s." % angleofftail)
         if angleofftail == "0 line":
             angleofftailmodifier = -2
@@ -356,26 +356,26 @@ def _attack(attacker, attacktype, target, result, allowRK=True, allowtracking=Tr
                 else:
                     verticalmodifier = +0
             elif (
-                apxo.variants.withvariant("use house rules") and attacker.isinlevelflight()
+                glass.variants.withvariant("use house rules") and attacker.isinlevelflight()
             ):
                 if target.isinclimbingflight():
                     verticalmodifier = +1
                 elif target.isindivingflight():
                     verticalmodifier = +1
 
-        sizemodifier = apxo.capabilities.sizemodifier(target)
+        sizemodifier = glass.capabilities.sizemodifier(target)
 
     if allowtracking:
         attacker.logcomment(
             "SSGT for %d %s."
-            % (attacker._trackingfp, apxo.log.plural(attacker._trackingfp, "FP", "FPs"))
+            % (attacker._trackingfp, glass.log.plural(attacker._trackingfp, "FP", "FPs"))
         )
-        if attacker._trackingfp >= 2 * apxo.rounding.rounddown(
-            apxo.rounding.onethirdfromtable(attacker.speed())
+        if attacker._trackingfp >= 2 * glass.rounding.rounddown(
+            glass.rounding.onethirdfromtable(attacker.speed())
         ):
             trackingmodifier = -2
-        elif attacker._trackingfp >= 1 * apxo.rounding.rounddown(
-            apxo.rounding.onethirdfromtable(attacker.speed())
+        elif attacker._trackingfp >= 1 * glass.rounding.rounddown(
+            glass.rounding.onethirdfromtable(attacker.speed())
         ):
             trackingmodifier = -1
         else:
@@ -384,7 +384,7 @@ def _attack(attacker, attacktype, target, result, allowRK=True, allowtracking=Tr
         attacker.logcomment("SSGT not allowed.")
         trackingmodifier = None
 
-    radarrangingtype = apxo.capabilities.ataradarrangingtype(attacker)
+    radarrangingtype = glass.capabilities.ataradarrangingtype(attacker)
     if radarrangingtype is None:
         attacker.logcomment("attacker does not have radar ranging.")
         if radarranging:
@@ -396,7 +396,7 @@ def _attack(attacker, attacktype, target, result, allowRK=True, allowtracking=Tr
     else:
         attacker.logcomment(
             "%s radar-ranging lock-on roll is %d."
-            % (radarrangingtype, apxo.capabilities.lockon(attacker))
+            % (radarrangingtype, glass.capabilities.lockon(attacker))
         )
     if radarranging:
         attacker.logcomment("%s radar-ranging succeeded." % radarrangingtype)
@@ -416,16 +416,16 @@ def _attack(attacker, attacktype, target, result, allowRK=True, allowtracking=Tr
 
     if attacker._BTrecoveryfp > 0:
         attacker.logcomment("applicable turn rate is BT.")
-        turnratemodifier = apxo.capabilities.gunsightmodifier(attacker, "BT")
+        turnratemodifier = glass.capabilities.gunsightmodifier(attacker, "BT")
     elif attacker._rollrecoveryfp > 0:
         attacker.logcomment("applicable turn rate is BT (for a roll).")
-        turnratemodifier = apxo.capabilities.gunsightmodifier(attacker, "BT")
+        turnratemodifier = glass.capabilities.gunsightmodifier(attacker, "BT")
     elif attacker._HTrecoveryfp > 0:
         attacker.logcomment("applicable turn rate is HT.")
-        turnratemodifier = apxo.capabilities.gunsightmodifier(attacker, "HT")
+        turnratemodifier = glass.capabilities.gunsightmodifier(attacker, "HT")
     elif attacker._TTrecoveryfp > 0:
         attacker.logcomment("applicable turn rate is TT.")
-        turnratemodifier = apxo.capabilities.gunsightmodifier(attacker, "TT")
+        turnratemodifier = glass.capabilities.gunsightmodifier(attacker, "TT")
     else:
         attacker.logcomment("no applicable turn rate.")
         turnratemodifier = None
@@ -480,12 +480,12 @@ def _attack(attacker, attacktype, target, result, allowRK=True, allowtracking=Tr
 
     if r is not None:
         if weapon == "GN":
-            tohitroll = apxo.capabilities.gunatatohitroll(attacker, r)
+            tohitroll = glass.capabilities.gunatatohitroll(attacker, r)
             attacker.logcomment("to-hit roll is %d." % tohitroll)
 
     if (result != "A") and (result != "M") and (target is not None):
         if weapon == "GN":
-            damagerating = apxo.capabilities.gunatadamagerating(attacker)
+            damagerating = glass.capabilities.gunatadamagerating(attacker)
             damageratingmodifier = 0
             if snapshot:
                 attacker.logcomment("snap-shot damage modifier is -1.")
@@ -502,7 +502,7 @@ def _attack(attacker, attacktype, target, result, allowRK=True, allowtracking=Tr
                 )
             )
             attacker.logcomment(
-                "target vulnerability is %+d." % apxo.capabilities.vulnerability(target)
+                "target vulnerability is %+d." % glass.capabilities.vulnerability(target)
             )
 
     target._takeattackdamage(attacker, result)
@@ -523,7 +523,7 @@ def _attack(attacker, attacktype, target, result, allowRK=True, allowtracking=Tr
             "%d rocket %s."
             % (
                 attacker._rocketfactors,
-                apxo.log.plural(
+                glass.log.plural(
                     attacker._rocketfactors, "factor remains", "factors remain"
                 ),
             )
@@ -557,18 +557,18 @@ def trackingforbidden(attacker, target):
     # The check on the ability to use weapons (necessary for tracking) is
     # carried out elsewhere.
 
-    if not apxo.geometry.horizontalrange(attacker, target) <= 6:
+    if not glass.geometry.horizontalrange(attacker, target) <= 6:
         return "%s is more than 6 hexes from %s." % (target.name(), attacker.name())
-    if not apxo.geometry.inarc(target, attacker, "60-"):
+    if not glass.geometry.inarc(target, attacker, "60-"):
         return "%s is not in its 60- arc of %s." % (attacker.name(), target.name())
-    if apxo.geometry.horizontalrange(attacker, target) > 0 and not apxo.geometry.inarc(
+    if glass.geometry.horizontalrange(attacker, target) > 0 and not glass.geometry.inarc(
         attacker, target, "limited"
     ):
         return "%s is not in the limited arc of %s." % (target.name(), attacker.name())
-    if apxo.variants.withvariant("require limited radar arc for SSGT"):
-        if apxo.geometry.horizontalrange(
+    if glass.variants.withvariant("require limited radar arc for SSGT"):
+        if glass.geometry.horizontalrange(
             attacker, target
-        ) > 0 and not apxo.geometry.inradararc(attacker, target, "limited"):
+        ) > 0 and not glass.geometry.inradararc(attacker, target, "limited"):
             return "%s is not in the limited radar arc of %s." % (
                 target.name(),
                 attacker.name(),
