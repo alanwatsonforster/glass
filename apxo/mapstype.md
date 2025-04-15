@@ -4,23 +4,23 @@ In APXO, a *map style* does two things: it determines how a map is rendered grap
 
 ## Considerations
 
-Maps are an important element of the physical game. Their role in the game mechanics is to determine positions and ranges, to indicate the altitude of terrain, to define air-to-ground targets such as bridges, and to confer terrain effects such as camouflage and cover on ground units. That said, if all we needed from the maps was to indicate the presence and spatial relation of the elements, a simple monochrome diagram would suffice. This would be miss using the map to stimulate the imagination of the players; the representation of Hanoi in map A2 of *The Speed of Heat* takes the players a step closer to reality.
+Maps play a crucial role in the game mechanics, serving to define positions, ranges, terrain altitudes, and fixed air-to-ground targets like bridges, while also indicating terrain effects such as camouflage and cover. While a simple monochrome diagram could suffice to represent thse spatial relationships and properties, such an approach would miss the opportunity to engage the players' imaginations. For instance, the depiction of Hanoi in map A2 of *The Speed of Heat* brings players closer to the reality of the setting.
 
-These roles continue to a large degree in a digital realization of the game, but the design of digital maps is not identical to that of physical maps. It presents certain opportunities, but also certain challenges.
+In the digital version of the game, these roles largely persist, but the design of digital maps introduces both a new opportunity and a new challenge.
 
-The main opportunity is that digital maps allow the creation of new map sheets beyond the limited number distributed with a physical game and permit variations of existing maps, changing colors and including or excluding certain terrain elements. Map sheets can be created for specific scenarios and adapted to more appropriately represent different terrain types.
+The new opportunity lies in the extensibility and flexibility of digital maps. The cost of implementing a new digital map is simply the effort required to design it, so new map sheets can be provided for specific scenarios. Furthermore, existing maps can be customized by altering colors or selectively including or excluding terrain elements, to better suit specific scenarios or represent diverse terrain types.
 
-One challenge comes from the realization that the focus of the game is the aircraft and other markers, so these must stand out clearly from the digital map. With a physical map, this is less of an issue as the counters contrast with the map in relief and texture. To achieve these aims, the digital maps in APXO deliberately have low contrast and saturation and the aircraft (typically) have higher contrast and saturation and are outlined in black.
+However, a key challenge arises from the need to ensure that aircraft and other markers remain visually distinct from the map. In physical maps, counters naturally stand out from the map due to their texture and relief. In digital maps, this distinction can be achieved by using low contrast and saturation for the map itself and higher contrast, higher saturation, and black outlining for aircraft and other markers.
 
 With these considerations in mind, the implementation of the digital maps in APXO has the following features:
 
-* The hex grid, hex labeling, and mega-hex grid is taken almost directly from the physical maps in the original games. 
+* The hex grid, hex labeling, and mega-hex grid are taken almost directly from the physical maps in the original games. 
     
 * Higher terrain is indicated by darker colors, often darker tones of the same hue. This is not especially realistic; mountains in snowy tundra are not gray and mountains in forest do not typically have darker shades of vegetation. Nevertheless, it is a convention that is well-established in topographic maps.
 
-* Several sets of base colors are implemented: two have shades of green, with one set darker than the other; one has shades of light brown; one has shades of white and gray; and one adapts the original *Air Strike* map colors, using green for level 0 and two shades of brown for altitudes level 1 and 2. (The scheme from *The Speed of Heat*, with light green for level 0, light brown for level 1, and dark green for level 2, is not adapted.)
+* Several sets of base colors are implemented: two have shades of green, with one set darker than the other; one has shades of light brown; one has shades of white and gray; and one is an adaptation the original *Air Strike* map colors, using green for level 0 and two shades of brown for altitudes level 1 and 2. (The scheme from *The Speed of Heat*, with light green for level 0, light brown for level 1, and dark green for level 2, is not adapted.)
 
-* Rivers and lakes are indicated with light blue and outlined in a slightly darker blue. Seen from the air, these are typically darker colors, but this again defers to the convention established in topographic maps.
+* Rivers and lakes are indicated with light blue and outlined in a slightly darker blue. Seen from the air, real rivers typically have darker colors, but this again defers to the convention established in topographic maps.
 
 * For ease of implementation, each hex is associated with a single altitude level. (Map sheet C2 is therefore slightly modified to allow aircraft to fly down the valley along the river towards the dam at level 0.)
 
@@ -119,7 +119,7 @@ The `hills` suffix reduces the height of elevated hexes and ridges by 1 level. T
 
 The `islands` suffix replaces level 0 hexes by water, converts level 1 hexes and ridges into level 0 hexes and ridges, converts level 2 hexes and ridges into level 1 hexes and ridges, and eliminates roads and dams.
 
-Some of these combinations do not make much sense physically (such as `frozendesert`) or are effectively identical (such as all of the styles derived from `water` except `frozenwater`), but are included nevertheless. Showing all 48 derived styles is not practical here, but the following are some particular examples.
+Some of these combinations do not make much sense physically (such as `frozendesert`) or are effectively identical (such as all the styles derived from `water` except `frozenwater`), but are included nevertheless. Showing all 48 derived styles is not practical here, but the following are some particular examples.
 
 The `snowytemperate` style could represent winter in Europe.
 
