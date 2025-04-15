@@ -1,6 +1,6 @@
 ################################################################################
 
-import apxo.log as aplog
+import apxo.log
 
 ################################################################################
 
@@ -74,7 +74,7 @@ def takedamage(self, damage, note=None):
                 self._takedamageconsequences()
         self.lognote(note)
     except RuntimeError as e:
-        aplog.logexception(e)
+        apxo.log.logexception(e)
     self.logbreak()
 
 

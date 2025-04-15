@@ -1,16 +1,16 @@
 import math
 import re
 
-import apxo.airtoair as apairtoair
-import apxo.altitude as apaltitude
-import apxo.capabilities as apcapabilities
-import apxo.closeformation as apcloseformation
-import apxo.gameturn as apgameturn
-import apxo.hex as aphex
-import apxo.missiledata as apmissiledata
-import apxo.speed as apspeed
-import apxo.turnrate as apturnrate
-import apxo.variants as apvariants
+import apxo.airtoair
+import apxo.altitude
+import apxo.capabilities
+import apxo.closeformation
+import apxo.gameturn
+import apxo.hex
+import apxo.missiledata
+import apxo.speed
+import apxo.turnrate
+import apxo.variants
 
 from apxo.rounding import *
 from apxo.log import plural
@@ -29,14 +29,14 @@ def _move(E, flighttype, power, moves, **kwargs):
 
     E.logstart("flight type      is %s." % E._flighttype)
     E.logstart("altitude band    is %s." % E.altitudeband())
-    E.logcomment("speed of sound is %.1f." % apspeed.m1speed(E.altitudeband()))
+    E.logcomment("speed of sound is %.1f." % apxo.speed.m1speed(E.altitudeband()))
 
     if E.isaircraft():
         if E.geometry() is not None:
             E.logstart("geometry         is %s." % E.geometry())
-        apspeed._startaircraftspeed(E, power, **kwargs)
+        apxo.speed._startaircraftspeed(E, power, **kwargs)
     else:
-        apspeed._startmissilespeed(E)
+        apxo.speed._startmissilespeed(E)
 
     _startmove(E)
 
@@ -97,7 +97,7 @@ def _checknormalflight(E):
         E._flighttype = E._flighttype
 
         # See rule 7.7.
-        if E.altitude() > apcapabilities.ceiling(E):
+        if E.altitude() > apxo.capabilities.ceiling(E):
             E.logcomment(
                 "check for a maneuvering departure as the aircraft is above its ceiling and attempted to roll."
             )
@@ -190,7 +190,7 @@ def _checknormalflight(E):
 
         # See rule 8.1.2 on SC prerequsistes.
 
-        if E.speed() < apcapabilities.minspeed(E) + 1:
+        if E.speed() < apxo.capabilities.minspeed(E) + 1:
             raise RuntimeError("insufficient speed for SC.")
 
         # See rule 8.2.3 on VD recovery.
@@ -245,7 +245,7 @@ def _checknormalflight(E):
 
         # See rule 8.2.2 on VC restrictions.
 
-        if apvariants.withvariant("use version 2.4 rules"):
+        if apxo.variants.withvariant("use version 2.4 rules"):
 
             # I interpret the text "start from level flight" to mean that the aircraft
             # must have been in level flight on the previous turn.
@@ -311,10 +311,10 @@ def _checkstalledflighttype(E):
 
     # See rule 6.3.
 
-    if E.speed() >= apcapabilities.minspeed(E):
+    if E.speed() >= apxo.capabilities.minspeed(E):
         raise RuntimeError("flight type cannot be ST as aircraft is not stalled.")
 
-    E.logstart("speed is below the minimum of %.1f." % apcapabilities.minspeed(E))
+    E.logstart("speed is below the minimum of %.1f." % apxo.capabilities.minspeed(E))
     E.logstart("aircraft is stalled.")
 
 
@@ -403,7 +403,7 @@ def _startmove(E, **kwargs):
 
     # Whether flight is currently supersonic.
 
-    E._m1speed = apspeed.m1speed(E.altitudeband())
+    E._m1speed = apxo.speed.m1speed(E.altitudeband())
     E._supersonic = E._speed >= E._m1speed
 
     if E.ismissile():
@@ -501,7 +501,7 @@ def _startmovespecialflight(A):
     A._maxfp = A.speed()
     A.logcomment("has %.1f FPs." % A._maxfp)
 
-    A._effectiveclimbcapability = apcapabilities.specialclimbcapability(A)
+    A._effectiveclimbcapability = apxo.capabilities.specialclimbcapability(A)
     A.logcomment("effective climb capability is %.2f." % A._effectiveclimbcapability)
 
 
@@ -531,7 +531,7 @@ def _startmovenormalflight(A):
         # See rule 13.7, interpreted in the same sense as rule 7.8.
         if A._hrd:
             A.logcomment("close formation breaks down upon a HRD.")
-            apcloseformation.breakdown(A)
+            apxo.closeformation.breakdown(A)
 
         # See rule 8.6.
         if (
@@ -544,7 +544,7 @@ def _startmovenormalflight(A):
             A.logcomment(
                 "close formation breaks down as the flight type is %s." % A._flighttype
             )
-            apcloseformation.breakdown(A)
+            apxo.closeformation.breakdown(A)
 
         return
 
@@ -626,10 +626,10 @@ def _startmovenormalflight(A):
             minvfp = 1
 
             # See rule 8.1.2.
-            if A.speed() < apcapabilities.minspeed(A) + 1.0:
+            if A.speed() < apxo.capabilities.minspeed(A) + 1.0:
                 raise RuntimeError("insufficient speed for SC.")
-            climbcapability = apcapabilities.climbcapability(A)
-            if A.speed() < apcapabilities.climbspeed(A):
+            climbcapability = apxo.capabilities.climbcapability(A)
+            if A.speed() < apxo.capabilities.climbspeed(A):
                 climbcapability /= 2
             if climbcapability < 1:
                 maxvfp = 1
@@ -792,8 +792,8 @@ def _startmovenormalflight(A):
             previousmaneuverrequiredfp = A._maneuverrequiredfp
             previous_maneuverfacingchange = A._maneuverfacingchange
 
-            A._maneuversupersonic = A.speed() >= apspeed.m1speed(A.altitudeband())
-            turnrequirement = apturnrate.turnrequirement(
+            A._maneuversupersonic = A.speed() >= apxo.speed.m1speed(A.altitudeband())
+            turnrequirement = apxo.turnrate.turnrequirement(
                 A.altitudeband(), A.speed(), A._maneuvertype
             )
             if turnrequirement >= 60:
@@ -836,22 +836,22 @@ def _startmovenormalflight(A):
 
         if _isclimbingflight(A._flighttype):
 
-            A._effectiveclimbcapability = apcapabilities.climbcapability(A)
+            A._effectiveclimbcapability = apxo.capabilities.climbcapability(A)
 
             # See rule 4.3 and 8.1.2.
-            if A._flighttype == "SC" and A.speed() < apcapabilities.climbspeed(A):
+            if A._flighttype == "SC" and A.speed() < apxo.capabilities.climbspeed(A):
                 A.logcomment("climb capability reduced in SC below climb speed.")
                 A._effectiveclimbcapability *= 0.5
 
             # See the Aircraft Damage Effects Table in the charts.
-            if not apvariants.withvariant(
+            if not apxo.variants.withvariant(
                 "use optional damage table"
             ) and A.damageatleast("H"):
                 A.logcomment("climb capability reduced by damage.")
                 A._effectiveclimbcapability *= 0.5
 
             # See rule 6.6 and rule 8.1.4.
-            if A.speed() >= apspeed.m1speed(A.altitudeband()):
+            if A.speed() >= apxo.speed.m1speed(A.altitudeband()):
                 A.logcomment("climb capability reduced at supersonic speed.")
                 A._effectiveclimbcapability *= 2 / 3
 
@@ -1377,14 +1377,14 @@ def _endmove(E):
         else:
             _endnormalflight(E)
         E.logend("will carry %.1f FPs." % E._fpcarry)
-        apspeed._endaircraftspeed(E)
+        apxo.speed._endaircraftspeed(E)
 
 
 ########################################
 
 
 def _endmissileflight(M):
-    apspeed._endmissilespeed(M)
+    apxo.speed._endmissilespeed(M)
 
 
 ########################################
@@ -1487,12 +1487,12 @@ def _endnormalflight(A):
         Determine the APs from the maximum turn rate used.
         """
 
-        if apvariants.withvariant("use house rules"):
+        if apxo.variants.withvariant("use house rules"):
             pass
         else:
 
             if A._maxturnrate != None:
-                A._turnrateap = -apcapabilities.turndrag(A, A._maxturnrate)
+                A._turnrateap = -apxo.capabilities.turndrag(A, A._maxturnrate)
             else:
                 A._turnrateap = 0
 
@@ -1595,12 +1595,12 @@ def _endnormalflight(A):
                 "close formation breaks down as the aircraft lost %d levels in an SD."
                 % altitudeloss
             )
-            apcloseformation.breakdown(A)
+            apxo.closeformation.breakdown(A)
         elif A._flighttype == "SC" and A._scwithzccomponent:
             A.logcomment(
                 "close formation breaks down as the aircraft climbed faster than the sustained climb rate."
             )
-            apcloseformation.breakdown(A)
+            apxo.closeformation.breakdown(A)
 
     ########################################
 
@@ -1713,7 +1713,7 @@ def _domove(E, move, actiondispatchlist):
 
         if E.isaircraft():
             previousminspeed = E._minspeed
-            E._minspeed = apcapabilities.minspeed(E)
+            E._minspeed = apxo.capabilities.minspeed(E)
             if E._minspeed != previousminspeed:
                 E.logcomment("minimum speed is now %.1f." % E._minspeed)
                 if (
@@ -1737,7 +1737,7 @@ def _domove(E, move, actiondispatchlist):
         # The m1 speed can change during a move if the altitude changes.
 
         previousm1speed = E._m1speed
-        E._m1speed = apspeed.m1speed(E.altitudeband())
+        E._m1speed = apxo.speed.m1speed(E.altitudeband())
         if E._m1speed != previousm1speed:
             E.logcomment("speed of sound is now %.1f." % E._m1speed)
 
@@ -1771,13 +1771,13 @@ def _domove(E, move, actiondispatchlist):
 
     E._movestartaltitude = E.altitude()
     E._movestartaltitudeband = E.altitudeband()
-    E._movestartm1speed = apspeed.m1speed(E.altitudeband())
+    E._movestartm1speed = apxo.speed.m1speed(E.altitudeband())
 
     # Check a missile has not stalled. We do this for each FP, since
     # the stall speed depends on altitude and can change as the missile
     # climbs or dives.
 
-    if E.ismissile() and E.speed() < apspeed.missileminspeed(E.altitudeband()):
+    if E.ismissile() and E.speed() < apxo.speed.missileminspeed(E.altitudeband()):
         E.logcomment("has stalled.")
         if move != "":
             raise RuntimeError("invalid move %r for stalled missile." % move)
@@ -1799,8 +1799,8 @@ def _domove(E, move, actiondispatchlist):
 
             E._maneuveringdeparture = True
 
-            assert aphex.isvalid(E.x(), E.y(), facing=E.facing())
-            assert apaltitude.isvalidaltitude(E.altitude())
+            assert apxo.hex.isvalid(E.x(), E.y(), facing=E.facing())
+            assert apxo.altitude.isvalidaltitude(E.altitude())
 
             E.logposition("end")
 
@@ -1832,7 +1832,7 @@ def _domove(E, move, actiondispatchlist):
         E._hasslid = _isslide(E._maneuvertype)
 
         # See rule 8.2.2 and 13.1.
-        if apvariants.withvariant("use house rules") and E._maneuvertype == "SL":
+        if apxo.variants.withvariant("use house rules") and E._maneuvertype == "SL":
             E._maneuverfp += 1
         elif not E._hasunloaded:
             if E._hasturned:
@@ -1867,8 +1867,8 @@ def _domove(E, move, actiondispatchlist):
         if remainingactions != []:
             raise RuntimeError("%r is not a valid move." % move)
 
-        assert aphex.isvalid(E.x(), E.y(), facing=E.facing())
-        assert apaltitude.isvalidaltitude(E.altitude())
+        assert apxo.hex.isvalid(E.x(), E.y(), facing=E.facing())
+        assert apxo.altitude.isvalidaltitude(E.altitude())
 
     except RuntimeError as e:
 
@@ -1978,9 +1978,9 @@ def _checktracking(A):
             A.logcomment("stopped SSGT.")
             A._tracking = None
             A._trackingfp = 0
-        elif apairtoair.trackingforbidden(A, A._tracking):
+        elif apxo.airtoair.trackingforbidden(A, A._tracking):
             A.logcomment(
-                "stopped SSGT as %s" % apairtoair.trackingforbidden(A, A._tracking)
+                "stopped SSGT as %s" % apxo.airtoair.trackingforbidden(A, A._tracking)
             )
             A._tracking = None
             A._trackingfp = 0
@@ -1992,7 +1992,7 @@ def _checkmaneuveringdeparture(A):
 
     # See rules 7.7 and 8.5.
     if A._hasmaneuvered and A._hasrolled:
-        if A._movestartaltitude > apcapabilities.ceiling(A):
+        if A._movestartaltitude > apxo.capabilities.ceiling(A):
             A.logcomment(
                 "check for a maneuvering departure as the aircraft is above its ceiling and attempted to roll."
             )
@@ -2005,7 +2005,7 @@ def _checkmaneuveringdeparture(A):
     # See rules 7.7 and 8.5.
     if A._hasmaneuvered and A._hasturned:
         if (
-            A._movestartaltitude > apcapabilities.ceiling(A)
+            A._movestartaltitude > apxo.capabilities.ceiling(A)
             and A._movemaneuvertype != "EZ"
         ):
             A.logcomment(
@@ -2036,9 +2036,9 @@ def _checkmaxfps(A):
 
 def _checkcloseformation(A):
     # See rule 7.8.
-    if A._hasturned and apcloseformation.size(A) != 0:
+    if A._hasturned and apxo.closeformation.size(A) != 0:
         if (
-            (apcloseformation.size(A) > 2 and A._movemaneuvertype == "HT")
+            (apxo.closeformation.size(A) > 2 and A._movemaneuvertype == "HT")
             or A._movemaneuvertype == "BT"
             or A._movemaneuvertype == "ET"
         ):
@@ -2046,12 +2046,12 @@ def _checkcloseformation(A):
                 "close formation breaks down as the turn rate is %s."
                 % A._movemaneuvertype
             )
-            apcloseformation.breakdown(A)
+            apxo.closeformation.breakdown(A)
 
     # See rule 13.7, interpreted in the same sense as rule 7.8.
-    if A._hasrolled and apcloseformation.size(A) != 0:
+    if A._hasrolled and apxo.closeformation.size(A) != 0:
         A.logcomment("close formation breaks down aircraft is rolling.")
-        apcloseformation.breakdown(A)
+        apxo.closeformation.breakdown(A)
 
 
 ################################################################################
@@ -2304,7 +2304,7 @@ def _doclimb(E, altitudechange):
     E._vfp += 1
 
     # See rule 8.5.
-    if E._flighttype == "SC" and E.altitude() > apcapabilities.ceiling(E):
+    if E._flighttype == "SC" and E.altitude() > apxo.capabilities.ceiling(E):
         raise RuntimeError("attempt to climb above ceiling in SC.")
 
 
@@ -2459,7 +2459,7 @@ def _checkturnrate(A, turnrate):
 
     # See "Aircraft Damage Effects" in Play Aids.
 
-    if not apvariants.withvariant("use optional damage table"):
+    if not apxo.variants.withvariant("use optional damage table"):
         if A.damageatleast("C") and turnrate not in ["EZ", "TT"]:
             return "damage limits the turn rate to TT."
         elif A.damageatleast("2L") and turnrate not in ["EZ", "TT", "HT"]:
@@ -2469,7 +2469,7 @@ def _checkturnrate(A, turnrate):
 
     # See rule 7.5.
 
-    minspeed = apcapabilities.minspeed(A)
+    minspeed = apxo.capabilities.minspeed(A)
     if A.speed() == minspeed and turnrate not in ["EZ"]:
         return "speed limits the turn rate to EZ."
     elif A.speed() == minspeed + 0.5 and turnrate not in ["EZ", "TT"]:
@@ -2480,11 +2480,11 @@ def _checkturnrate(A, turnrate):
         return "speed limits the turn rate to BT."
 
     # See rule 7.1.
-    turnrateap = apcapabilities.turndrag(A, turnrate)
+    turnrateap = apxo.capabilities.turndrag(A, turnrate)
     if turnrateap == None:
         return "aircraft does not allow a turn rate of %s." % turnrate
 
-    turnrequirement = apturnrate.turnrequirement(A.altitudeband(), A.speed(), turnrate)
+    turnrequirement = apxo.turnrate.turnrequirement(A.altitudeband(), A.speed(), turnrate)
     if turnrequirement == None:
         return "speed and altitude do not allow a turn rate of %s." % turnrate
 
@@ -2525,21 +2525,21 @@ def _dodeclareturn(E, turnrate, sense):
                 max(turnrates.index(turnrate), turnrates.index(E._maxturnrate))
             ]
 
-        turnrequirement = apturnrate.turnrequirement(
+        turnrequirement = apxo.turnrate.turnrequirement(
             E.altitudeband(), E.speed(), turnrate
         )
 
-        turnrateap = apcapabilities.turndrag(E, turnrate)
+        turnrateap = apxo.capabilities.turndrag(E, turnrate)
 
     else:
 
-        if E.speed() < apspeed.missilemaneuverspeed(E.altitudeband()):
+        if E.speed() < apxo.speed.missilemaneuverspeed(E.altitudeband()):
             raise RuntimeError(
                 "attempt to maneuver when not allowed by the speed and altitude."
             )
 
         baseturnrate, divisor = E.turnrate()
-        turnrequirement = apturnrate.turnrequirement(
+        turnrequirement = apxo.turnrate.turnrequirement(
             E.altitudeband(), E.speed(), baseturnrate, divisor=divisor
         )
 
@@ -2552,7 +2552,7 @@ def _dodeclareturn(E, turnrate, sense):
     E._maneuvertype = turnrate
     E._maneuversense = sense
     E._maneuverfp = 0
-    E._maneuversupersonic = E.speed() >= apspeed.m1speed(E.altitudeband())
+    E._maneuversupersonic = E.speed() >= apxo.speed.m1speed(E.altitudeband())
     if turnrequirement >= 60:
         E._maneuverrequiredfp = 1
         E._maneuverfacingchange = turnrequirement
@@ -2561,7 +2561,7 @@ def _dodeclareturn(E, turnrate, sense):
         E._maneuverfacingchange = 30
 
     if E.isaircraft():
-        if apvariants.withvariant("use house rules"):
+        if apxo.variants.withvariant("use house rules"):
             E._turnrateap -= turnrateap
             if E._maneuversupersonic:
                 if E.hasproperty("PSSM"):
@@ -2591,7 +2591,7 @@ def _doturn(E, sense, facingchange, continuous):
         ):
             raise RuntimeError("attempt to turn faster than the declared turn rate.")
 
-    if not apvariants.withvariant("use house rules"):
+    if not apxo.variants.withvariant("use house rules"):
 
         E._moveturn(sense, facingchange)
 
@@ -2603,7 +2603,7 @@ def _doturn(E, sense, facingchange, continuous):
             else:
                 sustainedfacingchanges = facingchange // 30
 
-            if not apvariants.withvariant("use house rules"):
+            if not apxo.variants.withvariant("use house rules"):
                 if E.hasproperty("LBR"):
                     E._sustainedturnap -= sustainedfacingchanges * 0.5
                 elif E.hasproperty("HBR"):
@@ -2658,7 +2658,7 @@ def _dodeclareslide(E, sense):
     E._maneuversense = sense
     E._maneuverfacingchange = None
     E._maneuverfp = 0
-    E._maneuversupersonic = E.speed() >= apspeed.m1speed(E.altitudeband())
+    E._maneuversupersonic = E.speed() >= apxo.speed.m1speed(E.altitudeband())
     E._maneuverrequiredfp = 2 + _extrapreparatoryhfp(E) + 1
 
 
@@ -2679,12 +2679,12 @@ def _extrapreparatoryhfp(E):
         "UH": 4,
     }[E.altitudeband()]
 
-    if E.speed() >= apspeed.m1speed(E.altitudeband()):
+    if E.speed() >= apxo.speed.m1speed(E.altitudeband()):
         extrapreparatoryfp += 1.0
 
     # See "Aircraft Damage Effects" in the Play Aids.
 
-    if not apvariants.withvariant("use optional damage table"):
+    if not apxo.variants.withvariant("use optional damage table"):
         if E.isaircraft() and E.damageatleast("2L"):
             extrapreparatoryfp += 1.0
 
@@ -2709,7 +2709,7 @@ def _doslide(E, sense):
     E._moveslide(sense)
 
     # See rule 13.2.
-    if not apvariants.withvariant("use house rules"):
+    if not apxo.variants.withvariant("use house rules"):
         if E._slides >= 1:
             E._othermaneuversap -= 1.0
 
@@ -2730,7 +2730,7 @@ def _dodeclaredisplacementroll(E, sense):
 
     if E.hasproperty("NRM"):
         raise RuntimeError("aircraft cannot perform rolling maneuvers.")
-    if apcapabilities.rolldrag(E, "DR") == None:
+    if apxo.capabilities.rolldrag(E, "DR") == None:
         raise RuntimeError("aircraft cannot perform displacement rolls.")
 
     # See rules 8.1.2, 8.1.3, and 8.2.3.
@@ -2745,15 +2745,15 @@ def _dodeclaredisplacementroll(E, sense):
     E._maneuversense = sense
     E._maneuverfacingchange = None
     E._maneuverfp = 0
-    E._maneuversupersonic = E.speed() >= apspeed.m1speed(E.altitudeband())
+    E._maneuversupersonic = E.speed() >= apxo.speed.m1speed(E.altitudeband())
     # The requirement includes the FPs used to execute the roll.
     E._maneuverrequiredfp = (
-        apcapabilities.rollhfp(E) + _extrapreparatoryhfp(E) + rounddown(E.speed() / 3)
+        apxo.capabilities.rollhfp(E) + _extrapreparatoryhfp(E) + rounddown(E.speed() / 3)
     )
 
     # See rules 13.3.1 and 6.6.
-    if apvariants.withvariant("use house rules"):
-        E._othermaneuversap -= apcapabilities.rolldrag(E, "DR")
+    if apxo.variants.withvariant("use house rules"):
+        E._othermaneuversap -= apxo.capabilities.rolldrag(E, "DR")
         if E._maneuversupersonic:
             if E.hasproperty("PSSM"):
                 E._othermaneuversap -= 1.0
@@ -2777,11 +2777,11 @@ def _dodisplacementroll(E, sense):
     # Move.
     E._movedisplacementroll(sense)
 
-    if not apvariants.withvariant("use house rules"):
+    if not apxo.variants.withvariant("use house rules"):
 
         # See rule 13.3.1.
 
-        E._othermaneuversap -= apcapabilities.rolldrag(E, "DR")
+        E._othermaneuversap -= apxo.capabilities.rolldrag(E, "DR")
 
         # See rule 6.6.
         if E._maneuversupersonic:
@@ -2809,7 +2809,7 @@ def _dodeclarelagroll(E, sense):
 
     if E.hasproperty("NRM"):
         raise RuntimeError("aircraft cannot perform rolling maneuvers.")
-    if apcapabilities.rolldrag(E, "LR") == None:
+    if apxo.capabilities.rolldrag(E, "LR") == None:
         raise RuntimeError("aircraft cannot perform lag rolls.")
 
     # See rules 8.1.2, 8.1.3, and 8.2.3.
@@ -2823,15 +2823,15 @@ def _dodeclarelagroll(E, sense):
     E._maneuversense = sense
     E._maneuverfacingchange = None
     E._maneuverfp = 0
-    E._maneuversupersonic = E.speed() >= apspeed.m1speed(E.altitudeband())
+    E._maneuversupersonic = E.speed() >= apxo.speed.m1speed(E.altitudeband())
     # The requirement includes the FPs used to execute the roll.
     E._maneuverrequiredfp = (
-        apcapabilities.rollhfp(E) + _extrapreparatoryhfp(E) + rounddown(E.speed() / 3)
+        apxo.capabilities.rollhfp(E) + _extrapreparatoryhfp(E) + rounddown(E.speed() / 3)
     )
 
     # See rules 13.3.1 and 6.6.
-    if apvariants.withvariant("use house rules"):
-        E._othermaneuversap -= apcapabilities.rolldrag(E, "LR")
+    if apxo.variants.withvariant("use house rules"):
+        E._othermaneuversap -= apxo.capabilities.rolldrag(E, "LR")
         if E._maneuversupersonic:
             if E.hasproperty("PSSM"):
                 E._othermaneuversap -= 1.0
@@ -2855,10 +2855,10 @@ def _dolagroll(E, sense):
     # Move.
     E._movelagroll(sense)
 
-    if not apvariants.withvariant("use house rules"):
+    if not apxo.variants.withvariant("use house rules"):
 
         # See rule 13.3.1.
-        E._othermaneuversap -= apcapabilities.rolldrag(E, "LR")
+        E._othermaneuversap -= apxo.capabilities.rolldrag(E, "LR")
 
         # See rule 6.6.
         if E._maneuversupersonic:
@@ -2911,14 +2911,14 @@ def _dodeclareverticalroll(E, sense):
     E._maneuversense = sense
     E._maneuverfacingchange = None
     E._maneuverfp = 0
-    E._maneuversupersonic = E.speed() >= apspeed.m1speed(E.altitudeband())
+    E._maneuversupersonic = E.speed() >= apxo.speed.m1speed(E.altitudeband())
     E._maneuverrequiredfp = 1
 
     if E.isaircraft():
 
         # See rules 6.6 and 13.3.6
-        if apvariants.withvariant("use house rules"):
-            E._othermaneuversap -= apcapabilities.rolldrag(E, "VR")
+        if apxo.variants.withvariant("use house rules"):
+            E._othermaneuversap -= apxo.capabilities.rolldrag(E, "VR")
             if E._maneuversupersonic:
                 if E.hasproperty("PSSM"):
                     E._othermaneuversap -= 1.0
@@ -2942,17 +2942,17 @@ def _doverticalroll(E, sense, facingchange, shift):
                 "attempt to roll vertically by more than 90 degrees in LRR aircraft."
             )
 
-        if not apvariants.withvariant("use house rules"):
+        if not apxo.variants.withvariant("use house rules"):
 
             # See rule 6.6.
-            if not apvariants.withvariant("use house rules"):
+            if not apxo.variants.withvariant("use house rules"):
                 if E._maneuversupersonic:
                     if E.hasproperty("PSSM"):
                         E._othermaneuversap -= 2.0
                     elif not E.hasproperty("GSSM"):
                         E._othermaneuversap -= 1.0
 
-            E._othermaneuversap -= apcapabilities.rolldrag(E, "VR")
+            E._othermaneuversap -= apxo.capabilities.rolldrag(E, "VR")
 
             # See rule 13.3.6
             if E._rollmaneuvers > 0:
@@ -2973,7 +2973,7 @@ def _dodeclaremaneuver(E, maneuvertype, sense, continuedturn=False):
     if E._hasdeclaredamaneuver and not continuedturn:
         raise RuntimeError("attempt to declare a second maneuver.")
 
-    if E.isaircraft() and apvariants.withvariant("use house rules"):
+    if E.isaircraft() and apxo.variants.withvariant("use house rules"):
         startap = E._turnrateap + E._othermaneuversap
 
     if maneuvertype == "SL":
@@ -2987,7 +2987,7 @@ def _dodeclaremaneuver(E, maneuvertype, sense, continuedturn=False):
     else:
         _dodeclareturn(E, maneuvertype, sense)
 
-    if E.isaircraft() and apvariants.withvariant("use house rules"):
+    if E.isaircraft() and apxo.variants.withvariant("use house rules"):
         endap = E._turnrateap + E._othermaneuversap
         ap = " (%+.2f AP)" % (endap - startap)
     else:

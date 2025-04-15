@@ -1,7 +1,7 @@
 ################################################################################
 
-import apxo.geometry as apgeometry
-import apxo.log as aplog
+import apxo.geometry
+import apxo.log
 
 ################################################################################
 

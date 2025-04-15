@@ -7,7 +7,7 @@ startfile(__file__, "dives")
 # Steep Dives
 
 starttestsetup()
-A1 = aircraft("A1", "AF", "F-80C", "A1-1815", "N", 20, 3.0, "CL")
+A1 = setupaircraft("A1", "AF", "F-80C", "A1-1815", "N", 20, 3.0, "CL")
 endtestsetup()
 
 startgameturn()
@@ -46,7 +46,7 @@ endgameturn()
 # Unloaded Dives
 
 starttestsetup(verbose=False)
-A1 = aircraft("A1", "AF", "F-80C", "A1-1815", "N", 20, 3.0, "CL")
+A1 = setupaircraft("A1", "AF", "F-80C", "A1-1815", "N", 20, 3.0, "CL")
 endtestsetup()
 
 startgameturn()
@@ -93,8 +93,8 @@ endgameturn()
 # Verify that attacks cannot happen on unloaded FPs.
 
 starttestsetup(verbose=False)
-A1 = aircraft("A1", "AF", "F-80C", "A1-2015", "N", 20, 4.0, "CL")
-A2 = aircraft("A2", "AF", "F-80C", "A1-2015", "N", 20, 4.0, "CL")
+A1 = setupaircraft("A1", "AF", "F-80C", "A1-2015", "N", 20, 4.0, "CL")
+A2 = setupaircraft("A2", "AF", "F-80C", "A1-2015", "N", 20, 4.0, "CL")
 endtestsetup()
 
 startgameturn()
@@ -111,7 +111,7 @@ endgameturn()
 # Unloaded dives in version 2.4.
 
 starttestsetup()
-A1 = aircraft("A1", "AF", "F-80C", "A1-1815", "N", 20, 3.0, "CL")
+A1 = setupaircraft("A1", "AF", "F-80C", "A1-1815", "N", 20, 3.0, "CL")
 endtestsetup()
 
 startgameturn()
@@ -142,7 +142,7 @@ endgameturn()
 # Vertical Dives
 
 starttestsetup(sheets=[["A1"], ["A2"]])
-A1 = aircraft("A1", "AF", "F-80C", "A2-1820", "N", 17, 5.0, "CL")
+A1 = setupaircraft("A1", "AF", "F-80C", "A2-1820", "N", 17, 5.0, "CL")
 endtestsetup()
 
 startgameturn()
@@ -209,7 +209,7 @@ A1._assert("A1-1808       N     8", 6.5)
 endgameturn()
 
 starttestsetup(sheets=[["A1"], ["A2"]])
-A1 = aircraft("A1", "AF", "F-80C", "A2-1817", "N", 45, 2.5, "CL")
+A1 = setupaircraft("A1", "AF", "F-80C", "A2-1817", "N", 45, 2.5, "CL")
 endtestsetup()
 
 startgameturn()
@@ -238,7 +238,7 @@ endgameturn()
 # Recoverty from Vertical Dives.
 
 starttestsetup(sheets=[["A1"], ["A2"]])
-A1 = aircraft("A1", "AF", "F-80C", "A2-1817", "N", 45, 3.5, "CL")
+A1 = setupaircraft("A1", "AF", "F-80C", "A2-1817", "N", 45, 3.5, "CL")
 endtestsetup()
 
 startgameturn()
@@ -266,7 +266,7 @@ endgameturn()
 # Free Descent
 
 starttestsetup()
-A1 = aircraft("A1", "AF", "F-80C", "A1-1815", "N", 10, 4.0, "CL")
+A1 = setupaircraft("A1", "AF", "F-80C", "A1-1815", "N", 10, 4.0, "CL")
 endtestsetup()
 
 startgameturn()
@@ -289,8 +289,8 @@ endgameturn()
 # more than 2.0.
 
 starttestsetup()
-A1 = aircraft("A1", "AF", "F-80C", "A2-2025", "N", 20, 2.0, "CL")
-A2 = aircraft("A2", "AF", "F-80C", "A2-2225", "N", 20, 2.5, "CL")
+A1 = setupaircraft("A1", "AF", "F-80C", "A2-2025", "N", 20, 2.0, "CL")
+A2 = setupaircraft("A2", "AF", "F-80C", "A2-2225", "N", 20, 2.5, "CL")
 endtestsetup()
 
 startgameturn()

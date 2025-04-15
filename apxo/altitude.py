@@ -1,5 +1,5 @@
-import apxo.map as apmap
-import apxo.hex as aphex
+import apxo.map
+import apxo.hex
 
 
 def isvalidaltitude(x):
@@ -105,9 +105,9 @@ def terrainaltitude(x, y):
     Return the altitude of the terrain.
     """
 
-    assert aphex.isvalid(x, y)
+    assert apxo.hex.isvalid(x, y)
 
-    if apmap.isonmap(x, y):
-        return apmap.altitude(x, y)
+    if apxo.map.isonmap(x, y):
+        return apxo.map.altitude(x, y)
     else:
         return 0

@@ -5,11 +5,11 @@ startfile(__file__, "flamed-out engines")
 # Power with Flamed-Out Engines.
 
 starttestsetup(verbose=False)
-A1 = aircraft("A1", "AF", "F-80C", "A2-1330", "N", 10, 4.0, "CL")
-A2 = aircraft("A2", "AF", "F-80C", "A2-1530", "N", 10, 4.0, "CL")
-A3 = aircraft("A3", "AF", "F7U-3", "A2-1730", "N", 10, 4.0, "CL")
-A4 = aircraft("A4", "AF", "F7U-3", "A2-1930", "N", 10, 4.0, "CL")
-A5 = aircraft("A5", "AF", "F7U-3", "A2-2130", "N", 10, 4.0, "CL")
+A1 = setupaircraft("A1", "AF", "F-80C", "A2-1330", "N", 10, 4.0, "CL")
+A2 = setupaircraft("A2", "AF", "F-80C", "A2-1530", "N", 10, 4.0, "CL")
+A3 = setupaircraft("A3", "AF", "F7U-3", "A2-1730", "N", 10, 4.0, "CL")
+A4 = setupaircraft("A4", "AF", "F7U-3", "A2-1930", "N", 10, 4.0, "CL")
+A5 = setupaircraft("A5", "AF", "F7U-3", "A2-2130", "N", 10, 4.0, "CL")
 endtestsetup()
 
 startgameturn()
@@ -66,12 +66,12 @@ endgameturn()
 
 # Flame-Out Warnings
 
-# We don't automatically check that the warnings are issued, but if the code is run with verbose=True they should appear.
+# We don't automatically check that the warnings are issued, but if the code is run with verbose=True they should apxo.pear.
 
 starttestsetup(sheets=[["A1"], ["A2"]])
-A1 = aircraft("A1", "AF", "F-80C", "A2-1330", "N", 45, 4.0, "CL")
-A2 = aircraft("A2", "AF", "F-80C", "A2-1530", "N", 10, 4.0, "CL")
-A3 = aircraft("A3", "AF", "F7U-3", "A2-1730", "N", 10, 4.0, "CL")
+A1 = setupaircraft("A1", "AF", "F-80C", "A2-1330", "N", 45, 4.0, "CL")
+A2 = setupaircraft("A2", "AF", "F-80C", "A2-1530", "N", 10, 4.0, "CL")
+A3 = setupaircraft("A3", "AF", "F7U-3", "A2-1730", "N", 10, 4.0, "CL")
 endtestsetup()
 
 startgameturn()

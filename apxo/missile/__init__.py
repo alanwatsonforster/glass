@@ -1,23 +1,23 @@
 import math
 
-import apxo.altitude as apaltitude
-import apxo.azimuth as apazimuth
-import apxo.element as apelement
-import apxo.flight as apflight
-import apxo.gameturn as apgameturn
-import apxo.geometry as apgeometry
-import apxo.hexcode as aphexcode
-import apxo.log as aplog
-import apxo.map as apmap
-import apxo.missiledata as apmissiledata
-import apxo.speed as apspeed
-import apxo.variants as apvariants
+import apxo.altitude
+import apxo.azimuth
+import apxo.element
+import apxo.flight
+import apxo.gameturn
+import apxo.geometry
+import apxo.hexcode
+import apxo.log
+import apxo.map
+import apxo.missiledata
+import apxo.speed
+import apxo.variants
 
 ##############################################################################
 
 
 def aslist():
-    elementlist = apelement.aslist()
+    elementlist = apxo.element.aslist()
     missilelist = filter(lambda self: self.ismissile(), elementlist)
     return list(missilelist)
 
@@ -25,7 +25,7 @@ def aslist():
 #############################################################################
 
 
-class Missile(apelement.Element):
+class Missile(apxo.element.Element):
 
     def __init__(self, name, missiletype, launcher, target, color="white"):
 
@@ -66,14 +66,14 @@ class Missile(apelement.Element):
             self._maneuverfacingchange = None
             self._manueversupersonic = False
 
-            self._launchgameturn = apgameturn.gameturn()
+            self._launchgameturn = apxo.gameturn.gameturn()
 
             self._newspeed = None
-            if apvariants.withvariant("use house rules"):
+            if apxo.variants.withvariant("use house rules"):
                 self._setspeed(self.basespeed() + launcher.newspeed())
             else:
                 self._setspeed(self.basespeed() + launcher.speed())
-            maxspeed = apspeed.missilemaxspeed(self.altitudeband())
+            maxspeed = apxo.speed.missilemaxspeed(self.altitudeband())
             if self.speed() > maxspeed:
                 self.logcomment("reducing start speed to maximum for altitude band.")
                 self._setspeed(maxspeed)
@@ -81,7 +81,7 @@ class Missile(apelement.Element):
             self.logwhenwhat("", "turn rate     is %s/%d." % self.turnrate())
 
         except RuntimeError as e:
-            aplog.logexception(e)
+            apxo.log.logexception(e)
         self.logbreak()
 
     #############################################################################
@@ -131,18 +131,18 @@ class Missile(apelement.Element):
     #############################################################################
 
     def basespeed(self):
-        return apmissiledata.basespeed(self._missiletype)
+        return apxo.missiledata.basespeed(self._missiletype)
 
     def turnrate(self):
-        return apmissiledata.turnrate(self._missiletype)
+        return apxo.missiledata.turnrate(self._missiletype)
 
     #############################################################################
 
     def _checktargettracking(self):
 
-        slopenumerator, slopedenominator = apflight._endflightslope(self)
+        slopenumerator, slopedenominator = apxo.flight._endflightslope(self)
 
-        horizontalrange = apgeometry.horizontalrange(self, self._target)
+        horizontalrange = apxo.geometry.horizontalrange(self, self._target)
         self.logcomment("horizontal range is %d." % horizontalrange)
 
         self.logcomment("missile altitude is %d." % self.altitude())

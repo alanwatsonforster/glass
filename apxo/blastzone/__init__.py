@@ -1,11 +1,11 @@
-import apxo.altitude as apaltitude
-import apxo.element as apelement
-import apxo.log as aplog
+import apxo.altitude
+import apxo.element
+import apxo.log
 
 ##############################################################################
 
 
-class Blastzone(apelement.Element):
+class Blastzone(apxo.element.Element):
 
     ############################################################################
 
@@ -23,7 +23,7 @@ class Blastzone(apelement.Element):
             x=x,
             y=y,
             azimuth=None,
-            altitude=apaltitude.terrainaltitude(x, y) + 2,
+            altitude=apxo.altitude.terrainaltitude(x, y) + 2,
             speed=0,
         )
 

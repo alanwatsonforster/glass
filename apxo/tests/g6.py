@@ -5,8 +5,8 @@ startfile(__file__, "attacks after rolls")
 # Attacks after Rolls
 
 starttestsetup(verbose=False)
-A1 = aircraft("A1", "AF", "F-80C", "A1-2015", "N", 20, 4.0, "CL")
-A2 = aircraft("A2", "AF", "F-80C", "A1-2015", "N", 20, 4.0, "CL")
+A1 = setupaircraft("A1", "AF", "F-80C", "A1-2015", "N", 20, 4.0, "CL")
+A2 = setupaircraft("A2", "AF", "F-80C", "A1-2015", "N", 20, 4.0, "CL")
 endtestsetup()
 
 startgameturn()

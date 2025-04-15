@@ -7,7 +7,7 @@ startfile(__file__, "order of actions")
 # H movements.
 
 starttestsetup()
-A1 = aircraft("A1", "AF", "F-80C", "A1-1115", "N", 10, 2.5, "CL")
+A1 = setupaircraft("A1", "AF", "F-80C", "A1-1115", "N", 10, 2.5, "CL")
 endtestsetup()
 
 startgameturn()

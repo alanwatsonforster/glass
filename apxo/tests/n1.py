@@ -6,7 +6,7 @@ startfile(__file__, "missile speed")
 
 starttestsetup()
 starttestsetup()
-A1 = aircraft(
+A1 = setupaircraft(
     "A1",
     "AF",
     "F-16A-10",
@@ -16,7 +16,7 @@ A1 = aircraft(
     3.0,
     stores={"1": "IRM/AIM-9L", "9": "IRM/AIM-9L"},
 )
-A2 = aircraft(
+A2 = setupaircraft(
     "A2",
     "AF",
     "F-16A-10",
@@ -26,7 +26,7 @@ A2 = aircraft(
     4.0,
     stores={"1": "IRM/AIM-9L", "9": "IRM/AIM-9L"},
 )
-A3 = aircraft(
+A3 = setupaircraft(
     "A3",
     "AF",
     "F-16A-10",
@@ -36,7 +36,7 @@ A3 = aircraft(
     5.0,
     stores={"1": "IRM/AIM-9L", "9": "IRM/AIM-9L"},
 )
-A4 = aircraft(
+A4 = setupaircraft(
     "A4",
     "AF",
     "F-16A-10",
@@ -46,7 +46,7 @@ A4 = aircraft(
     6.0,
     stores={"1": "IRM/AIM-9L", "9": "IRM/AIM-9L"},
 )
-A5 = aircraft(
+A5 = setupaircraft(
     "A5",
     "AF",
     "F-16A-10",
@@ -161,7 +161,7 @@ endgameturn()
 # EH altitude band
 
 starttestsetup(verbose=False)
-A1 = aircraft(
+A1 = setupaircraft(
     "A1",
     "AF",
     "F-16A-10",
@@ -171,7 +171,7 @@ A1 = aircraft(
     3.5,
     stores={"1": "IRM/AIM-9L", "9": "IRM/AIM-9L"},
 )
-A2 = aircraft(
+A2 = setupaircraft(
     "A2",
     "AF",
     "F-16A-10",
@@ -181,7 +181,7 @@ A2 = aircraft(
     4.0,
     stores={"1": "IRM/AIM-9L", "9": "IRM/AIM-9L"},
 )
-A3 = aircraft(
+A3 = setupaircraft(
     "A3",
     "AF",
     "F-16A-10",
@@ -191,7 +191,7 @@ A3 = aircraft(
     5.0,
     stores={"1": "IRM/AIM-9L", "9": "IRM/AIM-9L"},
 )
-A4 = aircraft(
+A4 = setupaircraft(
     "A4",
     "AF",
     "F-16A-10",
@@ -201,7 +201,7 @@ A4 = aircraft(
     6.0,
     stores={"1": "IRM/AIM-9L", "9": "IRM/AIM-9L"},
 )
-A5 = aircraft(
+A5 = setupaircraft(
     "A5",
     "AF",
     "F-16A-10",
@@ -314,7 +314,7 @@ A5.move("LVL", "N", "H,H,H,H,H,H")
 endgameturn()
 
 starttestsetup(verbose=False)
-A1 = aircraft(
+A1 = setupaircraft(
     "A1",
     "AF",
     "F-16A-10",
@@ -324,7 +324,7 @@ A1 = aircraft(
     8.0,
     stores={"1": "IRM/AIM-9P", "9": "IRM/AIM-9P"},
 )
-A2 = aircraft("A2", "AF", "F-16A-10", "A2-2010", "N", 5, 8.0)
+A2 = setupaircraft("A2", "AF", "F-16A-10", "A2-2010", "N", 5, 8.0)
 endtestsetup()
 
 startgameturn()
@@ -339,7 +339,7 @@ assert A1a.speed() == 24.0
 endgameturn()
 
 starttestsetup(verbose=False)
-A1 = aircraft(
+A1 = setupaircraft(
     "A1",
     "AF",
     "F-16A-10",
@@ -349,7 +349,7 @@ A1 = aircraft(
     14.0,
     stores={"1": "IRM/AIM-9P", "9": "IRM/AIM-9P"},
 )
-A2 = aircraft("A2", "AF", "F-16A-10", "A2-2010", "N", 60, 14.0)
+A2 = setupaircraft("A2", "AF", "F-16A-10", "A2-2010", "N", 60, 14.0)
 endtestsetup()
 
 startgameturn()
@@ -363,7 +363,7 @@ assert A1a.speed() == 30.0
 endgameturn()
 
 starttestsetup(verbose=False)
-A1 = aircraft(
+A1 = setupaircraft(
     "A1",
     "AF",
     "F-16A-10",
@@ -373,7 +373,7 @@ A1 = aircraft(
     8.0,
     stores={"1": "IRM/AIM-9P", "9": "IRM/AIM-9P"},
 )
-A2 = aircraft("A2", "AF", "F-16A-10", "A2-2010", "N", 5, 8.0)
+A2 = setupaircraft("A2", "AF", "F-16A-10", "A2-2010", "N", 5, 8.0)
 endtestsetup()
 
 startgameturn()
@@ -388,7 +388,7 @@ assert A1a.speed() == 24.0
 endgameturn()
 
 starttestsetup(verbose=False)
-A1 = aircraft(
+A1 = setupaircraft(
     "A1",
     "AF",
     "F-16A-10",
@@ -398,7 +398,7 @@ A1 = aircraft(
     1.0,
     stores={"1": "IRM/AIM-9B", "9": "IRM/AIM-9B"},
 )
-A2 = aircraft("A2", "AF", "F-16A-10", "A2-2010", "N", 5, 1.0)
+A2 = setupaircraft("A2", "AF", "F-16A-10", "A2-2010", "N", 5, 1.0)
 endtestsetup()
 
 startgameturn()
@@ -427,7 +427,7 @@ endgameturn()
 # Test speed loss from turning and altitude.
 
 starttestsetup()
-A1 = aircraft(
+A1 = setupaircraft(
     "A1",
     "AF",
     "F-16A-10",
@@ -437,7 +437,7 @@ A1 = aircraft(
     6.0,
     stores={"1": "IRM/AIM-9L", "9": "IRM/AIM-9L"},
 )
-A2 = aircraft(
+A2 = setupaircraft(
     "A2",
     "AF",
     "F-16A-10",

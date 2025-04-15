@@ -36,7 +36,7 @@ for s in [
     "truck",
 ]:
     hexcode = "A1-%02d%02d" % (x, y)
-    groundunit(s, hexcode, s, color="lightgreen")
+    setupgroundunit(s, hexcode, s, color="lightgreen")
     y += 1
     if y == 12:
         x += 1
@@ -64,7 +64,7 @@ for s in [
     "airdefense/headquarters",
 ]:
     hexcode = "A1-%02d%02d" % (x, y)
-    groundunit(s, hexcode, s, color="lightgreen")
+    setupgroundunit(s, hexcode, s, color="lightgreen")
     y += 1
     if y == 12:
         x += 1
@@ -88,7 +88,7 @@ for c in [
     "sand",
 ]:
     hexcode = "A1-%02d%02d" % (x, y)
-    groundunit(c, hexcode, "infantry", color=c)
+    setupgroundunit(c, hexcode, "infantry", color=c)
     y += 1
     if y == 8:
         x += 1
@@ -99,23 +99,23 @@ for c in [
 x = 7
 y = 9
 hexcode = "A1-%02d%02d" % (x, y)
-groundunit("1/1", hexcode, "infantry", stack="1/1", color="lightgreen")
+setupgroundunit("1/1", hexcode, "infantry", stack="1/1", color="lightgreen")
 y += 1
 hexcode = "A1-%02d%02d" % (x, y)
-groundunit("1/2", hexcode, "infantry", stack="1/2", color="lightgreen")
-groundunit("2/2", hexcode, "infantry", stack="2/2", color="lightgreen")
+setupgroundunit("1/2", hexcode, "infantry", stack="1/2", color="lightgreen")
+setupgroundunit("2/2", hexcode, "infantry", stack="2/2", color="lightgreen")
 x += 1
 y -= 1
 hexcode = "A1-%02d%02d" % (x, y)
-groundunit("1/3", hexcode, "infantry", stack="1/3", color="lightgreen")
-groundunit("2/3", hexcode, "infantry", stack="2/3", color="lightgreen")
-groundunit("3/3", hexcode, "infantry", stack="3/3", color="lightgreen")
+setupgroundunit("1/3", hexcode, "infantry", stack="1/3", color="lightgreen")
+setupgroundunit("2/3", hexcode, "infantry", stack="2/3", color="lightgreen")
+setupgroundunit("3/3", hexcode, "infantry", stack="3/3", color="lightgreen")
 y += 1
 hexcode = "A1-%02d%02d" % (x, y)
-groundunit("1/4", hexcode, "infantry", stack="1/4", color="lightgreen")
-groundunit("2/4", hexcode, "infantry", stack="2/4", color="lightgreen")
-groundunit("3/4", hexcode, "infantry", stack="3/4", color="lightgreen")
-groundunit("4/4", hexcode, "infantry", stack="4/4", color="lightgreen")
+setupgroundunit("1/4", hexcode, "infantry", stack="1/4", color="lightgreen")
+setupgroundunit("2/4", hexcode, "infantry", stack="2/4", color="lightgreen")
+setupgroundunit("3/4", hexcode, "infantry", stack="3/4", color="lightgreen")
+setupgroundunit("4/4", hexcode, "infantry", stack="4/4", color="lightgreen")
 
 endtestsetup()
 
@@ -123,29 +123,29 @@ endtestsetup()
 
 starttestsetup()
 
-groundunit("invalid", "A1-2110", symbols="foo")
+setupgroundunit("invalid", "A1-2110", symbols="foo")
 asserterror('invalid ground unit symbol "foo".')
 
-groundunit(1, "A1-2110", symbols="infantry")
+setupgroundunit(1, "A1-2110", symbols="infantry")
 asserterror("the name argument must be a string.")
 
-groundunit("A", "A1-2110", symbols="infantry")
-groundunit("A", "A1-2110", symbols="infantry")
+setupgroundunit("A", "A1-2110", symbols="infantry")
+setupgroundunit("A", "A1-2110", symbols="infantry")
 asserterror("the name argument must be unique.")
 
 # Check types
 
 starttestsetup()
 
-G0 = groundunit("G0", "A1-2110", "infantry")
+G0 = setupgroundunit("G0", "A1-2110", "infantry")
 assert G0.isgroundunit()
-G1 = groundunit("G1", "A1-2110", "ZPU-1")
+G1 = setupgroundunit("G1", "A1-2110", "ZPU-1")
 assert G1.isgroundunit()
 
-groundunit("missing", "A1-2110", "_MISSING")
+setupgroundunit("missing", "A1-2110", "_MISSING")
 asserterror('unable to find ground unit data file for "_MISSING".')
 
-groundunit("invalid", "A1-2110", "_INVALID")
+setupgroundunit("invalid", "A1-2110", "_INVALID")
 asserterror(
     'unable to read ground unit data file for "_INVALID": line 2: expecting property name enclosed in double quotes.'
 )
@@ -153,15 +153,15 @@ asserterror(
 # Check azimuths
 
 starttestsetup()
-G0 = groundunit("G0", "A1-2110", symbols="", aaaclass="H", azimuth="N")
+G0 = setupgroundunit("G0", "A1-2110", symbols="", aaaclass="H", azimuth="N")
 G0._assert("A1-2110 N 0", None)
 
 starttestsetup()
-G0 = groundunit("G0", "A1-2110", symbols="", azimuth="N")
+G0 = setupgroundunit("G0", "A1-2110", symbols="", azimuth="N")
 asserterror("only heavy AAA ground units may have an azimuth.")
 
 starttestsetup()
-G0 = groundunit("G0", "A1-2110", symbols="", aaaclass="H")
+G0 = setupgroundunit("G0", "A1-2110", symbols="", aaaclass="H")
 asserterror("heavy AAA ground units must have an azimuth.")
 
 # Make sure all of the ground unit data files are readable.
@@ -177,9 +177,9 @@ for path in pathlist:
     groundunittype = os.path.basename(path)[:-5]
     if groundunittype[0] != "_":
         if groundunittype == "KS-12":
-            groundunit("G%d" % i, "A1-2110", groundunittype, azimuth="N")
+            setupgroundunit("G%d" % i, "A1-2110", groundunittype, azimuth="N")
         else:
-            groundunit("G%d" % i, "A1-2110", groundunittype)
+            setupgroundunit("G%d" % i, "A1-2110", groundunittype)
         asserterror(None)
         i += 1
 

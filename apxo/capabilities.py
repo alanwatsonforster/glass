@@ -1,6 +1,6 @@
-import apxo.altitude as apaltitude
-import apxo.speed as apspeed
-import apxo.variants as apvariants
+import apxo.altitude
+import apxo.speed
+import apxo.variants
 
 
 def power(A, powersetting):
@@ -57,7 +57,7 @@ def turndrag(A, turnrate):
             return A._aircraftdata.turndrag(A._configuration, A._geometry, turnrate)
 
     # See rule 6.6
-    if A.hasproperty("PSSM") and A.speed() >= apspeed.m1speed(A.altitudeband()):
+    if A.hasproperty("PSSM") and A.speed() >= apxo.speed.m1speed(A.altitudeband()):
         # The aircraft has its maximum the turn rate reduced by one level, but not
         # to less than HT.
         if turnrate == "ET":

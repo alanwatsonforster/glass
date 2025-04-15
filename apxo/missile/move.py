@@ -1,16 +1,16 @@
 ################################################################################
 
-import apxo.flight as apflight
+import apxo.flight
 
 ################################################################################
 
 
 def _move(self, moves):
-    apflight._move(self, "MS", None, moves)
+    apxo.flight._move(self, "MS", None, moves)
 
 
 def _continuemove(self, moves, note=None):
-    apflight._continuemove(self, moves)
+    apxo.flight._continuemove(self, moves)
 
 
 ################################################################################

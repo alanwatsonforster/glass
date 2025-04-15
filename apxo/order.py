@@ -1,7 +1,7 @@
-import apxo.aircraft as apaircraft
-import apxo.gameturn as apgameturn
-import apxo.geometry as apgeometry
-import apxo.log as aplog
+import apxo.aircraft
+import apxo.gameturn
+import apxo.geometry
+import apxo.log
 
 #############################################################################
 
@@ -20,15 +20,15 @@ def advantaged(A, B):
         return False
 
     # Not same hex or hexside.
-    if apgeometry.samehorizontalposition(A, B):
+    if apxo.geometry.samehorizontalposition(A, B):
         return False
 
     # In 150+ arc.
-    if not apgeometry.inarc(A, B, "150+"):
+    if not apxo.geometry.inarc(A, B, "150+"):
         return False
 
     # Within 9 hexes horizontally.
-    if apgeometry.horizontalrange(A, B) > 9:
+    if apxo.geometry.horizontalrange(A, B) > 9:
         return False
 
     # No more than 6 altitude levels above.
@@ -83,9 +83,9 @@ def settraining(training):
     global _training
     _training = training
 
-    aplog.logwhat("training.")
+    apxo.log.logwhat("training.")
     for k, v in training.items():
-        aplog.logcomment(
+        apxo.log.logcomment(
             "training modifier is %+d (%s) for %s." % (_trainingmodifier[v], v, k)
         )
 
@@ -105,28 +105,28 @@ def orderofflightdeterminationphase(rolls, firstkill=None, mostkills=None):
             i += 1
         return i
 
-    aplog.logwhat("start of order of flight determination phase.")
+    apxo.log.logwhat("start of order of flight determination phase.")
 
     for k, v in rolls.items():
-        aplog.logcomment("roll is %2d for %s." % (v, k))
+        apxo.log.logcomment("roll is %2d for %s." % (v, k))
     for k, v in _training.items():
-        aplog.logcomment(
+        apxo.log.logcomment(
             "training   modifier is %+d (%s) for %s." % (_trainingmodifier[v], v, k),
         )
     if firstkill is not None:
-        aplog.logcomment("first kill modifier is +1 for %s." % firstkill)
+        apxo.log.logcomment("first kill modifier is +1 for %s." % firstkill)
     if mostkills is not None:
-        aplog.logcomment("most kills modifier is +1 for %s." % mostkills)
+        apxo.log.logcomment("most kills modifier is +1 for %s." % mostkills)
 
-    for A in apaircraft.aslist():
-        aplog.logwhat("%s has a score of %d." % (A.name(), score(A)), name=A.name())
+    for A in apxo.aircraft.aslist():
+        apxo.log.logwhat("%s has a score of %d." % (A.name(), score(A)), name=A.name())
 
     unsightedlist = []
     advantagedlist = []
     disadvantagedlist = []
     nonadvantagedlist = []
 
-    for A in apaircraft.aslist():
+    for A in apxo.aircraft.aslist():
 
         # TODO: departed, stalled, and engaged.
 
@@ -139,7 +139,7 @@ def orderofflightdeterminationphase(rolls, firstkill=None, mostkills=None):
 
             isadvantaged = False
             isdisadvantaged = False
-            for B in apaircraft.aslist():
+            for B in apxo.aircraft.aslist():
                 if A.force() != B.force():
                     if advantaged(A, B):
                         A.logcomment("is advantaged over %s." % B.name())
@@ -158,7 +158,7 @@ def orderofflightdeterminationphase(rolls, firstkill=None, mostkills=None):
                 nonadvantagedlist.append(A)
                 category = "nonadvantaged"
 
-        aplog.logwhat("%s is %s." % (A.name(), category), name=A.name())
+        apxo.log.logwhat("%s is %s." % (A.name(), category), name=A.name())
 
     def showcategory(category, alist):
         adict = {}
@@ -167,18 +167,18 @@ def orderofflightdeterminationphase(rolls, firstkill=None, mostkills=None):
         for A in alist:
             adict[score(A)].append(A.name())
         for k, v in sorted(adict.items()):
-            aplog.logwhat("  %s" % " ".join(v))
+            apxo.log.logwhat("  %s" % " ".join(v))
 
-    aplog.logwhat("")
-    aplog.logwhat("order of flight is:")
-    aplog.logwhat("")
+    apxo.log.logwhat("")
+    apxo.log.logwhat("order of flight is:")
+    apxo.log.logwhat("")
     showcategory("disadvantaged", disadvantagedlist)
     showcategory("nonadvantaged", nonadvantagedlist)
     showcategory("advantaged", advantagedlist)
     showcategory("unsighted", unsightedlist)
-    aplog.logwhat(None, "")
+    apxo.log.logwhat(None, "")
 
-    aplog.logwhat("end of order of flight determination phase.")
+    apxo.log.logwhat("end of order of flight determination phase.")
 
 
 #############################################################################

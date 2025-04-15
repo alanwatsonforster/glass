@@ -7,12 +7,12 @@ startfile(__file__, "climbs")
 # Sustained Climbs
 
 starttestsetup()
-A1 = aircraft("A1", "AF", "F-80C", "A1-1815", "N", 20, 4.0, "CL")
-A2 = aircraft("A2", "AF", "F-80C", "A1-2015", "N", 10, 4.0, "CL")
-A3 = aircraft("A3", "AF", "F-84E", "A1-2215", "N", 1, 5.0, "CL")
-A4 = aircraft("A4", "AF", "F-80C", "A1-2415", "N", 45, 5.0, "CL")
-A5 = aircraft("A5", "AF", "F-80C", "A1-2615", "N", 10, 3.0, "CL")
-A6 = aircraft("A6", "AF", "F-80C", "A1-2815", "N", 10, 2.5, "CL")
+A1 = setupaircraft("A1", "AF", "F-80C", "A1-1815", "N", 20, 4.0, "CL")
+A2 = setupaircraft("A2", "AF", "F-80C", "A1-2015", "N", 10, 4.0, "CL")
+A3 = setupaircraft("A3", "AF", "F-84E", "A1-2215", "N", 1, 5.0, "CL")
+A4 = setupaircraft("A4", "AF", "F-80C", "A1-2415", "N", 45, 5.0, "CL")
+A5 = setupaircraft("A5", "AF", "F-80C", "A1-2615", "N", 10, 3.0, "CL")
+A6 = setupaircraft("A6", "AF", "F-80C", "A1-2815", "N", 10, 2.5, "CL")
 endtestsetup()
 
 startgameturn()
@@ -54,8 +54,8 @@ endgameturn()
 # Zoom Climbs
 
 starttestsetup()
-A1 = aircraft("A1", "AF", "F-80C", "A1-1815", "N", 1, 5.5, "CL")
-A2 = aircraft("A2", "AF", "F-80C", "A1-2015", "N", 45, 4.0, "CL")
+A1 = setupaircraft("A1", "AF", "F-80C", "A1-1815", "N", 1, 5.5, "CL")
+A2 = setupaircraft("A2", "AF", "F-80C", "A1-2015", "N", 45, 4.0, "CL")
 endtestsetup()
 
 startgameturn()
@@ -121,7 +121,7 @@ A2._assert("A1-2006       N    49", 2.5)
 endgameturn()
 
 starttestsetup()
-A1 = aircraft("A1", "AF", "F-104A", "A1-1815", "N", 1, 4.5, "CL")
+A1 = setupaircraft("A1", "AF", "F-104A", "A1-1815", "N", 1, 4.5, "CL")
 endtestsetup()
 
 startgameturn()
@@ -135,7 +135,7 @@ endgameturn()
 # Superclimbs
 
 starttestsetup()
-A1 = aircraft("A1", "AF", "F-104A", "A1-1815", "N", 1, 4.5, "CL")
+A1 = setupaircraft("A1", "AF", "F-104A", "A1-1815", "N", 1, 4.5, "CL")
 endtestsetup()
 
 startgameturn()
@@ -152,8 +152,8 @@ endgameturn()
 # Vertical Climbs
 
 starttestsetup()
-A1 = aircraft("A1", "AF", "F-80C", "A1-1815", "N", 1, 5.5, "CL")
-A2 = aircraft("A2", "AF", "F-80C", "A1-2015", "N", 45, 4.0, "CL")
+A1 = setupaircraft("A1", "AF", "F-80C", "A1-1815", "N", 1, 5.5, "CL")
+A2 = setupaircraft("A2", "AF", "F-80C", "A1-2015", "N", 45, 4.0, "CL")
 endtestsetup()
 
 startgameturn()

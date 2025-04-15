@@ -1,13 +1,13 @@
 ################################################################################
 
-import apxo.azimuth as apazimuth
-import apxo.element as apelement
-import apxo.log as aplog
+import apxo.azimuth
+import apxo.element
+import apxo.log
 
 ################################################################################
 
 
-class Bomb(apelement.Element):
+class Bomb(apxo.element.Element):
 
     ############################################################################
 
@@ -23,7 +23,7 @@ class Bomb(apelement.Element):
         super().__init__(
             name,
             hexcode=hexcode,
-            azimuth=apazimuth.fromfacing(facing),
+            azimuth=apxo.azimuth.fromfacing(facing),
             altitude=altitude,
             speed=0,
         )

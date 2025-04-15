@@ -1,27 +1,27 @@
 import apxo as ap
-import apxo.log as aplog
+import apxo.log
 
-from apxo import aircraft, groundunit, drawmap
+from apxo import setupaircraft, setupgroundunit, drawmap
 
 import os.path
 
 
 def startfile(file, description):
     print("running tests in file %s: %s." % (os.path.basename(file), description))
-    aplog.setprint(False)
-    aplog.setwritefiles(False)
+    apxo.log.setprint(False)
+    apxo.log.setwritefiles(False)
 
 
 def endfile(file):
-    aplog.setprint(True)
-    aplog.setwritefiles(True)
+    apxo.log.setprint(True)
+    apxo.log.setwritefiles(True)
 
 
 def asserterror(error):
-    if aplog._error != error:
+    if apxo.log._error != error:
         print("expected error: %r" % error)
-        print("actual   error: %r" % aplog._error)
-        assert aplog._error == error
+        print("actual   error: %r" % apxo.log._error)
+        assert apxo.log._error == error
 
 
 def starttestsetup(

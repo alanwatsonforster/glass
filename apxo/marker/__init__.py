@@ -1,12 +1,12 @@
 ################################################################################
 
-import apxo.element as apelement
-import apxo.log as aplog
+import apxo.element
+import apxo.log
 
 ################################################################################
 
 
-class Marker(apelement.Element):
+class Marker(apxo.element.Element):
 
     ############################################################################
 
@@ -50,7 +50,7 @@ class Marker(apelement.Element):
             self._type = type
 
         except RuntimeError as e:
-            aplog.logexception(e)
+            apxo.log.logexception(e)
         if not silent:
             self.logbreak()
 

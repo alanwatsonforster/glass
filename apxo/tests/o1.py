@@ -5,9 +5,9 @@ startfile(__file__, "ground unit damage")
 # Damage
 starttestsetup()
 
-A0 = groundunit("A0", "A1-2110", "infantry")
-A1 = groundunit("A1", "A1-2110", "infantry")
-A2 = groundunit("A2", "A1-2110", "infantry")
+A0 = setupgroundunit("A0", "A1-2110", "infantry")
+A1 = setupgroundunit("A1", "A1-2110", "infantry")
+A2 = setupgroundunit("A2", "A1-2110", "infantry")
 
 assert A0.damage() == ""
 assert A1.damage() == ""

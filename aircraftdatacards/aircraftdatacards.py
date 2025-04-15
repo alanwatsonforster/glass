@@ -13,11 +13,11 @@ import apxo.variants
 version = 3
 
 if version == 1:
-    apxo.variants.setvariants(["use first-edition ADCs"])
+    apxo..variants.setvariants(["use first-edition ADCs"])
 elif version == 2:
     pass
 elif version == 3:
-    apxo.variants.setvariants(["use house rules"])
+    apxo..variants.setvariants(["use house rules"])
 
 
 def log(s):

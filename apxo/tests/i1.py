@@ -9,8 +9,8 @@ startfile(__file__, "close formation flying limits")
 from apxo.tests.infrastructure import *
 
 starttestsetup()
-A1 = aircraft("A1", "AF", "F-104A", "A2-1530", "N", 10, 5.0, "CL")
-A2 = aircraft("A2", "AF", "F-104A", "A2-1530", "N", 10, 5.0, "CL")
+A1 = setupaircraft("A1", "AF", "F-104A", "A2-1530", "N", 10, 5.0, "CL")
+A2 = setupaircraft("A2", "AF", "F-104A", "A2-1530", "N", 10, 5.0, "CL")
 A1.joincloseformation(A2)
 assert A1.closeformationnames() == ["A1", "A2"]
 assert A2.closeformationnames() == ["A1", "A2"]
@@ -23,8 +23,8 @@ assert A1.closeformationnames() == ["A1", "A2"]
 assert A2.closeformationnames() == ["A1", "A2"]
 
 starttestsetup()
-A1 = aircraft("A1", "AF", "F-104A", "A2-1530", "N", 10, 5.0, "CL")
-A2 = aircraft("A2", "AF", "F-104A", "A2-1530", "N", 10, 5.0, "CL")
+A1 = setupaircraft("A1", "AF", "F-104A", "A2-1530", "N", 10, 5.0, "CL")
+A2 = setupaircraft("A2", "AF", "F-104A", "A2-1530", "N", 10, 5.0, "CL")
 A1.joincloseformation(A2)
 assert A1.closeformationnames() == ["A1", "A2"]
 assert A2.closeformationnames() == ["A1", "A2"]
@@ -37,8 +37,8 @@ assert A1.closeformationnames() == []
 assert A2.closeformationnames() == []
 
 starttestsetup()
-A1 = aircraft("A1", "AF", "F-104A", "A2-1530", "N", 10, 5.0, "CL")
-A2 = aircraft("A2", "AF", "F-104A", "A2-1530", "N", 10, 5.0, "CL")
+A1 = setupaircraft("A1", "AF", "F-104A", "A2-1530", "N", 10, 5.0, "CL")
+A2 = setupaircraft("A2", "AF", "F-104A", "A2-1530", "N", 10, 5.0, "CL")
 A1.joincloseformation(A2)
 assert A1.closeformationnames() == ["A1", "A2"]
 assert A2.closeformationnames() == ["A1", "A2"]
@@ -51,8 +51,8 @@ assert A1.closeformationnames() == []
 assert A2.closeformationnames() == []
 
 starttestsetup()
-A1 = aircraft("A1", "AF", "F-104A", "A2-1530", "N", 10, 5.0, "CL")
-A2 = aircraft("A2", "AF", "F-104A", "A2-1530", "N", 10, 5.0, "CL")
+A1 = setupaircraft("A1", "AF", "F-104A", "A2-1530", "N", 10, 5.0, "CL")
+A2 = setupaircraft("A2", "AF", "F-104A", "A2-1530", "N", 10, 5.0, "CL")
 A1.joincloseformation(A2)
 assert A1.closeformationnames() == ["A1", "A2"]
 assert A2.closeformationnames() == ["A1", "A2"]
@@ -65,8 +65,8 @@ assert A1.closeformationnames() == ["A1", "A2"]
 assert A2.closeformationnames() == ["A1", "A2"]
 
 starttestsetup()
-A1 = aircraft("A1", "AF", "F-104A", "A2-1530", "N", 10, 5.0, "CL")
-A2 = aircraft("A2", "AF", "F-104A", "A2-1530", "N", 10, 5.0, "CL")
+A1 = setupaircraft("A1", "AF", "F-104A", "A2-1530", "N", 10, 5.0, "CL")
+A2 = setupaircraft("A2", "AF", "F-104A", "A2-1530", "N", 10, 5.0, "CL")
 A1.joincloseformation(A2)
 assert A1.closeformationnames() == ["A1", "A2"]
 assert A2.closeformationnames() == ["A1", "A2"]
@@ -79,8 +79,8 @@ assert A1.closeformationnames() == ["A1", "A2"]
 assert A2.closeformationnames() == ["A1", "A2"]
 
 starttestsetup()
-A1 = aircraft("A1", "AF", "F-104A", "A2-1530", "N", 10, 5.0, "CL")
-A2 = aircraft("A2", "AF", "F-104A", "A2-1530", "N", 10, 5.0, "CL")
+A1 = setupaircraft("A1", "AF", "F-104A", "A2-1530", "N", 10, 5.0, "CL")
+A2 = setupaircraft("A2", "AF", "F-104A", "A2-1530", "N", 10, 5.0, "CL")
 A1.joincloseformation(A2)
 assert A1.closeformationnames() == ["A1", "A2"]
 assert A2.closeformationnames() == ["A1", "A2"]
@@ -93,8 +93,8 @@ assert A1.closeformationnames() == []
 assert A2.closeformationnames() == []
 
 starttestsetup()
-A1 = aircraft("A1", "AF", "F-104A", "A2-1530", "N", 10, 5.0, "CL")
-A2 = aircraft("A2", "AF", "F-104A", "A2-1530", "N", 10, 5.0, "CL")
+A1 = setupaircraft("A1", "AF", "F-104A", "A2-1530", "N", 10, 5.0, "CL")
+A2 = setupaircraft("A2", "AF", "F-104A", "A2-1530", "N", 10, 5.0, "CL")
 A1.joincloseformation(A2)
 assert A1.closeformationnames() == ["A1", "A2"]
 assert A2.closeformationnames() == ["A1", "A2"]
@@ -113,8 +113,8 @@ assert A1.closeformationnames() == []
 assert A2.closeformationnames() == []
 
 starttestsetup()
-A1 = aircraft("A1", "AF", "F-104A", "A2-1530", "N", 10, 5.0, "CL")
-A2 = aircraft("A2", "AF", "F-104A", "A2-1530", "N", 10, 5.0, "CL")
+A1 = setupaircraft("A1", "AF", "F-104A", "A2-1530", "N", 10, 5.0, "CL")
+A2 = setupaircraft("A2", "AF", "F-104A", "A2-1530", "N", 10, 5.0, "CL")
 A1.joincloseformation(A2)
 assert A1.closeformationnames() == ["A1", "A2"]
 assert A2.closeformationnames() == ["A1", "A2"]
@@ -127,8 +127,8 @@ assert A1.closeformationnames() == ["A1", "A2"]
 assert A2.closeformationnames() == ["A1", "A2"]
 
 starttestsetup()
-A1 = aircraft("A1", "AF", "F-104A", "A2-1530", "N", 10, 5.0, "CL")
-A2 = aircraft("A2", "AF", "F-104A", "A2-1530", "N", 10, 5.0, "CL")
+A1 = setupaircraft("A1", "AF", "F-104A", "A2-1530", "N", 10, 5.0, "CL")
+A2 = setupaircraft("A2", "AF", "F-104A", "A2-1530", "N", 10, 5.0, "CL")
 A1.joincloseformation(A2)
 assert A1.closeformationnames() == ["A1", "A2"]
 assert A2.closeformationnames() == ["A1", "A2"]
@@ -141,8 +141,8 @@ assert A1.closeformationnames() == []
 assert A2.closeformationnames() == []
 
 starttestsetup()
-A1 = aircraft("A1", "AF", "F-104A", "A2-1530", "N", 10, 5.0, "CL")
-A2 = aircraft("A2", "AF", "F-104A", "A2-1530", "N", 10, 5.0, "CL")
+A1 = setupaircraft("A1", "AF", "F-104A", "A2-1530", "N", 10, 5.0, "CL")
+A2 = setupaircraft("A2", "AF", "F-104A", "A2-1530", "N", 10, 5.0, "CL")
 A1.joincloseformation(A2)
 assert A1.closeformationnames() == ["A1", "A2"]
 assert A2.closeformationnames() == ["A1", "A2"]
@@ -155,8 +155,8 @@ assert A1.closeformationnames() == []
 assert A2.closeformationnames() == []
 
 starttestsetup()
-A1 = aircraft("A1", "AF", "F-104A", "A2-1530", "N", 10, 5.0, "CL")
-A2 = aircraft("A2", "AF", "F-104A", "A2-1530", "N", 10, 5.0, "CL")
+A1 = setupaircraft("A1", "AF", "F-104A", "A2-1530", "N", 10, 5.0, "CL")
+A2 = setupaircraft("A2", "AF", "F-104A", "A2-1530", "N", 10, 5.0, "CL")
 A1.joincloseformation(A2)
 assert A1.closeformationnames() == ["A1", "A2"]
 assert A2.closeformationnames() == ["A1", "A2"]
@@ -179,10 +179,10 @@ from apxo.tests.infrastructure import *
 # Turns with 4 aircraft formations
 
 starttestsetup()
-A1 = aircraft("A1", "AF", "F-104A", "A2-1530", "N", 10, 5.0, "CL")
-A2 = aircraft("A2", "AF", "F-104A", "A2-1530", "N", 10, 5.0, "CL")
-A3 = aircraft("A3", "AF", "F-104A", "A2-1530", "N", 10, 5.0, "CL")
-A4 = aircraft("A4", "AF", "F-104A", "A2-1530", "N", 10, 5.0, "CL")
+A1 = setupaircraft("A1", "AF", "F-104A", "A2-1530", "N", 10, 5.0, "CL")
+A2 = setupaircraft("A2", "AF", "F-104A", "A2-1530", "N", 10, 5.0, "CL")
+A3 = setupaircraft("A3", "AF", "F-104A", "A2-1530", "N", 10, 5.0, "CL")
+A4 = setupaircraft("A4", "AF", "F-104A", "A2-1530", "N", 10, 5.0, "CL")
 A1.joincloseformation(A2)
 A1.joincloseformation(A3)
 A1.joincloseformation(A4)
@@ -217,9 +217,9 @@ assert A4.closeformationnames() == []
 # Turns with 3 aircraft formations
 
 starttestsetup()
-A1 = aircraft("A1", "AF", "F-104A", "A2-1530", "N", 10, 5.0, "CL")
-A2 = aircraft("A2", "AF", "F-104A", "A2-1530", "N", 10, 5.0, "CL")
-A3 = aircraft("A3", "AF", "F-104A", "A2-1530", "N", 10, 5.0, "CL")
+A1 = setupaircraft("A1", "AF", "F-104A", "A2-1530", "N", 10, 5.0, "CL")
+A2 = setupaircraft("A2", "AF", "F-104A", "A2-1530", "N", 10, 5.0, "CL")
+A3 = setupaircraft("A3", "AF", "F-104A", "A2-1530", "N", 10, 5.0, "CL")
 A1.joincloseformation(A2)
 A1.joincloseformation(A3)
 assert A1.closeformationnames() == ["A1", "A2", "A3"]
@@ -248,8 +248,8 @@ assert A3.closeformationnames() == []
 # Turns with 2 aircraft formations
 
 starttestsetup()
-A1 = aircraft("A1", "AF", "F-104A", "A2-1530", "N", 10, 5.0, "CL")
-A2 = aircraft("A2", "AF", "F-104A", "A2-1530", "N", 10, 5.0, "CL")
+A1 = setupaircraft("A1", "AF", "F-104A", "A2-1530", "N", 10, 5.0, "CL")
+A2 = setupaircraft("A2", "AF", "F-104A", "A2-1530", "N", 10, 5.0, "CL")
 A1.joincloseformation(A2)
 assert A1.closeformationnames() == ["A1", "A2"]
 assert A2.closeformationnames() == ["A1", "A2"]
@@ -272,8 +272,8 @@ assert A2.closeformationnames() == []
 # Slides
 
 starttestsetup()
-A1 = aircraft("A1", "AF", "F-104A", "A2-1530", "N", 10, 5.0, "CL")
-A2 = aircraft("A2", "AF", "F-104A", "A2-1530", "N", 10, 5.0, "CL")
+A1 = setupaircraft("A1", "AF", "F-104A", "A2-1530", "N", 10, 5.0, "CL")
+A2 = setupaircraft("A2", "AF", "F-104A", "A2-1530", "N", 10, 5.0, "CL")
 A1.joincloseformation(A2)
 assert A1.closeformationnames() == ["A1", "A2"]
 assert A2.closeformationnames() == ["A1", "A2"]
@@ -289,8 +289,8 @@ assert A2.closeformationnames() == ["A1", "A2"]
 # Rolls
 
 starttestsetup()
-A1 = aircraft("A1", "AF", "F-104A", "A2-1530", "N", 10, 5.0, "CL")
-A2 = aircraft("A2", "AF", "F-104A", "A2-1530", "N", 10, 5.0, "CL")
+A1 = setupaircraft("A1", "AF", "F-104A", "A2-1530", "N", 10, 5.0, "CL")
+A2 = setupaircraft("A2", "AF", "F-104A", "A2-1530", "N", 10, 5.0, "CL")
 A1.joincloseformation(A2)
 assert A1.closeformationnames() == ["A1", "A2"]
 assert A2.closeformationnames() == ["A1", "A2"]
@@ -304,8 +304,8 @@ assert A1.closeformationnames() == []
 assert A2.closeformationnames() == []
 
 starttestsetup()
-A1 = aircraft("A1", "AF", "F-104A", "A2-1530", "N", 10, 5.0, "CL")
-A2 = aircraft("A2", "AF", "F-104A", "A2-1530", "N", 10, 5.0, "CL")
+A1 = setupaircraft("A1", "AF", "F-104A", "A2-1530", "N", 10, 5.0, "CL")
+A2 = setupaircraft("A2", "AF", "F-104A", "A2-1530", "N", 10, 5.0, "CL")
 A1.joincloseformation(A2)
 assert A1.closeformationnames() == ["A1", "A2"]
 assert A2.closeformationnames() == ["A1", "A2"]

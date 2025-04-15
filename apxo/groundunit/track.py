@@ -1,5 +1,5 @@
-import apxo.geometry as apgeometry
-import apxo.log as aplog
+import apxo.geometry
+import apxo.log
 from apxo.rounding import onethirdfromtable, twothirdsfromtable, roundup, rounddown
 
 ################################################################################
@@ -32,7 +32,7 @@ def _track(self, target):
     maximumtrackingrange = self._maximumtrackingrange()
     if maximumtrackingrange is None:
         raise RuntimeError("%s cannot track." % self.name())
-    range = apgeometry.range(self, target)
+    range = apxo.geometry.range(self, target)
     self.logcomment("range to target is %d." % range)
     if range > maximumtrackingrange:
         raise RuntimeError(
@@ -42,7 +42,7 @@ def _track(self, target):
     trackingrequirement = self._trackingrequirement(target)
     self.logcomment(
         "tracking requirement is %d %s."
-        % (trackingrequirement, aplog.plural(trackingrequirement, "FP", "FPs"))
+        % (trackingrequirement, apxo.log.plural(trackingrequirement, "FP", "FPs"))
     )
     self._tracking = target
 

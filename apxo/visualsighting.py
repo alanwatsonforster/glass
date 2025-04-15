@@ -1,9 +1,9 @@
 ################################################################################
 
-import apxo.capabilities as apcapabilities
-import apxo.hex as aphex
-import apxo.geometry as apgeometry
-import apxo.log as aplog
+import apxo.capabilities
+import apxo.hex
+import apxo.geometry
+import apxo.log
 
 ################################################################################
 
@@ -13,18 +13,18 @@ def startvisualsighting():
     Report sighting status at the start of the visual sighting phase.
     """
 
-    for target in apaircraft.aslist():
+    for target in apxo.aircraft.aslist():
         if target._sightedonpreviousturn:
-            aplog.logwhat("%-4s : was sighted on previous turn." % target.name())
+            apxo.log.logwhat("%-4s : was sighted on previous turn." % target.name())
         else:
-            aplog.logwhat("%-4s : was unsighted on previous turn." % target.name())
-        aplog.logwhat(
+            apxo.log.logwhat("%-4s : was unsighted on previous turn." % target.name())
+        apxo.log.logwhat(
             "%-4s : maximum visual range is %d."
             % (target.name(), target.maxvisualsightingrange())
         )
         for searcher in aslist():
             if target.name() != searcher.name() and target.force() != searcher.force():
-                aplog.logwhat(
+                apxo.log.logwhat(
                     "%-4s : searcher %s: range is %2d: %s."
                     % (
                         target.name(),
@@ -43,13 +43,13 @@ def endvisualsighting():
     Report sighting status at the end of the visual sighting phase.
     """
 
-    for target in apaircraft.aslist():
+    for target in apxo.aircraft.aslist():
         if target._sighted and target._identified:
-            aplog.logwhat("%-4s : is sighted and identified." % target.name())
+            apxo.log.logwhat("%-4s : is sighted and identified." % target.name())
         elif target._sighted:
-            aplog.logwhat("%-4s : is sighted." % target.name())
+            apxo.log.logwhat("%-4s : is sighted." % target.name())
         else:
-            aplog.logwhat("%-4s : is unsighted." % target.name())
+            apxo.log.logwhat("%-4s : is unsighted." % target.name())
 
 
 ################################################################################
@@ -121,7 +121,7 @@ def attempttosight(A, B, success=None, note=None):
             "%d additional %s."
             % (
                 additionalsearchers,
-                aplog.plural(additionalsearchers, "searcher", "searchers"),
+                apxo.log.plural(additionalsearchers, "searcher", "searchers"),
             )
         )
 
@@ -153,7 +153,7 @@ def attempttosight(A, B, success=None, note=None):
     modifier += dmodifier
 
     A.logcomment("total modifier        is %+d." % modifier)
-    A.logcomment("target visibility is %d." % apcapabilities.visibility(B))
+    A.logcomment("target visibility is %d." % apxo.capabilities.visibility(B))
 
     A.lognote(note)
 
@@ -208,7 +208,7 @@ def maxvisualsightingrange(A):
 
     # See rule 11.1.
 
-    return 4 * apcapabilities.visibility(A)
+    return 4 * apxo.capabilities.visibility(A)
 
 
 ################################################################################
@@ -221,7 +221,7 @@ def maxvisualidentificationrange(A):
 
     # See rule 11.5.
 
-    return 2 * apcapabilities.visibility(A)
+    return 2 * apxo.capabilities.visibility(A)
 
 
 ################################################################################
@@ -234,7 +234,7 @@ def visualsightingrange(A, B):
 
     # See rule 11.1.
 
-    horizontalrange = apgeometry.horizontalrange(A, B)
+    horizontalrange = apxo.geometry.horizontalrange(A, B)
 
     if A.altitude() >= B.altitude():
         verticalrange = int((A.altitude() - B.altitude()) / 2)
@@ -439,14 +439,14 @@ def visualsightingcondition(A, B):
 
     if visualsightingrange(A, B) > maxvisualsightingrange(B):
         return "beyond visual range", False, False, False
-    elif apgeometry.samehorizontalposition(A, B) and A.altitude() > B.altitude():
+    elif apxo.geometry.samehorizontalposition(A, B) and A.altitude() > B.altitude():
         return (
             "within visual range and can padlock, but blind (immediately below)",
             False,
             True,
             False,
         )
-    elif apgeometry.samehorizontalposition(A, B) and A.altitude() < B.altitude():
+    elif apxo.geometry.samehorizontalposition(A, B) and A.altitude() < B.altitude():
         return "within visual range (immediately above)", True, True, False
     elif blindarc is not None:
         return "within visual range but blind (%s arc)" % blindarc, False, False, False
@@ -470,7 +470,7 @@ def _arc(A, B, arcs):
     Otherwise return None.
     """
 
-    angleoff = apgeometry.angleofftail(B, A, arconly=True)
+    angleoff = apxo.geometry.angleofftail(B, A, arconly=True)
 
     for arc in arcs:
         if arc == "30-" or arc == "60L":
@@ -503,7 +503,7 @@ def _blindarc(A, B):
 
     # See rules 9.2 and 11.1.
 
-    return _arc(A, B, apcapabilities.blindarcs(A))
+    return _arc(A, B, apxo.capabilities.blindarcs(A))
 
 
 ################################################################################
@@ -517,7 +517,7 @@ def _restrictedarc(A, B):
 
     # See rules 9.2 and 11.1.
 
-    return _arc(A, B, apcapabilities.restrictedarcs(A))
+    return _arc(A, B, apxo.capabilities.restrictedarcs(A))
 
 
 ################################################################################

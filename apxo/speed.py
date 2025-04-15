@@ -1,8 +1,8 @@
 import math
 
-import apxo.capabilities as apcapabilities
-import apxo.gameturn as apgameturn
-import apxo.variants as apvariants
+import apxo.capabilities
+import apxo.gameturn
+import apxo.variants
 
 from apxo.rounding import *
 from apxo.log import plural
@@ -157,11 +157,11 @@ def _startaircraftspeed(
     # See rule 29.1.
     if not A._fuel is None:
         if A._fuel == 0:
-            if apcapabilities.engines(A) == 1:
+            if apxo.capabilities.engines(A) == 1:
                 A.logcomment("the engine is flamed-out from a lack of fuel.")
             else:
                 A.logstart("all engines are flamed-out from a lack of fuel.")
-            flamedoutengines = apcapabilities.engines(A)
+            flamedoutengines = apxo.capabilities.engines(A)
 
     ############################################################################
 
@@ -181,14 +181,14 @@ def _startaircraftspeed(
     # not required for jet-powered aircraft, I have implemented that HT
     # is sufficient.
 
-    powerapM = apcapabilities.power(A, "M")
-    powerapAB = apcapabilities.power(A, "AB")
-    if apvariants.withvariant("disallow HT/FT"):
+    powerapM = apxo.capabilities.power(A, "M")
+    powerapAB = apxo.capabilities.power(A, "AB")
+    if apxo.variants.withvariant("disallow HT/FT"):
         powerapHT = None
         powerapFT = None
     else:
-        powerapHT = apcapabilities.power(A, "HT")
-        powerapFT = apcapabilities.power(A, "FT")
+        powerapHT = apxo.capabilities.power(A, "HT")
+        powerapFT = apxo.capabilities.power(A, "FT")
 
     jet = powerapM != None
 
@@ -206,12 +206,12 @@ def _startaircraftspeed(
                 powerapAB = max(0.5, onethirdfromtable(powerapAB))
 
     # Some propeller aircraft lose power at high speed.
-    if apcapabilities.powerfade(A) != None:
-        powerapHT = max(0.0, powerapHT - apcapabilities.powerfade(A))
-        powerapFT = max(0.0, powerapFT - apcapabilities.powerfade(A))
+    if apxo.capabilities.powerfade(A) != None:
+        powerapHT = max(0.0, powerapHT - apxo.capabilities.powerfade(A))
+        powerapFT = max(0.0, powerapFT - apxo.capabilities.powerfade(A))
 
     # See "Aircraft Damage Effects" in the Play Aids.
-    if not apvariants.withvariant("use optional damage table"):
+    if not apxo.variants.withvariant("use optional damage table"):
         if A.damageatleast("H"):
             if jet:
                 powerapM /= 2
@@ -289,11 +289,11 @@ def _startaircraftspeed(
         A.logcomment("power is reduced in the %s altitude band." % A.altitudeband())
 
     # Again, the reduction was done above, but we report it here.
-    if apcapabilities.powerfade(A) != None and apcapabilities.powerfade(A) > 0.0:
+    if apxo.capabilities.powerfade(A) != None and apxo.capabilities.powerfade(A) > 0.0:
         A.logcomment("power is reduced as the speed is %.1f." % speed)
 
     # Again, the reduction was done above, but we report it here.
-    if not apvariants.withvariant("use optional damage table"):
+    if not apxo.variants.withvariant("use optional damage table"):
         if A.damageatleast("H"):
             A.logcomment("power is reduced as damage is %s." % A.damage())
 
@@ -304,16 +304,16 @@ def _startaircraftspeed(
 
     # See rule 6.7
 
-    flamedoutfraction = flamedoutengines / apcapabilities.engines(A)
+    flamedoutfraction = flamedoutengines / apxo.capabilities.engines(A)
 
     if flamedoutfraction == 1:
 
-        if apcapabilities.engines(A) == 1:
+        if apxo.capabilities.engines(A) == 1:
             A.logcomment("power setting is treated as I as the engine is flamed-out.")
         else:
             A.logcomment(
                 "power setting is treated as I as all %d engines are flamed-out."
-                % apcapabilities.engines(A)
+                % apxo.capabilities.engines(A)
             )
         powersetting = "I"
         powerap = 0
@@ -322,7 +322,7 @@ def _startaircraftspeed(
 
         A.logcomment(
             "maximum power is reduced by one third as %d of the %d engines are flamed-out."
-            % (flamedoutengines, apcapabilities.engines(A))
+            % (flamedoutengines, apxo.capabilities.engines(A))
         )
         # 1/3 of APs, quantized in 1/4 units, rounding down.
         powerap = math.floor(powerap / 3 * 4) / 4
@@ -331,7 +331,7 @@ def _startaircraftspeed(
 
         A.logcomment(
             "maximum power is reduced by one half as %d of the %d engines are flamed-out."
-            % (flamedoutengines, apcapabilities.engines(A))
+            % (flamedoutengines, apxo.capabilities.engines(A))
         )
         # 1/2 of APs, quantized in 1/4 units, rounding up.
         powerap = math.ceil(powerap / 2 * 4) / 4
@@ -353,7 +353,7 @@ def _startaircraftspeed(
             "check for flame-out as the power setting has increased from I to AB."
         )
 
-    if powersetting != "I" and A.altitude() > apcapabilities.ceiling(A):
+    if powersetting != "I" and A.altitude() > apxo.capabilities.ceiling(A):
         A.logcomment(
             "check for flame-out as the aircraft is above its ceiling and the power setting is %s."
             % powersetting
@@ -370,7 +370,7 @@ def _startaircraftspeed(
     ):
         A.logcomment(
             "%s flame-out as the speed is supersonic and the power setting is %s."
-            % (plural(apcapabilities.engines(A), "engine", "engines"), powersetting)
+            % (plural(apxo.capabilities.engines(A), "engine", "engines"), powersetting)
         )
 
     ############################################################################
@@ -387,46 +387,46 @@ def _startaircraftspeed(
 
     # Low-speed lift devices (e.g., slats or flaps).
 
-    if apcapabilities.lowspeedliftdevicelimit(A) is None:
+    if apxo.capabilities.lowspeedliftdevicelimit(A) is None:
 
         A._lowspeedliftdeviceextended = False
 
     else:
 
-        if apcapabilities.lowspeedliftdeviceselectable(A):
+        if apxo.capabilities.lowspeedliftdeviceselectable(A):
 
             if lowspeedliftdeviceselected is not None:
                 A._lowspeedliftdeviceselected = lowspeedliftdeviceselected
 
             if A._lowspeedliftdeviceselected:
-                A.logcomment("%s selected." % apcapabilities.lowspeedliftdevicename(A))
+                A.logcomment("%s selected." % apxo.capabilities.lowspeedliftdevicename(A))
             else:
                 A.logcomment(
-                    "%s not selected." % apcapabilities.lowspeedliftdevicename(A)
+                    "%s not selected." % apxo.capabilities.lowspeedliftdevicename(A)
                 )
 
             A._lowspeedliftdeviceextended = A._lowspeedliftdeviceselected and (
-                speed <= apcapabilities.lowspeedliftdevicelimit(A)
+                speed <= apxo.capabilities.lowspeedliftdevicelimit(A)
             )
 
         else:
 
             A._lowspeedliftdeviceextended = (
-                speed <= apcapabilities.lowspeedliftdevicelimit(A)
+                speed <= apxo.capabilities.lowspeedliftdevicelimit(A)
             )
 
         if A._lowspeedliftdeviceextended:
-            A.logcomment("%s extended." % apcapabilities.lowspeedliftdevicename(A))
+            A.logcomment("%s extended." % apxo.capabilities.lowspeedliftdevicename(A))
         else:
-            A.logcomment("%s retracted." % apcapabilities.lowspeedliftdevicename(A))
+            A.logcomment("%s retracted." % apxo.capabilities.lowspeedliftdevicename(A))
 
-    A.logcomment("minumum speed is %.1f." % apcapabilities.minspeed(A))
+    A.logcomment("minumum speed is %.1f." % apxo.capabilities.minspeed(A))
 
     ############################################################################
 
     # See rule 6.3 on entering a stall.
 
-    minspeed = apcapabilities.minspeed(A)
+    minspeed = apxo.capabilities.minspeed(A)
     if speed < minspeed:
         A.logcomment("speed is below the minimum of %.1f." % minspeed)
         A.logcomment("aircraft is stalled.")
@@ -449,7 +449,7 @@ def _startaircraftspeed(
 
     # See rule 6.1.
 
-    if speed > apcapabilities.cruisespeed(A):
+    if speed > apxo.capabilities.cruisespeed(A):
         if powersetting == "I" or powersetting == "N":
             dspeedap = -1.0
             speedap += dspeedap
@@ -460,7 +460,7 @@ def _startaircraftspeed(
     # See rules 6.1 and 6.6 in version 2.4.
 
     if powersetting == "I":
-        dspeedap = -apcapabilities.power(A, "I")
+        dspeedap = -apxo.capabilities.power(A, "I")
         speedap += dspeedap
         A.logcomment("%s power (%+.1f AP)." % (powersetting, dspeedap))
         if speed >= m1speed(A.altitudeband()):
@@ -525,7 +525,7 @@ def _startaircraftspeed(
 
     if not A._fuel is None:
         A._fuelconsumption = min(
-            A._fuel, apcapabilities.fuelrate(A) * (1 - flamedoutfraction)
+            A._fuel, apxo.capabilities.fuelrate(A) * (1 - flamedoutfraction)
         )
 
     ############################################################################
@@ -534,7 +534,7 @@ def _startaircraftspeed(
 
     if speedbrakes is not None:
 
-        maxspeedbrakes = apcapabilities.speedbrake(A)
+        maxspeedbrakes = apxo.capabilities.speedbrake(A)
         if maxspeedbrakes is None:
             raise RuntimeError("aircraft does not have speedbrakes.")
 
@@ -655,10 +655,10 @@ def _endaircraftspeed(A):
     # See rules 6.2, 6.3, and 8.2.
 
     if usemaxdivespeed:
-        maxspeed = apcapabilities.maxdivespeed(A)
+        maxspeed = apxo.capabilities.maxdivespeed(A)
         maxspeedname = "maximum dive speed"
     else:
-        maxspeed = apcapabilities.maxspeed(A)
+        maxspeed = apxo.capabilities.maxspeed(A)
         maxspeedname = "maximum speed"
 
     # See the Aircraft Damage Effects Table. We interpret its prohibition
@@ -692,7 +692,7 @@ def _endaircraftspeed(A):
 
     elif ap > 0:
 
-        if apvariants.withvariant("use house rules"):
+        if apxo.variants.withvariant("use house rules"):
             maxapcarrybeyondmaxspeed = 0.0
         else:
             maxapcarrybeyondmaxspeed = aprate - 0.5
@@ -738,7 +738,7 @@ def _endaircraftspeed(A):
 
     # See rule 6.4.
 
-    minspeed = apcapabilities.minspeed(A)
+    minspeed = apxo.capabilities.minspeed(A)
     if A._newspeed < minspeed:
         A.logcomment("speed will be below the minimum of %.1f." % minspeed)
     if A._newspeed >= minspeed and A._flighttype == "ST":
@@ -778,7 +778,7 @@ def _startmissilespeed(M):
     if M.speed() < missilemaneuverspeed(M.altitudeband()):
         M.logcomment("cannot maneuver.")
 
-    flightgameturn = apgameturn.gameturn() - M._launchgameturn
+    flightgameturn = apxo.gameturn.gameturn() - M._launchgameturn
     M.logstart("flight game turn is %d." % flightgameturn)
 
     M._maxfp = int(

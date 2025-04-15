@@ -1,11 +1,11 @@
-import apxo.altitude as apaltitude
-import apxo.element as apelement
-import apxo.log as aplog
+import apxo.altitude
+import apxo.element
+import apxo.log
 
 ##############################################################################
 
 
-class PlottedFire(apelement.Element):
+class PlottedFire(apxo.element.Element):
 
     ############################################################################
 

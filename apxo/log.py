@@ -2,7 +2,7 @@
 Logging.
 """
 
-import apxo.gameturn as apgameturn
+import apxo.gameturn
 
 ################################################################################
 
@@ -57,12 +57,12 @@ def _logline(line, who=None, writefile=True):
 
 
 def _logtext(text, who=None, writefile=True):
-    if apgameturn.gameturn() is None:
+    if apxo.gameturn.gameturn() is None:
         line = "            : %s" % text
-    elif apgameturn.gameturn() == 0:
+    elif apxo.gameturn.gameturn() == 0:
         line = "set-up      : %s" % text
     else:
-        line = "game turn %2d: %s" % (apgameturn.gameturn(), text)
+        line = "game turn %2d: %s" % (apxo.gameturn.gameturn(), text)
     _logline(line, who=who, writefile=writefile)
 
 

@@ -1,4 +1,4 @@
-import apxo.variants as apvariants
+import apxo.variants
 
 import os.path
 import json
@@ -175,7 +175,7 @@ class aircraftdata:
         if not powersetting in self._data["powertable"]:
             return None
         elif powersetting == "I":
-            if apvariants.withvariant("use first-edition ADCs"):
+            if apxo.variants.withvariant("use first-edition ADCs"):
                 return self._data["powertable"][powersetting][
                     _configurationindex(configuration)
                 ]
@@ -214,7 +214,7 @@ class aircraftdata:
         raw = self._data["powertable"]["SPBR"][_configurationindex(configuration)]
         if raw == "-":
             return None
-        elif apvariants.withvariant("use first-edition ADCs"):
+        elif apxo.variants.withvariant("use first-edition ADCs"):
             return raw
         else:
             return raw * 2.0
@@ -300,7 +300,7 @@ class aircraftdata:
         raw = turndragtable[turnrate][_configurationindex(configuration)]
         if raw == "-":
             return None
-        elif apvariants.withvariant("use house rules"):
+        elif apxo.variants.withvariant("use house rules"):
             if self.hasproperty("LBR", geometry):
                 return raw / 2.0 + 0.25
             elif self.hasproperty("HBR", geometry):

@@ -1,12 +1,12 @@
 ################################################################################
 
-import apxo.draw as apdraw
+import apxo.draw
 
 ################################################################################
 
 
 def _draw(self):
-    apdraw.drawplottedfire(*self.xy(), self.altitude())
+    apxo.draw.drawplottedfire(*self.xy(), self.altitude())
 
 
 ################################################################################

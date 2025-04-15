@@ -1,12 +1,12 @@
-import apxo.element as apelement
-import apxo.gameturn as apgameturn
-import apxo.log as aplog
+import apxo.element
+import apxo.gameturn
+import apxo.log
 
 ################################################################################
 
 
 def aslist(withkilled=False):
-    elementlist = apelement.aslist()
+    elementlist = apxo.element.aslist()
     groundunitlist = filter(lambda E: E.isgroundunit(), elementlist)
     if not withkilled:
         groundunitlist = filter(lambda x: not x.killed(), groundunitlist)
@@ -20,7 +20,7 @@ from apxo.groundunit.data import _loaddata
 ################################################################################
 
 
-class GroundUnit(apelement.Element):
+class GroundUnit(apxo.element.Element):
 
     ############################################################################
 
@@ -143,7 +143,7 @@ class GroundUnit(apelement.Element):
             self._inittracking()
 
         except RuntimeError as e:
-            aplog.logexception(e)
+            apxo.log.logexception(e)
         self.logbreak()
 
     ############################################################################

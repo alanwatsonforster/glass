@@ -2,8 +2,8 @@
 Conversion between hex codes and hex coordinates.
 """
 
-import apxo.hex as aphex
-import apxo.map as apmap
+import apxo.hex
+import apxo.map
 
 import re
 
@@ -74,7 +74,7 @@ def yoffsetforoddx():
     and TSOH sheets.
     """
 
-    if apmap.usingfirstgenerationsheets():
+    if apxo.map.usingfirstgenerationsheets():
         return +0.5
     else:
         return -0.5
@@ -87,16 +87,16 @@ def fromxy(x, y, sheet=None):
     chosen from that sheet. Otherwise the normal rules are used for sides.
     """
 
-    aphex.checkisvalid(x, y)
+    apxo.hex.checkisvalid(x, y)
 
-    if aphex.iscenter(x, y):
+    if apxo.hex.iscenter(x, y):
 
         if sheet == None:
-            sheet = apmap.tosheet(x, y)
+            sheet = apxo.map.tosheet(x, y)
             if sheet == None:
                 raise RuntimeError("position is not within the map.")
 
-        x0, y0 = apmap.sheetorigin(sheet)
+        x0, y0 = apxo.map.sheetorigin(sheet)
         XX0, YY0 = _sheetorigin(sheet)
         XX = XX0 + (x - x0)
         YY = YY0 - (y - y0)
@@ -107,11 +107,11 @@ def fromxy(x, y, sheet=None):
 
     else:
 
-        x0, y0, x1, y1 = aphex.sidetocenters(x, y)
+        x0, y0, x1, y1 = apxo.hex.sidetocenters(x, y)
 
         if sheet == None:
-            sheet0 = apmap.tosheet(x0, y0)
-            sheet1 = apmap.tosheet(x1, y1)
+            sheet0 = apxo.map.tosheet(x0, y0)
+            sheet1 = apxo.map.tosheet(x1, y1)
             if sheet0 != None:
                 sheet = sheet0
             elif sheet1 != None:
@@ -141,7 +141,7 @@ def toxy(h):
         XX, YY = _splitlabelforcenter(label)
 
         XX0, YY0 = _sheetorigin(sheet)
-        x0, y0 = apmap.sheetorigin(sheet)
+        x0, y0 = apxo.map.sheetorigin(sheet)
 
         dx = XX - XX0
         dy = YY0 - YY
@@ -232,7 +232,7 @@ def _sheetorigin(sheet):
     Return the hex code of the center of the lower left hex in the specified sheet.
     """
 
-    if apmap.usingfirstgenerationsheets():
+    if apxo.map.usingfirstgenerationsheets():
 
         # The first-generation maps are all labeled identically.
 

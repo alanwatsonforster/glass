@@ -1,10 +1,10 @@
 ################################################################################
 
-import apxo.barragefire as apbarragefire
-import apxo.gameturn as apgameturn
-import apxo.geometry as apgeometry
-import apxo.log as aplog
-import apxo.plottedfire as applottedfire
+import apxo.barragefire
+import apxo.gameturn
+import apxo.geometry
+import apxo.log
+import apxo.plottedfire
 
 ################################################################################
 
@@ -60,7 +60,7 @@ def _attackaircraft(self, target, result=None, note=None):
     if self.isusingbarragefire():
 
         self.logwhenwhat("", "attacks %s with barrage fire." % target.name())
-        if apgeometry.horizontalrange(self, target) > 1:
+        if apxo.geometry.horizontalrange(self, target) > 1:
             raise RuntimeError("target is outside the barrage fire zone.")
         if target.altitude() > self._aaamaximumaltitude():
             raise RuntimeError("target is above the barrage fire.")
@@ -68,7 +68,7 @@ def _attackaircraft(self, target, result=None, note=None):
     elif self.isusingplottedfire():
 
         self.logwhenwhat("", "attacks %s with plotted fire." % target.name())
-        if apgeometry.horizontalrange(self._plottedfire, target) > 1:
+        if apxo.geometry.horizontalrange(self._plottedfire, target) > 1:
             raise RuntimeError("target is outside the plotted fire zone.")
         if target.altitude() < self._plottedfire.altitude() - 2:
             raise RuntimeError("target is below the plotted fire.")
@@ -83,7 +83,7 @@ def _attackaircraft(self, target, result=None, note=None):
         if self._tracking is not target:
             raise RuntimeError("%s is not tracking %s." % (self.name(), target.name()))
 
-        range = apgeometry.range(self, target)
+        range = apxo.geometry.range(self, target)
         rangeclass = self._aaarangeclass(range)
         if rangeclass is None:
             self.logcomment("range to target is %d." % range)
@@ -125,7 +125,7 @@ def isusingbarragefire(self):
 def usebarragefire(self, note=None):
     "Use barrage fire."
     try:
-        apgameturn.checkingameturn()
+        apxo.gameturn.checkingameturn()
         self.logwhenwhat("", "is using barrage fire.")
         self._checknotkilled()
         self._checknotremoved()
@@ -137,12 +137,12 @@ def usebarragefire(self, note=None):
         if self._aaaclass in ["L", "M"]:
             self.logwhenwhat("", "will be out of ammunition.")
             self._outofammunition = True
-        self._barragefire = apbarragefire.BarrageFire(
+        self._barragefire = apxo.barragefire.BarrageFire(
             self.hexcode(), altitude=self.altitude() + self._aaamaximumrelativealtitude
         )
         self.lognote(note)
     except RuntimeError as e:
-        aplog.logexception(e)
+        apxo.log.logexception(e)
     self.logbreak()
 
 
@@ -164,7 +164,7 @@ def isusingplottedfire(self):
 def useplottedfire(self, hexcode, altitude, note=None):
     "Use plotted fire."
     try:
-        apgameturn.checkingameturn()
+        apxo.gameturn.checkingameturn()
         self.logwhenwhat("", "is using plotted fire.")
         self._checknotkilled()
         self._checknotremoved()
@@ -173,10 +173,10 @@ def useplottedfire(self, hexcode, altitude, note=None):
             raise RuntimeError("%s is not capable of plotted fire." % self.name())
         if self._outofammunition:
             raise RuntimeError("%s is out of ammunition." % self.name())
-        self._plottedfire = applottedfire.PlottedFire(hexcode, altitude)
+        self._plottedfire = apxo.plottedfire.PlottedFire(hexcode, altitude)
         self.lognote(note)
     except RuntimeError as e:
-        aplog.logexception(e)
+        apxo.log.logexception(e)
     self.logbreak()
 
 
@@ -193,7 +193,7 @@ def stopusingplottedfire(self):
 def resupplyammunition(self, note=None):
     "Resupply ammunition."
     try:
-        apgameturn.checkingameturn()
+        apxo.gameturn.checkingameturn()
         self.logwhenwhat("", "is resupplied with ammunition.")
         self._checknotkilled()
         self._checknotremoved()
@@ -201,7 +201,7 @@ def resupplyammunition(self, note=None):
         self._outofammunition = False
         self.lognote(note)
     except RuntimeError as e:
-        aplog.logexception(e)
+        apxo.log.logexception(e)
     self.logbreak()
 
 

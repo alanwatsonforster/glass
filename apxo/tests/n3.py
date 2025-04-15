@@ -5,7 +5,7 @@ startfile(__file__, "missile attacks")
 # LO altitude band
 
 starttestsetup()
-A1 = aircraft(
+A1 = setupaircraft(
     "A1",
     "AF",
     "F-16A-10",
@@ -15,7 +15,7 @@ A1 = aircraft(
     6.0,
     stores={"1": "IRM/AIM-9L", "9": "IRM/AIM-9L"},
 )
-A2 = aircraft(
+A2 = setupaircraft(
     "A2",
     "AF",
     "F-16A-10",

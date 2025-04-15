@@ -2,7 +2,7 @@ from apxo.tests.infrastructure import *
 
 startfile(__file__, "aircraft data")
 
-# Checks on apxo.aircraftdata.
+# Checks on apxo..aircraftdata.
 
 from apxo.aircraftdata import aircraftdata
 import apxo.variants

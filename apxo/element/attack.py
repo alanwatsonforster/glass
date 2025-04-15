@@ -1,7 +1,7 @@
 ################################################################################
 
-import apxo.hexcode as aphexcode
-import apxo.log as aplog
+import apxo.hexcode
+import apxo.log
 
 ################################################################################
 
@@ -17,7 +17,7 @@ def _attackendgameturn(self):
             % (
                 self._name,
                 self._unspecifiedattackresult,
-                aplog.plural(self._unspecifiedattackresult, "result", "results"),
+                apxo.log.plural(self._unspecifiedattackresult, "result", "results"),
             )
         )
 
@@ -49,7 +49,7 @@ def attack(self, target, *args, **kwargs):
         else:
             raise RuntimeError("invalid target for attack.")
     except RuntimeError as e:
-        aplog.logexception(e)
+        apxo.log.logexception(e)
     self.logbreak()
 
 
@@ -60,7 +60,7 @@ def secondaryattack(self, target, *args, **kwargs):
         else:
             raise RuntimeError("invalid target.")
     except RuntimeError as e:
-        aplog.logexception(e)
+        apxo.log.logexception(e)
     self.logbreak()
 
 

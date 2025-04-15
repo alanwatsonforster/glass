@@ -1,6 +1,6 @@
 ################################################################################
 
-import apxo.hex as aphex
+import apxo.hex
 
 ################################################################################
 
@@ -12,7 +12,7 @@ def _move(self):
 
 def _continuemove(self):
     self.logwhenwhat("FP", "H")
-    x, y = aphex.forward(self._x, self._y, self.facing())
+    x, y = apxo.hex.forward(self._x, self._y, self.facing())
     self._setposition(x=x, y=y)
     self.logposition("")
 

@@ -7,10 +7,10 @@ startfile(__file__, "turns")
 # Basic Turns
 
 starttestsetup()
-A1 = aircraft("A1", "AF", "F-80C", "A1-1815", "N", 10, 4.0, "CL")
-A2 = aircraft("A2", "AF", "F-80C", "A1-2015", "N", 10, 4.0, "CL")
-A3 = aircraft("A3", "AF", "F-80C", "A1-2215", "N", 10, 4.0, "CL")
-A4 = aircraft("A4", "AF", "F-80C", "A1-2415", "N", 10, 4.0, "CL")
+A1 = setupaircraft("A1", "AF", "F-80C", "A1-1815", "N", 10, 4.0, "CL")
+A2 = setupaircraft("A2", "AF", "F-80C", "A1-2015", "N", 10, 4.0, "CL")
+A3 = setupaircraft("A3", "AF", "F-80C", "A1-2215", "N", 10, 4.0, "CL")
+A4 = setupaircraft("A4", "AF", "F-80C", "A1-2415", "N", 10, 4.0, "CL")
 endtestsetup()
 
 startgameturn()
@@ -47,8 +47,8 @@ A4._assert("A1-2905       NNE  10", 4.0)
 endgameturn()
 
 starttestsetup()
-A1 = aircraft("A1", "AF", "F-80C", "A1-1915", "N", 12, 4.0, "CL")
-A2 = aircraft("A2", "AF", "F-80C", "A1-2115", "N", 12, 4.0, "CL")
+A1 = setupaircraft("A1", "AF", "F-80C", "A1-1915", "N", 12, 4.0, "CL")
+A2 = setupaircraft("A2", "AF", "F-80C", "A1-2115", "N", 12, 4.0, "CL")
 endtestsetup()
 
 startgameturn()
@@ -59,8 +59,8 @@ A2._assert("A1-2212       N    12", 4.0)
 endgameturn()
 
 starttestsetup()
-A1 = aircraft("A1", "AF", "F-80C", "A1-2014", "W", 12, 2.0, "CL")
-A2 = aircraft("A2", "AF", "F-80C", "A1-2015", "W", 12, 3.0, "CL")
+A1 = setupaircraft("A1", "AF", "F-80C", "A1-2014", "W", 12, 2.0, "CL")
+A2 = setupaircraft("A2", "AF", "F-80C", "A1-2015", "W", 12, 3.0, "CL")
 endtestsetup()
 
 for i in range(1, 13):
@@ -72,8 +72,8 @@ A1._assert("A1-2014       W    12", 2.0)
 A2._assert("A1-2015       W    12", 3.0)
 
 starttestsetup()
-A1 = aircraft("A1", "AF", "F-80C", "A1-2014", "E", 12, 2.0, "CL")
-A2 = aircraft("A2", "AF", "F-80C", "A1-2015", "E", 12, 3.0, "CL")
+A1 = setupaircraft("A1", "AF", "F-80C", "A1-2014", "E", 12, 2.0, "CL")
+A2 = setupaircraft("A2", "AF", "F-80C", "A1-2015", "E", 12, 3.0, "CL")
 endtestsetup()
 
 for i in range(1, 13):
@@ -86,10 +86,10 @@ A1._assert("A1-2014       E    12", 2.0)
 A2._assert("A1-2015       E    12", 3.0)
 
 starttestsetup()
-A1 = aircraft("A1", "AF", "F-80C", "A1-1815", "ENE", 10, 4.0, "CL")
-A2 = aircraft("A2", "AF", "F-80C", "A1-2015", "ENE", 10, 4.0, "CL")
-A3 = aircraft("A3", "AF", "F-80C", "A1-2215", "ENE", 10, 4.0, "CL")
-A4 = aircraft("A4", "AF", "F-80C", "A1-2415", "ENE", 10, 4.0, "CL")
+A1 = setupaircraft("A1", "AF", "F-80C", "A1-1815", "ENE", 10, 4.0, "CL")
+A2 = setupaircraft("A2", "AF", "F-80C", "A1-2015", "ENE", 10, 4.0, "CL")
+A3 = setupaircraft("A3", "AF", "F-80C", "A1-2215", "ENE", 10, 4.0, "CL")
+A4 = setupaircraft("A4", "AF", "F-80C", "A1-2415", "ENE", 10, 4.0, "CL")
 endtestsetup()
 
 startgameturn()
@@ -115,10 +115,10 @@ A4._assert("A1-2809       N    10", 4.5)
 endgameturn()
 
 starttestsetup()
-A1 = aircraft("A1", "AF", "F-80C", "A1-1815", "NNE", 10, 4.0, "CL")
-A2 = aircraft("A2", "AF", "F-80C", "A1-2015", "NNE", 10, 4.0, "CL")
-A3 = aircraft("A3", "AF", "F-80C", "A1-2215", "NNE", 10, 4.0, "CL")
-A4 = aircraft("A4", "AF", "F-80C", "A1-2415", "NNE", 10, 4.0, "CL")
+A1 = setupaircraft("A1", "AF", "F-80C", "A1-1815", "NNE", 10, 4.0, "CL")
+A2 = setupaircraft("A2", "AF", "F-80C", "A1-2015", "NNE", 10, 4.0, "CL")
+A3 = setupaircraft("A3", "AF", "F-80C", "A1-2215", "NNE", 10, 4.0, "CL")
+A4 = setupaircraft("A4", "AF", "F-80C", "A1-2415", "NNE", 10, 4.0, "CL")
 endtestsetup()
 
 startgameturn()
@@ -152,8 +152,8 @@ endgameturn()
 # of each game turn.
 
 starttestsetup()
-A1 = aircraft("A1", "AF", "F-80C", "A2-2030", "N", 25, 4.0, "CL")
-A2 = aircraft("A2", "AF", "F-80C", "A2-2230", "N", 25, 4.0, "CL")
+A1 = setupaircraft("A1", "AF", "F-80C", "A2-2030", "N", 25, 4.0, "CL")
+A2 = setupaircraft("A2", "AF", "F-80C", "A2-2230", "N", 25, 4.0, "CL")
 endtestsetup()
 
 startgameturn()
@@ -201,11 +201,11 @@ endgameturn()
 # Turning and minimum speeds.
 
 starttestsetup()
-A1 = aircraft("A1", "AF", "F-80C", "A1-1815", "N", 10, 1.5, "CL")
-A2 = aircraft("A2", "AF", "F-80C", "A1-2015", "N", 10, 2.0, "CL")
-A3 = aircraft("A3", "AF", "F-80C", "A1-2215", "N", 10, 2.5, "CL")
-A4 = aircraft("A4", "AF", "F-80C", "A1-2415", "N", 10, 3.0, "CL")
-A5 = aircraft("A5", "AF", "F-80C", "A1-2615", "N", 10, 3.5, "CL")
+A1 = setupaircraft("A1", "AF", "F-80C", "A1-1815", "N", 10, 1.5, "CL")
+A2 = setupaircraft("A2", "AF", "F-80C", "A1-2015", "N", 10, 2.0, "CL")
+A3 = setupaircraft("A3", "AF", "F-80C", "A1-2215", "N", 10, 2.5, "CL")
+A4 = setupaircraft("A4", "AF", "F-80C", "A1-2415", "N", 10, 3.0, "CL")
+A5 = setupaircraft("A5", "AF", "F-80C", "A1-2615", "N", 10, 3.5, "CL")
 endtestsetup()
 
 startgameturn()
@@ -243,8 +243,8 @@ endgameturn()
 # Turning and configuration.
 
 starttestsetup(verbose=False)
-A1 = aircraft("A1", "AF", "F-104A", "A1-1815", "N", 10, 6.0, "CL")
-A2 = aircraft("A2", "AF", "F-104A", "A1-2015", "N", 10, 6.0, "1/2")
+A1 = setupaircraft("A1", "AF", "F-104A", "A1-1815", "N", 10, 6.0, "CL")
+A2 = setupaircraft("A2", "AF", "F-104A", "A1-2015", "N", 10, 6.0, "1/2")
 endtestsetup()
 
 startgameturn()
@@ -260,7 +260,7 @@ endgameturn()
 # Turning at SS speed
 
 starttestsetup(verbose=False)
-A1 = aircraft("A1", "AF", "F-100A", "A1-1815", "N", 20, 8.5, "CL")
+A1 = setupaircraft("A1", "AF", "F-100A", "A1-1815", "N", 20, 8.5, "CL")
 endtestsetup()
 
 startgameturn()
@@ -271,10 +271,10 @@ endgameturn()
 # Turning and GSSM/PSSM aircraft
 
 starttestsetup(verbose=False)
-A1 = aircraft("A1", "AF", "F-104A", "A1-1215", "N", 10, 7.5, "CL")  # GSSM
-A2 = aircraft("A2", "AF", "F-100A", "A1-1415", "N", 10, 7.5, "CL")
-A3 = aircraft("A3", "AF", "F-102A", "A1-1615", "N", 10, 7.5, "CL")  # PSSM
-A4 = aircraft("A4", "AF", "F-102A", "A1-1815", "N", 10, 7.5, "1/2")  # PSSM
+A1 = setupaircraft("A1", "AF", "F-104A", "A1-1215", "N", 10, 7.5, "CL")  # GSSM
+A2 = setupaircraft("A2", "AF", "F-100A", "A1-1415", "N", 10, 7.5, "CL")
+A3 = setupaircraft("A3", "AF", "F-102A", "A1-1615", "N", 10, 7.5, "CL")  # PSSM
+A4 = setupaircraft("A4", "AF", "F-102A", "A1-1815", "N", 10, 7.5, "1/2")  # PSSM
 endtestsetup()
 
 startgameturn()
@@ -309,8 +309,8 @@ endgameturn()
 # Check that turn drag applies even if the aircraft doesn't change facing.
 
 starttestsetup(verbose=False)
-A1 = aircraft("A1", "AF", "F-80C", "A2-1230", "N", 10, 4.0, "CL")
-A2 = aircraft("A2", "AF", "F-80C", "A2-1230", "N", 10, 4.0, "CL")
+A1 = setupaircraft("A1", "AF", "F-80C", "A2-1230", "N", 10, 4.0, "CL")
+A2 = setupaircraft("A2", "AF", "F-80C", "A2-1230", "N", 10, 4.0, "CL")
 endtestsetup()
 
 startgameturn()
@@ -344,7 +344,7 @@ endgameturn()
 # Continued turns.
 
 starttestsetup(verbose=False)
-A1 = aircraft("A1", "AF", "F-80C", "A2-1220", "N", 10, 4.0, "CL")
+A1 = setupaircraft("A1", "AF", "F-80C", "A2-1220", "N", 10, 4.0, "CL")
 endtestsetup()
 
 startgameturn()

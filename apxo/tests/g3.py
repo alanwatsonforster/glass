@@ -7,9 +7,9 @@ startfile(__file__, "vertical rolls")
 # Check we can only perform a VR on a VFP in a VD or VD.
 
 starttestsetup(verbose=False)
-A1 = aircraft("A1", "AF", "F-80C", "A1-2013", "N", 40, 4.0, "CL")
-A2 = aircraft("A2", "AF", "F-80C", "A1-2213", "N", 40, 4.0, "CL")
-A3 = aircraft("A3", "AF", "F-80C", "A1-2413", "N", 10, 5.0, "CL")
+A1 = setupaircraft("A1", "AF", "F-80C", "A1-2013", "N", 40, 4.0, "CL")
+A2 = setupaircraft("A2", "AF", "F-80C", "A1-2213", "N", 40, 4.0, "CL")
+A3 = setupaircraft("A3", "AF", "F-80C", "A1-2413", "N", 10, 5.0, "CL")
 endtestsetup()
 
 startgameturn()
@@ -73,8 +73,8 @@ endgameturn()
 # Check VRs with multiple facing changes.
 
 starttestsetup(verbose=False)
-A1 = aircraft("A1", "AF", "F-80C", "A1-2213", "N", 40, 4.0, "CL")
-A2 = aircraft("A2", "AF", "F-80C", "A1-2413", "N", 10, 5.0, "CL")
+A1 = setupaircraft("A1", "AF", "F-80C", "A1-2213", "N", 40, 4.0, "CL")
+A2 = setupaircraft("A2", "AF", "F-80C", "A1-2413", "N", 10, 5.0, "CL")
 endtestsetup()
 
 startgameturn()
@@ -163,7 +163,7 @@ endgameturn()
 # Check VR with shifts off a side.
 
 starttestsetup(verbose=False)
-A1 = aircraft("A1", "AF", "F-80C", "A1-2213", "NNW", 40, 4.0, "CL")
+A1 = setupaircraft("A1", "AF", "F-80C", "A1-2213", "NNW", 40, 4.0, "CL")
 endtestsetup()
 
 startgameturn()
@@ -219,7 +219,7 @@ endgameturn()
 # Check multiple VRs in the same turn and the extra drag these incur.
 
 starttestsetup()
-A1 = aircraft("A1", "AF", "F-80C", "A1-2018", "N", 41, 4.0, "CL")
+A1 = setupaircraft("A1", "AF", "F-80C", "A1-2018", "N", 41, 4.0, "CL")
 endtestsetup()
 
 startgameturn()
@@ -272,7 +272,7 @@ endgameturn()
 # Check VRs with a LRR aircraft.
 
 starttestsetup()
-A1 = aircraft("A1", "AF", "Meteor F.8", "A1-2018", "N", 41, 4.0, "CL")
+A1 = setupaircraft("A1", "AF", "Meteor F.8", "A1-2018", "N", 41, 4.0, "CL")
 endtestsetup()
 
 startgameturn()
@@ -312,7 +312,7 @@ endgameturn()
 # Check the extra drag of VRs at SS speed.
 
 starttestsetup(verbose=False)
-A1 = aircraft("A1", "AF", "F-100A", "A1-2029", "N", 1, 8.0, "CL")
+A1 = setupaircraft("A1", "AF", "F-100A", "A1-2029", "N", 1, 8.0, "CL")
 endtestsetup()
 
 startgameturn()
@@ -332,7 +332,7 @@ endgameturn()
 # the B-66B. These can perform only one vertical roll per game turn.
 
 starttestsetup(verbose=False)
-A1 = aircraft("A1", "AF", "B-66B (Early)", "A1-2030", "N", 30, 5.0, "CL")
+A1 = setupaircraft("A1", "AF", "B-66B (Early)", "A1-2030", "N", 30, 5.0, "CL")
 endtestsetup()
 
 startgameturn()
@@ -357,9 +357,9 @@ endgameturn()
 # Supersonic speed.
 
 starttestsetup()
-A1 = aircraft("A1", "AF", "F-104A", "A1-1215", "N", 30, 7.5, "CL")  # GSSM
-A2 = aircraft("A2", "AF", "F-100A", "A1-1415", "N", 30, 7.5, "CL")
-A3 = aircraft("A3", "AF", "F-102A", "A1-1615", "N", 30, 7.5, "CL")  # PSSM
+A1 = setupaircraft("A1", "AF", "F-104A", "A1-1215", "N", 30, 7.5, "CL")  # GSSM
+A2 = setupaircraft("A2", "AF", "F-100A", "A1-1415", "N", 30, 7.5, "CL")
+A3 = setupaircraft("A3", "AF", "F-102A", "A1-1615", "N", 30, 7.5, "CL")  # PSSM
 endtestsetup()
 
 startgameturn()

@@ -1,15 +1,15 @@
 import copy
 import re
 
-import apxo.altitude as apaltitude
-import apxo.azimuth as apazimuth
-import apxo.path as appath
-import apxo.hex as aphex
-import apxo.hexcode as aphexcode
-import apxo.gameturn as apgameturn
-import apxo.log as aplog
-import apxo.map as apmap
-import apxo.speed as apspeed
+import apxo.altitude
+import apxo.azimuth
+import apxo.path
+import apxo.hex
+import apxo.hexcode
+import apxo.gameturn
+import apxo.log
+import apxo.map
+import apxo.speed
 
 # Elements are anything that can be placed on a map: aircraft, missiles,
 # ground units, markers, and bombs. This class gathers together their common
@@ -160,32 +160,32 @@ class Element:
         self._name = name
 
         if azimuth is not None:
-            if not apazimuth.isvalidazimuth(azimuth):
+            if not apxo.azimuth.isvalidazimuth(azimuth):
                 raise RuntimeError("the azimuth argument is not valid.")
-            facing = apazimuth.tofacing(azimuth)
+            facing = apxo.azimuth.tofacing(azimuth)
 
         if hexcode is not None:
-            if not aphexcode.isvalidhexcode(hexcode):
+            if not apxo.hexcode.isvalidhexcode(hexcode):
                 raise RuntimeError("the hexcode argument is not valid.")
-            x, y = aphexcode.toxy(hexcode)
+            x, y = apxo.hexcode.toxy(hexcode)
 
-        if not aphex.isvalid(x, y, facing):
+        if not apxo.hex.isvalid(x, y, facing):
             raise RuntimeError("the combination of hexcode and facing are not valid.")
 
-        if altitude is not None and not apaltitude.isvalidaltitude(altitude):
+        if altitude is not None and not apxo.altitude.isvalidaltitude(altitude):
             raise RuntimeError("the altitude argument is not valid.")
 
         if delay < 0:
             raise RuntimeError("the delay argument is not valid.")
         while delay != 0:
-            x, y = aphex.backward(x, y, facing)
+            x, y = apxo.hex.backward(x, y, facing)
             delay -= 1
 
         self._x = x
         self._y = y
         self._facing = facing
         self._altitude = altitude
-        self._altitudeband = apaltitude.altitudeband(self.altitude())
+        self._altitudeband = apxo.altitude.altitudeband(self.altitude())
         self._altitudecarry = 0
         self._flightslope = None
         self._startedmoving = False
@@ -195,12 +195,12 @@ class Element:
         self._removed = False
         self._unspecifiedattackresult = 0
 
-        if not apspeed.isvalidspeed(speed):
+        if not apxo.speed.isvalidspeed(speed):
             raise RuntimeError("the speed argument is not valid.")
 
         self._speed = speed
 
-        self._path = appath.path(x, y, facing, altitude, speed)
+        self._path = apxo.path.path(x, y, facing, altitude, speed)
 
         self._color = color
 
@@ -226,9 +226,9 @@ class Element:
     ):
 
         if hexcode is not None:
-            if not aphexcode.isvalidhexcode(hexcode):
+            if not apxo.hexcode.isvalidhexcode(hexcode):
                 raise RuntimeError("the hexcode argument is not valid.")
-            x, y = aphexcode.toxy(hexcode)
+            x, y = apxo.hexcode.toxy(hexcode)
 
         if x is None:
             x = self._x
@@ -236,19 +236,19 @@ class Element:
             y = self._y
 
         if azimuth is not None:
-            if not apazimuth.isvalidazimuth(azimuth):
+            if not apxo.azimuth.isvalidazimuth(azimuth):
                 raise RuntimeError("the azimuth argument is not valid.")
-            facing = apazimuth.tofacing(azimuth)
+            facing = apxo.azimuth.tofacing(azimuth)
 
         if facing is None:
             facing = self._facing
 
-        if not aphex.isvalid(x, y, facing):
+        if not apxo.hex.isvalid(x, y, facing):
             raise RuntimeError("the combination of hexcode and facing are not valid.")
 
         if altitude is None:
             altitude = self._altitude
-        elif not apaltitude.isvalidaltitude(altitude):
+        elif not apxo.altitude.isvalidaltitude(altitude):
             raise RuntimeError("the altitude argument is not valid.")
 
         if altitudecarry is None:
@@ -258,7 +258,7 @@ class Element:
         self._y = y
         self._facing = facing
         self._altitude = altitude
-        self._altitudeband = apaltitude.altitudeband(self.altitude())
+        self._altitudeband = apxo.altitude.altitudeband(self.altitude())
         self._altitudecarry = altitudecarry
 
     ############################################################################
@@ -286,7 +286,7 @@ class Element:
     def _setspeed(self, speed=None):
         if speed is None:
             speed = self.speed()
-        if not apspeed.isvalidspeed(speed):
+        if not apxo.speed.isvalidspeed(speed):
             raise RuntimeError("the speed argument is not valid.")
         self._speed = speed
 
@@ -304,12 +304,12 @@ class Element:
 
     def kill(self, note=None):
         try:
-            apgameturn.checkingameturn()
+            apxo.gameturn.checkingameturn()
             self.logcomment("has been killed.")
             self.lognote(note)
             self._kill()
         except RuntimeError as e:
-            aplog.logexception(e)
+            apxo.log.logexception(e)
         self.logbreak()
 
     def _remove(self):
@@ -317,12 +317,12 @@ class Element:
 
     def remove(self, note=None):
         try:
-            apgameturn.checkingameturn()
+            apxo.gameturn.checkingameturn()
             self.logcomment("has been removed.")
             self.lognote(note)
             self._removed = True
         except RuntimeError as e:
-            aplog.logexception(e)
+            apxo.log.logexception(e)
         self.logbreak()
 
     ############################################################################
@@ -340,8 +340,8 @@ class Element:
         return self._x, self._y
 
     def hexcode(self):
-        if apmap.isonmap(self.x(), self.y()):
-            return aphexcode.fromxy(self.x(), self.y())
+        if apxo.map.isonmap(self.x(), self.y()):
+            return apxo.hexcode.fromxy(self.x(), self.y())
         else:
             return None
 
@@ -352,7 +352,7 @@ class Element:
         if self.facing() is None:
             return None
         else:
-            return apazimuth.fromfacing(self.facing())
+            return apxo.azimuth.fromfacing(self.facing())
 
     def altitude(self):
         if self._altitude is None:
@@ -361,7 +361,7 @@ class Element:
             return self._altitude
 
     def terrainaltitude(self):
-        return apaltitude.terrainaltitude(self.x(), self.y())
+        return apxo.altitude.terrainaltitude(self.x(), self.y())
 
     def startaltitude(self):
         return self._startaltitude
@@ -503,9 +503,9 @@ class Element:
         terrainaltitude = self.terrainaltitude()
 
         if self.isinterrainfollowingflight():
-            if apmap.iscity(*self.xy()):
+            if apxo.map.iscity(*self.xy()):
                 killed = "entered city while in terrain-following flight"
-            elif apmap.crossesridgeline(*self.lastxy(), *self.xy()):
+            elif apxo.map.crossesridgeline(*self.lastxy(), *self.xy()):
                 killed = "crossed ridge line while in terrain-following flight"
             elif self.altitude() < self.terrainaltitude():
                 killed = "collided with terrain"
@@ -531,7 +531,7 @@ class Element:
         Check if the element has left the map.
         """
 
-        if not apmap.isonmap(self.x(), self.y()):
+        if not apxo.map.isonmap(self.x(), self.y()):
             self.logwhenwhat("", "has left the map.")
 
     ############################################################################
@@ -550,23 +550,23 @@ class Element:
     ############################################################################
 
     def logwhat(self, what, writefile=True):
-        aplog.logwhat(what, who=self.name(), writefile=writefile)
+        apxo.log.logwhat(what, who=self.name(), writefile=writefile)
 
     def logwhenwhat(self, when, what, writefile=True):
-        aplog.logwhenwhat(when, what, who=self.name(), writefile=writefile)
+        apxo.log.logwhenwhat(when, what, who=self.name(), writefile=writefile)
 
     def logcomment(self, comment, writefile=True):
-        aplog.logcomment(
+        apxo.log.logcomment(
             comment,
             who=self.name(),
             writefile=writefile,
         )
 
     def lognote(self, note, writefile=True):
-        aplog.lognote(note, who=self.name(), writefile=writefile)
+        apxo.log.lognote(note, who=self.name(), writefile=writefile)
 
     def logbreak(self, writefile=True):
-        aplog.logbreak(who=self.name(), writefile=writefile)
+        apxo.log.logbreak(who=self.name(), writefile=writefile)
 
     def logposition(self, when, writefile=True):
         self.logwhenwhat(when, self.position(), writefile=writefile)
@@ -589,10 +589,10 @@ class Element:
         Verify the position and new speed of an element.
         """
 
-        if aplog._error != None:
+        if apxo.log._error != None:
             print("== assertion failed ===")
-            print("== unexpected error: %r" % aplog._error)
-            assert aplog._error == None
+            print("== unexpected error: %r" % apxo.log._error)
+            assert apxo.log._error == None
 
         expectedposition = re.sub(" +", " ", expectedposition)
         actualposition = re.sub(" +", " ", self.position())

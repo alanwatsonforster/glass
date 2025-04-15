@@ -3,7 +3,7 @@ from apxo.tests.infrastructure import *
 startfile(__file__, "missile launches")
 
 starttestsetup(verbose=False)
-A1 = aircraft(
+A1 = setupaircraft(
     "A1",
     "AF",
     "F-16A-10",
@@ -19,7 +19,7 @@ A1 = aircraft(
         "9": "IRM/AIM-9L",
     },
 )
-A2 = aircraft("A2", "AF", "F-16A-10", "A1-2010", "N", 5, 6.0)
+A2 = setupaircraft("A2", "AF", "F-16A-10", "A1-2010", "N", 5, 6.0)
 endtestsetup()
 
 startgameturn()

@@ -1,13 +1,13 @@
 ################################################################################
 
-import apxo.draw as apdraw
+import apxo.draw
 
 ################################################################################
 
 
 def _draw(self):
 
-    apdraw.drawbomb(*self.xy(), self.altitude(), self.facing())
+    apxo.draw.drawbomb(*self.xy(), self.altitude(), self.facing())
 
 
 ################################################################################

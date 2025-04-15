@@ -1,4 +1,4 @@
-import apxo.variants as apvariants
+import apxo.variants
 
 _northfacing = 90
 
@@ -20,14 +20,14 @@ def isvalidazimuth(azimuth):
 
     if azimuth in ["N", "NNE", "E", "SSE", "S", "SSW", "W", "NNW"]:
         return True
-    if not apvariants.withvariant("disallow NE/SE/SW/NW") and azimuth in [
+    if not apxo.variants.withvariant("disallow NE/SE/SW/NW") and azimuth in [
         "NE",
         "SE",
         "SW",
         "NW",
     ]:
         return True
-    if not apvariants.withvariant("disallow ENE/ESE/WSW/WNW") and azimuth in [
+    if not apxo.variants.withvariant("disallow ENE/ESE/WSW/WNW") and azimuth in [
         "ENE",
         "ESE",
         "WSW",
@@ -102,7 +102,7 @@ def fromfacing(facing):
     instead of ENE/ESE/WSW/WNW.
     """
 
-    if apvariants.withvariant("prefer NE/SE/SW/NW"):
+    if apxo.variants.withvariant("prefer NE/SE/SW/NW"):
         named = ["N", "NNE", "NE", "E", "SE", "SSE", "S", "SSW", "SW", "W", "NW", "NNW"]
     else:
         named = [

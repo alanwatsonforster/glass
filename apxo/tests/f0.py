@@ -5,7 +5,7 @@ startfile(__file__, "departed flight")
 # Maneuvering Departures
 
 starttestsetup()
-A1 = aircraft("A1", "AF", "F-80C", "A1-2010", "N", 10, 3.0, "CL")
+A1 = setupaircraft("A1", "AF", "F-80C", "A1-2010", "N", 10, 3.0, "CL")
 endtestsetup()
 
 startgameturn()
@@ -26,7 +26,7 @@ endgameturn()
 # Maneuvering Departures from Carried Turn
 
 starttestsetup()
-A1 = aircraft("A1", "AF", "F-80C", "A1-2010", "N", 10, 3.0, "CL")
+A1 = setupaircraft("A1", "AF", "F-80C", "A1-2010", "N", 10, 3.0, "CL")
 endtestsetup()
 
 startgameturn()
@@ -46,9 +46,9 @@ endgameturn()
 # warnings are issued.
 
 starttestsetup()
-A1 = aircraft("A1", "AF", "F-80C", "A2-2030", "N", 46, 3.0, "CL")
-A2 = aircraft("A2", "AF", "F-104A", "A2-2230", "N", 59, 6.0, "CL")
-A3 = aircraft("A3", "AF", "F-80C", "A2-2430", "N", 46, 3.0, "CL")
+A1 = setupaircraft("A1", "AF", "F-80C", "A2-2030", "N", 46, 3.0, "CL")
+A2 = setupaircraft("A2", "AF", "F-104A", "A2-2230", "N", 59, 6.0, "CL")
+A3 = setupaircraft("A3", "AF", "F-80C", "A2-2430", "N", 46, 3.0, "CL")
 endtestsetup()
 
 startgameturn()
@@ -75,9 +75,9 @@ endgameturn()
 # Departed Flight
 
 starttestsetup()
-A1 = aircraft("A1", "AF", "F-80C", "A1-1814", "N", 10, 3.0, "CL")
-A2 = aircraft("A2", "AF", "F-80C", "A1-2014", "N", 10, 1.0, "CL")
-A3 = aircraft("A3", "AF", "F-80C", "A1-2214", "N", 10, 5.0, "CL")
+A1 = setupaircraft("A1", "AF", "F-80C", "A1-1814", "N", 10, 3.0, "CL")
+A2 = setupaircraft("A2", "AF", "F-80C", "A1-2014", "N", 10, 1.0, "CL")
+A3 = setupaircraft("A3", "AF", "F-80C", "A1-2214", "N", 10, 5.0, "CL")
 endtestsetup()
 
 startgameturn()

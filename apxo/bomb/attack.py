@@ -1,8 +1,8 @@
 ################################################################################
 
-import apxo.blastzone as apblastzone
-import apxo.geometry as apgeometry
-import apxo.log as aplog
+import apxo.blastzone
+import apxo.geometry
+import apxo.log
 
 ################################################################################
 
@@ -14,7 +14,7 @@ def _attackgroundunit(self, target, result=None, blastzone=True, note=None):
     if not target.isgroundunit():
         raise RuntimeError("invalid target.")
 
-    if not apgeometry.samehorizontalposition(self, target):
+    if not apxo.geometry.samehorizontalposition(self, target):
         raise RuntimeError("bombs is not at the position of the target.")
 
     target._takeattackdamage(self, result)
@@ -32,7 +32,7 @@ def _secondaryattackgroundunit(self, target, result=None, note=None):
     if not target.isgroundunit():
         raise RuntimeError("invalid target.")
 
-    if not apgeometry.samehorizontalposition(self, target):
+    if not apxo.geometry.samehorizontalposition(self, target):
         raise RuntimeError("the bombs are not at the position of the target.")
 
     target._takeattackdamage(self, result)
@@ -45,10 +45,10 @@ def _secondaryattackgroundunit(self, target, result=None, note=None):
 def blastzone(self, name, note=None):
 
     try:
-        blastzone = apblastzone.BlastZone(name, *self.xy())
+        blastzone = apxo.blastzone.BlastZone(name, *self.xy())
         self.lognote(note)
     except RuntimeError as e:
-        aplog.logexception(e)
+        apxo.log.logexception(e)
     self.logbreak()
     return blastzone
 

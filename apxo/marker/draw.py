@@ -1,6 +1,6 @@
 ################################################################################
 
-import apxo.draw as apdraw
+import apxo.draw
 
 ################################################################################
 
@@ -10,13 +10,13 @@ def _draw(self):
     zorder = self.altitude() + 1
     if self._type == "dot":
 
-        apdraw.drawdot(*self.xy(), size=0.1, fillcolor=self.color(), zorder=zorder)
+        apxo.draw.drawdot(*self.xy(), size=0.1, fillcolor=self.color(), zorder=zorder)
 
     elif self._type == "circle":
 
-        apdraw.drawcircle(*self.xy(), size=0.65, linecolor=self.color(), linewidth=2)
+        apxo.draw.drawcircle(*self.xy(), size=0.65, linecolor=self.color(), linewidth=2)
         if self.name() is not None:
-            apdraw.drawtext(
+            apxo.draw.drawtext(
                 *self.xy(),
                 self.facing(),
                 self.name(),
@@ -26,7 +26,7 @@ def _draw(self):
 
     elif self._type == "square":
 
-        apdraw.drawsquare(
+        apxo.draw.drawsquare(
             *self.xy(),
             size=0.65,
             linecolor=self.color(),
@@ -35,7 +35,7 @@ def _draw(self):
             zorder=zorder
         )
         if self.name() is not None:
-            apdraw.drawtext(*self.xy(), self.facing(), self.name(), color=self.color())
+            apxo.draw.drawtext(*self.xy(), self.facing(), self.name(), color=self.color())
 
 
 ################################################################################

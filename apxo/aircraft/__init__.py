@@ -1,23 +1,22 @@
-import apxo as ap
-import apxo.aircraftdata as apaircraftdata
-import apxo.altitude as apaltitude
-import apxo.azimuth as apazimuth
-import apxo.capabilities as apcapabilities
-import apxo.closeformation as apcloseformation
-import apxo.element as apelement
-import apxo.flight as apflight
-import apxo.gameturn as apgameturn
-import apxo.hex as aphex
-import apxo.hexcode as aphexcode
-import apxo.log as aplog
-import apxo.map as apmap
-import apxo.missile as apmissile
-import apxo.speed as apspeed
-import apxo.aircraft.stores as apstores
-import apxo.turnrate as apturnrate
-import apxo.geometry as apgeometry
-import apxo.airtoair as apairtoair
-import apxo.visualsighting as apvisualsighting
+import apxo.aircraftdata
+import apxo.altitude
+import apxo.azimuth
+import apxo.capabilities
+import apxo.closeformation
+import apxo.element
+import apxo.flight
+import apxo.gameturn
+import apxo.hex
+import apxo.hexcode
+import apxo.log
+import apxo.map
+import apxo.missile
+import apxo.speed
+import apxo.aircraft.stores
+import apxo.turnrate
+import apxo.geometry
+import apxo.airtoair
+import apxo.visualsighting
 
 from apxo.flight import _isclimbingflight, _isdivingflight, _islevelflight
 
@@ -27,7 +26,7 @@ import re
 
 
 def aslist(withkilled=False):
-    elementlist = apelement.aslist()
+    elementlist = apxo.element.aslist()
     aircraftlist = filter(lambda E: E.isaircraft(), elementlist)
     if not withkilled:
         aircraftlist = filter(lambda x: not x.killed(), aircraftlist)
@@ -37,7 +36,7 @@ def aslist(withkilled=False):
 #############################################################################
 
 
-class Aircraft(apelement.Element):
+class Aircraft(apxo.element.Element):
 
     #############################################################################
 
@@ -75,9 +74,9 @@ class Aircraft(apelement.Element):
 
             if not isinstance(aircrafttype, str):
                 raise RuntimeError("the aircrafttype argument must be a string.")
-            aircraftdata = apaircraftdata.aircraftdata(aircrafttype)
+            aircraftdata = apxo.aircraftdata.aircraftdata(aircrafttype)
 
-            if not apvisualsighting.isvalidpaintscheme(paintscheme):
+            if not apxo.visualsighting.isvalidpaintscheme(paintscheme):
                 raise RuntimeError("the paintscheme argument is not valid.")
 
             super().__init__(
@@ -215,12 +214,12 @@ class Aircraft(apelement.Element):
             self.logwhenwhat("", "configuration is %s." % self._configuration)
 
             self._lowspeedliftdeviceextended = False
-            self._minspeed = apcapabilities.minspeed(self)
+            self._minspeed = apxo.capabilities.minspeed(self)
 
             self._initaim()
 
         except RuntimeError as e:
-            aplog.logexception(e)
+            apxo.log.logexception(e)
         self.logbreak()
 
     #############################################################################
@@ -243,15 +242,15 @@ class Aircraft(apelement.Element):
         self._starty = self.y()
         self._startfacing = self.facing()
         self._startaltitude = self.altitude()
-        apcloseformation.check(self)
+        apxo.closeformation.check(self)
 
     def _endgameturn(self):
         if not self.killed() and not self.removed() and not self._finishedmoving:
             raise RuntimeError("aircraft %s has not finished its move." % self._name)
         if self.killed() or self.removed():
-            apcloseformation.leaveany(self)
+            apxo.closeformation.leaveany(self)
         else:
-            apcloseformation.check(self)
+            apxo.closeformation.check(self)
 
     #############################################################################
 
@@ -311,7 +310,7 @@ class Aircraft(apelement.Element):
 
     def _setgeometry(self, geometry):
         """Set the geometry of the aircraft."""
-        if geometry not in apcapabilities.geometries(self):
+        if geometry not in apxo.capabilities.geometries(self):
             raise RuntimeError("the geometry argument %r is not valid." % geometry)
         self._geometry = geometry
 
@@ -328,15 +327,15 @@ class Aircraft(apelement.Element):
 
         try:
 
-            apgameturn.checkingameturn()
+            apxo.gameturn.checkingameturn()
             self.logwhenwhat("react", action)
 
-            apairtoair.react(self, attacktype, target, result)
+            apxo.airtoair.react(self, attacktype, target, result)
 
             self.lognote(note)
 
         except RuntimeError as e:
-            aplog.logexception(e)
+            apxo.log.logexception(e)
         self.logbreak()
 
     ##############################################################################
@@ -355,7 +354,7 @@ class Aircraft(apelement.Element):
         return super().hasproperty(p)
 
     def _properties(self):
-        return apcapabilities.properties(self)
+        return apxo.capabilities.properties(self)
 
     ##############################################################################
 
@@ -396,7 +395,7 @@ class Aircraft(apelement.Element):
             self.lognote(note)
 
         except RuntimeError as e:
-            aplog.logexception(e)
+            apxo.log.logexception(e)
         self.logbreak()
 
     def leaveterrainfollowingflight(self, note=None):
@@ -417,7 +416,7 @@ class Aircraft(apelement.Element):
             self.lognote(note)
 
         except RuntimeError as e:
-            aplog.logexception(e)
+            apxo.log.logexception(e)
         self.logbreak()
 
     ##############################################################################
@@ -427,7 +426,7 @@ class Aircraft(apelement.Element):
     ##############################################################################
 
     def issighted(self):
-        return apvisualsighting.issighted(self)
+        return apxo.visualsighting.issighted(self)
 
     ##############################################################################
 
@@ -439,10 +438,10 @@ class Aircraft(apelement.Element):
         # TODO: Check we are in the visual sighting phase.
 
         try:
-            apgameturn.checkingameturn()
-            apvisualsighting.padlock(self, other, note=note)
+            apxo.gameturn.checkingameturn()
+            apxo.visualsighting.padlock(self, other, note=note)
         except RuntimeError as e:
-            aplog.logexception(e)
+            apxo.log.logexception(e)
         self.logbreak()
 
     ##############################################################################
@@ -453,23 +452,23 @@ class Aircraft(apelement.Element):
         """
 
         try:
-            apgameturn.checkingameturn()
-            apvisualsighting.attempttosight(self, other, success=None, note=None)
+            apxo.gameturn.checkingameturn()
+            apxo.visualsighting.attempttosight(self, other, success=None, note=None)
         except RuntimeError as e:
-            aplog.logexception(e)
+            apxo.log.logexception(e)
         self.logbreak()
 
     #############################################################################
 
     def setsighted(self):
         """Set the aircraft to be sighted regardless."""
-        apvisualsighting.setsighted(self)
+        apxo.visualsighting.setsighted(self)
 
     #############################################################################
 
     def setunsighted(self):
         """Set the aircraft to be unsighted regardless."""
-        apvisualsighting.unsetsighted(self)
+        apxo.visualsighting.unsetsighted(self)
 
     #############################################################################
 
@@ -478,7 +477,7 @@ class Aircraft(apelement.Element):
         Return the maximum visual sighting range of the aircraft.
         """
 
-        return apvisualsighting.maxvisualsightingrange(self)
+        return apxo.visualsighting.maxvisualsightingrange(self)
 
     #############################################################################
 
@@ -488,7 +487,7 @@ class Aircraft(apelement.Element):
         aircraft on the target.
         """
 
-        return apvisualsighting.visualsightingrange(self, target)
+        return apxo.visualsighting.visualsightingrange(self, target)
 
     #############################################################################
 
@@ -500,7 +499,7 @@ class Aircraft(apelement.Element):
         padlocking is possible.
         """
 
-        return apvisualsighting.visualsightingcondition(self, target)
+        return apxo.visualsighting.visualsightingcondition(self, target)
 
     #############################################################################
 
@@ -556,10 +555,10 @@ class Aircraft(apelement.Element):
         """
 
         try:
-            apgameturn.checkingameturn()
+            apxo.gameturn.checkingameturn()
             showgeometry(self, other, note=None)
         except RuntimeError as e:
-            aplog.logexception(e)
+            apxo.log.logexception(e)
         self.logbreak()
 
     #############################################################################
@@ -569,7 +568,7 @@ class Aircraft(apelement.Element):
         Return the angle of the aircraft off the tail of the other aircraft.
         """
 
-        return apgeometry.angleofftail(self, other, **kwargs)
+        return apxo.geometry.angleofftail(self, other, **kwargs)
 
     #############################################################################
 
@@ -579,7 +578,7 @@ class Aircraft(apelement.Element):
         Otherwise, return False.
         """
 
-        return apgeometry.inarc(self, other, arc)
+        return apxo.geometry.inarc(self, other, arc)
 
     #############################################################################
 
@@ -589,7 +588,7 @@ class Aircraft(apelement.Element):
         aircraft. Otherwise, return False.
         """
 
-        return apgeometry.inradararc(self, other, arc)
+        return apxo.geometry.inradararc(self, other, arc)
 
     #############################################################################
 
@@ -599,7 +598,7 @@ class Aircraft(apelement.Element):
         or a string explaining why it cannot be attacked.
         """
 
-        return apairtoair.gunattackrange(self, other, arc=arc)
+        return apxo.airtoair.gunattackrange(self, other, arc=arc)
 
     #############################################################################
 
@@ -609,7 +608,7 @@ class Aircraft(apelement.Element):
         or a string explaining why it cannot be attacked.
         """
 
-        return apairtoair.rocketattackrange(self, other)
+        return apxo.airtoair.rocketattackrange(self, other)
 
     #############################################################################
 
@@ -618,7 +617,7 @@ class Aircraft(apelement.Element):
         Return True if the other aircraft is in the limited radar arc of the aircraft.
         """
 
-        return apgeometry.inradararc(self, other, "limited")
+        return apxo.geometry.inradararc(self, other, "limited")
 
     #############################################################################
 
@@ -651,13 +650,13 @@ class Aircraft(apelement.Element):
 
     def hasbeenkilled(self, note=None):
         try:
-            apgameturn.checkingameturn()
+            apxo.gameturn.checkingameturn()
             self._log("has been killed.")
             self.lognote(note)
             self._kill()
             self._color = None
         except RuntimeError as e:
-            aplog.logexception(e)
+            apxo.log.logexception(e)
         self.logbreak()
 
     ################################################################################
@@ -665,7 +664,7 @@ class Aircraft(apelement.Element):
     def _startmovespeed(
         self, power, flamedoutengines, lowspeedliftdeviceselected, speedbrakes, geometry
     ):
-        apspeed.startmovespeed(
+        apxo.speed.startmovespeed(
             self,
             power,
             flamedoutengines,
@@ -675,29 +674,29 @@ class Aircraft(apelement.Element):
         )
 
     def _endmovespeed(self):
-        apspeed.endmovespeed(self)
+        apxo.speed.endmovespeed(self)
 
     ################################################################################
 
     def joincloseformation(self, other):
         try:
-            apcloseformation.join(self, other)
+            apxo.closeformation.join(self, other)
         except RuntimeError as e:
-            aplog.logexception(e)
+            apxo.log.logexception(e)
         self.logbreak()
 
     def leavecloseformation(self):
         try:
-            apcloseformation.leave(self)
+            apxo.closeformation.leave(self)
         except RuntimeError as e:
-            aplog.logexception(e)
+            apxo.log.logexception(e)
         self.logbreak()
 
     def closeformationsize(self):
-        return apcloseformation.size(self)
+        return apxo.closeformation.size(self)
 
     def closeformationnames(self):
-        return apcloseformation.names(self)
+        return apxo.closeformation.names(self)
 
     ########################################
 
@@ -714,10 +713,10 @@ class Aircraft(apelement.Element):
 
         try:
 
-            if apflight.useofweaponsforbidden(self):
+            if apxo.flight.useofweaponsforbidden(self):
                 raise RuntimeError(
                     "attempt to start SSGT while %s"
-                    % apflight.useofweaponsforbidden(self)
+                    % apxo.flight.useofweaponsforbidden(self)
                 )
 
             # TODO: Check we can start SSGT on a specific target.
@@ -727,17 +726,17 @@ class Aircraft(apelement.Element):
             if not target.isaircraft():
                 raise RuntimeError("target %s is not an aircraft." % target.name())
 
-            if apairtoair.trackingforbidden(self, target):
+            if apxo.airtoair.trackingforbidden(self, target):
                 raise RuntimeError(
                     "attempt to start SSGT while %s"
-                    % apairtoair.trackingforbidden(self, target)
+                    % apxo.airtoair.trackingforbidden(self, target)
                 )
 
             self.logcomment("started SSGT on %s." % target.name())
             self._tracking = target
 
         except RuntimeError as e:
-            aplog.logexception(e)
+            apxo.log.logexception(e)
         self.logbreak()
 
     ################################################################################
@@ -764,7 +763,7 @@ class Aircraft(apelement.Element):
 
             previousconfiguration = self._configuration
 
-            missiletype, newstores = apstores._airtoairlaunch(
+            missiletype, newstores = apxo.aircraft.stores._airtoairlaunch(
                 self._stores, loadstation, printer=lambda s: self.logcomment(s)
             )
 
@@ -779,7 +778,7 @@ class Aircraft(apelement.Element):
             else:
                 self.logcomment("launch succeeded.")
                 self._stores = newstores
-                M = apmissile.Missile(name, missiletype, self, target)
+                M = apxo.missile.Missile(name, missiletype, self, target)
 
             if self._configuration != previousconfiguration:
                 self.logcomment(
@@ -789,7 +788,7 @@ class Aircraft(apelement.Element):
 
 
         except RuntimeError as e:
-            aplog.logexception(e)
+            apxo.log.logexception(e)
         self.logbreak()
 
         return M

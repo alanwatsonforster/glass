@@ -1,12 +1,12 @@
 ################################################################################
 
-import apxo.draw as apdraw
+import apxo.draw
 
 ################################################################################
 
 
 def _draw(self):
-    apdraw.drawgroundunit(
+    apxo.draw.drawgroundunit(
         *self.xy(),
         self._symbols,
         self._uppertext,

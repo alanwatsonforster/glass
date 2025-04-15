@@ -3,7 +3,7 @@ from apxo.tests.infrastructure import *
 startfile(__file__, "stores")
 
 starttestsetup()
-A1 = aircraft(
+A1 = setupaircraft(
     "A1",
     "AF",
     "F-80C",
@@ -17,7 +17,7 @@ A1._assert("A2-2024       N    10", 4.0, expectedconfiguration="DT")
 endtestsetup()
 
 starttestsetup()
-A1 = aircraft(
+A1 = setupaircraft(
     "A1",
     "AF",
     "F-80C",
@@ -35,7 +35,7 @@ endtestsetup()
 
 
 starttestsetup()
-A1 = aircraft(
+A1 = setupaircraft(
     "A1",
     "AF",
     "F-80C",
@@ -52,7 +52,7 @@ A1._assert("A2-2024       N    10", 4.0, expectedconfiguration="CL")
 endtestsetup()
 
 starttestsetup()
-A1 = aircraft(
+A1 = setupaircraft(
     "A1", "AF", "F-80C", "A2-2024", "N", 10, 4.0, stores={"3": "BB/M57", "4": "BB/M57"}
 )
 A1._assert("A2-2024       N    10", 4.0, expectedconfiguration="CL")
@@ -63,7 +63,7 @@ endtestsetup()
 # empty and 3 points when full.
 
 starttestsetup()
-A1 = aircraft(
+A1 = setupaircraft(
     "A1",
     "AF",
     "F-104A",
@@ -80,7 +80,7 @@ A1._assert("A2-2024       N    10", 4.0, expectedconfiguration="CL")
 endtestsetup()
 
 starttestsetup()
-A1 = aircraft(
+A1 = setupaircraft(
     "A1",
     "AF",
     "F-104A",
@@ -106,7 +106,7 @@ endgameturn()
 # Check releaseing.
 
 starttestsetup()
-A1 = aircraft(
+A1 = setupaircraft(
     "A1",
     "AF",
     "F-80C",
@@ -134,7 +134,7 @@ A1._assert("A1-2016       N    10", 3.5, expectedconfiguration="CL")
 endgameturn()
 
 starttestsetup()
-A1 = aircraft(
+A1 = setupaircraft(
     "A1",
     "AF",
     "A-1H",

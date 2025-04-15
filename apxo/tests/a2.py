@@ -2,7 +2,7 @@ from apxo.tests.infrastructure import *
 
 startfile(__file__, "math")
 
-# Checks on apxo.rounding.
+# Checks on apxo..rounding.
 
 from apxo.rounding import onethirdfromtable, twothirdsfromtable
 

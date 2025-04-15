@@ -1,4 +1,4 @@
-import apxo.variants as apvariants
+import apxo.variants
 
 
 _missiledict = {

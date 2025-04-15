@@ -1,18 +1,18 @@
 import math
 
-import apxo.azimuth as apazimuth
-import apxo.aircraft as apaircraft
-import apxo.draw as apdraw
-import apxo.element as apelement
-import apxo.gameturn as apgameturn
-import apxo.groundunit as apgroundunit
-import apxo.log as aplog
-import apxo.map as apmap
-import apxo.missile as apmissile
-import apxo.order as aporder
-import apxo.variants as apvariants
-import apxo.scenarios as apscenarios
-import apxo.visualsighting as apvisualsighting
+import apxo.azimuth
+import apxo.aircraft
+import apxo.draw
+import apxo.element
+import apxo.gameturn
+import apxo.groundunit
+import apxo.log
+import apxo.map
+import apxo.missile
+import apxo.order
+import apxo.variants
+import apxo.scenarios
+import apxo.visualsighting
 
 __all__ = [
     "startgamesetup",
@@ -24,12 +24,11 @@ __all__ = [
     "settraining",
     "orderofflightdeterminationphase",
     "drawmap",
-    "aircraft",
+    "setupaircraft",
     "bomb",
-    "groundunit",
-    "hexgroundunit",
-    "marker",
-    "missile",
+    "setupgroundunit",
+    "setuphexgroundunit",
+    "setupmarker",
 ]
 
 ################################################################################
@@ -40,41 +39,41 @@ def startgamesetup(scenario, sheets=None, north="up", variants=[], printlog=True
     Start the game set-up for the specified scenario (or for the specified map layout).
     """
 
-    aplog.setprint(printlog)
-    aplog.setwritefiles(writelogfiles)
-    apmap.setwritefiles(writemapfiles)
+    apxo.log.setprint(printlog)
+    apxo.log.setwritefiles(writelogfiles)
+    apxo.map.setwritefiles(writemapfiles)
 
-    aplog.clearerror()
+    apxo.log.clearerror()
     try:
 
-        apgameturn.startgamesetup()
+        apxo.gameturn.startgamesetup()
 
-        aplog.logwhat("start of game set-up.")
+        apxo.log.logwhat("start of game set-up.")
 
-        apvariants.setvariants(variants)
+        apxo.variants.setvariants(variants)
 
         if scenario != None:
-            aplog.logwhat("scenario is %s." % scenario)
-            sheets = apscenarios.sheets(scenario)
-            north = apscenarios.north(scenario)
-            allforest = apscenarios.allforest(scenario)
+            apxo.log.logwhat("scenario is %s." % scenario)
+            sheets = apxo.scenarios.sheets(scenario)
+            north = apxo.scenarios.north(scenario)
+            allforest = apxo.scenarios.allforest(scenario)
         else:
-            aplog.logwhat("no scenario specified.")
-            aplog.logwhat("sheets are %r." % sheets)
-            aplog.logwhat("north is %s." % north)
+            apxo.log.logwhat("no scenario specified.")
+            apxo.log.logwhat("sheets are %r." % sheets)
+            apxo.log.logwhat("north is %s." % north)
 
         for key in kwargs.keys():
-            aplog.logwhat("map option %s is %r." % (key, kwargs[key]))
+            apxo.log.logwhat("map option %s is %r." % (key, kwargs[key]))
 
-        apmap.setmap(sheets, **kwargs)
+        apxo.map.setmap(sheets, **kwargs)
 
-        apazimuth.setnorth(north)
+        apxo.azimuth.setnorth(north)
 
-        apelement._startgamesetup()
+        apxo.element._startgamesetup()
 
     except RuntimeError as e:
-        aplog.logexception(e)
-    aplog.logbreak()
+        apxo.log.logexception(e)
+    apxo.log.logbreak()
 
 
 def endgamesetup():
@@ -84,20 +83,20 @@ def endgamesetup():
 
     try:
 
-        if aplog.error() is not None:
+        if apxo.log.error() is not None:
             raise RuntimeError(
-                "unresolved error at end of game setup: %s" % aplog.error()
+                "unresolved error at end of game setup: %s" % apxo.log.error()
             )
 
-        apelement._endgamesetup()
+        apxo.element._endgamesetup()
 
-        aplog.logwhat("end of game set-up.")
+        apxo.log.logwhat("end of game set-up.")
 
-        apgameturn.endgamesetup()
+        apxo.gameturn.endgamesetup()
 
     except RuntimeError as e:
-        aplog.logexception(e)
-    aplog.logbreak()
+        apxo.log.logexception(e)
+    apxo.log.logbreak()
 
 
 ################################################################################
@@ -108,40 +107,40 @@ def startgameturn(note=None):
     Start the next game turn.
     """
 
-    aplog.clearerror()
+    apxo.log.clearerror()
     try:
 
-        apgameturn.startgameturn()
+        apxo.gameturn.startgameturn()
 
-        aplog.logwhat("start of game turn.")
+        apxo.log.logwhat("start of game turn.")
 
-        apelement._startgameturn()
+        apxo.element._startgameturn()
 
-        if len(apaircraft.aslist()) != 0:
-            aplog.logwhat(
+        if len(apxo.aircraft.aslist()) != 0:
+            apxo.log.logwhat(
                 "initial aircraft positions, speeds, maneuvers, and previous flight types:"
             )
-            for A in apaircraft.aslist():
+            for A in apxo.aircraft.aslist():
                 A.logwhat(
                     "%s  %4.1f  %-9s  %-3s"
                     % (A.position(), A.speed(), A.maneuver(), A.flighttype()),
                     writefile=False,
                 )
-        if len(apmissile.aslist()) != 0:
-            aplog.logwhat("initial missile positions and speeds:")
-            for M in apmissile.aslist():
+        if len(apxo.missile.aslist()) != 0:
+            apxo.log.logwhat("initial missile positions and speeds:")
+            for M in apxo.missile.aslist():
                 M.logwhat("%s  %4.1f" % (M.position(), M.speed()), writefile=False)
-        if len(apgroundunit.aslist()) != 0:
-            aplog.logwhat("initial ground element positions and damage:")
-            for G in apgroundunit.aslist():
+        if len(apxo.groundunit.aslist()) != 0:
+            apxo.log.logwhat("initial ground element positions and damage:")
+            for G in apxo.groundunit.aslist():
                 G.logwhat(
                     "%s  %4s  %s" % (G.position(), "", G.damage()), writefile=False
                 )
-        aplog.lognote(None, note)
+        apxo.log.lognote(None, note)
 
     except RuntimeError as e:
-        aplog.logexception(e)
-    aplog.logbreak()
+        apxo.log.logexception(e)
+    apxo.log.logbreak()
 
 
 def endgameturn(note=None):
@@ -151,22 +150,22 @@ def endgameturn(note=None):
 
     try:
 
-        if aplog.error() is not None:
+        if apxo.log.error() is not None:
             raise RuntimeError(
-                "unresolved error at end of game turn: %s" % aplog.error()
+                "unresolved error at end of game turn: %s" % apxo.log.error()
             )
 
-        apelement._endgameturn()
+        apxo.element._endgameturn()
 
-        aplog.logwhat("end of game turn.")
-        aplog.lognote(None, note)
+        apxo.log.logwhat("end of game turn.")
+        apxo.log.lognote(None, note)
 
-        apgameturn.endgameturn()
+        apxo.gameturn.endgameturn()
 
     except RuntimeError as e:
-        aplog.logexception(e)
+        apxo.log.logexception(e)
 
-    aplog.logbreak()
+    apxo.log.logbreak()
 
 
 ################################################################################
@@ -174,20 +173,20 @@ def endgameturn(note=None):
 
 def startvisualsighting():
     try:
-        apgameturn.checkingameturn()
-        apvisualsighting.startvisualsighting(),
+        apxo.gameturn.checkingameturn()
+        apxo.visualsighting.startvisualsighting(),
     except RuntimeError as e:
-        aplog.logexception(e)
-    aplog.logbreak()
+        apxo.log.logexception(e)
+    apxo.log.logbreak()
 
 
 def endvisualsighting():
     try:
-        apgameturn.checkingameturn()
-        apvisualsighting.endvisualsighting(),
+        apxo.gameturn.checkingameturn()
+        apxo.visualsighting.endvisualsighting(),
     except RuntimeError as e:
-        aplog.logexception(e)
-    aplog.logbreak()
+        apxo.log.logexception(e)
+    apxo.log.logbreak()
 
 
 ################################################################################
@@ -195,11 +194,11 @@ def endvisualsighting():
 
 def settraining(training):
     try:
-        apgameturn.checkinsetup()
-        aporder.settraining(training)
+        apxo.gameturn.checkinsetup()
+        apxo.order.settraining(training)
     except RuntimeError as e:
-        aplog.logexception(e)
-    aplog.logbreak()
+        apxo.log.logexception(e)
+    apxo.log.logbreak()
 
 
 ################################################################################
@@ -207,13 +206,13 @@ def settraining(training):
 
 def orderofflightdeterminationphase(rolls, firstkill=None, mostkills=None):
     try:
-        apgameturn.checkingameturn()
-        aporder.orderofflightdeterminationphase(
+        apxo.gameturn.checkingameturn()
+        apxo.order.orderofflightdeterminationphase(
             rolls, firstkill=firstkill, mostkills=mostkills
         )
     except RuntimeError as e:
-        aplog.logexception(e)
-    aplog.logbreak()
+        apxo.log.logexception(e)
+    apxo.log.logbreak()
 
 
 ################################################################################
@@ -260,10 +259,10 @@ def drawmap(
 
         if zoom:
 
-            xmin = apelement._xminforzoom(withkilled=zoomincludeskilled)
-            xmax = apelement._xmaxforzoom(withkilled=zoomincludeskilled)
-            ymin = apelement._yminforzoom(withkilled=zoomincludeskilled)
-            ymax = apelement._ymaxforzoom(withkilled=zoomincludeskilled)
+            xmin = apxo.element._xminforzoom(withkilled=zoomincludeskilled)
+            xmax = apxo.element._xmaxforzoom(withkilled=zoomincludeskilled)
+            ymin = apxo.element._yminforzoom(withkilled=zoomincludeskilled)
+            ymax = apxo.element._ymaxforzoom(withkilled=zoomincludeskilled)
 
             if xmin is not None:
                 xmin = math.floor(xmin) - zoomborder
@@ -274,7 +273,7 @@ def drawmap(
             if ymax is not None:
                 ymax = math.ceil(ymax) + zoomborder
 
-        apmap.startdrawmap(
+        apxo.map.startdrawmap(
             xmin=xmin,
             ymin=ymin,
             xmax=xmax,
@@ -285,65 +284,65 @@ def drawmap(
         )
 
         if drawlimitedarc is True:
-            drawlimitedarc = apaircraft.aslist() + apmissile.aslist()
+            drawlimitedarc = apxo.aircraft.aslist() + apxo.missile.aslist()
         if draw0line is True:
-            draw0line = apaircraft.aslist() + apmissile.aslist()
+            draw0line = apxo.aircraft.aslist() + apxo.missile.aslist()
         if draw30arc is True:
-            draw30arc = apaircraft.aslist() + apmissile.aslist()
+            draw30arc = apxo.aircraft.aslist() + apxo.missile.aslist()
         if draw60arc is True:
-            draw60arc = apaircraft.aslist() + apmissile.aslist()
+            draw60arc = apxo.aircraft.aslist() + apxo.missile.aslist()
         if draw90arc is True:
-            draw90arc = apaircraft.aslist() + apmissile.aslist()
+            draw90arc = apxo.aircraft.aslist() + apxo.missile.aslist()
         if draw120arc is True:
-            draw120arc = apaircraft.aslist() + apmissile.aslist()
+            draw120arc = apxo.aircraft.aslist() + apxo.missile.aslist()
         if draw150arc is True:
-            draw150arc = apaircraft.aslist() + apmissile.aslist()
+            draw150arc = apxo.aircraft.aslist() + apxo.missile.aslist()
         if draw180arc is True:
-            draw180arc = apaircraft.aslist() + apmissile.aslist()
+            draw180arc = apxo.aircraft.aslist() + apxo.missile.aslist()
         if drawL180arc is True:
-            drawL180arc = apaircraft.aslist() + apmissile.aslist()
+            drawL180arc = apxo.aircraft.aslist() + apxo.missile.aslist()
         if drawR180arc is True:
-            drawR180arc = apaircraft.aslist() + apmissile.aslist()
+            drawR180arc = apxo.aircraft.aslist() + apxo.missile.aslist()
         if draw180line is True:
-            draw180line = apaircraft.aslist() + apmissile.aslist()
+            draw180line = apxo.aircraft.aslist() + apxo.missile.aslist()
 
         for A in drawlimitedarc:
-            apdraw.drawarc(A.x(), A.y(), A.facing(), "limited")
+            apxo.draw.drawarc(A.x(), A.y(), A.facing(), "limited")
         for A in draw0line:
-            apdraw.drawarc(A.x(), A.y(), A.facing(), "0")
+            apxo.draw.drawarc(A.x(), A.y(), A.facing(), "0")
         for A in draw30arc:
-            apdraw.drawarc(A.x(), A.y(), A.facing(), "30-")
+            apxo.draw.drawarc(A.x(), A.y(), A.facing(), "30-")
         for A in draw60arc:
-            apdraw.drawarc(A.x(), A.y(), A.facing(), "60-")
+            apxo.draw.drawarc(A.x(), A.y(), A.facing(), "60-")
         for A in draw90arc:
-            apdraw.drawarc(A.x(), A.y(), A.facing(), "90-")
+            apxo.draw.drawarc(A.x(), A.y(), A.facing(), "90-")
         for A in draw120arc:
-            apdraw.drawarc(A.x(), A.y(), A.facing(), "120+")
+            apxo.draw.drawarc(A.x(), A.y(), A.facing(), "120+")
         for A in draw150arc:
-            apdraw.drawarc(A.x(), A.y(), A.facing(), "150+")
+            apxo.draw.drawarc(A.x(), A.y(), A.facing(), "150+")
         for A in draw180arc:
-            apdraw.drawarc(A.x(), A.y(), A.facing(), "180+")
+            apxo.draw.drawarc(A.x(), A.y(), A.facing(), "180+")
         for A in drawL180arc:
-            apdraw.drawarc(A.x(), A.y(), A.facing(), "L180+")
+            apxo.draw.drawarc(A.x(), A.y(), A.facing(), "L180+")
         for A in drawR180arc:
-            apdraw.drawarc(A.x(), A.y(), A.facing(), "R180+")
+            apxo.draw.drawarc(A.x(), A.y(), A.facing(), "R180+")
         for A in draw180line:
-            apdraw.drawarc(A.x(), A.y(), A.facing(), "180")
+            apxo.draw.drawarc(A.x(), A.y(), A.facing(), "180")
 
-        apelement._drawmap()
+        apxo.element._drawmap()
 
         for E in drawlos[1:]:
-            apdraw.drawlos(drawlos[0].x(), drawlos[0].y(), E.x(), E.y())
+            apxo.draw.drawlos(drawlos[0].x(), drawlos[0].y(), E.x(), E.y())
 
-        apmap.enddrawmap(apgameturn.gameturn(), writefiles=writefiles)
+        apxo.map.enddrawmap(apxo.gameturn.gameturn(), writefiles=writefiles)
 
     except RuntimeError as e:
-        aplog.logexception(e)
+        apxo.log.logexception(e)
 
 
 ################################################################################
 
-from apxo.aircraft import Aircraft as aircraft
-from apxo.groundunit import GroundUnit as groundunit
-from apxo.groundunit import HexGroundUnit as hexgroundunit
-from apxo.marker import Marker as marker
+from apxo.aircraft import Aircraft as setupaircraft
+from apxo.groundunit import GroundUnit as setupgroundunit
+from apxo.groundunit import HexGroundUnit as setuphexgroundunit
+from apxo.marker import Marker as setupmarker

@@ -5,11 +5,11 @@ startfile(__file__, "HRD")
 # Half Roll and Dive
 
 starttestsetup()
-A1 = aircraft("A1", "AF", "F-80C", "A1-2015", "N", 20, 4.0, "CL")
-A2 = aircraft("A2", "AF", "F-80C", "A1-2215", "N", 20, 4.0, "CL")
-A3 = aircraft("A3", "AF", "F-80C", "A1-2415", "N", 20, 5.0, "CL")
-A4 = aircraft("A4", "AF", "F-80C", "A1-2615", "N", 20, 5.0, "CL")
-A5 = aircraft("A5", "AF", "F-104A", "A1-2815", "N", 20, 7.0, "CL")  # SS
+A1 = setupaircraft("A1", "AF", "F-80C", "A1-2015", "N", 20, 4.0, "CL")
+A2 = setupaircraft("A2", "AF", "F-80C", "A1-2215", "N", 20, 4.0, "CL")
+A3 = setupaircraft("A3", "AF", "F-80C", "A1-2415", "N", 20, 5.0, "CL")
+A4 = setupaircraft("A4", "AF", "F-80C", "A1-2615", "N", 20, 5.0, "CL")
+A5 = setupaircraft("A5", "AF", "F-104A", "A1-2815", "N", 20, 7.0, "CL")  # SS
 endtestsetup()
 
 startgameturn()

@@ -1,16 +1,16 @@
 ################################################################################
 
-import apxo.draw as apdraw
-import apxo.gameturn as apgameturn
+import apxo.draw
+import apxo.gameturn
 
 ################################################################################
 
 
 def _draw(self):
     self._drawpath(
-        self._color, annotate=apgameturn.gameturn() > self._launchgameturn + 1
+        self._color, annotate=apxo.gameturn.gameturn() > self._launchgameturn + 1
     )
-    apdraw.drawmissile(
+    apxo.draw.drawmissile(
         self.x(),
         self.y(),
         self.facing(),

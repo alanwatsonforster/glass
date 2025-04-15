@@ -1,10 +1,10 @@
-import apxo.aircraft as apaircraft
-import apxo.capabilities as apcapabilities
-import apxo.geometry as apgeometry
-import apxo.hex as aphex
-import apxo.log as aplog
-import apxo.rounding as apmath
-import apxo.variants as apvariants
+import apxo.aircraft
+import apxo.capabilities
+import apxo.geometry
+import apxo.hex
+import apxo.log
+import apxo.rounding
+import apxo.variants
 
 ##############################################################################
 
@@ -19,7 +19,7 @@ def gunattackrange(attacker, target, arc=False):
 
     def horizontalrange(x0, y0, facing0, x1, y1, facing1):
 
-        angleofftail, angleoffnose, r, dx, dy = apgeometry.relativepositions(
+        angleofftail, angleoffnose, r, dx, dy = apxo.geometry.relativepositions(
             x0, y0, facing0, x1, y1, facing1
         )
 
@@ -72,7 +72,7 @@ def gunattackrange(attacker, target, arc=False):
         if r is False:
             return "the target is not in the weapon range or arc."
 
-        angleoff = apgeometry.angleofftail(target, attacker)
+        angleoff = apxo.geometry.angleofftail(target, attacker)
         if arc == "30-":
             allowedangleoff = ["0 line", "30 arc"]
         elif arc == "60-":
@@ -189,10 +189,10 @@ def rocketattackrange(attacker, target):
         ):
             return "aircraft in level flight cannot fire at range 0 on aircraft at a different altitude."
 
-    if not apgeometry.inradararc(attacker, target, "limited"):
+    if not apxo.geometry.inradararc(attacker, target, "limited"):
         return "the target is not in the arc or range of the weapon."
 
-    r = apgeometry.horizontalrange(attacker, target)
+    r = apxo.geometry.horizontalrange(attacker, target)
 
     r += verticalrange()
     if r == 0 or r > 4:
@@ -299,18 +299,18 @@ def _attack(attacker, attacktype, target, result, allowRK=True, allowtracking=Tr
     else:
 
         if weapon == "GN":
-            if apcapabilities.gunarc(attacker) != None:
+            if apxo.capabilities.gunarc(attacker) != None:
                 attacker.logcomment(
-                    "gunnery arc is %s." % apcapabilities.gunarc(attacker)
+                    "gunnery arc is %s." % apxo.capabilities.gunarc(attacker)
                 )
-            r = gunattackrange(attacker, target, arc=apcapabilities.gunarc(attacker))
+            r = gunattackrange(attacker, target, arc=apxo.capabilities.gunarc(attacker))
         else:
             r = rocketattackrange(attacker, target)
         if isinstance(r, str):
             raise RuntimeError(r)
         attacker.logcomment("range is %d." % r)
 
-        angleofftail = apgeometry.angleofftail(attacker, target)
+        angleofftail = apxo.geometry.angleofftail(attacker, target)
         attacker.logcomment("angle-off-tail is %s." % angleofftail)
         if angleofftail == "0 line":
             angleofftailmodifier = -2
@@ -356,26 +356,26 @@ def _attack(attacker, attacktype, target, result, allowRK=True, allowtracking=Tr
                 else:
                     verticalmodifier = +0
             elif (
-                apvariants.withvariant("use house rules") and attacker.isinlevelflight()
+                apxo.variants.withvariant("use house rules") and attacker.isinlevelflight()
             ):
                 if target.isinclimbingflight():
                     verticalmodifier = +1
                 elif target.isindivingflight():
                     verticalmodifier = +1
 
-        sizemodifier = apcapabilities.sizemodifier(target)
+        sizemodifier = apxo.capabilities.sizemodifier(target)
 
     if allowtracking:
         attacker.logcomment(
             "SSGT for %d %s."
-            % (attacker._trackingfp, aplog.plural(attacker._trackingfp, "FP", "FPs"))
+            % (attacker._trackingfp, apxo.log.plural(attacker._trackingfp, "FP", "FPs"))
         )
-        if attacker._trackingfp >= 2 * apmath.rounddown(
-            apmath.onethirdfromtable(attacker.speed())
+        if attacker._trackingfp >= 2 * apxo.rounding.rounddown(
+            apxo.rounding.onethirdfromtable(attacker.speed())
         ):
             trackingmodifier = -2
-        elif attacker._trackingfp >= 1 * apmath.rounddown(
-            apmath.onethirdfromtable(attacker.speed())
+        elif attacker._trackingfp >= 1 * apxo.rounding.rounddown(
+            apxo.rounding.onethirdfromtable(attacker.speed())
         ):
             trackingmodifier = -1
         else:
@@ -384,7 +384,7 @@ def _attack(attacker, attacktype, target, result, allowRK=True, allowtracking=Tr
         attacker.logcomment("SSGT not allowed.")
         trackingmodifier = None
 
-    radarrangingtype = apcapabilities.ataradarrangingtype(attacker)
+    radarrangingtype = apxo.capabilities.ataradarrangingtype(attacker)
     if radarrangingtype is None:
         attacker.logcomment("attacker does not have radar ranging.")
         if radarranging:
@@ -396,7 +396,7 @@ def _attack(attacker, attacktype, target, result, allowRK=True, allowtracking=Tr
     else:
         attacker.logcomment(
             "%s radar-ranging lock-on roll is %d."
-            % (radarrangingtype, apcapabilities.lockon(attacker))
+            % (radarrangingtype, apxo.capabilities.lockon(attacker))
         )
     if radarranging:
         attacker.logcomment("%s radar-ranging succeeded." % radarrangingtype)
@@ -416,16 +416,16 @@ def _attack(attacker, attacktype, target, result, allowRK=True, allowtracking=Tr
 
     if attacker._BTrecoveryfp > 0:
         attacker.logcomment("applicable turn rate is BT.")
-        turnratemodifier = apcapabilities.gunsightmodifier(attacker, "BT")
+        turnratemodifier = apxo.capabilities.gunsightmodifier(attacker, "BT")
     elif attacker._rollrecoveryfp > 0:
         attacker.logcomment("applicable turn rate is BT (for a roll).")
-        turnratemodifier = apcapabilities.gunsightmodifier(attacker, "BT")
+        turnratemodifier = apxo.capabilities.gunsightmodifier(attacker, "BT")
     elif attacker._HTrecoveryfp > 0:
         attacker.logcomment("applicable turn rate is HT.")
-        turnratemodifier = apcapabilities.gunsightmodifier(attacker, "HT")
+        turnratemodifier = apxo.capabilities.gunsightmodifier(attacker, "HT")
     elif attacker._TTrecoveryfp > 0:
         attacker.logcomment("applicable turn rate is TT.")
-        turnratemodifier = apcapabilities.gunsightmodifier(attacker, "TT")
+        turnratemodifier = apxo.capabilities.gunsightmodifier(attacker, "TT")
     else:
         attacker.logcomment("no applicable turn rate.")
         turnratemodifier = None
@@ -480,12 +480,12 @@ def _attack(attacker, attacktype, target, result, allowRK=True, allowtracking=Tr
 
     if r is not None:
         if weapon == "GN":
-            tohitroll = apcapabilities.gunatatohitroll(attacker, r)
+            tohitroll = apxo.capabilities.gunatatohitroll(attacker, r)
             attacker.logcomment("to-hit roll is %d." % tohitroll)
 
     if (result != "A") and (result != "M") and (target is not None):
         if weapon == "GN":
-            damagerating = apcapabilities.gunatadamagerating(attacker)
+            damagerating = apxo.capabilities.gunatadamagerating(attacker)
             damageratingmodifier = 0
             if snapshot:
                 attacker.logcomment("snap-shot damage modifier is -1.")
@@ -502,7 +502,7 @@ def _attack(attacker, attacktype, target, result, allowRK=True, allowtracking=Tr
                 )
             )
             attacker.logcomment(
-                "target vulnerability is %+d." % apcapabilities.vulnerability(target)
+                "target vulnerability is %+d." % apxo.capabilities.vulnerability(target)
             )
 
     target._takeattackdamage(attacker, result)
@@ -523,7 +523,7 @@ def _attack(attacker, attacktype, target, result, allowRK=True, allowtracking=Tr
             "%d rocket %s."
             % (
                 attacker._rocketfactors,
-                aplog.plural(
+                apxo.log.plural(
                     attacker._rocketfactors, "factor remains", "factors remain"
                 ),
             )
@@ -557,18 +557,18 @@ def trackingforbidden(attacker, target):
     # The check on the ability to use weapons (necessary for tracking) is
     # carried out elsewhere.
 
-    if not apgeometry.horizontalrange(attacker, target) <= 6:
+    if not apxo.geometry.horizontalrange(attacker, target) <= 6:
         return "%s is more than 6 hexes from %s." % (target.name(), attacker.name())
-    if not apgeometry.inarc(target, attacker, "60-"):
+    if not apxo.geometry.inarc(target, attacker, "60-"):
         return "%s is not in its 60- arc of %s." % (attacker.name(), target.name())
-    if apgeometry.horizontalrange(attacker, target) > 0 and not apgeometry.inarc(
+    if apxo.geometry.horizontalrange(attacker, target) > 0 and not apxo.geometry.inarc(
         attacker, target, "limited"
     ):
         return "%s is not in the limited arc of %s." % (target.name(), attacker.name())
-    if apvariants.withvariant("require limited radar arc for SSGT"):
-        if apgeometry.horizontalrange(
+    if apxo.variants.withvariant("require limited radar arc for SSGT"):
+        if apxo.geometry.horizontalrange(
             attacker, target
-        ) > 0 and not apgeometry.inradararc(attacker, target, "limited"):
+        ) > 0 and not apxo.geometry.inradararc(attacker, target, "limited"):
             return "%s is not in the limited radar arc of %s." % (
                 target.name(),
                 attacker.name(),

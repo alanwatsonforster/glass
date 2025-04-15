@@ -5,10 +5,10 @@ startfile(__file__, "terrain-following flight")
 from apxo.tests.infrastructure import *
 
 starttestsetup(sheets=[["C2"]])
-A1 = aircraft("A1", "AF", "F-80C", "C2-6625", "WSW", 1, 4.0, "CL")
-A2 = aircraft("A2", "AF", "F-80C", "C2-6624", "WSW", 1, 4.0, "CL")
-A3 = aircraft("A3", "AF", "F-80C", "C2-6623", "WSW", 2, 4.0, "CL")
-A4 = aircraft("A4", "AF", "F-80C", "C2-6628/6727", "NNW", 1, 4.0, "CL")
+A1 = setupaircraft("A1", "AF", "F-80C", "C2-6625", "WSW", 1, 4.0, "CL")
+A2 = setupaircraft("A2", "AF", "F-80C", "C2-6624", "WSW", 1, 4.0, "CL")
+A3 = setupaircraft("A3", "AF", "F-80C", "C2-6623", "WSW", 2, 4.0, "CL")
+A4 = setupaircraft("A4", "AF", "F-80C", "C2-6628/6727", "NNW", 1, 4.0, "CL")
 endtestsetup()
 
 startgameturn()
@@ -112,7 +112,7 @@ endgameturn()
 # Check limits on ETs.
 
 starttestsetup(sheets=[["C2"]])
-A1 = aircraft("A1", "AF", "F-100C", "C2-6625", "WSW", 1, 4.0, "CL")
+A1 = setupaircraft("A1", "AF", "F-100C", "C2-6625", "WSW", 1, 4.0, "CL")
 endtestsetup()
 
 startgameturn()
@@ -129,7 +129,7 @@ asserterror("terrain-following flight limits the turn rate to BT.")
 # Check TFF across ridge line
 
 starttestsetup(sheets=[["C2"]])
-A1 = aircraft("A1", "AF", "F-100C", "C2-6625", "WNW", 1, 4.0, "CL")
+A1 = setupaircraft("A1", "AF", "F-100C", "C2-6625", "WNW", 1, 4.0, "CL")
 endtestsetup()
 
 startgameturn()
@@ -141,7 +141,7 @@ A1._assert("C2-6323 WNW 1", 4.0)
 # Check TTF in city hexes.
 
 starttestsetup(sheets=[["A2"]])
-A1 = aircraft("A1", "AF", "F-100C", "A2-2224", "N", 1, 4.0, "CL")
+A1 = setupaircraft("A1", "AF", "F-100C", "A2-2224", "N", 1, 4.0, "CL")
 endtestsetup()
 
 startgameturn()

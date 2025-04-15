@@ -2,11 +2,11 @@
 The map.
 """
 
-import apxo.azimuth as apazimuth
-import apxo.draw as apdraw
-import apxo.hex as aphex
-import apxo.hexcode as aphexcode
-import apxo.mapstyle as apmapstyle
+import apxo.azimuth
+import apxo.draw
+import apxo.hex
+import apxo.hexcode
+import apxo.mapstyle
 
 import json
 import math
@@ -287,7 +287,7 @@ def setmap(
     _saved = False
 
     global _style
-    _style = apmapstyle.getstyle(style)
+    _style = apxo.mapstyle.getstyle(style)
     if _style == None:
         raise RuntimeError("invalid style %r." % style)
 
@@ -326,7 +326,7 @@ def setmap(
                 terrain = _loadterrain(sheet)
                 if inverted:
                     terrain = _invertterrain(terrain)
-                terrain = apmapstyle.styleterrain(terrain, _style)
+                terrain = apxo.mapstyle.styleterrain(terrain, _style)
                 terrain = _prepareterrain(terrain)
                 _terrain[sheet] = terrain
 
@@ -491,14 +491,14 @@ def startdrawmap(
 
 
     def drawhex(x, y, label=False, **kwargs):
-        apdraw.drawhex(x, y, zorder=0, **kwargs)
+        apxo.draw.drawhex(x, y, zorder=0, **kwargs)
 
     def drawhexlabel(x, y, label, **kwargs):
-        apdraw.drawhexlabel(x, y, label, zorder=0, **kwargs)
+        apxo.draw.drawhexlabel(x, y, label, zorder=0, **kwargs)
 
     def drawhexes(sheet, labels, **kwargs):
         for label in labels:
-            x, y = aphexcode.toxy("%s-%04d" % (sheet, label))
+            x, y = apxo.hexcode.toxy("%s-%04d" % (sheet, label))
             if isnearcanvas(x, y):
                 drawhex(x, y, **kwargs)
 
@@ -510,19 +510,19 @@ def startdrawmap(
             # being near to it.
             x = [xy[0] for xy in xy]
             y = [xy[1] for xy in xy]
-            apdraw.drawlines(x, y, zorder=0, **kwargs)
+            apxo.draw.drawlines(x, y, zorder=0, **kwargs)
 
     def drawrectangle(xmin, ymin, xmax, ymax, **kwargs):
-        apdraw.drawrectangle(xmin, ymin, xmax, ymax, zorder=0, **kwargs)
+        apxo.draw.drawrectangle(xmin, ymin, xmax, ymax, zorder=0, **kwargs)
 
     def drawtext(x, y, angle, text, **kwargs):
-        apdraw.drawtext(x, y, angle, text, zorder=0, **kwargs)
+        apxo.draw.drawtext(x, y, angle, text, zorder=0, **kwargs)
 
     def drawcompass(x, y, facing, **kwargs):
-        apdraw.drawcompass(x, y, facing, zorder=0, **kwargs)
+        apxo.draw.drawcompass(x, y, facing, zorder=0, **kwargs)
 
     def drawwatermark(text, xmin, ymin, xmax, ymax, **kwargs):
-        apdraw.drawwatermark(text, xmin, ymin, xmax, ymax, zorder=0, **kwargs)
+        apxo.draw.drawwatermark(text, xmin, ymin, xmax, ymax, zorder=0, **kwargs)
 
     if xmin is not None and xmax is not None and ymin is not None and ymax is not None:
 
@@ -560,7 +560,7 @@ def startdrawmap(
 
     global _saved
     if fullmap and _saved:
-        apdraw.restore()
+        apxo.draw.restore()
         return
 
     def isnearcanvas(x, y):
@@ -589,7 +589,7 @@ def startdrawmap(
     def sheetsnearcanvas():
         return filter(lambda sheet: issheetnearcanvas(sheet), _sheetlist)
 
-    apdraw.setcanvas(
+    apxo.draw.setcanvas(
         canvasxmin, canvasymin, canvasxmax, canvasymax, dotsperhex=_dotsperhex
     )
 
@@ -1057,7 +1057,7 @@ def startdrawmap(
                 y = ymin + iy
                 if ix % 2 == 1:
                     y -= 0.5
-                    # aphexode.yoffsetforoddx()
+                    # apxo.hexode.yoffsetforoddx()
                 # Draw the hex if it is on the map, is near the canvas, and
                 # either its center or the center of its upper left edge are on
                 # this sheet.
@@ -1073,7 +1073,7 @@ def startdrawmap(
                         alpha=hexalpha,
                         linewidth=hexwidth,
                     )
-                    label = aphexcode.tolabel(aphexcode.fromxy(x, y))
+                    label = apxo.hexcode.tolabel(apxo.hexcode.fromxy(x, y))
                     drawhexlabel(x, y, label, color=hexcolor, alpha=hexalpha)
 
     # Label the sheets.
@@ -1103,7 +1103,7 @@ def startdrawmap(
     drawcompass(
         compassx,
         compassy,
-        apazimuth.tofacing("N"),
+        apxo.azimuth.tofacing("N"),
         color=labelcolor,
         alpha=1,
     )
@@ -1133,18 +1133,18 @@ def startdrawmap(
     elif watermark is not None:
         drawwatermark(watermark, canvasxmin, canvasymin, canvasxmax, canvasymax)
 
-    apdraw.setcompactstacks(compactstacks)
+    apxo.draw.setcompactstacks(compactstacks)
 
     if fullmap and _writefiles:
-        apdraw.save()
+        apxo.draw.save()
         _saved = True
 
 
 def enddrawmap(turn, writefiles=True):
     if _writefiles and writefiles:
         for filetype in _writefiletypes:
-            apdraw.writefile("map-%02d.%s" % (turn, filetype), rotation=_rotation)
-    apdraw.show()
+            apxo.draw.writefile("map-%02d.%s" % (turn, filetype), rotation=_rotation)
+    apxo.draw.show()
 
 
 def sheetorigin(sheet):
@@ -1237,7 +1237,7 @@ def toxy(sheet, x, y):
     YY = int(y)
     dx = x - XX
     dy = y - YY
-    x0, y0 = aphexcode.toxy("%s-%02d%02d" % (sheet, XX, YY))
+    x0, y0 = apxo.hexcode.toxy("%s-%02d%02d" % (sheet, XX, YY))
     return x0 + dx, y0 - dy
 
 
@@ -1247,13 +1247,13 @@ def altitude(x, y, sheet=None):
     hex center.
     """
 
-    assert aphex.isvalid(x, y)
+    assert apxo.hex.isvalid(x, y)
 
-    if aphex.iscenter(x, y):
+    if apxo.hex.iscenter(x, y):
 
         if sheet is None:
             sheet = tosheet(x, y)
-        label = int(aphexcode.tolabel(aphexcode.fromxy(x, y, sheet=sheet)))
+        label = int(apxo.hexcode.tolabel(apxo.hexcode.fromxy(x, y, sheet=sheet)))
         if label in _terrain[sheet]["level2hexes"]:
             return _leveloffset + 2 * _levelincrement
         elif label in _terrain[sheet]["level1hexes"]:
@@ -1263,7 +1263,7 @@ def altitude(x, y, sheet=None):
 
     else:
 
-        x0, y0, x1, y1 = aphex.sidetocenters(x, y)
+        x0, y0, x1, y1 = apxo.hex.sidetocenters(x, y)
         sheet0 = tosheet(x0, y0)
         sheet1 = tosheet(x1, y1)
         assert sheet0 != None or sheet1 != None
@@ -1279,18 +1279,18 @@ def iscity(x, y, sheet=None):
     Returns whether the position is a city hex or a hex side of a city hex.
     """
 
-    assert aphex.isvalid(x, y)
+    assert apxo.hex.isvalid(x, y)
 
-    if aphex.iscenter(x, y):
+    if apxo.hex.iscenter(x, y):
 
         if sheet is None:
             sheet = tosheet(x, y)
-        label = int(aphexcode.tolabel(aphexcode.fromxy(x, y, sheet=sheet)))
+        label = int(apxo.hexcode.tolabel(apxo.hexcode.fromxy(x, y, sheet=sheet)))
         return label in _terrain[sheet]["cityhexes"]
 
     else:
 
-        x0, y0, x1, y1 = aphex.sidetocenters(x, y)
+        x0, y0, x1, y1 = apxo.hex.sidetocenters(x, y)
         sheet0 = tosheet(x0, y0)
         sheet1 = tosheet(x1, y1)
         assert sheet0 != None or sheet1 != None

@@ -5,8 +5,8 @@ startfile(__file__, "propeller power")
 # Propeller Power
 
 starttestsetup()
-A1 = aircraft("A1", "AF", "AD-4", "A1-2015", "N", 10, 2.0, "CL")
-A2 = aircraft("A2", "AF", "AD-4", "A1-2215", "N", 10, 2.0, "CL")
+A1 = setupaircraft("A1", "AF", "AD-4", "A1-2015", "N", 10, 2.0, "CL")
+A2 = setupaircraft("A2", "AF", "AD-4", "A1-2215", "N", 10, 2.0, "CL")
 endtestsetup()
 
 startgameturn()
@@ -49,9 +49,9 @@ endgameturn()
 # Power Fade
 
 starttestsetup()
-A1 = aircraft("A1", "AF", "Sea Fury FB.11", "A1-2015", "N", 10, 4.5, "CL")
-A2 = aircraft("A2", "AF", "Sea Fury FB.11", "A1-2215", "N", 10, 3.5, "CL")
-A3 = aircraft("A3", "AF", "Sea Fury FB.11", "A1-2415", "N", 10, 3.0, "CL")
+A1 = setupaircraft("A1", "AF", "Sea Fury FB.11", "A1-2015", "N", 10, 4.5, "CL")
+A2 = setupaircraft("A2", "AF", "Sea Fury FB.11", "A1-2215", "N", 10, 3.5, "CL")
+A3 = setupaircraft("A3", "AF", "Sea Fury FB.11", "A1-2415", "N", 10, 3.0, "CL")
 endtestsetup()
 
 startgameturn()

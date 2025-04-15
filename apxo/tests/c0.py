@@ -5,7 +5,7 @@ startfile(__file__, "speed")
 # Speed limits
 
 starttestsetup()
-A1 = aircraft("A1", "AF", "F-80C", "A1-1115", "N", 20, 5.0, "CL")
+A1 = setupaircraft("A1", "AF", "F-80C", "A1-1115", "N", 20, 5.0, "CL")
 endtestsetup()
 startgameturn()
 A1.move("SD", "M", "H,H,D2,D2,D2")
@@ -26,10 +26,10 @@ endgameturn()
 # Acceleration and deceleration
 
 starttestsetup()
-A1 = aircraft("A1", "AF", "F-80C", "A1-1115", "N", 10, 2.5, "CL")
-A2 = aircraft("A2", "AF", "F-80C", "A1-1315", "N", 10, 3.0, "CL")
-A3 = aircraft("A3", "AF", "F-80C", "A1-1515", "N", 10, 3.5, "CL")
-A4 = aircraft("A4", "AF", "F-80C", "A1-1715", "N", 10, 4.0, "CL")
+A1 = setupaircraft("A1", "AF", "F-80C", "A1-1115", "N", 10, 2.5, "CL")
+A2 = setupaircraft("A2", "AF", "F-80C", "A1-1315", "N", 10, 3.0, "CL")
+A3 = setupaircraft("A3", "AF", "F-80C", "A1-1515", "N", 10, 3.5, "CL")
+A4 = setupaircraft("A4", "AF", "F-80C", "A1-1715", "N", 10, 4.0, "CL")
 endtestsetup()
 
 A1._assert("A1-1115       N    10", 2.5)
@@ -73,9 +73,9 @@ endgameturn()
 # SS acceleration and deceleration
 
 starttestsetup(sheets=[["A1"], ["A2"], ["B1"], ["B2"]], verbose=False)
-A1 = aircraft("A1", "AF", "F-100A", "A1-2002", "S", 51, 5.5, "CL")
-A2 = aircraft("A2", "AF", "F-100A", "A1-2202", "S", 51, 5.5, "CL")
-A3 = aircraft("A3", "AF", "F-100A", "A1-2402", "S", 51, 5.5, "CL")
+A1 = setupaircraft("A1", "AF", "F-100A", "A1-2002", "S", 51, 5.5, "CL")
+A2 = setupaircraft("A2", "AF", "F-100A", "A1-2202", "S", 51, 5.5, "CL")
+A3 = setupaircraft("A3", "AF", "F-100A", "A1-2402", "S", 51, 5.5, "CL")
 endtestsetup()
 
 startgameturn()
@@ -144,7 +144,7 @@ endgameturn()
 # Check rules for idle power.
 
 starttestsetup(sheets=[["A1"], ["A2"], ["B1"], ["B2"]])
-A4 = aircraft("A4", "AF", "F-100A", "A1-2602", "S", 51, 5.5, "CL")
+A4 = setupaircraft("A4", "AF", "F-100A", "A1-2602", "S", 51, 5.5, "CL")
 endtestsetup()
 
 startgameturn()
@@ -185,9 +185,9 @@ endgameturn()
 # F-16A is LTD when CL.
 
 starttestsetup(sheets=[["A1"], ["A2"]])
-A0 = aircraft("A0", "AF", "F-16A-1", "A1-2402", "S", 10, 6.5, "CL")
-A1 = aircraft("A1", "AF", "F-16A-1", "A1-2602", "S", 10, 6.5, "1/2")
-A2 = aircraft("A2", "AF", "F-16A-1", "A1-2802", "S", 10, 6.5, "DT")
+A0 = setupaircraft("A0", "AF", "F-16A-1", "A1-2402", "S", 10, 6.5, "CL")
+A1 = setupaircraft("A1", "AF", "F-16A-1", "A1-2602", "S", 10, 6.5, "1/2")
+A2 = setupaircraft("A2", "AF", "F-16A-1", "A1-2802", "S", 10, 6.5, "DT")
 endtestsetup()
 
 startgameturn()

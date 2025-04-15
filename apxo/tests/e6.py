@@ -7,10 +7,10 @@ from apxo.tests.infrastructure import *
 # The F-89D has a different max speed with AB and M power.
 
 starttestsetup()
-A1 = aircraft(
+A1 = setupaircraft(
     "A1", "AF", "F-89D", "A2-2030", "N", 30, 6.0, "CL", fuel="60%", bingofuel="40%"
 )
-A2 = aircraft(
+A2 = setupaircraft(
     "A2", "AF", "F-89D", "A2-2030", "N", 30, 6.0, "CL", fuel="60%", bingofuel="40%"
 )
 endtestsetup()

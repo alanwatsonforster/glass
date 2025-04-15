@@ -1,6 +1,6 @@
 ################################################################################
 
-import apxo.flight as apflight
+import apxo.flight
 
 ################################################################################
 
@@ -16,7 +16,7 @@ def _move(
     geometry=None,
 ):
     self._setgeometry(geometry)
-    apflight._move(
+    apxo.flight._move(
         self,
         flighttype,
         power,
@@ -28,7 +28,7 @@ def _move(
 
 
 def _continuemove(self, moves=""):
-    apflight._continuemove(self, moves)
+    apxo.flight._continuemove(self, moves)
 
 
 ################################################################################

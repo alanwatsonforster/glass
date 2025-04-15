@@ -1,6 +1,6 @@
 ################################################################################
 
-import apxo.log as aplog
+import apxo.log
 
 ################################################################################
 
@@ -293,7 +293,7 @@ def showstores(self, note=None):
         self._showstores()
         self.lognote(note)
     except RuntimeError as e:
-        aplog.logexception(e)
+        apxo.log.logexception(e)
     self.logbreak()
 
 
@@ -380,7 +380,7 @@ def release(self, *args):
     try:
         self._release(*args)
     except RuntimeError as e:
-        aplog.logexception(e)
+        apxo.log.logexception(e)
     self.logbreak()
 
 
