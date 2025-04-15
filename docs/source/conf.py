@@ -21,6 +21,7 @@ sys.path.insert(0, os.path.abspath('../../src/'))
 extensions = [
     'sphinx.ext.autodoc',
     'sphinx.ext.autosummary',
+    'myst_parser',
 ]
 
 templates_path = ['_templates']

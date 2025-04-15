@@ -10,5 +10,5 @@ documentation for details.
    :maxdepth: 2
 
    tutorial/index.rst
-   usermanual/index.rst
+   usermanual/index.md
    api/index.rst
