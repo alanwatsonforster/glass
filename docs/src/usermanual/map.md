@@ -67,19 +67,19 @@ Any number of first-generation sheets can be used at once. When arranged in an a
 
 The following are thumbnail images of the first-generation map sheets; click on them to see higher-resolution versions.
 
-<img src="../maps/map-sheet-A.png" width="20%"/>&nbsp;<img src="../maps/map-sheet-B.png" width="20%"/>&nbsp;<img src="../maps/map-sheet-C.png" width="20%"/>&nbsp;<img src="../maps/map-sheet-D.png" width="20%"/>
+<img src="../../../maps/map-sheet-A.png" width="20%"/>&nbsp;<img src="../../../maps/map-sheet-B.png" width="20%"/>&nbsp;<img src="../../../maps/map-sheet-C.png" width="20%"/>&nbsp;<img src="../../../maps/map-sheet-D.png" width="20%"/>
 
-<img src="../maps/map-sheet-E.png" width="20%"/>&nbsp;<img src="../maps/map-sheet-F.png" width="20%"/>&nbsp;<img src="../maps/map-sheet-G.png" width="20%"/>&nbsp;<img src="../maps/map-sheet-H.png" width="20%"/>
+<img src="../../../maps/map-sheet-E.png" width="20%"/>&nbsp;<img src="../../../maps/map-sheet-F.png" width="20%"/>&nbsp;<img src="../../../maps/map-sheet-G.png" width="20%"/>&nbsp;<img src="../../../maps/map-sheet-H.png" width="20%"/>
 
-<img src="../maps/map-sheet-I.png" width="20%"/>&nbsp;<img src="../maps/map-sheet-J.png" width="20%"/>
+<img src="../../../maps/map-sheet-I.png" width="20%"/>&nbsp;<img src="../../../maps/map-sheet-J.png" width="20%"/>
 
-<img src="../maps/map-sheet-K.png" width="20%"/>&nbsp;<img src="../maps/map-sheet-L.png" width="20%"/>&nbsp;<img src="../maps/map-sheet-M.png" width="20%"/>&nbsp;<img src="../maps/map-sheet-N.png" width="20%"/>
+<img src="../../../maps/map-sheet-K.png" width="20%"/>&nbsp;<img src="../../../maps/map-sheet-L.png" width="20%"/>&nbsp;<img src="../../../maps/map-sheet-M.png" width="20%"/>&nbsp;<img src="../../../maps/map-sheet-N.png" width="20%"/>
 
-<img src="../maps/map-sheet-O.png" width="20%"/>&nbsp;<img src="../maps/map-sheet-P.png" width="20%"/>&nbsp;<img src="../maps/map-sheet-Q.png" width="20%"/>&nbsp;<img src="../maps/map-sheet-R.png" width="20%"/>
+<img src="../../../maps/map-sheet-O.png" width="20%"/>&nbsp;<img src="../../../maps/map-sheet-P.png" width="20%"/>&nbsp;<img src="../../../maps/map-sheet-Q.png" width="20%"/>&nbsp;<img src="../../../maps/map-sheet-R.png" width="20%"/>
 
-<img src="../maps/map-sheet-S.png" width="20%"/>&nbsp;<img src="../maps/map-sheet-T.png" width="20%"/>&nbsp;<img src="../maps/map-sheet-U.png" width="20%"/>&nbsp;<img src="../maps/map-sheet-V.png" width="20%"/>
+<img src="../../../maps/map-sheet-S.png" width="20%"/>&nbsp;<img src="../../../maps/map-sheet-T.png" width="20%"/>&nbsp;<img src="../../../maps/map-sheet-U.png" width="20%"/>&nbsp;<img src="../../../maps/map-sheet-V.png" width="20%"/>
 
-<img src="../maps/map-sheet-W.png" width="20%"/>&nbsp;<img src="../maps/map-sheet-X.png" width="20%"/>&nbsp;<img src="../maps/map-sheet-Y.png" width="20%"/>&nbsp;<img src="../maps/map-sheet-Z.png" width="20%"/>
+<img src="../../../maps/map-sheet-W.png" width="20%"/>&nbsp;<img src="../../../maps/map-sheet-X.png" width="20%"/>&nbsp;<img src="../../../maps/map-sheet-Y.png" width="20%"/>&nbsp;<img src="../../../maps/map-sheet-Z.png" width="20%"/>
 
 ### Second-Generation Sheets
 
@@ -95,17 +95,17 @@ Any number of the second-generation sheets can be used at once. When arranged in
 
 The following are thumbnail images of the second-generation map sheets; click on them to see higher-resolution versions.
 
-<img src="../maps/map-sheet-A1.png" width="20%"/>&nbsp;<img src="../maps/map-sheet-B1.png" width="20%"/>&nbsp;<img src="../maps/map-sheet-C1.png" width="20%"/>&nbsp;<img src="../maps/map-sheet-D1.png" width="20%"/>
+<img src="../../../maps/map-sheet-A1.png" width="20%"/>&nbsp;<img src="../../../maps/map-sheet-B1.png" width="20%"/>&nbsp;<img src="../../../maps/map-sheet-C1.png" width="20%"/>&nbsp;<img src="../../../maps/map-sheet-D1.png" width="20%"/>
 
-<img src="../maps/map-sheet-A2.png" width="20%"/>&nbsp;<img src="../maps/map-sheet-B2.png" width="20%"/>&nbsp;<img src="../maps/map-sheet-C2.png" width="20%"/>&nbsp;<img src="../maps/map-sheet-D2.png" width="20%"/>
+<img src="../../../maps/map-sheet-A2.png" width="20%"/>&nbsp;<img src="../../../maps/map-sheet-B2.png" width="20%"/>&nbsp;<img src="../../../maps/map-sheet-C2.png" width="20%"/>&nbsp;<img src="../../../maps/map-sheet-D2.png" width="20%"/>
 
-<img src="../maps/map-sheet-A3.png" width="20%"/>&nbsp;<img src="../maps/map-sheet-B3.png" width="20%"/>&nbsp;<img src="../maps/map-sheet-C3.png" width="20%"/>&nbsp;<img src="../maps/map-sheet-D3.png" width="20%"/>
+<img src="../../../maps/map-sheet-A3.png" width="20%"/>&nbsp;<img src="../../../maps/map-sheet-B3.png" width="20%"/>&nbsp;<img src="../../../maps/map-sheet-C3.png" width="20%"/>&nbsp;<img src="../../../maps/map-sheet-D3.png" width="20%"/>
 
-<img src="../maps/map-sheet-A4.png" width="20%"/>&nbsp;<img src="../maps/map-sheet-B4.png" width="20%"/>&nbsp;<img src="../maps/map-sheet-C4.png" width="20%"/>&nbsp;<img src="../maps/map-sheet-D4.png" width="20%"/>
+<img src="../../../maps/map-sheet-A4.png" width="20%"/>&nbsp;<img src="../../../maps/map-sheet-B4.png" width="20%"/>&nbsp;<img src="../../../maps/map-sheet-C4.png" width="20%"/>&nbsp;<img src="../../../maps/map-sheet-D4.png" width="20%"/>
 
-<img src="../maps/map-sheet-A5.png" width="20%"/>&nbsp;<img src="../maps/map-sheet-B5.png" width="20%"/>&nbsp;<img src="../maps/map-sheet-C5.png" width="20%"/>&nbsp;<img src="../maps/map-sheet-D5.png" width="20%"/>
+<img src="../../../maps/map-sheet-A5.png" width="20%"/>&nbsp;<img src="../../../maps/map-sheet-B5.png" width="20%"/>&nbsp;<img src="../../../maps/map-sheet-C5.png" width="20%"/>&nbsp;<img src="../../../maps/map-sheet-D5.png" width="20%"/>
 
-<img src="../maps/map-sheet-A6.png" width="20%"/>&nbsp;<img src="../maps/map-sheet-B6.png" width="20%"/>&nbsp;<img src="../maps/map-sheet-C6.png" width="20%"/>&nbsp;<img src="../maps/map-sheet-D6.png" width="20%"/>
+<img src="../../../maps/map-sheet-A6.png" width="20%"/>&nbsp;<img src="../../../maps/map-sheet-B6.png" width="20%"/>&nbsp;<img src="../../../maps/map-sheet-C6.png" width="20%"/>&nbsp;<img src="../../../maps/map-sheet-D6.png" width="20%"/>
 
 ### Map Sheet Arrangement
 

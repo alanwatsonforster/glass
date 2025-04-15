@@ -58,11 +58,11 @@ The `airsuperiority` and `airstrike` map styles adapted from those in *Air Super
 
 The `airsuperiority` style has a plain blue background. Additionally, it removes all terrain, and so can be used to convert any map sheet into one matching maps A to D; this can be seen below in sheets A2, B1, and B2.
 
-<img src="../maps/map-sheets-A2B1B2-airsuperiority.png" width="100%"/>
+<img src="../../../maps/map-sheets-A2B1B2-airsuperiority.png" width="100%"/>
 
 The `airstrike` style has terrain colors of light green, light brown, and medium brown. All terrain elements are included.
 
-<img src="../maps/map-sheets-A2B1B2-airstrike.png" width="100%"/>
+<img src="../../../maps/map-sheets-A2B1B2-airstrike.png" width="100%"/>
 
 ### New Basic Map Styles
 
@@ -72,39 +72,39 @@ Beyond the comments above on the colors of higher terrain and rivers, there is m
 
 The `water` style is intended to represent the ocean or sea. It removes all terrain The color is blue. 
 
-<img src="../maps/map-sheets-A2B1B2-water.png" width="100%"/>
+<img src="../../../maps/map-sheets-A2B1B2-water.png" width="100%"/>
 
 The `temperate` style is intended to represent terrain in temperate zones. The terrain colors are three shades of light to medium green. All terrain elements are included. This color palette is intended to be more evocative and less distracting than that of the original style. 
 
-<img src="../maps/map-sheets-A2B1B2-temperate.png" width="100%"/>
+<img src="../../../maps/map-sheets-A2B1B2-temperate.png" width="100%"/>
 
 The `temperateforest` style is intended to represent forested terrain in temperate zones. It has reduced urban areas, but is not wilderness. The colors are the same greens as the temperate style. It is drawn with urban areas with up to 4 hexes in size and all forest.
 
-<img src="../maps/map-sheets-A2B1B2-temperateforest.png" width="100%"/>
+<img src="../../../maps/map-sheets-A2B1B2-temperateforest.png" width="100%"/>
 
 The `tundra` style is intended to represent the treeless tundra of northern North America, Europe, and Asia. The colors are the same greens as temperate. It is drawn as a wilderness with no urban hexes. 
 
-<img src="../maps/map-sheets-A2B1B2-tundra.png" width="100%"/>
+<img src="../../../maps/map-sheets-A2B1B2-tundra.png" width="100%"/>
 
 The `borealforest` style is intended to represent the boreal forest or taiga of northern North America, Europe, and Asia. The terrain colors are the same greens as the tropical style. It is drawn as a wilderness with no urban hexes and all forest.  
 
-<img src="../maps/map-sheets-A2B1B2-borealforest.png" width="100%"/>
+<img src="../../../maps/map-sheets-A2B1B2-borealforest.png" width="100%"/>
 
 The `tropical` style is intended to represent more verdant terrain in tropical zones. The terrain colors are three shades of medium green, and are darker than the temperate style. All terrain elements are included. This scheme is designed for the Vietnam scenarios in *The Speed of Heat*. 
 
-<img src="../maps/map-sheets-A2B1B2-tropical.png" width="100%"/>
+<img src="../../../maps/map-sheets-A2B1B2-tropical.png" width="100%"/>
 
 The `tropicalforest` style is intended to represent a tropical forest. It has reduced urban areas, but is not wilderness. The colors are the same greens as the tropical style. It is drawn with urban areas with up to 4 hexes in size and all forest. 
 
-<img src="../maps/map-sheets-A2B1B2-tropicalforest.png" width="100%"/>
+<img src="../../../maps/map-sheets-A2B1B2-tropicalforest.png" width="100%"/>
 
 The `arid` style is intended to represent more arid terrain. The terrain colors are three shades of brown. All terrain elements are included, but the rivers are narrower. This scheme is designed for the scenarios in *Eagles of the Gulf*. 
 
-<img src="../maps/map-sheets-A2B1B2-arid.png" width="100%"/>
+<img src="../../../maps/map-sheets-A2B1B2-arid.png" width="100%"/>
 
 The `desert` style uses the same colors as the arid style, but is drawn as a wilderness with no urban hexes and no rivers. 
 
-<img src="../maps/map-sheets-A2B1B2-desert.png" width="100%"/>
+<img src="../../../maps/map-sheets-A2B1B2-desert.png" width="100%"/>
 
 ### Derived Styles
 
@@ -123,28 +123,28 @@ Some of these combinations do not make much sense physically (such as `frozendes
 
 The `snowytemperate` style could represent winter in Europe.
 
-<img src="../maps/map-sheets-A2B1B2-snowytemperate.png" width="100%"/>
+<img src="../../../maps/map-sheets-A2B1B2-snowytemperate.png" width="100%"/>
 
 The `frozentundra` style could represent winter tundra.
 
-<img src="../maps/map-sheets-A2B1B2-frozentundra.png" width="100%"/>
+<img src="../../../maps/map-sheets-A2B1B2-frozentundra.png" width="100%"/>
 
 The `frozenborealforest` style could represent winter boreal forest or taiga.
 
-<img src="../maps/map-sheets-A2B1B2-frozenborealforest.png" width="100%"/>
+<img src="../../../maps/map-sheets-A2B1B2-frozenborealforest.png" width="100%"/>
 
 The `deserthills` style could represent desert, but with low relief.
 
-<img src="../maps/map-sheets-A2B1B2-deserthills.png" width="100%"/>
+<img src="../../../maps/map-sheets-A2B1B2-deserthills.png" width="100%"/>
 
 The `tropicalplain` style could represent the area around Hanoi and other parts of the Red River Valley in scenarios V-5, V-6, V-12, V-13, V-14, V-15, V-19, V-21, V-24, and V-25 in *The Speed of Heat*.
 
-<img src="../maps/map-sheets-A2B1B2-tropicalplain.png" width="100%"/>
+<img src="../../../maps/map-sheets-A2B1B2-tropicalplain.png" width="100%"/>
 
 The `temperateislands` style could represent Aegean islands.
 
-<img src="../maps/map-sheets-A2B1B2-temperateislands.png" width="100%"/>
+<img src="../../../maps/map-sheets-A2B1B2-temperateislands.png" width="100%"/>
 
 The `frozenwater` style could represent Arctic sea ice.
 
-<img src="../maps/map-sheets-A2B1B2-frozenwater.png" width="100%"/>
+<img src="../../../maps/map-sheets-A2B1B2-frozenwater.png" width="100%"/>
