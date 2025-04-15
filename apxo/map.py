@@ -179,13 +179,15 @@ def setmap(
     sheetgrid,
     dotsperhex=80,
     style="airstrike",
+    leveloffset=0,
     levelincrement=1,
     rotation=0,
 ):
     """
     Set up the map.
 
-    :param: sheetgrid: The sheetgrid argument must be a 2D array of sheet specificiers. The sheets
+    :param: sheetgrid: The sheetgrid argument must be a 2D array of sheet
+        specificiers. The sheets
     are ordered top-to-bottom and left-to-right. All of the rows must be the
     same length. Each sheet specifier must be a string consisting of a sheet
     name optionally followed by "/i" if the sheet is inverted. No sheet name can
@@ -206,11 +208,11 @@ def setmap(
     "islands:  "water", "temperate", "temperateforest", "tundra",
     "borealforest", "tropical", "tropicalforest", "arid", and "desert".
 
-    The levelincrement argument gives the number of altitude levels
-    corresponding to one terrain level. It must be a positive integer. For
-    example, if levelincrement is 1, then terrain levels 0, 1, and 2 correspond
-    to altitude levels 0, 1, and 2, but if levelincrement is 2, then they
-    correspond to altitude levels 0, 2, and 4.
+    The leveloffset and levelincrement argument define the mapping from terrain
+    levels to altitude levels. The altitude corresponding to a terrain level is
+    leveloffset plus the terrain level times the levelincrement. For example, if
+    leveloffset is 3 and levelincrement is 2, then terrain levels 0, 1, and 2
+    correspond to altitude levels 3, 5, and 7.
 
     The rotation parameter determines the rotation of the map with respect to
     the normal orientation.
@@ -291,7 +293,8 @@ def setmap(
 
     _rotation = rotation
 
-    global _levelincrement
+    global _leveloffset, _levelincrement
+    _leveloffset = leveloffset
     _levelincrement = levelincrement
 
     def sheettoright(iy, ix):
@@ -1252,11 +1255,11 @@ def altitude(x, y, sheet=None):
             sheet = tosheet(x, y)
         label = int(aphexcode.tolabel(aphexcode.fromxy(x, y, sheet=sheet)))
         if label in _terrain[sheet]["level2hexes"]:
-            return 2 * _levelincrement
+            return _leveloffset + 2 * _levelincrement
         elif label in _terrain[sheet]["level1hexes"]:
-            return 1 * _levelincrement
+            return _leveloffset + 1 * _levelincrement
         else:
-            return 0
+            return _leveloffset
 
     else:
 
