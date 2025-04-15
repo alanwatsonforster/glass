@@ -100,7 +100,8 @@ waterourlinewidth = 2
 tunnelinnerwidth = roadwidth + 8
 tunnelouterwidth = tunnelinnerwidth + 6
 
-riverwidth = 14
+narrowriverwidth = 9
+defaultriverwidth = 14
 wideriverwidth = 35
 
 townhatch = "xx"
@@ -322,7 +323,8 @@ def setmap(
                 terrain = _loadterrain(sheet)
                 if inverted:
                     terrain = _invertterrain(terrain)
-                terrain = _styleterrain(terrain)
+                terrain = apmapstyle.styleterrain(terrain, _style)
+                terrain = _prepareterrain(terrain)
                 _terrain[sheet] = terrain
 
 
@@ -330,161 +332,32 @@ def setmap(
 
 
 def _loadterrain(sheet):
+    """"
+    Load a terrain object from a file and return it.
+
+    :param sheet: The sheet parameter is the sheet name. It must be a string and
+        correspond to a valid sheet.
+
+    :returns: The terrain object for the sheet.
+    """
     filename = os.path.join(os.path.dirname(__file__), "mapsheetdata", sheet + ".json")
     with open(filename, "r", encoding="utf-8") as f:
         terrain = json.load(f)
     return terrain
 
-def _styleterrain(terrain):
 
-    wilderness = _style["wilderness"]
-    water = _style["water"]
-    forest = _style["forest"]
-    maxurbansize = _style["maxurbansize"]
-    leveloffset = _style["leveloffset"]
+def _invertterrain(terrain):
+    """"
+    Return an inverted terrain object.
 
-    if water == "all" or water == "islands":
-        terrain["base"] = "water"
+    :param terrain: The terrain parameter must be a terrain object.
 
-    if water == "all":
-        terrain["level0hexes"] = []
-        terrain["level0ridgepaths"] = []
-        terrain["level1hexes"] = []
-        terrain["level2hexes"] = []
-        terrain["level1ridgepaths"] = []
-        terrain["level2ridgepaths"] = []
-    elif water == "islands":
-        terrain["level0hexes"] = terrain["level1hexes"]
-        terrain["level1hexes"] = terrain["level2hexes"]
-        terrain["level2hexes"] = []
-        terrain["level0ridgepaths"] = terrain["level1ridgepaths"]
-        terrain["level1ridgepaths"] = terrain["level2ridgepaths"]
-        terrain["level2ridgepaths"] = []
-    elif leveloffset == -1:
-        terrain["level1hexes"] = terrain["level2hexes"]
-        terrain["level2hexes"] = []
-        terrain["level0ridgepaths"] = terrain["level1ridgepaths"]
-        terrain["level1ridgepaths"] = terrain["level2ridgepaths"]
-        terrain["level2ridgepaths"] = []
-    elif leveloffset == -2:
-        terrain["level1hexes"] = []
-        terrain["level2hexes"] = []
-        terrain["level0ridgepaths"] = terrain["level2ridgepaths"]
-        terrain["level1ridgepaths"] = []
-        terrain["level2ridgepaths"] = []
-    elif leveloffset == -3:
-        terrain["level1hexes"] = []
-        terrain["level2hexes"] = []
-        terrain["level1ridgepaths"] = []
-        terrain["level2ridgepaths"] = []
+    :returns: An inverted copy of the terrain parameter.
+    """
 
-    if wilderness or water == "all":
-        terrain["townhexes"] = []
-    else:
-        terrain["townhexes"] = []
-        if maxurbansize >= 1:
-            terrain["townhexes"] += terrain["town1hexes"]
-        if maxurbansize >= 2:
-            terrain["townhexes"] += terrain["town2hexes"]
-        if maxurbansize >= 3:
-            terrain["townhexes"] += terrain["town3hexes"]
-        if maxurbansize >= 4:
-            terrain["townhexes"] += terrain["town4hexes"]
-        if maxurbansize >= 5:
-            terrain["townhexes"] += terrain["town5hexes"]
-    if water == "islands":
-        newtownhexes = []
-        for townhex in terrain["townhexes"]:
-            if (
-                townhex
-                in terrain["level0hexes"]
-                + terrain["level1hexes"]
-                + terrain["level2hexes"]
-            ):
-                newtownhexes.append(townhex)
-        terrain["townhexes"] = newtownhexes
-
-    level0townhexes = []
-    level1townhexes = []
-    level2townhexes = []
-    for townhex in terrain["townhexes"]:
-        if townhex in terrain["level2hexes"]:
-            level2townhexes.append(townhex)
-        elif townhex in terrain["level1hexes"]:
-            level1townhexes.append(townhex)
-        else:
-            level0townhexes.append(townhex)
-    terrain["level0townhexes"] = level0townhexes
-    terrain["level1townhexes"] = level1townhexes
-    terrain["level2townhexes"] = level2townhexes
-
-    if wilderness or water == "all" or water == "islands" or maxurbansize < 5:
-        terrain["cityhexes"] = []
-
-    if wilderness or water == "desert" or water == "all" or water == "islands":
-        terrain["smallbridgepaths"] = []
-        terrain["largebridgepaths"] = []
-
-    if water == "all" or water == "islands" or wilderness:
-        terrain["dampaths"] = []
-
-    global riverwidth
-    if water == "arid":
-        riverwidth = 9
-    else:
-        riverwidth = 14
-
-    if water == "desert" or water == "all" or water == "islands":
-        terrain["lakehexes"] = []
-        terrain["riverpaths"] = []
-        terrain["wideriverpaths"] = []
-
-    if wilderness or water == "all" or water == "islands":
-        terrain["roadpaths"] = []
-        terrain["trailpaths"] = []
-        terrain["dockpaths"] = []
-        terrain["clearingpaths"] = []
-
-    if wilderness or water == "all" or water == "islands":
-        terrain["tunnelpaths"] = []
-    elif leveloffset != 0:
-        terrain["roadpaths"] += terrain["tunnelpaths"]
-        terrain["tunnelpaths"] = []
-
-    if wilderness or water == "all" or water == "islands" or forest == "all":
-        terrain["runwaypaths"] = []
-        terrain["taxiwaypaths"] = []
-
-    if forest is False or water == "all":
-        terrain["foresthexes"] = []
-    elif water == "islands":
-        if forest == "all":
-            terrain["foresthexes"] = (
-                terrain["level0hexes"] + terrain["level1hexes"] + terrain["level2hexes"]
-            )
-        else:
-            newforesthexes = []
-            for foresthex in terrain["foresthexes"]:
-                if (
-                    foresthex
-                    in terrain["level0hexes"]
-                    + terrain["level1hexes"]
-                    + terrain["level2hexes"]
-                ):
-                    newforesthexes.append(foresthex)
-            terrain["foresthexes"] = newforesthexes
-        terrain["forest"] = True
-    elif forest == "all":
-        terrain["foresthexes"] = "all"
-
-    return terrain
-
-
-def _invertterrain(oldterrain):
-
-    xcenter = oldterrain["center"][0]
-    ycenter = oldterrain["center"][1]
-    generation = oldterrain["generation"]
+    xcenter = terrain["center"][0]
+    ycenter = terrain["center"][1]
+    generation = terrain["generation"]
 
     def duplicatehexes(oldhexes):
         return list(duplicatehex(oldhex) for oldhex in oldhexes)
@@ -532,15 +405,43 @@ def _invertterrain(oldterrain):
         return newxy
 
     newterrain = {}
-    for key in oldterrain.keys():
+    for key in terrain.keys():
         if key[-5:] == "hexes":
-            newterrain[key] = duplicatehexes(oldterrain[key])
+            newterrain[key] = duplicatehexes(terrain[key])
         elif key[-5:] == "paths":
-            newterrain[key] = duplicatepaths(oldterrain[key])
+            newterrain[key] = duplicatepaths(terrain[key])
         else:
-            newterrain[key] = oldterrain[key]
+            newterrain[key] = terrain[key]
     return newterrain
 
+def _prepareterrain(terrain):
+    """
+    Return a terrain object prepared for making the map.
+
+    :param terrain: A styled terrain object.
+
+    :returns: A terrain object prepared for making the map. Specifically, with
+        the townhexes values split according to their terrain level.
+    """
+
+    newterrain = terrain.copy()
+
+    # Add the town hexes according to their terrain level.
+    level0townhexes = []
+    level1townhexes = []
+    level2townhexes = []
+    for townhex in terrain["townhexes"]:
+        if townhex in terrain["level2hexes"]:
+            level2townhexes.append(townhex)
+        elif townhex in terrain["level1hexes"]:
+            level1townhexes.append(townhex)
+        else:
+            level0townhexes.append(townhex)
+    newterrain["level0townhexes"] = level0townhexes
+    newterrain["level1townhexes"] = level1townhexes
+    newterrain["level2townhexes"] = level2townhexes
+
+    return newterrain
 
 ################################################################################
 
@@ -580,6 +481,11 @@ def startdrawmap(
     hexcolor = _style["hexcolor"]
     hexalpha = _style["hexalpha"]
     labelcolor = _style["labelcolor"]
+    if  _style["riverwidth"] == "narrow":
+        riverwidth =narrowriverwidth
+    else:
+        riverwidth = defaultriverwidth
+
 
     def drawhex(x, y, label=False, **kwargs):
         apdraw.drawhex(x, y, zorder=0, **kwargs)

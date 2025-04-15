@@ -1,6 +1,6 @@
 ################################################################################
 
-__all__ = ["getstyle"]
+__all__ = ["getstyle", "styleterrain"]
 
 ################################################################################
 
@@ -67,6 +67,7 @@ basestyle = {
     "dockoutlinecolor": red,
     "forestcolor": red,
     "forestalpha": 1.0,
+    "riverwidth": "normal",
 }
 
 ################################################################################
@@ -231,9 +232,16 @@ def withwilderness(style, value=True):
 
 def withwater(style, value=True):
     """Return a new style with a new water value."""
-    assert value in [True, False, "all", "arid", "desert"]
+    assert value in [True, False, "all", "desert"]
     return style | {
         "water": value,
+    }
+
+def withriverwidth(style, value="normal"):
+    """Return a new style with a new riverwidth value."""
+    assert value in ["normal", "narrow"]
+    return style | {
+        "riverwidth": value,
     }
 
 
@@ -312,6 +320,9 @@ style = withwhitemegahexcolors(style, 0.10)
 _style["airstrike"] = style
 
 ################################################################################
+
+# The Air Superiority style is essentially the airstrike style converted to all
+# water.
 
 style = _style["airstrike"]
 style = withwater(style, "all")
@@ -399,7 +410,7 @@ style = withwatercolors(style)
 style = withgraybuiltcolors(style)
 style = withgrayhexcolors(style)
 style = withwhitemegahexcolors(style, 0.22)
-style = withwater(style, "arid")
+style = withriverwidth(style, "narrow")
 
 _style["arid"] = style
 
@@ -426,5 +437,143 @@ for style in list(_style.keys()):
         _style[style + "hills"] = withleveloffset(_style[style], -1)
         _style[style + "plain"] = withleveloffset(_style[style], -3)
         _style[style + "islands"] = withislands(_style[style])
+
+################################################################################
+
+
+def styleterrain(newterrain, style):
+    """
+    Return a styled terrain object.
+
+    :param terrain: The terrain parameter must be a terrain object.
+
+    :param style: The style paremeter must be a style object.
+
+    :returns: A new terrain object based on the terrain argument and modified
+        according to the wilderness, water, forest, maxurbansize, and
+        leveloffset values of the style argument.
+    """
+
+    wilderness = style["wilderness"]
+    water = style["water"]
+    forest = style["forest"]
+    maxurbansize = style["maxurbansize"]
+    leveloffset = style["leveloffset"]
+
+    if water == "all" or water == "islands":
+        newterrain["base"] = "water"
+
+    if water == "all":
+        newterrain["level0hexes"] = []
+        newterrain["level0ridgepaths"] = []
+        newterrain["level1hexes"] = []
+        newterrain["level2hexes"] = []
+        newterrain["level1ridgepaths"] = []
+        newterrain["level2ridgepaths"] = []
+    elif water == "islands":
+        newterrain["level0hexes"] = newterrain["level1hexes"]
+        newterrain["level1hexes"] = newterrain["level2hexes"]
+        newterrain["level2hexes"] = []
+        newterrain["level0ridgepaths"] = newterrain["level1ridgepaths"]
+        newterrain["level1ridgepaths"] = newterrain["level2ridgepaths"]
+        newterrain["level2ridgepaths"] = []
+    elif leveloffset == -1:
+        newterrain["level1hexes"] = newterrain["level2hexes"]
+        newterrain["level2hexes"] = []
+        newterrain["level0ridgepaths"] = newterrain["level1ridgepaths"]
+        newterrain["level1ridgepaths"] = newterrain["level2ridgepaths"]
+        newterrain["level2ridgepaths"] = []
+    elif leveloffset == -2:
+        newterrain["level1hexes"] = []
+        newterrain["level2hexes"] = []
+        newterrain["level0ridgepaths"] = newterrain["level2ridgepaths"]
+        newterrain["level1ridgepaths"] = []
+        newterrain["level2ridgepaths"] = []
+    elif leveloffset == -3:
+        newterrain["level1hexes"] = []
+        newterrain["level2hexes"] = []
+        newterrain["level1ridgepaths"] = []
+        newterrain["level2ridgepaths"] = []
+
+    if wilderness or water == "all":
+        newterrain["townhexes"] = []
+    else:
+        newterrain["townhexes"] = []
+        if maxurbansize >= 1:
+            newterrain["townhexes"] += newterrain["town1hexes"]
+        if maxurbansize >= 2:
+            newterrain["townhexes"] += newterrain["town2hexes"]
+        if maxurbansize >= 3:
+            newterrain["townhexes"] += newterrain["town3hexes"]
+        if maxurbansize >= 4:
+            newterrain["townhexes"] += newterrain["town4hexes"]
+        if maxurbansize >= 5:
+            newterrain["townhexes"] += newterrain["town5hexes"]
+    if water == "islands":
+        newtownhexes = []
+        for townhex in newterrain["townhexes"]:
+            if (
+                townhex
+                in newterrain["level0hexes"]
+                + newterrain["level1hexes"]
+                + newterrain["level2hexes"]
+            ):
+                newtownhexes.append(townhex)
+        newterrain["townhexes"] = newtownhexes
+
+    if wilderness or water == "all" or water == "islands" or maxurbansize < 5:
+        newterrain["cityhexes"] = []
+
+    if wilderness or water == "desert" or water == "all" or water == "islands":
+        newterrain["smallbridgepaths"] = []
+        newterrain["largebridgepaths"] = []
+
+    if water == "all" or water == "islands" or wilderness:
+        newterrain["dampaths"] = []
+
+    if water == "desert" or water == "all" or water == "islands":
+        newterrain["lakehexes"] = []
+        newterrain["riverpaths"] = []
+        newterrain["wideriverpaths"] = []
+
+    if wilderness or water == "all" or water == "islands":
+        newterrain["roadpaths"] = []
+        newterrain["trailpaths"] = []
+        newterrain["dockpaths"] = []
+        newterrain["clearingpaths"] = []
+
+    if wilderness or water == "all" or water == "islands":
+        newterrain["tunnelpaths"] = []
+    elif leveloffset != 0:
+        newterrain["roadpaths"] += newterrain["tunnelpaths"]
+        newterrain["tunnelpaths"] = []
+
+    if wilderness or water == "all" or water == "islands" or forest == "all":
+        newterrain["runwaypaths"] = []
+        newterrain["taxiwaypaths"] = []
+
+    if forest is False or water == "all":
+        newterrain["foresthexes"] = []
+    elif water == "islands":
+        if forest == "all":
+            newterrain["foresthexes"] = (
+                newterrain["level0hexes"] + newterrain["level1hexes"] + newterrain["level2hexes"]
+            )
+        else:
+            newforesthexes = []
+            for foresthex in newterrain["foresthexes"]:
+                if (
+                    foresthex
+                    in newterrain["level0hexes"]
+                    + newterrain["level1hexes"]
+                    + newterrain["level2hexes"]
+                ):
+                    newforesthexes.append(foresthex)
+            newterrain["foresthexes"] = newforesthexes
+        newterrain["forest"] = True
+    elif forest == "all":
+        newterrain["foresthexes"] = "all"
+
+    return newterrain
 
 ################################################################################
