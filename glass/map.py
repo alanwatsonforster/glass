@@ -187,35 +187,37 @@ def setmap(
     Set up the map.
 
     :param: sheetgrid: The sheetgrid argument must be a 2D array of sheet
-        specificiers. The sheets
-    are ordered top-to-bottom and left-to-right. All of the rows must be the
-    same length. Each sheet specifier must be a string consisting of a sheet
-    name optionally followed by "/i" if the sheet is inverted. No sheet name can
-    be used more than once and all sheets must be from the same generation.
+        specificiers. The sheets are ordered top-to-bottom and left-to-right.
+        All of the rows must be the same length. Each sheet specifier must be a
+        string consisting of a sheet name optionally followed by "/i" if the
+        sheet is inverted. No sheet name can be used more than once and all
+        sheets must be from the same generation.
 
-    The first-generation sheet names are: "A", "B", "C", ..., "Z".
+        The first-generation sheet names are: "A", "B", "C", ..., "Z".
 
-    The second-generation sheet names are: "A1", "A2, "A3, ..., "A6", "B1", ...,
-    "B6", "C1", ..., "C6", "D1", ..., "D6.
+        The second-generation sheet names are: "A1", "A2, "A3, ..., "A6", "B1",
+        ..., "B6", "C1", ..., "C6", "D1", ..., "D6.
 
-    The dotsperhex argument must be an integer. It specifies the resolution of
-    pixelated output files in dots per hex (or more precisely dots between hex
-    centers).
+    :param: dotsperhex: The dotsperhex argument must be an integer. It specifies
+        the resolution of pixelated output files in dots per hex (or more
+        precisely dots between hex centers).
 
-    The style argument must be a string corresponding to a style. It can be
-    "airstrike", "airsuperiority", or one of the following optionally prefixed
-    by "snowy" or "frozen" and optionally suffixed by "hills", "plain", or
-    "islands:  "water", "temperate", "temperateforest", "tundra",
-    "borealforest", "tropical", "tropicalforest", "arid", and "desert".
+    :param: style: The style argument must be a string corresponding to a style.
+        It can be "airstrike", "airsuperiority", or one of the following
+        optionally prefixed by "snowy" or "frozen" and optionally suffixed by
+        "hills", "plain", or "islands:  "water", "temperate", "temperateforest",
+        "tundra", "borealforest", "tropical", "tropicalforest", "arid", and
+        "desert".
 
-    The leveloffset and levelincrement argument define the mapping from terrain
-    levels to altitude levels. The altitude corresponding to a terrain level is
-    leveloffset plus the terrain level times the levelincrement. For example, if
-    leveloffset is 3 and levelincrement is 2, then terrain levels 0, 1, and 2
-    correspond to altitude levels 3, 5, and 7.
+    :param: leveloffset levelincrement: The leveloffset and levelincrement
+        arguments define the mapping from terrain levels to altitude levels. The
+        altitude corresponding to a terrain level is leveloffset plus the
+        terrain level times the levelincrement. For example, if leveloffset is 3
+        and levelincrement is 2, then terrain levels 0, 1, and 2 correspond to
+        altitude levels 3, 5, and 7.
 
-    The rotation parameter determines the rotation of the map with respect to
-    the normal orientation.
+    :param: rotation: The rotation parameter determines the rotation of the map
+        with respect to the normal orientation.
     """
 
     global _usingfirstgenerationsheets
