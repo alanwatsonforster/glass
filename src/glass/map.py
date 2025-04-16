@@ -14,8 +14,8 @@ XX is the game turn padded if necessary to two character with a leading zero
 files can be turned on and off by calling :func:`setwritefiles`.
 
 Certain properties of the map can be queried by :func:`altitude`,
-:func:`iscity`, :func:`isonmap`, :func:`sheetorigin`, :func:`tosheet`, and
-:func:`usingfirstgeneratuonsheets`.
+:func:`crossesridgeline`, :func:`iscity`, :func:`isonmap`, :func:`sheetorigin`,
+:func:`tosheet`, and :func:`usingfirstgeneratuonsheets`.
 
 For information on map styling, see :mod:`glass.mapstyle.`
 
@@ -1386,7 +1386,20 @@ def iscity(x, y, sheet=None):
 
 def crossesridgeline(x0, y0, x1, y1):
 
-    # See https://www.geeksforgeeks.org/check-if-two-given-line-segments-intersect/
+    """
+    Return whether a line segment crosses a ridgeline on the map.
+
+    :param x0:
+    :param y0:
+    :param x1:
+    :param y1: The ``x0``, ``y0``, ``x1``, and ``y1`` arguments define the line segment from (``x0``, ``y0``) to (``x1``, ``y1``).
+
+    :return: ``True`` if the line segment crosses a ridge line on the map, otherwise ``False``. 
+    """
+
+    # This code uses the algorithm described here:
+    # 
+    #   https://www.geeksforgeeks.org/check-if-two-given-line-segments-intersect/
 
     class point:
         def __init__(self, x, y):
@@ -1395,7 +1408,7 @@ def crossesridgeline(x0, y0, x1, y1):
 
     def onsegment(p, q, r):
         """
-        Return true if q lines on the line segment pr, assuming p, q, and r are colinear.
+        Return true if q lies on the line segment pr, assuming p, q, and r are colinear.
         """
 
         return (
@@ -1408,7 +1421,7 @@ def crossesridgeline(x0, y0, x1, y1):
     def orientation(p, q, r):
         """
         Return the orientation of an ordered triplet of points (p, q, r),
-        where 0 means colinear, 1 means clockwise, and -1 means anticlockwise.
+        where 0 means colinear, +1 means clockwise, and -1 means anticlockwise.
         """
         v = (float(q.y - p.y) * (r.x - q.x)) - (float(q.x - p.x) * (r.y - q.y))
         if v > 0:
@@ -1423,8 +1436,7 @@ def crossesridgeline(x0, y0, x1, y1):
         Return whether the line segment (p1, q1) intersects with the line segment (p2, q2).
         """
 
-        # Find the 4 orientations required for
-        # the general and special cases
+        # Find the 4 orientations required for the general and special cases
         o1 = orientation(p1, q1, p2)
         o2 = orientation(p1, q1, q2)
         o3 = orientation(p2, q2, p1)
@@ -1456,6 +1468,9 @@ def crossesridgeline(x0, y0, x1, y1):
         return False
 
     def crossesridgepath(p, q, sheet, ridgepath):
+        """
+        Return whether the line segment (p, q) intersects the ridgepath.
+        """
         i = 0
         while i < len(ridgepath) - 1:
             r = point(*toxy(sheet, *ridgepath[i + 0]))
