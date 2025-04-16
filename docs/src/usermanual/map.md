@@ -155,3 +155,21 @@ Oblique map sheets are used in these scenarios:
   - EOG-20
 - *The Speed of Heat*
   - None
+
+### Offset Map Sheets
+
+Glass does not allow map sheets to be offset from one another; if two maps are adjacent then either their long or short edges must fully abut.
+
+Offset map sheets are used in these scenarios:
+
+- *Air Superiority*
+  - None
+- *Air Strike*
+  - S-9 (multi-player variant)
+  - H-22
+- *Desert Falcons*
+  - None
+- *Eagles of the Gulf*
+  - None
+- *The Speed of Heat*
+  - None
