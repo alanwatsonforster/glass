@@ -1188,7 +1188,7 @@ def sheetorigin(sheet):
     Return the hex coordinates (x, y) of the lower left corner of the specified
     sheet.
 
-    :param sheet: The ``sheet`` argument specifies the sheet. It must be a
+    :param sheet: The ``sheet`` argument specifies the sheet name. It must be a
         string and must be part of the map.
     :returns:  The hex coordinates (x, y) of the lower left corner of the
         specified sheet as two values.
@@ -1232,12 +1232,22 @@ def isonsheet(sheet, x, y):
     """
     Return whether the position is on the sheet.
 
-    :param sheet: The ``sheet`` argument specifies the sheet. It must be a
+    :param sheet: The ``sheet`` argument specifies the sheet name. It must be a
         string and must be part of the map.
     :param x:
     :param y: The ``x`` and ``y`` arguments specify the position. They must form
         a valid hex position.
     :returns: ``True`` if the position is on the sheet, otherwise ``False``.
+
+    :note:
+
+        The edge of a sheet is *internal* if it is adjacent to another sheet in
+        the map and is *external* otherwise. A position is on a sheet if it is
+        strictly within the boundaries of the sheet if it is on the rightmost
+        edge of the sheet if this is an inner edge, or if it is on the bottom
+        edge of the sheet if this is an inner edge. These directions are
+        considered with the map in the normal orientation before any rotations.
+
     """
 
     assert sheet in sheets()
@@ -1256,15 +1266,17 @@ def isonsheet(sheet, x, y):
 
 def tosheet(x, y):
     """
-    Return the sheet containing the position or ``None`` if no
-    sheet contains the position.
+    Return the name of the sheet the position is on or ``None`` if the position is not on any sheet.
 
 
     :param x:
     :param y: The ``x`` and ``y`` arguments specify the position. They must form
         a valid hex position.
-    :returns: The sheet containing the position or ``None`` if no sheet contains
-        the position.
+    :returns: The name of sheet the position is on or ``None`` if the position is not on any sheet.
+
+    :note:
+
+        See :func:`isonsheet` for a precise definition of being “on a sheet.”
     """
 
     for sheet in sheets():
@@ -1282,6 +1294,14 @@ def isonmap(x, y):
     :param y: The ``x`` and ``y`` arguments specify the position. They must form
         a valid hex position.
     :returns: ``True`` if the position is on the map, otherwise ``False``. 
+
+
+    :note:
+
+        The edge of a sheet is *internal* if it is adjacent to another sheet in
+        the map and is *external* otherwise. We say that a position is on the
+        map if it is strictly within the boundary of the map. The boundary of
+        the map is formed by the external edges of the sheets.
     """
 
     return tosheet(x, y) != None and (
