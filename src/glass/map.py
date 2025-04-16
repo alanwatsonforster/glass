@@ -1,6 +1,43 @@
 """
-The map.
+The :mod:`glass.map` module contains functions to specify, draw, and query the
+map.
+
+The map is set-up by calling :func:`.setmap`. It is then drawn by calling
+:func:`.startdraw`, then drawing individual elements by calling their
+:meth:`draw` methods, and then by calling :func:`.enddraw`. 
+
+The map is automatically shown in a Python notebook. It can also be written to
+files by specifying file types using :func:`setwritefiletypes`; by default PNG
+files are written. The file names are of the form ``"map-XX.SUFFIX"`` in which
+XX is the game turn padded if necessary to two character with a leading zero
+(and 00 prior to the first game turn) and SUFFIX is the file suffix. Writing
+files can be turned on and off by calling :func:`setwritefiles`.
+
+Certain properties of the map can be queried by :func:`altitude`,
+:func:`iscity`, :func:`isonmap`, :func:`sheetorigin`, :func:`tosheet`, and
+:func:`usingfirstgeneratuonsheets`.
+
+For information on map styling, see :mod:`glass.mapstyle.`
+
 """
+
+__all__ = [
+    "setmap",
+    "setwritefiles",
+    "setwritefiletypes",
+    "setwatermark",
+    "startdrawmap",
+    "enddrawmap",
+    "usingfirstgenerationsheets",
+    "isonmap",
+    "tosheet",
+    "sheetorigin",
+    "altitude",
+    "iscity",
+    "crossesridgeline",
+]
+
+################################################################################
 
 import glass.azimuth
 import glass.draw
@@ -17,11 +54,12 @@ import os
 _writefiles = True
 
 
-def setwritefiles(value):
+def setwritefiles(flag):
     """
     Set the flag for writing map files.
 
-    If the value argument is false, do not write map files. Otherwise, write the map files.
+    :param flag: 
+        If the flag argument is false, do not write map files. Otherwise, write the map files.
     """
     global _writefiles
     _writefiles = value
@@ -30,25 +68,27 @@ def setwritefiles(value):
 _writefiletypes = ["png"]
 
 
-def setwritefiletypes(value):
+def setwritefiletypes(suffixlist):
     """
     Set the types of the map files.
 
-    The value argument must be a list of strings of the suffixes of supported map file types. 
-    Supported suffixes include "png and "pdf".
+    :param suffixlist: 
+        The value argument must be a list of strings of the suffixes of supported map file types. 
+        Supported suffixes include ``"png"`` and ``"pdf"``.
     """
     global _writefiletypes
-    _writefiletypes = value
+    _writefiletypes = suffixlist
 
 
 _watermark = None
 
 
-def setwatermark(value):
+def setwatermark(watermark):
     """
-    Set the watermark  for maps.
+    Set the watermark for maps.
 
-    The value argument must be a string.
+    :param watermark: 
+        The watermark argument must be a string.
     """
     global _watermark
     _watermark = value
@@ -170,7 +210,10 @@ secondgenerationsheets = [
 
 def usingfirstgenerationsheets():
     """
-    Return true if the map is using first-generation map sheets, otherwise return false.
+    Return whether the is using first-generation map sheets.
+
+    :returns: ``True`` if the map is using first-generation map sheets, otherwise ``False``.
+
     """
     return _usingfirstgenerationsheets
 
@@ -186,37 +229,44 @@ def setmap(
     """
     Set up the map.
 
-    :param: sheetgrid: The sheetgrid argument must be a 2D array of sheet
-        specificiers. The sheets are ordered top-to-bottom and left-to-right.
-        All of the rows must be the same length. Each sheet specifier must be a
-        string consisting of a sheet name optionally followed by "/i" if the
+    :param sheetgrid: The ``sheetgrid`` argument must be a 2D array of sheet
+        specifiers. The sheets are ordered top-to-bottom and left-to-right. All
+        of the rows must be the same length. Each sheet specifier must be a
+        string consisting of a sheet name optionally followed by ``"/i"`` if the
         sheet is inverted. No sheet name can be used more than once and all
         sheets must be from the same generation.
 
-        The first-generation sheet names are: "A", "B", "C", ..., "Z".
+        The first-generation sheet names are: ``"A"``, ``"B"``, ``"C"``, ...,
+        ``"Z"``.
 
-        The second-generation sheet names are: "A1", "A2, "A3, ..., "A6", "B1",
-        ..., "B6", "C1", ..., "C6", "D1", ..., "D6.
+        The second-generation sheet names are: ``"A1"``, ``"A2"``, ``"A3"``, ...,
+        ``"A6"``, ``"B1"``, ..., ``"B6"``, ``"C1"``, ..., ``"C6"``, ``"D1"``,
+        ..., ``"D6"``.
 
-    :param: dotsperhex: The dotsperhex argument must be an integer. It specifies
-        the resolution of pixelated output files in dots per hex (or more
-        precisely dots between hex centers).
+    :param dotsperhex: The ``dotsperhex`` argument must be an integer. It
+        specifies the resolution of pixelated output files in dots per hex (or
+        more precisely dots between hex centers).
 
-    :param: style: The style argument must be a string corresponding to a style.
-        It can be "airstrike", "airsuperiority", or one of the following
-        optionally prefixed by "snowy" or "frozen" and optionally suffixed by
-        "hills", "plain", or "islands:  "water", "temperate", "temperateforest",
-        "tundra", "borealforest", "tropical", "tropicalforest", "arid", and
-        "desert".
+    :param style: The ``style`` argument must be a string corresponding to a
+        style.
 
-    :param: leveloffset levelincrement: The leveloffset and levelincrement
-        arguments define the mapping from terrain levels to altitude levels. The
-        altitude corresponding to a terrain level is leveloffset plus the
-        terrain level times the levelincrement. For example, if leveloffset is 3
-        and levelincrement is 2, then terrain levels 0, 1, and 2 correspond to
-        altitude levels 3, 5, and 7.
+        It can be one of the original styles (``"airstrike"`` or
+        ``"airsuperiority"``), one of the base styles (``"water"``,
+        ``"temperate"``, ``"temperateforest"``, ``"tundra"``,
+        ``"borealforest"``, ``"tropical"``, ``"tropicalforest"``, ``"arid"``, or
+        ``"desert"``), or one of the base styles with an optional prefix
+        (``"snowy"`` or ``"frozen"``) and an optional suffix (``"hills"``,
+        ``"plain"``, or ``"islands"``).
 
-    :param: rotation: The rotation parameter determines the rotation of the map
+    :param leveloffset:
+    :param levelincrement: The ``leveloffset`` and ``levelincrement`` arguments
+        define the mapping from terrain levels to altitude levels. The altitude
+        corresponding to a terrain level is ``leveloffset`` plus the terrain
+        level times the ``levelincrement``. For example, if ``leveloffset`` is 3
+        and ``levelincrement`` is 2, then terrain levels 0, 1, and 2 correspond
+        to altitude levels 3, 5, and 7.
+
+    :param rotation: The ``rotation`` parameter determines the rotation of the map
         with respect to the normal orientation.
     """
 
@@ -463,6 +513,16 @@ def startdrawmap(
 ):
     """
     Start to draw the map.
+
+    :param xmin:
+    :param ymin:
+    :param xmax:
+    :param ymax: The ``xmin``, ``ymin``, ``xmax``, and ``xmax`` arguments can determine the region of the map that will be drawn. If any is not ``None``, all must be numbers, they must specify two positions that are on the map, and the value of the ``sheets`` argument must be ``None``.
+    :param sheets: The ``sheets`` argument can determine the region of the map that will be drawn. If it is not ``None``, it must be a list of sheets that are part of the map and the values of the ``xmin``, ``ymin``, ``xmax``, and ``xmax`` argument must be ``None``.
+    :param compactstacks: The ``compactstacks`` argument determines whether stacks of ground units are drawn in the compact or spread style. If it is true, they are drawn in the compact style, otherwise they are drawn in the spread style.
+
+    :notes: If the region is not specified either by the ``xmin``, ``ymin``, ``xmax``, and ``xmax`` arguments or by the ``sheets`` argument, the whole map is drawn.
+
     """
 
     level0color = _style["level0color"]
@@ -1151,10 +1211,13 @@ def enddrawmap(turn, writefiles=True):
 
 def sheetorigin(sheet):
     """
-    Returns the hex coordinates (x0, y0) of the lower left corner of the
-    specified sheet.
+    Return the hex coordinates (x, y) of the lower left corner of the specified
+    sheet.
 
-    The specified sheet must be in the map.
+    :param sheet: The ``sheet`` argument specifies the sheet. It must be a
+        string and must be part of the map.
+    :returns:  The hex coordinates (x, y) of the lower left corner of the
+        specified sheet as two values.
     """
 
     assert sheet in sheets()
@@ -1193,8 +1256,14 @@ def sheets():
 
 def isonsheet(sheet, x, y):
     """
-    Returns True if the hex coordinate (x, y) is on the specified sheet.
-    Otherwise returns false. The sheet must be in the map.
+    Return whether the position is on the sheet.
+
+    :param sheet: The ``sheet`` argument specifies the sheet. It must be a
+        string and must be part of the map.
+    :param x:
+    :param y: The ``x`` and ``y`` arguments specify the position. They must form
+        a valid hex position.
+    :returns: ``True`` if the position is on the sheet, otherwise ``False``.
     """
 
     assert sheet in sheets()
@@ -1213,8 +1282,15 @@ def isonsheet(sheet, x, y):
 
 def tosheet(x, y):
     """
-    Returns the sheet containing the hex coordinates (x, y). If no sheet contains
-    the coordinates, returns None.
+    Return the sheet containing the position or ``None`` if no
+    sheet contains the position.
+
+
+    :param x:
+    :param y: The ``x`` and ``y`` arguments specify the position. They must form
+        a valid hex position.
+    :returns: The sheet containing the position or ``None`` if no sheet contains
+        the position.
     """
 
     for sheet in sheets():
@@ -1225,8 +1301,13 @@ def tosheet(x, y):
 
 def isonmap(x, y):
     """
-    Returns True if the hex coordinate (x, y) is on the map.
-    Otherwise returns false.
+    Return whether the position is on the map.
+
+
+    :param x:
+    :param y: The ``x`` and ``y`` arguments specify the position. They must form
+        a valid hex position.
+    :returns: ``True`` if the position is on the map, otherwise ``False``. 
     """
 
     return tosheet(x, y) != None and (
@@ -1245,8 +1326,22 @@ def toxy(sheet, x, y):
 
 def altitude(x, y, sheet=None):
     """
-    Returns the altitude of the hex at the position (x, y), which must refer to a
-    hex center.
+    Return the altitude at the position.
+
+    :param x:
+    :param y: The ``x`` and ``y`` arguments specify the position. They must form
+        a valid hex position.
+    :returns: The altitude at the specified position. 
+
+    :notes:
+
+        Each hex is at terrain level 0, 1, or 2. The altitude is a hex is value
+        of ``leveloffset`` plus its terrain level times the value of
+        ``levelincrement``. The altitude of a hex side is higher of the
+        altitudes of the two adjacent hexes.
+
+        The values of ``leveloffset`` and ``levelincrement`` are set by the
+        ``setmap`` function.
     """
 
     assert glass.hex.isvalid(x, y)
@@ -1278,7 +1373,15 @@ def altitude(x, y, sheet=None):
 
 def iscity(x, y, sheet=None):
     """
-    Returns whether the position is a city hex or a hex side of a city hex.
+    Return whether the position is a city hex or a hex side of a city hex.
+
+
+    :param x:
+    :param y: The ``x`` and ``y`` arguments specify the position. They must form
+        a valid hex position.
+    :returns: ``True`` if the position is a city hex or a hex side of a city
+        hex, otherwise ``False``. 
+
     """
 
     assert glass.hex.isvalid(x, y)
