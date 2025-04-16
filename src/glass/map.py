@@ -62,7 +62,7 @@ def setwritefiles(flag):
         If the flag argument is false, do not write map files. Otherwise, write the map files.
     """
     global _writefiles
-    _writefiles = value
+    _writefiles = flag
 
 
 _writefiletypes = ["png"]
@@ -91,7 +91,7 @@ def setwatermark(watermark):
         The watermark argument must be a string.
     """
     global _watermark
-    _watermark = value
+    _watermark = watermark
 
 
 ################################################################################
