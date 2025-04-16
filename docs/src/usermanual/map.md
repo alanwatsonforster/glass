@@ -163,7 +163,8 @@ Glass does not allow map sheets to be offset from one another; if two maps are a
 Offset map sheets are used in these scenarios:
 
 - *Air Superiority*
-  - None
+  - G-6
+  - H-6
 - *Air Strike*
   - S-9 (multi-player variant)
   - H-22
