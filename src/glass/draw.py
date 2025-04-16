@@ -101,7 +101,7 @@ def _drawhexinphysical(
     rotation=0,
     hatch=None,
     alpha=1.0,
-    zorder=1,
+    zorder=0,
 ):
     if linecolor is None:
         linewidth = 0
@@ -133,7 +133,7 @@ def _drawcircleinphysical(
     fillcolor=None,
     hatch=None,
     alpha=1.0,
-    zorder=1,
+    zorder=0,
 ):
     if linecolor is None:
         linewidth = 0
@@ -162,7 +162,7 @@ def _drawsquareinphysical(
     fillcolor=None,
     hatch=None,
     alpha=1.0,
-    zorder=1,
+    zorder=0,
 ):
     # size is circumscribed diameter
     if linecolor is None:
@@ -195,7 +195,7 @@ def _drawdotinphysical(
     linecolor="black",
     linewidth=0.5,
     alpha=1.0,
-    zorder=1,
+    zorder=0,
 ):
     if linecolor is None:
         linewidth = 0
@@ -224,7 +224,7 @@ def _drawlinesinphysical(
     joinstyle="miter",
     capstyle="butt",
     alpha=1.0,
-    zorder=1,
+    zorder=0,
 ):
     if linecolor is None:
         linewidth = 0
@@ -252,7 +252,7 @@ def _drawarrowinphysical(
     fillcolor="black",
     linewidth=0.5,
     alpha=1.0,
-    zorder=1,
+    zorder=0,
 ):
     # size is length
     if linecolor is None:
@@ -298,7 +298,7 @@ def _drawdartinphysical(
     fillcolor="black",
     linewidth=0.5,
     alpha=1.0,
-    zorder=1,
+    zorder=0,
 ):
     # size is length
     if linecolor is None:
@@ -339,7 +339,7 @@ def _drawtextinphysical(
     color="black",
     size=10,
     alpha=1.0,
-    zorder=1,
+    zorder=0,
     alignment="center",
 ):
     x = x + dx * sind(facing) + dy * cosd(facing)
@@ -376,7 +376,7 @@ def _drawpolygoninphysical(
     linewidth=0.5,
     hatch=None,
     alpha=1.0,
-    zorder=1,
+    zorder=0,
 ):
     if linecolor is None:
         linewidth = 0
@@ -398,7 +398,7 @@ def _drawrectangleinphysical(xmin, ymin, xmax, ymax, **kwargs):
     _drawpolygoninphysical([xmin, xmin, xmax, xmax], [ymin, ymax, ymax, ymin], **kwargs)
 
 
-def _drawcompassinphysical(x, y, facing, color="black", alpha=1.0, zorder=1):
+def _drawcompassinphysical(x, y, facing, color="black", alpha=1.0, zorder=0):
     _drawdotinphysical(
         x,
         y,

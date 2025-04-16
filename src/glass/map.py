@@ -3,8 +3,8 @@ The :mod:`glass.map` module contains functions to specify, draw, and query the
 map.
 
 The map is set up by calling :func:`.setupmap`. It is then drawn by calling
-:func:`.startdraw`, then drawing individual elements by calling their
-:meth:`draw` methods, and then by calling :func:`.enddraw`. 
+:func:`.startdrawmap`, then drawing individual elements by calling their
+:meth:`draw` methods, and then by calling :func:`.enddrawmap`. 
 
 The map is automatically shown in a Python notebook. It can also be written to
 files by specifying file types using :func:`setwritefiletypes`; by default PNG
@@ -535,18 +535,11 @@ def startdrawmap(
     else:
         riverwidth = defaultriverwidth
 
-
-    def drawhex(x, y, label=False, **kwargs):
-        glass.draw.drawhex(x, y, zorder=0, **kwargs)
-
-    def drawhexlabel(x, y, label, **kwargs):
-        glass.draw.drawhexlabel(x, y, label, zorder=0, **kwargs)
-
     def drawhexes(sheet, labels, **kwargs):
         for label in labels:
             x, y = glass.hexcode.toxy("%s-%04d" % (sheet, label))
             if isnearcanvas(x, y):
-                drawhex(x, y, **kwargs)
+                glass.draw.drawhex(x, y, **kwargs)
 
     def drawpaths(sheet, paths, **kwargs):
         for path in paths:
@@ -556,16 +549,7 @@ def startdrawmap(
             # being near to it.
             x = [xy[0] for xy in xy]
             y = [xy[1] for xy in xy]
-            glass.draw.drawlines(x, y, zorder=0, **kwargs)
-
-    def drawrectangle(xmin, ymin, xmax, ymax, **kwargs):
-        glass.draw.drawrectangle(xmin, ymin, xmax, ymax, zorder=0, **kwargs)
-
-    def drawtext(x, y, angle, text, **kwargs):
-        glass.draw.drawtext(x, y, angle, text, zorder=0, **kwargs)
-
-    def drawcompass(x, y, facing, **kwargs):
-        glass.draw.drawcompass(x, y, facing, zorder=0, **kwargs)
+            glass.draw.glass.draw.drawlines(x, y, zorder=0, **kwargs)
 
     if xmin is not None and xmax is not None and ymin is not None and ymax is not None:
 
@@ -643,7 +627,7 @@ def startdrawmap(
     else:
         bordercolor = hexcolor
 
-    drawrectangle(
+    glass.draw.drawrectangle(
         canvasxmin,
         canvasymin,
         canvasxmax,
@@ -663,7 +647,7 @@ def startdrawmap(
             basecolor = watercolor
         else:
             basecolor = level0color
-        drawrectangle(
+        glass.draw.drawrectangle(
             xmin,
             ymin,
             xmax,
@@ -731,7 +715,7 @@ def startdrawmap(
         # Draw the forest areas.
 
         if _terrain[sheet]["foresthexes"] == "all":
-            drawrectangle(
+            glass.draw.drawrectangle(
                 xmin,
                 ymin,
                 xmax,
@@ -891,7 +875,7 @@ def startdrawmap(
             if x % 2 == 1:
                 y -= 0.5
             if (x % 10 == 0 and y % 5 == 0) or (x % 10 == 5 and y % 5 == 2.5):
-                drawhex(
+                glass.draw.drawhex(
                     x,
                     y,
                     size=5,
@@ -1057,7 +1041,7 @@ def startdrawmap(
 
     # Draw the border.
 
-    drawrectangle(
+    glass.draw.drawrectangle(
         _xmin,
         _ymin,
         _xmax,
@@ -1065,7 +1049,7 @@ def startdrawmap(
         fillcolor=bordercolor,
         linecolor=None,
     )
-    drawrectangle(
+    glass.draw.drawrectangle(
         _xmin,
         _ymax - borderwidth,
         _xmax,
@@ -1073,7 +1057,7 @@ def startdrawmap(
         fillcolor=bordercolor,
         linecolor=None,
     )
-    drawrectangle(
+    glass.draw.drawrectangle(
         _xmin,
         _ymin,
         _xmin + borderwidth,
@@ -1081,7 +1065,7 @@ def startdrawmap(
         fillcolor=bordercolor,
         linecolor=None,
     )
-    drawrectangle(
+    glass.draw.drawrectangle(
         _xmax - borderwidth,
         _ymin,
         _xmax,
@@ -1109,7 +1093,7 @@ def startdrawmap(
                     and isnearcanvas(x, y)
                     and (isonsheet(sheet, x, y) or isonsheet(sheet, x - 0.5, y + 0.25))
                 ):
-                    drawhex(
+                    glass.draw.drawhex(
                         x,
                         y,
                         linecolor=hexcolor,
@@ -1117,7 +1101,7 @@ def startdrawmap(
                         linewidth=hexwidth,
                     )
                     label = glass.hexcode.tolabel(glass.hexcode.fromxy(x, y))
-                    drawhexlabel(x, y, label, color=hexcolor, alpha=hexalpha)
+                    glass.draw.drawhexlabel(x, y, label, color=hexcolor, alpha=hexalpha)
 
     # Label the sheets.
 
@@ -1126,7 +1110,7 @@ def startdrawmap(
         dx = 1.0
         dy = 0.5
         if isonmap(xmin + dx, ymin + dy):
-            drawtext(
+            glass.draw.drawtext(
                 xmin + dx,
                 ymin + dy,
                 90,
@@ -1143,7 +1127,7 @@ def startdrawmap(
     compassy = math.ceil(canvasymin + 1)
     if compassx % 2 == 1:
         compassy += 0.5
-    drawcompass(
+    glass.draw.drawcompass(
         compassx,
         compassy,
         glass.azimuth.tofacing("N"),
@@ -1160,7 +1144,7 @@ def startdrawmap(
                 xmax = xmin + _dxsheet
                 ymin = iy * _dysheet
                 ymax = ymin + _dysheet
-                drawrectangle(
+                glass.draw.drawrectangle(
                     xmin - 0.33,
                     ymin,
                     xmax + 0.33,
