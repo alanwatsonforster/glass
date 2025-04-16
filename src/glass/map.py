@@ -25,7 +25,6 @@ __all__ = [
     "setmap",
     "setwritefiles",
     "setwritefiletypes",
-    "setwatermark",
     "startdrawmap",
     "enddrawmap",
     "usingfirstgenerationsheets",
@@ -78,20 +77,6 @@ def setwritefiletypes(suffixlist):
     """
     global _writefiletypes
     _writefiletypes = suffixlist
-
-
-_watermark = None
-
-
-def setwatermark(watermark):
-    """
-    Set the watermark for maps.
-
-    :param watermark: 
-        The watermark argument must be a string.
-    """
-    global _watermark
-    _watermark = watermark
 
 
 ################################################################################
@@ -508,7 +493,6 @@ def startdrawmap(
     xmax=None,
     ymax=None,
     sheets=None,
-    watermark=None,
     compactstacks=True,
 ):
     """
@@ -582,9 +566,6 @@ def startdrawmap(
 
     def drawcompass(x, y, facing, **kwargs):
         glass.draw.drawcompass(x, y, facing, zorder=0, **kwargs)
-
-    def drawwatermark(text, xmin, ymin, xmax, ymax, **kwargs):
-        glass.draw.drawwatermark(text, xmin, ymin, xmax, ymax, zorder=0, **kwargs)
 
     if xmin is not None and xmax is not None and ymin is not None and ymax is not None:
 
@@ -1187,13 +1168,6 @@ def startdrawmap(
                     linecolor=None,
                     fillcolor=level0color,
                 )
-
-    # Draw watermarks.
-
-    if _watermark is not None:
-        drawwatermark(_watermark, canvasxmin, canvasymin, canvasxmax, canvasymax)
-    elif watermark is not None:
-        drawwatermark(watermark, canvasxmin, canvasymin, canvasxmax, canvasymax)
 
     glass.draw.setcompactstacks(compactstacks)
 

@@ -240,7 +240,6 @@ def drawmap(
     draw30arc=[],
     draw0line=[],
     drawlos=[],
-    watermark=None,
     writefiles=True,
 ):
     """
@@ -279,7 +278,6 @@ def drawmap(
             xmax=xmax,
             ymax=ymax,
             sheets=sheets,
-            watermark=watermark,
             compactstacks=compactstacks,
         )
 
