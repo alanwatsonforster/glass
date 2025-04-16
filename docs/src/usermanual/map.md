@@ -147,7 +147,7 @@ Oblique map sheets are used in these scenarios:
 - *Air Strike*
   - No information
 - *Desert Falcons*
-  - No information
+  - None
 - *Eagles of the Gulf*
   - EOG-4
   - EOG-7
