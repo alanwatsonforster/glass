@@ -9,6 +9,6 @@ documentation for details.
 .. toctree::
    :maxdepth: 2
 
-   tutorial/index.rst
+   tutorial/index.md
    usermanual/index.md
    api/index.rst

@@ -93,9 +93,9 @@ When the map is drawn, it is sized to fit the width of the window. You can zoom 
 
 On the map, each  aircraft is shown as a dart, with its name to the left and altitude level to the right. Here is the map at the start of Training Scenario 3, and a zoom to show the aircraft. The F-86 is blue and is at altitude level 20. The MiG-15s are red and are at altitude level 18.
 
-![The map at the start of Training Scenario 3](<./Manual/T-3-start.png>)
+![The map at the start of Training Scenario 3](<../../../tutorial/T-3-start.png>)
 
-![The aircraft at the start of Training Scenario 3](<./Manual/T-3-start-zoom.png>)
+![The aircraft at the start of Training Scenario 3](<../../../tutorial/T-3-start-zoom.png>)
 
 The representation of the map was designed with the aim of making aircraft and other markers stand out clearly. With a physical map, this is less of an issue as the counters stand out from the map in relief and texture. Therefore, the terrain and hex grid deliberately has low contrast and saturation and the aircraft typically have higher contrast and saturation and are outlined in black.
 
@@ -122,7 +122,7 @@ The C1.move and C2.move command move the MiGs C1 and C2 according to special fli
 
 If we run the cell (Ctrl-Enter), two maps are produced: one before any aircraft move and one after the MiGs move. Here is a zoom on the second map. Notice that the flight paths of the two MiGs is shown by a dotted line. Also, MiG C2 is now at altitude level 15. The F-86 has yet to move.
 
-![Turn 1 after the MiGs have moved](<./Manual/T-3-1a.png>)
+![Turn 1 after the MiGs have moved](<../../../tutorial//T-3-1a.png>)
 
 Above the maps, we get a log of what happened:
 
@@ -170,7 +170,7 @@ The slashes simply serve to visually separate the elements of each action. They 
 
 We can run the cell again (Ctrl-Enter). The startgameturn command restores the positions of the aircraft to where they were at the start of the turn, so we can run this cell multiple times if we want (and often do so as we develop the flight path for each aircraft). After doing so, the third map looks like this:
 
-![Turn 1 after the F-86 has moved](<./Manual/T-3-1b.png>)
+![Turn 1 after the F-86 has moved](<../../../tutorial/T-3-1b.png>)
 
 Again, above the maps we have a log of what happened, this time giving details of the flight of the F-86, and in particular its final speed:
 
