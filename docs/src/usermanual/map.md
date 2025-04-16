@@ -1,12 +1,12 @@
 # Maps
 
-This document discusses the origin, design choices, and implementation of the map in Glass.
+This document discusses the map in Glass.
 
 The terms “map sheet” or just “sheet” are used to refer to the individual map sheets and “map” to refer to the whole space defined by the particular selection and arrangement of map sheets.
 
 ## Original Map Sheets
 
-The original map sheets come in two generations. The first-generation sheets are those from *Air Superiority*, *Air Strike*, and *Eagles of the Gulf*. The second-generation sheets are from *The Speed of Heat*. The two generations differ in size, labeling, terrain features along their edges, and the graphical representation of terrain features.
+First, let's remind ourselves of the two generations of original map sheets. The first-generation sheets are those from *Air Superiority*, *Air Strike*, and *Eagles of the Gulf*. The second-generation sheets are from *The Speed of Heat*. The two generations differ in size, labeling, terrain features along their edges, and the graphical representation of terrain features.
 
 ### *Air Superiority*
 
@@ -35,9 +35,7 @@ These sheets are largely compatible with the Air Strike map sheets. One minor ex
 
 ### *The Speed of Heat*
 
-*The Speed of Heat* came with six map sheets, labeled A1, A2, B1, B2, C1, and C2. Rick Barber designed the sheets for Clash of Arms.
-
-These second-generation sheets are smaller than the first-generation map sheets, being 15 hexes high and 20 hexes wide (5.0 by 5.8 miles). 
+*The Speed of Heat* came with six map sheets, labeled A1, A2, B1, B2, C1, and C2. Rick Barber designed the sheets for Clash of Arms. These second-generation sheets are smaller than the first-generation map sheets, being 15 hexes high and 20 hexes wide (5.0 by 5.8 miles). 
 
 The design is recognizable as a development of the GDW style. The lowest terrain is shown in light green and the first level of hills in brown, but a second level of hills is added in a medium green. These maps have a lot more texture, for example, in the farmland, rivers, forests, and buildings. Villages, towns, and cities no longer seem to have distinct representations.
 
@@ -45,11 +43,11 @@ All the sheets show terrain. As befitting its subject, the urban area and river 
 
 Again, as long as the sheets are arranged so that long edges abut other long edges and short edges abut other short edges, the terrain features flow from one sheet to the other. However, they do not match the first-generation sheets.
 
-## Glass Maps
+## Glass Map Sheets
 
 ### Generations
 
-Putting aside the question of the graphical representation of terrain features, first- and second-generation map sheets differ in their size, the geographic features along their edges, and in hex labeling. For these reasons, Glass allows games to be played on maps using sheets either from the first or the second generation, but not a mixture of generations.
+First- and second-generation map sheets differ in their size, the geographic features along their edges, and in hex labeling. For these reasons, Glass allows games to be played on maps using sheets either from the first or the second generation, but not a mixture of generations.
 
 ### First-Generation Sheets
 
@@ -131,24 +129,9 @@ Glass allow any map sheet to be inverted by simply appending `"/i"` to the map s
 
     [["A1"],["B2/i"],["B1"]]
 
-Inverted map sheets are used in these scenarios:
+And appears as:
 
-- *Air Superiority*
-  - None
-- *Air Strike*
-  - No information
-- *Desert Falcons*
-  - No information
-- *Eagles of the Gulf*
-  - EOG-11
-  - EOG-16
-  - EOG-18
-  - EOG-19
-  - EOG-21
-  - EOG-23
-- *The Speed of Heat*
-  - V-11: B2
-  - V-22: C1 and C2
+<img src="../../../maps/map-V-11.png" width="40%"/>
 
 Note that the inversion process inverts the terrain but *does not invert the hex grid*. One consequence of this is that care needs to be taken when an aircraft or ground units that are set up on an inverted sheet; the original hex code cannot be used directly.
 

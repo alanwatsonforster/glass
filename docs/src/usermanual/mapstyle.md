@@ -54,17 +54,17 @@ This section describes and illustrates the map styles. Sheets A2, B1, and B2 are
 
 ### Original Map Styles
 
-The `airsuperiority` and `airstrike` map styles adapted from those in *Air Superiority* and *Air Strike*.
+The `airsuperiority` and `airstrike` map styles are adapted from those in *Air Superiority* and *Air Strike*.
 
 The `airsuperiority` style has a plain blue background. Additionally, it removes all terrain, and so can be used to convert any map sheet into one matching maps A to D; this can be seen below in sheets A2, B1, and B2.
 
 <img src="../../../maps/map-sheets-A2B1B2-airsuperiority.png" width="100%"/>
 
-The `airstrike` style has terrain colors of light green, light brown, and medium brown. All terrain elements are included.
+The `airstrike` style has terrain colors of light green, light brown, and medium brown. All terrain elements are included. This is the default style.
 
 <img src="../../../maps/map-sheets-A2B1B2-airstrike.png" width="100%"/>
 
-### New Basic Map Styles
+###ew Base Map Styles
 
 The `water`, `temperate`, `temperateforest`, `tundra`, `borealforest`, `tropical`, `tropicalforest`, `arid`, and `desert` styles have color schemes and terrain adaptations appropriate for a range of different terrains.
 
@@ -108,7 +108,7 @@ The `desert` style uses the same colors as the arid style, but is drawn as a wil
 
 ### Derived Styles
 
-Additional derived styles can be adapted from any of the basic styles by applying a prefix and/or a suffix.
+Additional derived styles can be adapted from any of the base styles by applying a prefix and/or a suffix.
 
 - The possible prefixes are `snowy` or `frozen`.
 - The possible suffixes are `hills`, `plain`, or `islands`.
@@ -119,7 +119,7 @@ The `hills` suffix reduces the height of elevated hexes and ridges by 1 level. T
 
 The `islands` suffix replaces level 0 hexes by water, converts level 1 hexes and ridges into level 0 hexes and ridges, converts level 2 hexes and ridges into level 1 hexes and ridges, and eliminates roads and dams.
 
-Some of these combinations do not make much sense physically (such as `frozendesert`) or are effectively identical (such as all the styles derived from `water` except `frozenwater`), but are included nevertheless. Showing all 48 derived styles is not practical here, but the following are some particular examples.
+There are thus eleven derived styles for each of the nine basic styles. Some of these combinations do not make much sense physically (such as `frozendesert`) or are effectively identical (such as all the styles derived from `water` except `frozenwater`), but are included nevertheless. Showing all 88 derived styles is not practical here, but the following are some particular examples.
 
 The `snowytemperate` style could represent winter in Europe.
 
