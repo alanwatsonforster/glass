@@ -52,12 +52,12 @@ def setcanvas(xmin, ymin, xmax, ymax, borderwidth, dotsperhex=100):
 
 
 def save():
-    pickle.dump(_fig, open("glass..pickle", "wb"))
+    pickle.dump(_fig, open("glass.pickle", "wb"))
 
 
 def restore():
     global _fig, _ax
-    _fig = pickle.load(open("glass..pickle", "rb"))
+    _fig = pickle.load(open("glass.pickle", "rb"))
     _ax = plt.gca()
 
 
