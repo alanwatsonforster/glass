@@ -20,10 +20,14 @@ _fig = None
 _ax = None
 
 
-def setcanvas(xmin, ymin, xmax, ymax, dotsperhex=100):
+def setcanvas(xmin, ymin, xmax, ymax, borderwidth, dotsperhex=100):
     global _fig, _ax
     xmin, ymin = glass.hex.tophysical(xmin, ymin)
     xmax, ymax = glass.hex.tophysical(xmax, ymax)
+    xmin -= borderwidth
+    xmax += borderwidth
+    ymin -= borderwidth
+    ymax += borderwidth
     _fig = plt.figure(
         figsize=[(xmax - xmin), (ymax - ymin)],
         frameon=False,
@@ -435,6 +439,39 @@ def _drawcompassinphysical(x, y, facing, color="black", alpha=1.0, zorder=0):
         zorder=zorder,
     )
 
+def _drawborderinphysical(xmin, ymin, xmax, ymax, borderwidth, bordercolor):
+    _drawrectangleinphysical(
+        xmin - borderwidth,
+        ymin - borderwidth,
+        xmax + borderwidth,
+        ymin,
+        fillcolor=bordercolor,
+        linecolor=None,
+    )
+    _drawrectangleinphysical(
+        xmin - borderwidth,
+        ymax,
+        xmax + borderwidth,
+        ymax + borderwidth,
+        fillcolor=bordercolor,
+        linecolor=None,
+    )
+    _drawrectangleinphysical(
+        xmin - borderwidth,
+        ymin - borderwidth,
+        xmin,
+        ymax + borderwidth,
+        fillcolor=bordercolor,
+        linecolor=None,
+    )
+    _drawrectangleinphysical(
+        xmax,
+        ymin - borderwidth,
+        xmax + borderwidth,
+        ymax + borderwidth,
+        fillcolor=bordercolor,
+        linecolor=None,
+    )
 
 ################################################################################
 
@@ -492,10 +529,11 @@ def drawrectangle(xmin, ymin, xmax, ymax, **kwargs):
     xmax, ymax = glass.hex.tophysical(xmax, ymax)
     _drawrectangleinphysical(xmin, ymin, xmax, ymax, **kwargs)
 
-
 def drawcompass(x, y, facing, **kwargs):
     _drawcompassinphysical(*glass.hex.tophysical(x, y), facing, **kwargs)
 
+def drawborder(xmin, ymin, xmax, ymax, borderwidth, bordercolor):
+    _drawborderinphysical(*glass.hex.tophysical(xmin, ymin), *glass.hex.tophysical(xmax, ymax), borderwidth, bordercolor)
 
 ################################################################################
 

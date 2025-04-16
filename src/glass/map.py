@@ -133,7 +133,7 @@ townhatch = "xx"
 cityhatch = "xx"
 foresthatch = ".o"
 
-borderwidth = 0.02
+borderwidth = 0.25
 
 blanksheets = ["", "-", "--"]
 firstgenerationsheets = [
@@ -315,10 +315,10 @@ def setupmap(
 
     _dotsperhex = dotsperhex
 
-    _xmin = +0.33 - borderwidth
-    _xmax = _dxsheet * _nxsheetgrid - 0.33 + borderwidth
-    _ymin = -borderwidth
-    _ymax = _dysheet * _nysheetgrid + borderwidth
+    _xmin = 0.33
+    _xmax = _dxsheet * _nxsheetgrid - 0.33
+    _ymin = 0
+    _ymax = _dysheet * _nysheetgrid
 
     global _saved
     _saved = False
@@ -617,7 +617,7 @@ def startdrawmap(
         return filter(lambda sheet: issheetnearcanvas(sheet), _sheetlist)
 
     glass.draw.setcanvas(
-        canvasxmin, canvasymin, canvasxmax, canvasymax, dotsperhex=_dotsperhex
+        canvasxmin, canvasymin, canvasxmax, canvasymax, borderwidth, dotsperhex=_dotsperhex
     )
 
     if all(_terrain[sheet]["base"] == "water" for sheet in _sheetlist):
@@ -1041,38 +1041,15 @@ def startdrawmap(
 
     # Draw the border.
 
-    glass.draw.drawrectangle(
+    #bordercolor = (1, 0, 0)
+    glass.draw.drawborder(
         _xmin,
         _ymin,
         _xmax,
-        _ymin + borderwidth,
-        fillcolor=bordercolor,
-        linecolor=None,
-    )
-    glass.draw.drawrectangle(
-        _xmin,
-        _ymax - borderwidth,
-        _xmax,
         _ymax,
-        fillcolor=bordercolor,
-        linecolor=None,
-    )
-    glass.draw.drawrectangle(
-        _xmin,
-        _ymin,
-        _xmin + borderwidth,
-        _ymax,
-        fillcolor=bordercolor,
-        linecolor=None,
-    )
-    glass.draw.drawrectangle(
-        _xmax - borderwidth,
-        _ymin,
-        _xmax,
-        _ymax,
-        fillcolor=bordercolor,
-        linecolor=None,
-    )
+        borderwidth,
+        bordercolor)
+
 
     # Draw and label the hexes.
 
