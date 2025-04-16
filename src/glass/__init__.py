@@ -65,7 +65,7 @@ def startgamesetup(scenario, sheets=None, north="up", variants=[], printlog=True
         for key in kwargs.keys():
             glass.log.logwhat("map option %s is %r." % (key, kwargs[key]))
 
-        glass.map.setmap(sheets, **kwargs)
+        glass.map.setupmap(sheets, **kwargs)
 
         glass.azimuth.setnorth(north)
 

@@ -2,7 +2,7 @@
 The :mod:`glass.map` module contains functions to specify, draw, and query the
 map.
 
-The map is set-up by calling :func:`.setmap`. It is then drawn by calling
+The map is set up by calling :func:`.setupmap`. It is then drawn by calling
 :func:`.startdraw`, then drawing individual elements by calling their
 :meth:`draw` methods, and then by calling :func:`.enddraw`. 
 
@@ -22,7 +22,7 @@ For information on map styling, see :mod:`glass.mapstyle.`
 """
 
 __all__ = [
-    "setmap",
+    "setupmap",
     "setwritefiles",
     "setwritefiletypes",
     "startdrawmap",
@@ -203,7 +203,7 @@ def usingfirstgenerationsheets():
     return _usingfirstgenerationsheets
 
 
-def setmap(
+def setupmap(
     sheetgrid,
     dotsperhex=80,
     style="airstrike",
@@ -1315,7 +1315,7 @@ def altitude(x, y, sheet=None):
         altitudes of the two adjacent hexes.
 
         The values of ``leveloffset`` and ``levelincrement`` are set by the
-        ``setmap`` function.
+        ``setupmap`` function.
     """
 
     assert glass.hex.isvalid(x, y)
