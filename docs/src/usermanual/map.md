@@ -59,7 +59,9 @@ Glass implements twenty-six first-generation sheets labeled A to Z:
 
 - K to N: These are adaptations of the original four sheets from *Eagles of the Gulf*, but sheet M currently does not have terrain features. Also, some of the roads in sheet N have been adjusted to match the other sheets. 
 
-- O to Z: These are twelve new sheets, currently all land at level 0 with no other terrain features. They are for future expansion.
+- O to X: These are ten new sheets, currently all land at level 0 with no other terrain features. They are for future expansion.
+
+- Y and Z: These are two new sheets, identical to sheets A to D from *Air Superiority*. Scenario H-23 in *Air Strike* requires duplicates of sheets A and B; use these instead.
 
 Any number of first-generation sheets can be used at once. When arranged in an approximately square grid, twelve are 80 hexes wide by 75 hexes high (about 27 miles by 25 miles). Adding additional first-generation sheets to the implementation would be quite easy.
 
@@ -85,7 +87,7 @@ Glass implements twelve second-generation sheets labeled *XY*, in which *X* is o
 
 - A1, A2, B1, B2, C1, and C2: These are adaptations of the original sheets from *The Speed of Heat*. 
 
-- A3, B3, and C3: These are duplicates of A1, B1, and C1. Scenario V-25 in *The Speed of Heat* requires two copies of sheet C1; use sheets C1 and C3 instead.
+- A3, B3, and C3: These are duplicates of A1, B1, and C1. Scenario V-25 in *The Speed of Heat* requires a duplicate of sheet C1; use sheet C3 instead.
 
 - A4 to A6, B4 to B6, and C4 to C6, D1 to D6: These are fifteen new sheets, currently all land at level 0 with no other terrain features. They are for future expansion.
 
