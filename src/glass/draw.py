@@ -74,7 +74,7 @@ def tocanvasfacing(facing):
 _fig = None
 _ax = None
 
-def setcanvas(xmin, ymin, xmax, ymax, borderwidth, rotation=0, dotsperhex=100):
+def setcanvas(xmin, ymin, xmax, ymax, rotation=0, dotsperhex=100):
     global _fig, _ax
 
     global canvasrotation
@@ -86,10 +86,6 @@ def setcanvas(xmin, ymin, xmax, ymax, borderwidth, rotation=0, dotsperhex=100):
     canvasxmax, canvasymax = tocanvasxy(xmax, ymax)
     canvasxmin, canvasxmax = min(canvasxmin, canvasxmax), max(canvasxmin, canvasxmax)
     canvasymin, canvasymax = min(canvasymin, canvasymax), max(canvasymin, canvasymax)
-    canvasxmin -= borderwidth
-    canvasxmax += borderwidth
-    canvasymin -= borderwidth
-    canvasymax += borderwidth
     _fig = plt.figure(
         figsize=[abs(canvasxmax - canvasxmin), abs(canvasymax - canvasymin)],
         frameon=False,
@@ -192,8 +188,8 @@ def drawrectangle(xmin, ymin, xmax, ymax, **kwargs):
 def drawcompass(x, y, facing, **kwargs):
     _drawcompassincanvas(*tocanvasxy(x, y), tocanvasfacing(facing), **kwargs)
 
-def drawborder(borderwidth, bordercolor):
-    _drawborderincanvas(borderwidth, bordercolor)
+def drawborder(xmin, ymin, xmax, ymax, width, color):
+    _drawborderincanvas(*tocanvasxy(xmin, ymin), *tocanvasxy(xmax, ymax), width, color)
 
 ################################################################################
 
@@ -554,37 +550,37 @@ def _drawcompassincanvas(x, y, facing, color="black", alpha=1.0, zorder=0):
         zorder=zorder,
     )
 
-def _drawborderincanvas(borderwidth, bordercolor):
+def _drawborderincanvas(xmin, ymin, xmax, ymax, width, color):
     _drawrectangleincanvas(
-        canvasxmin,
-        canvasymin,
-        canvasxmax,
-        canvasymin + borderwidth,
-        fillcolor=bordercolor,
+        xmin,
+        ymin,
+        xmax,
+        ymin + width,
+        fillcolor=color,
         linecolor=None,
     )
     _drawrectangleincanvas(
-        canvasxmin,
-        canvasymax - borderwidth,
-        canvasxmax,
-        canvasymax,
-        fillcolor=bordercolor,
+        xmin,
+        ymax - width,
+        xmax,
+        ymax,
+        fillcolor=color,
         linecolor=None,
     )
     _drawrectangleincanvas(
-        canvasxmin,
-        canvasymin,
-        canvasxmin + borderwidth,
-        canvasymax,
-        fillcolor=bordercolor,
+        xmin,
+        ymin,
+        xmin + width,
+        ymax,
+        fillcolor=color,
         linecolor=None,
     )
     _drawrectangleincanvas(
-        canvasxmax - borderwidth,
-        canvasymin,
-        canvasxmax,
-        canvasymax,
-        fillcolor=bordercolor,
+        xmax - width,
+        ymin,
+        xmax,
+        ymax,
+        fillcolor=color,
         linecolor=None,
     )
 

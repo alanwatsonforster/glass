@@ -41,6 +41,7 @@ __all__ = [
 import glass.azimuth
 import glass.draw
 import glass.hex
+import glass.hex
 import glass.hexcode
 import glass.mapstyle
 
@@ -96,10 +97,18 @@ _sheetlist = []
 _nxsheetgrid = 0
 _nysheetgrid = 0
 
-_xmin = None
-_xmax = None
-_ymin = None
-_ymax = None
+_mapxmin, _mapxmax, _mapymin, _mapymax = None, None, None, None
+"""
+The `_mapxmin`, `_mapymin`, `_mapxmax`, and `_mapymax` variables give the limits of
+the map (specifically the sheet grid) in hex coordinates.
+"""
+
+_borderxmin, _borderymin, _borderxmax, _borderymax = None, None, None, None
+"""
+The `_borderxmin`, `_borderymin`, `_borderxmax`, and `_borderymax` variables
+give the limits of the border in hex coordinates.
+"""
+
 _dotsperhex = None
 
 _saved = False
@@ -267,10 +276,6 @@ def setupmap(
     global _rightedgeonmap
     global _nysheetgrid
     global _nxsheetgrid
-    global _xmin
-    global _ymin
-    global _xmax
-    global _ymax
     global _dotsperhex
     global _rotation
 
@@ -317,10 +322,24 @@ def setupmap(
 
     _dotsperhex = dotsperhex
 
-    _xmin = 0.33
-    _xmax = _dxsheet * _nxsheetgrid - 0.33
-    _ymin = 0
-    _ymax = _dysheet * _nysheetgrid
+    # Determine the limits of the map grid.
+    global _mapxmin, _mapymin,  _mapxmax, _mapymax
+    _mapxmin = 0.33
+    _mapxmax = _dxsheet * _nxsheetgrid - 0.33
+    _mapymin = 0
+    _mapymax = _dysheet * _nysheetgrid
+
+    # Determine the limits of the border taking into account that the border
+    # width is constant in physical coordinates.
+    global _borderxmin, _borderymin, _borderxmax, _borderymax
+    _borderxmin, _borderymin = glass.hex.tophysicalxy(_mapxmin, _mapymin)
+    _borderxmax, _borderymax = glass.hex.tophysicalxy(_mapxmax, _mapymax)
+    _borderxmin -= borderwidth
+    _borderymin -= borderwidth
+    _borderxmax += borderwidth
+    _borderymax += borderwidth
+    _borderxmin, _borderymin = glass.hex.fromphysicalxy(_borderxmin, _borderymin)
+    _borderxmax, _borderymax = glass.hex.fromphysicalxy(_borderxmax, _borderymax)
 
     global _saved
     _saved = False
@@ -557,17 +576,17 @@ def startdrawmap(
 
     if xmin is not None and xmax is not None and ymin is not None and ymax is not None:
 
-        canvasxmin = max(_xmin, xmin)
-        canvasxmax = min(_xmax, xmax)
-        canvasymin = max(_ymin, ymin)
-        canvasymax = min(_ymax, ymax)
+        canvasxmin = max(_borderxmin, xmin)
+        canvasymin = max(_borderymin, ymin)
+        canvasxmax = min(_borderxmax, xmax)
+        canvasymax = min(_borderymax, ymax)
 
     elif sheets is not None:
 
-        canvasxmin = _xmax
-        canvasymin = _ymax
-        canvasxmax = _xmin
-        canvasymax = _ymin
+        canvasxmin = _borderxmax
+        canvasymin = _borderymax
+        canvasxmax = _borderxmin
+        canvasymax = _borderymin
         for sheet in sheets:
             sheetxmin, sheetymin, sheetxmax, sheetymax = sheetlimits(sheet)
             canvasxmin = min(canvasxmin, sheetxmin)
@@ -577,16 +596,16 @@ def startdrawmap(
 
     else:
 
-        canvasxmin = _xmin
-        canvasymin = _ymin
-        canvasxmax = _xmax
-        canvasymax = _ymax
+        canvasxmin = _borderxmin
+        canvasymin = _borderymin
+        canvasxmax = _borderxmax
+        canvasymax = _borderymax
 
     fullmap = (
-        canvasxmin == _xmin
-        and canvasymin == _ymin
-        and canvasxmax == _xmax
-        and canvasymax == _ymax
+        canvasxmin == _borderxmin
+        and canvasymin == _borderymin
+        and canvasxmax == _borderxmax
+        and canvasymax == _borderymax
     )
 
     global _saved
@@ -625,7 +644,6 @@ def startdrawmap(
         canvasymin,
         canvasxmax,
         canvasymax,
-        borderwidth,
         dotsperhex=_dotsperhex,
         rotation=_rotation,
     )
@@ -1051,7 +1069,7 @@ def startdrawmap(
 
     # Draw the border.
 
-    glass.draw.drawborder(borderwidth, bordercolor)
+    glass.draw.drawborder(_borderxmin, _borderymin, _borderxmax, _borderymax, borderwidth, bordercolor)
 
     # Draw and label the hexes.
 
@@ -1280,7 +1298,7 @@ def isonmap(x, y):
     """
 
     return tosheet(x, y) != None and (
-        _xmin < x and x < _xmax and _ymin < y and y < _ymax
+        _mapxmin < x and x < _mapxmax and _mapymin < y and y < _mapymax
     )
 
 
