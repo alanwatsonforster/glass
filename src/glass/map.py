@@ -1086,8 +1086,12 @@ def startdrawmap(
 
     for sheet in sheetsnearcanvas():
         xmin, ymin, xmax, ymax = sheetlimits(sheet)
-        dx = 1.0
-        dy = 0.5
+        if usingfirstgenerationsheets():
+            dx = 1.0
+            dy = 24.5
+        else:
+            dx = 1.0
+            dy = 0.5
         if isonmap(xmin + dx, ymin + dy):
             glass.draw.drawtext(
                 xmin + dx,
