@@ -264,13 +264,13 @@ def drawmap(
             ymax = glass.element._ymaxforzoom(withkilled=zoomincludeskilled)
 
             if xmin is not None:
-                xmin = math.floor(xmin) - zoomborder
+                xmin = 0.5 * math.floor(2.0 * xmin) - zoomborder
             if ymin is not None:
-                ymin = math.floor(ymin) - zoomborder
+                ymin = 0.5 * math.floor(2.0 * ymin) - zoomborder
             if xmax is not None:
-                xmax = math.ceil(xmax) + zoomborder
+                xmax = 0.5 * math.ceil(2.0 * xmax) + zoomborder
             if ymax is not None:
-                ymax = math.ceil(ymax) + zoomborder
+                ymax = 0.5 * math.ceil(2.0 * ymax) + zoomborder
 
         glass.map.startdrawmap(
             xmin=xmin,
