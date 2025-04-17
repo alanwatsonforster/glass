@@ -42,7 +42,7 @@ def tocanvasxy(x, y):
         corresponding to a counterclockwise rotation.
 
     """
-    x, y = glass.hex.tophysical(x, y)
+    x, y = glass.hex.tophysicalxy(x, y)
     if canvasrotation == 0:
         return x, y
     elif canvasrotation == 180:

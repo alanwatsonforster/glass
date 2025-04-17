@@ -109,7 +109,7 @@ def relativepositions(x0, y0, facing0, x1, y1, facing1):
 
     dx = x1 - x0
     dy = y1 - y0
-    dx, dy = glass.hex.tophysical(dx, dy)
+    dx, dy = glass.hex.tophysicalxy(dx, dy)
 
     # Determine the range.
 

@@ -275,7 +275,7 @@ def sidetocenters(x, y):
     return x0, y0, x1, y1
 
 
-def tophysical(x, y):
+def tophysicalxy(x, y):
     """
     Return the physical coordinates corresponding to the given hex coordinates.
     """
@@ -283,7 +283,7 @@ def tophysical(x, y):
     return x * math.sqrt(3 / 4), y
 
 
-def fromphysical(x, y):
+def fromphysicalxy(x, y):
     """
     Return the hex coordinates corresponding to the given physical coordinates.
     """
@@ -306,8 +306,8 @@ def distance(x0, y0, x1, y1):
     # the distance increases by one half. Return the integer part of the distance.
 
     def physicaldistance(x0, y0, x1, y1):
-        x0, y0 = tophysical(x0, y0)
-        x1, y1 = tophysical(x1, y1)
+        x0, y0 = tophysicalxy(x0, y0)
+        x1, y1 = tophysicalxy(x1, y1)
         return math.hypot(x1 - x0, y1 - y0)
 
     d = 0.0
