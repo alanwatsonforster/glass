@@ -1084,6 +1084,17 @@ def startdrawmap(
 
     # Label the sheets.
 
+    # Draw the compass rose in the lower left corner of the canvas. 
+    # Find the first column whose center is no closer than 0.25 to the left
+    # edge. Then find the first hex in that column whose center is no closer
+    # than 0.5 to the lower edge.
+    compassx = math.ceil(canvasxmin + 0.25)
+    if compassx % 2 == 1:
+        compassy = math.ceil(canvasymin) + 0.5
+    else:
+        compassy = math.ceil(canvasymin + 0.5)
+
+
     for sheet in sheetsnearcanvas():
         xmin, ymin, xmax, ymax = sheetlimits(sheet)
         if usingfirstgenerationsheets():
@@ -1103,13 +1114,10 @@ def startdrawmap(
                 color=labelcolor,
                 alpha=1,
             )
+            # Move the compass one hex up if it coincides with a sheet label.
+            if xmin + dx == compassx and ymin + dy == compassy:
+                compassy += 1.0
 
-    # Draw the compass rose in the lower left corner of the canvas.
-
-    compassx = math.ceil(canvasxmin + 1)
-    compassy = math.ceil(canvasymin + 1)
-    if compassx % 2 == 1:
-        compassy += 0.5
     glass.draw.drawcompass(
         compassx,
         compassy,
