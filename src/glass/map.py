@@ -4,7 +4,7 @@ map.
 
 The map is set up by calling :func:`.setupmap`. It is then drawn by calling
 :func:`.startdrawmap`, then drawing individual elements by calling their
-:meth:`draw` methods, and then by calling :func:`.enddrawmap`. 
+:meth:`draw` methods, and then by calling :func:`.enddrawmap`.
 
 The map is automatically shown in a Python notebook. It can also be written to
 files by specifying file types using :func:`setwritefiletypes`; by default PNG
@@ -57,7 +57,7 @@ def setwritefiles(flag):
     """
     Set the flag for writing map files.
 
-    :param flag: 
+    :param flag:
         If the flag argument is false, do not write map files. Otherwise, write the map files.
     """
     global _writefiles
@@ -71,8 +71,8 @@ def setwritefiletypes(suffixlist):
     """
     Set the types of the map files.
 
-    :param suffixlist: 
-        The value argument must be a list of strings of the suffixes of supported map file types. 
+    :param suffixlist:
+        The value argument must be a list of strings of the suffixes of supported map file types.
         Supported suffixes include ``"png"`` and ``"pdf"``.
     """
     global _writefiletypes
@@ -224,9 +224,9 @@ def setupmap(
         The first-generation sheet names are: ``"A"``, ``"B"``, ``"C"``, ...,
         ``"Z"``.
 
-        The second-generation sheet names are: ``"A1"``, ``"A2"``, ``"A3"``, ...,
-        ``"A6"``, ``"B1"``, ..., ``"B6"``, ``"C1"``, ..., ``"C6"``, ``"D1"``,
-        ..., ``"D6"``.
+        The second-generation sheet names are: ``"A1"``, ``"A2"``, ``"A3"``,
+        ..., ``"A6"``, ``"B1"``, ..., ``"B6"``, ``"C1"``, ..., ``"C6"``,
+        ``"D1"``, ..., ``"D6"``.
 
     :param dotsperhex: The ``dotsperhex`` argument must be an integer. It
         specifies the resolution of pixelated output files in dots per hex (or
@@ -251,8 +251,10 @@ def setupmap(
         and ``levelincrement`` is 2, then terrain levels 0, 1, and 2 correspond
         to altitude levels 3, 5, and 7.
 
-    :param rotation: The ``rotation`` parameter determines the rotation of the map
-        with respect to the normal orientation.
+    :param rotation: The ``rotation`` parameter define the rotation in degrees
+        of the map with respect to the normal orientation. It must be an integer
+        and a multiple of 90. Positive values correspond to counterclockwise
+        rotations.
     """
 
     global _usingfirstgenerationsheets
@@ -372,7 +374,7 @@ def setupmap(
 
 
 def _loadterrain(sheet):
-    """"
+    """ "
     Load a terrain object from a file and return it.
 
     :param sheet: The sheet parameter is the sheet name. It must be a string and
@@ -387,7 +389,7 @@ def _loadterrain(sheet):
 
 
 def _invertterrain(terrain):
-    """"
+    """ "
     Return an inverted terrain object.
 
     :param terrain: The terrain parameter must be a terrain object.
@@ -454,6 +456,7 @@ def _invertterrain(terrain):
             newterrain[key] = terrain[key]
     return newterrain
 
+
 def _prepareterrain(terrain):
     """
     Return a terrain object prepared for making the map.
@@ -482,6 +485,7 @@ def _prepareterrain(terrain):
     newterrain["level2townhexes"] = level2townhexes
 
     return newterrain
+
 
 ################################################################################
 
@@ -530,8 +534,8 @@ def startdrawmap(
     hexcolor = _style["hexcolor"]
     hexalpha = _style["hexalpha"]
     labelcolor = _style["labelcolor"]
-    if  _style["riverwidth"] == "narrow":
-        riverwidth =narrowriverwidth
+    if _style["riverwidth"] == "narrow":
+        riverwidth = narrowriverwidth
     else:
         riverwidth = defaultriverwidth
 
@@ -617,7 +621,13 @@ def startdrawmap(
         return filter(lambda sheet: issheetnearcanvas(sheet), _sheetlist)
 
     glass.draw.setcanvas(
-        canvasxmin, canvasymin, canvasxmax, canvasymax, borderwidth, dotsperhex=_dotsperhex
+        canvasxmin,
+        canvasymin,
+        canvasxmax,
+        canvasymax,
+        borderwidth,
+        dotsperhex=_dotsperhex,
+        rotation=_rotation,
     )
 
     if all(_terrain[sheet]["base"] == "water" for sheet in _sheetlist):
@@ -1041,15 +1051,7 @@ def startdrawmap(
 
     # Draw the border.
 
-    #bordercolor = (1, 0, 0)
-    glass.draw.drawborder(
-        _xmin,
-        _ymin,
-        _xmax,
-        _ymax,
-        borderwidth,
-        bordercolor)
-
+    glass.draw.drawborder(borderwidth, bordercolor)
 
     # Draw and label the hexes.
 
@@ -1140,7 +1142,7 @@ def startdrawmap(
 def enddrawmap(turn, writefiles=True):
     if _writefiles and writefiles:
         for filetype in _writefiletypes:
-            glass.draw.writefile("map-%02d.%s" % (turn, filetype), rotation=_rotation)
+            glass.draw.writefile("map-%02d.%s" % (turn, filetype))
     glass.draw.show()
 
 
@@ -1254,7 +1256,7 @@ def isonmap(x, y):
     :param x:
     :param y: The ``x`` and ``y`` arguments specify the position. They must form
         a valid hex position.
-    :returns: ``True`` if the position is on the map, otherwise ``False``. 
+    :returns: ``True`` if the position is on the map, otherwise ``False``.
 
 
     :note:
@@ -1286,7 +1288,7 @@ def altitude(x, y, sheet=None):
     :param x:
     :param y: The ``x`` and ``y`` arguments specify the position. They must form
         a valid hex position.
-    :returns: The altitude at the specified position. 
+    :returns: The altitude at the specified position.
 
     :notes:
 
@@ -1335,7 +1337,7 @@ def iscity(x, y, sheet=None):
     :param y: The ``x`` and ``y`` arguments specify the position. They must form
         a valid hex position.
     :returns: ``True`` if the position is a city hex or a hex side of a city
-        hex, otherwise ``False``. 
+        hex, otherwise ``False``.
 
     """
 
@@ -1362,7 +1364,6 @@ def iscity(x, y, sheet=None):
 
 
 def crossesridgeline(x0, y0, x1, y1):
-
     """
     Return whether a line segment crosses a ridgeline on the map.
 
@@ -1371,11 +1372,11 @@ def crossesridgeline(x0, y0, x1, y1):
     :param x1:
     :param y1: The ``x0``, ``y0``, ``x1``, and ``y1`` arguments define the line segment from (``x0``, ``y0``) to (``x1``, ``y1``).
 
-    :return: ``True`` if the line segment crosses a ridge line on the map, otherwise ``False``. 
+    :return: ``True`` if the line segment crosses a ridge line on the map, otherwise ``False``.
     """
 
     # This code uses the algorithm described here:
-    # 
+    #
     #   https://www.geeksforgeeks.org/check-if-two-given-line-segments-intersect/
 
     class point:

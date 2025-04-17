@@ -1,6 +1,5 @@
 import math
 
-import glass.hex
 import glass.variants
 
 import pickle
@@ -8,40 +7,103 @@ import pickle
 import matplotlib.pyplot as plt
 import matplotlib.patches as patches
 
-from PIL import Image
-
 ################################################################################
 
 plt.rcParams.update({"figure.max_open_warning": 0})
 
 ################################################################################
 
+canvasrotation = 0
+"""
+The value of `canvasrotation` determines the rotation of the canvas coordinate
+frame from the hex and physical coordinate frames, with a positive rotation
+corresponding to a counterclockwise rotation. It  must be an integer value and a
+muliple of 90.
+"""
+
+canvasxmin = None
+canvasxmax = None
+canvasymin = None
+canvasymax = None
+
+def tocanvasxy(x, y):
+    """
+    Return the canvas position corresponding to a hex position.
+
+    :param x: 
+    :param y: The `x` and `y` parameters are the coordinates of the hex
+        position.
+
+    :return: The `x` and `y` coordinates of the canvas position corresponding to
+        the hex position.
+
+    :note: The canvas coordinate frame is rotated by `canvasrotation` from the
+        hex and physical coordinate frames, with a positive rotation
+        corresponding to a counterclockwise rotation.
+
+    """
+    x, y = glass.hex.tophysical(x, y)
+    if canvasrotation == 0:
+        return x, y
+    elif canvasrotation == 180:
+        return -x, -y
+    elif canvasrotation == 90:
+        return -y, x
+    elif canvasrotation == 270:
+        return y, -x
+    
+def tocanvasfacing(facing):
+    """
+    Return the canvas facing corresponding to a hex facing.
+
+    :param facing: The hex facing.
+
+    :return: The canvas facing corresponding to the hex facing.
+
+
+    :note: The canvas coordinate frame is rotated by `canvasrotation` from the
+        hex and physical coordinate frames, with a positive rotation
+        corresponding to a counterclockwise rotation.
+
+    """
+    return facing + canvasrotation
+
+################################################################################
+
+
 _fig = None
 _ax = None
 
-
-def setcanvas(xmin, ymin, xmax, ymax, borderwidth, dotsperhex=100):
+def setcanvas(xmin, ymin, xmax, ymax, borderwidth, rotation=0, dotsperhex=100):
     global _fig, _ax
-    xmin, ymin = glass.hex.tophysical(xmin, ymin)
-    xmax, ymax = glass.hex.tophysical(xmax, ymax)
-    xmin -= borderwidth
-    xmax += borderwidth
-    ymin -= borderwidth
-    ymax += borderwidth
+
+    global canvasrotation
+    assert(isinstance(rotation, int) and rotation % 360 in [0, 90, 180, 270])
+    canvasrotation = rotation % 360
+
+    global canvasxmin, canvasxmax, canvasymin, canvasymax
+    canvasxmin, canvasymin = tocanvasxy(xmin, ymin)
+    canvasxmax, canvasymax = tocanvasxy(xmax, ymax)
+    canvasxmin, canvasxmax = min(canvasxmin, canvasxmax), max(canvasxmin, canvasxmax)
+    canvasymin, canvasymax = min(canvasymin, canvasymax), max(canvasymin, canvasymax)
+    canvasxmin -= borderwidth
+    canvasxmax += borderwidth
+    canvasymin -= borderwidth
+    canvasymax += borderwidth
     _fig = plt.figure(
-        figsize=[(xmax - xmin), (ymax - ymin)],
+        figsize=[abs(canvasxmax - canvasxmin), abs(canvasymax - canvasymin)],
         frameon=False,
         dpi=dotsperhex,
     )
 
     plt.axis("off")
-    plt.xlim(xmin, xmax)
-    plt.ylim(ymin, ymax)
+    plt.xlim(canvasxmin, canvasxmax)
+    plt.ylim(canvasymin, canvasymax)
     _ax = plt.gca()
     _ax.set_position([0, 0, 1, 1])
     _ax.add_artist(
         patches.Polygon(
-            [[xmin, ymin], [xmin, ymax], [xmax, ymax], [xmax, ymin]],
+            [[canvasxmin, canvasymin], [canvasxmin, canvasymax], [canvasxmax, canvasymax], [canvasxmax, canvasymin]],
             edgecolor="None",
             facecolor="white",
             fill=True,
@@ -71,14 +133,67 @@ def show():
 
 def writefile(name, rotation=0):
     _fig.savefig(name)
-    if rotation != 0:
-        # Attempt to rotate the file. This works for pixelated formats supported by PIL,
-        # but not for vector format, so we catch failures.
-        try:
-            Image.open(name).rotate(rotation, expand=True).save(name)
-        except:
-            pass
 
+################################################################################
+
+def drawhex(x, y, facing=0, **kwargs):
+    _drawhexincanvas(*tocanvasxy(x, y), facing=tocanvasfacing(facing), **kwargs)
+
+
+def drawcircle(x, y, **kwargs):
+    _drawcircleincanvas(*tocanvasxy(x, y), **kwargs)
+
+
+def drawsquare(x, y, facing=0, **kwargs):
+    _drawsquareincanvas(*tocanvasxy(x, y), facing=tocanvasfacing(facing), **kwargs)
+
+
+def drawhexlabel(x, y, label, dy=0.35, size=9, color="lightgrey", facing=0, **kwargs):
+    drawtext(x, y, 90, label, dy=dy, size=size, color=color, **kwargs)
+
+
+def drawdot(x, y, facing=0, **kwargs):
+    _drawdotincanvas(*tocanvasxy(x, y), facing=tocanvasfacing(facing), **kwargs)
+
+
+def drawlines(x, y, **kwargs):
+    xy = [tocanvasxy(xy[0], xy[1]) for xy in zip(x, y)]
+    x = [xy[0] for xy in xy]
+    y = [xy[1] for xy in xy]
+    _drawlinesincanvas(x, y, **kwargs)
+
+
+def drawarrow(x, y, facing, **kwargs):
+    _drawarrowincanvas(*tocanvasxy(x, y), tocanvasfacing(facing), **kwargs)
+
+
+def drawdoublearrow(x, y, facing, **kwargs):
+    _drawdoublearrowincanvas(*tocanvasxy(x, y), tocanvasfacing(facing), **kwargs)
+
+
+def drawdart(x, y, facing, **kwargs):
+    _drawdartincanvas(*tocanvasxy(x, y), tocanvasfacing(facing), **kwargs)
+
+
+def drawtext(x, y, facing, s, **kwargs):
+    _drawtextincanvas(*tocanvasxy(x, y), tocanvasfacing(facing), s, **kwargs)
+
+
+def drawpolygon(x, y, **kwargs):
+    x, y = (tocanvasxy(*xy) for xy in zip(x, y))
+    _drawpolygonincanvas(x, y, **kwargs)
+
+
+def drawrectangle(xmin, ymin, xmax, ymax, **kwargs):
+    xmin, ymin = tocanvasxy(xmin, ymin)
+    xmax, ymax = tocanvasxy(xmax, ymax)
+    _drawrectangleincanvas(xmin, ymin, xmax, ymax, **kwargs)
+
+def drawcompass(x, y, facing, **kwargs):
+    _drawcompassincanvas(*tocanvasxy(x, y), tocanvasfacing(facing), **kwargs)
+
+def drawborder(borderwidth, bordercolor):
+    _drawborderincanvas(borderwidth, bordercolor)
 
 ################################################################################
 
@@ -94,7 +209,7 @@ def sind(x):
 ################################################################################
 
 
-def _drawhexinphysical(
+def _drawhexincanvas(
     x,
     y,
     size=1,
@@ -102,7 +217,7 @@ def _drawhexinphysical(
     linewidth=0.5,
     fillcolor=None,
     linestyle="solid",
-    rotation=0,
+    facing=0,
     hatch=None,
     alpha=1.0,
     zorder=0,
@@ -115,7 +230,7 @@ def _drawhexinphysical(
             [x, y],
             6,
             radius=size * 0.5 * math.sqrt(4 / 3),
-            orientation=math.pi / 6 + math.radians(rotation),
+            orientation=math.pi / 6 + math.radians(facing),
             edgecolor=_mapcolor(linecolor),
             facecolor=_mapcolor(fillcolor),
             fill=(fillcolor != None),
@@ -128,7 +243,7 @@ def _drawhexinphysical(
     )
 
 
-def _drawcircleinphysical(
+def _drawcircleincanvas(
     x,
     y,
     size=1,
@@ -156,7 +271,7 @@ def _drawcircleinphysical(
     )
 
 
-def _drawsquareinphysical(
+def _drawsquareincanvas(
     x,
     y,
     size=1,
@@ -188,7 +303,7 @@ def _drawsquareinphysical(
     )
 
 
-def _drawdotinphysical(
+def _drawdotincanvas(
     x,
     y,
     size=1,
@@ -219,7 +334,7 @@ def _drawdotinphysical(
     )
 
 
-def _drawlinesinphysical(
+def _drawlinesincanvas(
     x,
     y,
     linecolor="black",
@@ -245,7 +360,7 @@ def _drawlinesinphysical(
     )
 
 
-def _drawarrowinphysical(
+def _drawarrowincanvas(
     x,
     y,
     facing,
@@ -286,12 +401,12 @@ def _drawarrowinphysical(
     )
 
 
-def _drawdoublearrowinphysical(x, y, facing, **kwargs):
-    _drawarrowinphysical(x, y, facing, **kwargs)
-    _drawarrowinphysical(x, y, facing + 180, **kwargs)
+def _drawdoublearrowincanvas(x, y, facing, **kwargs):
+    _drawarrowincanvas(x, y, facing, **kwargs)
+    _drawarrowincanvas(x, y, facing + 180, **kwargs)
 
 
-def _drawdartinphysical(
+def _drawdartincanvas(
     x,
     y,
     facing,
@@ -333,7 +448,7 @@ def _drawdartinphysical(
     )
 
 
-def _drawtextinphysical(
+def _drawtextincanvas(
     x,
     y,
     facing,
@@ -372,7 +487,7 @@ def _drawtextinphysical(
     )
 
 
-def _drawpolygoninphysical(
+def _drawpolygonincanvas(
     x,
     y,
     linecolor="black",
@@ -398,12 +513,12 @@ def _drawpolygoninphysical(
     )
 
 
-def _drawrectangleinphysical(xmin, ymin, xmax, ymax, **kwargs):
-    _drawpolygoninphysical([xmin, xmin, xmax, xmax], [ymin, ymax, ymax, ymin], **kwargs)
+def _drawrectangleincanvas(xmin, ymin, xmax, ymax, **kwargs):
+    _drawpolygonincanvas([xmin, xmin, xmax, xmax], [ymin, ymax, ymax, ymin], **kwargs)
 
 
-def _drawcompassinphysical(x, y, facing, color="black", alpha=1.0, zorder=0):
-    _drawdotinphysical(
+def _drawcompassincanvas(x, y, facing, color="black", alpha=1.0, zorder=0):
+    _drawdotincanvas(
         x,
         y,
         facing=facing,
@@ -414,7 +529,7 @@ def _drawcompassinphysical(x, y, facing, color="black", alpha=1.0, zorder=0):
         alpha=alpha,
         zorder=zorder,
     )
-    _drawarrowinphysical(
+    _drawarrowincanvas(
         x,
         y,
         facing,
@@ -426,7 +541,7 @@ def _drawcompassinphysical(x, y, facing, color="black", alpha=1.0, zorder=0):
         alpha=alpha,
         zorder=zorder,
     )
-    _drawtextinphysical(
+    _drawtextincanvas(
         x,
         y,
         facing,
@@ -439,101 +554,39 @@ def _drawcompassinphysical(x, y, facing, color="black", alpha=1.0, zorder=0):
         zorder=zorder,
     )
 
-def _drawborderinphysical(xmin, ymin, xmax, ymax, borderwidth, bordercolor):
-    _drawrectangleinphysical(
-        xmin - borderwidth,
-        ymin - borderwidth,
-        xmax + borderwidth,
-        ymin,
+def _drawborderincanvas(borderwidth, bordercolor):
+    _drawrectangleincanvas(
+        canvasxmin,
+        canvasymin,
+        canvasxmax,
+        canvasymin + borderwidth,
         fillcolor=bordercolor,
         linecolor=None,
     )
-    _drawrectangleinphysical(
-        xmin - borderwidth,
-        ymax,
-        xmax + borderwidth,
-        ymax + borderwidth,
+    _drawrectangleincanvas(
+        canvasxmin,
+        canvasymax - borderwidth,
+        canvasxmax,
+        canvasymax,
         fillcolor=bordercolor,
         linecolor=None,
     )
-    _drawrectangleinphysical(
-        xmin - borderwidth,
-        ymin - borderwidth,
-        xmin,
-        ymax + borderwidth,
+    _drawrectangleincanvas(
+        canvasxmin,
+        canvasymin,
+        canvasxmin + borderwidth,
+        canvasymax,
         fillcolor=bordercolor,
         linecolor=None,
     )
-    _drawrectangleinphysical(
-        xmax,
-        ymin - borderwidth,
-        xmax + borderwidth,
-        ymax + borderwidth,
+    _drawrectangleincanvas(
+        canvasxmax - borderwidth,
+        canvasymin,
+        canvasxmax,
+        canvasymax,
         fillcolor=bordercolor,
         linecolor=None,
     )
-
-################################################################################
-
-
-def drawhex(x, y, **kwargs):
-    _drawhexinphysical(*glass.hex.tophysical(x, y), **kwargs)
-
-
-def drawcircle(x, y, **kwargs):
-    _drawcircleinphysical(*glass.hex.tophysical(x, y), **kwargs)
-
-
-def drawsquare(x, y, **kwargs):
-    _drawsquareinphysical(*glass.hex.tophysical(x, y), **kwargs)
-
-
-def drawhexlabel(x, y, label, dy=0.35, size=9, color="lightgrey", **kwargs):
-    drawtext(x, y, 90, label, dy=dy, size=size, color=color, **kwargs)
-
-
-def drawdot(x, y, **kwargs):
-    _drawdotinphysical(*glass.hex.tophysical(x, y), **kwargs)
-
-
-def drawlines(x, y, **kwargs):
-    xy = [glass.hex.tophysical(xy[0], xy[1]) for xy in zip(x, y)]
-    x = [xy[0] for xy in xy]
-    y = [xy[1] for xy in xy]
-    _drawlinesinphysical(x, y, **kwargs)
-
-
-def drawarrow(x, y, facing, **kwargs):
-    _drawarrowinphysical(*glass.hex.tophysical(x, y), facing, **kwargs)
-
-
-def drawdoublearrow(x, y, facing, **kwargs):
-    _drawdoublearrowinphysical(*glass.hex.tophysical(x, y), facing, **kwargs)
-
-
-def drawdart(x, y, facing, **kwargs):
-    _drawdartinphysical(*glass.hex.tophysical(x, y), facing, **kwargs)
-
-
-def drawtext(x, y, facing, s, **kwargs):
-    _drawtextinphysical(*glass.hex.tophysical(x, y), facing, s, **kwargs)
-
-
-def drawpolygon(x, y, **kwargs):
-    x, y = (glass.hex.tophysical(*xy) for xy in zip(x, y))
-    _drawpolygoninphysical(x, y, **kwargs)
-
-
-def drawrectangle(xmin, ymin, xmax, ymax, **kwargs):
-    xmin, ymin = glass.hex.tophysical(xmin, ymin)
-    xmax, ymax = glass.hex.tophysical(xmax, ymax)
-    _drawrectangleinphysical(xmin, ymin, xmax, ymax, **kwargs)
-
-def drawcompass(x, y, facing, **kwargs):
-    _drawcompassinphysical(*glass.hex.tophysical(x, y), facing, **kwargs)
-
-def drawborder(xmin, ymin, xmax, ymax, borderwidth, bordercolor):
-    _drawborderinphysical(*glass.hex.tophysical(xmin, ymin), *glass.hex.tophysical(xmax, ymax), borderwidth, bordercolor)
 
 ################################################################################
 
@@ -546,11 +599,11 @@ def drawarc(x0, y0, facing, arc):
 
     def drawdxdy(dxdy, reflect=False):
 
-        # dxdy = [glass.hex.tophysical(dxdy[0], dxdy[1]) for dxdy in dxdy]
+        # dxdy = [tocanvasxy(dxdy[0], dxdy[1]) for dxdy in dxdy]
 
         x = [x0 + dxdy[0] * cosd(facing) - dxdy[1] * sind(facing) for dxdy in dxdy]
         y = [y0 + dxdy[0] * sind(facing) + dxdy[1] * cosd(facing) for dxdy in dxdy]
-        _drawlinesinphysical(
+        _drawlinesincanvas(
             x,
             y,
             linecolor=arccolor,
@@ -559,7 +612,7 @@ def drawarc(x0, y0, facing, arc):
             zorder=0,
         )
 
-    x0, y0 = glass.hex.tophysical(x0, y0)
+    x0, y0 = tocanvasxy(x0, y0)
 
     if arc == "0":
 
@@ -582,7 +635,7 @@ def drawarc(x0, y0, facing, arc):
                 [11.0, +1.625],
                 [100.0, +1.625],
             ]
-            dxdy = [glass.hex.tophysical(dxdy[0], dxdy[1]) for dxdy in dxdy]
+            dxdy = [tocanvasxy(dxdy[0], dxdy[1]) for dxdy in dxdy]
 
         else:
 
@@ -981,8 +1034,8 @@ groundunitdy = 0.4
 def drawgroundunit(
     x, y, symbols, uppertext, lowertext, facing, color, name, stack, killed
 ):
-    _drawgroundunitinphysical(
-        *glass.hex.tophysical(x, y),
+    _drawgroundunitincanvas(
+        *tocanvasxy(x, y),
         symbols,
         uppertext,
         lowertext,
@@ -994,7 +1047,7 @@ def drawgroundunit(
     )
 
 
-def _drawgroundunitinphysical(
+def _drawgroundunitincanvas(
     x0, y0, symbols, uppertext, lowertext, facing, color, name, stack, killed
 ):
 
@@ -1098,14 +1151,14 @@ def _drawgroundunitinphysical(
             zorder = 0.1
 
     def drawinfantrysymbol():
-        _drawlinesinphysical(
+        _drawlinesincanvas(
             [x - groundunitdx / 2, x + groundunitdx / 2],
             [y - groundunitdy / 2, y + groundunitdy / 2],
             linecolor=linecolor,
             linewidth=groundunitlinewidth,
             zorder=zorder,
         )
-        _drawlinesinphysical(
+        _drawlinesincanvas(
             [x - groundunitdx / 2, x + groundunitdx / 2],
             [y + groundunitdy / 2, y - groundunitdy / 2],
             linecolor=linecolor,
@@ -1114,14 +1167,14 @@ def _drawgroundunitinphysical(
         )
 
     def drawantiarmorsymbol():
-        _drawlinesinphysical(
+        _drawlinesincanvas(
             [x - groundunitdx / 2, x],
             [y - groundunitdy / 2, y + groundunitdy / 2],
             linecolor=linecolor,
             linewidth=groundunitlinewidth,
             zorder=zorder,
         )
-        _drawlinesinphysical(
+        _drawlinesincanvas(
             [x + groundunitdx / 2, x],
             [y - groundunitdy / 2, y + groundunitdy / 2],
             linecolor=linecolor,
@@ -1130,7 +1183,7 @@ def _drawgroundunitinphysical(
         )
 
     def drawreconnaissancesymbol():
-        _drawlinesinphysical(
+        _drawlinesincanvas(
             [x - groundunitdx / 2, x + groundunitdx / 2],
             [y - groundunitdy / 2, y + groundunitdy / 2],
             linecolor=linecolor,
@@ -1154,7 +1207,7 @@ def _drawgroundunitinphysical(
         def dy(theta):
             return fy * groundunitdy * sind(theta)
 
-        _drawlinesinphysical(
+        _drawlinesincanvas(
             list([x + dx(theta) for theta in theta]),
             list([y + dy(theta) for theta in theta]),
             linecolor=linecolor,
@@ -1164,7 +1217,7 @@ def _drawgroundunitinphysical(
 
     def drawartillerysymbol():
         ry = 0.1
-        _drawcircleinphysical(
+        _drawcircleincanvas(
             x,
             y,
             2 * ry * groundunitdy,
@@ -1184,7 +1237,7 @@ def _drawgroundunitinphysical(
         def airdefencey(theta):
             return y - groundunitdy / 2 + fy * groundunitdy * sind(theta)
 
-        _drawrectangleinphysical(
+        _drawrectangleincanvas(
             x + groundunitdx * (-0.5),
             y + groundunitdy * (-0.5),
             x + groundunitdx * (+0.5),
@@ -1195,7 +1248,7 @@ def _drawgroundunitinphysical(
             zorder=zorder,
         )
 
-        _drawlinesinphysical(
+        _drawlinesincanvas(
             list([airdefencex(theta) for theta in theta]),
             list([airdefencey(theta) for theta in theta]),
             linecolor=linecolor,
@@ -1217,7 +1270,7 @@ def _drawgroundunitinphysical(
         def dy(theta):
             return ry * groundunitdy * sind(theta)
 
-        _drawlinesinphysical(
+        _drawlinesincanvas(
             list([x + dx(theta) for theta in theta]),
             list([y0 + dy(theta) for theta in theta]),
             linecolor=linecolor,
@@ -1226,7 +1279,7 @@ def _drawgroundunitinphysical(
         )
         dx = ry * groundunitdy * cosd(theta0)
         dy = ry * groundunitdy * sind(theta0)
-        _drawlinesinphysical(
+        _drawlinesincanvas(
             [x - dx, x, x, x + dx],
             [
                 y0 - dy,
@@ -1241,7 +1294,7 @@ def _drawgroundunitinphysical(
 
     def drawgunsymbol():
         fx = 0.15
-        _drawlinesinphysical(
+        _drawlinesincanvas(
             [x + (fx - 0.5) * groundunitdx, x + (fx - 0.5) * groundunitdx],
             [y - 0.5 * groundunitdy, y + 0.5 * groundunitdy],
             linecolor=linecolor,
@@ -1255,7 +1308,7 @@ def _drawgroundunitinphysical(
         fy1 = 0.10
         fy2 = 0.15
         for i in range(2):
-            _drawlinesinphysical(
+            _drawlinesincanvas(
                 [x - fx0 * groundunitdx, x, x + fx0 * groundunitdx],
                 [
                     y + (fy0 + i * fy1) * groundunitdy,
@@ -1282,7 +1335,7 @@ def _drawgroundunitinphysical(
             else:
                 return fy1 * groundunitdy + fx * groundunitdx * (sind(theta) - 1)
 
-        _drawlinesinphysical(
+        _drawlinesincanvas(
             list([x + dx(theta) for theta in theta]),
             list([y + dy(theta) for theta in theta]),
             linecolor=linecolor,
@@ -1305,14 +1358,14 @@ def _drawgroundunitinphysical(
             else:
                 return fy0 * groundunitdy + fx0 * groundunitdx * (sind(theta) - 1)
 
-        _drawlinesinphysical(
+        _drawlinesincanvas(
             list([x + dx(theta) for theta in theta]),
             list([y + dy(theta) for theta in theta]),
             linecolor=linecolor,
             linewidth=groundunitlinewidth,
             zorder=zorder,
         )
-        _drawlinesinphysical(
+        _drawlinesincanvas(
             [x - fx1 * groundunitdx, x + fx1 * groundunitdx],
             [y - fy0 * groundunitdy, y - fy0 * groundunitdy],
             linecolor=linecolor,
@@ -1323,7 +1376,7 @@ def _drawgroundunitinphysical(
     def drawfuelsymbol():
         fx = 0.15
         fy0 = 0.20
-        _drawlinesinphysical(
+        _drawlinesincanvas(
             [x, x, x - 0.5 * fx * groundunitdx, x + 0.5 * fx * groundunitdx, x],
             [
                 y - fy0 * groundunitdy,
@@ -1343,14 +1396,14 @@ def _drawgroundunitinphysical(
         for theta in range(45, 180, 90):
             dx = ry1 * groundunitdy * cosd(theta)
             dy = ry1 * groundunitdy * sind(theta)
-            _drawlinesinphysical(
+            _drawlinesincanvas(
                 [x - dx, x + dx],
                 [y - dy, y + dy],
                 linecolor=linecolor,
                 linewidth=groundunitlinewidth,
                 zorder=zorder,
             )
-        _drawcircleinphysical(
+        _drawcircleincanvas(
             x,
             y,
             2 * ry0 * groundunitdy,
@@ -1362,7 +1415,7 @@ def _drawgroundunitinphysical(
 
     def drawmotorizedsymbol():
         fx = 0.12
-        _drawlinesinphysical(
+        _drawlinesincanvas(
             [x, x],
             [y - 0.5 * groundunitdy, y + 0.5 * groundunitdy],
             linecolor=linecolor,
@@ -1374,7 +1427,7 @@ def _drawgroundunitinphysical(
         fx = 0.12
         fy = 0.38
         ry = 0.05
-        _drawcircleinphysical(
+        _drawcircleincanvas(
             x - fx * groundunitdx,
             y - fy * groundunitdy,
             2 * ry * groundunitdy,
@@ -1382,7 +1435,7 @@ def _drawgroundunitinphysical(
             linewidth=groundunitlinewidth,
             zorder=zorder,
         )
-        _drawcircleinphysical(
+        _drawcircleincanvas(
             x,
             y - fy * groundunitdy,
             2 * ry * groundunitdy,
@@ -1390,7 +1443,7 @@ def _drawgroundunitinphysical(
             linewidth=groundunitlinewidth,
             zorder=zorder,
         )
-        _drawcircleinphysical(
+        _drawcircleincanvas(
             x + fx * groundunitdx,
             y - fy * groundunitdy,
             2 * ry * groundunitdy,
@@ -1403,7 +1456,7 @@ def _drawgroundunitinphysical(
         fx = 0.12
         fy = 0.38
         ry = 0.05
-        _drawcircleinphysical(
+        _drawcircleincanvas(
             x - fx * groundunitdx,
             y - fy * groundunitdy,
             2 * ry * groundunitdy,
@@ -1411,7 +1464,7 @@ def _drawgroundunitinphysical(
             linewidth=groundunitlinewidth,
             zorder=zorder,
         )
-        _drawcircleinphysical(
+        _drawcircleincanvas(
             x + fx * groundunitdx,
             y - fy * groundunitdy,
             2 * ry * groundunitdy,
@@ -1422,7 +1475,7 @@ def _drawgroundunitinphysical(
 
     def drawsupplysymbol():
         fy = 0.25
-        _drawlinesinphysical(
+        _drawlinesincanvas(
             [x - 0.5 * groundunitdx, x + 0.5 * groundunitdx],
             [y + (fy - 0.5) * groundunitdy, y + (fy - 0.5) * groundunitdy],
             linecolor=linecolor,
@@ -1432,7 +1485,7 @@ def _drawgroundunitinphysical(
 
     def drawheadquarterssymbol():
         fy = 0.25
-        _drawlinesinphysical(
+        _drawlinesincanvas(
             [x - 0.5 * groundunitdx, x + 0.5 * groundunitdx],
             [y + fy * groundunitdy, y + fy * groundunitdy],
             linecolor=linecolor,
@@ -1443,7 +1496,7 @@ def _drawgroundunitinphysical(
     def drawtransportationsymbol():
         ry = 0.25
         fy = 0.0
-        _drawcircleinphysical(
+        _drawcircleincanvas(
             x,
             y + fy * groundunitdy,
             2 * ry * groundunitdy,
@@ -1454,7 +1507,7 @@ def _drawgroundunitinphysical(
         for theta in range(0, 180, 45):
             dx = ry * groundunitdy * cosd(theta)
             dy = ry * groundunitdy * sind(theta)
-            _drawlinesinphysical(
+            _drawlinesincanvas(
                 [x - dx, x + dx],
                 [y + fy * groundunitdy - dy, y + fy * groundunitdy + dy],
                 linecolor=linecolor,
@@ -1467,7 +1520,7 @@ def _drawgroundunitinphysical(
         fy = 0.25
         dx = fx * groundunitdx
         dy = fy * groundunitdy
-        _drawpolygoninphysical(
+        _drawpolygonincanvas(
             [
                 x - dx,
                 x - dx,
@@ -1502,14 +1555,14 @@ def _drawgroundunitinphysical(
         def dy(theta):
             return fy0 * groundunitdy - fy1 * groundunitdy * sind(theta)
 
-        _drawlinesinphysical(
+        _drawlinesincanvas(
             list([x + dx(theta) for theta in theta]),
             list([y + dy(theta) for theta in theta]),
             linecolor=linecolor,
             linewidth=groundunitlinewidth,
             zorder=zorder,
         )
-        _drawlinesinphysical(
+        _drawlinesincanvas(
             [
                 x - fx0 * groundunitdx,
                 x - fx0 * groundunitdx,
@@ -1532,7 +1585,7 @@ def _drawgroundunitinphysical(
         fx2 = 0.10
         fy2 = 0.38
         ry = 0.05
-        _drawcircleinphysical(
+        _drawcircleincanvas(
             x - fx2 * groundunitdx,
             y - fy2 * groundunitdy,
             2 * ry * groundunitdy,
@@ -1540,7 +1593,7 @@ def _drawgroundunitinphysical(
             linewidth=groundunitlinewidth,
             zorder=zorder,
         )
-        _drawcircleinphysical(
+        _drawcircleincanvas(
             x - fx1 * groundunitdx,
             y - fy2 * groundunitdy,
             2 * ry * groundunitdy,
@@ -1548,7 +1601,7 @@ def _drawgroundunitinphysical(
             linewidth=groundunitlinewidth,
             zorder=zorder,
         )
-        _drawcircleinphysical(
+        _drawcircleincanvas(
             x + fx1 * groundunitdx,
             y - fy2 * groundunitdy,
             2 * ry * groundunitdy,
@@ -1556,7 +1609,7 @@ def _drawgroundunitinphysical(
             linewidth=groundunitlinewidth,
             zorder=zorder,
         )
-        _drawcircleinphysical(
+        _drawcircleincanvas(
             x + fx2 * groundunitdx,
             y - fy2 * groundunitdy,
             2 * ry * groundunitdy,
@@ -1589,14 +1642,14 @@ def _drawgroundunitinphysical(
         def dy(theta):
             return fy0 * groundunitdy - fy1 * groundunitdy * sind(theta)
 
-        _drawlinesinphysical(
+        _drawlinesincanvas(
             list([x + dx(theta) for theta in theta]),
             list([y + dy(theta) for theta in theta]),
             linecolor=linecolor,
             linewidth=groundunitlinewidth,
             zorder=zorder,
         )
-        _drawlinesinphysical(
+        _drawlinesincanvas(
             [
                 x - fx0 * groundunitdx,
                 x + fx0 * groundunitdx,
@@ -1619,7 +1672,7 @@ def _drawgroundunitinphysical(
         fy3 = 0.3
         fy4 = 0.2
         drawbargesymbol()
-        _drawlinesinphysical(
+        _drawlinesincanvas(
             [
                 x,
                 x,
@@ -1632,7 +1685,7 @@ def _drawgroundunitinphysical(
             linewidth=groundunitlinewidth,
             zorder=zorder,
         )
-        _drawpolygoninphysical(
+        _drawpolygonincanvas(
             [
                 x - fx1 * groundunitdx,
                 x - fx1 * groundunitdx,
@@ -1655,7 +1708,7 @@ def _drawgroundunitinphysical(
         fy0 = -0.2
         fy1 = 0.25
         fy2 = 0.15
-        _drawpolygoninphysical(
+        _drawpolygonincanvas(
             [
                 x - fx0 * groundunitdx,
                 x - fx0 * groundunitdx,
@@ -1679,7 +1732,7 @@ def _drawgroundunitinphysical(
         fy0 = -0.2
         fy1 = 0.15
         fy2 = 0.30
-        _drawlinesinphysical(
+        _drawlinesincanvas(
             [
                 x - fx0 * groundunitdx,
                 x - fx1 * groundunitdx,
@@ -1700,7 +1753,7 @@ def _drawgroundunitinphysical(
             linewidth=groundunitlinewidth,
             zorder=zorder,
         )
-        _drawlinesinphysical(
+        _drawlinesincanvas(
             [
                 x - fx1 * groundunitdx,
                 x + fx1 * groundunitdx,
@@ -1726,14 +1779,14 @@ def _drawgroundunitinphysical(
         def dy(theta):
             return fy0 * groundunitdy + fy1 * groundunitdy * sind(theta)
 
-        _drawlinesinphysical(
+        _drawlinesincanvas(
             list([x + dx(theta) for theta in theta]),
             list([y + dy(theta) for theta in theta]),
             linecolor=linecolor,
             linewidth=groundunitlinewidth,
             zorder=zorder,
         )
-        _drawlinesinphysical(
+        _drawlinesincanvas(
             [
                 x - fx0 * groundunitdx,
                 x + fx0 * groundunitdx,
@@ -1768,7 +1821,7 @@ def _drawgroundunitinphysical(
             else:
                 return -fy * groundunitdy * sind(theta)
 
-        _drawpolygoninphysical(
+        _drawpolygonincanvas(
             list([x + dx(theta) for theta in theta]),
             list([y + dy(theta) for theta in theta]),
             fillcolor=linecolor,
@@ -1798,7 +1851,7 @@ def _drawgroundunitinphysical(
             else:
                 return -fy * groundunitdy * sind(theta)
 
-        _drawpolygoninphysical(
+        _drawpolygonincanvas(
             list([x + dx(theta) for theta in theta]),
             list([y + dy(theta) for theta in theta]),
             fillcolor=linecolor,
@@ -1811,7 +1864,7 @@ def _drawgroundunitinphysical(
         drawuppertext(text)
 
     def drawuppertext(text):
-        _drawtextinphysical(
+        _drawtextincanvas(
             x,
             y,
             90,
@@ -1825,7 +1878,7 @@ def _drawgroundunitinphysical(
         )
 
     def drawlowertext(text):
-        _drawtextinphysical(
+        _drawtextincanvas(
             x,
             y,
             90,
@@ -1839,7 +1892,7 @@ def _drawgroundunitinphysical(
         )
 
     if facing is not None:
-        _drawarrowinphysical(
+        _drawarrowincanvas(
             x0,
             y0,
             facing,
@@ -1851,7 +1904,7 @@ def _drawgroundunitinphysical(
         )
 
     if "hex" not in symbols:
-        _drawrectangleinphysical(
+        _drawrectangleincanvas(
             x - groundunitdx / 2,
             y - groundunitdy / 2,
             x + groundunitdx / 2,
@@ -1934,7 +1987,7 @@ def _drawgroundunitinphysical(
 
     if "hex" not in symbols:
 
-        _drawrectangleinphysical(
+        _drawrectangleincanvas(
             x - groundunitdx / 2,
             y - groundunitdy / 2,
             x + groundunitdx / 2,
@@ -1947,7 +2000,7 @@ def _drawgroundunitinphysical(
 
         if not killed:
             if x >= x0:
-                _drawtextinphysical(
+                _drawtextincanvas(
                     x,
                     y,
                     90,
@@ -1960,7 +2013,7 @@ def _drawgroundunitinphysical(
                     zorder=zorder,
                 )
             else:
-                _drawtextinphysical(
+                _drawtextincanvas(
                     x,
                     y,
                     90,
@@ -1975,7 +2028,7 @@ def _drawgroundunitinphysical(
 
     else:
 
-        _drawhexinphysical(
+        _drawhexincanvas(
             x,
             y,
             size=0.9,
