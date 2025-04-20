@@ -1,8 +1,65 @@
 """
-Manipulation of hex coordinates.
+The :mod:`glass.hex` module contains functions to manipulate hex coordinates.
+
+Glass works with three coordinate systems:
+
+- Hex coordinates. These refer to a hex grid in the normal orientation with two
+  side of each hex parallel to the x-axis. The x-coordinate increases by 1 from
+  one column to the next. The y-coordinate increases by one from one hex to the
+  next. This coordinate system is useful for refering to locations tied to the
+  hex grid, but it has the feature that the unit of length is not the same in
+  both directions, so the normal rules of geometry in cartesian coordinates
+  cannot be used directly.
+
+- Physical coordinates. The origin and the direction of the axes of the physical
+  coordinate system correspond with those in the hex coordinate system. The
+  y-coordinates in the physical and hex systems are the same. Furthermore, both
+  the x-axis and the y-axis have the same unit of length, so the normal rules of
+  geometry in cartesian coordinates can be used directly.
+
+- Canvas coordinates. These are used for drawing the map and are described in
+  :mod:`glass.draw`.
+  
+To convert an x-coordinate in the hex system to one in the physical system,
+multiply it by the square root of 3/4 (about 0.866). To convert an x-coordinate
+in the physical system to one in the hex system, divide by the same factor.
+
+
 """
 
 import math
+
+
+def tophysicalxy(x, y):
+    """
+    Return the physical position corresponding to a hex position.
+
+    :param x: 
+    :param y: The `x` and `y` parameters are the coordinates of the hex
+        position.
+
+    :return: The `x` and `y` coordinates of the physical position corresponding to
+        the hex position.
+    """
+
+    return x * math.sqrt(3 / 4), y
+
+
+def fromphysicalxy(x, y):
+    """
+    Return the hex position corresponding to a physical position.
+
+    :param x: 
+    :param y: The `x` and `y` parameters are the coordinates of the physical
+        position.
+
+    :return: The `x` and `y` coordinates of the hex position corresponding to
+        the physical position.
+    """
+
+    return x / math.sqrt(3 / 4), y
+
+
 
 
 def iscenter(x, y):
@@ -273,22 +330,6 @@ def sidetocenters(x, y):
         x1, y1 = x, y + 0.5
 
     return x0, y0, x1, y1
-
-
-def tophysicalxy(x, y):
-    """
-    Return the physical coordinates corresponding to the given hex coordinates.
-    """
-
-    return x * math.sqrt(3 / 4), y
-
-
-def fromphysicalxy(x, y):
-    """
-    Return the hex coordinates corresponding to the given physical coordinates.
-    """
-
-    return x / math.sqrt(3 / 4), y
 
 
 def distance(x0, y0, x1, y1):
