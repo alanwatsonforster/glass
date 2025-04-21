@@ -28,6 +28,11 @@ One advantage of hex coordinates is that all hex centers and hex-side centers
 have coordinates that are multiples of 1/4, and so their coordinates up to very
 large magnitudes can be represented exactly as floats.
 
+When needed, the facing is defined to be 0 degrees in the direction of the
+positive x-axis and to increase towards the positive y-axis. The facing is
+always referred to the physical system, so valid facings are integer multiples
+of 30 degrees.
+
 """
 
 import math
