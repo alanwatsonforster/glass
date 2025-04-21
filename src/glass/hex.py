@@ -35,12 +35,14 @@ of 30 degrees.
 
 """
 
+
 import math
+
 
 __all__ = [
     "tophysical",
     "fromphysical",
-    "ishex", ‡∏
+    "ishex",
     "ishexside",
     "isvalid",
     "checkisvalid",
@@ -54,6 +56,7 @@ __all__ = [
     "lag",
     "distance",
 ]
+
 
 def tophysicalxy(x, y):
     """
