@@ -158,33 +158,26 @@ cython_debug/
 #  and can be added to the global gitignore or merged into this file.  For a more nuclear
 #  option (not recommended) you can uncomment the following to ignore the entire idea folder.
 #.idea/
+
 .DS_Store
-.DS_Store
-*.worksheet
-glass.pickle
-Sandbox.ipynb
 
 # TeX files.
-aircraftdatacards/generated.tex
 *.aux
 *.pdf
 *.synctex.gz
+*.synctex(busy)
 *.fls
 *.out
 *.toc
-aircraftdatacards/main.out
-aircraftdatacards/main.toc
+aircraftdatacards/generated.tex
 aircraftdatacards/bombers.tex
 aircraftdatacards/all.tex
 aircraftdatacards/sandbox.tex
 aircraftdatacards/sandbox.json
-aircraftdatacards/sandbox.json
-*.synctex(busy)
 aircraftdatacards/carl.tex
-/sandbox
 aircraftdatacards/interceptors.tex
 aircraftdatacards/working.json
 aircraftdatacards/working.tex
+/sandbox
 map-00.png
-maps/glass..pickle
-glass..pickle
+glass.pickle
