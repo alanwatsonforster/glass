@@ -138,7 +138,7 @@ def setwritefiletypes(suffixlist):
 
 _terrain = {}
 
-_usingfirstgenerationsheets = False
+_generation = None
 
 _dxsheet = 20
 _dysheet = 15
@@ -198,61 +198,6 @@ foresthatch = ".o"
 borderwidth = 0.25
 
 blanksheets = ["", "-", "--"]
-firstgenerationsheets = [
-    "A",
-    "B",
-    "C",
-    "D",
-    "E",
-    "F",
-    "G",
-    "H",
-    "I",
-    "J",
-    "K",
-    "L",
-    "M",
-    "N",
-    "O",
-    "P",
-    "Q",
-    "R",
-    "S",
-    "T",
-    "U",
-    "V",
-    "W",
-    "X",
-    "Y",
-    "Z",
-]
-
-secondgenerationsheets = [
-    "A1",
-    "B1",
-    "C1",
-    "D1",
-    "A2",
-    "B2",
-    "C2",
-    "D2",
-    "A3",
-    "B3",
-    "C3",
-    "D3",
-    "A4",
-    "B4",
-    "C4",
-    "D4",
-    "A5",
-    "B5",
-    "C5",
-    "D5",
-    "A6",
-    "B6",
-    "C6",
-    "D6",
-]
 
 
 def usingfirstgenerationsheets():
@@ -262,7 +207,7 @@ def usingfirstgenerationsheets():
     :returns: ``True`` if the map is using first-generation map sheets, otherwise ``False``.
 
     """
-    return _usingfirstgenerationsheets
+    return _generation == 1
 
 
 def setupmap(
@@ -319,21 +264,22 @@ def setupmap(
         rotations.
     """
 
-    global _usingfirstgenerationsheets
-    global _dxsheet
-    global _dysheet
-
-    global _sheetgrid
-    global _sheetlist
-    global _loweredgeonmap
-    global _rightedgeonmap
-    global _nysheetgrid
-    global _nxsheetgrid
     global _dotsperhex
+    _dotsperhex = dotsperhex
+
     global _rotation
+    _rotation = rotation
 
-    _usingfirstgenerationsheets = None
+    global _leveloffset, _levelincrement
+    _leveloffset = leveloffset
+    _levelincrement = levelincrement
 
+    global _style
+    _style = glass.mapstyle.getstyle(style)
+    if _style == None:
+        raise RuntimeError("invalid style %r." % style)
+
+    # Check the sheet grid has the right structure.
     if not isinstance(sheetgrid, list):
         raise RuntimeError("the sheet grid is not a list of lists.")
     for row in sheetgrid:
@@ -344,39 +290,73 @@ def setupmap(
         for sheet in row:
             if sheet[-2:] == "/i":
                 sheet = sheet[:-2]
-            if sheet in blanksheets:
-                pass
-            elif (
-                _usingfirstgenerationsheets is not False
-                and sheet in firstgenerationsheets
-            ):
-                _usingfirstgenerationsheets = True
-            elif (
-                _usingfirstgenerationsheets is not True
-                and sheet in secondgenerationsheets
-            ):
-                _usingfirstgenerationsheets = False
-            else:
-                raise RuntimeError("invalid sheet %s." % sheet)
 
-    if _usingfirstgenerationsheets:
+    # The sheet grid argument follows visual layout, so we need to flip it
+    # vertically so that the lower-left sheet has indices (0,0).
+    global _sheetgrid
+    _sheetgrid = list(reversed(sheetgrid))
+
+    global _nysheetgrid
+    global _nxsheetgrid
+    _nysheetgrid = len(_sheetgrid)
+    _nxsheetgrid = len(_sheetgrid[0])
+
+    def sheettoright(iy, ix):
+        if ix < _nxsheetgrid - 1:
+            return _sheetgrid[iy][ix + 1]
+        else:
+            return ""
+
+    def sheetbelow(iy, ix):
+        if iy > 0:
+            return _sheetgrid[iy - 1][ix]
+        else:
+            return ""
+
+    global _generation
+    _generation = None
+    global _sheetlist
+    _sheetlist = []
+    global _loweredgeonmap, _rightedgeonmap
+    _loweredgeonmap = {}
+    _rightedgeonmap = {}
+    for iy in range(0, _nysheetgrid):
+        for ix in range(0, _nxsheetgrid):
+            sheet = _sheetgrid[iy][ix]
+            if sheet[-2:] == "/i":
+                sheet = sheet[:-2]
+                inverted = True
+            else:
+                inverted = False
+            _sheetgrid[iy][ix] = sheet
+            if sheet not in blanksheets:
+                _sheetlist.append(sheet)
+                _loweredgeonmap.update({sheet: sheetbelow(iy, ix) != ""})
+                _rightedgeonmap.update({sheet: sheettoright(iy, ix) != ""})
+                try:
+                    terrain = _loadterrain(sheet)
+                except:
+                    raise RuntimeError("invalid sheet %s." % sheet)
+                if _generation is None:
+                    _generation = terrain["generation"]
+                elif _generation != terrain["generation"]:
+                    raise RuntimeError("invalid sheet %s." % sheet)
+                if inverted:
+                    terrain = _invertterrain(terrain)
+                terrain = glass.mapstyle.styleterrain(terrain, _style)
+                terrain = _prepareterrain(terrain)
+                _terrain[sheet] = terrain
+
+    global _dxsheet, _dysheet
+    if _generation == 1:
         _dxsheet = 20
         _dysheet = 25
     else:
         _dxsheet = 20
         _dysheet = 15
 
-    # The sheet grid argument follows visual layout, so we need to flip it
-    # vertically so that the lower-left sheet has indices (0,0).
-    _sheetgrid = list(reversed(sheetgrid))
-
-    _nysheetgrid = len(_sheetgrid)
-    _nxsheetgrid = len(_sheetgrid[0])
-
-    _dotsperhex = dotsperhex
-
     # Determine the limits of the map grid.
-    global _mapxmin, _mapymin,  _mapxmax, _mapymax
+    global _mapxmin, _mapymin, _mapxmax, _mapymax
     _mapxmin = 0.33
     _mapxmax = _dxsheet * _nxsheetgrid - 0.33
     _mapymin = 0
@@ -396,50 +376,6 @@ def setupmap(
 
     global _saved
     _saved = False
-
-    global _style
-    _style = glass.mapstyle.getstyle(style)
-    if _style == None:
-        raise RuntimeError("invalid style %r." % style)
-
-    _rotation = rotation
-
-    global _leveloffset, _levelincrement
-    _leveloffset = leveloffset
-    _levelincrement = levelincrement
-
-    def sheettoright(iy, ix):
-        if ix < _nxsheetgrid - 1:
-            return _sheetgrid[iy][ix + 1]
-        else:
-            return ""
-
-    def sheetbelow(iy, ix):
-        if iy > 0:
-            return _sheetgrid[iy - 1][ix]
-        else:
-            return ""
-
-    _sheetlist = []
-    for iy in range(0, _nysheetgrid):
-        for ix in range(0, _nxsheetgrid):
-            sheet = _sheetgrid[iy][ix]
-            if sheet[-2:] == "/i":
-                sheet = sheet[:-2]
-                inverted = True
-            else:
-                inverted = False
-            _sheetgrid[iy][ix] = sheet
-            if sheet not in blanksheets:
-                _sheetlist.append(sheet)
-                _loweredgeonmap.update({sheet: sheetbelow(iy, ix) != ""})
-                _rightedgeonmap.update({sheet: sheettoright(iy, ix) != ""})
-                terrain = _loadterrain(sheet)
-                if inverted:
-                    terrain = _invertterrain(terrain)
-                terrain = glass.mapstyle.styleterrain(terrain, _style)
-                terrain = _prepareterrain(terrain)
-                _terrain[sheet] = terrain
 
 
 ################################################################################
@@ -1113,7 +1049,9 @@ def startdrawmap(
 
     # Draw the border.
 
-    glass.draw.drawborder(_borderxmin, _borderymin, _borderxmax, _borderymax, borderwidth, bordercolor)
+    glass.draw.drawborder(
+        _borderxmin, _borderymin, _borderxmax, _borderymax, borderwidth, bordercolor
+    )
 
     # Draw and label the hexes.
 
@@ -1146,7 +1084,7 @@ def startdrawmap(
 
     # Label the sheets.
 
-    # Draw the compass rose in the lower left corner of the canvas. 
+    # Draw the compass rose in the lower left corner of the canvas.
     # Find the first column whose center is no closer than 0.25 to the left
     # edge. Then find the first hex in that column whose center is no closer
     # than 0.5 to the lower edge.
@@ -1155,7 +1093,6 @@ def startdrawmap(
         compassy = math.ceil(canvasymin) + 0.5
     else:
         compassy = math.ceil(canvasymin + 0.5)
-
 
     for sheet in sheetsnearcanvas():
         xmin, ymin, xmax, ymax = sheetlimits(sheet)
