@@ -420,12 +420,12 @@ def _invertterrain(terrain):
     ycenter = terrain["center"][1]
     generation = terrain["generation"]
 
-    def duplicatehexes(oldhexes):
-        return list(duplicatehex(oldhex) for oldhex in oldhexes)
+    def inverthexes(oldhexes):
+        return list(inverthex(oldhex) for oldhex in oldhexes)
 
-    def duplicatehex(oldhex):
-        oldx = oldhex // 100
-        oldy = oldhex % 100
+    def inverthex(oldhex):
+        oldx = int(oldhex) // 100
+        oldy = int(oldhex) % 100
         if int(oldx) % 2 == 1:
             if generation == 1:
                 oldy -= 0.5
@@ -439,38 +439,29 @@ def _invertterrain(terrain):
             else:
                 newy -= 0.5
         newhex = newx * 100 + newy
-        return int(newhex)
+        return "%04d" % newhex
 
-    def duplicatepaths(oldpaths):
-        return list(duplicatepath(oldpath) for oldpath in oldpaths)
+    def invertpaths(oldpaths):
+        return list(invertpath(oldpath) for oldpath in oldpaths)
 
-    def duplicatepath(oldpath):
-        return list(duplicatexy(oldxy) for oldxy in oldpath)
+    def invertpath(oldpath):
+        return list(invertpathelement(oldxy) for oldxy in oldpath)
 
-    def duplicatexy(oldxy):
-        oldx = oldxy[0]
-        oldy = oldxy[1]
-        if int(oldx) % 2 == 1:
-            if generation == 1:
-                oldy -= 0.5
-            else:
-                oldy += 0.5
-        newx = xcenter - (oldx - xcenter)
-        newy = ycenter - (oldy - ycenter)
-        if int(newx) % 2 == 1:
-            if generation == 1:
-                newy += 0.5
-            else:
-                newy -= 0.5
-        newxy = [newx, newy]
-        return newxy
+    def invertpathelement(oldpathelement):
+        oldhex = oldpathelement[0]
+        olddx = oldpathelement[1]
+        olddy = oldpathelement[2]
+        newhex = inverthex(oldhex)
+        newdx = -olddx
+        newdy = -olddy
+        return [newhex, newdx, newdy]
 
     newterrain = {}
     for key in terrain.keys():
         if key[-5:] == "hexes":
-            newterrain[key] = duplicatehexes(terrain[key])
+            newterrain[key] = inverthexes(terrain[key])
         elif key[-5:] == "paths":
-            newterrain[key] = duplicatepaths(terrain[key])
+            newterrain[key] = invertpaths(terrain[key])
         else:
             newterrain[key] = terrain[key]
     return newterrain
@@ -560,13 +551,13 @@ def startdrawmap(
 
     def drawhexes(sheet, labels, **kwargs):
         for label in labels:
-            x, y = glass.hexcode.toxy("%s-%04d" % (sheet, label))
+            x, y = glass.hexcode.toxy("%s-%s" % (sheet, label))
             if isnearcanvas(x, y):
                 glass.draw.drawhex(x, y, **kwargs)
 
     def drawpaths(sheet, paths, **kwargs):
         for path in paths:
-            xy = [toxy(sheet, *hxy) for hxy in path]
+            xy = [pathelementtoxy(sheet, *hxy) for hxy in path]
             # Do not use the naive isnearcanvas optimization used above in
             # drawhexes, as paths can cross the canvas without their endpoints
             # being near to it.
@@ -1302,13 +1293,9 @@ def isonmap(x, y):
     )
 
 
-def toxy(sheet, x, y):
-    XX = int(x)
-    YY = int(y)
-    dx = x - XX
-    dy = y - YY
-    x0, y0 = glass.hexcode.toxy("%s-%02d%02d" % (sheet, XX, YY))
-    return x0 + dx, y0 - dy
+def pathelementtoxy(sheet, label, dx, dy):
+    x0, y0 = glass.hexcode.toxy("%s-%s" % (sheet, label))
+    return x0 + dx, y0 + dy
 
 
 def altitude(x, y, sheet=None):
@@ -1481,8 +1468,8 @@ def crossesridgeline(x0, y0, x1, y1):
         """
         i = 0
         while i < len(ridgepath) - 1:
-            r = point(*toxy(sheet, *ridgepath[i + 0]))
-            s = point(*toxy(sheet, *ridgepath[i + 1]))
+            r = point(*pathelementtoxy(sheet, *ridgepath[i + 0]))
+            s = point(*pathelementtoxy(sheet, *ridgepath[i + 1]))
             if intersect(p, q, r, s):
                 return True
             i += 1
