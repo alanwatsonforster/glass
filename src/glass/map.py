@@ -45,17 +45,17 @@ single JSON object. The members are:
 - ``"level2ridgepaths"``: A list of level 2 ridge paths.
 - ``"riverpaths"``: A list of river paths.
 - ``"roadpaths"``: A list of road paths.
-- ``"runwaypaths"``: A lisr of runway paths (see sheets A1, A2, E, G, H, and K).
+- ``"runwaypaths"``: A list of runway paths (see sheets A1, A2, E, G, H, and K).
 - ``"seahexes"``: A list of sea hexes (see sheet E).
 - ``"seapaths"``: A list of sea paths (see sheet E).
 - ``"smallbridgepaths"``: A list of small bridge paths (see sheets B1, B2, C1,
   C2, E, G, H, and I).
 - ``"taxiwaypaths"``: A list of taxiway paths (see sheet A1).
 - ``"town1hexes"``: A list of town or village hexes for towns with 1 hex.
-- ``"town2hexes"``: A list of town or vilage hexes for towns with 2 hexes.
-- ``"town3hexes"``: A list of town or vilage hexes for towns with 3 hexes.
-- ``"town4hexes"``: A list of town or vilage hexes for towns with 4 hexes.
-- ``"town5hexes"``: A list of town or vilage hexes for towns with 5 or more
+- ``"town2hexes"``: A list of town or village hexes for towns with 2 hexes.
+- ``"town3hexes"``: A list of town or village hexes for towns with 3 hexes.
+- ``"town4hexes"``: A list of town or village hexes for towns with 4 hexes.
+- ``"town5hexes"``: A list of town or village hexes for towns with 5 or more
   hexes.
 - ``"trailpaths"``: A list of trail paths (see sheets K, L, and N).
 - ``"tunnelpaths"``: A list of tunnel paths (see sheet F).
