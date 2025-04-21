@@ -75,8 +75,8 @@ def _movedive(self, altitudechange):
 
 
 def _moveturn(self, sense, facingchange):
-    if glass.hex.isside(self.x(), self.y()):
-        self._setxy(*glass.hex.sidetocenter(self.x(), self.y(), self.facing(), sense))
+    if glass.hex.ishexside(self.x(), self.y()):
+        self._setxy(*glass.hex.hexsidetohex(self.x(), self.y(), self.facing(), sense))
     if sense == "L":
         self._setfacing((self.facing() + facingchange) % 360)
     else:
@@ -100,8 +100,8 @@ def _movelagroll(self, sense):
 
 
 def _moveverticalroll(self, sense, facingchange, shift):
-    if glass.hex.isside(self.x(), self.y()) and shift:
-        self._setxy(*glass.hex.sidetocenter(self.x(), self.y(), self.facing(), sense))
+    if glass.hex.ishexside(self.x(), self.y()) and shift:
+        self._setxy(*glass.hex.hexsidetohex(self.x(), self.y(), self.facing(), sense))
     if sense == "L":
         self._setfacing((self.facing() + facingchange) % 360)
     else:

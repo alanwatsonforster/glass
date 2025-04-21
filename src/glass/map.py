@@ -1333,7 +1333,7 @@ def altitude(x, y, sheet=None):
 
     assert glass.hex.isvalid(x, y)
 
-    if glass.hex.iscenter(x, y):
+    if glass.hex.ishex(x, y):
 
         if sheet is None:
             sheet = tosheet(x, y)
@@ -1347,7 +1347,7 @@ def altitude(x, y, sheet=None):
 
     else:
 
-        x0, y0, x1, y1 = glass.hex.sidetocenters(x, y)
+        x0, y0, x1, y1 = glass.hex.hexsidetohexes(x, y)
         sheet0 = tosheet(x0, y0)
         sheet1 = tosheet(x1, y1)
         assert sheet0 != None or sheet1 != None
@@ -1373,7 +1373,7 @@ def iscity(x, y, sheet=None):
 
     assert glass.hex.isvalid(x, y)
 
-    if glass.hex.iscenter(x, y):
+    if glass.hex.ishex(x, y):
 
         if sheet is None:
             sheet = tosheet(x, y)
@@ -1382,7 +1382,7 @@ def iscity(x, y, sheet=None):
 
     else:
 
-        x0, y0, x1, y1 = glass.hex.sidetocenters(x, y)
+        x0, y0, x1, y1 = glass.hex.hexsidetohexes(x, y)
         sheet0 = tosheet(x0, y0)
         sheet1 = tosheet(x1, y1)
         assert sheet0 != None or sheet1 != None

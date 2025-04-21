@@ -89,7 +89,7 @@ def fromxy(x, y, sheet=None):
 
     glass.hex.checkisvalid(x, y)
 
-    if glass.hex.iscenter(x, y):
+    if glass.hex.ishex(x, y):
 
         if sheet == None:
             sheet = glass.map.tosheet(x, y)
@@ -107,7 +107,7 @@ def fromxy(x, y, sheet=None):
 
     else:
 
-        x0, y0, x1, y1 = glass.hex.sidetocenters(x, y)
+        x0, y0, x1, y1 = glass.hex.hexsidetohexes(x, y)
 
         if sheet == None:
             sheet0 = glass.map.tosheet(x0, y0)

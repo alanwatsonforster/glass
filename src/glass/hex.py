@@ -6,16 +6,16 @@ Glass works with three coordinate systems:
 - Hex coordinates. These refer to a hex grid in the normal orientation with two
   side of each hex parallel to the x-axis. The x-coordinate increases by 1 from
   one column to the next. The y-coordinate increases by one from one hex to the
-  next. This coordinate system is useful for refering to locations tied to the
+  next. This coordinate system is useful for referring to locations tied to the
   hex grid, but it has the feature that the unit of length is not the same in
-  both directions, so the normal rules of geometry in cartesian coordinates
-  cannot be used directly.
+  both directions, so the normal rules of geometry in Cartesian coordinates
+  cannot be used directly. The origin coincides with a hex center.
 
 - Physical coordinates. The origin and the direction of the axes of the physical
   coordinate system correspond with those in the hex coordinate system. The
   y-coordinates in the physical and hex systems are the same. Furthermore, both
   the x-axis and the y-axis have the same unit of length, so the normal rules of
-  geometry in cartesian coordinates can be used directly.
+  geometry in Cartesian coordinates can be used directly.
 
 - Canvas coordinates. These are used for drawing the map and are described in
   :mod:`glass.draw`.
@@ -24,6 +24,9 @@ To convert an x-coordinate in the hex system to one in the physical system,
 multiply it by the square root of 3/4 (about 0.866). To convert an x-coordinate
 in the physical system to one in the hex system, divide by the same factor.
 
+One advantage of hex coordinates is that all hex centers and hex-side centers
+have coordinates that are multiples of 1/4, and so their coordinates up to very
+large magnitudes can be represented exactly as floats.
 
 """
 
@@ -32,14 +35,14 @@ import math
 
 def tophysicalxy(x, y):
     """
-    Return the physical position corresponding to a hex position.
+    Return the physical location corresponding to a hex location.
 
     :param x: 
-    :param y: The `x` and `y` parameters are the coordinates of the hex
-        position.
+    :param y: The `x` and `y` parameters are the hex coordinates of the hex
+        location.
 
-    :return: The `x` and `y` coordinates of the physical position corresponding to
-        the hex position.
+    :return: The `x` and `y` coordinates of the physical location corresponding
+        to the hex location.
     """
 
     return x * math.sqrt(3 / 4), y
@@ -47,25 +50,29 @@ def tophysicalxy(x, y):
 
 def fromphysicalxy(x, y):
     """
-    Return the hex position corresponding to a physical position.
+    Return the hex location corresponding to a physical location.
 
     :param x: 
     :param y: The `x` and `y` parameters are the coordinates of the physical
-        position.
+        location.
 
-    :return: The `x` and `y` coordinates of the hex position corresponding to
-        the physical position.
+    :return: The `x` and `y` coordinates of the hex location corresponding to
+        the physical location.
     """
 
     return x / math.sqrt(3 / 4), y
 
 
-
-
-def iscenter(x, y):
+def ishex(x, y):
     """
-    Return True if the point (x,y) in hex coordinates corresponds to a center.
-    Otherwise, return False.
+    Return whether a hex location corresponds to a hex center.
+
+    :param x: 
+    :param y: The `x` and `y` parameters are the hex coordinates of the hex
+        location.
+
+    :return: ``True`` if the point (x,y) in hex coordinates corresponds to a hex
+        center, otherwise ``False``.
     """
 
     if x % 2 == 0.0 and y % 1.0 == 0.00:
@@ -76,10 +83,16 @@ def iscenter(x, y):
         return False
 
 
-def isside(x, y):
+def ishexside(x, y):
     """
-    Return True if the point (x,y) in hex coordinates corresponds to a side.
-    Otherwise, return False.
+    Return whether a hex location corresponds to a hex-side center.
+
+    :param x: 
+    :param y: The `x` and `y` parameters are the hex coordinates of the hex
+        location.
+
+    :return: ``True`` if the point (x,y) in hex coordinates corresponds to a
+        hex-side center, otherwise ``False``.
     """
 
     if x % 2 == 0.0 and y % 1.0 == 0.5:
@@ -96,17 +109,26 @@ def isside(x, y):
 
 def isvalid(x, y, facing=None):
     """
-    Return True if the point (x,y) in hex coordinates corresponds to a center or
-    side and the facing, if given, is a multiple of 30 degrees for centers
-    and parallel to the side for sides. Otherwise, return False.
+    Return whether a hex location and facing are valid.
+
+    :param x: 
+    :param y: The `x` and `y` parameters are the hex coordinates of the hex
+        location.
+    :param facing: Either ``None`` or a number specifying the facing in degrees.
+
+    :return:
+        ``True`` if the location (x,y) in hex coordinates corresponds to a hex
+        center or hex-side side and the facing, if not ``None``, is a multiple
+        of 30 degrees for centers and parallel to the side for hex-sides,
+        otherwise ``False``.
     """
 
-    if iscenter(x, y):
+    if ishex(x, y):
         if facing == None:
             return True
         else:
             return facing % 30 == 0
-    elif isside(x, y):
+    elif ishexside(x, y):
         if facing == None:
             return True
         elif (x % 2 == 0.5 and y % 1 == 0.25) or (x % 2 == 1.5 and y % 1 == 0.75):
@@ -121,12 +143,21 @@ def isvalid(x, y, facing=None):
 
 def checkisvalid(x, y, facing=None):
     """
-    Raise a RuntimeError exception if the point (x,y) in hex coordinates does not
-    correspond to a center or side.
+    Raise an exception is a hex location and facing are not valid.
+
+    :param x: 
+    :param y: The `x` and `y` parameters are the hex coordinates of the hex
+        location.
+    :param facing: Either ``None`` or a number specifying the facing in degrees.
+
+    :returns: ``None``
+
+    :raises RuntimeError: If the point (x,y) in hex coordinates and facing do
+        not correspond to a valid hex location in the sense of :func:`isvalid`.
     """
 
     if not isvalid(x, y):
-        raise RuntimeError("(%r,%r) is not a valid hex center or hex side." % (x, y))
+        raise RuntimeError("(%r,%r) is not a valid hex center or hex-side." % (x, y))
 
     if facing != None and not isvalid(x, y, facing=facing):
         raise RuntimeError("%r is not a valid facing for (%r,%r)." % (facing, x, y))
@@ -134,14 +165,24 @@ def checkisvalid(x, y, facing=None):
 
 def areadjacent(x0, y0, x1, y1):
     """
-    Return True if the positions (x0,y0) and (x1,y1) correspond to the centers
-    of adjacent hexes. Otherwise, return False.
+    Return whether two locations correspond to adjacent hexes.
+
+    :param x0: 
+    :param y0: The `x0` and `y0` parameters are the coordinates of one hex
+        location. The location must be a valid hex or hex-side.
+    :param x1: 
+    :param y1: The `x1` and `y1` parameters are the coordinates of the other hex
+        location. The location must be a valid hex or hex-side.
+
+    :return:
+        ``True`` if the locations (x0,y0) and (x1,y1) in hex coordinates
+        corresponds the hex centers of adjacent hexes, otherwise ``False``.
     """
 
     assert isvalid(x0, y0)
     assert isvalid(x1, y1)
 
-    if not iscenter(x0, y0) or not isoncenter(x1, y1):
+    if not ishex(x0, y0) or not ishex(x1, y1):
         return False
     if abs(x1 - x0) == 1.0 and abs(y1 - y0) == 0.5:
         return True
@@ -153,8 +194,16 @@ def areadjacent(x0, y0, x1, y1):
 
 def forward(x, y, facing):
     """
-    Return the coordinates of the next valid position forward from the point (x, y) with
-    respect to the facing.
+    Return the hex location forward from a hex location.
+
+    :param x: 
+    :param y: The `x` and `y` parameters are the hex coordinates of the hex
+        location. The location must be a valid hex or hex-side.
+    :param facing: The facing in degrees. The facing must be valid for the hex
+        location.
+
+    :return: The `x` and `y` coordinates next valid location forward from the
+        point (x, y) with respect to the facing.
     """
 
     assert isvalid(x, y, facing=facing)
@@ -180,8 +229,16 @@ def forward(x, y, facing):
 
 def backward(x, y, facing):
     """
-    Return the coordinates of the next valid position backward from the point (x, y) with
-    respect to the facing.
+    Return the hex location backward from a hex location.
+
+    :param x: 
+    :param y: The `x` and `y` parameters are the hex coordinates of the hex
+        location. The location must be a valid hex or hex-side.
+    :param facing: The facing in degrees. The facing must be valid for the hex
+        location.
+
+    :return: The `x` and `y` coordinates next valid location backward from the
+        point (x, y) with respect to the facing.
     """
 
     assert isvalid(x, y, facing=facing)
@@ -207,9 +264,18 @@ def backward(x, y, facing):
 
 def slide(x, y, facing, sense):
     """
-    Return the coordinates after performing a slide from the point (x, y) with
-    respect to the facing and sense. The forward part of the slide has already been
-    carried out.
+    Return the hex location after performing a slide from a hex location.
+
+    :param x: 
+    :param y: The `x` and `y` parameters are the hex coordinates of the hex
+        location. The location must be a valid hex or hex-side.
+    :param facing: The facing in degrees. The facing must be valid for the hex
+        location.
+    :param sense: The sense of the maneuver, either ``"L"`` or ``"R"``.
+
+    :return: The `x` and `y` coordinates after performing a slide from the point
+        (x, y) with respect to the facing and sense. The forward part of the
+        slide has already been carried out.
     """
 
     assert isvalid(x, y, facing=facing)
@@ -243,9 +309,19 @@ def slide(x, y, facing, sense):
 
 def displacementroll(x, y, facing, sense):
     """
-    Return the coordinates after performing a displacement roll from the point
-    (x, y) with respect to the facing and sense. The forward part of the
-    displacement roll has already beeen carried out.
+    Return the hex location after performing a displacement roll from a hex
+    location.
+
+    :param x: 
+    :param y: The `x` and `y` parameters are the hex coordinates of the hex
+        location. The location must be a valid hex or hex-side.
+    :param facing: The facing in degrees. The facing must be valid for the hex
+        location.
+    :param sense: The sense of the maneuver, either ``"L"`` or ``"R"``.
+
+    :return: The `x` and `y` coordinates after performing a displacement roll
+        from the location (x, y) with respect to the facing and sense. The
+        forward part of the displacement roll has already been carried out.
     """
 
     # It's identical to a slide.
@@ -255,31 +331,49 @@ def displacementroll(x, y, facing, sense):
 
 def lagroll(x, y, facing, sense):
     """
-    Return the coordinates after performing a lag roll from the point (x, y) with
-    respect to the facing and sense. The forward part of the lag roll has already been
-    carried out.
+    Return the hex location after performing a lag roll from a hex location.
+
+    :param x: 
+    :param y: The `x` and `y` parameters are the hex coordinates of the hex
+        location. The location must be a valid hex or hex-side.
+    :param facing: The facing in degrees. The facing must be valid for the hex
+        location.
+    :param sense: The sense of the maneuver, either ``"L"`` or ``"R"``.
+
+    :return: The `x` and `y` coordinates after performing a lag roll from the
+        location (x, y) with respect to the facing and sense. The forward part
+        of the lag roll has already been carried out.
     """
 
     assert isvalid(x, y, facing=facing)
     assert sense == "R" or sense == "L"
 
-    if isside(x, y):
-        return sidetocenter(x, y, facing, sense)
+    if ishexside(x, y):
+        return hexsidetohex(x, y, facing, sense)
 
     lastx, lasty = forward(x, y, (facing + 180) % 360)
-    if isside(lastx, lasty):
-        return sidetocenter(lastx, lasty, facing, sense)
+    if ishexside(lastx, lasty):
+        return hexsidetohex(lastx, lasty, facing, sense)
 
     return slide(x, y, facing, sense)
 
 
-def sidetocenter(x, y, facing, sense):
+def hexsidetohex(x, y, facing, sense):
     """
-    Return the coordinates of the center adjacent to the side (x, y) in the
-    given sense with respect to the facing.
+    Return the hex location of the hex adjacent to a hex location.
+
+    :param x: 
+    :param y: The `x` and `y` parameters are the hex coordinates of the hex-side
+        location. The location must be a valid hex-side.
+    :param facing: The facing in degrees. The facing must be valid for the
+        hex-side location.
+    :param sense: The sense of the hex, either ``"L"`` or ``"R"``.
+
+    :return: The `x` and `y` coordinates of the hex center adjacent to the hex
+        side at the location (x, y) with respect to the facing and sense.
     """
 
-    assert isside(x, y)
+    assert ishexside(x, y)
     assert isvalid(x, y, facing=facing)
     assert sense == "R" or sense == "L"
 
@@ -305,13 +399,19 @@ def sidetocenter(x, y, facing, sense):
     return x + dx, y + dy
 
 
-def sidetocenters(x, y):
+def hexsidetohexes(x, y):
     """
-    Return the coordinates (x0, y0) and (x1, y1) of the centers adjacent
-    to the side (x, y) as a tuple (x0, y0, x1, y1).
+    Return the hex locations of the hexes adjacent to a hex-side.
+
+    :param x: 
+    :param y: The `x` and `y` parameters are the hex coordinates of the hex
+        location. The location must be a valid hex-side.
+
+    :return: A tuple (x0, y0, x1, y0) whose values are the hex coordinates
+        (x0,y0) and (x1,y1) of the hex centers adjacent to the hex-side.
     """
 
-    assert isside(x, y)
+    assert ishexside(x, y)
 
     if x % 2 == 0.5 and y % 1 == 0.25:
         x0, y0 = x - 0.5, y - 0.25
@@ -333,18 +433,34 @@ def sidetocenters(x, y):
 
 
 def distance(x0, y0, x1, y1):
+
     """
-    Returns the distance in hexes between hex coordinates (x0, y0) and (x1, y1).
+    Return the distance in hexes between two hex locations.
+
+    :param x0: 
+    :param y0: The `x0` and `y0` parameters are the coordinates of one hex
+        location. The location must be a valid hex or hex-side.
+    :param x1: 
+    :param y1: The `x1` and `y1` parameters are the coordinates of the other hex
+        location. The location must be a valid hex or hex-side.
+
+    :return:
+        The distance between the two hex positions in hexes as an integer. The
+        distance is the number of whole hexes on the shortest path.
     """
 
-    # The errata says this about range: "When determining range where one
-    # or more aircraft are on hexsides, count only the full hexes between
-    # them. Take the shortest number of hexes."
+    # The TSOH errata says this about range: "When determining range where one
+    # or more aircraft are on hexsides, count only the full hexes between them.
+    # Take the shortest number of hexes."
 
-    # Our algorithm is as follows. While points 0 and 1 not at the same location,
-    # generate six positions around point 0 each offset by half a hex hex and move
-    # point 0 to the one closest to point 1. Each time point 0 is moved,
-    # the distance increases by one half. Return the integer part of the distance.
+    # Our algorithm is as follows. While points 0 and 1 not at the same
+    # location, generate six locations around point 0 each offset by half a hex
+    # hex and move point 0 to the one closest to point 1. Each time point 0 is
+    # moved, the distance increases by one half. Return the integer part of the
+    # distance.
+
+    assert isvalid(x0, y0)
+    assert isvalid(x1, y1)
 
     def physicaldistance(x0, y0, x1, y1):
         x0, y0 = tophysicalxy(x0, y0)

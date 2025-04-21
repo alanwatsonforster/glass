@@ -28,7 +28,7 @@ def _continuemove(self, s):
         self._setposition(hexcode=s)
     elif glass.azimuth.isvalidazimuth(s):
         newx, newy = glass.hex.forward(self._x, self._y, glass.azimuth.tofacing(s))
-        if not glass.hex.iscenter(newx, newy):
+        if not glass.hex.ishex(newx, newy):
             raise RuntimeError('invalid azimuth "%s" for move.' % s)
         self._setposition(x=newx, y=newy)
     else:
