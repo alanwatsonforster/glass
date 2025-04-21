@@ -1,10 +1,11 @@
 """
-The :mod:`glass.azimuth` module contains functions to convert between azimuths and facings.
+The :mod:`glass.azimuth` module contains functions to convert between azimuths
+and facings.
 
 An azimuth is a compass direction.
 
-A facing is a direction in the physical coordinate system. It is defined to
-be 0 degrees in the direction of the positive x-axis and to increase towards the
+A facing is a direction in the physical coordinate system. It is defined to be 0
+degrees in the direction of the positive x-axis and to increase towards the
 positive y-axis. See :mod:`glass.hex` for more details.
 
 By default, north corresponds to a facing of 90 degrees (i.e., parallel to the
@@ -15,12 +16,7 @@ calling :func:`setnorth`.
 
 import glass.variants
 
-__all__ = [
-    "isvalidazimuth",
-    "setnorth",
-    "tofacing",
-    "fromfacing"
-]
+__all__ = ["isvalidazimuth", "setnorth", "tofacing", "fromfacing"]
 
 _northfacing = 90
 
@@ -29,18 +25,20 @@ def isvalidazimuth(value):
     """
     Return whether a value is a valid azimuth.
 
-    Normally, valid azimuths are integer multiples of 30 and the
-    strings ``"N"``, ``"NNE"``, ``"NE"``, ``"ENE"``, ``"E"``, ``"SE"``, ``"SSE"``, ``"S"``, ``"SSW"``, ``"SW"``, ``"WSW"``, ``"W"``,
-    ``"NW"``, ``"WNW"``, and ``"NNW"``. 
+    Normally, valid azimuths are integer multiples of 30 and the strings
+    ``"N"``, ``"NNE"``, ``"NE"``, ``"ENE"``, ``"E"``, ``"SE"``, ``"SSE"``,
+    ``"S"``, ``"SSW"``, ``"SW"``, ``"WSW"``, ``"W"``, ``"NW"``, ``"WNW"``, and
+    ``"NNW"``.
 
-    However if the variant ``"disallow ENE/ESE/WSW/WNW"`` is selected then ``"ENE"``, ``"ESE"``,
-    ``"WSW"``, and ``"WNW"`` are not valid azimuths and if the variant ``"disallow
-    NE/SE/SW/NW"`` is selected then ``"NE"``, ``"SE"``, ``"SW"``, and ``"NW"`` are not valid azimuths.
-    
+    However if the variant ``"disallow ENE/ESE/WSW/WNW"`` is selected then
+    ``"ENE"``, ``"ESE"``, ``"WSW"``, and ``"WNW"`` are not valid azimuths and if
+    the variant ``"disallow NE/SE/SW/NW"`` is selected then ``"NE"``, ``"SE"``,
+    ``"SW"``, and ``"NW"`` are not valid azimuths.
+
     :param value: The value to be checked.
 
     :return: ``True`` if the value is a valid azimuth and ``False`` otherwise.
-    
+
     """
 
     if isinstance(value, int) and value % 30 == 0:
@@ -71,12 +69,13 @@ def setnorth(orientation):
     Set the facing of north.
 
     If the orientation is an integer, this is the facing that corresponds to
-    north. If it is one of the strings ``"right"``, ``"up"``, ``"left"``, or ``"down"``, then
-    the facing that corresponds to north is 0, 90, 180, or 270, respectively.
+    north. If it is one of the strings ``"right"``, ``"up"``, ``"left"``, or
+    ``"down"``, then the facing that corresponds to north is 0, 90, 180, or 270,
+    respectively.
 
     :param orientation:
-        The orientation argument can an integer multiple of 30 or of the
-        strings ``"up"``, ``"down"``, ``"right"``, or ``"left"``.
+        The orientation argument can an integer multiple of 30 or of the strings
+        ``"up"``, ``"down"``, ``"right"``, or ``"left"``.
     :return: ``None``
     """
 
@@ -89,10 +88,10 @@ def setnorth(orientation):
         _northfacing = 180
     elif orientation == "down":
         _northfacing = 270
-    elif isinstance(value, int) and value % 30 == 0:
+    elif isinstance(orientation, int) and orientation % 30 == 0:
         _northfacing = orientation % 360
     else:
-        raise RuntimeError('"%s" is not a valid orientation for north.')
+        raise RuntimeError('"%s" is not a valid orientation for north.' % orientation)
 
 
 def tofacing(azimuth):
