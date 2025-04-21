@@ -72,6 +72,14 @@ represented by its label as a string (e.g., ``"1504"``). The offsets are floats.
 The point is the position in hex space displaced from the hex center by the
 offsets in x and y.
 
+There are several blank maps in each generation that can be adapted to new
+terrain.
+
+Furthermore, adding new first-generation maps is just a case of creating a new
+JSON file in the glass/mapsheetdata/ directory with a new unique name. This is
+not the case for second-generation maps, as they have a defined relation between
+hex label and map sheet.
+
 """
 
 __all__ = [
