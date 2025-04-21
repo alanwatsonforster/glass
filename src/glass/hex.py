@@ -19,7 +19,7 @@ Glass works with three coordinate systems:
 
 - Canvas coordinates. These are used for drawing the map and are described in
   :mod:`glass.draw`.
-  
+
 To convert an x-coordinate in the hex system to one in the physical system,
 multiply it by the square root of 3/4 (about 0.866). To convert an x-coordinate
 in the physical system to one in the hex system, divide by the same factor.
@@ -37,12 +37,29 @@ of 30 degrees.
 
 import math
 
+__all__ = [
+    "tophysical",
+    "fromphysical",
+    "ishex", ‡∏
+    "ishexside",
+    "isvalid",
+    "checkisvalid",
+    "areadjacent",
+    "hexsidetohexes",
+    "hexsidetohex",
+    "forward",
+    "backward",
+    "slide",
+    "displacementroll",
+    "lag",
+    "distance",
+]
 
 def tophysicalxy(x, y):
     """
     Return the physical location corresponding to a hex location.
 
-    :param x: 
+    :param x:
     :param y: The `x` and `y` parameters are the hex coordinates of the hex
         location.
 
@@ -57,7 +74,7 @@ def fromphysicalxy(x, y):
     """
     Return the hex location corresponding to a physical location.
 
-    :param x: 
+    :param x:
     :param y: The `x` and `y` parameters are the coordinates of the physical
         location.
 
@@ -72,7 +89,7 @@ def ishex(x, y):
     """
     Return whether a hex location corresponds to a hex center.
 
-    :param x: 
+    :param x:
     :param y: The `x` and `y` parameters are the hex coordinates of the hex
         location.
 
@@ -92,7 +109,7 @@ def ishexside(x, y):
     """
     Return whether a hex location corresponds to a hex-side center.
 
-    :param x: 
+    :param x:
     :param y: The `x` and `y` parameters are the hex coordinates of the hex
         location.
 
@@ -116,7 +133,7 @@ def isvalid(x, y, facing=None):
     """
     Return whether a hex location and facing are valid.
 
-    :param x: 
+    :param x:
     :param y: The `x` and `y` parameters are the hex coordinates of the hex
         location.
     :param facing: Either ``None`` or a number specifying the facing in degrees.
@@ -150,7 +167,7 @@ def checkisvalid(x, y, facing=None):
     """
     Raise an exception is a hex location and facing are not valid.
 
-    :param x: 
+    :param x:
     :param y: The `x` and `y` parameters are the hex coordinates of the hex
         location.
     :param facing: Either ``None`` or a number specifying the facing in degrees.
@@ -172,10 +189,10 @@ def areadjacent(x0, y0, x1, y1):
     """
     Return whether two locations correspond to adjacent hexes.
 
-    :param x0: 
+    :param x0:
     :param y0: The `x0` and `y0` parameters are the coordinates of one hex
         location. The location must be a valid hex or hex-side.
-    :param x1: 
+    :param x1:
     :param y1: The `x1` and `y1` parameters are the coordinates of the other hex
         location. The location must be a valid hex or hex-side.
 
@@ -197,11 +214,85 @@ def areadjacent(x0, y0, x1, y1):
         return False
 
 
+def hexsidetohex(x, y, facing, sense):
+    """
+    Return the hex location of the hex adjacent to a hex location.
+
+    :param x:
+    :param y: The `x` and `y` parameters are the hex coordinates of the hex-side
+        location. The location must be a valid hex-side.
+    :param facing: The facing in degrees. The facing must be valid for the
+        hex-side location.
+    :param sense: The sense of the hex, either ``"L"`` or ``"R"``.
+
+    :return: The `x` and `y` coordinates of the hex center adjacent to the hex
+        side at the location (x, y) with respect to the facing and sense.
+    """
+
+    assert ishexside(x, y)
+    assert isvalid(x, y, facing=facing)
+    assert sense == "R" or sense == "L"
+
+    def dxdy(facing, sense):
+
+        if sense == "R":
+            othersense = "L"
+        else:
+            othersense = "R"
+
+        if facing >= 180:
+            dx, dy = dxdy(facing - 180, sense)
+            return -dx, -dy
+
+        i = facing // 60
+        if sense == "R":
+            return [+0.00, +0.50, +0.50][i], [-0.50, -0.25, +0.25][i]
+        else:
+            return [+0.00, -0.50, -0.50][i], [+0.50, +0.25, -0.25][i]
+
+    dx, dy = dxdy(facing, sense)
+
+    return x + dx, y + dy
+
+
+def hexsidetohexes(x, y):
+    """
+    Return the hex locations of the hexes adjacent to a hex-side.
+
+    :param x:
+    :param y: The `x` and `y` parameters are the hex coordinates of the hex
+        location. The location must be a valid hex-side.
+
+    :return: A tuple (x0, y0, x1, y0) whose values are the hex coordinates
+        (x0,y0) and (x1,y1) of the hex centers adjacent to the hex-side.
+    """
+
+    assert ishexside(x, y)
+
+    if x % 2 == 0.5 and y % 1 == 0.25:
+        x0, y0 = x - 0.5, y - 0.25
+        x1, y1 = x + 0.5, y + 0.25
+    elif x % 2 == 0.5 and y % 1 == 0.75:
+        x0, y0 = x - 0.5, y + 0.25
+        x1, y1 = x + 0.5, y - 0.25
+    elif x % 2 == 1.5 and y % 1 == 0.25:
+        x0, y0 = x - 0.5, y + 0.25
+        x1, y1 = x + 0.5, y - 0.25
+    elif x % 2 == 1.5 and y % 1 == 0.75:
+        x0, y0 = x - 0.5, y - 0.25
+        x1, y1 = x + 0.5, y + 0.25
+    else:
+        x0, y0 = x, y - 0.5
+        x1, y1 = x, y + 0.5
+
+    return x0, y0, x1, y1
+
+
 def forward(x, y, facing):
     """
     Return the hex location forward from a hex location.
 
-    :param x: 
+    :param x:
     :param y: The `x` and `y` parameters are the hex coordinates of the hex
         location. The location must be a valid hex or hex-side.
     :param facing: The facing in degrees. The facing must be valid for the hex
@@ -236,7 +327,7 @@ def backward(x, y, facing):
     """
     Return the hex location backward from a hex location.
 
-    :param x: 
+    :param x:
     :param y: The `x` and `y` parameters are the hex coordinates of the hex
         location. The location must be a valid hex or hex-side.
     :param facing: The facing in degrees. The facing must be valid for the hex
@@ -271,7 +362,7 @@ def slide(x, y, facing, sense):
     """
     Return the hex location after performing a slide from a hex location.
 
-    :param x: 
+    :param x:
     :param y: The `x` and `y` parameters are the hex coordinates of the hex
         location. The location must be a valid hex or hex-side.
     :param facing: The facing in degrees. The facing must be valid for the hex
@@ -317,7 +408,7 @@ def displacementroll(x, y, facing, sense):
     Return the hex location after performing a displacement roll from a hex
     location.
 
-    :param x: 
+    :param x:
     :param y: The `x` and `y` parameters are the hex coordinates of the hex
         location. The location must be a valid hex or hex-side.
     :param facing: The facing in degrees. The facing must be valid for the hex
@@ -338,7 +429,7 @@ def lagroll(x, y, facing, sense):
     """
     Return the hex location after performing a lag roll from a hex location.
 
-    :param x: 
+    :param x:
     :param y: The `x` and `y` parameters are the hex coordinates of the hex
         location. The location must be a valid hex or hex-side.
     :param facing: The facing in degrees. The facing must be valid for the hex
@@ -363,89 +454,14 @@ def lagroll(x, y, facing, sense):
     return slide(x, y, facing, sense)
 
 
-def hexsidetohex(x, y, facing, sense):
-    """
-    Return the hex location of the hex adjacent to a hex location.
-
-    :param x: 
-    :param y: The `x` and `y` parameters are the hex coordinates of the hex-side
-        location. The location must be a valid hex-side.
-    :param facing: The facing in degrees. The facing must be valid for the
-        hex-side location.
-    :param sense: The sense of the hex, either ``"L"`` or ``"R"``.
-
-    :return: The `x` and `y` coordinates of the hex center adjacent to the hex
-        side at the location (x, y) with respect to the facing and sense.
-    """
-
-    assert ishexside(x, y)
-    assert isvalid(x, y, facing=facing)
-    assert sense == "R" or sense == "L"
-
-    def dxdy(facing, sense):
-
-        if sense == "R":
-            othersense = "L"
-        else:
-            othersense = "R"
-
-        if facing >= 180:
-            dx, dy = dxdy(facing - 180, sense)
-            return -dx, -dy
-
-        i = facing // 60
-        if sense == "R":
-            return [+0.00, +0.50, +0.50][i], [-0.50, -0.25, +0.25][i]
-        else:
-            return [+0.00, -0.50, -0.50][i], [+0.50, +0.25, -0.25][i]
-
-    dx, dy = dxdy(facing, sense)
-
-    return x + dx, y + dy
-
-
-def hexsidetohexes(x, y):
-    """
-    Return the hex locations of the hexes adjacent to a hex-side.
-
-    :param x: 
-    :param y: The `x` and `y` parameters are the hex coordinates of the hex
-        location. The location must be a valid hex-side.
-
-    :return: A tuple (x0, y0, x1, y0) whose values are the hex coordinates
-        (x0,y0) and (x1,y1) of the hex centers adjacent to the hex-side.
-    """
-
-    assert ishexside(x, y)
-
-    if x % 2 == 0.5 and y % 1 == 0.25:
-        x0, y0 = x - 0.5, y - 0.25
-        x1, y1 = x + 0.5, y + 0.25
-    elif x % 2 == 0.5 and y % 1 == 0.75:
-        x0, y0 = x - 0.5, y + 0.25
-        x1, y1 = x + 0.5, y - 0.25
-    elif x % 2 == 1.5 and y % 1 == 0.25:
-        x0, y0 = x - 0.5, y + 0.25
-        x1, y1 = x + 0.5, y - 0.25
-    elif x % 2 == 1.5 and y % 1 == 0.75:
-        x0, y0 = x - 0.5, y - 0.25
-        x1, y1 = x + 0.5, y + 0.25
-    else:
-        x0, y0 = x, y - 0.5
-        x1, y1 = x, y + 0.5
-
-    return x0, y0, x1, y1
-
-
 def distance(x0, y0, x1, y1):
-
     """
     Return the distance in hexes between two hex locations.
 
-    :param x0: 
+    :param x0:
     :param y0: The `x0` and `y0` parameters are the coordinates of one hex
         location. The location must be a valid hex or hex-side.
-    :param x1: 
+    :param x1:
     :param y1: The `x1` and `y1` parameters are the coordinates of the other hex
         location. The location must be a valid hex or hex-side.
 
