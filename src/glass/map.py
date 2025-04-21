@@ -19,6 +19,59 @@ Certain properties of the map can be queried by :func:`altitude`,
 
 For information on map styling, see :mod:`glass.mapstyle.`
 
+The terrain in the maps is defined by JSON files in the glass/mapsheetdata/
+directory. The file name corresponds to the sheet name. Each file contains a
+single JSON object. The members are:
+
+- ``"base"``: This is either ``"land"`` for sheets based on land or ``"water"``
+  for sheets based on water, and determines whether hexes that are not
+  explicitly listed in ``"level0hexes"``, ``"level1hexes"``, or
+  ``"level2hexes"`` are land or water.
+- ``"center"``: The hex coordinates of the sheet center as a list [x,y].
+- ``"cityhexes"``: A list of city hexes.
+- ``"clearingpaths"``: A list road or trail clearing paths through forest.
+- ``"dampaths"``: A list of dam paths (see sheet C2).
+- ``"dockpaths"``: A list of dock paths (see sheet E).
+- ``"foresthexes"``: A list of forest hexes.
+- ``"generation"``: Either 1 or 2.
+- ``"lakehexes"``: A list of lake hexes.
+- ``"largebridgepaths"``: A list of large bridge paths (see sheets A2, B1, E, F,
+  G, H, and J).
+- ``"level0hexes"``: A list of level 0 land hexes.
+- ``"level0ridgepaths"``: A list of level 0 ridge paths.
+- ``"level1hexes"``: A list of level 1 land hexes.
+- ``"level1ridgepaths"``: A list of level 1 ridge paths.
+- ``"level2hexes"``: A list of level 2 land hexes.
+- ``"level2ridgepaths"``: A list of level 2 ridge paths.
+- ``"riverpaths"``: A list of river paths.
+- ``"roadpaths"``: A list of road paths.
+- ``"runwaypaths"``: A lisr of runway paths (see sheets A1, A2, E, G, H, and K).
+- ``"seahexes"``: A list of sea hexes (see sheet E).
+- ``"seapaths"``: A list of sea paths (see sheet E).
+- ``"smallbridgepaths"``: A list of small bridge paths (see sheets B1, B2, C1,
+  C2, E, G, H, and I).
+- ``"taxiwaypaths"``: A list of taxiway paths (see sheet A1).
+- ``"town1hexes"``: A list of town or village hexes for towns with 1 hex.
+- ``"town2hexes"``: A list of town or vilage hexes for towns with 2 hexes.
+- ``"town3hexes"``: A list of town or vilage hexes for towns with 3 hexes.
+- ``"town4hexes"``: A list of town or vilage hexes for towns with 4 hexes.
+- ``"town5hexes"``: A list of town or vilage hexes for towns with 5 or more
+  hexes.
+- ``"trailpaths"``: A list of trail paths (see sheets K, L, and N).
+- ``"tunnelpaths"``: A list of tunnel paths (see sheet F).
+- ``"wideriverpaths"``: A list of wide river paths (see sheets A1, A2, H, K, and
+  N).
+- ``"wideseapaths"``: A list of wide sea paths (see sheet E).
+
+In lists of hexes, each hex is represented by its label as a string (e.g.,
+``"1504"``).
+
+In lists of paths, each path is represented by a list of points. Each point is a
+list of three elements: a hex, an offset in x, and an offset in y. The hex is
+represented by its label as a string (e.g., ``"1504"``). The offsets are floats.
+The point is the position in hex space displaced from the hex center by the
+offsets in x and y.
+
 """
 
 __all__ = [
@@ -445,12 +498,12 @@ def _invertterrain(terrain):
         return list(invertpath(oldpath) for oldpath in oldpaths)
 
     def invertpath(oldpath):
-        return list(invertpathelement(oldxy) for oldxy in oldpath)
+        return list(invertpathpoint(oldxy) for oldxy in oldpath)
 
-    def invertpathelement(oldpathelement):
-        oldhex = oldpathelement[0]
-        olddx = oldpathelement[1]
-        olddy = oldpathelement[2]
+    def invertpathpoint(oldpathpoint):
+        oldhex = oldpathpoint[0]
+        olddx = oldpathpoint[1]
+        olddy = oldpathpoint[2]
         newhex = inverthex(oldhex)
         newdx = -olddx
         newdy = -olddy
@@ -557,7 +610,7 @@ def startdrawmap(
 
     def drawpaths(sheet, paths, **kwargs):
         for path in paths:
-            xy = [pathelementtoxy(sheet, *hxy) for hxy in path]
+            xy = [pathpointtoxy(sheet, *hxy) for hxy in path]
             # Do not use the naive isnearcanvas optimization used above in
             # drawhexes, as paths can cross the canvas without their endpoints
             # being near to it.
@@ -1293,7 +1346,7 @@ def isonmap(x, y):
     )
 
 
-def pathelementtoxy(sheet, label, dx, dy):
+def pathpointtoxy(sheet, label, dx, dy):
     x0, y0 = glass.hexcode.toxy("%s-%s" % (sheet, label))
     return x0 + dx, y0 + dy
 
@@ -1468,8 +1521,8 @@ def crossesridgeline(x0, y0, x1, y1):
         """
         i = 0
         while i < len(ridgepath) - 1:
-            r = point(*pathelementtoxy(sheet, *ridgepath[i + 0]))
-            s = point(*pathelementtoxy(sheet, *ridgepath[i + 1]))
+            r = point(*pathpointtoxy(sheet, *ridgepath[i + 0]))
+            s = point(*pathpointtoxy(sheet, *ridgepath[i + 1]))
             if intersect(p, q, r, s):
                 return True
             i += 1
