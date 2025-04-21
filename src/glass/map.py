@@ -1314,7 +1314,7 @@ def altitude(x, y, sheet=None):
 
         if sheet is None:
             sheet = tosheet(x, y)
-        label = int(glass.hexcode.tolabel(glass.hexcode.fromxy(x, y, sheet=sheet)))
+        label = glass.hexcode.tolabel(glass.hexcode.fromxy(x, y, sheet=sheet))
         if label in _terrain[sheet]["level2hexes"]:
             return _leveloffset + 2 * _levelincrement
         elif label in _terrain[sheet]["level1hexes"]:
@@ -1354,7 +1354,7 @@ def iscity(x, y, sheet=None):
 
         if sheet is None:
             sheet = tosheet(x, y)
-        label = int(glass.hexcode.tolabel(glass.hexcode.fromxy(x, y, sheet=sheet)))
+        label = glass.hexcode.tolabel(glass.hexcode.fromxy(x, y, sheet=sheet))
         return label in _terrain[sheet]["cityhexes"]
 
     else:
