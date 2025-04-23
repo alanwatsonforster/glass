@@ -19,9 +19,13 @@ Certain properties of the map can be queried by :func:`altitude`,
 
 For information on map styling, see :mod:`glass.mapstyle.`
 
+Terrain
+-------
+
 The terrain in the maps is defined by JSON files in the glass/mapsheetdata/
-directory. The file name corresponds to the sheet name. Each file contains a
-single JSON object. The members are:
+directory (and can subsequently be modified by the map style). The file name
+corresponds to the sheet name. Each file contains a single JSON object. The
+members are:
 
 - ``"base"``: This is either ``"land"`` for sheets based on land or ``"water"``
   for sheets based on water, and determines whether hexes that are not
@@ -80,6 +84,29 @@ JSON file in the glass/mapsheetdata/ directory with a new unique name. This is
 not the case for second-generation maps, as they have a defined relation between
 hex label and map sheet.
 
+Being on a Sheet
+----------------
+
+We say that the edge of a sheet is *internal* if it is adjacent to another
+non-blank sheet in the map and is external otherwise.
+
+We say a location is *on a sheet* if it is strictly within the boundaries of the
+sheet, if it is on the right edge of the sheet if this is an internal edge, or
+if it is on the bottom edge of the sheet if this is an internal edge. The sense
+of right and bottom are in the normal orientation of the map, prior to any
+requested rotation.
+
+Being on the Map
+----------------
+
+We say that a position is *on the map* if it is strictly within the boundary of
+the map. The boundary of the map is formed by the external edges of the sheets.
+
+Note that a location on an external edge of a sheet or, equivalently, on the
+boundary of the map, is not considered to be *on a sheet* or *on the map*.
+
+API
+---
 """
 
 __all__ = [
@@ -90,6 +117,7 @@ __all__ = [
     "enddrawmap",
     "usingfirstgenerationsheets",
     "isonmap",
+    "isonsheet",
     "tosheet",
     "sheetorigin",
     "altitude",
@@ -1223,12 +1251,13 @@ def isonsheet(sheet, x, y):
 
     :note:
 
-        The edge of a sheet is *internal* if it is adjacent to another sheet in
-        the map and is *external* otherwise. A position is on a sheet if it is
-        strictly within the boundaries of the sheet if it is on the rightmost
-        edge of the sheet if this is an inner edge, or if it is on the bottom
-        edge of the sheet if this is an inner edge. These directions are
-        considered with the map in the normal orientation before any rotations.
+        The edge of a sheet is *internal* if it is adjacent to another non-blank
+        sheet in the map and is *external* otherwise. A position is on a sheet
+        if it is strictly within the boundaries of the sheet if it is on the
+        rightmost edge of the sheet if this is an inner edge, or if it is on the
+        bottom edge of the sheet if this is an inner edge. These directions are
+        considered with the map in the normal orientation before any requested
+        rotation.
 
     """
 
@@ -1277,13 +1306,6 @@ def isonmap(x, y):
         a valid hex position.
     :returns: ``True`` if the position is on the map, otherwise ``False``.
 
-
-    :note:
-
-        The edge of a sheet is *internal* if it is adjacent to another sheet in
-        the map and is *external* otherwise. We say that a position is on the
-        map if it is strictly within the boundary of the map. The boundary of
-        the map is formed by the external edges of the sheets.
     """
 
     return tosheet(x, y) != None and (

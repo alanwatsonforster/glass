@@ -7,5 +7,6 @@ API
    glass.azimuth.rst
    glass.draw.rst
    glass.hex.rst
+   glass.hexcode.rst
    glass.map.rst
    glass.mapstyle.rst
