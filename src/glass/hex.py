@@ -40,8 +40,8 @@ import math
 
 
 __all__ = [
-    "tophysical",
-    "fromphysical",
+    "tophysicalxy",
+    "fromphysicalxy",
     "ishex",
     "ishexside",
     "isvalid",
@@ -66,8 +66,8 @@ def tophysicalxy(x, y):
     :param y: The `x` and `y` parameters are the hex coordinates of the hex
         location.
 
-    :return: The `x` and `y` coordinates of the physical location corresponding
-        to the hex location.
+    :return: A tuple (`x`, `y`) in which `x` and `y` are the coordinates of the
+        physical location corresponding to the given hex location.
     """
 
     return x * math.sqrt(3 / 4), y
@@ -81,8 +81,8 @@ def fromphysicalxy(x, y):
     :param y: The `x` and `y` parameters are the coordinates of the physical
         location.
 
-    :return: The `x` and `y` coordinates of the hex location corresponding to
-        the physical location.
+    :return: A tuple (`x`, `y`) in which `x` and `y` are the coordinates of the
+        hex location corresponding to the given physical location.
     """
 
     return x / math.sqrt(3 / 4), y
@@ -96,7 +96,7 @@ def ishex(x, y):
     :param y: The `x` and `y` parameters are the hex coordinates of the hex
         location.
 
-    :return: ``True`` if the point (x,y) in hex coordinates corresponds to a hex
+    :return: ``True`` if the given hex location corresponds to a hex
         center, otherwise ``False``.
     """
 
@@ -116,7 +116,7 @@ def ishexside(x, y):
     :param y: The `x` and `y` parameters are the hex coordinates of the hex
         location.
 
-    :return: ``True`` if the point (x,y) in hex coordinates corresponds to a
+    :return: ``True`` if the given hex location corresponds to a
         hex-side center, otherwise ``False``.
     """
 
@@ -142,8 +142,8 @@ def isvalid(x, y, facing=None):
     :param facing: Either ``None`` or a number specifying the facing in degrees.
 
     :return:
-        ``True`` if the location (x,y) in hex coordinates corresponds to a hex
-        center or hex-side side and the facing, if not ``None``, is a multiple
+        ``True`` if the given hex location corresponds to a hex
+        center or hex-side side and the given facing, if not ``None``, is a multiple
         of 30 degrees for centers and parallel to the side for hex-sides,
         otherwise ``False``.
     """
@@ -177,8 +177,8 @@ def checkisvalid(x, y, facing=None):
 
     :returns: ``None``
 
-    :raises RuntimeError: If the point (x,y) in hex coordinates and facing do
-        not correspond to a valid hex location in the sense of :func:`isvalid`.
+    :raises RuntimeError: If the given hex location and facing do not correspond
+        to a valid hex location and facing in the sense of :func:`isvalid`.
     """
 
     if not isvalid(x, y):
@@ -200,8 +200,8 @@ def areadjacent(x0, y0, x1, y1):
         location. The location must be a valid hex or hex-side.
 
     :return:
-        ``True`` if the locations (x0,y0) and (x1,y1) in hex coordinates
-        corresponds the hex centers of adjacent hexes, otherwise ``False``.
+        ``True`` if the given hex locations correspond to the hex centers of
+        adjacent hexes, otherwise ``False``.
     """
 
     assert isvalid(x0, y0)
@@ -228,8 +228,9 @@ def hexsidetohex(x, y, facing, sense):
         hex-side location.
     :param sense: The sense of the hex, either ``"L"`` or ``"R"``.
 
-    :return: The `x` and `y` coordinates of the hex center adjacent to the hex
-        side at the location (x, y) with respect to the facing and sense.
+    :return: A tuple (`x`, `y`) in which `x` and `y` are the hex coordinates of
+        the hex center adjacent to the hex-side at the given location with
+        respect to the given facing and sense.
     """
 
     assert ishexside(x, y)
@@ -266,8 +267,9 @@ def hexsidetohexes(x, y):
     :param y: The `x` and `y` parameters are the hex coordinates of the hex
         location. The location must be a valid hex-side.
 
-    :return: A tuple (x0, y0, x1, y0) whose values are the hex coordinates
-        (x0,y0) and (x1,y1) of the hex centers adjacent to the hex-side.
+    :return: A tuple (`x0`, `y0`, `x1`, `y0`) in which (`x0`, `y0`) and (`x1`,
+        `y1`) are the hex coordinates of the hex centers adjacent to the
+        given hex-side.
     """
 
     assert ishexside(x, y)
@@ -301,8 +303,9 @@ def forward(x, y, facing):
     :param facing: The facing in degrees. The facing must be valid for the hex
         location.
 
-    :return: The `x` and `y` coordinates next valid location forward from the
-        point (x, y) with respect to the facing.
+    :return: A tuple (`x`, `y`) in which `x` and `y` are the hex coordinates
+        next valid location forward from the given hex location with respect to the
+        given facing.
     """
 
     assert isvalid(x, y, facing=facing)
@@ -336,8 +339,9 @@ def backward(x, y, facing):
     :param facing: The facing in degrees. The facing must be valid for the hex
         location.
 
-    :return: The `x` and `y` coordinates next valid location backward from the
-        point (x, y) with respect to the facing.
+    :return: A tuple (`x`, `y`) in which `x` and `y` are the hex coordinates
+        next valid location backward from the given location with respect to the
+        given facing.
     """
 
     assert isvalid(x, y, facing=facing)
@@ -372,9 +376,10 @@ def slide(x, y, facing, sense):
         location.
     :param sense: The sense of the maneuver, either ``"L"`` or ``"R"``.
 
-    :return: The `x` and `y` coordinates after performing a slide from the point
-        (x, y) with respect to the facing and sense. The forward part of the
-        slide has already been carried out.
+    :return: A tuple (`x`, `y`) in which `x` and `y` are the hex coordinates of
+        the location after performing a slide from the given location with
+        respect to the given facing and sense. The forward part of the slide has
+        already been carried out.
     """
 
     assert isvalid(x, y, facing=facing)
@@ -418,9 +423,10 @@ def displacementroll(x, y, facing, sense):
         location.
     :param sense: The sense of the maneuver, either ``"L"`` or ``"R"``.
 
-    :return: The `x` and `y` coordinates after performing a displacement roll
-        from the location (x, y) with respect to the facing and sense. The
-        forward part of the displacement roll has already been carried out.
+    :return:  A tuple (`x`, `y`) in which `x` and `y` are the hex coordinates of
+        the location after performing a displacement roll from the given
+        location with respect to the given facing and sense. The forward part of
+        the displacement roll has already been carried out.
     """
 
     # It's identical to a slide.
@@ -439,9 +445,10 @@ def lagroll(x, y, facing, sense):
         location.
     :param sense: The sense of the maneuver, either ``"L"`` or ``"R"``.
 
-    :return: The `x` and `y` coordinates after performing a lag roll from the
-        location (x, y) with respect to the facing and sense. The forward part
-        of the lag roll has already been carried out.
+    :return: A tuple (`x`, `y`) in which `x` and `y` are the hex coordinates of
+        the location after performing a lag roll from the given location with
+        respect to the given facing and sense. The forward part of the lag roll
+        has already been carried out.
     """
 
     assert isvalid(x, y, facing=facing)
@@ -469,8 +476,8 @@ def distance(x0, y0, x1, y1):
         location. The location must be a valid hex or hex-side.
 
     :return:
-        The distance between the two hex positions in hexes as an integer. The
-        distance is the number of whole hexes on the shortest path.
+        The distance between the two given hex locations in hexes as an integer.
+        The distance is the number of whole hexes on the shortest path.
     """
 
     # The TSOH errata says this about range: "When determining range where one
