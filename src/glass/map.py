@@ -180,8 +180,8 @@ _dxsheet = 20
 _dysheet = 15
 
 _sheetgrid = []
-_loweredgeonmap = {}
-_rightedgeonmap = {}
+_loweredgeisinternal = {}
+_rightedgeisinternal = {}
 _sheetlist = []
 _nxsheetgrid = 0
 _nysheetgrid = 0
@@ -337,25 +337,13 @@ def setupmap(
     _nysheetgrid = len(_sheetgrid)
     _nxsheetgrid = len(_sheetgrid[0])
 
-    def sheettoright(iy, ix):
-        if ix < _nxsheetgrid - 1:
-            return _sheetgrid[iy][ix + 1]
-        else:
-            return ""
-
-    def sheetbelow(iy, ix):
-        if iy > 0:
-            return _sheetgrid[iy - 1][ix]
-        else:
-            return ""
-
     global _generation
     _generation = None
     global _sheetlist
     _sheetlist = []
-    global _loweredgeonmap, _rightedgeonmap
-    _loweredgeonmap = {}
-    _rightedgeonmap = {}
+    global _loweredgeisinternal, _rightedgeisinternal
+    _loweredgeisinternal = {}
+    _rightedgeisinternal = {}
     for iy in range(0, _nysheetgrid):
         for ix in range(0, _nxsheetgrid):
             sheet = _sheetgrid[iy][ix]
@@ -367,8 +355,8 @@ def setupmap(
             _sheetgrid[iy][ix] = sheet
             if sheet not in blanksheets:
                 _sheetlist.append(sheet)
-                _loweredgeonmap.update({sheet: sheetbelow(iy, ix) != ""})
-                _rightedgeonmap.update({sheet: sheettoright(iy, ix) != ""})
+                _loweredgeisinternal |= {sheet: iy != 0 and _sheetgrid[iy - 1][ix] not in blanksheets}
+                _rightedgeisinternal |= {sheet: ix != 0 and _sheetgrid[iy][ix - 1] not in blanksheets}
                 try:
                     terrain = _loadterrain(sheet)
                 except:
@@ -1265,11 +1253,11 @@ def isonsheet(sheet, x, y):
 
     xmin, ymin, xmax, ymax = sheetlimits(sheet)
 
-    if _rightedgeonmap[sheet] and _loweredgeonmap[sheet]:
+    if _rightedgeisinternal[sheet] and _loweredgeisinternal[sheet]:
         return xmin < x and x <= xmax and ymin <= y and y < ymax
-    elif _rightedgeonmap[sheet]:
+    elif _rightedgeisinternal[sheet]:
         return xmin < x and x <= xmax and ymin < y and y < ymax
-    elif _loweredgeonmap[sheet]:
+    elif _loweredgeisinternal[sheet]:
         return xmin < x and x < xmax and ymin <= y and y < ymax
     else:
         return xmin < x and x < xmax and ymin < y and y < ymax
@@ -1308,9 +1296,7 @@ def isonmap(x, y):
 
     """
 
-    return tosheet(x, y) != None and (
-        _mapxmin < x and x < _mapxmax and _mapymin < y and y < _mapymax
-    )
+    return tosheet(x, y) != None
 
 
 def pathpointtoxy(sheet, label, dx, dy):
