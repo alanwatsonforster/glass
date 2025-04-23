@@ -186,12 +186,6 @@ _sheetlist = []
 _nxsheetgrid = 0
 _nysheetgrid = 0
 
-_mapxmin, _mapxmax, _mapymin, _mapymax = None, None, None, None
-"""
-The `_mapxmin`, `_mapymin`, `_mapxmax`, and `_mapymax` variables give the limits of
-the map (specifically the sheet grid) in hex coordinates.
-"""
-
 _borderxmin, _borderymin, _borderxmax, _borderymax = None, None, None, None
 """
 The `_borderxmin`, `_borderymin`, `_borderxmax`, and `_borderymax` variables
@@ -380,7 +374,6 @@ def setupmap(
         _dysheet = 15
 
     # Determine the limits of the map grid.
-    global _mapxmin, _mapymin, _mapxmax, _mapymax
     _mapxmin = 0.33
     _mapxmax = _dxsheet * _nxsheetgrid - 0.33
     _mapymin = 0
