@@ -24,7 +24,7 @@ def _continuemove(self, s):
             self._moveturn("L", 30)
         elif s == "LL" or s == "L60":
             self._moveturn("L", 60)
-    elif glass.hexcode.isvalidhexcodeforcenter(s):
+    elif glass.hexcode.isvalidhexcodeforhex(s):
         self._setposition(hexcode=s)
     elif glass.azimuth.isvalidazimuth(s):
         newx, newy = glass.hex.forward(self._x, self._y, glass.azimuth.tofacing(s))

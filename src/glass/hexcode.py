@@ -25,19 +25,19 @@ The complete hexes in the second-generation sheets are labeled as follows:
 - The B maps have XX from 31 to 49.
 - The C maps have XX from 51 to 69.
 - The D maps have XX from 71 to 89.
-- The 1 map sheets have YY from 01 to 15 (XX odd) or 02 to 15 (XX even). 
-- The 2 map sheets have YY from 16 to 30 (XX odd) or 17 to 30 (XX even). 
-- The 3 map sheets have YY from 31 to 45 (XX odd) or 32 to 45 (XX even). 
-- The 4 map sheets have YY from 46 to 60 (XX odd) or 47 to 60 (XX even). 
-- The 5 map sheets have YY from 61 to 75 (XX odd) or 62 to 75 (XX even). 
-- The 6 map sheets have YY from 76 to 90 (XX odd) or 77 to 90 (XX even). 
+- The 1 map sheets have YY from 01 to 15 (XX odd) or 02 to 15 (XX even).
+- The 2 map sheets have YY from 16 to 30 (XX odd) or 17 to 30 (XX even).
+- The 3 map sheets have YY from 31 to 45 (XX odd) or 32 to 45 (XX even).
+- The 4 map sheets have YY from 46 to 60 (XX odd) or 47 to 60 (XX even).
+- The 5 map sheets have YY from 61 to 75 (XX odd) or 62 to 75 (XX even).
+- The 6 map sheets have YY from 76 to 90 (XX odd) or 77 to 90 (XX even).
 
 
-Along the edges of the sheets are half hexes and in the corners are quarter hexes. 
+Along the edges of the sheets are half hexes and in the corners are quarter hexes.
 
 In the original first-generation maps, the half hexes along the bottom of the sheet are labeled and have YY of 25. The other partial hexes have no labels.
 
-In the original second-generation maps, the column of half hexes along the left edges is labeled with just YY, the column of half hexes along the right edge is labeled with just XX, the half hexes along the top edge have no labels, and the half hexes along the bottom edge are labeled XXYY. 
+In the original second-generation maps, the column of half hexes along the left edges is labeled with just YY, the column of half hexes along the right edge is labeled with just XX, the half hexes along the top edge have no labels, and the half hexes along the bottom edge are labeled XXYY.
 
 For example, in sheet A1:
 
@@ -89,11 +89,11 @@ The hex code for a hex center is:
 - A hyphen.
 - The hex label.
 
-For example, A-1211 refers to the hex with label 1211 in sheet A. 
+For example, A-1211 refers to the hex with label 1211 in sheet A.
 
 The hex labels of the partial hexes on the edge of a sheet are obtained by extrapolating the pattern of the hex labels within the sheet.
 
-Hexes on internal edges can have more than one hex code. For example, hexes in a vertical edge can be referred to with hex codes from the sheets to the left or right. The implementation accepts all on input, but on output gives the hex code for the sheet 
+Hexes on internal edges can have more than one hex code. For example, hexes in a vertical edge can be referred to with hex codes from the sheets to the left or right. The implementation accepts all on input, but on output gives the hex code for the sheet
 
 The hex code for a hex-side center is:
 
@@ -116,61 +116,105 @@ import glass.map
 
 import re
 
-hexcodeforcenterre = re.compile(r"([A-Z]+[0-9]?)-([0-9][0-9][0-9][0-9])")
-hexcodeforsidere = re.compile(
+__all__ = [
+    "isvalidhexcodeforhex",
+    "checkisvalidhexcodeforhex",
+    "isvalidhexcodeforhexside",
+    "checkvalidhexcodeforside",
+    "isvalidhexcode",
+    "checkisvalidhexcode",
+    "fromxy",
+    "toxy",
+    "tosheet",
+    "tolabel",
+    "yoffsetforoddx",
+]
+
+_hexcodeforcenterre = re.compile(r"([A-Z]+[0-9]?)-([0-9][0-9][0-9][0-9])")
+_hexcodeforsidere = re.compile(
     r"([A-Z]+[0-9]?)-([0-9][0-9][0-9][0-9])/([0-9][0-9][0-9][0-9])"
 )
 
 
-def isvalidhexcodeforcenter(h):
+def isvalidhexcodeforhex(h):
     """
-    Return True if h is grammatically a hex code that corresponds to a center.
-    Otherwise return False.
-    """
+    Return whether a value is gramatically a hex code that corresponds to a hex
+    center.
 
-    return isinstance(h, str) and hexcodeforcenterre.fullmatch(h) is not None
-
-
-def checkisvalidhexcodeforcenter(h):
-    """
-    Raise a RuntimeError exception if h is not a gramatically valid hex code that
-    corresponds to a center.
+    :param h: The value to check.
+    :returns: ``True`` if h is a string and is grammatically a hex code that
+        corresponds to a hex center, otherwise ``False``.
     """
 
-    if not isvalidhexcodeforcenter(h):
+    return isinstance(h, str) and _hexcodeforcenterre.fullmatch(h) is not None
+
+
+def checkisvalidhexcodeforhex(h):
+    """
+    Raise an exception is a value is not gramatically a hex code that
+    corresponds to a hex center.
+
+    :param h: The value to check.
+    :returns: ``None``
+
+    :raises RuntimeError: If the given value is not gramatically a hex code that
+        corresponds to a hex center. in the sense of :func:`isvalidhexcodeforhex`.
+    """
+
+    if not isvalidhexcodeforhex(h):
         raise RuntimeError("%r is not a valid hex code for a hex." % h)
 
 
-def isvalidhexcodeforside(h):
+def isvalidhexcodeforhexside(h):
     """
-    Return True if h is grammatically a hex code that corresponds to an side.
-    Otherwise return False.
+    Return whether a value is gramatically a hex code that corresponds to a
+    hex-side center.
+
+    :param h: The value to check.
+    :returns: ``True`` if h is a string and is grammatically a hex code that
+        corresponds to a hex-side center, otherwise ``False``.
     """
 
-    return isinstance(h, str) and hexcodeforsidere.fullmatch(h) is not None
+    return isinstance(h, str) and _hexcodeforsidere.fullmatch(h) is not None
 
 
 def checkvalidhexcodeforside(h):
     """
-    Raise a RuntimeError exception if h is not a gramatically valid hex code that
-    corresponds to an side.
+    Raise an exception is a value is not gramatically a hex code that
+    corresponds to a hex-side center.
+
+    :param h: The value to check.
+    :returns: ``None``
+
+    :raises RuntimeError: If the given value is not gramatically a hex code that
+        corresponds to a hex-side center. in the sense of :func:`isvalidhexcodeforhexside`.
     """
 
-    if not isvalidhexcodeforside(h):
+    if not isvalidhexcodeforhexside(h):
         raise RuntimeError("%r is not a valid hex code for an side." % h)
 
 
 def isvalidhexcode(h):
     """
-    Return True if h is a grammatically valid hex code. Otherwise return False.
+    Return whether a value is gramatically a hex code.
+
+    :param h: The value to check.
+    :returns: ``True`` if h is a string and is grammatically a hex code,
+        otherwise ``False``.
     """
 
-    return isvalidhexcodeforcenter(h) or isvalidhexcodeforside(h)
+    return isvalidhexcodeforhex(h) or isvalidhexcodeforhexside(h)
 
 
 def checkisvalidhexcode(h):
     """
-    Raise a RuntimeError exception if h is not a gramatically valid hex code.
+    Raise an exception is a value is not gramatically a hex code.
+
+    :param h: The value to check.
+    :returns: ``None``
+
+    :raises RuntimeError: If the given value is not gramatically a hex code. in
+        the sense of :func:`isvalidhexcodeforhex`.
     """
 
     if not isvalidhexcode(h):
@@ -179,8 +223,14 @@ def checkisvalidhexcode(h):
 
 def yoffsetforoddx():
     """
-    Return the offset in y for odd rows in x. This differs between GDW
-    and TSOH sheets.
+    Return the offset in y for hex centers in odd rows in x. 
+
+    Assume that ``(x, y)`` are the hex coordinates of the hex center of the hex
+    labeled ``"%02d%02d" % (XX, YY)`` and that ``x`` is even. The hex coordinates of the hex labeled
+    ``"%02d%02d" % (XX + 1, YY)`` will be ``(x + 1, y + yoffsetforoddex())``.
+    
+    :returns:  The offset in y for hex centers in odd rows in x. 
+
     """
 
     if glass.map.usingfirstgenerationsheets():
@@ -191,9 +241,18 @@ def yoffsetforoddx():
 
 def fromxy(x, y, sheet=None):
     """
-    Return the hex code corresponding to the hex coordinate (x, y), which must
-    correspond to a center or an side. If a sheet is specified, the hex code is
-    chosen from that sheet. Otherwise the normal rules are used for sides.
+    Return the hex code corresponding to the hex coordinate (x, y), 
+    
+    :param x:
+    :param y: The `x` and `y` parameters are the hex coordinates of a hex
+        location that must correspond to a hex center or hex-side center.
+    :param sheet: Either ``None`` or a string corresponding to one of the sheets
+        on the map.
+
+    :return: The hex code corresponding to the given location. If a sheet is
+        specified, the hex code is chosen from that sheet. Otherwise the normal
+        rules are used for sides.
+
     """
 
     glass.hex.checkisvalid(x, y)
@@ -240,11 +299,16 @@ def fromxy(x, y, sheet=None):
 def toxy(h):
     """
     Return the hex coordinate (x, y) corresponding to the hex code h.
+    
+    :param h: A hex code.
+
+    :return: A tuple (``x``, ``y``) in which ``x`` and ``y`` are the hex
+        coordinates corresponding to the given hex code.
     """
 
     checkisvalidhexcode(h)
 
-    if isvalidhexcodeforcenter(h):
+    if isvalidhexcodeforhex(h):
 
         sheet, label = _splithexcodeforcenter(h)
         XX, YY = _splitlabelforcenter(label)
@@ -271,11 +335,16 @@ def toxy(h):
 
 def tosheet(h):
     """
-    Return the sheet corresponding to the hex code h.
+    Return the sheet corresponding to a hex code.
+
+
+    :param h: A hex code.
+
+    :return: A sheet corresponding to the given hex code as a string.    
     """
 
     checkisvalidhexcode(h)
-    if isvalidhexcodeforcenter(h):
+    if isvalidhexcodeforhex(h):
         sheet, label = _splithexcodeforcenter(h)
     else:
         sheet, label0, label1 = _splithexcodeforside(h)
@@ -284,11 +353,15 @@ def tosheet(h):
 
 def tolabel(h):
     """
-    Return the label corresponding to the hex code h.
+    Return the label corresponding to a hex code.
+
+    :param h: A hex code.
+
+    :return: A label corresponding to the given hex code as a string.    
     """
 
     checkisvalidhexcode(h)
-    if isvalidhexcodeforcenter(h):
+    if isvalidhexcodeforhex(h):
         sheet, label = _splithexcodeforcenter(h)
         return label
     else:
@@ -298,7 +371,7 @@ def tolabel(h):
 
 def _splitlabelforcenter(label):
     """
-    Return the XX and YY components of a center label as integers.
+    Return the XX and YY components of a hex center label as integers.
     """
 
     n = int(label)
@@ -313,9 +386,9 @@ def _splithexcodeforcenter(h):
     center.
     """
 
-    assert isvalidhexcodeforcenter(h)
+    assert isvalidhexcodeforhex(h)
 
-    m = hexcodeforcenterre.fullmatch(h)
+    m = _hexcodeforcenterre.fullmatch(h)
     sheet = m[1]
     label = m[2]
     return sheet, label
@@ -327,9 +400,9 @@ def _splithexcodeforside(h):
     side.
     """
 
-    assert isvalidhexcodeforside(h)
+    assert isvalidhexcodeforhexside(h)
 
-    m = hexcodeforsidere.fullmatch(h)
+    m = _hexcodeforsidere.fullmatch(h)
     sheet = m[1]
     label0 = m[2]
     label1 = m[3]
