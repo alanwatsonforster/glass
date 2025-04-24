@@ -241,7 +241,8 @@ def usingfirstgenerationsheets():
 
 
 def setupmap(
-    sheetgrid,
+    sheets,
+    invertedsheets=[],
     dotsperhex=80,
     style="airstrike",
     leveloffset=0,
@@ -251,7 +252,7 @@ def setupmap(
     """
     Set up the map.
 
-    :param sheetgrid: The ``sheetgrid`` argument must be a 2D array of sheet
+    :param sheets: The ``sheets`` argument must be a 2D array of sheet
         specifiers. The sheets are ordered top-to-bottom and left-to-right. All
         of the rows must be the same length. Each sheet specifier must be a
         string consisting of a sheet name optionally followed by ``"/i"`` if the
@@ -310,21 +311,19 @@ def setupmap(
         raise RuntimeError("invalid style %r." % style)
 
     # Check the sheet grid has the right structure.
-    if not isinstance(sheetgrid, list):
+    global _sheetgrid
+    _sheetgrid = sheets
+    if not isinstance(_sheetgrid, list):
         raise RuntimeError("the sheet grid is not a list of lists.")
-    for row in sheetgrid:
+    for row in _sheetgrid:
         if not isinstance(row, list):
             raise RuntimeError("the sheet grid is not a list of lists.")
-        if len(row) != len(sheetgrid[0]):
+        if len(row) != len(_sheetgrid[0]):
             raise RuntimeError("the sheet grid is not rectangular.")
-        for sheet in row:
-            if sheet[-2:] == "/i":
-                sheet = sheet[:-2]
 
     # The sheet grid argument follows visual layout, so we need to flip it
     # vertically so that the lower-left sheet has indices (0,0).
-    global _sheetgrid
-    _sheetgrid = list(reversed(sheetgrid))
+    _sheetgrid = list(reversed(_sheetgrid))
 
     global _nysheetgrid
     global _nxsheetgrid
@@ -341,12 +340,6 @@ def setupmap(
     for iy in range(0, _nysheetgrid):
         for ix in range(0, _nxsheetgrid):
             sheet = _sheetgrid[iy][ix]
-            if sheet[-2:] == "/i":
-                sheet = sheet[:-2]
-                inverted = True
-            else:
-                inverted = False
-            _sheetgrid[iy][ix] = sheet
             if sheet not in blanksheets:
                 _sheetlist.append(sheet)
                 _loweredgeisinternal |= {sheet: iy != 0 and _sheetgrid[iy - 1][ix] not in blanksheets}
@@ -359,7 +352,7 @@ def setupmap(
                     _generation = terrain["generation"]
                 elif _generation != terrain["generation"]:
                     raise RuntimeError("invalid sheet %s." % sheet)
-                if inverted:
+                if sheet in invertedsheets:
                     terrain = _invertterrain(terrain)
                 terrain = glass.mapstyle.styleterrain(terrain, _style)
                 terrain = _prepareterrain(terrain)
