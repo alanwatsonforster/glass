@@ -252,12 +252,10 @@ def setupmap(
     """
     Set up the map.
 
-    :param sheets: The ``sheets`` argument must be a 2D array of sheet
-        specifiers. The sheets are ordered top-to-bottom and left-to-right. All
-        of the rows must be the same length. Each sheet specifier must be a
-        string consisting of a sheet name optionally followed by ``"/i"`` if the
-        sheet is inverted. No sheet name can be used more than once and all
-        sheets must be from the same generation.
+    :param sheets: The ``sheets`` argument must be a 2D array of sheet names.
+        The sheets are ordered top-to-bottom and left-to-right. All of the rows
+        must be the same length. No sheet name can be used more than once and
+        all sheets must be from the same generation.
 
         The first-generation sheet names are: ``"A"``, ``"B"``, ``"C"``, ...,
         ``"Z"``.
@@ -265,6 +263,9 @@ def setupmap(
         The second-generation sheet names are: ``"A1"``, ``"A2"``, ``"A3"``,
         ..., ``"A6"``, ``"B1"``, ..., ``"B6"``, ``"C1"``, ..., ``"C6"``,
         ``"D1"``, ..., ``"D6"``.
+
+    :param invertedsheets: A list of strings naming sheets that are inverted in
+        the map.
 
     :param dotsperhex: The ``dotsperhex`` argument must be an integer. It
         specifies the resolution of pixelated output files in dots per hex (or
