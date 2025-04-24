@@ -603,7 +603,7 @@ def startdrawmap(
 
     global _saved
     if fullmap and _saved:
-        glass.draw.restore()
+        glass.draw.restorecanvas()
         return
 
     def isnearcanvas(x, y):
@@ -632,7 +632,7 @@ def startdrawmap(
     def sheetsnearcanvas():
         return filter(lambda sheet: issheetnearcanvas(sheet), _sheetlist)
 
-    glass.draw.setcanvas(
+    glass.draw.startcanvas(
         canvasxmin,
         canvasymin,
         canvasxmax,
@@ -1159,15 +1159,15 @@ def startdrawmap(
     glass.draw.setcompactstacks(compactstacks)
 
     if fullmap and _writefiles:
-        glass.draw.save()
+        glass.draw.savecanvas()
         _saved = True
 
 
 def enddrawmap(turn, writefiles=True):
     if _writefiles and writefiles:
         for filetype in _writefiletypes:
-            glass.draw.writefile("map-%02d.%s" % (turn, filetype))
-    glass.draw.show()
+            glass.draw.writecanvastofile("map-%02d.%s" % (turn, filetype))
+    glass.draw.showcanvas()
 
 
 def sheetorigin(sheet):

@@ -13,21 +13,25 @@ plt.rcParams.update({"figure.max_open_warning": 0})
 
 ################################################################################
 
-canvasrotation = 0
+_canvasrotation = 0
 """
-The value of `canvasrotation` determines the rotation of the canvas coordinate
+The value of ``_canvasrotation`` determines the rotation of the canvas coordinate
 frame from the hex and physical coordinate frames, with a positive rotation
 corresponding to a counterclockwise rotation. It  must be an integer value and a
 muliple of 90.
 """
 
-canvasxmin = None
-canvasxmax = None
-canvasymin = None
-canvasymax = None
+_canvasxmin = None
+_canvasymin = None
+_canvasxmax = None
+_canvasymax = None
+"""
+The values of ``_canvasxmin``, ``_canvasymin``, ``_canvasxmax``, and ``_canvasxmax``
+are the limits in canvas space of the canvas currently being drawn.
+"""
 
 
-def tocanvasxy(x, y):
+def _tocanvasxy(x, y):
     """
     Return the canvas position corresponding to a hex position.
 
@@ -38,23 +42,23 @@ def tocanvasxy(x, y):
     :return: The `x` and `y` coordinates of the canvas position corresponding to
         the hex position.
 
-    :note: The canvas coordinate frame is rotated by `canvasrotation` from the
+    :note: The canvas coordinate frame is rotated by `_canvasrotation` from the
         hex and physical coordinate frames, with a positive rotation
         corresponding to a counterclockwise rotation.
 
     """
     x, y = glass.hex.tophysicalxy(x, y)
-    if canvasrotation == 0:
+    if _canvasrotation == 0:
         return x, y
-    elif canvasrotation == 180:
+    elif _canvasrotation == 180:
         return -x, -y
-    elif canvasrotation == 90:
+    elif _canvasrotation == 90:
         return -y, x
-    elif canvasrotation == 270:
+    elif _canvasrotation == 270:
         return y, -x
 
 
-def tocanvasfacing(facing):
+def _tocanvasfacing(facing):
     """
     Return the canvas facing corresponding to a hex facing.
 
@@ -63,12 +67,12 @@ def tocanvasfacing(facing):
     :return: The canvas facing corresponding to the hex facing.
 
 
-    :note: The canvas coordinate frame is rotated by `canvasrotation` from the
+    :note: The canvas coordinate frame is rotated by `_canvasrotation` from the
         hex and physical coordinate frames, with a positive rotation
         corresponding to a counterclockwise rotation.
 
     """
-    return facing + canvasrotation
+    return facing + _canvasrotation
 
 
 ################################################################################
@@ -80,37 +84,58 @@ _fig = None
 _ax = None
 
 
-def setcanvas(xmin, ymin, xmax, ymax, rotation=0, dotsperhex=100):
+def startcanvas(xmin, ymin, xmax, ymax, rotation=0, dotsperhex=100):
+    """
+    Start a new canvas.
+
+    :param xmin:
+    :param ymin:
+    :param xmax:
+    :param ymax:  The ``xmin``, ``ymin``, ``xmax``, and ``xmax`` arguments are
+        the limits in hex space of the canvas to be drawn. They must be numbers.
+    :param rotation: The ``rotation``argument is the rotation of the canvas in
+        degrees, with a positive rotation corresponding to a counterclockwise
+        rotation. It must be an integer value and a muliple of 90.
+    :param dotsperhex:  The ``dotsperhex`` argument must be an integer. It
+        specifies the resolution of pixelated output files in dots per hex (or
+        more precisely dots between hex centers).
+    """
+
     global _fig, _ax
 
-    global canvasrotation
+    global _canvasrotation
     assert isinstance(rotation, int) and rotation % 360 in [0, 90, 180, 270]
-    canvasrotation = rotation % 360
+    _canvasrotation = rotation % 360
 
-    global canvasxmin, canvasxmax, canvasymin, canvasymax
-    canvasxmin, canvasymin = tocanvasxy(xmin, ymin)
-    canvasxmax, canvasymax = tocanvasxy(xmax, ymax)
-    canvasxmin, canvasxmax = min(canvasxmin, canvasxmax), max(canvasxmin, canvasxmax)
-    canvasymin, canvasymax = min(canvasymin, canvasymax), max(canvasymin, canvasymax)
-    # The figsize argument below implicitly set a scale of 1 inch = 1 hex.
+    global _canvasxmin, _canvasxmax, _canvasymin, _canvasymax
+    _canvasxmin, _canvasymin = _tocanvasxy(xmin, ymin)
+    _canvasxmax, _canvasymax = _tocanvasxy(xmax, ymax)
+    _canvasxmin, _canvasxmax = min(_canvasxmin, _canvasxmax), max(_canvasxmin, _canvasxmax)
+    _canvasymin, _canvasymax = min(_canvasymin, _canvasymax), max(_canvasymin, _canvasymax)
+
+    # Set the canvas size and resolution. The figsize argument below implicitly
+    # set a scale of 1 hex = 1 inch = 72 points.
     _fig = plt.figure(
-        figsize=[abs(canvasxmax - canvasxmin), abs(canvasymax - canvasymin)],
+        figsize=[abs(_canvasxmax - _canvasxmin), abs(_canvasymax - _canvasymin)],
         frameon=False,
         dpi=dotsperhex,
     )
 
+    # Set the coordinate system.
     plt.axis("off")
-    plt.xlim(canvasxmin, canvasxmax)
-    plt.ylim(canvasymin, canvasymax)
+    plt.xlim(_canvasxmin, _canvasxmax)
+    plt.ylim(_canvasymin, _canvasymax)
     _ax = plt.gca()
     _ax.set_position([0, 0, 1, 1])
+
+    # Draw a plain white background.
     _ax.add_artist(
         patches.Polygon(
             [
-                [canvasxmin, canvasymin],
-                [canvasxmin, canvasymax],
-                [canvasxmax, canvasymax],
-                [canvasxmax, canvasymin],
+                [_canvasxmin, _canvasymin],
+                [_canvasxmin, _canvasymax],
+                [_canvasxmax, _canvasymax],
+                [_canvasxmax, _canvasymin],
             ],
             edgecolor="None",
             facecolor="white",
@@ -121,41 +146,62 @@ def setcanvas(xmin, ymin, xmax, ymax, rotation=0, dotsperhex=100):
     )
 
 
-def save():
+def savecanvas():
+    """
+    Save the current canvas.
+
+    Save the current canvas in the file ``glass.pickle`` in the current
+    directory.
+
+    Saving and restoring canvases can be quicker than starting anew each time,
+    especially for large canvases.
+    """
     pickle.dump(_fig, open("glass.pickle", "wb"))
 
 
-def restore():
+def restorecanvas():
+    """
+    Restore a previously saved canvas.
+
+    Restore the current canvas from the file ``glass.pickle`` in the current
+    directory.
+    """
     global _fig, _ax
     _fig = pickle.load(open("glass.pickle", "rb"))
     _ax = plt.gca()
 
 
-def show():
-    # Avoid "UserWarning: FigureCanvasAgg is non-interactive, and thus
-    # cannot be shown". Ommiting the _fig.show() works in a Jupyter
-    # notebook since it is implicit at the end of each cell.
-    # _fig.show()
-    pass
+def showcanvas():
+    """
+    Show the current canvas in the current Jupyter or iPython notebook.
+    """
+    _fig.show()
 
 
-def writefile(name, rotation=0):
-    _fig.savefig(name)
+def writecanvastofile(filename):
+    """
+    Write the current canvas to a file.
+
+    :param filename: The ``filename`` argument names the file to be written. Its
+        type is determined by the suffix. Supported suffixes include ``".png"``
+        and `".pdf"``.
+    """
+    _fig.savefig(filename)
 
 
 ################################################################################
 
 
 def drawhex(x, y, facing=0, **kwargs):
-    _drawhexincanvas(*tocanvasxy(x, y), facing=tocanvasfacing(facing), **kwargs)
+    _drawhexincanvas(*_tocanvasxy(x, y), facing=_tocanvasfacing(facing), **kwargs)
 
 
 def drawcircle(x, y, **kwargs):
-    _drawcircleincanvas(*tocanvasxy(x, y), **kwargs)
+    _drawcircleincanvas(*_tocanvasxy(x, y), **kwargs)
 
 
 def drawsquare(x, y, facing=0, **kwargs):
-    _drawsquareincanvas(*tocanvasxy(x, y), facing=tocanvasfacing(facing), **kwargs)
+    _drawsquareincanvas(*_tocanvasxy(x, y), facing=_tocanvasfacing(facing), **kwargs)
 
 
 def drawhexlabel(x, y, label, dy=0.35, size=9, color="lightgrey", facing=0, **kwargs):
@@ -163,49 +209,49 @@ def drawhexlabel(x, y, label, dy=0.35, size=9, color="lightgrey", facing=0, **kw
 
 
 def drawdot(x, y, facing=0, **kwargs):
-    _drawdotincanvas(*tocanvasxy(x, y), facing=tocanvasfacing(facing), **kwargs)
+    _drawdotincanvas(*_tocanvasxy(x, y), facing=_tocanvasfacing(facing), **kwargs)
 
 
 def drawlines(x, y, **kwargs):
-    xy = [tocanvasxy(xy[0], xy[1]) for xy in zip(x, y)]
+    xy = [_tocanvasxy(xy[0], xy[1]) for xy in zip(x, y)]
     x = [xy[0] for xy in xy]
     y = [xy[1] for xy in xy]
     _drawlinesincanvas(x, y, **kwargs)
 
 
 def drawarrow(x, y, facing, **kwargs):
-    _drawarrowincanvas(*tocanvasxy(x, y), tocanvasfacing(facing), **kwargs)
+    _drawarrowincanvas(*_tocanvasxy(x, y), _tocanvasfacing(facing), **kwargs)
 
 
 def drawdoublearrow(x, y, facing, **kwargs):
-    _drawdoublearrowincanvas(*tocanvasxy(x, y), tocanvasfacing(facing), **kwargs)
+    _drawdoublearrowincanvas(*_tocanvasxy(x, y), _tocanvasfacing(facing), **kwargs)
 
 
 def drawdart(x, y, facing, **kwargs):
-    _drawdartincanvas(*tocanvasxy(x, y), tocanvasfacing(facing), **kwargs)
+    _drawdartincanvas(*_tocanvasxy(x, y), _tocanvasfacing(facing), **kwargs)
 
 
 def drawtext(x, y, facing, s, **kwargs):
-    _drawtextincanvas(*tocanvasxy(x, y), tocanvasfacing(facing), s, **kwargs)
+    _drawtextincanvas(*_tocanvasxy(x, y), _tocanvasfacing(facing), s, **kwargs)
 
 
 def drawpolygon(x, y, **kwargs):
-    x, y = (tocanvasxy(*xy) for xy in zip(x, y))
+    x, y = (_tocanvasxy(*xy) for xy in zip(x, y))
     _drawpolygonincanvas(x, y, **kwargs)
 
 
 def drawrectangle(xmin, ymin, xmax, ymax, **kwargs):
-    xmin, ymin = tocanvasxy(xmin, ymin)
-    xmax, ymax = tocanvasxy(xmax, ymax)
+    xmin, ymin = _tocanvasxy(xmin, ymin)
+    xmax, ymax = _tocanvasxy(xmax, ymax)
     _drawrectangleincanvas(xmin, ymin, xmax, ymax, **kwargs)
 
 
 def drawcompass(x, y, facing, **kwargs):
-    _drawcompassincanvas(*tocanvasxy(x, y), tocanvasfacing(facing), **kwargs)
+    _drawcompassincanvas(*_tocanvasxy(x, y), _tocanvasfacing(facing), **kwargs)
 
 
 def drawborder(xmin, ymin, xmax, ymax, width, color):
-    _drawborderincanvas(*tocanvasxy(xmin, ymin), *tocanvasxy(xmax, ymax), width, color)
+    _drawborderincanvas(*_tocanvasxy(xmin, ymin), *_tocanvasxy(xmax, ymax), width, color)
 
 
 ################################################################################
@@ -621,7 +667,7 @@ def drawarc(x0, y0, facing, arc):
 
     def drawdxdy(dxdy, reflect=False):
 
-        # dxdy = [tocanvasxy(dxdy[0], dxdy[1]) for dxdy in dxdy]
+        # dxdy = [_tocanvasxy(dxdy[0], dxdy[1]) for dxdy in dxdy]
 
         x = [x0 + dxdy[0] * cosd(facing) - dxdy[1] * sind(facing) for dxdy in dxdy]
         y = [y0 + dxdy[0] * sind(facing) + dxdy[1] * cosd(facing) for dxdy in dxdy]
@@ -634,7 +680,7 @@ def drawarc(x0, y0, facing, arc):
             zorder=0,
         )
 
-    x0, y0 = tocanvasxy(x0, y0)
+    x0, y0 = _tocanvasxy(x0, y0)
 
     if arc == "0":
 
@@ -657,7 +703,7 @@ def drawarc(x0, y0, facing, arc):
                 [11.0, +1.625],
                 [100.0, +1.625],
             ]
-            dxdy = [tocanvasxy(dxdy[0], dxdy[1]) for dxdy in dxdy]
+            dxdy = [_tocanvasxy(dxdy[0], dxdy[1]) for dxdy in dxdy]
 
         else:
 
@@ -1012,7 +1058,7 @@ def drawgroundunit(
     x, y, symbols, uppertext, lowertext, facing, color, name, stack, killed
 ):
     _drawgroundunitincanvas(
-        *tocanvasxy(x, y),
+        *_tocanvasxy(x, y),
         symbols,
         uppertext,
         lowertext,
