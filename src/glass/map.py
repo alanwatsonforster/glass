@@ -350,7 +350,7 @@ def setupmap(
             if sheet not in blanksheets:
                 _sheetlist.append(sheet)
                 _loweredgeisinternal |= {sheet: iy != 0 and _sheetgrid[iy - 1][ix] not in blanksheets}
-                _rightedgeisinternal |= {sheet: ix != 0 and _sheetgrid[iy][ix - 1] not in blanksheets}
+                _rightedgeisinternal |= {sheet: ix != _nxsheetgrid - 1 and _sheetgrid[iy][ix + 1] not in blanksheets}
                 try:
                     terrain = _loadterrain(sheet)
                 except:
