@@ -26,11 +26,12 @@ canvasxmax = None
 canvasymin = None
 canvasymax = None
 
+
 def tocanvasxy(x, y):
     """
     Return the canvas position corresponding to a hex position.
 
-    :param x: 
+    :param x:
     :param y: The `x` and `y` parameters are the coordinates of the hex
         position.
 
@@ -51,7 +52,8 @@ def tocanvasxy(x, y):
         return -y, x
     elif canvasrotation == 270:
         return y, -x
-    
+
+
 def tocanvasfacing(facing):
     """
     Return the canvas facing corresponding to a hex facing.
@@ -68,6 +70,7 @@ def tocanvasfacing(facing):
     """
     return facing + canvasrotation
 
+
 ################################################################################
 
 
@@ -76,11 +79,12 @@ _pointsperhex = 72
 _fig = None
 _ax = None
 
+
 def setcanvas(xmin, ymin, xmax, ymax, rotation=0, dotsperhex=100):
     global _fig, _ax
 
     global canvasrotation
-    assert(isinstance(rotation, int) and rotation % 360 in [0, 90, 180, 270])
+    assert isinstance(rotation, int) and rotation % 360 in [0, 90, 180, 270]
     canvasrotation = rotation % 360
 
     global canvasxmin, canvasxmax, canvasymin, canvasymax
@@ -102,7 +106,12 @@ def setcanvas(xmin, ymin, xmax, ymax, rotation=0, dotsperhex=100):
     _ax.set_position([0, 0, 1, 1])
     _ax.add_artist(
         patches.Polygon(
-            [[canvasxmin, canvasymin], [canvasxmin, canvasymax], [canvasxmax, canvasymax], [canvasxmax, canvasymin]],
+            [
+                [canvasxmin, canvasymin],
+                [canvasxmin, canvasymax],
+                [canvasxmax, canvasymax],
+                [canvasxmax, canvasymin],
+            ],
             edgecolor="None",
             facecolor="white",
             fill=True,
@@ -133,7 +142,9 @@ def show():
 def writefile(name, rotation=0):
     _fig.savefig(name)
 
+
 ################################################################################
+
 
 def drawhex(x, y, facing=0, **kwargs):
     _drawhexincanvas(*tocanvasxy(x, y), facing=tocanvasfacing(facing), **kwargs)
@@ -188,11 +199,14 @@ def drawrectangle(xmin, ymin, xmax, ymax, **kwargs):
     xmax, ymax = tocanvasxy(xmax, ymax)
     _drawrectangleincanvas(xmin, ymin, xmax, ymax, **kwargs)
 
+
 def drawcompass(x, y, facing, **kwargs):
     _drawcompassincanvas(*tocanvasxy(x, y), tocanvasfacing(facing), **kwargs)
 
+
 def drawborder(xmin, ymin, xmax, ymax, width, color):
     _drawborderincanvas(*tocanvasxy(xmin, ymin), *tocanvasxy(xmax, ymax), width, color)
+
 
 ################################################################################
 
@@ -206,6 +220,7 @@ def sind(x):
 
 
 ################################################################################
+
 
 def _nativelinewidth(linewidth, linecolor):
     """
@@ -559,6 +574,7 @@ def _drawcompassincanvas(x, y, facing, color="black", alpha=1.0, zorder=0):
         zorder=zorder,
     )
 
+
 def _drawborderincanvas(xmin, ymin, xmax, ymax, width, color):
     _drawrectangleincanvas(
         xmin,
@@ -592,6 +608,7 @@ def _drawborderincanvas(xmin, ymin, xmax, ymax, width, color):
         fillcolor=color,
         linecolor=None,
     )
+
 
 ################################################################################
 
@@ -716,7 +733,6 @@ pathlinewidth = "thick"
 pathlinestyle = "dotted"
 pathdotsize = 0.1
 aircrafttextsize = 10
-aircraftcounterlinewidth = "thick"
 killedfillcolor = None
 killedlinecolor = (0.60, 0.60, 0.60)
 aircraftlinecolor = (0.00, 0.00, 0.00)
@@ -802,109 +818,65 @@ def drawaircraft(x, y, facing, color, name, altitude, speed, flighttype, killed)
         fillcolor = color
         linecolor = aircraftlinecolor
     zorder = altitude + 1
-    if glass.variants.withvariant("draw counters"):
-        drawsquare(
-            x,
-            y,
-            facing=facing,
-            size=1,
-            linecolor="black",
-            linewidth=counterlinewidth,
-            fillcolor=a._color,
-            zorder=zorder,
-        )
-        drawdart(
-            x,
-            y,
-            facing,
-            size=0.4,
-            fillcolor="black",
-            linewidth=1,
-            linecolor="black",
-            zorder=zorder,
-        )
-    else:
-        drawdart(
+    drawdart(
+        x,
+        y,
+        facing,
+        size=0.4,
+        fillcolor=fillcolor,
+        linewidth=aircraftlinewidth,
+        linecolor=linecolor,
+        zorder=zorder,
+    )
+    if not killed:
+        _drawannotation(
             x,
             y,
             facing,
-            size=0.4,
-            fillcolor=fillcolor,
-            linewidth=aircraftlinewidth,
-            linecolor=linecolor,
+            "cr",
+            name,
             zorder=zorder,
         )
-        if not killed:
-            _drawannotation(
-                x,
-                y,
-                facing,
-                "cr",
-                name,
-                zorder=zorder,
-            )
-            _drawannotation(
-                x,
-                y,
-                facing,
-                "ul",
-                flighttype[:2],
-                zorder=zorder,
-            )
-            _drawannotation(
-                x,
-                y,
-                facing,
-                "cl",
-                "%2d" % altitude,
-                zorder=zorder,
-            )
-            _drawannotation(
-                x,
-                y,
-                facing,
-                "ll",
-                ("%.1f" % speed) if speed is not None else "",
-                zorder=zorder,
-            )
+        _drawannotation(
+            x,
+            y,
+            facing,
+            "ul",
+            flighttype[:2],
+            zorder=zorder,
+        )
+        _drawannotation(
+            x,
+            y,
+            facing,
+            "cl",
+            "%2d" % altitude,
+            zorder=zorder,
+        )
+        _drawannotation(
+            x,
+            y,
+            facing,
+            "ll",
+            ("%.1f" % speed) if speed is not None else "",
+            zorder=zorder,
+        )
 
 
 def drawmissile(x, y, facing, color, name, altitude, speed, annotate):
     fillcolor = color
     linecolor = aircraftlinecolor
     zorder = altitude + 1
-    if glass.variants.withvariant("draw counters"):
-        drawsquare(
-            x,
-            y,
-            facing=facing,
-            size=1,
-            linecolor="black",
-            linewidth=counterlinewidth,
-            fillcolor=a._color,
-            zorder=zorder,
-        )
-        drawarrow(
-            x,
-            y,
-            facing,
-            size=0.4,
-            fillcolor="black",
-            linewidth=1,
-            linecolor="black",
-            zorder=zorder,
-        )
-    else:
-        drawdart(
-            x,
-            y,
-            facing,
-            size=0.2,
-            fillcolor=fillcolor,
-            linewidth=aircraftlinewidth,
-            linecolor=linecolor,
-            zorder=zorder,
-        )
+    drawdart(
+        x,
+        y,
+        facing,
+        size=0.2,
+        fillcolor=fillcolor,
+        linewidth=aircraftlinewidth,
+        linecolor=linecolor,
+        zorder=zorder,
+    )
     if annotate:
         _drawannotation(
             x,
