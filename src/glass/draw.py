@@ -71,6 +71,8 @@ def tocanvasfacing(facing):
 ################################################################################
 
 
+_pointsperhex = 72
+
 _fig = None
 _ax = None
 
@@ -86,6 +88,7 @@ def setcanvas(xmin, ymin, xmax, ymax, rotation=0, dotsperhex=100):
     canvasxmax, canvasymax = tocanvasxy(xmax, ymax)
     canvasxmin, canvasxmax = min(canvasxmin, canvasxmax), max(canvasxmin, canvasxmax)
     canvasymin, canvasymax = min(canvasymin, canvasymax), max(canvasymin, canvasymax)
+    # The figsize argument below implicitly set a scale of 1 inch = 1 hex.
     _fig = plt.figure(
         figsize=[abs(canvasxmax - canvasxmin), abs(canvasymax - canvasymin)],
         frameon=False,
@@ -204,13 +207,35 @@ def sind(x):
 
 ################################################################################
 
+def _nativelinewidth(linewidth, linecolor):
+    """
+    Return the native line width.
+
+    :param linewidth: A line width in hexes or one of the strings ``"thin"``,
+        ``"normal"``, or ``"thick"``.
+    :param linecolor: A line color.
+    :return: 0 if ``linecolor`` is ``None``, otherwise the native line width
+        corresponding to the ``linewidth`` argument.
+    """
+    if linecolor is None:
+        return 0
+    elif linewidth == "thin":
+        return 0.5
+    elif linewidth == "normal":
+        return 1.0
+    elif linewidth == "thick":
+        return 2.0
+    else:
+        # Native line widths are in points.
+        return int(linewidth * _pointsperhex + 0.5)
+
 
 def _drawhexincanvas(
     x,
     y,
     size=1,
     linecolor="black",
-    linewidth=0.5,
+    linewidth="thin",
     fillcolor=None,
     linestyle="solid",
     facing=0,
@@ -218,8 +243,6 @@ def _drawhexincanvas(
     alpha=1.0,
     zorder=0,
 ):
-    if linecolor is None:
-        linewidth = 0
     # size is inscribed diameter
     _ax.add_artist(
         patches.RegularPolygon(
@@ -232,7 +255,7 @@ def _drawhexincanvas(
             fill=(fillcolor != None),
             linestyle=linestyle,
             hatch=hatch,
-            linewidth=linewidth,
+            linewidth=_nativelinewidth(linewidth, linecolor),
             alpha=alpha,
             zorder=zorder,
         )
@@ -244,14 +267,12 @@ def _drawcircleincanvas(
     y,
     size=1,
     linecolor="black",
-    linewidth=0.5,
+    linewidth="thin",
     fillcolor=None,
     hatch=None,
     alpha=1.0,
     zorder=0,
 ):
-    if linecolor is None:
-        linewidth = 0
     _ax.add_artist(
         patches.Circle(
             [x, y],
@@ -260,7 +281,7 @@ def _drawcircleincanvas(
             facecolor=_mapcolor(fillcolor),
             fill=(fillcolor != None),
             hatch=hatch,
-            linewidth=linewidth,
+            linewidth=_nativelinewidth(linewidth, linecolor),
             alpha=alpha,
             zorder=zorder,
         )
@@ -273,15 +294,13 @@ def _drawsquareincanvas(
     size=1,
     facing=0,
     linecolor="black",
-    linewidth=0.5,
+    linewidth="thin",
     fillcolor=None,
     hatch=None,
     alpha=1.0,
     zorder=0,
 ):
     # size is circumscribed diameter
-    if linecolor is None:
-        linewidth = 0
     _ax.add_artist(
         patches.RegularPolygon(
             [x, y],
@@ -292,7 +311,7 @@ def _drawsquareincanvas(
             facecolor=_mapcolor(fillcolor),
             fill=(fillcolor != None),
             hatch=hatch,
-            linewidth=linewidth,
+            linewidth=_nativelinewidth(linewidth, linecolor),
             alpha=alpha,
             zorder=zorder,
         )
@@ -308,12 +327,10 @@ def _drawdotincanvas(
     dy=0,
     fillcolor="black",
     linecolor="black",
-    linewidth=0.5,
+    linewidth="thin",
     alpha=1.0,
     zorder=0,
 ):
-    if linecolor is None:
-        linewidth = 0
     x = x + dx * sind(facing) + dy * cosd(facing)
     y = y - dx * cosd(facing) + dy * sind(facing)
     _ax.add_artist(
@@ -323,7 +340,7 @@ def _drawdotincanvas(
             edgecolor=_mapcolor(linecolor),
             facecolor=_mapcolor(fillcolor),
             fill=(fillcolor != None),
-            linewidth=linewidth,
+            linewidth=_nativelinewidth(linewidth, linecolor),
             alpha=alpha,
             zorder=zorder,
         )
@@ -334,19 +351,17 @@ def _drawlinesincanvas(
     x,
     y,
     linecolor="black",
-    linewidth=0.5,
+    linewidth="thin",
     linestyle="solid",
     joinstyle="miter",
     capstyle="butt",
     alpha=1.0,
     zorder=0,
 ):
-    if linecolor is None:
-        linewidth = 0
     plt.plot(
         x,
         y,
-        linewidth=linewidth,
+        linewidth=_nativelinewidth(linewidth, linecolor),
         linestyle=linestyle,
         color=_mapcolor(linecolor),
         solid_joinstyle=joinstyle,
@@ -365,13 +380,11 @@ def _drawarrowincanvas(
     dy=0,
     linecolor="black",
     fillcolor="black",
-    linewidth=0.5,
+    linewidth="thin",
     alpha=1.0,
     zorder=0,
 ):
     # size is length
-    if linecolor is None:
-        linewidth = 0
     x = x + dx * sind(facing) + dy * cosd(facing)
     y = y - dx * cosd(facing) + dy * sind(facing)
     dx = size * cosd(facing)
@@ -390,7 +403,7 @@ def _drawarrowincanvas(
             edgecolor=_mapcolor(linecolor),
             facecolor=_mapcolor(linecolor),
             fill=(fillcolor != None),
-            linewidth=linewidth,
+            linewidth=_nativelinewidth(linewidth, linecolor),
             alpha=alpha,
             zorder=zorder,
         )
@@ -411,13 +424,11 @@ def _drawdartincanvas(
     dy=0,
     linecolor="black",
     fillcolor="black",
-    linewidth=0.5,
+    linewidth="thin",
     alpha=1.0,
     zorder=0,
 ):
     # size is length
-    if linecolor is None:
-        linewidth = 0
     x = x + dx * sind(facing) + dy * cosd(facing)
     y = y - dx * cosd(facing) + dy * sind(facing)
     dx = size * cosd(facing)
@@ -437,7 +448,7 @@ def _drawdartincanvas(
             edgecolor=_mapcolor(linecolor),
             facecolor=_mapcolor(fillcolor),
             fill=(fillcolor != None),
-            linewidth=linewidth,
+            linewidth=_nativelinewidth(linewidth, linecolor),
             alpha=alpha,
             zorder=zorder,
         )
@@ -488,20 +499,18 @@ def _drawpolygonincanvas(
     y,
     linecolor="black",
     fillcolor=None,
-    linewidth=0.5,
+    linewidth="thin",
     hatch=None,
     alpha=1.0,
     zorder=0,
 ):
-    if linecolor is None:
-        linewidth = 0
     _ax.add_artist(
         patches.Polygon(
             list(zip(x, y)),
             edgecolor=_mapcolor(linecolor),
             facecolor=_mapcolor(fillcolor),
             fill=(fillcolor != None),
-            linewidth=linewidth,
+            linewidth=_nativelinewidth(linewidth, linecolor),
             hatch=hatch,
             alpha=alpha,
             zorder=zorder,
@@ -533,7 +542,7 @@ def _drawcompassincanvas(x, y, facing, color="black", alpha=1.0, zorder=0):
         dy=0,
         linecolor=color,
         fillcolor=color,
-        linewidth=0.5,
+        linewidth="thin",
         alpha=alpha,
         zorder=zorder,
     )
@@ -587,7 +596,7 @@ def _drawborderincanvas(xmin, ymin, xmax, ymax, width, color):
 ################################################################################
 
 arccolor = (0.70, 0.70, 0.70)
-arclinewidth = 2.0
+arclinewidth = "thick"
 arclinestyle = "dashed"
 
 
@@ -663,7 +672,7 @@ def drawarc(x0, y0, facing, arc):
 ################################################################################
 
 loscolor = (0.00, 0.00, 0.00)
-loslinewidth = 1.0
+loslinewidth = "normal"
 loslinestyle = "solid"
 losdotsize = 0.05
 
@@ -703,15 +712,15 @@ def drawlos(x0, y0, x1, y1):
 ################################################################################
 
 pathcolor = (0.00, 0.00, 0.00)
-pathlinewidth = 2.0
+pathlinewidth = "thick"
 pathlinestyle = "dotted"
 pathdotsize = 0.1
 aircrafttextsize = 10
-aircraftcounterlinewidth = 2
+aircraftcounterlinewidth = "thick"
 killedfillcolor = None
 killedlinecolor = (0.60, 0.60, 0.60)
 aircraftlinecolor = (0.00, 0.00, 0.00)
-aircraftlinewidth = 1
+aircraftlinewidth = "normal"
 textcolor = (0.00, 0.00, 0.00)
 
 
@@ -926,7 +935,7 @@ def drawmissile(x, y, facing, color, name, altitude, speed, annotate):
 ################################################################################
 
 barragefirelinecolor = (0.5, 0.5, 0.5)
-barragefirelinewidth = 2.0
+barragefirelinewidth = "thick"
 barragefirelinestyle = "dotted"
 
 
@@ -948,7 +957,7 @@ def drawbarragefire(x, y, altitude):
 ################################################################################
 
 plottedfirelinecolor = (0.5, 0.5, 0.5)
-plottedfirelinewidth = 2.0
+plottedfirelinewidth = "thick"
 plottedfirelinestyle = "dashed"
 
 
@@ -970,7 +979,7 @@ def drawplottedfire(x, y, altitude):
 ################################################################################
 
 blastzonelinecolor = (0.5, 0.5, 0.5)
-blastzonelinewidth = 2.0
+blastzonelinewidth = "thick"
 blastzonelinestyle = "dotted"
 
 
@@ -1022,7 +1031,7 @@ def setcompactstacks(value):
 
 ################################################################################
 
-groundunitlinewidth = 1
+groundunitlinewidth = "normal"
 groundunitdx = 0.6
 groundunitdy = 0.4
 

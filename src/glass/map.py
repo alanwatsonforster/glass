@@ -198,28 +198,28 @@ _saved = False
 
 _rotation = 0
 
-ridgewidth = 14
-roadwidth = 5
-dockwidth = 5
-clearingwidth = 20
-bridgeinnerwidth = roadwidth + 8
-bridgeouterwidth = bridgeinnerwidth + 6
-runwaywidth = 10
-taxiwaywidth = 7
-damwidth = 14
-hexwidth = 0.5
-megahexwidth = 7
+ridgewidth = 14 / 72
+roadwidth = 5 / 72
+dockwidth = 5 / 72
+clearingwidth = 20 / 72
+bridgeinnerwidth = roadwidth + 8 / 72
+bridgeouterwidth = bridgeinnerwidth + 6 / 72
+runwaywidth = 10 / 72
+taxiwaywidth = 7 / 72
+damwidth = 14 / 72
+hexwidth = "thin"
+megahexwidth = 7 / 72
 
-roadoutlinewidth = 2
-dockoutlinewidth = 2
-waterourlinewidth = 2
+roadoutlinewidth = 2 / 72
+dockoutlinewidth = 2 / 72
+waterourlinewidth = 2 / 72
 
-tunnelinnerwidth = roadwidth + 8
-tunnelouterwidth = tunnelinnerwidth + 6
+tunnelinnerwidth = roadwidth + 8 / 72
+tunnelouterwidth = tunnelinnerwidth + 6 / 72
 
-narrowriverwidth = 9
-defaultriverwidth = 14
-wideriverwidth = 35
+narrowriverwidth = 9 / 72
+defaultriverwidth = 14 / 72
+wideriverwidth = 35 / 72
 
 townhatch = "xx"
 cityhatch = "xx"
