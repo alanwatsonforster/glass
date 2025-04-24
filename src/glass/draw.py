@@ -91,14 +91,17 @@ def startcanvas(xmin, ymin, xmax, ymax, rotation=0, dotsperhex=100):
     :param xmin:
     :param ymin:
     :param xmax:
-    :param ymax:  The ``xmin``, ``ymin``, ``xmax``, and ``xmax`` arguments are
-        the limits in hex space of the canvas to be drawn. They must be numbers.
-    :param rotation: The ``rotation``argument is the rotation of the canvas in
-        degrees, with a positive rotation corresponding to a counterclockwise
-        rotation. It must be an integer value and a muliple of 90.
-    :param dotsperhex:  The ``dotsperhex`` argument must be an integer. It
-        specifies the resolution of pixelated output files in dots per hex (or
-        more precisely dots between hex centers).
+    :param ymax:  
+        The ``xmin``, ``ymin``, ``xmax``, and ``xmax`` arguments are the limits
+        in hex space of the canvas to be drawn. They must be numbers.
+    :param rotation: 
+        The ``rotation`` argument is the rotation of the canvas in degrees, with
+        a positive rotation corresponding to a counterclockwise rotation. It
+        must be an integer value and a muliple of 90.
+    :param dotsperhex:  
+        The ``dotsperhex`` argument must be an integer. It specifies the
+        resolution of pixelated output files in dots per hex (or more precisely
+        dots between hex centers).
     """
 
     global _fig, _ax
