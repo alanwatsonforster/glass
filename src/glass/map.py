@@ -342,6 +342,8 @@ def setupmap(
         for ix in range(0, _nxsheetgrid):
             sheet = _sheetgrid[iy][ix]
             if sheet not in blanksheets:
+                if sheet in _sheetlist:
+                    raise RuntimeError("sheet %s is used more than once." % sheet)
                 _sheetlist.append(sheet)
                 _loweredgeisinternal |= {sheet: iy != 0 and _sheetgrid[iy - 1][ix] not in blanksheets}
                 _rightedgeisinternal |= {sheet: ix != _nxsheetgrid - 1 and _sheetgrid[iy][ix + 1] not in blanksheets}
