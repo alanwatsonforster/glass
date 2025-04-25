@@ -1063,7 +1063,7 @@ def startdrawmap(
     # Draw the border.
 
     glass.draw.drawborder(
-        _borderxmin, _borderymin, _borderxmax, _borderymax, borderwidth, bordercolor
+        _borderxmin, _borderymin, _borderxmax, _borderymax, borderwidth, color=bordercolor
     )
 
     # Draw and label the hexes.

@@ -294,7 +294,7 @@ def drawdot(x, y, size=1, dx=0, dy=0, facing=0, **kwargs):
     :param dy:
     :param facing:
         The ``dx``, ``dy``, and ``facing`` arguments specify an offset of the
-        center of the dot in physical coodinates from the position
+        center of the dot in physical coordinates from the position
         (``x``, ``y``). The axis for the offset are rotated by ``facing`` in
         degrees. The defaults for the offsets and facing are 0.
     :return: ``None``
@@ -334,7 +334,7 @@ def drawarrow(x, y, size, facing, dx=0, dy=0, **kwargs):
     :param dx:
     :param dy:
         The ``dx``, ``dy``, and ``facing`` arguments specify an offset of the
-        center of the arrow in physical coodinates from the position (``x``,
+        center of the arrow in physical coordinates from the position (``x``,
         ``y``). The axis for the offset and the direction of the arrow are
         rotated by ``facing`` in degrees. The defaults for the offsets are 0.
     :return: ``None``
@@ -356,7 +356,7 @@ def drawdart(x, y, size, facing, dx=0, dy=0, **kwargs):
     :param dx:
     :param dy:
         The ``dx``, ``dy``, and ``facing`` arguments specify an offset of the
-        center of the dart in physical coodinates from the position (``x``,
+        center of the dart in physical coordinates from the position (``x``,
         ``y``). The axis for the offset and the direction of the dark are
         rotated by ``facing`` in degrees. The defaults for the offsets are 0.
     :return: ``None``
@@ -378,7 +378,7 @@ def drawtext(x, y, text, facing, dx=0, dy=0, **kwargs):
     :param dx:
     :param dy:
         The ``dx``, ``dy``, and ``facing`` arguments specify an offset of the
-        text in physical coodinates from the position (``x``,
+        text in physical coordinates from the position (``x``,
         ``y``). The axis for the offset and text are
         rotated by ``facing`` in degrees. The defaults for the offsets are 0.
     :return: ``None``
@@ -387,23 +387,68 @@ def drawtext(x, y, text, facing, dx=0, dy=0, **kwargs):
 
 
 def drawpolygon(x, y, **kwargs):
+    """
+    Draw a polygon.
+
+    :param x:
+    :param y:
+        The ``x`` and ``y`` arguments give the coordinates of the vertices of
+        the polygon in hex coordinates.
+    :return: ``None``
+    """
     x, y = (_tocanvasxy(*xy) for xy in zip(x, y))
     _drawpolygonincanvas(x, y, **kwargs)
 
 
 def drawrectangle(xmin, ymin, xmax, ymax, **kwargs):
+    """
+    Draw a rectangle.
+
+    :param xmin:
+    :param ymin:
+    :param xmax:
+    :param ymax:
+        The ``xmin``, ``ymin``, ``xmax``, and ``ymax`` arguments give the
+        coordinates of the rectangle in hex coordinates.
+    :return: ``None``
+    """
     xmin, ymin = _tocanvasxy(xmin, ymin)
     xmax, ymax = _tocanvasxy(xmax, ymax)
     _drawrectangleincanvas(xmin, ymin, xmax, ymax, **kwargs)
 
 
 def drawcompass(x, y, facing, **kwargs):
+    """
+    Draw a compass.
+
+    :param x:
+    :param y:
+        The ``x`` and ``y`` arguments give the coordinates of the compass in hex
+        coordinates.
+    :param facing:
+        The ``facing`` argument specifies the direction of north in degrees.
+    :return: ``None``
+    """
     _drawcompassincanvas(*_tocanvasxy(x, y), _tocanvasfacing(facing), **kwargs)
 
 
-def drawborder(xmin, ymin, xmax, ymax, width, color):
+def drawborder(xmin, ymin, xmax, ymax, width, **kwargs):
+    """
+    Draw a border.
+
+    :param xmin:
+    :param ymin:
+    :param xmax:
+    :param ymax:
+        The ``xmin``, ``ymin``, ``xmax``, and ``ymax`` arguments give the
+        coordinates of the external rectangle of the border in hex coordinates.
+    :param width:
+        The ``width`` argument specifies the width of the border in physical
+        coordinates.
+    :return: ``None``
+    """
     _drawborderincanvas(
-        *_tocanvasxy(xmin, ymin), *_tocanvasxy(xmax, ymax), width, color
+        *_tocanvasxy(xmin, ymin), *_tocanvasxy(xmax, ymax), width, **kwargs
     )
 
 
