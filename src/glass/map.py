@@ -1076,7 +1076,6 @@ def startdrawmap(
                 y = ymin + iy
                 if ix % 2 == 1:
                     y -= 0.5
-                    # glass.hexode.yoffsetforoddx()
                 # Draw the hex if it is on the map, is near the canvas, and
                 # either its center or the center of its upper left edge are on
                 # this sheet.

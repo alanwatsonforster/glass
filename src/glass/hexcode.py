@@ -127,7 +127,6 @@ __all__ = [
     "toxy",
     "tosheet",
     "tolabel",
-    "yoffsetforoddx",
 ]
 
 _hexcodeforcenterre = re.compile(r"([A-Z]+[0-9]?)-([0-9][0-9][0-9][0-9])")
@@ -221,7 +220,7 @@ def checkisvalidhexcode(h):
         raise RuntimeError("%r is not a valid hex code." % h)
 
 
-def yoffsetforoddx():
+def _yoffsetforoddx():
     """
     Return the offset in y for hex centers in odd rows in x. 
 
@@ -269,7 +268,7 @@ def fromxy(x, y, sheet=None):
         XX = XX0 + (x - x0)
         YY = YY0 - (y - y0)
         if XX % 2 == 1:
-            YY += yoffsetforoddx()
+            YY += _yoffsetforoddx()
 
         return "%s-%02d%02d" % (sheet, XX, YY)
 
@@ -319,7 +318,7 @@ def toxy(h):
         dx = XX - XX0
         dy = YY0 - YY
         if XX % 2 == 1:
-            dy += yoffsetforoddx()
+            dy += _yoffsetforoddx()
 
         return x0 + dx, y0 + dy
 
