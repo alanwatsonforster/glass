@@ -255,7 +255,7 @@ def drawhexlabel(x, y, label, dy=0.35, size="small", color="lightgrey", **kwargs
         defaults to "lightgrey"
     :return: ``None``
     """
-    drawtext(x, y, 90, label, dy=dy, size=size, color=color, **kwargs)
+    drawtext(x, y, label, facing=90, dx=0, dy=dy, size=size, color=color, **kwargs)
     return
 
 def drawsheetlabel(x, y, label, dy=-0.05, size="HUGE", color="lightgrey", **kwargs):
@@ -277,7 +277,7 @@ def drawsheetlabel(x, y, label, dy=-0.05, size="HUGE", color="lightgrey", **kwar
         defaults to "lightgrey"
     :return: ``None``
     """
-    drawtext(x, y, 90, label, dy=dy, size=size, color=color, **kwargs)
+    drawtext(x, y, label, facing=90, dx=0, dy=dy, size=size, color=color, **kwargs)
     return
 
 def drawdot(x, y, size=1, dx=0, dy=0, facing=0, **kwargs):
@@ -295,7 +295,7 @@ def drawdot(x, y, size=1, dx=0, dy=0, facing=0, **kwargs):
     :param facing:
         The ``dx``, ``dy``, and ``facing`` arguments specify an offset of the
         center of the dot in physical coodinates from the position
-        (``x``, ``y``). The axis for the offset are rotated by ``facing`` is in
+        (``x``, ``y``). The axis for the offset are rotated by ``facing`` in
         degrees. The defaults for the offsets and facing are 0.
     :return: ``None``
     """
@@ -336,14 +336,14 @@ def drawarrow(x, y, size, facing, dx=0, dy=0, **kwargs):
         The ``dx``, ``dy``, and ``facing`` arguments specify an offset of the
         center of the arrow in physical coodinates from the position (``x``,
         ``y``). The axis for the offset and the direction of the arrow are
-        rotated by ``facing`` is in degrees. The defaults for the offsets are 0.
+        rotated by ``facing`` in degrees. The defaults for the offsets are 0.
     :return: ``None``
     """
     _drawarrowincanvas(*_tocanvasxy(x, y), size, _tocanvasfacing(facing), dx, dy, **kwargs)
 
 def drawdart(x, y, size, facing, dx=0, dy=0, **kwargs):
     """
-    Draw a dart (an arrow head)
+    Draw a dart (an arrow head).
 
     :param x:
     :param y:
@@ -358,14 +358,32 @@ def drawdart(x, y, size, facing, dx=0, dy=0, **kwargs):
         The ``dx``, ``dy``, and ``facing`` arguments specify an offset of the
         center of the dart in physical coodinates from the position (``x``,
         ``y``). The axis for the offset and the direction of the dark are
-        rotated by ``facing`` is in degrees. The defaults for the offsets are 0.
+        rotated by ``facing`` in degrees. The defaults for the offsets are 0.
     :return: ``None``
     """
     _drawdartincanvas(*_tocanvasxy(x, y), size=size, facing=_tocanvasfacing(facing), dx=dx, dy=dy, **kwargs)
 
 
-def drawtext(x, y, facing, s, **kwargs):
-    _drawtextincanvas(*_tocanvasxy(x, y), _tocanvasfacing(facing), s, **kwargs)
+def drawtext(x, y, text, facing, dx=0, dy=0, **kwargs):
+    """
+    Draw a text.
+
+    :param x:
+    :param y:
+        The ``x`` and ``y`` arguments give the coordinates of the center of the
+        dart in hex coordinates.
+    :param text: 
+        The ``text`` argument is a strong giving the text to be written.    
+    :param facing:
+    :param dx:
+    :param dy:
+        The ``dx``, ``dy``, and ``facing`` arguments specify an offset of the
+        text in physical coodinates from the position (``x``,
+        ``y``). The axis for the offset and text are
+        rotated by ``facing`` in degrees. The defaults for the offsets are 0.
+    :return: ``None``
+    """
+    _drawtextincanvas(*_tocanvasxy(x, y), text, _tocanvasfacing(facing), dx, dy, **kwargs)
 
 
 def drawpolygon(x, y, **kwargs):
@@ -663,8 +681,8 @@ def _drawdartincanvas(
 def _drawtextincanvas(
     x,
     y,
+    text,
     facing,
-    s,
     dx=0,
     dy=0,
     color="black",
@@ -678,15 +696,15 @@ def _drawtextincanvas(
     # For reasons I do not understand, the alignment seems to be wrong for
     # rotated short strings. One fix is to pad the strings with spaces.
     if alignment == "left":
-        s = "  " + s
+        text = "  " + text
     elif alignment == "center":
-        s = "  " + s + "  "
+        text = "  " + text + "  "
     elif alignment == "right":
-        s = s + "  "
+        text = text + "  "
     plt.text(
         x,
         y,
-        s,
+        text,
         size=_nativetextsize(size),
         rotation=facing - 90,
         color=_mapcolor(color),
@@ -754,11 +772,11 @@ def _drawcompassincanvas(x, y, facing, color="black", alpha=1.0, zorder=0):
     _drawtextincanvas(
         x,
         y,
-        facing,
         "N",
-        size="Large",
+        facing=facing,
         dx=-0.15,
         dy=-0.05,
+        size="Large",
         color=color,
         alpha=alpha,
         zorder=zorder,
@@ -948,8 +966,8 @@ def _drawannotation(x, y, facing, position, text, zorder):
     drawtext(
         x,
         y,
-        facing,
         text,
+        facing=facing,
         dx=textdx,
         dy=textdy,
         size=aircrafttextsize,
@@ -2035,8 +2053,8 @@ def _drawgroundunitincanvas(
         _drawtextincanvas(
             x,
             y,
-            90,
             text,
+            facing=90,
             dx=0,
             dy=+groundunitdy * 0.32,
             size=groundunittextsize,
@@ -2049,8 +2067,8 @@ def _drawgroundunitincanvas(
         _drawtextincanvas(
             x,
             y,
-            90,
             text,
+            facing=90,
             dx=0,
             dy=-groundunitdy * 0.36,
             size=groundunittextsize,
@@ -2171,8 +2189,8 @@ def _drawgroundunitincanvas(
                 _drawtextincanvas(
                     x,
                     y,
-                    90,
                     name,
+                    facing=90,
                     dx=groundunitdx / 2 - 0.05,
                     dy=-0.01,
                     size=aircrafttextsize,
@@ -2184,8 +2202,8 @@ def _drawgroundunitincanvas(
                 _drawtextincanvas(
                     x,
                     y,
-                    90,
                     name,
+                    facing=90,
                     dx=-groundunitdx / 2 + 0.05,
                     dy=-0.01,
                     size=aircrafttextsize,
