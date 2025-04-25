@@ -10,6 +10,8 @@ import pickle
 import matplotlib.pyplot as plt
 import matplotlib.patches as patches
 
+import glass.hex
+
 ################################################################################
 
 plt.rcParams.update({"figure.max_open_warning": 0})
@@ -300,18 +302,13 @@ def drawarrow(x, y, facing, **kwargs):
     """
     Draw an arrow.
 
-    
+
 
     :param x: _description_
     :param y: _description_
     :param facing: _description_
     """
     _drawarrowincanvas(*_tocanvasxy(x, y), _tocanvasfacing(facing), **kwargs)
-
-
-def drawdoublearrow(x, y, facing, **kwargs):
-    _drawdoublearrowincanvas(*_tocanvasxy(x, y), _tocanvasfacing(facing), **kwargs)
-
 
 def drawdart(x, y, facing, **kwargs):
     _drawdartincanvas(*_tocanvasxy(x, y), _tocanvasfacing(facing), **kwargs)
@@ -536,12 +533,6 @@ def _drawarrowincanvas(
             zorder=zorder,
         )
     )
-
-
-def _drawdoublearrowincanvas(x, y, facing, **kwargs):
-    _drawarrowincanvas(x, y, facing, **kwargs)
-    _drawarrowincanvas(x, y, facing + 180, **kwargs)
-
 
 def _drawdartincanvas(
     x,
