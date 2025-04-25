@@ -1116,16 +1116,7 @@ def startdrawmap(
             dx = 1.0
             dy = 0.5
         if isonmap(xmin + dx, ymin + dy):
-            glass.draw.drawtext(
-                xmin + dx,
-                ymin + dy,
-                90,
-                sheet,
-                dy=-0.05,
-                size=24,
-                color=labelcolor,
-                alpha=1,
-            )
+            glass.draw.drawsheetlabel(xmin + dx, ymin + dy, sheet, color=labelcolor)
             # Move the compass one hex up if it coincides with a sheet label.
             if xmin + dx == compassx and ymin + dy == compassy:
                 compassy += 1.0

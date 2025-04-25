@@ -236,7 +236,7 @@ def drawcircle(x, y, size=1, **kwargs):
     return
 
 
-def drawhexlabel(x, y, label, dy=0.35, size=9, color="lightgrey", **kwargs):
+def drawhexlabel(x, y, label, dy=0.35, size="small", color="lightgrey", **kwargs):
     """
     Draw a hex label.
 
@@ -250,7 +250,7 @@ def drawhexlabel(x, y, label, dy=0.35, size=9, color="lightgrey", **kwargs):
         The ``dy`` argument gives the offset in y between the center of the hex
         and the label in physical coordinates. It defaults to 0.35.
     :param size: The ``size`` argument gives the size of the text in points. It
-        defaults to 9
+        defaults to "small".
     :param color: The ``color`` argument gives the color of the text. It
         defaults to "lightgrey"
     :return: ``None``
@@ -258,6 +258,27 @@ def drawhexlabel(x, y, label, dy=0.35, size=9, color="lightgrey", **kwargs):
     drawtext(x, y, 90, label, dy=dy, size=size, color=color, **kwargs)
     return
 
+def drawsheetlabel(x, y, label, dy=-0.05, size="HUGE", color="lightgrey", **kwargs):
+    """
+    Draw a sheet label.
+
+    :param x:
+    :param y:
+        The ``x`` and ``y`` arguments give the center of the hex in hex
+        coordinates.
+    :param label:
+        The ``label`` argument gives the label text as a string.
+    :param dy:
+        The ``dy`` argument gives the offset in y between the center of the hex
+        and the label in physical coordinates. It defaults to -0.05.
+    :param size: The ``size`` argument gives the size of the text in points. It
+        defaults to "HUGE".
+    :param color: The ``color`` argument gives the color of the text. It
+        defaults to "lightgrey"
+    :return: ``None``
+    """
+    drawtext(x, y, 90, label, dy=dy, size=size, color=color, **kwargs)
+    return
 
 def drawdot(x, y, size=1, dx=0, dy=0, facing=0, **kwargs):
     """
@@ -298,17 +319,27 @@ def drawlines(x, y, **kwargs):
     return
 
 
-def drawarrow(x, y, facing, **kwargs):
+def drawarrow(x, y, size, facing, dx=0, dy=0, **kwargs):
     """
     Draw an arrow.
 
+    :param x:
+    :param y:
+        The ``x`` and ``y`` arguments give the coordinates of the center of the
+        arrow in hex coordinates.
+    :param size: 
+        The ``size`` argument gives the length of the arrow in physical
+        coordinates.    
+    :param dx:
+    :param dy:
+    :param facing:
+        The ``dx``, ``dy``, and ``facing`` arguments specify an offset of the
+        center of the dot in physical coodinates of the dot from the position
+        (``x``, ``y``). The axis for the offset are rotated by ``facing`` is in
+        degrees. The defaults are 0, 0, and 0.
 
-
-    :param x: _description_
-    :param y: _description_
-    :param facing: _description_
     """
-    _drawarrowincanvas(*_tocanvasxy(x, y), _tocanvasfacing(facing), **kwargs)
+    _drawarrowincanvas(*_tocanvasxy(x, y), size, _tocanvasfacing(facing), dx, dy, **kwargs)
 
 def drawdart(x, y, facing, **kwargs):
     _drawdartincanvas(*_tocanvasxy(x, y), _tocanvasfacing(facing), **kwargs)
@@ -377,6 +408,42 @@ def _nativelinewidth(linewidth, linecolor):
         # Native line widths are in points.
         return int(linewidth * _pointsperhex + 0.5)
 
+def _nativetextsize(textsize):
+    """
+    Return the native text size
+
+    :param textsize:
+        A ``textsize`` argument is number giving a text size in hexes or one of
+        the strings ``"tiny"``, ``"scriptsize"``, ``"footnotesize"``,
+        ``"small"``, ``"normal"``, ``"large"``, ``"Large"``, ``"LARGE"``,
+        ``"huge"``, and ``"HUGE"``.
+    """
+    # The correspondence between names and sizes are approximately the LaTeX
+    # font sizes in 10 pt documents and are appropriate for 1 hex = 1 inch.
+    if textsize == "tiny":
+        return 5
+    elif textsize == "scriptsize":
+        return 7
+    elif textsize == "footnotesize":
+        return 8
+    elif textsize == "small":
+        return 9
+    elif textsize == "normal":
+        return 10
+    elif textsize == "large":
+        return 12
+    elif textsize == "Large":
+        return 14
+    elif textsize == "LARGE":
+        return 18
+    elif textsize == "huge":
+        return 21
+    elif textsize == "HUGE":
+        return 24
+    else:
+        # Native text sizes are in points.
+        return int(textsize * _pointsperhex + 0.5)
+    
 
 def _drawhexincanvas(
     x,
@@ -499,8 +566,8 @@ def _drawlinesincanvas(
 def _drawarrowincanvas(
     x,
     y,
+    size,
     facing,
-    size=1.0,
     dx=0,
     dy=0,
     linecolor="black",
@@ -582,7 +649,7 @@ def _drawtextincanvas(
     dx=0,
     dy=0,
     color="black",
-    size=10,
+    size="normal",
     alpha=1.0,
     zorder=0,
     alignment="center",
@@ -601,7 +668,7 @@ def _drawtextincanvas(
         x,
         y,
         s,
-        size=size,
+        size=_nativetextsize(size),
         rotation=facing - 90,
         color=_mapcolor(color),
         alpha=alpha,
@@ -656,8 +723,8 @@ def _drawcompassincanvas(x, y, facing, color="black", alpha=1.0, zorder=0):
     _drawarrowincanvas(
         x,
         y,
-        facing,
         size=0.5,
+        facing=facing,
         dy=0,
         linecolor=color,
         fillcolor=color,
@@ -670,7 +737,7 @@ def _drawcompassincanvas(x, y, facing, color="black", alpha=1.0, zorder=0):
         y,
         facing,
         "N",
-        size=14,
+        size="Large",
         dx=-0.15,
         dy=-0.05,
         color=color,
@@ -836,7 +903,7 @@ pathcolor = (0.00, 0.00, 0.00)
 pathlinewidth = "thick"
 pathlinestyle = "dotted"
 pathdotsize = 0.1
-aircrafttextsize = 10
+aircrafttextsize = "normal"
 killedfillcolor = None
 killedlinecolor = (0.60, 0.60, 0.60)
 aircraftlinecolor = (0.00, 0.00, 0.00)
@@ -1108,6 +1175,7 @@ def setcompactstacks(value):
 ################################################################################
 
 groundunitlinewidth = "normal"
+groundunittextsize = "scriptsize"
 groundunitdx = 0.6
 groundunitdy = 0.4
 
@@ -1952,7 +2020,7 @@ def _drawgroundunitincanvas(
             text,
             dx=0,
             dy=+groundunitdy * 0.32,
-            size=7,
+            size=groundunittextsize,
             color=linecolor,
             alignment="center",
             zorder=zorder,
@@ -1966,7 +2034,7 @@ def _drawgroundunitincanvas(
             text,
             dx=0,
             dy=-groundunitdy * 0.36,
-            size=7,
+            size=groundunittextsize,
             color=linecolor,
             alignment="center",
             zorder=zorder,
@@ -1976,8 +2044,8 @@ def _drawgroundunitincanvas(
         _drawarrowincanvas(
             x0,
             y0,
-            facing,
-            0.7,
+            size=0.7,
+            facing=facing,
             dy=0.35,
             linewidth=1,
             linecolor=linecolor,
