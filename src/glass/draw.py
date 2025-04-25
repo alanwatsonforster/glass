@@ -294,9 +294,9 @@ def drawdot(x, y, size=1, dx=0, dy=0, facing=0, **kwargs):
     :param dy:
     :param facing:
         The ``dx``, ``dy``, and ``facing`` arguments specify an offset of the
-        center of the dot in physical coodinates of the dot from the position
+        center of the dot in physical coodinates from the position
         (``x``, ``y``). The axis for the offset are rotated by ``facing`` is in
-        degrees. The defaults are 0, 0, and 0.
+        degrees. The defaults for the offsets and facing are 0.
     :return: ``None``
     """
     _drawdotincanvas(*_tocanvasxy(x, y), size=size, dx=dx, dy=dy, facing=_tocanvasfacing(facing), **kwargs)
@@ -330,19 +330,38 @@ def drawarrow(x, y, size, facing, dx=0, dy=0, **kwargs):
     :param size: 
         The ``size`` argument gives the length of the arrow in physical
         coordinates.    
+    :param facing:
     :param dx:
     :param dy:
-    :param facing:
         The ``dx``, ``dy``, and ``facing`` arguments specify an offset of the
-        center of the dot in physical coodinates of the dot from the position
-        (``x``, ``y``). The axis for the offset are rotated by ``facing`` is in
-        degrees. The defaults are 0, 0, and 0.
-
+        center of the arrow in physical coodinates from the position (``x``,
+        ``y``). The axis for the offset and the direction of the arrow are
+        rotated by ``facing`` is in degrees. The defaults for the offsets are 0.
+    :return: ``None``
     """
     _drawarrowincanvas(*_tocanvasxy(x, y), size, _tocanvasfacing(facing), dx, dy, **kwargs)
 
-def drawdart(x, y, facing, **kwargs):
-    _drawdartincanvas(*_tocanvasxy(x, y), _tocanvasfacing(facing), **kwargs)
+def drawdart(x, y, size, facing, dx=0, dy=0, **kwargs):
+    """
+    Draw a dart (an arrow head)
+
+    :param x:
+    :param y:
+        The ``x`` and ``y`` arguments give the coordinates of the center of the
+        dart in hex coordinates.
+    :param size: 
+        The ``size`` argument gives the length of the dart in physical
+        coordinates.    
+    :param facing:
+    :param dx:
+    :param dy:
+        The ``dx``, ``dy``, and ``facing`` arguments specify an offset of the
+        center of the dart in physical coodinates from the position (``x``,
+        ``y``). The axis for the offset and the direction of the dark are
+        rotated by ``facing`` is in degrees. The defaults for the offsets are 0.
+    :return: ``None``
+    """
+    _drawdartincanvas(*_tocanvasxy(x, y), size=size, facing=_tocanvasfacing(facing), dx=dx, dy=dy, **kwargs)
 
 
 def drawtext(x, y, facing, s, **kwargs):
@@ -604,8 +623,8 @@ def _drawarrowincanvas(
 def _drawdartincanvas(
     x,
     y,
+    size,
     facing,
-    size=1.0,
     dx=0,
     dy=0,
     linecolor="black",
@@ -992,8 +1011,8 @@ def drawaircraft(x, y, facing, color, name, altitude, speed, flighttype, killed)
     drawdart(
         x,
         y,
-        facing,
         size=0.4,
+        facing=facing,
         fillcolor=fillcolor,
         linewidth=aircraftlinewidth,
         linecolor=linecolor,
@@ -1041,8 +1060,8 @@ def drawmissile(x, y, facing, color, name, altitude, speed, annotate):
     drawdart(
         x,
         y,
-        facing,
         size=0.2,
+        facing=facing,
         fillcolor=fillcolor,
         linewidth=aircraftlinewidth,
         linecolor=linecolor,
@@ -1153,8 +1172,8 @@ def drawbomb(x, y, altitude, facing):
     drawdart(
         x,
         y,
-        facing,
         size=0.2,
+        facing=facing,
         fillcolor=fillcolor,
         linewidth=aircraftlinewidth,
         linecolor=linecolor,
