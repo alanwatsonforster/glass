@@ -605,6 +605,9 @@ def _drawdotincanvas(
     alpha=1.0,
     zorder=0,
 ):
+    """
+    The counterpart of :func:`drawdot` in canvas coordinates.
+    """
     x = x + dx * _sind(facing) + dy * _cosd(facing)
     y = y - dx * _cosd(facing) + dy * _sind(facing)
     _ax.add_artist(
@@ -632,6 +635,9 @@ def _drawlinesincanvas(
     alpha=1.0,
     zorder=0,
 ):
+    """
+    The counterpart of :func:`drawlines` in canvas coordinates.
+    """
     plt.plot(
         x,
         y,
@@ -658,6 +664,9 @@ def _drawarrowincanvas(
     alpha=1.0,
     zorder=0,
 ):
+    """
+    The counterpart of :func:`drawarrow` in canvas coordinates.
+    """
     # size is length
     x = x + dx * _sind(facing) + dy * _cosd(facing)
     y = y - dx * _cosd(facing) + dy * _sind(facing)
@@ -696,6 +705,9 @@ def _drawdartincanvas(
     alpha=1.0,
     zorder=0,
 ):
+    """
+    The counterpart of :func:`drawdart` in canvas coordinates.
+    """
     # size is length
     x = x + dx * _sind(facing) + dy * _cosd(facing)
     y = y - dx * _cosd(facing) + dy * _sind(facing)
@@ -736,6 +748,9 @@ def _drawtextincanvas(
     zorder=0,
     alignment="center",
 ):
+    """
+    The counterpart of :func:`drawtext` in canvas coordinates.
+    """
     x = x + dx * _sind(facing) + dy * _cosd(facing)
     y = y - dx * _cosd(facing) + dy * _sind(facing)
     # For reasons I do not understand, the alignment seems to be wrong for
@@ -772,6 +787,9 @@ def _drawpolygonincanvas(
     alpha=1.0,
     zorder=0,
 ):
+    """
+    The counterpart of :func:`drawpolygon` in canvas coordinates.
+    """
     _ax.add_artist(
         patches.Polygon(
             list(zip(x, y)),
@@ -787,10 +805,16 @@ def _drawpolygonincanvas(
 
 
 def _drawrectangleincanvas(xmin, ymin, xmax, ymax, **kwargs):
+    """
+    The counterpart of :func:`drawrectangle` in canvas coordinates.
+    """
     _drawpolygonincanvas([xmin, xmin, xmax, xmax], [ymin, ymax, ymax, ymin], **kwargs)
 
 
 def _drawcompassincanvas(x, y, facing, color="black", alpha=1.0, zorder=0):
+    """
+    The counterpart of :func:`drawcompass` in canvas coordinates.
+    """
     _drawdotincanvas(
         x,
         y,
@@ -829,6 +853,9 @@ def _drawcompassincanvas(x, y, facing, color="black", alpha=1.0, zorder=0):
 
 
 def _drawborderincanvas(xmin, ymin, xmax, ymax, width, color):
+    """
+    The counterpart of :func:`drawborder` in canvas coordinates.
+    """
     _drawrectangleincanvas(
         xmin,
         ymin,
