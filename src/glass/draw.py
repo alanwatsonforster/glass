@@ -1,6 +1,9 @@
-import math
+"""
+The :mod:`glass.draw` module has procedures for drawing the map, aircraft, missiles,
+ground units, and other markers.
+"""
 
-import glass.variants
+import math
 
 import pickle
 
@@ -13,23 +16,22 @@ plt.rcParams.update({"figure.max_open_warning": 0})
 
 ################################################################################
 
+"""
+Drawing is largely performed in the canvas coordinate system. This is equivalent
+to the physical coodinate system (defined in :mod:`glass.hex`) rotated about the
+origin by :data:`_canvasrotation`, with a positive rotation corresponding to a
+counterclockwise rotation from the physical to coordinate system. Thus, a value
+of 90 puts the “top” of the map sheets on the left and a value of -90 puts it on
+the right.
+"""
+
 _canvasrotation = 0
 """
 The value of ``_canvasrotation`` determines the rotation of the canvas coordinate
 frame from the hex and physical coordinate frames, with a positive rotation
-corresponding to a counterclockwise rotation. It  must be an integer value and a
+corresponding to a counterclockwise rotation. It must be an integer value and a
 muliple of 90.
 """
-
-_canvasxmin = None
-_canvasymin = None
-_canvasxmax = None
-_canvasymax = None
-"""
-The values of ``_canvasxmin``, ``_canvasymin``, ``_canvasxmax``, and ``_canvasxmax``
-are the limits in canvas space of the canvas currently being drawn.
-"""
-
 
 def _tocanvasxy(x, y):
     """
@@ -41,11 +43,6 @@ def _tocanvasxy(x, y):
 
     :return: The `x` and `y` coordinates of the canvas position corresponding to
         the hex position.
-
-    :note: The canvas coordinate frame is rotated by `_canvasrotation` from the
-        hex and physical coordinate frames, with a positive rotation
-        corresponding to a counterclockwise rotation.
-
     """
     x, y = glass.hex.tophysicalxy(x, y)
     if _canvasrotation == 0:
@@ -65,15 +62,18 @@ def _tocanvasfacing(facing):
     :param facing: The hex facing.
 
     :return: The canvas facing corresponding to the hex facing.
-
-
-    :note: The canvas coordinate frame is rotated by `_canvasrotation` from the
-        hex and physical coordinate frames, with a positive rotation
-        corresponding to a counterclockwise rotation.
-
     """
     return facing + _canvasrotation
 
+
+_canvasxmin = None
+_canvasymin = None
+_canvasxmax = None
+_canvasymax = None
+"""
+The values of ``_canvasxmin``, ``_canvasymin``, ``_canvasxmax``, and ``_canvasxmax``
+are the limits in canvas coordinates of the canvas currently being drawn.
+"""
 
 ################################################################################
 
@@ -91,14 +91,14 @@ def startcanvas(xmin, ymin, xmax, ymax, rotation=0, dotsperhex=100):
     :param xmin:
     :param ymin:
     :param xmax:
-    :param ymax:  
+    :param ymax:
         The ``xmin``, ``ymin``, ``xmax``, and ``xmax`` arguments are the limits
-        in hex space of the canvas to be drawn. They must be numbers.
-    :param rotation: 
+        in hex coordinates of the canvas to be drawn. They must be numbers.
+    :param rotation:
         The ``rotation`` argument is the rotation of the canvas in degrees, with
         a positive rotation corresponding to a counterclockwise rotation. It
         must be an integer value and a muliple of 90.
-    :param dotsperhex:  
+    :param dotsperhex:
         The ``dotsperhex`` argument must be an integer. It specifies the
         resolution of pixelated output files in dots per hex (or more precisely
         dots between hex centers).
@@ -113,8 +113,12 @@ def startcanvas(xmin, ymin, xmax, ymax, rotation=0, dotsperhex=100):
     global _canvasxmin, _canvasxmax, _canvasymin, _canvasymax
     _canvasxmin, _canvasymin = _tocanvasxy(xmin, ymin)
     _canvasxmax, _canvasymax = _tocanvasxy(xmax, ymax)
-    _canvasxmin, _canvasxmax = min(_canvasxmin, _canvasxmax), max(_canvasxmin, _canvasxmax)
-    _canvasymin, _canvasymax = min(_canvasymin, _canvasymax), max(_canvasymin, _canvasymax)
+    _canvasxmin, _canvasxmax = min(_canvasxmin, _canvasxmax), max(
+        _canvasxmin, _canvasxmax
+    )
+    _canvasymin, _canvasymax = min(_canvasymin, _canvasymax), max(
+        _canvasymin, _canvasymax
+    )
 
     # Set the canvas size and resolution. The figsize argument below implicitly
     # set a scale of 1 hex = 1 inch = 72 points.
@@ -195,34 +199,113 @@ def writecanvastofile(filename):
 ################################################################################
 
 
-def drawhex(x, y, facing=0, **kwargs):
-    _drawhexincanvas(*_tocanvasxy(x, y), facing=_tocanvasfacing(facing), **kwargs)
+def drawhex(x, y, size=1, facing=0, **kwargs):
+    """
+    Draw a hex.
+
+    :param x:
+    :param y:
+        The ``x`` and ``y`` arguments give the center of the hex in hex
+        coordinates.
+    :param size: The ``size`` argument gives the inscribed diameter in physical coordinates.
+    :param facing:
+        The ``facing`` argument gives the facing of the hex in degrees. The
+        default is 0, which draw the hex with two sides parallel to the x-axis.
+    :return: ``None``
+    """
+    _drawhexincanvas(
+        *_tocanvasxy(x, y), size=size, facing=_tocanvasfacing(facing), **kwargs
+    )
+    return
 
 
-def drawcircle(x, y, **kwargs):
+def drawcircle(x, y, size=1, **kwargs):
+    """
+    Draw a circle.
+
+    :param x:
+    :param y:
+        The ``x`` and ``y`` arguments give the center of the circle in hex
+        coordinates.
+    :param size: The ``size`` argument gives the diameter in physical coordinates.
+    :return: ``None``
+    """
     _drawcircleincanvas(*_tocanvasxy(x, y), **kwargs)
+    return
 
 
-def drawsquare(x, y, facing=0, **kwargs):
-    _drawsquareincanvas(*_tocanvasxy(x, y), facing=_tocanvasfacing(facing), **kwargs)
+def drawhexlabel(x, y, label, dy=0.35, size=9, color="lightgrey", **kwargs):
+    """
+    Draw a hex label.
 
-
-def drawhexlabel(x, y, label, dy=0.35, size=9, color="lightgrey", facing=0, **kwargs):
+    :param x:
+    :param y:
+        The ``x`` and ``y`` arguments give the center of the hex in hex
+        coordinates.
+    :param label:
+        The ``label`` argument gives the label text as a string.
+    :param dy:
+        The ``dy`` argument gives the offset in y between the center of the hex
+        and the label in physical coordinates. It defaults to 0.35.
+    :param size: The ``size`` argument gives the size of the text in points. It
+        defaults to 9
+    :param color: The ``color`` argument gives the color of the text. It
+        defaults to "lightgrey"
+    :return: ``None``
+    """
     drawtext(x, y, 90, label, dy=dy, size=size, color=color, **kwargs)
+    return
 
 
-def drawdot(x, y, facing=0, **kwargs):
-    _drawdotincanvas(*_tocanvasxy(x, y), facing=_tocanvasfacing(facing), **kwargs)
+def drawdot(x, y, size=1, dx=0, dy=0, facing=0, **kwargs):
+    """
+    Draw a dot.
+
+    :param x:
+    :param y:
+        The ``x`` and ``y`` arguments give the center of the dot in hex
+        coordinates.
+    :param size: The ``size`` argument gives the diameter in physical
+        coordinates.
+    :param dx:
+    :param dy:
+    :param facing:
+        The ``dx``, ``dy``, and ``facing`` arguments specify an offset of the
+        center of the dot in physical coodinates of the dot from the position
+        (``x``, ``y``). The axis for the offset are rotated by ``facing`` is in
+        degrees. The defaults are 0, 0, and 0.
+    :return: ``None``
+    """
+    _drawdotincanvas(*_tocanvasxy(x, y), size=size, dx=dx, dy=dy, facing=_tocanvasfacing(facing), **kwargs)
+    return
 
 
 def drawlines(x, y, **kwargs):
+    """
+    Draw continuous straight lines.
+
+    :param x:
+    :param y:
+        The ``x`` and ``y`` arguments give the coordinates of the lines in hex coordinates.
+    :return: ``None``
+    """
     xy = [_tocanvasxy(xy[0], xy[1]) for xy in zip(x, y)]
     x = [xy[0] for xy in xy]
     y = [xy[1] for xy in xy]
     _drawlinesincanvas(x, y, **kwargs)
+    return
 
 
 def drawarrow(x, y, facing, **kwargs):
+    """
+    Draw an arrow.
+
+    
+
+    :param x: _description_
+    :param y: _description_
+    :param facing: _description_
+    """
     _drawarrowincanvas(*_tocanvasxy(x, y), _tocanvasfacing(facing), **kwargs)
 
 
@@ -254,17 +337,21 @@ def drawcompass(x, y, facing, **kwargs):
 
 
 def drawborder(xmin, ymin, xmax, ymax, width, color):
-    _drawborderincanvas(*_tocanvasxy(xmin, ymin), *_tocanvasxy(xmax, ymax), width, color)
+    _drawborderincanvas(
+        *_tocanvasxy(xmin, ymin), *_tocanvasxy(xmax, ymax), width, color
+    )
 
 
 ################################################################################
 
 
-def cosd(x):
+def _cosd(x):
+    """Return the cosine of ``x`` in degrees."""
     return math.cos(math.radians(x))
 
 
-def sind(x):
+def _sind(x):
+    """Return the since of ``x`` in degrees."""
     return math.sin(math.radians(x))
 
 
@@ -298,15 +385,18 @@ def _drawhexincanvas(
     x,
     y,
     size=1,
+    facing=0,
     linecolor="black",
     linewidth="thin",
     fillcolor=None,
     linestyle="solid",
-    facing=0,
     hatch=None,
     alpha=1.0,
     zorder=0,
 ):
+    """
+    The counterpart of :func:`drawhex` in canvas coordinates.
+    """
     # size is inscribed diameter
     _ax.add_artist(
         patches.RegularPolygon(
@@ -337,40 +427,14 @@ def _drawcircleincanvas(
     alpha=1.0,
     zorder=0,
 ):
+    """
+    The counterpart of :func:`drawcircle` in canvas coordinates.
+    """
+    # size is inscribed diameter
     _ax.add_artist(
         patches.Circle(
             [x, y],
             radius=0.5 * size,
-            edgecolor=_mapcolor(linecolor),
-            facecolor=_mapcolor(fillcolor),
-            fill=(fillcolor != None),
-            hatch=hatch,
-            linewidth=_nativelinewidth(linewidth, linecolor),
-            alpha=alpha,
-            zorder=zorder,
-        )
-    )
-
-
-def _drawsquareincanvas(
-    x,
-    y,
-    size=1,
-    facing=0,
-    linecolor="black",
-    linewidth="thin",
-    fillcolor=None,
-    hatch=None,
-    alpha=1.0,
-    zorder=0,
-):
-    # size is circumscribed diameter
-    _ax.add_artist(
-        patches.RegularPolygon(
-            [x, y],
-            4,
-            radius=size * 0.5,
-            orientation=math.radians(facing),
             edgecolor=_mapcolor(linecolor),
             facecolor=_mapcolor(fillcolor),
             fill=(fillcolor != None),
@@ -395,8 +459,8 @@ def _drawdotincanvas(
     alpha=1.0,
     zorder=0,
 ):
-    x = x + dx * sind(facing) + dy * cosd(facing)
-    y = y - dx * cosd(facing) + dy * sind(facing)
+    x = x + dx * _sind(facing) + dy * _cosd(facing)
+    y = y - dx * _cosd(facing) + dy * _sind(facing)
     _ax.add_artist(
         patches.Circle(
             [x, y],
@@ -449,10 +513,10 @@ def _drawarrowincanvas(
     zorder=0,
 ):
     # size is length
-    x = x + dx * sind(facing) + dy * cosd(facing)
-    y = y - dx * cosd(facing) + dy * sind(facing)
-    dx = size * cosd(facing)
-    dy = size * sind(facing)
+    x = x + dx * _sind(facing) + dy * _cosd(facing)
+    y = y - dx * _cosd(facing) + dy * _sind(facing)
+    dx = size * _cosd(facing)
+    dy = size * _sind(facing)
     x -= 0.5 * dx
     y -= 0.5 * dy
     _ax.add_artist(
@@ -493,10 +557,10 @@ def _drawdartincanvas(
     zorder=0,
 ):
     # size is length
-    x = x + dx * sind(facing) + dy * cosd(facing)
-    y = y - dx * cosd(facing) + dy * sind(facing)
-    dx = size * cosd(facing)
-    dy = size * sind(facing)
+    x = x + dx * _sind(facing) + dy * _cosd(facing)
+    y = y - dx * _cosd(facing) + dy * _sind(facing)
+    dx = size * _cosd(facing)
+    dy = size * _sind(facing)
     x -= 0.5 * dx
     y -= 0.5 * dy
     _ax.add_artist(
@@ -532,8 +596,8 @@ def _drawtextincanvas(
     zorder=0,
     alignment="center",
 ):
-    x = x + dx * sind(facing) + dy * cosd(facing)
-    y = y - dx * cosd(facing) + dy * sind(facing)
+    x = x + dx * _sind(facing) + dy * _cosd(facing)
+    y = y - dx * _cosd(facing) + dy * _sind(facing)
     # For reasons I do not understand, the alignment seems to be wrong for
     # rotated short strings. One fix is to pad the strings with spaces.
     if alignment == "left":
@@ -672,8 +736,8 @@ def drawarc(x0, y0, facing, arc):
 
         # dxdy = [_tocanvasxy(dxdy[0], dxdy[1]) for dxdy in dxdy]
 
-        x = [x0 + dxdy[0] * cosd(facing) - dxdy[1] * sind(facing) for dxdy in dxdy]
-        y = [y0 + dxdy[0] * sind(facing) + dxdy[1] * cosd(facing) for dxdy in dxdy]
+        x = [x0 + dxdy[0] * _cosd(facing) - dxdy[1] * _sind(facing) for dxdy in dxdy]
+        y = [y0 + dxdy[0] * _sind(facing) + dxdy[1] * _cosd(facing) for dxdy in dxdy]
         _drawlinesincanvas(
             x,
             y,
@@ -725,7 +789,7 @@ def drawarc(x0, y0, facing, arc):
             else:
                 raise RuntimeError("invalid arc %s." % arc)
 
-            dxdy = [[0, 0], [100 * cosd(halfangle), 100 * sind(halfangle)]]
+            dxdy = [[0, 0], [100 * _cosd(halfangle), 100 * _sind(halfangle)]]
 
         drawdxdy(dxdy)
 
@@ -1224,14 +1288,14 @@ def _drawgroundunitincanvas(
 
         def dx(theta):
             if theta < 90 or theta > 270:
-                return +fx * groundunitdx + fy * groundunitdy * cosd(theta)
+                return +fx * groundunitdx + fy * groundunitdy * _cosd(theta)
             elif theta == 90 or theta == 270:
                 return 0
             else:
-                return -fx * groundunitdx + fy * groundunitdy * cosd(theta)
+                return -fx * groundunitdx + fy * groundunitdy * _cosd(theta)
 
         def dy(theta):
-            return fy * groundunitdy * sind(theta)
+            return fy * groundunitdy * _sind(theta)
 
         _drawlinesincanvas(
             list([x + dx(theta) for theta in theta]),
@@ -1258,10 +1322,10 @@ def _drawgroundunitincanvas(
         theta = range(0, 180)
 
         def airdefencex(theta):
-            return x + groundunitdx / 2 * cosd(theta)
+            return x + groundunitdx / 2 * _cosd(theta)
 
         def airdefencey(theta):
-            return y - groundunitdy / 2 + fy * groundunitdy * sind(theta)
+            return y - groundunitdy / 2 + fy * groundunitdy * _sind(theta)
 
         _drawrectangleincanvas(
             x + groundunitdx * (-0.5),
@@ -1291,10 +1355,10 @@ def _drawgroundunitincanvas(
         theta = range(90 + theta0, 270 + theta0)
 
         def dx(theta):
-            return ry * groundunitdy * cosd(theta)
+            return ry * groundunitdy * _cosd(theta)
 
         def dy(theta):
-            return ry * groundunitdy * sind(theta)
+            return ry * groundunitdy * _sind(theta)
 
         _drawlinesincanvas(
             list([x + dx(theta) for theta in theta]),
@@ -1303,8 +1367,8 @@ def _drawgroundunitincanvas(
             linewidth=groundunitlinewidth,
             zorder=zorder,
         )
-        dx = ry * groundunitdy * cosd(theta0)
-        dy = ry * groundunitdy * sind(theta0)
+        dx = ry * groundunitdy * _cosd(theta0)
+        dy = ry * groundunitdy * _sind(theta0)
         _drawlinesincanvas(
             [x - dx, x, x, x + dx],
             [
@@ -1353,13 +1417,13 @@ def _drawgroundunitincanvas(
         theta = range(0, 181)
 
         def dx(theta):
-            return fx * groundunitdx * cosd(theta)
+            return fx * groundunitdx * _cosd(theta)
 
         def dy(theta):
             if theta == 0 or theta == 180:
                 return fy0 * groundunitdy
             else:
-                return fy1 * groundunitdy + fx * groundunitdx * (sind(theta) - 1)
+                return fy1 * groundunitdy + fx * groundunitdx * (_sind(theta) - 1)
 
         _drawlinesincanvas(
             list([x + dx(theta) for theta in theta]),
@@ -1376,13 +1440,13 @@ def _drawgroundunitincanvas(
         theta = range(0, 181)
 
         def dx(theta):
-            return fx0 * groundunitdx * cosd(theta)
+            return fx0 * groundunitdx * _cosd(theta)
 
         def dy(theta):
             if theta == 0 or theta == 180:
                 return -fy0 * groundunitdy
             else:
-                return fy0 * groundunitdy + fx0 * groundunitdx * (sind(theta) - 1)
+                return fy0 * groundunitdy + fx0 * groundunitdx * (_sind(theta) - 1)
 
         _drawlinesincanvas(
             list([x + dx(theta) for theta in theta]),
@@ -1406,10 +1470,10 @@ def _drawgroundunitincanvas(
             [x, x, x - 0.5 * fx * groundunitdx, x + 0.5 * fx * groundunitdx, x],
             [
                 y - fy0 * groundunitdy,
-                y + fy0 * groundunitdy - fx * groundunitdx * cosd(30),
+                y + fy0 * groundunitdy - fx * groundunitdx * _cosd(30),
                 y + fy0 * groundunitdy,
                 y + fy0 * groundunitdy,
-                y + fy0 * groundunitdy - fx * groundunitdx * cosd(30),
+                y + fy0 * groundunitdy - fx * groundunitdx * _cosd(30),
             ],
             linecolor=linecolor,
             linewidth=groundunitlinewidth,
@@ -1420,8 +1484,8 @@ def _drawgroundunitincanvas(
         ry0 = 0.20
         ry1 = 0.35
         for theta in range(45, 180, 90):
-            dx = ry1 * groundunitdy * cosd(theta)
-            dy = ry1 * groundunitdy * sind(theta)
+            dx = ry1 * groundunitdy * _cosd(theta)
+            dy = ry1 * groundunitdy * _sind(theta)
             _drawlinesincanvas(
                 [x - dx, x + dx],
                 [y - dy, y + dy],
@@ -1531,8 +1595,8 @@ def _drawgroundunitincanvas(
             zorder=zorder,
         )
         for theta in range(0, 180, 45):
-            dx = ry * groundunitdy * cosd(theta)
-            dy = ry * groundunitdy * sind(theta)
+            dx = ry * groundunitdy * _cosd(theta)
+            dy = ry * groundunitdy * _sind(theta)
             _drawlinesincanvas(
                 [x - dx, x + dx],
                 [y + fy * groundunitdy - dy, y + fy * groundunitdy + dy],
@@ -1576,10 +1640,10 @@ def _drawgroundunitincanvas(
         theta = range(0, 181)
 
         def dx(theta):
-            return fx0 * groundunitdx * cosd(theta)
+            return fx0 * groundunitdx * _cosd(theta)
 
         def dy(theta):
-            return fy0 * groundunitdy - fy1 * groundunitdy * sind(theta)
+            return fy0 * groundunitdy - fy1 * groundunitdy * _sind(theta)
 
         _drawlinesincanvas(
             list([x + dx(theta) for theta in theta]),
@@ -1663,10 +1727,10 @@ def _drawgroundunitincanvas(
         theta = range(0, 181)
 
         def dx(theta):
-            return fx0 * groundunitdx * cosd(theta)
+            return fx0 * groundunitdx * _cosd(theta)
 
         def dy(theta):
-            return fy0 * groundunitdy - fy1 * groundunitdy * sind(theta)
+            return fy0 * groundunitdy - fy1 * groundunitdy * _sind(theta)
 
         _drawlinesincanvas(
             list([x + dx(theta) for theta in theta]),
@@ -1800,10 +1864,10 @@ def _drawgroundunitincanvas(
         theta = range(0, 181)
 
         def dx(theta):
-            return fx0 * groundunitdx * cosd(theta)
+            return fx0 * groundunitdx * _cosd(theta)
 
         def dy(theta):
-            return fy0 * groundunitdy + fy1 * groundunitdy * sind(theta)
+            return fy0 * groundunitdy + fy1 * groundunitdy * _sind(theta)
 
         _drawlinesincanvas(
             list([x + dx(theta) for theta in theta]),
@@ -1833,19 +1897,19 @@ def _drawgroundunitincanvas(
 
         def dx(theta):
             if theta < 90 or theta > 270:
-                return +fx * groundunitdx + fy * groundunitdy * cosd(theta)
+                return +fx * groundunitdx + fy * groundunitdy * _cosd(theta)
             elif theta == 90 or theta == 270:
                 return 0
             else:
-                return -fx * groundunitdx + fy * groundunitdy * cosd(theta)
+                return -fx * groundunitdx + fy * groundunitdy * _cosd(theta)
 
         def dy(theta):
             if theta < 90 or theta > 270:
-                return +fy * groundunitdy * sind(theta)
+                return +fy * groundunitdy * _sind(theta)
             elif theta == 90 or theta == 270:
                 return 0
             else:
-                return -fy * groundunitdy * sind(theta)
+                return -fy * groundunitdy * _sind(theta)
 
         _drawpolygonincanvas(
             list([x + dx(theta) for theta in theta]),
@@ -1871,11 +1935,11 @@ def _drawgroundunitincanvas(
 
         def dy(theta):
             if theta < 90 or theta > 270:
-                return +fy * groundunitdy * sind(theta)
+                return +fy * groundunitdy * _sind(theta)
             elif theta == 90 or theta == 270:
                 return 0
             else:
-                return -fy * groundunitdy * sind(theta)
+                return -fy * groundunitdy * _sind(theta)
 
         _drawpolygonincanvas(
             list([x + dx(theta) for theta in theta]),
