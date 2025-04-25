@@ -472,7 +472,8 @@ def _nativelinewidth(linewidth, linecolor):
     """
     Return the native line width.
 
-    :param linewidth: A line width in hexes or one of the strings ``"thin"``,
+    :param linewidth: 
+        The `linewidth`` argument is number giving the line width in hexes or one of the strings ``"thin"``,
         ``"normal"``, or ``"thick"``.
     :param linecolor: A line color.
     :return: 0 if ``linecolor`` is ``None``, otherwise the native line width
@@ -495,10 +496,11 @@ def _nativetextsize(textsize):
     Return the native text size
 
     :param textsize:
-        A ``textsize`` argument is number giving a text size in hexes or one of
+        The ``textsize`` argument is a number giving the text size in hexes or one of
         the strings ``"tiny"``, ``"scriptsize"``, ``"footnotesize"``,
         ``"small"``, ``"normal"``, ``"large"``, ``"Large"``, ``"LARGE"``,
         ``"huge"``, and ``"HUGE"``.
+    :return: The native text size corresponding to the ``textsize``a argument.
     """
     # The correspondence between names and sizes are approximately the LaTeX
     # font sizes in 10 pt documents and are appropriate for 1 hex = 1 inch.
@@ -525,6 +527,28 @@ def _nativetextsize(textsize):
     else:
         # Native text sizes are in points.
         return int(textsize * _pointsperhex + 0.5)
+
+def _nativehatchpattern(hatchpattern):
+    """
+    Return the native hatch pattern.
+
+    :param hatchpattern:
+        The ``hatchpattern`` argument must be ``None`` or one of the strings
+        ``"forsest"``, ``"city"``, or ``"town"``.
+    :return: The native hatch pattern corresponding to the ``hatchpattern``a
+        argument.
+    """
+    if hatchpattern is None:
+        return None
+    elif hatchpattern == "forest":
+        return ".o"
+    elif hatchpattern == "town" or hatchpattern == "city":
+        return "xx"
+    else:
+        raise RuntimeError("invalid hatch pattern %r" % hatchpattern)
+
+################################################################################
+
     
 
 def _drawhexincanvas(
@@ -554,7 +578,7 @@ def _drawhexincanvas(
             facecolor=_mapcolor(fillcolor),
             fill=(fillcolor != None),
             linestyle=linestyle,
-            hatch=hatch,
+            hatch=_nativehatchpattern(hatch),
             linewidth=_nativelinewidth(linewidth, linecolor),
             alpha=alpha,
             zorder=zorder,
@@ -584,7 +608,7 @@ def _drawcircleincanvas(
             edgecolor=_mapcolor(linecolor),
             facecolor=_mapcolor(fillcolor),
             fill=(fillcolor != None),
-            hatch=hatch,
+            hatch=_nativehatchpattern(hatch),
             linewidth=_nativelinewidth(linewidth, linecolor),
             alpha=alpha,
             zorder=zorder,
@@ -797,7 +821,7 @@ def _drawpolygonincanvas(
             facecolor=_mapcolor(fillcolor),
             fill=(fillcolor != None),
             linewidth=_nativelinewidth(linewidth, linecolor),
-            hatch=hatch,
+            hatch=_nativehatchpattern(hatch),
             alpha=alpha,
             zorder=zorder,
         )

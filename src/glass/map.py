@@ -221,10 +221,6 @@ narrowriverwidth = 9 / 72
 defaultriverwidth = 14 / 72
 wideriverwidth = 35 / 72
 
-townhatch = "xx"
-cityhatch = "xx"
-foresthatch = ".o"
-
 borderwidth = 0.25
 
 blanksheets = ["", "-", "--"]
@@ -741,7 +737,7 @@ def startdrawmap(
                 ymin,
                 xmax,
                 ymax,
-                hatch=foresthatch,
+                hatch="forest",
                 linecolor=forestcolor,
                 alpha=forestalpha,
                 linewidth=0,
@@ -769,7 +765,7 @@ def startdrawmap(
             drawhexes(
                 sheet,
                 _terrain[sheet]["foresthexes"],
-                hatch=foresthatch,
+                hatch="forest",
                 linecolor=forestcolor,
                 alpha=forestalpha,
                 linewidth=0,
@@ -793,7 +789,7 @@ def startdrawmap(
             linewidth=0,
             fillcolor=None,
             linecolor=urbanoutlinecolor,
-            hatch=townhatch,
+            hatch="town",
         )
 
         drawhexes(
@@ -802,7 +798,7 @@ def startdrawmap(
             linewidth=0,
             fillcolor=urbancolor,
             linecolor=urbanoutlinecolor,
-            hatch=cityhatch,
+            hatch="city",
         )
 
     # Draw water and rivers.
