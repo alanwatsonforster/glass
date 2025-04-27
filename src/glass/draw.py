@@ -1261,15 +1261,23 @@ def drawaircraft(x, y, facing, altitude, speed, flighttype, name, color, killed)
     """
     Draw an aircraft.
 
-    :param x: _description_
-    :param y: _description_
-    :param facing: _description_
-    :param color: _description_
-    :param name: _description_
-    :param altitude: _description_
-    :param speed: _description_
-    :param flighttype: _description_
-    :param killed: _description_
+    Draw an aircraft and annotate it with the first two letters of its flight type, its altitude, its speed, and its name.
+
+    :param x:
+    :param y:
+    :param facing:
+    :param altitude:
+        The ``x``, ``y``, ``facing``, and ``altitude`` arguments are the hex coordinates of the aircraft, its facing, and its altitude. All must have the same length.
+    :param speed:
+        The ``speed`` argument must be ``None`` or a number giving the initial speed of the element. 
+    :param flighttype:
+        The ``flighttype`` argument must be a string giving the flight type of the aircraft.
+    :param name:
+        The ``name`` argument must be a string giving the name of the aircraft.
+    :param color:
+        The ``color`` argument must be a color and should be the color of the aircraft.
+    :param killed:
+        The ``killed`` argument must be a boolean value. If true, the aircraft is drawn in a style appropriate for a killed element.    
     """
     if killed:
         fillcolor = killedfillcolor
