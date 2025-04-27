@@ -11,25 +11,25 @@ Many of the drawing functions have additional keyword parameters from this list:
     The ``linewidth`` argument must be ``None``, number giving the line width in
     hexes or one of the strings ``"thin"``, ``"normal"``, or ``"thick"``. If it
     is ``None``, the line is not drawn.
-:param linecolor:
-:param fillcolor:
+* ``linecolor``:
+* ``fillcolor``:
     The ``linecolor`` and ``fillcolor`` arguments must be ``None``, a tuple or
     list of three numbers, or a string naming a color. If it is ``None``, the
     line is not drawn or the region not filled. The numbers in the tuple or list
     are the red, green, and blue components from 0 to 1.
-:param linestyle:
+* ``linestyle``:
     The ``linestyle`` argument must to one of the strings ``"solid"``,
     ``"dashed"``, or ``"dotted"``.
-:param joinstyle:
-    The defauls is "miter".
-:param capstyle:
+* ``joinstyle``:
+    The default is "miter".
+* ``capstyle``:
     The default is "butt".
-:param hatch:
+* ``hatch``:
     The ``hatch`` argument must be ``None`` or one of the strings ``"city"``, ``"town"``, or ``"forest"``. If it
     is ``None``, the region is not hatched.
-:param alpha:
+* ``alpha``:
     The ``alpha`` argument must be a number between 0 and 1. It set the transparency of whatever is drawn.
-:param zorder:
+* ``zorder``:
     The ``zorder`` argument must be a number between 0 and 1. It set the zorder of whatever is drawn.
 """
 
