@@ -2813,7 +2813,7 @@ _colormap = {
     "darktan": (0.576, 0.494, 0.384),
     "sand": (0.941, 0.918, 0.839),
     "darkgray": "gray40",
-    "darkgray": "darkgray",
+    "darkgrey": "darkgray",
     "mediumgray": "gray50",
     "mediumgrey": "mediumgray",
     "lightgray": "gray70",
