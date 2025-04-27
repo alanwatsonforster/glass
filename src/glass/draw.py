@@ -16,7 +16,20 @@ Many of the drawing functions have additional keyword parameters from this list:
     The ``linecolor`` and ``fillcolor`` arguments must be ``None``, a tuple or
     list of three numbers, or a string naming a color. If it is ``None``, the
     line is not drawn or the region not filled. The numbers in the tuple or list
-    are the red, green, and blue components from 0 to 1.
+    are the red, green, and blue components from 0 to 1. Named colors are:
+    ``"white"``, ``"gray90"``, ``"gray80"``, ``"gray70"``, ``"gray60"``,
+    ``"gray50"``, ``"gray40"``, ``"gray30"``, ``"gray20"``, ``"gray10"``,
+    ``"black"``, ``"grey90"``, ``"grey80"``, ``"grey70"``, ``"grey60"``,
+    ``"grey50"``, ``"grey40"``, ``"grey30"``, ``"grey20"``, ``"grey10"``,
+    ``"aluminum"``, ``"aluminium"``, ``"unpainted"``, ``"darkblue"``,
+    ``"skyblue"``, ``"green"``, ``"olivedrab"``, ``"lightgreen"``,
+    ``"lightolivedrab"``, ``"tan"``, ``"darktan"``, ``"sand"``, ``"darkgray"``,
+    ``"mediumgray"``, ``"mediumgrey"``, ``"lightgray"``, ``"lightgrey"``,
+    ``"slategray"``, ``"slategrey"``, ``"natoblue"``, ``"natored"``,
+    ``"natogreen"``, ``"natoyellow"``, ``"natofriendly"``, ``"natohostile"``,
+    ``"natoneutral"``, ``"natounknown"``, ``"iafblue"``, ``"panarabred"``, and
+    ``"panarabgreen"``. Note that both American and British versions of "gray"
+    and "aluminum" are present.
 * ``linestyle``:
     The ``linestyle`` argument must to one of the strings ``"solid"``,
     ``"dashed"``, or ``"dotted"``.
@@ -2826,22 +2839,6 @@ _colormap = {
 def _nativecolor(color):
     """
     Return the native color.
-
-    Named colors are: ``"white"``, ``"gray90"``, ``"gray80"``, ``"gray70"``,
-    ``"gray60"``, ``"gray50"``, ``"gray40"``, ``"gray30"``, ``"gray20"``,
-    ``"gray10"``, ``"black"``, ``"grey90"``, ``"grey80"``, ``"grey70"``,
-    ``"grey60"``, ``"grey50"``, ``"grey40"``, ``"grey30"``, ``"grey20"``,
-    ``"grey10"``, ``"aluminum"``, ``"aluminium"``, ``"unpainted"``,
-    ``"darkblue"``, ``"skyblue"``, ``"green"``, ``"olivedrab"``,
-    ``"lightgreen"``, ``"lightolivedrab"``, ``"tan"``, ``"darktan"``,
-    ``"sand"``, ``"darkgray"``, ``"mediumgray"``, ``"mediumgrey"``,
-    ``"lightgray"``, ``"lightgrey"``, ``"slategray"``, ``"slategrey"``,
-    ``"natoblue"``, ``"natored"``, ``"natogreen"``, ``"natoyellow"``,
-    ``"natofriendly"``, ``"natohostile"``, ``"natoneutral"``, ``"natounknown"``,
-    ``"iafblue"``, ``"panarabred"``, and ``"panarabgreen"``.
-
-    Note that both American and British versions of "gray" and "aluminum" are
-    present.
 
     :param color:
         A color name or a list or tuple of the three RGB components as numbers
