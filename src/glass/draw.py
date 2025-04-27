@@ -1054,8 +1054,16 @@ def drawlos(x0, y0, x1, y1):
 annotationtextsize = "normal"
 annotationtextcolor = "black"
 
+
 def _drawannotation(
-    x, y, facing, textposition, text, textsize=annotationtextsize, textcolor=annotationtextcolor, zorder=0
+    x,
+    y,
+    facing,
+    textposition,
+    text,
+    textsize=annotationtextsize,
+    textcolor=annotationtextcolor,
+    zorder=0,
 ):
     """
     Draw an element annotation.
@@ -1130,13 +1138,6 @@ pathlinestyle = "dotted"
 pathdotsize = 0.1
 
 
-
-killedfillcolor = None
-killedlinecolor = "gray60"
-
-################################################################################
-
-
 def drawpath(x, y, facing, altitude, speed, color, killed, annotate):
     """
     Draw a path to show the movement of an element.
@@ -1209,6 +1210,11 @@ def drawpath(x, y, facing, altitude, speed, color, killed, annotate):
 
 aircraftlinecolor = "black"
 aircraftlinewidth = "normal"
+
+
+killedlinecolor = "gray60"
+killedfillcolor = None
+
 
 def drawaircraft(x, y, facing, altitude, speed, flighttype, name, color, killed):
     """
