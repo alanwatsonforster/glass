@@ -25,12 +25,14 @@ Many of the drawing functions have additional keyword parameters from this list:
 * ``capstyle``:
     The default is "butt".
 * ``hatch``:
-    The ``hatch`` argument must be ``None`` or one of the strings ``"city"``, ``"town"``, or ``"forest"``. If it
-    is ``None``, the region is not hatched.
+    The ``hatch`` argument must be ``None`` or one of the strings ``"city"``,
+    ``"town"``, or ``"forest"``. If it is ``None``, the region is not hatched.
 * ``alpha``:
-    The ``alpha`` argument must be a number between 0 and 1. It set the transparency of whatever is drawn.
+    The ``alpha`` argument must be a number between 0 and 1. It set the
+    transparency of whatever is drawn.
 * ``zorder``:
-    The ``zorder`` argument must be a number between 0 and 1. It set the zorder of whatever is drawn.
+    The ``zorder`` argument must be a number between 0 and 1. It set the zorder
+    of whatever is drawn.
 """
 
 import math
@@ -59,10 +61,10 @@ the right.
 
 _canvasrotation = 0
 """
-The value of ``_canvasrotation`` determines the rotation of the canvas coordinate
-frame from the hex and physical coordinate frames, with a positive rotation
-corresponding to a counterclockwise rotation. It must be an integer value and a
-muliple of 90.
+The value of ``_canvasrotation`` determines the rotation of the canvas
+coordinate frame from the hex and physical coordinate frames, with a positive
+rotation corresponding to a counterclockwise rotation. It must be an integer
+value and a multiple of 90.
 """
 
 
@@ -130,7 +132,7 @@ def startcanvas(xmin, ymin, xmax, ymax, rotation=0, dotsperhex=100):
     :param rotation:
         The ``rotation`` argument is the rotation of the canvas in degrees, with
         a positive rotation corresponding to a counterclockwise rotation. It
-        must be an integer value and a muliple of 90.
+        must be an integer value and a multiple of 90.
     :param dotsperhex:
         The ``dotsperhex`` argument must be an integer. It specifies the
         resolution of pixelated output files in dots per hex (or more precisely
@@ -995,8 +997,9 @@ def drawarc(x, y, facing, arc):
        The ``facing`` argument gives the facing for the arc.
     :param arc:
         The ``arc`` argument is a string and specifies the arc. It must be one
-        of: ``"0"`` (0 line), ``"180"`` (180 line), ``"limited"``, ``"180+"``, ``"L180+"`` (left 180+ arc), ``"R180+"`` (right 180+ arc), ``"150+"``, ``"120+"``,
-        ``"90-"``, ``"60-"``, or ``"30-"``.
+        of: ``"0"`` (0 line), ``"180"`` (180 line), ``"limited"``, ``"180+"``,
+        ``"L180+"`` (left 180+ arc), ``"R180+"`` (right 180+ arc), ``"150+"``,
+        ``"120+"``, ``"90-"``, ``"60-"``, or ``"30-"``.
     :return:
         ``None``
     """
@@ -1078,10 +1081,12 @@ def drawlos(x0, y0, x1, y1):
 
     :param x0:
     :param y0:
-        The ``x0`` and ``y0`` arguments give the hex coordinates for first element.
+        The ``x0`` and ``y0`` arguments give the hex coordinates for first
+        element.
     :param x1:
     :param y1:
-        The ``x1`` and ``y1`` arguments give the hex coordinates for second element.
+        The ``x1`` and ``y1`` arguments give the hex coordinates for second
+        element.
     :return:
         ``None``
     """
@@ -1125,17 +1130,17 @@ def _drawannotation(
     """
     Draw an element annotation.
 
-    The notation can be drawn in one of six positions relative to the element: upper left, center left, lower left, upper right, center right, and center left.
+    The notation can be drawn in one of six positions relative to the element:
+    upper left, center left, lower left, upper right, center right, and center
+    left.
 
-    For aircraft and missiles, the conventional use of these positons are:
-    - center right: name
-    - upper left: flight type
-    - center left: altitude
-    - lower left: speed
+    For aircraft and missiles, the conventional use of these positons are: -
+    center right: name - upper left: flight type - center left: altitude - lower
+    left: speed
 
-    For other elements, the conventional use of these positions are:
-    - center right: name
-    - center left: alternative position for name when ground elements are stacked
+    For other elements, the conventional use of these positions are: - center
+    right: name - center left: alternative position for name when ground
+    elements are stacked
 
     :param x:
     :param y:
@@ -1143,9 +1148,15 @@ def _drawannotation(
     :param facing:
        The ``facing`` argument gives the facing of the element.
     :param textposition:
-        The ``textposition`` argument gives the position of the text relative to the element. It must be one of the strings ``"ul"`` (upper left), ``"cl"`` (center left), ``"ll"`` (lower left), ``"ur"`` (upper right), ``"cr"`` (center right), or ``"cl"`` (center left).
+        The ``textposition`` argument gives the position of the text relative to
+        the element. It must be one of the strings ``"ul"`` (upper left),
+        ``"cl"`` (center left), ``"ll"`` (lower left), ``"ur"`` (upper right),
+        ``"cr"`` (center right), or ``"cl"`` (center left).
     :param text:
-        The ``text`` argument gives text relative to be written. It must be a string.
+        The ``text`` argument gives text relative to be written. It must be a
+        string.
+    :return:
+        ``None``
     """
     textdx = 0.08
     textdy = 0.15
@@ -1197,15 +1208,24 @@ def drawpath(x, y, facing, altitude, speed, color, killed, annotate):
     :param y:
     :param facing:
     :param altitude:
-        The ``x``, ``y``, ``facing``, and ``altitude`` arguments are lists giving the hex coordinates of the element, its facing, and its altitude. All must have the same length.
+        The ``x``, ``y``, ``facing``, and ``altitude`` arguments are lists
+        giving the hex coordinates of the element, its facing, and its altitude.
+        All must have the same length.
     :param speed:
-        The ``speed`` argument must be ``None`` or a number giving the initial speed of the element. 
+        The ``speed`` argument must be ``None`` or a number giving the initial
+        speed of the element. 
     :param color:
-        The ``color`` argument must be a color and should be the color of the element.
+        The ``color`` argument must be a color and should be the color of the
+        element.
     :param killed:
-        The ``killed`` argument must be a boolean value. If true, the path is drawn in a style appropriate for a killed element.
+        The ``killed`` argument must be a boolean value. If true, the path is
+        drawn in a style appropriate for a killed element.
     :param annotate:
-        The ``annotate`` argument must be a boolean value. If true, the initial point is annotated with the initial altitude in the center left position and this speed (if not ``None``) in the lower left position.
+        The ``annotate`` argument must be a boolean value. If true, the initial
+        point is annotated with the initial altitude in the center left position
+        and this speed (if not ``None``) in the lower left position.
+    :return:
+        ``None``
     """
     if killed:
         fillcolor = killedfillcolor
@@ -1261,23 +1281,31 @@ def drawaircraft(x, y, facing, altitude, speed, flighttype, name, color, killed)
     """
     Draw an aircraft.
 
-    Draw an aircraft and annotate it with the first two letters of its flight type, its altitude, its speed, and its name.
+    Draw an aircraft and annotate it with the first two letters of its flight
+    type, its altitude, its speed, and its name.
 
     :param x:
     :param y:
     :param facing:
     :param altitude:
-        The ``x``, ``y``, ``facing``, and ``altitude`` arguments are the hex coordinates of the aircraft, its facing, and its altitude.
+        The ``x``, ``y``, ``facing``, and ``altitude`` arguments are the hex
+        coordinates of the aircraft, its facing, and its altitude.
     :param speed:
-        The ``speed`` argument must be ``None`` or a number giving the initial speed of the aircraft. 
+        The ``speed`` argument must be ``None`` or a number giving the initial
+        speed of the aircraft. 
     :param flighttype:
-        The ``flighttype`` argument must be a string giving the flight type of the aircraft.
+        The ``flighttype`` argument must be a string giving the flight type of
+        the aircraft.
     :param name:
         The ``name`` argument must be a string giving the name of the aircraft.
     :param color:
-        The ``color`` argument must be a color and should be the color of the aircraft.
+        The ``color`` argument must be a color and should be the color of the
+        aircraft.
     :param killed:
-        The ``killed`` argument must be a boolean value. If true, the aircraft is drawn in a style appropriate for a killed element.    
+        The ``killed`` argument must be a boolean value. If true, the aircraft
+        is drawn in a style appropriate for a killed element.
+    :return:
+        ``None``
     """
     if killed:
         fillcolor = killedfillcolor
@@ -1336,21 +1364,28 @@ def drawmissile(x, y, facing, altitude, speed, name, color, annotate):
     """
     Draw a missile.
 
-    Draw a missile and optionally annotate it with its altitude, its speed, and its name.
+    Draw a missile and optionally annotate it with its altitude, its speed, and
+    its name.
 
     :param x:
     :param y:
     :param facing:
     :param altitude:
-        The ``x``, ``y``, ``facing``, and ``altitude`` arguments are the hex coordinates of the missile, its facing, and its altitude.
+        The ``x``, ``y``, ``facing``, and ``altitude`` arguments are the hex
+        coordinates of the missile, its facing, and its altitude.
     :param speed:
-        The ``speed`` argument must be ``None`` or a number giving the initial speed of the missile. 
+        The ``speed`` argument must be ``None`` or a number giving the initial
+        speed of the missile. 
     :param name:
         The ``name`` argument must be a string giving the name of the missile.
     :param color:
-        The ``color`` argument must be a color and should be the color of the missile.
+        The ``color`` argument must be a color and should be the color of the
+        missile.
     :param annotate:
-        The ``annotate`` argument must be a boolean value. If true, the missile is annotated.
+        The ``annotate`` argument must be a boolean value. If true, the missile
+        is annotated.
+    :return:
+        ``None``
     """
     fillcolor = color
     linecolor = aircraftlinecolor
@@ -1400,6 +1435,19 @@ barragefirelinestyle = "dotted"
 
 
 def drawbarragefire(x, y, altitude):
+    """
+    Draw a barrage fire marker
+
+    :param x:
+    :param y:
+        The ``x`` and ``y`` arguments are the hex coordinates of the barrage
+        fire.
+    :param altitude:
+        The ``altitude`` argument is the altitude to which the barrage fire
+        extends.
+    :return:
+        ``None``        
+    """
     zorder = altitude + 1.5
     drawhex(
         x,
@@ -1422,6 +1470,18 @@ plottedfirelinestyle = "dashed"
 
 
 def drawplottedfire(x, y, altitude):
+    """
+    Draw a plotted fire marker
+
+    :param x:
+    :param y:
+        The ``x`` and ``y`` arguments are the hex coordinates of the plotted
+        fire.
+    :param altitude:
+        The ``altitude`` argument is the altitude of the plotted fire.
+    :return:
+        ``None``        
+    """
     zorder = altitude + 3.5
     drawhex(
         x,
@@ -1444,6 +1504,17 @@ blastzonelinestyle = "dotted"
 
 
 def drawblastzone(x, y, altitude):
+    """
+    Draw a blast zone marker
+
+    :param x:
+    :param y:
+        The ``x`` and ``y`` arguments are the hex coordinates of the blast zone.
+    :param altitude:
+        The ``altitude`` argument is the altitude to which the blast zone extends.
+    :return:
+        ``None``        
+    """
     zorder = altitude + 1.5
     drawhex(
         x,
@@ -1463,18 +1534,28 @@ bombcolor = "black"
 bomblinecolor = "black"
 
 
-def drawbomb(x, y, altitude, facing):
-    fillcolor = bombcolor
-    linecolor = bomblinecolor
+def drawbomb(x, y, facing, altitude):
+    """
+    Draw a bomb.
+
+    :param x:
+    :param y:
+    :param facing:
+    :param altitude:
+        The ``x``, ``y``, ``facing``, and ``altitude`` arguments are the hex
+        coordinates of the bomb, its facing, and its altitude.
+    :return:
+        ``None``        
+    """
     zorder = altitude + 1.5
     drawdart(
         x,
         y,
         size=0.2,
         facing=facing,
-        fillcolor=fillcolor,
+        fillcolor=bombcolor,
         linewidth=aircraftlinewidth,
-        linecolor=linecolor,
+        linecolor=bomblinecolor,
         zorder=zorder,
     )
 
