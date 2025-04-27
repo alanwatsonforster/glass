@@ -1115,6 +1115,58 @@ def drawlos(x0, y0, x1, y1):
         zorder=zorder,
     )
 
+################################################################################
+
+def _drawannotation(
+    x, y, facing, textposition, text, textsize="normal", textcolor="black", zorder=0
+):
+    """
+    Draw an element annotation.
+
+    The notation can be drawn in one of six positions relative to the element: upper left, center left, lower left, upper right, center right, and center left.
+
+    :param x:
+    :param y:
+        The ``x`` and ``y`` arguments give the hex coordinates of the element.
+    :param facing:
+       The ``facing`` argument gives the facing of the element.
+    :param textposition:
+        The ``textposition`` argument gives the position of the text relative to the element. It must be one of the strings ``"ul"`` (upper left), ``"cl"`` (center left), ``"ll"`` (lower left), ``"ur"`` (upper right), ``"cr"`` (center right), or ``"cl"`` (center left). 
+    :param text:
+        The ``text`` argument gives text relative to be written. It must be a string.
+    """
+    textdx = 0.08
+    textdy = 0.15
+    if not isinstance(textposition, str) or len(textposition) != 2:
+        raise RuntimeError("invalid text position %r" % textposition)
+    if textposition[0] == "u":
+        textdy = +textdy
+    elif textposition[0] == "c":
+        textdy = 0
+    elif textposition[0] == "l":
+        textdy = -textdy
+    else:
+        raise RuntimeError("invalid text position %r" % textposition)
+    if textposition[1] == "l":
+        alignment = "right"
+        textdx = -textdx
+    elif textposition[1] == "r":
+        alignment = "left"
+        textdx = +textdx
+    else:
+        raise RuntimeError("invalid text position %r" % textposition)
+    drawtext(
+        x,
+        y,
+        text,
+        facing=facing,
+        dx=textdx,
+        dy=textdy,
+        size=textsize,
+        textcolor=textcolor,
+        alignment=alignment,
+        zorder=zorder,
+    )
 
 ################################################################################
 
@@ -1130,35 +1182,6 @@ aircraftlinewidth = "normal"
 textcolor = (0.00, 0.00, 0.00)
 
 
-def _drawannotation(
-    x, y, facing, position, text, textsize="normal", textcolor="black", zorder=0
-):
-    textdx = 0.08
-    textdy = 0.15
-    if position[0] == "u":
-        textdy = +textdy
-    elif position[0] == "c":
-        textdy = 0
-    else:
-        textdy = -textdy
-    if position[1] == "l":
-        alignment = "right"
-        textdx = -textdx
-    else:
-        alignment = "left"
-        textdx = +textdx
-    drawtext(
-        x,
-        y,
-        text,
-        facing=facing,
-        dx=textdx,
-        dy=textdy,
-        size=textsize,
-        textcolor=textcolor,
-        alignment=alignment,
-        zorder=zorder,
-    )
 
 
 def drawpath(x, y, facing, altitude, speed, color, killed, annotate):
