@@ -909,7 +909,7 @@ def _drawborderincanvas(xmin, ymin, xmax, ymax, width, fillcolor=None):
 
 ################################################################################
 
-arccolor = (0.70, 0.70, 0.70)
+arccolor = "gray70"
 arclinewidth = "thick"
 arclinestyle = "dashed"
 
@@ -997,9 +997,9 @@ def drawarc(x, y, facing, arc):
 
 ################################################################################
 
-loscolor = (0.00, 0.00, 0.00)
-loslinewidth = "normal"
-loslinestyle = "solid"
+loscolor = arccolor
+loslinewidth = "thick"
+loslinestyle = "dashed"
 losdotsize = 0.05
 
 
@@ -1051,9 +1051,11 @@ def drawlos(x0, y0, x1, y1):
 
 ################################################################################
 
+annotationtextsize = "normal"
+annotationtextcolor = "black"
 
 def _drawannotation(
-    x, y, facing, textposition, text, textsize="normal", textcolor="black", zorder=0
+    x, y, facing, textposition, text, textsize=annotationtextsize, textcolor=annotationtextcolor, zorder=0
 ):
     """
     Draw an element annotation.
@@ -1122,10 +1124,17 @@ def _drawannotation(
 
 ################################################################################
 
-pathcolor = (0.00, 0.00, 0.00)
+pathcolor = "black"
 pathlinewidth = "thick"
 pathlinestyle = "dotted"
 pathdotsize = 0.1
+
+
+
+killedfillcolor = None
+killedlinecolor = "gray60"
+
+################################################################################
 
 
 def drawpath(x, y, facing, altitude, speed, color, killed, annotate):
@@ -1197,13 +1206,9 @@ def drawpath(x, y, facing, altitude, speed, color, killed, annotate):
 
 ################################################################################
 
-aircrafttextsize = "normal"
-killedfillcolor = None
-killedlinecolor = (0.60, 0.60, 0.60)
-aircraftlinecolor = (0.00, 0.00, 0.00)
-aircraftlinewidth = "normal"
-textcolor = (0.00, 0.00, 0.00)
 
+aircraftlinecolor = "black"
+aircraftlinewidth = "normal"
 
 def drawaircraft(x, y, facing, altitude, speed, flighttype, name, color, killed):
     """
@@ -1359,7 +1364,7 @@ def drawmissile(x, y, facing, altitude, speed, name, color, annotate):
 
 ################################################################################
 
-barragefirelinecolor = (0.5, 0.5, 0.5)
+barragefirelinecolor = "gray50"
 barragefirelinewidth = "thick"
 barragefirelinestyle = "dotted"
 
@@ -1394,7 +1399,7 @@ def drawbarragefire(x, y, altitude):
 
 ################################################################################
 
-plottedfirelinecolor = (0.5, 0.5, 0.5)
+plottedfirelinecolor = "gray50"
 plottedfirelinewidth = "thick"
 plottedfirelinestyle = "dashed"
 
@@ -1428,7 +1433,7 @@ def drawplottedfire(x, y, altitude):
 
 ################################################################################
 
-blastzonelinecolor = (0.5, 0.5, 0.5)
+blastzonelinecolor = "gray50"
 blastzonelinewidth = "thick"
 blastzonelinestyle = "dotted"
 
@@ -2541,8 +2546,8 @@ def _drawgroundunitincanvas(
                     facing=90,
                     dx=groundunitdx / 2 - 0.05,
                     dy=-0.01,
-                    size=aircrafttextsize,
-                    textcolor=textcolor,
+                    size=annotationtextsize,
+                    textcolor=annotationtextcolor,
                     alignment="left",
                     zorder=zorder,
                 )
@@ -2554,8 +2559,8 @@ def _drawgroundunitincanvas(
                     facing=90,
                     dx=-groundunitdx / 2 + 0.05,
                     dy=-0.01,
-                    size=aircrafttextsize,
-                    textcolor=textcolor,
+                    size=annotationtextsize,
+                    textcolor=annotationtextcolor,
                     alignment="right",
                     zorder=zorder,
                 )
@@ -2577,7 +2582,6 @@ def _drawgroundunitincanvas(
 
 shiplinecolor = aircraftlinecolor
 shiplinewidth = aircraftlinewidth
-shiptextsize = aircrafttextsize
 
 
 def drawship(
@@ -2623,8 +2627,6 @@ def drawship(
             facing,
             "cr",
             name,
-            textcolor=shiplinecolor,
-            textsize=shiptextsize,
             zorder=0,
         )
 
