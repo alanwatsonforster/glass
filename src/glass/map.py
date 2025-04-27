@@ -1059,7 +1059,7 @@ def startdrawmap(
     # Draw the border.
 
     glass.draw.drawborder(
-        _borderxmin, _borderymin, _borderxmax, _borderymax, borderwidth, color=bordercolor
+        _borderxmin, _borderymin, _borderxmax, _borderymax, borderwidth, fillcolor=bordercolor
     )
 
     # Draw and label the hexes.
@@ -1088,7 +1088,7 @@ def startdrawmap(
                         linewidth=hexwidth,
                     )
                     label = glass.hexcode.tolabel(glass.hexcode.fromxy(x, y))
-                    glass.draw.drawhexlabel(x, y, label, color=hexcolor, alpha=hexalpha)
+                    glass.draw.drawhexlabel(x, y, label, textcolor=hexcolor, alpha=hexalpha)
 
     # Label the sheets.
 
@@ -1111,7 +1111,7 @@ def startdrawmap(
             dx = 1.0
             dy = 0.5
         if isonmap(xmin + dx, ymin + dy):
-            glass.draw.drawsheetlabel(xmin + dx, ymin + dy, sheet, color=labelcolor)
+            glass.draw.drawsheetlabel(xmin + dx, ymin + dy, sheet, textcolor=labelcolor)
             # Move the compass one hex up if it coincides with a sheet label.
             if xmin + dx == compassx and ymin + dy == compassy:
                 compassy += 1.0

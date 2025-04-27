@@ -1,6 +1,36 @@
 """
-The :mod:`glass.draw` module has procedures for drawing the map, aircraft, missiles,
-ground units, and other markers.
+The :mod:`glass.draw` module has procedures for drawing the map, aircraft,
+missiles, ground units, and other markers.
+
+Other Keyword Parameters
+------------------------
+
+Many of the drawing functions have additional keyword parameters from this list:
+
+* ``linewidth``:
+    The ``linewidth`` argument must be ``None``, number giving the line width in
+    hexes or one of the strings ``"thin"``, ``"normal"``, or ``"thick"``. If it
+    is ``None``, the line is not drawn.
+:param linecolor:
+:param fillcolor:
+    The ``linecolor`` and ``fillcolor`` arguments must be ``None``, a tuple or
+    list of three numbers, or a string naming a color. If it is ``None``, the
+    line is not drawn or the region not filled. The numbers in the tuple or list
+    are the red, green, and blue components from 0 to 1.
+:param linestyle:
+    The ``linestyle`` argument must to one of the strings ``"solid"``,
+    ``"dashed"``, or ``"dotted"``.
+:param joinstyle:
+    The defauls is "miter".
+:param capstyle:
+    The default is "butt".
+:param hatch:
+    The ``hatch`` argument must be ``None`` or one of the strings ``"city"``, ``"town"``, or ``"forest"``. If it
+    is ``None``, the region is not hatched.
+:param alpha:
+    The ``alpha`` argument must be a number between 0 and 1. It set the transparency of whatever is drawn.
+:param zorder:
+    The ``zorder`` argument must be a number between 0 and 1. It set the zorder of whatever is drawn.
 """
 
 import math
@@ -236,7 +266,7 @@ def drawcircle(x, y, size=1, **kwargs):
     return
 
 
-def drawhexlabel(x, y, label, dy=0.35, size="small", color="lightgrey", **kwargs):
+def drawhexlabel(x, y, label, dy=0.35, size="small", textcolor="lightgrey", **kwargs):
     """
     Draw a hex label.
 
@@ -251,14 +281,14 @@ def drawhexlabel(x, y, label, dy=0.35, size="small", color="lightgrey", **kwargs
         and the label in physical coordinates. It defaults to 0.35.
     :param size: The ``size`` argument gives the size of the text in points. It
         defaults to "small".
-    :param color: The ``color`` argument gives the color of the text. It
+    :param textcolor: The ``textcolor`` argument gives the color of the text. It
         defaults to "lightgrey"
     :return: ``None``
     """
-    drawtext(x, y, label, facing=90, dx=0, dy=dy, size=size, color=color, **kwargs)
+    drawtext(x, y, label, facing=90, dx=0, dy=dy, size=size, textcolor=textcolor, **kwargs)
     return
 
-def drawsheetlabel(x, y, label, dy=-0.05, size="HUGE", color="lightgrey", **kwargs):
+def drawsheetlabel(x, y, label, dy=-0.05, size="HUGE", textcolor="lightgrey", **kwargs):
     """
     Draw a sheet label.
 
@@ -273,11 +303,11 @@ def drawsheetlabel(x, y, label, dy=-0.05, size="HUGE", color="lightgrey", **kwar
         and the label in physical coordinates. It defaults to -0.05.
     :param size: The ``size`` argument gives the size of the text in points. It
         defaults to "HUGE".
-    :param color: The ``color`` argument gives the color of the text. It
+    :param textcolor: The ``textcolor`` argument gives the color of the text. It
         defaults to "lightgrey"
     :return: ``None``
     """
-    drawtext(x, y, label, facing=90, dx=0, dy=dy, size=size, color=color, **kwargs)
+    drawtext(x, y, label, facing=90, dx=0, dy=dy, size=size, textcolor=textcolor, **kwargs)
     return
 
 def drawdot(x, y, size=1, dx=0, dy=0, facing=0, **kwargs):
@@ -473,13 +503,13 @@ def _nativelinewidth(linewidth, linecolor):
     Return the native line width.
 
     :param linewidth: 
-        The `linewidth`` argument is number giving the line width in hexes or one of the strings ``"thin"``,
-        ``"normal"``, or ``"thick"``.
+        The `linewidth`` argument must be ``None``, number giving the line width
+        in hexes or one of the strings ``"thin"``, ``"normal"``, or ``"thick"``.
     :param linecolor: A line color.
     :return: 0 if ``linecolor`` is ``None``, otherwise the native line width
         corresponding to the ``linewidth`` argument.
     """
-    if linecolor is None:
+    if linecolor is None or linewidth is None:
         return 0
     elif linewidth == "thin":
         return 0.5
@@ -548,8 +578,7 @@ def _nativehatchpattern(hatchpattern):
         raise RuntimeError("invalid hatch pattern %r" % hatchpattern)
 
 ################################################################################
-
-    
+  
 
 def _drawhexincanvas(
     x,
@@ -557,9 +586,9 @@ def _drawhexincanvas(
     size=1,
     facing=0,
     linecolor="black",
-    linewidth="thin",
-    fillcolor=None,
+    linewidth="normal",
     linestyle="solid",
+    fillcolor=None,
     hatch=None,
     alpha=1.0,
     zorder=0,
@@ -591,7 +620,8 @@ def _drawcircleincanvas(
     y,
     size=1,
     linecolor="black",
-    linewidth="thin",
+    linewidth="normal",
+    linestyle="solid",
     fillcolor=None,
     hatch=None,
     alpha=1.0,
@@ -610,6 +640,7 @@ def _drawcircleincanvas(
             fill=(fillcolor != None),
             hatch=_nativehatchpattern(hatch),
             linewidth=_nativelinewidth(linewidth, linecolor),
+            linestyle=linestyle,
             alpha=alpha,
             zorder=zorder,
         )
@@ -623,9 +654,9 @@ def _drawdotincanvas(
     facing=0,
     dx=0,
     dy=0,
-    fillcolor="black",
     linecolor="black",
-    linewidth="thin",
+    linewidth="normal",
+    fillcolor="black",
     alpha=1.0,
     zorder=0,
 ):
@@ -652,7 +683,7 @@ def _drawlinesincanvas(
     x,
     y,
     linecolor="black",
-    linewidth="thin",
+    linewidth="normal",
     linestyle="solid",
     joinstyle="miter",
     capstyle="butt",
@@ -683,8 +714,8 @@ def _drawarrowincanvas(
     dx=0,
     dy=0,
     linecolor="black",
+    linewidth="normal",
     fillcolor="black",
-    linewidth="thin",
     alpha=1.0,
     zorder=0,
 ):
@@ -724,8 +755,8 @@ def _drawdartincanvas(
     dx=0,
     dy=0,
     linecolor="black",
+    linewidth="normal",
     fillcolor="black",
-    linewidth="thin",
     alpha=1.0,
     zorder=0,
 ):
@@ -766,11 +797,11 @@ def _drawtextincanvas(
     facing,
     dx=0,
     dy=0,
-    color="black",
+    textcolor="black",
     size="normal",
+    alignment="center",
     alpha=1.0,
     zorder=0,
-    alignment="center",
 ):
     """
     The counterpart of :func:`drawtext` in canvas coordinates.
@@ -791,7 +822,7 @@ def _drawtextincanvas(
         text,
         size=_nativetextsize(size),
         rotation=facing - 90,
-        color=_mapcolor(color),
+        color=_mapcolor(textcolor),
         alpha=alpha,
         horizontalalignment=alignment,
         verticalalignment="center_baseline",
@@ -805,8 +836,9 @@ def _drawpolygonincanvas(
     x,
     y,
     linecolor="black",
+    linewidth="normal",
+    linestyle="solid",
     fillcolor=None,
-    linewidth="thin",
     hatch=None,
     alpha=1.0,
     zorder=0,
@@ -821,6 +853,7 @@ def _drawpolygonincanvas(
             facecolor=_mapcolor(fillcolor),
             fill=(fillcolor != None),
             linewidth=_nativelinewidth(linewidth, linecolor),
+            linestyle=linestyle,
             hatch=_nativehatchpattern(hatch),
             alpha=alpha,
             zorder=zorder,
@@ -870,13 +903,13 @@ def _drawcompassincanvas(x, y, facing, color="black", alpha=1.0, zorder=0):
         dx=-0.15,
         dy=-0.05,
         size="Large",
-        color=color,
+        textcolor=color,
         alpha=alpha,
         zorder=zorder,
     )
 
 
-def _drawborderincanvas(xmin, ymin, xmax, ymax, width, color):
+def _drawborderincanvas(xmin, ymin, xmax, ymax, width, fillcolor=None):
     """
     The counterpart of :func:`drawborder` in canvas coordinates.
     """
@@ -885,7 +918,7 @@ def _drawborderincanvas(xmin, ymin, xmax, ymax, width, color):
         ymin,
         xmax,
         ymin + width,
-        fillcolor=color,
+        fillcolor=fillcolor,
         linecolor=None,
     )
     _drawrectangleincanvas(
@@ -893,7 +926,7 @@ def _drawborderincanvas(xmin, ymin, xmax, ymax, width, color):
         ymax - width,
         xmax,
         ymax,
-        fillcolor=color,
+        fillcolor=fillcolor,
         linecolor=None,
     )
     _drawrectangleincanvas(
@@ -901,7 +934,7 @@ def _drawborderincanvas(xmin, ymin, xmax, ymax, width, color):
         ymin,
         xmin + width,
         ymax,
-        fillcolor=color,
+        fillcolor=fillcolor,
         linecolor=None,
     )
     _drawrectangleincanvas(
@@ -909,7 +942,7 @@ def _drawborderincanvas(xmin, ymin, xmax, ymax, width, color):
         ymin,
         xmax,
         ymax,
-        fillcolor=color,
+        fillcolor=fillcolor,
         linecolor=None,
     )
 
@@ -1067,7 +1100,7 @@ def _drawannotation(x, y, facing, position, text, zorder):
         dx=textdx,
         dy=textdy,
         size=aircrafttextsize,
-        color=textcolor,
+        textcolor=textcolor,
         alignment=alignment,
         zorder=zorder,
     )
@@ -2154,7 +2187,7 @@ def _drawgroundunitincanvas(
             dx=0,
             dy=+groundunitdy * 0.32,
             size=groundunittextsize,
-            color=linecolor,
+            textcolor=linecolor,
             alignment="center",
             zorder=zorder,
         )
@@ -2168,7 +2201,7 @@ def _drawgroundunitincanvas(
             dx=0,
             dy=-groundunitdy * 0.36,
             size=groundunittextsize,
-            color=linecolor,
+            textcolor=linecolor,
             alignment="center",
             zorder=zorder,
         )
@@ -2290,7 +2323,7 @@ def _drawgroundunitincanvas(
                     dx=groundunitdx / 2 - 0.05,
                     dy=-0.01,
                     size=aircrafttextsize,
-                    color=textcolor,
+                    textcolor=textcolor,
                     alignment="left",
                     zorder=zorder,
                 )
@@ -2303,7 +2336,7 @@ def _drawgroundunitincanvas(
                     dx=-groundunitdx / 2 + 0.05,
                     dy=-0.01,
                     size=aircrafttextsize,
-                    color=textcolor,
+                    textcolor=textcolor,
                     alignment="right",
                     zorder=zorder,
                 )
