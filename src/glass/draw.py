@@ -1267,9 +1267,9 @@ def drawaircraft(x, y, facing, altitude, speed, flighttype, name, color, killed)
     :param y:
     :param facing:
     :param altitude:
-        The ``x``, ``y``, ``facing``, and ``altitude`` arguments are the hex coordinates of the aircraft, its facing, and its altitude. All must have the same length.
+        The ``x``, ``y``, ``facing``, and ``altitude`` arguments are the hex coordinates of the aircraft, its facing, and its altitude.
     :param speed:
-        The ``speed`` argument must be ``None`` or a number giving the initial speed of the element. 
+        The ``speed`` argument must be ``None`` or a number giving the initial speed of the aircraft. 
     :param flighttype:
         The ``flighttype`` argument must be a string giving the flight type of the aircraft.
     :param name:
@@ -1332,7 +1332,26 @@ def drawaircraft(x, y, facing, altitude, speed, flighttype, name, color, killed)
 
 ################################################################################
 
-def drawmissile(x, y, facing, color, name, altitude, speed, annotate):
+def drawmissile(x, y, facing, altitude, speed, name, color, annotate):
+    """
+    Draw a missile.
+
+    Draw a missile and optionally annotate it with its altitude, its speed, and its name.
+
+    :param x:
+    :param y:
+    :param facing:
+    :param altitude:
+        The ``x``, ``y``, ``facing``, and ``altitude`` arguments are the hex coordinates of the missile, its facing, and its altitude.
+    :param speed:
+        The ``speed`` argument must be ``None`` or a number giving the initial speed of the missile. 
+    :param name:
+        The ``name`` argument must be a string giving the name of the missile.
+    :param color:
+        The ``color`` argument must be a color and should be the color of the missile.
+    :param annotate:
+        The ``annotate`` argument must be a boolean value. If true, the missile is annotated.
+    """
     fillcolor = color
     linecolor = aircraftlinecolor
     zorder = altitude + 1

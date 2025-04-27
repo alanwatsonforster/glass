@@ -14,10 +14,10 @@ def _draw(self):
         self.x(),
         self.y(),
         self.facing(),
-        self._color,
-        self._name,
         self.altitude(),
         self.speed(),
+        self._name,
+        self._color,
         annotate=self._startedmoving,
     )
 
