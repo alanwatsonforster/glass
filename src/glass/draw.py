@@ -1073,6 +1073,18 @@ losdotsize = 0.05
 
 
 def drawlos(x0, y0, x1, y1):
+    """
+    Draw a line-of-sight between two elements.
+
+    :param x0:
+    :param y0:
+        The ``x0`` and ``y0`` arguments give the hex coordinates for first element.
+    :param x1: 
+    :param y1: 
+        The ``x1`` and ``y1`` arguments give the hex coordinates for second element.
+    :return:
+        ``None``
+    """
 
     zorder = 100
 
