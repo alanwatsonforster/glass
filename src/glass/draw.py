@@ -1079,8 +1079,8 @@ def drawlos(x0, y0, x1, y1):
     :param x0:
     :param y0:
         The ``x0`` and ``y0`` arguments give the hex coordinates for first element.
-    :param x1: 
-    :param y1: 
+    :param x1:
+    :param y1:
         The ``x1`` and ``y1`` arguments give the hex coordinates for second element.
     :return:
         ``None``
@@ -1115,7 +1115,9 @@ def drawlos(x0, y0, x1, y1):
         zorder=zorder,
     )
 
+
 ################################################################################
+
 
 def _drawannotation(
     x, y, facing, textposition, text, textsize="normal", textcolor="black", zorder=0
@@ -1125,13 +1127,23 @@ def _drawannotation(
 
     The notation can be drawn in one of six positions relative to the element: upper left, center left, lower left, upper right, center right, and center left.
 
+    For aircraft and missiles, the conventional use of these positons are:
+    - center right: name
+    - upper left: flight type
+    - center left: altitude
+    - lower left: speed
+
+    For other elements, the conventional use of these positions are:
+    - center right: name
+    - center left: alternative position for name when ground elements are stacked
+
     :param x:
     :param y:
         The ``x`` and ``y`` arguments give the hex coordinates of the element.
     :param facing:
        The ``facing`` argument gives the facing of the element.
     :param textposition:
-        The ``textposition`` argument gives the position of the text relative to the element. It must be one of the strings ``"ul"`` (upper left), ``"cl"`` (center left), ``"ll"`` (lower left), ``"ur"`` (upper right), ``"cr"`` (center right), or ``"cl"`` (center left). 
+        The ``textposition`` argument gives the position of the text relative to the element. It must be one of the strings ``"ul"`` (upper left), ``"cl"`` (center left), ``"ll"`` (lower left), ``"ur"`` (upper right), ``"cr"`` (center right), or ``"cl"`` (center left).
     :param text:
         The ``text`` argument gives text relative to be written. It must be a string.
     """
@@ -1168,23 +1180,33 @@ def _drawannotation(
         zorder=zorder,
     )
 
+
 ################################################################################
 
 pathcolor = (0.00, 0.00, 0.00)
 pathlinewidth = "thick"
 pathlinestyle = "dotted"
 pathdotsize = 0.1
-aircrafttextsize = "normal"
-killedfillcolor = None
-killedlinecolor = (0.60, 0.60, 0.60)
-aircraftlinecolor = (0.00, 0.00, 0.00)
-aircraftlinewidth = "normal"
-textcolor = (0.00, 0.00, 0.00)
-
-
 
 
 def drawpath(x, y, facing, altitude, speed, color, killed, annotate):
+    """
+    Draw a path to show the movement of an element.
+
+    :param x:
+    :param y:
+    :param facing:
+    :param altitude:
+        The ``x``, ``y``, ``facing``, and ``altitude`` arguments are lists giving the hex coordinates of the element, its facing, and its altitude. All must have the same length.
+    :param speed:
+        The ``speed`` argument must be ``None`` or a number giving the initial speed of the element. 
+    :param color:
+        The ``color`` argument must be a color and should be the color of the element.
+    :param killed:
+        The ``killed`` argument must be a boolean value. If true, the path is drawn in a style appropriate for a killed element.
+    :param annotate:
+        The ``annotate`` argument must be a boolean value. If true, the initial point is annotated with the initial altitude in the center left position and this speed (if not ``None``) in the lower left position.
+    """
     if killed:
         fillcolor = killedfillcolor
         linecolor = killedlinecolor
@@ -1223,6 +1245,16 @@ def drawpath(x, y, facing, altitude, speed, color, killed, annotate):
                     "%.1f" % speed,
                     zorder=zorder,
                 )
+
+
+################################################################################
+
+aircrafttextsize = "normal"
+killedfillcolor = None
+killedlinecolor = (0.60, 0.60, 0.60)
+aircraftlinecolor = (0.00, 0.00, 0.00)
+aircraftlinewidth = "normal"
+textcolor = (0.00, 0.00, 0.00)
 
 
 def drawaircraft(x, y, facing, color, name, altitude, speed, flighttype, killed):
