@@ -29,6 +29,7 @@ __all__ = [
     "setupgroundunit",
     "setuphexgroundunit",
     "setupmarker",
+    "setupship",
 ]
 
 ################################################################################
@@ -344,3 +345,4 @@ from glass.aircraft import Aircraft as setupaircraft
 from glass.groundunit import GroundUnit as setupgroundunit
 from glass.groundunit import HexGroundUnit as setuphexgroundunit
 from glass.marker import Marker as setupmarker
+from glass.ship import Ship as setupship

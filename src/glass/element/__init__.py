@@ -446,6 +446,9 @@ class Element:
     def isbarragefire(self):
         return False
 
+    def isship(self):
+        return False
+    
     #############################################################################
 
     def note(self, s):

@@ -2594,10 +2594,11 @@ def drawship(
     x,
     y,
     facing,
-    color,
+    large,
     name,
+    color,
+    stack,
     killed,
-    large=False,
 ):
     """
     Draw a ship.
@@ -2607,22 +2608,28 @@ def drawship(
         The ``x`` and ``y`` arguments give the hex coordinates of the ship.
     :param facing:
         The ``facing`` argument gives the facing of the ship.
-    :param color:
-        The ``color`` argument gives the  color of the ship.
+    :param large:
+        The ``large`` argument determines if the ship is a large ship.
     :param name:
-        The ``name`` argument gives the  name of the ship.
+        The ``name`` argument gives the name of the ship.
+    :param color:
+        The ``color`` argument gives the color of the ship.
+    :param stack:
+        The ``stack`` argument must be one of the strings ``"1/1"``, ``"1/2"``,
+        ``"2/2"``. It indicates the position in a stack (e.g,
+        ``"1/2"`` indicates the top unit in a stack of two and ``"2/2"``
+        indicates the top unit in a stack of two). The default is
+        ``"1/1"``.
     :param killed:
         The ``killed`` argument determines whether the ship has been killed. If so, it is drawn in outline only.
-    :param large:
-        The ``large`` argument determines the  the ship is a large ship. Defaults to ``False``.
     :return:
         ``None``
     """
     _drawshipincanvas(
         *_tocanvasxy(x, y),
         _tocanvasfacing(facing),
-        color,
         name,
+        color,
         killed,
         large=large,
     )
@@ -2641,8 +2648,8 @@ def _drawshipincanvas(
     x,
     y,
     facing,
-    color,
     name,
+    color,
     killed,
     large=False,
 ):
