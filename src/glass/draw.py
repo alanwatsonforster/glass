@@ -526,91 +526,6 @@ def _sind(x):
 ################################################################################
 
 
-def _nativelinewidth(linewidth, linecolor):
-    """
-    Return the native line width.
-
-    :param linewidth:
-        The `linewidth`` argument must be ``None``, number giving the line width
-        in hexes or one of the strings ``"thin"``, ``"normal"``, or ``"thick"``.
-    :param linecolor: A line color.
-    :return: 0 if ``linecolor`` is ``None``, otherwise the native line width
-        corresponding to the ``linewidth`` argument.
-    """
-    if linecolor is None or linewidth is None:
-        return 0
-    elif linewidth == "thin":
-        return 0.5
-    elif linewidth == "normal":
-        return 1.0
-    elif linewidth == "thick":
-        return 2.0
-    else:
-        # Native line widths are in points.
-        return int(linewidth * _pointsperhex + 0.5)
-
-
-def _nativetextsize(textsize):
-    """
-    Return the native text size
-
-    :param textsize:
-        The ``textsize`` argument is a number giving the text size in hexes or one of
-        the strings ``"tiny"``, ``"scriptsize"``, ``"footnotesize"``,
-        ``"small"``, ``"normal"``, ``"large"``, ``"Large"``, ``"LARGE"``,
-        ``"huge"``, and ``"HUGE"``.
-    :return: The native text size corresponding to the ``textsize``a argument.
-    """
-    # The correspondence between names and sizes are approximately the LaTeX
-    # font sizes in 10 pt documents and are appropriate for 1 hex = 1 inch.
-    if textsize == "tiny":
-        return 5
-    elif textsize == "scriptsize":
-        return 7
-    elif textsize == "footnotesize":
-        return 8
-    elif textsize == "small":
-        return 9
-    elif textsize == "normal":
-        return 10
-    elif textsize == "large":
-        return 12
-    elif textsize == "Large":
-        return 14
-    elif textsize == "LARGE":
-        return 18
-    elif textsize == "huge":
-        return 21
-    elif textsize == "HUGE":
-        return 24
-    else:
-        # Native text sizes are in points.
-        return int(textsize * _pointsperhex + 0.5)
-
-
-def _nativehatchpattern(hatchpattern):
-    """
-    Return the native hatch pattern.
-
-    :param hatchpattern:
-        The ``hatchpattern`` argument must be ``None`` or one of the strings
-        ``"forsest"``, ``"city"``, or ``"town"``.
-    :return: The native hatch pattern corresponding to the ``hatchpattern``a
-        argument.
-    """
-    if hatchpattern is None:
-        return None
-    elif hatchpattern == "forest":
-        return ".o"
-    elif hatchpattern == "town" or hatchpattern == "city":
-        return "xx"
-    else:
-        raise RuntimeError("invalid hatch pattern %r" % hatchpattern)
-
-
-################################################################################
-
-
 def _drawhexincanvas(
     x,
     y,
@@ -634,8 +549,8 @@ def _drawhexincanvas(
             6,
             radius=size * 0.5 * math.sqrt(4 / 3),
             orientation=math.pi / 6 + math.radians(facing),
-            edgecolor=_mapcolor(linecolor),
-            facecolor=_mapcolor(fillcolor),
+            edgecolor=_nativecolor(linecolor),
+            facecolor=_nativecolor(fillcolor),
             fill=(fillcolor != None),
             linestyle=linestyle,
             hatch=_nativehatchpattern(hatch),
@@ -666,8 +581,8 @@ def _drawcircleincanvas(
         patches.Circle(
             [x, y],
             radius=0.5 * size,
-            edgecolor=_mapcolor(linecolor),
-            facecolor=_mapcolor(fillcolor),
+            edgecolor=_nativecolor(linecolor),
+            facecolor=_nativecolor(fillcolor),
             fill=(fillcolor != None),
             hatch=_nativehatchpattern(hatch),
             linewidth=_nativelinewidth(linewidth, linecolor),
@@ -700,8 +615,8 @@ def _drawdotincanvas(
         patches.Circle(
             [x, y],
             radius=0.5 * size,
-            edgecolor=_mapcolor(linecolor),
-            facecolor=_mapcolor(fillcolor),
+            edgecolor=_nativecolor(linecolor),
+            facecolor=_nativecolor(fillcolor),
             fill=(fillcolor != None),
             linewidth=_nativelinewidth(linewidth, linecolor),
             alpha=alpha,
@@ -729,7 +644,7 @@ def _drawlinesincanvas(
         y,
         linewidth=_nativelinewidth(linewidth, linecolor),
         linestyle=linestyle,
-        color=_mapcolor(linecolor),
+        color=_nativecolor(linecolor),
         solid_joinstyle=joinstyle,
         solid_capstyle=capstyle,
         alpha=alpha,
@@ -769,8 +684,8 @@ def _drawarrowincanvas(
             width=0.01,
             head_width=0.1,
             length_includes_head=True,
-            edgecolor=_mapcolor(linecolor),
-            facecolor=_mapcolor(linecolor),
+            edgecolor=_nativecolor(linecolor),
+            facecolor=_nativecolor(linecolor),
             fill=(fillcolor != None),
             linewidth=_nativelinewidth(linewidth, linecolor),
             alpha=alpha,
@@ -812,8 +727,8 @@ def _drawdartincanvas(
             head_length=size,
             head_width=0.5 * size,
             length_includes_head=True,
-            edgecolor=_mapcolor(linecolor),
-            facecolor=_mapcolor(fillcolor),
+            edgecolor=_nativecolor(linecolor),
+            facecolor=_nativecolor(fillcolor),
             fill=(fillcolor != None),
             linewidth=_nativelinewidth(linewidth, linecolor),
             alpha=alpha,
@@ -854,7 +769,7 @@ def _drawtextincanvas(
         text,
         size=_nativetextsize(size),
         rotation=facing - 90,
-        color=_mapcolor(textcolor),
+        color=_nativecolor(textcolor),
         alpha=alpha,
         horizontalalignment=alignment,
         verticalalignment="center_baseline",
@@ -881,8 +796,8 @@ def _drawpolygonincanvas(
     _ax.add_artist(
         patches.Polygon(
             list(zip(x, y)),
-            edgecolor=_mapcolor(linecolor),
-            facecolor=_mapcolor(fillcolor),
+            edgecolor=_nativecolor(linecolor),
+            facecolor=_nativecolor(fillcolor),
             fill=(fillcolor != None),
             linewidth=_nativelinewidth(linewidth, linecolor),
             linestyle=linestyle,
@@ -1213,7 +1128,7 @@ def drawpath(x, y, facing, altitude, speed, color, killed, annotate):
         All must have the same length.
     :param speed:
         The ``speed`` argument must be ``None`` or a number giving the initial
-        speed of the element. 
+        speed of the element.
     :param color:
         The ``color`` argument must be a color and should be the color of the
         element.
@@ -1292,7 +1207,7 @@ def drawaircraft(x, y, facing, altitude, speed, flighttype, name, color, killed)
         coordinates of the aircraft, its facing, and its altitude.
     :param speed:
         The ``speed`` argument must be ``None`` or a number giving the initial
-        speed of the aircraft. 
+        speed of the aircraft.
     :param flighttype:
         The ``flighttype`` argument must be a string giving the flight type of
         the aircraft.
@@ -1358,7 +1273,9 @@ def drawaircraft(x, y, facing, altitude, speed, flighttype, name, color, killed)
             zorder=zorder,
         )
 
+
 ################################################################################
+
 
 def drawmissile(x, y, facing, altitude, speed, name, color, annotate):
     """
@@ -1375,7 +1292,7 @@ def drawmissile(x, y, facing, altitude, speed, name, color, annotate):
         coordinates of the missile, its facing, and its altitude.
     :param speed:
         The ``speed`` argument must be ``None`` or a number giving the initial
-        speed of the missile. 
+        speed of the missile.
     :param name:
         The ``name`` argument must be a string giving the name of the missile.
     :param color:
@@ -1446,7 +1363,7 @@ def drawbarragefire(x, y, altitude):
         The ``altitude`` argument is the altitude to which the barrage fire
         extends.
     :return:
-        ``None``        
+        ``None``
     """
     zorder = altitude + 1.5
     drawhex(
@@ -1480,7 +1397,7 @@ def drawplottedfire(x, y, altitude):
     :param altitude:
         The ``altitude`` argument is the altitude of the plotted fire.
     :return:
-        ``None``        
+        ``None``
     """
     zorder = altitude + 3.5
     drawhex(
@@ -1513,7 +1430,7 @@ def drawblastzone(x, y, altitude):
     :param altitude:
         The ``altitude`` argument is the altitude to which the blast zone extends.
     :return:
-        ``None``        
+        ``None``
     """
     zorder = altitude + 1.5
     drawhex(
@@ -1545,7 +1462,7 @@ def drawbomb(x, y, facing, altitude):
         The ``x``, ``y``, ``facing``, and ``altitude`` arguments are the hex
         coordinates of the bomb, its facing, and its altitude.
     :return:
-        ``None``        
+        ``None``
     """
     zorder = altitude + 1.5
     drawdart(
@@ -1641,7 +1558,16 @@ def drawgroundunit(
 
 
 def _drawgroundunitincanvas(
-    x0, y0, facing, symbols, uppertext, lowertext, name, color, stack="1/1", killed=False
+    x0,
+    y0,
+    facing,
+    symbols,
+    uppertext,
+    lowertext,
+    name,
+    color,
+    stack="1/1",
+    killed=False,
 ):
     """
     The counterpart of :func:`drawgroundunit` in canvas coordinates.
@@ -2743,17 +2669,136 @@ def _drawshipincanvas(
 
 ################################################################################
 
+
+def _nativelinewidth(linewidth, linecolor):
+    """
+    Return the native line width.
+
+    :param linewidth:
+        The `linewidth`` argument must be ``None``, number giving the line width
+        in hexes or one of the strings ``"thin"``, ``"normal"``, or ``"thick"``.
+    :param linecolor: A line color.
+    :return: 0 if ``linecolor`` is ``None``, otherwise the native line width
+        corresponding to the ``linewidth`` argument.
+    """
+    if linecolor is None or linewidth is None:
+        return 0
+    elif linewidth == "thin":
+        return 0.5
+    elif linewidth == "normal":
+        return 1.0
+    elif linewidth == "thick":
+        return 2.0
+    else:
+        # Native line widths are in points.
+        return int(linewidth * _pointsperhex + 0.5)
+
+
+def _nativetextsize(textsize):
+    """
+    Return the native text size
+
+    :param textsize:
+        The ``textsize`` argument is a number giving the text size in hexes or one of
+        the strings ``"tiny"``, ``"scriptsize"``, ``"footnotesize"``,
+        ``"small"``, ``"normal"``, ``"large"``, ``"Large"``, ``"LARGE"``,
+        ``"huge"``, and ``"HUGE"``.
+    :return: The native text size corresponding to the ``textsize``a argument.
+    """
+    # The correspondence between names and sizes are approximately the LaTeX
+    # font sizes in 10 pt documents and are appropriate for 1 hex = 1 inch.
+    if textsize == "tiny":
+        return 5
+    elif textsize == "scriptsize":
+        return 7
+    elif textsize == "footnotesize":
+        return 8
+    elif textsize == "small":
+        return 9
+    elif textsize == "normal":
+        return 10
+    elif textsize == "large":
+        return 12
+    elif textsize == "Large":
+        return 14
+    elif textsize == "LARGE":
+        return 18
+    elif textsize == "huge":
+        return 21
+    elif textsize == "HUGE":
+        return 24
+    else:
+        # Native text sizes are in points.
+        return int(textsize * _pointsperhex + 0.5)
+
+
+def _nativehatchpattern(hatchpattern):
+    """
+    Return the native hatch pattern.
+
+    :param hatchpattern:
+        The ``hatchpattern`` argument must be ``None`` or one of the strings
+        ``"forsest"``, ``"city"``, or ``"town"``.
+    :return: The native hatch pattern corresponding to the ``hatchpattern``a
+        argument.
+    """
+    if hatchpattern is None:
+        return None
+    elif hatchpattern == "forest":
+        return ".o"
+    elif hatchpattern == "town" or hatchpattern == "city":
+        return "xx"
+    else:
+        raise RuntimeError("invalid hatch pattern %r" % hatchpattern)
+
+
 # I determine colors from images using the Digital Color Meter on macOS. I use
-# native RGB values. However, colors are often perceived to be darker when seen
-# in small areas. To counter this, I lighten certain colors.
+# native RGB values.
 
-
-def _lighten(color, factor):
-    return list([min(1.0, component * factor) for component in color])
-
-
-_colors = {
-    # This is a mapping from "aircraft color" to "CSS color".
+_colormap = {
+    # Grays
+    "white": (1.00, 1.00, 1.00),
+    "gray90": (0.90, 0.90, 0.90),
+    "gray80": (0.80, 0.80, 0.80),
+    "gray70": (0.70, 0.70, 0.70),
+    "gray60": (0.60, 0.60, 0.60),
+    "gray50": (0.50, 0.50, 0.50),
+    "gray40": (0.40, 0.40, 0.40),
+    "gray30": (0.30, 0.30, 0.30),
+    "gray20": (0.20, 0.20, 0.20),
+    "gray10": (0.10, 0.10, 0.10),
+    "black": (0.00, 0.00, 0.00),
+    "grey90": "gray90",
+    "grey80": "gray80",
+    "grey70": "gray70",
+    "grey60": "gray60",
+    "grey50": "gray50",
+    "grey40": "gray40",
+    "grey30": "gray30",
+    "grey20": "gray20",
+    "grey10": "gray10",
+    # Generic colors
+    "aluminum": "gray80",
+    "aluminium": "aluminum",
+    "unpainted": "aluminum",
+    # https://www.theworldwars.net/resources/file.php?r=camo_usn#korea
+    "darkblue": (0.110, 0.220, 0.310),
+    "skyblue": (0.490, 0.780, 0.910),
+    "green": "olivedrab",
+    "olivedrab": (0.420, 0.557, 0.137),  # CSS olive drab
+    "lightgreen": "lightolivedrab",
+    "lightolivedrab": (0.624, 0.714, 0.439),
+    "tan": (0.824, 0.706, 0.549),  # CSS tan
+    "darktan": (0.576, 0.494, 0.384),
+    "sand": (0.941, 0.918, 0.839),
+    "darkgray": "gray40",
+    "darkgray": "darkgray",
+    "mediumgray": "gray50",
+    "mediumgrey": "mediumgray",
+    "lightgray": "gray70",
+    "lightgrey": "lightgray",
+    "slategray": (0.439, 0.502, 0.565),  # CSS slategray
+    "slategrey": "slategray",
     # Approximations to NATO blue, red, green, and yellow.
     # https://en.wikipedia.org/wiki/NATO_Joint_Military_Symbology#APP-6A_affiliation
     "natoblue": (0.45, 0.87, 1.00),
@@ -2764,45 +2809,52 @@ _colors = {
     "natohostile": "natored",
     "natoneutral": "natogreen",
     "natounknown": "natoyellow",
-    "aluminum": "css:lightgray",
-    "aluminium": "aluminum",
-    "unpainted": "aluminum",
-    "white": "css:white",
-    "black": "css:black",
-    "darkblue": "css:midnightblue",
-    "green": "olivedrab",
-    "olivedrab": "css:olivedrab",
-    "lightgreen": "lightolivedrab",
-    "lightolivedrab": "#9fb670",
-    "tan": "css:tan",
-    "darktan": "#937e62",
-    "sand": "#f0ead6",
-    "darkgray": "css:slategray",
-    "darkgrey": "darkgray",
-    "lightgray": "css:silver",
-    "lightgrey": "lightgray",
     # The blue of the IAF roundel.
     # https://en.wikipedia.org/wiki/General_Dynamics_F-16_Fighting_Falcon_variants#F-16I_Sufa
     # This blue is darker and more saturated that the NATO blue.
-    "iafblue": _lighten((0 / 255, 138 / 255, 192 / 255), 1.4),
+    "iafblue": (0.000, 0.541, 0.753),
     # Pan-Arab colors.
     # https://en.wikipedia.org/wiki/Pan-Arab_colors
     # https://en.wikipedia.org/wiki/Pan-Arab_colors#/media/File:Flag_of_Hejaz_1917.svg
     # This red is darker and more saturated than the NATO red. This green is lighter and
     # more saturated than the standard green.
-    "panarabred": _lighten((199 / 255, 18 / 255, 34 / 244), 1.4),
-    "panarabgreen": _lighten((9 / 255, 111 / 255, 53 / 255), 1.4),
+    "panarabred": (0.780, 0.071, 0.133),
+    "panarabgreen": (0.035, 0.435, 0.208),
 }
 
 
-def _mapcolor(color):
+def _nativecolor(color):
+    """
+    Return the native color.
+
+    Named colors are: ``"white"``, ``"gray90"``, ``"gray80"``, ``"gray70"``,
+    ``"gray60"``, ``"gray50"``, ``"gray40"``, ``"gray30"``, ``"gray20"``,
+    ``"gray10"``, ``"black"``, ``"grey90"``, ``"grey80"``, ``"grey70"``,
+    ``"grey60"``, ``"grey50"``, ``"grey40"``, ``"grey30"``, ``"grey20"``,
+    ``"grey10"``, ``"aluminum"``, ``"aluminium"``, ``"unpainted"``,
+    ``"darkblue"``, ``"skyblue"``, ``"green"``, ``"olivedrab"``,
+    ``"lightgreen"``, ``"lightolivedrab"``, ``"tan"``, ``"darktan"``,
+    ``"sand"``, ``"darkgray"``, ``"mediumgray"``, ``"mediumgrey"``,
+    ``"lightgray"``, ``"lightgrey"``, ``"slategray"``, ``"slategrey"``,
+    ``"natoblue"``, ``"natored"``, ``"natogreen"``, ``"natoyellow"``,
+    ``"natofriendly"``, ``"natohostile"``, ``"natoneutral"``, ``"natounknown"``,
+    ``"iafblue"``, ``"panarabred"``, and ``"panarabgreen"``.
+
+    Note that both American and British versions of "gray" and "aluminum" are
+    present.
+
+    :param color:
+        A color name or a list or tuple of the three RGB components as numbers
+        from 0 to 1.
+    :return:
+        The color represented as a tuple of the three RGB components as numbers
+        from 0 to 1.
+    """
 
     if not isinstance(color, str):
         return color
-    elif color[0:4] == "css:":
-        return color[4:]
-    elif color in _colors:
-        return _mapcolor(_colors[color])
+    elif color in _colormap:
+        return _nativecolor(_colormap[color])
     else:
         return color
 
