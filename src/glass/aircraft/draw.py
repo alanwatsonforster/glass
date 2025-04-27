@@ -18,11 +18,11 @@ def _draw(self):
         self.x(),
         self.y(),
         self.facing(),
-        self._color,
-        self.name(),
         self.altitude(),
         speed,
         self._flighttype,
+        self.name(),
+        self._color,
         killed=self.killed(),
     )
 

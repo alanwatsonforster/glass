@@ -1257,7 +1257,20 @@ aircraftlinewidth = "normal"
 textcolor = (0.00, 0.00, 0.00)
 
 
-def drawaircraft(x, y, facing, color, name, altitude, speed, flighttype, killed):
+def drawaircraft(x, y, facing, altitude, speed, flighttype, name, color, killed):
+    """
+    Draw an aircraft.
+
+    :param x: _description_
+    :param y: _description_
+    :param facing: _description_
+    :param color: _description_
+    :param name: _description_
+    :param altitude: _description_
+    :param speed: _description_
+    :param flighttype: _description_
+    :param killed: _description_
+    """
     if killed:
         fillcolor = killedfillcolor
         linecolor = killedlinecolor
@@ -1309,6 +1322,7 @@ def drawaircraft(x, y, facing, color, name, altitude, speed, flighttype, killed)
             zorder=zorder,
         )
 
+################################################################################
 
 def drawmissile(x, y, facing, color, name, altitude, speed, annotate):
     fillcolor = color
