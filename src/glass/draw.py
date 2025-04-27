@@ -1076,8 +1076,7 @@ aircraftlinecolor = (0.00, 0.00, 0.00)
 aircraftlinewidth = "normal"
 textcolor = (0.00, 0.00, 0.00)
 
-
-def _drawannotation(x, y, facing, position, text, zorder):
+def _drawannotation(x, y, facing, position, text, textsize="normal", textcolor="black", zorder=0):
     textdx = 0.08
     textdy = 0.15
     if position[0] == "u":
@@ -1099,7 +1098,7 @@ def _drawannotation(x, y, facing, position, text, zorder):
         facing=facing,
         dx=textdx,
         dy=textdy,
-        size=aircrafttextsize,
+        size=textsize,
         textcolor=textcolor,
         alignment=alignment,
         zorder=zorder,
@@ -2352,6 +2351,80 @@ def _drawgroundunitincanvas(
             linecolor=linecolor,
             zorder=0,
         )
+
+
+################################################################################
+
+shiplinecolor = aircraftlinecolor
+shiplinewidth = aircraftlinewidth
+shiptextsize = aircrafttextsize
+
+def drawship(
+    x, y, facing, color, name, killed, large=False,
+):
+    """
+    Draw a ship.
+
+    :param x:
+    :param y:
+        The ``x`` and ``y`` arguments give the hex coordinates of the ship.
+    :param facing:
+        The ``facing`` argument gives the facing of the ship.
+    :param color:
+        The ``color`` argument gives the  color of the ship.
+    :param name:
+        The ``name`` argument gives the  name of the ship.
+    :param killed:
+        The ``killed`` argument determines whether the ship has been killed. If so, it is drawn in outline only.
+    :param large: 
+        The ``large`` argument determines the  the ship is a large ship. Defaults to ``False``.
+    :return:
+        ``None``
+    """
+    _drawshipincanvas(
+        *_tocanvasxy(x, y),
+        _tocanvasfacing(facing),
+        color,
+        name,
+        killed,
+        large=large,
+    )
+    if not killed:
+        _drawannotation(
+            x,
+            y,
+            facing,
+            "cr",
+            name,
+            textcolor=shiplinecolor,
+            textsize=shiptextsize,
+            zorder=0,
+        )
+
+def _drawshipincanvas(
+    x0, y0, facing, color, name, killed, large=False,
+):
+    if killed:
+        fillcolor = killedfillcolor
+        linecolor = killedlinecolor
+    else:
+        fillcolor = color
+        linecolor = aircraftlinecolor
+    length = 0.50
+    bow = 0.20
+    beam = 0.12
+    if large:
+        sizefactor = 1.5
+    else:
+        sizefactor = 1.1
+
+    dx0 = [0.0, +0.5 * beam, +0.5 * beam, -0.5 * beam, -0.5 * beam]
+    dy0 = [+0.5 * length, +0.5 * length - bow, -0.5 * length, -0.5 * length, +0.5 * length - bow]
+    dx = list(x0 + sizefactor * (- dx0 * _sind(facing) + dy0 * _cosd(facing)) for dx0, dy0 in zip(dx0, dy0))
+    dy = list(y0 + sizefactor * (+ dx0 * _cosd(facing) + dy0 * _sind(facing)) for dx0, dy0 in zip(dx0, dy0))
+    _drawpolygonincanvas(dx, dy, linecolor=linecolor, linewidth=shiplinewidth, fillcolor=fillcolor, zorder=0)
+
+
 
 
 ################################################################################
