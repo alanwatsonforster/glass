@@ -179,7 +179,7 @@ def startcanvas(xmin, ymin, xmax, ymax, rotation=0, dotsperhex=100):
                 [_canvasxmax, _canvasymax],
                 [_canvasxmax, _canvasymin],
             ],
-            edgecolor="None",
+            edgecolor=None,
             facecolor="white",
             fill=True,
             linewidth=0,
@@ -1579,25 +1579,73 @@ groundunitdy = 0.4
 
 
 def drawgroundunit(
-    x, y, symbols, uppertext, lowertext, facing, color, name, stack, killed
+    x, y, facing, symbols, uppertext, lowertext, name, color, stack="1/1", killed=False
 ):
+    """
+    _summary_
+
+    :param x:
+    :param y:
+    :param facing:
+    :param altitude:
+        The ``x``, ``y``, and ``facing`` arguments are the hex coordinates of
+        the ground unit and its facing. If the unit does not have a facing, the
+        ``facing`` argument should be ``None``.
+    :param symbols:
+        The ``symbols`` argument is a list of strings that describe how the
+        ground unit is drawn. If the list contains ``"hex"``, the unit is drawn
+        as with a hex outline; this is suitable for infrastructure targets such
+        as buildings. If it does not contain ``"hex"``, it is drawn with a
+        rectangular outline. The list can also contain any number of the
+        following strings, which indicate the symbols to be drawn:
+        ``"airdefense"``, ``"ammunition"``, ``"antiarmor"``, ``"armor"``,
+        ``"artillery"``, ``"barge"``, ``"building"``, ``"fixedwing"``,
+        ``"fuel"``, ``"gun"``, ``"hangar"``, ``"headquarters"``, ``"infantry"``,
+        ``"junk"``, ``"limitedwheeled"``, ``"locomotive"``, ``"missile"``,
+        ``"motorized"``, ``"multiplerocket"``, ``"ordnance"``, ``"radar"``,
+        ``"railcar"``, ``"reconnaissance"``, ``"rotarywing"``, ``"supply"``,
+        ``"tower"``, ``"transportation"``, ``"truck"``, and ``"wheeled"``.
+    :param uppertext:
+    :param lowertext:
+        The ``uppertext`` and ``lowertext`` arguments are strings that we drawn
+        in the upper and lower positions in the ground unit.
+    :param name:
+        The ``name`` argument is a string that names the ground unit.
+    :param color:
+        The ``color`` argument is a color and is the color of the ground unit.
+    :param stack:
+        The ``stack`` argument must be one of the strings ``"1/1"``, ``"1/2"``,
+        ``"2/2"``, ``"1/3"``, ``"2/3"``, ``"3/3"``, ``"1/4"``, ``"2/4"``,
+        ``"3/4"``, or ``"4/4"``. It indicates the position in a stack (e.g,
+        ``"1/2"`` indicates the top unit in a stack of two and ``"2/3"``
+        indicates the middle unit in a stack of three). The default is
+        ``"1/1"``.
+    :param killed:
+    :param killed:
+        The ``killed`` argument must be a boolean value. If true, the ground
+        unit is drawn in a style appropriate for a killed element.
+    :return:
+        ``None``
+    """
     _drawgroundunitincanvas(
         *_tocanvasxy(x, y),
+        facing,
         symbols,
         uppertext,
         lowertext,
-        facing,
-        color,
         name,
+        color,
         stack,
         killed,
     )
 
 
 def _drawgroundunitincanvas(
-    x0, y0, symbols, uppertext, lowertext, facing, color, name, stack, killed
+    x0, y0, facing, symbols, uppertext, lowertext, name, color, stack="1/1", killed=False
 ):
-
+    """
+    The counterpart of :func:`drawgroundunit` in canvas coordinates.
+    """
     if killed:
         fillcolor = killedfillcolor
         linecolor = killedlinecolor
