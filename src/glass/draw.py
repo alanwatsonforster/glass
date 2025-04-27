@@ -65,6 +65,7 @@ corresponding to a counterclockwise rotation. It must be an integer value and a
 muliple of 90.
 """
 
+
 def _tocanvasxy(x, y):
     """
     Return the canvas position corresponding to a hex position.
@@ -285,8 +286,11 @@ def drawhexlabel(x, y, label, dy=0.35, size="small", textcolor="lightgrey", **kw
         defaults to "lightgrey"
     :return: ``None``
     """
-    drawtext(x, y, label, facing=90, dx=0, dy=dy, size=size, textcolor=textcolor, **kwargs)
+    drawtext(
+        x, y, label, facing=90, dx=0, dy=dy, size=size, textcolor=textcolor, **kwargs
+    )
     return
+
 
 def drawsheetlabel(x, y, label, dy=-0.05, size="HUGE", textcolor="lightgrey", **kwargs):
     """
@@ -307,8 +311,11 @@ def drawsheetlabel(x, y, label, dy=-0.05, size="HUGE", textcolor="lightgrey", **
         defaults to "lightgrey"
     :return: ``None``
     """
-    drawtext(x, y, label, facing=90, dx=0, dy=dy, size=size, textcolor=textcolor, **kwargs)
+    drawtext(
+        x, y, label, facing=90, dx=0, dy=dy, size=size, textcolor=textcolor, **kwargs
+    )
     return
+
 
 def drawdot(x, y, size=1, dx=0, dy=0, facing=0, **kwargs):
     """
@@ -329,7 +336,14 @@ def drawdot(x, y, size=1, dx=0, dy=0, facing=0, **kwargs):
         degrees. The defaults for the offsets and facing are 0.
     :return: ``None``
     """
-    _drawdotincanvas(*_tocanvasxy(x, y), size=size, dx=dx, dy=dy, facing=_tocanvasfacing(facing), **kwargs)
+    _drawdotincanvas(
+        *_tocanvasxy(x, y),
+        size=size,
+        dx=dx,
+        dy=dy,
+        facing=_tocanvasfacing(facing),
+        **kwargs,
+    )
     return
 
 
@@ -357,9 +371,9 @@ def drawarrow(x, y, size, facing, dx=0, dy=0, **kwargs):
     :param y:
         The ``x`` and ``y`` arguments give the coordinates of the center of the
         arrow in hex coordinates.
-    :param size: 
+    :param size:
         The ``size`` argument gives the length of the arrow in physical
-        coordinates.    
+        coordinates.
     :param facing:
     :param dx:
     :param dy:
@@ -369,7 +383,10 @@ def drawarrow(x, y, size, facing, dx=0, dy=0, **kwargs):
         rotated by ``facing`` in degrees. The defaults for the offsets are 0.
     :return: ``None``
     """
-    _drawarrowincanvas(*_tocanvasxy(x, y), size, _tocanvasfacing(facing), dx, dy, **kwargs)
+    _drawarrowincanvas(
+        *_tocanvasxy(x, y), size, _tocanvasfacing(facing), dx, dy, **kwargs
+    )
+
 
 def drawdart(x, y, size, facing, dx=0, dy=0, **kwargs):
     """
@@ -379,9 +396,9 @@ def drawdart(x, y, size, facing, dx=0, dy=0, **kwargs):
     :param y:
         The ``x`` and ``y`` arguments give the coordinates of the center of the
         dart in hex coordinates.
-    :param size: 
+    :param size:
         The ``size`` argument gives the length of the dart in physical
-        coordinates.    
+        coordinates.
     :param facing:
     :param dx:
     :param dy:
@@ -391,7 +408,14 @@ def drawdart(x, y, size, facing, dx=0, dy=0, **kwargs):
         rotated by ``facing`` in degrees. The defaults for the offsets are 0.
     :return: ``None``
     """
-    _drawdartincanvas(*_tocanvasxy(x, y), size=size, facing=_tocanvasfacing(facing), dx=dx, dy=dy, **kwargs)
+    _drawdartincanvas(
+        *_tocanvasxy(x, y),
+        size=size,
+        facing=_tocanvasfacing(facing),
+        dx=dx,
+        dy=dy,
+        **kwargs,
+    )
 
 
 def drawtext(x, y, text, facing, dx=0, dy=0, **kwargs):
@@ -402,8 +426,8 @@ def drawtext(x, y, text, facing, dx=0, dy=0, **kwargs):
     :param y:
         The ``x`` and ``y`` arguments give the coordinates of the center of the
         dart in hex coordinates.
-    :param text: 
-        The ``text`` argument is a strong giving the text to be written.    
+    :param text:
+        The ``text`` argument is a strong giving the text to be written.
     :param facing:
     :param dx:
     :param dy:
@@ -413,7 +437,9 @@ def drawtext(x, y, text, facing, dx=0, dy=0, **kwargs):
         rotated by ``facing`` in degrees. The defaults for the offsets are 0.
     :return: ``None``
     """
-    _drawtextincanvas(*_tocanvasxy(x, y), text, _tocanvasfacing(facing), dx, dy, **kwargs)
+    _drawtextincanvas(
+        *_tocanvasxy(x, y), text, _tocanvasfacing(facing), dx, dy, **kwargs
+    )
 
 
 def drawpolygon(x, y, **kwargs):
@@ -502,7 +528,7 @@ def _nativelinewidth(linewidth, linecolor):
     """
     Return the native line width.
 
-    :param linewidth: 
+    :param linewidth:
         The `linewidth`` argument must be ``None``, number giving the line width
         in hexes or one of the strings ``"thin"``, ``"normal"``, or ``"thick"``.
     :param linecolor: A line color.
@@ -520,6 +546,7 @@ def _nativelinewidth(linewidth, linecolor):
     else:
         # Native line widths are in points.
         return int(linewidth * _pointsperhex + 0.5)
+
 
 def _nativetextsize(textsize):
     """
@@ -558,6 +585,7 @@ def _nativetextsize(textsize):
         # Native text sizes are in points.
         return int(textsize * _pointsperhex + 0.5)
 
+
 def _nativehatchpattern(hatchpattern):
     """
     Return the native hatch pattern.
@@ -577,8 +605,9 @@ def _nativehatchpattern(hatchpattern):
     else:
         raise RuntimeError("invalid hatch pattern %r" % hatchpattern)
 
+
 ################################################################################
-  
+
 
 def _drawhexincanvas(
     x,
@@ -746,6 +775,7 @@ def _drawarrowincanvas(
             zorder=zorder,
         )
     )
+
 
 def _drawdartincanvas(
     x,
@@ -971,7 +1001,6 @@ def drawarc(x, y, facing, arc):
         ``None``
     """
 
-
     def drawdxdy(dxdy, reflect=False):
         _drawlinesincanvas(
             [x + dxdy[0] * _cosd(facing) - dxdy[1] * _sind(facing) for dxdy in dxdy],
@@ -1088,7 +1117,10 @@ aircraftlinecolor = (0.00, 0.00, 0.00)
 aircraftlinewidth = "normal"
 textcolor = (0.00, 0.00, 0.00)
 
-def _drawannotation(x, y, facing, position, text, textsize="normal", textcolor="black", zorder=0):
+
+def _drawannotation(
+    x, y, facing, position, text, textsize="normal", textcolor="black", zorder=0
+):
     textdx = 0.08
     textdy = 0.15
     if position[0] == "u":
@@ -1369,7 +1401,7 @@ def drawgroundunit(
         color,
         name,
         stack,
-        killed
+        killed,
     )
 
 
@@ -2371,8 +2403,15 @@ shiplinecolor = aircraftlinecolor
 shiplinewidth = aircraftlinewidth
 shiptextsize = aircrafttextsize
 
+
 def drawship(
-    x, y, facing, color, name, killed, large=False,
+    x,
+    y,
+    facing,
+    color,
+    name,
+    killed,
+    large=False,
 ):
     """
     Draw a ship.
@@ -2388,7 +2427,7 @@ def drawship(
         The ``name`` argument gives the  name of the ship.
     :param killed:
         The ``killed`` argument determines whether the ship has been killed. If so, it is drawn in outline only.
-    :param large: 
+    :param large:
         The ``large`` argument determines the  the ship is a large ship. Defaults to ``False``.
     :return:
         ``None``
@@ -2413,30 +2452,56 @@ def drawship(
             zorder=0,
         )
 
+
 def _drawshipincanvas(
-    x0, y0, facing, color, name, killed, large=False,
+    x,
+    y,
+    facing,
+    color,
+    name,
+    killed,
+    large=False,
 ):
+
     if killed:
         fillcolor = killedfillcolor
         linecolor = killedlinecolor
     else:
         fillcolor = color
         linecolor = aircraftlinecolor
-    length = 0.50
-    bow = 0.20
-    beam = 0.12
+
     if large:
         sizefactor = 1.5
     else:
         sizefactor = 1.1
 
-    dx0 = [0.0, +0.5 * beam, +0.5 * beam, -0.5 * beam, -0.5 * beam]
-    dy0 = [+0.5 * length, +0.5 * length - bow, -0.5 * length, -0.5 * length, +0.5 * length - bow]
-    dx = list(x0 + sizefactor * (- dx0 * _sind(facing) + dy0 * _cosd(facing)) for dx0, dy0 in zip(dx0, dy0))
-    dy = list(y0 + sizefactor * (+ dx0 * _cosd(facing) + dy0 * _sind(facing)) for dx0, dy0 in zip(dx0, dy0))
-    _drawpolygonincanvas(dx, dy, linecolor=linecolor, linewidth=shiplinewidth, fillcolor=fillcolor, zorder=0)
-
-
+    length = 0.50
+    bow = 0.20
+    beam = 0.12
+    dx0 = [
+        +0.5 * length,
+        +0.5 * length - bow,
+        -0.5 * length,
+        -0.5 * length,
+        +0.5 * length - bow,
+    ]
+    dy0 = [0.0, +0.5 * beam, +0.5 * beam, -0.5 * beam, -0.5 * beam]
+    x = list(
+        x + sizefactor * (dx0 * _cosd(facing) - dy0 * _sind(facing))
+        for dx0, dy0 in zip(dx0, dy0)
+    )
+    y = list(
+        y + sizefactor * (dx0 * _sind(facing) + dy0 * _cosd(facing))
+        for dx0, dy0 in zip(dx0, dy0)
+    )
+    _drawpolygonincanvas(
+        x,
+        y,
+        linecolor=linecolor,
+        linewidth=shiplinewidth,
+        fillcolor=fillcolor,
+        zorder=0,
+    )
 
 
 ################################################################################
