@@ -5,7 +5,7 @@ import glass.log
 ##############################################################################
 
 
-class Blastzone(glass.element.Element):
+class BlastZone(glass.element.Element):
 
     ############################################################################
 
