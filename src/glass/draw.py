@@ -971,6 +971,7 @@ def drawarc(x, y, facing, arc):
         ``None``
     """
 
+
     def drawdxdy(dxdy, reflect=False):
         _drawlinesincanvas(
             [x + dxdy[0] * _cosd(facing) - dxdy[1] * _sind(facing) for dxdy in dxdy],
@@ -1005,7 +1006,7 @@ def drawarc(x, y, facing, arc):
                 [11.0, +1.625],
                 [100.0, +1.625],
             ]
-            dxdy = [_tocanvasxy(dxdy[0], dxdy[1]) for dxdy in dxdy]
+            dxdy = [glass.hex.tophysicalxy(dxdy[0], dxdy[1]) for dxdy in dxdy]
 
         else:
 
