@@ -954,24 +954,35 @@ arclinewidth = "thick"
 arclinestyle = "dashed"
 
 
-def drawarc(x0, y0, facing, arc):
+def drawarc(x, y, facing, arc):
+    """
+    Draw an arc.
+
+    :param x:
+    :param y:
+        The ``x`` and ``y`` arguments give the hex coordinates for the arc.
+    :param facing:
+       The ``facing`` argument gives the facing for the arc.
+    :param arc:
+        The ``arc`` argument is a string and specifies the arc. It must be one
+        of: ``"0"`` (0 line), ``"180"`` (180 line), ``"limited"``, ``"180+"``, ``"L180+"`` (left 180+ arc), ``"R180+"`` (right 180+ arc), ``"150+"``, ``"120+"``,
+        ``"90-"``, ``"60-"``, or ``"30-"``.
+    :return:
+        ``None``
+    """
 
     def drawdxdy(dxdy, reflect=False):
-
-        # dxdy = [_tocanvasxy(dxdy[0], dxdy[1]) for dxdy in dxdy]
-
-        x = [x0 + dxdy[0] * _cosd(facing) - dxdy[1] * _sind(facing) for dxdy in dxdy]
-        y = [y0 + dxdy[0] * _sind(facing) + dxdy[1] * _cosd(facing) for dxdy in dxdy]
         _drawlinesincanvas(
-            x,
-            y,
+            [x + dxdy[0] * _cosd(facing) - dxdy[1] * _sind(facing) for dxdy in dxdy],
+            [y + dxdy[0] * _sind(facing) + dxdy[1] * _cosd(facing) for dxdy in dxdy],
             linecolor=arccolor,
             linewidth=arclinewidth,
             linestyle=arclinestyle,
             zorder=0,
         )
 
-    x0, y0 = _tocanvasxy(x0, y0)
+    x, y = _tocanvasxy(x, y)
+    facing = _tocanvasfacing(facing)
 
     if arc == "0":
 
