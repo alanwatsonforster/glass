@@ -449,6 +449,9 @@ class Element:
     def isship(self):
         return False
     
+    def issurfaceelement(self):
+        return self.isgroundunit() or self.isship()
+    
     #############################################################################
 
     def note(self, s):
@@ -481,7 +484,7 @@ class Element:
         self._path.extend(self.x(), self.y(), self.facing(), self.altitude())
 
     def _drawpath(self, color, annotate=True, killed=False):
-        self._path.draw(color, annotate=annotate, killed=killed)
+        self._path.draw(color, annotate=annotate, killed=killed, surfaceelement=self.issurfaceelement())
 
     ############################################################################
 

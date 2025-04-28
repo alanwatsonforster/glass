@@ -46,6 +46,24 @@ Many of the drawing functions have additional keyword parameters from this list:
 * ``zorder``:
     The ``zorder`` argument must be a number between 0 and 1. It set the zorder
     of whatever is drawn.
+
+zorder
+------
+
+The zorder parameter is important to give a correct sense of altitude. The following values are used:
+
+* 0: map, arcs, hex ground units
+* 0.1: surface element path lines
+* 0.1 to 0.4: ground units
+* 0.5: ships, surface element path dots
+* 0.9: air element path lines
+* altitude + 0.9: air element path dots
+* altitude + 1.0: aircraft
+* altitude + 1.1: missiles, bombs
+* altitude + 1.5:  barrage fire, blast zones
+* altitude + 3.5:  plotted fire
+* 100: lines of sight
+
 """
 
 import math
@@ -1138,7 +1156,7 @@ pathlinestyle = "dotted"
 pathdotsize = 0.1
 
 
-def drawpath(x, y, facing, altitude, speed, color, killed, annotate):
+def drawpath(x, y, facing, altitude, speed, color, killed, annotate, surfaceelement):
     """
     Draw a path to show the movement of an element.
 
@@ -1165,6 +1183,12 @@ def drawpath(x, y, facing, altitude, speed, color, killed, annotate):
     :return:
         ``None``
     """
+    if surfaceelement:
+        linezorder = 0.1
+        dotzorder = 0.5
+    else:
+        linezorder = 0.9
+        dotzorder = altitude[0] + 0.9
     if killed:
         fillcolor = killedfillcolor
         linecolor = killedlinecolor
@@ -1178,9 +1202,8 @@ def drawpath(x, y, facing, altitude, speed, color, killed, annotate):
             linecolor=linecolor,
             linewidth=pathlinewidth,
             linestyle=pathlinestyle,
-            zorder=0.9,
+            zorder=linezorder,
         )
-        zorder = altitude[0] + 1
         drawdot(
             x[0],
             y[0],
@@ -1188,11 +1211,11 @@ def drawpath(x, y, facing, altitude, speed, color, killed, annotate):
             linecolor=linecolor,
             linewidth=aircraftlinewidth,
             size=pathdotsize,
-            zorder=zorder,
+            zorder=dotzorder,
         )
         if annotate:
             _drawannotation(
-                x[0], y[0], facing[0], "cl", "%d" % altitude[0], zorder=zorder
+                x[0], y[0], facing[0], "cl", "%d" % altitude[0], zorder=dotzorder
             )
             if speed is not None:
                 _drawannotation(
@@ -1201,7 +1224,7 @@ def drawpath(x, y, facing, altitude, speed, color, killed, annotate):
                     facing[0],
                     "ll",
                     "%.1f" % speed,
-                    zorder=zorder,
+                    zorder=dotzorder,
                 )
 
 
@@ -1252,7 +1275,7 @@ def drawaircraft(x, y, facing, altitude, speed, flighttype, name, color, killed)
     else:
         fillcolor = color
         linecolor = aircraftlinecolor
-    zorder = altitude + 1
+    zorder = altitude + 1.0
     drawdart(
         x,
         y,
@@ -1330,7 +1353,7 @@ def drawmissile(x, y, facing, altitude, speed, name, color, annotate):
     """
     fillcolor = color
     linecolor = aircraftlinecolor
-    zorder = altitude + 1
+    zorder = altitude + 1.1
     drawdart(
         x,
         y,
@@ -1488,7 +1511,7 @@ def drawbomb(x, y, facing, altitude):
     :return:
         ``None``
     """
-    zorder = altitude + 1.5
+    zorder = altitude + 1.1
     drawdart(
         x,
         y,
@@ -1608,92 +1631,96 @@ def _drawgroundunitincanvas(
     textdx = 0
     textdy = 0.3
 
-    if compactstacks:
+    if hex in symbols:
+        x = x0
+        y = y0
+        zorder = 0.0
+    elif compactstacks:
         stackdx = 0.09
         stackdy = 0.07
         if stack == "1/2":
             x = x0 - 1.0 * stackdx
             y = y0 - 1.5 * stackdy
-            zorder = 0.2
+            zorder = 0.3
         elif stack == "2/2":
             x = x0 + 1.0 * stackdx
             y = y0 + 1.5 * stackdy
-            zorder = 0.1
+            zorder = 0.2
         elif stack == "1/3":
             x = x0 + 1.0 * stackdx
             y = y0 - 1.5 * stackdy
-            zorder = 0.3
+            zorder = 0.4
         elif stack == "2/3":
             x = x0 - 1.0 * stackdx
             y = y0
-            zorder = 0.2
+            zorder = 0.3
         elif stack == "3/3":
             x = x0 + 1.0 * stackdx
             y = y0 + 1.5 * stackdy
-            zorder = 0.1
+            zorder = 0.2
         elif stack == "1/4":
             x = x0 - 1.0 * stackdx
             y = y0 - 1.5 * stackdy
-            zorder = 0.4
+            zorder = 0.5
         elif stack == "2/4":
             x = x0 + 1.0 * stackdx
             y = y0 - 0.5 * stackdy
-            zorder = 0.3
+            zorder = 0.4
         elif stack == "3/4":
             x = x0 - 1.0 * stackdx
             y = y0 + 0.5 * stackdy
-            zorder = 0.2
+            zorder = 0.3
         elif stack == "4/4":
             x = x0 + 1.0 * stackdx
             y = y0 + 1.5 * stackdy
-            zorder = 0.1
+            zorder = 0.2
         else:
             x = x0
             y = y0
-            zorder = 0.1
+            zorder = 0.2
     else:
         stackdx = 0.5 * groundunitdx + 0.03 * groundunitdx
         stackdy = 0.5 * groundunitdy + 0.03 * groundunitdx
         if stack == "1/2":
             x = x0 - 0.0 * stackdx
             y = y0 - 1.0 * stackdy
-            zorder = 0.2
+            zorder = 0.3
         elif stack == "2/2":
             x = x0 + 0.0 * stackdx
             y = y0 + 1.0 * stackdy
-            zorder = 0.1
+            zorder = 0.2
         elif stack == "1/3":
             x = x0 + 1.0 * stackdx
             y = y0 - 1.0 * stackdy
-            zorder = 0.3
+            zorder = 0.4
         elif stack == "2/3":
             x = x0 - 1.0 * stackdx
             y = y0
-            zorder = 0.2
+            zorder = 0.3
         elif stack == "3/3":
             x = x0 + 1.0 * stackdx
             y = y0 + 1.0 * stackdy
-            zorder = 0.1
+            zorder = 0.2
         elif stack == "1/4":
             x = x0 - 1.0 * stackdx
             y = y0 - 1.0 * stackdy
-            zorder = 0.4
+            zorder = 0.5
         elif stack == "2/4":
             x = x0 + 1.0 * stackdx
             y = y0 - 1.0 * stackdy
-            zorder = 0.3
+            zorder = 0.4
         elif stack == "3/4":
             x = x0 - 1.0 * stackdx
             y = y0 + 1.0 * stackdy
-            zorder = 0.2
+            zorder = 0.3
         elif stack == "4/4":
             x = x0 + 1.0 * stackdx
             y = y0 + 1.0 * stackdy
-            zorder = 0.1
+            zorder = 0.2
         else:
             x = x0
             y = y0
-            zorder = 0.1
+            zorder = 0.2
 
     def drawinfantrysymbol():
         _drawlinesincanvas(
@@ -2580,7 +2607,7 @@ def _drawgroundunitincanvas(
             linewidth=groundunitlinewidth,
             fillcolor=None,
             linecolor=linecolor,
-            zorder=0,
+            zorder=zorder,
         )
 
 
@@ -2640,7 +2667,7 @@ def drawship(
             facing,
             "cr",
             name,
-            zorder=0,
+            zorder=0.2,
         )
 
 
@@ -2691,7 +2718,7 @@ def _drawshipincanvas(
         linecolor=linecolor,
         linewidth=shiplinewidth,
         fillcolor=fillcolor,
-        zorder=0,
+        zorder=0.2,
     )
 
 

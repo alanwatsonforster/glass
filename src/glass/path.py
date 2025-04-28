@@ -19,7 +19,7 @@ class path:
         self._facing.append(facing)
         self._altitude.append(altitude)
 
-    def draw(self, color, annotate=True, killed=False):
+    def draw(self, color, annotate=True, killed=False, surfaceelement=False):
         glass.draw.drawpath(
             self._x,
             self._y,
@@ -29,6 +29,7 @@ class path:
             color,
             killed,
             annotate,
+            surfaceelement
         )
 
     def xmin(self):
