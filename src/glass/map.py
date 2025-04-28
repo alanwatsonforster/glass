@@ -561,7 +561,7 @@ def startdrawmap(
             # being near to it.
             x = [xy[0] for xy in xy]
             y = [xy[1] for xy in xy]
-            glass.draw.glass.draw.drawlines(x, y, zorder=0, **kwargs)
+            glass.draw.glass.draw.drawlines(x, y, **kwargs)
 
     if xmin is not None and xmax is not None and ymin is not None and ymax is not None:
 
