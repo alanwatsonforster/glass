@@ -6,18 +6,18 @@ import os
 import os.path
 import json
 
-sys.path.append("..")
+sys.path.append("../src")
 from glass import aircraftdata
 import glass.variants
 
 version = 3
 
 if version == 1:
-    glass..variants.setvariants(["use first-edition ADCs"])
+    glass.variants.setvariants(["use first-edition ADCs"])
 elif version == 2:
     pass
 elif version == 3:
-    glass..variants.setvariants(["use house rules"])
+    glass.variants.setvariants(["use house rules"])
 
 
 def log(s):
