@@ -27,6 +27,7 @@ class Ship(glass.element.Element):
         azimuth,
         speed=0,
         classification=None,
+        maxspeed=None,
         stack=None,
         color="white",
     ):
@@ -57,8 +58,12 @@ class Ship(glass.element.Element):
                 "largemerchantship",
             ]:
                 raise RuntimeError("the classification argument is invalid.")
-
             self._classification = classification
+
+            if maxspeed is None or not (isinstance(maxspeed, (int, float))) or maxspeed < 0:
+                raise RuntimeError("the maxspeed argument is invalid.")
+            self._maxspeed = maxspeed
+            
             self._stack = stack
 
             self._maneuvertype = None
@@ -67,7 +72,6 @@ class Ship(glass.element.Element):
             self._maneuverrequiredfp = 0
 
             self._movegameturn = 0
-            self._newspeed = speed
 
             self._initattack()
             self._inittracking()

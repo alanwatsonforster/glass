@@ -69,13 +69,9 @@ def _continuemove(self, move):
                 "only warships and small merchant ships can declare HTs."
             )
         if self._maneuvertype == "HT" and self._speed < 10:
-            raise RuntimeError(
-                "HTs require a speed of at least 10 knots."
-            )
+            raise RuntimeError("HTs require a speed of at least 10 knots.")
         elif self._maneuvertype == "NT" and self._speed < 5:
-            raise RuntimeError(
-                "NTs require a speed of at least 5 knots."
-            )
+            raise RuntimeError("NTs require a speed of at least 5 knots.")
         self._maneuversense = action[0][2]
         self._maneuverfp = 0
         if self._maneuvertype == "NT":
@@ -92,6 +88,14 @@ def _continuemove(self, move):
     self.logpositionandmaneuver("end")
 
     self._speed = self._newspeed
+    if self._speed > self._maxspeed:
+        self.logcomment(
+            "acceleration is limited by maximum speed of %.1f knots." % self._maxspeed
+        )
+        self._speed = self._maxspeed
+    if self._speed < 0:
+        self.logcomment("deceleration is limited by minimum speed of 0 knots.")
+        self._speed = 0
     self.logend("speed will be %.1f knots." % self._speed)
 
 
