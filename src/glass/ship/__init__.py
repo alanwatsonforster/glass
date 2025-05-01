@@ -60,11 +60,18 @@ class Ship(glass.element.Element):
                 raise RuntimeError("the classification argument is invalid.")
             self._classification = classification
 
-            if maxspeed is None or not (isinstance(maxspeed, (int, float))) or maxspeed < 0:
+            if (
+                maxspeed is None
+                or not (isinstance(maxspeed, (int, float)))
+                or maxspeed < 0
+            ):
                 raise RuntimeError("the maxspeed argument is invalid.")
             self._maxspeed = maxspeed
-            
+
             self._stack = stack
+
+            self._sighted = False
+            self._identified = False
 
             self._maneuvertype = None
             self._maneuversense = None
@@ -73,7 +80,7 @@ class Ship(glass.element.Element):
 
             self._HTrecoverygameturn = 0
             self._movegameturn = 0
-
+            
             self._initattack()
             self._inittracking()
 
@@ -85,6 +92,20 @@ class Ship(glass.element.Element):
 
     def isship(self):
         return True
+
+    #############################################################################
+
+    def _startgameturn(self):
+        self._finishedmoving = False
+        self._sightedonpreviousturn = self._sighted
+        self._sighted = False
+        self._identifiedonpreviousturn = self._identified
+        self._identified = False
+        self._startaltitude = self.altitude()
+
+    def _endgameturn(self):
+        if not self.killed() and not self.removed() and not self._finishedmoving:
+            raise RuntimeError("ship %s has not finished its move." % self._name)
 
     ############################################################################
 

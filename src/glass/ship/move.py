@@ -50,6 +50,9 @@ def _move(self, move, speedchange=0):
 
 def _continuemove(self, move):
 
+    if self._finishedmoving:
+        raise RuntimeError("ship %s has already moved" % self._name)
+
     if self._speed > 0:
         self._movegameturn += 1
         movecadence = int(87 / self._speed + 0.5)
@@ -62,13 +65,13 @@ def _continuemove(self, move):
 
     if self._maneuvertype == "HT":
         self._HTrecoverygameturn = glass.gameturn.gameturn() + 1
-        
+
     self._setlastposition()
     self.logpositionandmaneuver("start")
 
     self.logwhenwhat("", move)
-    action = move.split("/")
 
+    action = move.split("/")
     if action[0] == "H":
         if movecadence is not None and self._movegameturn < movecadence:
             raise RuntimeError("the ship cannot move forward one hex this game turn.")
@@ -95,7 +98,7 @@ def _continuemove(self, move):
             action.pop(0)
     elif movecadence is not None and self._movegameturn >= movecadence:
         raise RuntimeError("the ship must move forward one hex this game turn.")
-    
+
     if len(action) > 0 and action[0] == "AT":
         self._maneuvertype = None
         self._maneuversense = None
@@ -126,7 +129,7 @@ def _continuemove(self, move):
 
     if len(action) > 0 and action[0] != "":
         raise RuntimeError('invalid move "%s".' % move)
-        
+
     self._extendpath()
 
     self.logpositionandmaneuver("end")
@@ -144,6 +147,8 @@ def _continuemove(self, move):
         self.logcomment("deceleration is limited by minimum speed of 0 knots.")
         self._speed = 0
     self.logend("speed will be %.1f knots." % self._speed)
+
+    self._finishedmoving = True
 
 
 ################################################################################

@@ -231,9 +231,6 @@ class Aircraft(glass.element.Element):
         self._sighted = False
         self._identifiedonpreviousturn = self._identified
         self._identified = False
-        self._startx = self.x()
-        self._starty = self.y()
-        self._startfacing = self.facing()
         self._startaltitude = self.altitude()
         glass.closeformation.check(self)
 
