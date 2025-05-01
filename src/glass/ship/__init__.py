@@ -25,6 +25,7 @@ class Ship(glass.element.Element):
         name,
         hexcode,
         azimuth,
+        speed=0,
         classification=None,
         stack=None,
         color="white",
@@ -42,7 +43,7 @@ class Ship(glass.element.Element):
                 name,
                 hexcode=hexcode,
                 altitude=None,
-                speed=0,
+                speed=speed,
                 color=color,
                 azimuth=azimuth,
             )
@@ -64,6 +65,8 @@ class Ship(glass.element.Element):
             self._maneuversense = None
             self._maneuverfp = 0
             self._maneuverrequiredfp = 0
+
+            self._movegameturn = 0
 
             self._initattack()
             self._inittracking()

@@ -8,19 +8,30 @@ import glass.hexcode
 
 
 def _move(self, move):
-    self.logpositionandmaneuver("start")
     self._continuemove(move)
 
 
 def _continuemove(self, move):
 
-    self.logwhenwhat("", move)
+    self.logstart("speed            is %.f knots." % (self._speed))
+
+    self._movegameturn += 1
+    movecadence = int(87 / self._speed + 0.5)
+    self.logstart("move game turn   is %d/%d." % (self._movegameturn, movecadence))
+    if self._movegameturn >= movecadence:
+        self.logcomment("the ship must move forward one hex.")
 
     self._setlastposition()
-    action = move.split("/")
+    self.logpositionandmaneuver("start")
 
-    if len(action) > 0 and action[0] == "H":
+    self.logwhenwhat("", move)
+    action = move.split("/")
+    
+    if action[0] == "H":
+        if self._movegameturn < movecadence:
+            raise RuntimeError("the ship cannot move forward one hex this game turn.")
         self._moveforward()
+        self._movegameturn = 0
         self._maneuverfp += 1
         action.pop(0)
         if len(action) > 0 and action[0] in ["RR", "R60", "LL", "L60"]:
@@ -40,6 +51,8 @@ def _continuemove(self, move):
             self._maneuversense = None
             self._maneuverfp = 0
             action.pop(0)
+    elif self._movegameturn >= movecadence:
+        raise RuntimeError("the ship must move forward one hex this game turn.")
 
     if len(action) > 0 and action[0] in ["NTL", "NTR", "HTL", "HTR"]:
         self._maneuvertype = action[0][:2]
@@ -56,7 +69,7 @@ def _continuemove(self, move):
             self._maneuverrequiredfp = 1
         action.pop(0)
 
-    if len(action) > 0:
+    if len(action) > 0 and action[0] != "":
         raise RuntimeError('invalid move "%s".' % move)
 
     self._extendpath()
