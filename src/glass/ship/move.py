@@ -7,28 +7,33 @@ import glass.hexcode
 ################################################################################
 
 
-def _move(self, move):
+def _move(self, move, speedchange=0):
+    self._newspeed = self._speed + speedchange
     self._continuemove(move)
 
 
 def _continuemove(self, move):
 
-    self.logstart("speed            is %.f knots." % (self._speed))
+    self.logstart("speed            is %.1f knots." % (self._speed))
 
-    self._movegameturn += 1
-    movecadence = int(87 / self._speed + 0.5)
-    self.logstart("move game turn   is %d/%d." % (self._movegameturn, movecadence))
-    if self._movegameturn >= movecadence:
-        self.logcomment("the ship must move forward one hex.")
+    if self._speed > 0:
+        self._movegameturn += 1
+        movecadence = int(87 / self._speed + 0.5)
+        self.logstart("move game turn   is %d/%d." % (self._movegameturn, movecadence))
+        if self._movegameturn >= movecadence:
+            self.logcomment("the ship must move forward one hex.")
+    else:
+        movecadence = None
+        self.logcomment("the ship is stationary.")
 
     self._setlastposition()
     self.logpositionandmaneuver("start")
 
     self.logwhenwhat("", move)
     action = move.split("/")
-    
+
     if action[0] == "H":
-        if self._movegameturn < movecadence:
+        if movecadence is not None and self._movegameturn < movecadence:
             raise RuntimeError("the ship cannot move forward one hex this game turn.")
         self._moveforward()
         self._movegameturn = 0
@@ -51,7 +56,7 @@ def _continuemove(self, move):
             self._maneuversense = None
             self._maneuverfp = 0
             action.pop(0)
-    elif self._movegameturn >= movecadence:
+    elif movecadence is not None and self._movegameturn >= movecadence:
         raise RuntimeError("the ship must move forward one hex this game turn.")
 
     if len(action) > 0 and action[0] in ["NTL", "NTR", "HTL", "HTR"]:
@@ -60,7 +65,9 @@ def _continuemove(self, move):
             "mediummerchantship",
             "largemerchantship",
         ]:
-            raise RuntimeError("only warships and small merchant ships can declare HTs.")
+            raise RuntimeError(
+                "only warships and small merchant ships can declare HTs."
+            )
         self._maneuversense = action[0][2]
         self._maneuverfp = 0
         if self._maneuvertype == "NT":
@@ -75,6 +82,9 @@ def _continuemove(self, move):
     self._extendpath()
 
     self.logpositionandmaneuver("end")
+
+    self._speed = self._newspeed
+    self.logend("speed will be %.1f knots." % self._speed)
 
 
 ################################################################################

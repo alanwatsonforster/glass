@@ -67,6 +67,7 @@ class Ship(glass.element.Element):
             self._maneuverrequiredfp = 0
 
             self._movegameturn = 0
+            self._newspeed = speed
 
             self._initattack()
             self._inittracking()
@@ -84,11 +85,6 @@ class Ship(glass.element.Element):
 
     def _properties(self):
         return []
-
-    ############################################################################
-
-    def _endgameturn(self):
-        return
 
     ############################################################################
 
