@@ -15,6 +15,7 @@ def aslist(withkilled=False):
 
 ################################################################################
 
+
 class Ship(glass.element.Element):
 
     ############################################################################
@@ -24,7 +25,7 @@ class Ship(glass.element.Element):
         name,
         hexcode,
         azimuth,
-        large=False,
+        classification=None,
         stack=None,
         color="white",
     ):
@@ -46,7 +47,17 @@ class Ship(glass.element.Element):
                 azimuth=azimuth,
             )
 
-            self._large = large
+            if classification not in [
+                "smallwarship",
+                "mediumwarship",
+                "largewarship",
+                "smallmerchantship",
+                "mediummerchantship",
+                "largemerchantship",
+            ]:
+                raise RuntimeError("the classification argument is invalid.")
+
+            self._classification = classification
             self._stack = stack
 
             self._maneuvertype = None
@@ -83,5 +94,6 @@ class Ship(glass.element.Element):
 
     def _initattack(self):
         pass
+
 
 ################################################################################

@@ -12,7 +12,7 @@ def _draw(self):
     glass.draw.drawship(
         *self.xy(),
         self._facing,
-        self._large,
+        self._classification.startswith("large"),
         self.name(),
         self.color(),
         self._stack,
