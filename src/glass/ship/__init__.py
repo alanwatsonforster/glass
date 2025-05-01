@@ -71,6 +71,7 @@ class Ship(glass.element.Element):
             self._maneuverfp = 0
             self._maneuverrequiredfp = 0
 
+            self._HTrecoverygameturn = 0
             self._movegameturn = 0
 
             self._initattack()

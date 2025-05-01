@@ -1,6 +1,7 @@
 ################################################################################
 
 import glass.azimuth
+import glass.gameturn
 import glass.hex
 import glass.hexcode
 
@@ -59,6 +60,9 @@ def _continuemove(self, move):
         movecadence = None
         self.logcomment("the ship is stationary.")
 
+    if self._maneuvertype == "HT":
+        self._HTrecoverygameturn = glass.gameturn.gameturn() + 1
+        
     self._setlastposition()
     self.logpositionandmaneuver("start")
 
@@ -91,7 +95,7 @@ def _continuemove(self, move):
             action.pop(0)
     elif movecadence is not None and self._movegameturn >= movecadence:
         raise RuntimeError("the ship must move forward one hex this game turn.")
-
+    
     if len(action) > 0 and action[0] == "AT":
         self._maneuvertype = None
         self._maneuversense = None
@@ -110,6 +114,8 @@ def _continuemove(self, move):
             raise RuntimeError("HTs require a speed of at least 10 knots.")
         elif self._maneuvertype == "NT" and self._speed < 5:
             raise RuntimeError("NTs require a speed of at least 5 knots.")
+        if self._maneuvertype == "HT":
+            self._HTrecoverygameturn = glass.gameturn.gameturn() + 1
         self._maneuversense = action[0][2]
         self._maneuverfp = 0
         if self._maneuvertype == "NT":
@@ -120,10 +126,13 @@ def _continuemove(self, move):
 
     if len(action) > 0 and action[0] != "":
         raise RuntimeError('invalid move "%s".' % move)
-
+        
     self._extendpath()
 
     self.logpositionandmaneuver("end")
+
+    if self._HTrecoverygameturn == glass.gameturn.gameturn():
+        self.logcomment("recovered from HT.")
 
     self._speed = self._newspeed
     if self._speed > self._maxspeed:
