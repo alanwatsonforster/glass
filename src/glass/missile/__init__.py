@@ -59,12 +59,6 @@ class Missile(glass.element.Element):
 
             self._flighttype = "MS"
             self._finishedmoving = True
-            self._maneuvertype = None
-            self._maneuversense = None
-            self._maneuverfp = 0
-            self._maneuverrequiredfp = 0
-            self._maneuverfacingchange = None
-            self._manueversupersonic = False
 
             self._launchgameturn = glass.gameturn.gameturn()
 
@@ -105,28 +99,6 @@ class Missile(glass.element.Element):
         if not self.removed() and not self._finishedmoving:
             pass
             # raise Runtimeselfrror("missile %s has not finished its move." % self._name)
-
-    ########################################
-
-    def maneuver(self):
-        """Return a string describing the current maneuver of the aircraft."""
-        if self._maneuverfacingchange == 60 or self._maneuverfacingchange == 90:
-            return "%s%s %d/%d %d" % (
-                self._maneuvertype,
-                self._maneuversense,
-                self._maneuverfp,
-                self._maneuverrequiredfp,
-                self._maneuverfacingchange,
-            )
-        elif self._maneuvertype != None:
-            return "%s%s %d/%d" % (
-                self._maneuvertype,
-                self._maneuversense,
-                self._maneuverfp,
-                self._maneuverrequiredfp,
-            )
-        else:
-            return ""
 
     #############################################################################
 

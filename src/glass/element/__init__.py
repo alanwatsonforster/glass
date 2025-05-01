@@ -191,6 +191,14 @@ class Element:
         self._startedmoving = False
         self._isinterrainfollowingflight = False
 
+        self._maneuvertype = None
+        self._maneuversense = None
+        self._maneuverfacingchange = 0
+        self._maneuverfp = 0
+        self._maneuverrequiredfp = 0
+        self._bank = None
+        self._manueversupersonic = False
+
         self._killed = False
         self._removed = False
         self._unspecifiedattackresult = 0
@@ -396,8 +404,28 @@ class Element:
     def newspeed(self):
         return self._newspeed
 
+
     def maneuver(self):
-        return ""
+        """Return a string describing the current maneuver of the element."""
+        if self._maneuverfacingchange == 60 or self._maneuverfacingchange == 90:
+            return "%s%s %d/%d %d" % (
+                self._maneuvertype,
+                self._maneuversense,
+                self._maneuverfp,
+                self._maneuverrequiredfp,
+                self._maneuverfacingchange,
+            )
+        elif self._maneuvertype != None:
+            return "%s%s %d/%d" % (
+                self._maneuvertype,
+                self._maneuversense,
+                self._maneuverfp,
+                self._maneuverrequiredfp,
+            )
+        elif self._bank != None:
+            return "B%s" % self._bank
+        else:
+            return ""
 
     def flightslope(self):
         return self._flightslope

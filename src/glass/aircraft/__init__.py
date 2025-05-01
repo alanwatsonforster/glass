@@ -99,13 +99,6 @@ class Aircraft(glass.element.Element):
             self._unspecifiedattackresult = 0
             self._flighttype = "LVL"
             self._powersetting = "N"
-            self._bank = None
-            self._maneuvertype = None
-            self._maneuversense = None
-            self._maneuverfp = 0
-            self._maneuverrequiredfp = 0
-            self._maneuverfacingchange = None
-            self._manueversupersonic = False
             self._fpcarry = 0
             self._apcarry = 0
             self._gloccheck = 0
@@ -275,30 +268,6 @@ class Aircraft(glass.element.Element):
     def enginesmoking(self):
         """Return whether the engine is smoking."""
         return self._enginesmokingonpreviousturn
-
-    #############################################################################
-
-    def maneuver(self):
-        """Return a string describing the current maneuver of the aircraft."""
-        if self._maneuverfacingchange == 60 or self._maneuverfacingchange == 90:
-            return "%s%s %d/%d %d" % (
-                self._maneuvertype,
-                self._maneuversense,
-                self._maneuverfp,
-                self._maneuverrequiredfp,
-                self._maneuverfacingchange,
-            )
-        elif self._maneuvertype != None:
-            return "%s%s %d/%d" % (
-                self._maneuvertype,
-                self._maneuversense,
-                self._maneuverfp,
-                self._maneuverrequiredfp,
-            )
-        elif self._bank != None:
-            return "B%s" % self._bank
-        else:
-            return "WL"
 
     #############################################################################
 

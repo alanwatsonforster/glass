@@ -49,6 +49,11 @@ class Ship(glass.element.Element):
             self._large = large
             self._stack = stack
 
+            self._maneuvertype = None
+            self._maneuversense = None
+            self._maneuverfp = 0
+            self._maneuverrequiredfp = 0
+
             self._initattack()
             self._inittracking()
 
