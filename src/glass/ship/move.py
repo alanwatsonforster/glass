@@ -68,6 +68,14 @@ def _continuemove(self, move):
             raise RuntimeError(
                 "only warships and small merchant ships can declare HTs."
             )
+        if self._maneuvertype == "HT" and self._speed < 10:
+            raise RuntimeError(
+                "HTs require a speed of at least 10 knots."
+            )
+        elif self._maneuvertype == "NT" and self._speed < 5:
+            raise RuntimeError(
+                "NTs require a speed of at least 5 knots."
+            )
         self._maneuversense = action[0][2]
         self._maneuverfp = 0
         if self._maneuvertype == "NT":
