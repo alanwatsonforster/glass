@@ -6,15 +6,48 @@ import glass.hexcode
 
 ################################################################################
 
+_maxspeeddecrease = {
+    "smallwarship": 3 / 2,
+    "mediumwarship": 3 / 2,
+    "largewarship": 1,
+    "smallmerchantship": 1 / 2,
+    "mediummerchantship": 1 / 2,
+    "largemerchantship": 1 / 2,
+}
+
+_maxspeedincrease = {
+    "smallwarship": 1,
+    "mediumwarship": 2 / 3,
+    "largewarship": 1 / 2,
+    "smallmerchantship": 1 / 2,
+    "mediummerchantship": 1 / 2,
+    "largemerchantship": 1 / 2,
+}
+
 
 def _move(self, move, speedchange=0):
-    self._newspeed = self._speed + speedchange
+
+    self.logstart("speed            is %.1f knots." % (self._speed))
+    speed = self._speed
+    if speedchange < 0:
+        maxspeeddecrease = _maxspeeddecrease[self._classification]
+        if speedchange < -maxspeeddecrease:
+            raise RuntimeError(
+                "the speed decrease cannot be more than %.2f knots." % maxspeeddecrease
+            )
+    elif speedchange > 0:
+        maxspeedincrease = _maxspeedincrease[self._classification]
+        if speed >= self._maxspeed / 2:
+            maxspeedincrease /= 2
+        if speedchange > maxspeedincrease:
+            raise RuntimeError(
+                "the speed increase cannot be more than %.2f knots." % maxspeedincrease
+            )
+    self._newspeed = speed + speedchange
     self._continuemove(move)
 
 
 def _continuemove(self, move):
-
-    self.logstart("speed            is %.1f knots." % (self._speed))
 
     if self._speed > 0:
         self._movegameturn += 1
