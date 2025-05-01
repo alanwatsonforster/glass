@@ -92,7 +92,12 @@ def _continuemove(self, move):
     elif movecadence is not None and self._movegameturn >= movecadence:
         raise RuntimeError("the ship must move forward one hex this game turn.")
 
-    if len(action) > 0 and action[0] in ["NTL", "NTR", "HTL", "HTR"]:
+    if len(action) > 0 and action[0] == "AT":
+        self._maneuvertype = None
+        self._maneuversense = None
+        self._maneuverfp = 0
+        action.pop(0)
+    elif len(action) > 0 and action[0] in ["NTL", "NTR", "HTL", "HTR"]:
         self._maneuvertype = action[0][:2]
         if self._maneuvertype == "HT" and self._classification in [
             "mediummerchantship",
