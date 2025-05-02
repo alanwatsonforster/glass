@@ -96,6 +96,7 @@ def _continuemove(self, move):
             self._maneuversense = None
             self._maneuverfp = 0
             action.pop(0)
+        self._extendpath()
     elif movecadence is not None and self._movegameturn >= movecadence:
         raise RuntimeError("the ship must move forward one hex this game turn.")
 
@@ -130,7 +131,6 @@ def _continuemove(self, move):
     if len(action) > 0 and action[0] != "":
         raise RuntimeError('invalid move "%s".' % move)
 
-    self._extendpath()
 
     self.logpositionandmaneuver("end")
 
