@@ -248,7 +248,9 @@ def showcanvas():
     """
     Show the current canvas in the current Jupyter or iPython notebook.
     """
-    _fig.show()
+    # See https://github.com/alanwatsonforster/glass/issues/204
+    #_fig.show()
+    return
 
 
 def writecanvastofile(filename):
