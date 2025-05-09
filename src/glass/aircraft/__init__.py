@@ -315,7 +315,7 @@ class Aircraft(glass.element.Element):
         if p == "RA" and super().hasproperty("RACL"):
             return self._configuration == "CL"
         if p == "LRR" and super().hasproperty("LRRHS"):
-            return self.speed() >= self._aircraftdata["LRRHSlimit"]
+            return self.speed() >= self._aircraftdata._data["LRRHSlimit"]
 
         return super().hasproperty(p)
 
