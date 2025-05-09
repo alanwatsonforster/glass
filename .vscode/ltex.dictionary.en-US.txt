@@ -21,3 +21,6 @@ RoCAF
 Hispano-Suiza
 Sabre
 Canadair
+Sterett
+MiGs
+
