@@ -243,7 +243,7 @@ def fromxy(x, y, sheet=None):
     Return the hex code corresponding to the hex coordinate (x, y), 
     
     :param x:
-    :param y: The `x` and `y` parameters are the hex coordinates of a hex
+    :param y: The ``x``  and ``y``  parameters are the hex coordinates of a hex
         location that must correspond to a hex center or hex-side center.
     :param sheet: Either ``None`` or a string corresponding to one of the sheets
         on the map.

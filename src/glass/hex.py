@@ -63,10 +63,10 @@ def tophysicalxy(x, y):
     Return the physical location corresponding to a hex location.
 
     :param x:
-    :param y: The `x` and `y` parameters are the hex coordinates of the hex
+    :param y: The ``x`` and ``y`` parameters are the hex coordinates of the hex
         location.
 
-    :return: A tuple (`x`, `y`) in which `x` and `y` are the coordinates of the
+    :return: A tuple (``x``,  ``y``)  in which ``x`` and ``y`` are the coordinates of the
         physical location corresponding to the given hex location.
     """
 
@@ -78,10 +78,10 @@ def fromphysicalxy(x, y):
     Return the hex location corresponding to a physical location.
 
     :param x:
-    :param y: The `x` and `y` parameters are the coordinates of the physical
+    :param y: The ``x`` and ``y`` parameters are the coordinates of the physical
         location.
 
-    :return: A tuple (`x`, `y`) in which `x` and `y` are the coordinates of the
+    :return: A tuple (``x``,  ``y``)  in which ``x`` and ``y`` are the coordinates of the
         hex location corresponding to the given physical location.
     """
 
@@ -93,7 +93,7 @@ def ishex(x, y):
     Return whether a hex location corresponds to a hex center.
 
     :param x:
-    :param y: The `x` and `y` parameters are the hex coordinates of the hex
+    :param y: The ``x`` and ``y`` parameters are the hex coordinates of the hex
         location.
 
     :return: ``True`` if the given hex location corresponds to a hex
@@ -113,7 +113,7 @@ def ishexside(x, y):
     Return whether a hex location corresponds to a hex-side center.
 
     :param x:
-    :param y: The `x` and `y` parameters are the hex coordinates of the hex
+    :param y: The ``x`` and ``y`` parameters are the hex coordinates of the hex
         location.
 
     :return: ``True`` if the given hex location corresponds to a
@@ -137,7 +137,7 @@ def isvalid(x, y, facing=None):
     Return whether a hex location and facing are valid.
 
     :param x:
-    :param y: The `x` and `y` parameters are the hex coordinates of the hex
+    :param y: The ``x`` and ``y`` parameters are the hex coordinates of the hex
         location.
     :param facing: Either ``None`` or a number specifying the facing in degrees.
 
@@ -171,7 +171,7 @@ def checkisvalid(x, y, facing=None):
     Raise an exception is a hex location and facing are not valid.
 
     :param x:
-    :param y: The `x` and `y` parameters are the hex coordinates of the hex
+    :param y: The ``x`` and ``y`` parameters are the hex coordinates of the hex
         location.
     :param facing: Either ``None`` or a number specifying the facing in degrees.
 
@@ -193,10 +193,10 @@ def areadjacent(x0, y0, x1, y1):
     Return whether two locations correspond to adjacent hexes.
 
     :param x0:
-    :param y0: The `x0` and `y0` parameters are the coordinates of one hex
+    :param y0: The ``x0`` and ``y0`` parameters are the coordinates of one hex
         location. The location must be a valid hex or hex-side.
     :param x1:
-    :param y1: The `x1` and `y1` parameters are the coordinates of the other hex
+    :param y1: The ``x1`` and ``y1`` parameters are the coordinates of the other hex
         location. The location must be a valid hex or hex-side.
 
     :return:
@@ -222,13 +222,13 @@ def hexsidetohex(x, y, facing, sense):
     Return the hex location of the hex adjacent to a hex location.
 
     :param x:
-    :param y: The `x` and `y` parameters are the hex coordinates of the hex-side
+    :param y: The ``x`` and ``y`` parameters are the hex coordinates of the hex-side
         location. The location must be a valid hex-side.
     :param facing: The facing in degrees. The facing must be valid for the
         hex-side location.
     :param sense: The sense of the hex, either ``"L"`` or ``"R"``.
 
-    :return: A tuple (`x`, `y`) in which `x` and `y` are the hex coordinates of
+    :return: A tuple (``x``, ``y``) in which ``x`` and ``y`` are the hex coordinates of
         the hex center adjacent to the hex-side at the given location with
         respect to the given facing and sense.
     """
@@ -264,11 +264,11 @@ def hexsidetohexes(x, y):
     Return the hex locations of the hexes adjacent to a hex-side.
 
     :param x:
-    :param y: The `x` and `y` parameters are the hex coordinates of the hex
+    :param y: The ``x`` and ``y`` parameters are the hex coordinates of the hex
         location. The location must be a valid hex-side.
 
-    :return: A tuple (`x0`, `y0`, `x1`, `y0`) in which (`x0`, `y0`) and (`x1`,
-        `y1`) are the hex coordinates of the hex centers adjacent to the
+    :return: A tuple (``x0``,  ``y0``,  ``x1``,  ``y0``)  in which (``x0``,  ``y0``)  and (``x1``, 
+        ``y1``)  are the hex coordinates of the hex centers adjacent to the
         given hex-side.
     """
 
@@ -298,12 +298,12 @@ def forward(x, y, facing):
     Return the hex location forward from a hex location.
 
     :param x:
-    :param y: The `x` and `y` parameters are the hex coordinates of the hex
+    :param y: The ``x`` and ``y`` parameters are the hex coordinates of the hex
         location. The location must be a valid hex or hex-side.
     :param facing: The facing in degrees. The facing must be valid for the hex
         location.
 
-    :return: A tuple (`x`, `y`) in which `x` and `y` are the hex coordinates
+    :return: A tuple (``x``,  ``y``)  in which ``x`` and ``y`` are the hex coordinates
         next valid location forward from the given hex location with respect to the
         given facing.
     """
@@ -334,12 +334,12 @@ def backward(x, y, facing):
     Return the hex location backward from a hex location.
 
     :param x:
-    :param y: The `x` and `y` parameters are the hex coordinates of the hex
+    :param y: The ``x`` and ``y`` parameters are the hex coordinates of the hex
         location. The location must be a valid hex or hex-side.
     :param facing: The facing in degrees. The facing must be valid for the hex
         location.
 
-    :return: A tuple (`x`, `y`) in which `x` and `y` are the hex coordinates
+    :return: A tuple (``x``,  ``y``)  in which ``x`` and ``y`` are the hex coordinates
         next valid location backward from the given location with respect to the
         given facing.
     """
@@ -370,13 +370,13 @@ def slide(x, y, facing, sense):
     Return the hex location after performing a slide from a hex location.
 
     :param x:
-    :param y: The `x` and `y` parameters are the hex coordinates of the hex
+    :param y: The ``x`` and ``y`` parameters are the hex coordinates of the hex
         location. The location must be a valid hex or hex-side.
     :param facing: The facing in degrees. The facing must be valid for the hex
         location.
     :param sense: The sense of the maneuver, either ``"L"`` or ``"R"``.
 
-    :return: A tuple (`x`, `y`) in which `x` and `y` are the hex coordinates of
+    :return: A tuple (``x``,  ``y``)  in which ``x`` and ``y`` are the hex coordinates of
         the location after performing a slide from the given location with
         respect to the given facing and sense. The forward part of the slide has
         already been carried out.
@@ -417,13 +417,13 @@ def displacementroll(x, y, facing, sense):
     location.
 
     :param x:
-    :param y: The `x` and `y` parameters are the hex coordinates of the hex
+    :param y: The ``x`` and ``y`` parameters are the hex coordinates of the hex
         location. The location must be a valid hex or hex-side.
     :param facing: The facing in degrees. The facing must be valid for the hex
         location.
     :param sense: The sense of the maneuver, either ``"L"`` or ``"R"``.
 
-    :return:  A tuple (`x`, `y`) in which `x` and `y` are the hex coordinates of
+    :return:  A tuple (``x``,  ``y``)  in which ``x`` and ``y`` are the hex coordinates of
         the location after performing a displacement roll from the given
         location with respect to the given facing and sense. The forward part of
         the displacement roll has already been carried out.
@@ -439,13 +439,13 @@ def lagroll(x, y, facing, sense):
     Return the hex location after performing a lag roll from a hex location.
 
     :param x:
-    :param y: The `x` and `y` parameters are the hex coordinates of the hex
+    :param y: The ``x`` and ``y`` parameters are the hex coordinates of the hex
         location. The location must be a valid hex or hex-side.
     :param facing: The facing in degrees. The facing must be valid for the hex
         location.
     :param sense: The sense of the maneuver, either ``"L"`` or ``"R"``.
 
-    :return: A tuple (`x`, `y`) in which `x` and `y` are the hex coordinates of
+    :return: A tuple (``x``,  ``y``)  in which ``x`` and ``y`` are the hex coordinates of
         the location after performing a lag roll from the given location with
         respect to the given facing and sense. The forward part of the lag roll
         has already been carried out.
@@ -469,10 +469,10 @@ def distance(x0, y0, x1, y1):
     Return the distance in hexes between two hex locations.
 
     :param x0:
-    :param y0: The `x0` and `y0` parameters are the coordinates of one hex
+    :param y0: The ``x0`` and ``y0`` parameters are the coordinates of one hex
         location. The location must be a valid hex or hex-side.
     :param x1:
-    :param y1: The `x1` and `y1` parameters are the coordinates of the other hex
+    :param y1: The ``x1`` and ``y1`` parameters are the coordinates of the other hex
         location. The location must be a valid hex or hex-side.
 
     :return:

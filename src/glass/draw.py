@@ -104,10 +104,10 @@ def _tocanvasxy(x, y):
     Return the canvas position corresponding to a hex position.
 
     :param x:
-    :param y: The `x` and `y` parameters are the coordinates of the hex
+    :param y: The ``x`` and ``y`` parameters are the coordinates of the hex
         position.
 
-    :return: The `x` and `y` coordinates of the canvas position corresponding to
+    :return: The ``x`` and ``y`` coordinates of the canvas position corresponding to
         the hex position.
     """
     x, y = glass.hex.tophysicalxy(x, y)
