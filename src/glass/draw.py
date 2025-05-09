@@ -27,8 +27,9 @@ Many of the drawing functions have additional keyword parameters from this list:
     ``"mediumgray"``, ``"mediumgrey"``, ``"lightgray"``, ``"lightgrey"``,
     ``"slategray"``, ``"slategrey"``, ``"natoblue"``, ``"natored"``,
     ``"natogreen"``, ``"natoyellow"``, ``"natofriendly"``, ``"natohostile"``,
-    ``"natoneutral"``, ``"natounknown"``, ``"iafblue"``, ``"panarabred"``, and
-    ``"panarabgreen"``. Note that both American and British versions of "gray"
+    ``"natoneutral"``, ``"natounknown"``, ``"israeliafblue"``, ``"panarabred"``,
+    ``"panarabgreen"``, ``"pakistanafgreen"``, ``"indianafgreen"``, and ,
+    ``"indianaforange"``. Note that both American and British versions of "gray"
     and "aluminum" are present.
 * ``linestyle``:
     The ``linestyle`` argument must to one of the strings ``"solid"``,
@@ -50,7 +51,8 @@ Many of the drawing functions have additional keyword parameters from this list:
 zorder
 ------
 
-The zorder parameter is important to give a correct sense of altitude. The following values are used:
+The zorder parameter is important to give a correct sense of altitude. The
+following values are used:
 
 * 0: map, arcs, hex ground units
 * 0.1: surface element path lines
