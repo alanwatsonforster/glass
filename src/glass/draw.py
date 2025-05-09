@@ -2889,7 +2889,7 @@ _colormap = {
     # The blue of the IAF roundel.
     # https://en.wikipedia.org/wiki/General_Dynamics_F-16_Fighting_Falcon_variants#F-16I_Sufa
     # This blue is darker and more saturated that the NATO blue.
-    "iafblue": (0.000, 0.541, 0.753),
+    "israeliafblue": (0.000, 0.541, 0.753),
     # Pan-Arab colors.
     # https://en.wikipedia.org/wiki/Pan-Arab_colors
     # https://en.wikipedia.org/wiki/Pan-Arab_colors#/media/File:Flag_of_Hejaz_1917.svg
@@ -2897,6 +2897,13 @@ _colormap = {
     # more saturated than the standard green.
     "panarabred": (0.780, 0.071, 0.133),
     "panarabgreen": (0.035, 0.435, 0.208),
+    # The green of the Pakistan AF roundel
+    # https://en.wikipedia.org/wiki/Pakistan_Air_Force
+    "pakistanafgreen": ( 0.000, 0.220, 0.100 ),
+    # The orange and green of the Indian AF roundel.
+    # https://en.wikipedia.org/wiki/Indian_Air_Force
+    "indianaforange": (1.000, 0.350, 0.000),
+    "indianafgreen": (0.000, 0.350, 0.210 ),
 }
 
 
