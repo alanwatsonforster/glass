@@ -1,36 +1,88 @@
+"""
+The :mod:`glass.altitude` module contains functions to do with altitude.
+
+Altitudes are non-negative integers.
+
+Altitude carries are represented separately from altitudes. They are numbers
+from 0 (inclusive) to 1 (exclusive).
+
+
+"""
+
 import glass.map
 import glass.hex
 
+__all__ = [
+    "isvalidaltitude",
+    "isvalidaltitudecarry",
+    "checkisvalidaltitude",
+    "adjustaltitude",
+    "altitudeband",
+    "terrainaltitude",
+]
 
-def isvalidaltitude(x):
+
+def isvalidaltitude(value):
     """
-    Return True if altitude is a valid altitude.
-    """
+    Return whether a value is a valid altitude.
 
-    return isinstance(x, int) and 0 <= x
+    Valid altitudes are non-negative integers.
 
-
-def isvalidaltitudecarry(x):
-    """
-    Return true if the argument is a valid altitude carry.
-    """
-
-    return isinstance(x, (int, float)) and 0 <= x and x < 1
-
-
-def checkisvalidaltitude(x):
-    """
-    Raise a RuntimeError exception if the argument is not a valid altitude.
+    :param value: The value to be checked
+    :return: ``True`` if the value is a valid altitude.
     """
 
-    if not isvalidaltitude(x):
-        raise RuntimeError("%r is not a valid altitude." % x)
+    return isinstance(value, int) and 0 <= value
+
+
+def isvalidaltitudecarry(value):
+    """
+
+    Return whether a value is a valid altitude carry.
+
+    Valid altitude carries are numbers from 0 (inclusive) to 1 (exclusive).
+
+    :param value: The value to be checked
+    :return: ``True`` if the value is a valid altitude cary.
+    """
+
+    return isinstance(value, (int, float)) and value <= x and value < 1
+
+
+def checkisvalidaltitude(value):
+    """
+    Raise an exception is a value is not a valid altitude.
+
+    :param value: The value to be checked.
+    :returns: ``None``
+
+    :raises RuntimeError: If the given value is not a valid altitude. in
+        the sense of :func:`isvalidaltitude`.
+    
+    """
+
+    if not isvalidaltitude(value):
+        raise RuntimeError("%r is not a valid altitude." % value)
+    return None
 
 
 def adjustaltitude(altitude, altitudecarry, altitudechange):
     """
-    Adjust altitude by altitudechange, taking into account altitudecarry.
-    Return the new altitude and altitudecarry.
+    Return an new altitude and altitude carry after applying an altitude change.
+
+    The new values of the altitude and altitude carry are obtained by summing
+    the original ones and the altitude change, and then separating the result
+    into integral and fractional parts.
+
+    If the altitude change is negative, it must be integral and the altitude
+    carry must be zero.
+
+    :param altitude: The initial altitude.
+    :param altitudecarry: The initial altitude carry.
+    :param altitudechange: The change in the altitude.
+    :returns: A tuple containing the new altitude and the new altitude carry
+        after the adjustment.
+
     """
 
     # See rule 8.1.4.
@@ -78,6 +130,9 @@ def adjustaltitude(altitude, altitudecarry, altitudechange):
 def altitudeband(altitude):
     """
     Return the altitude band corresponding to altitude.
+
+    :param altitude: The altitude.
+    :returns: A string containing the code for the altitude band.
     """
 
     assert isvalidaltitude(altitude)
@@ -103,6 +158,11 @@ def altitudeband(altitude):
 def terrainaltitude(x, y):
     """
     Return the altitude of the terrain.
+
+    :param x:
+    :param y: The ``x`` and ``y`` parameters are the hex coordinates of a hex
+        location that must correspond to a hex center or hex-side center.
+    :return: The terrain altitude at the location.
     """
 
     assert glass.hex.isvalid(x, y)
