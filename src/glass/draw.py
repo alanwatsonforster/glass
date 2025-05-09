@@ -261,7 +261,7 @@ def writecanvastofile(filename):
 
     :param filename: The ``filename`` argument names the file to be written. Its
         type is determined by the suffix. Supported suffixes include ``".png"``
-        and `".pdf"``.
+        and ``".pdf"``.
     """
     _fig.savefig(filename)
 
