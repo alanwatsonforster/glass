@@ -350,7 +350,7 @@
         ]
     ],
     "notes": [
-        "At speeds above 4.0, speedbrakes can only be used if they were used on the previous turn."
+        "If speed 4.5 or more, speedbrakes can only be used if they were used on the previous game turn."
     ],
     "wikiurl": "https://bit.ly/3Nd8d1W"
 }

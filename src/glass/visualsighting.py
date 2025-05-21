@@ -15,9 +15,9 @@ def startvisualsighting():
 
     for target in glass.aircraft.aslist():
         if target._sightedonpreviousturn:
-            glass.log.logwhat("%-4s : was sighted on previous turn." % target.name())
+            glass.log.logwhat("%-4s : was sighted on previous game turn." % target.name())
         else:
-            glass.log.logwhat("%-4s : was unsighted on previous turn." % target.name())
+            glass.log.logwhat("%-4s : was unsighted on previous game turn." % target.name())
         glass.log.logwhat(
             "%-4s : maximum visual range is %d."
             % (target.name(), target.maxvisualsightingrange())
@@ -65,7 +65,7 @@ def padlock(A, B, note=None):
     A._log("padlocks %s." % B.name())
 
     if not B._sightedonpreviousturn:
-        raise RuntimeError("%s was not sighted on previous turn." % (B.name()))
+        raise RuntimeError("%s was not sighted on previous game turn." % (B.name()))
 
     A.logcomment("range is %d." % visualsightingrange(A, B))
     A.logcomment("%s." % visualsightingcondition(A, B)[0])

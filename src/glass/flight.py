@@ -248,7 +248,7 @@ def _checknormalflight(E):
         if glass.variants.withvariant("use version 2.4 rules"):
 
             # I interpret the text "start from level flight" to mean that the aircraft
-            # must have been in level flight on the previous turn.
+            # must have been in level flight on the previous game turn.
 
             if False and E._previousflighttype != "LVL":
                 raise RuntimeError(

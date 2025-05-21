@@ -3,7 +3,7 @@
     "description": "The Vought F4U-5P Corsair is a propeller-driven, carrier-capable photographic reconnaissance aircraft and fighter-bomber.",
     "base": "F4U-5",
     "notes": [
-        "At speeds above 4.0, speedbrakes can only be used if they were used on the previous turn.",
+        "If speed 4.5 or more, speedbrakes can only be used if they were used on the previous game turn.",
         "Overhead or oblique camera."
     ]
 }
