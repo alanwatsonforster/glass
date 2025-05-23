@@ -1072,7 +1072,7 @@ def makepdffile(latexfilename, pdffilename):
     os.system(
         "xelatex "
         + latexfilename
-        + " >aircraftdatacard.log 2>&1 || cat aircraftdatacard.log"
+        + " >aircraftdatacards.log 2>&1 || cat aircraftdatacards.log"
     )
     log("finished making %s." % pdffilename)
 
