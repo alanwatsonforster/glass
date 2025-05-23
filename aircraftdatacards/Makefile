@@ -19,7 +19,7 @@ pull-descriptions:
 	python3 pull-descriptions.py
 
 clean		:
-	rm -f *.pdf
+	rm -f *.pdf *.aux *.log *.synctex.gz *.fls *.toc *.out
 
 blacken		:
 	blacken .
