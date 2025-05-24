@@ -1,10 +1,5 @@
-%!TEX program = xelatex
-
-%\documentclass[twocolumn]{report}
-
 \usepackage[
-%  paper=letterpaper,
-%  nofoot,nomarginpar,nohead,
+  paper=letterpaper,
   lmargin=1.5cm,
   rmargin=1.5cm,
   tmargin=1.5cm,
@@ -74,11 +69,7 @@
 \newcommand\spaceabove{\rule{0pt}{2.6ex}}          % = `top' strut
 \newcommand\spacebelow{\rule[-1.0ex]{0pt}{0pt}}   % = `bottom' strut
 
-%\renewcommand\spaceabove{\relax}
-%\renewcommand\spacebelow{\relax}
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
 
 \usepackage{unicode-math}
 \setmainfont[
@@ -560,7 +551,6 @@ v\ifversionone 1\fi\ifversiontwo 2\fi\ifversionthree 3\fi\space\Gea \\
 
 \newcommand{\adc}{
   \newgeometry{
-    paper=letterpaper,
     nofoot,nomarginpar,nohead,
     margin=1cm,
     tmargin=1.2cm,
@@ -574,8 +564,3 @@ v\ifversionone 1\fi\ifversiontwo 2\fi\ifversionthree 3\fi\space\Gea \\
   \newpage
   \restoregeometry
 }
-
-
-%\include{generated.tex}
-
-%\end{document}
