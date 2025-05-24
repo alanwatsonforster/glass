@@ -1,6 +1,6 @@
 {
     "versionname": "Meteor FR.9",
-    "description": "The Gloster Meteor FR.9 is a reconaissance version of the F.8, with overhead and oblique cameras in the nose.",
+    "description": "The Gloster Meteor FR.9 is a photo-reconaissance aircraft. It is a development of the F.8, with overhead and oblique cameras in the nose.",
     "base": "Meteor F.8",
     "stations": [
         [
