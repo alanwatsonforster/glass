@@ -3,8 +3,8 @@
 ## ADCs
 
 - [CAC Sabre Mk.30](Avon%20Sabre%20Mk.30.json)
--  [CAC Sabre Mk.31](Avon%20Sabre%20Mk.31.json)
-- [CAC Sabre Mk.31 (Late)](Avon%20Sabre%20Mk.31%20(Late).json)
+- [CAC Sabre Mk.31](Avon%20Sabre%20Mk.31.json)
+- [CAC Sabre Mk.31 (1960 Upgrade)](Avon%20Sabre%20Mk.31%20(1960%20Upgrade).json)
 - [CAC Sabre Mk.32](Avon%20Sabre%20Mk.32.json)
 
 ## Notes and Changes
@@ -17,11 +17,13 @@ ADCs for the Mk.31/32 appear in APJ 25.
 
 The Mk.31 has the unslatted 6-3 wing. The Mk.30 is essentially a Mk.31 with the earlier slatted wing (Wikipedia). The minimum speeds and turn drags of the Mk.31 match those of the F-86F-25, which also has the unslatted 6-3 wing. This suggests that we can create an ADC for the Mk.30 by modifying that of the Mk-31 with the minimum speeds and turn drag of the F-86F-10. Added in [30c23b1](https://github.com/alanwatsonforster/glass/commit/30c23b11cc4ed029e767ed874b547de33682565e).
 
+The F-86A/E/F with the original slatted wing are HTD, so the Mk.30 should be too.
+
 ### Fuel Tanks
 
 - Curtis (p. 114) states that the Mk.32 could carry 100 gal (450L) and 167 gal (750L) FTs (perhaps on the inner pylons).
-- Wkipedia states they could carry 200 gal (910L) FTs on the outer pylons.
-- Farquhar states that the Mk.32 could carry 100 gal FTs on the inner pylones and 167 gal FTs on the outer ones.
+- Wikipedia states they could carry 200 gal (910L) FTs on the outer pylons.
+- Farquhar states that the Mk.32 could carry 100 gal FTs on the inner pylons and 167 gal FTs on the outer ones.
 
 ### Weight Limits
 
