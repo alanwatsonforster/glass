@@ -108,13 +108,16 @@
 \setlength{\blockABCheight}{19.5em}
 
 \newlength{\blockFGheight}
-\setlength{\blockFGheight}{37.5em}
+\setlength{\blockFGheight}{37.0em}
 
 \newlength{\blockFGtopheight}
 \setlength{\blockFGtopheight}{19.0em}
 
 \newlength{\stationsheight}
-\setlength{\stationsheight}{22.8em}
+\setlength{\stationsheight}{22.3em}
+
+\newlength{\notesheight}
+\setlength{\notesheight}{18.5em}
 
 \newcommand{\blockAcells}{5}
 \newcommand{\blockBcells}{6}
@@ -215,8 +218,6 @@ Vulnerability:&$\Bf$&Ejection Seat:&\wbox[l]{Early}{\Bk}\\
 \typeout{Block C}%
 \parbox[b][\blockABCheight][t]{5\cellwidth}{%
 \begin{tabularx}{\blockCcells\cellwidth}{L@{ }C@{ }C@{ }C}
-%&\multicolumn{2}{c}{\large\bfseries\itshape\parbox[c][2em]{2\cellwidth}{\centering Air Power}}
-%&\multicolumn{1}{r}{\footnotesize v\ifversionone 1\fi\ifversiontwo 2\fi\ifversionthree 3\fi}\\
 \multicolumn{4}{l}{\parbox[c][2.4em][c]{4.6\cellwidth}{\raggedright\Ccrewfont{\bfseries Crew:} \Ccrew}}\\
 \hline
 \multicolumn{3}{l}{\spaceabove\spacebelow
@@ -434,11 +435,12 @@ BJM:&\Fs\spacebelow\\
 \end{tabularx}}\\
 \hline
 \multicolumn{2}{p{8.5\cellwidth}}{
-\parbox[t][17em][t]{8.5\cellwidth}{%
+\parbox[t][\notesheight][t]{8.5\cellwidth}{%
 \spaceabove\raggedright
 \setlength{\parskip}{0.2em}%
 \footnotesize
 \Fu
+\vfill
 }}\spacebelow\\
 \end{tabularx}}}
 
