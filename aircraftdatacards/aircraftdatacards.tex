@@ -3,7 +3,7 @@
 %\documentclass[twocolumn]{report}
 
 \usepackage[
-  paper=letterpaper,
+%  paper=letterpaper,
 %  nofoot,nomarginpar,nohead,
   lmargin=1.5cm,
   rmargin=1.5cm,
@@ -114,16 +114,16 @@
 \newcommand{\multicell}[5]{\multicolumn{#2}{#1@{}l@{}#3}{\parbox[b][#4][t]{#2\cellwidth}{#5}}}
 
 \newlength{\blockABCheight}
-\setlength{\blockABCheight}{21.5em}
+\setlength{\blockABCheight}{19.5em}
 
 \newlength{\blockFGheight}
-\setlength{\blockFGheight}{35.5em}
+\setlength{\blockFGheight}{37.5em}
 
 \newlength{\blockFGtopheight}
 \setlength{\blockFGtopheight}{19.0em}
 
 \newlength{\stationsheight}
-\setlength{\stationsheight}{20.8em}
+\setlength{\stationsheight}{22.8em}
 
 \newcommand{\blockAcells}{5}
 \newcommand{\blockBcells}{6}
@@ -137,8 +137,7 @@
 \addtocadc{\Aaa}%
 \parbox[b][\blockABCheight][t]{\blockAcells\cellwidth}{%
 \begin{tabularx}{\blockAcells\cellwidth}{lCCCc}
-\multicolumn{5}{c}{\Large\bfseries\itshape\parbox[c][4em]{4\cellwidth}{\centering \Aab}}\\
-\multicolumn{5}{l}{\parbox[b][1.6em][b]{4.5\cellwidth}{\Aba{\bfseries Crew:} \raggedright \Abb}}\spacebelow\\
+\multicolumn{5}{c}{\large\bfseries\itshape\parbox[c][4.8em]{4\cellwidth}{\centering \Aab}}\\
 \hline
 \multicolumn{5}{l}{%
 \ifversionone
@@ -164,8 +163,6 @@ SPBR&\Aha&\Ahb&\Ahc&---\spacebelow\\
 
 \newcommand{\Aaa}{F-4D Phantom II} % Name
 \newcommand{\Aab}{F-4D\\Phantom II} % Split name
-\newcommand{\Aba}{\footnotesize} % Crew text size
-\newcommand{\Abb}{Pilot \& Radar Officer} % Crew
 \newcommand{\Ac}{\jetengine\jetengine} % Engines
 \newcommand{\Ada}{AB} % AB or FT
 \newcommand{\Adb}{3.5} % AB/FT power CL
@@ -200,7 +197,7 @@ SPBR&\Aha&\Ahb&\Ahc&---\spacebelow\\
 \parbox[b][\blockABCheight][t]{\blockBcells\cellwidth}{%
 \vfill
 \begin{tabularx}{\blockBcells\cellwidth}{L@{ }rL@{ }l}
-\multicolumn{4}{c}{\parbox[c][10em]{4\cellwidth}{}}\\
+\multicolumn{4}{c}{\parbox[c][8em]{4\cellwidth}{}}\\
 \hline
 \spaceabove
 \ifversionone Cruise Speed:\fi&\ifversionone\Bb\fi&Restr.\ Arcs:&\Bg\\
@@ -227,8 +224,9 @@ Vulnerability:&$\Bf$&Ejection Seat:&\wbox[l]{Early}{\Bk}\\
 \typeout{Block C}%
 \parbox[b][\blockABCheight][t]{5\cellwidth}{%
 \begin{tabularx}{\blockCcells\cellwidth}{L@{ }C@{ }C@{ }C}
-&\multicolumn{2}{c}{\large\bfseries\itshape\parbox[c][2em]{2\cellwidth}{\centering Air Power}}
-&\multicolumn{1}{r}{\footnotesize v\ifversionone 1\fi\ifversiontwo 2\fi\ifversionthree 3\fi}\\
+%&\multicolumn{2}{c}{\large\bfseries\itshape\parbox[c][2em]{2\cellwidth}{\centering Air Power}}
+%&\multicolumn{1}{r}{\footnotesize v\ifversionone 1\fi\ifversiontwo 2\fi\ifversionthree 3\fi}\\
+\multicolumn{4}{l}{\parbox[c][2.4em][c]{4.6\cellwidth}{\raggedright\Ccrewfont{\bfseries Crew:} \Ccrew}}\\
 \hline
 \multicolumn{3}{l}{\spaceabove\spacebelow
 \ifversionthree
@@ -252,6 +250,9 @@ ET&\Cfa&\Cfb&\Cfc\spacebelow\\
 }
 \end{tabularx}}}
 
+
+\newcommand{\Ccrew}{}
+\newcommand{\Ccrewfont}{}
 \newcommand{\Caa}{1.0} % LR/VR HFP
 \newcommand{\Cab}{1.0} % LR/VR drag
 \newcommand{\Cb}{0.0} % VR drag
@@ -532,7 +533,9 @@ BJM:&\Fs\spacebelow\\
 \hline
 {\begin{tabularx}{7\cellwidth}{lC|r}
 \spaceabove\spacebelow
-{\bfseries VPs:} \Gda &&\tiny\wbox{0000-00-00T00:00:00Z}{\parbox[b]{\linewidth}{\raggedleft \Gea\\\Geb}}\\
+{\bfseries VPs:} \Gda &&\tiny\wbox{0000-00-00T00:00:00Z}{\parbox[b]{\linewidth}{\raggedleft 
+v\ifversionone 1\fi\ifversiontwo 2\fi\ifversionthree 3\fi\space\Gea \\
+\Geb}}\\
 %\hline
 \end{tabularx}}\\
 \end{tabularx}}}

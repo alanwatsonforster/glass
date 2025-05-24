@@ -169,6 +169,7 @@ cython_debug/
 *.fls
 *.out
 *.toc
+*.fdb_latexmk
 aircraftdatacards/generated.tex
 aircraftdatacards/bombers.tex
 aircraftdatacards/all.tex

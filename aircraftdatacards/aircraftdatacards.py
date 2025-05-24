@@ -37,14 +37,6 @@ def latexify(s):
 
 def blockA(data, geometry=None):
 
-    def crew():
-        if len(data.crew()) == 1:
-            return data.crew()[0]
-        elif len(data.crew()) == 2:
-            return data.crew()[0] + r" and " + data.crew()[1]
-        else:
-            return ", ".join(data.crew()[0:-1]) + r", and " + data.crew()[-1]
-
     if geometry is None:
         writelatex(r"\renewcommand{\Aaa}{%s}" % data.fullvariantname())
     else:
@@ -58,15 +50,10 @@ def blockA(data, geometry=None):
         r"\\\\\1",
         data.fullname(),
     )
-    writelatex(r"\renewcommand{\Aab}{%s}" % splitfullname)
-
-    if len(data.crew()) >= 7:
-        writelatex(r"\renewcommand{\Aba}{\tiny}")
-    elif len(data.crew()) >= 5:
-        writelatex(r"\renewcommand{\Aba}{\footnotesize}")
+    if data.variantname() is None:
+        writelatex(r"\renewcommand{\Aab}{%s}" % data.fullname())
     else:
-        writelatex(r"\renewcommand{\Aba}{\small}")
-    writelatex(r"\renewcommand{\Abb}{%s}" % crew())
+        writelatex(r"\renewcommand{\Aab}{%s\\[0.2em](%s)}" % (data.fullname(), latexify(data.variantname())))
 
     if data.propellerengines() == 0 and data.jetengines() <= 4:
         writelatex(
@@ -235,6 +222,26 @@ def blockB(data, geometry=None):
 
 def blockC(data, geometry=None):
 
+
+    def crew():
+        if len(data.crew()) == 1:
+            return data.crew()[0]
+        elif len(data.crew()) == 2:
+            return data.crew()[0] + r" and " + data.crew()[1]
+        else:
+            return ", ".join(data.crew()[0:-1]) + r", and " + data.crew()[-1]
+
+    writelatex(r"\renewcommand{\Ccrew}{%s}" % crew())
+    if len(data.crew()) >= 10:
+        writelatex(r"\renewcommand{\Ccrewfont}{\tiny}")
+    elif len(data.crew()) >= 3:
+        writelatex(r"\renewcommand{\Ccrewfont}{\footnotesize}")
+
+    elif len(data.crew()) >= 2:
+        writelatex(r"\renewcommand{\Ccrewfont}{\small}")
+    else:
+        writelatex(r"\renewcommand{\Ccrewfont}{\normalsize}")
+
     def rollhfp():
         value = data.rollhfp()
         if value == None:
@@ -269,7 +276,7 @@ def blockC(data, geometry=None):
                 configuration, geometry, turnrate, lowspeedliftdevice=True
             )
             return "%s/%s" % (formatdrag(drag), formatdrag(lowspeedliftdevicedrag))
-
+        
     if version == 3:
         writelatex(r"\renewcommand{\Caa}{}")
     else:
@@ -793,17 +800,8 @@ def blockF(data, geometry=None):
 
     s = ""
 
-    descriptiontext = ""
-    if data.variantname() is None:
-        descriptiontext += r"This ADC is for the “%s”. " % latexify(data.versionname())
-    else:
-        descriptiontext += r"This ADC is for the “%s (%s)”. " % (
-            latexify(data.versionname()),
-            latexify(data.variantname()),
-        )
     if data.description() is not None:
-        descriptiontext += latexify(data.description())
-    s += "\\item %s\n\n" % descriptiontext
+        s += "\\item %s\n\n" % latexify(data.description())
 
     if data.hasproperty("EVG", geometry):
         s += "\\item Variable-geometry aircraft with allowed geometries of "
@@ -889,11 +887,6 @@ def blockF(data, geometry=None):
 
     for note in data.variantnotes():
         s += "\\item %s\n\n" % (latexify(note))
-
-    if data.wikiurl() is not None:
-        s += "\\item \\href{\\detokenize{%s}}{ADC page on GitHub}.\n\n" % (
-            data.wikiurl(),
-        )
 
     if s == "":
         writelatex(r"\renewcommand{\Fu}{}")
@@ -1084,7 +1077,7 @@ for jsonfilename in sys.argv[1:]:
 
     directives = readjsonfile(jsonfilename)
     writelatexfile(latexfilename, directives)
-    makepdffile(latexfilename, pdffilename)
+    #makepdffile(latexfilename, pdffilename)
 
     log("finished.")
 
