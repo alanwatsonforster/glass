@@ -973,7 +973,7 @@ def writetype(name):
     log("writing type %s." % name)
     writelatex(r"\twocolumn")
     writelatex(r"\addtoctype{%s}" % name)
-    file = "../glass/aircraftdata/" + name.replace("/", ":") + ".tex"
+    file = "../src/glass/aircraftdata/" + name.replace("/", ":") + ".tex"
     if os.path.exists(file):
         writelatex(r"\input{%s}" % file)
 
@@ -1077,7 +1077,7 @@ for jsonfilename in sys.argv[1:]:
 
     directives = readjsonfile(jsonfilename)
     writelatexfile(latexfilename, directives)
-    #makepdffile(latexfilename, pdffilename)
+    makepdffile(latexfilename, pdffilename)
 
     log("finished.")
 
