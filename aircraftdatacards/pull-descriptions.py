@@ -3,7 +3,7 @@ import os.path
 import json
 
 print("pulling descriptions from aircraft data files.")
-paths = os.path.join(os.path.dirname(__file__), "..", "glass", "aircraftdata", "*.json")
+paths = os.path.join(os.path.dirname(__file__), "..", "src", "glass", "aircraftdata", "*.json")
 
 descriptionpath = os.path.join(os.path.dirname(__file__), "description.json")
 

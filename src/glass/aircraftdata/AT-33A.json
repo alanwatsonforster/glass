@@ -1,6 +1,6 @@
 {
     "versionname": "AT-33A",
-    "description": "The Lockheed AT-33A Shooting Star is a close-air-support version of the T-33A trainer. It has a single engine and unswept wings. It is armed with two .50 cal machine guns and has provision for under-wing stores.",
+    "description": "The Lockheed AT-33A Shooting Star is a close-air-support version of the T-33A trainer. It has a single engine and unswept wings.",
     "originallydesignated": null,
     "base": "T-33A",
     "storeslimits": [
@@ -29,7 +29,8 @@
             ],
             1100,
             [
-                "BB", "RK"
+                "BB",
+                "RK"
             ]
         ],
         [
@@ -42,7 +43,8 @@
             ],
             280,
             [
-                "BB", "RK"
+                "BB",
+                "RK"
             ]
         ]
     ],

@@ -5,7 +5,7 @@
 |Gun|Hit Rolls|Damage|RPM|FPS|Example Aircraft|
 |---|---------|------|---|---|----------------|
 |4 × 20 mm Hispano Mk. V| 6/4/3| 5/6* | 700|2850|Meteor and Sea Hawk|
-|2 × 30 mm ADEN Mk 1    | 6/4/2| 6/6  |1300|2610|Avon Sabre|
+|2 × 30 mm ADEN Mk 1    | 6/4/2| 6/6  |1300|2610|CAC Sabre|
 |6 × .50 cal M2         | 6/3/0| 3/3**| 800|2910|F-51 and F4U-4|
 |6 × .50 cal M2         | 4/2/0| 3/3**| 800|2910|B-26C|
 |8 × .50 cal M2         | 4/2/0| 4/4**| 800|2910|B-26K|
@@ -40,11 +40,11 @@ First version had 1300 RPM. Mk. 4 had 1200-1500 RPM. Mk. 5 had 1500-1700 RPM (Wi
 
 Muzzle velocity of 2610 ft/s (Wikipedia).
 
-Avon Sabre (two): Hit rolls of 6/4/2 and damage ratings of 6/6.
+CAC Sabre (two): Hit rolls of 6/4/2 and damage ratings of 6/6.
 
 #### Aircraft
 
-- [Avon Sabre](Avon%20Sabre.md) (two)
+- [CAC Sabre](Avon%20Sabre.md) (two)
 
 #### Bibliography
 

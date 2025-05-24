@@ -115,7 +115,6 @@
             ]
         ]
     },
-
     "storeslimits": [
         4,
         12,
@@ -161,7 +160,7 @@
             ]
         ]
     ],
-     "loadnotes": [
+    "loadnotes": [
         "Stations 1 and 8 normally carry 230~gal (850L) wing-tip FTs. They can instead each carry four or six HVAR RKs.",
         "Stations 4 and 5 can each carry one 230~gal (850L) FT, one 1000~lb M65 BB, one 500~lb M64 BB, one 250~lb M57 BB, one 100~lb M30 BB, or four HVAR RKs.",
         "Stations 2, 3, 6, and 7 can each carry one, two, or three HVAR RKs.",

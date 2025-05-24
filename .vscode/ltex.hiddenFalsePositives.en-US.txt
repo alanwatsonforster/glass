@@ -1,2 +1,3 @@
 {"rule":"MORFOLOGIK_RULE_EN_US","sentence":"^\\QThe Republic F-84 Thunderjet is an early escort fighter, fighter-bomber, and tactical nuclear bomber.\\E$"}
 {"rule":"MORFOLOGIK_RULE_EN_US","sentence":"^\\QRepublic F-84 Thunderjet.\\E$"}
+{"rule":"TANK_YOU","sentence":"^\\QFor ferry flights, two 100 gal (400L) fuel tanks could be carried on the inner stations and two 167 gal (750L) fuel tanks to the outer ones.\\E$"}
