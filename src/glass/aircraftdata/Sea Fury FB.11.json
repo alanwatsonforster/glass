@@ -1,77 +1,349 @@
 {
-  "versionname": "Sea Fury FB.11",
-  "description": "The Hawker Sea Fury FB.11 is a carrier-capable, post-war fighter-bomber.",
-  "manufacturername": "Hawker",
-  "origin": "APJ 32",
-  "crew": [ "Pilot" ],
-  "powertable": {
-    "FT"  : [ 2.0, 1.5, 1.0, 0.5 ],
-    "HT"  : [ 0.5, 0.5, 0.5, 0.2 ],
-    "N"   : [ 0.0, 0.0, 0.0, 0.1 ],
-    "I"   : [ 0.5, 0.5, 0.5, 0.0 ],
-    "SPBR": [ "-", "-", "-" ]
-  },
-  "propellerengines": 1,
-  "cruisespeed": 3.0,
-  "climbspeed" : 1.5,
-  "visibility": 6,
-  "sizemodifier": 0,
-  "vulnerability": 1,
-  // Given as 180- in the ADC, but I think this is an error.
-  "restrictedarcs": "180L",
-  "blindarcs": "30-",
-  "internalfuel": 70,
-  "atarefuel": false,
-  "ejectionseat": "none",
-  "maneuvertable": {
-    "LR/DR": [ 1.0, 1.0 ],
-    "VR":    [ 0.0, 1.0 ]
-  },
-  "turndragtable": {
-    "TT": [ 0.0, 0.0, 0.0 ],
-    "HT": [ 0.0, 1.0, 1.0 ],
-    "BT": [ 1.0, 1.0, 1.0 ],
-    "ET": [ 2.0, "-", "-" ]
-  },
-  "ceilingtable": [ 36, 29, 21 ],
-  "speedtable": {
-    "EH": [ [  "-",  "-" ], [  "-",  "-" ], [  "-",  "-" ],  "-" ],
-    "VH": [ [  2.0,  4.0 ], [  "-",  "-" ], [  "-",  "-" ],  5.5 ],
-    "HI": [ [  1.5,  4.0 ], [  2.0,  3.5 ], [  "-",  "-" ],  6.0 ],
-    "MH": [ [  1.5,  4.5 ], [  1.5,  4.0 ], [  1.5,  3.5 ],  6.0 ],
-    "ML": [ [  1.0,  4.5 ], [  1.5,  3.5 ], [  1.5,  3.0 ],  6.0 ],
-    "LO": [ [  1.0,  4.0 ], [  1.0,  3.5 ], [  1.5,  3.0 ],  5.5 ]
-  },
-  "climbcapabilitytable": {
-    "EH": [ [ "-", "-" ], [ "-", "-" ], [ "-", "-" ] ],
-    "VH": [ [ "-", 0.5 ], [ "-", "-" ], [ "-", "-" ] ],
-    "HI": [ [ "-", 0.5 ], [ "-", 0.5 ], [ "-", "-" ] ],
-    "MH": [ [ "-", 0.5 ], [ "-", 0.5 ], [ "-", 0.5 ] ],
-    "ML": [ [ "-", 1.0 ], [ "-", 0.5 ], [ "-", 0.5 ] ],
-    "LO": [ [ "-", 1.0 ], [ "-", 1.0 ], [ "-", 1.0 ] ]
-  },
-  "gun": "Four 20 mm Hispano V",
-  "gunatatohitrolls": "6/4/3",
-  "gundamagerating": "5/6*",
-  "gunammunition": 5.5,
-  "gunsightmodifiers": { "TT": 0, "HT": 1, "BT": 2 },
-  "ecm": { "iff": true },
-  "storeslimits": [ 2, 4, 3400 ],
-  "stations": [
-    [ "pair"     , [ 1, 4 ]       , 1000, [ "BB" ] ],
-    [ "pair"     , [ 2, 3 ]       ,  700, [ "FT" ] ],
-    [ "grouppair", [ 5, 7, 8, 10 ],  200, [ "RK" ] ]
-  ],
-  "loadnotes": [
-    "Either stations 1 and 4 or stations 5 to 10 can be used.",
-    "Stations 2 and 3 can each carry a 90 gal (400L) FT.",
-    "Stations 5 to 10 can each carry two RP-3 RKs."
-  ],
-  "VPs": [ 7, 5, 3, 1 ],
-  "properties": [ "LBR", "HTD" ],
-  "powerfadespeedtable": [ [3.0, 0.5], [4.0, 1.0] ],
-  "service": "From 1947. Operated by Australia, Burma, Canada, Cuba, Iraq, Netherlands, Pakistan, and UK. Saw combat in Korea with RN and RAN and in the Bay of Pigs invasion with the Cuban FAR.",
-  "notes": [
-  ],
-  "wikiurl": "https://bit.ly/48kjeYU"
+    "versionname": "Sea Fury FB.11",
+    "description": "The Hawker Sea Fury FB.11 is a carrier-capable fighter-bomber. The FB.11 is a development of the original F.X fighter with additional armor and underwing weapon stations to better carry out air-to-ground missions.",
+    "manufacturername": "Hawker",
+    "origin": "APJ 32",
+    "crew": [
+        "Pilot"
+    ],
+    "powertable": {
+        "FT": [
+            2.0,
+            1.5,
+            1.0,
+            0.5
+        ],
+        "HT": [
+            0.5,
+            0.5,
+            0.5,
+            0.2
+        ],
+        "N": [
+            0.0,
+            0.0,
+            0.0,
+            0.1
+        ],
+        "I": [
+            0.5,
+            0.5,
+            0.5,
+            0.0
+        ],
+        "SPBR": [
+            "-",
+            "-",
+            "-"
+        ]
+    },
+    "propellerengines": 1,
+    "cruisespeed": 3.0,
+    "climbspeed": 1.5,
+    "visibility": 6,
+    "sizemodifier": 0,
+    "vulnerability": 1,
+    "restrictedarcs:comment": "Given as 180- in APJ 32, but I think this is an error.",
+    "restrictedarcs": "180L",
+    "blindarcs": "30-",
+    "internalfuel": 70,
+    "atarefuel": false,
+    "ejectionseat": "none",
+    "maneuvertable": {
+        "LR/DR": [
+            1.0,
+            1.0
+        ],
+        "VR": [
+            0.0,
+            1.0
+        ]
+    },
+    "turndragtable": {
+        "TT": [
+            0.0,
+            0.0,
+            0.0
+        ],
+        "HT": [
+            0.0,
+            1.0,
+            1.0
+        ],
+        "BT": [
+            1.0,
+            1.0,
+            1.0
+        ],
+        "ET": [
+            2.0,
+            "-",
+            "-"
+        ]
+    },
+    "ceilingtable": [
+        36,
+        29,
+        21
+    ],
+    "speedtable": {
+        "EH": [
+            [
+                "-",
+                "-"
+            ],
+            [
+                "-",
+                "-"
+            ],
+            [
+                "-",
+                "-"
+            ],
+            "-"
+        ],
+        "VH": [
+            [
+                2.0,
+                4.0
+            ],
+            [
+                "-",
+                "-"
+            ],
+            [
+                "-",
+                "-"
+            ],
+            5.5
+        ],
+        "HI": [
+            [
+                1.5,
+                4.0
+            ],
+            [
+                2.0,
+                3.5
+            ],
+            [
+                "-",
+                "-"
+            ],
+            6.0
+        ],
+        "MH": [
+            [
+                1.5,
+                4.5
+            ],
+            [
+                1.5,
+                4.0
+            ],
+            [
+                1.5,
+                3.5
+            ],
+            6.0
+        ],
+        "ML": [
+            [
+                1.0,
+                4.5
+            ],
+            [
+                1.5,
+                3.5
+            ],
+            [
+                1.5,
+                3.0
+            ],
+            6.0
+        ],
+        "LO": [
+            [
+                1.0,
+                4.0
+            ],
+            [
+                1.0,
+                3.5
+            ],
+            [
+                1.5,
+                3.0
+            ],
+            5.5
+        ]
+    },
+    "climbcapabilitytable": {
+        "EH": [
+            [
+                "-",
+                "-"
+            ],
+            [
+                "-",
+                "-"
+            ],
+            [
+                "-",
+                "-"
+            ]
+        ],
+        "VH": [
+            [
+                "-",
+                0.5
+            ],
+            [
+                "-",
+                "-"
+            ],
+            [
+                "-",
+                "-"
+            ]
+        ],
+        "HI": [
+            [
+                "-",
+                0.5
+            ],
+            [
+                "-",
+                0.5
+            ],
+            [
+                "-",
+                "-"
+            ]
+        ],
+        "MH": [
+            [
+                "-",
+                0.5
+            ],
+            [
+                "-",
+                0.5
+            ],
+            [
+                "-",
+                0.5
+            ]
+        ],
+        "ML": [
+            [
+                "-",
+                1.0
+            ],
+            [
+                "-",
+                0.5
+            ],
+            [
+                "-",
+                0.5
+            ]
+        ],
+        "LO": [
+            [
+                "-",
+                1.0
+            ],
+            [
+                "-",
+                1.0
+            ],
+            [
+                "-",
+                1.0
+            ]
+        ]
+    },
+    "gun": "Four 20 mm Hispano V",
+    "gunatatohitrolls": "6/4/3",
+    "gundamagerating": "5/6*",
+    "gunammunition": 5.5,
+    "gunsightmodifiers": {
+        "TT": 0,
+        "HT": 1,
+        "BT": 2
+    },
+    "ecm": {
+        "iff": true
+    },
+    "storeslimits": [
+        2,
+        4,
+        3400
+    ],
+    "stations": [
+        [
+            "pair",
+            [
+                1,
+                4
+            ],
+            1000,
+            [
+                "BB"
+            ]
+        ],
+        [
+            "pair",
+            [
+                2,
+                3
+            ],
+            700,
+            [
+                "FT"
+            ]
+        ],
+        [
+            "grouppair",
+            [
+                5,
+                7,
+                8,
+                10
+            ],
+            200,
+            [
+                "RK"
+            ]
+        ]
+    ],
+    "loadnotes": [
+        "Either stations 1 and 4 or stations 5 to 10 can be used.",
+        "Stations 2 and 3 can each carry a 90 gal (400L) FT.",
+        "Stations 5 to 10 can each carry two RP-3 RKs."
+    ],
+    "VPs": [
+        7,
+        5,
+        3,
+        1
+    ],
+    "properties": [
+        "LBR",
+        "HTD"
+    ],
+    "powerfadespeedtable": [
+        [
+            3.0,
+            0.5
+        ],
+        [
+            4.0,
+            1.0
+        ]
+    ],
+    "service": "From 1947. Operated by Australia, Burma, Canada, Cuba, Iraq, Netherlands, Pakistan, and UK. Saw combat in Korea with RN and RAN and in the Bay of Pigs invasion with the Cuban FAR.",
+    "notes": [],
+    "wikiurl": "https://bit.ly/48kjeYU"
 }
