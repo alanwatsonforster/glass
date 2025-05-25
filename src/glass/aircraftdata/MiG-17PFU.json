@@ -99,6 +99,16 @@
             7.5
         ]
     },
+    "radar": {
+        "name": "RP-2 Izumrud",
+        "eccm": 0,
+        "arc": "Limited",
+        "searchrange": 18,
+        "searchstrength": 6,
+        "trackingrange": 6,
+        "trackingstrength": 6,
+        "lockon": 6
+    },
     "gun": null,
     "ataradarranging": null,
     "notes": [],
