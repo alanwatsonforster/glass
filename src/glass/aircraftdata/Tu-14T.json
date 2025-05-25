@@ -3,8 +3,20 @@
     "description": "The Tupolev Tu-14T is a torpedo bomber. The NATO reporting name is Bosun.",
     "base": "Tu-14",
     "ejectionseat": "early",
+    "stations": [
+        [
+            "single",
+            [
+                1
+            ],
+            6600,
+            [
+                "BB", "TP"
+            ]
+        ]
+    ],
     "loadnotes": [
-        "Station 1 is the internal bomb bay. Load options are: (a) two 2,200 lb bombs, (b) four 1,100 lb bombs, (c) six 550 lb bombs, (d) sixteen 250 lb bombs, or (e) two anti-ship torpedoes. Any bombs carried must be low-drag.",
+        "Station 1 is the internal bomb bay. Load options are: (a) two FAB-1000 2,200 lb bombs, (b) four FAB-500 1,100 lb bombs, (c) six FAB-250 550 lb bombs, (d) sixteen FAB-100 225 lb bombs, or (e) two anti-ship torpedoes. Any bombs carried must be low-drag.",
         "Torpedoes can only be launched from T-level at a speed of 2.5 or less. Both may be launched at once."
     ],
     "VPs": [

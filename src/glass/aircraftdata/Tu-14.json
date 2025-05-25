@@ -296,7 +296,7 @@
         ]
     ],
     "loadnotes": [
-        "Station 1 is the internal bomb bay. Load options are: (a) two 2,200 lb bombs, (b) four 1,100 lb bombs, (c) six 550 lb bombs, or (d) sixteen 250 lb bombs. Any bombs carried must be low-drag."
+        "Station 1 is the internal bomb bay. Load options are: (a) two FAB-1000 2,200 lb bombs, (b) four FAB-500 1,100 lb bombs, (c) six FAB-250 550 lb bombs, or (d) sixteen FAB-100 225 lb bombs. Any bombs carried must be low-drag."
     ],
     "VPs": [
         13,
