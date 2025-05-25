@@ -1,7 +1,7 @@
 {
     "versionname": "Canadair Sabre Mk.2",
     "popularname": null,
-    "description": "The Canadair Sabre Mk.2 is a licensed version of the F-86E Sabre.",
+    "description": "The Canadair Sabre Mk.2 is a day fighter. It is a licensed version of the North American F-86E-1 Sabre and uses the original slatted wing.",
     "manufacturername": "Canadair",
     "wikiurl": "https://bit.ly/3ZgyCTo",
     "base": "F-86E"

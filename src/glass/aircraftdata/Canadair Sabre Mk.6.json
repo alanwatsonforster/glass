@@ -1,8 +1,7 @@
 {
     "versionname": "Canadair Sabre Mk.6",
-    "description": "The Canadair Sabre Mk.6 is a modified version of Mk.5 with an Orenda 14 engine and the slatted 6-3 wing.",
+    "description": "The Canadair Sabre Mk.6 is a day fighter. It is a development of the Mk.5 with a more powerful Orenda 14 engine and the unslatted 6-3 wing.",
     "base": "Canadair Sabre Mk.5",
-    "origin": "APJ 25",
     "powertable": {
         "M": [
             1.5,
@@ -23,43 +22,6 @@
             0.0
         ],
         "SPBR": [
-            1.0,
-            1.0,
-            2.0
-        ]
-    },
-    "lowspeedliftdevicelimit": 3.5,
-    "lowspeedliftdevicelimittype": "absolute",
-    "lowspeedliftdevicename": "leading-edge slats",
-    "lowspeedliftdeviceturndragtable": {
-        "TT": [
-            0.0,
-            0.0,
-            1.0
-        ],
-        "HT": [
-            1.0,
-            1.0,
-            1.0
-        ],
-        "BT": [
-            2.0,
-            2.0,
-            3.0
-        ]
-    },
-    "turndragtable": {
-        "TT": [
-            0.0,
-            0.0,
-            1.0
-        ],
-        "HT": [
-            1.0,
-            1.0,
-            1.0
-        ],
-        "BT": [
             1.0,
             1.0,
             2.0
@@ -159,7 +121,7 @@
     "loadnotes": [
         "Either stations 1 to 4 or stations 5 to 12 can be used.",
         "Stations 5 to 12 can each carry two RKs.",
-        "From 1960 may use AIM-9B IRMs."
+        "From 1960, may use AIM-9B IRMs."
     ],
     "VPs": [
         11,

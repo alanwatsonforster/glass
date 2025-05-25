@@ -1,0 +1,12 @@
+[
+
+    [ "chapter", "Australian Aircraft" ],
+    [ "type", "CAC Sabre", "CAC Sabre Mk.30", "CAC Sabre Mk.31", "CAC Sabre Mk.31 (1960 Upgrade)", "CAC Sabre Mk.32" ],
+
+    [ "chapter", "Canadian Aircraft" ],
+    [ "type", "Canadair Sabre", "Canadair Sabre Mk.2", "Canadair Sabre Mk.4", "Canadair Sabre Mk.4 (6-3 Wing)", "Canadair Sabre Mk.5", "Canadair Sabre Mk.6", "Canadair Sabre Mk.6 (Slatted 6-3 Wing)" ],
+
+    [ "chapter", "American Aircraft" ],
+    [ "type", "F-86 Sabre", "F-86A", "F-86D", "F-86E", "F-86F-10", "F-86F-25", "F-86F-35", "F-86F-40", "F-86H (Early)", "F-86H (Late)", "F-86K (Early)", "F-86K (Late)", "F-86L" ]
+
+]

@@ -1,6 +1,6 @@
 {
     "versionname": "Canadair Sabre Mk.5",
-    "description": "The Canadair Sabre Mk.5 is a modified version of Mk.4 with an Orenda 10 engine and the unslatted 6-3 wing.",
+    "description": "The Canadair Sabre Mk.5 is a day fighter. It is a development of the Mk.4 with a more powerful Orenda 10 engine replacing the General Electric J47 and the unslatted 6-3 wing.",
     "manufacturername": "Canadair",
     "origin": "APJ 25",
     "base": "F-86F-25",
@@ -79,7 +79,7 @@
                 5.5
             ],
             [
-                2.5,
+                3.0,
                 5.0
             ],
             6.5
@@ -90,7 +90,7 @@
                 6.5
             ],
             [
-                2.0,
+                2.5,
                 6.0
             ],
             [
@@ -105,18 +105,18 @@
                 6.5
             ],
             [
-                2.0,
+                2.5,
                 6.5
             ],
             [
-                2.0,
+                2.5,
                 6.0
             ],
             7.0
         ],
         "ML": [
             [
-                1.5,
+                2.0,
                 6.5
             ],
             [
@@ -124,14 +124,14 @@
                 6.0
             ],
             [
-                2.0,
+                2.5,
                 5.5
             ],
             7.5
         ],
         "LO": [
             [
-                1.5,
+                2.0,
                 7.0
             ],
             [
@@ -139,7 +139,7 @@
                 6.0
             ],
             [
-                1.5,
+                2.0,
                 5.5
             ],
             7.5
