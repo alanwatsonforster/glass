@@ -265,7 +265,7 @@
     },
     "gun": "Two 23 mm VYa-23 and two 7.62 mm ShKAS",
     "gunatatohitrolls": "4/2/0",
-    "gundamagerating": "5/4",
+    "gundamagerating": "5/4*",
     "gunammunition": 8.0,
     "gunsightmodifiers": {
         "TT": 0,
