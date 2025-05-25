@@ -1,7 +1,8 @@
 {
     "versionname": "Il-28N",
-    "description": "The Ilyushin Il-28N is a tactical nuclear bomber. The NATO reporting name is Beagle.",
+    "description": "The Ilyushin Il-28N is a tactical nuclear bomber. It is a development of the Il-28 medium bomber. The NATO reporting name is Beagle.",
     "base": "Il-28",
+    "internalfuel": 615,
     "storeslimits": [
         4,
         8,
@@ -9,26 +10,16 @@
     ],
     "stations": [
         [
-            "pair",
-            [
-                1,
-                3
-            ],
-            1800,
-            [
-                "FT"
-            ]
-        ],
-        [
             "single",
             [
-                2
+                1
             ],
-            4400,
+            6600,
             []
         ]
     ],
     "loadnotes": [
-        "Station 2 is the internal bomb bay. It may only carry one RDS-4 nuclear bomb (weight 2650 and load 4.5)."
+        "Station 1 is the internal bomb bay. It may only carry one RDS-4 nuclear bomb (weight 2650 and load 4.5).",
+        "Internal fuel includes two fixed 350L wing-tip fuel tanks. As an exception to the normal rules for load points, internal fuel above 565 fuel points contributes 1 load point for each 50 fuel points."
     ]
 }

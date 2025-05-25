@@ -23,7 +23,6 @@ Sabre
 Canadair
 Sterett
 MiGs
-
 Sabres
 FTs
 Gloster

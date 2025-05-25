@@ -288,31 +288,19 @@
     "wikiurl": "https://bit.ly/4fQBN9Q",
     "stations": [
         [
-            "pair",
-            [
-                1,
-                3
-            ],
-            1800,
-            [
-                "BB",
-                "RP",
-                "FT"
-            ]
-        ],
-        [
             "single",
             [
-                2
+                1
             ],
-            4400,
+            6600,
             [
                 "BB"
             ]
         ]
     ],
     "loadnotes": [
-        "Station 2 is the internal bomb bay. Load options are: (a) one 2,200 lb bomb, (b) four 1,100 lb bombs, (c) eight 550 lb bombs, or (d) twelve 250 lb bombs. Any bombs carried must be low-drag."
+        "Station 1 is the internal bomb bay. Load options are: (a) one FAB-3000 6,600 lb bomb, (b) one FAB-1000 2,200 lb bomb, (c) four FAB-500 1,100 lb bombs, (d) eight FAB-250 550 lb bombs, or (e) twelve FAB-100 225 lb bombs. All bombs carried must be low-drag.",
+        "As an exception to the normal rules for load points, internal loads contribute 1 load point for each 1,000 of weight."
     ],
     "VPs": [
         12,
