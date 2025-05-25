@@ -1,7 +1,7 @@
 {
     "versionname": "F-86D",
     "popularname": "Sabre-Dog",
-    "description": "The North America F-86D Sabre-Dog is a single-engined, swept-wing all-weather intercepter. The F-86D is a extensively modification of the F-86A. The F-86D  has the original slatted wing and an all-flying tail (which appears on all subsequent derived versions). It is armed with 24 FFARs in a ventral tray. The APG-36 radar and Hughes E-4 fire-control system allow collision-course rocket attacks.",
+    "description": "The North America F-86D Sabre-Dog is a single-engined, swept-wing all-weather interceptor. The F-86D is a extensively modification of the F-86A. The F-86D  has the original slatted wing and an all-flying tail (which appears on all subsequent derived versions). It is armed with 24 FFARs in a ventral tray. The APG-36 radar and Hughes E-4 fire-control system allow collision-course rocket attacks.",
     "base": "F-86A",
     "origin": "APJ 25",
     "crew": [

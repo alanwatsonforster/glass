@@ -1,7 +1,7 @@
 {
     "versionname": "CF-100 Mk 5",
     "popularname": "Canuck",
-    "description": "The Avro Canada CF-100 Mk 5 Canuck is an all-weather intercepter. The Mk 5 version is a development of the Mk 4B with longer wings but without the 0.50 cal machine guns.",
+    "description": "The Avro Canada CF-100 Mk 5 Canuck is an all-weather interceptor. The Mk 5 version is a development of the Mk 4B with longer wings but without the 0.50 cal machine guns.",
     "base": "CF-100 Mk 4B",
     "origin": "APJ 14",
     "powertable": {
