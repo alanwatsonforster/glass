@@ -2,11 +2,11 @@
 
 ## ADCs
 
-- [ADC](MiG-17.json)
-- [ADC](MiG-17F.json)
-- [ADC](MiG-17P.json)
-- [ADC](MiG-17F.json)
-- [ADC](MiG-17F.json)
+- [MiG-17](MiG-17.json)
+- [MiG-17F](MiG-17F.json)
+- [MiG-17P](MiG-17P.json)
+- [MiG-17PF](MiG-17PF.json)
+- [MiG-17PFU](MiG-17PFU.json)
 
 ## Notes and Changes
 
