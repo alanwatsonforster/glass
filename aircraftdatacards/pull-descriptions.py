@@ -11,7 +11,8 @@ description = {}
 
 for path in sorted(glob.glob(paths)):
     basename = os.path.basename(path)
-    if basename[0] == "_":
+    name = basename[:-5]
+    if name[0] == "_":
         continue
     print("pulling description from \"%s\"" % basename)
     try:
@@ -19,9 +20,9 @@ for path in sorted(glob.glob(paths)):
             text = f.read()
         object = json.loads(text)
         if "description" in object:
-            description[basename] = object["description"]
+            description[name] = object["description"]
         else:
-            description[basename] = ""
+            description[name] = ""
         newtext = json.dumps(object, indent=4, sort_keys=False, ensure_ascii=False)
         with open(path, "w") as f:
             f.write(newtext)
