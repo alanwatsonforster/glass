@@ -1,0 +1,43 @@
+# MiG-19
+
+##Versions and Variants
+
+### MiG-19S
+
+- [ADC](MiG-19S.json)
+
+
+### MiG-19P
+
+- [ADC for Early variant](MiG-19P%20(Early).json)
+- [ADC for Late variant](MiG-19P%20(Late).json)
+
+
+### MiG-19PM
+
+- [ADC](MiG-19PM.json)
+
+ADC from TSOH. NATO reporting name is Farmer-E.
+
+## Notes and Changes
+
+### MiG-19S
+
+ADC from TSOH. NATO reporting name is Farmer-C.
+
+### MiG-19P
+
+ADC for the Late variant is from TSOH. NATO reporting name is Farmer-B. The TSOH ADC lists it as a "-19PF Farmer-D" but seems to correspond more to the "-19P Farmer-B" late version. 
+
+ADC for the Early variant created by AWF by taking the characteristics of the two NR-23 cannons from the MiG-15P.
+
+### Radar
+
+Radar in PF and PM is RP-1 Izumrud (Scan Odd) (Goebel, Wikipedia). Added in [4f73dcf](https://github.com/alanwatsonforster/apxo/commit/4f73dcfc42645ed33a15bffe35cb048e1754b6cb).
+
+## Operational History
+
+## Bibliography
+
+- [Goebel](https://www.airvectors.net/avmig15_3.html)
+- [Wikipedia](https://en.wikipedia.org/wiki/Mikoyan-Gurevich_MiG-19)
