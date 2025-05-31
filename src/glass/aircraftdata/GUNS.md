@@ -37,7 +37,13 @@ RPM = rounds per minute
 
 FPS = muzzle velocity in feet per second
 
-## Air-to-Ground
+## Multiple Guns
+
+Rule 9.1 states that the AtA ratings is increased by 1 for each additional gun.
+
+In contrast, the ADCs suggest that the AtG rating increases linearly with the number of guns. For example, if it is 4 for two guns, then it should be 6 for three guns.
+
+## Air-to-Ground Modifiers
 
 - Less than 20 mm = ** (no effect)
 - Less than 20 mm = * (halved)
