@@ -264,7 +264,7 @@
     },
     "gun": "Three 30 mm NR-30",
     "gunatatohitrolls": "6/4/1",
-    "gundamagerating": "6/8",
+    "gundamagerating": "6/8_",
     "gunammunition": 2.5,
     "gunsightmodifiers": {
         "TT": 0,

@@ -731,10 +731,16 @@ def blockF(data, geometry=None):
                 )
             )
         writelatex(r"\renewcommand{\Fi}{%.1f}" % (data.gunammunition()))
-        writelatex(
-            r"\renewcommand{\Fl}{%d/%s}"
-            % (data.gunatadamagerating(), data.gunatgdamagerating())
-        )
+        if data.gunatgdamagerating()[-1] == "_":
+            writelatex(
+                r"\renewcommand{\Fl}{%d/\underline{%s}}"
+                % (data.gunatadamagerating(), data.gunatgdamagerating()[:-1])
+            )
+        else:
+            writelatex(
+                r"\renewcommand{\Fl}{%d/%s}"
+                % (data.gunatadamagerating(), data.gunatgdamagerating())
+            )
 
     s = data.bombsystem().capitalize()
     if "/" in s:
