@@ -999,26 +999,28 @@ def writeadc(name):
 def writelatexprolog():
     writelatex(
         r"""
-    \documentclass[twocolumn]{report}
-    \input aircraftdatacards.tex
-    \newif\ifversionone\versiononefalse
-    \newif\ifversiontwo\versiontwofalse
-    \newif\ifversionthree\versionthreefalse
-    \version%strue
-    \begin{document}
-    \tableofcontents
-    \onecolumn
-    \newpage
-    """
-        % ["one", "two", "three"][version - 1]
+%%!LW recipe=latexmk (xelatex)
+%%!TEX program = xelatex
+
+\documentclass[twocolumn]{report}
+\input aircraftdatacards.tex
+\newif\ifversionone\versiononefalse
+\newif\ifversiontwo\versiontwofalse
+\newif\ifversionthree\versionthreefalse
+\version%strue
+\begin{document}
+\tableofcontents
+\onecolumn
+\newpage
+"""  % ["one", "two", "three"][version - 1]
     )
 
 
 def writelatexepilog():
     writelatex(
         r"""
-    \end{document}
-    """
+\end{document}
+"""
     )
 
 
@@ -1063,7 +1065,7 @@ def writelatexfile(latexfilename, directives):
 def makepdffile(latexfilename, pdffilename):
     log("making %s." % pdffilename)
     os.system(
-        "xelatex "
+        "xelatex -interaction=nonstopmode "
         + latexfilename
         + " >aircraftdatacards.log 2>&1 || cat aircraftdatacards.log"
     )

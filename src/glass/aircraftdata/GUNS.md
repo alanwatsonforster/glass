@@ -23,18 +23,54 @@
 |2 × 23 mm NR-23  | 3/2/1 | 4/3 |1650|2300|Il-28 and Tu-14|
 |2 × 23 mm NR-23  | 5/3/1 | 4/3* |1650|2300|MiG-19P (Early)|
 |3 × 23 mm NR-23  | 5/3/2 | 5/5 |2500|2300|MiG-17PF|
-|1 × 23 mm AM-23  | 5/3/2 | 5/5 |1250|2300|Tu-16
+|1 × 23 mm AM-23  | 5/3/2 | 5/5 |1250|2300|Tu-16|
 |1 × 23 mm GSh-23 | 7/4/2 | 5/5 |3500|2350|MiG-21M/MF/bis|
-|1 × 30 mm NR-30  | 3/2/1 | 3/2 |900|2550|MiG-21F-13|
-|2 × 30 mm NR-30  | 3/2/1 | 4/3 |1800|2550|MiG-21F|
-|2 × 30 mm NR-30  | 5/3/1 | 5/6 |1800|2550|MiG-19P (Late)|
-|3 × 30 mm NR-30  | 6/4/1 | 6/8 |2700|2550|MiG-19S|
-
-
+|1 × 30 mm NR-30  | 3/2/1 | 3/2_ | 900|2550|MiG-21F-13|
+|2 × 30 mm NR-30  | 3/2/1 | 4/3_ |1800|2550|MiG-21F|
+|2 × 30 mm NR-30  | 5/3/1 | 5/6_ |1800|2550|MiG-19P (Late)|
+|3 × 30 mm NR-30  | 6/4/1 | 6/8_ |2700|2550|MiG-19S|<>
+|2 × 30 mm ADEN   | 6/3/2 | 6/6 |2700|2600|CAC Sabre|
+|2 × 30 mm DEFA 552/553  |  |  |2600|2600||
+|
 
 RPM = rounds per minute
 
 FPS = muzzle velocity in feet per second
+
+## Air-to-Ground
+
+- Less than 20 mm = ** (no effect)
+- Less than 20 mm = * (halved)
+  - Also 30 mm Mk108 on Me-262 in APJ 32
+- More than 20 mm but less than 30 mm = no effect
+  - But 25 mm GAU-22/A is _ in Puma's files (special AP shell)
+- 30 mm or more = underlined (-1 modifier)
+  - Yes NR-30
+  - Not DEFA in APJ 39/44
+  - Not 30 mm GSh-30 is _ in APJ 9 but * in APJ 39
+  - Not ADEN in APJ 25/27/41/44
+  - Not 30 mm GIAT on Rafael
+  - Yes, GAU-8 in Puma's files
+  - ADEN in APJ 44 is Swedish
+  - Not Type 30-I in APJ 21
+  - Not SU-25 in Puma's files.
+  - Not MiG-27H/L Flogger J in Puma's files.
+  - But yes GSh-6-30 MiG-27 Flogger-D/J/J2 in Puma's files
+  - But yes 30 mm Oerlikon KCA for JA 37 Viggen in Kyle's files (heavier than ADEN/DEFA 30 mm)
+
+Cartridge
+ - 30 x 113 mm: ADEN, DEFA
+ - 30 x 150 mm: M 791 (Rafale)
+ - 30 x 155 mm: NR-30
+ - 30 x 165 mm: GSh-30-1/2, GSh-6-30
+ - 30 x 173 mm: GAU-8, KCA
+
+ Shell
+ - ADEN 
+  - HEHC 220g 795 m/s
+  - APCR 270g 795 m/s
+ - NR-30:
+  - HEI/AP: 410g 780 m/s
 
 ## British Guns
 
