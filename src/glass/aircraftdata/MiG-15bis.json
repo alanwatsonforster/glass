@@ -253,7 +253,7 @@
     },
     "gun": "Two 23 mm NR-23 and one 37 mm N-37",
     "gunatatohitrolls": "4/2/1",
-    "gundamagerating": "5/4*",
+    "gundamagerating": "5/4",
     "gunammunition": 3.0,
     "gunsightmodifiers": {
         "TT": 0,
