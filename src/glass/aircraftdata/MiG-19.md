@@ -8,7 +8,8 @@
 
 ### MiG-19S (Farmer-C)
 
-- [ADC](MiG-19S.json)
+- [ADC for Early variant](MiG-19S%20(Early).json)
+- [ADC for Late variant](MiG-19S%20(Late).json)
 
 
 ### MiG-19P (Farmer-B)
@@ -28,6 +29,8 @@ ADC from TSOH. NATO reporting name is Farmer-E.
 ### MiG-19S
 
 ADC from TSOH. NATO reporting name is Farmer-C.
+
+ADC for the early version created by AWF. See [#209](https://github.com/alanwatsonforster/glass/issues/209).
 
 ### MiG-19P
 

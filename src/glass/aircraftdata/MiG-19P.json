@@ -1,7 +1,7 @@
 {
     "versionname": "MiG-19P",
     "description": "The MiG-19P is an interceptor. This is a later version with two 30 mm NR-30 cannons. The NATO reporting name for the aircraft is Farmer-B and for the radar is Scan Odd.",
-    "base": "MiG-19S",
+    "base": "MiG-19S (Late)",
     "radar": {
         "name": "RP-1 Izumrud",
         "eccm": 0,

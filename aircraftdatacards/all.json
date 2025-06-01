@@ -52,7 +52,7 @@
     [ "type", "Tu-16", "Tu-16", "Tu-16A", "Tu-16KS", "Tu-16K" ],
 
     [ "comment", "March 1955" ],
-    [ "type", "MiG-19", "MiG-19S", "MiG-19P (Early)", "MiG-19P (Late)", "MiG-19PM" ],
+    [ "type", "MiG-19", "MiG-19S (Early)", "MiG-19S (Late)", "MiG-19P (Early)", "MiG-19P (Late)", "MiG-19PM" ],
 
     [ "comment", "1959" ],
     [ "type", "MiG-21", "MiG-21F", "MiG-21F-13", "MiG-21PF", "MiG-21PFM", "MiG-21FL", "MiG-21S", "MiG-21M", "MiG-21SM", "MiG-21MF", "MiG-21bis" ],
