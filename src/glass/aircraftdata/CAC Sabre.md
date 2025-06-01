@@ -21,9 +21,9 @@ The F-86A/E/F with the original slatted wing are HTD, so the Mk.30 should be too
 
 ### Fuel Tanks
 
-- Curtis (p. 114) states that the Mk.32 could carry 100 gal (450L) and 167 gal (750L) FTs (perhaps on the inner pylons).
-- Wikipedia states they could carry 200 gal (910L) FTs on the outer pylons.
+- Curtis (p. 114) states that the Mk.32 could carry 100 gal (450L) and 167 gal (760L) FTs (perhaps on the inner pylons).
 - Farquhar states that the Mk.32 could carry 100 gal FTs on the inner pylons and 167 gal FTs on the outer ones.
+- Wikipedia states they could carry 200 gal (900L) FTs on the outer pylons. This may be a confusion between US gal and imperial gal, since 167 imperial gal is about 200 US gal.
 
 ### Weight Limits
 
