@@ -11,13 +11,9 @@
                 1,
                 6
             ],
-            1300,
+            1400,
             [
-                "BB",
-                "RP",
-                "RK",
-                "FT",
-                "IRM"
+                "FT"
             ]
         ],
         [
@@ -36,6 +32,7 @@
         ]
     ],
     "loadnotes": [
+        "May use 760L FTs on stations 1 and 6.",
         "May use AA-1 BRMs and RHMs."
     ]
 }

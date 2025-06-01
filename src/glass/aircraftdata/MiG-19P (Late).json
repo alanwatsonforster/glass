@@ -17,5 +17,48 @@
     "gunatatohitrolls": "5/3/1",
     "gundamagerating": "5/6_",
     "ataradarranging": "RE",
-    "lockon": 7
+    "lockon": 7,
+    "stations": [
+        [
+            "pair",
+            [
+                1,
+                6
+            ],
+            200,
+            [
+                "IRM"
+            ]
+        ],
+        [
+            "pair",
+            [
+                2,
+                5
+            ],
+            1400,
+            [
+                "FT"
+            ]
+        ],
+        [
+            "pair",
+            [
+                3,
+                4
+            ],
+            550,
+            [
+                "BB",
+                "RP",
+                "RK",
+                "DR"
+            ]
+        ]
+    ],
+    "loadnotes": [
+        "May use 760L FTs on stations 1 and 4.",
+        "May use ORO-57K RPs on stations 2 and 3. From 1957, may use DRs each with two ORO-57K RPs on stations 2 and 3.",
+        "From 1960, may use AA-2 IRMs."
+    ]
 }

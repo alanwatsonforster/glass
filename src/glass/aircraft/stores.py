@@ -47,6 +47,7 @@ _storedict = {
     "RP/LAU-33": ["RP", 200, 2.9],  # From errata.
     "RP/LAU-37": ["RP", 850, 3.5],
     # Soviet
+    "RP/ORO-8K": ["RP", 175, 2.0],
     "RP/UV-8-57": ["RP", 175, 2.0],
     "RP/UV-16-57": ["RP", 300, 3.0],
     "RP/UV-32-57": ["RP", 500, 3.5],

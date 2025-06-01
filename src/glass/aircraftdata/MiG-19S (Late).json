@@ -284,7 +284,7 @@
     "storeslimits": [
         2,
         6,
-        3700
+        3900
     ],
     "stations": [
         [
@@ -293,13 +293,9 @@
                 1,
                 4
             ],
-            1300,
+            1400,
             [
-                "BB",
-                "RP",
-                "RK",
-                "FT",
-                "IRM"
+                "FT"
             ]
         ],
         [
@@ -318,7 +314,8 @@
         ]
     ],
     "loadnotes": [
-        "May use AA-2 IRMs."
+        "May use 760L FTs on stations 1 and 4.",
+        "May use ORO-57K RPs on stations 2 and 3. From 1957, may use DRs each with two ORO-57K RPs on stations 2 and 3."
     ],
     "VPs": [
         16,
