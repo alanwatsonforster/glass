@@ -46,6 +46,10 @@ Reconnaissance version (Wikipedia).
 
 ## Notes and Changes
 
+### NR-30 Guns
+
+See [#208](https://github.com/alanwatsonforster/glass/issues/208).
+
 ## Operational History
 
 ## Bibliography

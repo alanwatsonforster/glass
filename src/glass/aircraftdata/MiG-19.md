@@ -35,6 +35,10 @@ ADC for the Early variant created by AWF by taking the characteristics of the tw
 
 Radar in PF and PM is RP-1 Izumrud (Scan Odd) (Goebel, Wikipedia). Added in [4f73dcf](https://github.com/alanwatsonforster/apxo/commit/4f73dcfc42645ed33a15bffe35cb048e1754b6cb).
 
+### NR-30 Guns
+
+See [#208](https://github.com/alanwatsonforster/glass/issues/208).
+
 ## Operational History
 
 ## Bibliography
