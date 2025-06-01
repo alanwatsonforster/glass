@@ -1,19 +1,23 @@
 # MiG-19
 
-##Versions and Variants
+## Versions and Variants
 
-### MiG-19S
+### MiG-19 (Farmer-A)
+
+- No ADC
+
+### MiG-19S (Farmer-C)
 
 - [ADC](MiG-19S.json)
 
 
-### MiG-19P
+### MiG-19P (Farmer-B)
 
 - [ADC for Early variant](MiG-19P%20(Early).json)
 - [ADC for Late variant](MiG-19P%20(Late).json)
 
 
-### MiG-19PM
+### MiG-19PM (Farmer-E)
 
 - [ADC](MiG-19PM.json)
 
