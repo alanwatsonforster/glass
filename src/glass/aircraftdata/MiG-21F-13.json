@@ -272,8 +272,8 @@
         "lockon": 5
     },
     "gun": "One 30 mm NR-30",
-    "gunatatohitrolls": "3/2/1",
-    "gundamagerating": "3/2",
+    "gunatatohitrolls": "4/2/1",
+    "gundamagerating": "4/3_",
     "gunammunition": 2.0,
     "gunsightmodifiers": {
         "TT": 0,

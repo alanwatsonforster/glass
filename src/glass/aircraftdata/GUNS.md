@@ -30,6 +30,9 @@
 |4 × 23 mm NS-23        | 5/3/2 | 5/5 |2200|2300|23×115|Il-10|
 |**30 mm**|
 |2 × 30 mm ADEN         | 6/3/2 | 6/6  |2700|2600|30×113|CAC Sabre|
+|1 × 30 mm NR-30        | 4/2/1 | 4/3_ | 900|2550|30×155|MiG-21|
+|2 × 30 mm NR-30        | 5/3/1 | 5/6_ |1800|2550|30×155|MiG-19, J/F-6, MiG-21, Su-7|
+|3 × 30 mm NR-30        | 6/3/1 | 6/9_ |2700|2550|30×155|MiG-19, J/F-6|
 
 ## Notes
 
@@ -66,8 +69,8 @@ The AtA ratings can be found by matching total RPM. The AtG ratings seem to be 2
 
 ## Original Data from TSOH and APJ ADCs
 
-|Gun|Hit Rolls|Damage|RPM|FPS|Cartridge|Example Aircraft|
-|---|---------|------|---|---|---------|----------------|
+|Gun|Hit Rolls|Damage|RPM|FPS|Cartridge|Aircraft|
+|---|---------|------|---|---|---------|--------|
 |**.30 cal**|
 |2 × 7.62 mm GAU-2B     | 5/3/- | 2/2**|6000|2800|7.62×51|A-37B[TSOH/4]|
 |**.50 cal**|
