@@ -1,6 +1,6 @@
 {
     "versionname": "F-86F-25",
-    "description": "The North American F-86F-25 Sabre is a single-engined, swept-wing, fighter-bomber. The F-86F-25 version is derived from the F-86F-10 version and has the unslatted 6-3 wing.",
+    "description": "The North American F-86F-25 Sabre is a single-engined, swept-wing, fighter-bomber. The F-86F-25 version is derived from the F-86F-15/-20 versions, but has the unslatted 6-3 wing, which gives improved performance at altitude at a cost of higher landing and stall speed. It also has a second pair of weapon stations on the inner wing, allowing the aircraft to carry bombs or rockets in addition to a pair of 200 gal fuel tanks and giving it for the first time a useful range when used as a fighter-bomber.",
     "base": "F-86F-10",
     "origin": "APJ 25",
     "lowspeedliftdevicename": null,
@@ -118,7 +118,7 @@
     "storeslimits": [
         2,
         6,
-        4000
+        4800
     ],
     "stations": [
         [
@@ -127,10 +127,10 @@
                 1,
                 4
             ],
-            1000,
+            1400,
             [
-                "BB",
-                "FT"
+                "FT",
+                "RK"
             ]
         ],
         [
@@ -141,28 +141,17 @@
             ],
             1000,
             [
-                "BB",
                 "FT",
+                "RK",
+                "BB",
                 "IRM"
-            ]
-        ],
-        [
-            "grouppair",
-            [
-                5,
-                8,
-                9,
-                12
-            ],
-            280,
-            [
-                "RK"
             ]
         ]
     ],
     "loadnotes": [
-        "Either stations 1 to 4 or stations 5 to 12 can be used.",
-        "Stations 5 to 12 can each carry two RKs.",
+        "Stations must be loaded symmetrically.",
+        "May use 200 gal (760L) FTs on stations 1 and 4 and 120 gal (450L) FTs on stations 2 and 3.",
+        "May use four HVAR RKs on each station. If RKs are carried on stations 1 and 4, they must also be carried on stations 2 and 3.",
         "From 1958, may use AIM-9B IRMs."
     ],
     "VPs": [

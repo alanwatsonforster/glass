@@ -291,7 +291,7 @@
     "storeslimits": [
         2,
         6,
-        2000
+        2800
     ],
     "stations": [
         [
@@ -300,12 +300,18 @@
                 1,
                 2
             ],
-            1000,
+            1400,
             [
-                "BB",
-                "FT"
+                "FT",
+                "RK",
+                "BB"
             ]
         ]
+    ],
+    "loadnotes": [
+        "Stations must be loaded symmetrically.",
+        "May use 120 gal (450L) FTs. May also use 200 gal (760L) FTs, but only for ferry flights and not for combat.",
+        "May use eight HVAR RKs on each station."
     ],
     "VPs": [
         8,

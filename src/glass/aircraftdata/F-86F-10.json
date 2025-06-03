@@ -1,6 +1,6 @@
 {
     "versionname": "F-86F-10",
-    "description": "The North American F-86F-10 Sabre is a single-engined, swept-wing, day fighter. The F-86F-10 version is derived from the F-86-E version.",
+    "description": "The North American F-86F-10 Sabre is a single-engined, swept-wing, day fighter. The F-86F-10 version is derived from the F-86E version, but has a more powerful engine and a better combat range as it can carry the larger 200 gal fuel tank in combat.",
     "base": "F-86E",
     "ceilingtable": [
         48,
@@ -97,6 +97,11 @@
         "iff": true
     },
     "notes": [],
+    "loadnotes": [
+        "Stations must be loaded symmetrically.",
+        "May use 120 gal (450L) or 200 gal (760L) FTs.",
+        "May use eight HVAR RKs on each station."
+    ],
     "VPs": [
         9,
         6,

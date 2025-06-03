@@ -73,7 +73,6 @@
             ],
             1000,
             [
-                "BB",
                 "FT"
             ]
         ],
@@ -83,14 +82,17 @@
                 2,
                 3
             ],
-            1000,
+            200,
             [
-                "BB",
-                "FT"
+                "IRM"
             ]
         ]
     ],
-    "loadnotes": [],
+    "loadnotes": [
+        "Stations must be loaded symmetrically.",
+        "May use 120 gal (450L) FTs.",
+        "From 1958, may use AIM-9B IRMs."
+    ],
     "VPs": [
         11,
         8,

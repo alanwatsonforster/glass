@@ -1,6 +1,6 @@
 {
     "versionname": "F-86H",
-    "description": "The North American F-86F-40 Sabre is a single-engined, swept-wing, fighter-bomber. The F-86H version is derived from the F-86F-40 version. The “F-86H (Early)” variant has the unslatted 6-3 wing.",
+    "description": "The North American F-86H Sabre is a single-engined, swept-wing, fighter-bomber. The F-86H version is derived from the F-86F-35 version, but has a more powerful engine and four 20 mm M39 guns in place of the original six .50 cal guns. The “F-86H (Early)” variant has the unslatted 6-3 wing.",
     "variantname": "Early",
     "base": "F-86F-40",
     "origin": "APJ 25",
@@ -251,12 +251,53 @@
     "storeslimits": [
         2,
         6,
-        4400
+        5000
+    ],
+    "stations": [
+        [
+            "pair",
+            [
+                1,
+                4
+            ],
+            1400,
+            [
+                "FT"
+            ]
+        ],
+        [
+            "single",
+            [
+                2
+            ],
+            1000,
+            [
+                "FT",
+                "RK",
+                "BB",
+                "IRM"
+            ]
+        ],
+        [
+            "single",
+            [
+                3
+            ],
+            1200,
+            [
+                "FT",
+                "RK",
+                "BB",
+                "IRM"
+            ]
+        ]
     ],
     "loadnotes": [
-        "Either stations 1 to 4 or stations 5 to 12 can be used.",
-        "Stations 5 to 12 can each carry two RKs.",
-        "From 1957, may use AIM-9B IRMs."
+        "Stations must be loaded symmetrically, with the exception that a Mk 12 nuclear bomb may be carried on station 3 with a 120 gal (450L) FT on station 2.",
+        "May use 200 gal (760L) FTs on stations 1 and 4 and 120 gal (450L) FTs on stations 2 and 3.",
+        "May use four HVAR RKs on stations 2 and 3.",
+        "May use an Mk 12 nuclear bomb (weight 1200 and load 3.0) on station 3.",
+        "From 1958, may use AIM-9B IRMs."
     ],
     "VPs": [
         12,

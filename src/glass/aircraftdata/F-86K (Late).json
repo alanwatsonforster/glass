@@ -200,55 +200,10 @@
             ]
         ]
     },
-    "gun": "Four 20 mm M24",
-    "gunatatohitrolls": "6/4/3",
-    "gunatadamagerating": 5,
-    "gunammunition": 3.0,
-    "gunsightmodifiers": {
-        "TT": 0,
-        "HT": 1,
-        "BT": 2
-    },
-    "ataradarranging": "RE",
-    "storeslimits": [
-        2,
-        6,
-        4000
-    ],
     "properties": [
         "SMP"
     ],
     "notes": [],
-    "stations": [
-        [
-            "pair",
-            [
-                1,
-                4
-            ],
-            1000,
-            [
-                "BB",
-                "FT"
-            ]
-        ],
-        [
-            "pair",
-            [
-                2,
-                3
-            ],
-            1000,
-            [
-                "BB",
-                "FT",
-                "IRM"
-            ]
-        ]
-    ],
-    "loadnotes": [
-        "From 1958, may use AIM-9B IRMs."
-    ],
     "VPs": [
         12,
         9,
