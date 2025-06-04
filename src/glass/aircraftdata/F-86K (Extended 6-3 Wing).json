@@ -1,8 +1,8 @@
 {
     "versionname": "F-86K",
-    "variantname": "Late",
-    "description": "The North American F-86K Sabre-Dog is a single-engined, swept-wing, all-weather interceptor. The F-86K version is a derivative of the F-86D and has four 20 mm Mk24 cannons in place of the rocket armament of the earlier version and the simpler MG-4 fire-control system. The “F-86K (Late)” variant has the slatted 6-3 wing.",
-    "base": "F-86K (Early)",
+    "variantname": "Extended 6-3 Wing",
+    "description": "The North American F-86K Sabre-Dog is a single-engined, swept-wing, all-weather interceptor. The F-86K version is a derivative of the F-86D and has four 20 mm Mk24 cannons in place of the rocket armament of the earlier version and the simpler MG-4 fire-control system. The “F-86K (Extended 6-3 Wing)” variant has the slatted, extended 6-3 wing.",
+    "base": "F-86K",
     "origin": "APJ 25",
     "lowspeedliftdevicename": null,
     "turndragtable": {

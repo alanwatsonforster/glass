@@ -1,14 +1,10 @@
 {
-    "versionname": "CAC Sabre Mk.30",
-    "description": "The CAC Sabre Mk.30 is a day fighter and fighter-bomber. It is also known as the Avon Sabre. The Mk.30 is derived from the North American F-86F Sabre, has the early slatted wing, and uses the more powerful and lighter Rolls-Royce Avon 20 engine instead of the General Electric J47.",
-    "base": "CAC Sabre Mk.31",
-    "properties": [
-        "HTD"
-    ],
-    "lowspeedliftdevicelimit": 3.5,
-    "lowspeedliftdevicelimittype": "absolute",
-    "lowspeedliftdevicename": "leading-edge slats",
-    "lowspeedliftdeviceturndragtable": {
+    "versionname": "F-86F",
+    "variantname": "6-3 Wing",
+    "description": "The North American F-86F Sabre is a single-engined, swept-wing, day fighter. The F-86F described here corresponds to the F-86F-1/5/10/15/20 blocks. It is derived from the F-86E, but has a more powerful engine and a better combat range as (with the exception of the very few F-1s) they can carry the larger 200 gal fuel tank in combat. This “F-86F (6-3 Wing)” variant is modified with the unslatted 6-3 wing, which gives better maneuverability at altitude but raises the landing and stall speed.",
+    "base": "F-86F",
+    "lowspeedliftdevicename": null,
+    "turndragtable": {
         "TT": [
             0.0,
             1.0,
@@ -25,32 +21,15 @@
             3.0
         ]
     },
-    "turndragtable": {
-        "TT": [
-            0.0,
-            1.0,
-            1.0
-        ],
-        "HT": [
-            1.0,
-            1.0,
-            1.0
-        ],
-        "BT": [
-            1.0,
-            2.0,
-            2.0
-        ]
-    },
     "speedtable": {
         "EH": [
             [
-                3.0,
-                6.0
+                2.5,
+                5.5
             ],
             [
-                3.0,
-                5.0
+                "-",
+                "-"
             ],
             [
                 "-",
@@ -60,11 +39,11 @@
         ],
         "VH": [
             [
-                3.0,
+                2.5,
                 6.0
             ],
             [
-                3.0,
+                2.5,
                 5.0
             ],
             [
@@ -75,15 +54,15 @@
         ],
         "HI": [
             [
-                2.5,
+                2.0,
                 6.0
             ],
             [
-                3.0,
+                2.5,
                 5.5
             ],
             [
-                3.0,
+                2.5,
                 5.0
             ],
             7.0
@@ -99,13 +78,13 @@
             ],
             [
                 2.5,
-                5.5
+                5.0
             ],
             7.0
         ],
         "ML": [
             [
-                1.5,
+                2.0,
                 6.5
             ],
             [
@@ -121,17 +100,19 @@
         "LO": [
             [
                 1.5,
-                7.0
-            ],
-            [
-                1.5,
                 6.5
             ],
             [
-                2.0,
+                1.5,
                 6.0
+            ],
+            [
+                2.0,
+                5.5
             ],
             7.5
         ]
-    }
+    },
+    "properties:comment": "Not HTD.",
+    "properties": []
 }

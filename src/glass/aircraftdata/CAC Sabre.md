@@ -15,9 +15,9 @@ ADCs for the Mk.31/32 appear in APJ 25.
 
 ### Mk.30
 
-The Mk.31 has the unslatted 6-3 wing. The Mk.30 is essentially a Mk.31 with the earlier slatted wing (Wikipedia). The minimum speeds and turn drags of the Mk.31 match those of the F-86F-25, which also has the unslatted 6-3 wing. This suggests that we can create an ADC for the Mk.30 by modifying that of the Mk-31 with the minimum speeds and turn drag of the F-86F-10. Added in [30c23b1](https://github.com/alanwatsonforster/glass/commit/30c23b11cc4ed029e767ed874b547de33682565e).
+The Mk.31 has the unslatted 6-3 wing. The Mk.30 is essentially a Mk.31 with the earlier slatted wing (Wikipedia). The minimum speeds and turn drags of the Mk.31 match those of the F-86F-25, which also has the unslatted 6-3 wing. This suggests that we can create an ADC for the Mk.30 by modifying that of the Mk-31 with the minimum speeds and turn drag of the F-86F. Added in [30c23b1](https://github.com/alanwatsonforster/glass/commit/30c23b11cc4ed029e767ed874b547de33682565e).
 
-The F-86A/E/F with the original slatted wing are HTD, so the Mk.30 should be too.
+The F-86A/E/F with the early slatted wing are HTD, so the Mk.30 should be too.
 
 ### Fuel Tanks
 

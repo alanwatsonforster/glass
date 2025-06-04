@@ -30,7 +30,7 @@ One built as an test-bed for the Orenda engine.
 
 Essentially an F-86E-10 (Goebel, Wikipedia). Some refitted with the 6-3 wing from 1954 in RAF service (Curtis. p. 154) or before being transferred to other users. Known as the “Sabre F.4” in RAF service.
 
-To create the “Sabre Mk.4 (6-3 Wing)”, we can compare the F-86F-10 (original wing) and F-86F-25 (unslatted 6-3 wing):
+To create the “Sabre Mk.4 (6-3 Wing)”, we can compare the F-86F (original wing) and F-86F-25 (unslatted 6-3 wing):
 - Use turn drag from the F-25
 - Use the speeds from the F-25
 - No longer HTD

@@ -1,25 +1,55 @@
 {
-  "versionname": "MiG-21F",
-  "description": "The Mikoyan-Gurevich MiG-21F is a day fighter. This is the first production version with two NR-30 cannons, but without a search radar or missile armament. The NATO reporting name for the aircraft is Fishbed-B and for the radar is High Fix.",
-  "origin": "AMW",
-  "base": "MiG-21F-13",
-  "radar": {
-    "name": "SRD-5MN Baza-6",
-    "eccm": 0,
-    "arc": "Limited",
-    "trackingrange": 10,
-    "trackingstrength": 6,
-    "lockon": 5
-  },
-  "storeslimits": [ 2, 4, 2200 ],
-  "gun": "Two 30 mm NR-30",
+    "versionname": "MiG-21F",
+    "description": "The Mikoyan-Gurevich MiG-21F is a day fighter. This is the first production version with two NR-30 cannons, but without a search radar or missile armament. The NATO reporting name for the aircraft is Fishbed-B and for the radar is High Fix.",
+    "origin": "AMW",
+    "base": "MiG-21F-13",
+    "radar": {
+        "name": "SRD-5MN Baza-6",
+        "eccm": 0,
+        "arc": "Limited",
+        "trackingrange": 10,
+        "trackingstrength": 6,
+        "lockon": 5
+    },
+    "storeslimits": [
+        2,
+        4,
+        2200
+    ],
+    "gun": "Two 30 mm NR-30",
     "gunatatohitrolls": "5/3/1",
     "gundamagerating": "5/6_",
-  "stations": [
-    [ "pair"  , [ 1, 3 ],  550, [ "BB", "RP", "RK", "DR" ] ],
-    [ "single", [ 2 ]   , 1100, [ "FT" ] ]
-  ],
-  "loadnotes": [
-  ],
-  "VPs": [ 14, 8, 4, 1 ]
+    "stations": [
+        [
+            "pair",
+            [
+                1,
+                3
+            ],
+            550,
+            [
+                "BB",
+                "RP",
+                "RK",
+                "DR"
+            ]
+        ],
+        [
+            "single",
+            [
+                2
+            ],
+            1100,
+            [
+                "FT"
+            ]
+        ]
+    ],
+    "loadnotes": [],
+    "VPs": [
+        14,
+        8,
+        4,
+        1
+    ]
 }
