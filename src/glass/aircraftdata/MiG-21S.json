@@ -1,6 +1,6 @@
 {
     "versionname": "MiG-21S",
-    "description": "The Mikoyan-Gurevich MiG-21S is an all-weather interceptor. It is equipped with the RP-22 radar and is able to use the AA-2 IRMs and RHMs and AA-1 BRMs. It has internal guns, but is able to mount a GP-9 gun pod. THE NATO reporting name for the aircraft is Fishbed-J and for the radar is Jay Bird.",
+    "description": "The Mikoyan-Gurevich MiG-21S is an all-weather interceptor. It is equipped with the RP-22 radar and is able to use the AA-2 IRMs and RHMs and AA-1 BRMs. It has internal guns, but is able to mount a GP-9 gun pod. The NATO reporting name for the aircraft is Fishbed-J and for the radar is Jay Bird.",
     "base": "MiG-21SM",
     "powertable": {
         "AB": [
