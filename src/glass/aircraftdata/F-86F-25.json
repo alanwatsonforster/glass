@@ -1,8 +1,8 @@
 {
     "versionname": "F-86F-25",
     "variantname": null,
-    "description": "The North American F-86F-25 Sabre is a single-engined, swept-wing, fighter-bomber. The F-86F-25 is derived from the F-86F-15/20, but has a second pair of weapon stations on the inner wing, allowing the aircraft to carry bombs or rockets in addition to a pair of 200 gal fuel tanks and giving it for the first time a useful range when used as a fighter-bomber. This variant is the original, with the early slatted wing.",
-    "base": "F-86F",
+    "description": "The North American F-86F-25 Sabre is a single-engined, swept-wing, fighter-bomber. The F-86F-25 is derived from the F-86F-15/20, but has a second pair of weapon stations on the inner wing, allowing the aircraft to carry bombs or rockets in addition to a pair of 200 gal fuel tanks and giving it for the first time a useful range when used as a fighter-bomber. The F-86F-30 is similar. This variant is the original, with the early slatted wing.",
+    "base": "F-86F-10",
     "storeslimits": [
         2,
         6,

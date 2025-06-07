@@ -1,0 +1,20 @@
+{
+    "versionname": "F-86F-5",
+    "description": "The North American F-86F Sabre is a single-engined, swept-wing, day fighter. The F-86F-5 is derived from the F-86E, and gains a more powerful engine and a better combat range as they can carry the larger 200 gal fuel tank in combat. This variant is the original with the early slatted wing.",
+    "base": "F-86F-1",
+    "ecm": {
+        "iff": true
+    },
+    "notes": [],
+    "loadnotes": [
+        "Stations must be loaded symmetrically.",
+        "The F-86F-5 may use 120 gal (450L) or 200 gal (760L) FTs.",
+        "May use eight HVAR RKs on each station."
+    ],
+    "VPs": [
+        9,
+        6,
+        3,
+        1
+    ]
+}

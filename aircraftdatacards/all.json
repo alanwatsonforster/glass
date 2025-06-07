@@ -99,7 +99,7 @@
     [ "type", "F9F Panther", "F9F-2", "F9F-2P", "F9F-2B", "F9F-5", "F9F-5P" ],
 
     [ "comment", "1949" ],
-    [ "type", "F-86 Sabre", "F-86A", "F-86D", "F-86E", "F-86F", "F-86F (6-3 Wing)", "F-86F-25", "F-86F-25 (6-3 Wing)", "F-86F-35", "F-86F-35 (6-3 Wing)", "F-86F-40", "F-86H", "F-86H (Extended 6-3 Wing)", "F-86K", "F-86K (Extended 6-3 Wing)", "F-86L" ],
+    [ "type", "F-86 Sabre", "F-86A", "F-86D", "F-86E", "F-86F-1", "F-86F-1 (6-3 Wing)", "F-86F-5", "F-86F-5 (6-3 Wing)", "F-86F-10", "F-86F-10 (6-3 Wing)", "F-86F-25", "F-86F-25 (6-3 Wing)", "F-86F-35", "F-86F-35 (6-3 Wing)", "F-86F-40", "F-86H", "F-86H (Extended 6-3 Wing)", "F-86K", "F-86K (Extended 6-3 Wing)", "F-86L" ],
 
     [ "comment", "May 1950" ],
     [ "type", "F-94 Starfire", "F-94A", "F-94B" ],

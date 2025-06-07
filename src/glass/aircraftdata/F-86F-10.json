@@ -1,0 +1,10 @@
+{
+    "versionname": "F-86F-10",
+    "variantname": null,
+    "description": "The North American F-86F-10 Sabre is a single-engined, swept-wing, fighter-bomber. The F-86F-10 is derived from the F-86F-5, but has the improved A-4 gunsight. The F-86F-15/20 are similar. This variant is the original, with the early slatted wing.",
+    "base": "F-86F-5",
+    "radar": {
+        "name": "APG-30",
+        "lockon": 7
+    }
+}

@@ -1,9 +1,8 @@
 {
-    "versionname": "F-86F-25",
+    "versionname": "F-86F-1",
     "variantname": "6-3 Wing",
-    "description": "The North American F-86F-25 Sabre is a single-engined, swept-wing, fighter-bomber. The F-86F-25 is derived from the F-86F-15/20, but has a second pair of weapon stations on the inner wing, allowing the aircraft to carry bombs or rockets in addition to a pair of 200 gal fuel tanks and giving it for the first time a useful range when used as a fighter-bomber. The F-86F-30 is similar.  The “F-86F-25 (6-3 Wing)” variant is a late-production or modified aircraft with the unslatted 6-3 wing, which gives better maneuverability at altitude but raises the landing and stall speed.",
-    "base": "F-86F-10",
-    "origin": "APJ 25",
+    "description": "The North American F-86F Sabre is a single-engined, swept-wing, day fighter. The F-86F-1 is derived from the F-86E, but gains a more powerful engine. This “F-86F-10 (6-3 Wing)” variant is modified with the unslatted 6-3 wing, which gives better maneuverability at altitude but raises the landing and stall speed.",
+    "base": "F-86F-1",
     "lowspeedliftdevicename": null,
     "turndragtable": {
         "TT": [
@@ -115,50 +114,5 @@
         ]
     },
     "properties:comment": "Not HTD.",
-    "properties": [],
-    "storeslimits": [
-        2,
-        6,
-        4800
-    ],
-    "stations": [
-        [
-            "pair",
-            [
-                1,
-                4
-            ],
-            1400,
-            [
-                "FT",
-                "RK"
-            ]
-        ],
-        [
-            "pair",
-            [
-                2,
-                3
-            ],
-            1000,
-            [
-                "FT",
-                "RK",
-                "BB",
-                "IRM"
-            ]
-        ]
-    ],
-    "loadnotes": [
-        "Stations must be loaded symmetrically.",
-        "May use 200 gal (760L) FTs on stations 1 and 4 and 120 gal (450L) FTs on stations 2 and 3.",
-        "May use four HVAR RKs on each station. If RKs are carried on stations 1 and 4, they must also be carried on stations 2 and 3.",
-        "From 1958, may use AIM-9B IRMs."
-    ],
-    "VPs": [
-        9,
-        6,
-        3,
-        1
-    ]
+    "properties": []
 }
