@@ -1,7 +1,7 @@
 {
     "versionname": "Canadair Sabre Mk.6",
     "variantname": "Slatted 6-3 Wing",
-    "description": "The Canadair Sabre Mk.6 is a day fighter. It is a development of the Mk.5 with a more powerful Orenda 14 engine. The “Slatted 6-3 Wing” variant has the slatted 6-3 wing in place of the unslatted 6-3 wing of the original Mk.6.",
+    "description": "The Canadair Sabre Mk.6 is a day fighter. It is a development of the Mk.5 with a more powerful Orenda 14 engine. This variant has the slatted 6-3 wing in place of the unslatted 6-3 wing of the original Mk.6.",
     "base": "Canadair Sabre Mk.6",
     "origin": "APJ 25",
     "lowspeedliftdevicelimit": 3.5,

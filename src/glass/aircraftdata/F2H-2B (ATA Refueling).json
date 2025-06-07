@@ -1,7 +1,7 @@
 {
     "versionname": "F2H-2B",
     "variantname": "ATA Refueling",
-    "description": "The McDonnell F2H-2B Banshee is a fighter-bomber and tactical nuclear bomber. It has two engines, straight wings, and is carrier-capable. It is a development of the F2H-2 with provision for a nuclear bomb on its port inner-wing weapon station. The “ATA Refueling” variant described here has an air-to-air refueling probe fitted in place of the upper starboard cannon.",
+    "description": "The McDonnell F2H-2B Banshee is a fighter-bomber and tactical nuclear bomber. It has two engines, straight wings, and is carrier-capable. It is a development of the F2H-2 with provision for a nuclear bomb on its port inner-wing weapon station. This variant has an air-to-air refueling probe fitted in place of the upper starboard cannon.",
     "base": "F2H-2B",
     "atarefuel": true,
     "gun": "Three 20 mm Mk 3",

@@ -1,8 +1,8 @@
 {
-    "versionname": "F-86F-5",
+    "versionname": "F-86F",
     "variantname": "6-3 Wing",
-    "description": "The North American F-86F Sabre is a single-engined, swept-wing, day fighter. The F-86F-5 is derived from the F-86E, and gains a more powerful engine and a better combat range as they can carry the larger 200 gal fuel tank in combat. This variant is modified with the unslatted 6-3 wing, which gives better maneuverability at altitude but raises the landing and stall speed.",
-    "base": "F-86F-1",
+    "description": "The North American F-86F Sabre is a single-engined, swept-wing, day fighter. The F-86F described here corresponds to the F-86F-1/5/10/15/20 blocks. It is derived from the F-86E, but has a more powerful engine and a better combat range as (with the exception of the very few F-1s) they can carry the larger 200 gal fuel tank in combat. This variant is modified with the unslatted 6-3 wing, which gives better maneuverability at altitude but raises the landing and stall speed.",
+    "base": "F-86F",
     "lowspeedliftdevicename": null,
     "turndragtable": {
         "TT": [

@@ -1,7 +1,7 @@
 {
     "versionname": "Il-10",
     "variantname": "Late",
-    "description": "The Ilyushin Il-10 is a propeller-driven close support aircraft. The “Late” version is equipped with four 23 mm NS-23 cannons in the wings and a defensive ventral 20 mm B-20 cannon. The NATO reporting name is Beast.",
+    "description": "The Ilyushin Il-10 is a propeller-driven close support aircraft. This variant is equipped with four 23 mm NS-23 cannons in the wings and a defensive ventral 20 mm B-20 cannon. The NATO reporting name is Beast.",
     "base": "Il-10",
     "gun": "Four 23 mm NS-23",
     "gunatatohitrolls": "5/3/2",

@@ -1,7 +1,7 @@
 {
     "versionname": "F-86F-10",
     "variantname": "6-3 Wing",
-    "description": "The North American F-86F-10 Sabre is a single-engined, swept-wing, fighter-bomber. The F-86F-10 is derived from the F-86F-5, but has the improved A-4 gunsight. The F-86F-15/20 are similar. This “F-86F-10 (6-3 Wing)” variant is modified with the unslatted 6-3 wing, which gives better maneuverability at altitude but raises the landing and stall speed.",
+    "description": "The North American F-86F-10 Sabre is a single-engined, swept-wing, fighter-bomber. The F-86F-10 is derived from the F-86F-5, but has the improved A-4 gunsight. The F-86F-15/20 are similar. This variant is modified with the unslatted 6-3 wing, which gives better maneuverability at altitude but raises the landing and stall speed.",
     "base": "F-86F-10",
     "lowspeedliftdevicename": null,
     "turndragtable": {

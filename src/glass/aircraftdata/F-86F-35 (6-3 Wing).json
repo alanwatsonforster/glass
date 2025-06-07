@@ -1,7 +1,7 @@
 {
     "versionname": "F-86F-35",
     "variantname": "6-3 Wing",
-    "description": "The North American F-86F-35 Sabre is a single-engined, swept-wing, fighter-bomber, and tactical nuclear bomber. The F-86F-35 is similar to the F-86F-25 but the inner left weapon station is reinforced to allow carriage of a Mk 12 nuclear bomb and the aircraft is equipped with the LABS system to allow toss bombing. The “F-86F-35 (6-3 Wing)” variant is fitted with the unslatted 6-3 wing, which gives better maneuverability at altitude but raises the landing and stall speed.",
+    "description": "The North American F-86F-35 Sabre is a single-engined, swept-wing, fighter-bomber, and tactical nuclear bomber. The F-86F-35 is similar to the F-86F-25 but the inner left weapon station is reinforced to allow carriage of a Mk 12 nuclear bomb and the aircraft is equipped with the LABS system to allow toss bombing. This variant is fitted with the unslatted 6-3 wing, which gives better maneuverability at altitude but raises the landing and stall speed.",
     "base": "F-86F-25 (6-3 Wing)",
     "storeslimits": [
         2,
