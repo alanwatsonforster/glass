@@ -46,7 +46,7 @@ def isvalidaltitudecarry(value):
     :return: ``True`` if the value is a valid altitude cary.
     """
 
-    return isinstance(value, (int, float)) and value <= x and value < 1
+    return isinstance(value, (int, float)) and 0 <= value and value < 1
 
 
 def checkisvalidaltitude(value):
