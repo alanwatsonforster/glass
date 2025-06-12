@@ -64,7 +64,7 @@ The `airstrike` style has terrain colors of light green, light brown, and medium
 
 <img src="../../../maps/map-sheets-A2B1B2-airstrike.png" width="100%"/>
 
-###ew Base Map Styles
+### Base Map Styles
 
 The `water`, `temperate`, `temperateforest`, `tundra`, `borealforest`, `tropical`, `tropicalforest`, `arid`, and `desert` styles have color schemes and terrain adaptations appropriate for a range of different terrains.
 

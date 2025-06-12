@@ -1,3 +1,13 @@
+"""
+The :mod:`glass.mapstyle` module contains functions to style maps. Styling
+determines how a map is rendered graphically and also can modify the terrain
+elements.
+
+For a discussion of the available styles, see :doc:`../usermanual/mapstyle` in
+the user manual.
+
+"""
+
 ################################################################################
 
 __all__ = ["getstyle", "styleterrain"]
@@ -14,7 +24,7 @@ def getstyle(stylename):
     :param stylename: The stylename argument must be a string corresponding to a
         style. It can be "airstrike", "airsuperiority", or one of the following
         optionally prefixed by "snowy" or "frozen" and optionally suffixed by
-        "hills", "plain", or "islands:  "water", "temperate", "temperateforest",
+        "hills", "plain", or "islands":  "water", "temperate", "temperateforest",
         "tundra", "borealforest", "tropical", "tropicalforest", "arid", and
         "desert".
 
@@ -441,18 +451,20 @@ for style in list(_style.keys()):
 ################################################################################
 
 
-def styleterrain(newterrain, style):
+def styleterrain(terrain, style):
     """
     Return a styled terrain object.
 
     :param terrain: The terrain parameter must be a terrain object.
 
-    :param style: The style paremeter must be a style object.
+    :param style: The style parmeter must be a style object.
 
     :returns: A new terrain object based on the terrain argument and modified
         according to the wilderness, water, forest, maxurbansize, and
         leveloffset values of the style argument.
     """
+
+    newterrain = terrain.copy()
 
     wilderness = style["wilderness"]
     water = style["water"]
