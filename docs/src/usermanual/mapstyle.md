@@ -46,7 +46,7 @@ Each map sheet is defined in terms of the following elements:
 * small and large bridges; and
 * runways, taxiways, tunnels, docks, and dams.
 
-When drawing map sheets, certain of these elements can be excluded or modified according to the map style. For example, the `tundra` style excludes forest hexes.
+When drawing map sheets, certain of these elements can be excluded or modified according to the map style. For example, the `tundra` style excludes forest hexes. In particular, when a style is described as *wilderness*, it excludes: villages, towns, cities, roads, trails, road clearings, bridges, runways, taxiways, tunnels, docks, and dams.
 
 ## Catalog of Styles
 
@@ -82,11 +82,11 @@ The `temperateforest` style is intended to represent forested terrain in tempera
 
 <img src="../../../maps/map-sheets-A2B1B2-temperateforest.png" width="100%"/>
 
-The `tundra` style is intended to represent the treeless tundra of northern North America, Europe, and Asia. The colors are the same greens as temperate. It is drawn as a wilderness with no urban hexes. 
+The `tundra` style is intended to represent the treeless tundra of northern North America, Europe, and Asia. The colors are the same greens as temperate. It is drawn as wilderness. 
 
 <img src="../../../maps/map-sheets-A2B1B2-tundra.png" width="100%"/>
 
-The `borealforest` style is intended to represent the boreal forest or taiga of northern North America, Europe, and Asia. The terrain colors are the same greens as the tropical style. It is drawn as a wilderness with no urban hexes and all forest.  
+The `borealforest` style is intended to represent the boreal forest or taiga of northern North America, Europe, and Asia. The terrain colors are the same greens as the tropical style. It is drawn as a wilderness and all forest.  
 
 <img src="../../../maps/map-sheets-A2B1B2-borealforest.png" width="100%"/>
 
@@ -102,7 +102,7 @@ The `arid` style is intended to represent more arid terrain. The terrain colors 
 
 <img src="../../../maps/map-sheets-A2B1B2-arid.png" width="100%"/>
 
-The `desert` style uses the same colors as the arid style, but is drawn as a wilderness with no urban hexes and no rivers. 
+The `desert` style uses the same colors as the arid style, but is drawn as a wilderness and with no rivers. 
 
 <img src="../../../maps/map-sheets-A2B1B2-desert.png" width="100%"/>
 
