@@ -252,6 +252,7 @@ def setupmap(
     levelincrement=1,
     rotation=0,
     outlinesheets=False,
+    sheetset="default",
 ):
     """
     Set up the map.
@@ -347,21 +348,23 @@ def setupmap(
     _rightedgeisinternal = {}
     for iy in range(0, _nysheetgrid):
         for ix in range(0, _nxsheetgrid):
-            sheet = _sheetgrid[iy][ix]
-            if sheet not in blanksheets:
+            fullsheet = _sheetgrid[iy][ix]
+            if fullsheet not in blanksheets:
+                sheet = fullsheet.split("/")[-1]
+                _sheetgrid[iy][ix] = sheet
                 if sheet in _sheetlist:
                     raise RuntimeError("sheet %s is used more than once." % sheet)
                 _sheetlist.append(sheet)
                 _loweredgeisinternal |= {sheet: iy != 0 and _sheetgrid[iy - 1][ix] not in blanksheets}
                 _rightedgeisinternal |= {sheet: ix != _nxsheetgrid - 1 and _sheetgrid[iy][ix + 1] not in blanksheets}
                 try:
-                    terrain = _loadterrain(sheet)
+                    terrain = _loadterrain(fullsheet)
                 except:
-                    raise RuntimeError("invalid sheet %s." % sheet)
+                    raise RuntimeError("invalid sheet %s." % fullsheet)
                 if _generation is None:
                     _generation = terrain["generation"]
                 elif _generation != terrain["generation"]:
-                    raise RuntimeError("invalid sheet %s." % sheet)
+                    raise RuntimeError("invalid sheet %s." % fullsheet)
                 if sheet in invertedsheets:
                     terrain = _invertterrain(terrain)
                 terrain = glass.mapstyle.styleterrain(terrain, _style)
@@ -401,16 +404,16 @@ def setupmap(
 ################################################################################
 
 
-def _loadterrain(sheet):
-    """ "
+def _loadterrain(fullsheet):
+    """
     Load a terrain object from a file and return it.
 
-    :param sheet: The sheet parameter is the sheet name. It must be a string and
-        correspond to a valid sheet.
+    :param fullsheet: The fullsheet parameter is the full sheet name, including
+        any subdirectories. It must be a string and correspond to a valid sheet.
 
     :returns: The terrain object for the sheet.
     """
-    filename = os.path.join(os.path.dirname(__file__), "mapsheetdata", sheet + ".json")
+    filename = os.path.join(os.path.dirname(__file__), "mapsheetdata", fullsheet + ".json")
     with open(filename, "r", encoding="utf-8") as f:
         terrain = json.load(f)
     return terrain
