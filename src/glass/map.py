@@ -200,6 +200,11 @@ _saved = False
 
 _rotation = 0
 
+"""
+Whether to outline the sheets.
+"""
+_outlinesheets = False
+
 ridgewidth = 14 / 72
 roadwidth = 5 / 72
 dockwidth = 5 / 72
@@ -246,6 +251,7 @@ def setupmap(
     leveloffset=0,
     levelincrement=1,
     rotation=0,
+    outlinesheets=False,
 ):
     """
     Set up the map.
@@ -296,6 +302,9 @@ def setupmap(
 
     global _dotsperhex
     _dotsperhex = dotsperhex
+
+    global _outlinesheets
+    _outlinesheets = outlinesheets
 
     global _rotation
     _rotation = rotation
@@ -1142,6 +1151,25 @@ def startdrawmap(
                     ymax,
                     linecolor=None,
                     fillcolor=level0color,
+                )
+
+
+    # Draw sheet borders.
+
+    if _outlinesheets:
+        for iy in range(0, _nysheetgrid):
+            for ix in range(0, _nxsheetgrid):
+                xmin = ix * _dxsheet
+                xmax = xmin + _dxsheet
+                ymin = iy * _dysheet
+                ymax = ymin + _dysheet
+                glass.draw.drawrectangle(
+                    xmin,
+                    ymin,
+                    xmax,
+                    ymax,
+                    linecolor=hexcolor,
+                    fillcolor=None,
                 )
 
     glass.draw.setcompactstacks(compactstacks)
