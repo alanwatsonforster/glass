@@ -569,7 +569,7 @@ def startdrawmap(
 
     def drawpaths(sheet, paths, **kwargs):
         for path in paths:
-            xy = [pathpointtoxy(sheet, *hxy) for hxy in path]
+            xy = [pathpointtoxy(sheet, pathpoint) for pathpoint in path]
             # Do not use the naive isnearcanvas optimization used above in
             # drawhexes, as paths can cross the canvas without their endpoints
             # being near to it.
@@ -1307,8 +1307,16 @@ def isonmap(x, y):
     return tosheet(x, y) != None
 
 
-def pathpointtoxy(sheet, label, dx, dy):
-    x0, y0 = glass.hexcode.toxy("%s-%s" % (sheet, label))
+def pathpointtoxy(sheet, pathpoint):
+    if isinstance(pathpoint, str):
+        hexcode = pathpoint
+        dx = 0
+        dy = 0
+    else:
+        hexcode = pathpoint[0]
+        dx = pathpoint[1]
+        dy = pathpoint[2]
+    x0, y0 = glass.hexcode.toxy("%s-%s" % (sheet, hexcode))
     return x0 + dx, y0 + dy
 
 
@@ -1482,8 +1490,8 @@ def crossesridgeline(x0, y0, x1, y1):
         """
         i = 0
         while i < len(ridgepath) - 1:
-            r = point(*pathpointtoxy(sheet, *ridgepath[i + 0]))
-            s = point(*pathpointtoxy(sheet, *ridgepath[i + 1]))
+            r = point(*pathpointtoxy(sheet, ridgepath[i + 0]))
+            s = point(*pathpointtoxy(sheet, ridgepath[i + 1]))
             if intersect(p, q, r, s):
                 return True
             i += 1
