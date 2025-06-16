@@ -286,7 +286,7 @@ def setupmap(
         ``"temperate"``, ``"temperateforest"``, ``"tundra"``,
         ``"borealforest"``, ``"tropical"``, ``"tropicalforest"``, ``"arid"``, or
         ``"desert"``), or one of the base styles with an optional prefix
-        (``"snowy"`` or ``"frozen"``) and an optional suffix (``"hills"``,
+        (``"snowy"`` or ``"frozen"``) and an optional suffix (``"lowlands"``,
         ``"plain"``, or ``"islands"``).
 
     :param leveloffset:

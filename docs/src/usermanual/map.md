@@ -17,7 +17,7 @@ First, let's remind ourselves of the two generations of original map sheets. The
 *Air Strike* came with six map sheets, labeled E to J. Again, Barbie Pratt designed the sheets for GDW.
 They are the same size and have the same hex labeling as the Air Superiority map sheets.
 
-The style is typical of GDW games of the epoch. The terrain is light green, with hills shown in two shades of brown, with the darker shade indicating higher elevation. The contrast is high. Villages are shown as block buildings on the terrain, and towns are shown as a continuous texture against a gray background. The maps include airfields, rail yards, docks, bridges, and a tunnel.
+The style is typical of GDW games of the epoch. The terrain is light green, with lowlands shown in two shades of brown, with the darker shade indicating higher elevation. The contrast is high. Villages are shown as block buildings on the terrain, and towns are shown as a continuous texture against a gray background. The maps include airfields, rail yards, docks, bridges, and a tunnel.
 
 Sheets F to J are all land. Sheet E has a shoreline on two sides. The color of the water matches the blue used in the Air Superiority maps, so these can be used to extend the map offshore. Apart from this, as long as the sheets are arranged so that long edges abut other long edges and short edges abut other short edges, the terrain features flow from one sheet to the other.
 
@@ -37,7 +37,7 @@ These sheets are largely compatible with the Air Strike map sheets. One minor ex
 
 *The Speed of Heat* came with six map sheets, labeled A1, A2, B1, B2, C1, and C2. Rick Barber designed the sheets for Clash of Arms. These second-generation sheets are smaller than the first-generation map sheets, being 15 hexes high and 20 hexes wide (5.0 by 5.8 miles). 
 
-The design is recognizable as a development of the GDW style. The lowest terrain is shown in light green and the first level of hills in brown, but a second level of hills is added in a medium green. These maps have a lot more texture, for example, in the farmland, rivers, forests, and buildings. Villages, towns, and cities no longer seem to have distinct representations.
+The design is recognizable as a development of the GDW style. The lowest terrain is shown in light green and the first level of lowlands in brown, but a second level of lowlands is added in a medium green. These maps have a lot more texture, for example, in the farmland, rivers, forests, and buildings. Villages, towns, and cities no longer seem to have distinct representations.
 
 All the sheets show terrain. As befitting its subject, the urban area and river in map sheet A2 represent Hanoi and the Red River.
 

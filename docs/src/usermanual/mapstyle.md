@@ -111,11 +111,11 @@ The `desert` style uses the same colors as the arid style, but is drawn as a wil
 Additional derived styles can be adapted from any of the base styles by applying a prefix and/or a suffix.
 
 - The possible prefixes are `snowy` or `frozen`.
-- The possible suffixes are `hills`, `plain`, or `islands`.
+- The possible suffixes are `lowlands`, `plain`, or `islands`.
 
 The `snowy` prefix changes the color of the land to shades of gray, from almost white to a light gray, to represent snow. The `frozen` prefix is like `snowy`, but also draws fresh water in the same color as land, to represent frozen water.
 
-The `hills` suffix reduces the height of elevated hexes and ridges by 1 level. Thus, ridges at level 0 are eliminated, hexes and ridges at level 1 become hexes and ridges at level 0, and hexes and ridges at level 2 become hexes and ridges at level 1. The `plain` suffix eliminates elevated hexes and ridges.
+The `lowlands` suffix reduces the height of elevated hexes and ridges by 1 level. Thus, ridges at level 0 are eliminated, hexes and ridges at level 1 become hexes and ridges at level 0, and hexes and ridges at level 2 become hexes and ridges at level 1. The `plain` suffix eliminates elevated hexes and ridges.
 
 The `islands` suffix replaces level 0 hexes by water, converts level 1 hexes and ridges into level 0 hexes and ridges, converts level 2 hexes and ridges into level 1 hexes and ridges, and eliminates roads and dams.
 
@@ -133,9 +133,9 @@ The `frozenborealforest` style could represent winter boreal forest or taiga.
 
 <img src="../../../maps/map-sheets-A2B1B2-frozenborealforest.png" width="100%"/>
 
-The `deserthills` style could represent desert, but with low relief.
+The `desertlowlands` style could represent desert, but with low relief.
 
-<img src="../../../maps/map-sheets-A2B1B2-deserthills.png" width="100%"/>
+<img src="../../../maps/map-sheets-A2B1B2-desertlowlands.png" width="100%"/>
 
 The `tropicalplain` style could represent the area around Hanoi and other parts of the Red River Valley in scenarios V-5, V-6, V-12, V-13, V-14, V-15, V-19, V-21, V-24, and V-25 in *The Speed of Heat*.
 

@@ -24,7 +24,7 @@ def getstyle(stylename):
     :param stylename: The stylename argument must be a string corresponding to a
         style. It can be "airstrike", "airsuperiority", or one of the following
         optionally prefixed by "snowy" or "frozen" and optionally suffixed by
-        "hills", "plain", or "islands":  "water", "temperate", "temperateforest",
+        "lowlands", "plain", or "islands":  "water", "temperate", "temperateforest",
         "tundra", "borealforest", "tropical", "tropicalforest", "arid", and
         "desert".
 
@@ -444,7 +444,7 @@ for style in list(_style.keys()):
 
 for style in list(_style.keys()):
     if style != "airsuperiority" and style != "airstrike":
-        _style[style + "hills"] = withleveloffset(_style[style], -1)
+        _style[style + "lowlands"] = withleveloffset(_style[style], -1)
         _style[style + "plain"] = withleveloffset(_style[style], -3)
         _style[style + "islands"] = withislands(_style[style])
 
