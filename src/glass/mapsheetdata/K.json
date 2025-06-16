@@ -264,7 +264,7 @@
     "seapaths": [],
     "wideseapaths": [],
     "clearingpaths": [],
-    "trailpaths": [
+    "level0trailpaths": [
         [
             [
                 "0005",
@@ -480,6 +480,8 @@
             ]
         ]
     ],
+    "level1trailpaths": [],
+    "level2trailpaths": [],
     "roadpaths": [
         [
             [

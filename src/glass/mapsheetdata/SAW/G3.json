@@ -98,7 +98,7 @@
     "seapaths": [],
     "wideseapaths": [],
     "clearingpaths": [],
-    "trailpaths": [
+    "level0trailpaths": [
         [
             [ "1511", 0, -0.5 ],
             "1516",
@@ -106,6 +106,10 @@
             [ "2019", 0.5, -0.25 ]
         ]
     ],
+    "level1trailpaths": [
+        
+    ],
+    "level2trailpaths": [],
     "roadpaths": [ ],
     "dockpaths": [],
     "smallbridgepaths": [],

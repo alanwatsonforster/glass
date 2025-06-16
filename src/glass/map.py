@@ -48,7 +48,7 @@ members are:
 - ``"level2hexes"``: A list of level 2 land hexes.
 - ``"level2ridgepaths"``: A list of level 2 ridge paths.
 - ``"riverpaths"``: A list of river paths.
-- ``"roadpaths"``: A list of road paths.
+- `` "roadpaths"``: A list of road paths.
 - ``"runwaypaths"``: A list of runway paths (see sheets A1, A2, E, G, H, and K).
 - ``"seahexes"``: A list of sea hexes (see sheet E).
 - ``"seapaths"``: A list of sea paths (see sheet E).
@@ -61,7 +61,9 @@ members are:
 - ``"town4hexes"``: A list of town or village hexes for towns with 4 hexes.
 - ``"town5hexes"``: A list of town or village hexes for towns with 5 or more
   hexes.
-- ``"trailpaths"``: A list of trail paths (see sheets K, L, and N).
+- ``"level0trailpaths"``: A list of level 0 trail paths (see sheets K, L, and N).
+- ``"level1trailpaths"``: A list of level 1 trail paths.
+- ``"level2trailpaths"``: A list of level 2 trail paths.
 - ``"tunnelpaths"``: A list of tunnel paths (see sheet F).
 - ``"wideriverpaths"``: A list of wide river paths (see sheets A1, A2, H, K, and
   N).
@@ -960,12 +962,28 @@ def startdrawmap(
             capstyle="projecting",
         )
 
-    # Draw the trails. We assume they are at level 0.
+    # Draw the trails.
 
     for sheet in sheetsnearcanvas():
         drawpaths(
             sheet,
-            _terrain[sheet]["trailpaths"],
+            _terrain[sheet]["level0trailpaths"],
+            linecolor=roadoutlinecolor,
+            linewidth=roadwidth + roadoutlinewidth,
+            capstyle="projecting",
+            linestyle=(0, (1, 1)),
+        )
+        drawpaths(
+            sheet,
+            _terrain[sheet]["level1trailpaths"],
+            linecolor=roadoutlinecolor,
+            linewidth=roadwidth + roadoutlinewidth,
+            capstyle="projecting",
+            linestyle=(0, (1, 1)),
+        )
+        drawpaths(
+            sheet,
+            _terrain[sheet][ "level2trailpaths"],
             linecolor=roadoutlinecolor,
             linewidth=roadwidth + roadoutlinewidth,
             capstyle="projecting",
@@ -974,8 +992,22 @@ def startdrawmap(
     for sheet in sheetsnearcanvas():
         drawpaths(
             sheet,
-            _terrain[sheet]["trailpaths"],
+            _terrain[sheet]["level0trailpaths"],
             linecolor=level0color,
+            linewidth=roadwidth,
+            capstyle="projecting",
+        )
+        drawpaths(
+            sheet,
+            _terrain[sheet]["level1trailpaths"],
+            linecolor=level1color,
+            linewidth=roadwidth,
+            capstyle="projecting",
+        )
+        drawpaths(
+            sheet,
+            _terrain[sheet][ "level2trailpaths"],
+            linecolor=level2color,
             linewidth=roadwidth,
             capstyle="projecting",
         )
@@ -985,7 +1017,7 @@ def startdrawmap(
     for sheet in sheetsnearcanvas():
         drawpaths(
             sheet,
-            _terrain[sheet]["roadpaths"],
+            _terrain[sheet][ "roadpaths"],
             linecolor=roadoutlinecolor,
             linewidth=roadwidth + roadoutlinewidth,
             capstyle="projecting",
@@ -993,7 +1025,7 @@ def startdrawmap(
     for sheet in sheetsnearcanvas():
         drawpaths(
             sheet,
-            _terrain[sheet]["roadpaths"],
+            _terrain[sheet][ "roadpaths"],
             linecolor=roadcolor,
             linewidth=roadwidth,
             capstyle="projecting",

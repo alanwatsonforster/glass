@@ -549,15 +549,17 @@ def styleterrain(terrain, style):
         newterrain["wideriverpaths"] = []
 
     if wilderness or water == "all" or water == "islands":
-        newterrain["roadpaths"] = []
-        newterrain["trailpaths"] = []
+        newterrain[ "roadpaths"] = []
+        newterrain["level0trailpaths"] = []
+        newterrain["level1trailpaths"] = []
+        newterrain[ "level2trailpaths"] = []
         newterrain["dockpaths"] = []
         newterrain["clearingpaths"] = []
 
     if wilderness or water == "all" or water == "islands":
         newterrain["tunnelpaths"] = []
     elif leveloffset != 0:
-        newterrain["roadpaths"] += newterrain["tunnelpaths"]
+        newterrain[ "roadpaths"] += newterrain["tunnelpaths"]
         newterrain["tunnelpaths"] = []
 
     if wilderness or water == "all" or water == "islands" or forest == "all":

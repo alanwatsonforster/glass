@@ -353,7 +353,9 @@
             ]
         ]
     ],
-    "trailpaths": [],
+    "level0trailpaths": [],
+    "level1trailpaths": [],
+    "level2trailpaths": [],
     "roadpaths": [
         [
             [
