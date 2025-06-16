@@ -655,7 +655,7 @@ def startdrawmap(
 
     if all(_terrain[sheet]["base"] == "water" for sheet in _sheetlist):
         bordercolor = watercolor
-    elif all(_terrain[sheet]["base"] == "land" for sheet in _sheetlist):
+    elif all(_terrain[sheet]["seahexes"] == [] for sheet in _sheetlist):
         bordercolor = level0color
     else:
         bordercolor = hexcolor
