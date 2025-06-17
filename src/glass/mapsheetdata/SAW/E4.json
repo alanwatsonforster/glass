@@ -1,0 +1,41 @@
+{
+    "generation": 1,
+    "center": [
+        10.0,
+        12.5
+    ],
+    "base": "water",
+    "seahexes": [],
+    "level0hexes": [
+        "0000"
+    ],
+    "level1hexes": [],
+    "level2hexes": [],
+    "level0ridgepaths": [],
+    "level1ridgepaths": [],
+    "level2ridgepaths": [],
+    "foresthexes": [],
+    "town1hexes": [],
+    "town2hexes": [],
+    "town3hexes": [],
+    "town4hexes": [],
+    "town5hexes": [],
+    "cityhexes": [],
+    "lakehexes": [],
+    "riverpaths": [],
+    "wideriverpaths": [],
+    "seapaths": [],
+    "wideseapaths": [],
+    "clearingpaths": [],
+    "level0trailpaths": [],
+    "level1trailpaths": [],
+    "level2trailpaths": [],
+    "roadpaths": [ ],
+    "dockpaths": [],
+    "smallbridgepaths": [],
+    "largebridgepaths": [],
+    "runwaypaths": [],
+    "taxiwaypaths": [],
+    "dampaths": [],
+    "tunnelpaths": []
+}

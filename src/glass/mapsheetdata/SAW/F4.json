@@ -1,0 +1,62 @@
+{
+    "generation": 1,
+    "center": [
+        10.0,
+        12.5
+    ],
+    "base": "water",
+    "seahexes": [
+        "1523"
+    ],
+    "level0hexes": [
+        "0525",
+        "0624", "0625",
+        "0925",
+        "1022", "1023", "1024", "1025",
+        "1121", "1122", "1123", "1124", "1125",
+        "1219", "1220", "1221", "1222", "1223", "1224", "1225",
+        "1319", "1320", "1321", "1322", "1323", "1324", "1325",
+        "1418", "1419", "1420", "1422", "1423", "1424", "1425",
+        "1519", "1520", "1524", "1525",
+        "1623", "1624", "1625",
+        "1718", "1720", "1721", "1722", "1723", "1724", "1725",
+        "1821", "1822", "1823", "1824", "1825",
+        "1922", "1923", "1924", "1925",
+        "2022", "2023", "2024", "2025"
+
+    ],
+    "level1hexes": [],
+    "level2hexes": [],
+    "level0ridgepaths": [],
+    "level1ridgepaths": [],
+    "level2ridgepaths": [],
+    "foresthexes": [],
+    "town1hexes": [],
+    "town2hexes": [],
+    "town3hexes": [],
+    "town4hexes": [],
+    "town5hexes": [],
+    "cityhexes": [],
+    "lakehexes": [],
+    "riverpaths": [],
+    "wideriverpaths": [
+        [
+            "1523", 
+            [ "1525", 0, -1 ]
+        ]
+    ],
+    "seapaths": [],
+    "wideseapaths": [],
+    "clearingpaths": [],
+    "level0trailpaths": [],
+    "level1trailpaths": [],
+    "level2trailpaths": [],
+    "roadpaths": [ ],
+    "dockpaths": [],
+    "smallbridgepaths": [],
+    "largebridgepaths": [],
+    "runwaypaths": [],
+    "taxiwaypaths": [],
+    "dampaths": [],
+    "tunnelpaths": []
+}
