@@ -4,7 +4,7 @@ In Glass, a *map style* does two things: it determines how a map is rendered gra
 
 ## Considerations
 
-Maps play a crucial role in the game mechanics, serving to define positions, ranges, terrain altitudes, and fixed air-to-ground targets like bridges, while also indicating terrain effects such as camouflage and cover. While a simple monochrome diagram could suffice to represent thse spatial relationships and properties, such an approach would miss the opportunity to engage the players' imaginations. For instance, the depiction of Hanoi in map A2 of *The Speed of Heat* brings players closer to the reality of the setting.
+Maps play a crucial role in the game mechanics, serving to define positions, ranges, terrain altitudes, and fixed air-to-ground targets like bridges, while also indicating terrain effects such as camouflage and cover. While a simple monochrome diagram could suffice to represent these spatial relationships and properties, such an approach would miss the opportunity to engage the players' imaginations. For instance, the depiction of Hanoi in map A2 of *The Speed of Heat* brings players closer to the reality of the setting.
 
 In the digital version of the game, these roles largely persist, but the design of digital maps introduces both a new opportunity and a new challenge.
 
@@ -119,7 +119,7 @@ The `lowlands` suffix reduces the height of elevated hexes and ridges by 1 level
 
 The `islands` suffix replaces level 0 hexes by water, converts level 1 hexes and ridges into level 0 hexes and ridges, converts level 2 hexes and ridges into level 1 hexes and ridges, and eliminates roads and dams.
 
-There are thus eleven derived styles for each of the nine basic styles. Some of these combinations do not make much sense physically (such as `frozendesert`) or are effectively identical (such as all the styles derived from `water` except `frozenwater`), but are included nevertheless. Showing all 88 derived styles is not practical here, but the following are some particular examples.
+There are thus eleven derived styles for each of the nine basic styles. Some of these combinations do not make much sense physically (such as `frozendesert`) or are effectively identical (such as all the styles derived from `water` except `frozenwater`), but are included nevertheless. Showing all derived styles is not practical here, but the following are some particular examples.
 
 The `snowytemperate` style could represent winter in Europe.
 
