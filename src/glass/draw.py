@@ -75,6 +75,7 @@ import pickle
 import matplotlib.pyplot as plt
 import matplotlib.patches as patches
 
+import glass.azimuth
 import glass.hex
 
 ################################################################################
@@ -1139,6 +1140,80 @@ def _drawannotation(
     else:
         raise RuntimeError("invalid text position %r" % textposition)
     drawtext(
+        x,
+        y,
+        text,
+        facing=facing,
+        dx=textdx,
+        dy=textdy,
+        size=textsize,
+        textcolor=textcolor,
+        alignment=alignment,
+        zorder=zorder,
+    )
+
+def _drawannotationincanvas(
+    x,
+    y,
+    facing,
+    textposition,
+    text,
+    textsize=annotationtextsize,
+    textcolor=annotationtextcolor,
+    zorder=0,
+):
+    """
+    Draw an element annotation.
+
+    The notation can be drawn in one of six positions relative to the element:
+    upper left, center left, lower left, upper right, center right, and center
+    left.
+
+    For aircraft and missiles, the conventional use of these positons are: -
+    center right: name - upper left: flight type - center left: altitude - lower
+    left: speed
+
+    For other elements, the conventional use of these positions are: - center
+    right: name - center left: alternative position for name when ground
+    elements are stacked
+
+    :param x:
+    :param y:
+        The ``x`` and ``y`` arguments give the hex coordinates of the element.
+    :param facing:
+       The ``facing`` argument gives the facing of the element.
+    :param textposition:
+        The ``textposition`` argument gives the position of the text relative to
+        the element. It must be one of the strings ``"ul"`` (upper left),
+        ``"cl"`` (center left), ``"ll"`` (lower left), ``"ur"`` (upper right),
+        ``"cr"`` (center right), or ``"cl"`` (center left).
+    :param text:
+        The ``text`` argument gives text relative to be written. It must be a
+        string.
+    :return:
+        ``None``
+    """
+    textdx = 0.08
+    textdy = 0.15
+    if not isinstance(textposition, str) or len(textposition) != 2:
+        raise RuntimeError("invalid text position %r" % textposition)
+    if textposition[0] == "u":
+        textdy = +textdy
+    elif textposition[0] == "c":
+        textdy = 0
+    elif textposition[0] == "l":
+        textdy = -textdy
+    else:
+        raise RuntimeError("invalid text position %r" % textposition)
+    if textposition[1] == "l":
+        alignment = "right"
+        textdx = -textdx
+    elif textposition[1] == "r":
+        alignment = "left"
+        textdx = +textdx
+    else:
+        raise RuntimeError("invalid text position %r" % textposition)
+    _drawtextincanvas(
         x,
         y,
         text,
@@ -2659,31 +2734,30 @@ def drawship(
     _drawshipincanvas(
         *_tocanvasxy(x, y),
         _tocanvasfacing(facing),
+        stack,
         name,
         color,
         killed,
         large=large,
     )
-    if not killed:
-        _drawannotation(
-            x,
-            y,
-            facing,
-            "cr",
-            name,
-            zorder=0.2,
-        )
 
 
 def _drawshipincanvas(
     x,
     y,
     facing,
+    stack,
     name,
     color,
     killed,
     large=False,
 ):
+
+    if stack is not None:
+        stackoffset = 0.25
+        stackfacing = _tocanvasfacing(glass.azimuth.tofacing(stack))
+        x += stackoffset * _cosd(stackfacing)
+        y += stackoffset * _sind(stackfacing)
 
     if killed:
         fillcolor = killedfillcolor
@@ -2708,23 +2782,32 @@ def _drawshipincanvas(
         +0.5 * length - bow,
     ]
     dy0 = [0.0, +0.5 * beam, +0.5 * beam, -0.5 * beam, -0.5 * beam]
-    x = list(
+    xlist = list(
         x + sizefactor * (dx0 * _cosd(facing) - dy0 * _sind(facing))
         for dx0, dy0 in zip(dx0, dy0)
     )
-    y = list(
+    ylist = list(
         y + sizefactor * (dx0 * _sind(facing) + dy0 * _cosd(facing))
         for dx0, dy0 in zip(dx0, dy0)
     )
     _drawpolygonincanvas(
-        x,
-        y,
+        xlist,
+        ylist,
         linecolor=linecolor,
         linewidth=shiplinewidth,
         fillcolor=fillcolor,
         zorder=0.2,
     )
 
+    if not killed:
+        _drawannotationincanvas(
+            x,
+            y,
+            facing,
+            "cr",
+            name,
+            zorder=0.2,
+        )
 
 ################################################################################
 
