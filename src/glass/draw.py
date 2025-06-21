@@ -2700,7 +2700,7 @@ def drawship(
     x,
     y,
     facing,
-    large,
+    size,
     name,
     color,
     stack,
@@ -2735,10 +2735,10 @@ def drawship(
         *_tocanvasxy(x, y),
         _tocanvasfacing(facing),
         stack,
+        size,
         name,
         color,
         killed,
-        large=large,
     )
 
 
@@ -2747,10 +2747,10 @@ def _drawshipincanvas(
     y,
     facing,
     stack,
+    size,
     name,
     color,
     killed,
-    large=False,
 ):
 
     if stack is not None:
@@ -2766,10 +2766,12 @@ def _drawshipincanvas(
         fillcolor = color
         linecolor = aircraftlinecolor
 
-    if large:
-        sizefactor = 1.5
+    if size == "large":
+        sizefactor = 1.3
+    elif size == "small":
+        sizefactor = 0.8
     else:
-        sizefactor = 1.1
+        sizefactor = 1.
 
     length = 0.50
     bow = 0.20
