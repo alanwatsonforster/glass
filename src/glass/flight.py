@@ -1781,9 +1781,9 @@ def _domove(E, move, actiondispatchlist):
         E.logcomment("has stalled.")
         if move != "":
             raise RuntimeError("invalid move %r for stalled missile." % move)
-        M._remove()
-        M.logcomment("has been removed.")
-        M._finishedmoving = True
+        E._remove()
+        E.logcomment("has been removed.")
+        E._finishedmoving = True
         return
 
     try:
