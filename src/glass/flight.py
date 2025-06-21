@@ -278,7 +278,7 @@ def _checknormalflight(E):
                     % (E._previousflighttype, E._flighttype)
                 )
         elif E._previousflighttype == "ZC" or E._previousflighttype == "SC":
-            if hrd and E.speed() > 4.0:
+            if not hrd or E.speed() > 4.0:
                 raise RuntimeError(
                     "flight type immediately after %s cannot be %s (without a low-speed HRD)."
                     % (E._previousflighttype, E._flighttype)

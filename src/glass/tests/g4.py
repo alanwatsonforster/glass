@@ -43,10 +43,8 @@ A3.move("ZC", "M", "H,H,H,H,C")
 A3._assert("A1-2411       N    21", 5.0)
 A4.move("SC", "M", "H,H,H,H,C")
 A4._assert("A1-2611       N    20", 5.0)
-
 A5.move("HRD/VD", "AB", "H,H,D2,D2,D2,D2,D2")
 A5._assert("A1-2813       N    10", 10.0)
-
 endgameturn()
 
 startgameturn()
@@ -98,7 +96,32 @@ A4.move("HRD/SD", "M", "H,H,D,D")
 A4._assert("A1-2607       N    21", 5.0)
 A5.move("ZC", "AB", "H,H,H,H,C2,C2,C2,C2,C2")
 A5._assert("A1-2804       N    15", 8.0)
-
 endgameturn()
+
+# Aircraft can enter VD with a HRD if their speed if 4.0 or less.
+
+starttestsetup()
+A1 = setupaircraft("A1", "AF", "F-80C", "A1-2015", "N", 20, 4.0, "CL")
+A2 = setupaircraft("A2", "AF", "F-80C", "A1-2215", "N", 20, 4.0, "CL")
+A3 = setupaircraft("A3", "AF", "F-80C", "A1-2415", "N", 20, 4.5, "CL")
+A4 = setupaircraft("A4", "AF", "F-80C", "A1-2615", "N", 20, 4.5, "CL")
+endtestsetup()
+
+startgameturn()
+A1.move("ZC", "M", "H,H,H,C")
+A2.move("SC", "M", "H,H,H,C")
+A3.move("ZC", "M", "H,H,H,C")
+A4.move("SC", "M", "H,H,H,C")
+endgameturn()
+
+startgameturn()
+A1.move("HRD/VD", "M", "H D3 D3 D3")
+A1._assert("A1-2011 N 12", 6.5)
+A2.move("HRD/VD", "M", "H D3 D3 D3")
+A2._assert("A1-2211 N 11", 6.5)
+A3.move("HRD/VD", "M", "H D3 D3 D3")
+asserterror("flight type immediately after ZC cannot be VD (without a low-speed HRD).")
+A4.move("HRD/VD", "M", "H D3 D3 D3")
+asserterror("flight type immediately after SC cannot be VD (without a low-speed HRD).")
 
 endfile(__file__)
