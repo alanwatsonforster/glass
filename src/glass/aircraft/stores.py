@@ -9,6 +9,7 @@ _storedict = {
     # load. For FTs, [3] is the empty load and [4] is the fuel capacity.
     # FTs
     "FT/250L": ["FT", 550, 1.5, 1.0, 25],
+    "FT/310L": ["FT", 670, 1.0, 1.0, 27],
     "FT/400L": ["FT", 700, 2.0, 1.0, 30],
     "FT/450L": ["FT", 800, 2.5, 1.5, 40],
     "FT/600L": ["FT", 1100, 3.0, 2.0, 50],
@@ -24,6 +25,8 @@ _storedict = {
     "FT/2200L": ["FT", 4500, 8.0, 5.0, 200],
     "FT/750gal": ["FT", 6000, 10, 7.0, 240],  # B-52 only
     "FT/3000gal": ["FT", 20000, 20, 14.0, 975],  # B-52 only
+    # GPs
+    "GP/Mauser 27 mm": ["GP", 800, 2.5],
     # WRs
     "WR/DR": ["WR", 100, 1.0],
     "WR/TR": ["WR", 100, 1.0],

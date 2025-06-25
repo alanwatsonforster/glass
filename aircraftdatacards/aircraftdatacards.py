@@ -10,7 +10,7 @@ sys.path.append("../src")
 from glass import aircraftdata
 import glass.variants
 
-version = 3
+version = 1
 
 if version == 1:
     glass.variants.setvariants(["use first-edition ADCs"])

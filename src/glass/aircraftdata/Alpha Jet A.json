@@ -1,0 +1,110 @@
+{
+  "versionname": "Alpha Jet A",
+  "description": "The Dassault/Dornier Alpha Jet A (Appui Tactique) is a light attack aircraft.",
+  "crew": [ "Pilot", "Observer" ],
+  "powertable": {
+    "M"   : [ 1.5, 1.0, 1.0, 2 ],
+    "N"   : [ 0.0, 0.0, 0.0, 1 ],
+    "I"   : [ 0.5, 0.5, 0.5, 0 ],
+    "SPBR": [ 0.5, 1.0, 1.0 ]
+  },
+  "jetengines": 2,
+  "cruisespeed": 5.0,
+  "climbspeed" : 4.0,
+  "visibility": 4,
+  "sizemodifier": 1,
+  "vulnerability": -1,
+  "restrictedarcs": "",
+  "blindarcs": "30-",
+  "internalfuel": 180,
+  "atarefuel": false,
+  "ejectionseat": "standard",
+  "maneuvertable": {
+    "LR/DR": [ 1, 1 ],
+    "VR":    [ 0, 0 ]
+  },
+  "turndragtable": {
+    "TT": [ 1, 1, 1 ],
+    "HT": [ 1, 2, 2 ],
+    "BT": [ 3, 3, 4 ]
+  },
+  "ceilingtable": [ 45, 38, 32 ],
+  "speedtable": {
+    "EH": [ [ "-", "-" ], [ "-", "-" ], [ "-", "-" ], "-" ],
+    "VH": [ [ 2.5, 5.5 ], [ 3.0, 5.0 ], [ "-", "-" ], 7.0 ],
+    "HI": [ [ 2.5, 6.0 ], [ 2.5, 5.5 ], [ 2.5, 5.0 ], 7.0 ],
+    "MH": [ [ 2.0, 6.0 ], [ 2.0, 5.5 ], [ 2.5, 5.0 ], 7.0 ],
+    "ML": [ [ 1.5, 6.0 ], [ 2.0, 5.5 ], [ 2.0, 5.0 ], 7.0 ],
+    "LO": [ [ 1.0, 6.0 ], [ 1.5, 5.5 ], [ 1.5, 5.0 ], 7.0 ]
+  },
+  "climbcapabilitytable": {
+    "EH": [ [ "-", "-" ], [ "-", "-" ], [ "-", "-" ] ],
+    "VH": [ [ "-", 0.5 ], [ "-", 0.5 ], [ "-", "-" ] ],
+    "HI": [ [ "-", 1.0 ], [ "-", 0.5 ], [ "-", 0.5 ] ],
+    "MH": [ [ "-", 1.0 ], [ "-", 1.0 ], [ "-", 0.5 ] ],
+    "ML": [ [ "-", 1.0 ], [ "-", 1.0 ], [ "-", 1.0 ] ],
+    "LO": [ [ "-", 2.0 ], [ "-", 1.5 ], [ "-", 1.0 ] ]
+  },
+
+    "gunsightmodifiers": {
+        "TT": 0,
+        "HT": 1,
+        "BT": 2
+    },
+    "bombsystem": "Ballistic",
+    "ecm": {
+        "iff": true,
+        "rwr": "A",
+        "djm": "B3"
+    },
+  "storeslimits": [ 4, 8, 5550 ],
+  "stations": [
+        [
+            "pair",
+            [
+                1,
+                5
+            ],
+            750,
+            [
+                "FT", "BB", "BG", "RP", "IRM", "EP"
+            ]
+        ],
+        [
+            "pair",
+            [
+                2,
+                4
+            ],
+            1350,
+            [
+                "BB", "BG", "RP", "RS", "DR", "EP"
+            ]
+        ],
+        [
+            "single",
+            [
+                3
+            ],
+            1350,
+            [
+                "BB", "BG", "RP", "GP", "PP"
+            ]
+        ]
+    ],
+    "loadnotes": [
+        "May use 310L and 450L FTs",
+        "May use 27 mm Mauser BK-27 or 30 mm DEFA GPs.",
+        "May use AIM-9 and Matra 550 IRMs."
+    ],
+    "VPs": [
+        12,
+        8,
+        4,
+        2
+    ],
+  "properties": [ "HTD" ],
+  "notes": [
+    "Either the observer or the RWR and DJM may be carried."
+  ]
+}

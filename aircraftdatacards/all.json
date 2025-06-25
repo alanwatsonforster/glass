@@ -24,7 +24,12 @@
 
     [ "comment", "April 1962" ],
     [ "type", "J-6/F-6", "Shenyang J-6", "Shenyang F-6", "Shenyang F-6 (PAF)", "Shenyang J-6A", "Shenyang F-6A", "Shenyang J-6B", "Shenyang J-6C" ],
+
+    [ "chapter", "European Aircraft" ],
     
+    [ "comment", "May 1979" ],
+    [ "type", "Alpha Jet", "Alpha Jet E", "Alpha Jet A" ],
+
     [ "chapter", "Soviet Union Aircraft" ],
 
     [ "comment", "1942" ],
