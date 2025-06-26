@@ -1,0 +1,11 @@
+{
+    "versionname": "Mirage 5BA",
+    "base": "Mirage 5F",
+    "description": "The Mirage 5BA is a single-seat day attack aircraft built for the Belgian Air Force.",
+    "loadnotes": [
+        "Stations 3 and 5 are under the rear fuselage.",
+        "Stations 2 and 4 may be overloaded to 3000 lb.",
+        "May carry two BBs on station 4 without using a WR.",
+        "May use AIM-9 IRMs on stations 1 and 7"
+    ]
+}

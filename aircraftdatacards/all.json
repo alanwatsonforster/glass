@@ -30,7 +30,10 @@
     [ "comment", "May 1979" ],
     [ "type", "Alpha Jet", "Alpha Jet E", "Alpha Jet A" ],
 
-    [ "chapter", "Soviet Union Aircraft" ],
+    [ "chapter", "French Aircraft" ],
+    [ "type", "Mirage 5", "Mirage 5F", "Mirage 5BA" ],
+
+    [ "chapter", "Soviet Aircraft" ],
 
     [ "comment", "1942" ],
     [ "type", "Yak-9", "Yak-9D", "Yak-9U", "Yak-9P" ],
