@@ -12,6 +12,7 @@ def _draw(self):
         self._symbols,
         self._uppertext,
         self._lowertext,
+        self._protectionclass,
         self.name(),
         self.color(),
         self._stack,

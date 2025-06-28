@@ -252,7 +252,7 @@ def showcanvas():
     Show the current canvas in the current Jupyter or iPython notebook.
     """
     # See https://github.com/alanwatsonforster/glass/issues/204
-    #_fig.show()
+    # _fig.show()
     return
 
 
@@ -1152,6 +1152,7 @@ def _drawannotation(
         zorder=zorder,
     )
 
+
 def _drawannotationincanvas(
     x,
     y,
@@ -1619,10 +1620,22 @@ groundunitlinewidth = "normal"
 groundunittextsize = "scriptsize"
 groundunitdx = 0.6
 groundunitdy = 0.4
+groundunitprotectionlinewidth = "thick"
+groundunitprotectiondy = 0.05
 
 
 def drawgroundunit(
-    x, y, facing, symbols, uppertext, lowertext, name, color, stack="1/1", killed=False
+    x,
+    y,
+    facing,
+    symbols,
+    uppertext,
+    lowertext,
+    protectionclass,
+    name,
+    color,
+    stack="1/1",
+    killed=False,
 ):
     """
     _summary_
@@ -1652,6 +1665,9 @@ def drawgroundunit(
     :param lowertext:
         The ``uppertext`` and ``lowertext`` arguments are strings that we drawn
         in the upper and lower positions in the ground unit.
+    :param protectionclass:
+        The ``protectionclass`` argument is must be ``None``, ``"entrenched"``,
+        or ``"bunkered"``. It indicates if the unit is entrenched or bunkered.
     :param name:
         The ``name`` argument is a string that names the ground unit.
     :param color:
@@ -1676,6 +1692,7 @@ def drawgroundunit(
         symbols,
         uppertext,
         lowertext,
+        protectionclass,
         name,
         color,
         stack,
@@ -1690,6 +1707,7 @@ def _drawgroundunitincanvas(
     symbols,
     uppertext,
     lowertext,
+    protectionclass,
     name,
     color,
     stack="1/1",
@@ -2649,6 +2667,23 @@ def _drawgroundunitincanvas(
             zorder=zorder,
         )
 
+        if protectionclass == "entrenched":
+            _drawlinesincanvas(
+                [x - groundunitdx / 2, x + groundunitdx / 2],
+                [y - groundunitdy / 2 - groundunitprotectiondy, y - groundunitdy / 2 - groundunitprotectiondy],
+                linewidth=groundunitprotectionlinewidth,
+                linecolor=linecolor,
+                zorder=zorder,
+            )
+        elif protectionclass == "bunkered":
+            _drawlinesincanvas(
+                [x - groundunitdx / 2, x + groundunitdx / 2],
+                [y + groundunitdy / 2 + groundunitprotectiondy, y + groundunitdy / 2 + groundunitprotectiondy],
+                linewidth=groundunitprotectionlinewidth,
+                linecolor=linecolor,
+                zorder=zorder,
+            )
+
         if not killed:
             if x >= x0:
                 _drawtextincanvas(
@@ -2771,7 +2806,7 @@ def _drawshipincanvas(
     elif size == "small":
         sizefactor = 0.8
     else:
-        sizefactor = 1.
+        sizefactor = 1.0
 
     length = 0.50
     bow = 0.20
@@ -2810,6 +2845,7 @@ def _drawshipincanvas(
             name,
             zorder=0.2,
         )
+
 
 ################################################################################
 
@@ -2986,11 +3022,11 @@ _colormap = {
     "panarabgreen": (0.035, 0.435, 0.208),
     # The green of the Pakistan AF roundel
     # https://en.wikipedia.org/wiki/Pakistan_Air_Force
-    "pakistanafgreen": ( 0.000, 0.220, 0.100 ),
+    "pakistanafgreen": (0.000, 0.220, 0.100),
     # The orange and green of the Indian AF roundel.
     # https://en.wikipedia.org/wiki/Indian_Air_Force
     "indianaforange": (1.000, 0.350, 0.000),
-    "indianafgreen": (0.000, 0.350, 0.210 ),
+    "indianafgreen": (0.000, 0.350, 0.210),
 }
 
 

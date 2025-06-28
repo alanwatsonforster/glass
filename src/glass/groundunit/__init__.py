@@ -39,6 +39,7 @@ class GroundUnit(glass.element.Element):
         stack=None,
         color="white",
         azimuth=None,
+        protectionclass=None,
     ):
 
         self._name = ""
@@ -119,6 +120,9 @@ class GroundUnit(glass.element.Element):
                 raise RuntimeError("heavy AAA ground units must have an azimuth.")
             if aaaclass != "H" and azimuth is not None:
                 raise RuntimeError("only heavy AAA ground units may have an azimuth.")
+            
+            if protectionclass not in [None, "entrenched", "bunkered"]:
+                raise RuntimeError('invalid protection class "%r".' % protectionclass)
 
             super().__init__(
                 name,
@@ -138,6 +142,8 @@ class GroundUnit(glass.element.Element):
             self._aaarange = aaarange
             self._aaamaximumrelativealtitude = aaamaximumrelativealtitude
             self._aaadamagerating = aaadamagerating
+
+            self._protectionclass = protectionclass
 
             self._initattack()
             self._inittracking()
