@@ -188,7 +188,7 @@ def withgraybuiltcolors(style):
     """Return a new style with new built terrain colors."""
     level0color = style["level0color"]
     gray = equivalentgray(level0color)
-    darkergray = darken(gray, 0.7)
+    darkergray = darken(gray, 0.8)
     return style | {
         "urbancolor": gray,
         "urbanoutlinecolor": darkergray,

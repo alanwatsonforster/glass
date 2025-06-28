@@ -74,6 +74,8 @@ import pickle
 
 import matplotlib.pyplot as plt
 import matplotlib.patches as patches
+import matplotlib.hatch
+import matplotlib.path
 
 import glass.azimuth
 import glass.hex
@@ -2670,7 +2672,10 @@ def _drawgroundunitincanvas(
         if protectionclass == "entrenched":
             _drawlinesincanvas(
                 [x - groundunitdx / 2, x + groundunitdx / 2],
-                [y - groundunitdy / 2 - groundunitprotectiondy, y - groundunitdy / 2 - groundunitprotectiondy],
+                [
+                    y - groundunitdy / 2 - groundunitprotectiondy,
+                    y - groundunitdy / 2 - groundunitprotectiondy,
+                ],
                 linewidth=groundunitprotectionlinewidth,
                 linecolor=linecolor,
                 zorder=zorder,
@@ -2678,7 +2683,10 @@ def _drawgroundunitincanvas(
         elif protectionclass == "bunkered":
             _drawlinesincanvas(
                 [x - groundunitdx / 2, x + groundunitdx / 2],
-                [y + groundunitdy / 2 + groundunitprotectiondy, y + groundunitdy / 2 + groundunitprotectiondy],
+                [
+                    y + groundunitdy / 2 + groundunitprotectiondy,
+                    y + groundunitdy / 2 + groundunitprotectiondy,
+                ],
                 linewidth=groundunitprotectionlinewidth,
                 linecolor=linecolor,
                 zorder=zorder,
@@ -2912,22 +2920,54 @@ def _nativetextsize(textsize):
         return int(textsize * _pointsperhex + 0.5)
 
 
+class UrbanHatch(matplotlib.hatch.Shapes):
+    filled = True
+    size = 0.25
+    path = matplotlib.path.Path(
+        [[-1, -1], [-1, +1], [+1, +1], [+1, -1], [-1, -1]], closed=True
+    )
+
+    def __init__(self, hatch, density):
+        self.num_rows = hatch.count("u") * density
+        self.shape_vertices = self.path.vertices
+        self.shape_codes = self.path.codes
+        matplotlib.hatch.Shapes.__init__(self, hatch, density)
+
+
+matplotlib.hatch._hatch_types.append(UrbanHatch)
+
+
+class ForestHatch(matplotlib.hatch.Shapes):
+    filled = True
+    size = 0.25
+    path = patches.CirclePolygon([0, 0], radius=1).get_path()
+
+    def __init__(self, hatch, density):
+        self.num_rows = hatch.count("f") * density
+        self.shape_vertices = self.path.vertices
+        self.shape_codes = self.path.codes
+        matplotlib.hatch.Shapes.__init__(self, hatch, density)
+
+
+matplotlib.hatch._hatch_types.append(ForestHatch)
+
+
 def _nativehatchpattern(hatchpattern):
     """
     Return the native hatch pattern.
 
     :param hatchpattern:
         The ``hatchpattern`` argument must be ``None`` or one of the strings
-        ``"forsest"``, ``"city"``, or ``"town"``.
+        ``"forest"``, ``"city"``, or ``"town"``.
     :return: The native hatch pattern corresponding to the ``hatchpattern``a
         argument.
     """
     if hatchpattern is None:
         return None
     elif hatchpattern == "forest":
-        return "..oo"
+        return "ff"
     elif hatchpattern == "town" or hatchpattern == "city":
-        return "xxx"
+        return "uu"
     else:
         raise RuntimeError("invalid hatch pattern %r" % hatchpattern)
 
