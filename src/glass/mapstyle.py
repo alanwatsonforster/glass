@@ -120,8 +120,22 @@ def equivalentgray(color):
     :return: The equivalent gray with the same luma as the original color, according to
     CCIR 601. See https://en.wikipedia.org/wiki/Luma_(video)
     """
-    luma = 0.30 * color[0] + 0.59 * color[1] + 0.11 * color[2]
-    return [luma, luma, luma]
+    r = color[0]
+    g = color[1]
+    b = color[2]
+    luma = 0.30 * r + 0.59 * g + 0.11 * b
+    if r > g and r > b:
+        blueness = -0.01
+    elif g > r and g > b:
+        blueness = +0.03
+    elif b > r and b > g:
+        blueness = +0.03
+    else:
+        blueness = +0.00
+    r = min(1.0, (1 - blueness) * luma)
+    g = luma
+    b = min(1.0, (1 + blueness) * luma)
+    return [r, g, b]
 
 
 ################################################################################
