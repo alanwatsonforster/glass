@@ -517,7 +517,7 @@ def _showstores(self):
         for loadstation, name in self._stores.items():
             self.logwhenwhat(
                 "",
-                "  %-2s: %-17s  %2s / %4d / %.1f%s"
+                "  %-2s: %-17s  %-3s / %4d / %.1f%s"
                 % (
                     loadstation,
                     name,
