@@ -2925,9 +2925,9 @@ def _nativehatchpattern(hatchpattern):
     if hatchpattern is None:
         return None
     elif hatchpattern == "forest":
-        return ".o"
+        return "..oo"
     elif hatchpattern == "town" or hatchpattern == "city":
-        return "xx"
+        return "xxx"
     else:
         raise RuntimeError("invalid hatch pattern %r" % hatchpattern)
 
