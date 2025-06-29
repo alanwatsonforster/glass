@@ -17,7 +17,7 @@ def _loaddata(name):
     def loadfile(name):
         try:
             with open(filename(name), "r", encoding="utf-8") as f:
-                return glass.jsonc.loads(f)
+                return glass.jsonc.load(f)
         except FileNotFoundError:
             raise RuntimeError('unable to find ground unit data file for "%s".' % name)
         except glass.jsonc.JSONDecodeError as e:
