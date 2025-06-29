@@ -1,0 +1,69 @@
+// AAMs
+
+{
+
+    // France:
+
+    "IRM/R.550 Magic I" : [ "IRM", 200, 1.0 ],
+    "IRM/R.550 Magic II": [ "IRM", 200, 1.0 ],
+    "RHM/R.530 A"       : [ "RHM", 450, 1.5 ],
+    "IRM/R.530 B"       : [ "IRM", 450, 1.5 ],
+    "RHM/R.530 D"       : [ "RHM", 550, 1.5 ],
+
+    // Germany:
+
+    "IRM/FGW.2": [ "IRM", 170, 1.0 ],
+
+    // Italy:
+
+    "RHM/Aspide"        : [ "RHM", 500, 1.0 ],
+
+    // Soviet:
+
+    "IRM/AA-2"          : [ "IRM", 160, 1.0 ],
+    "IRM/AA-2A"         : [ "IRM", 160, 1.0 ],
+    "IRM/AA-2B"         : [ "IRM", 180, 1.0 ],
+    "RHM/AA-2C"         : [ "RHM", 200, 1.0 ],
+    "IRM/AA-2D"         : [ "IRM", 200, 1.0 ],
+    "IRM/AA-3A"         : [ "IRM", 600, 1.5 ],
+    "RHM/AA-3B"         : [ "RHM", 600, 1.5 ],
+    "RHM/AA-7A"         : [ "RHM", 700, 1.5 ],
+    "IRM/AA-7B"         : [ "IRM", 700, 1.5 ],
+    "IRM/AA-8"          : [ "IRM", 140, 1.0 ],
+    "IRM/AA-8B"         : [ "IRM", 140, 1.0 ],
+    "IRM/AA-8C"         : [ "IRM", 150, 1.0 ],
+    "RHM/AA-10A"        : [ "RHM", 550, 1.0 ],
+    "IRM/AA-10B"        : [ "IRM", 550, 1.0 ],
+
+    // UK:
+
+    "IRM/Redtop"        : [ "IRM", 300, 1.0 ],
+    "RHM/Skyflash"      : [ "RHM", 400, 1.0 ],
+        
+    // US:
+
+    "IRM/AIM-9B"        : [ "IRM", 160, 1.0 ],
+    "RHM/AIM-9C"        : [ "RHM", 190, 1.0 ],
+    "IRM/AIM-9D"        : [ "IRM", 200, 1.0 ],
+    "IRM/AIM-9E"        : [ "IRM", 170, 1.0 ],
+    "IRM/AIM-9E2"       : [ "IRM", 170, 1.0 ],
+    "IRM/AIM-9G"        : [ "IRM", 190, 1.0 ],
+    "IRM/AIM-9H"        : [ "IRM", 185, 1.0 ],
+    "IRM/AIM-9J"        : [ "IRM", 175, 1.0 ],
+    "IRM/AIM-9J3"       : [ "IRM", 175, 1.0 ],
+    "IRM/AIM-9N"        : [ "IRM", 175, 1.0 ],
+    "IRM/AIM-9P"        : [ "IRM", 170, 1.0 ],
+    "IRM/AIM-9P2"       : [ "IRM", 170, 1.0 ],
+    "IRM/AIM-9P3"       : [ "IRM", 170, 1.0 ],
+    "IRM/AIM-9P4"       : [ "IRM", 170, 1.0 ],
+    "IRM/AIM-9L"        : [ "IRM", 190, 1.0 ],
+    "IRM/AIM-9M"        : [ "IRM", 190, 1.0 ],
+    "IRM/AIM-9M4"       : [ "IRM", 190, 1.0 ],
+    "IRM/AIM-9M5"       : [ "IRM", 190, 1.0 ],
+    "IRM/AIM-9S"        : [ "IRM", 190, 1.0 ],
+    "IRM/AIM-9X"        : [ "IRM", 190, 1.0 ],
+    "IRM/AIM-9X-II"     : [ "IRM", 190, 1.0 ],
+    "AHM/AIM-120A"      : [ "AHM", 350, 1.0 ],
+    "AHM/AIM-54C"       : [ "AHM", 1000, 2.0 ]
+
+}

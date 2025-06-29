@@ -1,0 +1,28 @@
+// BGs
+
+{
+    // Generic:
+
+    "BG/HE/Laser/500"      : [ "BG",  500, 2.0 ],
+    "BG/HE/Laser/550"      : [ "BG",  550, 2.0 ],
+    "BG/HE/Laser/750"      : [ "BG",  750, 2.5 ],
+    "BG/HE/Laser/800"      : [ "BG",  800, 2.5 ],
+    "BG/HE/Laser/1000"     : [ "BG", 1000, 3.0 ],
+    "BG/HE/Laser/1100"     : [ "BG", 1100, 3.0 ],
+    "BG/HE/Laser/2000"     : [ "BG", 2000, 3.5 ],
+    "BG/HE/Laser/2200"     : [ "BG", 2200, 3.5 ],
+    "BG/AP/Laser/500"      : [ "BG",  500, 2.0 ],
+    "BG/AP/Laser/550"      : [ "BG",  550, 2.0 ],
+    "BG/AP/Laser/650"      : [ "BG",  650, 2.0 ],
+    "BG/AP/Laser/800"      : [ "BG",  800, 2.5 ],
+    "BG/AT/Laser/500"      : [ "BG",  500, 2.0 ],
+    "BG/AT/Laser/550"      : [ "BG",  550, 2.0 ],
+    "BG/AT/Laser/650"      : [ "BG",  650, 2.0 ],
+    "BG/Mixed/Laser/600"   : [ "BG",  600, 2.0 ],
+    "BG/Mixed/Laser/750"   : [ "BG",  750, 2.5 ],
+
+    // US:
+
+    "BG/GBU-15D"           : [ "BG", 2200, 4.0 ]
+
+}
