@@ -148,7 +148,7 @@ def blockA(data, geometry=None):
 
     s = ""
     if data.hasproperty("SMP", geometry):
-        s += "Smoker in military power. "
+        s += "Smoker in military power (SMP). "
     if data.powerfade(100, 0) is not None:
         lastpowerfade = 0.0
         speed = 0.0
@@ -410,10 +410,10 @@ def blockD(data, geometry=None):
             )
 
     def divespeed(altitudeband):
-        if data.maxdivespeed(altitudeband) is None:
+        if data.maxdivespeed(geometry, altitudeband) is None:
             return "---"
         else:
-            return r"\blockDdivespeed{%.1f}" % data.maxdivespeed(altitudeband)
+            return r"\blockDdivespeed{%.1f}" % data.maxdivespeed(geometry, altitudeband)
 
     writelatex(
         r"\renewcommand{\Daa}{\blockDceilingandcruisespeed{%d}{%.1f}}\renewcommand{\Dab}{\blockDceilingandcruisespeed{%d}{%.1f}}\renewcommand{\Dac}{\blockDceilingandcruisespeed{%d}{%.1f}}"
@@ -494,18 +494,18 @@ def blockD(data, geometry=None):
     else:
         writelatex(r"\renewcommand{\Dba}{%.1f}" % data.maxspeed("CL", geometry, "LO"))
 
-    if data.maxdivespeed("EH") is not None:
-        writelatex(r"\renewcommand{\Dbb}{%.1f}" % data.maxdivespeed("EH"))
-    elif data.maxdivespeed("VH") is not None:
-        writelatex(r"\renewcommand{\Dbb}{%.1f}" % data.maxdivespeed("VH"))
-    elif data.maxdivespeed("HI") is not None:
-        writelatex(r"\renewcommand{\Dbb}{%.1f}" % data.maxdivespeed("HI"))
-    elif data.maxdivespeed("MH") is not None:
-        writelatex(r"\renewcommand{\Dbb}{%.1f}" % data.maxdivespeed("MH"))
-    elif data.maxdivespeed("ML") is not None:
-        writelatex(r"\renewcommand{\Dbb}{%.1f}" % data.maxdivespeed("ML"))
+    if data.maxdivespeed(geometry, "EH") is not None:
+        writelatex(r"\renewcommand{\Dbb}{%.1f}" % data.maxdivespeed(geometry, "EH"))
+    elif data.maxdivespeed(geometry, "VH") is not None:
+        writelatex(r"\renewcommand{\Dbb}{%.1f}" % data.maxdivespeed(geometry, "VH"))
+    elif data.maxdivespeed(geometry, "HI") is not None:
+        writelatex(r"\renewcommand{\Dbb}{%.1f}" % data.maxdivespeed(geometry, "HI"))
+    elif data.maxdivespeed(geometry, "MH") is not None:
+        writelatex(r"\renewcommand{\Dbb}{%.1f}" % data.maxdivespeed(geometry, "MH"))
+    elif data.maxdivespeed(geometry, "ML") is not None:
+        writelatex(r"\renewcommand{\Dbb}{%.1f}" % data.maxdivespeed(geometry, "ML"))
     else:
-        writelatex(r"\renewcommand{\Dbb}{%.1f}" % data.maxdivespeed("LO"))
+        writelatex(r"\renewcommand{\Dbb}{%.1f}" % data.maxdivespeed(geometry, "LO"))
 
 
 def blockE(data, geometry=None):
@@ -810,7 +810,7 @@ def blockF(data, geometry=None):
         s += "\\item %s\n\n" % latexify(data.description())
 
     if data.hasproperty("EVG", geometry):
-        s += "\\item Variable-geometry aircraft with allowed geometries of "
+        s += "\\item This is a variable-geometry aircraft with allowed geometries of "
         geometries = data.geometries()
         if len(geometries) == 2:
             s += geometries[0] + " and " + geometries[1]
@@ -819,8 +819,10 @@ def blockF(data, geometry=None):
             s += ", and " + geometries[-1]
         s += "."
         if data.hasproperty("EVG1", geometry):
-            s += " Geometry may be changed by one step at the end of each turn."
-        s += " Data for %s geometry are shown here." % geometry
+            s += " The geometry may be changed by one step at the end of each turn."
+        if data.hasproperty("EVGTT", geometry):
+            s += " The geometry may be changed at the end of the aircraft’s move if the maximum turn rate used is TT or less."
+        s += " The data shown here are for the %s geometry." % geometry
 
     if len(data.properties(geometry)) != 0:
         for property in sorted(data.properties(geometry)):
@@ -835,7 +837,7 @@ def blockF(data, geometry=None):
             ):
                 # Noted in maneuver section.
                 pass
-            elif property == "EVG" or property == "EVG1":
+            elif property == "EVG" or property == "EVG1" or property == "EVGTT":
                 # Noted immediately above.
                 pass
             else:
@@ -937,13 +939,13 @@ def blockG(data, geometry=None):
         stationlimit = station[2]
         stationloads = station[3]
         if stationtype == "single":
-            s += "%d" % stationidentifiers[0]
+            s += "%s" % stationidentifiers[0]
         elif stationtype == "pair":
-            s += "%d and %d" % tuple(stationidentifiers)
+            s += "%s and %s" % tuple(stationidentifiers)
         elif stationtype == "group":
-            s += "%d--%d" % tuple(stationidentifiers)
+            s += "%s--%s" % tuple(stationidentifiers)
         elif stationtype == "grouppair":
-            s += "%d--%d and %d--%d" % tuple(stationidentifiers)
+            s += "%s--%s and %s--%s" % tuple(stationidentifiers)
         s += "&%s&%s\\\\\n" % (
             "{:,}".format(stationlimit),
             r"\mbox{" + r"} \mbox{".join(stationloads) + r"}",

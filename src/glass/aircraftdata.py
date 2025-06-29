@@ -291,12 +291,12 @@ class aircraftdata:
             table = "lowspeedliftdeviceturndragtable"
         else:
             table = "turndragtable"
-        if not turnrate in self._data[table]:
-            return None
         if geometry is None:
             turndragtable = self._data[table]
         else:
             turndragtable = self._data["geometries"][geometry][table]
+        if not turnrate in turndragtable:
+            return None
         raw = turndragtable[turnrate][_configurationindex(configuration)]
         if raw == "-":
             return None
@@ -340,11 +340,15 @@ class aircraftdata:
         else:
             return raw
 
-    def maxdivespeed(self, altitudeband):
+    def maxdivespeed(self, geometry, altitudeband):
         _checkaltitudeband(altitudeband)
         if altitudeband == "UH":
             altitudeband = "EH"
-        raw = self._data["speedtable"][altitudeband][3]
+        if geometry is None:
+            speedtable = self._data["speedtable"]
+        else:
+            speedtable = self._data["geometries"][geometry]["speedtable"]
+        raw = speedtable[altitudeband][3]
         if raw == "-":
             return None
         else:

@@ -157,13 +157,13 @@ def vulnerability(A):
 
 
 def maxdivespeed(A):
-    raw = A._aircraftdata.maxdivespeed(A.altitudeband())
+    raw = A._aircraftdata.maxdivespeed(A._geometry, A.altitudeband())
     if raw != None:
         return raw
     # The aircraft is temporarily above its ceiling, so take the speed from the
     # highest band in the table.
     for altitudeband in ["UH", "EH", "VH", "HI", "MH", "ML", "LO"]:
-        raw = A._aircraftdata.maxdivespeed(altitudeband)
+        raw = A._aircraftdata.maxdivespeed(A._geometry, altitudeband)
         if raw != None:
             return raw
 

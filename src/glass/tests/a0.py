@@ -48,7 +48,7 @@ assert d.minspeed("1/2", None, "VH") == 4.5
 assert d.maxspeed("1/2", None, "VH") == 11.0
 assert d.minspeed("DT", None, "EH") == None
 assert d.maxspeed("DT", None, "EH") == None
-assert d.maxdivespeed("LO") == 9.0
+assert d.maxdivespeed(None, "LO") == 9.0
 assert d.ceiling("1/2") == 52
 assert d.cruisespeed("CL") == 6.0
 assert d.cruisespeed("1/2") == 5.5
