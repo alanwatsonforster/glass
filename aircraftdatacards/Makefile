@@ -7,7 +7,7 @@ all			:	all.pdf
 
 all.pdf		:	.FORCE
 
-working.pdf	:	.FORCE
+sandbox.pdf	:	.FORCE
 
 format		:
 	python3 format.py
