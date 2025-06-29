@@ -1,6 +1,7 @@
 ################################################################################
 
 import glass.log
+import glass.variants
 
 ################################################################################
 
@@ -469,8 +470,9 @@ def _storestotalload(self):
     totalload = 0
     for loadstation, storename in self._stores.items():
         totalload += _load(storename, storesfuel=self.storesfuel())
-    # Round down. See 4.3.
-    totalload = int(totalload)
+    if not glass.variants.withvariant("use house rules"):
+        # Round down. See 4.3.
+        totalload = int(totalload)
     return totalload
 
 
@@ -523,9 +525,10 @@ def _updateconfiguration(self):
     if totalweight > self._aircraftdata.storeslimit("DT"):
         raise RuntimeError("total stores weight exceeds the aircraft capacity.")
 
-    if totalload <= self._aircraftdata.storeslimit("CL"):
+    # The expressions below are correct whether we round down load values or not.
+    if totalload < self._aircraftdata.storeslimit("CL") + 1:
         self._configuration = "CL"
-    elif totalload <= self._aircraftdata.storeslimit("1/2"):
+    elif totalload < self._aircraftdata.storeslimit("1/2") + 1:
         self._configuration = "1/2"
     else:
         self._configuration = "DT"
@@ -556,7 +559,7 @@ def _showstores(self):
             "", "stores total weight        is %d." % self._storestotalweight()
         )
         self.logwhenwhat(
-            "", "stores total load          is %d." % self._storestotalload()
+            "", "stores total load          is %.1f." % self._storestotalload()
         )
         self.logwhenwhat(
             "", "stores total fuel capacity is %d." % self._storestotalfuelcapacity()
