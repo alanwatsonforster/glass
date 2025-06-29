@@ -1,9 +1,11 @@
 #!/usr/bin/env python3
 
 import os
+
 os.chdir(os.path.dirname(os.path.abspath(__file__)))
 
 import sys
+
 sys.path.append("../..")
 import glass.jsonc
 
@@ -26,18 +28,24 @@ for datafilepath in sorted(glob.glob("*.json")):
 
         if datafilepath == "FT.json":
 
-            write("|Name|Weight|Load (Full)|Load (Empty)|Fuel Points|Notes|")
+            write("|Name|Weight|Load (Full)|Load (Empty)|Fuel Capacity|Notes|")
             write("|--|--|--|--|--|--|")
 
             for name in storetable:
                 data = storetable[name]
-                if len(data) == 5:
-                    note = ""
+                weight = data[1]
+                loadpoints = data[2]
+                additionaldata = data[3]
+                emptyloadpoints = additionaldata["emptyload"]
+                fuelcapacity = additionaldata["fuelcapacity"]
+                if "note" in additionaldata:
+                    note = additionaldata["note"]
                 else:
-                    note = data[5]["note"]
-                write("|%s|%d|%.1f|%.1f|%d|%s|" % (
-                    name, data[1], data[2], data[3], data[4], note
-                ))
+                    note = ""
+                write(
+                    "|%s|%d|%.1f|%.1f|%d|%s|"
+                    % (name, weight, loadpoints, emptyloadpoints, fuelcapacity, note)
+                )
 
         else:
 
@@ -46,6 +54,6 @@ for datafilepath in sorted(glob.glob("*.json")):
 
             for name in storetable:
                 data = storetable[name]
-                write("|%s|%d|%.1f|" % (
-                    name, data[1], data[2]
-                ))
+                weight = data[1]
+                loadpoints = data[2]
+                write("|%s|%d|%.1f|" % (name, weight, loadpoints))

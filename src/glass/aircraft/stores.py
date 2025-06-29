@@ -39,7 +39,6 @@ _loadstores()
 
 ################################################################################
 
-
 def _class(storename):
     if not storename in _storedict:
         raise RuntimeError("unknown store %r." % storename)
@@ -63,16 +62,21 @@ def _load(storename, storesfuel=0):
         raise RuntimeError("unknown store %r." % storename)
 
     if _class(storename) == "FT" and empty:
-        return _storedict[storename][3]
+        return _additionaldata(storename)["emptyload"]
     else:
         return _storedict[storename][2]
 
+
+def _additionaldata(storename):
+    if not storename in _storedict:
+        raise RuntimeError("unknown store %r." % storename)
+    return  _storedict[storename][3]
 
 def _fuelcapacity(storename):
     if not storename in _storedict:
         raise RuntimeError("unknown store %r." % storename)
     if _class(storename) == "FT":
-        return _storedict[storename][4]
+        return _additionaldata(storename)["fuelcapacity"]
     else:
         return 0
 

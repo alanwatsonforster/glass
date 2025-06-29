@@ -1,4 +1,4 @@
-|Name|Weight|Load (Full)|Load (Empty)|Fuel Points|Notes|
+|Name|Weight|Load (Full)|Load (Empty)|Fuel Capacity|Notes|
 |--|--|--|--|--|--|
 |FT/235L|500|1.5|1.0|20||
 |FT/250L|550|1.5|1.0|24||
@@ -24,10 +24,10 @@
 |FT/1800L|3250|5.5|4.0|160||
 |FT/1900L|3500|6.0|4.0|170||
 |FT/2200L|4500|8.0|5.0|200||
-|FT/190L|350|1.0|0.5|15|F-5 only|
-|FT/800L|1730|3.5|2.0|73|MiG-23/27 only|
-|FT/2800L|6000|10.0|6.0|240|B-52 only|
-|FT/11000L|20000|20.0|12.5|975|B-52 only|
-|FT/MRT/500L|1100|3.0|2.0|44|Mirage only: TK-500 + 4 x 500 lb bombs|
-|FT/RPT/270L|900|4.0|2.5|20|Mirage only: JL-100 + 18 x 68 mm rockets|
-|FT/RPT/1300L|3000|6.0|4.0|114|Mirage only: JL-500 + 18 x 68 mm rockets|
+|FT/190L|350|1.0|0.5|15|F-5 only.|
+|FT/800L|1730|3.5|2.0|73|MiG-23/27 only.|
+|FT/2800L|6000|10.0|6.0|240|B-52 only.|
+|FT/11000L|20000|20.0|12.5|975|B-52 only.|
+|FT/MRT/500L|1100|3.0|2.0|44|Mirage only: TK-500 with four 500 lb bombs.|
+|FT/RPT/270L|900|4.0|2.5|20|Mirage only: JL-100 with eighteen 68 mm rockets.|
+|FT/RPT/1300L|3000|6.0|4.0|114|Mirage only: JL-500 with eighteen 68 mm rockets.|
