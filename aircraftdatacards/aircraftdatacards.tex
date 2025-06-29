@@ -285,8 +285,8 @@ ET&\Cfa&\Cfb&\Cfc\spacebelow\\
 \end{tabularx}
 }
 
-\newcommand{\blockDminmaxspeed}[2]{\wbox[r]{\Dba}{#1} -- \wbox[r]{\Dba}{#2}}
-\newcommand{\blockDdivespeed}[1]{\wbox{\Dbb}{#1}}
+\newcommand{\blockDminmaxspeed}[3]{\wbox[r]{#3}{#1} -- \wbox[r]{#3}{#2}}
+\newcommand{\blockDdivespeed}[1]{\wbox{\Dbd}{#1}}
 \newcommand{\blockDceilingandcruisespeed}[2]{%
   \ifversionone
   #1
@@ -300,29 +300,31 @@ ET&\Cfa&\Cfb&\Cfc\spacebelow\\
 \newcommand{\Dac}{\blockDceilingandcruisespeed{40}{4.5}} % Ceiling and cruise speed DT
 \newcommand{\Dba}{00.0} % Max speed width template
 \newcommand{\Dbb}{00.0} % Dive speed width template
-\newcommand{\Dca}{\blockDminmaxspeed{4.5}{13.0}} % EH speeds CL
-\newcommand{\Dcb}{\blockDminmaxspeed{5.0}{10.5}} % EH speeds 1/2
+\newcommand{\Dbc}{00.0} % Dive speed width template
+\newcommand{\Dbd}{00.0} % Dive speed width template
+\newcommand{\Dca}{\blockDminmaxspeed{4.5}{13.0}{\Dba}} % EH speeds CL
+\newcommand{\Dcb}{\blockDminmaxspeed{5.0}{10.5}{\Dbb}} % EH speeds 1/2
 \newcommand{\Dcc}{---} % EH speeds DT
 \newcommand{\Dcd}{14.0} % EH dive speed
-\newcommand{\Dda}{\blockDminmaxspeed{3.5}{13.5}} % VH speeds CL
-\newcommand{\Ddb}{\blockDminmaxspeed{4.0}{11.0}} % VH speeds 1/2
-\newcommand{\Ddc}{\blockDminmaxspeed{4.5}{ 8.5}} % VH speeds DT
+\newcommand{\Dda}{\blockDminmaxspeed{3.5}{13.5}{\Dba}} % VH speeds CL
+\newcommand{\Ddb}{\blockDminmaxspeed{4.0}{11.0}{\Dbb}} % VH speeds 1/2
+\newcommand{\Ddc}{\blockDminmaxspeed{4.5}{ 8.5}{\Dbc}} % VH speeds DT
 \newcommand{\Ddd}{14.0} % VH dive speed
-\newcommand{\Dea}{\blockDminmaxspeed{3.0}{12.0}} % HI speeds CL
-\newcommand{\Deb}{\blockDminmaxspeed{3.0}{10.0}} % HI speeds 1/2
-\newcommand{\Dec}{\blockDminmaxspeed{3.5}{ 8.0}} % HI speeds DT
+\newcommand{\Dea}{\blockDminmaxspeed{3.0}{12.0}{\Dba}} % HI speeds CL
+\newcommand{\Deb}{\blockDminmaxspeed{3.0}{10.0}{\Dbb}} % HI speeds 1/2
+\newcommand{\Dec}{\blockDminmaxspeed{3.5}{ 8.0}{\Dbc}} % HI speeds DT
 \newcommand{\Ded}{13.0} % HI dive speed
-\newcommand{\Dfa}{\blockDminmaxspeed{2.5}{10.0}} % MH speeds CL
-\newcommand{\Dfb}{\blockDminmaxspeed{3.0}{ 9.0}} % MH speeds 1/2
-\newcommand{\Dfc}{\blockDminmaxspeed{3.5}{ 7.0}} % MH speeds DT
+\newcommand{\Dfa}{\blockDminmaxspeed{2.5}{10.0}{\Dba}} % MH speeds CL
+\newcommand{\Dfb}{\blockDminmaxspeed{3.0}{ 9.0}{\Dbb}} % MH speeds 1/2
+\newcommand{\Dfc}{\blockDminmaxspeed{3.5}{ 7.0}{\Dbc}} % MH speeds DT
 \newcommand{\Dfd}{12.0} % MH dive speed
-\newcommand{\Dga}{\blockDminmaxspeed{2.0}{ 9.0}} % ML speeds CL
-\newcommand{\Dgb}{\blockDminmaxspeed{2.5}{ 8.0}} % ML speeds 1/2
-\newcommand{\Dgc}{\blockDminmaxspeed{3.0}{ 6.5}} % ML speeds DT
+\newcommand{\Dga}{\blockDminmaxspeed{2.0}{ 9.0}{\Dba}} % ML speeds CL
+\newcommand{\Dgb}{\blockDminmaxspeed{2.5}{ 8.0}{\Dbb}} % ML speeds 1/2
+\newcommand{\Dgc}{\blockDminmaxspeed{3.0}{ 6.5}{\Dbc}} % ML speeds DT
 \newcommand{\Dgd}{10.0} % ML dive speed
-\newcommand{\Dha}{\blockDminmaxspeed{2.0}{ 8.0}} % LO speeds CL
-\newcommand{\Dhb}{\blockDminmaxspeed{2.0}{ 7.0}} % LO speeds 1/2
-\newcommand{\Dhc}{\blockDminmaxspeed{3.0}{ 6.0}} % LO speeds DT
+\newcommand{\Dha}{\blockDminmaxspeed{2.0}{ 8.0}{\Dba}} % LO speeds CL
+\newcommand{\Dhb}{\blockDminmaxspeed{2.0}{ 7.0}{\Dbb}} % LO speeds 1/2
+\newcommand{\Dhc}{\blockDminmaxspeed{3.0}{ 6.0}{\Dbc}} % LO speeds DT
 \newcommand{\Dhd}{ 8.5} % LO dive speed
 
 \newcommand{\blockE}{%

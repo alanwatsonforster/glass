@@ -404,9 +404,15 @@ def blockD(data, geometry=None):
         if data.minspeed(configuration, geometry, altitudeband) is None:
             return "---"
         else:
-            return r"\blockDminmaxspeed{%.1f}{%.1f}" % (
+            width = {
+                "CL": "\\Dba",
+                "1/2": "\\Dbb",
+                "DT": "\\Dbc",
+            }
+            return r"\blockDminmaxspeed{%.1f}{%.1f}{%s}" % (
                 data.minspeed(configuration, geometry, altitudeband),
                 data.maxspeed(configuration, geometry, altitudeband),
+                width[configuration],
             )
 
     def divespeed(altitudeband):
@@ -414,6 +420,66 @@ def blockD(data, geometry=None):
             return "---"
         else:
             return r"\blockDdivespeed{%.1f}" % data.maxdivespeed(geometry, altitudeband)
+
+    maxspeed = 0
+    if data.maxspeed("CL", geometry, "EH") is not None:
+        maxspeed = max(maxspeed, data.maxspeed("CL", geometry, "EH"))
+    if data.maxspeed("CL", geometry, "VH") is not None:
+        maxspeed = max(maxspeed, data.maxspeed("CL", geometry, "VH"))
+    if data.maxspeed("CL", geometry, "HI") is not None:
+        maxspeed = max(maxspeed, data.maxspeed("CL", geometry, "HI"))
+    if data.maxspeed("CL", geometry, "MH") is not None:
+        maxspeed = max(maxspeed, data.maxspeed("CL", geometry, "MH"))
+    if data.maxspeed("CL", geometry, "ML") is not None:
+        maxspeed = max(maxspeed, data.maxspeed("CL", geometry, "ML"))
+    if data.maxspeed("CL", geometry, "LO") is not None:
+        maxspeed = max(maxspeed, data.maxspeed("CL", geometry, "LO"))
+    writelatex(r"\renewcommand{\Dba}{%.1f}" % maxspeed)
+
+    maxspeed = 0
+    if data.maxspeed("1/2", geometry, "EH") is not None:
+        maxspeed = max(maxspeed, data.maxspeed("1/2", geometry, "EH"))
+    if data.maxspeed("1/2", geometry, "VH") is not None:
+        maxspeed = max(maxspeed, data.maxspeed("1/2", geometry, "VH"))
+    if data.maxspeed("1/2", geometry, "HI") is not None:
+        maxspeed = max(maxspeed, data.maxspeed("1/2", geometry, "HI"))
+    if data.maxspeed("1/2", geometry, "MH") is not None:
+        maxspeed = max(maxspeed, data.maxspeed("1/2", geometry, "MH"))
+    if data.maxspeed("1/2", geometry, "ML") is not None:
+        maxspeed = max(maxspeed, data.maxspeed("1/2", geometry, "ML"))
+    if data.maxspeed("1/2", geometry, "LO") is not None:
+        maxspeed = max(maxspeed, data.maxspeed("1/2", geometry, "LO"))
+    writelatex(r"\renewcommand{\Dbb}{%.1f}" % maxspeed)
+
+    maxspeed = 0
+    if data.maxspeed("DT", geometry, "EH") is not None:
+        maxspeed = max(maxspeed, data.maxspeed("DT", geometry, "EH"))
+    if data.maxspeed("DT", geometry, "VH") is not None:
+        maxspeed = max(maxspeed, data.maxspeed("DT", geometry, "VH"))
+    if data.maxspeed("DT", geometry, "HI") is not None:
+        maxspeed = max(maxspeed, data.maxspeed("DT", geometry, "HI"))
+    if data.maxspeed("DT", geometry, "MH") is not None:
+        maxspeed = max(maxspeed, data.maxspeed("DT", geometry, "MH"))
+    if data.maxspeed("DT", geometry, "ML") is not None:
+        maxspeed = max(maxspeed, data.maxspeed("DT", geometry, "ML"))
+    if data.maxspeed("DT", geometry, "LO") is not None:
+        maxspeed = max(maxspeed, data.maxspeed("DT", geometry, "LO"))
+    writelatex(r"\renewcommand{\Dbc}{%.1f}" % maxspeed)
+
+    maxspeed = 0
+    if data.maxdivespeed(geometry, "EH") is not None:
+        maxspeed = max(maxspeed, data.maxdivespeed(geometry, "EH"))
+    if data.maxdivespeed(geometry, "VH") is not None:
+        maxspeed = max(maxspeed, data.maxdivespeed(geometry, "VH"))
+    if data.maxdivespeed(geometry, "HI") is not None:
+        maxspeed = max(maxspeed, data.maxdivespeed(geometry, "HI"))
+    if data.maxdivespeed(geometry, "MH") is not None:
+        maxspeed = max(maxspeed, data.maxdivespeed(geometry, "MH"))
+    if data.maxdivespeed(geometry, "ML") is not None:
+        maxspeed = max(maxspeed, data.maxdivespeed(geometry, "ML"))
+    if data.maxdivespeed(geometry, "LO") is not None:
+        maxspeed = max(maxspeed, data.maxdivespeed(geometry, "LO"))
+    writelatex(r"\renewcommand{\Dbd}{%.1f}" % maxspeed)
 
     writelatex(
         r"\renewcommand{\Daa}{\blockDceilingandcruisespeed{%d}{%.1f}}\renewcommand{\Dab}{\blockDceilingandcruisespeed{%d}{%.1f}}\renewcommand{\Dac}{\blockDceilingandcruisespeed{%d}{%.1f}}"
@@ -480,33 +546,6 @@ def blockD(data, geometry=None):
             divespeed("LO"),
         )
     )
-
-    if data.maxspeed("CL", geometry, "EH") is not None:
-        writelatex(r"\renewcommand{\Dba}{%.1f}" % data.maxspeed("CL", geometry, "EH"))
-    elif data.maxspeed("CL", geometry, "VH") is not None:
-        writelatex(r"\renewcommand{\Dba}{%.1f}" % data.maxspeed("CL", geometry, "VH"))
-    elif data.maxspeed("CL", geometry, "HI") is not None:
-        writelatex(r"\renewcommand{\Dba}{%.1f}" % data.maxspeed("CL", geometry, "HI"))
-    elif data.maxspeed("CL", geometry, "MH") is not None:
-        writelatex(r"\renewcommand{\Dba}{%.1f}" % data.maxspeed("CL", geometry, "MH"))
-    elif data.maxspeed("CL", geometry, "ML") is not None:
-        writelatex(r"\renewcommand{\Dba}{%.1f}" % data.maxspeed("CL", geometry, "ML"))
-    else:
-        writelatex(r"\renewcommand{\Dba}{%.1f}" % data.maxspeed("CL", geometry, "LO"))
-
-    if data.maxdivespeed(geometry, "EH") is not None:
-        writelatex(r"\renewcommand{\Dbb}{%.1f}" % data.maxdivespeed(geometry, "EH"))
-    elif data.maxdivespeed(geometry, "VH") is not None:
-        writelatex(r"\renewcommand{\Dbb}{%.1f}" % data.maxdivespeed(geometry, "VH"))
-    elif data.maxdivespeed(geometry, "HI") is not None:
-        writelatex(r"\renewcommand{\Dbb}{%.1f}" % data.maxdivespeed(geometry, "HI"))
-    elif data.maxdivespeed(geometry, "MH") is not None:
-        writelatex(r"\renewcommand{\Dbb}{%.1f}" % data.maxdivespeed(geometry, "MH"))
-    elif data.maxdivespeed(geometry, "ML") is not None:
-        writelatex(r"\renewcommand{\Dbb}{%.1f}" % data.maxdivespeed(geometry, "ML"))
-    else:
-        writelatex(r"\renewcommand{\Dbb}{%.1f}" % data.maxdivespeed(geometry, "LO"))
-
 
 def blockE(data, geometry=None):
 
