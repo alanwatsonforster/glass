@@ -28,23 +28,25 @@ for datafilepath in sorted(glob.glob("*.json")):
 
         if datafilepath == "FT.json":
 
-            write("|Name|Weight|Load (Full)|Load (Empty)|Fuel Capacity|Notes|")
-            write("|--|--|--|--|--|--|")
+            write("|Name|Liters|US Gallons|Imp Gallons|Weight|Load (Full)|Load (Empty)|Fuel Capacity|Notes|")
+            write("|--|--|--|--|--|--|--|--|--|")
 
             for name in storetable:
                 data = storetable[name]
                 weight = data[1]
                 loadpoints = data[2]
                 additionaldata = data[3]
-                emptyloadpoints = additionaldata["emptyload"]
+                emptyload = additionaldata["emptyload"]
                 fuelcapacity = additionaldata["fuelcapacity"]
+                liters = int(name.split("/")[-1][:-1])
+
                 if "note" in additionaldata:
                     note = additionaldata["note"]
                 else:
                     note = ""
                 write(
-                    "|%s|%d|%.1f|%.1f|%d|%s|"
-                    % (name, weight, loadpoints, emptyloadpoints, fuelcapacity, note)
+                    "|%s|%.0f|%.0f|%.0f|%d|%.1f|%.1f|%d|%s|"
+                    % (name, liters, liters / 3.785, liters / 4.546, weight, loadpoints, emptyload, fuelcapacity, note)
                 )
 
         else:
