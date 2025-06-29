@@ -1,12 +1,11 @@
 ################################################################################
 
+import glass.jsonc
 import glass.log
 import glass.variants
 
-import json
 import os
 import glob
-import re
 
 ################################################################################
 
@@ -25,16 +24,12 @@ def _loadstores():
     for path in sorted(glob.glob(os.path.join(storesdatadir, "*.json"))):
         try:
             with open(path, "r", encoding="utf-8") as f:
-                s = f.read(-1)
-                # Strip whole-line // comments.
-                r = re.compile("^[ \t]*//.*$", re.MULTILINE)
-                s = re.sub(r, "", s)
-                _storedict.update(json.loads(s))
+                _storedict.update(glass.jsonc.load(f))
         except FileNotFoundError:
             raise RuntimeError(
                 'unable to find stores data file "%s".' % path
             )
-        except json.JSONDecodeError as e:
+        except glass.jsonc.JSONDecodeError as e:
             raise RuntimeError(
                 'unable to read stores data file "%s": line %d: %s.'
                 % (path, e.lineno, e.msg.lower())

@@ -136,9 +136,9 @@ import glass.draw
 import glass.hex
 import glass.hex
 import glass.hexcode
+import glass.jsonc
 import glass.mapstyle
 
-import json
 import math
 import os
 
@@ -417,7 +417,7 @@ def _loadterrain(fullsheet):
     """
     filename = os.path.join(os.path.dirname(__file__), "mapsheetdata", fullsheet + ".json")
     with open(filename, "r", encoding="utf-8") as f:
-        terrain = json.load(f)
+        terrain = glass.jsonc.load(f)
     return terrain
 
 

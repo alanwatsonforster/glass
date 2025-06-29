@@ -1,8 +1,7 @@
+import glass.jsonc
 import glass.variants
 
 import os.path
-import json
-import re
 
 
 def _checkconfiguration(configuration):
@@ -37,16 +36,12 @@ class aircraftdata:
         def loadfile(name):
             try:
                 with open(filename(name), "r", encoding="utf-8") as f:
-                    s = f.read(-1)
-                    # Strip whole-line // comments.
-                    r = re.compile("^[ \t]*//.*$", re.MULTILINE)
-                    s = re.sub(r, "", s)
-                    return json.loads(s)
+                    return glass.jsonc.load(f)
             except FileNotFoundError:
                 raise RuntimeError(
                     'unable to find aircraft data file for aircraft type "%s".' % name
                 )
-            except json.JSONDecodeError as e:
+            except glass.jsonc.JSONDecodeError as e:
                 raise RuntimeError(
                     'unable to read aircraft data file for aircraft type "%s": line %d: %s.'
                     % (name, e.lineno, e.msg.lower())

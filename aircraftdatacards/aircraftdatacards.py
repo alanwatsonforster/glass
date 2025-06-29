@@ -8,6 +8,7 @@ import json
 
 sys.path.append("../src")
 from glass import aircraftdata
+import glass.jsonc
 import glass.variants
 
 version = 1
@@ -1079,10 +1080,7 @@ def readjsonfile(jsonfilename):
         if s[:2] == "#!":
             r = re.compile("^#.*$", re.MULTILINE)
             s = re.sub(r, "", s)
-        # Strip whole-line // comments.
-        r = re.compile("^[ \t]*//.*$", re.MULTILINE)
-        s = re.sub(r, "", s)
-        directives = json.loads(s)
+        directives = glass.jsonc.loads(s)
     log("finished reading %s." % os.path.basename(jsonfilename))
 
     return directives
