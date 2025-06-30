@@ -1908,7 +1908,7 @@ def _checkrecovery(A):
     # this turn plus half of the speed, rounding down.
 
     if A._hasunloaded:
-        A._unloadedrecoveryfp = int(A.speed() / 2) + 1
+        A._unloadedrecoveryfp = int(A.speed() / 2)
         A._ETrecoveryfp -= 1
         A._BTrecoveryfp = -1
         A._rollrecoveryfp = -1
@@ -1916,7 +1916,7 @@ def _checkrecovery(A):
         A._TTrecoveryfp = -1
     elif A._maneuvertype == "ET":
         A._unloadedrecoveryfp = -1
-        A._ETrecoveryfp = int(A.speed() / 2) + 1
+        A._ETrecoveryfp = int(A.speed() / 2)
         A._BTrecoveryfp = -1
         A._rollrecoveryfp = -1
         A._HTrecoveryfp = -1
@@ -1924,7 +1924,7 @@ def _checkrecovery(A):
     elif A._maneuvertype == "BT":
         A._unloadedrecoveryfp -= 1
         A._ETrecoveryfp -= 1
-        A._BTrecoveryfp = int(A.speed() / 2) + 1
+        A._BTrecoveryfp = int(A.speed() / 2)
         A._rollrecoveryfp = -1
         A._HTrecoveryfp = -1
         A._TTrecoveryfp = -1
@@ -1932,7 +1932,7 @@ def _checkrecovery(A):
         A._unloadedrecoveryfp -= 1
         A._ETrecoveryfp -= 1
         A._BTrecoveryfp = -1
-        A._rollrecoveryfp = int(A.speed() / 2) + 1
+        A._rollrecoveryfp = int(A.speed() / 2)
         A._HTrecoveryfp = -1
         A._TTrecoveryfp = -1
     elif A._maneuvertype == "HT":
@@ -1940,7 +1940,7 @@ def _checkrecovery(A):
         A._ETrecoveryfp -= 1
         A._BTrecoveryfp -= 1
         A._rollrecoveryfp -= 1
-        A._HTrecoveryfp = int(A.speed() / 2) + 1
+        A._HTrecoveryfp = int(A.speed() / 2)
         A._TTrecoveryfp = -1
     elif A._maneuvertype == "TT":
         A._unloadedrecoveryfp -= 1
@@ -1948,7 +1948,7 @@ def _checkrecovery(A):
         A._BTrecoveryfp -= 1
         A._rollrecoveryfp -= 1
         A._HTrecoveryfp -= 1
-        A._TTrecoveryfp = int(A.speed() / 2) + 1
+        A._TTrecoveryfp = int(A.speed() / 2)
         A._unloadedrecoveryfp -= 1
     else:
         A._unloadedrecoveryfp -= 1
