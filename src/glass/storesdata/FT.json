@@ -17,6 +17,7 @@
     "FT/400L"   : [ "FT",   700,  2.0, { "emptyload": 1.0, "fuelcapacity":  35 } ],
     "FT/420L"   : [ "FT",   740,  2.0, { "emptyload": 1.0, "fuelcapacity":  37 } ],
     "FT/450L"   : [ "FT",   800,  2.5, { "emptyload": 1.5, "fuelcapacity":  40 } ],
+    "FT/490L"   : [ "FT",   900,  2.5, { "emptyload": 1.5, "fuelcapacity":  45 } ],
     "FT/550L"   : [ "FT",  1000,  3.0, { "emptyload": 2.0, "fuelcapacity":  50 } ],
     "FT/600L"   : [ "FT",  1100,  3.0, { "emptyload": 2.0, "fuelcapacity":  55 } ],
     "FT/700L"   : [ "FT",  1300,  3.0, { "emptyload": 2.0, "fuelcapacity":  60 } ],
@@ -35,13 +36,50 @@
 
     // Aircraft specific FTs:
 
-    "FT/190L"   : [ "FT",   350,  1.0, { "emptyload":  0.5, "fuelcapacity":  15, "note": "F-5 only." } ],
-    "FT/800L"   : [ "FT",  1730,  3.5, { "emptyload":  2.0, "fuelcapacity":  73, "note": "MiG-23/27 only." } ],
-    "FT/2800L"  : [ "FT",  6000, 10.0, { "emptyload":  6.0, "fuelcapacity": 240, "note": "B-52 only." } ],
-    "FT/11000L" : [ "FT", 20000, 20.0, { "emptyload": 12.5, "fuelcapacity": 975, "note": "B-52 only." } ],
-
-    "FT/MRT/500L"  : [ "FT",  1100,  3.0, { "emptyload": 2.0, "fuelcapacity":  44, "note": "Mirage only: TK-500 with four 500 lb bombs." } ],
-    "FT/RPT/270L"  : [ "FT",   900,  4.0, { "emptyload":  2.5, "fuelcapacity":  20, "note": "Mirage only: JL-100 with eighteen 68 mm rockets." } ],
-    "FT/RPT/1300L" : [ "FT",  3000,  6.0, { "emptyload":  4.0, "fuelcapacity": 114, "note": "Mirage only: JL-500 with eighteen 68 mm rockets." } ]
+    "FT/F-5/190L"   : [ 
+        "FT",   350,  1.0, { "emptyload":  0.5, "fuelcapacity":  15, "note": "F-5 only." } 
+    ],
+    "FT/F7U/800L" : [
+        "FT", 1500, 3.0, { "emptyload": 2.0, "fuelcapacity": 70, "note": "F7U only: ventral tank."}
+    ],
+    "FT/Meteor/800L" : [
+        "FT", 1600, 3.0, { "emptyload": 2.0, "fuelcapacity": 70, "note": "Meteor only: ventral tank."}
+    ],
+    "FT/MiG/800L" : [
+        "FT", 1730, 3.5, { "emptyload": 2.0, "fuelcapacity": 73, "note": "MiG-21/23/27 only." } 
+    ],
+    "FT/A-5/1100L" : [
+        "FT", 2000, 2.0, { "emptyload": 0.0, "fuelcapacity": 95, "note": "A-5 only: weapons-tube tank." } 
+    ],
+    "FT/F-105/1300L" : [
+        "FT", 2500, 2.5, { "emptyload": 0.0, "fuelcapacity": 125, "note": "F-105 only: bomb-bay tank." } 
+    ],
+    "FT/B-29/2400L"  : [ 
+        "FT",  5000,  4.0, { "emptyload":  0.0, "fuelcapacity": 200, "note": "B-29 only: bomb-bay tank."}
+    ],
+    "FT/Tu-4/2400L"  : [ 
+        "FT",  5000,  4.0, { "emptyload":  0.0, "fuelcapacity": 200, "note": "Tu-4 only: bomb-bay tank."}
+    ],
+    "FT/B-50/2600L"  : [ 
+        "FT",  4500, 10.0, { "emptyload":  6.0, "fuelcapacity": 230, "note": "B-50 only."}
+    ],
+    "FT/B-52/2800L"  : [
+        "FT",  6000, 10.0, { "emptyload":  6.5, "fuelcapacity": 240, "note": "B-52 only." }
+    ],
+    "FT/B-50/8300L"  : [ 
+        "FT", 14000, 14.0, { "emptyload":  0.0, "fuelcapacity": 715, "note": "B-50 only: bomb-bay tank."}
+    ],
+    "FT/B-52/11000L" : [
+        "FT", 20000, 20.0, { "emptyload": 12.5, "fuelcapacity": 975, "note": "B-52 only." }
+    ],
+    "FT/MRT/500L"  : [ 
+        "FT",  1100,  3.0, { "emptyload": 2.0, "fuelcapacity":  44, "note": "Mirage only: TK-500 with four 500 lb bombs." } 
+    ],
+    "FT/RPT/270L"  : [ 
+        "FT",   900,  4.0, { "emptyload":  2.5, "fuelcapacity":  20, "note": "Mirage only: JL-100 with eighteen 68 mm rockets." } 
+    ],
+    "FT/RPT/1300L" : [ 
+        "FT",  3000,  6.0, { "emptyload":  4.0, "fuelcapacity": 114, "note": "Mirage only: JL-500 with eighteen 68 mm rockets." } 
+    ]
 
 }

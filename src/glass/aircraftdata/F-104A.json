@@ -331,8 +331,8 @@
         ]
     ],
     "loadnotes": [
-        "Stations 1 and 4 may only carry IRMs or 165 gal FTs (600L, weight 1100, load 3.0/2.0, and fuel 50).",
-        "Stations 2 and 3 may only carry 200 gal FTs (700L, weight 1300, load 3.0/2.0, and fuel 60).",
+        "Stations 1 and 4 may only carry IRMs or 165 gal (600L) FTs.",
+        "Stations 2 and 3 may only carry 200 gal (700L) FTs.",
         "May only use AIM-9B through AIM-9P IRMs."
     ],
     "VPs": [

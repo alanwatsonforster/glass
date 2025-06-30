@@ -309,7 +309,7 @@
     "loadnotes": [
         "Either stations 1 and 3 or stations 4 to 11 can be used.",
         "Stations 1 and 3 can each carry a 100 gal (450L) FT.",
-        "Ventral station 2 can only be used to carry a jettisonable conformal 175 gal FT (800L, weight 1,600, load 3.0/2.0, and fuel 70). While carried, the FT restricts the maximum speed to 4.0.",
+        "Ventral station 2 can only be used to carry a special jettisonable conformal 175 gal (800L) FT. While carried, the FT restricts the maximum speed to 4.0.",
         "Stations 4 to 11 can each carry two RP-3 RKs or one HVAR RK."
     ],
     "VPs": [

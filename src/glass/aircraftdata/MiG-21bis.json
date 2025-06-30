@@ -353,7 +353,7 @@
     ],
     "loadnotes": [
         "May use R-3, R-13, and R-60 IRMs (AA-2 and AA-8). May use R-3R RHM (AA-2C). MDRs are for R-60s only.",
-        "Station 3 may carry a 490L FT (weight 1065, load 2.5/1.5, and fuel 45). It may also be overloaded with an 800L FT (weight 1725, load 3.5/3.0, fuel 73), which requires the aircraft not exceed transonic speed."
+        "Station 3 may carry a 490L FT. It may also be overloaded with a special 800L FT, which requires the aircraft not exceed transonic speed."
     ],
     "VPs": [
         24,
