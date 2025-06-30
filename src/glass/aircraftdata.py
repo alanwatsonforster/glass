@@ -409,6 +409,8 @@ class aircraftdata:
         raw = self._data["maneuvertable"][rolltype][1]
         if raw == "-":
             return None
+        elif glass.variants.withvariant("use house rules"):
+            return raw + 0.5
         else:
             return raw
 
