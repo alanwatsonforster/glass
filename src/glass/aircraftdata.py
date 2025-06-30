@@ -399,8 +399,10 @@ class aircraftdata:
         raw = self._data["maneuvertable"]["LR/DR"][0]
         if raw == "-":
             return None
-        else:
+        elif glass.variants.withvariant("use first-edition ADCs"):
             return raw
+        else:
+            return 1.0
 
     def rolldrag(self, rolltype):
         assert rolltype in ["VR", "LR", "DR"]
