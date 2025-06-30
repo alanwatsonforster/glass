@@ -19,7 +19,7 @@ ADC from TSOH.
 
 ### Radar
 
-According to the SACs, the -3 has an APG-30 ranging radar and only the -3M has an APQ-51 radar. (On the other hand, it states that the -3 can carry up to four Sparrow-I missiles.) Changed in [c71085f](https://github.com/alanwatsonforster/apxo/commit/c71085f636825e745482870bf76ebeabc33eb3db).
+According to the SACs, the -3 has an APG-30 ranging radar and only the -3M has an APQ-51 radar. (On the other hand, it states that the -3 can carry up to four Sparrow-I missiles.) Changed in [c71085f](https://github.com/alanwatsonforster/glass/commit/c71085f636825e745482870bf76ebeabc33eb3db).
 
 ### Pod
 
@@ -31,7 +31,7 @@ At 6.5 lb per gallon and 20 lb per fuel point, this is about 70 fuel points. The
 
 The 70 mm rockets in the LAU-3A pod weight about 25 lb each, including the pod. A pod with 32 rockets would weight about 800 lb. A 450L FT also weights 800 lb and contributes 2.5/1.5 load points. Reducing this by 0.5 for being conformal (and in line with the Meteor tank), it would be 2.0/1.0 load points.
 
-I have added these characteristics in [0e3d237](https://github.com/alanwatsonforster/apxo/commit/0e3d23761cc26866ac94884fce1be07806c8ee48).
+I have added these characteristics in [0e3d237](https://github.com/alanwatsonforster/glass/commit/0e3d23761cc26866ac94884fce1be07806c8ee48).
 
 It is not clear if the tank is can be jettisoned in flight.
 

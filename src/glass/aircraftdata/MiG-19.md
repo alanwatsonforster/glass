@@ -40,7 +40,7 @@ ADC for the Early variant created by AWF by taking the characteristics of the tw
 
 ### Radar
 
-Radar in PF and PM is RP-1 Izumrud (Scan Odd) (Goebel, Wikipedia). Added in [4f73dcf](https://github.com/alanwatsonforster/apxo/commit/4f73dcfc42645ed33a15bffe35cb048e1754b6cb).
+Radar in PF and PM is RP-1 Izumrud (Scan Odd) (Goebel, Wikipedia). Added in [4f73dcf](https://github.com/alanwatsonforster/glass/commit/4f73dcfc42645ed33a15bffe35cb048e1754b6cb).
 
 ### NR-30 Guns
 

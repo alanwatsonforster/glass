@@ -117,7 +117,7 @@ ADC from TSOH. The TSOH ADC describes an "MiG-21MF export version" with Spin Sca
 
 ### Radars
 
-I have taken the radar names from the Wikipedia article on MiG-21 versions, which is derived from Gordon. Added in [750fd28](https://github.com/alanwatsonforster/apxo/commit/750fd2867100ac5945edb520e325bed56558157e) and [baa63c7](https://github.com/alanwatsonforster/apxo/commit/baa63c78114b2940d2e13d44342c74bba76f8f48).
+I have taken the radar names from the Wikipedia article on MiG-21 versions, which is derived from Gordon. Added in [750fd28](https://github.com/alanwatsonforster/glass/commit/750fd2867100ac5945edb520e325bed56558157e) and [baa63c7](https://github.com/alanwatsonforster/glass/commit/baa63c78114b2940d2e13d44342c74bba76f8f48).
 
 ### NR-30 Guns
 
@@ -125,11 +125,11 @@ See [#208](https://github.com/alanwatsonforster/glass/issues/208).
 
 ### Missiles
 
-The Wikipedia article on variants states that the MF could not use AA-2C RHMs, but could use AA-8 IRMs as a new capability. Added in [999ee10](https://github.com/alanwatsonforster/apxo/commit/999ee109bb9c96551b483289f47ac8e0d9959a4b).
+The Wikipedia article on variants states that the MF could not use AA-2C RHMs, but could use AA-8 IRMs as a new capability. Added in [999ee10](https://github.com/alanwatsonforster/glass/commit/999ee109bb9c96551b483289f47ac8e0d9959a4b).
 
 ### Use of GP-9
 
-Müller states that the GP-9 was only used on the PFM, FL, and S. Removed from PF in [4e62484](https://github.com/alanwatsonforster/apxo/commit/4e624841cf6d4b5e1c6cfd8189370378c6a86d6f).
+Müller states that the GP-9 was only used on the PFM, FL, and S. Removed from PF in [4e62484](https://github.com/alanwatsonforster/glass/commit/4e624841cf6d4b5e1c6cfd8189370378c6a86d6f).
 
 ## Operational History
 

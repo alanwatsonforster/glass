@@ -10,7 +10,7 @@ ADC from TSOH.
 
 Early version with tail guns.
 
-The SAC states that the tail guns are two 20 mm M3 each with 500 rounds. Added in [deb3d24](https://github.com/alanwatsonforster/apxo/commit/deb3d241a568d98687c6c7ecaf3e1aa43b0a0722).
+The SAC states that the tail guns are two 20 mm M3 each with 500 rounds. Added in [deb3d24](https://github.com/alanwatsonforster/glass/commit/deb3d241a568d98687c6c7ecaf3e1aa43b0a0722).
 
 ### A3D-2/A-3B (Late)
 

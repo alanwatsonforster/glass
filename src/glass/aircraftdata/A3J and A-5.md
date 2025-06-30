@@ -48,7 +48,7 @@ This means:
 
 These are in good agreement with the value of 1170 given in the TSOH ADC for A-5B/RA-5C with three tanks, but in disagreement with the value of 1025 given for the A-5A with two tanks.
 
-Changed to these values (A-5A = 720, A-5B/RA-5C = 880, 295 FT = 95) in [b48ba52](https://github.com/alanwatsonforster/apxo/commit/b48ba521502ba64d9b6507f202606e89d27de2aa).
+Changed to these values (A-5A = 720, A-5B/RA-5C = 880, 295 FT = 95) in [b48ba52](https://github.com/alanwatsonforster/glass/commit/b48ba521502ba64d9b6507f202606e89d27de2aa).
 
 ### Nuclear Bombs
 
