@@ -12,6 +12,11 @@ sandbox.pdf	:	.FORCE
 format		:
 	python3 format.py
 
+example-adcs:
+	version=1 make example-adc.pdf && mv example-adc.pdf example-adc-v1.pdf
+	version=2 make example-adc.pdf && mv example-adc.pdf example-adc-v2.pdf
+	version=3 make example-adc.pdf && mv example-adc.pdf example-adc-v3.pdf
+
 push-descriptions:
 	python3 push-descriptions.py
 

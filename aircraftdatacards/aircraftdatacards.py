@@ -11,7 +11,10 @@ from glass import aircraftdata
 import glass.jsonc
 import glass.variants
 
-version = 1
+if "version" in os.environ:
+    version = int(os.environ["version"])
+else:
+    version = 1
 
 if version == 1:
     glass.variants.setvariants(["use first-edition ADCs"])
@@ -54,7 +57,10 @@ def blockA(data, geometry=None):
     if data.variantname() is None:
         writelatex(r"\renewcommand{\Aab}{%s}" % data.fullname())
     else:
-        writelatex(r"\renewcommand{\Aab}{%s\\[0.2em](%s)}" % (data.fullname(), latexify(data.variantname())))
+        writelatex(
+            r"\renewcommand{\Aab}{%s\\[0.2em](%s)}"
+            % (data.fullname(), latexify(data.variantname()))
+        )
 
     if data.propellerengines() == 0 and data.jetengines() <= 4:
         writelatex(
@@ -223,7 +229,6 @@ def blockB(data, geometry=None):
 
 def blockC(data, geometry=None):
 
-
     def crew():
         if len(data.crew()) == 1:
             return data.crew()[0]
@@ -277,7 +282,7 @@ def blockC(data, geometry=None):
                 configuration, geometry, turnrate, lowspeedliftdevice=True
             )
             return "%s/%s" % (formatdrag(drag), formatdrag(lowspeedliftdevicedrag))
-        
+
     if version == 3:
         writelatex(r"\renewcommand{\Caa}{}")
     else:
@@ -547,6 +552,7 @@ def blockD(data, geometry=None):
             divespeed("LO"),
         )
     )
+
 
 def blockE(data, geometry=None):
 
@@ -1044,7 +1050,7 @@ def writeadc(name):
         writelatex(r"\adc")
 
 
-def writelatexprolog():
+def writelatexprolog(withtableofcontents):
     writelatex(
         r"""
 %%!LW recipe=latexmk (xelatex)
@@ -1057,10 +1063,20 @@ def writelatexprolog():
 \newif\ifversionthree\versionthreefalse
 \version%strue
 \begin{document}
+"""
+        % ["one", "two", "three"][version - 1]
+    )
+    if withtableofcontents:
+        writelatex(
+            r"""
 \tableofcontents
+"""
+        )
+    writelatex(
+        r"""
 \onecolumn
 \newpage
-"""  % ["one", "two", "three"][version - 1]
+"""
     )
 
 
@@ -1090,12 +1106,15 @@ def writelatexfile(latexfilename, directives):
     log("writing %s." % os.path.basename(latexfilename))
     global latexfile
     latexfile = open(latexfilename, "w")
-    writelatexprolog()
     for directive in directives:
-        if directive[0] == "type":
+        if directive[0] == "prolog":
+            writelatexprolog(directive[1])
+        elif directive[0] == "type":
             writetype(directive[1])
             for variant in directive[2:]:
                 writeadc(variant)
+        elif directive[0] == "example":
+            writeadc(directive[1])
         elif directive[0] == "chapter":
             writechapter(directive[1])
         elif directive[0] == "comment":
@@ -1115,6 +1134,7 @@ def makepdffile(latexfilename, pdffilename):
         + " >aircraftdatacards.log 2>&1 || cat aircraftdatacards.log"
     )
     log("finished making %s." % pdffilename)
+
 
 for jsonfilename in sys.argv[1:]:
 
