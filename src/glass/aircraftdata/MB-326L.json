@@ -1,0 +1,11 @@
+{
+    "versionname": "MB-326L",
+    "description": "The Aermacchi MB-326L is a trainer with a secondary light attack capability.",
+    "base": "MB-326K",
+    "crew": [
+        "Pilot",
+        "Observer"
+    ],
+    "vulnerability": -2,
+    "gun": null
+}

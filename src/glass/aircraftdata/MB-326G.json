@@ -1,0 +1,88 @@
+{
+    "versionname": "MB-326G",
+    "description": "The Aermacchi MB-326G is light attack aircraft. Minor versions are the GB and GC.",
+    "base": "MB-326L",
+    "powertable": {
+        "M": [
+            1.0,
+            1.0,
+            1.0,
+            2
+        ],
+        "N": [
+            0.0,
+            0.0,
+            0.0,
+            1
+        ],
+        "I": [
+            0.5,
+            0.5,
+            0.5,
+            0
+        ],
+        "SPBR": [
+            0.5,
+            0.5,
+            1.0
+        ]
+    },
+    "internalfuel": 200,
+    "stations": [
+        [
+            "pair",
+            [
+                1,
+                6
+            ],
+            750,
+            [
+                "BB",
+                "BG",
+                "RP",
+                "RK",
+                "GP",
+                "EP"
+            ]
+        ],
+        [
+            "pair",
+            [
+                2, 5
+            ],
+            1000,
+            [
+                "BB",
+                "BG",
+                "RP",
+                "RK",
+                "RG",
+                "GP",
+                "EP",
+                "FT"
+            ]
+        ],
+        [
+            "pair",
+            [
+                3, 
+                4
+            ],
+            1000,
+            [
+                "BB",
+                "BG",
+                "RP",
+                "RK",
+                "RG",
+                "GP",
+                "EP",
+                "PP"
+            ]
+        ]
+    ],
+    "loadnotes": [
+        "May use 300L FTs.",
+        "PP may only be used on station 4."
+    ]
+}

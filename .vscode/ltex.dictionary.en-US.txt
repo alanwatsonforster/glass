@@ -35,3 +35,7 @@ afterburning
 TSOH
 gunsight
 Battleplan
+Aermacchi
+Xavante
+Zairean
+DEFA

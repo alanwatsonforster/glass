@@ -1,0 +1,61 @@
+{
+    "versionname": "MB-326B",
+    "description": "The Aermacchi MB-326B is a trainer with a secondary light attack capability.",
+    "base": "MB-326H",
+    "stations": [
+        [
+            "pair",
+            [
+                1,
+                6
+            ],
+            750,
+            [
+                "BB",
+                "BG",
+                "RP",
+                "RK",
+                "GP",
+                "EP"
+            ]
+        ],
+        [
+            "pair",
+            [
+                2,
+                5
+            ],
+            1000,
+            [
+                "BB",
+                "BG",
+                "RP",
+                "RK",
+                "RG",
+                "GP",
+                "EP"
+            ]
+        ],
+        [
+            "pair",
+            [
+                3,
+                4
+            ],
+            1000,
+            [
+                "BB",
+                "BG",
+                "RP",
+                "RK",
+                "RG",
+                "GP",
+                "EP",
+                "PP"
+            ]
+        ]
+    ],
+    "loadnotes": [
+        "PP may only be used on station 4."
+    ]
+}

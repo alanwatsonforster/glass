@@ -1,0 +1,81 @@
+{
+    "versionname": "Impala Mk II",
+    "description": "The Atlas Impala Mk II is light attack aircraft. It is a license-built version of the Aermacchi MB-326K, but with the earlier Viper 20 engine.",
+    "base": "MB-326K",
+    "powertable": {
+        "M": [
+            1.0,
+            1.0,
+            1.0,
+            2
+        ],
+        "N": [
+            0.0,
+            0.0,
+            0.0,
+            1
+        ],
+        "I": [
+            0.5,
+            0.5,
+            0.5,
+            0
+        ],
+        "SPBR": [
+            0.5,
+            0.5,
+            1.0
+        ]
+    },
+    "stations": [
+        [
+            "pair",
+            [
+                1,
+                6
+            ],
+            750,
+            [
+                "BB",
+                "BG",
+                "RP",
+                "RK",
+                "GP",
+                "EP"
+            ]
+        ],
+        [
+            "pair",
+            [
+                2, 5
+            ],
+            1000,
+            [
+                "BB",
+                "BG",
+                "RP",
+                "RK",
+                "GP",
+                "EP",
+                "FT"
+            ]
+        ],
+        [
+            "pair",
+            [
+                3, 
+                4
+            ],
+            1000,
+            [
+                "BB",
+                "BG",
+                "RP",
+                "RK",
+                "GP",
+                "EP",
+                "PP"
+            ]
+        ]
+    ]    
+}

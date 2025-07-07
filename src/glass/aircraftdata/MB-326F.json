@@ -1,0 +1,5 @@
+{
+    "versionname": "MB-326F",
+    "description": "The Aermacchi MB-326F is a trainer with a secondary light attack capability.",
+    "base": "MB-326H"
+}

@@ -1,0 +1,341 @@
+{
+    "versionname": "MB-326K",
+    "description": "The Aermacchi MB-326K is a light attack aircraft.",
+    "crew": [
+        "Pilot"
+    ],
+    "powertable": {
+        "M": [
+            1.5,
+            1.0,
+            1.0,
+            2
+        ],
+        "N": [
+            0.0,
+            0.0,
+            0.0,
+            1
+        ],
+        "I": [
+            0.5,
+            0.5,
+            0.5,
+            0
+        ],
+        "SPBR": [
+            0.5,
+            0.5,
+            1.0
+        ]
+    },
+    "jetengines": 1,
+    "cruisespeed": 4.5,
+    "climbspeed": 3.5,
+    "visibility": 5,
+    "sizemodifier": 0,
+    "vulnerability": -1,
+    "restrictedarcs": "60-",
+    "blindarcs": "30-",
+    "internalfuel": 240,
+    "atarefuel": false,
+    "ejectionseat": "standard",
+    "maneuvertable": {
+        "LR/DR": [
+            1.5,
+            1.5
+        ],
+        "VR": [
+            0,
+            0.5
+        ]
+    },
+    "turndragtable": {
+        "TT": [
+            0,
+            0,
+            0
+        ],
+        "HT": [
+            0,
+            1,
+            1
+        ],
+        "BT": [
+            1,
+            1,
+            2
+        ]
+    },
+    "ceilingtable": [
+        47,
+        40,
+        35
+    ],
+    "speedtable": {
+        "EH": [
+            [
+                3.0,
+                5.0
+            ],
+            [
+                "-",
+                "-"
+            ],
+            [
+                "-",
+                "-"
+            ],
+            6.0
+        ],
+        "VH": [
+            [
+                2.5,
+                5.0
+            ],
+            [
+                2.5,
+                4.5
+            ],
+            [
+                "-",
+                "-"
+            ],
+            6.0
+        ],
+        "HI": [
+            [
+                2.0,
+                5.0
+            ],
+            [
+                2.5,
+                5.0
+            ],
+            [
+                2.5,
+                4.5
+            ],
+            6.0
+        ],
+        "MH": [
+            [
+                1.5,
+                5.5
+            ],
+            [
+                2.0,
+                5.0
+            ],
+            [
+                2.0,
+                4.5
+            ],
+            6.0
+        ],
+        "ML": [
+            [
+                1.5,
+                5.5
+            ],
+            [
+                1.5,
+                5.0
+            ],
+            [
+                1.5,
+                4.5
+            ],
+            6.0
+        ],
+        "LO": [
+            [
+                1.0,
+                5.5
+            ],
+            [
+                1.5,
+                5.0
+            ],
+            [
+                1.5,
+                4.5
+            ],
+            6.0
+        ]
+    },
+    "climbcapabilitytable": {
+        "EH": [
+            [
+                "-",
+                0.5
+            ],
+            [
+                "-",
+                "-"
+            ],
+            [
+                "-",
+                "-"
+            ]
+        ],
+        "VH": [
+            [
+                "-",
+                0.5
+            ],
+            [
+                "-",
+                0.5
+            ],
+            [
+                "-",
+                "-"
+            ]
+        ],
+        "HI": [
+            [
+                "-",
+                0.5
+            ],
+            [
+                "-",
+                0.5
+            ],
+            [
+                "-",
+                0.5
+            ]
+        ],
+        "MH": [
+            [
+                "-",
+                1.0
+            ],
+            [
+                "-",
+                0.5
+            ],
+            [
+                "-",
+                0.5
+            ]
+        ],
+        "ML": [
+            [
+                "-",
+                1.0
+            ],
+            [
+                "-",
+                1.0
+            ],
+            [
+                "-",
+                0.5
+            ]
+        ],
+        "LO": [
+            [
+                "-",
+                1.0
+            ],
+            [
+                "-",
+                1.0
+            ],
+            [
+                "-",
+                1.0
+            ]
+        ]
+    },
+    "gun": "Two 30 mm DEFA",
+    "gunatatohitrolls": "6/3/2",
+    "gunammunition": 3.0,
+    "gundamagerating": "6/6",
+    "gunsightmodifiers": {
+        "TT": 0,
+        "HT": 2,
+        "BT": 3
+    },
+    "bombsystem": "Manual",
+    "ecm": {
+        "iff": true
+    },
+    "storeslimits": [
+        3,
+        5,
+        4000
+    ],
+    "stations": [
+        [
+            "pair",
+            [
+                1,
+                6
+            ],
+            750,
+            [
+                "BB",
+                "BG",
+                "RP",
+                "RK",
+                "GP",
+                "EP",
+                "IRM"
+            ]
+        ],
+        [
+            "pair",
+            [
+                2,
+                5
+            ],
+            1000,
+            [
+                "BB",
+                "BG",
+                "RP",
+                "RK",
+                "RG",
+                "GP",
+                "EP",
+                "FT"
+            ]
+        ],
+        [
+            "pair",
+            [
+                3,
+                4
+            ],
+            1000,
+            [
+                "BB",
+                "BG",
+                "RP",
+                "RK",
+                "RG",
+                "GP",
+                "EP",
+                "PP"
+            ]
+        ]
+    ],
+    "loadnotes": [
+        "May use 330L FTs.",
+        "May use AIM-9 and R.550 IRMs",
+        "PP may only be used on station 4."
+    ],
+    "VPs": [
+        12,
+        8,
+        4,
+        2
+    ],
+    "properties": [
+        "HTD"
+    ],
+    "notes": []
+}
