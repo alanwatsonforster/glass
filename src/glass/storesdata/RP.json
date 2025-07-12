@@ -15,6 +15,10 @@
     "RP/Large/Small"       : [ "RP",  250, 3.0 ],
     "RP/Large/Medium"      : [ "RP",  500, 3.5 ],
 
+    // French
+
+    "RP/F2": [ "RP", 250, 2.0 ],
+
     // Soviet
 
     "RP/ORO-8K": [ "RP", 175, 2.0 ],
