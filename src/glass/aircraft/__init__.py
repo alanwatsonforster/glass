@@ -59,6 +59,7 @@ class Aircraft(glass.element.Element):
         paintscheme="unpainted",
         color="unpainted",
         counter=False,
+        isinterrainfollowingflight=False,
         delay=0,
     ):
 
@@ -208,6 +209,10 @@ class Aircraft(glass.element.Element):
 
             self._lowspeedliftdeviceextended = False
             self._minspeed = glass.capabilities.minspeed(self)
+
+            self._isinterrainfollowingflight = isinterrainfollowingflight
+            if isinterrainfollowingflight:
+                self.logwhenwhat("", "in terrain-following flight.")
 
             self._initaim()
 
