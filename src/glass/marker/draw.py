@@ -14,15 +14,9 @@ def _draw(self):
 
     elif self._type == "circle":
 
-        glass.draw.drawcircle(*self.xy(), size=0.65, linecolor=self.color(), linewidth=2)
-        if self.name() is not None:
-            glass.draw.drawtext(
-                *self.xy(),
-                self.facing(),
-                self.name(),
-                color=self.color(),
-                zorder=zorder
-            )
+        glass.draw.drawcircle(
+            *self.xy(), size=0.65, linecolor=self.color(), linewidth="thick"
+        )
 
     elif self._type == "square":
 
@@ -30,12 +24,14 @@ def _draw(self):
             *self.xy(),
             size=0.65,
             linecolor=self.color(),
-            linewidth=2,
+            linewidth="thick",
             facing=self.facing(),
             zorder=zorder
         )
-        if self.name() is not None:
-            glass.draw.drawtext(*self.xy(), self.facing(), self.name(), color=self.color())
+
+    glass.draw.drawtext(
+        *self.xy(), self.name(), self.facing(), textcolor=self.color(), zorder=zorder
+    )
 
 
 ################################################################################
