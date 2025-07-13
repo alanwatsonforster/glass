@@ -2144,6 +2144,14 @@ def _islevelflight(flighttype):
     return flighttype == "LVL"
 
 
+def _isspecialflight(flighttype):
+    """
+    Return True if the flight type is SP. Otherwise return False.
+    """
+
+    return flighttype == "SP"
+
+
 ########################################
 
 

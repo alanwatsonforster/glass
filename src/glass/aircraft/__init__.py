@@ -18,7 +18,7 @@ import glass.geometry
 import glass.airtoair
 import glass.visualsighting
 
-from glass.flight import _isclimbingflight, _isdivingflight, _islevelflight
+from glass.flight import _isclimbingflight, _isdivingflight, _islevelflight, _isspecialflight
 
 import re
 
@@ -347,7 +347,7 @@ class Aircraft(glass.element.Element):
                 raise RuntimeError(
                     "attempt to enter terrain-following flight while not exactly one altitude level above terrain."
                 )
-            if not self.isinlevelflight():
+            if not self.isinlevelflight() and not self.isinspecialflight():
                 raise RuntimeError(
                     "attempt to enter terrain-following flight while not in level flight."
                 )
@@ -611,6 +611,15 @@ class Aircraft(glass.element.Element):
         """
 
         return _islevelflight(self._flighttype)
+
+    #############################################################################
+
+    def isinspecialflight(self):
+        """
+        Return true if the aircraft is in special flight.
+        """
+
+        return _isspecialflight(self._flighttype)
 
     ##############################################################################
 
