@@ -248,7 +248,7 @@ def _release(self, released):
         releasedlist = released
     releasedlist = list(str(releaseditem) for releaseditem in releasedlist)
 
-    stores = self._stores
+    stores = self._stores.copy()
 
     for releaseditem in releasedlist:
 
@@ -276,6 +276,7 @@ def _release(self, released):
             )
             del stores[loadstation]
 
+    self._stores = stores
     self._updateconfiguration()
 
     if self._configuration != previousconfiguration:
