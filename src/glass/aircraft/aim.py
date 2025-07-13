@@ -2,7 +2,7 @@
 
 import glass.hexcode
 import glass.log
-from glass.rounding import onethirdfromtable, twothirdsfromtable, roundup
+from glass.rounding import onethirdfromtable, twothirdsfromtable, roundup, rounddown
 
 ################################################################################
 
@@ -20,7 +20,7 @@ def aim(self, target, *args, **kwargs):
             raise RuntimeError("invalid target for aiming.")
         self.logwhenwhat("", "starts aiming at %s." % target.name())
         if self.bombsystem() == "manual":
-            requirement = max(1, roundup(twothirdsfromtable(self.speed())))
+            requirement = max(1, rounddown(twothirdsfromtable(self.speed())))
         elif self.bombsystem() == "ballistic":
             requirement = max(1, roundup(self.speed() / 2))
         else:
@@ -29,7 +29,7 @@ def aim(self, target, *args, **kwargs):
             "aiming requirement is %d %s."
             % (requirement, glass.log.plural(requirement, "FP", "FPs"))
         )
-        modifierrequirement = max(1, roundup(onethirdfromtable(self.speed())))
+        modifierrequirement = max(1, rounddown(self.speed() / 3))
         self.logcomment(
             "aiming modifier requirement is %d %s."
             % (modifierrequirement, glass.log.plural(modifierrequirement, "FP", "FPs"))
