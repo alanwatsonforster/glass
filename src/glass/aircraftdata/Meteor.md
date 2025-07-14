@@ -9,7 +9,14 @@
 
 ### Original ADCs
 
-ADCs for the F.8 and FR-9 appear in APJ 50.
+- F.8 in *Dessert Falcons*
+- F.8 and FR.9 in APJ 50
+
+I have based the ADC on the one for the F.8 and FR.9 in APJ 50.
+
+### I/SPBR Values
+
+Changed from 4.0 DPs to 2.0 DPs. See #272.
 
 ### Blind Arc
 
