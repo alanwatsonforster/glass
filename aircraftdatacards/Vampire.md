@@ -71,7 +71,7 @@ Used by RAF, RCAF, Norway (Wikipedia)
 
 - Export version of FB.6 (Goebel/Watkins)
 - 10 nations including India (Goebel)
-- 51 delivered to Egypt from de Havillanf in 1949-1955 (Watkins)
+- 51 delivered to Egypt from de Havilland in 1949-1955 (Watkins)
 
 ### Vampire FB.52A
 
