@@ -921,6 +921,8 @@ def blockF(data, geometry=None):
                     s += r"Rapid acceleration (RA). "
                 elif property == "RACL":
                     s += r"Rapid acceleration (RA) if CL. "
+                elif property == "RALS":
+                    s += r"Rapid acceleration (RA) if speed $\le$ %.1f. " % data._data["RALSlimit"]
                 elif property == "RPR":
                     s += r"Rapid power response (RPR). "
                 elif property == "FBW":
