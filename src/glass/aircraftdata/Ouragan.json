@@ -1,0 +1,323 @@
+{
+    "versionname": "Ouragan",
+    "description": "The Dassault MD 450B Ouragan is a fighter-bomber.",
+    "crew": [
+        "Pilot"
+    ],
+    "powertable": {
+        "M": [
+            1.0,
+            1.0,
+            1.0,
+            1.0
+        ],
+        "N": [
+            0.0,
+            0.0,
+            0.0,
+            0.5
+        ],
+        "I": [
+            0.5,
+            0.5,
+            0.5,
+            0.0
+        ],
+        "SPBR": [
+            0.5,
+            0.5,
+            1.0
+        ]
+    },
+    "jetengines": 1,
+    "cruisespeed": 4.0,
+    "climbspeed": 3.0,
+    "visibility": 5,
+    "sizemodifier": 0,
+    "vulnerability": 1,
+    "restrictedarcs": "",
+    "blindarcs": "30-",
+    "internalfuel": 220,
+    "atarefuel": false,
+    "ejectionseat": "early",
+    "maneuvertable": {
+        "LR/DR": [
+            1.0,
+            1.0
+        ],
+        "VR": [
+            0.0,
+            0.5
+        ]
+    },
+    "turndragtable": {
+        "TT": [
+            0.0,
+            0.0,
+            1.0
+        ],
+        "HT": [
+            1.0,
+            1.0,
+            2.0
+        ],
+        "BT": [
+            1.0,
+            2.0,
+            2.0
+        ]
+    },
+    "ceilingtable": [
+        42,
+        38,
+        34
+    ],
+    "speedtable": {
+        "EH": [
+            [
+                "-",
+                "-"
+            ],
+            [
+                "-",
+                "-"
+            ],
+            [
+                "-",
+                "-"
+            ],
+            "-"
+        ],
+        "VH": [
+            [
+                2.0,
+                5.0
+            ],
+            [
+                2.5,
+                4.5
+            ],
+            [
+                "-",
+                "-"
+            ],
+            6.5
+        ],
+        "HI": [
+            [
+                1.5,
+                5.0
+            ],
+            [
+                2.0,
+                4.5
+            ],
+            [
+                2.0,
+                4.5
+            ],
+            6.5
+        ],
+        "MH": [
+            [
+                1.5,
+                5.5
+            ],
+            [
+                1.5,
+                5.0
+            ],
+            [
+                1.5,
+                4.5
+            ],
+            6.5
+        ],
+        "ML": [
+            [
+                1.0,
+                5.5
+            ],
+            [
+                1.5,
+                5.0
+            ],
+            [
+                1.5,
+                4.5
+            ],
+            6.5
+        ],
+        "LO": [
+            [
+                1.0,
+                5.5
+            ],
+            [
+                1.0,
+                5.0
+            ],
+            [
+                1.5,
+                4.5
+            ],
+            6.5
+        ]
+    },
+    "climbcapabilitytable": {
+        "EH": [
+            [
+                "-",
+                "-"
+            ],
+            [
+                "-",
+                "-"
+            ],
+            [
+                "-",
+                "-"
+            ]
+        ],
+        "VH": [
+            [
+                "-",
+                0.5
+            ],
+            [
+                "-",
+                0.5
+            ],
+            [
+                "-",
+                "-"
+            ]
+        ],
+        "HI": [
+            [
+                "-",
+                0.5
+            ],
+            [
+                "-",
+                0.5
+            ],
+            [
+                "-",
+                0.5
+            ]
+        ],
+        "MH": [
+            [
+                "-",
+                1.0
+            ],
+            [
+                "-",
+                0.5
+            ],
+            [
+                "-",
+                0.5
+            ]
+        ],
+        "ML": [
+            [
+                "-",
+                1.0
+            ],
+            [
+                "-",
+                0.5
+            ],
+            [
+                "-",
+                0.5
+            ]
+        ],
+        "LO": [
+            [
+                "-",
+                1.0
+            ],
+            [
+                "-",
+                1.0
+            ],
+            [
+                "-",
+                0.5
+            ]
+        ]
+    },
+    "ecm": {
+        "iff": true
+    },
+    "gun": "Four 20 mm Hispano Mk V",
+    "gunatatohitrolls": "7/4/3",
+    "gundamagerating": "5/6*",
+    "gunammunition": 5.0,
+    "gunsightmodifiers": {
+        "TT": 0,
+        "HT": 1,
+        "BT": 2
+    },
+    "bombsystem": "Manual",
+    "properties": [
+        "HTD"
+    ],
+    "notes": [
+    ],
+    "storeslimits": [
+        2,
+        6,
+        2200
+    ],
+    "stations": [
+        [
+            "grouppair",
+            [
+                1,
+                4,
+                7,
+                10
+            ],
+            150,
+            [
+                "RK"
+            ]
+        ],
+        [
+            "pair",
+            [
+                5,
+                6
+            ],
+            1100,
+            [
+                "BB", "RP", "RK", "FT"
+            ]
+        ],
+        [
+            "grouppair",
+            [
+                11,12, 13, 14
+            ],
+            200,
+            [
+                "RK"
+            ]
+        ]
+    ],
+    "loadnotes": [
+        "Either stations 1 to 4 and 7 to 10 or 11 to 14 may be used.",
+        "Stations 1 to 4 and 7 to 10 may each carry one or two T-10 RKs (large RK).",
+        "May use 450L FTs"
+    ],
+    "VPs": [
+        7,
+        5,
+        3,
+        1
+    ]
+}
