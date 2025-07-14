@@ -1,0 +1,327 @@
+{
+    "versionname": "Mystère IVA",
+    "description": "The Dassault MD 454 Mystère IVA is a fighter-bomber.",
+    "crew": [
+        "Pilot"
+    ],
+    "powertable": {
+        "M": [
+            1.0,
+            1.0,
+            1.0,
+            1.0
+        ],
+        "N": [
+            0.0,
+            0.0,
+            0.0,
+            0.5
+        ],
+        "I": [
+            0.5,
+            0.5,
+            0.5,
+            0.0
+        ],
+        "SPBR": [
+            0.5,
+            0.5,
+            1.0
+        ]
+    },
+    "jetengines": 1,
+    "cruisespeed": 5.0,
+    "climbspeed": 3.5,
+    "visibility": 5,
+    "sizemodifier": 0,
+    "vulnerability": 1,
+    "restrictedarcs": "",
+    "blindarcs": "30-",
+    "internalfuel": 150,
+    "atarefuel": false,
+    "ejectionseat": "early",
+    "maneuvertable": {
+        "LR/DR": [
+            1.0,
+            1.0
+        ],
+        "VR": [
+            0.0,
+            0.5
+        ]
+    },
+    "turndragtable": {
+        "TT": [
+            0.0,
+            1.0,
+            1.0
+        ],
+        "HT": [
+            1.0,
+            1.0,
+            1.0
+        ],
+        "BT": [
+            2.0,
+            3.0,
+            3.0
+        ]
+    },
+    "ceilingtable": [
+        44,
+        40,
+        36
+    ],
+    "speedtable": {
+        "EH": [
+            [
+                "-",
+                "-"
+            ],
+            [
+                "-",
+                "-"
+            ],
+            [
+                "-",
+                "-"
+            ],
+            "-"
+        ],
+        "VH": [
+            [
+                2.5,
+                6.0
+            ],
+            [
+                3.0,
+                5.5
+            ],
+            [
+                3.0,
+                5.0
+            ],
+            6.5
+        ],
+        "HI": [
+            [
+                2.0,
+                6.0
+            ],
+            [
+                2.5,
+                5.5
+            ],
+            [
+                2.5,
+                5.0
+            ],
+            7.0
+        ],
+        "MH": [
+            [
+                2.0,
+                6.5
+            ],
+            [
+                2.0,
+                5.5
+            ],
+            [
+                2.5,
+                5.0
+            ],
+            7.0
+        ],
+        "ML": [
+            [
+                1.5,
+                6.5
+            ],
+            [
+                2.0,
+                6.0
+            ],
+            [
+                2.0,
+                5.5
+            ],
+            7.0
+        ],
+        "LO": [
+            [
+                1.5,
+                6.5
+            ],
+            [
+                1.5,
+                6.0
+            ],
+            [
+                2.0,
+                5.5
+            ],
+            7.0
+        ]
+    },
+    "climbcapabilitytable": {
+        "EH": [
+            [
+                "-",
+                "-"
+            ],
+            [
+                "-",
+                "-"
+            ],
+            [
+                "-",
+                "-"
+            ]
+        ],
+        "VH": [
+            [
+                "-",
+                0.5
+            ],
+            [
+                "-",
+                0.5
+            ],
+            [
+                "-",
+                0.5
+            ]
+        ],
+        "HI": [
+            [
+                "-",
+                0.5
+            ],
+            [
+                "-",
+                0.5
+            ],
+            [
+                "-",
+                0.5
+            ]
+        ],
+        "MH": [
+            [
+                "-",
+                1.0
+            ],
+            [
+                "-",
+                0.5
+            ],
+            [
+                "-",
+                0.5
+            ]
+        ],
+        "ML": [
+            [
+                "-",
+                1.0
+            ],
+            [
+                "-",
+                1.0
+            ],
+            [
+                "-",
+                0.5
+            ]
+        ],
+        "LO": [
+            [
+                "-",
+                1.0
+            ],
+            [
+                "-",
+                1.0
+            ],
+            [
+                "-",
+                1.0
+            ]
+        ]
+    },
+    "radar": {
+        "name": "APG-30",
+        "lockon": 7
+    },
+    "ecm": {
+        "iff": true
+    },
+    "gun": "Two 30 mm DEFA 552",
+    "gunatatohitrolls": "6/3/2",
+    "gundamagerating": "6/6",
+    "gunammunition": 3.5,
+    "ataradarranging": "RE",
+    "gunsightmodifiers": {
+        "TT": 0,
+        "HT": 1,
+        "BT": 2
+    },
+    "bombsystem": "Manual",
+    "properties": [
+        "HTD"
+    ],
+    "notes": [
+        "Gun attacks at low transonic speed or greater have a +1 modifier to the hit roll due to instability."
+    ],
+    "storeslimits": [
+        2,
+        6,
+        4000
+    ],
+    "stations": [
+        [
+            "pair",
+            [
+                1,
+                4
+            ],
+            1500,
+            [
+                "BB", "RP"
+            ]
+        ],
+        [
+            "pair",
+            [
+                2,
+                3
+            ],
+            1100,
+            [
+                "BB", "RP", "FT"
+            ]
+        ],
+        [
+            "grouppair",
+            [
+                5, 8, 9, 12
+            ],
+            200,
+            [
+                "RK"
+            ]
+        ]
+    ],
+    "loadnotes": [
+        "Either stations 1 to 4 or stations 5 to 12 may be used.",
+        "If stations 1 or 4 are loaded with more than 1,100 lb, the maximum turn rate is reduced to HT.",
+        "Stations 5 to 12 may each carry one or two 105 mm T-10 RKs (large RK)."
+    ],
+    "VPs": [
+        10,
+        6,
+        3,
+        1
+    ]
+}
