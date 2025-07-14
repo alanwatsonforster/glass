@@ -1,0 +1,21 @@
+{
+    "versionname": "Vampire F.3",
+    "description": "The de Havilland Vampire F.3 is a day fighter. The F.3 version has no provison for air-to-ground ordnance, the Goblin 2 engine, and unclipped wings.",
+    "base": "Vampire FB.5",
+    "stations": [
+        [
+            "pair",
+            [
+                1,
+                2
+            ],
+            1000,
+            [
+                "FT"
+            ]
+        ]
+    ],
+    "loadnotes": [
+        "May use 450L FTs."
+    ]
+}

@@ -10,6 +10,9 @@
     [ "comment", "1944" ],
     [ "type", "Meteor", "Meteor F.8", "Meteor FR.9" ],
 
+    [ "comment", "1946" ],
+    [ "type", "Vampire", "Vampire F.3", "Vampire FB.5", "Vampire FB.6", "Vampire FB.9", "Sea Vampire F.20", "Vampire FB.50", "Vampire FB.52", "Vampire FB.52A" ],
+
     [ "comment", "1948" ],
     [ "type", "Sea Fury", "Sea Fury FB.11" ],
 
