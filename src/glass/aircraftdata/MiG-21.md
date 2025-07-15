@@ -115,6 +115,8 @@ ADC from TSOH. The TSOH ADC describes an "MiG-21MF export version" with Spin Sca
 
 ### MiG-21bis
 
+ADCs for the MiG-21bis appear in APJ 39 and APJ 43. We typically adopt values from APJ 43. However, the SPBR values seem to be converted at the rate of 1 FP = 4 DP rather than the accepted rate of 1 FP = 2 DP. Therefore, we use the values from APJ 39 at this rate; instead of 2/2/2 we use 1/1/1. See #282.
+
 ### Radars
 
 I have taken the radar names from the Wikipedia article on MiG-21 versions, which is derived from Gordon. Added in [750fd28](https://github.com/alanwatsonforster/glass/commit/750fd2867100ac5945edb520e325bed56558157e) and [baa63c7](https://github.com/alanwatsonforster/glass/commit/baa63c78114b2940d2e13d44342c74bba76f8f48).
