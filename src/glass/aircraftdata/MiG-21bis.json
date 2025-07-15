@@ -353,7 +353,7 @@
     ],
     "loadnotes": [
         "May use R-3, R-13, and R-60 IRMs (AA-2 and AA-8). May use R-3R RHM (AA-2C). MDRs are for R-60s only.",
-        "Station 3 may carry a 490L FT. It may also be overloaded with a special 800L FT, which requires the aircraft not exceed transonic speed."
+        "Station 3 may carry a 490L FT or a special 800L FT. If carrying an 800L FT, the station is overloaded and the aircraft must remain below low transonic speed."
     ],
     "VPs": [
         24,
