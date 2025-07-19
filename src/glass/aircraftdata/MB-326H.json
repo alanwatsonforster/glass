@@ -90,5 +90,11 @@
     "loadnotes": [
         "May use 300L FTs.",
         "PP may only be used on station 4."
+    ], 
+    "VPs": [
+        10,
+        6,
+        3,
+        2
     ]
 }

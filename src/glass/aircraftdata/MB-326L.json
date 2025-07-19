@@ -7,5 +7,11 @@
         "Observer"
     ],
     "vulnerability": -2,
-    "gun": null
+    "gun": null,
+    "VPs": [
+        11,
+        7,
+        3,
+        2
+    ]
 }
