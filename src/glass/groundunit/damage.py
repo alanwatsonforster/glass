@@ -19,24 +19,30 @@ def _endgameturndamage(self):
 
 
 def _damage(self):
-    if self._damagelevel == 0:
-        if self.issuppressed():
+    def suppression():
+        if self._suppressionlevel == 2:
+            return "2S"
+        elif self._suppressionlevel == 1:
             return "S"
         else:
             return ""
-    elif self._damagelevel == 1:
-        if self.issuppressed():
-            return "D+S"
-        else:
+    def damage():
+        if self._damagelevel == 0:
+            return ""
+        elif self._damagelevel == 1:
             return "D"
-    elif self._damagelevel == 2:
-        if self.issuppressed():
-            return "2D+S"
-        else:
+        elif self._damagelevel == 2:
             return "2D"
-    else:
+        else:
+            return "K"
+    if damage() == "K":
         return "K"
-
+    elif damage() == "":
+        return suppression()
+    elif suppression() != "":
+        return damage() + "+" + suppression()
+    else:
+        return damage()
 
 ################################################################################
 
