@@ -20,9 +20,9 @@ def _draw(self):
         self._facing,
         size,
         self.name(),
+        self.damage(),
         self.color(),
         self._stack,
-        self._killed
     )
 
 

@@ -22,8 +22,8 @@ def _draw(self):
         speed,
         self._flighttype,
         self.name(),
+        self.damage(),
         self._color,
-        killed=self.killed(),
     )
 
 

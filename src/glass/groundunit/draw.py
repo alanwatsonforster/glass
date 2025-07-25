@@ -14,9 +14,9 @@ def _draw(self):
         self._lowertext,
         self._protectionclass,
         self.name(),
+        self.damage(),
         self.color(),
         self._stack,
-        self._killed
     )
 
 

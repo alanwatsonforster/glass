@@ -785,6 +785,7 @@ def _drawtextincanvas(
     textcolor="black",
     size="normal",
     alignment="center",
+    verticalalignment="center_baseline",
     alpha=1.0,
     zorder=0,
 ):
@@ -810,7 +811,7 @@ def _drawtextincanvas(
         color=_nativecolor(textcolor),
         alpha=alpha,
         horizontalalignment=alignment,
-        verticalalignment="center_baseline",
+        verticalalignment=verticalalignment,
         rotation_mode="anchor",
         clip_on=True,
         zorder=zorder,
@@ -1321,12 +1322,12 @@ killedlinecolor = "gray60"
 killedfillcolor = None
 
 
-def drawaircraft(x, y, facing, altitude, speed, flighttype, name, color, killed):
+def drawaircraft(x, y, facing, altitude, speed, flighttype, name, damage, color):
     """
     Draw an aircraft.
 
     Draw an aircraft and annotate it with the first two letters of its flight
-    type, its altitude, its speed, and its name.
+    type, its altitude, its speed, its name, and damage.
 
     :param x:
     :param y:
@@ -1342,15 +1343,17 @@ def drawaircraft(x, y, facing, altitude, speed, flighttype, name, color, killed)
         the aircraft.
     :param name:
         The ``name`` argument must be a string giving the name of the aircraft.
+    :param damage:
+        The ``damage`` argument must be a string value such as ``"L"``,
+        ``"2L+C"``, or ``"K"``. If it contains "K", the aircraft is drawn in a
+        style appropriate for a killed element.
     :param color:
         The ``color`` argument must be a color and should be the color of the
         aircraft.
-    :param killed:
-        The ``killed`` argument must be a boolean value. If true, the aircraft
-        is drawn in a style appropriate for a killed element.
     :return:
         ``None``
     """
+    killed = ("K" in damage)
     if killed:
         fillcolor = killedfillcolor
         linecolor = killedlinecolor
@@ -1375,6 +1378,14 @@ def drawaircraft(x, y, facing, altitude, speed, flighttype, name, color, killed)
             facing,
             "cr",
             name,
+            zorder=zorder,
+        )
+        _drawannotation(
+            x,
+            y,
+            facing,
+            "lr",
+            damage,
             zorder=zorder,
         )
         _drawannotation(
@@ -1635,9 +1646,9 @@ def drawgroundunit(
     lowertext,
     protectionclass,
     name,
+    damage,
     color,
     stack="1/1",
-    killed=False,
 ):
     """
     _summary_
@@ -1672,6 +1683,10 @@ def drawgroundunit(
         or ``"bunkered"``. It indicates if the unit is entrenched or bunkered.
     :param name:
         The ``name`` argument is a string that names the ground unit.
+    :param damage:
+        The ``damage`` argument must be a string value such as `""``,``"D"``,
+        ``"2D"``, or ``"K"``. If it contains "K", the ground unit is drawn in a
+        style appropriate for a killed element.
     :param color:
         The ``color`` argument is a color and is the color of the ground unit.
     :param stack:
@@ -1681,10 +1696,6 @@ def drawgroundunit(
         ``"1/2"`` indicates the top unit in a stack of two and ``"2/3"``
         indicates the middle unit in a stack of three). The default is
         ``"1/1"``.
-    :param killed:
-    :param killed:
-        The ``killed`` argument must be a boolean value. If true, the ground
-        unit is drawn in a style appropriate for a killed element.
     :return:
         ``None``
     """
@@ -1696,9 +1707,9 @@ def drawgroundunit(
         lowertext,
         protectionclass,
         name,
+        damage,
         color,
         stack,
-        killed,
     )
 
 
@@ -1711,13 +1722,14 @@ def _drawgroundunitincanvas(
     lowertext,
     protectionclass,
     name,
+    damage,
     color,
     stack="1/1",
-    killed=False,
 ):
     """
     The counterpart of :func:`drawgroundunit` in canvas coordinates.
     """
+    killed = ("K" in damage)
     if killed:
         fillcolor = killedfillcolor
         linecolor = killedlinecolor
@@ -2692,6 +2704,8 @@ def _drawgroundunitincanvas(
                 zorder=zorder,
             )
 
+        dyname = +0.0
+        dydamage = -0.5 * groundunitdy
         if not killed:
             if x >= x0:
                 _drawtextincanvas(
@@ -2700,12 +2714,26 @@ def _drawgroundunitincanvas(
                     name,
                     facing=90,
                     dx=groundunitdx / 2 - 0.05,
-                    dy=-0.01,
+                    dy=dyname,
                     size=annotationtextsize,
                     textcolor=annotationtextcolor,
                     alignment="left",
+                    verticalalignment="center_baseline",
                     zorder=zorder,
                 )
+                _drawtextincanvas(
+                    x,
+                    y,
+                    damage,
+                    facing=90,
+                    dx=groundunitdx / 2 - 0.05,
+                    dy=dydamage,
+                    size=annotationtextsize,
+                    textcolor=annotationtextcolor,
+                    alignment="left",
+                    verticalalignment="bottom",
+                    zorder=zorder,
+                )                
             else:
                 _drawtextincanvas(
                     x,
@@ -2713,10 +2741,23 @@ def _drawgroundunitincanvas(
                     name,
                     facing=90,
                     dx=-groundunitdx / 2 + 0.05,
-                    dy=-0.01,
+                    dy=dyname,
                     size=annotationtextsize,
                     textcolor=annotationtextcolor,
                     alignment="right",
+                    zorder=zorder,
+                )
+                _drawtextincanvas(
+                    x,
+                    y,
+                    damage,
+                    facing=90,
+                    dx=-groundunitdx / 2 + 0.05,
+                    dy=dydamage,
+                    size=annotationtextsize,
+                    textcolor=annotationtextcolor,
+                    alignment="right",
+                    verticalalignment="bottom",
                     zorder=zorder,
                 )
 
@@ -2745,9 +2786,9 @@ def drawship(
     facing,
     size,
     name,
+    damage,
     color,
     stack,
-    killed,
 ):
     """
     Draw a ship.
@@ -2761,6 +2802,10 @@ def drawship(
         The ``large`` argument determines if the ship is a large ship.
     :param name:
         The ``name`` argument gives the name of the ship.
+    :param damage:
+        The ``damage`` argument must be a string value such as `""``,``"D"``,
+        ``"2D"``, or ``"K"``. If it contains "K", the ground unit is drawn in a
+        style appropriate for a killed element.
     :param color:
         The ``color`` argument gives the color of the ship.
     :param stack:
@@ -2769,19 +2814,17 @@ def drawship(
         ``"1/2"`` indicates the top unit in a stack of two and ``"2/2"``
         indicates the top unit in a stack of two). The default is
         ``"1/1"``.
-    :param killed:
-        The ``killed`` argument determines whether the ship has been killed. If so, it is drawn in outline only.
     :return:
         ``None``
     """
     _drawshipincanvas(
         *_tocanvasxy(x, y),
         _tocanvasfacing(facing),
-        stack,
         size,
         name,
+        damage,
         color,
-        killed,
+        stack,
     )
 
 
@@ -2789,11 +2832,11 @@ def _drawshipincanvas(
     x,
     y,
     facing,
-    stack,
     size,
     name,
+    damage,
     color,
-    killed,
+    stack,
 ):
 
     if stack is not None:
@@ -2802,6 +2845,7 @@ def _drawshipincanvas(
         x += stackoffset * _cosd(stackfacing)
         y += stackoffset * _sind(stackfacing)
 
+    killed = ("K" in damage)
     if killed:
         fillcolor = killedfillcolor
         linecolor = killedlinecolor
@@ -2851,6 +2895,14 @@ def _drawshipincanvas(
             facing,
             "cr",
             name,
+            zorder=0.2,
+        )
+        _drawannotationincanvas(
+            x,
+            y,
+            facing,
+            "lr",
+            damage,
             zorder=0.2,
         )
 
