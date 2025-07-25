@@ -100,6 +100,7 @@ class GroundUnit(glass.element.Element):
                     "motorized",
                     "wheeled",
                     "limitedwheeled",
+                    "halftracked",
                     "locomotive",
                     "railcar",
                     "truck",

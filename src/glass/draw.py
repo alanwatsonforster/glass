@@ -1669,11 +1669,12 @@ def drawgroundunit(
         following strings, which indicate the symbols to be drawn:
         ``"airdefense"``, ``"ammunition"``, ``"antiarmor"``, ``"armor"``,
         ``"artillery"``, ``"barge"``, ``"building"``, ``"fixedwing"``,
-        ``"fuel"``, ``"gun"``, ``"hangar"``, ``"headquarters"``, ``"infantry"``,
-        ``"junk"``, ``"limitedwheeled"``, ``"locomotive"``, ``"missile"``,
-        ``"motorized"``, ``"multiplerocket"``, ``"ordnance"``, ``"radar"``,
-        ``"railcar"``, ``"reconnaissance"``, ``"rotarywing"``, ``"supply"``,
-        ``"tower"``, ``"transportation"``, ``"truck"``, and ``"wheeled"``.
+        ``"fuel"``, ``"gun"``, ``halftracked``, ``"hangar"``,
+        ``"headquarters"``, ``"infantry"``, ``"junk"``, ``"limitedwheeled"``,
+        ``"locomotive"``, ``"missile"``, ``"motorized"``, ``"multiplerocket"``,
+        ``"ordnance"``, ``"radar"``, ``"railcar"``, ``"reconnaissance"``,
+        ``"rotarywing"``, ``"supply"``, ``"tower"``, ``"transportation"``,
+        ``"truck"``, ``unidentified``, and ``"wheeled"``.
     :param uppertext:
     :param lowertext:
         The ``uppertext`` and ``lowertext`` arguments are strings that we drawn
@@ -2118,7 +2119,7 @@ def _drawgroundunitincanvas(
 
     def drawwheeledsymbol():
         fx = 0.12
-        fy = 0.38
+        fy = 0.35
         ry = 0.05
         _drawcircleincanvas(
             x - fx * groundunitdx,
@@ -2147,7 +2148,7 @@ def _drawgroundunitincanvas(
 
     def drawlimitedwheeledsymbol():
         fx = 0.12
-        fy = 0.38
+        fy = 0.35
         ry = 0.05
         _drawcircleincanvas(
             x - fx * groundunitdx,
@@ -2166,6 +2167,37 @@ def _drawgroundunitincanvas(
             zorder=zorder,
         )
 
+
+    def drawhalftrackedsymbol():
+        fx = 0.12
+        fy = 0.35
+        ry = 0.05
+        _drawcircleincanvas(
+            x - fx * groundunitdx,
+            y - fy * groundunitdy,
+            2 * ry * groundunitdy,
+            linecolor=linecolor,
+            linewidth=groundunitlinewidth,
+            zorder=zorder,
+        )
+        theta = range(0, 361)
+        def dx(theta):
+            if theta < 90 or theta > 270:
+                return +0.5 * fx * groundunitdx + ry * groundunitdy * _cosd(theta)
+            elif theta == 90 or theta == 270:
+                return 0
+            else:
+                return -0.5 * fx * groundunitdx + ry * groundunitdy * _cosd(theta)
+        def dy(theta):
+            return ry * groundunitdy * _sind(theta)
+        _drawlinesincanvas(
+            list([x + 0.5 * fx * groundunitdx + dx(theta) for theta in theta]),
+            list([y - fy * groundunitdy + dy(theta) for theta in theta]),
+            linecolor=linecolor,
+            linewidth=groundunitlinewidth,
+            zorder=zorder,
+        )
+    
     def drawsupplysymbol():
         fy = 0.25
         _drawlinesincanvas(
@@ -2276,7 +2308,7 @@ def _drawgroundunitincanvas(
     def drawrailsymbol():
         fx1 = 0.20
         fx2 = 0.10
-        fy2 = 0.38
+        fy2 = 0.35
         ry = 0.05
         _drawcircleincanvas(
             x - fx2 * groundunitdx,
@@ -2652,6 +2684,8 @@ def _drawgroundunitincanvas(
         drawwheeledsymbol()
     if "limitedwheeled" in symbols:
         drawlimitedwheeledsymbol()
+    if "halftracked" in symbols:
+        drawhalftrackedsymbol()
 
     if "locomotive" in symbols:
         drawlocomotivesymbol()

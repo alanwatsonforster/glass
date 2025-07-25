@@ -1,0 +1,7 @@
+{
+    "name": "armoured half-track",
+    "description": "armored half-track platoon",
+    "symbols": "armor/halftracked",
+    "aaaclass": "B",
+    "aaamaximumrelativealtitude": 3
+}
