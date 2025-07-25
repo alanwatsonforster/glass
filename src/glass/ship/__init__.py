@@ -80,7 +80,7 @@ class Ship(glass.element.Element):
 
             self._HTrecoverygameturn = 0
             self._movegameturn = 0
-            
+
             self._initattack()
             self._inittracking()
 
@@ -116,6 +116,15 @@ class Ship(glass.element.Element):
 
     from glass.ship.draw import _draw
     from glass.ship.move import _move, _continuemove
+    from glass.ship.damage import (
+        _initdamage,
+        _damage,
+        _damageatleast,
+        _damageatmost,
+        _takedamage,
+    )
+
+    ############################################################################
 
     def _initattack(self):
         pass
