@@ -33,6 +33,7 @@ _missiledict = {
     "IRM/AA-8": ["IRM", 15.0, "ET/3"],
     "IRM/AA-8B": ["IRM", 15.0, "ET/3"],
     "IRM/AA-8C": ["IRM", 15.0, "ET/3"],
+    "IRM/SA-7B": ["IRM", 10.0, "BT/1"],
 }
 
 
