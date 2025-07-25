@@ -80,6 +80,7 @@ class GroundUnit(glass.element.Element):
                     symbols = symbols.split("/")
             for symbol in symbols:
                 if symbol not in [
+                    "unidentified",
                     "infantry",
                     "armor",
                     "artillery",

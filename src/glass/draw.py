@@ -1833,6 +1833,16 @@ def _drawgroundunitincanvas(
             y = y0
             zorder = 0.2
 
+    def drawunidentifedsymbol():
+        _drawtextincanvas(
+            x, y,
+            "?",
+            facing=90,
+            textcolor=linecolor,
+            alignment="center",
+            zorder=zorder,
+    )
+
     def drawinfantrysymbol():
         _drawlinesincanvas(
             [x - groundunitdx / 2, x + groundunitdx / 2],
@@ -2605,6 +2615,8 @@ def _drawgroundunitincanvas(
     if "airdefense" in symbols:
         drawairdefensesymbol()
 
+    if "unidentified" in symbols:
+        drawunidentifedsymbol()
     if "infantry" in symbols:
         drawinfantrysymbol()
     if "armor" in symbols:
