@@ -1488,7 +1488,7 @@ def drawmissile(x, y, facing, altitude, speed, name, color, annotate):
 
 barragefirelinecolor = "gray50"
 barragefirelinewidth = "thick"
-barragefirelinestyle = "dotted"
+barragefirelinestyle = "dashed"
 
 
 def drawbarragefire(x, y, altitude):
@@ -1523,7 +1523,7 @@ def drawbarragefire(x, y, altitude):
 
 plottedfirelinecolor = "gray50"
 plottedfirelinewidth = "thick"
-plottedfirelinestyle = "dashed"
+plottedfirelinestyle = "dotted"
 
 
 def drawplottedfire(x, y, altitude):
@@ -1557,7 +1557,7 @@ def drawplottedfire(x, y, altitude):
 
 blastzonelinecolor = "gray50"
 blastzonelinewidth = "thick"
-blastzonelinestyle = "dotted"
+blastzonelinestyle = "dashed"
 
 
 def drawblastzone(x, y, altitude):
