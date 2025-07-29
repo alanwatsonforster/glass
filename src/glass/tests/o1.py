@@ -17,8 +17,8 @@ A0.takedamage("D")
 A1.takedamage("2D")
 A2.takedamage("K")
 
-assert A0.damage() == "D+S"
-assert A1.damage() == "2D+S"
+assert A0.damage() == "D+2S"
+assert A1.damage() == "2D+2S"
 assert A2.damage() == "K"
 
 assert A0.damageatleast("")
@@ -35,7 +35,7 @@ A0.takedamage("D")
 A1.takedamage("D")
 A2.takedamage("D")
 
-assert A0.damage() == "2D+S"
+assert A0.damage() == "2D+2S"
 assert A1.damage() == "K"
 assert A2.damage() == "K"
 
