@@ -4,7 +4,7 @@ startfile(__file__, "speed brakes")
 
 # Speed Brakes
 
-starttestsetup(verbose=True)
+starttestsetup()
 A1 = setupaircraft("A1", "AF", "F-80C", "A2-1125", "N", 10, 2.5, "CL")
 A2 = setupaircraft("A2", "AF", "F-80C", "A2-1325", "N", 10, 3.0, "CL")
 A3 = setupaircraft("A3", "AF", "F-80C", "A2-1525", "N", 10, 3.5, "CL")
