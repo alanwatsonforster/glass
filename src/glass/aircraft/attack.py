@@ -24,7 +24,9 @@ def _attackaircraft(self, target, attacktype, result=None, returnfire=False, not
 ################################################################################
 
 
-def _attackgroundunit(self, target, attacktype, result=None, stores=None, note=None):
+def _attackgroundunit(
+    self, target, attacktype, result=None, stores=None, blastzone=None, note=None
+):
 
     def checkGNattack():
 
@@ -129,7 +131,16 @@ def _attackgroundunit(self, target, attacktype, result=None, stores=None, note=N
 
     target._takeattackdamage(self, result)
 
-    self.lognote(note)
+    if blastzone is not None:
+        try:
+            blastzone = glass.blastzone.BlastZone(blastzone, *target.xy())
+            self.lognote(note)
+        except RuntimeError as e:
+            glass.log.logexception(e)
+
+    self.logbreak()
+
+    return blastzone
 
 
 ################################################################################

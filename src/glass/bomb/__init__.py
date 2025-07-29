@@ -51,7 +51,6 @@ class Bomb(glass.element.Element):
     from glass.bomb.attack import (
         _attackgroundunit,
         _secondaryattackgroundunit,
-        blastzone,
     )
     from glass.bomb.draw import _draw
     from glass.bomb.move import _move, _continuemove

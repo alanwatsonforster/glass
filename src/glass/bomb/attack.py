@@ -7,7 +7,7 @@ import glass.log
 ################################################################################
 
 
-def _attackgroundunit(self, target, result=None, blastzone=True, note=None):
+def _attackgroundunit(self, target, result=None, blastzone=None, note=None):
 
     self.logwhenwhat("", "attacks %s." % target.name())
 
@@ -18,8 +18,19 @@ def _attackgroundunit(self, target, result=None, blastzone=True, note=None):
         raise RuntimeError("bombs is not at the position of the target.")
 
     target._takeattackdamage(self, result)
-    self.lognote(note)
+
+    if blastzone is not None:
+        try:
+            blastzone = glass.blastzone.BlastZone(blastzone, *target.xy())
+            self.lognote(note)
+        except RuntimeError as e:
+            glass.log.logexception(e)
+
+    self.logbreak()
+
     self._remove()
+
+    return blastzone
 
 
 ################################################################################
@@ -37,20 +48,6 @@ def _secondaryattackgroundunit(self, target, result=None, note=None):
 
     target._takeattackdamage(self, result)
     self.lognote(note)
-
-
-################################################################################
-
-
-def blastzone(self, name, note=None):
-
-    try:
-        blastzone = glass.blastzone.BlastZone(name, *self.xy())
-        self.lognote(note)
-    except RuntimeError as e:
-        glass.log.logexception(e)
-    self.logbreak()
-    return blastzone
 
 
 ################################################################################
