@@ -1576,7 +1576,7 @@ def drawblastzone(x, y, altitude):
     drawhex(
         x,
         y,
-        size=1.15,
+        size=1.02,
         linecolor=blastzonelinecolor,
         fillcolor=None,
         linestyle=blastzonelinestyle,
