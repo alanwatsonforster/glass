@@ -31,8 +31,8 @@ def log(s):
 
 def minusify(s):
     # Subsitute minus sign for hyphen where appropriate.
-    s = re.sub(r"([^-0-9a-zA-Z])-([0-9]+)", r"\1−\2", s)
-    s = re.sub(r"([0-9]+)-([^-0-9a-zA-Z])", r"\1−\2", s)
+    s = re.sub(r"([^-/0-9a-zA-Z])-([0-9]+)", r"\1−\2", s)
+    s = re.sub(r"([0-9]+)-([^-/0-9a-zA-Z])", r"\1−\2", s)
     return s
 
 def writelatex(s):
