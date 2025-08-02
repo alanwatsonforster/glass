@@ -29,14 +29,14 @@ def log(s):
     sys.stdout.flush()
 
 
-def writelatex(s):
-    print(s, file=latexfile)
-
-
-def latexify(s):
-    s = re.sub(r"([ (])([-+][0-9]+)([. )])", r"\1$\2$\3", s)
-    s = re.sub(r"([ (])([0-9]+[-+])([. )])", r"\1$\2$\3", s)
+def minusify(s):
+    # Subsitute minus sign for hyphen where appropriate.
+    s = re.sub(r"([^-0-9a-zA-Z])-([0-9]+)", r"\1−\2", s)
+    s = re.sub(r"([0-9]+)-([^-0-9a-zA-Z])", r"\1−\2", s)
     return s
+
+def writelatex(s):
+    print(minusify(s), file=latexfile)
 
 
 def blockA(data, geometry=None):
@@ -59,7 +59,7 @@ def blockA(data, geometry=None):
     else:
         writelatex(
             r"\renewcommand{\Aab}{%s\\[0.2em](%s)}"
-            % (data.fullname(), latexify(data.variantname()))
+            % (data.fullname(), data.variantname())
         )
 
     if data.propellerengines() == 0 and data.jetengines() <= 4:
@@ -162,7 +162,7 @@ def blockA(data, geometry=None):
         while speed < 100:
             powerfade = data.powerfade(speed, 0)
             if powerfade != lastpowerfade:
-                s += r"If speed $\ge$ %.1f, reduce power by %.1f.\\" % (
+                s += r"If speed ≥ %.1f, reduce power by %.1f.\\" % (
                     speed,
                     powerfade,
                 )
@@ -174,7 +174,7 @@ def blockA(data, geometry=None):
         while altitude < 100:
             powerfade = data.powerfade(0, altitude)
             if powerfade != lastpowerfade:
-                s += r"If altitude $\ge$ %d, reduce power by %.1f.\\" % (
+                s += r"If altitude ≥ %d, reduce power by %.1f.\\" % (
                     altitude,
                     powerfade,
                 )
@@ -196,9 +196,9 @@ def blockB(data, geometry=None):
         if len(arcs) == 0:
             return "---"
         elif len(arcs) == 1:
-            return r"$\mathrm{%s}$" % arcs[0]
+            return r"%s" % arcs[0]
         else:
-            return r"${}^\mathrm{%s}_\mathrm{%s}$" % (arcs[0], arcs[1])
+            return r"\twoarcs{%s}{%s}" % (arcs[0], arcs[1])
 
     writelatex(r"\renewcommand{\Ba}{}")
     writelatex(r"\renewcommand{\Bb}{%.1f}" % data.cruisespeed("CL"))
@@ -365,11 +365,11 @@ def blockC(data, geometry=None):
     if data.lowspeedliftdevicename() is not None:
         if data.lowspeedliftdeviceselectable():
             s += (
-                r"Selectable %s. If selected and speed $\le$ "
+                r"Selectable %s. If selected and speed ≤ "
                 % data.lowspeedliftdevicename()
             )
         else:
-            s += r"Automatic %s. If speed $\le$  " % data.lowspeedliftdevicename()
+            s += r"Automatic %s. If speed ≤ " % data.lowspeedliftdevicename()
         if data.lowspeedliftdevicelimittype() == "absolute":
             s += r"%.1f," % data.lowspeedliftdevicelimit()
         else:
@@ -390,16 +390,16 @@ def blockC(data, geometry=None):
         and data.hasproperty("NDRHS", geometry)
         and data.NDRHSlimit(geometry) == data.NDRHSlimit(geometry)
     ):
-        s += r"No lag or displacement rolls if speed $\ge$ %.1f. " % data.NDRHSlimit(
+        s += r"No lag or displacement rolls if speed ≥ %.1f. " % data.NDRHSlimit(
             geometry
         )
     else:
         if data.hasproperty("NDRHS", geometry):
-            s += r"No displacement rolls if speed $\ge$ %.1f. " % data.NDRHSlimit(
+            s += r"No displacement rolls if speed ≥ %.1f. " % data.NDRHSlimit(
                 geometry
             )
         if data.hasproperty("NLRHS", geometry):
-            s += r"No lag rolls if speed $\ge$ %.1f. " % data.NLRHSlimit(geometry)
+            s += r"No lag rolls if speed ≥ %.1f. " % data.NLRHSlimit(geometry)
 
     writelatex(r"\renewcommand{\Cg}{%s}" % s)
 
@@ -702,7 +702,7 @@ def blockF(data, geometry=None):
         # air-to-ground radar
         writelatex(r"\renewcommand{\Fa}{%s}" % data.radar("name"))
         writelatex(r"\renewcommand{\Fb}{%d}" % data.radar("eccm"))
-        writelatex(r"\renewcommand{\Fc}{$\mathrm{%s}$}" % data.radar("arc"))
+        writelatex(r"\renewcommand{\Fc}{%s}" % data.radar("arc"))
         writelatex(r"\renewcommand{\Fd}{Gr.~Nav.~(%d)}" % data.radar("searchrange"))
         writelatex(r"\renewcommand{\Fe}{}")
         writelatex(r"\renewcommand{\Ff}{}")
@@ -710,7 +710,7 @@ def blockF(data, geometry=None):
         # air-to-ground radar
         writelatex(r"\renewcommand{\Fa}{%s}" % data.radar("name"))
         writelatex(r"\renewcommand{\Fb}{%d}" % data.radar("eccm"))
-        writelatex(r"\renewcommand{\Fc}{$\mathrm{%s}$}" % data.radar("arc"))
+        writelatex(r"\renewcommand{\Fc}{%s}" % data.radar("arc"))
         writelatex(r"\renewcommand{\Fd}{Gr.~Nav.~(%d)}" % data.radar("searchrange"))
         writelatex(
             r"\renewcommand{\Fe}{Gr.~Attack~ (%d)}" % data.radar("trackingrange")
@@ -720,7 +720,7 @@ def blockF(data, geometry=None):
         # air-to-air radar without normal search capability
         writelatex(r"\renewcommand{\Fa}{%s}" % data.radar("name"))
         writelatex(r"\renewcommand{\Fb}{%d}" % data.radar("eccm"))
-        writelatex(r"\renewcommand{\Fc}{$\mathrm{%s}$}" % data.radar("arc"))
+        writelatex(r"\renewcommand{\Fc}{%s}" % data.radar("arc"))
         writelatex(r"\renewcommand{\Fd}{---}")
         writelatex(
             r"\renewcommand{\Fe}{%d--%d}"
@@ -731,7 +731,7 @@ def blockF(data, geometry=None):
         # air-to-air radar with normal search capability
         writelatex(r"\renewcommand{\Fa}{%s}" % data.radar("name"))
         writelatex(r"\renewcommand{\Fb}{%d}" % data.radar("eccm"))
-        writelatex(r"\renewcommand{\Fc}{$\mathrm{%s}$}" % data.radar("arc"))
+        writelatex(r"\renewcommand{\Fc}{%s}" % data.radar("arc"))
         writelatex(
             r"\renewcommand{\Fd}{%d--%d}"
             % (data.radar("searchrange"), data.radar("searchstrength"))
@@ -853,7 +853,7 @@ def blockF(data, geometry=None):
     s = ""
 
     if data.description() is not None:
-        s += "\\item %s\n\n" % latexify(data.description())
+        s += "\\item %s\n\n" % data.description()
 
     if data.hasproperty("EVG", geometry):
         s += "\\item This is a variable-geometry aircraft with allowed geometries of "
@@ -908,7 +908,7 @@ def blockF(data, geometry=None):
                     s += r"Low roll rate (LRR). "
                 elif property == "LRRHS":
                     s += (
-                        r"Low roll rate (LRR) if speed $\ge$ %.1f. "
+                        r"Low roll rate (LRR) if speed ≥ %.1f. "
                         % data._data["LRRHSlimit"]
                     )
                 elif property == "LTD":
@@ -922,7 +922,7 @@ def blockF(data, geometry=None):
                 elif property == "RACL":
                     s += r"Rapid acceleration (RA) if CL. "
                 elif property == "RALS":
-                    s += r"Rapid acceleration (RA) if speed $\le$ %.1f. " % data._data["RALSlimit"]
+                    s += r"Rapid acceleration (RA) if speed ≤ %.1f. " % data._data["RALSlimit"]
                 elif property == "RPR":
                     s += r"Rapid power response (RPR). "
                 elif property == "FBW":
@@ -933,16 +933,16 @@ def blockF(data, geometry=None):
                 s += "\n\n"
 
     for note in data.notes():
-        s += "\\item %s\n\n" % (latexify(note))
+        s += "\\item %s\n\n" % note
 
     for note in data.typenotes():
-        s += "\\item %s\n\n" % (latexify(note))
+        s += "\\item %s\n\n" % note
 
     for note in data.versionnotes():
-        s += "\\item %s\n\n" % (latexify(note))
+        s += "\\item %s\n\n" % note
 
     for note in data.variantnotes():
-        s += "\\item %s\n\n" % (latexify(note))
+        s += "\\item %s\n\n" % note
 
     if s == "":
         writelatex(r"\renewcommand{\Fu}{}")
@@ -969,13 +969,13 @@ def blockG(data, geometry=None):
         writelatex(r"\renewcommand{\Gbd}{%s}" % ("{:,}".format(data.storeslimit("DT"))))
     else:
         writelatex(
-            r"\renewcommand{\Gba}{$<\wbox[r]{00}{%d}$}" % (data.storeslimit("CL") + 1)
+            r"\renewcommand{\Gba}{<\wbox[r]{00}{%d}}" % (data.storeslimit("CL") + 1)
         )
         writelatex(
-            r"\renewcommand{\Gbb}{$<\wbox[r]{00}{%d}$}" % (data.storeslimit("1/2") + 1)
+            r"\renewcommand{\Gbb}{<\wbox[r]{00}{%d}}" % (data.storeslimit("1/2") + 1)
         )
         writelatex(
-            r"\renewcommand{\Gbc}{$\ge\wbox[r]{00}{%d}$}"
+            r"\renewcommand{\Gbc}{≥\wbox[r]{00}{%d}}"
             % (data.storeslimit("1/2") + 1)
         )
         writelatex(r"\renewcommand{\Gbd}{%s}" % ("{:,}".format(data.storeslimit("DT"))))
@@ -1002,7 +1002,7 @@ def blockG(data, geometry=None):
 
     s = ""
     for note in data.loadnotes():
-        s += "\\item %s\n\n" % (latexify(note))
+        s += "\\item %s\n\n" % note
     if s == "":
         writelatex(r"\renewcommand{\Gcb}{%s}" % s)
     else:
