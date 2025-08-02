@@ -72,12 +72,14 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \usepackage{unicode-math}
-\setmainfont[
-	BoldFont = texgyreschola-bold.otf,
-	BoldItalicFont = texgyreschola-bolditalic.otf,
-	ItalicFont = texgyreschola-italic.otf
-]{texgyreschola-regular.otf}
-\setmathfont{texgyreschola-math.otf}
+%\setmainfont[
+%	BoldFont = texgyreschola-bold.otf,
+%	BoldItalicFont = texgyreschola-bolditalic.otf,
+%	ItalicFont = texgyreschola-italic.otf
+%]{texgyreschola-regular.otf}
+%\setmathfont{texgyreschola-math.otf}
+\usepackage[usefilenames]{plex-otf}
+\renewcommand*\familydefault{\sfdefault}
 
 \usepackage{tabularx}
 
@@ -108,13 +110,13 @@
 \setlength{\blockABCheight}{19.5em}
 
 \newlength{\blockFGheight}
-\setlength{\blockFGheight}{37.0em}
+\setlength{\blockFGheight}{36.6em}
 
 \newlength{\blockFGtopheight}
-\setlength{\blockFGtopheight}{19.0em}
+\setlength{\blockFGtopheight}{19.6em}
 
 \newlength{\stationsheight}
-\setlength{\stationsheight}{22.3em}
+\setlength{\stationsheight}{21.3em}
 
 \newlength{\notesheight}
 \setlength{\notesheight}{18.5em}
@@ -131,7 +133,7 @@
 \addtocadc{\Aaa}%
 \parbox[b][\blockABCheight][t]{\blockAcells\cellwidth}{%
 \begin{tabularx}{\blockAcells\cellwidth}{lCCCc}
-\multicolumn{5}{c}{\large\bfseries\itshape\parbox[c][4.8em]{4\cellwidth}{\centering \Aab}}\\
+\multicolumn{5}{c}{\large\bfseries\itshape\parbox[c][4.4em]{4\cellwidth}{\centering \Aab}}\\
 \hline
 \multicolumn{5}{l}{%
 \ifversionone
