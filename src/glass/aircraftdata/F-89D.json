@@ -1,6 +1,5 @@
 {
     "versionname": "F-89D",
-    "versiondescription": "All-weather interceptor version.",
     "popularname": "Scorpion",
     "origin": "TSOH",
     "crew": [
@@ -333,5 +332,5 @@
         4,
         2
     ],
-    "description": ""
+    "description": "The Northrop F-89D Scorpion is an all-weather interceptor."
 }
