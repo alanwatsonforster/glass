@@ -43,7 +43,7 @@
 }
 
 \newenvironment{adclist}{
-  \begin{itemize}[itemsep=0pt]
+  \begin{itemize}[itemsep=0pt,topsep=0pt]
 }{
   \end{itemize}
 }
@@ -53,13 +53,14 @@
 }
 
 \newenvironment{typelist}{
-  \begin{itemize}[itemsep=0pt]
+  \begin{itemize}[itemsep=0pt,topsep=0pt]
 }{
   \end{itemize}
 }
 
 \newcommand{\typeitem}[1]{
-  \item \hyperref[type:#1]{#1}
+  % No hyperrefs for the moment.
+  \item #1
 }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
