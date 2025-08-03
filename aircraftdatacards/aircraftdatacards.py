@@ -36,6 +36,10 @@ def minusify(s):
     return s
 
 
+def writelatex(s):
+    print(minusify(s), file=latexfile)
+
+
 def blockA(data, geometry=None):
 
     if geometry is None:
