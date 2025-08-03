@@ -1,6 +1,6 @@
 {
     "versionname": "Tu-4A",
-    "description": "The Tupolev Tu-4 is a strategic nuclear bomber. It is a reverse-engineered version of the Boeing B-29A. The NATO reporting name for the aircraft is Bull.",
+    "description": "The Tupolev Tu-4 is a propeller-driven strategic nuclear bomber. It is a reverse-engineered version of the Boeing B-29A. The NATO reporting name for the aircraft is Bull.",
     "base": "Tu-4",
     "crew": [
         "Pilot",
