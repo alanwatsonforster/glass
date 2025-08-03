@@ -35,9 +35,6 @@ def minusify(s):
     s = re.sub(r"([0-9]+)-([^-/0-9a-zA-Z])", r"\1−\2", s)
     return s
 
-def writelatex(s):
-    print(minusify(s), file=latexfile)
-
 
 def blockA(data, geometry=None):
 
@@ -395,9 +392,7 @@ def blockC(data, geometry=None):
         )
     else:
         if data.hasproperty("NDRHS", geometry):
-            s += r"No displacement rolls if speed ≥ %.1f. " % data.NDRHSlimit(
-                geometry
-            )
+            s += r"No displacement rolls if speed ≥ %.1f. " % data.NDRHSlimit(geometry)
         if data.hasproperty("NLRHS", geometry):
             s += r"No lag rolls if speed ≥ %.1f. " % data.NLRHSlimit(geometry)
 
@@ -922,7 +917,10 @@ def blockF(data, geometry=None):
                 elif property == "RACL":
                     s += r"Rapid acceleration (RA) if CL. "
                 elif property == "RALS":
-                    s += r"Rapid acceleration (RA) if speed ≤ %.1f. " % data._data["RALSlimit"]
+                    s += (
+                        r"Rapid acceleration (RA) if speed ≤ %.1f. "
+                        % data._data["RALSlimit"]
+                    )
                 elif property == "RPR":
                     s += r"Rapid power response (RPR). "
                 elif property == "FBW":
@@ -975,8 +973,7 @@ def blockG(data, geometry=None):
             r"\renewcommand{\Gbb}{<\wbox[r]{00}{%d}}" % (data.storeslimit("1/2") + 1)
         )
         writelatex(
-            r"\renewcommand{\Gbc}{≥\wbox[r]{00}{%d}}"
-            % (data.storeslimit("1/2") + 1)
+            r"\renewcommand{\Gbc}{≥\wbox[r]{00}{%d}}" % (data.storeslimit("1/2") + 1)
         )
         writelatex(r"\renewcommand{\Gbd}{%s}" % ("{:,}".format(data.storeslimit("DT"))))
 
