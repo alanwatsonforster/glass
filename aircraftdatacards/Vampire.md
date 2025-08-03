@@ -4,6 +4,14 @@
 
 ## Notes and Changes
 
+## Vampire F.1
+
+- Unclipped wings (Watkins)
+- 202 Imp gal fuel (Watkins)
+- 50 and 100 imp gal FTs (Goebel)
+
+Used by RAF.
+
 ### Vampire F.3
 
 - Goblin 2 and unclipped wings. 
@@ -16,6 +24,8 @@
 - No ejection seat (Goebel)
 
 Used by RAF, RCAF, Norway (Wikipedia)
+
+Used by RAF, France, 
 
 ### Vampire FB.5
 
@@ -100,6 +110,12 @@ Watkins, ch. 35:
 - 7 former Egyptian AF delivered to Jordan in 1956
 - 13 former Egyptian AF delivered to Saudia Arabia in 1957
 
+### J28A
+
+- Swedish version of F Mk I (Wikins).
+
+Used by: Sweden, Austria, and Dominican Republic
+
 ### Vampire T.55
 
 ### Engines
@@ -139,6 +155,15 @@ Ibid:
 Perleberg's ADC (and presumably the original Desert Falcons ADC) has the wrong weapon stations.
 
 There are two outer wing stations that can carry FT and BB and four inner wing stations that can each carry two RP-3 RKs (Gobel; see also the photo of the FB.5 in Wikipedia).
+
+### Visibility
+
+Poor rear visibility from armor behind pilot's seat (Wilkins, ch. 1)
+
+### Combat
+
+- RAF in Aden and Malaya (Wilkins)
+- Algeria, Burma, Dominican Republic, Egypt, India, Iraq, Jordan, Lebanon, Rhodesia, and Venezuela (Wilkins)
 
 ## Bibliography
 
