@@ -30,14 +30,36 @@
 \newcommand{\addtoctype}[1]{%
   \phantomsection%
   \addcontentsline{toc}{section}{#1}%
+  \label{type:#1}%
 }
 \newcommand{\addtocadc}[1]{%
   \phantomsection%
   \addcontentsline{toc}{subsection}{#1}%
+  \label{adc:#1}%
 }
 
 \newcommand{\aircrafttype}[1]{
   \twocolumn[\section*{#1}]
+}
+
+\newenvironment{adclist}{
+  \begin{itemize}[itemsep=0pt]
+}{
+  \end{itemize}
+}
+
+\newcommand{\adcitem}[1]{
+  \item \hyperref[adc:#1]{#1}
+}
+
+\newenvironment{typelist}{
+  \begin{itemize}[itemsep=0pt]
+}{
+  \end{itemize}
+}
+
+\newcommand{\typeitem}[1]{
+  \item \hyperref[type:#1]{#1}
 }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
