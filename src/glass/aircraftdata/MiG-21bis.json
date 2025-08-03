@@ -296,7 +296,6 @@
         "LTD"
     ],
     "notes": [
-        "The Izdeliye 75A Fishbed-L had a GCI data link and the Izdeliye 75B Fishbed-N had ILS, but the two were otherwise identical.",
         "The thick front canopy gives a +1 modifier to sighting rolls for targets in the 180+ arc.",
         "Emergency AB (ChR AB) may be used if speed is at least high transonic and altitude is 13 or less. When used, the AB power is 5.0/4.5/4.0 and the fuel use is 7.5. Emergency AB cannot be used for more than two consecutive game turns or more than eight game turns in total."
     ],
@@ -327,7 +326,7 @@
             "pair",
             [
                 2,
-                3
+                4
             ],
             550,
             [

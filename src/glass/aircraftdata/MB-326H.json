@@ -1,6 +1,6 @@
 {
     "versionname": "MB-326H",
-    "description": "The Aermacchi MB-326H is a trainer with a secondary light attack capability.",
+    "description": "The Aermacchi MB-326H is a trainer with a secondary light attack capability.  It is similar to the MB-326B, but has provision for external fuel tanks.",
     "base": "MB-326L",
     "powertable": {
         "M": [
@@ -90,7 +90,7 @@
     "loadnotes": [
         "May use 300L FTs.",
         "PP may only be used on station 4."
-    ], 
+    ],
     "VPs": [
         10,
         6,

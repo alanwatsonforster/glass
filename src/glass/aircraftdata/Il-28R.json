@@ -1,6 +1,6 @@
 {
     "versionname": "Il-28R",
-    "description": "The Ilyushin Il-28R is a reconnaissance aircraft. It is a development of the Il-28 medium bomber. The NATO reporting name is Beagle.",
+    "description": "The Ilyushin Il-28R is a reconnaissance aircraft. It is a development of the Il-28 medium bomber. The NATO reporting name for the aircraft is Beagle.",
     "base": "Il-28",
     "crew": [
         "Pilot",

@@ -268,7 +268,7 @@
         ]
     },
     "radar": {
-        "name": "RP-22 Saphir-21",
+        "name": "RP-22 Saphir",
         "eccm": 0,
         "arc": "180+",
         "searchrange": 48,
@@ -319,7 +319,7 @@
             "pair",
             [
                 2,
-                3
+                4
             ],
             1100,
             [

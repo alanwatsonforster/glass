@@ -250,8 +250,7 @@
             ]
         ]
     },
-    "ecm": {
-    },
+    "ecm": {},
     "gun": "Four 20 mm Hispano Mk V",
     "gunatatohitrolls": "7/4/3",
     "gundamagerating": "5/6*",
@@ -267,8 +266,7 @@
         "RALS"
     ],
     "RALSlimit": 4.0,
-    "notes": [
-    ],
+    "notes": [],
     "storeslimits": [
         2,
         4,
@@ -283,7 +281,8 @@
             ],
             1000,
             [
-                "BB", "FT"
+                "BB",
+                "FT"
             ]
         ],
         [

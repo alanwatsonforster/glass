@@ -375,8 +375,9 @@
         3
     ],
     "properties": [
-        "LTD", "PSSM", "HBR"
+        "LTD",
+        "PSSM",
+        "HBR"
     ],
-    "notes": [
-    ]
+    "notes": []
 }

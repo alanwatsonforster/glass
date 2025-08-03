@@ -1,6 +1,6 @@
 {
     "versionname": "MiG-17P",
-    "description": "The Mikoyan-Gurevich MiG-17P is an interceptor. It uses the non-afterburning VK-1A engine and is equipped with the RP-1 Izumrud radar. The NATO reporting name for the aircraft is Fresco-B and for the radar is Scan Odd.",
+    "description": "The Mikoyan-Gurevich MiG-17P is an interceptor. It is a development of the MiG-17 and  uses the same non-afterburning VK-1A engine, but is equipped with the RP-1 Izumrud radar. The NATO reporting name for the aircraft is Fresco-B and for the radar is Scan Odd.",
     "base": "MiG-17PF",
     "powertable": {
         "M": [

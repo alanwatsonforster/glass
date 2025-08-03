@@ -52,6 +52,16 @@
             "-"
         ]
     },
+    "radar": {
+        "name": "RP-21M Sapfir",
+        "eccm": 0,
+        "arc": "180+",
+        "searchrange": 30,
+        "searchstrength": 6,
+        "trackingrange": 18,
+        "trackingstrength": 6,
+        "lockon": 7
+    },
     "stations": [
         [
             "pair",

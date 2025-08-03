@@ -1,5 +1,5 @@
 {
     "versionname": "CAC CA-30",
-    "description": "The Commonwealth Aircraft Corportation (CAC) CA-30 is a trainer with a secondary light attack capability. It is a license-built version of thr Aermacchi MB-326H.",
+    "description": "The Commonwealth Aircraft Corportation (CAC) CA-30 is a trainer with a secondary light attack capability. It is a license-built version of the Aermacchi MB-326H.",
     "base": "MB-326H"
 }

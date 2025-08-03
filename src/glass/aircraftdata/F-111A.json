@@ -297,7 +297,10 @@
                     8.0
                 ]
             },
-            "properties": [ "LTD", "PSSM"]
+            "properties": [
+                "LTD",
+                "PSSM"
+            ]
         },
         "aft": {
             "turndragtable": {
@@ -415,7 +418,9 @@
                 ]
             },
             "properties": [
-                "HBR", "PSSM", "LTD"
+                "HBR",
+                "PSSM",
+                "LTD"
             ]
         }
     },

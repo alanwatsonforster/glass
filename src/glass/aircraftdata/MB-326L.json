@@ -1,6 +1,6 @@
 {
     "versionname": "MB-326L",
-    "description": "The Aermacchi MB-326L is a trainer with a secondary light attack capability.",
+    "description": "The Aermacchi MB-326L is a trainer with a secondary light attack capability. It is derived from the MB-326K, but reverts to having a second crew member and no internal guns.",
     "base": "MB-326K",
     "crew": [
         "Pilot",

@@ -1,13 +1,16 @@
 {
-  "versionname": "Alpha Jet E",
-  "description": "The Dassault/Dornier Alpha Jet E (École) is a trainer with a secondary light attack capability.",
-  "crew": [ "Pilot", "Observer" ],
-"base": "Alpha Jet A",
+    "versionname": "Alpha Jet E",
+    "description": "The Dassault/Dornier Alpha Jet E is a trainer with a secondary light attack capability.",
+    "crew": [
+        "Pilot",
+        "Observer"
+    ],
+    "base": "Alpha Jet A",
     "bombsystem": "Manual",
     "ecm": {
         "iff": true
     },
-  "stations": [
+    "stations": [
         [
             "pair",
             [
@@ -16,7 +19,12 @@
             ],
             750,
             [
-                "FT", "BB", "BG", "RP", "IRM", "EP"
+                "FT",
+                "BB",
+                "BG",
+                "RP",
+                "IRM",
+                "EP"
             ]
         ],
         [
@@ -26,7 +34,11 @@
             ],
             1350,
             [
-                "BB", "BG", "RP", "GP", "PP"
+                "BB",
+                "BG",
+                "RP",
+                "GP",
+                "PP"
             ]
         ]
     ],
@@ -41,7 +53,8 @@
         3,
         1
     ],
-  "properties": [ "HTD" ],
-  "notes": [
-  ]
+    "properties": [
+        "HTD"
+    ],
+    "notes": []
 }

@@ -1,5 +1,5 @@
 {
     "versionname": "MB-326E",
-    "description": "The Aermacchi MB-326E is a trainer with a secondary light attack capability.",
+    "description": "The Aermacchi MB-326E is a trainer with a secondary light attack capability. It is similar to the MB-326B, but has provision for external fuel tanks.",
     "base": "MB-326H"
 }

@@ -1,51 +1,256 @@
 {
-  "versionname": "Alpha Jet A",
-  "description": "The Dassault/Dornier Alpha Jet A (Appui Tactique) is a light attack aircraft.",
-  "crew": [ "Pilot", "Observer" ],
-  "powertable": {
-    "M"   : [ 1.5, 1.0, 1.0, 2 ],
-    "N"   : [ 0.0, 0.0, 0.0, 1 ],
-    "I"   : [ 0.5, 0.5, 0.5, 0 ],
-    "SPBR": [ 0.5, 1.0, 1.0 ]
-  },
-  "jetengines": 2,
-  "cruisespeed": 5.0,
-  "climbspeed" : 4.0,
-  "visibility": 4,
-  "sizemodifier": 1,
-  "vulnerability": -1,
-  "restrictedarcs": "",
-  "blindarcs": "30-",
-  "internalfuel": 180,
-  "atarefuel": false,
-  "ejectionseat": "standard",
-  "maneuvertable": {
-    "LR/DR": [ 1, 1 ],
-    "VR":    [ 0, 0 ]
-  },
-  "turndragtable": {
-    "TT": [ 1, 1, 1 ],
-    "HT": [ 1, 2, 2 ],
-    "BT": [ 3, 3, 4 ]
-  },
-  "ceilingtable": [ 45, 38, 32 ],
-  "speedtable": {
-    "EH": [ [ "-", "-" ], [ "-", "-" ], [ "-", "-" ], "-" ],
-    "VH": [ [ 2.5, 5.5 ], [ 3.0, 5.0 ], [ "-", "-" ], 7.0 ],
-    "HI": [ [ 2.5, 6.0 ], [ 2.5, 5.5 ], [ 2.5, 5.0 ], 7.0 ],
-    "MH": [ [ 2.0, 6.0 ], [ 2.0, 5.5 ], [ 2.5, 5.0 ], 7.0 ],
-    "ML": [ [ 1.5, 6.0 ], [ 2.0, 5.5 ], [ 2.0, 5.0 ], 7.0 ],
-    "LO": [ [ 1.0, 6.0 ], [ 1.5, 5.5 ], [ 1.5, 5.0 ], 7.0 ]
-  },
-  "climbcapabilitytable": {
-    "EH": [ [ "-", "-" ], [ "-", "-" ], [ "-", "-" ] ],
-    "VH": [ [ "-", 0.5 ], [ "-", 0.5 ], [ "-", "-" ] ],
-    "HI": [ [ "-", 1.0 ], [ "-", 0.5 ], [ "-", 0.5 ] ],
-    "MH": [ [ "-", 1.0 ], [ "-", 1.0 ], [ "-", 0.5 ] ],
-    "ML": [ [ "-", 1.0 ], [ "-", 1.0 ], [ "-", 1.0 ] ],
-    "LO": [ [ "-", 2.0 ], [ "-", 1.5 ], [ "-", 1.0 ] ]
-  },
-
+    "versionname": "Alpha Jet A",
+    "description": "The Dassault/Dornier Alpha Jet A is a light attack aircraft.",
+    "crew": [
+        "Pilot",
+        "Observer"
+    ],
+    "powertable": {
+        "M": [
+            1.5,
+            1.0,
+            1.0,
+            2
+        ],
+        "N": [
+            0.0,
+            0.0,
+            0.0,
+            1
+        ],
+        "I": [
+            0.5,
+            0.5,
+            0.5,
+            0
+        ],
+        "SPBR": [
+            0.5,
+            1.0,
+            1.0
+        ]
+    },
+    "jetengines": 2,
+    "cruisespeed": 5.0,
+    "climbspeed": 4.0,
+    "visibility": 4,
+    "sizemodifier": 1,
+    "vulnerability": -1,
+    "restrictedarcs": "",
+    "blindarcs": "30-",
+    "internalfuel": 180,
+    "atarefuel": false,
+    "ejectionseat": "standard",
+    "maneuvertable": {
+        "LR/DR": [
+            1,
+            1
+        ],
+        "VR": [
+            0,
+            0
+        ]
+    },
+    "turndragtable": {
+        "TT": [
+            1,
+            1,
+            1
+        ],
+        "HT": [
+            1,
+            2,
+            2
+        ],
+        "BT": [
+            3,
+            3,
+            4
+        ]
+    },
+    "ceilingtable": [
+        45,
+        38,
+        32
+    ],
+    "speedtable": {
+        "EH": [
+            [
+                "-",
+                "-"
+            ],
+            [
+                "-",
+                "-"
+            ],
+            [
+                "-",
+                "-"
+            ],
+            "-"
+        ],
+        "VH": [
+            [
+                2.5,
+                5.5
+            ],
+            [
+                3.0,
+                5.0
+            ],
+            [
+                "-",
+                "-"
+            ],
+            7.0
+        ],
+        "HI": [
+            [
+                2.5,
+                6.0
+            ],
+            [
+                2.5,
+                5.5
+            ],
+            [
+                2.5,
+                5.0
+            ],
+            7.0
+        ],
+        "MH": [
+            [
+                2.0,
+                6.0
+            ],
+            [
+                2.0,
+                5.5
+            ],
+            [
+                2.5,
+                5.0
+            ],
+            7.0
+        ],
+        "ML": [
+            [
+                1.5,
+                6.0
+            ],
+            [
+                2.0,
+                5.5
+            ],
+            [
+                2.0,
+                5.0
+            ],
+            7.0
+        ],
+        "LO": [
+            [
+                1.0,
+                6.0
+            ],
+            [
+                1.5,
+                5.5
+            ],
+            [
+                1.5,
+                5.0
+            ],
+            7.0
+        ]
+    },
+    "climbcapabilitytable": {
+        "EH": [
+            [
+                "-",
+                "-"
+            ],
+            [
+                "-",
+                "-"
+            ],
+            [
+                "-",
+                "-"
+            ]
+        ],
+        "VH": [
+            [
+                "-",
+                0.5
+            ],
+            [
+                "-",
+                0.5
+            ],
+            [
+                "-",
+                "-"
+            ]
+        ],
+        "HI": [
+            [
+                "-",
+                1.0
+            ],
+            [
+                "-",
+                0.5
+            ],
+            [
+                "-",
+                0.5
+            ]
+        ],
+        "MH": [
+            [
+                "-",
+                1.0
+            ],
+            [
+                "-",
+                1.0
+            ],
+            [
+                "-",
+                0.5
+            ]
+        ],
+        "ML": [
+            [
+                "-",
+                1.0
+            ],
+            [
+                "-",
+                1.0
+            ],
+            [
+                "-",
+                1.0
+            ]
+        ],
+        "LO": [
+            [
+                "-",
+                2.0
+            ],
+            [
+                "-",
+                1.5
+            ],
+            [
+                "-",
+                1.0
+            ]
+        ]
+    },
     "gunsightmodifiers": {
         "TT": 0,
         "HT": 1,
@@ -57,8 +262,12 @@
         "rwr": "A",
         "djm": "B3"
     },
-  "storeslimits": [ 4, 8, 5550 ],
-  "stations": [
+    "storeslimits": [
+        4,
+        8,
+        5550
+    ],
+    "stations": [
         [
             "pair",
             [
@@ -67,7 +276,12 @@
             ],
             750,
             [
-                "FT", "BB", "BG", "RP", "IRM", "EP"
+                "FT",
+                "BB",
+                "BG",
+                "RP",
+                "IRM",
+                "EP"
             ]
         ],
         [
@@ -78,7 +292,11 @@
             ],
             1350,
             [
-                "BB", "BG", "RP", "DR", "EP"
+                "BB",
+                "BG",
+                "RP",
+                "DR",
+                "EP"
             ]
         ],
         [
@@ -88,7 +306,11 @@
             ],
             1350,
             [
-                "BB", "BG", "RP", "GP", "PP"
+                "BB",
+                "BG",
+                "RP",
+                "GP",
+                "PP"
             ]
         ]
     ],
@@ -103,8 +325,10 @@
         4,
         2
     ],
-  "properties": [ "HTD" ],
-  "notes": [
-    "Either the observer or the RWR and DJM may be carried."
-  ]
+    "properties": [
+        "HTD"
+    ],
+    "notes": [
+        "Either the observer or the RWR and DJM may be carried."
+    ]
 }
