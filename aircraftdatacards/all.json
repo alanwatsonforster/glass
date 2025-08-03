@@ -33,15 +33,15 @@
     [ "type", "Alpha Jet", "Alpha Jet A", "Alpha Jet E" ],
 
     [ "chapter", "French Aircraft" ],
-    [ "type", "Ouragan", "Ouragan" ],
-    [ "type", "Mystère IV", "Mystère IVA" ],
-    [ "type", "Mirage 5", "Mirage 5F", "Mirage 5BA" ],
+    [ "type", "Dassault Ouragan", "Ouragan" ],
+    [ "type", "Dassault Mystère IV", "Mystère IVA" ],
+    [ "type", "Dassault Mirage 5", "Mirage 5F", "Mirage 5BA" ],
 
     [ "chapter", "Italian Aircraft"],
-    [ "type", "MB-326", "MB-326B", "MB-326E", "MB-326F", "MB-326G", "MB-326H", "MB-326K", "MB-326L", "MB-326M" ],
+    [ "type", "Aermacchi MB-326", "MB-326B", "MB-326E", "MB-326F", "MB-326G", "MB-326H", "MB-326K", "MB-326L", "MB-326M" ],
 
     [ "chapter", "South African Aircraft" ],
-    [ "type", "Impala", "Impala Mk I", "Impala Mk II" ],
+    [ "type", "Atlas Impala", "Impala Mk I", "Impala Mk II" ],
 
     [ "chapter", "Soviet Aircraft" ],
     [ "comment", "1942" ],
@@ -103,9 +103,9 @@
     [ "comment", "January 1953" ],
     [ "type", "F7U Cutlass", "F7U-3", "F7U-3M" ],
     [ "comment", "August 1953" ],
-    [ "type", "B-57 Canberra", "B-57B (Early)", "B-57B", "B-57B (PAF)", "B-57G" ],
+    [ "type", "B-57", "B-57B (Early)", "B-57B", "B-57B (PAF)", "B-57G" ],
     [ "comment", "September 1954" ],
-    [ "type", "F-100 Super Sabre", "F-100A", "F-100C", "F-100D", "F-100D (Late)", "F-100F", "F-100F (Wild Weasel I)", "F-100F (Wild Weasel II)" ],
+    [ "type", "F-100", "F-100A", "F-100C", "F-100D", "F-100D (Late)", "F-100F", "F-100F (Wild Weasel I)", "F-100F (Wild Weasel II)" ],
     [ "comment", "February 1955" ],
     [ "type", "B-52 Stratofortress", "B-52D", "B-52G" ],
     [ "comment", "March 1956" ],
