@@ -1,0 +1,5 @@
+{
+    "versionname": "Vampire NF.54",
+    "description": "The de Havilland Vampire NF.54 is a night fighter. The NF.54 is an export version of the NF.10, which is in turn derived from the FB.5, but has a new forward fuselage for the AI Mk X radar and two crew members.",
+    "base": "Vampire NF.10"
+}

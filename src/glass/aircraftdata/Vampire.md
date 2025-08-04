@@ -49,6 +49,24 @@ Used by RAF, France,
 - Goblin 2 (Watkins)
 - Version for Rhodesia had Goblin 3 (Goebel/Watkins)
 
+### Vampire NF.10
+
+- AI Mk 10 radar from Mosquito (Watkins)
+- IFF (Wilkines)
+- Standard 20 mm armament (Watkins)
+- Two crew (Watkins)
+- Goblin 3 engine to compensate for the increased weight of the radar equipment (Watkins)
+- Wings of the FB.5 (Watkins)
+- Fuel = 330 gal internal + two external 100 gal tanks (Watkins)
+- Originally intended for Egypt, but order taken over by RAF (Watkins)
+- No ejection seats (Watkins)
+- Bombing capacity retained (Watkins), but presumably not the rocket rails?
+- In service with RAF in 1951.
+
+I will give it the same performance as the FB.5, on the supposition that the performance gains of the Goblin 3 are largely compensated by the additional weight.
+
+I take the performance of the AI Mk X from Chris Perleberg's ADC for the Meteor NF.11 (on the ADC for the Meteor F.8).
+
 ### Sea Vampire F.20
 
 - FB.5 with arrestor hook, strengthened undercarriage.
@@ -108,7 +126,13 @@ Watkins, ch. 35:
 - 45 former Italian AF reconditioned and delivered to Egypt in 1954 (Watkins)
 - 13 former Italian AF reconditioned and delivered to Syria in 1954 (Watkins)
 - 7 former Egyptian AF delivered to Jordan in 1956
-- 13 former Egyptian AF delivered to Saudia Arabia in 1957
+- 13 former Egyptian AF delivered to Saudi Arabia in 1957
+
+### Vampire NF.54
+
+- Export version of NF.10. 
+- India (39) and Italy (14) (Watkins)
+- Indian NF.54 were refurbished ex-RAF aircraft (Watkins)
 
 ### J28A
 
@@ -158,12 +182,12 @@ There are two outer wing stations that can carry FT and BB and four inner wing s
 
 ### Visibility
 
-Poor rear visibility from armor behind pilot's seat (Wilkins, ch. 1)
+Poor rear visibility from armor behind pilot's seat (Watkins, ch. 1)
 
 ### Combat
 
-- RAF in Aden and Malaya (Wilkins)
-- Algeria, Burma, Dominican Republic, Egypt, India, Iraq, Jordan, Lebanon, Rhodesia, and Venezuela (Wilkins)
+- RAF in Aden and Malaya (Watkins)
+- Algeria, Burma, Dominican Republic, Egypt, India, Iraq, Jordan, Lebanon, Rhodesia, and Venezuela (Watkins)
 
 ## Bibliography
 

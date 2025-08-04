@@ -1,0 +1,32 @@
+{
+    "versionname": "Vampire NF.10",
+    "description": "The de Havilland Vampire NF.10 is a night fighter. The NF.10 version is derived from the FB.5, but has a new forward fuselage for the AI Mk X radar and two crew members.",
+    "base": "Vampire FB.5",
+    "crew": [ "Pilot", "Radar Operator" ],
+    "radar": {
+        "name": "AI Mk X",
+        "eccm": 0,
+        "arc": "Limited",
+        "searchrange": 15,
+        "searchstrength": 3
+    },
+    "ecm": {
+        "iff": true
+    },
+    "stations": [
+        [
+            "pair",
+            [
+                1,
+                2
+            ],
+            1000,
+            [
+                "FT"
+            ]
+        ]
+    ],
+    "loadnotes": [
+        "May use 450L FTs."
+    ]
+}
