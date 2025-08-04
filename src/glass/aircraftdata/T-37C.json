@@ -1,5 +1,6 @@
 {
-    "versionname": "T-37C Tweet",
+    "versionname": "T-37C",
+    "popularname": "Tweet",
     "versiondescription": "Trainer and light attack aircraft.",
     "base": "A-37B",
     "powertable": {

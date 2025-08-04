@@ -1,5 +1,6 @@
 {
-    "versionname": "F/A-18A Hornet",
+    "versionname": "F/A-18A",
+    "popularname": "Hornet",
     "origin": "Malcom Pipe's UnitedStates ADCs file in the airpower group files",
     "description": "The McDonnell Douglas F/A-18A Hortnet is a carrier-capable all-weather fighter and attack aircraft. The version described here is the initial one that entered service in 1983, equipped with the APG-65 radar and ALQ-126B DJM.",
     "crew": [
