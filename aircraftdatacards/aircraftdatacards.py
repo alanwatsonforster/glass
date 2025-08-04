@@ -1027,12 +1027,13 @@ def writechapter(name):
 
 
 def writetype(name):
-    log("writing type %s." % name)
-    file = "../src/glass/aircraftdata/" + name.replace("/", ":") + ".tex"
-    if os.path.exists(file):
-        writelatex(r"\input{%s}" % file)
-    else:
-        writelatex(r"\aircrafttype{%s}" % name)
+    if name is not None:
+        log("writing type %s." % name)
+        file = "../src/glass/aircraftdata/" + name.replace("/", ":") + ".tex"
+        if os.path.exists(file):
+            writelatex(r"\input{%s}" % file)
+        else:
+            raise RuntimeError("%s does not exist.")
 
 
 def writeadc(name):
