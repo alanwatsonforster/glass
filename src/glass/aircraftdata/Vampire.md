@@ -67,15 +67,27 @@ I will give it the same performance as the FB.5, on the supposition that the per
 
 I take the performance of the AI Mk X from Chris Perleberg's ADC for the Meteor NF.11 (on the ADC for the Meteor F.8).
 
+### Vampire T.11
+
+- Same armament as FB-5 (Watkins)
+- Refitted with ejection seats from 1954 (Watkins)
+
 ### Sea Vampire F.20
 
-- FB.5 with arrestor hook, strengthened undercarriage.
+- FB.5 with arrestor hook, strengthened undercarriage (Watkins).
 - I'm not sure why it is the F.20 and not the FB.20.
+- Performed both catpult take-offs and arrested landings (Watkins).
+- More effective speed brakes (Watkins).
 
 ### Sea Vampire F.21
 
 - Used for flexible deck experiments
 - Strengthened undersurfaces
+
+### Sea Vampire T.22
+
+- Derived from T.11 and not carrier-capable (Watkins).
+- Refitted with ejector seats between April 1956 and May 1957 (Watkins).
 
 ### Vampire F.30
 
@@ -142,6 +154,8 @@ Used by: Sweden, Austria, and Dominican Republic
 
 ### Vampire T.55
 
+- T.11 early without and late with ejection seats (Watkins)
+
 ### Engines
 
 Watkins, ch. 3:
@@ -172,7 +186,8 @@ Ibid:
 ### Ejection Seats
 
 - No RAF Vampires had ejection seats (Goebel).
-- Installed on Swiss FB.6 in 1960 (Watkins)
+- Installed on Swiss FB.6 in 1960 (Watkins).
+- Installed on T.11 from March 1954 to December 1957.
 
 ### Weapon Stations
 

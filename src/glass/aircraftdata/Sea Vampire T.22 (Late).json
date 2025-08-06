@@ -1,0 +1,7 @@
+{
+    "versionname": "Sea Vampire T.22",
+    "variantname": "Late",
+    "description": "The de Havilland Sea Vampire T.22 is a trainer with a secondary light attack capability. It is derived from the Vampire T.11 and is not carrier-capable. This “Late” version is refitted with ejection seats.",
+    "base": "Sea Vampire T.22",
+    "ejectionseat": "early"
+}

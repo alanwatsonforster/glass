@@ -1,0 +1,6 @@
+{
+    "versionname": "Vampire T.55",
+    "description": "The de Havilland Vampire T.55 is a trainer with a secondary light attack capability. The T.55 is an export version of the T.11.",
+    "base": "Vampire T.11"
+
+}

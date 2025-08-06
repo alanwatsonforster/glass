@@ -1,0 +1,7 @@
+{
+    "versionname": "Vampire T.11",
+    "variantname": "Late",
+    "description": "The de Havilland Vampire T.11 is a trainer with a secondary light attack capability. The T.11 is derived from the FB.5, but has a new forward fuselage similar to that of the NF.10. This “Late” version is refitted with ejection seats.",
+    "base": "Vampire T.11",
+    "ejectionseat": "early"
+}

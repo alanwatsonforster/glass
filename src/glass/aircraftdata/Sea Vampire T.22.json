@@ -1,0 +1,5 @@
+{
+    "versionname": "Sea Vampire T.22",
+    "description": "The de Havilland Sea Vampire T.22 is a trainer with a secondary light attack capability. It is derived from the Vampire T.11 and is not carrier-capable.",
+    "base": "Vampire T.11"
+}
