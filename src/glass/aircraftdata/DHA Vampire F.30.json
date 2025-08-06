@@ -1,0 +1,21 @@
+{
+    "versionname": "DHA Vampire F.30",
+    "description": "The DHA Vampire F.30 a day fighter. It is a derivative of the de Havilland Vampire F.3 but with a more powerful Nene engine.",
+    "base": "DHA Vampire FB.31",
+    "stations": [
+        [
+            "pair",
+            [
+                1,
+                2
+            ],
+            1000,
+            [
+                "FT"
+            ]
+        ]
+    ],
+    "loadnotes": [
+        "May use 450L FTs."
+    ]
+}

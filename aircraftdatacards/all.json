@@ -3,6 +3,7 @@
     ["prolog", true],
 
     [ "chapter", "Australian Aircraft" ],
+    [ "type", "DHA Vampire", "DHA Vampire F.30", "DHA Vampire FB.31", "DHA Vampire T.33", "DHA Vampire T.33A", "DHA Vampire T.34", "DHA Vampire T.34A", "DHA Vampire T.35" ],
     [ "type", "CAC Sabre", "CAC Sabre Mk.30", "CAC Sabre Mk.31", "CAC Sabre Mk.31 (1960 Upgrade)", "CAC Sabre Mk.32" ],
     [ "type", "CAC CA-30", "CAC CA-30" ],
 
@@ -33,6 +34,8 @@
     [ "type", "Alpha Jet", "Alpha Jet A", "Alpha Jet E" ],
 
     [ "chapter", "French Aircraft" ],
+    [ "type", "SNCASE Vampire", "SNCASE Vampire FB.5"],
+    [ "type", "Mistral", "Mistral"],
     [ "type", "Ouragan", "Ouragan" ],
     [ "type", "Mystère IV", "Mystère IVA" ],
     [ "type", "Mirage 5", "Mirage 5F", "Mirage 5BA" ],
