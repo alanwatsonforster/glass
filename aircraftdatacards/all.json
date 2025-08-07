@@ -41,6 +41,8 @@
     [ "type", "Mirage 5", "Mirage 5F", "Mirage 5BA" ],
 
     [ "chapter", "Italian Aircraft"],
+    [ "type", "FIAT Vampire", "FIAT Vampire FB.52A" ],
+    [ "type", "Macchi Vampire", "Macchi Vampire FB.52A" ],
     [ "type", "MB-326", "MB-326B", "MB-326E", "MB-326F", "MB-326G", "MB-326H", "MB-326K", "MB-326L", "MB-326M" ],
 
     [ "chapter", "South African Aircraft" ],
