@@ -45,6 +45,9 @@
     [ "type", "Macchi Vampire", "Macchi Vampire FB.52A" ],
     [ "type", "MB-326", "MB-326B", "MB-326E", "MB-326F", "MB-326G", "MB-326H", "MB-326K", "MB-326L", "MB-326M" ],
 
+    [ "chapter", "Indian Aircraft"],
+    [ "type", "HAL Vampire", "HAL Vampire FB.52", "HAL Vampire T.55" ],
+
     [ "chapter", "South African Aircraft" ],
     [ "type", "Impala", "Impala Mk I", "Impala Mk II" ],
 
