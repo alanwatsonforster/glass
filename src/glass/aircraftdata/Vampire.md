@@ -156,6 +156,13 @@ Used by: Sweden, Austria, and Dominican Republic
 
 - T.11 early without and late with ejection seats (Watkins)
 
+### Vampire PR.55
+
+- T.55 adapted with cameras for photo-reconnaissance (Watkins)
+- First entered service in 1954 (Watkins)
+- Served in 1965 war (Watkins)
+- Not clear if it retained its gun armament
+
 ### Engines
 
 Watkins, ch. 3:
