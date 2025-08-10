@@ -14,7 +14,7 @@
     [ "comment", "1944" ],
     [ "type", "Meteor", "Meteor F.8", "Meteor FR.9" ],
     [ "comment", "1946" ],
-    [ "type", "Vampire", "Vampire F.3", "Vampire FB.5", "Vampire FB.6", "Vampire FB.9", "Vampire NF.10", "Vampire T.11", "Vampire T.11 (Late)", "Sea Vampire F.20", "Sea Vampire T.22", "Sea Vampire T.22 (Late)", "Vampire FB.50", "Vampire FB.52", "Vampire FB.52A", "Vampire NF.54", "Vampire T.55", "Vampire T.55 (Late)" ],
+    [ "type", "Vampire", "Vampire F.3", "Vampire FB.5", "Vampire FB.6", "Vampire FB.9", "Vampire FB.9 (Goblin 3)", "Vampire NF.10", "Vampire T.11", "Vampire T.11 (Late)", "Sea Vampire F.20", "Sea Vampire T.22", "Sea Vampire T.22 (Late)", "Vampire FB.50", "Vampire FB.52", "Vampire FB.52A", "Vampire NF.54", "Vampire T.55", "Vampire T.55 (Late)" ],
     [ "comment", "1948" ],
     [ "type", "Sea Fury", "Sea Fury FB.11" ],
 
@@ -77,6 +77,9 @@
     [ "comment", "1964" ],
     [ "type", "Su-11", "Su-11" ],
 
+    [ "chapter", "Swiss Aircraft" ],
+    [ "type", "F+W Vampire", "F+W Vampire FB.6", "F+W Vampire FB.6 (Late)", "F+W Vampire T.55" ],
+    
     [ "chapter", "US Aircraft" ],
     [ "comment", "Jan 1942 with RAF" ],
     [ "type", "F-51", "F-51D", "RF-51D" ],

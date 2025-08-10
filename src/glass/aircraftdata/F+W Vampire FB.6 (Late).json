@@ -1,0 +1,7 @@
+{
+    "versionname": "F+W Vampire FB.6",
+    "variantname": "Late",
+    "description": "The F+W Vampire FB.6 is a day fighter and fighter-bomber. It is a license-built version of the de Havilland Vampire FB.6. The “Late” variant described is the 1960 upgrade with an ejection seat.",
+    "base": "F+W Vampire FB.6",
+    "ejectionseat": "early"
+}
