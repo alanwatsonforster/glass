@@ -1,6 +1,6 @@
 {
     "versionname": "Vampire T.55",
     "variantname": "Late",
-    "description": "The de Havilland Vampire T.55 is a trainer with a secondary light attack capability. The T.55 is an export version of the T.11. This “Late” version is refitted with ejection seats.",
+    "description": "The de Havilland Vampire T.55 is a trainer with a secondary light attack capability. The T.55 is an export version of the T.11. This “Late” version is refitted with ejection seats. It was designated Sk28C-2 in service with the Swedish Flygvapnet.",
     "base": "Vampire T.11 (Late)"
 }

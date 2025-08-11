@@ -1,6 +1,6 @@
 {
     "versionname": "Vampire F.1",
-    "description": "The de Havilland Vampire F.1 is a day fighter. It has no provision for air-to-ground ordnance and unclipped wings. This ADC represents the full-specification variant, with cockpit pressurization and the Goblin 2 engine.",
+    "description": "The de Havilland Vampire F.1 is a day fighter. It has no provision for air-to-ground ordnance and unclipped wings. This ADC represents the full-specification variant, with cockpit pressurization and the Goblin 2 engine. It was designated J28A in service with the Swedish Flygvapnet.",
     "base": "Vampire F.3",
     "internalfuel": 122
 }

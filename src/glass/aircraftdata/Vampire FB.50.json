@@ -1,5 +1,5 @@
 {
     "versionname": "Vampire FB.50",
-    "description": "The de Havilland Vampire FB.50 is a day fighter and fighter-bomber. The FB.50 version is an export version of the FB.6, with provision for air-to-ground ordnance, the Goblin 3 engine, and clipped wings.",
+    "description": "The de Havilland Vampire FB.50 is a day fighter and fighter-bomber. The FB.50 version is an export version of the FB.6, with provision for air-to-ground ordnance, the Goblin 3 engine, and clipped wings. It was designated J28B/A28Bin service with the Swedish Flygvapnet.",
     "base": "Vampire FB.6"
 }

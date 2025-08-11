@@ -1,7 +1,7 @@
 {
     "versionname": "Vampire T.55A",
     "variantname": null,
-    "description": "The de Havilland Vampire T.55A is a trainer with a secondary light attack capability. It is a conversion of the FB.50 with the forward fuselage replaced by one similar to the late variant of the T.55.",
+    "description": "The de Havilland Vampire T.55A is a trainer with a secondary light attack capability. It is a conversion of the FB.50 with the forward fuselage replaced by one similar to the late variant of the T.55. It was designated Sk28C-3 in service with the Swedish Flygvapnet.",
     "base": "Vampire FB.50",
     "crew": ["Pilot and Observer"],
     "ejectionseat": "early"
