@@ -9,8 +9,17 @@
 - Unclipped wings (Watkins)
 - 202 Imp gal fuel (Watkins)
 - 50 and 100 imp gal FTs (Goebel)
+- Limited to 20,000 ft by the canopy pressure seal (Watkins)
+- First 40 had Goblin 1 and later aircraft had Goblin 2 (Watkins)
+- First 50 did not have cockpit pressurization (Watkins)
+- Swedish F.1 had Goblin 2.
 
-Used by RAF.
+- Used by UK (RAF), France (AA), and Dominican Republic (AMD/FARD) (Watkins)
+
+- ADC
+  - Ignore the early versions without pressurization and with the Goblin 1
+  - Use F.3 ADC
+  - Reduce fuel 202 gal for F1 compared to 330 gal for F.3 means 200 * 202 / 330 = 122 fuel points.
 
 ### Vampire F.3
 
@@ -23,9 +32,8 @@ Used by RAF.
 - External FTs 100/200 Imp gal (Watkins) = 450/900L
 - No ejection seat (Goebel)
 
-Used by RAF, RCAF, Norway (Wikipedia)
-
-Used by RAF, France, 
+- Used by RAF, RCAF, Norway (Wikipedia)
+- Used by UK (RAF), Canada (RCAF), Sweden (Flygvapnet), and Mexico (FAM) (Watkins)
 
 ### Vampire FB.5
 
@@ -33,7 +41,9 @@ Used by RAF, France,
 - Armored protection around engine systems (Goebel, Watkins)
 - No ejection seat (Goebel/Watkins)
 - 100 imp gal FT (Watkins)
+
 - Used by RAF, SAAF, Venezuela (Goebel)
+- Used by UK (RAF), France (AA), Italy (AMI), Lebanon (LAF), New Zealand (RNZAF), South Africa (SAAF), 
 
 ### Vampire FB.6
 
@@ -177,7 +187,7 @@ Ibid:
   - 3,100 lbf
   - F.3
   - FB.5/9/51 (Goebel)
-  - Later Mk 1s (Wikipedia)
+  - Later Mk 1s (Wikipedia, Watkins)
   - Perleberg's ADC has the F.3 with reduced maximum speeds and climb rates; I will presume these apply to the Goblin 2 version. The F.3 also has unclipped wing tips, which might reduce the speed at low altitude, but I can't see how they would reduce the rate of climb.
 - Goblin 3: 
   - 3,350 lbf
