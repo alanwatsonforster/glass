@@ -29,6 +29,10 @@ The F-86A/E/F with the early slatted wing are HTD, so the Mk.30 should be too.
 
 The weight limits are given uniformly as 1000 per station. Both could carry a 200 US gal (167 gal) FT on the outer pylons. This weights about 1400. Wikipedia gives the load limits of the F-86F and Mk.32 as 5300 and states they can both carry two 1000 lb bombs and two 200 US gal FTs, which would be a total of about 4800. I have increased the outer pylon loads to 1500 and the total loads to 3000 for the Mk.30/31 and 5000 for the Mk.32. Changed in [4e671f5](https://github.com/alanwatsonforster/glass/commit/4e671f5974b0aa8a0f535c2bb0911aee836a6f86).
 
+### Guns
+
+Two 30 mm ADENs with 162 rounds per gun (Wikipedia).
+
 ## Bibliography
 
 - Curtis, “North American F-86 Sabre”, 2000, Crowood
