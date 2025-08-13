@@ -7,3 +7,11 @@
 {"rule":"PHRASE_REPETITION","sentence":"^\\QSee also: DHA Vampire F+W Vampire FIAT Vampire HAL Vampire Macchi Vampire SNCASE Vampire SNCASE Mistral\\E$"}
 {"rule":"PHRASE_REPETITION","sentence":"^\\QDHA Vampire F+W Vampire FIAT Vampire HAL Vampire Macchi Vampire SNCASE Vampire SNCASE Mistral\\E$"}
 {"rule":"IF_VB","sentence":"^\\QWe consider only the Goblin-engined Vampires, and not the Nene-engined Vampires as these did not see service (although see the DHA Vampire and SNCASE Mistral).\\E$"}
+{"rule":"CD_NN","sentence":"^\\QA typical air-to-air load would be two 450L (100 imperial gallon) fuel tanks to increase endurance.\\E$"}
+{"rule":"UPPERCASE_SENTENCE_START","sentence":"^\\Qde Havilland Vampire SNCASE Mistral\\E$"}
+{"rule":"THE_LATER_LATTER","sentence":"^\\QUnusually, the FB.52A uses the Goblin 2 engine rather than the later and more powerful Goblin 3 engine of many of the other fighter-bomber Vampires.\\E$"}
+{"rule":"THE_LATER_LATTER","sentence":"^\\QUnusually, the FB.52A uses the Goblin 2 engine rather than the later and more powerful Goblin 3 engine used by many of the other fighter-bomber Vampires.\\E$"}
+{"rule":"THE_LATER_LATTER","sentence":"^\\QUnusually, the FB.52A uses the Goblin 2 engine rather than the later and more powerful Goblin 3 engine used by many of the other fighter-bomber Vampires.\\E$"}
+{"rule":"UPPERCASE_SENTENCE_START","sentence":"^\\Qde Havilland Vampire Macchi Vampire\\E$"}
+{"rule":"UPPERCASE_SENTENCE_START","sentence":"^\\Qde Havilland Vampire FIAT Vampire\\E$"}
+{"rule":"MORFOLOGIK_RULE_EN_US","sentence":"^\\QThe SNCASE (Societé nationale des constructions aéronautiques du Sud-Est) Vampire FB.5 is a day fighter and fighter bomber.\\E$"}
