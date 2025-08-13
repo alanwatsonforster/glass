@@ -42,3 +42,17 @@ DEFA
 Perleberg
 Ouragans
 Havilland
+Flygvapnet
+Flugwaffe
+Ilmavoimat
+Luftforsvaret
+Luftstreitkräfte
+Macchi
+FARD
+LAF
+SRAF
+RRAF
+RJAF
+FACh
+Nene-engined
+SNCASE

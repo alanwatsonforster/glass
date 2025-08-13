@@ -11,6 +11,20 @@
 \setlength{\parskip}{1ex plus 0.1ex}
 \setlength{\parindent}{0pt}
 
+\setcounter{secnumdepth}{0} 
+
+\makeatletter
+\renewcommand\subsection{\@startsection{subsection}{2}{\z@}%
+                                      {\parskip}%
+                                      {\parskip}%
+                                      {\normalfont\large\bfseries}}
+\renewcommand\subsubsection{\@startsection{subsection}{3}{\z@}%
+                                      {\parskip}%
+                                      {\parskip}%
+                                      {\normalfont\normalsize\bfseries\itshape}}
+\makeatother
+
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 % Table of Contents
@@ -59,8 +73,10 @@
   \end{itemize}
 }
 
+\newcommand{\typeref}[1]{\hyperref[type:#1]{#1}}
+
 \newcommand{\typeitem}[1]{
-  \item \hyperref[type:#1]{#1}
+  \item \typeref{#1}
 }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

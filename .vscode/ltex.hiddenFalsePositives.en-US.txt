@@ -3,3 +3,7 @@
 {"rule":"TANK_YOU","sentence":"^\\QFor ferry flights, two 100 gal (400L) fuel tanks could be carried on the inner stations and two 167 gal (760L) fuel tanks to the outer ones.\\E$"}
 {"rule":"WHITESPACE_RULE","sentence":"^$"}
 {"rule":"MORFOLOGIK_RULE_EN_US","sentence":"^\\QAdding additional second-generation maps would be difficult, as there is a mapping from hex codes XXYY to map sheet.\\E$"}
+{"rule":"UPPERCASE_SENTENCE_START","sentence":"^\\Qde Havilland Vampire\\E$"}
+{"rule":"PHRASE_REPETITION","sentence":"^\\QSee also: DHA Vampire F+W Vampire FIAT Vampire HAL Vampire Macchi Vampire SNCASE Vampire SNCASE Mistral\\E$"}
+{"rule":"PHRASE_REPETITION","sentence":"^\\QDHA Vampire F+W Vampire FIAT Vampire HAL Vampire Macchi Vampire SNCASE Vampire SNCASE Mistral\\E$"}
+{"rule":"IF_VB","sentence":"^\\QWe consider only the Goblin-engined Vampires, and not the Nene-engined Vampires as these did not see service (although see the DHA Vampire and SNCASE Mistral).\\E$"}
