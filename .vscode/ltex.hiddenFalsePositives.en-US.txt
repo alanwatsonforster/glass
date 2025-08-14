@@ -15,3 +15,7 @@
 {"rule":"UPPERCASE_SENTENCE_START","sentence":"^\\Qde Havilland Vampire Macchi Vampire\\E$"}
 {"rule":"UPPERCASE_SENTENCE_START","sentence":"^\\Qde Havilland Vampire FIAT Vampire\\E$"}
 {"rule":"MORFOLOGIK_RULE_EN_US","sentence":"^\\QThe SNCASE (Societé nationale des constructions aéronautiques du Sud-Est) Vampire FB.5 is a day fighter and fighter bomber.\\E$"}
+{"rule":"MORFOLOGIK_RULE_EN_US","sentence":"^\\QFor ferry flights, two 120 gallon (400L) FTs can be carried on the inner stations and two 200 gallon (750L) FTs to the outer ones.\\E$"}
+{"rule":"MORFOLOGIK_RULE_EN_US","sentence":"^\\QFor ferry flights, two 120-gallon (400L) FTs can be carried on the inner stations and two 200-gallon (750L) FTs to the outer ones.\\E$"}
+{"rule":"MORFOLOGIK_RULE_EN_US","sentence":"^\\QA typical air-to-ground load might be two 1000 lb bombs carried on the inner stations along with two 200-gallon (750L) FTs on the outer stations.\\E$"}
+{"rule":"MORFOLOGIK_RULE_EN_US","sentence":"^\\QA typical air-to-air load is two 200 gal (750L) FTs on the outer stations and, from 1960, on the Mk.6, two AIM-9B IRMs on the inner stations.\\E$"}
