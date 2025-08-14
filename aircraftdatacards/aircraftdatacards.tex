@@ -12,16 +12,35 @@
 \setlength{\parindent}{0pt}
 
 \setcounter{secnumdepth}{0} 
+\setcounter{tocdepth}{1} 
 
 \makeatletter
-\renewcommand\subsection{\@startsection{subsection}{2}{\z@}%
-                                      {\parskip}%
-                                      {\parskip}%
-                                      {\normalfont\large\bfseries}}
-\renewcommand\subsubsection{\@startsection{subsection}{3}{\z@}%
-                                      {\parskip}%
-                                      {\parskip}%
-                                      {\normalfont\normalsize\bfseries\itshape}}
+
+\let\@section\section
+
+\renewcommand{\section}[1]{%
+  \twocolumn[
+    \@section{#1}
+    \label{type:#1}
+  ]
+}
+
+\renewcommand\subsection{%
+  \@startsection{subsection}{2}{\z@}%
+    {\parskip}%
+    {\parskip}%
+    {\normalfont\large\bfseries}}
+
+\renewcommand\subsubsection{%
+  \@startsection{subsubsection}{3}{\z@}%
+    {\parskip}%
+    {\parskip}%
+    {\normalfont\normalsize\bfseries\itshape}}
+
+\renewcommand\tableofcontents{%
+  \@starttoc{toc}%
+}
+
 \makeatother
 
 
@@ -31,31 +50,7 @@
 
 \usepackage[bookmarks,bookmarksdepth=2,hypertexnames=false]{hyperref}
 
-\makeatletter
-\renewcommand\tableofcontents{%
-  \@starttoc{toc}%
-}
-\makeatother
-
-\newcommand{\addtocchapter}[1]{%
-  \phantomsection%
-  \addcontentsline{toc}{chapter}{#1}%
-}
-\newcommand{\addtoctype}[1]{%
-  \phantomsection%
-  \addcontentsline{toc}{section}{#1}%
-  \label{type:#1}%
-}
-\newcommand{\addtocadc}[1]{%
-  \phantomsection%
-  \addcontentsline{toc}{subsection}{#1}%
-  \label{adc:#1}%
-}
-
-\newcommand{\aircrafttype}[1]{
-  \twocolumn[\section*{#1}]
-  \addtoctype{#1}
-}
+\newcommand{\adcref}[1]{\hyperref[adc:#1]{#1}}
 
 \newenvironment{adclist}{
   \begin{itemize}[itemsep=0pt,topsep=0pt]
@@ -64,16 +59,16 @@
 }
 
 \newcommand{\adcitem}[1]{
-  \item \hyperref[adc:#1]{#1}
+  \item \adcref{#1}
 }
+
+\newcommand{\typeref}[1]{\hyperref[type:#1]{#1}}
 
 \newenvironment{typelist}{
   \begin{itemize}[itemsep=0pt,topsep=0pt]
 }{
   \end{itemize}
 }
-
-\newcommand{\typeref}[1]{\hyperref[type:#1]{#1}}
 
 \newcommand{\typeitem}[1]{
   \item \typeref{#1}
@@ -173,7 +168,6 @@
 \newcommand{\blockA}{%
 \typeout{\Aaa}%
 \typeout{Block A}%
-\addtocadc{\Aaa}%
 \parbox[b][\blockABCheight][t]{\blockAcells\cellwidth}{%
 \begin{tabularx}{\blockAcells\cellwidth}{lCCCc}
 \multicolumn{5}{c}{\large\bfseries\itshape\parbox[c][4.4em]{4\cellwidth}{\centering \Aab}}\\
