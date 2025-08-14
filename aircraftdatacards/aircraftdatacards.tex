@@ -50,6 +50,7 @@
 
 \usepackage[bookmarks,bookmarksdepth=2,hypertexnames=false]{hyperref}
 
+\newcommand{\adclabel}[1]{\label{adc:#1}}
 \newcommand{\adcref}[1]{\hyperref[adc:#1]{#1}}
 
 \newenvironment{adclist}{
@@ -167,6 +168,7 @@
 
 \newcommand{\blockA}{%
 \typeout{\Aaa}%
+\adclabel{\Aaa}%
 \typeout{Block A}%
 \parbox[b][\blockABCheight][t]{\blockAcells\cellwidth}{%
 \begin{tabularx}{\blockAcells\cellwidth}{lCCCc}
