@@ -32,10 +32,15 @@ def aim(self, target, *args, **kwargs):
             "aiming requirement is %d %s."
             % (requirement, glass.log.plural(requirement, "FP", "FPs"))
         )
-        modifierrequirement = max(1, rounddown(self.speed() / 3))
+        modifierrequirement = max(1, onethirdfromtable(self.speed())) + requirement
         self.logcomment(
-            "aiming modifier requirement is %d %s."
+            "aiming modifier requirement is %d %s in total for -1 modifier."
             % (modifierrequirement, glass.log.plural(modifierrequirement, "FP", "FPs"))
+        )
+        modifierrequirement = max(1, twothirdsfromtable(self.speed())) + requirement
+        self.logcomment(
+            "aiming modifier requirement is %d %s in total for -2 modifier."
+            % (modifierrequirement, glass.log.plural(requirement + modifierrequirement, "FP", "FPs"))
         )
         self._aimingtarget = target
     except RuntimeError as e:
