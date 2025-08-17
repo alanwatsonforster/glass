@@ -27,10 +27,15 @@ def _damage(self):
     elif self._damageL == 2:
         damage = "2L"
     if self._damageH == 1:
-        damage = "%sH" % ("" if damage == "" else damage + "+",)
+        if damage == "":
+            damage = "H"
+        else:
+            damage = "H+" + damage
     if self._damageC == 1:
-        damage = "%sC" % ("" if damage == "" else damage + "+")
-
+        if damage == "":
+            damage = "C"
+        else:
+            damage = "C+" + damage
     return damage
 
 
