@@ -38,7 +38,7 @@ assert not A1.damageatleast("C")
 assert not A1.damageatleast("K")
 
 A1.takedamage("L")
-assert A1.damage() == "L+H"
+assert A1.damage() == "H+L"
 assert A1.damageatleast("L")
 assert A1.damageatleast("2L")
 assert A1.damageatleast("H")
@@ -46,7 +46,7 @@ assert not A1.damageatleast("C")
 assert not A1.damageatleast("K")
 
 A1.takedamage("L")
-assert A1.damage() == "2L+H"
+assert A1.damage() == "H+2L"
 assert A1.damageatleast("L")
 assert A1.damageatleast("2L")
 assert A1.damageatleast("H")
@@ -62,7 +62,7 @@ assert A1.damageatleast("C")
 assert not A1.damageatleast("K")
 
 A1.takedamage("L")
-assert A1.damage() == "L+C"
+assert A1.damage() == "C+L"
 assert A1.damageatleast("L")
 assert A1.damageatleast("2L")
 assert A1.damageatleast("H")
@@ -70,7 +70,7 @@ assert A1.damageatleast("C")
 assert not A1.damageatleast("K")
 
 A1.takedamage("L")
-assert A1.damage() == "2L+C"
+assert A1.damage() == "C+2L"
 assert A1.damageatleast("L")
 assert A1.damageatleast("2L")
 assert A1.damageatleast("H")
@@ -110,7 +110,7 @@ assert A1.damage() == ""
 A1.takedamage("L")
 assert A1.damage() == "L"
 A1.takedamage("H")
-assert A1.damage() == "L+H"
+assert A1.damage() == "H+L"
 A1.takedamage("C")
 assert A1.damage() == "K"
 

@@ -92,7 +92,7 @@ assert A0.damage() == "2L"
 G4.attack(A0, "L")
 assert A0.damage() == "H"
 G5.attack(A0, "L")
-assert A0.damage() == "L+H"
+assert A0.damage() == "H+L"
 
 G1.attack(A1, "L")
 asserterror("target is above the barrage fire.")
@@ -122,7 +122,7 @@ assert A3.damage() == "2L"
 G4.attack(A3, "L")
 assert A3.damage() == "H"
 G5.attack(A3, "L")
-assert A3.damage() == "L+H"
+assert A3.damage() == "H+L"
 
 G1.attack(A4, "L")
 asserterror("target is outside the barrage fire zone.")
