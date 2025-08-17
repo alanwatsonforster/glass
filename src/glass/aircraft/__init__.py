@@ -109,6 +109,7 @@ class Aircraft(glass.element.Element):
             self._HTrecoveryfp = -1
             self._TTrecoveryfp = -1
             self._rollrecoveryfp = -1
+            self._hasrolled = False
             self._trackingfp = 0
             self._lowspeedliftdeviceselected = False
             self._closeformation = []

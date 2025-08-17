@@ -2086,6 +2086,24 @@ def useofweaponsforbidden(A):
 
     return False
 
+def aimingforbidden(A):
+
+    if A._ETrecoveryfp > 0:
+        return "while recovering from an ET"
+    
+    # See rule 13.3.6.
+    if A._hasrolled and A._hasmaneuvered:
+        return "immediately after rolling"
+
+    # See rule 13.3.6.
+    if A._hasrolled:
+        return "while rolling"
+    
+    if A._bank is not None:
+        return "while banked"
+
+    return False
+
 
 ################################################################################
 

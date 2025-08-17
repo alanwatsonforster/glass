@@ -2,6 +2,7 @@
 
 import glass.hexcode
 import glass.log
+import glass.flight
 from glass.rounding import onethirdfromtable, twothirdsfromtable, roundup, rounddown
 
 ################################################################################
@@ -15,9 +16,11 @@ def _initaim(self):
 
 
 def aim(self, target, *args, **kwargs):
-    try:
+    try:        
         if not target.isgroundunit():
             raise RuntimeError("invalid target for aiming.")
+        if glass.flight.aimingforbidden(self):
+            raise RuntimeError("aiming is forbidden %s." % glass.flight.aimingforbidden(self))
         self.logwhenwhat("", "starts aiming at %s." % target.name())
         if self.bombsystem() == "manual":
             requirement = max(1, rounddown(twothirdsfromtable(self.speed())))
