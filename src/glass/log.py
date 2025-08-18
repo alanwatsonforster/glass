@@ -2,6 +2,8 @@
 Logging.
 """
 
+import re
+
 import glass.gameturn
 
 ################################################################################
@@ -41,12 +43,23 @@ The log messages have one of these forms:
 
 _filenames = []
 
+def _makevalidfilename(filename):
+    """
+    Make a valid file name by removing all characters except Unicode
+    alphanumeric characters, the underscore, and the hyphen.
+
+    :param filename: A string.
+    :return: A copy of filename after removing all characters except Unicode
+        alphanumeric characters, the underscore, and the hyphen.
+    """
+    return re.sub(r"[^\w-]", "", filename)
+
 
 def _logline(line, who=None, writefile=True):
     if _print:
         print(line)
     if who is not None and _writefiles and writefile:
-        filename = "log-%s.txt" % who
+        filename = _makevalidfilename("log-%s" % who) + ".txt"
         if filename not in _filenames:
             _filenames.append(filename)
             filemode = "w"
