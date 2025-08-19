@@ -700,6 +700,7 @@ def _drawarrowincanvas(
     linecolor="black",
     linewidth="normal",
     fillcolor="black",
+    headwidth=0.1,
     alpha=1.0,
     zorder=0,
 ):
@@ -719,8 +720,8 @@ def _drawarrowincanvas(
             y,
             dx,
             dy,
-            width=0.01,
-            head_width=0.1,
+            width=0.0,
+            head_width=headwidth,
             length_includes_head=True,
             edgecolor=_nativecolor(linecolor),
             facecolor=_nativecolor(linecolor),
@@ -2620,10 +2621,11 @@ def _drawgroundunitincanvas(
         _drawarrowincanvas(
             x0,
             y0,
-            size=0.7,
+            size=0.5,
             facing=facing,
-            dy=0.35,
-            linewidth=1,
+            dy=0.25,
+            headwidth=0.05,
+            linewidth=groundunitlinewidth,
             linecolor=linecolor,
             zorder=0,
         )
