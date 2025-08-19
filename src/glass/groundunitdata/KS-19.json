@@ -1,14 +1,14 @@
 {
-    "name": "KS-12",
-    "description": "KS-12 85 mm air-defense battery",
+    "name": "KS-19",
+    "description": "KS-19 100 mm air-defense battery",
     "symbols": "airdefense/gun",
     "lowertext": "H",    
-    "uppertext": "85",
+    "uppertext": "100",
     "aaaclass": "H",
     "aaarange": [
-        6,
-        12,
-        18
+        7,
+        14,
+        21
     ],
     "aaahitroll": [
         2,
@@ -16,5 +16,5 @@
         0
     ],
     "aaadamagerating": 6,
-    "aaamaximumrelativealtitude": 27
+    "aaamaximumrelativealtitude": 39
 }

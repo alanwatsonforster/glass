@@ -1,7 +1,6 @@
-// From TSOH
 {
     "name": "M-38",
-    "description": "M-38 37 mm air defense battery",
+    "description": "M-38 37 mm air-defense battery",
     "symbols": "airdefense/gun",
     "lowertext": "M",    
     "uppertext": "37",

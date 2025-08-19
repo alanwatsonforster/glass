@@ -1,14 +1,14 @@
 {
-    "name": "ZPU-4",
-    "description": "ZPU-4 quad 14.5 mm air-defense gun battery",
+    "name": "M55",
+    "description": "M55 quad .50 cal air-defense battery",
     "symbols": "airdefense/gun",
     "lowertext": "L",    
-    "uppertext": "14.5×4",
+    "uppertext": "12.7×4",
     "aaaclass": "L",
     "aaarange": [
         2,
         3,
-        5
+        4
     ],
     "aaahitroll": [
         5,
@@ -16,5 +16,5 @@
         3
     ],
     "aaadamagerating": 2,
-    "aaamaximumrelativealtitude": 6
+    "aaamaximumrelativealtitude": 5
 }

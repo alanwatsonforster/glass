@@ -1,7 +1,6 @@
-// From Air Strike
 {
     "name": "ZSU-23-4",
-    "description": "ZSU-23-4 quad 23 mm self-propelled air defense battery",
+    "description": "ZSU-23-4 quad 23 mm self-propelled air-defense battery",
     "symbols": "airdefense/gun/armor",
     "lowertext": "L",    
     "uppertext": "23×4",
@@ -16,6 +15,6 @@
         4,
         3
     ],
-    "aaadamagerating": 2,
+    "aaadamagerating": 3,
     "aaamaximumrelativealtitude": 9
 }
