@@ -1888,7 +1888,7 @@ def _drawgroundunitincanvas(
 
     def drawarmorsymbol():
         fx = 0.15
-        fy = 0.2
+        fy = 0.15
         theta = range(0, 361)
 
         def dx(theta):
@@ -2596,7 +2596,7 @@ def _drawgroundunitincanvas(
             text,
             facing=90,
             dx=0,
-            dy=+groundunitdy * 0.32,
+            dy=+groundunitdy * 0.34,
             size=groundunittextsize,
             textcolor=linecolor,
             alignment="center",

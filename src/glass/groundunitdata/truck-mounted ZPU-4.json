@@ -1,8 +1,7 @@
 {
     "name": "truck-mounted ZPU-4",
     "description": "truck-mounted ZPU-4 quad 14.5 mm air-defense gun battery",
-    "symbols": "airdefense/gun/wheeled",
-    "lowertext": "L",    
+    "symbols": "airdefense/gun/limitedwheeled",
     "uppertext": "14.5×4",
     "aaaclass": "L",
     "aaarange": [

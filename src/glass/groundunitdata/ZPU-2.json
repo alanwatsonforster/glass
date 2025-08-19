@@ -2,7 +2,6 @@
     "name": "ZPU-2",
     "description": "ZPU-2 14.5 mm air-defense battery",
     "symbols": "airdefense/gun",
-    "lowertext": "L",    
     "uppertext": "14.5×2",
     "aaaclass": "L",
     "aaarange": [

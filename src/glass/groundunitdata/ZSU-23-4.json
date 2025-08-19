@@ -2,7 +2,6 @@
     "name": "ZSU-23-4",
     "description": "ZSU-23-4 quad 23 mm self-propelled air-defense battery",
     "symbols": "airdefense/gun/armor",
-    "lowertext": "L",    
     "uppertext": "23×4",
     "aaaclass": "L",
     "aaarange": [

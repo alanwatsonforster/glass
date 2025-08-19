@@ -2,7 +2,6 @@
     "name": "DShK-38",
     "description": "DShK-38 12.7 mm air-defense battery",
     "symbols": "airdefense/gun",
-    "lowertext": "L",    
     "uppertext": "12.7",
     "aaaclass": "L",
     "aaarange": [

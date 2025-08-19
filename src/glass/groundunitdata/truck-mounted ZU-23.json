@@ -1,8 +1,7 @@
 {
     "name": "truck-mounted ZU-23",
     "description": "truck-mounted ZU-23 twin 23 mm air-defense battery",
-    "symbols": "airdefense/gun",
-    "lowertext": "L",    
+    "symbols": "airdefense/gun/limitedwheeled",
     "uppertext": "23×2",
     "aaaclass": "L",
     "aaarange": [

@@ -2,7 +2,6 @@
     "name": "KS-19",
     "description": "KS-19 100 mm air-defense battery",
     "symbols": "airdefense/gun",
-    "lowertext": "H",    
     "uppertext": "100",
     "aaaclass": "H",
     "aaarange": [

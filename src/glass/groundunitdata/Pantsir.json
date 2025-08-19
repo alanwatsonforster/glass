@@ -1,0 +1,19 @@
+{
+    "name": "Pantsir",
+    "description": "Pantsir dual 30 mm and SA-22 self-propelled air-defense battery",
+    "symbols": "airdefense/gun/missile/wheeled",
+    "uppertext": "30×2/SA-22",
+    "aaaclass": "L",
+    "aaarange": [
+        4,
+        7,
+        9
+    ],
+    "aaahitroll": [
+        5,
+        4,
+        3
+    ],
+    "aaadamagerating": 4,
+    "aaamaximumrelativealtitude": 11
+}
