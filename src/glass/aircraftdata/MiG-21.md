@@ -66,7 +66,7 @@
 
 ### Summary of TSOH and Revised Version
 
-The TSOH ADCs from 1994 give versions which do not seem to correspond precisely to our current (much better) knowledge of MiG-21 version. I have attempted to determine which current version corresponds to which TSOH version:
+The TSOH ADCs from 1994 give versions which do not seem to correspond precisely to our current (presumably much better) knowledge of MiG-21 version. I have attempted to determine which current version corresponds to which TSOH version:
 
 - TSOH F = F-13 (able to use AA-2 IRMs)
 - TSOH PF = PF
@@ -133,6 +133,20 @@ The Wikipedia article on variants states that the MF could not use AA-2C RHMs, b
 
 Müller states that the GP-9 was only used on the PFM, FL, and S. Removed from PF in [4e62484](https://github.com/alanwatsonforster/glass/commit/4e624841cf6d4b5e1c6cfd8189370378c6a86d6f).
 
+### Speed
+
+Ethell & Price (ch. 1) state that the MiG-21MF was faster than the F-4J (Mach 1.15 = 880 mph) below 5,000 feet, whereas earlier versions were slower (Mach 1.05 = 800 mph). 
+
+According to Wikipedia, Vietnam used:
+- MiG-21F-13 from 1965
+- MiG-21PFL (modified PF) from 1966
+- MiG-21PFM from 1968
+- MiG-21MF from 1970
+
+The TSOH ADCs have maximum speeds of 6.5 for the MiG-21F-13/PF/PFM, 8.0 for the MiG-21MF, and 8.5 for the F-4J.
+
+Perhaps the TSOH ADC underestimates the speed of the MF (perhaps it should be 9.0) and earlier MiGs (perhaps they should be 8.0)
+
 ## Operational History
 
 Introduced in fall of 1959 (Goebel).
@@ -145,3 +159,4 @@ Introduced in fall of 1959 (Goebel).
 - [Wikipedia on MiG-21](https://en.wikipedia.org/wiki/Mikoyan-Gurevich_MiG-21)
 - [Wikipedia on MiG-21 Variants](https://en.wikipedia.org/wiki/List_of_Mikoyan-Gurevich_MiG-21_variants)
 - [Wikipedia on RP-21 radar](https://en.wikipedia.org/wiki/RP-21_Sapfir)
+- Ethell & Price, "One Day in a Long War"
