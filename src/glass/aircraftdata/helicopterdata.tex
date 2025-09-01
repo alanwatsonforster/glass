@@ -1,0 +1,285 @@
+%!LW recipe=latexmk (xelatex)
+%!TEX program = xelatex
+
+\documentclass[10pt]{article}
+
+\input{style.tex}
+
+
+\setcounter{secnumdepth}{0} 
+\setcounter{tocdepth}{1} 
+
+\begin{document}
+
+\twocolumn[\section{Introduction}]
+
+This document contains information on helicopters for J.D.\ Webster's {\AirPow} game system. Specifically, it includes the Helicopter Data Table and has notes on each helicopter type, including usual armament.
+
+The Helicopter Data Table, on the following pages, contains basic information on many interesting helicopters. Its columns are:
+\begin{itemize}
+  \item The helicopter type and name. The NATO reporting name is given in parentheses. 
+  \item Whether it has high speed/agility (HSA).
+  \item Its visibility, size, vulnerability, and blind arc.
+  \item Its characteristics when treated as a ground unit: its soft defense strength (before the dash) and maximum sighting range (after the dash).
+  \item For gun-armed helicopters: the gun type, arc, ammunition, hit rolls, and damage ratings. Door guns are indicated by LSD (left side door), RSD (right side door), and RD (rear door). The table does not include guns mounted in pods on weapon stations; these are discussed in the notes on each helicopter.
+  \item Its ECM capability: its DDS type, IRM suppression modifier, RWR type, and DJM type. Some helicopters have multiple DDS systems. The IRM suppression modifier is applied to IRM and IR SAM attacks.
+  \item Its technology: whether it has TV/IR optics, a laser spot tracker, a laser designator, a helmet-mounted sight (HMS), or a mast-mounted sight (MMS).
+\end{itemize}
+
+The subsequent sections give more extensive information on each type of helicopter, including armament options.
+
+%!TEX root = ../rules-working.tex
+%LTeX: enabled=false
+
+\onecolumn
+\begin{landscape}
+
+\begin{fullwidthtable}
+\caption*{Helicopter Data Table}
+    
+
+\footnotesize
+\setlength{\tabcolsep}{0.5em}
+\begin{tabularx}{\linewidth}{Lccccclllrcccccccccccc}
+\toprule
+&
+\multicolumn{5}{c}{Aircraft Data}&
+&
+\multicolumn{5}{c}{Gun}&
+&
+\multicolumn{4}{c}{ECM}&
+\multicolumn{5}{c}{Technology}
+\\
+\cmidrule(lr){2-6}
+\cmidrule(lr){8-12}
+\cmidrule(lr){14-17}
+\cmidrule(lr){18-22}
+Type&
+\vertical{HSA}&
+\vertical{Visibility}&
+\vertical{Size}&
+\vertical{Vulnerability}&
+\vertical{Blind Arc}&
+\multicolumn{1}{c}{\vertical{Ground Unit Data}}&
+\multicolumn{1}{c}{\vertical{Type}}&
+\multicolumn{1}{c}{\vertical{Arc}}&
+\multicolumn{1}{c}{\vertical{Ammunition}}&
+\vertical{Hit}&
+\vertical{AtA/AtG Damage}&
+\vertical{Bomb System}&
+\vertical{DDS}&
+\vertical{IRM Suppression}&
+\vertical{RWR}&
+\vertical{DJM}&
+\vertical{TV/IR Optics}&
+\vertical{Laser Spot Tracker}&
+\vertical{Laser Designator}&
+\vertical{HMS}&
+\vertical{MMS}
+\\
+\midrule
+
+\multicolumn{22}{c}{US Helicopters}\\
+\midrule
+
+\addlinespace
+
+UH-1B/C/D/H Iroquois&
+N&5&\plus{0}&\plus{0}&\arcminus{30}&4-12&
+\binarymultiply{7.62 mm M60}{2}&LSD/RSD&10&1/1/1&\phantom{**}1/1**\phantom{}&
+Ballistic&&\plus{0}&---&---&---&---&---&---&---
+\\
+% Fuselage is 39 ft long
+% Ammo is 200 rounds for the M60 at 600 rpm
+
+UH-1B/C Iroquois (M6/M16)&
+&&&&&&
+\binarymultiply{7.62 mm M60}{4}&\arcplus{180}&35&3/2/--&\phantom{**}2/2**\phantom{}&
+\\
+% Ammo is 750 rounds for the M60D at 600 rpm
+
+UH-1B/C Iroquois (M21)&
+&&&&&&
+\binarymultiply{7.62 mm M134}{2}&\arcplus{180}&30&3/2/--&\phantom{**}3/3**\phantom{}&
+\\
+% https://en.wikipedia.org/wiki/Folding-Fin_Aerial_Rocket#US_Army_launchers
+% Ammo is 3000 rounds at 3000 rpm
+
+\addlinespace
+
+HH-3C&
+N&6&\plus{0}&\plus{1}&---&4-12&
+\binarymultiply{7.62 mm M60}{3}&LSD/RSD/RD&35&1/1/1&\phantom{**}1/1**\phantom{}&
+---&---&\plus{0}&---&---&---&---&---&---&---
+\\
+% Fuselage is 57 ft long
+% https://en.wikipedia.org/wiki/U.S._helicopter_armament_subsystems#CH-3E_Sea_King/HH-3E_Jolly_Green_Giant_(Sikorsky_S-61R)
+% Ammo is 750 rounds for the M60D at 600 rpm
+
+\addlinespace
+
+HH-53C&
+N&6&\plus{0}&\plus{2}&---&4-12&
+\binarymultiply{7.62 mm GAU-2}{3}&LSD/RSD/RD&8&1/1/1&\phantom{**}2/2**\phantom{}&
+---&---&\plus{0}&---&---&---&---&---&---&---
+\\
+% Fuselage is 67 ft long
+
+\addlinespace
+
+AH-1J Cobra&
+Y&4&\plus{1}&\plus{1}&\arcminus{30}&5-8&
+20 mm M197&\arcplus{150}&6&5/3/2&\phantom{**}3/4*\phantom{*}&
+Ballistic&\binarymultiply{A}{1}&\plus{2}&A&---&---&---&---&---&---
+% 44 ft long
+\\
+
+\addlinespace
+
+AH-64 Apache&
+Y&5&\plus{0}&\plus{2}&\arcminus{30}&5-8&
+30 mm M230&\arcplus{150}&6&5/3/2&\phantom{**}6/6\phantom{**}&
+Computed&\binarymultiply{A}{2}&\plus{3}&A&B&Y&Y&B&Y&---
+% 58 ft long
+\\
+
+\addlinespace
+
+500MD&
+---&4&\plus{1}&\minus{1}&\arcminus{30}&3-6&
+---&---&---&---&---&
+Ballistic&\binarymultiply{A}{1}&\plus{1}&---&---&---&---&---&---&---
+% 32 ft long
+\\
+
+\addlinespace
+
+OH-58D&
+---&4&\plus{1}&\minus{2}&\arcminus{30}&3-6&
+---&---&---&---&---&
+Ballistic&\binarymultiply{A}{1}&\plus{2}&A&---&Y&Y&B&---&Y
+% 42 ft long
+\\
+
+\addlinespace
+\midrule
+\multicolumn{22}{c}{Soviet/Russian Helicopters}\\
+\midrule
+\addlinespace
+
+Mi-24 (Hind-A)&
+---&6&\plus{0}&\plus{2}&\arcminus{60}&6-12&
+12.7 mm A-12.7&\arcplus{150}&4&2/1/--&\phantom{**}1/2**&
+Ballistic&---&\plus{2}&---&---&---&---&---&---&---
+% 57 ft long
+\\
+
+Mi-24D (Hind-D)&
+---&6&\plus{0}&\plus{2}&\arcminus{60}&6-12&
+12.7 mm Yak-B&\arcplus{150}&4&3/2/--&\phantom{**}2/4**&
+Ballistic&\binarymultiply{A}{2}&\plus{2}&---&---&---&---&---&---&---
+\\
+
+Mi-24P (Hind-F)&
+---&6&\plus{0}&\plus{2}&\arcminus{60}&6-12&
+23 mm GSh-23&Fixed&4&3/2/1&\phantom{**}4/4\phantom{**}&
+Ballistic&\binarymultiply{A}{2}&\plus{2}&B&---&---&---&---&---&---
+\\
+
+\addlinespace
+
+Mi-28 (Havoc)&
+Y&6&\plus{0}&\plus{3}&\arcminus{30}&6-12&
+30 mm 2A42&\arcplus{150}&5&3/2/1&\phantom{**}5/6\phantom{**}&
+Computed&\binarymultiply{A}{2}&\plus{2}&B&---&Y&Y&---&Y&---
+% 55 ft long
+\\
+
+\addlinespace
+\midrule
+\multicolumn{22}{c}{French Helicopters}\\
+\midrule
+\addlinespace
+
+Gazelle&
+---&5&\plus{0}&\minus{1}&\arcminus{30}&4-8&
+---&---&---&---&---&
+Ballistic&\binarymultiply{A}{1}&\plus{0}&---&---&---&---&---&---&---
+% 39 ft long
+\\
+
+\addlinespace
+\midrule
+\multicolumn{22}{c}{Generic Helicopters and Door Guns}\\
+\midrule
+\addlinespace
+
+Scout/Utility&
+---&5&\plus{0}&\minus{2}&\arcminus{30}&4-8&
+---&---&---&---&---&
+---&\binarymultiply{A}{1}&\plus{2}&---&---&---&---&---&---&---
+\\
+
+Medium Lift&
+---&7&\plus{0}&\plus{0}&\arcminus{60}&4-12&
+---&---&---&---&---&
+---&\binarymultiply{A}{1}&\plus{2}&---&---&---&---&---&---&---
+\\
+
+Heavy Lift&
+---&8&\plus{1}&\plus{0}&\arcminus{30}&3-12&
+---&---&---&---&---&
+---&\binarymultiply{A}{1}&\plus{2}&---&---&---&---&---&---&---
+\\
+
+\addlinespace
+Door LMG&
+&&&&&&
+7.62 mm LMG&LSD, RSD, or RD&10&1/1/1&\phantom{**}1/1**\phantom{}
+\\
+
+Door HMG&
+&&&&&&
+.50 cal HMG&LSD, RSD, or RD&10&1/1/1&\phantom{**}2/1**\phantom{}
+\\
+
+Door Minigun&
+&&&&&&
+7.62 mm Minigun&LSD, RSD, or RD&8&1/1/1&\phantom{**}2/2**\phantom{}
+\\
+
+\addlinespace
+\bottomrule
+\end{tabularx}
+\begin{tablenote}{\linewidth}
+\begin{itemize}
+
+
+    \item Ballistic bomb systems have a \minus{1} modifier. Computed bomb systems have a \minus{2} modifier.
+
+    \item The IRM suppression modifier is applied to IRM attack rolls.
+    
+    \item For attack helicopters, typical weapon loads are:
+    \begin{itemize}
+        \item AH-1J: Four RPs or two RPs and four TOW RGs. Additionally, may carry two AIM-9 IRMs or four Stinger IRM.
+        \item AH-64: Four stations. Two may each carry four Helfire RGs or one RP. The other two may each carry one RP, one FT, or two Stinger IRMs.
+        \item 500MD: Two stations. Each may carry one small RP, two TOW RGs, one GP, or two Stinger IRMs.
+        \item OH-58D: Two stations. Each may carry one small RP, one GP with a caliber of 12.7 mm or less, or two Stinger IRMs.
+        \item Mi-24: Four AT-2 Swatter RGs and four UB-16/UB-32 RPs
+        \item Mi-24D: Four AT-2C Swatter RGs and four UB-16/UB-32 RPs
+        \item Mi-24P: Four AT-6 Spiral RGs and four UB-16/UB-32 RPs. The AT-6 is air-to-air capable.
+        \item Mi-28: Four stations. Each may carry four AT-6 Spiral RGs, one UB-16/UB-32 RP, one FT, or two SA-14 IRMs. At most four SA-14s may be carried.
+        \item Gazelle: Four AS.11, HOT, or AT-3 RGs, or two RPs, or two GPs.
+    \end{itemize}
+\end{itemize}
+\end{tablenote}
+
+\end{fullwidthtable}
+
+\end{landscape}
+
+\twocolumn[\section{US Helicopters}]
+
+\input{UH-1}
+
+\end{document}
