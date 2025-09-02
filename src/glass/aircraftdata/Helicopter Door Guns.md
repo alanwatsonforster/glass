@@ -6,7 +6,9 @@
 
 - 200 round box at 600 RPM = 10 shots
 
-- 750 round box at 600 RPM = 35 shots
+- M60D with 750 round box at 600 RPM = 35 shots
+
+Assume CSAR and SO helicopters have the M60D (750 round) version and others have the M60 (200 round) version.
 
 ## GPMG
 
