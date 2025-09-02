@@ -8,7 +8,6 @@
 
 - 750 round box at 600 RPM = 35 shots
 
-
 ## GPMG
 
 - 650-1000 RPM
