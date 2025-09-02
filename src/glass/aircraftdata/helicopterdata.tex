@@ -22,62 +22,83 @@ The Helicopter Data Table, on the following pages, contains basic information on
   \item Its visibility, size, vulnerability, and blind arc.
   \item Its characteristics when treated as a ground unit: its soft defense strength (before the dash) and maximum sighting range (after the dash).
   \item For gun-armed helicopters: the gun type, arc, ammunition, hit rolls, and damage ratings. Door guns are indicated by LSD (left side door), RSD (right side door), and RD (rear door). The table does not include guns mounted in pods on weapon stations; these are discussed in the notes on each helicopter.
+  \item Its bomb system. Ballistic bomb systems have a \minus{1} modifier and computed bomb systems have a \minus{2} modifier.
   \item Its ECM capability: its DDS type, IRM suppression modifier, RWR type, and DJM type. Some helicopters have multiple DDS systems. The IRM suppression modifier is applied to IRM and IR SAM attacks.
   \item Its technology: whether it has TV/IR optics, a laser spot tracker, a laser designator, a helmet-mounted sight (HMS), or a mast-mounted sight (MMS).
 \end{itemize}
 
 The subsequent sections give more extensive information on each type of helicopter, including armament options.
 
-%!TEX root = ../rules-working.tex
-%LTeX: enabled=false
-
 \onecolumn
-\begin{landscape}
 
-\begin{fullwidthtable}
-\caption*{Helicopter Data Table}
-    
+\newenvironment{helicopterdatapage}{
+  \begin{landscape}
+  \begin{fullwidthtable}
+}{
+  \end{fullwidthtable}
+  \end{landscape}
+}
 
-\footnotesize
-\setlength{\tabcolsep}{0.5em}
-\begin{tabularx}{\linewidth}{Lccccclllrcccccccccccc}
-\toprule
-&
-\multicolumn{5}{c}{Aircraft Data}&
-&
-\multicolumn{5}{c}{Gun}&
-&
-\multicolumn{4}{c}{ECM}&
-\multicolumn{5}{c}{Technology}
-\\
-\cmidrule(lr){2-6}
-\cmidrule(lr){8-12}
-\cmidrule(lr){14-17}
-\cmidrule(lr){18-22}
-Type&
-\vertical{HSA}&
-\vertical{Visibility}&
-\vertical{Size}&
-\vertical{Vulnerability}&
-\vertical{Blind Arc}&
-\multicolumn{1}{c}{\vertical{Ground Unit Data}}&
-\multicolumn{1}{c}{\vertical{Type}}&
-\multicolumn{1}{c}{\vertical{Arc}}&
-\multicolumn{1}{c}{\vertical{Ammunition}}&
-\vertical{Hit}&
-\vertical{AtA/AtG Damage}&
-\vertical{Bomb System}&
-\vertical{DDS}&
-\vertical{IRM Suppression}&
-\vertical{RWR}&
-\vertical{DJM}&
-\vertical{TV/IR Optics}&
-\vertical{Laser Spot Tracker}&
-\vertical{Laser Designator}&
-\vertical{HMS}&
-\vertical{MMS}
-\\
-\midrule
+\newenvironment{helicopterdatatable}{
+  \caption*{Helicopter Data Table}
+  \footnotesize
+  \setlength{\tabcolsep}{0.5em}
+  \tabularx{\linewidth}{Lccccclp{20ex}p{15ex}rcccccccccccc}
+  \toprule
+  &
+  \multicolumn{5}{c}{Aircraft Data}&
+  &
+  \multicolumn{5}{c}{Gun}&
+  &
+  \multicolumn{4}{c}{ECM}&
+  \multicolumn{5}{c}{Technology}
+  \\
+  \cmidrule(lr){2-6}
+  \cmidrule(lr){8-12}
+  \cmidrule(lr){14-17}
+  \cmidrule(lr){18-22}
+  Type&
+  \vertical{HSA}&
+  \vertical{Visibility}&
+  \vertical{Size}&
+  \vertical{Vulnerability}&
+  \vertical{Blind Arc}&
+  \multicolumn{1}{c}{\vertical{Ground Unit Data}}&
+  \multicolumn{1}{c}{\vertical{Type}}&
+  \multicolumn{1}{c}{\vertical{Arc}}&
+  \multicolumn{1}{c}{\vertical{Ammunition}}&
+  \vertical{Hit}&
+  \vertical{AtA/AtG Damage}&
+  \vertical{Bomb System}&
+  \vertical{DDS}&
+  \vertical{IRM Suppression}&
+  \vertical{RWR}&
+  \vertical{DJM}&
+  \vertical{TV/IR Optics}&
+  \vertical{Laser Spot Tracker}&
+  \vertical{Laser Designator}&
+  \vertical{HMS}&
+  \vertical{MMS}
+  \\
+  \midrule
+  \addlinespace
+}{
+  \addlinespace
+  \bottomrule
+  \endtabularx
+}
+
+\newenvironment{helicopterdatatablenote}{
+    \tabularx{\linewidth}{L}%
+    \vspace{\parskip}%
+}{%
+    \endtabularx%
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{helicopterdatapage}
+\begin{helicopterdatatable}
 
 \multicolumn{22}{c}{US Helicopters}\\
 \midrule
@@ -240,10 +261,14 @@ Ballistic&\binarymultiply{A}{1}&\plus{1}&---&---&---&---&---&---&---
 % 32 ft long
 \\
 
+\end{helicopterdatatable}
+\end{helicopterdatapage}
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\addlinespace
-\midrule
+\begin{helicopterdatapage}
+\begin{helicopterdatatable}
+
 \multicolumn{22}{c}{Soviet/Russian Helicopters}\\
 \midrule
 \addlinespace
@@ -329,35 +354,27 @@ Door Minigun&
 7.62 mm Minigun&LSD, RSD, or RD&8&1/1/1&\phantom{**}2/2**\phantom{}
 \\
 
-\addlinespace
-\bottomrule
-\end{tabularx}
-\begin{tablenote}{\linewidth}
-\begin{itemize}
+\end{helicopterdatatable}
 
+% \begin{helicopterdatatablenote}
+% \begin{itemize}
+%     \item For attack helicopters, typical weapon loads are:
+%     \begin{itemize}
+%         \item AH-1J: Four RPs or two RPs and four TOW RGs. Additionally, may carry two AIM-9 IRMs or four Stinger IRM.
+%         \item AH-64: Four stations. Two may each carry four Helfire RGs or one RP. The other two may each carry one RP, one FT, or two Stinger IRMs.
+%         \item 500MD: Two stations. Each may carry one small RP, two TOW RGs, one GP, or two Stinger IRMs.
+%         \item OH-58D: Two stations. Each may carry one small RP, one GP with a caliber of 12.7 mm or less, or two Stinger IRMs.
+%         \item Mi-24: Four AT-2 Swatter RGs and four UB-16/UB-32 RPs
+%         \item Mi-24D: Four AT-2C Swatter RGs and four UB-16/UB-32 RPs
+%         \item Mi-24P: Four AT-6 Spiral RGs and four UB-16/UB-32 RPs. The AT-6 is air-to-air capable.
+%         \item Mi-28: Four stations. Each may carry four AT-6 Spiral RGs, one UB-16/UB-32 RP, one FT, or two SA-14 IRMs. At most four SA-14s may be carried.
+%         \item Gazelle: Four AS.11, HOT, or AT-3 RGs, or two RPs, or two GPs.
+%     \end{itemize}
+% \end{itemize}
+% \end{helicopterdatatablenote}
 
-    \item Ballistic bomb systems have a \minus{1} modifier. Computed bomb systems have a \minus{2} modifier.
+\end{helicopterdatapage}
 
-    \item The IRM suppression modifier is applied to IRM attack rolls.
-    
-    \item For attack helicopters, typical weapon loads are:
-    \begin{itemize}
-        \item AH-1J: Four RPs or two RPs and four TOW RGs. Additionally, may carry two AIM-9 IRMs or four Stinger IRM.
-        \item AH-64: Four stations. Two may each carry four Helfire RGs or one RP. The other two may each carry one RP, one FT, or two Stinger IRMs.
-        \item 500MD: Two stations. Each may carry one small RP, two TOW RGs, one GP, or two Stinger IRMs.
-        \item OH-58D: Two stations. Each may carry one small RP, one GP with a caliber of 12.7 mm or less, or two Stinger IRMs.
-        \item Mi-24: Four AT-2 Swatter RGs and four UB-16/UB-32 RPs
-        \item Mi-24D: Four AT-2C Swatter RGs and four UB-16/UB-32 RPs
-        \item Mi-24P: Four AT-6 Spiral RGs and four UB-16/UB-32 RPs. The AT-6 is air-to-air capable.
-        \item Mi-28: Four stations. Each may carry four AT-6 Spiral RGs, one UB-16/UB-32 RP, one FT, or two SA-14 IRMs. At most four SA-14s may be carried.
-        \item Gazelle: Four AS.11, HOT, or AT-3 RGs, or two RPs, or two GPs.
-    \end{itemize}
-\end{itemize}
-\end{tablenote}
-
-\end{fullwidthtable}
-
-\end{landscape}
 
 \twocolumn[\section{US Helicopters}]
 
