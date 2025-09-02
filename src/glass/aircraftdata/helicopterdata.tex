@@ -101,9 +101,37 @@ The subsequent sections give more extensive information on each type of helicopt
 \begin{helicopterdatapage}
 \begin{helicopterdatatable}
 
-\multicolumn{22}{c}{Soviet/Russian Helicopters}\\
+\multicolumn{22}{c}{British Helicopters}\\
+
 \midrule
-\addlinespace
+
+Scout&
+---&4&\plus{1}&\minus{2}&\arcminus{30}&3-6&
+---&---&---&---&---&
+---&---&\plus{0}&---&---&---&---&---&---&---&---
+\\
+Scout (Door GPMG)&
+&&&&&&
+\binarymultiply{7.62 mm GPMG}{1}&LSD or RSD&6&1/1/1&\phantom{**}1/1**\phantom{}&
+\\
+Scout (Fixed GPMGs)&
+&&&&&&
+\binarymultiply{7.62 mm GPMG}{2}&Fixed&12&2/1/-&\phantom{**}1/1**\phantom{}&
+\\
+
+\midrule
+\multicolumn{22}{c}{French Helicopters}\\
+\midrule
+
+Gazelle&
+---&5&\plus{0}&\minus{1}&\arcminus{30}&4-8&
+---&---&---&---&---&
+Ballistic&\binarymultiply{A}{1}&\plus{0}&---&---&---&---&---&---&---
+\\
+
+\multicolumn{22}{c}{Soviet/Russian Helicopters}\\
+
+\midrule
 
 Mi-24 (Hind-A)&
 ---&6&\plus{0}&\plus{2}&\arcminus{60}&6-12&
@@ -124,7 +152,7 @@ Mi-24P (Hind-F)&
 Ballistic&\binarymultiply{A}{2}&\plus{2}&B&---&---&---&---&---&---
 \\
 
-\addlinespace
+\midrule
 
 Mi-28 (Havoc)&
 Y&6&\plus{0}&\plus{3}&\arcminus{30}&6-12&
@@ -133,24 +161,9 @@ Computed&\binarymultiply{A}{2}&\plus{2}&B&---&Y&Y&---&Y&---
 % 55 ft long
 \\
 
-\addlinespace
-\midrule
-\multicolumn{22}{c}{French Helicopters}\\
-\midrule
-\addlinespace
-
-Gazelle&
----&5&\plus{0}&\minus{1}&\arcminus{30}&4-8&
----&---&---&---&---&
-Ballistic&\binarymultiply{A}{1}&\plus{0}&---&---&---&---&---&---&---
-% 39 ft long
-\\
-
-\addlinespace
 \midrule
 \multicolumn{22}{c}{Generic Helicopters and Door Guns}\\
 \midrule
-\addlinespace
 
 Scout/Utility&
 ---&5&\plus{0}&\minus{2}&\arcminus{30}&4-8&
@@ -170,7 +183,8 @@ Heavy Lift&
 ---&\binarymultiply{A}{1}&\plus{2}&---&---&---&---&---&---&---
 \\
 
-\addlinespace
+\midrule
+
 Door LMG&
 &&&&&&
 7.62 mm LMG&LSD, RSD, or RD&10&1/1/1&\phantom{**}1/1**\phantom{}
@@ -435,6 +449,12 @@ Ballistic&\binarymultiply{A}{1}&\plus{1}&---&---&---&---&---&---&---&---
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+\twocolumn[\section{British Helicopters}]
+
+\input{Scout}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 \twocolumn[\section{US Helicopters}]
 
 \input{UH-1}
@@ -444,5 +464,7 @@ Ballistic&\binarymultiply{A}{1}&\plus{1}&---&---&---&---&---&---&---&---
 \input{HH-53}
 \input{OH-58}
 \input{AH-64}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \end{document}
