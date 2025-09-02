@@ -52,7 +52,7 @@ The subsequent sections give more extensive information on each type of helicopt
   &
   \multicolumn{5}{c}{Gun}&
   &
-  \multicolumn{4}{c}{ECM}&
+  \multicolumn{4}{c}{IRCM \& ECM}&
   \multicolumn{6}{c}{Technology}
   \\
   \cmidrule(lr){2-6}
@@ -101,6 +101,68 @@ The subsequent sections give more extensive information on each type of helicopt
 \begin{helicopterdatapage}
 \begin{helicopterdatatable}
 
+\multicolumn{22}{c}{\bfseries Generic Helicopters}\\
+\midrule
+
+Scout or Utility Helicopter&
+---&4&\plus{1}&\minus{2}&\arcminus{30}&4-8&
+---&---&---&---&---&
+---&---&\plus{0}&---&---&---&---&---&---&---
+\\
+
+Medium-Lift Helicopter&
+---&5&\plus{0}&\plus{0}&\arcminus{60}&4-12&
+---&---&---&---&---&
+---&---&\plus{0}&---&---&---&---&---&---&---
+\\
+
+Heavy-Lift Helicopter&
+---&6&\minus{1}&\plus{0}&\arcminus{60}&3-12&
+---&---&---&---&---&
+---&---&\plus{0}&---&---&---&---&---&---&---
+\\
+
+With rear ramp&
+&&&&---&&
+&&&&&
+&&&&&&&&&
+\\
+
+With 1970s IRCMs&
+&&&&&&
+&&&&&
+&---&\plus{2}&&&&&&&
+\\
+
+With 1980s IRCMs&
+&&&&&&
+&&&&&
+&\binarymultiply{A}{1}&\plus{2}&&&&&&&
+\\
+
+
+With 1990s IRCMs&
+&&&&&&
+&&&&&
+&\binarymultiply{A}{2}&\plus{2}&&&&&&&
+\\
+
+Door LMG with 200 rounds&
+&&&&&&
+7.62 mm LMG&LSD, RSD, or RD&6&1/1/1&\phantom{**}1/1**\phantom{}
+\\
+
+Door HMG with 200 rounds&
+&&&&&&
+.50 cal HMG&LSD, RSD, or RD&6&1/1/1&\phantom{**}2/1**\phantom{}
+\\
+
+Door Minigun with 1000 rounds&
+&&&&&&
+7.62 mm Minigun&LSD, RSD, or RD&8&1/1/1&\phantom{**}2/2**\phantom{}
+\\
+
+\midrule
 \multicolumn{22}{c}{\bfseries British Helicopters}\\
 \midrule
 
@@ -178,65 +240,6 @@ Y&6&\plus{0}&\plus{3}&\arcminus{30}&6-12&
 30 mm 2A42&\arcplus{150}&5&3/2/1&\phantom{**}5/6\phantom{**}&
 Computed&\binarymultiply{A}{2}&\plus{2}&B&---&Y&Y&---&Y&---
 % 55 ft long
-\\
-
-\midrule
-\multicolumn{22}{c}{\bfseries Generic Helicopters}\\
-\midrule
-
-Scout/Utility&
----&4&\plus{1}&\minus{2}&\arcminus{30}&4-8&
----&---&---&---&---&
----&---&\plus{0}&---&---&---&---&---&---&---
-\\
-
-Medium Lift&
----&5&\plus{0}&\plus{0}&\arcminus{60}&4-12&
----&---&---&---&---&
----&---&\plus{0}&---&---&---&---&---&---&---
-\\
-
-Heavy Lift&
----&6&\minus{1}&\plus{0}&---&3-12&
----&---&---&---&---&
----&---&\plus{0}&---&---&---&---&---&---&---
-\\
-
-\midrule
-1970s IRCMs&
-&&&&&&
-&&&&&
-&---&\plus{2}&&&&&&&
-\\
-
-1980s IRCMs&
-&&&&&&
-&&&&&
-&\binarymultiply{A}{1}&\plus{2}&&&&&&&
-\\
-
-
-1990s IRCMs&
-&&&&&&
-&&&&&
-&\binarymultiply{A}{2}&\plus{2}&&&&&&&
-\\
-
-\midrule
-
-Door LMG&
-&&&&&&
-7.62 mm LMG&LSD, RSD, or RD&10&1/1/1&\phantom{**}1/1**\phantom{}
-\\
-
-Door HMG&
-&&&&&&
-.50 cal HMG&LSD, RSD, or RD&10&1/1/1&\phantom{**}2/1**\phantom{}
-\\
-
-Door Minigun&
-&&&&&&
-7.62 mm Minigun&LSD, RSD, or RD&8&1/1/1&\phantom{**}2/2**\phantom{}
 \\
 
 \end{helicopterdatatable}
@@ -484,6 +487,18 @@ Ballistic&\binarymultiply{A}{1}&\plus{1}&---&---&---&---&---&---&---&---
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+\twocolumn[\section{Generic Helicopters}]
+
+While the Helicopter Data Table gives data for many specific helicopter types, some will inevitably be missing. To guide in determining data values for other helicopters, the Table gives some typical values for generic helicopters. Examining the data values of other similar helicopters can also provide useful guidance.
+
+The Table gives typical data values for generic scout/utility, medium-lift, and heavy-lift helicopters. If a helicopter has a rear ramp, it is assumed that the load master or door gunner is the searching out of it and so the helicopter has no blind arcs.
+
+The Table gives typical data values for infrared countermeasures from the 1970s (exhaust management and jammer), the 1980s (exhaust management, jammer, and some flares), and the 1990s (exhaust management, jammer, and many flares).
+
+The Table gives typical data values for door guns, specifically a single 7.62 mm LMG with 200 rounds, a .50 cal HMG with 200 rounds, and a 7.62 mm minigun with 1000 rounds.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 \twocolumn[\section{British Helicopters}]
 
 \input{Wessex}
@@ -503,15 +518,5 @@ Ballistic&\binarymultiply{A}{1}&\plus{1}&---&---&---&---&---&---&---&---
 \input{AH-64}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\twocolumn[\section{Generic Helicopters}]
-
-While the Helicopter Data Table gives data for many helicopters, some will inevitably be missing. To guide in determining data values for other helicopters, the Table gives some typical values for generic helicopters. Examining the data values of other similar helicopters can also provide useful guidance.
-
-The Table gives typical data values for generic scout/utility, medium-lift, and heavy-lift helicopters. Most of the values are fairly obvious. However, the lack of a blind arc for the heavy-lift helicopter does require some explanation; we assume that in a heavy lift helicopter the gunner or the load master searching out of the rear ramp. If that is not the case, the blind arc should be the \arcminus{60} arc.
-
-The Table also gives typical data values for infrared countermeasures from the 1970s (exhaust management and jammer), the 1980s (exhaust management, jammer, and some flares), and the 1990s (exhaust management, jammer, and many flares).
-
-Finally, the Table gives typical data values for single 7.62 mm LMG, .50 cal HMG, and 7.62 mm minigun door guns.
 
 \end{document}
