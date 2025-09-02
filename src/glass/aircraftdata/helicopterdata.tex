@@ -21,7 +21,7 @@ The Helicopter Data Table, on the following pages, contains basic information on
   \item Whether it has high speed/agility (HSA).
   \item Its visibility, size, vulnerability, and blind arc.
   \item Its characteristics when treated as a ground unit: its soft defense strength (before the dash) and maximum sighting range (after the dash).
-  \item For gun-armed helicopters: the gun type, arc, ammunition, hit rolls, and damage ratings. Door guns are indicated by LSD (left side door), RSD (right side door), and RD (rear door). The table does not include guns mounted in pods on weapon stations; these are discussed in the notes on each helicopter.
+  \item For gun-armed helicopters: the gun type, arc, ammunition, hit rolls, and damage ratings. Door guns are indicated by LS (left side), RSD (right side), and R (rear). The table does not include guns mounted in pods on weapon stations; these are discussed in the notes on each helicopter.
   \item Its bomb system. Ballistic bomb systems have a \minus{1} modifier and computed bomb systems have a \minus{2} modifier.
   \item Its ECM capability: its DDS type, IRM suppression modifier, RWR type, and DJM type. Some helicopters have multiple DDS systems. The IRM suppression modifier is applied to IRM and IR SAM attacks.
   \item Its technology: whether it has TV/IR optics, a laser spot tracker, a laser designator, a helmet-mounted sight (HMS), a mast-mounted sight (MMS), or mast-mounted radar (MMR).
@@ -45,7 +45,7 @@ The subsequent sections give more extensive information on each type of helicopt
   \caption*{Helicopter Data Table}
   \footnotesize
   \setlength{\tabcolsep}{0.5em}
-  \tabularx{\linewidth}{Lccccclp{20ex}p{15ex}rcccccccccccccc}
+  \tabularx{\linewidth}{Lccccclp{20ex}p{10ex}rcccccccccccccc}
   \toprule
   &
   \multicolumn{5}{c}{Aircraft Data}&
@@ -150,17 +150,17 @@ With 1990s IRCMs&
 
 Door LMG with 200 rounds&
 &&&&&&
-7.62 mm LMG&LSD, RSD, or RD&10&1/1/--&\phantom{**}1/1**\phantom{}
+7.62 mm LMG&LS, RS, or R&10&1/1/--&\phantom{**}1/1**\phantom{}
 \\
 
 Door HMG with 200 rounds&
 &&&&&&
-.50 cal HMG&LSD, RSD, or RD&12&1/1/--&\phantom{**}2/1**\phantom{}
+.50 cal HMG&LS, RS, or R&12&1/1/--&\phantom{**}2/1**\phantom{}
 \\
 
 Door Minigun with 3000 rounds&
 &&&&&&
-7.62 mm Minigun&LSD, RSD, or RD&30&1/1/--&\phantom{**}2/2**\phantom{}
+7.62 mm Minigun&LS, RS, or R&30&1/1/--&\phantom{**}2/2**\phantom{}
 \\
 
 \midrule
@@ -182,7 +182,7 @@ Scout AH.1&
 \\
 Scout AH.1 (Door GPMG)&
 &&&&&&
-7.62 mm GPMG&LSD or RSD&10&1/1/--&\phantom{**}1/1**\phantom{}&
+7.62 mm GPMG&LS or RS&10&1/1/--&\phantom{**}1/1**\phantom{}&
 \\
 Scout AH.1 (Fixed GPMGs)&
 &&&&&&
@@ -198,7 +198,7 @@ Wasp HAS.1&
 \\
 Wasp HAS.1 (Door GPMG)&
 &&&&&&
-7.62 mm GPMG&LSD or RSD&10&1/1/--&\phantom{**}1/1**\phantom{}&
+7.62 mm GPMG&LS or RS&10&1/1/--&\phantom{**}1/1**\phantom{}&
 \\
 
 \midrule
@@ -270,7 +270,7 @@ Computed&\binarymultiply{A}{2}&\plus{2}&B&---&Y&Y&---&Y&---&---&---
 
 UH-1B/C/D/H Iroquois&
 ---&5&\plus{0}&\plus{0}&\arcminus{30}&4-12&
-\binarymultiply{7.62 mm M60}{2}&LSD/RSD&10&1/1/--&\phantom{**}1/1**\phantom{}&
+\binarymultiply{7.62 mm M60}{2}&LS/RS&10&1/1/--&\phantom{**}1/1**\phantom{}&
 ---&---&\plus{0}&---&---&---&---&---&---&---&---&---
 \\
 
@@ -369,13 +369,13 @@ CH-3C&
 
 CH-3E&
 ---&6&\plus{0}&\plus{0}&---&4-12&
-\binarymultiply{7.62 mm M60}{3}&LSD/RSD/RD&35&1/1/--&\phantom{**}1/1**\phantom{}&
+\binarymultiply{7.62 mm M60}{3}&LS/RS/R&35&1/1/--&\phantom{**}1/1**\phantom{}&
 ---&---&\plus{0}&---&---&---&---&---&---&---&---&---
 \\
 
 HH-3E&
 ---&6&\plus{0}&\plus{1}&---&4-12&
-\binarymultiply{7.62 mm M60}{3}&LSD/RSD/RD&35&1/1/--&\phantom{**}1/1**\phantom{}&
+\binarymultiply{7.62 mm M60}{3}&LS/RS/R&35&1/1/--&\phantom{**}1/1**\phantom{}&
 ---&---&\plus{0}&---&---&---&---&---&---&---&---&---
 \\
 
@@ -411,7 +411,7 @@ CH-47 Chinook (1990s IRCMs)&
 \\
 CH-47 Chinook (M24/M41)&
 &&&&&&
-\binarymultiply{7.62 mm M60/M240}{3}&LSD/RSD/RD&10&1/1/--&\phantom{**}1/1**\phantom{}
+\binarymultiply{7.62 mm M60/M240}{3}&LS/RS/R&10&1/1/--&\phantom{**}1/1**\phantom{}
 \\
 
 ACH-47A Chinook&
@@ -421,39 +421,39 @@ Ballistic&---&\plus{0}&---&---&---&---&---&---&---&---&---
 \\
 &
 &&&&&&
-\binarymultiply{.50 cal M2}{3}&LSD/RSD/RD&12&1/1/--&\phantom{**}2/1**\phantom{}&
+\binarymultiply{.50 cal M2}{3}&LS/RS/R&12&1/1/--&\phantom{**}2/1**\phantom{}&
 \\
 
 MH-47D Chinook&
 ---&6&\plus{0}&\plus{1}&---&4-12&
-\binarymultiply{7.62 mm M134}{2}&LSD/RSD&30&1/1/--&\phantom{**}2/2**\phantom{}&
+\binarymultiply{7.62 mm M134}{2}&LS/RS&30&1/1/--&\phantom{**}2/2**\phantom{}&
 ---&\binarymultiply{A}{1}&\plus{2}&---&---&Y&---&---&---&---&---&---
 \\
 &
 &&&&&&
-7.62 mm M60&RD&35&1/1/--&\phantom{**}1/1**\phantom{}
+7.62 mm M60&R&35&1/1/--&\phantom{**}1/1**\phantom{}
 \\
 
 
 MH-47E Chinook&
 ---&6&\plus{0}&\plus{1}&---&4-12&
-\binarymultiply{7.62 mm M134}{2}&LSD/RSD&30&1/1/--&\phantom{**}2/2**\phantom{}&
+\binarymultiply{7.62 mm M134}{2}&LS/RS&30&1/1/--&\phantom{**}2/2**\phantom{}&
 ---&\binarymultiply{A}{2}&\plus{2}&---&---&Y&---&---&---&---&---&Y
 \\
 &
 &&&&&&
-7.62 mm M60&RD&35&1/1/--&\phantom{**}1/1**\phantom{}
+7.62 mm M60&R&35&1/1/--&\phantom{**}1/1**\phantom{}
 \\
 
 
 MH-47G Chinook&
 ---&6&\plus{0}&\plus{1}&---&4-12&
-\binarymultiply{7.62 mm M134}{2}&LSD/RSD&30&1/1/--&\phantom{**}2/2**\phantom{}&
+\binarymultiply{7.62 mm M134}{2}&LS/RS&30&1/1/--&\phantom{**}2/2**\phantom{}&
 ---&\binarymultiply{A}{2}&\plus{2}&---&---&Y&---&---&---&---&---&Y
 \\
 &
 &&&&&&
-\binarymultiply{7.62 mm M240}{2}&LSD/RSD&35&1/1/--&\phantom{**}1/1**\phantom{}&
+\binarymultiply{7.62 mm M240}{2}&LS/RS&35&1/1/--&\phantom{**}1/1**\phantom{}&
 \\
 
 \end{helicopterdatatable}
@@ -475,13 +475,13 @@ CH-53A/D/G Sea Stallion&
 
 HH-53B&
 ---&6&\plus{0}&\plus{1}&---&4-12&
-\binarymultiply{7.62 mm GAU-2}{3}&LSD/RSD/RD&8&1/1/--&\phantom{**}2/2**\phantom{}&
+\binarymultiply{7.62 mm GAU-2}{3}&LS/RS/R&8&1/1/--&\phantom{**}2/2**\phantom{}&
 ---&---&\plus{0}&---&---&---&---&---&---&---&---&---
 \\
 
 HH-53C/CH-53C&
 ---&6&\plus{0}&\plus{2}&---&4-12&
-\binarymultiply{7.62 mm GAU-2}{3}&LSD/RSD/RD&8&1/1/--&\phantom{**}2/2**\phantom{}&
+\binarymultiply{7.62 mm GAU-2}{3}&LS/RS/R&8&1/1/--&\phantom{**}2/2**\phantom{}&
 ---&---&\plus{0}&---&---&---&---&---&---&---&---&---
 \\
 
