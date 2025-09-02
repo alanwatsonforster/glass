@@ -61,3 +61,4 @@ Konstruktionswerkstätte
 miniguns
 RPs
 ARVN
+minigun
