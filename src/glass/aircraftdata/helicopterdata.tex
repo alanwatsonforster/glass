@@ -71,7 +71,7 @@ The subsequent sections give more extensive information on each type of helicopt
   \multicolumn{1}{c}{\vertical{Ammunition}}&
   \vertical{Hit}&
   \vertical{AtA/AtG Damage}&
-  \vertical{Bomb System}&
+  \wbox[c]{Computed}{\vertical{Bomb System}}&
   \vertical{DDS}&
   \vertical{IRM Suppression}&
   \vertical{RWR}&
@@ -146,7 +146,6 @@ IRCM: early DDS&
 &&&&&
 &\binarymultiply{A}{1}&&&&&&&&
 \\
-
 
 IRCM: later DDS&
 &&&&&&
@@ -293,9 +292,28 @@ Puma (Door LMG)&
 \midrule
 
 Gazelle&
----&5&\plus{0}&\minus{1}&\arcminus{30}&4-8&
+Y&5&\plus{0}&\minus{1}&\arcminus{30}&4-8&
 ---&---&---&---&---&
-Ballistic&\binarymultiply{A}{1}&\plus{0}&---&---&---&---&---&---&---&---&---
+---&---&\plus{1}&---&---&---&---&---&---&---&---&---
+\\
+
+
+Gazelle (1990s IRCM/ECM)&
+&&&&&&
+&&&&&
+&\binarymultiply{A}{1}&&A&&&&&&
+\\
+
+
+Gazelle (M621)&
+&&&&&&
+20 mm M621&Fixed&15&3/2/1&\phantom{**}3/4*\phantom{*}&
+\\
+
+Gazelle (Viviane)&
+&&&&&&
+&&&&&
+&&&&&Y&&&&&
 \\
 
 \end{helicopterdatatable}
@@ -666,6 +684,7 @@ The Table gives typical data values for door guns, specifically a single 7.62 mm
 \twocolumn[\section{French Helicopters}]
 
 \input{Puma}
+\input{Gazelle}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 

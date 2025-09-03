@@ -62,3 +62,6 @@ miniguns
 RPs
 ARVN
 minigun
+Alouette
+Aérospatiale
+Eurocopter
