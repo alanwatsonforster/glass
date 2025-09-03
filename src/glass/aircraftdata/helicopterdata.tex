@@ -222,7 +222,7 @@ Sea King HAS (Door M2)&
 Sea King HU (1990s IRCM)&
 &&&&&&
 &&&&&
-&\binarymultiply{A}{2}&\plus{2}&&&&&&&
+&\binarymultiply{A}{2}&\plus{0}&&&&&&&
 \\
 
 
@@ -246,17 +246,44 @@ Lynx AH.9A (Door M2)&
 
 Lynx AH (1990s IRCM)&
 &&&&&&
-&\binarymultiply{A}{2}&\plus{2}&&&&&&&
+&&&&&
+&\binarymultiply{A}{2}&\plus{0}&&&&&&&
 \\
 
 Lynx HAS/HMA (1990s FLIR)&
 &&&&&&
-&&&&&&
-&&&&Y
+&&&&&
+&&&&&Y
 \\
 
 \midrule
 \multicolumn{22}{c}{\bfseries French Helicopters}\\
+\midrule
+
+Puma&
+---&5&\plus{0}&\plus{0}&\arcminus{60}&4-12&
+---&---&---&---&---&
+---&---&\plus{0}&---&---&---&---&---&---&---&---&---
+\\
+
+Puma (1980s IRCM)&
+&&&&&&
+&&&&&
+&\binarymultiply{A}{1}&\plus{0}&&&&&&&
+\\
+
+
+Puma (1990s IRCM)&
+&&&&&&
+&&&&&
+&\binarymultiply{A}{2}&\plus{0}&&&&&&&
+\\
+
+Puma (Door LMG)&
+&&&&&&
+7.62 mm LMG&LS or RS&10&1/1/--&\phantom{**}1/1**\phantom{}&
+\\
+
 \midrule
 
 Gazelle&
@@ -265,7 +292,14 @@ Gazelle&
 Ballistic&\binarymultiply{A}{1}&\plus{0}&---&---&---&---&---&---&---&---&---
 \\
 
-\midrule
+\end{helicopterdatatable}
+\end{helicopterdatapage}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{helicopterdatapage}
+\begin{helicopterdatatable}
+
 \multicolumn{22}{c}{\bfseries Soviet and Russian Helicopters}\\
 \midrule
 
@@ -298,20 +332,6 @@ Computed&\binarymultiply{A}{2}&\plus{2}&B&---&Y&Y&---&Y&---&---&---
 \\
 
 \end{helicopterdatatable}
-
-% \begin{helicopterdatatablenote}
-% \begin{itemize}
-%     \item For attack helicopters, typical weapon loads are:
-%     \begin{itemize}
-%         \item Mi-24: Four AT-2 Swatter RGs and four UB-16/UB-32 RPs
-%         \item Mi-24D: Four AT-2C Swatter RGs and four UB-16/UB-32 RPs
-%         \item Mi-24P: Four AT-6 Spiral RGs and four UB-16/UB-32 RPs. The AT-6 is air-to-air capable.
-%         \item Mi-28: Four stations. Each may carry four AT-6 Spiral RGs, one UB-16/UB-32 RP, one FT, or two SA-14 IRMs. At most four SA-14s may be carried.
-%         \item Gazelle: Four AS.11, HOT, or AT-3 RGs, or two RPs, or two GPs.
-%     \end{itemize}
-% \end{itemize}
-% \end{helicopterdatatablenote}
-
 \end{helicopterdatapage}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -634,6 +654,12 @@ The Table gives typical data values for door guns, specifically a single 7.62 mm
 \input{Wasp}
 \input{Sea King}
 \input{Lynx}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\twocolumn[\section{French Helicopters}]
+
+\input{Puma}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
