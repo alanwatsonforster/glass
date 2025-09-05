@@ -22,9 +22,9 @@ The Helicopter Data Table, on the following pages, contains basic information on
   \item Its visibility, size, vulnerability, and blind arc.
   \item Its characteristics when treated as a ground unit: its soft defense strength (before the dash) and maximum sighting range (after the dash).
   \item For gun-armed helicopters: the gun type, arc, ammunition, hit rolls, and damage ratings. Door guns are indicated by LS (left side), RSD (right side), and R (rear). The table does not include guns mounted in pods on weapon stations; these are discussed in the notes on each helicopter.
-  \item Its bomb system. Ballistic bomb systems have a \minus{1} modifier and computed bomb systems have a \minus{2} modifier.
+  \item Its bomb system. B bomb systems have a \minus{1} modifier and C bomb systems have a \minus{2} modifier.
   \item Its ECM capability: its DDS type, IRM suppression modifier, RWR type, and DJM type. Some helicopters have multiple DDS systems. The IRM suppression modifier is applied to IRM and IR SAM attacks.
-  \item Its technology: whether it has TV/IR optics, a laser spot tracker, a laser designator, a helmet-mounted sight (HMS), a mast-mounted sight (MMS), or mast-mounted radar (MMR).
+  \item Its technology: whether it has VAS, TV/IR optics, a laser spot tracker, a laser designator, a helmet-mounted sight (HMS), a mast-mounted sight (MMS), or mast-mounted radar (MMR).
 \end{itemize}
 
 The subsequent sections give more extensive information on each type of helicopter, including armament options.
@@ -45,7 +45,7 @@ The subsequent sections give more extensive information on each type of helicopt
   \caption*{Helicopter Data Table}
   \footnotesize
   \setlength{\tabcolsep}{0.5em}
-  \tabularx{\linewidth}{Lccccclp{20ex}p{10ex}rcccccccccccccc}
+  \tabularx{\linewidth}{Lcccccclcp{20ex}p{10ex}rccccccccccccccccc}
   \toprule
   &
   \multicolumn{5}{c}{Aircraft Data}&
@@ -53,29 +53,30 @@ The subsequent sections give more extensive information on each type of helicopt
   \multicolumn{5}{c}{Gun}&
   &
   \multicolumn{4}{c}{IRCM \& ECM}&
-  \multicolumn{7}{c}{Technology}
+  \multicolumn{8}{c}{Technology}
   \\
   \cmidrule(lr){2-6}
-  \cmidrule(lr){8-12}
+  \cmidrule(lr){9-13}
   \cmidrule(lr){14-17}
-  \cmidrule(lr){18-24}
+  \cmidrule(lr){18-25}
   Type&
   \vertical{HSA}&
   \vertical{Visibility}&
   \vertical{Size}&
   \vertical{Vulnerability}&
   \vertical{Blind Arc}&
-  \multicolumn{1}{c}{\vertical{Ground Unit Data}}&
+  \multicolumn{1}{c}{\vertical{Ground Unit Data}}&&
   \multicolumn{1}{c}{\vertical{Type}}&
   \multicolumn{1}{c}{\vertical{Arc}}&
   \multicolumn{1}{c}{\vertical{Ammunition}}&
   \vertical{Hit}&
   \vertical{AtA/AtG Damage}&
-  \wbox[c]{Computed}{\vertical{Bomb System}}&
+  \wbox[c]{C}{\vertical{Bomb System}}&
   \vertical{DDS}&
   \vertical{IRM Suppression}&
   \vertical{RWR}&
   \vertical{DJM}&
+  \vertical{VAS}&
   \vertical{TV/IR Optics}&
   \vertical{Laser Spot Tracker}&
   \vertical{Laser Designator}&
@@ -108,19 +109,19 @@ The subsequent sections give more extensive information on each type of helicopt
 Scout or Utility Helicopter&
 ---&3&\plus{1}&\minus{2}&\arcminus{30}&4-8&
 ---&---&---&---&---&
----&---&\plus{0}&---&---&---&---&---&---&---&---&---
+---&---&\plus{0}&---&---&---&---&---&---&---&---&---&---
 \\
 
 Medium-Lift Helicopter&
 ---&5&\plus{0}&\plus{0}&\arcminus{60}&4-12&
 ---&---&---&---&---&
----&---&\plus{0}&---&---&---&---&---&---&---&---&---
+---&---&\plus{0}&---&---&---&---&---&---&---&---&---&---
 \\
 
 Heavy-Lift Helicopter&
 ---&6&\minus{1}&\plus{0}&\arcminus{60}&3-12&
 ---&---&---&---&---&
----&---&\plus{0}&---&---&---&---&---&---&---&---&---
+---&---&\plus{0}&---&---&---&---&---&---&---&---&---&---
 \\
 
 Rear ramp&
@@ -175,7 +176,7 @@ Door gun: Minigun with 3000 rounds&
 Wessex HAS.1/HC.2/HAS.3/HU.5&
 ---&5&\plus{0}&\plus{0}&\arcminus{60}&4-12&
 ---&---&---&---&---&
----&---&\plus{0}&---&---&---&---&---&---&---&---&---
+---&---&\plus{0}&---&---&---&---&---&---&---&---&---&---
 \\
 
 \midrule
@@ -183,7 +184,7 @@ Wessex HAS.1/HC.2/HAS.3/HU.5&
 Scout AH.1&
 ---&3&\plus{1}&\minus{2}&\arcminus{30}&3-6&
 ---&---&---&---&---&
----&---&\plus{0}&---&---&---&---&---&---&---&---&---
+---&---&\plus{0}&---&---&Y&---&---&---&---&---&---&---
 \\
 Scout AH.1 (Door GPMG)&
 &&&&&&
@@ -199,7 +200,7 @@ Scout AH.1 (Fixed GPMGs)&
 Wasp HAS.1&
 ---&3&\plus{1}&\minus{2}&\arcminus{30}&3-6&
 ---&---&---&---&---&
----&---&\plus{0}&---&---&---&---&---&---&---&---&---
+---&---&\plus{0}&---&---&Y&---&---&---&---&---&---&---
 \\
 Wasp HAS.1 (Door GPMG)&
 &&&&&&
@@ -211,7 +212,7 @@ Wasp HAS.1 (Door GPMG)&
 Sea King HAS/HC/HU/AEW&
 ---&5&\plus{0}&\plus{0}&\arcminus{60}&4-12&
 ---&---&---&---&---&
----&---&\plus{0}&---&---&---&---&---&---&---&---&---
+---&---&\plus{0}&---&---&---&---&---&---&---&---&---&---
 \\
 
 Sea King HAS/HC/HU (Door GPMG)&
@@ -227,7 +228,7 @@ Sea King HAS (Door M2)&
 Sea King HU (1990s IRCM)&
 &&&&&&
 &&&&&
-&\binarymultiply{A}{2}&\plus{0}&&&&&&&
+&\binarymultiply{A}{2}&\plus{0}&---&---&&&&&
 \\
 
 
@@ -236,7 +237,7 @@ Sea King HU (1990s IRCM)&
 Lynx AH/HAS/HMA&
 Y&4&\plus{0}&\plus{0}&\arcminus{30}&4-12&
 ---&---&---&---&---&
----&---&\plus{0}&---&---&---&---&---&---&---&---&---
+---&---&\plus{0}&---&---&Y&---&---&---&---&---&---&---
 \\
 
 Lynx AH/HAS/HMA (Door GPMG)&
@@ -252,13 +253,13 @@ Lynx AH.9A (Door M2)&
 Lynx AH (1990s IRCM)&
 &&&&&&
 &&&&&
-&\binarymultiply{A}{2}&\plus{0}&&&&&&&
+&\binarymultiply{A}{2}&\plus{0}&---&---&&&&&
 \\
 
 Lynx HAS/HMA (1990s FLIR)&
 &&&&&&
 &&&&&
-&&&&&Y
+&&&&&Y&Y&---&---&---&---&---&---
 \\
 
 \midrule
@@ -268,20 +269,20 @@ Lynx HAS/HMA (1990s FLIR)&
 Puma&
 ---&5&\plus{0}&\plus{0}&\arcminus{60}&4-12&
 ---&---&---&---&---&
----&---&\plus{0}&---&---&---&---&---&---&---&---&---
+---&---&\plus{0}&---&---&---&---&---&---&---&---&---&---
 \\
 
 Puma (1980s IRCM)&
 &&&&&&
 &&&&&
-&\binarymultiply{A}{1}&\plus{0}&&&&&&&
+&\binarymultiply{A}{1}&\plus{0}&---&---&&&&&
 \\
 
 
 Puma (1990s IRCM)&
 &&&&&&
 &&&&&
-&\binarymultiply{A}{2}&\plus{0}&&&&&&&
+&\binarymultiply{A}{2}&\plus{0}&---&---&&&&&
 \\
 
 Puma (Door LMG)&
@@ -294,14 +295,14 @@ Puma (Door LMG)&
 Gazelle&
 Y&3&\plus{1}&\minus{1}&\arcminus{30}&4-8&
 ---&---&---&---&---&
----&---&\plus{1}&---&---&---&---&---&---&---&---&---
+---&---&\plus{1}&---&---&Y&---&---&---&---&---&---&---
 \\
 
 
 Gazelle (1990s IRCM/ECM)&
 &&&&&&
 &&&&&
-&\binarymultiply{A}{1}&&A&&&&&&
+&\binarymultiply{A}{1}&\plus{1}&A&---&&&&&
 \\
 
 
@@ -313,7 +314,7 @@ Gazelle (M621)&
 Gazelle (Viviane)&
 &&&&&&
 &&&&&
-&&&&&Y&&&&&
+&&&&&Y&Y&---&---&---&---&---&---
 \\
 
 \end{helicopterdatatable}
@@ -330,20 +331,20 @@ Gazelle (Viviane)&
 Mi-24 (Hind-A)&
 ---&5&\plus{0}&\plus{2}&\arcminus{60}&6-12&
 12.7 mm A-12.7&\arcplus{150}&4&2/1/--&\phantom{**}1/2**&
-Ballistic&---&\plus{2}&---&---&---&---&---&---&---&---&---
+B&---&\plus{2}&---&---&Y&---&---&---&---&---&---&---
 % 57 ft long
 \\
 
 Mi-24D (Hind-D)&
 ---&5&\plus{0}&\plus{2}&\arcminus{60}&6-12&
 12.7 mm Yak-B&\arcplus{150}&4&3/2/--&\phantom{**}2/4**&
-Ballistic&\binarymultiply{A}{2}&\plus{2}&---&---&---&---&---&---&---&---&---
+B&\binarymultiply{A}{2}&\plus{2}&---&---&Y&---&---&---&---&---&---&---
 \\
 
 Mi-24P (Hind-F)&
 ---&5&\plus{0}&\plus{2}&\arcminus{60}&6-12&
 23 mm GSh-23&Fixed&4&3/2/1&\phantom{**}4/4\phantom{**}&
-Ballistic&\binarymultiply{A}{2}&\plus{2}&B&---&---&---&---&---&---&---&---
+B&\binarymultiply{A}{2}&\plus{2}&B&---&Y&---&---&---&---&---&---&---
 \\
 
 \midrule
@@ -351,7 +352,7 @@ Ballistic&\binarymultiply{A}{2}&\plus{2}&B&---&---&---&---&---&---&---&---
 Mi-28 (Havoc)&
 Y&5&\plus{0}&\plus{3}&\arcminus{30}&6-12&
 30 mm 2A42&\arcplus{150}&5&3/2/1&\phantom{**}5/6\phantom{**}&
-Computed&\binarymultiply{A}{2}&\plus{2}&B&---&Y&Y&---&Y&---&---&---
+C&\binarymultiply{A}{2}&\plus{2}&B&---&Y&Y&Y&---&Y&---&---&---
 % 55 ft long
 \\
 
@@ -369,30 +370,30 @@ Computed&\binarymultiply{A}{2}&\plus{2}&B&---&Y&Y&---&Y&---&---&---
 UH-1B/C/D/H Iroquois&
 ---&4&\plus{0}&\plus{0}&\arcminus{30}&4-12&
 \binarymultiply{7.62 mm M60}{2}&LS/RS&10&1/1/--&\phantom{**}1/1**\phantom{}&
----&---&\plus{0}&---&---&---&---&---&---&---&---&---
+---&---&\plus{0}&---&---&---&---&---&---&---&---&---&---
 \\
 
 UH-1B/C Iroquois (M3)&
 &&&&&&
 ---&---&---&---&---&
-Ballistic\\
+B\\
 
 UH-1B/C Iroquois (M6/M16)&
 &&&&&&
 \binarymultiply{7.62 mm M60}{4}&\arcplus{180}&35&3/2/--&\phantom{**}2/2**\phantom{}&
-Ballistic\\
+B\\
 
 UH-1B/C Iroquois (M21)&
 &&&&&&
 \binarymultiply{7.62 mm M134}{2}&\arcplus{180}&30&3/2/--&\phantom{**}3/3**\phantom{}&
-Ballistic\\
+B\\
 
 \midrule
 
 AH-1G Cobra&
 Y&4&\plus{0}&\plus{1}&\arcminus{30}&5-8&
 \binarymultiply{7.62 mm M134}{2}&\arcplus{120}&20&5/3/--&\phantom{**}3/3**\phantom{}&
-Ballistic&---&\plus{0}&---&---&---&---&---&---&---&---&---
+B&---&\plus{0}&---&---&---&---&---&---&---&---&---&---
 \\
 
 AH-1G Cobra (M35)&
@@ -403,25 +404,25 @@ AH-1G Cobra (M35)&
 AH-1G Cobra (1972 Upgrade)&
 &&&&&&
 &&&&&
-&&\plus{2}
+&---&\plus{2}&---&---
 \\
 
 AH-1Q/S Cobra&
 Y&4&\plus{0}&\plus{1}&\arcminus{30}&5-8&
 \binarymultiply{7.62 mm M134}{2}&\arcplus{120}&20&5/3/--&\phantom{**}3/3**\phantom{}&
-Ballistic&---&\plus{2}&---&---&---&---&---&---&---&---&---
+B&---&\plus{2}&---&---&Y&---&---&---&---&---&---&---
 \\
 
 AH-1P Cobra&
 Y&4&\plus{0}&\plus{1}&\arcminus{30}&5-8&
 \binarymultiply{7.62 mm M134}{2}&\arcplus{120}&20&5/3/--&\phantom{**}3/3**\phantom{}&
-Ballistic&---&\plus{2}&A&---&---&---&---&---&---&---&---
+B&---&\plus{2}&A&---&Y&---&---&---&---&---&---&---
 \\
 
 AH-1E/F Cobra&
 Y&4&\plus{0}&\plus{1}&\arcminus{30}&5-8&
 20 mm M197&\arcplus{150}&30&5/3/2&\phantom{**}3/4*\phantom{*}&
-Ballistic&---&\plus{2}&A&---&---&---&---&Y&---&---&---
+B&---&\plus{2}&A&---&Y&---&---&---&Y&---&---&---
 \\
 
 \midrule
@@ -429,32 +430,32 @@ Ballistic&---&\plus{2}&A&---&---&---&---&Y&---&---&---
 AH-1J Sea Cobra&
 Y&4&\plus{0}&\plus{1}&\arcminus{30}&5-8&
 20 mm M197&\arcplus{150}&30&5/3/2&\phantom{**}3/4*\phantom{*}&
-Ballistic&---&\plus{0}&---&---&---&---&---&---&---&---&---
+B&---&\plus{0}&---&---&---&---&---&---&---&---&---&---
 \\
 
 AH-1J Sea Cobra (1972 Upgrade)&
 &&&&&&
 &&&&&
-&&\plus{2}
+&---&\plus{2}&---&---
 \\
 
 AH-1T Sea Cobra&
 Y&4&\plus{0}&\plus{1}&\arcminus{30}&5-8&
 20 mm M197&\arcplus{150}&30&5/3/2&\phantom{**}3/4*\phantom{*}&
-Ballistic&---&\plus{2}&---&---&---&---&---&---&---&---&---
+B&---&\plus{2}&---&---&Y&---&---&---&---&---&---&---
 \\
 
 AH-1W Super Cobra&
 Y&4&\plus{0}&\plus{1}&\arcminus{30}&5-8&
 20 mm M197&\arcplus{150}&30&5/3/2&\phantom{**}3/4*\phantom{*}&
-Computed&\binarymultiply{A}{2}&\plus{2}&B&---&Y&---&B&---&---&---&---
+C&\binarymultiply{A}{2}&\plus{2}&B&---&Y&Y&---&B&---&---&---&---
 \\
 
 
 AH-1Z Viper&
 Y&4&\plus{0}&\plus{1}&\arcminus{30}&5-8&
 20 mm M197&\arcplus{150}&30&5/3/2&\phantom{**}3/4*\phantom{*}&
-Computed&\binarymultiply{A}{2}&\plus{2}&B&---&Y&---&B&Y&---&---&---
+C&\binarymultiply{A}{2}&\plus{2}&B&---&Y&Y&---&B&Y&---&---&---
 \\
 
 \midrule
@@ -462,19 +463,19 @@ Computed&\binarymultiply{A}{2}&\plus{2}&B&---&Y&---&B&Y&---&---&---
 CH-3C&
 ---&5&\plus{0}&\plus{0}&---&4-12&
 ---&---&---&---&---&
----&---&\plus{0}&---&---&---&---&---&---&---&---&---
+---&---&\plus{0}&---&---&---&---&---&---&---&---&---&---
 \\
 
 CH-3E&
 ---&5&\plus{0}&\plus{0}&---&4-12&
 \binarymultiply{7.62 mm M60}{3}&LS/RS/R&35&1/1/--&\phantom{**}1/1**\phantom{}&
----&---&\plus{0}&---&---&---&---&---&---&---&---&---
+---&---&\plus{0}&---&---&---&---&---&---&---&---&---&---
 \\
 
 HH-3E&
 ---&5&\plus{0}&\plus{1}&---&4-12&
 \binarymultiply{7.62 mm M60}{3}&LS/RS/R&35&1/1/--&\phantom{**}1/1**\phantom{}&
----&---&\plus{0}&---&---&---&---&---&---&---&---&---
+---&---&\plus{0}&---&---&---&---&---&---&---&---&---&---
 \\
 
 \midrule
@@ -482,7 +483,7 @@ HH-3E&
 OH-6A Cayuse&
 ---&3&\plus{1}&\minus{1}&\arcminus{30}&3-6&
 ---&---&---&---&---&
----&---&\plus{0}&---&---&---&---&---&---&---&---&---
+---&---&\plus{0}&---&---&---&---&---&---&---&---&---&---
 \\
 
 OH-6A Cayuse (M27)&
@@ -495,17 +496,17 @@ OH-6A Cayuse (M27)&
 CH-47 Chinook&
 ---&6&\minus{1}&\plus{0}&---&4-12&
 ---&---&---&---&---&
----&---&\plus{0}&---&---&---&---&---&---&---&---&---
+---&---&\plus{0}&---&---&---&---&---&---&---&---&---&---
 \\
 CH-47 Chinook (1980s IRCMs)&
 &&&&&&
 &&&&&
-&\binarymultiply{A}{1}&\plus{2}&&&&&&&&
+&\binarymultiply{A}{1}&\plus{2}&---&---&&&&&&
 \\
 CH-47 Chinook (1990s IRCMs)&
 &&&&&&
 &&&&&
-&\binarymultiply{A}{2}&\plus{2}&&&&&&&&
+&\binarymultiply{A}{2}&\plus{2}&---&---&&&&&&
 \\
 CH-47 Chinook (M24/M41)&
 &&&&&&
@@ -515,7 +516,7 @@ CH-47 Chinook (M24/M41)&
 ACH-47A Chinook&
 ---&6&\minus{1}&\plus{1}&---&4-12&
 \binarymultiply{20 mm M24}{2}&Fixed&20&3/2/1&\phantom{**}4/6*\phantom{*}&
-Ballistic&---&\plus{0}&---&---&---&---&---&---&---&---&---
+B&---&\plus{0}&---&---&---&---&---&---&---&---&---&---
 \\
 &
 &&&&&&
@@ -525,7 +526,7 @@ Ballistic&---&\plus{0}&---&---&---&---&---&---&---&---&---
 MH-47D Chinook&
 ---&6&\minus{1}&\plus{1}&---&4-12&
 \binarymultiply{7.62 mm M134}{2}&LS/RS&30&1/1/--&\phantom{**}2/2**\phantom{}&
----&\binarymultiply{A}{1}&\plus{2}&---&---&Y&---&---&---&---&---&---
+---&\binarymultiply{A}{1}&\plus{2}&---&---&Y&---&---&---&---&---&---&---
 \\
 &
 &&&&&&
@@ -536,7 +537,7 @@ MH-47D Chinook&
 MH-47E Chinook&
 ---&6&\minus{1}&\plus{1}&---&4-12&
 \binarymultiply{7.62 mm M134}{2}&LS/RS&30&1/1/--&\phantom{**}2/2**\phantom{}&
----&\binarymultiply{A}{2}&\plus{2}&---&---&Y&---&---&---&---&---&Y
+---&\binarymultiply{A}{2}&\plus{2}&---&---&---&Y&---&---&---&---&---&Y
 \\
 &
 &&&&&&
@@ -547,7 +548,7 @@ MH-47E Chinook&
 MH-47G Chinook&
 ---&6&\minus{1}&\plus{1}&---&4-12&
 \binarymultiply{7.62 mm M134}{2}&LS/RS&30&1/1/--&\phantom{**}2/2**\phantom{}&
----&\binarymultiply{A}{2}&\plus{2}&---&---&Y&---&---&---&---&---&Y
+---&\binarymultiply{A}{2}&\plus{2}&---&---&---&Y&---&---&---&---&---&Y
 \\
 &
 &&&&&&
@@ -568,19 +569,19 @@ MH-47G Chinook&
 CH-53A/D/G Sea Stallion&
 ---&6&\minus{1}&\plus{0}&---&4-12&
 ---&---&---&---&---&
----&---&\plus{0}&---&---&---&---&---&---&---&---&---
+---&---&\plus{0}&---&---&---&---&---&---&---&---&---&---
 \\
 
 HH-53B&
 ---&6&\minus{1}&\plus{1}&---&4-12&
 \binarymultiply{7.62 mm GAU-2}{3}&LS/RS/R&8&1/1/--&\phantom{**}2/2**\phantom{}&
----&---&\plus{0}&---&---&---&---&---&---&---&---&---
+---&---&\plus{0}&---&---&---&---&---&---&---&---&---&---
 \\
 
 HH-53C/CH-53C&
 ---&6&\minus{1}&\plus{2}&---&4-12&
 \binarymultiply{7.62 mm GAU-2}{3}&LS/RS/R&8&1/1/--&\phantom{**}2/2**\phantom{}&
----&---&\plus{0}&---&---&---&---&---&---&---&---&---
+---&---&\plus{0}&---&---&---&---&---&---&---&---&---&---
 \\
 
 \midrule
@@ -588,19 +589,19 @@ HH-53C/CH-53C&
 OH-58A/B Kiowa&
 ---&3&\plus{1}&\minus{2}&\arcminus{30}&3-6&
 ---&---&---&---&---&
----&---&\plus{0}&---&---&---&---&---&---&---&---&---
+---&---&\plus{0}&---&---&---&---&---&---&---&---&---&---
 \\
 
 OH-58C Kiowa&
 ---&3&\plus{1}&\minus{2}&\arcminus{30}&3-6&
 ---&---&---&---&---&
----&\binarymultiply{A}{1}&\plus{1}&A&---&---&---&---&---&---&---&---
+---&\binarymultiply{A}{1}&\plus{1}&A&---&---&---&---&---&---&---&---&---
 \\
 
 OH-58D Kiowa&
 ---&3&\plus{1}&\minus{2}&\arcminus{30}&3-6&
 ---&---&---&---&---&
----&\binarymultiply{A}{1}&\plus{1}&A&---&Y&Y&B&---&Y&---&---
+---&\binarymultiply{A}{1}&\plus{1}&A&---&Y&Y&Y&B&---&Y&---&---
 \\
 
 
@@ -612,7 +613,7 @@ OH-58A/B/C/D Kiowa (M27)&
 OH-58D Kiowa (Armed)&
 ---&3&\plus{1}&\minus{2}&\arcminus{30}&3-6&
 ---&---&---&---&---&
-Ballistic&\binarymultiply{A}{1}&\plus{1}&A&---&Y&Y&B&---&Y&---&---
+B&\binarymultiply{A}{1}&\plus{1}&A&---&Y&Y&Y&B&---&Y&---&---
 \\
 
 OH-58D Kiowa (Armed M296)&
@@ -624,7 +625,7 @@ OH-58D Kiowa (Armed M296)&
 OH-58D Kiowa Warrior&
 ---&3&\plus{1}&\minus{2}&\arcminus{30}&3-6&
 ---&---&---&---&---&
-Ballistic&\binarymultiply{A}{1}&\plus{2}&A&---&Y&Y&B&---&Y&---&---
+B&\binarymultiply{A}{1}&\plus{2}&A&---&Y&Y&Y&B&---&Y&---&---
 \\
 
 OH-58D Kiowa Warrior (M296)&
@@ -637,13 +638,13 @@ OH-58D Kiowa Warrior (M296)&
 AH-64A Apache&
 Y&4&\plus{0}&\plus{2}&\arcminus{30}&5-8&
 30 mm M230&\arcplus{120}&55&5/3/2&\phantom{**}6/6\phantom{**}&
-Computed&\binarymultiply{A}{2}&\plus{3}&A&B&Y&Y&B&Y&---&---&---
+C&\binarymultiply{A}{2}&\plus{3}&A&B&Y&Y&Y&B&Y&---&---&---
 \\
 
 AH-64D/E Apache&
 Y&4&\plus{0}&\plus{2}&\arcminus{30}&5-8&
 30 mm M230&\arcplus{120}&55&5/3/2&\phantom{**}6/6\phantom{**}&
-Computed&\binarymultiply{A}{2}&\plus{3}&A&B&Y&Y&B&Y&---&Y&---
+C&\binarymultiply{A}{2}&\plus{3}&A&B&Y&Y&Y&B&Y&---&Y&---
 \\
 
 \midrule
@@ -651,7 +652,7 @@ Computed&\binarymultiply{A}{2}&\plus{3}&A&B&Y&Y&B&Y&---&Y&---
 500MD&
 ---&3&\plus{1}&\minus{1}&\arcminus{30}&3-6&
 ---&---&---&---&---&
-Ballistic&\binarymultiply{A}{1}&\plus{1}&---&---&---&---&---&---&---&---&---
+B&\binarymultiply{A}{1}&\plus{1}&---&---&---&---&---&---&---&---&---&---
 \\
 
 \end{helicopterdatatable}
@@ -700,5 +701,81 @@ The Table gives typical data values for door guns, specifically a single 7.62 mm
 \input{AH-64}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\onecolumn
+\section{Helicopter Stores}
+
+\begin{table}[h]
+\caption{Helicopter ATGMs}
+\centering
+\begin{tabularx}{0.9\linewidth}{lLcccccccc}
+\toprule
+Type&&Year&Guidance&Modifier&Range&\multicolumn{3}{c}{Attack Strength}&Warhead\\
+\cmidrule{7-9}
+&&&&&&\vertical{Soft}&\vertical{Hard}&\vertical{Vehicle}\\
+\toprule
+\multicolumn{10}{c}{\bfseries French ATGMs}\\
+\midrule
+\multicolumn{2}{l}{SS.11}
+  & 1956 & RCG(B) & \minus{3} & \phantom{0}1--6\phantom{0} & 0.5 & 0.5 & 3.0 & S \\
+\multicolumn{2}{l}{AS.12}
+  & 1960 & RCG(B) & \minus{3} & \phantom{0}4--14\phantom{} & 0.5 & 0.5 & 3.0 & S \\
+\multicolumn{2}{l}{HOT}
+  & 1977 & ACG(B) & \minus{4} & \phantom{0}0--8\phantom{0} & 0.5 & 0.5 & 3.0 & S \\
+\multicolumn{2}{l}{HOT-2}
+  & 1985 & ACG(B) & \minus{4} & \phantom{0}0--8\phantom{0} & 0.5 & 0.5 & 3.0 & S \\
+\multicolumn{2}{l}{HOT-3}
+  & 1998 & ACG(C) & \minus{5} & \phantom{0}0--8\phantom{0} & 0.5 & 0.5 & 3.0 & T \\
+\midrule
+\multicolumn{10}{c}{\bfseries Soviet/Russian ATGMs}\\
+\midrule
+9M17 Fleyta & AT-2 Swatter
+  & 1964 & RCG(B) & \minus{3} & \phantom{0}1--5\phantom{0} & 0.5 & 0.5 & 3.0 & S \\
+9M17 Falanga & AT-2B Swatter
+  & 1968 & RCG(B) & \minus{3} & \phantom{0}1--7\phantom{0} & 0.5 & 0.5 & 3.0 & S \\
+9M17P Falanga-P & AT-2C Swatter
+  & 1969 & ACG(B) & \minus{4} & \phantom{0}1--7\phantom{0} & 0.5 & 0.5 & 3.0 & S \\
+9M114 Kokon & AT-6 Spiral
+  & 1976 & ACG(B) & \minus{4} & \phantom{0}1--10\phantom{} & 0.5 & 0.5 & 3.0 & S \\
+9M114M1 Kokon & AT-6B Spiral
+  &      & ACG(B) & \minus{4} & \phantom{0}1--12\phantom{} & 0.5 & 0.5 & 3.0 & S \\
+9M114M2 Kokon & AT-6C Spiral
+  &      & ACG(B) & \minus{4} & \phantom{0}1--14\phantom{} & 0.5 & 0.5 & 3.0 & S \\
+9M120 Ataka & AT-9 Spiral-2
+  & 1985 & ACG(C) & \minus{5} & \phantom{0}1--12\phantom{} & 0.5 & 0.5 & 3.0 & T \\
+9M120M Ataka & AT-9 Spiral-2
+  &      & ACG(C) & \minus{5} & \phantom{0}1--14\phantom{} & 0.5 & 0.5 & 3.0 & T \\
+9M120D Ataka & AT-9 Spiral-2
+  &      & ACG(C) & \minus{5} & \phantom{0}1--16\phantom{} & 0.5 & 0.5 & 3.0 & T \\
+9M121 Vikhr & AT-16 Scallion
+  & 1985 & ACG(C) & \minus{5} & \phantom{0}1--16\phantom{} & 0.5 & 0.5 & 3.0& T \\
+9M123 Khrizantema & AT-15 Springer
+  &  2005 & ACG(C) & \minus{5} & \phantom{0}1--16\phantom{} & 0.5 & 0.5 & 3.0 & T \\
+\midrule
+\multicolumn{10}{c}{\bfseries US ATGMs}\\
+\midrule
+\multicolumn{2}{l}{BGM-71A/B/C TOW}
+  & 1972 & ACG(B) & \minus{4} & \phantom{0}0--7\phantom{0} & 0.5 & 0.5 & 3.0 & S \\
+\multicolumn{2}{l}{BGM-71D TOW-2A}
+  & 1983 & ACG(B) & \minus{4} & \phantom{0}0--7\phantom{0} & 0.5 & 0.5 & 3.0 & S \\
+\multicolumn{2}{l}{BGM-71E TOW-2A}
+  & 1987 & ACG(B) & \minus{4} & \phantom{0}0--7\phantom{0} & 0.5 & 0.5 & 3.0 & S \\
+\multicolumn{2}{l}{BGM-71F TOW-2B}
+  & 1987 & ACG(B) & \minus{4} & \phantom{0}0--9\phantom{0} & 0.5 & 0.5 & 4.0 & TA \\
+\multicolumn{2}{l}{AGM-114A/B/C Hellfire}
+  & 1984 & LG(C)  & \minus{6} & \phantom{0}1--16\phantom{} & 0.5 & 0.5 & 3.0 & S \\
+\multicolumn{2}{l}{AGM-114F/FA Hellfire}
+  & 1991 & LG(C)  & \minus{6} & \phantom{0}1--16\phantom{} & 0.5 & 0.5 & 3.0 & T \\
+\multicolumn{2}{l}{AGM-114K Hellfire II}
+  & 1993 & LG(C)  & \minus{6} & \phantom{0}1--22\phantom{} & 0.5 & 0.5 & 3.0 & T \\
+\multicolumn{2}{l}{AGM-114L Hellfire Longbow}
+  & 1995 & RS(C)  & \minus{6} & \phantom{0}1--16\phantom{} & 0.5 & 0.5 & 3.0 & T \\
+\bottomrule
+\end{tabularx}
+\begin{tablenote}{0.9\linewidth}
+Guidance: RCG = remote-control guidance, AGC = automatic-control guidance, LG = laser guidance, RS = radar smart guidance, (B) = ballistic bomb system, and (C) = computed bomb system.
+Warhead: S = Singular, T = Tandem, and TA = Top-Attack.
+\end{tablenote}
+\end{table}
 
 \end{document}
