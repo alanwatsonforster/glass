@@ -260,7 +260,7 @@
         "HT": 2,
         "BT": 3
     },
-    "gundamagerating": "7/12",
+    "gundamagerating": "7/12_",
     "bombsystem": "Ballistic",
     "ecm": {
         "iff": true,
