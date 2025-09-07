@@ -29,7 +29,7 @@
 - exhaust cooling
 
 ## Mi-8TV
-- Four 16 x 57 mm
+- Four 16 x 55 mm
 - One 7.62 mm PKT
 
 
