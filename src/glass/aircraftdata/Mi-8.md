@@ -7,6 +7,8 @@
 - 7.62 mm PK gun in nose on flexible mount (180+?)
 - Four hardpoints for UB-16-57
 - One or two 7.62 mm PK door guns
+- Rear PK door gun
+- One PK on each weapon rack
 
 ## Mi-8TV Hip-E
 - Gunship
