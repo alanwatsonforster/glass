@@ -1,5 +1,6 @@
 # AH-1
 
+
 Fuselage length in 44 ft
 
 ## AH-1G
@@ -90,6 +91,44 @@ Fuselage length in 44 ft
 - AN/ALQ-144 IRCM was not fitted
 - exhaust system also had a very low infrared signature.
 
+## AN/ALE-39(V) RWR
+
+- Installed on J and T according to 1986 manual
+- Can detect:
+  - SA-2 search and track (both LF)
+  - SA-3 search and track
+  - SA-4 search and track (LF and HF)
+  - SA-6 search and track (MF and HF)
+  - SA-8 search and track (HF and VF)
+  - ZSU-23-4 search and track (VF)
+  - S-60 search and track (LF)
+- The ability to detect VF FCR and VF TTR suggest this is RWR-C
+
+## AN/ALE-44
+
+- Installed on J and T according to 1986 manual
+- Can detect CW
+- This capability is present in RWR-C
+
+## AN/AVR-2
+
+- Installed on J and T according to 1986 manual
+- Detects laser designation
+
+## AN/ALE-39
+
+- Installed on J and T according to 1986 manual
+- Can dispense FL, CH, and MJ
+- Programmable in flight
+- Two units each with 30 decoys
+- This seems to be a DDS-C
+
+## AN/ALQ-144
+
+- Installed on J and T according to 1986 manual
+- IR jammer
+- Omnidirectional
 
 - https://airvectors.net/avcobra.html
 - https://en.wikipedia.org/wiki/U.S._helicopter_armament_subsystems#AH-1_Cobra
+- AH-1 Tactical Manual NWP-55-3-AH (June 1986), https://archive.org/details/ah1tacticalmanual/page/n539/mode/2up
