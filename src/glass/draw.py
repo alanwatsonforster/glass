@@ -1675,7 +1675,9 @@ def drawgroundunit(
         ``"locomotive"``, ``"missile"``, ``"motorized"``, ``"multiplerocket"``,
         ``"ordnance"``, ``"radar"``, ``"railcar"``, ``"reconnaissance"``,
         ``"rotarywing"``, ``"supply"``, ``"tower"``, ``"transportation"``,
-        ``"truck"``, ``unidentified``, and ``"wheeled"``.
+        ``"truck"``, ``unidentified``, and ``"wheeled"``. The British English
+        aliases ``"airdefence"``, ``"antiarmour"``, ``"armour"`` are also
+        allowed.
     :param uppertext:
     :param lowertext:
         The ``uppertext`` and ``lowertext`` arguments are strings that we drawn
@@ -2646,20 +2648,20 @@ def _drawgroundunitincanvas(
     # different to surface-to-surface missile.
     if "missile" in symbols:
         drawmissilesymbol()
-    if "airdefense" in symbols:
+    if "airdefense" in symbols or "airdefence" in symbols:
         drawairdefensesymbol()
 
     if "unidentified" in symbols:
         drawunidentifedsymbol()
     if "infantry" in symbols:
         drawinfantrysymbol()
-    if "armor" in symbols:
+    if "armor" in symbols or "armour" in symbols:
         drawarmorsymbol()
     if "artillery" in symbols:
         drawartillerysymbol()
     if "reconnaissance" in symbols:
         drawreconnaissancesymbol()
-    if "antiarmor" in symbols:
+    if "antiarmor" in symbols or "antiarmour" in symbols:
         drawantiarmorsymbol()
     if "supply" in symbols:
         drawsupplysymbol()
