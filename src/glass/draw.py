@@ -3141,6 +3141,10 @@ _colormap = {
     "lightgrey": "lightgray",
     "slategray": (0.439, 0.502, 0.565),  # CSS slategray
     "slategrey": "slategray",
+    # Approximations to the Air Strike counter colors
+    "airstrikegreen": (0.23, 0.38, 0.08),
+    "airstrikelightgreen": (0.58, 0.72, 0.34),
+    "airstriketan": (0.69, 0.62, 0.39),
     # Approximations to NATO blue, red, green, and yellow.
     # https://en.wikipedia.org/wiki/NATO_Joint_Military_Symbology#APP-6A_affiliation
     "natoblue": (0.45, 0.87, 1.00),
