@@ -92,7 +92,7 @@ def rawminspeed(A):
 
 def minspeed(A):
 
-    if A.hasproperty("SPFL"):
+    if A.ishelicopter() or A.hasproperty("SPFL"):
         return 0.0
 
     minspeed = rawminspeed(A)

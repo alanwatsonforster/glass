@@ -1,0 +1,18 @@
+{
+  "versionname": "AH-1F",
+  "crew": [
+    "Pilot",
+    "Gunner"
+  ],
+  "visibility": 5,
+  "sizemodifier": 0,
+  "vulnerability": 1,
+  "restrictedarcs": "",
+  "blindarcs": "30-",
+  "atarefuel": false,
+  "ejectionseat": "none",
+  "properties": [
+    "HL"
+  ],
+  "specialclimbcapability": 0.25
+}

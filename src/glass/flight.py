@@ -83,6 +83,9 @@ def _checknormalflight(E):
     if E.ismissile():
         raise RuntimeError("missiles cannot perform normal flight.")
 
+    if E.ishelicopter():
+        raise RuntimeError("helicopters cannot perform normal flight.")
+
     if E.hasproperty("SPFL"):
         raise RuntimeError("special-flight aircraft cannot perform normal flight.")
 
@@ -306,6 +309,9 @@ def _checkstalledflighttype(E):
     if E.ismissile():
         raise RuntimeError("missiles cannot perform stalled flight.")
 
+    if E.ishelicopter():
+        raise RuntimeError("special-flight aircraft cannot perform stalled flight.")
+
     if E.hasproperty("SPFL"):
         raise RuntimeError("special-flight aircraft cannot perform stalled flight.")
 
@@ -326,6 +332,9 @@ def _checkdepartedflight(E):
     if E.ismissile():
         raise RuntimeError("missiles cannot perform departed flight.")
 
+    if E.ishelicopter():
+        raise RuntimeError("helicopters cannot perform departed flight.")
+
     if E.hasproperty("SPFL"):
         raise RuntimeError("special-flight aircraft cannot perform departed flight.")
 
@@ -338,7 +347,7 @@ def _checkspecialflighttype(E):
     if E.ismissile():
         raise RuntimeError("missiles cannot perform special flight.")
 
-    if not E.hasproperty("SPFL"):
+    if not E.ishelicopter() and not E.hasproperty("SPFL"):
         raise RuntimeError("normal-flight aircraft cannot perform special flight.")
 
 
@@ -2086,11 +2095,12 @@ def useofweaponsforbidden(A):
 
     return False
 
+
 def aimingforbidden(A):
 
     if A._ETrecoveryfp > 0:
         return "while recovering from an ET"
-    
+
     # See rule 13.3.6.
     if A._hasrolled and A._hasmaneuvered:
         return "immediately after rolling"
@@ -2098,7 +2108,7 @@ def aimingforbidden(A):
     # See rule 13.3.6.
     if A._hasrolled:
         return "while rolling"
-    
+
     if A._bank is not None:
         return "while banked"
 
@@ -2510,7 +2520,9 @@ def _checkturnrate(A, turnrate):
     if turnrateap == None:
         return "aircraft does not allow a turn rate of %s." % turnrate
 
-    turnrequirement = glass.turnrate.turnrequirement(A.altitudeband(), A.speed(), turnrate)
+    turnrequirement = glass.turnrate.turnrequirement(
+        A.altitudeband(), A.speed(), turnrate
+    )
     if turnrequirement == None:
         return "speed and altitude do not allow a turn rate of %s." % turnrate
 
@@ -2774,7 +2786,9 @@ def _dodeclaredisplacementroll(E, sense):
     E._maneuversupersonic = E.speed() >= glass.speed.m1speed(E.altitudeband())
     # The requirement includes the FPs used to execute the roll.
     E._maneuverrequiredfp = (
-        glass.capabilities.rollhfp(E) + _extrapreparatoryhfp(E) + rounddown(E.speed() / 3)
+        glass.capabilities.rollhfp(E)
+        + _extrapreparatoryhfp(E)
+        + rounddown(E.speed() / 3)
     )
 
     # See rules 13.3.1 and 6.6.
@@ -2852,7 +2866,9 @@ def _dodeclarelagroll(E, sense):
     E._maneuversupersonic = E.speed() >= glass.speed.m1speed(E.altitudeband())
     # The requirement includes the FPs used to execute the roll.
     E._maneuverrequiredfp = (
-        glass.capabilities.rollhfp(E) + _extrapreparatoryhfp(E) + rounddown(E.speed() / 3)
+        glass.capabilities.rollhfp(E)
+        + _extrapreparatoryhfp(E)
+        + rounddown(E.speed() / 3)
     )
 
     # See rules 13.3.1 and 6.6.

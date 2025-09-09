@@ -1,0 +1,18 @@
+{
+    "versionname": "OH-58C",
+    "crew": [
+        "Pilot",
+        "Observer"
+    ],
+    "visibility": 4,
+    "sizemodifier": 1,
+    "vulnerability": -2,
+    "restrictedarcs": "",
+    "blindarcs": "30-",
+    "atarefuel": false,
+    "ejectionseat": "none",
+    "properties": [
+        "HL"
+    ],
+    "specialclimbcapability": 0.25
+}

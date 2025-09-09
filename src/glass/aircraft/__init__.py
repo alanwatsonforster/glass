@@ -228,6 +228,11 @@ class Aircraft(glass.element.Element):
 
     #############################################################################
 
+    def ishelicopter(self):
+        return self.hasproperty("HL")
+
+    #############################################################################
+
     def _startgameturn(self):
         self._setspeed(self._newspeed)
         self._newspeed = None

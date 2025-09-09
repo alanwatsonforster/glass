@@ -456,6 +456,9 @@ class Element:
     def isaircraft(self):
         return False
 
+    def ishelicopter(self):
+        return False
+        
     def ismissile(self):
         return False
 
