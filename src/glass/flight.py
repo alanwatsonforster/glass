@@ -67,6 +67,8 @@ def _checkflighttype(E):
     elif E._flighttype == "DP":
         return
         _checkdepartedflighttype(E)
+    elif E._flighttype == "HL":
+        _checkhelicopterflighttype(E)
     elif E._flighttype == "SP":
         _checkspecialflighttype(E)
     elif E._flighttype == "MS":
@@ -347,8 +349,20 @@ def _checkspecialflighttype(E):
     if E.ismissile():
         raise RuntimeError("missiles cannot perform special flight.")
 
-    if not E.ishelicopter() and not E.hasproperty("SPFL"):
+    if not E.hasproperty("SPFL"):
         raise RuntimeError("normal-flight aircraft cannot perform special flight.")
+
+
+########################################
+
+
+def _checkhelicopterflighttype(E):
+
+    if E.ismissile():
+        raise RuntimeError("missiles cannot perform special flight.")
+
+    if not E.ishelicopter():
+        raise RuntimeError("fixed-wing aircraft cannot perform helicopter flight.")
 
 
 ########################################
@@ -467,6 +481,8 @@ def _startmoveaircraft(A):
         _startmovestalledflight(A)
     elif A._flighttype == "DP":
         _startmovedepartedflight(A)
+    elif A._flighttype == "HL":
+        _startmovehelicopterflight(A)
     elif A._flighttype == "SP":
         _startmovespecialflight(A)
     else:
@@ -495,6 +511,23 @@ def _startmovedepartedflight(A):
     A._apcarry = 0
     A._setaltitudecarry(0)
     A._isinterrainfollowingflight = False
+
+
+########################################
+
+
+def _startmovehelicopterflight(A):
+
+    A._fpcarry = 0
+    A._apcarry = 0
+    A._turnsstalled = 0
+    A._turnsdeparted = 0
+
+    A._maxfp = A.speed()
+    A.logcomment("has %.1f FPs." % A._maxfp)
+
+    A._effectiveclimbcapability = glass.capabilities.specialclimbcapability(A)
+    A.logcomment("effective climb capability is %.2f." % A._effectiveclimbcapability)
 
 
 ########################################
@@ -902,6 +935,8 @@ def _continuemove(E, moves):
         _continuestalledflight(E, moves)
     elif E._flighttype == "DP":
         _continuedepartedflight(E, moves)
+    elif E._flighttype == "HL":
+        _continuehelicopterflight(E, moves)
     elif E._flighttype == "SP":
         _continuespecialflight(E, moves)
     else:
@@ -1045,6 +1080,13 @@ def _continuedepartedflight(A, moves):
         return
 
     A._finishedmoving = True
+
+
+########################################
+
+
+def _continuehelicopterflight(A, moves):
+    return _continuespecialflight(A, moves)
 
 
 ########################################
@@ -1381,6 +1423,8 @@ def _endmove(E):
             _endstalledflight(E)
         elif E._flighttype == "DP":
             _enddepartedflight(E)
+        elif E._flighttype == "HL":
+            _endhelicopterflight(E)
         elif E._flighttype == "SP":
             _endspecialflight(E)
         else:
@@ -1408,6 +1452,13 @@ def _endstalledflight(A):
 
 def _enddepartedflight(A):
     A._turnsdeparted += 1
+
+
+########################################
+
+
+def _endhelicopterflight(A):
+    pass
 
 
 ########################################
@@ -1857,7 +1908,7 @@ def _domove(E, move, actiondispatchlist):
             E._turningsupersonic = True
 
         if E.isaircraft():
-            if E._flighttype != "SP":
+            if E._flighttype != "HL" and E._flighttype != "SP":
                 _checkrecovery(E)
                 _checktracking(E)
                 _checkmaneuveringdeparture(E)
@@ -2201,6 +2252,8 @@ def _dohorizontal(E, action):
             E._terrainfollowingflightap += 0.5
         elif E._flighttype == "LVL":
             pass
+        elif E._flighttype == "HL":
+            pass
         elif E._flighttype == "SP":
             pass
         elif E._flighttype == "MS":
@@ -2227,6 +2280,8 @@ def _dohorizontal(E, action):
                     "%r is not a valid action when the flight type is %s except in terrain-following flight."
                     % (action, E._flighttype)
                 )
+        elif E._flighttype == "HL":
+            pass
         elif E._flighttype == "SP":
             pass
         else:
@@ -2296,6 +2351,11 @@ def _doclimb(E, altitudechange):
                 "attempt to climb while flight type is %s." % E._flighttype
             )
 
+        elif E._flighttype == "HL":
+
+            if altitudechange == 1:
+                altitudechange = E._effectiveclimbcapability
+
         elif E._flighttype == "SP":
 
             if altitudechange == 1:
@@ -2356,7 +2416,11 @@ def _dodive(E, altitudechange):
 
         assert altitudechange == 1 or altitudechange == 2 or altitudechange == 3
 
-        if E._flighttype == "SP":
+        if E._flighttype == "HL":
+
+            pass
+
+        elif E._flighttype == "SP":
 
             pass
 
@@ -2405,7 +2469,11 @@ def _dodive(E, altitudechange):
 
     if E.isaircraft():
         checkaltitudechange()
-        if E._flighttype != "SP" and E._hfp < E._mininitialhfp:
+        if (
+            E._flighttype != "HL"
+            and E._flighttype != "SP"
+            and E._hfp < E._mininitialhfp
+        ):
             raise RuntimeError("insufficient initial HFPs.")
 
     E._vertical = True
@@ -2620,7 +2688,7 @@ def _doturn(E, sense, facingchange, continuous):
     if E._flighttype == "VC" or E._flighttype == "VD":
         raise RuntimeError("attempt to turn while flight type is %s." % E._flighttype)
 
-    if E._flighttype != "SP":
+    if E._flighttype != "HL" and E._flighttype != "SP":
 
         # See rule 7.1.
         if (
@@ -2633,7 +2701,7 @@ def _doturn(E, sense, facingchange, continuous):
 
         E._moveturn(sense, facingchange)
 
-        if E.isaircraft() and E._flighttype != "SP":
+        if E.isaircraft() and E._flighttype != "HL" and E._flighttype != "SP":
 
             # See Hack's article in APJ 36
             if E._turnmaneuvers == 0:

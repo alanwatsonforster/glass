@@ -114,7 +114,7 @@ def _startaircraftspeed(
 
     # Determine the speed.
 
-    if A._flighttype == "SP":
+    if A._flighttype == "HL" or A._flighttype == "SP":
         speed = power
         A._setspeed(speed)
         A._powersetting = ""
@@ -149,7 +149,7 @@ def _startaircraftspeed(
 
     ############################################################################
 
-    if A._flighttype == "SP":
+    if A._flighttype == "HL" or A._flighttype == "SP":
         return
 
     ############################################################################
@@ -289,7 +289,10 @@ def _startaircraftspeed(
         A.logcomment("power is reduced in the %s altitude band." % A.altitudeband())
 
     # Again, the reduction was done above, but we report it here.
-    if glass.capabilities.powerfade(A) != None and glass.capabilities.powerfade(A) > 0.0:
+    if (
+        glass.capabilities.powerfade(A) != None
+        and glass.capabilities.powerfade(A) > 0.0
+    ):
         A.logcomment("power is reduced as the speed is %.1f." % speed)
 
     # Again, the reduction was done above, but we report it here.
@@ -399,7 +402,9 @@ def _startaircraftspeed(
                 A._lowspeedliftdeviceselected = lowspeedliftdeviceselected
 
             if A._lowspeedliftdeviceselected:
-                A.logcomment("%s selected." % glass.capabilities.lowspeedliftdevicename(A))
+                A.logcomment(
+                    "%s selected." % glass.capabilities.lowspeedliftdevicename(A)
+                )
             else:
                 A.logcomment(
                     "%s not selected." % glass.capabilities.lowspeedliftdevicename(A)
@@ -564,7 +569,7 @@ def _endaircraftspeed(A):
     Carry out the rules to do with speed, power, and drag at the end of a move.
     """
 
-    if A._flighttype == "SP" or A._flighttype == "DP":
+    if A._flighttype == "HL" or A._flighttype == "SP" or A._flighttype == "DP":
         A._newspeed = A.speed()
         A.logcomment("speed is unchanged at %.1f." % A.speed())
         return
