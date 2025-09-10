@@ -18,7 +18,12 @@ import glass.geometry
 import glass.airtoair
 import glass.visualsighting
 
-from glass.flight import _isclimbingflight, _isdivingflight, _islevelflight, _isspecialflight
+from glass.flight import (
+    _isclimbingflight,
+    _isdivingflight,
+    _islevelflight,
+    _isspecialflight,
+)
 
 import re
 
@@ -59,7 +64,6 @@ class Aircraft(glass.element.Element):
         paintscheme="unpainted",
         color="unpainted",
         counter=False,
-        isinterrainfollowingflight=False,
         delay=0,
     ):
 
@@ -134,12 +138,14 @@ class Aircraft(glass.element.Element):
             self._enginesmoking = False
 
             self._startaltitude = self.altitude()
+            self._isinterrainfollowingflight = self.altitude() == self.terrainaltitude()
 
             self.logwhenwhat("", "force         is %s." % force)
             self.logwhenwhat("", "type          is %s." % aircrafttype)
             self.logwhenwhat("", "position      is %s." % self.position())
+            if self._isinterrainfollowingflight:
+                self.logwhenwhat("", "              is in terrain-following flight.")
             self.logwhenwhat("", "speed         is %.1f." % self.speed())
-
             self._setgeometry(geometry)
             if self.geometry() is not None:
                 self.logwhenwhat("", "geometry      is %s." % self.geometry())
@@ -210,10 +216,6 @@ class Aircraft(glass.element.Element):
 
             self._lowspeedliftdeviceextended = False
             self._minspeed = glass.capabilities.minspeed(self)
-
-            self._isinterrainfollowingflight = isinterrainfollowingflight
-            if isinterrainfollowingflight:
-                self.logwhenwhat("", "in terrain-following flight.")
 
             self._initaim()
 
@@ -773,7 +775,6 @@ class Aircraft(glass.element.Element):
                     "configuration changed from %s to %s."
                     % (previousconfiguration, self._configuration)
                 )
-
 
         except RuntimeError as e:
             glass.log.logexception(e)
