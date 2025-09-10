@@ -94,15 +94,25 @@ class Aircraft(glass.element.Element):
                 delay=delay,
             )
 
-            # In addition to the specified position, azimuth, altitude, speed, and
-            # configuration, aircraft initially have level flight, normal power, and
-            # no carries.
+            self._aircraftdata = aircraftdata
+
+            self._startaltitude = self.altitude()
+            self._isinterrainfollowingflight = self.altitude() == self.terrainaltitude()
+            
+            self._setgeometry(geometry)
+
+            # In addition to the specified position, azimuth, altitude, speed,
+            # and configuration, aircraft initially have level or helicopter
+            # flight, normal power, and no carries.
 
             self._finishedmoving = False
 
             self._newspeed = None
             self._unspecifiedattackresult = 0
-            self._flighttype = "LVL"
+            if self.ishelicopter():
+                self._flighttype = "HL"
+            else:
+                self._flighttype = "LVL"
             self._powersetting = "N"
             self._fpcarry = 0
             self._apcarry = 0
@@ -117,7 +127,6 @@ class Aircraft(glass.element.Element):
             self._trackingfp = 0
             self._lowspeedliftdeviceselected = False
             self._closeformation = []
-            self._aircraftdata = aircraftdata
             if gunammunition is None:
                 self._gunammunition = self._aircraftdata.gunammunition()
             else:
@@ -137,16 +146,12 @@ class Aircraft(glass.element.Element):
             self._force = force
             self._enginesmoking = False
 
-            self._startaltitude = self.altitude()
-            self._isinterrainfollowingflight = self.altitude() == self.terrainaltitude()
-
             self.logwhenwhat("", "force         is %s." % force)
             self.logwhenwhat("", "type          is %s." % aircrafttype)
             self.logwhenwhat("", "position      is %s." % self.position())
             if self._isinterrainfollowingflight:
                 self.logwhenwhat("", "              is in terrain-following flight.")
             self.logwhenwhat("", "speed         is %.1f." % self.speed())
-            self._setgeometry(geometry)
             if self.geometry() is not None:
                 self.logwhenwhat("", "geometry      is %s." % self.geometry())
 
