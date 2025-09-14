@@ -189,9 +189,10 @@ def withgraybuiltcolors(style):
     level0color = style["level0color"]
     gray = equivalentgray(level0color)
     darkergray = darken(gray, 0.8)
+    evendarkergray = darken(darkergray, 0.9)
     return style | {
         "urbancolor": gray,
-        "urbanoutlinecolor": darkergray,
+        "urbanoutlinecolor": evendarkergray,
         "roadcolor": gray,
         "roadoutlinecolor": darkergray,
         "dockcolor": gray,

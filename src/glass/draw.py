@@ -3061,13 +3061,13 @@ def _nativehatchpattern(hatchpattern):
     :param hatchpattern:
         The ``hatchpattern`` argument must be ``None`` or one of the strings
         ``"forest"``, ``"city"``, or ``"town"``.
-    :return: The native hatch pattern corresponding to the ``hatchpattern``a
+    :return: The native hatch pattern corresponding to the ``hatchpattern`` 
         argument.
     """
     if hatchpattern is None:
         return None
     elif hatchpattern == "forest":
-        return "ff"
+        return "fff"
     elif hatchpattern == "town" or hatchpattern == "city":
         return "uu"
     else:
