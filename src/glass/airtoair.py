@@ -311,6 +311,9 @@ def _attack(attacker, attacktype, target, result, allowRK=True, allowtracking=Tr
         attacker.logcomment("range is %d." % r)
 
         angleofftail = glass.geometry.angleofftail(attacker, target)
+        if r == 0 and angleofftail == "180 arc":
+            # This is a special case for same-location attacks.
+            angleofftail = "150 arc"
         attacker.logcomment("angle-off-tail is %s." % angleofftail)
         if angleofftail == "0 line":
             angleofftailmodifier = -2
