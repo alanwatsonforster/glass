@@ -1029,7 +1029,7 @@ def writetype(name):
         if os.path.exists(file):
             writelatex(r"\input{%s}" % file)
         else:
-            raise RuntimeError("%s does not exist.")
+            raise RuntimeError("%s does not exist." % file)
 
 
 def writeadc(name):
