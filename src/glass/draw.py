@@ -789,6 +789,7 @@ def _drawtextincanvas(
     verticalalignment="center_baseline",
     alpha=1.0,
     zorder=0,
+    **kwargs,
 ):
     """
     The counterpart of :func:`drawtext` in canvas coordinates.
@@ -816,6 +817,7 @@ def _drawtextincanvas(
         rotation_mode="anchor",
         clip_on=True,
         zorder=zorder,
+        **kwargs,
     )
 
 
@@ -1091,6 +1093,7 @@ def _drawannotation(
     textsize=annotationtextsize,
     textcolor=annotationtextcolor,
     zorder=0,
+    **kwargs,
 ):
     """
     Draw an element annotation.
@@ -1154,6 +1157,7 @@ def _drawannotation(
         textcolor=textcolor,
         alignment=alignment,
         zorder=zorder,
+        **kwargs,
     )
 
 
@@ -1166,6 +1170,7 @@ def _drawannotationincanvas(
     textsize=annotationtextsize,
     textcolor=annotationtextcolor,
     zorder=0,
+    **kwargs,
 ):
     """
     Draw an element annotation.
@@ -1229,6 +1234,7 @@ def _drawannotationincanvas(
         textcolor=textcolor,
         alignment=alignment,
         zorder=zorder,
+        **kwargs,
     )
 
 
@@ -1323,7 +1329,7 @@ killedlinecolor = "gray60"
 killedfillcolor = None
 
 
-def drawaircraft(x, y, facing, altitude, speed, flighttype, name, damage, color):
+def drawaircraft(x, y, facing, altitude, speed, flighttype, name, damage, isinterrainfollowingflight, color):
     """
     Draw an aircraft.
 
@@ -1397,14 +1403,24 @@ def drawaircraft(x, y, facing, altitude, speed, flighttype, name, damage, color)
             flighttype[:2],
             zorder=zorder,
         )
-        _drawannotation(
-            x,
-            y,
-            facing,
-            "cl",
-            "%2d" % altitude,
-            zorder=zorder,
-        )
+        if isinterrainfollowingflight:
+            _drawannotation(
+                x,
+                y,
+                facing,
+                "cl",
+                "T%d" % altitude,
+                zorder=zorder,
+            )
+        else:
+            _drawannotation(
+                x,
+                y,
+                facing,
+                "cl",
+                "%d" % altitude,
+                zorder=zorder,
+            )
         _drawannotation(
             x,
             y,

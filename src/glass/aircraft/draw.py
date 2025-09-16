@@ -23,6 +23,7 @@ def _draw(self):
         self._flighttype,
         self.name(),
         self.damage(),
+        self.isinterrainfollowingflight(),
         self._color,
     )
 
