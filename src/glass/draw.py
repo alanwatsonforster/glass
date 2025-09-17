@@ -1906,7 +1906,7 @@ def _drawgroundunitincanvas(
 
     def drawarmorsymbol():
         fx = 0.15
-        fy = 0.15
+        fy = 0.20
         theta = range(0, 361)
 
         def dx(theta):
@@ -1920,9 +1920,28 @@ def _drawgroundunitincanvas(
         def dy(theta):
             return fy * groundunitdy * _sind(theta)
 
+        print(min(list([x + dx(theta) for theta in theta])))
+        print(max(list([x + dx(theta) for theta in theta])))
+
         _drawlinesincanvas(
             list([x + dx(theta) for theta in theta]),
             list([y + dy(theta) for theta in theta]),
+            linecolor=linecolor,
+            linewidth=groundunitlinewidth,
+            zorder=zorder,
+        )
+
+    def drawtrucksymbol():
+        fx = 0.15
+        fy = 0.20
+
+        # The factor of math.pi /4 gives this truck rectangle the same area as
+        # the armor shape.
+        _drawrectangleincanvas(
+            x - fx * groundunitdx - math.pi / 4 * fy * groundunitdy, 
+            y - fy * groundunitdy,
+            x + fx * groundunitdx + math.pi / 4 * fy * groundunitdy,
+            y + fy * groundunitdy,
             linecolor=linecolor,
             linewidth=groundunitlinewidth,
             zorder=zorder,
@@ -1970,7 +1989,7 @@ def _drawgroundunitincanvas(
         )
 
     def drawradarsymbol():
-        fy0 = 0.05
+        fy0 = 0.0
         fy1 = 0.04
         ry = 0.18
         y0 = y + fy0 * groundunitdy
@@ -2006,7 +2025,7 @@ def _drawgroundunitincanvas(
         )
 
     def drawgunsymbol():
-        fx = 0.15
+        fx = 0.125
         _drawlinesincanvas(
             [x + (fx - 0.5) * groundunitdx, x + (fx - 0.5) * groundunitdx],
             [y - 0.5 * groundunitdy, y + 0.5 * groundunitdy],
@@ -2137,7 +2156,7 @@ def _drawgroundunitincanvas(
         )
 
     def drawwheeledsymbol():
-        fx = 0.12
+        fx = 0.125
         fy = 0.35
         ry = 0.05
         _drawcircleincanvas(
@@ -2166,7 +2185,7 @@ def _drawgroundunitincanvas(
         )
 
     def drawlimitedwheeledsymbol():
-        fx = 0.12
+        fx = 0.125
         fy = 0.35
         ry = 0.05
         _drawcircleincanvas(
@@ -2188,7 +2207,7 @@ def _drawgroundunitincanvas(
 
 
     def drawhalftrackedsymbol():
-        fx = 0.12
+        fx = 0.125
         fy = 0.35
         ry = 0.05
         _drawcircleincanvas(
@@ -2365,10 +2384,6 @@ def _drawgroundunitincanvas(
     def drawrailcarsymbol():
         drawcarsymbol()
         drawrailsymbol()
-
-    def drawtrucksymbol():
-        drawcarsymbol()
-        drawlimitedwheeledsymbol()
 
     def drawbargesymbol():
         fx0 = 0.25
@@ -2673,6 +2688,8 @@ def _drawgroundunitincanvas(
         drawinfantrysymbol()
     if "armor" in symbols or "armour" in symbols:
         drawarmorsymbol()
+    if "truck" in symbols:
+        drawtrucksymbol()
     if "artillery" in symbols:
         drawartillerysymbol()
     if "reconnaissance" in symbols:
@@ -2711,8 +2728,6 @@ def _drawgroundunitincanvas(
         drawlocomotivesymbol()
     if "railcar" in symbols:
         drawrailcarsymbol()
-    if "truck" in symbols:
-        drawtrucksymbol()
     if "barge" in symbols:
         drawbargesymbol()
     if "junk" in symbols:
