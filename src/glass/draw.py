@@ -1920,9 +1920,6 @@ def _drawgroundunitincanvas(
         def dy(theta):
             return fy * groundunitdy * _sind(theta)
 
-        print(min(list([x + dx(theta) for theta in theta])))
-        print(max(list([x + dx(theta) for theta in theta])))
-
         _drawlinesincanvas(
             list([x + dx(theta) for theta in theta]),
             list([y + dy(theta) for theta in theta]),
