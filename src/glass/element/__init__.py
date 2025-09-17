@@ -144,6 +144,8 @@ class Element:
         speed=None,
         color=None,
         delay=0,
+        sighted=False,
+        identified=False,
     ):
 
         global _elementlist
@@ -202,6 +204,9 @@ class Element:
         self._killed = False
         self._removed = False
         self._unspecifiedattackresult = 0
+
+        self._sighted = sighted or identified
+        self._identified = identified
 
         if not glass.speed.isvalidspeed(speed):
             raise RuntimeError("the speed argument is not valid.")
@@ -483,6 +488,21 @@ class Element:
     def issurfaceelement(self):
         return self.isgroundunit() or self.isship()
     
+    #############################################################################
+
+    def sight(self):
+        self._sighted = True
+
+    def identify(self):
+        self._sighted = True
+        self._identified = True
+
+    def sighted(self):
+        return self._sighted
+    
+    def identified(self):
+        return self._identified
+
     #############################################################################
 
     def note(self, s):

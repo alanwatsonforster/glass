@@ -39,7 +39,10 @@ class GroundUnit(glass.element.Element):
         stack=None,
         color="white",
         azimuth=None,
+        sightingrange=None,
         protectionclass=None,
+        sighted=False,
+        identified=False,
     ):
 
         self._name = ""
@@ -70,6 +73,8 @@ class GroundUnit(glass.element.Element):
                     and "aaamaximumrelativealtitude" in data
                 ):
                     aaamaximumrelativealtitude = data["aaamaximumrelativealtitude"]
+                if sightingrange is None and "sightingrange" in data:
+                    sightingrange = data["sightingrange"]
 
             if symbols is None:
                 raise RuntimeError("invalid symbols argument.")
@@ -125,7 +130,10 @@ class GroundUnit(glass.element.Element):
                 raise RuntimeError("heavy AAA ground units must have an azimuth.")
             if aaaclass != "H" and azimuth is not None:
                 raise RuntimeError("only heavy AAA ground units may have an azimuth.")
-            
+
+            if sightingrange is None:
+                raise RuntimeError("no sighting range specified.")
+
             if protectionclass not in [None, "entrenched", "bunkered"]:
                 raise RuntimeError('invalid protection class "%r".' % protectionclass)
 
@@ -136,6 +144,8 @@ class GroundUnit(glass.element.Element):
                 speed=0,
                 color=color,
                 azimuth=azimuth,
+                sighted=sighted,
+                identified=identified,
             )
 
             self._symbols = symbols
@@ -147,6 +157,8 @@ class GroundUnit(glass.element.Element):
             self._aaarange = aaarange
             self._aaamaximumrelativealtitude = aaamaximumrelativealtitude
             self._aaadamagerating = aaadamagerating
+
+            self._sightingrange = sightingrange
 
             self._protectionclass = protectionclass
 
