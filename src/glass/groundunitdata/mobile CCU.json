@@ -1,7 +1,7 @@
 {
     "name": "mobile CCU",
     "description": "mobile CCU",
-    "symbols": "truck/airdefense",
+    "symbols": "truck/limited-wheeled/air-defense/headquarters",
     "uppertext": "CCU",
     "sightingrange": 12
 }

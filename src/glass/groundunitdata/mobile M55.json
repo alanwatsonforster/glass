@@ -1,7 +1,7 @@
 {
     "name": "mobile M55",
     "description": "mobile M55 quad .50 cal air-defense battery",
-    "symbols": "truck/airdefense/gun/limitedwheeled",
+    "symbols": "truck/air-defense/gun/limited-wheeled",
     "uppertext": "12.7×4",
     "aaaclass": "L",
     "aaarange": [

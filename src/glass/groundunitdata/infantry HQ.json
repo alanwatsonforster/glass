@@ -1,8 +1,7 @@
 {
     "name": "infantry HQ",
     "description": "infantry HQ platoon",
-    "symbols": "infantry",
-    "uppertext": "HQ",
+    "symbols": "infantry/headquarters",
     "aaaclass": "B",
     "aaamaximumrelativealtitude": 2,
     "sightingrange": 6

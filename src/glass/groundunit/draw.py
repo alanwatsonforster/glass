@@ -20,14 +20,14 @@ def _draw(self):
             symbols = ["truck"]
         elif "radar" in self._symbols:
             symbols = ["radar"]
-        elif "airdefense" in self._symbols:
-            symbols = ["airdefense"]
+        elif "air-defense" in self._symbols:
+            symbols = ["air-defense"]
         elif "artillery" in self._symbols:
             symbols = ["artillery"]
         else:
             symbols = []
-        uppertext = "%d" % self._sightingrange
-        lowertext = ""
+        lowertext = "%d" % self._sightingrange
+        uppertext = ""
     else:
         symbols = self._symbols
         uppertext = self._uppertext

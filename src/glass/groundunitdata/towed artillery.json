@@ -1,0 +1,6 @@
+{
+    "name": "towed artillery",
+    "description": "towed artillery battery",
+    "symbols": "artillery/towed",
+    "sightingrange": 18
+}

@@ -1,7 +1,7 @@
 {
     "name": "M-38",
     "description": "M-38 37 mm air-defense battery",
-    "symbols": "airdefense/gun",
+    "symbols": "air-defense/gun/towed",
     "uppertext": "37",
     "aaaclass": "M",
     "aaarange": [

@@ -1,7 +1,7 @@
 {
     "name": "mobile ZU-23",
     "description": "mobile ZU-23 twin 23 mm air-defense battery",
-    "symbols": "truck/airdefense/gun/limitedwheeled",
+    "symbols": "truck/air-defense/gun/limited-wheeled",
     "uppertext": "23×2",
     "aaaclass": "L",
     "aaarange": [

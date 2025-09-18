@@ -1,9 +1,7 @@
 {
     "name": "light armor HQ",
     "description": "light armor HQ platoon",
-    "symbols": "armor",
-    "uppertext": "HQ",
-    "lowertext": "L",
+    "symbols": "armor/tracked/light/headquarters",
     "aaaclass": "B",
     "aaamaximumrelativealtitude": 3,
     "sightingrange": 12

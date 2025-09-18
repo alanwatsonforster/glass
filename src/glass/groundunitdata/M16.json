@@ -1,7 +1,7 @@
 {
     "name": "M16",
     "description": "M16 quad .50 cal self-propelled air-defense battery",
-    "symbols": "airdefense/gun/armor/halftracked",
+    "symbols": "air-defense/gun/armor/halftracked",
     "uppertext": "12.7×4",
     "aaaclass": "L",
     "aaarange": [

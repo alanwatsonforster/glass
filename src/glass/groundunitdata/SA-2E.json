@@ -1,7 +1,7 @@
 {
     "name": "SA-2E",
     "description": "SA-2E air-defense battery",
-    "symbols": "airdefense/missile",
+    "symbols": "air-defense/missile/towed",
     "uppertext": "SA-2E",
     "sightingrange": 18
 }

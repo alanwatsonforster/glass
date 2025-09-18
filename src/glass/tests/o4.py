@@ -17,7 +17,7 @@ G3 = setupgroundunit("G3", "A1-2120", symbols="artillery")
 G4 = setupgroundunit(
     "G4",
     "A1-2120",
-    symbols="airdefense/gun",
+    symbols="air-defense/gun",
     aaaclass="L",
     aaamaximumrelativealtitude=6,
     aaarange=[2, 3, 5],
@@ -25,7 +25,7 @@ G4 = setupgroundunit(
 G5 = setupgroundunit(
     "G5",
     "A1-2120",
-    symbols="airdefense/gun",
+    symbols="air-defense/gun",
     aaaclass="L",
     aaamaximumrelativealtitude=6,
     aaarange=[2, 3, 5],

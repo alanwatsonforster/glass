@@ -1,7 +1,7 @@
 {
     "name": "FCR-A",
     "description": "fire control radar (type A)",
-    "symbols": "airdefense/radar",
+    "symbols": "air-defense/radar",
     "uppertext": "FCR-A",
     "sightingrange": 12
 }

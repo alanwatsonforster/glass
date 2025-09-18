@@ -1,7 +1,7 @@
 {
     "name": "ZPU-4",
     "description": "ZPU-4 quad 14.5 mm air-defense gun battery",
-    "symbols": "airdefense/gun",
+    "symbols": "air-defense/gun/towed",
     "uppertext": "14.5×4",
     "aaaclass": "L",
     "aaarange": [

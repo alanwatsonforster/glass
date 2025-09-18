@@ -1,7 +1,7 @@
 {
     "name": "KS-12",
     "description": "KS-12 85 mm air-defense battery",
-    "symbols": "airdefense/gun",
+    "symbols": "air-defense/gun/towed",
     "uppertext": "85",
     "aaaclass": "H",
     "aaarange": [

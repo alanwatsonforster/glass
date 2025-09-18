@@ -1,7 +1,7 @@
 {
     "name": "M55",
     "description": "M55 quad .50 cal air-defense battery",
-    "symbols": "airdefense/gun",
+    "symbols": "air-defense/gun/towed",
     "uppertext": "12.7×4",
     "aaaclass": "L",
     "aaarange": [

@@ -1,6 +1,6 @@
 {
     "name": "truck",
     "description": "truck unit",
-    "symbols": "truck/limitedwheeled",
+    "symbols": "truck/limited-wheeled",
     "sightingrange": 12
 }

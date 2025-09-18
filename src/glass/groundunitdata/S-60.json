@@ -1,7 +1,7 @@
 {
     "name": "S-60",
     "description": "S-60 57 mm air-defense battery",
-    "symbols": "airdefense/gun",
+    "symbols": "air-defense/gun/towed",
     "uppertext": "57",
     "aaaclass": "M",
     "aaarange": [

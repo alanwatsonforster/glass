@@ -1,9 +1,8 @@
 {
     "name": "M42",
     "description": "M42 twin 40 mm self-propelled air-defense battery",
-    "symbols": "airdefense/gun/armor",
+    "symbols": "air-defense/gun/armor",
     "uppertext": "40×2",
-    "lowertext": "L",
     "aaaclass": "M",
     "aaarange": [
         4,

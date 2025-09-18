@@ -1,7 +1,7 @@
 {
     "name": "Tunguska",
     "description": "Tunguska dual 30 mm and SA-19 self-propelled air-defense battery",
-    "symbols": "airdefense/gun/missile/armor",
+    "symbols": "air-defense/gun/missile/armor",
     "uppertext": "30×2/SA-19",
     "aaaclass": "L",
     "aaarange": [
