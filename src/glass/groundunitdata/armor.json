@@ -1,0 +1,9 @@
+{
+    "name": "armor",
+    "description": "armor platoon",
+    "symbols": "armor",
+    "lowertext": "?",
+    "aaaclass": "B",
+    "aaamaximumrelativealtitude": 3,
+    "sightingrange": 12
+}

@@ -1,0 +1,6 @@
+{
+    "name": "tracked truck",
+    "description": "tracked truck platoon",
+    "symbols": "truck/tracked",
+    "sightingrange": 12
+}

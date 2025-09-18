@@ -1,0 +1,6 @@
+{
+    "name": "tracked mobile artillery",
+    "description": "tracked mobile artillery battery",
+    "symbols": "artillery/truck/tracked",
+    "sightingrange": 12
+}

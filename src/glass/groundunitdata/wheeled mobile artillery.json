@@ -1,0 +1,6 @@
+{
+    "name": "wheeled mobile artillery",
+    "description": "wheeled mobile artillery battery",
+    "symbols": "artillery/truck/wheeled",
+    "sightingrange": 12
+}

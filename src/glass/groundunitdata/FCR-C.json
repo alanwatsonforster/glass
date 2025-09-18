@@ -1,0 +1,7 @@
+{
+    "name": "FCR-C",
+    "description": "fire control radar (type C)",
+    "symbols": "airdefense/radar",
+    "uppertext": "FCR-C",
+    "sightingrange": 12
+}

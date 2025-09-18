@@ -1,5 +1,6 @@
 {
     "name": "POL",
     "description": "POL",
-    "symbols": "fuel/supply"
+    "symbols": "fuel",
+    "sightingrange": 24
 }

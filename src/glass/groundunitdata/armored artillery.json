@@ -1,0 +1,7 @@
+{
+    "name": "armored artillery",
+    "description": "armored artillery battery",
+    "symbols": "artillery/armor",
+    "lowertext": "L",
+    "sightingrange": 12
+}

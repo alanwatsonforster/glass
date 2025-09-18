@@ -1,0 +1,9 @@
+{
+    "name": "medium armor",
+    "description": "medium armor platoon",
+    "symbols": "armor",
+    "lowertext": "M",
+    "aaaclass": "B",
+    "aaamaximumrelativealtitude": 3,
+    "sightingrange": 12
+}

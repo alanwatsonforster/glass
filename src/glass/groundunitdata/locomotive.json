@@ -1,5 +1,6 @@
 {
     "name": "locomotive",
     "description": "locomotive",
-    "symbols": "locomotive"
+    "symbols": "locomotive",
+    "sightingrange": 18
 }

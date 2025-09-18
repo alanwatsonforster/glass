@@ -1,5 +1,6 @@
 {
     "name": "tower",
     "description": "tower",
-    "symbols": "tower"
+    "symbols": "tower",
+    "sightingrange": 18
 }

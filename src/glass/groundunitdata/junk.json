@@ -1,5 +1,6 @@
 {
     "name": "junk",
     "description": "junk",
-    "symbols": "junk"
+    "symbols": "junk",
+    "sightingrange": 12
 }

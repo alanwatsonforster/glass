@@ -1,0 +1,7 @@
+{
+    "name": "truck",
+    "description": "truck unit",
+    "symbols": "truck/limitedwheeled",
+    "uppertext": "L",
+    "sightingrange": 12
+}

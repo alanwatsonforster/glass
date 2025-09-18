@@ -1,0 +1,8 @@
+{
+    "name": "armored CCU",
+    "description": "armored CCU",
+    "symbols": "armor/airdefense",
+    "uppertext": "CCU",
+    "lowertext": "L",
+    "sightingrange": 12
+}

@@ -1,5 +1,6 @@
 {
     "name": "railcar",
     "description": "railcar",
-    "symbols": "railcar"
+    "symbols": "railcar",
+    "sightingrange": 18
 }

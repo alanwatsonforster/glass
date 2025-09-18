@@ -3,5 +3,6 @@
     "description": "infantry platoon",
     "symbols": "infantry",
     "aaaclass": "B",
-    "aaamaximumrelativealtitude": 2
+    "aaamaximumrelativealtitude": 2,
+    "sightingrange": 6
 }

@@ -1,0 +1,36 @@
+%!LW recipe=latexmk (xelatex)
+%!TEX program = xelatex
+
+\documentclass[10pt]{article}
+
+\input{../aircraftdata/style.tex}
+
+\runningtitle{Ground Unit Data}
+\setcounter{secnumdepth}{0} 
+\setcounter{tocdepth}{1} 
+
+\newcommand{\groundunittype}[1]{\subsection{#1}}
+
+\begin{document}
+
+\twocolumn[\section{Generic Type}]
+
+\input{infantry.tex}
+
+\input{heavy armor.tex}
+\input{medium armor.tex}
+\input{light armor.tex}
+
+\input{truck.tex}
+
+\input{artillery.tex}
+\input{armored artillery.tex}
+\input{mobile artillery.tex}
+
+
+\input{armored CCU.tex}
+\input{mobile CCU.tex}
+\input{EWR.tex}
+\input{FCR.tex}
+
+\end{document}

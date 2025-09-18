@@ -2,6 +2,6 @@
     "name": "EWR-A",
     "description": "early-warning control radar (type A)",
     "symbols": "airdefense/radar",
-    "lowertext": "A",
-    "uppertext": "EWR"
+    "uppertext": "EWR-A",
+    "sightingrange": 12
 }

@@ -1,5 +1,6 @@
 {
     "name": "largebuilding",
     "description": "large building",
-    "symbols": "building"
+    "symbols": "building",
+    "sightingrange": 24
 }

@@ -1,0 +1,7 @@
+{
+    "name": "armored multiple-rocket artillery",
+    "description": "armored multiple-rocket artillery battery",
+    "symbols": "multiplerocket/armor",
+    "lowertext": "L",
+    "sightingrange": 12
+}

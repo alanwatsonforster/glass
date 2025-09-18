@@ -1686,11 +1686,11 @@ def drawgroundunit(
         following strings, which indicate the symbols to be drawn:
         ``"airdefense"``, ``"ammunition"``, ``"antiarmor"``, ``"armor"``,
         ``"artillery"``, ``"barge"``, ``"building"``, ``"fixedwing"``,
-        ``"fuel"``, ``"gun"``, ``halftracked``, ``"hangar"``,
+        ``"fuel"``, ``"gun"``, ``"halftracked"``,  ``"hangar"``,
         ``"headquarters"``, ``"infantry"``, ``"junk"``, ``"limitedwheeled"``,
         ``"locomotive"``, ``"missile"``, ``"motorized"``, ``"multiplerocket"``,
         ``"ordnance"``, ``"radar"``, ``"railcar"``, ``"reconnaissance"``,
-        ``"rotarywing"``, ``"supply"``, ``"tower"``, ``"transportation"``,
+        ``"rotarywing"``, ``"supply"``, ``"tower"``, ``"tracked"``, ``"transportation"``,
         ``"truck"``, ``unidentified``, and ``"wheeled"``. The British English
         aliases ``"airdefence"``, ``"antiarmour"``, ``"armour"`` are also
         allowed.
@@ -1986,7 +1986,7 @@ def _drawgroundunitincanvas(
         )
 
     def drawradarsymbol():
-        fy0 = 0.0
+        fy0 = 0.05
         fy1 = 0.04
         ry = 0.18
         y0 = y + fy0 * groundunitdy
@@ -2033,7 +2033,7 @@ def _drawgroundunitincanvas(
 
     def drawmultiplerocketsymbol():
         fx0 = 0.10
-        fy0 = 0.10
+        fy0 = -0.125
         fy1 = 0.10
         fy2 = 0.15
         for i in range(2):
@@ -2232,7 +2232,29 @@ def _drawgroundunitincanvas(
             linewidth=groundunitlinewidth,
             zorder=zorder,
         )
-    
+
+    def drawtrackedsymbol():
+        fx = 0.125
+        fy = 0.35
+        ry = 0.05
+        theta = range(0, 361)
+        def dx(theta):
+            if theta < 90 or theta > 270:
+                return +fx * groundunitdx + ry * groundunitdy * _cosd(theta)
+            elif theta == 90 or theta == 270:
+                return 0
+            else:
+                return -fx * groundunitdx + ry * groundunitdy * _cosd(theta)
+        def dy(theta):
+            return ry * groundunitdy * _sind(theta)
+        _drawlinesincanvas(
+            list([x + dx(theta) for theta in theta]),
+            list([y - fy * groundunitdy + dy(theta) for theta in theta]),
+            linecolor=linecolor,
+            linewidth=groundunitlinewidth,
+            zorder=zorder,
+        )
+        
     def drawsupplysymbol():
         fy = 0.25
         _drawlinesincanvas(
@@ -2720,6 +2742,8 @@ def _drawgroundunitincanvas(
         drawlimitedwheeledsymbol()
     if "halftracked" in symbols:
         drawhalftrackedsymbol()
+    if "tracked" in symbols:
+        drawtrackedsymbol()
 
     if "locomotive" in symbols:
         drawlocomotivesymbol()
