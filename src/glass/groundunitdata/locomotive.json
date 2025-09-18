@@ -2,5 +2,6 @@
     "name": "locomotive",
     "description": "locomotive",
     "symbols": "locomotive",
-    "sightingrange": 18
+    "sightingrange": 18,
+    "defensestrength": "2S"
 }

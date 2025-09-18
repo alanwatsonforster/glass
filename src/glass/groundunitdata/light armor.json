@@ -1,8 +1,9 @@
 {
     "name": "light armor",
     "description": "light armor platoon",
-    "symbols": "armor/light/tracked",
+    "symbols": "armor/light",
     "aaaclass": "B",
     "aaamaximumrelativealtitude": 3,
-    "sightingrange": 12
+    "sightingrange": 12,
+    "defensestrength": "4H"
 }

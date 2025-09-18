@@ -1,0 +1,7 @@
+{
+    "name": "armored rocket artillery",
+    "description": "armored rocket artillery battery",
+    "symbols": "rocket/armor",
+    "sightingrange": 12,
+    "defensestrength": "2H"
+}

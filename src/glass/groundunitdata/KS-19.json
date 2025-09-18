@@ -1,7 +1,7 @@
 {
     "name": "KS-19",
     "description": "KS-19 100 mm air-defense battery",
-    "symbols": "air-defense/gun/towed",
+    "symbols": "air-defense/gun",
     "uppertext": "100",
     "aaaclass": "H",
     "aaarange": [
@@ -16,5 +16,6 @@
     ],
     "aaadamagerating": 6,
     "aaamaximumrelativealtitude": 39,
-    "sightingrange": 18
+    "sightingrange": 18,
+    "defensestrength": "4H"
 }

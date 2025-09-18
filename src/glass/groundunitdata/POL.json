@@ -2,5 +2,6 @@
     "name": "POL",
     "description": "POL",
     "symbols": "fuel",
-    "sightingrange": 24
+    "sightingrange": 24,
+    "defensestrength": "4S"
 }

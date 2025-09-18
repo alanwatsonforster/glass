@@ -16,5 +16,6 @@
     ],
     "aaadamagerating": 1,
     "aaamaximumrelativealtitude": 5,
-    "sightingrange": 12
+    "sightingrange": 12,
+    "defensestrength": "3S"
 }

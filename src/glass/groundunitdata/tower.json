@@ -2,5 +2,6 @@
     "name": "tower",
     "description": "tower",
     "symbols": "tower",
-    "sightingrange": 18
+    "sightingrange": 18,
+    "defensestrength": "3S"
 }

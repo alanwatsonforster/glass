@@ -40,6 +40,7 @@ class GroundUnit(glass.element.Element):
         color="white",
         azimuth=None,
         sightingrange=None,
+        defensestrength=None,
         protectionclass=None,
         sighted=False,
         identified=False,
@@ -75,6 +76,8 @@ class GroundUnit(glass.element.Element):
                     aaamaximumrelativealtitude = data["aaamaximumrelativealtitude"]
                 if sightingrange is None and "sightingrange" in data:
                     sightingrange = data["sightingrange"]
+                if defensestrength is None and "defensestrength" in data:
+                    defensestrength = data["defensestrength"]
 
             if symbols is None:
                 raise RuntimeError("invalid symbols argument.")
@@ -103,14 +106,8 @@ class GroundUnit(glass.element.Element):
                     "headquarters",
                     "missile",
                     "gun",
-                    "multiple-rocket",
+                    "rocket",
                     "radar",
-                    "motorized",
-                    "wheeled",
-                    "limited-wheeled",
-                    "halftracked",
-                    "tracked",
-                    "towed",
                     "locomotive",
                     "railcar",
                     "truck",
@@ -164,6 +161,7 @@ class GroundUnit(glass.element.Element):
             self._aaadamagerating = aaadamagerating
 
             self._sightingrange = sightingrange
+            self._defensestrength = defensestrength
 
             self._protectionclass = protectionclass
 

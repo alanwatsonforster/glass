@@ -1,7 +1,7 @@
 {
     "name": "M-38",
     "description": "M-38 37 mm air-defense battery",
-    "symbols": "air-defense/gun/towed",
+    "symbols": "air-defense/gun",
     "uppertext": "37",
     "aaaclass": "M",
     "aaarange": [
@@ -16,5 +16,6 @@
     ],
     "aaadamagerating": 4,
     "aaamaximumrelativealtitude": 12,
-    "sightingrange": 12
+    "sightingrange": 12,
+    "defensestrength": "3S"
 }

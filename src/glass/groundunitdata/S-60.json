@@ -1,7 +1,7 @@
 {
     "name": "S-60",
     "description": "S-60 57 mm air-defense battery",
-    "symbols": "air-defense/gun/towed",
+    "symbols": "air-defense/gun",
     "uppertext": "57",
     "aaaclass": "M",
     "aaarange": [
@@ -16,5 +16,6 @@
     ],
     "aaadamagerating": 5,
     "aaamaximumrelativealtitude": 18,
-    "sightingrange": 12
+    "sightingrange": 12,
+    "defensestrength": "3S"
 }

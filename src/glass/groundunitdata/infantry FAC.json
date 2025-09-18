@@ -3,6 +3,7 @@
     "description": "infantry FAC team",
     "symbols": "infantry",
     "uppertext": "FAC",
-    "sightingrange": 6
+    "sightingrange": 6,
+    "defensestrength": "5S"
 }
 

@@ -1,0 +1,7 @@
+{
+    "name": "wheeled mobile rocket artillery",
+    "description": "wheeled mobile rocket artillery battery",
+    "symbols": "truck/rocket",
+    "sightingrange": 12,
+    "defensestrength": "3S"
+}

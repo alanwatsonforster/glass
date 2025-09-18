@@ -1,6 +1,7 @@
 {
     "name": "wheeled mobile missile artillery",
     "description": "tracked mobile artillery battery",
-    "symbols": "missile/truck/wheeled",
-    "sightingrange": 12
+    "symbols": "missile/truck",
+    "sightingrange": 12,
+    "defensestrength": "3S"
 }

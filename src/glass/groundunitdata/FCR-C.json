@@ -3,5 +3,6 @@
     "description": "fire control radar (type C)",
     "symbols": "air-defense/radar",
     "uppertext": "FCR-C",
-    "sightingrange": 12
+    "sightingrange": 12,
+    "defensestrength": "2S"
 }

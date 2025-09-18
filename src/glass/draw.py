@@ -1698,13 +1698,13 @@ def drawgroundunit(
         following strings, which indicate the symbols to be drawn:
         ``"air-defense"``, ``"ammunition"``, ``"antiarmor"``, ``"armor"``,
         ``"artillery"``, ``"barge"``, ``"building"``, ``"fixedwing"``,
-        ``"fuel"``, ``"gun"``, ``"halftracked"``,  ``"hangar"``,
+        ``"fuel"``, ``"gun"``, ``"hangar"``,
         ``"headquarters"``, ``"heavy"``, ``"infantry"``, ``"junk"``,
-        ``"light"``, ``"limited-wheeled"``, ``"locomotive"``, ``"medium"``,
-        ``"missile"``, ``"motorized"``, ``"multiple-rocket"``, ``"ordnance"``,
+        ``"light"``, ``"locomotive"``, ``"medium"``,
+        ``"missile"``, ``"rocket"``, ``"ordnance"``,
         ``"radar"``, ``"railcar"``, ``"reconnaissance"``, ``"rotarywing"``,
         ``"supply"``, ``"towed"``, ``"tower"``, ``"tracked"``,
-        ``"transportation"``, ``"truck"``, ``unidentified``, and ``"wheeled"``.
+        ``"transportation"``, ``"truck"``, and ``unidentified``.
         The British English aliases ``"air-defence"``, ``"antiarmour"``,
         ``"armour"`` are also allowed.
     :param uppertext:
@@ -2065,7 +2065,7 @@ def _drawgroundunitincanvas(
 
     def drawmissilesymbol():
         fx = 0.07
-        fy0 = -0.5
+        fy0 = -0.2
         fy1 = 0.15
         theta = range(0, 181)
 
@@ -2842,20 +2842,21 @@ def _drawgroundunitincanvas(
 
     if "gun" in symbols or "cannon" in symbols:
         drawgunsymbol()
-    if "multiple-rocket" in symbols:
+    if "rocket" in symbols:
         drawmultiplerocketsymbol()
-    if "motorized" in symbols:
-        drawmotorizedsymbol()
-    if "wheeled" in symbols:
-        drawwheeledsymbol()
-    if "limited-wheeled" in symbols:
-        drawlimitedwheeledsymbol()
-    if "halftracked" in symbols:
-        drawhalftrackedsymbol()
-    if "tracked" in symbols:
-        drawtrackedsymbol()
-    if "towed" in symbols:
-        drawtowedsymbol()
+    if False:
+        if "motorized" in symbols:
+            drawmotorizedsymbol()
+        if "wheeled" in symbols:
+            drawwheeledsymbol()
+        if "limited-wheeled" in symbols:
+            drawlimitedwheeledsymbol()
+        if "halftracked" in symbols:
+            drawhalftrackedsymbol()
+        if "tracked" in symbols:
+            drawtrackedsymbol()
+        if "towed" in symbols:
+            drawtowedsymbol()
 
     if "heavy" in symbols:
         drawheavysymbol()        
@@ -2890,7 +2891,7 @@ def _drawgroundunitincanvas(
         drawlowertext(lowertext)
 
     if uppertext is None:
-        if "artillery" in symbols or "multiple-rocket" in symbols:
+        if "artillery" in symbols or "rocket" in symbols:
             drawcompany()
         elif "infantry" in symbols or "armor" in symbols or "truck" in symbols:
             drawplatoon()

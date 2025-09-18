@@ -31,7 +31,10 @@ def _draw(self):
     else:
         symbols = self._symbols
         uppertext = self._uppertext
-        lowertext = self._lowertext
+        if self._defensestrength is not None:
+            lowertext = "%s-%d" % (self._defensestrength, self._sightingrange)
+        else:
+            lowertext = "%d" % self._sightingrange
 
     glass.draw.drawgroundunit(
         *self.xy(),
