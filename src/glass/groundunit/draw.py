@@ -14,12 +14,12 @@ def _draw(self):
     elif not self.identified():
         if "infantry" in self._symbols:
             symbols = ["infantry"]
+        elif "radar" in self._symbols:
+            symbols = ["radar"]
         elif "armor" in self._symbols:
             symbols = ["armor"]
         elif "truck" in self._symbols:
             symbols = ["truck"]
-        elif "radar" in self._symbols:
-            symbols = ["radar"]
         elif "air-defense" in self._symbols:
             symbols = ["air-defense"]
         elif "artillery" in self._symbols:
