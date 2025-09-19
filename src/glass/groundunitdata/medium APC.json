@@ -1,6 +1,6 @@
 {
-    "name": "medium armor",
-    "description": "medium armor platoon",
+    "name": "medium APC",
+    "description": "medium APC platoon",
     "symbols": "armor/medium",
     "aaaclass": "B",
     "aaamaximumrelativealtitude": 3,

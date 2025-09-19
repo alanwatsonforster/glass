@@ -1,6 +1,6 @@
 {
-    "name": "medium tankHQ",
-    "description": "medium tank headquarters platoon",
+    "name": "medium armor HQ",
+    "description": "medium armor headquarters platoon",
     "symbols": "armor/medium/headquarters",
     "aaaclass": "B",
     "aaamaximumrelativealtitude": 3,

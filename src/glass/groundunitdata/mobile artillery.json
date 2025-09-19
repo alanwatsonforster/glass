@@ -3,5 +3,5 @@
     "description": "wheeled mobile artillery battery",
     "symbols": "artillery/truck",
     "sightingrange": 12,
-    "defensestrength": "3S"
+    "defensestrength": "2S"
 }

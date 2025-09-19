@@ -13,27 +13,187 @@
 
 \begin{document}
 
-\twocolumn[\section{Generic Type}]
+\twocolumn[\section{Generic Units}]
 
-\input{infantry.tex}
+\subsection{Infantry}
 
-\input{heavy armor.tex}
-\input{medium armor.tex}
-\input{light armor.tex}
+The generic infantry units are:
+\begin{itemize}
+\item \emph{infantry}
+\item \emph{infantry HQ}
+\item \emph{infantry FAC}
+\end{itemize}
 
-\input{truck.tex}
+The first two units are platoons. The \emph{infantry FAC} unit is an infantry forward air controller squad.
 
-\input{artillery.tex}
-\input{armored artillery.tex}
-\input{mobile artillery.tex}
+A mechanized infantry platoon will be associated with a platoon of APCs or IFVs. A motorized infantry platoon will be associated with a platoon of trucks.
 
-\input{armored CCU.tex}
-\input{mobile CCU.tex}
+\subsection{Tanks}
 
-\input{EWR.tex}
-\input{mobile EWR.tex}
+The generic tank units are:
+\begin{itemize}
+\item \emph{heavy tank}
+\item \emph{heavy tank HQ}
+\item \emph{medium tank}
+\item \emph{medium tank HQ}
+\item \emph{light tank}
+\item \emph{light tank HQ}
+\end{itemize}
 
-\input{FCR.tex}
-\input{mobile FCR.tex}
+These are all platoons.
+
+Heavy tanks include the M1 Abrams, Conqueror, Chieftain, Challenger, Challenger II, IS-3, Leclerc, Leopard 2, Merkava, T-10, T-64, T-72, T-80, T-84, and T-90.
+
+Medium tanks include the AMX-30, Centurion, M4 Sherman, M47/48 Patton, M60, M103, Leopard 1, T-34, T-54/55, and T-62. 
+
+Light tanks include the AMX-10 RC, AMX-13, Ferret, M24 Chaffee, M41 Walker Bulldog, M551 Sheridan, Panhard EBR, PT-76, and Scorpion/Scimitar. 
+
+Note that armored cars are included as tanks; we do not distinguish between wheeled, half-tracked, and tracked vehicles. 
+
+\subsection{IFVs}
+
+The generic IFV units are:
+\begin{itemize}
+\item \emph{medium IFV}
+\item \emph{light IFV}
+\end{itemize}
+
+These are both platoons. 
+
+Medium IFVs include the CV90, M2A2 Bradley (but not other versions), and Marder. All other IFVs are considered to be light. There are currently no heavy IFVs.
+
+There are no IFV HQ units; the headquarters platoon of a IFV-equipped mechanized infantry unit will consist of an infantry HQ platoon and a normal IFV platoon.
+
+\subsection{APCs}
+
+The generic APC units are:
+\begin{itemize}
+\item \emph{heavy APC}
+\item \emph{medium APC}
+\item \emph{light APC}
+\end{itemize}
+
+All are platoons. 
+
+Heavy and medium APCs are typically converted tanks. Heavy APCs include conversions of the
+T-54/55 (Achzarit), Centurion (NagmaSho't, Nagmachon, Nakpadon, and Puma), and Merkava (Namer). Medium APCs include conversions of the Sherman (Kangaroo). Light APCs include the
+AMX-10P
+BTR-152,
+BTR-40,
+BTR-50/60/70/80,
+FV432,
+M113,
+M3 half-track,
+Saracen,
+Stryker,
+and 
+VAB.
+
+There are no APC HQ units; the headquarters platoon of a APC-equipped mechanized infantry unit will consist of an infantry HQ platoon and a normal APC platoon. 
+
+\groundunittype{Trucks}
+
+The generic truck units are:
+\begin{itemize}
+\item \emph{truck}
+\item \emph{light truck}
+\end{itemize}
+
+All are platoons. 
+
+Trucks may be wheeled, half-tracked, or tracked; the distinguishing characteristic is the lack of armored protection for their crew and load. Light trucks include Humvees, Jeeps, and Land Rovers.
+
+
+\groundunittype{Artillery}
+
+
+The generic artillery units are:
+\begin{itemize}
+\item \emph{towed artillery}
+\item \emph{armored artillery}
+\item \emph{mobile artillery}
+\item \emph{armored rocket artillery}
+\item \emph{mobile rocket artillery}
+\item \emph{mobile missile artillery}
+\end{itemize}
+
+All are batteries.
+
+Towed artillery may be associated with a truck tractor unit.
+
+Armored artillery includes the 
+2S19 Msta-S, 
+2S3 Akatsiya, 
+AHS Krab, 
+AMX-30 AuF1, 
+AS-90,
+FV433 Abbot, 
+M43, 
+M53, 
+M55,
+M108,
+M109 Paladin, 
+and Panzerhaubitze 2000.
+
+
+Mobile artillery includes
+the 
+2S4 Tyulpan,
+2S7 Pion,
+Archer,
+CAESAR,
+M7 Priest,
+and
+M107/M110.
+
+Armored rocket artillery includes the M270 MLRS and TOS-1.
+
+Mobile rocket artillery includes the 
+BM-21 Grad,
+BM-30 Smerch,
+and
+M142 HIMARS.
+
+Mobile missile artillery includes the 
+9K52 Luna-M (Frog), 
+MGM-52 Lance, 
+OTR-21 Tochka (SS-21), 
+Pluton,
+and
+RSD-10 Pioneer (SS-20).
+
+\subsection{CCUs}
+
+The generic CCU units are:
+\begin{itemize}
+\item \emph{mobile CCU}
+\item \emph{armored CCU}
+\end{itemize}
+
+Mobile CCUs include the 9S737 Ranzhir.
+
+Armored CCUs include the 9S80 PPRU-1.
+
+\subsection{EWRs}
+
+The generic EWR units are:
+\begin{itemize}
+\item \emph{towed EWR-A}
+\item \emph{mobile EWR-A}
+\end{itemize}
+
+\subsection{FCRs}
+
+The generic EWR units are:
+\begin{itemize}
+\item \emph{towed FCR-A/B/C/D}
+\item \emph{mobile FCR-A/B/C/D}
+\end{itemize}
+
+\begin{table*}
+\caption{Generic Units}
+\centering
+    \input{groundunitdatatables-generic.tex}
+\end{table*}
 
 \end{document}

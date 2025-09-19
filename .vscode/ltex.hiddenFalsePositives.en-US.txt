@@ -19,3 +19,5 @@
 {"rule":"MORFOLOGIK_RULE_EN_US","sentence":"^\\QFor ferry flights, two 120-gallon (400L) FTs can be carried on the inner stations and two 200-gallon (750L) FTs to the outer ones.\\E$"}
 {"rule":"MORFOLOGIK_RULE_EN_US","sentence":"^\\QA typical air-to-ground load might be two 1000 lb bombs carried on the inner stations along with two 200-gallon (750L) FTs on the outer stations.\\E$"}
 {"rule":"MORFOLOGIK_RULE_EN_US","sentence":"^\\QA typical air-to-air load is two 200 gal (750L) FTs on the outer stations and, from 1960, on the Mk.6, two AIM-9B IRMs on the inner stations.\\E$"}
+{"rule":"PHRASE_REPETITION","sentence":"^\\QThe generic tank units are: heavy tank heavy tank HQ medium tank medium tank HQ light tank light tank HQ\\E$"}
+{"rule":"CD_NN","sentence":"^\\QGeneric Units Name Defense Sighting Strength Range infantry 4S 00 6 infantry HQ 4S 00 6 infantry FAC 5S 00 6 heavy tank 8H 00 12 heavy tank HQ 8H 00 12 medium tank 6H 00 12 medium tank HQ 6H 00 12 light tank 4H 00 12 light tank HQ 4H 00 12\\E$"}

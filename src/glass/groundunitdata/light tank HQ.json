@@ -1,0 +1,9 @@
+{
+    "name": "light tank HQ",
+    "description": "light tank HQ platoon",
+    "symbols": "armor/gun/light/headquarters",
+    "aaaclass": "B",
+    "aaamaximumrelativealtitude": 3,
+    "sightingrange": 12,
+    "defensestrength": "4H"
+}
