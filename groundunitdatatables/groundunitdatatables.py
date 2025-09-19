@@ -97,7 +97,7 @@ with open(latexdir + "/" + "groundunitdatatables-aaa.tex", "w") as latexfile:
     def writelatexline(s=""):
         print(s, file=latexfile, end="\n")
 
-    writelatexline(r"\begin{tabularx}{\linewidth}{Lcclccccccccccl}")
+    writelatexline(r"\begin{tabularx}{\linewidth}{Lcclccc@{~}c@{~}cc@{~}c@{~}cccl}")
     writelatexline(r"\toprule")
     writelatexline(
         r"""
@@ -221,9 +221,9 @@ with open(latexdir + "/" + "groundunitdatatables-aaa.tex", "w") as latexfile:
         writelatex(r"&\wbox{00}{%s}" % aaarange[1])
         writelatex(r"&\wbox{00}{%s}" % aaarange[2])
 
-        writelatex(r"&\wbox{0}{%s}" % aaahitroll[0])
-        writelatex(r"&\wbox{0}{%s}" % aaahitroll[1])
-        writelatex(r"&\wbox{0}{%s}" % aaahitroll[2])
+        writelatex(r"&\wbox{00}{%s}" % aaahitroll[0])
+        writelatex(r"&\wbox{00}{%s}" % aaahitroll[1])
+        writelatex(r"&\wbox{00}{%s}" % aaahitroll[2])
 
         writelatex(r"&\wbox{0}{%s}" % aaadamagerating)
         writelatex(r"&%s" % aaafcr)
