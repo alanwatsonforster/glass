@@ -1,21 +1,21 @@
 {
-    "name": "ZPU-2",
-    "description": "ZPU-2 14.5 mm air-defense battery",
+    "name": "Rh-202",
+    "description": "Rh-202 twin 20 mm air-defense battery",
     "symbols": "air-defense/gun",
-    "uppertext": "14.5×2",
+    "uppertext": "20×2",
     "aaaclass": "L",
     "aaarange": [
         2,
-        3,
-        5
+        4,
+        6
     ],
     "aaahitroll": [
-        4,
         3,
+        2,
         1
     ],
     "aaadamagerating": 3,
-    "aaamaximumrelativealtitude": 6,
+    "aaamaximumrelativealtitude": 8,
     "sightingrange": 12,
     "defensestrength": "3S"
 }

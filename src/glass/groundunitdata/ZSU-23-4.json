@@ -16,6 +16,8 @@
     ],
     "aaadamagerating": 3,
     "aaamaximumrelativealtitude": 9,
+    "aaafcrclass": "W",
+    "aaafcrfrequency": "VF",
     "sightingrange": 12,
     "defensestrength": "4H"
 }

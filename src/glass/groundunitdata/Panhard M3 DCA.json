@@ -1,0 +1,21 @@
+{
+    "name": "Panhard M3 DCA",
+    "description": "Panhard M3 DCA twin 20 mm self-propelled air-defense battery",
+    "symbols": "air-defense/gun/armor",
+    "uppertext": "20×2",
+    "aaaclass": "L",
+    "aaarange": [
+        2,
+        4,
+        6
+    ],
+    "aaahitroll": [
+        3,
+        3,
+        2
+    ],
+    "aaadamagerating": 2,
+    "aaamaximumrelativealtitude": 8,
+    "sightingrange": 12,
+    "defensestrength": "4H"
+}

@@ -1,0 +1,23 @@
+{
+    "name": "Gepard",
+    "description": "Gepard twin 35 mm self-propelled air-defense battery",
+    "symbols": "air-defense/gun/armor",
+    "uppertext": "35×2",
+    "aaaclass": "M",
+    "aaarange": [
+        4,
+        8,
+        12
+    ],
+    "aaahitroll": [
+        5,
+        4,
+        3
+    ],
+    "aaadamagerating": 5,
+    "aaamaximumrelativealtitude": 12,
+    "aaafcrclass": "W",
+    "aaafcrfrequency": "VF",
+    "sightingrange": 12,
+    "defensestrength": "4H"
+}

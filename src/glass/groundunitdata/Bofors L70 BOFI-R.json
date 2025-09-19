@@ -1,0 +1,23 @@
+{
+    "name": "Bofors L70 BOFI-R",
+    "description": "Bofors 40 mm L70 BOFI-R air-defense battery",
+    "symbols": "air-defense/gun",
+    "uppertext": "40",
+    "aaaclass": "M",
+    "aaarange": [
+        4,
+        8,
+        12
+    ],
+    "aaahitroll": [
+        4,
+        4,
+        3
+    ],
+    "aaadamagerating": 4,
+    "aaamaximumrelativealtitude": 15,
+    "aaafcrclass": "W",
+    "aaafcrfrequency": "VF",
+    "sightingrange": 12,
+    "defensestrength": "3S"
+}

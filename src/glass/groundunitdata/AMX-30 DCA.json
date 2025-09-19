@@ -1,12 +1,12 @@
 {
-    "name": "Tunguska",
-    "description": "Tunguska dual 30 mm and SA-19 self-propelled air-defense battery",
-    "symbols": "air-defense/gun/missile/armor",
-    "uppertext": "30×2/SA-19",
+    "name": "AMX-30 DCA",
+    "description": "AMX-30 DCA twin 30 mm self-propelled air-defense battery",
+    "symbols": "air-defense/gun/armor",
+    "uppertext": "30×2",
     "aaaclass": "L",
     "aaarange": [
-        4,
-        7,
+        3,
+        6,
         9
     ],
     "aaahitroll": [
@@ -15,7 +15,7 @@
         3
     ],
     "aaadamagerating": 4,
-    "aaamaximumrelativealtitude": 11,
+    "aaamaximumrelativealtitude": 10,
     "aaafcrclass": "W",
     "aaafcrfrequency": "VF",
     "sightingrange": 12,
