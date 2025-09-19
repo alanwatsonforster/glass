@@ -1,0 +1,237 @@
+import json
+import os
+
+latexdir = "groundunitdatatables/"
+jsondir = "src/glass/groundunitdata/"
+
+with open(latexdir + "/" + "groundunitdatatables-generic.tex", "w") as latexfile:
+
+    def writelatex(s=""):
+        print(s, file=latexfile, end="")
+
+    def writelatexline(s=""):
+        print(s, file=latexfile, end="\n")
+
+    writelatexline(r"\begin{tabularx}{0.5\linewidth}{Lccc}")
+    writelatexline(r"\toprule")
+    writelatexline(r"Name    &Defense    &Sighting   &AAA    \\")
+    writelatexline(r"        &Strength   &Range      &Class  \\")
+    writelatexline(r"\midrule")
+
+    i = 0
+
+    for name in [
+        "infantry",
+        "infantry HQ",
+        "infantry FAC",
+        "heavy tank",
+        "heavy tank HQ",
+        "medium tank",
+        "medium tank HQ",
+        "light tank",
+        "light tank HQ",
+        "medium IFV",
+        "light IFV",
+        "heavy APC",
+        "medium APC",
+        "light APC",
+        "truck",
+        "light truck",
+        "towed artillery",
+        "armored artillery",
+        "armored rocket artillery",
+        "mobile artillery",
+        "mobile rocket artillery",
+        "mobile missile artillery",
+        "mobile CCU",
+        "armored CCU",
+        "towed EWR-A",
+        "towed FCR-A",
+        "towed FCR-B",
+        "towed FCR-C",
+        "towed FCR-D",
+        "mobile EWR-A",
+        "mobile FCR-A",
+        "mobile FCR-B",
+        "mobile FCR-C",
+        "mobile FCR-D",
+    ]:
+
+        if i % 3 == 0:
+            writelatexline(r"\addlinespace")
+        i += 1
+
+        print(name)
+        data = json.load(open(jsondir + "/" + name + ".json"))
+
+        defensestrength = data["defensestrength"]
+        sightingrange = data["sightingrange"]
+        if "uppertext" not in data:
+            uppertext = ""
+        else:
+            uppertext = data["uppertext"]
+
+        writelatex(r"%s" % name)
+        writelatex(r"&\wbox[l]{0H}{%s}" % defensestrength)
+        writelatex(r"&\wbox{00}{%d}" % sightingrange)
+        if uppertext == "" and "infantry" in data["symbols"]:
+            barragefire = "B2"
+        elif uppertext == "" and "armor" in data["symbols"]:
+            barragefire = "B3"
+        else:
+            barragefire = "---"
+        writelatex(r"&%s" % barragefire)
+        writelatex(r"\\")
+        writelatexline()
+
+    writelatexline(r"\addlinespace")
+    writelatexline(r"\bottomrule")
+    writelatexline(r"\end{tabularx}")
+
+
+with open(latexdir + "/" + "groundunitdatatables-aaa.tex", "w") as latexfile:
+
+    def writelatex(s=""):
+        print(s, file=latexfile, end="")
+
+    def writelatexline(s=""):
+        print(s, file=latexfile, end="\n")
+
+    writelatexline(r"\begin{tabularx}{\linewidth}{Lcclccccccccccl}")
+    writelatexline(r"\toprule")
+    writelatexline(
+        r"""
+            Name        &
+            \multirow{2}*{\begin{tabular}{@{}c@{}}Defense\\Strength\end{tabular}}   &
+            \multirow{2}*{\begin{tabular}{@{}c@{}}Sighting\\Range\end{tabular}}     &
+            Gun         &
+            Class       &
+            Altitude    &
+            \multicolumn{3}{c}{Range}   &
+            \multicolumn{3}{c}{Hit}     &
+            \multirow{2}*{\begin{tabular}{@{}c@{}}Damage\\Rating\end{tabular}}     &
+            FCR&
+            SAM
+            \\
+        """
+    )
+    writelatexline(
+        r"""
+            \cmidrule(lr){7-9}
+            \cmidrule(lr){10-12}
+        """
+    )
+    writelatexline(r"""
+            &
+            &
+            &
+            &
+            &
+            &
+            S&M&L&       
+            S&M&L&
+            &
+            &
+            \\
+        """)
+    writelatexline(r"\midrule")
+
+    i = 0
+
+    for name in [
+        "DShK-38",
+        "ZPU-1",
+        "ZPU-2",
+        "ZPU-4",
+        "mobile ZPU-4",
+        "ZU-23",
+        "mobile ZU-23",
+        "ZSU-23-4",
+        "Tunguska",
+        "Pantsir",
+        "M-38",
+        "S-60",
+        "ZSU-57-2",
+        "KS-12",
+        "KS-19",
+        "M2",
+        "M16",
+        "M55",
+        "mobile M55",
+        "Rh-202",
+        "Panhard M3 DCA",
+        "M163",
+        "M167",
+        "AMX-30 DCA",
+        "Oerlikon GDF",
+        "Gepard",
+        "Bofors L60",
+        "Bofors L70",
+        "Bofors L70 BOFI-R",
+        "M42",
+    ]:
+
+        if i % 3 == 0:
+            writelatexline(r"\addlinespace")
+        i += 1
+
+        print(name)
+        data = json.load(open(jsondir + "/" + name + ".json"))
+
+        defensestrength = data["defensestrength"]
+        sightingrange = data["sightingrange"]
+        if "uppertext" not in data:
+            uppertext = ""
+        else:
+            uppertext = data["uppertext"]
+
+        if "/" in uppertext:
+            gun, sam = tuple(uppertext.split("/"))
+        else:
+            gun = uppertext
+            sam = ""
+        if "×" in gun:
+            gun = r"\binarymultiply{%s mm}{%s}" % tuple(gun.split("×"))
+        else:
+            gun = r"%s mm" % gun
+
+        aaaclass = data["aaaclass"]
+        aaarange = data["aaarange"]
+        aaahitroll = data["aaahitroll"]
+        aaaaltitude = data["aaamaximumrelativealtitude"]
+        aaadamagerating = data["aaadamagerating"]
+
+        if "aaafcrclass" not in data:
+            aaafcr = "---"
+        else:
+            aaafcr = data["aaafcrclass"] + "/" + data["aaafcrfrequency"] 
+
+        writelatex(r"%s" % name)
+
+        writelatex(r"&\wbox[l]{0H}{%s}" % defensestrength)
+        writelatex(r"&\wbox{00}{%d}" % sightingrange)
+
+        writelatex(r"&%s" % gun)
+
+        writelatex(r"&%s" % aaaclass)
+
+        writelatex(r"&\wbox{00}{%s}" % aaaaltitude)
+
+        writelatex(r"&\wbox{00}{%s}" % aaarange[0])
+        writelatex(r"&\wbox{00}{%s}" % aaarange[1])
+        writelatex(r"&\wbox{00}{%s}" % aaarange[2])
+
+        writelatex(r"&\wbox{0}{%s}" % aaahitroll[0])
+        writelatex(r"&\wbox{0}{%s}" % aaahitroll[1])
+        writelatex(r"&\wbox{0}{%s}" % aaahitroll[2])
+
+        writelatex(r"&\wbox{0}{%s}" % aaadamagerating)
+        writelatex(r"&%s" % aaafcr)
+        writelatex(r"&%s" % sam)
+
+        writelatex(r"\\")
+        writelatexline()
+
+    writelatexline(r"\addlinespace")
+    writelatexline(r"\bottomrule")
+    writelatexline(r"\end{tabularx}")
