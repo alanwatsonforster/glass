@@ -1,7 +1,7 @@
 %!LW recipe=latexmk (xelatex)
 %!TEX program = xelatex
 
-\documentclass[10pt]{article}
+\documentclass[10pt]{report}
 
 \input{../src/glass/aircraftdata/style.tex}
 
@@ -13,7 +13,15 @@
 
 \begin{document}
 
+\title{Air Power Ground Unit Data}
+\date{19 September 2025}
+
+\maketitle
 \twocolumn[\section{Generic Units}]
+
+Generic units are provided to represent infanty, tanks and other AFVs, artillery, and air-defense CCU, EWR, and FCR systems.
+
+Most infantry, tank, APC, IFV, and transport units are platoons. Most artillery, AAA, and SAM units represent batteries.
 
 \subsection{Infantry}
 
