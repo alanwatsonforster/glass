@@ -1,0 +1,7 @@
+{
+    "name": "barge",
+    "description": "barge",
+    "symbols": "barge",
+    "sightingrange": 12,
+    "defensestrength": "2S"
+}

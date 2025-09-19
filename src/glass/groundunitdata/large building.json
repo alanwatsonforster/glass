@@ -1,7 +1,7 @@
 {
-    "name": "largebuilding",
+    "name": "large building",
     "description": "large building",
-    "symbols": "building",
+    "symbols": "largebuilding",
     "sightingrange": 24,
     "defensestrength": "6S"
 }
