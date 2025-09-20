@@ -15,7 +15,7 @@ with open(latexdir + "/" + "groundunitdatatables-generic.tex", "w") as latexfile
     writelatexline(r"\begin{tabularx}{0.5\linewidth}{Lccc}")
     writelatexline(r"\toprule")
     writelatexline(r"Name    &Defense    &Sighting   &AAA    \\")
-    writelatexline(r"        &Strength   &Range      &Class  \\")
+    writelatexline(r"        &Strength   &Range      &\phantom{\tablenotemark{1}}Class\tablenotemark{1}  \\")
     writelatexline(r"\midrule")
 
     i = 0
@@ -87,6 +87,9 @@ with open(latexdir + "/" + "groundunitdatatables-generic.tex", "w") as latexfile
     writelatexline(r"\addlinespace")
     writelatexline(r"\bottomrule")
     writelatexline(r"\end{tabularx}")
+    writelatexline(r"\begin{tablenote}{0.5\linewidth}")
+    writelatexline(r"\tablenotemark{1} B2 or B3 indicate that the unit is capable of barrage fire to an altitude of 2 or 3 levels, respectively. Otherwise the unit is not capable of AAA fire.")
+    writelatexline(r"\end{tablenote}")
 
 
 with open(latexdir + "/" + "groundunitdatatables-aaa.tex", "w") as latexfile:

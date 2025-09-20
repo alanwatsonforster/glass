@@ -14,6 +14,7 @@
 \begin{document}
 
 \title{Air Power Ground Unit Data}
+\author{Alan Watson Forster}
 \date{19 September 2025}
 
 \maketitle
@@ -40,6 +41,8 @@ Most infantry, tank, APC, IFV, and transport units are platoons. Most artillery,
 
 Figure \ref{figure:generic-units} shows the graphical representation of the generic units. The representation mainly uses NATO symbols, with some simplifications and two extensions. First, a rectangle is used for trucks and other mobile units like the armor symbol is used for armored units. Second, a partial infantry symbol is used to denote the association of IFVs and APCs with infantry.
 
+Table \ref{table:generic-units} summarizes the properties of the generic units. Soft and hard defense strengths are suffixed with S and H, respectively. The sighting range is given in hexes. The AAA class is B2 for infantry platoons and B3 for armored platoons, indicating that they are capable of barrage fire to altitudes of 2 and 3, respecively.
+
 \subsection{Infantry}
 
 Infantry are soldiers trained to fight on foot. The generic infantry units are:
@@ -54,7 +57,7 @@ A mechanized infantry platoon will be associated with a platoon of APCs or IFVs.
 
 \subsection{Tanks}
 
-Tanks are AFVs specialized for direct-fire. The generic tank units are:
+Tanks are AFVs that are specialized for direct fire. The generic tank units are:
 \begin{itemize}
 \item \emph{heavy tank}
 \item \emph{medium tank}
@@ -71,11 +74,11 @@ Medium tanks include the AMX-30, Centurion, M4 Sherman, M47/48 Patton, M60, M103
 
 Light tanks include the AMX-10 RC, AMX-13, Ferret, M24 Chaffee, M41 Walker Bulldog, M551 Sheridan, Panhard EBR, PT-76, and Scorpion/Scimitar. 
 
-Note that we include armored cars as tanks; we do not distinguish between wheeled, half-tracked, and tracked direct-fire vehicles.
+Note that we include some armored cars as tanks; we do not distinguish between wheeled, half-tracked, and tracked direct-fire AFVs.
 
 \subsection{IFVs}
 
-IFVs are AFVs carry infantry and provide fire support. The generic IFV units are:
+IFVs are AFVs that carry infantry and provide fire support. The generic IFV units are:
 \begin{itemize}
 \item \emph{medium IFV}
 \item \emph{light IFV}
@@ -223,6 +226,7 @@ FCRs are air-defense fire-control radars for towed AAA. The generic FCR units ar
 \centering
     \small
     \input{groundunitdatatables-generic.tex}
+    \label{table:generic-units}
 \end{table*}
 
 \twocolumn[\section{AAA Units}]
