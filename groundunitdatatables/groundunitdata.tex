@@ -19,35 +19,50 @@
 \maketitle
 \twocolumn[\section{Generic Units}]
 
-Generic units are provided to represent infanty, tanks and other AFVs, artillery, and air-defense CCU, EWR, and FCR systems.
+Generic units are provided to represent infantry, tanks and other AFVs, trucks, artillery, and air-defense CCU, EWR, and FCR systems. For artillery and air-defense units, we distinguish between armored, mobile (typically truck-born), and towed units.
 
 Most infantry, tank, APC, IFV, and transport units are platoons. Most artillery, AAA, and SAM units represent batteries.
 
+\begin{figure*}
+    \centering
+\includegraphics[height=0.4\linewidth]{figure-generic.png}
+\caption{Generic Units}
+\label{figure:generic-units}
+\end{figure*}
+
+
+\begin{figure*}
+    \centering
+\includegraphics[height=0.4\linewidth]{figure-aaa.png}
+\caption{AAA Units}
+\label{figure:aaa-units}
+\end{figure*}
+
+Figure \ref{figure:generic-units} shows the graphical representation of the generic units. The representation mainly uses NATO symbols, with some simplifications and two extensions. First, a rectangle is used for trucks and other mobile units like the armor symbol is used for armored units. Second, a partial infantry symbol is used to denote the association of IFVs and APCs with infantry.
+
 \subsection{Infantry}
 
-The generic infantry units are:
+Infantry are soldiers trained to fight on foot. The generic infantry units are:
 \begin{itemize}
 \item \emph{infantry}
 \item \emph{infantry HQ}
 \item \emph{infantry FAC}
 \end{itemize}
-
 The first two units are platoons. The \emph{infantry FAC} unit is an infantry forward air controller squad.
 
 A mechanized infantry platoon will be associated with a platoon of APCs or IFVs. A motorized infantry platoon will be associated with a platoon of trucks.
 
 \subsection{Tanks}
 
-The generic tank units are:
+Tanks are AFVs specialized for direct-fire. The generic tank units are:
 \begin{itemize}
 \item \emph{heavy tank}
-\item \emph{heavy tank HQ}
 \item \emph{medium tank}
-\item \emph{medium tank HQ}
 \item \emph{light tank}
+\item \emph{heavy tank HQ}
+\item \emph{medium tank HQ}
 \item \emph{light tank HQ}
 \end{itemize}
-
 These are all platoons.
 
 Heavy tanks include the M1 Abrams, Conqueror, Chieftain, Challenger 1 \& 2, IS-3, Leclerc, Leopard 2, Merkava, T-10, T-64, T-72, T-80, T-84, and T-90.
@@ -56,11 +71,11 @@ Medium tanks include the AMX-30, Centurion, M4 Sherman, M47/48 Patton, M60, M103
 
 Light tanks include the AMX-10 RC, AMX-13, Ferret, M24 Chaffee, M41 Walker Bulldog, M551 Sheridan, Panhard EBR, PT-76, and Scorpion/Scimitar. 
 
-Note that armored cars are included as tanks; we do not distinguish between wheeled, half-tracked, and tracked vehicles. 
+Note that we include armored cars as tanks; we do not distinguish between wheeled, half-tracked, and tracked direct-fire vehicles.
 
 \subsection{IFVs}
 
-The generic IFV units are:
+IFVs are AFVs carry infantry and provide fire support. The generic IFV units are:
 \begin{itemize}
 \item \emph{medium IFV}
 \item \emph{light IFV}
@@ -68,13 +83,13 @@ The generic IFV units are:
 
 These are both platoons. 
 
-Medium IFVs include the CV90, M2A2 Bradley (but not other versions), and Marder. All other IFVs are considered to be light. There are currently no heavy IFVs.
+Medium IFVs include the CV90, M2A2 Bradley (but not other Bradley versions), and Marder. All other IFVs are considered to be light. There are currently no heavy IFVs.
 
 There are no IFV HQ units; the headquarters platoon of a IFV-equipped mechanized infantry unit will consist of an infantry HQ platoon and a normal IFV platoon.
 
 \subsection{APCs}
 
-The generic APC units are:
+APCs are AFVs that carry infantry but do not provide significant fire support. The generic APC units are:
 \begin{itemize}
 \item \emph{heavy APC}
 \item \emph{medium APC}
@@ -106,7 +121,7 @@ There are no APC HQ units; the headquarters platoon of a APC-equipped mechanized
 
 \groundunittype{Trucks}
 
-The generic truck units are:
+Trucks are unarmored or only partially armored vehicles. The generic truck units are:
 \begin{itemize}
 \item \emph{truck}
 \item \emph{light truck}
@@ -120,7 +135,7 @@ Light trucks include Humvees, Jeeps, and Land Rovers.
 
 \groundunittype{Artillery}
 
-The generic artillery units are:
+Artillery is specialized for indirect fire. The generic artillery units are:
 \begin{itemize}
 \item \emph{towed artillery}
 \item \emph{armored artillery}
@@ -177,7 +192,7 @@ RSD-10 Pioneer (SS-20).
 
 \subsection{CCUs}
 
-The generic CCU units are:
+CCUs are air-defense command and control units. The generic CCU units are:
 \begin{itemize}
 \item \emph{mobile CCU}
 \item \emph{armored CCU}
@@ -189,7 +204,7 @@ Armored CCUs include the 9S80 PPRU-1.
 
 \subsection{EWRs}
 
-The generic EWR units are:
+EWRs are air-defense early-warning radars. The generic EWR units are:
 \begin{itemize}
 \item \emph{towed EWR-A}
 \item \emph{mobile EWR-A}
@@ -197,7 +212,7 @@ The generic EWR units are:
 
 \subsection{FCRs}
 
-The generic EWR units are:
+FCRs are air-defense fire-control radars for towed AAA. The generic FCR units are:
 \begin{itemize}
 \item \emph{towed FCR-A/B/C/D}
 \item \emph{mobile FCR-A/B/C/D}
@@ -209,6 +224,11 @@ The generic EWR units are:
     \small
     \input{groundunitdatatables-generic.tex}
 \end{table*}
+
+\twocolumn[\section{AAA Units}]
+
+
+Figure \ref{figure:aaa-units} shows the graphical representation of the AAA units. Again, the representation uses NATO symbols.
 
 \begin{table*}
 \caption{AAA Units}

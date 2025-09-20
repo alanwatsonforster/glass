@@ -121,7 +121,8 @@ with open(latexdir + "/" + "groundunitdatatables-aaa.tex", "w") as latexfile:
             \cmidrule(lr){10-12}
         """
     )
-    writelatexline(r"""
+    writelatexline(
+        r"""
             &
             &
             &
@@ -133,42 +134,55 @@ with open(latexdir + "/" + "groundunitdatatables-aaa.tex", "w") as latexfile:
             &
             &
             \\
-        """)
+        """
+    )
     writelatexline(r"\midrule")
 
     i = 0
 
     for name in [
+
         "DShK-38",
-        "ZPU-1",
-        "ZPU-2",
-        "ZPU-4",
-        "mobile ZPU-4",
-        "ZU-23",
-        "mobile ZU-23",
-        "ZSU-23-4",
-        "Tunguska",
-        "Pantsir",
-        "M-38",
-        "S-60",
-        "ZSU-57-2",
-        "KS-12",
-        "KS-19",
         "M2",
         "M16",
         "M55",
         "mobile M55",
+
+        "ZPU-1",
+        "ZPU-2",
+        "ZPU-4",
+        "mobile ZPU-4",
+
         "Rh-202",
         "Panhard M3 DCA",
         "M163",
         "M167",
+
+        "ZU-23",
+        "mobile ZU-23",
+        "ZSU-23-4",
+
         "AMX-30 DCA",
+        "Tunguska",
+        "Pantsir",
+        
         "Oerlikon GDF",
         "Gepard",
+
+        "M-38",
+        
         "Bofors L60",
         "Bofors L70",
         "Bofors L70 BOFI-R",
         "M42",
+                
+        "S-60",
+        "ZSU-57-2",
+        
+        "KS-12",
+        
+        "KS-19",
+        
     ]:
 
         if i % 3 == 0:
@@ -204,7 +218,7 @@ with open(latexdir + "/" + "groundunitdatatables-aaa.tex", "w") as latexfile:
         if "aaafcrclass" not in data:
             aaafcr = "---"
         else:
-            aaafcr = data["aaafcrclass"] + "/" + data["aaafcrfrequency"] 
+            aaafcr = data["aaafcrclass"] + "/" + data["aaafcrfrequency"]
 
         writelatex(r"%s" % name)
 

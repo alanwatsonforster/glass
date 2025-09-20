@@ -2009,20 +2009,23 @@ def _drawgroundunitincanvas(
         )
 
     def drawairdefensesymbol():
-        fy = 0.30
-        theta = range(0, 180)
+        dy0 = -trucksymboldy
+        dy1 = -0.5 * groundunitdy
+        dx1 = -0.5 * groundunitdx
+        p = 2.0
 
-        def airdefencex(theta):
-            return x + groundunitdx / 2 * _cosd(theta)
+        theta = range(0, 181)
+        def _dx(theta):
+            return 0.5 * groundunitdx * _cosd(theta)
 
-        def airdefencey(theta):
-            return y - groundunitdy / 2 + fy * groundunitdy * _sind(theta)
+        def _dy(theta):
+            return dy0 + (dy1 - dy0) * (abs(_dx(theta) / dx1) ** p)
 
         _drawrectangleincanvas(
             x + groundunitdx * (-0.5),
             y + groundunitdy * (-0.5),
             x + groundunitdx * (+0.5),
-            y + groundunitdy * (-0.5 + fy),
+            y + dy0,
             linecolor=None,
             fillcolor=fillcolor,
             linewidth=groundunitlinewidth,
@@ -2030,9 +2033,9 @@ def _drawgroundunitincanvas(
         )
 
         _drawlinesincanvas(
-            list([airdefencex(theta) for theta in theta]),
-            list([airdefencey(theta) for theta in theta]),
-            linecolor=linecolor,
+            list([x + _dx(theta) for theta in theta]),
+            list([y + _dy(theta) for theta in theta]),
+            linecolor="black",
             linewidth=groundunitlinewidth,
             zorder=zorder,
         )
@@ -2843,7 +2846,7 @@ def _drawgroundunitincanvas(
             text,
             facing=90,
             dx=0,
-            dy=-groundunitdy * 0.35,
+            dy=-groundunitdy * 0.36,
             size=groundunittextsize,
             textcolor=linecolor,
             alignment="center",
