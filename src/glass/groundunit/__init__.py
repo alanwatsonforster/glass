@@ -90,6 +90,7 @@ class GroundUnit(glass.element.Element):
                 if symbol not in [
                     "unidentified",
                     "infantry",
+                    "infantrycarrier",
                     "armor",
                     "armour",
                     "artillery",

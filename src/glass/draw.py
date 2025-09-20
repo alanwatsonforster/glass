@@ -1699,13 +1699,14 @@ def drawgroundunit(
         ``"air-defense"``, ``"ammunition"``, ``"antiarmor"``, ``"armor"``,
         ``"artillery"``, ``"barge"``, ``"bridge"``, ``"building"``,
         ``"fixedwing"``, ``"fuel"``, ``"gun"``, ``"hangar"``,
-        ``"headquarters"``, ``"heavy"``, ``"infantry"``, ``"junk"``,
-        ``"largebuilding"``, ``"light"``, ``"locomotive"``, ``"medium"``,
-        ``"missile"``, ``"rocket"``, ``"ordnance"``, ``"radar"``, ``"railcar"``,
-        ``"reconnaissance"``, ``"rotarywing"``,``"shelter"``, ``"supply"``,
-        ``"towed"``, ``"tower"``, ``"tracked"``, ``"transportation"``,
-        ``"truck"``, and ``unidentified``. The British English aliases
-        ``"air-defence"``, ``"antiarmour"``, ``"armour"`` are also allowed.
+        ``"headquarters"``, ``"heavy"``, ``"infantry"``, ``"infantrycarrier"``,
+        ``"junk"``, ``"largebuilding"``, ``"light"``, ``"locomotive"``,
+        ``"medium"``, ``"missile"``, ``"rocket"``, ``"ordnance"``, ``"radar"``,
+        ``"railcar"``, ``"reconnaissance"``, ``"rotarywing"``,``"shelter"``,
+        ``"supply"``, ``"towed"``, ``"tower"``, ``"tracked"``,
+        ``"transportation"``, ``"truck"``, and ``unidentified``. The British
+        English aliases ``"air-defence"``, ``"antiarmour"``, ``"armour"`` are
+        also allowed.
     :param uppertext:
     :param lowertext:
         The ``uppertext`` and ``lowertext`` arguments are strings that we drawn
@@ -1887,6 +1888,37 @@ def _drawgroundunitincanvas(
         _drawlinesincanvas(
             [x - groundunitdx / 2, x + groundunitdx / 2],
             [y + groundunitdy / 2, y - groundunitdy / 2],
+            linecolor=linecolor,
+            linewidth=groundunitlinewidth,
+            zorder=zorder,
+        )
+
+    def drawinfantrycarriersymbol():
+        f = 0.5
+        _drawlinesincanvas(
+            [x - groundunitdx / 2, x - f * groundunitdx / 2],
+            [y - groundunitdy / 2, y - f * groundunitdy / 2],
+            linecolor=linecolor,
+            linewidth=groundunitlinewidth,
+            zorder=zorder,
+        )
+        _drawlinesincanvas(
+            [x - groundunitdx / 2, x - f * groundunitdx / 2],
+            [y + groundunitdy / 2, y + f * groundunitdy / 2],
+            linecolor=linecolor,
+            linewidth=groundunitlinewidth,
+            zorder=zorder,
+        )
+        _drawlinesincanvas(
+            [x + groundunitdx / 2, x + f * groundunitdx / 2],
+            [y - groundunitdy / 2, y - f * groundunitdy / 2],
+            linecolor=linecolor,
+            linewidth=groundunitlinewidth,
+            zorder=zorder,
+        )
+        _drawlinesincanvas(
+            [x + groundunitdx / 2, x + f * groundunitdx / 2],
+            [y + groundunitdy / 2, y + f * groundunitdy / 2],
             linecolor=linecolor,
             linewidth=groundunitlinewidth,
             zorder=zorder,
@@ -2797,7 +2829,7 @@ def _drawgroundunitincanvas(
             text,
             facing=90,
             dx=0,
-            dy=+groundunitdy * 0.34,
+            dy=+groundunitdy * 0.36,
             size=groundunittextsize,
             textcolor=linecolor,
             alignment="center",
@@ -2868,6 +2900,8 @@ def _drawgroundunitincanvas(
         drawunidentifedsymbol()
     if "infantry" in symbols:
         drawinfantrysymbol()
+    if "infantrycarrier" in symbols:
+        drawinfantrycarriersymbol()
     if "armor" in symbols or "armour" in symbols:
         drawarmorsymbol()
     if "truck" in symbols:
