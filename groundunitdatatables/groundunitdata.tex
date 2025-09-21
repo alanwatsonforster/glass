@@ -31,7 +31,6 @@ Most infantry, tank, APC, IFV, and transport units are platoons. Most artillery,
 \label{figure:generic-units}
 \end{figure*}
 
-
 \begin{figure*}
     \centering
 \includegraphics[height=0.4\linewidth]{figure-aaa.png}
@@ -39,9 +38,17 @@ Most infantry, tank, APC, IFV, and transport units are platoons. Most artillery,
 \label{figure:aaa-units}
 \end{figure*}
 
-Figure \ref{figure:generic-units} shows the graphical representation of the generic units. The representation mainly uses NATO symbols, with some simplifications and two extensions. First, a rectangle is used for trucks and other mobile units like the armor symbol is used for armored units. Second, a partial infantry symbol is used to denote the association of IFVs and APCs with infantry.
+\begin{figure*}
+    \centering
+\includegraphics[height=0.4\linewidth]{figure-sam-launcher.png}
+\caption{SAM Launcher Units}
+\label{figure:sam-launcher-units}
+\end{figure*}
+
 
 Table \ref{table:generic-units} summarizes the properties of the generic units. Soft and hard defense strengths are suffixed with S and H, respectively. The sighting range is given in hexes. The AAA class is B2 for infantry platoons and B3 for armored platoons, indicating that they are capable of barrage fire to altitudes of 2 and 3, respectively.
+
+Figure \ref{figure:generic-units} shows the graphical representation of the generic units. The representation mainly uses NATO symbols, with some simplifications and two extensions. First, a rectangle is used for trucks and other mobile units like the armor symbol is used for armored units. Second, a partial infantry symbol is used to denote the association of IFVs and APCs with infantry.
 
 \subsection{Infantry}
 
@@ -231,6 +238,7 @@ FCRs are air-defense fire-control radars for towed AAA. The generic FCR units ar
 
 \twocolumn[\section{AAA Units}]
 
+Table \ref{table:aaa-units} summarizes the properties of the AAA units. Soft and hard defense strengths are suffixed with S and H, respectively. The sighting range is given in hexes. 
 
 Figure \ref{figure:aaa-units} shows the graphical representation of the AAA units. Again, the representation uses NATO symbols.
 
@@ -239,13 +247,23 @@ Figure \ref{figure:aaa-units} shows the graphical representation of the AAA unit
 \centering
     \small
     \input{groundunitdatatables-aaa.tex}
+    \label{table:aaa-units}
 \end{table*}
 
+\twocolumn[\section{SAM Launcher Units}]
+
+
+Table \ref{table:sam-launcher-units} summarizes the properties of the AAA units. Soft and hard defense strengths are suffixed with S and H, respectively. The sighting range is given in hexes. 
+
+Figure \ref{figure:sam-launcher-units} shows the graphical representation of the AAA units. Again, the representation uses NATO symbols.
+
+
 \begin{table*}
-\caption{SAM Units}
+\caption{SAM Launcher Units}
 \centering
     \small
     \input{groundunitdatatables-sam.tex}
+    \label{table:sam-launcher-units}
 \end{table*}
 
 \end{document}

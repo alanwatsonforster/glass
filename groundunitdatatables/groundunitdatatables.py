@@ -331,7 +331,6 @@ with open(latexdir + "/" + "groundunitdatatables-sam.tex", "w") as latexfile:
         "SA-15",
         "Tunguska",
         "Pantsir S1",
-        #THERE ARE TWO SA-19s
         "SA-17",
         "Pantsir S1M",
     ]:
