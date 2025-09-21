@@ -63,17 +63,19 @@ class GroundUnit(glass.element.Element):
                     uppertext = data["uppertext"]
                 if lowertext is None and "lowertext" in data:
                     lowertext = data["lowertext"]
-                if aaaclass is None and "aaaclass" in data:
-                    aaaclass = data["aaaclass"]
-                if aaarange is None and "aaarange" in data:
-                    aaarange = data["aaarange"]
-                if aaadamagerating is None and "aaadamagerating" in data:
-                    aaadamagerating = data["aaadamagerating"]
-                if (
-                    aaamaximumrelativealtitude is None
-                    and "aaamaximumrelativealtitude" in data
-                ):
-                    aaamaximumrelativealtitude = data["aaamaximumrelativealtitude"]
+                if "aaa" in data:
+                    aaa = data["aaa"]
+                    if aaaclass is None and "class" in aaa:
+                        aaaclass = aaa["class"]
+                    if aaarange is None and "range" in aaa:
+                        aaarange = aaa["range"]
+                    if aaadamagerating is None and "damagerating" in aaa:
+                        aaadamagerating = aaa["damagerating"]
+                    if (
+                        aaamaximumrelativealtitude is None
+                        and "maximumrelativealtitude" in aaa
+                    ):
+                        aaamaximumrelativealtitude = aaa["maximumrelativealtitude"]
                 if sightingrange is None and "sightingrange" in data:
                     sightingrange = data["sightingrange"]
                 if defensestrength is None and "defensestrength" in data:
