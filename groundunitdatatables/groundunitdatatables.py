@@ -66,21 +66,18 @@ with open(latexdir + "/" + "groundunitdatatables-generic.tex", "w") as latexfile
 
         defensestrength = data["defensestrength"]
         sightingrange = data["sightingrange"]
-        if "uppertext" not in data:
-            uppertext = ""
-        else:
-            uppertext = data["uppertext"]
 
         writelatex(r"%s" % name)
         writelatex(r"&\wbox[l]{0H}{%s}" % defensestrength)
         writelatex(r"&\wbox{00}{%d}" % sightingrange)
-        if uppertext == "" and "infantry" in data["symbols"]:
-            barragefire = "B2"
-        elif uppertext == "" and "armor" in data["symbols"]:
-            barragefire = "B3"
+        if "aaa" in data:
+            aaa = data["aaa"]
+            aaaclass = aaa["class"]
+            aaaaltitude = aaa["maximumrelativealtitude"]
+            aaaclass = aaa["class"] + str(aaa["maximumrelativealtitude"])
         else:
-            barragefire = "---"
-        writelatex(r"&%s" % barragefire)
+            aaaclass = "---"
+        writelatex(r"&%s" % aaaclass)
         writelatex(r"\\")
         writelatexline()
 
@@ -167,7 +164,8 @@ with open(latexdir + "/" + "groundunitdatatables-aaa.tex", "w") as latexfile:
 
         "AMX-30 DCA",
         "Tunguska",
-        "Pantsir",
+        "Pantsir S1",
+        "Pantsir S1M",
         
         "Oerlikon GDF",
         "Gepard",
@@ -197,38 +195,37 @@ with open(latexdir + "/" + "groundunitdatatables-aaa.tex", "w") as latexfile:
 
         defensestrength = data["defensestrength"]
         sightingrange = data["sightingrange"]
-        if "uppertext" not in data:
-            uppertext = ""
-        else:
-            uppertext = data["uppertext"]
 
-        if "/" in uppertext:
-            gun, sam = tuple(uppertext.split("/"))
-        else:
-            gun = uppertext
-            sam = ""
-        if "×" in gun:
-            gun = r"\binarymultiply{%s mm}{%s}" % tuple(gun.split("×"))
-        else:
-            gun = r"%s mm" % gun
+        aaa = data["aaa"]
 
-        aaaclass = data["aaaclass"]
-        aaarange = data["aaarange"]
-        aaahitroll = data["aaahitroll"]
-        aaaaltitude = data["aaamaximumrelativealtitude"]
-        aaadamagerating = data["aaadamagerating"]
+        aaatype = aaa["type"]
+        if "×" in aaatype:
+            aaatype = r"\binarymultiply{%s mm}{%s}" % tuple(aaatype.split("×"))
+        else:
+            aaatype = r"%s mm" % aaatype
+        
+        if "sam" in data:
+            samtype = data["sam"]["type"]
+        else:
+            samtype = "---"
+
+        aaaclass = aaa["class"]
+        aaarange = aaa["range"]
+        aaahitroll = aaa["hitroll"]
+        aaaaltitude = aaa["maximumrelativealtitude"]
+        aaadamagerating = aaa["damagerating"]
 
         if "aaafcrclass" not in data:
             aaafcr = "---"
         else:
-            aaafcr = data["aaafcrclass"] + "/" + data["aaafcrfrequency"]
+            aaafcr = aaa["fcrclass"] + "/" + aaa["fcrfrequency"]
 
         writelatex(r"%s" % name)
 
         writelatex(r"&\wbox[l]{0H}{%s}" % defensestrength)
         writelatex(r"&\wbox{00}{%d}" % sightingrange)
 
-        writelatex(r"&%s" % gun)
+        writelatex(r"&%s" % aaatype)
 
         writelatex(r"&%s" % aaaclass)
 
@@ -244,7 +241,182 @@ with open(latexdir + "/" + "groundunitdatatables-aaa.tex", "w") as latexfile:
 
         writelatex(r"&\wbox{0}{%s}" % aaadamagerating)
         writelatex(r"&%s" % aaafcr)
-        writelatex(r"&%s" % sam)
+        writelatex(r"&%s" % samtype)
+
+        writelatex(r"\\")
+        writelatexline()
+
+    writelatexline(r"\addlinespace")
+    writelatexline(r"\bottomrule")
+    writelatexline(r"\end{tabularx}")
+
+
+with open(latexdir + "/" + "groundunitdatatables-sam.tex", "w") as latexfile:
+
+    def writelatex(s=""):
+        print(s, file=latexfile, end="")
+
+    def writelatexline(s=""):
+        print(s, file=latexfile, end="\n")
+
+    writelatexline(r"\begin{tabularx}{\linewidth}{Lcclcccccccccccl}")
+    writelatexline(r"\toprule")
+    writelatexline(
+        r"""
+            &
+            &
+            &
+            &
+            \multicolumn{3}{c}{EWR}         &
+            \multicolumn{2}{c}{TTR}         &
+            &
+            \multicolumn{2}{c}{Missiles}    &
+            &
+            \multicolumn{2}{c}{Lock-On}     &
+            \\
+        """
+    )
+
+    writelatexline(
+        r"""
+            \cmidrule(lr){5-7}
+            \cmidrule(lr){8-9}
+            \cmidrule(lr){11-12}
+            \cmidrule(lr){14-15}
+        """
+    )
+    writelatexline(
+        r"""
+            Name&
+            \vertical{\begin{tabular}{@{}l@{}}Defense\\Strength\end{tabular}}&
+            \vertical{\begin{tabular}{@{}l@{}}Sighting\\Range\end{tabular}}&
+            SAM&
+            \vertical{Frequency}    &
+            \vertical{Range}        &
+            \vertical{MTI}          &
+            \vertical{Frequency}    &
+            \vertical{Range}        &
+            \vertical{\begin{tabular}{@{}l@{}}Multi-Target\\Capability\end{tabular}}&
+            \vertical{Ready}        &
+            \vertical{Volley}       &
+            \vertical{\begin{tabular}{@{}l@{}}Quick\\Reaction\end{tabular}}&
+            \vertical{Radar}        &
+            \vertical{Optical}      &
+            AAA\\
+            """
+    )
+    writelatexline(r"\midrule")
+
+    i = 0
+
+    for name in [
+        "SA-2B",
+        "SA-2C",
+        "SA-2E",
+        "SA-2F",
+        "SA-3A",
+        "SA-3B",
+        "SA-4",
+        "SA-5",
+        "SA-6",
+        "SA-8A",
+        "SA-8B",
+        "SA-9",
+        "SA-10A",
+        "SA-10B",
+        "SA-11",
+        "SA-12A",
+        "SA-12B",
+        "SA-13",
+        "SA-15",
+        "Tunguska",
+        "Pantsir S1",
+        #THERE ARE TWO SA-19s
+        "SA-17",
+        "Pantsir S1M",
+    ]:
+
+        if i % 3 == 0:
+            writelatexline(r"\addlinespace")
+        i += 1
+
+        print(name)
+        data = json.load(open(jsondir + "/" + name + ".json"))
+
+        defensestrength = data["defensestrength"]
+        sightingrange = data["sightingrange"]
+        
+        sam = data["sam"]
+
+        samtype = sam["type"]
+        
+        if "aaa" not in data:
+            aaatype = "---"
+        else:
+            aaatype = data["aaa"]["type"]            
+            if "×" in aaatype:
+                aaatype = r"\binarymultiply{%s mm}{%s}" % tuple(aaatype.split("×"))
+            else:
+                aaatype = r"%s mm" % aaatype
+
+        if "ewrfrequency" not in sam:
+            ewrfrequency = "---"
+            ewrrange = "---"
+        else:
+            ewrfrequency = sam["ewrfrequency"]
+            ewrrange = sam["ewrrange"]
+        if "ewrmti" not in sam or not sam["ewrmti"]:
+            ewrmti = "---"
+        else:
+            ewrmti = "Y"
+        if "ttrfrequency" not in sam:
+            ttrfrequency = "---"
+            ttrrange = "---"
+        else:
+            ttrfrequency = sam["ttrfrequency"]
+            ttrrange = sam["ttrrange"]
+
+        if "multitargetcapability" not in sam:
+            multitargetcapability = "---"
+        else:
+            multitargetcapability = sam["multitargetcapability"]
+
+        readymissiles = sam["readymissiles"]
+        volleymissiles = sam["volleymissiles"]
+
+        if "quickreaction" not in sam or not sam["quickreaction"]:
+            quickreaction = "---"
+        else:
+            quickreaction = "Y"
+
+        if "radarlockon" not in sam:
+            radarlockon = "---"
+        else:
+            radarlockon = sam["radarlockon"]
+        if "opticallockon" not in sam:
+            opticallockon = "---"
+        else:
+            opticallockon = sam["opticallockon"]
+
+        writelatex(r"%s" % name)
+
+        writelatex(r"&\wbox[l]{0H}{%s}" % defensestrength)
+        writelatex(r"&\wbox{00}{%d}" % sightingrange)
+
+        writelatex(r"&%s" % samtype)
+        writelatex(r"&%s" % ewrfrequency)
+        writelatex(r"&\wbox{000}{%s}" % ewrrange)
+        writelatex(r"&%s" % ewrmti)
+        writelatex(r"&%s" % ttrfrequency)
+        writelatex(r"&\wbox{00}{%s}" % ttrrange)
+        writelatex(r"&%s" % multitargetcapability)
+        writelatex(r"&\wbox{00}{%d}" % readymissiles)
+        writelatex(r"&\wbox{00}{%d}" % volleymissiles)
+        writelatex(r"&%s" % quickreaction)
+        writelatex(r"&%s" % radarlockon)
+        writelatex(r"&%s" % opticallockon)
+
+        writelatex(r"&%s" % aaatype)
 
         writelatex(r"\\")
         writelatexline()

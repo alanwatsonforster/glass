@@ -3,21 +3,24 @@
     "description": "ZSU-23-4 quad 23 mm self-propelled air-defense battery",
     "symbols": "air-defense/gun/armor",
     "uppertext": "23×4",
-    "aaaclass": "L",
-    "aaarange": [
-        2,
-        5,
-        8
-    ],
-    "aaahitroll": [
-        5,
-        4,
-        3
-    ],
-    "aaadamagerating": 3,
-    "aaamaximumrelativealtitude": 9,
-    "aaafcrclass": "W",
-    "aaafcrfrequency": "VF",
+    "defensestrength": "4H",
     "sightingrange": 12,
-    "defensestrength": "4H"
+    "aaa": {
+        "type": "23×4",
+        "class": "L",
+        "range": [
+            2,
+            5,
+            8
+        ],
+        "hitroll": [
+            5,
+            4,
+            3
+        ],
+        "damagerating": 3,
+        "maximumrelativealtitude": 9,
+        "fcrclass": "W",
+        "fcrfrequency": "VF"
+    }
 }

@@ -2,8 +2,10 @@
     "name": "light IFV",
     "description": "light tank platoon",
     "symbols": "armor/gun/light/infantrycarrier",
-    "aaaclass": "B",
-    "aaamaximumrelativealtitude": 3,
+    "defensestrength": "4H",
     "sightingrange": 12,
-    "defensestrength": "4H"
+    "aaa": {
+        "class": "B",
+        "maximumrelativealtitude": 3
+    }
 }

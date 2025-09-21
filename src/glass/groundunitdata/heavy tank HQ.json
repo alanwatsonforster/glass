@@ -2,8 +2,10 @@
     "name": "heavy tank",
     "description": "heavy tank HQ platoon",
     "symbols": "armor/gun/heavy/headquarters",
-    "aaaclass": "B",
-    "aaamaximumrelativealtitude": 3,
+    "defensestrength": "8H",
     "sightingrange": 12,
-    "defensestrength": "8H"
+    "aaa": {
+        "class": "B",
+        "maximumrelativealtitude": 3
+    }
 }

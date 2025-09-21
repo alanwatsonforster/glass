@@ -2,8 +2,10 @@
     "name": "medium tank HQ",
     "description": "medium tank headquarters platoon",
     "symbols": "armor/gun/medium/headquarters",
-    "aaaclass": "B",
-    "aaamaximumrelativealtitude": 3,
+    "defensestrength": "6H",
     "sightingrange": 12,
-    "defensestrength": "6H"
+    "aaa": {
+        "class": "B",
+        "maximumrelativealtitude": 3
+    }
 }

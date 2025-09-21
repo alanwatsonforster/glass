@@ -3,19 +3,22 @@
     "description": "KS-19 100 mm air-defense battery",
     "symbols": "air-defense/gun",
     "uppertext": "100",
-    "aaaclass": "H",
-    "aaarange": [
-        7,
-        14,
-        21
-    ],
-    "aaahitroll": [
-        2,
-        1,
-        0
-    ],
-    "aaadamagerating": 6,
-    "aaamaximumrelativealtitude": 39,
+    "defensestrength": "4H",
     "sightingrange": 18,
-    "defensestrength": "4H"
+    "aaa": {
+        "type": "100",
+        "class": "H",
+        "range": [
+            7,
+            14,
+            21
+        ],
+        "hitroll": [
+            2,
+            1,
+            0
+        ],
+        "damagerating": 6,
+        "maximumrelativealtitude": 39
+    }
 }

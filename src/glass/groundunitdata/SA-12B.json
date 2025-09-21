@@ -1,0 +1,20 @@
+{
+    "name": "SA-12B",
+    "description": "SA-12B air-defense battery",
+    "symbols": "air-defense/missile/truck",
+    "uppertext": "SA-12B",
+    "sightingrange": 12,
+    "defensestrength": "4H",
+    "sam": {
+        "type": "SA-12B",
+        "ewrfrequency": "VF",
+        "ewrrange": 125,
+        "ewrmti": true,
+        "ttrfrequency": "VF",
+        "ttrrange": 80,
+        "multitargetcapability": 6,
+        "readymissiles": 12,
+        "volleymissiles": 2,
+        "radarlockon": 9
+    }
+}

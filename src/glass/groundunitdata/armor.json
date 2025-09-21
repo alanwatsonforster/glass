@@ -3,8 +3,10 @@
     "description": "armor platoon",
     "symbols": "armor",
     "lowertext": "?",
-    "aaaclass": "B",
-    "aaamaximumrelativealtitude": 3,
+    "defensestrength": "8H",
     "sightingrange": 12,
-    "defensestrength": "8H"
+    "aaa": {
+        "class": "B",
+        "maximumrelativealtitude": 3
+    }
 }

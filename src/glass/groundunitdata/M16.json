@@ -3,19 +3,22 @@
     "description": "M16 quad .50 cal self-propelled air-defense battery",
     "symbols": "air-defense/gun/armor",
     "uppertext": "12.7×4",
-    "aaaclass": "L",
-    "aaarange": [
-        2,
-        3,
-        4
-    ],
-    "aaahitroll": [
-        4,
-        3,
-        2
-    ],
-    "aaadamagerating": 2,
-    "aaamaximumrelativealtitude": 5,
+    "defensestrength": "4H",
     "sightingrange": 12,
-    "defensestrength": "4H"
+    "aaa": {
+        "type": "12.7×4",
+        "class": "L",
+        "range": [
+            2,
+            3,
+            4
+        ],
+        "hitroll": [
+            4,
+            3,
+            2
+        ],
+        "damagerating": 2,
+        "maximumrelativealtitude": 5
+    }
 }

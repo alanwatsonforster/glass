@@ -2,8 +2,10 @@
     "name": "light tank",
     "description": "light tank platoon",
     "symbols": "armor/gun/light",
-    "aaaclass": "B",
-    "aaamaximumrelativealtitude": 3,
+    "defensestrength": "4H",
     "sightingrange": 12,
-    "defensestrength": "4H"
+    "aaa": {
+        "class": "B",
+        "maximumrelativealtitude": 3
+    }
 }

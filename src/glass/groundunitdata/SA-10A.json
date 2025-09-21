@@ -1,0 +1,20 @@
+{
+    "name": "SA-10A",
+    "description": "SA-10A air-defense battery",
+    "symbols": "air-defense/missile/truck",
+    "uppertext": "SA-10A",
+    "sightingrange": 24,
+    "defensestrength": "4H",
+    "sam": {
+        "type": "SA-10A",
+        "ewrfrequency": "HF",
+        "ewrrange": 100,
+        "ewrmti": true,
+        "ttrfrequency": "VF",
+        "ttrrange": 60,
+        "multitargetcapability": 6,
+        "readymissiles": 32,
+        "volleymissiles": 12,
+        "radarlockon": 8
+    }
+}

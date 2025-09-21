@@ -3,19 +3,22 @@
     "description": "KS-12 85 mm air-defense battery",
     "symbols": "air-defense/gun",
     "uppertext": "85",
-    "aaaclass": "H",
-    "aaarange": [
-        6,
-        12,
-        18
-    ],
-    "aaahitroll": [
-        2,
-        1,
-        0
-    ],
-    "aaadamagerating": 6,
-    "aaamaximumrelativealtitude": 27,
+    "defensestrength": "4H",
     "sightingrange": 18,
-    "defensestrength": "4H"
+    "aaa": {
+        "type": "85",
+        "class": "H",
+        "range": [
+            6,
+            12,
+            18
+        ],
+        "hitroll": [
+            2,
+            1,
+            0
+        ],
+        "damagerating": 6,
+        "maximumrelativealtitude": 27
+    }
 }

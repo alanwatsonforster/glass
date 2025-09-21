@@ -2,8 +2,10 @@
     "name": "infantry",
     "description": "infantry platoon",
     "symbols": "infantry",
-    "aaaclass": "B",
-    "aaamaximumrelativealtitude": 2,
+    "defensestrength": "4S",
     "sightingrange": 6,
-    "defensestrength": "4S"
+    "aaa": {
+        "class": "B",
+        "maximumrelativealtitude": 2
+    }
 }

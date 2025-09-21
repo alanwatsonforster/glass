@@ -3,19 +3,22 @@
     "description": "M-38 37 mm air-defense battery",
     "symbols": "air-defense/gun",
     "uppertext": "37",
-    "aaaclass": "M",
-    "aaarange": [
-        4,
-        8,
-        11
-    ],
-    "aaahitroll": [
-        3,
-        2,
-        1
-    ],
-    "aaadamagerating": 4,
-    "aaamaximumrelativealtitude": 12,
+    "defensestrength": "3S",
     "sightingrange": 12,
-    "defensestrength": "3S"
+    "aaa": {
+        "type": "37",
+        "class": "M",
+        "range": [
+            4,
+            8,
+            11
+        ],
+        "hitroll": [
+            3,
+            2,
+            1
+        ],
+        "damagerating": 4,
+        "maximumrelativealtitude": 12
+    }
 }

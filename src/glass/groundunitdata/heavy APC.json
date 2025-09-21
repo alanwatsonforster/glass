@@ -2,8 +2,10 @@
     "name": "heavy APC",
     "description": "heavy APC platoon",
     "symbols": "armor/heavy/infantrycarrier",
-    "aaaclass": "B",
-    "aaamaximumrelativealtitude": 3,
+    "defensestrength": "8H",
     "sightingrange": 12,
-    "defensestrength": "8H"
+    "aaa": {
+        "class": "B",
+        "maximumrelativealtitude": 3
+    }
 }

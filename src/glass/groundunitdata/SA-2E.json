@@ -4,5 +4,16 @@
     "symbols": "air-defense/missile",
     "uppertext": "SA-2E",
     "sightingrange": 18,
-    "defensestrength": "4S"
+    "defensestrength": "4S",
+    "sam": {
+        "type": "SA-2E",
+        "ewrfrequency": "LF",
+        "ewrrange": 30,
+        "ttrfrequency": "MF",
+        "ttrrange": 20,
+        "readymissiles": 6,
+        "volleymissiles": 2,
+        "quickreaction": false,
+        "radarlockon": 6
+    }
 }

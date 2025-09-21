@@ -3,19 +3,22 @@
     "description": "ZSU-57-2 twin 57 mm self-propelled air-defense battery",
     "symbols": "air-defense/gun/armor",
     "uppertext": "57×2",
-    "aaaclass": "M",
-    "aaarange": [
+    "defensestrength": "4H",
+    "sightingrange": 12,
+    "aaa": {
+    "type": "57×2",
+    "class": "M",
+    "range": [
         5,
         10,
         15
     ],
-    "aaahitroll": [
+    "hitroll": [
         2,
         1,
         1
     ],
-    "aaadamagerating": 5,
-    "aaamaximumrelativealtitude": 18,
-    "sightingrange": 12,
-    "defensestrength": "4H"
+    "damagerating": 5,
+    "maximumrelativealtitude": 18
+}
 }

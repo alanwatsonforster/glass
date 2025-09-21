@@ -3,19 +3,22 @@
     "description": "ZU-23 twin 23 mm air-defense battery",
     "symbols": "air-defense/gun",
     "uppertext": "23×2",
-    "aaaclass": "L",
-    "aaarange": [
-        2,
-        5,
-        8
-    ],
-    "aaahitroll": [
-        4,
-        3,
-        2
-    ],
-    "aaadamagerating": 2,
-    "aaamaximumrelativealtitude": 9,
+    "defensestrength": "3S",
     "sightingrange": 12,
-    "defensestrength": "3S"
+    "aaa": {
+        "type": "23×2",
+        "class": "L",
+        "range": [
+            2,
+            5,
+            8
+        ],
+        "hitroll": [
+            4,
+            3,
+            2
+        ],
+        "damagerating": 2,
+        "maximumrelativealtitude": 9
+    }
 }

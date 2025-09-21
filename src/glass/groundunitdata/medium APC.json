@@ -2,8 +2,10 @@
     "name": "medium APC",
     "description": "medium APC platoon",
     "symbols": "armor/medium/infantrycarrier",
-    "aaaclass": "B",
-    "aaamaximumrelativealtitude": 3,
+    "defensestrength": "6H",
     "sightingrange": 12,
-    "defensestrength": "6H"
+    "aaa": {
+        "class": "B",
+        "maximumrelativealtitude": 3
+    }
 }

@@ -3,19 +3,22 @@
     "description": "Bofors 40 mm L70 air-defense battery",
     "symbols": "air-defense/gun",
     "uppertext": "40",
-    "aaaclass": "M",
-    "aaarange": [
-        4,
-        8,
-        12
-    ],
-    "aaahitroll": [
-        3,
-        3,
-        2
-    ],
-    "aaadamagerating": 4,
-    "aaamaximumrelativealtitude": 15,
+    "defensestrength": "3S",
     "sightingrange": 12,
-    "defensestrength": "3S"
+    "aaa": {
+        "type": "40",
+        "class": "M",
+        "range": [
+            4,
+            8,
+            12
+        ],
+        "hitroll": [
+            3,
+            3,
+            2
+        ],
+        "damagerating": 4,
+        "maximumrelativealtitude": 15
+    }
 }

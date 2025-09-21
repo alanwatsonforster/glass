@@ -3,21 +3,37 @@
     "description": "Tunguska dual 30 mm and SA-19 self-propelled air-defense battery",
     "symbols": "air-defense/gun/missile/armor",
     "uppertext": "30×2/SA-19",
-    "aaaclass": "L",
-    "aaarange": [
-        4,
-        7,
-        9
-    ],
-    "aaahitroll": [
-        5,
-        4,
-        3
-    ],
-    "aaadamagerating": 4,
-    "aaamaximumrelativealtitude": 11,
-    "aaafcrclass": "W",
-    "aaafcrfrequency": "VF",
+    "defensestrength": "4H",
     "sightingrange": 12,
-    "defensestrength": "4H"
+    "aaa": {
+        "type": "30×2",
+        "class": "L",
+        "range": [
+            4,
+            7,
+            9
+        ],
+        "hitroll": [
+            5,
+            4,
+            3
+        ],
+        "damagerating": 4,
+        "maximumrelativealtitude": 11,
+        "fcrclass": "W",
+        "fcrfrequency": "VF"
+    },
+    "sam": {
+        "type": "SA-19",
+        "ewrfrequency": "VF",
+        "ewrrange": 8,
+        "ttrfrequency": "MW",
+        "ttrrange": 5,
+        "multitargetcapability": 2,
+        "readymissiles": 8,
+        "volleymissiles": 2,
+        "quickreaction": true,
+        "radarlockon": 8,
+        "opticallockon": 7
+    }
 }

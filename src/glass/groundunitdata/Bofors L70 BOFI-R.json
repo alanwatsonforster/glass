@@ -3,21 +3,24 @@
     "description": "Bofors 40 mm L70 BOFI-R air-defense battery",
     "symbols": "air-defense/gun",
     "uppertext": "40",
-    "aaaclass": "M",
-    "aaarange": [
-        4,
-        8,
-        12
-    ],
-    "aaahitroll": [
-        4,
-        4,
-        3
-    ],
-    "aaadamagerating": 4,
-    "aaamaximumrelativealtitude": 15,
-    "aaafcrclass": "W",
-    "aaafcrfrequency": "VF",
+    "defensestrength": "3S",
     "sightingrange": 12,
-    "defensestrength": "3S"
+    "aaa": {
+        "type": "40",
+        "class": "M",
+        "range": [
+            4,
+            8,
+            12
+        ],
+        "hitroll": [
+            4,
+            4,
+            3
+        ],
+        "damagerating": 4,
+        "maximumrelativealtitude": 15,
+        "fcrclass": "W",
+        "fcrfrequency": "VF"
+    }
 }

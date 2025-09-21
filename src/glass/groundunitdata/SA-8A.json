@@ -1,0 +1,20 @@
+{
+    "name": "SA-8A",
+    "description": "SA-8A air-defense battery",
+    "symbols": "air-defense/missile/armor",
+    "uppertext": "SA-8A",
+    "sightingrange": 12,
+    "defensestrength": "4H",
+    "sam": {
+        "type": "SA-8A",
+        "ewrfrequency": "HF",
+        "ewrrange": 10,
+        "ttrfrequency": "VF",
+        "ttrrange": 6,
+        "multitargetcapability": 2,
+        "readymissiles": 4,
+        "volleymissiles": 2,
+        "quickreaction": true,
+        "radarlockon": 8
+    }
+}

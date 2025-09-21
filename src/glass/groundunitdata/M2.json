@@ -3,19 +3,22 @@
     "description": "M2 12.7 mm air-defense battery",
     "symbols": "air-defense/gun/infantry",
     "uppertext": "12.7",
-    "aaaclass": "L",
-    "aaarange": [
-        2,
-        3,
-        4
-    ],
-    "aaahitroll": [
-        3,
-        2,
-        1
-    ],
-    "aaadamagerating": 1,
-    "aaamaximumrelativealtitude": 5,
+    "defensestrength": "3S",
     "sightingrange": 12,
-    "defensestrength": "3S"
+    "aaa": {
+        "type": "12.7",
+        "class": "L",
+        "range": [
+            2,
+            3,
+            4
+        ],
+        "hitroll": [
+            3,
+            2,
+            1
+        ],
+        "damagerating": 1,
+        "maximumrelativealtitude": 5
+    }
 }

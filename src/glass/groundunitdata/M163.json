@@ -3,21 +3,24 @@
     "description": "M163 20 mm gatling self-propelled air-defense battery",
     "symbols": "air-defense/gun/armor",
     "uppertext": "20×6",
-    "aaaclass": "L",
-    "aaarange": [
-        2,
-        4,
-        6
-    ],
-    "aaahitroll": [
-        6,
-        5,
-        4
-    ],
-    "aaadamagerating": 3,
-    "aaamaximumrelativealtitude": 8,
-    "aaafcrclass": "R",
-    "aaafcrfrequency": "HF",
+    "defensestrength": "4H",
     "sightingrange": 12,
-    "defensestrength": "4H"
+    "aaa": {
+        "type": "20×6",
+        "class": "L",
+        "range": [
+            2,
+            4,
+            6
+        ],
+        "hitroll": [
+            6,
+            5,
+            4
+        ],
+        "damagerating": 3,
+        "maximumrelativealtitude": 8,
+        "fcrclass": "R",
+        "fcrfrequency": "HF"
+    }
 }
