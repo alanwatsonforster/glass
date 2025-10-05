@@ -98,7 +98,7 @@ class Aircraft(glass.element.Element):
 
             self._startaltitude = self.altitude()
             self._isinterrainfollowingflight = self.altitude() == self.terrainaltitude()
-            
+
             self._setgeometry(geometry)
 
             # In addition to the specified position, azimuth, altitude, speed,
@@ -517,7 +517,7 @@ class Aircraft(glass.element.Element):
 
     def storesfuelcapacity(self):
         """Return the stores fuel capacity."""
-        return self._storestotalfuelcapacity()
+        return self._storesfuelcapacity()
 
     ############################################################################
 
@@ -814,9 +814,10 @@ class Aircraft(glass.element.Element):
     from glass.aircraft.stores import (
         _initstores,
         _updateconfiguration,
-        _storestotalweight,
-        _storestotalload,
-        _storestotalfuelcapacity,
+        _storesweight,
+        _storesload,
+        _storesfuelcapacity,
+        _storesfuelfraction,
         _showstores,
         showstores,
         _release,
