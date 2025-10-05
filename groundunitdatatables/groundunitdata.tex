@@ -18,194 +18,155 @@
 \date{19 September 2025}
 
 \maketitle
-\twocolumn[\section{Generic Units}]
+\twocolumn[\section{Ground-Combat Units}]
 
-Generic units are provided to represent infantry, tanks and other AFVs, trucks, artillery, and air-defense CCU, EWR, and FCR systems. For artillery and air-defense units, we distinguish between armored, mobile (typically truck-born), and towed units.
+Ground-combat units represent infantry, tanks and other AFVs, trucks, and artillery. Their primary role is combat with other ground units.
 
-Most infantry, tank, APC, IFV, and transport units are platoons. Most artillery, AAA, and SAM units represent batteries.
+\paragraph{Properties.}
+
+Table \ref{table:ground-combat-units} summarizes the properties of the ground-combat units. Soft and hard defense strengths are suffixed with S and H, respectively. The sighting range is given in hexes. The AAA class is B2 for infantry platoons and B3 for AFV platoons, indicating that they are capable of barrage fire to altitudes of 2 and 3 levels, respectively. VPs are given for K, 2D, and D damage.
+
+\paragraph{Representation.}
+
+Figure \ref{figure:ground-combat-units} shows the graphical representation of the ground-combat units. The representation mainly uses NATO symbols, with some simplifications and two extensions. The first extension is that  a rectangle denotes trucks and other mobile units, just as the armor symbol denotes armored units. The second is that a partial infantry symbol denotes the association of IFVs and APCs with infantry. Also, the designator for heavy, medium, and light armor is placed within rather than below the armor symbol.
+
+\paragraph{Echelon.}
+
+Most units are platoons although some are teams.
+
+\paragraph{Protection.}
+
+Units equipped AFVs are classified as \emph{heavy}, \emph{medium}, or \emph{light} according to their degree of protection. Units equipped with unprotected or incompletely protected vehicles are referred to as being \emph{mobile}.
+
+\paragraph{Mobility.} Wheeled, half-tracked, and tracked vehicles are not distinguished. Thus, armored cars are treated as light tanks (e.g., the AMX-10 RC and Panhard EBR), unarmored tracked cargo-carriers are treated as trucks (e.g., the M548), and incompletely protected artillery with either wheels or tracks are treated as mobile artillery (e.g., the wheeled CAESAR and the tracked M107).
+
+
+\begin{table*}
+    \caption{Ground-Combat Units}
+    \centering
+    \footnotesize
+    \input{table-ground-combat-units.tex}
+    \label{table:ground-combat-units}
+\end{table*}
 
 \begin{figure*}
     \centering
-\includegraphics[height=0.4\linewidth]{figure-generic.png}
-\caption{Generic Units}
-\label{figure:generic-units}
+    \includegraphics[height=0.4\linewidth]{figure-ground-combat-units.png}
+    \caption{Ground-Combat Units}
+    \label{figure:ground-combat-units}
 \end{figure*}
 
-\begin{figure*}
-    \centering
-\includegraphics[height=0.4\linewidth]{figure-aaa.png}
-\caption{AAA Units}
-\label{figure:aaa-units}
-\end{figure*}
+\paragraph{Infantry.}
 
-\begin{figure*}
-    \centering
-\includegraphics[height=0.4\linewidth]{figure-sam-launcher.png}
-\caption{SAM Launcher Units}
-\label{figure:sam-launcher-units}
-\end{figure*}
+Infantry are soldiers trained to fight on foot. The infantry and the infantry HQ units are platoons. The infantry FAC unit is a forward air controller team.
 
-
-Table \ref{table:generic-units} summarizes the properties of the generic units. Soft and hard defense strengths are suffixed with S and H, respectively. The sighting range is given in hexes. The AAA class is B2 for infantry platoons and B3 for armored platoons, indicating that they are capable of barrage fire to altitudes of 2 and 3, respectively.
-
-Figure \ref{figure:generic-units} shows the graphical representation of the generic units. The representation mainly uses NATO symbols, with some simplifications and two extensions. First, a rectangle is used for trucks and other mobile units like the armor symbol is used for armored units. Second, a partial infantry symbol is used to denote the association of IFVs and APCs with infantry.
-
-\subsection{Infantry}
-
-Infantry are soldiers trained to fight on foot. The generic infantry units are:
-\begin{itemize}
-\item \emph{infantry}
-\item \emph{infantry HQ}
-\item \emph{infantry FAC}
-\end{itemize}
-The first two units are platoons. The \emph{infantry FAC} unit is an infantry forward air controller squad.
+\paragraph{Mechanized and Motorized Infantry.}
 
 A mechanized infantry platoon will be associated with a platoon of APCs or IFVs. A motorized infantry platoon will be associated with a platoon of trucks.
 
-\subsection{Tanks}
+\paragraph{Tanks.}
 
-Tanks are AFVs that are specialized for direct fire. The generic tank units are:
+Tanks are AFVs that are specialized for direct fire. All tank units are platoons. Examples:
+
 \begin{itemize}
-\item \emph{heavy tank}
-\item \emph{medium tank}
-\item \emph{light tank}
-\item \emph{heavy tank HQ}
-\item \emph{medium tank HQ}
-\item \emph{light tank HQ}
-\end{itemize}
-These are all platoons.
 
-Heavy tanks include the M1 Abrams, Conqueror, Chieftain, Challenger 1 \& 2, IS-3, Leclerc, Leopard 2, Merkava, T-10, T-64, T-72, T-80, T-84, and T-90.
+    \item Heavy: Conqueror, Chieftain, Challenger 1/2, IS-3, Leclerc, Leopard 2, M1, Merkava, T-10, T-64, T-72, T-80, T-84, and T-90.
 
-Medium tanks include the AMX-30, Centurion, M4 Sherman, M47/48 Patton, M60, M103, Leopard 1, T-34, T-54/55, and T-62. 
+    \item Medium: AMX-30, Centurion, Leopard 1, M4 Sherman, M47/48, M60, M103, T-34, T-54/55, and T-62.
 
-Light tanks include the AMX-10 RC, AMX-13, Ferret, M24 Chaffee, M41 Walker Bulldog, M551 Sheridan, Panhard EBR, PT-76, and Scorpion/Scimitar. 
+    \item Light: AMX-10 RC, AMX-13, Ferret, M24, M41, M551, Panhard EBR, PT-76, and Scorpion/Scimitar.
 
-Note that we include some armored cars as tanks; we do not distinguish between wheeled, half-tracked, and tracked direct-fire AFVs.
-
-\subsection{IFVs}
-
-IFVs are AFVs that carry infantry and provide fire support. The generic IFV units are:
-\begin{itemize}
-\item \emph{medium IFV}
-\item \emph{light IFV}
 \end{itemize}
 
-These are both platoons. 
+\paragraph{IFVs.}
 
-Medium IFVs include the CV90, M2A2 Bradley (but not other Bradley versions), and Marder. All other IFVs are considered to be light. There are currently no heavy IFVs.
+IFVs are AFVs that carry infantry and provide fire support. They are distinguished from APCs by having a 20 mm or larger cannon. All IFV units are platoons. Examples:
 
-There are no IFV HQ units; the headquarters platoon of a IFV-equipped mechanized infantry unit will consist of an infantry HQ platoon and a normal IFV platoon.
-
-\subsection{APCs}
-
-APCs are AFVs that carry infantry but do not provide significant fire support. The generic APC units are:
 \begin{itemize}
-\item \emph{heavy APC}
-\item \emph{medium APC}
-\item \emph{light APC}
+
+    \item Heavy: none.
+
+    \item Medium: CV90, M2A2 (only), and Marder.
+
+    \item Light: all others including the AMX-10P, BMP-1/2/3, LAV-25, M2/3 (except M2A2), M1296, VCBI, and Warrior.
+
 \end{itemize}
 
-All are platoons. 
+\paragraph{APCs.}
 
-Heavy and medium APCs are typically converted tanks. Heavy APCs include conversions of the
-T-54/55 (Achzarit), Centurion (NagmaSho't, Nagmachon, Nakpadon, and Puma), and Merkava (Namer). Medium APCs include conversions of the Sherman (Kangaroo). 
+APCs are AFVs that carry infantry but do not provide significant fire support. All APC units are platoons. Heavy and medium APCs are typically converted tanks. Examples:
 
-Light APCs include the
-AMX-10P,
-BTR-152,
-BTR-40,
-BTR-50/60/70/80,
-FV432,
-M3 half-track,
-M59,
-M75,
-M113,
-M114,
-Saracen,
-Stryker,
-and 
-VAB.
-
-There are no APC HQ units; the headquarters platoon of a APC-equipped mechanized infantry unit will consist of an infantry HQ platoon and a normal APC platoon. 
-
-\groundunittype{Trucks}
-
-Trucks are unarmored or only partially armored vehicles. The generic truck units are:
 \begin{itemize}
-\item \emph{truck}
-\item \emph{light truck}
+
+    \item Heavy: converted heavy tanks.
+
+    \item Medium APCs: converted medium tanks.
+
+    \item Light APCs: all others, including the BTR-152, BTR-40, BTR-50/60/70/80, FV432, M3 half-track, M113, M114, Saracen, Spartan, most Stryker variants, and VAB.
+
 \end{itemize}
 
-These are all platoons.
+\paragraph{Trucks.}
 
-Trucks may be wheeled, half-tracked, or tracked; the distinguishing characteristic is the lack of armored protection for their crew and load. 
+Trucks are unarmored or incompletely armored vehicles. All truck units are platoons.
 
 Light trucks include Humvees, Jeeps, and Land Rovers.
 
-\groundunittype{Artillery}
+\paragraph{Artillery.}
 
-Artillery is specialized for indirect fire. The generic artillery units are:
+Artillery is specialized for indirect fire. All artillery units are all batteries. Artillery may be tube, rocket, or missile and armored, mobile, or towed. Examples:
+
 \begin{itemize}
-\item \emph{towed artillery}
-\item \emph{armored artillery}
-\item \emph{mobile artillery}
-\item \emph{armored rocket artillery}
-\item \emph{mobile rocket artillery}
-\item \emph{mobile missile artillery}
+
+    \item Armored artillery: 2S19 Msta-S, 2S3 Akatsiya, AMX-30 AuF1, AS-90, Abbot, M109, and Panzerhaubitze 2000.
+
+    \item Mobile artillery: 2S4 Tyulpan, 2S7 Pion, Archer, CAESAR, M7 Priest, and M107/M110.
+
+    \item Armored rocket artillery: M270 MLRS and TOS-1.
+
+    \item Mobile rocket artillery: BM-21 Grad, BM-30 Smerch, and M142 HIMARS.
+
+    \item Mobile missile artillery: 9K52 Luna-M (Frog), MGM-52 Lance, OTR-21 Tochka (SS-21), Pluton, and RSD-10 Pioneer (SS-20).
+
 \end{itemize}
 
-These are all batteries.
-
-Towed artillery may be associated with a truck tractor unit.
-
-Armored artillery includes the 
-2S19 Msta-S, 
-2S3 Akatsiya, 
-AHS Krab, 
-AMX-30 AuF1, 
-AS-90,
-FV433 Abbot, 
-M43, 
-M53, 
-M55,
-M108,
-M109 Paladin, 
-and Panzerhaubitze 2000.
+Towed artillery may be associated with a truck tractor unit and may be either mounted or dismounted.
 
 
-Mobile artillery includes
-the 
-2S4 Tyulpan,
-2S7 Pion,
-Archer,
-CAESAR,
-M7 Priest,
-and
-M107/M110.
+\paragraph{Mounted and Dismounted Units.}
 
-Armored rocket artillery includes the M270 MLRS and TOS-1.
+Infantry and towed artillery may be mounted in their associated vehicle unit or dismounted. If mounted, they have no role in sighting or combat and do not count for stacking, however if their associated vehicle unit suffers damage then they suffer the same damage. If dismounted, they are treated normally. Infantry mounted in IFVs or APCs are sometimes better protected the dismounted infantry.
 
-Mobile rocket artillery includes the 
-BM-21 Grad,
-BM-30 Smerch,
-and
-M142 HIMARS.
 
-Mobile missile artillery includes the 
-9K52 Luna-M (Frog), 
-MGM-52 Lance, 
-OTR-21 Tochka (SS-21), 
-Pluton,
-and
-RSD-10 Pioneer (SS-20).
+\paragraph{HQs.}
+
+Infantry or tank HQ units represent the HQ platoons of companies or battalions. There are no IFV, APC, or truck HQ units; the HQs platoon of a mechanized or motorized infantry unit will consist of an infantry HQ platoon associated with a normal IFV, APC, or truck platoon.
+
+\twocolumn[\section{Air-Defense Units}]
+
+
+
+\begin{figure*}
+    \centering
+    \includegraphics[height=0.4\linewidth]{figure-aaa.png}
+    \caption{AAA Units}
+    \label{figure:aaa-units}
+\end{figure*}
+
+\begin{figure*}
+    \centering
+    \includegraphics[height=0.4\linewidth]{figure-sam-launcher.png}
+    \caption{SAM Launcher Units}
+    \label{figure:sam-launcher-units}
+\end{figure*}
+
 
 \subsection{CCUs}
 
 CCUs are air-defense command and control units. The generic CCU units are:
 \begin{itemize}
-\item \emph{mobile CCU}
-\item \emph{armored CCU}
+    \item \emph{mobile CCU}
+    \item \emph{armored CCU}
 \end{itemize}
 
 Mobile CCUs include the 9S737 Ranzhir.
@@ -216,21 +177,22 @@ Armored CCUs include the 9S80 PPRU-1.
 
 EWRs are air-defense early-warning radars. The generic EWR units are:
 \begin{itemize}
-\item \emph{towed EWR-A}
-\item \emph{mobile EWR-A}
+    \item \emph{towed EWR-A}
+    \item \emph{mobile EWR-A}
 \end{itemize}
 
 \subsection{FCRs}
 
 FCRs are air-defense fire-control radars for towed AAA. The generic FCR units are:
 \begin{itemize}
-\item \emph{towed FCR-A/B/C/D}
-\item \emph{mobile FCR-A/B/C/D}
+    \item \emph{towed FCR-A/B/C/D}
+    \item \emph{mobile FCR-A/B/C/D}
 \end{itemize}
 
+
 \begin{table*}
-\caption{Generic Units}
-\centering
+    \caption{Generic Units}
+    \centering
     \small
     \input{table-generic-units.tex}
     \label{table:generic-units}
@@ -238,13 +200,13 @@ FCRs are air-defense fire-control radars for towed AAA. The generic FCR units ar
 
 \twocolumn[\section{AAA Units}]
 
-Table \ref{table:aaa-units} summarizes the properties of the AAA units. Soft and hard defense strengths are suffixed with S and H, respectively. The sighting range is given in hexes. 
+Table \ref{table:aaa-units} summarizes the properties of the AAA units. Soft and hard defense strengths are suffixed with S and H, respectively. The sighting range is given in hexes.
 
 Figure \ref{figure:aaa-units} shows the graphical representation of the AAA units. Again, the representation uses NATO symbols.
 
 \begin{table*}
-\caption{AAA Units}
-\centering
+    \caption{AAA Units}
+    \centering
     \small
     \input{table-aaa-units.tex}
     \label{table:aaa-units}
@@ -253,14 +215,14 @@ Figure \ref{figure:aaa-units} shows the graphical representation of the AAA unit
 \twocolumn[\section{SAM Launcher Units}]
 
 
-Table \ref{table:sam-launcher-units} summarizes the properties of the AAA units. Soft and hard defense strengths are suffixed with S and H, respectively. The sighting range is given in hexes. 
+Table \ref{table:sam-launcher-units} summarizes the properties of the AAA units. Soft and hard defense strengths are suffixed with S and H, respectively. The sighting range is given in hexes.
 
 Figure \ref{figure:sam-launcher-units} shows the graphical representation of the AAA units. Again, the representation uses NATO symbols.
 
 
 \begin{table*}
-\caption{SAM Launcher Units}
-\centering
+    \caption{SAM Launcher Units}
+    \centering
     \small
     \input{table-sam-launcher-units.tex}
     \label{table:sam-launcher-units}

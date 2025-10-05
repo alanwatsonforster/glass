@@ -3,5 +3,10 @@
     "description": "truck unit",
     "symbols": "truck",
     "sightingrange": 12,
-    "defensestrength": "2S"
+    "defensestrength": "2S",
+    "VPs": [
+        4,
+        2,
+        1
+    ]
 }

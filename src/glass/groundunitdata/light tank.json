@@ -7,5 +7,10 @@
     "aaa": {
         "class": "B",
         "maximumrelativealtitude": 3
-    }
+    },
+    "VPs": [
+        6,
+        4,
+        2
+    ]
 }

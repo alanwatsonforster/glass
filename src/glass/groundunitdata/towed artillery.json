@@ -3,5 +3,10 @@
     "description": "towed artillery battery",
     "symbols": "artillery",
     "sightingrange": 18,
-    "defensestrength": "4S"
+    "defensestrength": "4S",
+    "VPs": [
+        8,
+        5,
+        3
+    ]
 }
