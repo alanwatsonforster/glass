@@ -58,11 +58,12 @@ The TSOH ADC has:
 
 - Two wing-tip stations with a capacity of 1100 lb (FT or BB)
 - Two mid-wing stations with a capacity of 1100 lb (BB only)
-- Alternatively, instead of the mid-wing stations, four underwing stations with a capacity of 200 lb (RH only)
+- Alternatively, instead of the mid-wing stations, four underwing stations with a capacity of 200 lb (RK only)
 
 However:
 
 Thompson
+
 - mentions in many places the use of 500-lb bombs.
 - ch. 3: quotes a Col. Clure Smith as stating that they routinely carried two 265 gal Misawa tanks, two 1000 lb bombs, and four HVARs in the winter of 1951. With this load, it required JATO to take off. The 1000 lb bombs were for attacking the bridges across the Yalu.
 - ch. 4: shows a photo of 7th FBS F-80s which appear to have Misawa tanks, napalm bombs on the mid-wing stations, and four HVARs on the inner stations (two on each wing stacked one above the other).
@@ -73,11 +74,11 @@ Thompson
 - ch. 5: shows a photo of a 35th FBS F-80 armed with two 250-lb bombs on the mid-wing station and four 100-lb bombs on the inner-wing stations.
 
 Jackson:
+
 - p. 59: F-80C with two 500 lb bombs
 - p. 61: F-80C with a display of weapons including 1000? lb bombs, 250? lb bombs, HVARs, and napalm/FTs.
 - p. 67: F-80C with a napalm tank (capacity unknown)
 - p. 69: F-80C with a pair of 500? lb bombs and possibly four HVARs
-
 
 Therefore, the stations seem to be:
 
@@ -96,4 +97,3 @@ Added in [1aa5b7b](https://github.com/alanwatsonforster/glass/commit/1aa5b7bb74a
 - [T-33B SAC](https://www.aahs-online.org/images/Navy_SAC/T-33B.pdf)
 - [AFSC T-33A Performance Evaluation](https://apps.dtic.mil/sti/tr/pdf/AD0258317.pdf)
 - Yip, W, “[Lockheed's RT-33A](https://www.aahs-online.org/pubs/journals/files/692133.pdf)”, AAHSJ, Summer 2024, pp. 133-146
-
