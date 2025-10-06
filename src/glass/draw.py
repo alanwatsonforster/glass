@@ -1702,12 +1702,11 @@ def drawgroundunit(
         ``"fixedwing"``, ``"fuel"``, ``"gun"``, ``"hangar"``,
         ``"headquarters"``, ``"heavy"``, ``"infantry"``, ``"infantrycarrier"``,
         ``"junk"``, ``"largebuilding"``, ``"light"``, ``"locomotive"``,
-        ``"medium"``, ``"missile"``, ``"rocket"``, ``"ordnance"``, ``"radar"``,
-        ``"railcar"``, ``"reconnaissance"``, ``"rotarywing"``,``"shelter"``,
-        ``"supply"``, ``"towed"``, ``"tower"``, ``"tracked"``,
-        ``"transportation"``, ``"truck"``, and ``unidentified``. The British
-        English aliases ``"air-defence"``, ``"antiarmour"``, ``"armour"`` are
-        also allowed.
+        ``"medium"``, ``"missile"``, ``"ordnance"``, ``"radar"``, ``"railcar"``,
+        ``"reconnaissance"``, ``"rocket"``, ``"rotarywing"``,``"shelter"``,
+        ``"supply"``, ``"tower"``, ``"transportation"``, ``"truck"``, and
+        ``unidentified``. The British English aliases ``"air-defence"``,
+        ``"antiarmour"``, ``"armour"`` are also allowed.
     :param uppertext:
     :param lowertext:
         The ``uppertext`` and ``lowertext`` arguments are strings that we drawn
@@ -2938,6 +2937,8 @@ def _drawgroundunitincanvas(
     if "rocket" in symbols:
         drawmultiplerocketsymbol()
     if False:
+        # We no longer use mobility symbols as the interfere with the lower
+        # text.
         if "motorized" in symbols:
             drawmotorizedsymbol()
         if "wheeled" in symbols:
