@@ -2038,7 +2038,7 @@ def _drawgroundunitincanvas(
         _drawlinesincanvas(
             list([x + _dx(theta) for theta in theta]),
             list([y + _dy(theta) for theta in theta]),
-            linecolor="black",
+            linecolor=linecolor,
             linewidth=groundunitlinewidth,
             zorder=zorder,
         )
@@ -3005,7 +3005,7 @@ def _drawgroundunitincanvas(
             y + groundunitdy / 2,
             linewidth=groundunitlinewidth,
             fillcolor=None,
-            linecolor=linecolor,
+            linecolor="black",
             zorder=zorder,
         )
 
@@ -3405,12 +3405,25 @@ def _nativecolor(color):
         numbers from 0 to 1.
     """
 
-    if not isinstance(color, str):
+    if isinstance(color, str) and color[0] == "#":
+        r = int(color[1:3], 16) / 255
+        g = int(color[3:5], 16) / 255
+        b = int(color[5:7], 16) / 255
+        return [r, g, b]
+    elif not isinstance(color, str):
         return color
     elif color in _colorsdict:
         return _nativecolor(_colorsdict[color])
     else:
         return color
 
+
+if False:
+    for color in _colorsdict:
+        values = _nativecolor(color)
+        r = int(values[0] * 255 + 0.5)
+        g = int(values[1] * 255 + 0.5)
+        b = int(values[2] * 255 + 0.5)
+        print('    "%s": "#%02x%02x%02x",' % (color, r, g, b))
 
 ################################################################################
