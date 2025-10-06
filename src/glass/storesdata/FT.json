@@ -183,7 +183,7 @@
         "load": 1.0,
         "emptyload": 0.5,
         "fuelcapacity": 15,
-        "note": "F-5 only."
+        "note": "F-5 only: wint-tip tank."
     },
     "FT/F7U/800L": {
         "class": "FT",
@@ -207,7 +207,7 @@
         "load": 3.5,
         "emptyload": 2.0,
         "fuelcapacity": 73,
-        "note": "MiG-21/23/27 only."
+        "note": "MiG-21/23/27 only: centerline or outer-wing tank."
     },
     "FT/A-5/1100L": {
         "class": "FT",
@@ -247,7 +247,7 @@
         "load": 10.0,
         "emptyload": 6.0,
         "fuelcapacity": 230,
-        "note": "B-50 only."
+        "note": "B-50 only: outer-wing tank."
     },
     "FT/B-52/2800L": {
         "class": "FT",
@@ -255,7 +255,7 @@
         "load": 10.0,
         "emptyload": 6.5,
         "fuelcapacity": 240,
-        "note": "B-52 only."
+        "note": "B-52 only: outer-wing tank."
     },
     "FT/B-50/8300L": {
         "class": "FT",
@@ -271,7 +271,7 @@
         "load": 20.0,
         "emptyload": 12.5,
         "fuelcapacity": 975,
-        "note": "B-52 only."
+        "note": "B-52 only: outer-wing tank."
     },
     "FT/MRT/500L": {
         "class": "FT",
