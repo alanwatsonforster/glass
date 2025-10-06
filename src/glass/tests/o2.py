@@ -4,36 +4,16 @@ startfile(__file__, "ground unit barrage fire")
 
 starttestsetup()
 
-G0 = setupgroundunit(
-    "G0", "A1-2110", symbols="infantry", aaaclass="B", aaamaximumrelativealtitude=2
-)
-G1 = setupgroundunit(
-    "G1", "A1-2110", symbols="infantry", aaaclass="B", aaamaximumrelativealtitude=2
-)
-G2 = setupgroundunit(
-    "G2", "A1-2110", symbols="armor", aaaclass="B", aaamaximumrelativealtitude=3
-)
-G3 = setupgroundunit("G3", "A1-2110", symbols="artillery")
-G4 = setupgroundunit(
-    "G4",
-    "A1-2110",
-    symbols="air-defense/gun",
-    aaaclass="L",
-    aaamaximumrelativealtitude=9,
-)
-G5 = setupgroundunit(
-    "G5",
-    "A1-2110",
-    symbols="air-defense/gun",
-    aaaclass="M",
-    aaamaximumrelativealtitude=18,
-)
+G0 = setupgroundunit("G0", "A1-2110", "infantry")
+G1 = setupgroundunit("G1", "A1-2110", "infantry")
+G2 = setupgroundunit("G2", "A1-2110", "medium tank")
+G3 = setupgroundunit("G3", "A1-2110", "towed artillery")
+G4 = setupgroundunit("G4", "A1-2110", "ZPU-1")
+G5 = setupgroundunit("G5", "A1-2110", "M-38")
 G6 = setupgroundunit(
     "G6",
     "A1-2110",
-    symbols="air-defense/gun",
-    aaaclass="H",
-    aaamaximumrelativealtitude=27,
+    "KS-19",
     azimuth="N",
 )
 

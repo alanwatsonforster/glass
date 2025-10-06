@@ -4,32 +4,28 @@ startfile(__file__, "ground unit aimed fire")
 
 starttestsetup()
 
-G0 = setupgroundunit(
-    "G0", "A1-2120", symbols="infantry", aaaclass="B", aaamaximumrelativealtitude=2
-)
-G1 = setupgroundunit(
-    "G1", "A1-2120", symbols="infantry", aaaclass="B", aaamaximumrelativealtitude=2
-)
-G2 = setupgroundunit(
-    "G2", "A1-2120", symbols="armor", aaaclass="B", aaamaximumrelativealtitude=3
-)
-G3 = setupgroundunit("G3", "A1-2120", symbols="artillery")
+G0 = setupgroundunit("G0", "A1-2120", "infantry")
+G1 = setupgroundunit("G1", "A1-2120", "infantry")
+G2 = setupgroundunit("G2", "A1-2120", "medium tank")
+G3 = setupgroundunit("G3", "A1-2120", "towed artillery")
 G4 = setupgroundunit(
     "G4",
     "A1-2120",
-    symbols="air-defense/gun",
-    aaaclass="L",
-    aaamaximumrelativealtitude=6,
-    aaarange=[2, 3, 5],
+    "ZPU-4",
 )
 G5 = setupgroundunit(
     "G5",
     "A1-2120",
-    symbols="air-defense/gun",
-    aaaclass="L",
-    aaamaximumrelativealtitude=6,
-    aaarange=[2, 3, 5],
+    "ZPU-4",
 )
+
+
+# G0 = setupgroundunit("G0", "A1-2110", "infantry")
+# G1 = setupgroundunit("G1", "A1-2110", "infantry")
+# G2 = setupgroundunit("G2", "A1-2110", "medium tank")
+# G3 = setupgroundunit("G3", "A1-2110", "towed artillery")
+# G4 = setupgroundunit("G4", "A1-2110", "ZPU-4")
+# G5 = setupgroundunit("G5", "A1-2110", "ZPU-4")
 
 A0 = setupaircraft("A0", "USAF", "F-100A", "A1-2112", "S", 1, 6)
 A1 = setupaircraft("A1", "USAF", "F-100A", "A1-2120", "S", 16, 6)
