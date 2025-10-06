@@ -69,7 +69,7 @@ following values are used:
 """
 
 import math
-
+import os
 import pickle
 
 import matplotlib.pyplot as plt
@@ -79,6 +79,7 @@ import matplotlib.path
 
 import glass.azimuth
 import glass.hex
+import glass.jsonc
 
 ################################################################################
 
@@ -1953,7 +1954,9 @@ def _drawgroundunitincanvas(
 
     armorsymboldx = 0.125 * groundunitdx
     armorsymboldy = 0.20 * groundunitdy
-    armorsymbolarea = 4 * armorsymboldx * armorsymboldy + math.pi * armorsymboldy * armorsymboldy
+    armorsymbolarea = (
+        4 * armorsymboldx * armorsymboldy + math.pi * armorsymboldy * armorsymboldy
+    )
 
     trucksymboldy = armorsymboldy
     trucksymboldx = armorsymbolarea / (4 * trucksymboldy)
@@ -2015,6 +2018,7 @@ def _drawgroundunitincanvas(
         p = 2.0
 
         theta = range(0, 181)
+
         def _dx(theta):
             return 0.5 * groundunitdx * _cosd(theta)
 
@@ -2703,7 +2707,6 @@ def _drawgroundunitincanvas(
             zorder=zorder,
         )
 
-
     def drawhangarsymbol():
         dx = trucksymboldx * 1.25
         dy = trucksymboldy / 1.25
@@ -2760,7 +2763,7 @@ def _drawgroundunitincanvas(
             linecolor=linecolor,
             linewidth=groundunitlinewidth,
             zorder=zorder,
-        )        
+        )
 
     def drawfixedwingsymbol():
         fx = 0.15
@@ -2949,11 +2952,11 @@ def _drawgroundunitincanvas(
             drawtowedsymbol()
 
     if "heavy" in symbols:
-        drawheavysymbol()        
+        drawheavysymbol()
     if "medium" in symbols:
-        drawmediumsymbol()        
+        drawmediumsymbol()
     if "light" in symbols:
-        drawlightsymbol()        
+        drawlightsymbol()
 
     if "locomotive" in symbols:
         drawlocomotivesymbol()
@@ -3348,106 +3351,45 @@ def _nativehatchpattern(hatchpattern):
         raise RuntimeError("invalid hatch pattern %r" % hatchpattern)
 
 
-# I determine colors from images using the Digital Color Meter on macOS. I use
-# native RGB values.
+################################################################################
 
-_colormap = {
-    # Grays
-    "white": (1.00, 1.00, 1.00),
-    "gray95": (0.95, 0.95, 0.95),
-    "gray90": (0.90, 0.90, 0.90),
-    "gray85": (0.85, 0.85, 0.85),
-    "gray80": (0.80, 0.80, 0.80),
-    "gray75": (0.75, 0.75, 0.75),
-    "gray70": (0.70, 0.70, 0.70),
-    "gray65": (0.65, 0.65, 0.65),
-    "gray60": (0.60, 0.60, 0.60),
-    "gray55": (0.55, 0.55, 0.55),
-    "gray50": (0.50, 0.50, 0.50),
-    "gray45": (0.45, 0.45, 0.45),
-    "gray40": (0.40, 0.40, 0.40),
-    "gray35": (0.35, 0.35, 0.35),
-    "gray30": (0.30, 0.30, 0.30),
-    "gray25": (0.25, 0.25, 0.25),
-    "gray20": (0.20, 0.20, 0.20),
-    "gray15": (0.15, 0.15, 0.15),
-    "gray10": (0.10, 0.10, 0.10),
-    "gray05": (0.05, 0.05, 0.05),
-    "black": (0.00, 0.00, 0.00),
-    "grey95": "gray95",
-    "grey90": "gray90",
-    "grey85": "gray85",
-    "grey80": "gray80",
-    "grey75": "gray75",
-    "grey70": "gray70",
-    "grey65": "gray65",
-    "grey60": "gray60",
-    "grey55": "gray55",
-    "grey50": "gray50",
-    "grey45": "gray45",
-    "grey40": "gray40",
-    "grey35": "gray35",
-    "grey30": "gray30",
-    "grey25": "gray25",
-    "grey20": "gray20",
-    "grey15": "gray15",
-    "grey10": "gray10",
-    "grey05": "gray05",
-    # Generic colors
-    "aluminum": "gray80",
-    "aluminium": "aluminum",
-    "unpainted": "aluminum",
-    # https://www.theworldwars.net/resources/file.php?r=camo_usn#korea
-    "darkblue": (0.110, 0.220, 0.310),
-    "skyblue": (0.490, 0.780, 0.910),
-    "green": "olivedrab",
-    "olivedrab": (0.420, 0.557, 0.137),  # CSS olive drab
-    "lightgreen": "lightolivedrab",
-    "lightolivedrab": (0.624, 0.714, 0.439),
-    "tan": (0.824, 0.706, 0.549),  # CSS tan
-    "darktan": (0.576, 0.494, 0.384),
-    "sand": (0.941, 0.918, 0.839),
-    "darkgray": "gray40",
-    "darkgrey": "darkgray",
-    "mediumgray": "gray60",
-    "mediumgrey": "mediumgray",
-    "lightgray": "gray70",
-    "lightgrey": "lightgray",
-    "slategray": (0.439, 0.502, 0.565),  # CSS slategray
-    "slategrey": "slategray",
-    # Approximations to the Air Strike counter colors
-    "airstrikegreen": (0.23, 0.38, 0.08),
-    "airstrikelightgreen": (0.58, 0.72, 0.34),
-    "airstriketan": (0.69, 0.62, 0.39),
-    # Approximations to NATO blue, red, green, and yellow.
-    # https://en.wikipedia.org/wiki/NATO_Joint_Military_Symbology#APP-6A_affiliation
-    "natoblue": (0.45, 0.87, 1.00),
-    "natored": (1.00, 0.45, 0.45),
-    "natogreen": (0.55, 1.00, 0.55),
-    "natoyellow": (1.00, 1.00, 0.46),
-    "natofriendly": "natoblue",
-    "natohostile": "natored",
-    "natoneutral": "natogreen",
-    "natounknown": "natoyellow",
-    # The blue of the IAF roundel.
-    # https://en.wikipedia.org/wiki/General_Dynamics_F-16_Fighting_Falcon_variants#F-16I_Sufa
-    # This blue is darker and more saturated that the NATO blue.
-    "israeliafblue": (0.000, 0.541, 0.753),
-    # Pan-Arab colors.
-    # https://en.wikipedia.org/wiki/Pan-Arab_colors
-    # https://en.wikipedia.org/wiki/Pan-Arab_colors#/media/File:Flag_of_Hejaz_1917.svg
-    # This red is darker and more saturated than the NATO red. This green is lighter and
-    # more saturated than the standard green.
-    "panarabred": (0.780, 0.071, 0.133),
-    "panarabgreen": (0.035, 0.435, 0.208),
-    # The green of the Pakistan AF roundel
-    # https://en.wikipedia.org/wiki/Pakistan_Air_Force
-    "pakistanafgreen": (0.000, 0.220, 0.100),
-    # The orange and green of the Indian AF roundel.
-    # https://en.wikipedia.org/wiki/Indian_Air_Force
-    "indianaforange": (1.000, 0.350, 0.000),
-    "indianafgreen": (0.000, 0.350, 0.210),
-}
+_colorsdict = {}
+
+"""
+A dictionary containing the colors. The keys are the color names as strings. The
+values are either tuples/lists of three numbers from 0 to 1, denoting the RGB
+luminances, or strings, denoting aliases.
+"""
+
+
+def _loadcolors():
+    """
+    Load the colors from the colors data file.
+
+    The color data files is `data/colors.json`.
+
+    :raises RuntimeError: If the colors data file cannot be opened or read.
+    """
+
+    global _colorsdict
+
+    _colorsdict = {}
+
+    path = os.path.join(os.path.dirname(__file__), "data", "colors.json")
+
+    try:
+        with open(path, "r", encoding="utf-8") as f:
+            _colorsdict.update(glass.jsonc.load(f))
+    except PermissionError:
+        raise RuntimeError('unable to open colors data file "%s".' % path)
+    except glass.jsonc.JSONDecodeError as e:
+        raise RuntimeError(
+            'unable to read colores data file "%s": line %d: %s.'
+            % (path, e.lineno, e.msg.lower())
+        )
+
+
+_loadcolors()
 
 
 def _nativecolor(color):
@@ -3458,14 +3400,14 @@ def _nativecolor(color):
         A color name or a list or tuple of the three RGB components as numbers
         from 0 to 1.
     :return:
-        The color represented as a tuple of the three RGB components as numbers
-        from 0 to 1.
+        The color represented as a list or tuple of the three RGB components as
+        numbers from 0 to 1.
     """
 
     if not isinstance(color, str):
         return color
-    elif color in _colormap:
-        return _nativecolor(_colormap[color])
+    elif color in _colorsdict:
+        return _nativecolor(_colorsdict[color])
     else:
         return color
 

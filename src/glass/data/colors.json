@@ -1,0 +1,120 @@
+{
+
+    // Grays
+
+    "white": [ 1.00, 1.00, 1.00 ],
+    "gray95": [ 0.95, 0.95, 0.95 ],
+    "gray90": [ 0.90, 0.90, 0.90 ],
+    "gray85": [ 0.85, 0.85, 0.85 ],
+    "gray80": [ 0.80, 0.80, 0.80 ],
+    "gray75": [ 0.75, 0.75, 0.75 ],
+    "gray70": [ 0.70, 0.70, 0.70 ],
+    "gray65": [ 0.65, 0.65, 0.65 ],
+    "gray60": [ 0.60, 0.60, 0.60 ],
+    "gray55": [ 0.55, 0.55, 0.55 ],
+    "gray50": [ 0.50, 0.50, 0.50 ],
+    "gray45": [ 0.45, 0.45, 0.45 ],
+    "gray40": [ 0.40, 0.40, 0.40 ],
+    "gray35": [ 0.35, 0.35, 0.35 ],
+    "gray30": [ 0.30, 0.30, 0.30 ],
+    "gray25": [ 0.25, 0.25, 0.25 ],
+    "gray20": [ 0.20, 0.20, 0.20 ],
+    "gray15": [ 0.15, 0.15, 0.15 ],
+    "gray10": [ 0.10, 0.10, 0.10 ],
+    "gray05": [ 0.05, 0.05, 0.05 ],
+    "black": [ 0.00, 0.00, 0.00 ],
+    "grey95": "gray95",
+    "grey90": "gray90",
+    "grey85": "gray85",
+    "grey80": "gray80",
+    "grey75": "gray75",
+    "grey70": "gray70",
+    "grey65": "gray65",
+    "grey60": "gray60",
+    "grey55": "gray55",
+    "grey50": "gray50",
+    "grey45": "gray45",
+    "grey40": "gray40",
+    "grey35": "gray35",
+    "grey30": "gray30",
+    "grey25": "gray25",
+    "grey20": "gray20",
+    "grey15": "gray15",
+    "grey10": "gray10",
+    "grey05": "gray05",
+
+    // Generic colors
+
+    "aluminum": "gray80",
+    "aluminium": "aluminum",
+    "unpainted": "aluminum",
+    // https://www.theworldwars.net/resources/file.php?r=camo_usn//korea
+    "darkblue": [ 0.110, 0.220, 0.310 ],
+    "skyblue": [ 0.490, 0.780, 0.910 ],
+    "green": "olivedrab",
+    // CSS olive drab
+    "olivedrab": [ 0.420, 0.557, 0.137 ],
+    "lightgreen": "lightolivedrab",
+    "lightolivedrab": [ 0.624, 0.714, 0.439 ],
+    // CSS tan
+    "tan": [ 0.824, 0.706, 0.549 ],
+    "darktan": [ 0.576, 0.494, 0.384 ],
+    "sand": [ 0.941, 0.918, 0.839 ],
+    "darkgray": "gray40",
+    "darkgrey": "darkgray",
+    "mediumgray": "gray60",
+    "mediumgrey": "mediumgray",
+    "lightgray": "gray70",
+    "lightgrey": "lightgray",
+    // CSS slategray
+    "slategray": [ 0.439, 0.502, 0.565 ],
+    "slategrey": "slategray",
+
+    // Approximations to the Air Strike counter colors
+
+    "airstrikegreen": [ 0.23, 0.38, 0.08 ],
+    "airstrikelightgreen": [ 0.58, 0.72, 0.34 ],
+    "airstriketan": [ 0.69, 0.62, 0.39 ],
+
+    // Approximations to NATO blue, red, green, and yellow.
+    // https://en.wikipedia.org/wiki/NATO_Joint_Military_Symbology//APP-6A_affiliation
+
+    "natoblue": [ 0.45, 0.87, 1.00 ],
+    "natored": [ 1.00, 0.45, 0.45 ],
+    "natogreen": [ 0.55, 1.00, 0.55 ],
+    "natoyellow": [ 1.00, 1.00, 0.46 ],
+    "natofriendly": "natoblue",
+    "natohostile": "natored",
+    "natoneutral": "natogreen",
+    "natounknown": "natoyellow",
+
+    // The blue of the IAF roundel.
+    // https://en.wikipedia.org/wiki/General_Dynamics_F-16_Fighting_Falcon_variants//F-16I_Sufa
+    // This blue is darker and more saturated that the NATO blue.
+
+    "israeliafblue": [ 0.000, 0.541, 0.753 ],
+
+    // Pan-Arab colors.
+    // https://en.wikipedia.org/wiki/Pan-Arab_colors
+    // https://en.wikipedia.org/wiki/Pan-Arab_colors///media/File:Flag_of_Hejaz_1917.svg
+    // This red is darker and more saturated than the NATO red. This green is lighter and
+    // more saturated than the standard green.
+
+    "panarabred": [ 0.780, 0.071, 0.133 ],
+    "panarabgreen": [ 0.035, 0.435, 0.208 ],
+
+    // The green of the Pakistan AF roundel
+    // https://en.wikipedia.org/wiki/Pakistan_Air_Force
+
+    "pakistanafgreen": [ 0.000, 0.220, 0.100 ],
+
+    // The orange and green of the Indian AF roundel.
+    // https://en.wikipedia.org/wiki/Indian_Air_Force
+
+    "indianaforange": [ 1.000, 0.350, 0.000 ],
+    "indianafgreen": [ 0.000, 0.350, 0.210 ]
+
+}
+
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
