@@ -25,6 +25,7 @@ from glass.flight import (
     _isspecialflight,
 )
 
+import math
 import re
 
 ##############################################################################
@@ -158,40 +159,36 @@ class Aircraft(glass.element.Element):
             # Determine the fuel and bingo levels.
 
             if isinstance(fuel, str) and fuel[-1] == "%" and fuel[:-1].isdecimal():
-                fuel = float(fuel[:-1]) / 100
-                self.logwhenwhat(
-                    "", "fuel          is %3.0f%% of internal capacity." % (fuel * 100)
-                )
-                fuel *= self.internalfuelcapacity()
+                fuel = float(fuel[:-1]) / 100 * self.internalfuelcapacity()
             elif fuel is not None and not isinstance(fuel, int | float):
                 raise RuntimeError("invalid fuel value %r" % fuel)
             self._fuel = fuel
+            if fuel is not None:
+                self.logwhenwhat(
+                    "",
+                    "fuel          is %5.1f or %3.0f%% of internal capacity."
+                    % (fuel, math.floor(100 * fuel / self.internalfuelcapacity())),
+                )
+                self.logwhenwhat("", "fuel weight   is %.0f." % (fuel * 20))
 
             if (
                 isinstance(bingofuel, str)
                 and bingofuel[-1] == "%"
                 and bingofuel[:-1].isdecimal()
             ):
-                bingofuel = float(bingofuel[:-1]) / 100
-                self.logwhenwhat(
-                    "",
-                    "bingo fuel    is %3.0f%% of internal capacity."
-                    % (bingofuel * 100),
-                )
-                bingofuel *= self.internalfuelcapacity()
+                bingofuel = float(bingofuel[:-1]) / 100 * self.internalfuelcapacity()
             elif bingofuel is not None and not isinstance(bingofuel, int | float):
                 raise RuntimeError("invalid bingo fuel value %r" % bingofuel)
             self._bingofuel = bingofuel
-
-            if not self._fuel is None:
-                if self._bingofuel is None:
-                    self.logwhenwhat("", "fuel          is %.1f." % self._fuel)
-                else:
-                    self.logwhenwhat(
-                        "",
-                        "fuel          is %.1f and bingo fuel is %.1f."
-                        % (self._fuel, self._bingofuel),
-                    )
+            if bingofuel is not None:
+                self.logwhenwhat(
+                    "",
+                    "bingo fuel    is %5.1f or %3.0f%% of internal capacity."
+                    % (
+                        bingofuel,
+                        math.floor(100 * bingofuel / self.internalfuelcapacity()),
+                    ),
+                )
 
             # Determine the configuration, either explicitly or from the specified
             # stores.
@@ -206,7 +203,8 @@ class Aircraft(glass.element.Element):
 
             else:
 
-                self._initstores(stores)
+                self._setstores(stores)
+                self._logstores()
 
                 if (
                     self.fuel() is not None
@@ -740,7 +738,7 @@ class Aircraft(glass.element.Element):
         self,
         name,
         target,
-        loadstation,
+        loadstationname,
         failed=False,
         failedbeforelaunch=False,
         note=None,
@@ -756,30 +754,16 @@ class Aircraft(glass.element.Element):
             if not target._finishedmoving:
                 raise RuntimeError("target has not finished moving.")
 
-            previousconfiguration = self._configuration
-
-            missiletype, newstores = glass.aircraft.stores._airtoairlaunch(
-                self._stores, loadstation, printer=lambda s: self.logcomment(s)
+            storename = self._airtoairlaunch(
+                loadstationname,
+                failed=failed,
+                failedbeforelaunch=failedbeforelaunch,
             )
 
-            self._updateconfiguration()
-
             self.lognote(note)
-            if failedbeforelaunch:
-                self.logcomment("launch failed but missile not lost.")
-            elif failed:
-                self.logcomment("launch failed and missile lost.")
-                self._stores = newstores
-            else:
-                self.logcomment("launch succeeded.")
-                self._stores = newstores
-                M = glass.missile.Missile(name, missiletype, self, target)
 
-            if self._configuration != previousconfiguration:
-                self.logcomment(
-                    "configuration changed from %s to %s."
-                    % (previousconfiguration, self._configuration)
-                )
+            if storename is not None:
+                M = glass.missile.Missile(name, storename, self, target)
 
         except RuntimeError as e:
             glass.log.logexception(e)
@@ -812,14 +796,15 @@ class Aircraft(glass.element.Element):
     from glass.aircraft.move import _move, _continuemove
 
     from glass.aircraft.stores import (
-        _initstores,
+        _setstores,
         _updateconfiguration,
         _storesweight,
         _storesload,
         _storesfuelcapacity,
         _storesfuelfraction,
-        _showstores,
-        showstores,
+        _logstores,
+        logstores,
+        _airtoairlaunch,
         _release,
         release,
     )
