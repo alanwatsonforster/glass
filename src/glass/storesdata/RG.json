@@ -1,30 +1,72 @@
 // RGs
-
 {
-
     // French:
-
-    "RG/AS-20"             : [ "RG",  350, 1.0 ],
-    "RG/AS-30A"            : [ "RG", 1200, 3.0 ],
-    "RG/AS-30B"            : [ "RG", 1200, 3.0 ],
-    "RG/AS-30L"            : [ "RG", 1200, 3.0 ],
-
+    "RG/AS-20": {
+        "class": "RG",
+        "weight": 350,
+        "load": 1.0
+    },
+    "RG/AS-30A": {
+        "class": "RG",
+        "weight": 1200,
+        "load": 3.0
+    },
+    "RG/AS-30B": {
+        "class": "RG",
+        "weight": 1200,
+        "load": 3.0
+    },
+    "RG/AS-30L": {
+        "class": "RG",
+        "weight": 1200,
+        "load": 3.0
+    },
     // Soviet:
-
-    "RG/AS-7"              : [ "RG", 1100, 3.0 ],
-    "RG/AS-11"             : [ "RG",  750, 2.0 ],
-
+    "RG/AS-7": {
+        "class": "RG",
+        "weight": 1100,
+        "load": 3.0
+    },
+    "RG/AS-11": {
+        "class": "RG",
+        "weight": 750,
+        "load": 2.0
+    },
     // Swedish:
-
-    "RG/RB05A"             : [ "RG",  700, 2.0 ],
-
+    "RG/RB05A": {
+        "class": "RG",
+        "weight": 700,
+        "load": 2.0
+    },
     // US:
-
-    "RG/AGM-12B"           : [ "RG",  600, 1.5 ],
-    "RG/AGM-12C"           : [ "RG", 1800, 3.0 ],
-    "RG/AGM-123"           : [ "RG", 1200, 3.0 ],
-    "RG/AGM-65E"           : [ "RG",  650, 2.0 ],
-    "RG/AGM-65G"           : [ "RG",  650, 2.0 ],
-    "RG/AGM-130L"          : [ "RG", 2200, 4.0 ]
-
+    "RG/AGM-12B": {
+        "class": "RG",
+        "weight": 600,
+        "load": 1.5
+    },
+    "RG/AGM-12C": {
+        "class": "RG",
+        "weight": 1800,
+        "load": 3.0
+    },
+    "RG/AGM-123": {
+        "class": "RG",
+        "weight": 1200,
+        "load": 3.0
+    },
+    "RG/AGM-65E": {
+        "class": "RG",
+        "weight": 650,
+        "load": 2.0
+    },
+    "RG/AGM-65G": {
+        "class": "RG",
+        "weight": 650,
+        "load": 2.0
+    },
+    "RG/AGM-130L": {
+        "class": "RG",
+        "weight": 2200,
+        "load": 4.0
+    }
 }

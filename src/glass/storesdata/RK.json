@@ -1,24 +1,56 @@
 // RKs
-
 {
-
     // Generic:
-
-    "RK/35"                : [ "RK",   35, 0.5 ],
-    "RK/75"                : [ "RK",   75, 0.5 ],
-    "RK/100"               : [ "RK",  100, 1.0 ],
-    "RK/250"               : [ "RK",  250, 1.0 ],
-
+    "RK/35": {
+        "class": "RK",
+        "weight": 35,
+        "load": 0.5
+    },
+    "RK/75": {
+        "class": "RK",
+        "weight": 75,
+        "load": 0.5
+    },
+    "RK/100": {
+        "class": "RK",
+        "weight": 100,
+        "load": 1.0
+    },
+    "RK/250": {
+        "class": "RK",
+        "weight": 250,
+        "load": 1.0
+    },
     // Soviet:
-
-    "RK/S-8": [ "RK", 25, 0.5 ],
-    "RK/TRS-190": [ "RK", 100, 1.0 ],
-    "RK/ARS-212": [ "RK", 260, 1.0 ],
-    "RK/S-24": [ "RK", 350, 1.5 ],
-
+    "RK/S-8": {
+        "class": "RK",
+        "weight": 25,
+        "load": 0.5
+    },
+    "RK/TRS-190": {
+        "class": "RK",
+        "weight": 100,
+        "load": 1.0
+    },
+    "RK/ARS-212": {
+        "class": "RK",
+        "weight": 260,
+        "load": 1.0
+    },
+    "RK/S-24": {
+        "class": "RK",
+        "weight": 350,
+        "load": 1.5
+    },
     // US: 
-
-    "RK/HVAR": [ "RK", 140, 1.0 ],
-    "RK/Tiny Tim": [ "RK", 1200, 2.0 ]
-
+    "RK/HVAR": {
+        "class": "RK",
+        "weight": 140,
+        "load": 1.0
+    },
+    "RK/Tiny Tim": {
+        "class": "RK",
+        "weight": 1200,
+        "load": 2.0
+    }
 }

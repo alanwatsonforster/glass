@@ -1,13 +1,29 @@
 // BSs
-
 {
-
     // US:
-
-    "BS/AGM-62A"           : [ "BS", 1200, 3.0 ],
-    "BS/AGM-62B"           : [ "BS", 2500, 4.0 ],
-    "BS/GBU-15A"           : [ "BS", 2200, 4.0 ],
-    "BS/GBU-15B"           : [ "BS", 2200, 4.0 ],
-    "BS/GBU-15C"           : [ "BS", 2200, 4.0 ]
-
+    "BS/AGM-62A": {
+        "class": "BS",
+        "weight": 1200,
+        "load": 3.0
+    },
+    "BS/AGM-62B": {
+        "class": "BS",
+        "weight": 2500,
+        "load": 4.0
+    },
+    "BS/GBU-15A": {
+        "class": "BS",
+        "weight": 2200,
+        "load": 4.0
+    },
+    "BS/GBU-15B": {
+        "class": "BS",
+        "weight": 2200,
+        "load": 4.0
+    },
+    "BS/GBU-15C": {
+        "class": "BS",
+        "weight": 2200,
+        "load": 4.0
+    }
 }

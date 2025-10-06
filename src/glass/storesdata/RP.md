@@ -10,6 +10,7 @@
 |RP/Big/Medium|400|3.0|
 |RP/Large/Small|250|3.0|
 |RP/Large/Medium|500|3.5|
+|RP/F2|250|2.0|
 |RP/ORO-8K|175|2.0|
 |RP/UV-8-57|175|2.0|
 |RP/UV-16-57|300|3.0|

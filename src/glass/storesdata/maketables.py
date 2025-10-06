@@ -28,25 +28,36 @@ for datafilepath in sorted(glob.glob("*.json")):
 
         if datafilepath == "FT.json":
 
-            write("|Name|Liters|US Gallons|Imp Gallons|Weight|Load (Full)|Load (Empty)|Fuel Capacity|Notes|")
+            write(
+                "|Name|Liters|US Gallons|Imp Gallons|Weight|Load (Full)|Load (Empty)|Fuel Capacity|Notes|"
+            )
             write("|--|--|--|--|--|--|--|--|--|")
 
             for name in storetable:
                 data = storetable[name]
-                weight = data[1]
-                loadpoints = data[2]
-                additionaldata = data[3]
-                emptyload = additionaldata["emptyload"]
-                fuelcapacity = additionaldata["fuelcapacity"]
+                weight = data["weight"]
+                load = data["load"]
+                emptyload = data["emptyload"]
+                fuelcapacity = data["fuelcapacity"]
                 liters = int(name.split("/")[-1][:-1])
 
-                if "note" in additionaldata:
-                    note = additionaldata["note"]
+                if "note" in data:
+                    note = data["note"]
                 else:
                     note = ""
                 write(
                     "|%s|%.0f|%.0f|%.0f|%d|%.1f|%.1f|%d|%s|"
-                    % (name, liters, liters / 3.785, liters / 4.546, weight, loadpoints, emptyload, fuelcapacity, note)
+                    % (
+                        name,
+                        liters,
+                        liters / 3.785,
+                        liters / 4.546,
+                        weight,
+                        load,
+                        emptyload,
+                        fuelcapacity,
+                        note,
+                    )
                 )
 
         else:
@@ -56,6 +67,6 @@ for datafilepath in sorted(glob.glob("*.json")):
 
             for name in storetable:
                 data = storetable[name]
-                weight = data[1]
-                loadpoints = data[2]
-                write("|%s|%d|%.1f|" % (name, weight, loadpoints))
+                weight = data["weight"]
+                load = data["load"]
+                write("|%s|%d|%.1f|" % (name, weight, load))

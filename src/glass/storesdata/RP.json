@@ -1,38 +1,108 @@
 // RPs
-
 {
-
     // Generic (pod/rocket):
-
-    "RP/Small/Small"       : [ "RP",  100, 2.0 ],
-    "RP/Small/Medium"      : [ "RP",  250, 2.0 ],
-    "RP/Small/Large"       : [ "RP",  550, 3.0 ],
-    "RP/Small/Heavy"       : [ "RP",  750, 3.0 ],
-    "RP/Medium/Small"      : [ "RP",  150, 2.0 ],
-    "RP/Medium/Medium"     : [ "RP",  300, 3.0 ],
-    "RP/Medium/Large"      : [ "RP",  500, 3.0 ],
-    "RP/Big/Medium"        : [ "RP",  400, 3.0 ],
-    "RP/Large/Small"       : [ "RP",  250, 3.0 ],
-    "RP/Large/Medium"      : [ "RP",  500, 3.5 ],
-
+    "RP/Small/Small": {
+        "class": "RP",
+        "weight": 100,
+        "load": 2.0
+    },
+    "RP/Small/Medium": {
+        "class": "RP",
+        "weight": 250,
+        "load": 2.0
+    },
+    "RP/Small/Large": {
+        "class": "RP",
+        "weight": 550,
+        "load": 3.0
+    },
+    "RP/Small/Heavy": {
+        "class": "RP",
+        "weight": 750,
+        "load": 3.0
+    },
+    "RP/Medium/Small": {
+        "class": "RP",
+        "weight": 150,
+        "load": 2.0
+    },
+    "RP/Medium/Medium": {
+        "class": "RP",
+        "weight": 300,
+        "load": 3.0
+    },
+    "RP/Medium/Large": {
+        "class": "RP",
+        "weight": 500,
+        "load": 3.0
+    },
+    "RP/Big/Medium": {
+        "class": "RP",
+        "weight": 400,
+        "load": 3.0
+    },
+    "RP/Large/Small": {
+        "class": "RP",
+        "weight": 250,
+        "load": 3.0
+    },
+    "RP/Large/Medium": {
+        "class": "RP",
+        "weight": 500,
+        "load": 3.5
+    },
     // French
-
-    "RP/F2": [ "RP", 250, 2.0 ],
-
+    "RP/F2": {
+        "class": "RP",
+        "weight": 250,
+        "load": 2.0
+    },
     // Soviet
-
-    "RP/ORO-8K": [ "RP", 175, 2.0 ],
-    "RP/UV-8-57": [ "RP", 175, 2.0 ],
-    "RP/UV-16-57": [ "RP", 300, 3.0 ],
-    "RP/UV-32-57": [ "RP", 500, 3.5 ],
-
+    "RP/ORO-8K": {
+        "class": "RP",
+        "weight": 175,
+        "load": 2.0
+    },
+    "RP/UV-8-57": {
+        "class": "RP",
+        "weight": 175,
+        "load": 2.0
+    },
+    "RP/UV-16-57": {
+        "class": "RP",
+        "weight": 300,
+        "load": 3.0
+    },
+    "RP/UV-32-57": {
+        "class": "RP",
+        "weight": 500,
+        "load": 3.5
+    },
     // US
-
-    "RP/LAU-68": [ "RP", 250, 2.0 ],
-    "RP/LAU-3A": [ "RP", 450, 3.0 ],
-    "RP/LAU-10": [ "RP", 550, 3.0 ],
+    "RP/LAU-68": {
+        "class": "RP",
+        "weight": 250,
+        "load": 2.0
+    },
+    "RP/LAU-3A": {
+        "class": "RP",
+        "weight": 450,
+        "load": 3.0
+    },
+    "RP/LAU-10": {
+        "class": "RP",
+        "weight": 550,
+        "load": 3.0
+    },
     // The LAU-33 appears in the TSOH errata.
-    "RP/LAU-33": [ "RP", 200, 2.9 ],
-    "RP/LAU-37": [ "RP", 850, 3.5 ]
-
+    "RP/LAU-33": {
+        "class": "RP",
+        "weight": 200,
+        "load": 2.9
+    },
+    "RP/LAU-37": {
+        "class": "RP",
+        "weight": 850,
+        "load": 3.5
+    }
 }

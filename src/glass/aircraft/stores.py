@@ -12,8 +12,21 @@ import math
 
 _storedict = {}
 
+"""
+A dictionary containing the stores. The keys are the store names and the values
+are the store properties. The store properties are each in turn a dictionary in
+which the keys are the property names and the values are the property values.
+"""
+
 
 def _loadstores():
+    """
+    Load the stores from the stores data files.
+
+    The stores data files are `../storesdata/*.json`.
+
+    :raises RuntimeError: If a stores data file cannot be opened or read.
+    """
 
     global _storedict
 
@@ -25,8 +38,8 @@ def _loadstores():
         try:
             with open(path, "r", encoding="utf-8") as f:
                 _storedict.update(glass.jsonc.load(f))
-        except FileNotFoundError:
-            raise RuntimeError('unable to find stores data file "%s".' % path)
+        except PermissionError:
+            raise RuntimeError('unable to open stores data file "%s".' % path)
         except glass.jsonc.JSONDecodeError as e:
             raise RuntimeError(
                 'unable to read stores data file "%s": line %d: %s.'
@@ -39,49 +52,93 @@ _loadstores()
 ################################################################################
 
 
-def _class(storename):
+def _storehasproperty(storename, propertyname):
+    """
+    Return whether a store has a property.
+
+    :param storename: The name of a store.
+    :param propertyname: The name of the property.
+    :raises RuntimeError: If `storename` does not correspond to a store.
+    :return: ``True`` if the store has the name property, otherwise `False`.
+    """
     if not storename in _storedict:
         raise RuntimeError("unknown store %r." % storename)
-    return _storedict[storename][0]
+    return property in _storedict[storename]
 
 
-def _weight(storename, storesfuelfraction):
+def _storeproperty(storename, propertyname):
+    """
+    Return the value of a property of a store.
 
+    :param storename: The name of a store.
+    :param propertyname: The name of the property.
+    :raises RuntimeError: If `storename` does not correspond to a store or
+        `propertyname` does not correspond to a property of the named store.
+    :return: The value of the property.
+    """
     if not storename in _storedict:
         raise RuntimeError("unknown store %r." % storename)
-    # As a very rough approximation, we scale the weight of FTs by the fraction
-    # of fuel used.
-    if storename.startswith("FT"):
-        return _storedict[storename][1] * storesfuelfraction
+    if not propertyname in _storedict[storename]:
+        raise RuntimeError("unknown property %r." % propertyname)
+    return _storedict[storename][propertyname]
+
+
+def _storeclass(storename):
+    """
+    Return the class of a store.
+
+    :param storename: The name of a store.
+    :param propertyname: The name of the property.
+    :raises RuntimeError: If `storename` does not correspond to a store or
+        `propertyname` does not correspond to a property of the named store.
+    :return: The class of the store as a string. One of the following strings:
+       `"AHM"`, `"ARM"`, `"ASM"`, `"BB"`, `"BG"`, `"BRM"`, `"BS"`, `"DP"`,
+       `"EP"`, `"FT"`, `"GP"`, `"IRM"`, `"LP"`, `"OP"`, `"RG"`, `"RHM"`, `"RK"`,
+       `"RP"`, `"RS"`, and `"WR"`.
+    """
+    return _storeproperty(storename, "class")
+
+
+def _storeweight(storename, storesfuelfraction):
+    """
+    Return the weight of a store.
+
+    :param storename: The name of the store.
+    :param storesfuelfraction: The fraction of fuel in the store, if the store is an FT.
+    :raises RuntimeError: If `storename` does not correspond to a store.
+    :return: The weight of the store as a number.
+    """
+    if _storehasproperty(storename, "fuelcapacity"):
+        return _storeproperty(storename, "weight") * storesfuelfraction
     else:
-        return _storedict[storename][1]
+        return _storeproperty(storename, "weight")
 
 
-def _load(storename, storesfuelfraction):
+def _storeload(storename, storesfuelfraction):
+    """
+    Return the load of a store.
 
-    # We make the crude assumption that if there is any stores fuel,
-    # then all of the FTs are full.
-
-    if not storename in _storedict:
-        raise RuntimeError("unknown store %r." % storename)
-
-    if _class(storename) == "FT" and storesfuelfraction == 0:
-        return _additionaldata(storename)["emptyload"]
+    :param storename: The name of the store.
+    :param storesfuelfraction: The fraction of fuel in the store, if the store is an FT.
+    :raises RuntimeError: If `storename` does not correspond to a store.
+    :return: The load of the store as a number.
+    """
+    if _storehasproperty(storename, "emptyload") and storesfuelfraction == 0:
+        return _storeproperty(storename, "emptyload")
     else:
-        return _storedict[storename][2]
+        return _storeproperty(storename, "load")
 
 
-def _additionaldata(storename):
-    if not storename in _storedict:
-        raise RuntimeError("unknown store %r." % storename)
-    return _storedict[storename][3]
+def _storefuelcapacity(storename):
+    """
+    Return the fuel capacity of a store.
 
-
-def _fuelcapacity(storename):
-    if not storename in _storedict:
-        raise RuntimeError("unknown store %r." % storename)
-    if _class(storename) == "FT":
-        return _additionaldata(storename)["fuelcapacity"]
+    :param storename: The name of the store.
+    :raises RuntimeError: If `storename` does not correspond to a store.
+    :return: The fuel capacity of the store as a number.
+    """
+    if _storehasproperty(storename, "fuelcapacity"):
+        return _storeproperty(storename, "fuelcapacity")
     else:
         return 0
 
@@ -92,14 +149,14 @@ def _fuelcapacity(storename):
 def _storesweight(self, storesfuelfraction=1):
     totalweight = 0
     for loadstation, storename in self._stores.items():
-        totalweight += _weight(storename, storesfuelfraction)
+        totalweight += _storeweight(storename, storesfuelfraction)
     return totalweight
 
 
 def _storesload(self, storesfuelfraction=1):
     totalload = 0
     for loadstation, storename in self._stores.items():
-        totalload += _load(storename, storesfuelfraction)
+        totalload += _storeload(storename, storesfuelfraction)
     if not glass.variants.withvariant("use house rules"):
         # Round down. See 4.3.
         totalload = int(totalload)
@@ -109,7 +166,7 @@ def _storesload(self, storesfuelfraction=1):
 def _storesfuelcapacity(self):
     totalfuelcapacity = 0
     for loadstation, storename in self._stores.items():
-        totalfuelcapacity += _fuelcapacity(storename)
+        totalfuelcapacity += _storefuelcapacity(storename)
     return totalfuelcapacity
 
 
@@ -185,10 +242,14 @@ def _showstores(self):
                 % (
                     loadstation,
                     name,
-                    _class(name),
-                    _weight(name, storesfuelfraction=self._storesfuelfraction()),
-                    _load(name, storesfuelfraction=self._storesfuelfraction()),
-                    " / %d" % _fuelcapacity(name) if _class(name) == "FT" else "",
+                    _storeclass(name),
+                    _storeweight(name, storesfuelfraction=self._storesfuelfraction()),
+                    _storeload(name, storesfuelfraction=self._storesfuelfraction()),
+                    (
+                        " / %d" % _storefuelcapacity(name)
+                        if _storeclass(name) == "FT"
+                        else ""
+                    ),
                 ),
             )
 
@@ -303,7 +364,7 @@ def _airtoairlaunch(stores, launched, printer=print):
     if loadstation not in stores:
         raise RuntimeError("load station %s is not loaded." % loadstation)
 
-    if _class(stores[loadstation]) not in ["IRM", "BRM", "RHM", "AHM"]:
+    if _storeclass(stores[loadstation]) not in ["IRM", "BRM", "RHM", "AHM"]:
         raise RuntimeError(
             "load station %s is not loaded with an air-to-air missile." % loadstation
         )

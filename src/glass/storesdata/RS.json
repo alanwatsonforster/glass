@@ -1,16 +1,30 @@
 // RSs
-
 {
-
     // European:
-
-    "RS/AJ168"             : [ "RS", 1200, 3.0 ],
-
+    "RS/AJ168": {
+        "class": "RS",
+        "weight": 1200,
+        "load": 3.0
+    },
     // US:
-
-    "RS/AGM-65B"           : [ "RS",  500, 1.5 ],
-    "RS/AGM-65D"           : [ "RS",  500, 1.5 ],
-    "RS/AGM-65F"           : [ "RS",  650, 2.0 ],
-    "RS/AGM-130L"          : [ "RS", 2200, 4.0 ]
-
+    "RS/AGM-65B": {
+        "class": "RS",
+        "weight": 500,
+        "load": 1.5
+    },
+    "RS/AGM-65D": {
+        "class": "RS",
+        "weight": 500,
+        "load": 1.5
+    },
+    "RS/AGM-65F": {
+        "class": "RS",
+        "weight": 650,
+        "load": 2.0
+    },
+    "RS/AGM-130L": {
+        "class": "RS",
+        "weight": 2200,
+        "load": 4.0
+    }
 }
