@@ -276,6 +276,7 @@
     "FT/MRT/500L": {
         "class": "FT",
         "weight": 1100,
+        "emptyweight": 220,
         "load": 3.0,
         "emptyload": 2.0,
         "fuelcapacity": 44,
@@ -284,16 +285,18 @@
     "FT/RPT/270L": {
         "class": "FT",
         "weight": 900,
+        "emptyweight": 420,
         "load": 4.0,
-        "emptyload": 2.5,
+        "emptyload": 3.5,
         "fuelcapacity": 20,
         "note": "Mirage only: JL-100 with eighteen 68 mm rockets."
     },
     "FT/RPT/1300L": {
         "class": "FT",
         "weight": 3000,
+        "emptyweight": 720,
         "load": 6.0,
-        "emptyload": 4.0,
+        "emptyload": 4.5,
         "fuelcapacity": 114,
         "note": "Mirage only: JL-500 with eighteen 68 mm rockets."
     }

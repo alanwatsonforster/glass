@@ -63,7 +63,7 @@ def _storehasproperty(storename, propertyname):
     """
     if not storename in _storedict:
         raise RuntimeError("unknown store %r." % storename)
-    return property in _storedict[storename]
+    return propertyname in _storedict[storename]
 
 
 def _storeproperty(storename, propertyname):
@@ -108,10 +108,15 @@ def _storeweight(storename, storesfuelfraction):
     :raises RuntimeError: If `storename` does not correspond to a store.
     :return: The weight of the store as a number.
     """
-    if _storehasproperty(storename, "fuelcapacity"):
-        return _storeproperty(storename, "weight") * storesfuelfraction
+    weight = _storeproperty(storename, "weight")
+    if _storehasproperty(storename, "emptyweight"):
+        emptyweight = _storeproperty(storename, "emptyweight")
     else:
-        return _storeproperty(storename, "weight")
+        emptyweight = 0
+    if _storehasproperty(storename, "fuelcapacity"):
+        return emptyweight + storesfuelfraction * (weight - emptyweight)
+    else:
+        return weight
 
 
 def _storeload(storename, storesfuelfraction):
@@ -171,7 +176,7 @@ def _storesfuelcapacity(self):
 
 
 def _storesfuelfraction(self):
-    if self.storesfuel() is None:
+    if self.storesfuel() is None or self._storesfuelcapacity() == 0:
         return 0
     else:
         return self.storesfuel() / self._storesfuelcapacity()
@@ -246,7 +251,8 @@ def _showstores(self):
                     _storeweight(name, storesfuelfraction=self._storesfuelfraction()),
                     _storeload(name, storesfuelfraction=self._storesfuelfraction()),
                     (
-                        " / %d" % _storefuelcapacity(name)
+                        " / %d"
+                        % (_storefuelcapacity(name) * self._storesfuelfraction())
                         if _storeclass(name) == "FT"
                         else ""
                     ),
@@ -316,9 +322,12 @@ def _showstores(self):
                     math.floor(100 * self._storesfuelcapacity() / self.internalfuel()),
                 ),
             )
-            storesallowedfuel = self._storesfuelcapacity() * min(
-                1, storesfuelweightlimit / storesfuelweightcapacity
-            )
+            if storesfuelweightcapacity == 0:
+                storesallowedfuel = 0
+            else:
+                storesallowedfuel = self._storesfuelcapacity() * min(
+                    1, storesfuelweightlimit / storesfuelweightcapacity
+                )
             self.logwhenwhat(
                 "",
                 "stores fuel limit           is %5.1f or %3.0f%% of internal capacity."
