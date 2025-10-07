@@ -48,6 +48,7 @@
     "aluminum": "gray80",
     "aluminium": "aluminum",
     "unpainted": "aluminum",
+    "silver": "aluminum",
 
     "darkgray": "gray40",
     "darkgrey": "darkgray",
@@ -58,15 +59,13 @@
     "slategray": "#708090",
     "slategrey": "slategray",
 
-
     // https://www.theworldwars.net/resources/file.php?r=camo_usn#korea
     "darkblue": "#1d3f5b",
     "skyblue": "#7dc7e8",
 
-    // Some might consider our tan to be a dark tan and our light tan to be tan.
-    // However, I have designated them in this way to better match green and
-    // light green.
-
+    // Some might consider this tan to be a dark tan and this light tan to be
+    // tan. However, I have designated them in this way to better match green
+    // and light green.
 
     "olivedrab": "#6b8e23",
     "lightolivedrab": "#9fb670",
@@ -78,7 +77,7 @@
     "lightsand": "#f0ead6",
     "khaki": "#d5c58a",
 
-    // Approximations to the Air Strike counter colors
+    // Approximations to the Air Strike counter colors.
 
     "airstrikegreen": "#3b6114",
     "airstrikelightgreen": "#94b857",
@@ -123,6 +122,3 @@
     "indianafgreen": "#005936"
 
 }
-
-
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

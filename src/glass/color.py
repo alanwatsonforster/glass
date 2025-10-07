@@ -2,9 +2,13 @@
 The :mod:`glass.color` module has procedures for translating between color
 specifiers and the native representation of colors.
 
-The native representation of a color is a list or tuple of length three with each
-element being a number and representing a luminance between 0 and 1. The order
-of the luminances is red, green, and blue.
+The native representation of a color is either:
+
+- A list or tuple of length three with each element being a number and
+  representing a luminance between 0 and 1. The order of the luminances is red,
+  green, and blue.
+
+- `None` indicating transparency.
 
 A color specifier may be:
 
@@ -74,7 +78,9 @@ def nativecolor(color):
             and isluminancecomponent(x[2])
         )
 
-    if ishexrepresentation(color):
+    if color is None:
+        return color
+    elif ishexrepresentation(color):
         r = int(color[1:3], 16) / 255
         g = int(color[3:5], 16) / 255
         b = int(color[5:7], 16) / 255
@@ -84,7 +90,7 @@ def nativecolor(color):
     elif color in _colorsdict:
         return nativecolor(_colorsdict[color])
     else:
-        RuntimeError("invalid color specifier %r" % color)
+        raise RuntimeError("invalid color specifier %r" % color)
 
 
 ################################################################################
