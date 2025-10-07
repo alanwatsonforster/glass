@@ -6,6 +6,7 @@ API
    
    glass.altitude.rst
    glass.azimuth.rst
+   glass.color.rst
    glass.draw.rst
    glass.hex.rst
    glass.hexcode.rst

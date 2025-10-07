@@ -69,7 +69,6 @@ following values are used:
 """
 
 import math
-import os
 import pickle
 
 import matplotlib.pyplot as plt
@@ -78,8 +77,8 @@ import matplotlib.hatch
 import matplotlib.path
 
 import glass.azimuth
+import glass.color
 import glass.hex
-import glass.jsonc
 
 ################################################################################
 
@@ -588,8 +587,8 @@ def _drawhexincanvas(
             6,
             radius=size * 0.5 * math.sqrt(4 / 3),
             orientation=math.pi / 6 + math.radians(facing),
-            edgecolor=_nativecolor(linecolor),
-            facecolor=_nativecolor(fillcolor),
+            edgecolor=glass.color.nativecolor(linecolor),
+            facecolor=glass.color.nativecolor(fillcolor),
             fill=(fillcolor != None),
             linestyle=linestyle,
             hatch=_nativehatchpattern(hatch),
@@ -620,8 +619,8 @@ def _drawcircleincanvas(
         patches.Circle(
             [x, y],
             radius=0.5 * size,
-            edgecolor=_nativecolor(linecolor),
-            facecolor=_nativecolor(fillcolor),
+            edgecolor=glass.color.nativecolor(linecolor),
+            facecolor=glass.color.nativecolor(fillcolor),
             fill=(fillcolor != None),
             hatch=_nativehatchpattern(hatch),
             linewidth=_nativelinewidth(linewidth, linecolor),
@@ -654,8 +653,8 @@ def _drawdotincanvas(
         patches.Circle(
             [x, y],
             radius=0.5 * size,
-            edgecolor=_nativecolor(linecolor),
-            facecolor=_nativecolor(fillcolor),
+            edgecolor=glass.color.nativecolor(linecolor),
+            facecolor=glass.color.nativecolor(fillcolor),
             fill=(fillcolor != None),
             linewidth=_nativelinewidth(linewidth, linecolor),
             alpha=alpha,
@@ -683,7 +682,7 @@ def _drawlinesincanvas(
         y,
         linewidth=_nativelinewidth(linewidth, linecolor),
         linestyle=linestyle,
-        color=_nativecolor(linecolor),
+        color=glass.color.nativecolor(linecolor),
         solid_joinstyle=joinstyle,
         solid_capstyle=capstyle,
         alpha=alpha,
@@ -724,8 +723,8 @@ def _drawarrowincanvas(
             width=0.0,
             head_width=headwidth,
             length_includes_head=True,
-            edgecolor=_nativecolor(linecolor),
-            facecolor=_nativecolor(linecolor),
+            edgecolor=glass.color.nativecolor(linecolor),
+            facecolor=glass.color.nativecolor(linecolor),
             fill=(fillcolor != None),
             linewidth=_nativelinewidth(linewidth, linecolor),
             alpha=alpha,
@@ -767,8 +766,8 @@ def _drawdartincanvas(
             head_length=size,
             head_width=0.5 * size,
             length_includes_head=True,
-            edgecolor=_nativecolor(linecolor),
-            facecolor=_nativecolor(fillcolor),
+            edgecolor=glass.color.nativecolor(linecolor),
+            facecolor=glass.color.nativecolor(fillcolor),
             fill=(fillcolor != None),
             linewidth=_nativelinewidth(linewidth, linecolor),
             alpha=alpha,
@@ -811,7 +810,7 @@ def _drawtextincanvas(
         text,
         size=_nativetextsize(size),
         rotation=facing - 90,
-        color=_nativecolor(textcolor),
+        color=glass.color.nativecolor(textcolor),
         alpha=alpha,
         horizontalalignment=alignment,
         verticalalignment=verticalalignment,
@@ -839,8 +838,8 @@ def _drawpolygonincanvas(
     _ax.add_artist(
         patches.Polygon(
             list(zip(x, y)),
-            edgecolor=_nativecolor(linecolor),
-            facecolor=_nativecolor(fillcolor),
+            edgecolor=glass.color.nativecolor(linecolor),
+            facecolor=glass.color.nativecolor(fillcolor),
             fill=(fillcolor != None),
             linewidth=_nativelinewidth(linewidth, linecolor),
             linestyle=linestyle,
@@ -3351,79 +3350,5 @@ def _nativehatchpattern(hatchpattern):
     else:
         raise RuntimeError("invalid hatch pattern %r" % hatchpattern)
 
-
-################################################################################
-
-_colorsdict = {}
-
-"""
-A dictionary containing the colors. The keys are the color names as strings. The
-values are either tuples/lists of three numbers from 0 to 1, denoting the RGB
-luminances, or strings, denoting aliases.
-"""
-
-
-def _loadcolors():
-    """
-    Load the colors from the colors data file.
-
-    The color data files is `data/colors.json`.
-
-    :raises RuntimeError: If the colors data file cannot be opened or read.
-    """
-
-    global _colorsdict
-
-    _colorsdict = {}
-
-    path = os.path.join(os.path.dirname(__file__), "data", "colors.json")
-
-    try:
-        with open(path, "r", encoding="utf-8") as f:
-            _colorsdict.update(glass.jsonc.load(f))
-    except PermissionError:
-        raise RuntimeError('unable to open colors data file "%s".' % path)
-    except glass.jsonc.JSONDecodeError as e:
-        raise RuntimeError(
-            'unable to read colores data file "%s": line %d: %s.'
-            % (path, e.lineno, e.msg.lower())
-        )
-
-
-_loadcolors()
-
-
-def _nativecolor(color):
-    """
-    Return the native color.
-
-    :param color:
-        A color name or a list or tuple of the three RGB components as numbers
-        from 0 to 1.
-    :return:
-        The color represented as a list or tuple of the three RGB components as
-        numbers from 0 to 1.
-    """
-
-    if isinstance(color, str) and color[0] == "#":
-        r = int(color[1:3], 16) / 255
-        g = int(color[3:5], 16) / 255
-        b = int(color[5:7], 16) / 255
-        return [r, g, b]
-    elif not isinstance(color, str):
-        return color
-    elif color in _colorsdict:
-        return _nativecolor(_colorsdict[color])
-    else:
-        return color
-
-
-if False:
-    for color in _colorsdict:
-        values = _nativecolor(color)
-        r = int(values[0] * 255 + 0.5)
-        g = int(values[1] * 255 + 0.5)
-        b = int(values[2] * 255 + 0.5)
-        print('    "%s": "#%02x%02x%02x",' % (color, r, g, b))
 
 ################################################################################
