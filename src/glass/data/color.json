@@ -119,6 +119,16 @@
     // https://en.wikipedia.org/wiki/Indian_Air_Force
 
     "indianaforange": "#ff5900",
-    "indianafgreen": "#005936"
+    "indianafgreen": "#005936",
+
+    // The red of the Soviet flag.
+    // https://en.wikipedia.org/wiki/Flag_of_the_Soviet_Union#/media/File:Flag_of_the_Soviet_Union.svg
+    // This red is darker and more saturated than the NATO red and panarabred.
+    "sovietred": "#cc0900",
+
+    // The blue of the Finnish AF roundel.
+    // https://en.wikipedia.org/wiki/Finnish_Air_Force#/media/File:Finnish_air_force_roundel.svg
+    // This is darker than the NATO and Israeli AF blues.
+    "finnishafblue": "#3771c8"
 
 }
