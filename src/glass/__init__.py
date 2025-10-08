@@ -30,12 +30,22 @@ __all__ = [
     "setuphexgroundunit",
     "setupmarker",
     "setupship",
+    "setcolor",
 ]
 
 ################################################################################
 
 
-def startgamesetup(scenario, sheets=None, north="up", variants=[], printlog=True, writelogfiles=True, writemapfiles=True, **kwargs):
+def startgamesetup(
+    scenario,
+    sheets=None,
+    north="up",
+    variants=[],
+    printlog=True,
+    writelogfiles=True,
+    writemapfiles=True,
+    **kwargs
+):
     """
     Start the game set-up for the specified scenario (or for the specified map layout).
     """
@@ -346,3 +356,4 @@ from glass.groundunit import GroundUnit as setupgroundunit
 from glass.groundunit import HexGroundUnit as setuphexgroundunit
 from glass.marker import Marker as setupmarker
 from glass.ship import Ship as setupship
+from glass.color import setcolor

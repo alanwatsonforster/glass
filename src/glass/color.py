@@ -25,7 +25,7 @@ A color specifier may be:
 
 ################################################################################
 
-__all__ = ["nativecolor"]
+__all__ = ["nativecolor", "setcolor"]
 
 ################################################################################
 
@@ -36,7 +36,7 @@ import glass.jsonc
 
 ################################################################################
 
-_colorsdict = {}
+_colordict = {}
 
 """
 A dictionary containing the colors. 
@@ -87,10 +87,32 @@ def nativecolor(color):
         return [r, g, b]
     elif isnumericrepresentation(color):
         return color
-    elif color in _colorsdict:
-        return nativecolor(_colorsdict[color])
+    elif color in _colordict:
+        return nativecolor(_colordict[color])
     else:
         raise RuntimeError("invalid color specifier %r" % color)
+
+
+################################################################################
+
+
+def setcolor(colorname, color):
+    """
+    Add a named color.
+
+    Add a named color so that subsequent calls to `nativecolor` with the
+    `colorname` parameter will return the value of `nativecolor(color)`
+    evaluated at the time of the call to `setcolor`.
+
+    :param colorname: The name of the color as a string.
+    :param color: A color specifier.
+    :raises RuntimeError: If `colorname` is not a string.
+    :raises RuntimeError: If `color` is not a valid color specifier.
+    """
+    global _colordict
+    if not isinstance(colorname, str):
+        raise RuntimeError("%r is not a valid color name." % colorname)
+    _colordict[colorname] = nativecolor(color)
 
 
 ################################################################################
@@ -107,15 +129,15 @@ def _loadcolors():
     :raises RuntimeError: If any of the colors are invalid.
     """
 
-    global _colorsdict
+    global _colordict
 
-    _colorsdict = {}
+    _colordict = {}
 
     path = os.path.join(os.path.dirname(__file__), "data", "color.json")
 
     try:
         with open(path, "r", encoding="utf-8") as f:
-            _colorsdict.update(glass.jsonc.load(f))
+            _colordict.update(glass.jsonc.load(f))
     except PermissionError:
         raise RuntimeError('unable to open the color data file "%s".' % path)
     except glass.jsonc.JSONDecodeError as e:
@@ -125,7 +147,7 @@ def _loadcolors():
         )
 
     # Make sure all colors are valid.
-    for color in _colorsdict:
+    for color in _colordict:
         nativecolor(color)
 
 
@@ -138,7 +160,7 @@ _loadcolors()
 # used for testing and debugging.
 
 if False:
-    for color in _colorsdict:
+    for color in _colordict:
         values = nativecolor(color)
         r = int(values[0] * 255 + 0.5)
         g = int(values[1] * 255 + 0.5)
