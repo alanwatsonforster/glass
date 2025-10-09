@@ -3004,7 +3004,7 @@ def _drawgroundunitincanvas(
             y + groundunitdy / 2,
             linewidth=groundunitlinewidth,
             fillcolor=None,
-            linecolor="black",
+            linecolor=linecolor,
             zorder=zorder,
         )
 
