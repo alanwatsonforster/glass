@@ -49,27 +49,27 @@ assert A5._rocketfactors == 6
 
 assert A6._rocketfactors == 0
 
-# Check SSGT and RR
+# Check tracking and RR
 
 startgameturn()
 A7.move("LVL", "M", "H")
 A7.attack(A9, "GN/RR", "-")
-asserterror("RE radar-ranging requires SSGT.")
+asserterror("RE radar-ranging requires tracking.")
 startgameturn()
 A7.move("LVL", "M")
-A7.ssgt(A9)
+A7.track(A9)
 A7.continuemove("H")
 A7.attack(A9, "GN/RR", "-")
 assert A7._gunammunition == 3.0
 startgameturn()
 A7.move("LVL", "M")
-A7.ssgt(A9)
+A7.track(A9)
 A7.continuemove("H")
 A7.attack(A9, "GN/SS/RR", "-")
 assert A7._gunammunition == 3.5
 startgameturn()
 A7.move("LVL", "M")
-A7.ssgt(A9)
+A7.track(A9)
 A7.continuemove("H")
 A7.attack(A9, "GN/SS/RR", "-")
 assert A7._gunammunition == 3.5
@@ -131,9 +131,9 @@ A1.attack(A2, "GN")
 endgameturn()
 asserterror("A1 has 2 unspecified attack results.")
 
-# Check SSGT
+# Check tracking
 
-starttestsetup()
+starttestsetup(verbose=True)
 A0 = setupaircraft("A0", "AF", "F-80C", "A1-1815", "N", 20, 4.0, "CL")
 A1 = setupaircraft("A1", "AF", "F-80C", "A1-1814", "N", 20, 4.0, "CL")
 A2 = setupaircraft("A2", "AF", "F-80C", "A1-2212", "WNW", 20, 4.0, "CL")
@@ -143,27 +143,33 @@ endtestsetup()
 
 startgameturn()
 A1.move("LVL", "M", "H,H,H,H")
-A0.move("LVL", "M", "SSGT(A1)/H,H,H,H/AA(GN)(A1)(-)")
+A0.move("LVL", "M")
+A0.track(A1)
+A0.continuemove("H,H,H,H")
+A0.attack(A1, "GN", "-")
 
 startgameturn()
 A2.move("LVL", "M", "H,H,H,H")
-A0.move("LVL", "M", "SSGT(A2)/H,H,H,H/AA(GN)(A2)(-)")
+A0.move("LVL", "M")
+A0.track(A2)
+A0.continuemove("H,H,H,H")
+A0.attack(A2, "GN", "-")
 
 startgameturn()
 A3.move("LVL", "M", "H,H,H,H")
 A0.move("LVL", "M")
-A0.ssgt(A3)
-asserterror("attempt to start SSGT while A0 is not in its 60- arc of A3.")
+A0.track(A3)
+asserterror("attempt to start tracking while A0 is not in its 60- arc of A3.")
 
 startgameturn()
 A4.move("LVL", "M", "H,H,H,H")
 A0.move("LVL", "M")
-A0.ssgt(A4)
-asserterror("attempt to start SSGT while A4 is more than 6 hexes from A0.")
+A0.track(A4)
+asserterror("attempt to start tracking while A4 is more than 6 hexes from A0.")
 
 startgameturn()
 A1.move("LVL", "M", "H,H,H,H")
 A0.move("LVL", "M")
-A0.ssgt(A1)
+A0.track(A1)
 A0.continuemove("BTR/H/R,H/WL,BTL/H/L+,H/L")
 A0.attack(A1, "GN", "-")

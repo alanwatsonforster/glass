@@ -5,7 +5,7 @@ _knownvariants = [
     "disallow HT/FT",
     "use first-edition ADCs",
     "use version 2.4 rules",
-    "require limited radar arc for SSGT",
+    "require limited radar arc for tracking",
     "use house rules",
     "use optional damage table",
 ]

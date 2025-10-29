@@ -693,26 +693,26 @@ class Aircraft(glass.element.Element):
 
     ########################################
 
-    def ssgt(self, target=None):
+    def track(self, target=None):
         """
-        Start SSGT.
+        Start tracking (SSGT).
         """
 
         # See rule 9.4.
 
-        # The rules only explicitly prohibit SSGT during recovery from an
-        # ET. However, we assume that SSGT has the same restrictions as
+        # The rules only explicitly prohibit tracking during recovery from an
+        # ET. However, we assume that tracking has the same restrictions as
         # attacks.
 
         try:
 
             if glass.flight.useofweaponsforbidden(self):
                 raise RuntimeError(
-                    "attempt to start SSGT while %s"
+                    "attempt to start tracking while %s"
                     % glass.flight.useofweaponsforbidden(self)
                 )
 
-            # TODO: Check we can start SSGT on a specific target.
+            # TODO: Check we can start tracking a specific target.
 
             if target is None:
                 raise RuntimeError("unknown target %s." % target.name())
@@ -721,11 +721,11 @@ class Aircraft(glass.element.Element):
 
             if glass.airtoair.trackingforbidden(self, target):
                 raise RuntimeError(
-                    "attempt to start SSGT while %s"
+                    "attempt to start tracking while %s"
                     % glass.airtoair.trackingforbidden(self, target)
                 )
 
-            self.logcomment("started SSGT on %s." % target.name())
+            self.logcomment("started tracking %s." % target.name())
             self._tracking = target
 
         except RuntimeError as e:

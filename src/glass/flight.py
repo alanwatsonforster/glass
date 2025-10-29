@@ -2035,12 +2035,12 @@ def _checktracking(A):
     # Check tracking. See rule 9.4.
     if A._tracking:
         if useofweaponsforbidden(A):
-            A.logcomment("stopped SSGT.")
+            A.logcomment("stopped tracking.")
             A._tracking = None
             A._trackingfp = 0
         elif glass.airtoair.trackingforbidden(A, A._tracking):
             A.logcomment(
-                "stopped SSGT as %s" % glass.airtoair.trackingforbidden(A, A._tracking)
+                "stopped tracking as %s" % glass.airtoair.trackingforbidden(A, A._tracking)
             )
             A._tracking = None
             A._trackingfp = 0

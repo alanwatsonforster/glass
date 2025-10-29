@@ -337,7 +337,7 @@ def _attack(attacker, attacktype, target, result, allowRK=True, allowtracking=Tr
             and angleofftail != "30 arc"
             and angleofftail != "60 arc"
         ):
-            allowSSGT = False
+            allowtracking = False
 
         verticalmodifier = None
         if (weapon == "GN" or weapon == "GNSS") and issamehexattack(attacker, target):
@@ -370,7 +370,7 @@ def _attack(attacker, attacktype, target, result, allowRK=True, allowtracking=Tr
 
     if allowtracking:
         attacker.logcomment(
-            "SSGT for %d %s."
+            "tracking for %d %s."
             % (attacker._trackingfp, glass.log.plural(attacker._trackingfp, "FP", "FPs"))
         )
         if attacker._trackingfp >= 2 * glass.rounding.rounddown(
@@ -384,7 +384,7 @@ def _attack(attacker, attacktype, target, result, allowRK=True, allowtracking=Tr
         else:
             trackingmodifier = -0
     else:
-        attacker.logcomment("SSGT not allowed.")
+        attacker.logcomment("tracking not allowed.")
         trackingmodifier = None
 
     radarrangingtype = glass.capabilities.ataradarrangingtype(attacker)
@@ -393,9 +393,9 @@ def _attack(attacker, attacktype, target, result, allowRK=True, allowtracking=Tr
         if radarranging:
             raise RuntimeError("attacker does not have radar ranging.")
     elif radarrangingtype == "RE" and attacker._trackingfp == 0:
-        attacker.logcomment("RE radar-ranging requires SSGT.")
+        attacker.logcomment("RE radar-ranging requires tracking.")
         if radarranging:
-            raise RuntimeError("RE radar-ranging requires SSGT.")
+            raise RuntimeError("RE radar-ranging requires tracking.")
     else:
         attacker.logcomment(
             "%s radar-ranging lock-on roll is %d."
@@ -461,7 +461,7 @@ def _attack(attacker, attacktype, target, result, allowRK=True, allowtracking=Tr
         )
         tohitmodifier += angleofftailmodifier
     if trackingmodifier is not None:
-        attacker.logcomment("SSGT               modifier is %+d." % trackingmodifier)
+        attacker.logcomment("tracking           modifier is %+d." % trackingmodifier)
         tohitmodifier += trackingmodifier
     if radarrangingmodifier is not None:
         attacker.logcomment(
@@ -554,7 +554,7 @@ def attack(attacker, attacktype, target, result, returnfire=False):
 
 def trackingforbidden(attacker, target):
     """
-    Check that the attacker can carry out SSGT on the target.
+    Check that the attacker can track the target.
     """
 
     # The check on the ability to use weapons (necessary for tracking) is
@@ -568,7 +568,7 @@ def trackingforbidden(attacker, target):
         attacker, target, "limited"
     ):
         return "%s is not in the limited arc of %s." % (target.name(), attacker.name())
-    if glass.variants.withvariant("require limited radar arc for SSGT"):
+    if glass.variants.withvariant("require limited radar arc for tracking"):
         if glass.geometry.horizontalrange(
             attacker, target
         ) > 0 and not glass.geometry.inradararc(attacker, target, "limited"):
