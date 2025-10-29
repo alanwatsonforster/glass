@@ -5,8 +5,8 @@
     "sightingrange": 12,
     "defensestrength": "2S",
     "VPs": [
-        3,
-        2,
-        1
+        1,
+        null,
+        null
     ]
 }
