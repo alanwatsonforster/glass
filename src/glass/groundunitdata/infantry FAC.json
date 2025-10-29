@@ -1,8 +1,7 @@
 {
     "name": "infantry FAC",
-    "description": "infantry FAC team",
-    "symbols": "infantry",
-    "uppertext": "FAC",
+    "description": "infantry FAC section",
+    "symbols": "infantry/fac/section",
     "sightingrange": 6,
     "defensestrength": "5S",
     "VPs": [

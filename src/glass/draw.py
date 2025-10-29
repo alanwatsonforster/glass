@@ -1697,15 +1697,17 @@ def drawgroundunit(
         rectangular outline. The list can also contain any number of the
         following strings, which indicate the symbols to be drawn:
         ``"air-defense"``, ``"ammunition"``, ``"antiarmor"``, ``"armor"``,
-        ``"artillery"``, ``"barge"``, ``"bridge"``, ``"building"``,
-        ``"fixedwing"``, ``"fuel"``, ``"gun"``, ``"hangar"``,
-        ``"headquarters"``, ``"heavy"``, ``"infantry"``, ``"infantrycarrier"``,
-        ``"junk"``, ``"largebuilding"``, ``"light"``, ``"locomotive"``,
-        ``"medium"``, ``"missile"``, ``"ordnance"``, ``"radar"``, ``"railcar"``,
-        ``"reconnaissance"``, ``"rocket"``, ``"rotarywing"``,``"shelter"``,
-        ``"supply"``, ``"tower"``, ``"transportation"``, ``"truck"``, and
-        ``unidentified``. The British English aliases ``"air-defence"``,
-        ``"antiarmour"``, ``"armour"`` are also allowed.
+        ``"artillery"``, ``"barge"``, ``"battery"``, ``"bridge"``,
+        ``"building"``, ``"company"``, ``"fac"`` ``"fixedwing"``, ``"fuel"``,
+        ``"gun"``, ``"hangar"``, ``"headquarters"``, ``"heavy"``,
+        ``"infantry"``, ``"infantrycarrier"``, ``"junk"``, ``"largebuilding"``,
+        ``"light"``, ``"locomotive"``, ``"medium"``, ``"missile"``,
+        ``"ordnance"``, ``"platoon"``, ``"radar"``, ``"railcar"``,
+        ``"reconnaissance"``, ``"rocket"``, ``"rotarywing"``,
+        ``"section"``,``"shelter"``, ``"squad"``, ``"supply"``, ``"tower"``,
+        ``"transportation"``, ``"truck"``, and ``unidentified``. The British
+        English aliases ``"air-defence"``, ``"antiarmour"``, ``"armour"`` are
+        also allowed.
     :param uppertext:
     :param lowertext:
         The ``uppertext`` and ``lowertext`` arguments are strings that we drawn
@@ -2357,6 +2359,9 @@ def _drawgroundunitincanvas(
     def drawlightsymbol():
         drawmiddletext("L")
 
+    def drawfacsymbol():
+        drawmiddletext("FAC")
+
     def drawsupplysymbol():
         fy = 0.25
         _drawlinesincanvas(
@@ -2377,37 +2382,40 @@ def _drawgroundunitincanvas(
             zorder=zorder,
         )
 
-    def drawplatoon():
+    def drawechelondots(n):
         fx = 0.07
         fy = 0.35
         ry = 0.02
-        _drawcircleincanvas(
-            x - fx * groundunitdx,
-            y + fy * groundunitdy,
-            2 * ry * groundunitdy,
-            linecolor=linecolor,
-            fillcolor=linecolor,
-            linewidth=groundunitlinewidth,
-            zorder=zorder,
-        )
-        _drawcircleincanvas(
-            x,
-            y + fy * groundunitdy,
-            2 * ry * groundunitdy,
-            linecolor=linecolor,
-            fillcolor=linecolor,
-            linewidth=groundunitlinewidth,
-            zorder=zorder,
-        )
-        _drawcircleincanvas(
-            x + fx * groundunitdx,
-            y + fy * groundunitdy,
-            2 * ry * groundunitdy,
-            linecolor=linecolor,
-            fillcolor=linecolor,
-            linewidth=groundunitlinewidth,
-            zorder=zorder,
-        )
+        def drawechelondot(dx):
+            _drawcircleincanvas(
+                                x - dx * fx * groundunitdx,
+
+                                y + fy * groundunitdy,
+                2 * ry * groundunitdy,
+                linecolor=linecolor,
+                fillcolor=linecolor,
+                linewidth=groundunitlinewidth,
+                zorder=zorder,
+            )
+        assert n == 1 or n == 2 or n == 3
+        if n == 1:
+            drawechelondot(+0.0)
+        elif n == 2:
+            drawechelondot(-0.5)
+            drawechelondot(+0.5)
+        elif n == 3:
+            drawechelondot(-1.0)
+            drawechelondot(+0.0)
+            drawechelondot(+1.0)
+
+    def drawsquad():
+        drawechelondots(1)
+
+    def drawsection():
+        drawechelondots(2)
+
+    def drawplatoon():
+        drawechelondots(3)
 
     def drawcompany():
         fy = 0.35
@@ -2833,10 +2841,11 @@ def _drawgroundunitincanvas(
             text,
             facing=90,
             dx=0,
-            dy=+groundunitdy * 0.36,
+            dy=+groundunitdy * 0.35,
             size=groundunittextsize,
             textcolor=linecolor,
             alignment="center",
+            verticalalignment="center",
             zorder=zorder,
         )
 
@@ -2851,10 +2860,23 @@ def _drawgroundunitincanvas(
             size=groundunittextsize,
             textcolor=linecolor,
             alignment="center",
+            verticalalignment="center",
             zorder=zorder,
         )
 
     def drawmiddletext(text):
+        dx = 0.1
+        dy = 0.075
+        _drawrectangleincanvas(
+            x - dx,
+            y - dy,
+            x + dx,
+            y + dy,
+            fillcolor=color,
+            linecolor=None,
+            linewidth=groundunitlinewidth,
+            zorder=zorder,
+        )
         _drawtextincanvas(
             x,
             y,
@@ -2865,6 +2887,7 @@ def _drawgroundunitincanvas(
             size=groundunitmiddletextsize,
             textcolor=linecolor,
             alignment="center",
+            verticalalignment="center",
             zorder=zorder,
         )
 
@@ -2930,6 +2953,8 @@ def _drawgroundunitincanvas(
         drawfuelsymbol()
     if "ordnance" in symbols:
         drawordnancesymbol()
+    if "fac" in symbols:
+        drawfacsymbol()
 
     if "gun" in symbols or "cannon" in symbols:
         drawgunsymbol()
@@ -2990,7 +3015,15 @@ def _drawgroundunitincanvas(
         drawlowertext(lowertext)
 
     if uppertext is None:
-        if "artillery" in symbols or "rocket" in symbols:
+        if "squad" in symbols:
+            drawsquad()
+        elif "section" in symbols:
+            drawsection()
+        elif "platoon" in symbols:
+            drawplatoon()
+        elif "company" in symbols or "battery" in symbols:
+            drawcompany()
+        elif "artillery" in symbols or "rocket" in symbols or "missile" in symbols:
             drawcompany()
         elif "infantry" in symbols or "armor" in symbols or "truck" in symbols:
             drawplatoon()

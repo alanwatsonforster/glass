@@ -1,7 +1,7 @@
 {
-    "name": "tlight ruck",
-    "description": "light truck platoon",
-    "symbols": "truck/light/platoon",
+    "name": "truck",
+    "description": "light truck section",
+    "symbols": "truck/light/section",
     "sightingrange": 12,
     "defensestrength": "2S",
     "VPs": [
