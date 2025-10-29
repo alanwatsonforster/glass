@@ -395,3 +395,54 @@ def turnrequirement(altitudeband, speed, rate, divisor=1):
         return raw
     else:
         return int(math.ceil(raw / divisor))
+
+
+if __name__ == "__main__":
+
+    """
+    Produce a table for the g-force for all turn rates.
+    """
+
+    def gforce(speed, turnrequirement):
+        meterspermile = 1604
+        if turnrequirement is None:
+            return None
+        if turnrequirement == 60:
+            turnrequirement = 1 / 2
+        if turnrequirement == 90:
+            turnrequirement = 1 / 3
+        # speed of 1 = 100 mph
+        v = speed * (100 / 3600) * meterspermile
+        # circumference of turning circle is 12 turn requirements
+        r = 12 * turnrequirement * (meterspermile / 3) / (2 * math.pi)
+        a = v**2 / r
+        g = 9.8
+        return a / g
+
+    maxspeed = 7.5
+
+    print()
+    for altitudeband in ["LO", "ML", "MH", "HI", "VH", "EH", "UH"]:
+        print("%-4s" % altitudeband, end="")
+        speeds = [1 + i / 2 for i in range(0,int(maxspeed / 0.5 - 1))]
+        for speed in speeds:
+            print(" %4.1f" % speed, end="")
+        print()
+        for turnrate in ["EZ", "TT", "HT", "BT", "ET"]:
+            print("%-4s" % turnrate, end="")
+            mingforce = math.inf
+            maxgforce = 0
+            for speed in speeds:
+                _gforce = gforce(
+                    speed, turnrequirement(altitudeband, speed, turnrate)
+                )
+                if _gforce is None:
+                    print("     ", end="")
+                else:
+                    print(" %4.1f" % _gforce, end="")
+                    mingforce = min(mingforce, _gforce)
+                    maxgforce = max(maxgforce, _gforce)
+            print("   %.1f to %.1f" % (mingforce, maxgforce), end="")
+            print()
+        print()
+    print()
