@@ -1,0 +1,25 @@
+{
+    "name": "TCM-20",
+    "description": "TCM-20 twin 20 mm air-defense battery",
+    "symbols": "air-defense/gun/light/battery",
+    "lowertext": "20×2",
+    "defensestrength": "3S",
+    "sightingrange": 12,
+    "aaa": {
+        "type": "20×2",
+        "class": "L",
+        "range": [
+            2,
+            4,
+            6
+        ],
+        "hitroll": [
+            4,
+            4,
+            3
+        ],
+        "maximumrelativealtitude": 8,
+        "damagerating": 2
+    },
+    "VPs": [ 5, 3, 2 ]
+}

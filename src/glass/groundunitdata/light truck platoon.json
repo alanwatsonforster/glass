@@ -1,0 +1,12 @@
+{
+    "name": "tlight ruck",
+    "description": "light truck platoon",
+    "symbols": "truck/transport/light/platoon",
+    "sightingrange": 12,
+    "defensestrength": "2S",
+    "VPs": [
+        3,
+        2,
+        1
+    ]
+}

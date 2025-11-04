@@ -1,0 +1,27 @@
+{
+    "name": "ZSU-23-4",
+    "description": "ZSU-23-4 quad 23 mm self-propelled air-defense section",
+    "symbols": "air-defense/gun/light/armor/section",
+    "lowertext": "23×4",
+    "defensestrength": "4H",
+    "sightingrange": 12,
+    "aaa": {
+        "type": "23×4",
+        "class": "L",
+        "range": [
+            2,
+            5,
+            8
+        ],
+        "hitroll": [
+            5,
+            4,
+            3
+        ],
+        "maximumrelativealtitude": 9,
+        "damagerating": 3,
+        "fcrclass": "W",
+        "fcrfrequency": "VF"
+    },
+    "VPs": [ 9, 7, 5 ]
+}

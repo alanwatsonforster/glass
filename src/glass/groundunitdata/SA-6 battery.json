@@ -1,0 +1,22 @@
+{
+    // From Puma.
+    // Seems to corresponds to four triple TELs.
+    "name": "SA-6",
+    "description": "SA-6 air-defense battery",
+    "symbols": "air-defense/missile/armor/battery",
+    "lowertext": "SA-6",
+    "sightingrange": 12,
+    "defensestrength": "6H",
+    "sam": {
+        "type": "SA-6",
+        "ewrfrequency": "MF",
+        "ewrrange": 24,
+        "ttrfrequency": "HF",
+        "ttrrange": 18,
+        "readymissiles": 12,
+        "volleymissiles": 3,
+        "quickreaction": false,
+        "radarlockon": 7,
+        "opticallockon": 6
+    }
+}

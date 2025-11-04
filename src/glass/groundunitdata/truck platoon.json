@@ -1,0 +1,12 @@
+{
+    "name": "truck",
+    "description": "truck unit",
+    "symbols": "truck/transport/platoon",
+    "sightingrange": 12,
+    "defensestrength": "2S",
+    "VPs": [
+        4,
+        2,
+        1
+    ]
+}

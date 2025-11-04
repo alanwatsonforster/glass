@@ -1660,6 +1660,7 @@ def setcompactstacks(value):
 groundunitlinewidth = "normal"
 groundunittextsize = "scriptsize"
 groundunitmiddletextsize = "footnotesize"
+groundunitcountertextsize = "small"
 groundunitdx = 0.6
 groundunitdy = 0.4
 groundunitprotectionlinewidth = "thick"
@@ -1670,13 +1671,18 @@ def drawgroundunit(
     x,
     y,
     facing,
+    sighted,
+    identified,
     symbols,
     uppertext,
     lowertext,
+    sightingrange,
+    defensestrength,
     protectionclass,
     name,
     damage,
     color,
+    counter,
     stack="1/1",
 ):
     """
@@ -1700,11 +1706,11 @@ def drawgroundunit(
         ``"artillery"``, ``"barge"``, ``"battery"``, ``"bridge"``,
         ``"building"``, ``"company"``, ``"fac"`` ``"fixedwing"``, ``"fuel"``,
         ``"gun"``, ``"hangar"``, ``"headquarters"``, ``"heavy"``,
-        ``"infantry"``, ``"infantrycarrier"``, ``"junk"``, ``"largebuilding"``,
-        ``"light"``, ``"locomotive"``, ``"medium"``, ``"missile"``,
-        ``"ordnance"``, ``"platoon"``, ``"radar"``, ``"railcar"``,
-        ``"reconnaissance"``, ``"rocket"``, ``"rotarywing"``,
-        ``"section"``,``"shelter"``, ``"squad"``, ``"supply"``, ``"tower"``,
+        ``"infantry"``, ``"junk"``, ``"largebuilding"``, ``"light"``,
+        ``"locomotive"``, ``"medium"``, ``"missile"``, ``"ordnance"``,
+        ``"platoon"``, ``"radar"``, ``"railcar"``, ``"reconnaissance"``,
+        ``"rocket"``, ``"rotarywing"``, ``"section"``,``"shelter"``,
+        ``"squad"``, ``"supply"``, ``"tower"``, ``"transport"``,
         ``"transportation"``, ``"truck"``, and ``unidentified``. The British
         English aliases ``"air-defence"``, ``"antiarmour"``, ``"armour"`` are
         also allowed.
@@ -1736,13 +1742,18 @@ def drawgroundunit(
     _drawgroundunitincanvas(
         *_tocanvasxy(x, y),
         facing,
+        sighted,
+        identified,
         symbols,
         uppertext,
         lowertext,
+        sightingrange,
+        defensestrength,
         protectionclass,
         name,
         damage,
         color,
+        counter,
         stack,
     )
 
@@ -1751,13 +1762,18 @@ def _drawgroundunitincanvas(
     x0,
     y0,
     facing,
+    sighted,
+    identified,
     symbols,
     uppertext,
     lowertext,
+    sightingrange,
+    defensestrength,
     protectionclass,
     name,
     damage,
     color,
+    counter,
     stack="1/1",
 ):
     """
@@ -1867,972 +1883,1055 @@ def _drawgroundunitincanvas(
             y = y0
             zorder = 0.2
 
-    def drawunidentifedsymbol():
-        _drawtextincanvas(
-            x,
-            y,
-            "?",
-            facing=90,
-            textcolor=linecolor,
-            alignment="center",
-            zorder=zorder,
-        )
+    def drawsymbols(symbols):
 
-    def drawinfantrysymbol():
-        _drawlinesincanvas(
-            [x - groundunitdx / 2, x + groundunitdx / 2],
-            [y - groundunitdy / 2, y + groundunitdy / 2],
-            linecolor=linecolor,
-            linewidth=groundunitlinewidth,
-            zorder=zorder,
-        )
-        _drawlinesincanvas(
-            [x - groundunitdx / 2, x + groundunitdx / 2],
-            [y + groundunitdy / 2, y - groundunitdy / 2],
-            linecolor=linecolor,
-            linewidth=groundunitlinewidth,
-            zorder=zorder,
-        )
+        def drawunidentifedsymbol():
+            _drawtextincanvas(
+                x,
+                y,
+                "?",
+                facing=90,
+                textcolor=linecolor,
+                alignment="center",
+                zorder=zorder,
+            )
 
-    def drawinfantrycarriersymbol():
-        f = 0.5
-        _drawlinesincanvas(
-            [x - groundunitdx / 2, x - f * groundunitdx / 2],
-            [y - groundunitdy / 2, y - f * groundunitdy / 2],
-            linecolor=linecolor,
-            linewidth=groundunitlinewidth,
-            zorder=zorder,
-        )
-        _drawlinesincanvas(
-            [x - groundunitdx / 2, x - f * groundunitdx / 2],
-            [y + groundunitdy / 2, y + f * groundunitdy / 2],
-            linecolor=linecolor,
-            linewidth=groundunitlinewidth,
-            zorder=zorder,
-        )
-        _drawlinesincanvas(
-            [x + groundunitdx / 2, x + f * groundunitdx / 2],
-            [y - groundunitdy / 2, y - f * groundunitdy / 2],
-            linecolor=linecolor,
-            linewidth=groundunitlinewidth,
-            zorder=zorder,
-        )
-        _drawlinesincanvas(
-            [x + groundunitdx / 2, x + f * groundunitdx / 2],
-            [y + groundunitdy / 2, y + f * groundunitdy / 2],
-            linecolor=linecolor,
-            linewidth=groundunitlinewidth,
-            zorder=zorder,
-        )
-
-    def drawantiarmorsymbol():
-        _drawlinesincanvas(
-            [x - groundunitdx / 2, x],
-            [y - groundunitdy / 2, y + groundunitdy / 2],
-            linecolor=linecolor,
-            linewidth=groundunitlinewidth,
-            zorder=zorder,
-        )
-        _drawlinesincanvas(
-            [x + groundunitdx / 2, x],
-            [y - groundunitdy / 2, y + groundunitdy / 2],
-            linecolor=linecolor,
-            linewidth=groundunitlinewidth,
-            zorder=zorder,
-        )
-
-    def drawreconnaissancesymbol():
-        _drawlinesincanvas(
-            [x - groundunitdx / 2, x + groundunitdx / 2],
-            [y - groundunitdy / 2, y + groundunitdy / 2],
-            linecolor=linecolor,
-            linewidth=groundunitlinewidth,
-            zorder=zorder,
-        )
-
-    # Adjust the width of the truck symbol to give the same area as the armor symbol.
-
-    armorsymboldx = 0.125 * groundunitdx
-    armorsymboldy = 0.20 * groundunitdy
-    armorsymbolarea = (
-        4 * armorsymboldx * armorsymboldy + math.pi * armorsymboldy * armorsymboldy
-    )
-
-    trucksymboldy = armorsymboldy
-    trucksymboldx = armorsymbolarea / (4 * trucksymboldy)
-
-    def drawarmorsymbol():
-        dx = armorsymboldx
-        dy = armorsymboldy
-        theta = range(0, 361)
-
-        def _dx(theta):
-            if theta < 90 or theta > 270:
-                return +dx + dy * _cosd(theta)
-            elif theta == 90 or theta == 270:
-                return 0
-            else:
-                return -dx + dy * _cosd(theta)
-
-        def _dy(theta):
-            return dy * _sind(theta)
-
-        _drawpolygonincanvas(
-            list([x + _dx(theta) for theta in theta]),
-            list([y + _dy(theta) for theta in theta]),
-            linecolor=linecolor,
-            linewidth=groundunitlinewidth,
-            zorder=zorder,
-        )
-
-    def drawtrucksymbol():
-        dx = trucksymboldx
-        dy = trucksymboldy
-
-        _drawrectangleincanvas(
-            x - dx,
-            y - dy,
-            x + dx,
-            y + dy,
-            linecolor=linecolor,
-            linewidth=groundunitlinewidth,
-            zorder=zorder,
-        )
-
-    def drawartillerysymbol():
-        ry = 0.1
-        _drawcircleincanvas(
-            x,
-            y,
-            2 * ry * groundunitdy,
-            linecolor=linecolor,
-            fillcolor=linecolor,
-            linewidth=groundunitlinewidth,
-            zorder=zorder,
-        )
-
-    def drawairdefensesymbol():
-        dy0 = -trucksymboldy
-        dy1 = -0.5 * groundunitdy
-        dx1 = -0.5 * groundunitdx
-        p = 2.0
-
-        theta = range(0, 181)
-
-        def _dx(theta):
-            return 0.5 * groundunitdx * _cosd(theta)
-
-        def _dy(theta):
-            return dy0 + (dy1 - dy0) * (abs(_dx(theta) / dx1) ** p)
-
-        _drawrectangleincanvas(
-            x + groundunitdx * (-0.5),
-            y + groundunitdy * (-0.5),
-            x + groundunitdx * (+0.5),
-            y + dy0,
-            linecolor=None,
-            fillcolor=fillcolor,
-            linewidth=groundunitlinewidth,
-            zorder=zorder,
-        )
-
-        _drawlinesincanvas(
-            list([x + _dx(theta) for theta in theta]),
-            list([y + _dy(theta) for theta in theta]),
-            linecolor=linecolor,
-            linewidth=groundunitlinewidth,
-            zorder=zorder,
-        )
-
-    def drawradarsymbol():
-        fy0 = 0.03
-        fy1 = 0.04
-        ry = 0.15
-        y0 = y + fy0 * groundunitdy
-        theta0 = 45
-        theta = range(90 + theta0, 270 + theta0)
-
-        def dx(theta):
-            return ry * groundunitdy * _cosd(theta)
-
-        def dy(theta):
-            return ry * groundunitdy * _sind(theta)
-
-        _drawlinesincanvas(
-            list([x + dx(theta) for theta in theta]),
-            list([y0 + dy(theta) for theta in theta]),
-            linecolor=linecolor,
-            linewidth=groundunitlinewidth,
-            zorder=zorder,
-        )
-        dx = ry * groundunitdy * _cosd(theta0)
-        dy = ry * groundunitdy * _sind(theta0)
-        _drawlinesincanvas(
-            [x - dx, x, x, x + dx],
-            [
-                y0 - dy,
-                y0 + fy1 * groundunitdy,
-                y0 - fy1 * groundunitdy,
-                y0 + dy,
-            ],
-            linecolor=linecolor,
-            linewidth=groundunitlinewidth,
-            zorder=zorder,
-        )
-
-    def drawgunsymbol():
-        fx = 0.125
-        _drawlinesincanvas(
-            [x + (fx - 0.5) * groundunitdx, x + (fx - 0.5) * groundunitdx],
-            [y - 0.5 * groundunitdy, y + 0.5 * groundunitdy],
-            linecolor=linecolor,
-            linewidth=groundunitlinewidth,
-            zorder=zorder,
-        )
-
-    def drawmultiplerocketsymbol():
-        fx0 = 0.10
-        fy0 = -0.125
-        fy1 = 0.10
-        fy2 = 0.15
-        for i in range(2):
+        def drawinfantrysymbol():
             _drawlinesincanvas(
-                [x - fx0 * groundunitdx, x, x + fx0 * groundunitdx],
-                [
-                    y + (fy0 + i * fy1) * groundunitdy,
-                    y + (fy0 + i * fy1 + fy2) * groundunitdy,
-                    y + (fy0 + i * fy1) * groundunitdy,
-                ],
+                [x - groundunitdx / 2, x + groundunitdx / 2],
+                [y - groundunitdy / 2, y + groundunitdy / 2],
+                linecolor=linecolor,
+                linewidth=groundunitlinewidth,
+                zorder=zorder,
+            )
+            _drawlinesincanvas(
+                [x - groundunitdx / 2, x + groundunitdx / 2],
+                [y + groundunitdy / 2, y - groundunitdy / 2],
                 linecolor=linecolor,
                 linewidth=groundunitlinewidth,
                 zorder=zorder,
             )
 
-    def drawmissilesymbol():
-        fx = 0.07
-        fy0 = -0.2
-        fy1 = 0.15
-        theta = range(0, 181)
+        def drawtransportsymbol():
+            drawmiddletext("T")
 
-        def dx(theta):
-            return fx * groundunitdx * _cosd(theta)
-
-        def dy(theta):
-            if theta == 0 or theta == 180:
-                return fy0 * groundunitdy
-            else:
-                return fy1 * groundunitdy + fx * groundunitdx * (_sind(theta) - 1)
-
-        _drawlinesincanvas(
-            list([x + dx(theta) for theta in theta]),
-            list([y + dy(theta) for theta in theta]),
-            linecolor=linecolor,
-            linewidth=groundunitlinewidth,
-            zorder=zorder,
-        )
-
-    def drawammunitionsymbol():
-        fx0 = 0.1
-        fx1 = 0.15
-        fy0 = 0.20
-        theta = range(0, 181)
-
-        def dx(theta):
-            return fx0 * groundunitdx * _cosd(theta)
-
-        def dy(theta):
-            if theta == 0 or theta == 180:
-                return -fy0 * groundunitdy
-            else:
-                return fy0 * groundunitdy + fx0 * groundunitdx * (_sind(theta) - 1)
-
-        _drawlinesincanvas(
-            list([x + dx(theta) for theta in theta]),
-            list([y + dy(theta) for theta in theta]),
-            linecolor=linecolor,
-            linewidth=groundunitlinewidth,
-            zorder=zorder,
-        )
-        _drawlinesincanvas(
-            [x - fx1 * groundunitdx, x + fx1 * groundunitdx],
-            [y - fy0 * groundunitdy, y - fy0 * groundunitdy],
-            linecolor=linecolor,
-            linewidth=groundunitlinewidth,
-            zorder=zorder,
-        )
-
-    def drawfuelsymbol():
-        fx = 0.15
-        fy0 = 0.20
-        _drawlinesincanvas(
-            [x, x, x - 0.5 * fx * groundunitdx, x + 0.5 * fx * groundunitdx, x],
-            [
-                y - fy0 * groundunitdy,
-                y + fy0 * groundunitdy - fx * groundunitdx * _cosd(30),
-                y + fy0 * groundunitdy,
-                y + fy0 * groundunitdy,
-                y + fy0 * groundunitdy - fx * groundunitdx * _cosd(30),
-            ],
-            linecolor=linecolor,
-            linewidth=groundunitlinewidth,
-            zorder=zorder,
-        )
-
-    def drawordnancesymbol():
-        ry0 = 0.20
-        ry1 = 0.35
-        for theta in range(45, 180, 90):
-            dx = ry1 * groundunitdy * _cosd(theta)
-            dy = ry1 * groundunitdy * _sind(theta)
+        def drawantiarmorsymbol():
             _drawlinesincanvas(
-                [x - dx, x + dx],
-                [y - dy, y + dy],
+                [x - groundunitdx / 2, x],
+                [y - groundunitdy / 2, y + groundunitdy / 2],
                 linecolor=linecolor,
                 linewidth=groundunitlinewidth,
                 zorder=zorder,
             )
-        _drawcircleincanvas(
-            x,
-            y,
-            2 * ry0 * groundunitdy,
-            linecolor=linecolor,
-            linewidth=groundunitlinewidth,
-            fillcolor=linecolor,
-            zorder=zorder,
+            _drawlinesincanvas(
+                [x + groundunitdx / 2, x],
+                [y - groundunitdy / 2, y + groundunitdy / 2],
+                linecolor=linecolor,
+                linewidth=groundunitlinewidth,
+                zorder=zorder,
+            )
+
+        def drawreconnaissancesymbol():
+            _drawlinesincanvas(
+                [x - groundunitdx / 2, x + groundunitdx / 2],
+                [y - groundunitdy / 2, y + groundunitdy / 2],
+                linecolor=linecolor,
+                linewidth=groundunitlinewidth,
+                zorder=zorder,
+            )
+
+        # Adjust the width of the truck symbol to give the same area as the armor symbol.
+
+        armorsymboldx = 0.125 * groundunitdx
+        armorsymboldy = 0.20 * groundunitdy
+        armorsymbolarea = (
+            4 * armorsymboldx * armorsymboldy + math.pi * armorsymboldy * armorsymboldy
         )
 
-    def drawmotorizedsymbol():
-        fx = 0.12
-        _drawlinesincanvas(
-            [x, x],
-            [y - 0.5 * groundunitdy, y + 0.5 * groundunitdy],
-            linecolor=linecolor,
-            linewidth=groundunitlinewidth,
-            zorder=zorder,
-        )
+        trucksymboldy = armorsymboldy
+        trucksymboldx = armorsymbolarea / (4 * trucksymboldy)
 
-    def drawwheeledsymbol():
-        fx = 0.14
-        fy = 0.35
-        ry = 0.05
-        _drawcircleincanvas(
-            x - fx * groundunitdx,
-            y - fy * groundunitdy,
-            2 * ry * groundunitdy,
-            linecolor=linecolor,
-            linewidth=groundunitlinewidth,
-            zorder=zorder,
-        )
-        _drawcircleincanvas(
-            x,
-            y - fy * groundunitdy,
-            2 * ry * groundunitdy,
-            linecolor=linecolor,
-            linewidth=groundunitlinewidth,
-            zorder=zorder,
-        )
-        _drawcircleincanvas(
-            x + fx * groundunitdx,
-            y - fy * groundunitdy,
-            2 * ry * groundunitdy,
-            linecolor=linecolor,
-            linewidth=groundunitlinewidth,
-            zorder=zorder,
-        )
+        def drawarmorsymbol():
+            dx = armorsymboldx
+            dy = armorsymboldy
+            theta = range(0, 361)
 
-    def drawlimitedwheeledsymbol():
-        fx = 0.14
-        fy = 0.35
-        ry = 0.05
-        _drawcircleincanvas(
-            x - fx * groundunitdx,
-            y - fy * groundunitdy,
-            2 * ry * groundunitdy,
-            linecolor=linecolor,
-            linewidth=groundunitlinewidth,
-            zorder=zorder,
-        )
-        _drawcircleincanvas(
-            x + fx * groundunitdx,
-            y - fy * groundunitdy,
-            2 * ry * groundunitdy,
-            linecolor=linecolor,
-            linewidth=groundunitlinewidth,
-            zorder=zorder,
-        )
+            def _dx(theta):
+                if theta < 90 or theta > 270:
+                    return +dx + dy * _cosd(theta)
+                elif theta == 90 or theta == 270:
+                    return 0
+                else:
+                    return -dx + dy * _cosd(theta)
 
-    def drawtowedsymbol():
-        fx = 0.14
-        fy = 0.35
-        ry = 0.05
-        _drawlinesincanvas(
-            [
-                x - fx * groundunitdx + ry * groundunitdy,
-                x + fx * groundunitdx - ry * groundunitdy,
-            ],
-            [y - fy * groundunitdy, y - fy * groundunitdy],
-            linecolor=linecolor,
-            linewidth=groundunitlinewidth,
-            zorder=zorder,
-        )
-        _drawcircleincanvas(
-            x - fx * groundunitdx,
-            y - fy * groundunitdy,
-            2 * ry * groundunitdy,
-            linecolor=linecolor,
-            linewidth=groundunitlinewidth,
-            zorder=zorder,
-        )
-        _drawcircleincanvas(
-            x + fx * groundunitdx,
-            y - fy * groundunitdy,
-            2 * ry * groundunitdy,
-            linecolor=linecolor,
-            linewidth=groundunitlinewidth,
-            zorder=zorder,
-        )
+            def _dy(theta):
+                return dy * _sind(theta)
 
-    def drawhalftrackedsymbol():
-        fx = 0.14
-        fy = 0.35
-        ry = 0.05
-        _drawcircleincanvas(
-            x - fx * groundunitdx,
-            y - fy * groundunitdy,
-            2 * ry * groundunitdy,
-            linecolor=linecolor,
-            linewidth=groundunitlinewidth,
-            zorder=zorder,
-        )
-        theta = range(0, 361)
+            _drawpolygonincanvas(
+                list([x + _dx(theta) for theta in theta]),
+                list([y + _dy(theta) for theta in theta]),
+                linecolor=linecolor,
+                linewidth=groundunitlinewidth,
+                zorder=zorder,
+            )
 
-        def dx(theta):
-            if theta < 90 or theta > 270:
-                return +0.5 * fx * groundunitdx + ry * groundunitdy * _cosd(theta)
-            elif theta == 90 or theta == 270:
-                return 0
-            else:
-                return -0.5 * fx * groundunitdx + ry * groundunitdy * _cosd(theta)
+        def drawtrucksymbol():
+            dx = trucksymboldx
+            dy = trucksymboldy
 
-        def dy(theta):
-            return ry * groundunitdy * _sind(theta)
+            _drawrectangleincanvas(
+                x - dx,
+                y - dy,
+                x + dx,
+                y + dy,
+                linecolor=linecolor,
+                linewidth=groundunitlinewidth,
+                zorder=zorder,
+            )
 
-        _drawlinesincanvas(
-            list([x + 0.5 * fx * groundunitdx + dx(theta) for theta in theta]),
-            list([y - fy * groundunitdy + dy(theta) for theta in theta]),
-            linecolor=linecolor,
-            linewidth=groundunitlinewidth,
-            zorder=zorder,
-        )
-
-    def drawtrackedsymbol():
-        fx = 0.14
-        fy = 0.35
-        ry = 0.05
-        theta = range(0, 361)
-
-        def dx(theta):
-            if theta < 90 or theta > 270:
-                return +fx * groundunitdx + ry * groundunitdy * _cosd(theta)
-            elif theta == 90 or theta == 270:
-                return 0
-            else:
-                return -fx * groundunitdx + ry * groundunitdy * _cosd(theta)
-
-        def dy(theta):
-            return ry * groundunitdy * _sind(theta)
-
-        _drawlinesincanvas(
-            list([x + dx(theta) for theta in theta]),
-            list([y - fy * groundunitdy + dy(theta) for theta in theta]),
-            linecolor=linecolor,
-            linewidth=groundunitlinewidth,
-            zorder=zorder,
-        )
-
-    def drawheavysymbol():
-        drawmiddletext("H")
-
-    def drawmediumsymbol():
-        drawmiddletext("M")
-
-    def drawlightsymbol():
-        drawmiddletext("L")
-
-    def drawfacsymbol():
-        drawmiddletext("FAC")
-
-    def drawsupplysymbol():
-        fy = 0.25
-        _drawlinesincanvas(
-            [x - 0.5 * groundunitdx, x + 0.5 * groundunitdx],
-            [y + (fy - 0.5) * groundunitdy, y + (fy - 0.5) * groundunitdy],
-            linecolor=linecolor,
-            linewidth=groundunitlinewidth,
-            zorder=zorder,
-        )
-
-    def drawheadquarterssymbol():
-        fy = 0.20
-        _drawlinesincanvas(
-            [x - 0.5 * groundunitdx, x + 0.5 * groundunitdx],
-            [y + fy * groundunitdy, y + fy * groundunitdy],
-            linecolor=linecolor,
-            linewidth=groundunitlinewidth,
-            zorder=zorder,
-        )
-
-    def drawechelondots(n):
-        fx = 0.07
-        fy = 0.35
-        ry = 0.02
-        def drawechelondot(dx):
+        def drawartillerysymbol():
+            ry = 0.1
             _drawcircleincanvas(
-                                x - dx * fx * groundunitdx,
-
-                                y + fy * groundunitdy,
+                x,
+                y,
                 2 * ry * groundunitdy,
                 linecolor=linecolor,
                 fillcolor=linecolor,
                 linewidth=groundunitlinewidth,
                 zorder=zorder,
             )
-        assert n == 1 or n == 2 or n == 3
-        if n == 1:
-            drawechelondot(+0.0)
-        elif n == 2:
-            drawechelondot(-0.5)
-            drawechelondot(+0.5)
-        elif n == 3:
-            drawechelondot(-1.0)
-            drawechelondot(+0.0)
-            drawechelondot(+1.0)
 
-    def drawsquad():
-        drawechelondots(1)
+        def drawairdefensesymbol():
+            dy0 = -trucksymboldy
+            dy1 = -0.5 * groundunitdy
+            dx1 = -0.5 * groundunitdx
+            p = 2.0
 
-    def drawsection():
-        drawechelondots(2)
+            theta = range(0, 181)
 
-    def drawplatoon():
-        drawechelondots(3)
+            def _dx(theta):
+                return 0.5 * groundunitdx * _cosd(theta)
 
-    def drawcompany():
-        fy = 0.35
-        ry = 0.1
-        drawuppertext("I")
+            def _dy(theta):
+                return dy0 + (dy1 - dy0) * (abs(_dx(theta) / dx1) ** p)
 
-    def drawtransportationsymbol():
-        ry = 0.25
-        fy = 0.0
-        _drawcircleincanvas(
-            x,
-            y + fy * groundunitdy,
-            2 * ry * groundunitdy,
-            linecolor=linecolor,
-            linewidth=groundunitlinewidth,
-            zorder=zorder,
-        )
-        for theta in range(0, 180, 45):
-            dx = ry * groundunitdy * _cosd(theta)
-            dy = ry * groundunitdy * _sind(theta)
+            _drawrectangleincanvas(
+                x + groundunitdx * (-0.5),
+                y + groundunitdy * (-0.5),
+                x + groundunitdx * (+0.5),
+                y + dy0,
+                linecolor=None,
+                fillcolor=fillcolor,
+                linewidth=groundunitlinewidth,
+                zorder=zorder,
+            )
+
             _drawlinesincanvas(
-                [x - dx, x + dx],
-                [y + fy * groundunitdy - dy, y + fy * groundunitdy + dy],
+                list([x + _dx(theta) for theta in theta]),
+                list([y + _dy(theta) for theta in theta]),
                 linecolor=linecolor,
                 linewidth=groundunitlinewidth,
                 zorder=zorder,
             )
 
-    def drawlocomotivesymbol():
-        dx = trucksymboldx
-        dy = trucksymboldy
-        fy = 0.5
-        _drawpolygonincanvas(
-            [
-                x - dx,
-                x - dx,
+        def drawradarsymbol():
+            fy0 = 0.03
+            fy1 = 0.04
+            ry = 0.15
+            y0 = y + fy0 * groundunitdy
+            theta0 = 45
+            theta = range(90 + theta0, 270 + theta0)
+
+            def dx(theta):
+                return ry * groundunitdy * _cosd(theta)
+
+            def dy(theta):
+                return ry * groundunitdy * _sind(theta)
+
+            _drawlinesincanvas(
+                list([x + dx(theta) for theta in theta]),
+                list([y0 + dy(theta) for theta in theta]),
+                linecolor=linecolor,
+                linewidth=groundunitlinewidth,
+                zorder=zorder,
+            )
+            dx = ry * groundunitdy * _cosd(theta0)
+            dy = ry * groundunitdy * _sind(theta0)
+            _drawlinesincanvas(
+                [x - dx, x, x, x + dx],
+                [
+                    y0 - dy,
+                    y0 + fy1 * groundunitdy,
+                    y0 - fy1 * groundunitdy,
+                    y0 + dy,
+                ],
+                linecolor=linecolor,
+                linewidth=groundunitlinewidth,
+                zorder=zorder,
+            )
+
+        def drawgunsymbol():
+            fx = 0.125
+            _drawlinesincanvas(
+                [x + (fx - 0.5) * groundunitdx, x + (fx - 0.5) * groundunitdx],
+                [y - 0.5 * groundunitdy, y + 0.5 * groundunitdy],
+                linecolor=linecolor,
+                linewidth=groundunitlinewidth,
+                zorder=zorder,
+            )
+
+        def drawmultiplerocketsymbol():
+            fx0 = 0.10
+            fy0 = -0.125
+            fy1 = 0.10
+            fy2 = 0.15
+            for i in range(2):
+                _drawlinesincanvas(
+                    [x - fx0 * groundunitdx, x, x + fx0 * groundunitdx],
+                    [
+                        y + (fy0 + i * fy1) * groundunitdy,
+                        y + (fy0 + i * fy1 + fy2) * groundunitdy,
+                        y + (fy0 + i * fy1) * groundunitdy,
+                    ],
+                    linecolor=linecolor,
+                    linewidth=groundunitlinewidth,
+                    zorder=zorder,
+                )
+
+        def drawmissilesymbol():
+            fx = 0.07
+            fy0 = -0.2
+            fy1 = 0.15
+            theta = range(0, 181)
+
+            def dx(theta):
+                return fx * groundunitdx * _cosd(theta)
+
+            def dy(theta):
+                if theta == 0 or theta == 180:
+                    return fy0 * groundunitdy
+                else:
+                    return fy1 * groundunitdy + fx * groundunitdx * (_sind(theta) - 1)
+
+            _drawlinesincanvas(
+                list([x + dx(theta) for theta in theta]),
+                list([y + dy(theta) for theta in theta]),
+                linecolor=linecolor,
+                linewidth=groundunitlinewidth,
+                zorder=zorder,
+            )
+
+        def drawammunitionsymbol():
+            fx0 = 0.1
+            fx1 = 0.15
+            fy0 = 0.20
+            theta = range(0, 181)
+
+            def dx(theta):
+                return fx0 * groundunitdx * _cosd(theta)
+
+            def dy(theta):
+                if theta == 0 or theta == 180:
+                    return -fy0 * groundunitdy
+                else:
+                    return fy0 * groundunitdy + fx0 * groundunitdx * (_sind(theta) - 1)
+
+            _drawlinesincanvas(
+                list([x + dx(theta) for theta in theta]),
+                list([y + dy(theta) for theta in theta]),
+                linecolor=linecolor,
+                linewidth=groundunitlinewidth,
+                zorder=zorder,
+            )
+            _drawlinesincanvas(
+                [x - fx1 * groundunitdx, x + fx1 * groundunitdx],
+                [y - fy0 * groundunitdy, y - fy0 * groundunitdy],
+                linecolor=linecolor,
+                linewidth=groundunitlinewidth,
+                zorder=zorder,
+            )
+
+        def drawfuelsymbol():
+            fx = 0.15
+            fy0 = 0.20
+            _drawlinesincanvas(
+                [x, x, x - 0.5 * fx * groundunitdx, x + 0.5 * fx * groundunitdx, x],
+                [
+                    y - fy0 * groundunitdy,
+                    y + fy0 * groundunitdy - fx * groundunitdx * _cosd(30),
+                    y + fy0 * groundunitdy,
+                    y + fy0 * groundunitdy,
+                    y + fy0 * groundunitdy - fx * groundunitdx * _cosd(30),
+                ],
+                linecolor=linecolor,
+                linewidth=groundunitlinewidth,
+                zorder=zorder,
+            )
+
+        def drawordnancesymbol():
+            ry0 = 0.20
+            ry1 = 0.35
+            for theta in range(45, 180, 90):
+                dx = ry1 * groundunitdy * _cosd(theta)
+                dy = ry1 * groundunitdy * _sind(theta)
+                _drawlinesincanvas(
+                    [x - dx, x + dx],
+                    [y - dy, y + dy],
+                    linecolor=linecolor,
+                    linewidth=groundunitlinewidth,
+                    zorder=zorder,
+                )
+            _drawcircleincanvas(
                 x,
+                y,
+                2 * ry0 * groundunitdy,
+                linecolor=linecolor,
+                linewidth=groundunitlinewidth,
+                fillcolor=linecolor,
+                zorder=zorder,
+            )
+
+        def drawmobilesymbol():
+            fx = 0.12
+            _drawlinesincanvas(
+                [x, x],
+                [y - 0.5 * groundunitdy, y + 0.5 * groundunitdy],
+                linecolor=linecolor,
+                linewidth=groundunitlinewidth,
+                zorder=zorder,
+            )
+
+        def drawwheeledsymbol():
+            fx = 0.14
+            fy = 0.35
+            ry = 0.05
+            _drawcircleincanvas(
+                x - fx * groundunitdx,
+                y - fy * groundunitdy,
+                2 * ry * groundunitdy,
+                linecolor=linecolor,
+                linewidth=groundunitlinewidth,
+                zorder=zorder,
+            )
+            _drawcircleincanvas(
                 x,
-                x + dx,
-                x + dx,
-            ],
-            [
-                y - dy,
-                y + dy,
-                y + dy,
-                y + fy * dy,
-                y + fy * dy,
-                y - dy,
-            ],
-            linecolor=linecolor,
-            linewidth=groundunitlinewidth,
-            zorder=zorder,
-        )
+                y - fy * groundunitdy,
+                2 * ry * groundunitdy,
+                linecolor=linecolor,
+                linewidth=groundunitlinewidth,
+                zorder=zorder,
+            )
+            _drawcircleincanvas(
+                x + fx * groundunitdx,
+                y - fy * groundunitdy,
+                2 * ry * groundunitdy,
+                linecolor=linecolor,
+                linewidth=groundunitlinewidth,
+                zorder=zorder,
+            )
 
-    def drawrailcarsymbol():
-        dx = trucksymboldx
-        dy = trucksymboldy
-        fy = 0.5
-        theta = range(0, 181)
+        def drawlimitedwheeledsymbol():
+            fx = 0.14
+            fy = 0.35
+            ry = 0.05
+            _drawcircleincanvas(
+                x - fx * groundunitdx,
+                y - fy * groundunitdy,
+                2 * ry * groundunitdy,
+                linecolor=linecolor,
+                linewidth=groundunitlinewidth,
+                zorder=zorder,
+            )
+            _drawcircleincanvas(
+                x + fx * groundunitdx,
+                y - fy * groundunitdy,
+                2 * ry * groundunitdy,
+                linecolor=linecolor,
+                linewidth=groundunitlinewidth,
+                zorder=zorder,
+            )
 
-        def _dx(theta):
-            return dx * _cosd(theta)
+        def drawtowedsymbol():
+            fx = 0.14
+            fy = 0.35
+            ry = 0.05
+            _drawlinesincanvas(
+                [
+                    x - fx * groundunitdx + ry * groundunitdy,
+                    x + fx * groundunitdx - ry * groundunitdy,
+                ],
+                [y - fy * groundunitdy, y - fy * groundunitdy],
+                linecolor=linecolor,
+                linewidth=groundunitlinewidth,
+                zorder=zorder,
+            )
+            _drawcircleincanvas(
+                x - fx * groundunitdx,
+                y - fy * groundunitdy,
+                2 * ry * groundunitdy,
+                linecolor=linecolor,
+                linewidth=groundunitlinewidth,
+                zorder=zorder,
+            )
+            _drawcircleincanvas(
+                x + fx * groundunitdx,
+                y - fy * groundunitdy,
+                2 * ry * groundunitdy,
+                linecolor=linecolor,
+                linewidth=groundunitlinewidth,
+                zorder=zorder,
+            )
 
-        def _dy(theta):
-            return dy - fy * dy * _sind(theta)
+        def drawhalftrackedsymbol():
+            fx = 0.14
+            fy = 0.35
+            ry = 0.05
+            _drawcircleincanvas(
+                x - fx * groundunitdx,
+                y - fy * groundunitdy,
+                2 * ry * groundunitdy,
+                linecolor=linecolor,
+                linewidth=groundunitlinewidth,
+                zorder=zorder,
+            )
+            theta = range(0, 361)
 
-        _drawlinesincanvas(
-            list([x + _dx(theta) for theta in theta]),
-            list([y + _dy(theta) for theta in theta]),
-            linecolor=linecolor,
-            linewidth=groundunitlinewidth,
-            zorder=zorder,
-        )
-        _drawlinesincanvas(
-            [
-                x - dx,
-                x - dx,
-                x + dx,
-                x + dx,
-            ],
-            [
-                y + dy,
-                y - dy,
-                y - dy,
-                y + dy,
-            ],
-            linecolor=linecolor,
-            linewidth=groundunitlinewidth,
-            zorder=zorder,
-        )
+            def dx(theta):
+                if theta < 90 or theta > 270:
+                    return +0.5 * fx * groundunitdx + ry * groundunitdy * _cosd(theta)
+                elif theta == 90 or theta == 270:
+                    return 0
+                else:
+                    return -0.5 * fx * groundunitdx + ry * groundunitdy * _cosd(theta)
 
-    def drawbargesymbol():
-        dx = trucksymboldx
-        dy = trucksymboldy
-        fy = 0.5
-        theta = range(0, 181)
+            def dy(theta):
+                return ry * groundunitdy * _sind(theta)
 
-        def _dx(theta):
-            return dx * _cosd(theta)
+            _drawlinesincanvas(
+                list([x + 0.5 * fx * groundunitdx + dx(theta) for theta in theta]),
+                list([y - fy * groundunitdy + dy(theta) for theta in theta]),
+                linecolor=linecolor,
+                linewidth=groundunitlinewidth,
+                zorder=zorder,
+            )
 
-        def _dy(theta):
-            return -dy + dy * fy * (1 - _sind(theta))
+        def drawtrackedsymbol():
+            fx = 0.14
+            fy = 0.35
+            ry = 0.05
+            theta = range(0, 361)
 
-        _drawlinesincanvas(
-            list([x + _dx(theta) for theta in theta]),
-            list([y + _dy(theta) for theta in theta]),
-            linecolor=linecolor,
-            linewidth=groundunitlinewidth,
-            zorder=zorder,
-        )
-        _drawlinesincanvas(
-            [
-                x - dx,
-                x + dx,
-            ],
-            [
-                y - dy + fy * dy,
-                y - dy + fy * dy,
-            ],
-            linecolor=linecolor,
-            linewidth=groundunitlinewidth,
-            zorder=zorder,
-        )
+            def dx(theta):
+                if theta < 90 or theta > 270:
+                    return +fx * groundunitdx + ry * groundunitdy * _cosd(theta)
+                elif theta == 90 or theta == 270:
+                    return 0
+                else:
+                    return -fx * groundunitdx + ry * groundunitdy * _cosd(theta)
 
-    def drawjunksymbol():
-        dx = trucksymboldx
-        dy = trucksymboldy
-        fx1 = 0.5
-        fy0 = -0.5
-        fy1 = 0.0
-        fy2 = 1.2
-        fy3 = 0.8
-        drawbargesymbol()
-        _drawlinesincanvas(
-            [
+            def dy(theta):
+                return ry * groundunitdy * _sind(theta)
+
+            _drawlinesincanvas(
+                list([x + dx(theta) for theta in theta]),
+                list([y - fy * groundunitdy + dy(theta) for theta in theta]),
+                linecolor=linecolor,
+                linewidth=groundunitlinewidth,
+                zorder=zorder,
+            )
+
+        def drawheavysymbol():
+            drawlowertext("H")
+
+        def drawmediumsymbol():
+            drawlowertext("M")
+
+        def drawlightsymbol():
+            drawlowertext("L")
+
+        def drawfacsymbol():
+            drawlowertext("FAC")
+
+        def drawsupplysymbol():
+            fy = 0.25
+            _drawlinesincanvas(
+                [x - 0.5 * groundunitdx, x + 0.5 * groundunitdx],
+                [y + (fy - 0.5) * groundunitdy, y + (fy - 0.5) * groundunitdy],
+                linecolor=linecolor,
+                linewidth=groundunitlinewidth,
+                zorder=zorder,
+            )
+
+        def drawheadquarterssymbol():
+            fy = 0.20
+            _drawlinesincanvas(
+                [x - 0.5 * groundunitdx, x + 0.5 * groundunitdx],
+                [y + fy * groundunitdy, y + fy * groundunitdy],
+                linecolor=linecolor,
+                linewidth=groundunitlinewidth,
+                zorder=zorder,
+            )
+
+        def drawechelondots(n):
+            fx = 0.08
+            fy = 0.35
+            ry = 0.02
+
+            def drawechelondot(dx):
+                _drawcircleincanvas(
+                    x - dx * fx * groundunitdx,
+                    y + fy * groundunitdy,
+                    2 * ry * groundunitdy,
+                    linecolor=linecolor,
+                    fillcolor=linecolor,
+                    linewidth=groundunitlinewidth,
+                    zorder=zorder,
+                )
+
+            assert n == 1 or n == 2 or n == 3
+            if n == 1:
+                drawechelondot(+0.0)
+            elif n == 2:
+                drawechelondot(-0.5)
+                drawechelondot(+0.5)
+            elif n == 3:
+                drawechelondot(-1.0)
+                drawechelondot(+0.0)
+                drawechelondot(+1.0)
+
+        def drawsquad():
+            drawechelondots(1)
+
+        def drawsection():
+            drawechelondots(2)
+
+        def drawplatoon():
+            drawechelondots(3)
+
+        def drawcompany():
+            dfy = 0.07
+            fy = 0.35
+            _drawlinesincanvas(
+                [x, x],
+                [y + (fy - dfy) * groundunitdy, y + (fy + dfy) * groundunitdy],
+                linecolor=linecolor,
+                linewidth=groundunitlinewidth,
+                zorder=zorder,
+            )
+
+        def drawtransportationsymbol():
+            ry = 0.25
+            fy = 0.0
+            _drawcircleincanvas(
                 x,
-                x,
-            ],
-            [
-                y + fy0 * dy,
-                y + 0.5 * (fy2 + fy3) * dy,
-            ],
-            linecolor=linecolor,
-            linewidth=groundunitlinewidth,
-            zorder=zorder,
-        )
-        _drawpolygonincanvas(
-            [
-                x - fx1 * dx,
-                x - fx1 * dx,
-                x + fx1 * dx,
-                x + fx1 * dx,
-            ],
-            [
-                y + fy1 * dy,
-                y + fy2 * dy,
-                y + fy3 * dy,
-                y + fy1 * dy,
-            ],
-            linecolor=linecolor,
-            linewidth=groundunitlinewidth,
-            zorder=zorder,
-        )
+                y + fy * groundunitdy,
+                2 * ry * groundunitdy,
+                linecolor=linecolor,
+                linewidth=groundunitlinewidth,
+                zorder=zorder,
+            )
+            for theta in range(0, 180, 45):
+                dx = ry * groundunitdy * _cosd(theta)
+                dy = ry * groundunitdy * _sind(theta)
+                _drawlinesincanvas(
+                    [x - dx, x + dx],
+                    [y + fy * groundunitdy - dy, y + fy * groundunitdy + dy],
+                    linecolor=linecolor,
+                    linewidth=groundunitlinewidth,
+                    zorder=zorder,
+                )
 
-    def drawbuildingsymbol():
-        dx = trucksymboldx
-        dy = trucksymboldy
-        fy = 0.25
-        f = 0.7
-        _drawpolygonincanvas(
-            [
-                x - f * dx,
-                x - f * dx,
-                x,
-                x + f * dx,
-                x + f * dx,
-            ],
-            [
-                y - dy,
-                y + f * (1 - fy) * dy,
-                y + f * (1 + fy) * dy,
-                y + f * (1 - fy) * dy,
-                y - dy,
-            ],
-            linecolor=linecolor,
-            linewidth=groundunitlinewidth,
-            zorder=zorder,
-        )
+        def drawlocomotivesymbol():
+            dx = trucksymboldx
+            dy = trucksymboldy
+            fy = 0.5
+            _drawpolygonincanvas(
+                [
+                    x - dx,
+                    x - dx,
+                    x,
+                    x,
+                    x + dx,
+                    x + dx,
+                ],
+                [
+                    y - dy,
+                    y + dy,
+                    y + dy,
+                    y + fy * dy,
+                    y + fy * dy,
+                    y - dy,
+                ],
+                linecolor=linecolor,
+                linewidth=groundunitlinewidth,
+                zorder=zorder,
+            )
 
-    def drawlargebuildingsymbol():
-        dx = trucksymboldx
-        dy = trucksymboldy
-        fy = 0.25
-        _drawpolygonincanvas(
-            [
-                x - dx,
-                x - dx,
-                x,
-                x,
-                x + dx,
-                x + dx,
-            ],
-            [
-                y - dy,
-                y + (1 + fy) * dy,
-                y + (1 - fy) * dy,
-                y + (1 + fy) * dy,
-                y + (1 - fy) * dy,
-                y - dy,
-            ],
-            linecolor=linecolor,
-            linewidth=groundunitlinewidth,
-            zorder=zorder,
-        )
+        def drawrailcarsymbol():
+            dx = trucksymboldx
+            dy = trucksymboldy
+            fy = 0.5
+            theta = range(0, 181)
 
-    def drawbridgesymbol():
-        dx = trucksymboldx
-        dy = trucksymboldy
-        fy0 = 0.3
-        fy1 = 0.8
-        _drawlinesincanvas(
-            [
-                x - dx,
-                x - dx,
-                x + dx,
-                x + dx,
-            ],
-            [
-                y - fy1 * dy,
-                y - fy0 * dy,
-                y - fy0 * dy,
-                y - fy1 * dy,
-            ],
-            linecolor=linecolor,
-            linewidth=groundunitlinewidth,
-            zorder=zorder,
-        )
+            def _dx(theta):
+                return dx * _cosd(theta)
 
-        _drawlinesincanvas(
-            [
-                x - dx,
-                x - dx,
-                x + dx,
-                x + dx,
-            ],
-            [
-                y + fy1 * dy,
-                y + fy0 * dy,
-                y + fy0 * dy,
-                y + fy1 * dy,
-            ],
-            linecolor=linecolor,
-            linewidth=groundunitlinewidth,
-            zorder=zorder,
-        )
+            def _dy(theta):
+                return dy - fy * dy * _sind(theta)
 
-    def drawtowersymbol():
-        fx0 = 0.125
-        fx1 = 0.075
-        fy0 = -0.2
-        fy1 = 0.15
-        fy2 = 0.30
-        _drawlinesincanvas(
-            [
-                x - fx0 * groundunitdx,
-                x - fx1 * groundunitdx,
-                x - fx1 * groundunitdx,
-                x + fx1 * groundunitdx,
-                x + fx1 * groundunitdx,
-                x + fx0 * groundunitdx,
-            ],
-            [
-                y + fy0 * groundunitdy,
-                y + fy1 * groundunitdy,
-                y + fy2 * groundunitdy,
-                y + fy2 * groundunitdy,
-                y + fy1 * groundunitdy,
-                y + fy0 * groundunitdy,
-            ],
-            linecolor=linecolor,
-            linewidth=groundunitlinewidth,
-            zorder=zorder,
-        )
-        _drawlinesincanvas(
-            [
-                x - fx1 * groundunitdx,
-                x + fx1 * groundunitdx,
-            ],
-            [
-                y + fy1 * groundunitdy,
-                y + fy1 * groundunitdy,
-            ],
-            linecolor=linecolor,
-            linewidth=groundunitlinewidth,
-            zorder=zorder,
-        )
+            _drawlinesincanvas(
+                list([x + _dx(theta) for theta in theta]),
+                list([y + _dy(theta) for theta in theta]),
+                linecolor=linecolor,
+                linewidth=groundunitlinewidth,
+                zorder=zorder,
+            )
+            _drawlinesincanvas(
+                [
+                    x - dx,
+                    x - dx,
+                    x + dx,
+                    x + dx,
+                ],
+                [
+                    y + dy,
+                    y - dy,
+                    y - dy,
+                    y + dy,
+                ],
+                linecolor=linecolor,
+                linewidth=groundunitlinewidth,
+                zorder=zorder,
+            )
 
-    def drawhangarsymbol():
-        dx = trucksymboldx * 1.25
-        dy = trucksymboldy / 1.25
-        fy = 0.25
+        def drawbargesymbol():
+            dx = trucksymboldx
+            dy = trucksymboldy
+            fy = 0.5
+            theta = range(0, 181)
 
-        _drawpolygonincanvas(
-            [
-                x - dx,
-                x - dx,
-                x,
-                x + dx,
-                x + dx,
-            ],
-            [
-                y - dy,
-                y + (1 - fy) * dy,
-                y + (1 + fy) * dy,
-                y + (1 - fy) * dy,
-                y - dy,
-            ],
-            linecolor=linecolor,
-            linewidth=groundunitlinewidth,
-            zorder=zorder,
-        )
+            def _dx(theta):
+                return dx * _cosd(theta)
 
-    def drawsheltersymbol():
-        dx = trucksymboldx
-        dy = trucksymboldy
-        fy = 1.5
-        theta = range(0, 181)
+            def _dy(theta):
+                return -dy + dy * fy * (1 - _sind(theta))
 
-        def _dx(theta):
-            return dx * _cosd(theta)
+            _drawlinesincanvas(
+                list([x + _dx(theta) for theta in theta]),
+                list([y + _dy(theta) for theta in theta]),
+                linecolor=linecolor,
+                linewidth=groundunitlinewidth,
+                zorder=zorder,
+            )
+            _drawlinesincanvas(
+                [
+                    x - dx,
+                    x + dx,
+                ],
+                [
+                    y - dy + fy * dy,
+                    y - dy + fy * dy,
+                ],
+                linecolor=linecolor,
+                linewidth=groundunitlinewidth,
+                zorder=zorder,
+            )
 
-        def _dy(theta):
-            return -dy + fy * dy * _sind(theta)
+        def drawjunksymbol():
+            dx = trucksymboldx
+            dy = trucksymboldy
+            fx1 = 0.5
+            fy0 = -0.5
+            fy1 = 0.0
+            fy2 = 1.2
+            fy3 = 0.8
+            drawbargesymbol()
+            _drawlinesincanvas(
+                [
+                    x,
+                    x,
+                ],
+                [
+                    y + fy0 * dy,
+                    y + 0.5 * (fy2 + fy3) * dy,
+                ],
+                linecolor=linecolor,
+                linewidth=groundunitlinewidth,
+                zorder=zorder,
+            )
+            _drawpolygonincanvas(
+                [
+                    x - fx1 * dx,
+                    x - fx1 * dx,
+                    x + fx1 * dx,
+                    x + fx1 * dx,
+                ],
+                [
+                    y + fy1 * dy,
+                    y + fy2 * dy,
+                    y + fy3 * dy,
+                    y + fy1 * dy,
+                ],
+                linecolor=linecolor,
+                linewidth=groundunitlinewidth,
+                zorder=zorder,
+            )
 
-        _drawlinesincanvas(
-            list([x + _dx(theta) for theta in theta]),
-            list([y + _dy(theta) for theta in theta]),
-            linecolor=linecolor,
-            linewidth=groundunitlinewidth,
-            zorder=zorder,
-        )
-        _drawlinesincanvas(
-            [
-                x - dx,
-                x + dx,
-            ],
-            [
-                y - dy,
-                y - dy,
-            ],
-            linecolor=linecolor,
-            linewidth=groundunitlinewidth,
-            zorder=zorder,
-        )
+        def drawbuildingsymbol():
+            dx = trucksymboldx
+            dy = trucksymboldy
+            fy = 0.25
+            f = 0.7
+            _drawpolygonincanvas(
+                [
+                    x - f * dx,
+                    x - f * dx,
+                    x,
+                    x + f * dx,
+                    x + f * dx,
+                ],
+                [
+                    y - dy,
+                    y + f * (1 - fy) * dy,
+                    y + f * (1 + fy) * dy,
+                    y + f * (1 - fy) * dy,
+                    y - dy,
+                ],
+                linecolor=linecolor,
+                linewidth=groundunitlinewidth,
+                zorder=zorder,
+            )
 
-    def drawfixedwingsymbol():
-        fx = 0.15
-        fy = 0.1
-        theta = range(0, 361)
+        def drawlargebuildingsymbol():
+            dx = trucksymboldx
+            dy = trucksymboldy
+            fy = 0.25
+            _drawpolygonincanvas(
+                [
+                    x - dx,
+                    x - dx,
+                    x,
+                    x,
+                    x + dx,
+                    x + dx,
+                ],
+                [
+                    y - dy,
+                    y + (1 + fy) * dy,
+                    y + (1 - fy) * dy,
+                    y + (1 + fy) * dy,
+                    y + (1 - fy) * dy,
+                    y - dy,
+                ],
+                linecolor=linecolor,
+                linewidth=groundunitlinewidth,
+                zorder=zorder,
+            )
 
-        def dx(theta):
-            if theta < 90 or theta > 270:
-                return +fx * groundunitdx + fy * groundunitdy * _cosd(theta)
-            elif theta == 90 or theta == 270:
-                return 0
-            else:
-                return -fx * groundunitdx + fy * groundunitdy * _cosd(theta)
+        def drawbridgesymbol():
+            dx = trucksymboldx
+            dy = trucksymboldy
+            fy0 = 0.3
+            fy1 = 0.8
+            _drawlinesincanvas(
+                [
+                    x - dx,
+                    x - dx,
+                    x + dx,
+                    x + dx,
+                ],
+                [
+                    y - fy1 * dy,
+                    y - fy0 * dy,
+                    y - fy0 * dy,
+                    y - fy1 * dy,
+                ],
+                linecolor=linecolor,
+                linewidth=groundunitlinewidth,
+                zorder=zorder,
+            )
 
-        def dy(theta):
-            if theta < 90 or theta > 270:
-                return +fy * groundunitdy * _sind(theta)
-            elif theta == 90 or theta == 270:
-                return 0
-            else:
-                return -fy * groundunitdy * _sind(theta)
+            _drawlinesincanvas(
+                [
+                    x - dx,
+                    x - dx,
+                    x + dx,
+                    x + dx,
+                ],
+                [
+                    y + fy1 * dy,
+                    y + fy0 * dy,
+                    y + fy0 * dy,
+                    y + fy1 * dy,
+                ],
+                linecolor=linecolor,
+                linewidth=groundunitlinewidth,
+                zorder=zorder,
+            )
 
-        _drawpolygonincanvas(
-            list([x + dx(theta) for theta in theta]),
-            list([y + dy(theta) for theta in theta]),
-            fillcolor=linecolor,
-            linecolor=linecolor,
-            linewidth=groundunitlinewidth,
-            zorder=zorder,
-        )
+        def drawtowersymbol():
+            fx0 = 0.125
+            fx1 = 0.075
+            fy0 = -0.2
+            fy1 = 0.15
+            fy2 = 0.30
+            _drawlinesincanvas(
+                [
+                    x - fx0 * groundunitdx,
+                    x - fx1 * groundunitdx,
+                    x - fx1 * groundunitdx,
+                    x + fx1 * groundunitdx,
+                    x + fx1 * groundunitdx,
+                    x + fx0 * groundunitdx,
+                ],
+                [
+                    y + fy0 * groundunitdy,
+                    y + fy1 * groundunitdy,
+                    y + fy2 * groundunitdy,
+                    y + fy2 * groundunitdy,
+                    y + fy1 * groundunitdy,
+                    y + fy0 * groundunitdy,
+                ],
+                linecolor=linecolor,
+                linewidth=groundunitlinewidth,
+                zorder=zorder,
+            )
+            _drawlinesincanvas(
+                [
+                    x - fx1 * groundunitdx,
+                    x + fx1 * groundunitdx,
+                ],
+                [
+                    y + fy1 * groundunitdy,
+                    y + fy1 * groundunitdy,
+                ],
+                linecolor=linecolor,
+                linewidth=groundunitlinewidth,
+                zorder=zorder,
+            )
 
-    def drawrotarywingsymbol():
-        fx = 0.15
-        fy = 0.1
-        theta = range(0, 361)
+        def drawhangarsymbol():
+            dx = trucksymboldx * 1.25
+            dy = trucksymboldy / 1.25
+            fy = 0.25
 
-        def dx(theta):
-            if theta < 90 or theta > 270:
-                return +fx * groundunitdx
-            elif theta == 90 or theta == 270:
-                return 0
-            else:
-                return -fx * groundunitdx
+            _drawpolygonincanvas(
+                [
+                    x - dx,
+                    x - dx,
+                    x,
+                    x + dx,
+                    x + dx,
+                ],
+                [
+                    y - dy,
+                    y + (1 - fy) * dy,
+                    y + (1 + fy) * dy,
+                    y + (1 - fy) * dy,
+                    y - dy,
+                ],
+                linecolor=linecolor,
+                linewidth=groundunitlinewidth,
+                zorder=zorder,
+            )
 
-        def dy(theta):
-            if theta < 90 or theta > 270:
-                return +fy * groundunitdy * _sind(theta)
-            elif theta == 90 or theta == 270:
-                return 0
-            else:
-                return -fy * groundunitdy * _sind(theta)
+        def drawsheltersymbol():
+            dx = trucksymboldx
+            dy = trucksymboldy
+            fy = 1.5
+            theta = range(0, 181)
 
-        _drawpolygonincanvas(
-            list([x + dx(theta) for theta in theta]),
-            list([y + dy(theta) for theta in theta]),
-            fillcolor=linecolor,
-            linecolor=linecolor,
-            linewidth=groundunitlinewidth,
-            zorder=zorder,
-        )
+            def _dx(theta):
+                return dx * _cosd(theta)
 
-    def drawaircraftsymbol(text):
-        drawuppertext(text)
+            def _dy(theta):
+                return -dy + fy * dy * _sind(theta)
+
+            _drawlinesincanvas(
+                list([x + _dx(theta) for theta in theta]),
+                list([y + _dy(theta) for theta in theta]),
+                linecolor=linecolor,
+                linewidth=groundunitlinewidth,
+                zorder=zorder,
+            )
+            _drawlinesincanvas(
+                [
+                    x - dx,
+                    x + dx,
+                ],
+                [
+                    y - dy,
+                    y - dy,
+                ],
+                linecolor=linecolor,
+                linewidth=groundunitlinewidth,
+                zorder=zorder,
+            )
+
+        def drawfixedwingsymbol():
+            fx = 0.15
+            fy = 0.1
+            theta = range(0, 361)
+
+            def dx(theta):
+                if theta < 90 or theta > 270:
+                    return +fx * groundunitdx + fy * groundunitdy * _cosd(theta)
+                elif theta == 90 or theta == 270:
+                    return 0
+                else:
+                    return -fx * groundunitdx + fy * groundunitdy * _cosd(theta)
+
+            def dy(theta):
+                if theta < 90 or theta > 270:
+                    return +fy * groundunitdy * _sind(theta)
+                elif theta == 90 or theta == 270:
+                    return 0
+                else:
+                    return -fy * groundunitdy * _sind(theta)
+
+            _drawpolygonincanvas(
+                list([x + dx(theta) for theta in theta]),
+                list([y + dy(theta) for theta in theta]),
+                fillcolor=linecolor,
+                linecolor=linecolor,
+                linewidth=groundunitlinewidth,
+                zorder=zorder,
+            )
+
+        def drawrotarywingsymbol():
+            fx = 0.15
+            fy = 0.1
+            theta = range(0, 361)
+
+            def dx(theta):
+                if theta < 90 or theta > 270:
+                    return +fx * groundunitdx
+                elif theta == 90 or theta == 270:
+                    return 0
+                else:
+                    return -fx * groundunitdx
+
+            def dy(theta):
+                if theta < 90 or theta > 270:
+                    return +fy * groundunitdy * _sind(theta)
+                elif theta == 90 or theta == 270:
+                    return 0
+                else:
+                    return -fy * groundunitdy * _sind(theta)
+
+            _drawpolygonincanvas(
+                list([x + dx(theta) for theta in theta]),
+                list([y + dy(theta) for theta in theta]),
+                fillcolor=linecolor,
+                linecolor=linecolor,
+                linewidth=groundunitlinewidth,
+                zorder=zorder,
+            )
+
+        def drawaircraftsymbol(text):
+            drawuppertext(text)
+
+        # Draw missile and air defences first, since air defense missile is
+        # different to surface-to-surface missile.
+        if "missile" in symbols:
+            drawmissilesymbol()
+        if "air-defense" in symbols or "air-defence" in symbols:
+            drawairdefensesymbol()
+
+        if "unidentified" in symbols:
+            drawunidentifedsymbol()
+        if "infantry" in symbols:
+            drawinfantrysymbol()
+        if "armor" in symbols or "armour" in symbols:
+            drawarmorsymbol()
+        if "truck" in symbols:
+            drawtrucksymbol()
+        if "artillery" in symbols:
+            drawartillerysymbol()
+        if "reconnaissance" in symbols:
+            drawreconnaissancesymbol()
+        if "antiarmor" in symbols or "antiarmour" in symbols:
+            drawantiarmorsymbol()
+        if "supply" in symbols:
+            drawsupplysymbol()
+        if "headquarters" in symbols:
+            drawheadquarterssymbol()
+        if "transport" in symbols:
+            drawtransportsymbol()
+        if "transportation" in symbols:
+            drawtransportationsymbol()
+        if "radar" in symbols:
+            drawradarsymbol()
+        if "ammunition" in symbols:
+            drawammunitionsymbol()
+        if "fuel" in symbols:
+            drawfuelsymbol()
+        if "ordnance" in symbols:
+            drawordnancesymbol()
+        if "fac" in symbols:
+            drawfacsymbol()
+
+        if "gun" in symbols or "cannon" in symbols:
+            drawgunsymbol()
+        if "rocket" in symbols:
+            drawmultiplerocketsymbol()
+        if False:
+            # We no longer use mobility symbols as they interfere with the lower
+            # text.
+            if "mobile" in symbols:
+                drawmobilesymbol()
+            if "wheeled" in symbols:
+                drawwheeledsymbol()
+            if "limited-wheeled" in symbols:
+                drawlimitedwheeledsymbol()
+            if "halftracked" in symbols:
+                drawhalftrackedsymbol()
+            if "tracked" in symbols:
+                drawtrackedsymbol()
+            if "towed" in symbols:
+                drawtowedsymbol()
+
+        if "heavy" in symbols:
+            drawheavysymbol()
+        if "medium" in symbols:
+            drawmediumsymbol()
+        if "light" in symbols:
+            drawlightsymbol()
+
+        if "locomotive" in symbols:
+            drawlocomotivesymbol()
+        if "railcar" in symbols:
+            drawrailcarsymbol()
+        if "barge" in symbols:
+            drawbargesymbol()
+        if "junk" in symbols:
+            drawjunksymbol()
+        if "building" in symbols:
+            drawbuildingsymbol()
+        if "largebuilding" in symbols:
+            drawlargebuildingsymbol()
+        if "bridge" in symbols:
+            drawbridgesymbol()
+        if "tower" in symbols:
+            drawtowersymbol()
+        if "hangar" in symbols:
+            drawhangarsymbol()
+        if "shelter" in symbols:
+            drawsheltersymbol()
+
+        if "fixedwing" in symbols:
+            drawfixedwingsymbol()
+        if "rotarywing" in symbols:
+            drawrotarywingsymbol()
+
+        if "squad" in symbols:
+            drawsquad()
+        elif "section" in symbols:
+            drawsection()
+        elif "platoon" in symbols:
+            drawplatoon()
+        elif "company" in symbols or "battery" in symbols:
+            drawcompany()
 
     def drawuppertext(text):
         _drawtextincanvas(
@@ -2842,7 +2941,7 @@ def _drawgroundunitincanvas(
             facing=90,
             dx=0,
             dy=+groundunitdy * 0.35,
-            size=groundunittextsize,
+            size="tiny",
             textcolor=linecolor,
             alignment="center",
             verticalalignment="center",
@@ -2850,33 +2949,55 @@ def _drawgroundunitincanvas(
         )
 
     def drawlowertext(text):
+        if len(text) <= 4:
+            size = "scriptsize"
+        else:
+            size = "notsotiny"
         _drawtextincanvas(
             x,
             y,
             text,
             facing=90,
             dx=0,
-            dy=-groundunitdy * 0.36,
-            size=groundunittextsize,
+            dy=-groundunitdy * 0.43,
+            size=size,
             textcolor=linecolor,
             alignment="center",
-            verticalalignment="center",
+            verticalalignment="baseline",
+            zorder=zorder,
+        )
+
+    def drawtoptext(text):
+        _drawtextincanvas(
+            x,
+            y,
+            text,
+            facing=90,
+            dx=0,
+            dy=+groundunitdy * 0.52 * math.sqrt(4/3),
+            size="scriptsize",
+            textcolor=linecolor,
+            alignment="center",
+            verticalalignment="baseline",
+            zorder=zorder,
+        )
+
+    def drawbottomtext(text):
+        _drawtextincanvas(
+            x,
+            y,
+            text,
+            facing=90,
+            dx=0,
+            dy=-groundunitdy* 0.49 * math.sqrt(4/3),
+            size="small",
+            textcolor=linecolor,
+            alignment="center",
+            verticalalignment="top",
             zorder=zorder,
         )
 
     def drawmiddletext(text):
-        dx = 0.1
-        dy = 0.075
-        _drawrectangleincanvas(
-            x - dx,
-            y - dy,
-            x + dx,
-            y + dy,
-            fillcolor=color,
-            linecolor=None,
-            linewidth=groundunitlinewidth,
-            zorder=zorder,
-        )
         _drawtextincanvas(
             x,
             y,
@@ -2884,12 +3005,42 @@ def _drawgroundunitincanvas(
             facing=90,
             dx=0,
             dy=-groundunitdy * 0.01,
-            size=groundunitmiddletextsize,
+            size="scriptsize",
             textcolor=linecolor,
             alignment="center",
             verticalalignment="center",
             zorder=zorder,
         )
+
+    def drawrighttext(text):
+        if len(text) > 4:
+            _drawtextincanvas(
+                x,
+                y,
+                text,
+                facing=180,
+                dx=-groundunitdy * 0.35 * math.sqrt(4/3),
+                dy=-groundunitdx * 0.50 / math.sqrt(4/3),
+                size="tiny",
+                textcolor=linecolor,
+                alignment="left",
+                verticalalignment="center",
+                zorder=zorder,
+            )
+        else:
+            _drawtextincanvas(
+                x,
+                y,
+                text,
+                facing=180,
+                dx=0,
+                dy=-groundunitdx * 0.50 / math.sqrt(4/3),
+                size="tiny",
+                textcolor=linecolor,
+                alignment="center",
+                verticalalignment="center",
+                zorder=zorder,
+            )
 
     if facing is not None:
         _drawarrowincanvas(
@@ -2904,6 +3055,20 @@ def _drawgroundunitincanvas(
             zorder=0,
         )
 
+    fcounter = 1.0
+    if counter:
+        fcounter = 1.2
+        _drawrectangleincanvas(
+            x - fcounter * groundunitdx / 2,
+            y - fcounter * groundunitdx / 2,
+            x + fcounter * groundunitdx / 2,
+            y + fcounter * groundunitdx / 2,
+            linewidth=groundunitlinewidth,
+            fillcolor=fillcolor,
+            linecolor=linecolor,
+            zorder=zorder,
+        )
+
     if "hex" not in symbols:
         _drawrectangleincanvas(
             x - groundunitdx / 2,
@@ -2916,117 +3081,32 @@ def _drawgroundunitincanvas(
             zorder=zorder,
         )
 
-    # Draw missile and air defences first, since air defense missile is
-    # different to surface-to-surface missile.
-    if "missile" in symbols:
-        drawmissilesymbol()
-    if "air-defense" in symbols or "air-defence" in symbols:
-        drawairdefensesymbol()
-
-    if "unidentified" in symbols:
-        drawunidentifedsymbol()
-    if "infantry" in symbols:
-        drawinfantrysymbol()
-    if "infantrycarrier" in symbols:
-        drawinfantrycarriersymbol()
-    if "armor" in symbols or "armour" in symbols:
-        drawarmorsymbol()
-    if "truck" in symbols:
-        drawtrucksymbol()
-    if "artillery" in symbols:
-        drawartillerysymbol()
-    if "reconnaissance" in symbols:
-        drawreconnaissancesymbol()
-    if "antiarmor" in symbols or "antiarmour" in symbols:
-        drawantiarmorsymbol()
-    if "supply" in symbols:
-        drawsupplysymbol()
-    if "headquarters" in symbols:
-        drawheadquarterssymbol()
-    if "transportation" in symbols:
-        drawtransportationsymbol()
-    if "radar" in symbols:
-        drawradarsymbol()
-    if "ammunition" in symbols:
-        drawammunitionsymbol()
-    if "fuel" in symbols:
-        drawfuelsymbol()
-    if "ordnance" in symbols:
-        drawordnancesymbol()
-    if "fac" in symbols:
-        drawfacsymbol()
-
-    if "gun" in symbols or "cannon" in symbols:
-        drawgunsymbol()
-    if "rocket" in symbols:
-        drawmultiplerocketsymbol()
-    if False:
-        # We no longer use mobility symbols as the interfere with the lower
-        # text.
-        if "motorized" in symbols:
-            drawmotorizedsymbol()
-        if "wheeled" in symbols:
-            drawwheeledsymbol()
-        if "limited-wheeled" in symbols:
-            drawlimitedwheeledsymbol()
-        if "halftracked" in symbols:
-            drawhalftrackedsymbol()
-        if "tracked" in symbols:
-            drawtrackedsymbol()
-        if "towed" in symbols:
-            drawtowedsymbol()
-
-    if "heavy" in symbols:
-        drawheavysymbol()
-    if "medium" in symbols:
-        drawmediumsymbol()
-    if "light" in symbols:
-        drawlightsymbol()
-
-    if "locomotive" in symbols:
-        drawlocomotivesymbol()
-    if "railcar" in symbols:
-        drawrailcarsymbol()
-    if "barge" in symbols:
-        drawbargesymbol()
-    if "junk" in symbols:
-        drawjunksymbol()
-    if "building" in symbols:
-        drawbuildingsymbol()
-    if "largebuilding" in symbols:
-        drawlargebuildingsymbol()
-    if "bridge" in symbols:
-        drawbridgesymbol()
-    if "tower" in symbols:
-        drawtowersymbol()
-    if "hangar" in symbols:
-        drawhangarsymbol()
-    if "shelter" in symbols:
-        drawsheltersymbol()
-
-    if "fixedwing" in symbols:
-        drawfixedwingsymbol()
-    if "rotarywing" in symbols:
-        drawrotarywingsymbol()
-
-    if uppertext is not None:
-        drawuppertext(uppertext)
-    if lowertext is not None:
-        drawlowertext(lowertext)
-
-    if uppertext is None:
-        if "squad" in symbols:
-            drawsquad()
-        elif "section" in symbols:
-            drawsection()
-        elif "platoon" in symbols:
-            drawplatoon()
-        elif "company" in symbols or "battery" in symbols:
-            drawcompany()
-        elif "artillery" in symbols or "rocket" in symbols or "missile" in symbols:
-            drawcompany()
-        elif "infantry" in symbols or "armor" in symbols or "truck" in symbols:
-            drawplatoon()
+    if identified:
+        drawsymbols(symbols)
+        if lowertext is not None:
+            if counter:
+                drawtoptext(lowertext)
+            else:
+                drawrighttext(lowertext)
+        if counter:
+            drawbottomtext("%s-%d" % (defensestrength, sightingrange))
+    elif sighted:
+        if "infantry" in symbols:
+            drawsymbols(["infantry"])
+        elif "radar" in symbols:
+            drawsymbols(["radar"])
+        elif "armor" in symbols:
+            drawsymbols(["armor"])
+        elif "truck" in symbols:
+            drawsymbols(["truck"])
+        elif "air-defense" in symbols:
+            sdrawsymbols(["air-defense"])
+        elif "artillery" in symbols:
+            drawsymbols(["artillery"])    
+        if counter:
+            drawbottomtext("%d" % sightingrange)
+        else:
+            drawlowertext("%d" % sightingrange)
 
     if "hex" not in symbols:
 
@@ -3073,7 +3153,7 @@ def _drawgroundunitincanvas(
                     y,
                     name,
                     facing=90,
-                    dx=groundunitdx / 2 - 0.05,
+                    dx=+fcounter * groundunitdx / 2 - 0.05,
                     dy=dyname,
                     size=annotationtextsize,
                     textcolor=annotationtextcolor,
@@ -3086,7 +3166,7 @@ def _drawgroundunitincanvas(
                     y,
                     damage,
                     facing=90,
-                    dx=groundunitdx / 2 - 0.05,
+                    dx=+fcounter * groundunitdx / 2 - 0.05,
                     dy=dydamage,
                     size=annotationtextsize,
                     textcolor=annotationtextcolor,
@@ -3100,7 +3180,7 @@ def _drawgroundunitincanvas(
                     y,
                     name,
                     facing=90,
-                    dx=-groundunitdx / 2 + 0.05,
+                    dx=-fcounter * groundunitdx / 2 + 0.05,
                     dy=dyname,
                     size=annotationtextsize,
                     textcolor=annotationtextcolor,
@@ -3112,7 +3192,7 @@ def _drawgroundunitincanvas(
                     y,
                     damage,
                     facing=90,
-                    dx=-groundunitdx / 2 + 0.05,
+                    dx=-fcounter * groundunitdx / 2 + 0.05,
                     dy=dydamage,
                     size=annotationtextsize,
                     textcolor=annotationtextcolor,
@@ -3300,15 +3380,17 @@ def _nativetextsize(textsize):
 
     :param textsize:
         The ``textsize`` argument is a number giving the text size in hexes or one of
-        the strings ``"tiny"``, ``"scriptsize"``, ``"footnotesize"``,
+        the strings ``"tiny"``, ``"notsotiny"``, ``"scriptsize"``, ``"footnotesize"``,
         ``"small"``, ``"normal"``, ``"large"``, ``"Large"``, ``"LARGE"``,
         ``"huge"``, and ``"HUGE"``.
     :return: The native text size corresponding to the ``textsize``a argument.
     """
     # The correspondence between names and sizes are approximately the LaTeX
-    # font sizes in 10 pt documents and are appropriate for 1 hex = 1 inch.
+    # font sizes in 10 pt documents and are appropriate for 1 hex = 1 inch. The notsotiny size is a common extension.
     if textsize == "tiny":
         return 5
+    elif textsize == "notsotiny":
+        return 6
     elif textsize == "scriptsize":
         return 7
     elif textsize == "footnotesize":

@@ -1,0 +1,25 @@
+{
+    "name": "S-60",
+    "description": "S-60 57 mm air-defense battery",
+    "symbols": "air-defense/gun/medium/battery",
+    "lowertext": "57",
+    "defensestrength": "3S",
+    "sightingrange": 12,
+    "aaa": {
+        "type": "57",
+        "class": "M",
+        "range": [
+            5,
+            10,
+            15
+        ],
+        "hitroll": [
+            2,
+            2,
+            1
+        ],
+        "damagerating": 5,
+        "maximumrelativealtitude": 18
+    },
+    "VPs": [8, 5, 3 ]
+}

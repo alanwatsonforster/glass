@@ -1,0 +1,20 @@
+{
+    "name": "SA-2B",
+    "description": "SA-2B air-defense battery",
+    "symbols": "air-defense/missile/battery",
+    "lowertext": "SA-2B",
+    "defensestrength": "4S",
+    "sightingrange": 18,
+    "sam": {
+        "type": "SA-2B",
+        "ewrfrequency": "LF",
+        "ewrrange": 30,
+        "ttrfrequency": "LF",
+        "ttrrange": 20,
+        "readymissiles": 6,
+        "volleymissiles": 2,
+        "quickreaction": false,
+        "radarlockon": 6,
+        "opticallockon": 6
+    }
+}

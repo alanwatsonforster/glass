@@ -1,0 +1,35 @@
+{
+    "name": "LAV-AD",
+    "description": "LAV-AD 25 mm self-propelled air-defense section",
+    "symbols": "air-defense/missile/gun/light/armor/section",
+    "lowertext": "25",
+    "defensestrength": "4H",
+    "sightingrange": 12,
+    "aaa": {
+        "type": "25",
+        "class": "L",
+        "range": [
+            3,
+            6,
+            9
+        ],
+        "hitroll": [
+            5,
+            4,
+            3
+        ],
+        "maximumrelativealtitude": 10,
+        "damagerating": 4,
+        "nightirsights": true
+    },
+    "sam": {
+        "type": "FIM-92",
+        "multitargetcapability": 2,
+        "readymissiles": 8,
+        "volleymissiles": 2,
+        "quickreaction": true,
+        "opticallockon": 8,
+        "nightirsights": true
+    },
+    "VPs": [ 14, 11, 7 ]
+}

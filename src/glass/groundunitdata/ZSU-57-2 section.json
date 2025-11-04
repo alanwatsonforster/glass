@@ -1,0 +1,24 @@
+{
+    "name": "ZSU-57-2",
+    "description": "ZSU-57-2 twin 57 mm self-propelled air-defense section",
+    "symbols": "air-defense/gun/medium/armor/section",
+    "lowertext": "57×2",
+    "defensestrength": "4H",
+    "sightingrange": 12,
+    "aaa": {
+    "type": "57×2",
+    "class": "M",
+    "range": [
+        5,
+        10,
+        15
+    ],
+    "hitroll": [
+        2,
+        1,
+        1
+    ],
+    "damagerating": 5,
+    "maximumrelativealtitude": 18
+}
+}

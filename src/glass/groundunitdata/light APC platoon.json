@@ -1,0 +1,16 @@
+{
+    "name": "light APC",
+    "description": "light APC platoon",
+    "symbols": "armor/light/transport/platoon",
+    "defensestrength": "4H",
+    "sightingrange": 12,
+    "aaa": {
+        "class": "B",
+        "maximumrelativealtitude": 3
+    },
+    "VPs": [
+        6,
+        4,
+        2
+    ]
+}

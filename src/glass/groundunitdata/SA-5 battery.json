@@ -1,0 +1,21 @@
+{
+    // From Puma.
+    // Seems to corresponds to six single fixed launchers.
+    "name": "SA-5",
+    "description": "SA-5 air-defense battery",
+    "symbols": "air-defense/missile/battery",
+    "lowertext": "SA-5",
+    "sightingrange": 24,
+    "defensestrength": "12S",
+    "sam": {
+        "type": "SA-5",
+        "ewrfrequency": "LF",
+        "ewrrange": 0,
+        "ttrfrequency": "LF",
+        "ttrrange": 85,
+        "readymissiles": 6,
+        "volleymissiles": 2,
+        "quickreaction": false,
+        "radarlockon": 7
+    }
+}

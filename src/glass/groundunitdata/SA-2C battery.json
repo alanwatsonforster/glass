@@ -1,0 +1,19 @@
+{
+    "name": "SA-2C",
+    "description": "SA-2C air-defense battery",
+    "symbols": "air-defense/missile/battery",
+    "lowertext": "SA-2C",
+    "sightingrange": 18,
+    "defensestrength": "4S",
+    "sam": {
+        "type": "SA-2C",
+        "ewrfrequency": "LF",
+        "ewrrange": 30,
+        "ttrfrequency": "MF",
+        "ttrrange": 20,
+        "readymissiles": 6,
+        "volleymissiles": 2,
+        "quickreaction": false,
+        "radarlockon": 6
+    }
+}

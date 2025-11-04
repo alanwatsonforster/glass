@@ -1,0 +1,25 @@
+{
+    "name": "Oerlikon GDF",
+    "description": "Oerlikon GDF twin 35 mm air-defense battery",
+    "symbols": "air-defense/gun/medium/battery",
+    "lowertext": "35×2",
+    "defensestrength": "3S",
+    "sightingrange": 12,
+    "aaa": {
+        "type": "35×2",
+        "class": "M",
+        "range": [
+            4,
+            8,
+            10
+        ],
+        "hitroll": [
+            5,
+            4,
+            3
+        ],
+        "maximumrelativealtitude": 12,
+        "damagerating": 4
+    },
+    "VPs": [ 7, 5, 3 ]
+}

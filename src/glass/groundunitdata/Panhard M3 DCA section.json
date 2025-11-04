@@ -1,0 +1,27 @@
+{
+    "name": "Panhard M3 DCA",
+    "description": "Panhard M3 DCA twin 20 mm self-propelled air-defense section",
+    "symbols": "air-defense/gun/light/armor/section",
+    "lowertext": "20×2",
+    "defensestrength": "4H",
+    "sightingrange": 12,
+    "aaa": {
+        "type": "20×2",
+        "class": "L",
+        "range": [
+            2,
+            4,
+            6
+        ],
+        "hitroll": [
+            4,
+            4,
+            3
+        ],
+        "maximumrelativealtitude": 8,
+        "damagerating": 2,
+        "fcrclass": "R",
+        "fcrfrequency": "UF"
+    },
+    "VPs": [8, 6, 5]
+}

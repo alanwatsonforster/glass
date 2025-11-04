@@ -1,0 +1,27 @@
+{
+    "name": "AMX-30SA",
+    "description": "AMX-30SA twin 30 mm self-propelled air-defense section",
+    "symbols": "air-defense/gun/light/armor/section",
+    "lowertext": "30×2",
+    "defensestrength": "4H",
+    "sightingrange": 12,
+    "aaa": {
+        "type": "30×2",
+        "class": "L",
+        "range": [
+            4,
+            7,
+            9
+        ],
+        "hitroll": [
+            5,
+            4,
+            3
+        ],
+        "maximumrelativealtitude": 11,
+        "damagerating": 4,
+        "fcrclass": "W",
+        "fcrfrequency": "VF"
+    },
+    "VPs": [ 10, 8, 6 ]
+}

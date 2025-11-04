@@ -16,7 +16,7 @@ The symbols are based on NATO Joint Military Symbology, but with adaptations.
 
 The mobility or protection symbols can be:
 - Armored: The unit is vehicular, and the vehicles provide armored protection for their crews and loads.
-- Mobile: the unit is vehicular, but the vehicles do not provide armored protection for their crews and loads.
+- mobile: the unit is vehicular, but the vehicles do not provide armored protection for their crews and loads.
 - Infantry: the unit is not vehicular and moves on foot.
 - Absent: the unit is towed.
 

@@ -1,0 +1,25 @@
+{
+    "name": "M-53/95",
+    "description": "M-53/59 twin 30 mm air-defense section",
+    "symbols": "truck/air-defense/gun/light/section",
+    "lowertext": "30×2",
+    "defensestrength": "3S",
+    "sightingrange": 12,
+    "aaa": {
+        "type": "30×2",
+        "class": "L",
+        "range": [
+            4,
+            7,
+            9
+        ],
+        "hitroll": [
+            3,
+            2,
+            1
+        ],
+        "maximumrelativealtitude": 11,
+        "damagerating": 3
+    },
+    "VPs": [ 7, 6, 4 ]
+}

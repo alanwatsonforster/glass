@@ -1,0 +1,16 @@
+{
+    "name": "heavy tank",
+    "description": "heavy tank platoon",
+    "symbols": "armor/gun/heavy/platoon",
+    "defensestrength": "8H",
+    "sightingrange": 12,
+    "aaa": {
+        "class": "B",
+        "maximumrelativealtitude": 3
+    },
+    "VPs": [
+        12,
+        8,
+        4
+    ]
+}

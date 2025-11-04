@@ -1,0 +1,16 @@
+{
+    "name": "infantry HQ",
+    "description": "infantry HQ platoon",
+    "symbols": "infantry/headquarters/platoon",
+    "defensestrength": "4S",
+    "sightingrange": 6,
+    "aaa": {
+        "class": "B",
+        "maximumrelativealtitude": 2
+    },
+    "VPs": [
+        8,
+        6,
+        4
+    ]
+}

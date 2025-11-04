@@ -1,0 +1,18 @@
+{
+    // From Puma.
+    // From the ready-missile count, this seems to be one four-missile TELAR.
+    "name": "SA-13",
+    "description": "SA-13 air-defense squad",
+    "symbols": "air-defense/missile/armor/squad",
+    "lowertext": "SA-13",
+    "sightingrange": 12,
+    "defensestrength": "4H",
+    "sam": {
+        "type": "SA-13",
+        "multitargetcapability": 2,
+        "readymissiles": 4,
+        "volleymissiles": 2,
+        "quickreaction": true,
+        "opticallockon": 8
+    }
+}

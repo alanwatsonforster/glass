@@ -1,7 +1,7 @@
 {
     "name": "truck",
     "description": "light truck section",
-    "symbols": "truck/light/section",
+    "symbols": "truck/transport/light/section",
     "sightingrange": 12,
     "defensestrength": "2S",
     "VPs": [

@@ -1,0 +1,22 @@
+{
+    // From Puma.
+    // Seems to correspond to two truck-mounted dual launchers.
+    "name": "SA-3B",
+    "description": "SA-3B air-defense section",
+    "symbols": "air-defense/missile/truck/section",
+    "lowertext": "SA-3B",
+    "sightingrange": 18,
+    "defensestrength": "4S",
+    "sam": {
+        "type": "SA-3B",
+        "ewrfrequency": "MF",
+        "ewrrange": 35,
+        "ttrfrequency": "VF",
+        "ttrrange": 10,
+        "readymissiles": 4,
+        "volleymissiles": 2,
+        "quickreaction": false,
+        "radarlockon": 7,
+        "opticallockon": 6
+    }
+}

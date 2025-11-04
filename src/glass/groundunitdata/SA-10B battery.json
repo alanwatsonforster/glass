@@ -1,0 +1,22 @@
+{
+    // From Puma.
+    // From the ready-missile count, this seems to be eight four-missile TELs.
+    "name": "SA-10B",
+    "description": "SA-10B air-defense battery",
+    "symbols": "air-defense/missile/truck/battery",
+    "lowertext": "SA-10B",
+    "sightingrange": 12,
+    "defensestrength": "4H",
+    "sam": {
+        "type": "SA-10B",
+        "ewrfrequency": "HF",
+        "ewrrange": 100,
+        "ewrmti": true,
+        "ttrfrequency": "VF",
+        "ttrrange": 60,
+        "multitargetcapability": 6,
+        "readymissiles": 32,
+        "volleymissiles": 12,
+        "radarlockon": 8
+    }
+}

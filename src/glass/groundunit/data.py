@@ -11,7 +11,10 @@ def _loaddata(name):
 
     def filename(name):
         return os.path.join(
-            os.path.dirname(__file__), "..", "groundunitdata", name + ".json"
+            os.path.dirname(__file__),
+            "..",
+            "groundunitdata",
+            name.replace("/", "") + ".json",
         )
 
     def loadfile(name):

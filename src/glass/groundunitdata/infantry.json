@@ -1,0 +1,11 @@
+{
+    "name": "infantry",
+    "description": "infantry",
+    "symbols": "infantry",
+    "defensestrength": "",
+    "sightingrange": 6,
+    "aaa": {
+        "class": "B",
+        "maximumrelativealtitude": 2
+    }
+}

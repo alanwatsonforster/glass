@@ -44,6 +44,7 @@ class GroundUnit(glass.element.Element):
         protectionclass=None,
         sighted=False,
         identified=False,
+        counter=False,
     ):
 
         self._name = ""
@@ -92,7 +93,7 @@ class GroundUnit(glass.element.Element):
                 if symbol not in [
                     "unidentified",
                     "infantry",
-                    "infantrycarrier",
+                    "transport",
                     "armor",
                     "armour",
                     "artillery",
@@ -165,6 +166,7 @@ class GroundUnit(glass.element.Element):
             self._symbols = symbols
             self._uppertext = uppertext
             self._lowertext = lowertext
+            self._counter = counter
             self._stack = stack
 
             self._aaaclass = aaaclass

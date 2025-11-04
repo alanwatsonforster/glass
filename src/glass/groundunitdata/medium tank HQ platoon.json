@@ -1,0 +1,16 @@
+{
+    "name": "medium tank HQ",
+    "description": "medium tank headquarters platoon",
+    "symbols": "armor/gun/medium/headquarters/platoon",
+    "defensestrength": "6H",
+    "sightingrange": 12,
+    "aaa": {
+        "class": "B",
+        "maximumrelativealtitude": 3
+    },
+    "VPs": [
+        12,
+        8,
+        4
+    ]
+}

@@ -1,0 +1,16 @@
+{
+    "name": "light tank",
+    "description": "light tank platoon",
+    "symbols": "armor/gun/light/platoon",
+    "defensestrength": "4H",
+    "sightingrange": 12,
+    "aaa": {
+        "class": "B",
+        "maximumrelativealtitude": 3
+    },
+    "VPs": [
+        6,
+        4,
+        2
+    ]
+}

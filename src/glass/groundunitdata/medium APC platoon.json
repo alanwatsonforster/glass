@@ -1,0 +1,16 @@
+{
+    "name": "medium APC",
+    "description": "medium APC platoon",
+    "symbols": "armor/medium/transport/platoon",
+    "defensestrength": "6H",
+    "sightingrange": 12,
+    "aaa": {
+        "class": "B",
+        "maximumrelativealtitude": 3
+    },
+    "VPs": [
+        10,
+        6,
+        4
+    ]
+}

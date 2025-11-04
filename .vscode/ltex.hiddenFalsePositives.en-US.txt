@@ -22,3 +22,7 @@
 {"rule":"PHRASE_REPETITION","sentence":"^\\QThe generic tank units are: heavy tank heavy tank HQ medium tank medium tank HQ light tank light tank HQ\\E$"}
 {"rule":"CD_NN","sentence":"^\\QGeneric Units Name Defense Sighting Strength Range infantry 4S 00 6 infantry HQ 4S 00 6 infantry FAC 5S 00 6 heavy tank 8H 00 12 heavy tank HQ 8H 00 12 medium tank 6H 00 12 medium tank HQ 6H 00 12 light tank 4H 00 12 light tank HQ 4H 00 12\\E$"}
 {"rule":"ENGLISH_WORD_REPEAT_RULE","sentence":"^\\QThe generic infantry units are: infantry infantry HQ infantry FAC The first two units are platoons.\\E$"}
+{"rule":"MORFOLOGIK_RULE_EN_US","sentence":"^\\QWikipedia states that this is E-band, which 2-3 GHz and corresponds to the UF band.\\E$"}
+{"rule":"MORFOLOGIK_RULE_EN_US","sentence":"^\\QIt is equipped with an Oeil Noir 1 radar.\\E$"}
+{"rule":"MORFOLOGIK_RULE_EN_US","sentence":"^\\QBofers L/70 BOFI and BOFI-R\\E$"}
+{"rule":"MORFOLOGIK_RULE_EN_US","sentence":"^\\QThis is Bofers 40 mm L/70 with an improved optical fire-control system, laser rangefinder, proximity-fuzed ammunition and, in the case of the BOFI-R, an integrated all-weather FCR.\\E$"}

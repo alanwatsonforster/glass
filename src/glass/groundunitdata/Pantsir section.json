@@ -1,0 +1,39 @@
+{
+    "name": "Pantsir",
+    "description": "Pantsir dual 30 mm and SA-19 self-propelled air-defense section",
+    "symbols": "armor/air-defense/gun/light/missile/section",
+    "lowertext": "30×2/SA-19",
+    "defensestrength": "3S",
+    "sightingrange": 12,
+    "aaa": {
+        "type": "30×2",
+        "class": "L",
+        "range": [
+            4,
+            7,
+            9
+        ],
+        "hitroll": [
+            5,
+            4,
+            3
+        ],
+        "damagerating": 4,
+        "maximumrelativealtitude": 11,
+        "fcrclass": "W",
+        "fcrfrequency": "VF"
+    },
+    "sam": {
+        "type": "SA-22",
+        "ewrfrequency": "VF",
+        "ewrrange": 8,
+        "ttrfrequency": "MW",
+        "ttrrange": 5,
+        "multitargetcapability": 2,
+        "readymissiles": 12,
+        "volleymissiles": 2,
+        "quickreaction": true,
+        "radarlockon": 8,
+        "opticallockon": 7
+    }
+}

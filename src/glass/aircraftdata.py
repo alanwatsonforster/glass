@@ -30,7 +30,9 @@ class aircraftdata:
 
         def filename(name):
             return os.path.join(
-                os.path.dirname(__file__), "aircraftdata", name + ".json"
+                os.path.dirname(__file__),
+                "aircraftdata",
+                name.replace("/", "") + ".json",
             )
 
         def loadfile(name):

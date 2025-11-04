@@ -1,0 +1,21 @@
+{
+    "name": "SA-19",
+    "description": "SA-19 air-defense squad",
+    "symbols": "air-defense/missile/armor/squad",
+    "lowertext": "SA-19",
+    "sightingrange": 12,
+    "defensestrength": "4H",
+    "sam": {
+        "type": "SA-19",
+        "ewrfrequency": "VF",
+        "ewrrange": 8,
+        "ttrfrequency": "MW",
+        "ttrrange": 5,
+        "multitargetcapability": 2,
+        "readymissiles": 8,
+        "volleymissiles": 2,
+        "quickreaction": true,
+        "radarlockon": 8,
+        "opticallockon": 7
+    }
+}

@@ -1,0 +1,25 @@
+{
+    "name": "ZPU-2",
+    "description": "ZPU-2 14.5 mm air-defense battery",
+    "symbols": "air-defense/gun/light/battery",
+    "lowertext": "14.5×2",
+    "defensestrength": "3S",
+    "sightingrange": 12,
+    "aaa": {
+        "type": "14.5×2",
+        "class": "L",
+        "range": [
+            2,
+            3,
+            5
+        ],
+        "hitroll": [
+            4,
+            3,
+            2
+        ],
+        "maximumrelativealtitude": 6,
+        "damagerating": 1
+    },
+    "VPs": [ 4, 3, 2 ]
+}

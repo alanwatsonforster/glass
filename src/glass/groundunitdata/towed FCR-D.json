@@ -2,7 +2,7 @@
     "name": "FCR-D",
     "description": "fire control radar (type D)",
     "symbols": "air-defense/radar",
-    "uppertext": "FCR-D",
+    "lowertext": "FCR-D",
     "sightingrange": 12,
     "defensestrength": "2S"
 }

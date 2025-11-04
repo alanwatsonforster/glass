@@ -1,0 +1,21 @@
+{
+    // From Puma. 
+    // Seems to correspond to four quad fixed launchers. 
+    "name": "SA-3A",
+    "description": "SA-3A air-defense battery",
+    "symbols": "air-defense/missile/battery",
+    "lowertext": "SA-3A",
+    "sightingrange": 18,
+    "defensestrength": "6H",
+    "sam": {
+        "type": "SA-3A",
+        "ewrfrequency": "MF",
+        "ewrrange": 35,
+        "ttrfrequency": "VF",
+        "ttrrange": 10,
+        "readymissiles": 16,
+        "volleymissiles": 2,
+        "quickreaction": false,
+        "radarlockon": 6
+    }
+}

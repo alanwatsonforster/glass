@@ -1,0 +1,25 @@
+{
+    "name": "M55",
+    "description": "M55 quad .50 cal air-defense battery",
+    "symbols": "air-defense/gun/light/battery",
+    "lowertext": "12.7×4",
+    "defensestrength": "3S",
+    "sightingrange": 12,
+    "aaa": {
+        "type": "12.7×4",
+        "class": "L",
+        "range": [
+            2,
+            3,
+            4
+        ],
+        "hitroll": [
+            5,
+            4,
+            3
+        ],
+        "damagerating": 2,
+        "maximumrelativealtitude": 5
+    },
+    "VPs": [ 4, 3, 2 ]
+}
