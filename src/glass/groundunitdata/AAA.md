@@ -6,7 +6,37 @@
 
 Some weapons have both trailer-mounted and mobile versions. The former will often be a battery of four to six guns. The latter will typically be a section of two vehicles. This explains some of the apparent contradictions in the hit rolls.
 
-## M2 platoon
+For example, let us compare batteries and sections with identical guns:
+
+- The mobile ZPU-4 section and towed ZPU-4 battery in *Air Strike* have hit rolls of 3/3/2 and 5/4/3. Here, the change from section to battery increases the hit rolls by +1 or +2.
+
+- The mobile M163 section and towed M167 battery in *Air Strike* have hit rolls of 5/4/3 and 6/5/4. Here, the change from section to battery increases the hit rolls by +1.
+
+- The truck-mounted ZU-23 section and towed ZU-23 battery in *Air Strike* have hit rolls of 2/2/1 and 4/3/2. Here, the change from section to battery increases the hit rolls by +2 or +1.
+
+- The Blazer section and towed GEMAG battery in *Air Strike* have hit rolls of 5/4/3 and 6/5/4. Here, the change from section to battery increases the hit rolls by +1. 
+
+- The Nile-23 section in *Eagles of the Gulf* and the ZU-23 battery in *Air Strike* have hit rolls of 3/3/2 and 4/3/2. Here, the change from section to battery increases the hit rolls by +1 or +0.
+
+- The M16 section and the M55 battery in *Eagles of the Gulf* have hit rolls of 4/3/2 and 5/4/3. Here, the change from section to battery increases the hit rolls by +1.
+
+- The M3 TCM section and TCM battery in *Eagles of the Gulf* have hit rolls of 3/3/2 and 4/4/3. Here, the change from section to battery increases the hit rolls by +1.
+
+- The Gepard section and Oerlikon GDF battery in *Air Strike* have identical hit rolls of 5/4/3, but this is somewhat misleading since the Gepard has an integral FCR. If we add an external FCR-B/C to the Oerlikon GDF unit, its hit rolls are 7/6/5. Here, the change from section to battery increases the hit rolls by +2.
+
+In all of these cases, the section and battery have identical ranges, maximum altitude, and damage ratings.
+
+In all of these cases except one (the Nile-23 at long range), the step-up from a section to a battery gives an improvement in the hit rolls of +1 or +2.
+
+It's difficult to determine under what circumstances the improvement is +1 or +2. The +2 improvement is only for the ZPU-4 and ZU-23 at short range and the Gepard at all ranges. These might be oversights. It might be that in general the improvement is +1.
+
+### Batteries of Mobile AAA
+
+If you want to create a battery of mobile AAA (e.g., a battery of six ZPU-4 mounted on trucks rather than a section of two), use the towed battery AAA values with the mobile section defense strength and spotting range. You'll have to invent the VPs.
+
+## Light AAA
+
+### M2 platoon
 
 This is the M2 .50 cal heavy machine gun on a M63 dual-purpose mount.
 
@@ -14,14 +44,16 @@ I'm not sure if “battery” is the right term for an AA HMG unit. Perhaps plat
 
 - [Wikipedia](https://en.wikipedia.org/wiki/M2_Browning)
 
-## DShK platoon
+### DShK platoon
 
 Origin: EOG and Puma.
 
+Again, I'm not sure if “battery” is the right term for an AA HMG unit. Perhaps platoon is better?
+
+
 - [Wikipedia](https://en.wikipedia.org/wiki/DShK)
 
-
-## M55 battery
+### M55 battery
 
 The M55 is M45 quad .50 cal mount on a trailer.
 
@@ -29,7 +61,7 @@ Origin: EOG and Puma.
 
 - [Wikipedia](https://en.wikipedia.org/wiki/M45_quad_mount)
 
-## Mobile M55 section
+### Mobile M55 section
 
 This is the M45 quad .50 cal mounted on a truck, such as the M35 2.5 ton or M54 5-ton truck.
 
@@ -37,7 +69,7 @@ Origin: Derived from M16 with the defense strength of Czech M53.
 
 - [Wikipedia](https://en.wikipedia.org/wiki/M45_quad_mount)
 
-## M16 section
+### M16 section
 
 The M16 is an M45 quad .50 cal mount on a modifier M3 half-track.
 
@@ -45,7 +77,7 @@ Origin: EOG and Puma.
 
 - [Wikipedia](https://en.wikipedia.org/wiki/M45_quad_mount)
 
-## ZPU-1 battery
+### ZPU-1 battery
 
 This is the single mount version of 14.5 mm ZPU gun.
 
@@ -55,7 +87,7 @@ Puma gives the long range as 4 hexes, but EOG and TSOH give it as 5 hexes. Furth
 
 - [Wikipedia](https://en.wikipedia.org/wiki/ZPU)
 
-## ZPU-2 battery
+### ZPU-2 battery
 
 This is the twin mount version of 14.5 mm ZPU gun.
 
@@ -65,7 +97,7 @@ Air Strike has hit rolls of 4/3/2 and a damage rating of 1. Puma has hit rolls o
 
 - [Wikipedia](https://en.wikipedia.org/wiki/ZPU)
 
-## ZPU-4 battery
+### ZPU-4 battery
 
 This is the quad mount version of 14.5 mm ZPU gun.
 
@@ -75,17 +107,17 @@ Air Strike and Puma have hit rolls of 5/4/3. TSOH has hit rolls of 4/3/2, which 
 
 - [Wikipedia](https://en.wikipedia.org/wiki/ZPU)
 
-## Mobile ZPU-4 section
+### Mobile ZPU-4 section
 
 This is the quad mount version of 14.5 mm ZPU gun.
 
 Origin: Air Strike and Puma.
 
-Air Strike has hit rolls of 3/3/2. Puma has hit rolls of 5/4/3. The Puma values are equal to those of as ZPU-4 battery. The Air Strike values might be more appropriate for a section. I have adopted the Air Strike values.
+Air Strike has hit rolls of 3/3/2. Puma has hit rolls of 5/4/3. The Puma values are equal to those of as ZPU-4 battery. The Air Strike values might be more appropriate for a *section*. I have adopted the Air Strike values.
 
 - [Wikipedia](https://en.wikipedia.org/wiki/ZPU)
 
-## TCM-20 Battery
+### TCM-20 Battery
 
 This is a pair of Hispano-Suiza 20 mm cannon mounted on an M45 turret.
 
@@ -94,43 +126,43 @@ Origen: EOG.
 - [Wikipedia](https://en.wikipedia.org/wiki/M45_quad_mount#TCM-20)
 - [Weapons Systems](https://weaponsystems.net/system/750-TCM-20)
 
-## M3 TCM-20 Section
+### M3 TCM-20 Section
 
-This is a pair of Hispano-Suiza 20 mm cannon mounted on an M45 turret and mounted in an M3 half-track. (The M16 half-track was not used.)
+This is a pair of Hispano-Suiza 20 mm cannon mounted on an M45 turret and mounted in an M3 half-track. (The M16 half-track was not used, surprisingly.)
 
 Origen: EOG.
 
 - [Wikipedia](https://en.wikipedia.org/wiki/M45_quad_mount#TCM-20)
 - [Weapons Systems](https://weaponsystems.net/system/786-M3%20TCM-20)
 
-## Rh-202 Battery
+### Rh-202 Battery
 
 This is a twin-mount of the Rh-202 cannon.
 
 Origen: Air Strike and Puma.
 
-Air Strike has hit rolls of 5/4/3 and a damage rating of 2. Puma has hit rolls of 3/2/1, which match those of the single gun mount in Air Strike, and a damage rating of 3, which is more than most 20 mm except for the M163/M167. The rate of fire of the twin Rh-202 is about 2000 RPM, but that of the M163/167 is about 3000 RPM, so it seems appropriate damage rating of the Rh-202 is less than that of the M163/M167. I adopt the Air Strike values in both cases.
-
 Air Strike also has a single-mount version, but I can find no evidence for this other than as the main weapon of IFVs (e.g., the Marder) or on naval mounts.
+
+Air Strike has hit rolls of 5/4/3 and a damage rating of 2. Puma has hit rolls of 3/2/1, which match those of the single gun version in Air Strike, and a damage rating of 3, which is more than most 20 mm except for the M163/M167. The rate of fire of the twin Rh-202 is about 2000 RPM, but that of the M163/167 is about 3000 RPM, so it seems appropriate damage rating of the Rh-202 is less than that of the M163/M167. I adopt the Air Strike values in both cases.
 
 - [Wikipedia](https://en.wikipedia.org/wiki/Rheinmetall_Mk_20_Rh-202)
 
-## Panhard M3 DCA Section
+### Panhard M3 DCA Section
 
 This is the Panhard M3 with a turret with two 20 mm Hispano-Suiza guns.
 
 Origen: Air Strike and Puma
 
-Wikipedia and Weapon Systems comment that they have optical sights, but could be equipped with a *search* radar, which Weapon Systems state could feed the range and speed into the targeting computer. I have therefore added R capability.
+Wikipedia and Weapon Systems comment that they have optical sights, but could be equipped with a *search* radar, which Weapon Systems state could feed the range and speed into the targeting computer. The radar does not seem to be able to *track* or *lay the guns*. I have therefore added R capability.
 
-An R capability would normally add 2 to the hit rolls, but that would give 5/5/4, which is better than the ZSU-23-4 (5/4/3) and Gepard (5/4/3). Adding one would give 4/4/3, which seems more appropriate.
+An R capability would normally add 2 to the hit rolls, but that would give 5/5/4, which is better than the ZSU-23-4 (5/4/3) and Gepard (5/4/3)! Adding one would give 4/4/3, which seems more appropriate.
 
 Wikipedia states that this is E-band, which 2-3 GHz and corresponds to the UF band.
 
 - [Wikipedia](https://en.wikipedia.org/wiki/Panhard_M3)
 - [Weapon Systems](https://weaponsystems.net/system/532-VDAA)
 
-## M163 Section
+### M163 Section
 
 This is the 20 mm Vulcan mounted on an M113.
 
@@ -147,7 +179,7 @@ Werrell (p. 73) states that the range-only radar was added in 1984 to the PIVADS
 - [Weapon Systems](https://weaponsystems.net/system/67-M163+Vulcan)
 - [Werrell: Archie to SAM](https://media.defense.gov/2017/Mar/31/2001725225/-1/-1/0/B_0028_WERRELL_ARCHIE_TO_SAM.PDF)
 
-## M167 Battery
+### M167 Battery
 
 This is the 20 mm Vulcan on a trailer mount.
 
@@ -155,7 +187,7 @@ Origen: Air Strike and Puma.
 
 - [Wikipedia](https://en.wikipedia.org/wiki/M167_VADS)
 
-## ZU-23 Battery
+### ZU-23 Battery
 
 This is the twin 23 mm gun on a towed mount.
 
@@ -165,7 +197,7 @@ Air Strike has VPs of 5/4/3. TSOH has VPs of 6/4/2. I adopt the TSOH values.
 
 - [Wikipedia](https://en.wikipedia.org/wiki/ZU-23-2)
 
-## Mobile ZU-23 Section
+### Mobile ZU-23 Section
 
 This is the twin 23 mm gun mounted on a truck.
 
@@ -175,7 +207,7 @@ Air Strike has hit rolls of 2/2/1 and VPs of 5/4/3. TSOH and Puma have hit rolls
 
 - [Wikipedia](https://en.wikipedia.org/wiki/ZU-23-2)
 
-## ZSU-23-4 Section
+### ZSU-23-4 Section
 
 This is the Shilka SPAAG.
 
@@ -183,11 +215,13 @@ Origen: Air Strike and Puma
 
 - [Wikipedia](https://en.wikipedia.org/wiki/ZSU-23-4_Shilka)
 
-## LAV-AD Section
+### LAV-AD Section
 
 This is the air-defense version of the LAV-25, with a 25 mm cannon and eight Stingers.
 
 Origin: Air Strike and Puma.
+
+Air Strike has the Bradley Blazer, but this did not enter service. However, the LAV-AD has a similar turret and we use this as a substitute.
 
 The Blazer turret can be equipped with radar, but the LAV-AD has it. Instead, Global Security states that it has a day-and-night TV/FLIR capability.
 
@@ -195,7 +229,7 @@ The Blazer turret can be equipped with radar, but the LAV-AD has it. Instead, Gl
 - [Global Security](https://www.globalsecurity.org/military/library/report/1991/DCR.htm
 )
 
-## M53/59 Section
+### M53/59 Section
 
 This is the Czech mobile twin 30 mm SPAAG.
 
@@ -207,7 +241,7 @@ If the VADS is classified as armored, should this be armored too? Perhaps the di
 
 - [Wikipedia](https://en.wikipedia.org/wiki/M53/59_Praga)
 
-## AMX-30 SA Section
+### AMX-30 SA Section
 
 This has two 30 mm Hispano-Suiza cannons in a turret on an adapted AMX-30 tank.
 
@@ -228,7 +262,7 @@ Air Strike has the AMX-30 DCA with W/VF radar. Puma has the AMX-13 with a W/LF r
 - [Wikipedia on 30 mm shells](https://en.wikipedia.org/wiki/30_mm_caliber)
 - [AMX-30SA](https://tank-afv.com/coldwar/Saudi/Saudi-Arabian-Tanks.php)
 
-## Tunguska Section
+### Tunguska Section
 
 This is the 2K22 Tunguska.
 
@@ -238,7 +272,7 @@ Note that the ready missile count
 
 - [Wikipedia](https://en.wikipedia.org/wiki/2K22_Tunguska)
 
-## Pantsir Section
+### Pantsir Section
 
 This is the Pantsir S1 and S1M.
 
@@ -252,7 +286,9 @@ Puma does not give VPs. As an AAA platform, it is similar to the Tunguska, but l
 
 - [Wikipedia](https://en.wikipedia.org/wiki/Pantsir_missile_system)
 
-## Oerlikon GDF Battery
+## Medium AAA
+
+### Oerlikon GDF Battery
 
 This is the Oerlikon GDF 35 mm towed AAA.
 
@@ -260,7 +296,7 @@ Origen: Air Strike and Puma.
 
 - [Wikipedia](https://en.wikipedia.org/wiki/Oerlikon_GDF)
 
-## Gepard Section
+### Gepard Section
 
 This is the Gepard 35 mm SPAAG.
 
@@ -272,7 +308,7 @@ Air Strike has a damage rating of 4. Puma has a damage rating of 5. Comparing to
 
 - [Wikipedia](https://en.wikipedia.org/wiki/Flakpanzer_Gepard)
 
-## M-38 Battery
+### M-38 Battery
 
 This is the Soviet M-1939 or 61-K 37 mm towed gun.
 
@@ -282,7 +318,7 @@ Air Strike has VPs of 5/3/2. TSOH has VPs of 6/4/2. I will adopt the TSOH VPs.
 
 - [Wikipedia](https://en.wikipedia.org/wiki/37_mm_automatic_air_defense_gun_M1939_(61-K))
 
-## Bofers L/60 Battery
+### Bofers L/60 Battery
 
 This is the earlier Bofers 40 mm L/60 towed gun.
 
@@ -292,11 +328,13 @@ Air Strike has VPs of 5/3/2. TSOH has VPs of 6/4/2. I will adopt the TSOH VPs.
 
 - [Wikipedia](https://en.wikipedia.org/wiki/Bofors_40_mm_L/60_gun)
 
-## Bofers L/70 Battery
+### Bofers L/70 Battery
 
 This is the later Bofers 40 mm L/70 towed gun.
 
 Origen: Air Strike and Puma.
+
+Wikipedia states that the L/70 has a longer range than the L/60, but this is not reflected in the given ranges.
 
 Singh (Ch. 4) states that Israel had 200 L/70s and used them with the Super Fledermaus to defend strategic locations.
 
@@ -306,7 +344,7 @@ Wikipedia states that the Netherlands used it the KL/MSS-6720 Flycatcher radar s
 - [Weapon Systems](https://weaponsystems.net/system/932-Bofors%20L/70)
 - [Flycatcher](https://en.wikipedia.org/wiki/Flycatcher_(radar))
 
-## Bofers L/70 BOFI and BOFI-R
+### Bofers L/70 BOFI and BOFI-R
 
 This is Bofers 40 mm L/70 with an improved optical fire-control system, laser rangefinder, proximity-fuzed ammunition and, in the case of the BOFI-R, an integrated all-weather FCR.
 
@@ -316,7 +354,7 @@ Air Power has the BOFI as having an FCR and with hit rolls of 4/4/3. However, ad
 
 Air Strike gives VPs as 8/6/4. A plain L/70 with an FCR-B is 12/8/4.
 
-I don't see a search radar in the BOFI-R.
+I don't see a search radar in photos of the the BOFI-R.
 
 I don't know when the BOFI and BOFI-R became available.
 
@@ -325,7 +363,7 @@ Origen: Air Strike and Puma.
 - [Wikipedia](https://en.wikipedia.org/wiki/Bofors_40_mm_Automatic_Gun_L/70)
 - [Weapon Systems](https://weaponsystems.net/system/932-Bofors%20L/70)
 
-## S-60 Battery
+### S-60 Battery
 
 This is the Soviet S-60 57 mm towed gun.
 
@@ -337,7 +375,9 @@ Air Strike gives the VPs as 6/4/2. TSOH gives them as 8/5/3.
 
 - [Wikipedia](https://en.wikipedia.org/wiki/AZP_S-60)
 
-## KS-12 Battery
+## Heavy AA
+
+### KS-12 Battery
 
 This is the Soviet 85 mm towed gun.
 
@@ -347,7 +387,7 @@ Air Strike gives the VPs as 7/5/3. TSOH gives them as 9/6/5. The TSOH values fit
 
 - [Wikipedia](https://en.wikipedia.org/wiki/85_mm_air_defense_gun_M1939_(52-K))
 
-## KS-19 Battery
+### KS-19 Battery
 
 This is the Soviet 100 mm towed gun.
 
@@ -357,6 +397,6 @@ Air Strike gives VPs as 8/5/3, but this seems undervalues compared to the TSOH v
 
 - [Wikipedia](https://en.wikipedia.org/wiki/KS-19)
 
-### TODO
+## TODO
 
 - Mobile ZPU-2 (on truck, BTR-40, or BTR-152)
