@@ -6,4 +6,5 @@
     "python-envs.pythonProjects": [],
     "envFile": "${workspaceFolder}/.env",
     "latex-workshop.formatting.latex": "latexindent",
+    "python.terminal.useEnvFile": true,
 }
