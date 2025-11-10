@@ -3,5 +3,10 @@
     "description": "POL",
     "symbols": "fuel",
     "sightingrange": 24,
-    "defensestrength": "4S"
+    "defensestrength": "4S",
+    "VPs": [
+        15,
+        10,
+        5
+    ]
 }

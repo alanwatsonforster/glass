@@ -1,0 +1,12 @@
+{
+    "name": "railroad hex",
+    "description": "railroad hex",
+    "symbols": "hex",
+    "sightingrange": 24,
+    "defensestrength": "6S",
+    "VPs": [
+        5,
+        3,
+        2
+    ]
+}

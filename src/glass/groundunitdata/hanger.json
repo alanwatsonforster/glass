@@ -3,5 +3,10 @@
     "description": "hanger",
     "symbols": "hangar",
     "sightingrange": 24,
-    "defensestrength": "5S"
+    "defensestrength": "5S",
+    "VPs": [
+        8,
+        6,
+        4
+    ]
 }

@@ -1,0 +1,12 @@
+{
+    "name": "minor bridge",
+    "description": "minor bridge",
+    "symbols": "hex",
+    "sightingrange": 36,
+    "defensestrength": "12S",
+    "VPs": [
+        18,
+        12,
+        6
+    ]
+}

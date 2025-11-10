@@ -1,0 +1,12 @@
+{
+    "name": "tunnel entrance hex",
+    "description": "tunnel entrance hex",
+    "symbols": "hex",
+    "sightingrange": 0,
+    "defensestrength": "12H",
+    "VPs": [
+        10,
+        4,
+        1
+    ]
+}

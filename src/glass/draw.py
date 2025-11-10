@@ -1667,7 +1667,7 @@ noncountergroundunitsymboldx = 0.6
 noncountergroundunitsymboldy = 0.4
 countergroundunitsymboldx = noncountergroundunitsymboldx * 0.75
 countergroundunitsymboldy = noncountergroundunitsymboldy * 0.75
-groundunitcountersize = 0.6 * math.sqrt(4/3)
+groundunitcountersize = 0.6 * math.sqrt(4 / 3)
 groundunitcountersymboldy = 0.03
 groundunitprotectionlinewidth = "thick"
 groundunitprotectiondy = 0.05
@@ -2087,7 +2087,10 @@ def _drawgroundunitincanvas(
         def drawgunsymbol():
             fx = 0.125
             _drawlinesincanvas(
-                [x + (fx - 0.5) * groundunitsymboldx, x + (fx - 0.5) * groundunitsymboldx],
+                [
+                    x + (fx - 0.5) * groundunitsymboldx,
+                    x + (fx - 0.5) * groundunitsymboldx,
+                ],
                 [y - 0.5 * groundunitsymboldy, y + 0.5 * groundunitsymboldy],
                 linecolor=linecolor,
                 linewidth=groundunitlinewidth,
@@ -2125,7 +2128,9 @@ def _drawgroundunitincanvas(
                 if theta == 0 or theta == 180:
                     return fy0 * groundunitsymboldy
                 else:
-                    return fy1 * groundunitsymboldy + fx * groundunitsymboldx * (_sind(theta) - 1)
+                    return fy1 * groundunitsymboldy + fx * groundunitsymboldx * (
+                        _sind(theta) - 1
+                    )
 
             _drawlinesincanvas(
                 list([x + dx(theta) for theta in theta]),
@@ -2148,7 +2153,9 @@ def _drawgroundunitincanvas(
                 if theta == 0 or theta == 180:
                     return -fy0 * groundunitsymboldy
                 else:
-                    return fy0 * groundunitsymboldy + fx0 * groundunitsymboldx * (_sind(theta) - 1)
+                    return fy0 * groundunitsymboldy + fx0 * groundunitsymboldx * (
+                        _sind(theta) - 1
+                    )
 
             _drawlinesincanvas(
                 list([x + dx(theta) for theta in theta]),
@@ -2169,7 +2176,13 @@ def _drawgroundunitincanvas(
             fx = 0.15
             fy0 = 0.20
             _drawlinesincanvas(
-                [x, x, x - 0.5 * fx * groundunitsymboldx, x + 0.5 * fx * groundunitsymboldx, x],
+                [
+                    x,
+                    x,
+                    x - 0.5 * fx * groundunitsymboldx,
+                    x + 0.5 * fx * groundunitsymboldx,
+                    x,
+                ],
                 [
                     y - fy0 * groundunitsymboldy,
                     y + fy0 * groundunitsymboldy - fx * groundunitsymboldx * _cosd(30),
@@ -2312,17 +2325,25 @@ def _drawgroundunitincanvas(
 
             def dx(theta):
                 if theta < 90 or theta > 270:
-                    return +0.5 * fx * groundunitsymboldx + ry * groundunitsymboldy * _cosd(theta)
+                    return (
+                        +0.5 * fx * groundunitsymboldx
+                        + ry * groundunitsymboldy * _cosd(theta)
+                    )
                 elif theta == 90 or theta == 270:
                     return 0
                 else:
-                    return -0.5 * fx * groundunitsymboldx + ry * groundunitsymboldy * _cosd(theta)
+                    return (
+                        -0.5 * fx * groundunitsymboldx
+                        + ry * groundunitsymboldy * _cosd(theta)
+                    )
 
             def dy(theta):
                 return ry * groundunitsymboldy * _sind(theta)
 
             _drawlinesincanvas(
-                list([x + 0.5 * fx * groundunitsymboldx + dx(theta) for theta in theta]),
+                list(
+                    [x + 0.5 * fx * groundunitsymboldx + dx(theta) for theta in theta]
+                ),
                 list([y - fy * groundunitsymboldy + dy(theta) for theta in theta]),
                 linecolor=linecolor,
                 linewidth=groundunitlinewidth,
@@ -2337,11 +2358,15 @@ def _drawgroundunitincanvas(
 
             def dx(theta):
                 if theta < 90 or theta > 270:
-                    return +fx * groundunitsymboldx + ry * groundunitsymboldy * _cosd(theta)
+                    return +fx * groundunitsymboldx + ry * groundunitsymboldy * _cosd(
+                        theta
+                    )
                 elif theta == 90 or theta == 270:
                     return 0
                 else:
-                    return -fx * groundunitsymboldx + ry * groundunitsymboldy * _cosd(theta)
+                    return -fx * groundunitsymboldx + ry * groundunitsymboldy * _cosd(
+                        theta
+                    )
 
             def dy(theta):
                 return ry * groundunitsymboldy * _sind(theta)
@@ -2370,7 +2395,10 @@ def _drawgroundunitincanvas(
             fy = 0.25
             _drawlinesincanvas(
                 [x - 0.5 * groundunitsymboldx, x + 0.5 * groundunitsymboldx],
-                [y + (fy - 0.5) * groundunitsymboldy, y + (fy - 0.5) * groundunitsymboldy],
+                [
+                    y + (fy - 0.5) * groundunitsymboldy,
+                    y + (fy - 0.5) * groundunitsymboldy,
+                ],
                 linecolor=linecolor,
                 linewidth=groundunitlinewidth,
                 zorder=zorder,
@@ -2427,7 +2455,10 @@ def _drawgroundunitincanvas(
             fy = 0.35
             _drawlinesincanvas(
                 [x, x],
-                [y + (fy - dfy) * groundunitsymboldy, y + (fy + dfy) * groundunitsymboldy],
+                [
+                    y + (fy - dfy) * groundunitsymboldy,
+                    y + (fy + dfy) * groundunitsymboldy,
+                ],
                 linecolor=linecolor,
                 linewidth=groundunitlinewidth,
                 zorder=zorder,
@@ -2449,7 +2480,10 @@ def _drawgroundunitincanvas(
                 dy = ry * groundunitsymboldy * _sind(theta)
                 _drawlinesincanvas(
                     [x - dx, x + dx],
-                    [y + fy * groundunitsymboldy - dy, y + fy * groundunitsymboldy + dy],
+                    [
+                        y + fy * groundunitsymboldy - dy,
+                        y + fy * groundunitsymboldy + dy,
+                    ],
                     linecolor=linecolor,
                     linewidth=groundunitlinewidth,
                     zorder=zorder,
@@ -2789,11 +2823,15 @@ def _drawgroundunitincanvas(
 
             def dx(theta):
                 if theta < 90 or theta > 270:
-                    return +fx * groundunitsymboldx + fy * groundunitsymboldy * _cosd(theta)
+                    return +fx * groundunitsymboldx + fy * groundunitsymboldy * _cosd(
+                        theta
+                    )
                 elif theta == 90 or theta == 270:
                     return 0
                 else:
-                    return -fx * groundunitsymboldx + fy * groundunitsymboldy * _cosd(theta)
+                    return -fx * groundunitsymboldx + fy * groundunitsymboldy * _cosd(
+                        theta
+                    )
 
             def dy(theta):
                 if theta < 90 or theta > 270:
@@ -2990,7 +3028,7 @@ def _drawgroundunitincanvas(
             dx=0,
             dy=+groundunitcountersize * 0.38 - groundunitcountersymboldy,
             size="scriptsize",
-            #weight="demibold",
+            # weight="demibold",
             textcolor=linecolor,
             alignment="center",
             verticalalignment="center",
@@ -3001,7 +3039,10 @@ def _drawgroundunitincanvas(
         if "S" in text:
             text = text.replace("S", "")
         else:
-            text = text.replace("H", "\u0332") 
+            if text.startswith("20H"):
+                text = text.replace("20H", "2\u03320\u0332")
+            else:
+                text = text.replace("H", "\u0332")
         _drawtextincanvas(
             x,
             y,
@@ -3010,7 +3051,7 @@ def _drawgroundunitincanvas(
             dx=0,
             dy=-groundunitcountersize * 0.34 - groundunitcountersymboldy,
             size="normal",
-            #weight="demibold",
+            # weight="demibold",
             textcolor=linecolor,
             alignment="center",
             verticalalignment="center",
@@ -3043,8 +3084,8 @@ def _drawgroundunitincanvas(
                 y,
                 text,
                 facing=180,
-                dx=-groundunitsymboldy * 0.35 * math.sqrt(4/3),
-                dy=-groundunitsymboldx * 0.50 / math.sqrt(4/3),
+                dx=-groundunitsymboldy * 0.35 * math.sqrt(4 / 3),
+                dy=-groundunitsymboldx * 0.50 / math.sqrt(4 / 3),
                 size="tiny",
                 textcolor=linecolor,
                 alignment="left",
@@ -3058,7 +3099,7 @@ def _drawgroundunitincanvas(
                 text,
                 facing=180,
                 dx=0,
-                dy=-groundunitsymboldx * 0.50 / math.sqrt(4/3),
+                dy=-groundunitsymboldx * 0.50 / math.sqrt(4 / 3),
                 size="tiny",
                 textcolor=linecolor,
                 alignment="center",
@@ -3124,7 +3165,7 @@ def _drawgroundunitincanvas(
         elif "air-defense" in symbols:
             sdrawsymbols(["air-defense"])
         elif "artillery" in symbols:
-            drawsymbols(["artillery"])    
+            drawsymbols(["artillery"])
         if counter:
             drawbottomtext("%d" % sightingrange)
         else:
@@ -3171,7 +3212,7 @@ def _drawgroundunitincanvas(
             dxdamage = 0.5 * groundunitcountersize
         else:
             dxname = 0.5 * groundunitsymboldx
-            dxdamage= 0.5 * groundunitsymboldx
+            dxdamage = 0.5 * groundunitsymboldx
         dyname = +0.0
         dydamage = -0.5 * groundunitsymboldy
         if not killed:

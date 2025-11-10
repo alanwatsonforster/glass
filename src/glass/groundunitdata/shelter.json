@@ -3,5 +3,10 @@
     "description": "shelter",
     "symbols": "shelter",
     "sightingrange": 18,
-    "defensestrength": "20H"
+    "defensestrength": "20H",
+    "VPs": [
+        12,
+        8,
+        5
+    ]
 }

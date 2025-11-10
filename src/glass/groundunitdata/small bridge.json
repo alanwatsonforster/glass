@@ -1,0 +1,13 @@
+{
+    "name": "small bridge",
+    "description": "small bridge",
+    "symbols": "bridge",
+    "sightingrange": 24,
+    "defensestrength": "6S",
+    "VPs": [
+        6,
+        4,
+        1
+    ]
+    
+}

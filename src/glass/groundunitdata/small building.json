@@ -1,0 +1,12 @@
+{
+    "name": "small building",
+    "description": "small building",
+    "symbols": "building",
+    "sightingrange": 18,
+    "defensestrength": "3S",
+    "VPs": [
+        4,
+        3,
+        2
+    ]
+}

@@ -1,0 +1,12 @@
+{
+    "name": "village hex",
+    "description": "village hex",
+    "symbols": "hex",
+    "sightingrange": 36,
+    "defensestrength": "3S",
+    "VPs": [
+        2,
+        1,
+        0
+    ]
+}

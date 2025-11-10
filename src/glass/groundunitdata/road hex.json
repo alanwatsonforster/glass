@@ -1,0 +1,12 @@
+{
+    "name": "road hex",
+    "description": "road hex",
+    "symbols": "hex",
+    "sightingrange": 24,
+    "defensestrength": "8S",
+    "VPs": [
+        2,
+        1,
+        0
+    ]
+}

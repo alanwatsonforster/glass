@@ -1,12 +1,12 @@
 {
-    "name": "large building",
-    "description": "large building",
+    "name": "factory",
+    "description": "factory",
     "symbols": "largebuilding",
     "sightingrange": 24,
     "defensestrength": "6S",
     "VPs": [
-        7,
-        5,
-        3
+        20,
+        14,
+        7
     ]
 }

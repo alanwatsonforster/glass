@@ -1,0 +1,12 @@
+{
+    "name": "major bridge",
+    "description": "major bridge",
+    "symbols": "hex",
+    "sightingrange": 48,
+    "defensestrength": "18H",
+    "VPs": [
+        30,
+        20,
+        10
+    ]
+}

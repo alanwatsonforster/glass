@@ -1,0 +1,7 @@
+{
+    "name": "trail hex",
+    "description": "trail hex",
+    "symbols": "hex",
+    "sightingrange": 12,
+    "defensestrength": "6S"
+}

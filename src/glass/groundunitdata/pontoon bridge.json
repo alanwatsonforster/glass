@@ -3,5 +3,10 @@
     "description": "pontoon bridge",
     "symbols": "bridge",
     "sightingrange": 24,
-    "defensestrength": "4S"
+    "defensestrength": "4S",
+    "VPs": [
+        6,
+        3,
+        1
+    ]
 }
