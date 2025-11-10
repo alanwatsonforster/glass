@@ -1,7 +1,7 @@
 {
     "name": "small building",
     "description": "small building",
-    "symbols": "building",
+    "symbols": "smallbuilding",
     "sightingrange": 18,
     "defensestrength": "3S",
     "VPs": [

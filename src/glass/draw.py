@@ -1710,12 +1710,12 @@ def drawgroundunit(
         following strings, which indicate the symbols to be drawn:
         ``"air-defense"``, ``"ammunition"``, ``"antiarmor"``, ``"armor"``,
         ``"artillery"``, ``"barge"``, ``"battery"``, ``"bridge"``,
-        ``"building"``, ``"company"``, ``"fac"`` ``"fixedwing"``, ``"fuel"``,
+        ``"company"``, ``"fac"``, ``"factory"``,``"fixedwing"``, ``"fuel"``,
         ``"gun"``, ``"hangar"``, ``"headquarters"``, ``"heavy"``,
         ``"infantry"``, ``"junk"``, ``"largebuilding"``, ``"light"``,
         ``"locomotive"``, ``"medium"``, ``"missile"``, ``"ordnance"``,
         ``"platoon"``, ``"radar"``, ``"railcar"``, ``"reconnaissance"``,
-        ``"rocket"``, ``"rotarywing"``, ``"section"``,``"shelter"``,
+        ``"rocket"``, ``"rotarywing"``, ``"section"``,``"shelter"``,``"smallbuilding"``,
         ``"squad"``, ``"supply"``, ``"tower"``, ``"transport"``,
         ``"transportation"``, ``"truck"``, and ``unidentified``. The British
         English aliases ``"air-defence"``, ``"antiarmour"``, ``"armour"`` are
@@ -2625,11 +2625,11 @@ def _drawgroundunitincanvas(
                 zorder=zorder,
             )
 
-        def drawbuildingsymbol():
+        def drawsmallbuildingsymbol():
             dx = trucksymboldx
             dy = trucksymboldy
             fy = 0.25
-            f = 0.7
+            f = 0.5
             _drawpolygonincanvas(
                 [
                     x - f * dx,
@@ -2651,6 +2651,31 @@ def _drawgroundunitincanvas(
             )
 
         def drawlargebuildingsymbol():
+            dx = trucksymboldx
+            dy = trucksymboldy
+            fy = 0.25
+            f = 1.0
+            _drawpolygonincanvas(
+                [
+                    x - f * dx,
+                    x - f * dx,
+                    x,
+                    x + f * dx,
+                    x + f * dx,
+                ],
+                [
+                    y - dy,
+                    y + f * (1 - fy) * dy,
+                    y + f * (1 + fy) * dy,
+                    y + f * (1 - fy) * dy,
+                    y - dy,
+                ],
+                linecolor=linecolor,
+                linewidth=groundunitlinewidth,
+                zorder=zorder,
+            )
+
+        def drawfactorysymbol():
             dx = trucksymboldx
             dy = trucksymboldy
             fy = 0.25
@@ -2958,10 +2983,12 @@ def _drawgroundunitincanvas(
             drawbargesymbol()
         if "junk" in symbols:
             drawjunksymbol()
-        if "building" in symbols:
-            drawbuildingsymbol()
+        if "smallbuilding" in symbols:
+            drawsmallbuildingsymbol()
         if "largebuilding" in symbols:
             drawlargebuildingsymbol()
+        if "factory" in symbols:
+            drawfactorysymbol()
         if "bridge" in symbols:
             drawbridgesymbol()
         if "tower" in symbols:
