@@ -292,6 +292,15 @@ Puma does not give VPs. As an AAA platform, it is similar to the Tunguska, but l
 
 This is the Oerlikon GDF 35 mm towed AAA.
 
+What about making the battery/section from the Oerlikon to the Gepard only +1? Taking FCR-B/C into account, this would give the Oerlikon hit rolls compared to others of:
+- ZU-23: 4/3/2 (2000 RPM/mount)
+- Oerlikon: 4/3/2 (1100 RPM/mount)
+- M38: 3/2/1
+- L/60: 2/2/1 (120 RPM/mount)
+- L/70: 3/3/2 (350 RPM/mount)
+- L/70 BOFI: 4/4/3
+That doesn't seem to bad. It's better than the earlier L/60 and M38, slightly better than the slightly earlier L/70, and slightly worse than the later BOFI. It's the same as the ZU-23, but this has a much higher ROF (2000 RPM/mount)) and probably worse sights.
+
 Origen: Air Strike and Puma.
 
 - [Wikipedia](https://en.wikipedia.org/wiki/Oerlikon_GDF)
@@ -350,11 +359,14 @@ This is Bofers 40 mm L/70 with an improved optical fire-control system, laser ra
 
 Origen: Air Strike and Puma.
 
-Air Power has the BOFI as having an FCR and with hit rolls of 4/4/3. However, adding an FCR-B/C to a plain L/70 battery will give effective hit rolls of 5/5/4. I adopt 4/4/3 for the BOFI and 5/5/4 for the BOFI-R.
+Air Power has the BOFI as having an FCR and with hit rolls of 4/4/3. However, adding an FCR-B/C to a plain L/70 battery will give effective hit rolls of 5/5/4. 
+
+I take the L/70 and add +1 for proximity fuzes, +1 for BOFI laser rangefinding, and another +1 for BOFI-R radar.
+I adopt 4/4/3 for the BOFI and 5/5/4 for the BOFI-R.
 
 Air Strike gives VPs as 8/6/4. A plain L/70 with an FCR-B is 12/8/4.
 
-I don't see a search radar in photos of the the BOFI-R.
+I don't see a search radar in photos of the BOFI-R.
 
 I don't know when the BOFI and BOFI-R became available.
 
@@ -400,3 +412,53 @@ Air Strike gives VPs as 8/5/3, but this seems undervalues compared to the TSOH v
 ## TODO
 
 - Mobile ZPU-2 (on truck, BTR-40, or BTR-152)
+
+## Comparison of AAA Batteries
+
+These are the original values from Air Strike, EOG, and TSOH.
+
+|Type|Caliber|Range|Altitude|Hit Rolls|Damage|RPM/mount|Velocity|Suggestion|
+|---|---|---|---|---|---|---|---|---|
+|M55|12.7 mm|2/3/4|5|5/4/3|2|
+|ZPU-1|14.5 mm|2/3/5|6|3/2/1|1|
+|ZPU-2|14.5 mm|2/3/5|6|4/3/2|1|
+|ZPU-4 AS|14.5 mm|2/3/5|6|5/4/3|2|
+|ZPU-4 TSOH|14.5 mm|2/3/5|6|4/3/2|2|
+|TCM-20|20 mm|2/4/6|8|4/4/3|2|||
+|Rh-202|20 mm|2/4/6|8|5/4/3|2|||
+|M167 (R)|20 mm|2/4/6|8|6/5/4|3|||
+|ZU-23|23 mm|2/5/8|9|4/3/2|2|2000|980|4/3/2|
+|GDF|35 mm|4/8/10|12|5/4/3|4|1100|1175|5/3/2|
+|M-38|37 mm|4/8/11|12|3/2/1|4|165|880|3/2/1|
+|Bofers L/60|40 mm|4/8/12|15|2/2/1|4|135|865|3/2/1|
+|Bofers L/70|40 mm|4/8/12|15|3/3/2|4|330|1000|4/3/2|
+|BOFI (W)|40 mm|4/8/12|15|4/4/3|4|330|1000|5/3/2|
+|S-60|57 mm|5/10/15|18|2/2/1|5|110|1000|4/3/2|
+|KS-12|85 mm|6/12/18|27|2/1/0|6|||
+|KS-19|100 mm|7/14/21|39|1/1/0|6|
+
+Principal: hit rolls should depend on
+
+- RPM/mount
+- Muzzle velocity
+- Gunsight
+- Proximity fuzes
+
+and damage should depend on caliber.
+
+Suggestion:
+- S-60 = 2/2/1 (lowest RPM) = YES
+- M-38 = L/60 = 3/2/1 = YES
+- L/70 = 4/3/2 (better RPM and better velocity)
+- BOFI = 5/4/3 (like L/70, but laser ranging and proximity fuzes)
+- ZU-23 = 6/5/4 (like L/70, but much better RPM)
+- GDF = 5/4/3 (like L/70, but better RPM)
+
+If we are to have a +1 modifier from section to battery, with the Gepard has to be 4/3/2 or the GDF (without FCR) has to be 4/3/2. Or we abandon the idea that the modifier is always +1.
+
+Base at zero range is 5 or more = +2 otherwise +1.
+
+The current ratings have the GDF being awesome. Perhaps the only adjustment needed is L/60 = M-38?
+
+
+

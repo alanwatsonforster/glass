@@ -3,7 +3,7 @@
     "description": "M167 20 mm gatling towed air-defense battery",
     "symbols": "air-defense/gun/light/battery",
     "lowertext": "20×6",
-    "defensestrength": "3H",
+    "defensestrength": "3S",
     "sightingrange": 12,
     "aaa": {
         "type": "20×6",
