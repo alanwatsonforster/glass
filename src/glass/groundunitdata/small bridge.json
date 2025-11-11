@@ -1,7 +1,7 @@
 {
     "name": "small bridge",
     "description": "small bridge",
-    "symbols": "bridge",
+    "symbols": "hex",
     "sightingrange": 24,
     "defensestrength": "6S",
     "VPs": [
@@ -9,5 +9,4 @@
         4,
         1
     ]
-    
 }

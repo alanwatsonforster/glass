@@ -5,6 +5,6 @@
     "python-envs.defaultPackageManager": "ms-python.python:conda",
     "python-envs.pythonProjects": [],
     "envFile": "${workspaceFolder}/.env",
-    "latex-workshop.formatting.latex": "latexindent",
     "python.terminal.useEnvFile": true,
+    "latex-workshop.formatting.latexindent.path": "",
 }

@@ -2,9 +2,8 @@
     "name": "dam",
     "description": "dam",
     "symbols": "hex",
-    // See Air Strike scenario G-12
-    "sightingrange": 0,
-    "defensestrength": "30H",
+    "sightingrange": 24,
+    "defensestrength": "20H",
     "VPs": [
         15,
         10,

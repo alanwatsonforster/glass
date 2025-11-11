@@ -1,0 +1,13 @@
+{
+    "name": "transport airplane",
+    "description": "transport airplane",
+    "symbols": "fixedwing",
+    "lowertext": "C",
+    "defensestrength": "3S",
+    "sightingrange": 0,
+    "VPs": [
+        0,
+        0,
+        0
+    ]
+}

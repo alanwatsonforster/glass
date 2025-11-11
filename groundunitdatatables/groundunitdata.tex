@@ -6,25 +6,26 @@
 \input{../src/glass/aircraftdata/style.tex}
 
 \runningtitle{Ground Unit Data}
-\setcounter{secnumdepth}{0} 
-\setcounter{tocdepth}{1} 
+\setcounter{secnumdepth}{0}
+\setcounter{tocdepth}{1}
 
 \setlength{\tabcolsep}{0.4em}
 
-\newcommand{\groundunittype}[1]{\subsection{#1}}
-
 \begin{document}
 
-\title{Air Power Ground Unit Data}
+\title{Air Power Ground Unit and Ground Target Data}
 \author{Alan Watson Forster}
-\date{19 September 2025}
+\date{10 November 2025}
 
 \maketitle
 
 \twocolumn
-\section{Ground Units}
 
-The document describes the properties of ground units in the game and their correspondence with real combat formations.
+\section{Introduction}
+
+The document describes the properties of ground units and ground target in the game. Ground \emph{units} are combat formations such as infantry, armor, AAA, SAM launchers, and radars. Ground \emph{targets} are infrastructure such as bridges and buildings.
+
+\section{Ground Units}
 
 \paragraph{Properties.}
 All ground units have these properties: an echelon; a defense strength; a classification as a hard or soft target; a sighting range in hexes; and the VPs awarded for K/2D/D damage. Many units also have properties related to their air-defense capabilities.
@@ -47,9 +48,9 @@ Infantry units and towed units may be associated with a vehicular transport unit
 
 \paragraph{Representation.}
 
-Figures \ref{figure:ground-combat-units}, \ref{figure:aaa-units}, and \ref{figure:sam-launcher-units} show the graphical representation of the ground-combat units. 
+Figures \ref{figure:ground-combat-units}, \ref{figure:aaa-units}, and \ref{figure:sam-launcher-units} show the graphical representation of the ground-combat units.
 
-The representation mainly uses NATO symbols, including those for infantry, armor, air defense, guns, missiles, tube artillery, and rocket artillery. Two additions are that a rectangle denotes trucks and other mobile units and the letter T designates a transport capacity (e.g., APCs, IFVs, and trucks). 
+The representation mainly uses NATO symbols, including those for infantry, armor, air defense, guns, missiles, tube artillery, and rocket artillery. Two additions are that a rectangle denotes trucks and other mobile units and the letter T designates a transport capacity (e.g., APCs, IFVs, and trucks).
 
 The letters H, M, and L in a lower position denote heavy, medium, and light, and refer to the protection class (for AFV units), the AAA class (for AAA units), or the load capacity (for trucks).
 
@@ -234,7 +235,6 @@ AAA units are specialized in the destruction of attacking aircraft with guns. Ta
     \label{table:aaa-units}
 \end{table*}
 
-
 \begin{figure*}
     \centering
     \includegraphics[width=0.8\linewidth]{figure-aaa.png}
@@ -242,14 +242,12 @@ AAA units are specialized in the destruction of attacking aircraft with guns. Ta
     \label{figure:aaa-units}
 \end{figure*}
 
-\section{Ground Targets}
+\section{SAM Launcher Units}
 
-\begin{figure*}
-    \centering
-    \includegraphics[width=0.8\linewidth]{figure-ground-targets.png}
-    \caption{Ground Targets}
-    \label{figure:grount-targets}
-\end{figure*}
+\section{Radar Units}
+\section{CCU Units}
+
+\section{Ground Targets}
 
 \begin{table*}
     \caption{Ground Targets}
@@ -259,10 +257,28 @@ AAA units are specialized in the destruction of attacking aircraft with guns. Ta
     \label{table:ground-targets}
 \end{table*}
 
+\begin{figure*}
+    \centering
+    \includegraphics[width=0.8\linewidth]{figure-ground-targets.png}
+    \caption{Ground Targets}
+    \label{figure:ground-targets}
+\end{figure*}
+
+\paragraph{Properties.}
+
+All ground targets have these properties: a defense strength; a classification as a hard or soft target; a sighting range in hexes; and the VPs awarded for K/2D/D damage. These properties are shown in Table~\ref{table:ground-targets}.
+
+\paragraph{Representation.}
+
+Some ground targets are represented by counters and others are represented by features on the maps. Figure \ref{figure:ground-targets} show the graphical representation of the counters, which mainly uses adapted NATO symbols.
+
+\paragraph{Bridges.}
+
+Unless otherwise indicated in the scenario notes, a major bridge is one that extends over two of more hexes, a minor bridge is one that is confined to a single hex, and a small bridge is where a road crosses a river without a bridge being marked on the map.
+
 \end{document}
 
 \subsection{SAM Units}
-
 
 \begin{figure*}
     \centering
@@ -299,7 +315,6 @@ FCRs are air-defense fire-control radars for towed AAA. The generic FCR units ar
     \item \emph{mobile FCR-A/B/C/D}
 \end{itemize}
 
-
 \begin{table*}
     \caption{Generic Units}
     \centering
@@ -308,19 +323,19 @@ FCRs are air-defense fire-control radars for towed AAA. The generic FCR units ar
     \label{table:generic-units}
 \end{table*}
 
-\twocolumn[\section{AAA Units}]
+\twocolumn[
+\section{AAA Units}]
 
 Table \ref{table:aaa-units} summarizes the properties of the AAA units. Soft and hard defense strengths are suffixed with S and H, respectively. The sighting range is given in hexes.
 
 Figure \ref{figure:aaa-units} shows the graphical representation of the AAA units. Again, the representation uses NATO symbols.
 
-\twocolumn[\section{SAM Launcher Units}]
-
+\twocolumn[
+\section{SAM Launcher Units}]
 
 Table \ref{table:sam-launcher-units} summarizes the properties of the AAA units. Soft and hard defense strengths are suffixed with S and H, respectively. The sighting range is given in hexes.
 
 Figure \ref{figure:sam-launcher-units} shows the graphical representation of the AAA units. Again, the representation uses NATO symbols.
-
 
 \begin{table*}
     \caption{SAM Launcher Units}

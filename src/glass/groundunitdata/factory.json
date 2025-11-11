@@ -2,8 +2,8 @@
     "name": "factory",
     "description": "factory",
     "symbols": "factory",
-    "sightingrange": 24,
-    "defensestrength": "6S",
+    "sightingrange": 18,
+    "defensestrength": "8S",
     "VPs": [
         20,
         14,

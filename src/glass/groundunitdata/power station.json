@@ -1,0 +1,12 @@
+{
+    "name": "power station",
+    "description": "power station",
+    "symbols": "",
+    "defensestrength": "5S",
+    "sightingrange": 18,
+    "VPs": [
+        12,
+        8,
+        4
+    ]
+}

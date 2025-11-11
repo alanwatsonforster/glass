@@ -2,8 +2,7 @@
     "name": "piers hex",
     "description": "piers hex",
     "symbols": "hex",
-    // See Air Strike scenario G-12
-    "sightingrange": 0,
+    "sightingrange": 36,
     "defensestrength": "10H",
     "VPs": [
         8,

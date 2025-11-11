@@ -2785,23 +2785,35 @@ def _drawgroundunitincanvas(
 
         def drawhangarsymbol():
             dx = trucksymboldx * 1.25
-            dy = trucksymboldy / 1.25
-            fy = 0.25
+            dy = trucksymboldy
+            fy = 0.75
+            theta = range(0, 181)
 
-            _drawpolygonincanvas(
+            def _dx(theta):
+                return dx * _cosd(theta)
+
+            def _dy(theta):
+                return dy + fy * dy * (_sind(theta) - 1)
+
+            _drawlinesincanvas(
+                list([x + _dx(theta) for theta in theta]),
+                list([y + _dy(theta) for theta in theta]),
+                linecolor=linecolor,
+                linewidth=groundunitlinewidth,
+                zorder=zorder,
+            )
+            _drawlinesincanvas(
                 [
                     x - dx,
                     x - dx,
-                    x,
                     x + dx,
                     x + dx,
                 ],
                 [
+                    y + dy * (1 - fy),
                     y - dy,
-                    y + (1 - fy) * dy,
-                    y + (1 + fy) * dy,
-                    y + (1 - fy) * dy,
                     y - dy,
+                    y + dy * (1 - fy),
                 ],
                 linecolor=linecolor,
                 linewidth=groundunitlinewidth,
