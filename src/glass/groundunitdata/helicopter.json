@@ -3,7 +3,7 @@
     "description": "helicopter",
     "symbols": "rotarywing",
     "defensestrength": "3S",
-    "sightingrange": 0,
+    "sightingrange": 12,
     "VPs": [
         0,
         0,

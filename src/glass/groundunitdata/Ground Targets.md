@@ -22,7 +22,7 @@
 
 - Air Strike Scenario H-22
 - Defense is 3S
-- Sighting range is not given
+- Sighting range is not given, but in the helicopter data table most have a sighting range of 12.
 
 ## Large Building
 
