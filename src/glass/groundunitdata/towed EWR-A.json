@@ -2,7 +2,7 @@
     "name": "towed EWR-A",
     "description": "early-warning control radar (type A)",
     "symbols": "air-defense/radar",
-    "lowertext": "EWR-A",
+    "text": "EWR-A",
     "sightingrange": 12,
     "defensestrength": "2S"
 }

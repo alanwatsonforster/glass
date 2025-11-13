@@ -4,7 +4,7 @@
     "name": "SA-15",
     "description": "SA-15 air-defense squad",
     "symbols": "air-defense/missile/armor/squad",
-    "lowertext": "SA-15",
+    "text": "SA-15",
     "sightingrange": 12,
     "defensestrength": "4H",
     "sam": {

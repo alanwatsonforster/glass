@@ -4,7 +4,7 @@
     "name": "SA-8B",
     "description": "SA-8B air-defense squad",
     "symbols": "air-defense/missile/armor/squad",
-    "lowertext": "SA-8B",
+    "text": "SA-8B",
     "sightingrange": 12,
     "defensestrength": "4H",
     "sam": {

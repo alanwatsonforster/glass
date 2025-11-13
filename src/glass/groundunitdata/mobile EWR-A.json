@@ -2,7 +2,7 @@
     "name": "mobile EWR-A",
     "description": "mobile early-warning control radar (type A)",
     "symbols": "air-defense/radar/truck",
-    "lowertext": "EWR-A",
+    "text": "EWR-A",
     "sightingrange": 12,
     "defensestrength": "2S"
 }

@@ -2,7 +2,7 @@
     "name": "Tunguska",
     "description": "Tunguska dual 30 mm and SA-19 self-propelled air-defense section",
     "symbols": "air-defense/gun/light/missile/armor/section",
-    "lowertext": "30×2/SA-19",
+    "text": "30×2/SA-19",
     "defensestrength": "4H",
     "sightingrange": 12,
     "aaa": {
@@ -36,5 +36,9 @@
         "radarlockon": 8,
         "opticallockon": 7
     },
-    "VPs": [ 10, 8, 6 ]
+    "VPs": [
+        10,
+        8,
+        6
+    ]
 }

@@ -30,8 +30,7 @@ class GroundUnit(glass.element.Element):
         hexcode,
         type=None,
         symbols=None,
-        uppertext=None,
-        lowertext=None,
+        text=None,
         aaaclass=None,
         aaarange=None,
         aaadamagerating=None,
@@ -60,10 +59,8 @@ class GroundUnit(glass.element.Element):
                 data = _loaddata(type)
                 if symbols is None and "symbols" in data:
                     symbols = data["symbols"]
-                if uppertext is None and "uppertext" in data:
-                    uppertext = data["uppertext"]
-                if lowertext is None and "lowertext" in data:
-                    lowertext = data["lowertext"]
+                if text is None and "text" in data:
+                    text = data["text"]
                 if "aaa" in data:
                     aaa = data["aaa"]
                     if aaaclass is None and "class" in aaa:
@@ -166,8 +163,7 @@ class GroundUnit(glass.element.Element):
             )
 
             self._symbols = symbols
-            self._uppertext = uppertext
-            self._lowertext = lowertext
+            self._text = text
             self._counter = counter
             self._stack = stack
 

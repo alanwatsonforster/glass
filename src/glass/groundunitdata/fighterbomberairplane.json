@@ -2,5 +2,5 @@
     "name": "fighterbomberairplane",
     "description": "fighter/bomber airplane",
     "symbols": "fixedwing",
-    "lowertext": "F/B"
+    "text": "F/B"
 }

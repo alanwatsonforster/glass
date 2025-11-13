@@ -4,7 +4,7 @@
     "name": "SA-10A",
     "description": "SA-10A air-defense battery",
     "symbols": "air-defense/missile/truck/battery",
-    "lowertext": "SA-10A",
+    "text": "SA-10A",
     "sightingrange": 24,
     "defensestrength": "4H",
     "sam": {

@@ -2,7 +2,7 @@
     "name": "SA-2E",
     "description": "SA-2E air-defense battery",
     "symbols": "air-defense/missile/battery",
-    "lowertext": "SA-2E",
+    "text": "SA-2E",
     "sightingrange": 18,
     "defensestrength": "4S",
     "sam": {

@@ -2,7 +2,7 @@
     "name": "M163",
     "description": "M163 20 mm gatling self-propelled air-defense section",
     "symbols": "air-defense/gun/light/armor/section",
-    "lowertext": "20×6",
+    "text": "20×6",
     "defensestrength": "4H",
     "sightingrange": 12,
     "aaa": {
@@ -23,5 +23,9 @@
         "fcrclass": "R",
         "fcrfrequency": "HF"
     },
-    "VPs": [8, 6, 5]
+    "VPs": [
+        8,
+        6,
+        5
+    ]
 }

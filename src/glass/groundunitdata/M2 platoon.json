@@ -2,7 +2,7 @@
     "name": "M2",
     "description": "M2 12.7 mm air-defense platoon",
     "symbols": "air-defense/gun/light/infantry/platoon",
-    "lowertext": "12.7",
+    "text": "12.7",
     "defensestrength": "3S",
     "sightingrange": 12,
     "aaa": {
@@ -21,5 +21,9 @@
         "maximumrelativealtitude": 5,
         "damagerating": 1
     },
-    "VPs": [ 3, 2, 1 ]
+    "VPs": [
+        3,
+        2,
+        1
+    ]
 }

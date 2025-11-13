@@ -2,7 +2,7 @@
     "name": "SA-19",
     "description": "SA-19 air-defense squad",
     "symbols": "air-defense/missile/armor/squad",
-    "lowertext": "SA-19",
+    "text": "SA-19",
     "sightingrange": 12,
     "defensestrength": "4H",
     "sam": {

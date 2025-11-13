@@ -2,7 +2,7 @@
     "name": "M167",
     "description": "M167 20 mm gatling towed air-defense battery",
     "symbols": "air-defense/gun/light/battery",
-    "lowertext": "20×6",
+    "text": "20×6",
     "defensestrength": "3S",
     "sightingrange": 12,
     "aaa": {
@@ -23,5 +23,9 @@
         "fcrclass": "R",
         "fcrfrequency": "HF"
     },
-    "VPs": [7, 5, 4]
+    "VPs": [
+        7,
+        5,
+        4
+    ]
 }

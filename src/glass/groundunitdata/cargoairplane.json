@@ -2,5 +2,5 @@
     "name": "cargoairplane",
     "description": "cargo airplane",
     "symbols": "fixedwing",
-    "lowertext": "C"
+    "text": "C"
 }

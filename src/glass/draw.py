@@ -326,7 +326,7 @@ def drawhexlabel(x, y, label, dy=0.35, size="small", textcolor="lightgrey", **kw
         defaults to "lightgrey"
     :return: ``None``
     """
-    drawtext(
+    drawlowertext(
         x, y, label, facing=90, dx=0, dy=dy, size=size, textcolor=textcolor, **kwargs
     )
     return
@@ -351,7 +351,7 @@ def drawsheetlabel(x, y, label, dy=-0.05, size="HUGE", textcolor="lightgrey", **
         defaults to "lightgrey"
     :return: ``None``
     """
-    drawtext(
+    drawlowertext(
         x, y, label, facing=90, dx=0, dy=dy, size=size, textcolor=textcolor, **kwargs
     )
     return
@@ -458,7 +458,7 @@ def drawdart(x, y, size, facing, dx=0, dy=0, **kwargs):
     )
 
 
-def drawtext(x, y, text, facing, dx=0, dy=0, **kwargs):
+def drawlowertext(x, y, text, facing, dx=0, dy=0, **kwargs):
     """
     Draw a text.
 
@@ -793,7 +793,7 @@ def _drawtextincanvas(
     **kwargs,
 ):
     """
-    The counterpart of :func:`drawtext` in canvas coordinates.
+    The counterpart of :func:`drawlowertext` in canvas coordinates.
     """
     x = x + dx * _sind(facing) + dy * _cosd(facing)
     y = y - dx * _cosd(facing) + dy * _sind(facing)
@@ -1148,7 +1148,7 @@ def _drawannotation(
         textdx = +textdx
     else:
         raise RuntimeError("invalid text position %r" % textposition)
-    drawtext(
+    drawlowertext(
         x,
         y,
         text,
@@ -1680,8 +1680,7 @@ def drawgroundunit(
     sighted,
     identified,
     symbols,
-    uppertext,
-    lowertext,
+    text,
     sightingrange,
     defensestrength,
     protectionclass,
@@ -1720,10 +1719,9 @@ def drawgroundunit(
         ``"transportation"``, ``"truck"``, and ``unidentified``. The British
         English aliases ``"air-defence"``, ``"antiarmour"``, ``"armour"`` are
         also allowed.
-    :param uppertext:
-    :param lowertext:
-        The ``uppertext`` and ``lowertext`` arguments are strings that we drawn
-        in the upper and lower positions in the ground unit.
+    :param text:
+        The ``text`` argument as a strings that we drawn
+        in an appropriate position according to the type of the ground unit.
     :param protectionclass:
         The ``protectionclass`` argument is must be ``None``, ``"entrenched"``,
         or ``"bunkered"``. It indicates if the unit is entrenched or bunkered.
@@ -1751,8 +1749,7 @@ def drawgroundunit(
         sighted,
         identified,
         symbols,
-        uppertext,
-        lowertext,
+        text,
         sightingrange,
         defensestrength,
         protectionclass,
@@ -1771,8 +1768,7 @@ def _drawgroundunitincanvas(
     sighted,
     identified,
     symbols,
-    uppertext,
-    lowertext,
+    text,
     sightingrange,
     defensestrength,
     protectionclass,
@@ -2949,9 +2945,6 @@ def _drawgroundunitincanvas(
                 zorder=zorder,
             )
 
-        def drawaircraftsymbol(text):
-            drawuppertext(text)
-
         # Draw missile and air defences first, since air defense missile is
         # different to surface-to-surface missile.
         if "missile" in symbols:
@@ -3058,26 +3051,7 @@ def _drawgroundunitincanvas(
         elif "company" in symbols or "battery" in symbols:
             drawcompany()
 
-    def drawuppertext(text):
-        _drawtextincanvas(
-            x,
-            y,
-            text,
-            facing=90,
-            dx=0,
-            dy=+groundunitsymboldy * 0.35,
-            size="tiny",
-            textcolor=linecolor,
-            alignment="center",
-            verticalalignment="center",
-            zorder=zorder,
-        )
-
     def drawlowertext(text):
-        if counter:
-            size = "tiny"
-        else:
-            size = "scriptsize"
         _drawtextincanvas(
             x,
             y,
@@ -3085,7 +3059,7 @@ def _drawgroundunitincanvas(
             facing=90,
             dx=0,
             dy=-groundunitsymboldy * 0.425,
-            size=size,
+            size="notsotiny",
             textcolor=linecolor,
             alignment="center",
             verticalalignment="baseline",
@@ -3132,10 +3106,6 @@ def _drawgroundunitincanvas(
         )
 
     def drawmiddletext(text):
-        if counter:
-            size = "tiny"
-        else:
-            size = "scriptsize"
         _drawtextincanvas(
             x,
             y,
@@ -3143,7 +3113,7 @@ def _drawgroundunitincanvas(
             facing=90,
             dx=0,
             dy=-groundunitsymboldy * 0.01,
-            size=size,
+            size="notsotiny",
             textcolor=linecolor,
             alignment="center",
             verticalalignment="center",
@@ -3219,11 +3189,13 @@ def _drawgroundunitincanvas(
 
     if identified:
         drawsymbols(symbols)
-        if lowertext is not None:
-            if counter:
-                drawtoptext(lowertext)
+        if text is not None:
+            if "air-defense" not in symbols:
+                drawlowertext(text)
+            elif counter:
+                drawtoptext(text)
             else:
-                drawrighttext(lowertext)
+                drawrighttext(text)
         if counter:
             drawbottomtext("%s-%d" % (defensestrength, sightingrange))
     elif sighted:

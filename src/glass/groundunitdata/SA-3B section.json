@@ -4,7 +4,7 @@
     "name": "SA-3B",
     "description": "SA-3B air-defense section",
     "symbols": "air-defense/missile/truck/section",
-    "lowertext": "SA-3B",
+    "text": "SA-3B",
     "sightingrange": 18,
     "defensestrength": "4S",
     "sam": {

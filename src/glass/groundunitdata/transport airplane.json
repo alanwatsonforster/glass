@@ -2,7 +2,7 @@
     "name": "transport airplane",
     "description": "transport airplane",
     "symbols": "fixedwing",
-    "lowertext": "C",
+    "text": "C",
     "defensestrength": "3S",
     "sightingrange": 0,
     "VPs": [

@@ -2,7 +2,7 @@
     "name": "Gepard",
     "description": "Gepard twin 35 mm self-propelled air-defense section",
     "symbols": "air-defense/gun/medium/armor/section",
-    "lowertext": "35×2",
+    "text": "35×2",
     "defensestrength": "4H",
     "sightingrange": 12,
     "aaa": {
@@ -23,5 +23,9 @@
         "fcrclass": "W",
         "fcrfrequency": "VF"
     },
-    "VPs": [ 11, 8, 6 ]
+    "VPs": [
+        11,
+        8,
+        6
+    ]
 }

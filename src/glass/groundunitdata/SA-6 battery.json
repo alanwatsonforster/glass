@@ -4,7 +4,7 @@
     "name": "SA-6",
     "description": "SA-6 air-defense battery",
     "symbols": "air-defense/missile/armor/battery",
-    "lowertext": "SA-6",
+    "text": "SA-6",
     "sightingrange": 12,
     "defensestrength": "6H",
     "sam": {

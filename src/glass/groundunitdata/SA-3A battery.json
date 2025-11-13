@@ -4,7 +4,7 @@
     "name": "SA-3A",
     "description": "SA-3A air-defense battery",
     "symbols": "air-defense/missile/battery",
-    "lowertext": "SA-3A",
+    "text": "SA-3A",
     "sightingrange": 18,
     "defensestrength": "6H",
     "sam": {

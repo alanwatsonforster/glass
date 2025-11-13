@@ -2,7 +2,7 @@
     "name": "ZU-23",
     "description": "ZU-23 twin 23 mm air-defense battery",
     "symbols": "air-defense/gun/light/battery",
-    "lowertext": "23×2",
+    "text": "23×2",
     "defensestrength": "3S",
     "sightingrange": 12,
     "aaa": {
@@ -21,5 +21,9 @@
         "damagerating": 2,
         "maximumrelativealtitude": 9
     },
-    "VPs": [ 5, 4, 3 ]
+    "VPs": [
+        5,
+        4,
+        3
+    ]
 }
