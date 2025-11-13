@@ -14,6 +14,10 @@ def _draw(self):
         speed = None
     else:
         speed = self.speed()
+    if self._bank != None:
+        bank = "B%s" % self._bank
+    else:
+        bank = "WL"
     glass.draw.drawaircraft(
         self.x(),
         self.y(),
@@ -21,6 +25,7 @@ def _draw(self):
         self.altitude(),
         speed,
         self._flighttype,
+        bank,
         self.name(),
         self.damage(),
         self.isinterrainfollowingflight(),

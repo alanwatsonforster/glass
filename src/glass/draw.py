@@ -1338,6 +1338,7 @@ def drawaircraft(
     altitude,
     speed,
     flighttype,
+    bank,
     name,
     damage,
     isinterrainfollowingflight,
@@ -1360,6 +1361,9 @@ def drawaircraft(
         speed of the aircraft.
     :param flighttype:
         The ``flighttype`` argument must be a string giving the flight type of
+        the aircraft.
+    :param bank:
+        The ``bank`` argument must be a string giving the bank of
         the aircraft.
     :param name:
         The ``name`` argument must be a string giving the name of the aircraft.
@@ -1396,7 +1400,7 @@ def drawaircraft(
             x,
             y,
             facing,
-            "cr",
+            "ul",
             name,
             zorder=zorder,
         )
@@ -1404,7 +1408,7 @@ def drawaircraft(
             x,
             y,
             facing,
-            "lr",
+            "ur",
             damage,
             zorder=zorder,
         )
@@ -1412,8 +1416,16 @@ def drawaircraft(
             x,
             y,
             facing,
-            "ul",
+            "cr",
             flighttype[:2],
+            zorder=zorder,
+        )
+        _drawannotation(
+            x,
+            y,
+            facing,
+            "lr",
+            bank,
             zorder=zorder,
         )
         if isinterrainfollowingflight:
@@ -3257,8 +3269,8 @@ def _drawgroundunitincanvas(
             dxname = 0.5 * groundunitsymboldx
             dxdamage = 0.5 * groundunitsymboldx
         dyname = +0.0
-        dydamage = -0.35 * groundunitsymboldy
-        dytext = +0.35 * groundunitsymboldy
+        dydamage = +0.35 * groundunitsymboldy
+        dytext = -0.35 * groundunitsymboldy
         if not killed:
             if x >= x0:
                 if not counter and "air-defense" in symbols and identified:

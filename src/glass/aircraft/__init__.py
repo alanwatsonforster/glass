@@ -142,7 +142,6 @@ class Aircraft(glass.element.Element):
             self._paintscheme = paintscheme
             self._turnsstalled = 0
             self._turnsdeparted = 0
-            self._finishedmoving = True
             self._counter = counter
             self._force = force
             self._enginesmoking = False
