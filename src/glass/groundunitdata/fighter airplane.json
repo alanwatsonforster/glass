@@ -4,5 +4,10 @@
     "symbols": "fixedwing",
     "text": "F",
     "defensestrength": "3S",
-    "sightingrange": 12
+    "sightingrange": 12,
+    "VPs": [
+        0,
+        0,
+        0
+    ]
 }
