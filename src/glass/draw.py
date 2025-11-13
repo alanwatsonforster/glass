@@ -3194,8 +3194,6 @@ def _drawgroundunitincanvas(
                 drawlowertext(text)
             elif counter:
                 drawtoptext(text)
-            else:
-                drawrighttext(text)
         if counter:
             drawbottomtext("%s-%d" % (defensestrength, sightingrange))
     elif sighted:
@@ -3259,9 +3257,24 @@ def _drawgroundunitincanvas(
             dxname = 0.5 * groundunitsymboldx
             dxdamage = 0.5 * groundunitsymboldx
         dyname = +0.0
-        dydamage = -0.5 * groundunitsymboldy
+        dydamage = -0.35 * groundunitsymboldy
+        dytext = +0.35 * groundunitsymboldy
         if not killed:
             if x >= x0:
+                if not counter and "air-defense" in symbols and identified:
+                    _drawtextincanvas(
+                        x,
+                        y,
+                        text,
+                        facing=90,
+                        dx=+dxname - 0.05,
+                        dy=dytext,
+                        size=annotationtextsize,
+                        textcolor=annotationtextcolor,
+                        alignment="left",
+                        verticalalignment="center_baseline",
+                        zorder=zorder,
+                    )
                 _drawtextincanvas(
                     x,
                     y,
@@ -3285,10 +3298,24 @@ def _drawgroundunitincanvas(
                     size=annotationtextsize,
                     textcolor=annotationtextcolor,
                     alignment="left",
-                    verticalalignment="bottom",
+                    verticalalignment="center_baseline",
                     zorder=zorder,
                 )
             else:
+                if not counter and "air-defense" in symbols and identified:
+                    _drawtextincanvas(
+                        x,
+                        y,
+                        text,
+                        facing=90,
+                        dx=-dxname + 0.05,
+                        dy=dytext,
+                        size=annotationtextsize,
+                        textcolor=annotationtextcolor,
+                        alignment="right",
+                        verticalalignment="center_baseline",
+                        zorder=zorder,
+                    )
                 _drawtextincanvas(
                     x,
                     y,
@@ -3299,6 +3326,7 @@ def _drawgroundunitincanvas(
                     size=annotationtextsize,
                     textcolor=annotationtextcolor,
                     alignment="right",
+                    verticalalignment="center_baseline",
                     zorder=zorder,
                 )
                 _drawtextincanvas(
@@ -3311,7 +3339,7 @@ def _drawgroundunitincanvas(
                     size=annotationtextsize,
                     textcolor=annotationtextcolor,
                     alignment="right",
-                    verticalalignment="bottom",
+                    verticalalignment="center_baseline",
                     zorder=zorder,
                 )
 
