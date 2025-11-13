@@ -2,5 +2,7 @@
     "name": "fighterairplane",
     "description": "fighter airplane",
     "symbols": "fixedwing",
-    "text": "F"
+    "text": "F",
+    "defensestrength": "3S",
+    "sightingrange": 12
 }

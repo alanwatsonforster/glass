@@ -14,6 +14,11 @@
 
 - Air Strike counters have 8S-18
 
+## Fighter Airplane
+
+- TSOH Scenario V-12 (MiG-17) and V-25 (F-5)
+- 3S-12
+
 ## Hangar
 
 - Air Strike and TSOH counters have 5S-24
@@ -115,8 +120,10 @@
 
 ## Transport Airplane
 
-- Air Strike Scenario S-5/H-22
-- Defense is 3S
+- Air Strike Scenario S-5/H-22 (An-12)
+- TSOH Scenarion V-25 (C-130)
+- 3S
+- Sighting range is 12 for the C-130, but this seems a little short. 18 is probably more reasonable.
 
 ## Tunnel Entrances
 
