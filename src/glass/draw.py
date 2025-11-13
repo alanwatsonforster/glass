@@ -1714,7 +1714,7 @@ def drawgroundunit(
         ``"gun"``, ``"hangar"``, ``"headquarters"``, ``"heavy"``,
         ``"infantry"``, ``"junk"``, ``"largebuilding"``, ``"light"``,
         ``"locomotive"``, ``"medium"``, ``"missile"``, ``"ordnance"``,
-        ``"platoon"``, ``"radar"``, ``"railcar"``, ``"reconnaissance"``,
+        ``"platoon"``, ``"powerstation"``, ``"radar"``, ``"railcar"``, ``"reconnaissance"``,
         ``"rocket"``, ``"rotarywing"``, ``"section"``,``"shelter"``,``"smallbuilding"``,
         ``"squad"``, ``"supply"``, ``"tower"``, ``"transport"``,
         ``"transportation"``, ``"truck"``, and ``unidentified``. The British
@@ -2626,24 +2626,24 @@ def _drawgroundunitincanvas(
             )
 
         def drawsmallbuildingsymbol():
-            dx = trucksymboldx
-            dy = trucksymboldy
-            fy = 0.25
-            f = 0.5
+            fx0 = +0.15
+            fy0 = -0.35
+            fy1 = 0.0
+            fy2 = 0.07
             _drawpolygonincanvas(
                 [
-                    x - f * dx,
-                    x - f * dx,
+                    x - fx0 * groundunitsymboldx,
+                    x - fx0 * groundunitsymboldx,
                     x,
-                    x + f * dx,
-                    x + f * dx,
+                    x + fx0 * groundunitsymboldx,
+                    x + fx0 * groundunitsymboldx,
                 ],
                 [
-                    y - dy,
-                    y + f * (1 - fy) * dy,
-                    y + f * (1 + fy) * dy,
-                    y + f * (1 - fy) * dy,
-                    y - dy,
+                    y + fy0 * groundunitsymboldy,
+                    y + (fy1 - fy2) * groundunitsymboldy,
+                    y + (fy1 + fy2) * groundunitsymboldy,
+                    y + (fy1 - fy2) * groundunitsymboldy,
+                    y + fy0 * groundunitsymboldy,
                 ],
                 linecolor=linecolor,
                 linewidth=groundunitlinewidth,
@@ -2651,24 +2651,27 @@ def _drawgroundunitincanvas(
             )
 
         def drawlargebuildingsymbol():
-            dx = trucksymboldx
-            dy = trucksymboldy
-            fy = 0.25
-            f = 1.0
+            fx0 = 0.25
+            fx1 = 0.06
+            fy0 = -0.35
+            fy2 = 0.05
+            fy3 = 0.10
             _drawpolygonincanvas(
                 [
-                    x - f * dx,
-                    x - f * dx,
+                    x - fx0 * groundunitsymboldx,
+                    x + fx0 * groundunitsymboldx,
+                    x + fx0 * groundunitsymboldx,
                     x,
-                    x + f * dx,
-                    x + f * dx,
+                    x,
+                    x - fx0 * groundunitsymboldx,
                 ],
                 [
-                    y - dy,
-                    y + f * (1 - fy) * dy,
-                    y + f * (1 + fy) * dy,
-                    y + f * (1 - fy) * dy,
-                    y - dy,
+                    y + fy0 * groundunitsymboldy,
+                    y + fy0 * groundunitsymboldy,
+                    y + (fy2 + fy3) * groundunitsymboldy,
+                    y + (fy2 - fy3) * groundunitsymboldy,
+                    y + (fy2 + fy3) * groundunitsymboldy,
+                    y + (fy2 - fy3) * groundunitsymboldy,
                 ],
                 linecolor=linecolor,
                 linewidth=groundunitlinewidth,
@@ -2676,25 +2679,64 @@ def _drawgroundunitincanvas(
             )
 
         def drawfactorysymbol():
-            dx = trucksymboldx
-            dy = trucksymboldy
-            fy = 0.25
-            _drawpolygonincanvas(
+            fx0 = 0.25
+            fx1 = 0.06
+            fy0 = -0.35
+            fy1 = +0.35
+            fy2 = 0.00
+            fy3 = 0.10
+            _drawlinesincanvas(
                 [
-                    x - dx,
-                    x - dx,
-                    x,
-                    x,
-                    x + dx,
-                    x + dx,
+                    x - fx0 * groundunitsymboldx + fx1 * groundunitsymboldx,
+                    x - fx0 * groundunitsymboldx + fx1 * groundunitsymboldx,
+                    x - fx0 * groundunitsymboldx,
+                    x - fx0 * groundunitsymboldx,
+                    x + fx0 * groundunitsymboldx,
+                    x + fx0 * groundunitsymboldx,
+                    x + 0.5 * fx1 * groundunitsymboldx,
+                    x + 0.5 * fx1 * groundunitsymboldx,
+                    x - fx0 * groundunitsymboldx + fx1 * groundunitsymboldx,
                 ],
                 [
-                    y - dy,
-                    y + (1 + fy) * dy,
-                    y + (1 - fy) * dy,
-                    y + (1 + fy) * dy,
-                    y + (1 - fy) * dy,
-                    y - dy,
+                    y + fy0 * groundunitsymboldy,
+                    y + fy1 * groundunitsymboldy,
+                    y + fy1 * groundunitsymboldy,
+                    y + fy0 * groundunitsymboldy,
+                    y + fy0 * groundunitsymboldy,
+                    y + (fy2 + fy3) * groundunitsymboldy,
+                    y + (fy2 - fy3) * groundunitsymboldy,
+                    y + (fy2 + fy3) * groundunitsymboldy,
+                    y + (fy2 - fy3) * groundunitsymboldy,
+                ],
+                linecolor=linecolor,
+                linewidth=groundunitlinewidth,
+                zorder=zorder,
+            )
+
+        def drawpowerstationsymbol():
+            fx0 = 0.25
+            fx1 = 0.06
+            fy0 = -0.35
+            fy1 = +0.35
+            fy2 = 0.05
+            _drawlinesincanvas(
+                [
+                    x - fx0 * groundunitsymboldx + fx1 * groundunitsymboldx,
+                    x - fx0 * groundunitsymboldx + fx1 * groundunitsymboldx,
+                    x - fx0 * groundunitsymboldx,
+                    x - fx0 * groundunitsymboldx,
+                    x + fx0 * groundunitsymboldx,
+                    x + fx0 * groundunitsymboldx,
+                    x - fx0 * groundunitsymboldx + fx1 * groundunitsymboldx,
+                ],
+                [
+                    y + fy0 * groundunitsymboldy,
+                    y + fy1 * groundunitsymboldy,
+                    y + fy1 * groundunitsymboldy,
+                    y + fy0 * groundunitsymboldy,
+                    y + fy0 * groundunitsymboldy,
+                    y + fy2 * groundunitsymboldy,
+                    y + fy2 * groundunitsymboldy,
                 ],
                 linecolor=linecolor,
                 linewidth=groundunitlinewidth,
@@ -2745,9 +2787,9 @@ def _drawgroundunitincanvas(
         def drawtowersymbol():
             fx0 = 0.125
             fx1 = 0.075
-            fy0 = -0.2
-            fy1 = 0.15
-            fy2 = 0.30
+            fy0 = -0.35
+            fy1 = 0.10
+            fy2 = 0.25
             _drawlinesincanvas(
                 [
                     x - fx0 * groundunitsymboldx,
@@ -2784,36 +2826,24 @@ def _drawgroundunitincanvas(
             )
 
         def drawhangarsymbol():
-            dx = trucksymboldx * 1.25
-            dy = trucksymboldy
-            fy = 0.75
-            theta = range(0, 181)
-
-            def _dx(theta):
-                return dx * _cosd(theta)
-
-            def _dy(theta):
-                return dy + fy * dy * (_sind(theta) - 1)
-
-            _drawlinesincanvas(
-                list([x + _dx(theta) for theta in theta]),
-                list([y + _dy(theta) for theta in theta]),
-                linecolor=linecolor,
-                linewidth=groundunitlinewidth,
-                zorder=zorder,
-            )
-            _drawlinesincanvas(
+            fx0 = 0.35
+            fy0 = -0.35
+            fy1 = 0.0
+            fy2 = 0.05
+            _drawpolygonincanvas(
                 [
-                    x - dx,
-                    x - dx,
-                    x + dx,
-                    x + dx,
+                    x - fx0 * groundunitsymboldx,
+                    x - fx0 * groundunitsymboldx,
+                    x,
+                    x + fx0 * groundunitsymboldx,
+                    x + fx0 * groundunitsymboldx,
                 ],
                 [
-                    y + dy * (1 - fy),
-                    y - dy,
-                    y - dy,
-                    y + dy * (1 - fy),
+                    y + fy0 * groundunitsymboldy,
+                    y + (fy1 - fy2) * groundunitsymboldy,
+                    y + (fy1 + fy2) * groundunitsymboldy,
+                    y + (fy1 - fy2) * groundunitsymboldy,
+                    y + fy0 * groundunitsymboldy,
                 ],
                 linecolor=linecolor,
                 linewidth=groundunitlinewidth,
@@ -2821,16 +2851,18 @@ def _drawgroundunitincanvas(
             )
 
         def drawsheltersymbol():
-            dx = trucksymboldx
-            dy = trucksymboldy
-            fy = 1.5
+            fx0 = 0.30
+            fy0 = -0.35
+            fy1 = 0.30
             theta = range(0, 181)
 
             def _dx(theta):
-                return dx * _cosd(theta)
+                return fx0 * groundunitsymboldx * _cosd(theta)
 
             def _dy(theta):
-                return -dy + fy * dy * _sind(theta)
+                return fy0 * groundunitsymboldy + fy1 * groundunitsymboldy * _sind(
+                    theta
+                )
 
             _drawlinesincanvas(
                 list([x + _dx(theta) for theta in theta]),
@@ -2841,12 +2873,12 @@ def _drawgroundunitincanvas(
             )
             _drawlinesincanvas(
                 [
-                    x - dx,
-                    x + dx,
+                    x - fx0 * groundunitsymboldx,
+                    x + fx0 * groundunitsymboldx,
                 ],
                 [
-                    y - dy,
-                    y - dy,
+                    y + fy0 * groundunitsymboldy,
+                    y + fy0 * groundunitsymboldy,
                 ],
                 linecolor=linecolor,
                 linewidth=groundunitlinewidth,
@@ -3001,6 +3033,8 @@ def _drawgroundunitincanvas(
             drawlargebuildingsymbol()
         if "factory" in symbols:
             drawfactorysymbol()
+        if "powerstation" in symbols:
+            drawpowerstationsymbol()
         if "bridge" in symbols:
             drawbridgesymbol()
         if "tower" in symbols:

@@ -120,6 +120,7 @@ class GroundUnit(glass.element.Element):
                     "smallbuilding",
                     "largebuilding",
                     "factory",
+                    "powerstation",
                     "bridge",
                     "tower",
                     "hangar",
