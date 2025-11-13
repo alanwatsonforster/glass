@@ -2851,7 +2851,7 @@ def _drawgroundunitincanvas(
             )
 
         def drawsheltersymbol():
-            fx0 = 0.30
+            fx0 = 0.25
             fy0 = -0.35
             fy1 = 0.30
             theta = range(0, 181)
