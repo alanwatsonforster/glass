@@ -3236,7 +3236,7 @@ def _drawgroundunitincanvas(
         elif "truck" in symbols:
             drawsymbols(["truck"])
         elif "air-defense" in symbols:
-            sdrawsymbols(["air-defense"])
+            drawsymbols(["air-defense"])
         elif "artillery" in symbols:
             drawsymbols(["artillery"])
         if counter:
