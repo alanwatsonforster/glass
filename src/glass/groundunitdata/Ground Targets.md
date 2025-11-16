@@ -1,5 +1,23 @@
 # Ground Targets
 
+## Bunker Entrance
+
+- Requested by Carl
+- BLU-28 from Puma has a hard attack strength of 15, a -1 modifier for penetration, a -4 modifier for LG, and probably a -3 modifier for the bomb-system. This gives 1:1 odds with a modifier of -8 for defense strengths of 11 to 15.
+- BLU-109 from Puma has a hard attack strength of 6, a -1 modifier for penetration, a -4 modifier for LG, and probably a -3 modifier for the bomb-system. This gives 1:1 odds with a modifier of -8 for a defense strength of 5 or 6.
+- Percentage chance of kill with -8 modifier as function of odds:
+  - 1:2: 0%
+  - 1:1: 80%
+  - 3:2: 90%
+  - 2:1: 90%
+- Note that getting to 1:1 odds is the threshold for getting a K with a single weapon.
+- How well might it defend against unguided weapons? Consider dropping 8 x 1000 lb bombs. The FAS will be 4 x 8 * 2/3 = 21. If the defense strength is 14 to 21, that gives 1:1 odds, but without only a -3 modifier for the bomb system. The chance of 2D is 40% and D is 70%.
+- Proposal: defense strength is 15H
+  - 1:1 odds with -8 modifier for GBU-28 = 80% chance of K with a single weapon
+  - 1:3 odds with -8 modifier for BLU-109 = 90% chance of D with a single weapon, but no chance of heavier damage
+  - 1:1 odds with -3 modifier for 8 x 1000 lb = 60% chance of D or more, 40% chance of 2D or more, and 30% chance of K or more. This seems too much. Perhaps say it counts as bunkered against non-guided weapons? That would give x4 modifier and odds of 1:3. This is the lowest odds that allow any damage. The chance is 40% for D.
+- However, consider that an aircraft shelter has a defense strength of 20H.
+
 ## City
 
 - Air Strike "built-up area" in TEC is 5S-36

@@ -1,0 +1,12 @@
+{
+    "name": "bunker entrance",
+    "description": "bunker entrance",
+    "symbols": "bunkerentrance",
+    "defensestrength": "20H",
+    "sightingrange": 12,
+    "VPs": [
+        30,
+        20,
+        10
+    ]
+}

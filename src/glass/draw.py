@@ -70,6 +70,7 @@ following values are used:
 
 import math
 import pickle
+import re
 
 import matplotlib.pyplot as plt
 import matplotlib.patches as patches
@@ -1720,7 +1721,7 @@ def drawgroundunit(
         rectangular outline. The list can also contain any number of the
         following strings, which indicate the symbols to be drawn:
         ``"air-defense"``, ``"ammunition"``, ``"antiarmor"``, ``"armor"``,
-        ``"artillery"``, ``"barge"``, ``"battery"``, ``"bridge"``,
+        ``"artillery"``, ``"barge"``, ``"battery"``, ``"bridge"``, ``"bunkerentrance"``,
         ``"company"``, ``"fac"``, ``"factory"``,``"fixedwing"``, ``"fuel"``,
         ``"gun"``, ``"hangar"``, ``"headquarters"``, ``"heavy"``,
         ``"infantry"``, ``"junk"``, ``"largebuilding"``, ``"light"``,
@@ -2751,6 +2752,60 @@ def _drawgroundunitincanvas(
                 zorder=zorder,
             )
 
+        def drawbunkerentrancesymbol():
+            fx0 = 0.15
+            fx1 = 0.21
+            fy0 = -0.35
+            theta = range(0, 181)
+
+            def _dx(theta, r):
+                return r * _cosd(theta)
+
+            def _dy(theta, r):
+                return r * _sind(theta)
+
+            _drawlinesincanvas(
+                list([x + _dx(theta, fx0 * groundunitsymboldx) for theta in theta]),
+                list(
+                    [
+                        y
+                        + fy0 * groundunitsymboldy
+                        + _dy(theta, fx0 * groundunitsymboldx)
+                        for theta in theta
+                    ]
+                ),
+                linecolor=linecolor,
+                linewidth=groundunitlinewidth,
+                zorder=zorder,
+            )
+            _drawlinesincanvas(
+                list([x + _dx(theta, fx1 * groundunitsymboldx) for theta in theta]),
+                list(
+                    [
+                        y
+                        + fy0 * groundunitsymboldy
+                        + _dy(theta, fx1 * groundunitsymboldx)
+                        for theta in theta
+                    ]
+                ),
+                linecolor=linecolor,
+                linewidth=groundunitlinewidth,
+                zorder=zorder,
+            )
+            _drawlinesincanvas(
+                [
+                    x - fx1 * groundunitsymboldx,
+                    x + fx1 * groundunitsymboldx,
+                ],
+                [
+                    y + fy0 * groundunitsymboldy,
+                    y + fy0 * groundunitsymboldy,
+                ],
+                linecolor=linecolor,
+                linewidth=groundunitlinewidth,
+                zorder=zorder,
+            )
+
         def drawbridgesymbol():
             dx = trucksymboldx
             dy = trucksymboldy
@@ -3040,6 +3095,8 @@ def _drawgroundunitincanvas(
             drawfactorysymbol()
         if "powerstation" in symbols:
             drawpowerstationsymbol()
+        if "bunkerentrance" in symbols:
+            drawbunkerentrancesymbol()
         if "bridge" in symbols:
             drawbridgesymbol()
         if "tower" in symbols:
@@ -3097,11 +3154,9 @@ def _drawgroundunitincanvas(
     def drawbottomtext(text):
         if "S" in text:
             text = text.replace("S", "")
-        else:
-            if text.startswith("20H"):
-                text = text.replace("20H", "2\u03320\u0332")
-            else:
-                text = text.replace("H", "\u0332")
+        elif "H" in text:
+            text = re.sub(r'([0-9])([0-9])H', r'\1' + '\u0332' + r'\2' + '\u0332', text)
+            text = re.sub(r'([0-9])H', r'\1' + '\u0332', text)
         _drawtextincanvas(
             x,
             y,
