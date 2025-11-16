@@ -129,6 +129,9 @@ Fuselage length in 44 ft
 - IR jammer
 - Omnidirectional
 
+## References
+
 - https://airvectors.net/avcobra.html
 - https://en.wikipedia.org/wiki/U.S._helicopter_armament_subsystems#AH-1_Cobra
 - AH-1 Tactical Manual NWP-55-3-AH (June 1986), https://archive.org/details/ah1tacticalmanual/page/n539/mode/2up
+- [Employment Of The AH-1T (Tow) Against The ZSU-23-4](https://www.globalsecurity.org/military/library/report/1984/CSJ.htm)
