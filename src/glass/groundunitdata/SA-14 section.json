@@ -1,0 +1,20 @@
+{
+    "name": "SA-14 section",
+    "description": "SA-14 section",
+    "symbols": "air-defense/missile/infantry/section",
+    "text": "SA-14",
+    "sightingrange": 6,
+    "defensestrength": "5H",
+    "sam": {
+        "type": "SA-14",
+        "ewrfrequency": "MF",
+        "ewrrange": 24,
+        "ttrfrequency": "HF",
+        "ttrrange": 18,
+        "readymissiles": 12,
+        "volleymissiles": 3,
+        "quickreaction": false,
+        "radarlockon": 7,
+        "opticallockon": 6
+    }
+}

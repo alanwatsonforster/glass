@@ -1,0 +1,20 @@
+{
+    "name": "SA-7B section",
+    "description": "SA-7B section",
+    "symbols": "air-defense/missile/infantry/section",
+    "text": "SA-7B",
+    "sightingrange": 6,
+    "defensestrength": "5H",
+    "sam": {
+        "type": "SA-7B",
+        "ewrfrequency": "MF",
+        "ewrrange": 24,
+        "ttrfrequency": "HF",
+        "ttrrange": 18,
+        "readymissiles": 12,
+        "volleymissiles": 3,
+        "quickreaction": false,
+        "radarlockon": 7,
+        "opticallockon": 6
+    }
+}

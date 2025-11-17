@@ -1,19 +1,20 @@
 {
-    // From Puma.
-    // Seems to corresponds to four dual armored TELs.
     "name": "SA-4",
     "description": "SA-4 air-defense battery",
     "symbols": "air-defense/missile/armor/battery",
     "text": "SA-4",
     "sightingrange": 12,
-    "defensestrength": "6H",
+    "defensestrength": "3H",
+    "VPs": [
+        10,
+        6,
+        3
+    ],
     "sam": {
         "type": "SA-4",
-        "ewrfrequency": "VF",
-        "ewrrange": 50,
         "ttrfrequency": "HF",
         "ttrrange": 30,
-        "readymissiles": 4,
+        "readymissiles": 6,
         "volleymissiles": 2,
         "quickreaction": false,
         "radarlockon": 7

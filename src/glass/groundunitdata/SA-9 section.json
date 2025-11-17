@@ -1,6 +1,4 @@
 {
-    // From Puma.
-    // From the ready missile count, this seems to be a single four-missle TEL. That said, the multi-target capability is supprising.
     "name": "SA-9",
     "description": "SA-9 air-defense squad",
     "symbols": "air-defense/missile/armor/squad",

@@ -1,20 +1,23 @@
 {
-    // From Puma.
-    // Seems to corresponds to four triple TELs.
-    "name": "SA-6",
-    "description": "SA-6 air-defense battery",
+    "name": "SA-6B",
+    "description": "SA-6B air-defense battery",
     "symbols": "air-defense/missile/armor/battery",
-    "text": "SA-6",
+    "text": "SA-6B",
     "sightingrange": 12,
     "defensestrength": "6H",
+    "VPs": [
+        12,
+        8,
+        4
+    ],
     "sam": {
-        "type": "SA-6",
+        "type": "SA-6B",
         "ewrfrequency": "MF",
         "ewrrange": 24,
         "ttrfrequency": "HF",
         "ttrrange": 18,
         "readymissiles": 12,
-        "volleymissiles": 3,
+        "volleymissiles": 2,
         "quickreaction": false,
         "radarlockon": 7,
         "opticallockon": 6
