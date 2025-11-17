@@ -23,7 +23,7 @@
 
 \section{Introduction}
 
-The document describes the properties of ground units and ground target in the game. Ground \emph{units} are combat formations such as infantry, armor, AAA, SAM launchers, and radars. Ground \emph{targets} are infrastructure such as bridges and buildings.
+The document describes the properties of ground units and ground targets in the game. Ground \emph{units} are combat formations such as infantry, armor, AAA, SAM launchers, and radars. Ground \emph{targets} are infrastructure such as bridges and buildings.
 
 \section{Ground Units}
 
@@ -159,7 +159,15 @@ Infantry or tank HQ platoons represent the HQ units of companies or battalions. 
 
 \section{AAA Units}
 
-AAA units are specialized in the destruction of attacking aircraft with guns. Table \ref{table:aaa-units} summarizes the properties of AAA units. When comparing these properties, remember that most towed batteries have six to eight guns and most armored or mobile sections have only two guns.
+AAA units are specialized in the destruction of attacking aircraft with guns.Figure~\ref{figure:aaa-units} shows the representation of AAA units as counters and Table \ref{table:aaa-units} summarizes their properties.
+
+\paragraph{Properties.} In addition to the properties common to all ground units, Table \ref{table:aaa-units} gives: the AAA class (light, medium, or heavy); the maximum altitude; the limits of short, medium, and long range in hexes; the hit rolls at short, medium, and long range; the damage rating; whether the unit as an all-weather or ranging-only fire-control radar and its frequency band; whether it has night infrared sights; and whether it is also equipped with a SAM system.
+If the unit does have a SAM, this will be described in detail in the section on SAM launcher units.
+When comparing these properties, remember that most towed batteries have six to eight guns and most armored or mobile sections have only two guns.
+
+\paragraph{FCRs.} Some AAA units have integrated FCRs that give them an all-weather and night capability.
+Most medium and heavy can also use add-on FCRs, described below.
+Units without an FCR (or with a range-only FCR) are limited to visually sighted targets.
 
 \subsection{Light AAA Units}
 
@@ -259,7 +267,10 @@ AAA units are specialized in the destruction of attacking aircraft with guns. Ta
     \label{figure:radar-and-ccu-units}
 \end{figure*}
 
-Medium and heavy AAA batteries can be associated with a fire-control radar (FCR). Table~\ref{table:fcr-units} summarizes the properties of FCR units.
+Most medium and heavy AAA batteries can be associated with an add-on fire-control radar (FCR) which improves their accuracy and allows them to engage unsighted targets at night and in adverse weather.
+Figure~\ref{figure:radar-and-ccu-units} shows the representation of FCR units as counters and Table~\ref{table:fcr-units} summarizes their properties.
+
+\paragraph{Properties.} In addition to the properties common to all ground units, Table~\ref{table:fcr-units} gives: the FCR class and its frequency band.
 
 Examples include:
 \begin{itemize}
@@ -285,18 +296,22 @@ Examples include:
     \label{figure:sam-launcher-units}
 \end{figure*}
 
+SAM launcher units are specialized in the destruction of attacking aircraft with surface-to-air missiles.
+Some combine EWRs to give them an autonomous capability to detect and then engage aircraft. Figure~\ref{figure:sam-launcher-units} shows the representation of SAM launcher units as counters and Table \ref{table:sam-launcher-units} summarizes their properties.
+
+\paragraph{Properties.} In addition to the properties shared by all ground units, Table~\ref{table:sam-launcher-units} gives: the frequency band, range (in mega-hexes) of the EWR, if present, and whether it has a moving-target indicator (MTI) capability; the frequency band and range (in mega-hexes) of the target-tracking radar, if present; the multi-target capability of the unit; the number of ready missiles and the maximum number of missiles in a volley; whether the unit has a quick-reaction capability; its radar and optical lock-on rolls; and whether it is equipped with a gun. If it does have a gun, this will be described in detail in the AAA section.
+
+\paragraph{Echelon.} The echelon of SAM launcher units as squads, sections, or platoons according to their damage resilience (1D, 2D, or 3D, respectively). These do not always coincide with the actual designations used historically. For example, the SA-2 battery in the game corresponds to a battalion in reality.
+
 \paragraph{SA-2B/C/E/F Battery.} This represents a battery of six launchers for the long-range S-75 Dvina (SA-2B/C/E/F Guideline) missile with their associated P-12 (Spoon Rest) EWR and SNR-75 (Fan Song) TTR. All are radar-guided, but the SA-2F also has an optical backup. In addition to serving as a key part of the air-defense system of the Soviet Union (and its notable role in ending reconnaissance overflights by shooting down the U-2 of Gary Powers) and its allies, it saw combat in Cuba in 1962, with North Vietnamese forces from 1965, with Indian forces in the 1965 war with Pakistan, and with Egyptian and Syrian forces from 1967.
 
-\paragraph{SA-3B Battery.} The SA-3B (Goa) unit represents a battery with four quad launchers, a P-15 (Flat Face) EWR, and a SNR-125 (Low Blow) TTR.
+\paragraph{SA-3B Battery.} The SA-3B (Goa) unit represents a battery with four quad launchers, a P-15 (Flat Face) EWR, and an SNR-125 (Low Blow) TTR.
 
-\paragraph{Mobile SA-3B Battery.} The mobile SA-3B (Goa) unit represents a battery with four two launcher trucks, a P-15 (Flat Face) EWR, and a SNR-125 (Low Blow) TTR.
+\paragraph{Mobile SA-3B Battery.} The mobile SA-3B (Goa) unit represents a battery with four twin launcher trucks, a P-15 (Flat Face) EWR, and an SNR-125 (Low Blow) TTR.
 
 \paragraph{SA-4 Battery.} The SA-4 (Ganef) unit represents a battery of three launcher vehicles each with two long-range 2K11 Krug missiles and another vehicle with the 1S32 (Pat Hand) TTR. The P-40 (Long Track)  EWR is a separate unit.
 
-\paragraph{SA-6A/B Battery.} The SA-6A/B (Gainful) unit represents a battery of four launcher vehicles each with three medium-range 2K11 Krug (SA-6A) or 3M9M1 (SA-6B) missiles and another vehicle with the 1S32 (Pat Hand) TTR. The P-40 (Long Track)  EWR is a separate unit.
-
-
-
+\paragraph{SA-6A/B Battery.} The SA-6A/B (Gainful) unit represents a battery of four launcher vehicles each with three medium-range 2K12 Kub (SA-6A) or 3M9M1 (SA-6B) missiles and another vehicle with the 1S32 (Pat Hand) TTR. The P-40 (Long Track)  EWR is a separate unit.
 
 \section{CCU Units}
 
@@ -334,7 +349,6 @@ Unless otherwise indicated in the scenario notes, a major bridge is one that ext
 \end{document}
 
 \subsection{SAM Units}
-
 
 \subsection{CCUs}
 

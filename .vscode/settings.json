@@ -1,5 +1,5 @@
 {
-    "latex-workshop.latex.autoBuild.run": "never",
+    "latex-workshop.latex.autoBuild.run": "onSave",
     "editor.wordWrap": "on",
     "python-envs.defaultEnvManager": "ms-python.python:conda",
     "python-envs.defaultPackageManager": "ms-python.python:conda",
@@ -7,4 +7,6 @@
     "envFile": "${workspaceFolder}/.env",
     "python.terminal.useEnvFile": true,
     "latex-workshop.formatting.latexindent.path": "",
+    "editor.formatOnSave": true,
+    "latex-workshop.format.fixQuotes.enabled": true,
 }
