@@ -1,8 +1,0 @@
-{
-    "name": "FCR-D",
-    "description": "fire control radar (type D)",
-    "symbols": "air-defense/radar",
-    "text": "FCR-D",
-    "sightingrange": 12,
-    "defensestrength": "2S"
-}

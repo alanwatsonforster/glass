@@ -1,0 +1,17 @@
+{
+    "name": "mobile FCR-B",
+    "description": "mobile fire control radar (type B)",
+    "symbols": "air-defense/radar/truck/platoon",
+    "text": "FCR-B",
+    "sightingrange": 12,
+    "defensestrength": "2S",
+    "aaa": {
+        "fcrclass": "B",
+        "fcrfrequency": "MF"
+    },
+    "VPs": [
+        6,
+        4,
+        2
+    ]
+}

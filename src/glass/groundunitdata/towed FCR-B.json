@@ -1,8 +1,0 @@
-{
-    "name": "FCR-B",
-    "description": "fire control radar (type B)",
-    "symbols": "air-defense/radar",
-    "text": "FCR-B",
-    "sightingrange": 12,
-    "defensestrength": "2S"
-}

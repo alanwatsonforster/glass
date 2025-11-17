@@ -1,8 +1,0 @@
-{
-    "name": "mobile FCR-C",
-    "description": "mobile fire control radar (type C)",
-    "symbols": "air-defense/radar/truck",
-    "text": "FCR-C",
-    "sightingrange": 12,
-    "defensestrength": "2S"
-}
