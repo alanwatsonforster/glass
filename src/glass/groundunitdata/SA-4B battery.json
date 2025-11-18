@@ -1,8 +1,10 @@
 {
-    "name": "SA-4",
-    "description": "SA-4 air-defense battery",
+    "name": "SA-4B",
+    "othername": "2K11M Krug-M",
+    "year": "1973",
+    "description": "SA-4B air-defense battery",
     "symbols": "air-defense/missile/armor/battery",
-    "text": "SA-4",
+    "text": "SA-4B",
     "sightingrange": 12,
     "defensestrength": "3H",
     "VPs": [
@@ -11,7 +13,9 @@
         3
     ],
     "sam": {
-        "type": "SA-4",
+        "type": "SA-4B",
+        "ewrfrequency": "VF",
+        "ewrrange": 50,
         "ttrfrequency": "HF",
         "ttrrange": 30,
         "readymissiles": 6,

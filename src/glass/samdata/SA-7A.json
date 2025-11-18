@@ -1,0 +1,20 @@
+{
+    "name": "SA-7A",
+    "othername": "9M32 Strela-2",
+    "year": "1966",
+    "I": {
+        "launchroll": 7,
+        "turnrate": "HT",
+        "flighttime": 1,
+        "visibility": 6,
+        "flarerating": 5,
+        "boostphase": 6,
+        "basespeed": 8,
+        "sustainer": 0,
+        "minimumaltitude": "T",
+        "directhitroll": 5,
+        "proximityhitroll": 6,
+        "directdamagerating": 4,
+        "proximitydamagerating": 3
+    }
+}

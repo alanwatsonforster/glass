@@ -1,10 +1,12 @@
 {
     "name": "SA-6A",
+    "othername": "2K12 Kub",
+    "year": "1966",
     "description": "SA-6A air-defense battery",
     "symbols": "air-defense/missile/armor/battery",
     "text": "SA-6A",
     "sightingrange": 12,
-    "defensestrength": "6H",
+    "defensestrength": "3H",
     "VPs": [
         11,
         7,

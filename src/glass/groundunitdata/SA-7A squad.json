@@ -2,21 +2,20 @@
     "name": "SA-7A section",
     "othername": "9K32 Strela-2M",
     "year": "1966",
-    "description": "SA-7A section",
-    "symbols": "air-defense/missile/infantry/section",
+    "description": "SA-7A squad",
+    "symbols": "air-defense/missile/infantry/squad",
     "text": "SA-7A",
     "sightingrange": 6,
     "defensestrength": "5S",
     "VPs": [
-        6,
+        3,
         null,
-        3
+        null
     ],
     "sam": {
         "type": "SA-7A",
-        "readymissiles": 2,
-        "volleymissiles": 2,
-        "multitargetcapability": 2,
+        "readymissiles": 1,
+        "volleymissiles": 1,
         "quickreaction": true,
         "opticallockon": 7,
         "lockonrange": 9

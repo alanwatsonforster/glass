@@ -1,0 +1,26 @@
+{
+    "name": "SA-4A",
+    "othername": "2K11 Krug",
+    "year": "1963",
+    "description": "SA-4A air-defense battery",
+    "symbols": "air-defense/missile/armor/battery",
+    "text": "SA-4A",
+    "sightingrange": 12,
+    "defensestrength": "3H",
+    "VPs": [
+        10,
+        6,
+        3
+    ],
+    "sam": {
+        "type": "SA-4A",
+        "ewrfrequency": "VF",
+        "ewrrange": 50,
+        "ttrfrequency": "HF",
+        "ttrrange": 30,
+        "readymissiles": 6,
+        "volleymissiles": 2,
+        "quickreaction": false,
+        "radarlockon": 7
+    }
+}

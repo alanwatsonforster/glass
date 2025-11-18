@@ -1,0 +1,21 @@
+{
+    "name": "SA-2B",
+    "othername": "V-750VK/VN",
+    "year": "1957",
+    "CG": {
+        "launchroll": 8,
+        "turnrate": "ET",
+        "flighttime": 5,
+        "visibility": 10,
+        "eccmrating": 0,
+        "chaffrating": 5,
+        "boostphase": 15,
+        "basespeed": 18,
+        "sustainer": 2,
+        "minimumaltitude": 2,
+        "directhitroll": 2,
+        "proximityhitroll": 7,
+        "directdamagerating": 10,
+        "proximitydamagerating": 5
+    }
+}

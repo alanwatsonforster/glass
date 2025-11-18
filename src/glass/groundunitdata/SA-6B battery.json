@@ -1,10 +1,12 @@
 {
     "name": "SA-6B",
+    "othername": "2K12M3 Kub-M3",
+    "year": "1977",
     "description": "SA-6B air-defense battery",
     "symbols": "air-defense/missile/armor/battery",
     "text": "SA-6B",
     "sightingrange": 12,
-    "defensestrength": "6H",
+    "defensestrength": "3H",
     "VPs": [
         12,
         8,

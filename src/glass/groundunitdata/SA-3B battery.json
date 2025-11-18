@@ -1,5 +1,7 @@
 {
     "name": "SA-3B",
+    "othername": "S-125M Neva-M",
+    "year": "1964",
     "description": "SA-3B air-defense battery",
     "symbols": "air-defense/missile/battery",
     "text": "SA-3B",
@@ -12,14 +14,14 @@
     ],
     "sam": {
         "type": "SA-3B",
-        "ewrfrequency": "LF",
-        "ewrrange": 30,
-        "ttrfrequency": "HF",
+        "ewrfrequency": "MF",
+        "ewrrange": 35,
+        "ttrfrequency": "VF",
         "ttrrange": 10,
         "readymissiles": 16,
         "volleymissiles": 2,
         "quickreaction": false,
-        "radarlockon": 6,
+        "radarlockon": 7,
         "opticallockon": 6
     }
 }

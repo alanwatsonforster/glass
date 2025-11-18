@@ -284,9 +284,17 @@ Examples include:
 \begin{table*}
     \caption{SAM Launcher Units}
     \centering
-    \small
+    \footnotesize
     \input{table-sam-launcher-units.tex}
     \label{table:sam-launcher-units}
+\end{table*}
+
+\begin{table*}
+    \caption{SAMs}
+    \centering
+    \footnotesize
+    \input{table-sams.tex}
+    \label{table:sams}
 \end{table*}
 
 \begin{figure*}
@@ -297,21 +305,54 @@ Examples include:
 \end{figure*}
 
 SAM launcher units are specialized in the destruction of attacking aircraft with surface-to-air missiles.
-Some combine EWRs to give them an autonomous capability to detect and then engage aircraft. Figure~\ref{figure:sam-launcher-units} shows the representation of SAM launcher units as counters and Table \ref{table:sam-launcher-units} summarizes their properties.
+Some combine EWRs to give them an autonomous capability to detect and then engage aircraft.
+Figure~\ref{figure:sam-launcher-units} shows the representation of SAM launcher units as counters, Table \ref{table:sam-launcher-units} summarizes their properties, and Table~\ref{table:sams} summarizes the properties of the actual missiles.
 
-\paragraph{Properties.} In addition to the properties shared by all ground units, Table~\ref{table:sam-launcher-units} gives: the frequency band, range (in mega-hexes) of the EWR, if present, and whether it has a moving-target indicator (MTI) capability; the frequency band and range (in mega-hexes) of the target-tracking radar, if present; the multi-target capability of the unit; the number of ready missiles and the maximum number of missiles in a volley; whether the unit has a quick-reaction capability; its radar and optical lock-on rolls; and whether it is equipped with a gun. If it does have a gun, this will be described in detail in the AAA section.
+\paragraph{Launcher Properties.}
+In addition to the properties shared by all ground units, Table~\ref{table:sam-launcher-units} gives: the frequency band, range (in mega-hexes) of the EWR, if present, and whether it has a moving-target indicator (MTI) capability; the frequency band and range (in mega-hexes) of the target-tracking radar, if present; the multi-target capability of the unit; the number of ready missiles and the maximum number of missiles in a volley; whether the unit has a quick-reaction capability; its radar and optical lock-on rolls and (for IR SAMs) its lock-on range in hexes.
 
-\paragraph{Echelon.} The echelon of a SAM launcher unit is squad, section, or platoons according to its damage resilience (1D, 2D, or 3D, respectively). This does not always coincide with the actual designations used historically. For example, the SA-2 battery in the game corresponds to a battalion in reality.
+\paragraph{Echelon.}
+The echelon of a SAM launcher unit is squad, section, or platoons according to its damage resilience (1D, 2D, or 3D, respectively).
+This does not always coincide with the actual designations used historically. For example, the SA-2 battery in the game corresponds to a battalion in reality.
 
-\paragraph{SA-2B/C/E/F Battery.} This represents a battery of six single launchers for the long-range S-75 Dvina (SA-2B/C/E/F Guideline) missile with their associated P-12 (Spoon Rest) EWR and SNR-75 (Fan Song) TTR. All are radar-guided, but the SA-2F also has an optical backup. In addition to serving as a key part of the air-defense system of the Soviet Union (and its notable role in ending reconnaissance overflights by shooting down the U-2 of Gary Powers) and its allies, it saw combat in Cuba in 1962, with North Vietnamese forces from 1965, with Indian forces in the 1965 war with Pakistan, and with Egyptian and Syrian forces from 1967.
+\paragraph{Infantry SAMs.}
+Infantry SAMs are available as sections (with two launchers) and squads (with one launcher).
+Unless otherwise specified, each launcher has one ready missile and two reloads available.
 
-\paragraph{SA-3B Battery.} The SA-3B (Goa) unit represents a battery with four quad launchers, a P-15 (Flat Face) EWR, and an SNR-125 (Low Blow) TTR.
+Infantry SAM squads may be embedded in infantry or infantry HQ platoons. If they are, then they are not represented by a separate counter but are considered to be part of the platoon. The squad can engage aircraft normally. If the unit in which they are embedded is suppressed, the squad is suppressed too. If the unit in which they are embedded suffers damage, then for each D of damage suffered roll one die, and on a \minusafter{4} the squad is killed. If the unit in which they are embedded is killed, the squad is killed too.
 
-\paragraph{Mobile SA-3B Battery.} The mobile SA-3B (Goa) unit represents a battery with four twin launcher trucks, a P-15 (Flat Face) EWR, and an SNR-125 (Low Blow) TTR.
+\paragraph{Missile Properties.}
+Table~\ref{table:sams} gives: the guidance mode; launch roll; turn rate; flight time; visibility; ECCM, chaff, and flare ratings; whether the missile is active homing (AH) or has a home-on-jam (HOJ) capability; boost phase in FPs; base speed and sustainer duration in game turns; minimum altitude (and modifier for targets at T level); hot rolls for direct and proximity hits; and damage ratings for direct and proximity hits.
+Some missiles have more than one guidance mode (e.g., the SA-2F has an OG backup mode to its CG main mode).
 
-\paragraph{SA-4 Battery.} The SA-4 (Ganef) unit represents a battery of three launcher vehicles each with two long-range 2K11 Krug missiles and another vehicle with the 1S32 (Pat Hand) TTR. The P-40 (Long Track)  EWR is a separate unit.
+\paragraph{Nuclear Warheads.}
+The SA-2E has the option of a nuclear warhead.
 
-\paragraph{SA-6A/B Battery.} The SA-6A/B (Gainful) unit represents a battery of four launcher vehicles each with three medium-range 2K12 Kub (SA-6A) or 3M9M1 (SA-6B) missiles and another vehicle with the 1S32 (Pat Hand) TTR. The P-40 (Long Track)  EWR is a separate unit.
+\paragraph{SA-2B/C/E/F Battery.}
+This is an S-75 Dvina (SA-2B/C/E/F Guideline) battery of six single launchers for the long-range V-750 missile and their associated P-12 (Spoon Rest) EWR and SNR-75 (Fan Song) TTR.
+All are radar-guided, but the SA-2F also has an optical backup. In addition to serving as a key part of the air-defense system of the Soviet Union (and its notable role in ending reconnaissance overflights by shooting down the U-2 of Gary Powers) and its allies, it saw combat in Cuba in 1962, with North Vietnamese forces from 1965, with Indian forces in the 1965 war with Pakistan, and with Egyptian and Syrian forces from 1967.
+
+\paragraph{SA-3B Battery.}
+This is an S-125 Neva (SA-3B Goa) battery with four quad launchers for the 5V24 missile and their associated a P-15 (Flat Face) EWR and SNR-125 (Low Blow) TTR.
+It saw combat with Egyptian and Syrian forces from 1970.
+
+\paragraph{Mobile SA-3B Battery.}
+This is a mobile S-125 Neva (SA-3B Goa) battery with four twin launchers for the 5V24 missile on trucks and their associated P-15 (Flat Face) EWR and SNR-125 (Low Blow) TTR.
+It saw combat with Egyptian and Syrian forces from 1970 and with Iraqi forces in the Iran-Iraq War, the Gulf War, and the Invasion of Iraq.
+
+\paragraph{SA-4A/B Battery.}
+This is an armored 2K11 Krug (SA-4A/B Ganef) battery with three launcher vehicles each with two long-range 9M8M1/9M8M2 missiles and their associated P-40 (Long Track) EWR and 1S32 (Pat Hand) TTR.
+It saw combat with Egyptian and Syrian forces from 1970 and with Iraqi forces in the Iran-Iraq War, the Gulf War, and the Invasion of Iraq.
+
+\paragraph{SA-6A/B Battery.}
+This an armored 2K12 Kub (SA-6A/B Gainful) battery four launcher vehicles each with three medium-range 2K12 Kub (SA-6A) or 3M9M3 (SA-6B) missiles and their associated P-40 (Long Track) EWR and 1S32 (Pat Hand) TTR.
+It saw combat with Egyptian and Syrian forces from 1970 and with Iraqi forces in the Iran-Iraq War, the Gulf War, and the Invasion of Iraq.
+
+\paragraph{SA-7A/B Squad/Section.}
+These are a squad or section with 9K32 Strela-2 or 9K32M Strela-2M  (SA-7A/B Grail) infrared-homing infantry SAMs.
+The squad has one launcher and the section has two.
+The Strela-2/2M has seen combat in almost every conflict since 1970 in which the Soviet Union or its successor states have been participants or supporters.
+In particular, it was used heavily in the 1973 Easter Offensive by North Vietnamese forces and by Arab forces in the 1973 Yom Kippur War.
 
 \section{CCU Units}
 

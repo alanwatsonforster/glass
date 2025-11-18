@@ -1,0 +1,36 @@
+{
+    "name": "SA-3B",
+    "othername": "5V27",
+    "year": "1964",
+    "CW": {
+        "launchroll": 8,
+        "turnrate": "HT/2",
+        "flighttime": 3,
+        "visibility": 10,
+        "eccmrating": 1,
+        "chaffrating": 3,
+        "boostphase": 11,
+        "basespeed": 20,
+        "sustainer": 0,
+        "minimumaltitude": "T+2",
+        "directhitroll": 4,
+        "proximityhitroll": 8,
+        "directdamagerating": 8,
+        "proximitydamagerating": 4
+    },
+    "OG": {
+        "launchroll": 8,
+        "turnrate": "HT/2",
+        "flighttime": 3,
+        "visibility": 10,
+        "chaffrating": 1,
+        "boostphase": 11,
+        "basespeed": 20,
+        "sustainer": 2,
+        "minimumaltitude": "T+2",
+        "directhitroll": 4,
+        "proximityhitroll": 8,
+        "directdamagerating": 8,
+        "proximitydamagerating": 4
+    }
+}

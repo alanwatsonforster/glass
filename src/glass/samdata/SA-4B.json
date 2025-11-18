@@ -1,0 +1,21 @@
+{
+    "name": "SA-4B",
+    "othername": "9M8M2",
+    "year": "1973",
+    "CW": {
+        "launchroll": 8,
+        "turnrate": "ET",
+        "flighttime": 7,
+        "visibility": 12,
+        "eccmrating": 1,
+        "chaffrating": 2,
+        "boostphase": 8,
+        "basespeed": 18,
+        "sustainer": 2,
+        "minimumaltitude": "T+2",
+        "directhitroll": 4,
+        "proximityhitroll": 8,
+        "directdamagerating": 10,
+        "proximitydamagerating": 6
+    }
+}
