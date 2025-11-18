@@ -54,7 +54,7 @@
 - The defense strength of 6H seems high, even though it comes from AS. I will use 3H, like the SA-4 in AS.
 - Wikipedia says the radar vehicle has an EWR 1S11 (Straight Flush) and an illuminater 1S31. The range of the EWR is 30 miles. However, it can be used with other EWRs with longer ranges, including Spoon Rest, Long Track, and Flat Face.
 - Seems to be four triple TELs with one radar.
-- Puma has a volley number of 3, but AS has 2. WIkipedia says only 1 or 2 missiles can be guided. I adopt 2.
+- Puma has a volley number of 3, but AS has 2. Wikipedia says only 1 or 2 missiles can be guided. I adopt 2.
 - Wikipedia says the SA-6B is mounted on a new vehicle with the Fire Dome guidance radar.
 
 ### Missiles
@@ -66,5 +66,14 @@
 - From AS and TSOH
 
 ## Launch Units
+
 - Section and squad
 - VPs for section from AS
+
+# SA-8
+
+# Launcher
+
+- AS has it, but it appears to be a single vehicle. It can only take 1D damage and only has 6 ready missiles.
+- Puma has a defense strength of 4H, which seems optimistic. I am using the AS value of 3H.
+- Puma gives it a multi-target capability, which is surprising. I ignore this.

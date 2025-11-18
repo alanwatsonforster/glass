@@ -1,19 +1,23 @@
 {
-    // From Puma.
-    // Seems to be a single six-missile TELAR
     "name": "SA-8B",
+    "othername": "9K33M2 Osa-AK",
+    "year": "1980",
     "description": "SA-8B air-defense squad",
     "symbols": "air-defense/missile/armor/squad",
     "text": "SA-8B",
     "sightingrange": 12,
-    "defensestrength": "4H",
+    "defensestrength": "3H",
+    "VPs": [
+        10,
+        null,
+        null
+    ],
     "sam": {
         "type": "SA-8B",
         "ewrfrequency": "HF",
         "ewrrange": 10,
         "ttrfrequency": "VF",
         "ttrrange": 6,
-        "multitargetcapability": 2,
         "readymissiles": 6,
         "volleymissiles": 2,
         "quickreaction": true,
