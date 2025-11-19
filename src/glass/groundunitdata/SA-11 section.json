@@ -1,16 +1,19 @@
 {
-    // From Puma.
-    // From the ready-missile count, this seems to be single four-missile TELER.
     "name": "SA-11",
+    "othername": "9K37 Buk (Gadfly)",
+    "year": "1980",
     "description": "SA-11 air-defense squad",
     "symbols": "air-defense/missile/armor/squad",
     "text": "SA-11",
     "sightingrange": 12,
     "defensestrength": "4H",
+    "VPs": [
+        12,
+        null,
+        null
+    ],
     "sam": {
         "type": "SA-11",
-        "ewrfrequency": "HF",
-        "ewrrange": 50,
         "ttrfrequency": "HF",
         "ttrrange": 18,
         "multitargetcapability": 2,

@@ -84,3 +84,18 @@
 - AS has it. Again, from its 4 ready missiles it seems to be a single vehicle.
 - Data from Puma.
 - Wikipedia says one on four has RWR.
+
+## SA-11
+
+In AS
+
+### Launcher
+
+- AS has 4 ready missiles, so it seems to be a single vehicle. It does not have an EWR. However, the rules allow a SAM unit to lock-on with just its TTR (although an EWR gives a beneficial modifier).
+- Puma gives 4 ready missiles, but also gives an EWR.
+- Wikipedia states that a battery is two TELAR (four missiles each) and one TEL (6 missiles) and that a battalion has a command vehicle, and EWR, and three batteries.
+- Wikipedia states that the 9K37 uses the 9S18 (Tube Arm) or 9S18M1 (Snow Drift) EWR.
+
+### Missiles
+
+- Puma has slightly different flight properties for the CW and OP versions. I have adopted the CW version.

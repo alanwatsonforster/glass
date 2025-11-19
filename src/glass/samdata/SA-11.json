@@ -1,0 +1,38 @@
+{
+    "name": "SA-11",
+    "othername": "9M38 (Gadfly)",
+    "year": "1980",
+    "CW": {
+        "launchroll": 9,
+        "turnrate": "ET/3",
+        "flighttime": 3,
+        "visibility": 6,
+        "eccmrating": 2,
+        "chaffrating": 2,
+        "boostphase": 6,
+        "basespeed": 22,
+        "sustainer": 0,
+        "minimumaltitude": "T",
+        "directhitroll": 7,
+        "proximityhitroll": 9,
+        "directdamagerating": 9,
+        "proximitydamagerating": 4,
+        "homeonjam": true
+    },
+    "OG": {
+        "launchroll": 9,
+        "turnrate": "ET/3",
+        "flighttime": 3,
+        "visibility": 6,
+        "chaffrating": 1,
+        "flarerating": 1,
+        "boostphase": 6,
+        "basespeed": 22,
+        "sustainer": 0,
+        "minimumaltitude": "T",
+        "directhitroll": 4,
+        "proximityhitroll": 8,
+        "directdamagerating": 9,
+        "proximitydamagerating": 4
+    }
+}
