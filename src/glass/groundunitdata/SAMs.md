@@ -59,7 +59,7 @@
 
 ### Missiles
 
-- According to WIkipedia, the SA-4A is the 9M8/9M8M and the SA-4B is the 9M8M1/9M8M2. Puma assigns A/B to these latter two. I'm going to assume the 9M8 is similar to the 9M8M1
+- According to Wikipedia, the SA-4A is the 9M8/9M8M and the SA-4B is the 9M8M1/9M8M2. Puma assigns A/B to these latter two. I'm going to assume the 9M8 is similar to the 9M8M1
 
 # SA-7
 
@@ -70,10 +70,17 @@
 - Section and squad
 - VPs for section from AS
 
-# SA-8
+## SA-8
 
-# Launcher
+### Launcher
 
 - AS has it, but it appears to be a single vehicle. It can only take 1D damage and only has 6 ready missiles.
 - Puma has a defense strength of 4H, which seems optimistic. I am using the AS value of 3H.
-- Puma gives it a multi-target capability, which is surprising. I ignore this.
+
+## SA-9
+
+### Launcher
+
+- AS has it. Again, from its 4 ready missiles it seems to be a single vehicle.
+- Data from Puma.
+- Wikipedia says one on four has RWR.

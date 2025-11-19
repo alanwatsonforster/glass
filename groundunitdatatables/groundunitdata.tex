@@ -9,7 +9,7 @@
 \setcounter{secnumdepth}{0}
 \setcounter{tocdepth}{1}
 
-\setlength{\tabcolsep}{0.4em}
+\setlength{\tabcolsep}{0.3em}
 
 \begin{document}
 
@@ -59,14 +59,6 @@ The echelon is indicated by one, two, or three dots (for squads, sections, or pl
 \section{Ground-Combat Units}
 
 Ground-combat units represent infantry, tanks and other AFVs, trucks, and artillery. Their primary role is combat with other ground units. Table \ref{table:ground-combat-units} summarizes the properties of ground-combat units. The AAA class is B2 for infantry platoons and B3 for AFV platoons, indicating that they are capable of barrage fire to altitudes of 2 and 3 levels, respectively.
-
-\begin{table*}
-    \caption{Ground-Combat Units}
-    \centering
-    \small
-    \input{table-ground-combat-units.tex}
-    \label{table:ground-combat-units}
-\end{table*}
 
 \begin{figure*}
     \centering
@@ -235,14 +227,6 @@ Units without an FCR (or with a range-only FCR) are limited to visually sighted 
 
 \paragraph{KS-19.} The KS-19 has a single 100 mm gun in an open mount on a towed carriage. It entered service in 1948 with Soviet forces as a replacement for the KS-12 85 mm gun. It also served with many Soviet allies and saw combat with communist forces in the Korean War and Vietnam War and Iraqi forces in the Iran-Iraq and Gulf Wars. Like other contemporary Soviet guns, it was typically deployed with the SON-9 (Fire Can) fire-control radar.
 
-\begin{table*}
-    \caption{AAA Units}
-    \centering
-    \small
-    \input{table-aaa-units.tex}
-    \label{table:aaa-units}
-\end{table*}
-
 \begin{figure*}
     \centering
     \includegraphics[width=0.8\linewidth]{figure-aaa.png}
@@ -251,14 +235,6 @@ Units without an FCR (or with a range-only FCR) are limited to visually sighted 
 \end{figure*}
 
 \section{FCR Units}
-
-\begin{table*}
-    \caption{FCR Units}
-    \centering
-    \small
-    \input{table-fcr-units.tex}
-    \label{table:fcr-units}
-\end{table*}
 
 \begin{figure*}
     \centering
@@ -280,22 +256,6 @@ Examples include:
 \end{itemize}
 
 \section{SAM Launcher Units}
-
-\begin{table*}
-    \caption{SAM Launcher Units}
-    \centering
-    \footnotesize
-    \input{table-sam-launcher-units.tex}
-    \label{table:sam-launcher-units}
-\end{table*}
-
-\begin{table*}
-    \caption{SAMs}
-    \centering
-    \footnotesize
-    \input{table-sams.tex}
-    \label{table:sams}
-\end{table*}
 
 \begin{figure*}
     \centering
@@ -357,17 +317,12 @@ In particular, it was used heavily in the 1973 Easter Offensive by North Vietnam
 \paragraph{SA-8A/B Squad.}
 This is a squad with a single 9M33 Osa or 9M33M Osa-AK (SA-8A/B Gecko) vehicle with integrated 1S51M3 (``Land Roll'') combined EWR and TTR. The SA-8A carries four 9M33 missiles and the SA-8B carried six 9M33M missiles. The Osa has been widely exported and seen combat with Syrian forces in the 1982 Lebanon War, with Cuban forces in the South African Border War, with Iraqi forces in the 1990 Gulf War, and in more recent conflicts.
 
+\paragraph{SA-9A/B Squad.}
+This is a squad with a single 9K21 Strela-1 or 9K21M Strela-1M (SA-9A/B Gaskin) vehicle with four 9M21 or 9M21M missiles. The Strela-1 has been widely exported and saw combat in the South African Border War, the Iran-Iraq War, the Lebanon War, the Gulf War, the Kosovo War, and the Invasion of Iraq.
+
 \section{CCU Units}
 
 \section{Ground Targets}
-
-\begin{table*}
-    \caption{Ground Targets}
-    \centering
-    \small
-    \input{table-ground-targets.tex}
-    \label{table:ground-targets}
-\end{table*}
 
 \begin{figure*}
     \centering
@@ -390,66 +345,56 @@ Some ground targets are represented by counters and others are represented by fe
 
 Unless otherwise indicated in the scenario notes, a major bridge is one that extends over two of more hexes, a minor bridge is one that is confined to a single hex, and a small bridge is where a road crosses a river without a bridge being marked on the map.
 
-\end{document}
-
-\subsection{SAM Units}
-
-\subsection{CCUs}
-
-CCUs are air-defense command and control units. The generic CCU units are:
-\begin{itemize}
-    \item \emph{mobile CCU}
-    \item \emph{armored CCU}
-\end{itemize}
-
-Mobile CCUs include the 9S737 Ranzhir.
-
-Armored CCUs include the 9S80 PPRU-1.
-
-\subsection{EWRs}
-
-EWRs are air-defense early-warning radars. The generic EWR units are:
-\begin{itemize}
-    \item \emph{towed EWR-A}
-    \item \emph{mobile EWR-A}
-\end{itemize}
-
-\subsection{FCRs}
-
-FCRs are air-defense fire-control radars for towed AAA. The generic FCR units are:
-\begin{itemize}
-    \item \emph{towed FCR-A/B/C/D}
-    \item \emph{mobile FCR-A/B/C/D}
-\end{itemize}
+\onecolumn
 
 \begin{table*}
-    \caption{Generic Units}
+    \caption{Ground-Combat Units}
     \centering
     \small
-    \input{table-generic-units.tex}
-    \label{table:generic-units}
+    \input{table-ground-combat-units.tex}
+    \label{table:ground-combat-units}
 \end{table*}
 
-\twocolumn[
-\section{AAA Units}]
+\begin{table*}
+    \caption{AAA Units}
+    \centering
+    \small
+    \input{table-aaa-units.tex}
+    \label{table:aaa-units}
+\end{table*}
 
-Table \ref{table:aaa-units} summarizes the properties of the AAA units. Soft and hard defense strengths are suffixed with S and H, respectively. The sighting range is given in hexes.
+\begin{table*}
+    \caption{FCR Units}
+    \centering
+    \small
+    \input{table-fcr-units.tex}
+    \label{table:fcr-units}
+\end{table*}
 
-Figure \ref{figure:aaa-units} shows the graphical representation of the AAA units. Again, the representation uses NATO symbols.
-
-\twocolumn[
-\section{SAM Launcher Units}]
-
-Table \ref{table:sam-launcher-units} summarizes the properties of the AAA units. Soft and hard defense strengths are suffixed with S and H, respectively. The sighting range is given in hexes.
-
-Figure \ref{figure:sam-launcher-units} shows the graphical representation of the AAA units. Again, the representation uses NATO symbols.
-
+%\begin{landscape}
 \begin{table*}
     \caption{SAM Launcher Units}
     \centering
-    \small
+    \footnotesize
     \input{table-sam-launcher-units.tex}
     \label{table:sam-launcher-units}
+\end{table*}
+%\end{landscape}
+
+\begin{table*}
+    \caption{SAMs}
+    \centering
+    \footnotesize
+    \input{table-sams.tex}
+    \label{table:sams}
+\end{table*}
+
+\begin{table*}
+    \caption{Ground Targets}
+    \centering
+    \small
+    \input{table-ground-targets.tex}
+    \label{table:ground-targets}
 \end{table*}
 
 \end{document}

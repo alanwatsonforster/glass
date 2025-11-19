@@ -20,6 +20,7 @@
         "ttrrange": 6,
         "readymissiles": 6,
         "volleymissiles": 2,
+        "multitargetcapability": 2,
         "quickreaction": true,
         "radarlockon": 8,
         "opticallockon": 7

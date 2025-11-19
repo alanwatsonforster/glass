@@ -1,0 +1,24 @@
+{
+    "name": "SA-9A",
+    "othername": "9K31 Strela-1 (Gaskin)",
+    "year": 1968,
+    "description": "SA-9A air-defense squad",
+    "symbols": "air-defense/missile/armor/squad",
+    "text": "SA-9A",
+    "sightingrange": 12,
+    "defensestrength": "4H",
+    "VPs": [
+        7,
+        null,
+        null
+    ],
+    "sam": {
+        "type": "SA-9A",
+        "multitargetcapability": 2,
+        "quickreaction": true,
+        "readymissiles": 4,
+        "volleymissiles": 2,
+        "opticallockon": 7,
+        "lockonrange": 12
+    }
+}

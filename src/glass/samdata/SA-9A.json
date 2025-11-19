@@ -1,0 +1,19 @@
+{
+    "name": "SA-9A",
+    "othername": "9M31 Strela-1 (Gaskin)",
+    "year": "1968",
+    "A": {
+        "launchroll": 8,
+        "turnrate": "ET",
+        "flighttime": 2,
+        "visibility": 7,
+        "flarerating": 5,
+        "basespeed": 12,
+        "sustainer": 0,
+        "minimumaltitude": "T",
+        "directhitroll": 4,
+        "proximityhitroll": 8,
+        "directdamagerating": 5,
+        "proximitydamagerating": 2
+    }
+}
