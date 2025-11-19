@@ -1,0 +1,19 @@
+{
+    "name": "SA-14",
+    "othername": "9M34 Strela-3 (Gremlin)",
+    "year": "1974",
+    "A": {
+        "launchroll": 7,
+        "turnrate": "ET",
+        "flighttime": 1,
+        "visibility": 6,
+        "flarerating": 4,
+        "basespeed": 12,
+        "sustainer": 0,
+        "minimumaltitude": "T",
+        "directhitroll": 6,
+        "proximityhitroll": 8,
+        "directdamagerating": 5,
+        "proximitydamagerating": 2
+    }
+}

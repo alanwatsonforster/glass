@@ -1,19 +1,19 @@
 {
-    "name": "SA-7B squad",
-    "othername": "9K32M Strela-2M (Grail)",
-    "year": "1972",
-    "description": "SA-7B squad",
+    "name": "SA-14 squad",
+    "othername": "9K34 Strela-3 (Gremlin)",
+    "year": "1974",
+    "description": "SA-14 squad",
     "symbols": "air-defense/missile/infantry/squad",
-    "text": "SA-7B",
+    "text": "SA-14",
     "sightingrange": 6,
     "defensestrength": "5S",
     "VPs": [
-        4,
+        6,
         null,
         null
     ],
     "sam": {
-        "type": "SA-7B",
+        "type": "SA-14",
         "readymissiles": 1,
         "volleymissiles": 1,
         "quickreaction": true,
