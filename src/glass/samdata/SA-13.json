@@ -1,0 +1,19 @@
+{
+    "name": "SA-13",
+    "othername": "9M37 Strela-10 (Gopher)",
+    "year": 1976,
+    "A": {
+        "launchroll": 8,
+        "turnrate": "BT/2",
+        "flighttime": 2,
+        "visibility": 7,
+        "flarerating": 3,
+        "basespeed": 12,
+        "sustainer": 0,
+        "minimumaltitude": "T",
+        "directhitroll": 6,
+        "proximityhitroll": 9,
+        "directdamagerating": 6,
+        "proximitydamagerating": 3
+    }
+}
