@@ -14,7 +14,7 @@ For example, let us compare batteries and sections with identical guns:
 
 - The truck-mounted ZU-23 section and towed ZU-23 battery in *Air Strike* have hit rolls of 2/2/1 and 4/3/2. Here, the change from section to battery increases the hit rolls by +2 or +1.
 
-- The Blazer section and towed GEMAG battery in *Air Strike* have hit rolls of 5/4/3 and 6/5/4. Here, the change from section to battery increases the hit rolls by +1. 
+- The Blazer section and towed GEMAG battery in *Air Strike* have hit rolls of 5/4/3 and 6/5/4. Here, the change from section to battery increases the hit rolls by +1.
 
 - The Nile-23 section in *Eagles of the Gulf* and the ZU-23 battery in *Air Strike* have hit rolls of 3/3/2 and 4/3/2. Here, the change from section to battery increases the hit rolls by +1 or +0.
 
@@ -49,7 +49,6 @@ I'm not sure if “battery” is the right term for an AA HMG unit. Perhaps plat
 Origin: EOG and Puma.
 
 Again, I'm not sure if “battery” is the right term for an AA HMG unit. Perhaps platoon is better?
-
 
 - [Wikipedia](https://en.wikipedia.org/wiki/DShK)
 
@@ -174,7 +173,6 @@ Wikipedia states this can use IR night sights.
 
 Werrell (p. 73) states that the range-only radar was added in 1984 to the PIVADS.
 
-
 - [Wikipedia](https://en.wikipedia.org/wiki/M163_VADS)
 - [Weapon Systems](https://weaponsystems.net/system/67-M163+Vulcan)
 - [Werrell: Archie to SAM](https://media.defense.gov/2017/Mar/31/2001725225/-1/-1/0/B_0028_WERRELL_ARCHIE_TO_SAM.PDF)
@@ -293,6 +291,7 @@ Puma does not give VPs. As an AAA platform, it is similar to the Tunguska, but l
 This is the Oerlikon GDF 35 mm towed AAA.
 
 What about making the battery/section from the Oerlikon to the Gepard only +1? Taking FCR-B/C into account, this would give the Oerlikon hit rolls compared to others of:
+
 - ZU-23: 4/3/2 (2000 RPM/mount)
 - Oerlikon: 4/3/2 (1100 RPM/mount)
 - M38: 3/2/1
@@ -359,7 +358,7 @@ This is Bofers 40 mm L/70 with an improved optical fire-control system, laser ra
 
 Origen: Air Strike and Puma.
 
-Air Power has the BOFI as having an FCR and with hit rolls of 4/4/3. However, adding an FCR-B/C to a plain L/70 battery will give effective hit rolls of 5/5/4. 
+Air Power has the BOFI as having an FCR and with hit rolls of 4/4/3. However, adding an FCR-B/C to a plain L/70 battery will give effective hit rolls of 5/5/4.
 
 I take the L/70 and add +1 for proximity fuzes, +1 for BOFI laser rangefinding, and another +1 for BOFI-R radar.
 I adopt 4/4/3 for the BOFI and 5/5/4 for the BOFI-R.
@@ -405,6 +404,8 @@ This is the Soviet 100 mm towed gun.
 
 Origen: Air Strike and Puma.
 
+Air Strike gives hit rolls as 1/1/0 (see errata). Puma gives 2/1/0. I adopt the Air Strike Values.
+
 Air Strike gives VPs as 8/5/3, but this seems undervalues compared to the TSOH values for the S-60 and KS-12. I adopt 10/7/3.
 
 - [Wikipedia](https://en.wikipedia.org/wiki/KS-19)
@@ -447,6 +448,7 @@ Principal: hit rolls should depend on
 and damage should depend on caliber.
 
 Suggestion:
+
 - S-60 = 2/2/1 (lowest RPM) = YES
 - M-38 = L/60 = 3/2/1 = YES
 - L/70 = 4/3/2 (better RPM and better velocity)
@@ -459,6 +461,3 @@ If we are to have a +1 modifier from section to battery, with the Gepard has to 
 Base at zero range is 5 or more = +2 otherwise +1.
 
 The current ratings have the GDF being awesome. Perhaps the only adjustment needed is L/60 = M-38?
-
-
-
