@@ -86,43 +86,45 @@ def fromname(name):
     return None
 
 
-def aslist(withkilled=False):
+def aslist(withkilled=False, withairelementsonly=False):
     elementlist = _elementlist
     elementlist = filter(lambda E: not E.removed(), elementlist)
     if not withkilled:
         elementlist = filter(lambda E: not E.killed(), elementlist)
+    if withairelementsonly:
+        elementlist = filter(lambda E: E.isaircraft() or E.ishelicopter() or E.ismissile(), elementlist)
     return list(elementlist)
 
 
 ##############################################################################
 
 
-def _xminforzoom(withkilled=False):
+def _xminforzoom(withkilled=False, withairelementsonly=False):
     if len(aslist(withkilled=withkilled)) == 0:
         return None
     else:
-        return min([min(E.x(), E._path.xmin()) for E in aslist(withkilled=withkilled)])
+        return min([min(E.x(), E._path.xmin()) for E in aslist(withkilled=withkilled, withairelementsonly=withairelementsonly)])
 
 
-def _xmaxforzoom(withkilled=False):
+def _xmaxforzoom(withkilled=False, withairelementsonly=False):
     if len(aslist(withkilled=withkilled)) == 0:
         return None
     else:
-        return max([max(E.x(), E._path.xmax()) for E in aslist(withkilled=withkilled)])
+        return max([max(E.x(), E._path.xmax()) for E in aslist(withkilled=withkilled, withairelementsonly=withairelementsonly)])
 
 
-def _yminforzoom(withkilled=False):
+def _yminforzoom(withkilled=False, withairelementsonly=False):
     if len(aslist(withkilled=withkilled)) == 0:
         return None
     else:
-        return min([min(E._y, E._path.ymin()) for E in aslist(withkilled=withkilled)])
+        return min([min(E._y, E._path.ymin()) for E in aslist(withkilled=withkilled, withairelementsonly=withairelementsonly)])
 
 
-def _ymaxforzoom(withkilled=False):
+def _ymaxforzoom(withkilled=False, withairelementsonly=False):
     if len(aslist(withkilled=withkilled)) == 0:
         return None
     else:
-        return max([max(E._y, E._path.ymax()) for E in aslist(withkilled=withkilled)])
+        return max([max(E._y, E._path.ymax()) for E in aslist(withkilled=withkilled, withairelementsonly=withairelementsonly)])
 
 
 ##############################################################################

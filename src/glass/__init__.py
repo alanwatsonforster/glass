@@ -232,6 +232,7 @@ def orderofflightdeterminationphase(rolls, firstkill=None, mostkills=None):
 def drawmap(
     zoom=True,
     zoomincludeskilled=False,
+    zoomincludesonlyairelements=False,
     zoomborder=2,
     xmin=None,
     ymin=None,
@@ -269,10 +270,22 @@ def drawmap(
 
         if zoom:
 
-            xmin = glass.element._xminforzoom(withkilled=zoomincludeskilled)
-            xmax = glass.element._xmaxforzoom(withkilled=zoomincludeskilled)
-            ymin = glass.element._yminforzoom(withkilled=zoomincludeskilled)
-            ymax = glass.element._ymaxforzoom(withkilled=zoomincludeskilled)
+            xmin = glass.element._xminforzoom(
+                withkilled=zoomincludeskilled,
+                withairelementsonly=zoomincludesonlyairelements,
+            )
+            xmax = glass.element._xmaxforzoom(
+                withkilled=zoomincludeskilled,
+                withairelementsonly=zoomincludesonlyairelements,
+            )
+            ymin = glass.element._yminforzoom(
+                withkilled=zoomincludeskilled,
+                withairelementsonly=zoomincludesonlyairelements,
+            )
+            ymax = glass.element._ymaxforzoom(
+                withkilled=zoomincludeskilled,
+                withairelementsonly=zoomincludesonlyairelements,
+            )
 
             if xmin is not None:
                 xmin = 0.5 * math.floor(2.0 * xmin) - zoomborder
