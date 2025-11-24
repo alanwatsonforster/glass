@@ -14,6 +14,7 @@
         "directhitroll": 5,
         "proximityhitroll": 7,
         "directdamagerating": 4,
-        "proximitydamagerating": 3
+        "proximitydamagerating": 3,
+        "instantarming": true
     }
 }
