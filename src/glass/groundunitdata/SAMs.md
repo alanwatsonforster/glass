@@ -110,6 +110,24 @@ In AS
 
 ### SA-13 Missiles
 
+### I-Hawk
+
+I-HAWK in AS
+
+### I-HAWK Launcher
+
+- AS and Puma both have this as three triple launchers, but a battery typically has six according to Wikipedia. However, Wikipedia also talsk about an "AFCC" which controls one firing section of three launchers, one acquisition radar, and one illuminator. This matches the AS missile count.
+-
+
+### I-HAWK Missile
+
+- MIM-23B
+  - Puma has HOJ, but I think this was in the D.
+- MIM-23V
+  - Improved ECCM.
+- MIM-23D
+  - This (and the subequent F/H/J/M) versions seem to be the HOJ versions.
+
 ## M48 Chaparral
 
 In AS
@@ -123,6 +141,7 @@ In AS
 - MIM-71A
   - Based on AIM-9D
   - AS has speed 12 and Puma has speed 14. I adopt Puma's values.
+  - Puma has the same hit rolls for OG as CW. I adopt the AS values.
 - MIM-71C
   - Wikipedia: improved guidance, fuse, and warhead.
   - AS has speed 12 and Puma has speed 14 (for the E). I adopt Puma's values.
