@@ -1,5 +1,6 @@
 {
     "name": "AMX-30SA",
+    "year": 1979,
     "description": "AMX-30SA twin 30 mm self-propelled air-defense section",
     "symbols": "air-defense/gun/light/armor/section",
     "text": "30×2",

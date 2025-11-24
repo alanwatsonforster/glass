@@ -1,5 +1,6 @@
 {
     "name": "Tunguska",
+    "year": 1984,
     "description": "Tunguska dual 30 mm and SA-19 self-propelled air-defense section",
     "symbols": "air-defense/gun/light/missile/armor/section",
     "text": "30×2/SA-19",

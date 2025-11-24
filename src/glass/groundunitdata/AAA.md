@@ -394,6 +394,8 @@ This is the Soviet 85 mm towed gun.
 
 Origen: Air Strike and TSOH.
 
+There are two KS-12 guns. The M-1939 is given a maximum altitude of 34k feet by Wikipedia and 25k feet by Singh. The M-1944 is given a maximum altitude of 38k ft by Wikipedia 29k ft by Singh. The game versions have maximum altitudes of 27k ft, which is half-way between the figures given by Singh.
+
 Air Strike gives the VPs as 7/5/3. TSOH gives them as 9/6/5. The TSOH values fit better with other ones.
 
 - [Wikipedia](https://en.wikipedia.org/wiki/85_mm_air_defense_gun_M1939_(52-K))

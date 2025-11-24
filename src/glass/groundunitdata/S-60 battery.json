@@ -1,5 +1,6 @@
 {
     "name": "S-60",
+    "year": 1950,
     "description": "S-60 57 mm air-defense battery",
     "symbols": "air-defense/gun/medium/battery",
     "text": "57",

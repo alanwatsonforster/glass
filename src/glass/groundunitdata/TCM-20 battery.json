@@ -1,5 +1,6 @@
 {
     "name": "TCM-20",
+    "year": 1970,
     "description": "TCM-20 twin 20 mm air-defense battery",
     "symbols": "air-defense/gun/light/battery",
     "text": "20×2",

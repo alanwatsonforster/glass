@@ -1,7 +1,7 @@
 %!LW recipe=latexmk (xelatex)
 %!TEX program = xelatex
 
-\documentclass[10pt]{report}
+\documentclass[10pt]{article}
 
 \input{../src/glass/aircraftdata/style.tex}
 
@@ -11,36 +11,36 @@
 
 \setlength{\tabcolsep}{0.3em}
 
+\twocolumn
+
 \begin{document}
 
-\title{Air Power Ground Unit and Ground Target Data}
+\title{Air Power:\\[1ex] Ground Unit and Ground Target Data}
 \author{Alan Watson Forster}
 \date{10 November 2025}
 
 \maketitle
 
-\twocolumn
-
 \section{Introduction}
 
-The document describes the properties of ground units and ground targets in the game. Ground \emph{units} are combat formations such as infantry, armor, AAA, SAM launchers, and radars. Ground \emph{targets} are infrastructure such as bridges and buildings.
+The document describes the properties of ground units and ground targets in the game. Ground \emph{units} are combat formations such as infantry, armor, AAA, SAM launchers, and radars, whereas ground \emph{targets} are infrastructure such as bridges and buildings.
 
 \section{Ground Units}
 
 \paragraph{Properties.}
 All ground units have these properties: an echelon; a defense strength; a classification as a hard or soft target; a sighting range in hexes; and the VPs awarded for K/2D/D damage. Many units also have properties related to their air-defense capabilities.
 
-\paragraph{Echelon.} Most units are platoons or batteries although some are sections or squads. Typically, a squad will have five to ten soldiers and/or one vehicle, gun, or launcher, a section will have ten to twenty soldiers and/or two vehicles, guns, or launchers, and a platoon or battery will have thirty to fifty soldiers and/or three to six vehicles, guns, or launchers.
+\paragraph{Echelon.} Ground units can be squads, section, platoons, or batteries. Typically, a squad will have five to ten soldiers and/or one vehicle, gun, or launcher, a section will have ten to twenty soldiers and/or two vehicles, guns, or launchers, and a platoon or battery will have thirty to fifty soldiers and/or three to six vehicles, guns, or launchers.
 
 \paragraph{Damage Resilience.} Platoons and batteries are killed when they suffer 3D or more damage, sections when they suffer 2D or more, and squads when they suffer 1D or more.
 
 \paragraph{Protection.}
 
-Units equipped with fully armored vehicles hard targets and are denoted by underlined defense strengths. They are classified as \emph{heavy}, \emph{medium}, or \emph{light} according to their degree of protection. Infantry, units equipped with towed weapons, and units equipped with unarmored or incompletely armored vehicles are soft targets and do not have underlines defense strengths.
+Ground units equipped with fully armored vehicles are hard targets and are denoted by underlined defense strengths. They are classified as heavy, medium, or light according to their degree of protection. Infantry, units equipped with towed weapons, and units equipped with unarmored or incompletely armored vehicles are soft targets and do not have underlined defense strengths.
 
 \paragraph{Mobility.}
 
-Units may move on foot, may be vehicular, or may be towed. Units whose weapons are permanently installed on fully armored vehicles are referred to as being \emph{armored}. Those whose weapons are permanently installed on unprotected or incompletely protected vehicles are referred to as being \emph{mobile}. Wheeled, half-tracked, and tracked vehicles are not distinguished.
+Ground units may move on foot, may be vehicular, or may be towed. Units whose weapons are permanently installed on fully armored vehicles are referred to as being \emph{armored}. Those whose weapons are permanently installed on unarmored or incompletely armored vehicles are referred to as being \emph{mobile}. Wheeled, half-tracked, and tracked vehicles are not distinguished.
 
 \paragraph{Mounted and Dismounted Units.}
 
@@ -48,7 +48,7 @@ Infantry units and towed units may be associated with a vehicular transport unit
 
 \paragraph{Representation.}
 
-Figures \ref{figure:ground-combat-units}, \ref{figure:aaa-units}, \ref{figure:radar-and-ccu-units}, and \ref{figure:sam-launcher-units} show the graphical representation of the ground-combat units.
+Figures \ref{figure:ground-combat-units}, \ref{figure:aaa-units}, \ref{figure:radar-and-ccu-units}, and \ref{figure:sam-launcher-units} show the graphical representation of ground-combat units.
 
 The representation mainly uses NATO symbols, including those for infantry, armor, air defense, guns, missiles, tube artillery, and rocket artillery. Two additions are that a rectangle denotes trucks and other mobile units and the letter T designates a transport capacity (e.g., APCs, IFVs, and trucks).
 
@@ -79,11 +79,11 @@ Tanks are armored vehicles that are specialized in direct fire. All tank units a
 
 \begin{itemize}
 
-    \item Heavy: Conqueror, Chieftain, Challenger 1/2, IS-3, Leclerc, Leopard 2, M1 Abrams, Merkava, T-10, T-64, T-72, T-80, T-84, and T-90.
+    \item Heavy Tanks: Conqueror, Chieftain, Challenger 1/2, IS-3, Leclerc, Leopard 2, M1 Abrams, Merkava, T-10, T-64, T-72, T-80, T-84, and T-90.
 
-    \item Medium: AMX-30, Centurion, Leopard 1, M4 Sherman, M47/48 Patton, M60, M103, T-34, IS-2, T-54/55, and T-62.
+    \item Medium Tanks: AMX-30, Centurion, Leopard 1, M4 Sherman, M47/48 Patton, M60, M103, T-34, IS-2, T-54/55, and T-62.
 
-    \item Light: AMX-10 RC, AMX-13, Ferret, M24 Chaffee, M41 Walker Bulldog, M551 Sheridan, Panhard EBR, PT-76, and Scorpion/Scimitar.
+    \item Light Tanks: AMX-10 RC, AMX-13, Ferret, M24 Chaffee, M41 Walker Bulldog, M551 Sheridan, Panhard EBR, PT-76, and Scorpion/Scimitar.
 
 \end{itemize}
 
@@ -93,11 +93,11 @@ IFVs are armored vehicles that carry infantry and provide fire support. They are
 
 \begin{itemize}
 
-    \item Heavy: none.
+    \item Heavy IFVs: none.
 
-    \item Medium: CV90, M2A2 Bradley (only this version), and Marder.
+    \item Medium IFVs: CV90, M2A2 Bradley (only this version), and Marder.
 
-    \item Light: all others including the AMX-10P, BMP-1/2/3, LAV-25, M2/3 Bradley (except the M2A2 version), M1296 Dragoon, VCBI, and Warrior.
+    \item Light IFVs: all others including the AMX-10P, BMP-1/2/3, LAV-25, M2/3 Bradley (except the M2A2 version), M1296 Dragoon, VCBI, and Warrior.
 
 \end{itemize}
 
@@ -107,7 +107,7 @@ APCs are armored vehicles that carry infantry but do not provide significant fir
 
 \begin{itemize}
 
-    \item Heavy: converted heavy tanks.
+    \item Heavy APCs: converted heavy tanks.
 
     \item Medium APCs: converted medium tanks.
 
@@ -115,13 +115,13 @@ APCs are armored vehicles that carry infantry but do not provide significant fir
 
 \end{itemize}
 
-\paragraph{Armored Cars and Half-Tracks.} Armored cars and half-tracks are treated as light tanks, IFVs, or APCs according to their role and armament.
+\paragraph{Armored Cars and Half-Tracks.}
+
+Armored cars and armored half-tracks are considered to be light tanks, light IFVs, or light APCs according to their role and armament.
 
 \paragraph{Trucks.}
 
-Trucks are unarmored or incompletely armored vehicles that transport infantry, towed weapons, and supplies. Light trucks include Humvees, Jeeps, and Land Rovers.
-
-Unarmored tracked cargo-carriers are treated as trucks (e.g., the M548)
+Trucks are unarmored or incompletely armored vehicles that transport infantry, towed weapons, and supplies. Unarmored tracked cargo-carriers (e.g., the M548) are considered to be trucks. Light trucks include Jeeps, Land Rovers, and Humvees.
 
 \paragraph{Artillery.}
 
@@ -129,19 +129,19 @@ Artillery is specialized in indirect fire. All artillery units are all batteries
 
 \begin{itemize}
 
-    \item Armored artillery: 2S19 Msta-S, 2S3 Akatsiya, AMX-30 AuF1, AS-90, Abbot, M109, and Panzerhaubitze 2000.
+    \item Armored Artillery: 2S19 Msta-S, 2S3 Akatsiya, AMX-30 AuF1, AS-90, Abbot, M109, and Panzerhaubitze 2000.
 
-    \item Mobile artillery: 2S4 Tyulpan, 2S7 Pion, Archer, CAESAR, M7 Priest, and M107/M110.
+    \item Mobile Artillery: 2S4 Tyulpan, 2S7 Pion, Archer, CAESAR, M7 Priest, and M107/M110.
 
-    \item Armored rocket artillery: M270 MLRS and TOS-1.
+    \item Armored Rocket Artillery: M270 MLRS and TOS-1.
 
-    \item Mobile rocket artillery: BM-21 Grad, BM-30 Smerch, and M142 HIMARS.
+    \item Mobile Rocket Artillery: BM-21 Grad, BM-30 Smerch, and M142 HIMARS.
 
-    \item Mobile missile artillery: 9K52 Luna-M (Frog), MGM-52 Lance, OTR-21 Tochka (SS-21), Pluton, and RSD-10 Pioneer (SS-20).
+    \item Mobile Missile Artillery: 9K52 Luna-M (Frog), MGM-52 Lance, OTR-21 Tochka (SS-21), Pluton, and RSD-10 Pioneer (SS-20).
 
 \end{itemize}
 
-Tracked or wheeled artillery with incomplete armor protection is treated as mobile artillery (e.g., the wheeled CAESAR and the tracked M107).
+Tracked or wheeled artillery with incomplete armor protection (e.g., the wheeled CAESAR and the tracked M107) is treated as mobile artillery.
 
 A truck platoon may serve as the tractor unit of a towed artillery battery.
 
@@ -151,11 +151,11 @@ Infantry or tank HQ platoons represent the HQ units of companies or battalions. 
 
 \section{AAA Units}
 
-AAA units are specialized in the destruction of attacking aircraft with guns.Figure~\ref{figure:aaa-units} shows the representation of AAA units as counters and Table \ref{table:aaa-units} summarizes their properties.
+AAA units are specialized in the destruction of attacking aircraft with guns. Figure~\ref{figure:aaa-units} shows the representation of AAA units as counters and Table \ref{table:aaa-units} summarizes their properties.
 
-\paragraph{Properties.} In addition to the properties common to all ground units, Table \ref{table:aaa-units} gives: the AAA class (light, medium, or heavy); the maximum altitude; the limits of short, medium, and long range in hexes; the hit rolls at short, medium, and long range; the damage rating; whether the unit as an all-weather or ranging-only fire-control radar and its frequency band; whether it has night infrared sights; and whether it is also equipped with a SAM system.
-If the unit does have a SAM, this will be described in detail in the section on SAM launcher units.
-When comparing these properties, remember that most towed batteries have six to eight guns and most armored or mobile sections have only two guns.
+\paragraph{Properties.} As well as the properties common to all ground units, Table \ref{table:aaa-units} gives: the AAA class (light, medium, or heavy); the maximum altitude; the limits of short, medium, and long range in hexes; the hit rolls at short, medium, and long range; the damage rating; whether the unit as an all-weather or ranging-only fire-control radar and its frequency band; whether it has night infrared sights; and whether it is also equipped with a SAM system.
+If the unit has a SAM, this will be described in detail in the section on SAM launcher units.
+When comparing these properties, remember that towed batteries have six to eight gun mounts and armored or mobile sections have only two gun mounts.
 
 \paragraph{FCRs.} Some AAA units have integrated FCRs that give them an all-weather and night capability.
 Most medium and heavy can also use add-on FCRs, described below.
@@ -163,72 +163,72 @@ Units without an FCR (or with a range-only FCR) are limited to visually sighted 
 
 \subsection{Light AAA Units}
 
-\paragraph{M2.} The Browning M2 .50 cal (12.7 mm) heavy machine gun is typically mounted on a low tripod, but it can also be equipped with a dual-purpose mount suitable for air defense. Introduced in 1933, the M2 machine gun has been used by United States forces and their allies in numerous conflicts since then.
+\paragraph{M2 Platoon.} The Browning M2 .50~cal (12.7 mm) heavy machine gun is typically mounted on a low tripod for ground combat, but in this case is it equipped with a dual-purpose mount suitable for air defense. Introduced in 1933, the M2 machine gun has been used by United States forces and their allies in numerous conflicts since then.
 
-\paragraph{DShK-38.} The DShK-3 12.7 mm heavy machine gun can be mounted on a tall tripod for air defense. It entered service with the Soviet Army in 1938 and saw action in World War II and numerous conflicts since then, including the Korean and Vietnam Wars, in which the Soviet Union participated or provided arms.
+\paragraph{DShK-38 Platoon.} The DShK-3 12.7 mm heavy machine gun can be mounted on a tall tripod for air defense. It entered service with the Soviet Army in 1938 and saw action in World War II and numerous conflicts since then, including the Korean and Vietnam Wars, in which the Soviet Union participated or provided arms.
 
-\paragraph{M16.} The M16 Multiple Gun Motor Carriage is equipped with an M45 turret with four M2 .50 cal (12.7 mm) heavy machine guns that is mounted on a modified M3 half-track. It was used by United States forces during World War II and the Korean War, primarily in an anti-personnel capacity in the latter conflict. Additionally, Israeli forces employed it during the 1956 Arab-Israeli War.
+\paragraph{M16 Section.} The M16 Multiple Gun Motor Carriage has an M45 turret with four M2 .50 cal (12.7 mm) heavy machine guns mounted on a modified M3 half-track. It was used by United States forces during World War II and the Korean War, primarily in an anti-personnel capacity in the latter conflict. Additionally, Israeli forces employed it during the 1956 Arab-Israeli War.
 
-\paragraph{M55.} The M55 is an M45 quad M2 .50 cal turret mounted on a towed carriage. It was used by United States forces during the Korean War and by Pakistani forces during the 1965 India-Pakistan War.
+\paragraph{M55 Battery.} The M55 is an M45 quad M2 .50~cal (12.7 mm) turret mounted on a towed carriage. It was used by United States forces during the Korean War and by Pakistani forces during the 1965 India-Pakistan War.
 
 %\paragraph{Mobile M55.} During the Vietnam War, the US forces mounted the M55 gun turrets on trucks and used it in an anti-personnel role.
 
-\paragraph{ZPU-1/2/4.} The ZPU-1/2/4 has single, twin, or quad 14.5 mm heavy machine guns in an open mount on a towed carriage. It was introduced in 1949 and saw extensive service with Soviet or Soviet-supported forces in many subsequent conflicts, including with communist forces in the Korean War and Vietnam War and with Arab forces the various Arab-Israeli Wars from 1956 onwards.
+\paragraph{ZPU-1/2/4 Battery.} The ZPU-1/2/4 has single, twin, or quad 14.5 mm heavy machine guns in an open mount on a towed carriage. It was introduced in 1949 and saw extensive service with Soviet or Soviet-supported forces in many subsequent conflicts, including with communist forces in the Korean War and Vietnam War and with Arab forces the various Arab-Israeli Wars from 1956 onwards.
 
-\paragraph{Mobile ZPU-4.} Many users of the ZPU-4 mount it on a suitable truck for increased mobility.
+\paragraph{Mobile ZPU-4 Section.} Many users of the ZPU-4 mount it on a suitable truck for increased mobility.
 
-\paragraph{TCM-20.} The TCM-20 is an Israeli adaptation of the M55, with two Hispano-Suiza 20 mm guns from obsolete aircraft replacing the four .50 cal machine guns. It was employed by Israeli forces from 1969 and subsequently saw combat in the 1973 Arab-Israeli War and the 1982 Lebanon War.
+\paragraph{M167 Battery.} The M167 VADS (Vulcan Air Defense System) has the 20 mm six-barreled Vulcan gun in an open mount on a towed carriage. It has optical sights and a range-only radar. It was introduced into service with the US Army in 1967 and subsequently served with other US allies.
 
-\paragraph{M3 TCM-20.} This has the TCM-20 turret mounted in adapted M3 half-track, similarly to the earlier M16. It was used by Israeli forces in the 1973 Arab-Israeli War and the 1982 Lebanon War.
+\paragraph{M163 Section.} The M163 VADS (Vulcan Air Defense System) is an adapted M113 APC equipped with a semi-open turret that houses a 20 mm six-barreled Vulcan gun. It has optical sights and a range-only radar. The M163 VADS was introduced into service with the US Army in 1968 and has since been adopted by other US allies, such as Israel and Saudi Arabia.
 
-\paragraph{Rh-202.} This has two Rheinmetall 20 mm guns in an open mount on a towed carriage. It entered service with West German forces in 1972 and was used for airfield defense. Subsequently, it was exported and notably used by the Argentine Air Force in the South Atlantic War.
+\paragraph{TCM-20 Battery.} The TCM-20 is an Israeli adaptation of the M55, with two Hispano-Suiza 20 mm guns from obsolete aircraft replacing the four .50 cal machine guns. It was employed by Israeli forces from 1970 and subsequently saw combat in the 1973 Arab-Israeli War and the 1982 Lebanon War.
 
-\paragraph{Panhard M3 DCA.} The Panhard M3 DCA has an armored turret for twin 20 mm guns mounted on the Panhard M3 APC. The guns have optical sights, but typically one vehicle in each section is equipped with a search-and-ranging radar and can share this information automatically with the others. It served with the armed forces of Côte d'Ivoire, Niger, and UAE.
+\paragraph{M3 TCM-20 Section.} This has the TCM-20 turret mounted in adapted M3 half-track, like the earlier M16. It was used by Israeli forces in the 1973 Arab-Israeli War and the 1982 Lebanon War.
 
-\paragraph{M163.} The M163 VADS (Vulcan Air Defense System) is an adapted M113 APC equipped with a semi-open turret that houses a 20 mm six-barreled Vulcan gun. It has optical sights and a range-only radar. The M163 VADS was introduced into service with the US Army in 1968 and has since been adopted by other US allies, such as Israel and Saudi Arabia.
+\paragraph{Rh-202 Battery.} This has two Rheinmetall 20 mm guns in an open mount on a towed carriage. It entered service with West German forces in 1972 and was used for airfield defense. Subsequently, it was exported and notably used by the Argentine Air Force in the South Atlantic War.
 
-\paragraph{M167.} The M167 VADS (Vulcan Air Defense System) has the 20 mm six-barreled Vulcan gun in an open mount on a towed carriage. It has optical sights and a range-only radar. It was introduced into service with the US Army in 1965 and subsequently served with other US allies.
+\paragraph{Panhard M3 DCA Section.} The Panhard M3 DCA has an armored turret for twin 20 mm guns mounted on the Panhard M3 APC. The guns have optical sights, but typically one vehicle in each section or platoon is equipped with a search-and-ranging radar and can share this information automatically with the others. It served with the armed forces of Côte d'Ivoire, Niger, and UAE.
 
-\paragraph{ZU-23.} The ZU-23 has twin 23 mm cannons in an open mount on a towed carriage. It was designed as a more powerful replacement for the ZPU-2/4 and was introduced into service by the Soviet Army in 1960. It later served with the armed forces of many Soviet allies, notably in the Vietnam War.
+\paragraph{ZU-23 Battery.} The ZU-23 has twin 23 mm cannons in an open mount on a towed carriage. It was designed as a more powerful replacement for the ZPU-2/4 and was introduced into service by the Soviet Army in 1960. It later served with the armed forces of many Soviet allies, notably in the Vietnam War.
 
-\paragraph{Mobile ZU-23.} As with the earlier ZPU-2/4, many users of the ZU-23 mount it on vehicles, including trucks, tracked carriers, and APCs, for better mobility.
+\paragraph{Mobile ZU-23 Section.} As with the earlier ZPU-2/4, many users of the ZU-23 mount it on vehicles, including trucks, tracked carriers, and APCs, for better mobility.
 
-\paragraph{ZSU-23-4.} The ZSU-23-4 has four radar-controlled 23 mm guns, similar to those in the ZU-23, mounted in an armored turret on a hull adapted from the PT-76 light tank.
+\paragraph{ZSU-23-4 Section.} The ZSU-23-4 has four radar-controlled 23 mm guns, similar to those in the ZU-23, mounted in an armored turret on a hull adapted from the PT-76 light tank.
 It entered service in the Soviet Army in 1965 and outclassed all NATO anti-aircraft guns at that time.
 A platoon of four were assigned to the air-defense battery of tank and motor-rifle regiments, replacing the ZSU-57-2 and later being complemented by a platoon of four SA-9 vehicles.
 It was exported to Soviet allies and saw extensive combat with Arab forces in the 1973 Arab-Israeli War and with Iraqi forces in the Iran-Iraq War and the Gulf War.
 
-\paragraph{LAV-AD.} The LAV-AD has a 25 mm GAU-12 rotary cannon and eight FIM-92 Stinger missiles mounted in a turret on the LAV-25 vehicle. It does not have radar, but is equipped with a passive night IR sight. It entered service with the USMC in 1997, but was retired after only a few years.
+\paragraph{LAV-AD Section.} The LAV-AD has a 25 mm GAU-12 rotary cannon and eight FIM-92 Stinger missiles mounted in a turret on the LAV-25 vehicle. It does not have radar, but is equipped with a passive night IR sight. It entered service with the USMC in 1997, but was retired after only a few years.
 
-\paragraph{M53/59.} The M53/59 Praga has a twin M35 30 mm gun mount on a partially armored truck. It entered service in the Czech Army in 1959 and was used instead of the ZSU-57-2. It was also exported to Iraq and saw combat in the Iran-Iraq War and the Gulf War.
+\paragraph{M53/59 Section.} The M53/59 Praga has a twin M35 30 mm gun mount on a partially armored truck. It entered service in the Czech Army in 1959 and was used instead of the ZSU-57-2. It was also exported to Iraq and saw combat in the Iran-Iraq War and the Gulf War.
 
-\paragraph{AMX-30SA.} The AMX-30SA has twin radar-controlled 30 mm Hispano-Suiza guns in an armored turret mounted on the hull of an AMX-30 tank. It is an improved version of the AMX-30 DCA and served only in the Saudi Army from 1979.
+\paragraph{AMX-30SA Section.} The AMX-30SA is equipped with a pair of radar-controlled 30 mm Hispano-Suiza guns mounted in an armored turret on the hull of an AMX-30 tank. It is an improved version of the AMX-30 DCA and served only in the Saudi Army from 1979.
 
-\paragraph{Tunguska and Tunguska-M.} The Tunguska has twin radar-controlled 30 mm guns and four SA-19 missiles in an armored turret on an armored and tracked hull. It was designed to counter the A-10 and AH-64, against which the earlier ZSU-23-4 had weaknesses, and entered service in the Soviet Army in 1984. The Tunguska-M is an improved version with eight missiles and entered service in 1990. It has been used by Russia, Ukraine, and Belarus after the break-up of the Soviet Union and has been exported to India, Morocco, and Myanmar.
+\paragraph{Tunguska and Tunguska-M Section.} The Tunguska has twin radar-controlled 30 mm guns and four SA-19 missiles in an armored turret on an armored and tracked hull. It was designed to counter the A-10 and AH-64, against which the earlier ZSU-23-4 had weaknesses, and entered service in the Soviet Army in 1984. The Tunguska-M is an improved version with eight missiles and entered service in 1990. It has been used by Russia, Ukraine, and Belarus after the break-up of the Soviet Union and has been exported to India, Morocco, and Myanmar.
 
 %\paragraph{Pantsir.} The Pantsir has twin radar-controlled 30 mm guns and twelve SA-22 missiles in an unarmored turret mounted on a truck. While the Tunguska was designed to accompany ground forces, the Pantsir was designed for point defense of mobile S-300/S-400 batteries and other high-value targets, and this led to the choice of the system being wheeled and unarmored. It entered service in 2012 with Russian forces and has since been exported.
 
 \subsection{Medium AAA Units}
 
-\paragraph{Oerlikon GDF.} The Oerlikon GDF has two 35 mm guns in an open mount on a towed carriage. It entered service in 1963 and has served widely. It is often coupled with the Super Fledermaus or Skyguard fire-control radars. Notably, it saw combat in the South Atlantic War and shot down two RAF Harriers.
+\paragraph{Oerlikon GDF Battery.} The Oerlikon GDF has two 35 mm guns in an open mount on a towed carriage. It entered service in 1963 and has served widely. It is often coupled with the Super Fledermaus or Skyguard fire-control radars. Notably, it saw combat in the South Atlantic War and shot down two RAF Harriers.
 
-\paragraph{Gepard.} The Gepard has two radar-controlled 35 mm guns in an armored turret on an adapted Leopard 1 tank hull. It entered service in 1976 with the West German Army and also served with the Belgian and Dutch armies. After the end of the Cold War, they were retired by these armies, and many were sold on to other countries.
+\paragraph{Gepard Section.} The Gepard has two radar-controlled 35 mm guns in an armored turret on an adapted Leopard 1 tank hull. It entered service in 1976 with the West German Army and also served with the Belgian and Dutch armies. After the end of the Cold War, they were retired by these armies, and many were sold on to other countries.
 
-\paragraph{M-38.} The M-38 (M1939 61-K) has a single 37 mm gun in an open mount on a towed carriage. After entering service in 1939 with the Soviet Army, it served in WW2 and after until replaced by the S-60 57 mm gun. It also served with many Soviet allies, and in particular with communist forces in the Korean and Vietnam Wars. Unlike its replacement, the M-38 cannot be coupled to an external fire-control radar.
+\paragraph{M-38 Battery.} The M-38 (M1939 61-K) has a single 37 mm gun in an open mount on a towed carriage. After entering service in 1939 with the Soviet Army, it served in WW2 and after until replaced by the S-60 57 mm gun. It also served with many Soviet allies, and in particular with communist forces in the Korean and Vietnam Wars. Unlike its replacement, the M-38 cannot be coupled to an external fire-control radar.
 
-\paragraph{Bofors L/60.} The Bofors L/60 has a single 40 mm gun in an open mount on a towed carriage. It entered service in the 1940s and was widely used by Allied forces during WW2, both on land and sea. After the war, many continued to see service, although it was increasingly inadequate against faster jet aircraft and in many cases was replaced by the new L/70 model.
+\paragraph{Bofors L/60 Battery.} The Bofors L/60 has a single 40 mm gun in an open mount on a towed carriage. It entered service in the 1940s and was widely used by Allied forces during WW2, both on land and sea. After the war, many continued to see service, although it was increasingly inadequate against faster jet aircraft and in many cases was replaced by the new L/70 model.
 
-\paragraph{Bofors L/70.} The Bofors L/70 has a single 40 mm gun in an open mount on a towed carriage. Between the 1930s and the end of WW2, aircraft speed increased substantially, and so the engagement time of the Bofors L/60 became inadequate. The new L/70 fired a lighter shell at a higher velocity and achieved a significant improvement in range and engagement time. NATO forces and others adopted it widely starting in 1952. It was used by the Indian Army in the 1965 India-Pakistan War and Israeli forces from 1967. Various external fire-control radars can be used with it, including the Super Fledermaus and Flycatcher.
+\paragraph{Bofors L/70 Battery.} The Bofors L/70 has a single 40 mm gun in an open mount on a towed carriage. Between the 1930s and the end of WW2, aircraft speed increased substantially, and so the engagement time of the Bofors L/60 became inadequate. The new L/70 fired a lighter shell at a higher velocity and achieved a significant improvement in range and engagement time. NATO forces and others adopted it widely starting in 1952. It was used by the Indian Army in the 1965 India-Pakistan War and Israeli forces from 1967. Various external fire-control radars can be used with it, including the Super Fledermaus and Flycatcher.
 
-\paragraph{Bofors L/70 BOFI and BOFI-R.} The BOFI version of the Bofors L/70 adds modern sights, a laser rangefinder, and proximity-fuzed shells. The BOFI-R version also adds an integrated fire-control radar.
+\paragraph{Bofors L/70 BOFI and BOFI-R Battery.} The BOFI version of the Bofors L/70 adds modern sights, a laser rangefinder, and proximity-fuzed shells. The BOFI-R version also adds an integrated fire-control radar.
 
-\paragraph{S-60.} The S-60 is a Soviet single 57 mm gun on in open mount on a towed carriage. It entered service in 1950 with Soviet forces as a replacement for the M-38 37 mm gun. It was exported to many Soviet allies, and saw combat with Arab forces in the 1967 and 1973 Arab-Israeli War, with communist forces in the Vietnam War, and with Iraqi forces in the Iran-Iraq War and the Gulf War. However, it was not used by communist forces in the Korean War. When paired with the SON-9 (Fire Can) radar, it was considered one of the more dangerous AAA systems faced by US aircraft in Vietnam.
+\paragraph{S-60 Battery.} The S-60 is a Soviet single 57 mm gun on in open mount on a towed carriage. It entered service in 1950 with Soviet forces as a replacement for the M-38 37 mm gun. It was exported to many Soviet allies, and saw combat with Arab forces in the 1967 and 1973 Arab-Israeli War, with communist forces in the Vietnam War, and with Iraqi forces in the Iran-Iraq War and the Gulf War. However, it was not used by communist forces in the Korean War. When paired with the SON-9 (Fire Can) radar, it was considered one of the more dangerous AAA systems faced by US aircraft in Vietnam.
 
 \subsection{Heavy AAA Units}
 
-\paragraph{KS-12.} The KS-12 (M1939 52-K) and the very similar KS-12A (M1944 KS-1) have a single 85 mm gun in an open mount on a towed carriage. It entered service with Soviet forces in 1939. After WW2, it began to be replaced in Soviet service by the KS-19 100 mm and KS-30 130 mm guns, but was widely used by Soviet allies and saw combat with communist forces in the Korean War and the Vietnam War. It is often paired with the SON-9 (Fire Can) radar.
+\paragraph{KS-12 Battery.} The KS-12 (M1939 52-K) and the very similar KS-12A (M1944 KS-1) have a single 85 mm gun in an open mount on a towed carriage. It entered service with Soviet forces in 1939. After WW2, it began to be replaced in Soviet service by the KS-19 100 mm and KS-30 130 mm guns, but was widely used by Soviet allies and saw combat with communist forces in the Korean War and the Vietnam War. It is often paired with the SON-9 (Fire Can) radar.
 
-\paragraph{KS-19.} The KS-19 has a single 100 mm gun in an open mount on a towed carriage. It entered service in 1948 with Soviet forces as a replacement for the KS-12 85 mm gun. It also served with many Soviet allies and saw combat with communist forces in the Korean War and Vietnam War and Iraqi forces in the Iran-Iraq and Gulf Wars. Like other contemporary Soviet guns, it was typically deployed with the SON-9 (Fire Can) fire-control radar.
+\paragraph{KS-19 Battery.} The KS-19 has a single 100 mm gun in an open mount on a towed carriage. It entered service in 1948 with Soviet forces as a replacement for the KS-12 85 mm gun. It also served with many Soviet allies and saw combat with communist forces in the Korean War and Vietnam War and Iraqi forces in the Iran-Iraq and Gulf Wars. Like other contemporary Soviet guns, it was typically deployed with the SON-9 (Fire Can) fire-control radar.
 
 \begin{figure*}
     \centering
@@ -282,7 +282,7 @@ This does not always coincide with the actual designations used historically. Fo
 Infantry SAMs are available as sections (with two launchers) and squads (with one launcher).
 Unless otherwise specified, each launcher has one ready missile and two reloads available.
 
-Infantry SAM squads may be embedded in infantry or infantry HQ platoons. If they are, then they are not represented by a separate counter but are considered to be part of the platoon. The squad can engage aircraft normally. If the unit in which they are embedded is suppressed, the squad is suppressed too. If the unit in which they are embedded suffers damage, then for each D of damage suffered roll one die, and on a \minusafter{4} the squad is killed. If the unit in which they are embedded is killed, the squad is killed too.
+Infantry SAM squads may be embedded in infantry or infantry HQ platoons. If they are, then they are not represented by a separate counter but are considered to be part of the platoon. The squad can engage aircraft normally. If the unit in which they are embedded is suppressed, the squad is suppressed too: if the unit in which they are embedded suffers damage, then for each D of damage suffered roll one die, and on a \minusafter{4} the squad is killed; and if the unit in which they are embedded is killed, the squad is killed too.
 
 \paragraph{Missile Properties.}
 Table~\ref{table:sams} gives: the guidance mode; launch roll; turn rate; flight time; visibility; ECCM, chaff, and flare ratings; whether the missile is active homing (AH) or has a home-on-jam (HOJ) capability; boost phase in FPs; base speed and sustainer duration in game turns; minimum altitude (and modifier for targets at T level); hot rolls for direct and proximity hits; and damage ratings for direct and proximity hits.
@@ -373,7 +373,7 @@ Unless otherwise indicated in the scenario notes, a major bridge is one that ext
 \begin{table*}
     \caption{Ground-Combat Units}
     \centering
-    \small
+    \footnotesize
     \input{table-ground-combat-units.tex}
     \label{table:ground-combat-units}
 \end{table*}
@@ -381,7 +381,7 @@ Unless otherwise indicated in the scenario notes, a major bridge is one that ext
 \begin{table*}
     \caption{AAA Units}
     \centering
-    \small
+    \footnotesize
     \input{table-aaa-units.tex}
     \label{table:aaa-units}
 \end{table*}
@@ -389,7 +389,7 @@ Unless otherwise indicated in the scenario notes, a major bridge is one that ext
 \begin{table*}
     \caption{FCR Units}
     \centering
-    \small
+    \footnotesize
     \input{table-fcr-units.tex}
     \label{table:fcr-units}
 \end{table*}
@@ -415,7 +415,7 @@ Unless otherwise indicated in the scenario notes, a major bridge is one that ext
 \begin{table*}
     \caption{Ground Targets}
     \centering
-    \small
+    \footnotesize
     \input{table-ground-targets.tex}
     \label{table:ground-targets}
 \end{table*}
