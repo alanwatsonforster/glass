@@ -9,6 +9,10 @@
 
 VPs from Air Strike.
 
+### Mobility
+
+All seem to be towed.
+
 ### SCR-268
 
 - Provided ranging and could direct a searchlight for night engagements (Wikipedia on M1 90 mm).
@@ -28,12 +32,19 @@ VPs from Air Strike.
 
 Mobile version of SCR-584
 
+### SON-4 (Whiff)
+
+- Developed from SCR-584
+- 1948
+- <https://www.radartutorial.eu/19.kartei/11.ancient6/karte006.en.html>
+
 ### SON-9 (Fire Can)
 
 - Used with 57, 85, 100, and 120 mm guns (Wikipedia).
 - Based on SON-4 which in turn was based on the SCR-584 (Wikipedia).
 - Used in Vietnam War (Wikipedia)
 - No MTI
+- <https://www.radartutorial.eu/19.kartei/11.ancient6/karte007.en.html>
 
 - Appears to be FCR-A in TSOH
 
@@ -56,13 +67,13 @@ Mobile version of SCR-584
 - Used in the first prototype of the Gepard
 - Gepard FCR is VF = same frequency as FCR-C
 
-- Original GT63 was replaced by Gt69 from 1970 to 1985 in Swiss service. 
+- Original GT63 was replaced by Gt69 from 1970 to 1985 in Swiss service.
   - Adds background clutter suppression
   - Adds three optical target detectors
 
 ### Flycatcher
 
-- https://en.wikipedia.org/wiki/Flycatcher_(radar)
+- <https://en.wikipedia.org/wiki/Flycatcher_(radar)>
 - Used with Dutch Bofers L/70s
 - Similar to the Cheetah radar, so presumably FCR-C
 
@@ -71,7 +82,6 @@ Mobile version of SCR-584
 - Used by Oerlikon 35 mm
 - Pulse doppler search and tracking
 - Oerlikon 35 mm has FCR-D in scenario H-21/G-13 of Air Strike, and this is presumably Skyguard FCR
-
 
 ### Mark 7 (Blue Cedar)
 
