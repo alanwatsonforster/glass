@@ -111,3 +111,9 @@ Praga
 fuzes
 HOJ
 SAMs
+Krug
+Ganef
+Kub
+Osa
+Osa-AK
+Buk
