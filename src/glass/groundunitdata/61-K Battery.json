@@ -1,7 +1,7 @@
 {
-    "name": "M-38",
+    "name": "61-K",
     "year": 1939,
-    "description": "M-38 37 mm air-defense battery",
+    "description": "61-K 37 mm air-defense battery",
     "symbols": "air-defense/gun/medium/battery",
     "text": "37",
     "defensestrength": "3S",
