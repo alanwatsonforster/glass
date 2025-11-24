@@ -118,3 +118,10 @@ Osa
 Osa-AK
 Buk
 Chaparral
+TELs
+EOTG
+IRCMs
+GEMAG
+Werrell
+PIVADS
+ROF

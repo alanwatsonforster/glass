@@ -26,3 +26,6 @@
 {"rule":"MORFOLOGIK_RULE_EN_US","sentence":"^\\QIt is equipped with an Oeil Noir 1 radar.\\E$"}
 {"rule":"MORFOLOGIK_RULE_EN_US","sentence":"^\\QBofers L/70 BOFI and BOFI-R\\E$"}
 {"rule":"MORFOLOGIK_RULE_EN_US","sentence":"^\\QThis is Bofers 40 mm L/70 with an improved optical fire-control system, laser rangefinder, proximity-fuzed ammunition and, in the case of the BOFI-R, an integrated all-weather FCR.\\E$"}
+{"rule":"THIS_NNS","sentence":"^\\QPuma assigns A/B to these latter two.\\E$"}
+{"rule":"ENGLISH_WORD_REPEAT_RULE","sentence":"^\\QWikipedia\nWikipedia on AMX-13\nWikipedia on 30 mm shells\nAMX-30SA\\E$"}
+{"rule":"ENGLISH_WORD_REPEAT_RULE","sentence":"^\\QUsed by Oerlikon 35 mm\nCombines tracking and search\nPulse Doppler Tracking is J band\nDoppler Search is E/F band with a range of 15 km\n1965 onwards\nUsed in the first prototype of the Gepard\nGepard FCR is VF = same frequency as FCR-C\\E$"}

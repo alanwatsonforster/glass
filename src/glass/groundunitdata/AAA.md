@@ -447,7 +447,7 @@ Principal: hit rolls should depend on
 - Sight
 - Proximity fuzes
 
-and damage should depend on caliber.
+Damage should depend on caliber.
 
 Suggestion:
 

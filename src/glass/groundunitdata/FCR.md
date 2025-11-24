@@ -22,7 +22,7 @@ All seem to be towed.
 
 - Using with M1 90 mm (Wikipedia on M1 90 mm)
 - Used by British in WWII (Wikipedia on SCR-584)
-- Soviet SON-9 (Fire Can), SON-30 (Fire Wheel), and SON-50 (Flap Wheel) are derivatives (Wikpedia on SCR-584)
+- Soviet SON-9 (Fire Can), SON-30 (Fire Wheel), and SON-50 (Flap Wheel) are derivatives (Wikipedia on SCR-584)
 
 - 4 RPM scan mode
 - Automatic tracking mode
@@ -80,7 +80,7 @@ Mobile version of SCR-584
 ### Skyguard
 
 - Used by Oerlikon 35 mm
-- Pulse doppler search and tracking
+- Pulse Doppler search and tracking
 - Oerlikon 35 mm has FCR-D in scenario H-21/G-13 of Air Strike, and this is presumably Skyguard FCR
 
 ### Mark 7 (Blue Cedar)
