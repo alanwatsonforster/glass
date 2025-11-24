@@ -1,0 +1,19 @@
+{
+    "name": "MIM-72E",
+    "year": "1980",
+    "A": {
+        "launchroll": 8,
+        "turnrate": "BT/2",
+        "flighttime": 2,
+        "visibility": 3,
+        "flarerating": 5,
+        "basespeed": 16,
+        "sustainer": 0,
+        "minimumaltitude": "T",
+        "directhitroll": 5,
+        "proximityhitroll": 8,
+        "directdamagerating": 5,
+        "proximitydamagerating": 3,
+        "instantarming": true
+    }
+}

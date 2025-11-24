@@ -1,0 +1,25 @@
+{
+    "name": "M48",
+    "othername": "Chaparral",
+    "year": 1969,
+    "description": "M48 Chaparral air-defense squad",
+    "symbols": "air-defense/missile/armor/squad",
+    "text": "M48",
+    "sightingrange": 12,
+    "defensestrength": "4S",
+    "VPs": [
+        9,
+        null,
+        null
+    ],
+    "sam": {
+        "type": "MIM-72",
+        "multitargetcapability": 2,
+        "quickreaction": true,
+        "readymissiles": 4,
+        "volleymissiles": 2,
+        "opticallockon": 7,
+        "lockonrange": 12,
+        "nightirsights": true
+    }
+}

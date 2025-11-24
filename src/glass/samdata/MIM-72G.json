@@ -1,0 +1,19 @@
+{
+    "name": "MIM-72C",
+    "year": "1985",
+    "A": {
+        "launchroll": 8,
+        "turnrate": "BT/2",
+        "flighttime": 2,
+        "visibility": 3,
+        "flarerating": 1,
+        "basespeed": 16,
+        "sustainer": 0,
+        "minimumaltitude": "T",
+        "directhitroll": 7,
+        "proximityhitroll": 9,
+        "directdamagerating": 5,
+        "proximitydamagerating": 3,
+        "instantarming": true
+    }
+}

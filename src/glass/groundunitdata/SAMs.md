@@ -109,3 +109,34 @@ In AS
 ### Launcher
 
 ### Missiles
+
+## M48 Chaparral
+
+In AS
+
+### Launcher
+
+- Defense strength is 4H in AS and Puma. Giving it a hard defenses strength is extremely optimistic, as the carrier is open-topped and not armored.
+
+### Missiles
+
+- MIM-71A
+  - Based on AIM-9D
+  - AS has speed 12 and Puma has speed 14. I adopt Puma's values.
+- MIM-71C
+  - WIkipedia: improved guidance, fuze, and warhead.
+  - AS has speed 12 and Puma has speed 14 (for the E). I adopt Puma's values.
+  - Since this doesn't seem to have a smokeless motor, give it the speed and visibility equal to the A.
+- MIM-72E/F
+  - Wikipedia: C with smokeless motor
+  - Puma: Speed 16 rather than 12, but otherwise identical to C in AS.
+  - Use Puma's speed and visibility.
+- MIM-72G
+  - Wikipedia: New seeker based on Stinger POST (FIM-92B) giving less susceptibility to IRCMs. Use E with flare and hit numbers from Puma's FIM-92B.
+
+### References
+
+- <https://weaponsystems.net/system/759-M48+Chaparral>
+- <https://en.wikipedia.org/wiki/M48_Chaparral>
+- <https://weaponsystems.net/system/760-MIM-72%20Chaparral>
+- https://history.redstone.army.mil/miss-chaparral.html
