@@ -1,0 +1,37 @@
+{
+    "name": "MIM-23D",
+    "year": "1988",
+    "CW": {
+        "launchroll": 8,
+        "turnrate": "ET/3",
+        "flighttime": 4,
+        "visibility": 10,
+        "eccmrating": 4,
+        "chaffrating": 2,
+        "homeonjam": true,
+        "boostphase": 3,
+        "basespeed": 18,
+        "sustainer": 0,
+        "minimumaltitude": "T",
+        "directhitroll": 7,
+        "proximityhitroll": 9,
+        "directdamagerating": 9,
+        "proximitydamagerating": 4
+    },
+    "OG": {
+        "launchroll": 8,
+        "turnrate": "ET/3",
+        "flighttime": 4,
+        "visibility": 10,
+        "chaffrating": 1,
+        "flareraring": 1,
+        "boostphase": 3,
+        "basespeed": 18,
+        "sustainer": 0,
+        "minimumaltitude": "T",
+        "directhitroll": 5,
+        "proximityhitroll": 8,
+        "directdamagerating": 9,
+        "proximitydamagerating": 4
+    }
+}

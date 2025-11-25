@@ -116,17 +116,18 @@ I-HAWK in AS
 
 ### I-HAWK Launcher
 
-- AS and Puma both have this as three triple launchers, but a battery typically has six according to Wikipedia. However, Wikipedia also talsk about an "AFCC" which controls one firing section of three launchers, one acquisition radar, and one illuminator. This matches the AS missile count.
+- AS and Puma both have this as three triple launchers, but a battery typically has six according to Wikipedia. However, Wikipedia also mentions an "AFCC" which controls one firing section of three launchers, one acquisition radar, and one illuminator. This matches the AS missile count.
 -
 
 ### I-HAWK Missile
 
 - MIM-23B
   - Puma has HOJ, but I think this was in the D.
-- MIM-23V
+- MIM-23C
   - Improved ECCM.
 - MIM-23D
-  - This (and the subequent F/H/J/M) versions seem to be the HOJ versions.
+  - This (and the subsequent F/H/J/M) versions seem to be the HOJ versions.
+  - I'm guessing the year. It was after 1982 and before 1990, looking at the diagram in the Wikipedia page.
 
 ## M48 Chaparral
 
