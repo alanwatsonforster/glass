@@ -154,6 +154,12 @@ In AS
 - MIM-72G
   - Wikipedia: New seeker based on Stinger POST (FIM-92B) giving less susceptibility to IRCMs. Use E with flare and hit numbers from Puma's FIM-92B.
 
+## Patriot
+
+In AS
+
+### Patriot Launcher
+
 ### References
 
 - <https://weaponsystems.net/system/759-M48+Chaparral>

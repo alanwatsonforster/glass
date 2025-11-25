@@ -1,0 +1,28 @@
+{
+    "name": "MIM-104",
+    "othername": "Patriot (Standard)",
+    "year": "1984",
+    "description": "MIM-104A Patriot air-defense battery",
+    "symbols": "air-defense/missile/battery",
+    "text": "MIM-104A",
+    "sightingrange": 12,
+    "defensestrength": "3S",
+    "VPs": [
+        45,
+        30,
+        15
+    ],
+    "sam": {
+        "type": "MIM-104A",
+        "ewrfrequency": "LF",
+        "ewrrange": 60,
+        "ewrmti": true,
+        "ttrfrequency": "LF",
+        "ttrrange": 40,
+        "readymissiles": 24,
+        "volleymissiles": 8,
+        "multitargetcapability": 8,
+        "quickreaction": true,
+        "radarlockon": 9
+    }
+}

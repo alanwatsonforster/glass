@@ -1,0 +1,22 @@
+{
+    "name": "MIM-104A",
+    "year": "1984",
+    "othername": "Patriot (Standard)",
+    "TVM": {
+        "launchroll": 9,
+        "turnrate": "ET/3",
+        "flighttime": 10,
+        "visibility": 10,
+        "eccmrating": 5,
+        "chaffrating": 1,
+        "homeonjam": true,
+        "boostphase": 6,
+        "basespeed": 20,
+        "sustainer": 2,
+        "minimumaltitude": "T",
+        "directhitroll": 8,
+        "proximityhitroll": 10,
+        "directdamagerating": 10,
+        "proximitydamagerating": 6
+    }
+}
