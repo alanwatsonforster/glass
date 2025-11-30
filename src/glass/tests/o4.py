@@ -4,19 +4,19 @@ startfile(__file__, "ground unit aimed fire")
 
 starttestsetup()
 
-G0 = setupgroundunit("G0", "A1-2120", "infantry")
-G1 = setupgroundunit("G1", "A1-2120", "infantry")
-G2 = setupgroundunit("G2", "A1-2120", "medium tank")
-G3 = setupgroundunit("G3", "A1-2120", "towed artillery")
+G0 = setupgroundunit("G0", "A1-2120", "infantry platoon")
+G1 = setupgroundunit("G1", "A1-2120", "infantry platoon")
+G2 = setupgroundunit("G2", "A1-2120", "medium tank platoon")
+G3 = setupgroundunit("G3", "A1-2120", "towed artillery battery")
 G4 = setupgroundunit(
     "G4",
     "A1-2120",
-    "ZPU-4",
+    "ZPU-4 battery",
 )
 G5 = setupgroundunit(
     "G5",
     "A1-2120",
-    "ZPU-4",
+    "ZPU-4 battery",
 )
 
 

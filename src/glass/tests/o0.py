@@ -150,15 +150,15 @@ asserterror(
 # Check azimuths
 
 starttestsetup()
-G0 = setupgroundunit("G0", "A1-2110", "KS-19", azimuth="N")
+G0 = setupgroundunit("G0", "A1-2110", "KS-19 battery", azimuth="N")
 G0._assert("A1-2110 N 0", None)
 
 starttestsetup()
-G0 = setupgroundunit("G0", "A1-2110", "ZPU-1", azimuth="N")
+G0 = setupgroundunit("G0", "A1-2110", "ZPU-1 battery", azimuth="N")
 asserterror("only heavy AAA ground units may have an azimuth.")
 
 starttestsetup()
-G0 = setupgroundunit("G0", "A1-2110", "KS-19", aaaclass="H")
+G0 = setupgroundunit("G0", "A1-2110", "KS-19 battery", aaaclass="H")
 asserterror("heavy AAA ground units must have an azimuth.")
 
 # Make sure all of the ground unit data files are readable.

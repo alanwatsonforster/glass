@@ -4,8 +4,8 @@ startfile(__file__, "ground unit movement")
 
 starttestsetup()
 
-G0 = setupgroundunit("G0", "A1-2120", "infantry")
-G1 = setupgroundunit("G1", "A1-2120", "KS-19", azimuth="N")
+G0 = setupgroundunit("G0", "A1-2120", "infantry platoon")
+G1 = setupgroundunit("G1", "A1-2120", "KS-19 battery", azimuth="N")
 endtestsetup()
 
 startgameturn()
