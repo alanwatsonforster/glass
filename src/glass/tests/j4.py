@@ -137,7 +137,7 @@ asserterror("A1 has 2 unspecified attack results.")
 
 # Check tracking
 
-starttestsetup(verbose=True)
+starttestsetup()
 A0 = setupaircraft("A0", "AF", "F-80C", "A1-1815", "N", 20, 4.0, "CL")
 A1 = setupaircraft("A1", "AF", "F-80C", "A1-1814", "N", 20, 4.0, "CL")
 A2 = setupaircraft("A2", "AF", "F-80C", "A1-2212", "WNW", 20, 4.0, "CL")
