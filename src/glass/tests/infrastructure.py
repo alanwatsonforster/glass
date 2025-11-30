@@ -24,18 +24,16 @@ def asserterror(error):
         assert glass.log._error == error
     glass.log._error = None
 
+
 def assertnoerror():
     if glass.log._error is not None:
         print("expected error: %r" % None)
         print("actual   error: %r" % glass.log._error)
         assert glass.log._error is None
 
+
 def starttestsetup(
-    sheets=[["A1"], ["A2"]],
-    north="up",
-    variants=[],
-    verbose=False,
-    **kwargs
+    sheets=[["A1"], ["A2"]], north="up", variants=[], verbose=False, **kwargs
 ):
     ap.startgamesetup(
         None,

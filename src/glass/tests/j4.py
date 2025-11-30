@@ -5,8 +5,12 @@ startfile(__file__, "air-to-air attacks")
 starttestsetup()
 A1 = setupaircraft("A1", "AF", "F-80C", "A2-2025", "N", 20, 4.0, "CL")
 A2 = setupaircraft("A2", "AF", "Tu-4", "A2-2023", "E", 20, 4.0, "CL")
-A3 = setupaircraft("A3", "AF", "F-80C", "A2-2025", "N", 20, 4.0, "CL", gunammunition=3.5)
-A4 = setupaircraft("A4", "AF", "Tu-4", "A2-2023", "E", 20, 4.0, "CL", gunammunition=11.0)
+A3 = setupaircraft(
+    "A3", "AF", "F-80C", "A2-2025", "N", 20, 4.0, "CL", gunammunition=3.5
+)
+A4 = setupaircraft(
+    "A4", "AF", "Tu-4", "A2-2023", "E", 20, 4.0, "CL", gunammunition=11.0
+)
 A5 = setupaircraft("A5", "AF", "F-89D", "A2-2023", "E", 20, 4.0, "CL")
 A6 = setupaircraft("A6", "AF", "F-102A", "A2-2023", "E", 20, 4.0, "CL", rocketfactors=0)
 A7 = setupaircraft("A7", "AF", "F-100C", "A2-2025", "N", 20, 6.0, "CL")
