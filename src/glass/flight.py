@@ -57,10 +57,11 @@ def _checkflighttype(E):
         or E._flighttype == "VC"
         or E._flighttype == "SD"
         or E._flighttype == "HRD/SD"
-        or E._flighttype == "UD"
         or E._flighttype == "VD"
         or E._flighttype == "HRD/VD"
     ):
+        _checknormalflight(E)
+    elif E._flighttype == "UD" and not glass.variants.withvariant("use house rules"):
         _checknormalflight(E)
     elif E._flighttype == "ST":
         _checkstalledflighttype(E)
@@ -119,6 +120,10 @@ def _checknormalflight(E):
     E._hrd = hrd
 
     if E._flighttype not in ["LVL", "SC", "ZC", "VC", "SD", "UD", "VD"]:
+        raise RuntimeError("invalid flight type %r." % E._flighttype)
+
+    # UD is no longer a valid flight type with the house rules.
+    if E._flighttype == "UD" and glass.variants.withvariant("use house rules"):
         raise RuntimeError("invalid flight type %r." % E._flighttype)
 
     # See rule 13.3.5 for restrictions on HRDs.
@@ -248,28 +253,15 @@ def _checknormalflight(E):
 
     elif E._flighttype == "UD":
 
-        # See rule 8.2.2 on VC restrictions.
+        assert not glass.variants.withvariant("use house rules")
 
-        if glass.variants.withvariant("use version 2.4 rules"):
+        # See rule 8.1.3 on VC restrictions.
 
-            # I interpret the text "start from level flight" to mean that the aircraft
-            # must have been in level flight on the previous game turn.
-
-            if False and E._previousflighttype != "LVL":
-                raise RuntimeError(
-                    "flight type immediately after %s cannot be %s."
-                    % (E._previousflighttype, E._flighttype)
-                )
-
-        else:
-
-            # See rule 8.1.3 on VC restrictions.
-
-            if E._previousflighttype == "VC" and not E.hasproperty("HPR"):
-                raise RuntimeError(
-                    "flight type immediately after %s cannot be %s."
-                    % (E._previousflighttype, E._flighttype)
-                )
+        if E._previousflighttype == "VC" and not E.hasproperty("HPR"):
+            raise RuntimeError(
+                "flight type immediately after %s cannot be %s."
+                % (E._previousflighttype, E._flighttype)
+            )
 
     elif E._flighttype == "VD":
 
@@ -386,13 +378,15 @@ def _startmove(E, **kwargs):
     E._hfp = 0
     E._vfp = 0
 
-    # The number of unloaded HFPs and the indices of the first and last
-    # unloaded HFPs in an UD. They are then used to ensure that the
-    # unloaded HFPs are continuous.
+    # The number of unloaded HFPs and the indices of the first and last unloaded
+    # HFPs. They are then used to ensure that the unloaded HFPs are continuous.
 
     E._unloadedhfp = 0
     E._firstunloadedfp = None
     E._lastunloadedfp = None
+
+    # The number of levels lost by unloading.
+    E._unloadedaltitudechange = 0
 
     # Whether the aircraft has used a superclimb (C3).
     E._usedsuperclimb = False
@@ -523,8 +517,8 @@ def _startmovehelicopterflight(A):
     A._turnsstalled = 0
     A._turnsdeparted = 0
 
-    A._maxfp = A.speed()
-    A.logcomment("has %.1f FPs." % A._maxfp)
+    A._maxfp = int(A.speed())
+    A.logcomment("has %d FPs." % A._maxfp)
 
     A._effectiveclimbcapability = glass.capabilities.specialclimbcapability(A)
     A.logcomment("effective climb capability is %.2f." % A._effectiveclimbcapability)
@@ -540,8 +534,8 @@ def _startmovespecialflight(A):
     A._turnsstalled = 0
     A._turnsdeparted = 0
 
-    A._maxfp = A.speed()
-    A.logcomment("has %.1f FPs." % A._maxfp)
+    A._maxfp = int(A.speed())
+    A.logcomment("has %d FPs." % A._maxfp)
 
     A._effectiveclimbcapability = glass.capabilities.specialclimbcapability(A)
     A.logcomment("effective climb capability is %.2f." % A._effectiveclimbcapability)
@@ -1046,7 +1040,7 @@ def _continuedepartedflight(A, moves):
         # Shift.
 
         # See rule 5.4.
-        A._maxfp = A.speed() + A._fpcarry
+        A._maxfp = int(A.speed() + A._fpcarry)
         A._fpcarry = 0
 
         shift = int((A._maxfp) / 2)
@@ -1204,6 +1198,9 @@ def _continuenormalflight(A, moves):
         ["HC", "FP", lambda A: _dohorizontal(A, "HC")],
         ["HD1", "FP", lambda A: _dohorizontal(A, "HD")],
         ["HD", "FP", lambda A: _dohorizontal(A, "HD")],
+        ["HUD2", "FP", lambda A: _dohorizontal(A, "HUD2")],
+        ["HUD1", "FP", lambda A: _dohorizontal(A, "HUD")],
+        ["HUD", "FP", lambda A: _dohorizontal(A, "HUD")],
         ["HU", "FP", lambda A: _dohorizontal(A, "HU")],
         ["H", "FP", lambda A: _dohorizontal(A, "H")],
         ["C1", "FP", lambda A: _doclimb(A, 1)],
@@ -1502,12 +1499,6 @@ def _endnormalflight(A):
 
         if A._flighttype == "UD":
             # See rule 8.2.2.
-            if A._firstunloadedfp == None:
-                n = 0
-            else:
-                n = A._lastunloadedfp - A._firstunloadedfp + 1
-            if A._unloadedhfp != n:
-                raise RuntimeError("unloaded HFPs must be continuous.")
             if A._unloadedhfp < A._minunloadedhfp:
                 raise RuntimeError("too few unloaded HFPs.")
             if A._unloadedhfp > A._maxunloadedhfp:
@@ -1517,11 +1508,12 @@ def _endnormalflight(A):
 
     def checkfreedescent():
 
-        # See rule 8.2.4.
+        # See rule 8.2.4. We take into account that free descent can be combined
+        # with unloading in the version 2 rules.
 
         if A._flighttype == "LVL" and not A.isinterrainfollowingflight():
             altitudechange = A.altitude() - A.startaltitude()
-            if altitudechange < -1:
+            if altitudechange < A._unloadedaltitudechange - 1:
                 raise RuntimeError("free descent cannot only be taken once per move.")
 
     ########################################
@@ -1634,6 +1626,8 @@ def _endnormalflight(A):
             # See rule 8.2.4 and 20.
             altitudeap = A._terrainfollowingflightap
 
+            altitudeap += -1.0 * A._unloadedaltitudechange
+
         # Round to nearest quarter. See rule 6.2.
         altitudeap = roundtoquarter(altitudeap)
 
@@ -1664,14 +1658,12 @@ def _endnormalflight(A):
 
     ########################################
 
-    def handleunloadeddiveflighttype():
+    def handleunloading():
 
-        if A._flighttype == "UD":
-            # See rule 8.2.2.
-            altitudechange = A.altitude() - A.startaltitude()
-            # if altitudechange == -2:
-            #    A.logcomment("UD ends as flight type SD.")
-            #    A._flighttype = "SD"
+        if glass.variants.withvariant("use house rules"):
+            if A._unloadedaltitudechange == -2:
+                A.logcomment("unloaded on all FPs and ends in SD.")
+                A._flighttype = "SD"
 
     ########################################
 
@@ -1695,7 +1687,7 @@ def _endnormalflight(A):
         determinemaxturnrateap()
         determinealtitudeap()
         checkcloseformationlimits()
-        handleunloadeddiveflighttype()
+        handleunloading()
 
     A._finishedmoving = True
 
@@ -1820,7 +1812,7 @@ def _domove(E, move, actiondispatchlist):
             plural(
                 E._maxfp,
                 "only 1 FP is available",
-                "only %.1f FPs are available." % E._maxfp,
+                "only %d FPs are available." % E._maxfp,
             )
         )
 
@@ -2040,7 +2032,8 @@ def _checktracking(A):
             A._trackingfp = 0
         elif glass.airtoair.trackingforbidden(A, A._tracking):
             A.logcomment(
-                "stopped tracking as %s" % glass.airtoair.trackingforbidden(A, A._tracking)
+                "stopped tracking as %s"
+                % glass.airtoair.trackingforbidden(A, A._tracking)
             )
             A._tracking = None
             A._trackingfp = 0
@@ -2291,13 +2284,20 @@ def _dohorizontal(E, action):
             )
         altitudechange = +1
 
-    elif action == "HU":
+    elif action == "HU" or action == "HUD" or action == "HUD2":
 
-        if E._flighttype != "UD":
-            raise RuntimeError(
-                "%r is not a valid action when the flight type is %s."
-                % (action, E._flighttype)
-            )
+        if glass.variants.withvariant("use house rules"):
+            if E._flighttype != "LVL":
+                raise RuntimeError(
+                    "%r is not a valid action when the flight type is %s."
+                    % (action, E._flighttype)
+                )
+        else:
+            if E._flighttype != "UD":
+                raise RuntimeError(
+                    "%r is not a valid action when the flight type is %s."
+                    % (action, E._flighttype)
+                )
 
         E._hasunloaded = True
         E._unloadedhfp += 1
@@ -2305,15 +2305,46 @@ def _dohorizontal(E, action):
             E._firstunloadedfp = E._hfp
         E._lastunloadedfp = E._hfp
 
-        if math.floor(E._maxfp) == 1:
-            # Both half FPs and all FPs.
-            altitudechange = -2
-        elif E._unloadedhfp == math.floor(E._maxfp / 2):
-            altitudechange = -1
-        elif E._unloadedhfp == math.floor(E._maxfp):
-            altitudechange = -1
+        if E._lastunloadedfp - E._firstunloadedfp + 1 != E._unloadedhfp:
+            raise RuntimeError("unloaded HFPs must be continuous.")
+
+        if E._flighttype == "UD":
+
+            if math.floor(E._maxfp) == 1:
+                # Both half FPs and all FPs.
+                altitudechange = -2
+            elif E._unloadedhfp == rounddown(E._maxfp / 2):
+                altitudechange = -1
+            elif E._unloadedhfp == E._maxfp:
+                altitudechange = -1
+            else:
+                altitudechange = 0
+
         else:
-            altitudechange = 0
+
+            if action == "HUD2":
+                if E._maxfp != 1:
+                    raise RuntimeError(
+                        "FP %d of %d cannot be HUD2." % (E._fp + 1, E._maxfp)
+                    )
+                altitudechange = -2
+                E._unloadedaltitudechange = -2
+            elif action == "HUD":
+                if (
+                    E._maxfp != 1
+                    and E._unloadedhfp != roundup(E._maxfp / 2)
+                    and E._unloadedhfp != E._maxfp
+                ):
+                    raise RuntimeError("FP %d cannot be HUD." % (E._fp + 1))
+                altitudechange = -1
+                E._unloadedaltitudechange -= 1
+            else:
+                if (
+                    E._unloadedhfp == roundup(E._maxfp / 2)
+                    or E._unloadedhfp == E._maxfp
+                ):
+                    raise RuntimeError("FP %d cannot be HU." % (E._fp + 1))
+                altitudechange = 0
 
     else:
 

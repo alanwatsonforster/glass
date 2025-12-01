@@ -108,37 +108,6 @@ A1.move("UD", "M", "HU,HU,HU,HU")
 A1._assert("A1-2011       N    18", 4.5)
 endgameturn()
 
-# Unloaded dives in version 2.4.
-
-starttestsetup()
-A1 = setupaircraft("A1", "AF", "F-80C", "A1-1815", "N", 20, 3.0, "CL")
-endtestsetup()
-
-startgameturn()
-A1.move("UD", "M", "HU,H,HU")
-asserterror("unloaded HFPs must be continuous.")
-startgameturn()
-A1.move("UD", "N", "H,H,H")
-asserterror("too few unloaded HFPs.")
-startgameturn()
-A1.move("UD", "N", "H,HU,H")
-A1._assert("A1-1812       N    19", 3.0)
-startgameturn()
-A1.move("UD", "N", "HU,HU,H")
-A1._assert("A1-1812       N    19", 3.0)
-startgameturn()
-A1.move("UD", "N", "HU,HU,HU")
-A1._assert("A1-1812       N    18", 3.5)
-endgameturn()
-
-# startgameturn()
-# A1.move("UD", "N", "HU,HU,HU")
-# asserterror("flight type immediately after SD cannot be UD.")
-startgameturn()
-A1.move("VD", "N", "H,D2,D2")
-A1._assert("A1-1811       N    14", 4.5)
-endgameturn()
-
 # Vertical Dives
 
 starttestsetup(sheets=[["A1"], ["A2"]])
