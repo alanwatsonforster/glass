@@ -29,13 +29,13 @@ Desert Falcons did not provide any new map sheets but used the existing ones fro
 
 *Eagles of the Gulf* appeared in issue 9 of *Battleplan* magazine and volumes 11 and 12 of *Air Power Journal*. It introduced four new sheets, labeled K, L, M, and N. Sheets K and L were published in *Battleplan*. Sheet N was published in volume 11 of *Air Power Journal*. Sheet M seems to have never been published and is only referenced in scenario EOG-23. It is not clear who designed these sheets, but the credits in *Battleplan* give “special thanks to Tony Valle for help on the maps”.
 
-These sheets are printed in black and white. Sheets K and L represent desert terrain. Sheet N represents a stretch of the Suez Canal. 
+These sheets are printed in black and white. Sheets K and L represent desert terrain. Sheet N represents a stretch of the Suez Canal.
 
 These sheets are largely compatible with the Air Strike map sheets. One minor exception is that the roads leaving the top and bottom of sheet N do not match those in sheets E to L.
 
 ### *The Speed of Heat*
 
-*The Speed of Heat* came with six map sheets, labeled A1, A2, B1, B2, C1, and C2. Rick Barber designed the sheets for Clash of Arms. These second-generation sheets are smaller than the first-generation map sheets, being 15 hexes high and 20 hexes wide (5.0 by 5.8 miles). 
+*The Speed of Heat* came with six map sheets, labeled A1, A2, B1, B2, C1, and C2. Rick Barber designed the sheets for Clash of Arms. These second-generation sheets are smaller than the first-generation map sheets, being 15 hexes high and 20 hexes wide (5.0 by 5.8 miles).
 
 The design is recognizable as a development of the GDW style. The lowest terrain is shown in light green, the first level of higher terrain in brown, and the second level is in a medium green. These maps have a lot more texture, for example, in the farmland, rivers, forests, and buildings. Villages, towns, and cities no longer seem to have distinct representations.
 
@@ -55,13 +55,11 @@ Glass implements twenty-six first-generation sheets labeled A to Z:
 
 - A to D: These are adaptations of the original four sheets from *Air Superiority*.
 
-- E to J: These are adaptations of the original six sheets from *Air Strike*. 
+- E to J: These are adaptations of the original six sheets from *Air Strike*.
 
-- K to N: These are adaptations of the original four sheets from *Eagles of the Gulf*, but sheet M currently does not have terrain features. Also, some of the roads in sheet N have been adjusted to match the other sheets. 
+- K to N: These are adaptations of the original four sheets from *Eagles of the Gulf*, but sheet M currently does not have terrain features. Also, some of the roads in sheet N have been adjusted to match the other sheets.
 
-- O to X: These are ten new sheets, currently all land at level 0 with no other terrain features. They are for future expansion.
-
-- Y and Z: These are two new sheets, identical to sheets A to D from *Air Superiority*. Scenario H-23 in *Air Strike* requires duplicates of sheets A and B; use these instead.
+- O to Z: These are twelve new sheets, currently all land at level 0 with no other terrain features. They are for future expansion.
 
 Any number of first-generation sheets can be used at once. When arranged in an approximately square grid, twelve are 80 hexes wide by 75 hexes high (about 27 miles by 25 miles). Adding additional first-generation sheets to the implementation would be quite easy.
 
@@ -85,7 +83,7 @@ The following are thumbnail images of the first-generation map sheets; click on 
 
 Glass implements twelve second-generation sheets labeled *XY*, in which *X* is one of the letters from A to D and *Y* is one of the numbers from 1 to 6:
 
-- A1, A2, B1, B2, C1, and C2: These are adaptations of the original sheets from *The Speed of Heat*. 
+- A1, A2, B1, B2, C1, and C2: These are adaptations of the original sheets from *The Speed of Heat*.
 
 - A3, B3, and C3: These are duplicates of A1, B1, and C1. Scenario V-25 in *The Speed of Heat* requires a duplicate of sheet C1; use sheet C3 instead.
 
@@ -136,6 +134,36 @@ And appears as:
 <img src="../../../maps/map-V-11.png" width="40%"/>
 
 Note that the inversion process inverts the terrain but *does not invert the hex grid*. One consequence of this is that care needs to be taken when an aircraft or ground units that are set up on an inverted sheet; the original hex code cannot be used directly.
+
+### Aliased and Duplicated Map Sheet
+
+Glass allows a second-generation map sheet to be given an arbitrary (but unique) name in the map sheet grid and then use the terrain features of any map sheet.
+This allows map sheets to be given descriptive names (e.g., NE, NW, SE, SW) and to be used more than once.
+
+It does this by allowing each map in the map sheet grid to be an alias of a map sheet.
+The aliases are defined by the ``sheetaliases`` argument.
+This must be a dictionary whose keys and values are strings.
+The keys must correspond to sheet names in the map sheet arrangement.
+The values must correspond to defined sheet names.
+The terrain for the sheet named by the value is used for the sheet named by the key in the grid.
+
+For example, Scenario H-21 in *Air Strike* requires six all-blue sheets like sheet A, but only four are provided.
+This can be solved using map sheet aliases. Use the following for the sheet grid:
+
+    [
+      [ "A", "B" ],
+      [ "C", "D" ],
+      [ "Y", "E" ],
+      [ "Z", "G" ]
+    ]
+
+and the following for the sheet aliases:
+
+    { "Y": "A", "Z": "B" }
+
+This uses the terrain features for map sheets A and B for the map sheets named as Y and Z.
+
+Aliases cannot be used with first-generation sheets, as there is a fixed mapping between sheet name and hex number.
 
 ### Oblique Map Sheets
 
