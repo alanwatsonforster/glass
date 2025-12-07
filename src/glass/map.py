@@ -248,6 +248,7 @@ def usingfirstgenerationsheets():
 def setupmap(
     sheets,
     invertedsheets=[],
+    sheetaliases=[],
     dotsperhex=80,
     style="airstrike",
     leveloffset=0,
@@ -273,6 +274,17 @@ def setupmap(
 
     :param invertedsheets: A list of strings naming sheets that are inverted in
         the map.
+
+    :param sheetaliases: A dictionary whose keys and values are strings. The
+        keys must correspond to sheet names in the ``sheets`` argument. The
+        values must correspond to defined sheet names. The terrain for the sheet
+        named by the value is used for the sheet named by the key.
+
+        For example, ``sheets`` could be ``[["NW","NE"],["SW","SE"]]`` and
+        ``sheetaliases`` could be ``{ "NW": "A", "NE": "B", "SW": "C", "SE":
+        "D" }`` which would give a map with the same terrain as
+        ``[["A","B"],["C","D"]`` but using the name NW for A, NE for B, and so
+        on.
 
     :param dotsperhex: The ``dotsperhex`` argument must be an integer. It
         specifies the resolution of pixelated output files in dots per hex (or
@@ -357,8 +369,15 @@ def setupmap(
                 if sheet in _sheetlist:
                     raise RuntimeError("sheet %s is used more than once." % sheet)
                 _sheetlist.append(sheet)
-                _loweredgeisinternal |= {sheet: iy != 0 and _sheetgrid[iy - 1][ix] not in blanksheets}
-                _rightedgeisinternal |= {sheet: ix != _nxsheetgrid - 1 and _sheetgrid[iy][ix + 1] not in blanksheets}
+                _loweredgeisinternal |= {
+                    sheet: iy != 0 and _sheetgrid[iy - 1][ix] not in blanksheets
+                }
+                _rightedgeisinternal |= {
+                    sheet: ix != _nxsheetgrid - 1
+                    and _sheetgrid[iy][ix + 1] not in blanksheets
+                }
+                if fullsheet in sheetaliases:
+                    fullsheet = sheetaliases[fullsheet]
                 try:
                     terrain = _loadterrain(fullsheet)
                 except:
@@ -415,7 +434,9 @@ def _loadterrain(fullsheet):
 
     :returns: The terrain object for the sheet.
     """
-    filename = os.path.join(os.path.dirname(__file__), "mapsheetdata", fullsheet + ".json")
+    filename = os.path.join(
+        os.path.dirname(__file__), "mapsheetdata", fullsheet + ".json"
+    )
     with open(filename, "r", encoding="utf-8") as f:
         terrain = glass.jsonc.load(f)
     return terrain
@@ -983,7 +1004,7 @@ def startdrawmap(
         )
         drawpaths(
             sheet,
-            _terrain[sheet][ "level2trailpaths"],
+            _terrain[sheet]["level2trailpaths"],
             linecolor=roadoutlinecolor,
             linewidth=roadwidth + roadoutlinewidth,
             capstyle="projecting",
@@ -1006,7 +1027,7 @@ def startdrawmap(
         )
         drawpaths(
             sheet,
-            _terrain[sheet][ "level2trailpaths"],
+            _terrain[sheet]["level2trailpaths"],
             linecolor=level2color,
             linewidth=roadwidth,
             capstyle="projecting",
@@ -1017,7 +1038,7 @@ def startdrawmap(
     for sheet in sheetsnearcanvas():
         drawpaths(
             sheet,
-            _terrain[sheet][ "roadpaths"],
+            _terrain[sheet]["roadpaths"],
             linecolor=roadoutlinecolor,
             linewidth=roadwidth + roadoutlinewidth,
             capstyle="projecting",
@@ -1025,7 +1046,7 @@ def startdrawmap(
     for sheet in sheetsnearcanvas():
         drawpaths(
             sheet,
-            _terrain[sheet][ "roadpaths"],
+            _terrain[sheet]["roadpaths"],
             linecolor=roadcolor,
             linewidth=roadwidth,
             capstyle="projecting",
@@ -1105,7 +1126,12 @@ def startdrawmap(
     # Draw the border.
 
     glass.draw.drawborder(
-        _borderxmin, _borderymin, _borderxmax, _borderymax, borderwidth, fillcolor=bordercolor
+        _borderxmin,
+        _borderymin,
+        _borderxmax,
+        _borderymax,
+        borderwidth,
+        fillcolor=bordercolor,
     )
 
     # Draw and label the hexes.
@@ -1134,7 +1160,9 @@ def startdrawmap(
                         linewidth=hexwidth,
                     )
                     label = glass.hexcode.tolabel(glass.hexcode.fromxy(x, y))
-                    glass.draw.drawhexlabel(x, y, label, textcolor=hexcolor, alpha=hexalpha)
+                    glass.draw.drawhexlabel(
+                        x, y, label, textcolor=hexcolor, alpha=hexalpha
+                    )
 
     # Label the sheets.
 
@@ -1187,7 +1215,6 @@ def startdrawmap(
                     linecolor=None,
                     fillcolor=level0color,
                 )
-
 
     # Draw sheet borders.
 
