@@ -248,7 +248,7 @@ def usingfirstgenerationsheets():
 def setupmap(
     sheets,
     invertedsheets=[],
-    sheetaliases=[],
+    sheetaliases={},
     dotsperhex=80,
     style="airstrike",
     leveloffset=0,
@@ -391,6 +391,9 @@ def setupmap(
                 terrain = glass.mapstyle.styleterrain(terrain, _style)
                 terrain = _prepareterrain(terrain)
                 _terrain[sheet] = terrain
+
+    if _generation == 2 and len(sheetaliases) != 0:
+        raise RuntimeError("sheet aliases cannot be used with first-generation sheets.")
 
     global _dxsheet, _dysheet
     if _generation == 1:
