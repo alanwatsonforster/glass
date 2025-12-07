@@ -5,7 +5,7 @@ import glass.draw
 ################################################################################
 
 
-def _draw(self):
+def _draw(self, **kwargs):
     glass.draw.drawbarragefire(*self.xy(), self.altitude())
 
 

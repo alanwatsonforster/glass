@@ -5,7 +5,7 @@ import glass.draw
 ################################################################################
 
 
-def _draw(self):
+def _draw(self, **kwargs):
 
     zorder = self.altitude() + 1
     if self._type == "dot":

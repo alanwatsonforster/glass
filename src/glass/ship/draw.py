@@ -5,10 +5,8 @@ import glass.draw
 ################################################################################
 
 
-def _draw(self):
-    self._drawpath(
-        self._color, annotate=False
-    )
+def _draw(self, **kwargs):
+    self._drawpath(self._color, annotate=False)
     if self._classification.startswith("large"):
         size = "large"
     elif self._classification.startswith("medium"):

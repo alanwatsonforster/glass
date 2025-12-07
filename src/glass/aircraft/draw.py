@@ -5,7 +5,7 @@ import glass.draw
 ################################################################################
 
 
-def _draw(self):
+def _draw(self, **kwargs):
     if self._startedmoving:
         self._drawpath(self._color, killed=self.killed(), annotate=not self.killed())
     if self._finishedmoving:

@@ -6,7 +6,7 @@ import glass.gameturn
 ################################################################################
 
 
-def _draw(self):
+def _draw(self, **kwargs):
     self._drawpath(
         self._color, annotate=glass.gameturn.gameturn() > self._launchgameturn + 1
     )

@@ -252,6 +252,8 @@ def drawmap(
     draw30arc=[],
     draw0line=[],
     drawlos=[],
+    allsighted=False,
+    allidentified=False,
     writefiles=True,
 ):
     """
@@ -351,7 +353,7 @@ def drawmap(
         for A in draw180line:
             glass.draw.drawarc(A.x(), A.y(), A.facing(), "180")
 
-        glass.element._drawmap()
+        glass.element._drawmap(allsighted, allidentified)
 
         for E in drawlos[1:]:
             glass.draw.drawlos(drawlos[0].x(), drawlos[0].y(), E.x(), E.y())

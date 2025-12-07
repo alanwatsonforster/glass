@@ -62,10 +62,10 @@ def _endgameturn():
     _savedelementlist = _elementlist.copy()
 
 
-def _drawmap():
+def _drawmap(allsighted, allidentified):
     for E in _elementlist:
         if not E.removed():
-            E._draw()
+            E._draw(allsighted=allsighted, allidentified=allidentified)
 
 
 ##############################################################################
@@ -92,7 +92,9 @@ def aslist(withkilled=False, withairelementsonly=False):
     if not withkilled:
         elementlist = filter(lambda E: not E.killed(), elementlist)
     if withairelementsonly:
-        elementlist = filter(lambda E: E.isaircraft() or E.ishelicopter() or E.ismissile(), elementlist)
+        elementlist = filter(
+            lambda E: E.isaircraft() or E.ishelicopter() or E.ismissile(), elementlist
+        )
     return list(elementlist)
 
 
@@ -103,28 +105,56 @@ def _xminforzoom(withkilled=False, withairelementsonly=False):
     if len(aslist(withkilled=withkilled)) == 0:
         return None
     else:
-        return min([min(E.x(), E._path.xmin()) for E in aslist(withkilled=withkilled, withairelementsonly=withairelementsonly)])
+        return min(
+            [
+                min(E.x(), E._path.xmin())
+                for E in aslist(
+                    withkilled=withkilled, withairelementsonly=withairelementsonly
+                )
+            ]
+        )
 
 
 def _xmaxforzoom(withkilled=False, withairelementsonly=False):
     if len(aslist(withkilled=withkilled)) == 0:
         return None
     else:
-        return max([max(E.x(), E._path.xmax()) for E in aslist(withkilled=withkilled, withairelementsonly=withairelementsonly)])
+        return max(
+            [
+                max(E.x(), E._path.xmax())
+                for E in aslist(
+                    withkilled=withkilled, withairelementsonly=withairelementsonly
+                )
+            ]
+        )
 
 
 def _yminforzoom(withkilled=False, withairelementsonly=False):
     if len(aslist(withkilled=withkilled)) == 0:
         return None
     else:
-        return min([min(E._y, E._path.ymin()) for E in aslist(withkilled=withkilled, withairelementsonly=withairelementsonly)])
+        return min(
+            [
+                min(E._y, E._path.ymin())
+                for E in aslist(
+                    withkilled=withkilled, withairelementsonly=withairelementsonly
+                )
+            ]
+        )
 
 
 def _ymaxforzoom(withkilled=False, withairelementsonly=False):
     if len(aslist(withkilled=withkilled)) == 0:
         return None
     else:
-        return max([max(E._y, E._path.ymax()) for E in aslist(withkilled=withkilled, withairelementsonly=withairelementsonly)])
+        return max(
+            [
+                max(E._y, E._path.ymax())
+                for E in aslist(
+                    withkilled=withkilled, withairelementsonly=withairelementsonly
+                )
+            ]
+        )
 
 
 ##############################################################################
@@ -411,7 +441,6 @@ class Element:
     def newspeed(self):
         return self._newspeed
 
-
     def maneuver(self):
         """Return a string describing the current maneuver of the element."""
         if self._maneuverfacingchange == 60 or self._maneuverfacingchange == 90:
@@ -465,7 +494,7 @@ class Element:
 
     def ishelicopter(self):
         return False
-        
+
     def ismissile(self):
         return False
 
@@ -486,10 +515,10 @@ class Element:
 
     def isship(self):
         return False
-    
+
     def issurfaceelement(self):
         return self.isgroundunit() or self.isship()
-    
+
     #############################################################################
 
     def sight(self):
@@ -501,7 +530,7 @@ class Element:
 
     def sighted(self):
         return self._sighted
-    
+
     def identified(self):
         return self._identified
 
@@ -537,7 +566,12 @@ class Element:
         self._path.extend(self.x(), self.y(), self.facing(), self.altitude())
 
     def _drawpath(self, color, annotate=True, killed=False):
-        self._path.draw(color, annotate=annotate, killed=killed, surfaceelement=self.issurfaceelement())
+        self._path.draw(
+            color,
+            annotate=annotate,
+            killed=killed,
+            surfaceelement=self.issurfaceelement(),
+        )
 
     ############################################################################
 
