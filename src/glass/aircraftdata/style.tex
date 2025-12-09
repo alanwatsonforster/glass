@@ -3,10 +3,10 @@
 % Use the full page with 1 cm margins.
 
 \usepackage[
-  paper=letterpaper,
-  nofoot,nomarginpar,
-  includehead,
-  margin=1cm
+    paper=letterpaper,
+    nofoot,nomarginpar,
+    includehead,
+    margin=1cm
 ]{geometry}
 
 \usepackage[usefilenames]{plex-otf}
@@ -57,7 +57,6 @@
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-
 \newcommand{\superscript}[1]{$^{\textrm\scriptsize #1}$}
 
 \newcommand{\asteriskmark}{\superscript{*}}
@@ -86,7 +85,7 @@
 \setlength{\columnsep}{2em}
 
 \setlength{\parindent}{0em}
-\setlength{\parskip}{0.8ex plus 0.3ex}
+\setlength{\parskip}{0.3ex plus 0.2ex}
 \newcommand{\numberspace}{\phantom{0}}
 \setlength{\multicolsep}{0ex}
 
@@ -94,7 +93,7 @@
 \newenvironment{fitwidth}[1]{%
     \def\fitwidth{#1}%
     \begin{lrbox}{\fitwidthbox}%
-}{%
+    }{%
     \end{lrbox}%
     \resizebox{\fitwidth}{!}{\usebox{\fitwidthbox}}%
 }
@@ -103,15 +102,15 @@
 \newenvironment{fitheight}[1]{%
     \def\fitheight{#1}%
     \begin{lrbox}{\fitheightbox}%
-}{%
+    }{%
     \end{lrbox}%
     \resizebox{!}{\fitheight}{\usebox{\fitheightbox}}%
 }
 
 \newlength{\wboxwidth}
 \newcommand{\wbox}[3][r]{%
-  \settowidth{\wboxwidth}{#2}%
-  \makebox[\wboxwidth][#1]{#3}%
+    \settowidth{\wboxwidth}{#2}%
+    \makebox[\wboxwidth][#1]{#3}%
 }
 
 % Hyphenation
@@ -150,7 +149,7 @@
 
 \setlist[itemize]{
     align=left,
-    labelwidth=1.2em, 
+    labelwidth=1.2em,
     labelsep=0.3em,
     leftmargin=1.5em,
     nosep,
@@ -158,9 +157,9 @@
     label=--,
 }
 \setlist[enumerate]{
-    align=left, 
+    align=left,
     leftmargin=1.5em,
-    labelwidth=1.2em, 
+    labelwidth=1.2em,
     labelsep=0.3em,
     parsep=\parskip,
 }
@@ -177,7 +176,6 @@
 minus \fontdimen4\font}
 
 \setcounter{secnumdepth}{2}
-
 
 %\renewcommand{\chaptername}{Rule}
 
@@ -198,19 +196,28 @@ minus \fontdimen4\font}
 }
 
 \makeatletter
-\renewcommand\section{%
+\renewcommand
+\section{%
     \@startsection{section}{1}%
-        {\z@}%
-        {-3.5ex \@plus -1ex \@minus -.2ex}%
-        {2.3ex \@plus.2ex}%
-        {\normalfont\Large\bfseries\raggedright}%
+    {\z@}%
+    {-1.5ex \@plus 1.0ex \@minus -0.2ex}%
+    {1.0ex \@plus 0.2ex}%
+    {\normalfont\Large\bfseries\raggedright}%
+}
+\renewcommand
+\subsection{%
+    \@startsection{subsection}{2}%
+    {\z@}%
+    {-1.0ex \@plus 1.0ex \@minus -0.2ex}%
+    {1.0ex \@plus 0.2ex}%
+    {\normalfont\large\bfseries\raggedright}%
 }
 \renewcommand\paragraph{%
     \@startsection{paragraph}{4}%
-        {\z@}%
-        {\parskip}%
-        {-\interwordspace}%
-        {\normalfont\normalsize\bfseries}%
+    {\z@}%
+    {\parskip}%
+    {-\interwordspace}%
+    {\normalfont\normalsize\bfseries}%
 }
 \makeatother
 
@@ -226,29 +233,31 @@ minus \fontdimen4\font}
 \basicrulesonlyfalse
 
 \ifbasicrulesonly
-    \excludecomment{advancedrules}
+\excludecomment{advancedrules}
 \else
-    \newenvironment{advancedrules}{
-        \vspace{1ex}
-        \pagebreak[1]
-        \begin{center}
-            \bfseries{\Large Advanced Rules}
-        \end{center}
-    }{
-    }
+\newenvironment{advancedrules}{
+    \vspace{1ex}
+    \pagebreak[1]
+    \begin{center}
+        \bfseries{\Large Advanced Rules}
+    \end{center}
+}{
+}
 \fi
 
 \newcommand{\trainingnote}[1]{
-  \vspace{1ex}
-  \begin{center}
-    \framebox{\begin{minipage}{0.9\linewidth}\setlength{\parskip}{\smallskipamount}\smallskip #1\par\smallskip\end{minipage}}
-  \end{center}
-  \vspace{1ex}
+    \vspace{1ex}
+    \begin{center}
+        \framebox{
+            \begin{minipage}{0.9\linewidth}\setlength{\parskip}{\smallskipamount}\smallskip #1\par\smallskip
+        \end{minipage}}
+    \end{center}
+    \vspace{1ex}
 }
 
 \newcommand{\relevantadvancedrules}[1]{
-\begin{raggedleft} \emph{Relevant advanced rules: #1}\par
-\end{raggedleft}
+    \begin{raggedleft} \emph{Relevant advanced rules: #1}\par
+    \end{raggedleft}
 }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -316,439 +325,438 @@ minus \fontdimen4\font}
 
 \newenvironment{onecolumntablefloat}[1][tp]{
     \ifaids
-        \begin{table}[tp]
+    \begin{table}[tp]
         \centering
-    \else
+        \else
         \silentlychangedin{1B}{1B-tables}{
             \begin{table}[h!]
-        }{
-            \begin{table}[#1]
+            }{
+                \begin{table}[#1]
+                }
+                \fi
+            }{
+            \end{table}
         }
-    \fi
-}{
-    \end{table}
-}
 
+        \newenvironment{onecolumntable}{
+            \begin{minipage}{\columnwidth}
+                \centering\small
+            }{
+            \end{minipage}
+            \vspace{\floatsep}
+        }
 
-\newenvironment{onecolumntable}{
-    \begin{minipage}{\columnwidth}
-    \centering\small
-}{
-    \end{minipage}
-    \vspace{\floatsep}
-}
+        \newenvironment{twocolumntablefloat}[1][tp]{
+            \begin{table*}[#1]
+                \setlength{\columnseprule}{0pt}
+                \centering
+            }{
+            \end{table*}
+        }
 
-\newenvironment{twocolumntablefloat}[1][tp]{
-    \begin{table*}[#1]
-    \setlength{\columnseprule}{0pt}
-    \centering
-}{
-    \end{table*}
-}
+        \newenvironment{twocolumntable}{
+            \begin{minipage}{\linewidth}
+                \centering\small
+            }{
+            \end{minipage}
+        }
 
-\newenvironment{twocolumntable}{
-    \begin{minipage}{\linewidth}
-    \centering\small
-}{
-    \end{minipage}
-}
+        \newenvironment{fullwidthtable}[1][tp]{
+            \begin{table*}[#1]
+                \centering
+            }{
+            \end{table*}
+        }
 
-\newenvironment{fullwidthtable}[1][tp]{
-    \begin{table*}[#1]
-    \centering
-}{
-    \end{table*}
-}
-
-\newenvironment{onecolumnfigure}[1][tbp]{
-    \ifaids
-        \begin{figure}[#1]
-        \centering
-        \begin{minipage}{0.5\linewidth}
-    \else
-        \silentlychangedin{1B}{1B-figures}{
-            \begin{figure}[h!]
-        }{
+        \newenvironment{onecolumnfigure}[1][tbp]{
+            \ifaids
             \begin{figure}[#1]
-        }        
-    \fi
-    \centering
-}{
-    \ifaids
-        \end{minipage}
-    \fi
-    \end{figure}
-}
+                \centering
+                \begin{minipage}{0.5\linewidth}
+                    \else
+                    \silentlychangedin{1B}{1B-figures}{
+                        \begin{figure}[h!]
+                        }{
+                            \begin{figure}[#1]
+                            }
+                            \fi
+                            \centering
+                        }{
+                            \ifaids
+                        \end{minipage}
+                        \fi
+                    \end{figure}
+                }
 
-\newenvironment{twocolumnfigure}[1][tp]{
-    \begin{figure*}[#1]
-    \centering
-}{
-    \end{figure*}
-}
+                \newenvironment{twocolumnfigure}[1][tp]{
+                    \begin{figure*}[#1]
+                        \centering
+                    }{
+                    \end{figure*}
+                }
 
-% Align floats in their own page or column to the top.
-% https://texfaq.org/FAQ-vertposfp
-\makeatletter
-\setlength{\@fptop}{5pt}
-\setlength{\@fpbot}{0pt plus 1fil}
-\setlength{\@fpsep}{5ex minus 0.1ex}
-\makeatother
+                % Align floats in their own page or column to the top.
+                % https://texfaq.org/FAQ-vertposfp
+                \makeatletter
+                \setlength{\@fptop}{5pt}
+                \setlength{\@fpbot}{0pt plus 1fil}
+                \setlength{\@fpsep}{5ex minus 0.1ex}
+                \makeatother
 
-\setlength{\floatsep}{5ex minus 0.1ex}
-\setlength{\textfloatsep}{5ex plus 1fil minus 0.1ex}
+                \setlength{\floatsep}{5ex minus 0.1ex}
+                \setlength{\textfloatsep}{5ex plus 1fil minus 0.1ex}
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+                %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-% Table and figure captions. 
+                % Table and figure captions.
 
-% Some tables appear in both the main text
-% and the play aids. Others only in the play aids.
+                % Some tables appear in both the main text
+                % and the play aids. Others only in the play aids.
 
-\newcommand{\tablecaption}[2]{
-    \silentlychangedin{1B}{1B-tables}{
-        #2
-    }{
-        \ifaids
-            \textaddedin{1B}{1B-tables}{Table~\ref{#1}: #2}
-        \else
-            \textaddedin{1B}{1B-tables}{\caption{#2\label{#1}}}
-        \fi
-    }
-    \par
-    \medskip
-}
+                \newcommand{\tablecaption}[2]{
+                    \silentlychangedin{1B}{1B-tables}{
+                        #2
+                    }{
+                        \ifaids
+                        \textaddedin{1B}{1B-tables}{Table~\ref{#1}: #2}
+                        \else
+                        \textaddedin{1B}{1B-tables}{\caption{#2\label{#1}}}
+                        \fi
+                    }
+                    \par
+                    \medskip
+                }
 
-\newcommand{\tablecaptioncontinued}[2]{
-    \silentlychangedin{1B}{1B-tables}{
-        #2 (continued)
-        \par
-    }{
-        \textaddedin{1B}{1B-tables}{Table~\ref{#1} (continued): #2}
-        \par
-    }
-    \medskip
-}
+                \newcommand{\tablecaptioncontinued}[2]{
+                    \silentlychangedin{1B}{1B-tables}{
+                        #2 (continued)
+                        \par
+                    }{
+                        \textaddedin{1B}{1B-tables}{Table~\ref{#1} (continued): #2}
+                        \par
+                    }
+                    \medskip
+                }
 
-\newcommand{\figurecaption}[3][]{
-    \ifaids
-        \par
-        \medskip
-        \textaddedin{1B}{1B-figures}{Figure~\ref{#2}: #3 {\normalfont #1}}
-    \else
-        \textaddedin{1B}{1B-figures}{\caption{#3\label{#2} {\normalfont #1}}}
-    \fi
-}
+                \newcommand{\figurecaption}[3][]{
+                    \ifaids
+                    \par
+                    \medskip
+                    \textaddedin{1B}{1B-figures}{Figure~\ref{#2}: #3 {\normalfont #1}}
+                    \else
+                    \textaddedin{1B}{1B-figures}{\caption{#3\label{#2} {\normalfont #1}}}
+                    \fi
+                }
 
-\newcommand{\simpletablecaption}[1]{
-    % This is used for the original unnumbered table captions.
-    \medskip
-    #1\par
-}
+                \newcommand{\simpletablecaption}[1]{
+                    % This is used for the original unnumbered table captions.
+                    \medskip
+                    #1\par
+                }
 
-\newcommand{\simplefigurecaption}[1]{
-    % This is used for the original unnumbered figure captions.
-    \medskip
-    #1\par
-}
+                \newcommand{\simplefigurecaption}[1]{
+                    % This is used for the original unnumbered figure captions.
+                    \medskip
+                    #1\par
+                }
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+                %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-% Tables
+                % Tables
 
-\newcommand{\minitable}[3][c]{\begin{tabular}[#1]{@{}#2@{}}#3\end{tabular}}
+                \newcommand{\minitable}[3][c]{
+                    \begin{tabular}[#1]{@{}#2@{}}#3
+                \end{tabular}}
 
-\newcommand*\vertical{\rotatebox{90}}
+                \newcommand*\vertical{\rotatebox{90}}
 
-\newlength\samewidthlength
-\newcommand\samewidth[3][c]{%
-  \settowidth{\samewidthlength}{#2}%
-  \makebox[\samewidthlength][#1]{#3}%
-}
+                \newlength\samewidthlength
+                \newcommand\samewidth[3][c]{%
+                    \settowidth{\samewidthlength}{#2}%
+                    \makebox[\samewidthlength][#1]{#3}%
+                }
 
-% New tabularx columns
+                % New tabularx columns
 
-\newcolumntype{P}{X}%
-\newcolumntype{L}{>{\raggedright\arraybackslash}X}%
-\newcolumntype{R}{>{\raggedleft\arraybackslash}X}%
-\newcolumntype{C}{>{\centering\arraybackslash}X}%
-\newcolumntype{q}[1]{>{\centering\arraybackslash\hspace{0pt}}p{#1}}
+                \newcolumntype{P}{X}%
+                \newcolumntype{L}{>{\raggedright\arraybackslash}X}%
+                \newcolumntype{R}{>{\raggedleft\arraybackslash}X}%
+                \newcolumntype{C}{>{\centering\arraybackslash}X}%
+                \newcolumntype{q}[1]{>{\centering\arraybackslash\hspace{0pt}}p{#1}}
 
-\newenvironment{tablenote}[1]{%
-    \tabularx{#1}{L}%
-    \vspace{\parskip}%
-}{%
-    \endtabularx%
-}
+                \newenvironment{tablenote}[1]{%
+                    \tabularx{#1}{L}%
+                    \vspace{\parskip}%
+                }{%
+                    \endtabularx%
+                }
 
-\newcommand{\tablenotemark}[1]{\mbox{$^{#1}$}}
-\newcommand{\tablenotetext}[2]{\tablenotemark{#1}~#2}
+                \newcommand{\tablenotemark}[1]{\mbox{$^{#1}$}}
+                \newcommand{\tablenotetext}[2]{\tablenotemark{#1}~#2}
 
-\newcommand{\advancedrulemark}{\tablenotemark{*}}
-\newcommand{\advancedruletext}{\tablenotetext{*}{Advanced rule.\space}}
+                \newcommand{\advancedrulemark}{\tablenotemark{*}}
+                \newcommand{\advancedruletext}{\tablenotetext{*}{Advanced rule.\space}}
 
-\newcommand{\tablespace}{\\[-0.5ex]}
+                \newcommand{\tablespace}{\\[-0.5ex]}
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+                %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-% Figures
+                % Figures
 
-\usepackage{tikz}
-\usetikzlibrary{calc}
-\usetikzlibrary{arrows.meta}
+                \usepackage{tikz}
+                \usetikzlibrary{calc}
+                \usetikzlibrary{arrows.meta}
 
-\tikzset{every picture/.append style={font=\scriptsize,>={Stealth[length=1.5mm,inset=0pt]}}}
+                \tikzset{every picture/.append style={font=\scriptsize,>={Stealth[length=1.5mm,inset=0pt]}}}
 
-% Tableau 10 palette
-\definecolor{Tblue}{rgb}{0.122,0.467,0.706}
-\definecolor{Torange}{rgb}{1.000,0.498,0.055}
-\definecolor{Tgreen}{rgb}{0.173,0.627,0.173}
-\definecolor{Tred}{rgb}{0.829,0.153,0.157}
-\definecolor{Tpurple}{rgb}{0.580,0.404,0.741}
-\definecolor{Tbrown}{rgb}{0.549,0.337,0.294}
-\definecolor{Tpink}{rgb}{0.890,0.467,0.761}
-\definecolor{Tgray}{rgb}{0.498,0.498,0.498}
-\definecolor{Tolive}{rgb}{0.737,0.741,0.133}
-\definecolor{Tcyan}{rgb}{0.090,0.745,0.812}
+                % Tableau 10 palette
+                \definecolor{Tblue}{rgb}{0.122,0.467,0.706}
+                \definecolor{Torange}{rgb}{1.000,0.498,0.055}
+                \definecolor{Tgreen}{rgb}{0.173,0.627,0.173}
+                \definecolor{Tred}{rgb}{0.829,0.153,0.157}
+                \definecolor{Tpurple}{rgb}{0.580,0.404,0.741}
+                \definecolor{Tbrown}{rgb}{0.549,0.337,0.294}
+                \definecolor{Tpink}{rgb}{0.890,0.467,0.761}
+                \definecolor{Tgray}{rgb}{0.498,0.498,0.498}
+                \definecolor{Tolive}{rgb}{0.737,0.741,0.133}
+                \definecolor{Tcyan}{rgb}{0.090,0.745,0.812}
 
-\newcommand{\figureboundingboxcolor}{white}
+                \newcommand{\figureboundingboxcolor}{white}
 
-\newcommand{\setfiguresize}[5][\figureboundingboxcolor]{
-    \draw[#1] (#2,#3) -- (#2,#5) -- (#4,#5) -- (#4,#3) -- cycle;
-    \clip (#2,#3) -- (#2,#5) -- (#4,#5) -- (#4,#3) -- cycle;
-}
+                \newcommand{\setfiguresize}[5][\figureboundingboxcolor]{
+                    \draw[#1] (#2,#3) -- (#2,#5) -- (#4,#5) -- (#4,#3) -- cycle;
+                    \clip (#2,#3) -- (#2,#5) -- (#4,#5) -- (#4,#3) -- cycle;
+                }
 
-\newcommand{\drawaircraftcounter}[7][0]{
-    % The optional first argument is the current rotation of the
-    % picture. It is necessary since Tikz rotates text with respect to
-    % the original rotation, not the current rotation.
-    \begin{athex}{#2}{#3}
-        \begin{scope}[rotate=#4-45]
-            \draw[fill=white] (-0.3,-0.3) rectangle (0.3,0.3);
-            \node [anchor=center, transform shape] {
-                \includegraphics[angle=45,width=0.6cm]{plan-views/#5.png}
-            };
-            \node [anchor=north west,rotate=#4-45+#1] at (-0.35,+0.35) {\tiny #6};
-            \node [anchor=south east,rotate=#4-45+#1] at (+0.35,-0.35) {\tiny #7};
-        \end{scope}
-    \end{athex}
-}
+                \newcommand{\drawaircraftcounter}[7][0]{
+                    % The optional first argument is the current rotation of the
+                    % picture. It is necessary since Tikz rotates text with respect to
+                    % the original rotation, not the current rotation.
+                    \begin{athex}{#2}{#3}
+                        \begin{scope}[rotate=#4-45]
+                            \draw[fill=white] (-0.3,-0.3) rectangle (0.3,0.3);
+                            \node [anchor=center, transform shape] {
+                                \includegraphics[angle=45,width=0.6cm]{plan-views/#5.png}
+                            };
+                            \node [anchor=north west,rotate=#4-45+#1] at (-0.35,+0.35) {\tiny #6};
+                            \node [anchor=south east,rotate=#4-45+#1] at (+0.35,-0.35) {\tiny #7};
+                        \end{scope}
+                    \end{athex}
+                }
 
-\newcommand{\drawgroundunitcounter}[6][0]{
-    % The optional first argument is the current rotation of the
-    % picture. It is necessary since Tikz rotates text with respect to
-    % the original rotation, not the current rotation.
-    \begin{athex}{#2}{#3}
-        \begin{scope}[rotate=#4-90]
-            \draw[fill=white] (-0.3,-0.3) rectangle (0.3,0.3);
-            \begin{scope}[rotate=0,shift={(0,0.10)}]
-                \draw (-0.15,-0.10) -- (-0.15,+0.10) -- (+0.15,+0.10) -- (+0.15,-0.10) -- cycle;
-                \draw (-0.15,-0.10) -- (+0.15,+0.10);
-                \draw (-0.15,+0.10) -- (+0.15,-0.10);
-            \end{scope}
-            \node [anchor=south west,rotate=#4-90+#1] at (-0.35,-0.35) {\tiny #5};
-            \node [anchor=south east,rotate=#4-90+#1] at (+0.35,-0.35) {\tiny #6};
-        \end{scope}
-    \end{athex}
-}
+                \newcommand{\drawgroundunitcounter}[6][0]{
+                    % The optional first argument is the current rotation of the
+                    % picture. It is necessary since Tikz rotates text with respect to
+                    % the original rotation, not the current rotation.
+                    \begin{athex}{#2}{#3}
+                        \begin{scope}[rotate=#4-90]
+                            \draw[fill=white] (-0.3,-0.3) rectangle (0.3,0.3);
+                            \begin{scope}[rotate=0,shift={(0,0.10)}]
+                                \draw (-0.15,-0.10) -- (-0.15,+0.10) -- (+0.15,+0.10) -- (+0.15,-0.10) -- cycle;
+                                \draw (-0.15,-0.10) -- (+0.15,+0.10);
+                                \draw (-0.15,+0.10) -- (+0.15,-0.10);
+                            \end{scope}
+                            \node [anchor=south west,rotate=#4-90+#1] at (-0.35,-0.35) {\tiny #5};
+                            \node [anchor=south east,rotate=#4-90+#1] at (+0.35,-0.35) {\tiny #6};
+                        \end{scope}
+                    \end{athex}
+                }
 
-\newcommand{\drawshipcounter}[6][0]{
-    % The optional first argument is the current rotation of the
-    % picture. It is necessary since Tikz rotates text with respect to
-    % the original rotation, not the current rotation.
-    \begin{athex}{#2}{#3}
-        \begin{scope}[rotate=#4-45]
-            \draw[fill=white] (-0.3,-0.3) rectangle (0.3,0.3);
-            \begin{scope}[rotate=-45]
-                \draw [fill=black!50] (-0.07,-0.15) -- (-0.07,+0.05) -- (0.0, +0.20) -- (+0.07,+0.05) -- (+0.07,-0.15) -- cycle;
-            \end{scope}
-            \node [anchor=north west,rotate=#4-45+#1] at (-0.35,+0.35) {\tiny #5};
-            \node [anchor=south east,rotate=#4-45+#1] at (+0.35,-0.35) {\tiny #6};
-        \end{scope}
-    \end{athex}
-}
+                \newcommand{\drawshipcounter}[6][0]{
+                    % The optional first argument is the current rotation of the
+                    % picture. It is necessary since Tikz rotates text with respect to
+                    % the original rotation, not the current rotation.
+                    \begin{athex}{#2}{#3}
+                        \begin{scope}[rotate=#4-45]
+                            \draw[fill=white] (-0.3,-0.3) rectangle (0.3,0.3);
+                            \begin{scope}[rotate=-45]
+                                \draw [fill=black!50] (-0.07,-0.15) -- (-0.07,+0.05) -- (0.0, +0.20) -- (+0.07,+0.05) -- (+0.07,-0.15) -- cycle;
+                            \end{scope}
+                            \node [anchor=north west,rotate=#4-45+#1] at (-0.35,+0.35) {\tiny #5};
+                            \node [anchor=south east,rotate=#4-45+#1] at (+0.35,-0.35) {\tiny #6};
+                        \end{scope}
+                    \end{athex}
+                }
 
+                \newcommand{\drawcounter}[6][0]{
+                    % The optional first argument is the current rotation of the
+                    % picture. It is necessary since Tikz rotates text with respect to
+                    % the original rotation, not the current rotation.
+                    \begin{athex}{#2}{#3}
+                        \begin{scope}[rotate=#4-45]
+                            \draw[fill=white] (-0.3,-0.3) rectangle (0.3,0.3);
+                            \node [anchor=north west,rotate=#4-45+#1] at (-0.35,+0.35) {\tiny #5};
+                            \node [anchor=south east,rotate=#4-45+#1] at (+0.35,-0.35) {\tiny #6};
+                        \end{scope}
+                    \end{athex}
+                }
 
-\newcommand{\drawcounter}[6][0]{
-    % The optional first argument is the current rotation of the
-    % picture. It is necessary since Tikz rotates text with respect to
-    % the original rotation, not the current rotation.
-    \begin{athex}{#2}{#3}
-        \begin{scope}[rotate=#4-45]
-            \draw[fill=white] (-0.3,-0.3) rectangle (0.3,0.3);
-            \node [anchor=north west,rotate=#4-45+#1] at (-0.35,+0.35) {\tiny #5};
-            \node [anchor=south east,rotate=#4-45+#1] at (+0.35,-0.35) {\tiny #6};
-        \end{scope}
-    \end{athex}
-}
+                \newcommand{\drawdashedcounter}[3]{
+                    \begin{athex}{#1}{#2}
+                        \begin{scope}[rotate=#3-45]
+                            \draw[dashed,fill=white] (-0.3,-0.3) rectangle (0.3,0.3);
+                        \end{scope}
+                    \end{athex}
+                }
 
-\newcommand{\drawdashedcounter}[3]{
-    \begin{athex}{#1}{#2}
-        \begin{scope}[rotate=#3-45]
-            \draw[dashed,fill=white] (-0.3,-0.3) rectangle (0.3,0.3);
-        \end{scope}
-    \end{athex}
-}
+                \newcommand{\drawarrowcounter}[3]{
+                    \begin{athex}{#1}{#2}
+                        \begin{scope}[rotate=#3-45]
+                            \draw[fill=white] (-0.3,-0.3) rectangle (0.3,0.3);
+                            \draw[very thick, ->] (-0.2,-0.2) -- (0.2,0.2);
+                        \end{scope}
+                    \end{athex}
+                }
 
-\newcommand{\drawarrowcounter}[3]{
-    \begin{athex}{#1}{#2}
-        \begin{scope}[rotate=#3-45]
-            \draw[fill=white] (-0.3,-0.3) rectangle (0.3,0.3);
-            \draw[very thick, ->] (-0.2,-0.2) -- (0.2,0.2);
-        \end{scope}
-    \end{athex}
-}
+                % The number is sqrt(0.75) to three decimal places. It is the distance between column centers of a hex grid in which the difference between row centers is 1.0.
+                \newcommand{\hexxfactor}{0.866}
 
+                \newenvironment{athex}[3][]{
+                    \begin{scope}[shift={(#2*\hexxfactor,#3)},#1]
+                    }{
+                    \end{scope}
+                }
+                \newcommand{\miniathex}[4][]{
+                    \begin{athex}[#1]{#2}{#3}#4
+                \end{athex}}
 
-% The number is sqrt(0.75) to three decimal places. It is the distance between column centers of a hex grid in which the difference between row centers is 1.0.
-\newcommand{\hexxfactor}{0.866}
+                \newcommand{\drawhex}[3][]{
+                    \begin{athex}{#2}{#3}
+                        \begin{scope}[xscale=\hexxfactor]
+                            \draw [color=black!50,#1] (+0.667,+0.000) -- (+0.333,+0.500) -- (-0.333,+0.500) -- (-0.667,+0.000) -- (-0.333,-0.500) -- (+0.333,-0.500) -- cycle;
+                        \end{scope}
+                    \end{athex}
+                }
 
-\newenvironment{athex}[3][]{
-    \begin{scope}[shift={(#2*\hexxfactor,#3)},#1]
-}{
-    \end{scope}
-}
-\newcommand{\miniathex}[4][]{\begin{athex}[#1]{#2}{#3}#4\end{athex}}
+                \newcommand{\drawposition}[1][]{
+                    \draw [fill,color=black!50,#1] (0,0) circle (0.03);
+                }
 
-\newcommand{\drawhex}[3][]{
-    \begin{athex}{#2}{#3}
-        \begin{scope}[xscale=\hexxfactor]
-            \draw [color=black!50,#1] (+0.667,+0.000) -- (+0.333,+0.500) -- (-0.333,+0.500) -- (-0.667,+0.000) -- (-0.333,-0.500) -- (+0.333,-0.500) -- cycle;
-        \end{scope}
-    \end{athex}
-}
+                \newcommand{\drawpositions}[3][]{
+                    \begin{athex}{#2}{#3}
+                        \miniathex{+0.00}{+0.00}{\drawposition[#1]}
+                        \miniathex{+0.00}{+0.50}{\drawposition[#1]}
+                        \miniathex{+0.50}{+0.25}{\drawposition[#1]}
+                        \miniathex{+0.50}{-0.25}{\drawposition[#1]}
+                        \miniathex{+0.00}{-0.50}{\drawposition[#1]}
+                        \miniathex{-0.50}{-0.25}{\drawposition[#1]}
+                        \miniathex{-0.50}{+0.25}{\drawposition[#1]}
+                    \end{athex}
+                }
 
-\newcommand{\drawposition}[1][]{
-    \draw [fill,color=black!50,#1] (0,0) circle (0.03);
-}
+                \newcommand{\drawmegahex}[2]{
+                    \begin{athex}{#1}{#2}
+                        \begin{scope}[yscale=5,xscale=5*\hexxfactor,line width=0.15cm,color=black!10]
+                            \draw (+0.667,+0.000) -- (+0.333,+0.500) -- (-0.333,+0.500) -- (-0.667,+0.000) -- (-0.333,-0.500) -- (+0.333,-0.500) -- cycle;
+                        \end{scope}
+                    \end{athex}
+                }
 
-\newcommand{\drawpositions}[3][]{
-    \begin{athex}{#2}{#3}
-        \miniathex{+0.00}{+0.00}{\drawposition[#1]}
-        \miniathex{+0.00}{+0.50}{\drawposition[#1]}
-        \miniathex{+0.50}{+0.25}{\drawposition[#1]}
-        \miniathex{+0.50}{-0.25}{\drawposition[#1]}
-        \miniathex{+0.00}{-0.50}{\drawposition[#1]}
-        \miniathex{-0.50}{-0.25}{\drawposition[#1]}
-        \miniathex{-0.50}{+0.25}{\drawposition[#1]}
-    \end{athex}
-}
+                \newcommand{\cliphexgrid}[4]{
+                    \clip (#1*\hexxfactor-0.667*\hexxfactor,#2-0.5-0.01) rectangle (#3*\hexxfactor+0.667*\hexxfactor,#4+0.5+0.01);
+                }
 
-\newcommand{\drawmegahex}[2]{
-    \begin{athex}{#1}{#2}
-        \begin{scope}[yscale=5,xscale=5*\hexxfactor,line width=0.15cm,color=black!10]
-            \draw (+0.667,+0.000) -- (+0.333,+0.500) -- (-0.333,+0.500) -- (-0.667,+0.000) -- (-0.333,-0.500) -- (+0.333,-0.500) -- cycle;
-        \end{scope}
-    \end{athex}
-}
+                \newcommand{\drawhexgrid}[4]{
+                    % All columns are the same length.
+                    \miniathex{#1}{#2}{
+                        \foreach \x in {1,3,...,#3} {
+                            \foreach \y in {1,...,#4} {
+                                \miniathex{-1.0}{-1.0}{\drawhex{\x}{\y}}
+                            }
+                        }
+                        \foreach \x in {2,4,...,#3} {
+                            \foreach \y in {1,...,#4} {
+                                \miniathex{-1.0}{-0.5}{\drawhex{\x}{\y}}
+                            }
+                        }
+                    }
+                }
 
-\newcommand{\cliphexgrid}[4]{
-    \clip (#1*\hexxfactor-0.667*\hexxfactor,#2-0.5-0.01) rectangle (#3*\hexxfactor+0.667*\hexxfactor,#4+0.5+0.01);
-}
+                \newcommand{\drawevenhexgrid}[4]{
+                    % Odd columns are one hex shorter than even columns.
+                    \miniathex{#1}{#2}{
+                        \foreach \x in {1,3,...,#3} {
+                            \foreach \y in {1,...,#4} {
+                                \miniathex{-1.0}{-1.0}{\drawhex{\x}{\y}}
+                            }
+                        }
+                        \foreach \x in {2,4,...,#3} {
+                            \foreach \y in {2,...,#4} {
+                                \miniathex{-1.0}{-1.5}{\drawhex{\x}{\y}}
+                            }
+                        }
+                    }
+                }
+                \newcommand{\drawoddhexgrid}[4]{
+                    % Even columns are one hex shorter than odd columns.
+                    \miniathex{#1}{#2}{
+                        \foreach \x in {1,3,...,#3} {
+                            \foreach \y in {2,...,#4} {
+                                \miniathex{-1.0}{-2.0}{\drawhex{\x}{\y}}
+                            }
+                        }
+                        \foreach \x in {2,4,...,#3} {
+                            \foreach \y in {1,...,#4} {
+                                \miniathex{-1.0}{-1.5}{\drawhex{\x}{\y}}
+                            }
+                        }
+                    }
+                }
 
-\newcommand{\drawhexgrid}[4]{
-    % All columns are the same length.
-    \miniathex{#1}{#2}{
-        \foreach \x in {1,3,...,#3} {
-            \foreach \y in {1,...,#4} {
-                \miniathex{-1.0}{-1.0}{\drawhex{\x}{\y}}
-            }
-        }
-        \foreach \x in {2,4,...,#3} {
-            \foreach \y in {1,...,#4} {
-                \miniathex{-1.0}{-0.5}{\drawhex{\x}{\y}}
-            }
-        }
-    }
-}
+                \newcommand{\drawpositiongrid}[5][]{
+                    % All columns are the same length.
+                    \miniathex{#2}{#3}{
+                        \foreach \x in {1,3,...,#4} {
+                            \foreach \y in {1,...,#5} {
+                                \miniathex{-1.0}{-1.0}{\drawpositions[#1]{\x}{\y}}
+                            }
+                        }
+                        \foreach \x in {2,4,...,#4} {
+                            \foreach \y in {0,2,...,#5} {
+                                \miniathex{-1.0}{-0.5}{\drawpositions[#1]{\x}{\y}}
+                            }
+                        }
+                    }
+                }
 
-\newcommand{\drawevenhexgrid}[4]{
-    % Odd columns are one hex shorter than even columns.
-    \miniathex{#1}{#2}{
-        \foreach \x in {1,3,...,#3} {
-            \foreach \y in {1,...,#4} {
-                \miniathex{-1.0}{-1.0}{\drawhex{\x}{\y}}
-            }
-        }
-        \foreach \x in {2,4,...,#3} {
-            \foreach \y in {2,...,#4} {
-                \miniathex{-1.0}{-1.5}{\drawhex{\x}{\y}}
-            }
-        }
-    }
-}
-\newcommand{\drawoddhexgrid}[4]{
-    % Even columns are one hex shorter than odd columns.
-    \miniathex{#1}{#2}{
-        \foreach \x in {1,3,...,#3} {
-            \foreach \y in {2,...,#4} {
-                \miniathex{-1.0}{-2.0}{\drawhex{\x}{\y}}
-            }
-        }
-        \foreach \x in {2,4,...,#3} {
-            \foreach \y in {1,...,#4} {
-                \miniathex{-1.0}{-1.5}{\drawhex{\x}{\y}}
-            }
-        }
-    }
-}
+                \newcommand{\drawevenpositiongrid}[5][]{
+                    % Odd columns are one hex shorter than even columns.
+                    \miniathex{#2}{#3}{
+                        \foreach \x in {1,3,...,#4} {
+                            \foreach \y in {1,...,#5} {
+                                \miniathex{-1.0}{-1.0}{\drawpositions[#1]{\x}{\y}}
+                            }
+                        }
+                        \foreach \x in {2,4,...,#4} {
+                            \foreach \y in {2,...,#5} {
+                                \miniathex{-1.0}{-1.5}{\drawpositions[#1]{\x}{\y}}
+                            }
+                        }
+                    }
+                }
+                \newcommand{\drawoddpositiongrid}[5][]{
+                    % Even columns are one hex shorter than odd columns.
+                    \miniathex{#2}{#3}{
+                        \foreach \x in {1,3,...,#4} {
+                            \foreach \y in {2,...,#5} {
+                                \miniathex{-1.0}{-2.0}{\drawpositions[#1]{\x}{\y}}
+                            }
+                        }
+                        \foreach \x in {2,4,...,#4} {
+                            \foreach \y in {1,...,#5} {
+                                \miniathex{-1.0}{-1.5}{\drawpositions[#1]{\x}{\y}}
+                            }
+                        }
+                    }
+                }
 
-\newcommand{\drawpositiongrid}[5][]{
-    % All columns are the same length.
-    \miniathex{#2}{#3}{
-        \foreach \x in {1,3,...,#4} {
-            \foreach \y in {1,...,#5} {
-                \miniathex{-1.0}{-1.0}{\drawpositions[#1]{\x}{\y}}
-            }
-        }
-        \foreach \x in {2,4,...,#4} {
-            \foreach \y in {0,2,...,#5} {
-                \miniathex{-1.0}{-0.5}{\drawpositions[#1]{\x}{\y}}
-            }
-        }
-    }
-}
+                \newcommand{\drawdotathex}[3][]{
+                    \miniathex{#2}{#3}{\draw [fill,color=black,#1] circle (0.1);}
+                }
 
-\newcommand{\drawevenpositiongrid}[5][]{
-    % Odd columns are one hex shorter than even columns.
-    \miniathex{#2}{#3}{
-        \foreach \x in {1,3,...,#4} {
-            \foreach \y in {1,...,#5} {
-                \miniathex{-1.0}{-1.0}{\drawpositions[#1]{\x}{\y}}
-            }
-        }
-        \foreach \x in {2,4,...,#4} {
-            \foreach \y in {2,...,#5} {
-                \miniathex{-1.0}{-1.5}{\drawpositions[#1]{\x}{\y}}
-            }
-        }
-    }
-}
-\newcommand{\drawoddpositiongrid}[5][]{
-    % Even columns are one hex shorter than odd columns.
-    \miniathex{#2}{#3}{
-        \foreach \x in {1,3,...,#4} {
-            \foreach \y in {2,...,#5} {
-                \miniathex{-1.0}{-2.0}{\drawpositions[#1]{\x}{\y}}
-            }
-        }
-        \foreach \x in {2,4,...,#4} {
-            \foreach \y in {1,...,#5} {
-                \miniathex{-1.0}{-1.5}{\drawpositions[#1]{\x}{\y}}
-            }
-        }
-    }
-}
+                \newcommand{\drawpositionathex}[3][]{
+                    \miniathex{#2}{#3}{\draw [fill,color=black,#1] circle (0.02);}
+                }
 
-
-\newcommand{\drawdotathex}[3][]{
-    \miniathex{#2}{#3}{\draw [fill,color=black,#1] circle (0.1);}
-}
-
-\newcommand{\drawpositionathex}[3][]{
-    \miniathex{#2}{#3}{\draw [fill,color=black,#1] circle (0.02);}
-}
-
-\newlength{\standardhexwidth}
-\setlength{\standardhexwidth}{8.3mm}
-
+                \newlength{\standardhexwidth}
+                \setlength{\standardhexwidth}{8.3mm}
