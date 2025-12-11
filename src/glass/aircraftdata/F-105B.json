@@ -278,7 +278,7 @@
         "RACL",
         "LTD"
     ],
-    "notes": [],
+    "notes": [ ],
     "storeslimits": [
         4,
         12,
@@ -343,8 +343,8 @@
         ]
     ],
     "loadnotes": [
-        "Station 3 is the internal bomb bay. It may carry two nuclear BBs or a special 350 gal (1300L) FT.",
-        "Station 4 is the external centerline pylon. It may not be used if weapons are carried in the internal bomb bay.",
+        "Station 3 is the internal bomb bay. These guns may carry two nuclear BBs or a special 350 gal (1300L) FT.",
+        "Station 4 is the external centerline pylon. These guns may not be used if weapons are carried in the internal bomb bay.",
         "May only use AIM-9 IRMs, AGM-45 ARMs, and AGM-12 RGs."
     ],
     "VPs": [

@@ -279,6 +279,11 @@
         "ajm": "B3",
         "bjm": "B3"
     },
+    "gun": "Four .50 cal M3",
+    "gunatatohitrolls": "5/3/1",
+    "gundamagerating": "4/4**",
+    "gunammunition": 8,
+    "ataradarranging": "RE",
     "properties": [
         "NRM",
         "LRR",
@@ -287,7 +292,7 @@
     ],
     "notes": [
         "DDS load is 240 CH and 60 FL.",
-        "Tail Guns. Equipped with four .50 cal M3 guns in a tail mount. They can fire at targets in the 30- arc. They may return fire twice per game turn in response to a gun attacks or fire once on any moving target in its 30- to which it has a tail radar lock-on. If it fires with a lock-on, the RE ranging modifier applies. Ranging may also be attempted if firing without a lock on.The roll to hit is 5/3/1, ammunition is 8.0, and the AtA damage rating is 4.",
+        "Articulated Guns. The guns can only fire at targets in the 30- arc. They may return fire twice per game turn in response to gun attacks or fire once on any moving target for which it has a tail radar lock-on. If it fires with a lock-on, the RE ranging modifier applies. Ranging may also be attempted if firing without a lock on.",
         "Tail Warning Radar. ECCM = 2, Arcs = $60-$, Search = 40--8, Track = 18--6, and Lock-On = 8. As usual, searchs and tracking attempts are done in the Air Radar Phase."
     ],
     "storeslimits": [
@@ -336,7 +341,7 @@
     "loadnotes": [
         "Stations 1 and 5 may carry special 750 gal (2800L) or 3000 gal (11000L) FTs.",
         "Stations 2 and 3 may each carry (a) twelve BB, (b) two ADM-120 Quail decoys, or (c) one AGM-28 Hound Dog ASM.",
-        "Station 3 is the internal bomb bay. It may carry (a) eight nuclear BB and two ADM-120 Qual decoys, (b) sixty six 750 lb BB, or (c) eighty four 500 lb BB."
+        "Station 3 is the internal bomb bay. These guns may carry (a) eight nuclear BB and two ADM-120 Qual decoys, (b) sixty six 750 lb BB, or (c) eighty four 500 lb BB."
     ],
     "VPs": [
         60,

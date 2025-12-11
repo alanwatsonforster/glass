@@ -8,6 +8,9 @@
         "Bombardier-Navigator",
         "EW Officer"
     ],
+    "gun": null,
+    "gunatatohitrolls": null,
+    "gunammunition": null,
     "ecm": {
         "iff": true,
         "dds": "A",

@@ -272,7 +272,7 @@
         "HTD"
     ],
     "notes": [
-        "Gun attacks at low transonic speed or greater have a +1 modifier to the hit roll due to instability."
+        "Hit rolls at low transonic speed or greater have a +1 modifier to the hit roll due to instability."
     ],
     "storeslimits": [
         2,

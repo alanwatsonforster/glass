@@ -180,7 +180,7 @@
                     3.5
                 ]
             },
-            "properties": []
+            "properties": [ ]
         },
         "mid": {
             "turndragtable": {
@@ -538,7 +538,7 @@
     "technology": [
         "Terrain Following-B"
     ],
-    "notes": [],
+    "notes": [ ],
     "properties": [
         "SMP",
         "EVG",
@@ -620,7 +620,7 @@
         "Stations 1, 2, 10, and 11 do not swivel. If used, wings must remain forward until all stores carried on them are expended or jettisoned.",
         "Stations 1 and 11 were never used operationally.",
         "Stations 3, 4, 8, and 9 may carry one AIM-9 IRM in addition to other non-missile stores.",
-        "Station 5 is the internal weapon bay. It may carry a 20 mm M61A1 gun pack (weight 2000 and load 1) and a nuclear BB or two nuclear BBs.",
+        "Station 5 is the internal weapon bay. These guns may carry a 20 mm M61A1 gun pack (weight 2000 and load 1) and a nuclear BB or two nuclear BBs.",
         "Stations 6 and 7 are the rear centerline stations."
     ],
     "VPs": [
