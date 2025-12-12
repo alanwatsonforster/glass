@@ -333,8 +333,8 @@
         "The load options for a combined pair are: (a) one 43,000 lb bomb, (b) two 22,000 lb bombs, (c) four 12,000 lb bombds, or (d) four 10,000 lb bombs."
     ],
     "variantnotes": [
-        "Articulated Guns. The guns can fire in any direction. They may return fire twice per game turn in response to gun attacks or conduct one attack. Hit rolls are modified only by the target size, and a -1 modifier when firing into the 60- arc, and a -1 modifer for a lock-on with the tail gun radar.",
-        "Tail Gun Radar. ECCM = 1, arcs = 60-, search = 30--10, track = 15/10, and Lock-on = 7."
+        "Articulated Guns. The guns can fire in any direction. They may return fire twice per game turn in response to gun attacks or conduct one attack. The hit rolls are modified only by the target size, a -1 modifier when firing into the 60- arc, and possibly a -1 modifer for RE radar ranging with the tail radar.",
+        "Tail Radar. Equipped with an APG-32 tail radar with ECCM 1, arc 60-, search 30--10, track 15/10, and lock-on 7-."
     ],
     "VPs": [
         42,

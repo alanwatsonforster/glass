@@ -279,8 +279,8 @@
     ],
     "notes": [
         "DDS capacity is 60 CH and 20 FL or 80 CH.",
-        "Articulated Guns. In addition to its fixed guns, the aircraft has six 23 mm AM-23 guns, two in the forward dorsal twin turret, two in the rear ventral twin turret turret, and two in the tail turret. They can fire in any direction. They may return fire twice per game turn in response to gun attacks or conduct one attack. The hit rolls are 2/1/1 and are modified only by the target size, a -1 modifier when firing into the 60- arc, and possibly RE radar ranging. The AtA damage rating is 4. Ammunition is 10.0.",
-        "Tail Radar. The PRS-1 Argon tail radar covers the 30- arc and allows an attempt at RE radar ranging when firing at targets in the arc. The lock-on roll is 7-."
+        "Tail Radar. Equiped with a PRS-1 Argon tail radar that allows an attempt at RE radar ranging when firing at targets in the 30- arc. The lock-on roll is 7-.",
+        "Articulated Guns. In addition to its fixed guns, the aircraft has six 23 mm AM-23 guns, two in the forward dorsal twin turret, two in the rear ventral twin turret turret, and two in the tail turret. They can fire in any direction. They may return fire twice per game turn in response to gun attacks or conduct one attack. The hit rolls are 2/1/1 and are modified only by the target size, a -1 modifier when firing into the 60- arc, and possibly a -1 modifier for RE radar ranging with the tail radar. The AtA damage rating is 4. The ammunition is 10.0."
     ],
     "storeslimits": [
         10,

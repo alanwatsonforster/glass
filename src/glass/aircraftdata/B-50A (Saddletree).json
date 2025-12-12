@@ -20,7 +20,7 @@
     "gundamagerating": "2/2**",
     "gunammunition": 18,
     "variantnotes": [
-        "Articulated Guns. The guns can fire only in the 60- arc. They may return fire twice per game turn in response to gun attacks or conduct one attack. Hit rolls are modified only by the target size."
+        "Articulated Guns. The guns can only fire at targets in the 60- arc. They may return fire twice per game turn in response to gun attacks or conduct one attack. The hit rolls are modified only by the target size."
     ],
     "storeslimits": [
         17,

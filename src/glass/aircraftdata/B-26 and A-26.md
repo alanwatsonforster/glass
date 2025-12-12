@@ -33,8 +33,12 @@ The original B-26C had two .50 cal nose guns on the right side. However, I see n
 
 The B-26C has only the six .50 cal wing guns compared to the fourteen .50 cal nose and wing guns of the B-26B.
 
-Gun effectiveness reduced for lower rate of fire of the M2 (800 RPM) compared to M3 (1200 RPM) in 
+Gun effectiveness reduced for lower rate of fire of the M2 (800 RPM) compared to M3 (1200 RPM) in
 [e615570](https://github.com/alanwatsonforster/glass/commit/e61557086cfc61119e920453d1bded66bac57bd3). The AtA ratings can be found by matching total RPM. The AtG ratings seem to be 2/3 for each M3, which would translate to 01/2 for each M2.
+
+### Ammunition
+
+Drendel (p. 5) states that the nose guns had 400 rounds (15.0 ammo) each and the turret guns 500 rounds (19.0 ammo) each.
 
 ### Radar
 
@@ -47,24 +51,28 @@ The B-26C had a Norden bombsight (Drendel, p. 8). The B-26 also had a bomb signa
 ### Loads
 
 Armament in WWII WTO.
+
 - Multiple photos (e..g, in Drendel) show dual .50 cal pods on all four wing hard points in place of the six wing guns.
 
 Armament in WWII PTO.
+
 - Dredel (p. 36) shows a 6-gun -B now with three guns in each wing and 7 rails, presumably for HVARs, under each wing.
 
 In Korea, the turrets could be used to engage targets on the ground (Larson, Drendel p. 53).
 
 The ADC for the -B/-C has on each wing
+
 - One station for 500 lb BB. This can be replaced with rails for 4 HVARs.
-- One station for 500 lb BB or FT. This can be replaced with rails for 3 HVARs. 
+- One station for 500 lb BB or FT. This can be replaced with rails for 3 HVARs.
 Drendel (p. 19) shows documentation again with two stations per wing for 500 lb bombs.
 
 Armament in Korea:
+
 - 14 x HVAR and 6 x Mk5 flares (Larson)
 - Parachute-retarded bombs (Larson)
 - Napalm, but less than 1% of the weight of bombs (Larson)
 - 2 x 500 lb under wings and 3000 lb in bomb bay (Fucci)
-- 6 x 23 lb "butterfly bomb" AN-M1A4 clusters and napalm (Jamison) 
+- 6 x 23 lb "butterfly bomb" AN-M1A4 clusters and napalm (Jamison)
 - 52 x para flares in bomb bay (Jamison)
 - 500 lb boms in bomb bay (Jamison)
 - 2 x 500 lb GB, 1 x smaller incendiary bomb, and 1 x flare on wing (Jamison)
@@ -88,7 +96,7 @@ Farm Gate:
 
 ### B-26K
 
-B-26K converted from 40 B-26s by On Mark Engineering Company (Graham). All B-26Ks were fitted with eight-gun noses and had the wing guns deleted (Graham). Baughter states that these could be replaced by the glass nose, but  all of the images in Graham show them with gun noses. Four were loaned to Belgium for use in in the Congo in 1964 (Graham). Later, they flew interdiction missions in Laos from Nakhon Phanom RTAB in 1966–1969 (Graham). 
+B-26K converted from 40 B-26s by On Mark Engineering Company (Graham). All B-26Ks were fitted with eight-gun noses and had the wing guns deleted (Graham). Baughter states that these could be replaced by the glass nose, but  all of the images in Graham show them with gun noses. Four were loaned to Belgium for use in in the Congo in 1964 (Graham). Later, they flew interdiction missions in Laos from Nakhon Phanom RTAB in 1966–1969 (Graham).
 
 - 4000 lb in bomb bay and 8000 lb under wings (Drendel)
 - B-26BK (no wing guns) with four stations per wing, two with napalm and one with a RP (Drendel, p. 88).
@@ -110,6 +118,7 @@ The A-26A was simply a redesignation of the B-26K to as an attack aircraft to av
 ### RB-26C
 
 Two in Farm Gate
+
 - KA-1 36-inch camera in nose, panoramic and split cameras aft of the cockput. 52 or 54 photoflash cateridges in bomb bay (Alnwick, in Graham).
 - 24-inch camera in the nose, 6-inch wide-angle overhead camera, two K36 9-inch cameras left and right in bomb bay, two K17 9-inch cameras overhead and oblique right, in rear compartment. Photo tech in rear comparment. (Phillips, in Graham).
 
