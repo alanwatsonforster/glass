@@ -280,7 +280,7 @@
     "gun": "Thirteen .50 cal M2",
     "gunatatohitrolls": "2/1/1",
     "gundamagerating": "2/2**",
-    "gunammunition": 25,
+    "gunammunition": 18,
     "ecm": {
         "iff": true,
         "rwr": "A",
