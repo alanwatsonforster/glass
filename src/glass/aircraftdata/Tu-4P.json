@@ -1,6 +1,6 @@
 {
     "versionname": "Tu-4P",
-    "description": "The Tupolev Tu-4P is a propeller-driven night fighter. It was converted from the Tu-4 bomber by moving the ventral navigation radar to a radome in place of the forward dorsal turret, which gave the aircraft a basic 360-degree air-search radar, and by equipping the bomb bay as an air-intercept control post. The NATO reporting name is Bull.",
+    "description": "The Tupolev Tu-4P is a propeller-driven night fighter converted from the Tu-4 bomber. The NATO reporting name is Bull.",
     "base": "Tu-4",
     "crew": [
         "Pilot",
@@ -22,18 +22,21 @@
         "name": "RPB Kobal't",
         "arc": "All",
         "eccm": 0,
-        "searchrange": 50,
-        "searchstrength": 10
+        "searchrange": 120,
+        "searchstrength": 8
     },
     "gun": "Eight 23 mm NS-23",
     "gunatatohitrolls": "2/1/1",
     "gundamagerating": "4/4",
     "gunammunition": 11,
+    "technology": [
+    ],
     "variantnotes": [
-        "Articulated Guns. The guns can fire in any direction. They may return fire twice per game turn in response to gun attacks or conduct one attack. The guns have basic infrared sights and, as an exception to the normal rules, may attack detected but unsighted aircraft at night. The hit rolls are modified only by the target size, a -1 modifier when firing into the 60- arc, and a -2 modifier for use of the infrared night sights."
+        "Dorsal Radar. The radar may detect targets at equal or higher altitude, regardless of the altitude of the target, but may not detect targets at lower altitude.",
+        "Articulated Guns. The guns can fire in any direction. They may return fire twice per game turn in response to gun attacks or conduct one attack. The hit rolls are modified only by the target size and a -1 modifier when firing into the 60- arc."
     ],
     "stations": [ ],
     "loadnotes": [
-        "No stores may be carried. The internal bomb bay is used to house the air-intercept control post."
+        "No stores may be carried. The internal bomb bay is used to house an air-intercept control post."
     ]
 }

@@ -49,6 +49,8 @@ The ammunition of the B-29 is given as 500 rounds or about 150 lb per gun. The w
 The Tu-4 has the RPB RPB Kobal’t or Kobal’t-M rada, a copy of the APQ-13 re-engineered by NII-17 (Guerrero). Added in [
 e772cc7](https://github.com/alanwatsonforster/glass/commit/e772cc7f6fb69cf92f2bb66bc33c5481edd0d720).
 
+Information on [AN/APQ-13](https://www.radartutorial.eu/19.kartei/11.ancient3/karte053.en.html). PRF is 1350 or 675 Hz, giving ranges of 140 miles. The instrumented range is 100 nm = 115 miles.
+
 ### Bomb Load
 
 Wikipedia (quoting Gordon) states that the bomb load was six 1,000 kg (2,200 lb) bombs = 13,200 lb total. I don't think the M46 series had a 1,000 kg variant, but the M54 series does.
