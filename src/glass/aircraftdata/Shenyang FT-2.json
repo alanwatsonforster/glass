@@ -1,0 +1,5 @@
+{
+    "versionname": "Shenyang FT-2",
+    "description": "The Shenyang FT-2 is a two-seat training aircraft. It is the export version of the Shenyang JJ-2 and is a licensed version of the MiG-15UTI. The NATO reporting name for the aircraft is Midget.",
+    "base": "Shenyang JJ-2"
+}

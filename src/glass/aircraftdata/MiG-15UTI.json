@@ -1,0 +1,16 @@
+{
+    "versionname": "MiG-15UTI",
+    "description": "The Mikoyan-Gurevich MiG-15UTI is a two-seat training aircraft. It is a development of the MiG-15bis with an additional cockpit and reduced fuel and armament. The NATO reporting name for the aircraft is Midget.",
+    "base": "MiG-15bis",
+    "crew": [ "Pilot", "Observer" ],
+    "internalfuel": 100,
+    "gun": "One 12.7 mm A-12.7",
+    "gunatatohitrolls": "3/1/-",
+    "gundamagerating": "1/1**",
+    "VPs": [
+        7,
+        5,
+        2,
+        1
+    ]
+}

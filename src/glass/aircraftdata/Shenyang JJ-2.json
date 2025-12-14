@@ -1,0 +1,5 @@
+{
+    "versionname": "Shenyang JJ-2",
+    "description": "The Shenyang JJ-2 is a two-seat training aircraft. It is licensed version of the MiG-15UTI. The NATO reporting name for the aircraft is Midget.",
+    "base": "MiG-15UTI"
+}
