@@ -327,6 +327,9 @@
             ]
         ]
     ],
+    "notes": [
+        "Flight Restrictions. VD, VC, and unloading are forbidden."
+    ],
     "loadnotes": [
         "Stations 1 to 4 are the internal bomb bays. Stations 1 and 2 and stations 3 and 4 may be combined.",
         "The load option for an individual bay are: (a) FT with 1075 fuel points, (b) six 3,000 lb bombs, (c) eight 2,000 lb bombs, (d) sixteen 1,000 lb bombs, (e) thirty three 500 lb bombs, or (f) photographic cameras. Any bombs carried must be low-drag.",

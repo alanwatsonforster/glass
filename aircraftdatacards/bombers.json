@@ -1,82 +1,96 @@
-#!/usr/bin/env python3 aircraftdatacards.py
-
 [
-    [ 
-        "type", 
-        "Tu-4", 
-        "Tu-4",
-        "Tu-4A"
+    [
+        "prolog",
+        false
     ],
-    [ 
-        "type", 
-        "Il-28", 
+    [
+        "type",
+        "Tu-4",
+        "Tu-4",
+        "Tu-4A",
+        "Tu-4P"
+    ],
+    [
+        "type",
+        "Il-28",
         "Il-28",
         "Il-28R",
         "Il-28N"
     ],
-    [ 
-        "type", 
-        "Tu-14", 
+    [
+        "type",
+        "Tu-14",
+        "Tu-14",
         "Tu-14T"
     ],
-    [ 
-        "type", 
-        "Tu-16", 
+    [
+        "type",
+        "Tu-16",
+        "Tu-16",
         "Tu-16A",
         "Tu-16KS",
         "Tu-16K"
     ],
     [
-       "type", 
-       "B-26 Invader and Counter-Invader", 
-       "B-26B (Two Turrets)", 
-       "B-26B (One Turret)", 
-       "B-26B (No Turrets)", 
-       "B-26C (Two Turrets)", 
-       "B-26C (One Turret)", 
-       "B-26C (No Turrets)",
-       "B-26K",
-       "A-26A"
+        "type",
+        "B-26 and A-26",
+        "B-26B (Two Turrets)",
+        "B-26B (One Turret)",
+        "B-26B (No Turrets)",
+        "B-26C (Two Turrets)",
+        "B-26C (One Turret)",
+        "B-26C (No Turrets)",
+        "B-26K",
+        "A-26A"
     ],
-    [ 
-        "type", 
-        "B-29 Superfortress", 
-        "B-29A", 
-        "B-29A (SILVERPLATE)", 
-        "B-29A (SADDLETREE)", 
-        "RB-29A" 
+    [
+        "type",
+        "B-29",
+        "B-29A",
+        "B-29A (SILVERPLATE)",
+        "B-29A (SADDLETREE)",
+        "RB-29A"
     ],
-    [ 
-        "type", 
-        "B-36 Peacemaker", 
+    [
+        "type",
+        "B-36",
         "B-36D"
     ],
-    [ 
-        "type", 
-        "B-50 Superfortress", 
+    [
+        "type",
+        "B-50",
         "B-50A",
         "B-50A (Saddletree)",
         "B-50D",
         "B-50D (Saddletree)"
     ],
-    [ 
-        "type", 
-        "B-52 Stratofortress", 
+    [
+        "type",
+        "B-52",
         "B-52D",
         "B-52G"
     ],
-    [ 
-        "type", 
-        "B-57 Canberra", 
+    [
+        "type",
+        "B-57",
         "B-57B (Early)",
         "B-57B",
         "B-57B (PAF)",
         "B-57G"
     ],
-    [ "type", "A3D/A-3 Skywarrior", "A3D-2 (Early)", "A-3B (Early)", "A3D-2 (Late)", "A-3B (Late)", "A3D-2Q", "EA-3B" ],
     [
         "type",
-        "B-66 Destroyer",
+        "A3D and A-3",
+        "A3D-2 (Early)",
+        "A-3B (Early)",
+        "A3D-2 (Late)",
+        "A-3B (Late)",
+        "A3D-2Q",
+        "EA-3B"
+    ],
+    [
+        "type",
+        "B-66",
         "B-66B (Early)",
         "B-66B (Late)",
         "RB-66C",

@@ -24,6 +24,8 @@
     [ "type", "CF-100", "CF-100 Mk 4B", "CF-100 Mk 5" ],
 
     [ "chapter", "Chinese Aircraft" ],
+    [ "comment", "date unknown" ],
+    [ "type", "Shenyang JJ-2 and FT-2", "Shenyang JJ-2", "Shenyang FT-2" ],
     [ "comment", "1957" ],
     [ "type", "Shenyang J-5 and F-5", "Shenyang J-5", "Shenyang F-5", "Shenyang J-5A", "Shenyang F-5A" ],
     [ "comment", "April 1962" ],
@@ -59,7 +61,7 @@
     [ "comment", "1947" ],
     [ "type", "Tu-4", "Tu-4", "Tu-4A", "Tu-4P" ],
     [ "comment", "1949" ],
-    [ "type", "MiG-15", "MiG-15bis", "MiG-15P", "MiG-15ISh" ],
+    [ "type", "MiG-15", "MiG-15bis", "MiG-15P", "MiG-15UTI", "MiG-15ISh" ],
     [ "comment", "1950" ],
     [ "type", "Il-28", "Il-28", "Il-28R", "Il-28N" ],
     [ "comment", "1952" ],
