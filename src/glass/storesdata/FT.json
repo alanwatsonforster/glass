@@ -134,6 +134,13 @@
         "emptyload": 2.5,
         "fuelcapacity": 105
     },
+    "FT/1300L": {
+        "class": "FT",
+        "weight": 2450,
+        "load": 4.0,
+        "emptyload": 3.0,
+        "fuelcapacity": 110
+    },
     "FT/1400L": {
         "class": "FT",
         "weight": 2700,

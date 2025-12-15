@@ -1,0 +1,356 @@
+{
+    "versionname": "Mirage IIIEA",
+    "description": "The Dassault Mirage IIIEA is single-seat fighter, intercepter, and strike aircraft. The EA version was specifically built for the Argentine air force.",
+    "crew": [
+        "Pilot"
+    ],
+    "powertable": {
+        "AB": [
+            2.5,
+            2.0,
+            1.5,
+            4.5
+        ],
+        "M": [
+            1.5,
+            1.0,
+            1.0,
+            1.5
+        ],
+        "N": [
+            0.0,
+            0.0,
+            0.0,
+            1
+        ],
+        "I": [
+            0.5,
+            1.0,
+            1.0,
+            0
+        ],
+        "SPBR": [
+            0.5,
+            0.5,
+            0.5
+        ]
+    },
+    "jetengines": 1,
+    "cruisespeed": 6.0,
+    "climbspeed": 5.0,
+    "visibility": 6,
+    "sizemodifier": 0,
+    "vulnerability": 0,
+    "restrictedarcs": "60-",
+    "blindarcs": "30-",
+    "internalfuel": 252,
+    "atarefuel": false,
+    "ejectionseat": "standard",
+    "maneuvertable": {
+        "LR/DR": [
+            1,
+            1
+        ],
+        "VR": [
+            0,
+            0
+        ]
+    },
+    "turndragtable": {
+        "TT": [
+            1,
+            2,
+            2
+        ],
+        "HT": [
+            2,
+            3,
+            3
+        ],
+        "BT": [
+            3,
+            4,
+            4
+        ],
+        "ET": [
+            4,
+            "-",
+            "-"
+        ]
+    },
+    "ceilingtable": [
+        55,
+        49,
+        41
+    ],
+    "speedtable": {
+        "EH": [
+            [
+                5.0,
+                12.5
+            ],
+            [
+                5.0,
+                10.0
+            ],
+            [
+                "-",
+                "-"
+            ],
+            14.5
+        ],
+        "VH": [
+            [
+                4.0,
+                13.0
+            ],
+            [
+                4.0,
+                10.5
+            ],
+            [
+                4.0,
+                6.5
+            ],
+            14.5
+        ],
+        "HI": [
+            [
+                3.0,
+                13.0
+            ],
+            [
+                3.0,
+                11.0
+            ],
+            [
+                3.5,
+                6.5
+            ],
+            14.0
+        ],
+        "MH": [
+            [
+                2.5,
+                11.0
+            ],
+            [
+                2.5,
+                11.0
+            ],
+            [
+                3.0,
+                7.0
+            ],
+            12.0
+        ],
+        "ML": [
+            [
+                2.0,
+                9.5
+            ],
+            [
+                2.5,
+                9.5
+            ],
+            [
+                2.5,
+                7.0
+            ],
+            10.5
+        ],
+        "LO": [
+            [
+                2.0,
+                8.5
+            ],
+            [
+                2.0,
+                8.5
+            ],
+            [
+                2.5,
+                7.0
+            ],
+            9.0
+        ]
+    },
+    "climbcapabilitytable": {
+        "EH": [
+            [
+                1.0,
+                0.0
+            ],
+            [
+                0.5,
+                0.0
+            ],
+            [
+                "-",
+                "-"
+            ]
+        ],
+        "VH": [
+            [
+                1.0,
+                0.5
+            ],
+            [
+                1.0,
+                0.5
+            ],
+            [
+                0.5,
+                0.0
+            ]
+        ],
+        "HI": [
+            [
+                1.5,
+                0.5
+            ],
+            [
+                1.0,
+                0.5
+            ],
+            [
+                1.0,
+                0.5
+            ]
+        ],
+        "MH": [
+            [
+                2.0,
+                1.0
+            ],
+            [
+                1.5,
+                0.5
+            ],
+            [
+                1.0,
+                0.5
+            ]
+        ],
+        "ML": [
+            [
+                2.0,
+                1.0
+            ],
+            [
+                2.0,
+                1.0
+            ],
+            [
+                1.5,
+                1.0
+            ]
+        ],
+        "LO": [
+            [
+                3.0,
+                1.0
+            ],
+            [
+                2.0,
+                1.0
+            ],
+            [
+                2.0,
+                1.0
+            ]
+        ]
+    },
+    "radar": {
+        "name": "Cyrano II",
+        "eccm": 0,
+        "arc": "180+",
+        "searchrange": 80,
+        "searchstrength": 15,
+        "trackingrange": 60,
+        "trackingstrength": 12,
+        "lockon": 6
+    },
+    "gun": "Two 30 mm DEFA",
+    "gunatatohitrolls": "6/3/2",
+    "gunammunition": 3.0,
+    "gundamagerating": "6/6",
+    "gunsightmodifiers": {
+        "TT": 0,
+        "HT": 1,
+        "BT": 2
+    },
+    "ataradarranging": "RE",
+    "bombsystem": "Ballistic",
+    "ecm": {
+        "iff": true,
+        "rwr": "B"
+    },
+    "technology": [
+    ],
+    "storeslimits": [
+        6,
+        9,
+        8640
+    ],
+    "stations": [
+        [
+            "pair",
+            [
+                1,
+                5
+            ],
+            370,
+            [
+                "IRM"
+            ]
+        ],
+        [
+            "pair",
+            [
+                2,
+                4
+            ],
+            1850,
+            [
+                "BB",
+                "DR",
+                "FT",
+                "MRT"
+            ]
+        ],
+        [
+            "single",
+            [
+                3
+            ],
+            2600,
+            [
+                "BB",
+                "RHM",
+                "FT",
+                "DR"
+            ]
+        ]
+    ],
+    "loadnotes": [
+        "May carry two BBs or DRs on station 3.",
+        "May use Matra R.550 Magic IRMs on stations 1 and 5",
+        "May use Matra R.530 RHMs on station 3.",
+        "May carry 1300L FTs on station 2, 3, and 4 and 1700L FTs on stations 2 and 4.",
+        "Stations 2 and 4 may be overloaded to 2450 or 3000 but turns are limited to HT or TT, respectively.",
+        "No supersonic flight while carrying FTs."
+    ],
+    "VPs": [
+        22,
+        14,
+        7,
+        3
+    ],
+    "properties": [
+        "LTD",
+        "PSSM",
+        "HBR"
+    ],
+    "notes": [ ]
+}
