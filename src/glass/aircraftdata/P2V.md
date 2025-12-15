@@ -95,7 +95,7 @@ If the fuel consumption at N power is 0.2, the endurance with internal and exter
 
 ### Power
 
-The engines are two Wright R-3350-32W Duplex-Cyclone with 3700 hp each and two 2 × Westinghouse J34-WE-34 turbojet engines, 3,400 lbf each and an MTO of 79,895 lb. The B-26 has two engines with 2000 hp each and an MTO of 35,000 lb. Thus, expect similar performance when using piston engines.
+The engines are two Wright R-3350-32W Duplex-Cyclone with 3700 hp each and two 2 × Westinghouse J34-WE-34 turbojet engines, 3,400 lbf each and an MTO of 79,895 lb. w Thus, expect similar performance when using piston engines.
 
 Give it 1.0 APs for HT (piston engines only) and 2.0 APs for FT (piston and jet engines). The ADC shows it limited to 260 kt = 300 mph without jet engines.
 

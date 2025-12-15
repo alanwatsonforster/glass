@@ -54,7 +54,9 @@
     [ "type", "Impala", "Impala Mk I", "Impala Mk II" ],
 
     [ "chapter", "Soviet Aircraft" ],
-    [ "comment", "1942" ],
+    [ "comment", "May 1942" ],
+    [ "type", "Tu-2", "Tu-2S", "Tu-2P" ],
+    [ "comment", "October 1942" ],
     [ "type", "Yak-9", "Yak-9D", "Yak-9U", "Yak-9P" ],
     [ "comment", "1944" ],
     [ "type", "Il-10", "Il-10", "Il-10 (Late)" ],
