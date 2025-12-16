@@ -1,0 +1,318 @@
+{
+    "versionname": "Nimrod MR.2",
+    "description": "The Hawker Siddeley Nimrod MR.2 is a maritime patrol aircraft.",
+    "origin": "Watson",
+    "crew": [
+        "Pilot",
+        "Copilot",
+        "Flight Engineer",
+        "Navigator",
+        "Tactical Navigator",
+        "Air Electronics Officer",
+        "WSO", "WSO", "EWSO", "EWSO", "EWSO", "EWSO"
+    ],
+    "powertable": {
+        "M": [
+            1.0,
+            1.0,
+            0.5,
+            10.0
+        ],
+        "N": [
+            0.0,
+            0.0,
+            0.0,
+            3.0
+        ],
+        "I": [
+            0.5,
+            0.5,
+            1.0,
+            1.0
+        ],
+        "SPBR": [
+            0.5,
+            0.5,
+            0.5
+        ]
+    },
+    "jetengines": 4,
+    "cruisespeed": 5.0,
+    "climbspeed": 3.5,
+    "visibility": 10,
+    "sizemodifier": -2,
+    "vulnerability": 1,
+    "restrictedarcs": "60-",
+    "blindarcs": "30-",
+    "internalfuel": 4300,
+    "atarefuel": false,
+    "ejectionseat": "none",
+    "maneuvertable": {
+        "LR/DR": [
+            "-",
+            "-"
+        ],
+        "VR": [
+            "-",
+            "-"
+        ]
+    },
+    "turndragtable": {
+        "TT": [
+            1.0,
+            2.0,
+            2.0
+        ],
+        "HT": [
+            2.0,
+            3.0,
+            3.0
+        ]
+    },
+    "ceilingtable": [
+        44,
+        38,
+        32
+    ],
+    "speedtable": {
+        "EH": [
+            [
+                "-",
+                "-"
+            ],
+            [
+                "-",
+                "-"
+            ],
+            [
+                "-",
+                "-"
+            ],
+            "-"
+        ],
+        "VH": [
+            [
+                3.0,
+                5.5
+            ],
+            [
+                3.5,
+                5.0
+            ],
+            [
+                "-",
+                "-"
+            ],
+            6.0
+        ],
+        "HI": [
+            [
+                3.0,
+                5.5
+            ],
+            [
+                3.5,
+                5.0
+            ],
+            [
+                3.5,
+                5.0
+            ],
+            6.5
+        ],
+        "MH": [
+            [
+                2.5,
+                6.0
+            ],
+            [
+                3.0,
+                5.5
+            ],
+            [
+                3.0,
+                5.0
+            ],
+            6.5
+        ],
+        "ML": [
+            [
+                2.0,
+                6.0
+            ],
+            [
+                2.5,
+                5.5
+            ],
+            [
+                2.5,
+                5.0
+            ],
+            6.5
+        ],
+        "LO": [
+            [
+                1.5,
+                5.5
+            ],
+            [
+                2.0,
+                5.0
+            ],
+            [
+                2.0,
+                4.5
+            ],
+            6.5
+        ]
+    },
+    "climbcapabilitytable": {
+        "EH": [
+            [
+                "-",
+                "-"
+            ],
+            [
+                "-",
+                "-"
+            ],
+            [
+                "-",
+                "-"
+            ]
+        ],
+        "VH": [
+            [
+                "-",
+                0.25
+            ],
+            [
+                "-",
+                0.25
+            ],
+            [
+                "-",
+                "-"
+            ]
+        ],
+        "HI": [
+            [
+                "-",
+                0.25
+            ],
+            [
+                "-",
+                0.25
+            ],
+            [
+                "-",
+                0.25
+            ]
+        ],
+        "MH": [
+            [
+                "-",
+                0.5
+            ],
+            [
+                "-",
+                0.5
+            ],
+            [
+                "-",
+                0.5
+            ]
+        ],
+        "ML": [
+            [
+                "-",
+                0.5
+            ],
+            [
+                "-",
+                0.5
+            ],
+            [
+                "-",
+                0.5
+            ]
+        ],
+        "LO": [
+            [
+                "-",
+                1.0
+            ],
+            [
+                "-",
+                1.0
+            ],
+            [
+                "-",
+                0.5
+            ]
+        ]
+    },
+    "radar": {
+        "name": "Searchwater",
+        "eccm": 3,
+        "arc": "90+",
+        "searchrange": 200,
+        "trackingrange": 100,
+        "lockon": 8
+    },
+    "bombsystem": "Ballistic",
+    "ecm": {
+        "iff": true,
+        "rwr": "B",
+        "dds": "B"
+    },
+    "technology": [
+        " TV/IR Optics"
+    ],
+    "properties": [
+        "NRM"
+    ],
+    "notes": [
+        "Patrol Power. The Nimrod can shut down the outer two engines, reducing power APs, fuel consumption, and climb capability by one half and the cruise speed to 3.0.",
+        "Yellow Gate RWR D from 1985.",
+        "DDS and TV/IR Optics from 1991."
+    ],
+    "storeslimits": [
+        30,
+        50,
+        20000
+    ],
+    "stations": [
+        [
+            "pair",
+            [
+                1, 5
+            ],
+            1500,
+            [
+                "IRM", "RG", "ASM"
+            ]
+        ],
+        [
+            "group",
+            [
+                2, 4
+            ],
+            6500,
+            [
+                "BB", "Torpedoes", "Depth Chargets", "ASM"
+            ]
+        ]
+    ],
+    "loadnotes": [
+        "Stations 1 and 5 may each carry two AS.12 RGs, two Martel ARM or RG, two AIM-9 IRMs (from 1982), or two AGM-84 ASMs (from 1985).",
+        "Stations 2 to 4 are the internal bomb bays. Each bay can carry three Mk.46 torpedoes, three Stingray torpedoes (from 1982), six Mk.11 depth charges, one Mk.57 nuclear depth charge, eight 500 lb or four 1000 lb bombs (from 1982), or one 1500L fuel tank (weight 2500 and 125 fuel points).",
+        "As an exception to the normal rules for load points, internal loads contribute 1 load point for each 1,000 of weight and internal fuel contributes 1 load point for each 50 fuel points."
+    ],
+    "VPs": [
+        36,
+        24,
+        12,
+        6
+    ]
+}

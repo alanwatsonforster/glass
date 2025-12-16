@@ -1,0 +1,13 @@
+{
+    "versionname": "Nimrod MR.2P",
+    "description": "The Hawker Siddeley Nimrod MR.2P is a maritime patrol aircraft. It differs from the MR.2 version only in the addition of an air-to-air refueling probe.",
+    "origin": "Watson",
+    "base": "Nimrod MR.2",
+    "atarefuel": true,
+    "VPs": [
+        30,
+        20,
+        10,
+        6
+    ]
+}

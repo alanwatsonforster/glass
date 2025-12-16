@@ -30,3 +30,4 @@
 {"rule":"ENGLISH_WORD_REPEAT_RULE","sentence":"^\\QWikipedia\nWikipedia on AMX-13\nWikipedia on 30 mm shells\nAMX-30SA\\E$"}
 {"rule":"ENGLISH_WORD_REPEAT_RULE","sentence":"^\\QUsed by Oerlikon 35 mm\nCombines tracking and search\nPulse Doppler Tracking is J band\nDoppler Search is E/F band with a range of 15 km\n1965 onwards\nUsed in the first prototype of the Gepard\nGepard FCR is VF = same frequency as FCR-C\\E$"}
 {"rule":"MORFOLOGIK_RULE_EN_US","sentence":"^\\QHowever, Wikipedia also mentions an \"AFCC\" which controls one firing section of three launchers, one acquisition radar, and one illuminator.\\E$"}
+{"rule":"MORFOLOGIK_RULE_EN_US","sentence":"^\\QDuring the South Atlantic War, air-to-air refueling probes from Avro Vulcans were installed on several MR.2s to give the MR.2P version and the underwing stations were equipped with AIM-9G/L IRMs.\\E$"}

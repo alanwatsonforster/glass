@@ -1,0 +1,32 @@
+{
+    "versionname": "Nimrod MR.1",
+    "description": "The Hawker Siddeley Nimrod MR.1 is a maritime patrol aircraft.",
+    "origin": "Watson",
+    "base": "Nimrod MR.2",
+    "radar": {
+        "name": "ASV Mk 21D",
+        "eccm": 1,
+        "arc": "180+",
+        "searchrange": 100,
+        "trackingrange": 50,
+        "lockon": 6
+    },
+    "ecm": {
+        "iff": true,
+        "rwr": "B"
+    },
+    "notes": [
+        "Patrol Power. The Nimrod can shut down the outer two engines, reducing power APs, fuel consumption, and climb capability by one half and the cruise speed to 3.0."
+    ],
+    "loadnotes": [
+        "Stations 1 and 5 may each carry two AS.12 RGs or two Martel ARM or RG.",
+        "Stations 2 to 4 are the internal bomb bays. Each bay can carry three Mk.44 or Mk.46 torpedoes, six Mk.11 depth charges, one Mk.57 nuclear depth charge, or one 1500L fuel tank (weight 2500 and 125 fuel points).",
+        "As an exception to the normal rules for load points, internal loads contribute 1 load point for each 1,000 of weight and internal fuel contributes 1 load point for each 50 fuel points."
+    ],
+    "VPs": [
+        30,
+        20,
+        10,
+        6
+    ]
+}
