@@ -335,7 +335,7 @@
     ],
     "loadnotes": [
         "Stations 1 and 7 are the wing-tip stations. They always carry 400 gal (760L) FTs.",
-        "May use AIM-9B IRMs from 1964.",
+        "May use AIM-9B IRMs from 1964. Apply a launch modifier of +1 for each 0.5 speed below 3.0.",
         "Station 4 is the internal bomb bay. It can carry a supply pod or a leaflet dispenser.",
         "The weight of the internal ELINT equipment is sufficient that the aircraft is always considered to be DT."
     ],
@@ -357,7 +357,7 @@
     ],
     "notes": [
         "Flight Restrictions. UD, VD, and VC are forbidden. SC, ZC, and SD may only use 1 VFP per turn.",
-        "The aircraft has two propeller engines and two jet engines. HT uses the propeller engines. FT uses both the propeller and jet engines. When the power setting is HT, reduce the maximum speed by 1.0.",
+        "The aircraft has two propeller engines and two jet engines. HT uses the propeller engines. FT uses both the propeller and jet engines. When the power setting is HT or less, reduce the maximum speed by 1.0.",
         "DDS is available from 1959 and can dispense CH only.",
         "BJM is available from 1959.",
         "AJM is available from 1962.",
