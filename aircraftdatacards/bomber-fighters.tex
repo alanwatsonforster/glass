@@ -88,7 +88,7 @@
 
 \item Flight Restrictions. UD, VD, and VC are forbidden. SC, ZC, and SD may only use 1 VFP per turn.
 
-\item The aircraft has two propeller engines and two jet engines. HT uses the propeller engines. FT uses both the propeller and jet engines. When the power setting is HT, reduce the maximum speed by 1.0.
+\item The aircraft has two propeller engines and two jet engines. HT uses the propeller engines. FT uses both the propeller and jet engines. When the power setting is HT or less, reduce the maximum speed by 1.0.
 
 \item DDS is available from 1959 and can dispense CH only.
 
@@ -109,7 +109,7 @@
 }
 \renewcommand{\Gcb}{\Gcc{\item Stations 1 and 7 are the wing-tip stations. They always carry 400 gal (760L) FTs.
 
-\item May use AIM-9B IRMs from 1964.
+\item May use AIM-9B IRMs from 1964. Apply a launch modifier of +1 for each 0.5 speed below 3.0.
 
 \item Station 4 is the internal bomb bay. It can carry a supply pod or a leaflet dispenser.
 
@@ -192,9 +192,9 @@
 
 \item Low roll rate (LRR). 
 
-\item Flight Restrictions. UD, VD, and VC are forbidden.
+\item Flight Restrictions. VD, VC, and unloading are forbidden.
 
-\item Dorsal Radar. The radar may detect targets at equal or higher altitude, regardless of the altitude of the target, but may not detect targets at lower altitude.
+\item Dorsal Radar. In level flight, the radar may detect targets at equal or higher altitude, regardless of the altitude of the target, but may not detect targets at lower altitude. In diving or climbing flight, it may only detect targets at higher altitude.
 
 \item Articulated Guns. The guns can fire in any direction. They may return fire twice per game turn in response to gun attacks or conduct one attack. The hit rolls are modified only by the target size and a −1 modifier when firing into the 60− arc.
 
@@ -664,6 +664,203 @@
 
 }}
 \renewcommand{\Gda}{12/8/4/2}
+\renewcommand{\Gea}{0000000}
+\renewcommand{\Geb}{0000-00-00T00:00:00}
+\adc
+% Nimrod MR.2P
+\renewcommand{\Aaa}{Nimrod MR.2P}
+\renewcommand{\Aab}{Nimrod MR.2P}
+\renewcommand{\Ac}{\Acone{\jetengine\jetengine\jetengine\jetengine}}
+\renewcommand{\Ada}{AB}\renewcommand{\Adb}{---}\renewcommand{\Adc}{---}\renewcommand{\Add}{---}\renewcommand{\Ade}{---}
+\renewcommand{\Aea}{M}\renewcommand{\Aeb}{1.0}\renewcommand{\Aec}{1.0}\renewcommand{\Aed}{0.5}\renewcommand{\Aee}{10.0}
+\renewcommand{\Af}{3.0}
+\renewcommand{\Aga}{0.5}\renewcommand{\Agb}{0.5}\renewcommand{\Agc}{1.0}\renewcommand{\Agd}{1.0}
+\renewcommand{\Aha}{0.5}\renewcommand{\Ahb}{0.5}\renewcommand{\Ahc}{0.5}
+\renewcommand{\Ai}{}
+\renewcommand{\Ba}{}
+\renewcommand{\Bb}{5.0}
+\renewcommand{\Bc}{3.5}
+\renewcommand{\Bd}{10}
+\renewcommand{\Be}{−2}
+\renewcommand{\Bf}{+1}
+\renewcommand{\Bg}{60−}
+\renewcommand{\Bh}{30−}
+\renewcommand{\Bi}{4300}
+\renewcommand{\Bj}{Yes}
+\renewcommand{\Bk}{None}
+\renewcommand{\Ccrew}{Pilot, Copilot, Flight Engineer, Navigator, Tactical Navigator, Air Electronics Officer, WSO, WSO, EWSO, EWSO, EWSO, and EWSO}
+\renewcommand{\Ccrewfont}{\tiny}
+\renewcommand{\Caa}{---}
+\renewcommand{\Cab}{---}
+\renewcommand{\Cb}{---}
+\renewcommand{\Cca}{1.0}\renewcommand{\Ccb}{2.0}\renewcommand{\Ccc}{2.0}
+\renewcommand{\Cda}{2.0}\renewcommand{\Cdb}{3.0}\renewcommand{\Cdc}{3.0}
+\renewcommand{\Cea}{---}\renewcommand{\Ceb}{---}\renewcommand{\Cec}{---}
+\renewcommand{\Cfa}{---}\renewcommand{\Cfb}{---}\renewcommand{\Cfc}{---}
+\renewcommand{\Cg}{No rolling maneuvers allowed.}
+\renewcommand{\Dba}{6.0}
+\renewcommand{\Dbb}{5.5}
+\renewcommand{\Dbc}{5.0}
+\renewcommand{\Dbd}{6.5}
+\renewcommand{\Daa}{\blockDceilingandcruisespeed{44}{5.0}}\renewcommand{\Dab}{\blockDceilingandcruisespeed{38}{4.5}}\renewcommand{\Dac}{\blockDceilingandcruisespeed{32}{4.0}}
+\renewcommand{\Dca}{---}\renewcommand{\Dcb}{---}\renewcommand{\Dcc}{---}\renewcommand{\Dcd}{---}
+\renewcommand{\Dda}{\blockDminmaxspeed{3.0}{5.5}{\Dba}}\renewcommand{\Ddb}{\blockDminmaxspeed{3.5}{5.0}{\Dbb}}\renewcommand{\Ddc}{---}\renewcommand{\Ddd}{\blockDdivespeed{6.0}}
+\renewcommand{\Dea}{\blockDminmaxspeed{3.0}{5.5}{\Dba}}\renewcommand{\Deb}{\blockDminmaxspeed{3.5}{5.0}{\Dbb}}\renewcommand{\Dec}{\blockDminmaxspeed{3.5}{5.0}{\Dbc}}\renewcommand{\Ded}{\blockDdivespeed{6.5}}
+\renewcommand{\Dfa}{\blockDminmaxspeed{2.5}{6.0}{\Dba}}\renewcommand{\Dfb}{\blockDminmaxspeed{3.0}{5.5}{\Dbb}}\renewcommand{\Dfc}{\blockDminmaxspeed{3.0}{5.0}{\Dbc}}\renewcommand{\Dfd}{\blockDdivespeed{6.5}}
+\renewcommand{\Dga}{\blockDminmaxspeed{2.0}{6.0}{\Dba}}\renewcommand{\Dgb}{\blockDminmaxspeed{2.5}{5.5}{\Dbb}}\renewcommand{\Dgc}{\blockDminmaxspeed{2.5}{5.0}{\Dbc}}\renewcommand{\Dgd}{\blockDdivespeed{6.5}}
+\renewcommand{\Dha}{\blockDminmaxspeed{1.5}{5.5}{\Dba}}\renewcommand{\Dhb}{\blockDminmaxspeed{2.0}{5.0}{\Dbb}}\renewcommand{\Dhc}{\blockDminmaxspeed{2.0}{4.5}{\Dbc}}\renewcommand{\Dhd}{\blockDdivespeed{6.5}}
+\renewcommand{\Eaa}{---}\renewcommand{\Eab}{---}\renewcommand{\Eac}{---}\renewcommand{\Ead}{---}\renewcommand{\Eae}{---}\renewcommand{\Eaf}{---}
+\renewcommand{\Eba}{---}\renewcommand{\Ebb}{0.25}\renewcommand{\Ebc}{---}\renewcommand{\Ebd}{0.25}\renewcommand{\Ebe}{---}\renewcommand{\Ebf}{---}
+\renewcommand{\Eca}{---}\renewcommand{\Ecb}{0.25}\renewcommand{\Ecc}{---}\renewcommand{\Ecd}{0.25}\renewcommand{\Ece}{---}\renewcommand{\Ecf}{0.25}
+\renewcommand{\Eda}{---}\renewcommand{\Edb}{0.50}\renewcommand{\Edc}{---}\renewcommand{\Edd}{0.50}\renewcommand{\Ede}{---}\renewcommand{\Edf}{0.50}
+\renewcommand{\Eea}{---}\renewcommand{\Eeb}{0.50}\renewcommand{\Eec}{---}\renewcommand{\Eed}{0.50}\renewcommand{\Eee}{---}\renewcommand{\Eef}{0.50}
+\renewcommand{\Efa}{---}\renewcommand{\Efb}{1.00}\renewcommand{\Efc}{---}\renewcommand{\Efd}{1.00}\renewcommand{\Efe}{---}\renewcommand{\Eff}{0.50}
+\renewcommand{\Fa}{Searchwater}
+\renewcommand{\Fb}{3}
+\renewcommand{\Fc}{90+}
+\renewcommand{\Fd}{Gr.~Nav.~(200)}
+\renewcommand{\Fe}{Gr.~Attack~ (100)}
+\renewcommand{\Ff}{8}
+\renewcommand{\Fg}{---}
+\renewcommand{\Fh}{---}
+\renewcommand{\Fi}{---}
+\renewcommand{\Fl}{---}
+\renewcommand{\Fm}{Ballistic}
+\renewcommand{\Fj}{---}
+\renewcommand{\Fk}{---}
+\renewcommand{\Fn}{IFF}
+\renewcommand{\Fo}{B}
+\renewcommand{\Fp}{B}
+\renewcommand{\Fq}{---}
+\renewcommand{\Fr}{---}
+\renewcommand{\Fs}{---}
+\renewcommand{\Ft}{ TV/IR Optics}
+\renewcommand{\Fu}{\Fua{\item The Hawker Siddeley Nimrod MR.2P is a maritime patrol aircraft. It differs from the MR.2 version only in the addition of an air-to-air refueling probe.
+
+\item Patrol Power. The Nimrod can shut down the outer two engines, reducing power APs, fuel consumption, and climb capability by one half and the cruise speed to 3.0.
+
+\item Yellow Gate RWR D from 1985.
+
+\item DDS and TV/IR Optics from 1991.
+
+}}
+\renewcommand{\Gba}{\wbox[r]{00}{0}--30}
+\renewcommand{\Gbb}{\wbox[r]{00}{31}--50}
+\renewcommand{\Gbc}{\wbox[r]{00}{51}+}
+\renewcommand{\Gbd}{20,000}
+\renewcommand{\Gca}{1 and 5&1,500&\mbox{IRM} \mbox{RG} \mbox{ASM}\\
+2--4&6,500&\mbox{BB} \mbox{Torpedoes} \mbox{Depth Chargets} \mbox{ASM}\\
+}
+\renewcommand{\Gcb}{\Gcc{\item Stations 1 and 5 may each carry two AS.12 RGs, two Martel ARM or RG, two AIM-9 IRMs (from 1982), or two AGM-84 ASMs (from 1985).
+
+\item Stations 2 to 4 are the internal bomb bays. Each bay can carry three Mk.46 torpedoes, three Stingray torpedoes (from 1982), six Mk.11 depth charges, one Mk.57 nuclear depth charge, eight 500 lb or four 1000 lb bombs (from 1982), or one 1500L fuel tank (weight 2500 and 125 fuel points).
+
+\item As an exception to the normal rules for load points, internal loads contribute 1 load point for each 1,000 of weight and internal fuel contributes 1 load point for each 50 fuel points.
+
+}}
+\renewcommand{\Gda}{30/20/10/6}
+\renewcommand{\Gea}{0000000}
+\renewcommand{\Geb}{0000-00-00T00:00:00}
+\adc
+% Mirage IIIEA
+\renewcommand{\Aaa}{Mirage IIIEA}
+\renewcommand{\Aab}{Mirage IIIEA}
+\renewcommand{\Ac}{\Acone{\jetengine}}
+\renewcommand{\Ada}{AB}\renewcommand{\Adb}{2.5}\renewcommand{\Adc}{2.0}\renewcommand{\Add}{1.5}\renewcommand{\Ade}{4.5}
+\renewcommand{\Aea}{M}\renewcommand{\Aeb}{1.5}\renewcommand{\Aec}{1.0}\renewcommand{\Aed}{1.0}\renewcommand{\Aee}{1.5}
+\renewcommand{\Af}{1.0}
+\renewcommand{\Aga}{0.5}\renewcommand{\Agb}{1.0}\renewcommand{\Agc}{1.0}\renewcommand{\Agd}{0.0}
+\renewcommand{\Aha}{0.5}\renewcommand{\Ahb}{0.5}\renewcommand{\Ahc}{0.5}
+\renewcommand{\Ai}{}
+\renewcommand{\Ba}{}
+\renewcommand{\Bb}{6.0}
+\renewcommand{\Bc}{5.0}
+\renewcommand{\Bd}{6}
+\renewcommand{\Be}{+0}
+\renewcommand{\Bf}{+0}
+\renewcommand{\Bg}{60−}
+\renewcommand{\Bh}{30−}
+\renewcommand{\Bi}{252}
+\renewcommand{\Bj}{No}
+\renewcommand{\Bk}{Std}
+\renewcommand{\Ccrew}{Pilot}
+\renewcommand{\Ccrewfont}{\normalsize}
+\renewcommand{\Caa}{1.0}
+\renewcommand{\Cab}{1.0}
+\renewcommand{\Cb}{0.0}
+\renewcommand{\Cca}{1.0}\renewcommand{\Ccb}{2.0}\renewcommand{\Ccc}{2.0}
+\renewcommand{\Cda}{2.0}\renewcommand{\Cdb}{3.0}\renewcommand{\Cdc}{3.0}
+\renewcommand{\Cea}{3.0}\renewcommand{\Ceb}{4.0}\renewcommand{\Cec}{4.0}
+\renewcommand{\Cfa}{4.0}\renewcommand{\Cfb}{---}\renewcommand{\Cfc}{---}
+\renewcommand{\Cg}{}
+\renewcommand{\Dba}{13.0}
+\renewcommand{\Dbb}{11.0}
+\renewcommand{\Dbc}{7.0}
+\renewcommand{\Dbd}{14.5}
+\renewcommand{\Daa}{\blockDceilingandcruisespeed{55}{6.0}}\renewcommand{\Dab}{\blockDceilingandcruisespeed{49}{5.5}}\renewcommand{\Dac}{\blockDceilingandcruisespeed{41}{5.0}}
+\renewcommand{\Dca}{\blockDminmaxspeed{5.0}{12.5}{\Dba}}\renewcommand{\Dcb}{\blockDminmaxspeed{5.0}{10.0}{\Dbb}}\renewcommand{\Dcc}{---}\renewcommand{\Dcd}{\blockDdivespeed{14.5}}
+\renewcommand{\Dda}{\blockDminmaxspeed{4.0}{13.0}{\Dba}}\renewcommand{\Ddb}{\blockDminmaxspeed{4.0}{10.5}{\Dbb}}\renewcommand{\Ddc}{\blockDminmaxspeed{4.0}{6.5}{\Dbc}}\renewcommand{\Ddd}{\blockDdivespeed{14.5}}
+\renewcommand{\Dea}{\blockDminmaxspeed{3.0}{13.0}{\Dba}}\renewcommand{\Deb}{\blockDminmaxspeed{3.0}{11.0}{\Dbb}}\renewcommand{\Dec}{\blockDminmaxspeed{3.5}{6.5}{\Dbc}}\renewcommand{\Ded}{\blockDdivespeed{14.0}}
+\renewcommand{\Dfa}{\blockDminmaxspeed{2.5}{11.0}{\Dba}}\renewcommand{\Dfb}{\blockDminmaxspeed{2.5}{11.0}{\Dbb}}\renewcommand{\Dfc}{\blockDminmaxspeed{3.0}{7.0}{\Dbc}}\renewcommand{\Dfd}{\blockDdivespeed{12.0}}
+\renewcommand{\Dga}{\blockDminmaxspeed{2.0}{9.5}{\Dba}}\renewcommand{\Dgb}{\blockDminmaxspeed{2.5}{9.5}{\Dbb}}\renewcommand{\Dgc}{\blockDminmaxspeed{2.5}{7.0}{\Dbc}}\renewcommand{\Dgd}{\blockDdivespeed{10.5}}
+\renewcommand{\Dha}{\blockDminmaxspeed{2.0}{8.5}{\Dba}}\renewcommand{\Dhb}{\blockDminmaxspeed{2.0}{8.5}{\Dbb}}\renewcommand{\Dhc}{\blockDminmaxspeed{2.5}{7.0}{\Dbc}}\renewcommand{\Dhd}{\blockDdivespeed{9.0}}
+\renewcommand{\Eaa}{1.0}\renewcommand{\Eab}{0.0}\renewcommand{\Eac}{0.5}\renewcommand{\Ead}{0.0}\renewcommand{\Eae}{---}\renewcommand{\Eaf}{---}
+\renewcommand{\Eba}{1.0}\renewcommand{\Ebb}{0.5}\renewcommand{\Ebc}{1.0}\renewcommand{\Ebd}{0.5}\renewcommand{\Ebe}{0.5}\renewcommand{\Ebf}{0.0}
+\renewcommand{\Eca}{1.5}\renewcommand{\Ecb}{0.5}\renewcommand{\Ecc}{1.0}\renewcommand{\Ecd}{0.5}\renewcommand{\Ece}{1.0}\renewcommand{\Ecf}{0.5}
+\renewcommand{\Eda}{2.0}\renewcommand{\Edb}{1.0}\renewcommand{\Edc}{1.5}\renewcommand{\Edd}{0.5}\renewcommand{\Ede}{1.0}\renewcommand{\Edf}{0.5}
+\renewcommand{\Eea}{2.0}\renewcommand{\Eeb}{1.0}\renewcommand{\Eec}{2.0}\renewcommand{\Eed}{1.0}\renewcommand{\Eee}{1.5}\renewcommand{\Eef}{1.0}
+\renewcommand{\Efa}{3.0}\renewcommand{\Efb}{1.0}\renewcommand{\Efc}{2.0}\renewcommand{\Efd}{1.0}\renewcommand{\Efe}{2.0}\renewcommand{\Eff}{1.0}
+\renewcommand{\Fa}{Cyrano II}
+\renewcommand{\Fb}{0}
+\renewcommand{\Fc}{180+}
+\renewcommand{\Fd}{80--15}
+\renewcommand{\Fe}{60--12}
+\renewcommand{\Ff}{6}
+\renewcommand{\Fg}{Two 30~mm DEFA}
+\renewcommand{\Fh}{6/3/2}
+\renewcommand{\Fi}{3.0}
+\renewcommand{\Fl}{6/6}
+\renewcommand{\Fm}{Ballistic}
+\renewcommand{\Fj}{TT+0/HT+1/BT+2}
+\renewcommand{\Fk}{RE}
+\renewcommand{\Fn}{IFF}
+\renewcommand{\Fo}{B}
+\renewcommand{\Fp}{---}
+\renewcommand{\Fq}{---}
+\renewcommand{\Fr}{---}
+\renewcommand{\Fs}{---}
+\renewcommand{\Ft}{None}
+\renewcommand{\Fu}{\Fua{\item The Dassault Mirage IIIEA is single-seat fighter, intercepter, and strike aircraft. The EA version was specifically built for the Argentine air force.
+
+\item High bleed rate (HBR). 
+
+\item Low transonic drag (LTD). 
+
+\item Poor supersonic maneuverability (PSSM). 
+
+}}
+\renewcommand{\Gba}{\wbox[r]{00}{0}--6}
+\renewcommand{\Gbb}{\wbox[r]{00}{7}--9}
+\renewcommand{\Gbc}{\wbox[r]{00}{10}+}
+\renewcommand{\Gbd}{8,640}
+\renewcommand{\Gca}{1 and 5&370&\mbox{IRM}\\
+2 and 4&1,850&\mbox{BB} \mbox{DR} \mbox{FT} \mbox{MRT}\\
+3&2,600&\mbox{BB} \mbox{RHM} \mbox{FT} \mbox{DR}\\
+}
+\renewcommand{\Gcb}{\Gcc{\item May carry two BBs or DRs on station 3.
+
+\item May use Matra R.550 Magic IRMs on stations 1 and 5
+
+\item May use Matra R.530 RHMs on station 3.
+
+\item May carry 1300L FTs on station 2, 3, and 4 and 1700L FTs on stations 2 and 4.
+
+\item Stations 2 and 4 may be overloaded to 2450 or 3000 but turns are limited to HT or TT, respectively.
+
+\item No supersonic flight while carrying FTs.
+
+}}
+\renewcommand{\Gda}{22/14/7/3}
 \renewcommand{\Gea}{0000000}
 \renewcommand{\Geb}{0000-00-00T00:00:00}
 \adc

@@ -1,10 +1,42 @@
 [
-    [ "prolog", false ],
-    [ "example", "P2V-7U" ],
-    [ "example", "Tu-4P" ],
-    [ "example", "Shenyang JJ-2" ],
-    [ "example", "Shenyang J-5" ],
-    [ "example", "Shenyang J-5A" ],
-    [ "example", "Shenyang J-6A" ],
-    [ "example", "Il-28" ]
+    [
+        "prolog",
+        false
+    ],
+    [
+        "example",
+        "P2V-7U"
+    ],
+    [
+        "example",
+        "Tu-4P"
+    ],
+    [
+        "example",
+        "Shenyang JJ-2"
+    ],
+    [
+        "example",
+        "Shenyang J-5"
+    ],
+    [
+        "example",
+        "Shenyang J-5A"
+    ],
+    [
+        "example",
+        "Shenyang J-6A"
+    ],
+    [
+        "example",
+        "Il-28"
+    ],
+    [
+        "example",
+        "Nimrod MR.2P"
+    ],
+    [
+        "example",
+        "Mirage IIIEA"
+    ]
 ]
