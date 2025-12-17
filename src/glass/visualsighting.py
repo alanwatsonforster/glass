@@ -15,14 +15,18 @@ def startvisualsighting():
 
     for target in glass.aircraft.aslist():
         if target._sightedonpreviousturn:
-            glass.log.logwhat("%-4s : was sighted on previous game turn." % target.name())
+            glass.log.logwhat(
+                "%-4s : was sighted on previous game turn." % target.name()
+            )
         else:
-            glass.log.logwhat("%-4s : was unsighted on previous game turn." % target.name())
+            glass.log.logwhat(
+                "%-4s : was unsighted on previous game turn." % target.name()
+            )
         glass.log.logwhat(
             "%-4s : maximum visual range is %d."
-            % (target.name(), target.maxvisualsightingrange())
+            % (target.name(), target._maxvisualsightingrange())
         )
-        for searcher in aslist():
+        for searcher in glass.aircraft.aslist():
             if target.name() != searcher.name() and target.force() != searcher.force():
                 glass.log.logwhat(
                     "%-4s : searcher %s: range is %2d: %s."
@@ -62,7 +66,7 @@ def padlock(A, B, note=None):
 
     A.logbreak()
 
-    A._log("padlocks %s." % B.name())
+    A.logwhat("padlocks %s." % B.name())
 
     if not B._sightedonpreviousturn:
         raise RuntimeError("%s was not sighted on previous game turn." % (B.name()))
@@ -77,9 +81,9 @@ def padlock(A, B, note=None):
     B._sighted = True
     B._identified = B._identifiedonpreviousturn or canidentify(A, B)
     if B._identified:
-        A._log("%s is sighted and identified." % B.name())
+        A.logwhat("%s is sighted and identified." % B.name())
     else:
-        A._log("%s is sighted but not identified." % B.name())
+        A.logwhat("%s is sighted but not identified." % B.name())
 
     A.lognote(note)
 
@@ -94,7 +98,7 @@ def attempttosight(A, B, success=None, note=None):
 
     A.logbreak()
 
-    A._log("attempts to sight %s." % B.name())
+    A.logwhat("attempts to sight %s." % B.name())
     A.logcomment("range is %d." % visualsightingrange(A, B))
     A.logcomment("%s." % visualsightingcondition(A, B)[0])
 
@@ -105,7 +109,7 @@ def attempttosight(A, B, success=None, note=None):
     allrestricted = restricted
 
     additionalsearchers = 0
-    for searcher in aslist():
+    for searcher in glass.aircraft.aslist():
         if searcher.name() != A.name() and searcher.force() == A.force():
             condition, cansight, canpadlock, restricted = visualsightingcondition(
                 searcher, B
@@ -158,14 +162,14 @@ def attempttosight(A, B, success=None, note=None):
     A.lognote(note)
 
     if success is False:
-        A._log("%s is unsighted." % B.name())
+        A.logwhat("%s is unsighted." % B.name())
     elif success is True:
         B._sighted = True
         B._identified = B._identifiedonpreviousturn or canidentify(A, B)
         if B._identified:
-            A._log("%s is sighted and identified." % B.name())
+            A.logwhat("%s is sighted and identified." % B.name())
         else:
-            A._log("%s is sighted but not identified." % B.name())
+            A.logwhat("%s is sighted but not identified." % B.name())
 
 
 ################################################################################

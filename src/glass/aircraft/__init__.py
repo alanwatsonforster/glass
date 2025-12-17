@@ -436,7 +436,7 @@ class Aircraft(glass.element.Element):
 
         try:
             glass.gameturn.checkingameturn()
-            glass.visualsighting.attempttosight(self, other, success=None, note=None)
+            glass.visualsighting.attempttosight(self, other, success=success, note=note)
         except RuntimeError as e:
             glass.log.logexception(e)
         self.logbreak()
@@ -643,7 +643,7 @@ class Aircraft(glass.element.Element):
     def hasbeenkilled(self, note=None):
         try:
             glass.gameturn.checkingameturn()
-            self._log("has been killed.")
+            self.logwhat("has been killed.")
             self.lognote(note)
             self._kill()
             self._color = None
