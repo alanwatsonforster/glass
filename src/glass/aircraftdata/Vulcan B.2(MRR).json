@@ -1,0 +1,7 @@
+{
+    "versionname": "Vulcan B.2(MRR)",
+    "description": "The Avro Vulcan B.2(MRR) is a maritime radar reconnaissance aircraft.",
+    "base": "Vulcan B.2",
+    "technology": [],
+    "variantnotes": []
+}
