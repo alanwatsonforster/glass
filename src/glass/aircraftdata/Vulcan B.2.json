@@ -42,7 +42,7 @@
     "vulnerability": 2,
     "restrictedarcs": "-",
     "blindarcs": "60-",
-    "internalfuel": 2666,
+    "internalfuel": 3600,
     "atarefuel": true,
     "ejectionseat": "standard",
     "maneuvertable": {
@@ -284,9 +284,9 @@
         "TFR from 1965."
     ],
     "storeslimits": [
-        10,
-        18,
-        20000
+        24,
+        43,
+        21000
     ],
     "stations": [
         [
@@ -317,7 +317,8 @@
     ],
     "loadnotes": [
         "Station 2 is the internal bomb bay. Load options include (a) twenty-one 1000 lb BB in three groups of seven; (b) two 9000L FTs (each weight ; (c) seven 1000 lb bombs and one 9000L FT; (d) one Blue Steel NAM. All bombs must be the same type and low-drag.",
-        "From 1982, may carry two Shrike ARM or one ALQ-101D EP on each of stations 1 and 3."
+        "From 1982, may carry two Shrike ARM or one ALQ-101D EP on each of stations 1 and 3.",
+        "As an exception to the normal rules for load points, internal loads contribute 1 load point for each 1,000 of weight and internal fuel contributes 1 load point for each 50 fuel points. A return mission will typically require leaving the target with at least 1200 fuel points (24 load points)."
     ],
     "VPs": [
         40,

@@ -12,6 +12,12 @@ bomb bay = 2390 US gal = 777 fuel points = 15920 lb
 
 ### Load
 
+- Fuel load = 3620/50 = 72
+- Bomb load = 21
+
+- 1/3 fuel = 24
+- 1/3 fuel + bombs = 43
+
 ### DDS
 
 - Flares (Wikipedia)
