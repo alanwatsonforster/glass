@@ -16,8 +16,8 @@
         "Pilot",
         "Copilot",
         "Navigator",
-        "WSO",
-        "EWO"
+        "Weapons System Officer",
+        "Air Electronics Officer"
     ],
     "technology": [],
     "variantnotes": [],
@@ -27,16 +27,29 @@
             [
                 1,
                 3,
-                4,
-                6
+                5,
+                7
             ],
             2000,
             [
                 "AHM"
             ]
+        ],
+        [
+            "single",
+            [
+                4
+            ],
+            28000,
+            [
+                "FT"
+            ]
         ]
     ],
     "loadnotes": [
-        "Stations 1 to 6 are underwing stations. Each may carry two use AIM-54A AHMs."
+        "Stations 1 to 3 and 5 to 6 are underwing stations. Each may carry two AIM-54A AHMs.",
+        "Station 4 is the internal bomb bay. It may carry two auxiliary fuel tanks.",
+        "An auxiliary fuel tank has a weight of 14000, 14 load points, and 700 fuel points.",
+        "As an exception to the normal rules for load points, internal loads contribute 1 load point for each 1,000 of weight and internal fuel contributes 1 load point for each 50 fuel points."
     ]
 }

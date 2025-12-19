@@ -10,6 +10,8 @@
 
 bomb bay = 2390 US gal = 777 fuel points = 15920 lb
 
+Malcolm Pipes allows two fuel tanks, but has the limit for the bomb bay as 28,000. I am reducing the auxiliary FTs to 14,000 each = 700 fuel points.
+
 ### Load
 
 - Fuel load = 3620/50 = 72
