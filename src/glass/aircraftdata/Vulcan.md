@@ -25,7 +25,12 @@ bomb bay = 2390 US gal = 777 fuel points = 15920 lb
 - Maritime radar reconnaissance
 - No TFR
 
+### Vulcan F.3
+
+- See Axe
+
 ## Bibliography
 
+- [Axe](https://nationalinterest.org/blog/reboot/avro-vulcan-bomber-modification-never-happened-196791)
 - [Goebel](https://www.airvectors.net/avvulcan.html)
 - [Wikipedia](https://en.wikipedia.org/wiki/Avro_Vulcan)

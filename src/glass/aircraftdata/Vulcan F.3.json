@@ -1,0 +1,42 @@
+{
+    "versionname": "Vulcan F.3",
+    "description": "The Avro Vulcan F.3 is a long-range intercepter.",
+    "base": "Vulcan B.2",
+    "radar": {
+        "name": "AWG-9",
+        "eccm": 3,
+        "arc": "150+",
+        "searchrange": 500,
+        "searchstrength": 60,
+        "trackingrange": 360,
+        "trackingstrength": 60,
+        "lockon": 7
+    },
+    "crew": [
+        "Pilot",
+        "Copilot",
+        "Navigator",
+        "WSO",
+        "EWO"
+    ],
+    "technology": [],
+    "variantnotes": [],
+    "stations": [
+        [
+            "grouppair",
+            [
+                1,
+                3,
+                4,
+                6
+            ],
+            2000,
+            [
+                "AHM"
+            ]
+        ]
+    ],
+    "loadnotes": [
+        "Stations 1 to 6 are underwing stations. Each may carry two use AIM-54A AHMs."
+    ]
+}
