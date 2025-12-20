@@ -19,7 +19,11 @@
         "Weapons System Officer",
         "Air Electronics Officer"
     ],
-    "technology": [],
+    "technology": [
+        "Look-Down Radar",
+        "Track-While-Scan (18)",
+        "Multi-Target (6)"
+    ],
     "variantnotes": [],
     "stations": [
         [
