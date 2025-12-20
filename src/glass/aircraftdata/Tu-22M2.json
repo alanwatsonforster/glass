@@ -1,0 +1,588 @@
+{
+    "versionname": "Tu-22M2",
+    "description": "The Tupolev Tu-22M2 is a bomber and maritime strike aircraft. The NATO reporting name for the aircraft is Backfire-B and for the radar is Down Beat.",
+    "origin": "Malcolm Pipes",
+    "crew": [
+        "Pilot",
+        "Copilot",
+        "Navigator",
+        "Communications Officer"
+    ],
+    "powertable": {
+        "AB": [
+            2.5,
+            2.0,
+            1.0,
+            24.0
+        ],
+        "M": [
+            1.5,
+            1.0,
+            0.5,
+            11.0
+        ],
+        "N": [
+            0.0,
+            0.0,
+            0.0,
+            5.0
+        ],
+        "I": [
+            0.5,
+            0.5,
+            1.0,
+            0.0
+        ],
+        "SPBR": [
+            0.5,
+            1.0,
+            1.0
+        ]
+    },
+    "jetengines": 2,
+    "cruisespeed": 5.5,
+    "climbspeed": 4.0,
+    "visibility": 11,
+    "sizemodifier": -2,
+    "vulnerability": 1,
+    "restrictedarcs": "-",
+    "blindarcs": "60-",
+    "internalfuel": 5900,
+    "atarefuel": true,
+    "ejectionseat": "early",
+    "maneuvertable": {
+        "LR/DR": [
+            "-",
+            "-"
+        ],
+        "VR": [
+            "-",
+            "-"
+        ]
+    },
+    "geometries": {
+        "forward": {
+            "turndragtable": {
+                "TT": [
+                    3.0,
+                    3.0,
+                    4.0
+                ],
+                "HT": [
+                    5.0,
+                    5.0,
+                    6.0
+                ],
+                "BT": [
+                    6.0,
+                    6.0,
+                    7.0
+                ]
+            },
+            "speedtable": {
+                "EH": [
+                    [
+                        "-",
+                        "-"
+                    ],
+                    [
+                        "-",
+                        "-"
+                    ],
+                    [
+                        "-",
+                        "-"
+                    ],
+                    "-"
+                ],
+                "VH": [
+                    [
+                        3.0,
+                        3.5
+                    ],
+                    [
+                        3.0,
+                        3.5
+                    ],
+                    [
+                        "-",
+                        "-"
+                    ],
+                    3.5
+                ],
+                "HI": [
+                    [
+                        2.5,
+                        3.5
+                    ],
+                    [
+                        3.0,
+                        3.5
+                    ],
+                    [
+                        3.0,
+                        3.5
+                    ],
+                    3.5
+                ],
+                "MH": [
+                    [
+                        2.5,
+                        3.5
+                    ],
+                    [
+                        2.5,
+                        3.5
+                    ],
+                    [
+                        3.0,
+                        3.5
+                    ],
+                    3.5
+                ],
+                "ML": [
+                    [
+                        2.0,
+                        3.5
+                    ],
+                    [
+                        2.5,
+                        3.5
+                    ],
+                    [
+                        2.5,
+                        3.5
+                    ],
+                    3.5
+                ],
+                "LO": [
+                    [
+                        2.0,
+                        3.5
+                    ],
+                    [
+                        2.0,
+                        3.5
+                    ],
+                    [
+                        2.5,
+                        3.5
+                    ],
+                    3.5
+                ]
+            },
+            "properties": []
+        },
+        "mid": {
+            "turndragtable": {
+                "TT": [
+                    3.0,
+                    4.0,
+                    4.0
+                ],
+                "HT": [
+                    5.0,
+                    6.0,
+                    6.0
+                ],
+                "BT": [
+                    6.0,
+                    7.0,
+                    7.0
+                ]
+            },
+            "speedtable": {
+                "EH": [
+                    [
+                        "-",
+                        "-"
+                    ],
+                    [
+                        "-",
+                        "-"
+                    ],
+                    [
+                        "-",
+                        "-"
+                    ],
+                    "-"
+                ],
+                "VH": [
+                    [
+                        3.0,
+                        6.0
+                    ],
+                    [
+                        3.0,
+                        6.0
+                    ],
+                    [
+                        "-",
+                        "-"
+                    ],
+                    6.0
+                ],
+                "HI": [
+                    [
+                        2.5,
+                        6.0
+                    ],
+                    [
+                        3.0,
+                        6.0
+                    ],
+                    [
+                        3.0,
+                        6.0
+                    ],
+                    6.5
+                ],
+                "MH": [
+                    [
+                        2.5,
+                        6.0
+                    ],
+                    [
+                        2.5,
+                        6.0
+                    ],
+                    [
+                        3.0,
+                        6.0
+                    ],
+                    6.5
+                ],
+                "ML": [
+                    [
+                        2.0,
+                        6.0
+                    ],
+                    [
+                        2.5,
+                        6.0
+                    ],
+                    [
+                        2.5,
+                        6.0
+                    ],
+                    7.0
+                ],
+                "LO": [
+                    [
+                        2.0,
+                        6.0
+                    ],
+                    [
+                        2.0,
+                        6.0
+                    ],
+                    [
+                        2.5,
+                        6.0
+                    ],
+                    7.0
+                ]
+            },
+            "properties": [
+                "RA",
+                "HTD"
+            ]
+        },
+        "aft": {
+            "turndragtable": {
+                "TT": [
+                    4.0,
+                    4.0,
+                    5.0
+                ],
+                "HT": [
+                    6.0,
+                    6.0,
+                    7.0
+                ],
+                "BT": [
+                    8.0,
+                    9.0,
+                    9.0
+                ]
+            },
+            "speedtable": {
+                "EH": [
+                    [
+                        "-",
+                        "-"
+                    ],
+                    [
+                        "-",
+                        "-"
+                    ],
+                    [
+                        "-",
+                        "-"
+                    ],
+                    "-"
+                ],
+                "VH": [
+                    [
+                        3.5,
+                        11.0
+                    ],
+                    [
+                        3.5,
+                        9.5
+                    ],
+                    [
+                        "-",
+                        "-"
+                    ],
+                    15.0
+                ],
+                "HI": [
+                    [
+                        3.0,
+                        10.0
+                    ],
+                    [
+                        3.5,
+                        9.0
+                    ],
+                    [
+                        3.5,
+                        8.0
+                    ],
+                    14.0
+                ],
+                "MH": [
+                    [
+                        3.0,
+                        9.0
+                    ],
+                    [
+                        2.5,
+                        8.5
+                    ],
+                    [
+                        3.5,
+                        7.5
+                    ],
+                    13.0
+                ],
+                "ML": [
+                    [
+                        2.5,
+                        8.5
+                    ],
+                    [
+                        3.0,
+                        8.0
+                    ],
+                    [
+                        3.0,
+                        7.0
+                    ],
+                    12.0
+                ],
+                "LO": [
+                    [
+                        2.5,
+                        8.5
+                    ],
+                    [
+                        2.5,
+                        8.0
+                    ],
+                    [
+                        3.0,
+                        7.0
+                    ],
+                    11.0
+                ]
+            },
+            "properties": [
+                "RA",
+                "LTD",
+                "HBR",
+                "PSSM"
+            ]
+        }
+    },
+    "ceilingtable": [
+        40,
+        37,
+        35
+    ],
+    "climbcapabilitytable": {
+        "EH": [
+            [
+                "-",
+                "-"
+            ],
+            [
+                "-",
+                "-"
+            ],
+            [
+                "-",
+                "-"
+            ]
+        ],
+        "VH": [
+            [
+                0.5,
+                0.25
+            ],
+            [
+                0.5,
+                0.0
+            ],
+            [
+                "-",
+                "-"
+            ]
+        ],
+        "HI": [
+            [
+                1.0,
+                0.5
+            ],
+            [
+                1.0,
+                0.25
+            ],
+            [
+                0.5,
+                0.25
+            ]
+        ],
+        "MH": [
+            [
+                2.0,
+                1.0
+            ],
+            [
+                1.0,
+                0.5
+            ],
+            [
+                0.5,
+                0.25
+            ]
+        ],
+        "ML": [
+            [
+                2.5,
+                1.0
+            ],
+            [
+                1.5,
+                0.5
+            ],
+            [
+                1.0,
+                0.25
+            ]
+        ],
+        "LO": [
+            [
+                3.0,
+                1.5
+            ],
+            [
+                2.0,
+                1.0
+            ],
+            [
+                1.0,
+                0.5
+            ]
+        ]
+    },
+    "radar": {
+        "name": "PN-A",
+        "eccm": 2,
+        "arc": "180+",
+        "searchrange": 300,
+        "trackingrange": 180,
+        "lockon": 7
+    },
+    "gun": "Two 23 mm GSh-23",
+    "gunatatohitrolls": "5/3/1",
+    "gunammunition": 4.0,
+    "gunsightmodifiers": {},
+    "gundamagerating": "5/-",
+    "bombsystem": "Ballistic",
+    "ecm": {
+        "iff": true,
+        "rwr": "B",
+        "dds": "B",
+        "ajm": "B3",
+        "bjm": "B4"
+    },
+    "properties": [
+        "NRM",
+        "EVG",
+        "EVGTT"
+    ],
+    "notes": [
+        "DDS capacity is 100 decoys.",
+        "Tail Radar. Equiped with a Argon-2 tail radar with ECCM  1, arc 60-, search 30-7, track 12-7, and lock-on 7-.",
+        "Articulated Guns. The guns can only fire at locked-on targets in the 30- arc. They may return fire twice per game turn in response to gun attacks or conduct one attack. The hit rolls are modified only by the target size."
+    ],
+    "storeslimits": [
+        40,
+        58,
+        47000
+    ],
+    "stations": [
+        [
+            "pair",
+            [
+                1,
+                5
+            ],
+            12000,
+            [
+                "BB",
+                "ASM",
+                "NAM",
+                "MR"
+            ]
+        ],
+        [
+            "pair",
+            [
+                2,
+                4
+            ],
+            6800,
+            [
+                "BB",
+                "MR"
+            ]
+        ],
+        [
+            "single",
+            [
+                3
+            ],
+            19000,
+            [
+                "BB",
+                "ASM",
+                "NAM"
+            ]
+        ]
+    ],
+    "loadnotes": [
+        "Stations 1 and 5 are the wing-glove stations. They may each carry: (a) one Kh-22M/MA (AS-4 Kitchen) ASM/NAM, (b) nine FAB-250 BBs on a MR, (c) six FAB-500 BBs on a MR, (d) one FAB-1500 BB, or (e) one FAB-3000 BB.",
+        "Stations 2 and 4 are the fuselage external stations. They may carry the same bomb loads as stations 1 and 5.",
+        "Station 3 is the internal bay. It may carry: (a) one Kh-22M/AM (AS-4 Kitchen) ASM/NAM, (b) thirty-three FAB-250 BBs, (c) eighteen FAB-500 BBs, (d) six FAB-1500 BBs, or (e) naval mines.",
+        "As an exception to the normal rules for load points, internal loads contribute 1 load point for each 1,000 of weight and internal fuel contributes 1 load point for each 50 fuel points. A return mission will typically require leaving the target with at least 2000 fuel points (40 load points)."
+    ],
+    "VPs": [
+        46,
+        32,
+        18,
+        9
+    ]
+}
