@@ -1,6 +1,6 @@
 {
     "versionname": "F-111B",
-    "description": "The F-111B is prototype carrier-based interceptor.",
+    "description": "The General Dynamics-Grumman F-111B is prototype carrier-based interceptor.",
     "base": "F-111A",
     "popularname": "",
     "radar": {
