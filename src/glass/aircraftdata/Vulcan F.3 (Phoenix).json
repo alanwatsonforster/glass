@@ -25,6 +25,10 @@
         "Track-While-Scan (18)",
         "Multi-Target (6)"
     ],
+    "notes": [
+        "DDS capacity is 60 CH.",
+        "Only the pilot and copilot have ejection seats. The other crew members can bail out three game turns after declaring their intent to do so."
+    ],
     "variantnotes": [],
     "stations": [
         [
