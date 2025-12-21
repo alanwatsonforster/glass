@@ -1,0 +1,372 @@
+22	A-10A
+8	A-1E
+8	A-1H
+8	A-1J
+14	A-26A
+10	A-37B
+24	A-3B (Early)
+24	A-3B (Late)
+11	A-4C (1965 Upgrade)
+11	A-4C (1966 Upgrade)
+11	A-4C
+11	A-4E (1969 Upgrade)
+11	A-4E
+32	A-5A
+32	A-5B
+24	A-6A (1965 Upgrade)
+24	A-6A
+26	A-6B
+30	A-6E (1978 TRAM Upgrade)
+28	A-6E
+18	A-7A
+18	A-7B
+20	A-7C
+24	A-7D (1975 Upgrade)
+24	A-7D (1981 Upgrade)
+24	A-7D
+24	A-7E (1980 Upgrade)
+24	A-7E (1985 Upgrade)
+24	A-7E
+20	A-7P
+24	A3D-2 (Early)
+24	A3D-2 (Late)
+34	A3D-2Q
+32	A3J-1
+32	A3J-2
+40	A3J-3P
+11	A4D-2N
+11	A4D-5
+7	AD-4
+8	AD-5
+8	AD-6
+8	AD-7
+0	AH-1F
+5	AT-33A
+7	AU-1
+12	Alpha Jet A
+10	Alpha Jet E
+12	B-26B (No Turrets)
+12	B-26B (One Turret)
+12	B-26B (Two Turrets)
+12	B-26C (No Turrets)
+12	B-26C (One Turret)
+12	B-26C (Two Turrets)
+14	B-26K
+24	B-29A (Saddletree)
+24	B-29A (Silverplate)
+24	B-29A
+42	B-36D
+28	B-50A (Saddletree)
+28	B-50A
+28	B-50D (Saddletree)
+28	B-50D
+60	B-52D
+70	B-52G
+16	B-57B (Early)
+16	B-57B (PAF)
+16	B-57B
+20	B-57G
+24	B-66B (Early)
+24	B-66B (Late)
+10	CAC CA-30
+11	CAC Sabre Mk.30
+11	CAC Sabre Mk.31 (1960 Upgrade)
+11	CAC Sabre Mk.31
+12	CAC Sabre Mk.32
+12	CF-100 Mk 4B
+13	CF-100 Mk 5
+8	Canadair Sabre Mk.2
+9	Canadair Sabre Mk.4 (6-3 Wing)
+8	Canadair Sabre Mk.4
+10	Canadair Sabre Mk.5
+11	Canadair Sabre Mk.6 (Slatted 6-3 Wing)
+11	Canadair Sabre Mk.6
+6	DHA Vampire F.30
+6	DHA Vampire FB.31
+5	DHA Vampire T.33
+5	DHA Vampire T.33A
+5	DHA Vampire T.34
+5	DHA Vampire T.34A
+5	DHA Vampire T.35
+34	EA-3B
+34	EB-66C
+11	AT-26
+12	AT-26A
+5	F+W Vampire FB.6 (Late)
+5	F+W Vampire FB.6
+5	F+W Vampire T.55
+12	F-100A
+15	F-100C
+16	F-100D (Late)
+16	F-100D
+18	F-100F (Wild Weasel I)
+18	F-100F (Wild Weasel II)
+16	F-100F
+24	F-101B
+16	F-101C
+20	F-102A (Late)
+20	F-102A
+18	F-104A (Late)
+15	F-104A
+18	F-104B (Late)
+16	F-104B
+16	F-104C (ATA Refueling)
+16	F-104C
+16	F-104D (ATA Refueling)
+16	F-104D
+22	F-105B
+24	F-105D (Thunderstick II)
+24	F-105D
+24	F-105F (Early Wild Weasel)
+24	F-105F (Late Wild Weasel)
+24	F-105G (Early Wild Weasel)
+24	F-105G (Late Wild Weasel)
+25	F-106A (SIX SHOOTER)
+25	F-106A
+32	F-111A
+32	F-111B
+32	F-111E
+36	F-16A-1 Fighting Falcon
+36	F-16A-10 Fighting Falcon
+36	F-16A-15 Fighting Falcon
+36	F-16A-5 Fighting Falcon
+25	F-4B (1966 Upgrade)
+25	F-4B (1967 Upgrade)
+25	F-4B (1971 Upgrade)
+25	F-4B (1975 Upgrade)
+25	F-4B
+25	F-4C (1966 Upgrade)
+25	F-4C (1971 Upgrade)
+25	F-4C (1975 Upgrade)
+25	F-4C
+30	F-4E (1971 Upgrade)
+30	F-4E (1975 Upgrade)
+30	F-4E
+28	F-4J (1971 Upgrade)
+28	F-4J (1975 Upgrade)
+28	F-4J
+5	F-51D
+16	F-5A
+18	F-5C
+7	F-80C
+8	F-84E
+9	F-84G
+8	F-86A
+11	F-86D
+8	F-86E
+9	F-86F-1 (6-3 Wing)
+9	F-86F-1
+9	F-86F-10 (6-3 Wing)
+9	F-86F-10
+9	F-86F-25 (6-3 Wing)
+9	F-86F-25
+10	F-86F-35 (6-3 Wing)
+10	F-86F-35
+10	F-86F-40
+9	F-86F-5 (6-3 Wing)
+9	F-86F-5
+12	F-86H (Extended 6-3 Wing)
+12	F-86H
+12	F-86K (Extended 6-3 Wing)
+11	F-86K
+13	F-86L
+12	F-89D
+14	F-89H
+15	F-89J (Fuel-Only Pods)
+15	F-89J (Rocket-and-Fuel Pods)
+20	F-8C (1966 Upgrade)
+20	F-8C (1969 Upgrade)
+20	F-8C
+22	F-8D (1966 Upgrade)
+22	F-8D (1969 Upgrade)
+22	F-8D
+24	F-8E (1966 Upgrade)
+24	F-8E (1969 Upgrade)
+24	F-8E (FN)
+24	F-8E
+24	F-8J
+10	F-94A
+10	F-94B
+8	F2H-2
+9	F2H-2B (ATA Refueling)
+9	F2H-2B
+8	F2H-2P
+11	F2H-3 (ATA Refueling)
+11	F2H-3 (RCN)
+11	F2H-3
+12	F2H-4 (ATA Refueling)
+12	F2H-4
+25	F4H-1
+26	F4H-1P
+6	F4U-4
+6	F4U-4B
+6	F4U-4P
+6	F4U-5
+6	F4U-5N
+6	F4U-5NL
+6	F4U-5P
+12	F7U-3
+14	F7U-3M
+20	F8U-1P
+20	F8U-2
+22	F8U-2N
+24	F8U-2NE
+7	F9F-2
+7	F9F-2B
+7	F9F-2P
+8	F9F-5
+8	F9F-5P
+9	F9F-6
+9	F9F-6P
+12	F9F-8
+12	F9F-8B
+9	F9F-8P
+12	F9F-8T
+36	F/A-18A
+5	FIAT Vampire FB.52A
+5	HAL Vampire FB.52
+5	HAL Vampire T.55
+0	HH-53C
+6	Il-10 (Late)
+6	Il-10
+12	Il-28
+12	Il-28N
+12	Il-28R
+11	Impala Mk I
+12	Impala Mk II
+10	MB-326B
+10	MB-326E
+10	MB-326F
+11	MB-326G
+10	MB-326H
+12	MB-326K
+11	MB-326L
+11	MB-326M
+5	Macchi Vampire FB.52A
+0	Medium Lift Helicopter
+6	Meteor F.8
+8	Meteor FR.9
+9	MiG-15ISh
+9	MiG-15P
+7	MiG-15UTI
+8	MiG-15bis
+11	MiG-17
+11	MiG-17F
+12	MiG-17P
+12	MiG-17PF
+12	MiG-17PFU
+16	MiG-19P (Early)
+16	MiG-19P (Late)
+16	MiG-19PM
+16	MiG-19S (Early)
+16	MiG-19S (Late)
+16	MiG-19SF Farmer-C
+16	MiG-21F-13
+14	MiG-21F
+18	MiG-21FL
+24	MiG-21M (CS)
+22	MiG-21M
+24	MiG-21MF (CS)
+24	MiG-21MF
+18	MiG-21PF
+18	MiG-21PFM
+22	MiG-21S
+24	MiG-21SM
+24	MiG-21bis
+22	MiG-27
+21	Mirage 5BA
+21	Mirage 5F
+22	Mirage IIIEA
+6	Mistral
+10	Mystère IVA
+40	Nimrod MR.1
+50	Nimrod MR.2
+55	Nimrod MR.2P
+0	O-1E Bird Dog
+0	O-2A Skymaster
+10	OA-37B
+0	OH-58C
+7	Ouragan
+12	P2V-7U
+40	RA-5C (1967 Upgrade)
+40	RA-5C (1971 Upgrade)
+40	RA-5C
+24	RB-29A
+34	RB-66C
+20	RF-101C (Late)
+20	RF-101C
+26	RF-4B (1966 Upgrade)
+26	RF-4B (1967 Upgrade)
+26	RF-4B (1971 Upgrade)
+26	RF-4B (1975 Upgrade)
+26	RF-4B
+26	RF-4C (1966 Upgrade)
+26	RF-4C (1971 Upgrade)
+26	RF-4C (1975 Upgrade)
+26	RF-4C
+6	RF-51D
+18	RF-5A
+7	RF-80C
+20	RF-8A
+7	RT-33A
+5	SNCASE Vampire FB.5
+7	Sea Fury FB.11
+24	Sea Harrier FA.2
+20	Sea Harrier FRS.1
+24	Sea Harrier FRS.2
+5	Sea Vampire F.20
+5	Sea Vampire T.22 (Late)
+5	Sea Vampire T.22
+11	Shenyang F-5
+12	Shenyang F-5A
+16	Shenyang F-6 (PAF)
+16	Shenyang F-6
+16	Shenyang F-6A
+7	Shenyang FT-2
+11	Shenyang J-5
+12	Shenyang J-5A
+16	Shenyang J-6
+16	Shenyang J-6A
+16	Shenyang J-6B
+16	Shenyang J-6C
+7	Shenyang JJ-2
+18	Su-11
+16	Su-9
+5	T-33A
+8	T-37C
+12	TF-9J
+13	Tu-14
+15	Tu-14T
+30	Tu-16
+30	Tu-16A
+34	Tu-16K
+34	Tu-16KS
+46	Tu-22M2
+12	Tu-2P
+6	Tu-2S
+24	Tu-4
+24	Tu-4A
+24	Tu-4P
+5	Vampire F.1
+5	Vampire F.3
+5	Vampire FB.5
+5	Vampire FB.50
+5	Vampire FB.52
+5	Vampire FB.52A
+5	Vampire FB.6
+5	Vampire FB.9 (Goblin 3)
+5	Vampire FB.9
+5	Vampire NF.10
+5	Vampire NF.54
+5	Vampire T.11 (Late)
+5	Vampire T.11
+5	Vampire T.55 (Late)
+5	Vampire T.55
+5	Vampire T.55A
+40	Vulcan B.2(MRR)
+40	Vulcan B.2
+40	Vulcan F.3 (Phoenix)
+40	Vulcan F.3 (Sea Dart)
+4	Yak-9D
+4	Yak-9P
+4	Yak-9U

@@ -23,10 +23,5 @@
         "Stations 2 to 4 are the internal bomb bays. Each bay can carry three Mk.44 or Mk.46 torpedoes, six Mk.11 depth charges, one Mk.57 nuclear depth charge, or one 1500L fuel tank (weight 2500 and 125 fuel points).",
         "As an exception to the normal rules for load points, internal loads contribute 1 load point for each 1,000 of weight and internal fuel contributes 1 load point for each 50 fuel points."
     ],
-    "VPs": [
-        30,
-        20,
-        10,
-        6
-    ]
+    "VPs": 40
 }

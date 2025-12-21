@@ -628,13 +628,13 @@ class aircraftdata:
         assert self.hasVPs()
 
         if damage == "K":
-            return self._data["VPs"][0]
+            return self.VPs[0]
         elif damage == "C":
-            return self._data["VPs"][1]
+            return self.VPs[1]
         elif damage == "H":
-            return self._data["VPs"][2]
+            return self.VPs[2]
         elif damage == "L":
-            return self._data["VPs"][3]
+            return self.VPs[3]
 
     def wikiurl(self):
         if "wikiurl" in self._data:
@@ -665,5 +665,19 @@ class aircraftdata:
             return self._data["variantnotes"]
         else:
             return []
+
+    def VPs(self):
+        if "VPs" in self._data:
+            VPs = self._data["VPs"]
+        else:
+            VPs = 0
+        if isinstance(VPs, int):
+            VPs = [
+                VPs,
+                int(VPs * 2 / 3 + 0.5),
+                int(VPs * 1 / 3 + 0.5),
+                int(VPs * 1 / 6 + 0.5),
+            ]
+        return VPs
 
     ##############################################################################

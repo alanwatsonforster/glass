@@ -4,10 +4,5 @@
     "origin": "Watson",
     "base": "Nimrod MR.2",
     "atarefuel": true,
-    "VPs": [
-        30,
-        20,
-        10,
-        6
-    ]
+    "VPs": 55
 }

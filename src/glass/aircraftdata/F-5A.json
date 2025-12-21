@@ -354,5 +354,6 @@
         "May only use AIM-9 IRMs and AGM-12 RGs.",
         "Stations 1 and 7 are the wing-tip stations. They may carry IRMs or special supersonic 50 US gal (190L) FTs."
     ],
-    "description": ""
+    "description": "",
+    "VPs": 16
 }
