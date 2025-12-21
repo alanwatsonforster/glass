@@ -1,6 +1,6 @@
 {
     "versionname": "Vulcan F.3",
-    "description": "The Avro Vulcan F.3A is a long-range intercepter. This variant is equipped with air-launched Sea Dart missiles.",
+    "description": "The Avro Vulcan F.3A is a long-range intercepter. This variant is equipped with air-launched Sea Dart missiles and an early version of the Fox Hunter radar.",
     "variantname": "Sea Dart",
     "base": "Vulcan F.3 (Phoenix)",
     "technology": [
@@ -8,13 +8,13 @@
         "Track-While-Scan (6)"
     ],
     "radar": {
-        "name": "",
+        "name": "Fox Finder",
         "eccm": 2,
         "arc": "150+",
         "searchrange": 300,
-        "searchstrength": 60,
-        "trackingrange": 180,
-        "trackingstrength": 60,
+        "searchstrength": 40,
+        "trackingrange": 300,
+        "trackingstrength": 30,
         "lockon": 7
     },
     "stations": [

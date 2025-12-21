@@ -3,9 +3,6 @@
 .json.pdf:
 	python3 aircraftdatacards.py $*.json
 
-all	:
-	pwd
-
 all						:	\
 	sandbox.pdf				\
 	bombers.pdf 			\

@@ -1,6 +1,6 @@
 {
     "versionname": "Vulcan F.3",
-    "description": "The Avro Vulcan F.3A is a long-range intercepter. This variant is equipped with AIM-54 Phoenix missiles.",
+    "description": "The Avro Vulcan F.3A is a long-range intercepter. This variant is equipped with AIM-54 Phoenix missiles and the AWG-9 radar from the F-14A.",
     "variantname": "Phoenix",
     "base": "Vulcan B.2",
     "radar": {
