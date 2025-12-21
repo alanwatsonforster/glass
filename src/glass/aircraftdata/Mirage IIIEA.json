@@ -309,7 +309,7 @@
                 2,
                 4
             ],
-            2200,
+            3000,
             [
                 "BB",
                 "DR",
@@ -336,7 +336,6 @@
         "May use Matra R.550 Magic IRMs on stations 1 and 5",
         "May use Matra R.530 RHMs on station 3.",
         "May carry 1300L FTs on station 2, 3, and 4 and 1700L FTs on stations 2 and 4.",
-        "Stations 2 and 4 may be overloaded to 3000 but turns are limited to BT.",
         "No supersonic flight while carrying FTs."
     ],
     "VPs": [
