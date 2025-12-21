@@ -349,12 +349,7 @@
             0.5
         ]
     ],
-    "VPs": [
-        12,
-        8,
-        4,
-        2
-    ],
+    "VPs": 25,
     "notes": [
         "Flight Restrictions. UD, VD, and VC are forbidden. SC, ZC, and SD may only use 1 VFP per turn.",
         "The aircraft has two propeller engines and two jet engines. HT uses the propeller engines. FT uses both the propeller and jet engines. When the power setting is HT or less, reduce the maximum speed by 1.0.",
