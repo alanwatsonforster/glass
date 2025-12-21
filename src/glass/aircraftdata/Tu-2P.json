@@ -27,7 +27,7 @@
     "gunammunition": 3.0,
     "notes": [
         "Modified Radar Scan. In level flight, the radar may detect and track targets at equal or higher altitude, regardless of the altitude of the target, but may not detect targets at lower altitude. In diving or climbing flight, it may only detect targets at higher altitude.",
-        "Gun Muzzle Flash. If the guns are fired at night, for the rest of the current game turn and during the following two game turns the aircraft may not sight, may not conduct any attack that requires the target to be sighted, and is considered to be flying in adverse weather conditions."
+        "Gun Muzzle Flash. If the guns are fired at night, for the rest of the current game turn and during the following two game turns, the aircraft may not sight, may not conduct any attack that requires the target to be sighted, and is considered to be flying in adverse weather conditions."
     ],
     "VPs": [
         12,
