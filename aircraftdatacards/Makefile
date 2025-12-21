@@ -3,11 +3,20 @@
 .json.pdf:
 	python3 aircraftdatacards.py $*.json
 
-all			:	all.pdf
+all	:
+	pwd
 
-all.pdf		:	.FORCE
+all						:	\
+	sandbox.pdf				\
+	bombers.pdf 			\
+	bomber-fighters.pdf		\
+	all.pdf
 
-sandbox.pdf	:	.FORCE
+# We force these since in most cases the aircraft data files will have changed.
+all.pdf					:	.FORCE
+bombers.pdf				:	.FORCE
+bomber-fighters.pdf		:	.FORCE
+sandbox.pdf				:	.FORCE
 
 format		:
 	python3 format.py
