@@ -630,13 +630,16 @@ class aircraftdata:
             VPs = self._data["VPs"]
         else:
             VPs = 0
-        if isinstance(VPs, int):
-            VPs = [
-                VPs,
-                int(VPs * 2 / 3 + 0.5),
-                int(VPs * 1 / 3 + 0.5),
-                int(VPs * 1 / 6 + 0.5),
-            ]
+
+        if not isinstance(VPs, int):
+            VPs = VPs[0]
+
+        VPs = [
+            VPs,
+            int(VPs * 2 / 3 + 0.5),
+            int(VPs * 1 / 3 + 0.5),
+            int(VPs * 1 / 6 + 0.5),
+        ]
 
         if damage is None:
             return VPs
