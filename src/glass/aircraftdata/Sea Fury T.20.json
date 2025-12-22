@@ -1,0 +1,13 @@
+{
+    "versionname": "Sea Fury T.20",
+    "description": "The Hawker Sea Fury T.20 is a carrier-capable trainer.",
+    "base": "Sea Fury FB.11",
+    "crew": [
+        "Pilot",
+        "Observer"
+    ],
+    "vulnerability": 0,
+    "gun": "Two 20 mm Hispano V",
+    "gundamagerating": "4/5*",
+    "VPs": 6
+}

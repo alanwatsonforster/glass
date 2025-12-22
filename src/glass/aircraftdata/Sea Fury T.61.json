@@ -1,0 +1,5 @@
+{
+    "versionname": "Sea Fury T.61",
+    "description": "The Hawker Sea Fury T.61 is a trainer. It is a export version of the T.20 with carrier-specific equipment removed.",
+    "base": "Sea Fury T.20"
+}

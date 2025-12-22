@@ -1,0 +1,5 @@
+{
+    "versionname": "Sea Fury FB.60",
+    "description": "The Hawker Sea Fury FB.60 is a day fighter and fighter-bomber. It is an export version of the FB.11 with carrier-specific equipment removed.",
+    "base": "Sea Fury FB.11"
+}

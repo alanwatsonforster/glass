@@ -1,0 +1,28 @@
+{
+    "versionname": "Sea Fury F.10",
+    "description": "The Hawker Sea Fury F.10 is a carrier-capable day fighter.",
+    "base": "Sea Fury FB.11",
+    "vulnerability": 0,
+    "storeslimits": [
+        2,
+        4,
+        3400
+    ],
+    "stations": [
+        [
+            "pair",
+            [
+                1,
+                2
+            ],
+            700,
+            [
+                "FT"
+            ]
+        ]
+    ],
+    "loadnotes": [
+        "Stations 1 and 2 can each carry a 90 gal (400L) FT."
+    ],
+    "VPs": 6
+}

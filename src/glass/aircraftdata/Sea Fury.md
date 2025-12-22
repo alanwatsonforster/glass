@@ -8,7 +8,7 @@
 
 ### Original ADC
 
-An ADC for the FB.11 appears in APJ 32. 
+An ADC for the FB.11 appears in APJ 32.
 
 ### Restricted Arc
 
@@ -37,6 +37,6 @@ The Sea Fury FB.11 saw service in the Korean War from October 1950 onwards, with
 
 ## Bibliography
 
-- [BAE](https://www.baesystems.com/en/heritage/hawker-fury---sea-fury)
+- [BAE](https://heritage.baesystems.com/page/hawker-fury-and-sea-fury)
 - [Goebel](https://www.airvectors.net/avcfury.html)
 - [Wikipedia](https://en.wikipedia.org/wiki/Hawker_Sea_Fury)
