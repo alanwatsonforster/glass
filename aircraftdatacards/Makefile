@@ -7,6 +7,7 @@ all						:	\
 	sandbox.pdf				\
 	british.pdf				\
 	canadian.pdf			\
+	chinese.pdf				\
 	bombers.pdf 			\
 	bomber-fighters.pdf		\
 	all.pdf
@@ -16,6 +17,7 @@ sandbox.pdf				:	.FORCE
 all.pdf					:	.FORCE
 british.pdf				:	.FORCE
 canadian.pdf			:	.FORCE
+chinese.pdf				:	.FORCE
 bombers.pdf				:	.FORCE
 bomber-fighters.pdf		:	.FORCE
 

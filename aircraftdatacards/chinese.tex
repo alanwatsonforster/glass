@@ -1,0 +1,1182 @@
+
+%!LW recipe=latexmk (xelatex)
+%!TEX program = xelatex
+
+\documentclass[twocolumn]{report}
+\input aircraftdatacards.tex
+\newif\ifversionone\versiononefalse
+\newif\ifversiontwo\versiontwofalse
+\newif\ifversionthree\versionthreefalse
+\versiononetrue
+\begin{document}
+
+
+\onecolumn
+\newpage
+
+\input{../src/glass/aircraftdata/Shenyang JJ-2 and FT-2.tex}
+% Shenyang JJ-2
+\renewcommand{\Aaa}{Shenyang JJ-2}
+\renewcommand{\Aab}{Shenyang JJ-2}
+\renewcommand{\Ac}{\Acone{\jetengine}}
+\renewcommand{\Ada}{AB}\renewcommand{\Adb}{---}\renewcommand{\Adc}{---}\renewcommand{\Add}{---}\renewcommand{\Ade}{---}
+\renewcommand{\Aea}{M}\renewcommand{\Aeb}{1.5}\renewcommand{\Aec}{1.0}\renewcommand{\Aed}{1.0}\renewcommand{\Aee}{1.0}
+\renewcommand{\Af}{0.5}
+\renewcommand{\Aga}{0.5}\renewcommand{\Agb}{0.5}\renewcommand{\Agc}{0.5}\renewcommand{\Agd}{0.0}
+\renewcommand{\Aha}{0.5}\renewcommand{\Ahb}{0.5}\renewcommand{\Ahc}{1.0}
+\renewcommand{\Ai}{}
+\renewcommand{\Ba}{}
+\renewcommand{\Bb}{5.0}
+\renewcommand{\Bc}{3.5}
+\renewcommand{\Bd}{4}
+\renewcommand{\Be}{+1}
+\renewcommand{\Bf}{+1}
+\renewcommand{\Bg}{---}
+\renewcommand{\Bh}{30−}
+\renewcommand{\Bi}{100}
+\renewcommand{\Bj}{No}
+\renewcommand{\Bk}{Early}
+\renewcommand{\Ccrew}{Pilot and Observer}
+\renewcommand{\Ccrewfont}{\small}
+\renewcommand{\Caa}{1.0}
+\renewcommand{\Cab}{1.5}
+\renewcommand{\Cb}{0.5}
+\renewcommand{\Cca}{0.0}\renewcommand{\Ccb}{1.0}\renewcommand{\Ccc}{1.0}
+\renewcommand{\Cda}{1.0}\renewcommand{\Cdb}{1.0}\renewcommand{\Cdc}{1.0}
+\renewcommand{\Cea}{2.0}\renewcommand{\Ceb}{3.0}\renewcommand{\Cec}{3.0}
+\renewcommand{\Cfa}{---}\renewcommand{\Cfb}{---}\renewcommand{\Cfc}{---}
+\renewcommand{\Cg}{}
+\renewcommand{\Dba}{6.5}
+\renewcommand{\Dbb}{6.0}
+\renewcommand{\Dbc}{5.5}
+\renewcommand{\Dbd}{7.0}
+\renewcommand{\Daa}{\blockDceilingandcruisespeed{51}{5.0}}\renewcommand{\Dab}{\blockDceilingandcruisespeed{48}{4.5}}\renewcommand{\Dac}{\blockDceilingandcruisespeed{44}{4.0}}
+\renewcommand{\Dca}{\blockDminmaxspeed{3.0}{5.5}{\Dba}}\renewcommand{\Dcb}{\blockDminmaxspeed{3.0}{5.0}{\Dbb}}\renewcommand{\Dcc}{---}\renewcommand{\Dcd}{\blockDdivespeed{6.0}}
+\renewcommand{\Dda}{\blockDminmaxspeed{2.5}{6.0}{\Dba}}\renewcommand{\Ddb}{\blockDminmaxspeed{2.5}{5.0}{\Dbb}}\renewcommand{\Ddc}{\blockDminmaxspeed{2.5}{5.0}{\Dbc}}\renewcommand{\Ddd}{\blockDdivespeed{6.0}}
+\renewcommand{\Dea}{\blockDminmaxspeed{2.0}{6.0}{\Dba}}\renewcommand{\Deb}{\blockDminmaxspeed{2.0}{5.5}{\Dbb}}\renewcommand{\Dec}{\blockDminmaxspeed{2.5}{5.0}{\Dbc}}\renewcommand{\Ded}{\blockDdivespeed{6.5}}
+\renewcommand{\Dfa}{\blockDminmaxspeed{1.5}{6.0}{\Dba}}\renewcommand{\Dfb}{\blockDminmaxspeed{2.0}{5.5}{\Dbb}}\renewcommand{\Dfc}{\blockDminmaxspeed{2.0}{5.0}{\Dbc}}\renewcommand{\Dfd}{\blockDdivespeed{6.5}}
+\renewcommand{\Dga}{\blockDminmaxspeed{1.5}{6.5}{\Dba}}\renewcommand{\Dgb}{\blockDminmaxspeed{1.5}{6.0}{\Dbb}}\renewcommand{\Dgc}{\blockDminmaxspeed{1.5}{5.5}{\Dbc}}\renewcommand{\Dgd}{\blockDdivespeed{7.0}}
+\renewcommand{\Dha}{\blockDminmaxspeed{1.0}{6.5}{\Dba}}\renewcommand{\Dhb}{\blockDminmaxspeed{1.5}{6.0}{\Dbb}}\renewcommand{\Dhc}{\blockDminmaxspeed{1.5}{5.5}{\Dbc}}\renewcommand{\Dhd}{\blockDdivespeed{7.0}}
+\renewcommand{\Eaa}{---}\renewcommand{\Eab}{0.5}\renewcommand{\Eac}{---}\renewcommand{\Ead}{0.5}\renewcommand{\Eae}{---}\renewcommand{\Eaf}{---}
+\renewcommand{\Eba}{---}\renewcommand{\Ebb}{1.0}\renewcommand{\Ebc}{---}\renewcommand{\Ebd}{0.5}\renewcommand{\Ebe}{---}\renewcommand{\Ebf}{0.5}
+\renewcommand{\Eca}{---}\renewcommand{\Ecb}{1.0}\renewcommand{\Ecc}{---}\renewcommand{\Ecd}{1.0}\renewcommand{\Ece}{---}\renewcommand{\Ecf}{0.5}
+\renewcommand{\Eda}{---}\renewcommand{\Edb}{1.5}\renewcommand{\Edc}{---}\renewcommand{\Edd}{1.0}\renewcommand{\Ede}{---}\renewcommand{\Edf}{1.0}
+\renewcommand{\Eea}{---}\renewcommand{\Eeb}{1.5}\renewcommand{\Eec}{---}\renewcommand{\Eed}{1.0}\renewcommand{\Eee}{---}\renewcommand{\Eef}{1.0}
+\renewcommand{\Efa}{---}\renewcommand{\Efb}{1.5}\renewcommand{\Efc}{---}\renewcommand{\Efd}{1.5}\renewcommand{\Efe}{---}\renewcommand{\Eff}{1.0}
+\renewcommand{\Fa}{---}
+\renewcommand{\Fb}{---}
+\renewcommand{\Fc}{---}
+\renewcommand{\Fd}{---}
+\renewcommand{\Fe}{---}
+\renewcommand{\Ff}{---}
+\renewcommand{\Fg}{One 12.7~mm A-12.7}
+\renewcommand{\Fh}{3/1/--}
+\renewcommand{\Fi}{3.0}
+\renewcommand{\Fl}{1/1**}
+\renewcommand{\Fm}{Manual}
+\renewcommand{\Fj}{TT+0/HT+2/BT+3}
+\renewcommand{\Fk}{---}
+\renewcommand{\Fn}{}
+\renewcommand{\Fo}{---}
+\renewcommand{\Fp}{---}
+\renewcommand{\Fq}{---}
+\renewcommand{\Fr}{---}
+\renewcommand{\Fs}{---}
+\renewcommand{\Ft}{None}
+\renewcommand{\Fu}{\Fua{\item The Shenyang JJ-2 is a two-seat training aircraft. It is licensed version of the MiG-15UTI. The NATO reporting name for the aircraft is Midget.
+
+\item High transonic drag (HTD). 
+
+\item Low roll rate (LRR) if speed ≥ 5.0. 
+
+\item Hit rolls at high transonic speed or greater have a +1 modifier to the hit roll due to instability generated by the conventional horizontal stabilizers and elevators.
+
+}}
+\renewcommand{\Gba}{\wbox[r]{00}{0}--1}
+\renewcommand{\Gbb}{\wbox[r]{00}{2}--4}
+\renewcommand{\Gbc}{\wbox[r]{00}{5}+}
+\renewcommand{\Gbd}{1,600}
+\renewcommand{\Gca}{1 and 2&550&\mbox{BB} \mbox{RK} \mbox{RP} \mbox{FT}\\
+}
+\renewcommand{\Gcb}{\Gcc{\item Can use 250L, 300L, 400L, or 600L FTs. The larger tanks can be carried as an exception to the normal rules for load limits, but the turn rate is limited to HT if 300L or 400L tanks are used and to TT if 600L tanks are used.
+
+}}
+\renewcommand{\Gda}{7/5/2/1}
+\renewcommand{\Gea}{0000000}
+\renewcommand{\Geb}{0000-00-00T00:00:00}
+\adc
+% Shenyang FT-2
+\renewcommand{\Aaa}{Shenyang FT-2}
+\renewcommand{\Aab}{Shenyang FT-2}
+\renewcommand{\Ac}{\Acone{\jetengine}}
+\renewcommand{\Ada}{AB}\renewcommand{\Adb}{---}\renewcommand{\Adc}{---}\renewcommand{\Add}{---}\renewcommand{\Ade}{---}
+\renewcommand{\Aea}{M}\renewcommand{\Aeb}{1.5}\renewcommand{\Aec}{1.0}\renewcommand{\Aed}{1.0}\renewcommand{\Aee}{1.0}
+\renewcommand{\Af}{0.5}
+\renewcommand{\Aga}{0.5}\renewcommand{\Agb}{0.5}\renewcommand{\Agc}{0.5}\renewcommand{\Agd}{0.0}
+\renewcommand{\Aha}{0.5}\renewcommand{\Ahb}{0.5}\renewcommand{\Ahc}{1.0}
+\renewcommand{\Ai}{}
+\renewcommand{\Ba}{}
+\renewcommand{\Bb}{5.0}
+\renewcommand{\Bc}{3.5}
+\renewcommand{\Bd}{4}
+\renewcommand{\Be}{+1}
+\renewcommand{\Bf}{+1}
+\renewcommand{\Bg}{---}
+\renewcommand{\Bh}{30−}
+\renewcommand{\Bi}{100}
+\renewcommand{\Bj}{No}
+\renewcommand{\Bk}{Early}
+\renewcommand{\Ccrew}{Pilot and Observer}
+\renewcommand{\Ccrewfont}{\small}
+\renewcommand{\Caa}{1.0}
+\renewcommand{\Cab}{1.5}
+\renewcommand{\Cb}{0.5}
+\renewcommand{\Cca}{0.0}\renewcommand{\Ccb}{1.0}\renewcommand{\Ccc}{1.0}
+\renewcommand{\Cda}{1.0}\renewcommand{\Cdb}{1.0}\renewcommand{\Cdc}{1.0}
+\renewcommand{\Cea}{2.0}\renewcommand{\Ceb}{3.0}\renewcommand{\Cec}{3.0}
+\renewcommand{\Cfa}{---}\renewcommand{\Cfb}{---}\renewcommand{\Cfc}{---}
+\renewcommand{\Cg}{}
+\renewcommand{\Dba}{6.5}
+\renewcommand{\Dbb}{6.0}
+\renewcommand{\Dbc}{5.5}
+\renewcommand{\Dbd}{7.0}
+\renewcommand{\Daa}{\blockDceilingandcruisespeed{51}{5.0}}\renewcommand{\Dab}{\blockDceilingandcruisespeed{48}{4.5}}\renewcommand{\Dac}{\blockDceilingandcruisespeed{44}{4.0}}
+\renewcommand{\Dca}{\blockDminmaxspeed{3.0}{5.5}{\Dba}}\renewcommand{\Dcb}{\blockDminmaxspeed{3.0}{5.0}{\Dbb}}\renewcommand{\Dcc}{---}\renewcommand{\Dcd}{\blockDdivespeed{6.0}}
+\renewcommand{\Dda}{\blockDminmaxspeed{2.5}{6.0}{\Dba}}\renewcommand{\Ddb}{\blockDminmaxspeed{2.5}{5.0}{\Dbb}}\renewcommand{\Ddc}{\blockDminmaxspeed{2.5}{5.0}{\Dbc}}\renewcommand{\Ddd}{\blockDdivespeed{6.0}}
+\renewcommand{\Dea}{\blockDminmaxspeed{2.0}{6.0}{\Dba}}\renewcommand{\Deb}{\blockDminmaxspeed{2.0}{5.5}{\Dbb}}\renewcommand{\Dec}{\blockDminmaxspeed{2.5}{5.0}{\Dbc}}\renewcommand{\Ded}{\blockDdivespeed{6.5}}
+\renewcommand{\Dfa}{\blockDminmaxspeed{1.5}{6.0}{\Dba}}\renewcommand{\Dfb}{\blockDminmaxspeed{2.0}{5.5}{\Dbb}}\renewcommand{\Dfc}{\blockDminmaxspeed{2.0}{5.0}{\Dbc}}\renewcommand{\Dfd}{\blockDdivespeed{6.5}}
+\renewcommand{\Dga}{\blockDminmaxspeed{1.5}{6.5}{\Dba}}\renewcommand{\Dgb}{\blockDminmaxspeed{1.5}{6.0}{\Dbb}}\renewcommand{\Dgc}{\blockDminmaxspeed{1.5}{5.5}{\Dbc}}\renewcommand{\Dgd}{\blockDdivespeed{7.0}}
+\renewcommand{\Dha}{\blockDminmaxspeed{1.0}{6.5}{\Dba}}\renewcommand{\Dhb}{\blockDminmaxspeed{1.5}{6.0}{\Dbb}}\renewcommand{\Dhc}{\blockDminmaxspeed{1.5}{5.5}{\Dbc}}\renewcommand{\Dhd}{\blockDdivespeed{7.0}}
+\renewcommand{\Eaa}{---}\renewcommand{\Eab}{0.5}\renewcommand{\Eac}{---}\renewcommand{\Ead}{0.5}\renewcommand{\Eae}{---}\renewcommand{\Eaf}{---}
+\renewcommand{\Eba}{---}\renewcommand{\Ebb}{1.0}\renewcommand{\Ebc}{---}\renewcommand{\Ebd}{0.5}\renewcommand{\Ebe}{---}\renewcommand{\Ebf}{0.5}
+\renewcommand{\Eca}{---}\renewcommand{\Ecb}{1.0}\renewcommand{\Ecc}{---}\renewcommand{\Ecd}{1.0}\renewcommand{\Ece}{---}\renewcommand{\Ecf}{0.5}
+\renewcommand{\Eda}{---}\renewcommand{\Edb}{1.5}\renewcommand{\Edc}{---}\renewcommand{\Edd}{1.0}\renewcommand{\Ede}{---}\renewcommand{\Edf}{1.0}
+\renewcommand{\Eea}{---}\renewcommand{\Eeb}{1.5}\renewcommand{\Eec}{---}\renewcommand{\Eed}{1.0}\renewcommand{\Eee}{---}\renewcommand{\Eef}{1.0}
+\renewcommand{\Efa}{---}\renewcommand{\Efb}{1.5}\renewcommand{\Efc}{---}\renewcommand{\Efd}{1.5}\renewcommand{\Efe}{---}\renewcommand{\Eff}{1.0}
+\renewcommand{\Fa}{---}
+\renewcommand{\Fb}{---}
+\renewcommand{\Fc}{---}
+\renewcommand{\Fd}{---}
+\renewcommand{\Fe}{---}
+\renewcommand{\Ff}{---}
+\renewcommand{\Fg}{One 12.7~mm A-12.7}
+\renewcommand{\Fh}{3/1/--}
+\renewcommand{\Fi}{3.0}
+\renewcommand{\Fl}{1/1**}
+\renewcommand{\Fm}{Manual}
+\renewcommand{\Fj}{TT+0/HT+2/BT+3}
+\renewcommand{\Fk}{---}
+\renewcommand{\Fn}{}
+\renewcommand{\Fo}{---}
+\renewcommand{\Fp}{---}
+\renewcommand{\Fq}{---}
+\renewcommand{\Fr}{---}
+\renewcommand{\Fs}{---}
+\renewcommand{\Ft}{None}
+\renewcommand{\Fu}{\Fua{\item The Shenyang FT-2 is a two-seat training aircraft. It is the export version of the Shenyang JJ-2 and is a licensed version of the MiG-15UTI. The NATO reporting name for the aircraft is Midget.
+
+\item High transonic drag (HTD). 
+
+\item Low roll rate (LRR) if speed ≥ 5.0. 
+
+\item Hit rolls at high transonic speed or greater have a +1 modifier to the hit roll due to instability generated by the conventional horizontal stabilizers and elevators.
+
+}}
+\renewcommand{\Gba}{\wbox[r]{00}{0}--1}
+\renewcommand{\Gbb}{\wbox[r]{00}{2}--4}
+\renewcommand{\Gbc}{\wbox[r]{00}{5}+}
+\renewcommand{\Gbd}{1,600}
+\renewcommand{\Gca}{1 and 2&550&\mbox{BB} \mbox{RK} \mbox{RP} \mbox{FT}\\
+}
+\renewcommand{\Gcb}{\Gcc{\item Can use 250L, 300L, 400L, or 600L FTs. The larger tanks can be carried as an exception to the normal rules for load limits, but the turn rate is limited to HT if 300L or 400L tanks are used and to TT if 600L tanks are used.
+
+}}
+\renewcommand{\Gda}{7/5/2/1}
+\renewcommand{\Gea}{0000000}
+\renewcommand{\Geb}{0000-00-00T00:00:00}
+\adc
+\input{../src/glass/aircraftdata/Shenyang J-5 and F-5.tex}
+% Shenyang J-5
+\renewcommand{\Aaa}{Shenyang J-5}
+\renewcommand{\Aab}{Shenyang J-5}
+\renewcommand{\Ac}{\Acone{\jetengine}}
+\renewcommand{\Ada}{AB}\renewcommand{\Adb}{2.5}\renewcommand{\Adc}{2.0}\renewcommand{\Add}{2.0}\renewcommand{\Ade}{3.0}
+\renewcommand{\Aea}{M}\renewcommand{\Aeb}{1.5}\renewcommand{\Aec}{1.5}\renewcommand{\Aed}{1.0}\renewcommand{\Aee}{1.0}
+\renewcommand{\Af}{0.5}
+\renewcommand{\Aga}{0.5}\renewcommand{\Agb}{0.5}\renewcommand{\Agc}{1.0}\renewcommand{\Agd}{0.0}
+\renewcommand{\Aha}{0.5}\renewcommand{\Ahb}{0.5}\renewcommand{\Ahc}{1.0}
+\renewcommand{\Ai}{}
+\renewcommand{\Ba}{}
+\renewcommand{\Bb}{4.5}
+\renewcommand{\Bc}{3.5}
+\renewcommand{\Bd}{4}
+\renewcommand{\Be}{+1}
+\renewcommand{\Bf}{+1}
+\renewcommand{\Bg}{180L}
+\renewcommand{\Bh}{30−}
+\renewcommand{\Bi}{130}
+\renewcommand{\Bj}{No}
+\renewcommand{\Bk}{Early}
+\renewcommand{\Ccrew}{Pilot}
+\renewcommand{\Ccrewfont}{\normalsize}
+\renewcommand{\Caa}{1.0}
+\renewcommand{\Cab}{1.5}
+\renewcommand{\Cb}{0.5}
+\renewcommand{\Cca}{0.0}\renewcommand{\Ccb}{0.0}\renewcommand{\Ccc}{1.0}
+\renewcommand{\Cda}{1.0}\renewcommand{\Cdb}{1.0}\renewcommand{\Cdc}{1.0}
+\renewcommand{\Cea}{2.0}\renewcommand{\Ceb}{2.0}\renewcommand{\Cec}{3.0}
+\renewcommand{\Cfa}{3.0}\renewcommand{\Cfb}{3.0}\renewcommand{\Cfc}{---}
+\renewcommand{\Cg}{No lag or displacement rolls if speed ≥ 5.0. }
+\renewcommand{\Dba}{7.0}
+\renewcommand{\Dbb}{6.5}
+\renewcommand{\Dbc}{5.5}
+\renewcommand{\Dbd}{7.5}
+\renewcommand{\Daa}{\blockDceilingandcruisespeed{54}{4.5}}\renewcommand{\Dab}{\blockDceilingandcruisespeed{50}{4.0}}\renewcommand{\Dac}{\blockDceilingandcruisespeed{46}{3.5}}
+\renewcommand{\Dca}{\blockDminmaxspeed{3.0}{6.0}{\Dba}}\renewcommand{\Dcb}{\blockDminmaxspeed{3.0}{5.5}{\Dbb}}\renewcommand{\Dcc}{\blockDminmaxspeed{3.5}{5.0}{\Dbc}}\renewcommand{\Dcd}{\blockDdivespeed{6.5}}
+\renewcommand{\Dda}{\blockDminmaxspeed{2.5}{6.0}{\Dba}}\renewcommand{\Ddb}{\blockDminmaxspeed{3.0}{5.5}{\Dbb}}\renewcommand{\Ddc}{\blockDminmaxspeed{3.0}{5.0}{\Dbc}}\renewcommand{\Ddd}{\blockDdivespeed{6.5}}
+\renewcommand{\Dea}{\blockDminmaxspeed{2.0}{6.0}{\Dba}}\renewcommand{\Deb}{\blockDminmaxspeed{2.5}{6.0}{\Dbb}}\renewcommand{\Dec}{\blockDminmaxspeed{2.5}{5.5}{\Dbc}}\renewcommand{\Ded}{\blockDdivespeed{7.0}}
+\renewcommand{\Dfa}{\blockDminmaxspeed{1.5}{6.5}{\Dba}}\renewcommand{\Dfb}{\blockDminmaxspeed{2.0}{6.0}{\Dbb}}\renewcommand{\Dfc}{\blockDminmaxspeed{2.0}{5.5}{\Dbc}}\renewcommand{\Dfd}{\blockDdivespeed{7.0}}
+\renewcommand{\Dga}{\blockDminmaxspeed{1.0}{7.0}{\Dba}}\renewcommand{\Dgb}{\blockDminmaxspeed{1.5}{6.5}{\Dbb}}\renewcommand{\Dgc}{\blockDminmaxspeed{1.5}{5.5}{\Dbc}}\renewcommand{\Dgd}{\blockDdivespeed{7.5}}
+\renewcommand{\Dha}{\blockDminmaxspeed{1.0}{6.5}{\Dba}}\renewcommand{\Dhb}{\blockDminmaxspeed{1.5}{6.0}{\Dbb}}\renewcommand{\Dhc}{\blockDminmaxspeed{1.5}{5.5}{\Dbc}}\renewcommand{\Dhd}{\blockDdivespeed{7.5}}
+\renewcommand{\Eaa}{1.0}\renewcommand{\Eab}{0.5}\renewcommand{\Eac}{1.0}\renewcommand{\Ead}{0.5}\renewcommand{\Eae}{1.0}\renewcommand{\Eaf}{0.5}
+\renewcommand{\Eba}{1.0}\renewcommand{\Ebb}{0.5}\renewcommand{\Ebc}{1.0}\renewcommand{\Ebd}{0.5}\renewcommand{\Ebe}{1.0}\renewcommand{\Ebf}{0.5}
+\renewcommand{\Eca}{1.5}\renewcommand{\Ecb}{0.5}\renewcommand{\Ecc}{1.0}\renewcommand{\Ecd}{0.5}\renewcommand{\Ece}{1.0}\renewcommand{\Ecf}{0.5}
+\renewcommand{\Eda}{1.5}\renewcommand{\Edb}{1.0}\renewcommand{\Edc}{1.5}\renewcommand{\Edd}{0.5}\renewcommand{\Ede}{1.0}\renewcommand{\Edf}{0.5}
+\renewcommand{\Eea}{2.0}\renewcommand{\Eeb}{1.0}\renewcommand{\Eec}{1.5}\renewcommand{\Eed}{1.0}\renewcommand{\Eee}{1.5}\renewcommand{\Eef}{0.5}
+\renewcommand{\Efa}{2.0}\renewcommand{\Efb}{1.0}\renewcommand{\Efc}{2.0}\renewcommand{\Efd}{1.0}\renewcommand{\Efe}{1.5}\renewcommand{\Eff}{1.0}
+\renewcommand{\Fa}{---}
+\renewcommand{\Fb}{---}
+\renewcommand{\Fc}{---}
+\renewcommand{\Fd}{---}
+\renewcommand{\Fe}{---}
+\renewcommand{\Ff}{---}
+\renewcommand{\Fg}{\parbox{\linewidth}{\centering\scriptsize Two 23~mm NR-23 \\One 37~mm N-37}}
+\renewcommand{\Fh}{4/2/1}
+\renewcommand{\Fi}{3.0}
+\renewcommand{\Fl}{5/4}
+\renewcommand{\Fm}{Manual}
+\renewcommand{\Fj}{TT+0/HT+2/BT+3}
+\renewcommand{\Fk}{---}
+\renewcommand{\Fn}{IFF}
+\renewcommand{\Fo}{---}
+\renewcommand{\Fp}{---}
+\renewcommand{\Fq}{---}
+\renewcommand{\Fr}{---}
+\renewcommand{\Fs}{---}
+\renewcommand{\Ft}{None}
+\renewcommand{\Fu}{\Fua{\item The Shenyang J-5 is a day fighter. It is licensed version of the MiG-17F. The NATO reporting name for the aircraft is Fresco-C.
+
+\item High transonic drag (HTD). 
+
+\item Low roll rate (LRR) if speed ≥ 4.0. 
+
+}}
+\renewcommand{\Gba}{\wbox[r]{00}{0}--2}
+\renewcommand{\Gbb}{\wbox[r]{00}{3}--4}
+\renewcommand{\Gbc}{\wbox[r]{00}{5}+}
+\renewcommand{\Gbd}{2,500}
+\renewcommand{\Gca}{1 and 2&700&\mbox{BB} \mbox{RK} \mbox{RP} \mbox{FT} \mbox{IRM}\\
+}
+\renewcommand{\Gcb}{\Gcc{\item From 1960, may use AA-2 IRMs.
+
+}}
+\renewcommand{\Gda}{11/7/4/2}
+\renewcommand{\Gea}{0000000}
+\renewcommand{\Geb}{0000-00-00T00:00:00}
+\adc
+% Shenyang F-5
+\renewcommand{\Aaa}{Shenyang F-5}
+\renewcommand{\Aab}{Shenyang F-5}
+\renewcommand{\Ac}{\Acone{\jetengine}}
+\renewcommand{\Ada}{AB}\renewcommand{\Adb}{2.5}\renewcommand{\Adc}{2.0}\renewcommand{\Add}{2.0}\renewcommand{\Ade}{3.0}
+\renewcommand{\Aea}{M}\renewcommand{\Aeb}{1.5}\renewcommand{\Aec}{1.5}\renewcommand{\Aed}{1.0}\renewcommand{\Aee}{1.0}
+\renewcommand{\Af}{0.5}
+\renewcommand{\Aga}{0.5}\renewcommand{\Agb}{0.5}\renewcommand{\Agc}{1.0}\renewcommand{\Agd}{0.0}
+\renewcommand{\Aha}{0.5}\renewcommand{\Ahb}{0.5}\renewcommand{\Ahc}{1.0}
+\renewcommand{\Ai}{}
+\renewcommand{\Ba}{}
+\renewcommand{\Bb}{4.5}
+\renewcommand{\Bc}{3.5}
+\renewcommand{\Bd}{4}
+\renewcommand{\Be}{+1}
+\renewcommand{\Bf}{+1}
+\renewcommand{\Bg}{180L}
+\renewcommand{\Bh}{30−}
+\renewcommand{\Bi}{130}
+\renewcommand{\Bj}{No}
+\renewcommand{\Bk}{Early}
+\renewcommand{\Ccrew}{Pilot}
+\renewcommand{\Ccrewfont}{\normalsize}
+\renewcommand{\Caa}{1.0}
+\renewcommand{\Cab}{1.5}
+\renewcommand{\Cb}{0.5}
+\renewcommand{\Cca}{0.0}\renewcommand{\Ccb}{0.0}\renewcommand{\Ccc}{1.0}
+\renewcommand{\Cda}{1.0}\renewcommand{\Cdb}{1.0}\renewcommand{\Cdc}{1.0}
+\renewcommand{\Cea}{2.0}\renewcommand{\Ceb}{2.0}\renewcommand{\Cec}{3.0}
+\renewcommand{\Cfa}{3.0}\renewcommand{\Cfb}{3.0}\renewcommand{\Cfc}{---}
+\renewcommand{\Cg}{No lag or displacement rolls if speed ≥ 5.0. }
+\renewcommand{\Dba}{7.0}
+\renewcommand{\Dbb}{6.5}
+\renewcommand{\Dbc}{5.5}
+\renewcommand{\Dbd}{7.5}
+\renewcommand{\Daa}{\blockDceilingandcruisespeed{54}{4.5}}\renewcommand{\Dab}{\blockDceilingandcruisespeed{50}{4.0}}\renewcommand{\Dac}{\blockDceilingandcruisespeed{46}{3.5}}
+\renewcommand{\Dca}{\blockDminmaxspeed{3.0}{6.0}{\Dba}}\renewcommand{\Dcb}{\blockDminmaxspeed{3.0}{5.5}{\Dbb}}\renewcommand{\Dcc}{\blockDminmaxspeed{3.5}{5.0}{\Dbc}}\renewcommand{\Dcd}{\blockDdivespeed{6.5}}
+\renewcommand{\Dda}{\blockDminmaxspeed{2.5}{6.0}{\Dba}}\renewcommand{\Ddb}{\blockDminmaxspeed{3.0}{5.5}{\Dbb}}\renewcommand{\Ddc}{\blockDminmaxspeed{3.0}{5.0}{\Dbc}}\renewcommand{\Ddd}{\blockDdivespeed{6.5}}
+\renewcommand{\Dea}{\blockDminmaxspeed{2.0}{6.0}{\Dba}}\renewcommand{\Deb}{\blockDminmaxspeed{2.5}{6.0}{\Dbb}}\renewcommand{\Dec}{\blockDminmaxspeed{2.5}{5.5}{\Dbc}}\renewcommand{\Ded}{\blockDdivespeed{7.0}}
+\renewcommand{\Dfa}{\blockDminmaxspeed{1.5}{6.5}{\Dba}}\renewcommand{\Dfb}{\blockDminmaxspeed{2.0}{6.0}{\Dbb}}\renewcommand{\Dfc}{\blockDminmaxspeed{2.0}{5.5}{\Dbc}}\renewcommand{\Dfd}{\blockDdivespeed{7.0}}
+\renewcommand{\Dga}{\blockDminmaxspeed{1.0}{7.0}{\Dba}}\renewcommand{\Dgb}{\blockDminmaxspeed{1.5}{6.5}{\Dbb}}\renewcommand{\Dgc}{\blockDminmaxspeed{1.5}{5.5}{\Dbc}}\renewcommand{\Dgd}{\blockDdivespeed{7.5}}
+\renewcommand{\Dha}{\blockDminmaxspeed{1.0}{6.5}{\Dba}}\renewcommand{\Dhb}{\blockDminmaxspeed{1.5}{6.0}{\Dbb}}\renewcommand{\Dhc}{\blockDminmaxspeed{1.5}{5.5}{\Dbc}}\renewcommand{\Dhd}{\blockDdivespeed{7.5}}
+\renewcommand{\Eaa}{1.0}\renewcommand{\Eab}{0.5}\renewcommand{\Eac}{1.0}\renewcommand{\Ead}{0.5}\renewcommand{\Eae}{1.0}\renewcommand{\Eaf}{0.5}
+\renewcommand{\Eba}{1.0}\renewcommand{\Ebb}{0.5}\renewcommand{\Ebc}{1.0}\renewcommand{\Ebd}{0.5}\renewcommand{\Ebe}{1.0}\renewcommand{\Ebf}{0.5}
+\renewcommand{\Eca}{1.5}\renewcommand{\Ecb}{0.5}\renewcommand{\Ecc}{1.0}\renewcommand{\Ecd}{0.5}\renewcommand{\Ece}{1.0}\renewcommand{\Ecf}{0.5}
+\renewcommand{\Eda}{1.5}\renewcommand{\Edb}{1.0}\renewcommand{\Edc}{1.5}\renewcommand{\Edd}{0.5}\renewcommand{\Ede}{1.0}\renewcommand{\Edf}{0.5}
+\renewcommand{\Eea}{2.0}\renewcommand{\Eeb}{1.0}\renewcommand{\Eec}{1.5}\renewcommand{\Eed}{1.0}\renewcommand{\Eee}{1.5}\renewcommand{\Eef}{0.5}
+\renewcommand{\Efa}{2.0}\renewcommand{\Efb}{1.0}\renewcommand{\Efc}{2.0}\renewcommand{\Efd}{1.0}\renewcommand{\Efe}{1.5}\renewcommand{\Eff}{1.0}
+\renewcommand{\Fa}{---}
+\renewcommand{\Fb}{---}
+\renewcommand{\Fc}{---}
+\renewcommand{\Fd}{---}
+\renewcommand{\Fe}{---}
+\renewcommand{\Ff}{---}
+\renewcommand{\Fg}{\parbox{\linewidth}{\centering\scriptsize Two 23~mm NR-23 \\One 37~mm N-37}}
+\renewcommand{\Fh}{4/2/1}
+\renewcommand{\Fi}{3.0}
+\renewcommand{\Fl}{5/4}
+\renewcommand{\Fm}{Manual}
+\renewcommand{\Fj}{TT+0/HT+2/BT+3}
+\renewcommand{\Fk}{---}
+\renewcommand{\Fn}{IFF}
+\renewcommand{\Fo}{---}
+\renewcommand{\Fp}{---}
+\renewcommand{\Fq}{---}
+\renewcommand{\Fr}{---}
+\renewcommand{\Fs}{---}
+\renewcommand{\Ft}{None}
+\renewcommand{\Fu}{\Fua{\item The Shenyang F-5 is a day fighter. It is the export version of the Shenyang J-5 and is a licensed version of the MiG-17F. The NATO reporting name for the aircraft is Fresco-C.
+
+\item High transonic drag (HTD). 
+
+\item Low roll rate (LRR) if speed ≥ 4.0. 
+
+}}
+\renewcommand{\Gba}{\wbox[r]{00}{0}--2}
+\renewcommand{\Gbb}{\wbox[r]{00}{3}--4}
+\renewcommand{\Gbc}{\wbox[r]{00}{5}+}
+\renewcommand{\Gbd}{2,500}
+\renewcommand{\Gca}{1 and 2&700&\mbox{BB} \mbox{RK} \mbox{RP} \mbox{FT} \mbox{IRM}\\
+}
+\renewcommand{\Gcb}{\Gcc{\item From 1960, may use AA-2 IRMs.
+
+}}
+\renewcommand{\Gda}{11/7/4/2}
+\renewcommand{\Gea}{0000000}
+\renewcommand{\Geb}{0000-00-00T00:00:00}
+\adc
+% Shenyang J-5A
+\renewcommand{\Aaa}{Shenyang J-5A}
+\renewcommand{\Aab}{Shenyang J-5A}
+\renewcommand{\Ac}{\Acone{\jetengine}}
+\renewcommand{\Ada}{AB}\renewcommand{\Adb}{2.5}\renewcommand{\Adc}{2.0}\renewcommand{\Add}{2.0}\renewcommand{\Ade}{3.0}
+\renewcommand{\Aea}{M}\renewcommand{\Aeb}{1.5}\renewcommand{\Aec}{1.5}\renewcommand{\Aed}{1.0}\renewcommand{\Aee}{1.0}
+\renewcommand{\Af}{0.5}
+\renewcommand{\Aga}{0.5}\renewcommand{\Agb}{0.5}\renewcommand{\Agc}{1.0}\renewcommand{\Agd}{0.0}
+\renewcommand{\Aha}{0.5}\renewcommand{\Ahb}{0.5}\renewcommand{\Ahc}{1.0}
+\renewcommand{\Ai}{}
+\renewcommand{\Ba}{}
+\renewcommand{\Bb}{4.5}
+\renewcommand{\Bc}{3.5}
+\renewcommand{\Bd}{4}
+\renewcommand{\Be}{+1}
+\renewcommand{\Bf}{+1}
+\renewcommand{\Bg}{180L}
+\renewcommand{\Bh}{30−}
+\renewcommand{\Bi}{130}
+\renewcommand{\Bj}{No}
+\renewcommand{\Bk}{Early}
+\renewcommand{\Ccrew}{Pilot}
+\renewcommand{\Ccrewfont}{\normalsize}
+\renewcommand{\Caa}{1.0}
+\renewcommand{\Cab}{1.5}
+\renewcommand{\Cb}{0.5}
+\renewcommand{\Cca}{0.0}\renewcommand{\Ccb}{0.0}\renewcommand{\Ccc}{1.0}
+\renewcommand{\Cda}{1.0}\renewcommand{\Cdb}{1.0}\renewcommand{\Cdc}{1.0}
+\renewcommand{\Cea}{2.0}\renewcommand{\Ceb}{2.0}\renewcommand{\Cec}{3.0}
+\renewcommand{\Cfa}{3.0}\renewcommand{\Cfb}{3.0}\renewcommand{\Cfc}{---}
+\renewcommand{\Cg}{No lag or displacement rolls if speed ≥ 5.0. }
+\renewcommand{\Dba}{7.0}
+\renewcommand{\Dbb}{6.5}
+\renewcommand{\Dbc}{5.5}
+\renewcommand{\Dbd}{7.5}
+\renewcommand{\Daa}{\blockDceilingandcruisespeed{54}{4.5}}\renewcommand{\Dab}{\blockDceilingandcruisespeed{50}{4.0}}\renewcommand{\Dac}{\blockDceilingandcruisespeed{46}{3.5}}
+\renewcommand{\Dca}{\blockDminmaxspeed{3.0}{6.0}{\Dba}}\renewcommand{\Dcb}{\blockDminmaxspeed{3.0}{5.5}{\Dbb}}\renewcommand{\Dcc}{\blockDminmaxspeed{3.5}{5.0}{\Dbc}}\renewcommand{\Dcd}{\blockDdivespeed{6.5}}
+\renewcommand{\Dda}{\blockDminmaxspeed{2.5}{6.0}{\Dba}}\renewcommand{\Ddb}{\blockDminmaxspeed{3.0}{5.5}{\Dbb}}\renewcommand{\Ddc}{\blockDminmaxspeed{3.0}{5.0}{\Dbc}}\renewcommand{\Ddd}{\blockDdivespeed{6.5}}
+\renewcommand{\Dea}{\blockDminmaxspeed{2.0}{6.0}{\Dba}}\renewcommand{\Deb}{\blockDminmaxspeed{2.5}{6.0}{\Dbb}}\renewcommand{\Dec}{\blockDminmaxspeed{2.5}{5.5}{\Dbc}}\renewcommand{\Ded}{\blockDdivespeed{7.0}}
+\renewcommand{\Dfa}{\blockDminmaxspeed{1.5}{6.5}{\Dba}}\renewcommand{\Dfb}{\blockDminmaxspeed{2.0}{6.0}{\Dbb}}\renewcommand{\Dfc}{\blockDminmaxspeed{2.0}{5.5}{\Dbc}}\renewcommand{\Dfd}{\blockDdivespeed{7.0}}
+\renewcommand{\Dga}{\blockDminmaxspeed{1.0}{7.0}{\Dba}}\renewcommand{\Dgb}{\blockDminmaxspeed{1.5}{6.5}{\Dbb}}\renewcommand{\Dgc}{\blockDminmaxspeed{1.5}{5.5}{\Dbc}}\renewcommand{\Dgd}{\blockDdivespeed{7.5}}
+\renewcommand{\Dha}{\blockDminmaxspeed{1.0}{6.5}{\Dba}}\renewcommand{\Dhb}{\blockDminmaxspeed{1.5}{6.0}{\Dbb}}\renewcommand{\Dhc}{\blockDminmaxspeed{1.5}{5.5}{\Dbc}}\renewcommand{\Dhd}{\blockDdivespeed{7.5}}
+\renewcommand{\Eaa}{1.0}\renewcommand{\Eab}{0.5}\renewcommand{\Eac}{1.0}\renewcommand{\Ead}{0.5}\renewcommand{\Eae}{1.0}\renewcommand{\Eaf}{0.5}
+\renewcommand{\Eba}{1.0}\renewcommand{\Ebb}{0.5}\renewcommand{\Ebc}{1.0}\renewcommand{\Ebd}{0.5}\renewcommand{\Ebe}{1.0}\renewcommand{\Ebf}{0.5}
+\renewcommand{\Eca}{1.5}\renewcommand{\Ecb}{0.5}\renewcommand{\Ecc}{1.0}\renewcommand{\Ecd}{0.5}\renewcommand{\Ece}{1.0}\renewcommand{\Ecf}{0.5}
+\renewcommand{\Eda}{1.5}\renewcommand{\Edb}{1.0}\renewcommand{\Edc}{1.5}\renewcommand{\Edd}{0.5}\renewcommand{\Ede}{1.0}\renewcommand{\Edf}{0.5}
+\renewcommand{\Eea}{2.0}\renewcommand{\Eeb}{1.0}\renewcommand{\Eec}{1.5}\renewcommand{\Eed}{1.0}\renewcommand{\Eee}{1.5}\renewcommand{\Eef}{0.5}
+\renewcommand{\Efa}{2.0}\renewcommand{\Efb}{1.0}\renewcommand{\Efc}{2.0}\renewcommand{\Efd}{1.0}\renewcommand{\Efe}{1.5}\renewcommand{\Eff}{1.0}
+\renewcommand{\Fa}{RP-1 Izumrud}
+\renewcommand{\Fb}{0}
+\renewcommand{\Fc}{Limited}
+\renewcommand{\Fd}{18--6}
+\renewcommand{\Fe}{6--6}
+\renewcommand{\Ff}{6}
+\renewcommand{\Fg}{Three 23~mm NR-23}
+\renewcommand{\Fh}{5/3/2}
+\renewcommand{\Fi}{3.0}
+\renewcommand{\Fl}{5/5}
+\renewcommand{\Fm}{Manual}
+\renewcommand{\Fj}{TT+0/HT+2/BT+3}
+\renewcommand{\Fk}{RE}
+\renewcommand{\Fn}{IFF}
+\renewcommand{\Fo}{---}
+\renewcommand{\Fp}{---}
+\renewcommand{\Fq}{---}
+\renewcommand{\Fr}{---}
+\renewcommand{\Fs}{---}
+\renewcommand{\Ft}{None}
+\renewcommand{\Fu}{\Fua{\item The Shenyang J-5A is an interceptor. It is a licensed version of the MiG-17PF. The NATO reporting name for the aircraft is Fresco-D and for the radar is Scan Odd.
+
+\item High transonic drag (HTD). 
+
+\item Low roll rate (LRR) if speed ≥ 4.0. 
+
+}}
+\renewcommand{\Gba}{\wbox[r]{00}{0}--2}
+\renewcommand{\Gbb}{\wbox[r]{00}{3}--4}
+\renewcommand{\Gbc}{\wbox[r]{00}{5}+}
+\renewcommand{\Gbd}{2,500}
+\renewcommand{\Gca}{1 and 2&700&\mbox{BB} \mbox{RK} \mbox{RP} \mbox{FT} \mbox{IRM}\\
+}
+\renewcommand{\Gcb}{\Gcc{\item From 1960, may use AA-2 IRMs.
+
+}}
+\renewcommand{\Gda}{12/8/4/2}
+\renewcommand{\Gea}{0000000}
+\renewcommand{\Geb}{0000-00-00T00:00:00}
+\adc
+% Shenyang F-5A
+\renewcommand{\Aaa}{Shenyang F-5A}
+\renewcommand{\Aab}{Shenyang F-5A}
+\renewcommand{\Ac}{\Acone{\jetengine}}
+\renewcommand{\Ada}{AB}\renewcommand{\Adb}{2.5}\renewcommand{\Adc}{2.0}\renewcommand{\Add}{2.0}\renewcommand{\Ade}{3.0}
+\renewcommand{\Aea}{M}\renewcommand{\Aeb}{1.5}\renewcommand{\Aec}{1.5}\renewcommand{\Aed}{1.0}\renewcommand{\Aee}{1.0}
+\renewcommand{\Af}{0.5}
+\renewcommand{\Aga}{0.5}\renewcommand{\Agb}{0.5}\renewcommand{\Agc}{1.0}\renewcommand{\Agd}{0.0}
+\renewcommand{\Aha}{0.5}\renewcommand{\Ahb}{0.5}\renewcommand{\Ahc}{1.0}
+\renewcommand{\Ai}{}
+\renewcommand{\Ba}{}
+\renewcommand{\Bb}{4.5}
+\renewcommand{\Bc}{3.5}
+\renewcommand{\Bd}{4}
+\renewcommand{\Be}{+1}
+\renewcommand{\Bf}{+1}
+\renewcommand{\Bg}{180L}
+\renewcommand{\Bh}{30−}
+\renewcommand{\Bi}{130}
+\renewcommand{\Bj}{No}
+\renewcommand{\Bk}{Early}
+\renewcommand{\Ccrew}{Pilot}
+\renewcommand{\Ccrewfont}{\normalsize}
+\renewcommand{\Caa}{1.0}
+\renewcommand{\Cab}{1.5}
+\renewcommand{\Cb}{0.5}
+\renewcommand{\Cca}{0.0}\renewcommand{\Ccb}{0.0}\renewcommand{\Ccc}{1.0}
+\renewcommand{\Cda}{1.0}\renewcommand{\Cdb}{1.0}\renewcommand{\Cdc}{1.0}
+\renewcommand{\Cea}{2.0}\renewcommand{\Ceb}{2.0}\renewcommand{\Cec}{3.0}
+\renewcommand{\Cfa}{3.0}\renewcommand{\Cfb}{3.0}\renewcommand{\Cfc}{---}
+\renewcommand{\Cg}{No lag or displacement rolls if speed ≥ 5.0. }
+\renewcommand{\Dba}{7.0}
+\renewcommand{\Dbb}{6.5}
+\renewcommand{\Dbc}{5.5}
+\renewcommand{\Dbd}{7.5}
+\renewcommand{\Daa}{\blockDceilingandcruisespeed{54}{4.5}}\renewcommand{\Dab}{\blockDceilingandcruisespeed{50}{4.0}}\renewcommand{\Dac}{\blockDceilingandcruisespeed{46}{3.5}}
+\renewcommand{\Dca}{\blockDminmaxspeed{3.0}{6.0}{\Dba}}\renewcommand{\Dcb}{\blockDminmaxspeed{3.0}{5.5}{\Dbb}}\renewcommand{\Dcc}{\blockDminmaxspeed{3.5}{5.0}{\Dbc}}\renewcommand{\Dcd}{\blockDdivespeed{6.5}}
+\renewcommand{\Dda}{\blockDminmaxspeed{2.5}{6.0}{\Dba}}\renewcommand{\Ddb}{\blockDminmaxspeed{3.0}{5.5}{\Dbb}}\renewcommand{\Ddc}{\blockDminmaxspeed{3.0}{5.0}{\Dbc}}\renewcommand{\Ddd}{\blockDdivespeed{6.5}}
+\renewcommand{\Dea}{\blockDminmaxspeed{2.0}{6.0}{\Dba}}\renewcommand{\Deb}{\blockDminmaxspeed{2.5}{6.0}{\Dbb}}\renewcommand{\Dec}{\blockDminmaxspeed{2.5}{5.5}{\Dbc}}\renewcommand{\Ded}{\blockDdivespeed{7.0}}
+\renewcommand{\Dfa}{\blockDminmaxspeed{1.5}{6.5}{\Dba}}\renewcommand{\Dfb}{\blockDminmaxspeed{2.0}{6.0}{\Dbb}}\renewcommand{\Dfc}{\blockDminmaxspeed{2.0}{5.5}{\Dbc}}\renewcommand{\Dfd}{\blockDdivespeed{7.0}}
+\renewcommand{\Dga}{\blockDminmaxspeed{1.0}{7.0}{\Dba}}\renewcommand{\Dgb}{\blockDminmaxspeed{1.5}{6.5}{\Dbb}}\renewcommand{\Dgc}{\blockDminmaxspeed{1.5}{5.5}{\Dbc}}\renewcommand{\Dgd}{\blockDdivespeed{7.5}}
+\renewcommand{\Dha}{\blockDminmaxspeed{1.0}{6.5}{\Dba}}\renewcommand{\Dhb}{\blockDminmaxspeed{1.5}{6.0}{\Dbb}}\renewcommand{\Dhc}{\blockDminmaxspeed{1.5}{5.5}{\Dbc}}\renewcommand{\Dhd}{\blockDdivespeed{7.5}}
+\renewcommand{\Eaa}{1.0}\renewcommand{\Eab}{0.5}\renewcommand{\Eac}{1.0}\renewcommand{\Ead}{0.5}\renewcommand{\Eae}{1.0}\renewcommand{\Eaf}{0.5}
+\renewcommand{\Eba}{1.0}\renewcommand{\Ebb}{0.5}\renewcommand{\Ebc}{1.0}\renewcommand{\Ebd}{0.5}\renewcommand{\Ebe}{1.0}\renewcommand{\Ebf}{0.5}
+\renewcommand{\Eca}{1.5}\renewcommand{\Ecb}{0.5}\renewcommand{\Ecc}{1.0}\renewcommand{\Ecd}{0.5}\renewcommand{\Ece}{1.0}\renewcommand{\Ecf}{0.5}
+\renewcommand{\Eda}{1.5}\renewcommand{\Edb}{1.0}\renewcommand{\Edc}{1.5}\renewcommand{\Edd}{0.5}\renewcommand{\Ede}{1.0}\renewcommand{\Edf}{0.5}
+\renewcommand{\Eea}{2.0}\renewcommand{\Eeb}{1.0}\renewcommand{\Eec}{1.5}\renewcommand{\Eed}{1.0}\renewcommand{\Eee}{1.5}\renewcommand{\Eef}{0.5}
+\renewcommand{\Efa}{2.0}\renewcommand{\Efb}{1.0}\renewcommand{\Efc}{2.0}\renewcommand{\Efd}{1.0}\renewcommand{\Efe}{1.5}\renewcommand{\Eff}{1.0}
+\renewcommand{\Fa}{RP-1 Izumrud}
+\renewcommand{\Fb}{0}
+\renewcommand{\Fc}{Limited}
+\renewcommand{\Fd}{18--6}
+\renewcommand{\Fe}{6--6}
+\renewcommand{\Ff}{6}
+\renewcommand{\Fg}{Three 23~mm NR-23}
+\renewcommand{\Fh}{5/3/2}
+\renewcommand{\Fi}{3.0}
+\renewcommand{\Fl}{5/5}
+\renewcommand{\Fm}{Manual}
+\renewcommand{\Fj}{TT+0/HT+2/BT+3}
+\renewcommand{\Fk}{RE}
+\renewcommand{\Fn}{IFF}
+\renewcommand{\Fo}{---}
+\renewcommand{\Fp}{---}
+\renewcommand{\Fq}{---}
+\renewcommand{\Fr}{---}
+\renewcommand{\Fs}{---}
+\renewcommand{\Ft}{None}
+\renewcommand{\Fu}{\Fua{\item The Shenyang F-5A is an interceptor. It is the export version of the Shenyang J-5A and a licensed version of the MiG-17PF. The NATO reporting name for the aircraft is Fresco-D and for the radar is Scan Off.
+
+\item High transonic drag (HTD). 
+
+\item Low roll rate (LRR) if speed ≥ 4.0. 
+
+}}
+\renewcommand{\Gba}{\wbox[r]{00}{0}--2}
+\renewcommand{\Gbb}{\wbox[r]{00}{3}--4}
+\renewcommand{\Gbc}{\wbox[r]{00}{5}+}
+\renewcommand{\Gbd}{2,500}
+\renewcommand{\Gca}{1 and 2&700&\mbox{BB} \mbox{RK} \mbox{RP} \mbox{FT} \mbox{IRM}\\
+}
+\renewcommand{\Gcb}{\Gcc{\item From 1960, may use AA-2 IRMs.
+
+}}
+\renewcommand{\Gda}{12/8/4/2}
+\renewcommand{\Gea}{0000000}
+\renewcommand{\Geb}{0000-00-00T00:00:00}
+\adc
+\input{../src/glass/aircraftdata/Shenyang J-6 and F-6.tex}
+% Shenyang J-6
+\renewcommand{\Aaa}{Shenyang J-6}
+\renewcommand{\Aab}{Shenyang J-6}
+\renewcommand{\Ac}{\Acone{\jetengine\jetengine}}
+\renewcommand{\Ada}{AB}\renewcommand{\Adb}{3.5}\renewcommand{\Adc}{3.0}\renewcommand{\Add}{2.5}\renewcommand{\Ade}{5.0}
+\renewcommand{\Aea}{M}\renewcommand{\Aeb}{2.5}\renewcommand{\Aec}{2.0}\renewcommand{\Aed}{2.0}\renewcommand{\Aee}{2.0}
+\renewcommand{\Af}{1.0}
+\renewcommand{\Aga}{0.5}\renewcommand{\Agb}{0.5}\renewcommand{\Agc}{0.5}\renewcommand{\Agd}{0.0}
+\renewcommand{\Aha}{0.5}\renewcommand{\Ahb}{1.0}\renewcommand{\Ahc}{1.0}
+\renewcommand{\Ai}{}
+\renewcommand{\Ba}{}
+\renewcommand{\Bb}{5.5}
+\renewcommand{\Bc}{4.5}
+\renewcommand{\Bd}{5}
+\renewcommand{\Be}{+0}
+\renewcommand{\Bf}{+1}
+\renewcommand{\Bg}{60−}
+\renewcommand{\Bh}{30−}
+\renewcommand{\Bi}{180}
+\renewcommand{\Bj}{No}
+\renewcommand{\Bk}{Early}
+\renewcommand{\Ccrew}{Pilot}
+\renewcommand{\Ccrewfont}{\normalsize}
+\renewcommand{\Caa}{1.0}
+\renewcommand{\Cab}{1.0}
+\renewcommand{\Cb}{0.5}
+\renewcommand{\Cca}{1.0}\renewcommand{\Ccb}{1.0}\renewcommand{\Ccc}{1.0}
+\renewcommand{\Cda}{2.0}\renewcommand{\Cdb}{2.0}\renewcommand{\Cdc}{2.0}
+\renewcommand{\Cea}{3.0}\renewcommand{\Ceb}{3.0}\renewcommand{\Cec}{3.0}
+\renewcommand{\Cfa}{3.0}\renewcommand{\Cfb}{4.0}\renewcommand{\Cfc}{---}
+\renewcommand{\Cg}{}
+\renewcommand{\Dba}{9.0}
+\renewcommand{\Dbb}{8.0}
+\renewcommand{\Dbc}{7.5}
+\renewcommand{\Dbd}{10.0}
+\renewcommand{\Daa}{\blockDceilingandcruisespeed{58}{5.5}}\renewcommand{\Dab}{\blockDceilingandcruisespeed{53}{5.0}}\renewcommand{\Dac}{\blockDceilingandcruisespeed{48}{4.5}}
+\renewcommand{\Dca}{\blockDminmaxspeed{3.5}{8.0}{\Dba}}\renewcommand{\Dcb}{\blockDminmaxspeed{4.0}{7.5}{\Dbb}}\renewcommand{\Dcc}{\blockDminmaxspeed{4.5}{7.0}{\Dbc}}\renewcommand{\Dcd}{\blockDdivespeed{10.0}}
+\renewcommand{\Dda}{\blockDminmaxspeed{3.0}{8.5}{\Dba}}\renewcommand{\Ddb}{\blockDminmaxspeed{3.5}{8.0}{\Dbb}}\renewcommand{\Ddc}{\blockDminmaxspeed{4.0}{7.0}{\Dbc}}\renewcommand{\Ddd}{\blockDdivespeed{10.0}}
+\renewcommand{\Dea}{\blockDminmaxspeed{3.0}{9.0}{\Dba}}\renewcommand{\Deb}{\blockDminmaxspeed{3.0}{8.0}{\Dbb}}\renewcommand{\Dec}{\blockDminmaxspeed{3.0}{7.5}{\Dbc}}\renewcommand{\Ded}{\blockDdivespeed{10.0}}
+\renewcommand{\Dfa}{\blockDminmaxspeed{2.5}{8.5}{\Dba}}\renewcommand{\Dfb}{\blockDminmaxspeed{3.0}{8.0}{\Dbb}}\renewcommand{\Dfc}{\blockDminmaxspeed{3.0}{7.0}{\Dbc}}\renewcommand{\Dfd}{\blockDdivespeed{9.0}}
+\renewcommand{\Dga}{\blockDminmaxspeed{2.5}{7.5}{\Dba}}\renewcommand{\Dgb}{\blockDminmaxspeed{2.5}{7.0}{\Dbb}}\renewcommand{\Dgc}{\blockDminmaxspeed{2.5}{6.5}{\Dbc}}\renewcommand{\Dgd}{\blockDdivespeed{8.5}}
+\renewcommand{\Dha}{\blockDminmaxspeed{2.0}{7.0}{\Dba}}\renewcommand{\Dhb}{\blockDminmaxspeed{2.5}{6.5}{\Dbb}}\renewcommand{\Dhc}{\blockDminmaxspeed{2.5}{6.0}{\Dbc}}\renewcommand{\Dhd}{\blockDdivespeed{8.0}}
+\renewcommand{\Eaa}{1.0}\renewcommand{\Eab}{0.5}\renewcommand{\Eac}{1.0}\renewcommand{\Ead}{0.5}\renewcommand{\Eae}{1.0}\renewcommand{\Eaf}{0.5}
+\renewcommand{\Eba}{1.0}\renewcommand{\Ebb}{0.5}\renewcommand{\Ebc}{1.0}\renewcommand{\Ebd}{0.5}\renewcommand{\Ebe}{1.0}\renewcommand{\Ebf}{0.5}
+\renewcommand{\Eca}{2.0}\renewcommand{\Ecb}{0.5}\renewcommand{\Ecc}{1.0}\renewcommand{\Ecd}{0.5}\renewcommand{\Ece}{1.0}\renewcommand{\Ecf}{0.5}
+\renewcommand{\Eda}{3.0}\renewcommand{\Edb}{1.0}\renewcommand{\Edc}{2.0}\renewcommand{\Edd}{1.0}\renewcommand{\Ede}{1.0}\renewcommand{\Edf}{0.5}
+\renewcommand{\Eea}{4.0}\renewcommand{\Eeb}{2.0}\renewcommand{\Eec}{3.0}\renewcommand{\Eed}{1.0}\renewcommand{\Eee}{2.0}\renewcommand{\Eef}{1.0}
+\renewcommand{\Efa}{5.0}\renewcommand{\Efb}{2.0}\renewcommand{\Efc}{4.0}\renewcommand{\Efd}{1.0}\renewcommand{\Efe}{3.0}\renewcommand{\Eff}{1.0}
+\renewcommand{\Fa}{---}
+\renewcommand{\Fb}{---}
+\renewcommand{\Fc}{---}
+\renewcommand{\Fd}{---}
+\renewcommand{\Fe}{---}
+\renewcommand{\Ff}{---}
+\renewcommand{\Fg}{Three 30~mm NR-30}
+\renewcommand{\Fh}{6/3/2}
+\renewcommand{\Fi}{2.5}
+\renewcommand{\Fl}{6/\underline{9}}
+\renewcommand{\Fm}{Manual}
+\renewcommand{\Fj}{TT+0/HT+2/BT+3}
+\renewcommand{\Fk}{---}
+\renewcommand{\Fn}{IFF}
+\renewcommand{\Fo}{A}
+\renewcommand{\Fp}{---}
+\renewcommand{\Fq}{---}
+\renewcommand{\Fr}{---}
+\renewcommand{\Fs}{---}
+\renewcommand{\Ft}{None}
+\renewcommand{\Fu}{\Fua{\item The Shenyang J-6 is a day fighter. It is licensed version of the MiG-19S. The NATO reporting name for the aircraft is Farmer-C.
+
+\item If a BT or ET is performed in the HI+ altitude bands, roll one die for each facing change after the first. On a 1 the aircraft suffers a maneuvering departure.
+
+}}
+\renewcommand{\Gba}{\wbox[r]{00}{0}--2}
+\renewcommand{\Gbb}{\wbox[r]{00}{3}--6}
+\renewcommand{\Gbc}{\wbox[r]{00}{7}+}
+\renewcommand{\Gbd}{3,900}
+\renewcommand{\Gca}{1 and 4&1,400&\mbox{FT}\\
+2 and 3&550&\mbox{BB} \mbox{RP} \mbox{RK} \mbox{DR}\\
+}
+\renewcommand{\Gcb}{\Gcc{\item May use 760L FTs on stations 1 and 4.
+
+\item May use ORO-57K RPs on stations 2 and 3. From 1957, may use DRs each with two ORO-57K RPs on stations 2 and 3.
+
+}}
+\renewcommand{\Gda}{16/11/5/3}
+\renewcommand{\Gea}{0000000}
+\renewcommand{\Geb}{0000-00-00T00:00:00}
+\adc
+% Shenyang F-6
+\renewcommand{\Aaa}{Shenyang F-6}
+\renewcommand{\Aab}{Shenyang F-6}
+\renewcommand{\Ac}{\Acone{\jetengine\jetengine}}
+\renewcommand{\Ada}{AB}\renewcommand{\Adb}{3.5}\renewcommand{\Adc}{3.0}\renewcommand{\Add}{2.5}\renewcommand{\Ade}{5.0}
+\renewcommand{\Aea}{M}\renewcommand{\Aeb}{2.5}\renewcommand{\Aec}{2.0}\renewcommand{\Aed}{2.0}\renewcommand{\Aee}{2.0}
+\renewcommand{\Af}{1.0}
+\renewcommand{\Aga}{0.5}\renewcommand{\Agb}{0.5}\renewcommand{\Agc}{0.5}\renewcommand{\Agd}{0.0}
+\renewcommand{\Aha}{0.5}\renewcommand{\Ahb}{1.0}\renewcommand{\Ahc}{1.0}
+\renewcommand{\Ai}{}
+\renewcommand{\Ba}{}
+\renewcommand{\Bb}{5.5}
+\renewcommand{\Bc}{4.5}
+\renewcommand{\Bd}{5}
+\renewcommand{\Be}{+0}
+\renewcommand{\Bf}{+1}
+\renewcommand{\Bg}{60−}
+\renewcommand{\Bh}{30−}
+\renewcommand{\Bi}{180}
+\renewcommand{\Bj}{No}
+\renewcommand{\Bk}{Early}
+\renewcommand{\Ccrew}{Pilot}
+\renewcommand{\Ccrewfont}{\normalsize}
+\renewcommand{\Caa}{1.0}
+\renewcommand{\Cab}{1.0}
+\renewcommand{\Cb}{0.5}
+\renewcommand{\Cca}{1.0}\renewcommand{\Ccb}{1.0}\renewcommand{\Ccc}{1.0}
+\renewcommand{\Cda}{2.0}\renewcommand{\Cdb}{2.0}\renewcommand{\Cdc}{2.0}
+\renewcommand{\Cea}{3.0}\renewcommand{\Ceb}{3.0}\renewcommand{\Cec}{3.0}
+\renewcommand{\Cfa}{3.0}\renewcommand{\Cfb}{4.0}\renewcommand{\Cfc}{---}
+\renewcommand{\Cg}{}
+\renewcommand{\Dba}{9.0}
+\renewcommand{\Dbb}{8.0}
+\renewcommand{\Dbc}{7.5}
+\renewcommand{\Dbd}{10.0}
+\renewcommand{\Daa}{\blockDceilingandcruisespeed{58}{5.5}}\renewcommand{\Dab}{\blockDceilingandcruisespeed{53}{5.0}}\renewcommand{\Dac}{\blockDceilingandcruisespeed{48}{4.5}}
+\renewcommand{\Dca}{\blockDminmaxspeed{3.5}{8.0}{\Dba}}\renewcommand{\Dcb}{\blockDminmaxspeed{4.0}{7.5}{\Dbb}}\renewcommand{\Dcc}{\blockDminmaxspeed{4.5}{7.0}{\Dbc}}\renewcommand{\Dcd}{\blockDdivespeed{10.0}}
+\renewcommand{\Dda}{\blockDminmaxspeed{3.0}{8.5}{\Dba}}\renewcommand{\Ddb}{\blockDminmaxspeed{3.5}{8.0}{\Dbb}}\renewcommand{\Ddc}{\blockDminmaxspeed{4.0}{7.0}{\Dbc}}\renewcommand{\Ddd}{\blockDdivespeed{10.0}}
+\renewcommand{\Dea}{\blockDminmaxspeed{3.0}{9.0}{\Dba}}\renewcommand{\Deb}{\blockDminmaxspeed{3.0}{8.0}{\Dbb}}\renewcommand{\Dec}{\blockDminmaxspeed{3.0}{7.5}{\Dbc}}\renewcommand{\Ded}{\blockDdivespeed{10.0}}
+\renewcommand{\Dfa}{\blockDminmaxspeed{2.5}{8.5}{\Dba}}\renewcommand{\Dfb}{\blockDminmaxspeed{3.0}{8.0}{\Dbb}}\renewcommand{\Dfc}{\blockDminmaxspeed{3.0}{7.0}{\Dbc}}\renewcommand{\Dfd}{\blockDdivespeed{9.0}}
+\renewcommand{\Dga}{\blockDminmaxspeed{2.5}{7.5}{\Dba}}\renewcommand{\Dgb}{\blockDminmaxspeed{2.5}{7.0}{\Dbb}}\renewcommand{\Dgc}{\blockDminmaxspeed{2.5}{6.5}{\Dbc}}\renewcommand{\Dgd}{\blockDdivespeed{8.5}}
+\renewcommand{\Dha}{\blockDminmaxspeed{2.0}{7.0}{\Dba}}\renewcommand{\Dhb}{\blockDminmaxspeed{2.5}{6.5}{\Dbb}}\renewcommand{\Dhc}{\blockDminmaxspeed{2.5}{6.0}{\Dbc}}\renewcommand{\Dhd}{\blockDdivespeed{8.0}}
+\renewcommand{\Eaa}{1.0}\renewcommand{\Eab}{0.5}\renewcommand{\Eac}{1.0}\renewcommand{\Ead}{0.5}\renewcommand{\Eae}{1.0}\renewcommand{\Eaf}{0.5}
+\renewcommand{\Eba}{1.0}\renewcommand{\Ebb}{0.5}\renewcommand{\Ebc}{1.0}\renewcommand{\Ebd}{0.5}\renewcommand{\Ebe}{1.0}\renewcommand{\Ebf}{0.5}
+\renewcommand{\Eca}{2.0}\renewcommand{\Ecb}{0.5}\renewcommand{\Ecc}{1.0}\renewcommand{\Ecd}{0.5}\renewcommand{\Ece}{1.0}\renewcommand{\Ecf}{0.5}
+\renewcommand{\Eda}{3.0}\renewcommand{\Edb}{1.0}\renewcommand{\Edc}{2.0}\renewcommand{\Edd}{1.0}\renewcommand{\Ede}{1.0}\renewcommand{\Edf}{0.5}
+\renewcommand{\Eea}{4.0}\renewcommand{\Eeb}{2.0}\renewcommand{\Eec}{3.0}\renewcommand{\Eed}{1.0}\renewcommand{\Eee}{2.0}\renewcommand{\Eef}{1.0}
+\renewcommand{\Efa}{5.0}\renewcommand{\Efb}{2.0}\renewcommand{\Efc}{4.0}\renewcommand{\Efd}{1.0}\renewcommand{\Efe}{3.0}\renewcommand{\Eff}{1.0}
+\renewcommand{\Fa}{---}
+\renewcommand{\Fb}{---}
+\renewcommand{\Fc}{---}
+\renewcommand{\Fd}{---}
+\renewcommand{\Fe}{---}
+\renewcommand{\Ff}{---}
+\renewcommand{\Fg}{Three 30~mm NR-30}
+\renewcommand{\Fh}{6/3/2}
+\renewcommand{\Fi}{2.5}
+\renewcommand{\Fl}{6/\underline{9}}
+\renewcommand{\Fm}{Manual}
+\renewcommand{\Fj}{TT+0/HT+2/BT+3}
+\renewcommand{\Fk}{---}
+\renewcommand{\Fn}{IFF}
+\renewcommand{\Fo}{A}
+\renewcommand{\Fp}{---}
+\renewcommand{\Fq}{---}
+\renewcommand{\Fr}{---}
+\renewcommand{\Fs}{---}
+\renewcommand{\Ft}{None}
+\renewcommand{\Fu}{\Fua{\item The Shenyang F-6 is a day fighter. It is the export version of the Shenyang J-6 and a licensed version of the MiG-19S. The NATO reporting name for the aircraft is Farmer-C.
+
+\item If a BT or ET is performed in the HI+ altitude bands, roll one die for each facing change after the first. On a 1 the aircraft suffers a maneuvering departure.
+
+}}
+\renewcommand{\Gba}{\wbox[r]{00}{0}--2}
+\renewcommand{\Gbb}{\wbox[r]{00}{3}--6}
+\renewcommand{\Gbc}{\wbox[r]{00}{7}+}
+\renewcommand{\Gbd}{3,900}
+\renewcommand{\Gca}{1 and 4&1,400&\mbox{FT}\\
+2 and 3&550&\mbox{BB} \mbox{RP} \mbox{RK} \mbox{DR}\\
+}
+\renewcommand{\Gcb}{\Gcc{\item May use 760L FTs on stations 1 and 4.
+
+\item May use ORO-57K RPs on stations 2 and 3. From 1957, may use DRs each with two ORO-57K RPs on stations 2 and 3.
+
+}}
+\renewcommand{\Gda}{16/11/5/3}
+\renewcommand{\Gea}{0000000}
+\renewcommand{\Geb}{0000-00-00T00:00:00}
+\adc
+% Shenyang F-6 (PAF)
+\renewcommand{\Aaa}{Shenyang F-6 (PAF)}
+\renewcommand{\Aab}{Shenyang F-6\\[0.2em](PAF)}
+\renewcommand{\Ac}{\Acone{\jetengine\jetengine}}
+\renewcommand{\Ada}{AB}\renewcommand{\Adb}{3.5}\renewcommand{\Adc}{3.0}\renewcommand{\Add}{2.5}\renewcommand{\Ade}{5.0}
+\renewcommand{\Aea}{M}\renewcommand{\Aeb}{2.5}\renewcommand{\Aec}{2.0}\renewcommand{\Aed}{2.0}\renewcommand{\Aee}{2.0}
+\renewcommand{\Af}{1.0}
+\renewcommand{\Aga}{0.5}\renewcommand{\Agb}{0.5}\renewcommand{\Agc}{0.5}\renewcommand{\Agd}{0.0}
+\renewcommand{\Aha}{0.5}\renewcommand{\Ahb}{1.0}\renewcommand{\Ahc}{1.0}
+\renewcommand{\Ai}{}
+\renewcommand{\Ba}{}
+\renewcommand{\Bb}{5.5}
+\renewcommand{\Bc}{4.5}
+\renewcommand{\Bd}{5}
+\renewcommand{\Be}{+0}
+\renewcommand{\Bf}{+1}
+\renewcommand{\Bg}{60−}
+\renewcommand{\Bh}{30−}
+\renewcommand{\Bi}{180}
+\renewcommand{\Bj}{No}
+\renewcommand{\Bk}{Early}
+\renewcommand{\Ccrew}{Pilot}
+\renewcommand{\Ccrewfont}{\normalsize}
+\renewcommand{\Caa}{1.0}
+\renewcommand{\Cab}{1.0}
+\renewcommand{\Cb}{0.5}
+\renewcommand{\Cca}{1.0}\renewcommand{\Ccb}{1.0}\renewcommand{\Ccc}{1.0}
+\renewcommand{\Cda}{2.0}\renewcommand{\Cdb}{2.0}\renewcommand{\Cdc}{2.0}
+\renewcommand{\Cea}{3.0}\renewcommand{\Ceb}{3.0}\renewcommand{\Cec}{3.0}
+\renewcommand{\Cfa}{3.0}\renewcommand{\Cfb}{4.0}\renewcommand{\Cfc}{---}
+\renewcommand{\Cg}{}
+\renewcommand{\Dba}{9.0}
+\renewcommand{\Dbb}{8.0}
+\renewcommand{\Dbc}{7.5}
+\renewcommand{\Dbd}{10.0}
+\renewcommand{\Daa}{\blockDceilingandcruisespeed{58}{5.5}}\renewcommand{\Dab}{\blockDceilingandcruisespeed{53}{5.0}}\renewcommand{\Dac}{\blockDceilingandcruisespeed{48}{4.5}}
+\renewcommand{\Dca}{\blockDminmaxspeed{3.5}{8.0}{\Dba}}\renewcommand{\Dcb}{\blockDminmaxspeed{4.0}{7.5}{\Dbb}}\renewcommand{\Dcc}{\blockDminmaxspeed{4.5}{7.0}{\Dbc}}\renewcommand{\Dcd}{\blockDdivespeed{10.0}}
+\renewcommand{\Dda}{\blockDminmaxspeed{3.0}{8.5}{\Dba}}\renewcommand{\Ddb}{\blockDminmaxspeed{3.5}{8.0}{\Dbb}}\renewcommand{\Ddc}{\blockDminmaxspeed{4.0}{7.0}{\Dbc}}\renewcommand{\Ddd}{\blockDdivespeed{10.0}}
+\renewcommand{\Dea}{\blockDminmaxspeed{3.0}{9.0}{\Dba}}\renewcommand{\Deb}{\blockDminmaxspeed{3.0}{8.0}{\Dbb}}\renewcommand{\Dec}{\blockDminmaxspeed{3.0}{7.5}{\Dbc}}\renewcommand{\Ded}{\blockDdivespeed{10.0}}
+\renewcommand{\Dfa}{\blockDminmaxspeed{2.5}{8.5}{\Dba}}\renewcommand{\Dfb}{\blockDminmaxspeed{3.0}{8.0}{\Dbb}}\renewcommand{\Dfc}{\blockDminmaxspeed{3.0}{7.0}{\Dbc}}\renewcommand{\Dfd}{\blockDdivespeed{9.0}}
+\renewcommand{\Dga}{\blockDminmaxspeed{2.5}{7.5}{\Dba}}\renewcommand{\Dgb}{\blockDminmaxspeed{2.5}{7.0}{\Dbb}}\renewcommand{\Dgc}{\blockDminmaxspeed{2.5}{6.5}{\Dbc}}\renewcommand{\Dgd}{\blockDdivespeed{8.5}}
+\renewcommand{\Dha}{\blockDminmaxspeed{2.0}{7.0}{\Dba}}\renewcommand{\Dhb}{\blockDminmaxspeed{2.5}{6.5}{\Dbb}}\renewcommand{\Dhc}{\blockDminmaxspeed{2.5}{6.0}{\Dbc}}\renewcommand{\Dhd}{\blockDdivespeed{8.0}}
+\renewcommand{\Eaa}{1.0}\renewcommand{\Eab}{0.5}\renewcommand{\Eac}{1.0}\renewcommand{\Ead}{0.5}\renewcommand{\Eae}{1.0}\renewcommand{\Eaf}{0.5}
+\renewcommand{\Eba}{1.0}\renewcommand{\Ebb}{0.5}\renewcommand{\Ebc}{1.0}\renewcommand{\Ebd}{0.5}\renewcommand{\Ebe}{1.0}\renewcommand{\Ebf}{0.5}
+\renewcommand{\Eca}{2.0}\renewcommand{\Ecb}{0.5}\renewcommand{\Ecc}{1.0}\renewcommand{\Ecd}{0.5}\renewcommand{\Ece}{1.0}\renewcommand{\Ecf}{0.5}
+\renewcommand{\Eda}{3.0}\renewcommand{\Edb}{1.0}\renewcommand{\Edc}{2.0}\renewcommand{\Edd}{1.0}\renewcommand{\Ede}{1.0}\renewcommand{\Edf}{0.5}
+\renewcommand{\Eea}{4.0}\renewcommand{\Eeb}{2.0}\renewcommand{\Eec}{3.0}\renewcommand{\Eed}{1.0}\renewcommand{\Eee}{2.0}\renewcommand{\Eef}{1.0}
+\renewcommand{\Efa}{5.0}\renewcommand{\Efb}{2.0}\renewcommand{\Efc}{4.0}\renewcommand{\Efd}{1.0}\renewcommand{\Efe}{3.0}\renewcommand{\Eff}{1.0}
+\renewcommand{\Fa}{---}
+\renewcommand{\Fb}{---}
+\renewcommand{\Fc}{---}
+\renewcommand{\Fd}{---}
+\renewcommand{\Fe}{---}
+\renewcommand{\Ff}{---}
+\renewcommand{\Fg}{Three 30~mm NR-30}
+\renewcommand{\Fh}{6/3/2}
+\renewcommand{\Fi}{2.5}
+\renewcommand{\Fl}{6/\underline{9}}
+\renewcommand{\Fm}{Manual}
+\renewcommand{\Fj}{TT+0/HT+2/BT+3}
+\renewcommand{\Fk}{---}
+\renewcommand{\Fn}{IFF}
+\renewcommand{\Fo}{A}
+\renewcommand{\Fp}{---}
+\renewcommand{\Fq}{---}
+\renewcommand{\Fr}{---}
+\renewcommand{\Fs}{---}
+\renewcommand{\Ft}{None}
+\renewcommand{\Fu}{\Fua{\item The Shenyang F-6 is a day fighter. It is the export version of the Shenyang J-6 and a licensed version of the MiG-19S. The “PAF” version is modified with two additional stations for AIM-9 IRMs. The NATO reporting name for the aircraft is Farmer-C.
+
+\item If a BT or ET is performed in the HI+ altitude bands, roll one die for each facing change after the first. On a 1 the aircraft suffers a maneuvering departure.
+
+}}
+\renewcommand{\Gba}{\wbox[r]{00}{0}--2}
+\renewcommand{\Gbb}{\wbox[r]{00}{3}--6}
+\renewcommand{\Gbc}{\wbox[r]{00}{7}+}
+\renewcommand{\Gbd}{3,900}
+\renewcommand{\Gca}{1 and 6&200&\mbox{IRM}\\
+2 and 5&1,300&\mbox{BB} \mbox{RP} \mbox{RK} \mbox{FT} \mbox{IRM}\\
+3 and 4&550&\mbox{BB} \mbox{RP} \mbox{RK} \mbox{DR}\\
+}
+\renewcommand{\Gcb}{\Gcc{\item May use AIM-9 IRMs on stations 1 and 6 and AA-2 IRMs on stations 2 and 5.
+
+}}
+\renewcommand{\Gda}{16/11/5/3}
+\renewcommand{\Gea}{0000000}
+\renewcommand{\Geb}{0000-00-00T00:00:00}
+\adc
+% Shenyang J-6A
+\renewcommand{\Aaa}{Shenyang J-6A}
+\renewcommand{\Aab}{Shenyang J-6A}
+\renewcommand{\Ac}{\Acone{\jetengine\jetengine}}
+\renewcommand{\Ada}{AB}\renewcommand{\Adb}{3.5}\renewcommand{\Adc}{3.0}\renewcommand{\Add}{2.5}\renewcommand{\Ade}{5.0}
+\renewcommand{\Aea}{M}\renewcommand{\Aeb}{2.5}\renewcommand{\Aec}{2.0}\renewcommand{\Aed}{2.0}\renewcommand{\Aee}{2.0}
+\renewcommand{\Af}{1.0}
+\renewcommand{\Aga}{0.5}\renewcommand{\Agb}{0.5}\renewcommand{\Agc}{0.5}\renewcommand{\Agd}{0.0}
+\renewcommand{\Aha}{0.5}\renewcommand{\Ahb}{1.0}\renewcommand{\Ahc}{1.0}
+\renewcommand{\Ai}{}
+\renewcommand{\Ba}{}
+\renewcommand{\Bb}{5.5}
+\renewcommand{\Bc}{4.5}
+\renewcommand{\Bd}{5}
+\renewcommand{\Be}{+0}
+\renewcommand{\Bf}{+1}
+\renewcommand{\Bg}{60−}
+\renewcommand{\Bh}{30−}
+\renewcommand{\Bi}{180}
+\renewcommand{\Bj}{No}
+\renewcommand{\Bk}{Early}
+\renewcommand{\Ccrew}{Pilot}
+\renewcommand{\Ccrewfont}{\normalsize}
+\renewcommand{\Caa}{1.0}
+\renewcommand{\Cab}{1.0}
+\renewcommand{\Cb}{0.5}
+\renewcommand{\Cca}{1.0}\renewcommand{\Ccb}{1.0}\renewcommand{\Ccc}{1.0}
+\renewcommand{\Cda}{2.0}\renewcommand{\Cdb}{2.0}\renewcommand{\Cdc}{2.0}
+\renewcommand{\Cea}{3.0}\renewcommand{\Ceb}{3.0}\renewcommand{\Cec}{3.0}
+\renewcommand{\Cfa}{3.0}\renewcommand{\Cfb}{4.0}\renewcommand{\Cfc}{---}
+\renewcommand{\Cg}{}
+\renewcommand{\Dba}{9.0}
+\renewcommand{\Dbb}{8.0}
+\renewcommand{\Dbc}{7.5}
+\renewcommand{\Dbd}{10.0}
+\renewcommand{\Daa}{\blockDceilingandcruisespeed{58}{5.5}}\renewcommand{\Dab}{\blockDceilingandcruisespeed{53}{5.0}}\renewcommand{\Dac}{\blockDceilingandcruisespeed{48}{4.5}}
+\renewcommand{\Dca}{\blockDminmaxspeed{3.5}{8.0}{\Dba}}\renewcommand{\Dcb}{\blockDminmaxspeed{4.0}{7.5}{\Dbb}}\renewcommand{\Dcc}{\blockDminmaxspeed{4.5}{7.0}{\Dbc}}\renewcommand{\Dcd}{\blockDdivespeed{10.0}}
+\renewcommand{\Dda}{\blockDminmaxspeed{3.0}{8.5}{\Dba}}\renewcommand{\Ddb}{\blockDminmaxspeed{3.5}{8.0}{\Dbb}}\renewcommand{\Ddc}{\blockDminmaxspeed{4.0}{7.0}{\Dbc}}\renewcommand{\Ddd}{\blockDdivespeed{10.0}}
+\renewcommand{\Dea}{\blockDminmaxspeed{3.0}{9.0}{\Dba}}\renewcommand{\Deb}{\blockDminmaxspeed{3.0}{8.0}{\Dbb}}\renewcommand{\Dec}{\blockDminmaxspeed{3.0}{7.5}{\Dbc}}\renewcommand{\Ded}{\blockDdivespeed{10.0}}
+\renewcommand{\Dfa}{\blockDminmaxspeed{2.5}{8.5}{\Dba}}\renewcommand{\Dfb}{\blockDminmaxspeed{3.0}{8.0}{\Dbb}}\renewcommand{\Dfc}{\blockDminmaxspeed{3.0}{7.0}{\Dbc}}\renewcommand{\Dfd}{\blockDdivespeed{9.0}}
+\renewcommand{\Dga}{\blockDminmaxspeed{2.5}{7.5}{\Dba}}\renewcommand{\Dgb}{\blockDminmaxspeed{2.5}{7.0}{\Dbb}}\renewcommand{\Dgc}{\blockDminmaxspeed{2.5}{6.5}{\Dbc}}\renewcommand{\Dgd}{\blockDdivespeed{8.5}}
+\renewcommand{\Dha}{\blockDminmaxspeed{2.0}{7.0}{\Dba}}\renewcommand{\Dhb}{\blockDminmaxspeed{2.5}{6.5}{\Dbb}}\renewcommand{\Dhc}{\blockDminmaxspeed{2.5}{6.0}{\Dbc}}\renewcommand{\Dhd}{\blockDdivespeed{8.0}}
+\renewcommand{\Eaa}{1.0}\renewcommand{\Eab}{0.5}\renewcommand{\Eac}{1.0}\renewcommand{\Ead}{0.5}\renewcommand{\Eae}{1.0}\renewcommand{\Eaf}{0.5}
+\renewcommand{\Eba}{1.0}\renewcommand{\Ebb}{0.5}\renewcommand{\Ebc}{1.0}\renewcommand{\Ebd}{0.5}\renewcommand{\Ebe}{1.0}\renewcommand{\Ebf}{0.5}
+\renewcommand{\Eca}{2.0}\renewcommand{\Ecb}{0.5}\renewcommand{\Ecc}{1.0}\renewcommand{\Ecd}{0.5}\renewcommand{\Ece}{1.0}\renewcommand{\Ecf}{0.5}
+\renewcommand{\Eda}{3.0}\renewcommand{\Edb}{1.0}\renewcommand{\Edc}{2.0}\renewcommand{\Edd}{1.0}\renewcommand{\Ede}{1.0}\renewcommand{\Edf}{0.5}
+\renewcommand{\Eea}{4.0}\renewcommand{\Eeb}{2.0}\renewcommand{\Eec}{3.0}\renewcommand{\Eed}{1.0}\renewcommand{\Eee}{2.0}\renewcommand{\Eef}{1.0}
+\renewcommand{\Efa}{5.0}\renewcommand{\Efb}{2.0}\renewcommand{\Efc}{4.0}\renewcommand{\Efd}{1.0}\renewcommand{\Efe}{3.0}\renewcommand{\Eff}{1.0}
+\renewcommand{\Fa}{RP-1 Izumrud}
+\renewcommand{\Fb}{0}
+\renewcommand{\Fc}{Limited}
+\renewcommand{\Fd}{18--6}
+\renewcommand{\Fe}{6--6}
+\renewcommand{\Ff}{7}
+\renewcommand{\Fg}{Two 30~mm NR-30}
+\renewcommand{\Fh}{5/3/1}
+\renewcommand{\Fi}{2.5}
+\renewcommand{\Fl}{5/\underline{6}}
+\renewcommand{\Fm}{Manual}
+\renewcommand{\Fj}{TT+0/HT+2/BT+3}
+\renewcommand{\Fk}{RE}
+\renewcommand{\Fn}{IFF}
+\renewcommand{\Fo}{A}
+\renewcommand{\Fp}{---}
+\renewcommand{\Fq}{---}
+\renewcommand{\Fr}{---}
+\renewcommand{\Fs}{---}
+\renewcommand{\Ft}{None}
+\renewcommand{\Fu}{\Fua{\item The Shenyang J-6A is an interceptor. It is derived from the MiG-19P. The NATO reporting name for the aircraft is Farmer-D and for the radar is Scan Odd.
+
+\item If a BT or ET is performed in the HI+ altitude bands, roll one die for each facing change after the first. On a 1 the aircraft suffers a maneuvering departure.
+
+}}
+\renewcommand{\Gba}{\wbox[r]{00}{0}--2}
+\renewcommand{\Gbb}{\wbox[r]{00}{3}--6}
+\renewcommand{\Gbc}{\wbox[r]{00}{7}+}
+\renewcommand{\Gbd}{3,900}
+\renewcommand{\Gca}{1 and 6&200&\mbox{IRM}\\
+2 and 5&1,400&\mbox{FT}\\
+3 and 4&550&\mbox{BB} \mbox{RP} \mbox{RK} \mbox{DR}\\
+}
+\renewcommand{\Gcb}{\Gcc{\item May use 760L FTs on stations 1 and 4.
+
+\item May use ORO-57K RPs on stations 2 and 3. From 1957, may use DRs each with two ORO-57K RPs on stations 2 and 3.
+
+\item From 1960, may use AA-2 IRMs.
+
+}}
+\renewcommand{\Gda}{16/11/5/3}
+\renewcommand{\Gea}{0000000}
+\renewcommand{\Geb}{0000-00-00T00:00:00}
+\adc
+% Shenyang F-6A
+\renewcommand{\Aaa}{Shenyang F-6A}
+\renewcommand{\Aab}{Shenyang F-6A}
+\renewcommand{\Ac}{\Acone{\jetengine\jetengine}}
+\renewcommand{\Ada}{AB}\renewcommand{\Adb}{3.5}\renewcommand{\Adc}{3.0}\renewcommand{\Add}{2.5}\renewcommand{\Ade}{5.0}
+\renewcommand{\Aea}{M}\renewcommand{\Aeb}{2.5}\renewcommand{\Aec}{2.0}\renewcommand{\Aed}{2.0}\renewcommand{\Aee}{2.0}
+\renewcommand{\Af}{1.0}
+\renewcommand{\Aga}{0.5}\renewcommand{\Agb}{0.5}\renewcommand{\Agc}{0.5}\renewcommand{\Agd}{0.0}
+\renewcommand{\Aha}{0.5}\renewcommand{\Ahb}{1.0}\renewcommand{\Ahc}{1.0}
+\renewcommand{\Ai}{}
+\renewcommand{\Ba}{}
+\renewcommand{\Bb}{5.5}
+\renewcommand{\Bc}{4.5}
+\renewcommand{\Bd}{5}
+\renewcommand{\Be}{+0}
+\renewcommand{\Bf}{+1}
+\renewcommand{\Bg}{60−}
+\renewcommand{\Bh}{30−}
+\renewcommand{\Bi}{180}
+\renewcommand{\Bj}{No}
+\renewcommand{\Bk}{Early}
+\renewcommand{\Ccrew}{Pilot}
+\renewcommand{\Ccrewfont}{\normalsize}
+\renewcommand{\Caa}{1.0}
+\renewcommand{\Cab}{1.0}
+\renewcommand{\Cb}{0.5}
+\renewcommand{\Cca}{1.0}\renewcommand{\Ccb}{1.0}\renewcommand{\Ccc}{1.0}
+\renewcommand{\Cda}{2.0}\renewcommand{\Cdb}{2.0}\renewcommand{\Cdc}{2.0}
+\renewcommand{\Cea}{3.0}\renewcommand{\Ceb}{3.0}\renewcommand{\Cec}{3.0}
+\renewcommand{\Cfa}{3.0}\renewcommand{\Cfb}{4.0}\renewcommand{\Cfc}{---}
+\renewcommand{\Cg}{}
+\renewcommand{\Dba}{9.0}
+\renewcommand{\Dbb}{8.0}
+\renewcommand{\Dbc}{7.5}
+\renewcommand{\Dbd}{10.0}
+\renewcommand{\Daa}{\blockDceilingandcruisespeed{58}{5.5}}\renewcommand{\Dab}{\blockDceilingandcruisespeed{53}{5.0}}\renewcommand{\Dac}{\blockDceilingandcruisespeed{48}{4.5}}
+\renewcommand{\Dca}{\blockDminmaxspeed{3.5}{8.0}{\Dba}}\renewcommand{\Dcb}{\blockDminmaxspeed{4.0}{7.5}{\Dbb}}\renewcommand{\Dcc}{\blockDminmaxspeed{4.5}{7.0}{\Dbc}}\renewcommand{\Dcd}{\blockDdivespeed{10.0}}
+\renewcommand{\Dda}{\blockDminmaxspeed{3.0}{8.5}{\Dba}}\renewcommand{\Ddb}{\blockDminmaxspeed{3.5}{8.0}{\Dbb}}\renewcommand{\Ddc}{\blockDminmaxspeed{4.0}{7.0}{\Dbc}}\renewcommand{\Ddd}{\blockDdivespeed{10.0}}
+\renewcommand{\Dea}{\blockDminmaxspeed{3.0}{9.0}{\Dba}}\renewcommand{\Deb}{\blockDminmaxspeed{3.0}{8.0}{\Dbb}}\renewcommand{\Dec}{\blockDminmaxspeed{3.0}{7.5}{\Dbc}}\renewcommand{\Ded}{\blockDdivespeed{10.0}}
+\renewcommand{\Dfa}{\blockDminmaxspeed{2.5}{8.5}{\Dba}}\renewcommand{\Dfb}{\blockDminmaxspeed{3.0}{8.0}{\Dbb}}\renewcommand{\Dfc}{\blockDminmaxspeed{3.0}{7.0}{\Dbc}}\renewcommand{\Dfd}{\blockDdivespeed{9.0}}
+\renewcommand{\Dga}{\blockDminmaxspeed{2.5}{7.5}{\Dba}}\renewcommand{\Dgb}{\blockDminmaxspeed{2.5}{7.0}{\Dbb}}\renewcommand{\Dgc}{\blockDminmaxspeed{2.5}{6.5}{\Dbc}}\renewcommand{\Dgd}{\blockDdivespeed{8.5}}
+\renewcommand{\Dha}{\blockDminmaxspeed{2.0}{7.0}{\Dba}}\renewcommand{\Dhb}{\blockDminmaxspeed{2.5}{6.5}{\Dbb}}\renewcommand{\Dhc}{\blockDminmaxspeed{2.5}{6.0}{\Dbc}}\renewcommand{\Dhd}{\blockDdivespeed{8.0}}
+\renewcommand{\Eaa}{1.0}\renewcommand{\Eab}{0.5}\renewcommand{\Eac}{1.0}\renewcommand{\Ead}{0.5}\renewcommand{\Eae}{1.0}\renewcommand{\Eaf}{0.5}
+\renewcommand{\Eba}{1.0}\renewcommand{\Ebb}{0.5}\renewcommand{\Ebc}{1.0}\renewcommand{\Ebd}{0.5}\renewcommand{\Ebe}{1.0}\renewcommand{\Ebf}{0.5}
+\renewcommand{\Eca}{2.0}\renewcommand{\Ecb}{0.5}\renewcommand{\Ecc}{1.0}\renewcommand{\Ecd}{0.5}\renewcommand{\Ece}{1.0}\renewcommand{\Ecf}{0.5}
+\renewcommand{\Eda}{3.0}\renewcommand{\Edb}{1.0}\renewcommand{\Edc}{2.0}\renewcommand{\Edd}{1.0}\renewcommand{\Ede}{1.0}\renewcommand{\Edf}{0.5}
+\renewcommand{\Eea}{4.0}\renewcommand{\Eeb}{2.0}\renewcommand{\Eec}{3.0}\renewcommand{\Eed}{1.0}\renewcommand{\Eee}{2.0}\renewcommand{\Eef}{1.0}
+\renewcommand{\Efa}{5.0}\renewcommand{\Efb}{2.0}\renewcommand{\Efc}{4.0}\renewcommand{\Efd}{1.0}\renewcommand{\Efe}{3.0}\renewcommand{\Eff}{1.0}
+\renewcommand{\Fa}{RP-1 Izumrud}
+\renewcommand{\Fb}{0}
+\renewcommand{\Fc}{Limited}
+\renewcommand{\Fd}{18--6}
+\renewcommand{\Fe}{6--6}
+\renewcommand{\Ff}{7}
+\renewcommand{\Fg}{Two 30~mm NR-30}
+\renewcommand{\Fh}{5/3/1}
+\renewcommand{\Fi}{2.5}
+\renewcommand{\Fl}{5/\underline{6}}
+\renewcommand{\Fm}{Manual}
+\renewcommand{\Fj}{TT+0/HT+2/BT+3}
+\renewcommand{\Fk}{RE}
+\renewcommand{\Fn}{IFF}
+\renewcommand{\Fo}{A}
+\renewcommand{\Fp}{---}
+\renewcommand{\Fq}{---}
+\renewcommand{\Fr}{---}
+\renewcommand{\Fs}{---}
+\renewcommand{\Ft}{None}
+\renewcommand{\Fu}{\Fua{\item The Shenyang F-6A is an interceptor. It is the export version of the Shanyang J-6A and is derived from the MiG-19PF. The NATO reporting name for the aircraft is Farmer-D and for the radar is Scan Odd.
+
+\item If a BT or ET is performed in the HI+ altitude bands, roll one die for each facing change after the first. On a 1 the aircraft suffers a maneuvering departure.
+
+}}
+\renewcommand{\Gba}{\wbox[r]{00}{0}--2}
+\renewcommand{\Gbb}{\wbox[r]{00}{3}--6}
+\renewcommand{\Gbc}{\wbox[r]{00}{7}+}
+\renewcommand{\Gbd}{3,900}
+\renewcommand{\Gca}{1 and 6&200&\mbox{IRM}\\
+2 and 5&1,400&\mbox{FT}\\
+3 and 4&550&\mbox{BB} \mbox{RP} \mbox{RK} \mbox{DR}\\
+}
+\renewcommand{\Gcb}{\Gcc{\item May use 760L FTs on stations 1 and 4.
+
+\item May use ORO-57K RPs on stations 2 and 3. From 1957, may use DRs each with two ORO-57K RPs on stations 2 and 3.
+
+\item From 1960, may use AA-2 IRMs.
+
+}}
+\renewcommand{\Gda}{16/11/5/3}
+\renewcommand{\Gea}{0000000}
+\renewcommand{\Geb}{0000-00-00T00:00:00}
+\adc
+% Shenyang J-6B
+\renewcommand{\Aaa}{Shenyang J-6B}
+\renewcommand{\Aab}{Shenyang J-6B}
+\renewcommand{\Ac}{\Acone{\jetengine\jetengine}}
+\renewcommand{\Ada}{AB}\renewcommand{\Adb}{3.5}\renewcommand{\Adc}{3.0}\renewcommand{\Add}{2.5}\renewcommand{\Ade}{5.0}
+\renewcommand{\Aea}{M}\renewcommand{\Aeb}{2.5}\renewcommand{\Aec}{2.0}\renewcommand{\Aed}{2.0}\renewcommand{\Aee}{2.0}
+\renewcommand{\Af}{1.0}
+\renewcommand{\Aga}{0.5}\renewcommand{\Agb}{0.5}\renewcommand{\Agc}{0.5}\renewcommand{\Agd}{0.0}
+\renewcommand{\Aha}{0.5}\renewcommand{\Ahb}{1.0}\renewcommand{\Ahc}{1.0}
+\renewcommand{\Ai}{}
+\renewcommand{\Ba}{}
+\renewcommand{\Bb}{5.5}
+\renewcommand{\Bc}{4.5}
+\renewcommand{\Bd}{5}
+\renewcommand{\Be}{+0}
+\renewcommand{\Bf}{+1}
+\renewcommand{\Bg}{60−}
+\renewcommand{\Bh}{30−}
+\renewcommand{\Bi}{180}
+\renewcommand{\Bj}{No}
+\renewcommand{\Bk}{Early}
+\renewcommand{\Ccrew}{Pilot}
+\renewcommand{\Ccrewfont}{\normalsize}
+\renewcommand{\Caa}{1.0}
+\renewcommand{\Cab}{1.0}
+\renewcommand{\Cb}{0.5}
+\renewcommand{\Cca}{1.0}\renewcommand{\Ccb}{1.0}\renewcommand{\Ccc}{1.0}
+\renewcommand{\Cda}{2.0}\renewcommand{\Cdb}{2.0}\renewcommand{\Cdc}{2.0}
+\renewcommand{\Cea}{3.0}\renewcommand{\Ceb}{3.0}\renewcommand{\Cec}{3.0}
+\renewcommand{\Cfa}{3.0}\renewcommand{\Cfb}{4.0}\renewcommand{\Cfc}{---}
+\renewcommand{\Cg}{}
+\renewcommand{\Dba}{9.0}
+\renewcommand{\Dbb}{8.0}
+\renewcommand{\Dbc}{7.5}
+\renewcommand{\Dbd}{10.0}
+\renewcommand{\Daa}{\blockDceilingandcruisespeed{58}{5.5}}\renewcommand{\Dab}{\blockDceilingandcruisespeed{53}{5.0}}\renewcommand{\Dac}{\blockDceilingandcruisespeed{48}{4.5}}
+\renewcommand{\Dca}{\blockDminmaxspeed{3.5}{8.0}{\Dba}}\renewcommand{\Dcb}{\blockDminmaxspeed{4.0}{7.5}{\Dbb}}\renewcommand{\Dcc}{\blockDminmaxspeed{4.5}{7.0}{\Dbc}}\renewcommand{\Dcd}{\blockDdivespeed{10.0}}
+\renewcommand{\Dda}{\blockDminmaxspeed{3.0}{8.5}{\Dba}}\renewcommand{\Ddb}{\blockDminmaxspeed{3.5}{8.0}{\Dbb}}\renewcommand{\Ddc}{\blockDminmaxspeed{4.0}{7.0}{\Dbc}}\renewcommand{\Ddd}{\blockDdivespeed{10.0}}
+\renewcommand{\Dea}{\blockDminmaxspeed{3.0}{9.0}{\Dba}}\renewcommand{\Deb}{\blockDminmaxspeed{3.0}{8.0}{\Dbb}}\renewcommand{\Dec}{\blockDminmaxspeed{3.0}{7.5}{\Dbc}}\renewcommand{\Ded}{\blockDdivespeed{10.0}}
+\renewcommand{\Dfa}{\blockDminmaxspeed{2.5}{8.5}{\Dba}}\renewcommand{\Dfb}{\blockDminmaxspeed{3.0}{8.0}{\Dbb}}\renewcommand{\Dfc}{\blockDminmaxspeed{3.0}{7.0}{\Dbc}}\renewcommand{\Dfd}{\blockDdivespeed{9.0}}
+\renewcommand{\Dga}{\blockDminmaxspeed{2.5}{7.5}{\Dba}}\renewcommand{\Dgb}{\blockDminmaxspeed{2.5}{7.0}{\Dbb}}\renewcommand{\Dgc}{\blockDminmaxspeed{2.5}{6.5}{\Dbc}}\renewcommand{\Dgd}{\blockDdivespeed{8.5}}
+\renewcommand{\Dha}{\blockDminmaxspeed{2.0}{7.0}{\Dba}}\renewcommand{\Dhb}{\blockDminmaxspeed{2.5}{6.5}{\Dbb}}\renewcommand{\Dhc}{\blockDminmaxspeed{2.5}{6.0}{\Dbc}}\renewcommand{\Dhd}{\blockDdivespeed{8.0}}
+\renewcommand{\Eaa}{1.0}\renewcommand{\Eab}{0.5}\renewcommand{\Eac}{1.0}\renewcommand{\Ead}{0.5}\renewcommand{\Eae}{1.0}\renewcommand{\Eaf}{0.5}
+\renewcommand{\Eba}{1.0}\renewcommand{\Ebb}{0.5}\renewcommand{\Ebc}{1.0}\renewcommand{\Ebd}{0.5}\renewcommand{\Ebe}{1.0}\renewcommand{\Ebf}{0.5}
+\renewcommand{\Eca}{2.0}\renewcommand{\Ecb}{0.5}\renewcommand{\Ecc}{1.0}\renewcommand{\Ecd}{0.5}\renewcommand{\Ece}{1.0}\renewcommand{\Ecf}{0.5}
+\renewcommand{\Eda}{3.0}\renewcommand{\Edb}{1.0}\renewcommand{\Edc}{2.0}\renewcommand{\Edd}{1.0}\renewcommand{\Ede}{1.0}\renewcommand{\Edf}{0.5}
+\renewcommand{\Eea}{4.0}\renewcommand{\Eeb}{2.0}\renewcommand{\Eec}{3.0}\renewcommand{\Eed}{1.0}\renewcommand{\Eee}{2.0}\renewcommand{\Eef}{1.0}
+\renewcommand{\Efa}{5.0}\renewcommand{\Efb}{2.0}\renewcommand{\Efc}{4.0}\renewcommand{\Efd}{1.0}\renewcommand{\Efe}{3.0}\renewcommand{\Eff}{1.0}
+\renewcommand{\Fa}{RP-1 Izumrud}
+\renewcommand{\Fb}{0}
+\renewcommand{\Fc}{Limited}
+\renewcommand{\Fd}{18--6}
+\renewcommand{\Fe}{6--6}
+\renewcommand{\Ff}{7}
+\renewcommand{\Fg}{---}
+\renewcommand{\Fh}{---}
+\renewcommand{\Fi}{---}
+\renewcommand{\Fl}{---}
+\renewcommand{\Fm}{Manual}
+\renewcommand{\Fj}{TT+0/HT+2/BT+3}
+\renewcommand{\Fk}{RE}
+\renewcommand{\Fn}{IFF}
+\renewcommand{\Fo}{A}
+\renewcommand{\Fp}{---}
+\renewcommand{\Fq}{---}
+\renewcommand{\Fr}{---}
+\renewcommand{\Fs}{---}
+\renewcommand{\Ft}{None}
+\renewcommand{\Fu}{\Fua{\item The Shenyang J-6B is an interceptor. It is derived from the MiG-19PM. The NATO reporting name for the aircraft is Farmer-E and for the radar is Scan Odd.
+
+\item If a BT or ET is performed in the HI+ altitude bands, roll one die for each facing change after the first. On a 1 the aircraft suffers a maneuvering departure.
+
+}}
+\renewcommand{\Gba}{\wbox[r]{00}{0}--2}
+\renewcommand{\Gbb}{\wbox[r]{00}{3}--6}
+\renewcommand{\Gbc}{\wbox[r]{00}{7}+}
+\renewcommand{\Gbd}{3,900}
+\renewcommand{\Gca}{1 and 6&1,400&\mbox{FT}\\
+2--3 and 4--5&200&\mbox{BRM} \mbox{RHM}\\
+}
+\renewcommand{\Gcb}{\Gcc{\item May use 760L FTs on stations 1 and 6.
+
+\item May use AA-1 BRMs and RHMs.
+
+}}
+\renewcommand{\Gda}{16/11/5/3}
+\renewcommand{\Gea}{0000000}
+\renewcommand{\Geb}{0000-00-00T00:00:00}
+\adc
+% Shenyang J-6C
+\renewcommand{\Aaa}{Shenyang J-6C}
+\renewcommand{\Aab}{Shenyang J-6C}
+\renewcommand{\Ac}{\Acone{\jetengine\jetengine}}
+\renewcommand{\Ada}{AB}\renewcommand{\Adb}{3.5}\renewcommand{\Adc}{3.0}\renewcommand{\Add}{2.5}\renewcommand{\Ade}{5.0}
+\renewcommand{\Aea}{M}\renewcommand{\Aeb}{2.5}\renewcommand{\Aec}{2.0}\renewcommand{\Aed}{2.0}\renewcommand{\Aee}{2.0}
+\renewcommand{\Af}{1.0}
+\renewcommand{\Aga}{0.5}\renewcommand{\Agb}{0.5}\renewcommand{\Agc}{0.5}\renewcommand{\Agd}{0.0}
+\renewcommand{\Aha}{0.5}\renewcommand{\Ahb}{1.0}\renewcommand{\Ahc}{1.0}
+\renewcommand{\Ai}{}
+\renewcommand{\Ba}{}
+\renewcommand{\Bb}{5.5}
+\renewcommand{\Bc}{4.5}
+\renewcommand{\Bd}{5}
+\renewcommand{\Be}{+0}
+\renewcommand{\Bf}{+1}
+\renewcommand{\Bg}{60−}
+\renewcommand{\Bh}{30−}
+\renewcommand{\Bi}{180}
+\renewcommand{\Bj}{No}
+\renewcommand{\Bk}{Early}
+\renewcommand{\Ccrew}{Pilot}
+\renewcommand{\Ccrewfont}{\normalsize}
+\renewcommand{\Caa}{1.0}
+\renewcommand{\Cab}{1.0}
+\renewcommand{\Cb}{0.5}
+\renewcommand{\Cca}{1.0}\renewcommand{\Ccb}{1.0}\renewcommand{\Ccc}{1.0}
+\renewcommand{\Cda}{2.0}\renewcommand{\Cdb}{2.0}\renewcommand{\Cdc}{2.0}
+\renewcommand{\Cea}{3.0}\renewcommand{\Ceb}{3.0}\renewcommand{\Cec}{3.0}
+\renewcommand{\Cfa}{3.0}\renewcommand{\Cfb}{4.0}\renewcommand{\Cfc}{---}
+\renewcommand{\Cg}{}
+\renewcommand{\Dba}{9.0}
+\renewcommand{\Dbb}{8.0}
+\renewcommand{\Dbc}{7.5}
+\renewcommand{\Dbd}{10.0}
+\renewcommand{\Daa}{\blockDceilingandcruisespeed{58}{5.5}}\renewcommand{\Dab}{\blockDceilingandcruisespeed{53}{5.0}}\renewcommand{\Dac}{\blockDceilingandcruisespeed{48}{4.5}}
+\renewcommand{\Dca}{\blockDminmaxspeed{3.5}{8.0}{\Dba}}\renewcommand{\Dcb}{\blockDminmaxspeed{4.0}{7.5}{\Dbb}}\renewcommand{\Dcc}{\blockDminmaxspeed{4.5}{7.0}{\Dbc}}\renewcommand{\Dcd}{\blockDdivespeed{10.0}}
+\renewcommand{\Dda}{\blockDminmaxspeed{3.0}{8.5}{\Dba}}\renewcommand{\Ddb}{\blockDminmaxspeed{3.5}{8.0}{\Dbb}}\renewcommand{\Ddc}{\blockDminmaxspeed{4.0}{7.0}{\Dbc}}\renewcommand{\Ddd}{\blockDdivespeed{10.0}}
+\renewcommand{\Dea}{\blockDminmaxspeed{3.0}{9.0}{\Dba}}\renewcommand{\Deb}{\blockDminmaxspeed{3.0}{8.0}{\Dbb}}\renewcommand{\Dec}{\blockDminmaxspeed{3.0}{7.5}{\Dbc}}\renewcommand{\Ded}{\blockDdivespeed{10.0}}
+\renewcommand{\Dfa}{\blockDminmaxspeed{2.5}{8.5}{\Dba}}\renewcommand{\Dfb}{\blockDminmaxspeed{3.0}{8.0}{\Dbb}}\renewcommand{\Dfc}{\blockDminmaxspeed{3.0}{7.0}{\Dbc}}\renewcommand{\Dfd}{\blockDdivespeed{9.0}}
+\renewcommand{\Dga}{\blockDminmaxspeed{2.5}{7.5}{\Dba}}\renewcommand{\Dgb}{\blockDminmaxspeed{2.5}{7.0}{\Dbb}}\renewcommand{\Dgc}{\blockDminmaxspeed{2.5}{6.5}{\Dbc}}\renewcommand{\Dgd}{\blockDdivespeed{8.5}}
+\renewcommand{\Dha}{\blockDminmaxspeed{2.0}{7.0}{\Dba}}\renewcommand{\Dhb}{\blockDminmaxspeed{2.5}{6.5}{\Dbb}}\renewcommand{\Dhc}{\blockDminmaxspeed{2.5}{6.0}{\Dbc}}\renewcommand{\Dhd}{\blockDdivespeed{8.0}}
+\renewcommand{\Eaa}{1.0}\renewcommand{\Eab}{0.5}\renewcommand{\Eac}{1.0}\renewcommand{\Ead}{0.5}\renewcommand{\Eae}{1.0}\renewcommand{\Eaf}{0.5}
+\renewcommand{\Eba}{1.0}\renewcommand{\Ebb}{0.5}\renewcommand{\Ebc}{1.0}\renewcommand{\Ebd}{0.5}\renewcommand{\Ebe}{1.0}\renewcommand{\Ebf}{0.5}
+\renewcommand{\Eca}{2.0}\renewcommand{\Ecb}{0.5}\renewcommand{\Ecc}{1.0}\renewcommand{\Ecd}{0.5}\renewcommand{\Ece}{1.0}\renewcommand{\Ecf}{0.5}
+\renewcommand{\Eda}{3.0}\renewcommand{\Edb}{1.0}\renewcommand{\Edc}{2.0}\renewcommand{\Edd}{1.0}\renewcommand{\Ede}{1.0}\renewcommand{\Edf}{0.5}
+\renewcommand{\Eea}{4.0}\renewcommand{\Eeb}{2.0}\renewcommand{\Eec}{3.0}\renewcommand{\Eed}{1.0}\renewcommand{\Eee}{2.0}\renewcommand{\Eef}{1.0}
+\renewcommand{\Efa}{5.0}\renewcommand{\Efb}{2.0}\renewcommand{\Efc}{4.0}\renewcommand{\Efd}{1.0}\renewcommand{\Efe}{3.0}\renewcommand{\Eff}{1.0}
+\renewcommand{\Fa}{---}
+\renewcommand{\Fb}{---}
+\renewcommand{\Fc}{---}
+\renewcommand{\Fd}{---}
+\renewcommand{\Fe}{---}
+\renewcommand{\Ff}{---}
+\renewcommand{\Fg}{Three 30~mm NR-30}
+\renewcommand{\Fh}{6/3/2}
+\renewcommand{\Fi}{2.5}
+\renewcommand{\Fl}{6/\underline{9}}
+\renewcommand{\Fm}{Manual}
+\renewcommand{\Fj}{TT+0/HT+2/BT+3}
+\renewcommand{\Fk}{---}
+\renewcommand{\Fn}{IFF}
+\renewcommand{\Fo}{A}
+\renewcommand{\Fp}{---}
+\renewcommand{\Fq}{---}
+\renewcommand{\Fr}{---}
+\renewcommand{\Fs}{---}
+\renewcommand{\Ft}{None}
+\renewcommand{\Fu}{\Fua{\item The Shenyang J-6C is a day fighter. It is a slightly modified version of the Shenyang J-6. The NATO reporting name for the aircraft is Farmer-C.
+
+\item If a BT or ET is performed in the HI+ altitude bands, roll one die for each facing change after the first. On a 1 the aircraft suffers a maneuvering departure.
+
+}}
+\renewcommand{\Gba}{\wbox[r]{00}{0}--2}
+\renewcommand{\Gbb}{\wbox[r]{00}{3}--6}
+\renewcommand{\Gbc}{\wbox[r]{00}{7}+}
+\renewcommand{\Gbd}{3,900}
+\renewcommand{\Gca}{1 and 4&1,400&\mbox{FT}\\
+2 and 3&550&\mbox{BB} \mbox{RP} \mbox{RK} \mbox{DR}\\
+}
+\renewcommand{\Gcb}{\Gcc{\item May use 760L FTs on stations 1 and 4.
+
+\item May use ORO-57K RPs on stations 2 and 3. From 1957, may use DRs each with two ORO-57K RPs on stations 2 and 3.
+
+}}
+\renewcommand{\Gda}{16/11/5/3}
+\renewcommand{\Gea}{0000000}
+\renewcommand{\Geb}{0000-00-00T00:00:00}
+\adc
+
+\end{document}
+
