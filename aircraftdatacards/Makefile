@@ -6,16 +6,18 @@
 all						:	\
 	sandbox.pdf				\
 	british.pdf				\
+	canadian.pdf			\
 	bombers.pdf 			\
 	bomber-fighters.pdf		\
 	all.pdf
 
 # We force these since in most cases the aircraft data files will have changed.
+sandbox.pdf				:	.FORCE
 all.pdf					:	.FORCE
+british.pdf				:	.FORCE
+canadian.pdf			:	.FORCE
 bombers.pdf				:	.FORCE
 bomber-fighters.pdf		:	.FORCE
-sandbox.pdf				:	.FORCE
-british.pdf				:	.FORCE
 
 format		:
 	python3 format.py
