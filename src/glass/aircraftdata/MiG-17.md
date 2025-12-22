@@ -12,7 +12,7 @@
 
 ### MiG-17
 
-ADC created by removing the AB from the MiG-17F. NATO reporting name is Fresco-A. 
+ADC created by removing the AB from the MiG-17F. NATO reporting name is Fresco-A.
 
 ### MiG-17F
 
@@ -31,6 +31,10 @@ ADC from TSOH.  NATO reporting name is Fresco-D.
 ADC from TSOH.  NATO reporting name is Fresco-E.
 
 Has RP-2 Izumrud radar (Wikipedia on AA-1, Goebel). I'm not sure how this is improved over the RP-1.
+
+### Fuel Tanks
+
+Adapted from MiG-15bis.
 
 ## Operational History
 
