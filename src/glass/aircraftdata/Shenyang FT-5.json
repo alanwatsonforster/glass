@@ -1,0 +1,5 @@
+{
+    "versionname": "Shenyang FT-5",
+    "description": "The Shenyang FT-5 is a trainer. It is a development of the J-5, with a similar cockpit configure to the MiG-15UTI, the non-afterburning Klimov VK-1A engine from the early MiG-17, and retained only the belly 23 mm cannon. It is the export version of the JJ-5.",
+    "base": "Shenyang JJ-5"
+}

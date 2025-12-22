@@ -1,0 +1,11 @@
+{
+    "versionname": "Shenyang JJ-5",
+    "description": "The Shenyang JJ-5 is a trainer. It is a development of the J-5, with a similar cockpit configure to the MiG-15UTI, the non-afterburning Klimov VK-1A engine from the early MiG-17, and retained only the belly 23 mm cannon.",
+    "base": "MiG-17",
+    "crew": [
+        "Pilot",
+        "Observer"
+    ],
+    "gun": "One 23 mm NR-23",
+    "gundamagerating": "3/2"
+}

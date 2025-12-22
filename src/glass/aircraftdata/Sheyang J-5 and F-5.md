@@ -9,12 +9,20 @@
 
 Licensed version of [MiG-17F](MiG-17.md).
 
-### J-5A/F-5A
+### J-5A
 
 - [ADC for J-5A (domestic version)](Shenyang%20J-5A.json)
-- [ADC for F-5A (export version)](Shenyang%20F-5A.json)
+
+Apparently not exported.
 
 Licensed version of [MiG-17PF](MiG-17.md).
+
+### JJ-5/FT-5
+
+- [ADC for JJ-5 (domestic version)](Shenyang%20JJ-5.json)
+- [ADC for FT-5 (domestic version)](Shenyang%20FT-5.json)
+
+Trainer.
 
 ## Notes and Changes
 
