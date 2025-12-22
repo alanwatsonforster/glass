@@ -143,6 +143,7 @@
         ]
     ],
     "loadnotes": [
+        "May use 250L, 300L, 400L, or 600L FTs.  As an exception to the normal rules for load limits, 600L tanks can be carried, but the turn rate is limited to BT.",
         "May use AA-1 BRMs and RHMs."
     ]
 }
