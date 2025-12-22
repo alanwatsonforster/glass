@@ -5,6 +5,7 @@
 
 all						:	\
 	sandbox.pdf				\
+	british.pdf				\
 	bombers.pdf 			\
 	bomber-fighters.pdf		\
 	all.pdf
@@ -14,6 +15,7 @@ all.pdf					:	.FORCE
 bombers.pdf				:	.FORCE
 bomber-fighters.pdf		:	.FORCE
 sandbox.pdf				:	.FORCE
+british.pdf				:	.FORCE
 
 format		:
 	python3 format.py
