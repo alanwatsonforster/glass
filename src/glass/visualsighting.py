@@ -55,6 +55,19 @@ def endvisualsighting():
         else:
             glass.log.logwhat("%-4s : is unsighted." % target.name())
 
+    for searcher in glass.aircraft.aslist():
+        searcher._sightinggroundunits = False
+
+
+################################################################################
+
+
+def sightgroundunits(A, note=None):
+    A.logbreak()
+    A.logwhat("sights ground units.")
+    A._sightinggroundunits = True
+    A.lognote(note)
+
 
 ################################################################################
 
@@ -441,7 +454,9 @@ def visualsightingcondition(A, B):
     blindarc = _blindarc(A, B)
     restrictedarc = _restrictedarc(A, B)
 
-    if visualsightingrange(A, B) > maxvisualsightingrange(B):
+    if A._sightinggroundunits:
+        return "sighting ground units", False, False, False
+    elif visualsightingrange(A, B) > maxvisualsightingrange(B):
         return "beyond visual range", False, False, False
     elif glass.geometry.samehorizontalposition(A, B) and A.altitude() > B.altitude():
         return (

@@ -140,6 +140,7 @@ class Aircraft(glass.element.Element):
             self._sighted = False
             self._identified = False
             self._paintscheme = paintscheme
+            self._sightinggroundunits = False
             self._turnsstalled = 0
             self._turnsdeparted = 0
             self._counter = counter
@@ -410,6 +411,20 @@ class Aircraft(glass.element.Element):
 
     def issighted(self):
         return glass.visualsighting.issighted(self)
+
+    ##############################################################################
+
+    def sightgroundunits(self, note=None):
+        """
+        Sight ground units.
+        """
+
+        try:
+            glass.gameturn.checkingameturn()
+            glass.visualsighting.sightgroundunits(self, note=note)
+        except RuntimeError as e:
+            glass.log.logexception(e)
+        self.logbreak()
 
     ##############################################################################
 
