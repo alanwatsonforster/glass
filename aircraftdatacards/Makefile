@@ -9,6 +9,7 @@ all						:	\
 	canadian.pdf			\
 	chinese.pdf				\
 	european.pdf			\
+	french.pdf				\
 	bombers.pdf 			\
 	bomber-fighters.pdf		\
 	all.pdf
@@ -20,6 +21,7 @@ british.pdf				:	.FORCE
 canadian.pdf			:	.FORCE
 chinese.pdf				:	.FORCE
 european.pdf			:	.FORCE
+french.pdf				:	.FORCE
 bombers.pdf				:	.FORCE
 bomber-fighters.pdf		:	.FORCE
 
