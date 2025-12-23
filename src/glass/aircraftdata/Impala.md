@@ -1,6 +1,6 @@
 # Atlas Impala
 
-See also:
+\subsection{See Also}
 
 - [Aermacchi MB-326](MB-326.md)
 - [Embraer AT-26](Embraer%20AT-26.md)
@@ -18,6 +18,7 @@ Gobel/Kocuka: use the Viper 20 of the G/M rather than the Viper 600 of the K/L
 Perleberg: Cannot use RG.
 
 Lord mentions:
+
 - FTs
 - PP
 - Matra F2 RPs (6 x 68 mm)
