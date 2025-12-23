@@ -1,0 +1,205 @@
+
+%!LW recipe=latexmk (xelatex)
+%!TEX program = xelatex
+
+\documentclass[twocolumn]{report}
+\input aircraftdatacards.tex
+\newif\ifversionone\versiononefalse
+\newif\ifversiontwo\versiontwofalse
+\newif\ifversionthree\versionthreefalse
+\versiononetrue
+\begin{document}
+
+
+\onecolumn
+\newpage
+
+\input{../src/glass/aircraftdata/Alpha Jet.tex}
+% Alpha Jet A
+\renewcommand{\Aaa}{Alpha Jet A}
+\renewcommand{\Aab}{Alpha Jet A}
+\renewcommand{\Ac}{\Acone{\jetengine\jetengine}}
+\renewcommand{\Ada}{AB}\renewcommand{\Adb}{---}\renewcommand{\Adc}{---}\renewcommand{\Add}{---}\renewcommand{\Ade}{---}
+\renewcommand{\Aea}{M}\renewcommand{\Aeb}{1.5}\renewcommand{\Aec}{1.0}\renewcommand{\Aed}{1.0}\renewcommand{\Aee}{2.0}
+\renewcommand{\Af}{1.0}
+\renewcommand{\Aga}{0.5}\renewcommand{\Agb}{0.5}\renewcommand{\Agc}{0.5}\renewcommand{\Agd}{0.0}
+\renewcommand{\Aha}{0.5}\renewcommand{\Ahb}{1.0}\renewcommand{\Ahc}{1.0}
+\renewcommand{\Ai}{}
+\renewcommand{\Ba}{}
+\renewcommand{\Bb}{5.0}
+\renewcommand{\Bc}{4.0}
+\renewcommand{\Bd}{4}
+\renewcommand{\Be}{+1}
+\renewcommand{\Bf}{−1}
+\renewcommand{\Bg}{---}
+\renewcommand{\Bh}{30−}
+\renewcommand{\Bi}{180}
+\renewcommand{\Bj}{No}
+\renewcommand{\Bk}{Std}
+\renewcommand{\Ccrew}{Pilot and Observer}
+\renewcommand{\Ccrewfont}{\small}
+\renewcommand{\Caa}{1.0}
+\renewcommand{\Cab}{1.0}
+\renewcommand{\Cb}{0.0}
+\renewcommand{\Cca}{1.0}\renewcommand{\Ccb}{1.0}\renewcommand{\Ccc}{1.0}
+\renewcommand{\Cda}{1.0}\renewcommand{\Cdb}{2.0}\renewcommand{\Cdc}{2.0}
+\renewcommand{\Cea}{3.0}\renewcommand{\Ceb}{3.0}\renewcommand{\Cec}{4.0}
+\renewcommand{\Cfa}{---}\renewcommand{\Cfb}{---}\renewcommand{\Cfc}{---}
+\renewcommand{\Cg}{}
+\renewcommand{\Dba}{6.0}
+\renewcommand{\Dbb}{5.5}
+\renewcommand{\Dbc}{5.0}
+\renewcommand{\Dbd}{7.0}
+\renewcommand{\Daa}{\blockDceilingandcruisespeed{45}{5.0}}\renewcommand{\Dab}{\blockDceilingandcruisespeed{38}{4.5}}\renewcommand{\Dac}{\blockDceilingandcruisespeed{32}{4.0}}
+\renewcommand{\Dca}{---}\renewcommand{\Dcb}{---}\renewcommand{\Dcc}{---}\renewcommand{\Dcd}{---}
+\renewcommand{\Dda}{\blockDminmaxspeed{2.5}{5.5}{\Dba}}\renewcommand{\Ddb}{\blockDminmaxspeed{3.0}{5.0}{\Dbb}}\renewcommand{\Ddc}{---}\renewcommand{\Ddd}{\blockDdivespeed{7.0}}
+\renewcommand{\Dea}{\blockDminmaxspeed{2.5}{6.0}{\Dba}}\renewcommand{\Deb}{\blockDminmaxspeed{2.5}{5.5}{\Dbb}}\renewcommand{\Dec}{\blockDminmaxspeed{2.5}{5.0}{\Dbc}}\renewcommand{\Ded}{\blockDdivespeed{7.0}}
+\renewcommand{\Dfa}{\blockDminmaxspeed{2.0}{6.0}{\Dba}}\renewcommand{\Dfb}{\blockDminmaxspeed{2.0}{5.5}{\Dbb}}\renewcommand{\Dfc}{\blockDminmaxspeed{2.5}{5.0}{\Dbc}}\renewcommand{\Dfd}{\blockDdivespeed{7.0}}
+\renewcommand{\Dga}{\blockDminmaxspeed{1.5}{6.0}{\Dba}}\renewcommand{\Dgb}{\blockDminmaxspeed{2.0}{5.5}{\Dbb}}\renewcommand{\Dgc}{\blockDminmaxspeed{2.0}{5.0}{\Dbc}}\renewcommand{\Dgd}{\blockDdivespeed{7.0}}
+\renewcommand{\Dha}{\blockDminmaxspeed{1.0}{6.0}{\Dba}}\renewcommand{\Dhb}{\blockDminmaxspeed{1.5}{5.5}{\Dbb}}\renewcommand{\Dhc}{\blockDminmaxspeed{1.5}{5.0}{\Dbc}}\renewcommand{\Dhd}{\blockDdivespeed{7.0}}
+\renewcommand{\Eaa}{---}\renewcommand{\Eab}{---}\renewcommand{\Eac}{---}\renewcommand{\Ead}{---}\renewcommand{\Eae}{---}\renewcommand{\Eaf}{---}
+\renewcommand{\Eba}{---}\renewcommand{\Ebb}{0.5}\renewcommand{\Ebc}{---}\renewcommand{\Ebd}{0.5}\renewcommand{\Ebe}{---}\renewcommand{\Ebf}{---}
+\renewcommand{\Eca}{---}\renewcommand{\Ecb}{1.0}\renewcommand{\Ecc}{---}\renewcommand{\Ecd}{0.5}\renewcommand{\Ece}{---}\renewcommand{\Ecf}{0.5}
+\renewcommand{\Eda}{---}\renewcommand{\Edb}{1.0}\renewcommand{\Edc}{---}\renewcommand{\Edd}{1.0}\renewcommand{\Ede}{---}\renewcommand{\Edf}{0.5}
+\renewcommand{\Eea}{---}\renewcommand{\Eeb}{1.0}\renewcommand{\Eec}{---}\renewcommand{\Eed}{1.0}\renewcommand{\Eee}{---}\renewcommand{\Eef}{1.0}
+\renewcommand{\Efa}{---}\renewcommand{\Efb}{2.0}\renewcommand{\Efc}{---}\renewcommand{\Efd}{1.5}\renewcommand{\Efe}{---}\renewcommand{\Eff}{1.0}
+\renewcommand{\Fa}{---}
+\renewcommand{\Fb}{---}
+\renewcommand{\Fc}{---}
+\renewcommand{\Fd}{---}
+\renewcommand{\Fe}{---}
+\renewcommand{\Ff}{---}
+\renewcommand{\Fg}{---}
+\renewcommand{\Fh}{---}
+\renewcommand{\Fi}{---}
+\renewcommand{\Fl}{---}
+\renewcommand{\Fm}{Ballistic}
+\renewcommand{\Fj}{TT+0/HT+1/BT+2}
+\renewcommand{\Fk}{---}
+\renewcommand{\Fn}{IFF}
+\renewcommand{\Fo}{A}
+\renewcommand{\Fp}{---}
+\renewcommand{\Fq}{B3}
+\renewcommand{\Fr}{---}
+\renewcommand{\Fs}{---}
+\renewcommand{\Ft}{None}
+\renewcommand{\Fu}{\Fua{\item The Dassault/Dornier Alpha Jet A is a light attack aircraft.
+
+\item High transonic drag (HTD). 
+
+\item Either the observer or the RWR and DJM may be carried.
+
+}}
+\renewcommand{\Gba}{\wbox[r]{00}{0}--4}
+\renewcommand{\Gbb}{\wbox[r]{00}{5}--8}
+\renewcommand{\Gbc}{\wbox[r]{00}{9}+}
+\renewcommand{\Gbd}{5,550}
+\renewcommand{\Gca}{1 and 5&750&\mbox{FT} \mbox{BB} \mbox{BG} \mbox{RP} \mbox{IRM} \mbox{EP}\\
+2 and 4&1,350&\mbox{BB} \mbox{BG} \mbox{RP} \mbox{DR} \mbox{EP}\\
+3&1,350&\mbox{BB} \mbox{BG} \mbox{RP} \mbox{GP} \mbox{PP}\\
+}
+\renewcommand{\Gcb}{\Gcc{\item May use 310L and 450L FTs
+
+\item May use 27 mm Mauser BK-27 or CC420 30 mm DEFA GPs. Prior to 1989, the GP cannot be jettisoned.
+
+\item From 1989, may use AIM-9 and Matra 550 IRMs.
+
+}}
+\renewcommand{\Gda}{12/8/4/2}
+\renewcommand{\Gea}{0000000}
+\renewcommand{\Geb}{0000-00-00T00:00:00}
+\adc
+% Alpha Jet E
+\renewcommand{\Aaa}{Alpha Jet E}
+\renewcommand{\Aab}{Alpha Jet E}
+\renewcommand{\Ac}{\Acone{\jetengine\jetengine}}
+\renewcommand{\Ada}{AB}\renewcommand{\Adb}{---}\renewcommand{\Adc}{---}\renewcommand{\Add}{---}\renewcommand{\Ade}{---}
+\renewcommand{\Aea}{M}\renewcommand{\Aeb}{1.5}\renewcommand{\Aec}{1.0}\renewcommand{\Aed}{1.0}\renewcommand{\Aee}{2.0}
+\renewcommand{\Af}{1.0}
+\renewcommand{\Aga}{0.5}\renewcommand{\Agb}{0.5}\renewcommand{\Agc}{0.5}\renewcommand{\Agd}{0.0}
+\renewcommand{\Aha}{0.5}\renewcommand{\Ahb}{1.0}\renewcommand{\Ahc}{1.0}
+\renewcommand{\Ai}{}
+\renewcommand{\Ba}{}
+\renewcommand{\Bb}{5.0}
+\renewcommand{\Bc}{4.0}
+\renewcommand{\Bd}{4}
+\renewcommand{\Be}{+1}
+\renewcommand{\Bf}{−1}
+\renewcommand{\Bg}{---}
+\renewcommand{\Bh}{30−}
+\renewcommand{\Bi}{180}
+\renewcommand{\Bj}{No}
+\renewcommand{\Bk}{Std}
+\renewcommand{\Ccrew}{Pilot and Observer}
+\renewcommand{\Ccrewfont}{\small}
+\renewcommand{\Caa}{1.0}
+\renewcommand{\Cab}{1.0}
+\renewcommand{\Cb}{0.0}
+\renewcommand{\Cca}{1.0}\renewcommand{\Ccb}{1.0}\renewcommand{\Ccc}{1.0}
+\renewcommand{\Cda}{1.0}\renewcommand{\Cdb}{2.0}\renewcommand{\Cdc}{2.0}
+\renewcommand{\Cea}{3.0}\renewcommand{\Ceb}{3.0}\renewcommand{\Cec}{4.0}
+\renewcommand{\Cfa}{---}\renewcommand{\Cfb}{---}\renewcommand{\Cfc}{---}
+\renewcommand{\Cg}{}
+\renewcommand{\Dba}{6.0}
+\renewcommand{\Dbb}{5.5}
+\renewcommand{\Dbc}{5.0}
+\renewcommand{\Dbd}{7.0}
+\renewcommand{\Daa}{\blockDceilingandcruisespeed{45}{5.0}}\renewcommand{\Dab}{\blockDceilingandcruisespeed{38}{4.5}}\renewcommand{\Dac}{\blockDceilingandcruisespeed{32}{4.0}}
+\renewcommand{\Dca}{---}\renewcommand{\Dcb}{---}\renewcommand{\Dcc}{---}\renewcommand{\Dcd}{---}
+\renewcommand{\Dda}{\blockDminmaxspeed{2.5}{5.5}{\Dba}}\renewcommand{\Ddb}{\blockDminmaxspeed{3.0}{5.0}{\Dbb}}\renewcommand{\Ddc}{---}\renewcommand{\Ddd}{\blockDdivespeed{7.0}}
+\renewcommand{\Dea}{\blockDminmaxspeed{2.5}{6.0}{\Dba}}\renewcommand{\Deb}{\blockDminmaxspeed{2.5}{5.5}{\Dbb}}\renewcommand{\Dec}{\blockDminmaxspeed{2.5}{5.0}{\Dbc}}\renewcommand{\Ded}{\blockDdivespeed{7.0}}
+\renewcommand{\Dfa}{\blockDminmaxspeed{2.0}{6.0}{\Dba}}\renewcommand{\Dfb}{\blockDminmaxspeed{2.0}{5.5}{\Dbb}}\renewcommand{\Dfc}{\blockDminmaxspeed{2.5}{5.0}{\Dbc}}\renewcommand{\Dfd}{\blockDdivespeed{7.0}}
+\renewcommand{\Dga}{\blockDminmaxspeed{1.5}{6.0}{\Dba}}\renewcommand{\Dgb}{\blockDminmaxspeed{2.0}{5.5}{\Dbb}}\renewcommand{\Dgc}{\blockDminmaxspeed{2.0}{5.0}{\Dbc}}\renewcommand{\Dgd}{\blockDdivespeed{7.0}}
+\renewcommand{\Dha}{\blockDminmaxspeed{1.0}{6.0}{\Dba}}\renewcommand{\Dhb}{\blockDminmaxspeed{1.5}{5.5}{\Dbb}}\renewcommand{\Dhc}{\blockDminmaxspeed{1.5}{5.0}{\Dbc}}\renewcommand{\Dhd}{\blockDdivespeed{7.0}}
+\renewcommand{\Eaa}{---}\renewcommand{\Eab}{---}\renewcommand{\Eac}{---}\renewcommand{\Ead}{---}\renewcommand{\Eae}{---}\renewcommand{\Eaf}{---}
+\renewcommand{\Eba}{---}\renewcommand{\Ebb}{0.5}\renewcommand{\Ebc}{---}\renewcommand{\Ebd}{0.5}\renewcommand{\Ebe}{---}\renewcommand{\Ebf}{---}
+\renewcommand{\Eca}{---}\renewcommand{\Ecb}{1.0}\renewcommand{\Ecc}{---}\renewcommand{\Ecd}{0.5}\renewcommand{\Ece}{---}\renewcommand{\Ecf}{0.5}
+\renewcommand{\Eda}{---}\renewcommand{\Edb}{1.0}\renewcommand{\Edc}{---}\renewcommand{\Edd}{1.0}\renewcommand{\Ede}{---}\renewcommand{\Edf}{0.5}
+\renewcommand{\Eea}{---}\renewcommand{\Eeb}{1.0}\renewcommand{\Eec}{---}\renewcommand{\Eed}{1.0}\renewcommand{\Eee}{---}\renewcommand{\Eef}{1.0}
+\renewcommand{\Efa}{---}\renewcommand{\Efb}{2.0}\renewcommand{\Efc}{---}\renewcommand{\Efd}{1.5}\renewcommand{\Efe}{---}\renewcommand{\Eff}{1.0}
+\renewcommand{\Fa}{---}
+\renewcommand{\Fb}{---}
+\renewcommand{\Fc}{---}
+\renewcommand{\Fd}{---}
+\renewcommand{\Fe}{---}
+\renewcommand{\Ff}{---}
+\renewcommand{\Fg}{---}
+\renewcommand{\Fh}{---}
+\renewcommand{\Fi}{---}
+\renewcommand{\Fl}{---}
+\renewcommand{\Fm}{Manual}
+\renewcommand{\Fj}{TT+0/HT+1/BT+2}
+\renewcommand{\Fk}{---}
+\renewcommand{\Fn}{IFF}
+\renewcommand{\Fo}{---}
+\renewcommand{\Fp}{---}
+\renewcommand{\Fq}{---}
+\renewcommand{\Fr}{---}
+\renewcommand{\Fs}{---}
+\renewcommand{\Ft}{None}
+\renewcommand{\Fu}{\Fua{\item The Dassault/Dornier Alpha Jet E is a trainer with a secondary light attack capability.
+
+\item High transonic drag (HTD). 
+
+}}
+\renewcommand{\Gba}{\wbox[r]{00}{0}--4}
+\renewcommand{\Gbb}{\wbox[r]{00}{5}--8}
+\renewcommand{\Gbc}{\wbox[r]{00}{9}+}
+\renewcommand{\Gbd}{5,550}
+\renewcommand{\Gca}{1 and 3&750&\mbox{FT} \mbox{BB} \mbox{BG} \mbox{RP} \mbox{IRM} \mbox{EP}\\
+2&1,350&\mbox{BB} \mbox{BG} \mbox{RP} \mbox{GP} \mbox{PP}\\
+}
+\renewcommand{\Gcb}{\Gcc{\item May use 310L and 450L FTs
+
+\item May use 27 mm Mauser BK-27 or CC420 30 mm DEFA GPs. Prior to 1989, the GP cannot be jettisoned.
+
+\item May use AIM-9 and Matra 550 IRMs.
+
+}}
+\renewcommand{\Gda}{10/7/3/2}
+\renewcommand{\Gea}{0000000}
+\renewcommand{\Geb}{0000-00-00T00:00:00}
+\adc
+
+\end{document}
+
