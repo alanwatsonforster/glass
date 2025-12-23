@@ -192,6 +192,14 @@
         "fuelcapacity": 15,
         "note": "F-5 only: wint-tip tank."
     },
+    "FT/F-6/750L": {
+        "class": "FT",
+        "weight": 1400,
+        "load": 3.0,
+        "emptyload": 2.0,
+        "fuelcapacity": 65,
+        "note": "PAF F-6 only: ventral tank."
+    },
     "FT/F7U/800L": {
         "class": "FT",
         "weight": 1500,

@@ -1,13 +1,14 @@
 {
     "base": "Shenyang F-6",
     "variantname": "PAF",
-    "description": "The Shenyang F-6 is a day fighter. It is the export version of the Shenyang J-6 and a licensed version of the MiG-19S. The “PAF” version is modified with two additional stations for AIM-9 IRMs. The NATO reporting name for the aircraft is Farmer-C.",
+    "description": "The Shenyang F-6 is a day fighter. It is the export version of the Shenyang J-6 and a licensed version of the MiG-19S. The “PAF” version is modified with two additional stations for AIM-9 IRMs, a ventral fuel tank, and an improved ejection seat. The NATO reporting name for the aircraft is Farmer-C.",
+    "ejectionseat": "standard",
     "stations": [
         [
             "pair",
             [
                 1,
-                6
+                7
             ],
             200,
             [
@@ -18,33 +19,44 @@
             "pair",
             [
                 2,
-                5
+                6
             ],
-            1300,
+            1400,
             [
                 "BB",
                 "RP",
                 "RK",
-                "FT",
-                "IRM"
+                "FT"
             ]
         ],
         [
             "pair",
             [
                 3,
-                4
+                5
             ],
             550,
             [
                 "BB",
                 "RP",
-                "RK",
-                "DR"
+                "RK"
+            ]
+        ],
+        [
+            "single",
+            [
+                4
+            ],
+            1400,
+            [
+                "FT"
             ]
         ]
     ],
     "loadnotes": [
-        "May use AIM-9 IRMs on stations 1 and 6 and AA-2 IRMs on stations 2 and 5."
+        "May use AIM-9 IRMs on stations 1 and 7.",
+        "May use 760L FTs on stations 2 and 6.",
+        "May use SNEB 68~mm RPs on stations 3 and 5.",
+        "May only use a special ventral conformal 750L FT on station 4. The fuel tank has a full weight of 1400, a load of 3.0/2.0, and a capacity of 65 fuel points."
     ]
 }

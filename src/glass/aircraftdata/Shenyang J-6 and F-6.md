@@ -26,6 +26,8 @@ Similar to MiG-19PF (Wikipedia).
 
 Similar to MiG-19PM (Wikipedia).
 
+Photo in WIkipedia shows no cannon.
+
 ### J-6C
 
 - [ADC for J-6C](Shenyang%20J-6C.json)
@@ -49,6 +51,10 @@ Reconnaissance version (Wikipedia).
 ### NR-30 Guns
 
 See [#208](https://github.com/alanwatsonforster/glass/issues/208).
+
+### Ventral Tank
+
+- <https://warmachinesdrawn.blogspot.com/2020/10/shenyang-f-6-pakistan-users-part-one.html>
 
 ## Operational History
 
