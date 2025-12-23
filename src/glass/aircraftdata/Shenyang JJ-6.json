@@ -1,0 +1,12 @@
+{
+    "versionname": "Shenyang JJ-6",
+    "base": "Shenyang J-6",
+    "description": "The Shenyang JJ-6 is a trainer. It is a modified version of the Shenyang J-6, with a second cockpit and only one cannon.",
+    "crew": [
+        "Pilot",
+        "Observer"
+    ],
+    "gun": "One 30 mm NR-30",
+    "gundamagerating": "4/3_",
+    "VPs": 14
+}
