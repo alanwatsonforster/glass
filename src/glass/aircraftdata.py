@@ -430,6 +430,18 @@ class aircraftdata:
     def hasproperty(self, p, geometry):
         return p in self.properties(geometry)
 
+    def geometryminspeed(self, geometry):
+        if "minspeed" in self._data["geometries"][geometry]:
+            return self._data["geometries"][geometry]["minspeed"]
+        else:
+            return None
+
+    def geometrymaxspeed(self, geometry):
+        if "maxspeed" in self._data["geometries"][geometry]:
+            return self._data["geometries"][geometry]["maxspeed"]
+        else:
+            return None
+
     def climbcapability(self, configuration, altitudeband, powersetting):
         _checkaltitudeband(altitudeband)
         _checkpowersetting(powersetting)

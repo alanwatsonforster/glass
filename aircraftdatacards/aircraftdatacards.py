@@ -399,6 +399,8 @@ def blockC(data, geometry=None):
             s += r"No displacement rolls if speed ≥ %.1f. " % data.NDRHSlimit(geometry)
         if data.hasproperty("NLRHS", geometry):
             s += r"No lag rolls if speed ≥ %.1f. " % data.NLRHSlimit(geometry)
+    if data.hasproperty("RMCL", geometry):
+        s += r"Rolling maneuvers only if CL."
 
     writelatex(r"\renewcommand{\Cg}{%s}" % s)
 
@@ -861,11 +863,28 @@ def blockF(data, geometry=None):
             s += ", ".join(geometries[:-1])
             s += ", and " + geometries[-1]
         s += "."
+        if data.hasproperty("EVGA", geometry):
+            s += " The geometry changes automatically at the end of each turn according to the speed."
         if data.hasproperty("EVG1", geometry):
             s += " The geometry may be changed by one step at the end of each turn."
         if data.hasproperty("EVGTT", geometry):
             s += " The geometry may be changed at the end of the aircraft’s move if the maximum turn rate used is TT or less."
-        s += " The data shown here are for the %s geometry." % geometry
+        if data.hasproperty("EVGA", geometry):
+            s += (
+                " The data shown here are for the %s geometry and are used if the speed is "
+                % geometry
+            )
+            if data.geometryminspeed(geometry) is None:
+                s += "%.1f or less." % data.geometrymaxspeed(geometry)
+            elif data.geometrymaxspeed(geometry) is None:
+                s += "%.1f or more." % data.geometryminspeed(geometry)
+            else:
+                s += "%.1f or more and %.1f or less." % (
+                    data.geometryminspeed(geometry),
+                    data.geometrymaxspeed(geometry),
+                )
+        else:
+            s += " The data shown here are for the %s geometry." % geometry
 
     if len(data.properties(geometry)) != 0:
         for property in sorted(data.properties(geometry)):
@@ -877,10 +896,16 @@ def blockF(data, geometry=None):
                 or property == "NRM"
                 or property == "NDRHS"
                 or property == "NLRHS"
+                or property == "RMCL"
             ):
                 # Noted in maneuver section.
                 pass
-            elif property == "EVG" or property == "EVG1" or property == "EVGTT":
+            elif (
+                property == "EVG"
+                or property == "EVG1"
+                or property == "EVGA"
+                or property == "EVGTT"
+            ):
                 # Noted immediately above.
                 pass
             else:
