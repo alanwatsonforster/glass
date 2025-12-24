@@ -322,7 +322,8 @@
     "loadnotes": [
         "Either stations 1 to 4 or stations 5 to 12 may be used.",
         "If stations 1 or 4 are loaded with more than 1,100 lb, the maximum turn rate is reduced to HT.",
-        "Stations 5 to 12 may each carry one or two 105 mm T-10 RKs (large RK)."
+        "Stations 5 to 12 may each carry one or two 105 mm T-10 RKs (large RK).",
+        "May use 450L FTs."
     ],
     "VPs": [
         10,
