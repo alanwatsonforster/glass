@@ -26,3 +26,7 @@ Kettle has:
   - 1700L FT with weight = 3340, load = 5.0/3.5, and fuel = 142
 
 With two empty 1700L FTs and two Magics load is 9 = DT
+
+### Fuel Tanks
+
+- <https://artmandelta.com/wp-content/uploads/2024/10/Mirage-III-in-SAAF-Service-Part-9-by-Malcolm-Reid.pdf>
