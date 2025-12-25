@@ -36,3 +36,14 @@ def load(f, **kwargs):
     :return: The deserialized object.
     """
     return loads(f.read(-1), **kwargs)
+
+
+def loadpath(path, **kwargs):
+    """
+    Deserialize a file to an object.
+
+    :param path: The path of the text file or binary file containing the JSONC document to be deserialized.
+    :return: The deserialized object.
+    """
+    with open(path, "r", encoding="utf-8") as f:
+        return load(f, **kwargs)

@@ -1,6 +1,6 @@
 {
-    "name": "infantry",
-    "description": "infantry",
+    "name": "unidentified infantry",
+    "description": "unidentifiedinfantry",
     "symbols": "infantry",
     "defensestrength": "",
     "sightingrange": 6,

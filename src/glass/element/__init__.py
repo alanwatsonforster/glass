@@ -199,9 +199,12 @@ class Element:
             facing = glass.azimuth.tofacing(azimuth)
 
         if hexcode is not None:
-            if not glass.hexcode.isvalidhexcode(hexcode):
-                raise RuntimeError("the hexcode argument is not valid.")
-            x, y = glass.hexcode.toxy(hexcode)
+            if hexcode == "origin":
+                x, y = 0, 0
+            else:
+                if not glass.hexcode.isvalidhexcode(hexcode):
+                    raise RuntimeError("the hexcode argument is not valid.")
+                x, y = glass.hexcode.toxy(hexcode)
 
         if not glass.hex.isvalid(x, y, facing):
             raise RuntimeError("the combination of hexcode and facing are not valid.")

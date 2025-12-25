@@ -3155,8 +3155,8 @@ def _drawgroundunitincanvas(
         if "S" in text:
             text = text.replace("S", "")
         elif "H" in text:
-            text = re.sub(r'([0-9])([0-9])H', r'\1' + '\u0332' + r'\2' + '\u0332', text)
-            text = re.sub(r'([0-9])H', r'\1' + '\u0332', text)
+            text = re.sub(r"([0-9])([0-9])H", r"\1" + "\u0332" + r"\2" + "\u0332", text)
+            text = re.sub(r"([0-9])H", r"\1" + "\u0332", text)
         _drawtextincanvas(
             x,
             y,
