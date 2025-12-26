@@ -887,6 +887,7 @@ def blockF(data, geometry=None):
             s += " The data shown here are for the %s geometry." % geometry
 
     if len(data.properties(geometry)) != 0:
+        t = ""
         for property in sorted(data.properties(geometry)):
             if property == "ABSF" or property == "SMP":
                 # Noted in power section.
@@ -909,53 +910,54 @@ def blockF(data, geometry=None):
                 # Noted immediately above.
                 pass
             else:
-                s += r"\item "
                 if property == "GSSM":
-                    s += r"Good supersonic maneuverability (GSSM). "
+                    t += r"Good supersonic maneuverability (GSSM). "
                 elif property == "HAE":
-                    s += r"High altitude engines (HAE). "
+                    t += r"High altitude engines (HAE). "
                 elif property == "HBR":
-                    s += r"High bleed rate (HBR). "
+                    t += r"High bleed rate (HBR). "
                 elif property == "HPR":
-                    s += r"High pitch rate (HPR). "
+                    t += r"High pitch rate (HPR). "
                 elif property == "HRR":
-                    s += r"High roll rate (HRR). "
+                    t += r"High roll rate (HRR). "
                 elif property == "HRRCL":
-                    s += r"High roll rate (HRR) if CL. "
+                    t += r"High roll rate (HRR) if CL. "
                 elif property == "HTD":
-                    s += r"High transonic drag (HTD). "
+                    t += r"High transonic drag (HTD). "
                 elif property == "LBR":
-                    s += r"Low bleed rate (LBR). "
+                    t += r"Low bleed rate (LBR). "
                 elif property == "LRR":
-                    s += r"Low roll rate (LRR). "
+                    t += r"Low roll rate (LRR). "
                 elif property == "LRRHS":
-                    s += (
+                    t += (
                         r"Low roll rate (LRR) if speed ≥ %.1f. "
                         % data._data["LRRHSlimit"]
                     )
                 elif property == "LTD":
-                    s += r"Low transonic drag (LTD). "
+                    t += r"Low transonic drag (LTD). "
                 elif property == "LTDCL":
-                    s += r"Low transonic drag (LTD) if CL. "
+                    t += r"Low transonic drag (LTD) if CL. "
                 elif property == "PSSM":
-                    s += r"Poor supersonic maneuverability (PSSM). "
+                    t += r"Poor supersonic maneuverability (PSSM). "
                 elif property == "RA":
-                    s += r"Rapid acceleration (RA). "
+                    t += r"Rapid acceleration (RA). "
                 elif property == "RACL":
-                    s += r"Rapid acceleration (RA) if CL. "
+                    t += r"Rapid acceleration (RA) if CL. "
                 elif property == "RALS":
-                    s += (
+                    t += (
                         r"Rapid acceleration (RA) if speed ≤ %.1f. "
                         % data._data["RALSlimit"]
                     )
                 elif property == "RPR":
-                    s += r"Rapid power response (RPR). "
+                    t += r"Rapid power response (RPR). "
                 elif property == "FBW":
-                    s += r"Fly-by-wire (FBW). "
+                    t += r"Fly-by-wire (FBW). "
                 else:
                     log("unknown property: %s" % property)
-                    s += "%s. " % property
-                s += "\n\n"
+                    t += "%s. " % property
+
+        if t != "":
+            s += r"\item %s\n\n" % t
 
     for note in data.notes():
         s += "\\item %s\n\n" % note

@@ -42,9 +42,9 @@
     "jetengines": 4,
     "cruisespeed": 5.0,
     "climbspeed": 4.5,
-    "visibility": 9,
+    "visibility": 11,
     "sizemodifier": -2,
-    "vulnerability": -1,
+    "vulnerability": 1,
     "restrictedarcs": "-",
     "blindarcs": "90-",
     "internalfuel": 9800,
@@ -518,7 +518,8 @@
     "technology": [
         "TFR-B",
         "Stealth (2)",
-        "LPI Radar"
+        "LPI Radar",
+        "Towed Decoy (+2)"
     ],
     "properties": [
         "RA",
@@ -532,11 +533,12 @@
     "notes": [
         "Tail Radar. Equiped with a ALQ-153 tail radar with ECCM 2, arc 60-, search 40-20, track 25-8, and lock-on 8-.",
         "DDS capacity is 250 decoys.",
-        "Stealth tchnology is reduced to 1 if the OP/DP is carried and 0 if any other external store is carried."
+        "DDS/DJM/AJM/BJM from 1991. TFR-B from 1992. Towed decoy technology from 1998.",
+        "Stealth technology is reduced to 1 if the OP/DP is carried and 0 if any other external store is carried."
     ],
     "storeslimits": [
-        40,
-        58,
+        64,
+        88,
         75000
     ],
     "stations": [
@@ -548,12 +550,9 @@
                 9,
                 11
             ],
-            5000,
+            7000,
             [
                 "ASM",
-                "BB",
-                "BG",
-                "RG",
                 "OP/LP"
             ]
         ],
@@ -563,10 +562,9 @@
                 4,
                 8
             ],
-            5000,
+            3500,
             [
-                "BB",
-                "BG"
+                "ASM"
             ]
         ],
         [
@@ -585,13 +583,12 @@
         ]
     ],
     "loadnotes": [
-        "Stations 5 to 7 are internal bays and may each carry a CBM, MPRL, or 11,200L FT (960 fuel points). Stations 5 and 6 may be combined to carry a CSRL.",
-        "A CBM may carry 28 × Mk~82 or 10 × CBU-87/89/97 BB.",
-        "A MPRL may carry: 4 × B20 NBB; 8 × B61/B83 NBB; 8 × AGM-69 NASM; 8 × Mk~84 BB or GBU-31 BS or AGM-154 BS or AGM-158 RS; or 4 × GBU-31 BS and 16 × GBU-38 BS.",
-        "A CSRL may carry 8 × AGM-86B NASM.",
-        "Stations 1 to 3 and 9 to 11 may each carry: 2 × B61 NBB; 2 × AGM-86B NASM; 6 × Mk~82 BB; 2 × GBU-31/72 BG or AGM-158/AGM-183 RS; or 2 × 3500L FT.",
-        "Stations 4 and 8 may each carry: 1 × B61 NBB; 1 × AGM-86B NASM; or 4 × Mk~82 BB.",
-        "From 2008, station 1 may carry a AAQ-33 Sniper DP/LP."
+        "Stations 1 to 3 and 9 to 11 are the fuselage stations.",
+        "Stations 4 and 8 are the wing-glove stations.",
+        "Stations 5 to 7 are internal bays and may each carry a MPRL, CBM, or 11,200L FT (960 fuel points). Stations 5 and 6 may be combined to carry a CSRL and a 5,600L FT (480 fuel points).",
+        "See the extended notes for load options and restrictions for the MPRL, CBM, and CSRL.",
+        "Station 1 may carry a AAQ-33 Sniper DP/LP.",
+        "As an exception to the normal rules for load points, internal loads contribute 1 load point for each 1,000 of weight and internal fuel contributes 1 load point for each 50 fuel points. A return mission will typically require leaving the target with at least 3200 fuel points (64 load points)."
     ],
     "VPs": 100
 }
