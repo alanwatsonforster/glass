@@ -957,7 +957,7 @@ def blockF(data, geometry=None):
                     t += "%s. " % property
 
         if t != "":
-            s += r"\item %s\n\n" % t
+            s += r"\item %s" % t
 
     for note in data.notes():
         s += "\\item %s\n\n" % note

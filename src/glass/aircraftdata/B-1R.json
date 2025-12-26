@@ -33,6 +33,7 @@
             1.0
         ]
     },
+    "cruisespeed": 5.5,
     "geometries": {
         "forward": {
             "maxspeed": 3.5,
@@ -469,5 +470,99 @@
                 1.5
             ]
         ]
-    }
+    },
+    "radar": {
+        "name": "",
+        "eccm": 4,
+        "arc": "120+",
+        "searchrange": 360,
+        "searchstrength": 60,
+        "trackingrange": 300,
+        "trackingstrength": 60,
+        "lockon": 8
+    },
+    "ecm": {
+        "iff": true,
+        "rwr": "D",
+        "dds": "D",
+        "djm": "D5",
+        "ajm": "D5",
+        "bjm": "D5"
+    },
+    "technology": [
+        "Auto-Track",
+        "Look-Down Radar",
+        "LPI Radar",
+        "Multi-Target (6)",
+        "Target ID",
+        "TFR-B",
+        "Towed Decoy (+2)",
+        "Track-While-Scan (100)"
+    ],
+    "notes": [
+        "DDS capacity is 250 decoys.",
+        "Dual-Mode Radar. The radar may also function as a navigation/attack radar with a search range of 250, tracking range of 250, and a lock-on roll of 8-."
+    ],
+    "stations": [
+        [
+            "grouppair",
+            [
+                1,
+                3,
+                9,
+                11
+            ],
+            7000,
+            [
+                "MDR",
+                "AHM",
+                "BB",
+                "BS",
+                "BG",
+                "RS",
+                "OP/LP"
+            ]
+        ],
+        [
+            "pair",
+            [
+                4,
+                8
+            ],
+            3500,
+            [
+                "MDR",
+                "AHM",
+                "BB",
+                "BS",
+                "BG",
+                "RS"
+            ]
+        ],
+        [
+            "group",
+            [
+                5,
+                7
+            ],
+            26000,
+            [
+                "CBM",
+                "MPRL",
+                "FT"
+            ]
+        ]
+    ],
+    "loadnotes": [
+        "Stations 1-3 and 9-11 are the fuselage stations.",
+        "Stations 4 and 8 are the wing-glove stations.",
+        "Stations 5 to 7 are internal bays and may each carry a MPRL, CBM, or 11,200L FT (960 fuel points).",
+        "May use any internal loads allowed for the B-1B.",
+        "Stations 1-4 and 8-11 may carry any weapon BB, BG, BG, or RS weapon that can be carried internally or a MDR with two AHMs.",
+        "Stations 1-3 and 9-11 may each carry two 2,000 lb weapons or six 500~lb weapons.",
+        "Stations 4 and 8 may each carry one 2,000~lb weapon or six 500~lb weapons.",
+        "Station 1 may carry an AAQ-33 Sniper OP/DP.",
+        "May use AIM-120 AHMs."
+    ],
+    "VPs": 110
 }

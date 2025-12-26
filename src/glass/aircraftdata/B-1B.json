@@ -583,11 +583,11 @@
         ]
     ],
     "loadnotes": [
-        "Stations 1 to 3 and 9 to 11 are the fuselage stations.",
+        "Stations 1-3 and 9-11 are the fuselage stations.",
         "Stations 4 and 8 are the wing-glove stations.",
         "Stations 5 to 7 are internal bays and may each carry a MPRL, CBM, or 11,200L FT (960 fuel points). Stations 5 and 6 may be combined to carry a CSRL and a 5,600L FT (480 fuel points).",
         "See the extended notes for load options and restrictions for the MPRL, CBM, and CSRL.",
-        "Station 1 may carry a AAQ-33 Sniper DP/LP.",
+        "Station 1 may carry an AAQ-33 Sniper DP/LP.",
         "As an exception to the normal rules for load points, internal loads contribute 1 load point for each 1,000 of weight and internal fuel contributes 1 load point for each 50 fuel points. A return mission will typically require leaving the target with at least 3200 fuel points (64 load points)."
     ],
     "VPs": 100
