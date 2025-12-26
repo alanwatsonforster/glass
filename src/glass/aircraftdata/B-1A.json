@@ -1,39 +1,7 @@
 {
-    "versionname": "B-1R",
-    "description": "The Rockwell B-1R Lancer is a conventional strategic bomber.",
+    "versionname": "B-1A",
+    "description": "The Rockwell B-1A Lancer is a strategic nuclear bomber.",
     "base": "B-1B",
-    "powertable": {
-        "AB": [
-            4.0,
-            3.0,
-            2.0,
-            42.0
-        ],
-        "M": [
-            3.5,
-            2.5,
-            1.5,
-            12.0
-        ],
-        "N": [
-            0.0,
-            0.0,
-            0.0,
-            5.0
-        ],
-        "I": [
-            0.5,
-            1.0,
-            1.0,
-            1.0
-        ],
-        "SPBR": [
-            1.0,
-            1.0,
-            1.0
-        ]
-    },
-    "cruisespeed": 5.5,
     "geometries": {
         "forward": {
             "maxspeed": 3.5,
@@ -291,7 +259,7 @@
                     ],
                     [
                         3.0,
-                        12.5
+                        12.0
                     ],
                     [
                         "-",
@@ -306,34 +274,30 @@
                     ],
                     [
                         3.0,
-                        12.5
+                        12.0
                     ],
                     [
                         3.0,
-                        11.5
+                        11.0
                     ],
                     15.0
                 ],
                 "HI": [
                     [
                         2.5,
-                        12.5
+                        12.0
                     ],
                     [
                         3.0,
-                        11.5
+                        11.0
                     ],
                     [
                         3.0,
-                        10.5
+                        10.0
                     ],
                     14.0
                 ],
                 "MH": [
-                    [
-                        2.5,
-                        11.0
-                    ],
                     [
                         2.5,
                         10.0
@@ -342,35 +306,39 @@
                         2.5,
                         9.0
                     ],
+                    [
+                        2.5,
+                        8.0
+                    ],
                     13.0
                 ],
                 "ML": [
                     [
                         2.5,
-                        9.0
+                        8.0
                     ],
                     [
                         2.5,
-                        8.5
+                        7.0
                     ],
                     [
                         2.5,
-                        7.5
+                        6.5
                     ],
                     11.0
                 ],
                 "LO": [
                     [
                         2.0,
-                        7.5
-                    ],
-                    [
-                        2.0,
-                        7.0
-                    ],
-                    [
-                        2.0,
                         6.5
+                    ],
+                    [
+                        2.0,
+                        6.0
+                    ],
+                    [
+                        2.0,
+                        5.5
                     ],
                     10.0
                 ]
@@ -381,106 +349,10 @@
         }
     },
     "ceilingtable": [
-        57,
-        50,
-        42
+        55,
+        48,
+        40
     ],
-    "climbcapabilitytable": {
-        "EH": [
-            [
-                1.0,
-                0.5
-            ],
-            [
-                0.5,
-                0.0
-            ],
-            [
-                "-",
-                "-"
-            ]
-        ],
-        "VH": [
-            [
-                1.0,
-                1.0
-            ],
-            [
-                0.5,
-                0.5
-            ],
-            [
-                0.5,
-                "-"
-            ]
-        ],
-        "HI": [
-            [
-                2.5,
-                1.5
-            ],
-            [
-                1.5,
-                1.0
-            ],
-            [
-                0.5,
-                0.5
-            ]
-        ],
-        "MH": [
-            [
-                3.5,
-                1.5
-            ],
-            [
-                2.5,
-                1.5
-            ],
-            [
-                1.0,
-                0.5
-            ]
-        ],
-        "ML": [
-            [
-                4.5,
-                3.0
-            ],
-            [
-                3.5,
-                3.0
-            ],
-            [
-                1.5,
-                1.0
-            ]
-        ],
-        "LO": [
-            [
-                5.0,
-                3.0
-            ],
-            [
-                3.5,
-                3.0
-            ],
-            [
-                2.5,
-                1.5
-            ]
-        ]
-    },
-    "radar": {
-        "name": "",
-        "eccm": 4,
-        "arc": "120+",
-        "searchrange": 360,
-        "searchstrength": 60,
-        "trackingrange": 300,
-        "trackingstrength": 60,
-        "lockon": 8
-    },
     "ecm": {
         "iff": true,
         "rwr": "D",
@@ -490,18 +362,11 @@
         "bjm": "D5"
     },
     "technology": [
-        "Auto-Track",
-        "Look-Down Radar",
-        "LPI Radar",
-        "Multi-Target (6)",
-        "Target ID",
         "TFR-B",
-        "Towed Decoy (+2)",
-        "Track-While-Scan (100)"
+        "LPI Radar"
     ],
     "notes": [
-        "DDS capacity is 250 decoys.",
-        "Dual-Mode Radar. The radar may also function as a navigation/attack radar with a search range of 475, tracking range of 250, and a lock-on roll of 8-."
+        "DDS capacity is 250 decoys."
     ],
     "stations": [
         [

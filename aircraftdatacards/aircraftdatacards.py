@@ -879,7 +879,7 @@ def blockF(data, geometry=None):
             elif data.geometrymaxspeed(geometry) is None:
                 s += "%.1f or more." % data.geometryminspeed(geometry)
             else:
-                s += "%.1f or more and %.1f or less." % (
+                s += "%.1f to %.1f." % (
                     data.geometryminspeed(geometry),
                     data.geometrymaxspeed(geometry),
                 )
