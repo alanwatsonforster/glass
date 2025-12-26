@@ -58,6 +58,10 @@
 - Built by de Havilland and under license by Emmen
 - Used by Switzerland (Goebel/Watkins)
 
+### FB.6 (late)
+
+- Ejection seats added in 1960 (Watkins)
+
 ### Vampire FB.9
 
 - FB.5 but with air conditioning (Goebel/Watkins) and new canopy to prevent misting (Watkins).

@@ -1,0 +1,7 @@
+{
+    "versionname": "Vampire FB.6",
+    "variantname": "Late",
+    "description": "The Vampire FB.6 is a day fighter and fighter-bomber. The “Late” variant described is the 1960 upgrade with an ejection seat.",
+    "base": "Vampire FB.6",
+    "ejectionseat": "early"
+}
