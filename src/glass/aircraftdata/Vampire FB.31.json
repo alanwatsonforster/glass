@@ -1,0 +1,6 @@
+{
+    "versionname": "Vampire FB.31",
+    "description": "The Vampire FB.31 a day fighter and fighter-bomber. It is a derivative of the de Havilland Vampire FB.5 but with a more powerful Nene engine.",
+    "base": "Mistral",
+    "ejectionseat": "none"
+}

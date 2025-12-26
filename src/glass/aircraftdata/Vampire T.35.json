@@ -1,0 +1,6 @@
+{
+    "versionname": "Vampire T.35",
+    "description": "The Vampire T.35 is a trainer with a secondary light attack capability. It is a development of the T.33 with a new canopy, ejection seats, and additional fuel.",
+    "base": "Vampire T.11",
+    "ejectionseat": "early"
+}

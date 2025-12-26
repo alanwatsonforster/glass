@@ -23,7 +23,7 @@
 
 ### Vampire F.3
 
-- Goblin 2 and unclipped wings. 
+- Goblin 2 and unclipped wings.
 - Goblin 2 (BAE, Watkins)
 - Internal fuel 399 US gal = 130 fuel points (Goebel)
 - Internal fuel 330 Imp gal = 390 US gallons (Watkins)
@@ -43,7 +43,7 @@
 - 100 imp gal FT (Watkins)
 
 - Used by RAF, SAAF, Venezuela (Goebel)
-- Used by UK (RAF), France (AA), Italy (AMI), Lebanon (LAF), New Zealand (RNZAF), South Africa (SAAF), 
+- Used by UK (RAF), France (AA), Italy (AMI), Lebanon (LAF), New Zealand (RNZAF), South Africa (SAAF),
 
 ### Vampire FB.6
 
@@ -99,12 +99,53 @@ I take the performance of the AI Mk X from Chris Perleberg's ADC for the Meteor 
 - Derived from T.11 and not carrier-capable (Watkins).
 - Refitted with ejector seats between April 1956 and May 1957 (Watkins).
 
-### Vampire F.30
+### DHA Vampire F.30
 
-- Nene engine (Watkins)
-- Developed from F.2 (Watkins)
-- Problems at high Mach because of additional intakes under fuselage (Watkins)
-- CAC and Australia
+- Nene 2-VH engine with 5,000 lb thrust (Watkins)
+- First flew June 1949 and delivered to RAAF in September 1949 (Watkins).
+- "Elephant's ears" intakes moved to underside of fuselage to improve the handling (Watkins).
+- Ceiling 49kft and maximum speed 570 mph at SL, approximately 50 mph faster
+  than the Goblin versions and similar to the Mistral (Watkins)
+
+- I presume this is more like an F.3 in terms of stores.
+- I will adopt the performance of the Mistral
+
+### DHA Vampire FB.31
+
+- Nene 2-VH engine (Watkins)
+- Clipped and strengthened wings (Watkins)
+- Delivered 1952 and 1953
+- Some F.30 converted to FB.31 in 1956.
+
+- I presume this is more like an FB.5 in terms of stores.
+
+### DHA Vampire T.33
+
+- Goblin 35 engine (similar to Goblin 3) (Watkins).
+- Based on T.11 (Watkins)
+- Delivered 1952 to 1955 (Watkins)
+
+### DHA Vampire T.33A
+
+- Upgrade of T.33 with the canopy and ejection seat of the T.35 (Watkins)
+- Same fuel as T.33 (Watkins)
+
+### Vampire T.34
+
+- T.33 for RAN (Watkins)
+- Delivered 1954
+
+### Vampire T.34A
+
+- T.34 with new canopy and ejection seat from T.35 (Watkins)
+- Modified 1958 (Watkins)
+
+### DHA Vampire T.35
+
+- T.33 with new canopy, ejection seat, and additional fuel (Watkins).
+- Delivered 1957 to 1960 (Watkins).
+
+- Not clear how much additional fuel.
 
 ### Vampire FB.50
 
@@ -132,7 +173,7 @@ Watkins, ch. 3:
 
 > From 1943 until September 1945, fifty Goblin 1 engines were produced by the de Havilland (Engines) Company. They were followed on the production line by the Goblin 2 which was first delivered in October 1945. Between this date and March 1953, a total of 3,606 Goblin 2 engines were built for the Vampire F 3, FB 5, FB 9, FB 52A and the Sea Vampire F 20. The final production Goblin engines, the Goblin 3 for the Vampire FB 6, NF 10, T 11, FB 50 and FB 52, and the Goblin 35 for the Vampire NF 54 and T 55, were built from October 1948. When production ceased in 1955, a total of 2,688 Goblin 3/35 engines had been built.
 
-Watkins, ch. 7: 
+Watkins, ch. 7:
 
 > A variation of the Vampire FB 52 was the FB 52A built for the Italian Air Force; fifty-one were supplied from Chester between July 1950 and December 1951, followed by at least a further twenty-seven built by the Aeronautica Macchi and FIAT factories.
 
@@ -152,7 +193,7 @@ Watkins, ch. 35:
 
 ### Vampire NF.54
 
-- Export version of NF.10. 
+- Export version of NF.10.
 - India (39) and Italy (14) (Watkins)
 - Indian NF.54 were refurbished ex-RAF aircraft (Watkins)
 
@@ -183,13 +224,13 @@ Ibid:
 
 > The Goblin engine was also built under licence by Societa per Anzioni FIAT of Turin, Italy, and Svenska Flygmotor at Trollhatten in Sweden. The Goblin 2 engines produced for the Swedish J28A Vampires were designated as RM 1s whereas the later J28Bs and J28Cs had Swedish-built RM 1As (Goblin 3s). The Swedish-built engines were adapted with roller bearings in the engine in place of the standard ball bearings fitted by de Havilland.
 
-- Goblin 2: 
+- Goblin 2:
   - 3,100 lbf
   - F.3
   - FB.5/9/51 (Goebel)
   - Later Mk 1s (Wikipedia, Watkins)
   - Perleberg's ADC has the F.3 with reduced maximum speeds and climb rates; I will presume these apply to the Goblin 2 version. The F.3 also has unclipped wing tips, which might reduce the speed at low altitude, but I can't see how they would reduce the rate of climb.
-- Goblin 3: 
+- Goblin 3:
   - 3,350 lbf
   - 8% more thrust than the Goblin 2
   - FB.6/50/52/52A and FB.5 for Rhodesia (Goebel)

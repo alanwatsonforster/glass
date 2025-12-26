@@ -1,0 +1,5 @@
+{
+    "versionname": "Vampire T.34",
+    "description": "The Vampire T.34 is a trainer with a secondary light attack capability. It is a development of the T.33 for RAN use.",
+    "base": "Vampire T.11"
+}

@@ -1,0 +1,6 @@
+{
+    "versionname": "Vampire T.33A",
+    "description": "The Vampire T.33A is a trainer with a secondary light attack capability. It is T.33 refitted with the canopy and ejection seat of the T.35.",
+    "base": "Vampire T.33",
+    "ejectionseat": "early"
+}

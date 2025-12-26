@@ -1,6 +1,0 @@
-{
-    "versionname": "DHA Vampire T.34A",
-    "description": "The DHA Vampire T.34A is a trainer with a secondary light attack capability. It is T.34 refitted with the canopy and ejection seat of the T.35.",
-    "base": "DHA Vampire T.34",
-    "ejectionseat": "early"
-}

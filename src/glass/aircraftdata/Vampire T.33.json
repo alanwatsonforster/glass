@@ -1,0 +1,5 @@
+{
+    "versionname": "Vampire T.33",
+    "description": "The Vampire T.33 is a trainer with a secondary light attack capability. It is a license-built version of the de Havilland Vampire T.11.",
+    "base": "Vampire T.11"
+}
