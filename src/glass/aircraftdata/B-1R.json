@@ -1,6 +1,6 @@
 {
     "versionname": "B-1R",
-    "description": "The Rockwell B-1R Lancer is a conventional strategic bomber. Its nickname is “Bone”.",
+    "description": "The Rockwell B-1R Lancer is a strategic conventional bomber. Its nickname is “Bone”.",
     "base": "B-1B",
     "powertable": {
         "AB": [
