@@ -1063,11 +1063,13 @@ def writetype(name):
 
 def writeadc(name):
 
+    writelatex(r"\clearpage")
     log("writing variant %s." % name)
     writelatex("%% %s" % name)
 
     data = aircraftdata.aircraftdata(name)
 
+    labelled = False
     for geometry in data.geometries():
         blockA(data, geometry=geometry)
         blockB(data, geometry=geometry)
@@ -1077,6 +1079,9 @@ def writeadc(name):
         blockF(data, geometry=geometry)
         blockG(data, geometry=geometry)
         writelatex(r"\adc")
+        if not labelled:
+            writelatex(r"\adclabel{%s}" % name)
+            labelled = True
 
 
 def writelatexprolog(withtableofcontents):
