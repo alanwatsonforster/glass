@@ -53,11 +53,11 @@
     "ejectionseat": "advanced",
     "maneuvertable": {
         "LR/DR": [
-            2,
+            1,
             2
         ],
         "VR": [
-            1.5,
+            1,
             1.5
         ]
     },
