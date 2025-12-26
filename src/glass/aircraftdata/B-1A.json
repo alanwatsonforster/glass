@@ -1,5 +1,6 @@
 {
     "versionname": "B-1A",
+    "popularname": null,
     "description": "The Rockwell B-1A Lancer is a strategic nuclear bomber.",
     "base": "B-1B",
     "geometries": {
@@ -353,81 +354,47 @@
         48,
         40
     ],
+    "radar": {
+        "name": "APQ-144",
+        "eccm": 3,
+        "arc": "120+",
+        "searchrange": 475,
+        "trackingrange": 250,
+        "lockon": 8
+    },
     "ecm": {
         "iff": true,
-        "rwr": "D",
+        "rwr": "C",
         "dds": "D",
-        "djm": "D5",
-        "ajm": "D5",
-        "bjm": "D5"
+        "djm": "C4",
+        "ajm": "C4",
+        "bjm": "B3"
     },
     "technology": [
+        "LPI Radar",
         "TFR-B",
-        "LPI Radar"
+        "TV/IR Optics"
     ],
     "notes": [
         "DDS capacity is 250 decoys."
     ],
     "stations": [
         [
-            "grouppair",
-            [
-                1,
-                3,
-                9,
-                11
-            ],
-            7000,
-            [
-                "MDR",
-                "AHM",
-                "BB",
-                "BS",
-                "BG",
-                "RS",
-                "OP/LP"
-            ]
-        ],
-        [
-            "pair",
-            [
-                4,
-                8
-            ],
-            3500,
-            [
-                "MDR",
-                "AHM",
-                "BB",
-                "BS",
-                "BG",
-                "RS"
-            ]
-        ],
-        [
             "group",
             [
-                5,
-                7
+                1,
+                3
             ],
             26000,
             [
-                "CBM",
-                "MPRL",
+                "RL",
                 "FT"
             ]
         ]
     ],
     "loadnotes": [
-        "Stations 1-3 and 9-11 are the fuselage stations.",
-        "Stations 4 and 8 are the wing-glove stations.",
-        "Stations 5 to 7 are internal bays and may each carry a MPRL, CBM, or 11,200L FT (960 fuel points).",
-        "May use any internal loads allowed for the B-1B.",
-        "Stations 1-4 and 8-11 may carry any weapon BB, BG, BG, or RS weapon that can be carried internally or a MDR with two AHMs.",
-        "Stations 1-3 and 9-11 may each carry two 2,000 lb weapons or six 500~lb weapons.",
-        "Stations 4 and 8 may each carry one 2,000~lb weapon or six 500~lb weapons.",
-        "Station 1 may carry an AAQ-33 Sniper OP/DP.",
-        "May use AIM-120 AHMs."
+        "Stations 1-3 are internal bays and may each carry a rotary launcher with eight AGM-68A SRAM nuclear ASM or eight B43/B61 nuclear BB or an 11,200L FT (960 fuel points).",
+        "As an exception to the normal rules, internal stores and fuel contribute 1 load point for each 1,000 of weight or 50 fuel points. A return mission will typically require leaving the target with at least 3200 fuel points (64 load points)."
     ],
-    "VPs": 110
+    "VPs": 90
 }

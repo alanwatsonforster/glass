@@ -1,6 +1,7 @@
 {
     "versionname": "B-1B",
-    "description": "The Rockwell B-1B Lancer is a nuclear and conventional strategic bomber.",
+    "popularname": "Lancer",
+    "description": "The Rockwell B-1B Lancer is a nuclear and conventional strategic bomber. Its nickname is “Bone”.",
     "origin": "Malcolm Pipes",
     "crew": [
         "Pilot",
@@ -588,7 +589,7 @@
         "Stations 5 to 7 are internal bays and may each carry a MPRL, CBM, or 11,200L FT (960 fuel points). Stations 5 and 6 may be combined to carry a CSRL and a 5,600L FT (480 fuel points).",
         "See the extended notes for load options and restrictions for the MPRL, CBM, and CSRL.",
         "Station 1 may carry an AAQ-33 Sniper DP/LP.",
-        "As an exception to the normal rules for load points, internal loads contribute 1 load point for each 1,000 of weight and internal fuel contributes 1 load point for each 50 fuel points. A return mission will typically require leaving the target with at least 3200 fuel points (64 load points)."
+        "As an exception to the normal rules, internal stores and fuel contribute 1 load point for each 1,000 of weight or 50 fuel points. A return mission will typically require leaving the target with at least 3200 fuel points (64 load points)."
     ],
     "VPs": 100
 }
