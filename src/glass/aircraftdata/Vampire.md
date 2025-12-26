@@ -45,6 +45,12 @@
 - Used by RAF, SAAF, Venezuela (Goebel)
 - Used by UK (RAF), France (AA), Italy (AMI), Lebanon (LAF), New Zealand (RNZAF), South Africa (SAAF),
 
+### SNCASE FB.5
+
+- License-built
+- 1950
+- 67 examples
+
 ### Vampire FB.6
 
 - FB.5 with Goblin 3 (Goebel/Watkins)
