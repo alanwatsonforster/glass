@@ -519,7 +519,7 @@
                 "BB",
                 "BS",
                 "BG",
-                "RS",
+                "ASM",
                 "OP/LP"
             ]
         ],
@@ -536,7 +536,7 @@
                 "BB",
                 "BS",
                 "BG",
-                "RS"
+                "ASM"
             ]
         ],
         [
@@ -557,7 +557,7 @@
         "Stations 1-3 and 9-11 are the fuselage stations.",
         "Stations 4 and 8 are the wing-glove stations.",
         "Stations 5 to 7 are internal bays and may each carry any internal load allowed for the B-1B.",
-        "Stations 1-4 and 8-11 may carry any BB, BG, BG, or RS weapon that can be carried internally or a MDR with two AIM-120 AHMs. Stations 1-3 and 9-11 may each carry two 2,000 lb weapons or six 500~lb weapons. Stations 4 and 8 may each carry one 2,000~lb weapon or four 500~lb weapons. Station 1 may carry an AAQ-33 Sniper OP/DP.",
+        "Stations 1-4 and 8-11 may carry any BB, BG, BG, or ASM weapon that can be carried internally or a MDR with two AIM-120 AHMs. Stations 1-3 and 9-11 may each carry two 2,000 lb weapons or six 500~lb weapons. Stations 4 and 8 may each carry one 2,000~lb weapon or four 500~lb weapons. Station 1 may carry an AAQ-33 Sniper OP/DP.",
         "As an exception to the normal rules, internal stores and fuel contribute 1 load point for each 1,000 of weight or 50 fuel points. A return mission will typically require leaving the target with at least 3200 fuel points (64 load points)."
     ],
     "VPs": 110
