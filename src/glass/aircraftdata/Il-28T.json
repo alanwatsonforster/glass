@@ -1,0 +1,37 @@
+{
+    "versionname": "Il-28T",
+    "description": "The Ilyushin Il-28T is a torpedo bomber. It is a development of the Il-28 medium bomber. The NATO reporting name for the aircraft is Beagle.",
+    "base": "Il-28",
+    "gun": "One 23 mm NR-23",
+    "gunatatohitrolls": "3/2/1",
+    "gundamagerating": "3/2",
+    "notes": [
+        "Articulated Guns. In addition to its fixed guns, the aircraft has a tail mount with two 23 mm NR-23 guns that can fire into the 60- arc. These guns may return fire twice per game turn in response to gun attacks or conduct one attack. The hit rolls are 3/2/1 and no modifiers apply except target size. The AtA damage rating is 4. The ammunition is 6.0.",
+        "The tail gunner does not have an ejection seat and can only bail out.",
+        "RWR from 1960."
+    ],
+    "storeslimits": [
+        2,
+        6,
+        6600
+    ],
+    "stations": [
+        [
+            "single",
+            [
+                1
+            ],
+            6600,
+            [
+                "BB",
+                "MN",
+                "TT",
+                "TR"
+            ]
+        ]
+    ],
+    "loadnotes": [
+        "Station 1 is the internal bomb bay. Load options are: (a) one FAB-3000 6,600 lb bomb, (b) one FAB-1000 2,200 lb bomb, (c) four FAB-500 1,100 lb bombs, (d) eight FAB-250 550 lb bombs, (e) twelve FAB-100 225 lb bombs, (f) naval mines, (g) one Type 45 torpedoes, or (h) two RAT-52 rocket torpedo. All bombs carried must be low-drag.",
+        "Internal fuel includes two fixed 350L wing-tip fuel tanks. As an exception to the normal rules for load points, internal fuel above 565 fuel points contributes 1 load point for each 50 fuel points."
+    ]
+}
