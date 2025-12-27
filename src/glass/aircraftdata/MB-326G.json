@@ -1,6 +1,6 @@
 {
     "versionname": "MB-326G",
-    "description": "The Aermacchi MB-326G is light attack aircraft. Minor versions are the GB and GC. It is derived from the MB-326F, but has the more powerful Viper 20-540 engine in place of the Viper 11 and greater load capacity.",
+    "description": "The Aermacchi MB-326G is light attack aircraft. Minor versions are the GB and GC. It is derived from the MB-326F, but has the more powerful Viper 20-540 engine in place of the Viper 11 and greater load capacity. In Brazilian service it was known as the AT-26 or RT-26 Xavante.",
     "base": "MB-326L",
     "powertable": {
         "M": [

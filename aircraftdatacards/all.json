@@ -16,21 +16,6 @@
         "CAC Sabre Mk.32"
     ],
     [
-        "type",
-        "CAC CA-30",
-        "CAC CA-30"
-    ],
-    [
-        "chapter",
-        "Brazilian Aircraft"
-    ],
-    [
-        "type",
-        "Embraer AT-26",
-        "Embraer AT-26",
-        "Embraer AT-26A"
-    ],
-    [
         "chapter",
         "British Aircraft"
     ],
@@ -245,18 +230,9 @@
         "MB-326G",
         "MB-326H",
         "MB-326K",
+        "MB-326K (Viper 20-540)",
         "MB-326L",
         "MB-326M"
-    ],
-    [
-        "chapter",
-        "South African Aircraft"
-    ],
-    [
-        "type",
-        "Impala",
-        "Impala Mk I",
-        "Impala Mk II"
     ],
     [
         "chapter",

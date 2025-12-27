@@ -1,6 +1,6 @@
 {
     "versionname": "MB-326M",
-    "description": "The Aermacchi MB-326M is a trainer with a secondary light attack capability. It is similar to the MB-326G.",
+    "description": "The Aermacchi MB-326M is a trainer with a secondary light attack capability. It is similar to the MB-326G. In SAAF service it was known as the Impala Mk I.",
     "base": "MB-326G",
     "stations": [
         [

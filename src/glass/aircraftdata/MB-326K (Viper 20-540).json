@@ -1,6 +1,7 @@
 {
-    "versionname": "Impala Mk II",
-    "description": "The Atlas Impala Mk II is light attack aircraft. It is a license-built version of the Aermacchi MB-326K, but with the earlier Viper 20 engine used by the Impala Mk I.",
+    "versionname": "MB-326K",
+    "variantname": "Viper 20-540",
+    "description": "The Aermacchi MB-326K is a light attack aircraft. It is derived from the MB-326G, but dispenses with the second crew member, has two internal DEFA 30 mm cannon, and the ability to carry IRMs. This variant has the older and less powerful Viper 20-540 engine. In SAAF service it was known as the Impala Mk II and in Brazilian service as the AT-26A Xavante.",
     "base": "MB-326K",
     "powertable": {
         "M": [

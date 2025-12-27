@@ -132,3 +132,5 @@ Poseidons
 Ouragan
 Mystère
 Toofani
+lbf
+COAN
