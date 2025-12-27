@@ -1,0 +1,31 @@
+{
+    "versionname": "MB-339CB",
+    "description": "The Aermacchi MB-339CB is a trainer and light-attack aircraft. It is derived from the MB-339C, but has a more powerful Viper 680-43 engine.",
+    "base": "MB-339C",
+    "powertable": {
+        "M": [
+            1.5,
+            1.5,
+            1.0,
+            2
+        ],
+        "N": [
+            0.0,
+            0.0,
+            0.0,
+            1
+        ],
+        "I": [
+            0.5,
+            0.5,
+            0.5,
+            0
+        ],
+        "SPBR": [
+            0.5,
+            0.5,
+            1.0
+        ]
+    },
+    "VPs": 12
+}

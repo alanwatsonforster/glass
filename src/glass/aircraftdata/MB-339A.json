@@ -1,0 +1,10 @@
+{
+    "versionname": "MB-339A",
+    "description": "The Aermacchi MB-339A is a trainer and light-attack aircraft. It is derived from the MB-326K, but has a new forward cockpit for a second crew member and no internal guns.",
+    "base": "MB-326L",
+    "storeslimits": [
+        3,
+        5,
+        3500
+    ]
+}

@@ -1,0 +1,6 @@
+{
+    "versionname": "MB-339CD",
+    "description": "The Aermacchi MB-339CD is a trainer and light-attack aircraft. It is derived from the MB-339C, but is equipped with a fixed refueling probe.",
+    "base": "MB-339C",
+    "atarefuel": true
+}

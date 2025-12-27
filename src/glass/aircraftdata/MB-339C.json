@@ -1,0 +1,10 @@
+{
+    "versionname": "MB-339C",
+    "description": "The Aermacchi MB-339C is a trainer and light-attack aircraft. It is derived from the MB-339A, but has updated avionics and flight controls.",
+    "base": "MB-339A",
+    "ecm": {
+        "iff": true,
+        "rwr": "C"
+    },
+    "bombsystem": "Computed"
+}
