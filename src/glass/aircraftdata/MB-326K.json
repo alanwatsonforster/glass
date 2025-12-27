@@ -37,7 +37,7 @@
     "vulnerability": -1,
     "restrictedarcs": "60-",
     "blindarcs": "30-",
-    "internalfuel": 240,
+    "internalfuel": 145,
     "atarefuel": false,
     "ejectionseat": "standard",
     "maneuvertable": {

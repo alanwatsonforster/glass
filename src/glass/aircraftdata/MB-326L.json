@@ -6,6 +6,7 @@
         "Pilot",
         "Observer"
     ],
+    "internalfuel": 120,
     "vulnerability": -2,
     "gun": null,
     "VPs": [
