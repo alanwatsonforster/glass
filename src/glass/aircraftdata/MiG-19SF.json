@@ -1,0 +1,6 @@
+{
+    "versionname": "MiG-19SF",
+    "variantname": null,
+    "description": "The Mikoyan-Gurevich MiG-19SF is a day fighter. It is an improved version of the MiG-19S with a slightly more powerful engine. The NATO reporting name for the aircraft is Farmer-C.",
+    "base": "MiG-19S (Late)"
+}
