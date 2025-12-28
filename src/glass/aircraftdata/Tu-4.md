@@ -46,10 +46,12 @@ The ammunition of the B-29 is given as 500 rounds or about 150 lb per gun. The w
 
 ### Radar
 
-The Tu-4 has the RPB RPB Kobal’t or Kobal’t-M rada, a copy of the APQ-13 re-engineered by NII-17 (Guerrero). Added in [
+The Tu-4 has the RPB Kobal’t or Kobal’t-M rada, a copy of the APQ-13 re-engineered by NII-17 (Guerrero). Added in [
 e772cc7](https://github.com/alanwatsonforster/glass/commit/e772cc7f6fb69cf92f2bb66bc33c5481edd0d720).
 
 Information on [AN/APQ-13](https://www.radartutorial.eu/19.kartei/11.ancient3/karte053.en.html). PRF is 1350 or 675 Hz, giving ranges of 140 miles. The instrumented range is 100 nm = 115 miles.
+
+NATO name is "Mushroom" <https://www.secretprojects.co.uk/threads/ascc-reporting-names-for-soviet-avionics.5516/>
 
 ### Bomb Load
 
