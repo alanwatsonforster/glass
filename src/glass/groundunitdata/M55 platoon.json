@@ -1,8 +1,8 @@
 {
     "name": "M55",
     "year": 1945,
-    "description": "M55 quad .50 cal air-defense battery",
-    "symbols": "air-defense/gun/light/battery",
+    "description": "M55 quad .50 cal air-defense platoon",
+    "symbols": "air-defense/gun/light/platoon",
     "text": "12.7×4",
     "defensestrength": "3S",
     "sightingrange": 12,

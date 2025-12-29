@@ -1,8 +1,8 @@
 {
     "name": "M167",
     "year": 1967,
-    "description": "M167 20 mm gatling towed air-defense battery",
-    "symbols": "air-defense/gun/light/battery",
+    "description": "M167 20 mm gatling towed air-defense platoon",
+    "symbols": "air-defense/gun/light/platoon",
     "text": "20×6",
     "defensestrength": "3S",
     "sightingrange": 12,

@@ -1,8 +1,8 @@
 {
     "name": "TCM-20",
     "year": 1970,
-    "description": "TCM-20 twin 20 mm air-defense battery",
-    "symbols": "air-defense/gun/light/battery",
+    "description": "TCM-20 twin 20 mm air-defense platoon",
+    "symbols": "air-defense/gun/light/platoon",
     "text": "20×2",
     "defensestrength": "3S",
     "sightingrange": 12,
