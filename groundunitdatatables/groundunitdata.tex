@@ -26,20 +26,31 @@
 
 \section{Introduction}
 
-The document describes the properties of ground units and ground targets in the game. Ground \emph{units} are combat formations such as infantry, armor, AAA, SAM launchers, and radars, whereas ground \emph{targets} are infrastructure such as bridges and buildings.
+The document describes the properties of ground units and ground targets in the \emph{Air Power} game system and covers the period from 1950 to 2000. Ground \emph{units} are combat formations such as infantry, armor, AAA, SAM launchers, and radars, whereas ground \emph{targets} are infrastructure such as bridges and buildings.
+
+This document is based largely on information from the \emph{Air Strike}, \emph{Eagles of the Gulf}, and \emph{The Speed of Heat} games, but the properties have been revised and the descriptions of the systems expanded.
 
 \section{Ground Units}
 
 \paragraph{Properties.}
-All ground units have these properties: an echelon; a defense strength; a classification as a hard or soft target; a sighting range in hexes; and the VPs awarded for K/2D/D damage. Many units also have properties related to their air-defense capabilities.
+
+All ground units have these properties:
+\begin{itemize}
+    \item an echelon;
+    \item a damage resilience;
+    \item a defense strength;
+    \item a classification as a hard or soft target; and
+    \item a sighting range in hexes; and the VPs awarded for K/2D/D damage.
+\end{itemize}
+Many units also have properties related to their air-defense capabilities.
 
 \paragraph{Echelon.} Ground units can be squads, sections, platoons, or batteries. Typically, a squad will have five to ten soldiers and/or one vehicle, gun, or launcher; a section will have ten to twenty soldiers and/or two vehicles, guns, or launchers; and a platoon or battery will have thirty to fifty soldiers and/or three to six vehicles, guns, or launchers.
 
-\paragraph{Damage Resilience.} Platoons and batteries are killed when they suffer 3D or more damage, sections when they suffer 2D or more, and squads when they suffer 1D or more.
+\paragraph{Damage Resilience.} The damage resilience is the amount of damage a unit can suffer before it is killed and is determined by the echelon: platoons and batteries are killed when they suffer 3D or more damage, sections when they suffer 2D or more, and squads when they suffer 1D or more.
 
 \paragraph{Protection.}
 
-Ground units equipped with fully armored vehicles are hard targets and are denoted by underlined defense strengths. They are classified as heavy, medium, or light according to their degree of protection. Infantry, units equipped with towed weapons, and units equipped with unarmored or incompletely armored vehicles are soft targets and do not have underlined defense strengths.
+Ground units whose personnel and weapons are \emph{fully} protected by armored vehicles are hard targets and are denoted by underlined defense strengths. They are classified as heavy, medium, or light according to their degree of protection. Infantry, units equipped with towed weapons, and units equipped with unarmored vehicles, or units with armored vehicles that do not fully protect their personnel and weapons are soft targets and do not have underlined defense strengths.
 
 \paragraph{Mobility.}
 
@@ -61,7 +72,9 @@ The echelon is indicated by one, two, or three dots (for squads, sections, or pl
 
 \section{Ground-Combat Units}
 
-Ground-combat units represent infantry, tanks, and other AFVs, trucks, and artillery. Their primary role is combat with other ground units. Table \ref{table:ground-combat-units} summarizes the properties of ground-combat units. The AAA class is B2 for infantry platoons and B3 for AFV platoons, indicating that they are capable of barrage fire to altitudes of 2 and 3 levels, respectively.
+Ground-combat units represent infantry, tanks, and other AFVs, trucks, and artillery. Their primary role is combat with other ground units.
+
+Table \ref{table:ground-combat-units} summarizes the properties of ground-combat units. The AAA class is B2 for infantry platoons and B3 for AFV platoons, indicating that they are capable of barrage fire to altitudes of 2 and 3 levels, respectively.
 
 \begin{figure*}
     \centering
@@ -70,15 +83,9 @@ Ground-combat units represent infantry, tanks, and other AFVs, trucks, and artil
     \label{figure:ground-combat-units}
 \end{figure*}
 
-\paragraph{Infantry.}
+\subsection{Tanks}
 
-Infantry are soldiers trained to fight on foot. The infantry and the infantry HQ platoons consist of thirty to fifty soldiers. The infantry FAC section is a pair of forward air controller squads.
-
-A mechanized infantry platoon will be associated with a platoon of APCs or IFVs. A motorized infantry platoon will be associated with a platoon of trucks.
-
-\paragraph{Tanks.}
-
-Tanks are armored vehicles that are specialized in direct fire. All tank units are platoons. Examples include:
+Tanks are armored vehicles that are specialized in direct fire. All tank units are platoons. Tanks are distinguished as having heavy, medium, or light armor. Examples include:
 
 \begin{itemize}
 
@@ -90,9 +97,15 @@ Tanks are armored vehicles that are specialized in direct fire. All tank units a
 
 \end{itemize}
 
-\paragraph{IFVs.}
+\subsection{Infantry}
 
-IFVs are armored vehicles that carry infantry and provide fire support. They are distinguished from APCs by having a 20 mm or larger cannon. All IFV units are platoons. Examples include:
+Infantry are soldiers trained to fight on foot. The infantry and the infantry HQ platoons consist of thirty to fifty soldiers. A mechanized infantry platoon will be associated with a platoon of APCs or IFVs. A motorized infantry platoon will be associated with a platoon of trucks.
+
+The infantry FAC section is a pair of forward air controller squads. It will often be associated with a section of light trucks.
+
+\subsection{IFVs and APCs}
+
+IFVs and APCs are armored vehicles that carry infantry. However, IFVs provide fire support and typically have a 20 mm or larger cannon, and APCs do not. All IFV and APC units are platoons. They are further distinguished as having heavy, medium, or light armor. Examples include:
 
 \begin{itemize}
 
@@ -102,14 +115,6 @@ IFVs are armored vehicles that carry infantry and provide fire support. They are
 
     \item Light IFVs: all others including the AMX-10P, BMP-1/2/3, LAV-25, M2/3 Bradley (except the M2A2 version), M1296 Dragoon, VCBI, and Warrior.
 
-\end{itemize}
-
-\paragraph{APCs.}
-
-APCs are armored vehicles that carry infantry but do not provide significant fire support. All APC units are platoons. Heavy and medium APCs are typically converted tanks. Examples include:
-
-\begin{itemize}
-
     \item Heavy APCs: converted heavy tanks.
 
     \item Medium APCs: converted medium tanks.
@@ -118,15 +123,15 @@ APCs are armored vehicles that carry infantry but do not provide significant fir
 
 \end{itemize}
 
-\paragraph{Armored Cars and Half-Tracks.}
+\subsection{Armored Cars and Half-Tracks}
 
 Armored cars and armored half-tracks are considered to be light tanks, light IFVs, or light APCs according to their role and armament.
 
-\paragraph{Trucks.}
+\subsection{Trucks}
 
 Trucks are unarmored or incompletely armored vehicles that transport infantry, towed weapons, and supplies. Unarmored tracked cargo-carriers (e.g., the M548) are considered trucks. Light trucks include Jeeps, Land Rovers, and Humvees.
 
-\paragraph{Artillery.}
+\subsection{Artillery}
 
 Artillery is specialized in indirect fire. All artillery units are batteries. Artillery may be tube, rocket, or missile and armored, mobile, or towed. Examples include:
 
@@ -148,9 +153,9 @@ Tracked or wheeled artillery with incomplete armor protection (e.g., the wheeled
 
 A truck platoon may serve as the tractor unit of a towed artillery battery.
 
-\paragraph{HQs.}
+\subsection{HQs}
 
-Infantry or tank HQ platoons represent the HQ units of companies or battalions. There are no IFV, APC, or truck HQ units; the HQs platoon of a mechanized or motorized infantry unit will consist of an infantry HQ platoon associated with a normal IFV, APC, or truck platoon.
+Tank or infantry HQ platoons represent the HQ units of companies or battalions. There are no IFV, APC, or truck HQ units; the HQs platoon of a mechanized or motorized infantry unit will consist of an infantry HQ platoon associated with a normal IFV, APC, or truck platoon.
 
 \section{AAA Units}
 
@@ -280,13 +285,13 @@ The AMX-30SA served only in the Saudi Army from 1979.
 
 \subsubsection{Tunguska Section}
 
-This is a section of two Tungusta vehicles. The Tunguska has twin radar-controlled 30 mm guns and four SA-19 missiles in an armored turret on an armored and tracked hull. It was designed to counter the A-10 and AH-64, against which the earlier ZSU-23-4 had weaknesses.
+This is a section of two Tunguska vehicles. The Tunguska has twin radar-controlled 30 mm guns and four SA-19 missiles in an armored turret on an armored and tracked hull. It was designed to counter the A-10 and AH-64, against which the earlier ZSU-23-4 had weaknesses.
 
 The Tunguska entered service in the Soviet Army in 1984. It has been used by Russia, Ukraine, and Belarus after the break-up of the Soviet Union and has been exported.
 
 \subsubsection{Tunguska-M Section}
 
-This is a section of two Tunguska-M vehicles. The Tunguska-M is an improved version of the Tungusta with eight missiles instead of four.
+This is a section of two Tunguska-M vehicles. The Tunguska-M is an improved version of the Tunguska with eight missiles instead of four.
 
 The Tunguska-M entered service in the Soviet Army in 1990. It has been used by Russia, Ukraine, and Belarus after the break-up of the Soviet Union and has been exported.
 
