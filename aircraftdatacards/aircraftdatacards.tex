@@ -123,6 +123,10 @@
 \usepackage[usefilenames]{plex-otf}
 \renewcommand*\familydefault{\sfdefault}
 
+% Use slightly less tight line spacing by default.
+\usepackage{setspace}
+\setstretch{1.05}
+
 \usepackage{tabularx}
 
 \newcolumntype{P}{X}%
@@ -608,7 +612,9 @@
     \onecolumn
     \thispagestyle{empty}
     \begin{center}
-        \blockABCDEFG
+        \begin{singlespace}
+            \blockABCDEFG
+        \end{singlespace}
     \end{center}
     \newpage
     \restoregeometry
