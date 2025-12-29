@@ -1,0 +1,13 @@
+{
+    "name": "armored CCU",
+    "description": "armored CCU squad",
+    "symbols": "armor/air-defense/headquarters/squad",
+    "text": "CCU",
+    "sightingrange": 12,
+    "defensestrength": "4H",
+    "VPs": [
+        8,
+        null,
+        null
+    ]
+}
