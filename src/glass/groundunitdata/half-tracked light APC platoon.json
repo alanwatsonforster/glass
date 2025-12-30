@@ -1,0 +1,17 @@
+{
+    "name": "half-tracked light APC",
+    "description": "half-tracked light APC platoon",
+    "symbols": "armor/halftracked/light/transport/platoon",
+    "defensestrength": "4H",
+    "sightingrange": 12,
+    "mobility": "G",
+    "aaa": {
+        "class": "B",
+        "maximumrelativealtitude": 3
+    },
+    "VPs": [
+        6,
+        4,
+        2
+    ]
+}

@@ -1,0 +1,17 @@
+{
+    "name": "wheeled light tank HQ",
+    "description": "wheeled light tank HQ platoon",
+    "symbols": "armor/wheeled/gun/light/headquarters/platoon",
+    "defensestrength": "4H",
+    "sightingrange": 12,
+    "mobility": "G",
+    "aaa": {
+        "class": "B",
+        "maximumrelativealtitude": 3
+    },
+    "VPs": [
+        12,
+        8,
+        4
+    ]
+}

@@ -1731,8 +1731,9 @@ def drawgroundunit(
         ``"reconnaissance"``, ``"rocket"``, ``"rotarywing"``, ``"section"``,
         ``"shelter"``, ``"smallbuilding"``, ``"squad"``, ``"supply"``,
         ``"tower"``, ``"tracked"``, ``"transport"``, ``"transportation"``,
-        ``"truck"``, and ``unidentified``. The British English aliases
-        ``"air-defence"``, ``"antiarmour"``, ``"armour"`` are also allowed.
+        ``"truck"``, ``unidentified``, and ``wheeled``. The British English
+        aliases ``"air-defence"``, ``"antiarmour"``, ``"armour"`` are also
+        allowed.
     :param text:
         The ``text`` argument as a strings that we drawn in an appropriate
         position according to the type of the ground unit.
@@ -2396,7 +2397,8 @@ def _drawgroundunitincanvas(
             drawlowertext("M")
 
         def drawlightsymbol():
-            drawlowertext("L")
+            # drawlowertext("L")
+            pass
 
         def drawfacsymbol():
             drawlowertext("FAC")
