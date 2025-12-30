@@ -2,10 +2,11 @@
     "name": "Panhard M3 DCA",
     "year": 1975,
     "description": "Panhard M3 DCA twin 20 mm self-propelled air-defense section",
-    "symbols": "air-defense/gun/light/armor/section",
+    "symbols": "air-defense/gun/armor/light/section",
     "text": "20×2",
     "defensestrength": "4H",
     "sightingrange": 12,
+    "mobility": "G",
     "aaa": {
         "type": "20×2",
         "class": "L",

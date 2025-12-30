@@ -2,8 +2,9 @@
     "name": "armored artillery",
     "description": "armored artillery battery",
     "symbols": "artillery/armor/light/battery",
-    "sightingrange": 12,
     "defensestrength": "4H",
+    "sightingrange": 12,
+    "mobility": "G",
     "aaa": {
         "class": "B",
         "maximumrelativealtitude": 3

@@ -1,10 +1,11 @@
 {
     "name": "armored CCU",
     "description": "armored CCU squad",
-    "symbols": "armor/air-defense/headquarters/squad",
+    "symbols": "air-defense/headquarters/armor/light/squad",
     "text": "CCU",
-    "sightingrange": 12,
     "defensestrength": "4H",
+    "sightingrange": 12,
+    "mobility": "G",
     "VPs": [
         8,
         null,

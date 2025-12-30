@@ -1,10 +1,11 @@
 {
     "name": "Pantsir",
     "description": "Pantsir dual 30 mm and SA-19 self-propelled air-defense section",
-    "symbols": "armor/air-defense/gun/light/missile/section",
+    "symbols": "armor/air-defense/gun/missile/section",
     "text": "30×2/SA-19",
     "defensestrength": "3S",
     "sightingrange": 12,
+    "mobility": "G",
     "aaa": {
         "type": "30×2",
         "class": "L",

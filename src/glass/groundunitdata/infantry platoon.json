@@ -4,6 +4,7 @@
     "symbols": "infantry/platoon",
     "defensestrength": "4S",
     "sightingrange": 6,
+    "mobility": "U",
     "aaa": {
         "class": "B",
         "maximumrelativealtitude": 2

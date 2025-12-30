@@ -1,10 +1,11 @@
 {
     "name": "mobile CCU",
     "description": "mobile CCU",
-    "symbols": "truck/air-defense/headquarters/platoon",
+    "symbols": "air-defense/headquarters/truck/limitedwheeled/platoon",
     "text": "CCU",
     "sightingrange": 12,
     "defensestrength": "2S",
+    "mobility": "P",
     "VPs": [
         8,
         6,

@@ -5,8 +5,9 @@
     "description": "SA-7B section",
     "symbols": "air-defense/missile/infantry/section",
     "text": "SA-7B",
-    "sightingrange": 6,
     "defensestrength": "5S",
+    "sightingrange": 6,
+    "mobility": "U",
     "VPs": [
         8,
         null,

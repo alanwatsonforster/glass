@@ -2,10 +2,11 @@
     "name": "KS-19",
     "year": 1948,
     "description": "KS-19 100 mm air-defense battery",
-    "symbols": "air-defense/gun/heavy/battery",
+    "symbols": "air-defense/gun/battery",
     "text": "100",
     "defensestrength": "4S",
     "sightingrange": 18,
+    "mobility": "T",
     "aaa": {
         "type": "100",
         "class": "H",

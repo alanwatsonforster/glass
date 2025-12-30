@@ -3,10 +3,11 @@
     // From the ready-missile count, this seems to be eight four-missile TELs.
     "name": "SA-10A",
     "description": "SA-10A air-defense battery",
-    "symbols": "air-defense/missile/truck/battery",
+    "symbols": "air-defense/missile/truck/limitedwheeled/battery",
     "text": "SA-10A",
-    "sightingrange": 24,
     "defensestrength": "4H",
+    "sightingrange": 24,
+    "mobility": "G",
     "sam": {
         "type": "SA-10A",
         "ewrfrequency": "HF",

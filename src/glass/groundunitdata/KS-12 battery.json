@@ -2,10 +2,11 @@
     "name": "KS-12",
     "year": 1939,
     "description": "KS-12 85 mm air-defense battery",
-    "symbols": "air-defense/gun/heavy/battery",
+    "symbols": "air-defense/gun/battery",
     "text": "85",
     "defensestrength": "4S",
     "sightingrange": 18,
+    "mobility": "T",
     "aaa": {
         "type": "85",
         "class": "H",

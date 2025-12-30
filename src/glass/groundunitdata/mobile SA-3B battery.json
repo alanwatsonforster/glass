@@ -3,10 +3,11 @@
     "othername": "Goa (S-125M Neva-M)",
     "year": "1964",
     "description": "mobile SA-3B air-defense battery",
-    "symbols": "air-defense/missile/truck/battery",
+    "symbols": "air-defense/missile/truck/limitedwheeled/battery",
     "text": "SA-3B",
     "sightingrange": 18,
     "defensestrength": "4S",
+    "mobility": "P",
     "VPs": [
         12,
         8,

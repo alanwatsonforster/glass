@@ -5,8 +5,9 @@
     "description": "SA-7A squad",
     "symbols": "air-defense/missile/infantry/squad",
     "text": "SA-7A",
-    "sightingrange": 6,
     "defensestrength": "5S",
+    "sightingrange": 6,
+    "mobility": "U",
     "VPs": [
         3,
         null,

@@ -3,10 +3,11 @@
     // From the ready-missile count, this seems to be a single eight-missile TLAR.
     "name": "SA-15",
     "description": "SA-15 air-defense squad",
-    "symbols": "air-defense/missile/armor/squad",
+    "symbols": "air-defense/missile/armor/light/squad",
     "text": "SA-15",
-    "sightingrange": 12,
     "defensestrength": "4H",
+    "sightingrange": 12,
+    "mobility": "G",
     "sam": {
         "type": "SA-15",
         "ewrfrequency": "HF",

@@ -2,10 +2,11 @@
     "name": "61-K",
     "year": 1939,
     "description": "61-K 37 mm air-defense battery",
-    "symbols": "air-defense/gun/medium/battery",
+    "symbols": "air-defense/gun/battery",
     "text": "37",
     "defensestrength": "3S",
     "sightingrange": 12,
+    "mobility": "T",
     "aaa": {
         "type": "37",
         "class": "M",

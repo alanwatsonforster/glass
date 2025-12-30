@@ -2,10 +2,11 @@
     "name": "mobile ZU-23",
     "year": 1960,
     "description": "mobile ZU-23 twin 23 mm air-defense section",
-    "symbols": "truck/air-defense/gun/light/section",
+    "symbols": "truck/limitedwheeled/air-defense/gun/section",
     "text": "23×2",
     "defensestrength": "2S",
     "sightingrange": 12,
+    "mobility": "P",
     "aaa": {
         "type": "23×2",
         "class": "L",

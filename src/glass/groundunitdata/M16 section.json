@@ -2,10 +2,11 @@
     "name": "M16",
     "year": 1944,
     "description": "M16 quad .50 cal self-propelled air-defense section",
-    "symbols": "air-defense/gun/light/armor/section",
+    "symbols": "air-defense/gun/armor/light/section",
     "text": "12.7×4",
     "defensestrength": "3H",
     "sightingrange": 12,
+    "mobility": "G",
     "aaa": {
         "type": "12.7×4",
         "class": "L",

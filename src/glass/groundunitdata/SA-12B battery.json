@@ -3,10 +3,11 @@
     // From the ready-missile count, this seems to be six two-missile TELs.
     "name": "SA-12B",
     "description": "SA-12B air-defense battery",
-    "symbols": "air-defense/missile/truck/battery",
+    "symbols": "air-defense/missile/truck/limitedwheeled/battery",
     "text": "SA-12B",
-    "sightingrange": 12,
     "defensestrength": "4H",
+    "sightingrange": 12,
+    "mobility": "G",
     "sam": {
         "type": "SA-12B",
         "ewrfrequency": "VF",

@@ -2,10 +2,11 @@
     "name": "ZSU-23-4",
     "year": 1965,
     "description": "ZSU-23-4 quad 23 mm self-propelled air-defense section",
-    "symbols": "air-defense/gun/light/armor/section",
+    "symbols": "air-defense/gun/armor/light/section",
     "text": "23×4",
     "defensestrength": "4H",
     "sightingrange": 12,
+    "mobility": "G",
     "aaa": {
         "type": "23×4",
         "class": "L",

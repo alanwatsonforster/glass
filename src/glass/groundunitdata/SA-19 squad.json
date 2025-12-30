@@ -1,10 +1,11 @@
 {
     "name": "SA-19",
     "description": "SA-19 air-defense squad",
-    "symbols": "air-defense/missile/armor/squad",
+    "symbols": "air-defense/missile/armor/light/squad",
     "text": "SA-19",
-    "sightingrange": 12,
     "defensestrength": "4H",
+    "sightingrange": 12,
+    "mobility": "G",
     "sam": {
         "type": "SA-19",
         "ewrfrequency": "VF",

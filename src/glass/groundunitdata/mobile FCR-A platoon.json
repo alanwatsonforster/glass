@@ -1,0 +1,18 @@
+{
+    "name": "mobile FCR-A",
+    "description": "mobile fire control radar (type A)",
+    "symbols": "air-defense/radar/truck/limitedwheeled/platoon",
+    "text": "FCR-A",
+    "defensestrength": "2S",
+    "sightingrange": 12,
+    "mobility": "P",
+    "aaa": {
+        "fcrclass": "A",
+        "fcrfrequency": "LF"
+    },
+    "VPs": [
+        6,
+        4,
+        2
+    ]
+}

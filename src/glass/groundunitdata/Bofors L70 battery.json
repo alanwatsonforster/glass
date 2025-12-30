@@ -2,10 +2,11 @@
     "name": "Bofors L/70",
     "year": 1952,
     "description": "Bofors 40 mm L/70 air-defense battery",
-    "symbols": "air-defense/gun/medium/battery",
+    "symbols": "air-defense/gun/battery",
     "text": "40",
     "defensestrength": "3S",
     "sightingrange": 12,
+    "mobility": "T",
     "aaa": {
         "type": "40",
         "class": "M",

@@ -3,10 +3,11 @@
     "othername": "Gopher (9K35 Strela-10)",
     "year": 1976,
     "description": "SA-13 air-defense squad",
-    "symbols": "air-defense/missile/armor/squad",
+    "symbols": "air-defense/missile/armor/light/squad",
     "text": "SA-13",
-    "sightingrange": 12,
     "defensestrength": "4H",
+    "sightingrange": 12,
+    "mobility": "G",
     "VPs": [
         10,
         null,

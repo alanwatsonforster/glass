@@ -4,6 +4,7 @@
     "symbols": "infantry/fac/section",
     "sightingrange": 6,
     "defensestrength": "5S",
+    "mobility": "U",
     "VPs": [
         8,
         null,

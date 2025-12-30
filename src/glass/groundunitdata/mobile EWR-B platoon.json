@@ -1,10 +1,11 @@
 {
     "name": "mobile EWR-B",
     "description": "mobile early-warning control radar (type B)",
-    "symbols": "air-defense/radar/truck/platoon",
+    "symbols": "air-defense/radar/truck/limitedwheeled/platoon",
     "text": "EWR-B",
     "sightingrange": 12,
     "defensestrength": "2S",
+    "mobility": "P",
     "ewr": {
         "ewrclass": "B",
         "ewrfrequency": "LF"

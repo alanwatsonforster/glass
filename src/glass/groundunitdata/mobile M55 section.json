@@ -1,10 +1,11 @@
 {
     "name": "mobile M55",
     "description": "mobile M55 quad .50 cal air-defense section",
-    "symbols": "truck/air-defense/gun/light/section",
+    "symbols": "truck/limitedwheeled/air-defense/gun/section",
     "text": "12.7×4",
     "defensestrength": "2S",
     "sightingrange": 12,
+    "mobility": "P",
     "aaa": {
         "type": "12.7×4",
         "class": "L",

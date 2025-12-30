@@ -5,8 +5,9 @@
     "description": "SA-14 squad",
     "symbols": "air-defense/missile/infantry/squad",
     "text": "SA-14",
-    "sightingrange": 6,
     "defensestrength": "5S",
+    "sightingrange": 6,
+    "mobility": "U",
     "VPs": [
         6,
         null,

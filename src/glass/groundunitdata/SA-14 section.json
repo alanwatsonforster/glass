@@ -5,8 +5,9 @@
     "description": "SA-14 section",
     "symbols": "air-defense/missile/infantry/section",
     "text": "SA-14",
-    "sightingrange": 6,
     "defensestrength": "5S",
+    "sightingrange": 6,
+    "mobility": "U",
     "VPs": [
         12,
         null,

@@ -1,10 +1,11 @@
 {
     "name": "Crotale CCU/EWR",
     "description": "Crotale CCU squad",
-    "symbols": "armor/air-defense/headquarters/radar/squad",
+    "symbols": "air-defense/headquarters/radar/armor/light/squad",
     "text": "CCU/EWR",
-    "sightingrange": 12,
     "defensestrength": "4H",
+    "sightingrange": 12,
+    "mobility": "G",
     "ewr": {
         "ewrclass": "B",
         "ewrfrequency": "LF",

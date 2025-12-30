@@ -32,43 +32,95 @@ This document is based largely on information from the \emph{Air Strike}, \emph{
 
 \section{Ground Units}
 
-\paragraph{Properties.}
-
 All ground units have these properties:
 \begin{itemize}
     \item an echelon;
     \item a damage resilience;
     \item a defense strength;
-    \item a classification as a hard or soft target; and
-    \item a sighting range in hexes; and the VPs awarded for K/2D/D damage.
+    \item a classification as a hard or soft target;
+    \item a mobility;
+    \item a sighting range in hexes;
+    \item the VPs awarded for K/2D/D damage.
 \end{itemize}
 Many units also have properties related to their air-defense capabilities.
 
-\paragraph{Echelon.} Ground units can be squads, sections, platoons, or batteries. Typically, a squad will have five to ten soldiers and/or one vehicle, gun, or launcher; a section will have ten to twenty soldiers and/or two vehicles, guns, or launchers; and a platoon or battery will have thirty to fifty soldiers and/or three to six vehicles, guns, or launchers.
+\subsection{Echelon}
 
-\paragraph{Damage Resilience.} The damage resilience is the amount of damage a unit can suffer before it is killed and is determined by the echelon: platoons and batteries are killed when they suffer 3D or more damage, sections when they suffer 2D or more, and squads when they suffer 1D or more.
+The echelon is the level of a ground unit within its wider organization. Ground units can be squads, sections, platoons, or batteries. Typically:
 
-\paragraph{Protection.}
+\begin{itemize}
+    \item Squads have five to ten soldiers and/or one vehicle, gun, or launcher;
+    \item Sections have ten to twenty soldiers and/or two vehicles, guns, or launchers; and
+    \item Platoons or batteries have thirty to fifty soldiers and/or three to six vehicles, guns, or launchers.
+\end{itemize}
 
-Ground units whose personnel and weapons are \emph{fully} protected by armored vehicles are hard targets and are denoted by underlined defense strengths. They are classified as heavy, medium, or light according to their degree of protection. Infantry, units equipped with towed weapons, and units equipped with unarmored vehicles, or units with armored vehicles that do not fully protect their personnel and weapons are soft targets and do not have underlined defense strengths.
+Echelons such as companies, battalions, and regiments exist above platoons or batteries, but they are represented by multiple ground units. For example, an infantry company might be formed by three separate ground units: one infantry HQ platoon and two infantry platoons.
 
-\paragraph{Mobility.}
+\subsection{Damage Resilience}
 
-Ground units may move on foot, may be vehicular, or may be towed. Units whose weapons are permanently installed on fully armored vehicles are referred to as being \emph{armored}. Those whose weapons are permanently installed on unarmored or incompletely armored vehicles are referred to as being \emph{mobile}. Wheeled, half-tracked, and tracked vehicles are not distinguished.
+The damage resilience of a ground unit is the amount of damage it can suffer before being killed. It is determined by the echelon:
+\begin{itemize}
+    \item Squads have a damage resilience of 1D;
+    \item Sections have a damage resilience of 2D; and
+    \item Platoons or batteries have a damage resilience of 3D;.
+\end{itemize}
 
-\paragraph{Mounted and Dismounted Units.}
+\subsection{Protection}
+
+Ground units whose personnel and weapons are \emph{fully} protected by armored vehicles are hard targets and are denoted by underlined defense strengths. They are classified as heavy, medium, or light according to their degree of protection.
+
+Infantry units, units equipped with towed weapons, units equipped with unarmored vehicles, or units with armored vehicles that do not fully protect their personnel and weapons are soft targets and do not have underlined defense strengths.
+
+\subsection{Mobility}
+
+The mobility class of a ground unit places limits on where a unit may normally be placed or move on the map. Ground units can have unrestricted, good, or poor mobility. Typically:
+\begin{itemize}
+    \item Infantry has unrestricted mobility;
+    \item AFVs and tracked-carriers have good mobility; and
+    \item Trucks and towed weapons have poor mobility.
+\end{itemize}
+These limits are in terms of whether a hex is clear, forest, urban, or water and whether it contains a road, trail, and runway:
+\begin{itemize}
+    \item Units with unrestricted mobility may only occupy:
+        \begin{itemize}
+            \item an urban hex;
+            \item a clear hex; or
+            \item a forest hex.
+        \end{itemize}
+    \item Units with good mobility may only occupy:
+        \begin{itemize}
+            \item an urban hex;
+            \item a clear hex;
+            \item a forest hex that contains a road or trail; or
+            \item a forest hex that is adjacent one of the previous.
+        \end{itemize}
+    \item Units with poor mobility may only occupy:
+        \begin{itemize}
+            \item an urban hex;
+            \item a clear hex that contains a road, trail, or runway;
+            \item a clear hex that is adjacent to one of the previous; or
+            \item a forest hex that contains a road or trail
+        \end{itemize}
+\end{itemize}
+No ground unit may occupy a water hex.
+
+The scenario notes may remove some of these restrictions or add others. For example, a towed artillery unit normally must obey the restrictions for poor-mobility units, but a scenario may allow it to have been transported by helicopter to a clear hex far from a road.
+
+%Units whose weapons are permanently installed on fully armored vehicles are referred to as being \emph{armored}. Those whose weapons are permanently installed on unarmored or incompletely armored vehicles are referred to as being \emph{mobile}.
+
+\subsection{Mounted and Dismounted Units}
 
 Infantry units and towed units may be associated with a vehicular transport unit. If so, then they may be mounted or dismounted. Mounted units have no role in sighting or combat and do not count for stacking, but if their associated vehicle unit suffers damage, then they suffer the same damage. Dismounted units are treated normally. Infantry mounted in IFVs or APCs are sometimes better protected than dismounted infantry.
 
-\paragraph{Representation.}
+\subsection{Representation}
 
 Figures \ref{figure:ground-combat-units}, \ref{figure:aaa-units}, \ref{figure:radar-and-ccu-units}, and \ref{figure:sam-launcher-units} show the graphical representation of ground-combat units.
 
-The representation mainly uses NATO symbols, including those for infantry, armor, air defense, guns, missiles, tube artillery, and rocket artillery. Two additions are that a rectangle denotes trucks and other mobile units, and the letter T designates a transport capacity (e.g., APCs, IFVs, and trucks).
-
-The letters H, M, and L in a lower position denote heavy, medium, and light, and refer to the protection class (for AFV units), the AAA class (for AAA units), or the load capacity (for trucks).
+The representation mainly uses NATO symbols, including those for infantry, armor, air defense, guns, missiles, tube artillery, rocket artillery. One addition is that a rectangle denotes an unarmored vehicle such as a truck or tracked carrier, and its mobility is indicated as poor by two wheel symbols or as good by three wheel symbols, a half-track symbol, or a tracked symbol. Also, the letter T designates a transport capacity (e.g., APCs, IFVs, and trucks).
 
 The echelon is indicated by one, two, or three dots (for squads, sections, or platoons) or one vertical bar (for batteries) in an upper position.
+
+The letters H, M, and L in a lower position denote heavy, medium, and light protection.
 
 \section{Ground-Combat Units}
 
@@ -101,11 +153,11 @@ Tanks are armored vehicles that are specialized in direct fire. All tank units a
 
 Infantry are soldiers trained to fight on foot. The infantry and the infantry HQ platoons consist of thirty to fifty soldiers. A mechanized infantry platoon will be associated with a platoon of APCs or IFVs. A motorized infantry platoon will be associated with a platoon of trucks.
 
-The infantry FAC section is a pair of forward air controller squads. It will often be associated with a section of light trucks.
+The infantry FAC section is a pair of forward air controller squads. It will often be associated with a section of trucks.
 
 \subsection{IFVs and APCs}
 
-IFVs and APCs are armored vehicles that carry infantry. However, IFVs provide fire support and typically have a 20 mm or larger cannon, and APCs do not. All IFV and APC units are platoons. They are further distinguished as having heavy, medium, or light armor. Examples include:
+Both IFVs and APCs are armored vehicles that carry infantry. However, IFVs provide fire support and typically have a 20 mm or larger cannon, and APCs do not. All IFV and APC units are platoons. They are further distinguished as having heavy, medium, or light protection. Examples include:
 
 \begin{itemize}
 
@@ -127,9 +179,11 @@ IFVs and APCs are armored vehicles that carry infantry. However, IFVs provide fi
 
 Armored cars and armored half-tracks are considered to be light tanks, light IFVs, or light APCs according to their role and armament.
 
-\subsection{Trucks}
+\subsection{Trucks and Tracked Carriers}
 
-Trucks are unarmored or incompletely armored vehicles that transport infantry, towed weapons, and supplies. Unarmored tracked cargo-carriers (e.g., the M548) are considered trucks. Light trucks include Jeeps, Land Rovers, and Humvees.
+Trucks and tracked carriers are unarmored or incompletely armored vehicles that transport infantry, towed weapons, and supplies. The difference is that trucks have restricted vehicular mobility whereas tracker carriers (e.g., the M548) have unrestricted vehicular mobility.
+
+Trucks include light trucks such as Jeeps, Land Rovers, and Humvees.
 
 \subsection{Artillery}
 
@@ -139,13 +193,17 @@ Artillery is specialized in indirect fire. All artillery units are batteries. Ar
 
     \item Armored Artillery: 2S19 Msta-S, 2S3 Akatsiya, AMX-30 AuF1, AS-90, Abbot, M109, and Panzerhaubitze 2000.
 
-    \item Mobile Artillery: 2S4 Tyulpan, 2S7 Pion, Archer, CAESAR, M7 Priest, and M107/M110.
+    \item Tracked Artillery: 2S4 Tyulpan, 2S7 Pion, M7 Priest, M107, and M110.
+
+    \item Mobile Artillery: Archer and CAESAR.
 
     \item Armored Rocket Artillery: M270 MLRS and TOS-1.
 
     \item Mobile Rocket Artillery: BM-21 Grad, BM-30 Smerch, and M142 HIMARS.
 
-    \item Mobile Missile Artillery: 9K52 Luna-M (Frog), MGM-52 Lance, OTR-21 Tochka (SS-21), Pluton, and RSD-10 Pioneer (SS-20).
+    \item Tracked Missile Artillery: MGM-52 Lance and Pluton.
+
+    \item Mobile Missile Artillery: 9K52 Luna-M (Frog), OTR-21 Tochka (SS-21), and RSD-10 Pioneer (SS-20).
 
 \end{itemize}
 

@@ -3,10 +3,11 @@
     "othername": "Chaparral",
     "year": 1969,
     "description": "M48 Chaparral air-defense squad",
-    "symbols": "air-defense/missile/armor/squad",
+    "symbols": "air-defense/missile/armor/light/squad",
     "text": "M48",
-    "sightingrange": 12,
     "defensestrength": "4S",
+    "sightingrange": 12,
+    "mobility": "G",
     "VPs": [
         9,
         null,

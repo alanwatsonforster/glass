@@ -2,10 +2,11 @@
     "name": "Gepard",
     "year": 1976,
     "description": "Gepard twin 35 mm self-propelled air-defense section",
-    "symbols": "air-defense/gun/medium/armor/section",
+    "symbols": "air-defense/gun/armor/light/section",
     "text": "35×2",
     "defensestrength": "4H",
     "sightingrange": 12,
+    "mobility": "G",
     "aaa": {
         "type": "35×2",
         "class": "M",

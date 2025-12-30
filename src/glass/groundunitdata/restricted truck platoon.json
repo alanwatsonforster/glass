@@ -1,10 +1,9 @@
 {
-    "name": "truck platoon",
-    "description": "truck platoon",
+    "name": "restricted truck platoon",
+    "description": "restricted truck platoon",
     "symbols": "truck/limitedwheeled/transport/platoon",
     "sightingrange": 12,
     "defensestrength": "2S",
-    "mobility": "P",
     "VPs": [
         4,
         2,

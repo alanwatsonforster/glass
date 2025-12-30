@@ -2,10 +2,11 @@
     "name": "ZPU-1",
     "year": 1949,
     "description": "ZPU-1 14.5 mm air-defense battery",
-    "symbols": "air-defense/gun/light/battery",
+    "symbols": "air-defense/gun/battery",
     "text": "14.5",
     "defensestrength": "3S",
     "sightingrange": 12,
+    "mobility": "T",
     "aaa": {
         "type": "14.5",
         "class": "L",

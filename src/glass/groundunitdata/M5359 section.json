@@ -2,10 +2,11 @@
     "name": "M-53/95",
     "year": 1959,
     "description": "M-53/59 twin 30 mm air-defense section",
-    "symbols": "truck/air-defense/gun/light/section",
+    "symbols": "truck/limitedwheeled/air-defense/gun/section",
     "text": "30×2",
     "defensestrength": "3S",
     "sightingrange": 12,
+    "mobility": "G",
     "aaa": {
         "type": "30×2",
         "class": "L",

@@ -2,10 +2,11 @@
     "name": "Oerlikon GDF",
     "year": 1963,
     "description": "Oerlikon GDF twin 35 mm air-defense battery",
-    "symbols": "air-defense/gun/medium/battery",
+    "symbols": "air-defense/gun/battery",
     "text": "35×2",
     "defensestrength": "3S",
     "sightingrange": 12,
+    "mobility": "T",
     "aaa": {
         "type": "35×2",
         "class": "M",

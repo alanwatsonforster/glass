@@ -3,10 +3,11 @@
     "othername": "Gainful (2K12 Kub)",
     "year": "1966",
     "description": "SA-6A air-defense battery",
-    "symbols": "air-defense/missile/armor/battery",
+    "symbols": "air-defense/missile/armor/light/battery",
     "text": "SA-6A",
-    "sightingrange": 12,
     "defensestrength": "3H",
+    "sightingrange": 12,
+    "mobility": "G",
     "VPs": [
         11,
         7,

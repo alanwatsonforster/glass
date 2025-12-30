@@ -1721,20 +1721,21 @@ def drawgroundunit(
         rectangular outline. The list can also contain any number of the
         following strings, which indicate the symbols to be drawn:
         ``"air-defense"``, ``"ammunition"``, ``"antiarmor"``, ``"armor"``,
-        ``"artillery"``, ``"barge"``, ``"battery"``, ``"bridge"``, ``"bunkerentrance"``,
-        ``"company"``, ``"fac"``, ``"factory"``,``"fixedwing"``, ``"fuel"``,
-        ``"gun"``, ``"hangar"``, ``"headquarters"``, ``"heavy"``,
-        ``"infantry"``, ``"junk"``, ``"largebuilding"``, ``"light"``,
+        ``"artillery"``, ``"barge"``, ``"battery"``, ``"bridge"``,
+        ``"bunkerentrance"``, ``"company"``, ``"fac"``,
+        ``"factory"``,``"fixedwing"``, ``"fuel"``, ``"gun"``, ``"halftracked"``,
+        ``"hangar"``, ``"headquarters"``, ``"heavy"``, ``"infantry"``,
+        ``"junk"``, ``"largebuilding"``, ``"light"``, ``"limitedwheeled"``,
         ``"locomotive"``, ``"medium"``, ``"missile"``, ``"ordnance"``,
-        ``"platoon"``, ``"powerstation"``, ``"radar"``, ``"railcar"``, ``"reconnaissance"``,
-        ``"rocket"``, ``"rotarywing"``, ``"section"``,``"shelter"``,``"smallbuilding"``,
-        ``"squad"``, ``"supply"``, ``"tower"``, ``"transport"``,
-        ``"transportation"``, ``"truck"``, and ``unidentified``. The British
-        English aliases ``"air-defence"``, ``"antiarmour"``, ``"armour"`` are
-        also allowed.
+        ``"platoon"``, ``"powerstation"``, ``"radar"``, ``"railcar"``,
+        ``"reconnaissance"``, ``"rocket"``, ``"rotarywing"``, ``"section"``,
+        ``"shelter"``, ``"smallbuilding"``, ``"squad"``, ``"supply"``,
+        ``"tower"``, ``"tracked"``, ``"transport"``, ``"transportation"``,
+        ``"truck"``, and ``unidentified``. The British English aliases
+        ``"air-defence"``, ``"antiarmour"``, ``"armour"`` are also allowed.
     :param text:
-        The ``text`` argument as a strings that we drawn
-        in an appropriate position according to the type of the ground unit.
+        The ``text`` argument as a strings that we drawn in an appropriate
+        position according to the type of the ground unit.
     :param protectionclass:
         The ``protectionclass`` argument is must be ``None``, ``"entrenched"``,
         or ``"bunkered"``. It indicates if the unit is entrenched or bunkered.
@@ -3056,21 +3057,18 @@ def _drawgroundunitincanvas(
             drawgunsymbol()
         if "rocket" in symbols:
             drawmultiplerocketsymbol()
-        if False:
-            # We no longer use mobility symbols as they interfere with the lower
-            # text.
-            if "mobile" in symbols:
-                drawmobilesymbol()
-            if "wheeled" in symbols:
-                drawwheeledsymbol()
-            if "limited-wheeled" in symbols:
-                drawlimitedwheeledsymbol()
-            if "halftracked" in symbols:
-                drawhalftrackedsymbol()
-            if "tracked" in symbols:
-                drawtrackedsymbol()
-            if "towed" in symbols:
-                drawtowedsymbol()
+        if "mobile" in symbols:
+            drawmobilesymbol()
+        if "wheeled" in symbols:
+            drawwheeledsymbol()
+        if "limitedwheeled" in symbols:
+            drawlimitedwheeledsymbol()
+        if "halftracked" in symbols:
+            drawhalftrackedsymbol()
+        if "tracked" in symbols:
+            drawtrackedsymbol()
+        if "towed" in symbols:
+            drawtowedsymbol()
 
         if "heavy" in symbols:
             drawheavysymbol()

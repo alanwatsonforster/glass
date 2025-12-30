@@ -3,10 +3,11 @@
     "othername": "Ganef (2K11 Krug)",
     "year": "1963",
     "description": "SA-4A air-defense battery",
-    "symbols": "air-defense/missile/armor/battery",
+    "symbols": "air-defense/missile/armor/light/battery",
     "text": "SA-4A",
     "sightingrange": 12,
     "defensestrength": "3H",
+    "mobility": "G",
     "VPs": [
         10,
         6,

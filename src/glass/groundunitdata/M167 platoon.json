@@ -2,10 +2,11 @@
     "name": "M167",
     "year": 1967,
     "description": "M167 20 mm gatling towed air-defense platoon",
-    "symbols": "air-defense/gun/light/platoon",
+    "symbols": "air-defense/gun/platoon",
     "text": "20×6",
     "defensestrength": "3S",
     "sightingrange": 12,
+    "mobility": "T",
     "aaa": {
         "type": "20×6",
         "class": "L",

@@ -2,10 +2,11 @@
     "name": "S-60",
     "year": 1950,
     "description": "S-60 57 mm air-defense battery",
-    "symbols": "air-defense/gun/medium/battery",
+    "symbols": "air-defense/gun/battery",
     "text": "57",
     "defensestrength": "3S",
     "sightingrange": 12,
+    "mobility": "T",
     "aaa": {
         "type": "57",
         "class": "M",

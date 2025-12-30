@@ -4,6 +4,7 @@
     "symbols": "artillery/battery",
     "sightingrange": 18,
     "defensestrength": "4S",
+    "mobility": "T",
     "VPs": [
         8,
         5,

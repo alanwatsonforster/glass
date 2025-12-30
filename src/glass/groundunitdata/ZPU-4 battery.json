@@ -2,10 +2,11 @@
     "name": "ZPU-4",
     "year": 1949,
     "description": "ZPU-4 quad 14.5 mm air-defense gun battery",
-    "symbols": "air-defense/gun/light/battery",
+    "symbols": "air-defense/gun/battery",
     "text": "14.5×4",
     "defensestrength": "3S",
     "sightingrange": 12,
+    "mobility": "T",
     "aaa": {
         "type": "14.5×4",
         "class": "L",

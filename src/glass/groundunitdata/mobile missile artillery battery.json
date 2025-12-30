@@ -1,9 +1,10 @@
 {
     "name": "mobile missile artillery",
-    "description": "mobile artillery battery",
-    "symbols": "missile/truck/battery",
+    "description": "mobile missile artillery battery",
+    "symbols": "missile/truck/limitedwheeled/battery",
     "sightingrange": 12,
     "defensestrength": "2S",
+    "mobility": "P",
     "VPs": [
         8,
         5,

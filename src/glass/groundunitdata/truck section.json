@@ -1,0 +1,13 @@
+{
+    "name": "truck section",
+    "description": "truck section",
+    "symbols": "truck/limitedwheeled/transport/section",
+    "sightingrange": 12,
+    "defensestrength": "2S",
+    "mobility": "P",
+    "VPs": [
+        2,
+        null,
+        1
+    ]
+}
