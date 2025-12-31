@@ -1,0 +1,21 @@
+{
+    "name": "RBS 70",
+    "othername": "",
+    "year": "1977",
+    "LG": {
+        "launchroll": 8,
+        "turnrate": "ET",
+        "flighttime": 1,
+        "visibility": 6,
+        "chaffrating": 2,
+        "flarerating": 0,
+        "basespeed": 12,
+        "sustainer": 0,
+        "minimumaltitude": "T",
+        "directhitroll": 5,
+        "proximityhitroll": 8,
+        "directdamagerating": 6,
+        "proximitydamagerating": 3,
+        "instantarming": false
+    }
+}

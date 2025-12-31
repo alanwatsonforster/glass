@@ -1,0 +1,26 @@
+{
+    "name": "RBS 70 section",
+    "othername": "",
+    "year": "1977",
+    "description": "RBS 70 section",
+    "symbols": "air-defense/missile/section",
+    "text": "RBS 70",
+    "defensestrength": "5S",
+    "sightingrange": 6,
+    "mobility": "U",
+    "VPs": [
+        null,
+        16,
+        8
+    ],
+    "sam": {
+        "type": "RBS 70",
+        "readymissiles": 2,
+        "volleymissiles": 2,
+        "iff": true,
+        "multitargetcapability": 2,
+        "quickreaction": true,
+        "opticallockon": 7,
+        "lockonrange": 10
+    }
+}

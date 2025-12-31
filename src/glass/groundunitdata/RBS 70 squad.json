@@ -1,0 +1,25 @@
+{
+    "name": "RBS 70 squad",
+    "othername": "",
+    "year": "1977",
+    "description": "RBS 70 squad",
+    "symbols": "air-defense/missile/squad",
+    "text": "RBS 70",
+    "defensestrength": "5S",
+    "sightingrange": 6,
+    "mobility": "U",
+    "VPs": [
+        null,
+        null,
+        8
+    ],
+    "sam": {
+        "type": "RBS 70",
+        "readymissiles": 1,
+        "volleymissiles": 1,
+        "iff": true,
+        "quickreaction": true,
+        "opticallockon": 7,
+        "lockonrange": 10
+    }
+}
