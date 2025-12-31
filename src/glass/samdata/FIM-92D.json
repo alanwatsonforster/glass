@@ -1,0 +1,20 @@
+{
+    "name": "FIM-92D",
+    "othername": "Stinger RMP",
+    "year": "1992",
+    "A": {
+        "launchroll": 8,
+        "turnrate": "BT/2",
+        "flighttime": 1,
+        "visibility": 2,
+        "flarerating": 1,
+        "basespeed": 14,
+        "sustainer": 0,
+        "minimumaltitude": "T",
+        "directhitroll": 7,
+        "proximityhitroll": 9,
+        "directdamagerating": 5,
+        "proximitydamagerating": 2,
+        "instantarming": true
+    }
+}

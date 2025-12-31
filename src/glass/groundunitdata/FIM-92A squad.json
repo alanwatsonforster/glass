@@ -1,0 +1,25 @@
+{
+    "name": "FIM-92A",
+    "othername": "Stinger",
+    "year": "1981",
+    "description": "FIM-92A squad",
+    "symbols": "air-defense/missile/infantry/squad",
+    "text": "FIM-92A",
+    "defensestrength": "5S",
+    "sightingrange": 6,
+    "mobility": "U",
+    "VPs": [
+        9,
+        null,
+        null
+    ],
+    "sam": {
+        "type": "FIM-92A",
+        "readymissiles": 1,
+        "volleymissiles": 1,
+        "quickreaction": true,
+        "iff": true,
+        "opticallockon": 7,
+        "lockonrange": 12
+    }
+}

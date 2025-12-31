@@ -1,0 +1,26 @@
+{
+    "name": "FIM-92B",
+    "othername": "Stinger POST",
+    "year": "1986",
+    "description": "FIM-92B squad",
+    "symbols": "air-defense/missile/infantry/section",
+    "text": "FIM-92B",
+    "defensestrength": "5S",
+    "sightingrange": 6,
+    "mobility": "U",
+    "VPs": [
+        20,
+        null,
+        10
+    ],
+    "sam": {
+        "type": "FIM-92B",
+        "readymissiles": 2,
+        "volleymissiles": 2,
+        "multitargetcapability": 2,
+        "quickreaction": true,
+        "iff": true,
+        "opticallockon": 7,
+        "lockonrange": 12
+    }
+}
