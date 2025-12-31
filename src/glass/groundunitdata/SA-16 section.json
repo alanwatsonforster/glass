@@ -1,0 +1,26 @@
+{
+    "name": "SA-16 section",
+    "othername": "9K310 Igla-1 (Gimlet)",
+    "year": "1981",
+    "description": "SA-16 section",
+    "symbols": "air-defense/missile/infantry/section",
+    "text": "SA-16",
+    "defensestrength": "5S",
+    "sightingrange": 6,
+    "mobility": "U",
+    "VPs": [
+        null,
+        0,
+        0
+    ],
+    "sam": {
+        "type": "SA-16",
+        "readymissiles": 2,
+        "volleymissiles": 2,
+        "multitargetcapability": 2,
+        "iff": true,
+        "quickreaction": true,
+        "opticallockon": 7,
+        "lockonrange": 14
+    }
+}

@@ -1,0 +1,25 @@
+{
+    "name": "SA-24 squad",
+    "othername": "9K338 Igla-S (Grinch)",
+    "year": "2004",
+    "description": "SA-24 squad",
+    "symbols": "air-defense/missile/infantry/squad",
+    "text": "SA-24",
+    "defensestrength": "5S",
+    "sightingrange": 6,
+    "mobility": "U",
+    "VPs": [
+        null,
+        null,
+        0
+    ],
+    "sam": {
+        "type": "SA-24",
+        "readymissiles": 1,
+        "volleymissiles": 1,
+        "iff": true,
+        "quickreaction": true,
+        "opticallockon": 7,
+        "lockonrange": 16
+    }
+}
