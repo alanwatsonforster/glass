@@ -1,23 +1,23 @@
 {
-    "name": "Starstreak section",
+    "name": "Starstreak LML squad",
     "othername": "",
     "year": "2000",
-    "description": "Starstreak section",
-    "symbols": "air-defense/missile/infantry/squad",
+    "description": "Starstreak squad",
+    "symbols": "air-defense/missile/squad",
     "text": "Starstreak",
-    "defensestrength": "5S",
+    "defensestrength": "4S",
     "sightingrange": 6,
     "mobility": "U",
     "VPs": [
         null,
-        24,
-        12
+        null,
+        14
     ],
     "sam": {
         "type": "Starstreak",
-        "readymissiles": 2,
-        "volleymissiles": 2,
-        "multitargetcapability": 2,
+        "readymissiles": 3,
+        "volleymissiles": 1,
+        "reloadmissiles": 0,
         "iff": true,
         "quickreaction": true,
         "opticallockon": 7,
