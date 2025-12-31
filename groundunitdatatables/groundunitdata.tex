@@ -176,9 +176,20 @@ Tanks are armored vehicles that are specialized in direct fire. All tank units a
 
 \subsection{Infantry}
 
-Infantry are soldiers trained to fight on foot. The infantry and the infantry HQ platoons consist of thirty to fifty soldiers. A mechanized infantry platoon will be associated with a platoon of APCs or IFVs. A motorized infantry platoon will be associated with a platoon of trucks.
+Infantry are soldiers trained to fight on foot. An infantry or infantry HQ platoon consists of thirty to fifty soldiers. A mechanized infantry platoon will be associated with a platoon of APCs or IFVs. A motorized infantry platoon will be associated with a platoon of trucks.
 
-The infantry FAC section is a pair of forward air controller squads. It will often be associated with a section of trucks.
+An infantry FAC squad has a forward air controller with other soldiers for transport and communication. It will often be associated with a truck squad. An infantry FAC section has two squads.
+
+Infantry SAM squads are described in a subsequent section.
+
+\subsection{Embedded Infantry Squads}
+
+Infantry FAC and SAM squads (but not sections) may be \emph{embedded} in an infantry platoon or infantry HQ platoon.
+If they are, then they are not represented by a separate counter but are considered to be part of the platoon.
+
+An embedded squad functions normally (i.e., an embedded SAM squad may engage aircraft just like a non-embedded SAM squad and an embedded FAC squad may sight and mark targets just like a non-embedded FAC squad).
+
+If the unit in which they are embedded is suppressed, an embedded squad is suppressed too; if the unit in which they are embedded suffers damage, then for each D of damage suffered roll one die, and on a \minusafter{4} the embedded squad is killed; and if the unit in which they are embedded is killed, the embedded squad is killed too.
 
 \subsection{IFVs and APCs}
 
@@ -477,6 +488,25 @@ Specific FCRs are:
     \item FCR-D: Skyguard (1977).
 \end{itemize}
 
+\section{Infantry SAM Units}
+
+\begin{figure*}
+    \centering
+    \includegraphics[width=0.8\linewidth]{figure-infantry-sam-units.png}
+    \caption{Infantry SAM Units}
+    \label{figure:infantry-sam-units}
+\end{figure*}
+
+Infantry SAM units are squads or sections of infantry specialized in the destruction of attacking aircraft  with portable SAMs.
+Some combine EWRs to give them an autonomous capability to detect and then engage aircraft.
+
+Infantry SAMs are available as sections (with two launchers) and squads (with one launcher).
+Unless otherwise specified, each launcher has one ready missile and two reloads available.
+
+Infantry SAM squads (but not sections) may be embedded in infantry or infantry HQ platoons.
+
+Figure~\ref{figure:infantry-sam-units} shows the representation of infantry SAM units as counters, Table \ref{table:infantry-sam-units} summarizes their properties, and Table~\ref{table:infantry-sams} summarizes the properties of the actual missiles.
+
 \section{SAM Launcher Units}
 
 \begin{figure*}
@@ -496,12 +526,6 @@ In addition to the properties shared by all ground units, Table~\ref{table:sam-l
 \paragraph{Echelon.}
 The echelon of a SAM launcher unit is squad, section, or platoon according to its damage resilience (1D, 2D, or 3D, respectively).
 This does not always coincide with the actual designations used historically. For example, the SA-2 battery in the game corresponds to a battalion in reality.
-
-\paragraph{Infantry SAMs.}
-Infantry SAMs are available as sections (with two launchers) and squads (with one launcher).
-Unless otherwise specified, each launcher has one ready missile and two reloads available.
-
-Infantry SAM squads may be embedded in infantry or infantry HQ platoons. If they are, then they are not represented by a separate counter but are considered to be part of the platoon. The squad can engage aircraft normally. If the unit in which they are embedded is suppressed, the squad is suppressed too: if the unit in which they are embedded suffers damage, then for each D of damage suffered roll one die, and on a \minusafter{4} the squad is killed; and if the unit in which they are embedded is killed, the squad is killed too.
 
 \paragraph{Missile Properties.}
 Table~\ref{table:sams} gives: guidance mode; launch roll; turn rate; flight time; visibility; ECCM, chaff, and flare ratings; whether the missile is active homing (AH) or has a home-on-jam (HOJ) capability; boost phase in FPs; base speed and sustainer duration in game turns; minimum altitude (and modifier for targets at T level); hot rolls for direct and proximity hits; and damage ratings for direct and proximity hits.

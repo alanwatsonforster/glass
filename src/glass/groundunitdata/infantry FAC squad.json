@@ -1,0 +1,13 @@
+{
+    "name": "infantry FAC",
+    "description": "infantry FAC squad",
+    "symbols": "infantry/fac/squad",
+    "sightingrange": 6,
+    "defensestrength": "5S",
+    "mobility": "U",
+    "VPs": [
+        4,
+        null,
+        null
+    ]
+}
