@@ -1,7 +1,7 @@
 {
-    "name": "half-tracked light APC",
-    "description": "half-tracked light APC platoon",
-    "symbols": "armor/halftracked/light/transport/platoon",
+    "name": "open APC",
+    "description": "open APC platoon",
+    "symbols": "armor/open/transport/platoon",
     "defensestrength": "4H",
     "sightingrange": 12,
     "mobility": "G",

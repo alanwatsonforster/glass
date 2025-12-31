@@ -119,6 +119,7 @@ class GroundUnit(glass.element.Element):
                     "locomotive",
                     "medium",
                     "missile",
+                    "open",
                     "ordnance",
                     "platoon",
                     "powerstation",

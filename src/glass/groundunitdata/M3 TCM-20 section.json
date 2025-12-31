@@ -2,7 +2,7 @@
     "name": "M3 TCM-20",
     "year": 1970,
     "description": "M3 TCM-20 twin 20 mm air-defense section",
-    "symbols": "armor/halftracked/air-defense/gun/light/section",
+    "symbols": "armor/halftracked/air-defense/gun/open/section",
     "text": "20×2",
     "defensestrength": "3H",
     "sightingrange": 12,

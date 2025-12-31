@@ -26,18 +26,22 @@
 
 \section{Introduction}
 
-The document describes the properties of ground units and ground targets in the \emph{Air Power} game system and covers the period from 1950 to 2000. Ground \emph{units} are combat formations such as infantry, armor, AAA, SAM launchers, and radars, whereas ground \emph{targets} are infrastructure such as bridges and buildings.
+The document describes the properties of ground units and ground targets in the \emph{Air Power} game system, focusing on those relevant for period from 1950 to 2000.
+
+, whereas ground \emph{targets} are infrastructure such as bridges and buildings.
 
 This document is based largely on information from the \emph{Air Strike}, \emph{Eagles of the Gulf}, and \emph{The Speed of Heat} games, but the properties have been revised and the descriptions of the systems expanded.
 
 \section{Ground Units}
 
-All ground units have these properties:
+Ground \emph{units} are combat formations such as infantry, armor, transports, AAA, SAM launchers, and radars.
+
+All ground units have these common properties which together determine their visibility to aircraft, how they respond to air-to-ground attacks, their capacity for ground-to-ground combat, and their ability to move over with difficult terrain:
 \begin{itemize}
+    \item a basic type (e.g., infantry);
     \item an echelon;
     \item a damage resilience;
-    \item a defense strength;
-    \item a classification as a hard or soft target;
+    \item a defense strength and target class;
     \item a mobility;
     \item a sighting range in hexes;
     \item the VPs awarded for K/2D/D damage.
@@ -65,11 +69,21 @@ The damage resilience of a ground unit is the amount of damage it can suffer bef
     \item Platoons or batteries have a damage resilience of 3D;.
 \end{itemize}
 
-\subsection{Protection}
+\subsection{Damage Strength and Target Class}
 
-Ground units whose personnel and weapons are \emph{fully} protected by armored vehicles are hard targets and are denoted by underlined defense strengths. They are classified as heavy, medium, or light according to their degree of protection.
+The damage strength and target class of a ground unit are used to calculate the odds of an air-to-ground attack. The target class modifies the attack strength of the air-to-ground weapons and the defense strength is used as a divisor.
 
-Infantry units, units equipped with towed weapons, units equipped with unarmored vehicles, or units with armored vehicles that do not fully protect their personnel and weapons are soft targets and do not have underlined defense strengths.
+A ground unit can be a hard (H), open (O), or soft (S) target according to the degree to which it provides armored protection to its personnel and weapons:
+
+\begin{itemize}
+
+    \item Hard targets have protection both from side and top attacks and are denoted by underlined defense strengths. They are classified as heavy, medium, or light according to their degree of protection, but this classification is simply descriptive. Most tanks, IFVs, and APCs are hard targets.
+
+    \item Open targets have protection from side attacks but not from top attacks and are denoted by underlined defense strengths. They normally are treated as hard targets, but against napalm, fire, FAE, and air-burst HE bombs they are considered to be soft targets. The BTR-50P APC and the M3 half-tracked APC are examples of open targets.
+
+    \item Soft targets do not have protection and do not have underlined defense strengths. Examples include infantry, units equipped with towed weapons, units equipped with unarmored vehicles, or units with armored vehicles that do not fully protect their personnel and weapons (for example, the M-107 and M-110 tracked artillery vehicles).
+
+\end{itemize}
 
 \subsection{Mobility}
 
@@ -120,7 +134,7 @@ The representation mainly uses NATO symbols, including those for infantry, armor
 
 The echelon is indicated by one, two, or three dots (for squads, sections, or platoons) or one vertical bar (for batteries) in an upper position.
 
-The letters H, M, and L in a lower position denote heavy, medium, and light protection.
+For armored units, the letters H, M, and O in a lower position denote heavy, medium, and open protection; light protection is implicit.
 
 \section{Ground-Combat Units}
 
@@ -147,8 +161,6 @@ Tanks are armored vehicles that are specialized in direct fire. All tank units a
 
     \item Light Tanks: AMX-10 RC, AMX-13, Ferret, M24 Chaffee, M41 Walker Bulldog, M551 Sheridan, Panhard EBR, PT-76, and Scorpion/Scimitar.
 
-    \item Wheeled Light Tanks: AMX-10 RC, Ferret, and Panhard EBR.
-
 \end{itemize}
 
 \subsection{Infantry}
@@ -167,25 +179,25 @@ Both IFVs and APCs are armored vehicles that carry infantry. However, IFVs provi
 
     \item Medium IFVs: CV90, M2A2 Bradley (only this version), and Marder.
 
-    \item Wheeled Light IFVs: LAV-25, M1296 Dragoon, and VCBI,
-
-    \item Light IFVs: all other IFVs including the AMX-10P, BMP-1/2/3, M2/3 Bradley (except the M2A2 version), and Warrior.
+    \item Light IFVs: all others including the AMX-10P, BMP-1/2/3, LAV-25, M2/3 Bradley (except the M2A2 version), M1296 Dragoon, VCBI, and Warrior.
 
     \item Heavy APCs: converted heavy tanks.
 
     \item Medium APCs: converted medium tanks.
 
-    \item Half-Tracked Light APCs: M3
+    \item Open APCs: BTR-152, BTR-40, BTR-50P, and M3 half-track.
 
-    \item Wheeled Light APCs: BTR-152, BTR-40, BTR-50/60/70/80, Saracen, most Stryker variants, and VAB.
-
-    \item Light APCs: all other APCs including the FV432, M113, M114, and Spartan.
+    \item Light APCs: all others, including the BTR-50PK, BTR-60/70/80, FV432, M113, M114, Saracen, Spartan, most Stryker variants, and VAB.
 
 \end{itemize}
 
+\subsection{Armored Cars and Half-Tracks}
+
+Armored cars and armored half-tracks are considered to be light tanks, light IFVs, or light APCs according to their role and armament.
+
 \subsection{Trucks and Tracked Carriers}
 
-Trucks and tracked carriers are unarmored or incompletely armored vehicles that transport infantry, towed weapons, and supplies. The difference is that trucks have restricted vehicular mobility whereas tracker carriers (e.g., the M548) have unrestricted vehicular mobility.
+Trucks and tracked carriers are unarmored or incompletely armored vehicles that transport infantry, towed weapons, and supplies. The difference is that trucks have poor mobility whereas tracker carriers (e.g., the M548) have good mobility.
 
 Trucks include light trucks such as Jeeps, Land Rovers, and Humvees.
 

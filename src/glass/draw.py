@@ -1726,7 +1726,7 @@ def drawgroundunit(
         ``"factory"``,``"fixedwing"``, ``"fuel"``, ``"gun"``, ``"halftracked"``,
         ``"hangar"``, ``"headquarters"``, ``"heavy"``, ``"infantry"``,
         ``"junk"``, ``"largebuilding"``, ``"light"``, ``"limitedwheeled"``,
-        ``"locomotive"``, ``"medium"``, ``"missile"``, ``"ordnance"``,
+        ``"locomotive"``, ``"medium"``, ``"missile"``, ``"open"``, ``"ordnance"``,
         ``"platoon"``, ``"powerstation"``, ``"radar"``, ``"railcar"``,
         ``"reconnaissance"``, ``"rocket"``, ``"rotarywing"``, ``"section"``,
         ``"shelter"``, ``"smallbuilding"``, ``"squad"``, ``"supply"``,
@@ -2397,8 +2397,10 @@ def _drawgroundunitincanvas(
             drawlowertext("M")
 
         def drawlightsymbol():
-            # drawlowertext("L")
-            pass
+            drawlowertext("")
+
+        def drawopensymbol():
+            drawlowertext("O")
 
         def drawfacsymbol():
             drawlowertext("FAC")
@@ -3061,12 +3063,12 @@ def _drawgroundunitincanvas(
             drawmultiplerocketsymbol()
         if "mobile" in symbols:
             drawmobilesymbol()
-        if "wheeled" in symbols:
-            drawwheeledsymbol()
+        # if "wheeled" in symbols:
+        #    drawwheeledsymbol()
         if "limitedwheeled" in symbols:
             drawlimitedwheeledsymbol()
-        if "halftracked" in symbols:
-            drawhalftrackedsymbol()
+        # if "halftracked" in symbols:
+        #    drawhalftrackedsymbol()
         if "tracked" in symbols:
             drawtrackedsymbol()
         if "towed" in symbols:
@@ -3078,6 +3080,8 @@ def _drawgroundunitincanvas(
             drawmediumsymbol()
         if "light" in symbols:
             drawlightsymbol()
+        if "open" in symbols:
+            drawopensymbol()
 
         if "locomotive" in symbols:
             drawlocomotivesymbol()
@@ -3127,8 +3131,9 @@ def _drawgroundunitincanvas(
             text,
             facing=90,
             dx=0,
-            dy=-groundunitsymboldy * 0.425,
+            dy=-groundunitsymboldy * 0.43,
             size="notsotiny",
+            weight="bold",
             textcolor=linecolor,
             alignment="center",
             verticalalignment="baseline",
@@ -3179,8 +3184,9 @@ def _drawgroundunitincanvas(
             text,
             facing=90,
             dx=0,
-            dy=-groundunitsymboldy * 0.01,
+            dy=-groundunitsymboldy * 0.02,
             size="notsotiny",
+            weight="bold",
             textcolor=linecolor,
             alignment="center",
             verticalalignment="center",
@@ -3188,34 +3194,20 @@ def _drawgroundunitincanvas(
         )
 
     def drawrighttext(text):
-        if len(text) > 4:
-            _drawtextincanvas(
-                x,
-                y,
-                text,
-                facing=180,
-                dx=-groundunitsymboldy * 0.35 * math.sqrt(4 / 3),
-                dy=-groundunitsymboldx * 0.50 / math.sqrt(4 / 3),
-                size="tiny",
-                textcolor=linecolor,
-                alignment="left",
-                verticalalignment="center",
-                zorder=zorder,
-            )
-        else:
-            _drawtextincanvas(
-                x,
-                y,
-                text,
-                facing=180,
-                dx=0,
-                dy=-groundunitsymboldx * 0.50 / math.sqrt(4 / 3),
-                size="tiny",
-                textcolor=linecolor,
-                alignment="center",
-                verticalalignment="center",
-                zorder=zorder,
-            )
+        _drawtextincanvas(
+            x,
+            y,
+            text,
+            facing=90,
+            dx=+groundunitsymboldx * 0.37,
+            dy=-groundunitsymboldy * 0.01,
+            size="notsotiny",
+            weight="bold",
+            textcolor=linecolor,
+            alignment="center",
+            verticalalignment="center",
+            zorder=zorder,
+        )
 
     if not counter and facing is not None:
         _drawarrowincanvas(

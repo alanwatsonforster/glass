@@ -2,7 +2,7 @@
     "name": "ZSU-57-2",
     "year": 1955,
     "description": "ZSU-57-2 twin 57 mm self-propelled air-defense section",
-    "symbols": "air-defense/gun/armor/light/section",
+    "symbols": "air-defense/gun/armor/open/section",
     "text": "57×2",
     "defensestrength": "4H",
     "sightingrange": 12,
