@@ -4,7 +4,7 @@
     "description": "ZSU-57-2 twin 57 mm self-propelled air-defense section",
     "symbols": "air-defense/gun/armor/open/section",
     "text": "57×2",
-    "defensestrength": "4H",
+    "defensestrength": "4O",
     "sightingrange": 12,
     "mobility": "G",
     "aaa": {

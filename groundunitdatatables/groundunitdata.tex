@@ -77,7 +77,7 @@ A ground unit can be a hard (H), open (O), or soft (S) target according to the d
 
     \item Hard targets have protection both from side and top attacks and are denoted by underlined defense strengths. They are classified as heavy, medium, or light according to their degree of protection, but this classification is simply descriptive. Most tanks, IFVs, and APCs are hard targets.
 
-    \item Open targets have protection from side attacks but not from top attacks and are denoted by underlined defense strengths. They normally are treated as hard targets, but against napalm, fire, FAE, and air-burst HE bombs they are considered to be soft targets. The BTR-50P APC and the M3 half-tracked APC are examples of open targets.
+    \item Open targets have protection from side attacks but not from top attacks and are denoted by underlined defense strengths followed by an exclamation point. They normally are treated as hard targets, but against napalm, fire, FAE, and air-burst HE bombs they are considered to be soft targets. The BTR-50P APC and the M3 half-tracked APC are examples of open targets.
 
     \item Soft targets do not have protection and do not have underlined defense strengths. Examples include infantry, units equipped with towed weapons, units equipped with unarmored vehicles, or units with armored vehicles that do not fully protect their personnel and weapons (for example, the M-107 and M-110 tracked artillery vehicles).
 
@@ -88,10 +88,12 @@ A ground unit can be a hard (H), open (O), or soft (S) target according to the d
 The mobility class of a ground unit places limits on where a unit may normally be placed or move on the map. Ground units can have unrestricted, good, or poor mobility. Typically:
 \begin{itemize}
     \item Infantry has unrestricted mobility;
-    \item AFVs and tracked-carriers have good mobility; and
+    \item AFVs and tracked carriers have good mobility; and
     \item Trucks and towed weapons have poor mobility.
 \end{itemize}
-These limits are in terms of whether a hex is clear, forest, urban, or water and whether it contains a road, trail, and runway:
+Wheeled AFVs (e.g., the LAV and BTR-60) have good mobility, but wheeled trucks typically do not.
+
+The corresponding limits are:
 \begin{itemize}
     \item Units with unrestricted mobility may only occupy:
         \begin{itemize}
@@ -125,7 +127,7 @@ No ground unit may occupy a water hex.
 
 Figure~\ref{figure:mobility} illustrates these limitations. Units with poor mobility may only occupy the hexes marked with green dots. Those with good mobility may occupy those marked with yellow or green dots. Those with unlimited mobility may occupy the hexes marked with red, yellow, or green dots.
 
-The scenario notes may remove some of these restrictions or add others. For example, a towed artillery unit normally must obey the restrictions for poor-mobility units, but a scenario may allow it to have been transported by helicopter to a clear hex far from a road.
+The scenario notes may remove some of these restrictions or add others. For example, a scenario with airmobile forces might allow a towed artillery battery to have been transported by helicopter to any clear hex and one set in the open desert of southern Iraq might allow a truck platoon freedom to occupy any clear hex.
 
 %Units whose weapons are permanently installed on fully armored vehicles are referred to as being \emph{armored}. Those whose weapons are permanently installed on unarmored or incompletely armored vehicles are referred to as being \emph{mobile}.
 
@@ -135,19 +137,21 @@ Infantry units and towed units may be associated with a vehicular transport unit
 
 \subsection{Representation}
 
-Figures \ref{figure:ground-combat-units}, \ref{figure:aaa-units}, \ref{figure:radar-and-ccu-units}, and \ref{figure:sam-launcher-units} show the graphical representation of ground-combat units.
+Figures \ref{figure:ground-combat-units}, \ref{figure:aaa-units}, \ref{figure:radar-and-ccu-units}, and \ref{figure:sam-launcher-units} show the graphical representation of ground-combat units as counters.
 
-The representation mainly uses NATO symbols, including those for infantry, armor, air defense, guns, missiles, tube artillery, rocket artillery. One addition is that a rectangle denotes an unarmored vehicle such as a truck or tracked carrier, and its mobility is indicated as poor by two wheel symbols or as good by three wheel symbols, a half-track symbol, or a tracked symbol. Also, the letter T designates a transport capacity (e.g., APCs, IFVs, and trucks).
+The representation mainly uses NATO symbols, including those for infantry, armor, air defense, guns, missiles, tube artillery, and rocket artillery. One addition is that a rectangle denotes an unarmored vehicle such as a truck or tracked carrier. All vehicular units have either an armor or unarmored vehicle symbol, all infantry units have an infantry symbol, and owed units have none of these.
+
+The letter T in the central position indicates a transport capacity (e.g., APCs, IFVs, and cargo trucks). The letters H, M, L, and O in the lower position indicate heavy, medium, light, and open protection.
+
+Armored units implicitly have good mobility. For truck units, two wheel symbols in the lower position indicates poor mobility and three wheel symbols, a half-track symbol, or a tracked symbol indicate good mobility.
 
 The echelon is indicated by one, two, or three dots (for squads, sections, or platoons) or one vertical bar (for batteries) in an upper position.
-
-For armored units, the letters H, M, and O in a lower position denote heavy, medium, and open protection; light protection is implicit.
 
 \section{Ground-Combat Units}
 
 Ground-combat units represent infantry, tanks, and other AFVs, trucks, and artillery. Their primary role is combat with other ground units.
 
-Table \ref{table:ground-combat-units} summarizes the properties of ground-combat units. The AAA class is B2 for infantry platoons and B3 for AFV platoons, indicating that they are capable of barrage fire to altitudes of 2 and 3 levels, respectively.
+Figure~\ref{figure:ground-combat-units} shows the representation of ground-combat units as counters, and Table \ref{table:ground-combat-units} summarizes their properties. The AAA class is B2 for infantry platoons and B3 for AFV platoons, indicating that they are capable of barrage fire to altitudes of 2 and 3 levels, respectively.
 
 \begin{figure*}
     \centering
@@ -160,11 +164,11 @@ Table \ref{table:ground-combat-units} summarizes the properties of ground-combat
 
 Tanks are armored vehicles that are specialized in direct fire. All tank units are platoons. Tanks are distinguished as having heavy, medium, or light armor. Examples include:
 
-\begin{itemize}
+\begin{itemize}\raggedright
 
-    \item Heavy Tanks: Conqueror, Chieftain, Challenger 1/2, IS-3, Leclerc, Leopard 2, M1 Abrams, Merkava, T-10, T-64, T-72, T-80, T-84, and T-90.
+    \item Heavy Tanks: Challenger 1/2, Chieftain, Conqueror, IS-3, Leclerc, Leopard 2, M1 Abrams, Merkava, T-10, T-64, T-72, T-80, T-84, and T-90.
 
-    \item Medium Tanks: AMX-30, Centurion, Leopard 1, M4 Sherman, M47/48 Patton, M60, M103, T-34, IS-2, T-54/55, and T-62.
+    \item Medium Tanks: AMX-30, Centurion, IS-2, Leopard 1, M4 Sherman, M47 and M48 Patton, M60, M103, T-34, T-54, T-55, and T-62.
 
     \item Light Tanks: AMX-10 RC, AMX-13, Ferret, M24 Chaffee, M41 Walker Bulldog, M551 Sheridan, Panhard EBR, PT-76, and Scorpion/Scimitar.
 
@@ -180,7 +184,7 @@ The infantry FAC section is a pair of forward air controller squads. It will oft
 
 Both IFVs and APCs are armored vehicles that carry infantry. However, IFVs provide fire support and typically have a 20 mm or larger cannon, and APCs do not. All IFV and APC units are platoons. They are further distinguished as having heavy, medium, or light protection. Examples include:
 
-\begin{itemize}
+\begin{itemize}\raggedright
 
     \item Heavy IFVs: none.
 
@@ -210,11 +214,11 @@ Trucks include light trucks such as Jeeps, Land Rovers, and Humvees.
 
 \subsection{Artillery}
 
-Artillery is specialized in indirect fire. All artillery units are batteries. Artillery may be tube, rocket, or missile and armored, mobile, or towed. Examples include:
+Artillery is specialized in indirect fire. All artillery units are batteries. Artillery may be tube, rocket, or missile and armored, tracked, mobile, or towed. Examples include:
 
-\begin{itemize}
+\begin{itemize}\raggedright
 
-    \item Armored Artillery: 2S19 Msta-S, 2S3 Akatsiya, AMX-30 AuF1, AS-90, Abbot, M109, and Panzerhaubitze 2000.
+    \item Armored Artillery: 2S3 Akatsiya, 2S19 Msta-S, Abbot, AMX-30 AuF1, AS-90, M109, and Panzerhaubitze 2000.
 
     \item Tracked Artillery: 2S4 Tyulpan, 2S7 Pion, M7 Priest, M107, and M110.
 
@@ -229,8 +233,6 @@ Artillery is specialized in indirect fire. All artillery units are batteries. Ar
     \item Mobile Missile Artillery: 9K52 Luna-M (Frog), OTR-21 Tochka (SS-21), and RSD-10 Pioneer (SS-20).
 
 \end{itemize}
-
-Tracked or wheeled artillery with incomplete armor protection (e.g., the wheeled CAESAR and the tracked M107) is treated as mobile artillery.
 
 A truck platoon may serve as the tractor unit of a towed artillery battery.
 

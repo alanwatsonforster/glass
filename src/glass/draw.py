@@ -2401,7 +2401,7 @@ def _drawgroundunitincanvas(
             drawlowersymboltext("M")
 
         def drawlightsymbol():
-            drawlowersymboltext("")
+            drawlowersymboltext("L")
 
         def drawopensymbol():
             drawlowersymboltext("O")
@@ -3067,12 +3067,12 @@ def _drawgroundunitincanvas(
             drawmultiplerocketsymbol()
         if "mobile" in symbols:
             drawmobilesymbol()
-        # if "wheeled" in symbols:
-        #    drawwheeledsymbol()
+        if "wheeled" in symbols:
+            drawwheeledsymbol()
         if "limitedwheeled" in symbols:
             drawlimitedwheeledsymbol()
-        # if "halftracked" in symbols:
-        #    drawhalftrackedsymbol()
+        if "halftracked" in symbols:
+            drawhalftrackedsymbol()
         if "tracked" in symbols:
             drawtrackedsymbol()
         if "towed" in symbols:
@@ -3178,11 +3178,15 @@ def _drawgroundunitincanvas(
         )
 
     def drawbottomtext(text):
+        # \u0332 is "combining low line".
         if "S" in text:
             text = text.replace("S", "")
+        elif "O" in text:
+            text = re.sub(r"([0-9])([0-9])O", "\\1\u0332\\2\u0332!", text)
+            text = re.sub(r"([0-9])O", "\\1\u0332!", text)
         elif "H" in text:
-            text = re.sub(r"([0-9])([0-9])H", r"\1" + "\u0332" + r"\2" + "\u0332", text)
-            text = re.sub(r"([0-9])H", r"\1" + "\u0332", text)
+            text = re.sub(r"([0-9])([0-9])H", "\\1\u0332\\2\u0332", text)
+            text = re.sub(r"([0-9])H", "\\1\u0332", text)
         _drawtextincanvas(
             x,
             y,
