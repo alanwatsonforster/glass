@@ -7,7 +7,7 @@
         "turnrate": "ET/2",
         "flighttime": 1,
         "visibility": 6,
-        "flarerating": 3,
+        "flarerating": 2,
         "basespeed": 15,
         "sustainer": 0,
         "minimumaltitude": "T",

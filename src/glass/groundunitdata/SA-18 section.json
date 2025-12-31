@@ -10,8 +10,8 @@
     "mobility": "U",
     "VPs": [
         null,
-        0,
-        0
+        20,
+        10
     ],
     "sam": {
         "type": "SA-18",
