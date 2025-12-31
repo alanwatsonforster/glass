@@ -1,0 +1,25 @@
+{
+    "name": "FIM-43C",
+    "othername": "Redeye Block III",
+    "year": "1968",
+    "description": "FIM-43C squad",
+    "symbols": "air-defense/missile/infantry/section",
+    "text": "FIM-43C",
+    "defensestrength": "5S",
+    "sightingrange": 6,
+    "mobility": "U",
+    "VPs": [
+        4,
+        null,
+        null
+    ],
+    "sam": {
+        "type": "FIM-43C",
+        "readymissiles": 2,
+        "volleymissiles": 2,
+        "multitargetcapability": 2,
+        "quickreaction": true,
+        "opticallockon": 7,
+        "lockonrange": 9
+    }
+}

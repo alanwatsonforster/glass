@@ -1,0 +1,20 @@
+{
+    "name": "FIM-43C",
+    "othername": "Redeye Block III",
+    "year": "1968",
+    "I": {
+        "launchroll": 7,
+        "turnrate": "BT",
+        "flighttime": 1,
+        "visibility": 6,
+        "flarerating": 5,
+        "basespeed": 10,
+        "sustainer": 0,
+        "minimumaltitude": "T",
+        "directhitroll": 5,
+        "proximityhitroll": 6,
+        "directdamagerating": 4,
+        "proximitydamagerating": 2,
+        "instantarming": true
+    }
+}
