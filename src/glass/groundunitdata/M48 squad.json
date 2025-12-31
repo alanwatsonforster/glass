@@ -9,9 +9,9 @@
     "sightingrange": 12,
     "mobility": "G",
     "VPs": [
-        9,
         null,
-        null
+        null,
+        9
     ],
     "sam": {
         "type": "MIM-72",

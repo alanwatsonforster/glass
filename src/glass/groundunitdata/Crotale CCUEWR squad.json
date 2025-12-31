@@ -12,8 +12,8 @@
         "ewrrange": 8
     },
     "VPs": [
-        10,
         null,
-        null
+        null,
+        10
     ]
 }

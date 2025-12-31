@@ -6,8 +6,8 @@
     "defensestrength": "2S",
     "mobility": "P",
     "VPs": [
-        2,
         null,
+        2,
         1
     ]
 }

@@ -9,9 +9,9 @@
     "sightingrange": 6,
     "mobility": "U",
     "VPs": [
-        4,
         null,
-        null
+        null,
+        4
     ],
     "sam": {
         "type": "FIM-43C",

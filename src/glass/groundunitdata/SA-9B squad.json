@@ -9,9 +9,9 @@
     "defensestrength": "4H",
     "mobility": "G",
     "VPs": [
-        7,
         null,
-        null
+        null,
+        7
     ],
     "sam": {
         "type": "SA-9B",

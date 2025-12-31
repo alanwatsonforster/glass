@@ -9,9 +9,9 @@
     "sightingrange": 12,
     "mobility": "G",
     "VPs": [
-        10,
         null,
-        null
+        null,
+        10
     ],
     "sam": {
         "type": "SA-13",

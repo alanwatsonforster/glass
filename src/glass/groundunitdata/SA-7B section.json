@@ -9,8 +9,8 @@
     "sightingrange": 6,
     "mobility": "U",
     "VPs": [
-        8,
         null,
+        8,
         4
     ],
     "sam": {

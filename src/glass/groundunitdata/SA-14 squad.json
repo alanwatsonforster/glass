@@ -9,9 +9,9 @@
     "sightingrange": 6,
     "mobility": "U",
     "VPs": [
-        6,
         null,
-        null
+        null,
+        6
     ],
     "sam": {
         "type": "SA-14",
