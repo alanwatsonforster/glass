@@ -5,7 +5,7 @@
     "description": "RBS 70 squad",
     "symbols": "air-defense/missile/squad",
     "text": "RBS 70",
-    "defensestrength": "5S",
+    "defensestrength": "4S",
     "sightingrange": 6,
     "mobility": "U",
     "VPs": [

@@ -5,7 +5,7 @@
     "description": "RBS 70 section",
     "symbols": "air-defense/missile/section",
     "text": "RBS 70",
-    "defensestrength": "5S",
+    "defensestrength": "4S",
     "sightingrange": 6,
     "mobility": "U",
     "VPs": [
