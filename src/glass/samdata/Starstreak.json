@@ -1,0 +1,21 @@
+{
+    "name": "Starstreak",
+    "othername": "",
+    "year": "1997",
+    "LG": {
+        "launchroll": 8,
+        "turnrate": "ET",
+        "flighttime": 1,
+        "visibility": 5,
+        "chaffrating": 1,
+        "flarerating": 0,
+        "basespeed": 24,
+        "sustainer": 0,
+        "minimumaltitude": "T",
+        "directhitroll": 7,
+        "proximityhitroll": 9,
+        "directdamagerating": 6,
+        "proximitydamagerating": 4,
+        "instantarming": true
+    }
+}

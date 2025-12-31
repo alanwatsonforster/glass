@@ -1,0 +1,26 @@
+{
+    "name": "Starstreak section",
+    "othername": "",
+    "year": "1997",
+    "description": "Starstreak section",
+    "symbols": "air-defense/missile/infantry/squad",
+    "text": "Starstreak",
+    "defensestrength": "5S",
+    "sightingrange": 6,
+    "mobility": "U",
+    "VPs": [
+        null,
+        24,
+        12
+    ],
+    "sam": {
+        "type": "Starstreak",
+        "readymissiles": 2,
+        "volleymissiles": 2,
+        "multitargetcapability": 2,
+        "iff": true,
+        "quickreaction": true,
+        "opticallockon": 7,
+        "lockonrange": 12
+    }
+}
