@@ -5,7 +5,7 @@
     "text": "40",
     "defensestrength": "3S",
     "sightingrange": 12,
-    "mobility": "T",
+    "mobility": "P",
     "aaa": {
         "type": "40",
         "class": "M",

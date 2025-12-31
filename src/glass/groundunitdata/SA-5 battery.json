@@ -7,7 +7,7 @@
     "text": "SA-5",
     "sightingrange": 24,
     "defensestrength": "12S",
-    "mobility": "T",
+    "mobility": "P",
     "sam": {
         "type": "SA-5",
         "ewrfrequency": "LF",

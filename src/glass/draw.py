@@ -795,7 +795,7 @@ def _drawtextincanvas(
     **kwargs,
 ):
     """
-    The counterpart of :func:`drawlowersymboltext` in canvas coordinates.
+    The counterpart of :func:`drawtextincanvas` in canvas coordinates.
     """
     x = x + dx * _sind(facing) + dy * _cosd(facing)
     y = y - dx * _cosd(facing) + dy * _sind(facing)

@@ -6,7 +6,7 @@
     "text": "20×6",
     "defensestrength": "3S",
     "sightingrange": 12,
-    "mobility": "T",
+    "mobility": "P",
     "aaa": {
         "type": "20×6",
         "class": "L",

@@ -6,7 +6,7 @@
     "text": "85",
     "defensestrength": "4S",
     "sightingrange": 18,
-    "mobility": "T",
+    "mobility": "P",
     "aaa": {
         "type": "85",
         "class": "H",
