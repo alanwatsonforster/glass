@@ -28,27 +28,27 @@
 
 The document describes the properties of ground units and ground targets in the \emph{Air Power} game system, focusing on those relevant for period from 1950 to 2000.
 
-This document is based largely on information from the \emph{Air Strike}, \emph{Eagles of the Gulf}, and \emph{The Speed of Heat} games, but the properties have been revised and the descriptions of the systems expanded.
+It builds on the information in the \emph{Air Strike}, \emph{Eagles of the Gulf}, and \emph{The Speed of Heat} games, the \emph{Air Power Journal}, and from Malcolm Pipe's extensive compendium of AAA and SAM units, but the data have been revised and the descriptions of the systems expanded.
 
 \section{Ground Units}
 
 Ground \emph{units} are combat formations such as infantry, armor, transports, AAA, SAM launchers, and radars.
 
-All ground units have these common properties which together determine their visibility to aircraft, how they respond to air-to-ground attacks, their capacity for ground-to-ground combat, and their ability to move over with difficult terrain:
+All ground units have these common properties which together determine their visibility to aircraft, their vulnerability to air-to-ground and ground-to-ground attacks, their capacity for ground-to-ground capacity, their ability to move through difficult terrain, and value in VPs:
 \begin{itemize}
-    \item a basic type (e.g., infantry);
-    \item an echelon;
-    \item a damage resilience;
-    \item a defense strength and target class;
-    \item a mobility;
-    \item a sighting range in hexes;
+    \item basic type (e.g., infantry or tanks);
+    \item size;
+    \item damage resilience;
+    \item defense strength and target class;
+    \item mobility;
+    \item sighting range in hexes;
     \item the VPs awarded for 3D/2D/D damage.
 \end{itemize}
 Many units also have properties related to their air-defense capabilities.
 
-\subsection{Echelon}
+\subsection{Size}
 
-The echelon is the level of a ground unit within its wider organization. Ground units can be squads, sections, platoons, or batteries. Typically:
+Ground units can be squads, sections, platoons, or batteries according to their number of soldiers, vehicles, guns, or launchers. Typically:
 
 \begin{itemize}
     \item Squads have five to ten soldiers and/or one vehicle, gun, or launcher;
@@ -56,11 +56,13 @@ The echelon is the level of a ground unit within its wider organization. Ground 
     \item Platoons or batteries have thirty to fifty soldiers and/or three to six vehicles, guns, or launchers.
 \end{itemize}
 
-Echelons such as companies, battalions, and regiments exist above platoons or batteries, but they are represented by multiple ground units. For example, an infantry company might be formed by three separate ground units: one infantry HQ platoon and two infantry platoons.
+The term platoon is more commonly used for maneuver forces and battery for artillery and air-defense forces, but within the game they are equivalent.
+
+Companies, battalions, and other larger units exist above platoons or batteries, but they are represented by multiple units. For example, an infantry company might be formed by one infantry HQ platoon and two infantry platoons.
 
 \subsection{Damage Resilience}
 
-The damage resilience of a ground unit is the amount of damage it can suffer before being killed. It is determined by the echelon:
+Ground units have a numerical damage resilience, which is the amount of damage they can suffer before being killed. It is determined by the size of the unit:
 \begin{itemize}
     \item Squads have a damage resilience of 1D;
     \item Sections have a damage resilience of 2D; and
@@ -69,15 +71,15 @@ The damage resilience of a ground unit is the amount of damage it can suffer bef
 
 \subsection{Damage Strength and Target Class}
 
-The damage strength and target class of a ground unit are used to calculate the odds of an air-to-ground attack. The target class modifies the attack strength of the air-to-ground weapons and the defense strength is used as a divisor.
+Ground units have a numerical damage strength and target class, which are used to calculate the odds of an air-to-ground attack and in ground-to-ground combat.
 
-A ground unit can be a hard (H), open (O), or soft (S) target according to the degree to which it provides armored protection to its personnel and weapons:
+Ground unit can be hard, open, or soft targets according to the degree to which they provide armored protection to their personnel and weapons:
 
 \begin{itemize}
 
     \item Hard targets have protection both from side and top attacks and are denoted by underlined defense strengths. They are classified as heavy, medium, or light according to their degree of protection, but this classification is simply descriptive. Most tanks, IFVs, and APCs are hard targets.
 
-    \item Open targets have protection from side attacks but not from top attacks and are denoted by underlined defense strengths followed by an exclamation point. They normally are treated as hard targets, but against napalm, fire, FAE, and air-burst HE bombs they are considered to be soft targets. The BTR-50P APC and the M3 half-tracked APC are examples of open targets.
+    \item Open targets have protection from side attacks but not from top attacks and are denoted by underlined defense strengths followed by an exclamation point. They are normally treated as hard targets, but against napalm, fire, FAE, and air-burst HE bombs they are considered to be soft targets. The BTR-50P APC and the M3 half-tracked APC are examples of open targets.
 
     \item Soft targets do not have protection and do not have underlined defense strengths. Examples include infantry, units equipped with towed weapons, units equipped with unarmored vehicles, or units with armored vehicles that do not fully protect their personnel and weapons (for example, the M-107 and M-110 tracked artillery vehicles).
 
@@ -85,31 +87,44 @@ A ground unit can be a hard (H), open (O), or soft (S) target according to the d
 
 \subsection{Mobility}
 
-The mobility class of a ground unit places limits on where a unit may normally be placed or move on the map. Ground units can have unrestricted, good, or poor mobility:
+Ground units have a mobility class that can place limits on where they may normally be placed or move on the map. Ground units can have unrestricted (U), good (G), or poor (P) mobility:
 \begin{itemize}
     \item Infantry has unrestricted mobility;
     \item Tracked AFVs, wheeled AFVs, and tracked carriers have good mobility; and
     \item Trucks and towed weapons have poor mobility.
 \end{itemize}
 
-The corresponding limits are:
+Ground units may normally be placed and move according to the following rules:
 \begin{itemize}
     \item No unit may occupy a water hex.
     \item Any unit may occupy an urban hex.
-    \item Any unit may occupy a hex with a road, trail, or runway.
-    \item A unit with good mobility may occupy a clear hex.
-    \item A unit with good mobility may occupy a forest hex adjacent to an urban hex, adjacent to a clear hex, or adjacent to another forest hex with a road or trail.
-    \item A unit with poor mobility may occupy a clear hex adjacent to an urban hex or adjacent to another clear hex with a road, trail, or runway.
+    \item A unit with unrestricted mobility may occupy:
+        \begin{itemize}
+            \item any clear hex
+            \item any forest hex.
+        \end{itemize}
+    \item A unit with good mobility may occupy:
+        \begin{itemize}
+            \item any clear hex
+            \item a forest hex only if it has a road or trail, is adjacent to another forest hex with a road or trail, is adjacent to a clear hex, or is adjacent to an urban hex.
+        \end{itemize}
+    \item A unit with poor mobility may occupy:
+        \begin{itemize}
+            \item a clear hex only if it has a road, trail, or runway, is adjacent to another clear hex with a road, trail, or runway, or is adjacent to an urban hex.
+            \item a forest hex only if it has a road, trail, or runway.
+        \end{itemize}
 \end{itemize}
+
+These rules, for example, limit AFVs to the edges of forests and trucks to being on or close to roads, trails, runways, and urban areas.
+
+Figure~\ref{figure:mobility} illustrates these rules: units with poor mobility may only occupy the hexes marked with green dots; those with good mobility may only occupy those marked with yellow or green dots; and those with unlimited mobility may only occupy the hexes marked with red, yellow, or green dots.
 
 \begin{figure}
     \centering
     \includegraphics[width=1\linewidth]{figure-mobility.png}
-    \caption{Mobility. {\normalfont Units with poor mobility may only occupy the hexes marked with green dots. Those with good mobility may occupy those marked with yellow or green dots. Those with unlimited mobility may occupy the hexes marked with red, yellow, or green dots.}}
+    \caption{Mobility. {\normalfont Ground units with poor mobility may only occupy the hexes marked with green dots; those with good mobility may occupy those marked with yellow or green dots; and those with unlimited mobility may occupy the hexes marked with red, yellow, or green dots.}}
     \label{figure:mobility}
 \end{figure}
-
-Figure~\ref{figure:mobility} illustrates these limitations. Units with poor mobility may only occupy the hexes marked with green dots. Those with good mobility may only occupy those marked with yellow or green dots. Those with unlimited mobility may only occupy the hexes marked with red, yellow, or green dots.
 
 The scenario notes may remove some of these restrictions or add others. For example, a scenario with airmobile forces might allow a towed artillery battery to have been transported by helicopter to any clear hex and one set in the open desert of southern Iraq might allow a truck platoon freedom to occupy any clear hex.
 
@@ -123,13 +138,13 @@ Infantry units and towed units may be associated with a vehicular transport unit
 
 Figures \ref{figure:ground-combat-units}, \ref{figure:aaa-units}, \ref{figure:radar-and-ccu-units}, and \ref{figure:sam-launcher-units} show the graphical representation of ground-combat units as counters.
 
-The representation mainly uses NATO symbols, including those for infantry, armor, air defense, guns, missiles, tube artillery, and rocket artillery. One addition is that a rectangle denotes an unarmored vehicle such as a truck or tracked carrier. All vehicular units have either an armor or unarmored vehicle symbol, all infantry units have an infantry symbol, and owed units have none of these.
+The representation mainly uses NATO symbols, including those for infantry, armor, air defense, guns, missiles, tube artillery, and rocket artillery. One addition is that a rectangle denotes an unarmored vehicle such as a truck or tracked carrier. All vehicular units have either an armor or unarmored vehicle symbol, all infantry units have an infantry symbol, and towed units have none of these.
 
 The letter T in the central position indicates a transport capacity (e.g., APCs, IFVs, and cargo trucks). The letters H, M, L, and O in the lower position indicate heavy, medium, light, and open protection.
 
 Armored units implicitly have good mobility. For truck units, two wheel symbols in the lower position indicates poor mobility and three wheel symbols, a half-track symbol, or a tracked symbol indicate good mobility.
 
-The echelon is indicated by one, two, or three dots (for squads, sections, or platoons) or one vertical bar (for batteries) in an upper position.
+The size is indicated by one, two, or three dots (for squads, sections, or platoons) or one vertical bar (for batteries) in an upper position.
 
 \section{Ground-Combat Units}
 
