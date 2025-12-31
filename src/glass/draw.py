@@ -327,7 +327,7 @@ def drawhexlabel(x, y, label, dy=0.35, size="small", textcolor="lightgrey", **kw
         defaults to "lightgrey"
     :return: ``None``
     """
-    drawlowertext(
+    drawlowersymboltext(
         x, y, label, facing=90, dx=0, dy=dy, size=size, textcolor=textcolor, **kwargs
     )
     return
@@ -352,7 +352,7 @@ def drawsheetlabel(x, y, label, dy=-0.05, size="HUGE", textcolor="lightgrey", **
         defaults to "lightgrey"
     :return: ``None``
     """
-    drawlowertext(
+    drawlowersymboltext(
         x, y, label, facing=90, dx=0, dy=dy, size=size, textcolor=textcolor, **kwargs
     )
     return
@@ -459,7 +459,7 @@ def drawdart(x, y, size, facing, dx=0, dy=0, **kwargs):
     )
 
 
-def drawlowertext(x, y, text, facing, dx=0, dy=0, **kwargs):
+def drawlowersymboltext(x, y, text, facing, dx=0, dy=0, **kwargs):
     """
     Draw a text.
 
@@ -786,6 +786,7 @@ def _drawtextincanvas(
     dy=0,
     textcolor="black",
     size="normal",
+    scalefactor=1,
     alignment="center",
     verticalalignment="center_baseline",
     alpha=1.0,
@@ -794,7 +795,7 @@ def _drawtextincanvas(
     **kwargs,
 ):
     """
-    The counterpart of :func:`drawlowertext` in canvas coordinates.
+    The counterpart of :func:`drawlowersymboltext` in canvas coordinates.
     """
     x = x + dx * _sind(facing) + dy * _cosd(facing)
     y = y - dx * _cosd(facing) + dy * _sind(facing)
@@ -810,7 +811,7 @@ def _drawtextincanvas(
         x,
         y,
         text,
-        size=_nativetextsize(size),
+        size=_nativetextsize(size) * scalefactor,
         rotation=facing - 90,
         color=glass.color.nativecolor(textcolor),
         alpha=alpha,
@@ -1149,7 +1150,7 @@ def _drawannotation(
         textdx = +textdx
     else:
         raise RuntimeError("invalid text position %r" % textposition)
-    drawlowertext(
+    drawlowersymboltext(
         x,
         y,
         text,
@@ -1678,8 +1679,8 @@ groundunitmiddletextsize = "footnotesize"
 groundunitcountertextsize = "small"
 noncountergroundunitsymboldx = 0.6
 noncountergroundunitsymboldy = 0.4
-countergroundunitsymboldx = noncountergroundunitsymboldx * 0.75
-countergroundunitsymboldy = noncountergroundunitsymboldy * 0.75
+countergroundunitsymboldx = noncountergroundunitsymboldx * 0.80
+countergroundunitsymboldy = noncountergroundunitsymboldy * 0.80
 groundunitcountersize = 0.6 * math.sqrt(4 / 3)
 groundunitcountersymboldy = 0.03
 groundunitprotectionlinewidth = "thick"
@@ -1810,9 +1811,11 @@ def _drawgroundunitincanvas(
         y0 += groundunitcountersymboldy
         groundunitsymboldx = countergroundunitsymboldx
         groundunitsymboldy = countergroundunitsymboldy
+        groundunitsymboltextscalefactor = 0.90
     else:
         groundunitsymboldx = noncountergroundunitsymboldx
         groundunitsymboldy = noncountergroundunitsymboldy
+        groundunitsymboltextscalefactor = 1.00
 
     textdx = 0
     textdy = 0.3
@@ -1917,6 +1920,7 @@ def _drawgroundunitincanvas(
                 "?",
                 facing=90,
                 textcolor=linecolor,
+                scalefactor=groundunitsymboltextscalefactor,
                 alignment="center",
                 zorder=zorder,
             )
@@ -1938,7 +1942,7 @@ def _drawgroundunitincanvas(
             )
 
         def drawtransportsymbol():
-            drawmiddletext("T")
+            drawmiddlesymboltext("T")
 
         def drawantiarmorsymbol():
             _drawlinesincanvas(
@@ -2391,19 +2395,19 @@ def _drawgroundunitincanvas(
             )
 
         def drawheavysymbol():
-            drawlowertext("H")
+            drawlowersymboltext("H")
 
         def drawmediumsymbol():
-            drawlowertext("M")
+            drawlowersymboltext("M")
 
         def drawlightsymbol():
-            drawlowertext("")
+            drawlowersymboltext("")
 
         def drawopensymbol():
-            drawlowertext("O")
+            drawlowersymboltext("O")
 
         def drawfacsymbol():
-            drawlowertext("FAC")
+            drawlowersymboltext("FAC")
 
         def drawsupplysymbol():
             fy = 0.25
@@ -3124,19 +3128,37 @@ def _drawgroundunitincanvas(
         elif "company" in symbols or "battery" in symbols:
             drawcompany()
 
-    def drawlowertext(text):
+    def drawlowersymboltext(text):
         _drawtextincanvas(
             x,
             y,
             text,
             facing=90,
             dx=0,
-            dy=-groundunitsymboldy * 0.43,
+            dy=-groundunitsymboldy * 0.445,
             size="notsotiny",
-            weight="bold",
+            scalefactor=groundunitsymboltextscalefactor,
+            weight="demibold",
             textcolor=linecolor,
             alignment="center",
             verticalalignment="baseline",
+            zorder=zorder,
+        )
+
+    def drawmiddlesymboltext(text):
+        _drawtextincanvas(
+            x,
+            y,
+            text,
+            facing=90,
+            dx=0,
+            dy=-groundunitsymboldy * 0.03,
+            size="notsotiny",
+            scalefactor=groundunitsymboltextscalefactor,
+            weight="demibold",
+            textcolor=linecolor,
+            alignment="center",
+            verticalalignment="center",
             zorder=zorder,
         )
 
@@ -3149,7 +3171,6 @@ def _drawgroundunitincanvas(
             dx=0,
             dy=+groundunitcountersize * 0.38 - groundunitcountersymboldy,
             size="scriptsize",
-            # weight="demibold",
             textcolor=linecolor,
             alignment="center",
             verticalalignment="center",
@@ -3168,25 +3189,8 @@ def _drawgroundunitincanvas(
             text,
             facing=90,
             dx=0,
-            dy=-groundunitcountersize * 0.34 - groundunitcountersymboldy,
+            dy=-groundunitcountersize * 0.35 - groundunitcountersymboldy,
             size="normal",
-            # weight="demibold",
-            textcolor=linecolor,
-            alignment="center",
-            verticalalignment="center",
-            zorder=zorder,
-        )
-
-    def drawmiddletext(text):
-        _drawtextincanvas(
-            x,
-            y,
-            text,
-            facing=90,
-            dx=0,
-            dy=-groundunitsymboldy * 0.02,
-            size="notsotiny",
-            weight="bold",
             textcolor=linecolor,
             alignment="center",
             verticalalignment="center",
@@ -3202,6 +3206,7 @@ def _drawgroundunitincanvas(
             dx=+groundunitsymboldx * 0.37,
             dy=-groundunitsymboldy * 0.01,
             size="notsotiny",
+            scalefactor=groundunitsymboltextscalefactor,
             weight="bold",
             textcolor=linecolor,
             alignment="center",
@@ -3250,7 +3255,7 @@ def _drawgroundunitincanvas(
         drawsymbols(symbols)
         if text is not None:
             if "air-defense" not in symbols:
-                drawlowertext(text)
+                drawlowersymboltext(text)
             elif counter:
                 drawtoptext(text)
         if counter:
@@ -3271,7 +3276,7 @@ def _drawgroundunitincanvas(
         if counter:
             drawbottomtext("%d" % sightingrange)
         else:
-            drawlowertext("%d" % sightingrange)
+            drawlowersymboltext("%d" % sightingrange)
 
     if "hex" not in symbols:
 
