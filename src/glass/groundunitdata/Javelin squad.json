@@ -1,20 +1,20 @@
 {
-    "name": "Blowpipe squad",
+    "name": "Javelin squad",
     "othername": "",
-    "year": "1975",
-    "description": "Blowpipe squad",
+    "year": "1984",
+    "description": "Javelin squad",
     "symbols": "air-defense/missile/infantry/squad",
-    "text": "Blowpipe",
+    "text": "Javelin",
     "defensestrength": "5S",
     "sightingrange": 6,
     "mobility": "U",
     "VPs": [
         null,
         null,
-        6
+        8
     ],
     "sam": {
-        "type": "Blowpipe",
+        "type": "Javelin",
         "readymissiles": 1,
         "volleymissiles": 1,
         "iff": true,

@@ -1,20 +1,20 @@
 {
-    "name": "Blowpipe section",
+    "name": "Javelin section",
     "othername": "",
-    "year": "1975",
-    "description": "Blowpipe section",
+    "year": "1984",
+    "description": "Javelin section",
     "symbols": "air-defense/missile/infantry/section",
-    "text": "Blowpipe",
+    "text": "Javelin",
     "defensestrength": "5S",
     "sightingrange": 6,
     "mobility": "U",
     "VPs": [
         null,
-        12,
-        6
+        16,
+        8
     ],
     "sam": {
-        "type": "Blowpipe",
+        "type": "Javelin",
         "readymissiles": 2,
         "volleymissiles": 2,
         "iff": true,
