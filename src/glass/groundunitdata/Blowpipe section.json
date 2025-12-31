@@ -1,0 +1,26 @@
+{
+    "name": "Blowpipe section",
+    "othername": "Blowpipe",
+    "year": "1975",
+    "description": "Blowpipe section",
+    "symbols": "air-defense/missile/infantry/section",
+    "text": "Blowpipe",
+    "defensestrength": "5S",
+    "sightingrange": 6,
+    "mobility": "U",
+    "VPs": [
+        null,
+        12,
+        6
+    ],
+    "sam": {
+        "type": "Blowpipe",
+        "readymissiles": 2,
+        "volleymissiles": 2,
+        "iff": true,
+        "multitargetcapability": 2,
+        "quickreaction": true,
+        "opticallockon": 7,
+        "lockonrange": 9
+    }
+}

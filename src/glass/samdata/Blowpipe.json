@@ -1,0 +1,21 @@
+{
+    "name": "Blowpipe",
+    "othername": "",
+    "year": "1975",
+    "OG": {
+        "launchroll": 8,
+        "turnrate": "HT",
+        "flighttime": 1,
+        "visibility": 6,
+        "chaffrating": 3,
+        "flarerating": 0,
+        "basespeed": 8,
+        "sustainer": 0,
+        "minimumaltitude": "T",
+        "directhitroll": 3,
+        "proximityhitroll": 7,
+        "directdamagerating": 6,
+        "proximitydamagerating": 5,
+        "instantarming": false
+    }
+}

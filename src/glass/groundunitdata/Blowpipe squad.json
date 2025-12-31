@@ -1,0 +1,25 @@
+{
+    "name": "Blowpipe squad",
+    "othername": "Blowpipe",
+    "year": "1975",
+    "description": "Blowpipe squad",
+    "symbols": "air-defense/missile/infantry/squad",
+    "text": "Blowpipe",
+    "defensestrength": "5S",
+    "sightingrange": 6,
+    "mobility": "U",
+    "VPs": [
+        null,
+        null,
+        6
+    ],
+    "sam": {
+        "type": "Blowpipe",
+        "readymissiles": 1,
+        "volleymissiles": 1,
+        "iff": true,
+        "quickreaction": true,
+        "opticallockon": 7,
+        "lockonrange": 9
+    }
+}
