@@ -1,0 +1,20 @@
+{
+    "name": "Mistral",
+    "othername": "",
+    "year": "1990",
+    "A": {
+        "launchroll": 8,
+        "turnrate": "ET",
+        "flighttime": 1,
+        "visibility": 5,
+        "flarerating": 2,
+        "basespeed": 18,
+        "sustainer": 0,
+        "minimumaltitude": "T",
+        "directhitroll": 7,
+        "proximityhitroll": 9,
+        "directdamagerating": 6,
+        "proximitydamagerating": 3,
+        "instantarming": true
+    }
+}
