@@ -1,0 +1,25 @@
+{
+    "name": "Starburst squad",
+    "othername": "",
+    "year": "1989",
+    "description": "Starburst squad",
+    "symbols": "air-defense/missile/infantry/squad",
+    "text": "Starburst",
+    "defensestrength": "5S",
+    "sightingrange": 6,
+    "mobility": "U",
+    "VPs": [
+        null,
+        null,
+        8
+    ],
+    "sam": {
+        "type": "Starburst",
+        "readymissiles": 1,
+        "volleymissiles": 1,
+        "iff": true,
+        "quickreaction": true,
+        "opticallockon": 7,
+        "lockonrange": 9
+    }
+}

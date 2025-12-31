@@ -1,13 +1,13 @@
 {
-    "name": "Javelin",
+    "name": "Starburst",
     "othername": "",
-    "year": "1984",
-    "OG": {
+    "year": "1989",
+    "LG": {
         "launchroll": 8,
         "turnrate": "ET",
         "flighttime": 1,
         "visibility": 5,
-        "chaffrating": 2,
+        "chaffrating": 1,
         "flarerating": 0,
         "basespeed": 10,
         "sustainer": 0,
