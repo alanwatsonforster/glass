@@ -85,38 +85,22 @@ A ground unit can be a hard (H), open (O), or soft (S) target according to the d
 
 \subsection{Mobility}
 
-The mobility class of a ground unit places limits on where a unit may normally be placed or move on the map. Ground units can have unrestricted, good, or poor mobility. Typically:
+The mobility class of a ground unit places limits on where a unit may normally be placed or move on the map. Ground units can have unrestricted, good, or poor mobility:
 \begin{itemize}
     \item Infantry has unrestricted mobility;
-    \item AFVs and tracked carriers have good mobility; and
+    \item Tracked AFVs, wheeled AFVs, and tracked carriers have good mobility; and
     \item Trucks and towed weapons have poor mobility.
 \end{itemize}
-Wheeled AFVs (e.g., the LAV and BTR-60) have good mobility, but wheeled trucks typically do not.
 
 The corresponding limits are:
 \begin{itemize}
-    \item Units with unrestricted mobility may only occupy:
-        \begin{itemize}
-            \item an urban hex;
-            \item a clear hex; or
-            \item a forest hex.
-        \end{itemize}
-    \item Units with good mobility may only occupy:
-        \begin{itemize}
-            \item an urban hex;
-            \item a clear hex;
-            \item a forest hex that contains a road or trail; or
-            \item a forest hex that is adjacent one of the previous.
-        \end{itemize}
-    \item Units with poor mobility may only occupy:
-        \begin{itemize}
-            \item an urban hex;
-            \item a clear hex that contains a road, trail, or runway;
-            \item a clear hex that is adjacent to one of the previous; or
-            \item a forest hex that contains a road or trail
-        \end{itemize}
+    \item No unit may occupy a water hex.
+    \item Any unit may occupy an urban hex.
+    \item Any unit may occupy a hex with a road, trail, or runway.
+    \item A unit with good mobility may occupy a clear hex.
+    \item A unit with good mobility may occupy a forest hex adjacent to an urban hex, adjacent to a clear hex, or adjacent to another forest hex with a road or trail.
+    \item A unit with poor mobility may occupy a clear hex adjacent to an urban hex or adjacent to another clear hex with a road, trail, or runway.
 \end{itemize}
-No ground unit may occupy a water hex.
 
 \begin{figure}
     \centering
@@ -125,7 +109,7 @@ No ground unit may occupy a water hex.
     \label{figure:mobility}
 \end{figure}
 
-Figure~\ref{figure:mobility} illustrates these limitations. Units with poor mobility may only occupy the hexes marked with green dots. Those with good mobility may occupy those marked with yellow or green dots. Those with unlimited mobility may occupy the hexes marked with red, yellow, or green dots.
+Figure~\ref{figure:mobility} illustrates these limitations. Units with poor mobility may only occupy the hexes marked with green dots. Those with good mobility may only occupy those marked with yellow or green dots. Those with unlimited mobility may only occupy the hexes marked with red, yellow, or green dots.
 
 The scenario notes may remove some of these restrictions or add others. For example, a scenario with airmobile forces might allow a towed artillery battery to have been transported by helicopter to any clear hex and one set in the open desert of southern Iraq might allow a truck platoon freedom to occupy any clear hex.
 
