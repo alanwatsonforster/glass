@@ -1,7 +1,7 @@
 {
-    "name": "light tank HQ",
-    "description": "light tank HQ platoon",
-    "symbols": "armor/gun/light/headquarters/platoon",
+    "name": "armoured HQ",
+    "description": "armored HQ platoon",
+    "symbols": "armor/light/headquarters/platoon",
     "defensestrength": "4H",
     "sightingrange": 12,
     "mobility": "G",
