@@ -779,7 +779,9 @@ Figure~\ref{figure:radar-and-ccu-units} shows the representation of EWR and CCU 
 
 \section{Ground Targets}
 
-Ground \emph{targets} are infrastructure such as bridges and buildings.
+A ground \emph{target} is a unit of infrastructure such as a bridge and a building.
+
+\subsection{Properties and Representation}
 
 \begin{figure*}
     \centering
@@ -788,23 +790,33 @@ Ground \emph{targets} are infrastructure such as bridges and buildings.
     \label{figure:ground-targets}
 \end{figure*}
 
-\paragraph{Properties.}
+All ground targets have these properties:
+\begin{itemize}
+    \item defense strength;
+    \item defense strength and target class;
+    \item sighting range in hexes; and
+    \item the VPs awarded for 3D/2D/D damage.
+\end{itemize}
 
-All ground targets have these properties: a defense strength; a classification as a hard or soft target; a sighting range in hexes; and the VPs awarded for 3D/2D/D damage. These properties are shown in Table~\ref{table:ground-targets}.
+Ground targets are listed with their properties  in Table~\ref{table:ground-targets}.
 
-\paragraph{Damage Resilience.} All ground targets are killed when they suffer 3D or more damage.
-
-\paragraph{Representation.}
+All ground targets have a damage resilience of 3D. That is, they are killed when they suffer 3D or more damage.
 
 Some ground targets are represented by counters, and others are represented by features on the maps. Figure~\ref{figure:ground-targets} shows the graphical representation of the counters, which mainly uses adapted NATO symbols.
 
-\paragraph{Aircraft.}
+\subsection{Notes on Specific Targets}
+
+\subsubsection{Aircraft}
 
 No VP values are given for transport or fighter airplanes or helicopters, since these can vary significantly with the capacity of the aircraft. The VPs will be specified in by the scenario. As a guideline, they will often be similar to the VP values of the attacking aircraft.
 
-\paragraph{Bridges.}
+\subsubsection{Bridges}
 
 Unless otherwise indicated in the scenario, a major bridge is one that extends over two or more hexes, a minor bridge is one that is confined to a single hex, and a small bridge is where a road crosses a river without a bridge being marked on the map.
+
+\subsubsection{Penetrating Bombs}
+
+When attacking a bunker entrance, a tunnel entrance hex, or a shelter, the attack strength of a penetrating bomb is doubled.
 
 \onecolumn
 
