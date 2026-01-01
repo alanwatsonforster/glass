@@ -1732,7 +1732,8 @@ def drawgroundunit(
         ``"reconnaissance"``, ``"rocket"``, ``"rotarywing"``, ``"section"``,
         ``"shelter"``, ``"smallbuilding"``, ``"squad"``, ``"supply"``,
         ``"tower"``, ``"tracked"``, ``"transport"``, ``"transportation"``,
-        ``"truck"``, ``unidentified``, and ``wheeled``. The British English
+        ``"truck"``, ``"unidentified"``, ``"weapons"``, ``"wheeled"``. The
+        British English
         aliases ``"air-defence"``, ``"antiarmour"``, ``"armour"`` are also
         allowed.
     :param text:
@@ -2409,6 +2410,9 @@ def _drawgroundunitincanvas(
         def drawfacsymbol():
             drawlowersymboltext("FAC")
 
+        def drawweaponssymbol():
+            drawlowersymboltext("WPN")
+
         def drawsupplysymbol():
             fy = 0.25
             _drawlinesincanvas(
@@ -3060,6 +3064,8 @@ def _drawgroundunitincanvas(
             drawordnancesymbol()
         if "fac" in symbols:
             drawfacsymbol()
+        if "weapons" in symbols:
+            drawweaponssymbol()
 
         if "gun" in symbols or "cannon" in symbols:
             drawgunsymbol()

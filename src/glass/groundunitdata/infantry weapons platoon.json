@@ -1,0 +1,17 @@
+{
+    "name": "infantry weapons",
+    "description": "infantry weapons platoon",
+    "symbols": "infantry/weapons/platoon",
+    "defensestrength": "4S",
+    "sightingrange": 6,
+    "mobility": "U",
+    "aaa": {
+        "class": "B",
+        "maximumrelativealtitude": 2
+    },
+    "VPs": [
+        6,
+        4,
+        2
+    ]
+}

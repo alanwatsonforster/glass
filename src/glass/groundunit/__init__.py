@@ -139,6 +139,7 @@ class GroundUnit(glass.element.Element):
                     "transportation",
                     "truck",
                     "unidentified",
+                    "weapons",
                     "wheeled",
                 ]:
                     raise RuntimeError('invalid ground unit symbol "%s".' % symbol)

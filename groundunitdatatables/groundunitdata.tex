@@ -157,7 +157,7 @@ Figure~\ref{figure:ground-combat-units} shows the representation of ground-comba
 
 \subsection{Infantry Units}
 
-Infantry are soldiers trained to fight on foot. An infantry or infantry HQ platoon consists of thirty to fifty soldiers. A mechanized infantry platoon will be associated with a platoon of APCs or IFVs. A motorized infantry platoon will be associated with a platoon of trucks.
+Infantry are soldiers trained to fight on foot. An infantry, infantry weapons, or infantry HQ platoon consists of thirty to fifty soldiers. An infantry weapons platoon will be equipped with machine guns, ATGMs, grenade launchers, or mortars. A mechanized infantry platoon will be associated with a platoon of APCs or IFVs. A motorized infantry platoon will be associated with a platoon of trucks.
 
 An infantry FAC squad has a specialized forward air controller with other soldiers providing communication and protection.
 Infantry SAM squads are described in a subsequent section.
@@ -278,7 +278,7 @@ A towed unit may not mount or dismount during the game.
 
 \subsection{Composite Units}
 
-At the start of a game, an infantry platoon or infantry HQ platoon may \emph{attach} one or two infantry squads or one infantry section to form a \emph{composite platoon}. The attached units are commonly infantry SAM or FAC units. Once formed, a composite platoon may not be split into its constituent units.
+At the start of a game, an infantry, infantry weapons, or infantry HQ platoon may \emph{attach} one or two infantry squads or one infantry section to form a \emph{composite platoon}. The attached units are commonly infantry SAM or FAC units. Once formed, a composite platoon may not be split into its constituent units.
 
 A composite platoon is considered to have the mobility of the least mobile of its constituent units. Its defense strength is unchanged.
 
@@ -886,4 +886,40 @@ When attacking a bunker entrance, a tunnel entrance hex, or a shelter, the attac
     \label{table:ground-targets}
 \end{table*}
 
+\clearpage
+\twocolumn
+\appendix
+
+\section{Example Orders of Battle}
+
+This appendix contains a number of example orders of battle:
+
+\begin{itemize}
+    \item Table~\ref{table:ob-two-para}: 2 Para Battalion at the 1982 Battle of Goose Green. At this time, the battalion had attached half a battery of 105 mm Light Guns from Alma Battery of 29 Commando Regiment, RA, a section of Blowpipes from 43rd Air Defence Battery, RA, and a Recce Trrop of 59 Independent Commando Squadron, RE.
+\end{itemize}
+
+\begin{table*}
+    \centering
+    \caption{2 Para at Goose Green}
+    \label{table:ob-two-para}
+
+    \begin{tabular}{lll}
+        \toprule
+        Element&Game Ground Unit&Notes\\
+        \midrule
+        Battalion HQ        &\binarymultiply{1}{infantry HQ platoon}\\
+        A Company           &\binarymultiply{3}{infantry platoon}\\
+        B Company           &\binarymultiply{3}{infantry platoon}\\
+        C Company           &\binarymultiply{2}{infantry platoon} & Patrols Company\\
+        D Company           &\binarymultiply{3}{infantry platoon}\\
+        Support Company     &\binarymultiply{1}{infantry weapons platoon}&Mortar Platoon\\
+        &\binarymultiply{1}{infantry weapons platoon}&Machine-gun Platoon\\
+        &\binarymultiply{1}{infantry weapons platoon}&Anti-tank Platoon\\
+        &\binarymultiply{1}{infantry platoon}&Assault Pioner Platoon\\
+        Alma Battery        &\binarymultiply{1}{towed artillery platoon}&Three 105-mm Light Guns\\
+        Blowpipe Section    &\binarymultiply{2}{infantry SAM squad -- Blowpipe}\\
+        Engineers Troop     &\binarymultiply{1}{infantry platoon}\\
+        \bottomrule
+    \end{tabular}
+\end{table*}
 \end{document}
