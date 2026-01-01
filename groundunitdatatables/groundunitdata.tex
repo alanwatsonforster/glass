@@ -88,9 +88,9 @@ A ground unit can be a hard, open, or soft target according to the degree to whi
 
 A ground unit has a mobility that can place limits on where it may be placed at the start of a game and move on the map. A ground unit can have unrestricted (U), good (G), or poor (P) mobility:
 \begin{itemize}
-    \item An infantry unit, except an infantry heavy weapons unit, has unrestricted mobility;
+    \item An infantry unit has unrestricted mobility;
     \item An AFV unit, both tracked and wheeled, or a tracked carrier unit has good mobility; and
-    \item A truck unit, a towed unit, or an infantry heavy weapons unit has poor mobility.
+    \item A truck unit or a towed unit has poor mobility.
 \end{itemize}
 
 A ground unit may occupy hexes according to its mobility and the following rules:
@@ -125,7 +125,7 @@ Figure~\ref{figure:mobility} illustrates these rules: a unit with poor mobility 
     \label{figure:mobility}
 \end{figure}
 
-A scenario may remove some of these restrictions or add others. For example, a scenario with airmobile forces might allow a towed artillery battery to have been transported by helicopter to any clear hex, and one set in the open desert of southern Iraq might allow a truck platoon freedom to occupy any clear hex.
+A scenario may remove some of these restrictions or add others. For example, a scenario with airmobile forces might allow a towed artillery battery to have been transported by helicopter to a clear hex far from a road, trail, runway, or urban hex, and another set in the open desert of southern Iraq might allow a truck platoon freedom to occupy any clear hex.
 
 \subsection{Representation}
 \begin{comment}
@@ -136,15 +136,15 @@ Figures \ref{figure:ground-combat-units}, \ref{figure:aaa-units}, \ref{figure:ra
 
 The representation is based on NATO symbols, including those for infantry, armor, anti-armor, air defense, guns, missiles, tube artillery, and rocket artillery. One addition is that a rectangle denotes an unarmored vehicle such as a truck or tracked carrier. All vehicular units have either an armor or unarmored vehicle symbol, all infantry units have an infantry symbol, and towed units have none of these.
 
-The letter T in the central position indicates a transport capacity (e.g., APCs, IFVs, cargo trucks, and tracked cargo carriers). For an armored vehicle unit, one of the letters H, M, L, and O in the lower position indicate heavy, medium, light, and open armored protection. For an infantry unit, a letter H in the lower position indicates a heavy weapons unit.
-
-An armored unit implicitly has good mobility. A truck unit has poor mobility if it has a two-wheeled symbol in the lower position and good mobility if it has a three-wheeled, half-tracked, or tracked symbol in the lower position. An infantry unit implicitly has unrestricted mobility, unless it has a letter H in the lower position, in which case it is a heavy weapons unit with poor mobility.
+The letter T in the central position indicates a transport capacity (e.g., APCs, IFVs, cargo trucks, and tracked cargo carriers). Words and letters in the lower position indicate variants on a basic type: the letters H, M, L, and O on an armored unit indicate heavy, medium, light, and open armored protection; the words WPN or FAC on an infantry unit indicates a weapons or FAC unit; and the letter H on an infantry SAM unit indicates a heavy version of the launcher (e.g., the LML version of Starstreak).
 
 The size of a unit is indicated by one, two, or three dots (for squads, sections, or platoons) or one vertical bar (for batteries) in an upper position.
 
+Implicitly, an infantry unit has unrestricted mobility, an armored unit has good mobility, and a towed unit has poor mobility. A truck unit has poor mobility if it has a two-wheeled symbol in the lower position and good mobility if it has a three-wheeled, half-tracked, or tracked symbol in the lower position.
+
 \section{Ground-Combat Units}
 
-A ground-combat unit represents infantry, tanks, or other AFVs, trucks, tracked carriers, or artillery. Its primary role is combat with other ground units.
+A ground-combat unit represents a combat formation of infantry, tanks or other AFVs, trucks, tracked carriers, or artillery. Its primary role is combat with other ground units.
 
 Figure~\ref{figure:ground-combat-units} shows the representation of ground-combat units as counters, and Table~\ref{table:ground-combat-units} summarizes their properties. The AAA class is B2 for infantry platoons and B3 for AFV platoons, indicating that they are capable of barrage fire to altitudes of 2 and 3 levels, respectively.
 
@@ -280,7 +280,7 @@ A towed unit may not mount or dismount during the game.
 
 At the start of a game, an infantry, infantry weapons, or infantry HQ platoon may \emph{attach} one or two infantry squads or one infantry section to form a \emph{composite platoon}. The attached units are commonly infantry SAM or FAC units. Once formed, a composite platoon may not be split into its constituent units.
 
-A composite platoon is considered to have the mobility of the least mobile of its constituent units. Its defense strength is unchanged.
+A composite platoon has the same damage resilience, defense strength, target class, mobility, and sighting range of its constituent platoon.
 
 An attached unit is not represented by a separate counter, does not count for stacking, and may not be attacked directly, but instead is considered to form part of the composite platoon.
 An attached unit retains its normal capabilities (i.e., an attached SAM unit may engage aircraft and an attached FAC unit may sight and mark targets).
@@ -288,7 +288,7 @@ An attached unit retains its normal capabilities (i.e., an attached SAM unit may
 If a composite platoon is suppressed, each attached unit is suppressed too.
 If a composite platoon suffers damage, then for each D of damage, roll one die for each attached unit and on a \minusafter{4} the attached unit suffers one D of damage.
 As usual, an attached unit that suffers damage equal to its damage resilience is killed.
-If a composite platoon is killed, each attached unit is killed too.
+If a composite platoon is killed, each attached unit is killed too. VPs are awarded for damage to any of the constituent units.
 
 A scenario may add further restrictions on composite platoons.
 
@@ -624,20 +624,20 @@ Starstreak served with the British Army in the 2003 Invasion of Iraq, but was no
 
 \subsubsection{Starstreak LML Squad or Section}
 
-The Starstreak Light Multiple Launcher (LML) has three ready-to-fire Starstreak missiles on a pedestal mount with a single sighting unit. It is an infantry heavy weapon, and squads and sections equipped with it have poor mobility.
+The Starstreak Light Multiple Launcher (LML) has three ready-to-fire Starstreak missiles on a pedestal mount with a single sighting unit. The launcher and its associated equipment are heavy and will normally be transported by a vehicle unit.
 
 Starstreak LML entered service with the British Army and Royal Marines in 2000.
 It is also used by Indonesia, Malaysia, and South Africa.
 
 \subsubsection{Mistral Squad or Section}
 
-The Mistral is a French IR-homing missile on a pedestal mount. The missile has a considerably larger warhead than either the Stinger or Igla missiles, but this comes at a cost in portability. Mistral is an infantry heavy weapon, and squads and sections equipped with it have poor mobility.
+The Mistral is a French IR-homing missile on a pedestal mount. The missile has a considerably larger warhead than either the Stinger or Igla missiles, but this comes at a cost in portability. The launcher and its associated equipment are heavy and will normally be transported by a vehicle unit.
 
 The Mistral entered service with the French Army in 1990. It was subsequently exported to many other countries.
 
 \subsubsection{RBS 70 Squad or Section}
 
-The RBS 70 is a Swedish laser-guided missile on a pedestal mount. It is an infantry heavy weapon, and squads and sections equipped with it have poor mobility.
+The RBS 70 is a Swedish laser-guided missile on a pedestal mount. The launcher and its associated equipment are heavy and will normally be transported by a vehicle unit.
 
 The RBS 70 entered service with the Swedish Army in 1977. It was subsequently used by Argentina, Australia, Bahrain, Brazil, the Czech Republic, Iran, Ireland, Lithuania, Norway, Pakistan, Singapore, Thailand, Tunisia, the UAE, Ukraine, and Venezuela.
 
