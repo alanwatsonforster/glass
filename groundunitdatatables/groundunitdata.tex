@@ -892,10 +892,19 @@ When attacking a bunker entrance, a tunnel entrance hex, or a shelter, the attac
 
 \section{Example Orders of Battle}
 
-This appendix contains a number of example orders of battle:
+This appendix contains a number of example orders of battle and their correspondence in game units.
 
 \begin{itemize}
-    \item Table~\ref{table:ob-two-para}: 2 Para Battalion at the 1982 Battle of Goose Green. At this time, the battalion had attached half a battery of 105 mm Light Guns from Alma Battery of 29 Commando Regiment, RA, a section of Blowpipes from 43rd Air Defence Battery, RA, and a Recce Trrop of 59 Independent Commando Squadron, RE.
+    \item Table~\ref{table:ob-two-para}: 2 Para Battalion at the 1982 Battle of Goose Green. At this time, the battalion had attached half a battery of 105 mm Light Guns from Alma Battery of 29 Commando Regiment, RA, a section of Blowpipes from 43rd Air Defence Battery, RA, and a Recce Troop of 59 Independent Commando Squadron, RE.
+
+    \item Table~\ref{table:ob-twelth-infantry}: 12th Infantry Regiment at the 1982 Battle of Goose Green, with attachments from the 25th Infantry Regiment, 4th Airborne Artillery Regiment, 601st Anti-Aircraft Artillery Group.
+\end{itemize}
+
+We see that we need the following additional ground units:
+\begin{itemize}
+    \item towed artillery \emph{section}
+    \item Oerlikon GDF \emph{section}
+    \item \emph{towed} FCR-D
 \end{itemize}
 
 \begin{table*}
@@ -903,23 +912,95 @@ This appendix contains a number of example orders of battle:
     \caption{2 Para at Goose Green}
     \label{table:ob-two-para}
 
-    \begin{tabular}{lll}
+    \begin{tabularx}{0.9\linewidth}{LLL}
         \toprule
         Element&Game Ground Unit&Notes\\
         \midrule
-        Battalion HQ        &\binarymultiply{1}{infantry HQ platoon}\\
-        A Company           &\binarymultiply{3}{infantry platoon}\\
-        B Company           &\binarymultiply{3}{infantry platoon}\\
-        C Company           &\binarymultiply{2}{infantry platoon} & Patrols Company\\
-        D Company           &\binarymultiply{3}{infantry platoon}\\
-        Support Company     &\binarymultiply{1}{infantry weapons platoon}&Mortar Platoon\\
-        &\binarymultiply{1}{infantry weapons platoon}&Machine-gun Platoon\\
-        &\binarymultiply{1}{infantry weapons platoon}&Anti-tank Platoon\\
-        &\binarymultiply{1}{infantry platoon}&Assault Pioner Platoon\\
-        Alma Battery        &\binarymultiply{1}{towed artillery platoon}&Three 105-mm Light Guns\\
-        Blowpipe Section    &\binarymultiply{2}{infantry SAM squad -- Blowpipe}\\
-        Engineers Troop     &\binarymultiply{1}{infantry platoon}\\
+
+        Battalion HQ
+        &\binarymultiply{1}{infantry HQ platoon}\\
+
+        A Company
+        &\binarymultiply{3}{infantry platoon}\\
+
+        B Company
+        &\binarymultiply{3}{infantry platoon}\\
+
+        C Company
+        &\binarymultiply{2}{infantry platoon} &Patrol Company\\
+
+        D Company
+        &\binarymultiply{3}{infantry platoon}\\
+
+        Support Company
+        &\binarymultiply{1}{infantry weapons platoon}&Mortars\\
+        &\binarymultiply{1}{infantry weapons platoon}&GPMG\\
+        &\binarymultiply{1}{infantry weapons platoon}&MILAN\\
+        &\binarymultiply{1}{infantry platoon}&Engineers\\
+
+        Alma Battery
+        &\binarymultiply{1}{towed artillery section}&Three 105-mm Light Guns\\
+
+        Blowpipe Section
+        &\binarymultiply{2}{infantry SAM squad -- Blowpipe}\\
+
+        Engineers Troop
+        &\binarymultiply{1}{infantry platoon}\\
+
         \bottomrule
-    \end{tabular}
+    \end{tabularx}
 \end{table*}
+
+\begin{table*}
+    \centering
+    \caption{12IR at Goose Green}
+    \label{table:ob-twelth-infantry}
+
+    \begin{tabularx}{0.9\linewidth}{LLL}
+        \toprule
+        Element&Game Ground Unit&Notes\\
+        \midrule
+        Regimental HQ
+        &\binarymultiply{1}{infantry HQ platoon}\\
+
+        SAM Section
+        &\binarymultiply{2}{infantry SAM squad -- SA-7B}\\
+
+        A Company 12IR
+        &\binarymultiply{5}{infantry platoon}\\
+
+        B Company 12IR
+        &\binarymultiply{3}{infantry platoon}\\
+
+        C Company 25IR
+        &\binarymultiply{2}{infantry platoon}\\
+        &\binarymultiply{1}{infantry weapons platoon}\\
+
+        C Company 12IR
+        &\binarymultiply{2}{infantry platoon}\\
+        &\binarymultiply{1}{infantry weapons platoon}\\
+
+        A Battery, 4AAR
+        &\binarymultiply{1}{towed artillery section}&Three 105-mm Pack Howitzer\\
+
+        B Battery, 601 GADA
+        &\binarymultiply{1}{Oerlikon 35 mm GDF section}&Two guns\\
+        &\binarymultiply{1}{towed FCR-D}&Skyguard\\
+
+        9th Engineering Company
+        &\binarymultiply{1}{infantry platoon}\\
+
+        \midrule
+
+        3 Section B Battery 601AAAG
+        &\binarymultiply{1}{Rh-202 20 mm battery}&Six guns\\
+        &\binarymultiply{1}{EWR}&Elta\\
+
+        Security Company
+        &\binarymultiply{1}{infantry platoon}&\\
+
+        \bottomrule
+    \end{tabularx}
+\end{table*}
+
 \end{document}
