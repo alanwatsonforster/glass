@@ -3,7 +3,7 @@
     "othername": "",
     "year": "1990",
     "description": "Mistral section",
-    "symbols": "air-defense/missile/section",
+    "symbols": "air-defense/missile/infantry/heavy/section",
     "text": "Mistral",
     "defensestrength": "4S",
     "sightingrange": 6,

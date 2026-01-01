@@ -3,7 +3,7 @@
     "othername": "",
     "year": "1977",
     "description": "RBS 70 squad",
-    "symbols": "air-defense/missile/squad",
+    "symbols": "air-defense/missile/infantry/heavy/squad",
     "text": "RBS 70",
     "defensestrength": "4S",
     "sightingrange": 6,

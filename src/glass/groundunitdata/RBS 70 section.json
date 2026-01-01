@@ -3,7 +3,7 @@
     "othername": "",
     "year": "1977",
     "description": "RBS 70 section",
-    "symbols": "air-defense/missile/section",
+    "symbols": "air-defense/missile/infantry/heavy/section",
     "text": "RBS 70",
     "defensestrength": "4S",
     "sightingrange": 6,

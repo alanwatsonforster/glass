@@ -3,7 +3,7 @@
     "othername": "",
     "year": "2000",
     "description": "Starstreak squad",
-    "symbols": "air-defense/missile/squad",
+    "symbols": "air-defense/missile/infantry/heavy/squad",
     "text": "Starstreak",
     "defensestrength": "4S",
     "sightingrange": 6,

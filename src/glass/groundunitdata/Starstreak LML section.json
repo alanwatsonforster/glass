@@ -3,7 +3,7 @@
     "othername": "",
     "year": "2000",
     "description": "Starstreak section",
-    "symbols": "air-defense/missile/section",
+    "symbols": "air-defense/missile/infantry/heavy/section",
     "text": "Starstreak",
     "defensestrength": "4S",
     "sightingrange": 6,

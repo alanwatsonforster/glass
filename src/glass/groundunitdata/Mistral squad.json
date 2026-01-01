@@ -3,7 +3,7 @@
     "othername": "",
     "year": "1990",
     "description": "Mistral squad",
-    "symbols": "air-defense/missile/squad",
+    "symbols": "air-defense/missile/infantry/heavy/squad",
     "text": "Mistral",
     "defensestrength": "4S",
     "sightingrange": 6,
