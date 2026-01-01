@@ -1913,6 +1913,16 @@ def _drawgroundunitincanvas(
 
     def drawsymbols(symbols):
 
+        armorsymboldx = 0.125 * groundunitsymboldx
+        armorsymboldy = 0.20 * groundunitsymboldy
+
+        # Adjust the width of the truck symbol to give the same area as the armor symbol.
+        armorsymbolarea = (
+            4 * armorsymboldx * armorsymboldy + math.pi * armorsymboldy * armorsymboldy
+        )
+        trucksymboldy = armorsymboldy
+        trucksymboldx = armorsymbolarea / (4 * trucksymboldy)
+
         def drawunidentifedsymbol():
             _drawtextincanvas(
                 x,
@@ -1946,15 +1956,16 @@ def _drawgroundunitincanvas(
 
         def drawantiarmorsymbol():
             _drawlinesincanvas(
-                [x - groundunitsymboldx / 2, x],
-                [y - groundunitsymboldy / 2, y + groundunitsymboldy / 2],
-                linecolor=linecolor,
-                linewidth=groundunitlinewidth,
-                zorder=zorder,
-            )
-            _drawlinesincanvas(
-                [x + groundunitsymboldx / 2, x],
-                [y - groundunitsymboldy / 2, y + groundunitsymboldy / 2],
+                [
+                    x - armorsymboldy * groundunitsymboldx / groundunitsymboldy,
+                    x,
+                    x + armorsymboldy * groundunitsymboldx / groundunitsymboldy,
+                ],
+                [
+                    y - armorsymboldy,
+                    y + armorsymboldy,
+                    y - armorsymboldy,
+                ],
                 linecolor=linecolor,
                 linewidth=groundunitlinewidth,
                 zorder=zorder,
@@ -1968,17 +1979,6 @@ def _drawgroundunitincanvas(
                 linewidth=groundunitlinewidth,
                 zorder=zorder,
             )
-
-        # Adjust the width of the truck symbol to give the same area as the armor symbol.
-
-        armorsymboldx = 0.125 * groundunitsymboldx
-        armorsymboldy = 0.20 * groundunitsymboldy
-        armorsymbolarea = (
-            4 * armorsymboldx * armorsymboldy + math.pi * armorsymboldy * armorsymboldy
-        )
-
-        trucksymboldy = armorsymboldy
-        trucksymboldx = armorsymbolarea / (4 * trucksymboldy)
 
         def drawarmorsymbol():
             dx = armorsymboldx

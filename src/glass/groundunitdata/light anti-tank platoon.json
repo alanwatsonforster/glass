@@ -1,0 +1,17 @@
+{
+    "name": "light anti-tank",
+    "description": "light anti-tank platoon",
+    "symbols": "armor/antiarmor/light/platoon",
+    "defensestrength": "4H",
+    "sightingrange": 12,
+    "mobility": "G",
+    "aaa": {
+        "class": "B",
+        "maximumrelativealtitude": 3
+    },
+    "VPs": [
+        10,
+        6,
+        4
+    ]
+}
