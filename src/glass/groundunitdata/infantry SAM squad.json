@@ -1,0 +1,10 @@
+{
+    "name": "infantry SAM squad",
+    "othername": "",
+    "description": "infantry SAM squad",
+    "symbols": "air-defense/missile/infantry/squad",
+    "text": "SAM",
+    "defensestrength": "5S",
+    "sightingrange": 6,
+    "mobility": "U"
+}
