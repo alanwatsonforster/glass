@@ -1,5 +1,13 @@
 # SAMs
 
+## Ayn-al-Sadr
+
+The Sinai 23 has six.
+
+Mentioned as 1984 copy of SA-7B [here](https://www.armedconflicts.com/Ayn-al-Saqr-Sakr-Eye-t265986).
+
+- [Wikipedia on ZU-23 and Sinai 23](https://en.wikipedia.org/wiki/ZU-23-2)
+
 ## SA-2B/C/D/F
 
 ### SA-2 Launch Unit

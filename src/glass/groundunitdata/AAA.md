@@ -207,6 +207,12 @@ Air Strike has hit rolls of 2/2/1 and VPs of 5/4/3. TSOH and Puma have hit rolls
 
 ### Sinai 23
 
+Turret seems to be similar to the Blazer turret, but without radar. Has IR night sights.
+
+A battery has one search radar (precision 1 degree so not FCR) vehicle and three gun/launcher vehicles. It looks like the radar can cue aiming.
+
+Has six Ayn-al-Sadr (SA-7B clone) or Stingers according to Wikipedia.
+
 - [Wikipedia](https://en.wikipedia.org/wiki/ZU-23-2)
 - [Warthunder](https://forum.warthunder.com/t/british-weapon-systems-technical-data-and-discussion/3879/2234)
 
