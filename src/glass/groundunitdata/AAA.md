@@ -205,6 +205,11 @@ Air Strike has hit rolls of 2/2/1 and VPs of 5/4/3. TSOH and Puma have hit rolls
 
 - [Wikipedia](https://en.wikipedia.org/wiki/ZU-23-2)
 
+### Sinai 23
+
+- [Wikipedia](https://en.wikipedia.org/wiki/ZU-23-2)
+- [Warthunder](https://forum.warthunder.com/t/british-weapon-systems-technical-data-and-discussion/3879/2234)
+
 ### ZSU-23-4 Section
 
 This is the Shilka SPAAG.

@@ -1,0 +1,20 @@
+{
+    "name": "Ayn-al-Saqr",
+    "othername": "",
+    "year": "1984",
+    "I": {
+        "launchroll": 7,
+        "turnrate": "BT",
+        "flighttime": 1,
+        "visibility": 6,
+        "flarerating": 5,
+        "basespeed": 10,
+        "sustainer": 0,
+        "minimumaltitude": "T",
+        "directhitroll": 5,
+        "proximityhitroll": 7,
+        "directdamagerating": 4,
+        "proximitydamagerating": 3,
+        "instantarming": true
+    }
+}

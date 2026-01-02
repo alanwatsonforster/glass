@@ -1,0 +1,41 @@
+{
+    "name": "Sinai 23 Ayn-al-Saqr",
+    "year": 1992,
+    "description": "Sinai 23 Ayn-al-Saqr twin 23 mm air-defense section",
+    "symbols": "armor/light/air-defense/gun/missile/section",
+    "text": "23×2/A-al-S",
+    "defensestrength": "4H",
+    "sightingrange": 12,
+    "mobility": "U",
+    "aaa": {
+        "type": "23×2",
+        "class": "L",
+        "range": [
+            2,
+            5,
+            8
+        ],
+        "hitroll": [
+            5,
+            4,
+            3
+        ],
+        "maximumrelativealtitude": 9,
+        "damagerating": 2,
+        "nightirsights": true
+    },
+    "sam": {
+        "type": "Ayn-al-Saqr",
+        "multitargetcapability": 2,
+        "readymissiles": 12,
+        "volleymissiles": 2,
+        "quickreaction": true,
+        "opticallockon": 8,
+        "nightirsights": true
+    },
+    "VPs": [
+        10,
+        7,
+        3
+    ]
+}
