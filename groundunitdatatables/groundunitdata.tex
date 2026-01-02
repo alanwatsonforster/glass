@@ -304,16 +304,16 @@ A truck platoon may transport a towed artillery battery.
 
 \subsection{HQ Units}
 
-An armored or infantry HQ platoon represents the HQ unit of a battalion or regiment.\footnote{I wondered if HQ platoons were also used at the company level, but looking at the Air Strike scenarios they are included at a ratio of about one HQ platoons to nine normal platoons, so they seem to be batallion HQs.} There are no IFV, APC, or truck HQ units; the HQ platoon of a mechanized or motorized infantry battalion or regiment will consist of either an armored HQ platoon or an infantry HQ platoon associated with a normal IFV, APC, or truck platoon.
+An armored or infantry HQ platoon represents the HQ unit of a battalion or regiment.\footnote{I wondered if HQ platoons were also used at the company level, but looking at the Air Strike scenarios they are included at a ratio of about one HQ platoons to nine normal platoons, so they seem to be battalion HQs.} There are no IFV, APC, or truck HQ units; the HQ platoon of a mechanized or motorized infantry battalion or regiment will consist of either an armored HQ platoon or an infantry HQ platoon associated with a normal IFV, APC, or truck platoon.
 
-\begin{figure*}
+\begin{figure*}[p]
     \centering
     \includegraphics[width=0.8\linewidth]{figure-ground-combat-units.png}
     \caption{Ground-Combat Units}
     \label{figure:ground-combat-units}
 \end{figure*}
 
-\begin{table*}
+\begin{table*}[p]
     \caption{Ground-Combat Units}
     \centering
     \footnotesize
@@ -544,14 +544,14 @@ This is a battery of six KS-19 gun mounts. The KS-19 has a single 100 mm gun in 
 
 It entered service in 1948 with Soviet forces as a replacement for the KS-12 85 mm gun. It also served with many Soviet allies and saw combat with communist forces in the Korean War and Vietnam War and Iraqi forces in the Iran-Iraq and Gulf Wars.
 
-\begin{figure*}
+\begin{figure*}[p]
     \centering
     \includegraphics[width=0.8\linewidth]{figure-aaa.png}
     \caption{AAA Units}
     \label{figure:aaa-units}
 \end{figure*}
 
-\begin{table*}
+\begin{table*}[p]
     \caption{Air-Defense Units: AAA Units}
     \centering
     \footnotesize
@@ -605,14 +605,14 @@ Skyguard entered service in 1977 with the Swiss Air Force.
 It was subsequently very widely exported and used by the Argentine Army, Austria, Bahrain, Bangladesh, Brazil, Canada, Chile, China, Cyprus, Egypt, Greece, Indonesia, Iran, Italy, South Korea, Kuwait, Malaysia, Oman, Pakistan, Saudi Arabia, Spain, Taiwan, and the UK.
 It saw combat with the Argentine Army in the 1982 South Atlantic War in the defense of BAM Malvinas (Port Stanley Airport) and BAM Condor (Goose Green Airfield).
 
-\begin{figure*}
+\begin{figure*}[p]
     \centering
     \includegraphics[width=0.8\linewidth]{figure-radar-and-ccu-units.png}
     \caption{Radar and CCU Units}
     \label{figure:radar-and-ccu-units}
 \end{figure*}
 
-\begin{table*}
+\begin{table*}[p]
     \caption{Air-Defense Units: FCR Units}
     \centering
     \footnotesize
@@ -661,13 +661,6 @@ Table~\ref{table:sams} summarizes the properties of the actual missiles:
 %Some missiles have more than one guidance mode (e.g., the SA-2F has an OG backup mode to its CG main mode).
 
 \subsection{Infantry SAM Units}
-
-\begin{figure*}
-    \centering
-    \includegraphics[width=0.8\linewidth]{figure-infantry-sam-units.png}
-    \caption{Infantry SAM Units}
-    \label{figure:infantry-sam-units}
-\end{figure*}
 
 Infantry SAM units are squads of infantry specialized in the destruction of attacking aircraft with portable SAMs.
 Each squad has one launcher and, unless otherwise specified, one ready missile and two reload missiles.
@@ -867,7 +860,14 @@ Patriot is used by the US Army and numerous US allies.
 
 \end{comment}
 
-\begin{table*}
+\begin{figure*}[p]
+    \centering
+    \includegraphics[width=0.8\linewidth]{figure-infantry-sam-units.png}
+    \caption{Infantry SAM Units}
+    \label{figure:infantry-sam-units}
+\end{figure*}
+
+\begin{table*}[p]
     \caption{Air-Defense Units: Infantry SAM Units}
     \centering
     \footnotesize
@@ -876,7 +876,7 @@ Patriot is used by the US Army and numerous US allies.
 \end{table*}
 
 \begin{comment}
-\begin{table*}
+\begin{table*}[p]
     \caption{Air-Defense Units: SAM Launcher Units}
     \centering
     \footnotesize
@@ -885,7 +885,7 @@ Patriot is used by the US Army and numerous US allies.
 \end{table*}
 \end{comment}
 
-\begin{table*}
+\begin{table*}[p]
     \caption{SAMs}
     \centering
     \footnotesize
@@ -915,7 +915,7 @@ Figure~\ref{figure:radar-and-ccu-units} shows the representation of EWR and CCU 
 
 \paragraph{Crotale CCU/EWR.} This is the HQ and EWR vehicle of a Crotale SAM battery. It is equipped with a Mirador IV radar.
 
-\begin{table*}
+\begin{table*}[p]
     \caption{Air-Defense Units: CCU and EWR Units}
     \centering
     \footnotesize
@@ -932,12 +932,7 @@ A ground \emph{target} is a unit of infrastructure such as a bridge and a buildi
 
 \subsection{Properties and Representation}
 
-\begin{figure*}
-    \centering
-    \includegraphics[width=0.8\linewidth]{figure-ground-targets.png}
-    \caption{Ground Targets}
-    \label{figure:ground-targets}
-\end{figure*}
+Ground targets are listed with their properties  in Table~\ref{table:ground-targets}.
 
 All ground targets have these properties:
 \begin{itemize}
@@ -946,8 +941,6 @@ All ground targets have these properties:
     \item sighting range in hexes; and
     \item the VPs awarded for 3D/2D/D damage.
 \end{itemize}
-
-Ground targets are listed with their properties  in Table~\ref{table:ground-targets}.
 
 All ground targets have a damage resilience of 3D. That is, they are killed when they suffer 3D or more damage.
 
@@ -967,9 +960,16 @@ Unless otherwise indicated in a scenario, a major bridge is one that extends ove
 
 When attacking a bunker entrance, a tunnel entrance hex, or a shelter, the attack strength of a penetrating bomb is doubled.
 
+\begin{figure*}[p]
+    \centering
+    \includegraphics[width=0.8\linewidth]{figure-ground-targets.png}
+    \caption{Ground Targets}
+    \label{figure:ground-targets}
+\end{figure*}
+
 \onecolumn
 
-\begin{table*}
+\begin{table*}[p]
     \caption{Ground Targets}
     \centering
     \footnotesize
@@ -997,7 +997,7 @@ We see that we need the following additional ground units:
     \item Oerlikon GDF \emph{section}
 \end{itemize}
 
-\begin{table*}
+\begin{table*}[p]
     \centering
     \caption{2 Para at Goose Green}
     \label{table:ob-two-para}
@@ -1041,7 +1041,7 @@ We see that we need the following additional ground units:
     \end{tabularx}
 \end{table*}
 
-\begin{table*}
+\begin{table*}[p]
     \centering
     \caption{12IR at Goose Green}
     \label{table:ob-twelth-infantry}
