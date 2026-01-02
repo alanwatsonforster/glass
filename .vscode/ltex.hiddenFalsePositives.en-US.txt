@@ -31,3 +31,9 @@
 {"rule":"ENGLISH_WORD_REPEAT_RULE","sentence":"^\\QUsed by Oerlikon 35 mm\nCombines tracking and search\nPulse Doppler Tracking is J band\nDoppler Search is E/F band with a range of 15 km\n1965 onwards\nUsed in the first prototype of the Gepard\nGepard FCR is VF = same frequency as FCR-C\\E$"}
 {"rule":"MORFOLOGIK_RULE_EN_US","sentence":"^\\QHowever, Wikipedia also mentions an \"AFCC\" which controls one firing section of three launchers, one acquisition radar, and one illuminator.\\E$"}
 {"rule":"MORFOLOGIK_RULE_EN_US","sentence":"^\\QDuring the South Atlantic War, air-to-air refueling probes from Avro Vulcans were installed on several MR.2s to give the MR.2P version and the underwing stations were equipped with AIM-9G/L IRMs.\\E$"}
+{"rule":"MORFOLOGIK_RULE_EN_US","sentence":"^\\QLight APCs: Bronco ATTC, BvS10/Viking, BTR-50PK, BTR-60/70/80, FV432, M113, M114, Saracen, Spartan, most Stryker variants, and VAB.\\E$"}
+{"rule":"MORFOLOGIK_RULE_EN_US","sentence":"^\\QTracked carriers include the M548, Bv 202/206, and BvS10/Beowulf.\\E$"}
+{"rule":"MORFOLOGIK_RULE_EN_US","sentence":"^\\QAt this time, the battalion had attached half a battery of 105 mm Light Guns from Alma Battery of 29 Commando Regiment, RA, a section of Blowpipes from 43rd Air Defence Battery, RA, and a Recce Troop of 59 Independent Commando Squadron, RE.\\E$"}
+{"rule":"CD_NN","sentence":"^\\QA Company 12IR 5 infantry platoon\\E$"}
+{"rule":"CD_NN","sentence":"^\\QB Company 12IR 3 infantry platoon\\E$"}
+{"rule":"MORFOLOGIK_RULE_EN_US","sentence":"^\\QB Battery, 601 GADA 1 Oerlikon 35 mm GDF section Two guns 1 towed FCR-D Skyguard\\E$"}

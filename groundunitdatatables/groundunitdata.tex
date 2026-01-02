@@ -600,6 +600,43 @@ It saw combat with the Argentine Army in the 1982 South Atlantic War in the defe
 \clearpage
 \section{SAM Units}
 
+SAM launcher units are specialized in the destruction of attacking aircraft with surface-to-air missiles.
+
+\subsection{Properties}
+
+Table~\ref{table:infantry-sam-units} summarizes the properties of infantry SAM units, and
+Figure~\ref{figure:infantry-sam-units} shows their representation as counters. In addition to the properties shared by all ground units, Table~\ref{table:infantry-sam-units} gives:
+\begin{itemize}
+    \item the number of ready, volley, and reload missiles;
+    \item the multi-target capability;
+    \item whether the unit has quick-reaction capability;
+    \item whether the unit has IFF capability;
+    \item whether the unit has night IR sights; and
+    \item the optical lock-on number and range.
+\end{itemize}
+
+%the frequency band, range (in mega-hexes) of the EWR, if present, and whether it has a moving-target indicator (MTI) capability; the frequency band and range (in mega-hexes) of the target-tracking radar, if present; the multi-target capability of the unit; the number of ready missiles and the maximum number of missiles in a volley; whether the unit has a quick-reaction capability; its radar and optical lock-on rolls and (for IR SAMs) its lock-on range in hexes.
+
+\subsection{Missile Properties}
+
+Table~\ref{table:sams} summarizes the properties of the actual missiles:
+\begin{itemize}
+    \item guidance mode;
+    \item launch roll;
+    \item turn rate;
+    \item flight time;
+    \item visibility;
+    \item ECCM, chaff, and flare ratings;
+    \item whether the missile is active homing (AH) or has a home-on-jam (HOJ) capability;
+    \item boost phase in FPs;
+    \item base speed and sustainer duration in game turns;
+    \item minimum altitude (and modifier for targets at T level);
+    \item hit rolls for direct and proximity hits; and
+    \item damage ratings for direct and proximity hits.
+\end{itemize}
+
+%Some missiles have more than one guidance mode (e.g., the SA-2F has an OG backup mode to its CG main mode).
+
 \subsection{Infantry SAM Units}
 
 \begin{figure*}
@@ -610,14 +647,10 @@ It saw combat with the Argentine Army in the 1982 South Atlantic War in the defe
 \end{figure*}
 
 Infantry SAM units are squads or sections of infantry specialized in the destruction of attacking aircraft with portable SAMs.
-Some combine EWRs to give them an autonomous capability to detect and then engage aircraft.
-
-Infantry SAMs are available as sections (with two launchers) and squads (with one launcher).
+They are available as sections (with two launchers) and squads (with one launcher).
 Unless otherwise specified, each launcher has one ready missile and two reloads available.
 
-Infantry SAM units may be attached to infantry or infantry HQ platoons.
-
-Figure~\ref{figure:infantry-sam-units} shows the representation of infantry SAM units as counters, Table~\ref{table:infantry-sam-units} summarizes their properties, and Table~\ref{table:sams} summarizes the properties of the actual missiles.
+Infantry SAM units may be attached to infantry, infantry weapons, or infantry HQ platoons.
 
 \subsubsection{SA-7A/B Squad or Section}
 
@@ -720,20 +753,9 @@ The RBS 70 entered service with the Swedish Army in 1977. It was subsequently us
     \label{figure:sam-launcher-units}
 \end{figure*}
 
-SAM launcher units are specialized in the destruction of attacking aircraft with surface-to-air missiles.
-Some combine EWRs to give them an autonomous capability to detect and then engage aircraft.
-Figure~\ref{figure:sam-launcher-units} shows the representation of SAM launcher units as counters, Table~\ref{table:sam-launcher-units} summarizes their properties, and Table~\ref{table:sams} summarizes the properties of the actual missiles.
-
-\paragraph{Launcher Properties.}
-In addition to the properties shared by all ground units, Table~\ref{table:sam-launcher-units} gives: the frequency band, range (in mega-hexes) of the EWR, if present, and whether it has a moving-target indicator (MTI) capability; the frequency band and range (in mega-hexes) of the target-tracking radar, if present; the multi-target capability of the unit; the number of ready missiles and the maximum number of missiles in a volley; whether the unit has a quick-reaction capability; its radar and optical lock-on rolls and (for IR SAMs) its lock-on range in hexes.
-
 \paragraph{Echelon.}
 The size of a SAM launcher unit is squad, section, or platoon according to its damage resilience (1D, 2D, or 3D, respectively).
 This does not always coincide with the actual designations used historically. For example, the SA-2 battery in the game corresponds to a battalion in reality.
-
-\paragraph{Missile Properties.}
-Table~\ref{table:sams} gives: guidance mode; launch roll; turn rate; flight time; visibility; ECCM, chaff, and flare ratings; whether the missile is active homing (AH) or has a home-on-jam (HOJ) capability; boost phase in FPs; base speed and sustainer duration in game turns; minimum altitude (and modifier for targets at T level); hot rolls for direct and proximity hits; and damage ratings for direct and proximity hits.
-Some missiles have more than one guidance mode (e.g., the SA-2F has an OG backup mode to its CG main mode).
 
 \paragraph{Nuclear Warheads.}
 The SA-2E has the option of a nuclear warhead.

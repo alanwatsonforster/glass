@@ -142,3 +142,16 @@ Raketenjagdpanzer
 Contraves
 Aspide
 Signaal
+Igla
+ATGMs
+Ariete
+Stridsvagn
+Vijayanta
+Kanonenjagdpanzer
+Vickers
+Swingfire
+Cenepa
+MCLOS
+Desna
+Volkhov
+Elta
