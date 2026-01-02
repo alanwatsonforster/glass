@@ -86,46 +86,46 @@ A ground unit can be a hard, open, or soft target according to the degree to whi
 
 \subsection{Mobility}
 
-A ground unit has a mobility that can place limits on where it may be placed at the start of a game and move on the map. A ground unit can have unrestricted (U), good (G), or poor (P) mobility:
+A ground unit has a mobility that may restrict the hexes it may occupy according to the terrain in an around those hexes. The scenario may modify these restrictions.
+
+Infantry units, armored units (whether tracked and wheeled), and tracked units have unrestricted (U) mobility. Truck and mobile (i.e., truck-borne) units have good (G) or poor (P) mobility. All other units have towed (T) mobility.
+
+\subsubsection{Basic Rule}
+
+A ground unit may occupy hexes as follows:
 \begin{itemize}
-    \item An infantry unit has unrestricted mobility;
-    \item An AFV unit, both tracked and wheeled, or a tracked carrier unit has good mobility; and
-    \item A truck unit or a towed unit has poor mobility.
+    \item A unit with unrestricted mobility may occupy: any urban hex; any clear hex; or any forest hex.
+
+    \item A unit with good, poor, or towed mobility may occupy: any urban hex; any clear hex; or any forest hex with a road or trail.
 \end{itemize}
 
-A ground unit may occupy hexes according to its mobility and the following rules:
+The basic rules do not distinguish between good, poor, and towed mobility.
+
+\subsubsection{Advanced Rule}
+
+The following restrictions supersede those in the basic rules:
 \begin{itemize}
-    \item No unit may occupy a water hex.
-    \item Any unit may occupy an urban hex.
-    \item A unit with unrestricted mobility may occupy:
-        \begin{itemize}
-            \item any clear hex
-            \item any forest hex.
-        \end{itemize}
-    \item A unit with good mobility may occupy:
-        \begin{itemize}
-            \item any clear hex
-            \item a forest hex only if it has a road or trail, is adjacent to another forest hex with a road or trail, is adjacent to a clear hex, or is adjacent to an urban hex.
-        \end{itemize}
-    \item A unit with poor mobility may occupy:
-        \begin{itemize}
-            \item a clear hex only if it has a road, trail, or runway, is adjacent to another clear hex with a road, trail, or runway, or is adjacent to an urban hex.
-            \item a forest hex only if it has a road, trail, or runway.
-        \end{itemize}
+    \item A unit with unrestricted mobility may occupy: any urban hex; any clear hex; or any forest hex.
+
+    \item A unit with good mobility may occupy: any urban hex; any clear hex; or any forest hex with a road or trail.
+
+    \item A unit with poor mobility may occupy: any urban hex; any clear or forest hex with a road, trail, or runway; or any clear hex adjacent to an urban hex or another clear hex with a road, trail, or runway.
+
+    \item A unit with towed mobility may occupy hexes according to the mobility of its transport.
 \end{itemize}
 
-These rules, for example, limit an AFV unit to the edges of forests and a truck unit to being on or close to roads, trails, runways, and urban areas.
-
-Figure~\ref{figure:mobility} illustrates these rules: a unit with poor mobility may only occupy the hexes marked with green dots; one with good mobility may only occupy those marked with yellow or green dots; and one with unlimited mobility may only occupy the hexes marked with red, yellow, or green dots.
+Figure~\ref{figure:mobility} illustrates these rules.
 
 \begin{figure}
     \centering
     \includegraphics[width=1\linewidth]{figure-mobility.png}
-    \caption{Mobility. {\normalfont A ground unit with poor mobility may only occupy the hexes marked with green dots; one with good mobility may occupy those marked with yellow or green dots; and one with unlimited mobility may occupy the hexes marked with red, yellow, or green dots.}}
+    \caption{Mobility. {\normalfont A ground unit with poor mobility may only occupy the hexes marked with green dots; one with good mobility may occupy those marked with yellow or green dots; and one with unlimited mobility may occupy those marked with red, yellow, or green dots.}}
     \label{figure:mobility}
 \end{figure}
 
-A scenario may remove some of these restrictions or add others. For example, a scenario with airmobile forces might allow a towed artillery battery to have been transported by helicopter to a clear hex far from a road, trail, runway, or urban hex, and another set in the open desert of southern Iraq might allow a truck platoon freedom to occupy any clear hex.
+When this advanced rule is used, the scenario must specify (or the players must agree) whether truck and mobile units have good or poor mobility, according to the terrain and the capabilities of the trucks represented, and explicitly or implicitly assign transport units to towed units.
+
+For example, a scenario set in the open desert of southern Iraq might specify that trucks have good mobility, but one set in the Falklands Islands might specify that they have poor mobility. Similarly, a scenario might specify that cargo trucks have poor mobility, but mobile artillery units have good mobility. Finally, a scenario might not assign an explicit transport unit to a towed artillery battery, but might state that it has been transported by helicopter and so can be placed as if it had a transport unit with good mobility.
 
 \subsection{Representation}
 \begin{comment}
@@ -134,13 +134,13 @@ Figures \ref{figure:ground-combat-units}, \ref{figure:aaa-units}, \ref{figure:ra
 
 Figures \ref{figure:ground-combat-units}, \ref{figure:aaa-units}, \ref{figure:radar-and-ccu-units}, and \ref{figure:infantry-sam-units} show the graphical representation of ground-combat units as counters.
 
-The representation is based on NATO symbols, including those for infantry, armor, anti-armor, air defense, guns, missiles, tube artillery, and rocket artillery. One addition is that a rectangle denotes an unarmored vehicle such as a truck or tracked carrier. All vehicular units have either an armor or unarmored vehicle symbol, all infantry units have an infantry symbol, and towed units have none of these.
+The representation is based on NATO symbols, including those for infantry, armor, anti-armor, air defense, guns, missiles, tube artillery, and rocket artillery. One addition is that a rectangle denotes an unarmored vehicle such as a truck or tracked carrier. A truck or mobile unit has two wheel symbols in the lower position, whereas a tracked carrier has a tracked symbol.
+
+All vehicular units have either an armor or unarmored vehicle symbol, all infantry units have an infantry symbol, and towed units have none of these.
 
 The letter T in the central position indicates a transport capacity (e.g., APCs, IFVs, cargo trucks, and tracked cargo carriers). Words and letters in the lower position indicate variants on a basic type: the letters H, M, L, and O on an armored unit indicate heavy, medium, light, and open armored protection; the words WPN or FAC on an infantry unit indicates a weapons or FAC unit; and the letter H on an infantry SAM unit indicates a heavy version of the launcher (e.g., the LML version of Starstreak).
 
 The size of a unit is indicated by one, two, or three dots (for squads, sections, or platoons) or one vertical bar (for batteries) in an upper position.
-
-Implicitly, an infantry unit has unrestricted mobility, an armored unit has good mobility, and a towed unit has poor mobility. A truck unit has poor mobility if it has a two-wheeled symbol in the lower position and good mobility if it has a three-wheeled, half-tracked, or tracked symbol in the lower position.
 
 \section{Ground-Combat Units}
 
@@ -211,7 +211,7 @@ An armored car or an armored half-track is considered to be a light tank, light 
 
 \subsection{Trucks and Tracked Carrier Units}
 
-Trucks and tracked carriers are unarmored or incompletely armored vehicles that transport infantry, towed weapons, and supplies. The difference is that a truck has poor mobility, whereas a tracker carrier (e.g., an M548) has good mobility. Trucks include light trucks such as Jeeps, Land Rovers, and Humvees.
+Trucks and tracked carriers are unarmored or incompletely armored vehicles that transport infantry, towed weapons, and supplies. A truck has good/poor mobility, whereas a tracker carrier (e.g., an M548) has unrestricted mobility. Trucks include light trucks such as Jeeps, Land Rovers, and Humvees.
 
 \subsection{Artillery Units}
 
@@ -280,7 +280,7 @@ A towed unit may not mount or dismount during the game.
 
 At the start of a game, an infantry, infantry weapons, or infantry HQ platoon may \emph{attach} one or two infantry squads or one infantry section to form a \emph{composite platoon}. The attached units are commonly infantry SAM or FAC units. Once formed, a composite platoon may not be split into its constituent units.
 
-A composite platoon has the same damage resilience, defense strength, target class, mobility, and sighting range of its constituent platoon.
+A composite platoon has the same damage resilience, defense strength, target class, mobility, and sighting range as its constituent platoon.
 
 An attached unit is not represented by a separate counter, does not count for stacking, and may not be attacked directly, but instead is considered to form part of the composite platoon.
 An attached unit retains its normal capabilities (i.e., an attached SAM unit may engage aircraft and an attached FAC unit may sight and mark targets).

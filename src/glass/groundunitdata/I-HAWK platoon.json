@@ -6,7 +6,7 @@
     "text": "I-HAWK",
     "sightingrange": 12,
     "defensestrength": "3S",
-    "mobility": "P",
+    "mobility": "G/P",
     "VPs": [
         12,
         8,

@@ -4,7 +4,7 @@
     "symbols": "missile/truck/limitedwheeled/battery",
     "sightingrange": 12,
     "defensestrength": "2S",
-    "mobility": "P",
+    "mobility": "G/P",
     "VPs": [
         9,
         6,

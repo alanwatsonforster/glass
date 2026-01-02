@@ -4,7 +4,7 @@
     "symbols": "truck/limitedwheeled/transport/section",
     "sightingrange": 12,
     "defensestrength": "2S",
-    "mobility": "P",
+    "mobility": "G/P",
     "VPs": [
         null,
         3,

@@ -4,7 +4,7 @@
     "symbols": "armor/light/headquarters/platoon",
     "defensestrength": "4H",
     "sightingrange": 12,
-    "mobility": "G",
+    "mobility": "U",
     "aaa": {
         "class": "B",
         "maximumrelativealtitude": 3

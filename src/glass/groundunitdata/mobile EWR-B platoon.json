@@ -5,7 +5,7 @@
     "text": "EWR-B",
     "sightingrange": 12,
     "defensestrength": "2S",
-    "mobility": "P",
+    "mobility": "G/P",
     "ewr": {
         "ewrclass": "B",
         "ewrfrequency": "LF"

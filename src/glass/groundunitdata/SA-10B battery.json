@@ -7,7 +7,7 @@
     "text": "SA-10B",
     "defensestrength": "4H",
     "sightingrange": 12,
-    "mobility": "G",
+    "mobility": "U",
     "sam": {
         "type": "SA-10B",
         "ewrfrequency": "HF",

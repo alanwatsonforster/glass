@@ -5,7 +5,7 @@
     "text": "FCR-C",
     "defensestrength": "2S",
     "sightingrange": 12,
-    "mobility": "P",
+    "mobility": "G/P",
     "aaa": {
         "fcrclass": "C",
         "fcrfrequency": "VF"
