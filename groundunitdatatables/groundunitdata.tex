@@ -217,13 +217,6 @@ Table~\ref{table:ground-combat-units} summarizes the properties of ground-combat
 Figure~\ref{figure:ground-combat-units} shows their representation as counters.
 The AAA class is B2 for infantry platoons and B3 for AFV platoons, indicating that they are capable of barrage fire to altitudes of 2 and 3 levels, respectively.
 
-\begin{figure*}
-    \centering
-    \includegraphics[width=0.8\linewidth]{figure-ground-combat-units.png}
-    \caption{Ground-Combat Units}
-    \label{figure:ground-combat-units}
-\end{figure*}
-
 \subsection{Infantry Units}
 
 Infantry are soldiers trained to fight on foot. An infantry, infantry weapons, or infantry HQ platoon consists of thirty to fifty soldiers. An infantry weapons platoon will be equipped with machine guns, ATGMs, grenade launchers, or mortars.\footnote{An infantry weapons platoon is not strictly necessary, but it adds to the look-and-feel, and we might consider giving them longer range in ground-to-ground combat. Having a single type is probably more appropriate than having separate types for mortar, grenade launchers, recoilless rifles, ATGMs, and machine guns. That said, the .50 cal infantry AAA unit could serve as a machine-gun platoon, but I would imagine most machine-gun weapons platoons have low tripods for ground combat rather than high-ones for AAA.} A mechanized infantry platoon will be associated with a platoon of APCs or IFVs. A motorized infantry platoon will be associated with a platoon of trucks.
@@ -312,6 +305,21 @@ A truck platoon may transport a towed artillery battery.
 \subsection{HQ Units}
 
 An armored or infantry HQ platoon represents the HQ unit of a battalion or regiment.\footnote{I wondered if HQ platoons were also used at the company level, but looking at the Air Strike scenarios they are included at a ratio of about one HQ platoons to nine normal platoons, so they seem to be batallion HQs.} There are no IFV, APC, or truck HQ units; the HQ platoon of a mechanized or motorized infantry battalion or regiment will consist of either an armored HQ platoon or an infantry HQ platoon associated with a normal IFV, APC, or truck platoon.
+
+\begin{figure*}
+    \centering
+    \includegraphics[width=0.8\linewidth]{figure-ground-combat-units.png}
+    \caption{Ground-Combat Units}
+    \label{figure:ground-combat-units}
+\end{figure*}
+
+\begin{table*}
+    \caption{Ground-Combat Units}
+    \centering
+    \footnotesize
+    \input{table-ground-combat-units.tex}
+    \label{table:ground-combat-units}
+\end{table*}
 
 \clearpage
 \section{AAA Units}
@@ -543,15 +551,16 @@ It entered service in 1948 with Soviet forces as a replacement for the KS-12 85 
     \label{figure:aaa-units}
 \end{figure*}
 
+\begin{table*}
+    \caption{Air-Defense Units: AAA Units}
+    \centering
+    \footnotesize
+    \input{table-aaa-units.tex}
+    \label{table:aaa-units}
+\end{table*}
+
 \clearpage
 \section{FCR Units}
-
-\begin{figure*}
-    \centering
-    \includegraphics[width=0.8\linewidth]{figure-radar-and-ccu-units.png}
-    \caption{Radar and CCU Units}
-    \label{figure:radar-and-ccu-units}
-\end{figure*}
 
 Most medium and heavy AAA batteries can be associated with an add-on fire-control radar (FCR), which improves their accuracy and allows them to engage unsighted targets at night and in adverse weather.
 
@@ -595,6 +604,21 @@ The Contraves Skyguard FCR-D can control two Oerlikon GDF 35 mm guns and additio
 Skyguard entered service in 1977 with the Swiss Air Force.
 It was subsequently very widely exported and used by the Argentine Army, Austria, Bahrain, Bangladesh, Brazil, Canada, Chile, China, Cyprus, Egypt, Greece, Indonesia, Iran, Italy, South Korea, Kuwait, Malaysia, Oman, Pakistan, Saudi Arabia, Spain, Taiwan, and the UK.
 It saw combat with the Argentine Army in the 1982 South Atlantic War in the defense of BAM Malvinas (Port Stanley Airport) and BAM Condor (Goose Green Airfield).
+
+\begin{figure*}
+    \centering
+    \includegraphics[width=0.8\linewidth]{figure-radar-and-ccu-units.png}
+    \caption{Radar and CCU Units}
+    \label{figure:radar-and-ccu-units}
+\end{figure*}
+
+\begin{table*}
+    \caption{Air-Defense Units: FCR Units}
+    \centering
+    \footnotesize
+    \input{table-fcr-units.tex}
+    \label{table:fcr-units}
+\end{table*}
 
 \clearpage
 \section{SAM Units}
@@ -843,6 +867,32 @@ Patriot is used by the US Army and numerous US allies.
 
 \end{comment}
 
+\begin{table*}
+    \caption{Air-Defense Units: Infantry SAM Units}
+    \centering
+    \footnotesize
+    \input{table-infantry-sam-units.tex}
+    \label{table:infantry-sam-units}
+\end{table*}
+
+\begin{comment}
+\begin{table*}
+    \caption{Air-Defense Units: SAM Launcher Units}
+    \centering
+    \footnotesize
+    \input{table-sam-launcher-units.tex}
+    \label{table:sam-launcher-units}
+\end{table*}
+\end{comment}
+
+\begin{table*}
+    \caption{SAMs}
+    \centering
+    \footnotesize
+    \input{table-sams.tex}
+    \label{table:sams}
+\end{table*}
+
 \clearpage
 \section{EWR and CCU Units}
 
@@ -864,6 +914,14 @@ Figure~\ref{figure:radar-and-ccu-units} shows the representation of EWR and CCU 
 \paragraph{Armored CCU.}
 
 \paragraph{Crotale CCU/EWR.} This is the HQ and EWR vehicle of a Crotale SAM battery. It is equipped with a Mirador IV radar.
+
+\begin{table*}
+    \caption{Air-Defense Units: CCU and EWR Units}
+    \centering
+    \footnotesize
+    \input{table-ccu-and-ewr-units.tex}
+    \label{table:ccu-and-ewr-units}
+\end{table*}
 
 \end{comment}
 
@@ -910,64 +968,6 @@ Unless otherwise indicated in a scenario, a major bridge is one that extends ove
 When attacking a bunker entrance, a tunnel entrance hex, or a shelter, the attack strength of a penetrating bomb is doubled.
 
 \onecolumn
-
-\begin{table*}
-    \caption{Ground-Combat Units}
-    \centering
-    \footnotesize
-    \input{table-ground-combat-units.tex}
-    \label{table:ground-combat-units}
-\end{table*}
-
-\begin{table*}
-    \caption{Air-Defense Units: AAA Units}
-    \centering
-    \footnotesize
-    \input{table-aaa-units.tex}
-    \label{table:aaa-units}
-\end{table*}
-
-\begin{table*}
-    \caption{Air-Defense Units: FCR Units}
-    \centering
-    \footnotesize
-    \input{table-fcr-units.tex}
-    \label{table:fcr-units}
-\end{table*}
-
-\begin{table*}
-    \caption{Air-Defense Units: Infantry SAM Units}
-    \centering
-    \footnotesize
-    \input{table-infantry-sam-units.tex}
-    \label{table:infantry-sam-units}
-\end{table*}
-
-\begin{comment}
-\begin{table*}
-    \caption{Air-Defense Units: SAM Launcher Units}
-    \centering
-    \footnotesize
-    \input{table-sam-launcher-units.tex}
-    \label{table:sam-launcher-units}
-\end{table*}
-
-\begin{table*}
-    \caption{Air-Defense Units: CCU and EWR Units}
-    \centering
-    \footnotesize
-    \input{table-ccu-and-ewr-units.tex}
-    \label{table:ccu-and-ewr-units}
-\end{table*}
-\end{comment}
-
-\begin{table*}
-    \caption{SAMs}
-    \centering
-    \footnotesize
-    \input{table-sams.tex}
-    \label{table:sams}
-\end{table*}
 
 \begin{table*}
     \caption{Ground Targets}
