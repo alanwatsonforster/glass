@@ -10,9 +10,5 @@
         "ewrclass": "A",
         "ewrfrequency": "LF"
     },
-    "VPs": [
-        12,
-        8,
-        4
-    ]
+    "VP3D": 12
 }

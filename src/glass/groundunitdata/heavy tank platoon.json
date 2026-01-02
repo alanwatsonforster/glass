@@ -9,9 +9,5 @@
         "class": "B",
         "maximumrelativealtitude": 3
     },
-    "VPs": [
-        12,
-        8,
-        4
-    ]
+    "VP3D": 12
 }

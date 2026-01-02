@@ -8,11 +8,7 @@
     "defensestrength": "5S",
     "sightingrange": 6,
     "mobility": "U",
-    "VPs": [
-        null,
-        null,
-        3
-    ],
+    "VP1D": 3,
     "sam": {
         "type": "SA-7A",
         "readymissiles": 1,

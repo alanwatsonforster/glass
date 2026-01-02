@@ -23,9 +23,5 @@
         "damagerating": 2,
         "maximumrelativealtitude": 5
     },
-    "VPs": [
-        6,
-        4,
-        3
-    ]
+    "VP2D": 6
 }

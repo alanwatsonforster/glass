@@ -8,11 +8,7 @@
     "defensestrength": "5S",
     "sightingrange": 6,
     "mobility": "U",
-    "VPs": [
-        null,
-        null,
-        12
-    ],
+    "VP1D": 12,
     "sam": {
         "type": "Starstreak",
         "readymissiles": 1,

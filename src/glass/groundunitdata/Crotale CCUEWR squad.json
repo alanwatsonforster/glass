@@ -11,9 +11,5 @@
         "ewrfrequency": "LF",
         "ewrrange": 8
     },
-    "VPs": [
-        null,
-        null,
-        10
-    ]
+    "VP1D": 10
 }

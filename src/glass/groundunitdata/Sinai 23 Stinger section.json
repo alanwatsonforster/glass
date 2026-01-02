@@ -33,9 +33,5 @@
         "opticallockon": 8,
         "nightirsights": true
     },
-    "VPs": [
-        12,
-        8,
-        4
-    ]
+    "VP2D": 12
 }

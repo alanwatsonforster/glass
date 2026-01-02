@@ -8,11 +8,7 @@
     "sightingrange": 12,
     "defensestrength": "4H",
     "mobility": "U",
-    "VPs": [
-        null,
-        null,
-        7
-    ],
+    "VP1D": 7,
     "sam": {
         "type": "SA-9B",
         "multitargetcapability": 2,

@@ -10,9 +10,5 @@
         "fcrclass": "C",
         "fcrfrequency": "VF"
     },
-    "VPs": [
-        7,
-        5,
-        2
-    ]
+    "VP3D": 7
 }

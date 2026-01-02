@@ -5,9 +5,5 @@
     "sightingrange": 6,
     "defensestrength": "5S",
     "mobility": "U",
-    "VPs": [
-        null,
-        8,
-        4
-    ]
+    "VP2D": 8
 }

@@ -8,11 +8,7 @@
     "defensestrength": "4S",
     "sightingrange": 12,
     "mobility": "U",
-    "VPs": [
-        null,
-        null,
-        9
-    ],
+    "VP1D": 9,
     "sam": {
         "type": "MIM-72",
         "multitargetcapability": 2,

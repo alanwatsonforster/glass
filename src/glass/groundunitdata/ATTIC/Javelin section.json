@@ -8,11 +8,7 @@
     "defensestrength": "5S",
     "sightingrange": 6,
     "mobility": "U",
-    "VPs": [
-        null,
-        16,
-        8
-    ],
+    "VP2D": 16,
     "sam": {
         "type": "Javelin",
         "readymissiles": 2,

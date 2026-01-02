@@ -8,11 +8,7 @@
     "sightingrange": 12,
     "defensestrength": "4H",
     "mobility": "U",
-    "VPs": [
-        null,
-        null,
-        12
-    ],
+    "VP1D": 12,
     "sam": {
         "type": "SA-11",
         "ttrfrequency": "HF",

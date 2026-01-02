@@ -8,11 +8,7 @@
     "defensestrength": "5S",
     "sightingrange": 6,
     "mobility": "U",
-    "VPs": [
-        null,
-        12,
-        6
-    ],
+    "VP2D": 12,
     "sam": {
         "type": "SA-14",
         "readymissiles": 2,

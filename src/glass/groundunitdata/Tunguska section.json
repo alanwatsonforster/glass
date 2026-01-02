@@ -38,9 +38,5 @@
         "radarlockon": 8,
         "opticallockon": 7
     },
-    "VPs": [
-        10,
-        8,
-        6
-    ]
+    "VP2D": 10
 }

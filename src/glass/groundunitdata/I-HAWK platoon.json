@@ -7,11 +7,7 @@
     "sightingrange": 12,
     "defensestrength": "3S",
     "mobility": "G/P",
-    "VPs": [
-        12,
-        8,
-        4
-    ],
+    "VP3D": 12,
     "sam": {
         "type": "MIM-23B",
         "ttrfrequency": "VF",

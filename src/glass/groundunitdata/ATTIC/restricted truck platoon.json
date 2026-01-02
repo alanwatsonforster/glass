@@ -4,9 +4,5 @@
     "symbols": "truck/limitedwheeled/transport/platoon",
     "sightingrange": 12,
     "defensestrength": "2S",
-    "VPs": [
-        4,
-        2,
-        1
-    ]
+    "VP3D": 4
 }

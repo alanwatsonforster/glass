@@ -8,11 +8,7 @@
     "defensestrength": "5S",
     "sightingrange": 6,
     "mobility": "U",
-    "VPs": [
-        null,
-        null,
-        6
-    ],
+    "VP1D": 6,
     "sam": {
         "type": "Blowpipe",
         "readymissiles": 1,

@@ -8,11 +8,7 @@
     "defensestrength": "5S",
     "sightingrange": 6,
     "mobility": "U",
-    "VPs": [
-        null,
-        18,
-        9
-    ],
+    "VP2D": 18,
     "sam": {
         "type": "FIM-92A",
         "readymissiles": 2,

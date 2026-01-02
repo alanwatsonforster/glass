@@ -8,11 +8,7 @@
     "defensestrength": "5S",
     "sightingrange": 6,
     "mobility": "U",
-    "VPs": [
-        null,
-        8,
-        4
-    ],
+    "VP2D": 8,
     "sam": {
         "type": "FIM-43C",
         "readymissiles": 2,

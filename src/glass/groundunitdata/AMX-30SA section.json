@@ -25,9 +25,5 @@
         "fcrclass": "W",
         "fcrfrequency": "VF"
     },
-    "VPs": [
-        10,
-        8,
-        6
-    ]
+    "VP2D": 10
 }

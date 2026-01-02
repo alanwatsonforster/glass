@@ -8,11 +8,7 @@
     "defensestrength": "4S",
     "sightingrange": 6,
     "mobility": "U",
-    "VPs": [
-        null,
-        22,
-        11
-    ],
+    "VP2D": 22,
     "sam": {
         "type": "Mistral",
         "readymissiles": 2,
