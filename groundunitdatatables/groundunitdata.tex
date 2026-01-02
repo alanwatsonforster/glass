@@ -32,7 +32,7 @@ It builds on the information in the \emph{Air Strike}, \emph{Eagles of the Gulf}
 
 \section{Ground Units}
 
-A ground \emph{unit} is a combat formation of infantry, armor, transports, AAA, SAM launchers, and radars.
+A ground \emph{unit} is a combat formation of infantry, armor, transports, AAA, SAM launchers, and radars. This section discusses them in general.
 
 All ground units have these common properties which together determine their visibility to aircraft, their vulnerability to air-to-ground and ground-to-ground attacks, their capacity for ground-to-ground attacks, their ability to move through difficult terrain, and value in VPs:
 \begin{itemize}
@@ -207,6 +207,7 @@ As usual, an attached unit that suffers damage equal to its damage resilience is
 If a composite platoon is killed, each attached unit is killed too.
 VPs are awarded for damage to any of the constituent units.
 
+\clearpage
 \section{Ground-Combat Units}
 
 A ground-combat unit represents a combat formation of infantry, tanks or other AFVs, trucks, tracked carriers, or artillery. Its primary role is combat with other ground units.
@@ -309,15 +310,31 @@ A truck platoon may transport a towed artillery battery.
 
 An armored or infantry HQ platoon represents the HQ unit of a battalion or regiment. There are no IFV, APC, or truck HQ units; the HQ platoon of a mechanized or motorized infantry battalion or regiment will consist of either an armored HQ platoon or an infantry HQ platoon associated with a normal IFV, APC, or truck platoon.
 
+\clearpage
 \section{AAA Units}
 
 AAA units are specialized in the destruction of attacking aircraft with guns. Figure~\ref{figure:aaa-units} shows the representation of AAA units as counters, and Table~\ref{table:aaa-units} summarizes their properties.
 
-\paragraph{Properties.} As well as the properties common to all ground units, Table~\ref{table:aaa-units} gives: the AAA class (light, medium, or heavy); the maximum altitude; the limits of short, medium, and long range in hexes; the hit rolls at short, medium, and long range; the damage rating; whether the unit has an all-weather or ranging-only fire-control radar and its frequency band; whether it has night infrared sights; and whether it is also equipped with a SAM system.
+\subsection{Properties}
+
+As well as the properties common to all ground units, Table~\ref{table:aaa-units} gives:
+\begin{itemize}
+    \item the AAA class (light, medium, or heavy);
+    \item the maximum altitude;
+    \item the limits of short, medium, and long range in hexes;
+    \item the hit rolls at short, medium, and long range;
+    \item the damage rating;
+    \item whether the unit has an all-weather or ranging-only fire-control radar and its frequency band;
+    \item whether it has night infrared sights; and
+    \item whether it is also equipped with a SAM system.
+\end{itemize}
 If the unit has a SAM, this will be described in detail in the section on SAM launcher units.
+
 When comparing these properties, remember that towed batteries have six to eight gun mounts, and armored or mobile sections have only two gun mounts.
 
-\paragraph{FCRs.} Some AAA units have integrated FCRs that give them an all-weather and night capability.
+\subsection{FCRs}
+
+Some AAA units have integrated FCRs that give them an all-weather and night capability.
 Most medium and heavy can also use add-on FCRs, described below.
 Units without an FCR (or with a range-only FCR) are limited to visually sighted targets.
 
@@ -522,6 +539,7 @@ It entered service in 1948 with Soviet forces as a replacement for the KS-12 85 
     \label{figure:aaa-units}
 \end{figure*}
 
+\clearpage
 \section{FCR Units}
 
 \begin{figure*}
@@ -532,20 +550,50 @@ It entered service in 1948 with Soviet forces as a replacement for the KS-12 85 
 \end{figure*}
 
 Most medium and heavy AAA batteries can be associated with an add-on fire-control radar (FCR), which improves their accuracy and allows them to engage unsighted targets at night and in adverse weather.
-Figure~\ref{figure:radar-and-ccu-units} shows the representation of FCR units as counters, and Table~\ref{table:fcr-units} summarizes their properties.
-FCRs are towed.
 
-\paragraph{Properties.} In addition to the properties common to other ground units, Table~\ref{table:fcr-units} gives: the FCR class, its frequency band, and its modifier to the hit roll.
+\subsection{Properties}
 
-\paragraph{Specific FCRs.}
+Table~\ref{table:fcr-units} summarizes the properties of FCR units and Figure~\ref{figure:radar-and-ccu-units} shows their representation.
 
-Specific FCRs are:
+In addition to the properties common to other ground units, Table~\ref{table:fcr-units} gives:
 \begin{itemize}
-    \item FCR-A: SON-9 (Fire Can) (1955).
-    \item FCR-C: Super Fledermaus (1965) and Flycatcher (1979).
-    \item FCR-D: Skyguard (1977).
+    \item the FCR class;
+    \item the frequency band; and
+    \item its modifier to the hit roll.
 \end{itemize}
 
+\subsection{Specific FCRs}
+
+\subsubsection{SON-9}
+
+The Soviet SON-9 (Fire Can) FCR-A was derived from the earlier SON-4, which in turn was derived from the US-supplied SCR-584.
+It is commonly used with 57 mm S-60, 85 mm KS-12, 100 mm KS-19, and 130 mm KS-30 batteries.
+
+The SON-9 entered service in 1955 with Soviet forces and was widely exported to Soviet allies.
+It has seen combat, including with North Vietnam in the Vietnam War, Egypt and Syria in the 1967 War, the War of Attrition, and the 1973 War.
+
+\subsubsection{Super Fledermaus}
+
+The Contraves Super Fledermaus FCR-C can be used to control a section of two Oerlikon GDF 35 mm guns.
+
+It entered service in 1965 with the Swiss Air Force and also was used by the Argentine Air Force, Brazil, Iran, Japan, and South Africa.
+It saw combat in the 1982 South Atlantic War in the defense of BAM Malvinas (Port Stanley Airport).
+
+\subsubsection{Flycatcher}
+
+The Signaal Flycatcher FCR-C can control three to six Bofors L/60 or L/70 guns or SAM launchers.
+
+Flycatcher entered service with the Royal Netherlands Air Force in 1979. It subsequently served with the Indian Armed Forces from 1985, the Irish Defense Forces from 2003, the Royal Netherlands Army from 1987,the Thai Armed Forces from 1981, Turkey, and Venezuela.
+
+\subsubsection{Skyguard}
+
+The Contraves Skyguard FCR-D can control two Oerlikon GDF 35 mm guns and additionally a SAM launcher with AIM-9 Sparrow, RIM-9 Sea Sparrow, or Aspide missiles.
+
+Skyguard entered service in 1977 with the Swiss Air Force.
+It was subsequently very widely exported and used by the Argentine Army, Austria, Bahrain, Bangladesh, Brazil, Canada, Chile, China, Cyprus, Egypt, Greece, Indonesia, Iran, Italy, South Korea, Kuwait, Malaysia, Oman, Pakistan, Saudi Arabia, Spain, Taiwan, and the UK.
+It saw combat with the Argentine Army in the 1982 South Atlantic War in the defense of BAM Malvinas (Port Stanley Airport) and BAM Condor (Goose Green Airfield).
+
+\clearpage
 \section{SAM Units}
 
 \subsection{Infantry SAM Units}
@@ -771,6 +819,7 @@ Patriot is used by the US Army and numerous US allies.
 
 \end{comment}
 
+\clearpage
 \section{EWR and CCU Units}
 
 \begin{comment}
@@ -794,6 +843,7 @@ Figure~\ref{figure:radar-and-ccu-units} shows the representation of EWR and CCU 
 
 \end{comment}
 
+\clearpage
 \section{Ground Targets}
 
 A ground \emph{target} is a unit of infrastructure such as a bridge and a building.
@@ -921,7 +971,6 @@ We see that we need the following additional ground units:
 \begin{itemize}
     \item towed artillery \emph{section}
     \item Oerlikon GDF \emph{section}
-    \item \emph{towed} FCR-D
 \end{itemize}
 
 \begin{table*}
