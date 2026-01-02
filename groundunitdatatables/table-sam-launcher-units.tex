@@ -1,28 +1,5 @@
-\begin{tabular}{lcccccclcccccccccccccl}
+\begin{tabular}{lcccccclccccccccccccccl}
 \toprule
-
-            &
-            &
-            &
-            &
-            &
-            &
-            &
-            &
-            \multicolumn{3}{c}{EWR}         &
-            \multicolumn{2}{c}{TTR}         &
-            \multicolumn{2}{c}{Missiles}    &
-            &
-            &
-            &
-            \multicolumn{3}{c}{Lock-On}     \\
-        
-
-            \cmidrule(lr){9-11}
-            \cmidrule(lr){12-13}
-            \cmidrule(lr){14-15}
-            \cmidrule(){19-21}
-        
 
             Name&
             \vertical{Size}      &
@@ -30,54 +7,56 @@
             \vertical{Defense Strength}&
             \vertical{Sighting Range}&
             \vertical{Mobility}&
-            \vertical{\begin{tabular}{@{}l@{}}VPs\\3D/2D/D\end{tabular}}&
-            \vertical{SAM}          &
-            \vertical{Frequency}    &
-            \vertical{Range}        &
-            \vertical{MTI}          &
-            \vertical{Frequency}    &
-            \vertical{Range}        &
-            \vertical{Ready}        &
-            \vertical{Volley}       &
+            \begin{tabular}[b]{@{}c@{}}\vertical{VPs}\\\midrule3D/2D/D\\\end{tabular}&
+            \wbox[r]{00}{\vertical{SAM}}&
+            %\vertical{Frequency}    &
+            %\vertical{Range}        &
+            %\vertical{MTI}          &
+            \multicolumn{3}{c}{\begin{tabular}[b]{@{}ccc@{}}\multicolumn{3}{@{}c@{}}{\vertical{EWR}}\\\midrule\wbox[c]{MW}{\vertical{Frequency}}&\wbox[c]{00}{\vertical{Range}}&\wbox[c]{---}{\vertical{MTI}}\end{tabular}}&
+            %\vertical{Frequency}    &
+            %\vertical{Range}        &
+            \multicolumn{2}{c}{\begin{tabular}[b]{@{}cc@{}}\multicolumn{2}{@{}c@{}}{\vertical{TTR}}\\\midrule\wbox[c]{MW}{\vertical{Frequency}}&\wbox[c]{00}{\vertical{Range}}\end{tabular}}&
+            \multicolumn{3}{c}{\begin{tabular}[b]{@{}ccc@{}}\multicolumn{3}{@{}c@{}}{\vertical{Missiles}}\\\midrule\wbox[c]{00}{\vertical{\wbox[l]{Frequency}{Ready}}}&\vertical{Volley}&\vertical{Reload}\end{tabular}}&
             \vertical{Multi-Target}&
             \vertical{Quick Reaction}&
             \vertical{Night IR Sights}&
-            \vertical{Radar}        &
-            \vertical{Optical}      &
-            \vertical{Range}        &
-            Other Names             \\
+            %\vertical{Radar}        &
+            %\vertical{Optical}      &
+            %\vertical{Range}        &
+            \multicolumn{3}{c}{\begin{tabular}[b]{@{}ccc@{}}\multicolumn{3}{@{}c@{}}{\vertical{Lock-On}}\\\midrule\vertical{\wbox[l]{Frequency}{Radar}}&\vertical{Optical}&\wbox[c]{00}{\vertical{Range}}\end{tabular}}&
+            \wbox[r]{00}{\vertical{Other Names}}\\
             
 \midrule
 \addlinespace
-SA-2B &\wbox[l]{Section}{Battery}&1957&\wbox[l]{0}{4}&\wbox{00}{18}&G/P&\wbox{00/00/00}{8/5/3}&SA-2B&LF&\wbox{00}{30}&---&LF&\wbox{00}{20}&\wbox{00}{6}&\wbox{0}{2}&---&---&---&6&---&\wbox{00}{---}&S-75 Desna (Guideline)\\
-SA-2C &\wbox[l]{Section}{Battery}&1960&\wbox[l]{0}{4}&\wbox{00}{18}&G/P&\wbox{00/00/00}{8/5/3}&SA-2C&LF&\wbox{00}{30}&---&MF&\wbox{00}{20}&\wbox{00}{6}&\wbox{0}{2}&---&---&---&6&---&\wbox{00}{---}&S-75M Volkhov (Guideline)\\
-SA-2E &\wbox[l]{Section}{Battery}&1962&\wbox[l]{0}{4}&\wbox{00}{18}&G/P&\wbox{00/00/00}{8/5/3}&SA-2E&LF&\wbox{00}{30}&---&MF&\wbox{00}{20}&\wbox{00}{6}&\wbox{0}{2}&---&---&---&6&---&\wbox{00}{---}&S-75AK (Guideline)\\
-SA-2F &\wbox[l]{Section}{Battery}&1967&\wbox[l]{0}{4}&\wbox{00}{18}&G/P&\wbox{00/00/00}{8/5/3}&SA-2F&LF&\wbox{00}{30}&---&LF&\wbox{00}{20}&\wbox{00}{6}&\wbox{0}{2}&---&---&---&6&6&\wbox{00}{---}&S-75SM (Guideline)\\
+SA-2B &\wbox[l]{Section}{Battery}&1957&\wbox[l]{0}{4}&\wbox{00}{18}&G/P&\wbox{00/00/00}{8/5/3}&SA-2B&\wbox[l]{MW}{LF}&\wbox{00}{30}&---&\wbox[l]{MW}{LF}&\wbox{00}{20}&\wbox{00}{6}&\wbox{0}{2}&\wbox{0}{0}&---&---&---&6&---&\wbox{00}{---}&S-75 Desna (Guideline)\\
+SA-2C &\wbox[l]{Section}{Battery}&1960&\wbox[l]{0}{4}&\wbox{00}{18}&G/P&\wbox{00/00/00}{8/5/3}&SA-2C&\wbox[l]{MW}{LF}&\wbox{00}{30}&---&\wbox[l]{MW}{MF}&\wbox{00}{20}&\wbox{00}{6}&\wbox{0}{2}&\wbox{0}{0}&---&---&---&6&---&\wbox{00}{---}&S-75M Volkhov (Guideline)\\
+SA-2E &\wbox[l]{Section}{Battery}&1962&\wbox[l]{0}{4}&\wbox{00}{18}&G/P&\wbox{00/00/00}{8/5/3}&SA-2E&\wbox[l]{MW}{LF}&\wbox{00}{30}&---&\wbox[l]{MW}{MF}&\wbox{00}{20}&\wbox{00}{6}&\wbox{0}{2}&\wbox{0}{0}&---&---&---&6&---&\wbox{00}{---}&S-75AK (Guideline)\\
+SA-2F &\wbox[l]{Section}{Battery}&1967&\wbox[l]{0}{4}&\wbox{00}{18}&G/P&\wbox{00/00/00}{8/5/3}&SA-2F&\wbox[l]{MW}{LF}&\wbox{00}{30}&---&\wbox[l]{MW}{LF}&\wbox{00}{20}&\wbox{00}{6}&\wbox{0}{2}&\wbox{0}{0}&---&---&---&6&6&\wbox{00}{---}&S-75SM (Guideline)\\
 \addlinespace
-SA-3B &\wbox[l]{Section}{Battery}&1964&\wbox[l]{0}{4}&\wbox{00}{18}&G/P&\wbox{00/00/00}{10/7/4}&SA-3B&MF&\wbox{00}{35}&---&VF&\wbox{00}{10}&\wbox{00}{16}&\wbox{0}{2}&---&---&---&7&6&\wbox{00}{---}&S-125M Neva-M (Goa)\\
-Mobile SA-3B &\wbox[l]{Section}{Battery}&1964&\wbox[l]{0}{4}&\wbox{00}{18}&G/P&\wbox{00/00/00}{12/8/4}&SA-3B&MF&\wbox{00}{35}&---&VF&\wbox{00}{10}&\wbox{00}{16}&\wbox{0}{2}&---&---&---&7&6&\wbox{00}{---}&S-125M Neva-M (Goa)\\
+SA-3B &\wbox[l]{Section}{Battery}&1964&\wbox[l]{0}{4}&\wbox{00}{18}&G/P&\wbox{00/00/00}{10/7/4}&SA-3B&\wbox[l]{MW}{MF}&\wbox{00}{35}&---&\wbox[l]{MW}{VF}&\wbox{00}{10}&\wbox{00}{16}&\wbox{0}{2}&\wbox{0}{0}&---&---&---&7&6&\wbox{00}{---}&S-125M Neva-M (Goa)\\
+Mobile SA-3B &\wbox[l]{Section}{Battery}&1964&\wbox[l]{0}{4}&\wbox{00}{18}&G/P&\wbox{00/00/00}{12/8/4}&SA-3B&\wbox[l]{MW}{MF}&\wbox{00}{35}&---&\wbox[l]{MW}{VF}&\wbox{00}{10}&\wbox{00}{16}&\wbox{0}{2}&\wbox{0}{0}&---&---&---&7&6&\wbox{00}{---}&S-125M Neva-M (Goa)\\
 \addlinespace
-SA-4A &\wbox[l]{Section}{Battery}&1963&\wbox[l]{0}{\underline{3}}&\wbox{00}{12}&U&\wbox{00/00/00}{10/6/3}&SA-4A&VF&\wbox{00}{50}&---&HF&\wbox{00}{30}&\wbox{00}{6}&\wbox{0}{2}&---&---&---&7&---&\wbox{00}{---}&2K11 Krug (Ganef)\\
-SA-4B &\wbox[l]{Section}{Battery}&1973&\wbox[l]{0}{\underline{3}}&\wbox{00}{12}&U&\wbox{00/00/00}{10/6/3}&SA-4B&VF&\wbox{00}{50}&---&HF&\wbox{00}{30}&\wbox{00}{6}&\wbox{0}{2}&---&---&---&7&---&\wbox{00}{---}&2K11M Krug-M (Ganef)\\
+SA-4A &\wbox[l]{Section}{Battery}&1963&\wbox[l]{0}{\underline{3}}&\wbox{00}{12}&U&\wbox{00/00/00}{10/6/3}&SA-4A&\wbox[l]{MW}{VF}&\wbox{00}{50}&---&\wbox[l]{MW}{HF}&\wbox{00}{30}&\wbox{00}{6}&\wbox{0}{2}&\wbox{0}{0}&---&---&---&7&---&\wbox{00}{---}&2K11 Krug (Ganef)\\
+SA-4B &\wbox[l]{Section}{Battery}&1973&\wbox[l]{0}{\underline{3}}&\wbox{00}{12}&U&\wbox{00/00/00}{10/6/3}&SA-4B&\wbox[l]{MW}{VF}&\wbox{00}{50}&---&\wbox[l]{MW}{HF}&\wbox{00}{30}&\wbox{00}{6}&\wbox{0}{2}&\wbox{0}{0}&---&---&---&7&---&\wbox{00}{---}&2K11M Krug-M (Ganef)\\
 \addlinespace
-SA-6A &\wbox[l]{Section}{Battery}&1966&\wbox[l]{0}{\underline{3}}&\wbox{00}{12}&U&\wbox{00/00/00}{11/7/4}&SA-6A&MF&\wbox{00}{24}&---&HF&\wbox{00}{18}&\wbox{00}{12}&\wbox{0}{2}&---&---&---&7&6&\wbox{00}{---}&2K12 Kub (Gainful)\\
-SA-6B &\wbox[l]{Section}{Battery}&1977&\wbox[l]{0}{\underline{3}}&\wbox{00}{12}&U&\wbox{00/00/00}{12/8/4}&SA-6B&MF&\wbox{00}{24}&---&HF&\wbox{00}{18}&\wbox{00}{12}&\wbox{0}{2}&---&---&---&7&6&\wbox{00}{---}&2K12M3 Kub-M3 (Gainful)\\
+SA-6A &\wbox[l]{Section}{Battery}&1966&\wbox[l]{0}{\underline{3}}&\wbox{00}{12}&U&\wbox{00/00/00}{11/7/4}&SA-6A&\wbox[l]{MW}{MF}&\wbox{00}{24}&---&\wbox[l]{MW}{HF}&\wbox{00}{18}&\wbox{00}{12}&\wbox{0}{2}&\wbox{0}{0}&---&---&---&7&6&\wbox{00}{---}&2K12 Kub (Gainful)\\
+SA-6B &\wbox[l]{Section}{Battery}&1977&\wbox[l]{0}{\underline{3}}&\wbox{00}{12}&U&\wbox{00/00/00}{12/8/4}&SA-6B&\wbox[l]{MW}{MF}&\wbox{00}{24}&---&\wbox[l]{MW}{HF}&\wbox{00}{18}&\wbox{00}{12}&\wbox{0}{2}&\wbox{0}{0}&---&---&---&7&6&\wbox{00}{---}&2K12M3 Kub-M3 (Gainful)\\
 \addlinespace
-SA-8A &\wbox[l]{Section}{Squad}&1967&\wbox[l]{0}{\underline{3}}&\wbox{00}{12}&U&\wbox{00/00/00}{\wbox[c]{0}{--}/\wbox[c]{0}{--}/10}&SA-8A&HF&\wbox{00}{10}&---&VF&\wbox{00}{6}&\wbox{00}{4}&\wbox{0}{2}&2&Y&---&8&---&\wbox{00}{---}&9K33 Osa (Gecko)\\
-SA-8B &\wbox[l]{Section}{Squad}&1980&\wbox[l]{0}{\underline{3}}&\wbox{00}{12}&U&\wbox{00/00/00}{\wbox[c]{0}{--}/\wbox[c]{0}{--}/10}&SA-8B&HF&\wbox{00}{10}&---&VF&\wbox{00}{6}&\wbox{00}{6}&\wbox{0}{2}&2&Y&---&8&7&\wbox{00}{---}&9K33M2 Osa-AK (Gecko)\\
+SA-8A &\wbox[l]{Section}{Squad}&1967&\wbox[l]{0}{\underline{3}}&\wbox{00}{12}&U&\wbox{00/00/00}{\wbox[c]{0}{--}/\wbox[c]{0}{--}/10}&SA-8A&\wbox[l]{MW}{HF}&\wbox{00}{10}&---&\wbox[l]{MW}{VF}&\wbox{00}{6}&\wbox{00}{4}&\wbox{0}{2}&\wbox{0}{0}&2&Y&---&8&---&\wbox{00}{---}&9K33 Osa (Gecko)\\
+SA-8B &\wbox[l]{Section}{Squad}&1980&\wbox[l]{0}{\underline{3}}&\wbox{00}{12}&U&\wbox{00/00/00}{\wbox[c]{0}{--}/\wbox[c]{0}{--}/10}&SA-8B&\wbox[l]{MW}{HF}&\wbox{00}{10}&---&\wbox[l]{MW}{VF}&\wbox{00}{6}&\wbox{00}{6}&\wbox{0}{2}&\wbox{0}{0}&2&Y&---&8&7&\wbox{00}{---}&9K33M2 Osa-AK (Gecko)\\
 \addlinespace
-SA-9A &\wbox[l]{Section}{Squad}&1968&\wbox[l]{0}{\underline{4}}&\wbox{00}{12}&U&\wbox{00/00/00}{\wbox[c]{0}{--}/\wbox[c]{0}{--}/7}&SA-9A&---&\wbox{00}{---}&---&---&\wbox{00}{---}&\wbox{00}{4}&\wbox{0}{2}&2&Y&---&---&7&\wbox{00}{12}&9K31 Strela-1 (Gaskin)\\
-SA-9B &\wbox[l]{Section}{Squad}&1970&\wbox[l]{0}{\underline{4}}&\wbox{00}{12}&U&\wbox{00/00/00}{\wbox[c]{0}{--}/\wbox[c]{0}{--}/7}&SA-9B&---&\wbox{00}{---}&---&---&\wbox{00}{---}&\wbox{00}{4}&\wbox{0}{2}&2&Y&---&---&7&\wbox{00}{12}&9K31M Strela-1M (Gaskin)\\
+SA-9A &\wbox[l]{Section}{Squad}&1968&\wbox[l]{0}{\underline{4}}&\wbox{00}{12}&U&\wbox{00/00/00}{\wbox[c]{0}{--}/\wbox[c]{0}{--}/7}&SA-9A&\wbox[l]{MW}{---}&\wbox{00}{---}&---&\wbox[l]{MW}{---}&\wbox{00}{---}&\wbox{00}{4}&\wbox{0}{2}&\wbox{0}{0}&2&Y&---&---&7&\wbox{00}{12}&9K31 Strela-1 (Gaskin)\\
+SA-9B &\wbox[l]{Section}{Squad}&1970&\wbox[l]{0}{\underline{4}}&\wbox{00}{12}&U&\wbox{00/00/00}{\wbox[c]{0}{--}/\wbox[c]{0}{--}/7}&SA-9B&\wbox[l]{MW}{---}&\wbox{00}{---}&---&\wbox[l]{MW}{---}&\wbox{00}{---}&\wbox{00}{4}&\wbox{0}{2}&\wbox{0}{0}&2&Y&---&---&7&\wbox{00}{12}&9K31M Strela-1M (Gaskin)\\
 \addlinespace
-SA-11 &\wbox[l]{Section}{Squad}&1980&\wbox[l]{0}{\underline{4}}&\wbox{00}{12}&U&\wbox{00/00/00}{\wbox[c]{0}{--}/\wbox[c]{0}{--}/12}&SA-11&---&\wbox{00}{---}&---&HF&\wbox{00}{18}&\wbox{00}{4}&\wbox{0}{2}&2&---&---&8&7&\wbox{00}{---}&9K37 Buk (Gadfly)\\
+SA-11 &\wbox[l]{Section}{Squad}&1980&\wbox[l]{0}{\underline{4}}&\wbox{00}{12}&U&\wbox{00/00/00}{\wbox[c]{0}{--}/\wbox[c]{0}{--}/12}&SA-11&\wbox[l]{MW}{---}&\wbox{00}{---}&---&\wbox[l]{MW}{HF}&\wbox{00}{18}&\wbox{00}{4}&\wbox{0}{2}&\wbox{0}{0}&2&---&---&8&7&\wbox{00}{---}&9K37 Buk (Gadfly)\\
 \addlinespace
-SA-13 &\wbox[l]{Section}{Squad}&1976&\wbox[l]{0}{\underline{4}}&\wbox{00}{12}&U&\wbox{00/00/00}{\wbox[c]{0}{--}/\wbox[c]{0}{--}/10}&SA-13&---&\wbox{00}{---}&---&---&\wbox{00}{---}&\wbox{00}{4}&\wbox{0}{2}&2&Y&---&---&8&\wbox{00}{12}&9K35 Strela-10 (Gopher)\\
+SA-13 &\wbox[l]{Section}{Squad}&1976&\wbox[l]{0}{\underline{4}}&\wbox{00}{12}&U&\wbox{00/00/00}{\wbox[c]{0}{--}/\wbox[c]{0}{--}/10}&SA-13&\wbox[l]{MW}{---}&\wbox{00}{---}&---&\wbox[l]{MW}{---}&\wbox{00}{---}&\wbox{00}{4}&\wbox{0}{2}&\wbox{0}{0}&2&Y&---&---&8&\wbox{00}{12}&9K35 Strela-10 (Gopher)\\
 \addlinespace
-M48 &\wbox[l]{Section}{Squad}&1969&\wbox[l]{0}{4}&\wbox{00}{12}&U&\wbox{00/00/00}{\wbox[c]{0}{--}/\wbox[c]{0}{--}/9}&MIM-72&---&\wbox{00}{---}&---&---&\wbox{00}{---}&\wbox{00}{4}&\wbox{0}{2}&2&Y&Y&---&7&\wbox{00}{12}&Chaparral\\
+M48 &\wbox[l]{Section}{Squad}&1969&\wbox[l]{0}{4}&\wbox{00}{12}&U&\wbox{00/00/00}{\wbox[c]{0}{--}/\wbox[c]{0}{--}/9}&MIM-72&\wbox[l]{MW}{---}&\wbox{00}{---}&---&\wbox[l]{MW}{---}&\wbox{00}{---}&\wbox{00}{4}&\wbox{0}{2}&\wbox{0}{0}&2&Y&Y&---&7&\wbox{00}{12}&Chaparral\\
 \addlinespace
-I-Hawk &\wbox[l]{Section}{Platoon}&1971&\wbox[l]{0}{3}&\wbox{00}{12}&G/P&\wbox{00/00/00}{12/8/4}&MIM-23B&---&\wbox{00}{---}&---&VF&\wbox{00}{20}&\wbox{00}{9}&\wbox{0}{2}&---&Y&---&7&7&\wbox{00}{---}&\\
+I-Hawk &\wbox[l]{Section}{Platoon}&1971&\wbox[l]{0}{3}&\wbox{00}{12}&G/P&\wbox{00/00/00}{12/8/4}&MIM-23B&\wbox[l]{MW}{---}&\wbox{00}{---}&---&\wbox[l]{MW}{VF}&\wbox{00}{20}&\wbox{00}{9}&\wbox{0}{2}&\wbox{0}{0}&---&Y&---&7&7&\wbox{00}{---}&\\
 \addlinespace
-MIM-104A &\wbox[l]{Section}{Battery}&1984&\wbox[l]{0}{3}&\wbox{00}{12}&G/P&\wbox{00/00/00}{45/30/15}&MIM-104A&LF&\wbox{00}{60}&Y&LF&\wbox{00}{40}&\wbox{00}{24}&\wbox{0}{8}&8&Y&---&9&---&\wbox{00}{---}&Patriot (Standard)\\
+MIM-104A &\wbox[l]{Section}{Battery}&1984&\wbox[l]{0}{3}&\wbox{00}{12}&G/P&\wbox{00/00/00}{45/30/15}&MIM-104A&\wbox[l]{MW}{LF}&\wbox{00}{60}&Y&\wbox[l]{MW}{LF}&\wbox{00}{40}&\wbox{00}{24}&\wbox{0}{8}&\wbox{0}{0}&8&Y&---&9&---&\wbox{00}{---}&Patriot (Standard)\\
 \addlinespace
 \addlinespace
 \bottomrule
