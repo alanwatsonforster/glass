@@ -299,6 +299,8 @@ Origen: Air Strike (as the ZSU-30-2 and without missiles) and Puma.
 
 Note that the ready missile count
 
+I have adopted the Air Strike values for the ZSU-30-2 and added missiles. The VP values are tentative, and might be modified once other SAM launchers are considered.
+
 - [Wikipedia](https://en.wikipedia.org/wiki/2K22_Tunguska)
 
 ### Pantsir Section
