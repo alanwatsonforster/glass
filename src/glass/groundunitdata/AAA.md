@@ -359,6 +359,8 @@ Origen: Air Strike, TSOH, and Puma.
 
 Air Strike has VPs of 5/3/2. TSOH has VPs of 6/4/2. I will adopt the TSOH VPs.
 
+This is what Air Strike and TSOH call the “M-38”, but I've no idea why. Its other designation is M-1939, so I could understand “M-39“. I have adopted the values from TSOH, which are the same as those in Air Strike, but TSOH gives it 6 VPs and Air Strike only 5.
+
 - [Wikipedia](https://en.wikipedia.org/wiki/37_mm_automatic_air_defense_gun_M1939_(61-K))
 
 ### Bofers L/60 Battery
@@ -368,6 +370,8 @@ This is the earlier Bofers 40 mm L/60 towed gun.
 Origen: EOG and Puma.
 
 Air Strike has VPs of 5/3/2. TSOH has VPs of 6/4/2. I will adopt the TSOH VPs.
+
+I have adapted the Air Strike values, 
 
 - [Wikipedia](https://en.wikipedia.org/wiki/Bofors_40_mm_L/60_gun)
 
