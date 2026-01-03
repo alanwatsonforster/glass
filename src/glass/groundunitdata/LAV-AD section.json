@@ -3,7 +3,7 @@
     "year": 1997,
     "description": "LAV-AD 25 mm self-propelled air-defense section",
     "symbols": "air-defense/missile/gun/light/armor/section",
-    "text": "25×5/FIM-92",
+    "text": "25×5/FIM-92D",
     "defensestrength": "4H",
     "sightingrange": 12,
     "mobility": "U",
@@ -16,16 +16,16 @@
             9
         ],
         "hitroll": [
-            5,
             4,
-            3
+            3,
+            2
         ],
         "maximumrelativealtitude": 10,
         "damagerating": 4,
         "nightirsights": true
     },
     "sam": {
-        "type": "FIM-92",
+        "type": "FIM-92D",
         "multitargetcapability": 2,
         "readymissiles": 8,
         "volleymissiles": 2,

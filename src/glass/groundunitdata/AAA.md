@@ -225,7 +225,7 @@ Air Strike gives this hit rolls of 2/2/1 and 5 VPs. Applying the \minus{1} modif
 
 ### Sinai 23
 
-Turret seems to be similar to the Blazer turret, but without radar. Has IR night sights.
+The turret seems to be similar to the LAV-AD turret, so I've adopted the same hit rolls. The range and damage rolls are adopted from the mobile ZU-23 section.
 
 A battery has one search radar (precision 1 degree so not FCR) vehicle and three gun/launcher vehicles. It looks like the radar can cue aiming.
 
