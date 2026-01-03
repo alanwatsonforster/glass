@@ -262,9 +262,9 @@ This is the Czech mobile twin 30 mm SPAAG.
 
 Origen: Air Strike and Puma.
 
-The hit rolls of 4/3/2 seem a little high. A modern 23/30/35 mm section with FCR typically has 5/4/3 and the mobile ZU-23 has 2/2/1. I adopt 3/2/1.
+The hit rolls of 4/3/2 in Air STrike seem a little high. A modern 23/30/35 mm section with FCR typically has 5/4/3 and the mobile ZU-23 has 2/2/1. I adopt 3/2/1.
 
-If the VADS is classified as armored, should this be armored too? Perhaps the difference is that the loaders are exposed in this?
+If the VADS is classed as armored, should this be armored too? Perhaps the difference is that the loaders are exposed in this?
 
 - [Wikipedia](https://en.wikipedia.org/wiki/M53/59_Praga)
 
