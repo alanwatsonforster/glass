@@ -371,13 +371,15 @@ Origen: EOG and Puma.
 
 Air Strike has VPs of 5/3/2. TSOH has VPs of 6/4/2. I will adopt the TSOH VPs.
 
-I have adapted the Air Strike values, 
+EOG gives hit rolls of 2/2/1 and 5 VPs. I have adjusted the hit rolls to 3/2/1 to match the very similar 37 mm 61-K.
 
 - [Wikipedia](https://en.wikipedia.org/wiki/Bofors_40_mm_L/60_gun)
 
 ### Bofers L/70 Battery
 
 This is the later Bofers 40 mm L/70 towed gun.
+
+I have adopted the values from Air Strike.
 
 Origen: Air Strike and Puma.
 
