@@ -347,6 +347,8 @@ Air Strike has ranges of 4/8/10. Puma has ranges of 4/8/12. Comparing to similar
 
 Air Strike has a damage rating of 4. Puma has a damage rating of 5. Comparing to similar weapons, I adopt 4.
 
+I have adopted the Air Strike values.
+
 - [Wikipedia](https://en.wikipedia.org/wiki/Flakpanzer_Gepard)
 
 ### M-38 Battery
