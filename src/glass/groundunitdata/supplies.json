@@ -1,0 +1,8 @@
+{
+    "name": "supplies",
+    "description": "supplies target",
+    "symbols": "supply",
+    "sightingrange": 24,
+    "defensestrength": "4S",
+    "VP3D": 15
+}

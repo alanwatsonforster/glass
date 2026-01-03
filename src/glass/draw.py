@@ -2189,27 +2189,62 @@ def _drawgroundunitincanvas(
             )
 
         def drawfuelsymbol():
-            fx = 0.15
-            fy0 = 0.20
-            _drawlinesincanvas(
-                [
-                    x,
-                    x,
-                    x - 0.5 * fx * groundunitsymboldx,
-                    x + 0.5 * fx * groundunitsymboldx,
-                    x,
-                ],
-                [
-                    y - fy0 * groundunitsymboldy,
-                    y + fy0 * groundunitsymboldy - fx * groundunitsymboldx * _cosd(30),
-                    y + fy0 * groundunitsymboldy,
-                    y + fy0 * groundunitsymboldy,
-                    y + fy0 * groundunitsymboldy - fx * groundunitsymboldx * _cosd(30),
-                ],
-                linecolor=linecolor,
-                linewidth=groundunitlinewidth,
-                zorder=zorder,
-            )
+            if False:
+                # This is the NATO fuel and lubricant symbol
+                fx = 0.15
+                fy0 = 0.20
+                _drawlinesincanvas(
+                    [
+                        x,
+                        x,
+                        x - 0.5 * fx * groundunitsymboldx,
+                        x + 0.5 * fx * groundunitsymboldx,
+                        x,
+                    ],
+                    [
+                        y - fy0 * groundunitsymboldy,
+                        y
+                        + fy0 * groundunitsymboldy
+                        - fx * groundunitsymboldx * _cosd(30),
+                        y + fy0 * groundunitsymboldy,
+                        y + fy0 * groundunitsymboldy,
+                        y
+                        + fy0 * groundunitsymboldy
+                        - fx * groundunitsymboldx * _cosd(30),
+                    ],
+                    linecolor=linecolor,
+                    linewidth=groundunitlinewidth,
+                    zorder=zorder,
+                )
+            else:
+
+                def drawcircle(ix, iy):
+                    d = 0.1 * groundunitsymboldx
+                    dx = d * ix
+                    dy = d * math.sqrt(3 / 4) * iy
+                    _drawcircleincanvas(
+                        x + dx,
+                        y + dy,
+                        d,
+                        linecolor=linecolor,
+                        linewidth=groundunitlinewidth,
+                        zorder=zorder,
+                    )
+
+                drawcircle(-2.0, -1.0)
+                drawcircle(-1.0, -1.0)
+                drawcircle(+0.0, -1.0)
+                drawcircle(+1.0, -1.0)
+                drawcircle(+2.0, -1.0)
+
+                drawcircle(-1.5, +0.0)
+                drawcircle(-0.5, +0.0)
+                drawcircle(+0.5, +0.0)
+                drawcircle(+1.5, +0.0)
+
+                drawcircle(-1.0, +1.0)
+                drawcircle(+0.0, +1.0)
+                drawcircle(+1.0, +1.0)
 
         def drawordnancesymbol():
             ry0 = 0.20
@@ -2414,17 +2449,83 @@ def _drawgroundunitincanvas(
             drawlowersymboltext("WPN")
 
         def drawsupplysymbol():
-            fy = 0.25
-            _drawlinesincanvas(
-                [x - 0.5 * groundunitsymboldx, x + 0.5 * groundunitsymboldx],
-                [
-                    y + (fy - 0.5) * groundunitsymboldy,
-                    y + (fy - 0.5) * groundunitsymboldy,
-                ],
-                linecolor=linecolor,
-                linewidth=groundunitlinewidth,
-                zorder=zorder,
-            )
+            if False:
+                # This is the standard NATO symbol: a horizontal line towards the bottom of the rectangle.
+                fy = 0.25
+                _drawlinesincanvas(
+                    [x - 0.5 * groundunitsymboldx, x + 0.5 * groundunitsymboldx],
+                    [
+                        y + (fy - 0.5) * groundunitsymboldy,
+                        y + (fy - 0.5) * groundunitsymboldy,
+                    ],
+                    linecolor=linecolor,
+                    linewidth=groundunitlinewidth,
+                    zorder=zorder,
+                )
+            else:
+                dx = 0.15 * groundunitsymboldx
+                dy = 0.1 * groundunitsymboldx
+                _drawrectangleincanvas(
+                    x - 1.5 * dx,
+                    y - 1.5 * dy,
+                    x + 1.5 * dx,
+                    y + 1.5 * dy,
+                    linecolor=linecolor,
+                    linewidth=groundunitlinewidth,
+                    zorder=zorder,
+                )
+                _drawlinesincanvas(
+                    [
+                        x - 0.5 * dx,
+                        x - 0.5 * dx,
+                    ],
+                    [
+                        y - 1.5 * dy,
+                        y + 1.5 * dy,
+                    ],
+                    linecolor=linecolor,
+                    linewidth=groundunitlinewidth,
+                    zorder=zorder,
+                )
+                _drawlinesincanvas(
+                    [
+                        x + 0.5 * dx,
+                        x + 0.5 * dx,
+                    ],
+                    [
+                        y - 1.5 * dy,
+                        y + 1.5 * dy,
+                    ],
+                    linecolor=linecolor,
+                    linewidth=groundunitlinewidth,
+                    zorder=zorder,
+                )
+                _drawlinesincanvas(
+                    [
+                        x - 1.5 * dx,
+                        x + 1.5 * dx,
+                    ],
+                    [
+                        y - 0.5 * dy,
+                        y - 0.5 * dy,
+                    ],
+                    linecolor=linecolor,
+                    linewidth=groundunitlinewidth,
+                    zorder=zorder,
+                )
+                _drawlinesincanvas(
+                    [
+                        x - 1.5 * dx,
+                        x + 1.5 * dx,
+                    ],
+                    [
+                        y + 0.5 * dy,
+                        y + 0.5 * dy,
+                    ],
+                    linecolor=linecolor,
+                    linewidth=groundunitlinewidth,
+                    zorder=zorder,
+                )
 
         def drawheadquarterssymbol():
             fy = 0.20
