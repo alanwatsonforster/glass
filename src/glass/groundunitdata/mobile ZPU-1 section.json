@@ -1,14 +1,14 @@
 {
-    "name": "mobile ZPU-4",
+    "name": "mobile ZPU-1",
     "year": 1949,
-    "description": "mobile ZPU-4 quad 14.5 mm air-defense gun section",
+    "description": "mobile ZPU-1 14.5 mm air-defense gun section",
     "symbols": "truck/limitedwheeled/air-defense/gun/section",
-    "text": "14.5×4",
+    "text": "14.5",
     "defensestrength": "2S",
     "sightingrange": 12,
     "mobility": "G/P",
     "aaa": {
-        "type": "14.5×4",
+        "type": "14.5",
         "class": "L",
         "range": [
             2,
@@ -16,12 +16,12 @@
             5
         ],
         "hitroll": [
-            4,
-            3,
-            2
+            2,
+            1,
+            0
         ],
         "maximumrelativealtitude": 6,
-        "damagerating": 2
+        "damagerating": 1
     },
-    "VP2D": 4
+    "VP2D": 2
 }

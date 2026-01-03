@@ -106,13 +106,31 @@ Air Strike and Puma have hit rolls of 5/4/3. TSOH has hit rolls of 4/3/2, which 
 
 - [Wikipedia](https://en.wikipedia.org/wiki/ZPU)
 
+### Mobile ZPU-1 section
+
+This is the single mount version of 14.5 mm ZPU gun.
+
+Origin: None
+
+Applying the -1 battery-to-section modifier to the ZPU-1, I get 2/1/0 and 2 VPs.
+
+### Mobile ZPU-1 section
+
+This is the single mount version of 14.5 mm ZPU gun.
+
+Origin: None
+
+Applying the -1 battery-to-section modifier to the ZPU-2, I get 3/2/1 and 3 VPs.
+
 ### Mobile ZPU-4 section
 
 This is the quad mount version of 14.5 mm ZPU gun.
 
 Origin: Air Strike and Puma.
 
-Air Strike has hit rolls of 3/3/2. Puma has hit rolls of 5/4/3. The Puma values are equal to those of as ZPU-4 battery. The Air Strike values might be more appropriate for a *section*. I have adopted the Air Strike values.
+Air Strike has hit rolls of 3/3/2. Puma has hit rolls of 5/4/3. The Puma values are equal to those of as ZPU-4 *battery*. The Air Strike values might be more appropriate for a section. I have chosen to use 4/3/2 obtained by applying the -1 battery-to-section modifier to the values for a ZPU-4 battery.
+
+Air Strike gives this 5 VPs, which is the same as the towed ZPU-4 battery despite the mobile section having worse hit rolls and defense strength. I think 4 VPs (i.e., one less than the battery) is more appropriate.
 
 - [Wikipedia](https://en.wikipedia.org/wiki/ZPU)
 
@@ -142,7 +160,7 @@ Origen: Air Strike and Puma.
 
 Air Strike also has a single-mount version, but I can find no evidence for this other than as the main weapon of IFVs (e.g., the Marder) or on naval mounts.
 
-Air Strike has hit rolls of 5/4/3 and a damage rating of 2. Puma has hit rolls of 3/2/1, which match those of the single gun version in Air Strike, and a damage rating of 3, which is more than most 20 mm except for the M163/M167. The rate of fire of the twin Rh-202 is about 2000 RPM, but that of the M163/167 is about 3000 RPM, so it seems appropriate damage rating of the Rh-202 is less than that of the M163/M167. I adopt the Air Strike values in both cases.
+Air Strike has hit rolls of 5/4/3 and a damage rating of 2. Puma has hit rolls of 3/2/1, which match those of the single gun version in Air Strike, and a damage rating of 3, which is more than most 20 mm except for the M163/M167. The rate of fire of the twin Rh-202 is about 2000 RPM, but that of the M163/167 is about 3000 RPM, so it seems appropriate damage rating of the Rh-202 is less than that of the M163/M167. I adopt the Air Strike values for the twin mount in both cases.
 
 - [Wikipedia](https://en.wikipedia.org/wiki/Rheinmetall_Mk_20_Rh-202)
 
@@ -201,7 +219,7 @@ This is the twin 23 mm gun mounted on a truck.
 
 Origen: Air Strike and Puma.
 
-Air Strike has hit rolls of 2/2/1 and VPs of 5/4/3. TSOH and Puma have hit rolls of 4/3/2 and VPs of 6/4/2. Comparing to similar weapons, the TSOH and Puma values seem more commensurate, and I adopt them.
+Air Strike gives this hit rolls of 2/2/1 and 5 VPs. Applying the \minus{1} modifier to the ZU-23 battery would give 3/2/1, which seems more appropriate. The VPs seem about right, as the battery has 6 VPs.
 
 - [Wikipedia](https://en.wikipedia.org/wiki/ZU-23-2)
 

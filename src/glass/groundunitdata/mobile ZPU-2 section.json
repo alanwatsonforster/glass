@@ -1,27 +1,27 @@
 {
-    "name": "mobile ZU-23",
-    "year": 1960,
-    "description": "mobile ZU-23 twin 23 mm air-defense section",
+    "name": "mobile ZPU-2",
+    "year": 1949,
+    "description": "mobile ZPU-2 twin 14.5 mm air-defense gun section",
     "symbols": "truck/limitedwheeled/air-defense/gun/section",
-    "text": "23×2",
+    "text": "14.5×2",
     "defensestrength": "2S",
     "sightingrange": 12,
     "mobility": "G/P",
     "aaa": {
-        "type": "23×2",
+        "type": "14.5×2",
         "class": "L",
         "range": [
             2,
-            5,
-            8
+            3,
+            5
         ],
         "hitroll": [
             3,
             2,
             1
         ],
-        "maximumrelativealtitude": 9,
-        "damagerating": 2
+        "maximumrelativealtitude": 6,
+        "damagerating": 1
     },
-    "VP2D": 5
+    "VP2D": 3
 }
