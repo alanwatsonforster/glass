@@ -284,6 +284,8 @@ It is equipped with an Oeil Noir 1 radar. Wikipedia states that the guns “rece
 
 Air Strike has the AMX-30 DCA with W/VF radar. Puma has the AMX-13 with a W/LF radar. I will adopt the Air Strike values, as most similar contemporary radars in the game are VF.
 
+For the AMX-30SA, I adopt the Air Strike values given for the AMX-30 DCA. The real DCA does not have radar, but the Air Strike one does, matching the SA.
+
 - [Wikipedia](https://en.wikipedia.org/wiki/AMX-30)
 - [Wikipedia on AMX-13](https://en.wikipedia.org/wiki/AMX-13)
 - [Wikipedia on 30 mm shells](https://en.wikipedia.org/wiki/30_mm_caliber)
