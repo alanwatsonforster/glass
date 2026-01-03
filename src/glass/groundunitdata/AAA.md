@@ -427,6 +427,12 @@ Air Strike gives the VPs as 6/4/2. TSOH gives them as 8/5/3.
 
 - [Wikipedia](https://en.wikipedia.org/wiki/AZP_S-60)
 
+### ZSU-57-2
+
+Origen: EOG
+
+I have adopted the EOG hit rolls of 2/1/1. The S-60 battery has 2/2/1 and the normal -1 modifier would suggest the ZSU-57-2 have 1/1/0, but in this case a smaller difference is justified as we are comparing four barrels to six.
+
 ## Heavy AA
 
 ### KS-12 Battery
