@@ -1,14 +1,14 @@
 {
-    "name": "Rh-202",
+    "name": "single Rh-202",
     "year": 1972,
-    "description": "Rh-202 twin 20 mm air-defense battery",
+    "description": "Rh-202 single 20 mm air-defense battery",
     "symbols": "air-defense/gun/battery",
-    "text": "20×2",
+    "text": "20",
     "defensestrength": "3S",
     "sightingrange": 12,
     "mobility": "T",
     "aaa": {
-        "type": "20×2",
+        "type": "20",
         "class": "L",
         "range": [
             2,
@@ -16,16 +16,12 @@
             6
         ],
         "hitroll": [
-            5,
             4,
-            3
+            3,
+            2
         ],
         "maximumrelativealtitude": 8,
         "damagerating": 2
     },
-    "VPs": [
-        5,
-        3,
-        2
-    ]
+    "VP3D": 4
 }
