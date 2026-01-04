@@ -21,7 +21,7 @@
             2
         ],
         "maximumrelativealtitude": 9,
-        "damagerating": 2,
+        "damagerating": 3,
         "nightirsights": true
     },
     "sam": {

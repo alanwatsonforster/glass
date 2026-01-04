@@ -329,7 +329,7 @@ Examples include:%
 \subsection{IFV and APC Units}
 
 Both IFVs and APCs are armored vehicles that carry infantry.
-However, an IFV provides fire support and typically has a 20 mm or larger cannon, and an APC does not.%
+However, an IFV provides fire support and typically has a 20~mm or larger cannon, and an APC does not.%
 \note{
     And again we might distinguish APCs and IFVs in ground-to-ground combat.
     Bradley IFVs made mincemeat of Iraqi tank regiments; M113 would not have had the same impact.
@@ -425,7 +425,7 @@ An armored or infantry HQ platoon represents the HQ unit of a battalion or regim
 \clearpage
 \section{AAA Units}
 
-AAA units are specialized in the use of guns to destroy attacking aircraft.
+AAA units specialize in the use of guns to destroy attacking aircraft, but also have a secondary ground-combat capability.
 
 \subsection{Properties}
 
@@ -444,73 +444,120 @@ As well as the properties common to all ground units, Table~\ref{table:aaa-units
 
     The upper part of the following table shows the original data for gun batteries from \emph{Air Strike} (AS), \emph{Eagles of the Gulf} (EOTG), and \emph{The Speed of Heat} (TSOH). I have added columns with the caliber, burst rate of fire per mount, and muzzle velocity.
 
-    \medskip
-    \begin{tabular}{lrlllllrrl}
-        \toprule
-        Type
-        &\multicolumn{1}{c}{\vertical{Maximum Altitude}}
-        &\multicolumn{1}{c}{\vertical{Ranges}}
-        &\multicolumn{1}{c}{\vertical{Hit Rolls}}
-        &\multicolumn{1}{c}{\vertical{Damage}}
-        &\multicolumn{1}{c}{\vertical{FCR}}
-        &\multicolumn{1}{c}{\vertical{Caliber (mm)}}
-        &\multicolumn{1}{c}{\vertical{Rate of fire (RPM)}}
-        &\multicolumn{1}{c}{\vertical{Muzzle Velocity (m/s)}}
-        &\multicolumn{1}{c}{\vertical{Source}}
-        \\
-        \midrule
-        \multicolumn{10}{c}{Original}\\
-        \midrule
-        M2/DShK-38&5&2/3/4&3/2/1&1&---&12.7&500&890&AS\\
-        M55&5&2/3/4&5/4/3&2&---&12.7&2000&890&EOTG\\
-        ZPU-1&6&2/3/5&3/2/1&1&---&14.5&600&1000&EOTG\\
-        ZPU-2&6&2/3/5&4/3/2&1&---&14.5&1200&1000&AS\\
-        ZPU-4&6&2/3/5&5/4/3&2&---&14.5&2400&1000&AS\\
-        TCM-20&8&2/4/6&4/4/3&2&---&20&1450&860&EOTG\\
-        Single Rh-202&8&2/4/6&3/2/1&2&---&20&1030&1044&AS\\
-        Twin Rh-202&8&2/4/6&5/4/3&2&---&20&2060&1044&AS\\
-        M167&8&2/4/6&6/5/4&3&R&20&3000&1030&AS\\
-        ZU-23&9&2/5/8&4/3/2&2&---&23&2000&980&AS\\
-        Gemag&10&3/6/9&6/5/4&4&R&25&1800&1040&AS\\
-        Oerlikon GDF&12&4/8/10&5/4/3&4&---&35&1100&1175&AS\\
-        61-K (M-38)&12&4/8/11&3/2/1&4&---&37&165&880&AS\\
-        Bofors L/60&15&4/8/12&2/2/1&4&---&40&135&865&EOTG\\
-        Bofors L/70&15&4/8/12&3/3/2&4&---&40&330&1000&AS\\
-        BOFI&15&4/8/12&4/4/3&4&W&40&330&1000&AS\\
-        S-60&18&5/10/15&2/2/1&5&---&57&110&1000&AS\\
-        KS-12&27&6/12/18&2/1/0&6&---&85&20&790&TSOH\\
-        KS-19&39&7/14/21&1/1/0&6&---&100&15&900&AS\\
-        \midrule
-        \multicolumn{10}{c}{Modified}\\
-        \midrule
-        Single Rh-202&&&4/3/2&&\multicolumn{5}{l}{--- for rate of fire}\\
-        ZU-23&&&5/4/3 &&\multicolumn{5}{l}{--- for rate of fire}\\
-        Oerlikon GDF&&&4/3/2&&\multicolumn{5}{l}{--- for rate of fire}\\
-        BOFI&&&5/5/3&&\multicolumn{5}{l}{--- for FCR-W}\\
-        %Bofors L/60&14\\
-        \bottomrule
-    \end{tabular}
-    \medskip
+    \begin{center}
+        \medskip
+        \scriptsize
+        \begin{tabular}{lrlllllrrl}
+            \toprule
+            Type
+            &\multicolumn{1}{c}{\vertical{Maximum Altitude}}
+            &\multicolumn{1}{c}{\vertical{Ranges}}
+            &\multicolumn{1}{c}{\vertical{Hit Rolls}}
+            &\multicolumn{1}{c}{\vertical{Damage}}
+            &\multicolumn{1}{c}{\vertical{FCR}}
+            &\multicolumn{1}{c}{\vertical{Caliber (mm)}}
+            &\multicolumn{1}{c}{\vertical{Rate of fire (RPM)}}
+            &\multicolumn{1}{c}{\vertical{Muzzle Velocity (m/s)}}
+            &\multicolumn{1}{c}{\vertical{Source}}
+            \\
+            \midrule
+            \multicolumn{10}{c}{Original}\\
+            \midrule
+            M2/DShK-38&5&2/3/4&3/2/1&1&---&12.7&500&890&AS\\
+            M55&5&2/3/4&5/4/3&2&---&12.7&2000&890&EOTG\\
+            ZPU-1&6&2/3/5&3/2/1&1&---&14.5&600&1000&EOTG/TSOH\\
+            ZPU-2&6&2/3/5&4/3/2&1&---&14.5&1200&1000&AS\\
+            ZPU-4&6&2/3/5&5/4/3&2&---&14.5&2400&1000&AS\\
+            ZPU-4&6&2/3/5&4/3/2&2&---&14.5&2400&1000&TSOH\\
+            TCM-20&8&2/4/6&4/4/3&2&---&20&1450&860&EOTG\\
+            Single Rh-202&8&2/4/6&3/2/1&2&---&20&1030&1044&AS\\
+            Twin Rh-202&8&2/4/6&5/4/3&2&---&20&2060&1044&AS\\
+            M167&8&2/4/6&6/5/4&3&R&20&3000&1030&AS\\
+            ZU-23&9&2/5/8&4/3/2&2&---&23&2000&980&AS/TSOH\\
+            Gemag&10&3/6/9&6/5/4&4&R&25&1800&1040&AS\\
+            Oerlikon GDF&12&4/8/10&5/4/3&4&---&35&1100&1175&AS\\
+            61-K (M-38)&12&4/8/11&3/2/1&4&---&37&165&880&AS/TSOH\\
+            Bofors L/60&15&4/8/12&2/2/1&4&---&40&135&865&EOTG\\
+            Bofors L/70&15&4/8/12&3/3/2&4&---&40&330&1000&AS\\
+            BOFI&15&4/8/12&4/4/3&4&W&40&330&1000&AS\\
+            S-60&18&5/10/15&2/2/1&5&---&57&110&1000&AS/TSOH\\
+            KS-12&27&6/12/18&2/1/0&6&---&85&20&790&AS/TSOH\\
+            KS-19&39&7/14/21&1/1/0&6&---&100&15&900&AS\\
+            \midrule
+            \multicolumn{10}{c}{Modified}\\
+            \midrule
+            ZPU-4&&&5/4/3&&\multicolumn{5}{l}{--- for rate of fire}\\
+            Single Rh-202&&&4/3/2&&\multicolumn{5}{l}{--- for rate of fire}\\
+            Twin Rh-202&&&&3&\multicolumn{5}{l}{--- for rate of fire}\\
+            ZU-23&&&5/4/3&3&\multicolumn{5}{l}{--- for rate of fire}\\
+            Oerlikon GDF&&&4/3/2&&\multicolumn{5}{l}{--- for rate of fire}\\
+            BOFI&&&5/5/3&&\multicolumn{5}{l}{--- for FCR-W}\\
+            %Bofors L/60&14\\
+            \bottomrule
+        \end{tabular}
+        \medskip
+    \end{center}
 
     Qualitatively, altitude and range increase with caliber, hit rolls increase with rate of fire, and damage rating increases with both caliber and rate of fire.
     This is as expected.
-    Quantitatively, approximately doubling the rate of fire seems to increase the hit rolls by one.
+
+    Quantitatively:
+    \begin{itemize}
+        \item Approximately doubling the rate of fire increases the hit rolls by one, with typical values of 3/2/1 around 500 rounds per minute, 4/3/2 around 1000, and 5/3/2 around 2000 and above.
+        \item The base damage rating is 1 for 12.7--14.5~mm, 2 for 20--23~mm, 3 for 25--30~mm, 4 for 35--40~mm, 5 for 57~mm, and 6 for 85--100~mm.
+        \item Damage rating by one is increased by one if the rate of fire is 1800 rounds per minute or more.
+    \end{itemize}
 
     Most of the original values can be used as they are, but a few of the hit rolls need adjusting:
     \begin{itemize}
-        \item The single Rh-202 has unexpectedly low original hit rolls of 3/2/1 for its rate of fire. The values of 4/3/2 for the ZPU-2 and TCM-20, which have a similar rate of fire, are probably more appropriate.
-        \item The ZU-23 has unexpectedly low original hit rolls of 4/3/2 for its rate of fire. The values of 5/4/3 for the twin Rh-202, which has a similar rate of fire, are probably more appropriate.
-        \item The Oerlikon GDF has unexpectedly high original hit rolls of 5/4/3 for its rate of fire. The values of 4/3/2 for the ZPU-2, which has a similar rate of fire, are probably more appropriate. (This reduction also makes the Oerlikon GDF more consistent with Gepard.)
-        \item The BOFI has unexpectedly low original hit rolls of 4/4/3. Values of 5/5/3, obtained by applying a \plus{2} modifier for FCR-W to the Bofors L/70, are probably more appropriate. (Note that the “BOFI” in \emph{Air Strike} corresponds to what I call the “BOFI-R” below.)
+        \item ZPU-4 and ZU-23:
+
+            There are six AAA batteries with rates of fire per mount of about 2000 rounds per minute or more: the M55, ZPU-4, twin Rh-202, M167, ZU-23, and Gemag. After accounting for the \plus{1} modifier for the FCR-R of the M167 and Gemag, all have hit rolls of 5/4/3 except for the ZPU-4 from \emph{The Speed of Heat} (although the one from \emph{Air Strike} does have 5/4/3) and the ZU-23.
+
+            Furthermore, all of these except for the ZU-23 (both the \emph{Air Strike} and the \emph{The Speed of Heat} versions) have damage ratings increased by one above their baseline values.
+
+            It seems that either there is some reason to reduce the effectiveness of the ZPU-4 and ZU-23 compared to these other guns, or perhaps they have inconsistent values rolls.
+
+            The ZU-23 is undeniably basic, and one might think that would be reason to reduce its effectiveness. However, the TCM-20 is basic too and has both a lower rate of fire than the ZU-23 (1450 compared to 2000) and a smaller caliber (20~mm compared to 23~mm), yet its hit rolls are higher than the ZU-23 in \emph{The Speed of Heat} and its damage rating is the same.
+
+            The best solution would seem to be to give these guns the values we would expect from comparing them to other guns with similar rate of fire and calibre. Therefore, I give both the ZPU-4 and ZU-23 hit rolls of 5/4/3 and the ZU-23 a damage rating of 3.
+
+        \item Single RH-202
+
+            The single Rh-202 has unexpectedly low original hit rolls of 3/2/1 for its rate of fire. The values of 4/3/2 for the ZPU-2 and TCM-20, which have a similar rate of fire, are probably more appropriate.
+
+        \item Twin Rh-202
+
+            The twin has an unexpectedly low original damage rating of 2 for its rate of fire. A value of 3, increased by one from the baseline for the caliber, is probably more appropriate.
+
+        \item Oerlikon GDF
+
+            The Oerlikon GDF has unexpectedly high original hit rolls of 5/4/3 for its rate of fire. The values of 4/3/2 for the ZPU-2, which has a similar rate of fire, are probably more appropriate.
+
+        \item BOFI
+
+            The BOFI has unexpectedly low original hit rolls of 4/4/3. Values of 5/5/3, obtained by applying a \plus{2} modifier for FCR-W to the Bofors L/70, are probably more appropriate. (Note that the “BOFI” in \emph{Air Strike} corresponds to what I call the “BOFI-R” below.)
+
     \end{itemize}
 
     I adopt these modified values.
 
     Also, I note the following:
+
     \begin{itemize}
-        \item The M167 and Gemag have hit rolls of 6/5/4, and the twin Rh-202 has 5/4/3. Otherwise, they are similar, except that the M167 and Gemag have FCR-R, and the Rh-202 does not (and the M167 has a moderate advantage in rate of fire). I consider the FCR-R of the M167 and Gemag to be largely responsible for increasing their hit rolls by \plus{1} compared to the Rh-202.
-        \item The hit rolls of 2/2/1 for the Bofors L/60, 3/2/1 for the 61-K (M-38), and 3/3/2 for the Bofors L/70 seem to reflect the increase in rate of fire. However, the L/60 has the same maximum altitude and ranges as the L/70, despite its lower muzzle velocity.
-        \item The real BOFI and BOFI-R also use proximity fuzes, and I consider these will increase their hit rolls by \plus{1}.
+
+        \item FCR-R
+
+            The M167 and Gemag have hit rolls of 6/5/4, and the twin Rh-202 has 5/4/3. Otherwise, they are similar, except that the M167 and Gemag have FCR-R, and the Rh-202 does not (and the M167 has a moderate advantage in rate of fire). I consider the FCR-R of the M167 and Gemag to be largely responsible for increasing their hit rolls by \plus{1} compared to the Rh-202.
+
+        \item Bofors
+
+            The hit rolls of 2/2/1 for the Bofors L/60, 3/2/1 for the 61-K (M-38), and 3/3/2 for the Bofors L/70 seem to reflect the increase in rate of fire.
+
+            The L/60 and L/70 have the same maximum altitude of 16 and maximum range of 12, despite the L/60 having lower muzzle velocity. However, I am not especially motivated to attempt to change this, since the Bofors is primarily a weapon for point-defense against aircraft up to about level 10.
+
+            The real BOFI and BOFI-R also have proximity fuzes, and I consider these will increase their hit rolls by \plus{1}.
+
     \end{itemize}
 
     \notesection{AAA Values for Sections}
@@ -519,57 +566,58 @@ As well as the properties common to all ground units, Table~\ref{table:aaa-units
 
     The upper part of the following table shows the original data for gun sections from \emph{Air Strike} (AS), \emph{Eagles of the Gulf} (EOTG), and \emph{The Speed of Heat} (TSOH). Again, I have added columns with the caliber, burst rate of fire per mount, and muzzle velocity.
 
-    \medskip
-    \begin{tabular}{lrlllllrrl}
-        \toprule
-        Type
-        &\multicolumn{1}{c}{\vertical{Maximum Altitude}}
-        &\multicolumn{1}{c}{\vertical{Ranges}}
-        &\multicolumn{1}{c}{\vertical{Hit Rolls}}
-        &\multicolumn{1}{c}{\vertical{Damage}}
-        &\multicolumn{1}{c}{\vertical{FCR}}
-        &\multicolumn{1}{c}{\vertical{Caliber (mm)}}
-        &\multicolumn{1}{c}{\vertical{Rate of fire (RPM)}}
-        &\multicolumn{1}{c}{\vertical{Muzzle Velocity (m/s)}}
-        &\multicolumn{1}{c}{\vertical{Source}}
-        \\
-        \midrule
-        \multicolumn{10}{c}{Original}\\
-        \midrule
-        M16&5&2/3/4&4/3/2&2&---&12.7&2000&890&EOTG\\
-        Mobile ZPU-4&6&2/3/5&3/3/2&2&---&14.5&2400&1000&AS\\
-        M163&8&2/4/6&5/4/3&3&R&20&3000&1030&AS\\
-        M3 TCM-20&8&2/4/6&3/3/2&2&---&20&1450&860&EOTG\\
-        Panhard&8&2/4/6&2/2/1&2&---&20&1450&860&AS\\
-        Mobile ZU-23&9&2/5/8&3/3/2&2&---&23&2000&980&AS\\
-        Nile 23&9&2/5/8&3/3/2&2&---&23&2000&980&EOTG\\
-        ZSU-23-4&9&2/5/8&5/4/3&2&W&23&4000&980&AS\\
-        Blazer&10&3/6/9&5/4/3&4&W&25&1800&1040&AS\\
-        M53/59&11&4/7/9&4/3/2&3&---&30&1000&1000&AS\\
-        AMX-30&11&4/7/9&5/4/3&3&W&30&1200&970&AS\\
-        ZSU-30-2&11&4/7/9&5/4/3&4&W&30&5000&960&AS\\
-        Gepard&12&4/8/10&5/4/3&4&W&35&1100&1175&AS\\
-        ZSU-57-2&18&5/10/15&2/1/1&5&---&57&240&1000&EOTG\\
-        \midrule
-        \multicolumn{10}{c}{Modified}\\
-        \midrule
-        Mobile ZPU-4&&&4/3/2&&\multicolumn{5}{l}{--- to match to ZPU-4}\\
-        Panhard&&&3/3/2&&\multicolumn{5}{l}{--- to match M3 TCM-20}\\
-        Mobile ZU-23&&&4/3/2&&\multicolumn{5}{l}{--- to match ZU-23}\\
-        Nile 23&&&4/3/2&&\multicolumn{5}{l}{--- to match ZU-23}\\
-        M53/59&&&3/2/1&&\multicolumn{5}{l}{--- to match GDF/AMX-30}\\
-        ZSU-30-2&&&&3&\multicolumn{5}{l}{--- to match other 30 mm}\\
-        \bottomrule
-    \end{tabular}
-    \medskip
+    \begin{center}
+        \medskip
+        \scriptsize
+        \begin{tabular}{lrlllllrrl}
+            \toprule
+            Type
+            &\multicolumn{1}{c}{\vertical{Maximum Altitude}}
+            &\multicolumn{1}{c}{\vertical{Ranges}}
+            &\multicolumn{1}{c}{\vertical{Hit Rolls}}
+            &\multicolumn{1}{c}{\vertical{Damage}}
+            &\multicolumn{1}{c}{\vertical{FCR}}
+            &\multicolumn{1}{c}{\vertical{Caliber (mm)}}
+            &\multicolumn{1}{c}{\vertical{Rate of fire (RPM)}}
+            &\multicolumn{1}{c}{\vertical{Muzzle Velocity (m/s)}}
+            &\multicolumn{1}{c}{\vertical{Source}}
+            \\
+            \midrule
+            \multicolumn{10}{c}{Original}\\
+            \midrule
+            M16&5&2/3/4&4/3/2&2&---&12.7&2000&890&EOTG\\
+            Mobile ZPU-4&6&2/3/5&3/3/2&2&---&14.5&2400&1000&AS\\
+            M163&8&2/4/6&5/4/3&3&R&20&3000&1030&AS\\
+            M3 TCM-20&8&2/4/6&3/3/2&2&---&20&1450&860&EOTG\\
+            Panhard&8&2/4/6&2/2/1&2&---&20&1450&860&AS\\
+            Mobile ZU-23&9&2/5/8&3/3/2&2&---&23&2000&980&AS\\
+            Nile 23&9&2/5/8&3/3/2&2&---&23&2000&980&EOTG\\
+            ZSU-23-4&9&2/5/8&5/4/3&3&W&23&4000&980&AS\\
+            Blazer&10&3/6/9&5/4/3&4&W&25&1800&1040&AS\\
+            M53/59&11&4/7/9&4/3/2&3&---&30&1000&1000&AS\\
+            AMX-30&11&4/7/9&5/4/3&3&W&30&1200&970&AS\\
+            ZSU-30-2&11&4/7/9&5/4/3&4&W&30&5000&960&AS\\
+            Gepard&12&4/8/10&5/4/3&4&W&35&1100&1175&AS\\
+            ZSU-57-2&18&5/10/15&2/1/1&5&---&57&240&1000&EOTG\\
+            \midrule
+            \multicolumn{10}{c}{Modified}\\
+            \midrule
+            Mobile ZPU-4&&&4/3/2&&\multicolumn{5}{l}{--- to match the ZPU-4}\\
+            Panhard&&&3/3/2&&\multicolumn{5}{l}{--- to match the M3 TCM-20}\\
+            Mobile ZU-23&&&4/3/2&3&\multicolumn{5}{l}{--- to match the ZU-23}\\
+            Nile 23&&&4/3/2&3&\multicolumn{5}{l}{--- to match the ZU-23}\\
+            M53/59&&&3/2/1&&\multicolumn{5}{l}{--- to match the AMX-30}\\
+            \bottomrule
+        \end{tabular}
+        \medskip
+    \end{center}
 
-    Comparing similar weapons, batteries (with four to six mounts) typically have a \plus{1} advantage on their hit rolls compared to sections (with two mounts).
-    In a very few cases, the difference is 0 and in a very few others, it is \plus{2}.
-    The ranges and damage ratings tend to be the same.
-
+    Comparing similar weapons, batteries and sections have the same maximum altitudes, ranges, and damage ratings.
+    However, batteries (with four to six mounts) typically have a \plus{1} advantage on their hit rolls compared to sections (with two mounts).
+    In a very few cases, the difference is 0, and in a very few others, it is \plus{2}.
     A difference of 1 in the hit rolls is commensurate with the approximate doubling of the rate of fire from a section to a battery.
 
-    The method for the values I will adopt for AAA units is:
+    To determine the appropriate AAA for sections, the following recipe seems to work in most cases:
     \begin{itemize}
         \item Take the value for an equivalent battery without FCR and apply an adjustment of \minus{1} to the hit rolls to account for the reduced rate of fire in the section. (Only do this if the rate of fire is reduced; see the comment on the ZSU-23-4 and ZSU-57-2 below.)
         \item Apply an adjustment of \plus{1} to the hit rolls for FCR-R or similar.
@@ -577,26 +625,62 @@ As well as the properties common to all ground units, Table~\ref{table:aaa-units
         \item The preceding steps would then predict hit rolls of 6/5/4 for the Blazer and 7/6/5 for the ZSU-23-4 and ZSU-30-2. To conform to the original values, I limit the hit rolls to 5/4/3. It would appear that in the underlying model, beyond a certain rate of fire, other factors take over to limit the probability of a hit.
     \end{itemize}
 
-    % One problem is that there are no 30 mm batteries, so data for 30 mm sections needs to be determined by comparison to smaller and larger calibers.
+    % One problem is that there are no 30~mm batteries, so data for 30~mm sections needs to be determined by comparison to smaller and larger calibers.
 
     Again, most of the original data can be used as they are, but a few of the values are worth commenting upon or need adjusting.
     \begin{itemize}
-        \item The original hit rolls and the predicted hit rolls are in agreement for the M16 (from the M55 battery), M3 TCM-20 (from the TCM-20 battery), M163 (from the M167 battery),
-        \item The original hit rolls for the mobile ZPU-4 section are 3/3/2, but 4/3/2 is predicted from the values of 5/4/3 for the battery and is in better agreement with the values for the M16.
-        \item The Panhard M3 DCA has unexpectedly low original hit rolls of 2/2/1 compared to the TCM 20 battery and the M3 TCM-20 section. Values of 3/3/2 are probably more appropriate.
-        \item The original hit rolls for the mobile ZU-23 and Nile 23 section are 3/3/2. The predicted values of 4/3/2 are probably more appropriate and is in better agreement with the values for the M16.
-        \item The original hit rolls for the M53/59 section are 4/3/2. The predicted values of 3/2/1, derived from the modified hit rolls of 4/3/2 for the Oerlikon GDF battery and also from the AMX-30SA after discounting the FCR-W, are probably more appropriate.
-        \item The ZSU-30-2 has an unexpectedly high original damage rating of 4. The value of 3 for the other 30 mm guns is probably more appropriate.
-        \item The ZSU-57-2 section has the same hit rolls as the S-60 battery. This is probably appropriate, as the ZSU-57-2 is a twin mount and this largely compensates for the reduced rate of fire of the section. The same applies to the quad ZSU-23-4 compared to the twin ZU-23.
+        \item Agreements
+
+            The original hit rolls and the predicted hit rolls are in agreement for the M16 (from the M55 battery), M3 TCM-20 (from the TCM-20 battery), M163 (from the M167 battery), the Blazer (from the Gemag), and the Gepard (from the Oerlikon GDF).
+
+        \item Mobile ZPU-4
+
+            The original hit rolls for the mobile ZPU-4 section are 3/3/2, but 4/3/2 is predicted from the values of 5/4/3 for the battery and is in better agreement with the values for the M16.
+
+        \item Panhard M3 DCA
+
+            The Panhard M3 DCA has unexpectedly low original hit rolls of 2/2/1 compared to the TCM-20 battery and the M3 TCM-20 section, despite having very similar guns. Values of 3/3/2 are probably more appropriate.
+
+        \item Mobile ZU-23 and Nile 23
+
+            The original hit rolls for the mobile ZU-23 and Nile 23 section are 3/3/2. The predicted values of 4/3/2 are probably more appropriate and are in better agreement with the values for the M16. Also, as with the ZU-23 battery, a damage rating of 3 is probably more appropriate given their high rate of fire.
+
+        \item M53/59
+
+            The original hit rolls for the M53/59 section are 4/3/2. The predicted values of 3/2/1, derived from the modified hit rolls of 4/3/2 for the Oerlikon GDF battery and also from the AMX-30SA after discounting the FCR-W, are probably more appropriate.
+
+        \item ZSU-57-202s
+
+            The ZSU-57-2 section has the same hit rolls as the S-60 battery. This is probably appropriate, as the ZSU-57-2 is a twin mount and this largely compensates for the reduced rate of fire of the section. The same applies to the quad ZSU-23-4 compared to the twin ZU-23.
     \end{itemize}
 
     I adopt these modified values.
 
-    It is also worth noting:
+    Also, I note:
+
     \begin{itemize}
-        \item The Panhard M3 DCA has an FCR-R capability, which is discussed below but not considered here.
-        \item The real AMX-30DCA does not have a FCR. The AMX-30DCA in the game seems to correspond to the similar AMX-30SA, which does.
+
+        \item Panhard M3 DCA
+
+            The Panhard M3 DCA has an FCR-R capability, which is discussed below but not considered here.
+
+        \item AMX-30 DCA
+
+            The real AMX-30 DCA does not have an FCR. The AMX-30 DCA in the game seems to correspond to the similar AMX-30SA, which does.
+
     \end{itemize}
+
+    \notesection{Summary}
+
+    I have developed an empirical understanding of the model for AAA values.
+
+    Consideration of outliers suggests:
+    \begin{itemize}
+        \item Increasing in the hit rolls of the mounted ZPU-4, single Rh-202, Panhard M3 VDA, ZU-23 (and derivatives), and BOFI.
+        \item Decreasing the hit rolls of the Oerlikon GDF.
+        \item Increasing the damage rating of the two Rh-202 and the ZU-23 (and derivatives).
+    \end{itemize}
+    I have adopted these changes.
 
 }
 \clearnotes
@@ -626,7 +710,7 @@ Units without an FCR (or with a range-only FCR) are limited to visually sighted 
 
 \subsubsection{M2 Platoon}
 
-The Browning M2 .50~cal (12.7 mm) heavy machine gun is normally found on a low tripod for ground combat, but here is used on a tall dual-purpose mount suitable for air defense. A platoon has six guns.%
+The Browning M2 .50~cal (12.7~mm) heavy machine gun is normally found on a low tripod for ground combat, but here is used on a tall dual-purpose mount suitable for air defense. A platoon has six guns.%
 \note{
     For the M2 platoon: The AAA values are from \emph{Air Strike}.
 }
@@ -635,7 +719,7 @@ The M2 gun was introduced in 1933 and has been used by United States forces and 
 
 \subsubsection{DShK-38 Platoon}
 
-The DShK-38 12.7 mm heavy machine guns is most commonly found on a low, wheeled mount for ground combat, but here is used on a tall tripod suitable for air defense. A platoon has six guns.%
+The DShK-38 12.7~mm heavy machine guns is most commonly found on a low, wheeled mount for ground combat, but here is used on a tall tripod suitable for air defense. A platoon has six guns.%
 \note{
     For the DShk-38 platoon: The AAA values are from \emph{Air Strike}.
 }
@@ -644,7 +728,7 @@ The DShK-38 entered service with the Soviet Army in 1938 and saw action in World
 
 \subsubsection{M16 Section}
 
-The M16 Multiple Gun Motor Carriage has an M45 turret with four M2 .50 cal (12.7 mm) heavy machine guns mounted on a modified M3 half-track. A section has two vehicles.%
+The M16 Multiple Gun Motor Carriage has an M45 turret with four M2 .50 cal (12.7~mm) heavy machine guns mounted on a modified M3 half-track. A section has two vehicles.%
 \note{
     For the M16 section: The AAA values are from \emph{Eagles of the Gulf}.
 }
@@ -653,7 +737,7 @@ The M16 was used by United States forces during World War II and (primarily in a
 
 \subsubsection{M55 Platoon}
 
-The M55 has an M45 turret with four M2 .50 cal (12.7 mm) heavy machine guns mounted on a towed carriage. A platoon has four gun mounts.%
+The M55 has an M45 turret with four M2 .50 cal (12.7~mm) heavy machine guns mounted on a towed carriage. A platoon has four gun mounts.%
 \note{
     For the M55 battery: The AAA values are from \emph{Eagles of the Gulf}.
 }
@@ -664,7 +748,7 @@ The M55 was used by United States forces during the Korean War and by Pakistani 
 
 \subsubsection{ZPU-1/2/4 Battery}
 
-The ZPU-1/2/4 have single, twin, or quad 14.5 mm heavy machine guns in open mounts on towed carriages. A battery has six gun mounts.%
+The ZPU-1/2/4 have single, twin, or quad 14.5~mm heavy machine guns in open mounts on towed carriages. A battery has six gun mounts.%
 \note{
     For the ZPU-1 battery: The AAA values are from \emph{Eagles of the Gulf}.
 }%
@@ -693,7 +777,7 @@ Many users of the ZPU-1/2/4 mount it on a suitable truck for increased mobility.
 
 \subsubsection{M167 Platoon}
 
-The M167 Vulcan Air Defense System (VADS) has a 20 mm six-barreled Vulcan gun in an open mount on a towed carriage. The fire-control system has optical sights and a range-only radar. A platoon has four gun mounts.%
+The M167 Vulcan Air Defense System (VADS) has a 20~mm six-barreled Vulcan gun in an open mount on a towed carriage. The fire-control system has optical sights and a range-only radar. A platoon has four gun mounts.%
 \note{
     For the M167 platoon: The AAA values are from \emph{Air Strike}. I'm not sure when it gained FCR-R or if it gained night IR sights.
 }
@@ -702,7 +786,7 @@ The M167 was introduced into service with the US Army in 1967, principally for a
 
 \subsubsection{M163 Section}
 
-The M163 Vulcan Air Defense System (VADS) has a 20 mm six-barreled Vulcan gun in a lightly armored but open-topped turret on an adapted M113 APC. The fire-control system has optical sights and a range-only radar. A section has two vehicles.\note{
+The M163 Vulcan Air Defense System (VADS) has a 20~mm six-barreled Vulcan gun in a lightly armored but open-topped turret on an adapted M113 APC. The fire-control system has optical sights and a range-only radar. A section has two vehicles.\note{
     For the M163 section: The AAA values are from \emph{Air Strike}. I have the same uncertainties as I do for the M167.
 }
 
@@ -712,7 +796,7 @@ From 1988 in the US Army, each M163 was typically issued with a FIM-92 Stinger l
 
 \subsubsection{TCM-20 Platoon}
 
-The TCM-20 is an Israeli adaptation of the M55, with two Hispano-Suiza 20 mm guns from obsolete aircraft replacing the four .50 cal machine guns. As with the M55, the fire-control system is entirely optical. A platoon has four gun mounts.%
+The TCM-20 is an Israeli adaptation of the M55, with two Hispano-Suiza 20~mm guns from obsolete aircraft replacing the four .50 cal machine guns. As with the M55, the fire-control system is entirely optical. A platoon has four gun mounts.%
 \note{
     For the TCM-20 platoon: The AAA values are from \emph{Eagles of the Gulf}.
 }
@@ -730,7 +814,7 @@ The M3 TCM-20 was used by Israeli forces in the 1973 Arab-Israeli War and the 19
 
 \subsubsection{Rh-202 Battery}
 
-The Rheinmetall Rh-202 has a single or twin 20 mm gun in an open mount on a towed carriage. The fire-control system is entirely optical. The most common version is the twin mount. A battery has six gun mounts.%
+The Rheinmetall Rh-202 has a single or twin 20~mm gun in an open mount on a towed carriage. The fire-control system is entirely optical. The most common version is the twin mount. A battery has six gun mounts.%
 \note{
     For the single and twin Rh-202 batteries: All AAA mounts seem to be twin. The AAA values are from \emph{Air Strike}, with the hit rolls of the single version modified from 3/2/1 to 4/3/2 as described above.
 }
@@ -739,7 +823,7 @@ The twin version entered service with West German forces in 1972 and was used fo
 
 \subsubsection{Panhard M3 DCA Section}
 
-The Panhard M3 DCA vehicles have an armored turret for twin 20 mm guns mounted on the Panhard M3 APC. The guns have optical sights, but typically one vehicle in each section or platoon is equipped with a search-and-ranging radar and can share this information automatically with the others. A section has two vehicles.%
+The Panhard M3 DCA vehicles have an armored turret for twin 20~mm guns mounted on the Panhard M3 APC. The guns have optical sights, but typically one vehicle in each section or platoon is equipped with a search-and-ranging radar and can share this information automatically with the others. A section has two vehicles.%
 \note{
     For the Panhard M3 DCA section:
     \emph{Air Strike} gives hit rolls of 3/3/2, which are identical to those of the M3 TCM-20 section. Since they have similar guns, that would make sense if both had similar fire control systems. However, the Panhard M3 DCA radar-equipped vehicle seems to be able to search and share speed and range information with the other vehicle in the section. That seems closest to FCR-R. Therefore, following the method described above, I have adopted the \emph{Air Strike} values but with hit rolls increase by one to 4/4/3 and FCR-R.
@@ -749,7 +833,7 @@ The Panhard M3 DCA served with the armed forces of Côte d'Ivoire, Niger, and th
 
 \subsubsection{ZU-23 Battery}
 
-The ZU-23 has twin 23 mm cannons in an open mount on a towed carriage. It was designed as a more powerful replacement for the ZPU-1/2/4. The fire-control system is entirely optical. A battery has six gun mounts.%
+The ZU-23 has twin 23~mm cannons in an open mount on a towed carriage. It was designed as a more powerful replacement for the ZPU-1/2/4. The fire-control system is entirely optical. A battery has six gun mounts.%
 \note{
     For the ZU-23 battery: The AAA values are from \emph{Air Strike}, but the hit rolls are modified as from 4/3/2 to 5/3/2 as described above.
     %TSOH gives it 6 VPs and Air Strike gives it only 5. I think 6 is more appropriate, comparing to the ZPU-4 battery.
@@ -769,16 +853,16 @@ As with the earlier ZPU-1/2/4, many users of the ZU-23 mount it on vehicles, inc
 
 \subsubsection{Sinai 23 Section}
 
-The Sinai 23 has a Dassault TA20 turret with two 23 mm guns and six Ayn-al-Saqr (similar to the Strela-2M) or Stinger missiles on an M113 chassis. It has night IR sights. A section has two vehicles. Each battery operates with one vehicle equipped with an RA20S search radar.%
+The Sinai 23 has a Dassault TA20 turret with two 23~mm guns and six Ayn-al-Saqr (similar to the Strela-2M) or Stinger missiles on an M113 chassis. It has night IR sights. A section has two vehicles. Each battery operates with one vehicle equipped with an RA20S search radar.%
 \note{
-    For the Sinai 23 section: The turret seems to be similar to the LAV-AD turret, but with a pair of 23 mm guns instead of a GAU-12 25 mm gun. The AAA values rolls are adopted from the mobile ZU-23 section. I don't know which model of Stinger was used; I would guess the FIM-92A.
+    For the Sinai 23 section: The turret seems to be similar to the LAV-AD turret, but with a pair of 23~mm guns instead of a GAU-12 25~mm gun. The AAA values rolls are adopted from the mobile ZU-23 section. I don't know which model of Stinger was used; I would guess the FIM-92A.
 }
 
 The Sinai 23 entered service with the Egyptian Army in 1991.
 
 \subsubsection{ZSU-23-4 Section}
 
-The ZSU-23-4 has four radar-controlled 23 mm guns, similar to those in the ZU-23, mounted in an armored turret on a hull adapted from the PT-76 light tank. A section has two vehicles.%
+The ZSU-23-4 has four radar-controlled 23~mm guns, similar to those in the ZU-23, mounted in an armored turret on a hull adapted from the PT-76 light tank. A section has two vehicles.%
 \note{
     WORK ON ME
     For the ZSU-23-4 section: The AAA values are from \emph{Air Strike}.
@@ -788,7 +872,7 @@ The ZSU-23-4 entered service in the Soviet Army in 1965, replacing the ZSU-57-2 
 
 \subsubsection{LAV-AD Section}
 
-The LAV-AD has a 25 mm GAU-12 rotary cannon and eight FIM-92D Stinger missiles mounted in a turret on the LAV-25 vehicle. It does not have radar, but is equipped with a passive night IR sight. A section has two vehicles.%
+The LAV-AD has a 25~mm GAU-12 rotary cannon and eight FIM-92D Stinger missiles mounted in a turret on the LAV-25 vehicle. It does not have radar, but is equipped with a passive night IR sight. A section has two vehicles.%
 \note{
     For the LAV-AD section: The system seems similar to the Blazer, but without radar and with night IR sights. I've adopted the range and damage rating for the Gemag battery in \emph{Air Strike} with the hit rolls reduced by one for being a section and one again for not having FCR-R giving 4/3/2.
 }
@@ -797,17 +881,17 @@ The LAV-AD entered service with the USMC in 1997, but was retired after only a f
 
 \subsubsection{M53/59 Section}
 
-The M53/59 has a twin M53 30 mm gun mount on a partially armored truck. The fire-control system is entirely optical. A section has two vehicles.%
+The M53/59 has a twin M53 30~mm gun mount on a partially armored truck. The fire-control system is entirely optical. A section has two vehicles.%
 \note{
     WORK ON ME
-    For the M53/59 section: The hit rolls of 4/3/2 in Air Strike seem a little high. A modern 23/30/35 mm section with FCR typically has 5/4/3. I adopt 3/2/1, matching the mobile ZU-23 and the AMX-30 and Tunguska without FCR. If the VADS is classed as armored, should this be armored too?
+    For the M53/59 section: The hit rolls of 4/3/2 in Air Strike seem a little high. A modern 23/30/35~mm section with FCR typically has 5/4/3. I adopt 3/2/1, matching the mobile ZU-23 and the AMX-30 and Tunguska without FCR. If the VADS is classed as armored, should this be armored too?
 }
 
 The M53/59 entered service in the Czech Army in 1959 and was used instead of the ZSU-57-2. It was also exported to Iraq and saw combat in the Iran-Iraq War and the 1991 Gulf War.
 
 \subsubsection{AMX-30SA Section}
 
-The AMX-30SA is equipped with a pair of radar-controlled 30 mm Hispano-Suiza guns mounted in an armored turret on the hull of an AMX-30 tank. It is an improved version of the AMX-30 DCA. A section has two vehicles.%
+The AMX-30SA is equipped with a pair of radar-controlled 30~mm Hispano-Suiza guns mounted in an armored turret on the hull of an AMX-30 tank. It is an improved version of the AMX-30 DCA. A section has two vehicles.%
 \note{
     WORK ON ME
     For the AMX-30SA section: I adopt the Air Strike values given for the AMX-30 DCA. The real DCA does not have radar, but the Air Strike one does, matching the SA.
@@ -817,7 +901,7 @@ The AMX-30SA served only in the Saudi Army from 1979.
 
 \subsubsection{Tunguska Section}
 
-The Tunguska has twin radar-controlled 30 mm guns and four SA-19 missiles in an armored turret on an armored and tracked hull. It was designed to counter the A-10 and AH-64, against which the earlier ZSU-23-4 had weaknesses. A section has two vehicles.%
+The Tunguska has twin radar-controlled 30~mm guns and four SA-19 missiles in an armored turret on an armored and tracked hull. It was designed to counter the A-10 and AH-64, against which the earlier ZSU-23-4 had weaknesses. A section has two vehicles.%
 \note{
     WORK ON ME
     For the Tunguska section: I have adopted the Air Strike values for the ZSU-30-2 and added missiles. The VP values are tentative, and might be modified once other SAM launchers are considered.
@@ -835,19 +919,19 @@ The Tunguska-M is an improved version of the Tunguska with eight missiles instea
 
 The Tunguska-M entered service in the Soviet Army in 1990. It has been used by Russia, Ukraine, and Belarus after the break-up of the Soviet Union and has been exported.
 
-%\subsubsection{Pantsir.} The Pantsir has twin radar-controlled 30 mm guns and twelve SA-22 missiles in an unarmored turret mounted on a truck. While the Tunguska was designed to accompany ground forces, the Pantsir was designed for point defense of mobile S-300/S-400 batteries and other high-value targets, and this led to the choice of the system being wheeled and unarmored. It entered service in 2012 with Russian forces and has since been exported.
+%\subsubsection{Pantsir.} The Pantsir has twin radar-controlled 30~mm guns and twelve SA-22 missiles in an unarmored turret mounted on a truck. While the Tunguska was designed to accompany ground forces, the Pantsir was designed for point defense of mobile S-300/S-400 batteries and other high-value targets, and this led to the choice of the system being wheeled and unarmored. It entered service in 2012 with Russian forces and has since been exported.
 
 \subsection{Medium AAA Units}
 
 \subsubsection{Oerlikon GDF Battery}
 
-The Oerlikon GDF has two 35 mm guns in an open mount on a towed carriage. The basic fire-control system is optical, but the guns are often coupled with the Super Fledermaus or Skyguard fire-control radars. A battery has six gun mounts.
+The Oerlikon GDF has two 35~mm guns in an open mount on a towed carriage. The basic fire-control system is optical, but the guns are often coupled with the Super Fledermaus or Skyguard fire-control radars. A battery has six gun mounts.
 
 The Oerlikon GDF entered service in 1963 and has served widely. Notably, it saw combat in the South Atlantic War with the Argentine forces in the defense of BAM Malvinas (Port Stanley Airport) and BAM Condor (Goose Green Airfield).
 
 \subsubsection{Gepard Section}
 
-The Gepard has two radar-controlled 35 mm guns in an armored turret on an adapted Leopard 1 tank hull. A section has two vehicles.%
+The Gepard has two radar-controlled 35~mm guns in an armored turret on an adapted Leopard 1 tank hull. A section has two vehicles.%
 \note{
     For the Gepard section: The AAA values are from \emph{Air Strike}. The hit rolls of 5/4/3 agree with those of an Oerlikon GDF battery, modified as described above and then reduced by one to convert from battery to section and increased by two to account for FCR-W.
 }
@@ -856,19 +940,19 @@ The Gepard entered service in 1976 with the West German Army and also served wit
 
 \subsubsection{61-K Battery}
 
-The 61-K (M1939) has a single 37 mm gun in an open mount on a towed carriage. The fire-control system is entirely optical, and the 61-K cannot be coupled to an external fire-control radar. A battery has six gun mounts.%
+The 61-K (M1939) has a single 37~mm gun in an open mount on a towed carriage. The fire-control system is entirely optical, and the 61-K cannot be coupled to an external fire-control radar. A battery has six gun mounts.%
 \note{
     For the 61-K battery: \emph{Air Strike}, \emph{Eagles of the Gulf}, and \emph{The Speed of Heat} call this the “M-38”, but I can find no other source that uses this designation. Another designation for the gun is “M-1939”, so I could understand “M-39“. The AAA values are from \emph{Air Strike}.
     % but TSOH gives it 6 VPs and Air Strike only 5.
 }
 
-After entering service in 1939 with the Soviet Army, it served in WW2 and after until replaced by the S-60 57 mm gun. It also served with many Soviet allies, and in particular with communist forces in the Korean and Vietnam Wars.
+After entering service in 1939 with the Soviet Army, it served in WW2 and after until replaced by the S-60 57~mm gun. It also served with many Soviet allies, and in particular with communist forces in the Korean and Vietnam Wars.
 
 The 61-K is referred to as the “M-38” in \emph{Air Strike}, \emph{Eagles of the Gulf}, and \emph{The Speed of Heat}.
 
 \subsubsection{Bofors L/60 Battery}
 
-The Bofors L/60 has a single 40 mm gun in an open mount on a towed carriage. The fire-control system is entirely optical. A battery has six gun mounts.%
+The Bofors L/60 has a single 40~mm gun in an open mount on a towed carriage. The fire-control system is entirely optical. A battery has six gun mounts.%
 \note{
     For the Bofors L/60 battery: The AAA values are from \emph{Eagles of the Gulf}.
 }
@@ -877,7 +961,7 @@ It entered service in the 1940s and was widely used by Allied forces during WW2,
 
 \subsubsection{Bofors L/70 Battery}
 
-The Bofors L/70 has a single 40 mm gun in an open mount on a towed carriage. Between the 1930s and the end of WW2, aircraft speed increased substantially, and so the engagement time of the Bofors L/60 became inadequate. The new L/70 fired a lighter shell at a higher velocity and achieved a significant improvement in range and engagement time. The basic fire-control system is optical, but various external fire-control radars can be used with it, including the Super Fledermaus and Flycatcher systems. A battery has six gun mounts.%
+The Bofors L/70 has a single 40~mm gun in an open mount on a towed carriage. Between the 1930s and the end of WW2, aircraft speed increased substantially, and so the engagement time of the Bofors L/60 became inadequate. The new L/70 fired a lighter shell at a higher velocity and achieved a significant improvement in range and engagement time. The basic fire-control system is optical, but various external fire-control radars can be used with it, including the Super Fledermaus and Flycatcher systems. A battery has six gun mounts.%
 \note{
     For the Bofors L/70 battery: The AAA values are from \emph{Air Strike}, with the maximum altitude increase from 15 to 16, as described above.
 }
@@ -899,43 +983,43 @@ The BOFI is used by the armed forces of Brazil.%
 
 \subsubsection{S-60 Battery}
 
-The S-60 is a Soviet single 57 mm gun on an open mount on a towed carriage. The basic fire-control system is optical, but the gun is often used with the SON-9 (Fire Can) radar. A battery has six gun mounts.%
+The S-60 is a Soviet single 57~mm gun on an open mount on a towed carriage. The basic fire-control system is optical, but the gun is often used with the SON-9 (Fire Can) radar. A battery has six gun mounts.%
 \note{
     For the S-60 battery: The AAA values are from \emph{Air Strike}.
     % These are the same as in Air Strike, except that TSOH gives 8 VPs and Air Strike only 6.
 }
 
-It entered service in 1950 with Soviet forces as a replacement for the 61-K 37 mm gun. It was exported to many Soviet allies and saw combat with Arab forces in the 1967 and 1973 Arab-Israeli War, with communist forces in the Vietnam War, and with Iraqi forces in the Iran-Iraq War and the Gulf War. However, it was not used by communist forces in the Korean War. When paired with the SON-9 (Fire Can) radar, it was considered one of the more dangerous AAA systems faced by US aircraft in Vietnam.
+It entered service in 1950 with Soviet forces as a replacement for the 61-K 37~mm gun. It was exported to many Soviet allies and saw combat with Arab forces in the 1967 and 1973 Arab-Israeli War, with communist forces in the Vietnam War, and with Iraqi forces in the Iran-Iraq War and the Gulf War. However, it was not used by communist forces in the Korean War. When paired with the SON-9 (Fire Can) radar, it was considered one of the more dangerous AAA systems faced by US aircraft in Vietnam.
 
 \subsubsection{ZSU-57-2 Section.}
 
-The ZSU-57-2 has two 57 mm cannons in a lightly armored but open-topped turret on an armored and tracked hull. The cannons are similar to the S-60 cannons. The fire-control system is optical. A section has two vehicles.%
+The ZSU-57-2 has two 57~mm cannons in a lightly armored but open-topped turret on an armored and tracked hull. The cannons are similar to the S-60 cannons. The fire-control system is optical. A section has two vehicles.%
 \note{
     For the ZSU-57-2 section: The AAA values are from \emph{Eagles of the Gulf}.
     The S-60 battery has 2/2/1 and the normal modifier would suggest the ZSU-57-2 have 1/1/0, but in this case a smaller difference is justified as we are comparing four barrels to six.
 }
 
-The ZSU-57-2 entered service in the Soviet Army in 1955 and replaced the BTR-40A and BTR-152A self-propelled 14.5 mm AA guns in the AA batteries of tank regiments. It was in turn replaced by the ZSU-23-4 from 1965. The ZSU-57-2 also served widely with Soviet allies and saw combat with Egypt and Syria in the 1967 and 1973 Wars, with Syria in the 1982 Lebanon War, with North Vietnam in the 1972 Easter Offensive and the 1975 Spring Offensive, and with various factions in the Yugoslav Wars in the 1990s.
+The ZSU-57-2 entered service in the Soviet Army in 1955 and replaced the BTR-40A and BTR-152A self-propelled 14.5~mm AA guns in the AA batteries of tank regiments. It was in turn replaced by the ZSU-23-4 from 1965. The ZSU-57-2 also served widely with Soviet allies and saw combat with Egypt and Syria in the 1967 and 1973 Wars, with Syria in the 1982 Lebanon War, with North Vietnam in the 1972 Easter Offensive and the 1975 Spring Offensive, and with various factions in the Yugoslav Wars in the 1990s.
 
 \subsection{Heavy AAA Units}
 
 \subsubsection{KS-12 Battery}
 
-The KS-12 (M1939 52-K) and the very similar KS-12A (M1944 KS-1) have a single 85 mm gun in an open mount on a towed carriage. The fire-control system is optical, but the guns are often paired with the SON-9 (Fire Can) radar. A battery has six gun mounts.%
+The KS-12 (M1939 52-K) and the very similar KS-12A (M1944 KS-1) have a single 85~mm gun in an open mount on a towed carriage. The fire-control system is optical, but the guns are often paired with the SON-9 (Fire Can) radar. A battery has six gun mounts.%
 \note{
     For the KS-12 battery: The AAA values are from \emph{The Speed of Heat}.
 }
 
-It entered service with Soviet forces in 1939. After WW2, it began to be replaced in Soviet service by the KS-19 100 mm and KS-30 130 mm guns, but was widely used by Soviet allies and saw combat with communist forces in the Korean War and the Vietnam War.
+It entered service with Soviet forces in 1939. After WW2, it began to be replaced in Soviet service by the KS-19 100~mm and KS-30 130~mm guns, but was widely used by Soviet allies and saw combat with communist forces in the Korean War and the Vietnam War.
 
 \subsubsection{KS-19 Battery}
 
-The KS-19 has a single 100 mm gun in an open mount on a towed carriage. The fire-control system is optical, but like other contemporary Soviet guns, it was often paired with the SON-9 (Fire Can) radar. A battery has six gun mounts.%
+The KS-19 has a single 100~mm gun in an open mount on a towed carriage. The fire-control system is optical, but like other contemporary Soviet guns, it was often paired with the SON-9 (Fire Can) radar. A battery has six gun mounts.%
 \note{
     For the KS-12 battery: The AAA values are from \emph{Air Strike}.
 }
 
-It entered service in 1948 with Soviet forces as a replacement for the KS-12 85 mm gun. It also served with many Soviet allies and saw combat with communist forces in the Korean War and Vietnam War and Iraqi forces in the Iran-Iraq and Gulf Wars.
+It entered service in 1948 with Soviet forces as a replacement for the KS-12 85~mm gun. It also served with many Soviet allies and saw combat with communist forces in the Korean War and Vietnam War and Iraqi forces in the Iran-Iraq and Gulf Wars.
 
 \begin{figure*}[p]
     \centering
@@ -972,14 +1056,14 @@ In addition to the properties common to other ground units, Table~\ref{table:fcr
 \subsubsection{SON-9}
 
 The Soviet SON-9 (Fire Can) FCR-A was derived from the earlier SON-4, which in turn was derived from the US-supplied SCR-584.
-It is commonly used with 57 mm S-60, 85 mm KS-12, 100 mm KS-19, and 130 mm KS-30 batteries.
+It is commonly used with 57~mm S-60, 85~mm KS-12, 100~mm KS-19, and 130~mm KS-30 batteries.
 
 The SON-9 entered service in 1955 with Soviet forces and was widely exported to Soviet allies.
 It has seen combat, including with North Vietnam in the Vietnam War, Egypt and Syria in the 1967 War, the War of Attrition, and the 1973 War.
 
 \subsubsection{Super Fledermaus}
 
-The Contraves Super Fledermaus FCR-C can be used to control a section of two Oerlikon GDF 35 mm guns.
+The Contraves Super Fledermaus FCR-C can be used to control a section of two Oerlikon GDF 35~mm guns.
 
 It entered service in 1965 with the Swiss Air Force and also was used by the Argentine Air Force, Brazil, Iran, Japan, and South Africa.
 It saw combat in the 1982 South Atlantic War in the defense of BAM Malvinas (Port Stanley Airport).
@@ -992,7 +1076,7 @@ Flycatcher entered service with the Royal Netherlands Air Force in 1979. It subs
 
 \subsubsection{Skyguard}
 
-The Contraves Skyguard FCR-D can control two Oerlikon GDF 35 mm guns and additionally a SAM launcher with AIM-9 Sparrow, RIM-9 Sea Sparrow, or Aspide missiles.
+The Contraves Skyguard FCR-D can control two Oerlikon GDF 35~mm guns and additionally a SAM launcher with AIM-9 Sparrow, RIM-9 Sea Sparrow, or Aspide missiles.
 
 Skyguard entered service in 1977 with the Swiss Air Force.
 It was subsequently very widely exported and used by the Argentine Army, Austria, Bahrain, Bangladesh, Brazil, Canada, Chile, China, Cyprus, Egypt, Greece, Indonesia, Iran, Italy, South Korea, Kuwait, Malaysia, Oman, Pakistan, Saudi Arabia, Spain, Taiwan, and the UK.
@@ -1379,7 +1463,7 @@ When attacking a bunker entrance, a tunnel entrance hex, or a shelter, the attac
 This appendix contains a number of example orders of battle and their correspondence in game units.
 
 \begin{itemize}
-    \item Table~\ref{table:ob-two-para}: 2 Para Battalion at the 1982 Battle of Goose Green. At this time, the battalion had attached half a battery of 105 mm Light Guns from Alma Battery of 29 Commando Regiment, RA, a section of Blowpipes from 43rd Air Defence Battery, RA, and a Recce Troop of 59 Independent Commando Squadron, RE.
+    \item Table~\ref{table:ob-two-para}: 2 Para Battalion at the 1982 Battle of Goose Green. At this time, the battalion had attached half a battery of 105~mm Light Guns from Alma Battery of 29 Commando Regiment, RA, a section of Blowpipes from 43rd Air Defence Battery, RA, and a Recce Troop of 59 Independent Commando Squadron, RE.
 
     \item Table~\ref{table:ob-twelth-infantry}: 12th Infantry Regiment at the 1982 Battle of Goose Green, with attachments from the 25th Infantry Regiment, 4th Airborne Artillery Regiment, 601st Anti-Aircraft Artillery Group.
 \end{itemize}
@@ -1467,7 +1551,7 @@ We see that we need the following additional ground units:
         &\binarymultiply{1}{towed artillery section}&Three 105-mm Pack Howitzer\\
 
         B Battery, 601 GADA
-        &\binarymultiply{1}{Oerlikon 35 mm GDF section}&Two guns\\
+        &\binarymultiply{1}{Oerlikon 35~mm GDF section}&Two guns\\
         &\binarymultiply{1}{towed FCR-D}&Skyguard\\
 
         9th Engineering Company
@@ -1476,7 +1560,7 @@ We see that we need the following additional ground units:
         \midrule
 
         3 Section B Battery 601AAAG
-        &\binarymultiply{1}{Rh-202 20 mm battery}&Six guns\\
+        &\binarymultiply{1}{Rh-202 20~mm battery}&Six guns\\
         &\binarymultiply{1}{EWR}&Elta\\
 
         Security Company
