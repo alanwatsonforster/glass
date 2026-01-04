@@ -405,12 +405,88 @@ An armored or infantry HQ platoon represents the HQ unit of a battalion or regim
 \clearpage
 \section{AAA Units}
 
-AAA units are specialized in the use of guns to destroy attacking aircraft. Figure~\ref{figure:aaa-units} shows the representation of AAA units as counters, and Table~\ref{table:aaa-units} summarizes their properties.
+AAA units are specialized in the use of guns to destroy attacking aircraft.
 
 \subsection{Properties}
 
 Table~\ref{table:aaa-units} summarizes the properties of AAA units\footnote{I've added most from Air Strike, EOG, and TSOH. I didn't add the Blazar, Gemag, or Nile 23 since they didn't make it to service, but instead substituted the similar LAV-AD and Sinai 23 which did.}, and Figure~\ref{figure:aaa-units} shows their representation as counters.
-As well as the properties common to all ground units, Table~\ref{table:aaa-units} gives:
+As well as the properties common to all ground units, Table~\ref{table:aaa-units} gives:%
+\footnote{
+    This note summarized how I have determined the AAA data values for AAA units. VP values are discussed separately.
+
+    The upper part of the following table shows the original data for gun batteries from \emph{Air Strike} (AS), \emph{Eagles of the Gulf} (EOTG), and \emph{The Speed of Heat} (TSOH). I have added columns with the caliber, burst firing rate per mount, and muzzle velocity.
+
+    \medskip
+    \begin{tabular}{lrlllllrrl}
+        \toprule
+        Type
+        &\multicolumn{1}{c}{\vertical{Maximum Altitude}}
+        &\multicolumn{1}{c}{\vertical{Ranges}}
+        &\multicolumn{1}{c}{\vertical{Hit Rolls}}
+        &\multicolumn{1}{c}{\vertical{Damage}}
+        &\multicolumn{1}{c}{\vertical{FCR}}
+        &\multicolumn{1}{c}{\vertical{Caliber (mm)}}
+        &\multicolumn{1}{c}{\vertical{Rate/mount (RPM)}}
+        &\multicolumn{1}{c}{\vertical{Velocity (m/s)}}
+        &\multicolumn{1}{c}{\vertical{Source}}
+        \\
+        \midrule
+        \multicolumn{10}{c}{Original}\\
+        \midrule
+        M2/DShK-38&5&2/3/4&3/2/1&1&---&12.7&500&890&AS\\
+        M55&5&2/3/4&5/4/3&2&---&12.7&2000&890&EOTG\\
+        ZPU-1&6&2/3/5&3/2/1&1&---&14.5&600&1000&TSOH\\
+        ZPU-2&6&2/3/5&4/3/2&1&---&14.5&1200&1000&AS\\
+        ZPU-4&6&2/3/5&5/4/3&2&---&14.5&2400&1000&AS\\
+        TCM-20&8&2/4/6&4/4/3&2&---&20&1450&860&EOTG\\
+        Rh-202&8&2/4/6&5/4/3&2&---&20&2060&1044&AS\\
+        M167&8&2/4/6&6/5/4&3&R&20&3000&1030&AS\\
+        ZU-23&9&2/5/8&4/3/2&2&---&23&2000&980&AS\\
+        Gemag&10&3/6/9&6/5/4&4&R&25&1800&1040&AS\\
+        Oerlikon GDF&12&4/8/10&5/4/3&4&---&35&1100&1175&AS\\
+        61-K (M-38)&12&4/8/11&3/2/1&4&---&37&165&880&AS\\
+        Bofors L/60&15&4/8/12&2/2/1&4&---&40&135&865&EOTG\\
+        Bofors L/70&15&4/8/12&3/3/2&4&---&40&330&1000&AS\\
+        S-60&18&5/10/15&2/2/1&5&---&57&110&1000&AS\\
+        KS-12&27&6/12/18&2/1/0&6&---&85&20&790&TSOH\\
+        KS-19&39&7/14/21&1/1/0&6&---&85&15&900&AS\\
+        \midrule
+        \multicolumn{10}{c}{Modified}\\
+        \midrule
+        ZU-23&&&5/4/3\\
+        Oerlikon GDF&&&4/3/2\\
+        61-K (M-38)&&&2/2/1\\
+        Bofors L/60&&&2/2/1\\
+        Bofors L/70&16&4/9/13&3/2/1\\
+        \bottomrule
+    \end{tabular}
+    \medskip
+
+    We can see that the basic trend is that altitude and range increase with caliber, hit rolls increase with firing rate, and damage rating increases with both caliber and rate of fire. This is more or less as expected, although we might also consider that the 10\% variation in muzzle velocity might have a small effect on the range and hit rolls (as the rounds fall less during flight and less lead needs to be pulled).
+
+    Most of the values can be used as they are, but there are a few anomalies in the hit rolls that need commenting upon or adjusting:
+    \begin{itemize}
+        \item The M167 and Gemag have hit rolls of 6/5/4 and the Rh-202 has 5/4/3. Otherwise, they are similar, except that the M167 and Gemag have FCR-R and the Rh-202 does not (and the M167 has a moderate advantage in rate of fire). I consider the FCR-R of the M167 and Gemag to be largely responsible for increasing their hit rolls by \plus{1} compared to the Rh-202.
+        \item The ZU-23 has unexpectedly low hit rolls of 4/3/2 for its rate of fire. The values of 5/4/3 for the Rh-202, which has a similar rate of fire, are probably more appropriate.
+        \item The Oerlikon GDF has unexpectedly high hit rolls of 5/4/3 for its rate of fire. The values of 4/3/2 for the ZPU-2, which has a similar rate of fire, are probably more appropriate. (This reduction also makes the Oerlikon GDF more consistent with Gepard.)
+        \item The hit rolls of 3/3/2 of the Bofors L/70 are unexpectedly low compared to those of 3/2/1 of the 61-K (M-38) and L/60. This case is complicated, because the obvious solution of giving the Bofors L/70 hit rolls of 4/3/2 would make it have the same values as the Oerlikon GDF, despite its much lower rate of fire. A better solution is probably to adjust the 61-K (M-38) and L/60 down to 2/2/1, which matches the S-60, and the L/70 to 3/2/1, and then increase the ranges of the L/70 from 4/8/12 to 4/9/13, giving it a slight advantage both at shorter and longer ranges compared to the L/60.
+        \item Again, the L/70 has the same maximum altitude as the L/60, despite its higher muzzle velocity. A value of 16 is probably more appropriate.
+    \end{itemize}
+
+    Comparing similar weapons in Air Strike, EOTG, and TSOH, batteries (with four to six mounts) typically have a \plus{1} advantage on their hit rolls compared to sections (with two mounts).
+    In a very few cases, the difference is 0 and in a very few others, it is \plus{2}.
+    The ranges and damage ratings tend to be the same.
+    I have adopted \plus{1} uniformly.
+
+    The basis for the values I will adopt for AAA units is:
+    \begin{itemize}
+        \item The values in the table above, with modifications.
+        \item An adjustment of \minus{1} to the hit rolls for sections.
+        \item An adjustment of \plus{1} to the hit rolls for FCR-R or similar.
+        \item An adjustment of \plus{2} to the hit rolls for FCR-W.
+    \end{itemize}
+
+}
 \begin{itemize}
     \item the AAA class (light, medium, or heavy);
     \item the maximum altitude;
@@ -423,13 +499,7 @@ As well as the properties common to all ground units, Table~\ref{table:aaa-units
 \end{itemize}
 If the unit has a SAM, this will be described in detail in the section on SAM launcher units.
 
-When comparing these properties, remember that towed batteries have six to eight gun mounts, and armored or mobile sections have only two gun mounts.%
-\footnote{
-    Comparing similar weapons in Air Strike, EOTG, and TSOH, batteries typically have a \plus{1} advantage on their hit rolls compared to sections.
-    In a very few cases the difference is 0 and in a very few others it is \plus{2}.
-    The ranges and damage ratings tend to be the same.
-    I have adopted \plus{1} uniformly.
-}
+When comparing these properties, remember that towed batteries have six to eight gun mounts, and armored or mobile sections have only two gun mounts.
 
 \subsection{FCRs}
 
