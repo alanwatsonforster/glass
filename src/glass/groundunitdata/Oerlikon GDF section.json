@@ -1,0 +1,27 @@
+{
+    "name": "Oerlikon GDF",
+    "year": 1963,
+    "description": "Oerlikon GDF twin 35 mm air-defense section",
+    "symbols": "air-defense/gun/section",
+    "text": "35×2",
+    "defensestrength": "3S",
+    "sightingrange": 12,
+    "mobility": "T",
+    "aaa": {
+        "type": "35×2",
+        "class": "M",
+        "range": [
+            4,
+            8,
+            10
+        ],
+        "hitroll": [
+            3,
+            2,
+            1
+        ],
+        "maximumrelativealtitude": 12,
+        "damagerating": 4
+    },
+    "VP3D": 7
+}
