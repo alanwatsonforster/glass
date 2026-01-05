@@ -1,0 +1,20 @@
+{
+    "name": "Ayn-al-Saqr squad",
+    "othername": "",
+    "year": "1984",
+    "description": "Ayn-al-Saqr squad",
+    "symbols": "air-defense/missile/infantry/squad",
+    "text": "Ayn-al-Saqr",
+    "defensestrength": "5S",
+    "sightingrange": 6,
+    "mobility": "U",
+    "VP1D": 4,
+    "sam": {
+        "type": "Ayn-al-Saqr",
+        "readymissiles": 1,
+        "volleymissiles": 1,
+        "quickreaction": true,
+        "opticallockon": 7,
+        "lockonrange": 12
+    }
+}
