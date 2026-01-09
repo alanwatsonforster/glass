@@ -27,19 +27,23 @@ def aim(self, target, *args, **kwargs):
         if self.bombsystem() == "manual":
             requirement = max(1, rounddown(twothirdsfromtable(self.speed())))
         elif self.bombsystem() == "ballistic":
-            requirement = max(1, roundup(self.speed() / 2))
+            requirement = max(1, rounddown(self.speed() / 2))
         else:
-            requirement = max(1, roundup(onethirdfromtable(self.speed())))
+            requirement = max(1, rounddown(onethirdfromtable(self.speed())))
         self.logcomment(
             "aiming requirement is %d %s."
             % (requirement, glass.log.plural(requirement, "FP", "FPs"))
         )
-        modifierrequirement = max(1, onethirdfromtable(self.speed())) + requirement
+        modifierrequirement = (
+            max(1, rounddown(onethirdfromtable(self.speed()))) + requirement
+        )
         self.logcomment(
             "aiming modifier requirement is %d %s in total for -1 modifier."
             % (modifierrequirement, glass.log.plural(modifierrequirement, "FP", "FPs"))
         )
-        modifierrequirement = max(1, twothirdsfromtable(self.speed())) + requirement
+        modifierrequirement = (
+            max(1, rounddown(twothirdsfromtable(self.speed()))) + requirement
+        )
         self.logcomment(
             "aiming modifier requirement is %d %s in total for -2 modifier."
             % (
