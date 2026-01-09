@@ -303,7 +303,9 @@ def _attack(attacker, attacktype, target, result, allowRK=True, allowtracking=Tr
                 attacker.logcomment(
                     "gunnery arc is %s." % glass.capabilities.gunarc(attacker)
                 )
-            r = gunattackrange(attacker, target, arc=glass.capabilities.gunarc(attacker))
+            r = gunattackrange(
+                attacker, target, arc=glass.capabilities.gunarc(attacker)
+            )
         else:
             r = rocketattackrange(attacker, target)
         if isinstance(r, str):
@@ -359,7 +361,8 @@ def _attack(attacker, attacktype, target, result, allowRK=True, allowtracking=Tr
                 else:
                     verticalmodifier = +0
             elif (
-                glass.variants.withvariant("use house rules") and attacker.isinlevelflight()
+                glass.variants.withvariant("use house rules")
+                and attacker.isinlevelflight()
             ):
                 if target.isinclimbingflight():
                     verticalmodifier = +1
@@ -371,7 +374,10 @@ def _attack(attacker, attacktype, target, result, allowRK=True, allowtracking=Tr
     if allowtracking:
         attacker.logcomment(
             "tracking for %d %s."
-            % (attacker._trackingfp, glass.log.plural(attacker._trackingfp, "FP", "FPs"))
+            % (
+                attacker._trackingfp,
+                glass.log.plural(attacker._trackingfp, "FP", "FPs"),
+            )
         )
         if attacker._trackingfp >= 2 * glass.rounding.rounddown(
             glass.rounding.onethirdfromtable(attacker.speed())
@@ -505,7 +511,8 @@ def _attack(attacker, attacktype, target, result, allowRK=True, allowtracking=Tr
                 )
             )
             attacker.logcomment(
-                "target vulnerability is %+d." % glass.capabilities.vulnerability(target)
+                "target vulnerability is %+d."
+                % glass.capabilities.vulnerability(target)
             )
 
     target._takeattackdamage(attacker, result)
@@ -564,9 +571,9 @@ def trackingforbidden(attacker, target):
         return "%s is more than 6 hexes from %s." % (target.name(), attacker.name())
     if not glass.geometry.inarc(target, attacker, "60-"):
         return "%s is not in its 60- arc of %s." % (attacker.name(), target.name())
-    if glass.geometry.horizontalrange(attacker, target) > 0 and not glass.geometry.inarc(
-        attacker, target, "limited"
-    ):
+    if glass.geometry.horizontalrange(
+        attacker, target
+    ) > 0 and not glass.geometry.inarc(attacker, target, "limited"):
         return "%s is not in the limited arc of %s." % (target.name(), attacker.name())
     if glass.variants.withvariant("require limited radar arc for tracking"):
         if glass.geometry.horizontalrange(

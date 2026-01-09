@@ -16,11 +16,13 @@ def _initaim(self):
 
 
 def aim(self, target, *args, **kwargs):
-    try:        
+    try:
         if not target.isgroundunit():
             raise RuntimeError("invalid target for aiming.")
         if glass.flight.aimingforbidden(self):
-            raise RuntimeError("aiming is forbidden %s." % glass.flight.aimingforbidden(self))
+            raise RuntimeError(
+                "aiming is forbidden %s." % glass.flight.aimingforbidden(self)
+            )
         self.logwhenwhat("", "starts aiming at %s." % target.name())
         if self.bombsystem() == "manual":
             requirement = max(1, rounddown(twothirdsfromtable(self.speed())))
@@ -40,7 +42,10 @@ def aim(self, target, *args, **kwargs):
         modifierrequirement = max(1, twothirdsfromtable(self.speed())) + requirement
         self.logcomment(
             "aiming modifier requirement is %d %s in total for -2 modifier."
-            % (modifierrequirement, glass.log.plural(requirement + modifierrequirement, "FP", "FPs"))
+            % (
+                modifierrequirement,
+                glass.log.plural(requirement + modifierrequirement, "FP", "FPs"),
+            )
         )
         self._aimingtarget = target
     except RuntimeError as e:

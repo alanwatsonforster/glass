@@ -58,7 +58,7 @@ def checkisvalidaltitude(value):
 
     :raises RuntimeError: If the given value is not a valid altitude. in
         the sense of :func:`isvalidaltitude`.
-    
+
     """
 
     if not isvalidaltitude(value):
