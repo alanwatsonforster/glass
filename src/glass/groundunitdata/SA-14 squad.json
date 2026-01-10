@@ -13,7 +13,7 @@
         "type": "SA-14",
         "readymissiles": 1,
         "volleymissiles": 1,
-        "iff": true,
+        "iff": false,
         "quickreaction": true,
         "opticallockon": 7,
         "lockonrange": 12

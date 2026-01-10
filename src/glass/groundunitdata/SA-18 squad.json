@@ -15,7 +15,7 @@
         "volleymissiles": 1,
         "iff": true,
         "quickreaction": true,
-        "opticallockon": 7,
+        "opticallockon": 8,
         "lockonrange": 16
     }
 }

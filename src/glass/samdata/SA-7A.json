@@ -1,20 +1,35 @@
 {
     "name": "SA-7A",
     "othername": "9M32 Strela-2 (Grail)",
-    "year": "1966",
-    "I": {
+    "year": "1968",
+    "E": {
         "launchroll": 7,
-        "turnrate": "HT",
+        "turnrate": "BT",
         "flighttime": 1,
         "visibility": 6,
         "flarerating": 5,
-        "basespeed": 8,
+        "basespeed": 10,
         "sustainer": 0,
         "minimumaltitude": "T",
         "directhitroll": 5,
         "proximityhitroll": 6,
         "directdamagerating": 4,
-        "proximitydamagerating": 3,
+        "proximitydamagerating": 2,
+        "instantarming": true
+    },
+    "I": {
+        "launchroll": 7,
+        "turnrate": "BT",
+        "flighttime": 1,
+        "visibility": 6,
+        "flarerating": 5,
+        "basespeed": 10,
+        "sustainer": 0,
+        "minimumaltitude": "T",
+        "directhitroll": 5,
+        "proximityhitroll": 6,
+        "directdamagerating": 4,
+        "proximitydamagerating": 2,
         "instantarming": true
     }
 }

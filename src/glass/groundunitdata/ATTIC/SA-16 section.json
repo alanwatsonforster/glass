@@ -16,7 +16,7 @@
         "multitargetcapability": 2,
         "iff": true,
         "quickreaction": true,
-        "opticallockon": 7,
+        "opticallockon": 8,
         "lockonrange": 14
     }
 }

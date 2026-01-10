@@ -4,17 +4,18 @@
     "year": "1981",
     "A": {
         "launchroll": 8,
-        "turnrate": "ET",
+        "turnrate": "BT/2",
         "flighttime": 1,
         "visibility": 6,
-        "flarerating": 3,
-        "basespeed": 14,
+        "flarerating": 4,
+        "basespeed": 12,
         "sustainer": 0,
         "minimumaltitude": "T",
         "directhitroll": 6,
-        "proximityhitroll": 8,
-        "directdamagerating": 5,
+        "proximityhitroll": 7,
+        "directdamagerating": 4,
         "proximitydamagerating": 2,
-        "instantarming": true
+        "instantarming": true,
+        "fuelincreasesdamagerating": true
     }
 }

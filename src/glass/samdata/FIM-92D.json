@@ -12,9 +12,9 @@
         "sustainer": 0,
         "minimumaltitude": "T",
         "directhitroll": 7,
-        "proximityhitroll": 9,
+        "proximityhitroll": 8,
         "directdamagerating": 5,
-        "proximitydamagerating": 2,
+        "proximitydamagerating": 3,
         "instantarming": true
     }
 }
