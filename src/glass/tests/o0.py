@@ -126,8 +126,8 @@ asserterror('invalid ground unit symbol "foo".')
 setupgroundunit(1, "A1-2110", "infantry")
 asserterror("the name argument must be a string.")
 
-setupgroundunit("A", "A1-2110", "infantry")
-setupgroundunit("A", "A1-2110", "infantry")
+setupgroundunit("A", "A1-2110", "infantry platoon")
+setupgroundunit("A", "A1-2110", "infantry platoon")
 asserterror("the name argument must be unique.")
 
 # Check types

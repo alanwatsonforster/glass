@@ -4,7 +4,7 @@ startfile(__file__, "attacks on ground unit")
 
 starttestsetup()
 
-G0 = setupgroundunit("G0", "A1-2120", "infantry")
+G0 = setupgroundunit("G0", "A1-2120", "infantry platoon")
 
 
 A0 = setupaircraft("A0", "USAF", "F-100A", "A1-2212", "S", 1, 6)
