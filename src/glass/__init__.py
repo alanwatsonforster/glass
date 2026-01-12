@@ -330,28 +330,46 @@ def drawmap(
         if draw180line is True:
             draw180line = glass.aircraft.aslist() + glass.missile.aslist()
 
-        for A in drawlimitedarc:
-            glass.draw.drawarc(A.x(), A.y(), A.facing(), "limited")
-        for A in draw0line:
-            glass.draw.drawarc(A.x(), A.y(), A.facing(), "0")
-        for A in draw30arc:
-            glass.draw.drawarc(A.x(), A.y(), A.facing(), "30-")
-        for A in draw60arc:
-            glass.draw.drawarc(A.x(), A.y(), A.facing(), "60-")
-        for A in draw90arc:
-            glass.draw.drawarc(A.x(), A.y(), A.facing(), "90-")
-        for A in draw120arc:
-            glass.draw.drawarc(A.x(), A.y(), A.facing(), "120+")
-        for A in draw150arc:
-            glass.draw.drawarc(A.x(), A.y(), A.facing(), "150+")
-        for A in draw180arc:
-            glass.draw.drawarc(A.x(), A.y(), A.facing(), "180+")
-        for A in drawL180arc:
-            glass.draw.drawarc(A.x(), A.y(), A.facing(), "L180+")
-        for A in drawR180arc:
-            glass.draw.drawarc(A.x(), A.y(), A.facing(), "R180+")
-        for A in draw180line:
-            glass.draw.drawarc(A.x(), A.y(), A.facing(), "180")
+        def checkelementhasfacing(E):
+            if E.facing() is None:
+                raise RuntimeError(
+                    "unable to draw arc for element %s as it does not have a facing."
+                    % E.name()
+                )
+
+        for E in drawlimitedarc:
+            checkelementhasfacing(E)
+            glass.draw.drawarc(E.x(), E.y(), E.facing(), "limited")
+        for E in draw0line:
+            checkelementhasfacing(E)
+            glass.draw.drawarc(E.x(), E.y(), E.facing(), "0")
+        for E in draw30arc:
+            checkelementhasfacing(E)
+            glass.draw.drawarc(E.x(), E.y(), E.facing(), "30-")
+        for E in draw60arc:
+            checkelementhasfacing(E)
+            glass.draw.drawarc(E.x(), E.y(), E.facing(), "60-")
+        for E in draw90arc:
+            checkelementhasfacing(E)
+            glass.draw.drawarc(E.x(), E.y(), E.facing(), "90-")
+        for E in draw120arc:
+            checkelementhasfacing(E)
+            glass.draw.drawarc(E.x(), E.y(), E.facing(), "120+")
+        for E in draw150arc:
+            checkelementhasfacing(E)
+            glass.draw.drawarc(E.x(), E.y(), E.facing(), "150+")
+        for E in draw180arc:
+            checkelementhasfacing(E)
+            glass.draw.drawarc(E.x(), E.y(), E.facing(), "180+")
+        for E in drawL180arc:
+            checkelementhasfacing(E)
+            glass.draw.drawarc(E.x(), E.y(), E.facing(), "L180+")
+        for E in drawR180arc:
+            checkelementhasfacing(E)
+            glass.draw.drawarc(E.x(), E.y(), E.facing(), "R180+")
+        for E in draw180line:
+            checkelementhasfacing(E)
+            glass.draw.drawarc(E.x(), E.y(), E.facing(), "180")
 
         glass.element._drawmap(allsighted, allidentified)
 
