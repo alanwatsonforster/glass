@@ -14,7 +14,6 @@ class Marker(glass.element.Element):
         self,
         type,
         hexcode,
-        azimuth=0,
         speed=0,
         altitude=0,
         name=None,
@@ -41,7 +40,6 @@ class Marker(glass.element.Element):
             super().__init__(
                 name,
                 hexcode=hexcode,
-                azimuth=azimuth,
                 altitude=altitude,
                 speed=speed,
                 color=color,
