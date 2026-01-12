@@ -245,8 +245,8 @@
             \multicolumn{4}{c}{\parbox[c][8em]{4\cellwidth}{}}\\
             \hline
             \spaceabove
-            \ifversionone Cruise Speed:\fi&\ifversionone\Bb\fi&Restr.\ Arcs:&\Bg\\
-            Climb Speed:&\Bc&Blind Arcs:&\Bh\\
+            Cruise \ifversionone Speed\else Spd.\@ CL\fi:&\Bb&Restr.\ Arcs:&\Bg\\
+            Climb \ifversionone Speed\else Spd.\@\fi:&\Bc&Blind Arcs:&\Bh\\
             Visibility:&\Bd&Internal Fuel:&\Bi\\
             Size:&\Be&AtA Refuel:&\Bj\\
             \spacebelow
@@ -317,13 +317,8 @@
     \begin{tabularx}{\blockDcells\cellwidth}{lc|C|C|C|c}
         \multicolumn{6}{c}{\bfseries Speeds and Ceilings\spaceabove\spacebelow}\\
         \hline
-        \ifversionone
         \multicolumn{1}{c}{\spaceabove Alt.}&Conf.&\multicolumn{1}{c|}{CL}&\multicolumn{1}{c|}{1/2}&\multicolumn{1}{c|}{DT}&Dive\\
         \spacebelow Band&Ceil.&\multicolumn{1}{c|}{\Daa}&\multicolumn{1}{c|}{\Dab}&\multicolumn{1}{c|}{\Dac}&Speed\\
-        \else
-        \multicolumn{1}{c}{\spaceabove }&&\multicolumn{1}{c|}{CL}&\multicolumn{1}{c|}{1/2}&\multicolumn{1}{c|}{DT}&\\
-        \multicolumn{1}{c}{\spacebelow Ceil.\@}&Cruise&\multicolumn{1}{c|}{\Daa}&\multicolumn{1}{c|}{\Dab}&\multicolumn{1}{c|}{\Dac}&Dive\\
-        \fi
         \hline
         \spaceabove~EH+&\wbox[l]{00--00}{46+}&\Dca&\Dcb&\Dcc&\Dcd\\
         ~VH&\phantom{}36--45\phantom{}&\Dda&\Ddb&\Ddc&\Ddd\\
@@ -337,17 +332,11 @@
 
 \newcommand{\blockDminmaxspeed}[3]{\wbox[r]{#3}{#1} -- \wbox[r]{#3}{#2}}
 \newcommand{\blockDdivespeed}[1]{\wbox{\Dbd}{#1}}
-\newcommand{\blockDceilingandcruisespeed}[2]{%
-    \ifversionone
-    #1
-    \else
-    \wbox[r]{\Dba}{#1}\phantom{ -- }\wbox[r]{\Dba}{#2}
-    \fi
-}
+\newcommand{\blockDceiling}[2]{#1}
 
-\newcommand{\Daa}{\blockDceilingandcruisespeed{62}{6.0}} % Ceiling and cruise speed CL
-\newcommand{\Dab}{\blockDceilingandcruisespeed{52}{5.5}} % Ceiling and cruise speed 1/2
-\newcommand{\Dac}{\blockDceilingandcruisespeed{40}{4.5}} % Ceiling and cruise speed DT
+\newcommand{\Daa}{\blockDceiling{62}} % Ceiling CL
+\newcommand{\Dab}{\blockDceiling{52}} % Ceiling 1/2
+\newcommand{\Dac}{\blockDceiling{40}} % Ceiling DT
 \newcommand{\Dba}{00.0} % Max speed width template
 \newcommand{\Dbb}{00.0} % Dive speed width template
 \newcommand{\Dbc}{00.0} % Dive speed width template

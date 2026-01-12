@@ -489,14 +489,11 @@ def blockD(data, geometry=None):
     writelatex(r"\renewcommand{\Dbd}{%.1f}" % maxspeed)
 
     writelatex(
-        r"\renewcommand{\Daa}{\blockDceilingandcruisespeed{%d}{%.1f}}\renewcommand{\Dab}{\blockDceilingandcruisespeed{%d}{%.1f}}\renewcommand{\Dac}{\blockDceilingandcruisespeed{%d}{%.1f}}"
+        r"\renewcommand{\Daa}{\blockDceiling{%d}}\renewcommand{\Dab}{\blockDceiling{%d}}\renewcommand{\Dac}{\blockDceiling{%d}}"
         % (
             data.ceiling("CL"),
-            data.cruisespeed("CL"),
             data.ceiling("1/2"),
-            data.cruisespeed("1/2"),
             data.ceiling("DT"),
-            data.cruisespeed("DT"),
         )
     )
     writelatex(
