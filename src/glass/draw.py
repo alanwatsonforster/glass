@@ -304,7 +304,29 @@ def drawcircle(x, y, size=1, **kwargs):
     :param size: The ``size`` argument gives the diameter in physical coordinates.
     :return: ``None``
     """
-    _drawcircleincanvas(*_tocanvasxy(x, y), **kwargs)
+    _drawcircleincanvas(*_tocanvasxy(x, y), size=size, **kwargs)
+    return
+
+
+def drawsquare(x, y, size=1, **kwargs):
+    """
+    Draw a square.
+
+    :param x:
+    :param y:
+        The ``x`` and ``y`` arguments give the center of the square in hex
+        coordinates.
+    :param size: The ``size`` argument gives the side in physical coordinates.
+    :return: ``None``
+    """
+    canvasx, canvasy = _tocanvasxy(x, y)
+    _drawrectangleincanvas(
+        canvasx - size / 2,
+        canvasy - size / 2,
+        canvasx + size / 2,
+        canvasy + size / 2,
+        **kwargs,
+    )
     return
 
 
@@ -327,7 +349,7 @@ def drawhexlabel(x, y, label, dy=0.35, size="small", textcolor="lightgrey", **kw
         defaults to "lightgrey"
     :return: ``None``
     """
-    drawlowersymboltext(
+    drawtext(
         x, y, label, facing=90, dx=0, dy=dy, size=size, textcolor=textcolor, **kwargs
     )
     return
@@ -352,7 +374,7 @@ def drawsheetlabel(x, y, label, dy=-0.05, size="HUGE", textcolor="lightgrey", **
         defaults to "lightgrey"
     :return: ``None``
     """
-    drawlowersymboltext(
+    drawtext(
         x, y, label, facing=90, dx=0, dy=dy, size=size, textcolor=textcolor, **kwargs
     )
     return
@@ -459,9 +481,9 @@ def drawdart(x, y, size, facing, dx=0, dy=0, **kwargs):
     )
 
 
-def drawlowersymboltext(x, y, text, facing, dx=0, dy=0, **kwargs):
+def drawtext(x, y, text, facing, dx=0, dy=0, **kwargs):
     """
-    Draw a text.
+    Draw text.
 
     :param x:
     :param y:
@@ -795,7 +817,7 @@ def _drawtextincanvas(
     **kwargs,
 ):
     """
-    The counterpart of :func:`drawtextincanvas` in canvas coordinates.
+    The counterpart of :func:`drawtext` in canvas coordinates.
     """
     x = x + dx * _sind(facing) + dy * _cosd(facing)
     y = y - dx * _cosd(facing) + dy * _sind(facing)
@@ -1150,7 +1172,7 @@ def _drawannotation(
         textdx = +textdx
     else:
         raise RuntimeError("invalid text position %r" % textposition)
-    drawlowersymboltext(
+    drawtext(
         x,
         y,
         text,
@@ -2431,22 +2453,22 @@ def _drawgroundunitincanvas(
             )
 
         def drawheavysymbol():
-            drawlowersymboltext("H")
+            drawtext("H")
 
         def drawmediumsymbol():
-            drawlowersymboltext("M")
+            drawtext("M")
 
         def drawlightsymbol():
-            drawlowersymboltext("L")
+            drawtext("L")
 
         def drawopensymbol():
-            drawlowersymboltext("O")
+            drawtext("O")
 
         def drawfacsymbol():
-            drawlowersymboltext("FAC")
+            drawtext("FAC")
 
         def drawweaponssymbol():
-            drawlowersymboltext("WPN")
+            drawtext("WPN")
 
         def drawsupplysymbol():
             if False:
@@ -3235,7 +3257,7 @@ def _drawgroundunitincanvas(
         elif "company" in symbols or "battery" in symbols:
             drawcompany()
 
-    def drawlowersymboltext(text):
+    def drawtext(text):
         _drawtextincanvas(
             x,
             y,
@@ -3366,7 +3388,7 @@ def _drawgroundunitincanvas(
         drawsymbols(symbols)
         if text is not None:
             if "air-defense" not in symbols:
-                drawlowersymboltext(text)
+                drawtext(text)
             elif counter:
                 drawtoptext(text)
         if counter:
@@ -3387,7 +3409,7 @@ def _drawgroundunitincanvas(
         if counter:
             drawbottomtext("%d" % sightingrange)
         else:
-            drawlowersymboltext("%d" % sightingrange)
+            drawtext("%d" % sightingrange)
 
     if "hex" not in symbols:
 
