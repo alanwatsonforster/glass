@@ -522,6 +522,9 @@ def _release(self, released):
         releasedlist = released
     releasedlist = list(str(releaseditem) for releaseditem in releasedlist)
 
+    if self._stores is None:
+        raise RuntimeError("%s has no stores." % self.name())
+
     stores = self._stores.copy()
 
     for releaseditem in releasedlist:
@@ -532,6 +535,10 @@ def _release(self, released):
                 raise RuntimeError("load station %s is not loaded." % loadstationname)
             loadstationlist = [loadstationname]
         else:
+            self.logwhenwhat(
+                "",
+                "releases all %s." % releaseditem,
+            )
             loadstationlist = list(
                 filter(
                     lambda loadstationname: stores[loadstationname].startswith(
