@@ -456,6 +456,20 @@ class Aircraft(glass.element.Element):
             glass.log.logexception(e)
         self.logbreak()
 
+    def attempttosightincidentally(self, other, success=None, note=None):
+        """
+        Attempt to sight another aircraft incidentally.
+        """
+
+        try:
+            glass.gameturn.checkingameturn()
+            glass.visualsighting.attempttosight(
+                self, other, success=success, note=note, incidentally=True
+            )
+        except RuntimeError as e:
+            glass.log.logexception(e)
+        self.logbreak()
+
     #############################################################################
 
     def setsighted(self):

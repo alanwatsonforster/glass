@@ -104,18 +104,35 @@ def padlock(A, B, note=None):
 ################################################################################
 
 
-def attempttosight(A, B, success=None, note=None):
+def attempttosight(A, B, success=None, note=None, incidentally=False):
     """
-    Carry out an attempt to sight on aircraft B by aircraft A.
+    Carry out an attempt to sight on searching aircraft B by target aircraft A.
+
+    :param A: The searching aircraft.
+    :param B: The target aircraft.
+    :param success: If ``True``, B is marked as sighted
+        and identified based on identification criteria. If ``False``, B remains unsighted.
+        Defaults to ``None``.
+    :param note: Additional note to be logged with the sighting attempt.
+        Defaults to ``None``.
+    :param incidentally: Whether the sighting is incidental. Affects
+        visual sighting condition evaluation. Defaults to ``False``.
+
+    :return: ``None``
     """
 
     A.logbreak()
 
-    A.logwhat("attempts to sight %s." % B.name())
+    if incidentally:
+        A.logwhat("attempts to sight %s incidentally." % B.name())
+    else:
+        A.logwhat("attempts to sight %s." % B.name())
     A.logcomment("range is %d." % visualsightingrange(A, B))
     A.logcomment("%s." % visualsightingcondition(A, B)[0])
 
-    condition, cansight, canpadlock, restricted = visualsightingcondition(A, B)
+    condition, cansight, canpadlock, restricted = visualsightingcondition(
+        A, B, incidentally=incidentally
+    )
     if not cansight:
         raise RuntimeError("%s cannot sight %s." % (A.name(), B.name()))
 
@@ -440,7 +457,7 @@ def visualsightingallrestrictedmodifier(allrestricted):
 ################################################################################
 
 
-def visualsightingcondition(A, B):
+def visualsightingcondition(A, B, incidentally=False):
     """
     Return a tuple describing the visual sighting condition for a visual
     sighting attempt from searcher A on the target B: a descriptive string,
@@ -454,8 +471,10 @@ def visualsightingcondition(A, B):
     blindarc = _blindarc(A, B)
     restrictedarc = _restrictedarc(A, B)
 
-    if A._sightinggroundunits:
+    if A._sightinggroundunits and not incidentally:
         return "sighting ground units", False, False, False
+    elif incidentally and A.altitude() < B.altitude():
+        return "lower", False, False, False
     elif visualsightingrange(A, B) > maxvisualsightingrange(B):
         return "beyond visual range", False, False, False
     elif glass.geometry.samehorizontalposition(A, B) and A.altitude() > B.altitude():
