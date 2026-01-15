@@ -981,8 +981,13 @@ def drawarc(x, y, facing, arc):
     :param arc:
         The ``arc`` argument is a string and specifies the arc. It must be one
         of: ``"0"`` (0 line), ``"180"`` (180 line), ``"limited"``, ``"180+"``,
-        ``"L180+"`` (left 180+ arc), ``"R180+"`` (right 180+ arc), ``"150+"``,
-        ``"120+"``, ``"90-"``, ``"60-"``, or ``"30-"``.
+        ``"180-"``, ``"180L"`` (left 180 arc), ``"180R"`` (right 180 arc),
+        ``"150+"``, ``"150-"``, ``"150L"`` (left 150 line), ``"150R"`` (right
+        150 line), ``"120+"``, ``"120-"``, ``"120L"`` (left 120 line),
+        ``"120R"`` (right 120 line), ``"90+"``, ``"90-"``, ``"90L"`` (left 90
+        line), ``"90R"`` (right 90 line), ``"60+"``, ``"60-"``, ``"60L"`` (left
+        60 line), ``"60R"`` (right 60 line), ``"30+"``, ``"30-"``, ``"30L"``
+        (left 30 line), ``"30R"`` (right 30 line),
     :return:
         ``None``
     """
@@ -1000,54 +1005,57 @@ def drawarc(x, y, facing, arc):
     x, y = _tocanvasxy(x, y)
     facing = _tocanvasfacing(facing)
 
-    if arc == "0":
+    lineangles = {
+        "150L": -150,
+        "120L": -120,
+        "90L": -90,
+        "60L": -60,
+        "30L": -30,
+        "0": 0,
+        "30R": +30,
+        "60R": +60,
+        "90R": +90,
+        "120R": +120,
+        "150R": +150,
+        "180": +180,
+    }
 
-        drawdxdy([[0, 0], [-100, 0]])
+    def drawlines(*args):
+        for line in args:
+            angle = 180 + lineangles[line]
+            drawdxdy([[0, 0], [100 * _cosd(angle), 100 * _sind(angle)]])
 
-    elif arc == "180":
-
-        drawdxdy([[0, 0], [+100, 0]])
-
+    if arc in lineangles:
+        drawlines(arc)
+    elif arc == "180L":
+        drawlines("150L", "180")
+    elif arc == "180R":
+        drawlines("180", "150R")
+    elif arc == "180+" or arc == "150-":
+        drawlines("150L", "150R")
+    elif arc == "150+" or arc == "120-":
+        drawlines("120L", "120R")
+    elif arc == "120+" or arc == "90-":
+        drawlines("90L", "90R")
+    elif arc == "90+" or arc == "60-":
+        drawlines("60L", "60R")
+    elif arc == "60+" or arc == "30-":
+        drawlines("30L", "30R")
+    elif arc == "limited":
+        dxdy = [
+            [0.333, +0.0],
+            [1.5, +0.625],
+            [5.0, +0.625],
+            [6.0, +1.125],
+            [10.0, +1.125],
+            [11.0, +1.625],
+            [100.0, +1.625],
+        ]
+        dxdy = [glass.hex.tophysicalxy(dxdy[0], dxdy[1]) for dxdy in dxdy]
+        drawdxdy([[dxdy[0], +dxdy[1]] for dxdy in dxdy])
+        drawdxdy([[dxdy[0], -dxdy[1]] for dxdy in dxdy])
     else:
-
-        if arc == "limited":
-
-            dxdy = [
-                [0.333, +0.0],
-                [1.5, +0.625],
-                [5.0, +0.625],
-                [6.0, +1.125],
-                [10.0, +1.125],
-                [11.0, +1.625],
-                [100.0, +1.625],
-            ]
-            dxdy = [glass.hex.tophysicalxy(dxdy[0], dxdy[1]) for dxdy in dxdy]
-
-        else:
-
-            if arc == "180+" or arc == "L180+":
-                halfangle = 30
-            elif arc == "R180+":
-                halfangle = -30
-            elif arc == "150+":
-                halfangle = 60
-            elif arc == "120+" or arc == "90-":
-                halfangle = 90
-            elif arc == "60-":
-                halfangle = 120
-            elif arc == "30-":
-                halfangle = 150
-            else:
-                raise RuntimeError("invalid arc %s." % arc)
-
-            dxdy = [[0, 0], [100 * _cosd(halfangle), 100 * _sind(halfangle)]]
-
-        drawdxdy(dxdy)
-
-        if arc[0] == "L" or arc[0] == "R":
-            drawdxdy([[0, 0], [+100, 0]])
-        else:
-            drawdxdy([[dxdy[0], -dxdy[1]] for dxdy in dxdy])
+        raise RuntimeError("invalid arc %s." % arc)
 
 
 ################################################################################
