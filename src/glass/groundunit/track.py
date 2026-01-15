@@ -29,6 +29,9 @@ def _track(self, target):
 
     self.logwhenwhat("", "starts tracking %s." % target.name())
 
+    if self.istransported():
+        raise RuntimeError("%s is being transported." % self.name())
+
     maximumtrackingrange = self._maximumtrackingrange()
     if maximumtrackingrange is None:
         raise RuntimeError("%s cannot track." % self.name())

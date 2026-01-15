@@ -26,6 +26,7 @@ def _damage(self):
             return "S"
         else:
             return ""
+
     def damage():
         if self._damagelevel == 0:
             return ""
@@ -35,6 +36,7 @@ def _damage(self):
             return "2D"
         else:
             return "K"
+
     if damage() == "K":
         return "K"
     elif damage() == "":
@@ -43,6 +45,7 @@ def _damage(self):
         return damage() + "+" + suppression()
     else:
         return damage()
+
 
 ################################################################################
 
@@ -86,6 +89,7 @@ def _takedamage(self, damage):
         self._damagelevel += 3
     else:
         raise RuntimeError("invalid damage %r" % damage)
+    return self.transporting()
 
 
 def _takedamageconsequences(self):

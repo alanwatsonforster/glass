@@ -77,6 +77,8 @@ def _attackaircraft(self, target, result=None, note=None):
 
     elif self._aaarange is not None:
 
+        if self.istransported():
+            raise RuntimeError("%s is being transported." % self.name())
         self.logwhenwhat("", "attacks %s with aimed fire." % target.name())
         if self._outofammunition:
             raise RuntimeError("%s is out of ammunition." % self.name())
@@ -132,6 +134,8 @@ def usebarragefire(self, note=None):
         self._checknotsuppressed()
         if self._aaaclass not in ["B", "L", "M"]:
             raise RuntimeError("%s is not capable of barrage fire." % self.name())
+        if self.istransported():
+            raise RuntimeError("%s is being transported." % self.name())
         if self._outofammunition:
             raise RuntimeError("%s is out of ammunition." % self.name())
         if self._aaaclass in ["L", "M"]:
@@ -171,6 +175,8 @@ def useplottedfire(self, hexcode, altitude, note=None):
         self._checknotsuppressed()
         if self._aaaclass not in ["M", "H"]:
             raise RuntimeError("%s is not capable of plotted fire." % self.name())
+        if self.istransported():
+            raise RuntimeError("%s is being transported." % self.name())
         if self._outofammunition:
             raise RuntimeError("%s is out of ammunition." % self.name())
         self._plottedfire = glass.plottedfire.PlottedFire(hexcode, altitude)

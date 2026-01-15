@@ -59,7 +59,7 @@ def takedamage(self, damage, note=None):
         previousdamage = self.damage()
         if previousdamage == "":
             previousdamage = "none"
-        self._takedamage(damage)
+        transportedelement = self._takedamage(damage)
         if previousdamage == self.damage():
             self.logwhenwhat("", "damage is unchanged at %s." % previousdamage)
         else:
@@ -72,6 +72,9 @@ def takedamage(self, damage, note=None):
                 self.logwhenwhat("", "is killed.")
             else:
                 self._takedamageconsequences()
+        if transportedelement is not None:
+            self.logwhenwhat("", "is transporting %s." % transportedelement.name())
+            transportedelement.takedamage(damage)
         self.lognote(note)
     except RuntimeError as e:
         glass.log.logexception(e)
@@ -113,7 +116,7 @@ def _takeattackdamage(self, attacker, result):
         previousdamage = self.damage()
         if previousdamage == "":
             previousdamage = "none"
-        self._takedamage(result)
+        transportedelement = self._takedamage(result)
         if previousdamage == self.damage():
             self.logwhenwhat("", "damage is unchanged at %s." % previousdamage)
         else:
@@ -125,6 +128,9 @@ def _takeattackdamage(self, attacker, result):
                 self._kill()
                 self.logwhenwhat("", "is killed.")
             self._takedamageconsequences()
+        if transportedelement is not None:
+            self.logwhenwhat("", "is transporting %s." % transportedelement.name())
+            transportedelement._takeattackdamage(attacker, result)
 
 
 ################################################################################

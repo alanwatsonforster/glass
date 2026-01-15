@@ -7,6 +7,14 @@ import glass.draw
 
 def _draw(self, allsighted=False, allidentified=False, **kwargs):
 
+    if self.istransported():
+        return
+
+    if self.identified() and self.istowing():
+        name = self.name() + "+" + self.transporting().name()
+    else:
+        name = self.name()
+
     glass.draw.drawgroundunit(
         *self.xy(),
         self._facing,
@@ -17,7 +25,7 @@ def _draw(self, allsighted=False, allidentified=False, **kwargs):
         self._sightingrange,
         self._defensestrength,
         self._protectionclass,
-        self.name(),
+        name,
         self.damage(),
         self.color(),
         self._counter,

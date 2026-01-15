@@ -44,6 +44,8 @@ class GroundUnit(glass.element.Element):
         sighted=False,
         identified=False,
         counter=False,
+        mobility=None,
+        transporting=None,
     ):
 
         self._name = ""
@@ -78,6 +80,8 @@ class GroundUnit(glass.element.Element):
                     sightingrange = data["sightingrange"]
                 if defensestrength is None and "defensestrength" in data:
                     defensestrength = data["defensestrength"]
+                if mobility is None and "mobility" in data:
+                    mobility = data["mobility"]
 
             if symbols is None:
                 raise RuntimeError("invalid symbols argument.")
@@ -184,6 +188,24 @@ class GroundUnit(glass.element.Element):
 
             self._protectionclass = protectionclass
 
+            self._mobility = mobility
+
+            self._transported = False
+            self._transporting = None
+
+            if transporting is not None:
+                try:
+                    assert transporting.isgroundunit()
+                except:
+                    raise RuntimeError('invalid transported unit "%r".' % transporting)
+                if not transporting.istowable() and not transporting.ismountable():
+                    raise RuntimeError(
+                        "%s cannot be transported." % transporting.name()
+                    )
+                self._transporting = transporting
+                self._transporting._transported = True
+                self.logwhenwhat("", "is transporting %s." % transporting.name())
+
             self._initattack()
             self._inittracking()
 
@@ -206,6 +228,31 @@ class GroundUnit(glass.element.Element):
     def _endgameturn(self):
         self._endgameturndamage()
         self._endgameturnattack()
+
+    ############################################################################
+
+    def mobility(self):
+        return self._mobility
+
+    def istowable(self):
+        return self._mobility == "T"
+
+    def ismountable(self):
+        return ("infantry" in self._symbols) or self._mobility == "C"
+
+    ############################################################################
+
+    def istowing(self):
+        return self.istransporting() and self.transporting().istowable()
+
+    def istransporting(self):
+        return self.transporting() is not None
+
+    def istransported(self):
+        return self._transported
+
+    def transporting(self):
+        return self._transporting
 
     ############################################################################
 

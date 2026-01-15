@@ -4,6 +4,7 @@
     "symbols": "fuel",
     "sightingrange": 24,
     "defensestrength": "4S",
+    "mobility": "C",
     "VPs": [
         15,
         10,
