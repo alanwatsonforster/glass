@@ -129,23 +129,37 @@ def startgameturn(note=None):
 
         if len(glass.aircraft.aslist()) != 0:
             glass.log.logwhat(
-                "initial aircraft positions, speeds, maneuvers, and previous flight types:"
+                "initial aircraft position, speed, bank, maneuver, previous flight type, and damage:"
             )
             for A in glass.aircraft.aslist():
                 A.logwhat(
-                    "%s  %4.1f  %-9s  %-3s"
-                    % (A.position(), A.speed(), A.maneuver(), A.flighttype()),
+                    "%s  %4.1f  %-9s  %-3s  %-5s"
+                    % (
+                        A.position(),
+                        A.speed(),
+                        A.maneuver(),
+                        A.flighttype(),
+                        A.damage(),
+                    ),
                     writefile=False,
                 )
         if len(glass.missile.aslist()) != 0:
-            glass.log.logwhat("initial missile positions and speeds:")
+            glass.log.logwhat("initial missile position and speed:")
             for M in glass.missile.aslist():
                 M.logwhat("%s  %4.1f" % (M.position(), M.speed()), writefile=False)
         if len(glass.groundunit.aslist()) != 0:
-            glass.log.logwhat("initial ground element positions and damage:")
+            glass.log.logwhat(
+                "initial ground element position, damage, and transported unit:"
+            )
             for G in glass.groundunit.aslist():
+                if G.istransporting():
+                    transporting = "(%s)" % G.transporting().name()
+                else:
+                    transporting = ""
                 G.logwhat(
-                    "%s  %4s  %s" % (G.position(), "", G.damage()), writefile=False
+                    "%s  %4s                  %-5s  %s"
+                    % (G.position(), "", G.damage(), transporting),
+                    writefile=False,
                 )
         glass.log.lognote(None, note)
 
