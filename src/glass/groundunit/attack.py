@@ -108,6 +108,10 @@ def _attackaircraft(self, target, result=None, note=None):
     if self.issuppressed():
         raise RuntimeError("%s is suppressed" % self.name())
 
+    if not self.identified():
+        self.identify()
+        self.logcomment("becomes identified.")
+
     target._takeattackdamage(self, result)
 
     if not self.isusingbarragefire() and not self.isusingplottedfire():

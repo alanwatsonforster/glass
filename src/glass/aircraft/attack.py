@@ -123,6 +123,10 @@ def _attackgroundunit(
     elif weapon == "RP":
         checkRPattack()
 
+    if not target.identified():
+        target.identify()
+        target.logcomment("becomes identified.")
+
     if weapon == "GN":
         self.logwhenwhat("", "gun ammunition is now %.1f." % self._gunammunition)
     else:
