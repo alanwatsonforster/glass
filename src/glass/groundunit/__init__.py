@@ -231,6 +231,11 @@ class GroundUnit(glass.element.Element):
 
     ############################################################################
 
+    def sightingrange(self):
+        return self._sightingrange
+
+    ############################################################################
+
     def mobility(self):
         return self._mobility
 

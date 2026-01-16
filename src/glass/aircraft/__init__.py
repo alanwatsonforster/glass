@@ -446,16 +446,22 @@ class Aircraft(glass.element.Element):
 
     def attempttosight(self, other, roll=None, modifier=None, note=None):
         """
-        Attempt to sight and identify another aircraft.
+        Attempt to sight and identify another aircraft, a missile, or a ground unit.
 
-        If roll is None, simply report the sighting situation.
+        For sighting aircraft:
 
-        If roll is not None, report the sighting situation, determine whether
+        - If roll is None, simply report the sighting situation.
+
+        - If roll is not None, report the sighting situation, determine whether
         the sighting attempt has succeeded, and set the other aircraft as
         sighted or not sighted as appropriate.
 
-        If the sighting attempt succeeds, determine whether the other aircraft
+        - If the sighting attempt succeeds, determine whether the other aircraft
         is also identified. If so, set is as identified.
+
+        For sighting missiles:
+
+        For sighting ground units:
 
         :param other: The aircraft being sighted.
         :param roll: If None, then simply report sighting situation. If True,
@@ -474,9 +480,22 @@ class Aircraft(glass.element.Element):
 
         try:
             glass.gameturn.checkingameturn()
-            glass.visualsighting.attempttosight(
-                self, other, roll=roll, modifier=modifier, note=note
-            )
+            try:
+                other.isaircraft()
+                other.ismissile()
+                other.isgroundunit()
+            except:
+                raise RuntimeError(
+                    "other is neither an aircraft, a missile, nor a ground unit."
+                )
+            if other.isaircraft() or other.ismissile():
+                glass.visualsighting.attempttosightaircraftormissile(
+                    self, other, roll=roll, modifier=modifier, note=note
+                )
+            else:
+                glass.visualsighting.attempttosightgroundunit(
+                    self, other, roll=roll, note=note
+                )
         except RuntimeError as e:
             glass.log.logexception(e)
         self.logbreak()
@@ -511,7 +530,7 @@ class Aircraft(glass.element.Element):
 
         try:
             glass.gameturn.checkingameturn()
-            glass.visualsighting.attempttosight(
+            glass.visualsighting.attempttosightaircraftormissile(
                 self, other, roll=roll, modifier=modifier, note=note, incidentally=True
             )
         except RuntimeError as e:
