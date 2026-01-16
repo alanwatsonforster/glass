@@ -104,21 +104,43 @@ def padlock(A, B, note=None):
 ################################################################################
 
 
-def attempttosight(A, B, success=None, note=None, incidentally=False):
+def attempttosight(
+    A,
+    B,
+    roll=None,
+    modifier=None,
+    incidentally=False,
+    note=None,
+):
     """
     Carry out an attempt to sight on searching aircraft B by target aircraft A.
 
+     If roll is None, simply report the sighting situation.
+
+    If roll is not None, report the sighting situation, determine whether
+    the sighting attempt has succeeded, and set the other aircraft as
+    sighted or not sighted as appropriate.
+
+    If the sighting attempt succeeds, determine whether the other aircraft
+    is also identified. If so, set is as identified.
+
+
     :param A: The searching aircraft.
     :param B: The target aircraft.
-    :param success: If ``True``, B is marked as sighted
-        and identified based on identification criteria. If ``False``, B remains unsighted.
-        Defaults to ``None``.
-    :param note: Additional note to be logged with the sighting attempt.
-        Defaults to ``None``.
-    :param incidentally: Whether the sighting is incidental. Affects
-        visual sighting condition evaluation. Defaults to ``False``.
+    :param roll: If None, then simply report sighting situation. If True,
+        affirm that the sighting attempt was successful. If False, affirm
+        that the sighting attempt was not successful. If an integer,
+        determine whether the sighting attempt was successful by comparing
+        the modified value to the visibility of the aircraft being sighted.
+        Defaults to None.
+    :param modifier: If None, use the calculated modifier. If an integer,
+        use the value as the modifier. Defaults to None.
+    :param incidentally: Whether the sighting is incidental. Affects visual
+        sighting condition evaluation. Defaults to ``False``.
+    :param note: If a string, an additional note to be logged. If None, do
+        nothing. Defaults to None.
 
-    :return: ``None``
+    :return: None
     """
 
     A.logbreak()
@@ -136,60 +158,83 @@ def attempttosight(A, B, success=None, note=None, incidentally=False):
     if not cansight:
         raise RuntimeError("%s cannot sight %s." % (A.name(), B.name()))
 
-    allrestricted = restricted
+    if modifier is None:
 
-    additionalsearchers = 0
-    for searcher in glass.aircraft.aslist():
-        if searcher.name() != A.name() and searcher.force() == A.force():
-            condition, cansight, canpadlock, restricted = visualsightingcondition(
-                searcher, B
-            )
-            A.logcomment("additional searcher %s: %s." % (searcher.name(), condition))
-            if cansight:
-                additionalsearchers += 1
-                allrestricted = allrestricted and restricted
-    if additionalsearchers == 0:
-        A.logcomment("no additional searchers.")
-    else:
+        allrestricted = restricted
+
+        additionalsearchers = 0
+        for searcher in glass.aircraft.aslist():
+            if searcher.name() != A.name() and searcher.force() == A.force():
+                condition, cansight, canpadlock, restricted = visualsightingcondition(
+                    searcher, B
+                )
+                A.logcomment(
+                    "additional searcher %s: %s." % (searcher.name(), condition)
+                )
+                if cansight:
+                    additionalsearchers += 1
+                    allrestricted = allrestricted and restricted
+
+        modifier = 0
+
+        dmodifier = visualsightingrangemodifier(A, B)
+        A.logcomment("range modifier         is %+d." % dmodifier)
+        modifier += dmodifier
+
+        dmodifier = visualsightingallrestrictedmodifier(allrestricted)
+        A.logcomment("restricted modifier    is %+d." % dmodifier)
+        modifier += dmodifier
+
+        dmodifier = visualsightingsearchersmodifier(additionalsearchers + 1)
         A.logcomment(
-            "%d additional %s."
-            % (
-                additionalsearchers,
-                glass.log.plural(additionalsearchers, "searcher", "searchers"),
-            )
+            "searchers modifier     is %+d (%d)." % (dmodifier, additionalsearchers + 1)
         )
+        modifier += dmodifier
 
-    modifier = 0
+        dmodifier = visualsightingpaintschememodifier(A, B)
+        A.logcomment("paint-scheme modifier  is %+d." % dmodifier)
+        modifier += dmodifier
 
-    dmodifier = visualsightingrangemodifier(A, B)
-    A.logcomment("range modifier        is %+d." % dmodifier)
-    modifier += dmodifier
+        dmodifier = visualsightingcrewmodifier(A)
+        if dmodifier != 0:
+            A.logcomment("crew modifier          is %+d." % dmodifier)
 
-    dmodifier = visualsightingallrestrictedmodifier(allrestricted)
-    A.logcomment("restricted modifier   is %+d." % dmodifier)
-    modifier += dmodifier
+        dmodifier = visualsightingsmokingmodifier(A, B)
+        if dmodifier != 0:
+            A.logcomment("smoking modifier       is %+d." % dmodifier)
+        modifier += dmodifier
 
-    dmodifier = visualsightingsearchersmodifier(additionalsearchers + 1)
-    A.logcomment("searchers modifier    is %+d." % dmodifier)
-    modifier += dmodifier
+        A.logcomment("total modifier         is %+d." % modifier)
 
-    dmodifier = visualsightingpaintschememodifier(A, B)
-    A.logcomment("paint-scheme modifier is %+d." % dmodifier)
-    modifier += dmodifier
+    elif isinstance(modifier, int):
 
-    dmodifier = visualsightingcrewmodifier(A)
-    if dmodifier != 0:
-        A.logcomment("crew modifier         is %+d." % dmodifier)
+        A.logcomment("forcing modifier to be %+1d." % modifier)
 
-    dmodifier = visualsightingsmokingmodifier(A, B)
-    if dmodifier != 0:
-        A.logcomment("smoking modifier      is %+d." % dmodifier)
-    modifier += dmodifier
+    else:
 
-    A.logcomment("total modifier        is %+d." % modifier)
-    A.logcomment("target visibility is %d." % glass.capabilities.visibility(B))
+        raise RuntimeError('invalid modifier "%r"' % modifier)
 
-    A.lognote(note)
+    visibility = glass.capabilities.visibility(B)
+
+    if roll is None:
+        A.logcomment("success or failure not determined.")
+        success = None
+    elif roll is False:
+        A.logcomment("forcing failure.")
+        success = False
+    elif roll is True:
+        A.logcomment("forcing success.")
+        success = True
+    elif isinstance(roll, int):
+        A.logcomment("sighting roll          is %d." % roll)
+        A.logcomment("modified sighting roll is %d." % (roll + modifier))
+        success = (roll + modifier) <= visibility
+        if success:
+            A.logcomment("attempt succeeds.")
+        else:
+            A.logcomment("attempt fails.")
+
+    A.logcomment("target visibility      is %d." % visibility)
 
     if success is False:
         A.logwhat("%s is unsighted." % B.name())
@@ -200,6 +245,8 @@ def attempttosight(A, B, success=None, note=None, incidentally=False):
             A.logwhat("%s is sighted and identified." % B.name())
         else:
             A.logwhat("%s is sighted but not identified." % B.name())
+
+    A.lognote(note)
 
 
 ################################################################################

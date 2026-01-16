@@ -444,27 +444,75 @@ class Aircraft(glass.element.Element):
 
     ##############################################################################
 
-    def attempttosight(self, other, success=None, note=None):
+    def attempttosight(self, other, roll=None, modifier=None, note=None):
         """
-        Attempt to sight another aircraft.
-        """
+        Attempt to sight and identify another aircraft.
 
-        try:
-            glass.gameturn.checkingameturn()
-            glass.visualsighting.attempttosight(self, other, success=success, note=note)
-        except RuntimeError as e:
-            glass.log.logexception(e)
-        self.logbreak()
+        If roll is None, simply report the sighting situation.
 
-    def attempttosightincidentally(self, other, success=None, note=None):
-        """
-        Attempt to sight another aircraft incidentally.
+        If roll is not None, report the sighting situation, determine whether
+        the sighting attempt has succeeded, and set the other aircraft as
+        sighted or not sighted as appropriate.
+
+        If the sighting attempt succeeds, determine whether the other aircraft
+        is also identified. If so, set is as identified.
+
+        :param other: The aircraft being sighted.
+        :param roll: If None, then simply report sighting situation. If True,
+            affirm that the sighting attempt was successful. If False, affirm
+            that the sighting attempt was not successful. If an integer,
+            determine whether the sighting attempt was successful by comparing
+            the modified value to the visibility of the aircraft being sighted.
+            Defaults to None.
+        :param modifier: If None, use the calculated modifier. If an integer,
+            use the value as the modifier. Defaults to None.
+        :param note: If a string, an additional note to be logged. If None, do
+            nothing. Defaults to None.
+
+        :return: None
         """
 
         try:
             glass.gameturn.checkingameturn()
             glass.visualsighting.attempttosight(
-                self, other, success=success, note=note, incidentally=True
+                self, other, roll=roll, modifier=modifier, note=note
+            )
+        except RuntimeError as e:
+            glass.log.logexception(e)
+        self.logbreak()
+
+    def attempttosightincidentally(self, other, roll=None, modifier=None, note=None):
+        """
+        Attempt to sight and identify another aircraft.
+
+        If roll is None, simply report the sighting situation.
+
+        If roll is not None, report the sighting situation, determine whether
+        the sighting attempt has succeeded, and set the other aircraft as sighted
+        or not sighted as appropriate.
+
+        If the sighting attempt succeeds, determine whether the other aircraft
+        is also identified. If so, set is as identified.
+
+        :param other: The aircraft being sighted.
+        :param roll: If None, then simply report sighting situation. If True,
+            affirm that the sighting attempt was successful. If False, affirm
+            that the sighting attempt was not successful. If an integer,
+            determine whether the sighting attempt was successful by comparing
+            the modified value to the visibility of the aircraft being sighted.
+            Defaults to None.
+        :param modifier: If None, use the calculated modifier. If an integer,
+            use the value as the modifier. Defaults to None.
+        :param note: If a string, an additional note to be logged. If None, do
+            nothing. Defaults to None.
+
+        :return: None
+        """
+
+        try:
+            glass.gameturn.checkingameturn()
+            glass.visualsighting.attempttosight(
+                self, other, roll=roll, modifier=modifier, note=note, incidentally=True
             )
         except RuntimeError as e:
             glass.log.logexception(e)

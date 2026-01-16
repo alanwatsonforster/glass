@@ -1,7 +1,13 @@
 import glass as ap
 import glass.log
 
-from glass import setupaircraft, setupgroundunit, drawmap
+from glass import (
+    setupaircraft,
+    setupgroundunit,
+    drawmap,
+    startvisualsighting,
+    endvisualsighting,
+)
 
 import os.path
 

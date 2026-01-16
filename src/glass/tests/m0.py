@@ -16,6 +16,8 @@ endtestsetup()
 
 startgameturn()
 
+startvisualsighting()
+
 assert A1._maxvisualsightingrange() == 16
 assert A2._visualsightingrange(A1) == 3
 assert A2._visualsightingcondition(A1) == ("within visual range", True, True, False)
@@ -327,5 +329,16 @@ assert A8._visualsightingcondition(A9) == (
     False,
     False,
 )
+
+A7.attempttosight(A2)
+assert not A2.sighted()
+A7.attempttosight(A2, False)
+assert not A2.sighted()
+A7.attempttosight(A2, 10)
+assert not A2.sighted()
+A7.attempttosight(A2, 5, modifier=+1)
+assert not A2.sighted()
+A7.attempttosight(A2, 9)
+assert A2.sighted()
 
 endfile(__file__)
