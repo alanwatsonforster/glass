@@ -1,6 +1,0 @@
-{
-    "variantname": "Saddletree",
-    "description": "The Boeing B-29A is a propeller-driven strategic nuclear bomber. This variant is a conversion of the conventional base variant under the 1947 to 1949 Saddletree program, with provision for nuclear weapons, all armor and turrets removed, air-to-air refueling, additional fuel tanks, and winterized electronics.",
-    "atarefuel": true,
-    "base": "B-29A (Silverplate)"
-}

@@ -1,9 +1,0 @@
-{
-    "versionname": "Tu-16A",
-    "description": "The Tupolev Tu-16A is a strategic nuclear bomber. It is derived from the Tu-16 conventional bomber. The NATO reporting name for the aircraft is Badger-A, and for the tail radar is Bee Hind.",
-    "origin": "TSOH",
-    "base": "Tu-16",
-    "loadnotes": [
-        "Station 1 is the internal bomb bay. It can carry up to one RDS-37 nuclear bomb (weight 12,000 lb)."
-    ]
-}
