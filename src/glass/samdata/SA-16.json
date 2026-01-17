@@ -2,7 +2,7 @@
     "name": "SA-16",
     "othername": "9K310 Igla-1 (Gimlet)",
     "year": "1981",
-    "A": {
+    "M": {
         "launchroll": 8,
         "turnrate": "BT/2",
         "flighttime": 1,
