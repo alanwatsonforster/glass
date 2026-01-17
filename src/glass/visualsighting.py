@@ -297,7 +297,7 @@ def attempttosightgroundunit(
         A.logcomment("target sighting range is %d." % B.sightingrange())
         sighted = range <= B.sightingrange()
 
-    if B.identified():
+    if B.isidentified():
         identified = True
     elif forceidentified:
         A.logcomment("forcing identifying result.")
@@ -316,10 +316,10 @@ def attempttosightgroundunit(
     if not sighted:
         A.logwhat("%s is unsighted." % B.name())
     else:
-        B.sight()
+        B.becomesighted()
         if identified:
             A.logwhat("%s is sighted and identified." % B.name())
-            B.identify()
+            B.becomeidentified()
         else:
             A.logwhat("%s is sighted but not identified." % B.name())
 
@@ -334,26 +334,6 @@ def issighted(A):
     Return True is the aircraft A is sighted, otherwise return False.
     """
     return A._sighted
-
-
-################################################################################
-
-
-def setsighted(A):
-    """
-    Set the aircraft A to be sighted.
-    """
-    A._sighted = True
-
-
-################################################################################
-
-
-def setunsighted(A):
-    """
-    Set the aircraft A to be unsighted.
-    """
-    A._sighted = False
 
 
 ################################################################################

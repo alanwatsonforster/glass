@@ -10,7 +10,7 @@ def _draw(self, allsighted=False, allidentified=False, **kwargs):
     if self.istransported():
         return
 
-    if self.identified() and self.istowing():
+    if self.isidentified() and self.istowing():
         name = self.name() + "+" + self.transporting().name()
     else:
         name = self.name()
@@ -18,8 +18,8 @@ def _draw(self, allsighted=False, allidentified=False, **kwargs):
     glass.draw.drawgroundunit(
         *self.xy(),
         self._facing,
-        self.sighted() or allsighted,
-        self.identified() or allidentified,
+        self.issighted() or allsighted,
+        self.isidentified() or allidentified,
         self._symbols,
         self._text,
         self._sightingrange,

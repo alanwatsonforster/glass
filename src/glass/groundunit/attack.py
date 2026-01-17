@@ -108,8 +108,8 @@ def _attackaircraft(self, target, result=None, note=None):
     if self.issuppressed():
         raise RuntimeError("%s is suppressed" % self.name())
 
-    if not self.identified():
-        self.identify()
+    if not self.isidentified():
+        self.becomeidentified()
         self.logcomment("becomes identified.")
 
     target._takeattackdamage(self, result)

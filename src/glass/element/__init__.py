@@ -524,17 +524,17 @@ class Element:
 
     #############################################################################
 
-    def sight(self):
+    def becomesighted(self):
         self._sighted = True
 
-    def identify(self):
+    def becomeidentified(self):
         self._sighted = True
         self._identified = True
 
-    def sighted(self):
+    def issighted(self):
         return self._sighted
 
-    def identified(self):
+    def isidentified(self):
         return self._identified
 
     #############################################################################

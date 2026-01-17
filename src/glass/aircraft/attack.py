@@ -123,8 +123,8 @@ def _attackgroundunit(
     elif weapon == "RP":
         checkRPattack()
 
-    if not target.identified():
-        target.identify()
+    if not target.isidentified():
+        target.becomeidentified()
         target.logcomment("becomes identified.")
 
     if weapon == "GN":
