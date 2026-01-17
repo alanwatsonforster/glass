@@ -5,6 +5,7 @@
 
 all						:	\
 	sandbox.pdf				\
+	australian.pdf			\
 	british.pdf				\
 	canadian.pdf			\
 	chinese.pdf				\
@@ -18,6 +19,7 @@ all						:	\
 # We force these since in most cases the aircraft data files will have changed.
 sandbox.pdf				:	.FORCE
 all.pdf					:	.FORCE
+australian.pdf			:	.FORCE
 british.pdf				:	.FORCE
 canadian.pdf			:	.FORCE
 chinese.pdf				:	.FORCE
