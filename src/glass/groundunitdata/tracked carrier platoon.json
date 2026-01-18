@@ -1,9 +1,0 @@
-{
-    "name": "tracked carrier platoon",
-    "description": "tracked carrier platoon",
-    "symbols": "truck/tracked/transport/platoon",
-    "sightingrange": 12,
-    "defensestrength": "2S",
-    "mobility": "U",
-    "VP3D": 4
-}

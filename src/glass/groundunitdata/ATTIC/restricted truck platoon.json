@@ -1,8 +1,0 @@
-{
-    "name": "restricted truck platoon",
-    "description": "restricted truck platoon",
-    "symbols": "truck/limitedwheeled/transport/platoon",
-    "sightingrange": 12,
-    "defensestrength": "2S",
-    "VP3D": 4
-}

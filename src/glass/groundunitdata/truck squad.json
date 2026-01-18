@@ -1,9 +1,0 @@
-{
-    "name": "truck squad",
-    "description": "truck squad",
-    "symbols": "truck/limitedwheeled/transport/squad",
-    "sightingrange": 12,
-    "defensestrength": "2S",
-    "mobility": "G/P",
-    "VP1D": 1
-}

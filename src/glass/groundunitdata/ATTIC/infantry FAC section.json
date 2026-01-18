@@ -1,9 +1,0 @@
-{
-    "name": "infantry FAC",
-    "description": "infantry FAC section",
-    "symbols": "infantry/fac/section",
-    "sightingrange": 6,
-    "defensestrength": "5S",
-    "mobility": "U",
-    "VP2D": 8
-}

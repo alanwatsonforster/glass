@@ -1,9 +1,0 @@
-{
-    "name": "infantry SA-7",
-    "description": "infantry SA-7 squad",
-    "symbols": "infantry/air-defense/missile/squad",
-    "text": "SA-7",
-    "defensestrength": "5S",
-    "sightingrange": 6,
-    "mobility": "U"
-}
