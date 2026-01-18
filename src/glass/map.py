@@ -378,9 +378,7 @@ def setupmap(
                 if fullsheet in sheetaliases:
                     fullsheet = sheetaliases[fullsheet]
                 try:
-                    terrain = glass.data.loaddatafile(
-                        "mapsheetdata", fullsheet, withbase=False
-                    )
+                    terrain = glass.data.loaddatafile("mapsheetdata", fullsheet)
                 except:
                     raise RuntimeError("invalid sheet %s." % fullsheet)
                 if _generation is None:

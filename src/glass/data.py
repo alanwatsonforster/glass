@@ -51,7 +51,7 @@ def datafilepath(directoryname, filename):
     )
 
 
-def loaddatafile(directoryname, filename, withbase=True):
+def loaddatafile(directoryname, filename, withinclude=True):
     """
     Return the data object in a data file.
 
@@ -61,20 +61,21 @@ def loaddatafile(directoryname, filename, withbase=True):
     :param directoryname: The directory name relative to the root data
         directory.
     :param filename: The file name.
-    :param withbase: If True and if the object read is a dictionary with a
-        "base" member, merge the object with the one read from the "base"
-        value.
+    :param withinclude: If True and if the object read is a dictionary with a
+        "_include" key, merge the object with the ones read from the files named
+        by the "_include" value, which may either be a string or a list of strings.
     :return: The object read from the data file.
 
     :raises RuntimeError: If the file cannot be found or read.
     """
 
     def load(filename):
+
+        filepath = glass.data.datafilepath(directoryname, filename)
+
         try:
-            with open(
-                glass.data.datafilepath(directoryname, filename), "r", encoding="utf-8"
-            ) as f:
-                return glass.jsonc.load(f)
+            with open(filepath, "r", encoding="utf-8") as f:
+                data = glass.jsonc.load(f)
         except FileNotFoundError:
             raise RuntimeError(
                 'unable to find the %s file "%s".' % (directoryname, filename)
@@ -85,11 +86,16 @@ def loaddatafile(directoryname, filename, withbase=True):
                 % (directoryname, filename, e.lineno, e.msg.lower())
             )
 
-    data = load(filename)
-    while withbase and isinstance(data, dict) and "base" in data:
-        basefilename = data["base"]
-        del data["base"]
-        basedata = load(basefilename)
-        basedata.update(data)
-        data = basedata
-    return data
+        if withinclude and isinstance(data, dict) and "_include" in data:
+            includefilenames = data["_include"]
+            if isinstance(includefilenames, str):
+                includefilenames = [includefilenames]
+            del data["_include"]
+            for includefilename in includefilenames:
+                includedata = load(includefilename)
+                includedata.update(data)
+                data = includedata
+
+        return data
+
+    return load(filename)
