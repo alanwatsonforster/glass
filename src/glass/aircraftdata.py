@@ -31,14 +31,7 @@ class aircraftdata:
 
         self._name = name
 
-        data = glass.data.loaddatafile("aircraftdata", name)
-        while "base" in data:
-            basename = data["base"]
-            del data["base"]
-            basedata = glass.data.loaddatafile("aircraftdata", basename)
-            basedata.update(data)
-            data = basedata
-        self._data = data
+        self._data = glass.data.loaddatafile("aircraftdata", name)
 
         if False:
             process = os.popen(

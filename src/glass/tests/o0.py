@@ -140,11 +140,11 @@ G1 = setupgroundunit("G1", "A1-2110", "ZPU-1")
 assert G1.isgroundunit()
 
 setupgroundunit("missing", "A1-2110", "_MISSING")
-asserterror('unable to find ground unit data file for "_MISSING".')
+asserterror('unable to find the groundunitdata file "_MISSING".')
 
 setupgroundunit("invalid", "A1-2110", "_INVALID")
 asserterror(
-    'unable to read ground unit data file for "_INVALID": line 2: expecting property name enclosed in double quotes.'
+    'unable to read the groundunitdata file "_INVALID": line 2: expecting property name enclosed in double quotes.'
 )
 
 # Check azimuths

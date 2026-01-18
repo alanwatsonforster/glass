@@ -15,10 +15,6 @@ def aslist(withkilled=False):
 
 ################################################################################
 
-from glass.groundunit.data import _loaddata
-
-################################################################################
-
 
 class GroundUnit(glass.element.Element):
 
@@ -58,7 +54,7 @@ class GroundUnit(glass.element.Element):
 
             if type is not None:
                 self.logwhenwhat("", "type is %s." % type)
-                data = _loaddata(type)
+                data = glass.data.loaddatafile("groundunitdata", type)
                 if symbols is None and "symbols" in data:
                     symbols = data["symbols"]
                 if text is None and "text" in data:
