@@ -117,42 +117,11 @@ def setcolor(colorname, color):
 
 ################################################################################
 
+_colordict = glass.data.loaddatafile("colordata", "color")
 
-def _loadcolors():
-    """
-    Load the colors from the colors data file.
-
-    The color data file is `data/color.json`. It defines a mapping between
-    color names and color specifiers.
-
-    :raises RuntimeError: If the colors data file cannot be opened or read.
-    :raises RuntimeError: If any of the colors are invalid.
-    """
-
-    global _colordict
-
-    _colordict = {}
-
-    path = os.path.join(os.path.dirname(__file__), "data", "color.json")
-
-    try:
-        with open(path, "r", encoding="utf-8") as f:
-            _colordict.update(glass.jsonc.load(f))
-    except PermissionError:
-        raise RuntimeError('unable to open the color data file "%s".' % path)
-    except glass.jsonc.JSONDecodeError as e:
-        raise RuntimeError(
-            'unable to read the color data file "%s": line %d: %s.'
-            % (path, e.lineno, e.msg.lower())
-        )
-
-    # Make sure all colors are valid.
-    for color in _colordict:
-        nativecolor(color)
-
-
-_loadcolors()
-
+# Make sure all colors are valid.
+for color in _colordict:
+    nativecolor(color)
 
 ################################################################################
 
