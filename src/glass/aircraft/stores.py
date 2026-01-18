@@ -1,53 +1,20 @@
 ################################################################################
 
-import glass.jsonc
+import glass.data
 import glass.log
 import glass.variants
 
-import os
-import glob
 import math
 
 ################################################################################
 
-_storedict = {}
+_storedict = glass.data.loaddatafile("storesdata", "stores")
 
 """
 A dictionary containing the stores. The keys are the store names and the values
 are the store properties. The store properties are each in turn a dictionary in
 which the keys are the property names and the values are the property values.
 """
-
-
-def _loadstores():
-    """
-    Load the stores from the stores data files.
-
-    The stores data files are `../storesdata/*.json`.
-
-    :raises RuntimeError: If a stores data file cannot be opened or read.
-    """
-
-    global _storedict
-
-    _storedict = {}
-
-    storesdatadir = os.path.join(os.path.dirname(__file__), "..", "storesdata")
-
-    for path in sorted(glob.glob(os.path.join(storesdatadir, "*.json"))):
-        try:
-            with open(path, "r", encoding="utf-8") as f:
-                _storedict.update(glass.jsonc.load(f))
-        except PermissionError:
-            raise RuntimeError('unable to open stores data file "%s".' % path)
-        except glass.jsonc.JSONDecodeError as e:
-            raise RuntimeError(
-                'unable to read stores data file "%s": line %d: %s.'
-                % (path, e.lineno, e.msg.lower())
-            )
-
-
-_loadstores()
 
 ################################################################################
 
