@@ -132,15 +132,14 @@ __all__ = [
 ################################################################################
 
 import glass.azimuth
+import glass.data
 import glass.draw
 import glass.hex
 import glass.hex
 import glass.hexcode
-import glass.jsonc
 import glass.mapstyle
 
 import math
-import os
 
 ################################################################################
 
@@ -379,7 +378,9 @@ def setupmap(
                 if fullsheet in sheetaliases:
                     fullsheet = sheetaliases[fullsheet]
                 try:
-                    terrain = _loadterrain(fullsheet)
+                    terrain = glass.data.loaddatafile(
+                        "mapsheetdata", fullsheet, withbase=False
+                    )
                 except:
                     raise RuntimeError("invalid sheet %s." % fullsheet)
                 if _generation is None:
@@ -426,23 +427,6 @@ def setupmap(
 
 
 ################################################################################
-
-
-def _loadterrain(fullsheet):
-    """
-    Load a terrain object from a file and return it.
-
-    :param fullsheet: The fullsheet parameter is the full sheet name, including
-        any subdirectories. It must be a string and correspond to a valid sheet.
-
-    :returns: The terrain object for the sheet.
-    """
-    filename = os.path.join(
-        os.path.dirname(__file__), "mapsheetdata", fullsheet + ".json"
-    )
-    with open(filename, "r", encoding="utf-8") as f:
-        terrain = glass.jsonc.load(f)
-    return terrain
 
 
 def _invertterrain(terrain):
