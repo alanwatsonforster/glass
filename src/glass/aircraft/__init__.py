@@ -18,6 +18,8 @@ import glass.geometry
 import glass.airtoair
 import glass.visualsighting
 
+from glass.rounding import onethirdfromtable, twothirdsfromtable, rounddown
+
 from glass.flight import (
     _isclimbingflight,
     _isdivingflight,
@@ -820,7 +822,26 @@ class Aircraft(glass.element.Element):
                     % glass.airtoair.trackingforbidden(self, target)
                 )
 
-            self.logcomment("started tracking %s." % target.name())
+            self.logcomment("starts tracking %s." % target.name())
+
+            modifierrequirement = max(1, rounddown(onethirdfromtable(self.speed())))
+            self.logcomment(
+                "tracking modifier requirement is %d %s in total for -1 modifier."
+                % (
+                    modifierrequirement,
+                    glass.log.plural(modifierrequirement, "FP", "FPs"),
+                )
+            )
+
+            modifierrequirement = max(1, rounddown(twothirdsfromtable(self.speed())))
+            self.logcomment(
+                "tracking modifier requirement is %d %s in total for -2 modifier."
+                % (
+                    modifierrequirement,
+                    glass.log.plural(modifierrequirement, "FP", "FPs"),
+                )
+            )
+
             self._tracking = target
 
         except RuntimeError as e:
