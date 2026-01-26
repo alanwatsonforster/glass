@@ -379,11 +379,11 @@ def _attack(attacker, attacktype, target, result, allowRK=True, allowtracking=Tr
                 glass.log.plural(attacker._trackingfp, "FP", "FPs"),
             )
         )
-        if attacker._trackingfp >= 2 * glass.rounding.rounddown(
-            glass.rounding.onethirdfromtable(attacker.speed())
+        if attacker._trackingfp >= glass.rounding.rounddown(
+            glass.rounding.twothirdsfromtable(attacker.speed())
         ):
             trackingmodifier = -2
-        elif attacker._trackingfp >= 1 * glass.rounding.rounddown(
+        elif attacker._trackingfp >= glass.rounding.rounddown(
             glass.rounding.onethirdfromtable(attacker.speed())
         ):
             trackingmodifier = -1
