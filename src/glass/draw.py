@@ -1757,15 +1757,14 @@ def drawgroundunit(
         ``"factory"``,``"fixedwing"``, ``"fuel"``, ``"gun"``, ``"halftracked"``,
         ``"hangar"``, ``"headquarters"``, ``"heavy"``, ``"infantry"``,
         ``"junk"``, ``"largebuilding"``, ``"light"``, ``"limitedwheeled"``,
-        ``"locomotive"``, ``"medium"``, ``"missile"``, ``"open"``, ``"ordnance"``,
-        ``"platoon"``, ``"powerstation"``, ``"radar"``, ``"railcar"``,
-        ``"reconnaissance"``, ``"rocket"``, ``"rotarywing"``, ``"section"``,
-        ``"shelter"``, ``"smallbuilding"``, ``"squad"``, ``"supply"``,
-        ``"tower"``, ``"tracked"``, ``"transport"``, ``"transportation"``,
-        ``"truck"``, ``"unidentified"``, ``"weapons"``, ``"wheeled"``. The
-        British English
-        aliases ``"air-defence"``, ``"antiarmour"``, ``"armour"`` are also
-        allowed.
+        ``"locomotive"``, ``"medium"``, ``"missile"``, ``"mortar"``, ``"open"``,
+        ``"ordnance"``, ``"platoon"``, ``"powerstation"``, ``"radar"``,
+        ``"railcar"``, ``"reconnaissance"``, ``"rocket"``, ``"rotarywing"``,
+        ``"section"``, ``"shelter"``, ``"smallbuilding"``, ``"squad"``,
+        ``"supply"``, ``"tower"``, ``"tracked"``, ``"transport"``,
+        ``"transportation"``, ``"truck"``, ``"unidentified"``, ``"weapons"``,
+        ``"wheeled"``. The British English aliases ``"air-defence"``,
+        ``"antiarmour"``, ``"armour"`` are also allowed.
     :param text:
         The ``text`` argument as a strings that we drawn in an appropriate
         position according to the type of the ground unit.
@@ -2057,6 +2056,18 @@ def _drawgroundunitincanvas(
                 2 * ry * groundunitsymboldy,
                 linecolor=linecolor,
                 fillcolor=linecolor,
+                linewidth=groundunitlinewidth,
+                zorder=zorder,
+            )
+
+        def drawmortarsymbol():
+            ry = 0.1
+            _drawcircleincanvas(
+                x,
+                y,
+                2 * ry * groundunitsymboldy,
+                linecolor=linecolor,
+                fillcolor=color,
                 linewidth=groundunitlinewidth,
                 zorder=zorder,
             )
@@ -3173,6 +3184,8 @@ def _drawgroundunitincanvas(
             drawtrucksymbol()
         if "artillery" in symbols:
             drawartillerysymbol()
+        if "mortar" in symbols:
+            drawmortarsymbol()
         if "reconnaissance" in symbols:
             drawreconnaissancesymbol()
         if "antiarmor" in symbols or "antiarmour" in symbols:
@@ -3414,6 +3427,8 @@ def _drawgroundunitincanvas(
             drawsymbols(["air-defense"])
         elif "artillery" in symbols:
             drawsymbols(["artillery"])
+        elif "mortar" in symbols:
+            drawsymbols(["mortar"])
         if counter:
             drawbottomtext("%d" % sightingrange)
         else:
