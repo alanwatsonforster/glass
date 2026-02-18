@@ -92,6 +92,7 @@ class Missile(glass.element.Element):
 
     def _startgameturn(self):
         self._setspeed(self._newspeed)
+        self._moves = None
         self._newspeed = None
         self._finishedmoving = False
 

@@ -53,6 +53,7 @@ def startgamesetup(
     glass.log.setprint(printlog)
     glass.log.setwritefiles(writelogfiles)
     glass.map.setwritefiles(writemapfiles)
+    glass.flight.startgamesetup()
 
     glass.log.clearerror()
     try:
@@ -122,6 +123,7 @@ def startgameturn(note=None):
     try:
 
         glass.gameturn.startgameturn()
+        glass.flight.startgameturn()
 
         glass.log.logwhat("start of game turn.")
 
@@ -185,6 +187,7 @@ def endgameturn(note=None):
         glass.log.logwhat("end of game turn.")
         glass.log.lognote(None, note)
 
+        glass.flight.endgameturn()
         glass.gameturn.endgameturn()
 
     except RuntimeError as e:

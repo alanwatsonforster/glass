@@ -242,6 +242,7 @@ class Aircraft(glass.element.Element):
 
     def _startgameturn(self):
         self._setspeed(self._newspeed)
+        self._moves = None
         self._newspeed = None
         self._finishedmoving = False
         self._sightedonpreviousturn = self._sighted
@@ -765,6 +766,57 @@ class Aircraft(glass.element.Element):
 
     def _endmovespeed(self):
         glass.speed.endmovespeed(self)
+
+    ################################################################################
+
+    def reportmove(self):
+
+        def manuevercarry():
+            if self._maneuvertype is None:
+                return None
+            else:
+                return "%d%s%s" % (
+                    self._maneuverfp,
+                    self._maneuvertype,
+                    self._maneuversense,
+                )
+
+        def bank():
+            if self._maneuvertype is not None:
+                return ""
+            if self._bank == None:
+                return "WL, "
+            else:
+                return "B%s, " % self._bank
+
+        def carry():
+            if manuevercarry() is None:
+                return "%.1f FPs and %+.2f APs" % (self._fpcarry, self._apcarry)
+            else:
+                return "%s, %.1f FPs, and %+.2f APs" % (
+                    manuevercarry(),
+                    self._fpcarry,
+                    self._apcarry,
+                )
+
+        if not self._startedmoving:
+            glass.flight.reportmove("%s has not yet started moving." % self._name())
+        else:
+            glass.flight.reportmove(
+                "%s moves: %s, %s, %s, and ends in %s at altitude %d, facing %s with speed %s, %sand carrying %s."
+                % (
+                    self.name(),
+                    self._flighttype,
+                    self._power,
+                    self._moves,
+                    self.hexcode(),
+                    self.altitude(),
+                    self.azimuth(),
+                    self.newspeed(),
+                    bank(),
+                    carry(),
+                )
+            )
 
     ################################################################################
 

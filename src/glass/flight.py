@@ -24,6 +24,7 @@ def _move(E, flighttype, power, moves, **kwargs):
 
     E._previousflighttype = E._flighttype
     E._flighttype = flighttype
+    E._power = power
 
     _checkflighttype(E)
 
@@ -923,6 +924,14 @@ def _startmovenormalflight(A):
 
 def _continuemove(E, moves):
 
+    if moves == "":
+        return
+
+    if E._moves is None:
+        E._moves = moves
+    else:
+        E._moves += " " + moves
+
     if E._flighttype == "MS":
         _continuemissileflight(E, moves)
     elif E._flighttype == "ST":
@@ -944,9 +953,6 @@ def _continuemove(E, moves):
 
 
 def _continuestalledflight(A, moves):
-
-    if moves == "":
-        return
 
     A.logwhenwhat("", moves)
 
@@ -992,9 +998,6 @@ def _continuedepartedflight(A, moves):
     # - "R30", "R60", "R90", ..., "R300"
     # - "R", "RR", and "RRR" which as usual mean "R30", "R60", and "R90"
     # - the "L" equivalents.
-
-    if moves == "":
-        return
 
     A.logwhenwhat("", moves)
 
@@ -1318,9 +1321,6 @@ def _continuenormalflight(A, moves):
         ["", "", None],
     ]
 
-    if moves == "":
-        return
-
     _domoves(
         A,
         moves,
@@ -1388,9 +1388,6 @@ def _continuemissileflight(M, moves):
         ["", "", None],
     ]
 
-    if moves == "":
-        return
-
     _startflightslope(M)
     _domoves(
         M,
@@ -1428,6 +1425,7 @@ def _endmove(E):
             _endnormalflight(E)
         E.logend("will carry %.1f FPs." % E._fpcarry)
         glass.speed._endaircraftspeed(E)
+        E.reportmove()
 
 
 ########################################
@@ -1699,9 +1697,6 @@ def _domoves(E, moves, actiondispatchlist):
     """
     Carry out flight moves.
     """
-
-    if moves == "":
-        return
 
     for move in re.split(r" *[, ] *", moves):
         if not E.killed():
@@ -3247,6 +3242,39 @@ def _endflightslope(E):
         )
 
     return slopenumerator, slopedenominator
+
+
+################################################################################
+
+_movesfilename = "moves.txt"
+"""
+The file name of the file to which moves are reported.
+"""
+
+
+def startgamesetup():
+    # Truncate the file.
+    open(_movesfilename, "w")
+
+
+def startgameturn():
+    with open(_movesfilename, "a") as f:
+        print("start of game turn %d." % glass.gameturn.gameturn(), file=f)
+
+
+def endgameturn():
+    with open(_movesfilename, "a") as f:
+        print("end of game turn %d." % glass.gameturn.gameturn(), file=f)
+
+
+def reportmove(s):
+    """
+    Report a move.
+
+    :param s: The description of the move as a string.
+    """
+    with open(_movesfilename, "a") as f:
+        print("- %s" % s, file=f)
 
 
 ################################################################################
