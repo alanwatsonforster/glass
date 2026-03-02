@@ -734,6 +734,9 @@ def _endaircraftspeed(A):
         if A._newspeed > maxspeed:
             A.logcomment("speed will be faded back from %.1f." % A._newspeed)
             A._newspeed = max(A._newspeed - 1, maxspeed)
+            if glass.variants.withvariant("use house rules"):
+                A._apcarry = 0
+                A.logcomment("will carry 0 APs due to fade back.")
 
     A.logend("speed will be %.1f." % A._newspeed)
     if A._newspeed < m1speed(A.altitudeband()):
