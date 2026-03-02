@@ -771,6 +771,15 @@ class Aircraft(glass.element.Element):
 
     def reportmove(self):
 
+        def power():
+            if self._powerap >= 0:
+                text = "%s power with %.1f APs" % (self._powersetting, self._powerap)
+            else:
+                text = "%s power with %.1f DPs" % (self._powersetting, -self._powerap)
+            if self._speedbrakeap != 0:
+                text += " and with %.1f DPs of speedbrakes" % -self._speedbrakeap
+            return text
+
         def manuevercarry():
             if self._maneuvertype is None:
                 return None
@@ -807,7 +816,7 @@ class Aircraft(glass.element.Element):
                 % (
                     self.name(),
                     self._flighttype,
-                    self._power,
+                    power(),
                     self._moves,
                     self.hexcode(),
                     self.altitude(),
