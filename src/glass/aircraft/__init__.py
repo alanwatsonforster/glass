@@ -246,6 +246,7 @@ class Aircraft(glass.element.Element):
         self._newspeed = None
         self._finishedmoving = False
         self._sightedonpreviousturn = self._sighted
+        self._sightinggroundunits = False
         self._enginesmokingonpreviousturn = self._enginesmoking
         self._sighted = False
         self._identifiedonpreviousturn = self._identified
