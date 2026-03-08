@@ -448,34 +448,65 @@ class Aircraft(glass.element.Element):
 
     ##############################################################################
 
-    def attempttosight(self, other, roll=None, modifier=None, note=None):
+    def sight(
+        self,
+        target,
+        sightingroll=None,
+        identifyingroll=None,
+        sightingrollmodifier=None,
+        identifyingrollmodifier=None,
+        note=None,
+        **kwargs
+    ):
         """
-        Attempt to sight and identify another aircraft, a missile, or a ground unit.
+        Attempt to sight and identify a target aircraft, missile, or ground
+        unit.
 
         For sighting aircraft:
 
-        - If roll is None, simply report the sighting situation.
+        - If sightingroll is None, simply report the sighting situation.
 
-        - If roll is not None, report the sighting situation, determine whether
-        the sighting attempt has succeeded, and set the other aircraft as
-        sighted or not sighted as appropriate.
+        - If sightingroll is not None, report the sighting situation, determine
+          whether the sighting attempt has succeeded, and set the target as
+          sighted or not sighted as appropriate.
 
-        - If the sighting attempt succeeds, determine whether the other aircraft
-        is also identified. If so, set is as identified.
+        - If the sighting attempt succeeds, determine whether the target is also
+          identified, and if so set it as identified.
 
         For sighting missiles:
 
-        For sighting ground units:
+        - TBD
 
-        :param other: The aircraft being sighted.
-        :param roll: If None, then simply report sighting situation. If True,
-            affirm that the sighting attempt was successful. If False, affirm
-            that the sighting attempt was not successful. If an integer,
-            determine whether the sighting attempt was successful by comparing
-            the modified value to the visibility of the aircraft being sighted.
+        For sighting uncamouflaged ground units:
+
+        - Report the sighting situation, determine whether the sighting attempt
+          has succeeded, and if so set the target as sighted.
+
+        - If identifyingroll is None, simply report the identifying situation.
+
+        - If identifying is not None, report the identifying situation,
+          determine whether the identifying attempt has succeeded, and if so set
+          it as identified.
+
+        For sighting camouflaged ground units:
+
+        - TBD
+
+        :param target: The aircraft, missile, or ground unit being sighted.
+        :param sightingroll: This is used for sighting attempts. If an integer,
+            it is the corresponding die roll. If it is a boolean, it indicates
+            explicit success or failure. If None, then the default action is
+            taken. Defaults to None.
+        :param identifyingroll: This is used for identifying attempts. If an
+            integer, it is the corresponding die roll. If it is a boolean, it
+            indicates explicit success or failure. If None, then the default
+            action is taken. Defaults to None.
+        :param sightingrollmodifier: If None, use the calculated sighting roll
+            modifier. If an integer, use the value as the modifier. Defaults to
+            None.
+        :param identifyingrollmodifier: If None, use the calculated identifying
+            roll modifier. If an integer, use the value as the modifier.
             Defaults to None.
-        :param modifier: If None, use the calculated modifier. If an integer,
-            use the value as the modifier. Defaults to None.
         :param note: If a string, an additional note to be logged. If None, do
             nothing. Defaults to None.
 
@@ -485,26 +516,40 @@ class Aircraft(glass.element.Element):
         try:
             glass.gameturn.checkingameturn()
             try:
-                other.isaircraft()
-                other.ismissile()
-                other.isgroundunit()
+                target.isaircraft()
+                target.ismissile()
+                target.isgroundunit()
             except:
                 raise RuntimeError(
-                    "other is neither an aircraft, a missile, nor a ground unit."
+                    "target is neither an aircraft, a missile, nor a ground unit."
                 )
-            if other.isaircraft() or other.ismissile():
-                glass.visualsighting.attempttosightaircraftormissile(
-                    self, other, roll=roll, modifier=modifier, note=note
+            if target.isaircraft() or target.ismissile():
+                glass.visualsighting.sightaircraftormissile(
+                    self,
+                    target,
+                    sightingroll=sightingroll,
+                    identifyingroll=identifyingroll,
+                    sightingrollmodifier=sightingrollmodifier,
+                    identifyingrollmodifier=identifyingrollmodifier,
+                    note=note,
                 )
             else:
-                glass.visualsighting.attempttosightgroundunit(
-                    self, other, roll=roll, note=note
+                glass.visualsighting.sightgroundunit(
+                    self,
+                    target,
+                    sightingroll=sightingroll,
+                    identifyingroll=identifyingroll,
+                    sightingrollmodifier=sightingrollmodifier,
+                    identifyingrollmodifier=identifyingrollmodifier,
+                    note=note,
                 )
         except RuntimeError as e:
             glass.log.logexception(e)
         self.logbreak()
 
-    def attempttosightincidentally(self, other, roll=None, modifier=None, note=None):
+    def sightincidentally(
+        self, other, sightingroll=None, sightingrollmodifier=None, note=None
+    ):
         """
         Attempt to sight and identify another aircraft.
 
@@ -534,8 +579,13 @@ class Aircraft(glass.element.Element):
 
         try:
             glass.gameturn.checkingameturn()
-            glass.visualsighting.attempttosightaircraftormissile(
-                self, other, roll=roll, modifier=modifier, note=note, incidentally=True
+            glass.visualsighting.sightaircraftormissile(
+                self,
+                other,
+                sightingroll=sightingroll,
+                sightingrollmodifier=sightingrollmodifier,
+                note=note,
+                incidentally=True,
             )
         except RuntimeError as e:
             glass.log.logexception(e)

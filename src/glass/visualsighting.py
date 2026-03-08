@@ -104,37 +104,41 @@ def padlock(A, B, note=None):
 ################################################################################
 
 
-def attempttosightaircraftormissile(
+def sightaircraftormissile(
     A,
     B,
-    roll=None,
-    modifier=None,
+    sightingroll=None,
+    sightingrollmodifier=None,
+    identifyingroll=None,
+    identifyingrollmodifier=None,
     incidentally=False,
     note=None,
 ):
     """
     Attempt to sight target aircraft B by searching aircraft A.
 
-     If roll is None, simply report the sighting situation.
+    If roll is None, simply report the sighting situation.
 
-    If roll is not None, report the sighting situation, determine whether
-    the sighting attempt has succeeded, and set the other aircraft as
-    sighted or not sighted as appropriate.
+    If roll is not None, report the sighting situation, determine whether the
+    sighting attempt has succeeded, and set the other aircraft as sighted or not
+    sighted as appropriate.
 
-    If the sighting attempt succeeds, determine whether the other aircraft
-    is also identified. If so, set is as identified.
-
+    If the sighting attempt succeeds, determine whether the other aircraft is
+    also identified. If so, set is as identified.
 
     :param A: The searching aircraft.
-    :param B: The target aircraft.
-    :param roll: If None, then simply report sighting situation. If True,
-        affirm that the sighting attempt was successful. If False, affirm
-        that the sighting attempt was not successful. If an integer,
-        determine whether the sighting attempt was successful by comparing
-        the modified value to the visibility of the aircraft being sighted.
-        Defaults to None.
-    :param modifier: If None, use the calculated modifier. If an integer,
-        use the value as the modifier. Defaults to None.
+    :param B: The target aircraft or missile.
+    :param sightingroll: If None, then simply report sighting situation. If
+        True, affirm that the sighting attempt was successful. If False, affirm
+        that the sighting attempt was not successful. If an integer, determine
+        whether the sighting attempt was successful by comparing the modified
+        value to the visibility of the aircraft being sighted. Defaults to None.
+    :param sightingrollmodifier: If None, use the calculated modifier. If an
+        integer, use the value as the modifier. Defaults to None.
+    :param identifyingroll: This is purely for compatibility with sighting
+        ground units. It must be None.
+    :param identifyingrollmodifier: This is purely for compatibility with
+        sighting ground units. It must be None.
     :param incidentally: Whether the sighting is incidental. Affects visual
         sighting condition evaluation. Defaults to ``False``.
     :param note: If a string, an additional note to be logged. If None, do
@@ -144,6 +148,15 @@ def attempttosightaircraftormissile(
     """
 
     A.logbreak()
+
+    if identifyingroll is not None:
+        raise RuntimeError(
+            "the identifying roll should not be given when sighting aircraft or missiles."
+        )
+    if identifyingrollmodifier is not None:
+        raise RuntimeError(
+            "the identifying roll modifier should not be given when sighting aircraft or missiles."
+        )
 
     if incidentally:
         A.logwhat("attempts to sight %s incidentally." % B.name())
@@ -155,10 +168,10 @@ def attempttosightaircraftormissile(
     condition, cansight, canpadlock, restricted = visualsightingcondition(
         A, B, incidentally=incidentally
     )
-    if not cansight:
+    if not cansight and sightingroll is not True:
         raise RuntimeError("%s cannot sight %s." % (A.name(), B.name()))
 
-    if modifier is None:
+    if sightingrollmodifier is None:
 
         allrestricted = restricted
 
@@ -175,25 +188,25 @@ def attempttosightaircraftormissile(
                     additionalsearchers += 1
                     allrestricted = allrestricted and restricted
 
-        modifier = 0
+        sightingrollmodifier = 0
 
         dmodifier = visualsightingrangemodifier(A, B)
         A.logcomment("range modifier         is %+d." % dmodifier)
-        modifier += dmodifier
+        sightingrollmodifier += dmodifier
 
         dmodifier = visualsightingallrestrictedmodifier(allrestricted)
         A.logcomment("restricted modifier    is %+d." % dmodifier)
-        modifier += dmodifier
+        sightingrollmodifier += dmodifier
 
         dmodifier = visualsightingsearchersmodifier(additionalsearchers + 1)
         A.logcomment(
             "searchers modifier     is %+d (%d)." % (dmodifier, additionalsearchers + 1)
         )
-        modifier += dmodifier
+        sightingrollmodifier += dmodifier
 
         dmodifier = visualsightingpaintschememodifier(A, B)
         A.logcomment("paint-scheme modifier  is %+d." % dmodifier)
-        modifier += dmodifier
+        sightingrollmodifier += dmodifier
 
         dmodifier = visualsightingcrewmodifier(A)
         if dmodifier != 0:
@@ -202,33 +215,34 @@ def attempttosightaircraftormissile(
         dmodifier = visualsightingsmokingmodifier(A, B)
         if dmodifier != 0:
             A.logcomment("smoking modifier       is %+d." % dmodifier)
-        modifier += dmodifier
+        sightingrollmodifier += dmodifier
 
-        A.logcomment("total modifier         is %+d." % modifier)
+        A.logcomment("total modifier         is %+d." % sightingrollmodifier)
 
-    elif isinstance(modifier, int):
+    elif isinstance(sightingrollmodifier, int):
 
-        A.logcomment("forcing modifier to be %+1d." % modifier)
+        A.logcomment("sighting modifier is %+d." % sightingrollmodifier)
 
     else:
 
-        raise RuntimeError('invalid modifier "%r"' % modifier)
+        raise RuntimeError('invalid sighting modifier "%r"' % sightingrollmodifier)
 
     visibility = glass.capabilities.visibility(B)
 
-    if roll is None:
-        A.logcomment("success or failure not determined.")
+    if sightingroll is None:
         success = None
-    elif roll is False:
+    elif sightingroll is False:
         A.logcomment("forcing failure.")
         success = False
-    elif roll is True:
+    elif sightingroll is True:
         A.logcomment("forcing success.")
         success = True
-    elif isinstance(roll, int):
-        A.logcomment("sighting roll          is %d." % roll)
-        A.logcomment("modified sighting roll is %d." % (roll + modifier))
-        success = (roll + modifier) <= visibility
+    elif isinstance(sightingroll, int):
+        A.logcomment("sighting roll          is %d." % sightingroll)
+        A.logcomment(
+            "modified sighting roll is %d." % (sightingroll + sightingrollmodifier)
+        )
+        success = (sightingroll + sightingrollmodifier) <= visibility
         if success:
             A.logcomment("attempt succeeds.")
         else:
@@ -252,76 +266,153 @@ def attempttosightaircraftormissile(
 ################################################################################
 
 
-def attempttosightgroundunit(
+def sightgroundunit(
     A,
     B,
-    roll=None,
+    sightingroll=None,
+    sightingrollmodifier=None,
+    identifyingroll=None,
+    identifyingrollmodifier=None,
     note=None,
-    forcesighted=None,
-    forceidentified=None,
 ):
     """
-    Attempt to sight target ground unit B by searching aircraft A.
+    Attempt to sight and identify target ground unit B by searching aircraft A.
 
-     If roll is None, simply report the sighting situation.
 
-    If roll is not None, report the sighting situation, determine whether
-    the sighting attempt has succeeded, and set the other aircraft as
-    sighted or not sighted as appropriate.
 
-    If the sighting attempt succeeds, determine whether the other aircraft
-    is also identified. If so, set is as identified.
+    If roll is None, simply report the sighting situation.
 
+    If roll is not None, report the sighting situation, determine whether the
+    sighting attempt has succeeded, and set the target as sighted or not sighted
+    as appropriate.
 
     :param A: The searching aircraft.
-    :param B: The target aircraft.
-    :param roll: Defaults to None.
+    :param B: The target ground unit.
+    :param sightingroll: Defaults to None. This is the sighting roll for
+        camouflaged units. Sighting is automatic for uncamouflaged units within
+        range. If set to True or False, sighting is assumed to automatically
+        succeed or fail, respectively. If set to None, carry out automatic
+        sighting for uncamouflaged units but simply report the sighting
+        situation for camouflaged units.
+    :param identifyingroll: Defaults to None. This is the identifying roll. If
+        set to True or False, identifying is assumed to automatically succeed or
+        fail, respectively. If set to None ,simply report the identifying
+        situation
+    :param sightingrollmodifier: Defaults to None. The modifier applied to the
+        sighting roll for camouflaged units. If None, the calculated modifier is
+        used. Defaults to None.
+    :param identifyingrollmodifier: Defaults to None. The modifier applied to
+        the identifying roll. If None, the calculated modifier is used. Defaults
+        to None.
     :param note: If a string, an additional note to be logged. If None, do
         nothing. Defaults to None.
 
     :return: None
     """
 
+    def iscamouflaged():
+        # This is just a placeholder.
+        return False
+
     A.logbreak()
 
     if not A._sightinggroundunits:
-        raise RuntimeError("%s is not sighting ground units" % A.name())
+        raise RuntimeError("%s is not sighting ground units." % A.name())
+    if not B.isgroundunit():
+        raise RuntimeError("%s is not a ground unit." % B.name())
 
     range = visualsightingrange(A, B)
     A.logcomment("range is %d." % range)
 
-    if forcesighted is not None:
+    A.logcomment("target sighting range is %d." % B.sightingrange())
+
+    if sightingroll is True or sightingroll is False:
+
         A.logcomment("forcing sighting result.")
-        sighted = forcesighted
-    else:
-        A.logcomment("target sighting range is %d." % B.sightingrange())
+        sighted = sightingroll
+
+    elif not iscamouflaged():
+
         sighted = range <= B.sightingrange()
 
-    if B.isidentified():
-        identified = True
-    elif forceidentified:
-        A.logcomment("forcing identifying result.")
-        identified = forceidentified
-    elif not sighted:
-        identified = False
-    elif roll is None and range < 10:
-        A.logcomment("identifying roll succeeds on %d-." % (10 - range))
-        identified = False
-    elif isinstance(roll, int):
-        A.logcomment("identifying roll is %d against %d-." % (roll, 10 - range))
-        identified = roll <= 10 - range
+    elif range > B.sightingrange():
+
+        sighted = False
+
     else:
-        raise RuntimeError('invalid roll "%r"' % roll)
+
+        if sightingrollmodifier is None:
+            sightingrollmodifier = 0
+        elif isinstance(sightingrollmodifier, int):
+            A.logcomment("sighting roll modifier is %+d." % sightingrollmodifier)
+        else:
+            raise RuntimeError(
+                'invalid sighting roll modifier "%r"' % sightingrollmodifier
+            )
+
+        if sightingroll is None:
+            A.logcomment("sighting roll succeeds on %d-." % 5)
+            sighted = False
+        elif isinstance(sightingroll, int):
+            A.logcomment(
+                "sighting roll is %d against %d-."
+                % (sightingroll + sightingrollmodifier, 5)
+            )
+            sighted = (sightingroll + sightingrollmodifier) <= 5
+        else:
+            raise RuntimeError('invalid sighting roll "%r"' % sightingroll)
+
+    if B.isidentified():
+
+        identified = True
+
+    elif not sighted:
+
+        identified = False
+
+    elif identifyingroll is True or identifyingroll is False:
+
+        A.logcomment("forcing identifying result.")
+        identified = identifyingroll
+
+    elif range >= 10:
+
+        A.logcomment("target identifying range is %d." % 9)
+        identified = False
+
+    else:
+
+        if identifyingrollmodifier is None:
+            identifyingrollmodifier = 0
+        elif isinstance(identifyingrollmodifier, int):
+            A.logcomment("identifying roll modifier is %+d." % identifyingrollmodifier)
+        else:
+            raise RuntimeError(
+                'invalid identifying roll modifier "%r"' % identifyingrollmodifier
+            )
+
+        A.logcomment("identifying roll succeeds on %d-." % (10 - range))
+        if identifyingroll is None and range < 10:
+            identified = False
+        elif isinstance(identifyingroll, int):
+            A.logcomment("identifying roll is %d." % (identifyingroll))
+            A.logcomment(
+                "modified identifying roll is %d."
+                % (identifyingroll + identifyingrollmodifier)
+            )
+            identified = (identifyingroll + identifyingrollmodifier) <= 10 - range
+        else:
+            raise RuntimeError('invalid identifying roll "%r"' % identifyingroll)
 
     if not sighted:
         A.logwhat("%s is unsighted." % B.name())
+    elif not identified:
+        B.becomesighted()
+        A.logwhat("%s is sighted but not identified." % B.name())
     else:
         B.becomesighted()
-        if identified:
-            A.logwhat("%s is sighted and identified." % B.name())
-            B.becomeidentified()
-        else:
-            A.logwhat("%s is sighted but not identified." % B.name())
+        B.becomeidentified()
+        A.logwhat("%s is sighted and identified." % B.name())
 
     A.lognote(note)
 
