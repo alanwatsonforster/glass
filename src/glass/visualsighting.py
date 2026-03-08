@@ -55,6 +55,30 @@ def endvisualsighting():
         else:
             glass.log.logwhat("%-4s : is unsighted." % target.name())
 
+    for target in glass.missile.aslist():
+        if target._sighted and target._identified:
+            glass.log.logwhat("%-4s : is sighted and identified." % target.name())
+        elif target._sighted:
+            glass.log.logwhat("%-4s : is sighted." % target.name())
+        else:
+            glass.log.logwhat("%-4s : is unsighted." % target.name())
+
+    for target in glass.groundunit.aslist():
+        if target._sighted and target._identified:
+            glass.log.logwhat("%-4s : is sighted and identified." % target.name())
+        elif target._sighted:
+            glass.log.logwhat("%-4s : is sighted." % target.name())
+        else:
+            glass.log.logwhat("%-4s : is unsighted." % target.name())
+
+    for target in glass.ship.aslist():
+        if target._sighted and target._identified:
+            glass.log.logwhat("%-4s : is sighted and identified." % target.name())
+        elif target._sighted:
+            glass.log.logwhat("%-4s : is sighted." % target.name())
+        else:
+            glass.log.logwhat("%-4s : is unsighted." % target.name())
+
     for searcher in glass.aircraft.aslist():
         searcher._sightinggroundunits = False
 
