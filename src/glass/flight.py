@@ -23,6 +23,7 @@ def _move(E, flighttype, power, moves, **kwargs):
     # We save values of these variables at the end of the previous move.
 
     E._previousflighttype = E._flighttype
+    E._initialflighttype = flighttype
     E._flighttype = flighttype
     E._power = power
 

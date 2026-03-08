@@ -822,6 +822,15 @@ class Aircraft(glass.element.Element):
 
     def reportmove(self):
 
+        def flighttype():
+            if (
+                self._initialflighttype == self._flighttype
+                or self._initialflighttype == "HRD/%s" % self._flighttype
+            ):
+                return self._initialflighttype
+            else:
+                return "%s (ending in %s)" % (self._initialflighttype, self._flighttype)
+
         def power():
             if self._powerap >= 0:
                 text = "%s power with %.1f APs" % (self._powersetting, self._powerap)
@@ -866,7 +875,7 @@ class Aircraft(glass.element.Element):
                 "%s moves: %s, %s, %s, and ends in %s at altitude %d, facing %s with speed %s, %sand carrying %s."
                 % (
                     self.name(),
-                    self._flighttype,
+                    flighttype(),
                     power(),
                     self._moves,
                     self.hexcode(),
