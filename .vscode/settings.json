@@ -3,7 +3,6 @@
     "editor.wordWrap": "on",
     "python-envs.defaultEnvManager": "ms-python.python:conda",
     "python-envs.defaultPackageManager": "ms-python.python:conda",
-    "python-envs.pythonProjects": [],
     "envFile": "${workspaceFolder}/.env",
     "python.terminal.useEnvFile": true,
     "latex-workshop.formatting.latexindent.path": "",
