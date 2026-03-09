@@ -77,6 +77,8 @@ import matplotlib.patches as patches
 import matplotlib.hatch
 import matplotlib.path
 
+import PIL.Image
+
 import glass.azimuth
 import glass.color
 import glass.hex
@@ -156,7 +158,19 @@ _fig = None
 _ax = None
 
 
-def startcanvas(xmin, ymin, xmax, ymax, rotation=0, dotsperhex=100):
+def startcanvas(
+    xmin,
+    ymin,
+    xmax,
+    ymax,
+    rotation=0,
+    dotsperhex=100,
+    imagepath=None,
+    imagexmin=None,
+    imagexmax=None,
+    imageymin=None,
+    imageymax=None,
+):
     """
     Start a new canvas.
 
@@ -223,6 +237,15 @@ def startcanvas(xmin, ymin, xmax, ymax, rotation=0, dotsperhex=100):
             zorder=0,
         )
     )
+
+    if imagepath is not None:
+        image = PIL.Image.open(imagepath)
+        canvasimagexmin, canvasimageymin = _tocanvasxy(imagexmin, imageymin)
+        canvasimagexmax, canvasimageymax = _tocanvasxy(imagexmax, imageymax)
+        plt.imshow(
+            image,
+            extent=(canvasimagexmin, canvasimagexmax, canvasimageymin, canvasimageymax),
+        )
 
 
 def savecanvas():
