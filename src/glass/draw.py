@@ -3457,7 +3457,19 @@ def _drawgroundunitincanvas(
         else:
             drawtext("%d" % sightingrange)
 
-    if "hex" not in symbols:
+    if "hex" in symbols:
+
+        _drawhexincanvas(
+            x,
+            y,
+            size=0.9,
+            linewidth=groundunitlinewidth,
+            fillcolor=None,
+            linecolor=linecolor,
+            zorder=zorder,
+        )
+
+    else:
 
         _drawrectangleincanvas(
             x - groundunitsymboldx / 2,
@@ -3493,18 +3505,43 @@ def _drawgroundunitincanvas(
                 zorder=zorder,
             )
 
-        if counter:
+        if killed:
+            pass
+        elif counter:
+            _drawtextincanvas(
+                x,
+                y,
+                name,
+                facing=180,
+                dx=-0.575 * groundunitcountersize,
+                dy=-0.465 * groundunitcountersize,
+                size="tiny",
+                textcolor=annotationtextcolor,
+                alignment="left",
+                verticalalignment="baseline",
+                zorder=zorder,
+            )
+            _drawtextincanvas(
+                x,
+                y,
+                damage,
+                facing=180,
+                dx=-0.00 * groundunitcountersize,
+                dy=-0.465 * groundunitcountersize,
+                size="tiny",
+                textcolor=annotationtextcolor,
+                alignment="center",
+                verticalalignment="baseline",
+                zorder=zorder,
+            )
+        else:
             dxname = 0.5 * groundunitcountersize
             dxdamage = 0.5 * groundunitcountersize
-        else:
-            dxname = 0.5 * groundunitsymboldx
-            dxdamage = 0.5 * groundunitsymboldx
-        dyname = +0.0
-        dydamage = +0.35 * groundunitsymboldy
-        dytext = -0.35 * groundunitsymboldy
-        if not killed:
+            dyname = +0.0
+            dydamage = +0.35 * groundunitsymboldy
+            dytext = -0.35 * groundunitsymboldy
             if x >= x0:
-                if not counter and "air-defense" in symbols and identified:
+                if identified and "air-defense" in symbols:
                     _drawtextincanvas(
                         x,
                         y,
@@ -3585,18 +3622,6 @@ def _drawgroundunitincanvas(
                     verticalalignment="center_baseline",
                     zorder=zorder,
                 )
-
-    else:
-
-        _drawhexincanvas(
-            x,
-            y,
-            size=0.9,
-            linewidth=groundunitlinewidth,
-            fillcolor=None,
-            linecolor=linecolor,
-            zorder=zorder,
-        )
 
 
 ################################################################################

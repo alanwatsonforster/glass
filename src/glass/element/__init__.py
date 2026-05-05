@@ -201,6 +201,12 @@ class Element:
         if hexcode is not None:
             if hexcode == "origin":
                 x, y = 0, 0
+            elif (
+                len(hexcode) == 2
+                and isinstance(hexcode[0], int | float)
+                and isinstance(hexcode[1], int | float)
+            ):
+                x, y = hexcode[0], hexcode[1]
             else:
                 if not glass.hexcode.isvalidhexcode(hexcode):
                     raise RuntimeError("the hexcode argument is not valid.")
