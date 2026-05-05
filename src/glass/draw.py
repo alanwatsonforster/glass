@@ -1732,8 +1732,8 @@ groundunitmiddletextsize = "footnotesize"
 groundunitcountertextsize = "small"
 noncountergroundunitsymboldx = 0.6
 noncountergroundunitsymboldy = 0.4
-countergroundunitsymboldx = noncountergroundunitsymboldx * 0.80
-countergroundunitsymboldy = noncountergroundunitsymboldy * 0.80
+countergroundunitsymboldx = noncountergroundunitsymboldx * 0.70
+countergroundunitsymboldy = noncountergroundunitsymboldy * 0.70
 groundunitcountersize = 0.6 * math.sqrt(4 / 3)
 groundunitcountersymboldy = 0.03
 groundunitprotectionlinewidth = "thick"
@@ -3311,7 +3311,7 @@ def _drawgroundunitincanvas(
             dy=-groundunitsymboldy * 0.445,
             size="notsotiny",
             scalefactor=groundunitsymboltextscalefactor,
-            weight="demibold",
+            # weight="demibold",
             textcolor=linecolor,
             alignment="center",
             verticalalignment="baseline",
@@ -3342,7 +3342,7 @@ def _drawgroundunitincanvas(
             text,
             facing=90,
             dx=0,
-            dy=+groundunitcountersize * 0.38 - groundunitcountersymboldy,
+            dy=+groundunitcountersize * 0.36 - groundunitcountersymboldy,
             size="scriptsize",
             textcolor=linecolor,
             alignment="center",
@@ -3366,7 +3366,7 @@ def _drawgroundunitincanvas(
             text,
             facing=90,
             dx=0,
-            dy=-groundunitcountersize * 0.35 - groundunitcountersymboldy,
+            dy=-groundunitcountersize * 0.34 - groundunitcountersymboldy,
             size="normal",
             textcolor=linecolor,
             alignment="center",
@@ -3514,8 +3514,8 @@ def _drawgroundunitincanvas(
                 name,
                 facing=180,
                 dx=-0.575 * groundunitcountersize,
-                dy=-0.465 * groundunitcountersize,
-                size="tiny",
+                dy=-0.46 * groundunitcountersize,
+                size="scriptsize",
                 textcolor=annotationtextcolor,
                 alignment="left",
                 verticalalignment="baseline",
@@ -3526,11 +3526,11 @@ def _drawgroundunitincanvas(
                 y,
                 damage,
                 facing=180,
-                dx=-0.00 * groundunitcountersize,
-                dy=-0.465 * groundunitcountersize,
-                size="tiny",
+                dx=-0.575 * groundunitcountersize,
+                dy=+0.35 * groundunitcountersize,
+                size="scriptsize",
                 textcolor=annotationtextcolor,
-                alignment="center",
+                alignment="left",
                 verticalalignment="baseline",
                 zorder=zorder,
             )
