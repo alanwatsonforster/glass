@@ -837,6 +837,7 @@ def _drawtextincanvas(
     alpha=1.0,
     weight="normal",
     zorder=0,
+    withspace=True,
     **kwargs,
 ):
     """
@@ -844,14 +845,15 @@ def _drawtextincanvas(
     """
     x = x + dx * _sind(facing) + dy * _cosd(facing)
     y = y - dx * _cosd(facing) + dy * _sind(facing)
-    # For reasons I do not understand, the alignment seems to be wrong for
-    # rotated short strings. One fix is to pad the strings with spaces.
-    if alignment == "left":
-        text = "  " + text
-    elif alignment == "center":
-        text = "  " + text + "  "
-    elif alignment == "right":
-        text = text + "  "
+    if withspace:
+        # For reasons I do not understand, the alignment seems to be wrong for
+        # rotated short strings. One fix is to pad the strings with spaces.
+        if alignment == "left":
+            text = "  " + text
+        elif alignment == "center":
+            text = "  " + text + "  "
+        elif alignment == "right":
+            text = text + "  "
     plt.text(
         x,
         y,
@@ -3309,9 +3311,9 @@ def _drawgroundunitincanvas(
             facing=90,
             dx=0,
             dy=-groundunitsymboldy * 0.445,
-            size="notsotiny",
+            size="tiny",
+            weight="demibold",
             scalefactor=groundunitsymboltextscalefactor,
-            # weight="demibold",
             textcolor=linecolor,
             alignment="center",
             verticalalignment="baseline",
@@ -3326,7 +3328,7 @@ def _drawgroundunitincanvas(
             facing=90,
             dx=0,
             dy=-groundunitsymboldy * 0.03,
-            size="notsotiny",
+            size="tiny",
             scalefactor=groundunitsymboltextscalefactor,
             weight="demibold",
             textcolor=linecolor,
@@ -3513,26 +3515,28 @@ def _drawgroundunitincanvas(
                 y,
                 name,
                 facing=180,
-                dx=-0.575 * groundunitcountersize,
-                dy=-0.46 * groundunitcountersize,
-                size="scriptsize",
+                dx=-0.44 * groundunitcountersize,
+                dy=+0.45 * groundunitcountersize,
+                size="notsotiny",
                 textcolor=annotationtextcolor,
                 alignment="left",
-                verticalalignment="baseline",
+                verticalalignment="top",
                 zorder=zorder,
+                withspace=False,
             )
             _drawtextincanvas(
                 x,
                 y,
                 damage,
                 facing=180,
-                dx=-0.575 * groundunitcountersize,
-                dy=+0.35 * groundunitcountersize,
-                size="scriptsize",
+                dx=-0.44 * groundunitcountersize,
+                dy=-0.45 * groundunitcountersize,
+                size="notsotiny",
                 textcolor=annotationtextcolor,
                 alignment="left",
-                verticalalignment="baseline",
+                verticalalignment="bottom",
                 zorder=zorder,
+                withspace=False,
             )
         else:
             dxname = 0.5 * groundunitcountersize
