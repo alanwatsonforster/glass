@@ -1778,7 +1778,7 @@ def drawgroundunit(
         following strings, which indicate the symbols to be drawn:
         ``"air-defense"``, ``"ammunition"``, ``"antiarmor"``, ``"armor"``,
         ``"artillery"``, ``"barge"``, ``"battery"``, ``"bridge"``,
-        ``"bunkerentrance"``, ``"company"``, ``"fac"``,
+        ``"bunkerentrance"``, ``"company"``, ``"engineers"``, ``"fac"``,
         ``"factory"``,``"fixedwing"``, ``"fuel"``, ``"gun"``, ``"halftracked"``,
         ``"hangar"``, ``"headquarters"``, ``"heavy"``, ``"infantry"``,
         ``"junk"``, ``"largebuilding"``, ``"light"``, ``"limitedwheeled"``,
@@ -2511,6 +2511,9 @@ def _drawgroundunitincanvas(
         def drawfacsymbol():
             drawtext("FAC")
 
+        def drawengineerssymbol():
+            drawtext("ENG")
+
         def drawweaponssymbol():
             drawtext("WPN")
 
@@ -3231,6 +3234,8 @@ def _drawgroundunitincanvas(
             drawfuelsymbol()
         if "ordnance" in symbols:
             drawordnancesymbol()
+        if "engineers" in symbols:
+            drawengineerssymbol()
         if "fac" in symbols:
             drawfacsymbol()
         if "weapons" in symbols:

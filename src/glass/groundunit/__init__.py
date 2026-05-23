@@ -101,6 +101,7 @@ class GroundUnit(glass.element.Element):
                     "bridge",
                     "bunkerentrance",
                     "company",
+                    "engineers",
                     "fac",
                     "factory",
                     "fixedwing",
