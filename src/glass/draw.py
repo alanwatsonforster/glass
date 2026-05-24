@@ -2347,7 +2347,7 @@ def _drawgroundunitincanvas(
 
         def drawwheeledsymbol():
             fx = 0.14
-            fy = 0.35
+            fy = 0.36
             ry = 0.05
             _drawcircleincanvas(
                 x - fx * groundunitsymboldx,
@@ -2376,7 +2376,7 @@ def _drawgroundunitincanvas(
 
         def drawlimitedwheeledsymbol():
             fx = 0.14
-            fy = 0.35
+            fy = 0.36
             ry = 0.05
             _drawcircleincanvas(
                 x - fx * groundunitsymboldx,
@@ -2397,7 +2397,7 @@ def _drawgroundunitincanvas(
 
         def drawtowedsymbol():
             fx = 0.14
-            fy = 0.35
+            fy = 0.36
             ry = 0.05
             _drawlinesincanvas(
                 [
@@ -2428,7 +2428,7 @@ def _drawgroundunitincanvas(
 
         def drawhalftrackedsymbol():
             fx = 0.14
-            fy = 0.35
+            fy = 0.36
             ry = 0.05
             _drawcircleincanvas(
                 x - fx * groundunitsymboldx,
@@ -2468,8 +2468,8 @@ def _drawgroundunitincanvas(
             )
 
         def drawtrackedsymbol():
-            fx = 0.14
-            fy = 0.35
+            fx = 0.18
+            fy = 0.36
             ry = 0.05
             theta = range(0, 361)
 
@@ -2497,16 +2497,16 @@ def _drawgroundunitincanvas(
             )
 
         def drawheavysymbol():
-            drawtext("H")
+            drawrighttext("H")
 
         def drawmediumsymbol():
-            drawtext("M")
+            drawrighttext("M")
 
         def drawlightsymbol():
-            drawtext("L")
+            drawrighttext("L")
 
         def drawopensymbol():
-            drawtext("O")
+            drawrighttext("O")
 
         def drawfacsymbol():
             drawtext("FAC")
@@ -3387,11 +3387,11 @@ def _drawgroundunitincanvas(
             y,
             text,
             facing=90,
-            dx=+groundunitsymboldx * 0.37,
-            dy=-groundunitsymboldy * 0.01,
-            size="notsotiny",
+            dx=+groundunitsymboldx * 0.38,
+            dy=-groundunitsymboldy * 0.03,
+            size="tiny",
             scalefactor=groundunitsymboltextscalefactor,
-            weight="bold",
+            weight="demibold",
             textcolor=linecolor,
             alignment="center",
             verticalalignment="center",

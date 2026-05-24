@@ -135,6 +135,7 @@ class GroundUnit(glass.element.Element):
                     "smallbuilding",
                     "squad",
                     "supply",
+                    "towed",
                     "tower",
                     "tracked",
                     "transport",
