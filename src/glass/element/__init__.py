@@ -211,9 +211,10 @@ class Element:
                 if not glass.hexcode.isvalidhexcode(hexcode):
                     raise RuntimeError("the hexcode argument is not valid.")
                 x, y = glass.hexcode.toxy(hexcode)
-
-        if not glass.hex.isvalid(x, y, facing):
-            raise RuntimeError("the combination of hexcode and facing are not valid.")
+                if not glass.hex.isvalid(x, y, facing):
+                    raise RuntimeError(
+                        "the combination of hexcode and facing are not valid."
+                    )
 
         if altitude is not None and not glass.altitude.isvalidaltitude(altitude):
             raise RuntimeError("the altitude argument is not valid.")
