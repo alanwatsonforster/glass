@@ -282,15 +282,22 @@ def showcanvas():
     return
 
 
-def writecanvastofile(filename):
+def writecanvastofile(filename, withcreationdate=True):
     """
     Write the current canvas to a file.
 
     :param filename: The ``filename`` argument names the file to be written. Its
         type is determined by the suffix. Supported suffixes include ``".png"``
         and ``".pdf"``.
+    :param withcreationdate:
+        If ``True`` (the default), the file metadata includes a creation date.
+        If ``False``, the creation date metadata is omitted.
     """
-    _fig.savefig(filename)
+    if withcreationdate:
+        metadata = {}
+    else:
+        metadata = {"CreationDate": None}
+    _fig.savefig(filename, metadata=metadata)
 
 
 ################################################################################
