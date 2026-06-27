@@ -25,7 +25,7 @@ def _trackingrequirement(self, target, radar=False):
 ################################################################################
 
 
-def _track(self, target):
+def _track(self, target, radar=False):
 
     self.logwhenwhat("", "starts tracking %s." % target.name())
 
@@ -42,7 +42,7 @@ def _track(self, target):
             "%s is beyond the maximum tracking range of %d."
             % (target.name(), maximumtrackingrange)
         )
-    trackingrequirement = self._trackingrequirement(target)
+    trackingrequirement = self._trackingrequirement(target, radar=radar)
     self.logcomment(
         "tracking requirement is %d %s."
         % (trackingrequirement, glass.log.plural(trackingrequirement, "FP", "FPs"))
