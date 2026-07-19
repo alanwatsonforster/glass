@@ -493,6 +493,7 @@ def _startmovestalledflight(A):
     A._fpcarry = 0
     A._setaltitudecarry(0)
     A._isinterrainfollowingflight = False
+    A._turnsstalled += 1
 
     # See rule 6.4.
     A.logcomment("is carrying %+.2f APs." % A._apcarry)
@@ -507,6 +508,7 @@ def _startmovedepartedflight(A):
     A._apcarry = 0
     A._setaltitudecarry(0)
     A._isinterrainfollowingflight = False
+    A._turnsdeparted += 1
 
 
 ########################################
@@ -1440,14 +1442,14 @@ def _endmissileflight(M):
 
 
 def _endstalledflight(A):
-    A._turnsstalled += 1
+    pass
 
 
 ########################################
 
 
 def _enddepartedflight(A):
-    A._turnsdeparted += 1
+    pass
 
 
 ########################################
