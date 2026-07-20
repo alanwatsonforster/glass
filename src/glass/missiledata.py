@@ -1,6 +1,5 @@
 import glass.variants
 
-
 _missiledict = {
     #  In the value: [0] is the type, [1] is the base speed, [2] is the turn rate, [3] is the turn rate divisor.
     "IRM/AIM-9B": ["IRM", 10.0, "HT/2"],
@@ -34,6 +33,7 @@ _missiledict = {
     "IRM/AA-8B": ["IRM", 15.0, "ET/3"],
     "IRM/AA-8C": ["IRM", 15.0, "ET/3"],
     "IRM/SA-7B": ["IRM", 10.0, "BT/1"],
+    "IRM/R.550 Magic I": ["IRM", 15.0, "BT/3"],
 }
 
 
