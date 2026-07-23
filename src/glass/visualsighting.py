@@ -302,8 +302,6 @@ def sightgroundunit(
     """
     Attempt to sight and identify target ground unit B by searching aircraft A.
 
-
-
     If roll is None, simply report the sighting situation.
 
     If roll is not None, report the sighting situation, determine whether the
