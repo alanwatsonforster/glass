@@ -2,7 +2,7 @@ from glass.tests.infrastructure import *
 
 startfile(__file__, "visual sighting")
 
-starttestsetup(sheets=[["A1", "B1"]])
+starttestsetup(sheets=[["A1", "B1"]], verbose=True)
 A1 = setupaircraft("A1", "AF", "MiG-17F", "A1-2015", "N", 6, 4.0)
 A2 = setupaircraft("A2", "AF", "F-86A", "A1-2215", "N", 9, 4.0)
 A3 = setupaircraft("A3", "AF", "F-84E", "A1-2013", "N", 5, 3.5)
@@ -330,15 +330,15 @@ assert A8._visualsightingcondition(A9) == (
     False,
 )
 
-A7.attempttosight(A2)
+A7.sight(A2)
 assert not A2.issighted()
-A7.attempttosight(A2, False)
+A7.sight(A2, False)
 assert not A2.issighted()
-A7.attempttosight(A2, 10)
+A7.sight(A2, 10)
 assert not A2.issighted()
-A7.attempttosight(A2, 5, modifier=+1)
+A7.sight(A2, 5, sightingrollmodifier=+1)
 assert not A2.issighted()
-A7.attempttosight(A2, 9)
+A7.sight(A2, 9)
 assert A2.issighted()
 
 endfile(__file__)
