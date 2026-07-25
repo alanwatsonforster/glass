@@ -42,6 +42,7 @@ class GroundUnit(glass.element.Element):
         counter=False,
         mobility=None,
         transporting=None,
+        camouflaged=False,
     ):
 
         self._name = ""
@@ -170,6 +171,7 @@ class GroundUnit(glass.element.Element):
                 azimuth=azimuth,
                 sighted=sighted,
                 identified=identified,
+                camouflaged=camouflaged,
             )
 
             self._symbols = symbols
@@ -191,6 +193,9 @@ class GroundUnit(glass.element.Element):
 
             self._transported = False
             self._transporting = None
+
+            if self._camouflaged:
+                self.logwhenwhat("", "is camouflaged.")
 
             if transporting is not None:
                 try:

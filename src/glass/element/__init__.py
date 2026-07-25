@@ -178,6 +178,7 @@ class Element:
         delay=0,
         sighted=False,
         identified=False,
+        camouflaged=False,
     ):
 
         global _elementlist
@@ -249,6 +250,7 @@ class Element:
 
         self._sighted = sighted or identified
         self._identified = identified
+        self._camouflaged = camouflaged
 
         if not glass.speed.isvalidspeed(speed):
             raise RuntimeError("the speed argument is not valid.")
@@ -543,6 +545,9 @@ class Element:
 
     def isidentified(self):
         return self._identified
+
+    def iscamouflaged(self):
+        return self._camouflaged
 
     #############################################################################
 

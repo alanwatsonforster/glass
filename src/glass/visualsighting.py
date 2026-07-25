@@ -332,10 +332,6 @@ def sightgroundunit(
     :return: None
     """
 
-    def iscamouflaged():
-        # This is just a placeholder.
-        return False
-
     A.logbreak()
 
     if not A._sightinggroundunits:
@@ -346,18 +342,24 @@ def sightgroundunit(
     range = visualsightingrange(A, B)
     A.logcomment("range is %d." % range)
 
-    A.logcomment("target sighting range is %d." % B.sightingrange())
+    if B.iscamouflaged():
+        A.logcomment("target is camouflaged.")
+        sightingrange = B.sightingrange() // 2
+    else:
+        sightingrange = B.sightingrange()
+
+    A.logcomment("target sighting range is %d." % sightingrange)
 
     if sightingroll is True or sightingroll is False:
 
         A.logcomment("forcing sighting result.")
         sighted = sightingroll
 
-    elif not iscamouflaged():
+    elif not B.iscamouflaged():
 
-        sighted = range <= B.sightingrange()
+        sighted = range <= sightingrange
 
-    elif range > B.sightingrange():
+    elif range > sightingrange:
 
         sighted = False
 
